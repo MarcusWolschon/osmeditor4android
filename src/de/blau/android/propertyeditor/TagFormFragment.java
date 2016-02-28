@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,11 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 
 	private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName();
 	
+	/**
+	 * Max number of entries before we use a normal dropdown list for selection
+	 */
+	private static final int MAX_ENTRIES_COMBO = 8;
+	private static final int MAX_ENTRIES_MULTISELECT = 8;
 	
 	LayoutInflater inflater = null;
 
@@ -225,21 +231,20 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	 * @param allTags
 	 * @return
 	 */
-	protected ArrayAdapter<?> getValueAutocompleteAdapter(String key, String value, PresetItem preset, LinkedHashMap<String, String> allTags) {
+	protected ArrayAdapter<?> getValueAutocompleteAdapter(String key, ArrayList<String> values, PresetItem preset, LinkedHashMap<String, String> allTags) {
 		ArrayAdapter<?> adapter = null;
 	
 		if (key != null && key.length() > 0) {
 			Set<String> usedKeys = allTags.keySet();
-			// PresetKeyType presetType = preset.getKeyType(key);
 			if (TagEditorFragment.isStreetName(key, usedKeys)) {
-				adapter = nameAdapters.getStreetNameAutocompleteAdapter(value!=null?Util.getArrayList(value):null);
+				adapter = nameAdapters.getStreetNameAutocompleteAdapter(values);
 			} else if (TagEditorFragment.isPlaceName(key, usedKeys)) {
-				adapter = nameAdapters.getPlaceNameAutocompleteAdapter(value!=null?Util.getArrayList(value):null);
+				adapter = nameAdapters.getPlaceNameAutocompleteAdapter(values);
 			} else if (key.equals(Tags.KEY_NAME) && (names != null) && TagEditorFragment.useNameSuggestions(usedKeys)) {
 				Log.d(DEBUG_TAG,"generate suggestions for name from name suggestion index");
-				ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(allTags)); 
-				if (values != null && !values.isEmpty()) {
-					ArrayList<NameAndTags> result = values;
+				ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(allTags)); 
+				if (suggestions != null && !suggestions.isEmpty()) {
+					ArrayList<NameAndTags> result = suggestions;
 					Collections.sort(result);
 					adapter = new ArrayAdapter<NameAndTags>(getActivity(), R.layout.autocomplete_row, result);
 				}
@@ -247,10 +252,10 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 				HashMap<String, Integer> counter = new HashMap<String, Integer>();
 				ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<ValueWithCount>(getActivity(), R.layout.autocomplete_row);
 	
-				Collection<StringWithDescription> values = preset.getAutocompleteValues(key);
-				Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + values);
+				Collection<StringWithDescription> presetValues = preset.getAutocompleteValues(key);
+				Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + presetValues);
 				if (values != null && !values.isEmpty()) {
-					ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(values);
+					ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(presetValues);
 					if (preset.sortIt(key)) {
 						Collections.sort(result);
 					}
@@ -259,7 +264,6 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 							continue; // skip stuff that is already listed
 						}
 						counter.put(s.getValue(),Integer.valueOf(1));
-						
 						adapter2.add(new ValueWithCount(s.getValue(), s.getDescription(), true));
 					}
 					Log.d(DEBUG_TAG,"key " + key + " type " + preset.getKeyType(key));
@@ -267,9 +271,13 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 				if (!counter.containsKey("") && !counter.containsKey(null)) { // add empty value so that we can remove tag
 					adapter2.insert(new ValueWithCount("", getString(R.string.tag_not_set), true),0); // FIXME allow unset value depending on preset
 				}
-				if (value != null && !"".equals(value) && !counter.containsKey(value)) { // add in any non-standard non-empty values
-					ValueWithCount v = new ValueWithCount(value,1); // FIXME determine description in some way
-					adapter2.insert(v,0);
+				if (values != null) { // add in any non-standard non-empty values
+					for (String value:values) {
+						if (!"".equals(value) && !counter.containsKey(value)) {
+							ValueWithCount v = new ValueWithCount(value,1); // FIXME determine description in some way
+							adapter2.insert(v,0);
+						}
+					}
 				}	
 				if (adapter2.getCount() > 1) {
 					return adapter2;
@@ -544,7 +552,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		if (rowLayout != null) {
 			if (preset != null) {
 				if (!preset.isFixedTag(key)) {
-					ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, value, preset, allTags);
+					ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, Util.getArrayList(value), preset, allTags);
 					int count = 0;
 					if (adapter!=null) {
 						count = adapter.getCount();
@@ -557,10 +565,10 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 					String defaultValue = preset.getDefault(key);
 					
 					if (keyType == PresetKeyType.TEXT 
-						|| keyType == PresetKeyType.MULTISELECT 
 						|| key.startsWith(Tags.KEY_ADDR_BASE)
-						|| count > 6) {
-						rowLayout.addView(addTextRow(rowLayout, keyType, hint, key, value, defaultValue, adapter));
+						|| (keyType == PresetKeyType.COMBO && count > MAX_ENTRIES_COMBO)
+						|| (keyType == PresetKeyType.MULTISELECT && count > MAX_ENTRIES_MULTISELECT)) {
+						rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, defaultValue, adapter));
 					} else if (preset.getKeyType(key) == PresetKeyType.COMBO || (keyType == PresetKeyType.CHECK && count > 2)) {
 						final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);
 						row.keyView.setText(hint != null?hint:key);
@@ -652,6 +660,62 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 								tagListener.updateSingleValue(key, isChecked?valueOn:valueOff);
 							} 
 						});
+					} else if (preset.getKeyType(key) == PresetKeyType.MULTISELECT) {
+						ArrayList<String> list = new ArrayList<String>();
+						char delimiter = preset.getDelimiter(key);
+						String delimterString = String.valueOf(delimiter);
+						if (value.contains(delimterString)) {
+							// while this would seem to be wasteful there is no simple way to avoid recreating the adapter
+							// NOTE if there is more than one custom value MAX_ENTRIES_MULTISELECT can be exceeded
+							String[] values = value.split(delimterString);
+							for (String s:values) {
+								list.add(s.trim());
+							}
+							adapter = getValueAutocompleteAdapter(key, list, preset, allTags);
+							count = adapter.getCount();
+						} else {
+							list.add(value);
+						}
+						final TagMultiselectRow row = (TagMultiselectRow)inflater.inflate(R.layout.tag_form_multiselect_row, rowLayout, false);
+						row.keyView.setText(hint != null?hint:key);
+						row.keyView.setTag(key);
+						row.setDelimiter(preset.getDelimiter(key));
+						CompoundButton.OnCheckedChangeListener  onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+							@Override
+							public void onCheckedChanged(
+									CompoundButton buttonView, boolean isChecked) {
+								tagListener.updateSingleValue(key, row.getValue());
+							} 
+						};
+						for (int i=0;i< count;i++) {
+							Object o = adapter.getItem(i);
+							String v = "";
+							String description = "";
+							if (o instanceof ValueWithCount) {
+								v = ((ValueWithCount)o).getValue();
+								description = ((ValueWithCount)o).getDescription();
+							} else if (o instanceof StringWithDescription) {
+								v = ((StringWithDescription)o).getValue();
+								description = ((StringWithDescription)o).getDescription();
+							} else if (o instanceof String) {
+								v = (String)o;
+								description = v;
+							}
+							if (v==null || "".equals(v)) {
+								continue;
+							}
+							if (description==null) {
+								description=v;
+							}
+
+							if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
+								row.addCheck(description, v, v.equals(defaultValue), onCheckedChangeListener);
+							} else {
+								row.addCheck(description, v, list.contains(v), onCheckedChangeListener);
+							}
+						}
+						
+						rowLayout.addView(row);
 					}
 				}
 //			} else if (key.startsWith(Tags.KEY_ADDR_BASE)) { // make address tags always editable
@@ -675,7 +739,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
  		}	
 	}
 	
-	TagTextRow addTextRow(LinearLayout rowLayout, PresetKeyType keyType, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
+	TagTextRow addTextRow(LinearLayout rowLayout, PresetItem preset, PresetKeyType keyType, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
 		final TagTextRow row = (TagTextRow)inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
@@ -695,7 +759,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		}
 		if (keyType==PresetKeyType.MULTISELECT) { 
 			// FIXME this should be somewhere better obvious since it creates a non obvious side effect
-			row.valueView.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(TagEditorFragment.LIST_SEPARATOR));
+			row.valueView.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
 		}
 		if (keyType==PresetKeyType.TEXT && (adapter==null || adapter.getCount() < 2)) {
 			row.valueView.setHint(R.string.tag_value_hint);
@@ -941,6 +1005,77 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 					}
 				}
 			});
+		}
+	}
+	
+	public static class TagMultiselectRow extends LinearLayout {
+
+		private TextView keyView;
+		private LinearLayout valueLayout;
+		private Context context;
+		private char delimiter;
+		
+		public TagMultiselectRow(Context context) {
+			super(context);
+			this.context = context;
+		}
+		
+		public TagMultiselectRow(Context context, AttributeSet attrs) {
+			super(context, attrs);
+			this.context = context;
+		}
+		
+		@Override
+		protected void onFinishInflate() {
+			super.onFinishInflate();
+			if (isInEditMode()) return; // allow visual editor to work
+			
+			keyView = (TextView)findViewById(R.id.textKey);
+			valueLayout = (LinearLayout)findViewById(R.id.valueGroup);
+			
+		}
+		
+		/**
+		 * Return the OSM key value
+		 * @return
+		 */
+		public String getKey() {
+			return (String) keyView.getTag();
+		}
+		
+		public LinearLayout getValueGroup() { 
+			return valueLayout;
+		}
+		
+		/**
+		 * Return all checked values concatenated with the required delimiter
+		 * @return
+		 */
+		public String getValue() {
+			StringBuilder result = new StringBuilder();
+			for (int i=0;i<valueLayout.getChildCount();i++) {
+				CheckBox check = (CheckBox) valueLayout.getChildAt(i);
+				if (check.isChecked()) {
+					if (result.length() > 0) { // not the first entry
+						result.append(delimiter);
+					}
+					result.append(valueLayout.getChildAt(i).getTag());
+				}
+			}
+			return result.toString();
+		}
+		
+		public void setDelimiter(char delimiter) {
+			this.delimiter = delimiter;
+		}
+		
+		public void addCheck(String description, String value, boolean selected, CompoundButton.OnCheckedChangeListener listener) {
+			final CheckBox check = new CheckBox(context);
+			check.setText(description);
+			check.setTag(value);
+			check.setChecked(selected);
+			valueLayout.addView(check);
+			check.setOnCheckedChangeListener(listener);
 		}
 	}
 	
