@@ -420,10 +420,11 @@
     <preset_link preset_name="Motor vehicle" />
     <preset_link preset_name="Motorcar" />
     <preset_link preset_name="Motorcycle" />
-    <preset_link preset_name="Physical restrictions" />
-    <preset_link preset_name="Other mode restrictions" />
     <preset_link preset_name="Motor vehicle (CH)" />
     <preset_link preset_name="Motorcar and -cycle (CH)" />
+    <preset_link preset_name="Heavy Goods Vehicle" />
+    <preset_link preset_name="Physical restrictions" />
+    <preset_link preset_name="Other mode restrictions" />
   </chunk>
   <chunk id="social_facility_for">
     <combo key="social_facility:for" text="For group" match="key" >
@@ -1135,7 +1136,7 @@
                 <check key="lit" text="Lit" disable_off="true" />
                 <combo key="bicycle" text="Bicycle" values="designated,yes,no" />
                 <check key="segregated" text="Segregated" disable_off="true" />
-                <text key="width" text="Width (meters)" />
+ 	            <text key="width" text="Width (meters)" />
             </optional>
         </item> <!-- Dedicated Footway -->
         <item name="Steps" icon="icons/png/barrier_steps.png" type="way" preset_name_label="true">
@@ -2076,6 +2077,23 @@
             <combo key="motorcycle" text="Motorcycle" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motorcycles -->
+        <item name="Heavy Goods Vehicle" icon="icons/png/no_hgv.png" type="node,way,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:access"
+                  da.href="http://wiki.openstreetmap.org/wiki/Da:Key:access"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:access"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:access"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Key:access"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:access"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:access"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Key:access"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:access"
+                  sv.href="http://wiki.openstreetmap.org/wiki/Sv:Key:access"
+                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
+            <space />
+            <combo key="hgv" text="Heavy Goods Vehicles" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
+	    	<text key="maxspeed:hgv" text="Max. speed Heavy Goods Vehicles (km/h)" match="key" />
+	    <reference ref="additional_access_tags" /> 
+        </item> <!-- Heavy Goods Vehicle -->
         <item name="General access"  type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:access"
                   da.href="http://wiki.openstreetmap.org/wiki/Da:Key:access"
@@ -2126,7 +2144,6 @@
             <space />
             <combo key="foot" text="Foot" values="yes,official,designated,permissive,destination,delivery,private,no" match="key" />
             <combo key="bicycle" text="Bicycle" values="yes,official,designated,permissive,destination,delivery,private,use_sidepath,no" match="key" />
-            <combo key="hgv" text="Heavy Goods Vehicles (hgv)" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
             <combo key="horse" text="Horse" values="yes,official,designated,permissive,destination,delivery,private,no" match="key" />
             <combo key="goods" text="Light Commercial Vehicles (goods)" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
             <combo key="agricultural" text="Agricultural" values="yes,official,designated,destination,permissive,private,no" match="key" />
@@ -2134,7 +2151,7 @@
             <combo key="hov" text="High-occupancy vehicles (hov)" values="yes,official,designated,destination,permissive,private,no" match="key" />
             <combo key="psv" text="Public Service Vehicles (psv)" values="yes,official,designated,destination,permissive,private,no" match="key" />
             <combo key="tourist_bus" text="Tourist buses" values="yes,no" match="key" />
-        </item> <!-- Physical restrictions -->
+        </item> <!-- Other mode restrictions -->
     </group>  <!-- access restrictions -->
   </group> <!-- Highways -->
   <group name="Water" icon="icons/png/water_water_24008.png">
@@ -5105,7 +5122,7 @@
         </item> <!-- Emergency Phone -->
     </group> <!-- Emergency -->
     <group name="Social Facilities" icon="icons/png/amenity_outreach_12252.png">
-        <item name="Ambulantory Care" icon="icons/png/amenity_ambulantory_care_12248.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Ambulatory Care" icon="icons/png/amenity_ambulatory_care_12248.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:social_facility"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:social_facility"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Key:social_facility"
@@ -5115,7 +5132,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:social_facility" />
             <space />
             <key key="amenity" value="social_facility" />
-            <key key="social_facility" value="ambulantory_care" />
+            <key key="social_facility" value="ambulatory_care" />
             <reference ref="social_facility_for" />
             <reference ref="name_operator" />
             <reference ref="link_contact_address" />

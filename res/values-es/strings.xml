@@ -262,7 +262,10 @@
   <string name="menu_transfer_bugs">Notas/Errores...</string>
   <string name="menu_transfer_bugs_download_current">Descargar errores para la vista actual</string>
   <string name="menu_transfer_bugs_upload">Subir todo</string>
+  <string name="menu_transfer_bugs_upload_long">Subir todos los errores</string>
   <string name="menu_transfer_bugs_clear">Limpiar</string>
+  <string name="menu_transfer_bugs_clear_long">Limpiar errores</string>
+  <string name="menu_transfer_autodownload_long">Autodescargar errores</string>
   <string name="menu_save">Guardar archivo</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
@@ -448,6 +451,7 @@
   <string name="undo">Deshacer</string>
   <string name="redo">Rehacer</string>
   <string name="undo_nothing">nada para deshacer</string>
+  <string name="tracking_active_title">Servicio de segundo plano Vespucci activo</string>
   <string name="tracking_active_text">Vespucci está grabando una traza GPS o descargando automáticamente</string>
   <string name="gps_failure">Fallo al habilitar el GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -477,6 +481,8 @@
   <string name="undo_action_fix_conflict">arreglar conflicto</string>
   <string name="undo_action_extract_node">extraer nodo</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Vespucci se colgó o se encontró un problema serio en la última vez que corrió.\n\nAyúdenos enviando un reporte de error, todo lo que usted tiene que hacer es clic en \'Aceptar\'\n</string>
+  <string name="crash_dialog_comment_prompt">Añada cualquier información adicional que considere que pueda ayudar y (opcional) su dirección de correo electrónico si quiere retroalimentación.\n\n¡Gracias!</string>
   <string name="config_category_acra">Informando del fallo</string>
   <string name="pref_enable_acra">Informar de errores de la aplicación</string>
   <string name="pref_acra_enabled">Informe de error habilitado</string>

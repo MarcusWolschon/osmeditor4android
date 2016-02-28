@@ -154,6 +154,7 @@
   <string name="toast_storage_error">Каталог для тайлов и других файлов не доступен для записи Vespucci. \nЭто может быть связано с правами доступа или с технической проблемой на вашем устройстве.</string>
   <string name="toast_min_one_preset">Должна быть выбрана как минимум одна заготовка!</string>
   <string name="toast_used_backup">Файл состояния повреждён, использую резервную копию!</string>
+  <string name="toast_used_bug_backup">Поврежден файл ошибок, использую резервную копию!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
@@ -267,7 +268,10 @@
   <string name="menu_transfer_bugs">Заметки/Ошибки...</string>
   <string name="menu_transfer_bugs_download_current">Скачать ошибки для текущего вида</string>
   <string name="menu_transfer_bugs_upload">Залить всё</string>
+  <string name="menu_transfer_bugs_upload_long">Загрузить все ошибки</string>
   <string name="menu_transfer_bugs_clear">Очистить</string>
+  <string name="menu_transfer_bugs_clear_long">Очистить ошибки</string>
+  <string name="menu_transfer_autodownload_long">Скачивать ошибки автоматом</string>
   <string name="menu_save">Сохранить в файл</string>
   <string name="menu_join">Объединить</string>
   <string name="menu_unjoin">Разъединить</string>
@@ -482,6 +486,8 @@
   <string name="undo_action_fix_conflict">исправить конфликт</string>
   <string name="undo_action_extract_node">извлечь точку</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Vespucci упал либо нашёл серьёзную проблему при последнем запуске.\n\nПожалуйста помогите нам оправив отчёт о ошибке, всё что вам требуется это нажать \'OK\'.\n</string>
+  <string name="crash_dialog_comment_prompt">Поделитесь другой информацией которая может помочь по вашему мнению и (необязательно) ваш e-mail адрес если вы хотите обратный ответ.\n\nСпасибо!</string>
   <string name="config_category_acra">Отчёт о сбое</string>
   <string name="pref_enable_acra">Сообщать о сбоях в приложении</string>
   <string name="pref_acra_enabled">Отчёты о сбоях разрешены</string>
@@ -505,6 +511,7 @@
   <string name="deleterelation_relation_description">Вы собираетесь удалить отношение, являющееся членом одного или нескольких отношений. Удаление элемента из отношений может сделать их некорректными.</string>
   <string name="deleterelation">Удалить отношение</string>
   <string name="delete_from_relation_description">Вы собираетесь удалить этот элемент из отношения.</string>
+  <string name="unset_relation_type">стереть тип отношения</string>
   <!--time and distance-->
   <string name="days">дней</string>
   <string name="hours">часов</string>

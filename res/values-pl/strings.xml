@@ -261,7 +261,10 @@
   <string name="menu_transfer_bugs">Notatki/Błędy...</string>
   <string name="menu_transfer_bugs_download_current">Pobierz zapis znanych błędów dla widocznego obszaru</string>
   <string name="menu_transfer_bugs_upload">Zapisz wszystkie</string>
+  <string name="menu_transfer_bugs_upload_long">Wyślij wszystkie zmiany błędów</string>
   <string name="menu_transfer_bugs_clear">Wyczyść</string>
+  <string name="menu_transfer_bugs_clear_long">Wyczyść błędy</string>
+  <string name="menu_transfer_autodownload_long">Automatyczne pobieranie błędów</string>
   <string name="menu_save">Zapisz do pliku</string>
   <string name="menu_join">Połącz</string>
   <string name="menu_unjoin">Rozłącz</string>
@@ -447,6 +450,7 @@
   <string name="undo">Cofnij</string>
   <string name="redo">Ponów</string>
   <string name="undo_nothing">nie ma nic do cofnięcia</string>
+  <string name="tracking_active_title">Działanie Vespucci w tle aktywne</string>
   <string name="tracking_active_text">Vespucci nagrywa ścieżkę GPS lub automatycznie pobiera dane</string>
   <string name="gps_failure">Nie udało się włączyć GPSa</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -476,6 +480,8 @@
   <string name="undo_action_fix_conflict">napraw konflikt</string>
   <string name="undo_action_extract_node">wydziel węzeł</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Wystąpił nieoczekiwany błąd który zmusił aplikację do zamknięcia. Proszę pomóż nam naprawić go wysyłając dane o nim, jedne co musisz zrobić to kliknąć \'OK\'. \n</string>
+  <string name="crash_dialog_comment_prompt">Dodaj więcej pomocnych informacji i (opcjonalnie) możesz podać swój adres email jeśli chcesz być informowany o postępie. \n\n Dziękujemy!</string>
   <string name="config_category_acra">Zgłaszanie awarii</string>
   <string name="pref_enable_acra">Zgłoś awarie aplikacji</string>
   <string name="pref_acra_enabled">Zgłaszanie awarii włączone</string>
