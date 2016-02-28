@@ -168,6 +168,9 @@ public class Preset implements Serializable {
 		KEY_VALUE,
 		KEY_VALUE_NEG,
 	}
+	
+	public final static String COMBO_DELIMITER = ",";
+	public final static String MULTISELECT_DELIMITER = ";";
 
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
 	protected final MultiHashMap<String, StringWithDescription> autosuggestNodes = new MultiHashMap<String, StringWithDescription>(true);
@@ -373,6 +376,7 @@ public class Preset implements Serializable {
         	private String listKey = null;
         	private ArrayList<StringWithDescription> listValues = null;
         	private String mainValueContext = null;
+        	private String delimiter = null;
         	
         	{
         		groupstack.push(rootGroup);
@@ -467,7 +471,7 @@ public class Preset implements Serializable {
             		if (disable_off != null && disable_off.equals("true")) {
             			value_off = "";
             		} else {
-            			values = value_on + "," + value_off;
+            			values = value_on + COMBO_DELIMITER + value_off;
             		}
              		currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values);
              		if (!"yes".equals(value_on)) {
@@ -492,9 +496,9 @@ public class Preset implements Serializable {
             	} else if ("combo".equals(name) || "multiselect".equals(name)) {
             		boolean multiselect = "multiselect".equals(name);
             		String key = attr.getValue("key");
-            		String delimiter = attr.getValue("delimiter");
+            		delimiter = attr.getValue("delimiter");
             		if (delimiter == null) {
-            			delimiter = multiselect ? ";" : ","; // combo uses "," multiselect ";" as default
+            			delimiter = multiselect ? MULTISELECT_DELIMITER : COMBO_DELIMITER; 
             		}
             		String values = attr.getValue("values");
             		String displayValues = attr.getValue("display_values");
@@ -565,6 +569,7 @@ public class Preset implements Serializable {
             			currentItem.addAllRoles(chunk.roles); // FIXME this and the following could lead to duplicate entries
             			currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
             			currentItem.setAllSort(chunk.sort);
+            			currentItem.addAllDelimiters(chunk.delimiters);
             		}
             	} else if ("list_entry".equals(name)) {
             		if (listValues != null) {
@@ -625,7 +630,7 @@ public class Preset implements Serializable {
             			StringWithDescription[] v = new StringWithDescription[listValues.size()];
             			currentItem.addTag(inOptionalSection, 
             					listKey, "combo".equals(name)?PresetKeyType.COMBO:PresetKeyType.MULTISELECT, 
-            					listValues.toArray(v));
+            					listValues.toArray(v), delimiter);
             		}
             		listKey = null;
             		listValues = null;
@@ -1228,7 +1233,6 @@ public class Preset implements Serializable {
 			scrollView.addView(wrappingLayout);
 			return scrollView;
 		}
-
 	}
 	
 	/** Represents a preset item (e.g. "footpath", "grocery store") */
@@ -1236,7 +1240,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 7L;
+		private static final long serialVersionUID = 8L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1288,6 +1292,11 @@ public class Preset implements Serializable {
 		 * Key to match properties
 		 */
 		private HashMap<String,MatchType> matchType = null; 
+		
+		/**
+		 * Key to combo and multiselect delimiters
+		 */
+		private HashMap<String,String> delimiters = null; 
 		
 		/**
 		 * Translation contexts
@@ -1405,13 +1414,13 @@ public class Preset implements Serializable {
 		 * @param values values string from the XML (comma-separated list of possible values)
 		 */
 		public void addTag(boolean optional, String key, PresetKeyType type, String values) {
-			addTag(optional, key, type, values, null, null, ",");
+			addTag(optional, key, type, values, null, null, COMBO_DELIMITER);
 		}
 		
-		public void addTag(boolean optional, String key, PresetKeyType type, String values, String displayValues, String shortDescriptions, String seperator) {
-			String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(seperator));
-			String[] displayValueArray = (displayValues == null) ? new String[0] : displayValues.split(Pattern.quote(seperator));
-			String[] shortDescriptionArray = (shortDescriptions == null) ? new String[0] : shortDescriptions.split(Pattern.quote(seperator));
+		public void addTag(boolean optional, String key, PresetKeyType type, String values, String displayValues, String shortDescriptions, final String delimiter) {
+			String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(delimiter));
+			String[] displayValueArray = (displayValues == null) ? new String[0] : displayValues.split(Pattern.quote(delimiter));
+			String[] shortDescriptionArray = (shortDescriptions == null) ? new String[0] : shortDescriptions.split(Pattern.quote(delimiter));
 			StringWithDescription[] valuesWithDesc = new StringWithDescription[valueArray.length];
 			boolean useDisplayValues = valueArray.length == displayValueArray.length;
 			boolean useShortDescriptions = !useDisplayValues && valueArray.length == shortDescriptionArray.length;
@@ -1424,10 +1433,10 @@ public class Preset implements Serializable {
 				}
 				valuesWithDesc[i] = new StringWithDescription(valueArray[i], description);
 			}
-			addTag(optional, key, type, valuesWithDesc);
+			addTag(optional, key, type, valuesWithDesc, delimiter);
 		}
 		
-		public void addTag(boolean optional, String key, PresetKeyType type, StringWithDescription[] valueArray) {
+		public void addTag(boolean optional, String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter) {
 	    	if (!chunk){
 		    	if (valueArray==null || valueArray.length == 0) {
 		    		tagItems.add(key+"\t", this);
@@ -1446,6 +1455,12 @@ public class Preset implements Serializable {
 			if (appliesTo(ElementType.AREA)) autosuggestAreas.add(key, valueArray);
 			
 			(optional ? optionalTags : recommendedTags).put(key, valueArray);
+			
+			// only save delimiter if not default
+			if ((type == PresetKeyType.MULTISELECT && !MULTISELECT_DELIMITER.equals(delimiter)) 
+					|| (type == PresetKeyType.COMBO && !COMBO_DELIMITER.equals(delimiter))) {
+				addDelimiter(key,delimiter);
+			}
 		}
 		
 		public void addRole(final StringWithDescription value)
@@ -1538,6 +1553,31 @@ public class Preset implements Serializable {
 		
 		public String getOnValue(String key) {
 			return onValue != null ? onValue.get(key) : "yes";
+		}
+		
+		/**
+		 * Save non-standard values for the tag
+		 * @param key
+		 * @param on
+		 */
+		public void addDelimiter(String key, String delimiter) {
+			if (delimiters == null) {
+				delimiters = new HashMap<String,String>();
+			}
+			delimiters.put(key, delimiter);
+		}
+		
+		public void addAllDelimiters(HashMap<String, String> newDelimiters)
+		{
+			if (delimiters == null) { 
+				delimiters = newDelimiters; // doesn't matter if newOnValues is null
+			} else if (newDelimiters != null){
+				delimiters.putAll(newDelimiters);
+			}
+		}
+		
+		public char getDelimiter(String key) {
+			return (delimiters != null && delimiters.get(key) != null? delimiters.get(key) : (getKeyType(key) == PresetKeyType.MULTISELECT ? MULTISELECT_DELIMITER : COMBO_DELIMITER)).charAt(0);
 		}
 		
 		public void setMatchType(String key, String match) {

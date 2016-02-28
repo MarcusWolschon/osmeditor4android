@@ -80,8 +80,6 @@ public class TagEditorFragment extends SherlockFragment implements
 
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
-	static final char LIST_SEPARATOR = ';';
-	 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
 		
@@ -803,11 +801,12 @@ public class TagEditorFragment extends SherlockFragment implements
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
 					originalValue = row.getValue();
-					PresetItem preset = getPreset(row.getKey());
+					String key = row.getKey();
+					PresetItem preset = getPreset(key);
 					row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row));
-					if (preset != null && preset.getKeyType(row.getKey())==PresetKeyType.MULTISELECT) { 
+					if (preset != null && preset.getKeyType(key)==PresetKeyType.MULTISELECT) { 
 						// FIXME this should be somewhere better obvious since it creates a non obvious side effect
-						row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(LIST_SEPARATOR));
+						row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
 					}
 					if (PropertyEditor.running) {
 						if (row.valueEdit.getText().length() == 0) row.valueEdit.showDropDown();
@@ -1847,7 +1846,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	private void addTagToMap(Map<String,String>map, String key, String value) {
 		if (autocompletePresetItem != null && autocompletePresetItem.getKeyType(key)==PresetKeyType.MULTISELECT) {
 			// trim potential trailing separators 
-			if (value.endsWith(String.valueOf(LIST_SEPARATOR))) {
+			if (value.endsWith(String.valueOf(autocompletePresetItem.getDelimiter(key)))) {
 				value = value.substring(0, value.length()-1);
 			}
 		}
