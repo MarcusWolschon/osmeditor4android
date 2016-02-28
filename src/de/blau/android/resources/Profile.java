@@ -23,6 +23,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -604,9 +605,9 @@ public class Profile  extends DefaultHandler {
 	 * return list of available profiles (Defaut entry first, rest sorted)
 	 * @return
 	 */
-	public static String[] getProfileList() {
+	public static String[] getProfileList(Activity activity) {
 		if (availableProfiles == null) { // shouldn't happen
-			Profile p = new Profile(Application.mainActivity);
+			Profile p = new Profile(activity);
 			Log.e("Profile","getProfileList called before initialized");
 		}
 		String[] res = new String[availableProfiles.size()];

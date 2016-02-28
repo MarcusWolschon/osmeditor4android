@@ -148,7 +148,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		ol.onPreferenceChange(mapolpref, prefs.overlayLayer());
 		
 		ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPPROFILE);
-		String[] profileList = Profile.getProfileList();
+		String[] profileList = Profile.getProfileList(this);
 		mapProfilePref.setEntries(profileList);
 		mapProfilePref.setEntryValues(profileList);
 		OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
@@ -156,7 +156,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				Log.d("PrefEditor", "onPreferenceChange mapProfile");
 				String id = (String)newValue;
-				String[] profileList = Profile.getProfileList();
+				String[] profileList = Profile.getProfileList(PrefEditor.this);
 				String[] ids = profileList;
 				String[] names = profileList;
 				for (int i = 0; i < ids.length; i++) {
