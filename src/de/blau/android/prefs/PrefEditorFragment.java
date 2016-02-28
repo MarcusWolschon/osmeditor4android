@@ -128,7 +128,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		ol.onPreferenceChange(mapolpref, prefs.overlayLayer());
 		
 		ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPPROFILE);
-		String[] profileList = Profile.getProfileList();
+		String[] profileList = Profile.getProfileList(getActivity());
 		mapProfilePref.setEntries(profileList);
 		mapProfilePref.setEntryValues(profileList);
 		OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
@@ -136,7 +136,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				Log.d("PrefEditor", "onPreferenceChange mapProfile");
 				String id = (String)newValue;
-				String[] profileList = Profile.getProfileList();
+				String[] profileList = Profile.getProfileList(getActivity());
 				String[] ids = profileList;
 				String[] names = profileList;
 				for (int i = 0; i < ids.length; i++) {
