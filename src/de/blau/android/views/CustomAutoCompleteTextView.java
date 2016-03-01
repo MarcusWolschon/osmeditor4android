@@ -178,26 +178,25 @@ public class CustomAutoCompleteTextView extends AutoCompleteTextView {
        		super.replaceText(text);
     		return;
     	}
-	   	Log.d(DEBUG_TAG,"replacetext  " + text);
-        clearComposingText();
-        int end = getSelectionEnd();
-        int start = mTokenizer.findTokenStart(super.getText(), end);
-        Editable editable = super.getText();
-        String original = TextUtils.substring(editable, start, end);
-        QwertyKeyListener.markAsReplaced(editable, start, end, original);
-        editable.replace(start, end, mTokenizer.terminateToken(text));
     }
     
     /**
      * setText is final and can't be overridden
      * @param text
      */
-	public void setText2(String text) {
+	public void setOrReplaceText(String text) {
 	   	if (mTokenizer==null) {
        		super.setText(text);
     		return;
     	}
-	   	// replaceText(text); leaving this in causes dup text	
+	   	Log.d(DEBUG_TAG,"etOrReplaceText " + text);
+        clearComposingText();
+        int end = getSelectionEnd();
+        int start = mTokenizer.findTokenStart(super.getText(), end);
+        Editable editable = super.getText();
+        String original = TextUtils.substring(editable, start, end);
+        QwertyKeyListener.markAsReplaced(editable, start, end, original);
+        editable.replace(start, end, mTokenizer.terminateToken(text));	
 	}
 	
     public static interface Tokenizer {

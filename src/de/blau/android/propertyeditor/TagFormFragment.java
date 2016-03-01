@@ -789,14 +789,14 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 				Log.d(DEBUG_TAG,"onItemClicked value");
 				Object o = parent.getItemAtPosition(position);
 				if (o instanceof Names.NameAndTags) {
-					row.valueView.setText2(((NameAndTags)o).getName());
+					row.valueView.setOrReplaceText(((NameAndTags)o).getName());
 					// applyTagSuggestions(((NameAndTags)o).getTags());
 				} else if (o instanceof ValueWithCount) {
-					row.valueView.setText2(((ValueWithCount)o).getValue());
+					row.valueView.setOrReplaceText(((ValueWithCount)o).getValue());
 				} else if (o instanceof StringWithDescription) {
-					row.valueView.setText2(((StringWithDescription)o).getValue());
+					row.valueView.setOrReplaceText(((StringWithDescription)o).getValue());
 				} else if (o instanceof String) {
-					row.valueView.setText2((String)o);
+					row.valueView.setOrReplaceText((String)o);
 				}
 				tagListener.updateSingleValue(key, row.getValue());
 			}

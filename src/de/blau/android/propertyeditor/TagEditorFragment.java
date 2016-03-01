@@ -862,14 +862,14 @@ public class TagEditorFragment extends SherlockFragment implements
 				Log.d("TagEdit","onItemClicked value");
 				Object o = parent.getItemAtPosition(position);
 				if (o instanceof Names.NameAndTags) {
-					row.valueEdit.setText2(((NameAndTags)o).getName());
+					row.valueEdit.setOrReplaceText(((NameAndTags)o).getName());
 					applyTagSuggestions(((NameAndTags)o).getTags());
 				} else if (o instanceof ValueWithCount) {
-					row.valueEdit.setText2(((ValueWithCount)o).getValue());
+					row.valueEdit.setOrReplaceText(((ValueWithCount)o).getValue());
 				} else if (o instanceof StringWithDescription) {
-					row.valueEdit.setText2(((StringWithDescription)o).getValue());
+					row.valueEdit.setOrReplaceText(((StringWithDescription)o).getValue());
 				} else if (o instanceof String) {
-					row.valueEdit.setText2((String)o);
+					row.valueEdit.setOrReplaceText((String)o);
 				}
 			}
 		});
