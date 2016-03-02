@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -532,7 +531,7 @@ public class Preset implements Serializable {
             		}
              		String sort = attr.getValue("values_sort");
             		if (sort != null) {
-            			currentItem.setSort(key,sort.equals("yes")); // normally this will not be set because true is the default
+            			currentItem.setSort(key,"yes".equals(sort) || "true".equals(sort)); // normally this will not be set because true is the default
             		}
             	} else if ("role".equals(name)) {
             		String key = attr.getValue("key");
@@ -1646,7 +1645,7 @@ public class Preset implements Serializable {
 			if (sort == null) {
 				sort = new HashMap<String,Boolean>(); 
 			}
-			sort.put(key,Boolean.valueOf(sortIt));
+			sort.put(key,sortIt);
 		}
 		
 		public void setAllSort(HashMap<String,Boolean> newSort) {
@@ -1658,7 +1657,7 @@ public class Preset implements Serializable {
 		}
 		
 		public boolean sortIt(String key) {
-			return (sort == null ||  sort.get(key) == null) ? true : sort.get(key).booleanValue();
+			return (sort == null ||  sort.get(key) == null) ? true : sort.get(key);
 		}
 		
 		public void setTextContext(String key, String textContext) {
@@ -1724,7 +1723,7 @@ public class Preset implements Serializable {
 		 * @return
 		 */
 		public Collection<StringWithDescription> getAutocompleteValues(String key) {
-			Collection<StringWithDescription> result = new HashSet<StringWithDescription>();
+			Collection<StringWithDescription> result = new LinkedHashSet<StringWithDescription>();
 			if (recommendedTags.containsKey(key)) {
 				result.addAll(Arrays.asList(recommendedTags.get(key)));
 			} else if (optionalTags.containsKey(key)) {
@@ -2013,7 +2012,7 @@ public class Preset implements Serializable {
 	}
 
 	static public Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
-		Collection<String> result = new HashSet<String>();
+		Collection<String> result = new LinkedHashSet<String>();
 		for (Preset p:presets) {
 			if (p!=null) {
 				switch (type) {
@@ -2032,7 +2031,7 @@ public class Preset implements Serializable {
 	}
 	
 	static public Collection<StringWithDescription> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
-		Collection<StringWithDescription> result = new HashSet<StringWithDescription>();
+		Collection<StringWithDescription> result = new LinkedHashSet<StringWithDescription>();
 		for (Preset p:presets) {
 			if (p!=null) {
 				switch (type) {
