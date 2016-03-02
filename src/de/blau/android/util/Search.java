@@ -50,7 +50,7 @@ public class Search {
 		private double lat;
 		private double lon;
 		String display_name;
-		
+
 		@Override
 		public String toString() {
 			return "lat: " + getLat() + " lon: " + getLon() + " " + display_name;
@@ -84,7 +84,7 @@ public class Search {
 			this.lon = lon;
 		}
 	}
-	
+
 	/**
 	 * Constructor
 	 * @param appCompatActivity
@@ -111,16 +111,15 @@ public class Search {
 				Toast.makeText(activity, R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TimeoutException e) {
 			Toast.makeText(activity, R.string.toast_timeout, Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
 	}
+
 
 	private class QueryNominatim extends AsyncTask<String, Void, ArrayList<SearchResult>> {
 		final BoundingBox bbox;
@@ -137,7 +136,7 @@ public class Search {
 		protected void onPreExecute() {
 			Progress.showDialog(activity, Progress.PROGRESS_SEARCHING);
 		}
-		
+
 		@Override
 		protected ArrayList<SearchResult> doInBackground(String... params) {
 
@@ -199,7 +198,7 @@ public class Search {
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(ArrayList<SearchResult> res) {
 			Progress.dismissDialog(activity, Progress.PROGRESS_SEARCHING);
@@ -225,7 +224,6 @@ public class Search {
 			reader.endObject();
 			return result;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -239,7 +237,7 @@ public class Search {
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
 		ListView lv = (ListView) inflater.inflate(R.layout.search_results, null);
 		builder.setView(lv);
-		
+
 		ArrayList<String> ar = new ArrayList<String>();
 		for (SearchResult sr:searchResults) {
 			ar.add(sr.display_name);
@@ -250,7 +248,6 @@ public class Search {
 		final AppCompatDialog dialog = builder.create();
 		lv.setOnItemClickListener( new AdapterView.OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		        // 
 		    	// Log.d("Search","Result at pos " + position + " clicked");
 		    	callback.onItemFound(searchResults.get(position));
 		    	dialog.dismiss();
