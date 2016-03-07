@@ -5,15 +5,14 @@ package de.blau.android.imageryoffset;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -24,6 +23,7 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,7 +70,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	
 	Mode oldMode;
 	private final Preferences prefs;
-	private final String offsetServer;
+	private final Uri offsetServerUri;
 	
 	Offset[] oldOffsets;
 	
@@ -85,7 +85,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		oldOffsets = osmts.getOffsets().clone();
 		prefs = new Preferences(Application.mainActivity);
-		offsetServer = prefs.getOffsetServer();
+		String offsetServer = prefs.getOffsetServer();
+		offsetServerUri = Uri.parse(offsetServer);
 	}
 
 	@Override
@@ -163,11 +164,19 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	    	
 			BoundingBox bbox = Application.mainActivity.getMap().getViewBox();
 			double centerLon = (bbox.getLeft() + ((long)bbox.getRight() - (long)bbox.getLeft())/2L) / 1E7d;
+			Integer radius = params[0];
+			String radiusString = radius != null && radius > 0 ? String.valueOf(radius) : "";
+			Uri uriBuilder = offsetServerUri.buildUpon()
+					.appendPath("get")
+					.appendQueryParameter("lat", String.valueOf(bbox.getCenterLat()))
+					.appendQueryParameter("lon", String.valueOf(centerLon))
+					.appendQueryParameter("radius", radiusString)
+					.appendQueryParameter("imagery", osmts.getImageryOffsetId())
+					.appendQueryParameter("format", "json")
+					.build();
+			String urlString = uriBuilder.toString();
 			try {
-				Integer radius = params[0];
-				String urlString = offsetServer + "get?lat=" + bbox.getCenterLat() + "&lon=" + centerLon 
-						+ (radius != null && radius > 0 ? "&radius=" + radius : "") + "&imagery=" + osmts.getImageryOffsetId() + "&format=json";
-				Log.d("BackgroundAlignmentActionModeCallback","urlString " + urlString);
+				Log.d("BackgroundAlignmentActionModeCallback", "urlString " + urlString);
 				URL url = new URL(urlString);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestProperty("User-Agent", Application.userAgent);
@@ -504,15 +513,17 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		protected static final String DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT = "yyyy-MM-dd";
 
 		public String toSaveUrl() {
-			try {
-				return offsetServer+"store?lat="+ URLEncoder.encode(String.format("%.7f",lat),"UTF-8")+"&lon="+URLEncoder.encode(String.format("%.7f",lon),"UTF-8")
-						+"&author="+URLEncoder.encode(author,"UTF-8")
-						+"&description="+URLEncoder.encode(description,"UTF-8")
-						+"&imagery="+URLEncoder.encode(imageryId,"UTF-8")
-						+"&imlat="+URLEncoder.encode(String.format("%.7f",imageryLat),"UTF-8")+"&imlon="+URLEncoder.encode(String.format("%.7f",imageryLon),"UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				return null;
-			}
+			Uri uriBuilder = offsetServerUri.buildUpon()
+					.appendPath("store")
+					.appendQueryParameter("lat", String.format(Locale.US, "%.7f", lat))
+					.appendQueryParameter("lon", String.format(Locale.US, "%.7f", lon))
+					.appendQueryParameter("author", author)
+					.appendQueryParameter("description", description)
+					.appendQueryParameter("imagery", imageryId)
+					.appendQueryParameter("imlat", String.format(Locale.US, "%.7f", imageryLat))
+					.appendQueryParameter("imlon", String.format(Locale.US, "%.7f", imageryLon))
+					.build();
+			return uriBuilder.toString();
 		}
 	}
 	
