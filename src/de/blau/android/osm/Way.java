@@ -14,7 +14,7 @@ import org.xmlpull.v1.XmlSerializer;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.resources.Profile.FeatureProfile;
+import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
 
@@ -35,7 +35,7 @@ public class Way extends OsmElement implements BoundedObject {
 	
 	public static int maxWayNodes = 2000; // if API has a different value it will replace this
 	
-	transient FeatureProfile featureProfile = null; // FeatureProfile is currently not serializable
+	transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
 	
 	static {
 		importantHighways = (
@@ -684,11 +684,11 @@ public class Way extends OsmElement implements BoundedObject {
 		super.setState(newState);
 	}
 	
-	public FeatureProfile getFeatureProfile() {
+	public FeatureStyle getFeatureProfile() {
 		return featureProfile;
 	}
 	
-	public void setFeatureProfile(FeatureProfile fp) {
+	public void setFeatureProfile(FeatureStyle fp) {
 		featureProfile = fp;
 	}
 	

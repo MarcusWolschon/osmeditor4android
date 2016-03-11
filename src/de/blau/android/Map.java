@@ -41,8 +41,9 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.resources.Profile;
-import de.blau.android.resources.Profile.FeatureProfile;
+import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
@@ -52,7 +53,6 @@ import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * Paints all data provided previously by {@link Logic}.<br/>
@@ -228,10 +228,10 @@ public class Map extends View implements IMapView {
 		if (mOverlays.size() == 0) // only set once
 		{
 			if (prefs == null) // just to be safe
-				mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
+				mOverlays.add(new OpenStreetMapTilesOverlay(this, TileLayerServer.getDefault(getResources(), true), null));
 			else {
 				// mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
-				OpenStreetMapTilesOverlay osmto = new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(Application.mainActivity, prefs.backgroundLayer(), true), null);
+				OpenStreetMapTilesOverlay osmto = new OpenStreetMapTilesOverlay(this, TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true), null);
 				// Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
 				mOverlays.add(osmto);
 				mOverlays.add(new OpenStreetMapOverlayTilesOverlay(this));
@@ -448,10 +448,10 @@ public class Map extends View implements IMapView {
 	private void paintCrosshairs(Canvas canvas) {
 		// 
 		if (showCrosshairs) {
-			Paint paint = Profile.getCurrent(Profile.CROSSHAIRS).getPaint();
+			Paint paint = DataStyle.getCurrent(DataStyle.CROSSHAIRS).getPaint();
 			canvas.save();
 			canvas.translate(GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon), GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(),crosshairsLat));
-			canvas.drawPath(Profile.getCurrent().crosshairs_path, paint);
+			canvas.drawPath(DataStyle.getCurrent().crosshairs_path, paint);
 			canvas.restore();
 		}
 	}
@@ -459,7 +459,7 @@ public class Map extends View implements IMapView {
 	private void paintGpsTrack(final Canvas canvas) {
 		if (tracker == null) return;
 		float[] linePoints = pointListToLinePointsArray(tracker.getTrackPoints());
-		canvas.drawLines(linePoints, Profile.getCurrent(Profile.GPS_TRACK).getPaint());
+		canvas.drawLines(linePoints, DataStyle.getCurrent(DataStyle.GPS_TRACK).getPaint());
 	}
 	
 	/**
@@ -484,9 +484,9 @@ public class Map extends View implements IMapView {
 		}
 		Paint paint = null;
 		if (isFollowingGPS) {
-			paint = Profile.getCurrent(Profile.GPS_POS_FOLLOW).getPaint();
+			paint = DataStyle.getCurrent(DataStyle.GPS_POS_FOLLOW).getPaint();
 		} else {
-			paint = Profile.getCurrent(Profile.GPS_POS).getPaint();
+			paint = DataStyle.getCurrent(DataStyle.GPS_POS).getPaint();
 		}
 	
 		if (o < 0) {
@@ -497,21 +497,21 @@ public class Map extends View implements IMapView {
 			canvas.save();
 			canvas.translate(x, y);
 			canvas.rotate(o);
-			canvas.drawPath(Profile.getCurrent().orientation_path, paint);
+			canvas.drawPath(DataStyle.getCurrent().orientation_path, paint);
 			canvas.restore();
 		}
 		if (displayLocation.hasAccuracy()) {
 			// FIXME this assumes square pixels
 			float accuracyInPixels = (float) (GeoMath.convertMetersToGeoDistance(displayLocation.getAccuracy())*((double)getWidth()/(viewBox.getWidth()/1E7D)));
 			RectF accuracyRect = new RectF(x-accuracyInPixels,y+accuracyInPixels,x+accuracyInPixels,y-accuracyInPixels);
-			canvas.drawOval(accuracyRect, Profile.getCurrent(Profile.GPS_ACCURACY).getPaint());	
+			canvas.drawOval(accuracyRect, DataStyle.getCurrent(DataStyle.GPS_ACCURACY).getPaint());	
 		}
 	}
 	
 	private void paintStats(final Canvas canvas, final int fps) {
 		int pos = 1;
 		String text = "";
-		Paint infotextPaint = Profile.getCurrent(Profile.INFOTEXT).getPaint();
+		Paint infotextPaint = DataStyle.getCurrent(DataStyle.INFOTEXT).getPaint();
 		float textSize = infotextPaint.getTextSize();
 		
 		BoundingBox viewBox = getViewBox();
@@ -622,7 +622,7 @@ public class Map extends View implements IMapView {
 			}
 		}
 	
-		Paint boxpaint = Profile.getCurrent(Profile.VIEWBOX).getPaint();
+		Paint boxpaint = DataStyle.getCurrent(DataStyle.VIEWBOX).getPaint();
 		c.clipPath(path, Region.Op.DIFFERENCE);
 		c.drawRect(screen, boxpaint);
 			
@@ -667,37 +667,37 @@ public class Map extends View implements IMapView {
 			String featureKeyTagged;
 			if (tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node) && tmpDrawingInEditRange) {
 				// general node style
-				featureKey = Profile.SELECTED_NODE;
+				featureKey = DataStyle.SELECTED_NODE;
 				// style for house numbers
-				featureKeyThin = Profile.SELECTED_NODE_THIN;
+				featureKeyThin = DataStyle.SELECTED_NODE_THIN;
 				// style for tagged nodes or otherwise important
-				featureKeyTagged = Profile.SELECTED_NODE_TAGGED;
+				featureKeyTagged = DataStyle.SELECTED_NODE_TAGGED;
 				if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()) { // don't draw large areas in multi-select mode
-					canvas.drawCircle(x, y, Profile.getCurrent().largDragToleranceRadius, Profile.getCurrent(Profile.NODE_DRAG_RADIUS).getPaint());
+					canvas.drawCircle(x, y, DataStyle.getCurrent().largDragToleranceRadius, DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
 				}
 				isSelected = true;
 			} else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
 				// general node style
-				featureKey = Profile.SELECTED_RELATION_NODE;
+				featureKey = DataStyle.SELECTED_RELATION_NODE;
 				// style for house numbers
-				featureKeyThin = Profile.SELECTED_RELATION_NODE_THIN;
+				featureKeyThin = DataStyle.SELECTED_RELATION_NODE_THIN;
 				// style for tagged nodes or otherwise important
-				featureKeyTagged = Profile.SELECTED_RELATION_NODE_TAGGED;
+				featureKeyTagged = DataStyle.SELECTED_RELATION_NODE_TAGGED;
 				isSelected = true;
 			} else if (node.hasProblem(context)) {
 				// general node style
-				featureKey = Profile.PROBLEM_NODE;
+				featureKey = DataStyle.PROBLEM_NODE;
 				// style for house numbers
-				featureKeyThin = Profile.PROBLEM_NODE_THIN;
+				featureKeyThin = DataStyle.PROBLEM_NODE_THIN;
 				// style for tagged nodes or otherwise important
-				featureKeyTagged = Profile.PROBLEM_NODE_TAGGED;
+				featureKeyTagged = DataStyle.PROBLEM_NODE_TAGGED;
 			} else {
 				// general node style
-				featureKey = Profile.NODE;
+				featureKey = DataStyle.NODE;
 				// style for house numbers
-				featureKeyThin = Profile.NODE_THIN;
+				featureKeyThin = DataStyle.NODE_THIN;
 				// style for tagged nodes or otherwise important
-				featureKeyTagged = Profile.NODE_TAGGED;
+				featureKeyTagged = DataStyle.NODE_TAGGED;
 			}
 
 			boolean noIcon = true;
@@ -706,7 +706,7 @@ public class Map extends View implements IMapView {
 				if (noIcon) {
 					String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
 					if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
-						Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
+						Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
 						canvas.drawCircle(x, y, houseNumberRadius, paint2);
 						canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2); 
 						noIcon = false;
@@ -715,7 +715,7 @@ public class Map extends View implements IMapView {
 			}
 			if (noIcon) { 
 				// draw regular nodes
-				Paint p = Profile.getCurrent(featureKey).getPaint();
+				Paint p = DataStyle.getCurrent(featureKey).getPaint();
 				if (hwAccelarationWorkaround) { //FIXME we don't actually know if this is slower than drawPoint
 					canvas.drawCircle(x, y, p.getStrokeWidth()/2, p);
 				} else {
@@ -775,7 +775,7 @@ public class Map extends View implements IMapView {
 			float h2 = icon.getHeight()/2f;
 			if (featureKey != null) { // selected
 				RectF r = new RectF(x - w2 - iconSelectedBorder, y - h2 - iconSelectedBorder, x + w2 + iconSelectedBorder, y + h2 + iconSelectedBorder);
-				canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, Profile.getCurrent(featureKey).getPaint());
+				canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getCurrent(featureKey).getPaint());
 			}
 			// we have an icon! draw it.
 			canvas.drawBitmap(icon, x - w2, y - h2, null);
@@ -825,44 +825,44 @@ public class Map extends View implements IMapView {
 				&& tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);		
 				
 		if  (isSelected) {
-			paint = Profile.getCurrent(Profile.SELECTED_WAY).getPaint();
+			paint = DataStyle.getCurrent(DataStyle.SELECTED_WAY).getPaint();
 			canvas.drawLines(linePoints, paint);
-			paint = Profile.getCurrent(Profile.WAY_DIRECTION).getPaint();
+			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
 			drawOnewayArrows(canvas, linePoints, false, paint);
 		} else if (isMemberOfSelectedRelation) {
-			paint = Profile.getCurrent(Profile.SELECTED_RELATION_WAY).getPaint();
+			paint = DataStyle.getCurrent(DataStyle.SELECTED_RELATION_WAY).getPaint();
 			canvas.drawLines(linePoints, paint);
-			paint = Profile.getCurrent(Profile.WAY_DIRECTION).getPaint();
+			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
 			drawOnewayArrows(canvas, linePoints, false, paint);
 		}
 
 		int onewayCode = way.getOneway();
 		if (onewayCode != 0) {
-			FeatureProfile fp = Profile.getCurrent(Profile.ONEWAY_DIRECTION);
+			FeatureStyle fp = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
 			drawOnewayArrows(canvas, linePoints, (onewayCode == -1), fp.getPaint());
 		} else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
-			FeatureProfile fp = Profile.getCurrent(Profile.ONEWAY_DIRECTION);
+			FeatureStyle fp = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
 			drawOnewayArrows(canvas, linePoints, false, fp.getPaint());
 		}
 		
 		// 
-		FeatureProfile fp; // no need to get the default here
+		FeatureStyle fp; // no need to get the default here
 		
 		// this logic needs to be separated out
 		if (way.hasProblem(context)) {
-			fp = Profile.getCurrent(Profile.PROBLEM_WAY);
+			fp = DataStyle.getCurrent(DataStyle.PROBLEM_WAY);
 		} else {
-			FeatureProfile wayFp = way.getFeatureProfile();
+			FeatureStyle wayFp = way.getFeatureProfile();
 			if (wayFp == null) {
-				fp = Profile.getCurrent(Profile.WAY); // default for ways
+				fp = DataStyle.getCurrent(DataStyle.WAY); // default for ways
 				// three levels of hierarchy for roads and special casing of tracks, two levels for everything else
 				String highwayType = way.getTagWithKey(Tags.KEY_HIGHWAY);
 				if (highwayType != null) {
-					FeatureProfile tempFp = Profile.getCurrent("way-highway");
+					FeatureStyle tempFp = DataStyle.getCurrent("way-highway");
 					if (tempFp != null) {
 						fp = tempFp;
 					}
-					tempFp = Profile.getCurrent("way-highway-" + highwayType);
+					tempFp = DataStyle.getCurrent("way-highway-" + highwayType);
 					if (tempFp != null) {
 						fp = tempFp;
 					}
@@ -873,7 +873,7 @@ public class Map extends View implements IMapView {
 						highwaySubType = way.getTagWithKey(highwayType);
 					}
 					if (highwaySubType != null) {
-						tempFp = Profile.getCurrent("way-highway-" + highwayType + "-" + highwaySubType);
+						tempFp = DataStyle.getCurrent("way-highway-" + highwayType + "-" + highwaySubType);
 						if (tempFp != null) {
 							fp = tempFp;
 						}
@@ -882,7 +882,7 @@ public class Map extends View implements IMapView {
 					// order in the array defines precedence
 					String[] tags = {"building","railway","leisure","landuse","waterway","natural","addr:interpolation","boundary","amenity","shop","power",
 							"aerialway","military","historic"};
-					FeatureProfile tempFp = null;
+					FeatureStyle tempFp = null;
 					for (String tag:tags) {
 						tempFp = getProfile(tag, way);
 						if (tempFp != null) {
@@ -935,7 +935,7 @@ public class Map extends View implements IMapView {
 				float xDelta = linePoints[i] - x0;
 				float yDelta = linePoints[i+1] - y0;
 				double len = Math.hypot(xDelta,yDelta);
-				if (len > Profile.getCurrent().minLenForHandle) {
+				if (len > DataStyle.getCurrent().minLenForHandle) {
 					if (handles == null) handles = new LongHashSet();
 					handles.put(((long)(Float.floatToRawIntBits(x0 + xDelta/2)) <<32) + (long)Float.floatToRawIntBits(y0 + yDelta/2));
 				}
@@ -962,7 +962,7 @@ public class Map extends View implements IMapView {
 			}
 			Y = Y/(3*A);
 			X = X/(3*A);
-			paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?Profile.SELECTED_NODE_TAGGED:null);
+			paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?DataStyle.SELECTED_NODE_TAGGED:null);
 		}
 	}
 	
@@ -983,7 +983,7 @@ public class Map extends View implements IMapView {
 				canvas.translate(X-lastX, Y-lastY);
 				lastX = X;
 				lastY = Y;
-				canvas.drawPath(Profile.getCurrent().x_path, Profile.getCurrent(Profile.HANDLE).getPaint());
+				canvas.drawPath(DataStyle.getCurrent().x_path, DataStyle.getCurrent(DataStyle.HANDLE).getPaint());
 
 			}
 			canvas.restore();
@@ -992,15 +992,15 @@ public class Map extends View implements IMapView {
 	}
 	
 	
-	FeatureProfile getProfile(String tag, OsmElement e) {
+	FeatureStyle getProfile(String tag, OsmElement e) {
 		String mainType = e.getTagWithKey(tag);
-		FeatureProfile fp = null;
+		FeatureStyle fp = null;
 		if (mainType != null) {
-			FeatureProfile tempFp = Profile.getCurrent("way-" + tag);
+			FeatureStyle tempFp = DataStyle.getCurrent("way-" + tag);
 			if (tempFp != null) {
 				fp = tempFp;
 			}
-			tempFp = Profile.getCurrent("way-" + tag + "-" + mainType);
+			tempFp = DataStyle.getCurrent("way-" + tag + "-" + mainType);
 			if (tempFp != null) {
 				fp = tempFp;
 			}
@@ -1029,7 +1029,7 @@ public class Map extends View implements IMapView {
 			canvas.translate(x,y);
 			float angle = (float)(Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI);
 			canvas.rotate(reverse ? angle-180 : angle);
-			canvas.drawPath(Profile.WAY_DIRECTION_PATH, paint);
+			canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
 			canvas.restore();
 		}
 	}
@@ -1115,13 +1115,13 @@ public class Map extends View implements IMapView {
 	
 	public void setPrefs(final Preferences aPreference) {
 		prefs = aPreference;
-		OpenStreetMapTileServer.setBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
+		TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
-				final OpenStreetMapTileServer backgroundTS = OpenStreetMapTileServer.get(Application.mainActivity, prefs.backgroundLayer(), true);
+				final TileLayerServer backgroundTS = TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true);
 				((OpenStreetMapTilesOverlay)osmvo).setRendererInfo(backgroundTS);
 			} else if (osmvo instanceof OpenStreetMapOverlayTilesOverlay) {
-				final OpenStreetMapTileServer overlayTS = OpenStreetMapTileServer.get(Application.mainActivity, prefs.overlayLayer(), true);
+				final TileLayerServer overlayTS = TileLayerServer.get(Application.mainActivity, prefs.overlayLayer(), true);
 				((OpenStreetMapOverlayTilesOverlay)osmvo).setRendererInfo(overlayTS);
 			}
 		}
@@ -1132,8 +1132,8 @@ public class Map extends View implements IMapView {
 	
 	public void updateProfile () {
 		// changes when profile changes
-		nodeTolerancePaint = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
-		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
+		nodeTolerancePaint = DataStyle.getCurrent(DataStyle.NODE_TOLERANCE).getPaint();
+		wayTolerancePaint = DataStyle.getCurrent(DataStyle.WAY_TOLERANCE).getPaint();
 	}
 	
 	void setOrientation(final float orientation) {
@@ -1196,7 +1196,7 @@ public class Map extends View implements IMapView {
 	 * @return the tile zoom level
 	 */
 	public int calcZoomLevel(Canvas canvas) {
-		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
+		final TileLayerServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
 		if (!s.isMetadataLoaded()) // protection on startup
 			return 0;
 		

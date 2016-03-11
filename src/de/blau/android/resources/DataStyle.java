@@ -38,16 +38,15 @@ import android.graphics.PixelXorXfermode;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.util.Log;
-import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
-import de.blau.android.resources.Profile.FeatureProfile.DashPath;
+import de.blau.android.resources.DataStyle.FeatureStyle.DashPath;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
 
-public class Profile  extends DefaultHandler {
+public class DataStyle  extends DefaultHandler {
 	
-    String FILE_PATH_PROFILE_SUFFIX = "-profile.xml";
+    final static String FILE_PATH_STYLE_SUFFIX = "-profile.xml";
 	
 	// constants for the internal profiles
 	public final static String GPS_TRACK = "gps_track";
@@ -87,7 +86,7 @@ public class Profile  extends DefaultHandler {
 	public final static String LABELTEXT = "labeltext";
 	
 	
-	public class FeatureProfile {
+	public class FeatureStyle {
 		
 		String name;
 		boolean editable;
@@ -102,8 +101,8 @@ public class Profile  extends DefaultHandler {
 			public float phase;
 		}
 		
-		FeatureProfile (String n, Paint p) {
-			// Log.i("FeatureProfile","setting up feature " + n);
+		FeatureStyle (String n, Paint p) {
+			// Log.i("FeatureStyle","setting up feature " + n);
 			name = n;
 			editable = true;
 			internal = false;
@@ -118,17 +117,17 @@ public class Profile  extends DefaultHandler {
 			widthFactor = 1.0f;
 		}
 		
-		FeatureProfile (String n) {
+		FeatureStyle (String n) {
 			this(n, (Paint)null);
 		}
 		
-		FeatureProfile(String n, FeatureProfile fp)
+		FeatureStyle(String n, FeatureStyle fp)
 		{
 			if (fp == null) {
-				Log.i("FeatureProfile","setting up feature " + n + " profile is null!");
+				Log.i("FeatureStyle","setting up feature " + n + " profile is null!");
 				return;
 			}
-			// Log.i("FeatureProfile","setting up feature " + n + " from " + fp.getName());
+			// Log.i("FeatureStyle","setting up feature " + n + " from " + fp.getName());
 			name = n;
 			editable = fp.editable;
 			internal = fp.internal;
@@ -215,10 +214,10 @@ public class Profile  extends DefaultHandler {
 	}
 
 	String name;
-	HashMap<String,FeatureProfile> featureProfiles;
+	HashMap<String,FeatureStyle> featureStyles;
 	
-	public static Profile currentProfile;
-	public static HashMap<String,Profile> availableProfiles;
+	public static DataStyle currentStyle;
+	public static HashMap<String,DataStyle> availableStyles;
 	
 	public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
 
@@ -244,7 +243,7 @@ public class Profile  extends DefaultHandler {
 	 */
 	public static final Path WAY_DIRECTION_PATH = new Path();
 	
-	private static final String BUILTIN_PROFILE_NAME = "Default";
+	private static final String BUILTIN_STYLE_NAME = "Default";
 	
 	public float nodeToleranceValue;
 	public float wayToleranceValue;
@@ -254,27 +253,27 @@ public class Profile  extends DefaultHandler {
 
 	private final Context ctx;
 	
-	public Profile(final Context ctx) {
+	public DataStyle(final Context ctx) {
 		this.ctx = ctx;
 		// create default 
 		init(ctx.getResources());
 
-		getProfilesFromFile(ctx);
-		Log.i("Profile","profile " + currentProfile.name);
+		getStylesFromFile(ctx);
+		Log.i("Style","profile " + currentStyle.name);
 	}
 
 	
-	public Profile(String n, Profile from) {
+	public DataStyle(String n, DataStyle from) {
 		// copy existing profile
 		this.ctx = from.ctx;
 		name = n;
-		featureProfiles = new HashMap<String, FeatureProfile>();
-		for (FeatureProfile fp : from.featureProfiles.values()) {
-			featureProfiles.put(fp.getName(),new FeatureProfile(fp.getName(), fp));
+		featureStyles = new HashMap<String, FeatureStyle>();
+		for (FeatureStyle fp : from.featureStyles.values()) {
+			featureStyles.put(fp.getName(),new FeatureStyle(fp.getName(), fp));
 		}
 	}
 	
-	public Profile(Context ctx, InputStream is) {
+	public DataStyle(Context ctx, InputStream is) {
 		this.ctx = ctx;
 		// create a profile from a file
 		init(ctx.getResources()); // defaults for internal styles 
@@ -310,8 +309,11 @@ public class Profile  extends DefaultHandler {
 		x_path.moveTo(arm, -arm);
 		x_path.lineTo(-arm, arm);
 		
-		Log.i("Profile","setting up default profile elements");
-		featureProfiles = new HashMap<String, FeatureProfile>();
+		@SuppressWarnings("deprecation")
+		PixelXorXfermode whiteXor = new PixelXorXfermode(Color.WHITE);
+		
+		Log.i("Style","setting up default profile elements");
+		featureStyles = new HashMap<String, FeatureStyle>();
 
 		Paint standardPath = new Paint();
 		standardPath.setStyle(Style.STROKE);
@@ -319,225 +321,225 @@ public class Profile  extends DefaultHandler {
 		// However, at least on the software renderer, the default styles (Cap = BUTT, Join = MITER)
 		// have slightly better performance than the round styles.
 
-		FeatureProfile fp = new FeatureProfile(WAY, standardPath);
+		FeatureStyle fp = new FeatureStyle(WAY, standardPath);
 		fp.setColor(Color.BLACK);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(PROBLEM_WAY, standardPath);
+		fp = new FeatureStyle(PROBLEM_WAY, standardPath);
 		fp.setColor(resources.getColor(R.color.problem));
 		fp.setWidthFactor(1.5f);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 
-		fp = new FeatureProfile(VIEWBOX, standardPath);
+		fp = new FeatureStyle(VIEWBOX, standardPath);
 		fp.setColor(resources.getColor(R.color.grey));
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.FILL);
 		fp.getPaint().setAlpha(125);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(HANDLE);
+		fp = new FeatureStyle(HANDLE);
 		fp.dontUpdate();
 		fp.setColor(Color.BLACK);
 		fp.setWidthFactor(1f);
 		fp.getPaint().setStyle(Style.STROKE);
 		// fp.getPaint().setStrokeCap(Cap.ROUND);
-		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
+		fp.getPaint().setXfermode(whiteXor);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(NODE);
+		fp = new FeatureStyle(NODE);
 		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.setWidthFactor(1f);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(NODE_TAGGED);
+		fp = new FeatureStyle(NODE_TAGGED);
 		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.setWidthFactor(1.5f);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 
-		fp = new FeatureProfile(NODE_THIN);
+		fp = new FeatureStyle(NODE_THIN);
 		fp.dontUpdate();
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(PROBLEM_NODE);
+		fp = new FeatureStyle(PROBLEM_NODE);
 		fp.setColor(resources.getColor(R.color.problem));
 		fp.setWidthFactor(1f);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(PROBLEM_NODE_TAGGED);
+		fp = new FeatureStyle(PROBLEM_NODE_TAGGED);
 		fp.setColor(resources.getColor(R.color.problem));
 		fp.setWidthFactor(1.5f);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 
-		fp = new FeatureProfile(PROBLEM_NODE_THIN);
+		fp = new FeatureStyle(PROBLEM_NODE_THIN);
 		fp.dontUpdate();
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		fp.setColor(resources.getColor(R.color.problem));
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(GPS_TRACK,featureProfiles.get(WAY)); 	
+		fp = new FeatureStyle(GPS_TRACK,featureStyles.get(WAY)); 	
 		fp.setColor(Color.BLUE);
 		fp.getPaint().setStrokeCap(Cap.ROUND);
 		fp.getPaint().setStrokeJoin(Join.ROUND);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(WAY_TOLERANCE,featureProfiles.get(WAY)); 	
+		fp = new FeatureStyle(WAY_TOLERANCE,featureStyles.get(WAY)); 	
 		fp.setColor(resources.getColor(R.color.ccc_ocher));
 		fp.dontUpdate();
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,wayToleranceValue));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(SELECTED_NODE);
+		fp = new FeatureStyle(SELECTED_NODE);
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.setWidthFactor(1.5f);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(SELECTED_RELATION_NODE, featureProfiles.get(SELECTED_NODE));
+		fp = new FeatureStyle(SELECTED_RELATION_NODE, featureStyles.get(SELECTED_NODE));
 		fp.setColor(resources.getColor(R.color.relation));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(NODE_DRAG_RADIUS );
+		fp = new FeatureStyle(NODE_DRAG_RADIUS );
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setAlpha(150);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,10f));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(SELECTED_NODE_TAGGED);
+		fp = new FeatureStyle(SELECTED_NODE_TAGGED);
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.setWidthFactor(2f);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(SELECTED_RELATION_NODE_TAGGED, featureProfiles.get(SELECTED_NODE_TAGGED));
+		fp = new FeatureStyle(SELECTED_RELATION_NODE_TAGGED, featureStyles.get(SELECTED_NODE_TAGGED));
 		fp.setColor(resources.getColor(R.color.relation));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 
-		fp = new FeatureProfile(SELECTED_NODE_THIN);
+		fp = new FeatureStyle(SELECTED_NODE_THIN);
 		fp.dontUpdate();
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(SELECTED_RELATION_NODE_THIN, featureProfiles.get(SELECTED_NODE_THIN));
+		fp = new FeatureStyle(SELECTED_RELATION_NODE_THIN, featureStyles.get(SELECTED_NODE_THIN));
 		fp.setColor(resources.getColor(R.color.relation));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(GPS_POS,featureProfiles.get(GPS_TRACK)); 
+		fp = new FeatureStyle(GPS_POS,featureStyles.get(GPS_TRACK)); 
 		fp.getPaint().setStyle(Style.FILL);
 		fp.setWidthFactor(2f);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(GPS_POS_FOLLOW,featureProfiles.get(GPS_POS)); 
+		fp = new FeatureStyle(GPS_POS_FOLLOW,featureStyles.get(GPS_POS)); 
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,4.0f));
 		fp.dontUpdate();
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 
-		fp = new FeatureProfile(GPS_ACCURACY,featureProfiles.get(GPS_POS));
+		fp = new FeatureStyle(GPS_ACCURACY,featureStyles.get(GPS_POS));
 		fp.getPaint().setStyle(Style.FILL_AND_STROKE);
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
 		fp.dontUpdate();
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 
-		fp = new FeatureProfile(SELECTED_WAY,featureProfiles.get(WAY)); 	
+		fp = new FeatureStyle(SELECTED_WAY,featureStyles.get(WAY)); 	
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.setWidthFactor(2f);
 		fp.getPaint().setStrokeCap(Cap.ROUND);
 		fp.getPaint().setStrokeJoin(Join.ROUND);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(SELECTED_RELATION_WAY,featureProfiles.get(SELECTED_WAY));
+		fp = new FeatureStyle(SELECTED_RELATION_WAY,featureStyles.get(SELECTED_WAY));
 		fp.setColor(resources.getColor(R.color.relation));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 
-		fp = new FeatureProfile(NODE_TOLERANCE);
+		fp = new FeatureStyle(NODE_TOLERANCE);
 		fp.setColor(resources.getColor(R.color.ccc_ocher));
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.FILL);
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,nodeToleranceValue));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 
-		fp = new FeatureProfile(INFOTEXT);
+		fp = new FeatureStyle(INFOTEXT);
 		fp.setColor(Color.BLACK);
 		fp.dontUpdate();
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(ATTRIBUTION_TEXT);
+		fp = new FeatureStyle(ATTRIBUTION_TEXT);
 		fp.setColor(Color.WHITE);
 		fp.dontUpdate();
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		fp.getPaint().setShadowLayer(1, 0, 0, Color.BLACK);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(LABELTEXT);
+		fp = new FeatureStyle(LABELTEXT);
 		fp.setColor(Color.BLACK);
 		fp.dontUpdate();
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
-		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
-		featureProfiles.put(fp.getName(), fp);
+		fp.getPaint().setXfermode(whiteXor);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(WAY_DIRECTION);
+		fp = new FeatureStyle(WAY_DIRECTION);
 		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.setWidthFactor(0.8f);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeCap(Cap.SQUARE);
 		fp.getPaint().setStrokeJoin(Join.MITER);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(ONEWAY_DIRECTION,featureProfiles.get(WAY_DIRECTION));
+		fp = new FeatureStyle(ONEWAY_DIRECTION,featureStyles.get(WAY_DIRECTION));
 		fp.setColor(resources.getColor(R.color.ccc_blue));
 		fp.setWidthFactor(0.5f);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(OPEN_NOTE);
+		fp = new FeatureStyle(OPEN_NOTE);
 		fp.setColor(resources.getColor(R.color.bug_open));
 		fp.getPaint().setAlpha(100);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(CLOSED_NOTE);
+		fp = new FeatureStyle(CLOSED_NOTE);
 		fp.setColor(resources.getColor(R.color.bug_closed));
 		fp.getPaint().setAlpha(100);
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
-		fp = new FeatureProfile(CROSSHAIRS); 
+		fp = new FeatureStyle(CROSSHAIRS); 
 		fp.setColor(Color.BLACK);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
+		fp.getPaint().setXfermode(whiteXor);
 		fp.dontUpdate();
-		featureProfiles.put(fp.getName(), fp);
+		featureStyles.put(fp.getName(), fp);
 		
 		synchronized (this) {
-			if (availableProfiles == null) {
-				name = BUILTIN_PROFILE_NAME;
-				currentProfile = this;
-				availableProfiles = new HashMap<String,Profile>();
-				availableProfiles.put(name,this);
+			if (availableStyles == null) {
+				name = BUILTIN_STYLE_NAME;
+				currentStyle = this;
+				availableStyles = new HashMap<String,DataStyle>();
+				availableStyles.put(name,this);
 			}
 		}
-		Log.i("Profile","... done");
+		Log.i("Style","... done");
 	}
 
 	public static void setAntiAliasing(final boolean aa) {
-		for (FeatureProfile fp : currentProfile.featureProfiles.values()) {
+		for (FeatureStyle fp : currentStyle.featureStyles.values()) {
 			fp.getPaint().setAntiAlias(aa);
 		}
 	}
@@ -548,7 +550,7 @@ public class Profile  extends DefaultHandler {
 	public static void updateStrokes(final float newStrokeWidth) {
 	
 
-		for (FeatureProfile fp : currentProfile.featureProfiles.values()) {
+		for (FeatureStyle fp : currentStyle.featureStyles.values()) {
 			fp.setStrokeWidth(newStrokeWidth);
 		}
 
@@ -561,29 +563,29 @@ public class Profile  extends DefaultHandler {
 	}
 
 	/**
-	 * get FeatureProfile specified by key from current profile
+	 * get FeatureStyle specified by key from current profile
 	 * @param key
 	 * @return
 	 */
-	public static FeatureProfile getCurrent(final String key) {
-		return currentProfile.featureProfiles.get(key);
+	public static FeatureStyle getCurrent(final String key) {
+		return currentStyle.featureStyles.get(key);
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public static Profile getCurrent() {
-		return currentProfile;
+	public static DataStyle getCurrent() {
+		return currentStyle;
 	}
 	
 	/**
-	 * get FeatureProfile specified by key from this profile
+	 * get FeatureStyle specified by key from this profile
 	 * @param key
 	 * @return
 	 */
-	public FeatureProfile get(final String key) {
-		return featureProfiles.get(key);
+	public FeatureStyle get(final String key) {
+		return featureStyles.get(key);
 	}
 	
 	/**
@@ -591,28 +593,28 @@ public class Profile  extends DefaultHandler {
 	 * @param n
 	 * @return
 	 */
-	public static Profile getProfile(String n) {
-		if (availableProfiles == null)
+	public static DataStyle getStyle(String n) {
+		if (availableStyles == null)
 			return null;
-		return availableProfiles.get(n);
+		return availableStyles.get(n);
 	}
 	
 	/**
-	 * return list of available profiles (Defaut entry first, rest sorted)
+	 * return list of available Styles (Defaut entry first, rest sorted)
 	 * @return
 	 */
-	public static String[] getProfileList(Activity activity) {
-		if (availableProfiles == null) { // shouldn't happen
-			Profile p = new Profile(activity);
-			Log.e("Profile","getProfileList called before initialized");
+	public static String[] getStyleList(Activity activity) {
+		if (availableStyles == null) { // shouldn't happen
+			DataStyle p = new DataStyle(activity);
+			Log.e("Style","getStyleList called before initialized");
 		}
-		String[] res = new String[availableProfiles.size()];
+		String[] res = new String[availableStyles.size()];
 		
-		res[0] = BUILTIN_PROFILE_NAME;
-		String keys[] = (new TreeMap<String, Profile>(availableProfiles)).keySet().toArray(new String[0]); // sort the list
+		res[0] = BUILTIN_STYLE_NAME;
+		String keys[] = (new TreeMap<String, DataStyle>(availableStyles)).keySet().toArray(new String[0]); // sort the list
 		int j = 1;
 		for (int i=0;i<res.length;i++) {
-			if (!keys[i].equals(BUILTIN_PROFILE_NAME)) {
+			if (!keys[i].equals(BUILTIN_STYLE_NAME)) {
 				res[j] = keys[i];
 				j++;
 			}
@@ -621,15 +623,15 @@ public class Profile  extends DefaultHandler {
 	}
 
 	/**
-	 * switch to profile with name n
+	 * switch to Style with name n
 	 * @param n
 	 * @return
 	 */
 	public static boolean switchTo(String n) {
-		Profile p = getProfile(n);
+		DataStyle p = getStyle(n);
 		if (p != null) {
-			currentProfile = p;
-			Log.i("Profile","Switching to " + n);
+			currentStyle = p;
+			Log.i("Style","Switching to " + n);
 			return true;
 		}
 		return false;
@@ -637,7 +639,7 @@ public class Profile  extends DefaultHandler {
 	
 
 	/**
-	 * dump this profile in XML format, not very abstracted and closely tied to the implementation
+	 * dump this Style in XML format, not very abstracted and closely tied to the implementation
 	 * @param s
 	 * @throws IllegalArgumentException
 	 * @throws IllegalStateException
@@ -649,7 +651,7 @@ public class Profile  extends DefaultHandler {
 		s.startTag("", "profile");
 		s.attribute("", "name", name);
 
-		for (FeatureProfile fp : featureProfiles.values()) {
+		for (FeatureStyle fp : featureStyles.values()) {
 			if  (fp != null) {
 				s.startTag("", "feature");
 				s.attribute("", "name", fp.getName());
@@ -686,7 +688,7 @@ public class Profile  extends DefaultHandler {
 				s.endTag("", "feature");
 			}
 			else {
-				Log.d("Profile", "null fp");
+				Log.d("Style", "null fp");
 			}
 		}
 		s.endTag("", "profile");
@@ -696,7 +698,7 @@ public class Profile  extends DefaultHandler {
 	 * save this profile to SDCARD
 	 */
 	void save() {
-		String filename = name + FILE_PATH_PROFILE_SUFFIX;
+		String filename = name + FILE_PATH_STYLE_SUFFIX;
 		OutputStream outputStream = null;
 		try {
 			File outDir = FileUtil.getPublicDirectory();
@@ -708,7 +710,7 @@ public class Profile  extends DefaultHandler {
 			this.toXml(serializer);
 			serializer.endDocument();
 		} catch (Exception e) {
-			Log.e("Profile", "Save failed - " + filename + " " + e);
+			Log.e("Style", "Save failed - " + filename + " " + e);
 		} finally {
 			try {outputStream.close();} catch (Exception ex) {}
 		}
@@ -730,7 +732,7 @@ public class Profile  extends DefaultHandler {
 	/**
 	 * vars for the XML parser
 	 */
-	FeatureProfile tempFeatureProfile;
+	FeatureStyle tempFeatureStyle;
 	ArrayList<Float> tempIntervals;
 	float	tempPhase;
 	
@@ -739,23 +741,23 @@ public class Profile  extends DefaultHandler {
 		try {
 			if (element.equals("profile")) {
 				name = atts.getValue("name");
-				if (featureProfiles == null) {
-					Log.i("Profile","Allocating new list of feature profiles for profile " + name);
-					featureProfiles = new HashMap<String, FeatureProfile>();
+				if (featureStyles == null) {
+					Log.i("Style","Allocating new list of feature profiles for profile " + name);
+					featureStyles = new HashMap<String, FeatureStyle>();
 				}
 			} else if (element.equals("feature")) {
-//				Log.i("Profile", atts.getLength() + " attributes");
+//				Log.i("Style", atts.getLength() + " attributes");
 //				for (int i=0;i<atts.getLength();i++) {
-//					Log.i("Profile",atts.getLocalName(i) + "=" + atts.getValue(i));
+//					Log.i("Style",atts.getLocalName(i) + "=" + atts.getValue(i));
 //				}
-				tempFeatureProfile = new FeatureProfile(atts.getValue("name"));
-				if (tempFeatureProfile.name.equals(LARGE_DRAG_AREA)) {
+				tempFeatureStyle = new FeatureStyle(atts.getValue("name"));
+				if (tempFeatureStyle.name.equals(LARGE_DRAG_AREA)) {
 					// special handling
 					largDragCircleRadius = Density.dpToPx(ctx,Float.parseFloat(atts.getValue("radius")));
 					largDragToleranceRadius = Density.dpToPx(ctx,Float.parseFloat(atts.getValue("touchRadius")));
 					return;
 				}
-				if (tempFeatureProfile.name.equals(MARKER_SCALE)) {
+				if (tempFeatureStyle.name.equals(MARKER_SCALE)) {
 					float scale = Float.parseFloat(atts.getValue("scale"));
 					orientation_path = new Path();
 					orientation_path.moveTo(0, Density.dpToPx(ctx,-20) *scale);
@@ -780,34 +782,34 @@ public class Profile  extends DefaultHandler {
 					return;
 				}
 				
-				tempFeatureProfile.setInternal(Boolean.valueOf(atts.getValue("internal")).booleanValue());
+				tempFeatureStyle.setInternal(Boolean.valueOf(atts.getValue("internal")).booleanValue());
 				if (!Boolean.valueOf(atts.getValue("updateWidth")).booleanValue()) {
-					tempFeatureProfile.dontUpdate();
+					tempFeatureStyle.dontUpdate();
 				}
-				tempFeatureProfile.setWidthFactor(Float.parseFloat(atts.getValue("widthFactor")));
-				tempFeatureProfile.setEditable(Boolean.valueOf(atts.getValue("editable")).booleanValue());
-				tempFeatureProfile.setColor((int)Long.parseLong(atts.getValue("color"),16)); // workaround highest bit set problem
-				tempFeatureProfile.getPaint().setStyle(Style.valueOf(atts.getValue("style")));
+				tempFeatureStyle.setWidthFactor(Float.parseFloat(atts.getValue("widthFactor")));
+				tempFeatureStyle.setEditable(Boolean.valueOf(atts.getValue("editable")).booleanValue());
+				tempFeatureStyle.setColor((int)Long.parseLong(atts.getValue("color"),16)); // workaround highest bit set problem
+				tempFeatureStyle.getPaint().setStyle(Style.valueOf(atts.getValue("style")));
 				
-				tempFeatureProfile.getPaint().setStrokeCap(Cap.valueOf(atts.getValue("cap")));
-				tempFeatureProfile.getPaint().setStrokeJoin(Join.valueOf(atts.getValue("join")));
-				if (!tempFeatureProfile.updateWidth()) {
+				tempFeatureStyle.getPaint().setStrokeCap(Cap.valueOf(atts.getValue("cap")));
+				tempFeatureStyle.getPaint().setStrokeJoin(Join.valueOf(atts.getValue("join")));
+				if (!tempFeatureStyle.updateWidth()) {
 					float strokeWidth = Density.dpToPx(ctx,Float.parseFloat(atts.getValue("strokewidth")));
-					tempFeatureProfile.getPaint().setStrokeWidth(strokeWidth);
+					tempFeatureStyle.getPaint().setStrokeWidth(strokeWidth);
 					// special case if we are setting internal tolerance values
-					if (tempFeatureProfile.name.equals(NODE_TOLERANCE)) {
+					if (tempFeatureStyle.name.equals(NODE_TOLERANCE)) {
 						nodeToleranceValue = strokeWidth;
-					} else if (tempFeatureProfile.name.equals(WAY_TOLERANCE)) {
+					} else if (tempFeatureStyle.name.equals(WAY_TOLERANCE)) {
 						wayToleranceValue = strokeWidth;
 					} 
 				}
 				if (atts.getValue("typefacestyle") != null) {
-					tempFeatureProfile.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
-					tempFeatureProfile.getPaint().setTextSize(Density.dpToPx(ctx,Float.parseFloat(atts.getValue("textsize"))));
+					tempFeatureStyle.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
+					tempFeatureStyle.getPaint().setTextSize(Density.dpToPx(ctx,Float.parseFloat(atts.getValue("textsize"))));
 					if (atts.getValue("shadow") != null)
-						tempFeatureProfile.getPaint().setShadowLayer(Integer.parseInt(atts.getValue("shadow")), 0, 0, Color.BLACK);
+						tempFeatureStyle.getPaint().setShadowLayer(Integer.parseInt(atts.getValue("shadow")), 0, 0, Color.BLACK);
 				}
-				// Log.i("Profile","startElement finshed parsing feature");
+				// Log.i("Style","startElement finshed parsing feature");
 			} else if (element.equals("dash")) {
 				tempPhase = Float.parseFloat(atts.getValue("phase"));
 				tempIntervals = new ArrayList<Float>();
@@ -821,25 +823,25 @@ public class Profile  extends DefaultHandler {
 	
 	@Override
 	public void endElement(final String uri, final String element, final String qName) {
-		if (element == null) {Log.i("Profile","element is null"); return;}
+		if (element == null) {Log.i("Style","element is null"); return;}
 		if (element.equals("profile")) {
 	
 		} else if (element.equals("feature")) {
-			if (tempFeatureProfile == null) {
-				Log.i("Profile","FeatureProfile is null");
+			if (tempFeatureStyle == null) {
+				Log.i("Style","FeatureStyle is null");
 				return;
 			}
-			if (tempFeatureProfile.getName() == null) {
-				Log.i("Profile","FeatureProfile name is null");
+			if (tempFeatureStyle.getName() == null) {
+				Log.i("Style","FeatureStyle name is null");
 				return;
 			}
 			// overwrites existing profiles
-			featureProfiles.put(tempFeatureProfile.getName(),tempFeatureProfile);
-			// Log.i("Profile","adding to list of features");
+			featureStyles.put(tempFeatureStyle.getName(),tempFeatureStyle);
+			// Log.i("Style","adding to list of features");
 		} else if (element.equals("dash")) {
 			float[] tIntervals = new float[tempIntervals.size()];
 			for (int i=0; i<tIntervals.length;i++) {tIntervals[i] = tempIntervals.get(i).floatValue();}
-			tempFeatureProfile.setDashPath(tIntervals, tempPhase);
+			tempFeatureStyle.setDashPath(tIntervals, tempPhase);
 		} else if (element.equals("interval")) {
 			
 		} 
@@ -851,16 +853,16 @@ public class Profile  extends DefaultHandler {
 			inputStream = new BufferedInputStream(is);
 			start(inputStream);
 		} catch (Exception e) {
-			Log.e("Profile", "Read failed " + e);
+			Log.e("Style", "Read failed " + e);
 			e.printStackTrace();
 		}
 		return true;
 	}
 	
-	class ProfileFilter implements FilenameFilter {
+	class StyleFilter implements FilenameFilter {
 		@Override
 		public boolean accept(File dir, String name) {
-			return name.endsWith(FILE_PATH_PROFILE_SUFFIX);
+			return name.endsWith(FILE_PATH_STYLE_SUFFIX);
 		}
 	}
 	
@@ -868,7 +870,7 @@ public class Profile  extends DefaultHandler {
 	 * searches directories for profile files and creates new profiles from them
 	 * @param ctx
 	 */
-	void getProfilesFromFile(Context ctx) {
+	void getStylesFromFile(Context ctx) {
 		// assets directory
 		AssetManager assetManager = ctx.getAssets();
 		//
@@ -876,38 +878,38 @@ public class Profile  extends DefaultHandler {
 			String[] fileList = assetManager.list("");
 			if (fileList != null) {
 				for (String fn:fileList) {
-					if (fn.endsWith(FILE_PATH_PROFILE_SUFFIX)) {
-						Log.i("Profile","Creating profile from file in assets directory " + fn);
+					if (fn.endsWith(FILE_PATH_STYLE_SUFFIX)) {
+						Log.i("Style","Creating profile from file in assets directory " + fn);
 						InputStream is = assetManager.open(fn);
-						Profile p = new Profile(ctx, is);
-						availableProfiles.put(p.name,p);
+						DataStyle p = new DataStyle(ctx, is);
+						availableStyles.put(p.name,p);
 					}
 				}
 			}
-		} catch (Exception ex) { Log.i("Profile", ex.toString());}
+		} catch (Exception ex) { Log.i("Style", ex.toString());}
 		
 		// from sdcard
 		File sdcard = Environment.getExternalStorageDirectory();
 		File indir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 		if (indir != null) {
-			File[] list = indir.listFiles(new ProfileFilter());
+			File[] list = indir.listFiles(new StyleFilter());
 			if (list != null) {
 				for (File f:list) {
-					Log.i("Profile","Creating profile from " + f.getName());
+					Log.i("Style","Creating profile from " + f.getName());
 					try {
 						InputStream is = new FileInputStream(f);
-						Profile p = new Profile(ctx, is);
+						DataStyle p = new DataStyle(ctx, is);
 						// overwrites profile with same name
-						availableProfiles.put(p.name,p);
-					} catch (Exception ex) { Log.i("Profile", ex.toString());}
+						availableStyles.put(p.name,p);
+					} catch (Exception ex) { Log.i("Style", ex.toString());}
 				}
 			}
 			
 		}
 	}
 	
-	public static String getBuiltinProfileName() {
-		return BUILTIN_PROFILE_NAME;
+	public static String getBuiltinStyleName() {
+		return BUILTIN_STYLE_NAME;
 	}
 }
 

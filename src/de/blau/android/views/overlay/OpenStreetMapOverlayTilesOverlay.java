@@ -4,8 +4,8 @@ import android.graphics.Canvas;
 import android.view.View;
 import de.blau.android.Application;
 import de.blau.android.Map;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 public class OpenStreetMapOverlayTilesOverlay extends OpenStreetMapTilesOverlay {
 	
@@ -13,7 +13,7 @@ public class OpenStreetMapOverlayTilesOverlay extends OpenStreetMapTilesOverlay 
 	boolean enabled = false;
 	
 	public OpenStreetMapOverlayTilesOverlay(final View aView) {
-		super(aView, OpenStreetMapTileServer.get(Application.mainActivity, ((Map)aView).getPrefs().overlayLayer(), true), null);
+		super(aView, TileLayerServer.get(Application.mainActivity, ((Map)aView).getPrefs().overlayLayer(), true), null);
 		map = (Map)aView;
 	}
 	

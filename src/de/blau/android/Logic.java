@@ -66,7 +66,8 @@ import de.blau.android.osm.Track;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.Profile;
+import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.util.EditState;
@@ -75,7 +76,6 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Util;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * Contains several responsibilities of Logic-Work:
@@ -313,7 +313,7 @@ public class Logic {
 	 */
 	void setPrefs(final Preferences prefs) {
 		this.prefs = prefs;
-		Profile.setAntiAliasing(prefs.isAntiAliasingEnabled());
+		DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
 		map.invalidate();
 	}
 
@@ -323,9 +323,9 @@ public class Logic {
 	 * drawing, the current screen properties, and clears the way cache.
 	 */
 	public void updateProfile() {
-		Profile.switchTo(prefs.getMapProfile());
-		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
-		Profile.setAntiAliasing(prefs.isAntiAliasingEnabled());
+		DataStyle.switchTo(prefs.getMapProfile());
+		DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
+		DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
 		// zap the cached style for all ways
 		for (Way w:getDelegator().getCurrentStorage().getWays()) {
 			w.setFeatureProfile(null);
@@ -473,7 +473,7 @@ public class Logic {
 		} else {
 			viewBox.zoomOut();
 		}
-		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 		if (rotatingWay) {
 			showCrosshairsForCentroid();
 		}
@@ -492,7 +492,7 @@ public class Logic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 		if (rotatingWay) {
 			showCrosshairsForCentroid();
 		}
@@ -633,7 +633,7 @@ public class Logic {
 			ratio = (float) map.getWidth() / map.getHeight();
 		}
 		viewBox.setBorders(box, ratio); // findbugs will complain here however creating box will not actually fail above
-		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.invalidate();
 		UndoStorage.updateIcon();
 	}
@@ -711,7 +711,7 @@ public class Logic {
 				Y = Y/(3*A);
 				X = X/(3*A);
 				double distance =  Math.hypot(x-X, y-Y);
-				if (distance < Profile.getCurrent().nodeToleranceValue) {
+				if (distance < DataStyle.getCurrent().nodeToleranceValue) {
 					result.put(way, distance);
 				}
 			}
@@ -765,12 +765,12 @@ public class Logic {
 				float differenceX = Math.abs(handleX - x);
 				float differenceY = Math.abs(handleY - y);
 				
-				if ((differenceX > Profile.getCurrent().wayToleranceValue) && (differenceY > Profile.getCurrent().wayToleranceValue))	continue;
-				if (Math.hypot(xDelta,yDelta) <= Profile.getCurrent().minLenForHandle) continue;
+				if ((differenceX > DataStyle.getCurrent().wayToleranceValue) && (differenceY > DataStyle.getCurrent().wayToleranceValue))	continue;
+				if (Math.hypot(xDelta,yDelta) <= DataStyle.getCurrent().minLenForHandle) continue;
 				
 				double dist = Math.hypot(differenceX, differenceY);
 				// TODO better choice for tolerance 
-				if ((dist <= Profile.getCurrent().wayToleranceValue) && (dist < bestDistance)) {
+				if ((dist <= DataStyle.getCurrent().wayToleranceValue) && (dist < bestDistance)) {
 					bestDistance = dist;
 					result = new Handle(handleX, handleY);
 				}
@@ -791,7 +791,7 @@ public class Logic {
 	 *         null otherwise
 	 */
 	private Double clickDistance(Node node, final float x, final float y) {
-		return clickDistance(node, x, y, node.isTagged() ? Profile.getCurrent().nodeToleranceValue : Profile.getCurrent().wayToleranceValue/2);
+		return clickDistance(node, x, y, node.isTagged() ? DataStyle.getCurrent().nodeToleranceValue : DataStyle.getCurrent().wayToleranceValue/2);
 	}
 
 	private Double clickDistance(Node node, final float x, final float y, float tolerance) {
@@ -989,7 +989,7 @@ public class Logic {
 			draggingNode = false;
 			draggingWay = false;
 			draggingHandle = false;
-			if (selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null && clickDistance(selectedNodes.get(0), x, y, prefs.largeDragArea() ? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
+			if (selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null && clickDistance(selectedNodes.get(0), x, y, prefs.largeDragArea() ? DataStyle.getCurrent().largDragToleranceRadius : DataStyle.getCurrent().nodeToleranceValue) != null) {
 				draggingNode = true;
 				if (prefs.largeDragArea()) {
 					startX = lonE7ToX(selectedNodes.get(0).getLon());
@@ -1254,7 +1254,7 @@ public class Logic {
 		int lat = yToLatE7(height - screenTransY);
 		int relativeLon = lon - viewBox.getLeft();
 		int relativeLat = lat - viewBox.getBottom();
-		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+		TileLayerServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		double lonOffset = 0d;
 		double latOffset = 0d;
 		Offset o = osmts.getOffset(map.getZoomLevel());
@@ -1882,7 +1882,7 @@ public class Logic {
 	private boolean isPositionOnLine(final float x, final float y,
 			final float node1X, final float node1Y,
 			final float node2X, final float node2Y) {
-		float tolerance = Profile.getCurrent().wayToleranceValue / 2f;
+		float tolerance = DataStyle.getCurrent().wayToleranceValue / 2f;
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
 			return (GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y) < tolerance);
 		}
@@ -2058,7 +2058,7 @@ public class Logic {
 						postLoadHandler.execute();
 					}
 				}
-				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
+				DataStyle.updateStrokes(strokeWidth(mapBox.getWidth()));
 				map.invalidate();
 
 				UndoStorage.updateIcon();
@@ -2558,7 +2558,7 @@ public class Logic {
 						ACRA.getErrorReporter().handleException(ex);
 					}
 				}
-				Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+				DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 				map.invalidate();
 				UndoStorage.updateIcon();
 			}
@@ -2679,7 +2679,7 @@ public class Logic {
 	 * Saves the current editing state (selected objects, editing mode, etc) to file.
 	 */
 	void saveEditingState() {
-		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+		TileLayerServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts, 
 				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),
 				Application.mainActivity.getBugAutoDownload(),Application.mainActivity.getImageFileName(),
@@ -2755,7 +2755,7 @@ public class Logic {
 							e1.printStackTrace();
 						}
 					}
-					Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+					DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 					loadEditingState();
 					
 					if (postLoad != null) {
@@ -2868,7 +2868,7 @@ public class Logic {
 					e1.printStackTrace();
 				}
 			}
-			Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+			DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 			loadEditingState();
 			map.invalidate();
 			UndoStorage.updateIcon();
@@ -3364,7 +3364,7 @@ public class Logic {
 	 */
 	public void setMap(Map map) {
 		this.map = map;
-		Profile.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), strokeWidth(viewBox.getWidth())));
+		DataStyle.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), strokeWidth(viewBox.getWidth())));
 		map.setDelegator(getDelegator());
 		map.setViewBox(viewBox);
 	}

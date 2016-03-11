@@ -9,9 +9,9 @@ import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.services.util.OpenStreetMapTileFilesystemProvider;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * The OpenStreetMapTileProviderService can download map tiles from a server
@@ -65,7 +65,7 @@ public class OpenStreetMapTileProviderService extends Service {
 	private final IOpenStreetMapTileProviderService.Stub mBinder = new IOpenStreetMapTileProviderService.Stub() {
 		//@Override
 		public String[] getTileProviders() throws RemoteException {
-			return OpenStreetMapTileServer.getIds(false);
+			return TileLayerServer.getIds(false);
 		}
 		//@Override
 		public void getMapTile(String rendererID, int zoomLevel, int tileX,

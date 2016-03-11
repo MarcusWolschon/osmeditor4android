@@ -114,7 +114,7 @@ import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
-import de.blau.android.resources.Profile;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
@@ -407,7 +407,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			Log.i(DEBUG_TAG, "onCreate - creating new logic");
 			Application.newLogic(map);
 		}
-		Profile p = new Profile(getApplicationContext()); // this has side effects and needs to be done now (for now)
+		DataStyle p = new DataStyle(getApplicationContext()); // this has side effects and needs to be done now (for now)
 		
 		Log.d(DEBUG_TAG,"StorageDelegator dirty is " + Application.getDelegator().isDirty());
 		if (isLastActivityAvailable() && !Application.getDelegator().isDirty()) { // data was modified while we were stopped if isDirty is true
@@ -2058,7 +2058,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			
 			if (showGPS && !followGPS && map.getLocation() != null) {
 				// check if this was a click on the GPS mark use the same calculations we use all over the place ... really belongs in a separate method 
-				final float tolerance = Profile.getCurrent().nodeToleranceValue;				
+				final float tolerance = DataStyle.getCurrent().nodeToleranceValue;				
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLongitude() * 1E7)) - x);
 				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLatitude() * 1E7)) - y);
 				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
@@ -2309,8 +2309,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					float node2X = logic.getNodeScreenX(possibleNeighbor);
 					float node2Y = logic.getNodeScreenY(possibleNeighbor);
 					// Fast "square" checking is good enough
-					if (Math.abs(nodeX-node2X) < Profile.NODE_OVERLAP_TOLERANCE_VALUE ||
-						Math.abs(nodeY-node2Y) < Profile.NODE_OVERLAP_TOLERANCE_VALUE ) {
+					if (Math.abs(nodeX-node2X) < DataStyle.NODE_OVERLAP_TOLERANCE_VALUE ||
+						Math.abs(nodeY-node2Y) < DataStyle.NODE_OVERLAP_TOLERANCE_VALUE ) {
 							// The first node has an EXTREMELY close neighbour. Show context menu
 							return true;
 					}

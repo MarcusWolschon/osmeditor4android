@@ -16,8 +16,8 @@ import de.blau.android.DebugInformation;
 import de.blau.android.LicenseViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
-import de.blau.android.resources.Profile;
-import de.blau.android.views.util.OpenStreetMapTileServer;
+import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.TileLayerServer;
 
 /**
  * Simple class for Android's standard-Preference Activity
@@ -77,19 +77,19 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		Preferences prefs = new Preferences(getActivity());
 		
 		// remove any problematic imagery URLs
-		OpenStreetMapTileServer.applyBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
+		TileLayerServer.applyBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
 		
 		ListPreference mapbgpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPBG);
-		String[] ids = OpenStreetMapTileServer.getIds(true);
-		mapbgpref.setEntries(OpenStreetMapTileServer.getNames(ids));
+		String[] ids = TileLayerServer.getIds(true);
+		mapbgpref.setEntries(TileLayerServer.getNames(ids));
 		mapbgpref.setEntryValues(ids);
 		OnPreferenceChangeListener l = new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				Log.d("PrefEditor", "onPreferenceChange");
 				String id = (String)newValue;
-				String[] ids = OpenStreetMapTileServer.getIds(false); // r.getStringArray(R.array.renderer_ids);
-				String[] names = OpenStreetMapTileServer.getNames(ids); // r.getStringArray(R.array.renderer_names);
+				String[] ids = TileLayerServer.getIds(false); // r.getStringArray(R.array.renderer_ids);
+				String[] names = TileLayerServer.getNames(ids); // r.getStringArray(R.array.renderer_names);
 				for (int i = 0; i < ids.length; i++) {
 					if (ids[i].equals(id)) {
 						preference.setSummary(names[i]);
@@ -104,16 +104,16 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		l.onPreferenceChange(mapbgpref, prefs.backgroundLayer());
 		
 		ListPreference mapolpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPOL);
-		String[] overlayIds = OpenStreetMapTileServer.getOverlayIds(true);
-		mapolpref.setEntries(OpenStreetMapTileServer.getOverlayNames(overlayIds));
+		String[] overlayIds = TileLayerServer.getOverlayIds(true);
+		mapolpref.setEntries(TileLayerServer.getOverlayNames(overlayIds));
 		mapolpref.setEntryValues(overlayIds);
 		OnPreferenceChangeListener ol = new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				Log.d("PrefEditor", "onPreferenceChange");
 				String id = (String)newValue;
-				String[] ids = OpenStreetMapTileServer.getOverlayIds(false); // r.getStringArray(R.array.renderer_ids);
-				String[] names = OpenStreetMapTileServer.getOverlayNames(ids); // r.getStringArray(R.array.renderer_names);
+				String[] ids = TileLayerServer.getOverlayIds(false); // r.getStringArray(R.array.renderer_ids);
+				String[] names = TileLayerServer.getOverlayNames(ids); // r.getStringArray(R.array.renderer_names);
 				for (int i = 0; i < ids.length; i++) {
 					if (ids[i].equals(id)) {
 						preference.setSummary(names[i]);
@@ -128,7 +128,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		ol.onPreferenceChange(mapolpref, prefs.overlayLayer());
 		
 		ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPPROFILE);
-		String[] profileList = Profile.getProfileList(getActivity());
+		String[] profileList = DataStyle.getStyleList(getActivity());
 		mapProfilePref.setEntries(profileList);
 		mapProfilePref.setEntryValues(profileList);
 		OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
@@ -136,7 +136,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				Log.d("PrefEditor", "onPreferenceChange mapProfile");
 				String id = (String)newValue;
-				String[] profileList = Profile.getProfileList(getActivity());
+				String[] profileList = DataStyle.getStyleList(getActivity());
 				String[] ids = profileList;
 				String[] names = profileList;
 				for (int i = 0; i < ids.length; i++) {

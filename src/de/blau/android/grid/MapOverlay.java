@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import de.blau.android.Map;
 import de.blau.android.osm.Server;
-import de.blau.android.resources.Profile;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
@@ -35,8 +35,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
-		fullLine = Profile.getCurrent(Profile.CROSSHAIRS).getPaint();
-		labelH = Profile.getCurrent(Profile.LABELTEXT).getPaint();
+		fullLine = DataStyle.getCurrent(DataStyle.CROSSHAIRS).getPaint();
+		labelH = DataStyle.getCurrent(DataStyle.LABELTEXT).getPaint();
 		labelV = new Paint(labelH);
 		labelV.setTextAlign(Paint.Align.RIGHT);
 		textHeight = labelV.getTextSize();

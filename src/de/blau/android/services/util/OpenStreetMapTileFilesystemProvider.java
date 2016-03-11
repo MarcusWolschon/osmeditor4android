@@ -16,9 +16,9 @@ import java.util.concurrent.Executors;
 import android.content.Context;
 import android.os.RemoteException;
 import android.util.Log;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 import de.blau.android.services.exceptions.EmptyCacheException;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * 
@@ -161,7 +161,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	}
 	
 	public String buildPath(final OpenStreetMapTile tile) {
-		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, tile.rendererID, false);
+		TileLayerServer renderer = TileLayerServer.get(mCtx, tile.rendererID, false);
 		String ext = renderer.getImageExtension();
 		return (ext == null) ? null :
 				mountPoint.getPath()
@@ -224,7 +224,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 					}
 				}
 	
-				OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, mTile.rendererID, false);
+				TileLayerServer renderer = TileLayerServer.get(mCtx, mTile.rendererID, false);
 				if (mTile.zoomLevel < renderer.getMinZoomLevel()) { // the tile doesn't exist no point in trying to get it
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
 					return;

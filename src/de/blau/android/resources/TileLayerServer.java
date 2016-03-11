@@ -1,5 +1,5 @@
 // Created by plusminus on 18:23:16 - 25.09.2008
-package  de.blau.android.views.util;
+package  de.blau.android.resources;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,7 +28,6 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -55,7 +54,7 @@ import de.blau.android.util.jsonreader.JsonReader;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  *
  */
-public class OpenStreetMapTileServer {
+public class TileLayerServer {
 	
 	/** A tile layer provide has some attribution text, and one or more coverage areas.
 	 * @author Andrew Gregory
@@ -69,7 +68,6 @@ public class OpenStreetMapTileServer {
 			private int zoomMin;
 			private int zoomMax;
 			private BoundingBox bbox = null;
-			private RectF area = new RectF(); // left<=right, top<=bottom
 			/**
 			 * Create a coverage area given XML data.
 			 * @param parser The XML parser.
@@ -234,8 +232,8 @@ public class OpenStreetMapTileServer {
 		}
 	}
 	
-	private static OpenStreetMapTileServer cachedBackground = null;
-	private static OpenStreetMapTileServer cachedOverlay = null;
+	private static TileLayerServer cachedBackground = null;
+	private static TileLayerServer cachedOverlay = null;
 	
 	private Resources r;
 	
@@ -254,8 +252,8 @@ public class OpenStreetMapTileServer {
 	private Collection<Provider> providers = new ArrayList<Provider>();
 	private Offset[] offsets;
 	
-	private static HashMap<String,OpenStreetMapTileServer> backgroundServerList =new HashMap<String,OpenStreetMapTileServer>();
-	private static HashMap<String,OpenStreetMapTileServer> overlayServerList = new HashMap<String,OpenStreetMapTileServer>();
+	private static HashMap<String,TileLayerServer> backgroundServerList =new HashMap<String,TileLayerServer>();
+	private static HashMap<String,TileLayerServer> overlayServerList = new HashMap<String,TileLayerServer>();
 	private static boolean ready = false;
 	private static Context myCtx;
 	private static ArrayList<String> imageryBlacklist = null;
@@ -382,7 +380,7 @@ public class OpenStreetMapTileServer {
 	 * @param tileHeight
 	 * @param async			run loadInfo in a AsyncTask needed for main process
 	 */
-	private OpenStreetMapTileServer(final Resources r, final String id, final String name, final String url, final String type, 
+	private TileLayerServer(final Resources r, final String id, final String name, final String url, final String type, 
 			final boolean overlay, final boolean defaultLayer, final Provider provider, final String termsOfUseUrl,
 			final int zoomLevelMin, final int zoomLevelMax, final int tileWidth, final int  tileHeight, boolean async) {
 		this.r = r;
@@ -463,7 +461,7 @@ public class OpenStreetMapTileServer {
 	 * @param r Application resources.
 	 * @return The default tile layer.
 	 */
-	public static OpenStreetMapTileServer getDefault(final Resources r, final boolean async) {
+	public static TileLayerServer getDefault(final Resources r, final boolean async) {
 		// ask for an invalid renderer, so we'll get the fallback default
 		return get(Application.mainActivity, "", async);
 	}
@@ -482,7 +480,7 @@ public class OpenStreetMapTileServer {
 			try {
 				reader.beginArray();
 				while (reader.hasNext()) {
-					OpenStreetMapTileServer osmts = readServer(reader, r, async);
+					TileLayerServer osmts = readServer(reader, r, async);
 					if (osmts != null) {
 						if (osmts.overlay && !overlayServerList.containsKey(osmts.id)) {
 							// Log.d("OpenStreetMapTileServer","Adding overlay " + osmts.overlay + " " + osmts.toString());
@@ -513,7 +511,7 @@ public class OpenStreetMapTileServer {
 	 * @param id The internal id of the tile layer, eg "MAPNIK"
 	 * @return
 	 */
-	public synchronized static OpenStreetMapTileServer get(final Context ctx, final String id, final boolean async) {	
+	public synchronized static TileLayerServer get(final Context ctx, final String id, final boolean async) {	
 		Resources r = ctx.getResources();
 		myCtx = ctx;
 		
@@ -561,7 +559,7 @@ public class OpenStreetMapTileServer {
 		else if (cachedOverlay != null && cachedOverlay.id.equals(id))
 			return cachedOverlay; 
 		else { 
-			OpenStreetMapTileServer tempOSMTS =  overlayServerList.get(id);
+			TileLayerServer tempOSMTS =  overlayServerList.get(id);
 			boolean overlay = tempOSMTS != null;
 			
 			if (overlay) {
@@ -584,7 +582,7 @@ public class OpenStreetMapTileServer {
 		} 
 	}
 	
-	private static OpenStreetMapTileServer readServer(JsonReader reader, final Resources r, boolean async) {
+	private static TileLayerServer readServer(JsonReader reader, final Resources r, boolean async) {
 		String id = null;
 		String name = null;
 		String url = null;
@@ -632,7 +630,7 @@ public class OpenStreetMapTileServer {
 		}
 		if (type == null || type.equals("wms"))
 			return null;
-		OpenStreetMapTileServer osmts = new OpenStreetMapTileServer(r, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl,
+		TileLayerServer osmts = new TileLayerServer(r, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl,
 				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, async);
 		return osmts;
 	}
@@ -905,7 +903,7 @@ public class OpenStreetMapTileServer {
 		boolean noneSeen = false;
 		TreeSet<String> sortedKeySet = new TreeSet<String>(backgroundServerList.keySet());
 		for (String key:sortedKeySet) {
-			OpenStreetMapTileServer osmts = backgroundServerList.get(key);
+			TileLayerServer osmts = backgroundServerList.get(key);
 			if (filtered) {
 				if (osmts.providers.size() > 0) {
 					boolean covers = false; // default is to not include  
@@ -945,7 +943,7 @@ public class OpenStreetMapTileServer {
 	public static String[] getNames(boolean filtered) {
 		ArrayList<String> names = new ArrayList<String>();
 		for (String key:getIds(filtered)) {
-			OpenStreetMapTileServer osmts = backgroundServerList.get(key);
+			TileLayerServer osmts = backgroundServerList.get(key);
 			names.add(osmts.name);
 		}
 		String [] result = new String[names.size()];
@@ -962,7 +960,7 @@ public class OpenStreetMapTileServer {
 	public static String[] getNames(String[] ids) {
 		ArrayList<String> names = new ArrayList<String>();
 		for (String key:ids) {
-			OpenStreetMapTileServer osmts = backgroundServerList.get(key);
+			TileLayerServer osmts = backgroundServerList.get(key);
 			names.add(osmts.name);
 		}
 		String [] result = new String[names.size()];
@@ -980,7 +978,7 @@ public class OpenStreetMapTileServer {
 		boolean noneSeen = false;
 		TreeSet<String> sortedKeySet = new TreeSet<String>(overlayServerList.keySet());
 		for (String key:sortedKeySet) {
-			OpenStreetMapTileServer osmts = overlayServerList.get(key);
+			TileLayerServer osmts = overlayServerList.get(key);
 			if (filtered) {
 				if (osmts.providers.size() > 0) {
 					boolean covers = false; // default is to not include  
@@ -1020,7 +1018,7 @@ public class OpenStreetMapTileServer {
 	public static String[] getOverlayNames(boolean filtered) {
 		ArrayList<String> names = new ArrayList<String>();
 		for (String key:getIds(filtered)) {
-			OpenStreetMapTileServer osmts = overlayServerList.get(key);
+			TileLayerServer osmts = overlayServerList.get(key);
 			names.add(osmts.name);
 		}
 		String [] result = new String[names.size()];
@@ -1037,7 +1035,7 @@ public class OpenStreetMapTileServer {
 	public static String[] getOverlayNames(String[] ids) {
 		ArrayList<String> names = new ArrayList<String>();
 		for (String key:ids) {
-			OpenStreetMapTileServer osmts = overlayServerList.get(key);
+			TileLayerServer osmts = overlayServerList.get(key);
 			names.add(osmts.name);
 		}
 		String [] result = new String[names.size()];
@@ -1201,7 +1199,7 @@ public class OpenStreetMapTileServer {
 		}
 		for (Pattern p:patterns) {
 			for (String key:new TreeSet<String>(backgroundServerList.keySet())) { // shallow copy
-				OpenStreetMapTileServer osmts = backgroundServerList.get(key);
+				TileLayerServer osmts = backgroundServerList.get(key);
 				Matcher m = p.matcher(osmts.tileUrl);
 				if (m.find()) {
 					backgroundServerList.remove(key);
@@ -1212,7 +1210,7 @@ public class OpenStreetMapTileServer {
 				}
 			}
 			for (String key:new TreeSet<String>(overlayServerList.keySet())) { // shallow copy
-				OpenStreetMapTileServer osmts = overlayServerList.get(key);
+				TileLayerServer osmts = overlayServerList.get(key);
 				Matcher m = p.matcher(osmts.tileUrl);
 				if (m.find()) {
 					overlayServerList.remove(key);

@@ -13,9 +13,9 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
-import de.blau.android.resources.Profile;
+import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.tasks.Task;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * Save the edit state accros pause / resume cycles
@@ -39,7 +39,7 @@ public class EditState implements Serializable {
 	final BoundingBox savedBox;
 
 	public EditState(Mode mode, List<Node> selectedNodes, List<Way> selectedWays,
-			List<Relation> selectedRelations, Task selectedBug, OpenStreetMapTileServer osmts, 
+			List<Relation> selectedRelations, Task selectedBug, TileLayerServer osmts, 
 			boolean showGPS, boolean autoDownload, boolean bugAutoDownload, String imageFileName, BoundingBox box) {
 		savedMode = mode;
 		savedNodes = selectedNodes;
@@ -99,11 +99,11 @@ public class EditState implements Serializable {
 			// shouldn't happen since we would have only stored a legal BB
 		}
 		map.setViewBox(logic.getViewBox());
-		Profile.updateStrokes(Logic.STROKE_FACTOR / logic.getViewBox().getWidth());
+		DataStyle.updateStrokes(Logic.STROKE_FACTOR / logic.getViewBox().getWidth());
 		map.invalidate();
 	}
 	
-	public void setOffset(OpenStreetMapTileServer osmts) {
+	public void setOffset(TileLayerServer osmts) {
 		Log.d("EditState","setOffset saved id " + savedTileServerID + " current id " + osmts.getId());
 		if (osmts.getId().equals(savedTileServerID)) {
 			Log.d("EditState","restoring offset");

@@ -18,13 +18,13 @@ import android.view.View;
 import de.blau.android.Application;
 import de.blau.android.Map;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.resources.Profile;
+import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.util.OpenStreetMapTileProvider;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * Overlay that draws downloaded tiles which may be displayed on top of an
@@ -56,7 +56,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	/**
 	 * The tile-server to load a rendered map from.
 	 */
-	protected OpenStreetMapTileServer myRendererInfo;
+	protected TileLayerServer myRendererInfo;
 
 	/** Current renderer */
 	protected final OpenStreetMapTileProvider mTileProvider;
@@ -71,7 +71,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * @param aTileProvider (may be null)
 	 */
 	public OpenStreetMapTilesOverlay(final View aView,
-			final OpenStreetMapTileServer aRendererInfo,
+			final TileLayerServer aRendererInfo,
 			final OpenStreetMapTileProvider aTileProvider) {
 		myView = aView;
 		myRendererInfo = aRendererInfo;
@@ -81,7 +81,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			mTileProvider = aTileProvider;
 		}
 		// 
-		textPaint = Profile.getCurrent(Profile.ATTRIBUTION_TEXT).getPaint();
+		textPaint = DataStyle.getCurrent(DataStyle.ATTRIBUTION_TEXT).getPaint();
 		// mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
 		Log.d("OpenStreetMapTilesOverlay","provider " + aRendererInfo.getId() 
 				+ " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel());
@@ -129,11 +129,11 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		mTileProvider.onLowMemory();
 	}
 
-	public OpenStreetMapTileServer getRendererInfo() {
+	public TileLayerServer getRendererInfo() {
 		return myRendererInfo;
 	}
 	
-	public void setRendererInfo(final OpenStreetMapTileServer aRendererInfo) {
+	public void setRendererInfo(final TileLayerServer aRendererInfo) {
 		if (myRendererInfo != aRendererInfo) {
 			// ...
 		}

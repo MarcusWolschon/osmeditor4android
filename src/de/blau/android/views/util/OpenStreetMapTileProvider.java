@@ -14,6 +14,7 @@ import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.exception.StorageException;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 import de.blau.android.services.IOpenStreetMapTileProviderService;
 import de.blau.android.services.util.OpenStreetMapAsyncTileProvider;
@@ -233,7 +234,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		public void mapTileFailed(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason) throws RemoteException {
 			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
 			if (reason == OpenStreetMapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting the proper one
-				OpenStreetMapTileServer osmts = OpenStreetMapTileServer.get(mCtx, rendererID, false);
+				TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, false);
 				//TODO check if we are inside the providers bounding box
 				if (zoomLevel < Math.max(0,osmts.getMinZoomLevel()-1)) {
 					try {

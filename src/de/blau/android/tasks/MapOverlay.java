@@ -12,7 +12,7 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
-import de.blau.android.resources.Profile;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
@@ -117,7 +117,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	public List<Task> getClickedTasks(final float x, final float y, final BoundingBox viewBox) {
 		List<Task> result = new ArrayList<Task>();
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {
-			final float tolerance = Profile.getCurrent().nodeToleranceValue;
+			final float tolerance = DataStyle.getCurrent().nodeToleranceValue;
 			ArrayList<Task> taskList = tasks.getTasks(viewBox);
 			if (taskList != null) {
 				Set<String>taskFilter = map.getPrefs().taskFilter();

@@ -16,8 +16,8 @@ import android.content.Context;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.Application;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * The OpenStreetMapTileDownloader loads tiles from a server and passes them to
@@ -72,7 +72,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// ===========================================================
 
 	private String buildURL(final OpenStreetMapTile tile) {
-		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, tile.rendererID, false);
+		TileLayerServer renderer = TileLayerServer.get(mCtx, tile.rendererID, false);
 		// Log.d("OpenStreetMapTileDownloader","metadata loaded "+ renderer.isMetadataLoaded() + " " + renderer.getTileURLString(tile));
 		return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
 	}

@@ -46,6 +46,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.NetworkStatus;
@@ -53,7 +54,6 @@ import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.jsonreader.JsonReader;
 import de.blau.android.util.jsonreader.JsonToken;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 public class BackgroundAlignmentActionModeCallback implements Callback {
 	
@@ -74,7 +74,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	
 	Offset[] oldOffsets;
 	
-	OpenStreetMapTileServer osmts;
+	TileLayerServer osmts;
 	Map map;
 	
 	ArrayList<ImageryOffset> offsetList;

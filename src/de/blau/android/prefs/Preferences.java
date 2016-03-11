@@ -15,7 +15,7 @@ import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
-import de.blau.android.resources.Profile;
+import de.blau.android.resources.DataStyle;
 
 /**
  * Convenience class for parsing and holding the application's SharedPreferences.
@@ -182,10 +182,10 @@ public class Preferences {
 		scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), "SCALE_METRIC");
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
 		// check if we actually still have the profile
-		if (Profile.getProfile(tempMapProfile) == null) {
-			if (Profile.getProfile(DEFAULT_MAP_PROFILE) == null) {
+		if (DataStyle.getStyle(tempMapProfile) == null) {
+			if (DataStyle.getStyle(DEFAULT_MAP_PROFILE) == null) {
 				Log.w(getClass().getName(), "Using builtin default profile instead of " + tempMapProfile + " and " + DEFAULT_MAP_PROFILE);
-				mapProfile = Profile.getBuiltinProfileName(); // built-in fall back
+				mapProfile = DataStyle.getBuiltinStyleName(); // built-in fall back
 			}
 			else {
 				Log.w(getClass().getName(), "Using default profile");
