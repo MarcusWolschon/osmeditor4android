@@ -26,7 +26,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
-import de.blau.android.Application;
 import de.blau.android.R;
 
 /**
@@ -54,12 +53,12 @@ public class SavingHelper<T extends Serializable> {
 	 * @param compress true if the output should be gzip-compressed, false if it should be written without compression
 	 * @return true if successful, false if saving failed for some reason
 	 */
-	public synchronized boolean save(String filename, T object, boolean compress) {
+	public synchronized boolean save(Context context, String filename, T object, boolean compress) {
 		
 		try
 		{
 			Log.d("SavingHelper", "preparing to save " + filename);
-			SaveThread r = new SaveThread(filename, object, compress);
+			SaveThread r = new SaveThread(context, filename, object, compress);
 			Thread t = new Thread(null, r, "SaveThread", 200000);
 			t.start();
 			t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this limits the size of the file that can be saved
@@ -74,16 +73,17 @@ public class SavingHelper<T extends Serializable> {
 		
 	public class SaveThread implements Runnable {
 		
-		String filename;
+		final String filename;
 		T	object;
-		boolean compress;
+		final boolean compress;
+		final Context context;
 		boolean result = false;
 		
-		SaveThread(String fn, T obj, boolean c) {
+		SaveThread(Context context, String fn, T obj, boolean c) {
 			filename = fn;
 			object = obj;
 			compress = c;
-			
+			this.context = context;
 		}
 		
 		public boolean getResult() {
@@ -97,7 +97,6 @@ public class SavingHelper<T extends Serializable> {
         	ObjectOutputStream objectOut = null;
         	try {
         		Log.i("SavingHelper", "saving  " + filename);
-        		Context context = Application.mainActivity.getApplicationContext();
         		String tempFilename = filename + "." + System.currentTimeMillis();
         		out = context.openFileOutput(tempFilename, Context.MODE_PRIVATE);
         		if (compress) {
@@ -134,11 +133,15 @@ public class SavingHelper<T extends Serializable> {
 	 * @param compressed true if the output is gzip-compressed, false if it is uncompressed
 	 * @return the deserialized object if successful, null if loading/deserialization/casting failed
 	 */
-	public synchronized T load(String filename, boolean compressed) {
+	public synchronized T load(Context context, String filename, boolean compressed) {
+		return load(context, filename, compressed, false);
+	}
+	
+	public synchronized T load(Context context, String filename, boolean compressed, boolean deleteOnFail) {
 		try
 		{
 			Log.d("SavingHelper", "preparing to load " + filename);
-			LoadThread r = new LoadThread(filename, compressed);
+			LoadThread r = new LoadThread(context, filename, compressed, deleteOnFail);
 			Thread t = new Thread(null, r, "LoadThread", 200000);
 			t.start();
 			t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this limits the size of the file that can be loaded
@@ -153,13 +156,17 @@ public class SavingHelper<T extends Serializable> {
 	
 	public class LoadThread implements Runnable {
 		
-		String filename;
-		boolean compressed;
+		final String filename;
+		final boolean compressed;
+		final boolean deleteOnFail;
+		final Context context;
 		T result;
 		
-		LoadThread(String fn,  boolean c) {
+		LoadThread(Context context, String fn,  boolean c, boolean deleteOnFail) {
 			filename = fn;
 			compressed = c;
+			this.deleteOnFail = deleteOnFail;
+			this.context = context;
 		}
 		
 		public T getResult() {
@@ -173,7 +180,6 @@ public class SavingHelper<T extends Serializable> {
 			ObjectInputStream objectIn = null;
 			try {
 				Log.d("SavingHelper", "loading  " + filename);
-				Context context = Application.mainActivity.getApplicationContext();
 				try {
 					in = context.openFileInput(filename);
 				} catch (FileNotFoundException fnfe) {
@@ -190,6 +196,16 @@ public class SavingHelper<T extends Serializable> {
 				T object = (T) objectIn.readObject();
 				Log.d("SavingHelper", "loaded " + filename + " successfully");
 				result = object;
+			} catch (IOException ioex) {
+				Log.e("SavingHelper", "failed to load " + filename, ioex);
+				try {
+					if (deleteOnFail) {
+						context.deleteFile(filename);
+					}
+				} catch (Exception ex) {
+					// ignore
+				}
+				result = null;
 			} catch (Exception e) {
 				Log.e("SavingHelper", "failed to load " + filename, e);
 				result = null;

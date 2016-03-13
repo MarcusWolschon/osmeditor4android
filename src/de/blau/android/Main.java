@@ -398,7 +398,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 		// check if first time user and display something if yes
 		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
-		String lastVersion = savingHelperVersion.load(VERSION_FILE, false);
+		String lastVersion = savingHelperVersion.load(this,VERSION_FILE, false);
 		boolean newInstall = (lastVersion == null || lastVersion.equals(""));
 		
 		loadOnResume = false;
@@ -457,7 +457,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				NewVersion.showDialog(this);
 			}
 		}
-		savingHelperVersion.save(VERSION_FILE, getString(R.string.app_version), false);
+		savingHelperVersion.save(this,VERSION_FILE, getString(R.string.app_version), false);
 	}
 	
 	/**
@@ -1556,7 +1556,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				loadOnResume = false;
 				Log.d(DEBUG_TAG,"handlePropertyEditorResult loading data");
 				logic.syncLoadFromFile(); // sync load
-				Application.getTaskStorage().readFromFile();
+				Application.getTaskStorage().readFromFile(this);
 			}
 			for (PropertyEditorData editorData:result) {
 				if (editorData == null) {

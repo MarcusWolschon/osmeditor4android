@@ -137,7 +137,7 @@ public class TaskStorage implements Serializable {
 
 		if (readingLock.tryLock()) {
 			// TODO this doesn't really help with error conditions need to throw exception
-			if (savingHelper.save(FILENAME, this, true)) { 
+			if (savingHelper.save(ctx, FILENAME, this, true)) { 
 				dirty = false;
 			} else {
 				// this is essentially catastrophic and can only happen if something went really wrong
@@ -156,10 +156,10 @@ public class TaskStorage implements Serializable {
 	 * Loads the storage data from the default storage file
 	 * NOTE: lock is acquired in logic before this is called
 	 */
-	public synchronized boolean readFromFile() {
+	public synchronized boolean readFromFile(Context context) {
 		try{
 			readingLock.lock();
-			TaskStorage newStorage = savingHelper.load(FILENAME, true); 
+			TaskStorage newStorage = savingHelper.load(context, FILENAME, true); 
 
 			if (newStorage != null) {
 				Log.d(DEBUG_TAG, "read saved state");

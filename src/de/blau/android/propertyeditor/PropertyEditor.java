@@ -354,7 +354,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		Log.d(DEBUG_TAG,"onResume");
 		super.onResume();
 		running = true;
-		Address.loadLastAddresses();
+		Address.loadLastAddresses(this);
 		Log.d(DEBUG_TAG,"onResume done");
 	}
 
@@ -639,7 +639,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		// Save tags to our clipboard
 		LinkedHashMap<String,String> copiedTags = tagEditorFragment.getCopiedTags();
 		if (copiedTags != null) {
-			savingHelper.save(COPIED_TAGS_FILE, copiedTags, false);
+			savingHelper.save(this, COPIED_TAGS_FILE, copiedTags, false);
 		}
 		// save any address tags for "last address tags"
 		if (currentTags != null && currentTags.size() == 1) {
@@ -752,7 +752,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 				}
 			}
 		}
-		Address.saveLastAddresses();
+		Address.saveLastAddresses(this);
 		super.onPause();
 	}
 	

@@ -339,7 +339,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			return true;
 		case R.id.tag_menu_reset_address_prediction:
 			// simply overwrite with an empty file
-			Address.resetLastAddresses();
+			Address.resetLastAddresses(getActivity());
 			return true;
 		case R.id.tag_menu_help:
 			HelpViewer.start(getActivity(), R.string.help_propertyeditor);

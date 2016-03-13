@@ -2684,14 +2684,14 @@ public class Logic {
 				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),
 				Application.mainActivity.getBugAutoDownload(),Application.mainActivity.getImageFileName(),
 				viewBox);
-		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
+		new SavingHelper<EditState>().save(Application.mainActivity,EDITSTATE_FILENAME, editState, false);	
 	}
 	
 	/**
 	 * Loads the current editing state (selected objects, editing mode, etc) from file.
 	 */
 	void loadEditingState() {
-		EditState editState = new SavingHelper<EditState>().load(EDITSTATE_FILENAME, false);
+		EditState editState = new SavingHelper<EditState>().load(Application.mainActivity,EDITSTATE_FILENAME, false);
 		if(editState != null) { // 
 			editState.setSelected(this);
 			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
@@ -2802,7 +2802,7 @@ public class Logic {
 			@Override
 			protected Integer doInBackground(Context... c) {
 				this.context = c[0];
-				if (Application.getTaskStorage().readFromFile()) {
+				if (Application.getTaskStorage().readFromFile(context)) {
 					// viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_OK);
 				} 

@@ -1915,7 +1915,7 @@ public class StorageDelegator implements Serializable, Exportable {
 
 		if (readingLock.tryLock()) {
 			// TODO this doesn't really help with error conditions need to throw exception
-			if (savingHelper.save(FILENAME, this, true)) { 
+			if (savingHelper.save(ctx, FILENAME, this, true)) { 
 				dirty = false;
 			} else {
 				// this is essentially catastrophic and can only happen if something went really wrong
@@ -1955,7 +1955,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public boolean readFromFile(String filename) {
 		try{
 			lock();
-			StorageDelegator newDelegator = savingHelper.load(filename, true); 
+			StorageDelegator newDelegator = savingHelper.load(Application.getCurrentApplication(),filename, true); 
 
 			if (newDelegator != null) {
 				Log.d("StorageDelegator", "read saved state");

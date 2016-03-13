@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeMap;
 
+import android.content.Context;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.Logic;
@@ -151,10 +152,10 @@ public class Address implements Serializable {
 	 * @param maxRank determines how far away from the nearest street the last address street can be, 0 will always use the nearest, higher numbers will provide some hysteresis
 	 * @return
 	 */
-	public synchronized static LinkedHashMap<String,ArrayList<String>> predictAddressTags(final String elementType, final long elementOsmId, final ElementSearch es, final LinkedHashMap<String, ArrayList<String>> current, int maxRank) {
+	public synchronized static LinkedHashMap<String,ArrayList<String>> predictAddressTags(Context context, final String elementType, final long elementOsmId, final ElementSearch es, final LinkedHashMap<String, ArrayList<String>> current, int maxRank) {
 		Address newAddress = null;
 			
-		loadLastAddresses();
+		loadLastAddresses(context);
 		
 		if (lastAddresses != null && lastAddresses.size() > 0) {
 			newAddress = new Address(elementType, elementOsmId,lastAddresses.get(0).tags); // last address we added
@@ -472,8 +473,8 @@ public class Address implements Serializable {
 		return result;
 	}
 	
-	protected synchronized static void resetLastAddresses() {
-		savingHelperAddress.save(ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
+	protected synchronized static void resetLastAddresses(Context context) {
+		savingHelperAddress.save(context, ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
 		lastAddresses = null;
 	}
 	
@@ -504,20 +505,20 @@ public class Address implements Serializable {
 				}
 			}
 			lastAddresses.addFirst(current);
-			savingHelperAddress.save(ADDRESS_TAGS_FILE, lastAddresses, false);
+			savingHelperAddress.save(caller.getActivity(),ADDRESS_TAGS_FILE, lastAddresses, false);
 		}
 	}
 	
-	protected synchronized static void saveLastAddresses() {
+	protected synchronized static void saveLastAddresses(Context context) {
 		if (lastAddresses != null) {
-			savingHelperAddress.save(ADDRESS_TAGS_FILE, lastAddresses, false);
+			savingHelperAddress.save(context, ADDRESS_TAGS_FILE, lastAddresses, false);
 		}
 	}
 	
-	protected synchronized static void loadLastAddresses() {
+	protected synchronized static void loadLastAddresses(Context context) {
 		if (lastAddresses == null) {
 			try {
-				lastAddresses = savingHelperAddress.load(ADDRESS_TAGS_FILE, false);
+				lastAddresses = savingHelperAddress.load(context, ADDRESS_TAGS_FILE, false);
 				Log.d("TagEditor","onResume read " + lastAddresses.size() + " addresses");
 			} catch (Exception e) {
 				//TODO be more specific

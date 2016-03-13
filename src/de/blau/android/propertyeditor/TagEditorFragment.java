@@ -280,7 +280,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		}	
 		// 
 		if (applyLastAddressTags) {
-			loadEdits(editRowLayout,Address.predictAddressTags(getType(),getOsmId(),
+			loadEdits(editRowLayout,Address.predictAddressTags(getActivity(), getType(),getOsmId(),
 					((StreetTagValueAutocompletionAdapter)nameAdapters.getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
 					getKeyValueMap(editRowLayout,false), Address.DEFAULT_HYSTERESIS));
 			if (getUserVisibleHint()) {
@@ -574,7 +574,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	
 	@Override
 	public void predictAddressTags(boolean allowBlanks) {
-		loadEdits(Address.predictAddressTags(getType(),getOsmId(),
+		loadEdits(Address.predictAddressTags(getActivity(), getType(),getOsmId(),
 				((StreetTagValueAutocompletionAdapter)nameAdapters.getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
 				getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS));
 		updateAutocompletePresetItem();
@@ -1459,7 +1459,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			return true;
 		case R.id.tag_menu_reset_address_prediction:
 			// simply overwrite with an empty file
-			Address.resetLastAddresses();
+			Address.resetLastAddresses(getActivity());
 			return true;
 		case R.id.tag_menu_help:
 			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
@@ -1647,7 +1647,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		if (copiedTags != null) {
 			mergeTags(copiedTags);
 		} else {
-			Map<String, String> copied = savingHelper.load(PropertyEditor.COPIED_TAGS_FILE, false);
+			Map<String, String> copied = savingHelper.load(getActivity(),PropertyEditor.COPIED_TAGS_FILE, false);
 			if (copied != null) {
 				mergeTags(copied);
 			}
