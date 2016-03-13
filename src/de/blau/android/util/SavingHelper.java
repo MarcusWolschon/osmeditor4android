@@ -190,6 +190,9 @@ public class SavingHelper<T extends Serializable> {
 				T object = (T) objectIn.readObject();
 				Log.d("SavingHelper", "loaded " + filename + " successfully");
 				result = object;
+			} catch (IOException ioex) {
+				Log.e("SavingHelper", "failed to load " + filename, ioex);
+				result = null;
 			} catch (Exception e) {
 				Log.e("SavingHelper", "failed to load " + filename, e);
 				result = null;
