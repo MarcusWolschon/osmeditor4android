@@ -38,7 +38,6 @@ import android.graphics.PixelXorXfermode;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.util.Log;
-import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.resources.Profile.FeatureProfile.DashPath;

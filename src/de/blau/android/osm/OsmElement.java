@@ -478,7 +478,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	public void resetHasProblem() {
 		checkedForProblem = false;
 	}
-	
+
 	/** (see also {@link #getName()} - this returns the full type, differentiating between open and closed ways) 
 	 * @return the {@link ElementType} of the element */
 	public abstract ElementType getType();
