@@ -2700,7 +2700,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	    if (prev != null) {
 	        ft.remove(prev);
 	    }
-	    ft.commit();
+	    ft.commitAllowingStateLoss();
 
         ElementInfoFragment elementInfoDialog = ElementInfoFragment.newInstance(element);
         elementInfoDialog.show(fm, "fragment_element_info");
