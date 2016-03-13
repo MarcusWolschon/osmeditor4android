@@ -47,6 +47,8 @@ public class ElementInfo extends SherlockDialogFragment {
 	private static final String DEBUG_TAG = ElementInfo.class.getName();
 	
 	private static final String TAG = "fragment_element_info";
+
+	private static final int FIRST_CELL_WIDTH = 20;
 	
 	static public void showDialog(FragmentActivity activity, OsmElement e) {
 		dismissDialog(activity);
@@ -183,7 +185,9 @@ public class ElementInfo extends SherlockDialogFragment {
 	private TableRow createRow(String cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
     	TableRow tr = new TableRow(getActivity());
     	TextView cell = new TextView(getActivity());
+    	cell.setSingleLine();
     	cell.setText(cell1);
+    	cell.setMinEms(FIRST_CELL_WIDTH);
     	if (cell2 == null) {
     		cell.setTypeface(null,Typeface.BOLD);
     	}
@@ -192,6 +196,7 @@ public class ElementInfo extends SherlockDialogFragment {
     	cell = new TextView(getActivity());
     	if (cell2 != null) {
     		cell.setText(cell2);
+    		cell.setMinEms(FIRST_CELL_WIDTH);
     		Linkify.addLinks(cell,Linkify.WEB_URLS);
     		cell.setMovementMethod(LinkMovementMethod.getInstance());
     		cell.setPadding(5, 0, 0, 0);
@@ -209,15 +214,18 @@ public class ElementInfo extends SherlockDialogFragment {
 	private TableRow createRow(int cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
     	TableRow tr = new TableRow(getActivity());
     	TextView cell = new TextView(getActivity());
+    	cell.setMinEms(FIRST_CELL_WIDTH);
+    	cell.setMaxLines(2);
     	cell.setText(cell1);
     	if (cell2 == null) {
     		cell.setTypeface(null,Typeface.BOLD);
-    	}
+    	} 
     	cell.setEllipsize(TruncateAt.MARQUEE);
     	tr.addView(cell);
     	cell = new TextView(getActivity());
     	if (cell2 != null) {
     		cell.setText(cell2);
+    		cell.setMinEms(FIRST_CELL_WIDTH);
     		Linkify.addLinks(cell,Linkify.WEB_URLS);
     		cell.setMovementMethod(LinkMovementMethod.getInstance());
     		cell.setPadding(5, 0, 0, 0);

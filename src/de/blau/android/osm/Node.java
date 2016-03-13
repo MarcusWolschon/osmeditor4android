@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
 

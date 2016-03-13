@@ -1088,13 +1088,14 @@ public class StorageDelegator implements Serializable, Exportable {
 			// Result: f3 f2 f1 (f0=)i0 i1 i2 i3   (f0 = 0th node of mergeFrom, i1 = 1st node of mergeInto)
 			atBeginning = true;
 			//check for direction dependent tags
-			Map<String, String> dirTags = mergeFrom.getDirectionDependentTags();
+			Map<String, String> dirTags = Reverse.getDirectionDependentTags(mergeFrom);
 			if (dirTags != null) {
-				mergeFrom.reverseDirectionDependentTags(dirTags, true);
+				Reverse.reverseDirectionDependentTags(mergeFrom,dirTags, true);
 			}
 			mergeOK = !mergeFrom.notReversable();
 			Collections.reverse(newNodes);
 			newNodes.remove(newNodes.size()-1); // remove "last" (originally first) node after reversing
+			reverseWayNodeTags(newNodes);
 		} else if (mergeInto.getLastNode().equals(mergeFrom.getFirstNode())) {
 			// Result: i0 i1 i2 i3(=f0) f1 f2 f3
 			atBeginning = false;
@@ -1107,12 +1108,13 @@ public class StorageDelegator implements Serializable, Exportable {
 			// Result: i0 i1 i2 i3(=f3) f2 f1 f0
 			atBeginning = false;
 			//check for direction dependent tags
-			Map<String, String> dirTags = mergeFrom.getDirectionDependentTags();
+			Map<String, String> dirTags = Reverse.getDirectionDependentTags(mergeFrom);
 			if (dirTags != null) {
-				mergeFrom.reverseDirectionDependentTags(dirTags, true);
+				Reverse.reverseDirectionDependentTags(mergeFrom, dirTags, true);
 			}
 			mergeOK = !mergeFrom.notReversable();
 			newNodes.remove(newNodes.size()-1); // remove last node before reversing
+			reverseWayNodeTags(newNodes);
 			Collections.reverse(newNodes);
 		} else {
 			throw new RuntimeException("attempted to merge non-mergeable nodes. this is a bug.");
@@ -1134,6 +1136,27 @@ public class StorageDelegator implements Serializable, Exportable {
 		mergeElementsRelations(mergeInto, mergeFrom);
 		
 		return mergeOK;
+	}
+	
+	/**
+	 * reverse any direction dependent tags on the way nodes
+	 * @param nodes
+	 */
+	void reverseWayNodeTags(List<Node> nodes) {
+		for (Node n:nodes) {
+			Map<String,String> nodeDirTags = Reverse.getDirectionDependentTags(n);
+			if (nodeDirTags!=null) {
+				undo.save(n);
+				Reverse.reverseDirectionDependentTags(n,nodeDirTags, true);
+				n.updateState(OsmElement.STATE_MODIFIED);
+				try {
+					apiStorage.insertElementSafe(n);
+				} catch (StorageException e) {
+					//TODO handle OOM
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	/**
@@ -1245,7 +1268,6 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 	
-
 	/**
 	 * Reverses a way
 	 * @param way
@@ -1255,15 +1277,25 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		undo.save(way);
 		//check for direction dependent tags
-		Map<String, String> dirTags = way.getDirectionDependentTags();
+		Map<String, String> dirTags = Reverse.getDirectionDependentTags(way);
 		//TODO inform user about the tags
 		if (dirTags != null) {
-			way.reverseDirectionDependentTags(dirTags, false); // assume he only wants to change the oneway direction for now
+			Reverse.reverseDirectionDependentTags(way, dirTags, false); // assume he only wants to change the oneway direction for now
 		}
+		reverseWayNodeTags(way.getNodes());
 		way.reverse();
-		List<Relation>relations = way.getRelationsWithDirectionDependentRoles();
+		List<Relation>relations = Reverse.getRelationsWithDirectionDependentRoles(way);
 		if (relations != null) {
-			way.reverseRoleDirection(relations);
+			Reverse.reverseRoleDirection(way,relations);
+			for (Relation r:relations) {
+				r.updateState(OsmElement.STATE_MODIFIED);
+				try {
+					apiStorage.insertElementSafe(r);
+				} catch (StorageException e) {
+					// TODO handle OOM
+					e.printStackTrace();
+				}
+			}
 		}
 		way.updateState(OsmElement.STATE_MODIFIED);
 		try {

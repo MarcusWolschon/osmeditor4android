@@ -70,6 +70,22 @@ public class Relation extends OsmElement implements BoundedObject {
 	}
 	
 	/**
+	 * Return all relation member elements for this OSM element
+	 * @param e
+	 * @return
+	 */
+	public List<RelationMember> getAllMembers(OsmElement e) {
+		ArrayList<RelationMember> result = new ArrayList<RelationMember>();
+		for (int i = 0; i < members.size(); i++) {
+			RelationMember member = members.get(i);
+			if (member.getElement() == e) {
+				result.add(member);
+			}
+		}
+		return result;
+	}
+	
+	/**
 	 * Return first relation member element for this OSM element
 	 * Note: if the element is present more than once you will only get ont
 	 * @param type
