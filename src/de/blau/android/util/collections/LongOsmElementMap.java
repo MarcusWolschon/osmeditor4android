@@ -361,6 +361,25 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			}
 		}
 	}
+	
+	/**
+	 * Rehash the map - needed when id's have changed etc.
+	 */
+	@SuppressWarnings("unchecked")
+	public void rehash() {
+		final OsmElement[] oldData = m_data;
+
+		m_data = new OsmElement[m_data.length];
+
+		m_size = 0;
+
+		for (int i = 0; i < m_data.length; i++) {
+			final OsmElement e = oldData[i];
+			if (e != FREE_KEY && e != removedKey) {
+				put(e.getOsmId(), (V) e);
+			}
+		}
+	}
 
 	/**
 	 * Iterator that skips FREE_KEY and REMOVED_KEY values

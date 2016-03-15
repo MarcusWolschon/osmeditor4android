@@ -315,4 +315,10 @@ public class Storage implements Serializable {
 	public LongOsmElementMap<Relation> getRelationIndex() {
 		return relations;
 	}
+	
+	public void rehash() {
+		nodes.rehash();
+		ways.rehash();
+		relations.rehash();
+	}
 }

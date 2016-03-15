@@ -2019,20 +2019,47 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	public synchronized void uploadToServer(final Server server, final String comment, String source, boolean closeChangeset) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
+		
+		//check if we have any created elements that will change their id
+		boolean rehash = false;
+		for (Node n:apiStorage.getNodes()) {
+			if (OsmElement.STATE_CREATED == n.getState()) {
+				rehash = true;
+				break;
+			}
+		}
+		if (!rehash) {
+			for (Way w:apiStorage.getWays()) {
+				if (OsmElement.STATE_CREATED == w.getState()) {
+					rehash = true;
+					break;
+				}
+			}
+			if (!rehash) {
+				for (Relation r:apiStorage.getRelations()) {
+					if (OsmElement.STATE_CREATED == r.getState()) {
+						rehash = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
 		server.openChangeset(comment, source, Util.listToOsmList(imagery));
-		Log.d("StorageDelegator","Uploading Nodes");
+		Log.d(DEBUG_TAG,"Uploading Nodes");
 		uploadCreatedOrModifiedElements(server, apiStorage.getNodes());
-		Log.d("StorageDelegator","Uploading Ways");
+		Log.d(DEBUG_TAG,"Uploading Ways");
 		uploadCreatedOrModifiedElements(server, apiStorage.getWays());
-		Log.d("StorageDelegator","Uploading Relations");
+		Log.d(DEBUG_TAG,"Uploading Relations");
 		uploadCreatedOrModifiedElements(server, apiStorage.getRelations());
-		Log.d("StorageDelegator","Deleting Relations");
+		Log.d(DEBUG_TAG,"Deleting Relations");
 		uploadDeletedElements(server, apiStorage.getRelations());
-		Log.d("StorageDelegator","Deleting Ways");
+		Log.d(DEBUG_TAG,"Deleting Ways");
 		uploadDeletedElements(server, apiStorage.getWays());
-		Log.d("StorageDelegator","Deleting Nodes");
+		Log.d(DEBUG_TAG,"Deleting Nodes");
 		uploadDeletedElements(server, apiStorage.getNodes());
 		
 		if (closeChangeset) {
@@ -2045,9 +2072,20 @@ public class StorageDelegator implements Serializable, Exportable {
 		imagery = new ArrayList<String>();
 		setImageryRecorded(false);
 		
+		if (rehash) {
+			// ids have changed, need to rehash
+			Log.d(DEBUG_TAG, "rehash currentStorage");
+			currentStorage.rehash();
+		}
+		
 		// sanity check
 		if (!apiStorage.isEmpty()) {
-			Log.d("StorageDelegator", "apiStorage not empty");
+			Log.d(DEBUG_TAG, "apiStorage not empty");
+			if (rehash) {
+				// ids may have changed, need to rehash
+				Log.d(DEBUG_TAG, "rehash apiStorage");
+				apiStorage.rehash();
+			}
 		}
 	}
 
@@ -2078,11 +2116,11 @@ public class StorageDelegator implements Serializable, Exportable {
 			case OsmElement.STATE_CREATED:
 				long osmId = server.createElement(element);
 				if (osmId > 0) {
-					element.setOsmId(osmId);
 					if (!apiStorage.removeElement(element)) {
 						Log.e(DEBUG_TAG, "New " + element + " was already removed from local storage!");
 					}
 					Log.w(DEBUG_TAG, "New " + element + " added to API");
+					element.setOsmId(osmId); // id change requires rehash so that removing works, remove first then set id
 					element.setState(OsmElement.STATE_UNCHANGED);
 				} else {
 					Log.d(DEBUG_TAG, "Didn't get new ID: " + osmId);

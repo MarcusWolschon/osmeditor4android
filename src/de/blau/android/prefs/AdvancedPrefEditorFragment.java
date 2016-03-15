@@ -67,7 +67,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Log.d("AdvancedPrefEditor", "onPreferenceClick 2");
-				Intent intent = new Intent(getActivity(), AdvancedPrefEditor.class);
+				Intent intent = new Intent(getActivity(), APIEditorActivity.class);
 				if (Main.hasChanges()) {
 					DataLossActivity.showDialog(getActivity(), intent, -1);
 				} else {
