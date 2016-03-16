@@ -820,7 +820,9 @@ public class Preset implements Serializable {
     public String toJSON() {
     	String result = "";
     	for (PresetItem pi:allItems) {
-    		result = result + pi.toJSON();
+    		if (!pi.isChunk()) {
+    			result = result + pi.toJSON();
+    		}
     	}
     	return result;
     }
@@ -1938,24 +1940,47 @@ public class Preset implements Serializable {
 			return jsonString;
 		}
 		
+		/**
+		 * For taginfo.openstreetmap.org
+		 * @param key
+		 * @param value
+		 * @return
+		 */
 		private String tagToJSON(String key, String value) {
-			String result = "{ \"key\": \"" + key + "\"" + (value == null ? "" : ", \"value\": \"" + value + "\"");
-			result = result + " , \"object_types\": [";
+			String presetName = name;
+			PresetElement p = getParent();
+			while (p != null && p != rootGroup && !"".equals(p.getName())){
+				presetName = p.getName() + "/" + presetName;
+				p = p.getParent();
+			}
+			String result = "{\"description\":\"" + presetName + "\",\"key\": \"" + key + "\"" + (value == null ? "" : ",\"value\": \"" + value + "\"");
+			result = result + ",\"object_types\": [";
+			boolean first = true;
 			if (appliesToNode) {
 				result = result + "\"node\"";
+				first = false;
 			}
-			if (appliesToRelation) {
-				if (appliesToNode) {
-					result = result + ",";
-				}
-				result = result + "\"node\"";
-			}
-			if (appliesToWay || appliesToClosedway || appliesToArea) {
-				if (appliesToRelation) {
+			if (appliesToWay) {
+				if (!first) {
 					result = result + ",";
 				}
 				result = result + "\"way\"";
-			}			
+				first = false;
+			}	
+			if (appliesToRelation) {
+				if (!first) {
+					result = result + ",";
+				}
+				result = result + "\"relation\"";
+				first = false;
+			}
+			if (appliesToClosedway || appliesToArea) {
+				if (!first) {
+					result = result + ",";
+				}
+				result = result + "\"area\"";
+				first = false;
+			}
 			return  result + "]},\n";
 		}
 	}
