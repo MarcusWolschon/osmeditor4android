@@ -11,7 +11,7 @@
 			"editor"
 		]
 		
-},
+	},
 "tags":[
 {"description":"Highways/Streets/Motorway","key": "highway","object_types": ["way"]},
 {"description":"Highways/Streets/Motorway","key": "highway","value": "motorway","object_types": ["way"]},
@@ -18601,4 +18601,5 @@
 {"description":"Offices/Vacant","key": "level","value": "-4","object_types": ["node","area"]},
 {"description":"Offices/Vacant","key": "level","value": "-5","object_types": ["node","area"]}
 ]
+}
 
