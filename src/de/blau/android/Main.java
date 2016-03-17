@@ -492,6 +492,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 		prefs = new Preferences(this);
 		Application.getLogic().setPrefs(prefs);
+		
+		// if we have been stopped delegator and viewbox willt not be set if our original Logic instance is still around
+		map.setDelegator(Application.getDelegator());
+		map.setViewBox(Application.getLogic().getViewBox());
+		
 		map.setPrefs(prefs);
 		map.createOverlays();
 		map.requestFocus();

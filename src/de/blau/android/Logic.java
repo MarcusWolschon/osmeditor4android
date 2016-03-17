@@ -299,7 +299,6 @@ public class Logic {
 		setSelectedWay(null);
 		setSelectedRelation(null);
 
-		// map.setPaints(paints);
 		map.setDelegator(getDelegator());
 		map.setViewBox(viewBox);
 	}
