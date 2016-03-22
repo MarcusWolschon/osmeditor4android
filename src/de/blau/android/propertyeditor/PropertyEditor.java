@@ -40,6 +40,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
 import de.blau.android.Application;
@@ -287,7 +288,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
-		
 		if (usePaneLayout) { // add both preset fragments to panes
 			Log.d(DEBUG_TAG,"Adding MRU prests");
 			FragmentManager fm = getSupportFragmentManager();
@@ -319,8 +319,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			}
 		} else {
 			presetFragmentPosition = 0;
-			tagFormFragmentPosition = 1;
-			tagEditorFragmentPosition = 2; // FIXME
 			if (formEnabled) {
 				tagFormFragmentPosition = 1;
 				tagEditorFragmentPosition = 2; // FIXME
@@ -363,6 +361,19 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		Log.d(DEBUG_TAG,"onDestroy");
 		super.onDestroy();
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Due to a problem of not being able to intercept android.R.id.home in fragments on older android versions
+		// we start passing the event to the currently displayed fragment.
+		// REF: http://stackoverflow.com/questions/21938419/intercepting-actionbar-home-button-in-fragment	
+		SherlockFragment fragment = ((PropertyEditorPagerAdapter) mViewPager.getAdapter()).getItem(false,mViewPager.getCurrentItem());
+		if (item.getItemId() == android.R.id.home && fragment != null && fragment.getView() != null && fragment.onOptionsItemSelected(item)) {
+			Log.d(DEBUG_TAG,"called fragment onOptionsItemSelected");
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 		
 	public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
 		
@@ -373,7 +384,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	        this.tags = tags;
 	    }
 
-	    @Override
+		@Override
 	    public int getCount() {
 	    	int pages = 0;
 	    	if (loadData.length == 1) {
@@ -421,55 +432,63 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    
 	    @Override
 	    public SherlockFragment getItem(int position) {
-	    	Log.d(DEBUG_TAG, "getItem " + position);
+	    	return getItem(true, position);
+	    }
+	    
+	    public SherlockFragment getItem(boolean instantiate, int position) {
+	    	Log.d(DEBUG_TAG, "getItem " + instantiate + " " + position);
 	    	if (formEnabled) {
 	    		if (!usePaneLayout) {
 	    			switch(position) {
 	    			case 0: 
-	    				presetFragment = PresetFragment.newInstance(elements[0]); // 
+	    				if (instantiate) {
+	    					presetFragment = PresetFragment.newInstance(elements[0]); // 
+	    				}
 	    				return presetFragment;
 	    			case 1: 		
-	    				return tagFormFragment(position, true);
+	    				return instantiate ? tagFormFragment(position, true) : tagFormFragment;
 	    			case 2: 		
-	    				return tagEditorFragment(position, false);
+	    				return instantiate ? tagEditorFragment(position, false) : tagEditorFragment;
 	    			case 3:
-	    				return isRelation ? relationMembersFragment() : relationMembershipFragment();
+	    				return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment) : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
 	    			case 4:
-	    				return relationMembershipFragment();
+	    				return instantiate ? relationMembershipFragment() : relationMembershipFragment;
 	    			}
 	    		} else {
 	    			switch(position) {
 	    			case 0: 		
-	    				return tagFormFragment(position, false);
+	    				return instantiate ? tagFormFragment(position, false) : tagFormFragment;
 	    			case 1: 		
-	    				return tagEditorFragment(position, false);
+	    				return instantiate ? tagEditorFragment(position, false) : tagEditorFragment;
 	    			case 2:
-	    				return isRelation ? relationMembersFragment() : relationMembershipFragment();
+	    				return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment) : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
 	    			case 3:
-	    				return relationMembershipFragment();
+	    				return instantiate ? relationMembershipFragment() : relationMembershipFragment;
 	    			}
 	    		}
 	    	} else  {
 	    		if (!usePaneLayout) {
 	    			switch(position) {
 	    			case 0: 
-	    				presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
+	    				if (instantiate) {
+	    					presetFragment = PresetFragment.newInstance(elements[0]); // 
+	    				}
 	    				return presetFragment;
 	    			case 1: 		
-	    				return tagEditorFragment(position, true);
+	    				return instantiate ? tagEditorFragment(position, true) : tagEditorFragment;
 	    			case 2:
-	    				return isRelation ? relationMembersFragment() : relationMembershipFragment();
+	    				return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment) : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
 	    			case 3:
-	    				return relationMembershipFragment();
+	    				return instantiate ? relationMembershipFragment() : relationMembershipFragment;
 	    			}
 	    		} else {
 	    			switch(position) {
 	    			case 0: 		
-	    				return tagEditorFragment(position, false);
+	    				return instantiate ? tagEditorFragment(position, false) :tagEditorFragment;
 	    			case 2:
-	    				return isRelation ? relationMembersFragment() : relationMembershipFragment();
+	    				return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment) : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
 	    			case 3:
-	    				return relationMembershipFragment();
+	    				return instantiate ? relationMembershipFragment() : relationMembershipFragment;
 	    			}
 	    		}
 	    	}
@@ -543,7 +562,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
 		@Override
 		public void onPageSelected(int page) {
-			if (page == tagFormFragmentPosition && tagFormFragment != null) {
+			if (formEnabled && page == tagFormFragmentPosition && tagFormFragment != null) {
 				tagFormFragment.update();
 			}
 		}

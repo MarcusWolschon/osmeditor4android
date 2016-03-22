@@ -301,11 +301,12 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		// disable address tagging for stuff that won't have an address
 		// menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME) || element.hasTagKey(Tags.KEY_BUILDING));
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
+			Log.d(DEBUG_TAG,"home pressed");
 			updateEditorFromText();
 			((PropertyEditor)getActivity()).sendResultAndFinish();
 			return true;
@@ -359,11 +360,17 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	/**
 	 * update editor with any potential text changes that haven't been saved yet
 	 */
-	private void updateEditorFromText() {
+	private boolean updateEditorFromText() {
+		Log.d(DEBUG_TAG,"updating data from last text field");
 		// check for focus on text field
-		LinearLayout l = (LinearLayout) getView().findViewById(R.id.form_container_layout);
+		View fragementView = getView();
+		if (fragementView == null) {
+			return false; // already destroyed?
+		}
+		LinearLayout l = (LinearLayout) fragementView.findViewById(R.id.form_container_layout);
 		if (l != null) { // FIXME this might need an alert
 			View v = l.findFocus();
+			Log.d(DEBUG_TAG,"focus is on " + v);
 			if (v != null && v instanceof CustomAutoCompleteTextView){
 				View row = v;
 				do {
@@ -374,6 +381,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 				}
 			}
 		}
+		return true;
 	}
 	
 	/**
