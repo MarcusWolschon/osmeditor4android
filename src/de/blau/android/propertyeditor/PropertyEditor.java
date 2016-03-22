@@ -185,7 +185,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		// super.onCreate(null); // hack to stop the system recreating the fragments from the stored state
 		
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		// requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		
 		if (prefs.splitActionBarEnabled()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {

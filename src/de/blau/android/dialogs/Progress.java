@@ -140,7 +140,7 @@ public class Progress extends SherlockDialogFragment
         ProgressDialog dialog = new ProgressDialog(getActivity(), getTheme());
         dialog.setTitle(getString(titleId));
         dialog.setMessage(getString(messageId));
-        // dialog.setIndeterminate(true);
+        dialog.setIndeterminate(true);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         return dialog;
     }
