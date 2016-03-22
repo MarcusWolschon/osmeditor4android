@@ -1670,7 +1670,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 *                       should be closed or kept open.
 	 */
 	public void performUpload(final String comment, final String source, final boolean closeChangeset) {
-		ConfirmUpload.dismissDialog(this);
 		final Logic logic = Application.getLogic();
 		final Server server = prefs.getServer();
 

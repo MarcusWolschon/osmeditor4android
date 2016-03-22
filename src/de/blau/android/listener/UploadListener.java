@@ -5,6 +5,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import de.blau.android.Main;
+import de.blau.android.dialogs.ConfirmUpload;
 
 /**
  * @author mb
@@ -29,7 +30,7 @@ public class UploadListener implements OnClickListener {
 	
 	@Override
 	public void onClick(final DialogInterface dialog, final int which) {
+		ConfirmUpload.dismissDialog(caller);
 		caller.performUpload(commentField.getText().toString(), sourceField.getText().toString(), closeChangeset.isChecked());
 	}
-	
 }

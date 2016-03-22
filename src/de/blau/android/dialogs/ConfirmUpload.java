@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import org.acra.ACRA;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -41,11 +43,17 @@ public class ConfirmUpload extends SherlockDialogFragment
 		dismissDialog(activity);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
-	    ConfirmUpload uploadConflictDialogFragment = newInstance();
-	    if (uploadConflictDialogFragment != null) {
-	    	uploadConflictDialogFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create dialog for upload confirmation");
+	    ConfirmUpload confirmUploadDialogFragment = newInstance();
+	    try {
+	    	if (confirmUploadDialogFragment != null) {
+	    		confirmUploadDialogFragment.show(fm, TAG);
+	    	} else {
+	    		Log.e(DEBUG_TAG,"Unable to create dialog for upload confirmation");
+	    	}
+	    } catch (IllegalStateException isex) {
+	    	Log.e(DEBUG_TAG,"showDialog",isex);
+	    	ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(isex);
 	    }
 	}
 	
@@ -56,7 +64,13 @@ public class ConfirmUpload extends SherlockDialogFragment
 	    if (fragment != null) {
 	        ft.remove(fragment);
 	    }
-	    ft.commit();
+	    try {
+	    	ft.commit();
+	    } catch (IllegalStateException isex) {
+	    	Log.e(DEBUG_TAG,"showDialog",isex);
+	    	ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(isex);
+	    }
 	}
 		
     /**
