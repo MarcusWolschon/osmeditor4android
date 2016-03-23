@@ -384,7 +384,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	        this.tags = tags;
 	    }
 
-		@Override
+	    @Override
 	    public int getCount() {
 	    	int pages = 0;
 	    	if (loadData.length == 1) {
