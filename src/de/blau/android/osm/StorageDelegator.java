@@ -1024,16 +1024,24 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param o2
 	 * @return
 	 */
-	private boolean roleConflict(OsmElement o1, OsmElement o2) {
-		
+	private boolean roleConflict(OsmElement o1, OsmElement o2) {	
 		ArrayList<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<Relation>();
 		ArrayList<Relation> r2 = o2.getParentRelations() != null ? o2.getParentRelations() : new ArrayList<Relation>();
 		for (Relation r : r1) {
 			if (r2.contains(r)) {
 				RelationMember rm1 = r.getMember(o1);
 				RelationMember rm2 = r.getMember(o2);
-				if (!rm1.getRole().equals(rm2.getRole())) {
-					Log.d("StorageDelegator","role conflict between " + o1.getDescription() + " role " + rm1.getRole() + " and " + o2.getDescription() + " role " + rm2.getRole());
+				if (rm1 != null && rm2 != null) { // if either of these are null something is broken
+					String role1 = rm1.getRole();
+					String role2 = rm2.getRole();
+					if ((role1 != null && role2 == null) || (role1 == null && role2 != null) || (role1 != role2 && !role1.equals(role2))) {
+						Log.d(DEBUG_TAG,"role conflict between " + o1.getDescription() + " role " + role1 + " and " + o2.getDescription() + " role " + role2);
+						return true;
+					}
+				} else {
+					Log.d(DEBUG_TAG,"inconsistent relation membership in " + r.getOsmId() + " for " + o1.getOsmId() + " and " + o2.getOsmId());
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(null);
 					return true;
 				}
 			}
