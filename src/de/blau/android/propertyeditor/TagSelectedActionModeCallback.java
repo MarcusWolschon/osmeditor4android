@@ -35,7 +35,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 	@Override
 	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 		super.onCreateActionMode(mode, menu);
-		mode.setTitle(R.string.tag_action_title);
+		mode.setTitle(R.string.tag_action_tag_title);
 		return true;
 	}
 	
