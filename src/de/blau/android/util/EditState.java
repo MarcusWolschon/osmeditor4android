@@ -6,6 +6,7 @@ import java.util.List;
 import android.util.Log;
 import de.blau.android.Logic;
 import de.blau.android.Logic.Mode;
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.exception.OsmException;
@@ -61,22 +62,25 @@ public class EditState implements Serializable {
 		Log.d("EditState","savedMode " + savedMode);
 		if (savedNodes != null) {
 			for (Node n:savedNodes) {
-				if (logic.exists(n)) {
-					logic.addSelectedNode(n);
+				Node nodeInStorage = (Node) Application.getDelegator().getOsmElement(Node.NAME,n.getOsmId());
+				if (nodeInStorage != null) {
+					logic.addSelectedNode(nodeInStorage);
 				}
 			}
 		}
 		if (savedWays != null) {
 			for (Way w:savedWays) {
-				if (logic.exists(w)) {
-					logic.addSelectedWay(w);
+				Way wayInStorage = (Way) Application.getDelegator().getOsmElement(Way.NAME,w.getOsmId());
+				if (wayInStorage != null) {
+					logic.addSelectedWay(wayInStorage);
 				}
 			}
 		}
 		if (savedRelations != null) {
 			for (Relation r:savedRelations) {
-				if (logic.exists(r)) {
-					logic.addSelectedRelation(r);
+				Relation relationInStorage = (Relation) Application.getDelegator().getOsmElement(Relation.NAME,r.getOsmId());
+				if (relationInStorage != null) {
+					logic.addSelectedRelation(relationInStorage);
 				}
 			}
 		}
