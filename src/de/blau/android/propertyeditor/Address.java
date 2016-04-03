@@ -58,6 +58,10 @@ public class Address implements Serializable {
 	
 	private static LinkedList<Address> lastAddresses = null;
 	
+	/**
+	 * Create a copy of Address a
+	 * @param a
+	 */
 	Address(Address a) {
 		side = a.side;
 		lat = a.lat;
@@ -65,15 +69,47 @@ public class Address implements Serializable {
 		tags = new LinkedHashMap<String, ArrayList<String>>(a.tags);
 	}
 	
+	/**
+	 * Create empty address object
+	 */
 	Address() {
 		tags = new LinkedHashMap<String, ArrayList<String>>();
 	}
 	
+	/**
+	 * Create an address object from an OSM element
+	 * @param type type of element	
+	 * @param id its ID
+	 * @param tags the relevant address tags
+	 */
 	Address(String type, long id, LinkedHashMap<String, ArrayList<String>> tags) {
 		OsmElement e = Application.getDelegator().getOsmElement(type, id);
+		if (e == null) {
+			Log.e(DEBUG_TAG,type + " " + id + " doesn't exist in storage ");
+			//FIXME is might make sense to create a crash dump here
+			return;
+		}
+		init(e,tags);
+	}
+	
+	/**
+	 * Create an address object from an OSM element 
+	 * @param e the OSM element
+	 * @param tags the relevant address tags
+	 */
+	Address(OsmElement e, LinkedHashMap<String, ArrayList<String>> tags) {
+		init(e,tags);
+	}
+	
+	/**
+	 * Initialize an address object from an OSM element 
+	 * @param e the OSM element
+	 * @param tags the relevant address tags
+	 */
+	private void init(OsmElement e, LinkedHashMap<String, ArrayList<String>> tags) {
 		switch (e.getType()) {
 		case NODE: lat = ((Node)e).getLat()/1E7F; lon = ((Node)e).getLon()/1E7F; 
-			break;
+		break;
 		case WAY:
 		case CLOSEDWAY:
 		case AREA:
@@ -94,7 +130,7 @@ public class Address implements Serializable {
 		}
 		this.tags = new LinkedHashMap<String, ArrayList<String>>(tags);
 	}
-	
+
 	/**
 	 * Set which side of the road this address is on
 	 * @param wayId
@@ -219,14 +255,14 @@ public class Address implements Serializable {
 					}
 					newAddress.side = Side.UNKNOWN;
 				}
-				Log.d("TagEditor","side " + newAddress.getSide());
+				Log.d(DEBUG_TAG,"side " + newAddress.getSide());
 				Side side = newAddress.getSide();
 				// find the addresses corresponding to the current street
 				if (!hasNumber && street != null && lastAddresses != null) {
 					TreeMap<Integer,Address> list = getHouseNumbers(street, side, lastAddresses);
 					if (list.size() == 0) { // try to seed lastAddresses from OSM data
 						try {
-							Log.d("TagEditor","street " + street);
+							Log.d(DEBUG_TAG,"street " + street);
 							long streetId = -1;
 							if  (!hasPlace) {
 								streetId = es.getStreetId(street);
@@ -352,6 +388,10 @@ public class Address implements Serializable {
 								tags.put(key,list.get(list.firstKey()).tags.get(key));
 							}
 						}
+					} else if (list.size() == 0) {
+						tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
+						// NOTE this could be the first address on this side of the road and we could
+						// potentially use the house numbers from the opposite side for prediction
 					}
 				}
 			} else { // last ditch attemot
@@ -421,12 +461,12 @@ public class Address implements Serializable {
 						|| (addrPlaceValues != null && addrPlaceValues.size() > 0 && addrPlaceValues.get(0).equals(street)))
 						&& a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)
 						&& a.getSide() == side) {
-					Log.d("TagEditor","Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
+					Log.d(DEBUG_TAG,"Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
 					ArrayList<String> addrHousenumberValues = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
 					if ( addrHousenumberValues != null && addrHousenumberValues.size()>0) {
 						String[] numbers =  addrHousenumberValues.get(0).split("[\\,;\\-]");
 						for (String n:numbers) {
-							Log.d("TagEditor","add number  " + n);
+							Log.d(DEBUG_TAG,"add number  " + n);
 							try {
 								result.put(Integer.valueOf(getNumber(n)),a);
 							} catch (NumberFormatException nfe){
@@ -448,7 +488,7 @@ public class Address implements Serializable {
 	 */
 	private static void seedAddressList(String street,long streetId, OsmElement e,LinkedList<Address> addresses) {
 		if (e.hasTag(Tags.KEY_ADDR_STREET, street) && e.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-			Address seed = new Address(e.getName(), e.getOsmId(),getAddressTags(new LinkedHashMap<String,ArrayList<String>>(Util.getArrayListMap(e.getTags()))));
+			Address seed = new Address(e,getAddressTags(new LinkedHashMap<String,ArrayList<String>>(Util.getArrayListMap(e.getTags()))));
 			if (streetId > 0) {
 				seed.setSide(streetId);
 			}
