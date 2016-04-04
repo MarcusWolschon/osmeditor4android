@@ -115,7 +115,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 							File pDir = new File(dir2);
 							if (!pDir.exists()) {
 								Log.d(LOGTAG, "Deleting entries for gone dir " + dir2);
-								db.delete("photos","dir = '" + dir2 + "'", null);
+								db.delete("photos","dir = ?", new String[] {dir2});
 							}
 							dbresult2.moveToNext();
 						}
@@ -124,12 +124,12 @@ public class PhotoIndex extends SQLiteOpenHelper {
 						ContentValues values = new ContentValues();
 						Log.d(LOGTAG,"updating last scan for " + indir.getName() + " to " + System.currentTimeMillis());
 						values.put("last_scan", System.currentTimeMillis());	
-						db.update("directories", values, "dir = '" + indir.getName() + "'", null);
+						db.update("directories", values, "dir = ?", new String[] {indir.getName()});
 					} else {
 						Log.d(LOGTAG, "Directory " + indir.getAbsolutePath() + " doesn't exist");
 						// remove all entries for this directory
-						db.delete("photos","dir = '" + indir.getAbsolutePath() + "'", null);
-						db.delete("photos","dir LIKE '" + indir.getAbsolutePath() + "/%'", null);
+						db.delete("photos","dir = ?", new String[] {indir.getAbsolutePath()});
+						db.delete("photos","dir LIKE ?", new String[] {indir.getAbsolutePath() + "/%"});
 					}
 				}
 				dbresult.moveToNext();
@@ -153,7 +153,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 				// remove all entries
 				Log.d(LOGTAG,"deleteing refs for reindex");
 				try {
-					db.delete("photos","dir = '" + indir.getAbsolutePath() + "'", null);
+					db.delete("photos","dir = ?", new String[] { indir.getAbsolutePath()});
 				} catch (SQLiteException sqex) { 
 					Log.d(LOGTAG, sqex.toString()); 
 					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
