@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
@@ -24,7 +25,7 @@ import de.blau.android.tasks.Task;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 11L;
+	private static final long serialVersionUID = 12L;
 	final Mode savedMode;
 	final List<Node> savedNodes;
 	final List<Way> savedWays;
@@ -38,15 +39,16 @@ public class EditState implements Serializable {
 	final boolean savedBugAutoDownload;
 	final String savedImageFileName;
 	final BoundingBox savedBox;
+	final ArrayList<String> savedLastComments;
+	final ArrayList<String> savedLastSources;
 
-	public EditState(Mode mode, List<Node> selectedNodes, List<Way> selectedWays,
-			List<Relation> selectedRelations, Task selectedBug, TileLayerServer osmts, 
+	public EditState(Logic logic,  TileLayerServer osmts, 
 			boolean showGPS, boolean autoDownload, boolean bugAutoDownload, String imageFileName, BoundingBox box) {
-		savedMode = mode;
-		savedNodes = selectedNodes;
-		savedWays = selectedWays;
-		savedRelations = selectedRelations;
-		savedBug = selectedBug;
+		savedMode = logic.getMode();
+		savedNodes = logic.getSelectedNodes();
+		savedWays = logic.getSelectedWays();
+		savedRelations = logic.getSelectedRelations();
+		savedBug = logic.getSelectedBug();
 		savedTileServerID = osmts.getId();
 		savedOffsets = osmts.getOffsets();
 		savedMinZoom = osmts.getMinZoomLevel();
@@ -55,6 +57,8 @@ public class EditState implements Serializable {
 		savedBugAutoDownload = bugAutoDownload;
 		savedImageFileName = imageFileName;
 		savedBox = box;
+		savedLastComments = logic.getLastComments();
+		savedLastSources = logic.getLastSources();
 	}
 	
 	public void setSelected(Logic logic) {
@@ -88,11 +92,13 @@ public class EditState implements Serializable {
 		logic.setSelectedBug(savedBug);
 	}
 	
-	public void setMiscState(Main main) {
+	public void setMiscState(Main main, Logic logic) {
 		main.setShowGPS(savedShowGPS);
 		main.setAutoDownload(savedAutoDownload);
 		main.setBugAutoDownload(savedBugAutoDownload);
 		main.setImageFileName(savedImageFileName);
+		logic.setLastComments(savedLastComments);
+		logic.setLastSources(savedLastSources);
 	}
 	
 	public void setViewBox(Logic logic, Map map) {

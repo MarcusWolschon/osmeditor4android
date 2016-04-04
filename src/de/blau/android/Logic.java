@@ -76,6 +76,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.MRUList;
 
 /**
  * Contains several responsibilities of Logic-Work:
@@ -223,6 +224,18 @@ public class Logic {
 	 */
 	private Task selectedBug;
 
+	final static int MRULIST_SIZE = 10;
+	/**
+	 * last changeset comment
+	 */
+	private MRUList<String> lastComments = new MRUList<String>(MRULIST_SIZE);
+	
+	/**
+	 * last changeset source
+	 */
+	private MRUList<String> lastSources = new MRUList<String>(MRULIST_SIZE);
+	
+	
 	/**
 	 * Are we currently dragging a node?
 	 * Set by {@link #handleTouchEventDown(float, float)}
@@ -2679,7 +2692,7 @@ public class Logic {
 	 */
 	void saveEditingState() {
 		TileLayerServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts, 
+		EditState editState = new EditState(this, osmts, 
 				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),
 				Application.mainActivity.getBugAutoDownload(),Application.mainActivity.getImageFileName(),
 				viewBox);
@@ -2694,7 +2707,7 @@ public class Logic {
 		if(editState != null) { // 
 			editState.setSelected(this);
 			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
-			editState.setMiscState(Application.mainActivity);
+			editState.setMiscState(Application.mainActivity, this);
 			editState.setViewBox(this,map);
 		}
 	}
@@ -2896,6 +2909,8 @@ public class Logic {
 			protected void onPreExecute() {
 				Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,true);
 				getDelegator().clearUndo();
+				lastComments.push(comment);
+				lastSources.push(source);
 			}
 			
 			@Override
@@ -3895,5 +3910,55 @@ public class Logic {
 	 */
 	public BoundingBox getViewBox() {
 		return viewBox;
+	}
+
+	/**
+	 * Return the last used comment
+	 * @return comment
+	 */
+	public String getLastComment() {
+		return lastComments.last();
+	}
+
+	/**
+	 * Return the last used comments index 0 is the most recent one
+	 * @return ArrayList of the comments
+	 */
+	public ArrayList<String> getLastComments() {
+		return lastComments;
+	}
+
+	/**
+	 * Set the list of last comments
+	 * @param comments
+	 */
+	public void setLastComments(ArrayList<String> comments) {
+		lastComments = new MRUList<String>(comments);
+		lastComments.ensureCapacity(MRULIST_SIZE);
+	}
+
+	/**
+	 * Return the last used source string
+	 * @return source
+	 */
+	public String getLastSource() {
+		return lastSources.last();
+	}
+	
+	/**
+	 * Return the last used source strings index 0 is the most recent one
+	 * @return ArrayList of the source strings
+	 */
+	public ArrayList<String> getLastSources() {
+		return lastSources;
+	}
+	
+	/**
+	 * Set the list of last used source strings
+	 * @param sources
+	 */
+	public void setLastSources(ArrayList<String> sources) {
+		lastSources = new MRUList<String>(sources);
+		lastSources.ensureCapacity(MRULIST_SIZE);
 	}
 }

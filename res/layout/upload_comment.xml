@@ -15,7 +15,7 @@
 	      android:layout_marginLeft="5dp"
 	      android:gravity="center_vertical"
 	      android:text="@string/upload_comment_label"/>
-	    <EditText
+	    <AutoCompleteTextView
 	      android:id="@+id/upload_comment"
 	      android:layout_toRightOf="@id/upload_comment_label"
 	      android:layout_alignBottom="@id/upload_comment_label"
@@ -34,7 +34,7 @@
 	      android:gravity="center_vertical"
 	      android:layout_below="@id/upload_comment_label"
 	      android:text="@string/upload_source_label"/>
-	   <EditText
+	   <AutoCompleteTextView
 	      android:id="@+id/upload_source"
 	      android:layout_below="@id/upload_comment"
 	      android:layout_alignLeft="@id/upload_comment"
