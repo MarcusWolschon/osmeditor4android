@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.Logic.Mode;
-import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.exception.OsmException;
