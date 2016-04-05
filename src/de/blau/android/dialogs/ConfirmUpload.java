@@ -6,17 +6,22 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
@@ -136,6 +141,7 @@ public class ConfirmUpload extends SherlockDialogFragment
 		};
 		comment.setOnClickListener(autocompleteOnClick);
 		comment.setThreshold(1);
+		comment.setOnKeyListener(new MyKeyListener());
 		
 		AutoCompleteTextView source = (AutoCompleteTextView)layout.findViewById(R.id.upload_source);
 		FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<String>(getActivity(),
@@ -145,6 +151,7 @@ public class ConfirmUpload extends SherlockDialogFragment
 		source.setText(lastSource == null?"":lastSource);
 		source.setOnClickListener(autocompleteOnClick);
 		source.setThreshold(1);
+		source.setOnKeyListener(new MyKeyListener());
 		
 		builder.setPositiveButton(R.string.transfer_download_current_upload, 
 				new UploadListener((Main) getActivity(), comment, source, closeChangeset));
@@ -152,4 +159,29 @@ public class ConfirmUpload extends SherlockDialogFragment
 
     	return builder.create();
     }	
+    
+	/**
+	 * For whatever reason the softkeyboard doesn't work as expected with AutoCompleteTextViews
+	 * This listener simply moves focus to the next view below on enter being pressed or dismisses the keyboard
+	 */
+	class MyKeyListener implements OnKeyListener {
+		@Override
+		public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
+			if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
+				if (view instanceof EditText) {
+					if (keyCode == KeyEvent.KEYCODE_ENTER) {
+						View nextView = view.focusSearch(View.FOCUS_DOWN);
+						if (nextView != null && nextView.isFocusable()) {
+							nextView.requestFocus();
+							return true;
+						} else {
+							InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+						    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+						}
+					}
+				}
+			}
+			return false;
+		}
+	}
 }
