@@ -175,6 +175,9 @@ public class ConfirmUpload extends SherlockDialogFragment
 							nextView.requestFocus();
 							return true;
 						} else {
+							if(view instanceof AutoCompleteTextView) {
+								((AutoCompleteTextView)view).dismissDropDown();
+							}
 							InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 						    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 						}
