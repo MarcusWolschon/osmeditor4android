@@ -116,8 +116,7 @@ public class BugStorage implements Serializable {
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return bugs.count() == 0;
-	}
-	
+	}	
 	
 	/**
 	 * Stores the current storage data to the default storage file
@@ -125,11 +124,6 @@ public class BugStorage implements Serializable {
 	 * @throws IOException
 	 */
 	public synchronized void writeToFile(Context ctx) throws IOException { 
-		if (isEmpty()) {
-			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
-			Log.i(DEBUG_TAG, "storage empty, skipping save");
-			return;
-		}
 		if (!dirty) {
 			Log.i(DEBUG_TAG, "storage not dirty, skipping save");
 			return;
