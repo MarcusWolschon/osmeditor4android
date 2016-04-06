@@ -125,16 +125,10 @@ public class TaskStorage implements Serializable {
 	 * @throws IOException
 	 */
 	public synchronized void writeToFile(Context ctx) throws IOException { 
-		if (isEmpty()) {
-			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
-			Log.i(DEBUG_TAG, "storage empty, skipping save");
-			return;
-		}
 		if (!dirty) {
 			Log.i(DEBUG_TAG, "storage not dirty, skipping save");
 			return;
 		}
-
 		if (readingLock.tryLock()) {
 			// TODO this doesn't really help with error conditions need to throw exception
 			if (savingHelper.save(ctx, FILENAME, this, true)) { 
