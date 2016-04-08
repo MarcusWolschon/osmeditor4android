@@ -61,13 +61,27 @@ public class Progress extends SherlockDialogFragment
 	    try {
 	    	if (fragment != null) {
 	    		ft.remove(fragment);
+		    	ft.commit(); 
 	    	}
-	    	ft.commit(); 
 	    } catch (IllegalStateException isex) {
 	    	Log.e(DEBUG_TAG,"dismissDialog",isex);
-	    	ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-			ACRA.getErrorReporter().handleException(isex);
+	    	// this is in general harmless and there is no real way of avoiding this 
+	    	// except not to use progress dialogs at all, which however doesn't give
+	    	// the user any reasonable amount of feed back
 	    }
+	}
+	
+	/**
+	 * Dismiss all possible progress dialogs to stop them being recreated
+	 * @param activity
+	 */
+	static public void dismissAll(FragmentActivity activity) {
+		dismissDialog(activity,PROGRESS_LOADING);
+		dismissDialog(activity,PROGRESS_DOWNLOAD);
+		dismissDialog(activity,PROGRESS_DELETING);
+		dismissDialog(activity,PROGRESS_SEARCHING);
+		dismissDialog(activity,PROGRESS_SAVING);
+		dismissDialog(activity,PROGRESS_OAUTH);
 	}
 	
 	private static String getTag(int dialogType) {
