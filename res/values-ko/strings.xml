@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">주의!</string>
+  <string name="transfer_download_current_upload">올리기</string>
+  <string name="transfer_download_current_download">버리기 및 다운로드</string>
+  <string name="transfer_download_current_back">뒤로 (아무 것도 하지 않음)</string>
+  <string name="upload_problem_title">올리는 데 문제</string>
+  <string name="upload_conflict_title">올리기 충돌</string>
+  <string name="no_login_data_title">인증 실패</string>
+  <string name="no_connection_title">서버에 연결할 수 없음</string>
+  <string name="wrong_login_data_title">인증 실패</string>
+  <string name="wrong_login_data_re_authenticate">재인증</string>
+  <string name="api_offline_title">API 오프라인</string>
+  <string name="out_of_memory_title">메모리 초과</string>
+  <string name="file_write_failed_title">파일 쓰기 실패</string>
+  <string name="welcome_title">환영합니다!</string>
+  <string name="read_upgrade">새 버전에 대해 읽기</string>
+  <string name="progress_title">불러오는 중</string>
+  <string name="progress_message">메모리 안으로 데이터를 불러오는 중…</string>
+  <string name="progress_download_message">서버에서 데이터 다운로드 중…</string>
+  <string name="progress_general_title">기다려주세요</string>
+  <string name="progress_deleting_message">삭제 중…</string>
+  <string name="progress_searching_message">검색 중…</string>
+  <string name="progress_saving_message">저장 중…</string>
+  <string name="upload_comment_label">댓글:</string>
+  <string name="upload_source_label">출처:</string>
+  <string name="upload_close_changeset_label">바뀜집합 닫음:</string>
+  <string name="upload_gpx_description_label">설명</string>
+  <string name="upload_gpx_tags_label">태그</string>
+  <string name="openstreetbug_new_title">새 참고</string>
+  <string name="openstreetbug_new_bug">이슈 보고</string>
+  <string name="openstreetbug_bug_title">이슈</string>
+  <string name="openstreetbug_new_nodeway">노드/길 만들기</string>
+  <string name="openstreetbug_edit_title">참고 편집</string>
+  <string name="openstreetbug_commitbutton">커밋</string>
+  <string name="openstreetbug_comment_label">댓글:</string>
+  <string name="openstreetbug_edit_close">닫기</string>
+  <string name="openstreetbug_edit_closed">닫음</string>
+  <string name="openstreetbug_not_downloaded">다운로드되지 않음</string>
+  <string name="openstreetbug_last_updated">마지막 업데이트</string>
+  <string name="unsaved_data_title">주의!</string>
+  <string name="imagery_offset_description">설명</string>
+  <string name="imagery_offset_author">저자</string>
+  <string name="imagery_offset_offset">오프셋</string>
+  <string name="imagery_offset_date">만들어짐</string>
+  <string name="imagery_offset_zoom">확대</string>
+  <string name="tag_editor_name_suggestion">이름 제안</string>
+  <string name="search_results_title">검색 결과</string>
+  <string name="find_message">검색어를 입력하세요</string>
+  <string name="read_file">읽을 파일 선택</string>
+  <string name="id">Id</string>
+  <string name="nodes">노드</string>
+  <string name="problem">문제</string>
+  <string name="members">구성원</string>
+  <string name="closed">닫음</string>
+  <string name="version">버전</string>
+  <string name="not_downloaded">다운로드되지 않음</string>
+  <string name="last_updated">마지막 업데이트</string>
+  <string name="error">오류</string>
+  <string name="warning">경고</string>
+  <string name="minor_issue">사소한 이슈</string>
+  <!--Toaster-->
+  <string name="toast_unlock_to_edit">편집하려면 잠금 해제</string>
+  <string name="toast_save_done">저장 성공</string>
+  <string name="toast_save_failed">저장 실패</string>
+  <string name="toast_export_failed">내보내기 실패</string>
+  <string name="toast_export_success">%1$s로 내보냄</string>
+  <string name="toast_nothing_found">아무 것도 찾을 수 없음</string>
+  <string name="toast_missing_filemanager">파일 관리자를 설치하세요.</string>
+  <!--Some generic labels/buttons-->
+  <string name="yes">예</string>
+  <string name="no">아니오</string>
+  <string name="okay">확인</string>
+  <string name="cancel">취소</string>
+  <string name="locked">잠김</string>
+  <string name="next">다음</string>
+  <string name="apply">적용</string>
+  <string name="set">설정</string>
+  <string name="save">저장</string>
+  <string name="back">뒤로</string>
+  <string name="foward">앞으로</string>
+  <string name="keep">유지</string>
+  <!--Dialog for back button-->
+  <!--Strings in PorpertyEditor-->
+  <string name="key">키</string>
+  <string name="Key">키</string>
+  <string name="value">값</string>
+  <string name="Value">값</string>
+  <string name="menu_up">위</string>
+  <string name="menu_top">상위</string>
+  <!--Strings in LocationPicker-->
+  <string name="location_text_unknown">알 수 없음</string>
+  <!--Menu-->
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <!--EasyEdit action mode titles-->
+  <!--Preferences-->
+  <!--preset downloader messages-->
+  <!--changes-->
+  <!--url handler activity-->
+  <!--common terms-->
+  <!--"default" is a reserved Java keyword...-->
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <!--ACRA-->
+  <!--Exceptions messages-->
+  <!--Notifications-->
+  <!--Misc relation related stuff-->
+  <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
+</resources>
