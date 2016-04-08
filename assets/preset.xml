@@ -203,7 +203,7 @@
         <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" default="pitch" />
     </chunk>
     <chunk id="sport">
-        <combo key="sport" text="Sport" values="multi,archery,athletics,american_football,australian_football,baseball,basketball,beachvolleyball,billiards,boules,bowls,canadian_football,canoe,climbing,cricket,croquet,cycling,dog_racing,equestrian,field_hockey,gaelic_games,golf,gymnastics,handball,horse_racing,ice_hockey,karting,model_aerodrome,motocross,motor,pelota,racquet,rc_car,rugby_league,rugby_union,running,safety_training,shooting,skateboard,skating,soccer,swimming,table_tennis,tennis,volleyball,9pin,10pin" values_context="sport" />
+        <combo key="sport" text="Sport" values="multi,archery,athletics,american_football,australian_football,baseball,basketball,beachvolleyball,billiards,boules,bowls,canadian_football,canoe,climbing,cricket,croquet,cycling,dog_racing,equestrian,field_hockey,gaelic_games,golf,gymnastics,handball,horse_racing,ice_hockey,karting,model_aerodrome,motocross,motor,pelota,racquet,rc_car,rugby_league,rugby_union,running,safety_training,shooting,skateboard,skating,roller_skating,ice_skating,soccer,swimming,table_tennis,tennis,volleyball,9pin,10pin" values_context="sport" />
     </chunk>
     <chunk id="bin">
         <combo key="bin" text="Bin" values="yes,no" />
@@ -426,6 +426,10 @@
     <preset_link preset_name="Physical restrictions" />
     <preset_link preset_name="Other mode restrictions" />
   </chunk>
+  <chunk id="lane_presets">
+    <preset_link preset_name="Single direction roads" />
+    <preset_link preset_name="Bi-directional roads" />
+  </chunk>
   <chunk id="social_facility_for">
     <combo key="social_facility:for" text="For group" match="key" >
         <list_entry value="abused" display_value="Abused" />
@@ -453,6 +457,35 @@
   <chunk id="motorcycle_brands">
     <multiselect key="brand" text="Motorcycle brand" values="Aprillia;BMW;Ducati;Gilera;Harley-Davidson;Honda;Kawasaki;KTM;Kymco;Piaggio;Peugeot;Piaggio;Suzuki;Triumph;Vespa;Yamaha" match="key" />
   </chunk>
+  <chunk id="kerb">
+  	 <combo key="kerb" text="Kerb" match="key" >
+        <list_entry value="lowered" display_value="Lowered" />
+        <list_entry value="raised" display_value="Raised" />
+        <list_entry value="flush" display_value="Flush" />
+        <list_entry value="rolled" display_value="Rolled" />
+     </combo>
+     <combo key="kerb:left" text="Kerb (left)" match="key" >
+        <list_entry value="lowered" display_value="Lowered" />
+        <list_entry value="raised" display_value="Raised" />
+        <list_entry value="flush" display_value="Flush" />
+        <list_entry value="rolled" display_value="Rolled" />
+     </combo>
+     <combo key="kerb:right" text="Kerb (right)" match="key" >
+        <list_entry value="lowered" display_value="Lowered" />
+        <list_entry value="raised" display_value="Raised" />
+        <list_entry value="flush" display_value="Flush" />
+        <list_entry value="rolled" display_value="Rolled" />
+     </combo>
+  </chunk>
+  <chunk id="public_transport_route_optionals">
+    <text key="from" text="From (initial stop)" />
+    <text key="to" text="To (terminal stop)" />
+    <text key="via" text="Via (intermediate stops)" />
+    <text key="operator" text="Operator" />
+    <text key="network" text="Network" />
+    <text key="description" text="Description" />
+    <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" />
+  </chunk>
   <!--  Groups -->
   <group name="Highways" icon="icons/png/highway_highway_sp.png">
     <group name="Streets" icon="icons/png/highway_highway_sp.png">
@@ -477,6 +510,8 @@
             <optional>
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
+                <text key="destination" text="Destination" />
+                <text key="destination:ref" text="Destination reference" />
                 <text key="width" text="Width (meters)" />
                 <reference ref="placement" />
                 <checkgroup columns="4">
@@ -490,6 +525,7 @@
                 </checkgroup>
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Motorway -->
         <item name="Motorway Link" icon="icons/png/highway_dual_sp.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=motorway_link"
@@ -504,6 +540,8 @@
             <key key="highway" value="motorway_link" />
             <optional>
                 <reference ref="highway_base" />
+                <text key="destination" text="Destination" />
+                <text key="destination:ref" text="Destination reference" />                
                 <text key="width" text="Width (meters)" />
                 <reference ref="placement" />
                 <checkgroup columns="4">
@@ -517,6 +555,7 @@
                 </checkgroup>
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Motorway Link -->
         <item name="Trunk" icon="icons/png/highway_car_29023.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=trunk"
@@ -538,6 +577,8 @@
             <optional>
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
+                <text key="destination" text="Destination" />
+                <text key="destination:ref" text="Destination reference" />
                 <text key="width" text="Width (meters)" />
                 <reference ref="placement" />
                 <checkgroup columns="4">
@@ -552,6 +593,7 @@
                 </checkgroup>
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Trunk -->
         <item name="Trunk Link" icon="icons/png/highway_car_29023.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Link_(highway)"
@@ -561,6 +603,8 @@
             <text key="ref" text="Reference" />
             <optional>
                 <reference ref="highway_base" />
+                <text key="destination" text="Destination" />
+                <text key="destination:ref" text="Destination reference" />
                 <text key="width" text="Width (meters)" />
                 <reference ref="placement" />
                 <checkgroup columns="4">
@@ -575,6 +619,7 @@
                 </checkgroup>
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Trunk Link -->
         <separator/>
         <item name="Primary" icon="icons/png/highway_highway_sp.png" type="way,closedway" preset_name_label="true">
@@ -602,6 +647,7 @@
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Primary -->
         <item name="Primary Link" icon="icons/png/highway_highway_sp.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Link_(highway)"
@@ -619,6 +665,7 @@
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Primary Link -->
         <item name="Secondary" icon="icons/png/highway_highway_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=secondary"
@@ -645,6 +692,7 @@
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Secondary -->
         <item name="Secondary Link" icon="icons/png/highway_highway_sp.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Link_(highway)"
@@ -661,6 +709,7 @@
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Secondary Link -->
         <item name="Tertiary" icon="icons/png/highway_highway_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=tertiary"
@@ -688,6 +737,7 @@
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Tertiary -->
         <item name="Tertiary Link" icon="icons/png/highway_highway_sp.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Link_(highway)"
@@ -704,8 +754,9 @@
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Tertiary Link -->
-        <item name="Unclassified" icon="icons/png/highway_highway_sp.png" type="way,closedway" preset_name_label="true">
+        <item name="Minor road" icon="icons/png/highway_highway_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=unclassified"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=unclassified"
                   fi.href="http://wiki.openstreetmap.org/wiki/Fi:Tag:highway=unclassified"
@@ -730,6 +781,7 @@
                 <check key="passing_places" text="Passing Places" disable_off="true" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Unclassified -->
         <item name="Residential" icon="icons/png/highway_residential_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=residential"
@@ -754,6 +806,7 @@
 		        <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Residential -->
         <item name="Bicycle Road" icon="icons/png/highway_residential_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:bicycle_road"
@@ -778,6 +831,7 @@
                 <combo key="sidewalk" text="Sidewalk" values="both,left,right,no" values_context="sidewalk" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="lane_presets" />
         </item> <!-- Bicycle Road -->
         <item name="Living Street" icon="icons/png/homezone.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=living_street"
@@ -956,6 +1010,77 @@
                 <text key="name" text="Name" />
             </optional>
         </item> <!-- Ford -->
+        <!--  Basic lane attributes -->
+        <group name="Lane attributes" icon="icons/png/spurpfeile2.png">
+            <item name="Single direction roads" icon="icons/png/spurpfeile1.png" type="way,closedway" preset_name_label="true">
+            	<link href="http://http://wiki.openstreetmap.org/wiki/Lanes" />
+            	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" />
+            	<optional>
+                	<multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" >
+                	    <list_entry value="none" short_description="None" />
+                	    <list_entry value="reverse" short_description="Reverse" />
+                	    <list_entry value="sharp_left" short_description="Sharp left" />
+                	    <list_entry value="left" short_description="Left" />
+                	    <list_entry value="left:through" short_description="Left and through" />
+                	    <list_entry value="slight_left" short_description="Slight left" />
+                	    <list_entry value="merge_to_left" short_description="Merge to left" />
+                	    <list_entry value="through" short_description="Slight left" />
+                	    <list_entry value="merge_to_right" short_description="Merge to right" />
+                	    <list_entry value="slight_right" short_description="Slight right" />
+                	    <list_entry value="left:through" short_description="Right and through" />
+                	    <list_entry value="right" short_description="right" />
+                	    <list_entry value="sharp_right" short_description="Sharp right" />
+                    </multiselect>
+                    <text key="destination:lanes" text="Destinations per lane"  match="key"/>
+					<text key="destination:ref:lanes" text="Refs per lane" match="key"/>
+					<text key="maxspeed:lanes" text="Maxspeed per lane" match="key"/>
+            	</optional>
+            </item> <!-- Single direction roads -->
+            <item name="Bi-directional roads" icon="icons/png/spurpfeile2.png" type="way,closedway" preset_name_label="true">
+            	<link href="http://http://wiki.openstreetmap.org/wiki/Lanes" />
+            	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" />
+            	<combo key="lanes:forward" values="1,2,3,4,5,6,7,8" description="# full width lanes in way direction" />
+            	<combo key="lanes:backward" values="1,2,3,4,5,6,7,8" description="# full width lanes opposite to way direction" />
+            	<optional>
+                	<multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" >
+                	    <list_entry value="none" short_description="None" />
+                	    <list_entry value="reverse" short_description="Reverse" />
+                	    <list_entry value="sharp_left" short_description="Sharp left" />
+                	    <list_entry value="left" short_description="Left" />
+                	    <list_entry value="left:through" short_description="Left and through" />
+                	    <list_entry value="slight_left" short_description="Slight left" />
+                	    <list_entry value="merge_to_left" short_description="Merge to left" />
+                	    <list_entry value="through" short_description="Slight left" />
+                	    <list_entry value="merge_to_right" short_description="Merge to right" />
+                	    <list_entry value="slight_right" short_description="Slight right" />
+                	    <list_entry value="left:through" short_description="Right and through" />
+                	    <list_entry value="right" short_description="right" />
+                	    <list_entry value="sharp_right" short_description="Sharp right" />
+                    </multiselect>
+                    <text key="destination:lanes:forward" text="Destinations per lane in way direction"  match="key"/>
+					<text key="destination:ref:lanes:forward" text="Refs per lane in way direction" match="key"/>
+					<text key="maxspeed:lanes:forward" text="Maxspeed per lane in way direction" match="key"/>
+                    <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" >
+                	    <list_entry value="none" short_description="None" />
+                	    <list_entry value="reverse" short_description="Reverse" />
+                	    <list_entry value="sharp_left" short_description="Sharp left" />
+                	    <list_entry value="left" short_description="Left" />
+                	    <list_entry value="left:through" short_description="Left and through" />
+                	    <list_entry value="slight_left" short_description="Slight left" />
+                	    <list_entry value="merge_to_left" short_description="Merge to left" />
+                	    <list_entry value="through" short_description="Slight left" />
+                	    <list_entry value="merge_to_right" short_description="Merge to right" />
+                	    <list_entry value="slight_right" short_description="Slight right" />
+                	    <list_entry value="left:through" short_description="Right and through" />
+                	    <list_entry value="right" short_description="right" />
+                	    <list_entry value="sharp_right" short_description="Sharp right" />
+                    </multiselect>
+                    <text key="destination:lanes:backward" text="Destinations per lane opposite to way direction"  match="key"/>
+					<text key="destination:ref:lanes:backward" text="Refs per lane opposite to way direction" match="key"/>
+					<text key="maxspeed:lanes:backward" text="Maxspeed per lane opposite to way direction" match="key"/>
+            	</optional>
+        	</item> <!-- Bi-directional roads -->
+        </group> <!-- Lane attributes -->
     </group> <!-- Streets -->
     <group name="Ways" icon="icons/png/highway_way_sp.png">
         <item name="Track" icon="icons/png/highway_agricultural_engines_16001.png" type="way,closedway" preset_name_label="true">
@@ -982,10 +1107,7 @@
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
                 <combo key="mtb:scale" text="MTB Scale" values="0,1,2,3,4,5" />
-                <reference ref="general_access" />
-                <combo key="motor_vehicle" text="Motor vehicles" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" />
-                <combo key="motorcycle" text="Motorcycle" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" />
-                <combo key="motorcar" text="Motorcar" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" />
+                <reference ref="road_access_restrictions" />
             </optional>
         </item> <!-- Track -->
         <item name="Path" icon="icons/png/highway_way_thin_sp.png" type="way,closedway" preset_name_label="true">
@@ -1016,13 +1138,10 @@
                 </combo>
                 <combo key="mtb:scale" text="MTB Scale" values="0,1,2,3,4,5" />
                 <combo key="trail_visibility" text="Visibility" values="excellent,good,intermediate,bad,horrible,no" values_context="trail_visibility" values_sort="false" />
-                <combo key="foot" text="Foot" values="yes,official,designated,permissive,destination,delivery,private,no" />
-                <combo key="bicycle" text="Bicycle" values="yes,official,designated,permissive,destination,delivery,private,use_sidepath,no" />
-                <combo key="horse" text="Horse" values="yes,official,designated,permissive,destination,delivery,private,no" />
                 <combo key="wheelchair" text="Wheelchairs" values="yes,designated,limited,no" />
                 <combo key="ski" text="Ski" values="yes,official,designated,permissive,private,no" />
                 <combo key="snowmobile" text="Snowmobile" values="yes,official,designated,permissive,destination,delivery,private,no" />
-                <!-- <combo key="motorcar" text="Motorcar" values="yes,designated,no" default="no" /> -->
+                <reference ref="road_access_restrictions" />
             </optional>
         </item> <!-- Path -->
         <separator/>
@@ -1194,7 +1313,6 @@
             <key key="highway" value="motorway_junction" />
             <text key="name" text="Name" />
             <text key="ref" text="Number" />
-            <text key="exit_to" text="Exit to" />
         </item> <!-- Motorway Junction -->
         <item name="Services" icon="icons/png/highway_services_18024.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=services"
@@ -1299,6 +1417,7 @@
             <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" />
             <check key="bicycle" text="Cross by bicycle" disable_off="true" />
             <check key="horse" text="Cross on horseback" disable_off="true" />
+            <reference ref="kerb" />
             <label text="In case of traffic signals:" />
             <check key="button_operated" text="Button operated" disable_off="true" />
             <check key="traffic_signals:sound" text="Sound signals" disable_off="true" />
@@ -1756,6 +1875,9 @@
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:barrier=kerb"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:barrier=kerb" />
             <key key="barrier" value="kerb" />
+            <optional>
+                <reference ref="kerb" />
+            </optional>
             <reference ref="optional_height" />
             <reference ref="wheelchair" />
         </item> <!-- Kerb -->
@@ -2435,7 +2557,18 @@
             <space />
             <key key="natural" value="wetland" />
             <text key="name" text="Name" />
-            <combo key="wetland" text="Type" values="swamp,bog,marsh,reedbed,saltmarsh,tidalflat,mangrove" values_searchable="true" />
+            <combo key="wetland" text="Type" values_searchable="true">
+            	<list_entry value="swamp" short_description="Swamp" />
+            	<list_entry value="bog" short_description="Bog" />
+            	<list_entry value="marsh" short_description="Marsh" />
+            	<list_entry value="reedbed" short_description="Reedbed" />
+            	<list_entry value="saltmarsh" short_description="Saltmarsh" />
+            	<list_entry value="tidalflat" short_description="Tidalflat" />
+            	<list_entry value="mangrove" short_description="Mangrove" />
+            	<list_entry value="wet_meadow" short_description="Wet meadow" />
+            	<list_entry value="string_bog" short_description="String bog" />
+            	<list_entry value="saltern" short_description="Saltern" />
+            </combo>
         </item> <!-- Wetland -->
         <item name="Mud" icon="presets/mud.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:natural=mud"
@@ -2640,9 +2773,7 @@
             </optional>
         </item> <!-- Rail -->
         <item name="Narrow Gauge Rail" icon="icons/png/transport_train_station.png" type="way" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:railway=light_rail"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:railway=light_rail"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:railway=light_rail" />
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:narrow_gauge" />
             <key key="railway" value="narrow_gauge" />
             <optional>
                 <combo key="usage" text="Usage" values="main,branch,industrial,military,tourism,freight" />
@@ -3268,32 +3399,45 @@
         </item> <!-- Public Bicycle Repair Station -->
     </group> <!-- Bicycle -->
     <group name="Public Transport" icon="icons/png/transport_bus_stop.png">
-        <item name="Public Transport Route" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
+        <item name="Public Transport Route (Rail)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Proposed_features/Public_Transport#Route" />
             <space />
             <key key="type" value="route" />
-            <combo key="route" text="Route type" values="train,subway,monorail,tram,light_rail,bus,trolleybus,aerialway,ferry" values_searchable="true" match="keyvalue!" />
+            <combo key="route" text="Route type" values="train,subway,monorail,tram,light_rail" values_searchable="true" match="keyvalue!" />
             <key key="public_transport:version" text="Version" value="2" /> <!-- only validate marked relations in order to avoid false positives -->
             <reference ref="name_ref" />
             <optional>
-                <text key="from" text="From (initial stop)" />
-                <text key="to" text="To (terminal stop)" />
-                <text key="via" text="Via (intermediate stops)" />
-                <text key="operator" text="Operator" />
-                <text key="network" text="Network" />
-                <text key="description" text="Description" />
-                <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" />
+            	<reference ref="public_transport_route_optionals" />
+  			</optional>
+            <roles>
+                <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position (train=yes OR subway=yes OR monorail=yes OR tram=yes OR light_rail=yes)" />
+                <role key="stop_exit_only" text="stop position (exit only)" requisite="optional" type="node" member_expression="public_transport=stop_position (train=yes OR subway=yes OR monorail=yes OR tram=yes OR light_rail=yes)" />
+                <role key="stop_entry_only" text="stop position (entry only)" requisite="optional" type="node" member_expression="public_transport=stop_position (train=yes OR subway=yes OR monorail=yes OR tram=yes OR light_rail=yes)" />               <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
+                <role key="platform_exit_only" text="platform (exit only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform" />
+                <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform" />
+                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="railway" />
+            </roles>
+        </item> <!-- Public Transport Route (Rail) -->
+        <item name="Public Transport Route (Bus)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Proposed_features/Public_Transport#Route" />
+            <space />
+            <key key="type" value="route" />
+            <combo key="route" text="Route type" values="bus,trolleybus" values_searchable="true" match="keyvalue!" />
+            <key key="public_transport:version" value="2" /> <!-- only validate marked relations in order to avoid false positives -->
+            <reference ref="name_ref" />
+            <optional>
+                <reference ref="public_transport_route_optionals" />
             </optional>
             <roles>
-                <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position" />
-                <role key="stop_exit_only" text="stop position (exit only)" requisite="optional" type="node" member_expression="public_transport=stop_position" />
-                <role key="stop_entry_only" text="stop position (entry only)" requisite="optional" type="node" member_expression="public_transport=stop_position" />
+                <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR trolleybus=yes)" />
+                <role key="stop_exit_only" text="stop position (exit only)" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR trolleybus=yes)" />
+                <role key="stop_entry_only" text="stop position (entry only)" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR trolleybus=yes)" />
                 <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
                 <role key="platform_exit_only" text="platform (exit only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform" />
                 <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform" />
-                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway OR railway OR waterway OR aerialway" />
+                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway" />
             </roles>
-        </item> <!-- Public Transport Route -->
+        </item> <!-- Public Transport Route (Bus) -->
         <item name="Route Master" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Proposed_features/Public_Transport#Route_master" />
             <space />
@@ -4278,6 +4422,14 @@
             <space />
             <combo key="access" text="Access" values="yes,customers,private" />
         </item> <!-- Swimming Pool -->
+        <item name="Fitness Station" icon="" type="node,closedway,multipolygon" preset_name_label="true">
+			<link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=fitness_station" />
+			<space />
+			<key key="leisure" value="fitness_station" />
+			<reference ref="name_operator_oh_wheelchair" />
+			<text key="ref" text="Reference" />
+			<text key="description" text="Description" />
+		</item> <!-- Fitness Station -->
         <item name="Sauna" icon="icons/png/amenity_sauna_12241.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=sauna"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=sauna"
@@ -4368,6 +4520,12 @@
             <key key="leisure" value="fishing" />
             <text key="name" text="Name" />
         </item> <!-- Fishing -->
+        <item name="Bird Hide" icon="" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=bird_hide" />
+            <space />
+            <key key="leisure" value="bird_hide" />
+            <reference ref="name_ref_operator" />
+        </item> <!-- Bird Hide -->
         <separator/>
         <item name="Night Club" icon="icons/png/food_bar.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=nightclub"
@@ -4683,7 +4841,7 @@
         </item> <!-- Other Place of Worship -->
     </group> <!-- Place of Worship -->
     <group name="Public Building" icon="icons/png/amenity_public_building2.png">
-        <item name="Public Building" icon="icons/png/amenity_public_building2.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Public Building (deprecated)" icon="icons/png/amenity_public_building2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=public_building"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:amenity=public_building"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=public_building"
@@ -5307,7 +5465,11 @@
                   zh_TW.href="http://wiki.openstreetmap.org/wiki/Zh-hant:Tag:amenity=toilets" />
             <space />
             <key key="amenity" value="toilets" />
-            <combo key="access" text="Access rights" values="public,permissive,customers" />
+            <combo key="access" text="Access rights"> 
+                <list_entry value="yes" short_description="Public" />
+                <list_entry value="permissive" short_description="Permissive" />
+                <list_entry value="customers" short_description="Customers" />
+            </combo>
             <optional>
                 <checkgroup columns="3">
                     <check key="female" text="Female" text_context="restroom" />
@@ -5330,7 +5492,11 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=shower" />
             <space />
             <key key="amenity" value="shower" />
-            <combo key="access" text="Access rights" values="public,permissive,customers" />
+            <combo key="access" text="Access rights"> 
+                <list_entry value="yes" short_description="Public" />
+                <list_entry value="permissive" short_description="Permissive" />
+                <list_entry value="customers" short_description="Customers" />
+            </combo>
             <optional>
                 <text key="description" text="Description" />
                 <combo key="fee" text="Fee" values="yes,no" />
@@ -5502,7 +5668,11 @@
             <check key="sanitary_dump_station:pump-out" text="Suction pumpout" disable_off="true" />
             <check key="sanitary_dump_station:round_drain" text="Gravity drain for hose" disable_off="true" />
             <check key="sanitary_dump_station:basin" text="Casette or Elsan Disposal" disable_off="true" />
-            <combo key="access" text="Access" values="yes,public,customers,no" />
+            <combo key="access" text="Access"> 
+                <list_entry value="yes" short_description="Public" />
+                <list_entry value="customers" short_description="Customers" />
+                <list_entry value="no" short_description="No" />
+            </combo>
             <reference ref="fee" />
             <text key="operator" text="Operator" />
             <combo key="opening_hours" text="Operation times" values="24/7"  values_no_i18n="true" />
@@ -5691,7 +5861,7 @@
             <space />
             <key key="leisure" value="track" />
             <text key="name" text="Name" />
-            <combo key="sport" text="Sport" values="athletics,cycling,dog_racing,equestrian,horse_racing,running,skating" values_context="sport" />
+            <combo key="sport" text="Sport" values="athletics,cycling,dog_racing,equestrian,horse_racing,running,skating,roller_skating,ice_skating" values_context="sport" />
         </item> <!-- Racetrack -->
         <group name="Golf" icon="icons/png/sport_golf.png">
                 <item name="Golf Course" icon="icons/png/sport_golf.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5929,7 +6099,7 @@
             <text key="name" text="Name" />
             <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
         </item> <!-- Gymnastics -->
-        <item name="Skating" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Skating (deprecated)" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=skating"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:sport=skating" />
             <space />
@@ -5937,6 +6107,20 @@
             <text key="name" text="Name" />
             <combo key="leisure" text="Type" values="ice_rink,pitch,sports_centre,stadium" default="ice_rink" />
         </item> <!-- Skating -->
+        <item name="Ice Skating" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=ice_skating" />
+            <space />
+            <key key="sport" value="ice_skating" />
+             <text key="name" text="Name" />
+             <combo key="leisure" text="Type" values="ice_rink,pitch,sports_centre,stadium" default="ice_rink" />
+        </item> <!-- Ice Skating -->
+        <item name="Roller Skating" icon="" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=roller_skating"/>
+            <space />
+            <key key="sport" value="roller_skating" />
+            <text key="name" text="Name" />
+            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+        </item> <!-- Roller Skating -->
         <item name="Skateboard" icon="icons/png/sport_skateboard_21059.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=skateboard"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:sport=skateboard" />
@@ -6261,11 +6445,14 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
             <space />
             <combo key="building" text="Building" values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />            
-            <text key="name" text="Name" />
-            <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />
-            <text key="height" text="Height (meters)" />
-            <combo key="min_level" text="Min. level" values="-5,-4,-3,-2,-1,0,1,2,3,4,5" values_sort="false" text_context="building" match="key" />
-            <combo key="max_level" text="Max. level" values="0,1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />           
+            <optional>
+            	<text key="name" text="Name" />
+            	<combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />
+            	<text key="height" text="Height (meters)" />
+            	<combo key="min_level" text="Min. level" values="-5,-4,-3,-2,-1,0,1,2,3,4,5" values_sort="false" text_context="building" match="key" />
+            	<combo key="max_level" text="Max. level" values="0,1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />           
+            </optional>
+            <preset_link preset_name="Addresses" />
         </item> <!-- Building -->
         <item name="Residential Building" icon="icons/png/man_made_house_sp.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:building"
@@ -6282,12 +6469,15 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
             <space />
-            <combo key="building" text="Building" values="yes,residential,apartments,house,hotel,hut,dormitory,terrace,detached,farm,roof" default="residential" match="keyvalue!" values_context="building" values_searchable="true" />
-            <text key="name" text="Name" />
-            <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />
-            <text key="height" text="Height (meters)" />
-            <combo key="min_level" text="Min. level" values="-5,-4,-3,-2,-1,0,1,2,3,4,5" values_sort="false" text_context="building" match="key" />
-            <combo key="max_level" text="Max. level" values="0,1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />           
+            <combo key="building" text="Building" values="residential,apartments,house,hotel,hut,dormitory,terrace,detached,farm,roof" default="residential" match="keyvalue!" values_context="building" values_searchable="true" />
+            <optional>
+            	<text key="name" text="Name" />
+            	<combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />
+            	<text key="height" text="Height (meters)" />
+            	<combo key="min_level" text="Min. level" values="-5,-4,-3,-2,-1,0,1,2,3,4,5" values_sort="false" text_context="building" match="key" />
+            	<combo key="max_level" text="Max. level" values="0,1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />           
+            </optional>
+            <preset_link preset_name="Addresses" />
         </item> <!-- Residential Building -->
         <item name="Building part" icon="styles/standard/misc/landmark/building.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:building:part"
@@ -8313,7 +8503,27 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=vending_machine" />
         <space />
         <key key="amenity" value="vending_machine" />
-        <multiselect key="vending" text="Vending products" values="animal_food;bicycle_tube;cigarettes;condoms;drinks;excrement_bags;food;news_papers;parking_tickets;photos;public_transport_plans;public_transport_tickets;SIM-cards;stamps;sweets;tampons;telephone_vouchers;toys;vouchers" values_searchable="true" />
+        <multiselect key="vending" text="Vending products" values_searchable="true" >
+            <list_entry value="animal_food" short_description="Anmal food" />
+            <list_entry value="bicycle_tube" short_description="Bicycle tubes" />
+            <list_entry value="cigarettes" short_description="Cigarettes" />
+            <list_entry value="condoms" short_description="Condoms" />
+            <list_entry value="drinks" short_description="Drinks" />
+            <list_entry value="excrement_bags" short_description="Excrement bags" />
+            <list_entry value="food" short_description="Food" />
+            <list_entry value="newspapers" short_description="Newspapers" />
+            <list_entry value="parking_tickets" short_description="Parking tickets" />
+            <list_entry value="photos" short_description="Photos" />
+            <list_entry value="public_transport_plans" short_description="Plans (public transport)" />
+            <list_entry value="public_transport_tickets" short_description="Tickets (public transport)" />
+            <list_entry value="SIM-cards" short_description="SIM-cards" />
+            <list_entry value="stamps" short_description="Stamps" />
+            <list_entry value="sweets" short_description="Sweets" />
+            <list_entry value="tampons" short_description="Tampons" />
+            <list_entry value="telephone_vouchers" short_description="Telephone vouchers" />
+            <list_entry value="toys" short_description="Toys" />
+            <list_entry value="vouchers" short_description="Vouchers" /> 
+        </multiselect>
         <text key="operator" text="Operator" />
         <text key="ref" text="Reference number" />
         <preset_link preset_name="Payment Methods" />
@@ -9728,6 +9938,38 @@
                     <role key="" text="natural" requisite="optional" type="node,closedway" member_expression="natural=peak OR natural=volcano OR mountain_pass=yes OR natural=water OR tourism=viewpoint OR amenity=drinking_water OR natural=spring OR place=locality"/>
                 </roles>
             </item> <!-- Hiking Route -->
+            <item name="Walking Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+                <link href="http://wiki.openstreetmap.org/wiki/Tag:route=foot" />
+                <space/>
+                <key key="type" value="route"/>
+                <key key="route" value="foot"/>
+                <combo key="network" text="Network" values="rwn,lwn" match="keyvalue!" />
+                <reference ref="name_ref_operator"/>
+                <optional>
+                    <reference ref="route_hikebike_optionals" />
+                </optional>
+                <roles>
+                    <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
+                    <role key="" text="infrastructure" requisite="optional" type="node,closedway" member_expression="tourism OR amenity"/>
+                    <role key="" text="natural" requisite="optional" type="node,closedway" member_expression="natural=peak OR natural=volcano OR mountain_pass=yes OR natural=water OR tourism=viewpoint OR amenity=drinking_water OR natural=spring OR place=locality"/>
+                </roles>
+            </item> <!-- Walking Route -->
+            <item name="Riding Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+                <link href="http://wiki.openstreetmap.org/wiki/Tag:route=horse" />
+                <space/>
+                <key key="type" value="route"/>
+                <key key="route" value="horse"/>
+                <combo key="network" text="Network" values="ihn,nhn,rhn,lhn" match="keyvalue!" />
+                <reference ref="name_ref_operator"/>
+                <optional>
+                    <reference ref="route_hikebike_optionals" />
+                </optional>
+                <roles>
+                    <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
+                    <role key="" text="infrastructure" requisite="optional" type="node,closedway" member_expression="tourism OR amenity"/>
+                    <role key="" text="natural" requisite="optional" type="node,closedway" member_expression="natural=peak OR natural=volcano OR mountain_pass=yes OR natural=water OR tourism=viewpoint OR amenity=drinking_water OR natural=spring OR place=locality"/>
+                </roles>
+            </item> <!-- Riding Route -->
             <item name="Piste Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Tag:route=piste"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:route=piste"
@@ -9771,6 +10013,17 @@
                     <role key="start" text="entry points" requisite="optional" type="node" />
                 </roles>
             </item> <!-- Ski Route -->
+            <item name="Inline Skating Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+                <link href="http://wiki.openstreetmap.org/wiki/Tag:route=inline_skates" />
+                <space/>
+                <key key="type" value="route"/>
+                <key key="route" value="inline_skates"/>
+                <combo key="network" text="Network" values="international,national,regional,local" match="keyvalue!" />
+                <reference ref="name_ref_operator"/>
+                <optional>
+                    <reference ref="route_hikebike_optionals" />
+                </optional>
+            </item> <!-- Walking Route -->
             <separator/>
             <item name="Detour Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Tag:route=detour"
