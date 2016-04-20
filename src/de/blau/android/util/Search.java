@@ -16,6 +16,7 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +24,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
@@ -41,7 +39,7 @@ public class Search {
 
 	public static final String NOMINATIM_SERVER = "http://nominatim.openstreetmap.org/"; //TODO set in prefs
 	
-	private SherlockFragmentActivity activity;
+	private AppCompatActivity activity;
 
 	private SearchItemFoundCallback callback;
 
@@ -89,8 +87,8 @@ public class Search {
 	 * @param ctx
 	 * @param callback will be called when search result is selected
 	 */
-	public Search(SherlockFragmentActivity activity, SearchItemFoundCallback callback) {
-		this.activity = activity;
+	public Search(AppCompatActivity appCompatActivity, SearchItemFoundCallback callback) {
+		this.activity = appCompatActivity;
 		this.callback = callback;
 	}
 

@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,9 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
@@ -28,7 +26,7 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog allowing the user to change some properties of the current background
  *
  */
-public class BackgroundProperties extends SherlockDialogFragment
+public class BackgroundProperties extends DialogFragment
 {
 	
 	private static final String DEBUG_TAG = BackgroundProperties.class.getSimpleName();

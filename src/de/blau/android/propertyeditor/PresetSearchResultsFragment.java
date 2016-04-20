@@ -4,14 +4,12 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
@@ -21,7 +19,7 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 
-public class PresetSearchResultsFragment extends SherlockDialogFragment {
+public class PresetSearchResultsFragment extends DialogFragment {
 
 	private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
 	

@@ -6,14 +6,12 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
@@ -24,7 +22,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class ErrorAlert extends SherlockDialogFragment
+public class ErrorAlert extends DialogFragment
 {
 	
 	private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName();

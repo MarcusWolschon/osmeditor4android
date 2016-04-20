@@ -2,14 +2,12 @@ package de.blau.android.propertyeditor;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
-import com.actionbarsherlock.app.SherlockFragment;
-
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
@@ -20,7 +18,7 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 
-public class RecentPresetsFragment extends SherlockFragment {
+public class RecentPresetsFragment extends Fragment {
 
 	private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName();
 	

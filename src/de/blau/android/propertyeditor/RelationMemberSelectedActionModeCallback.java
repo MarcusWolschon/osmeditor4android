@@ -4,13 +4,11 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;

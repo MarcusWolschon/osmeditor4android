@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,10 +18,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-
 import de.blau.android.R;
 import de.blau.android.util.Search;
 import de.blau.android.util.Search.SearchResult;
@@ -30,7 +28,7 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog asking for  a search string that is then found with nominatim
  *
  */
-public class SearchForm extends SherlockDialogFragment
+public class SearchForm extends DialogFragment
 {
 	
 	private static final String DEBUG_TAG = SearchForm.class.getSimpleName();
@@ -42,7 +40,7 @@ public class SearchForm extends SherlockDialogFragment
    	/**
 	 *
 	 */
-	static public void showDialog(SherlockFragmentActivity activity, final SearchItemFoundCallback callback) {
+	static public void showDialog(AppCompatActivity activity, final SearchItemFoundCallback callback) {
 		dismissDialog(activity);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
@@ -54,7 +52,7 @@ public class SearchForm extends SherlockDialogFragment
 	    }
 	}
 	
-	static public void dismissDialog(SherlockFragmentActivity activity) {
+	static public void dismissDialog(AppCompatActivity activity) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 	    Fragment fragment = fm.findFragmentByTag(TAG);
@@ -126,7 +124,7 @@ public class SearchForm extends SherlockDialogFragment
     		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
     			if (actionId == EditorInfo.IME_ACTION_SEARCH
     					|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-    				Search search = new Search((SherlockFragmentActivity) getActivity(), realCallback);
+    				Search search = new Search((AppCompatActivity) getActivity(), realCallback);
     				search.find(v.getText().toString());
     				return true;
     			}

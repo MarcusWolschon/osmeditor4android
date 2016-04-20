@@ -7,14 +7,12 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
 
@@ -22,7 +20,7 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog asking for confirmation before starting an activity that might result in data loss.
  *
  */
-public class DataLossActivity extends SherlockDialogFragment
+public class DataLossActivity extends DialogFragment
 {
 	
 	private static final String DEBUG_TAG = DataLossActivity.class.getSimpleName();

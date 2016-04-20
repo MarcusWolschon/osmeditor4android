@@ -4,20 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
-
-import de.blau.android.R;
 
 /**
  * Simple class for Android's standard-Preference Activity
  * 
  * @author mb
  */
-public class PrefEditor extends SherlockFragmentActivity {
+public class PrefEditor extends AppCompatActivity {
 	
 	public static void start(@NonNull Context context) {
 		Intent intent = new Intent(context, PrefEditor.class);
@@ -29,7 +27,7 @@ public class PrefEditor extends SherlockFragmentActivity {
 		Log.d("PrefEditor", "onCreate");
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(R.style.Theme_Sherlock_Light);
+			setTheme(android.R.style.Theme_Holo_Light);
 		}
 		
 		super.onCreate(savedInstanceState);

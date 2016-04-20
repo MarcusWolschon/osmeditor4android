@@ -14,10 +14,15 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -32,13 +37,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
@@ -51,7 +49,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 
-public class RelationMembersFragment extends SherlockFragment implements
+public class RelationMembersFragment extends Fragment implements
 		PropertyRows {
 
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
@@ -700,7 +698,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 	protected synchronized void memberSelected(LinearLayout rowLayout) {
 		if (memberSelectedActionModeCallback == null) {
 			memberSelectedActionModeCallback = new RelationMemberSelectedActionModeCallback(this, rowLayout);
-			((SherlockFragmentActivity)getActivity()).startActionMode(memberSelectedActionModeCallback);
+			((AppCompatActivity)getActivity()).startSupportActionMode(memberSelectedActionModeCallback);
 		}	
 		memberSelectedActionModeCallback.invalidate();
 	}

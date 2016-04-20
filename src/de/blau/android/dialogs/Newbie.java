@@ -7,14 +7,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -24,7 +22,7 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog giving new users minimal instructions
  *
  */
-public class Newbie extends SherlockDialogFragment
+public class Newbie extends DialogFragment
 {
 	
 	private static final String DEBUG_TAG = Newbie.class.getSimpleName();

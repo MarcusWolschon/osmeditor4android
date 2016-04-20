@@ -31,20 +31,18 @@ import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.view.ActionMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
@@ -174,7 +172,7 @@ public class EasyEditManager {
 			if (element instanceof Way ) cb = new  WaySelectionActionModeCallback((Way )element);
 			if (element instanceof Relation ) cb = new RelationSelectionActionModeCallback((Relation )element);
 			if (cb != null) {
-				main.startActionMode(cb);
+				main.startSupportActionMode(cb);
 				String toast = element.getDescription(main);
 				if (element.hasProblem(main)) {
 					String problem = element.describeProblem();
@@ -216,7 +214,7 @@ public class EasyEditManager {
 				cb = new ExtendSelectionActionModeCallback(selection);
 			}
 			if (cb != null) {
-				main.startActionMode(cb);
+				main.startSupportActionMode(cb);
 				if (e != null) {
 					String toast = e.getDescription(main);
 					if (e.hasProblem(main)) {
@@ -243,8 +241,8 @@ public class EasyEditManager {
 		}
 		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 		// TODO: Need to patch ABS, see https://github.com/JakeWharton/ActionBarSherlock/issues/642
-		if (main.startActionMode(new LongClickActionModeCallback(x, y)) == null) {
-			main.startActionMode(new PathCreationActionModeCallback(x, y));
+		if (main.startSupportActionMode(new LongClickActionModeCallback(x, y)) == null) {
+			main.startSupportActionMode(new PathCreationActionModeCallback(x, y));
 		}
 		return true;
 	}
@@ -257,7 +255,7 @@ public class EasyEditManager {
 		{
 			// one element already selected
 			((ElementSelectionActionModeCallback)currentActionModeCallback).deselect = false; // keep the element visually selected
-			main.startActionMode(new ExtendSelectionActionModeCallback(((ElementSelectionActionModeCallback)currentActionModeCallback).element));
+			main.startSupportActionMode(new ExtendSelectionActionModeCallback(((ElementSelectionActionModeCallback)currentActionModeCallback).element));
 			// add 2nd element FIXME may need some checks
 			((ExtendSelectionActionModeCallback)currentActionModeCallback).handleElementClick(osmElement);
 		} else if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
@@ -266,7 +264,7 @@ public class EasyEditManager {
 			// ignore for now
 		} else {
 			// nothing selected
-			main.startActionMode(new ExtendSelectionActionModeCallback(osmElement));
+			main.startSupportActionMode(new ExtendSelectionActionModeCallback(osmElement));
 		}
 	}
 	
@@ -302,13 +300,13 @@ public class EasyEditManager {
 			// Single node was added
 			if (possibleNode != null) { // null-check to be sure
 				if (select) {
-					main.startActionMode(new NodeSelectionActionModeCallback(possibleNode));
+					main.startSupportActionMode(new NodeSelectionActionModeCallback(possibleNode));
 				}
 				main.performTagEdit(possibleNode, null, false, false);
 			}
 		} else { // way was added
 			if (select) {
-				main.startActionMode(new WaySelectionActionModeCallback(possibleWay));
+				main.startSupportActionMode(new WaySelectionActionModeCallback(possibleWay));
 			}
 			main.performTagEdit(possibleWay, null, false, false);		
 		}
@@ -591,7 +589,7 @@ public class EasyEditManager {
 		@Override
 		public boolean handleClick(float x, float y) {
 			PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(logic.lonE7ToX(startLon), logic.latE7ToY(startLat));
-			main.startActionMode(pcamc);
+			main.startSupportActionMode(pcamc);
 			pcamc.handleClick(x, y);
 			logic.hideCrosshairs();
 			return true;
@@ -617,7 +615,7 @@ public class EasyEditManager {
 				logic.hideCrosshairs();
 				return true;
 			case MENUITEM_NEWNODEWAY:
-				main.startActionMode(new PathCreationActionModeCallback(x, y));
+				main.startSupportActionMode(new PathCreationActionModeCallback(x, y));
 				logic.hideCrosshairs();
 				return true;
 			case MENUITEM_NEWNODE_ADDRESS:
@@ -632,7 +630,7 @@ public class EasyEditManager {
 				}
 				Node lastSelectedNode = logic.getSelectedNode();
 				if (lastSelectedNode != null) {
-					main.startActionMode(new NodeSelectionActionModeCallback(lastSelectedNode));
+					main.startSupportActionMode(new NodeSelectionActionModeCallback(lastSelectedNode));
 					main.performTagEdit(lastSelectedNode, null, item.getItemId() == MENUITEM_NEWNODE_ADDRESS, item.getItemId() == MENUITEM_NEWNODE_PRESET); // show preset screen or add addresses
 				}
 				return true;
@@ -733,7 +731,7 @@ public class EasyEditManager {
 								tags.put(key, map.get(key).get(0));
 							}
 							logic.setTags(Node.NAME, node.getOsmId(), tags);
-							main.startActionMode(new NodeSelectionActionModeCallback(node));
+							main.startSupportActionMode(new NodeSelectionActionModeCallback(node));
 							return;
 						}
 					} catch (Exception ex) {
@@ -745,7 +743,7 @@ public class EasyEditManager {
 					if (presetItems != null && presetItems.size()==1) {		
 						Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), words.length == 2? words[1]:null, presetItems.get(0), logic, v);
 						if (node != null) {
-							main.startActionMode(new NodeSelectionActionModeCallback(node));
+							main.startSupportActionMode(new NodeSelectionActionModeCallback(node));
 							return;
 						} 
 					}
@@ -769,7 +767,7 @@ public class EasyEditManager {
 									tags.put(k, map.get(k));
 								}
 								storageDelegator.setTags(node,tags); // note doesn't create a new undo checkpoint
-								main.startActionMode(new NodeSelectionActionModeCallback(node));
+								main.startSupportActionMode(new NodeSelectionActionModeCallback(node));
 								return;
 							}
 						}
@@ -947,7 +945,7 @@ public class EasyEditManager {
 				}
 				Way lastSelectedWay = logic.getSelectedWay();
 				if (lastSelectedWay != null) {
-					main.startActionMode(new WaySelectionActionModeCallback(lastSelectedWay));
+					main.startSupportActionMode(new WaySelectionActionModeCallback(lastSelectedWay));
 					main.performTagEdit(lastSelectedWay, null, false, item.getItemId() == MENUITEM_NEWWAY_PRESET); // show preset screen
 				}
 				return true;
@@ -1053,7 +1051,7 @@ public class EasyEditManager {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			
-			main.getSupportMenuInflater().inflate(R.menu.undo_action, menu);
+			main.getMenuInflater().inflate(R.menu.undo_action, menu);
 			MenuItem undo = menu.findItem(R.id.undo_action);
 			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
 				undo.setVisible(true);
@@ -1097,8 +1095,8 @@ public class EasyEditManager {
 			case MENUITEM_HISTORY: showHistory(); break;
 			case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
 			case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
-			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
-			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startActionMode(new  ExtendSelectionActionModeCallback(element)); break;
+			case MENUITEM_RELATION: main.startSupportActionMode(new  AddRelationMemberActionModeCallback(element)); break;
+			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startSupportActionMode(new  ExtendSelectionActionModeCallback(element)); break;
 			case MENUITEM_ELEMENT_INFO: ElementInfo.showDialog(main,element); break;
 			case R.id.undo_action:
 				// should not happen
@@ -1218,7 +1216,7 @@ public class EasyEditManager {
 			if (!super.onActionItemClicked(mode, item)) {
 				switch (item.getItemId()) {
 				case MENUITEM_APPEND:
-					main.startActionMode(new PathCreationActionModeCallback((Node)element));
+					main.startSupportActionMode(new PathCreationActionModeCallback((Node)element));
 					break;
 				case MENUITEM_JOIN:
 					try {
@@ -1424,15 +1422,15 @@ public class EasyEditManager {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			if (!super.onActionItemClicked(mode, item)) {
 				switch (item.getItemId()) {
-				case MENUITEM_SPLIT: main.startActionMode(new WaySplittingActionModeCallback((Way)element, false)); break;
-				case MENUITEM_MERGE: main.startActionMode(new WayMergingActionModeCallback((Way)element, cachedMergeableWays)); break;
+				case MENUITEM_SPLIT: main.startSupportActionMode(new WaySplittingActionModeCallback((Way)element, false)); break;
+				case MENUITEM_MERGE: main.startSupportActionMode(new WayMergingActionModeCallback((Way)element, cachedMergeableWays)); break;
 				case MENUITEM_REVERSE: reverseWay(); break;
-				case MENUITEM_APPEND: main.startActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
-				case MENUITEM_RESTRICTION: main.startActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
+				case MENUITEM_APPEND: main.startSupportActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
+				case MENUITEM_RESTRICTION: main.startSupportActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
 				case MENUITEM_ROTATE: logic.setRotationMode(); logic.showCrosshairsForCentroid(); break;
 				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); invalidate(); break;
 				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); invalidate(); break;
-				case MENUITEM_SPLIT_POLYGON: main.startActionMode(new WaySplittingActionModeCallback((Way)element, true)); break;
+				case MENUITEM_SPLIT_POLYGON: main.startSupportActionMode(new WaySplittingActionModeCallback((Way)element, true)); break;
 				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false); break;
 				default: return false;
 				}
@@ -1516,7 +1514,7 @@ public class EasyEditManager {
 				return false;
 			}
 			if (way.isClosed())
-				main.startActionMode(new ClosedWaySplittingActionModeCallback(way, (Node) element, createPolygons));
+				main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(way, (Node) element, createPolygons));
 			else {
 				logic.performSplit(way, (Node)element);
 				currentActionMode.finish();
@@ -1579,7 +1577,7 @@ public class EasyEditManager {
 				logic.addSelectedWay(result[1]);
 				ArrayList<OsmElement> selection = new ArrayList<OsmElement>(); 
 				selection.addAll(logic.getSelectedWays());
-				main.startActionMode(new ExtendSelectionActionModeCallback(selection));
+				main.startSupportActionMode(new ExtendSelectionActionModeCallback(selection));
 			} else { //FIXME toast here?
 				Log.d(DEBUG_TAG,"split failed");
 				currentActionMode.finish();
@@ -1635,9 +1633,9 @@ public class EasyEditManager {
 						main.performTagEdit(element, null, false, false);
 				} else {
 					if (way.getState() != OsmElement.STATE_DELETED)
-						main.startActionMode(new WaySelectionActionModeCallback(way));
+						main.startSupportActionMode(new WaySelectionActionModeCallback(way));
 					else
-						main.startActionMode(new WaySelectionActionModeCallback((Way)element));
+						main.startSupportActionMode(new WaySelectionActionModeCallback((Way)element));
 				}
 			} catch (OsmIllegalOperationException e) {
 				Toast.makeText(main, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -1678,7 +1676,7 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
-			main.startActionMode(new PathCreationActionModeCallback(way, (Node)element));
+			main.startSupportActionMode(new PathCreationActionModeCallback(way, (Node)element));
 			return true;
 		}
 		
@@ -1734,7 +1732,7 @@ public class EasyEditManager {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			if (!super.onActionItemClicked(mode, item)) {
 				switch (item.getItemId()) {
-				case MENUITEM_ADD_RELATION_MEMBERS: main.startActionMode(new  AddRelationMemberActionModeCallback((Relation)element, null)); break;
+				case MENUITEM_ADD_RELATION_MEMBERS: main.startSupportActionMode(new  AddRelationMemberActionModeCallback((Relation)element, null)); break;
 				case MENUITEM_SELECT_RELATION_MEMBERS:
 					ArrayList<OsmElement> selection = new ArrayList<OsmElement>();
 					if (((Relation)element).getMembers() != null) {
@@ -1744,7 +1742,7 @@ public class EasyEditManager {
 					}
 					if (selection.size() > 0) {
 						deselect = false;
-						main.startActionMode(new  ExtendSelectionActionModeCallback(selection));
+						main.startSupportActionMode(new  ExtendSelectionActionModeCallback(selection));
 					} 
 					break;
 				default: return false;
@@ -1803,7 +1801,7 @@ public class EasyEditManager {
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
 			viaSelected = true;
-			main.startActionMode(new RestrictionViaElementActionModeCallback(way, element));
+			main.startSupportActionMode(new RestrictionViaElementActionModeCallback(way, element));
 			return true;
 		}
 		
@@ -1865,7 +1863,7 @@ public class EasyEditManager {
 			if (!(element instanceof Way)) {
 				return true; // shouldn't happen just ignore it
 			}
-			main.startActionMode(new RestrictionToElementActionModeCallback(fromWay, viaElement, (Way) element));
+			main.startSupportActionMode(new RestrictionToElementActionModeCallback(fromWay, viaElement, (Way) element));
 			return true;
 		}
 		
@@ -1909,7 +1907,7 @@ public class EasyEditManager {
 			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay, fromWay == toWay ? NO_U_TURN_VALUE : null);
 			Log.i("EasyEdit", "Created restriction");
 			main.performTagEdit(restriction, RESTRICTION_TAG, false, false);
-			main.startActionMode(new RelationSelectionActionModeCallback(restriction));
+			main.startSupportActionMode(new RelationSelectionActionModeCallback(restriction));
 			return false; // we are actually already finished
 		}
 		
@@ -2148,7 +2146,7 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu.clear();
 			
-			main.getSupportMenuInflater().inflate(R.menu.undo_action, menu);
+			main.getMenuInflater().inflate(R.menu.undo_action, menu);
 			MenuItem undo = menu.findItem(R.id.undo_action);
 			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
 				undo.setVisible(true);
@@ -2227,7 +2225,7 @@ public class EasyEditManager {
 				
 				// case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
 				// case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
-				case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(selection)); break;
+				case MENUITEM_RELATION: main.startSupportActionMode(new  AddRelationMemberActionModeCallback(selection)); break;
 				case MENUITEM_ORTHOGONALIZE: 
 					List<Way> selectedWays = logic.getSelectedWays();
 					if (selectedWays != null && selectedWays.size() >0) {
@@ -2258,7 +2256,7 @@ public class EasyEditManager {
 								}
 							}
 							if (remaining != null) {
-								main.startActionMode(new WaySelectionActionModeCallback(remaining));
+								main.startSupportActionMode(new WaySelectionActionModeCallback(remaining));
 								if (!result) { // merge conflict
 									Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
 									main.performTagEdit(remaining, null, false, false);

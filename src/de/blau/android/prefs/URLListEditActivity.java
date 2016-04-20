@@ -14,10 +14,14 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.ActionMenuView.OnMenuItemClickListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,13 +31,6 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
-
 import de.blau.android.R;
 
 /**
@@ -49,7 +46,7 @@ import de.blau.android.R;
  * @author Jan
  *
  */
-public abstract class URLListEditActivity extends SherlockListActivity implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
+public abstract class URLListEditActivity extends ListActivity implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
 
 	public static final String ACTION_NEW = "new";
 	public static final String EXTRA_NAME = "name";
@@ -87,7 +84,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	public void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(R.style.Theme_Sherlock_Light);
+			setTheme(android.R.style.Theme_Holo_Light);
 		}
 		super.onCreate(savedInstanceState);
 		r = getResources();
@@ -180,11 +177,6 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	
 	@Override
 	public boolean onMenuItemClick(MenuItem menuitem) {
-		return onMenuItemClick(menuitem.getItemId());
-	}
-	
-	@Override
-	public boolean onMenuItemClick(android.view.MenuItem menuitem) {
 		return onMenuItemClick(menuitem.getItemId());
 	}
 	

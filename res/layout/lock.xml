@@ -7,7 +7,7 @@
 
     <ToggleButton
         android:id="@+id/lock"
-        android:layout_width="@dimen/abs__action_bar_default_height"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:button="?attr/lock"

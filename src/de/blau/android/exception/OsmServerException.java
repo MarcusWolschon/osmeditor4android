@@ -1,6 +1,6 @@
 package de.blau.android.exception;
 
-import org.apache.http.HttpStatus;
+import java.net.HttpURLConnection;
 
 public class OsmServerException extends OsmException {
 
@@ -60,23 +60,23 @@ public class OsmServerException extends OsmException {
 	 */
 	public static String errorCodeToMeaning(final int errorCode) {
 		switch (errorCode) {
-		case HttpStatus.SC_BAD_REQUEST:
+		case HttpURLConnection.HTTP_BAD_REQUEST:
 			return "The payload did not match the request. This happens for example when an \"update\" request is made and the object id given in the XML does not match the object id in the URL, or if the requested bounding box is too big.";
-		case HttpStatus.SC_UNAUTHORIZED:
+		case HttpURLConnection.HTTP_UNAUTHORIZED:
 			return "A write request was attempted without (valid) HTTP Basic Authorization. ";
-		case HttpStatus.SC_NOT_FOUND:
+		case HttpURLConnection.HTTP_NOT_FOUND:
 			return "The object requested to be retrieved/modified/deleted does not exist, and did never. ";
-		case HttpStatus.SC_METHOD_NOT_ALLOWED:
+		case HttpURLConnection.HTTP_BAD_METHOD:
 			return "The keyword \"create\" was passed on the URL but the request was not a PUT request. ";
-		case HttpStatus.SC_GONE:
+		case HttpURLConnection.HTTP_GONE:
 			return "The object requested to be retrieved/modified/deleted existed once but has been deleted meanwhile. ";
-		case HttpStatus.SC_PRECONDITION_FAILED:
+		case HttpURLConnection.HTTP_PRECON_FAILED:
 			return "The operation requested would break referential integrity (e.g. when requesting to delete a node that is used in a way, or when modifying a way to refer to a non-existing node). This error code is also used when the XML payload contains an object id in the context of a \"create\" request (where the server is expected to assign a fresh id). ";
-		case HttpStatus.SC_EXPECTATION_FAILED:
+		case 417:
 			return "The API no longer returns a 417 error code, however if you are using curl you might come across it when curl sends an Expect header and lighttpd rejects it. See the curl page for more information ";
-		case HttpStatus.SC_INTERNAL_SERVER_ERROR:
+		case HttpURLConnection.HTTP_SERVER_ERROR:
 			return "An internal error occurred. This is usually an uncaught Ruby exception and should be reported as a bug. There have been cases where such errors were caused by timeouts, i.e. a retry after a short waiting period could succeed. ";
-		case HttpStatus.SC_SERVICE_UNAVAILABLE:
+		case HttpURLConnection.HTTP_UNAVAILABLE:
 			return "The database has been taken offline for maintenance. ";
 		}
 		return "";

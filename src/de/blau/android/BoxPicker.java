@@ -10,8 +10,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -24,11 +27,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
@@ -48,7 +46,7 @@ import de.blau.android.util.Search.SearchResult;
  * 
  * @author mb
  */
-public class BoxPicker extends SherlockFragmentActivity implements LocationListener {
+public class BoxPicker extends AppCompatActivity implements LocationListener {
 	
 	/**
 	 * Tag used for Android-logging.
@@ -105,7 +103,7 @@ public class BoxPicker extends SherlockFragmentActivity implements LocationListe
 	protected void onCreate(final Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(R.style.Theme_Sherlock_Light);
+			setTheme(android.R.style.Theme_Holo_Light);
 		}
 		
 		super.onCreate(savedInstanceState);

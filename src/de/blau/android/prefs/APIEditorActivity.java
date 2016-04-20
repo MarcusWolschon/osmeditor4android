@@ -12,13 +12,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
-import com.actionbarsherlock.view.Menu;
-
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 
@@ -46,7 +44,7 @@ public class APIEditorActivity extends URLListEditActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(R.style.Theme_Sherlock_Light);
+			setTheme(android.R.style.Theme_Holo_Light);
 		}
 		db = new AdvancedPrefDatabase(this);
 		super.onCreate(savedInstanceState);

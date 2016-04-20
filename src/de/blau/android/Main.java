@@ -43,6 +43,9 @@ import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -50,6 +53,9 @@ import android.view.ContextThemeWrapper;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,21 +65,13 @@ import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ZoomControls;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-
 import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
@@ -137,7 +135,7 @@ import de.blau.android.voice.Commands;
  * 
  * @author mb
  */
-public class Main extends SherlockFragmentActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener {
+public class Main extends AppCompatActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener {
 
 	/**
 	 * Tag used for Android-logging.
@@ -919,7 +917,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		Log.d(DEBUG_TAG, "onCreateOptionsMenu");
-		final MenuInflater inflater = getSupportMenuInflater();
+		final MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
 
 		// only show camera icon if we have a camera, and a camera app is installed 
@@ -1228,7 +1226,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_MOVE; // protect against weird state
 			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(oldMode);
 			logic.setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
-			startActionMode(getBackgroundAlignmentActionModeCallback());
+			startSupportActionMode(getBackgroundAlignmentActionModeCallback());
 			return true;
 			
 		case R.id.menu_tools_background_properties:
@@ -2723,9 +2721,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	/**
 	 * Workaround for bug mentioned below
 	 */
-	public ActionMode startActionMode(final ActionMode.Callback callback) {
+	public ActionMode startSupportActionMode(final ActionMode.Callback callback) {
 	  // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
-	  final ActionMode mode = super.startActionMode(callback);
+	  final ActionMode mode = super.startSupportActionMode(callback);
 	  if (mode != null) {
 	    mode.invalidate();
 	  }

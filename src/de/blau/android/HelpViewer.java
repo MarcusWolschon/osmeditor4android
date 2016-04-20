@@ -23,7 +23,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -32,13 +37,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ThemeUtils;
 
@@ -49,7 +47,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class HelpViewer extends SherlockActivity {
+public class HelpViewer extends AppCompatActivity {
 	
 	class HelpItem implements Comparable<HelpItem> {
 		boolean displayLanguage = false;
@@ -204,7 +202,7 @@ public class HelpViewer extends SherlockActivity {
 	 */
  	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
-		final MenuInflater inflater = getSupportMenuInflater();
+		final MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.help_menu, menu);
 		return true;
  	}

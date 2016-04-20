@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -25,9 +26,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.Application;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -46,7 +44,7 @@ import de.blau.android.util.IssueAlert;
  * @author simon
  *
  */
-public class TaskFragment extends SherlockDialogFragment {
+public class TaskFragment extends DialogFragment {
 	private static final String DEBUG_TAG = TaskFragment.class.getSimpleName();
 	 
 	UpdateViewListener mListener;

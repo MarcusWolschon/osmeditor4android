@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -26,9 +27,6 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -42,7 +40,7 @@ import de.blau.android.osm.Way;
  * @author simon
  *
  */
-public class ElementInfo extends SherlockDialogFragment {
+public class ElementInfo extends DialogFragment {
 	
 	private static final String DEBUG_TAG = ElementInfo.class.getName();
 	

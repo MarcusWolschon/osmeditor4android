@@ -8,6 +8,7 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -23,9 +24,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -40,7 +38,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class ConfirmUpload extends SherlockDialogFragment
+public class ConfirmUpload extends DialogFragment
 {
 	
 	private static final String DEBUG_TAG = ConfirmUpload.class.getSimpleName();

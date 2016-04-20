@@ -12,10 +12,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -31,13 +36,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -47,7 +45,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.StringWithDescription;
 
-public class RelationMembershipFragment extends SherlockFragment implements
+public class RelationMembershipFragment extends Fragment implements
 		PropertyRows,
 		OnItemSelectedListener {
 	
@@ -424,7 +422,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (parentSelectedActionModeCallback == null) {
 			parentSelectedActionModeCallback = new SelectedRowsActionModeCallback(this, rowLayout);
-			((SherlockFragmentActivity)getActivity()).startActionMode(parentSelectedActionModeCallback);
+			((AppCompatActivity)getActivity()).startSupportActionMode(parentSelectedActionModeCallback);
 		}	
 	}
 	

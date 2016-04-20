@@ -7,13 +7,11 @@ import java.util.Map;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;

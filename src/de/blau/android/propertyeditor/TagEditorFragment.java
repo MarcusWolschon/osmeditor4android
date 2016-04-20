@@ -25,12 +25,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils.TruncateAt;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -44,13 +48,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -75,7 +72,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 
 
 	
-public class TagEditorFragment extends SherlockFragment implements
+public class TagEditorFragment extends Fragment implements
 		PropertyRows, EditorUpdate {
 
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
@@ -1103,7 +1100,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (tagSelectedActionModeCallback == null) {
 			tagSelectedActionModeCallback = new TagSelectedActionModeCallback(this, rowLayout);
-			((SherlockFragmentActivity)getActivity()).startActionMode(tagSelectedActionModeCallback);
+			((AppCompatActivity)getActivity()).startSupportActionMode(tagSelectedActionModeCallback);
 		}	
 	}
 	

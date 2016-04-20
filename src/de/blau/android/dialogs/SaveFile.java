@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -17,9 +18,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -30,7 +28,7 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog asking for a file name to save to
  *
  */
-public class SaveFile extends SherlockDialogFragment
+public class SaveFile extends DialogFragment
 {
 	
 	private static final String DEBUG_TAG = SaveFile.class.getSimpleName();

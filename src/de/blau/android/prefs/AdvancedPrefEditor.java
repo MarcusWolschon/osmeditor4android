@@ -1,15 +1,12 @@
 package de.blau.android.prefs;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
-
-import de.blau.android.R;
-
-public class AdvancedPrefEditor extends SherlockFragmentActivity {
+public class AdvancedPrefEditor extends AppCompatActivity {
 
 	
 	@Override
@@ -17,7 +14,7 @@ public class AdvancedPrefEditor extends SherlockFragmentActivity {
 		Log.d("AdvancedPrefEditor", "onCreate");
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(R.style.Theme_Sherlock_Light);
+			setTheme(android.R.style.Theme_Holo_Light);
 		}
 		
 		super.onCreate(savedInstanceState);

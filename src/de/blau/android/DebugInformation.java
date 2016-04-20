@@ -7,11 +7,9 @@ import android.annotation.SuppressLint;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockActivity;
-
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
@@ -20,7 +18,7 @@ import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
-public class DebugInformation extends SherlockActivity {
+public class DebugInformation extends AppCompatActivity {
 	private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	
 	@SuppressLint("NewApi")
@@ -28,7 +26,7 @@ public class DebugInformation extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(R.style.Theme_Sherlock_Light);
+			setTheme(android.R.style.Theme_Holo_Light);
 		}
 		
 		super.onCreate(savedInstanceState);

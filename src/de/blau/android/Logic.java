@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ import java.util.concurrent.TimeoutException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.acra.ACRA;
-import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -2935,22 +2935,22 @@ public class Logic {
 					result.httpError = e.getErrorCode();
 					result.message = e.getMessage();
 					switch (e.getErrorCode()) {
-					case HttpStatus.SC_UNAUTHORIZED:
-					case HttpStatus.SC_FORBIDDEN:
+					case HttpURLConnection.HTTP_UNAUTHORIZED:
+					case HttpURLConnection.HTTP_FORBIDDEN:
 						result.error = ErrorCodes.INVALID_LOGIN;
 						break;
-					case HttpStatus.SC_CONFLICT:
-					case HttpStatus.SC_PRECONDITION_FAILED:
+					case HttpURLConnection.HTTP_CONFLICT:
+					case HttpURLConnection.HTTP_PRECON_FAILED:
 						result.error = ErrorCodes.UPLOAD_CONFLICT;
 						result.elementType = e.getElementType();
 						result.osmId = e.getElementId();
 						break;
-					case HttpStatus.SC_BAD_REQUEST:
-					case HttpStatus.SC_NOT_FOUND:
-					case HttpStatus.SC_GONE:
-					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
-					case HttpStatus.SC_BAD_GATEWAY:
-					case HttpStatus.SC_SERVICE_UNAVAILABLE:
+					case HttpURLConnection.HTTP_BAD_REQUEST:
+					case HttpURLConnection.HTTP_NOT_FOUND:
+					case HttpURLConnection.HTTP_GONE:
+					case HttpURLConnection.HTTP_SERVER_ERROR:
+					case HttpURLConnection.HTTP_BAD_GATEWAY:
+					case HttpURLConnection.HTTP_UNAVAILABLE:
 						result.error = ErrorCodes.UPLOAD_PROBLEM;
 						break;
 					//TODO: implement other state handling
@@ -3029,19 +3029,19 @@ public class Logic {
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final OsmServerException e) {
 					switch (e.getErrorCode()) {
-					case HttpStatus.SC_UNAUTHORIZED:
+					case HttpURLConnection.HTTP_UNAUTHORIZED:
 						result = ErrorCodes.INVALID_LOGIN;
 						break;
-					case HttpStatus.SC_BAD_REQUEST:
-					case HttpStatus.SC_PRECONDITION_FAILED:
-					case HttpStatus.SC_CONFLICT:
+					case HttpURLConnection.HTTP_BAD_REQUEST:
+					case HttpURLConnection.HTTP_PRECON_FAILED:
+					case HttpURLConnection.HTTP_CONFLICT:
 						result = ErrorCodes.UPLOAD_PROBLEM;
 						break;
-					case HttpStatus.SC_NOT_FOUND:
-					case HttpStatus.SC_GONE:
-					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
-					case HttpStatus.SC_BAD_GATEWAY:
-					case HttpStatus.SC_SERVICE_UNAVAILABLE:
+					case HttpURLConnection.HTTP_NOT_FOUND:
+					case HttpURLConnection.HTTP_GONE:
+					case HttpURLConnection.HTTP_SERVER_ERROR:
+					case HttpURLConnection.HTTP_BAD_GATEWAY:
+					case HttpURLConnection.HTTP_UNAVAILABLE:
 						result = ErrorCodes.UPLOAD_PROBLEM;
 						break;
 					//TODO: implement other state handling

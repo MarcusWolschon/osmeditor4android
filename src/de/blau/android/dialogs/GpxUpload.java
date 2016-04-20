@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,9 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
@@ -28,7 +26,7 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog to select a file to upload
  *
  */
-public class GpxUpload extends SherlockDialogFragment
+public class GpxUpload extends DialogFragment
 {
 	
 	private static final String DEBUG_TAG = GpxUpload.class.getSimpleName();

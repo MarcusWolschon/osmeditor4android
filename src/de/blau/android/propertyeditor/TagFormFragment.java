@@ -22,6 +22,9 @@ import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -36,12 +39,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -60,7 +57,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 
 
 	
-public class TagFormFragment extends SherlockFragment implements FormUpdate {
+public class TagFormFragment extends Fragment implements FormUpdate {
 
 	private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName();
 	

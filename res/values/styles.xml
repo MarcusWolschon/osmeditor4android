@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-	<style name="customActionBarDropdown" parent="Widget.Sherlock.Spinner.DropDown.ActionBar">
+        
+	<style name="customActionBarDropdown" parent="">
 		<item name="android:gravity">right|center_vertical</item>
 	</style>
 
-	<style name="Theme.customMain" parent="style/Theme.Sherlock">
-		<!-- need to specify once for ActionBarSherlock, once for android native -->
-		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
-<!-- 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
-		<!-- icons -->
+	<style name="Theme.customMain" parent="style/Theme.AppCompat">
+		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_dark</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_dark</item>
 		<item name="menu_find">@drawable/ic_menu_search_holo_dark</item>
@@ -19,6 +17,7 @@
 		<item name="menu_cut">@drawable/ic_menu_cut_holo_dark</item>
 		<item name="menu_copy">@drawable/ic_action_copy_holo_dark</item>
 		<item name="menu_paste">@drawable/ic_action_paste_holo_dark</item>
+		<item name="menu_save">@drawable/ic_action_save_holo_dark</item>
 		<item name="menu_rotate">@drawable/ic_action_rotate_right_holo_dark</item>
 		<item name="menu_transfer">@drawable/ic_action_import_export_holo_dark</item>
 		<item name="menu_merge">@drawable/ic_action_merge_holo_dark</item>
@@ -30,6 +29,7 @@
 		<item name="menu_tags">@drawable/ic_action_labels_holo_dark</item>
 		<item name="menu_camera">@drawable/camera_dark</item>
 		<item name="menu_address">@drawable/address_dark</item>
+		<item name="menu_multi_select">@drawable/multi_select_dark</item>
 		<item name="menu_ortho">@drawable/ortho_dark</item>
 		<item name="menu_extract_node">@drawable/extract_node_dark</item>
 		<item name="menu_relation">@drawable/relation_dark</item>
@@ -47,17 +47,16 @@
 		<item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
 		<item name="mic">@drawable/ic_action_mic_holo_dark</item>
 		<item name="search">@drawable/ic_action_search_holo_dark</item>
-	 	<!-- styles -->
+		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
+		<item name="EditText">@style/EditTextDark</item>
 	</style>
 	
-	<style name="ActionButtonDark" parent="style/Widget.Sherlock.ActionButton" />
-
-	<style name="Theme.customMain.Light" parent="style/Theme.Sherlock.Light">
-		<!-- need to specify once for ActionBarSherlock, once for android native -->
-		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
-<!-- 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
-		<!-- icons -->
+	<style name="ActionButtonDark" parent="android:Widget.Holo.ActionBar" />
+	
+	<style name="Theme.customMain.Light" parent="style/Theme.AppCompat.Light">
+		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_light</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_light</item>
 		<item name="menu_find">@drawable/ic_menu_search_holo_light</item>
@@ -67,6 +66,7 @@
 		<item name="menu_cut">@drawable/ic_menu_cut_holo_light</item>
 		<item name="menu_copy">@drawable/ic_action_copy_holo_light</item>
 		<item name="menu_paste">@drawable/ic_action_paste_holo_light</item>
+		<item name="menu_save">@drawable/ic_action_save_holo_light</item>
 		<item name="menu_rotate">@drawable/ic_action_rotate_right_holo_light</item>
 		<item name="menu_transfer">@drawable/ic_action_import_export_holo_light</item>
 		<item name="menu_merge">@drawable/ic_action_merge_holo_light</item>
@@ -98,38 +98,42 @@
 		<item name="search">@drawable/ic_action_search_holo_light</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonLight</item>
+		<item name="EditText">@style/EditTextLight</item>
 	</style>
 
-	<style name="ActionButtonLight" parent="style/Widget.Sherlock.Light.ActionButton" />
-	
+	<style name="ActionButtonLight" parent="android:Widget.Holo.Light.ActionBar" />
 	
 	<!--  Style for custom views in alert dialogs -->
-	<!--  Themeing dialogs doesn't really work so leave this dark for now -->
-	<style name="Theme.DialogDark" parent="@style/Theme.Sherlock"></style>
+	<style name="Theme.DialogDark" parent="@style/Theme.AppCompat"></style>
 	
-	<style name="Theme.DialogLight" parent="@style/Theme.Sherlock"></style>
+	<style name="Theme.DialogLight" parent="style/Theme.AppCompat.Light">
+	    <item name="android:textColor">@android:color/black</item>
+	    <item name="android:editTextStyle">@style/DialogEditTextLight</item>
+	    <item name="android:checkboxStyle">@style/DialogCheckBoxLight</item>
+	    <item name="android:textCursorDrawable">@null</item>
+	</style>
 	
-	<style name="DialogEditTextLight" parent="android:Widget.EditText">
+	<style name="DialogEditTextLight" parent="android:Widget.Holo.Light.EditText">
 	    <item name="android:textColor">@android:color/black</item>
 	</style>
 	
-	<style name="DialogCheckBoxLight" parent="android:Widget.CompoundButton.CheckBox">
+	<style name="DialogCheckBoxLight" parent="android:Widget.Holo.Light.CompoundButton.CheckBox">
 	</style>
 	
 	<!-- Dark for PropertyEditor -->
-	<style name="Theme.customTagEditor" parent="style/Theme.Sherlock">
-		<item name="actionBarStyle">@style/TagEditorActionBar</item>
-		<!-- 		<item name="android:actionBarStyle">@style/TagEditorActionBar</item> -->
+	<style name="Theme.customTagEditor" parent="style/Theme.AppCompat">
+		<item name="android:actionBarStyle">@style/TagEditorActionBar</item>
 		<item name="android:autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
 		<item name="android:dropDownItemStyle">@style/Widget.DropDownItem</item>
-		<item name="android:editTextStyle">@style/EditText</item>
+		<!-- <item name="android:textViewStyle">@style/TextView</item> -->
+		<item name="android:editTextStyle">@style/EditTextDark</item>
 		<item name="android:checkboxStyle">@style/CheckBox</item>
 		<item name="android:spinnerStyle">@style/SpinnerStyle</item>
 		<item name="TableHeader">@style/TableHeader</item>
 		<item name="PagerTabStrip">@style/PagerTabStrip</item>
 		<item name="Layout">@style/Layout</item>
 		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
-		<item name="spinnerItemStyle">@style/SpinnerItemStyle</item>
+<!-- 		<item name="spinnerItemStyle">@style/SpinnerItemStyle</item> -->
 		<item name="RadioGroup">@style/RadioGroupStyleDark</item>
 		<item name="DownloadedMember">@style/DownloadedMemberDark</item>
 		<item name="NotDownloadedMember">@style/NotDownloadedMemberDark</item>
@@ -172,37 +176,40 @@
 		<item name="not_downloaded_line_small">@drawable/line_small_dark</item>
 		<item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
 	</style>
-	
-	<style name="TagEditorActionBar" parent="Widget.Sherlock.ActionBar.Solid" />
 
-	<style name="TextView" parent="android:Widget.TextView">
-		<item name="android:background">@android:color/black</item>
-	</style>
-	
-	<style name="EditText" parent="android:Widget.EditText">
-		<item name="android:background">@android:color/black</item>
-	</style>
-	
-	<style name="Widget.AutoCompleteTextView" parent="Widget.Sherlock.SearchAutoCompleteTextView">
-		<item name="android:background">@android:color/black</item>
-	</style>
+	<style name="TagEditorActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid" />
 
-	<style name="Widget.DropDownItem" parent="android:style/Widget.DropDownItem">
+
+	<style name="TextView" parent="android:Widget.Holo.TextView">
+		<item name="android:background">@android:color/black</item>
+	</style>
+	
+	<style name="EditTextDark" parent="android:Widget.Holo.EditText">
+		<item name="android:background">@android:color/black</item>
+	</style>
+	
+	<style name="Widget.AutoCompleteTextView" parent="android:Widget.AutoCompleteTextView">
 		<item name="android:textColor">@android:color/primary_text_dark</item>
+		<item name="android:background">@android:color/black</item>
+		<item name="android:popupBackground">@android:color/black</item>
 	</style>
 	
-	<style name="CheckBox" parent="android:Widget.CompoundButton.CheckBox">
+	<style name="Widget.DropDownItem" parent="@android:style/Widget.DropDownItem">
+		<item name="android:textColor">@android:color/primary_text_light</item>
+	</style>
+	
+	<style name="CheckBox" parent="android:Widget.Holo.CompoundButton.CheckBox">
 		<item name="android:background">@android:color/black</item>
 	</style>
 	
-	<style name="SpinnerStyle" parent="Widget.Sherlock.Spinner.DropDown.ActionBar">
-		<item name="android:background">@drawable/abs__ab_solid_dark_holo</item>
-		<item name="android:popupBackground">@drawable/abs__ab_solid_dark_holo</item>
-		<!-- <item name="android:dropDownSelector">@drawable/abs__list_selector_holo_dark</item> -->
+	<style name="SpinnerStyle" parent="android:Widget.Holo.Spinner">
+		<item name="android:background">@android:color/black</item>
+		<item name="android:popupBackground">@android:color/black</item>
+		<!-- <item name="android:dropDownSelector">@android:color/black</item> -->
 	</style>
 	
 	<style name="RadioGroupStyleDark">
-	    <item name="android:background">@drawable/abs__ab_solid_dark_holo</item>
+	   <item name="android:background">@android:color/black</item>
 	</style>
 	
 	<style name="TableHeader">
@@ -219,46 +226,46 @@
 	
 	<style name="ListPopupWindowStyle" parent="android:Widget.DropDownItem.Spinner">
 		<item name="android:textColor">@android:color/white</item>
-		<item name="android:background">@drawable/abs__ab_solid_dark_holo</item>
+		<item name="android:background">@android:color/black</item>
 	</style>
 
 	<style name="SpinnerItemStyle" parent="android:style/Widget.TextView.SpinnerItem">
 		<item name="android:textAppearance">@style/TextAppearanceSpinnerItem</item>
 	</style>
-	
+
 	<style name="TextAppearanceSpinnerItem" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
 		<item name="android:textColor">@android:color/white</item>
 	</style>
-	
-	<style name="DownloadedMemberDark">
-	    <item name="android:textAppearance">@style/DownloadedMemberLightText</item>
-		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
+
+	<style name="DownloadedMemberDark" parent="android:Widget.Holo.TextView">
+	    <item name="android:textColor">@android:color/white</item>
+		<item name="android:background">@android:color/white</item>
 	</style>
 	
-	<style name="NotDownloadedMemberDark">
+	<style name="NotDownloadedMemberDark" parent="android:Widget.Holo.TextView">
 	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	
-	<style name="StaticTextDark">
+	<style name="StaticTextDark" parent="android:Widget.Holo.TextView">
 	    <item name="android:textColor">@android:color/white</item>
 		<item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
-
-	<style name="Theme.customTagEditor.Light" parent="style/Theme.Sherlock.Light">
-	    <item name="actionBarStyle">@style/TagEditorActionBarLight</item>
-<!-- 		<item name="android:actionBarStyle">@style/TagEditorActionBarLight</item> -->
+	
+	<!-- Light for PropertyEditor -->
+	<style name="Theme.customTagEditor.Light" parent="style/Theme.AppCompat.Light">
+		<item name="android:actionBarStyle">@style/TagEditorActionBarLight</item>
 		<item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
 		<!-- <item name="android:textViewStyle">@style/TextViewLight</item> -->
 		<item name="android:editTextStyle">@style/EditTextLight</item>
 		<item name="android:checkboxStyle">@style/CheckBoxLight</item>
 		<item name="android:spinnerStyle">@style/SpinnerStyleLight</item>
+		<item name="RadioGroup">@style/RadioGroupStyleLight</item>
 		<item name="TableHeader">@style/TableHeaderLight</item>
 		<item name="PagerTabStrip">@style/PagerTabStripLight</item>
 		<item name="Layout">@style/LayoutLight</item>
 		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
-		<item name="spinnerItemStyle">@style/SpinnerItemStyleLight</item>
-		<item name="RadioGroup">@style/RadioGroupStyleLight</item>
+<!-- 		<item name="spinnerItemStyle">@style/SpinnerItemStyleLight</item> -->
 		<item name="DownloadedMember">@style/DownloadedMemberLight</item>
 		<item name="NotDownloadedMember">@style/NotDownloadedMemberLight</item>
 		<item name="StaticText">@style/StaticTextLight</item>
@@ -301,37 +308,37 @@
 		<item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
 	</style>
 
-	<style name="TagEditorActionBarLight" parent="Widget.Sherlock.Light.ActionBar.Solid" />
+	<style name="TagEditorActionBarLight" parent="@style/Widget.AppCompat.Light.ActionBar.Solid" />
 
-	<style name="TextViewLight" parent="android:Widget.TextView">
+	<style name="TextViewLight" parent="android:Widget.Holo.Light.TextView">
 		<item name="android:background">@android:color/white</item>
 	</style>
 
-	<style name="EditTextLight" parent="android:Widget.EditText">
-		<item name="android:background">@android:color/white</item>
-	</style>
-	
-	<style name="AutoCompleteTextViewLight" parent="android:Widget.AutoCompleteTextView">
+	<style name="EditTextLight" parent="android:Widget.Holo.Light.EditText">
 	    <item name="android:textColor">@android:color/black</item>
 		<item name="android:background">@android:color/white</item>
-		<item name="android:popupBackground">@drawable/abs__ab_solid_light_holo</item>
+	</style>
+	
+	<style name="AutoCompleteTextViewLight" parent="android:Widget.Holo.Light.AutoCompleteTextView">
+		<item name="android:background">@android:color/white</item>
+		<item name="android:popupBackground">@android:color/white</item>
 	</style>
 
-	<style name="CheckBoxLight" parent="android:Widget.CompoundButton.CheckBox">
+	<style name="CheckBoxLight" parent="android:Widget.Holo.Light.CompoundButton.CheckBox">
 		<item name="android:background">@android:color/white</item>
 	</style>
 	
-	<style name="SpinnerStyleLight" parent="Widget.Sherlock.Light.Spinner.DropDown.ActionBar">
-		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
-		<item name="android:popupBackground">@drawable/abs__ab_solid_light_holo</item>
+	<style name="SpinnerStyleLight" parent="android:Widget.Holo.Light.Spinner">
+		<item name="android:background">@android:color/white</item>
+		<item name="android:popupBackground">@android:color/white</item>
 	</style>
 	
 	<style name="RadioGroupStyleLight">
-	    <item name="android:background">@drawable/abs__ab_solid_light_holo</item>
+	    <item name="android:background">@android:color/white</item>
 	</style>
 	
 	<style name="TableHeaderLight">
-		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
+		<item name="android:background">@android:color/white</item>
 	</style>
 	
 	<style name="PagerTabStripLight">
@@ -344,64 +351,56 @@
 
 	<style name="ListPopupWindowStyleLight" parent="android:Widget.DropDownItem.Spinner">
 		<item name="android:textColor">@android:color/black</item>
-		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
+		<item name="android:background">@android:color/white</item>
 	</style>
 
-	<style name="SpinnerItemStyleLight" parent="android:style/Widget.TextView.SpinnerItem">
+	<style name="SpinnerItemStyleLight" parent="android:style/Widget.Holo.Light.TextView.SpinnerItem">
 		<item name="android:textAppearance">@style/TextAppearanceSpinnerItemLight</item>
 	</style>
-	
+
 	<style name="TextAppearanceSpinnerItemLight" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
 <!-- 		<item name="android:textColor">@android:color/black</item> -->
 	</style>
-
-	<style name="DownloadedMemberLight">
-	    <item name="android:textAppearance">@style/DownloadedMemberLightText</item>
-		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
-	</style>
 	
-	<style name="DownloadedMemberLightText">
+	<style name="DownloadedMemberLight" parent="android:Widget.Holo.Light.TextView">
 	    <item name="android:textColor">@android:color/black</item>
+		<item name="android:background">@android:color/white</item>
 	</style>
 	
-	<style name="NotDownloadedMemberLight">
+	<style name="NotDownloadedMemberLight" parent="android:Widget.Holo.Light.TextView">
 	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	
-	<style name="StaticTextLight">
-	    <item name="android:textAppearance">@style/DownloadedMemberLightText</item>
-		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
+	<style name="StaticTextLight" parent="android:Widget.Holo.Light.TextView">
+	    <item name="android:textColor">@android:color/black</item>
+		<item name="android:background">@android:color/white</item>
 	</style>
 	
 	<!-- Help Viewer -->
-	<style name="Theme.customHelpViewer" parent="style/Theme.Sherlock">
-		<!-- need to specify once for ActionBarSherlock, once for android native -->
-		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
-		<!-- <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
-		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
+	<style name="Theme.customHelpViewer" parent="style/Theme.AppCompat">
+		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="android:homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
 		<item name="drawer">@drawable/ic_drawer_holo_dark</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_dark</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_dark</item>
 		<item name="Drawer">@style/DrawerDark</item>
 	</style>
 
-	<style name="DrawerDark" parent="style/Theme.Sherlock">
+	<style name="DrawerDark" parent="style/Theme.AppCompat">
 		<item name="android:background">@color/dark_grey</item>
 	</style>
-
-	<style name="Theme.customHelpViewer.Light" parent="style/Theme.Sherlock.Light">
-		<!-- need to specify once for ActionBarSherlock, once for android native -->
-		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
-		<!-- <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
-		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
+	
+	<style name="Theme.customHelpViewer.Light" parent="style/Theme.AppCompat.Light">
+		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="android:homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
 		<item name="drawer">@drawable/ic_drawer_holo_light</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_light</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_light</item>
 		<item name="Drawer">@style/DrawerLight</item>
 	</style>
 	
-	<style name="DrawerLight" parent="style/Theme.Sherlock.Light">
+	<style name="DrawerLight" parent="style/Theme.AppCompat.Light">
 		<item name="android:background">@color/dark_grey</item>
 	</style>
 </resources>

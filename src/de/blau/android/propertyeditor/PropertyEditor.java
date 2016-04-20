@@ -25,9 +25,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
@@ -35,13 +39,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -67,7 +64,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  * @author simon
  */
-public class PropertyEditor extends SherlockFragmentActivity implements 
+public class PropertyEditor extends AppCompatActivity implements 
 		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters {
 	static final String PRESET_FRAGMENT = "preset_fragment";
 	static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
@@ -366,7 +363,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		// Due to a problem of not being able to intercept android.R.id.home in fragments on older android versions
 		// we start passing the event to the currently displayed fragment.
 		// REF: http://stackoverflow.com/questions/21938419/intercepting-actionbar-home-button-in-fragment	
-		SherlockFragment fragment = ((PropertyEditorPagerAdapter) mViewPager.getAdapter()).getItem(false,mViewPager.getCurrentItem());
+		Fragment fragment = ((PropertyEditorPagerAdapter) mViewPager.getAdapter()).getItem(false,mViewPager.getCurrentItem());
 		if (item.getItemId() == android.R.id.home && fragment != null && fragment.getView() != null && fragment.onOptionsItemSelected(item)) {
 			Log.d(DEBUG_TAG,"called fragment onOptionsItemSelected");
 			return true;
@@ -401,19 +398,19 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    	return usePaneLayout ? pages -1 : pages; // preset page not in pager
 	    }
 
-	    SherlockFragment tagFormFragment(int position, boolean displayRecentPresets) {
+	    Fragment tagFormFragment(int position, boolean displayRecentPresets) {
 			tagFormFragmentPosition = position;
 			tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags);
 			return tagFormFragment;
 	    }
 	    
-	    SherlockFragment tagEditorFragment(int position, boolean displayRecentPresets) {
+	    Fragment tagEditorFragment(int position, boolean displayRecentPresets) {
 	    	tagEditorFragmentPosition = position;
 	    	tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets);
 			return tagEditorFragment;
 	    }
 	    
-	    SherlockFragment relationMembershipFragment() {
+	    Fragment relationMembershipFragment() {
 	    	if (loadData.length == 1) {
 	    		relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
 				return relationMembershipFragment;
@@ -421,7 +418,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    	return null;
 	    }
 	    
-	    SherlockFragment relationMembersFragment() {
+	    Fragment relationMembersFragment() {
 	    	if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
 				relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0],loadData[0].members);
 				return relationMembersFragment;
@@ -430,11 +427,11 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    }
 	    
 	    @Override
-	    public SherlockFragment getItem(int position) {
+	    public Fragment getItem(int position) {
 	    	return getItem(true, position);
 	    }
 	    
-	    public SherlockFragment getItem(boolean instantiate, int position) {
+	    public Fragment getItem(boolean instantiate, int position) {
 	    	Log.d(DEBUG_TAG, "getItem " + instantiate + " " + position);
 	    	if (formEnabled) {
 	    		if (!usePaneLayout) {
@@ -1031,9 +1028,9 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	/**
 	 * Workaround for bug mentioned below
 	 */
-	public ActionMode startActionMode(final ActionMode.Callback callback) {
+	public ActionMode startSupportActionMode(final ActionMode.Callback callback) {
 	  // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
-	  final ActionMode mode = super.startActionMode(callback);
+	  final ActionMode mode = super.startSupportActionMode(callback);
 	  if (mode != null) {
 	    mode.invalidate();
 	  }
@@ -1041,7 +1038,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	}
 	
 	@Override
-	public void onActionModeFinished(ActionMode mode) {
-		super.onActionModeFinished(mode);
+	public void onSupportActionModeFinished(ActionMode mode) {
+		super.onSupportActionModeFinished(mode);
 	}
 }

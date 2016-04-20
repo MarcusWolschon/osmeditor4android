@@ -5,18 +5,16 @@ import org.acra.ACRA;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.R;
 
 
-public class Progress extends SherlockDialogFragment
+public class Progress extends DialogFragment
 {
 	
 	private static final String DEBUG_TAG = Progress.class.getSimpleName();

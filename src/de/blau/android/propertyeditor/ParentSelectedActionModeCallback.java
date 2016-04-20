@@ -1,11 +1,9 @@
 package de.blau.android.propertyeditor;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ActionMode;
+import android.view.Menu;
 import android.widget.LinearLayout;
-
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-
 import de.blau.android.R;
 
 public class ParentSelectedActionModeCallback extends SelectedRowsActionModeCallback {
