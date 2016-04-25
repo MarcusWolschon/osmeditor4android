@@ -236,9 +236,9 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		if (key != null && key.length() > 0) {
 			Set<String> usedKeys = allTags.keySet();
 			if (TagEditorFragment.isStreetName(key, usedKeys)) {
-				adapter = nameAdapters.getStreetNameAutocompleteAdapter(values);
+				adapter = nameAdapters.getStreetNameAdapter(values);
 			} else if (TagEditorFragment.isPlaceName(key, usedKeys)) {
-				adapter = nameAdapters.getPlaceNameAutocompleteAdapter(values);
+				adapter = nameAdapters.getPlaceNameAdapter(values);
 			} else if (key.equals(Tags.KEY_NAME) && (names != null) && TagEditorFragment.useNameSuggestions(usedKeys)) {
 				Log.d(DEBUG_TAG,"generate suggestions for name from name suggestion index");
 				ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(allTags)); 
@@ -278,11 +278,14 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 						}
 					}
 				}	
-				if (adapter2.getCount() > 1) {
+				Log.d(DEBUG_TAG,adapter2==null ? "adapter2 is null": "adapter2 has " + adapter2.getCount() + " elements");
+				if (adapter2.getCount() > 0) {
 					return adapter2;
 				}
+
 			}
 		}
+		Log.d(DEBUG_TAG,adapter==null ? "adapter is null": "adapter has " + adapter.getCount() + " elements");
 		return adapter;
 	}
 	
@@ -758,11 +761,11 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		} else {
 			row.valueView.setText(value);
 		}
-		if (adapter != null && adapter.getCount() > 0) {
+		if (adapter != null) {
 			row.valueView.setAdapter(adapter);
 		} else {
-			Log.e(DEBUG_TAG,"adapter null or empty");
-			row.valueView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row));
+			Log.e(DEBUG_TAG,"adapter null");
+			row.valueView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, new String[0]));
 		}
 		if (keyType==PresetKeyType.MULTISELECT) { 
 			// FIXME this should be somewhere better obvious since it creates a non obvious side effect
@@ -777,7 +780,8 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			@Override
 			public void onClick(View v) {
 				if (v.hasFocus()) {
-					((AutoCompleteTextView)v).showDropDown();
+					Log.d(DEBUG_TAG,"onClick");
+					((CustomAutoCompleteTextView)v).showDropDown();
 				}
 			}
 		};
@@ -786,6 +790,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (!hasFocus && !row.getValue().equals(value)) {
+					Log.d(DEBUG_TAG,"onFocusChange");
 					tagListener.updateSingleValue(key, row.getValue());
 				}
 			}

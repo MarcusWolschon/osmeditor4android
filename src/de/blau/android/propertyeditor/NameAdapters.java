@@ -10,8 +10,8 @@ import de.blau.android.presets.ValueWithCount;
  */
 abstract interface NameAdapters {
 
-	abstract ArrayAdapter<ValueWithCount> getStreetNameAutocompleteAdapter(ArrayList<String> tagValues);
+	abstract ArrayAdapter<ValueWithCount> getStreetNameAdapter(ArrayList<String> tagValues);
 
-	abstract ArrayAdapter<ValueWithCount> getPlaceNameAutocompleteAdapter(ArrayList<String> tagValues);
+	abstract ArrayAdapter<ValueWithCount> getPlaceNameAdapter(ArrayList<String> tagValues);
 }
 

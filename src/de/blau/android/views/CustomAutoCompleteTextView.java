@@ -157,8 +157,10 @@ public class CustomAutoCompleteTextView extends AutoCompleteTextView {
      */
     protected void performFiltering(CharSequence text, int start, int end,
                                     int keyCode) {
+    	Log.d(DEBUG_TAG,"performFiltering 2");
         getFilter().filter(text.subSequence(start, end), this);
     }
+    
     /**
      * <p>Performs the text completion by replacing the range from
      * {@link Tokenizer#findTokenStart} to {@link #getSelectionEnd} by the

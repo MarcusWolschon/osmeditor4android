@@ -63,12 +63,12 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
-import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.KeyValue;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
@@ -281,7 +281,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		// 
 		if (applyLastAddressTags) {
 			loadEdits(editRowLayout,Address.predictAddressTags(getActivity(), getType(),getOsmId(),
-					((StreetTagValueAutocompletionAdapter)nameAdapters.getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
+					((StreetTagValueAdapter)nameAdapters.getStreetNameAdapter(null)).getElementSearch(), 
 					getKeyValueMap(editRowLayout,false), Address.DEFAULT_HYSTERESIS));
 			if (getUserVisibleHint()) {
 				if (!focusOnValue(editRowLayout,Tags.KEY_ADDR_HOUSENUMBER)) {
@@ -575,7 +575,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	@Override
 	public void predictAddressTags(boolean allowBlanks) {
 		loadEdits(Address.predictAddressTags(getActivity(), getType(),getOsmId(),
-				((StreetTagValueAutocompletionAdapter)nameAdapters.getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
+				((StreetTagValueAdapter)nameAdapters.getStreetNameAdapter(null)).getElementSearch(), 
 				getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS));
 		updateAutocompletePresetItem();
 	}
@@ -645,9 +645,9 @@ public class TagEditorFragment extends SherlockFragment implements
 
 			boolean hasTagValues = row.tagValues != null && row.tagValues.size() > 1;
 			if (isStreetName(key, usedKeys)) {
-				adapter = nameAdapters.getStreetNameAutocompleteAdapter(hasTagValues ? row.tagValues : null);
+				adapter = nameAdapters.getStreetNameAdapter(hasTagValues ? row.tagValues : null);
 			} else if (isPlaceName(key, usedKeys)) {
-				adapter = nameAdapters.getPlaceNameAutocompleteAdapter(hasTagValues ? row.tagValues : null);
+				adapter = nameAdapters.getPlaceNameAdapter(hasTagValues ? row.tagValues : null);
 			} else if (key.equals(Tags.KEY_NAME) && (names != null) && useNameSuggestions(usedKeys)) {
 				Log.d(DEBUG_TAG,"generate suggestions for name from name suggestion index");
 				ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(getKeyValueMapSingle(rowLayout,true))); // FIXME
@@ -745,13 +745,13 @@ public class TagEditorFragment extends SherlockFragment implements
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (Tags.KEY_ADDR_STREET.equals(parent.getItemAtPosition(position)) &&
 						row.getValue().length() == 0) {
-					ArrayAdapter<ValueWithCount> adapter = nameAdapters.getStreetNameAutocompleteAdapter(tagValues);
+					ArrayAdapter<ValueWithCount> adapter = nameAdapters.getStreetNameAdapter(tagValues);
 					if (adapter != null && adapter.getCount() > 0) {
 						row.valueEdit.setText(adapter.getItem(0).getValue());
 					}
 				} else if (Tags.KEY_ADDR_PLACE.equals(parent.getItemAtPosition(position)) &&
 						row.getValue().length() == 0) {
-					ArrayAdapter<ValueWithCount> adapter = nameAdapters.getPlaceNameAutocompleteAdapter(tagValues);
+					ArrayAdapter<ValueWithCount> adapter = nameAdapters.getPlaceNameAdapter(tagValues);
 					if (adapter != null && adapter.getCount() > 0) {
 						row.valueEdit.setText(adapter.getItem(0).getValue());
 					}
@@ -952,7 +952,7 @@ public class TagEditorFragment extends SherlockFragment implements
 				}
 			};
 			// set an empty adapter on both views to be on the safe side
-			ArrayAdapter<String> empty = new ArrayAdapter<String>(owner, R.layout.autocomplete_row);
+			ArrayAdapter<String> empty = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, new String[0]);
 			keyEdit.setAdapter(empty);
 			valueEdit.setAdapter(empty);
 			keyEdit.setOnClickListener(autocompleteOnClick);

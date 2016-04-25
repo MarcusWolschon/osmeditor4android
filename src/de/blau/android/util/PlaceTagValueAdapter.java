@@ -28,7 +28,7 @@
  *   the test-case BEFORE writing this class and to run it on every build
  *   as a regression-test.
  */
-package de.blau.android.presets;
+package de.blau.android.util;
 
 //other imports
 import java.util.ArrayList;
@@ -41,9 +41,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PropertyEditor;
-import de.blau.android.util.ElementSearch;
-import de.blau.android.util.Util;
 
 
 /**
@@ -55,13 +54,13 @@ import de.blau.android.util.Util;
  * that is for the VALUE  for the key "addr:street" .</a>
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
  */
-public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithCount> {
+public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
 
     /**
      * The tag we use for Android-logging.
      */
     @SuppressWarnings("unused")
-	private static final String DEBUG_TAG = PlaceTagValueAutocompletionAdapter.class.getName();
+	private static final String DEBUG_TAG = PlaceTagValueAdapter.class.getName();
 
     ElementSearch es;
     
@@ -72,7 +71,7 @@ public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithCo
      * @param osmId 
      * @param type 
      */
-    public PlaceTagValueAutocompletionAdapter(final Context aContext,
+    public PlaceTagValueAdapter(final Context aContext,
                                        final int aTextViewResourceId,
                                        final StorageDelegator delegator,
                                        final String osmElementType,
@@ -99,7 +98,6 @@ public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithCo
         		ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue());
             	super.add(v);
         	}
-        	super.add(new ValueWithCount("",0)); // hack
         }
         
         es = new ElementSearch(Util.getCenter(delegator, osmElementType, osmId), false);

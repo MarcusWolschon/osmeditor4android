@@ -51,13 +51,13 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.PlaceTagValueAutocompletionAdapter;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.Util;
 import de.blau.android.views.ExtendedViewPager;
 
@@ -136,8 +136,8 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	/**
 	 * Used both in the form and conventional tag editor fragments
 	 */
-	private StreetTagValueAutocompletionAdapter streetNameAutocompleteAdapter = null;
-	private PlaceTagValueAutocompletionAdapter placeNameAutocompleteAdapter = null;
+	private StreetTagValueAdapter streetNameAutocompleteAdapter = null;
+	private PlaceTagValueAdapter placeNameAutocompleteAdapter = null;
 	
 	/**
 	 * 
@@ -996,12 +996,12 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	 * @param tagValues 
 	 * @return
 	 */
-	public ArrayAdapter<ValueWithCount> getStreetNameAutocompleteAdapter(ArrayList<String> tagValues) {
+	public ArrayAdapter<ValueWithCount> getStreetNameAdapter(ArrayList<String> tagValues) {
 		if (Application.getDelegator() == null) {
 			return null;
 		}
 		if (streetNameAutocompleteAdapter == null) {
-			streetNameAutocompleteAdapter =	new StreetTagValueAutocompletionAdapter(this,
+			streetNameAutocompleteAdapter =	new StreetTagValueAdapter(this,
 					R.layout.autocomplete_row, Application.getDelegator(),
 					types[0], osmIds[0], tagValues); // FIXME
 		}
@@ -1012,12 +1012,12 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	 * Gets an adapter for the autocompletion of place names based on the neighborhood of the edited item.
 	 * @return
 	 */
-	public ArrayAdapter<ValueWithCount> getPlaceNameAutocompleteAdapter(ArrayList<String> tagValues) {
+	public ArrayAdapter<ValueWithCount> getPlaceNameAdapter(ArrayList<String> tagValues) {
 		if (Application.getDelegator() == null) {
 			return null;
 		}
 		if (placeNameAutocompleteAdapter == null) {
-			placeNameAutocompleteAdapter =	new PlaceTagValueAutocompletionAdapter(this,
+			placeNameAutocompleteAdapter =	new PlaceTagValueAdapter(this,
 					R.layout.autocomplete_row, Application.getDelegator(),
 					types[0], osmIds[0], tagValues); // FIXME
 		}

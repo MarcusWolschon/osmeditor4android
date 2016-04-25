@@ -28,7 +28,7 @@
  *   the test-case BEFORE writing this class and to run it on every build
  *   as a regression-test.
  */
-package de.blau.android.presets;
+package de.blau.android.util;
 
 //other imports
 import java.util.ArrayList;
@@ -36,13 +36,13 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PropertyEditor;
-import de.blau.android.util.ElementSearch;
-import de.blau.android.util.Util;
 
 
 /**
@@ -54,13 +54,13 @@ import de.blau.android.util.Util;
  * that is for the VALUE  for the key "addr:street" .</a>
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
  */
-public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithCount> {
+public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
 
     /**
      * The tag we use for Android-logging.
      */
     @SuppressWarnings("unused")
-	private static final String DEBUG_TAG = StreetTagValueAutocompletionAdapter.class.getName();
+	private static final String DEBUG_TAG = StreetTagValueAdapter.class.getName();
     
     ElementSearch es;
 
@@ -72,12 +72,13 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithC
      * @param extraValues 
      * @param type 
      */
-    public StreetTagValueAutocompletionAdapter(final Context aContext, final int aTextViewResourceId,
+    public StreetTagValueAdapter(final Context aContext, final int aTextViewResourceId,
                                        final StorageDelegator delegator,
                                        final String osmElementType,
                                        final long osmId, 
                                        ArrayList<String> extraValues) {
         super(aContext, aTextViewResourceId);
+        Log.d(DEBUG_TAG,"constructor called");
         
         HashMap<String, Integer> counter = new HashMap<String, Integer>();
         if (extraValues != null && extraValues.size() > 0) {
@@ -97,7 +98,6 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithC
         		ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue());
             	super.add(v);
         	}
-        	super.add(new ValueWithCount("",0)); // hack
         }
         
         es = new ElementSearch(Util.getCenter(delegator, osmElementType, osmId), false);

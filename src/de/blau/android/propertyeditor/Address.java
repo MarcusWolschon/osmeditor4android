@@ -21,10 +21,10 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.Util;
 
 /**
@@ -530,7 +530,7 @@ public class Address implements Serializable {
 				lastAddresses.removeLast();
 			}
 			Address current = new Address(caller.getType(), caller.getOsmId(), addressTags);
-			StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter)((NameAdapters)caller.getActivity()).getStreetNameAutocompleteAdapter(null);
+			StreetTagValueAdapter streetAdapter = (StreetTagValueAdapter)((NameAdapters)caller.getActivity()).getStreetNameAdapter(null);
 			if (streetAdapter!= null) {
 				ArrayList<String> values = tags.get(Tags.KEY_ADDR_STREET); 
 				if (values != null && values.size() > 0) {
