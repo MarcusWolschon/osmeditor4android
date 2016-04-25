@@ -97,7 +97,6 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithC
         		ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue());
             	super.add(v);
         	}
-        	super.add(new ValueWithCount("",0)); // hack
         }
         
         es = new ElementSearch(Util.getCenter(delegator, osmElementType, osmId), false);
