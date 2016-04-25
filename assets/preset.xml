@@ -5582,15 +5582,19 @@
             <reference ref="oh_wheelchair" />
             <space />
             <checkgroup columns="4">
+                <check key="recycling:aluminium" text="Aluminium" disable_off="true" />
                 <check key="recycling:batteries" text="Batteries" disable_off="true" />
                 <check key="recycling:cans" text="Cans" disable_off="true" />
                 <check key="recycling:cardboard" text="Cardboard" disable_off="true" />
                 <check key="recycling:clothes" text="Clothes" disable_off="true" />
+                <check key="recycling:cooking_oil" text="Cooking oil" disable_off="true" />
                 <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true" />
+                <check key="recycling:engine_oil" text="Engine oil" disable_off="true" />
                 <check key="recycling:glass" text="Glass" disable_off="true" />
                 <check key="recycling:glass_bottles" text="Glass Bottles" disable_off="true" />
                 <check key="recycling:green_waste" text="Green Waste" disable_off="true" />
                 <check key="recycling:paper" text="Paper" disable_off="true" />
+                <check key="recycling:PET" text="PET" disable_off="true" />
                 <check key="recycling:plastic" text="Plastic" disable_off="true" />
                 <check key="recycling:plastic_bottles" text="Plastic Bottles" disable_off="true" />
                 <check key="recycling:plastic_packaging" text="Plastic Packaging" disable_off="true" />
@@ -5618,15 +5622,19 @@
             <reference ref="name_operator_oh_wheelchair" />
             <space />
             <checkgroup columns="4">
+                <check key="recycling:aluminium" text="Aluminium" disable_off="true" />
                 <check key="recycling:batteries" text="Batteries" disable_off="true" />
                 <check key="recycling:cans" text="Cans" disable_off="true" />
                 <check key="recycling:cardboard" text="Cardboard" disable_off="true" />
                 <check key="recycling:clothes" text="Clothes" disable_off="true" />
+                <check key="recycling:cooking_oil" text="Cooking oil" disable_off="true" />
                 <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true" />
+                <check key="recycling:engine_oil" text="Engine oil" disable_off="true" />
                 <check key="recycling:glass" text="Glass" disable_off="true" />
                 <check key="recycling:glass_bottles" text="Glass Bottles" disable_off="true" />
                 <check key="recycling:green_waste" text="Green Waste" disable_off="true" />
                 <check key="recycling:paper" text="Paper" disable_off="true" />
+                <check key="recycling:PET" text="PET" disable_off="true" />
                 <check key="recycling:plastic" text="Plastic" disable_off="true" />
                 <check key="recycling:plastic_bottles" text="Plastic Bottles" disable_off="true" />
                 <check key="recycling:plastic_packaging" text="Plastic Packaging" disable_off="true" />
@@ -8504,7 +8512,7 @@
         <space />
         <key key="amenity" value="vending_machine" />
         <multiselect key="vending" text="Vending products" values_searchable="true" >
-            <list_entry value="animal_food" short_description="Anmal food" />
+            <list_entry value="animal_food" short_description="Animal food" />
             <list_entry value="bicycle_tube" short_description="Bicycle tubes" />
             <list_entry value="cigarettes" short_description="Cigarettes" />
             <list_entry value="condoms" short_description="Condoms" />

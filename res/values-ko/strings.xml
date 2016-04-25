@@ -96,6 +96,7 @@
   <!--Text should be as short as possible-->
   <!--EasyEdit action mode titles-->
   <!--Preferences-->
+  <string name="config_category_misc">기타</string>
   <!--preset downloader messages-->
   <!--changes-->
   <!--url handler activity-->
