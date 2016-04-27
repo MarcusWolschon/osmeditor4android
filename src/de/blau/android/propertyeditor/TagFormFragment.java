@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -416,7 +415,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 
 	public void enableRecentPresets() {
 		FragmentManager fm = getChildFragmentManager();
-		Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+		Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
 		if (recentPresetsFragment != null) {
 			((RecentPresetsFragment)recentPresetsFragment).enable();
 		}
@@ -424,9 +423,18 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	
 	public void disableRecentPresets() {
 		FragmentManager fm = getChildFragmentManager();
-		Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+		Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
 		if (recentPresetsFragment != null) {
 			((RecentPresetsFragment)recentPresetsFragment).disable();
+		}
+	}
+	
+	protected void recreateRecentPresetView() {
+		Log.d(DEBUG_TAG,"Updating MRU prests");
+		FragmentManager fm = getChildFragmentManager();
+		Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
+		if (recentPresetsFragment != null) {
+			((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
 		}
 	}
 	

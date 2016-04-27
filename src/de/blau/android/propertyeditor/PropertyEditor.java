@@ -69,8 +69,8 @@ import de.blau.android.views.ExtendedViewPager;
  */
 public class PropertyEditor extends SherlockFragmentActivity implements 
 		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters {
-	private static final String PRESET_FRAGMENT = "preset_fragment";
-	private static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
+	static final String PRESET_FRAGMENT = "preset_fragment";
+	static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 	
 	public static final String TAGEDIT_DATA = "dataClass";
 	public static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
@@ -561,6 +561,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
 		@Override
 		public void onPageSelected(int page) {
+			Log.d(DEBUG_TAG,"page " + page + " selected");
 			if (formEnabled && page == tagFormFragmentPosition && tagFormFragment != null) {
 				tagFormFragment.update();
 			}
@@ -578,7 +579,11 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 				((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
 			}
 		} else {
-			tagEditorFragment.recreateRecentPresetView();
+			if (tagFormFragment != null) {
+				tagFormFragment.recreateRecentPresetView();
+			} else {
+				tagEditorFragment.recreateRecentPresetView();
+			}
 		}
 	}
 	
@@ -820,13 +825,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			} else {
 				mViewPager.setCurrentItem(tagEditorFragmentPosition);
 			}
-			if (usePaneLayout) {
-				FragmentManager fm = getSupportFragmentManager();
-				Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
-				if (recentPresetsFragment != null) {
-					((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
-				}
-			}
+			recreateRecentPresetView();
 		}
 	}
 	

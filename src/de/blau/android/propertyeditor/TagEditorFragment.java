@@ -1331,7 +1331,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	protected void recreateRecentPresetView() {
 		Log.d(DEBUG_TAG,"Updating MRU prests");
 		FragmentManager fm = getChildFragmentManager();
-		Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+		Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
 		if (recentPresetsFragment != null) {
 			((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
 		}
@@ -1739,7 +1739,7 @@ public class TagEditorFragment extends SherlockFragment implements
 
 	public void enableRecentPresets() {
 		FragmentManager fm = getChildFragmentManager();
-		Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+		Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
 		if (recentPresetsFragment != null) {
 			((RecentPresetsFragment)recentPresetsFragment).enable();
 		}
@@ -1747,7 +1747,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	
 	public void disableRecentPresets() {
 		FragmentManager fm = getChildFragmentManager();
-		Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+		Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
 		if (recentPresetsFragment != null) {
 			((RecentPresetsFragment)recentPresetsFragment).disable();
 		}
