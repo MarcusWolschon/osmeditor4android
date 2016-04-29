@@ -43,6 +43,7 @@ import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -340,7 +341,7 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		
 		if (prefs.splitActionBarEnabled()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-				getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // this might need to be set with bit ops
+				getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW, ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // this might need to be set with bit ops
 			}
 			// besides hacking ABS, there is no equivalent method to enable this for ABS
 		} else {
@@ -924,7 +925,7 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		PackageManager pm = getPackageManager();
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(getPackageManager()) != null) {
-			menu.findItem(R.id.menu_camera).setShowAsAction(prefs.showCameraAction() ? MenuItem.SHOW_AS_ACTION_ALWAYS: MenuItem.SHOW_AS_ACTION_NEVER);
+			MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_camera),prefs.showCameraAction() ? MenuItem.SHOW_AS_ACTION_ALWAYS: MenuItem.SHOW_AS_ACTION_NEVER);
 		} else {
 			menu.findItem(R.id.menu_camera).setVisible(false);
 		}
@@ -948,12 +949,12 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		
 		final Logic logic = Application.getLogic();
 		MenuItem undo = menu.findItem(R.id.menu_undo);
+		
 		undo.setVisible(logic.getMode() != Mode.MODE_MOVE && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
 		View undoView = undo.getActionView();
 		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
 			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
 			undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
-			undo.setActionView(undoView);
 		}
 		undoView.setOnClickListener(undoListener);
 		undoView.setOnLongClickListener(undoListener);

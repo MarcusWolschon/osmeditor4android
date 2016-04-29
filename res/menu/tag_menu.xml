@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/tag_menu_address"
         android:icon="?attr/menu_address"
         android:title="@string/tag_menu_address"
-        android:showAsAction="always"
+        app:showAsAction="always"
     />
     <item
         android:id="@+id/tag_menu_apply_preset"
         android:icon="?attr/menu_apply_preset"
         android:title="@string/tag_menu_apply_preset"
-        android:showAsAction="always"
+        app:showAsAction="always"
     />
     <item
         android:id="@+id/tag_menu_paste"
         android:icon="?attr/menu_paste"
         android:title="@string/menu_paste"
         android:alphabeticShortcut="*@string/shortcut_paste"
-        android:showAsAction="always"
+        app:showAsAction="always"
     />
     <item
         android:id="@+id/tag_menu_paste_from_clipboard"
         android:title="@string/menu_paste_from_clipboard"
-        android:showAsAction="never"
+        app:showAsAction="never"
     />
     <item
         android:id="@+id/tag_menu_revert"
         android:icon="?attr/menu_undo"
         android:alphabeticShortcut="@string/shortcut_undo"
         android:title="@string/tag_menu_revert"
-        android:showAsAction="always"
+        app:showAsAction="always"
     />
     <item
         android:id="@+id/tag_menu_mapfeatures"
         android:icon="?attr/menu_information"
         android:title="@string/tag_menu_mapfeatures"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
     />
      <item
         android:id="@+id/tag_menu_reset_address_prediction"
         android:title="@string/tag_menu_reset_address_prediction"
-        android:showAsAction="never"
+        app:showAsAction="never"
     />
     <item
         android:id="@+id/tag_menu_resetMRU"
         android:title="@string/tag_menu_resetMRU"
-        android:showAsAction="never"
+        app:showAsAction="never"
     />
         <item
         android:id="@+id/tag_menu_sourcesurvey"
         android:title="@string/tag_menu_sourcesurvey"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
     />
     <item
         android:id="@+id/tag_menu_help"
         android:icon="?attr/menu_help"
         android:alphabeticShortcut="@string/shortcut_help"
         android:title="@string/menu_help"
-        android:showAsAction="never"
+        app:showAsAction="never"
     />
 </menu>

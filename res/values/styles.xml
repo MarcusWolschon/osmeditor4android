@@ -5,6 +5,14 @@
 		<item name="android:gravity">right|center_vertical</item>
 	</style>
 
+	<style name="Theme.AppCompatPrefs" parent="style/Theme.AppCompat">
+		    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+	</style>
+	
+	<style name="Theme.AppCompatPrefsLight" parent="style/Theme.AppCompat.Light">
+		    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+	</style>
+	
 	<style name="Theme.customMain" parent="style/Theme.AppCompat">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!--  icons  -->
@@ -101,7 +109,7 @@
 		<item name="EditText">@style/EditTextLight</item>
 	</style>
 
-	<style name="ActionButtonLight" parent="android:Widget.Holo.Light.ActionBar" />
+	<style name="ActionButtonLight" parent="@style/Widget.AppCompat.Light.ActionBar" />
 	
 	<!--  Style for custom views in alert dialogs -->
 	<style name="Theme.DialogDark" parent="@style/Theme.AppCompat"></style>
@@ -113,11 +121,11 @@
 	    <item name="android:textCursorDrawable">@null</item>
 	</style>
 	
-	<style name="DialogEditTextLight" parent="android:Widget.Holo.Light.EditText">
+	<style name="DialogEditTextLight" parent="android:Widget.EditText">
 	    <item name="android:textColor">@android:color/black</item>
 	</style>
 	
-	<style name="DialogCheckBoxLight" parent="android:Widget.Holo.Light.CompoundButton.CheckBox">
+	<style name="DialogCheckBoxLight" parent="android:Widget.CompoundButton.CheckBox">
 	</style>
 	
 	<!-- Dark for PropertyEditor -->
@@ -180,25 +188,25 @@
 	<style name="TagEditorActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid" />
 
 
-	<style name="TextView" parent="android:Widget.Holo.TextView">
+	<style name="TextView" parent="android:Widget.TextView">
 		<item name="android:background">@android:color/black</item>
 	</style>
 	
-	<style name="EditTextDark" parent="android:Widget.Holo.EditText">
+	<style name="EditTextDark" parent="@style/Widget.AppCompat.EditText">
 		<item name="android:background">@android:color/black</item>
 	</style>
 	
-	<style name="Widget.AutoCompleteTextView" parent="android:Widget.AutoCompleteTextView">
+	<style name="Widget.AutoCompleteTextView" parent="@style/Widget.AppCompat.AutoCompleteTextView">
 		<item name="android:textColor">@android:color/primary_text_dark</item>
 		<item name="android:background">@android:color/black</item>
 		<item name="android:popupBackground">@android:color/black</item>
 	</style>
 	
-	<style name="Widget.DropDownItem" parent="@android:style/Widget.DropDownItem">
+	<style name="Widget.DropDownItem" parent="@style/TextAppearance.AppCompat.Widget.DropDownItem">
 		<item name="android:textColor">@android:color/primary_text_light</item>
 	</style>
 	
-	<style name="CheckBox" parent="android:Widget.Holo.CompoundButton.CheckBox">
+	<style name="CheckBox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
 		<item name="android:background">@android:color/black</item>
 	</style>
 	

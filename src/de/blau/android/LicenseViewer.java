@@ -14,7 +14,7 @@ public class LicenseViewer extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(android.R.style.Theme_Holo_Light);
+			setTheme(R.style.Theme_AppCompat_Light);
 		}
 		
 		super.onCreate(savedInstanceState);

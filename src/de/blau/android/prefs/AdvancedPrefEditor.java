@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import de.blau.android.R;
 
 public class AdvancedPrefEditor extends AppCompatActivity {
 
@@ -14,7 +15,7 @@ public class AdvancedPrefEditor extends AppCompatActivity {
 		Log.d("AdvancedPrefEditor", "onCreate");
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(android.R.style.Theme_Holo_Light);
+			setTheme(R.style.Theme_AppCompatPrefsLight);
 		}
 		
 		super.onCreate(savedInstanceState);

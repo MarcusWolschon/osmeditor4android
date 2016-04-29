@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.support.annotation.NonNull;
-import android.support.v4.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.CheckBoxPreference;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.Preference.OnPreferenceChangeListener;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.DebugInformation;
@@ -26,6 +26,8 @@ import de.blau.android.resources.TileLayerServer;
  */
 public class PrefEditorFragment extends PreferenceFragmentCompat {
 	
+	private static String DEBUG_TAG = PrefEditorFragment.class.getSimpleName(); 
+	
 	private Resources r;
 	private String KEY_MAPBG;
 	private String KEY_MAPOL;
@@ -40,13 +42,11 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		Intent intent = new Intent(context, PrefEditorFragment.class);
 		context.startActivity(intent);
 	}
-	
+
 	@Override
-	public void onCreate(final Bundle savedInstanceState) {
-		
-		super.onCreate(savedInstanceState);
-		
-		addPreferencesFromResource(R.xml.preferences);
+	public void onCreatePreferences(Bundle arg0, String arg1) {		
+		Log.d(DEBUG_TAG, "onCreatePreferences " + arg1);
+		setPreferencesFromResource(R.xml.preferences, arg1); 
 		r = getResources();
 		KEY_MAPBG = r.getString(R.string.config_backgroundLayer_key);
 		KEY_MAPOL = r.getString(R.string.config_overlayLayer_key);
@@ -61,7 +61,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 	
 	@Override
 	public void onResume() {
-		Log.d("PrefEditor", "onResume");
+		Log.d(DEBUG_TAG, "onResume");
 		super.onResume();
 		
 		CheckBoxPreference iconspref = (CheckBoxPreference) getPreferenceScreen().findPreference(KEY_PREFICONS);
@@ -69,7 +69,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		API current = db.getCurrentAPI();
 
 		iconspref.setChecked(current.showicon);
-		Log.d("PrefEditor", "onResume done");
+		Log.d(DEBUG_TAG, "onResume done");
 	}
 	
 	/** Perform initialization of the advanced preference buttons (API/Presets) */
@@ -86,7 +86,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		OnPreferenceChangeListener l = new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				Log.d("PrefEditor", "onPreferenceChange");
+				Log.d(DEBUG_TAG, "onPreferenceChange background");
 				String id = (String)newValue;
 				String[] ids = TileLayerServer.getIds(false); // r.getStringArray(R.array.renderer_ids);
 				String[] names = TileLayerServer.getNames(ids); // r.getStringArray(R.array.renderer_names);
@@ -110,7 +110,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		OnPreferenceChangeListener ol = new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				Log.d("PrefEditor", "onPreferenceChange");
+				Log.d(DEBUG_TAG, "onPreferenceChange overlay");
 				String id = (String)newValue;
 				String[] ids = TileLayerServer.getOverlayIds(false); // r.getStringArray(R.array.renderer_ids);
 				String[] names = TileLayerServer.getOverlayNames(ids); // r.getStringArray(R.array.renderer_names);
@@ -134,7 +134,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				Log.d("PrefEditor", "onPreferenceChange mapProfile");
+				Log.d(DEBUG_TAG, "onPreferenceChange mapProfile");
 				String id = (String)newValue;
 				String[] profileList = DataStyle.getStyleList(getActivity());
 				String[] ids = profileList;
@@ -153,10 +153,9 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		
 		Preference advprefs = getPreferenceScreen().findPreference(KEY_ADVPREFS);
 		advprefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Log.d("PrefEditor", "onPreferenceClick");
+				Log.d(DEBUG_TAG, "onPreferenceClick advanced");
 				startActivity(new Intent(getActivity(), AdvancedPrefEditor.class));
 				return true;
 			}
@@ -166,7 +165,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		iconspref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				Log.d("PrefEditor", "onPreferenceChange 2");
+				Log.d(DEBUG_TAG, "onPreferenceChange icons");
 				AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
 				db.setCurrentAPIShowIcons((Boolean)newValue);
 				return true;
@@ -177,7 +176,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		licensepref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Log.d("PrefEditor", "onPreferenceClick 2");
+				Log.d(DEBUG_TAG, "onPreferenceClick licence");
 				startActivity(new Intent(getActivity(), LicenseViewer.class));
 				return true;
 			}
@@ -187,11 +186,10 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		debugpref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Log.d("PrefEditor", "onPreferenceClick 2");
+				Log.d(DEBUG_TAG, "onPreferenceClick debug");
 				startActivity(new Intent(getActivity(), DebugInformation.class));
 				return true;
 			}
 		});
 	}
-	
 }

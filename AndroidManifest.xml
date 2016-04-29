@@ -48,11 +48,11 @@
 		
 		<activity
 			android:name=".prefs.PrefEditor"
-			android:theme="@style/Theme.AppCompat"
+			android:theme="@style/Theme.AppCompatPrefs"
 		/>
 		<activity
 			android:name=".prefs.AdvancedPrefEditor"
-			android:theme="@style/Theme.AppCompat"
+			android:theme="@style/Theme.AppCompatPrefs"
 			android:label="@string/app_name_version"
 		/>
 		<activity

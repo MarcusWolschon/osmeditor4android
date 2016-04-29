@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="schemas.android.com/apk/res-auto">
         <item
         android:id="@+id/preset_menu_top"
         android:icon="?attr/menu_preset_top"
         android:title="@string/menu_top"
-        android:showAsAction="always"
+        app:showAsAction="always"
     />
     <item
         android:id="@+id/preset_menu_up"
         android:icon="?attr/menu_preset_up"
         android:title="@string/menu_up"
-        android:showAsAction="always"
+        app:showAsAction="always"
     />
     <item
         android:id="@+id/preset_menu_help"
         android:icon="?attr/menu_help"
         android:alphabeticShortcut="@string/shortcut_help"
         android:title="@string/menu_preset_help"
-        android:showAsAction="never"
+        app:showAsAction="never"
     />
 </menu>

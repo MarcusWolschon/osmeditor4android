@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
+<android.support.v7.preference.PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android"
 >
-	<PreferenceCategory android:title="@string/config_category_view">
-		<ListPreference
+	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_view">
+		<android.support.v7.preference.ListPreference
 			android:key="@string/config_backgroundLayer_key"
 			android:title="@string/config_backgroundLayer_title"
 			android:summary="@string/config_backgroundLayer_summary"
 			android:defaultValue="MAPNIK"
 		/>
-		<ListPreference
+		<android.support.v7.preference.ListPreference
 			android:key="@string/config_overlayLayer_key"
 			android:title="@string/config_overlayLayer_title"
 			android:summary="@string/config_overlayLayer_summary"
 			android:defaultValue="NONE"
 		/>
-		<ListPreference
+		<android.support.v7.preference.ListPreference
 			android:key="@string/config_scale_key"
 			android:title="@string/config_scale_title"
 			android:summary="@string/config_scale_summary"
@@ -23,67 +23,67 @@
 			android:entryValues="@array/scale_values"
 			android:defaultValue="SCALE_METRIC"
 		/>
-		<ListPreference
+		<android.support.v7.preference.ListPreference
 			android:key="@string/config_mapProfile_key"
 			android:title="@string/config_mapProfile_title"
 			android:summary="@string/config_mapProfile_summary"
 			android:defaultValue="Color Round Nodes"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enableOpenStreetBugs_key"
 			android:title="@string/config_enableOpenStreetBugs_title"
 			android:summary="@string/config_enableOpenStreetBugs_summary"
 			android:defaultValue="true"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enablePhotoLayer_key"
 			android:title="@string/config_enablePhotoLayer_title"
 			android:summary="@string/config_enablePhotoLayer_summary"
 			android:defaultValue="false"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:title="@string/config_iconbutton_title"
 			android:key="@string/config_iconbutton_key"
 			android:summary="@string/config_iconbutton_summary"
 			android:persistent="false"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:title="@string/config_showWayIcons_title"
 			android:key="@string/config_showWayIcons_key"
 			android:summary="@string/config_showWayIcons_summary"
 			android:defaultValue="true"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:title="@string/config_enableKeepScreenOn_title"
 			android:key="@string/config_enableKeepScreenOn_key"
 			android:summary="@string/config_enableKeepScreenOn_summary"
 			android:defaultValue="false"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_largeDragArea_key"
 			android:title="@string/config_largeDragArea_title"
 			android:summary="@string/config_largeDragArea_summary"
 			android:defaultValue="false"
 		/>
-	</PreferenceCategory>
+	</android.support.v7.preference.PreferenceCategory>
 	
-	<PreferenceCategory android:title="@string/config_advancedprefs">
-		<Preference
+	<android.support.v7.preference.PreferenceCategory android:title="@string/config_advancedprefs">
+		<android.support.v7.preference.Preference
 			android:title="@string/config_advancedprefs"
 			android:key="@string/config_advancedprefs_key"
 		/>
-	</PreferenceCategory>
+	</android.support.v7.preference.PreferenceCategory>
 		
-	<PreferenceCategory android:title="@string/config_category_info">
-		<Preference
+	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_info">
+		<android.support.v7.preference.Preference
 			android:title="@string/config_licensebutton_title"
 			android:summary="@string/config_licensebutton_summary"
 			android:key="@string/config_licensebutton_key"
 		/>
-		<Preference
+		<android.support.v7.preference.Preference
 			android:title="@string/config_debugbutton_title"
 			android:summary="@string/config_debugbutton_summary"
 			android:key="@string/config_debugbutton_key"
 		/>
-	</PreferenceCategory>
-</PreferenceScreen>
+	</android.support.v7.preference.PreferenceCategory>
+</android.support.v7.preference.PreferenceScreen>

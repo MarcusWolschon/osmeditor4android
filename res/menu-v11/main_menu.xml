@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="schemas.android.com/apk/res-auto">
 	<item
 		android:id="@+id/menu_undo"
 		android:title="@string/undo"
 		android:alphabeticShortcut="@string/shortcut_undo"
 		android:icon="?attr/menu_undo"
-		android:showAsAction="ifRoom"
+		app:showAsAction="always"
 		android:actionLayout="@layout/undo_action_view"
 	/>
     	
@@ -14,21 +15,20 @@
 		android:id="@+id/menu_camera"
 		android:title="@string/menu_camera"
 		android:icon="?attr/menu_camera"
-		android:showAsAction="always"
+		app:showAsAction="always"
 	/>	
 	<item
 		android:id="@+id/menu_voice"
 		android:title="@string/menu_voice_commands"
 		android:icon="?attr/mic"
-		android:showAsAction="ifRoom"
+		app:showAsAction="ifRoom"
 	/>
 	<item
 		android:id="@+id/menu_gps"
 		android:title="@string/menu_gps"
 		android:icon="?attr/menu_gps"
-		android:showAsAction="ifRoom"
-	>	
-		
+		app:showAsAction="ifRoom"
+	>		
 		<menu>
 				<item
 					android:id="@+id/menu_gps_show"
@@ -86,7 +86,7 @@
 		android:id="@+id/menu_transfer"
 		android:title="@string/menu_transfer"
 		android:icon="?attr/menu_transfer"
-		android:showAsAction="ifRoom"
+		app:showAsAction="ifRoom"
 	>	
 		<menu>
 				<item
@@ -161,13 +161,13 @@
 		android:id="@+id/menu_config"
 		android:title="@string/menu_config"
 		android:icon="?attr/menu_config"
-		android:showAsAction="ifRoom"
+		app:showAsAction="ifRoom"
 	/>
 	<item
 		android:id="@+id/menu_tools"
 		android:title="@string/menu_tools"
 		android:icon="?attr/menu_tools"
-		android:showAsAction="ifRoom"
+		app:showAsAction="ifRoom"
 	>	
 		<menu>
 				<item
@@ -200,13 +200,13 @@
 		android:id="@+id/menu_find"
 		android:title="@string/menu_find"
 		android:icon="?attr/menu_find"
-		android:showAsAction="ifRoom"
+		app:showAsAction="ifRoom"
 	/>		
 	<item
 		android:id="@+id/menu_help"
 		android:title="@string/menu_help"
 		android:alphabeticShortcut="@string/shortcut_help"
 		android:icon="?attr/menu_help"
-		android:showAsAction="ifRoom"
+		app:showAsAction="ifRoom"
 	/>
 </menu>

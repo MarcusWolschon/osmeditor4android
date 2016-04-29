@@ -4,5 +4,6 @@
     android:title="@string/undo"
     android:id="@+id/undo_action"
     android:actionLayout="@layout/undo_action_view" 
+    android:icon="?attr/menu_undo"
     />
 </menu>

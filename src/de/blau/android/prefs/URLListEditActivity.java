@@ -84,7 +84,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	public void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(android.R.style.Theme_Holo_Light);
+			setTheme(R.style.Theme_AppCompat_Light);
 		}
 		super.onCreate(savedInstanceState);
 		r = getResources();

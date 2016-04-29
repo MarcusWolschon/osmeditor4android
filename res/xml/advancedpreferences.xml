@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceCategory android:title="@string/config_category_view">
-	    <CheckBoxPreference
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_view">
+	    <android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_tagFormEnabled_key"
 			android:title="@string/config_tagFormEnabled_title"
 			android:summary="@string/config_tagFormEnabled_summary"
 			android:defaultValue="true"
 		/>
-	    <CheckBoxPreference
+	    <android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_showCameraAction_key"
 			android:title="@string/config_showCameraAction_title"
 			android:summary="@string/config_showCameraAction_summary"
 			android:defaultValue="true"
 		/>
-	    <CheckBoxPreference
+	    <android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_generateAlerts_key"
 			android:title="@string/config_generateAlerts_title"
 			android:summary="@string/config_generateAlerts_summary"
 			android:defaultValue="true"
 		/>
-	    <EditTextPreference
+	    <android.support.v7.preference.EditTextPreference
 			android:key="@string/config_maxAlertDistance_key"
 			android:title="@string/config_maxAlertDistance_title"
 			android:summary="@string/config_maxAlertDistance_summary"
@@ -27,48 +27,48 @@
 			android:numeric="integer"
 			android:defaultValue="100"
 		/>
-	   	<CheckBoxPreference
+	   	<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_voiceCommandsEnabled_key"
 			android:title="@string/config_voiceCommandsEnabled_title"
 			android:summary="@string/config_voiceCommandsEnabled_summary"
 			android:defaultValue="false"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_forceContextMenu_key"
 			android:title="@string/config_forceContextMenu_title"
 			android:summary="@string/config_forceContextMenu_summary"
 			android:defaultValue="false"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_showTolerance_key"
 			android:title="@string/config_showTolerance_title"
 			android:summary="@string/config_showTolerance_summary"
 			android:defaultValue="true"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_use_back_for_undo_key"
 			android:title="@string/config_use_back_for_undo_title"
 			android:summary="@string/config_use_back_for_undo_summary"
 			android:defaultValue="false"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_closeChangesetOnSave_key"
 			android:title="@string/config_closeChangesetOnSave_title"
 			android:summary="@string/config_closeChangesetOnSave_summary"
 			android:defaultValue="true"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enableLightTheme_key"
 			android:title="@string/config_enableLightTheme_title"
 			android:summary="@string/config_enableLightTheme_summary"
 			android:defaultValue="true"
 		/>
-		<Preference
+		<android.support.v7.preference.Preference
 			android:title="@string/config_presetbutton_title"
 			android:key="@string/config_presetbutton_key"
 			android:summary="@string/config_presetbutton_summary"
 		/>
-		<EditTextPreference
+		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_extTriggeredDownloadRadius_key"
 			android:title="@string/config_extTriggeredDownloadRadius_title"
 			android:summary="@string/config_extTriggeredDownloadRadius_summary"
@@ -76,7 +76,7 @@
 			android:numeric="integer"
 			android:defaultValue="50"
 		/>
-		<EditTextPreference
+		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_maxDownloadSpeed_key"
 			android:title="@string/config_maxDownloadSpeed_title"
 			android:summary="@string/config_maxDownloadSpeed_summary"
@@ -84,7 +84,7 @@
 			android:numeric="decimal"
 			android:defaultValue="6"
 		/>
-		<EditTextPreference
+		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_bugDownloadRadius_key"
 			android:title="@string/config_bugDownloadRadius_title"
 			android:summary="@string/config_bugDownloadRadius_summary"
@@ -92,7 +92,7 @@
 			android:numeric="integer"
 			android:defaultValue="200"
 		/>
-		<EditTextPreference
+		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_maxBugDownloadSpeed_key"
 			android:title="@string/config_maxBugDownloadSpeed_title"
 			android:summary="@string/config_maxBugDownloadSpeed_summary"
@@ -100,28 +100,28 @@
 			android:numeric="decimal"
 			android:defaultValue="30"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enableNameSuggestions_key"
 			android:title="@string/config_enableNameSuggestions_title"
 			android:summary="@string/config_enableNameSuggestions_summary"
 			android:defaultValue="true"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enableAutoPreset_key"
 			android:title="@string/config_enableAutoPreset_title"
 			android:summary="@string/config_enableAutoPreset_summary"
 			android:defaultValue="true"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_splitActionBarEnabled_key"
 			android:title="@string/config_splitActionBarEnabled_title"
 			android:summary="@string/config_splitActionBarEnabled_summary"
 			android:defaultValue="true"
 		/>
-	</PreferenceCategory>
+	</android.support.v7.preference.PreferenceCategory>
 	
-	<PreferenceCategory android:title="@string/config_category_gps">
-		<ListPreference 
+	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_gps">
+		<android.support.v7.preference.ListPreference 
 		    android:key="@string/config_gps_source_key"
 		    android:title="@string/config_gps_source_title"
 			android:summary="@string/config_gps_source_summary"
@@ -129,14 +129,14 @@
 			android:entryValues="@array/gps_source_keys"
 			android:defaultValue="internal"
 		    />
-		<EditTextPreference
+		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_gps_source_tcp_key"
 			android:title="@string/config_gps_source_tcp_title"
 			android:summary="@string/config_gps_source_tcp_summary"
 			android:dialogTitle="@string/config_gps_source_tcp_title"
 			android:defaultValue="127.0.0.1:1958"
 		/>
-		<EditTextPreference
+		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_gps_interval_key"
 			android:title="@string/config_gps_interval_title"
 			android:summary="@string/config_gps_interval_summary"
@@ -144,7 +144,7 @@
 			android:defaultValue="1000"
 			android:numeric="integer"
 		/>
-		<EditTextPreference
+		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_gps_distance_key"
 			android:title="@string/config_gps_distance_title"
 			android:summary="@string/config_gps_distance_summary"
@@ -152,45 +152,45 @@
 			android:numeric="decimal"
 			android:defaultValue="5.0"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_leaveGpsDisabled_key"
 			android:title="@string/config_leaveGpsDisabled_title"
 			android:summary="@string/config_leaveGpsDisabled_summary"
 			android:defaultValue="false"
 		/>
-	</PreferenceCategory>
+	</android.support.v7.preference.PreferenceCategory>
 	
-	<PreferenceCategory android:title="@string/config_category_server">
-		<Preference
+	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_server">
+		<android.support.v7.preference.Preference
 			android:title="@string/config_apibutton_title"
 			android:key="@string/config_api_button_key"
 			android:summary="@string/config_apibutton_summary">
-		</Preference>
-		<de.blau.android.prefs.LoginDataPreference
-			android:key="@string/config_loginbutton_key"
-			android:title="@string/config_loginbutton_title"
-			android:summary="@string/config_username_summary"
-			android:dialogTitle="@string/config_loginbutton_title"
-			android:singleLine="true"
-		/>
-		<EditTextPreference
+		</android.support.v7.preference.Preference>
+<!-- 		<de.blau.android.prefs.LoginDataPreference -->
+<!-- 			android:key="@string/config_loginbutton_key" -->
+<!-- 			android:title="@string/config_loginbutton_title" -->
+<!-- 			android:summary="@string/config_username_summary" -->
+<!-- 			android:dialogTitle="@string/config_loginbutton_title" -->
+<!-- 			android:singleLine="true" -->
+<!-- 		/> -->
+		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_offsetServer_key"
 			android:title="@string/config_offsetServer_title"
 			android:summary="@string/config_offsetServer_summary"
 			android:defaultValue="http://offsets.textual.ru/"
 		/>
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/config_category_acra">
-		<CheckBoxPreference android:key="acra.enable"
+	</android.support.v7.preference.PreferenceCategory>
+	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_acra">
+		<android.support.v7.preference.CheckBoxPreference android:key="acra.enable"
 			android:title="@string/pref_enable_acra"
 			android:summaryOn="@string/pref_acra_enabled"
 			android:summaryOff="@string/pref_acra_disabled"
 			android:defaultValue="true"
 		/>
-	</PreferenceCategory>
+	</android.support.v7.preference.PreferenceCategory>
 	
-	<PreferenceCategory android:title="@string/config_category_misc">
-	    <EditTextPreference
+	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_misc">
+	    <android.support.v7.preference.EditTextPreference
 			android:key="@string/config_tileCacheSize_key"
 			android:title="@string/config_tileCacheSize_title"
 			android:summary="@string/config_tileCacheSize_summary"
@@ -198,19 +198,19 @@
 			android:numeric="integer"
 			android:defaultValue="100"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_showStats_key"
 			android:title="@string/config_showStats_title"
 			android:summary="@string/config_showStats_summary"
 			android:defaultValue="false"
 		/>
-		<CheckBoxPreference
+		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enableAntiAliasing_key"
 			android:title="@string/config_enableAntiAliasing_title"
 			android:summary="@string/config_enableAntiAliasing_summary"
 			android:defaultValue="true"
 		/>
-		<EditTextPreference
+		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_maxStrokeWidth_key"
 			android:title="@string/config_maxStrokeWidth_title"
 			android:summary="@string/config_maxStrokeWidth_summary"
@@ -218,6 +218,6 @@
 			android:numeric="decimal"
 			android:defaultValue="16.0"
 		/>
-	</PreferenceCategory>
+	</android.support.v7.preference.PreferenceCategory>
 			
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>
