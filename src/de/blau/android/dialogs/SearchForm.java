@@ -115,7 +115,7 @@ public class SearchForm extends DialogFragment
 			@Override
 			public void onItemFound(SearchResult sr) {
 				searchDialog.dismiss();
-				callback.onItemFound(sr);;
+				callback.onItemFound(sr);
 			}
     	};
 

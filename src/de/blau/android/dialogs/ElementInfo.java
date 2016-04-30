@@ -117,7 +117,7 @@ public class ElementInfo extends DialogFragment {
         		tl.addView(divider());
         		boolean isClosed = ((Way)e).isClosed();
         		tl.addView(createRow(R.string.nodes, "" + (((Way)e).nodeCount() + (isClosed?-1:0)),tp));
-        		tl.addView(createRow(R.string.length_m, String.format("%.2f",((Way)e).length()),tp));
+        		tl.addView(createRow(R.string.length_m, String.format(Locale.US,"%.2f",((Way)e).length()),tp));
         		tl.addView(createRow(R.string.closed, getString(isClosed ? R.string.yes : R.string.no),tp));
         	} else if (e.getName().equals(Relation.NAME)) {
         		tl.addView(divider());

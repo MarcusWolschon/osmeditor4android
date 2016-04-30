@@ -576,7 +576,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		long mTop = GeoMath.latE7ToMercatorE7(top);
 		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		long mHeight = mTop - mBottom; 
-		return -Math.min((MAX_ZOOM_WIDTH - width) / 2f / width, ((2l*(long)GeoMath.MAX_MLAT_E7) - mHeight) / 2f /mHeight);
+		return -Math.min((MAX_ZOOM_WIDTH - width) / 2f / width, ((2L*(long)GeoMath.MAX_MLAT_E7) - mHeight) / 2f /mHeight);
 	}
 	
 	/**

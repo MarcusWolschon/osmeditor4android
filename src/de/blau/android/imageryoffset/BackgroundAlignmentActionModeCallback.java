@@ -530,6 +530,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		protected static final String DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT = "yyyy-MM-dd";
 
 		public String toSaveUrl() {
+<<<<<<< HEAD
 			Uri uriBuilder = offsetServerUri.buildUpon()
 					.appendPath("store")
 					.appendQueryParameter("lat", String.format(Locale.US, "%.7f", lat))
@@ -541,6 +542,17 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 					.appendQueryParameter("imlon", String.format(Locale.US, "%.7f", imageryLon))
 					.build();
 			return uriBuilder.toString();
+=======
+			try {
+				return offsetServer+"store?lat="+ URLEncoder.encode(String.format(Locale.US,"%.7f",lat),"UTF-8")+"&lon="+URLEncoder.encode(String.format(Locale.US,"%.7f",lon),"UTF-8")
+						+"&author="+URLEncoder.encode(author,"UTF-8")
+						+"&description="+URLEncoder.encode(description,"UTF-8")
+						+"&imagery="+URLEncoder.encode(imageryId,"UTF-8")
+						+"&imlat="+URLEncoder.encode(String.format(Locale.US,"%.7f",imageryLat),"UTF-8")+"&imlon="+URLEncoder.encode(String.format(Locale.US,"%.7f",imageryLon),"UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				return null;
+			}
+>>>>>>> 94d1ff4... Fix grade build config and some lint warnings.
 		}
 	}
 	

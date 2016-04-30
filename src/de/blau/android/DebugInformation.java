@@ -26,7 +26,7 @@ public class DebugInformation extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
-			setTheme(R.style.Theme_AppCompat_Light);
+			setTheme(R.style.Theme_customLight);
 		}
 		
 		super.onCreate(savedInstanceState);

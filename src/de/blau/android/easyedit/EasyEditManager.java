@@ -127,9 +127,9 @@ public class EasyEditManager {
 	private int showAlways() {
 		if (iconsDisplayed < maxIcons) {  
 			iconsDisplayed++;
-			return MenuItem.SHOW_AS_ACTION_ALWAYS;
+			return MenuItemCompat.SHOW_AS_ACTION_ALWAYS;
 		} else {
-			return MenuItem.SHOW_AS_ACTION_IF_ROOM;
+			return MenuItemCompat.SHOW_AS_ACTION_IF_ROOM;
 		}
 	}
 	
@@ -655,8 +655,8 @@ public class EasyEditManager {
 								logic.performSetPosition(node,lon,lat);
 								TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
 								if (location.hasAltitude()) {
-									tags.put(Tags.KEY_ELE, String.format("%.1f",location.getAltitude()));
-									tags.put(Tags.KEY_ELE_MSL, String.format("%.1f",location.getAltitude()));
+									tags.put(Tags.KEY_ELE, String.format(Locale.US,"%.1f",location.getAltitude()));
+									tags.put(Tags.KEY_ELE_MSL, String.format(Locale.US,"%.1f",location.getAltitude()));
 									tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
 								}
 								tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
@@ -1082,7 +1082,7 @@ public class EasyEditManager {
 			mi = menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_multi_select));
 			MenuItemCompat.setShowAsAction(mi,showAlways());
 			mi = menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation));
-			MenuItemCompat.setShowAsAction(mi,MenuItem.SHOW_AS_ACTION_IF_ROOM);
+			MenuItemCompat.setShowAsAction(mi,MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 			if (element.getOsmId() > 0) {
 				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 			}

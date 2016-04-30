@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -540,7 +541,7 @@ public class Map extends View implements IMapView {
 	private void paintZoomAndOffset(final Canvas canvas) {
 		int pos = Application.mainActivity.getSupportActionBar().getHeight() + 5; 
 		Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
-		String text = "Z " + zoomLevel + " Offset " +  (o != null ? String.format("%.5f",o.lon) + "/" +  String.format("%.5f",o.lat) : "0.00000/0.00000");
+		String text = "Z " + zoomLevel + " Offset " +  (o != null ? String.format(Locale.US,"%.5f",o.lon) + "/" +  String.format(Locale.US,"%.5f",o.lat) : "0.00000/0.00000");
 		float textSize = textPaint.getTextSize();
 		canvas.drawText(text, 5, pos + textSize, textPaint);
 	}
