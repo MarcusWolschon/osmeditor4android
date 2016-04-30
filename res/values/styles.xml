@@ -14,7 +14,7 @@
 	</style>
 	
 	<style name="Theme.customMain" parent="style/Theme.AppCompat">
-		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_dark</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_dark</item>
@@ -60,10 +60,10 @@
 		<item name="EditText">@style/EditTextDark</item>
 	</style>
 	
-	<style name="ActionButtonDark" parent="android:Widget.Holo.ActionBar" />
+	<style name="ActionButtonDark" parent="@style/Widget.AppCompat.ActionBar" />
 	
 	<style name="Theme.customMain.Light" parent="style/Theme.AppCompat.Light">
-		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_light</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_light</item>
@@ -130,7 +130,7 @@
 	
 	<!-- Dark for PropertyEditor -->
 	<style name="Theme.customTagEditor" parent="style/Theme.AppCompat">
-		<item name="android:actionBarStyle">@style/TagEditorActionBar</item>
+		<item name="actionBarStyle">@style/TagEditorActionBar</item>
 		<item name="android:autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
 		<item name="android:dropDownItemStyle">@style/Widget.DropDownItem</item>
 		<!-- <item name="android:textViewStyle">@style/TextView</item> -->
@@ -210,7 +210,7 @@
 		<item name="android:background">@android:color/black</item>
 	</style>
 	
-	<style name="SpinnerStyle" parent="android:Widget.Holo.Spinner">
+	<style name="SpinnerStyle" parent="@style/Widget.AppCompat.Spinner">
 		<item name="android:background">@android:color/black</item>
 		<item name="android:popupBackground">@android:color/black</item>
 		<!-- <item name="android:dropDownSelector">@android:color/black</item> -->
@@ -245,24 +245,24 @@
 		<item name="android:textColor">@android:color/white</item>
 	</style>
 
-	<style name="DownloadedMemberDark" parent="android:Widget.Holo.TextView">
+	<style name="DownloadedMemberDark" parent="android:Widget.TextView">
 	    <item name="android:textColor">@android:color/white</item>
 		<item name="android:background">@android:color/white</item>
 	</style>
 	
-	<style name="NotDownloadedMemberDark" parent="android:Widget.Holo.TextView">
+	<style name="NotDownloadedMemberDark" parent="android:Widget.TextView">
 	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	
-	<style name="StaticTextDark" parent="android:Widget.Holo.TextView">
+	<style name="StaticTextDark" parent="android:Widget.TextView">
 	    <item name="android:textColor">@android:color/white</item>
 		<item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	
 	<!-- Light for PropertyEditor -->
 	<style name="Theme.customTagEditor.Light" parent="style/Theme.AppCompat.Light">
-		<item name="android:actionBarStyle">@style/TagEditorActionBarLight</item>
+		<item name="actionBarStyle">@style/TagEditorActionBarLight</item>
 		<item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
 		<!-- <item name="android:textViewStyle">@style/TextViewLight</item> -->
 		<item name="android:editTextStyle">@style/EditTextLight</item>
@@ -318,25 +318,25 @@
 
 	<style name="TagEditorActionBarLight" parent="@style/Widget.AppCompat.Light.ActionBar.Solid" />
 
-	<style name="TextViewLight" parent="android:Widget.Holo.Light.TextView">
+	<style name="TextViewLight" parent="android:Widget.TextView">
 		<item name="android:background">@android:color/white</item>
 	</style>
 
-	<style name="EditTextLight" parent="android:Widget.Holo.Light.EditText">
+	<style name="EditTextLight" parent="android:Widget.TextView">
 	    <item name="android:textColor">@android:color/black</item>
 		<item name="android:background">@android:color/white</item>
 	</style>
 	
-	<style name="AutoCompleteTextViewLight" parent="android:Widget.Holo.Light.AutoCompleteTextView">
+	<style name="AutoCompleteTextViewLight" parent="@style/Widget.AppCompat.Light.AutoCompleteTextView">
 		<item name="android:background">@android:color/white</item>
 		<item name="android:popupBackground">@android:color/white</item>
 	</style>
 
-	<style name="CheckBoxLight" parent="android:Widget.Holo.Light.CompoundButton.CheckBox">
+	<style name="CheckBoxLight" parent="android:Widget.CompoundButton.CheckBox">
 		<item name="android:background">@android:color/white</item>
 	</style>
 	
-	<style name="SpinnerStyleLight" parent="android:Widget.Holo.Light.Spinner">
+	<style name="SpinnerStyleLight" parent="@style/Widget.AppCompat.Spinner">
 		<item name="android:background">@android:color/white</item>
 		<item name="android:popupBackground">@android:color/white</item>
 	</style>
@@ -362,7 +362,7 @@
 		<item name="android:background">@android:color/white</item>
 	</style>
 
-	<style name="SpinnerItemStyleLight" parent="android:style/Widget.Holo.Light.TextView.SpinnerItem">
+	<style name="SpinnerItemStyleLight" >
 		<item name="android:textAppearance">@style/TextAppearanceSpinnerItemLight</item>
 	</style>
 
@@ -370,25 +370,25 @@
 <!-- 		<item name="android:textColor">@android:color/black</item> -->
 	</style>
 	
-	<style name="DownloadedMemberLight" parent="android:Widget.Holo.Light.TextView">
+	<style name="DownloadedMemberLight" parent="android:Widget.TextView">
 	    <item name="android:textColor">@android:color/black</item>
 		<item name="android:background">@android:color/white</item>
 	</style>
 	
-	<style name="NotDownloadedMemberLight" parent="android:Widget.Holo.Light.TextView">
+	<style name="NotDownloadedMemberLight" parent="android:Widget.TextView">
 	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	
-	<style name="StaticTextLight" parent="android:Widget.Holo.Light.TextView">
+	<style name="StaticTextLight" parent="android:Widget.TextView">
 	    <item name="android:textColor">@android:color/black</item>
 		<item name="android:background">@android:color/white</item>
 	</style>
 	
 	<!-- Help Viewer -->
 	<style name="Theme.customHelpViewer" parent="style/Theme.AppCompat">
-		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
-		<item name="android:homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
+		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
 		<item name="drawer">@drawable/ic_drawer_holo_dark</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_dark</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_dark</item>
@@ -400,8 +400,8 @@
 	</style>
 	
 	<style name="Theme.customHelpViewer.Light" parent="style/Theme.AppCompat.Light">
-		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
-		<item name="android:homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
+		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
 		<item name="drawer">@drawable/ic_drawer_holo_light</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_light</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_light</item>

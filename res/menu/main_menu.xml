@@ -8,7 +8,7 @@
 		android:alphabeticShortcut="@string/shortcut_undo"
 		android:icon="?attr/menu_undo"
 		app:showAsAction="always"
-		android:actionLayout="@layout/undo_action_view"
+		app:actionLayout="@layout/undo_action_view"
 	/>
     	
 	<item

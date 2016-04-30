@@ -926,7 +926,7 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		PackageManager pm = getPackageManager();
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(getPackageManager()) != null) {
-			MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_camera),prefs.showCameraAction() ? MenuItem.SHOW_AS_ACTION_ALWAYS: MenuItem.SHOW_AS_ACTION_NEVER);
+			MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_camera),prefs.showCameraAction() ? MenuItemCompat.SHOW_AS_ACTION_ALWAYS: MenuItemCompat.SHOW_AS_ACTION_NEVER);
 		} else {
 			menu.findItem(R.id.menu_camera).setVisible(false);
 		}
@@ -948,17 +948,18 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0 && NetworkStatus.isConnected(this));
 
 		
-		final Logic logic = Application.getLogic();
-		MenuItem undo = menu.findItem(R.id.menu_undo);
-		
-		undo.setVisible(logic.getMode() != Mode.MODE_MOVE && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
-		View undoView = MenuItemCompat.getActionView(undo);
-		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
-			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
-			undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
-		}
-		undoView.setOnClickListener(undoListener);
-		undoView.setOnLongClickListener(undoListener);
+//		final Logic logic = Application.getLogic();
+//		MenuItem undo = menu.findItem(R.id.menu_undo);
+//		
+//		undo.setVisible(logic.getMode() != Mode.MODE_MOVE && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
+//		View undoView = MenuItemCompat.getActionView(undo);
+//		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
+//			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
+//			undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
+//		
+//		}
+//		undoView.setOnClickListener(undoListener);
+//		undoView.setOnLongClickListener(undoListener);
 		
 		final Server server = prefs.getServer();
 		if (server.hasOpenChangeset()) {
@@ -2625,7 +2626,7 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 	 */
 	public void invalidateOptionsMenu() { 
 		// Log.d(DEBUG_TAG, "invalidateOptionsMenu called");
-		super.invalidateOptionsMenu();
+		super.supportInvalidateOptionsMenu();
 	}
 	
 	/**
@@ -2635,7 +2636,7 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 	 */
 	public void triggerMenuInvalidation() {
 		Log.d(DEBUG_TAG, "triggerMenuInvalidation called");
-		super.invalidateOptionsMenu(); // TODO delay or make conditional to work around android bug?
+		super.supportInvalidateOptionsMenu(); // TODO delay or make conditional to work around android bug?
 	}
 	
 	/**

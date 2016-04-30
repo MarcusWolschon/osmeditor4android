@@ -8,14 +8,14 @@
 		android:alphabeticShortcut="@string/shortcut_undo"
 		android:icon="?attr/menu_undo"
 		app:showAsAction="always"
-		android:actionLayout="@layout/undo_action_view"
+		app:actionLayout="@layout/undo_action_view"
 	/>
     	
 	<item
 		android:id="@+id/menu_camera"
 		android:title="@string/menu_camera"
 		android:icon="?attr/menu_camera"
-		app:showAsAction="always"
+		app:showAsAction="ifRoom"
 	/>	
 	<item
 		android:id="@+id/menu_voice"
