@@ -1,7 +1,5 @@
 package de.blau.android;
 
-
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -21,9 +19,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -38,7 +36,6 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.ThemeUtils;
 
 
 /**
@@ -131,11 +128,11 @@ public class HelpViewer extends AppCompatActivity {
 		
 		actionbar.setHomeButtonEnabled(true);
 		actionbar.setDisplayHomeAsUpEnabled(true);
-		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, ThemeUtils.getResIdFromAttribute(this,R.attr.drawer), R.string.okay, R.string.okay);
-		mDrawerLayout.setDrawerListener(mDrawerToggle);
+		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.okay, R.string.okay);
+		mDrawerToggle.setDrawerIndicatorEnabled(true);
+		mDrawerLayout.addDrawerListener(mDrawerToggle);
 		
 
-		
 		try {
 			List<String> defaultList = Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage()));
 			List<String> enList = Arrays.asList(getResources().getAssets().list("help/en"));
