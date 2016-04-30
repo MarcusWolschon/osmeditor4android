@@ -3,6 +3,7 @@ package de.blau.android.prefs;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
@@ -73,6 +74,21 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 				return true;
 			}
 		});
-		
+	}
+	
+	@Override
+	public void onDisplayPreferenceDialog(Preference preference) {
+	    DialogFragment fragment;
+	    if (preference instanceof LoginDataPreference) {
+	        fragment = LoginDataPreferenceFragment.newInstance(preference);
+	        fragment.setTargetFragment(this, 0);
+	        fragment.show(getFragmentManager(),
+	                "android.support.v7.preference.PreferenceFragment.LOGINDATA");
+	    } else if (preference instanceof MultiSelectListPreference) {
+	        fragment = MultiSelectListPreferenceDialogFragment.newInstance(preference.getKey());
+	        fragment.setTargetFragment(this, 0);
+	        fragment.show(getFragmentManager(),
+	                "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
+	    } else super.onDisplayPreferenceDialog(preference);
 	}
 }

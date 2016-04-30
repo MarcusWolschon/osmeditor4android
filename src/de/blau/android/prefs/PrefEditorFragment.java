@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
@@ -191,5 +192,16 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 				return true;
 			}
 		});
+	}
+	
+	@Override
+	public void onDisplayPreferenceDialog(Preference preference) {
+	    DialogFragment fragment;
+	    if (preference instanceof MultiSelectListPreference) {
+	        fragment = MultiSelectListPreferenceDialogFragment.newInstance(preference.getKey());
+	        fragment.setTargetFragment(this, 0);
+	        fragment.show(getFragmentManager(),
+	                "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
+	    } else super.onDisplayPreferenceDialog(preference);
 	}
 }

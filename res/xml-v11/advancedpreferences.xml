@@ -100,14 +100,14 @@
 			android:numeric="decimal"
 			android:defaultValue="30"
 		/>
-<!-- 		<android.support.v7.preference.MultiSelectListPreference -->
-<!-- 			android:key="@string/config_bugFilter_key" -->
-<!-- 			android:title="@string/config_bugFilter_title" -->
-<!-- 			android:summary="@string/config_bugFilter_summary" -->
-<!-- 			android:entries="@array/bug_filter_entries" -->
-<!--         	android:entryValues="@array/bug_filter_values" -->
-<!--         	android:defaultValue="@array/bug_filter_defaults" -->
-<!-- 		/> -->
+		<de.blau.android.prefs.MultiSelectListPreference
+			android:key="@string/config_bugFilter_key"
+			android:title="@string/config_bugFilter_title"
+			android:summary="@string/config_bugFilter_summary"
+			android:entries="@array/bug_filter_entries"
+        	android:entryValues="@array/bug_filter_values"
+        	android:defaultValue="@array/bug_filter_defaults"
+		/>
 		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enableNameSuggestions_key"
 			android:title="@string/config_enableNameSuggestions_title"
@@ -174,13 +174,13 @@
 			android:key="@string/config_api_button_key"
 			android:summary="@string/config_apibutton_summary">
 		</android.support.v7.preference.Preference>
-<!-- 		<de.blau.android.prefs.LoginDataPreference -->
-<!-- 			android:key="@string/config_loginbutton_key" -->
-<!-- 			android:title="@string/config_loginbutton_title" -->
-<!-- 			android:summary="@string/config_username_summary" -->
-<!-- 			android:dialogTitle="@string/config_loginbutton_title" -->
-<!-- 			android:singleLine="true" -->
-<!-- 		/> -->
+		<de.blau.android.prefs.LoginDataPreference
+			android:key="@string/config_loginbutton_key"
+			android:title="@string/config_loginbutton_title"
+			android:summary="@string/config_username_summary"
+			android:dialogTitle="@string/config_loginbutton_title"
+			android:singleLine="true"
+		/>
 		<android.support.v7.preference.EditTextPreference
 			android:key="@string/config_offsetServer_key"
 			android:title="@string/config_offsetServer_title"

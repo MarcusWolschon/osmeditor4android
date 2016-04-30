@@ -2,32 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-     >
+    android:orientation="vertical" >
+
     <LinearLayout
+        style="?attr/Layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        style="?attr/Layout"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        >
-    <EditText
-        android:id="@+id/preset_search_edit"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:hint="@string/preset_search_hint"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:singleLine="true" 
-        android:drawableRight="?attr/search"
-         />
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/preset_search_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:drawableEnd="?attr/search"
+            android:drawableRight="?attr/search"
+            android:hint="@string/preset_search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:singleLine="true" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/preset_presets"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        />
+        android:orientation="vertical" />
+
 </LinearLayout>
