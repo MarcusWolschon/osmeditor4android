@@ -43,6 +43,7 @@ import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -951,7 +952,7 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		MenuItem undo = menu.findItem(R.id.menu_undo);
 		
 		undo.setVisible(logic.getMode() != Mode.MODE_MOVE && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
-		View undoView = undo.getActionView();
+		View undoView = MenuItemCompat.getActionView(undo);
 		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
 			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
 			undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);

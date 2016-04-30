@@ -1059,7 +1059,7 @@ public class EasyEditManager {
 				MenuItemCompat.setShowAsAction(undo,showAlways());
 				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
 			}
-			View undoView = undo.getActionView();
+			View undoView = MenuItemCompat.getActionView(undo);
 			if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
 				Preferences prefs = new Preferences(main);
 				Context context =  new ContextThemeWrapper(main, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
@@ -2177,7 +2177,7 @@ public class EasyEditManager {
 				MenuItemCompat.setShowAsAction(undo,showAlways());
 				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
 			}
-			View undoView = undo.getActionView();
+			View undoView = MenuItemCompat.getActionView(undo);
 			if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
 				Preferences prefs = new Preferences(main);
 				Context context =  new ContextThemeWrapper(main, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
