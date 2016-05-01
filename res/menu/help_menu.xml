@@ -10,6 +10,6 @@
         android:id="@+id/help_menu_forward"
         android:icon="?attr/menu_forward"
         android:showAsAction="always"
-        android:title="@string/back"
+        android:title="@string/forward"
     />  
 </menu>
