@@ -22,7 +22,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,6 +36,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.BugFixedAppCompatActivity;
 
 
 /**
@@ -44,7 +45,7 @@ import de.blau.android.prefs.Preferences;
  * @author simon
  *
  */
-public class HelpViewer extends AppCompatActivity {
+public class HelpViewer extends BugFixedAppCompatActivity {
 	
 	class HelpItem implements Comparable<HelpItem> {
 		boolean displayLanguage = false;
@@ -96,6 +97,14 @@ public class HelpViewer extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		int topicId = (Integer)getIntent().getSerializableExtra(TOPIC);
 		String topic = getString(topicId); // this assumes that the resources are the same, which is probably safe
+		
+		setContentView(R.layout.help_drawer);
+		
+//        // Find the toolbar view inside the activity layout
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.helpToolbar);
+//        // Sets the Toolbar to act as the ActionBar for this Activity window.
+//        // Make sure the toolbar exists in the activity and is not null
+//        setSupportActionBar(toolbar);
 
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar == null) {
@@ -107,7 +116,9 @@ public class HelpViewer extends AppCompatActivity {
 		actionbar.setDisplayShowTitleEnabled(true);
 		actionbar.show();
 
-		setContentView(R.layout.help_drawer);
+
+		
+		
 		
 		// add our content
 		FrameLayout fl =  (FrameLayout) findViewById(R.id.content_frame);
@@ -199,7 +210,7 @@ public class HelpViewer extends AppCompatActivity {
 	 */
  	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
-		final MenuInflater inflater = getMenuInflater();
+		final MenuInflater inflater = getMenuInflater(); 
 		inflater.inflate(R.menu.help_menu, menu);
 		return true;
  	}

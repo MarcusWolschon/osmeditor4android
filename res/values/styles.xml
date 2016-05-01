@@ -66,10 +66,11 @@
 		<item name="EditText">@style/EditTextDark</item>
 	</style>
 	
-	<style name="ActionButtonDark" parent="@style/Widget.AppCompat.ActionBar" />
+	<style name="ActionButtonDark" parent="@style/Widget.AppCompat.ActionButton" />
 	
-	<style name="Theme.customMain.Light" parent="@style/Theme.AppCompat.Light">
-		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
+	<style name="Theme.customMain.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
+<!-- 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item> -->
+		<item name="windowActionModeOverlay">true</item>
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_light</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_light</item>
@@ -115,8 +116,8 @@
 		<item name="EditText">@style/EditTextLight</item>
 	</style>
 
-	<style name="ActionButtonLight" parent="@style/Widget.AppCompat.Light.ActionBar" />
-	
+	<style name="ActionButtonLight" parent="@style/Widget.AppCompat.Light.ActionButton" />
+   
 	<!--  Style for custom views in alert dialogs -->
 	<style name="Theme.DialogDark" parent="@style/Theme.AppCompat"></style>
 	

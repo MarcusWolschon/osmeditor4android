@@ -37,6 +37,7 @@ import android.graphics.Path;
 import android.graphics.PixelXorXfermode;
 import android.graphics.Typeface;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
@@ -326,12 +327,12 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(PROBLEM_WAY, standardPath);
-		fp.setColor(resources.getColor(R.color.problem));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.problem));
 		fp.setWidthFactor(1.5f);
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(VIEWBOX, standardPath);
-		fp.setColor(resources.getColor(R.color.grey));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.grey));
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.FILL);
 		fp.getPaint().setAlpha(125);
@@ -348,38 +349,38 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(NODE);
-		fp.setColor(resources.getColor(R.color.ccc_red));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
 		fp.setWidthFactor(1f);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(NODE_TAGGED);
-		fp.setColor(resources.getColor(R.color.ccc_red));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
 		fp.setWidthFactor(1.5f);
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(NODE_THIN);
 		fp.dontUpdate();
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		fp.setColor(resources.getColor(R.color.ccc_red));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(PROBLEM_NODE);
-		fp.setColor(resources.getColor(R.color.problem));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.problem));
 		fp.setWidthFactor(1f);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(PROBLEM_NODE_TAGGED);
-		fp.setColor(resources.getColor(R.color.problem));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.problem));
 		fp.setWidthFactor(1.5f);
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(PROBLEM_NODE_THIN);
 		fp.dontUpdate();
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		fp.setColor(resources.getColor(R.color.problem));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.problem));
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
@@ -392,23 +393,23 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(WAY_TOLERANCE,featureStyles.get(WAY)); 	
-		fp.setColor(resources.getColor(R.color.ccc_ocher));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_ocher));
 		fp.dontUpdate();
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,wayToleranceValue));
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_NODE);
-		fp.setColor(resources.getColor(R.color.ccc_beige));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
 		fp.setWidthFactor(1.5f);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_RELATION_NODE, featureStyles.get(SELECTED_NODE));
-		fp.setColor(resources.getColor(R.color.relation));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.relation));
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(NODE_DRAG_RADIUS );
-		fp.setColor(resources.getColor(R.color.ccc_beige));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setAlpha(150);
@@ -416,25 +417,25 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_NODE_TAGGED);
-		fp.setColor(resources.getColor(R.color.ccc_beige));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
 		fp.setWidthFactor(2f);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_RELATION_NODE_TAGGED, featureStyles.get(SELECTED_NODE_TAGGED));
-		fp.setColor(resources.getColor(R.color.relation));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.relation));
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(SELECTED_NODE_THIN);
 		fp.dontUpdate();
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		fp.setColor(resources.getColor(R.color.ccc_beige));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_RELATION_NODE_THIN, featureStyles.get(SELECTED_NODE_THIN));
-		fp.setColor(resources.getColor(R.color.relation));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.relation));
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(GPS_POS,featureStyles.get(GPS_TRACK)); 
@@ -455,18 +456,18 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(SELECTED_WAY,featureStyles.get(WAY)); 	
-		fp.setColor(resources.getColor(R.color.ccc_beige));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
 		fp.setWidthFactor(2f);
 		fp.getPaint().setStrokeCap(Cap.ROUND);
 		fp.getPaint().setStrokeJoin(Join.ROUND);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_RELATION_WAY,featureStyles.get(SELECTED_WAY));
-		fp.setColor(resources.getColor(R.color.relation));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.relation));
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(NODE_TOLERANCE);
-		fp.setColor(resources.getColor(R.color.ccc_ocher));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_ocher));
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.FILL);
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
@@ -497,7 +498,7 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(WAY_DIRECTION);
-		fp.setColor(resources.getColor(R.color.ccc_red));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
 		fp.setWidthFactor(0.8f);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeCap(Cap.SQUARE);
@@ -505,17 +506,17 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(ONEWAY_DIRECTION,featureStyles.get(WAY_DIRECTION));
-		fp.setColor(resources.getColor(R.color.ccc_blue));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_blue));
 		fp.setWidthFactor(0.5f);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(OPEN_NOTE);
-		fp.setColor(resources.getColor(R.color.bug_open));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.bug_open));
 		fp.getPaint().setAlpha(100);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(CLOSED_NOTE);
-		fp.setColor(resources.getColor(R.color.bug_closed));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.bug_closed));
 		fp.getPaint().setAlpha(100);
 		featureStyles.put(fp.getName(), fp);
 		

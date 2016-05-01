@@ -7,7 +7,9 @@
 		android:title="@string/undo"
 		android:alphabeticShortcut="@string/shortcut_undo"
 		android:icon="?attr/menu_undo"
+		android:showAsAction="always"
 		app:showAsAction="always"
+		android:actionLayout="@layout/undo_action_view"
 		app:actionLayout="@layout/undo_action_view"
 	/>
     	
@@ -27,7 +29,7 @@
 		android:id="@+id/menu_gps"
 		android:title="@string/menu_gps"
 		android:icon="?attr/menu_gps"
-		app:showAsAction="ifRoom"
+		app:showAsAction="always"
 	>		
 		<menu>
 				<item

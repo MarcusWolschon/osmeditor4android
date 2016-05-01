@@ -25,6 +25,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -204,7 +205,7 @@ public class Map extends View implements IMapView {
 		setFocusableInTouchMode(true);
 		
 		//Style me
-		setBackgroundColor(getResources().getColor(R.color.ccc_white));
+		setBackgroundColor(ContextCompat.getColor(context,R.color.ccc_white));
 		setDrawingCacheEnabled(false);
 		//
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) { 

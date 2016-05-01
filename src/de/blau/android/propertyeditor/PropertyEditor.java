@@ -26,7 +26,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Display;
@@ -52,6 +51,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StreetTagValueAdapter;
@@ -64,7 +64,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  * @author simon
  */
-public class PropertyEditor extends AppCompatActivity implements 
+public class PropertyEditor extends BugFixedAppCompatActivity implements 
 		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters {
 	static final String PRESET_FRAGMENT = "preset_fragment";
 	static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";

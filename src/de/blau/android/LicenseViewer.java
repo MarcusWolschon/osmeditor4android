@@ -3,13 +3,13 @@ package de.blau.android;
 import java.io.InputStreamReader;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.SavingHelper;
 
-public class LicenseViewer extends AppCompatActivity {
+public class LicenseViewer extends BugFixedAppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);

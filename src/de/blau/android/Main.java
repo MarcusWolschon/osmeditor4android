@@ -45,8 +45,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -120,6 +120,7 @@ import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TransferTasks;
+import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
@@ -136,7 +137,7 @@ import de.blau.android.voice.Commands;
  * 
  * @author mb
  */
-public class Main extends AppCompatActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener {
+public class Main extends BugFixedAppCompatActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener {
 
 	/**
 	 * Tag used for Android-logging.
@@ -348,8 +349,8 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 			requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		}
 		
-		
-		rl = new RelativeLayout(getApplicationContext());
+		RelativeLayout ml = (RelativeLayout) getLayoutInflater().inflate(R.layout.main, null);
+		rl = (RelativeLayout) ml.findViewById(R.id.mainMap);// new RelativeLayout(getApplicationContext());
 		
 		if (map != null) {
 			map.onDestroy();
@@ -393,7 +394,13 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		rl.addView(zoomControls, rlp);
 		
-		setContentView(rl);
+		setContentView(ml);
+		
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
 		
 		// check if first time user and display something if yes
 		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
@@ -913,6 +920,8 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 	
 	/**
 	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
+	 * 
+	 * Note for not entirely clear reasons *:setShowAsAction doesn't work in the menu definition and has to be done programmatically here.
 	 */
  	@SuppressLint("InflateParams")
 	@Override
@@ -932,7 +941,7 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		
 		boolean networkConnected = NetworkStatus.isConnected(this);
 		boolean gpsProviderEnabled = ensureGPSProviderEnabled();
-		
+		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_gps),MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		menu.findItem(R.id.menu_gps_show).setEnabled(gpsProviderEnabled).setChecked(showGPS);
 		menu.findItem(R.id.menu_gps_follow).setEnabled(gpsProviderEnabled).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_goto).setEnabled(gpsProviderEnabled);
@@ -945,21 +954,22 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
 		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0 && NetworkStatus.isConnected(this));
-
 		
-//		final Logic logic = Application.getLogic();
-//		MenuItem undo = menu.findItem(R.id.menu_undo);
-//		
-//		undo.setVisible(logic.getMode() != Mode.MODE_MOVE && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
-//		View undoView = MenuItemCompat.getActionView(undo);
-//		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
-//			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
-//			undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
-//		
-//		}
-//		undoView.setOnClickListener(undoListener);
-//		undoView.setOnLongClickListener(undoListener);
+		final Logic logic = Application.getLogic();
+		MenuItem undo = menu.findItem(R.id.menu_undo);
+		MenuItemCompat.setShowAsAction(undo, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+		undo.setVisible(logic.getMode() != Mode.MODE_MOVE && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
+		View undoView = MenuItemCompat.getActionView(undo);
+		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
+			Log.d(DEBUG_TAG,"undoView null");
+			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
+			undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
+			MenuItemCompat.setActionView(undo, undoView);
+		}
+		undoView.setOnClickListener(undoListener);
+		undoView.setOnLongClickListener(undoListener);
 		
+		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_transfer), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 		final Server server = prefs.getServer();
 		if (server.hasOpenChangeset()) {
 			menu.findItem(R.id.menu_transfer_close_changeset).setVisible(true);
@@ -975,6 +985,13 @@ public class Main extends AppCompatActivity implements ServiceConnection, Tracke
 		menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected);
 		menu.findItem(R.id.menu_voice).setVisible(false); // don't display button for now
 //		menu.findItem(R.id.menu_voice).setEnabled(networkConnected && prefs.voiceCommandsEnabled()).setVisible(prefs.voiceCommandsEnabled());
+		
+		// set showAsAction value for rest of top level menus
+		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_voice), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_config), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_tools), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_find), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_help), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 		
 		return true;
 	}

@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ActionMenuView.OnMenuItemClickListener;
 import android.util.AttributeSet;
@@ -91,7 +92,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		onLoadList(items);
 		TextView v = (TextView)View.inflate(ctx, android.R.layout.simple_list_item_1, null);
 		v.setText(r.getString(getAddTextResId()));
-		v.setTextColor(ctx.getResources().getColor(android.R.color.darker_gray));
+		v.setTextColor(ContextCompat.getColor(ctx,android.R.color.darker_gray));
 		v.setTypeface(null,Typeface.ITALIC);
 		getListView().addFooterView(v);
 		

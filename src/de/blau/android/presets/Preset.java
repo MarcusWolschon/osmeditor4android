@@ -43,6 +43,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -1025,16 +1026,16 @@ public class Preset implements Serializable {
 			TextView v = new TextView(ctx);
 			float density = res.getDisplayMetrics().density;
 			v.setText(getTranslatedName());
-			v.setTextColor(res.getColor(R.color.preset_text));
+			v.setTextColor(ContextCompat.getColor(ctx,R.color.preset_text));
 			v.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
 			v.setEllipsize(TextUtils.TruncateAt.END);
 			v.setMaxLines(2);
 			v.setPadding((int)(4*density), (int)(4*density), (int)(4*density), (int)(4*density));
 			// v.setBackgroundDrawable(shape);
 			if (this instanceof PresetGroup) {
-				v.setBackgroundColor(res.getColor(R.color.dark_grey));
+				v.setBackgroundColor(ContextCompat.getColor(ctx,R.color.dark_grey));
 			} else {
-				v.setBackgroundColor(res.getColor(R.color.preset_bg));
+				v.setBackgroundColor(ContextCompat.getColor(ctx,R.color.preset_bg));
 			}
 			Drawable icon = getIcon();
 			if (icon != null) {
@@ -1222,7 +1223,7 @@ public class Preset implements Serializable {
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
 			// wrappingLayout.setBackgroundColor(ctx.getResources().getColor(android.R.color.white));
-			wrappingLayout.setBackgroundColor(ctx.getResources().getColor(android.R.color.transparent)); // make transparent
+			wrappingLayout.setBackgroundColor(ContextCompat.getColor(ctx,android.R.color.transparent)); // make transparent
 			wrappingLayout.setHorizontalSpacing((int)(SPACING*density));
 			wrappingLayout.setVerticalSpacing((int)(SPACING*density));
 			ArrayList<PresetElement> filteredElements = type == null ? elements : filterElements(elements, type);

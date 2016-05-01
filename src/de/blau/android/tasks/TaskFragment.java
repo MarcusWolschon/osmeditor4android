@@ -9,6 +9,7 @@ import android.content.DialogInterface.OnShowListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -183,7 +184,7 @@ public class TaskFragment extends DialogFragment {
 		    				Application.mainActivity.zoomToAndEdit(lonE7, latE7, e);
 		    			}
 					}});
-    			tv.setTextColor(getActivity().getResources().getColor(R.color.holo_blue_light));
+    			tv.setTextColor(ContextCompat.getColor(getActivity(),R.color.holo_blue_light));
     			tv.setText(text);
     			elementLayout.addView(tv);
     		}
