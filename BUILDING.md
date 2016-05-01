@@ -16,7 +16,7 @@ You need to import _appcompat_, _preference_ and _recyclerview_ libraries into e
 
 ## Building with grade and Android Studio
 
-The build configuration has not been updated for AppCompat yet and will currently not work.
+The build configuration has been updated for AppCompat yet and should work out of the box.
 
 ## Required 3rd Party Libraries
 

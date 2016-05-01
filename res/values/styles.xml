@@ -19,7 +19,7 @@
 	<style name="Theme.customLight" parent="style/Theme.AppCompat.Light">
 	</style>
 
-	<style name="Theme.customMain" parent="style/Theme.AppCompat">
+	<style name="Theme.customMain" parent="@style/Theme.AppCompat">
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_dark</item>
@@ -68,7 +68,7 @@
 	
 	<style name="ActionButtonDark" parent="@style/Widget.AppCompat.ActionBar" />
 	
-	<style name="Theme.customMain.Light" parent="style/Theme.AppCompat.Light">
+	<style name="Theme.customMain.Light" parent="@style/Theme.AppCompat.Light">
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_light</item>
