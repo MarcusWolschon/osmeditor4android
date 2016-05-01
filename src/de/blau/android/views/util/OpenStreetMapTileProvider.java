@@ -19,6 +19,7 @@ import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 import de.blau.android.services.IOpenStreetMapTileProviderService;
 import de.blau.android.services.util.OpenStreetMapAsyncTileProvider;
 import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.util.Util;
 
 /**
  * 
@@ -62,7 +63,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	private Handler mDownloadFinishedHandler;
 	
 	/**
-	 * Set to true if we have less than 64 MB heep or have other caching issues
+	 * Set to true if we have less than 64 MB heap or have other caching issues
 	 */
 	private boolean smallHeap = false;
 	
@@ -81,7 +82,8 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		
 		smallHeap = Runtime.getRuntime().maxMemory() <= 32L*1024L*1024L; // less than 32MB
 	
-		if(!ctx.bindService(new Intent(IOpenStreetMapTileProviderService.class.getName()), this, Context.BIND_AUTO_CREATE)) {
+		Intent explicitIntent = Util.createExplicitFromImplicitIntent(ctx, new Intent(IOpenStreetMapTileProviderService.class.getName()));
+		if(explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
 			Log.e(DEBUGTAG, "Could not bind to " + IOpenStreetMapTileProviderService.class.getName());
 		}
 		
