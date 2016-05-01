@@ -164,7 +164,7 @@
     <string name="replace">Replace</string>
     <string name="save">Save</string>
     <string name="back">Back</string>
-    <string name="foward">Forward</string>
+    <string name="forward">Forward</string>
     <string name="keep">Keep</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
