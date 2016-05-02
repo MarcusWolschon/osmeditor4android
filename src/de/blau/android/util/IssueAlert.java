@@ -49,7 +49,12 @@ public class IssueAlert {
 		}
 		
 		LocationManager locationManager = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-		Location location = locationManager.getLastKnownLocation("gps");
+		Location location = null;
+		try {
+			location = locationManager.getLastKnownLocation("gps");
+		} catch (SecurityException sex) {
+			// can be safely ignored
+		}
 		double eLon = 0D;
 		double eLat = 0D;
 		if (e.getName().equals("node")) {
@@ -159,7 +164,12 @@ public class IssueAlert {
 		}
 		
 		LocationManager locationManager = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-		Location location = locationManager.getLastKnownLocation("gps");
+		Location location = null;
+		try {
+			location = locationManager.getLastKnownLocation("gps");
+		} catch (SecurityException sex) {
+			// can be safely ignored
+		}
 		double eLon = b.getLon()/1E7D;
 		double eLat = b.getLat()/1E7D;
 		

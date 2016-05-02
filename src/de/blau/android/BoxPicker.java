@@ -31,6 +31,7 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Search;
 import de.blau.android.util.Search.SearchResult;
@@ -46,7 +47,7 @@ import de.blau.android.util.Search.SearchResult;
  * 
  * @author mb
  */
-public class BoxPicker extends AppCompatActivity implements LocationListener {
+public class BoxPicker extends BugFixedAppCompatActivity implements LocationListener {
 	
 	/**
 	 * Tag used for Android-logging.
@@ -163,7 +164,11 @@ public class BoxPicker extends AppCompatActivity implements LocationListener {
 	
 	@Override
 	protected void onPause() {
-		locationManager.removeUpdates(this);
+		try {
+			locationManager.removeUpdates(this);
+		} catch (SecurityException sex) {
+			// can be safely ignored
+		}
 		super.onPause();
 	}
 	

@@ -32,6 +32,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -368,7 +369,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	public void onProviderDisabled(String provider) {
 		Log.d(TAG, "Provider disabled: " + provider);
 		gpsEnabled = false;
-		locationManager.removeUpdates(this);
+		try {
+			locationManager.removeUpdates(this);
+		} catch (SecurityException sex) {
+			// can be safely ignored
+		}
 		locationManager.removeNmeaListener(this);
 		if (tcpClient != null) {
 			tcpClient.cancel();
@@ -393,7 +398,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			Preferences prefs = new Preferences(this);
 			try {
 				Location last = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-				if (last != null) onLocationChanged(last);
+				if (last != null) {
+					onLocationChanged(last);
+				}
 			} catch (Exception e) {} // Ignore
 			try {
 				// used to pass updates to UI thread
@@ -441,7 +448,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			gpsEnabled = true;
 		} else if (!needed && gpsEnabled) {
 			Log.d(TAG, "Disabling GPS updates");
-			locationManager.removeUpdates(this);
+			try {
+				locationManager.removeUpdates(this);
+			} catch (SecurityException sex) {
+				// can be safely ignored
+			}
 			gpsEnabled = false;
 		}
 	}
@@ -754,7 +765,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 				failed.sendToTarget();
 			} finally {
 				SavingHelper.close(dos);
-				SavingHelper.close(socket);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+					SavingHelper.close(socket);
+				}
 				SavingHelper.close(input);
 			}
 		}

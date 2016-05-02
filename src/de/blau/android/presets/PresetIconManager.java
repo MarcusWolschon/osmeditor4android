@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.util.Density;
@@ -146,7 +147,7 @@ public class PresetIconManager {
 	 * @return
 	 */
 	public Drawable getPlaceHolder(int size) {
-		Drawable placeholder = new ColorDrawable(android.R.color.transparent);
+		Drawable placeholder = new ColorDrawable(ContextCompat.getColor(context, android.R.color.transparent));
 		int pxsize = Density.dpToPx(size);
 		placeholder.setBounds(0,0, pxsize, pxsize);
 		return placeholder;

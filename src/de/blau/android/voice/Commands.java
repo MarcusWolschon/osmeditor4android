@@ -163,10 +163,7 @@ public class Commands {
 	 */
 	Node createNode(String loc, Location location) {
 		if (location == null) {
-			LocationManager locationManager = (LocationManager)Application.mainActivity.getSystemService(android.content.Context.LOCATION_SERVICE);
-			if (locationManager != null) {
-				location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-			}
+			location = getLocation();
 		}
 		if (location != null) {
 			if (ctx.getString(R.string.voice_here).equals(loc)) {
@@ -186,10 +183,7 @@ public class Commands {
 	
 	Note createNote(String[] words, Location location) {
 		if (location == null) {
-			LocationManager locationManager = (LocationManager)Application.mainActivity.getSystemService(android.content.Context.LOCATION_SERVICE);
-			if (locationManager != null) {
-				location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-			}
+			location = getLocation();
 		}
 		if (location != null) {		
 			double lon = location.getLongitude();
@@ -206,6 +200,19 @@ public class Commands {
 				n.setChanged();
 				Application.getTaskStorage().add(n);
 				return n;
+			}
+		}
+		return null;
+	}
+	
+	Location getLocation() {
+		LocationManager locationManager = (LocationManager)ctx.getSystemService(android.content.Context.LOCATION_SERVICE);
+		if (locationManager != null) {
+			try {
+				return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			} catch (SecurityException sex) {
+				// can be safely ignored
+				return null;
 			}
 		}
 		return null;

@@ -3,10 +3,11 @@ package de.blau.android.actionbar;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog.Builder;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;

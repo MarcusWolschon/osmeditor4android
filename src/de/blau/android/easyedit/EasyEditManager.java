@@ -647,7 +647,12 @@ public class EasyEditManager {
 					logic.performAdd(x, y);
 					Node node = logic.getSelectedNode();
 					if (locationManager != null && node != null) {
-						Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+						Location location = null;
+						try {
+							location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+						} catch (SecurityException sex) {
+							// can be safely ignored, this is only called when GPS is enabled
+						}
 						if (location != null) {
 							double lon = location.getLongitude();
 							double lat = location.getLatitude();
