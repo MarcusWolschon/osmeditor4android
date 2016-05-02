@@ -2,14 +2,14 @@ package de.blau.android.tasks;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -69,9 +69,9 @@ public class TaskFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
     
-    @SuppressLint("NewApi")
+    @SuppressLint({ "NewApi", "InflateParams" })
 	@Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
     	final Task bug = (Task) getArguments().getSerializable("bug");
     	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     	// Get the layout inflater
@@ -218,7 +218,7 @@ public class TaskFragment extends DialogFragment {
     	} 
     	
     	state.setEnabled(!bug.isNew()); // new bugs always open
-    	Dialog d = builder.create();
+    	AppCompatDialog d = builder.create();
     	
     	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
     		d.setOnShowListener(new OnShowListener() { // old API, buttons are enabled by default

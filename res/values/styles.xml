@@ -119,13 +119,12 @@
 	<style name="ActionButtonLight" parent="@style/Widget.AppCompat.Light.ActionButton" />
    
 	<!--  Style for custom views in alert dialogs -->
-	<style name="Theme.DialogDark" parent="@style/Theme.AppCompat"></style>
+	<style name="Theme.DialogDark" parent="@style/Theme.AppCompat.Dialog">
+	    <item name="android:windowNoTitle">false</item>
+	</style>
 	
-	<style name="Theme.DialogLight" parent="style/Theme.AppCompat.Light">
-	    <item name="android:textColor">@android:color/black</item>
-	    <item name="android:editTextStyle">@style/DialogEditTextLight</item>
-	    <item name="android:checkboxStyle">@style/DialogCheckBoxLight</item>
-	    <item name="android:textCursorDrawable">@null</item>
+	<style name="Theme.DialogLight" parent="style/Theme.AppCompat.Light.Dialog">
+	    <item name="android:windowNoTitle">false</item>
 	</style>
 	
 	<style name="DialogEditTextLight" parent="android:Widget.EditText">

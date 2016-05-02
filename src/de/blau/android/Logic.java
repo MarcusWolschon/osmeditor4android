@@ -2948,7 +2948,7 @@ public class Logic {
 					case HttpURLConnection.HTTP_BAD_REQUEST:
 					case HttpURLConnection.HTTP_NOT_FOUND:
 					case HttpURLConnection.HTTP_GONE:
-					case HttpURLConnection.HTTP_SERVER_ERROR:
+					case HttpURLConnection.HTTP_INTERNAL_ERROR:
 					case HttpURLConnection.HTTP_BAD_GATEWAY:
 					case HttpURLConnection.HTTP_UNAVAILABLE:
 						result.error = ErrorCodes.UPLOAD_PROBLEM;
@@ -3039,7 +3039,7 @@ public class Logic {
 						break;
 					case HttpURLConnection.HTTP_NOT_FOUND:
 					case HttpURLConnection.HTTP_GONE:
-					case HttpURLConnection.HTTP_SERVER_ERROR:
+					case HttpURLConnection.HTTP_INTERNAL_ERROR:
 					case HttpURLConnection.HTTP_BAD_GATEWAY:
 					case HttpURLConnection.HTTP_UNAVAILABLE:
 						result = ErrorCodes.UPLOAD_PROBLEM;

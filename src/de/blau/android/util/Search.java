@@ -11,12 +11,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,7 +102,7 @@ public class Search {
 		try {
 			ArrayList<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
 			if (result != null && result.size() > 0) {
-				Dialog sr = createSearchResultsDialog(result);
+				AppCompatDialog sr = createSearchResultsDialog(result);
 				sr.show();
 			} else {
 				Toast.makeText(activity, R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
@@ -213,9 +213,8 @@ public class Search {
 	}
 	
 	@SuppressLint("InflateParams")
-	private Dialog createSearchResultsDialog(final ArrayList<SearchResult> searchResults) {
+	private AppCompatDialog createSearchResultsDialog(final ArrayList<SearchResult> searchResults) {
 		// 
-		final Dialog dialog;
 		Builder builder = new AlertDialog.Builder(activity);
 		builder.setTitle(R.string.search_results_title);
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
@@ -229,7 +228,7 @@ public class Search {
 		lv.setAdapter(new ArrayAdapter<String>(activity, R.layout.search_results_item, ar));
 		lv.setSelection(0);
 		builder.setNegativeButton(R.string.cancel, null);
-		dialog = builder.create();
+		final AppCompatDialog dialog = builder.create();
 		lv.setOnItemClickListener( new AdapterView.OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		        // 

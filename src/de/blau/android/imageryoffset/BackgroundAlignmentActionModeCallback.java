@@ -18,13 +18,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.view.ActionMode.Callback;
 import android.util.Log;
@@ -110,6 +110,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(NetworkStatus.isConnected(main));
 		// menu.add(Menu.NONE, MENUITEM_SAVELOCAL, Menu.NONE, R.string.menu_tools_background_align_save_device);
 		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
+//		Toolbar toolbar = (Toolbar) Application.mainActivity.findViewById(R.id.mainToolbar);
+//		toolbar.setVisibility(View.GONE);;
 		return true;
 	}
 
@@ -320,6 +322,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 * Get offset from server.
 	 */
 	private void getOffsetFromDB() {
+<<<<<<< HEAD
 
 		// first try for our view box
 		final BoundingBox bbox = map.getViewBox();
@@ -337,9 +340,42 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		PostAsyncActionHandler handler = new PostAsyncActionHandler() {
 			@Override
 			public void execute() {
+=======
+		OffsetLoader loader = new OffsetLoader(); 
+		String error = null;
+		
+		try {
+			// first try for our view box
+			final BoundingBox bbox = map.getViewBox();
+			final double centerLat = bbox.getCenterLat();
+			final double centerLon = (bbox.getLeft() + bbox.getWidth()/2)/1E7d;
+			Comparator<ImageryOffset> cmp = new Comparator<ImageryOffset>() {
+		        @Override
+		        public int compare(ImageryOffset  offset1, ImageryOffset  offset2)
+		        {
+		        	double d1 = GeoMath.haversineDistance(centerLon, centerLat, offset1.lon, offset1.lat);
+		        	double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.lon, offset2.lat);
+		            return  Double.valueOf(d1).compareTo(Double.valueOf(d2));
+		        }
+		    };
+			double hm = GeoMath.haversineDistance(centerLon, bbox.getBottom()/1E7d, centerLon, bbox.getTop()/1E7d);
+			double wm = GeoMath.haversineDistance(bbox.getLeft()/1E7d, centerLat, bbox.getRight()/1E7d, centerLat);
+			int radius = (int)Math.min(1, Math.round(Math.min(hm,wm)/2000d)); // convert to km and make it at least 1 and /2 for radius
+			loader.execute(Integer.valueOf(radius));
+			offsetList = loader.get(10, TimeUnit.SECONDS);
+			if (offsetList != null && offsetList.size() > 0) {
+				Collections.sort(offsetList, cmp);
+				AppCompatDialog d = createDisplayOffsetDialog(0);
+				d.show();
+			} else {
+				loader.cancel(true);
+				loader = new OffsetLoader();
+				loader.execute(Integer.valueOf(0));
+				offsetList = loader.get(10, TimeUnit.SECONDS);
+>>>>>>> 7d76b0a... Use AppCompatDialog instead of Dialog, vairous lint fixes.
 				if (offsetList != null && offsetList.size() > 0) {
 					Collections.sort(offsetList, cmp);
-					Dialog d = createDisplayOffsetDialog(0);
+					AppCompatDialog d = createDisplayOffsetDialog(0);
 					d.show();
 				} else {
 					displayError(main.getString(R.string.imagery_offset_not_found));
@@ -425,7 +461,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		}
 		
 		if (offsetList.size() > 0) {
-			Dialog d = createSaveOffsetDialog(0, offsetList);
+			AppCompatDialog d = createSaveOffsetDialog(0, offsetList);
 			d.show();
 		} 
 	}
@@ -530,7 +566,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		protected static final String DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT = "yyyy-MM-dd";
 
 		public String toSaveUrl() {
-<<<<<<< HEAD
 			Uri uriBuilder = offsetServerUri.buildUpon()
 					.appendPath("store")
 					.appendQueryParameter("lat", String.format(Locale.US, "%.7f", lat))
@@ -542,17 +577,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 					.appendQueryParameter("imlon", String.format(Locale.US, "%.7f", imageryLon))
 					.build();
 			return uriBuilder.toString();
-=======
-			try {
-				return offsetServer+"store?lat="+ URLEncoder.encode(String.format(Locale.US,"%.7f",lat),"UTF-8")+"&lon="+URLEncoder.encode(String.format(Locale.US,"%.7f",lon),"UTF-8")
-						+"&author="+URLEncoder.encode(author,"UTF-8")
-						+"&description="+URLEncoder.encode(description,"UTF-8")
-						+"&imagery="+URLEncoder.encode(imageryId,"UTF-8")
-						+"&imlat="+URLEncoder.encode(String.format(Locale.US,"%.7f",imageryLat),"UTF-8")+"&imlon="+URLEncoder.encode(String.format(Locale.US,"%.7f",imageryLon),"UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				return null;
-			}
->>>>>>> 94d1ff4... Fix grade build config and some lint warnings.
 		}
 	}
 	
@@ -577,7 +601,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 * @return
 	 */
 	@SuppressLint("InflateParams")
-	private Dialog createSaveOffsetDialog(final int index, final ArrayList<ImageryOffset> saveOffsetList) {
+	private AppCompatDialog createSaveOffsetDialog(final int index, final ArrayList<ImageryOffset> saveOffsetList) {
 		// Create some useful objects
 		// final BoundingBox bbox = map.getViewBox();
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
@@ -606,7 +630,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			dialog.setNegativeButton(R.string.next, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Dialog d = createSaveOffsetDialog(index+1,saveOffsetList);
+					AppCompatDialog d = createSaveOffsetDialog(index+1,saveOffsetList);
 					d.show();
 				}
 			});
@@ -655,7 +679,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 					// save retyping if it stays the same
 					saveOffsetList.get(index+1).description = offset.description;
 					saveOffsetList.get(index+1).author = offset.author;
-					Dialog d = createSaveOffsetDialog(index+1,saveOffsetList);
+					AppCompatDialog d = createSaveOffsetDialog(index+1,saveOffsetList);
 					d.show();
 				}
 			}
@@ -663,7 +687,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	}
 
 	@SuppressLint("InflateParams")
-	private Dialog createDisplayOffsetDialog(final int index) {
+	private AppCompatDialog createDisplayOffsetDialog(final int index) {
 		// Create some useful objects
 		final BoundingBox bbox = map.getViewBox();
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
@@ -711,7 +735,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			dialog.setNegativeButton(R.string.next, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Dialog d = createDisplayOffsetDialog(index+1);
+					AppCompatDialog d = createDisplayOffsetDialog(index+1);
 					d.show();
 				}
 			});

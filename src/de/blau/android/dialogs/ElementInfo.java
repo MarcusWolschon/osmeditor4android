@@ -34,6 +34,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 
 /**
  * Very simple dialog fragment to display some info on an OSM element
@@ -87,6 +88,12 @@ public class ElementInfo extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		Preferences prefs = new Preferences(getActivity());
+		if (prefs.lightThemeEnabled()) {
+			setStyle(DialogFragment.STYLE_NORMAL,R.style.Theme_DialogLight);
+		} else {
+			setStyle(DialogFragment.STYLE_NORMAL,R.style.Theme_DialogDark);
+		}
     }
 
     @SuppressWarnings("deprecation")

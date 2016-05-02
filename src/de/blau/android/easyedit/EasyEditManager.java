@@ -15,9 +15,6 @@ import java.util.TreeMap;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -32,6 +29,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -1291,7 +1291,7 @@ public class EasyEditManager {
 		}
 		
 		@SuppressLint("InflateParams")
-		Dialog 	createSetPositionDialog(int lonE7, int latE7) {
+		AppCompatDialog 	createSetPositionDialog(int lonE7, int latE7) {
 			final LayoutInflater inflater = ThemeUtils.getLayoutInflater(Application.mainActivity);
 			Builder dialog = new AlertDialog.Builder(Application.mainActivity);
 			dialog.setTitle(R.string.menu_set_position);
@@ -2166,6 +2166,7 @@ public class EasyEditManager {
 			return true;
 		}
 		
+		@SuppressLint("InflateParams")
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu.clear();

@@ -1,15 +1,15 @@
 package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -87,7 +87,7 @@ public class SearchForm extends DialogFragment
 
     @Override
     @SuppressLint("InflateParams")
-    public Dialog onCreateDialog(Bundle savedInstanceState)
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
     	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
     	LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
@@ -104,7 +104,7 @@ public class SearchForm extends DialogFragment
     	searchEdit.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
     	searchBuilder.setNegativeButton(R.string.cancel, null);
 
-    	final Dialog searchDialog = searchBuilder.create();
+    	final AppCompatDialog searchDialog = searchBuilder.create();
 
     	/*
     	 * NOTE this is slightly hackish but needed to ensure the original dialog (this) gets dismissed 

@@ -1,11 +1,8 @@
 package de.blau.android.dialogs;
 
 import org.acra.ACRA;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -13,6 +10,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -106,8 +106,9 @@ public class ConfirmUpload extends DialogFragment
         setCancelable(true);
     }
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
+    @SuppressLint("InflateParams")
+	@Override
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
     	// inflater needs to be got from a themed view or else all our custom stuff will not style correctly
     	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());

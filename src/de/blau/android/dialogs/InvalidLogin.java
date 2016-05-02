@@ -1,9 +1,6 @@
 package de.blau.android.dialogs;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -12,6 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -84,7 +84,7 @@ public class InvalidLogin extends DialogFragment
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
     	Builder builder = new AlertDialog.Builder(getActivity());
     	builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));

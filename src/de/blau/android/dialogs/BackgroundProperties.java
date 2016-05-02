@@ -2,15 +2,15 @@ package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +87,7 @@ public class BackgroundProperties extends DialogFragment
 
     @SuppressLint("InflateParams")
 	@Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
     	Builder builder = new AlertDialog.Builder(getActivity());
     	builder.setTitle(R.string.menu_tools_background_properties);
