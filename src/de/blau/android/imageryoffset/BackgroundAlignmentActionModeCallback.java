@@ -1,7 +1,6 @@
 package de.blau.android.imageryoffset;
 
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
@@ -100,11 +100,13 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	@Override
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
-		menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(NetworkStatus.isConnected(main))
-			.setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_download)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		MenuItem mi = menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(NetworkStatus.isConnected(main))
+			.setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_download));
+		MenuItemCompat.setShowAsAction(mi,MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 		// menu.add(Menu.NONE, MENUITEM_QUERYLOCAL, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_device);
-		menu.add(Menu.NONE, MENUITEM_RESET, Menu.NONE, R.string.menu_tools_background_align_reset)
-			.setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		mi = menu.add(Menu.NONE, MENUITEM_RESET, Menu.NONE, R.string.menu_tools_background_align_reset)
+			.setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
+		MenuItemCompat.setShowAsAction(mi,MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENUITEM_ZERO, Menu.NONE, R.string.menu_tools_background_align_zero);
 		menu.add(Menu.NONE, MENUITEM_APPLY2ALL, Menu.NONE, R.string.menu_tools_background_align_apply2all);
 		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(NetworkStatus.isConnected(main));
@@ -322,7 +324,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 * Get offset from server.
 	 */
 	private void getOffsetFromDB() {
-<<<<<<< HEAD
 
 		// first try for our view box
 		final BoundingBox bbox = map.getViewBox();
@@ -340,39 +341,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		PostAsyncActionHandler handler = new PostAsyncActionHandler() {
 			@Override
 			public void execute() {
-=======
-		OffsetLoader loader = new OffsetLoader(); 
-		String error = null;
-		
-		try {
-			// first try for our view box
-			final BoundingBox bbox = map.getViewBox();
-			final double centerLat = bbox.getCenterLat();
-			final double centerLon = (bbox.getLeft() + bbox.getWidth()/2)/1E7d;
-			Comparator<ImageryOffset> cmp = new Comparator<ImageryOffset>() {
-		        @Override
-		        public int compare(ImageryOffset  offset1, ImageryOffset  offset2)
-		        {
-		        	double d1 = GeoMath.haversineDistance(centerLon, centerLat, offset1.lon, offset1.lat);
-		        	double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.lon, offset2.lat);
-		            return  Double.valueOf(d1).compareTo(Double.valueOf(d2));
-		        }
-		    };
-			double hm = GeoMath.haversineDistance(centerLon, bbox.getBottom()/1E7d, centerLon, bbox.getTop()/1E7d);
-			double wm = GeoMath.haversineDistance(bbox.getLeft()/1E7d, centerLat, bbox.getRight()/1E7d, centerLat);
-			int radius = (int)Math.min(1, Math.round(Math.min(hm,wm)/2000d)); // convert to km and make it at least 1 and /2 for radius
-			loader.execute(Integer.valueOf(radius));
-			offsetList = loader.get(10, TimeUnit.SECONDS);
-			if (offsetList != null && offsetList.size() > 0) {
-				Collections.sort(offsetList, cmp);
-				AppCompatDialog d = createDisplayOffsetDialog(0);
-				d.show();
-			} else {
-				loader.cancel(true);
-				loader = new OffsetLoader();
-				loader.execute(Integer.valueOf(0));
-				offsetList = loader.get(10, TimeUnit.SECONDS);
->>>>>>> 7d76b0a... Use AppCompatDialog instead of Dialog, vairous lint fixes.
 				if (offsetList != null && offsetList.size() > 0) {
 					Collections.sort(offsetList, cmp);
 					AppCompatDialog d = createDisplayOffsetDialog(0);
