@@ -5,6 +5,8 @@
 
   <RelativeLayout
       android:id="@+id/upload_comment_controls"
+      android:layout_marginRight="?attr/dialogPreferredPadding"
+      android:layout_marginLeft="?attr/dialogPreferredPadding"
       android:layout_width="fill_parent"
 	  android:layout_height="wrap_content"
       android:layout_alignParentBottom="true">
@@ -12,7 +14,6 @@
 	      android:id="@+id/upload_comment_label"
 	      android:layout_width="wrap_content"
 	      android:layout_height="48dp"
-	      android:layout_marginLeft="5dp"
 	      android:gravity="center_vertical"
 	      android:text="@string/upload_comment_label"/>
 	    <AutoCompleteTextView
@@ -22,7 +23,6 @@
 	      android:layout_alignTop="@id/upload_comment_label"
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
-	      android:layout_marginRight="5dp"
 	      android:inputType="text"
 	      />
 	
@@ -30,7 +30,6 @@
 	      android:id="@+id/upload_source_label"
 	      android:layout_width="wrap_content"
 	      android:layout_height="48dp"
-	      android:layout_marginLeft="5dp"
 	      android:gravity="center_vertical"
 	      android:layout_below="@id/upload_comment_label"
 	      android:text="@string/upload_source_label"/>
@@ -42,13 +41,12 @@
 	      android:layout_alignTop="@id/upload_source_label"
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
-	      android:layout_marginRight="5dp"
+	      
 	      android:inputType="text"/>
 		<TextView
 	      android:id="@+id/upload_close_changeset_label"
 	      android:layout_width="wrap_content"
 	      android:layout_height="48dp"
-	      android:layout_marginLeft="5dp"
 	      android:gravity="center_vertical"
 	      android:layout_below="@id/upload_source_label"
 	      android:text="@string/upload_close_changeset_label"/>
@@ -61,7 +59,6 @@
 	       android:layout_alignRight="@id/upload_source"
 	       android:layout_alignBottom="@id/upload_close_changeset_label"
 	       android:layout_alignTop="@id/upload_close_changeset_label"
-	       android:layout_marginRight="5dp"
 	       android:text=""
 	     />
 
@@ -72,8 +69,8 @@
     android:layout_above="@id/upload_comment_controls"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-	android:layout_marginLeft="5dp"
-	android:layout_marginRight="5dp" >
+    android:paddingLeft="?attr/dialogPreferredPadding"
+    android:paddingRight="?attr/dialogPreferredPadding" >
     <TextView
       android:id="@+id/upload_changes"
       android:layout_width="fill_parent"

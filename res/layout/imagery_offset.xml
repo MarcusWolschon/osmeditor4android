@@ -1,94 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView 
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	>
-	<LinearLayout
-		android:orientation="vertical"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-	>
-		<TextView
-		    android:paddingLeft="?attr/dialogPreferredPadding"
-			android:id="@+id/imagery_offset_description" 
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-		/>
-		<RelativeLayout
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-			>
-			<LinearLayout
-			    android:id="@+id/linearLayout1"
-				android:orientation="vertical"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:paddingRight="10dp"
-				android:paddingLeft="?attr/dialogPreferredPadding"
-				android:layout_alignParentLeft="true"
-    			android:layout_alignParentTop="true"
-				>
-				<TextView
-						android:text="@string/imagery_offset_author" 
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-					/>
-					<TextView
-						android:text="@string/imagery_offset_offset" 
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-					/>
-					<TextView
-						android:text="@string/imagery_offset_date" 
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-					/>
-					<TextView
-						android:text="@string/imagery_offset_zoom" 
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-					/>
-					<TextView
-						android:text="@string/imagery_offset_distance" 
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-					/>	
-			</LinearLayout>								
-			<LinearLayout
-			    android:layout_toRightOf="@+id/linearLayout1"
-				android:orientation="vertical"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:paddingRight="10dp"
-			>
-				<TextView
-					android:id="@+id/imagery_offset_author" 
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-				/>
-				<TextView
-					android:id="@+id/imagery_offset_offset" 
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-				/>
-				<TextView
-					android:id="@+id/imagery_offset_date" 
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-				/>
-				<TextView
-					android:id="@+id/imagery_offset_zoom" 
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-				/>	
-				<TextView
-					android:id="@+id/imagery_offset_distance" 
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-				/>
-			</LinearLayout>
-	  </RelativeLayout>
-  </LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:layout_marginLeft="?attr/dialogPreferredPadding" 
+        android:layout_marginRight="?attr/dialogPreferredPadding">
+
+        <TextView
+            android:id="@+id/imagery_offset_description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                android:paddingRight="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/imagery_offset_author" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/imagery_offset_offset" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/imagery_offset_date" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/imagery_offset_zoom" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/imagery_offset_distance" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/linearLayout1"
+                android:orientation="vertical"
+                 >
+
+                <TextView
+                    android:id="@+id/imagery_offset_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/imagery_offset_offset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/imagery_offset_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/imagery_offset_zoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/imagery_offset_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
 </ScrollView>
