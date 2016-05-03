@@ -301,7 +301,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		    };
 			double hm = GeoMath.haversineDistance(centerLon, bbox.getBottom()/1E7d, centerLon, bbox.getTop()/1E7d);
 			double wm = GeoMath.haversineDistance(bbox.getLeft()/1E7d, centerLat, bbox.getRight()/1E7d, centerLat);
-			int radius = (int)Math.min(1, Math.round(Math.min(hm,wm)/2000d)); // convert to km and make it at least 1 and /2 for radius
+			int radius = (int)Math.max(1, Math.round(Math.min(hm,wm)/2000d)); // convert to km and make it at least 1 and /2 for radius
 			loader.execute(Integer.valueOf(radius));
 			offsetList = loader.get(10, TimeUnit.SECONDS);
 			if (offsetList != null && offsetList.size() > 0) {
