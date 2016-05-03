@@ -4,16 +4,35 @@ import org.acra.ACRA;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import de.blau.android.R;
+import de.blau.android.listener.DoNothingListener;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ThemeUtils;
 
-
+/**
+ * ProgressDialog can't be styled, this rolls its own.
+ * 
+ * @author simon
+ *
+ */
 public class Progress extends DialogFragment
 {
 	
@@ -149,11 +168,33 @@ public class Progress extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-        ProgressDialog dialog = new ProgressDialog(getActivity(), getTheme());
-        dialog.setTitle(getString(titleId));
-        dialog.setMessage(getString(messageId));
-        dialog.setIndeterminate(true);
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        return dialog;
+    	int theme;
+		Preferences prefs = new Preferences(getActivity());
+		Context ctx = getActivity();
+		if (prefs.lightThemeEnabled()) {
+			theme = R.style.Theme_AppCompat_Light_Dialog_Alert;
+		} else {
+			theme = R.style.Theme_AppCompat_Dialog_Alert;
+		}
+	   	// inflater needs to be got from a themed view or else all our custom stuff will not style correctly
+    	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(new ContextThemeWrapper(getActivity(),theme));
+    	
+    	Builder builder = new AlertDialog.Builder(getActivity());
+    	builder.setTitle(titleId);
+    	
+		View layout = inflater.inflate(R.layout.progress, null);
+		TextView message = (TextView) layout.findViewById(R.id.progressMessage);
+		message.setText(messageId);
+		ProgressBar progressBar = (ProgressBar) layout.findViewById(R.id.progressBar);
+		if (progressBar.getIndeterminateDrawable() != null) {
+			PorterDuff.Mode mode = android.graphics.PorterDuff.Mode.SRC_IN;
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+				mode = android.graphics.PorterDuff.Mode.MULTIPLY; // ugly but at least it animates
+			}
+	        progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorAccent, 0), mode);
+		}
+		builder.setView(layout);
+               
+        return builder.create();
     }
 }
