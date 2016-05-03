@@ -40,7 +40,9 @@ import com.actionbarsherlock.view.MenuItem;
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
+import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
@@ -75,16 +77,18 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	Offset[] oldOffsets;
 	
 	TileLayerServer osmts;
-	Map map;
+	final Map map;
+	final Main main;
 	
 	ArrayList<ImageryOffset> offsetList;
 	
 	public BackgroundAlignmentActionModeCallback(Mode oldMode) {
 		this.oldMode = oldMode;
-		map = Application.mainActivity.getMap();
+		main = Application.mainActivity; // currently we are only called from here
+		map = main.getMap();
 		osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		oldOffsets = osmts.getOffsets().clone();
-		prefs = new Preferences(Application.mainActivity);
+		prefs = new Preferences(main);
 		String offsetServer = prefs.getOffsetServer();
 		offsetServerUri = Uri.parse(offsetServer);
 	}
@@ -98,12 +102,14 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	@Override
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
-		menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
+		menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(NetworkStatus.isConnected(main))
+			.setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_download)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		// menu.add(Menu.NONE, MENUITEM_QUERYLOCAL, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_device);
-		menu.add(Menu.NONE, MENUITEM_RESET, Menu.NONE, R.string.menu_tools_background_align_reset);
+		menu.add(Menu.NONE, MENUITEM_RESET, Menu.NONE, R.string.menu_tools_background_align_reset)
+			.setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENUITEM_ZERO, Menu.NONE, R.string.menu_tools_background_align_zero);
 		menu.add(Menu.NONE, MENUITEM_APPLY2ALL, Menu.NONE, R.string.menu_tools_background_align_apply2all);
-		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
+		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(NetworkStatus.isConnected(main));
 		// menu.add(Menu.NONE, MENUITEM_SAVELOCAL, Menu.NONE, R.string.menu_tools_background_align_save_device);
 		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
 		return true;
@@ -138,7 +144,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		case MENUITEM_SAVELOCAL:
 			break;
 		case MENUITEM_HELP:
-			HelpViewer.start(Application.mainActivity, R.string.help_aligningbackgroundiamgery);
+			HelpViewer.start(main, R.string.help_aligningbackgroundiamgery);
 			return true;
 		default: return false;
 		}
@@ -150,31 +156,27 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 * @author simon
 	 *
 	 */
-	private class OffsetLoader extends AsyncTask<Integer, Void, ArrayList<ImageryOffset>> {
+	private class OffsetLoader extends AsyncTask<Double, Void, ArrayList<ImageryOffset>> {
 		
 		String error = null;
-
-		@Override
-		protected void onPreExecute() {
-			Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
+		final PostAsyncActionHandler handler;
+		
+		OffsetLoader(final PostAsyncActionHandler postLoadHandler) {
+			handler = postLoadHandler;
 		}
 		
-		@Override
-		protected ArrayList<ImageryOffset> doInBackground(Integer... params) {
-	    	
-			BoundingBox bbox = Application.mainActivity.getMap().getViewBox();
-			double centerLon = (bbox.getLeft() + ((long)bbox.getRight() - (long)bbox.getLeft())/2L) / 1E7d;
-			Integer radius = params[0];
-			String radiusString = radius != null && radius > 0 ? String.valueOf(radius) : "";
-			Uri uriBuilder = offsetServerUri.buildUpon()
+		ArrayList<ImageryOffset> getOffsetList(double lat, double lon, int radius) {
+			Uri.Builder uriBuilder = offsetServerUri.buildUpon()
 					.appendPath("get")
-					.appendQueryParameter("lat", String.valueOf(bbox.getCenterLat()))
-					.appendQueryParameter("lon", String.valueOf(centerLon))
-					.appendQueryParameter("radius", radiusString)
-					.appendQueryParameter("imagery", osmts.getImageryOffsetId())
-					.appendQueryParameter("format", "json")
-					.build();
-			String urlString = uriBuilder.toString();
+					.appendQueryParameter("lat", String.valueOf(lat))
+					.appendQueryParameter("lon", String.valueOf(lon));
+			if (radius > 0) {
+				uriBuilder.appendQueryParameter("radius", String.valueOf(radius));
+			}
+			uriBuilder.appendQueryParameter("imagery", osmts.getImageryOffsetId())
+				.appendQueryParameter("format", "json");
+		
+			String urlString = uriBuilder.build().toString();
 			try {
 				Log.d("BackgroundAlignmentActionModeCallback", "urlString " + urlString);
 				URL url = new URL(urlString);
@@ -200,6 +202,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 								String jsonName = reader.nextName();
 								if (jsonName.equals("error")) {
 									error = reader.nextString();
+									Log.d(DEBUG_TAG, "search error " + error);
 								} else {
 									reader.skipValue();
 								}
@@ -211,6 +214,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 					} catch (IllegalStateException e) {
 						error = e.getMessage();
 					}
+					if(error != null) {
+						Log.d(DEBUG_TAG, "search error " + error);
+					}
 					return result;
 				}
 				finally {
@@ -220,13 +226,42 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				error = e.getMessage();
 			} catch (IOException e) {
 				error = e.getMessage();
-			}			
+			}		
+			Log.d(DEBUG_TAG, "search error " + error);
 			return null;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			Progress.showDialog(main, Progress.PROGRESS_SEARCHING);
+		}
+		
+		@Override
+		protected ArrayList<ImageryOffset> doInBackground(Double... params) {
+	    	
+			if (params.length != 3) {
+				Log.e(DEBUG_TAG, "wrong number of params in OffsetLoader " + params.length);
+				return null;
+			}
+			double centerLat = params[0];
+			double centerLon = params[1];
+			int radius = (int) (params[2] == null ? 0 : params[2]);
+			ArrayList<ImageryOffset> result = getOffsetList(centerLat, centerLon, radius);
+			if (result == null || result.size() == 0) {
+				// retry with max radius
+				Log.d(DEBUG_TAG, "retrying search with max radius");
+				result = getOffsetList(centerLat, centerLon, 0);
+			}
+			return result;
 		}
 		
 		@Override
 		protected void onPostExecute(ArrayList<ImageryOffset> res) {
-			Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
+			Progress.dismissDialog(main, Progress.PROGRESS_SEARCHING);
+			offsetList = res;
+			if (handler != null) {
+				handler.execute();
+			}
 		}
 		
 		String getError() {
@@ -244,7 +279,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
 		@Override
 		protected void onPreExecute() {
-			Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
+			Progress.showDialog(main, Progress.PROGRESS_SAVING);
 		}
 		
 		@Override
@@ -271,11 +306,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		
 		@Override
 		protected void onPostExecute(Integer res) {
-			Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
+			Progress.dismissDialog(main, Progress.PROGRESS_SAVING);
 			if (res == 200)
-				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
+				Toast.makeText(main.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
 			else
-				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_failed, Toast.LENGTH_SHORT).show();
+				Toast.makeText(main.getApplicationContext(), R.string.toast_save_failed, Toast.LENGTH_SHORT).show();
 		}
 		
 		String getError() {
@@ -283,59 +318,42 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		}
 	}
 
+	/**
+	 * Get offset from server.
+	 */
 	private void getOffsetFromDB() {
-		OffsetLoader loader = new OffsetLoader(); 
-		String error = null;
-		
-		try {
-			// first try for our view box
-			final BoundingBox bbox = map.getViewBox();
-			final double centerLat = bbox.getCenterLat();
-			final double centerLon = (bbox.getLeft() + bbox.getWidth()/2)/1E7d;
-			Comparator<ImageryOffset> cmp = new Comparator<ImageryOffset>() {
-		        @Override
-		        public int compare(ImageryOffset  offset1, ImageryOffset  offset2)
-		        {
-		        	double d1 = GeoMath.haversineDistance(centerLon, centerLat, offset1.lon, offset1.lat);
-		        	double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.lon, offset2.lat);
-		            return  Double.valueOf(d1).compareTo(Double.valueOf(d2));
-		        }
-		    };
-			double hm = GeoMath.haversineDistance(centerLon, bbox.getBottom()/1E7d, centerLon, bbox.getTop()/1E7d);
-			double wm = GeoMath.haversineDistance(bbox.getLeft()/1E7d, centerLat, bbox.getRight()/1E7d, centerLat);
-			int radius = (int)Math.min(1, Math.round(Math.min(hm,wm)/2000d)); // convert to km and make it at least 1 and /2 for radius
-			loader.execute(Integer.valueOf(radius));
-			offsetList = loader.get(10, TimeUnit.SECONDS);
-			if (offsetList != null && offsetList.size() > 0) {
-				Collections.sort(offsetList, cmp);
-				Dialog d = createDisplayOffsetDialog(0);
-				d.show();
-			} else {
-				loader.cancel(true);
-				loader = new OffsetLoader();
-				loader.execute(Integer.valueOf(0));
-				offsetList = loader.get(10, TimeUnit.SECONDS);
+
+		// first try for our view box
+		final BoundingBox bbox = map.getViewBox();
+		final double centerLat = bbox.getCenterLat();
+		final double centerLon = (bbox.getLeft() + bbox.getWidth()/2)/1E7d;
+		final Comparator<ImageryOffset> cmp = new Comparator<ImageryOffset>() {
+			@Override
+			public int compare(ImageryOffset  offset1, ImageryOffset  offset2)
+			{
+				double d1 = GeoMath.haversineDistance(centerLon, centerLat, offset1.lon, offset1.lat);
+				double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.lon, offset2.lat);
+				return  Double.valueOf(d1).compareTo(Double.valueOf(d2));
+			}
+		};
+		PostAsyncActionHandler handler = new PostAsyncActionHandler() {
+			@Override
+			public void execute() {
 				if (offsetList != null && offsetList.size() > 0) {
 					Collections.sort(offsetList, cmp);
 					Dialog d = createDisplayOffsetDialog(0);
 					d.show();
 				} else {
-					AlertDialog.Builder builder = new AlertDialog.Builder(Application.mainActivity);
-					builder.setMessage(R.string.imagery_offset_not_found).setTitle(R.string.imagery_offset_title);
-					builder.setPositiveButton(R.string.okay, null);
-					AlertDialog dialog = builder.create();
-					dialog.show();
+					displayError(main.getString(R.string.imagery_offset_not_found));
 				}
 			}
-			return;
-		} catch (InterruptedException e) {
-			error = e.getMessage();
-		} catch (ExecutionException e) {
-			error = e.getMessage();
-		} catch (TimeoutException e) {
-			error = Application.mainActivity.getString(R.string.toast_timeout);
-		}
-		displayError(error);
+		};
+		OffsetLoader loader = new OffsetLoader(handler); 
+
+		double hm = GeoMath.haversineDistance(centerLon, bbox.getBottom()/1E7d, centerLon, bbox.getTop()/1E7d);
+		double wm = GeoMath.haversineDistance(bbox.getLeft()/1E7d, centerLat, bbox.getRight()/1E7d, centerLat);
+		int radius = (int)Math.max(1, Math.round(Math.min(hm,wm)/2000d)); // convert to km and make it at least 1 and /2 for radius
+		loader.execute(centerLat,centerLon,Double.valueOf(radius));
 	}
 	
 	private void saveOffsetsToDB() {
@@ -373,7 +391,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				} catch (ExecutionException e) {
 					error = e.getMessage();
 				} catch (TimeoutException e) {
-					error = Application.mainActivity.getString(R.string.toast_timeout);
+					error = main.getString(R.string.toast_timeout);
 				}
 				displayError(error);
 				error=null;
@@ -416,7 +434,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
 	private void displayError(String error) {
 		if (error != null) { // try to avoid code dup
-			AlertDialog.Builder builder = new AlertDialog.Builder(Application.mainActivity);
+			AlertDialog.Builder builder = new AlertDialog.Builder(main);
 			builder.setMessage(error).setTitle(R.string.imagery_offset_title);
 			builder.setPositiveButton(R.string.okay, null);
 			AlertDialog dialog = builder.create();
@@ -494,7 +512,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 *
 	 */
 	private class ImageryOffset {
-	    long id;
+	    @SuppressWarnings("unused")
+		long id;
 	    double lat = 0;
 	    double lon = 0;
 	    String author;
@@ -534,8 +553,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 *
 	 */
 	private class DeprecationNote {
+		@SuppressWarnings("unused")
 		String author;
+		@SuppressWarnings("unused")
 		String date;
+		@SuppressWarnings("unused")
 		String reason;
 	}
 	
@@ -548,8 +570,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	private Dialog createSaveOffsetDialog(final int index, final ArrayList<ImageryOffset> saveOffsetList) {
 		// Create some useful objects
 		// final BoundingBox bbox = map.getViewBox();
-		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(Application.mainActivity);
-		Builder dialog = new AlertDialog.Builder(Application.mainActivity);
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
+		Builder dialog = new AlertDialog.Builder(main);
 		dialog.setTitle(R.string.imagery_offset_title);
 		final ImageryOffset offset = saveOffsetList.get(index);
 		View layout = inflater.inflate(R.layout.save_imagery_offset, null);
@@ -560,7 +582,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			author.setText(offset.author);
 		}
 		TextView off = (TextView) layout.findViewById(R.id.imagery_offset_offset);
-		off.setText(String.format("%.2f",GeoMath.haversineDistance(offset.lon,offset.lat,offset.imageryLon,offset.imageryLat))+" meters");
+		off.setText(String.format(Locale.US,"%.2f",GeoMath.haversineDistance(offset.lon,offset.lat,offset.imageryLon,offset.imageryLat))+" meters");
 		if (offset.date != null) {
 			TextView created = (TextView) layout.findViewById(R.id.imagery_offset_date);
 			created.setText(offset.date);
@@ -634,9 +656,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	private Dialog createDisplayOffsetDialog(final int index) {
 		// Create some useful objects
 		final BoundingBox bbox = map.getViewBox();
-		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(Application.mainActivity);
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
 		
-		Builder dialog = new AlertDialog.Builder(Application.mainActivity);
+		Builder dialog = new AlertDialog.Builder(main);
 		dialog.setTitle(R.string.imagery_offset_title);
 		final ImageryOffset offset = offsetList.get(index);
 		View layout = inflater.inflate(R.layout.imagery_offset, null);
@@ -650,7 +672,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			author.setText(offset.author);
 		}
 		TextView off = (TextView) layout.findViewById(R.id.imagery_offset_offset);
-		off.setText(String.format("%.2f",GeoMath.haversineDistance(offset.lon,offset.lat,offset.imageryLon,offset.imageryLat))+" meters");
+		off.setText(String.format(Locale.US,"%.2f",GeoMath.haversineDistance(offset.lon,offset.lat,offset.imageryLon,offset.imageryLat))+" meters");
 		if (offset.date != null) {
 			TextView created = (TextView) layout.findViewById(R.id.imagery_offset_date);
 			created.setText(offset.date);
@@ -658,7 +680,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		TextView minmax = (TextView) layout.findViewById(R.id.imagery_offset_zoom);
 		minmax.setText(offset.minZoom + "-" + offset.maxZoom);
 		TextView distance = (TextView) layout.findViewById(R.id.imagery_offset_distance);
-		distance.setText(String.format("%.3f",GeoMath.haversineDistance((bbox.getLeft() + bbox.getWidth()/2)/1E7d, bbox.getCenterLat(), offset.lon, offset.lat)/1000) +" km");
+		distance.setText(String.format(Locale.US,"%.3f",GeoMath.haversineDistance((bbox.getLeft() + bbox.getWidth()/2)/1E7d, bbox.getCenterLat(), offset.lon, offset.lat)/1000) +" km");
 		dialog.setPositiveButton(R.string.apply, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -688,7 +710,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
-		Application.mainActivity.setMode(oldMode);
+		main.setMode(oldMode);
 	}
 
 }

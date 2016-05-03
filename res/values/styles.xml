@@ -36,6 +36,7 @@
 		<item name="menu_relation_members">@drawable/relation_members_dark</item>
 		<item name="menu_relation_add_member">@drawable/relation_add_member_dark</item>
 		<item name="menu_tools">@drawable/spanner_dark</item>
+		<item name="menu_download">@drawable/ic_action_download_holo_dark</item>
 		<item name="menu_add_restriction">@drawable/no_left_turn_dark</item>
 		<item name="menu_preset">@drawable/preset_dark</item>
 		<item name="menu_bug">@drawable/bug_dark</item>
@@ -84,6 +85,7 @@
 		<item name="menu_relation_members">@drawable/relation_members_light</item>
 		<item name="menu_relation_add_member">@drawable/relation_add_member_light</item>
 		<item name="menu_tools">@drawable/spanner_light</item>
+		<item name="menu_download">@drawable/ic_action_download_holo_light</item>
 		<item name="menu_add_restriction">@drawable/no_left_turn_light</item>
 		<item name="menu_preset">@drawable/preset_light</item>
 		<item name="menu_bug">@drawable/bug_light</item>
