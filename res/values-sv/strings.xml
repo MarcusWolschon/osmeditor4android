@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Varning!</string>
+  <string name="transfer_download_current_dialog_message">Du har gjort några ändringar. Vill du ladda upp dem i stället för slänga?</string>
+  <string name="transfer_download_current_upload">Ladda upp</string>
+  <string name="transfer_download_current_back">Back (Gör ingenting)</string>
+  <string name="upload_problem_title">Problem med uppladdning</string>
+  <string name="upload_problem_message">En del eller all data laddades inte upp. Försök att ladda upp igen senare om det var bara ett tillfälligt problem.</string>
+  <string name="upload_conflict_title">Uppladdningskonflikt</string>
+  <string name="no_login_data_title">Autentisering misslyckades</string>
+  <string name="no_connection_title">Ingen anslutning till server</string>
+  <string name="no_connection_message">Det gick inte att ansluta till OSM-servern. Kontrollera Internetanslutningen eller försök igen senare.</string>
+  <string name="wrong_login_data_title">Autentisering misslyckades</string>
+  <string name="wrong_login_data_re_authenticate">Verifiera igen</string>
+  <string name="welcome_title">Välkommen!</string>
+  <string name="read_introduction">Läs introduktionen nu</string>
+  <string name="upgrade_title">Välkommen till en ny version av Vespucci!</string>
+  <string name="progress_deleting_message">Tar bort...</string>
+  <string name="progress_searching_message">Söker...</string>
+  <string name="progress_saving_message">Sparar...</string>
+  <!--Toaster-->
+  <!--Some generic labels/buttons-->
+  <!--Dialog for back button-->
+  <!--Strings in PorpertyEditor-->
+  <!--Strings in LocationPicker-->
+  <!--Menu-->
+  <string name="menu_move">Flytta</string>
+  <string name="menu_add">Ny</string>
+  <string name="menu_find">Hitta</string>
+  <string name="menu_help">Hjälp</string>
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <!--EasyEdit action mode titles-->
+  <!--Preferences-->
+  <!--preset downloader messages-->
+  <!--changes-->
+  <!--url handler activity-->
+  <!--common terms-->
+  <!--"default" is a reserved Java keyword...-->
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <!--ACRA-->
+  <!--Exceptions messages-->
+  <!--Notifications-->
+  <!--Misc relation related stuff-->
+  <string name="object">Objekt</string>
+  <!--time and distance-->
+  <string name="days">dagar</string>
+  <string name="hours">timmar</string>
+  <string name="minutes">minuter</string>
+  <string name="seconds">sekunder</string>
+  <string name="km">km</string>
+  <string name="meter">meter</string>
+  <!--Help system-->
+  <!--Arrays-->
+</resources>
