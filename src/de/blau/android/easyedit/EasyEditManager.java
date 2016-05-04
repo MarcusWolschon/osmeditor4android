@@ -33,6 +33,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -41,6 +42,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,6 +94,8 @@ public class EasyEditManager {
 	
 	private int iconsDisplayed = 0;
 	private int maxIcons = 0;
+	
+	private Toolbar cabToolbar;
 	
 	public final static int GROUP_MODE = 0;
 	public final static int GROUP_BASE = 1;
@@ -269,8 +273,6 @@ public class EasyEditManager {
 		}
 	}
 	
-	
-	
 	public void invalidate() {
 		if (currentActionMode != null) {
 			currentActionMode.invalidate();
@@ -382,7 +384,6 @@ public class EasyEditManager {
 						result.add(way.getLastNode());
 					}
 				}
-				
 			}
 		}
 		return result;
@@ -412,12 +413,32 @@ public class EasyEditManager {
 		}
 	}
 	
-
 	public boolean processShortcut(Character c) {
 		if (currentActionModeCallback != null) {
 			return currentActionModeCallback.processShortcut(c);
 		}
 		return false;
+	}
+	
+	/**
+	 * Replace the menu used by the action mode by our toolbar if necessary
+	 * @param menu original menu
+	 * @param actionMode the current action mode
+	 * @param callback the callback we are currently in
+	 * @return
+	 */
+	protected Menu replaceMenu(Menu menu, final ActionMode actionMode, final ActionMode.Callback callback) {
+		if (cabToolbar!=null) {
+			menu = cabToolbar.getMenu();
+			android.support.v7.widget.Toolbar.OnMenuItemClickListener listener = new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					return callback.onActionItemClicked(actionMode,item);
+				}	
+			};
+			cabToolbar.setOnMenuItemClickListener(listener);
+		}
+		return menu;
 	}
 	
 	/**
@@ -449,16 +470,32 @@ public class EasyEditManager {
 			    Log.d("EasyEditManager","pixel width " + metrics.widthPixels + " DP width " + widthDp);
 				maxIcons = (int) (widthDp/2/64-1);
 			}
+			if (main.getBottomToolbar() != null) {
+				View v = main.findViewById(R.id.cab_stub);
+				if (v instanceof ViewStub) { // only need to inflate once
+					ViewStub stub = (ViewStub) v;
+					stub.setLayoutResource(R.layout.toolbar);
+					stub.setInflatedId(R.id.cab_stub);
+					cabToolbar = (Toolbar) stub.inflate();
+				} else if (v instanceof Toolbar) {
+					cabToolbar = (Toolbar) v;
+					cabToolbar.setVisibility(View.VISIBLE);
+					cabToolbar.getMenu().clear();
+				}
+			}
 			return false;
 		}
 		
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
+			Log.d("EasyEditActionModeCallback", "onDestroyActionMode");
 			currentActionMode = null;
 			currentActionModeCallback = null;
 			logic.hideCrosshairs();
 			main.invalidateMap();
-			Log.d("EasyEditActionModeCallback", "onDestroyActionMode");
+			if (cabToolbar != null) {
+				cabToolbar.setVisibility(View.GONE);
+			}
 		}
 		
 		/**
@@ -562,6 +599,8 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			menu = replaceMenu(menu, mode, this);
+			
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			Preferences prefs = new Preferences(main);
@@ -925,6 +964,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
@@ -1054,6 +1094,7 @@ public class EasyEditManager {
 		@SuppressLint("InflateParams")
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			
@@ -1063,6 +1104,8 @@ public class EasyEditManager {
 				undo.setVisible(true);
 				MenuItemCompat.setShowAsAction(undo,showAlways());
 				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
+			} else {
+				undo.setVisible(false);
 			}
 			View undoView = MenuItemCompat.getActionView(undo);
 			if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
@@ -1200,6 +1243,8 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			menu = replaceMenu(menu, mode, this);
+			
 			super.onPrepareActionMode(mode, menu);
 			if (((Node)element).getTags().containsKey(Tags.KEY_ENTRANCE) && !((Node)element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
 				MenuItem mi = menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
@@ -1379,6 +1424,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
 			Log.d("WaySelectionActionCallback", "onPrepareActionMode");
 			MenuItem mi;
@@ -1746,6 +1792,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
 			MenuItem mi = menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation_add_member));
 			MenuItemCompat.setShowAsAction(mi,showAlways());
@@ -2174,6 +2221,7 @@ public class EasyEditManager {
 		@SuppressLint("InflateParams")
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			menu = replaceMenu(menu, mode, this);
 			menu.clear();
 			
 			main.getMenuInflater().inflate(R.menu.undo_action, menu);

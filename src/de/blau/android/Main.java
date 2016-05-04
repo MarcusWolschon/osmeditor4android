@@ -69,6 +69,7 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -282,6 +283,11 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	private RemoteControlUrlData rcData = null;
 
 	/**
+	 * Optional bottom toolbar 
+	 */
+    Toolbar bottomToolbar = null;
+    
+	/**
 	 * The current instance of the tracker service
 	 */
 	private TrackerService tracker = null;
@@ -340,16 +346,7 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		
-		if (prefs.splitActionBarEnabled()) {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-				getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW, ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // this might need to be set with bit ops
-			}
-			// besides hacking ABS, there is no equivalent method to enable this for ABS
-		} else {
-			requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-		}
-		
-		RelativeLayout ml = (RelativeLayout) getLayoutInflater().inflate(R.layout.main, null);
+		LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(R.layout.main, null);
 		rl = (RelativeLayout) ml.findViewById(R.id.mainMap);// new RelativeLayout(getApplicationContext());
 		
 		if (map != null) {
@@ -401,6 +398,10 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
+    
+        if (prefs.splitActionBarEnabled()) {
+        	setBottomToolbar((Toolbar) findViewById(R.id.bottomToolbar));
+        }
 		
 		// check if first time user and display something if yes
 		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
@@ -925,11 +926,27 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	 */
  	@SuppressLint("InflateParams")
 	@Override
-	public boolean onCreateOptionsMenu(final Menu menu) {
+	public boolean onCreateOptionsMenu(final Menu m) {
 		Log.d(DEBUG_TAG, "onCreateOptionsMenu");
-		final MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-
+		Menu menu = m;
+		if (getBottomToolbar() != null) {
+			menu = getBottomToolbar().getMenu();
+			if (menu.size() == 0) { // inflate
+				getBottomToolbar().inflateMenu(R.menu.main_menu);
+			}
+			android.support.v7.widget.Toolbar.OnMenuItemClickListener listener = new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					return onOptionsItemSelected(item);
+				}	
+			};
+			getBottomToolbar().setOnMenuItemClickListener(listener);
+			Log.d(DEBUG_TAG,"inflated main menu on to bottom toolbar");
+		} else {
+			final MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.main_menu, menu);
+		}
+			
 		// only show camera icon if we have a camera, and a camera app is installed 
 		PackageManager pm = getPackageManager();
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -2752,5 +2769,20 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	@Override
 	public void update() {
 		map.invalidate();
-	}	
+	}
+	
+	/**
+	 * @return the bottomToolbar
+	 */
+	public Toolbar getBottomToolbar() {
+		return bottomToolbar;
+	}
+
+	/**
+	 * @param bottomToolbar the bottomToolbar to set
+	 */
+	public void setBottomToolbar(Toolbar bottomToolbar) {
+		this.bottomToolbar = bottomToolbar;
+	}
+
 }

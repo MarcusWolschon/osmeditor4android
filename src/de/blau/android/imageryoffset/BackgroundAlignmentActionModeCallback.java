@@ -27,11 +27,13 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.view.ActionMode.Callback;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,6 +82,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	
 	ArrayList<ImageryOffset> offsetList;
 	
+	private Toolbar cabToolbar;
+	
 	public BackgroundAlignmentActionModeCallback(Mode oldMode) {
 		this.oldMode = oldMode;
 		main = Application.mainActivity; // currently we are only called from here
@@ -94,11 +98,35 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	@Override
 	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 		mode.setTitle(R.string.menu_tools_background_align);
+		if (main.getBottomToolbar() != null) {
+			View v = main.findViewById(R.id.cab_stub);
+			if (v instanceof ViewStub) { // only need to inflate once
+				ViewStub stub = (ViewStub) v;
+				stub.setLayoutResource(R.layout.toolbar);
+				stub.setInflatedId(R.id.cab_stub);
+				cabToolbar = (Toolbar) stub.inflate();
+			} else if (v instanceof Toolbar) {
+				cabToolbar = (Toolbar) v;
+				cabToolbar.setVisibility(View.VISIBLE);
+				cabToolbar.getMenu().clear();
+			}
+		}
 		return true;
 	}
 
 	@Override
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		if (cabToolbar!=null) {
+			menu = cabToolbar.getMenu();
+			final ActionMode actionMode = mode;
+			android.support.v7.widget.Toolbar.OnMenuItemClickListener listener = new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					return onActionItemClicked(actionMode,item);
+				}	
+			};
+			cabToolbar.setOnMenuItemClickListener(listener);
+		}
 		menu.clear();
 		MenuItem mi = menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(NetworkStatus.isConnected(main))
 			.setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_download));
@@ -712,6 +740,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
+		if (cabToolbar != null) {
+			cabToolbar.setVisibility(View.GONE);
+		}
 		main.setMode(oldMode);
 	}
 
