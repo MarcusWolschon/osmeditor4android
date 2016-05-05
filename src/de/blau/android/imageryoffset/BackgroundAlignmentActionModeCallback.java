@@ -113,7 +113,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			map.invalidate();
 			break;
 		case MENUITEM_RESET: 
-			osmts.setOffsets(oldOffsets);
+			osmts.setOffsets(oldOffsets.clone());
 			map.invalidate();
 			break;
 		case MENUITEM_APPLY2ALL: 
