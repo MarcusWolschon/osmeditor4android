@@ -20,7 +20,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -40,6 +39,7 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -72,8 +72,6 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.widget.ToggleButton;
-import android.widget.ZoomControls;
 import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
@@ -131,6 +129,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Search.SearchResult;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.views.Controls;
 import de.blau.android.voice.Commands;
 
 /**
@@ -246,7 +245,7 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	/** Detector for taps, drags, and scaling. */
 	private VersionedGestureDetector mDetector;
 	/** Onscreen map zoom controls. */
-	private ZoomControls zoomControls;
+	private de.blau.android.views.Controls controls;
 	/**
 	 * Our user-preferences.
 	 */
@@ -365,20 +364,26 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 			map.setOnGenericMotionListener(new MotionEventListener());
 		}
 		
-		rl.addView(map); 
+		rl.addView(map,0); // index 0 so that anything in hte layout comes after it/on top 
 		
 		mDetector = VersionedGestureDetector.newInstance(getApplicationContext(), mapTouchListener);
 		
 		// Set up the zoom in/out controls
-		zoomControls = new ZoomControls(getApplicationContext());
-		zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
+		controls = new de.blau.android.views.Controls(this);
+		controls.setOnFollowClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setFollowGPS(true);
+			}
+		});
+		controls.setOnZoomInClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Application.getLogic().zoom(Logic.ZOOM_IN);
 				updateZoomControls();
 			}
 		});
-		zoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
+		controls.setOnZoomOutClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Application.getLogic().zoom(Logic.ZOOM_OUT);
@@ -389,18 +394,19 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		rl.addView(zoomControls, rlp);
+		rl.addView(controls, rlp);
 		
 		setContentView(ml);
 		
         // Find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
     
         if (prefs.splitActionBarEnabled()) {
         	setBottomToolbar((Toolbar) findViewById(R.id.bottomToolbar));
+        } else {
+        	findViewById(R.id.bottomBar).setVisibility(View.GONE);;
         }
 		
 		// check if first time user and display something if yes
@@ -540,36 +546,47 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 			logic.downloadLast();
 		} else if (loadOnResume) {
 			loadOnResume = false;
-			PostAsyncActionHandler	postLoad = new PostAsyncActionHandler() {
+			PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
 				@Override
 				public void execute() {
 					if (rcData != null|| geoData != null) {
 						processIntents();
 					}
-					setupLockButton(getSupportActionBar());
+					setupLockButton();
 					updateActionbarEditMode();
-					if (logic.getMode()==Mode.MODE_EASYEDIT 
+					Mode mode = logic.getMode();
+					if (mode==Mode.MODE_EASYEDIT 
 							&& (logic.getSelectedNode() != null 
 								|| logic.getSelectedWay() != null 
-								|| (logic.getSelectedRelations() != null && logic.getSelectedRelations().size() > 0)
-								|| logic.getSelectedBug() != null)) {
+								|| (logic.getSelectedRelations() != null && logic.getSelectedRelations().size() > 0))) {
 						// need to restart whatever we were doing
 						Log.d(DEBUG_TAG,"restarting action mode");
-						Task t = logic.getSelectedBug();
-						if (t==null) {
-							easyEditManager.editElements();
-						} else {
-							performBugEdit(t);
-						}		
+						easyEditManager.editElements();		
+					} else if (mode==Mode.MODE_TAG_EDIT) {
+						// de-select everything
+						logic.setSelectedNode(null);
+						logic.setSelectedWay(null);
+						logic.setSelectedRelation(null);
 					}
 				}
 			};
-			logic.loadFromFile(this,postLoad);
-			logic.loadBugsFromFile(this,null);
+			PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
+				@Override
+				public void execute() {
+					Mode mode = logic.getMode();
+					Task t = logic.getSelectedBug();
+					if (mode==Mode.MODE_EASYEDIT && t!= null) {
+						performBugEdit(t);
+					}
+				}
+			};
+
+			logic.loadFromFile(this,postLoadData);
+			logic.loadBugsFromFile(this,postLoadTasks);
 		} else { // loadFromFile already does this
 			Application.getLogic().loadEditingState();
 			processIntents();
-			setupLockButton(getSupportActionBar());
+			setupLockButton();
 			updateActionbarEditMode();
 			map.invalidate();
 		}
@@ -759,8 +776,8 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	 */
 	private void updateZoomControls() {
 		final Logic logic = Application.getLogic();
-		zoomControls.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
-		zoomControls.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+		controls.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
+		controls.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
 	}
 	
 //	@Override
@@ -780,7 +797,6 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		}
 	}
 
-	
 	/**
 	 * Sets up the Action Bar.
 	 */
@@ -791,54 +807,55 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM|ActionBar.DISPLAY_SHOW_HOME);
-		setupLockButton(actionbar);
-		actionbar.show();
+		setupLockButton();
+		if (prefs.splitActionBarEnabled()) {
+			actionbar.hide();
+		} else {
+			actionbar.show();
+		}
 		setSupportProgressBarIndeterminateVisibility(false);
 		Util.resetProgressBarShown();
 	}
 	
 	/**
 	 * slightly byzantine code for mode switching follows
-	 * @param actionbar Action bar of this Activity.
 	 */
 	@SuppressLint("InflateParams")
-	void setupLockButton(final ActionBar actionbar)	{
+	void setupLockButton()	{
 		final Logic logic = Application.getLogic();
-		// inflating will crash without themed context
-		Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
-		final View lockLayout =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock, null);
-		actionbar.setCustomView(lockLayout);
 		Mode mode = logic.getMode();
 		Log.d(DEBUG_TAG, "setupLockButton mode " + mode);
-		ToggleButton lock = setLock(mode);
+		//ToggleButton lock = setLock(mode);
+		FloatingActionButton lock = setLock(mode);
 		if (lock == null) {
 			return; //FIXME not good but no other alternative right now, already logged in setLock
 		}
 		if (mode == Mode.MODE_EASYEDIT) {
-			lock.setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
 			lock.setTag(EASY_TAG);
 		} else if ((mode == Mode.MODE_TAG_EDIT)) {
-			lock.setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock_tag));
 			lock.setTag(TAG_TAG);
 		} else {
-			lock.setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
 			lock.setTag(EASY_TAG);
 		}
 		
-		findViewById(R.id.lock).setVisibility(View.VISIBLE);
 		lock.setLongClickable(true);
 		lock.setOnClickListener(new View.OnClickListener() {
 		    @Override
 			public void onClick(View b) {
-		        Log.d(DEBUG_TAG, "Lock pressed");
-		        if(((ToggleButton)b).isChecked()) {
+		        Log.d(DEBUG_TAG, "Lock pressed " + b.getClass().getName());
+		        int[] drawableState = ((FloatingActionButton)b).getDrawableState();
+		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
+		        if(drawableState.length == 0 ||  (drawableState[0]!=android.R.attr.state_selected && drawableState[0]!=android.R.attr.state_pressed)){
 		        	if (b.getTag().equals(EASY_TAG)) { 
 		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
+		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_selected}, false); 
 		        	} else {
 		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
-		        	}
+		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false); 
+		        	}	
 		        } else {
 		        	logic.setMode(Logic.Mode.MODE_MOVE);
+		        	((FloatingActionButton)b).setImageState(new int[]{0}, false); 
 		        }
 		        onEditModeChanged();
 		    }
@@ -846,46 +863,47 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		lock.setOnLongClickListener(new View.OnLongClickListener() {
 		    @Override
 			public boolean onLongClick(View b) {
-		        Log.d(DEBUG_TAG, "Lock long pressed"); 
+		        Log.d(DEBUG_TAG, "Lock long pressed " + b.getClass().getName()); 
 		        final Logic logic = Application.getLogic();
-		        if(((ToggleButton)b).isChecked()) {
+		        int[] drawableState = ((FloatingActionButton)b).getDrawableState();
+		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
+		        if(drawableState.length == 1 &&  (drawableState[0]==android.R.attr.state_selected || drawableState[0]==android.R.attr.state_pressed)){
 		        	if (logic.getMode() == Logic.Mode.MODE_TAG_EDIT) {
 		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
-		        		((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
-		        		((ToggleButton)b).setChecked(true);
+		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_selected}, false);
 		        		b.setTag(EASY_TAG);
 		        	} else {
 		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
-		        		((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock_tag));
-		        		((ToggleButton)b).setChecked(true);
+		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false);
 		        		b.setTag(TAG_TAG);
-		        	}
+		        	}	 
 		        } else {
 		        	if (b.getTag().equals(EASY_TAG)) {
 		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
-	        			((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock_tag));
-	        			((ToggleButton)b).setChecked(true);
 	        			b.setTag(TAG_TAG);
 		        	} else {
 		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
-		        		((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
-		        		((ToggleButton)b).setChecked(true);
 		        		b.setTag(EASY_TAG);
 		        	}
+		        	((FloatingActionButton)b).setImageState(new int[]{0}, false);
 		        }
 		        onEditModeChanged();
 		        return true;
 		    }
 		});
 	}	
+	
+	public FloatingActionButton getLock() {
+		return (FloatingActionButton) findViewById(R.id.floatingLock);
+	}
 		
 	/**
 	 * Set lock button to locked or unlocked depending on the edit mode
 	 * @param mode Program mode.
 	 * @return Button to display checked/unchecked states.
 	 */
-	private ToggleButton setLock(Logic.Mode mode) {
-		ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
+	private FloatingActionButton setLock(Logic.Mode mode) {
+		FloatingActionButton lock = getLock();
 		if (lock==null) {
 			Log.d(DEBUG_TAG, "couldn't find lock button");
 			return null;
@@ -893,12 +911,14 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		switch (mode) {
 		case MODE_EASYEDIT:
 		case MODE_ALIGN_BACKGROUND:
+			lock.setImageState(new int[]{android.R.attr.state_selected}, false); 
+			break;
 		case MODE_TAG_EDIT:
-			lock.setChecked(true);
+			lock.setImageState(new int[]{android.R.attr.state_pressed}, false); 
 			break;
 		default: 
 			mode = Mode.MODE_MOVE;
-			lock.setChecked(false);
+			lock.setImageState(new int[0], false); 
 		}
 		Application.getLogic().setMode(mode); 
 		return lock; // for convenience
@@ -1771,6 +1791,43 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		}
 	}
 	
+	void hideToolbars() {
+		ActionBar actionbar = getSupportActionBar();
+		if (actionbar != null) {
+			actionbar.hide();
+		}
+		Toolbar bottomToolbar = getBottomToolbar();
+		if (bottomToolbar != null) {
+			bottomToolbar.setVisibility(View.GONE);
+		}
+		FloatingActionButton lock = getLock();
+		if (lock != null) {
+			lock.hide();
+		}
+		Controls controls = getControls();
+		if (controls != null) {
+			controls.hide();
+		}
+	}
+	
+	void showToolbars() {
+		ActionBar actionbar = getSupportActionBar();
+		if (actionbar != null && !prefs.splitActionBarEnabled()) {
+			actionbar.show();
+		}
+		Toolbar bottomToolbar = getBottomToolbar();
+		if (bottomToolbar != null) {
+			bottomToolbar.setVisibility(View.VISIBLE);
+		}
+		FloatingActionButton lock = getLock();
+		if (lock != null) {
+			lock.show();
+		}
+		Controls controls = getControls();
+		if (controls != null) {
+			controls.show();
+		}
+	}
 	
 	/**
 	 * @param server Server properties.
@@ -1779,8 +1836,7 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	@SuppressLint({ "SetJavaScriptEnabled", "InlinedApi", "NewApi" })
 	public void oAuthHandshake(Server server, PostAsyncActionHandler restart) {
 		this.restart = restart;
-		ActionBar actionbar = getSupportActionBar();
-		actionbar.hide();
+		hideToolbars();
 		Server[] s = {server};
 		String url = s[0].getBaseURL();
 		OAuthHelper oa;
@@ -1789,7 +1845,7 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		}
 		catch (OsmException oe) {
 			server.setOAuth(false); // ups something went wrong turn oauth off
-			actionbar.show();
+			showToolbars();
 			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_no_oauth), Toast.LENGTH_LONG).show();
 			return;
 		}
@@ -1798,7 +1854,7 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		String authUrl = oa.getRequestToken();
 		if (authUrl == null) {
 			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_oauth_handshake_failed), Toast.LENGTH_LONG).show();
-			actionbar.show();
+			showToolbars();
 			return;
 		}
 		Log.d(DEBUG_TAG, "authURl " + authUrl);
@@ -2708,7 +2764,7 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		Log.d(DEBUG_TAG,"zoomToAndEdit Zoom " + map.getZoomLevel());
 		final Logic logic = Application.getLogic();
 		if (logic.getMode()==Mode.MODE_MOVE) { // avoid switiching to the wronf mode
-			ToggleButton lock = setLock(Mode.MODE_MOVE); // NOP to get button
+			FloatingActionButton lock = setLock(Mode.MODE_MOVE); // NOP to get button
 			if (EASY_TAG.equals(lock.getTag())) {
 				setLock(Mode.MODE_EASYEDIT);
 			} else {
@@ -2784,5 +2840,8 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	public void setBottomToolbar(Toolbar bottomToolbar) {
 		this.bottomToolbar = bottomToolbar;
 	}
-
+	
+	public Controls getControls() {
+		return controls;
+	}
 }

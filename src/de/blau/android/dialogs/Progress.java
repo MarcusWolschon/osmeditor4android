@@ -3,7 +3,6 @@ package de.blau.android.dialogs;
 import org.acra.ACRA;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -13,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.view.ContextThemeWrapper;
@@ -23,7 +21,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import de.blau.android.R;
-import de.blau.android.listener.DoNothingListener;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ThemeUtils;
 

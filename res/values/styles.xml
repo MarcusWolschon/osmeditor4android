@@ -19,8 +19,10 @@
 	<style name="Theme.customLight" parent="style/Theme.AppCompat.Light">
 	</style>
 
-	<style name="Theme.customMain" parent="@style/Theme.AppCompat">
-		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
+	<style name="Theme.customMain" parent="@style/Theme.AppCompat.NoActionBar">
+	    <item name="android:windowBackground">@drawable/splash</item>
+	    <item name="windowActionModeOverlay">true</item>
+<!-- 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item> -->
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_dark</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_dark</item>
@@ -56,8 +58,6 @@
 		<item name="menu_bug">@drawable/bug_dark</item>
 		<item name="undolist_undo">@drawable/undolist_undo_dark</item>
 		<item name="undolist_redo">@drawable/undolist_redo_dark</item>
-		<item name="lock">@drawable/lock_dark</item>
-		<item name="lock_tag">@drawable/lock_tag_dark</item>
 		<item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
 		<item name="mic">@drawable/ic_action_mic_holo_dark</item>
 		<item name="search">@drawable/ic_action_search_holo_dark</item>
@@ -106,8 +106,6 @@
 		<item name="menu_bug">@drawable/bug_light</item>
 		<item name="undolist_undo">@drawable/undolist_undo_light</item>
 		<item name="undolist_redo">@drawable/undolist_redo_light</item>
-		<item name="lock">@drawable/lock_light</item>
-		<item name="lock_tag">@drawable/lock_tag_light</item>
 		<item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
 		<item name="mic">@drawable/ic_action_mic_holo_light</item>
 		<item name="search">@drawable/ic_action_search_holo_light</item>

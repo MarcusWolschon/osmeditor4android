@@ -33,7 +33,7 @@ public class CustomAutoCompleteTextView extends AutoCompleteTextView {
 	private int parentWidth = -1;
 
 	public CustomAutoCompleteTextView(Context context) {
-		super(context);
+		this(context,null);
 	}
 	
 	public CustomAutoCompleteTextView(Context context,  AttributeSet attrs) {

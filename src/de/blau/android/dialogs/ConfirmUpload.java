@@ -1,6 +1,7 @@
 package de.blau.android.dialogs;
 
 import org.acra.ACRA;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;

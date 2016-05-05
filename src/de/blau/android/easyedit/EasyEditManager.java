@@ -25,6 +25,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.speech.RecognizerIntent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -461,15 +462,18 @@ public class EasyEditManager {
 			Log.d("EasyEditActionModeCallback", "onCreateActionMode");
 			currentActionMode = mode;
 			currentActionModeCallback = this;
-			
+			FloatingActionButton lock = main.getLock();
+			if (lock != null) {
+				lock.hide();
+			}
 			// hardcoded calculation of how many icons we want to display
 			//TODO de-hardcode
-			if (main.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			// if (main.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 				DisplayMetrics metrics = Application.mainActivity.getResources().getDisplayMetrics();
 			    float widthDp = metrics.widthPixels / metrics.density;
 			    Log.d("EasyEditManager","pixel width " + metrics.widthPixels + " DP width " + widthDp);
 				maxIcons = (int) (widthDp/2/64-1);
-			}
+			//}
 			if (main.getBottomToolbar() != null) {
 				View v = main.findViewById(R.id.cab_stub);
 				if (v instanceof ViewStub) { // only need to inflate once
@@ -495,6 +499,10 @@ public class EasyEditManager {
 			main.invalidateMap();
 			if (cabToolbar != null) {
 				cabToolbar.setVisibility(View.GONE);
+			}
+			FloatingActionButton lock = main.getLock();
+			if (lock != null) {
+				lock.show();
 			}
 		}
 		
