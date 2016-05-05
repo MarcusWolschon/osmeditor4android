@@ -39,30 +39,15 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
 
 ## What is Vespucci NOT?
 
-* a map-view or a routing-application
+* a pure map-view or a routing-application
 
-## Getting started
+## Getting started with contributing
 
 Here is how you can start developing. 
 
-Currently building is supported with eclipse, android studio and gradle. Note you will need a patched actionbarsherlock library for everything to work properly, see: https://github.com/MarcusWolschon/osmeditor4android/issues/114
+Currently building is supported with eclipse, android studio and gradle, see [build instructions](BUILDING.md). 
 
 Important note: if you are building your own version, particularly if you are making it available to third parties, please change app_version and app_name_version in res/values/appname.xml to something that makes it clear that this is not an "official" release and clearly identifies your builds. 
-
-
-### Gradle build
-
-To install the application to your device run the following task on Unix:
-
-```bash
-$ ./gradlew installDebug
-```
-
-or this command on Windows:
-
-```bash
-$ gradlew.bat installDebug
-```
 
 ## License
 

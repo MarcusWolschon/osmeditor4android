@@ -12,11 +12,31 @@ You can find the required android support libs in your SDK folder in:
 
 extras/android/support/v7
 
-You need to import _appcompat_, _preference_ and _recyclerview_ libraries into eclipse as library projects, since the build requires access to the resource files in the libraries.
+and
 
-## Building with grade and Android Studio
+extras/android/support/design
 
-The build configuration has been updated for AppCompat yet and should work out of the box.
+You need to import _appcompat_, _preference_, _recyclerview_ and the _design_ libraries into eclipse as library projects, since the build requires access to the resource files in the libraries.
+
+## Building with gradle and Android Studio
+
+The build configuration has been updated for AppCompat and should work out of the box.
+
+Note we currently don't use a standard project layout.
+
+## Building with gradle
+
+To install the application to your device run the following task on Unix:
+
+```bash
+$ ./gradlew installDebug
+```
+
+or this command on Windows:
+
+```bash
+$ gradlew.bat installDebug
+```
 
 ## Required 3rd Party Libraries
 
