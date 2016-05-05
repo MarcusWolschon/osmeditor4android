@@ -929,7 +929,10 @@ public class Map extends View implements IMapView {
 			canvas.drawPath(path, fp.getPaint());
 		}
 		
-		if (tmpDrawingSelectedWays == null) { // the handles only work when no way is selected so don't show them
+		if (tmpDrawingSelectedWays == null 
+				&& tmpDrawingEditMode != Logic.Mode.MODE_MOVE 
+				&& tmpDrawingEditMode != Logic.Mode.MODE_TAG_EDIT 
+				&& tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND) { // the handles only work when no way is selected so don't show them
 			// add "geometry improvement" handles
 			for (int i = 2; i < linePoints.length; i=i+4) {
 				float x0 = linePoints[i-2];
@@ -970,7 +973,7 @@ public class Map extends View implements IMapView {
 	
 
 	void paintHandles(Canvas canvas) {
-		if (handles != null) {
+		if (handles != null && handles.size() > 0) {
 			canvas.save();
 			float lastX = 0;
 			float lastY = 0;
