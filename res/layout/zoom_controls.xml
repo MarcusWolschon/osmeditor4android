@@ -4,39 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="16dp"
+    android:orientation="horizontal"
     tools:context=".views.ZoomControls" >
-    
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/follow"
+        android:id="@+id/zoom_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
         android:clickable="true"
-        android:src="@drawable/ic_gps_fixed_white_36dp"
-        app:fabSize="mini" 
+        android:src="?attr/remove"
+        app:backgroundTint="?attr/colorControlNormal"
+        app:fabSize="mini"
         app:useCompatPadding="true" />
     
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/zoom_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginTop="48dp"
         android:clickable="true"
-        android:src="@drawable/ic_add_white_36dp"
-        app:fabSize="mini" 
-        app:useCompatPadding="true" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/zoom_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:src="@drawable/ic_remove_white_36dp"
+        android:src="?attr/add"
+        app:backgroundTint="?attr/colorControlNormal"
         app:fabSize="mini" 
         app:useCompatPadding="true" />
 

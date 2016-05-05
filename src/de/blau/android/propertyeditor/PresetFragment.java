@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -57,14 +59,17 @@ public class PresetFragment extends Fragment implements PresetFilterUpdate, Pres
 	private PresetGroup rootGroup;
 	
 	private boolean enabled = true;
+
+	private boolean paneMode = false;;
 	
 	/**
      */
-    static public PresetFragment newInstance(OsmElement e) {
+    static public PresetFragment newInstance(OsmElement e, boolean paneMode) {
     	PresetFragment f = new PresetFragment();
 
         Bundle args = new Bundle();
         args.putSerializable("element", e);
+        args.putBoolean("paneMode", paneMode);
 
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -104,6 +109,7 @@ public class PresetFragment extends Fragment implements PresetFilterUpdate, Pres
     	type = element.getType();
         Preset[] presets = Application.getCurrentPresets(getActivity());
         Log.d(DEBUG_TAG,"presets size " + (presets==null ? " is null": presets.length));
+        paneMode  = getArguments().getBoolean("paneMode");
     	
         LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
      	LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
@@ -112,8 +118,8 @@ public class PresetFragment extends Fragment implements PresetFilterUpdate, Pres
         	warning.setText(R.string.no_valid_preset);
         	presetLayout.addView(warning);
         	return presetPaneLayout;
-        }
-     	
+        }		
+        
         rootGroup = presets[0].getRootGroup(); // FIXME this assumes that we have at least one active preset
 		if (presets.length > 1) {
 			// a bit of a hack ... this adds the elements from other presets to the root group of the first one	
@@ -272,7 +278,20 @@ public class PresetFragment extends Fragment implements PresetFilterUpdate, Pres
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
 		// final MenuInflater inflater = getSupportMenuInflater();
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.preset_menu, menu);
+		ActionMenuView menuView = (ActionMenuView) getView().findViewById(R.id.preset_menu);
+		if (paneMode) {
+			getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
+			android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					return onOptionsItemSelected(item);
+				}	
+			};
+			menuView.setOnMenuItemClickListener(listener);
+		} else {
+			inflater.inflate(R.menu.preset_menu, menu);
+			menuView.setVisibility(View.GONE);
+		}
 	}
 	
 	

@@ -6,11 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
+import android.graphics.Point;
+import android.os.Build;
+import android.view.Display;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.osm.Node;
@@ -203,5 +209,24 @@ public class Util {
         explicitIntent.setComponent(component);
 
         return explicitIntent;
+    }
+    
+    @SuppressLint("NewApi")
+	public static boolean isLandscape(Activity activity) {
+		int screenSize = activity.getResources().getConfiguration().screenLayout &
+		        Configuration.SCREENLAYOUT_SIZE_MASK;
+		// reliable determine if we are in landscape mode
+		Display display = activity.getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+			display.getSize(size);
+		} else {
+			//noinspection deprecation
+			size.x = display.getWidth();
+			//noinspection deprecation
+			size.y = display.getHeight();
+		}
+
+		return (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) && size.x > size.y;
     }
 }

@@ -28,6 +28,7 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.view.ActionMode.Callback;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,6 +53,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
@@ -83,7 +85,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	
 	ArrayList<ImageryOffset> offsetList;
 	
-	private Toolbar cabToolbar;
+	private ActionMenuView cabBottomBar;
 	
 	public BackgroundAlignmentActionModeCallback(Mode oldMode) {
 		this.oldMode = oldMode;
@@ -103,17 +105,18 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			lock.hide();
 		}
 		mode.setTitle(R.string.menu_tools_background_align);
-		if (main.getBottomToolbar() != null) {
+		if (main.getBottomBar() != null) {
+			main.hideBottomBar();
 			View v = main.findViewById(R.id.cab_stub);
 			if (v instanceof ViewStub) { // only need to inflate once
 				ViewStub stub = (ViewStub) v;
 				stub.setLayoutResource(R.layout.toolbar);
 				stub.setInflatedId(R.id.cab_stub);
-				cabToolbar = (Toolbar) stub.inflate();
+				cabBottomBar = (ActionMenuView) stub.inflate();
 			} else if (v instanceof Toolbar) {
-				cabToolbar = (Toolbar) v;
-				cabToolbar.setVisibility(View.VISIBLE);
-				cabToolbar.getMenu().clear();
+				cabBottomBar = (ActionMenuView) v;
+				cabBottomBar.setVisibility(View.VISIBLE);
+				cabBottomBar.getMenu().clear();
 			}
 		}
 		return true;
@@ -121,16 +124,17 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
 	@Override
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		if (cabToolbar!=null) {
-			menu = cabToolbar.getMenu();
+		if (cabBottomBar!=null) {
+			menu = cabBottomBar.getMenu();
 			final ActionMode actionMode = mode;
-			android.support.v7.widget.Toolbar.OnMenuItemClickListener listener = new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
+			android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
 					return onActionItemClicked(actionMode,item);
 				}	
 			};
-			cabToolbar.setOnMenuItemClickListener(listener);
+			cabBottomBar.setOnMenuItemClickListener(listener);
+			MenuUtil.setupBottomBar(main, cabBottomBar);
 		}
 		menu.clear();
 		MenuItem mi = menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(NetworkStatus.isConnected(main))
@@ -158,7 +162,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			map.invalidate();
 			break;
 		case MENUITEM_RESET: 
-			osmts.setOffsets(oldOffsets);
+			osmts.setOffsets(oldOffsets.clone());
 			map.invalidate();
 			break;
 		case MENUITEM_APPLY2ALL: 
@@ -745,14 +749,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
-		if (cabToolbar != null) {
-			cabToolbar.setVisibility(View.GONE);
+		if (cabBottomBar != null) {
+			cabBottomBar.setVisibility(View.GONE);
 		}
+		main.showBottomBar();
 		main.setMode(oldMode);
-		FloatingActionButton lock = main.getLock();
-		if (lock != null) {
-			lock.show();
-		}
+		main.showLock();
 	}
 
 }

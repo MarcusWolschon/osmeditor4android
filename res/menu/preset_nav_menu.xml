@@ -13,11 +13,4 @@
         android:title="@string/menu_up"
         app:showAsAction="always"
     />
-    <item
-        android:id="@+id/preset_menu_help"
-        android:icon="?attr/menu_help"
-        android:alphabeticShortcut="@string/shortcut_help"
-        android:title="@string/menu_preset_help"
-        app:showAsAction="never"
-    />
 </menu>

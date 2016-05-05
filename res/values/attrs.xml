@@ -70,6 +70,8 @@
 	<attr name="not_downloaded_node_small" format="reference" />
 	<attr name="not_downloaded_line_small" format="reference" />
 	<attr name="not_downloaded_relation_small" format="reference" />
+	<attr name="add" format="reference" />
+	<attr name="remove" format="reference" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

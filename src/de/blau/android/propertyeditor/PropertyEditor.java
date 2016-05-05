@@ -13,9 +13,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,7 +25,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -169,7 +165,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		activity.startActivityForResult(intent, requestCode);
 	}
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		int currentItem = -1; // used when restoring
@@ -179,15 +174,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		}
 		
 		super.onCreate(savedInstanceState);
-		// super.onCreate(null); // hack to stop the system recreating the fragments from the stored state
 		
 		// requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		
 		if (prefs.splitActionBarEnabled()) {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-				getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // this might need to be set with bit ops
-			}
-			// besides hacking ABS, there is no equivalent method to enable this for ABS
+			// TODO determine if we ant to reinstate the bottom bar
 		} 
 
 		// tags
@@ -229,21 +220,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		
 		presets = Application.getCurrentPresets(this);
 		
-		int screenSize = getResources().getConfiguration().screenLayout &
-		        Configuration.SCREENLAYOUT_SIZE_MASK;
-		// reliable determine if we are in landscape mode
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			display.getSize(size);
-		} else {
-			//noinspection deprecation
-			size.x = display.getWidth();
-			//noinspection deprecation
-			size.y = display.getHeight();
-		}
-
-		if ((screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) && size.x > size.y) {
+		if (Util.isLandscape(this)) {
 			usePaneLayout = true;
 			setContentView(R.layout.pane_view);
 			Log.d(DEBUG_TAG, "Using layout for large devices");
@@ -299,7 +276,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			if (presetFragment != null) {
 				ft.remove(presetFragment);
 			}
-			presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags
+			presetFragment = PresetFragment.newInstance(elements[0],true); // FIXME collect tags
 			ft.add(R.id.preset_row,presetFragment,PRESET_FRAGMENT);
 			
 			ft.commit();
@@ -438,7 +415,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    			switch(position) {
 	    			case 0: 
 	    				if (instantiate) {
-	    					presetFragment = PresetFragment.newInstance(elements[0]); // 
+	    					presetFragment = PresetFragment.newInstance(elements[0], false); // 
 	    				}
 	    				return presetFragment;
 	    			case 1: 		
@@ -467,7 +444,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    			switch(position) {
 	    			case 0: 
 	    				if (instantiate) {
-	    					presetFragment = PresetFragment.newInstance(elements[0]); // 
+	    					presetFragment = PresetFragment.newInstance(elements[0], false); // 
 	    				}
 	    				return presetFragment;
 	    			case 1: 		
@@ -1040,5 +1017,22 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	@Override
 	public void onSupportActionModeFinished(ActionMode mode) {
 		super.onSupportActionModeFinished(mode);
+	}
+	
+	@SuppressLint("NewApi")
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+//		TODO We need to use a standalone toolbar for the actionbar to work if we do the following
+//		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+//			if (hasFocus) {
+//				getWindow().getDecorView().setSystemUiVisibility(
+//						View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//						| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//						| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//						| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//						| View.SYSTEM_UI_FLAG_FULLSCREEN
+//						| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+//		}
 	}
 }

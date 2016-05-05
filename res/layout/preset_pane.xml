@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -10,19 +11,30 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
         <EditText
             android:id="@+id/preset_search_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
+            android:layout_weight="1"
             android:drawableEnd="?attr/search"
             android:drawableRight="?attr/search"
             android:hint="@string/preset_search_hint"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:singleLine="true" />
+
+        <android.support.v7.widget.ActionMenuView
+            android:id="@+id/preset_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|end"
+            android:layout_weight="2"
+            android:layout_marginBottom="1dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize" />
     </LinearLayout>
 
     <LinearLayout

@@ -12,6 +12,7 @@ import java.util.List;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -46,11 +47,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -71,6 +74,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
@@ -123,12 +127,13 @@ import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Search.SearchResult;
 import de.blau.android.util.Util;
-import de.blau.android.views.Controls;
+import de.blau.android.views.ZoomControls;
 import de.blau.android.voice.Commands;
 
 /**
@@ -244,7 +249,7 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	/** Detector for taps, drags, and scaling. */
 	private VersionedGestureDetector mDetector;
 	/** Onscreen map zoom controls. */
-	private de.blau.android.views.Controls controls;
+	private de.blau.android.views.ZoomControls zoomControls;
 	/**
 	 * Our user-preferences.
 	 */
@@ -283,7 +288,9 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	/**
 	 * Optional bottom toolbar 
 	 */
-    Toolbar bottomToolbar = null;
+	android.support.v7.widget.ActionMenuView bottomBar = null;
+    
+    private FloatingActionButton follow;
     
 	/**
 	 * The current instance of the tracker service
@@ -368,21 +375,16 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		mDetector = VersionedGestureDetector.newInstance(getApplicationContext(), mapTouchListener);
 		
 		// Set up the zoom in/out controls
-		controls = new de.blau.android.views.Controls(this);
-		controls.setOnFollowClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				setFollowGPS(true);
-			}
-		});
-		controls.setOnZoomInClickListener(new View.OnClickListener() {
+		zoomControls = new de.blau.android.views.ZoomControls(this);
+		
+		zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Application.getLogic().zoom(Logic.ZOOM_IN);
 				updateZoomControls();
 			}
 		});
-		controls.setOnZoomOutClickListener(new View.OnClickListener() {
+		zoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Application.getLogic().zoom(Logic.ZOOM_OUT);
@@ -390,10 +392,20 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 			}
 		});
 
+		
+		follow = (FloatingActionButton)rl.findViewById(R.id.follow);
+		
+		follow.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setFollowGPS(true);
+			}
+		});
+		
 		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		rl.addView(controls, rlp);
+		rl.addView(zoomControls, rlp);
 		
 		setContentView(ml);
 		
@@ -403,7 +415,7 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
         setSupportActionBar(toolbar);
     
         if (prefs.splitActionBarEnabled()) {
-        	setBottomToolbar((Toolbar) findViewById(R.id.bottomToolbar));
+        	setBottomBar((android.support.v7.widget.ActionMenuView) findViewById(R.id.bottomToolbar));
         } else {
         	findViewById(R.id.bottomBar).setVisibility(View.GONE);;
         }
@@ -775,8 +787,8 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	 */
 	private void updateZoomControls() {
 		final Logic logic = Application.getLogic();
-		controls.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
-		controls.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+		getControls().setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
+		getControls().setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
 	}
 	
 //	@Override
@@ -814,6 +826,19 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		}
 		setSupportProgressBarIndeterminateVisibility(false);
 		Util.resetProgressBarShown();
+		FloatingActionButton follow = getFollowButton();
+		if (follow != null) {
+			RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();
+			if (prefs.followGPSbuttonPosition().equals("LEFT")) {
+				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,0);
+				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+				
+			} else if (prefs.followGPSbuttonPosition().equals("RIGHT")) {
+				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT,0);
+				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+			}
+			follow.setLayoutParams(params);
+		}
 	}
 	
 	/**
@@ -947,37 +972,32 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	@Override
 	public boolean onCreateOptionsMenu(final Menu m) {
 		Log.d(DEBUG_TAG, "onCreateOptionsMenu");
+		// determine how man icons have room
+		MenuUtil menuUtil = new MenuUtil(this);
 		Menu menu = m;
-		if (getBottomToolbar() != null) {
-			menu = getBottomToolbar().getMenu();
+		if (getBottomBar() != null) {
+			menu = getBottomBar().getMenu();
 			if (menu.size() == 0) { // inflate
-				getBottomToolbar().inflateMenu(R.menu.main_menu);
+				// getBottomToolbar().inflateMenu(R.menu.main_menu);
+				final MenuInflater inflater = getMenuInflater();
+				inflater.inflate(R.menu.main_menu, menu);
 			}
-			android.support.v7.widget.Toolbar.OnMenuItemClickListener listener = new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
+			android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
 					return onOptionsItemSelected(item);
 				}	
 			};
-			getBottomToolbar().setOnMenuItemClickListener(listener);
+			getBottomBar().setOnMenuItemClickListener(listener);
 			Log.d(DEBUG_TAG,"inflated main menu on to bottom toolbar");
 		} else {
 			final MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.main_menu, menu);
 		}
 			
-		// only show camera icon if we have a camera, and a camera app is installed 
-		PackageManager pm = getPackageManager();
-		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(getPackageManager()) != null) {
-			MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_camera),prefs.showCameraAction() ? MenuItemCompat.SHOW_AS_ACTION_ALWAYS: MenuItemCompat.SHOW_AS_ACTION_NEVER);
-		} else {
-			menu.findItem(R.id.menu_camera).setVisible(false);
-		}
-		
+
 		boolean networkConnected = NetworkStatus.isConnected(this);
 		boolean gpsProviderEnabled = ensureGPSProviderEnabled();
-		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_gps),MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		menu.findItem(R.id.menu_gps_show).setEnabled(gpsProviderEnabled).setChecked(showGPS);
 		menu.findItem(R.id.menu_gps_follow).setEnabled(gpsProviderEnabled).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_goto).setEnabled(gpsProviderEnabled);
@@ -993,19 +1013,16 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		
 		final Logic logic = Application.getLogic();
 		MenuItem undo = menu.findItem(R.id.menu_undo);
-		MenuItemCompat.setShowAsAction(undo, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		undo.setVisible(logic.getMode() != Mode.MODE_MOVE && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
 		View undoView = MenuItemCompat.getActionView(undo);
 		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
 			Log.d(DEBUG_TAG,"undoView null");
 			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
 			undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
-			MenuItemCompat.setActionView(undo, undoView);
 		}
 		undoView.setOnClickListener(undoListener);
 		undoView.setOnLongClickListener(undoListener);
 		
-		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_transfer), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 		final Server server = prefs.getServer();
 		if (server.hasOpenChangeset()) {
 			menu.findItem(R.id.menu_transfer_close_changeset).setVisible(true);
@@ -1022,13 +1039,21 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		menu.findItem(R.id.menu_voice).setVisible(false); // don't display button for now
 //		menu.findItem(R.id.menu_voice).setEnabled(networkConnected && prefs.voiceCommandsEnabled()).setVisible(prefs.voiceCommandsEnabled());
 		
-		// set showAsAction value for rest of top level menus
-		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_voice), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_config), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_tools), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_find), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-		MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_help), MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+		menuUtil.setShowAlways(menu);
+		// only show camera icon if we have a camera, and a camera app is installed 
+		PackageManager pm = getPackageManager();
+		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(getPackageManager()) != null) {
+			MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_camera),prefs.showCameraAction() ? MenuItemCompat.SHOW_AS_ACTION_ALWAYS: MenuItemCompat.SHOW_AS_ACTION_NEVER);
+		} else {
+			MenuItem mi = menu.findItem(R.id.menu_camera).setVisible(false);
+			MenuItemCompat.setShowAsAction(mi,MenuItemCompat.SHOW_AS_ACTION_NEVER);
+		}
 		
+		if (getBottomBar()!=null) {
+			//menuUtil.evenlyDistributedToolbar(getBottomToolbar());
+		}
+
 		return true;
 	}
 
@@ -1790,23 +1815,50 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		}
 	}
 	
+	public void hideBottomBar() {
+		ActionMenuView bottomToolbar = getBottomBar();
+		if (bottomToolbar != null) {
+			bottomToolbar.setVisibility(View.GONE);
+		}
+	}
+	
+	public void showBottomBar() {
+		ActionMenuView bottomToolbar = getBottomBar();
+		if (bottomToolbar != null) {
+			bottomToolbar.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	public void hideLock() {
+		FloatingActionButton lock = getLock();
+		if (lock != null) {
+			lock.show();
+		}
+	}
+	
+	public void showLock() {
+		FloatingActionButton lock = getLock();
+		if (lock != null) {
+			lock.show();
+		}
+	}
+	
 	void hideToolbars() {
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar != null) {
 			actionbar.hide();
 		}
-		Toolbar bottomToolbar = getBottomToolbar();
-		if (bottomToolbar != null) {
-			bottomToolbar.setVisibility(View.GONE);
+		hideBottomBar();
+		hideLock();
+		ZoomControls zoomControls = getControls();
+		if (zoomControls != null) {
+			zoomControls.hide();
 		}
-		FloatingActionButton lock = getLock();
-		if (lock != null) {
-			lock.hide();
+		FloatingActionButton follow = getFollowButton();
+		if (follow != null) {
+			follow.hide();
 		}
-		Controls controls = getControls();
-		if (controls != null) {
-			controls.hide();
-		}
+		
 	}
 	
 	void showToolbars() {
@@ -1814,17 +1866,15 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 		if (actionbar != null && !prefs.splitActionBarEnabled()) {
 			actionbar.show();
 		}
-		Toolbar bottomToolbar = getBottomToolbar();
-		if (bottomToolbar != null) {
-			bottomToolbar.setVisibility(View.VISIBLE);
+		showBottomBar();
+		showLock();
+		ZoomControls zoomControls = getControls();
+		if (zoomControls != null) {
+			zoomControls.show();
 		}
-		FloatingActionButton lock = getLock();
-		if (lock != null) {
-			lock.show();
-		}
-		Controls controls = getControls();
-		if (controls != null) {
-			controls.show();
+		FloatingActionButton follow = getFollowButton();
+		if (follow != null) {
+			follow.show();
 		}
 	}
 	
@@ -2148,20 +2198,6 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 			final Logic logic = Application.getLogic();
 			Mode mode = logic.getMode();
 			boolean isInEditZoomRange = logic.isInEditZoomRange();
-			
-			if (showGPS && !followGPS && map.getLocation() != null) {
-				// check if this was a click on the GPS mark use the same calculations we use all over the place ... really belongs in a separate method 
-				final float tolerance = DataStyle.getCurrent().nodeToleranceValue;				
-				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLongitude() * 1E7)) - x);
-				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLatitude() * 1E7)) - y);
-				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-					if (Math.hypot(differenceX, differenceY) <= tolerance) {
-						setFollowGPS(true);
-						map.invalidate();
-						return;
-					}
-				}
-			}
 			
 			if (isInEditZoomRange) {
 				switch (mode) {
@@ -2829,18 +2865,53 @@ public class Main extends BugFixedAppCompatActivity implements ServiceConnection
 	/**
 	 * @return the bottomToolbar
 	 */
-	public Toolbar getBottomToolbar() {
-		return bottomToolbar;
+	public android.support.v7.widget.ActionMenuView getBottomBar() {
+		return bottomBar;
 	}
 
 	/**
-	 * @param bottomToolbar the bottomToolbar to set
+	 * @param bottomBar the bottomToolbar to set
 	 */
-	public void setBottomToolbar(Toolbar bottomToolbar) {
-		this.bottomToolbar = bottomToolbar;
+	public void setBottomBar(android.support.v7.widget.ActionMenuView bottomBar) {
+		MenuUtil.setupBottomBar(this, bottomBar);
+		this.bottomBar = bottomBar;
 	}
 	
-	public Controls getControls() {
-		return controls;
+	public ZoomControls getControls() {
+		return zoomControls;
+	}
+	
+	public FloatingActionButton getFollowButton() {
+		return follow;
+	}
+	
+	public void hideFollowButton() {
+		FloatingActionButton follow = getFollowButton();
+		if (follow != null) {
+			follow.hide();
+		}
+	}
+	
+	public void showFollowButton() {
+		FloatingActionButton follow = getFollowButton();
+		if (follow != null && ensureGPSProviderEnabled()) {
+			follow.show();
+		}
+	}
+	
+	@SuppressLint("NewApi")
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+			if (hasFocus) {
+				getWindow().getDecorView().setSystemUiVisibility(
+						View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+						| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+						| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+						| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+						| View.SYSTEM_UI_FLAG_FULLSCREEN
+						| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+		}
 	}
 }

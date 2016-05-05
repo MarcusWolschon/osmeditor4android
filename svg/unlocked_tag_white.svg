@@ -19,10 +19,10 @@
    enable-background="new 0 0 512 512"
    xml:space="preserve"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="unlocked_tag_light.svg"
-   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\res\drawable-xhdpi\unlocked_tag_light.png"
-   inkscape:export-xdpi="9.3203888"
-   inkscape:export-ydpi="9.3203888"><metadata
+   sodipodi:docname="unlocked_tag_white.svg"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\res\drawable-xhdpi\unlocked_tag_white.png"
+   inkscape:export-xdpi="6.328125"
+   inkscape:export-ydpi="6.328125"><metadata
    id="metadata6275"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
          rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
@@ -42,8 +42,8 @@
    inkscape:zoom="0.95"
    inkscape:cx="233.43143"
    inkscape:cy="256"
-   inkscape:window-x="0"
-   inkscape:window-y="0"
+   inkscape:window-x="-32000"
+   inkscape:window-y="-32000"
    inkscape:window-maximized="0"
    inkscape:current-layer="Layer_1" />
 

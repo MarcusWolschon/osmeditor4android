@@ -13,6 +13,14 @@
 			android:summary="@string/config_showCameraAction_summary"
 			android:defaultValue="true"
 		/>
+	    <android.support.v7.preference.ListPreference
+	   		android:key="@string/config_followGPSbutton_key"
+			android:title="@string/config_followGPSbutton_title"
+			android:summary="@string/config_followGPSbutton_summary"
+			android:entries="@array/followGPSbutton_entries"
+        	android:entryValues="@array/followGPSbutton_values"
+        	android:defaultValue="LEFT"
+		/>
 	    <android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_generateAlerts_key"
 			android:title="@string/config_generateAlerts_title"

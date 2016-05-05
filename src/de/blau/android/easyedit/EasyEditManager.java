@@ -33,8 +33,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.HapticFeedbackConstants;
@@ -70,6 +70,7 @@ import de.blau.android.propertyeditor.Address;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.StringWithDescription;
@@ -92,10 +93,7 @@ public class EasyEditManager {
 	private ActionMode currentActionMode = null;
 	private EasyEditActionModeCallback currentActionModeCallback = null;
 	
-	private int iconsDisplayed = 0;
-	private int maxIcons = 0;
-	
-	private Toolbar cabToolbar;
+	private ActionMenuView cabBottomBar;
 	
 	public final static int GROUP_MODE = 0;
 	public final static int GROUP_BASE = 1;
@@ -121,19 +119,6 @@ public class EasyEditManager {
 	public void finish() {
 		if (currentActionMode != null) {
 			currentActionMode.finish();
-		}
-	}
-	
-	/**
-	 * If we have more space on screen (tablett) try to force more icons in to the menu bar
-	 * @return
-	 */
-	private int showAlways() {
-		if (iconsDisplayed < maxIcons) {  
-			iconsDisplayed++;
-			return MenuItemCompat.SHOW_AS_ACTION_ALWAYS;
-		} else {
-			return MenuItemCompat.SHOW_AS_ACTION_IF_ROOM;
 		}
 	}
 	
@@ -428,15 +413,15 @@ public class EasyEditManager {
 	 * @return
 	 */
 	protected Menu replaceMenu(Menu menu, final ActionMode actionMode, final ActionMode.Callback callback) {
-		if (cabToolbar!=null) {
-			menu = cabToolbar.getMenu();
-			android.support.v7.widget.Toolbar.OnMenuItemClickListener listener = new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
+		if (cabBottomBar!=null) {
+			menu = cabBottomBar.getMenu();
+			android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
 					return callback.onActionItemClicked(actionMode,item);
 				}	
 			};
-			cabToolbar.setOnMenuItemClickListener(listener);
+			cabBottomBar.setOnMenuItemClickListener(listener);
 		}
 		return menu;
 	}
@@ -455,36 +440,29 @@ public class EasyEditManager {
 	public abstract class EasyEditActionModeCallback implements ActionMode.Callback {
 		
 		int helpTopic = 0;
+		MenuUtil menuUtil = new MenuUtil(main);
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			Log.d("EasyEditActionModeCallback", "onCreateActionMode");
 			currentActionMode = mode;
 			currentActionModeCallback = this;
-			FloatingActionButton lock = main.getLock();
-			if (lock != null) {
-				lock.hide();
-			}
-			// hardcoded calculation of how many icons we want to display
-			//TODO de-hardcode
-			// if (main.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-				DisplayMetrics metrics = Application.mainActivity.getResources().getDisplayMetrics();
-			    float widthDp = metrics.widthPixels / metrics.density;
-			    Log.d("EasyEditManager","pixel width " + metrics.widthPixels + " DP width " + widthDp);
-				maxIcons = (int) (widthDp/2/64-1);
-			//}
-			if (main.getBottomToolbar() != null) {
+			main.hideLock();
+			
+			if (main.getBottomBar() != null) {
 				View v = main.findViewById(R.id.cab_stub);
 				if (v instanceof ViewStub) { // only need to inflate once
 					ViewStub stub = (ViewStub) v;
 					stub.setLayoutResource(R.layout.toolbar);
 					stub.setInflatedId(R.id.cab_stub);
-					cabToolbar = (Toolbar) stub.inflate();
-				} else if (v instanceof Toolbar) {
-					cabToolbar = (Toolbar) v;
-					cabToolbar.setVisibility(View.VISIBLE);
-					cabToolbar.getMenu().clear();
+					cabBottomBar = (ActionMenuView) stub.inflate();
+					MenuUtil.setupBottomBar(main, cabBottomBar);
+				} else if (v instanceof ActionMenuView) {
+					cabBottomBar = (ActionMenuView) v;
+					cabBottomBar.setVisibility(View.VISIBLE);
+					cabBottomBar.getMenu().clear();
 				}
+				main.hideBottomBar();
 			}
 			return false;
 		}
@@ -496,13 +474,11 @@ public class EasyEditManager {
 			currentActionModeCallback = null;
 			logic.hideCrosshairs();
 			main.invalidateMap();
-			if (cabToolbar != null) {
-				cabToolbar.setVisibility(View.GONE);
+			if (cabBottomBar != null) {
+				cabBottomBar.setVisibility(View.GONE);
+				main.showBottomBar();
 			}
-			FloatingActionButton lock = main.getLock();
-			if (lock != null) {
-				lock.show();
-			}
+			main.showLock();
 		}
 		
 		/**
@@ -533,7 +509,7 @@ public class EasyEditManager {
 		/** {@inheritDoc} */ // placed here for convenience, allows to avoid unnecessary methods in subclasses
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			iconsDisplayed = 0;
+			menuUtil.reset();
 			return false;
 		}
 		
@@ -561,6 +537,10 @@ public class EasyEditManager {
 		
 		public boolean processShortcut(Character c) {
 			return false;
+		}
+		
+		protected void arrangeMenu(Menu menu) {
+			menuUtil.setShowAlways(menu);
 		}
 	}
 	
@@ -607,13 +587,13 @@ public class EasyEditManager {
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu = replaceMenu(menu, mode, this);
-			
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
+			menuUtil.reset();
 			Preferences prefs = new Preferences(main);
 			if (prefs.voiceCommandsEnabled()) {
 				menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.mic)).setEnabled(NetworkStatus.isConnected(main));
-			}
+			}			
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
@@ -627,6 +607,7 @@ public class EasyEditManager {
 				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_gps));
 			}
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			arrangeMenu(menu);
 			return true;
 		}
 		
@@ -974,9 +955,11 @@ public class EasyEditManager {
 			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
+			menuUtil.reset();
 			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
 			menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			arrangeMenu(menu);
 			return true;
 		}
 		
@@ -1104,12 +1087,12 @@ public class EasyEditManager {
 			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
+			menuUtil.reset();
 			
 			main.getMenuInflater().inflate(R.menu.undo_action, menu);
 			MenuItem undo = menu.findItem(R.id.undo_action);
 			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
 				undo.setVisible(true);
-				MenuItemCompat.setShowAsAction(undo,showAlways());
 				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
 			} else {
 				undo.setVisible(false);
@@ -1123,21 +1106,15 @@ public class EasyEditManager {
 			undoView.setOnClickListener(undoListener);
 			undoView.setOnLongClickListener(undoListener);
 			
-			MenuItem mi = menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
-			mi = menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
+			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags));
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete));
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
-				mi = menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_copy));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
-				mi = menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_copy));
+				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut));
 			}
-			mi = menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_multi_select));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
-			mi = menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation));
-			MenuItemCompat.setShowAsAction(mi,MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+			menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_multi_select));
+			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation));
 			if (element.getOsmId() > 0) {
 				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 			}
@@ -1254,29 +1231,24 @@ public class EasyEditManager {
 			
 			super.onPrepareActionMode(mode, menu);
 			if (((Node)element).getTags().containsKey(Tags.KEY_ENTRANCE) && !((Node)element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-				MenuItem mi = menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			}
 			if (logic.isEndNode((Node)element)) {
-				MenuItem mi = menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
 			}
 			joinableElement = logic.findJoinableElement((Node)element);
 			if (joinableElement != null) {
-				MenuItem mi = menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge));
 			}
 			int wayMembershipCount = logic.getWaysForNode((Node)element).size();
 			if (wayMembershipCount > 1) {
-				MenuItem mi = menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split));
 			}
 			if (wayMembershipCount > 0) {
-				MenuItem mi = menu.add(Menu.NONE, MENUITEM_EXTRACT, Menu.NONE, R.string.menu_extract).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_extract_node));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_EXTRACT, Menu.NONE, R.string.menu_extract).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_extract_node));
 			}
-			MenuItem mi = menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_gps));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
+			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_gps));
+			arrangeMenu(menu);
 			return true;
 		}
 		
@@ -1434,41 +1406,33 @@ public class EasyEditManager {
 			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
 			Log.d("WaySelectionActionCallback", "onPrepareActionMode");
-			MenuItem mi;
 			if (((Way)element).getTags().containsKey(Tags.KEY_BUILDING) && !((Way)element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-				mi = menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			}
-			mi = menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_reverse));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
+			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_reverse));
 			if (((Way)element).getNodes().size() > 2) {
-				mi = menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split));
 			}
 			if (cachedMergeableWays.size() > 0) {
-				mi = menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge));
 			}
 			if (cachedAppendableNodes.size() > 0) {
-				mi = menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
 			}
 			if (((Way)element).getTagWithKey(Tags.KEY_HIGHWAY) != null && (cachedViaElements.size() > 0)) {
-				mi = menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_add_restriction));	
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_add_restriction));	
 			}
 			if (((Way)element).getNodes().size() > 2) {
-				mi = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_ortho));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_ortho));
 			}
-			mi = menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_rotate));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
+			menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_rotate));
 			if (((Way)element).getNodes().size() > 3 && ((Way)element).isClosed()) {
 				menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
 				if (((Way)element).getNodes().size() > 4) { // 5 nodes is the minimum required to be able to split in to two polygons
 					menu.add(Menu.NONE, MENUITEM_SPLIT_POLYGON, Menu.NONE, R.string.menu_split_polygon);
 				}
 			}
+			arrangeMenu(menu);
 			return true;
 		}
 		
@@ -1801,13 +1765,11 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
-			MenuItem mi = menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation_add_member));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
+			menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation_add_member));
 			if (((Relation)element).getMembers() != null) {
-				mi = menu.add(Menu.NONE, MENUITEM_SELECT_RELATION_MEMBERS, Menu.NONE, R.string.menu_select_relation_members).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation_members));
-				MenuItemCompat.setShowAsAction(mi,showAlways());
+				menu.add(Menu.NONE, MENUITEM_SELECT_RELATION_MEMBERS, Menu.NONE, R.string.menu_select_relation_members).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation_members));
 			}
-			
+			arrangeMenu(menu);
 			return true;
 		}
 		
@@ -2064,6 +2026,7 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			if (members.size() > 0)
 				revert.setVisible(true);
+			arrangeMenu(menu); 
 			return true;
 		}
 		
@@ -2230,12 +2193,11 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu = replaceMenu(menu, mode, this);
 			menu.clear();
-			
+			menuUtil.reset();
 			main.getMenuInflater().inflate(R.menu.undo_action, menu);
 			MenuItem undo = menu.findItem(R.id.undo_action);
 			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
 				undo.setVisible(true);
-				MenuItemCompat.setShowAsAction(undo,showAlways());
 				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
 			}
 			View undoView = MenuItemCompat.getActionView(undo);
@@ -2247,26 +2209,21 @@ public class EasyEditManager {
 			undoView.setOnClickListener(undoListener);
 			undoView.setOnLongClickListener(undoListener);
 			
-			MenuItem mi = menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
-			mi = menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
+			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags));
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete));
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			// if (!(element instanceof Relation)) {
-			//	menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy)).setShowAsAction(showAlways());
-			//	menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(showAlways());
+			//	menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy)).setShowAsAction(menuSize.showAlways());
+			//	menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(menuSize.showAlways());
 			//}
 			if (sortedWays != null) {
-				 mi = menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge));
-				 MenuItemCompat.setShowAsAction(mi,showAlways());
+				 menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge));
 			}
-			mi = menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation));
-			MenuItemCompat.setShowAsAction(mi,showAlways());
+			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation));
 			
 			List<Way> selectedWays = logic.getSelectedWays();
 			if (selectedWays != null && selectedWays.size() >0) {
-				 mi = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_ortho));
-				 MenuItemCompat.setShowAsAction(mi,showAlways());
+				 menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_ortho));
 			}
 			
 //			// for now just two
@@ -2274,7 +2231,8 @@ public class EasyEditManager {
 //				menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
 //			}
 			
-			 mi = menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			arrangeMenu(menu);
 			return true;
 		}
 		

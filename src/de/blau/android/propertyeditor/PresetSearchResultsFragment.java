@@ -18,6 +18,7 @@ import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.ThemeUtils;
 
 public class PresetSearchResultsFragment extends DialogFragment {
 
@@ -60,9 +61,12 @@ public class PresetSearchResultsFragment extends DialogFragment {
     }
     
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
     		Bundle savedInstanceState) {
+    	// inflater needs to be got from a themed view or else all our custom stuff will not style correctly
+    	inflater = ThemeUtils.getLayoutInflater(getActivity());
     	LinearLayout presetsLayout = (LinearLayout) inflater.inflate(R.layout.recentpresets_view,null);
    
     	presets = (ArrayList<PresetItem>) getArguments().getSerializable("searchResults");

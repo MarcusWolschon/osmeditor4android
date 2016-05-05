@@ -52,6 +52,8 @@ public class Preferences {
 	
 	private final String mapProfile;
 	
+	private final String followGPSbutton;
+	
 	private int gpsInterval;
 	
 	private float gpsDistance;
@@ -227,6 +229,8 @@ public class Preferences {
 		leaveGpsDisabled = prefs.getBoolean(r.getString(R.string.config_leaveGpsDisabled_key), false);
 
 		showWayIcons = prefs.getBoolean(r.getString(R.string.config_showWayIcons_key), true);
+		
+		followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), "LEFT");
 	}
 	
 	/**
@@ -463,5 +467,9 @@ public class Preferences {
 
 	public boolean leaveGpsDisabled() {
 		return leaveGpsDisabled;
+	}
+	
+	public String followGPSbuttonPosition() {
+		return followGPSbutton;
 	}
 }

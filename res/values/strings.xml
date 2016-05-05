@@ -440,6 +440,8 @@
 	<string name="config_moreprefs">More settings...</string>
 	<string name="config_tagFormEnabled_title">Display tag form</string>
 	<string name="config_tagFormEnabled_summary">Display tag form for editing</string>
+	<string name="config_followGPSbutton_title">Follow GPS button layout</string>
+	<string name="config_followGPSbutton_summary">Where the "follow GPS" button will be positioned</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>
@@ -563,4 +565,24 @@
 	<item>Open</item>
 	<item>Closed</item>
 	</string-array>
+	    <string-array name="bug_filter_entries">
+        <item>Notes</item>
+		<item>Osmose error</item>
+		<item>Osmose warning</item>
+		<item>Osmose minor issue</item>
+    </string-array>
+    <string-array translatable="false" name="bug_filter_values">
+		<item>NOTES</item>
+		<item>OSMOSE_ERROR</item>
+		<item>OSMOSE_WARNING</item>
+		<item>OSMOSE_MINOR_ISSUE</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Left</item>
+		<item>Right</item>
+    </string-array>
+    <string-array translatable="false" name="followGPSbutton_values">
+		<item>LEFT</item>
+		<item>RIGHT</item>
+    </string-array>
 </resources>
