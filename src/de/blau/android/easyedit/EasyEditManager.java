@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.location.Location;
 import android.location.LocationManager;

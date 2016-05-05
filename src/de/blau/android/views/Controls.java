@@ -3,10 +3,10 @@ package de.blau.android.views;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ContextThemeWrapper;
 import android.widget.LinearLayout;
 import de.blau.android.R;
 
