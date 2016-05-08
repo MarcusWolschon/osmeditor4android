@@ -5,6 +5,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import android.content.res.Resources;
+import android.os.AsyncTask;
+import android.util.Log;
+import de.blau.android.Application;
+import de.blau.android.R;
+import de.blau.android.exception.OsmException;
 import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
@@ -15,12 +21,6 @@ import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.exception.OAuthNotAuthorizedException;
-import android.content.res.Resources;
-import android.os.AsyncTask;
-import android.util.Log;
-import de.blau.android.Application;
-import de.blau.android.R;
-import de.blau.android.exception.OsmException;
 
 /**
  * Helper class for signpost oAuth more or less based on text below

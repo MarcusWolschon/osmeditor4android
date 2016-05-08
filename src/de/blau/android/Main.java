@@ -12,7 +12,6 @@ import java.util.List;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -53,7 +52,6 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -123,9 +121,9 @@ import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TransferTasks;
-import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
@@ -141,7 +139,7 @@ import de.blau.android.voice.Commands;
  * 
  * @author mb
  */
-public class Main extends BugFixedAppCompatActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener {
+public class Main extends FullScreenAppCompatActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener {
 
 	/**
 	 * Tag used for Android-logging.

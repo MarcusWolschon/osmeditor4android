@@ -8,12 +8,10 @@ import java.util.Map;
 
 import org.acra.ACRA;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -24,6 +22,7 @@ import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -47,7 +46,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
-import de.blau.android.util.BugFixedAppCompatActivity;
+import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StreetTagValueAdapter;
@@ -60,7 +59,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  * @author simon
  */
-public class PropertyEditor extends BugFixedAppCompatActivity implements 
+public class PropertyEditor extends FullScreenAppCompatActivity implements 
 		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters {
 	static final String PRESET_FRAGMENT = "preset_fragment";
 	static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
@@ -228,7 +227,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			setContentView(R.layout.tab_view);	
 		}
 		
-		
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.propertyEditorBar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        setSupportActionBar(toolbar);
+        
 		// tags
 		ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<LinkedHashMap<String, String>>();
 		originalTags = new ArrayList<LinkedHashMap<String, String>>();

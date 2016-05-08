@@ -18,11 +18,6 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-
 import org.acra.ACRA;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -45,6 +40,10 @@ import de.blau.android.util.Base64;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
 
 /**
  * @author mb
