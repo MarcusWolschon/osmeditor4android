@@ -1,8 +1,7 @@
 package de.blau.android.propertyeditor;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +16,9 @@ import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.BaseFragment;
 
-public class RecentPresetsFragment extends Fragment {
+public class RecentPresetsFragment extends BaseFragment {
 
 	private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName();
 	
@@ -42,13 +42,12 @@ public class RecentPresetsFragment extends Fragment {
     }
     
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log.d(DEBUG_TAG, "onAttach");
+    public void onAttachToContext(Context context) {
+        Log.d(DEBUG_TAG, "onAttachToContext");
         try {
-            mListener = (OnPresetSelectedListener) activity;
+            mListener = (OnPresetSelectedListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
+            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
         }
     }
 

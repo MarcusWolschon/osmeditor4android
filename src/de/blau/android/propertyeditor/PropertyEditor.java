@@ -46,6 +46,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.BaseFragment;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
@@ -511,7 +512,7 @@ public class PropertyEditor extends FullScreenAppCompatActivity implements
 	    
 	    @Override
 	    public Object instantiateItem(ViewGroup container, int position) {
-	        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+	        BaseFragment fragment = (BaseFragment) super.instantiateItem(container, position);
 	        // update fragment refs here
 	        if (fragment instanceof TagFormFragment) {
 	        	tagFormFragment = (TagFormFragment) fragment;

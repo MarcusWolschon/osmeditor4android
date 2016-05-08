@@ -814,7 +814,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		final ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setDisplayShowTitleEnabled(false);
-		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM|ActionBar.DISPLAY_SHOW_HOME);
 		setupLockButton();
 		if (prefs.splitActionBarEnabled()) {
@@ -1841,7 +1840,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	}
 	
-	void hideToolbars() {
+	void hideControls() {
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar != null) {
 			actionbar.hide();
@@ -1859,7 +1858,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 	}
 	
-	void showToolbars() {
+	void showControls() {
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar != null && !prefs.splitActionBarEnabled()) {
 			actionbar.show();
@@ -1883,7 +1882,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	@SuppressLint({ "SetJavaScriptEnabled", "InlinedApi", "NewApi" })
 	public void oAuthHandshake(Server server, PostAsyncActionHandler restart) {
 		this.restart = restart;
-		hideToolbars();
+		hideControls();
 		Server[] s = {server};
 		String url = s[0].getBaseURL();
 		OAuthHelper oa;
@@ -1892,7 +1891,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		catch (OsmException oe) {
 			server.setOAuth(false); // ups something went wrong turn oauth off
-			showToolbars();
+			showControls();
 			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_no_oauth), Toast.LENGTH_LONG).show();
 			return;
 		}
@@ -1901,7 +1900,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		String authUrl = oa.getRequestToken();
 		if (authUrl == null) {
 			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_oauth_handshake_failed), Toast.LENGTH_LONG).show();
-			showToolbars();
+			showControls();
 			return;
 		}
 		Log.d(DEBUG_TAG, "authURl " + authUrl);
@@ -1959,8 +1958,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void finishOAuth() {
 		Log.d(DEBUG_TAG,"finishOAuth");
 		rl.removeView(oAuthWebView);
-		ActionBar actionbar = getSupportActionBar();
-		actionbar.show();
+		showControls();
 		try {
 			// the below loadUrl, even though the "official" way to do it,
 			// seems to be prone to crash on some devices.

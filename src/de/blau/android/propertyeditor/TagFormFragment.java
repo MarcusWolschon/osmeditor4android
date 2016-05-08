@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -50,6 +49,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.ValueWithCount;
+import de.blau.android.util.BaseFragment;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
@@ -57,7 +57,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 
 
 	
-public class TagFormFragment extends Fragment implements FormUpdate {
+public class TagFormFragment extends BaseFragment implements FormUpdate {
 
 	private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName();
 	
@@ -100,14 +100,13 @@ public class TagFormFragment extends Fragment implements FormUpdate {
     }
     
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log.d(DEBUG_TAG, "onAttach");
+    public void onAttachToContext(Context context) {
+        Log.d(DEBUG_TAG, "onAttachToContext");
         try {
-        	tagListener = (EditorUpdate) activity;
-            nameAdapters = (NameAdapters) activity;
+        	tagListener = (EditorUpdate) context;
+            nameAdapters = (NameAdapters) context;
         } catch (ClassCastException e) {
-        	throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener and NameAdapters");
+        	throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener and NameAdapters");
         }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();

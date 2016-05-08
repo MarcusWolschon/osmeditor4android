@@ -8,13 +8,11 @@ import java.util.List;
 import java.util.Set;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
@@ -46,10 +44,11 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.BaseFragment;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 
-public class RelationMembersFragment extends Fragment implements
+public class RelationMembersFragment extends BaseFragment implements
 		PropertyRows {
 
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
@@ -81,9 +80,8 @@ public class RelationMembersFragment extends Fragment implements
     }
     
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log.d(DEBUG_TAG, "onAttach");
+    public void onAttachToContext(Context context) {
+        Log.d(DEBUG_TAG, "onAttachToContext");
 //        try {
 //            mListener = (OnPresetSelectedListener) activity;
 //        } catch (ClassCastException e) {

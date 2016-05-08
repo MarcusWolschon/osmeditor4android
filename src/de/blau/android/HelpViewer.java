@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Locale;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Build;

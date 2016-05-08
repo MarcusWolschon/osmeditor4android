@@ -15,7 +15,6 @@ import java.util.TreeSet;
 
 import org.acra.ACRA;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -61,6 +60,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.ValueWithCount;
+import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.KeyValue;
 import de.blau.android.util.NetworkStatus;
@@ -72,7 +72,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 
 
 	
-public class TagEditorFragment extends Fragment implements
+public class TagEditorFragment extends BaseFragment implements
 		PropertyRows, EditorUpdate {
 
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
@@ -174,15 +174,14 @@ public class TagEditorFragment extends Fragment implements
     }
     
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log.d(DEBUG_TAG, "onAttach");
+    public void onAttachToContext(Context context) {
+        Log.d(DEBUG_TAG, "onAttachToContext");
         try {
-            nameAdapters = (NameAdapters) activity;
-            formUpdate = (FormUpdate) activity;
-            presetFilterUpdate = (PresetFilterUpdate) activity;
+            nameAdapters = (NameAdapters) context;
+            formUpdate = (FormUpdate) context;
+            presetFilterUpdate = (PresetFilterUpdate) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement NameAdapters. FormUpdate and PresetFilterUpdate");
+            throw new ClassCastException(context.toString() + " must implement NameAdapters. FormUpdate and PresetFilterUpdate");
         }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();

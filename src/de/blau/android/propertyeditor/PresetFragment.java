@@ -3,7 +3,7 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,9 +33,10 @@ import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SearchIndexUtils;
 
-public class PresetFragment extends Fragment implements PresetFilterUpdate, PresetClickHandler {
+public class PresetFragment extends BaseFragment implements PresetFilterUpdate, PresetClickHandler {
 	
 	private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 	
@@ -77,13 +78,12 @@ public class PresetFragment extends Fragment implements PresetFilterUpdate, Pres
     }
     
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log.d(DEBUG_TAG, "onAttach");
+    public void onAttachToContext(Context context) {
+        Log.d(DEBUG_TAG, "onAttachToContext");
         try {
-            mListener = (OnPresetSelectedListener) activity;
+            mListener = (OnPresetSelectedListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
+            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
         }
     }
 

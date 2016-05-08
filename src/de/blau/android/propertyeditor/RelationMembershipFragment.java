@@ -8,11 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
@@ -43,9 +41,10 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.BaseFragment;
 import de.blau.android.util.StringWithDescription;
 
-public class RelationMembershipFragment extends Fragment implements
+public class RelationMembershipFragment extends BaseFragment implements
 		PropertyRows,
 		OnItemSelectedListener {
 	
@@ -74,13 +73,12 @@ public class RelationMembershipFragment extends Fragment implements
     }
     
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log.d(DEBUG_TAG, "onAttach");
+    public void onAttachToContext(Context context) {
+        Log.d(DEBUG_TAG, "onAttachToContext");
         try {
-        	tagListener = (EditorUpdate) activity;
+        	tagListener = (EditorUpdate) context;
         } catch (ClassCastException e) {
-        	throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
+        	throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
         }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
