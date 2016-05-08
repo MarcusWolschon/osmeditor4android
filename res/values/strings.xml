@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Dialogs -->
     <string name="transfer_download_current_dialog_title">Caution!</string>
     <string name="transfer_download_current_dialog_message">You have made some changes. Do you want to upload them instead of discard?</string>
@@ -10,8 +11,8 @@
     <string name="upload_problem_message">Some or all data was not uploaded. Try uploading again later if this was only a temporary problem.</string>
     <string name="upload_conflict_title">Upload conflict</string>
     <string name="upload_conflict_message_version">%1$s \nhas local version %2$s \nand on the server %3$s </string>
-	<string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the server</string>
-	<string name="upload_conflict_message_referential">%1$s \nwas deleted locally \nbut has references on the server </string>
+    <string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the server</string>
+    <string name="upload_conflict_message_referential">%1$s \nwas deleted locally \nbut has references on the server </string>
     <string name="use_local_version">Use \nlocal \nversion</string>
     <string name="use_server_version">Use \nversion \non server</string>
     <string name="no_login_data_title">Authentication failed</string>
@@ -104,9 +105,9 @@
     <string name="last_updated">last updated</string>
     <string name="error">error</string>
     <string name="warning">warning</string>
-	<string name="minor_issue">minor issue</string>
-	<string name="unknown_error_level">unknown error level</string>
-        
+    <string name="minor_issue">minor issue</string>
+    <string name="unknown_error_level">unknown error level</string>
+
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_unsaved_changes">You have unsaved changes, please upload them first.</string>
@@ -315,16 +316,16 @@
     <string name="menu_tools_background_align_apply2all">Apply (all Zooms)</string>
     <string name="menu_tools_background_contrast">Contrast</string>
     <string name="menu_tools_oauth_reset">Reset OAuth</string>
-	<string name="menu_tools_oauth_authorisation">Authorise OAuth</string>
-    
+    <string name="menu_tools_oauth_authorisation">Authorise OAuth</string>
+
     <!-- element action mode menu -->
     <string name="menu_tags">Properties</string>
     <!-- Text should be as short as possible -->
     <string name="menu_history">History</string>
     <string name="menu_merge">Join</string>
     <string name="menu_reverse">Reverse</string>
-	<string name="notreversable_description">The way is tagged with attributes that are direction dependent and cannot be reversed. Reversing the way will break the tagging.</string>
-	<string name="reverse_anyway">Reverse anyway</string>
+    <string name="notreversable_description">The way is tagged with attributes that are direction dependent and cannot be reversed. Reversing the way will break the tagging.</string>
+    <string name="reverse_anyway">Reverse anyway</string>
     <string name="deleteway_description">You are about to delete a way.\n\nYou can either keep all nodes, or delete nodes that only belong to this way and do not have any tags.</string>
     <string name="deleteway_relation_description">You are about to delete a way that is a member of one or more relations. Removing the way from the relation(s) may render it/them invalid.</string>
     <string name="deleteway_nodesnotdownloaded_description">The way contains nodes outside of the downloaded area and cannot be deleted without creating an inconsistent state. Download the whole way first before retrying.</string>
@@ -404,57 +405,57 @@
     <string name="config_licensebutton_summary">Show authors and license information</string>
     <string name="config_debugbutton_title">Debug</string>
     <string name="config_debugbutton_summary">Show some internal information</string>
-	<string name="config_mapProfile_title">Map profile</string>
-	<string name="config_mapProfile_summary">Set style and visibility of elements</string>
-	<string name="config_use_back_for_undo_title">Use back key for Undo</string>
-	<string name="config_use_back_for_undo_summary">Use the back key for undo in the main edit view</string>
-	<string name="config_largeDragArea_title">Large node drag area</string>
-	<string name="config_largeDragArea_summary">Provide large area for dragging nodes</string>
-	<string name="config_extTriggeredDownloadRadius_title">Download radius</string>
-	<string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 = center on map only.</string>
-	<string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
-	<string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended</string>
-	<string name="config_bugDownloadRadius_title">Notes/Bugs download radius</string>
-	<string name="config_bugDownloadRadius_summary">Radius (m) of notes/bugs downloads</string>
-	<string name="config_maxBugDownloadSpeed_title">Maximum notes/bug auto-download speed</string>
-	<string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes/bugs auto-download is suspended</string>
-	<string name="config_bugFilter_title">Filter for Notes/Bugs</string>
-	<string name="config_bugFilter_summary">Select which elements are displayed on the notes/bug layer</string>
-	<string name="config_enableNameSuggestions_title">Enable name suggestions</string>
-	<string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag</string>
-	<string name="config_enableAutoPreset_title">Enable auto preset</string>
-	<string name="config_enableAutoPreset_summary">Automatically add preset when name suggestion is selected</string>
-	<string name="config_splitActionBarEnabled_title">Enable split action bar</string>
-	<string name="config_splitActionBarEnabled_summary">Allow split action bar, use is device specific. Requires restart and an Android version >= 4.0</string>
-	<string name="config_gps_source_title">GPS source</string>
-	<string name="config_gps_source_summary">Source of GPS location updates</string>
-	<string name="config_gps_source_tcp_title">NMEA network source</string>
-	<string name="config_gps_source_tcp_summary">Address of TCP NMEA source as host:port</string>
-	<string name="config_leaveGpsDisabled_title">Leave GPS disabled</string>
-	<string name="config_leaveGpsDisabled_summary">Don\'t ask user to turn GPS on if it is disabled</string>
-	<string name="config_enableLightTheme_title">Enable light theme</string>
-	<string name="config_enableLightTheme_summary">Light theme with white backgrounds</string>
-	<string name="config_category_misc">Miscellaneous</string>
-	<string name="config_address_tags">Address tags</string>
-	<string name="config_address_tags_summary">Tags used for address prediction</string>
-	<string name="config_moreprefs">More settings...</string>
-	<string name="config_tagFormEnabled_title">Display tag form</string>
-	<string name="config_tagFormEnabled_summary">Display tag form for editing</string>
-	<string name="config_followGPSbutton_title">Follow GPS button layout</string>
-	<string name="config_followGPSbutton_summary">Where the "follow GPS" button will be positioned</string>
+    <string name="config_mapProfile_title">Map profile</string>
+    <string name="config_mapProfile_summary">Set style and visibility of elements</string>
+    <string name="config_use_back_for_undo_title">Use back key for Undo</string>
+    <string name="config_use_back_for_undo_summary">Use the back key for undo in the main edit view</string>
+    <string name="config_largeDragArea_title">Large node drag area</string>
+    <string name="config_largeDragArea_summary">Provide large area for dragging nodes</string>
+    <string name="config_extTriggeredDownloadRadius_title">Download radius</string>
+    <string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 = center on map only.</string>
+    <string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
+    <string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended</string>
+    <string name="config_bugDownloadRadius_title">Notes/Bugs download radius</string>
+    <string name="config_bugDownloadRadius_summary">Radius (m) of notes/bugs downloads</string>
+    <string name="config_maxBugDownloadSpeed_title">Maximum notes/bug auto-download speed</string>
+    <string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes/bugs auto-download is suspended</string>
+    <string name="config_bugFilter_title">Filter for Notes/Bugs</string>
+    <string name="config_bugFilter_summary">Select which elements are displayed on the notes/bug layer</string>
+    <string name="config_enableNameSuggestions_title">Enable name suggestions</string>
+    <string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag</string>
+    <string name="config_enableAutoPreset_title">Enable auto preset</string>
+    <string name="config_enableAutoPreset_summary">Automatically add preset when name suggestion is selected</string>
+    <string name="config_splitActionBarEnabled_title">Enable split action bar</string>
+    <string name="config_splitActionBarEnabled_summary">Allow split action bar, use is device specific. Requires restart and an Android version >= 4.0</string>
+    <string name="config_gps_source_title">GPS source</string>
+    <string name="config_gps_source_summary">Source of GPS location updates</string>
+    <string name="config_gps_source_tcp_title">NMEA network source</string>
+    <string name="config_gps_source_tcp_summary">Address of TCP NMEA source as host:port</string>
+    <string name="config_leaveGpsDisabled_title">Leave GPS disabled</string>
+    <string name="config_leaveGpsDisabled_summary">Don\'t ask user to turn GPS on if it is disabled</string>
+    <string name="config_enableLightTheme_title">Enable light theme</string>
+    <string name="config_enableLightTheme_summary">Light theme with white backgrounds</string>
+    <string name="config_category_misc">Miscellaneous</string>
+    <string name="config_address_tags">Address tags</string>
+    <string name="config_address_tags_summary">Tags used for address prediction</string>
+    <string name="config_moreprefs">More settings...</string>
+    <string name="config_tagFormEnabled_title">Display tag form</string>
+    <string name="config_tagFormEnabled_summary">Display tag form for editing</string>
+    <string name="config_followGPSbutton_title">Follow GPS button layout</string>
+    <string name="config_followGPSbutton_summary">Where the "follow GPS" button will be positioned</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>
     <string name="preset_download_failed">The preset file could not be downloaded. The preset will not work.</string>
     <string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
     <string name="preset_download_missing_images">The preset file was successfully downloaded. However, some icons could not be downloaded and will be missing.</string>
-    <!--  changes -->
+    <!-- changes -->
     <string name="changes_deleted">"%1$s" deleted</string>
     <string name="changes_changed">"%1$s" changed</string>
     <string name="changes_created">"%1$s" created</string>
     <string name="confirm_upload_title">Upload?</string>
     <string name="confirm_upload_text">Upload the following changes?\n%1$s</string>
-    <!--  url handler activity -->
+    <!-- url handler activity -->
     <string name="urldialog_add_preset">Add preset</string>
     <string name="urldialog_preset_exists">This preset already exists</string>
     <string name="urldialog_preset_download_successful">Preset download successful!</string>
@@ -463,7 +464,7 @@
     <string name="urldialog_api_install_successful">API install successful!</string>
     <string name="urldialog_add_api">Add API</string>
     <string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
-    <!--  common terms  -->
+    <!-- common terms -->
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
@@ -507,7 +508,7 @@
     <string name="undo_action_circulize">arrange in circle</string>
     <string name="undo_action_fix_conflict">fix conflict</string>
     <string name="undo_action_extract_node">extract node</string>
-    <!--  ACRA -->
+    <!-- ACRA -->
     <string name="crash_dialog_text">Vespucci crashed or found a serious issue the last time it ran.\n\nPlease help us by sending an error report, all you have to do is click \'OK\'.\n</string>
     <string name="crash_dialog_comment_prompt">Add any further information you believe might help and (optional) your e-mail address if you want feedback.\n\nThank you!</string>
     <string name="config_category_acra">Crash Reporting</string>
@@ -516,12 +517,12 @@
     <string name="pref_acra_disabled">Crash reporting disabled</string>
     <!-- Exceptions messages -->
     <string name="exception_too_many_nodes">This operation would create a way with too many nodes.</string>
-    <!--  Notifications -->
+    <!-- Notifications -->
     <string name="alert_data_issue">OSM data issue detected</string>
     <string name="alert_note">Nearby OSM note detected</string>
     <string name="alert_bug">Nearby OSM bug detected</string>
     <string name="alert_distance_direction">in %1$d m %2$s</string>
-    <!--  Misc relation related stuff -->
+    <!-- Misc relation related stuff -->
     <string name="role">Role</string>
     <string name="role_lc">role</string>
     <string name="membership_relation_heading">Member of relation</string>
@@ -534,55 +535,43 @@
     <string name="deleterelation">Delete relation</string>
     <string name="delete_from_relation_description">You are about to delete this element from a relation.</string>
     <string name="unset_relation_type">unset relation type</string>
-    <!-- time and distance  -->
+    <!-- time and distance -->
     <string name="days">days</string>
     <string name="hours">hours</string>
     <string name="minutes">minutes</string>
     <string name="seconds">seconds</string>
     <string name="km">km</string>
     <string name="meter">meter</string>
-    <!-- Help system  -->
+    <!-- Help system -->
     <string name="toast_nohelp">No help available here!</string>
     <!-- Arrays -->
     <string-array name="gpx_visibility">
-	<item>private</item>
-	<item>public</item>
-	<item>trackable</item>
-	<item>identifiable</item>
-	</string-array>
-	<string-array name="gps_source">
-	<item>Internal</item>
-	<item>Internal NMEA</item>
-	<item>NMEA from TCP client</item>
-	<item>NMEA from TCP server</item>
-	</string-array>
-	<string-array name="bug_state">
-	<item>Open</item>
-	<item>Closed</item>
-	<item>False positive</item>
-	</string-array>
-	<string-array name="note_state">
-	<item>Open</item>
-	<item>Closed</item>
-	</string-array>
-	    <string-array name="bug_filter_entries">
-        <item>Notes</item>
-		<item>Osmose error</item>
-		<item>Osmose warning</item>
-		<item>Osmose minor issue</item>
+        <item>private</item>
+        <item>public</item>
+        <item>trackable</item>
+        <item>identifiable</item>
     </string-array>
-    <string-array translatable="false" name="bug_filter_values">
-		<item>NOTES</item>
-		<item>OSMOSE_ERROR</item>
-		<item>OSMOSE_WARNING</item>
-		<item>OSMOSE_MINOR_ISSUE</item>
+    <string-array name="gps_source">
+        <item>Internal</item>
+        <item>Internal NMEA</item>
+        <item>NMEA from TCP client</item>
+        <item>NMEA from TCP server</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Open</item>
+        <item>Closed</item>
+        <item>False positive</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Open</item>
+        <item>Closed</item>
     </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Left</item>
-		<item>Right</item>
+        <item>Right</item>
     </string-array>
-    <string-array translatable="false" name="followGPSbutton_values">
-		<item>LEFT</item>
-		<item>RIGHT</item>
+    <string-array name="followGPSbutton_values" translatable="false">
+        <item>LEFT</item>
+        <item>RIGHT</item>
     </string-array>
 </resources>

@@ -5,18 +5,18 @@
 		<item name="android:gravity">right|center_vertical</item>
 	</style>
 
-	<style name="Theme.AppCompatPrefs" parent="style/Theme.AppCompat">
+	<style name="Theme.AppCompatPrefs" parent="@style/Theme.AppCompat">
 		    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 	</style>
 	
-	<style name="Theme.AppCompatPrefsLight" parent="style/Theme.AppCompat.Light">
+	<style name="Theme.AppCompatPrefsLight" parent="@style/Theme.AppCompat.Light">
 		    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 	</style>
 
-	<style name="Theme.custom" parent="style/Theme.AppCompat">
+	<style name="Theme.custom" parent="@style/Theme.AppCompat">
 	</style>
 
-	<style name="Theme.customLight" parent="style/Theme.AppCompat.Light">
+	<style name="Theme.customLight" parent="@style/Theme.AppCompat.Light">
 	</style>
 
 	<style name="Theme.customMain" parent="@style/Theme.AppCompat.NoActionBar">
@@ -125,7 +125,7 @@
 	    <item name="android:windowNoTitle">false</item>
 	</style>
 	
-	<style name="Theme.DialogLight" parent="style/Theme.AppCompat.Light.Dialog">
+	<style name="Theme.DialogLight" parent="@style/Theme.AppCompat.Light.Dialog">
 	    <item name="android:windowNoTitle">false</item>
 	</style>
 	
@@ -137,7 +137,7 @@
 	</style>
 	
 	<!-- Dark for PropertyEditor -->
-	<style name="Theme.customTagEditor" parent="style/Theme.AppCompat">
+	<style name="Theme.customTagEditor" parent="@style/Theme.AppCompat">
 		<item name="actionBarStyle">@style/TagEditorActionBar</item>
 		<item name="android:autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
 		<item name="android:dropDownItemStyle">@style/Widget.DropDownItem</item>
@@ -269,7 +269,7 @@
 	</style>
 	
 	<!-- Light for PropertyEditor -->
-	<style name="Theme.customTagEditor.Light" parent="style/Theme.AppCompat.Light">
+	<style name="Theme.customTagEditor.Light" parent="@style/Theme.AppCompat.Light">
 		<item name="actionBarStyle">@style/TagEditorActionBarLight</item>
 		<item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
 		<!-- <item name="android:textViewStyle">@style/TextViewLight</item> -->
@@ -394,7 +394,7 @@
 	</style>
 	
 	<!-- Help Viewer -->
-	<style name="Theme.customHelpViewer" parent="style/Theme.AppCompat">
+	<style name="Theme.customHelpViewer" parent="@style/Theme.AppCompat">
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
 		<item name="drawer">@drawable/ic_drawer_holo_dark</item>
@@ -407,7 +407,7 @@
 		<item name="android:background">@color/dark_grey</item>
 	</style>
 	
-	<style name="Theme.customHelpViewer.Light" parent="style/Theme.AppCompat.Light">
+	<style name="Theme.customHelpViewer.Light" parent="@style/Theme.AppCompat.Light">
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
 		<item name="drawer">@drawable/ic_drawer_holo_light</item>
@@ -416,7 +416,7 @@
 		<item name="Drawer">@style/DrawerLight</item>
 	</style>
 	
-	<style name="DrawerLight" parent="style/Theme.AppCompat.Light">
+	<style name="DrawerLight" parent="@style/Theme.AppCompat.Light">
 		<item name="android:background">@color/dark_grey</item>
 	</style>
 </resources>
