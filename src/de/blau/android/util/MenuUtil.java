@@ -40,24 +40,25 @@ public class MenuUtil {
 		int nonVisibleItems = 0;
 		for (int i=0;i < menu.size();i++) {
 			MenuItem mi = menu.getItem(i);
-			if (!mi.isVisible()) {
+			if (!mi.isVisible() || mi.getIcon() == null) {
 				nonVisibleItems++;
 			}
 		}
-		int tempMaxItems = maxItems + nonVisibleItems;
+		int tempMaxItems = maxItems;
 		if ((menu.size() - nonVisibleItems) > maxItems) {
 			// will have overflow menu
 			tempMaxItems--;
 		}
 		
 		// Log.d("MenuUtil","menu size " + menu.size() + " maxItems " + maxItems + " nonVisible " + nonVisibleItems);
-		for (int i=0;i < menu.size();i++) { // max 10 even if we have more space
+		for (int i=0,j=0;i < menu.size();i++) { // max 10 even if we have more space
 			MenuItem mi = menu.getItem(i);
 			// Log.d("MenuUtil","menu " + mi.getTitle());
-			if (i < Math.min(Math.min(menu.size(),tempMaxItems),10)) {
-			if (mi.isVisible()) {
-				MenuItemCompat.setShowAsAction(menu.getItem(i),MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-			} 
+			if (j < Math.min(tempMaxItems,10)) {
+				if (mi.isVisible() && mi.getIcon() != null) {
+					MenuItemCompat.setShowAsAction(menu.getItem(i),MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+					j++;
+				} 
 			} else {
 				MenuItemCompat.setShowAsAction(menu.getItem(i),MenuItemCompat.SHOW_AS_ACTION_NEVER);
 			}
