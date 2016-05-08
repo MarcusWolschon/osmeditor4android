@@ -397,27 +397,33 @@
 	
 	<!-- Help Viewer -->
 	<style name="Theme.customHelpViewer" parent="@style/Theme.AppCompat">
-		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
-		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
-		<item name="drawer">@drawable/ic_drawer_holo_dark</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_dark</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_dark</item>
 		<item name="Drawer">@style/DrawerDark</item>
+		<item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
 	</style>
 
+	<style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+    
 	<style name="DrawerDark" parent="Theme.customMain.Light">
 		<item name="android:background">@color/dark_grey</item>
 	</style>
 	
 	<style name="Theme.customHelpViewer.Light" parent="@style/Theme.AppCompat.Light">
-		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
-		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
-		<item name="drawer">@drawable/ic_drawer_holo_light</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_light</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_light</item>
-		<item name="Drawer">@style/DrawerLight</item>
+		<item name="Drawer">@style/DrawerLight</item>     
+		<item name="drawerArrowStyle">@style/DrawerArrowStyleLight</item>
 	</style>
 	
+	<style name="DrawerArrowStyleLight" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/black</item>
+    </style>
+    
 	<style name="DrawerLight" parent="@style/Theme.AppCompat.Light">
 		<item name="android:background">@color/dark_grey</item>
 	</style>

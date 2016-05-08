@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -46,6 +47,8 @@ import de.blau.android.util.BugFixedAppCompatActivity;
  */
 public class HelpViewer extends BugFixedAppCompatActivity {
 	
+	static String DEBUG_TAG = HelpViewer.class.getName();
+	
 	class HelpItem implements Comparable<HelpItem> {
 		boolean displayLanguage = false;
 		String language;
@@ -74,6 +77,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 	public static final String TOPIC = "topic";
 	WebView helpView;
 	
+	ActionBarDrawerToggle mDrawerToggle;
 	// drawer that will be our ToC
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -98,6 +102,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		String topic = getString(topicId); // this assumes that the resources are the same, which is probably safe
 		
 		setContentView(R.layout.help_drawer);
+
 		
 //        // Find the toolbar view inside the activity layout
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.helpToolbar);
@@ -125,9 +130,11 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		WebSettings helpSettings = helpView.getSettings();
 		helpSettings.setDefaultFontSize(12);
 		helpSettings.setSupportZoom(true);
-		helpSettings.setBuiltInZoomControls(true);
+		
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			helpSettings.setDisplayZoomControls(false); // don't display +-
+		} else {
+			helpSettings.setBuiltInZoomControls(true);
 		}
 		helpView.setWebViewClient(new HelpViewWebViewClient());
 		fl.addView(helpView);
@@ -138,10 +145,9 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		
 		actionbar.setHomeButtonEnabled(true);
 		actionbar.setDisplayHomeAsUpEnabled(true);
-		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.okay, R.string.okay);
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.okay, R.string.okay);
 		mDrawerToggle.setDrawerIndicatorEnabled(true);
-		mDrawerLayout.addDrawerListener(mDrawerToggle);
-		
+		mDrawerLayout.addDrawerListener(mDrawerToggle);	
 
 		try {
 			List<String> defaultList = Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage()));
@@ -214,34 +220,42 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		return true;
  	}
  	
+ 	@Override
+ 	public boolean onOptionsItemSelected(final MenuItem item) {
+ 		if (mDrawerToggle.onOptionsItemSelected(item)) {
+ 			return true;
+ 		}
+ 		Log.d(DEBUG_TAG, "onOptionsItemSelected");
+ 		switch (item.getItemId()) {
+ 		case R.id.help_menu_back:
+ 			if (helpView.canGoBack()) {
+ 				helpView.goBack();
+ 				// getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
+ 			} else {
+ 				onBackPressed(); // return to caller
+ 			}
+ 			return true;
+
+ 		case R.id.help_menu_forward:
+ 			if (helpView.canGoForward()) {
+ 				helpView.goForward();
+ 				// getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
+ 			}
+ 			return true;
+ 		}
+ 		return false;
+ 	}
+
 	@Override
-	public boolean onOptionsItemSelected(final MenuItem item) {
-		Log.d("Main", "onOptionsItemSelected");
-		switch (item.getItemId()) {
-		case R.id.help_menu_back:
-			if (helpView.canGoBack()) {
-				helpView.goBack();
-				// getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
-			} else {
-				onBackPressed(); // return to caller
-			}
-			return true;
-			
-		case R.id.help_menu_forward:
-			if (helpView.canGoForward()) {
-				helpView.goForward();
-				// getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
-			}
-			return true;
-		case android.R.id.home:
-			if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-				mDrawerLayout.closeDrawer(mDrawerList);
-			} else {
-				mDrawerLayout.openDrawer(mDrawerList);
-			}
-			return true;
-		}
-		return false;
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 	
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
