@@ -47,6 +47,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 public class RelationMembersFragment extends BaseFragment implements
 		PropertyRows {
@@ -829,33 +830,9 @@ public class RelationMembersFragment extends BaseFragment implements
 		CheckBox headerCheckBox = (CheckBox) getView().findViewById(R.id.header_member_selected);
 		headerCheckBox.setChecked(false);
 	}
-	
-	public void scrollToRow(final RelationMemberRow row,final boolean up, boolean force) {	
-		final View sv = getView();
-		Rect scrollBounds = new Rect();
-		sv.getHitRect(scrollBounds);
-		if (row != null && row.getLocalVisibleRect(scrollBounds)&& !force) {
-			return; // already on screen
-		} 
-		if (row==null) {
-			new Handler().post(new Runnable() {
-				@Override
-				public void run() {
-					if (sv != null && sv instanceof ScrollView) { // should always be the case
-						((ScrollView)sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
-					}
-				}
-			});
-		} else {
-			new Handler().post(new Runnable() {
-				@Override
-				public void run() {
-					if (sv != null && sv instanceof ScrollView) { // should always be the case
-						((ScrollView)sv).scrollTo(0, up ? row.getTop(): row.getBottom());
-					}
-				}
-			});
-		}
+		
+	public void scrollToRow(final View row,final boolean up, boolean force) {
+		Util.scrollToRow(getView(), row, up, force);
 	}
 	
 	long getOsmId() {

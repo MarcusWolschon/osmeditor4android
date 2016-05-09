@@ -838,6 +838,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					View v = ll2.getChildAt(i);
 					if (v instanceof TagTextRow && ((TagTextRow)v).getKey().equals(key)) {
 						((TagTextRow)v).getValueView().requestFocus();
+						Util.scrollToRow(sv, v, true, true);
 						found = true;
 						break;
 					}

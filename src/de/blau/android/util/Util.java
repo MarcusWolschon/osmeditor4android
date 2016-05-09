@@ -15,8 +15,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Build;
+import android.os.Handler;
 import android.view.Display;
+import android.view.View;
+import android.widget.ScrollView;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.osm.Node;
@@ -201,4 +205,38 @@ public class Util {
 
 		return (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) && size.x > size.y;
     }
+    
+	/**
+	 * Scroll to the supplied view 
+	 * @param sv the ScrollView to scroll
+	 * @param row the row to display, if null scrool to top or bottom of sv
+	 * @param up
+	 * @param force
+	 */
+	public static void scrollToRow(final View sv, final View row,final boolean up, boolean force) {	
+		Rect scrollBounds = new Rect();
+		sv.getHitRect(scrollBounds);
+		if (row != null && row.getLocalVisibleRect(scrollBounds)&& !force) {
+			return; // already on screen
+		} 
+		if (row==null) {
+			new Handler().post(new Runnable() {
+				@Override
+				public void run() {
+					if (sv != null && sv instanceof ScrollView) { // should always be the case
+						((ScrollView)sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
+					}
+				}
+			});
+		} else {
+			new Handler().post(new Runnable() {
+				@Override
+				public void run() {
+					if (sv != null && sv instanceof ScrollView) { // should always be the case
+						((ScrollView)sv).scrollTo(0, up ? row.getTop(): row.getBottom());
+					}
+				}
+			});
+		}
+	}
 }
