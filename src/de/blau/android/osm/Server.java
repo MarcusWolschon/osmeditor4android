@@ -338,7 +338,7 @@ public class Server {
 						result.dbStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "database"));
 						result.apiStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "api"));
 						result.gpxStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "gpx"));
-						Log.d("Server","getCapabilities service status FB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
+						Log.d("Server","getCapabilities service status DB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
 					}	
 					if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {
 						if (result.imageryBlacklist == null) {
@@ -371,7 +371,7 @@ public class Server {
 	}
 
 	public boolean apiAvailable() {
-		return capabilities.apiStatus.equals(Capabilities.Status.ONLINE);
+		return capabilities.apiStatus.equals(Capabilities.Status.ONLINE) || capabilities.apiStatus.equals(Capabilities.Status.READONLY);
 	}
 	
 	public boolean readableDB() {
