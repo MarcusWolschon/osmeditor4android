@@ -1764,6 +1764,9 @@ public class Preset implements Serializable {
 					return false;
 				}
 				MatchType type = getMatchType(key);
+				if (type==MatchType.NONE) {
+					continue;
+				}
 				String otherTagValue = tagSet.get(key);		
 				if (!tag.getValue().equals(otherTagValue) && type!=MatchType.KEY) {
 					return false;
@@ -1786,6 +1789,10 @@ public class Preset implements Serializable {
 				String key = tag.getKey();
 				if (tagSet.containsKey(key)) { // key could have null value in the set
 					// value not empty
+					if (getMatchType(key)==MatchType.NONE) {
+						// don't count this
+						break;
+					}
 					if (getMatchType(key)==MatchType.KEY) {
 						matches++;
 						break;
