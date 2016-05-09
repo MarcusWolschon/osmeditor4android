@@ -346,9 +346,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				sensorManager = null;
 			}
 		}
-		
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		
+
 		LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(R.layout.main, null);
 		rl = (RelativeLayout) ml.findViewById(R.id.mainMap);// new RelativeLayout(getApplicationContext());
 		
@@ -821,8 +819,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		} else {
 			actionbar.show();
 		}
-		setSupportProgressBarIndeterminateVisibility(false);
-		Util.resetProgressBarShown();
 		FloatingActionButton follow = getFollowButton();
 		if (follow != null) {
 			RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();

@@ -40,6 +40,7 @@ public class CommitTask extends AsyncTask<Server, Void, Boolean> {
 	 */
 	@Override
 	protected Boolean doInBackground(Server... servers) {
+		Log.d(DEBUG_TAG,"doInBackGround");
 		boolean result = true;
 		Server server = servers[0];
 		if (!bug.isNew()) {

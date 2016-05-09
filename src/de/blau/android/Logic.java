@@ -2902,12 +2902,13 @@ public class Logic {
 	 * @param closeChangeset Whether to close the changeset after upload or not.
 	 */
 	public void upload(final String comment, final String source, final boolean closeChangeset) {
+		final String PROGRESS_TAG = "data";
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, UploadResult>() {
 			
 			@Override
 			protected void onPreExecute() {
-				Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,true);
+				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
 				getDelegator().clearUndo();
 				lastComments.push(comment);
 				lastSources.push(source);
@@ -2973,7 +2974,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(UploadResult result) {
-				Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,false);
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
 				if (result.error == 0) {
 					save(); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
@@ -3011,7 +3012,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,true);
+				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING);
 			}
 			
 			@Override
@@ -3070,7 +3071,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,false);
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING);
 				if (result == 0) {
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
 				}

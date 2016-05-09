@@ -48,6 +48,7 @@
     <string name="progress_deleting_message">Deleting…</string>
     <string name="progress_searching_message">Searching…</string>
     <string name="progress_saving_message">Saving…</string>
+    <string name="progress_uploading_message">Uploading…</string>
     <string name="progress_oauth">Loading your account on openstreetmap.org for OAuth authorisation…</string>
     <string name="upload_comment_label">Comment:</string>
     <string name="upload_source_label">Source:</string>

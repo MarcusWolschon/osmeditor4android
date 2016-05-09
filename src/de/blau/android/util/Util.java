@@ -26,8 +26,6 @@ import de.blau.android.osm.Way;
 
 public class Util {
 	
-	static int progressBarShown = 0;
-	
 	static public ArrayList<String> getArrayList(String s) {
 		ArrayList<String> v = new ArrayList<String>();
 		v.add(s);
@@ -129,32 +127,6 @@ public class Util {
 		return null;
 	}
 	
-	/**
-	 * Wrapper with a counter so that we keep the progress bar on for as long as necessary
-	 * @param mainActivity
-	 * @param show
-	 */
-	public synchronized static void setSupportProgressBarIndeterminateVisibility(Main mainActivity, boolean show) {
-		if (show) {
-			if (progressBarShown <= 0) {
-				mainActivity.setSupportProgressBarIndeterminateVisibility(true);
-			}
-			progressBarShown++;	
-		} else {
-			progressBarShown--;
-			if (progressBarShown <= 0) {
-				mainActivity.setSupportProgressBarIndeterminateVisibility(false);
-			}
-		}
-	}
-
-	/**
-	 * Reset the progressbar counter to zero
-	 */
-	public synchronized static void resetProgressBarShown() {
-		progressBarShown = 0;
-	}
-
 	/**
 	 * Convert a list to a semicolon separated string
 	 * @param list

@@ -47,17 +47,24 @@ public class Progress extends DialogFragment
 	
 	public static final int PROGRESS_OAUTH = 6;
 	
+	public static final int PROGRESS_UPLOADING = 7;
+	
 	private int titleId;
 	private int messageId;
 	
 	static public void showDialog(FragmentActivity activity, int dialogType) {
-		dismissDialog(activity, dialogType);
+		showDialog(activity, dialogType, null);
+	}
+	
+	static public void showDialog(FragmentActivity activity, int dialogType, String tag) {
+		dismissDialog(activity, dialogType, tag);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
 	    Progress progressDialogFragment = newInstance(dialogType);
 	    try {
+	    	tag = getTag(dialogType) + (tag != null?"-"+tag:"");
 	    	if (progressDialogFragment != null) {
-	    		progressDialogFragment.show(fm, getTag(dialogType));
+	    		progressDialogFragment.show(fm, tag);
 	    	} else {
 	    		Log.e(DEBUG_TAG,"Unable to create dialog for value " + dialogType);
 	    	}
@@ -69,9 +76,14 @@ public class Progress extends DialogFragment
 	}
 	
 	static public void dismissDialog(FragmentActivity activity, int dialogType) {
+		dismissDialog(activity, dialogType,null);
+	}
+	
+	static public void dismissDialog(FragmentActivity activity, int dialogType, String tag) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(getTag(dialogType));
+    	tag = getTag(dialogType) + (tag != null?"-"+tag:"");
+	    Fragment fragment = fm.findFragmentByTag(tag);
 	    try {
 	    	if (fragment != null) {
 	    		ft.remove(fragment);
@@ -96,6 +108,7 @@ public class Progress extends DialogFragment
 		dismissDialog(activity,PROGRESS_SEARCHING);
 		dismissDialog(activity,PROGRESS_SAVING);
 		dismissDialog(activity,PROGRESS_OAUTH);
+		dismissDialog(activity,PROGRESS_UPLOADING);
 	}
 	
 	private static String getTag(int dialogType) {
@@ -112,6 +125,8 @@ public class Progress extends DialogFragment
 			return "dialog_saving";
 		case PROGRESS_OAUTH:
 			return "dialog_oauth";
+		case PROGRESS_UPLOADING:
+			return "dialog_uploading";
 		}
 		return null;
 	}
@@ -130,6 +145,8 @@ public class Progress extends DialogFragment
 			return createNewInstance(R.string.progress_general_title, R.string.progress_saving_message);
 		case PROGRESS_OAUTH:
 			return createNewInstance(R.string.progress_general_title, R.string.progress_oauth);
+		case PROGRESS_UPLOADING:
+			return createNewInstance(R.string.progress_general_title, R.string.progress_uploading_message);
 		}
 		return null;
 	}
