@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -16,10 +15,13 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ActionMenuView.OnMenuItemClickListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import de.blau.android.R;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * This activity allows the user to edit a list of URLs.
@@ -72,12 +75,12 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	protected final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
 	
 	public URLListEditActivity() {
-		ctx = this; // Change when changing Activity to Fragment
+		ctx = this;
 		items = new ArrayList<URLListEditActivity.ListEditItem>();
 	}
 	
 	public URLListEditActivity(List<ListEditItem> items) {
-		ctx = this; // Change when changing Activity to Fragment
+		ctx = this;
 		this.items = items;
 	}
 
@@ -88,6 +91,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 			setTheme(R.style.Theme_customLight);
 		}
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.list_activity);
 		r = getResources();
 		onLoadList(items);
 		TextView v = (TextView)View.inflate(ctx, android.R.layout.simple_list_item_1, null);
@@ -206,7 +210,9 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
  	 */
 	protected void itemEditDialog(final ListEditItem item) {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-		final View mainView = View.inflate(ctx, R.layout.listedit_edit, null);
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
+		final View mainView = inflater.inflate(R.layout.listedit_edit, null);
+		
 		final TextView editName = (TextView)mainView.findViewById(R.id.listedit_editName);
 		final TextView editValue = (TextView)mainView.findViewById(R.id.listedit_editValue);
 		if (item != null) {

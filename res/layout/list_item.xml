@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1" 
         android:orientation="vertical" 
-        android:layout_marginLeft="20dp" 
+        android:layout_marginLeft="?attr/dialogPreferredPadding" 
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"

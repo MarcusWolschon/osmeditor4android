@@ -49,6 +49,8 @@ public class Progress extends DialogFragment
 	
 	public static final int PROGRESS_UPLOADING = 7;
 	
+	public static final int PROGRESS_PRESET = 8;
+	
 	private int titleId;
 	private int messageId;
 	
@@ -109,24 +111,27 @@ public class Progress extends DialogFragment
 		dismissDialog(activity,PROGRESS_SAVING);
 		dismissDialog(activity,PROGRESS_OAUTH);
 		dismissDialog(activity,PROGRESS_UPLOADING);
+		dismissDialog(activity,PROGRESS_PRESET);
 	}
 	
 	private static String getTag(int dialogType) {
 		switch (dialogType) {
 		case PROGRESS_LOADING:
-			return "dialog_loading";
+			return "dialog_progress_loading";
 		case PROGRESS_DOWNLOAD:
-			return "dialog_download";
+			return "dialog_progress_download";
 		case PROGRESS_DELETING:
-			return "dialog_deleting";
+			return "dialog_progress_deleting";
 		case PROGRESS_SEARCHING:
-			return "dialog_searching";
+			return "dialog_progress_searching";
 		case PROGRESS_SAVING:
-			return "dialog_saving";
+			return "dialog_progress_saving";
 		case PROGRESS_OAUTH:
-			return "dialog_oauth";
+			return "dialog_progress_oauth";
 		case PROGRESS_UPLOADING:
-			return "dialog_uploading";
+			return "dialog_progress_uploading";
+		case PROGRESS_PRESET:
+			return "dialog_progress_preset";
 		}
 		return null;
 	}
@@ -147,6 +152,8 @@ public class Progress extends DialogFragment
 			return createNewInstance(R.string.progress_general_title, R.string.progress_oauth);
 		case PROGRESS_UPLOADING:
 			return createNewInstance(R.string.progress_general_title, R.string.progress_uploading_message);
+		case PROGRESS_PRESET:
+			return createNewInstance(R.string.progress_general_title, R.string.progress_preset_message);
 		}
 		return null;
 	}
@@ -182,16 +189,10 @@ public class Progress extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-    	int theme;
-		Preferences prefs = new Preferences(getActivity());
 		Context ctx = getActivity();
-		if (prefs.lightThemeEnabled()) {
-			theme = R.style.Theme_AppCompat_Light_Dialog_Alert;
-		} else {
-			theme = R.style.Theme_AppCompat_Dialog_Alert;
-		}
+		
 	   	// inflater needs to be got from a themed view or else all our custom stuff will not style correctly
-    	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(new ContextThemeWrapper(getActivity(),theme));
+    	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
     	
     	Builder builder = new AlertDialog.Builder(getActivity());
     	builder.setTitle(titleId);

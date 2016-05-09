@@ -16,22 +16,22 @@ public class ListActivity extends AppCompatActivity {
 	private ListView mListView;
 
 	protected ListView getListView() {
-	   if (mListView == null) {
-	    mListView = (ListView) findViewById(android.R.id.list);
-	   }
-	   return mListView;
+		if (mListView == null) {
+			mListView = (ListView) findViewById(android.R.id.list);
+		}
+		return mListView;
 	}
 
 	protected void setListAdapter(ListAdapter adapter) {
-	  getListView().setAdapter(adapter);
+		getListView().setAdapter(adapter);
 	}
 
 	protected ListAdapter getListAdapter() {
-	   ListAdapter adapter = getListView().getAdapter();
-	   if (adapter instanceof HeaderViewListAdapter) {
-	      return ((HeaderViewListAdapter)adapter).getWrappedAdapter();
-	   } else {
-	      return adapter;
-	   }
+		ListAdapter adapter = getListView().getAdapter();
+		if (adapter instanceof HeaderViewListAdapter) {
+			return ((HeaderViewListAdapter)adapter).getWrappedAdapter();
+		} else {
+			return adapter;
+		}
 	}
 }
