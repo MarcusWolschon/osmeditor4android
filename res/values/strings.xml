@@ -445,6 +445,8 @@
     <string name="config_tagFormEnabled_summary">Display tag form for editing</string>
     <string name="config_followGPSbutton_title">Follow GPS button layout</string>
     <string name="config_followGPSbutton_summary">Where the "follow GPS" button will be positioned</string>
+    <string name="config_fullscreenMode_title">Full screen mode</string>
+    <string name="config_fullscreenMode_summary">Behaviour on devices with "soft" keys.</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>
@@ -572,8 +574,26 @@
         <item>Left</item>
         <item>Right</item>
     </string-array>
+    <string name="follow_GPS_left" translatable="false">LEFT</string>
+    <string name="follow_GPS_right" translatable="false">RIGHT</string>
     <string-array name="followGPSbutton_values" translatable="false">
-        <item>LEFT</item>
-        <item>RIGHT</item>
+        <item>string/follow_GPS_left</item>
+        <item>string/follow_GPS_right</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Auto</item>
+		<item>Never</item>
+		<item>Force</item>
+		<item>No statusbar</item>
+    </string-array>
+    <string name="full_screen_auto" translatable="false">AUTO</string>
+    <string name="full_screen_never" translatable="false">NEVER</string>
+    <string name="full_screen_force" translatable="false">FORCE</string>
+    <string name="full_screen_no_statusbar" translatable="false">NOSTATUSBAR</string>
+    <string-array translatable="false" name="full_screen_preference_values">
+		<item>@string/full_screen_auto</item>
+		<item>@string/full_screen_never</item>
+		<item>@string/full_screen_force</item>
+		<item>@string/full_screen_no_statusbar</item>
     </string-array>
 </resources>

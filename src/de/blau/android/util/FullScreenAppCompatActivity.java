@@ -1,32 +1,26 @@
 package de.blau.android.util;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.View;
+import de.blau.android.R;
+import de.blau.android.prefs.Preferences;
 
 
 public class FullScreenAppCompatActivity extends AppCompatActivity {
 	
-	/**
-	 * See http://stackoverflow.com/questions/32294607/call-requires-api-level-11current-min-is-9-android-app-activityoncreateview
-	 * This is a workaround google refusing to fix bugs (even trivial ones) in a timely manner
-	 */
-	@SuppressLint("NewApi")
-	public View onCreateView(View parent, String name, Context context, AttributeSet attrs)
-	{
-	    if(Build.VERSION.SDK_INT >= 11)
-	      return super.onCreateView(parent, name, context, attrs);
-	    return null;
-	}
+	private static final String DEBUG_TAG = FullScreenAppCompatActivity.class.getSimpleName();
+	private boolean fullScreen = false;
 	
 	@SuppressLint("NewApi")
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+		if (fullScreen) {
 			if (hasFocus) {
 				getWindow().getDecorView().setSystemUiVisibility(
 						View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -37,5 +31,31 @@ public class FullScreenAppCompatActivity extends AppCompatActivity {
 						| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
 						);}
 		}
+	}
+	
+	/**
+	 * This is likely not all to reliable
+	 * @return true if we should use  the full screen layout
+	 */
+	protected boolean useFullScreen(Preferences prefs) {
+		fullScreen = false;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			String fullscreenPref = prefs.getFullscreenMode();
+			if (fullscreenPref.equals(getString(R.string.full_screen_auto))) {
+				fullScreen = !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
+				Log.d(DEBUG_TAG,"full screen auto " + fullScreen);
+			} else if (fullscreenPref.equals(getString(R.string.full_screen_never))) {
+				fullScreen = false;
+				Log.d(DEBUG_TAG,"full screen never");
+			} else if (fullscreenPref.equals(getString(R.string.full_screen_force))) {
+				fullScreen = true;
+				Log.d(DEBUG_TAG,"full screen force");
+			} else if (fullscreenPref.equals(getString(R.string.full_screen_no_statusbar))) {
+				fullScreen = true;
+				Log.d(DEBUG_TAG,"ful screen no statusbar");
+				return false; // ugly hack
+			}
+		} 
+		return fullScreen;
 	}
 }

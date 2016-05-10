@@ -21,6 +21,14 @@
         	android:entryValues="@array/followGPSbutton_values"
         	android:defaultValue="@string/follow_GPS_left"
 		/>
+	    <android.support.v7.preference.ListPreference
+	   		android:key="@string/config_fullscreenMode_key"
+			android:title="@string/config_fullscreenMode_title"
+			android:summary="@string/config_fullscreenMode_summary"
+			android:entries="@array/full_screen_preference_entries"
+        	android:entryValues="@array/full_screen_preference_values"
+        	android:defaultValue="@string/full_screen_auto"
+		/>
 	    <android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_generateAlerts_key"
 			android:title="@string/config_generateAlerts_title"

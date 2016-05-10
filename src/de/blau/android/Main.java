@@ -67,7 +67,6 @@ import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
@@ -347,8 +346,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			}
 		}
 
-		LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(R.layout.main, null);
-		rl = (RelativeLayout) ml.findViewById(R.id.mainMap);// new RelativeLayout(getApplicationContext());
+		int layout = R.layout.main;
+		if (useFullScreen(prefs)) {
+			Log.d(DEBUG_TAG, "using full screen layout");
+			layout = R.layout.main_fullscreen;
+		}
+		LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
+		rl = (RelativeLayout) ml.findViewById(R.id.mainMap);;
 		
 		if (map != null) {
 			map.onDestroy();
@@ -821,6 +825,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		FloatingActionButton follow = getFollowButton();
 		if (follow != null) {
+			if (ensureGPSProviderEnabled()) {
 			RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();
 			if (prefs.followGPSbuttonPosition().equals("LEFT")) {
 				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,0);
@@ -831,6 +836,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 			}
 			follow.setLayoutParams(params);
+			} else {
+				follow.hide();
+			}
 		}
 	}
 	

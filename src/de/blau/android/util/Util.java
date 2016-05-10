@@ -22,7 +22,6 @@ import android.view.Display;
 import android.view.View;
 import android.widget.ScrollView;
 import de.blau.android.Logic;
-import de.blau.android.Main;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
@@ -189,8 +188,6 @@ public class Util {
     
     @SuppressLint("NewApi")
 	public static boolean isLandscape(Activity activity) {
-		int screenSize = activity.getResources().getConfiguration().screenLayout &
-		        Configuration.SCREENLAYOUT_SIZE_MASK;
 		// reliable determine if we are in landscape mode
 		Display display = activity.getWindowManager().getDefaultDisplay();
 		Point size = new Point();
@@ -203,7 +200,13 @@ public class Util {
 			size.y = display.getHeight();
 		}
 
-		return (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) && size.x > size.y;
+		return isLarge(activity) && size.x > size.y;
+    }
+    
+    public static boolean isLarge(Activity activity) {
+    	int screenSize = activity.getResources().getConfiguration().screenLayout &
+		        Configuration.SCREENLAYOUT_SIZE_MASK;
+    	return (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE);
     }
     
 	/**

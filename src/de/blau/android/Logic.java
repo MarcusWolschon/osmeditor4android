@@ -75,7 +75,6 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Util;
 import de.blau.android.util.collections.MRUList;
 
 /**

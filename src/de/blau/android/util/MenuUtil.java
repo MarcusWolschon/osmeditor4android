@@ -67,7 +67,7 @@ public class MenuUtil {
 	
 	public static void setupBottomBar(Activity activity, ActionMenuView bar) {
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-		if (Util.isLandscape(activity)) {
+		if (Util.isLarge(activity)) {
 			params.width = FrameLayout.LayoutParams.WRAP_CONTENT;
 			params.gravity = Gravity.END;
 		}

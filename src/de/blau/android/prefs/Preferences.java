@@ -54,6 +54,8 @@ public class Preferences {
 	
 	private final String followGPSbutton;
 	
+	private final String fullscreenMode;
+	
 	private int gpsInterval;
 	
 	private float gpsDistance;
@@ -231,6 +233,8 @@ public class Preferences {
 		showWayIcons = prefs.getBoolean(r.getString(R.string.config_showWayIcons_key), true);
 		
 		followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), "LEFT");
+		
+		fullscreenMode = prefs.getString(r.getString(R.string.config_fullscreenMode_key), r.getString(R.string.full_screen_auto));
 	}
 	
 	/**
@@ -471,5 +475,9 @@ public class Preferences {
 	
 	public String followGPSbuttonPosition() {
 		return followGPSbutton;
+	}
+	
+	public String getFullscreenMode() {
+		return fullscreenMode;
 	}
 }

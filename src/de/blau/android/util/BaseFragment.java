@@ -1,10 +1,10 @@
 package de.blau.android.util;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.v4.app.Fragment;
-import android.annotation.TargetApi;
 
 /**
  * Workaround deprecation of onAttach(Activity activity)

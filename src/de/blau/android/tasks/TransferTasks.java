@@ -21,7 +21,6 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.IssueAlert;
-import de.blau.android.util.Util;
 
 public class TransferTasks {
 
