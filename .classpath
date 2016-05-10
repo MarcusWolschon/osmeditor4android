@@ -7,5 +7,12 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK/library"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.andmore.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.andmore.DEPENDENCIES"/>
+	<classpathentry kind="con" path="org.eclipse.andmore.ANDROID_FRAMEWORK"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/android-support-design"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/android-support-v7-appcompat"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/android-support-v7-preference"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/android-support-v7-recyclerview"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

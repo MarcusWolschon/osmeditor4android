@@ -459,20 +459,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		
     	PresetItem mainPreset = tagListener.getBestPreset();
     	editableView.setTitle(mainPreset);
-//    	currently it is not clear how to get the view to re-layout
-//    	editableView.headerIconView.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				Log.d(DEBUG_TAG,"onClick called");
-//				if (editableView.rowLayout.getVisibility()==View.GONE) {
-//					editableView.open();
-//				} else {
-//					editableView.close();
-//				}
-//				getView().requestLayout();
-//				getView().invalidate();
-//			}});
-//    	
+    	
     	LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
     	Map<String, String> nonEditable;
     	if (mainPreset != null) {
