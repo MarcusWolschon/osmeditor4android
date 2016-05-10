@@ -722,7 +722,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 								description=v;
 							}
 
-							if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
+							if ("".equals(value) && (defaultValue != null && !"".equals(defaultValue))) {
 								row.addCheck(description, v, v.equals(defaultValue), onCheckedChangeListener);
 							} else {
 								row.addCheck(description, v, list.contains(v), onCheckedChangeListener);

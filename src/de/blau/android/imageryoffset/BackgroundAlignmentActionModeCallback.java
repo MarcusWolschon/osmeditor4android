@@ -113,7 +113,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				stub.setLayoutResource(R.layout.toolbar);
 				stub.setInflatedId(R.id.cab_stub);
 				cabBottomBar = (ActionMenuView) stub.inflate();
-			} else if (v instanceof Toolbar) {
+			} else if (v instanceof ActionMenuView) {
 				cabBottomBar = (ActionMenuView) v;
 				cabBottomBar.setVisibility(View.VISIBLE);
 				cabBottomBar.getMenu().clear();

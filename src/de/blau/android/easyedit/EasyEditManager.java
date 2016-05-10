@@ -2199,7 +2199,7 @@ public class EasyEditManager {
 				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
 			}
 			View undoView = MenuItemCompat.getActionView(undo);
-			if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
+			if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android
 				Preferences prefs = new Preferences(main);
 				Context context =  new ContextThemeWrapper(main, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
 				undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
