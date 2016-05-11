@@ -35,11 +35,11 @@ __&lt;reference&gt;__        |                               | supported |
                    | ref                           | supported | required
 __&lt;key&gt;__              |                               | supported |
                    | value                         | supported | required
-                   | match                         | partial   | "key" value is supported, "none" will demote the tag from a "fixed" to a recommended key, all other values are ignored
+                   | match                         | partial   | only the "key" and "none" values are supported, "none" will demote the tag from a "fixed" to a recommended key, all other values are ignored
 __&lt;text&gt;__             |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
-                   | match                         | partial   | only the "key" value is supported, all other values are ignored
+                   | match                         | partial   | only the "key" and "none" values are supported, all other values are ignored
                    | default                       | supported | 
                    | use_last_as_default           | ignored   | 
                    | auto_increment                | ignored   |
@@ -53,7 +53,7 @@ __&lt;combo&gt;__            |                               | supported |
                    | values_sort                   | supported |
                    | delimiter                     | supported |
                    | default                       | supported |
-                   | match                         | partial   | only the "key" value is supported, all other values are ignored
+                   | match                         | partial   | only the "key" and "none" values are supported, all other values are ignored
                    | display_values                | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
                    | values_context                | supported |
@@ -70,7 +70,7 @@ __&lt;multiselect&gt;__      |                               | supported |
                    | values_sort                   | supported |
                    | delimiter                     | supported |
                    | default                       | supported |
-                   | match                         | partial   | only the "key" value is supported, all other values are ignored
+                   | match                         | partial   | only the "key" and "none" values are supported, all other values are ignored
                    | display_values                | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
                    | values_context                | supported |
@@ -94,7 +94,7 @@ __&lt;check&gt;__            |                               | supported |
                    | value_off                     | supported | 
                    | disable_off                   | supported |
                    | default                       | supported |
-                   | match                         | partial   | only the "key" value is supported, all other values are ignored
+                   | match                         | partial   | only the "key" and "none" values are supported, all other values are ignored
 __&lt;label&gt;__            |                               | ignored   |
 __&lt;space/&gt;__          |                               | ignored   |
 __&lt;optional&gt;__         |                               | supported | doesn't display anything
