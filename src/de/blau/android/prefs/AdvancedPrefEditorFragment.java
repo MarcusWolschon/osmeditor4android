@@ -41,10 +41,8 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 		} else {
 			apipref.setSummary(current.name.equals("") ? current.url : current.name);
 		}
-//		Preference loginpref = getPreferenceScreen().findPreference(KEY_PREFLOGIN);
-//		// setSummary doesn't like being passed a NULL pointer .... disabled the code for now
-//		// loginpref.setSummary(current.id.equals(AdvancedPrefDatabase.ID_DEFAULT) ? R.string.config_username_summary : null);
-//		loginpref.setSummary(R.string.config_username_summary);
+		Preference loginpref = getPreferenceScreen().findPreference(KEY_PREFLOGIN);
+		loginpref.setSummary(current.user != null && !"".equals(current.user)?current.user:r.getString(R.string.config_username_summary));
 	}
 	
 	/** Perform initialization of the advanced preference buttons (API/Presets) */
