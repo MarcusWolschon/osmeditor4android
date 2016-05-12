@@ -13,9 +13,12 @@
   <string name="no_connection_message">Det gick inte att ansluta till OSM-servern. Kontrollera Internetanslutningen eller försök igen senare.</string>
   <string name="wrong_login_data_title">Autentisering misslyckades</string>
   <string name="wrong_login_data_re_authenticate">Verifiera igen</string>
+  <string name="file_write_failed_title">Fil skrivning misslyckades</string>
+  <string name="file_write_failed_message">Det gick inte att skriva till vald fil.</string>
   <string name="welcome_title">Välkommen!</string>
   <string name="read_introduction">Läs introduktionen nu</string>
   <string name="upgrade_title">Välkommen till en ny version av Vespucci!</string>
+  <string name="read_upgrade">Läs om den nya versionen</string>
   <string name="progress_deleting_message">Tar bort...</string>
   <string name="progress_searching_message">Söker...</string>
   <string name="progress_saving_message">Sparar...</string>
