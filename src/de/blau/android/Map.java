@@ -596,42 +596,43 @@ public class Map extends View implements IMapView {
 	}
 
 	private void paintStorageBox(final Canvas canvas, List<BoundingBox> list) {
-		
-		Canvas c = canvas;
-		Bitmap b = null;
-		// Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
-		// drawing to a bitmap however will currently not be accelerated
-		if (!hasFullClippingSupport(canvas)) {
-			b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-			c = new Canvas(b);
-		} else {
-			c.save();
-		}
-		int screenWidth = getWidth();
-		int screenHeight = getHeight();
-		BoundingBox viewBox = getViewBox();
-		Path path = new Path();
-		RectF screen = new RectF(0, 0, getWidth(), getHeight());
-		for (BoundingBox bb:list) {
-			if (viewBox.intersects(bb)) { // only need to do this if we are on screen
-				float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
-				float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
-				float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox , bb.getBottom());
-				float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
-				RectF rect = new RectF(left, top, right, bottom);
-				rect.intersect(screen);
-				path.addRect(rect, Path.Direction.CW);
+		if (tmpDrawingEditMode != Mode.MODE_MOVE) {
+			Canvas c = canvas;
+			Bitmap b = null;
+			// Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
+			// drawing to a bitmap however will currently not be accelerated
+			if (!hasFullClippingSupport(canvas)) {
+				b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+				c = new Canvas(b);
+			} else {
+				c.save();
 			}
-		}
-	
-		Paint boxpaint = DataStyle.getCurrent(DataStyle.VIEWBOX).getPaint();
-		c.clipPath(path, Region.Op.DIFFERENCE);
-		c.drawRect(screen, boxpaint);
-			
-		if (!hasFullClippingSupport(canvas)) {
-			canvas.drawBitmap(b, 0, 0, null);
-		} else {
-			c.restore();
+			int screenWidth = getWidth();
+			int screenHeight = getHeight();
+			BoundingBox viewBox = getViewBox();
+			Path path = new Path();
+			RectF screen = new RectF(0, 0, getWidth(), getHeight());
+			for (BoundingBox bb:list) {
+				if (viewBox.intersects(bb)) { // only need to do this if we are on screen
+					float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
+					float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
+					float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox , bb.getBottom());
+					float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
+					RectF rect = new RectF(left, top, right, bottom);
+					rect.intersect(screen);
+					path.addRect(rect, Path.Direction.CW);
+				}
+			}
+
+			Paint boxpaint = DataStyle.getCurrent(DataStyle.VIEWBOX).getPaint();
+			c.clipPath(path, Region.Op.DIFFERENCE);
+			c.drawRect(screen, boxpaint);
+
+			if (!hasFullClippingSupport(canvas)) {
+				canvas.drawBitmap(b, 0, 0, null);
+			} else {
+				c.restore();
+			}
 		}
 	}
 	
