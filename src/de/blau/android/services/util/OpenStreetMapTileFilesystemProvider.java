@@ -16,6 +16,8 @@ import java.util.concurrent.Executors;
 import android.content.Context;
 import android.os.RemoteException;
 import android.util.Log;
+
+import de.blau.android.contract.Paths;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -69,6 +71,22 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		mThreadPool = Executors.newFixedThreadPool(2);
 
 		mTileDownloader = new OpenStreetMapTileDownloader(ctx, this);
+		
+		String tileCacheNomedia = mountPoint.getPath() + Paths.DIRECTORY_PATH_TILE_CACHE + ".nomedia"; 
+		File file = new File(tileCacheNomedia);
+		File parent = file.getParentFile();
+		if (!parent.isDirectory()) {
+			synchronized (this) {
+				file.mkdirs();
+			}
+		}	
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				Log.e(DEBUGTAG, "Unable to create " + file.getAbsolutePath() + "/" + file.getName());
+			}
+		}
 
 		if(Log.isLoggable(DEBUGTAG, Log.INFO))
 			Log.i(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
@@ -165,7 +183,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		String ext = renderer.getImageExtension();
 		return (ext == null) ? null :
 				mountPoint.getPath()
-				+ "/andnav2/tiles/" + renderer.getId() + "/" + tile.zoomLevel + "/"
+				+ Paths.DIRECTORY_PATH_TILE_CACHE + renderer.getId() + "/" + tile.zoomLevel + "/"
 				+ tile.x + "/" + tile.y + ext + ".andnav"; 
 	}
 	
