@@ -12,7 +12,6 @@ import java.util.List;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -45,6 +44,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
@@ -2873,7 +2873,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @param bottomBar the bottomToolbar to set
 	 */
 	public void setBottomBar(android.support.v7.widget.ActionMenuView bottomBar) {
-		MenuUtil.setupBottomBar(this, bottomBar);
+		MenuUtil.setupBottomBar(this, bottomBar, isFullScreen(), prefs.lightThemeEnabled());
 		this.bottomBar = bottomBar;
 	}
 	

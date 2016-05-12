@@ -454,7 +454,8 @@ public class EasyEditManager {
 					stub.setLayoutResource(R.layout.toolbar);
 					stub.setInflatedId(R.id.cab_stub);
 					cabBottomBar = (ActionMenuView) stub.inflate();
-					MenuUtil.setupBottomBar(main, cabBottomBar);
+					Preferences prefs = new Preferences(main);
+					MenuUtil.setupBottomBar(main, cabBottomBar, main.isFullScreen(), prefs.lightThemeEnabled());
 				} else if (v instanceof ActionMenuView) {
 					cabBottomBar = (ActionMenuView) v;
 					cabBottomBar.setVisibility(View.VISIBLE);

@@ -17,6 +17,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 	private Resources r;
 	private String KEY_PREFAPI;
 	private String KEY_PREFPRESET;
+	private String KEY_PREFFULLSCREEN;
 	private String KEY_PREFLOGIN;
 	
 	@Override
@@ -25,6 +26,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 		r = getResources();
 		KEY_PREFAPI = r.getString(R.string.config_api_button_key);
 		KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
+		KEY_PREFFULLSCREEN = r.getString(R.string.config_fullscreenMode_key);
 		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
 		fixUpPrefs();		
 	}
@@ -33,6 +35,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 	public void onResume() {
 		Log.d("AdvancedPrefEditor", "onResume");
 		super.onResume();
+		// final Preferences prefs = new Preferences(getActivity());
 		Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
 		AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
 		API current = db.getCurrentAPI();

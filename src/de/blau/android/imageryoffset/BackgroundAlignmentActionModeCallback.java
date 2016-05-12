@@ -133,7 +133,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				}	
 			};
 			cabBottomBar.setOnMenuItemClickListener(listener);
-			MenuUtil.setupBottomBar(main, cabBottomBar);
+			MenuUtil.setupBottomBar(main, cabBottomBar, main.isFullScreen(), prefs.lightThemeEnabled());
 		}
 		menu.clear();
 		MenuItem mi = menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(NetworkStatus.isConnected(main))

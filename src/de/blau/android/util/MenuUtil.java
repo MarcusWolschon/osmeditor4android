@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import de.blau.android.Application;
+import de.blau.android.R;
 
 public class MenuUtil {
 	
@@ -65,13 +66,20 @@ public class MenuUtil {
 		}		
 	}
 	
-	public static void setupBottomBar(Activity activity, ActionMenuView bar) {
+	public static void setupBottomBar(Activity activity, ActionMenuView bar, boolean fullScreen, boolean light) {
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 		if (Util.isLarge(activity)) {
 			params.width = FrameLayout.LayoutParams.WRAP_CONTENT;
 			params.gravity = Gravity.END;
 		}
 		bar.setLayoutParams(params);
+		if (fullScreen) {
+			if (light) {
+				bar.setPopupTheme(R.style.Theme_noOverlapMenu_Light);
+			} else {
+				bar.setPopupTheme(R.style.Theme_noOverlapMenu);
+			}
+		}
 	}
 	
 }

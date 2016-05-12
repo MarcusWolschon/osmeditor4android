@@ -234,7 +234,7 @@ public class Preferences {
 		
 		followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), "LEFT");
 		
-		fullscreenMode = prefs.getString(r.getString(R.string.config_fullscreenMode_key), r.getString(R.string.full_screen_auto));
+		fullscreenMode = prefs.getString(r.getString(R.string.config_fullscreenMode_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? r.getString(R.string.full_screen_auto) : r.getString(R.string.full_screen_never));
 	}
 	
 	/**

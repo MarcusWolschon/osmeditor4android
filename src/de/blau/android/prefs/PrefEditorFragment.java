@@ -35,7 +35,6 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 	private String KEY_MAPPROFILE;
 	private String KEY_PREFICONS;
 	private String KEY_ADVPREFS;
-	private String KEY_ADDRPREFS;
 	private String KEY_LICENSE;
 	private String KEY_DEBUG;
 
@@ -54,7 +53,6 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
-		KEY_ADDRPREFS = r.getString(R.string.config_addressprefs_key);
 		KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
 		KEY_DEBUG = r.getString(R.string.config_debugbutton_key);
 		fixUpPrefs();
