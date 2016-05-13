@@ -21,20 +21,6 @@
         	android:entryValues="@array/followGPSbutton_values"
         	android:defaultValue="@string/follow_GPS_left"
 		/>
-	    <android.support.v7.preference.CheckBoxPreference
-			android:key="@string/config_generateAlerts_key"
-			android:title="@string/config_generateAlerts_title"
-			android:summary="@string/config_generateAlerts_summary"
-			android:defaultValue="true"
-		/>
-	    <android.support.v7.preference.EditTextPreference
-			android:key="@string/config_maxAlertDistance_key"
-			android:title="@string/config_maxAlertDistance_title"
-			android:summary="@string/config_maxAlertDistance_summary"
-			android:dialogTitle="@string/config_maxAlertDistance_title"
-			android:numeric="integer"
-			android:defaultValue="100"
-		/>
 	   	<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_voiceCommandsEnabled_key"
 			android:title="@string/config_voiceCommandsEnabled_title"
@@ -60,39 +46,67 @@
 			android:defaultValue="false"
 		/>
 		<android.support.v7.preference.CheckBoxPreference
-			android:key="@string/config_closeChangesetOnSave_key"
-			android:title="@string/config_closeChangesetOnSave_title"
-			android:summary="@string/config_closeChangesetOnSave_summary"
-			android:defaultValue="true"
-		/>
-		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enableLightTheme_key"
 			android:title="@string/config_enableLightTheme_title"
 			android:summary="@string/config_enableLightTheme_summary"
 			android:defaultValue="true"
 		/>
-		<android.support.v7.preference.Preference
+		<android.support.v7.preference.CheckBoxPreference
+			android:key="@string/config_enableNameSuggestions_key"
+			android:title="@string/config_enableNameSuggestions_title"
+			android:summary="@string/config_enableNameSuggestions_summary"
+			android:defaultValue="true"
+		/>
+		<android.support.v7.preference.CheckBoxPreference
+			android:key="@string/config_splitActionBarEnabled_key"
+			android:title="@string/config_splitActionBarEnabled_title"
+			android:summary="@string/config_splitActionBarEnabled_summary"
+			android:defaultValue="true"
+		/>
+	</android.support.v7.preference.PreferenceCategory>
+		<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_editing">
+	    <android.support.v7.preference.Preference
 			android:title="@string/config_presetbutton_title"
 			android:key="@string/config_presetbutton_key"
 			android:summary="@string/config_presetbutton_summary"
 		/>
-		<android.support.v7.preference.EditTextPreference
-			android:key="@string/config_extTriggeredDownloadRadius_key"
-			android:title="@string/config_extTriggeredDownloadRadius_title"
-			android:summary="@string/config_extTriggeredDownloadRadius_summary"
-			android:dialogTitle="@string/config_extTriggeredDownloadRadius_title"
+	    <android.support.v7.preference.CheckBoxPreference
+			android:key="@string/config_generateAlerts_key"
+			android:title="@string/config_generateAlerts_title"
+			android:summary="@string/config_generateAlerts_summary"
+			android:defaultValue="true"
+		/>
+	    <android.support.v7.preference.EditTextPreference
+			android:key="@string/config_maxAlertDistance_key"
+			android:title="@string/config_maxAlertDistance_title"
+			android:summary="@string/config_maxAlertDistance_summary"
+			android:dialogTitle="@string/config_maxAlertDistance_title"
 			android:numeric="integer"
-			android:defaultValue="50"
+			android:defaultValue="100"
 		/>
-		<android.support.v7.preference.EditTextPreference
-			android:key="@string/config_maxDownloadSpeed_key"
-			android:title="@string/config_maxDownloadSpeed_title"
-			android:summary="@string/config_maxDownloadSpeed_summary"
-			android:dialogTitle="@string/config_maxDownloadSpeed_title"
-			android:numeric="decimal"
-			android:defaultValue="6"
+	    <android.support.v7.preference.EditTextPreference
+            android:defaultValue="50"
+            android:dialogTitle="@string/config_extTriggeredDownloadRadius_title"
+            android:key="@string/config_extTriggeredDownloadRadius_key"
+            android:numeric="integer"
+            android:summary="@string/config_extTriggeredDownloadRadius_summary"
+            android:title="@string/config_extTriggeredDownloadRadius_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="6"
+            android:dialogTitle="@string/config_maxDownloadSpeed_title"
+            android:key="@string/config_maxDownloadSpeed_key"
+            android:numeric="decimal"
+            android:summary="@string/config_maxDownloadSpeed_summary"
+            android:title="@string/config_maxDownloadSpeed_title" />
+	    <de.blau.android.prefs.MultiSelectListPreference
+			android:key="@string/config_bugFilter_key"
+			android:title="@string/config_bugFilter_title"
+			android:summary="@string/config_bugFilter_summary"
+			android:entries="@array/bug_filter_entries"
+        	android:entryValues="@array/bug_filter_values"
+        	android:defaultValue="@array/bug_filter_defaults"
 		/>
-		<android.support.v7.preference.EditTextPreference
+	    <android.support.v7.preference.EditTextPreference
 			android:key="@string/config_bugDownloadRadius_key"
 			android:title="@string/config_bugDownloadRadius_title"
 			android:summary="@string/config_bugDownloadRadius_summary"
@@ -108,34 +122,25 @@
 			android:numeric="decimal"
 			android:defaultValue="30"
 		/>
-		<de.blau.android.prefs.MultiSelectListPreference
-			android:key="@string/config_bugFilter_key"
-			android:title="@string/config_bugFilter_title"
-			android:summary="@string/config_bugFilter_summary"
-			android:entries="@array/bug_filter_entries"
-        	android:entryValues="@array/bug_filter_values"
-        	android:defaultValue="@array/bug_filter_defaults"
-		/>
 		<android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enableNameSuggestions_key"
 			android:title="@string/config_enableNameSuggestions_title"
 			android:summary="@string/config_enableNameSuggestions_summary"
 			android:defaultValue="true"
 		/>
-		<android.support.v7.preference.CheckBoxPreference
+	    <android.support.v7.preference.CheckBoxPreference
+			android:key="@string/config_closeChangesetOnSave_key"
+			android:title="@string/config_closeChangesetOnSave_title"
+			android:summary="@string/config_closeChangesetOnSave_summary"
+			android:defaultValue="true"
+		/>
+	    <android.support.v7.preference.CheckBoxPreference
 			android:key="@string/config_enableAutoPreset_key"
 			android:title="@string/config_enableAutoPreset_title"
 			android:summary="@string/config_enableAutoPreset_summary"
 			android:defaultValue="true"
 		/>
-		<android.support.v7.preference.CheckBoxPreference
-			android:key="@string/config_splitActionBarEnabled_key"
-			android:title="@string/config_splitActionBarEnabled_title"
-			android:summary="@string/config_splitActionBarEnabled_summary"
-			android:defaultValue="true"
-		/>
-	</android.support.v7.preference.PreferenceCategory>
-	
+    </android.support.v7.preference.PreferenceCategory>
 	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_gps">
 		<android.support.v7.preference.ListPreference 
 		    android:key="@string/config_gps_source_key"

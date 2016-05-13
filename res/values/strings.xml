@@ -342,6 +342,7 @@
     <string name="actionmode_createpath">Creating path</string>
     <string name="actionmode_multiselect">Multiselect</string>
     <!-- Preferences -->
+    <string name="config_category_editing">Data and Editing Settings</string>
     <string name="config_category_view">User Interface Settings</string>
     <string name="config_showCameraAction_title">Show camera action</string>
     <string name="config_showCameraAction_summary">Show camera icon on action bar</string>
