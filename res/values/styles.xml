@@ -262,7 +262,7 @@
 	</style>
 	
 	<style name="PagerTabStrip">
-		<item name="android:background">@android:color/black</item>
+		<item name="android:background">?attr/colorPrimary</item>
 	</style>
 	
 	<style name="Layout">
@@ -388,7 +388,7 @@
 	</style>
 	
 	<style name="PagerTabStripLight">
-		<item name="android:background">@android:color/white</item>
+		<item name="android:background">?attr/colorPrimary</item>
 	</style>
 	
 	<style name="LayoutLight">
