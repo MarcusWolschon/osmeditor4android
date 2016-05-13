@@ -352,14 +352,15 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			layout = R.layout.main_fullscreen;
 		}
 		LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
-		rl = (RelativeLayout) ml.findViewById(R.id.mainMap);;
+		rl = (RelativeLayout) ml.findViewById(R.id.mainMap);
 		
 		if (map != null) {
+			Log.d(DEBUG_TAG, "map exists .. destroying");
 			map.onDestroy();
 		}
 		map = new Map(getApplicationContext());
 		map.setId(R.id.map_view);
-		
+
 		//Register some Listener
 		MapTouchListener mapTouchListener = new MapTouchListener();
 		map.setOnTouchListener(mapTouchListener);
@@ -370,7 +371,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			map.setOnGenericMotionListener(new MotionEventListener());
 		}
 		
-		rl.addView(map,0); // index 0 so that anything in hte layout comes after it/on top 
+		rl.addView(map,0); // index 0 so that anything in the layout comes after it/on top 
 		
 		mDetector = VersionedGestureDetector.newInstance(getApplicationContext(), mapTouchListener);
 		
@@ -430,6 +431,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (Application.getLogic()==null) {
 			Log.i(DEBUG_TAG, "onCreate - creating new logic");
 			Application.newLogic(map);
+		} else {
+			Log.i(DEBUG_TAG, "onCreate - setting new map");
+			Application.getLogic().setMap(map);
 		}
 		DataStyle p = new DataStyle(getApplicationContext()); // this has side effects and needs to be done now (for now)
 		
@@ -802,6 +806,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
+		Application.getLogic().setMap(map);
 		Log.d(DEBUG_TAG, "onConfigurationChanged");
 		if (easyEditManager.isProcessingAction()) {
 			easyEditManager.invalidate();

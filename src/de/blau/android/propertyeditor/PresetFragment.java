@@ -40,8 +40,6 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	
 	private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 	
-	private static final int VIEW_ID = 123456;
-	
     public interface OnPresetSelectedListener {
         public void onPresetSelected(PresetItem item);
         
@@ -185,7 +183,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 		View view = currentGroup.getGroupView(getActivity(), this, type);
 		// view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
 		// view.setOnKeyListener(this);
-		view.setId(VIEW_ID);
+		view.setId(R.id.preset_view);
 		return view;
 	}
 		
@@ -343,11 +341,11 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
 		if (v != null) {
-			if ( v.getId() == VIEW_ID) {
+			if ( v.getId() == R.id.preset_view) {
 				Log.d(DEBUG_TAG,"got correct view in getView");
 				return v;
 			} else {
-				v = v.findViewById(VIEW_ID);
+				v = v.findViewById(R.id.preset_view);
 				if (v == null) {
 					Log.d(DEBUG_TAG,"didn't find VIEW_ID");
 				}  else {

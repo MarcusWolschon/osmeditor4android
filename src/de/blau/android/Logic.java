@@ -315,7 +315,6 @@ public class Logic {
 		map.setViewBox(viewBox);
 	}
 
-
 	/**
 	 * Set all {@link Preferences} and delegates them to {@link Tracker} and {@link Map}. The AntiAlias-Flag will be set
 	 * to {@link Paints}. Map gets repainted.
@@ -1080,7 +1079,7 @@ public class Logic {
 			rotatingWay = false;
 			draggingHandle = false;
 		}
-		Log.d("Logic","handleTouchEventDown creating checkpoints");
+		Log.d(DEBUG_TAG,"handleTouchEventDown creating checkpoints");
 		if (draggingNode || draggingWay) {
 			if (draggingMultiselect) {
 				createCheckpoint(R.string.undo_action_moveobjects);
@@ -1239,6 +1238,7 @@ public class Logic {
 	 * @param screenTransY Movement on the screen.
 	 */
 	private void performTranslation(final float screenTransX, final float screenTransY) {
+		// Log.d(DEBUG_TAG,"performTranslation " + screenTransX + " " + screenTransY);
 		int height = map.getHeight();
 		int lon = xToLonE7(screenTransX);
 		int lat = yToLatE7(height - screenTransY);

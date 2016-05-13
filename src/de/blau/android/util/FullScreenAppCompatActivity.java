@@ -34,6 +34,7 @@ public class FullScreenAppCompatActivity extends BugFixedAppCompatActivity {
 					Log.d(DEBUG_TAG,"onSystemUiVisibilityChange " + Integer.toHexString(visibility));
 					if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
 						if (fullScreen) {
+							handler.removeCallbacks(navHider);
 							handler.postDelayed(navHider, 2000); 
 						}
 					} else {
