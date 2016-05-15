@@ -388,6 +388,7 @@
 	</style>
 	
 	<style name="PagerTabStripLight">
+	    <item name="android:textColor">?attr/colorAccent</item>
 		<item name="android:background">?attr/colorPrimary</item>
 	</style>
 	

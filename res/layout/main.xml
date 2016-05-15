@@ -39,7 +39,9 @@
             android:layout_centerVertical="true"
             android:layout_gravity="top"
             android:clickable="true"
-            android:src="@drawable/ic_gps_fixed_white_36dp"
+            android:src="@drawable/ic_gps_fixed_black_36dp"
+        	android:theme="@style/Theme.customMain"
+        	app:backgroundTint="?attr/colorControlNormal"
             app:fabSize="mini"
             app:useCompatPadding="true" />
 

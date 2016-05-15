@@ -13,11 +13,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewCompat;
 import android.view.Display;
 import android.view.View;
 import android.widget.ScrollView;
@@ -241,5 +244,13 @@ public class Util {
 				}
 			});
 		}
+	}
+
+	public static void setBackgroundTintList(FloatingActionButton fab, ColorStateList tint) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			fab.setBackgroundTintList(tint);
+	    } else {
+	    	ViewCompat.setBackgroundTintList(fab, tint);
+	    }
 	}
 }

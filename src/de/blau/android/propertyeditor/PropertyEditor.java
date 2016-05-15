@@ -51,6 +51,7 @@ import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StreetTagValueAdapter;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ExtendedViewPager;
 
@@ -259,7 +260,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		mViewPager = (ExtendedViewPager) findViewById(R.id.pager);
 		PagerTabStrip pagerTabStrip = (PagerTabStrip) mViewPager.findViewById(R.id.pager_header);
 		pagerTabStrip.setDrawFullUnderline(true);
-		pagerTabStrip.setTabIndicatorColorResource(android.R.color.holo_blue_dark);
+		pagerTabStrip.setTabIndicatorColor(ThemeUtils.getStyleAttribColorValue(this,R.attr.colorAccent,R.color.dark_grey));
 
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayShowTitleEnabled(false);

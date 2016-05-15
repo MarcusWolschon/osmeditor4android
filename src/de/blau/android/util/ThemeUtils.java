@@ -30,7 +30,11 @@ public final class ThemeUtils {
     public static int getStyleAttribColorValue(final Context context, final int attribResId, final int defaultValue) {
         final TypedValue tv = new TypedValue();
         final boolean found = context.getTheme().resolveAttribute(attribResId, tv, true);
-        return found ? tv.data : defaultValue;
+        if (!found) {
+        	Log.d("ThemeUtils", "themed color not found");
+        	return defaultValue;
+        }
+        return tv.data;
     }
     
     public static int getResIdFromAttribute(final Context context,final int attr)

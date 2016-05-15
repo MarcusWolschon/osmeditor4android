@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.hardware.Sensor;
@@ -42,6 +43,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -393,7 +395,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			}
 		});
 
-		
+		// follow GPS button setup
 		follow = (FloatingActionButton)rl.findViewById(R.id.follow);
 		
 		follow.setOnClickListener(new View.OnClickListener() {
@@ -402,6 +404,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				setFollowGPS(true);
 			}
 		});
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+			// currently can't be set in layout
+			ColorStateList followTint = ContextCompat.getColorStateList(this,R.color.follow);
+			Util.setBackgroundTintList(follow, followTint);
+		}
 		
 		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -831,16 +838,15 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		FloatingActionButton follow = getFollowButton();
 		if (follow != null) {
 			if (ensureGPSProviderEnabled()) {
-			RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();
-			if (prefs.followGPSbuttonPosition().equals("LEFT")) {
-				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,0);
-				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-				
-			} else if (prefs.followGPSbuttonPosition().equals("RIGHT")) {
-				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT,0);
-				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-			}
-			follow.setLayoutParams(params);
+				RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();
+				if (prefs.followGPSbuttonPosition().equals("LEFT")) {
+					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,0);
+					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+				} else if (prefs.followGPSbuttonPosition().equals("RIGHT")) {
+					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT,0);
+					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+				}
+				follow.setLayoutParams(params);
 			} else {
 				follow.hide();
 			}
@@ -1000,7 +1006,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			final MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.main_menu, menu);
 		}
-			
 
 		boolean networkConnected = NetworkStatus.isConnected(this);
 		boolean gpsProviderEnabled = ensureGPSProviderEnabled();
@@ -1472,6 +1477,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (follow) {
 				setShowGPS(true);
 			}
+			FloatingActionButton followButton = getFollowButton();
+			if (followButton != null) {
+				followButton.setEnabled(!follow);
+			}
 			map.setFollowGPS(follow);
 			triggerMenuInvalidation();
 		}
@@ -1485,7 +1494,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		boolean newState = !showGPS;
 		setShowGPS(newState);
 	}
-	
 	
 	private void toggleFollowGPS() {
 		boolean newState = !followGPS;
