@@ -1,6 +1,7 @@
 package de.blau.android.views;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -8,8 +9,8 @@ import android.text.TextUtils;
 import android.text.method.QwertyKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
+import de.blau.android.R;
 
 /**
  * Custom version of AutoCompleteTextView with switchable behaviour of MultiAutoCompleteTextView 
@@ -24,7 +25,7 @@ import android.widget.Filter;
  * Copyright (C) 2007 The Android Open Source Project, Licensed under the Apache License, Version 2.0
  *
  */
-public class CustomAutoCompleteTextView extends AutoCompleteTextView {
+public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
 	
 	private static final String DEBUG_TAG = CustomAutoCompleteTextView.class.getName();
 	
@@ -37,7 +38,11 @@ public class CustomAutoCompleteTextView extends AutoCompleteTextView {
 	}
 	
 	public CustomAutoCompleteTextView(Context context,  AttributeSet attrs) {
-		super(context, attrs);
+		this(context, attrs, R.attr.autoCompleteTextViewStyle);
+	}
+	
+	public  CustomAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
 	}
 	
 	@Override

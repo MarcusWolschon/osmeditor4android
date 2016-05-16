@@ -45,6 +45,7 @@
 	    
 	    <de.blau.android.views.CustomAutoCompleteTextView
 	        android:id="@+id/editValue"
+	      
 	        android:saveEnabled="false"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"

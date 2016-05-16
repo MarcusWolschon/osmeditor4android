@@ -17,7 +17,7 @@
         <EditText
             android:id="@+id/preset_search_edit"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_marginBottom="1dp"
             android:layout_weight="1"
             android:drawableEnd="?attr/search"
@@ -25,7 +25,9 @@
             android:hint="@string/preset_search_hint"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:singleLine="true" />
+            android:singleLine="true" 
+            android:background="?attr/colorPrimary"
+             />
 
         <android.support.v7.widget.ActionMenuView
             android:id="@+id/preset_menu"
@@ -33,9 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|end"
             android:layout_weight="2"
-            android:layout_marginBottom="1dp"
-            
-            android:minHeight="?attr/actionBarSize" />
+            android:layout_marginBottom="1dp"         
+            android:minHeight="?attr/actionBarSize" 
+            android:background="?attr/colorPrimary"/>
     </LinearLayout>
 
     <LinearLayout

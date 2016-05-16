@@ -168,11 +168,9 @@
 	<style name="Theme.customTagEditor" parent="@style/Theme.AppCompat.NoActionBar">
 	    <item name="windowActionModeOverlay">true</item>
 		<item name="actionBarStyle">@style/TagEditorActionBar</item>
-		<item name="android:autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
+		<item name="autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
 		<item name="android:dropDownItemStyle">@style/Widget.DropDownItem</item>
-		<!-- <item name="android:textViewStyle">@style/TextView</item> -->
-		<item name="android:editTextStyle">@style/EditTextDark</item>
-		<item name="android:checkboxStyle">@style/CheckBox</item>
+		<item name="checkboxStyle">@style/CheckBox</item>
 		<item name="android:spinnerStyle">@style/SpinnerStyle</item>
 		<item name="TableHeader">@style/TableHeader</item>
 		<item name="PagerTabStrip">@style/PagerTabStrip</item>
@@ -268,7 +266,7 @@
 	</style>
 	
 	<style name="Layout">
-		<item name="android:background">?attr/colorPrimary</item>
+		<item name="android:background">@color/dark_grey</item>
 	</style>
 	
 	<style name="ListPopupWindowStyle" parent="android:Widget.DropDownItem.Spinner">
@@ -303,17 +301,16 @@
 	<style name="Theme.customTagEditor.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
 	    <item name="windowActionModeOverlay">true</item>
 		<item name="actionBarStyle">@style/TagEditorActionBarLight</item>
-		<item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
-		<!-- <item name="android:textViewStyle">@style/TextViewLight</item> -->
-		<item name="android:editTextStyle">@style/EditTextLight</item>
-		<item name="android:checkboxStyle">@style/CheckBoxLight</item>
+		<item name="autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
+<!-- 		<item name="editTextStyle">@style/EditTextLight</item> -->
+		<item name="checkboxStyle">@style/CheckBoxLight</item>
 		<item name="android:spinnerStyle">@style/SpinnerStyleLight</item>
 		<item name="RadioGroup">@style/RadioGroupStyleLight</item>
 		<item name="TableHeader">@style/TableHeaderLight</item>
 		<item name="PagerTabStrip">@style/PagerTabStripLight</item>
 		<item name="Layout">@style/LayoutLight</item>
 		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
-<!-- 		<item name="spinnerItemStyle">@style/SpinnerItemStyleLight</item> -->
+
 		<item name="DownloadedMember">@style/DownloadedMemberLight</item>
 		<item name="NotDownloadedMember">@style/NotDownloadedMemberLight</item>
 		<item name="StaticText">@style/StaticTextLight</item>
@@ -371,7 +368,7 @@
 	
 	<style name="AutoCompleteTextViewLight" parent="@style/Widget.AppCompat.Light.AutoCompleteTextView">
 		<item name="android:background">@android:color/white</item>
-		<item name="android:popupBackground">@android:color/white</item>
+<!-- 		<item name="android:popupBackground">@android:color/white</item> -->
 	</style>
 
 	<style name="CheckBoxLight" parent="android:Widget.CompoundButton.CheckBox">
