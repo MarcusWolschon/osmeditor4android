@@ -3,6 +3,7 @@ package de.blau.android;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -109,7 +110,7 @@ public class Map extends View implements IMapView {
 	 * can be changed to contain additional overlays later.
 	 * @see #getOverlays()
 	 */
-	protected final List<OpenStreetMapViewOverlay> mOverlays = new ArrayList<OpenStreetMapViewOverlay>();
+	protected final List<OpenStreetMapViewOverlay> mOverlays = Collections.synchronizedList(new ArrayList<OpenStreetMapViewOverlay>());
 	
 	/**
 	 * The visible area in decimal-degree (WGS84) -space.
@@ -227,66 +228,79 @@ public class Map extends View implements IMapView {
 	public void createOverlays()
 	{
 		// create an overlay that displays pre-rendered tiles from the internet.
-		if (mOverlays.size() == 0) // only set once
-		{
-			if (prefs == null) // just to be safe
-				mOverlays.add(new OpenStreetMapTilesOverlay(this, TileLayerServer.getDefault(getResources(), true), null));
-			else {
-				// mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
-				OpenStreetMapTilesOverlay osmto = new OpenStreetMapTilesOverlay(this, TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true), null);
-				// Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
-				mOverlays.add(osmto);
-				mOverlays.add(new OpenStreetMapOverlayTilesOverlay(this));
+		synchronized(mOverlays) {
+			if (mOverlays.size() == 0) // only set once
+			{
+				if (prefs == null) // just to be safe
+					mOverlays.add(new OpenStreetMapTilesOverlay(this, TileLayerServer.getDefault(getResources(), true), null));
+				else {
+					// mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
+					OpenStreetMapTilesOverlay osmto = new OpenStreetMapTilesOverlay(this, TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true), null);
+					// Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
+					mOverlays.add(osmto);
+					mOverlays.add(new OpenStreetMapOverlayTilesOverlay(this));
+				}
+				mOverlays.add(new de.blau.android.tasks.MapOverlay(this, prefs.getServer()));
+				mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
+				mOverlays.add(new de.blau.android.grid.MapOverlay(this, prefs.getServer()));
 			}
-			mOverlays.add(new de.blau.android.tasks.MapOverlay(this, prefs.getServer()));
-			mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
-			mOverlays.add(new de.blau.android.grid.MapOverlay(this, prefs.getServer()));
 		}
 	}
 	
 	public OpenStreetMapTilesOverlay getOpenStreetMapTilesOverlay() {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if ((osmvo instanceof OpenStreetMapTilesOverlay) && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
-				return (OpenStreetMapTilesOverlay)osmvo;
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if ((osmvo instanceof OpenStreetMapTilesOverlay) && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
+					return (OpenStreetMapTilesOverlay)osmvo;
+				}
 			}
 		}
 		return null;
 	}
-	
+
 	/**
 	 * The names of these clases are patently silly and should be refactored
 	 * @return
 	 */
 	public OpenStreetMapOverlayTilesOverlay getOpenStreetMapOverlayTilesOverlay() {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo instanceof OpenStreetMapOverlayTilesOverlay) {
-				return (OpenStreetMapOverlayTilesOverlay)osmvo;
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if (osmvo instanceof OpenStreetMapOverlayTilesOverlay) {
+					return (OpenStreetMapOverlayTilesOverlay)osmvo;
+				}
 			}
 		}
 		return null;
+
 	}
-	
+
 	public de.blau.android.tasks.MapOverlay getOpenStreetBugsOverlay() {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo instanceof de.blau.android.tasks.MapOverlay) {
-				return (de.blau.android.tasks.MapOverlay)osmvo;
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if (osmvo instanceof de.blau.android.tasks.MapOverlay) {
+					return (de.blau.android.tasks.MapOverlay)osmvo;
+				}
 			}
 		}
 		return null;
 	}
-	
+
 	public de.blau.android.photos.MapOverlay getPhotosOverlay() {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo instanceof de.blau.android.photos.MapOverlay) {
-				return (de.blau.android.photos.MapOverlay)osmvo;
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if (osmvo instanceof de.blau.android.photos.MapOverlay) {
+					return (de.blau.android.photos.MapOverlay)osmvo;
+				}
 			}
 		}
 		return null;
 	}
-	
+
 	public void onDestroy() {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			osmvo.onDestroy();
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				osmvo.onDestroy();
+			}
 		}
 		tracker = null;
 		iconcache.clear();
@@ -294,8 +308,10 @@ public class Map extends View implements IMapView {
 	}
 	
 	public void onLowMemory() {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			osmvo.onLowMemory();
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				osmvo.onLowMemory();
+			}
 		}
 	}
 	
@@ -323,9 +339,11 @@ public class Map extends View implements IMapView {
 		// Draw our Overlays.
 		canvas.getClipBounds(canvasBounds);
 		OpenStreetMapTilesOverlay.resetAttributionArea(canvasBounds, 0);
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (!(osmvo instanceof de.blau.android.tasks.MapOverlay)) {
-				osmvo.onManagedDraw(canvas, this);
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) { 
+				if (!(osmvo instanceof de.blau.android.tasks.MapOverlay)) {
+					osmvo.onManagedDraw(canvas, this);
+				}
 			}
 		}
 		
@@ -336,7 +354,8 @@ public class Map extends View implements IMapView {
 		
 		if (zoomLevel > 10) {
 			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND) {
-				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); // shallow copy to avoid modification issues
+				// shallow copy to avoid modification issues FIXME this likely simply needs a synchronized statement in paintStorageBox
+				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); 
 			}
 			paintGpsTrack(canvas);
 		}
@@ -371,34 +390,51 @@ public class Map extends View implements IMapView {
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo.onTouchEvent(event, this)) {
-				return true;
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if (osmvo.onTouchEvent(event, this)) {
+					return true;
+				}
 			}
 		}
 		return super.onTouchEvent(event);
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo.onKeyDown(keyCode, event, this)) {
-				return true;
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if (osmvo.onKeyDown(keyCode, event, this)) {
+					return true;
+				}
 			}
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
+
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo.onKeyUp(keyCode, event, this)) {
-				return true;
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if (osmvo.onKeyUp(keyCode, event, this)) {
+					return true;
+				}
 			}
 		}
 		return super.onKeyUp(keyCode, event);
 	}
 	
+	@Override
+	public boolean onTrackballEvent(MotionEvent event) {
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if (osmvo.onTrackballEvent(event, this)) {
+					return true;
+				}
+			}
+		}
+		return super.onTrackballEvent(event);
+	}
 	
 	/**
 	 * As of Android 4.0.4, clipping with Op.DIFFERENCE is not supported if hardware acceleration is used.
@@ -436,17 +472,7 @@ public class Map extends View implements IMapView {
 		return false;
 	}
 	
-	
-	@Override
-	public boolean onTrackballEvent(MotionEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo.onTrackballEvent(event, this)) {
-				return true;
-			}
-		}
-		return super.onTrackballEvent(event);
-	}
-	
+
 	private void paintCrosshairs(Canvas canvas) {
 		// 
 		if (showCrosshairs) {
@@ -1122,20 +1148,22 @@ public class Map extends View implements IMapView {
 	public void setPrefs(final Preferences aPreference) {
 		prefs = aPreference;
 		TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
-				final TileLayerServer backgroundTS = TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true);
-				((OpenStreetMapTilesOverlay)osmvo).setRendererInfo(backgroundTS);
-			} else if (osmvo instanceof OpenStreetMapOverlayTilesOverlay) {
-				final TileLayerServer overlayTS = TileLayerServer.get(Application.mainActivity, prefs.overlayLayer(), true);
-				((OpenStreetMapOverlayTilesOverlay)osmvo).setRendererInfo(overlayTS);
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
+					final TileLayerServer backgroundTS = TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true);
+					((OpenStreetMapTilesOverlay)osmvo).setRendererInfo(backgroundTS);
+				} else if (osmvo instanceof OpenStreetMapOverlayTilesOverlay) {
+					final TileLayerServer overlayTS = TileLayerServer.get(Application.mainActivity, prefs.overlayLayer(), true);
+					((OpenStreetMapOverlayTilesOverlay)osmvo).setRendererInfo(overlayTS);
+				}
 			}
 		}
 		showIcons = prefs.getShowIcons();
 		showWayIcons = prefs.getShowWayIcons();
 		iconcache.clear();
 	}
-	
+
 	public void updateProfile () {
 		// changes when profile changes
 		nodeTolerancePaint = DataStyle.getCurrent(DataStyle.NODE_TOLERANCE).getPaint();
@@ -1249,9 +1277,11 @@ public class Map extends View implements IMapView {
 	 */
 	public ArrayList<String> getImageryNames() {
 		ArrayList<String>result = new ArrayList<String>();
-		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if ((osmvo instanceof OpenStreetMapTilesOverlay)) {
-				result.add(((OpenStreetMapTilesOverlay)osmvo).getRendererInfo().getName());
+		synchronized(mOverlays) {
+			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+				if ((osmvo instanceof OpenStreetMapTilesOverlay)) {
+					result.add(((OpenStreetMapTilesOverlay)osmvo).getRendererInfo().getName());
+				}
 			}
 		}
 		return result;
