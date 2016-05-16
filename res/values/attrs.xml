@@ -96,5 +96,7 @@
 		<attr name="NotDownloadedMember" format="reference" />
 		<attr name="EditText" format="reference" />
 		<attr name="StaticText" format="reference" />
+		<attr name="SplitterBGH" format="reference" />
+		<attr name="SplitterBGV" format="reference" />
 	</declare-styleable>
 </resources>

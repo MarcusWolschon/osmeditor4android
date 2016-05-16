@@ -20,7 +20,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         spl:orientation="horizontal"
-        spl:splitterBackground="?attr/colorAccent"
+        spl:splitterBackground="?attr/SplitterBGH"
         spl:splitterPosition="66%"
         spl:splitterSize="5dip" >
 
@@ -46,7 +46,7 @@
             android:layout_height="fill_parent"
             android:paddingLeft="5dp"
             spl:orientation="vertical"
-            spl:splitterBackground="?attr/colorAccent"
+            spl:splitterBackground="?attr/SplitterBGV"
             spl:splitterPosition="33%"
             spl:splitterSize="5dip" >
 

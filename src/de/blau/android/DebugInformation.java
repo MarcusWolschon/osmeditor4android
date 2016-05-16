@@ -2,6 +2,7 @@ package de.blau.android;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.location.LocationManager;
@@ -38,9 +39,12 @@ public class DebugInformation extends AppCompatActivity {
 		builder.append(getString(R.string.app_name_version) + "\n");
 		builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + "\n");
 		builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + "\n");
-		for (OpenStreetMapViewOverlay ov:Application.mainActivity.getMap().mOverlays) {
-			if (ov instanceof OpenStreetMapTilesOverlay || ov instanceof OpenStreetMapOverlayTilesOverlay) {
-				builder.append("Tile Cache " + ((OpenStreetMapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((OpenStreetMapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + "\n");
+		List<OpenStreetMapViewOverlay> overlays = Application.mainActivity.getMap().mOverlays;
+		synchronized(overlays) {
+			for (OpenStreetMapViewOverlay ov:overlays) {
+				if (ov instanceof OpenStreetMapTilesOverlay || ov instanceof OpenStreetMapOverlayTilesOverlay) {
+					builder.append("Tile Cache " + ((OpenStreetMapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((OpenStreetMapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + "\n");
+				}
 			}
 		}
 		File stateFile = new File(getFilesDir(), StorageDelegator.FILENAME);

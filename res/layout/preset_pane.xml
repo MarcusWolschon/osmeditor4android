@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        >
 
         <EditText
             android:id="@+id/preset_search_edit"
@@ -33,7 +34,7 @@
             android:layout_gravity="right|end"
             android:layout_weight="2"
             android:layout_marginBottom="1dp"
-            android:background="?attr/colorPrimary"
+            
             android:minHeight="?attr/actionBarSize" />
     </LinearLayout>
 
