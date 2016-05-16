@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -100,7 +100,7 @@ public class TransferTasks {
 	}	
 	
 	/**
-	 * Upload Notes or bugs to server, needs to be called from main for now (mainly to OAuth dependency)
+	 * Upload Notes or bugs to server, needs to be called from main for now (mainly for OAuth dependency)
 	 * @param context
 	 * @param server
 	 */
@@ -135,7 +135,7 @@ public class TransferTasks {
 				@Override
 				protected void onPreExecute() {
 					Progress.showDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-					Log.d(DEBUG_TAG,"starting up load of " + queryResult.size() + " tasks");
+					Log.d(DEBUG_TAG,"starting up load of total " + queryResult.size() + " tasks");
 				}
 
 				@Override
@@ -177,14 +177,20 @@ public class TransferTasks {
 	 * @param b
 	 * @return
 	 */
+	@SuppressLint("InlinedApi")
 	static public boolean uploadOsmoseBug(final OsmoseBug b) {
+		Log.d(DEBUG_TAG, "uploadOsmoseBug");
 		AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {			
 				return OsmoseServer.changeState((OsmoseBug)b);
 			}
 		};
-		a.execute();
+	    if(Build.VERSION.SDK_INT >= 11) {
+	        a.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+	    } else {
+	        a.execute();
+	    }
 		try {
 			return a.get();
 		} catch (InterruptedException e) {
@@ -265,11 +271,11 @@ public class TransferTasks {
 			};
 
 			// FIXME seems as if AsyncTask tends to run out of threads here .... not clear if executeOnExecutor actually helps
-		    if(Build.VERSION.SDK_INT >= 11)
+		    if(Build.VERSION.SDK_INT >= 11) {
 		        ct.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-		    else
+		    } else {
 		        ct.execute();
-		    
+		    }
 			try {
 				return ct.get();
 			} catch (InterruptedException e) {
