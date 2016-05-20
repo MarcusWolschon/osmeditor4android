@@ -54,11 +54,11 @@ Objects can be dragged/moved only when they are selected. If you select the larg
 
 If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
 
-#### Cut, Copy & Paste
+#### Klipp ut, kopiera och klistra in
 
 You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
-#### Efficiently Adding Addresses
+#### Effektivt lägga till adresser
 
 Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
 
@@ -84,11 +84,11 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-### Saving Your Changes
+### Spara dina ändringar
 
-*(requires network connectivity)*
+*(kräver nätverksanslutning)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+Välj samma knapp eller menyalternativ du gjorde för nedladdning och välj nu "Ladda upp data till OSM-server".
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
@@ -100,7 +100,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
-## Using GPS
+## Använda GPS
 
 You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
 

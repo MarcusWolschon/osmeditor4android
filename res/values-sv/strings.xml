@@ -13,12 +13,26 @@
   <string name="no_connection_message">Det gick inte att ansluta till OSM-servern. Kontrollera Internetanslutningen eller försök igen senare.</string>
   <string name="wrong_login_data_title">Autentisering misslyckades</string>
   <string name="wrong_login_data_re_authenticate">Verifiera igen</string>
+  <string name="api_offline_message">API är för närvarande offline och data kan inte hämtas eller skrivas.</string>
+  <string name="out_of_memory_title">Slut på minne</string>
+  <string name="out_of_memory_message">Vespucci har slut på minne för att ladda de begärda uppgifterna. Starta om och prova ladda ett mindre område.</string>
+  <string name="out_of_memory_dirty_message">Vespucci har slut på minne för att ladda de begärda uppgifterna. Vänligen försök att spara ändringar, starta om och prova att ladda ett mindre område.</string>
+  <string name="invalid_data_received_title">Ogiltiga data mottagna</string>
+  <string name="file_write_failed_title">Fil skrivning misslyckades</string>
+  <string name="file_write_failed_message">Det gick inte att skriva till vald fil.</string>
   <string name="welcome_title">Välkommen!</string>
   <string name="read_introduction">Läs introduktionen nu</string>
   <string name="upgrade_title">Välkommen till en ny version av Vespucci!</string>
+  <string name="read_upgrade">Läs om den nya versionen</string>
+  <string name="progress_title">Laddar</string>
+  <string name="progress_message">Ladda in data i minnet...</string>
+  <string name="progress_download_message">Ladda ner data från servern...</string>
+  <string name="progress_general_title">Vänta</string>
   <string name="progress_deleting_message">Tar bort...</string>
   <string name="progress_searching_message">Söker...</string>
   <string name="progress_saving_message">Sparar...</string>
+  <string name="upload_comment_label">Kommentar:</string>
+  <string name="upload_source_label">Källa:</string>
   <!--Toaster-->
   <!--Some generic labels/buttons-->
   <!--Dialog for back button-->

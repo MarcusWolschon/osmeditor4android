@@ -715,10 +715,14 @@ public class Preset implements Serializable {
 	public Integer getItemIndexByName(String name) {
 		Log.d("Preset","getItemIndexByName " + name);
 		for (PresetItem pi:allItems) {
-			if (pi.getName().equals(name)) {
-				return Integer.valueOf(pi.getItemIndex());
+			if (pi != null) {
+				String n = pi.getName();
+				if (n != null && n.equals(name)) {
+					return Integer.valueOf(pi.getItemIndex());
+				}
 			}
 		}
+		Log.d("Preset","getItemIndexByName " + name + " not found");
 		return null;
 	}
 	
