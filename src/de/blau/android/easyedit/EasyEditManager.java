@@ -61,6 +61,7 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -1051,7 +1052,8 @@ public class EasyEditManager {
 		private static final int MENUITEM_EXTEND_SELECTION = 7;
 		private static final int MENUITEM_ELEMENT_INFO = 8;
 		
-		private static final int MENUITEM_TAG_LAST = 20;
+		private static final int MENUITEM_TAG_LAST = 21;
+		private static final int MENUITEM_PREFERENCES = 22;
 		
 		protected OsmElement element = null;
 		
@@ -1118,6 +1120,7 @@ public class EasyEditManager {
 				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 			}
 			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));
+			menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM|10, R.string.menu_config).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_config));
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
@@ -1135,6 +1138,7 @@ public class EasyEditManager {
 			case MENUITEM_RELATION: main.startSupportActionMode(new  AddRelationMemberActionModeCallback(element)); break;
 			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startSupportActionMode(new  ExtendSelectionActionModeCallback(element)); break;
 			case MENUITEM_ELEMENT_INFO: ElementInfo.showDialog(main,element); break;
+			case MENUITEM_PREFERENCES: 	PrefEditor.start(main); break;
 			case R.id.undo_action:
 				// should not happen
 				Log.d("EasyEditManager.ElementSelectionActionModeCallback","menu undo clicked");
@@ -2116,6 +2120,8 @@ public class EasyEditManager {
 		private static final int MENUITEM_RELATION = 7;
 		private static final int MENUITEM_ORTHOGONALIZE = 8;
 		private static final int MENUITEM_MERGE_POLYGONS = 9;
+		
+		private static final int MENUITEM_PREFERENCES = 10;
 
 		private ArrayList<OsmElement> selection;
 		private List<OsmElement> sortedWays;
@@ -2229,7 +2235,7 @@ public class EasyEditManager {
 //			if (selection.size() == 2 && canMerge(selection)) {
 //				menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
 //			}
-			
+			menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM|10, R.string.menu_config).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_config));
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			arrangeMenu(menu);
 			return true;
@@ -2269,7 +2275,7 @@ public class EasyEditManager {
 			if (!super.onActionItemClicked(mode, item)) {
 				switch (item.getItemId()) {
 				
-				 case MENUITEM_TAG: main.performTagEdit(selection, false, false); break;
+				case MENUITEM_TAG: main.performTagEdit(selection, false, false); break;
 				// case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true); break;
 				case MENUITEM_DELETE: menuDelete(false); break;
 				
@@ -2321,6 +2327,7 @@ public class EasyEditManager {
 						}	
 					}
 					break;
+				case MENUITEM_PREFERENCES: 	PrefEditor.start(main); break; 
 				case R.id.undo_action:
 					// should not happen
 					Log.d("EasyEditManager.ExtendSelectionActionModeCallback","menu undo clicked");
