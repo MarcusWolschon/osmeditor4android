@@ -150,8 +150,9 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			return tile;
 		} else {
 			// from service
-			if (DEBUGMODE)
-				Log.i(DEBUGTAG, "MapTileCache failed for: " + aTile.toString());
+			if (DEBUGMODE) {
+				Log.i(DEBUGTAG, "Memory MapTileCache failed for: " + aTile.toString());
+			}
 			preCacheTile(aTile, owner);
 		}
 		return null;

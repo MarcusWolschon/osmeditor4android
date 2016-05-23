@@ -118,12 +118,12 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 					if (data.length == 0) {
 						throw new IOException("no tile data");
 					}
+					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
 					
 					OpenStreetMapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
 					if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-						Log.d(DEBUGTAG, "Maptile saved to: " + tileURLString);
+						Log.d(DEBUGTAG, "Maptile " + tileURLString + " saved");
 					}
-					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
 				}
 			} catch (IOException ioe) {
 				try {
