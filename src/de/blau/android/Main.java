@@ -1846,7 +1846,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void hideLock() {
 		FloatingActionButton lock = getLock();
 		if (lock != null) {
-			lock.show();
+			lock.hide();
 		}
 	}
 	
@@ -1868,11 +1868,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (zoomControls != null) {
 			zoomControls.hide();
 		}
-		FloatingActionButton follow = getFollowButton();
-		if (follow != null) {
-			follow.hide();
-		}
-		
+		hideFollowButton();
 	}
 	
 	void showControls() {
@@ -1886,10 +1882,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (zoomControls != null) {
 			zoomControls.show();
 		}
-		FloatingActionButton follow = getFollowButton();
-		if (follow != null) {
-			follow.show();
-		}
+		showFollowButton();
 	}
 	
 	/**
