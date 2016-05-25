@@ -125,17 +125,20 @@
         <text key="name" text="Name" />
         <text key="operator" text="Operator" />
     </chunk>
+    <chunk id="level">
+    	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="0" match="none" editable="true" />
+    </chunk>
     <chunk id="name_layer">
         <text key="name" text="Name" />
-        <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
+        <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="0" length="3" match="none" editable="true" />
     </chunk>
     <chunk id="service_times">
-        <combo key="service_times" text="Service Times" delimiter="|" values="18:00|sunset,sunrise|Su 09:30,11:00|Sa,Su,PH 09:00|Sa 18:00; Su 10:45|Fr 08:00-18:00; Apr 10-15 off; Jun 07:00-20:00; Aug off; Dec 24 08:00-24:00|Sa 10:00+|week 1-53/2 Fr 09:00-12:00; week 2-52/2 We 09:00-12:00" values_no_i18n="true" />
+        <combo key="service_times" text="Service Times" delimiter="|" values="18:00|sunset,sunrise|Su 09:30,11:00|Sa,Su,PH 09:00|Sa 18:00; Su 10:45|Fr 08:00-18:00; Apr 10-15 off; Jun 07:00-20:00; Aug off; Dec 24 08:00-24:00|Sa 10:00+|week 1-53/2 Fr 09:00-12:00; week 2-52/2 We 09:00-12:00" values_no_i18n="true"  match="none" editable="true" />
     </chunk>
     <chunk id="oh">
-        <combo key="opening_hours" text="Opening Hours" delimiter="|" values="24/7|08:30-12:30,15:30-20:00|Sa-Su 00:00-24:00|Mo-Fr 08:30-20:00; Sa,Su 08:00-15:00; PH off|Mo-Fr 08:30-20:00, Tu-Su 08:00-15:00; Sa 08:00-12:00|Mo-Su 08:00-18:00; Apr 10-15 off; Jun 08:00-14:00; Aug off; Dec 25 off|sunrise-sunset|Su 10:00+|week 1-53/2 Fr 09:00-12:00; week 2-52/2 We 09:00-12:00" values_no_i18n="true" />
+        <combo key="opening_hours" text="Opening Hours" delimiter="|" values="24/7|08:30-12:30,15:30-20:00|Sa-Su 00:00-24:00|Mo-Fr 08:30-20:00; Sa,Su 08:00-15:00; PH off|Mo-Fr 08:30-20:00, Tu-Su 08:00-15:00; Sa 08:00-12:00|Mo-Su 08:00-18:00; Apr 10-15 off; Jun 08:00-14:00; Aug off; Dec 25 off|sunrise-sunset|Su 10:00+|week 1-53/2 Fr 09:00-12:00; week 2-52/2 We 09:00-12:00" values_no_i18n="true" match="none" editable="true" />
     </chunk>
-    <chunk id="wheelchair">
+    <chunk id="wheelchair" match="none">
         <combo key="wheelchair" text="Wheelchairs" values_searchable="true" values_sort="false">
         <list_entry value="designated" short_description="Dedicated facilities" />
         <list_entry value="yes" short_description="Unrestricted access" />
@@ -149,7 +152,7 @@
     </chunk>
     <chunk id="oh_wheelchair_level">
         <reference ref="oh_wheelchair" />
-	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" match="none" />
+		<reference ref="level" />
     </chunk>
     <chunk id="name_oh_wheelchair">
         <text key="name" text="Name" />
@@ -157,7 +160,7 @@
     </chunk>
     <chunk id="name_oh_wheelchair_level">
         <reference ref="name_oh_wheelchair" />
-	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" match="none" />
+		<reference ref="level" />
     </chunk>
     <chunk id="name_operator_oh_wheelchair">
         <reference ref="name_operator" />
@@ -165,7 +168,7 @@
     </chunk>
     <chunk id="name_operator_oh_wheelchair_level">
         <reference ref="name_operator_oh_wheelchair" />
-	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" match="none" />
+		<reference ref="level" />
     </chunk>
     <chunk id="name_brand_operator_oh_wheelchair">
         <text key="name" text="Name" />
@@ -174,8 +177,8 @@
         <reference ref="oh_wheelchair" />
     </chunk>
     <chunk id="name_brand_operator_oh_wheelchair_level">
-	<reference ref="name_brand_operator_oh_wheelchair" />
-	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" match="none"/>
+		<reference ref="name_brand_operator_oh_wheelchair" />
+		<reference ref="level" />
     </chunk>
     <chunk id="name_brand_oh_wheelchair">
         <text key="name" text="Name" />
@@ -252,19 +255,19 @@
         <reference ref="surface_smoothness" />
     </chunk>
     <chunk id="maxstay">
-        <combo key="maxstay" text="Time Limit (minutes)" values="0,30,60,90,120,180" />
+        <combo key="maxstay" text="Time Limit (minutes)" values="0,30,60,90,120,180"  match="none" editable="true" />
     </chunk>
     <chunk id="supervised">
-        <combo key="supervised" text="Supervised" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false" />
+        <combo key="supervised" text="Supervised" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false"  match="none" editable="true" />
     </chunk>
     <chunk id="supervised_lit_oh">
         <reference ref="supervised" />
-        <combo key="lit" text="Lit" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false" />
+        <combo key="lit" text="Lit" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false"  match="none" editable="true" />
         <reference ref="oh" />
     </chunk>
     <chunk id="general_access">
         <combo key="access" text="General Access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,no" 
-            display_values="General access,Destination,Delivery,Permissive,Private,Customers,Agricultural,Forestry,No access" values_sort="false" values_searchable="true" />
+            display_values="General access,Destination,Delivery,Permissive,Private,Customers,Agricultural,Forestry,No access" values_sort="false" values_searchable="true"  match="key" />
     </chunk>
     <chunk id="name_wikipedia">
         <text key="name" text="Name" />

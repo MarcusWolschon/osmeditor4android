@@ -534,6 +534,10 @@ public class Preset implements Serializable {
             		if (sort != null) {
             			currentItem.setSort(key,"yes".equals(sort) || "true".equals(sort)); // normally this will not be set because true is the default
             		}
+             		String editable = attr.getValue("editable");
+            		if (editable != null) {
+            			currentItem.setEditable(key,"yes".equals(editable) || "true".equals(editable));
+            		}
             	} else if ("role".equals(name)) {
             		String key = attr.getValue("key");
             		String text = attr.getValue("text");
@@ -569,6 +573,7 @@ public class Preset implements Serializable {
             			currentItem.addAllRoles(chunk.roles); // FIXME this and the following could lead to duplicate entries
             			currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
             			currentItem.setAllSort(chunk.sort);
+            			currentItem.setAllEditable(chunk.editable);
             			currentItem.addAllDelimiters(chunk.delimiters);
             		}
             	} else if ("list_entry".equals(name)) {
@@ -1246,7 +1251,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 8L;
+		private static final long serialVersionUID = 9L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1303,6 +1308,11 @@ public class Preset implements Serializable {
 		 * Key to combo and multiselect delimiters
 		 */
 		private HashMap<String,String> delimiters = null; 
+		
+		/**
+		 * Key to combo and multiselect editable property
+		 */
+		private HashMap<String,Boolean> editable = null; 
 		
 		/**
 		 * Translation contexts
@@ -1665,6 +1675,31 @@ public class Preset implements Serializable {
 		
 		public boolean sortIt(String key) {
 			return (sort == null ||  sort.get(key) == null) ? true : sort.get(key);
+		}
+		
+		public void setEditable(String key, boolean isEditable) {
+			if (editable == null) {
+				editable = new HashMap<String,Boolean>(); 
+			}
+			editable.put(key,isEditable);
+		}
+		
+		public void setAllEditable(HashMap<String,Boolean> newEditable) {
+			if (editable == null) { 
+				editable = newEditable; // doesn't matter if newSort is null
+			} else if (newEditable != null){
+				editable.putAll(newEditable);
+			}
+		}
+		
+		/**
+		 * Check is the combo or multiselect should be editable
+		 * NOTE: contrary to the definition in JOSM the default is false/no
+		 * @param key
+		 * @return
+		 */
+		public boolean isEditable(String key) {
+			return (editable == null ||  editable.get(key) == null) ? false : editable.get(key);
 		}
 		
 		public void setTextContext(String key, String textContext) {
