@@ -21,6 +21,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -35,10 +37,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -47,10 +46,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
-import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.listener.DoNothingListener;
-import de.blau.android.listener.UploadListener;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Tags;
@@ -1097,7 +1093,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		}
 		
 		public void addButton(String description, String value, boolean selected) {
-			final RadioButton button = new RadioButton(context);
+			final AppCompatRadioButton button = new AppCompatRadioButton(context);
 			button.setText(description);
 			button.setTag(value);
 			button.setChecked(selected);
@@ -1122,7 +1118,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	}
 	
 	public void addButton(Context context, RadioGroup group, int id, StringWithDescription swd, boolean selected, View.OnClickListener listener, LayoutParams layoutParams) {
-		final RadioButton button = new RadioButton(context);
+		final AppCompatRadioButton button = new AppCompatRadioButton(context);
 		String description = swd.getDescription();
 		button.setText(description != null && !"".equals(description)?description:swd.getValue());
 		button.setTag(swd);
@@ -1244,7 +1240,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		public String getValue() {
 			StringBuilder result = new StringBuilder();
 			for (int i=0;i<valueLayout.getChildCount();i++) {
-				CheckBox check = (CheckBox) valueLayout.getChildAt(i);
+				AppCompatCheckBox check = (AppCompatCheckBox) valueLayout.getChildAt(i);
 				if (check.isChecked()) {
 					if (result.length() > 0) { // not the first entry
 						result.append(delimiter);
@@ -1260,7 +1256,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		}
 		
 		public void addCheck(String description, String value, boolean selected, CompoundButton.OnCheckedChangeListener listener) {
-			final CheckBox check = new CheckBox(context);
+			final AppCompatCheckBox check = new AppCompatCheckBox(context);
 			check.setText(description);
 			check.setTag(value);
 			check.setChecked(selected);
@@ -1272,7 +1268,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	public static class TagCheckRow extends LinearLayout {
 
 		private TextView keyView;
-		private CheckBox valueCheck;
+		private AppCompatCheckBox valueCheck;
 		
 		public TagCheckRow(Context context) {
 			super(context);
@@ -1288,7 +1284,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			if (isInEditMode()) return; // allow visual editor to work
 			
 			keyView = (TextView)findViewById(R.id.textKey);
-			valueCheck = (CheckBox)findViewById(R.id.valueSelected);
+			valueCheck = (AppCompatCheckBox)findViewById(R.id.valueSelected);
 		}
 		
 		/**
@@ -1299,7 +1295,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			return (String) keyView.getTag();
 		}
 		
-		public CheckBox getCheckBox() {
+		public AppCompatCheckBox getCheckBox() {
 			return valueCheck;
 		}
 		

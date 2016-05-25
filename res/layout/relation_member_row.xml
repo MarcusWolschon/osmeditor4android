@@ -32,6 +32,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="1dp"
 	        android:layout_marginRight="1dp"
+	        android:layout_gravity="center_vertical"
 	        android:layout_weight="3"
 	        android:completionThreshold="1"
 	        android:dropDownWidth="match_parent"

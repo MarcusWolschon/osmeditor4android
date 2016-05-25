@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import org.acra.ACRA;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.PorterDuff;

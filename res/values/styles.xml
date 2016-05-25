@@ -172,7 +172,7 @@
 		<item name="editTextStyle">@style/EditTextDark</item>
 		<item name="android:dropDownItemStyle">@style/Widget.DropDownItem</item>
 		<item name="checkboxStyle">@style/CheckBox</item>
-		<item name="android:checkboxStyle">@style/CheckBox</item>
+		<item name="radioButtonStyle">@style/RadioButton</item>
 		<item name="android:spinnerStyle">@style/SpinnerStyle</item>
 		<item name="TableHeader">@style/TableHeader</item>
 		<item name="PagerTabStrip">@style/PagerTabStrip</item>
@@ -247,6 +247,7 @@
 	</style>
 	
 	<style name="CheckBox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+	    <item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	
 	<style name="SpinnerStyle" parent="@style/Widget.AppCompat.Spinner">
@@ -257,6 +258,9 @@
 	
 	<style name="RadioGroupStyleDark">
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
+	</style>
+	
+	<style name="RadioButton" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
 	</style>
 	
 	<style name="TableHeader">

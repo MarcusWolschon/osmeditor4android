@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import org.acra.ACRA;
-
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
