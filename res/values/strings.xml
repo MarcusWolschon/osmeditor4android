@@ -174,6 +174,7 @@
     <string name="forward">Forward</string>
     <string name="keep">Keep</string>
     <string name="enable">Enable</string>
+    <string name="clear">Clear</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
@@ -200,6 +201,7 @@
     <string name="tag_value_hint">Type value</string>
     <string name="tag_autocomplete_value_hint">Type or tap for values</string>
     <string name="tag_multi_value_hint">Multiple values</string>
+    <string name="tag_dialog_value_hint">Tap for values</string>
     <string name="tag_action_tag_title">Tag(s) selected</string>
     <string name="tag_action_members_title">Member(s) selected</string>
     <string name="tag_action_parents_title">Relation(s) selected</string>
@@ -448,6 +450,10 @@
     <string name="config_followGPSbutton_summary">Where the "follow GPS" button will be positioned</string>
     <string name="config_fullscreenMode_title">Full screen mode</string>
     <string name="config_fullscreenMode_summary">Behaviour on devices with "soft" keys.</string>
+    <string name="config_maxInlineValues_title">Max. number of inline values</string>
+    <string name="config_maxInlineValues_summary">Maximum number of inline values displayed in tag form</string>
+    <string name="config_maxTileDownloadThreads_title">Max. number of download threads</string>
+    <string name="config_maxTileDownloadThreads_summary">Maximum number of threads for downloading tiles</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>

@@ -58,7 +58,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		mMaxFSCacheByteSize = aMaxFSCacheByteSize;
 		mDatabase = new OpenStreetMapTileProviderDataBase(ctx, this);
 		mCurrentFSCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
-		mThreadPool = Executors.newFixedThreadPool(2);
+		mThreadPool = Executors.newFixedThreadPool(4);
 
 		mTileDownloader = new OpenStreetMapTileDownloader(ctx, this);
 
@@ -91,7 +91,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	public void saveFile(final OpenStreetMapTile tile, final byte[] someData) throws IOException{
 		synchronized (this) {
 			try {
-				final int bytesGrown = mDatabase.addTileOrIncrement(tile, someData);
+				final int bytesGrown = mDatabase.addTileOrIncrement(tile, someData); 
 				mCurrentFSCacheByteSize += bytesGrown;
 
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))

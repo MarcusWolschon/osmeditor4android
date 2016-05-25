@@ -2,6 +2,8 @@ package de.blau.android.util;
 
 import java.io.Serializable;
 
+import de.blau.android.presets.ValueWithCount;
+
 public class StringWithDescription implements Comparable<StringWithDescription>, Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -16,6 +18,23 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
 		this.value = value;
 		this.description = description;
 	}
+	
+	public StringWithDescription(Object o) {
+		if (o instanceof ValueWithCount) {
+			value = ((ValueWithCount)o).getValue();
+			description = ((ValueWithCount)o).getDescription();
+		} else if (o instanceof StringWithDescription) {
+			value = ((StringWithDescription)o).getValue();
+			description = ((StringWithDescription)o).getDescription();
+		} else if (o instanceof String) {
+			value = (String)o;
+			description = value;
+		} else {
+			value = "";
+			description=value;
+		}
+	}
+	
 	/**
 	 * @return the value
 	 */

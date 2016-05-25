@@ -48,6 +48,13 @@
             android:key="@string/config_splitActionBarEnabled_key"
             android:summary="@string/config_splitActionBarEnabled_summary"
             android:title="@string/config_splitActionBarEnabled_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="4"
+            android:dialogTitle="@string/config_maxInlineValues_title"
+            android:key="@string/config_maxInlineValues_key"
+            android:numeric="integer"
+            android:summary="@string/config_maxInlineValues_summary"
+            android:title="@string/config_maxInlineValues_title" />
     </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.PreferenceCategory android:title="@string/config_category_editing" >
         <android.support.v7.preference.Preference
@@ -165,6 +172,13 @@
             android:key="@string/config_offsetServer_key"
             android:summary="@string/config_offsetServer_summary"
             android:title="@string/config_offsetServer_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="2"
+            android:dialogTitle="@string/config_maxTileDownloadThreads_title"
+            android:key="@string/config_maxTileDownloadThreads_key"
+            android:numeric="integer"
+            android:summary="@string/config_maxTileDownloadThreads_summary"
+            android:title="@string/config_maxTileDownloadThreads_title" />
     </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.PreferenceCategory android:title="@string/config_category_acra" >
         <android.support.v7.preference.CheckBoxPreference

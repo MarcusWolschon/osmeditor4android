@@ -72,6 +72,7 @@
 	<attr name="not_downloaded_relation_small" format="reference" />
 	<attr name="add" format="reference" />
 	<attr name="remove" format="reference" />
+	<attr name="edit" format="reference" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

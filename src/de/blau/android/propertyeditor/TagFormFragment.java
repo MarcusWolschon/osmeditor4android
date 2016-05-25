@@ -11,12 +11,16 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -27,11 +31,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -40,7 +47,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
+import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.listener.DoNothingListener;
+import de.blau.android.listener.UploadListener;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Tags;
@@ -52,6 +62,7 @@ import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
@@ -64,7 +75,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	/**
 	 * Max number of entries before we use a normal dropdown list for selection
 	 */
-	private static final int MAX_ENTRIES_COMBO = 8;
 	private static final int MAX_ENTRIES_MULTISELECT = 8;
 	
 	LayoutInflater inflater = null;
@@ -78,6 +88,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	private NameAdapters nameAdapters = null;
 	
 	private boolean focusOnAddress = false;
+	
+	private int maxInlineValues = 3;
 
 	
 	/**
@@ -154,6 +166,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		if (prefs.getEnableNameSuggestions()) {
 			names = Application.getNames(getActivity());
 		}
+		
+		maxInlineValues = prefs.getMaxInlineValues();
 
 		if (displayMRUpresets) {
 			Log.d(DEBUG_TAG,"Adding MRU prests");
@@ -567,55 +581,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					
 					if (keyType == PresetKeyType.TEXT 
 						|| key.startsWith(Tags.KEY_ADDR_BASE)
-						|| (keyType == PresetKeyType.COMBO && count > MAX_ENTRIES_COMBO)
+						|| (keyType == PresetKeyType.COMBO && preset.isEditable(key))
 						|| (keyType == PresetKeyType.MULTISELECT && count > MAX_ENTRIES_MULTISELECT)) {
 						rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, defaultValue, adapter));
 					} else if (preset.getKeyType(key) == PresetKeyType.COMBO || (keyType == PresetKeyType.CHECK && count > 2)) {
-						final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);
-						row.keyView.setText(hint != null?hint:key);
-						row.keyView.setTag(key);
-						for (int i=0;i< count;i++) {
-							Object o = adapter.getItem(i);
-							String v = "";
-							String description = "";
-							if (o instanceof ValueWithCount) {
-								v = ((ValueWithCount)o).getValue();
-								description = ((ValueWithCount)o).getDescription();
-							} else if (o instanceof StringWithDescription) {
-								v = ((StringWithDescription)o).getValue();
-								description = ((StringWithDescription)o).getDescription();
-							} else if (o instanceof String) {
-								v = (String)o;
-								description = v;
-							}
-							if (v==null || "".equals(v)) {
-								continue;
-							}
-							if (description==null) {
-								description=v;
-							}
-							if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
-								row.addButton(description, v, v.equals(defaultValue));
-							} else {
-								row.addButton(description, v, v.equals(value));
-							}
+						if (count <= maxInlineValues) {
+							rowLayout.addView(addComboRow(rowLayout, preset, hint, key, value, defaultValue, adapter));
+						} else {
+							rowLayout.addView(addComboDialogRow(rowLayout, preset, hint, key, value, defaultValue, adapter));
 						}
-						
-						rowLayout.addView(row);
-						row.getRadioGroup().setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(RadioGroup group, int checkedId) {
-								Log.d(DEBUG_TAG,"radio group onCheckedChanged");
-								String value = "";
-								if (checkedId != -1) {
-									RadioButton button = (RadioButton) group.findViewById(checkedId);
-									value = (String)button.getTag();	
-								} 
-								tagListener.updateSingleValue(key, value);
-								row.setValue(value);
-								row.setChanged(true);
-							}
-						});
 					} else if (preset.getKeyType(key) == PresetKeyType.CHECK) {
 						final TagCheckRow row = (TagCheckRow)inflater.inflate(R.layout.tag_form_check_row, rowLayout, false);
 						row.keyView.setText(hint != null?hint:key);
@@ -629,16 +603,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						// this is a bit of a roundabout way of determining the non-checked value;
 						for (int i=0;i< adapter.getCount();i++) {
 							Object o = adapter.getItem(i);
-							if (o instanceof ValueWithCount) {
-								v = ((ValueWithCount)o).getValue();
-								description = ((ValueWithCount)o).getDescription();
-							} else if (o instanceof StringWithDescription) {
-								v = ((StringWithDescription)o).getValue();
-								description = ((StringWithDescription)o).getDescription();
-							} else if (o instanceof String) {
-								v = (String)o;
-								description = v;
-							} 
+							StringWithDescription swd = new StringWithDescription(o);
+							v = swd.getValue();
+							description = swd.getDescription();
 							if (!v.equals(valueOn)) {
 								tempValueOff = v;
 							}
@@ -690,18 +657,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						};
 						for (int i=0;i< count;i++) {
 							Object o = adapter.getItem(i);
-							String v = "";
-							String description = "";
-							if (o instanceof ValueWithCount) {
-								v = ((ValueWithCount)o).getValue();
-								description = ((ValueWithCount)o).getDescription();
-							} else if (o instanceof StringWithDescription) {
-								v = ((StringWithDescription)o).getValue();
-								description = ((StringWithDescription)o).getDescription();
-							} else if (o instanceof String) {
-								v = (String)o;
-								description = v;
-							}
+							StringWithDescription swd = new StringWithDescription(o);
+							String v = swd.getValue();
+							String description = swd.getDescription();
 							if (v==null || "".equals(v)) {
 								continue;
 							}
@@ -808,6 +766,157 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		return row;
 	}
 	
+	TagComboRow addComboRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
+		final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);
+		row.keyView.setText(hint != null?hint:key);
+		row.keyView.setTag(key);
+		for (int i=0;i< adapter.getCount();i++) {
+			Object o = adapter.getItem(i);
+			StringWithDescription swd = new StringWithDescription(o);
+			String v = swd.getValue();
+			String description = swd.getDescription();
+			if (v==null || "".equals(v)) {
+				continue;
+			}
+			if (description==null) {
+				description=v;
+			}
+			if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
+				row.addButton(description, v, v.equals(defaultValue));
+			} else {
+				row.addButton(description, v, v.equals(value));
+			}
+		}
+		
+		row.getRadioGroup().setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				Log.d(DEBUG_TAG,"radio group onCheckedChanged");
+				String value = "";
+				if (checkedId != -1) {
+					RadioButton button = (RadioButton) group.findViewById(checkedId);
+					value = (String)button.getTag();	
+				} 
+				tagListener.updateSingleValue(key, value);
+				row.setValue(value);
+				row.setChanged(true);
+			}
+		});
+		return row;
+	}
+	
+	TagComboDialogRow addComboDialogRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
+		final TagComboDialogRow row = (TagComboDialogRow)inflater.inflate(R.layout.tag_form_combo_dialog_row, rowLayout, false);
+		row.keyView.setText(hint != null?hint:key);
+		row.keyView.setTag(key);
+		for (int i=0;i< adapter.getCount();i++) {
+			Object o = adapter.getItem(i);
+			
+			StringWithDescription swd = new StringWithDescription(o);
+			String v = swd.getValue();
+			String description = swd.getDescription();
+			
+			if (v==null || "".equals(v)) {
+				continue;
+			}
+			if (description==null) {
+				description=v;
+			}
+			if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue)) && v.equals(defaultValue)) {
+				row.setValue(description,v);
+				break;
+			} else if (v.equals(value)){
+				row.setValue(swd);
+				break;
+			}
+		}
+		row.valueView.setHint(R.string.tag_dialog_value_hint);
+		row.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.d(DEBUG_TAG,"button clicked ");
+				buildComboDialog(hint != null?hint:key,key,defaultValue,adapter,row).show();
+			}
+		});
+		return row;
+	}
+
+	
+	protected AlertDialog buildComboDialog(String hint,String key,String defaultValue,final ArrayAdapter<?> adapter,final TagComboDialogRow row) {
+		String value = row.getValue();
+		Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle(hint);
+	   	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
+    	
+		final View layout = inflater.inflate(R.layout.form_combo_dialog, null);
+		RadioGroup valueGroup = (RadioGroup) layout.findViewById(R.id.valueGroup);
+		builder.setView(layout);
+		
+		View.OnClickListener listener = new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+			 Log.d(DEBUG_TAG,"radio button clicked " + row.getValue() + " " + v.getTag());
+				if (!row.hasChanged()) {
+					RadioGroup g = (RadioGroup) v.getParent();
+					g.clearCheck();
+				} else {
+					row.setChanged(false);
+				}
+			}
+		};
+		
+		LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
+		buttonLayoutParams.width = LayoutParams.FILL_PARENT;
+		
+		for (int i=0;i< adapter.getCount();i++) {
+			Object o = adapter.getItem(i);
+			StringWithDescription swd = new StringWithDescription(o);
+			String v = swd.getValue();
+			
+			if (v==null || "".equals(v)) {
+				continue;
+			}
+			
+			if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
+				addButton(getActivity(), valueGroup, i, swd, v.equals(defaultValue), listener, buttonLayoutParams);
+			} else {			
+				addButton(getActivity(), valueGroup, i, swd, v.equals(value), listener, buttonLayoutParams);
+			}
+		}
+		final Handler handler = new Handler(); 
+		builder.setPositiveButton(R.string.clear, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				tagListener.updateSingleValue((String) layout.getTag(), "");
+				row.setValue("","");
+				row.setChanged(true);
+				final DialogInterface finalDialog = dialog;
+				// allow a tiny bit of time to see that the action actually worked
+				handler.postDelayed(new Runnable(){@Override public void run() {finalDialog.dismiss();}}, 100);	
+			}
+		});
+		builder.setNegativeButton(R.string.cancel, null);
+		final AlertDialog dialog = builder.create();
+		layout.setTag(key);
+		valueGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				Log.d(DEBUG_TAG,"radio group onCheckedChanged");
+				StringWithDescription value = null;
+				if (checkedId != -1) {
+					RadioButton button = (RadioButton) group.findViewById(checkedId);
+					value = (StringWithDescription)button.getTag();	
+					tagListener.updateSingleValue((String) layout.getTag(), value.getValue());
+					row.setValue(value);
+					row.setChanged(true);
+				}
+				// allow a tiny bit of time to see that the action actually worked
+				handler.postDelayed(new Runnable(){@Override public void run() {dialog.dismiss();}}, 100);
+			}
+		});
+		return dialog;
+	}
+
 	/**
 	 * Focus on the value field of a tag with key "key" 
 	 * @param key
@@ -1009,6 +1118,83 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					}
 				}
 			});
+		}
+	}
+	
+	public void addButton(Context context, RadioGroup group, int id, StringWithDescription swd, boolean selected, View.OnClickListener listener, LayoutParams layoutParams) {
+		final RadioButton button = new RadioButton(context);
+		String description = swd.getDescription();
+		button.setText(description != null && !"".equals(description)?description:swd.getValue());
+		button.setTag(swd);
+		button.setChecked(selected);
+		button.setId(id);
+		button.setLayoutParams(layoutParams);
+		group.addView(button);
+		if (selected) {
+			// setValue(value);
+		}
+		button.setOnClickListener(listener);
+	}
+	
+	public static class TagComboDialogRow extends LinearLayout {
+
+		private TextView keyView;
+		private TextView valueView;
+		private String value;
+		private Context context;
+		private boolean changed = false;
+		
+		public TagComboDialogRow(Context context) {
+			super(context);
+			this.context = context;
+		}
+		
+		public TagComboDialogRow(Context context, AttributeSet attrs) {
+			super(context, attrs);
+			this.context = context;
+		}
+		
+		@Override
+		protected void onFinishInflate() {
+			super.onFinishInflate();
+			if (isInEditMode()) return; // allow visual editor to work
+			
+			keyView = (TextView)findViewById(R.id.textKey);
+			valueView = (TextView)findViewById(R.id.textValue);	
+		}
+		
+		public void setOnClickListener(OnClickListener listener) {
+			valueView.setOnClickListener(listener);
+		}
+		
+		/**
+		 * Return the OSM key value
+		 * @return
+		 */
+		public String getKey() {
+			return (String) keyView.getTag();
+		}
+		
+		public void setValue(String value, String description) {
+			this.value = value;
+			valueView.setText(description);
+		}
+		
+		public void setValue(StringWithDescription swd) {
+			String description = swd.getDescription();
+			setValue(swd.getValue(),description != null && !"".equals(description)?description:swd.getValue());
+		}
+
+		public String getValue() {
+			return value;
+		}
+		
+		public void setChanged(boolean changed) {
+			this.changed = changed;
+		}
+		
+		public boolean hasChanged() {
+			return changed;
 		}
 	}
 	

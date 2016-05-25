@@ -182,7 +182,7 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 			Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "adding or incrementing use " + aTile);
 		}
 		// there seems to be danger for  a race condition here
-		if (incrementUse(aTile)) {
+		if (incrementUse(aTile)) { // this should actually never be true
 			if(DEBUGMODE) {
 				Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Tile existed");
 			}

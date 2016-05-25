@@ -55,6 +55,8 @@
     <string name="config_tagFormEnabled_key">tagFormEnabled</string>
     <string name="config_followGPSbutton_key">followGPSbutton</string>
     <string name="config_fullscreenMode_key">fullscreenMode</string>
+    <string name="config_maxInlineValues_key">maxInlineValues</string>
+    <string name="config_maxTileDownloadThreads_key">maxTileDownloadThreads</string>
     <string-array name="gps_source_keys">
 	<item>internal</item>
 	<item>nmea</item>

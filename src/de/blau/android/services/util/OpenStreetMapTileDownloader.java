@@ -16,6 +16,7 @@ import android.content.Context;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.Application;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 
@@ -51,7 +52,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	public OpenStreetMapTileDownloader(final Context ctx, final OpenStreetMapTileFilesystemProvider aMapTileFSProvider){
 		mCtx = ctx;
 		mMapTileFSProvider = aMapTileFSProvider;
-		mThreadPool = Executors.newFixedThreadPool(4);
+		mThreadPool = Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
 	}
 
 	// ===========================================================

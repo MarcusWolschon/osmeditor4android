@@ -101,6 +101,10 @@ public class Preferences {
 	
 	private final boolean showWayIcons;
 	
+	private int maxInlineValues;
+	
+	private int maxTileDownloadThreads;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -235,6 +239,20 @@ public class Preferences {
 		followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), "LEFT");
 		
 		fullscreenMode = prefs.getString(r.getString(R.string.config_fullscreenMode_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? r.getString(R.string.full_screen_auto) : r.getString(R.string.full_screen_never));
+	
+		try {
+			maxInlineValues = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxInlineValues_key), "4"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_maxInlineValues_key=" + prefs.getString(r.getString(R.string.config_maxInlineValues_key), "4"));
+			maxInlineValues = 4;
+		}
+		
+		try {
+			maxTileDownloadThreads = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "2"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_maxTileDownloadThreads_key=" + prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "2"));
+			maxTileDownloadThreads = 2;
+		}
 	}
 	
 	/**
@@ -479,5 +497,13 @@ public class Preferences {
 	
 	public String getFullscreenMode() {
 		return fullscreenMode;
+	}
+	
+	public int getMaxInlineValues() {
+		return maxInlineValues;
+	}
+	
+	public int getMaxTileDownloadThreads() {
+		return maxTileDownloadThreads;
 	}
 }
