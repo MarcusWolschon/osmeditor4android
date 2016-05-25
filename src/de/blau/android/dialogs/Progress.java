@@ -70,8 +70,6 @@ public class Progress extends DialogFragment
 	    	}
 	    } catch (IllegalStateException isex) {
 	    	Log.e(DEBUG_TAG,"showDialog",isex);
-	    	ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-			ACRA.getErrorReporter().handleException(isex);
 	    }
 	}
 	
