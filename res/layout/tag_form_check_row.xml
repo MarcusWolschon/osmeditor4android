@@ -31,7 +31,7 @@
             android:saveEnabled="false"
            	android:maxLines="2" />
 
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/valueSelected"
             android:layout_width="fill_parent"
             android:layout_height="34dp"

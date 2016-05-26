@@ -1159,7 +1159,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			valueView = (TextView)findViewById(R.id.textValue);	
 		}
 		
-		public void setOnClickListener(OnClickListener listener) {
+		public void setOnClickListener(final OnClickListener listener) {
 			valueView.setOnClickListener(listener);
 		}
 		
