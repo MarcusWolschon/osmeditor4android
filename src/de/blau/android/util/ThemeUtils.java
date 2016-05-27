@@ -1,6 +1,8 @@
 package de.blau.android.util;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -49,6 +51,21 @@ public final class ThemeUtils {
     		return 0;
     	}
     	return typedvalueattr.resourceId; 
+    }
+    
+    public static int getDimensionFromAttribute(final Context context,final int attr)
+    {
+    	int[] attrs = new int[] { attr /* index 0 */};
+    	TypedArray ta = null;
+    	try {
+			ta = context.getTheme().obtainStyledAttributes(attrs);
+			 return ta.getDimensionPixelSize(0, 0);
+		} catch (Resources.NotFoundException nfe) {
+    		Log.d("ThemeUtils", "getIntFromAttribute attr "+ attr + " not found");
+    		return 0;
+		} finally {
+			ta.recycle();
+		} 	
     }
     
     public static LayoutInflater getLayoutInflater(Context caller) {

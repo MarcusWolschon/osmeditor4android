@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,6 +40,8 @@ import de.blau.android.util.SearchIndexUtils;
 
 public class PresetFragment extends BaseFragment implements PresetFilterUpdate, PresetClickHandler {
 	
+	private static final String FRAGMENT_PRESET_SEARCH_RESULTS_TAG = "fragment_preset_search_results";
+
 	private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 	
     public interface OnPresetSelectedListener {
@@ -146,7 +150,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
      						|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
      					FragmentManager fm = getChildFragmentManager();
      					FragmentTransaction ft = fm.beginTransaction();
-     				    Fragment prev = fm.findFragmentByTag("fragment_preset_search_results");
+     				    Fragment prev = fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
      				    if (prev != null) {
      				        ft.remove(prev);
      				    }
@@ -158,7 +162,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
      				    }
      			        PresetSearchResultsFragment searchResultDialog 
      			        	= PresetSearchResultsFragment.newInstance(searchResults);
-     			        searchResultDialog.show(fm, "fragment_preset_search_results");
+     			        searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
      					return true;
      				}
      				return false;
