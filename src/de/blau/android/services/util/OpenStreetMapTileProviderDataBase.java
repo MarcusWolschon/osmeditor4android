@@ -14,6 +14,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
+import android.os.Build;
 import android.util.Log;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.views.util.OpenStreetMapViewConstants;
@@ -91,8 +93,17 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 														+ T_FSCACHE_TILE_Y + SQL_ARG + AND
 														+ T_FSCACHE_FILESIZE + "=0";
 	
+	private static final String T_FSCACHE_WHERE_NOT_INVALID = T_FSCACHE_RENDERER_ID + SQL_ARG + AND
+			+ T_FSCACHE_ZOOM_LEVEL + SQL_ARG + AND
+			+ T_FSCACHE_TILE_X + SQL_ARG + AND
+			+ T_FSCACHE_TILE_Y + SQL_ARG + AND
+			+ T_FSCACHE_FILESIZE + ">0";
+	
 	private static final String T_FSCACHE_SELECT_LEAST_USED = "SELECT " + T_FSCACHE_RENDERER_ID  + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE "  + T_FSCACHE_USAGECOUNT + " = (SELECT MIN(" + T_FSCACHE_USAGECOUNT + ") FROM "  + T_FSCACHE + ")";
 	private static final String T_FSCACHE_SELECT_OLDEST = "SELECT " + T_FSCACHE_RENDERER_ID  + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_FILESIZE + " > 0 ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC";
+	
+	private static final String T_FSCACHE_INCREMENT_USE = "UPDATE " + T_FSCACHE +" SET " + T_FSCACHE_USAGECOUNT + "=" + T_FSCACHE_USAGECOUNT + "+1, " 
+														+ T_FSCACHE_TIMESTAMP + "=" + SQL_ARG + " WHERE " + T_FSCACHE_WHERE;
 	
 	// ===========================================================
 	// Fields
@@ -103,6 +114,7 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 	protected final SQLiteDatabase mDatabase;
 	private final static String DATE_PATTERN_ISO8601_MILLIS = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 	protected final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat(DATE_PATTERN_ISO8601_MILLIS, Locale.US);
+	private final SQLiteStatement incrementUse;
 
 	// ===========================================================
 	// Constructors
@@ -113,6 +125,8 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 		mCtx = context;
 		mFSProvider = openStreetMapTileFilesystemProvider;
 		mDatabase = new AndNavDatabaseHelper(context).getWritableDatabase();
+		
+		incrementUse = mDatabase.compileStatement(T_FSCACHE_INCREMENT_USE);
 	}
 
 	public boolean hasTile(final OpenStreetMapTile aTile) {
@@ -140,40 +154,55 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 	public boolean incrementUse(final OpenStreetMapTile aTile) {
 		boolean ret = false;
 		if (mDatabase.isOpen()) {
-			final String[] args = new String[] { "" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x,
-					"" + aTile.y };
-			// due to incredible brain deadness of the DB API we need to retrieve
-			// the current count first
-			Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_USAGECOUNT }, T_FSCACHE_WHERE, args, null,
-					null, null);		
-			if(DEBUGMODE) {
-				Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "incrementUse found " + c.getCount() + " entries");
-			}			
-			if (c.getCount() == 1) {
-				c.moveToFirst();
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 				try {
-					int usageCount = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_USAGECOUNT));
-					ContentValues cv = new ContentValues();
-					if(DEBUGMODE) {
-						Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount);
-					}	
-					cv.put(T_FSCACHE_USAGECOUNT, usageCount + 1);
-					cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
-					ret = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
-					if(DEBUGMODE) {
-						Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount + " update sucessful " + ret);
-					}
+					incrementUse.bindString(1,getNowAsIso8601());
+					incrementUse.bindString(2,aTile.rendererID);
+					incrementUse.bindLong(3, aTile.zoomLevel);
+					incrementUse.bindLong(4, aTile.x);
+					incrementUse.bindLong(5, aTile.y);
+					return incrementUse.executeUpdateDelete() >= 1; // > 1 is naturally an error, but safe to return true here
 				} catch (Exception e) {
-					if (e instanceof NullPointerException) {
-						// just log ... likely these are really spurious
-						Log.e(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "NPE in incrementUse");
-					} else {
-						ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-						ACRA.getErrorReporter().handleException(e);
+					ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+					ACRA.getErrorReporter().handleException(e);
+					return true; // this will inidcate that the tile is in the DB which is erring on the safe side
+				}
+			} else {
+				final String[] args = new String[] { "" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x,
+						"" + aTile.y };
+				Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_USAGECOUNT }, T_FSCACHE_WHERE, args, null,
+						null, null);		
+				if(DEBUGMODE) {
+					Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "incrementUse found " + c.getCount() + " entries");
+				}			
+				if (c.getCount() == 1) {
+					c.moveToFirst();
+					try {
+						int usageCount = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_USAGECOUNT));
+						ContentValues cv = new ContentValues();
+						if(DEBUGMODE) {
+							Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount);
+						}	
+						cv.put(T_FSCACHE_USAGECOUNT, usageCount + 1);
+						cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
+						ret = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
+						if(DEBUGMODE) {
+							Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount + " update sucessful " + ret);
+						}
+					} catch (Exception e) {
+						if (e instanceof NullPointerException) {
+							// just log ... likely these are really spurious
+							Log.e(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "NPE in incrementUse");
+						} else {
+							ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+							ACRA.getErrorReporter().handleException(e);
+						}
 					}
 				}
 			}
-		}
+		} else if(DEBUGMODE) {
+			Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "incrementUse database not open");
+		}	
 		return ret;
 	}
 
@@ -226,25 +255,14 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 		}
 		if (incrementUse(aTile)) { // checks if DB is open
 			final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
-			final Cursor c = mDatabase.query(T_FSCACHE, null, T_FSCACHE_WHERE, args, null, null, null);
-			if (c.getCount() > 0) {
-				c.moveToFirst();
-				int size = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
-				if (size > 0) {
-					byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
-					c.close();
-					if (DEBUGMODE) {
-						Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Sucessful retrieved " + aTile + " from file");
-					}
-					return tile_data;
-				} else {
-					if(DEBUGMODE) {
-						Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Tile not found but should be 1 ");
-					}
-					c.close();
-					throw new IOException();
+			final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, args, null, null, null);
+			if (c.moveToFirst()) {
+				byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
+				c.close();
+				if (DEBUGMODE) {
+					Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Sucessful retrieved " + aTile + " from file");
 				}
-
+				return tile_data;
 			} else if(DEBUGMODE) {
 				Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Tile not found but should be 2");
 			}
