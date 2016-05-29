@@ -57,7 +57,7 @@ __&lt;combo&gt;__            |                               | supported |
                    | display_values                | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
                    | values_context                | supported |
-                   | editable                      | ignored   |
+                   | editable                      | supported | default is "false"
                    | use_last_as_default           | ignored   |
                    | values_searchable             | ignored   | all values are currently added to the index
                    | length                        | ignored   |
@@ -74,7 +74,7 @@ __&lt;multiselect&gt;__      |                               | supported |
                    | display_values                | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
                    | values_context                | supported |
-                   | editable                      | ignored   |
+                   | editable                      | supported | default is "false"
                    | use_last_as_default           | ignored   |
                    | values_searchable             | ignored   | all values are currently added to the index
                    | length                        | ignored   |
