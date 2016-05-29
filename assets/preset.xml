@@ -13,7 +13,10 @@
         <combo key="incline" text="Incline" values="10%,-10%,10°,-10°,up,down" display_values="10%,-10%,10°,-10°,Up,Down" values_sort="false" />
     </chunk>
     <chunk id="surface">
-        <combo key="surface" text="Surface" values="paved,unpaved,asphalt,concrete,metal,wood,paving_stones,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,sett" />
+        <combo key="surface" text="Surface"  
+        	values="paved,unpaved,asphalt,concrete,metal,wood,paving_stones,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,sett" 
+        	display_values="Paved,Unpaved,Asphalt,Concrete,Metal,Wood,Paving stones,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Sett"
+        	values_sort="false" />
     </chunk>
     <chunk id="surface_smoothness">
         <reference ref="surface" />
@@ -43,10 +46,13 @@
         <combo key="lanes:forward" text="Lanes in way direction" values="1,2,3,4,5" length="3" />
         <combo key="lanes:backward" text="Lanes opposed to way direction" values="1,2,3,4,5" length="3" />
     </chunk>
+    <chunk id="layer" >
+    	<combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" match="none" editable="true" />
+    </chunk>
     <chunk id="highway_yesno_incline">
         <check key="bridge" text="Bridge" disable_off="true" />
         <check key="tunnel" text="Tunnel" disable_off="true" />
-        <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3"/>
+        <reference ref="layer" />
         <check key="cutting" text="Cutting" disable_off="true" />
         <check key="embankment" text="Embankment" disable_off="true" />
         <reference ref="incline" />
@@ -130,7 +136,7 @@
     </chunk>
     <chunk id="name_layer">
         <text key="name" text="Name" />
-        <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="0" length="3" match="none" editable="true" />
+        <reference ref="layer" />
     </chunk>
     <chunk id="service_times">
         <combo key="service_times" text="Service Times" delimiter="|" values="18:00|sunset,sunrise|Su 09:30,11:00|Sa,Su,PH 09:00|Sa 18:00; Su 10:45|Fr 08:00-18:00; Apr 10-15 off; Jun 07:00-20:00; Aug off; Dec 24 08:00-24:00|Sa 10:00+|week 1-53/2 Fr 09:00-12:00; week 2-52/2 We 09:00-12:00" values_no_i18n="true"  match="none" editable="true" />
@@ -240,7 +246,7 @@
         <combo key="fee" text="Fee" values="yes,no" display_values="Yes,No" />
     </chunk>
     <chunk id="fee_interval">
-        <combo key="fee" text="Fee" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false" />
+        <combo key="fee" text="Fee" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false" editable="true" />
     </chunk>
     <chunk id="parking_name_type_ref">
         <text key="name" text="Name" />
@@ -367,7 +373,7 @@
     <chunk id="optional_bridge">
         <optional>
             <text key="name" text="Name" />
-            <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="1" length="3" match="key" />
+            <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="1" length="3" match="none" editable="true" />
             <space />
             <text key="maxspeed" text="Max. speed (km/h)" />
             <text key="maxspeed:forward" text="Max. speed in way direction" />
@@ -472,7 +478,7 @@
     <text key="operator" text="Operator" />
     <text key="network" text="Network" />
     <text key="description" text="Description" />
-    <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" />
+    <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" match="none" editable="true" />
   </chunk>
   <chunk id="tactile_paving">
   	<combo key="tactile_paving" text="Tactile paving" match="key" values_sort="false" >
@@ -847,7 +853,7 @@
             <text key="maxspeed" text="Max. speed (km/h)" default="30" />
             <optional>
                 <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" />
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" />
+                <reference ref="layer" />
                 <reference ref="surface_smoothness" />
                 <check key="oneway" text="Oneway" disable_off="true" />
                 <check key="oneway:bicycle" text="Oneway for bicycle" disable_off="true" />
@@ -873,7 +879,7 @@
             <text key="name" text="Name" />
             <optional>
                 <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" />
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
+                <reference ref="layer" />
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
 		        <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
@@ -896,7 +902,7 @@
             <text key="name" text="Name" />
             <optional>
                 <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" />
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
+                <reference ref="layer" />
                 <reference ref="surface_smoothness" />
                 <check key="area" text="Area" disable_off="true" />
                 <reference ref="highway_yesno_incline" />
@@ -1276,7 +1282,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:highway=footway" />
             <key key="highway" value="footway" />
             <optional>
-                <combo key="footway" text="Type" values="sidewalk,crossing" values_context="footway" />
+                <combo key="footway" text="Type" values="sidewalk,crossing" display_values="Sidewalk,Crossing" values_context="footway" />
                 <reference ref="name_layer" />
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline" />
@@ -2043,7 +2049,7 @@
             <key key="tunnel" value="yes" />
             <optional>
                 <text key="name" text="Name" />
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" />
+                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" match="none" editable="true" />
                 <text key="width" text="Width (meters)" />
                 <text key="maxheight" text="Max. height (meters)" />
                 <space />
@@ -2480,7 +2486,7 @@
             <key key="tunnel" value="culvert" />
             <optional>
                 <text key="name" text="Name" />
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" />
+                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" motch="none" editable="true" />
                 <text key="width" text="Width (meters)" />
             </optional>
         </item> <!-- Culvert -->
@@ -2877,7 +2883,7 @@
             <optional>
                 <text key="name" text="Name" />
                 <reference ref="highway_yesno_incline_oneway" />
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
+                <reference ref="layer" />
                 <reference ref="surface_smoothness" />
                 <text key="maxspeed" text="Max. speed (km/h)" />
                 <text key="width" text="Width (meters)" />
@@ -7404,7 +7410,7 @@
             <optional>
                 <reference ref="cable_circuit" />
                 <combo key="wires" text="Number of conductors/wires per cable" values="single,double,triple,quad,fivefold,sixfold,eightfold" values_context="power" />
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
+                <reference ref="layer" />
                 <check key="communication" text="Used for data communications" value_on="line" value_off="" default="off" />
             </optional>
         </item> <!-- Power Line -->
@@ -7419,7 +7425,7 @@
             <optional>
                 <reference ref="cable_circuit" />
                 <combo key="location" text="Location" values="underground,underwater,overground" values_context="power cable" />
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
+                <reference ref="layer" />
                 <check key="communication" text="Used for data communications" value_on="line" value_off="" default="off" />
             </optional>
         </item> <!-- Power Cable -->
@@ -10229,7 +10235,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Relations/Proposed/Bridges_and_Tunnels" />
             <space />
             <key key="type" value="bridge" />
-            <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
+            <reference ref="layer" />
             <reference ref="name_ref" />
             <text key="height" text="Height (meters)" />
             <text key="length" text="Length (meters)" />
@@ -10245,7 +10251,7 @@
             <link href="http://wiki.openstreetmap.org/wiki/Relations/Proposed/Bridges_and_Tunnels" />
             <space />
             <key key="type" value="tunnel" />
-            <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
+            <reference ref="layer" />
             <reference ref="name_ref" />
             <text key="length" text="Length (meters)" />
             <text key="operator" text="Operator" />
