@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myScrollView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="?attr/dialogPreferredPadding"
+    android:paddingRight="?attr/dialogPreferredPadding" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <!-- the linear layout is neede to stop layout issues with the RadioGroup being directly in the ScrollView -->
+
+        <LinearLayout
+            android:id="@+id/valueGroup"
+            style="?attr/RadioGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_weight="2"
+            android:minHeight="34dp"
+            android:orientation="vertical"
+            android:paddingLeft="0dp"
+            android:paddingRight="5dp"
+            android:saveEnabled="false" />
+    </LinearLayout>
+
+</ScrollView>

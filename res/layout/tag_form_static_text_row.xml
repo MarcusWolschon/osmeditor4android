@@ -28,7 +28,6 @@
 	        android:paddingRight="5dp"
 	        android:singleLine="true"
 	        android:gravity="center_vertical"
-	        android:layout_gravity="center_vertical"
 	         />	    
 	    <TextView
 	        android:id="@+id/textValue"
@@ -45,7 +44,6 @@
 	        android:paddingRight="5dp"
 	        android:singleLine="true"
 	        android:gravity="center_vertical"
-	        android:layout_gravity="center_vertical"
 	        />
 	</LinearLayout>
 </view>
