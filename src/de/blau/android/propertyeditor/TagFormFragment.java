@@ -52,6 +52,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -259,6 +260,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				HashMap<String, Integer> counter = new HashMap<String, Integer>();
 				ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<ValueWithCount>(getActivity(), R.layout.autocomplete_row);
 	
+				if (preset != null) {
 				Collection<StringWithDescription> presetValues = preset.getAutocompleteValues(key);
 				Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + presetValues);
 				if (values != null && !values.isEmpty()) {
@@ -275,6 +277,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					}
 					Log.d(DEBUG_TAG,"key " + key + " type " + preset.getKeyType(key));
 				} 
+				} else {
+					OsmElement element = ((PropertyEditor)getActivity()).getElement();
+					if (((PropertyEditor)getActivity()).presets != null && element != null) { 
+						Log.d(DEBUG_TAG,"generate suggestions for >" + key + "< from presets"); // only do this if there is no other source of suggestions
+						for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,element.getType(), key)) {
+							adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
+						}	
+					}
+				}
 				if (!counter.containsKey("") && !counter.containsKey(null)) { // add empty value so that we can remove tag
 					adapter2.insert(new ValueWithCount("", getString(R.string.tag_not_set), true),0); // FIXME allow unset value depending on preset
 				}
@@ -512,7 +523,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     	if (nonEditable.size() > 0) {
     		nel.setVisibility(View.VISIBLE);
     		for (String key:nonEditable.keySet()) {
-    			addRow(nonEditableView,key, nonEditable.get(key),null, null);
+    			addRow(nonEditableView,key, nonEditable.get(key),null, allTags);
     		}
     	}
     	
@@ -670,10 +681,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 //				// String hint = preset.getHint(key);
 //				rowLayout.addView(addTextRow(null, null, key, value, adapter));
 			} else {
-				final TagStaticTextRow row = (TagStaticTextRow)inflater.inflate(R.layout.tag_form_static_text_row, rowLayout, false);
-				row.keyView.setText(key);
-				row.valueView.setText(value);
-				rowLayout.addView(row);
+				if (false) { // make tags not associated with a preset un-editable, disabled for now, may end up in a preference
+					final TagStaticTextRow row = (TagStaticTextRow)inflater.inflate(R.layout.tag_form_static_text_row, rowLayout, false);
+					row.keyView.setText(key);
+					row.valueView.setText(value);
+					rowLayout.addView(row);
+				} else {
+					ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, Util.getArrayList(value), null, allTags);
+					rowLayout.addView(addTextRow(rowLayout, null, PresetKeyType.TEXT, null, key, value, null, adapter));
+				}
 			}
 		} else {
  			Log.d(DEBUG_TAG, "addRow rowLayout null");
