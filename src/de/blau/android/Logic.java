@@ -684,10 +684,25 @@ public class Logic {
 	 * @return a hash map mapping Ways to distances
 	 */
 	public HashMap<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
+		return getClickedWaysWithDistances(true, x, y);
+	}
+	
+	/**
+	 * Returns all ways within way tolerance from the given coordinates, and their distances from them.
+	 * 
+	 * @param includeClosed include closed ways in the result if true
+	 * @param x x display coordinate
+	 * @param y y display coordinate
+	 * @return a hash map mapping Ways to distances
+	 */
+	public HashMap<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float x, final float y) {
 		HashMap<Way, Double> result = new HashMap<Way, Double>();
 		boolean showWayIcons = prefs.getShowWayIcons();
 
 		for (Way way : getDelegator().getCurrentStorage().getWays()) {
+			if (way.isClosed() && !includeClosed) {
+				continue;
+			}
 			boolean added = false;
 			List<Node> wayNodes = way.getNodes();
 
@@ -899,7 +914,19 @@ public class Logic {
 	 * @return the ways
 	 */
 	public List<Way> getClickedWays(final float x, final float y) {
-		return waySorter.sort(getClickedWaysWithDistances(x, y));
+		return getClickedWays(true, x, y);
+	}
+	
+	/**
+	 * Returns all ways within click tolerance from the given coordinate 
+	 * 
+	 * @param includeClosed include closed ways in the result if true
+	 * @param x x display-coordinate.
+	 * @param y y display-coordinate.
+	 * @return the ways
+	 */
+	public List<Way> getClickedWays(boolean includeClosed, final float x, final float y) {
+		return waySorter.sort(getClickedWaysWithDistances(includeClosed, x, y));
 	}
 	
 	/**
@@ -1371,17 +1398,21 @@ public class Logic {
 	}
 	
 	/**
-	 * Executes an add-command for x,y but only if on way. Adds new node to storage. Will switch selected node,
+	 * Executes an add-command for x,y but only if on way. Adds new node to storage. Will switch to selected node,
 	 * 
 	 * @param x screen-coordinate
 	 * @param y screen-coordinate
 	 * @throws OsmIllegalOperationException 
 	 */
 	public synchronized boolean performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
+		return performAddOnWay(null,x,y);
+	}
+		
+	public synchronized boolean performAddOnWay(List<Way>ways,final float x, final float y) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_add);
 		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		
-		Node newSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
+		Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways,x, y);
 
 		if (newSelectedNode == null) {
 			newSelectedNode = savedSelectedNode;
@@ -1810,16 +1841,34 @@ public class Logic {
 	 * @throws OsmIllegalOperationException 
 	 */
 	private synchronized Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
+		return getClickedNodeOrCreatedWayNode(null,x,y);
+	}
+	
+	/**
+	 * Tries to locate the selected node. If x,y lays on a way, a new node at this location will be created, stored in
+	 * storage and returned.
+	 * 
+	 * @param ways list of candidate ways or null for all
+	 * @param x the x screen coordinate
+	 * @param y the y screen coordinate
+	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
+	 * @throws OsmIllegalOperationException 
+	 */
+	private synchronized Node getClickedNodeOrCreatedWayNode(List<Way>ways,final float x, final float y) throws OsmIllegalOperationException {
 		Node node = getClickedNode(x, y);
 		if (node != null) {
 			return node;
 		}
+		if (ways==null) {
+			ways=getDelegator().getCurrentStorage().getWays();
+		}
 		Node savedNode1 = null;
 		Node savedNode2 = null;
-		Way savedWay = null;
+		ArrayList<Way> savedWays = new ArrayList<Way>();
+		ArrayList<Boolean> savedWaysSameDirection = new ArrayList<Boolean>();
 		double savedDistance = Double.MAX_VALUE;
 		//create a new node on a way
-		for (Way way : getDelegator().getCurrentStorage().getWays()) {
+		for (Way way : ways) {
 			List<Node> wayNodes = way.getNodes();
 			for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
 				Node node1 = wayNodes.get(k - 1);
@@ -1836,18 +1885,33 @@ public class Logic {
 						savedNode1 = node1;
 						savedNode2 = node2;
 						savedDistance = distance;
-						savedWay = way;
+						savedWays.clear();
+						savedWays.add(way);
+						savedWaysSameDirection.clear();
+						savedWaysSameDirection.add(true);
+					} else if ((node1==savedNode1 && node2==savedNode2)) { 
+						savedWays.add(way);
+						savedWaysSameDirection.add(true);
+					} else if ((node1==savedNode2 && node2==savedNode1)) {
+						savedWays.add(way);
+						savedWaysSameDirection.add(false);
 					}
 				}
 			}
 		}
-		// way found that is in toleance range
+		// way(s) found in tolerance range
 		if (savedNode1 != null && savedNode2 != null) {		
 			node = createNodeOnWay(savedNode1, savedNode2, x, y);
 			if (node != null) {
 				getDelegator().insertElementSafe(node);
 				try {
-					getDelegator().addNodeToWayAfter(savedNode1, node, savedWay);
+					for (int i=0;i<savedWays.size();i++) {
+						if (savedWaysSameDirection.get(i)) {
+							getDelegator().addNodeToWayAfter(savedNode1, node, savedWays.get(i));
+						} else {
+							getDelegator().addNodeToWayAfter(savedNode2, node, savedWays.get(i));
+						}
+					}
 				} catch (OsmIllegalOperationException e) {
 					getDelegator().removeNode(node);
 					throw new OsmIllegalOperationException(e);

@@ -2385,9 +2385,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
-			onCreateDefaultContextMenu(menu);
+			if (easyEditManager.needsCustomContextMenu()) {
+				easyEditManager.createContextMenu(menu);
+			} else {
+				onCreateDefaultContextMenu(menu);
+			}
 		}
-			
+		
+		/**
+		 * Creates a context menu with the objects near where the screen was touched
+		 * @param menu
+		 */
 		public void onCreateDefaultContextMenu(final ContextMenu menu) {
 			int id = 0;
 			if (clickedPhotos != null) {
@@ -2402,7 +2410,18 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			}
 			if (clickedNodesAndWays != null) {
 				for (OsmElement e : clickedNodesAndWays) {
-					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription(Application.mainActivity)).setOnMenuItemClickListener(this);
+					String description = e.getDescription(Application.mainActivity);
+					if (e instanceof Node) {
+						List<Way> ways =  Application.getLogic().getWaysForNode((Node)e);
+						if (ways != null && ways.size() > 0) {
+							description = description + " (";
+							for (Way w:ways) {
+								description = description + w.getDescription(Application.mainActivity) + ((ways.indexOf(w)!=(ways.size()-1)?", ":""));
+							}
+							description = description + ")";
+						}
+					} 
+					menu.add(Menu.NONE, id++, Menu.NONE, description).setOnMenuItemClickListener(this);
 				}
 			}
 		}

@@ -33,7 +33,9 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.PopupMenu.OnMenuItemClickListener;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.ContextThemeWrapper;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -110,6 +112,15 @@ public class EasyEditManager {
 	 */
 	public boolean isProcessingAction() {
 		return (currentActionModeCallback != null);
+	}
+	
+	
+	/**
+	 * Check if the actionmode ants its own context menu
+	 * @return
+	 */
+	public boolean needsCustomContextMenu() {
+		return isProcessingAction() && currentActionModeCallback.needsCustomContextMenu();
 	}
 	
 	/**
@@ -220,9 +231,6 @@ public class EasyEditManager {
 	public boolean handleLongClick(View v, float x, float y) {
 
 		if ((currentActionModeCallback instanceof PathCreationActionModeCallback)) 
-//			|| (currentActionModeCallback instanceof WaySelectionActionModeCallback)
-//			|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
-//			|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
 		{
 			// we don't do long clicks in the above modes
 			Log.d("EasyEditManager", "handleLongClick ignoring long click");
@@ -426,6 +434,16 @@ public class EasyEditManager {
 	}
 	
 	/**
+	 * Call the per actionmode onCreateContextMenu
+	 * @param menu
+	 */
+	public void createContextMenu(ContextMenu menu) {
+		if (currentActionModeCallback != null) {
+			currentActionModeCallback.onCreateContextMenu(menu);
+		}	
+	}
+	
+	/**
 	 * Base class for ActionMode callbacks inside {@link EasyEditManager}.
 	 * Derived classes should call {@link #onCreateActionMode(ActionMode, Menu)} and {@link #onDestroyActionMode(ActionMode)}.
 	 * It will handle registering and de-registering the action mode callback with the {@link EasyEditManager}.
@@ -467,6 +485,14 @@ public class EasyEditManager {
 			return false;
 		}
 		
+		/**
+		 * Override this is you want to create a custom context menu in onCreateContextMenu
+		 * @return
+		 */
+		public boolean needsCustomContextMenu() {
+			return false;
+		}
+
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
 			Log.d("EasyEditActionModeCallback", "onDestroyActionMode");
@@ -542,16 +568,20 @@ public class EasyEditManager {
 		protected void arrangeMenu(Menu menu) {
 			menuUtil.setShowAlways(menu);
 		}
+		
+		public void onCreateContextMenu(ContextMenu menu) {
+		}
 	}
 	
-	private class LongClickActionModeCallback extends EasyEditActionModeCallback {
+	private class LongClickActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
 		private static final int MENUITEM_OSB = 1;
 		private static final int MENUITEM_NEWNODEWAY = 2;
-		private static final int MENUITEM_PASTE = 3;
-		private static final int MENUITEM_NEWNODE_GPS = 4;
-		private static final int MENUITEM_NEWNODE_ADDRESS = 5;
-		private static final int MENUITEM_NEWNODE_PRESET = 6;
-		private static final int MENUITEM_NEWNODE_VOICE = 7;
+		private static final int MENUITEM_SPLITWAY = 3;
+		private static final int MENUITEM_PASTE = 4;
+		private static final int MENUITEM_NEWNODE_GPS = 5;
+		private static final int MENUITEM_NEWNODE_ADDRESS = 6;
+		private static final int MENUITEM_NEWNODE_PRESET = 7;
+		private static final int MENUITEM_NEWNODE_VOICE = 8;
 		private float startX;
 		private float startY;
 		private int startLon;
@@ -559,11 +589,15 @@ public class EasyEditManager {
 		private float x;
 		private float y;
 		LocationManager locationManager = null;
+		private List<OsmElement> clickedNodes;
+		private List<Way>clickedNonClosedWays;
 		
 		public LongClickActionModeCallback(float x, float y) {
 			super();
 			this.x = x;
 			this.y = y;
+			clickedNodes = logic.getClickedNodes(x, y);
+			clickedNonClosedWays = logic.getClickedWays(false, x, y); // 
 		}
 		
 		@Override
@@ -597,6 +631,9 @@ public class EasyEditManager {
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
+			if ((clickedNonClosedWays != null && clickedNonClosedWays.size() > 0) && (clickedNodes == null || clickedNodes.size()==0) ) {
+				menu.add(Menu.NONE, MENUITEM_SPLITWAY, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split));
+			}
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
 			if (!logic.clipboardIsEmpty()) {
 				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_paste)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_paste));
@@ -624,6 +661,48 @@ public class EasyEditManager {
 		}
 		
 		@Override
+		public boolean needsCustomContextMenu() {
+			return true;
+		}
+		
+		@Override
+		public void onCreateContextMenu(ContextMenu menu) {
+			if (clickedNonClosedWays != null && clickedNonClosedWays.size() > 0) { 
+				int id = 0;
+				menu.add(Menu.NONE, id++, Menu.NONE, R.string.split_all_ways).setOnMenuItemClickListener(this);
+				for (Way w:clickedNonClosedWays) {
+					menu.add(Menu.NONE, id++, Menu.NONE, w.getDescription(Application.mainActivity)).setOnMenuItemClickListener(this);
+				}
+			}
+		}	
+
+		@Override
+		public boolean onMenuItemClick(MenuItem item) {
+			int itemId = item.getItemId();
+			
+			List<Way>ways = new ArrayList<Way>();
+			if (itemId==0) {
+				ways = clickedNonClosedWays;
+			} else { 
+				ways.add(clickedNonClosedWays.get(itemId -1));
+			}
+			try {
+				if (logic.performAddOnWay(ways,startX, startY)) {
+					Node splitPosition = logic.getSelectedNode();
+					for (Way way:ways) {
+						if (way.hasNode(splitPosition)) {
+							logic.performSplit(way,logic.getSelectedNode());
+						}
+					}
+				}
+			} catch (OsmIllegalOperationException e) {
+				e.printStackTrace();// FIXME toast or so
+			}
+			currentActionMode.finish();
+			return false;
+		}
+		
+		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			super.onActionItemClicked(mode, item);
 			switch (item.getItemId()) {
@@ -645,6 +724,23 @@ public class EasyEditManager {
 			case MENUITEM_NEWNODEWAY:
 				main.startSupportActionMode(new PathCreationActionModeCallback(x, y));
 				logic.hideCrosshairs();
+				return true;
+			case MENUITEM_SPLITWAY:
+				if (clickedNonClosedWays.size() > 1) {
+					main.getMap().showContextMenu();
+				} else {
+					Way way = clickedNonClosedWays.get(0);
+					ArrayList<Way>ways = new ArrayList<Way>();
+					ways.add(way);
+					try {
+						if (logic.performAddOnWay(ways,startX, startY)) {
+							logic.performSplit(way,logic.getSelectedNode());
+						}
+					} catch (OsmIllegalOperationException e) {
+						e.printStackTrace();// FIXME toast
+					}
+					currentActionMode.finish();
+				}
 				return true;
 			case MENUITEM_NEWNODE_ADDRESS:
 			case MENUITEM_NEWNODE_PRESET:

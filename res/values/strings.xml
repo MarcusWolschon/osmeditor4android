@@ -337,6 +337,7 @@
     <string name="deleteway_wayandnodes">Delete way and nodes</string>
     <string name="deletenode_relation_description">You are about to delete a node that is a member of one or more relations. Removing the node from the relation(s) may render it/them invalid.</string>
     <string name="deletenode">Delete node</string>
+    <string name="split_all_ways">Split all ways</string>
     <!-- EasyEdit action mode titles -->
     <string name="actionmode_wayselect">Way selected</string>
     <string name="actionmode_nodeselect">Node selected</string>
