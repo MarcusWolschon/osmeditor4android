@@ -878,6 +878,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
+				final View finalView = v;
+				finalView.setEnabled(false); // debounce 
 				final AlertDialog dialog = buildComboDialog(hint != null?hint:key,key,defaultValue,adapter,row); 
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
 					dialog.setOnShowListener(new OnShowListener(){
@@ -888,6 +890,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 							}
 						}});
 				}
+				dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+					@Override
+					public void onDismiss(DialogInterface dialog) {
+						finalView.setEnabled(true);	
+					}	
+				});
 				dialog.show();
 			}
 		});
@@ -931,8 +939,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
+				final View finalView = v;
+				finalView.setEnabled(false); // debounce 
 				final AlertDialog dialog =  buildMultiselectDialog(hint != null?hint:key,key,defaultValue,adapter,row, allTags);
-				final Object tag = v.getTag();
+				final Object tag = finalView.getTag();
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
 					dialog.setOnShowListener(new OnShowListener(){
 						@Override
@@ -942,6 +952,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 							}
 						}});
 				}
+				dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+					@Override
+					public void onDismiss(DialogInterface dialog) {
+						finalView.setEnabled(true);	
+					}	
+				});
 				dialog.show();
 				// the following is one big awful hack to stop the button dismissing the dialog
 				dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {            
