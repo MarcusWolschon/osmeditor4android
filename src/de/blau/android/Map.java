@@ -158,9 +158,11 @@ public class Map extends View implements IMapView {
 	
 	/** Caches the Paint used for node tolerance */
 	Paint nodeTolerancePaint;
+	Paint nodeTolerancePaint2;
 	
 	/** Caches the Paint used for way tolerance */
 	Paint wayTolerancePaint;
+	Paint wayTolerancePaint2;
 	
 	/** cached zoom level, calculated once per onDraw pass **/
 	int zoomLevel = 0;
@@ -673,85 +675,83 @@ public class Map extends View implements IMapView {
 		int lat = node.getLat();
 		int lon = node.getLon();
 		boolean isSelected = false;
-		
+
 		//Paint only nodes inside the viewBox.
 		BoundingBox viewBox = getViewBox();
-//		if (viewBox.isIn(lat, lon)) { // we are only passed nodes that are in the viewBox
-			float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
-			float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
+		float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
+		float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
 
-			boolean isTagged = node.isTagged();
-			
-			//draw tolerance box
-			if (tmpDrawingInEditRange
-					&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(node)))
-					&& (tmpClickableElements == null || tmpClickableElements.contains(node))
-				)
-			{
+		boolean isTagged = node.isTagged();
+
+		//draw tolerance
+		if (tmpDrawingInEditRange) {
+			if (prefs.isToleranceVisible() && tmpClickableElements == null) {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y);
+			} else if (tmpClickableElements != null && tmpClickableElements.contains(node)) {
+				drawNodeTolerance2(canvas, node.getState(), lat, lon, isTagged, x, y);
 			}
-			
-			String featureKey;
-			String featureKeyThin;
-			String featureKeyTagged;
-			if (tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node) && tmpDrawingInEditRange) {
-				// general node style
-				featureKey = DataStyle.SELECTED_NODE;
-				// style for house numbers
-				featureKeyThin = DataStyle.SELECTED_NODE_THIN;
-				// style for tagged nodes or otherwise important
-				featureKeyTagged = DataStyle.SELECTED_NODE_TAGGED;
-				if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()) { // don't draw large areas in multi-select mode
-					canvas.drawCircle(x, y, DataStyle.getCurrent().largDragToleranceRadius, DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
-				}
-				isSelected = true;
-			} else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
-				// general node style
-				featureKey = DataStyle.SELECTED_RELATION_NODE;
-				// style for house numbers
-				featureKeyThin = DataStyle.SELECTED_RELATION_NODE_THIN;
-				// style for tagged nodes or otherwise important
-				featureKeyTagged = DataStyle.SELECTED_RELATION_NODE_TAGGED;
-				isSelected = true;
-			} else if (node.hasProblem(context)) {
-				// general node style
-				featureKey = DataStyle.PROBLEM_NODE;
-				// style for house numbers
-				featureKeyThin = DataStyle.PROBLEM_NODE_THIN;
-				// style for tagged nodes or otherwise important
-				featureKeyTagged = DataStyle.PROBLEM_NODE_TAGGED;
-			} else {
-				// general node style
-				featureKey = DataStyle.NODE;
-				// style for house numbers
-				featureKeyThin = DataStyle.NODE_THIN;
-				// style for tagged nodes or otherwise important
-				featureKeyTagged = DataStyle.NODE_TAGGED;
-			}
+		}
 
-			boolean noIcon = true;
-			if (isTagged && zoomLevel > SHOW_ICONS_LIMIT && showIcons) {
-				noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null);
-				if (noIcon) {
-					String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-					if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
-						Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
-						canvas.drawCircle(x, y, houseNumberRadius, paint2);
-						canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2); 
-						noIcon = false;
-					}
-				} 
+		String featureKey;
+		String featureKeyThin;
+		String featureKeyTagged;
+		if (tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node) && tmpDrawingInEditRange) {
+			// general node style
+			featureKey = DataStyle.SELECTED_NODE;
+			// style for house numbers
+			featureKeyThin = DataStyle.SELECTED_NODE_THIN;
+			// style for tagged nodes or otherwise important
+			featureKeyTagged = DataStyle.SELECTED_NODE_TAGGED;
+			if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()) { // don't draw large areas in multi-select mode
+				canvas.drawCircle(x, y, DataStyle.getCurrent().largDragToleranceRadius, DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
 			}
-			if (noIcon) { 
-				// draw regular nodes
-				Paint p = DataStyle.getCurrent(featureKey).getPaint();
-				if (hwAccelarationWorkaround) { //FIXME we don't actually know if this is slower than drawPoint
-					canvas.drawCircle(x, y, p.getStrokeWidth()/2, p);
-				} else {
-					canvas.drawPoint(x, y, p);
+			isSelected = true;
+		} else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
+			// general node style
+			featureKey = DataStyle.SELECTED_RELATION_NODE;
+			// style for house numbers
+			featureKeyThin = DataStyle.SELECTED_RELATION_NODE_THIN;
+			// style for tagged nodes or otherwise important
+			featureKeyTagged = DataStyle.SELECTED_RELATION_NODE_TAGGED;
+			isSelected = true;
+		} else if (node.hasProblem(context)) {
+			// general node style
+			featureKey = DataStyle.PROBLEM_NODE;
+			// style for house numbers
+			featureKeyThin = DataStyle.PROBLEM_NODE_THIN;
+			// style for tagged nodes or otherwise important
+			featureKeyTagged = DataStyle.PROBLEM_NODE_TAGGED;
+		} else {
+			// general node style
+			featureKey = DataStyle.NODE;
+			// style for house numbers
+			featureKeyThin = DataStyle.NODE_THIN;
+			// style for tagged nodes or otherwise important
+			featureKeyTagged = DataStyle.NODE_TAGGED;
+		}
+
+		boolean noIcon = true;
+		if (isTagged && zoomLevel > SHOW_ICONS_LIMIT && showIcons) {
+			noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null);
+			if (noIcon) {
+				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+				if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
+					Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
+					canvas.drawCircle(x, y, houseNumberRadius, paint2);
+					canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2); 
+					noIcon = false;
 				}
+			} 
+		}
+		if (noIcon) { 
+			// draw regular nodes
+			Paint p = DataStyle.getCurrent(featureKey).getPaint();
+			if (hwAccelarationWorkaround) { //FIXME we don't actually know if this is slower than drawPoint
+				canvas.drawCircle(x, y, p.getStrokeWidth()/2, p);
+			} else {
+				canvas.drawPoint(x, y, p);
 			}
-//		}
+		}
 	}
 	
 	/**
@@ -829,6 +829,14 @@ public class Map extends View implements IMapView {
 			canvas.drawCircle(x, y, isTagged ? nodeTolerancePaint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth()/2, nodeTolerancePaint);
 		}
 	}
+	
+	private void drawNodeTolerance2(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
+			boolean isTagged, final float x, final float y) {
+		if ( (tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
+				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon))) {
+			canvas.drawCircle(x, y, isTagged ? nodeTolerancePaint2.getStrokeWidth() : wayTolerancePaint2.getStrokeWidth()/2, nodeTolerancePaint2);
+		}
+	}
 
 	/**
 	 * Paints the given way on the canvas.
@@ -841,11 +849,13 @@ public class Map extends View implements IMapView {
 		Paint paint;
 		//draw way tolerance
 		if (tmpDrawingInEditRange // if we are not in editing rage none of the further checks are necessary
-				&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(way))) // if prefs are turned off but we are doing an EasyEdit operation show anyway
-				&& (tmpClickableElements == null || tmpClickableElements.contains(way))
-				&& (tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
-					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT)) {
-			canvas.drawLines(linePoints, wayTolerancePaint);
+			&& (tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
+			|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT)) {
+				if (prefs.isToleranceVisible() && tmpClickableElements == null) {
+					canvas.drawLines(linePoints, wayTolerancePaint);
+				} else if (tmpClickableElements != null && tmpClickableElements.contains(way)) {
+					canvas.drawLines(linePoints, wayTolerancePaint2);
+				}
 		}
 		//draw selectedWay highlighting
 		boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be a better idea to do so
@@ -1167,7 +1177,9 @@ public class Map extends View implements IMapView {
 	public void updateProfile () {
 		// changes when profile changes
 		nodeTolerancePaint = DataStyle.getCurrent(DataStyle.NODE_TOLERANCE).getPaint();
+		nodeTolerancePaint2 = DataStyle.getCurrent(DataStyle.NODE_TOLERANCE_2).getPaint();
 		wayTolerancePaint = DataStyle.getCurrent(DataStyle.WAY_TOLERANCE).getPaint();
+		wayTolerancePaint2 = DataStyle.getCurrent(DataStyle.WAY_TOLERANCE_2).getPaint();
 	}
 	
 	void setOrientation(final float orientation) {

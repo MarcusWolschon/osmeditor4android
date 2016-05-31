@@ -144,11 +144,20 @@ public class Way extends OsmElement implements BoundedObject {
 		s.endTag("", "way");
 	}
 	
-
+	/**
+	 * Returns true if "node" is a way node of this way
+	 * @param node
+	 * @return
+	 */
 	public boolean hasNode(final Node node) {
 		return nodes.contains(node);
 	}
 
+	/**
+	 * Returns true if this way has a common node with "way"
+	 * @param way
+	 * @return
+	 */
 	public boolean hasCommonNode(final Way way) {
 		for (Node n : this.nodes) {
 			if (way.hasNode(n)) {
@@ -156,6 +165,20 @@ public class Way extends OsmElement implements BoundedObject {
 			}
 		}
  		return false;
+	}
+	
+	/**
+	 * Returns the first found common node with "way" or null if their are none
+	 * @param way
+	 * @return
+	 */
+	public Node getCommonNode(Way way) {
+		for (Node n : this.nodes) {
+			if (way.hasNode(n)) {
+				return n;
+			}
+		}
+		return null;
 	}
 	
 	void removeNode(final Node node) {

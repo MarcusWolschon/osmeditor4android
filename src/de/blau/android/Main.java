@@ -2823,7 +2823,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {
 		Log.d(DEBUG_TAG,"zoomToAndEdit Zoom " + map.getZoomLevel());
 		final Logic logic = Application.getLogic();
-		if (logic.getMode()==Mode.MODE_MOVE) { // avoid switiching to the wronf mode
+		if (logic.getMode()==Mode.MODE_MOVE) { // avoid switching to the wrong mode
 			FloatingActionButton lock = setLock(Mode.MODE_MOVE); // NOP to get button
 			if (EASY_TAG.equals(lock.getTag())) {
 				setLock(Mode.MODE_EASYEDIT);
@@ -2831,14 +2831,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				setLock(Mode.MODE_TAG_EDIT);
 			}
 		}
-		setFollowGPS(false); // otherwise the screen could move around
-		if (e instanceof Node && map.getZoomLevel() < 22) {
-			Log.d(DEBUG_TAG,"zoomToAndEdit setting Zoom to 22");
-			logic.setZoom(22); // FIXME this doesn't seem to work as expected
-		} else {
-			map.getViewBox().setBorders(e.getBounds());
-		}
-		map.getViewBox().moveTo(lonE7, latE7);
+		zoomTo(lonE7, latE7, e);
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
 		logic.setSelectedRelation(null);
@@ -2867,6 +2860,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		} else { // tag edit mode
 			performTagEdit(e, null, false, false);
 		}
+	}
+	
+	public void zoomTo(int lonE7, int latE7, OsmElement e) {
+		setFollowGPS(false); // otherwise the screen could move around
+		if (e instanceof Node && map.getZoomLevel() < 22) {
+			Log.d(DEBUG_TAG,"zoomTosetting Zoom to 22");
+			Application.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
+		} else {
+			map.getViewBox().setBorders(e.getBounds());
+		}
+		map.getViewBox().moveTo(lonE7, latE7);
 	}
 	
 	@Override

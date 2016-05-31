@@ -1547,12 +1547,14 @@ public class Logic {
 	 * Splits a way at a given node
 	 * @param way the way to split
 	 * @param node the node at which the way should be split
+	 * @return the new way or null if failed
 	 */
-	public synchronized void performSplit(final Way way, final Node node) {
+	public synchronized Way performSplit(final Way way, final Node node) {
 		// setSelectedNode(node);
 		createCheckpoint(R.string.undo_action_split_way);
-		getDelegator().splitAtNode(way, node);
+		Way result = getDelegator().splitAtNode(way, node);
 		map.invalidate();
+		return result;
 	}
 	
 	/**

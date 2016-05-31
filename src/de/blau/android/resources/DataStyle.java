@@ -51,14 +51,18 @@ public class DataStyle  extends DefaultHandler {
 	
 	// constants for the internal profiles
 	public final static String GPS_TRACK = "gps_track";
-	public final static String NODE_TOLERANCE = "node_tolerance";
+	
 	public final static String INFOTEXT = "infotext";
 	public final static String ATTRIBUTION_TEXT = "attribution_text";
 	public final static String VIEWBOX = "viewbox";
+	public final static String WAY_TOLERANCE = "way_tolerance";
+	public final static String WAY_TOLERANCE_2 = "way_tolerance_2";
 	public final static String WAY = "way";
 	public final static String SELECTED_WAY = "selected_way";
 	public final static String SELECTED_RELATION_WAY = "selected_relation_way";
 	public final static String PROBLEM_WAY = "problem_way";
+	public final static String NODE_TOLERANCE = "node_tolerance";
+	public final static String NODE_TOLERANCE_2 = "node_tolerance_2";
 	public final static String NODE = "node";
 	public final static String NODE_THIN = "node_thin";
 	public static final String NODE_TAGGED = "node_tagged";
@@ -73,8 +77,7 @@ public class DataStyle  extends DefaultHandler {
 	public final static String SELECTED_RELATION_NODE_THIN = "selected_relation_node_thin";
 	public static final String SELECTED_RELATION_NODE_TAGGED = "selected_relation_node_tagged";
 	public final static String WAY_DIRECTION = "way_direction";
-	public final static String ONEWAY_DIRECTION = "oneway_direction";
-	public final static String WAY_TOLERANCE = "way_tolerance";
+	public final static String ONEWAY_DIRECTION = "oneway_direction";	
 	public final static String LARGE_DRAG_AREA = "large_drag_area";
 	public final static String MARKER_SCALE = "marker_scale";
 	public final static String GPS_POS = "gps_pos";
@@ -223,6 +226,7 @@ public class DataStyle  extends DefaultHandler {
 	public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
 
 	private static final int TOLERANCE_ALPHA = 40;
+	private static final int TOLERANCE_ALPHA_2 = 128;
 	
 	/**
 	 * GPS arrow
@@ -399,6 +403,13 @@ public class DataStyle  extends DefaultHandler {
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,wayToleranceValue));
 		featureStyles.put(fp.getName(), fp);
 		
+		fp = new FeatureStyle(WAY_TOLERANCE_2,featureStyles.get(WAY)); 	
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_ocher));
+		fp.dontUpdate();
+		fp.getPaint().setAlpha(TOLERANCE_ALPHA_2);
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,wayToleranceValue));
+		featureStyles.put(fp.getName(), fp);
+		
 		fp = new FeatureStyle(SELECTED_NODE);
 		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
 		fp.setWidthFactor(1.5f);
@@ -471,6 +482,14 @@ public class DataStyle  extends DefaultHandler {
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.FILL);
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,nodeToleranceValue));
+		featureStyles.put(fp.getName(), fp);
+		
+		fp = new FeatureStyle(NODE_TOLERANCE_2);
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_ocher));
+		fp.dontUpdate();
+		fp.getPaint().setStyle(Style.FILL);
+		fp.getPaint().setAlpha(TOLERANCE_ALPHA_2);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,nodeToleranceValue));
 		featureStyles.put(fp.getName(), fp);
 

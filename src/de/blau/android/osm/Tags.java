@@ -73,6 +73,7 @@ public class Tags {
 	// for relations
 	public static final String KEY_TYPE = "type";
 	public static final String VALUE_RESTRICTION = "restriction";
+	public static final String VALUE_NO_U_TURN = "no_u_turn";
 	public static final String VALUE_VIA = "via";
 	public static final String VALUE_BUILDING = "building";
 	public static final String VALUE_ROUTE = "route";

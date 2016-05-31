@@ -159,6 +159,11 @@
     <string name="toast_used_backup">Corrupted state file, used backup file!</string>
     <string name="toast_used_bug_backup">Corrupted bug state file, used backup file!</string>
     <string name="toast_rmpty_relation">Empty relation, creating crash report.</string>
+    <string name="toast_split_from">Splitted "from" way</string>
+    <string name="toast_split_via">Splitted "via" way</string>
+    <string name="toast_split_from_and_via">Splitted "from" and "via" ways</string>
+    <string name="toast_split_to">Splitted "to" way</string>
+    
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -252,8 +257,9 @@
     <string name="menu_closed_way_split_2">Split closed way, 2nd node</string>
     <string name="menu_append">Append</string>
     <string name="menu_restriction">Add restriction</string>
-    <string name="menu_restriction_via">Add restriction via</string>
-    <string name="menu_restriction_to">Add restriction to</string>
+    <string name="menu_restriction_restart_from">Select "from" segment</string>
+    <string name="menu_restriction_via">Add restriction "via"</string>
+    <string name="menu_restriction_to">Add restriction "to"</string>
     <string name="menu_relation">Create relation</string>
     <string name="menu_add_relation_member">Add member</string>
     <string name="menu_select_relation_members">Select members</string>

@@ -894,7 +894,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param way
 	 * @param node
 	 */
-	public void splitAtNode(final Way way, final Node node) {
+	public Way splitAtNode(final Way way, final Node node) {
 		Log.d("StorageDelegator", "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
 		// undo - old way is saved here, new way is saved at insert
 		dirty = true;
@@ -906,7 +906,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		if (nodes.size() < 3 || (way.isEndNode(node) && (way.isClosed()?occurances==2:occurances==1))) { 
 			// protect against producing single node ways FIXME give feedback that this is not good
 			Log.d("StorageDelegator", "splitAtNode can't split " + nodes.size() + " node long way at this node");
-			return;
+			return null;
 		}
 		// we assume this node is only contained in the way once.
 		// else the user needs to split the remaining way again.
@@ -926,7 +926,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 		if (nodesForNewWay.size() <= 1) {
 			Log.d("StorageDelegator", "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
-			return; // do not create 1-node way
+			return null; // do not create 1-node way
 		}
 		try {
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -999,9 +999,11 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 			}
 			recordImagery();
+			return newWay;
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
+			return null;
 		}
 	}	
 

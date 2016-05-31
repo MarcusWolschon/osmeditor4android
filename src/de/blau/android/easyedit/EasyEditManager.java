@@ -355,26 +355,13 @@ public class EasyEditManager {
 	 * @return a list of all applicable objects
 	 */
 	private Set<OsmElement> findViaElements(Way way) {
-		Set<Way> candidates = new HashSet<Way>();
+		
 		Set<OsmElement> result = new HashSet<OsmElement>();
-		candidates.addAll(logic.getWaysForNode(way.getFirstNode()));
-		candidates.addAll(logic.getWaysForNode(way.getLastNode()));
-		boolean firstNodeAdded = false;
-		boolean lastNodeAdded = false;
-		for (Way candidate : candidates) {
-			if ((way != candidate) && (way.getTagWithKey(Tags.KEY_HIGHWAY) != null)) {
-				if (candidate.isEndNode(way.getFirstNode())) {
-					result.add(candidate);
-					if (!firstNodeAdded) {
-						firstNodeAdded = true;
-						result.add(way.getFirstNode());
-					}
-				} else if (candidate.isEndNode(way.getLastNode())) {
-					result.add(candidate);
-					if (!lastNodeAdded) {
-						lastNodeAdded = true;
-						result.add(way.getLastNode());
-					}
+		for (Node n:way.getNodes()) {
+			for (Way w:logic.getWaysForNode(n)) {
+				if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
+					result.add(w);
+					result.add(n); // result is a set so we wont get dups
 				}
 			}
 		}
@@ -387,13 +374,21 @@ public class EasyEditManager {
 	 * @param commonNode
 	 * @return
 	 */
-	private Set<OsmElement> findToElements(Way way, Node commonNode) {
-		Set<Way> candidates = new HashSet<Way>();
-		Set<OsmElement> result = new HashSet<OsmElement>();
-		candidates.addAll(logic.getWaysForNode(commonNode));
-		for (Way candidate : candidates) {
-			if (way == null || ((way != candidate) && (way.getTagWithKey(Tags.KEY_HIGHWAY) != null))) {
-					result.add(candidate);
+	private Set<OsmElement> findToElements(OsmElement viaElement) {
+		Set<OsmElement> result = new HashSet<OsmElement>();	
+		Set<Node> nodes = new HashSet<Node>();
+		if (Node.NAME.equals(viaElement.getName())) {
+			nodes.add((Node) viaElement);
+		} else if (Way.NAME.equals(viaElement.getName())) {
+			nodes.addAll(((Way)viaElement).getNodes());
+		} else {
+			Log.e(DEBUG_TAG, "Unknown element type for via element " + viaElement.getName() + " " + viaElement.getDescription());
+		}
+		for (Node n:nodes) {
+			for (Way w:logic.getWaysForNode(n)) {
+				if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
+					result.add(w);
+				}
 			}
 		}
 		return result;
@@ -1149,7 +1144,8 @@ public class EasyEditManager {
 		private static final int MENUITEM_ELEMENT_INFO = 8;
 		
 		private static final int MENUITEM_TAG_LAST = 21;
-		private static final int MENUITEM_PREFERENCES = 22;
+		private static final int MENUITEM_ZOOM_TO_SELECTION = 22;
+		private static final int MENUITEM_PREFERENCES = 23;
 		
 		protected OsmElement element = null;
 		
@@ -1216,6 +1212,7 @@ public class EasyEditManager {
 				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 			}
 			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));
+			// menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION,  Menu.CATEGORY_SYSTEM|10, "Zoom to selection");
 			menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM|10, R.string.menu_config).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_config));
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
@@ -1916,14 +1913,68 @@ public class EasyEditManager {
 			}
 		}
 	}
+	private class RestartRestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
+		private Set<OsmElement> fromElements;
+		private Set<OsmElement> viaElements;
+		
+		public RestartRestrictionFromElementActionModeCallback(Set<OsmElement> froms, Set<OsmElement> vias) {
+			super();
+			fromElements = froms;
+			viaElements = vias;
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_addingrestriction;
+			mode.setTitle(R.string.menu_restriction_restart_from);
+			logic.setClickableElements(fromElements);
+			logic.setReturnRelations(false);
+			logic.setSelectedRelationWays(null); // just to be safe
+			logic.addSelectedRelationWay(null);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			super.onCreateActionMode(mode, menu);
+			return true;
+		}
+		
+		@Override
+		/**
+		 */
+		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
+			super.handleElementClick(element);
+			if (viaElements.size() > 1) {
+				// redo via selection, this time with pre-split way
+				main.startSupportActionMode(new RestrictionFromElementActionModeCallback((Way)element, viaElements));
+				return true;
+			} else if (viaElements.size() == 1) {
+				main.startSupportActionMode(new RestrictionViaElementActionModeCallback((Way)element, viaElements.iterator().next()));
+				return true;
+			} 
+			Log.e(DEBUG_TAG, "viaElements size " + viaElements.size());
+			return false;
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			logic.setSelectedRelationWays(null);
+			logic.setSelectedRelationNodes(null);
+			
+			super.onDestroyActionMode(mode);
+		}
+	}
 	
 	private class RestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
-		private Way way;
+		private Way fromWay;
 		private Set<OsmElement> viaElements;
 		private boolean viaSelected = false;
+		
 		public RestrictionFromElementActionModeCallback(Way way, Set<OsmElement> vias) {
 			super();
-			this.way = way;
+			this.fromWay = way;
 			viaElements = vias;
 		}
 		
@@ -1934,7 +1985,7 @@ public class EasyEditManager {
 			logic.setClickableElements(viaElements);
 			logic.setReturnRelations(false);
 			logic.setSelectedRelationWays(null); // just to be safe
-			logic.addSelectedRelationWay(way);
+			logic.addSelectedRelationWay(fromWay);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
 			super.onCreateActionMode(mode, menu);
@@ -1942,10 +1993,53 @@ public class EasyEditManager {
 		}
 		
 		@Override
+		/**
+		 * In the simplest case this selects the next step in creating the restriction, in the worst it splits both the via and from way and
+		 * restarts the process.
+		 */
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
+			// check if we have to split from or via
+			Node viaNode = null;
+			Way viaWay = null;
+			if (Node.NAME.equals(element.getName())) {
+				viaNode = (Node) element;
+			} else if (Way.NAME.equals(element.getName())) {
+				viaWay = (Way) element;
+				viaNode = fromWay.getCommonNode(viaWay);
+			} else {
+				// ABORT
+			}
+			Way newFromWay = null;
+			if (!fromWay.getFirstNode().equals(viaNode) && !fromWay.getLastNode().equals(viaNode)) {
+				// split from at node
+				newFromWay = logic.performSplit(fromWay,viaNode);
+			}
+			Way newViaWay = null;
+			if (viaWay != null && !viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
+				newViaWay = logic.performSplit(viaWay,viaNode);
+			}
+			Set<OsmElement> viaElements = new HashSet<OsmElement>();
+			viaElements.add(element);
+			if (newViaWay != null) {
+				viaElements.add(newViaWay);
+			}
+			if (newFromWay != null) {
+				Set<OsmElement> fromElements = new HashSet<OsmElement>();
+				fromElements.add(fromWay);
+				fromElements.add(newFromWay);
+				Toast.makeText(main, newViaWay == null ? R.string.toast_split_from:R.string.toast_split_from_and_via, Toast.LENGTH_LONG).show();
+				main.startSupportActionMode(new RestartRestrictionFromElementActionModeCallback(fromElements, viaElements));
+				return true;
+			}
+			if (newViaWay != null) {
+				// restart via selection
+				Toast.makeText(main, R.string.toast_split_via, Toast.LENGTH_LONG).show();
+				main.startSupportActionMode(new RestrictionFromElementActionModeCallback(fromWay, viaElements));
+				return true;
+			}
 			viaSelected = true;
-			main.startSupportActionMode(new RestrictionViaElementActionModeCallback(way, element));
+			main.startSupportActionMode(new RestrictionViaElementActionModeCallback(fromWay, element));
 			return true;
 		}
 		
@@ -1973,16 +2067,14 @@ public class EasyEditManager {
 			super();
 			fromWay = from;
 			viaElement = via;
-			if (viaElement.getName().equals(Node.NAME)) {
-				cachedToElements = findToElements(null, (Node) viaElement);
-			} else {
-				// need to find the right end of the way
-				if (fromWay.hasNode(((Way) viaElement).getFirstNode())) {
-					cachedToElements = findToElements((Way) viaElement, ((Way)viaElement).getLastNode());
-				} else {
-					cachedToElements = findToElements((Way) viaElement, ((Way)viaElement).getFirstNode());
-				}
-			}
+			cachedToElements = findToElements(viaElement);
+		}
+		
+		public RestrictionViaElementActionModeCallback(Way from, OsmElement via, Set<OsmElement>toElements) {
+			super();
+			fromWay = from;
+			viaElement = via;
+			cachedToElements = toElements;
 		}
 		
 		@Override
@@ -1991,7 +2083,7 @@ public class EasyEditManager {
 			mode.setTitle(R.string.menu_restriction_to);
 			logic.setClickableElements(cachedToElements);
 			logic.setReturnRelations(false);
-			if (viaElement.getName().equals(Node.NAME)) {
+			if (Node.NAME.equals(viaElement.getName())) {
 				logic.addSelectedRelationNode((Node) viaElement);
 			} else {
 				logic.addSelectedRelationWay((Way) viaElement);
@@ -2003,10 +2095,34 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be clicked
 			super.handleElementClick(element);
-			toSelected = true;
-			if (!(element instanceof Way)) {
-				return true; // shouldn't happen just ignore it
+			Node viaNode = null;
+			Way toWay = (Way) element;
+			if (Node.NAME.equals(viaElement.getName())) {
+				viaNode = (Node) viaElement;
+			} else if (Way.NAME.equals(viaElement.getName())) {
+				Way viaWay = (Way) viaElement;
+				viaNode = ((Way)viaElement).getCommonNode(toWay);
+				if (!viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
+					// split via way and use appropriate segment
+					Way newViaWay = logic.performSplit(viaWay, viaNode);
+					Toast.makeText(main, R.string.toast_split_via, Toast.LENGTH_LONG).show();
+					if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getFirstNode())) {
+						viaElement = newViaWay;
+					}
+				}
 			}
+			// now check if we need to split the toWay
+			if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode)) {
+				Way newToWay = logic.performSplit(toWay, viaNode);
+				Toast.makeText(main, R.string.toast_split_to, Toast.LENGTH_LONG).show();
+				Set<OsmElement> toCandidates = new HashSet<OsmElement>();
+				toCandidates.add(toWay);
+				toCandidates.add(newToWay);
+				main.startSupportActionMode(new RestrictionViaElementActionModeCallback(fromWay, viaElement, toCandidates));
+				return true;
+			}
+			
+			toSelected = true;
 			main.startSupportActionMode(new RestrictionToElementActionModeCallback(fromWay, viaElement, (Way) element));
 			return true;
 		}
@@ -2028,9 +2144,6 @@ public class EasyEditManager {
 	
 	private class RestrictionToElementActionModeCallback extends EasyEditActionModeCallback {
 		
-		final static String RESTRICTION_TAG = "restriction";
-		final static String NO_U_TURN_VALUE = "no_u_turn";
-		
 		private Way fromWay;
 		private OsmElement viaElement;
 		private Way toWay;
@@ -2048,9 +2161,9 @@ public class EasyEditManager {
 			mode.setTitle(R.string.menu_restriction);
 			super.onCreateActionMode(mode, menu);
 			logic.addSelectedRelationWay(toWay);
-			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay, fromWay == toWay ? NO_U_TURN_VALUE : null);
+			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay, fromWay == toWay ? Tags.VALUE_NO_U_TURN : null);
 			Log.i("EasyEdit", "Created restriction");
-			main.performTagEdit(restriction, RESTRICTION_TAG, false, false);
+			main.performTagEdit(restriction, Tags.VALUE_RESTRICTION, false, false);
 			main.startSupportActionMode(new RelationSelectionActionModeCallback(restriction));
 			return false; // we are actually already finished
 		}
