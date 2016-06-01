@@ -41,7 +41,7 @@ public class Relation extends OsmElement implements BoundedObject {
 		members = new ArrayList<RelationMember>();
 	}
 
-	public void addMember(final RelationMember member) {
+	protected void addMember(final RelationMember member) {
 		members.add(member);
 	}
 
@@ -186,12 +186,12 @@ public class Relation extends OsmElement implements BoundedObject {
 	 * Does not update backlink
 	 * @param member
 	 */
-	void removeMember(final RelationMember member) {
+	protected void removeMember(final RelationMember member) {
 		while (members.remove(member)) {
 		}
 	}
 
-	void appendMember(final RelationMember refMember, final RelationMember newMember) {
+	protected void appendMember(final RelationMember refMember, final RelationMember newMember) {
 		if (members != null && members.size() > 0 && members.get(0) == refMember) {
 			members.add(0, newMember);
 		} else if (members != null && members.get(members.size() - 1) == refMember) {
@@ -199,11 +199,11 @@ public class Relation extends OsmElement implements BoundedObject {
 		}
 	}
 
-	void addMemberAfter(final RelationMember memberBefore, final RelationMember newMember) {
+	protected void addMemberAfter(final RelationMember memberBefore, final RelationMember newMember) {
 		members.add(members.indexOf(memberBefore) + 1, newMember);
 	}
 	
-	void addMember(int pos, final RelationMember newMember) {
+	protected void addMember(int pos, final RelationMember newMember) {
 		if (pos < 0 || pos > members.size()) {
 			pos = members.size(); // append
 		}
@@ -216,7 +216,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	 * @param newMembers a list of new members
 	 * @param atBeginning if true, nodes are prepended, otherwise, they are appended
 	 */
-	void addMembers(List<RelationMember> newMembers, boolean atBeginning) {
+	protected void addMembers(List<RelationMember> newMembers, boolean atBeginning) {
 		if (atBeginning) {
 			members.addAll(0, newMembers);
 		} else {
@@ -252,7 +252,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	 * @param existing The existing member to be replaced.
 	 * @param newMember The new member.
 	 */
-	void replaceMembers(Collection<RelationMember> newMembers) {
+	protected void replaceMembers(Collection<RelationMember> newMembers) {
 		members.clear();
 		members.addAll(newMembers);
 	}

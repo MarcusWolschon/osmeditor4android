@@ -262,14 +262,23 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	/**
 	 * Create empty relation
+	 * @param members 
 	 * @return
 	 */
-	public Relation createAndInsertRelation() {
+	public Relation createAndInsertRelation(List<OsmElement> members) {
 		// undo - nothing done here, way gets saved/marked on insert
 		dirty = true;
 		
 		Relation relation = factory.createRelationWithNewId();
 		insertElementUnsafe(relation);
+		if (members != null) {
+			for (OsmElement e:members) {
+				undo.save(e);
+				RelationMember rm = new RelationMember("", e);
+				relation.addMember(rm);
+				e.addParentRelation(relation);
+			}
+		}
 		return relation;
 	}
 	
@@ -1499,29 +1508,87 @@ public class StorageDelegator implements Serializable, Exportable {
 		Log.i("StorageDelegator", "... done");
 	}
 	
+	/**
+	 * add element to relation at a specific position
+	 * @param e
+	 * @param pos
+	 * @param role
+	 * @param rel
+	 */
 	public void addElementToRelation(final OsmElement e, final int pos, final String role, final Relation rel)
 	{
-		ArrayList<Relation> relations = e.getParentRelations();
-		if (relations == null || !relations.contains(rel)) {
-			dirty = true;
-			undo.save(rel);
-			undo.save(e);
+		dirty = true;
+		undo.save(rel);
+		undo.save(e);
 
-			RelationMember newMember = new RelationMember(role, e);
-			rel.addMember(pos, newMember);
-			e.addParentRelation(rel);
+		RelationMember newMember = new RelationMember(role, e);
+		rel.addMember(pos, newMember);
+		e.addParentRelation(rel);
 
-			rel.updateState(OsmElement.STATE_MODIFIED);
-			try {
-				apiStorage.insertElementSafe(rel);
-				recordImagery();
-			} catch (StorageException sex) {
-				//TODO handle OOM
-				sex.printStackTrace();
-			}
+		rel.updateState(OsmElement.STATE_MODIFIED);
+		try {
+			apiStorage.insertElementSafe(rel);
+			recordImagery();
+		} catch (StorageException sex) {
+			//TODO handle OOM
+			sex.printStackTrace();
 		}
-		else {
-			Log.w("StorageDelegator", "element #" + e.getOsmId() + " already in relation #" + rel.getOsmId());
+	}
+	
+	/**
+	 * add element to relation at end
+	 * @param e
+	 * @param role
+	 * @param rel
+	 */
+	public void addElementToRelation(final OsmElement e, final String role, final Relation rel)
+	{
+
+		dirty = true;
+		undo.save(rel);
+		undo.save(e);
+
+		RelationMember newMember = new RelationMember(role, e);
+		rel.addMember(newMember);
+		e.addParentRelation(rel);
+
+		rel.updateState(OsmElement.STATE_MODIFIED);
+		try {
+			apiStorage.insertElementSafe(rel);
+			recordImagery();
+		} catch (StorageException sex) {
+			//TODO handle OOM
+			sex.printStackTrace();
+		}
+	}
+	
+	/**
+	 * add element to relation at end
+	 * @param e
+	 * @param role
+	 * @param rel
+	 */
+	public void addElementToRelation(final RelationMember newMember, final Relation rel)
+	{
+		OsmElement e = newMember.getElement();
+	
+		dirty = true;
+		undo.save(rel);
+
+		if (e != null) {
+			undo.save(e);
+		}
+
+		rel.addMember(newMember);
+		e.addParentRelation(rel);
+
+		rel.updateState(OsmElement.STATE_MODIFIED);
+		try {
+			apiStorage.insertElementSafe(rel);
+			recordImagery();
+		} catch (StorageException sex) {
+			//TODO handle OOM
+			sex.printStackTrace();
 		}
 	}
 	
@@ -1694,6 +1761,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void addMembersToRelation(Relation relation,	ArrayList<OsmElement> members) {
 		dirty = true;
 		for (OsmElement e:members) {
+			undo.save(e);
 			RelationMember rm = new RelationMember("", e);
 			relation.addMember(rm);
 			e.addParentRelation(relation);
