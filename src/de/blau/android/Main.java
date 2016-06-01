@@ -2020,13 +2020,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			} else {
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
 			}
-			// check that we haven't just removed a selected element
-			if (getLogic().resyncSelected()) {
-				// only need to test if anything at all is still selected
-				if (getLogic().selectedNodesCount() + getLogic().selectedWaysCount() + getLogic().selectedRelationsCount() == 0 ) {
-					easyEditManager.finish();
-				}
-			}
+			resync(logic);
 			map.invalidate();
 		}
 
@@ -2039,7 +2033,18 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			} else {
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
 			}
+			resync(logic);
 			return true;
+		}
+		
+		void resync (final Logic logic) {
+			// check that we haven't just removed a selected element
+			if (logic.resyncSelected()) {
+				// only need to test if anything at all is still selected
+				if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0 ) {
+					easyEditManager.finish();
+				}
+			}
 		}
 	}
 	

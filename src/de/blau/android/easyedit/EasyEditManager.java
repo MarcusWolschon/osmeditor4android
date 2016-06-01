@@ -1091,7 +1091,13 @@ public class EasyEditManager {
 			case MENUITEM_HISTORY: showHistory(); break;
 			case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
 			case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
-			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
+			case MENUITEM_RELATION: 
+				deselect = false; 
+				logic.setSelectedNode(null);
+				logic.setSelectedWay(null);
+				logic.setSelectedRelation(null);
+				main.startActionMode(new  AddRelationMemberActionModeCallback(element)); 
+				break;
 			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startActionMode(new  ExtendSelectionActionModeCallback(element)); break;
 			case MENUITEM_ELEMENT_INFO: main.showElementInfo(element); break;
 			case R.id.undo_action:
@@ -1687,7 +1693,7 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
-			logic.selectRelation((Relation) element);
+			logic.setSelectedRelation((Relation) element);
 			mode.setTitle(R.string.actionmode_relationselect);	
 			mode.setSubtitle(null);
 			main.invalidateMap();
@@ -2011,20 +2017,22 @@ public class EasyEditManager {
 			logic.setReturnRelations(true);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
-			logic.setSelectedRelation(null);
-			if (!backPressed) {
-				if (members.size() > 0) { // something was actually added
-					if (relation == null)
-						main.performTagEdit(logic.createRelation(null, members),"type", false, false);
-					else {
-						logic.addMembers(relation, members);
-						main.performTagEdit(relation, null, false, false);
-					}
-				}
-			}
 			logic.setSelectedRelationWays(null);
 			logic.setSelectedRelationNodes(null);
 			logic.setSelectedRelationRelations(null);
+			logic.setSelectedRelation(null);
+			if (!backPressed) {
+				if (members.size() > 0) { // something was actually added
+					if (relation == null) {
+						relation = logic.createRelation(null, members);
+						main.performTagEdit(relation,"type", false, false);
+					} else {
+						logic.addMembers(relation, members);
+						main.performTagEdit(relation, null, false, false);
+					}
+					// starting action mode here doesn't seem to work ... main.startSupportActionMode(new RelationSelectionActionModeCallback(relation));
+				}
+			}
 		}
 		
 		/**

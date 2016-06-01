@@ -3190,7 +3190,7 @@ public class Logic {
 	 * Setter to a) set the internal value and b) push the value to {@link #map}.
 	 */
 	public synchronized void setSelectedRelation(final Relation selectedRelation) {
-		if (selectedRelations != null) {  // always restart
+		if (selectedRelation != null) {  // always restart
 			selectedRelations = new LinkedList<Relation>();
 			selectedRelations.add(selectedRelation);
 		} else {
@@ -3309,7 +3309,7 @@ public class Logic {
 	 */
 	boolean resyncSelected() {
 		boolean result = false;
-		if (selectedNodes != null && selectedNodes.size() > 0) {
+		if (selectedNodesCount() > 0) {
 			for (Node n:new ArrayList<Node>(selectedNodes)) {
 				if (!getDelegator().getCurrentStorage().contains(n)) {
 					selectedNodes.remove(n);
@@ -3317,7 +3317,7 @@ public class Logic {
 				}
 			}
 		}
-		if (selectedWays != null && selectedWays.size() > 0) {
+		if (selectedWaysCount() > 0) {
 			for (Way w:new ArrayList<Way>(selectedWays)) {
 				if (!getDelegator().getCurrentStorage().contains(w)) {
 					selectedWays.remove(w);
@@ -3325,7 +3325,7 @@ public class Logic {
 				}
 			}
 		}
-		if (selectedRelations != null && selectedRelations.size() > 0) {
+		if (selectedRelationsCount() > 0) {
 			for (Relation r:new ArrayList<Relation>(selectedRelations)) {
 				if (!getDelegator().getCurrentStorage().contains(r)) {
 					selectedRelations.remove(r);
@@ -3456,20 +3456,17 @@ public class Logic {
 	public Relation createRestriction(Way fromWay, OsmElement viaElement, Way toWay, String restriction_type) {
 		
 		createCheckpoint(R.string.undo_action_create_relation);
-		Relation restriction = getDelegator().createAndInsertReleation();
+		Relation restriction = getDelegator().createAndInsertRelation(null);
 		SortedMap<String,String> tags = new TreeMap<String,String>();
 		tags.put("restriction", restriction_type == null ? "" : restriction_type);
 		tags.put("type", "restriction");
 		getDelegator().setTags(restriction, tags);
 		RelationMember from = new RelationMember("from", fromWay);
-		restriction.addMember(from);
-		fromWay.addParentRelation(restriction);
+		getDelegator().addElementToRelation(from, restriction);
 		RelationMember via = new RelationMember("via", viaElement);
-		restriction.addMember(via);
-		viaElement.addParentRelation(restriction);
+		getDelegator().addElementToRelation(via, restriction);
 		RelationMember to = new RelationMember("to", toWay);
-		restriction.addMember(to);
-		toWay.addParentRelation(restriction);
+		getDelegator().addElementToRelation(to, restriction);
 		
 		return restriction;
 	}
@@ -3484,18 +3481,13 @@ public class Logic {
 	public Relation createRelation(String type, List<OsmElement> members ) {
 		
 		createCheckpoint(R.string.undo_action_create_relation);
-		Relation relation = getDelegator().createAndInsertReleation();
+		Relation relation = getDelegator().createAndInsertRelation(members);
 		SortedMap<String,String> tags = new TreeMap<String,String>();
 		if (type != null)
 			tags.put("type", type);
 		else
 			tags.put("type", "");
 		getDelegator().setTags(relation, tags);
-		for (OsmElement e:members) {
-			RelationMember rm = new RelationMember("", e);
-			relation.addMember(rm);
-			e.addParentRelation(relation);
-		}
 		return relation;
 	}
 	
@@ -3541,16 +3533,18 @@ public class Logic {
 	 * @param r
 	 */
 	public void selectRelation(Relation r) {
-		for (RelationMember rm : r.getMembers()) {
-			OsmElement e = rm.getElement();
-			if (e != null) {
-				if (e.getName().equals(Way.NAME)) {
-					addSelectedRelationWay((Way) e);
-				} else if (e.getName().equals(Node.NAME)) {
-					addSelectedRelationNode((Node) e);
-				} else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation)e))) { // break recursion if already selected
-					addSelectedRelationRelation((Relation) e);
-				} 
+		if (r!=null) {
+			for (RelationMember rm : r.getMembers()) {
+				OsmElement e = rm.getElement();
+				if (e != null) {
+					if (e.getName().equals(Way.NAME)) {
+						addSelectedRelationWay((Way) e);
+					} else if (e.getName().equals(Node.NAME)) {
+						addSelectedRelationNode((Node) e);
+					} else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation)e))) { // break recursion if already selected
+						addSelectedRelationRelation((Relation) e);
+					} 
+				}
 			}
 		}
 	}

@@ -313,6 +313,8 @@ public class UndoStorage implements Serializable {
 			if (parentRelations != null) {
 				element.parentRelations = new ArrayList<Relation>();
 				element.parentRelations.addAll(parentRelations);
+			} else {
+				element.parentRelations = null;
 			}
 		}
 		
