@@ -1,5 +1,6 @@
 package de.blau.android.services.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Build;
@@ -432,4 +434,20 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 		context.deleteDatabase(DATABASE_NAME);
 	}
 
+	/**
+	 * Check if the database exist and can be read.
+	 * 
+	 * @return true if it exists and can be read, false if it doesn't
+	 */
+	public static boolean exists(File dir) {
+	    SQLiteDatabase checkDB = null;
+	    try {
+	    	String path = dir.getAbsolutePath() + "/databases/" + DATABASE_NAME + ".db";  
+	        checkDB = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
+	        checkDB.close();
+	    } catch (SQLiteException e) {
+	        // database doesn't exist yet.
+	    }
+	    return checkDB != null;
+	}
 }

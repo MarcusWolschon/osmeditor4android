@@ -64,9 +64,12 @@ public class OpenStreetMapTileProviderService extends Service {
 
 		File[] storageDirectories = ContextCompat.getExternalFilesDirs(getBaseContext(), null);
 		for (File dir : storageDirectories) { // iterate over the directories preferring a removable one if possible
+			if (dir==null) {
+				Log.d("OpenStreetMapTileProviderService","storage dir null");
+				continue;
+			}
 			Log.d("OpenStreetMapTileProviderService", "candidate storage directory " + dir.getPath());
-			File tileDir = new File(mountPoint, Paths.DIRECTORY_PATH_TILE_CACHE);
-			if (tileDir.exists()) { // existing tile cache, use
+			if (OpenStreetMapTileProviderDataBase.exists(dir)) { // existing tile cache, use
 				mountPointWiteable = dir.canWrite();
 				mountPoint = dir;
 			} else if (dir.canWrite()) {
@@ -83,8 +86,7 @@ public class OpenStreetMapTileProviderService extends Service {
 		if (mountPointWiteable) {
 			Log.d("OpenStreetMapTileProviderService",
 					"Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
-			mFileSystemProvider = new OpenStreetMapTileFilesystemProvider(
-					new CustomDatabaseContext(getBaseContext(), mountPoint.getAbsolutePath()), mountPoint,
+			mFileSystemProvider = new OpenStreetMapTileFilesystemProvider(getBaseContext(), mountPoint,
 					tileCacheSize * 1024 * 1024); // FSCache
 		} else {
 			Toast.makeText(this, R.string.toast_storage_error, Toast.LENGTH_LONG).show();

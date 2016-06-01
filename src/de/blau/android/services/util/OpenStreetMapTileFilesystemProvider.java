@@ -11,6 +11,7 @@ import android.util.Log;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 import de.blau.android.services.exceptions.EmptyCacheException;
+import de.blau.android.util.CustomDatabaseContext;
 
 /**
  * 
@@ -56,7 +57,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		mCtx = ctx;
 		this.mountPoint = mountPoint;
 		mMaxFSCacheByteSize = aMaxFSCacheByteSize;
-		mDatabase = new OpenStreetMapTileProviderDataBase(ctx, this);
+		mDatabase = new OpenStreetMapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()), this);
 		mCurrentFSCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
 		mThreadPool = Executors.newFixedThreadPool(4);
 
