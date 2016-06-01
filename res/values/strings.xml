@@ -256,10 +256,12 @@
     <string name="menu_closed_way_split_1">Split closed way, 1st node</string>
     <string name="menu_closed_way_split_2">Split closed way, 2nd node</string>
     <string name="menu_append">Append</string>
-    <string name="menu_restriction">Add restriction</string>
-    <string name="menu_restriction_restart_from">Select "from" segment</string>
-    <string name="menu_restriction_via">Add restriction "via"</string>
-    <string name="menu_restriction_to">Add restriction "to"</string>
+    <string name="menu_restriction">Add turn restriction</string>
+    <string name="menu_restriction_restart_from">Re-select \"from\" segment</string>
+    <string name="menu_restriction_via">Add \"via\" segment/element</string>
+    <string name="menu_restriction_restart_via">Re-select \"via\" segment</string>
+    <string name="menu_restriction_to">Add \"to\" segment</string>
+    <string name="menu_restriction_restart_to">Re-select \"to\" segment</string>
     <string name="menu_relation">Create relation</string>
     <string name="menu_add_relation_member">Add member</string>
     <string name="menu_select_relation_members">Select members</string>

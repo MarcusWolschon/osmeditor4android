@@ -382,7 +382,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 
 	    Fragment tagFormFragment(int position, boolean displayRecentPresets) {
 			tagFormFragmentPosition = position;
-			tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags);
+			tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey);
 			return tagFormFragment;
 	    }
 	    

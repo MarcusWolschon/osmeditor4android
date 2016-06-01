@@ -70,6 +70,12 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 	
 public class TagFormFragment extends BaseFragment implements FormUpdate {
 
+	private static final String FOCUS_TAG = "focusTag";
+
+	private static final String FOCUS_ON_ADDRESS = "focusOnAddress";
+
+	private static final String DISPLAY_MRU_PRESETS = "displayMRUpresets";
+
 	private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName();
 	
 	/**
@@ -89,6 +95,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	
 	private boolean focusOnAddress = false;
 	
+	private String focusTag = null;
+	
 	private int maxInlineValues = 3;
 
 	
@@ -97,13 +105,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	 * @param focusOnKey 
 	 * @param displayMRUpresets 
      */
-    static public TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress) {
+    static public TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress, String focusTag) {
     	TagFormFragment f = new TagFormFragment();
     	
         Bundle args = new Bundle();
    
-        args.putSerializable("displayMRUpresets", Boolean.valueOf(displayMRUpresets));
-        args.putSerializable("focusOnAddress", Boolean.valueOf(focusOnAddress));
+        args.putSerializable(DISPLAY_MRU_PRESETS, Boolean.valueOf(displayMRUpresets));
+        args.putSerializable(FOCUS_ON_ADDRESS, Boolean.valueOf(focusOnAddress));
+        args.putSerializable(FOCUS_TAG, focusTag);
 
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -151,8 +160,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      	this.inflater = inflater;
      	rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, container, false);
            	
-     	boolean displayMRUpresets = ((Boolean) getArguments().getSerializable("displayMRUpresets")).booleanValue();
-     	focusOnAddress = ((Boolean) getArguments().getSerializable("focusOnAddress")).booleanValue();
+     	boolean displayMRUpresets = ((Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS)).booleanValue();
+     	focusOnAddress = ((Boolean) getArguments().getSerializable(FOCUS_ON_ADDRESS)).booleanValue();
+     	focusTag = getArguments().getString(FOCUS_TAG);
      	
        	// Log.d(DEBUG_TAG,"element " + element + " tags " + tags);
 		
@@ -534,6 +544,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     				focusOnEmpty();
     			}
     		} 
+    	} else if (focusTag != null){
+    		if (!focusOnTag(focusTag)) {
+    			focusOnEmpty();
+    		}
+    		focusTag = null;
     	} else {
     		focusOnEmpty(); 
     	}
@@ -1168,6 +1183,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			int pos = 0;
 			while (ll.getChildAt(pos) instanceof EditableLayout && pos < ll.getChildCount() && !found) {
 				EditableLayout ll2 = (EditableLayout) ll.getChildAt(pos);
+				Log.d(DEBUG_TAG,"focusOnTag key " + key);
 				for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
 					View v = ll2.getChildAt(i);
 					if (v instanceof TagTextRow && ((TagTextRow)v).getKey().equals(key)) {
@@ -1175,6 +1191,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						Util.scrollToRow(sv, v, true, true);
 						found = true;
 						break;
+					} else if (v instanceof TagFormDialogRow && ((TagFormDialogRow)v).getKey().equals(key)) {
+						Util.scrollToRow(sv, v, true, true);
+						((TagFormDialogRow)v).click();
+						found = true;
 					}
 				}
 				pos++;
@@ -1440,6 +1460,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	
 		public PresetItem getPreset() {
 			return preset;
+		}
+		
+		public void click() {
+			valueView.performClick();
 		}
 	}
 	
