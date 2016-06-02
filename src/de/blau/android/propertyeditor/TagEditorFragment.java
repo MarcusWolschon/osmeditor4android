@@ -1314,7 +1314,7 @@ public class TagEditorFragment extends BaseFragment implements
 		loadEdits(currentValues);
 		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
 		
-		if (wasEmpty) {
+		if (wasEmpty || getBestPreset() == null) {
 			// preset is what we just applied
 			updateAutocompletePresetItem(item);
 		} else {
