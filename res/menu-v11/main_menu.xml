@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
 		android:id="@+id/menu_undo"
 		android:title="@string/undo"
 		android:alphabeticShortcut="@string/shortcut_undo"
 		android:icon="?attr/menu_undo"
-		android:showAsAction="always"
-		app:showAsAction="always"
-		android:actionLayout="@layout/undo_action_view"
 		app:actionLayout="@layout/undo_action_view"
 	/>
     	

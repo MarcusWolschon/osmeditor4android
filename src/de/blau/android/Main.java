@@ -989,11 +989,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Menu menu = m;
 		if (getBottomBar() != null) {
 			menu = getBottomBar().getMenu();
-			if (menu.size() == 0) { // inflate
-				// getBottomToolbar().inflateMenu(R.menu.main_menu);
-				final MenuInflater inflater = getMenuInflater();
-				inflater.inflate(R.menu.main_menu, menu);
-			}
 			android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
@@ -1002,7 +997,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			};
 			getBottomBar().setOnMenuItemClickListener(listener);
 			Log.d(DEBUG_TAG,"inflated main menu on to bottom toolbar");
-		} else {
+		} 
+		if (menu.size() == 0) {
+			menu.clear();
 			final MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.main_menu, menu);
 		}
