@@ -99,7 +99,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 				for (TagEditRow r:selected) {
 					r.delete();
 				}
-				((TagEditorFragment)caller).updateAutocompletePresetItem();
+				((TagEditorFragment)caller).updateAutocompletePresetItem(null);
 			}
 			if (currentAction != null) {
 				currentAction.finish();
@@ -107,7 +107,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 			break;
 		case MENU_ITEM_COPY:
 			copyTags(selected, false);
-			((TagEditorFragment)caller).updateAutocompletePresetItem();
+			((TagEditorFragment)caller).updateAutocompletePresetItem(null);
 			if (currentAction != null) {
 				currentAction.finish();
 			} 
