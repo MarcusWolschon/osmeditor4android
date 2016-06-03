@@ -105,6 +105,8 @@ public class Preferences {
 	
 	private int maxTileDownloadThreads;
 	
+	private int notificationCacheSize;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -252,6 +254,13 @@ public class Preferences {
 		} catch (NumberFormatException e) {
 			Log.w(getClass().getName(), "error parsing config_maxTileDownloadThreads_key=" + prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "2"));
 			maxTileDownloadThreads = 2;
+		}
+		
+		try {
+			notificationCacheSize = Integer.parseInt(prefs.getString(r.getString(R.string.config_notificationCacheSize_key), "5"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_notificationCacheSize_key=" + prefs.getString(r.getString(R.string.config_notificationCacheSize_key), "5"));
+			notificationCacheSize = 5;
 		}
 	}
 	
@@ -505,5 +514,9 @@ public class Preferences {
 	
 	public int getMaxTileDownloadThreads() {
 		return maxTileDownloadThreads;
+	}
+
+	public int getNotificationCacheSize() {
+		return notificationCacheSize;
 	}
 }

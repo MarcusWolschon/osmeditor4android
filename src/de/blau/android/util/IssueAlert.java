@@ -12,8 +12,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -40,6 +42,11 @@ public class IssueAlert {
 	static int bugCount = 0;
 	static int noteCOunt = 0;
 	
+	/**
+	 * Generate an alert/notification if something is problematic about the OSM object
+	 * @param context
+	 * @param e
+	 */
 	public static void alert(Context context, OsmElement e) {
 	
 		Preferences prefs = new Preferences(context);
@@ -57,10 +64,10 @@ public class IssueAlert {
 		}
 		double eLon = 0D;
 		double eLat = 0D;
-		if (e.getName().equals("node")) {
+		if ("node".equals(e.getName())) {
 			eLon = ((Node)e).getLon()/1E7D;
 			eLat = ((Node)e).getLat()/1E7D;
-		} else if (e.getName().equals("way")) {
+		} else if ("way".equals(e.getName())) {
 			double[] result = Logic.centroidLonLat((Way)e);
 			eLon = result[0];
 			eLat = result[1];
@@ -73,9 +80,9 @@ public class IssueAlert {
 		if (location != null) {
 			// if we know where we are we can provide better information
 			long distance = 0;
-			if (e.getName().equals("node")) {
+			if ("node".equals(e.getName())) {
 				distance = Math.round(GeoMath.haversineDistance(location.getLongitude(), location.getLatitude(), eLon, eLat));
-			} else if (e.getName().equals("way")) {
+			} else if ("way".equals(e.getName())) {
 				ClosestPoint cp = getClosestDistance(location.getLongitude(), location.getLatitude(), (Way)e);
 				distance = Math.round(cp.distance);
 				eLon = cp.lon;
@@ -140,21 +147,31 @@ public class IssueAlert {
 							);
 			mBuilder.setContentIntent(resultPendingIntent);
 
-			NotificationManager mNotificationManager =
-					(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+			NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 			// mId allows you to update the notification later on.
-			mNotificationManager.notify((e.getName() + e.getOsmId()).hashCode(), mBuilder.build());
+			mNotificationManager.notify(id(e), mBuilder.build());
+			Application.getOsmDataNotifications(context).save(mNotificationManager,id(e));
+			
 		} catch (OsmException e1) {
 			Log.d("IssueAlert","Illegal BB created from lat " + eLat+ " lon " + eLon + " r " + prefs.getDownloadRadius());
 		}
 	}
 	
-	public static void cancel(Context context, OsmElement e) {
-		NotificationManager mNotificationManager =
-			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotificationManager.cancel((e.getName() + e.getOsmId()).hashCode());
+	
+	static int id(OsmElement e) {
+		return (e.getName() + e.getOsmId()).hashCode();
 	}
 	
+	public static void cancel(Context context, OsmElement e) {
+		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		Application.getOsmDataNotifications(context).remove(mNotificationManager,id(e));
+	}
+	
+	/**
+	 * Generate an alert/notification if we found a task object nearby.
+	 * @param context
+	 * @param b
+	 */
 	public static void alert(Context context, Task b) {
 		Log.d("IssueAlert", "generating alert for " + b.getDescription());
 		Preferences prefs = new Preferences(context);
@@ -233,27 +250,22 @@ public class IssueAlert {
 		        );
 		mBuilder.setContentIntent(resultPendingIntent);
 
-		NotificationManager mNotificationManager =
-			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-			// mId allows you to update the notification later on.
-			mNotificationManager.notify((b.getClass().getSimpleName() + b.getId()).hashCode(), mBuilder.build());
+		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		// mId allows you to update the notification later on.
+		int id = id(b);
+		mNotificationManager.notify(id(b), mBuilder.build());
+		Application.getTaskNotifications(context).save(mNotificationManager,id(b));
 		bugCount++;
-			
-		// summary doesn't work reasonably
-//		mBuilder =  new NotificationCompat.Builder(context)
-//			        .setSmallIcon(R.drawable.osm_logo)
-//			        .setContentTitle(title) 
-//			        .setPriority(NotificationCompat.PRIORITY_HIGH)
-//			        .setNumber(bugCount)
-//			        .setGroup(GROUP_OSMOSE)
-//			        .setGroupSummary(true);
-//		mNotificationManager.notify(b.getClass().getSimpleName().hashCode(), mBuilder.build());
+
+	}
+	
+	static int id(Task b) {
+		return (b.getClass().getSimpleName() + b.getId()).hashCode();
 	}
 	
 	public static void cancel(Context context, Task b) {
-		NotificationManager mNotificationManager =
-			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotificationManager.cancel((b.getClass().getSimpleName() + b.getId()).hashCode());
+		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		Application.getTaskNotifications(context).remove(mNotificationManager,id(b)); // cancels and removes from cache
 	}
 	
 	static class ClosestPoint{

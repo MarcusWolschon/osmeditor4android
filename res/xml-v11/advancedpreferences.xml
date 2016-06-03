@@ -76,6 +76,13 @@
             android:key="@string/config_generateAlerts_key"
             android:summary="@string/config_generateAlerts_summary"
             android:title="@string/config_generateAlerts_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="5"
+            android:dialogTitle="@string/config_notificationCacheSize_title"
+            android:key="@string/config_notificationCacheSize_key"
+            android:numeric="integer"
+            android:summary="@string/config_notificationCacheSize_summary"
+            android:title="@string/config_notificationCacheSize_title" />
 
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="100"

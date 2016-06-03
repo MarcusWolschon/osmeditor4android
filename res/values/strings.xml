@@ -463,6 +463,9 @@
     <string name="config_maxInlineValues_summary">Maximum number of inline values displayed in tag form</string>
     <string name="config_maxTileDownloadThreads_title">Max. number of download threads</string>
     <string name="config_maxTileDownloadThreads_summary">Maximum number of threads for downloading tiles</string>
+    <string name="config_maxInlineValues_summary">Maximum number of inline values displayed in tag form</string>
+    <string name="config_notificationCacheSize_title">Max. number of displayed notifications</string>
+    <string name="config_notificationCacheSize_summary">Maximum number of displayed notifications per type</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>

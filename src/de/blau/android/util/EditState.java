@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.Logic;
@@ -25,7 +26,7 @@ import de.blau.android.tasks.Task;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 12L;
+	private static final long serialVersionUID = 13L;
 	final Mode savedMode;
 	final List<Node> savedNodes;
 	final List<Way> savedWays;
@@ -41,8 +42,10 @@ public class EditState implements Serializable {
 	final BoundingBox savedBox;
 	final ArrayList<String> savedLastComments;
 	final ArrayList<String> savedLastSources;
+	final NotificationCache savedTaskNotifications;
+	final NotificationCache savedOsmDataNotifications;
 
-	public EditState(Logic logic,  TileLayerServer osmts, 
+	public EditState(Context context,Logic logic,  TileLayerServer osmts, 
 			boolean showGPS, boolean autoDownload, boolean bugAutoDownload, String imageFileName, BoundingBox box) {
 		savedMode = logic.getMode();
 		savedNodes = logic.getSelectedNodes();
@@ -59,6 +62,8 @@ public class EditState implements Serializable {
 		savedBox = box;
 		savedLastComments = logic.getLastComments();
 		savedLastSources = logic.getLastSources();
+		savedTaskNotifications = Application.getTaskNotifications(context);
+		savedOsmDataNotifications = Application.getOsmDataNotifications(context);
 	}
 	
 	public void setSelected(Logic logic) {
@@ -99,6 +104,8 @@ public class EditState implements Serializable {
 		main.setImageFileName(savedImageFileName);
 		logic.setLastComments(savedLastComments);
 		logic.setLastSources(savedLastSources);
+		Application.setTaskNotifications(main,savedTaskNotifications);
+		Application.setOsmDataNotifications(main,savedOsmDataNotifications);
 	}
 	
 	public void setViewBox(Logic logic, Map map) {
