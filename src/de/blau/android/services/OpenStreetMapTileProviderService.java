@@ -19,7 +19,6 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.services.util.OpenStreetMapTileFilesystemProvider;
 import de.blau.android.services.util.OpenStreetMapTileProviderDataBase;
-import de.blau.android.util.CustomDatabaseContext;
 
 /**
  * The OpenStreetMapTileProviderService can download map tiles from a server and
