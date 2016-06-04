@@ -3,10 +3,10 @@ package de.blau.android;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
+import java.util.WeakHashMap;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -118,7 +118,7 @@ public class Map extends View implements IMapView {
 	/**
 	 * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
 	 */
-	private final HashMap<Object, Bitmap> iconcache = new HashMap<Object, Bitmap>();
+	private final WeakHashMap<Object, Bitmap> iconcache = new WeakHashMap<Object, Bitmap>();
 	
 	/** Caches if the map is zoomed into edit range during one onDraw pass */
 	private boolean tmpDrawingInEditRange;
