@@ -1607,6 +1607,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				map.invalidate();
 			}
 		}
+		scheduleAutoLock();
 	}
 
 	/**
@@ -1890,6 +1891,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	@SuppressLint({ "SetJavaScriptEnabled", "InlinedApi", "NewApi" })
 	public void oAuthHandshake(Server server, PostAsyncActionHandler restart) {
+		descheduleAutoLock();
 		this.restart = restart;
 		hideControls();
 		Server[] s = {server};
@@ -1989,6 +1991,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * Starts the LocationPicker activity for requesting a location.
 	 */
 	public void gotoBoxPicker() {
+		descheduleAutoLock();
 		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
 		if (Application.getLogic().hasChanges()) {
 			DataLossActivity.showDialog(this, intent, REQUEST_BOUNDING_BOX);
@@ -2004,6 +2007,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @param showPresets Boolean flag indication to show or hide presets.
 	 */
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets) {
+		descheduleAutoLock();
 		final Logic logic = Application.getLogic();
 		if (selectedElement instanceof Node) {
 			logic.setSelectedNode((Node) selectedElement);
@@ -2023,7 +2027,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 	
 	public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
-		
+		descheduleAutoLock();
 		ArrayList<PropertyEditorData> multiple = new ArrayList<PropertyEditorData>();
 		StorageDelegator storageDelegator = Application.getDelegator();
 		for (OsmElement e:selection) {
@@ -2046,6 +2050,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public void performBugEdit(final Task bug) {
 		Log.d(DEBUG_TAG, "editing bug:"+bug);
+		descheduleAutoLock();
 		Application.getLogic().setSelectedBug(bug);
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
