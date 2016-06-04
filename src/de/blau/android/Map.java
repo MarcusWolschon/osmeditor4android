@@ -999,7 +999,7 @@ public class Map extends View implements IMapView {
 			}
 		}
 		
-		if (showIcons && showWayIcons && way.isClosed()) {
+		if (showIcons && showWayIcons && zoomLevel > SHOW_ICONS_LIMIT && way.isClosed()) {
 			int vs = linePoints.length;
 			if (vs < way.nodeCount()*2) {
 				return;
@@ -1028,7 +1028,6 @@ public class Map extends View implements IMapView {
 			}
 		}
 	}
-	
 
 	void paintHandles(Canvas canvas) {
 		if (handles != null && handles.size() > 0) {
@@ -1052,8 +1051,7 @@ public class Map extends View implements IMapView {
 			canvas.restore();
 			handles.clear(); // this is hopefully faster than allocating a new set
 		}
-	}
-	
+	}	
 	
 	FeatureStyle getProfile(String tag, OsmElement e) {
 		String mainType = e.getTagWithKey(tag);
