@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.WeakHashMap;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -132,7 +133,7 @@ public class Map extends View implements IMapView {
 	/**
 	 * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
 	 */
-	private final HashMap<Object, Bitmap> iconcache = new HashMap<Object, Bitmap>();
+	private final WeakHashMap<Object, Bitmap> iconcache = new WeakHashMap<Object, Bitmap>();
 	
 	/** Caches if the map is zoomed into edit range during one onDraw pass */
 	private boolean tmpDrawingInEditRange;
@@ -735,17 +736,15 @@ public class Map extends View implements IMapView {
 			noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null);
 			if (noIcon) {
 				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-				if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
-					Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
-					canvas.drawCircle(x, y, houseNumberRadius, paint2);
-					canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2); 
-					noIcon = false;
+				if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
+					paintHouseNumber(x,y,canvas,featureKeyThin,houseNumber);
+					return;
 				}
 			} 
 		}
 		if (noIcon) { 
-			// draw regular nodes
-			Paint p = DataStyle.getCurrent(featureKey).getPaint();
+			// draw regular nodes or without icons
+			Paint p = DataStyle.getCurrent(isTagged ? featureKeyTagged : featureKey).getPaint();
 			if (hwAccelarationWorkaround) { //FIXME we don't actually know if this is slower than drawPoint
 				canvas.drawCircle(x, y, p.getStrokeWidth()/2, p);
 			} else {
@@ -755,17 +754,33 @@ public class Map extends View implements IMapView {
 	}
 	
 	/**
+	 * Draw a circle with center at x,y with the house number in it
+	 * @param x
+	 * @param y
+	 * @param canvas
+	 * @param featureKeyThin
+	 * @param houseNumber
+	 */
+	void paintHouseNumber(float x, float y, Canvas canvas, String featureKeyThin, String houseNumber) {
+		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
+		canvas.drawCircle(x, y, houseNumberRadius, paint2);
+		canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2); 
+	}
+	
+	/**
 	 * Retrieve icon for the element, caching it if it isn't in the cache
 	 * 
 	 * @param element
 	 * @return icon or null if none is found
 	 */
 	Bitmap getIcon(OsmElement element) {
-		Bitmap icon = null;
 		SortedMap<String, String> tags = element.getTags();
-		if (iconcache.containsKey(tags)) {
-			icon = iconcache.get(tags); // may be null!
-		} else if (tmpPresets != null) {
+		Bitmap icon = iconcache.get(tags); // may be null!
+		if (icon == null && tmpPresets != null) {
+			if (iconcache.containsKey(tags)) {
+				// no point in trying to match
+				return icon;
+			}
 			// icon not cached, ask the preset, render to a bitmap and cache result
 			PresetItem match = null;
 			if (element instanceof Way) { 
@@ -1004,7 +1019,13 @@ public class Map extends View implements IMapView {
 			}
 			Y = Y/(3*A);
 			X = X/(3*A);
-			paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?DataStyle.SELECTED_NODE_TAGGED:null);
+			if (tmpPresets == null || !paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?DataStyle.SELECTED_NODE_TAGGED:null)) {
+				String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+				if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
+					paintHouseNumber((float)X,(float)Y,canvas,isSelected?DataStyle.SELECTED_NODE_THIN:DataStyle.NODE_THIN,houseNumber);
+					return;
+				}
+			}
 		}
 	}
 	
