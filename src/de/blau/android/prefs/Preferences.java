@@ -107,6 +107,8 @@ public class Preferences {
 	
 	private int notificationCacheSize;
 	
+	private int autoLockDelay;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -261,6 +263,13 @@ public class Preferences {
 		} catch (NumberFormatException e) {
 			Log.w(getClass().getName(), "error parsing config_notificationCacheSize_key=" + prefs.getString(r.getString(R.string.config_notificationCacheSize_key), "5"));
 			notificationCacheSize = 5;
+		}
+		
+		try {
+			autoLockDelay = Integer.parseInt(prefs.getString(r.getString(R.string.config_autoLockDelay_key), "60"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_autoLockDelay_key=" + prefs.getString(r.getString(R.string.config_autoLockDelay_key), "60"));
+			autoLockDelay = 60;
 		}
 	}
 	
@@ -518,5 +527,9 @@ public class Preferences {
 
 	public int getNotificationCacheSize() {
 		return notificationCacheSize;
+	}
+
+	public int getAutolockDelay() {
+		return 1000*autoLockDelay;
 	}
 }

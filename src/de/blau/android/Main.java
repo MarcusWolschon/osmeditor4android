@@ -628,6 +628,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		setAutoDownload(autoDownload);
 		
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
+		scheduleAutoLock();
 	}
 	
 	/**
@@ -736,6 +737,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 	@Override
 	protected void onPause() {
+		descheduleAutoLock();
 		Log.d(DEBUG_TAG, "onPause mode " + Application.getLogic().getMode());
 		runningInstance = null;
 		try {
@@ -2181,6 +2183,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
+			scheduleAutoLock();
 			// Log.d("MapTouchListener", "onTouch");
 			if (m.getAction() == MotionEvent.ACTION_DOWN) {
 				// Log.d("MapTouchListener", "onTouch ACTION_DOWN");
@@ -2589,6 +2592,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@SuppressLint("NewApi")
 		@Override
 		public boolean onKey(final View v, final int keyCode, final KeyEvent event) {
+			scheduleAutoLock();
 			final Logic logic = Application.getLogic();
 			switch (event.getAction()) {
 			case KeyEvent.ACTION_UP:
@@ -2653,7 +2657,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			}
 			return false;
 		}
-		
+
 		private void translate(final CursorPaddirection direction) {
 			setFollowGPS(false);
 			Application.getLogic().translate(direction);
@@ -2909,14 +2913,23 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		this.bottomBar = bottomBar;
 	}
 	
+	/**
+	 * @return the view containing the zoom + and - buttons
+	 */
 	public ZoomControls getControls() {
 		return zoomControls;
 	}
 	
+	/**
+	 * @return the "center on GPS position button"
+	 */
 	public FloatingActionButton getFollowButton() {
 		return follow;
 	}
 	
+	/**
+	 * Display the "center on GPS position" button
+	 */
 	public void hideFollowButton() {
 		FloatingActionButton follow = getFollowButton();
 		if (follow != null) {
@@ -2924,10 +2937,61 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	}
 	
+	/**
+	 * Display the "center on GPS position" button, checks if GPS is actually on
+	 */
 	public void showFollowButton() {
 		FloatingActionButton follow = getFollowButton();
 		if (follow != null && ensureGPSProviderEnabled()) {
 			follow.show();
 		}
+	}
+	
+	/**
+	 * Lock screen if we are in a mode in which that can reasonably be done
+	 */
+	private Runnable autoLock = new Runnable() {
+		@Override
+		public void run() {
+			if (Application.getLogic().getMode()!=Mode.MODE_MOVE) {
+				if (!easyEditManager.isProcessingAction() || easyEditManager.inElementSelectedMode()) {
+					View lock = getLock();
+					if (lock != null) {
+						lock.performClick();
+					}
+					if (easyEditManager.inElementSelectedMode()) {
+						Application.getLogic().deselectAll();
+						easyEditManager.finish();
+					}
+				} else { // can't lock now, reschedule
+					if (prefs != null) {
+						int delay = prefs.getAutolockDelay();
+						if (delay > 0) {
+							map.postDelayed(autoLock, delay);
+						}
+					}
+				}
+			}
+		}
+	};
+	
+	/**
+	 * Schedule automatic locking of the screen in a configurable time in the future
+	 */
+	void scheduleAutoLock() {
+		map.removeCallbacks(autoLock);
+		if (prefs != null) {
+			int delay = prefs.getAutolockDelay();
+			if (delay > 0) {
+				map.postDelayed(autoLock, delay);
+			}
+		}
+	}
+	
+	/**
+	 * Remove any pending automatic lock tasks 
+	 */
+	void descheduleAutoLock() {
+		map.removeCallbacks(autoLock);
 	}
 }

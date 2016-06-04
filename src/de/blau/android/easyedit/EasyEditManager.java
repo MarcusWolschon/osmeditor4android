@@ -113,6 +113,9 @@ public class EasyEditManager {
 		return (currentActionModeCallback != null);
 	}
 	
+	public boolean inElementSelectedMode() {
+		return isProcessingAction() && (currentActionModeCallback instanceof ElementSelectionActionModeCallback ||  currentActionModeCallback instanceof ExtendSelectionActionModeCallback);
+	}
 	
 	/**
 	 * Check if the actionmode ants its own context menu

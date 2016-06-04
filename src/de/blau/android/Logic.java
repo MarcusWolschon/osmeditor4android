@@ -3700,6 +3700,13 @@ public class Logic {
 		return selectedRelationRelations;
 	}
 	
+	public void deselectAll() {
+		setSelectedNode(null);
+		setSelectedWay(null);
+		setSelectedRelation(null);
+		setSelectedRelationNodes(null);
+		setSelectedRelationWays(null);
+	}
 	
 	public void fixElementWithConflict(long newVersion, OsmElement elementLocal, OsmElement elementOnServer) {
 		createCheckpoint(R.string.undo_action_fix_conflict);

@@ -67,6 +67,13 @@
             android:numeric="integer"
             android:summary="@string/config_maxInlineValues_summary"
             android:title="@string/config_maxInlineValues_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="60"
+            android:dialogTitle="@string/config_autoLockDelay_title"
+            android:key="@string/config_autoLockDelay_key"
+            android:numeric="integer"
+            android:summary="@string/config_autoLockDelay_summary"
+            android:title="@string/config_autoLockDelay_title" />
     </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.PreferenceCategory android:title="@string/config_category_editing" >
         <android.support.v7.preference.Preference
