@@ -22,6 +22,7 @@ import android.util.Log;
  */
 public class ClipboardUtils {
 	
+	static android.text.ClipboardManager oldClipboard = null;
 	static ClipboardManager clipboard = null;
 		
 	/**
@@ -32,13 +33,17 @@ public class ClipboardUtils {
 	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	static boolean checkForText(Context ctx){
-		if (clipboard == null) {
-			clipboard = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
-		}
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			if (clipboard == null) {
+				clipboard = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+			}
 			return clipboard.hasPrimaryClip();
 		} else {
-			return clipboard.hasText();
+			if (oldClipboard == null) {
+				oldClipboard = (android.content.ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+			}
+			return oldClipboard.hasText();
 		}
 	}
 	
@@ -100,7 +105,7 @@ public class ClipboardUtils {
 			} else {
 				// Gets the clipboard as text.
 				@SuppressWarnings("deprecation")
-				CharSequence cs = clipboard.getText();
+				CharSequence cs = oldClipboard.getText();
 				if (cs != null) {
 					String pasteData = cs.toString();
 					if (pasteData != null) { // should always be the case
@@ -151,8 +156,7 @@ public class ClipboardUtils {
 	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	public static void copyTags(Context ctx,Map<String,String> tags) {
-		ClipboardManager clipboard = (ClipboardManager)
-		        ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+
 		StringBuffer tagsAsText = new StringBuffer();
 		
 		for (String key:tags.keySet()) {
@@ -160,10 +164,14 @@ public class ClipboardUtils {
 		}
 		
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			ClipboardManager clipboard = (ClipboardManager)
+			        ctx.getSystemService(Context.CLIPBOARD_SERVICE);
 			ClipData clip = ClipData.newPlainText("OSM Tags",tagsAsText.toString());
 			clipboard.setPrimaryClip(clip);
 		} else {
-			clipboard.setText(tagsAsText.toString());
+			android.text.ClipboardManager oldClipboard = (android.text.ClipboardManager)
+			        ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+			oldClipboard.setText(tagsAsText.toString());
 		}
 	}
 }
