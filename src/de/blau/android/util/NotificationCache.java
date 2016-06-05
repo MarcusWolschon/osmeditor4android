@@ -59,7 +59,7 @@ public class NotificationCache implements Serializable {
 	 * @param id
 	 */
 	synchronized void remove(NotificationManager manager, int id) {
-		for (int i=0;i < size;i++) {
+		for (int i=0;i < cache.size();i++) {
 			if (cache.get(i)==id) {
 				cache.remove(i);
 				break;
@@ -73,7 +73,7 @@ public class NotificationCache implements Serializable {
 	 * @param id
 	 */
 	synchronized void remove(int id) {
-		for (int i=0;i < size;i++) {
+		for (int i=0;i < cache.size();i++) {
 			if (cache.get(i)==id) {
 				cache.remove(i);
 				break;
