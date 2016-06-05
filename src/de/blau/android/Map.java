@@ -920,9 +920,9 @@ public class Map extends View implements IMapView {
 		}
 		
 		if (tmpDrawingSelectedWays == null 
-				&& tmpDrawingEditMode != Logic.Mode.MODE_MOVE 
-				&& tmpDrawingEditMode != Logic.Mode.MODE_TAG_EDIT 
-				&& tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND) { // the handles only work when no way is selected so don't show them
+				&& tmpDrawingSelectedRelationWays == null
+				&& tmpDrawingSelectedRelationNodes == null
+				&& tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT) { // the handles only work when no way is selected so don't show them
 			// add "geometry improvement" handles
 			for (int i = 2; i < linePoints.length; i=i+4) {
 				float x0 = linePoints[i-2];

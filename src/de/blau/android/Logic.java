@@ -1027,7 +1027,9 @@ public class Logic {
 						if (rotatingWay) {
 							rotatingWay = false;
 							hideCrosshairs();
-						} else {
+						} else if (getMode()==Mode.MODE_EASYEDIT
+								&& selectedWays == null
+								&& selectedRelations == null){
 							// way center / handle
 							// TODO this may cause issues in action modes were we expect only something from the available selection to be returned
 							Handle handle = getClickedWayHandleWithDistances(x, y);
