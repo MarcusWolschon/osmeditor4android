@@ -127,8 +127,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 	
 	/**
-	 * Creates a degenerated BoundingBox with the corners set to the node coords
-	 * validate will cause and exception if called on this
+	 * Creates a degenerated BoundingBox with the corners set to the node coordinates
+	 * validate will cause an exception if called on this
 	 */
 	public BoundingBox(int lonE7, int latE7) {
 		left = lonE7;

@@ -1215,7 +1215,7 @@ public class EasyEditManager {
 				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 			}
 			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));
-			// menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION,  Menu.CATEGORY_SYSTEM|10, "Zoom to selection");
+			menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION,  Menu.CATEGORY_SYSTEM|10, "Zoom to selection");
 			menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM|10, R.string.menu_config).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_config));
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
@@ -1241,6 +1241,7 @@ public class EasyEditManager {
 			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startSupportActionMode(new  ExtendSelectionActionModeCallback(element)); break;
 			case MENUITEM_ELEMENT_INFO: ElementInfo.showDialog(main,element); break;
 			case MENUITEM_PREFERENCES: 	PrefEditor.start(main); break;
+			case MENUITEM_ZOOM_TO_SELECTION: main.zoomTo(element); main.invalidateMap(); break;
 			case R.id.undo_action:
 				// should not happen
 				Log.d("EasyEditManager.ElementSelectionActionModeCallback","menu undo clicked");

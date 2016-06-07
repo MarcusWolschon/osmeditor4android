@@ -2874,15 +2874,31 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	}
 	
+	/**
+	 * Zoom to the coordinates and try and set the viewbox size to something reasonable
+	 * @param lonE7
+	 * @param latE7
+	 * @param e
+	 */
 	public void zoomTo(int lonE7, int latE7, OsmElement e) {
 		setFollowGPS(false); // otherwise the screen could move around
 		if (e instanceof Node && map.getZoomLevel() < 22) {
-			Log.d(DEBUG_TAG,"zoomTosetting Zoom to 22");
 			Application.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
 		} else {
 			map.getViewBox().setBorders(e.getBounds());
 		}
 		map.getViewBox().moveTo(lonE7, latE7);
+	}
+	
+	public void zoomTo( OsmElement e) {
+		setFollowGPS(false); // otherwise the screen could move around
+		if (e instanceof Node && map.getZoomLevel() < 22) {
+			Application.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
+			map.getViewBox().moveTo(((Node)e).getLon(), ((Node)e).getLat());
+		} else {
+			map.getViewBox().setBorders(e.getBounds());
+		}
+		
 	}
 	
 	@Override

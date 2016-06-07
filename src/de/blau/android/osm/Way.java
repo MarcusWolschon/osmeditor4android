@@ -499,6 +499,7 @@ public class Way extends OsmElement implements BoundedObject {
 		for (Node n : getNodes()) {
 			if (first) {
 				result = new BoundingBox(n.lon,n.lat);
+				first = false;
 			} else {
 				result.union(n.lon,n.lat);
 			}
