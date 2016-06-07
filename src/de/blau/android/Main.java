@@ -2885,7 +2885,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (e instanceof Node && map.getZoomLevel() < 22) {
 			Application.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
 		} else {
-			map.getViewBox().setBorders(e.getBounds());
+			map.getViewBox().setBorders(e.getBounds(),false);
 		}
 		map.getViewBox().moveTo(lonE7, latE7);
 	}
@@ -2896,7 +2896,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			Application.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
 			map.getViewBox().moveTo(((Node)e).getLon(), ((Node)e).getLat());
 		} else {
-			map.getViewBox().setBorders(e.getBounds());
+			map.getViewBox().setBorders(e.getBounds(),false);
 		}
 		
 	}

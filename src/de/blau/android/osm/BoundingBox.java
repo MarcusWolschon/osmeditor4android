@@ -709,16 +709,37 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 
 	/**
-	 * Sets the borders to the ones of newBox. Recalculates dimensions and
-	 * mercator-factor.
+	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the current ratio (that of the window) 
+	 * and maintains zoom level
 	 * 
 	 * @param newBox box with the new borders.
 	 */
 	public void setBorders(final BoundingBox newBox) {
-		setBorders(newBox, ratio);
+		setBorders(newBox, this.ratio);
 	}
 	
+	/**
+	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the ratio and maintains zoom level
+	 * 
+	 * @param newBox
+	 * @param ratio
+	 */
 	public void setBorders(final BoundingBox newBox, float ratio) {
+		setBorders(newBox, ratio, true);
+	}
+	
+	/**
+	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the current ratio (that of the window) 
+	 * and maintains zoom level depending on the value of preserveZoom
+	 * 
+	 * @param newBox
+	 * @param preserveZoom
+	 */
+	public void setBorders(final BoundingBox newBox, boolean preserveZoom) {
+		setBorders(newBox, this.ratio, preserveZoom);
+	}
+	
+	public void setBorders(final BoundingBox newBox, float ratio, boolean preserveZoom) {
 		left = newBox.left;
 		right = newBox.right;
 		top = newBox.top;
@@ -726,7 +747,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		Log.d("BoundingBox","setBorders " + newBox.toString() + " ratio is " + ratio);
 		try {
 			calcDimensions(); // neede to recalc width
-			setRatio(ratio, true);
+			setRatio(ratio, preserveZoom);
 			validate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
