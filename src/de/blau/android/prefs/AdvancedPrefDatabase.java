@@ -54,7 +54,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		PREF_SELECTED_API = r.getString(R.string.config_selected_api);
 		currentAPI = prefs.getString(PREF_SELECTED_API, null);
-		if (currentAPI == null) migrateAPI();
+		if (currentAPI == null) migrateAPI(getWritableDatabase());
 		if (getPreset(ID_DEFAULT) == null) addPreset(ID_DEFAULT, "OpenStreetMap", "", true);
 	}
 
@@ -85,18 +85,27 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		}
 	}
 	
+	@Override
+	public synchronized void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		Log.d(LOGTAG, "Downgrading API DB loosing all settings");
+		db.execSQL("DROP TABLE apis");
+		db.execSQL("DROP TABLE presets");
+		onCreate(db);
+		migrateAPI(db);
+	}
+	
 	/**
 	 * Creates the default API entry using the old-style username/password 
 	 */
-	private synchronized void migrateAPI() {
+	private synchronized void migrateAPI(SQLiteDatabase db) {
 		Log.d(LOGTAG, "Migrating API");
 		String user = prefs.getString(r.getString(R.string.config_username_key), "");
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
 		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
-		addAPI(ID_DEFAULT, name, API_DEFAULT, user, pass, ID_DEFAULT, false, true); 
+		addAPI(db, ID_DEFAULT, name, API_DEFAULT, user, pass, ID_DEFAULT, false, true); 
 		Log.d(LOGTAG, "Selecting default API");
-		selectAPI(ID_DEFAULT);
+		selectAPI(db,ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");
 		Editor editor = prefs.edit();
 		editor.remove(r.getString(R.string.config_username_key));
@@ -110,8 +119,14 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param id the ID of the API to be set as active
 	 */
 	public synchronized void selectAPI(String id) {
+		SQLiteDatabase db = getReadableDatabase();
+		selectAPI(db, id);
+		db.close();
+	}
+	
+	public synchronized void selectAPI(SQLiteDatabase db, String id) {
 		Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
-		if (getAPIs(id).length == 0) throw new RuntimeException("Non-existant API selected");
+		if (getAPIs(db,id).length == 0) throw new RuntimeException("Non-existant API selected");
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
 		currentAPI = id;
 		Main.prepareRedownload();
@@ -219,6 +234,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	/** adds a new API with the given values to the API database */
 	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset, boolean showicon, boolean oauth) {
 		SQLiteDatabase db = getWritableDatabase();
+		addAPI(db, id, name, url, user, pass, preset, showicon, oauth);
+		db.close();
+	}
+	
+	/** adds a new API with the given values to the supplied database */
+	public synchronized void addAPI(SQLiteDatabase db, String id, String name, String url, String user, String pass, String preset, boolean showicon, boolean oauth) {
 		ContentValues values = new ContentValues();
 		values.put("id", id);
 		values.put("name", name);
@@ -228,8 +249,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("preset", preset);		
 		values.put("showicon", showicon? 1 : 0);	
 		values.put("oauth", oauth? 1 : 0);
-		db.insert("apis", null, values);
-		db.close();
+		db.insert("apis", null, values);		
 	}
 	
 	/** removes an API from the API database */
@@ -248,6 +268,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 */
 	private synchronized API[] getAPIs(String id) {
 		SQLiteDatabase db = getReadableDatabase();
+		API[] result = getAPIs(db, id);
+		db.close();
+		return result;
+	}
+		
+	private synchronized API[] getAPIs(SQLiteDatabase db, String id) {
 		Cursor dbresult = db.query(
 								"apis",
 								new String[] {"id", "name", "url", "user", "pass", "preset", "showicon", "oauth","accesstoken","accesstokensecret"},
@@ -271,7 +297,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			dbresult.moveToNext();
 		}
 		dbresult.close();
-		db.close();
 		return result;
 	}
 
