@@ -2,8 +2,8 @@
 <view  class="de.blau.android.prefs.URLListEditActivity$ListItem" xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
     	android:layout_height="wrap_content"
-    	android:layout_marginRight="?android:attr/scrollbarSize"
-    	
+ 
+
     	android:minHeight="?android:attr/listPreferredItemHeight"
     	
     	android:gravity="center_vertical"
@@ -18,8 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1" 
-        android:orientation="vertical" 
         android:layout_marginLeft="?attr/dialogPreferredPadding" 
+        android:orientation="vertical" 
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -53,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginRight="?attr/dialogPreferredPadding"
         android:text="" 
         android:descendantFocusability="blocksDescendants"
         android:focusableInTouchMode="false"

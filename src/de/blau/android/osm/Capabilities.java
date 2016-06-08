@@ -42,17 +42,34 @@ public class Capabilities {
 			return Status.OFFLINE;
 		}
 	}
+	
+	private static ArrayList<String> defaultBlacklist() {
+		ArrayList<String> blacklist = new ArrayList<String>();
+		blacklist.add(".*\\.google\\.ru/.*");
+		blacklist.add(".*\\.google\\.com/.*");
+		blacklist.add(".*\\.googleapis\\.com/.*");
+		return blacklist;
+	}
 
 	public static Capabilities getDefault() {
 		Capabilities d = new Capabilities();
-		d.imageryBlacklist.add(".*\\.google\\.ru/.*");
-		d.imageryBlacklist.add(".*\\.google\\.com/.*");
-		d.imageryBlacklist.add(".*\\.googleapis\\.com/.*");
+		d.imageryBlacklist.addAll(defaultBlacklist());
 		// this is wishful thinking
 		// TODO add unknown status
 		d.dbStatus = Status.ONLINE;
 		d.apiStatus = Status.ONLINE;
 		d.gpxStatus = Status.ONLINE;
+		return d;
+	}
+	
+	public static Capabilities getReadOnlyDefault() {
+		Capabilities d = new Capabilities();
+		d.imageryBlacklist.addAll(defaultBlacklist());
+		// this is wishful thinking
+		// TODO add unknown status
+		d.dbStatus = Status.READONLY;
+		d.apiStatus = Status.READONLY;
+		d.gpxStatus = Status.READONLY;
 		return d;
 	}
 

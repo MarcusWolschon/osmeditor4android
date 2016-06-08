@@ -97,6 +97,8 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		v.setText(r.getString(getAddTextResId()));
 		v.setTextColor(ContextCompat.getColor(ctx,android.R.color.darker_gray));
 		v.setTypeface(null,Typeface.ITALIC);
+		int padding = ThemeUtils.getDimensionFromAttribute(this,R.attr.dialogPreferredPadding);
+		v.setPadding(padding, v.getPaddingTop(),padding, v.getPaddingBottom());
 		getListView().addFooterView(v);
 		
 		updateAdapter();
@@ -364,10 +366,12 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	 * @author Jan
 	 */
 	public static class ListEditItem implements Serializable {
-		private static final long serialVersionUID = 7574708515164503466L;
+		private static final long serialVersionUID = 7574708515164503467L;
 		public final String id;
 		public String name;
 		public String value;
+		public String value_2;
+		public String value_3;
 		public boolean enabled;
 		public boolean active;
 		
@@ -377,11 +381,13 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		 * @param value
 		 */
 		public ListEditItem(String name, String value) {
-			this(name, value, false);
+			this(name, value, null, null, false);
 		}
-		public ListEditItem(String name, String value, boolean enabled) {
+		public ListEditItem(String name, String value, String value_2, String value_3, boolean enabled) {
 			id = java.util.UUID.randomUUID().toString();
 			this.value = value;
+			this.value_2 = value_2;
+			this.value_3 = value_3;
 			this.name = name;
 			this.enabled = enabled;
 			this.active = false;
@@ -399,16 +405,18 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		}
 		
 		public ListEditItem(String id, String name, String value, boolean enabled) {
-			this.id = id;
-			this.value = value;
-			this.name = name;
-			this.enabled = enabled;
-			this.active = false;
+			this(id, name, value, enabled, false);
 		}
 		
 		public ListEditItem(String id, String name, String value, boolean enabled, boolean active) {
+			this(id, name, value, null, null, enabled, active);
+		}
+		
+		public ListEditItem(String id, String name, String value, String value_2, String value_3, boolean enabled, boolean active) {
 			this.id = id;
 			this.value = value;
+			this.value_2 = value_2;
+			this.value_3 = value_3;
 			this.name = name;
 			this.enabled = enabled;
 			this.active = active;

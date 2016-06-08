@@ -160,17 +160,6 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 			}
 		});
 		
-		CheckBoxPreference iconspref = (CheckBoxPreference) getPreferenceScreen().findPreference(KEY_PREFICONS);
-		iconspref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-			@Override
-			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				Log.d(DEBUG_TAG, "onPreferenceChange icons");
-				AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
-				db.setCurrentAPIShowIcons((Boolean)newValue);
-				return true;
-			}
-		});
-		
 		Preference licensepref = getPreferenceScreen().findPreference(KEY_LICENSE);
 		licensepref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override

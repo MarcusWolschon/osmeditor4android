@@ -1929,8 +1929,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		descheduleAutoLock();
 		this.restart = restart;
 		hideControls();
-		Server[] s = {server};
-		String url = s[0].getBaseURL();
+		
+		String url = server.getBaseUrl(server.getReadWriteUrl());
 		OAuthHelper oa;
 		try {
 			oa = new OAuthHelper(url);
@@ -2781,7 +2781,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 	
 	public String getBaseURL() {
-		return prefs.getServer().getBaseURL();
+		return prefs.getServer().getReadWriteUrl();
 	}
 
 	@Override

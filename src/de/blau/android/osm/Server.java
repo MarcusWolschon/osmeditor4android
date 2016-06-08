@@ -33,6 +33,7 @@ import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.prefs.AdvancedPrefDatabase.API;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
@@ -50,6 +51,7 @@ import oauth.signpost.exception.OAuthMessageSignerException;
  */
 public class Server {
 
+	private static final String DEBUG_TAG = Server.class.getName();
 
 	/**
 	 * Timeout for connections in milliseconds.
@@ -60,6 +62,16 @@ public class Server {
 	 * Location of OSM API
 	 */
 	private final String serverURL;
+	
+	/**
+	 * Location of optional read only OSM API
+	 */
+	private final String readonlyURL;
+	
+	/**
+	 * Location of optional notes OSM API
+	 */
+	private final String notesURL;
 
 	/**
 	 * username for write-access on the server.
@@ -95,6 +107,11 @@ public class Server {
 	 * Current capabilities
 	 */
 	private Capabilities capabilities = Capabilities.getDefault();
+	
+	/**
+	 * Current readonly capabilities
+	 */
+	private Capabilities readOnlyCapabilities = Capabilities.getReadOnlyDefault();
 
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
@@ -145,29 +162,31 @@ public class Server {
 	 * @param oauth 
 	 * @param generator the name of the editor.
 	 */
-	public Server(final String apiurl, final String username, final String password, boolean oauth, String accesstoken, String accesstokensecret, final String generator) {
-		Log.d("Server", "constructor");
-		if (apiurl != null && !apiurl.equals("")) {
-			this.serverURL = apiurl;
+	public Server(final API api,final String generator) {
+		Log.d(DEBUG_TAG, "constructor");
+		if (api.url != null && !api.url.equals("")) {
+			this.serverURL = api.url;
 		} else {
 			this.serverURL = SERVER_BASE_URL + "/" + SERVER_API_PATH + version + "/"; // probably not needed anymore
 		}
-		this.password = password;
-		this.username = username;
-		this.oauth = oauth;
+		this.readonlyURL = api.readonlyurl;
+		this.notesURL = api.notesurl;
+		this.password = api.pass;
+		this.username = api.user;
+		this.oauth = api.oauth;
 		this.generator = generator;
-		this.accesstoken = accesstoken;
-		this.accesstokensecret = accesstokensecret;
+		this.accesstoken = api.accesstoken;
+		this.accesstokensecret = api.accesstokensecret;
 		
 		userDetails = null;
-		Log.d("Server", "using " + this.username + " with " + this.serverURL);
-		Log.d("Server", "oAuth: " + this.oauth + " token " + this.accesstoken + " secret " + this.accesstokensecret);
+		Log.d(DEBUG_TAG, "using " + this.username + " with " + this.serverURL);
+		Log.d(DEBUG_TAG, "oAuth: " + this.oauth + " token " + this.accesstoken + " secret " + this.accesstokensecret);
 
 		XmlPullParserFactory factory = null;
 		try {
 			factory = XmlPullParserFactory.newInstance();
 		} catch (XmlPullParserException e) {
-			Log.e("Vespucci", "Problem creating parser factory", e);
+			Log.e(DEBUG_TAG, "Problem creating parser factory", e);
 		}
 		xmlParserFactory = factory;
 		
@@ -209,7 +228,7 @@ public class Server {
 						String tagName = parser.getName();
 						if (eventType == XmlPullParser.START_TAG && "user".equals(tagName)) {
 							result.display_name = parser.getAttributeValue(null, "display_name");
-							Log.d("Server","getUserDetails display name " + result.display_name);
+							Log.d(DEBUG_TAG,"getUserDetails display name " + result.display_name);
 						}
 						if (eventType == XmlPullParser.START_TAG && "messages".equals(tagName)) {
 							messages = true;
@@ -220,13 +239,13 @@ public class Server {
 						if (messages) {
 							if (eventType == XmlPullParser.START_TAG && "received".equals(tagName)) {
 								result.received = Integer.parseInt(parser.getAttributeValue(null, "count"));
-								Log.d("Server","getUserDetails received " + result.received);
+								Log.d(DEBUG_TAG,"getUserDetails received " + result.received);
 								result.unread = Integer.parseInt(parser.getAttributeValue(null, "unread"));
-								Log.d("Server","getUserDetails unread " + result.unread);
+								Log.d(DEBUG_TAG,"getUserDetails unread " + result.unread);
 							}
 							if (eventType == XmlPullParser.START_TAG && "sent".equals(tagName)) {
 								result.sent = Integer.parseInt(parser.getAttributeValue(null, "count"));
-								Log.d("Server","getUserDetails sent " + result.sent);
+								Log.d(DEBUG_TAG,"getUserDetails sent " + result.sent);
 							}
 						}
 					}
@@ -234,15 +253,15 @@ public class Server {
 					disconnect(connection);
 				}
 			} catch (XmlPullParserException e) {
-				Log.e("Vespucci", "Problem accessing user details", e);
+				Log.e(DEBUG_TAG, "Problem parsing user details", e);
 			} catch (MalformedURLException e) {
-				Log.e("Vespucci", "Problem accessing user details", e);
+				Log.e(DEBUG_TAG, "Problem retrieving user details", e);
 			} catch (ProtocolException e) {
-				Log.e("Vespucci", "Problem accessing user details", e);
+				Log.e(DEBUG_TAG, "Problem accessing user details", e);
 			} catch (IOException e) {
-				Log.e("Vespucci", "Problem accessing user details", e);
+				Log.e(DEBUG_TAG, "Problem accessing user details", e);
 			} catch (NumberFormatException e) {
-				Log.e("Vespucci", "Problem accessing user details", e);
+				Log.e(DEBUG_TAG, "Problem accessing user details", e);
 			}
 			return result;
 		} 
@@ -257,7 +276,27 @@ public class Server {
 		return username;
 	}
 	
+	/**
+	 * @return true if a read only API URL is set
+	 */
+	public boolean hasReadOnly() {
+		return readonlyURL != null && !"".equals(readonlyURL);
+	}
+	
+	public Capabilities  getReadOnlyCapabilities() {
+		try {
+			Capabilities result = getCapabilities(getReadOnlyCapabilitiesUrl());
+			if (result != null) {
+				readOnlyCapabilities = result;
+			}
+			return readOnlyCapabilities; // if retrieving failed return the default
+		} catch (MalformedURLException e) {
+			Log.e(DEBUG_TAG, "Problem with read-only capabilities URL", e);
+		}
+		return null;
+	}
 
+	
 	public Capabilities getCachedCapabilities() {
 		return capabilities;
 	}
@@ -265,19 +304,34 @@ public class Server {
 	
 	/**
 	 * Get the capabilities for the current API
-	 * Side effect set capabilities field and update limits that are used else where
+	 * Side effect set capabilities field and update limits that are used elsewhere
 	 * @return The capabilities for this server, or null if it couldn't be determined.
 	 */
 	public Capabilities getCapabilities() {
+		try {
+			Capabilities result = getCapabilities(getCapabilitiesUrl());
+			if (result != null) {
+				capabilities = result;
+				capabilities.updateLimits();
+			}
+			return capabilities; // if retrieving failed return the default
+		} catch (MalformedURLException e) {
+			Log.e(DEBUG_TAG, "Problem with capabilities URL", e);
+		}
+		return null;
+	}
+	
+	/**
+	 * Get the capabilities for the supplied URL
+	 * @param capabilitiesURL
+	 * @return The capabilities for this server, or null if it couldn't be determined.
+	 */
+	public Capabilities getCapabilities(URL capabilitiesURL) {
 		Capabilities result;
 		HttpURLConnection con = null;
 		// 
-		try {
-			URL capabilitiesURL = getCapabilitiesUrl();
-			if (capabilitiesURL == null) {
-				return capabilities;
-			}
-			Log.d("Server","getCapabilities using " + capabilitiesURL.toString());
+		try {		
+			Log.d(DEBUG_TAG,"getCapabilities using " + capabilitiesURL.toString());
 			con = (HttpURLConnection) capabilitiesURL.openConnection();
 			//--Start: header not yet send
 			con.setReadTimeout(TIMEOUT);
@@ -297,48 +351,48 @@ public class Server {
 					if (eventType == XmlPullParser.START_TAG && "version".equals(tagName)) {
 						result.minVersion = parser.getAttributeValue(null, "minimum");
 						result.maxVersion = parser.getAttributeValue(null, "maximum");
-						Log.d("Server","getCapabilities min/max API version " + result.minVersion + "/" + result.maxVersion);
+						Log.d(DEBUG_TAG,"getCapabilities min/max API version " + result.minVersion + "/" + result.maxVersion);
 					}
 					if (eventType == XmlPullParser.START_TAG && "area".equals(tagName)) {
 						String maxArea = parser.getAttributeValue(null, "maximum");
 						if (maxArea != null) {
 							result.areaMax = Float.parseFloat(maxArea);
 						}
-						Log.d("Server","getCapabilities maximum area " + maxArea);
+						Log.d(DEBUG_TAG,"getCapabilities maximum area " + maxArea);
 					}
 					if (eventType == XmlPullParser.START_TAG && "tracepoints".equals(tagName)) {
 						String perPage = parser.getAttributeValue(null, "per_page");
 						if (perPage != null) {
 							result.maxTracepointsPerPage = Integer.parseInt(perPage);
 						}
-						Log.d("Server","getCapabilities maximum #tracepoints per page " + perPage);
+						Log.d(DEBUG_TAG,"getCapabilities maximum #tracepoints per page " + perPage);
 					}
 					if (eventType == XmlPullParser.START_TAG && "waynodes".equals(tagName)) {
 						String maximumWayNodes = parser.getAttributeValue(null, "maximum");
 						if (maximumWayNodes != null) {
 							result.maxWayNodes = Integer.parseInt(maximumWayNodes);
 						}
-						Log.d("Server","getCapabilities maximum #nodes in a way " + maximumWayNodes);
+						Log.d(DEBUG_TAG,"getCapabilities maximum #nodes in a way " + maximumWayNodes);
 					}
 					if (eventType == XmlPullParser.START_TAG && "changesets".equals(tagName)) {
 						String maximumElements = parser.getAttributeValue(null, "maximum_elements");
 						if (maximumElements != null) {
 							result.maxElementsInChangeset = Integer.parseInt(maximumElements);
 						}
-						Log.d("Server","getCapabilities maximum elements in changesets " + maximumElements);
+						Log.d(DEBUG_TAG,"getCapabilities maximum elements in changesets " + maximumElements);
 					}
 					if (eventType == XmlPullParser.START_TAG && "timeout".equals(tagName)) {
 						String seconds = parser.getAttributeValue(null, "seconds");
 						if (seconds != null) {
 							result.timeout = Integer.parseInt(seconds);
 						}
-						Log.d("Server","getCapabilities timeout seconds " + seconds);
+						Log.d(DEBUG_TAG,"getCapabilities timeout seconds " + seconds);
 					}
 					if (eventType == XmlPullParser.START_TAG && "status".equals(tagName)) {
 						result.dbStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "database"));
 						result.apiStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "api"));
 						result.gpxStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "gpx"));
-						Log.d("Server","getCapabilities service status DB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
+						Log.d(DEBUG_TAG,"getCapabilities service status DB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
 					}	
 					if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {
 						if (result.imageryBlacklist == null) {
@@ -348,22 +402,19 @@ public class Server {
 						if (regex != null) {
 							result.imageryBlacklist.add(regex);
 						}
-						Log.d("Server","getCapabilities blacklist regex " + regex);
+						Log.d(DEBUG_TAG,"getCapabilities blacklist regex " + regex);
 					}
-
 				} catch (NumberFormatException e) {
-					Log.e("Vespucci", "Problem accessing capabilities", e);
+					Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
 				}
 			}
-			capabilities = result;
-			capabilities.updateLimits();
 			return result;	
 		} catch (XmlPullParserException e) {
-			Log.e("Vespucci", "Problem accessing capabilities", e);
+			Log.e(DEBUG_TAG, "Problem parsing capabilities", e);
 		} catch (ProtocolException e) {
-			Log.e("Vespucci", "Problem accessing capabilities", e);
+			Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
 		} catch (IOException e) {
-			Log.e("Vespucci", "Problem accessing capabilities", e);
+			Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
 		} finally {
 			disconnect(con);
 		}
@@ -382,6 +433,15 @@ public class Server {
 		return capabilities.dbStatus.equals(Capabilities.Status.ONLINE);
 	}
 	
+	public boolean readOnlyApiAvailable() {
+		return readOnlyCapabilities.apiStatus.equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.apiStatus.equals(Capabilities.Status.READONLY);
+	}
+	
+	public boolean readOnlyReadableDB() {
+		return readOnlyCapabilities.dbStatus.equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.dbStatus.equals(Capabilities.Status.READONLY);
+	}
+	
+	
 	/**
 	 * @param area
 	 * @return
@@ -389,12 +449,12 @@ public class Server {
 	 * @throws OsmServerException
 	 */
 	public InputStream getStreamForBox(final BoundingBox box) throws OsmServerException, IOException {
-		Log.d("Server", "getStreamForBox");
-		URL url = new URL(serverURL  + "map?bbox=" + box.toApiString());
+		Log.d(DEBUG_TAG, "getStreamForBox");
+		URL url = new URL(getReadOnlyUrl()  + "map?bbox=" + box.toApiString());
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		boolean isServerGzipEnabled;
 
-		Log.d("Server", "getStreamForBox " + url.toString());
+		Log.d(DEBUG_TAG, "getStreamForBox " + url.toString());
 		
 		//--Start: header not yet send
 		con.setReadTimeout(TIMEOUT);
@@ -451,12 +511,12 @@ public class Server {
 	 * @throws IOException
 	 */
 	public InputStream getStreamForElement(String mode, final String type, final long id) throws OsmServerException, IOException {
-		Log.d("Server", "getStreamForElement");
-		URL url = new URL(serverURL + type + "/" + id + (mode != null ? "/" + mode : ""));
+		Log.d(DEBUG_TAG, "getStreamForElement");
+		URL url = new URL(getReadOnlyUrl() + type + "/" + id + (mode != null ? "/" + mode : ""));
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		boolean isServerGzipEnabled;
 
-		Log.d("Server", "getStreamForElement " + url.toString());
+		Log.d(DEBUG_TAG, "getStreamForElement " + url.toString());
 		
 		//--Start: header not yet send
 		con.setReadTimeout(TIMEOUT);
@@ -539,7 +599,7 @@ public class Server {
 	public boolean deleteElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
 //		elem.addOrUpdateTag(createdByTag, createdByKey);
-		Log.d("Server","Deleting " + elem.getName() + " #" + elem.getOsmId());
+		Log.d(DEBUG_TAG,"Deleting " + elem.getName() + " #" + elem.getOsmId());
 		try {
 			connection = openConnectionForWriteAccess(getDeleteUrl(elem), "POST");
 			sendPayload(connection, new XmlSerializable() {
@@ -581,7 +641,7 @@ public class Server {
 		InputStream in = null;
 		try {
 			URL updateElementUrl = getUpdateUrl(elem);
-			Log.d("Server","Updating " + elem.getName() + " #" + elem.getOsmId() + " " + updateElementUrl);
+			Log.d(DEBUG_TAG,"Updating " + elem.getName() + " #" + elem.getOsmId() + " " + updateElementUrl);
 			connection = openConnectionForWriteAccess(updateElementUrl, "PUT");
 			// remove redundant tags
 			discardedTags.remove(elem);
@@ -641,6 +701,7 @@ public class Server {
 	
 	private HttpURLConnection openConnectionForWriteAccess(final URL url, final String requestMethod, final String contentType)
 			throws IOException, MalformedURLException, ProtocolException {
+		Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestProperty("Content-Type", "" + contentType + "; charset=utf-8");
 		connection.setRequestProperty("User-Agent", Application.userAgent);
@@ -650,22 +711,18 @@ public class Server {
 
 		if (oauth) {
 			OAuthHelper oa = new OAuthHelper();
-			OAuthConsumer consumer = oa.getConsumer(getBaseURL());
+			OAuthConsumer consumer = oa.getConsumer(getBaseUrl(getReadWriteUrl()));
 			consumer.setTokenWithSecret(accesstoken, accesstokensecret);	
 			// sign the request
 			try {
 				consumer.sign(connection);
-				// HttpParameters h = consumer.getRequestParameters();
-				
-			} catch (OAuthMessageSignerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// HttpParameters h = consumer.getRequestParameters();			
+			} catch (OAuthMessageSignerException e) { // user will get error when we actually try to write
+				Log.e(DEBUG_TAG, "OAuth fail",e);
 			} catch (OAuthExpectationFailedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.e(DEBUG_TAG, "OAuth fail",e);
 			} catch (OAuthCommunicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.e(DEBUG_TAG, "OAuth fail",e);
 			}	
 		} else {
 			connection.setRequestProperty("Authorization", "Basic " + Base64.encode(username + ":" + password));
@@ -731,7 +788,7 @@ public class Server {
 		if (changesetId != -1) { // potentially still open, check if really the case
 			Changeset cs = getChangeset(changesetId);
 			if (cs != null && cs.open) {
-				Log.d("Server","Changeset #" + changesetId + " still open, reusing");
+				Log.d(DEBUG_TAG,"Changeset #" + changesetId + " still open, reusing");
 				updateChangeset(changesetId, comment, source, imagery);
 				return;
 			} else {
@@ -836,7 +893,7 @@ public class Server {
 				String tagName = parser.getName();
 				if (eventType == XmlPullParser.START_TAG && "changeset".equals(tagName)) {
 					result.open = parser.getAttributeValue(null, "open").equals("true");
-					Log.d("Server","Changeset #" + id + " is " + (result.open ? "open":"closed"));
+					Log.d(DEBUG_TAG,"Changeset #" + id + " is " + (result.open ? "open":"closed"));
 				}
 			}
 		} catch (MalformedURLException e) {
@@ -921,12 +978,12 @@ public class Server {
 			throw new OsmServerException(responsecode, "Unknown error");
 		}
 		responsecode = connection.getResponseCode();
-		Log.d("Server", "response code " + responsecode);
+		Log.d(DEBUG_TAG, "response code " + responsecode);
 		if (responsecode == -1) throw new IOException("Invalid response from server");
 		if (responsecode != HttpURLConnection.HTTP_OK) {
 			if (responsecode == HttpURLConnection.HTTP_GONE && e.getState()==OsmElement.STATE_DELETED) {
 				//FIXME we tried to delete an already deleted element: log, but ignore, maybe it would be better to ask user
-				Log.d("Server", e.getOsmId() + " already deleted on server");
+				Log.d(DEBUG_TAG, e.getOsmId() + " already deleted on server");
 				return;
 			}
 			String responseMessage = connection.getResponseMessage();
@@ -966,102 +1023,10 @@ public class Server {
 		try {
 			res = reader.readLine();
 		} catch (IOException e) {
-			Log.e("Vespucci", "Problem reading", e);
+			Log.e(DEBUG_TAG, "Problem reading", e);
 		}
 
 		return res;
-	}
-
-	private URL getCreationUrl(final OsmElement elem) throws MalformedURLException {
-		return new URL(serverURL  + elem.getName() + "/create");
-	}
-
-	private URL getCreateChangesetUrl() throws MalformedURLException {
-		return new URL(serverURL  + SERVER_CHANGESET_PATH + "create");
-	}
-
-	private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
-		return new URL(serverURL  + SERVER_CHANGESET_PATH + changesetId + "/close");
-	}
-	
-	private URL getChangesetUrl(long changesetId) throws MalformedURLException {
-		return new URL(serverURL  + SERVER_CHANGESET_PATH + changesetId);
-	}
-
-	private URL getUpdateUrl(final OsmElement elem) throws MalformedURLException {
-		return new URL(serverURL  + elem.getName() + "/" + elem.getOsmId());
-	}
-
-	private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
-		//return getUpdateUrl(elem);
-		return new URL(serverURL  + SERVER_CHANGESET_PATH + changesetId + "/upload");
-	}
-	
-	private URL getUserDetailsUrl() throws MalformedURLException {
-		return new URL(serverURL  + "user/details");
-	}
-	
-	private URL getAddCommentUrl(@NonNull String noteId, @NonNull String comment)
-			throws MalformedURLException {
-		return new URL(serverURL + SERVER_NOTES_PATH + noteId + "/comment?text=" + comment);
-	}
-
-	private URL getNoteUrl(@NonNull String noteId) throws MalformedURLException {
-		return new URL(serverURL + SERVER_NOTES_PATH + noteId);
-	}
-
-	private URL getNotesForBox(long limit, @NonNull BoundingBox area) throws MalformedURLException {
-		return new URL(serverURL  + "notes?" +
-				"limit=" + limit + "&" +
-				"bbox=" +
-				area.getLeft() / 1E7d +
-				"," + area.getBottom() / 1E7d +
-				"," + area.getRight() / 1E7d +
-				"," + area.getTop() / 1E7d);
-	}
-
-	private URL getAddNoteUrl(double latitude, double longitude, @NonNull String comment)
-			throws MalformedURLException {
-		return new URL(serverURL + "notes?lat=" + latitude + "&lon=" + longitude + "&text=" + comment);
-	}
-
-	private URL getCloseNoteUrl(@NonNull String noteId) throws MalformedURLException {
-		return new URL(serverURL + SERVER_NOTES_PATH + noteId + "/close");
-	}
-
-	private URL getReopenNoteUrl(@NonNull String noteId) throws MalformedURLException {
-		return new URL(serverURL + SERVER_NOTES_PATH + noteId + "/reopen");
-	}
-
-	private URL getUploadTrackUrl() throws MalformedURLException {
-		return new URL(serverURL  + "gpx/create");
-	}
-
-	private URL getCapabilitiesUrl() throws MalformedURLException {
-		// need to strip version from serverURL
-		int apiPos = serverURL.indexOf(SERVER_API_PATH);
-		if (apiPos > 0) {
-			String noVersionURL = serverURL.substring(0, apiPos) + SERVER_API_PATH;
-			return new URL(noVersionURL  + "capabilities");
-		}
-		return null;
-	}
-
-	private XmlSerializer getXmlSerializer() {
-		try {
-			XmlSerializer serializer = xmlParserFactory.newSerializer();
-			serializer.setPrefix("", "");
-			return serializer;
-		} catch (IllegalArgumentException e) {
-			Log.e("Vespucci", "Problem getting serializer", e);
-		} catch (IllegalStateException e) {
-			Log.e("Vespucci", "Problem getting serializer", e);
-		} catch (IOException e) {
-			Log.e("Vespucci", "Problem getting serializer", e);
-		} catch (XmlPullParserException e) {
-			Log.e("Vespucci", "Problem getting serializer", e);
-		}
-		return null;
 	}
 
 	private void startXml(XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
@@ -1092,11 +1057,150 @@ public class Server {
 		xmlSerializer.endDocument();
 	}
 
+	private XmlSerializer getXmlSerializer() {
+		try {
+			XmlSerializer serializer = xmlParserFactory.newSerializer();
+			serializer.setPrefix("", "");
+			return serializer;
+		} catch (IllegalArgumentException e) {
+			Log.e(DEBUG_TAG, "Problem getting serializer", e);
+		} catch (IllegalStateException e) {
+			Log.e(DEBUG_TAG, "Problem getting serializer", e);
+		} catch (IOException e) {
+			Log.e(DEBUG_TAG, "Problem getting serializer", e);
+		} catch (XmlPullParserException e) {
+			Log.e(DEBUG_TAG, "Problem getting serializer", e);
+		}
+		return null;
+	}
+
+	private URL getCreationUrl(final OsmElement elem) throws MalformedURLException {
+		return new URL(getReadWriteUrl()  + elem.getName() + "/create");
+	}
+
+	private URL getCreateChangesetUrl() throws MalformedURLException {
+		return new URL(getReadWriteUrl()  + SERVER_CHANGESET_PATH + "create");
+	}
+
+	private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
+		return new URL(getReadWriteUrl()  + SERVER_CHANGESET_PATH + changesetId + "/close");
+	}
+	
+	private URL getChangesetUrl(long changesetId) throws MalformedURLException {
+		return new URL(getReadWriteUrl()  + SERVER_CHANGESET_PATH + changesetId);
+	}
+
+	private URL getUpdateUrl(final OsmElement elem) throws MalformedURLException {
+		return new URL(getReadWriteUrl()  + elem.getName() + "/" + elem.getOsmId());
+	}
+
+	private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
+		//return getUpdateUrl(elem);
+		return new URL(getReadWriteUrl()  + SERVER_CHANGESET_PATH + changesetId + "/upload");
+	}
+	
+	private URL getUserDetailsUrl() throws MalformedURLException {
+		return new URL(getReadWriteUrl()  + "user/details");
+	}
+	
+	private URL getAddCommentUrl(@NonNull String noteId, @NonNull String comment)
+			throws MalformedURLException {
+		return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/comment?text=" + comment);
+	}
+
+	private URL getNoteUrl(@NonNull String noteId) throws MalformedURLException {
+		return new URL(getNotesReadOnlyUrl() + SERVER_NOTES_PATH + noteId);
+	}
+	
 	/**
-	 * @return the base URL, i.e. the API url with the "/api/version/"-part stripped
+	 * Return for now general read write API url as a string 
+	 * @return
 	 */
-	public String getBaseURL() {
-		return serverURL.replaceAll("/api/[0-9]+(?:\\.[0-9]+)+/?$", "/");
+	private String getNotesUrl() {
+		return serverURL;
+	}
+	
+	/**
+	 * Return either the general read write API url as a string or a specific to notes one
+	 * @return
+	 */
+	private String getNotesReadOnlyUrl() {
+		if (notesURL == null || "".equals(notesURL)) {
+			return serverURL;
+		} else {
+			return notesURL;
+		}
+	}
+
+	private URL getNotesForBox(long limit, @NonNull BoundingBox area) throws MalformedURLException {
+		return new URL(getNotesReadOnlyUrl()  + "notes?" +
+				"limit=" + limit + "&" +
+				"bbox=" +
+				area.getLeft() / 1E7d +
+				"," + area.getBottom() / 1E7d +
+				"," + area.getRight() / 1E7d +
+				"," + area.getTop() / 1E7d);
+	}
+
+	private URL getAddNoteUrl(double latitude, double longitude, @NonNull String comment)
+			throws MalformedURLException {
+		return new URL(getNotesUrl() + "notes?lat=" + latitude + "&lon=" + longitude + "&text=" + comment);
+	}
+
+	private URL getCloseNoteUrl(@NonNull String noteId) throws MalformedURLException {
+		return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/close");
+	}
+
+	private URL getReopenNoteUrl(@NonNull String noteId) throws MalformedURLException {
+		return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/reopen");
+	}
+
+	private URL getUploadTrackUrl() throws MalformedURLException {
+		return new URL(getReadWriteUrl()  + "gpx/create");
+	}
+
+	private URL getCapabilitiesUrl() throws MalformedURLException {
+		return getCapabilitiesUrl(getReadOnlyUrl());
+	}
+	
+	private URL getReadOnlyCapabilitiesUrl() throws MalformedURLException {
+		return getCapabilitiesUrl(getReadWriteUrl());
+	}
+	
+	private URL getCapabilitiesUrl(String url) throws MalformedURLException {
+		// need to strip version from serverURL
+		int apiPos = url.indexOf(SERVER_API_PATH);
+		if (apiPos > 0) {
+			String noVersionURL = getReadWriteUrl().substring(0, apiPos) + SERVER_API_PATH;
+			return new URL(noVersionURL  + "capabilities");
+		}
+		return null;
+	}
+
+	/**
+	 * @return the read/write URL
+	 */
+	public String getReadWriteUrl() {
+		return serverURL;
+	}
+	
+	/**
+	 * Return the url as a string for a read only API if it exists otherwise the result is the same as for read/write
+	 * @return
+	 */
+	private String getReadOnlyUrl() {
+		if (readonlyURL == null || "".equals(readonlyURL)) {
+			return serverURL;
+		} else {
+			return readonlyURL;
+		}
+	}
+	
+	/**
+	 * @return the base URL, i.e. the url with the "/api/version/"-part stripped
+	 */
+	public String getBaseUrl(String url) {
+		return url.replaceAll("/api/[0-9]+(?:\\.[0-9]+)+/?$", "/");
 	}
 	
 	
@@ -1115,7 +1219,7 @@ public class Server {
 		Collection<Note> result = new ArrayList<Note>();
 		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
 		try {
-			Log.d("Server", "getNotesForBox");
+			Log.d(DEBUG_TAG, "getNotesForBox");
 			URL url = getNotesForBox(limit, area);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			boolean isServerGzipEnabled;
@@ -1152,26 +1256,26 @@ public class Server {
 					} catch (IOException e) {
 						// if the bug doesn't parse correctly, there's nothing
 						// we can do about it - move on
-						Log.e("Vespucci", "Problem parsing bug", e);
+						Log.e(DEBUG_TAG, "Problem parsing bug", e);
 					} catch (XmlPullParserException e) {
 						// if the bug doesn't parse correctly, there's nothing
 						// we can do about it - move on
-						Log.e("Vespucci", "Problem parsing bug", e);
+						Log.e(DEBUG_TAG, "Problem parsing bug", e);
 					} catch (NumberFormatException e) {
 						// if the bug doesn't parse correctly, there's nothing
 						// we can do about it - move on
-						Log.e("Vespucci", "Problem parsing bug", e);
+						Log.e(DEBUG_TAG, "Problem parsing bug", e);
 					}
 				}
 			}
 		} catch (XmlPullParserException e) {
-			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+			Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
 			return new ArrayList<Note>(); // empty list
 		} catch (IOException e) {
-			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+			Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
 			return new ArrayList<Note>(); // empty list
 		} catch (OutOfMemoryError e) {
-			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+			Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
 			// TODO ask the user to exit
 			return new ArrayList<Note>(); // empty list
 		}
@@ -1187,7 +1291,7 @@ public class Server {
 		Note result = null;
 		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
 		try {
-			Log.d("Server", "getNote");
+			Log.d(DEBUG_TAG, "getNote");
 			URL url = getNoteUrl(Long.toString(id));
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			boolean isServerGzipEnabled;
@@ -1224,26 +1328,26 @@ public class Server {
 					} catch (IOException e) {
 						// if the bug doesn't parse correctly, there's nothing
 						// we can do about it - move on
-						Log.e("Vespucci", "Problem parsing bug", e);
+						Log.e(DEBUG_TAG, "Problem parsing bug", e);
 					} catch (XmlPullParserException e) {
 						// if the bug doesn't parse correctly, there's nothing
 						// we can do about it - move on
-						Log.e("Vespucci", "Problem parsing bug", e);
+						Log.e(DEBUG_TAG, "Problem parsing bug", e);
 					} catch (NumberFormatException e) {
 						// if the bug doesn't parse correctly, there's nothing
 						// we can do about it - move on
-						Log.e("Vespucci", "Problem parsing bug", e);
+						Log.e(DEBUG_TAG, "Problem parsing bug", e);
 					}
 				}
 			}
 		} catch (XmlPullParserException e) {
-			Log.e("Server", "Server.getNotesForBox:Exception", e);
+			Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
 			return null; // empty list
 		} catch (IOException e) {
-			Log.e("Server", "Server.getNotesForBox:Exception", e);
+			Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
 			return null; // empty list
 		} catch (OutOfMemoryError e) {
-			Log.e("Server", "Server.getNotesForBox:Exception", e);
+			Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
 			// TODO ask the user to exit
 			return null; // empty list
 		}
@@ -1260,7 +1364,7 @@ public class Server {
 	 */
 	public boolean addComment(Note bug, NoteComment comment) {
 		if (!bug.isNew()) {
-			Log.d("Server", "adding note comment" + bug.getId());
+			Log.d(DEBUG_TAG, "adding note comment" + bug.getId());
 			// http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
 			HttpURLConnection connection = null;
 			try {
@@ -1280,9 +1384,9 @@ public class Server {
 					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
-					Log.e("Server", "addComment:Exception", e);
+					Log.e(DEBUG_TAG, "addComment:Exception", e);
 				} catch (IOException e) {
-					Log.e("Server", "addComment:Exception", e);
+					Log.e(DEBUG_TAG, "addComment:Exception", e);
 				}
 			} finally {
 				disconnect(connection);
@@ -1301,7 +1405,7 @@ public class Server {
 	 */
 	public boolean addNote(Note bug, NoteComment comment) {
 		if (bug.isNew()) {
-			Log.d("Server", "adding note");
+			Log.d(DEBUG_TAG, "adding note");
 			// http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug description with author and date>&format=<Output format>
 			HttpURLConnection connection = null;
 			try {
@@ -1320,9 +1424,9 @@ public class Server {
 					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
-					Log.e("Server", "addNote:Exception", e);
+					Log.e(DEBUG_TAG, "addNote:Exception", e);
 				} catch (IOException e) {
-					Log.e("Server", "addNote:Exception", e);
+					Log.e(DEBUG_TAG, "addNote:Exception", e);
 				}		
 			} finally {
 				disconnect(connection);
@@ -1341,7 +1445,7 @@ public class Server {
 	public boolean closeNote(Note bug) {
 		
 		if (!bug.isNew()) {
-			Log.d("Server", "closing note " + bug.getId());
+			Log.d(DEBUG_TAG, "closing note " + bug.getId());
 			HttpURLConnection connection = null;
 			try {
 				try {
@@ -1354,10 +1458,10 @@ public class Server {
 					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
-					Log.e("Server", "closeNote:Exception", e);
+					Log.e(DEBUG_TAG, "closeNote:Exception", e);
 				}
 				catch (IOException e) {
-					Log.e("Server", "closeNote:Exception", e);
+					Log.e(DEBUG_TAG, "closeNote:Exception", e);
 				} 
 			} finally {
 				disconnect(connection);
@@ -1375,7 +1479,7 @@ public class Server {
 	public boolean reopenNote(Note bug) {
 		
 		if (!bug.isNew()) {
-			Log.d("Server", "reopen note " + bug.getId());
+			Log.d(DEBUG_TAG, "reopen note " + bug.getId());
 			HttpURLConnection connection = null;
 			try {
 				try {
@@ -1387,10 +1491,10 @@ public class Server {
 					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
-					Log.e("Server", "reopenNote:Exception", e);
+					Log.e(DEBUG_TAG, "reopenNote:Exception", e);
 				}
 				catch (IOException e) {
-					Log.e("Server", "reopenNote:Exception", e);
+					Log.e(DEBUG_TAG, "reopenNote:Exception", e);
 				} 
 			} finally {
 				disconnect(connection);
@@ -1490,5 +1594,4 @@ public class Server {
 				" \"" + connection.getResponseMessage() + "\"";
 		throw new OsmServerException(connection.getResponseCode(), detailMessage);
 	}
-
 }

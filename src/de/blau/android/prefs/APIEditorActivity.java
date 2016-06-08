@@ -62,14 +62,14 @@ public class APIEditorActivity extends URLListEditActivity {
 		API[] apis = db.getAPIs();
 		API current = db.getCurrentAPI();
 		for (API api : apis) {
-			items.add(new ListEditItem(api.id, api.name, api.url, api.oauth, current.id.equals(api.id)));
+			items.add(new ListEditItem(api.id, api.name, api.url, api.readonlyurl, api.notesurl, api.oauth, current.id.equals(api.id)));
 		}
 	}
 
 	@Override
 	protected void onItemClicked(ListEditItem item) {
 		db.selectAPI(item.id);
-		// this is a bit hackish
+		// this is a bit hackish, but only one can be selected
 		for (ListEditItem lei:items) {
 			lei.active = false;
 		}
@@ -80,12 +80,12 @@ public class APIEditorActivity extends URLListEditActivity {
 
 	@Override
 	protected void onItemCreated(ListEditItem item) {
-		db.addAPI(item.id, item.name, item.value, "", "", "", false, item.enabled);
+		db.addAPI(item.id, item.name, item.value, item.value_2, item.value_3, "", "", "", false, item.enabled);
 	}
 
 	@Override
 	protected void onItemEdited(ListEditItem item) {
-		db.setAPIDescriptors(item.id, item.name, item.value, item.enabled);
+		db.setAPIDescriptors(item.id, item.name, item.value, item.value_2, item.value_3, item.enabled);
 	}
 
 	@Override
@@ -121,11 +121,15 @@ public class APIEditorActivity extends URLListEditActivity {
 		// final View mainView = View.inflate(ctx, R.layout.listedit_apiedit, null);
 		final TextView editName = (TextView)mainView.findViewById(R.id.listedit_editName);
 		final TextView editValue = (TextView)mainView.findViewById(R.id.listedit_editValue);
+		final TextView editValue_2 = (TextView)mainView.findViewById(R.id.listedit_editValue_2);
+		final TextView editValue_3 = (TextView)mainView.findViewById(R.id.listedit_editValue_3);
 		final CheckBox oauth = (CheckBox)mainView.findViewById(R.id.listedit_oauth);
 		
 		if (item != null) {
 			editName.setText(item.name);
 			editValue.setText(item.value);
+			editValue_2.setText(item.value_2);
+			editValue_3.setText(item.value_3);
 			oauth.setChecked(item.enabled);
 		} else if (isAddingViaIntent()) {
 			String tmpName = getIntent().getExtras().getString(EXTRA_NAME);
@@ -138,6 +142,8 @@ public class APIEditorActivity extends URLListEditActivity {
 			// name and value are not editable
 			editName.setEnabled(false);
 			editValue.setEnabled(false);
+			editValue_2.setEnabled(false);
+			editValue_3.setEnabled(false);
 		}
 		
 		builder.setView(mainView);
@@ -147,15 +153,19 @@ public class APIEditorActivity extends URLListEditActivity {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = editName.getText().toString();
 				String value = editValue.getText().toString();
+				String value_2 = editValue_2.getText().toString();
+				String value_3 = editValue_3.getText().toString();
 				boolean enabled = oauth.isChecked();
 				if (item == null) {
 					// new item
 					if (!value.equals("")) {
-						finishCreateItem(new ListEditItem(name, value, oauth.isChecked()));
+						finishCreateItem(new ListEditItem(name, value, !"".equals(value_2)?value_2:null,!"".equals(value_3)?value_3:null,oauth.isChecked()));
 					}
 				} else {
 					item.name = name;
 					item.value = value;
+					item.value_2 = !"".equals(value_2)?value_2:null;
+					item.value_3 = !"".equals(value_3)?value_3:null;
 					item.enabled = enabled;
 					finishEditItem(item);
 				}
