@@ -111,6 +111,10 @@ public class Preferences {
 	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
+	private final SharedPreferences prefs;
+	
+	private final Resources r;
+	
 	/**
 	 * @param prefs
 	 * @param r
@@ -119,8 +123,8 @@ public class Preferences {
 	 */
 	@SuppressLint("NewApi")
 	public Preferences(Context ctx) throws IllegalArgumentException, NotFoundException {
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-		final Resources r = ctx.getResources();
+		prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		r = ctx.getResources();
 		advancedPrefs = new AdvancedPrefDatabase(ctx);
 		
 		// we're not using acra.disable - ensure it isn't present
@@ -531,5 +535,44 @@ public class Preferences {
 
 	public int getAutolockDelay() {
 		return 1000*autoLockDelay;
+	}
+	
+	public void setAutoDownload(boolean on) {
+		prefs.edit().putBoolean(r.getString(R.string.config_autoDownload_key), on).commit();
+	}
+	
+	public boolean getAutoDownload() {
+		String key = r.getString(R.string.config_autoDownload_key);
+		if (!prefs.contains(key)) {
+			// create the entry
+			setAutoDownload(false);
+		}
+		return prefs.getBoolean(key, false);
+	}
+	
+	public void setBugAutoDownload(boolean on) {
+		prefs.edit().putBoolean(r.getString(R.string.config_bugAutoDownload_key), on).commit();
+	}
+	
+	public boolean getBugAutoDownload() {
+		String key = r.getString(R.string.config_bugAutoDownload_key);
+		if (!prefs.contains(key)) {
+			// create the entry
+			setBugAutoDownload(false);
+		}
+		return prefs.getBoolean(key, false);
+	}
+	
+	public void setShowGPS(boolean on) {
+		prefs.edit().putBoolean(r.getString(R.string.config_showGPS_key), on).commit();
+	}
+	
+	public boolean getShowGPS() {
+		String key = r.getString(R.string.config_showGPS_key);
+		if (!prefs.contains(key)) {
+			// create the entry
+			setShowGPS(true);
+		}
+		return prefs.getBoolean(key, true);
 	}
 }

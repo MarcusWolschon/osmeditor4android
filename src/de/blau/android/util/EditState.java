@@ -26,7 +26,7 @@ import de.blau.android.tasks.Task;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 13L;
+	private static final long serialVersionUID = 14L;
 	final Mode savedMode;
 	final List<Node> savedNodes;
 	final List<Way> savedWays;
@@ -35,9 +35,6 @@ public class EditState implements Serializable {
 	final String savedTileServerID;
 	final Offset[] savedOffsets;
 	final int savedMinZoom;
-	final boolean savedShowGPS;
-	final boolean savedAutoDownload;
-	final boolean savedBugAutoDownload;
 	final String savedImageFileName;
 	final BoundingBox savedBox;
 	final ArrayList<String> savedLastComments;
@@ -45,8 +42,7 @@ public class EditState implements Serializable {
 	final NotificationCache savedTaskNotifications;
 	final NotificationCache savedOsmDataNotifications;
 
-	public EditState(Context context,Logic logic,  TileLayerServer osmts, 
-			boolean showGPS, boolean autoDownload, boolean bugAutoDownload, String imageFileName, BoundingBox box) {
+	public EditState(Context context,Logic logic,  TileLayerServer osmts, String imageFileName, BoundingBox box) {
 		savedMode = logic.getMode();
 		savedNodes = logic.getSelectedNodes();
 		savedWays = logic.getSelectedWays();
@@ -55,9 +51,6 @@ public class EditState implements Serializable {
 		savedTileServerID = osmts.getId();
 		savedOffsets = osmts.getOffsets();
 		savedMinZoom = osmts.getMinZoomLevel();
-		savedShowGPS = showGPS;
-		savedAutoDownload = autoDownload;
-		savedBugAutoDownload = bugAutoDownload;
 		savedImageFileName = imageFileName;
 		savedBox = box;
 		savedLastComments = logic.getLastComments();
@@ -98,9 +91,6 @@ public class EditState implements Serializable {
 	}
 	
 	public void setMiscState(Main main, Logic logic) {
-		main.setShowGPS(savedShowGPS);
-		main.setAutoDownload(savedAutoDownload);
-		main.setBugAutoDownload(savedBugAutoDownload);
 		main.setImageFileName(savedImageFileName);
 		logic.setLastComments(savedLastComments);
 		logic.setLastSources(savedLastSources);

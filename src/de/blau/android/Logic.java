@@ -2759,9 +2759,7 @@ public class Logic {
 	 */
 	void saveEditingState() {
 		TileLayerServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		EditState editState = new EditState(Application.mainActivity,this, osmts, 
-				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),
-				Application.mainActivity.getBugAutoDownload(),Application.mainActivity.getImageFileName(),
+		EditState editState = new EditState(Application.mainActivity,this, osmts, Application.mainActivity.getImageFileName(),
 				viewBox);
 		new SavingHelper<EditState>().save(Application.mainActivity,EDITSTATE_FILENAME, editState, false);	
 	}

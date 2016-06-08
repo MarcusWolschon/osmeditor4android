@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Preference keys -->
+    <!-- Preference keys used directly by the UI -->
+    <string name="config_autoDownload_key">autoDownload</string>
+    <string name="config_bugAutoDownload_key">bugAutoDownload</string>
+    <string name="config_showGPS_key">showGps</string>
+    <!-- Preference keys used in the pref editor(s) -->
     <string name="config_showStats_key">showStats</string>
     <string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
     <string name="config_tileCacheSize_key">tileCacheSize</string>
