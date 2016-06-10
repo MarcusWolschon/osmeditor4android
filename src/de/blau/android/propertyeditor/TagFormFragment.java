@@ -763,7 +763,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				Object o = parent.getItemAtPosition(position);
 				if (o instanceof Names.NameAndTags) {
 					row.valueView.setOrReplaceText(((NameAndTags)o).getName());
-					// applyTagSuggestions(((NameAndTags)o).getTags());
+					tagListener.applyTagSuggestions(((NameAndTags)o).getTags());
+					update();
+					return;
 				} else if (o instanceof ValueWithCount) {
 					row.valueView.setOrReplaceText(((ValueWithCount)o).getValue());
 				} else if (o instanceof StringWithDescription) {

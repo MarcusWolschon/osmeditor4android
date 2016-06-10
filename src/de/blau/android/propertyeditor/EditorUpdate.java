@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.blau.android.names.Names;
 import de.blau.android.presets.Preset.PresetItem;
 
 /**
@@ -62,5 +63,11 @@ abstract interface EditorUpdate {
 	 * generate best address tags
 	 */
 	abstract void predictAddressTags(boolean allowBlanks);
+	
+	/**
+	 * Apply tag suggestion from name index
+	 * @param tags
+	 */
+	abstract void applyTagSuggestions(Names.TagMap tags);
 }
 

@@ -1070,7 +1070,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * Appy tags from name suggestion list, ask if overwriting
 	 * @param tags
 	 */
-	private void applyTagSuggestions(Names.TagMap tags) {
+	public void applyTagSuggestions(Names.TagMap tags) {
 		final LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 		
 		boolean replacedValue = false;	

@@ -36,6 +36,7 @@ import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
@@ -948,6 +949,17 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		}	
 	}
 	
+
+	@Override
+	public void applyTagSuggestions(TagMap tags) {
+		if (tagEditorFragment != null) {
+			tagEditorFragment.applyTagSuggestions(tags);
+		} else {
+			Log.e(DEBUG_TAG,"applyTagSuggestions tagEditorFragment is null");
+		}	
+		
+	}
+	
 	@Override
 	public void tagsUpdated() {
 		if (tagFormFragment != null) {
@@ -966,8 +978,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			Log.e(DEBUG_TAG,"presetFragment is null");
 		}	
 		
-	}
-	
+	}	
 	
 	/**
 	 * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.
