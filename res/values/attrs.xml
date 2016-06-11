@@ -73,6 +73,7 @@
 	<attr name="add" format="reference" />
 	<attr name="remove" format="reference" />
 	<attr name="edit" format="reference" />
+	<attr name="name" format="reference" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

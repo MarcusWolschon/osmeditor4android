@@ -2016,8 +2016,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @param focusOn if not null focus on the value field of this key.
 	 * @param applyLastAddressTags add address tags to the object being edited.
 	 * @param showPresets Boolean flag indication to show or hide presets.
+	 * @param askForName TODO
 	 */
-	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets) {
+	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets, boolean askForName) {
 		descheduleAutoLock();
 		final Logic logic = Application.getLogic();
 		if (selectedElement instanceof Node) {
@@ -2032,7 +2033,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
 				PropertyEditor.startForResult(this, single, applyLastAddressTags,
-						showPresets, REQUEST_EDIT_TAG);
+						showPresets, askForName, REQUEST_EDIT_TAG);
 			}
 		}
 	}
@@ -2052,7 +2053,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
 		PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags,
-				showPresets, REQUEST_EDIT_TAG);
+				showPresets, false, REQUEST_EDIT_TAG);
 	}
 
 	/**
@@ -2384,7 +2385,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						if (mode==Mode.MODE_EASYEDIT) {
 							easyEditManager.editElement(clickedNodesAndWays.get(0));
 						} else {
-							performTagEdit(clickedNodesAndWays.get(0), null, false, false);
+							performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
 						}
 					}
 					break;
@@ -2397,7 +2398,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						if (mode==Mode.MODE_EASYEDIT) {
 							easyEditManager.editElement(clickedNodesAndWays.get(0));
 						} else {
-							performTagEdit(clickedNodesAndWays.get(0), null, false, false);
+							performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
 						}
 					}
 					break;
@@ -2517,7 +2518,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						ElementInfo.showDialog(Main.this,element);
 						break;
 					case MODE_TAG_EDIT:
-						performTagEdit(element, null, false, false);
+						performTagEdit(element, null, false, false, false);
 						break;
 					case MODE_EASYEDIT:
 						if (doubleTap) {
@@ -2881,7 +2882,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			easyEditManager.editElement(e);
 			map.invalidate();
 		} else { // tag edit mode
-			performTagEdit(e, null, false, false);
+			performTagEdit(e, null, false, false, false);
 		}
 	}
 	

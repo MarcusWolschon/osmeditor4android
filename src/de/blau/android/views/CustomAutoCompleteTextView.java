@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.text.method.QwertyKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Filter;
 import de.blau.android.R;
 
@@ -43,6 +45,17 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
 	
 	public  CustomAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		// set a default onClickListener that displays the dropdown
+		OnClickListener autocompleteOnClick = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (v.hasFocus()) {
+					Log.d(DEBUG_TAG,"onClick");
+					((CustomAutoCompleteTextView)v).showDropDown();
+				}
+			}
+		};
+		setOnClickListener(autocompleteOnClick);
 	}
 	
 	@Override
@@ -223,7 +236,6 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
          */
         public CharSequence terminateToken(CharSequence text);
     }
-    
     
     /**
      * This simple Tokenizer can be used for lists where the items are

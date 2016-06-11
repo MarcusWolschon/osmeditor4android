@@ -1,17 +1,21 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.acra.ACRA;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,21 +25,30 @@ import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.names.Names;
+import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -47,11 +60,14 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.propertyeditor.TagFormFragment.TagFormDialogRow;
+import de.blau.android.propertyeditor.TagFormFragment.TagTextRow;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StreetTagValueAdapter;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ExtendedViewPager;
@@ -70,6 +86,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	public static final String TAGEDIT_DATA = "dataClass";
 	public static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
 	public static final String TAGEDIT_SHOW_PRESETS = "showPresets";
+	public static final String TAGEDIT_ASK_FOR_NAME = "askForName";
 	
 	/** The layout containing the edit rows */
 	LinearLayout rowLayout = null;
@@ -109,6 +126,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	
 	private boolean applyLastAddressTags = false;
 	private boolean showPresets = false;
+	private boolean askForName = false;
 	
 	/**
 	 * Handles "enter" key presses.
@@ -159,11 +177,12 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 									  @NonNull PropertyEditorData[] dataClass,
 									  boolean applyLastTags,
 									  boolean showPresets,
-									  int requestCode) {
+									  boolean askForName, int requestCode) {
 		Intent intent = new Intent(activity, PropertyEditor.class);
 		intent.putExtra(TAGEDIT_DATA, dataClass);
 		intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastTags));
 		intent.putExtra(TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
+		intent.putExtra(TAGEDIT_ASK_FOR_NAME, Boolean.valueOf(askForName));
 		activity.startActivityForResult(intent, requestCode);
 	}
 
@@ -190,11 +209,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
 			applyLastAddressTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LAST_ADDRESS_TAGS); 
 			showPresets = (Boolean)getIntent().getSerializableExtra(TAGEDIT_SHOW_PRESETS);
+			askForName = (Boolean)getIntent().getSerializableExtra(TAGEDIT_ASK_FOR_NAME);
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
 			loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
-			// applyLastTags = (Boolean)savedInstanceState.getSerializable(TAGEDIT_LASTTAGS); not saved
 			currentItem = savedInstanceState.getInt("CURRENTITEM",-1);
 		}
 				
@@ -383,7 +402,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 
 	    Fragment tagFormFragment(int position, boolean displayRecentPresets) {
 			tagFormFragmentPosition = position;
-			tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey);
+			tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey, askForName);
 			return tagFormFragment;
 	    }
 	    

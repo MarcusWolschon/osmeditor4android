@@ -1812,12 +1812,7 @@ public class TagEditorFragment extends BaseFragment implements
 	@Override
 	public void updateSingleValue(String key, String value) {
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
-		// Fixed tags, always have a value. We overwrite mercilessly.
-		for (Entry<String, ArrayList<String>> tag : currentValues.entrySet()) {
-			if (tag.getKey().equals(key)) {
-				currentValues.put(tag.getKey(), Util.getArrayList(value));
-			}
-		}
+		currentValues.put(key, Util.getArrayList(value));
 		loadEdits(currentValues);
 		updateAutocompletePresetItem(null);
 	}

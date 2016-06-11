@@ -291,21 +291,22 @@ public class EasyEditManager {
 	 * @param possibleNode a node that was edited, or null
 	 * @param possibleWay a way that was edited, or null
 	 * @param select TODO
+	 * @param askForName TODO
 	 */
-	private void tagApplicable(Node possibleNode, Way possibleWay, boolean select) {
+	private void tagApplicable(final Node possibleNode, final Way possibleWay, final boolean select, final boolean askForName) {
 		if (possibleWay == null) {
 			// Single node was added
 			if (possibleNode != null) { // null-check to be sure
 				if (select) {
 					main.startSupportActionMode(new NodeSelectionActionModeCallback(possibleNode));
 				}
-				main.performTagEdit(possibleNode, null, false, false);
+				main.performTagEdit(possibleNode, null, false, false, askForName);
 			}
 		} else { // way was added
 			if (select) {
 				main.startSupportActionMode(new WaySelectionActionModeCallback(possibleWay));
 			}
-			main.performTagEdit(possibleWay, null, false, false);		
+			main.performTagEdit(possibleWay, null, false, false, askForName);		
 		}
 	}
 	
@@ -578,7 +579,8 @@ public class EasyEditManager {
 		private static final int MENUITEM_NEWNODE_GPS = 5;
 		private static final int MENUITEM_NEWNODE_ADDRESS = 6;
 		private static final int MENUITEM_NEWNODE_PRESET = 7;
-		private static final int MENUITEM_NEWNODE_VOICE = 8;
+		private static final int MENUITEM_NEWNODE_NAME = 8;
+		private static final int MENUITEM_NEWNODE_VOICE = 9;
 		private float startX;
 		private float startY;
 		private int startLon;
@@ -630,6 +632,9 @@ public class EasyEditManager {
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
 			if ((clickedNonClosedWays != null && clickedNonClosedWays.size() > 0) && (clickedNodes == null || clickedNodes.size()==0) ) {
 				menu.add(Menu.NONE, MENUITEM_SPLITWAY, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split));
+			}
+			if (prefs.tagFormEnabled()) {
+				menu.add(Menu.NONE, MENUITEM_NEWNODE_NAME, Menu.NONE, R.string.menu_set_name).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.name));
 			}
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
 			if (!logic.clipboardIsEmpty()) {
@@ -741,6 +746,7 @@ public class EasyEditManager {
 				return true;
 			case MENUITEM_NEWNODE_ADDRESS:
 			case MENUITEM_NEWNODE_PRESET:
+			case MENUITEM_NEWNODE_NAME:
 				logic.hideCrosshairs();
 				try {
 					logic.setSelectedNode(null);
@@ -752,7 +758,8 @@ public class EasyEditManager {
 				Node lastSelectedNode = logic.getSelectedNode();
 				if (lastSelectedNode != null) {
 					main.startSupportActionMode(new NodeSelectionActionModeCallback(lastSelectedNode));
-					main.performTagEdit(lastSelectedNode, null, item.getItemId() == MENUITEM_NEWNODE_ADDRESS, item.getItemId() == MENUITEM_NEWNODE_PRESET); // show preset screen or add addresses
+					main.performTagEdit(lastSelectedNode, null, 
+							item.getItemId() == MENUITEM_NEWNODE_ADDRESS, item.getItemId() == MENUITEM_NEWNODE_PRESET, item.getItemId() == MENUITEM_NEWNODE_NAME); // show preset screen or add addresses
 				}
 				return true;
 			case MENUITEM_PASTE:
@@ -1032,7 +1039,7 @@ public class EasyEditManager {
 				// user clicked last node again -> finish adding
 				if (currentActionMode != null) // TODO for unknown reasons this now and then seems to be null
 					currentActionMode.finish();
-				tagApplicable(lastSelectedNode, lastSelectedWay, true); 
+				tagApplicable(lastSelectedNode, lastSelectedWay, true, false); 
 			} else { // update cache for undo
 				createdWay = logic.getSelectedWay();
 				if (createdWay == null) {	
@@ -1075,7 +1082,7 @@ public class EasyEditManager {
 				Way lastSelectedWay = logic.getSelectedWay();
 				if (lastSelectedWay != null) {
 					main.startSupportActionMode(new WaySelectionActionModeCallback(lastSelectedWay));
-					main.performTagEdit(lastSelectedWay, null, false, item.getItemId() == MENUITEM_NEWWAY_PRESET); // show preset screen
+					main.performTagEdit(lastSelectedWay, null, false, item.getItemId() == MENUITEM_NEWWAY_PRESET, false); // show preset screen
 				}
 				return true;
 			default:
@@ -1123,7 +1130,7 @@ public class EasyEditManager {
 			logic.setSelectedNode(null);
 			super.onDestroyActionMode(mode);
 			if (appendTargetNode == null) { // doesn't work as intended element selected modes get zapped, don't try to select because of this
-				tagApplicable(lastSelectedNode, lastSelectedWay, false); 
+				tagApplicable(lastSelectedNode, lastSelectedWay, false, false); 
 			}
 		}
 	}
@@ -1170,7 +1177,7 @@ public class EasyEditManager {
 		public boolean handleElementClick(OsmElement element) {
 			super.handleElementClick(element);
 			if (element == this.element) {
-				main.performTagEdit(element, null, false, false);
+				main.performTagEdit(element, null, false, false, false);
 				return true;
 			}
 			return false;
@@ -1225,8 +1232,8 @@ public class EasyEditManager {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			super.onActionItemClicked(mode, item);
 			switch (item.getItemId()) {
-			case MENUITEM_TAG: main.performTagEdit(element, null, false, false); break;
-			case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true, false); break;
+			case MENUITEM_TAG: main.performTagEdit(element, null, false, false, false); break;
+			case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true, false, false); break;
 			case MENUITEM_DELETE: menuDelete(mode); break;
 			case MENUITEM_HISTORY: showHistory(); break;
 			case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
@@ -1294,7 +1301,7 @@ public class EasyEditManager {
 				ElementInfo.showDialog(main,element); 
 				return true;
 			}  else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
-				main.performTagEdit(element, null, false, false);
+				main.performTagEdit(element, null, false, false, false);
 				return true;
 			}
 			return false;
@@ -1371,7 +1378,7 @@ public class EasyEditManager {
 							Toast.makeText(main,
 									R.string.toast_merge_tag_conflict,
 									Toast.LENGTH_LONG).show();
-							main.performTagEdit(element, null, false, false);
+							main.performTagEdit(element, null, false, false, false);
 						} else {
 							mode.finish();
 						}
@@ -1390,7 +1397,7 @@ public class EasyEditManager {
 				case MENUITEM_SET_POSITION: 
 					setPosition(); 
 					break;
-				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false); break;
+				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false, false); break;
 				default: return false;
 				}
 			}
@@ -1554,14 +1561,14 @@ public class EasyEditManager {
 						public void onClick(DialogInterface dialog, int which) {
 							if (logic.performReverse(way)) { // true if it had oneway tag
 								Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
-								main.performTagEdit(way, null, false, false);
+								main.performTagEdit(way, null, false, false, false);
 							}
 						}
 					})
 				.show();		
 			} else if (logic.performReverse(way)) { // true if it had oneway tag
 				Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
-				main.performTagEdit(way, null, false, false);
+				main.performTagEdit(way, null, false, false, false);
 			} else {
 				invalidate(); // sucessful reverseal update menubar 
 			}
@@ -1580,7 +1587,7 @@ public class EasyEditManager {
 				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); invalidate(); break;
 				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); invalidate(); break;
 				case MENUITEM_SPLIT_POLYGON: main.startSupportActionMode(new WaySplittingActionModeCallback((Way)element, true)); break;
-				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false); break;
+				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false, false); break;
 				default: return false;
 				}
 			}
@@ -1777,9 +1784,9 @@ public class EasyEditManager {
 				if (!logic.performMerge(way, (Way)element)) {
 					Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
 					if (way.getState() != OsmElement.STATE_DELETED)
-						main.performTagEdit(way, null, false, false);
+						main.performTagEdit(way, null, false, false, false);
 					else
-						main.performTagEdit(element, null, false, false);
+						main.performTagEdit(element, null, false, false, false);
 				} else {
 					if (way.getState() != OsmElement.STATE_DELETED)
 						main.startSupportActionMode(new WaySelectionActionModeCallback(way));
@@ -2188,7 +2195,7 @@ public class EasyEditManager {
 			boolean uTurn = fromWay == toWay;
 			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay, uTurn ? Tags.VALUE_NO_U_TURN : null);
 			Log.i("EasyEdit", "Created restriction");
-			main.performTagEdit(restriction, !uTurn ? Tags.VALUE_RESTRICTION : null, false, false);
+			main.performTagEdit(restriction, !uTurn ? Tags.VALUE_RESTRICTION : null, false, false, false);
 			main.startSupportActionMode(new RelationSelectionActionModeCallback(restriction));
 			return false; // we are actually already finished
 		}
@@ -2326,10 +2333,10 @@ public class EasyEditManager {
 				if (members.size() > 0) { // something was actually added
 					if (relation == null) {
 						relation = logic.createRelation(null, members);
-						main.performTagEdit(logic.createRelation(null, members),"type", false, false);
+						main.performTagEdit(logic.createRelation(null, members),"type", false, false, false);
 					} else {
 						logic.addMembers(relation, members);
-						main.performTagEdit(relation, null, false, false);
+						main.performTagEdit(relation, null, false, false, false);
 					}
 					// starting action mode here doesn't seem to work ... main.startSupportActionMode(new RelationSelectionActionModeCallback(relation));
 				}
@@ -2551,7 +2558,7 @@ public class EasyEditManager {
 								main.startSupportActionMode(new WaySelectionActionModeCallback(remaining));
 								if (!result) { // merge conflict
 									Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
-									main.performTagEdit(remaining, null, false, false);
+									main.performTagEdit(remaining, null, false, false, false);
 								} else {
 									invalidate(); // update menubar
 								}

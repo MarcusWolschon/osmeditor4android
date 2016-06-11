@@ -91,6 +91,7 @@
 		<item name="search">@drawable/ic_action_search_holo_dark</item>
 		<item name="add">@drawable/ic_add_black_36dp</item>
 		<item name="remove">@drawable/ic_remove_black_36dp</item>
+		<item name="name">@drawable/name_dark</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
 		<item name="EditText">@style/EditTextDark</item>
@@ -139,8 +140,9 @@
 		<item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
 		<item name="mic">@drawable/ic_action_mic_holo_light</item>
 		<item name="search">@drawable/ic_action_search_holo_light</item>
-				<item name="add">@drawable/ic_add_white_36dp</item>
+		<item name="add">@drawable/ic_add_white_36dp</item>
 		<item name="remove">@drawable/ic_remove_white_36dp</item>
+		<item name="name">@drawable/name_light</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonLight</item>
 		<item name="EditText">@style/EditTextLight</item>

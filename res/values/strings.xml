@@ -205,6 +205,7 @@
     <string name="tag_menu_bottom">Scroll to bottom</string>
     <string name="tag_value_hint">Type value</string>
     <string name="tag_autocomplete_value_hint">Type or tap for values</string>
+    <string name="tag_autocomplete_name_hint">Type or tap for name suggestions</string>
     <string name="tag_multi_value_hint">Multiple values</string>
     <string name="tag_dialog_value_hint">Tap for values</string>
     <string name="tag_action_tag_title">Tag(s) selected</string>
@@ -314,6 +315,7 @@
     <string name="menu_extend_selection">Extend selection</string>
     <string name="menu_information">Info</string>
     <string name="menu_voice_commands">Voice commands</string>
+    <string name="menu_set_name">Set name</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
     <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>

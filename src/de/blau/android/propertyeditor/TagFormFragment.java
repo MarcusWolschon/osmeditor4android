@@ -28,18 +28,21 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -51,6 +54,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
@@ -74,6 +78,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	private static final String FOCUS_ON_ADDRESS = "focusOnAddress";
 
 	private static final String DISPLAY_MRU_PRESETS = "displayMRUpresets";
+	
+	private static final String ASK_FOR_NAME = "askForName";
 
 	private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName();
 	
@@ -96,6 +102,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	
 	private String focusTag = null;
 	
+	private boolean askForName = false;
+	
 	private int maxInlineValues = 3;
 
 	
@@ -104,7 +112,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	 * @param focusOnKey 
 	 * @param displayMRUpresets 
      */
-    static public TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress, String focusTag) {
+    static public TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress, String focusTag, boolean askForName) {
     	TagFormFragment f = new TagFormFragment();
     	
         Bundle args = new Bundle();
@@ -112,6 +120,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         args.putSerializable(DISPLAY_MRU_PRESETS, Boolean.valueOf(displayMRUpresets));
         args.putSerializable(FOCUS_ON_ADDRESS, Boolean.valueOf(focusOnAddress));
         args.putSerializable(FOCUS_TAG, focusTag);
+        args.putSerializable(ASK_FOR_NAME, askForName);
 
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -162,7 +171,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      	boolean displayMRUpresets = ((Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS)).booleanValue();
      	focusOnAddress = ((Boolean) getArguments().getSerializable(FOCUS_ON_ADDRESS)).booleanValue();
      	focusTag = getArguments().getString(FOCUS_TAG);
-     	
+     	askForName = ((Boolean) getArguments().getSerializable(ASK_FOR_NAME)).booleanValue();
        	// Log.d(DEBUG_TAG,"element " + element + " tags " + tags);
 		
 	
@@ -534,8 +543,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     		for (String key:nonEditable.keySet()) {
     			addRow(nonEditableView,key, nonEditable.get(key),null, allTags);
     		}
+    	}   	
+    	if (askForName) {
+    		askForName = false; // only do this once
+    		buildNameDialog(getActivity()).show();
     	}
-    	
     	if (focusOnAddress) {
     		focusOnAddress = false; // only do it once
     		if (!focusOnTag(Tags.KEY_ADDR_HOUSENUMBER)) {
@@ -737,16 +749,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		} else {
 			row.valueView.setHint(R.string.tag_autocomplete_value_hint);
 		}
-		OnClickListener autocompleteOnClick = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (v.hasFocus()) {
-					Log.d(DEBUG_TAG,"onClick");
-					((CustomAutoCompleteTextView)v).showDropDown();
-				}
-			}
-		};
-		row.valueView.setOnClickListener(autocompleteOnClick);
 		row.valueView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
@@ -1259,6 +1261,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		}
 		
 		/**
+		 * Set the text via id of the key view
+		 * @param k
+		 */
+		public void setKeyText(int k) {
+			keyView.setText(k);
+		}
+		
+		/**
+		 * Set the text via id of the key view
+		 * @param k
+		 */
+		public void setValueAdapter(ArrayAdapter<?> a) {
+			valueView.setAdapter(a);;
+		}
+		
+		/**
 		 * Return the OSM key value
 		 * @return
 		 */
@@ -1726,5 +1744,72 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	@Override
 	public void tagsUpdated() {
 		update();	
+	}
+	
+	/**
+	 * Show a dialog to select a name 
+	 * @param ctx
+	 * @return
+	 */
+	protected AlertDialog buildNameDialog(Context ctx) {
+		Names names = Application.getNames(ctx);
+		ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(new TreeMap<String, String>())); 
+		ArrayAdapter<NameAndTags> adapter = null;
+		if (suggestions != null && !suggestions.isEmpty()) {
+			ArrayList<NameAndTags> result = suggestions;
+			Collections.sort(result);
+			adapter = new ArrayAdapter<NameAndTags>(ctx, R.layout.autocomplete_row, result);
+		}
+		
+		Builder builder = new AlertDialog.Builder(ctx);
+		
+	   	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
+    	
+		final CustomAutoCompleteTextView autoComplete = (CustomAutoCompleteTextView) inflater.inflate(R.layout.customautocomplete, null);
+		builder.setView(autoComplete);
+		
+		autoComplete.setHint(R.string.tag_autocomplete_name_hint);
+		autoComplete.setAdapter(adapter);
+		
+		builder.setNegativeButton(R.string.cancel, null);
+		final AlertDialog dialog = builder.create();
+		
+		autoComplete.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Log.d(DEBUG_TAG,"onItemClicked value");
+				Object o = parent.getItemAtPosition(position);
+				if (o instanceof Names.NameAndTags) {
+					TagMap tags = ((NameAndTags)o).getTags();
+					tags.put(Tags.KEY_NAME, ((NameAndTags)o).getName());
+					tagListener.applyTagSuggestions(tags);
+				} else if (o instanceof String) {
+					tagListener.updateSingleValue(Tags.KEY_NAME, (String)o);
+				} else {
+					Log.e(DEBUG_TAG, "got a " + o.getClass().getName() + " instead of NameAndTags");
+				}
+				// allow a tiny bit of time to see that the action actually worked
+				(new Handler()).postDelayed(new Runnable(){@Override public void run() {dialog.dismiss();update();}}, 100);	
+			}
+		});
+		
+		autoComplete.setOnKeyListener(new OnKeyListener() { 
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getAction() == KeyEvent.ACTION_UP || event.getAction() == KeyEvent.ACTION_MULTIPLE) {
+					if (v instanceof EditText) {
+						if (keyCode == KeyEvent.KEYCODE_ENTER) {
+							tagListener.updateSingleValue(Tags.KEY_NAME, ((EditText) v).getText().toString());
+							dialog.dismiss();
+							update();	
+							return true;
+						}
+					}
+				}
+				return false;
+			}
+		});
+
+		return dialog;
 	}
 }
