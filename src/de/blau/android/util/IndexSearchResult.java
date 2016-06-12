@@ -2,6 +2,11 @@ package de.blau.android.util;
 
 import de.blau.android.presets.Preset.PresetItem;
 
+/**
+ * Container to allow sorting of preset search results
+ * @author simon
+ *
+ */
 class IndexSearchResult implements Comparable<IndexSearchResult>{
 	int count = 0;
 	PresetItem item = null;
@@ -13,7 +18,6 @@ class IndexSearchResult implements Comparable<IndexSearchResult>{
 		} else if (arg0.count < count) {
 			return +1;
 		}
-		return -1; // don't return 0 even if count is the same
-				   // as 0 implies equal in SortedSet
+		return 0; 
 	}
 }

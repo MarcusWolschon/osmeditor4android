@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,7 +66,6 @@ public class SearchIndexUtils {
 	    }
 	    return deAccentPattern.matcher(nfdNormalizedString).replaceAll("");
 	}
-
 	
 	/**
 	 * Slightly fuzzy search in the preset index for presets and return them, translated items first
@@ -80,7 +80,7 @@ public class SearchIndexUtils {
 		ArrayList<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<MultiHashMap<String, PresetItem>>();
 		presetSeachIndices.add(Application.getTranslatedPresetSearchIndex(ctx));	
 		presetSeachIndices.add(Application.getPresetSearchIndex(ctx));	
-		TreeSet<IndexSearchResult> sortedResult = new TreeSet<IndexSearchResult>();
+		ArrayList<IndexSearchResult> rawResult = new ArrayList<IndexSearchResult>();
 		term = SearchIndexUtils.normalize(term);
 		for (MultiHashMap<String, PresetItem> index:presetSeachIndices) {
 			for (String s:index.getKeys()) {
@@ -92,14 +92,15 @@ public class SearchIndexUtils {
 							IndexSearchResult isr = new IndexSearchResult();
 							isr.count = distance * presetItems.size();
 							isr.item = pi;
-							sortedResult.add(isr);
+							rawResult.add(isr);
 						}
 					}
 				}
 			}
 		}
+		Collections.sort(rawResult);
 		ArrayList<PresetItem>result = new ArrayList<PresetItem>();
-		for (IndexSearchResult i:sortedResult) {
+		for (IndexSearchResult i:rawResult) {
 			Log.d("SearchIndex","found " + i.item.getName());
 			if (!result.contains(i.item)) {
 				result.add(i.item);
