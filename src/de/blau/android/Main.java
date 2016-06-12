@@ -266,10 +266,19 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 	/**
 	 * Flag indicating whether data should be loaded from a file when the activity resumes.
+	 * Lock is needed because we potentially are processing results of intents before onResume runs
 	 * Set by {@link #onCreate(Bundle)}.
 	 * Overridden by {@link #redownloadOnResume}.
 	 */
 	private boolean loadOnResume;
+	private Object loadOnResumeLock = new Object();
+	
+	/**
+	 * Flag indicating if we should set the view box bounding box in onResume
+	 * Again we may be already setting the view box by an intent and don't want to overwrite it
+	 */
+	private boolean setViewBox = true;
+	private Object setViewBoxLock = new Object();
 
 	private boolean showGPS;
 	private boolean followGPS;
@@ -569,57 +578,64 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
 		connectivityChangedReceiver = new ConnectivityChangedReceiver();
 		registerReceiver(connectivityChangedReceiver, filter);
-		
-		if (redownloadOnResume) {
-			redownloadOnResume = false;
-			logic.downloadLast();
-		} else if (loadOnResume) {
-			loadOnResume = false;
-			PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
-				@Override
-				public void execute() {
-					if (rcData != null|| geoData != null) {
-						processIntents();
-					}
-					setupLockButton();
-					updateActionbarEditMode();
-					Mode mode = logic.getMode();
-					if (mode==Mode.MODE_EASYEDIT 
-							&& (logic.getSelectedNode() != null 
+		synchronized (loadOnResumeLock) {	
+			if (redownloadOnResume) {
+				redownloadOnResume = false;
+				logic.downloadLast();
+			} else if (loadOnResume) {
+				loadOnResume = false;
+				PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
+					@Override
+					public void execute() {
+						if (rcData != null|| geoData != null) {
+							processIntents();
+						}
+						setupLockButton();
+						updateActionbarEditMode();
+						Mode mode = logic.getMode();
+						if (mode==Mode.MODE_EASYEDIT 
+								&& (logic.getSelectedNode() != null 
 								|| logic.getSelectedWay() != null 
 								|| (logic.getSelectedRelations() != null && logic.getSelectedRelations().size() > 0))) {
-						// need to restart whatever we were doing
-						Log.d(DEBUG_TAG,"restarting action mode");
-						easyEditManager.editElements();		
-					} else if (mode==Mode.MODE_TAG_EDIT) {
-						// de-select everything
-						logic.setSelectedNode(null);
-						logic.setSelectedWay(null);
-						logic.setSelectedRelation(null);
+							// need to restart whatever we were doing
+							Log.d(DEBUG_TAG,"restarting action mode");
+							easyEditManager.editElements();		
+						} else if (mode==Mode.MODE_TAG_EDIT) {
+							// de-select everything
+							logic.setSelectedNode(null);
+							logic.setSelectedWay(null);
+							logic.setSelectedRelation(null);
+						}
 					}
-				}
-			};
-			PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
-				@Override
-				public void execute() {
-					Mode mode = logic.getMode();
-					Task t = logic.getSelectedBug();
-					if (mode==Mode.MODE_EASYEDIT && t!= null) {
-						performBugEdit(t);
-					}
-				}
-			};
+				};
 
-			logic.loadFromFile(this,postLoadData);
-			logic.loadBugsFromFile(this,postLoadTasks);
-		} else { // loadFromFile already does this
-			Application.getLogic().loadEditingState();
-			processIntents();
-			setupLockButton();
-			updateActionbarEditMode();
-			map.invalidate();
+				PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
+					@Override
+					public void execute() {
+						Mode mode = logic.getMode();
+						Task t = logic.getSelectedBug();
+						if (mode==Mode.MODE_EASYEDIT && t!= null) {
+							performBugEdit(t);
+						}
+					}
+				};
+
+				logic.loadFromFile(this,postLoadData);
+				logic.loadBugsFromFile(this,postLoadTasks);
+			} else { // loadFromFile already does this
+				synchronized (setViewBoxLock) {
+					Application.getLogic().loadEditingState(setViewBox);
+				}
+				processIntents();
+				setupLockButton();
+				updateActionbarEditMode();
+				map.invalidate();
+			}
 		}
-		
+		synchronized (setViewBoxLock) {
+			// reset in any case
+			setViewBox = true;
+		}
 		logic.updateProfile();
 		map.updateProfile();
 		
@@ -1639,8 +1655,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (resultCode == RESULT_OK) {
 				performHttpLoad(box);
 			} else if (resultCode == RESULT_CANCELED) { // 
-				Log.d(DEBUG_TAG,"opening empty map on " + (box != null ? box.toString() : " null bbox"));
-				openEmptyMap(box); // we may have a valid box
+				synchronized (setViewBoxLock) {
+					setViewBox = false; // stop setting the view box in onResume
+					Log.d(DEBUG_TAG,"opening empty map on " + (box != null ? box.toString() : " null bbox"));
+					openEmptyMap(box); // we may have a valid box
+				}
 			}
 		} catch (OsmException e) {
 			//Values should be done checked in LocationPicker.
@@ -1660,11 +1679,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			// Read data from extras
 			PropertyEditorData[] result = PropertyEditorData.deserializeArray(b.getSerializable(PropertyEditor.TAGEDIT_DATA));
 			// FIXME Problem saved data may not be read at this point, load here 
-			if (loadOnResume) { 
-				loadOnResume = false;
-				Log.d(DEBUG_TAG,"handlePropertyEditorResult loading data");
-				logic.syncLoadFromFile(); // sync load
-				Application.getTaskStorage().readFromFile(this);
+			synchronized (loadOnResumeLock) {
+				if (loadOnResume) { 
+					loadOnResume = false;
+					Log.d(DEBUG_TAG,"handlePropertyEditorResult loading data");
+					logic.syncLoadFromFile(); // sync load
+					Application.getTaskStorage().readFromFile(this);
+				}
 			}
 			for (PropertyEditorData editorData:result) {
 				if (editorData == null) {

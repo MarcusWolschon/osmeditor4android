@@ -642,7 +642,8 @@ public class Logic {
 		if (map.getHeight() != 0) {
 			ratio = (float) map.getWidth() / map.getHeight();
 		}
-		viewBox.setBorders(box, ratio); // findbugs will complain here however creating box will not actually fail above
+		viewBox.setBorders(box, ratio, false); // findbugs will complain here however creating box will not actually fail above
+		map.setViewBox(box);
 		DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.invalidate();
 		UndoStorage.updateIcon();
@@ -2766,14 +2767,17 @@ public class Logic {
 	
 	/**
 	 * Loads the current editing state (selected objects, editing mode, etc) from file.
+	 * @param setViewBox TODO
 	 */
-	void loadEditingState() {
+	void loadEditingState(boolean setViewBox) {
 		EditState editState = new SavingHelper<EditState>().load(Application.mainActivity,EDITSTATE_FILENAME, false);
 		if(editState != null) { // 
-			editState.setSelected(this);
 			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
 			editState.setMiscState(Application.mainActivity, this);
-			editState.setViewBox(this,map);
+			editState.setSelected(this);
+			if (setViewBox) {
+				editState.setViewBox(this,map);
+			}
 		}
 	}
 
@@ -2833,7 +2837,7 @@ public class Logic {
 						}
 					}
 					DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
-					loadEditingState();
+					loadEditingState(true);
 					
 					if (postLoad != null) {
 						postLoad.execute();
@@ -2946,7 +2950,7 @@ public class Logic {
 				}
 			}
 			DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
-			loadEditingState();
+			loadEditingState(true);
 			map.invalidate();
 			UndoStorage.updateIcon();
 			if (result == READ_BACKUP) { 
