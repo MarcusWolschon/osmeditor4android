@@ -135,6 +135,11 @@ public class Map extends View implements IMapView {
 	 */
 	private final WeakHashMap<Object, Bitmap> iconcache = new WeakHashMap<Object, Bitmap>();
 	
+	/**
+	 * Stores strings that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
+	 */
+	private final WeakHashMap<Object, String> labelcache = new WeakHashMap<Object, String>();
+	
 	/** Caches if the map is zoomed into edit range during one onDraw pass */
 	private boolean tmpDrawingInEditRange;
 
@@ -167,6 +172,14 @@ public class Map extends View implements IMapView {
 	
 	/** cached zoom level, calculated once per onDraw pass **/
 	int zoomLevel = 0;
+	
+	/** */
+	boolean inNodeIconZoomRange = false;
+	
+	/**
+	 * We just need one path object
+	 */
+	Path path = new Path();
 	
 	private LongHashSet handles;
 	
@@ -307,6 +320,7 @@ public class Map extends View implements IMapView {
 		}
 		tracker = null;
 		iconcache.clear();
+		labelcache.clear();
 		tmpPresets = null;
 	}
 	
@@ -337,6 +351,9 @@ public class Map extends View implements IMapView {
 		tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
 		tmpPresets = Application.getCurrentPresets(Application.mainActivity);
+		
+		inNodeIconZoomRange = zoomLevel > SHOW_ICONS_LIMIT;
+		
 		// handles = null; this forces creation of a new object, simply clear it in paintHandles after use
 		
 		// Draw our Overlays.
@@ -639,7 +656,7 @@ public class Map extends View implements IMapView {
 			int screenWidth = getWidth();
 			int screenHeight = getHeight();
 			BoundingBox viewBox = getViewBox();
-			Path path = new Path();
+			path.reset();
 			RectF screen = new RectF(0, 0, getWidth(), getHeight());
 			for (BoundingBox bb:list) {
 				if (viewBox.intersects(bb)) { // only need to do this if we are on screen
@@ -677,7 +694,6 @@ public class Map extends View implements IMapView {
 		int lon = node.getLon();
 		boolean isSelected = false;
 
-		//Paint only nodes inside the viewBox.
 		BoundingBox viewBox = getViewBox();
 		float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
 		float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
@@ -732,7 +748,8 @@ public class Map extends View implements IMapView {
 		}
 
 		boolean noIcon = true;
-		if (isTagged && zoomLevel > SHOW_ICONS_LIMIT && showIcons) {
+		boolean isTaggedAndInZoomLimit = isTagged && inNodeIconZoomRange;
+		if (isTaggedAndInZoomLimit && showIcons) {
 			noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null);
 			if (noIcon) {
 				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
@@ -745,10 +762,14 @@ public class Map extends View implements IMapView {
 		if (noIcon) { 
 			// draw regular nodes or without icons
 			Paint p = DataStyle.getCurrent(isTagged ? featureKeyTagged : featureKey).getPaint();
+			float strokeWidth = p.getStrokeWidth();
 			if (hwAccelarationWorkaround) { //FIXME we don't actually know if this is slower than drawPoint
-				canvas.drawCircle(x, y, p.getStrokeWidth()/2, p);
+				canvas.drawCircle(x, y, strokeWidth/2, p);
 			} else {
 				canvas.drawPoint(x, y, p);
+			}
+			if (isTaggedAndInZoomLimit) {
+				paintNodeLabel(x, y, canvas, featureKeyThin, strokeWidth, node);
 			}
 		}
 	}
@@ -761,10 +782,46 @@ public class Map extends View implements IMapView {
 	 * @param featureKeyThin
 	 * @param houseNumber
 	 */
-	void paintHouseNumber(float x, float y, Canvas canvas, String featureKeyThin, String houseNumber) {
+	void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin, final String houseNumber) {
 		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
 		canvas.drawCircle(x, y, houseNumberRadius, paint2);
 		canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2); 
+	}
+	
+	/**
+	 * Praint a label under the node, does not try to do collision avoidance
+	 * @param x
+	 * @param y
+	 * @param canvas
+	 * @param featureKeyThin
+	 * @param strokeWidth
+	 * @param node
+	 */
+	void paintNodeLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final float strokeWidth, final Node node) {
+		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
+		SortedMap<String, String> tags = node.getTags();
+		String label = labelcache.get(tags); // may be null!
+		if (label == null) {
+			if (!labelcache.containsKey(tags)) {
+				label = node.getTagWithKey(Tags.KEY_NAME);
+				if (label == null && tmpPresets != null) { 
+					PresetItem match = Preset.findBestMatch(tmpPresets,node.getTags());
+					if (match != null) {
+						label = match.getTranslatedName();
+					} else {
+						label  = node.getPrimaryTag();
+						// if label is still null, leave it as is
+					}
+				}
+				labelcache.put(tags,label);
+				if (label==null) {
+					return;
+				}
+			} else {
+				return;
+			}
+		}
+		canvas.drawText(label, x - (paint2.measureText(label) / 2), y + strokeWidth + 2*verticalNumberOffset, paint2);
 	}
 	
 	/**
@@ -973,7 +1030,7 @@ public class Map extends View implements IMapView {
 		// draw the way itself
 		// canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
 		if (linePoints.length > 2) {
-			Path path = new Path();
+			path.reset();
 			for (int i=0;i<(linePoints.length);i=i+4) {
 				path.moveTo(linePoints[i], linePoints[i+1]);
 				path.lineTo(linePoints[i+2], linePoints[i+3]);

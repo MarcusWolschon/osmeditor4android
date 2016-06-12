@@ -396,14 +396,26 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 			}
 		}
 		// Then the value of the most 'important' tag the element has
+		String tag = getPrimaryTag();
+		if (tag != null) {
+			return (withType ? getName() + " " : "") + tag;
+		}
+		
+		// Failing the above, the OSM ID
+		return (withType ? getName() + " #" : "#") + Long.toString(getOsmId());
+	}
+	
+	/**
+	 * @return the first kay =value of any important tags or null if none found
+	 */
+	public String getPrimaryTag() {
 		for (String tag : importantTags) {
 			String value = getTagWithKey(tag);
 			if (value != null && value.length() > 0) {
-				return (withType ? getName() + " " : "") + tag + "=" + value;
+				return  tag + "=" + value;
 			}
 		}
-		// Failing the above, the OSM ID
-		return (withType ? getName() + " #" : "#") + Long.toString(getOsmId());
+		return null;
 	}
 	
 	/**
