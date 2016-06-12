@@ -14,8 +14,8 @@
     </chunk>
     <chunk id="surface">
         <combo key="surface" text="Surface"  
-        	values="paved,unpaved,asphalt,concrete,metal,wood,paving_stones,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,sett" 
-        	display_values="Paved,Unpaved,Asphalt,Concrete,Metal,Wood,Paving stones,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Sett"
+        	values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,mud" 
+        	display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Mud"
         	values_sort="false" />
     </chunk>
     <chunk id="surface_smoothness">
@@ -288,6 +288,8 @@
         <text key="website" text="Website" />
     </chunk>
     <chunk id="route_hikebike_optionals">
+        <text key="ref" text="Reference" />
+        <text key="operator" text="Operator" />
         <text key="distance" text="Distance (km)"/>
         <text key="ascent" text="Ascent (m)"/>
         <text key="descent" text="Descent (m)"/>
@@ -328,8 +330,8 @@
         <text key="branch" text="Branch operator" />
     </chunk>
     <chunk id="cable_circuit">
-        <combo key="cables" text="Cable count" values="1,3,6,9,12" lenght="2" />
-        <combo key="circuits" text="Number of circuits" values="1,2,3" lenght="2" />
+        <combo key="cables" text="Cable count" values="1,2,3,4,6,9,12"  />
+        <combo key="circuits" text="Number of circuits" values="1,2,3,4" />
     </chunk>
     <chunk id="power_loc">
         <combo key="location" text="Location" values="outdoor,indoor,underground,platform,kiosk" values_context="power" />
@@ -3219,9 +3221,46 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=charging_station" />
             <space />
             <key key="amenity" value="charging_station" />
-            <reference ref="name_operator" />
-            <text key="voltage" text="Voltage" />
-            <text key="amperage" text="Amperage" />
+            <reference ref="name_ref_operator" />
+            <reference ref="oh" />
+            <reference ref="fee" />
+            <space />
+            <combo key="voltage" text="Voltage" values="230,400"/>
+            <combo key="amperage" text="Amperage" values="16,32" />
+            <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" />
+            <space />
+            <label text="Types of vehicles which can be charged:" />
+            <checkgroup columns="4">
+                <check key="bicycle" text="Bicycle" />
+                <check key="scooter" text="Scooter" />
+                <check key="car" text="Car" />
+                <check key="truck" text="Truck" />
+            </checkgroup>
+            <space />
+            <label text="Number of Sockets:" />
+            <combo key="socket:type1" text="Type 1 (Yazaki)" values="1,2,3,4,5,6" />
+            <combo key="socket:type1_combo" text="Type 1 Combo" values="1,2,3,4,5,6" />
+            <combo key="socket:type2" text="Type 2 (Mennekes)" values="1,2,3,4,5,6" />
+            <combo key="socket:type2_combo" text="Type 2 Combo" values="1,2,3,4,5,6" />
+            <combo key="socket:type3" text="Type 3 (SCAME)" values="1,2,3,4,5,6" />
+            <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6" />
+            <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" />
+            <combo key="socket:schuko" text="Schuko" values="1,2,3,4,5,6" />
+            <combo key="socket:cee_blue" text="CEE blue" values="1,2,3,4,5,6" />
+            <combo key="socket:cee_red_16a" text="CEE red 16A" values="1,2,3,4,5,6" />
+            <combo key="socket:cee_red_32a" text="CEE red 32A" values="1,2,3,4,5,6" />
+            <combo key="socket:nema_5_15" text="NEMA 5-15" values="1,2,3,4,5,6" />
+            <combo key="socket:nema_5_20" text="NEMA 5-20" values="1,2,3,4,5,6" />
+            <space />
+            <label text="Authentication:" />
+            <checkgroup columns="4">
+                <check key="authentication:none" text="None" />
+                <check key="authentication:phone_call" text="Phone call" />
+                <check key="authentication:short_message" text="Short message" />
+                <check key="authentication:nfc" text="NFC" />
+            </checkgroup>
+            <combo key="authentication:membership_card" text="Membership card" values="yes" />
+            <preset_link preset_name="Payment Methods" />
         </item> <!-- Charging Station -->
         <item name="Wash" icon="icons/png/amenity_car_wash_12018.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=car_wash"
@@ -4466,7 +4505,7 @@
             <space />
             <combo key="access" text="Access" values="yes,customers,private" />
         </item> <!-- Swimming Pool -->
-        <item name="Fitness Station" icon="" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Fitness Station" icon="icons/png/sport_fitness_station_21009.png" type="node,closedway,multipolygon" preset_name_label="true">
 			<link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=fitness_station" />
 			<space />
 			<key key="leisure" value="fitness_station" />
@@ -4486,6 +4525,19 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sauna -->
+        <item name="Tanning Studio" icon="" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=sauna"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=sauna"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:amenity=sauna"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=sauna" />
+            <space />
+            <key key="leisure" value="tanning_studio" />
+            <check key="self-service" text="Self-service" disable_off="true" />
+            <reference ref="name_operator_oh_wheelchair" />
+            <combo key="access" text="Access" values="yes,permissive,private" />
+            <space />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Tanning Studio -->
         <item name="Horse Riding" icon="icons/png/sport_horse_racing.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=horse_riding" />
             <space />
@@ -5019,7 +5071,7 @@
             <space />
             <key key="amenity" value="childcare" />
             <reference ref="name_operator_oh_wheelchair_level" />
-            <combo key="operator:type" text="Operator type" values="public;private;religious" />
+            <combo key="operator:type" text="Operator type" values="public,private,religious" display_values="Public,Private,Religous" />
             <text key="age_group" text="Age group (ie: 6-12)" />
             <space />
             <check key="nursery" text="Nursery" disable_off="true" />
@@ -5088,6 +5140,15 @@
             <combo key="license_classes" text="License Classes" values="A;A1;B;BE;C,A;A1;B;B1;C;C1;D;D1;BE;CE;C1E;DE;D1E" />
             <reference ref="link_contact_address" />
         </item> <!-- Driving School -->
+        <item name="Music School" icon="icons/png/education_musical_instrument_29107.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=music_school"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=music_school" />
+            <space />
+            <key key="amenity" value="music_school" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <combo key="operator:type" text="Operator type" values="public,private" display_values="Public,Private" />
+            <reference ref="link_contact_address" />
+        </item> <!-- Music School -->
     </group> <!-- Education -->
     <group name="Health" icon="icons/png/health_pharmacy.png">
         <item name="Hospital" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5559,7 +5620,7 @@
             <key key="amenity" value="post_box" />
             <text key="operator" text="Operator" />
             <text key="ref" text="Reference number" />
-            <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30"  values_no_i18n="true" />
+            <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30"  values_no_i18n="true" editable="true" />
             <check key="drive_through" text="Drive through" disable_off="true" />
         </item> <!-- Post Box -->
         <item name="Telephone" icon="icons/png/amenity_telephone.png" type="node" preset_name_label="true">
@@ -5913,7 +5974,12 @@
             <space />
             <key key="leisure" value="track" />
             <text key="name" text="Name" />
-            <combo key="sport" text="Sport" values="athletics,cycling,dog_racing,equestrian,horse_racing,running,skating,roller_skating,ice_skating" values_context="sport" />
+            <combo key="sport" text="Sport" values="athletics,cycling,dog_racing,equestrian,horse_racing,running,skating,roller_skating,ice_skating"
+            	display_values="Athletics,Cycling,Dog racing,Equestrian,Horse racing,Running,Skating,Roller skating,Ice skating" 
+            	values_context="sport" />
+            <combo key="surface" text="Surface" values="artificial_turf,asphalt,clay,concrete,decoturf,grass,sand,tartan,ground" 
+            	display_values="Artificial turf,Asphalt,Clay,Concrete,DecoTurf,Grass,Sand,Tartan,Ground"
+            	values_context="sport" />	
         </item> <!-- Racetrack -->
         <group name="Golf" icon="icons/png/sport_golf.png">
                 <item name="Golf Course" icon="icons/png/sport_golf.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8458,6 +8524,16 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Toys -->
+        <item name="Watches" icon="icons/png/shopping_watchmaker_16090.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=watches"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=watches"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=watches"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=watches" />
+            <space />
+            <key key="shop" value="watches" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Watches -->
         <item name="Gift/Souvenir" icon="icons/png/shopping_gift.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=gift"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=gift"
@@ -9893,7 +9969,7 @@
             <combo key="restriction" text="Restriction" values="no_left_turn,no_right_turn,no_straight_on,no_u_turn,only_right_turn,only_left_turn,only_straight_on" 
             	display_values="No left turn,No right turn,No straight on,No u-turn,Only right turn,Only left turn,Only straight on" values_searchable="true" />
             <optional>
-				<multiselect key="except" text="Exceptions" values="bicycle;emergency;hgv;motorcar;psv" display_values="Bicycle;Emergency;HGV;Car:PSV"/>
+				<multiselect key="except" text="Exceptions" values="bicycle;emergency;hgv;motorcar;psv" display_values="Bicycle;Emergency;HGV;Car;PSV"/>
             </optional>
             <roles>
                 <role key="from" text="from way" requisite="required" count="1" type="way" />
@@ -9937,8 +10013,8 @@
                 <space/>
                 <key key="type" value="route"/>
                 <key key="route" value="bicycle"/>
+                <text key="name" text="Name" />
                 <combo key="network" text="Network" values="icn,ncn,rcn,lcn" match="keyvalue!" />
-                <reference ref="name_ref_operator"/>
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -9961,7 +10037,7 @@
                 <space/>
                 <key key="type" value="route"/>
                 <key key="route" value="mtb"/>
-                <reference ref="name_ref_operator"/>
+                <text key="name" text="Name" />
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -9984,8 +10060,8 @@
                 <space/>
                 <key key="type" value="route"/>
                 <key key="route" value="hiking"/>
+                <text key="name" text="Name" />
                 <combo key="network" text="Network" values="iwn,nwn,rwn,lwn" match="keyvalue!" />
-                <reference ref="name_ref_operator"/>
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -10000,8 +10076,8 @@
                 <space/>
                 <key key="type" value="route"/>
                 <key key="route" value="foot"/>
+                <text key="name" text="Name" />
                 <combo key="network" text="Network" values="rwn,lwn" match="keyvalue!" />
-                <reference ref="name_ref_operator"/>
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -10016,8 +10092,8 @@
                 <space/>
                 <key key="type" value="route"/>
                 <key key="route" value="horse"/>
+                <text key="name" text="Name" />
                 <combo key="network" text="Network" values="ihn,nhn,rhn,lhn" match="keyvalue!" />
-                <reference ref="name_ref_operator"/>
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -10034,8 +10110,8 @@
                 <space/>
                 <key key="type" value="route"/>
                 <key key="route" value="piste"/>
+                <text key="name" text="Name" />
                 <combo key="piste:type" text="Piste type" values="downhill,nordic,skitour,snow_park" display_values="Downhill,Nordic,Skitour,Snow park" sort_values="false" match="keyvalue!" />
-                <reference ref="name_ref_operator"/>
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -10054,9 +10130,9 @@
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:route=ski" />
                 <space/>
                 <key key="type" value="route"/>
-                <key key="route" value="piste"/>
+                <key key="route" value="ski"/>
+                <text key="name" text="Name" />
                 <combo key="piste:type" text="Piste type" values="nordic,alpine" display_values="Nordic,Alpine" match="keyvalue!" />
-                <reference ref="name_ref_operator"/>
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -10088,8 +10164,9 @@
                 <space/>
                 <key key="type" value="route"/>
                 <key key="route" value="detour"/>
-                <reference ref="name_ref_operator"/>
+                <reference ref="name_ref"/>
                 <optional>
+					<text key="operator" text="Operator" />
                     <text key="destination" text="Destination"/>
                     <text key="detour" text="Ref of the way this is a detour to"/>
                 </optional>

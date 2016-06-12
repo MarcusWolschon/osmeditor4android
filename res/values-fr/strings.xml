@@ -442,7 +442,6 @@ il y a %3$s %4$s</string>
   <string name="undo">Annuler</string>
   <string name="redo">Refaire</string>
   <string name="undo_nothing">Plus rien à annuler</string>
-  <string name="tracking_active_title">Service tâche de fond Vespucci actif</string>
   <string name="tracking_active_text">Vespucci est en train d\'enregistrer une trace GPS ou de télécharger automatiquement</string>
   <string name="gps_failure">Échec de l\'activation du GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -472,9 +471,6 @@ il y a %3$s %4$s</string>
   <string name="undo_action_fix_conflict">résoudre le conflit</string>
   <string name="undo_action_extract_node">extraire point</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci a planté ou a détecté un grave dysfonctionnement. Merci d\'envoyer un rapport d\'erreur</string>
-  <string name="crash_notif_title">Vespucci a planté ou a détecté un grave dysfonctionnement.</string>
-  <string name="crash_notif_text">Merci de cliquer ici pour aider à résoudre ce problème.</string>
   <string name="config_category_acra">Rapport de plantage</string>
   <string name="pref_enable_acra">Signaler le plantage de l\'application</string>
   <string name="pref_acra_enabled">Rapport de plantage autorisé</string>

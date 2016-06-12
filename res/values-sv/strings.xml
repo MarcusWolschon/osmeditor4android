@@ -33,6 +33,21 @@
   <string name="progress_saving_message">Sparar...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Källa:</string>
+  <string name="upload_gpx_description_label">Beskrivning</string>
+  <string name="upload_gpx_tags_label">Etiketter</string>
+  <string name="openstreetbug_new_title">Ny anteckning</string>
+  <string name="openstreetbug_edit_title">Redigera anteckning</string>
+  <string name="openstreetbug_edit_close">Stäng</string>
+  <string name="openstreetbug_edit_closed">Stängt</string>
+  <string name="imagery_offset_description">Beskrivning</string>
+  <string name="imagery_offset_author">Författare</string>
+  <string name="imagery_offset_zoom">Zoom</string>
+  <string name="search_results_title">Sökresultat</string>
+  <string name="find_message">Ange sökssträng</string>
+  <string name="read_file">Välj fil att läsa</string>
+  <string name="save_file">Ange fil att spara till</string>
+  <string name="id">Id</string>
+  <string name="problem">Problem</string>
   <!--Toaster-->
   <!--Some generic labels/buttons-->
   <!--Dialog for back button-->

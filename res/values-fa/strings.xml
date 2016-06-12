@@ -218,9 +218,6 @@
   <string name="undo_action_join">پیوستن</string>
   <string name="undo_action_unjoin_ways">جدا کردن راه ها</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci متوقف شد یا یک مسئله جدی پیدا شد. لطفا یک گزارش خطا ارسال کنید.</string>
-  <string name="crash_notif_title">Vespucci متوقف شد یا یک مسئله جدی پیدا شد.</string>
-  <string name="crash_notif_text">برای کمک و رفع مسئله اینجا کلیک کنید.</string>
   <string name="config_category_acra">گزارش کرش</string>
   <string name="pref_enable_acra">گزارش کرش های برنامه</string>
   <string name="pref_acra_enabled">گزارش کرش فعال شد</string>

@@ -263,7 +263,10 @@
   <string name="menu_transfer_bugs">Нотатки/Помилки…</string>
   <string name="menu_transfer_bugs_download_current">Завантажити нотатки для поточного місця</string>
   <string name="menu_transfer_bugs_upload">Надіслати все</string>
+  <string name="menu_transfer_bugs_upload_long">Надіслати всі повідомлення про помилки</string>
   <string name="menu_transfer_bugs_clear">Очистити</string>
+  <string name="menu_transfer_bugs_clear_long">Очистити повідомлення про помилки</string>
+  <string name="menu_transfer_autodownload_long">Авто-завантаження повідомлень про помилки</string>
   <string name="menu_save">Зберегти в файл</string>
   <string name="menu_join">Об’єднати</string>
   <string name="menu_unjoin">Роз’єднати</string>
@@ -449,7 +452,7 @@
   <string name="undo">Відмінити</string>
   <string name="redo">Повторити</string>
   <string name="undo_nothing">немає змін для відміни</string>
-  <string name="tracking_active_title">Фонову службу Веспуччі активовано </string>
+  <string name="tracking_active_title">Фонову службу Веспуччі активовано</string>
   <string name="tracking_active_text">Веспуччі записує GPS-трек чи здійснює авто-завантаження</string>
   <string name="gps_failure">Не вдалося включити GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -479,10 +482,8 @@
   <string name="undo_action_fix_conflict">виправити конфлікт</string>
   <string name="undo_action_extract_node">виокремити точку</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci „впав“ або виявив серйозну проблему.  Будь ласка, надішліть звіт про помилку.</string>
-  <string name="crash_notif_title">Vespucci „впав“ або виявив серйозну проблему.</string>
-  <string name="crash_notif_text">Будь ласка, натисніть тут, щоб допомогти вирішити проблему.</string>
-  <string name="crash_dialog_text">Сталася несподівана проблема, що змушує застосунок перевати роботу або повідомити про помилку. Будь ласка, допоможіть нам виправити це, відправивши нам дані про помилку, все що вам потрібно зробити, це натиснути „Гаразд“. Якщо помилка зʼявляться доволі часто, вікдкрийте тікет на github.com.</string>
+  <string name="crash_dialog_text">Веспуччі несподівано перервав роботу або зіткнувся з серйозною проблемою під час останнього запуску.\n\nБудь ласка, допоможіть нам виправити це, надіславши дані про помилку, все що вам потрібно зробити, це натиснути „Гаразд“.\n</string>
+  <string name="crash_dialog_comment_prompt">Додайте будь-яку інформацію, що на вашу думку може бути корисною, а також (не обов\'язково) адресу вашої е-пошти, якщо ви бажаєте отримати відповідь.\n\nДякуємо вам!</string>
   <string name="config_category_acra">Звітування про помилки</string>
   <string name="pref_enable_acra">Повідомлення про збій програми</string>
   <string name="pref_acra_enabled">Звітування про помилки включене</string>

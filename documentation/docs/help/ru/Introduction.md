@@ -16,21 +16,22 @@ Vespucci — полнофункциональный редактор OpenStreetM
 
 Выберите значок передачи ![](../images/menu_transfer.png)  или пункт меню "Передача". Будут показаны семь опций:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Скачать текущее местоположение** - скачать видимую область на экране и заменить любые существующие данные *(требует онлайн)*
+* **Добавить текущий вид для скачивания** - скачать видимую область на экране и объединить с существующими данными  *(требует онлайн)*
+* **Скачать другое место** - показывает форму где можно ввести координаты, найти место или использовать текущее местоположение и затем скачать область вокруг этого местоположения *(требует онлайн)*
+* **Загрузить данные на сервер OSM** -  загрузить данные на OpenStreetMap сервер *(требует логин)* *(требует онлайн)*
+* **Автоматическая загрузка** - скачать область вокруг текущего местоположения автоматически *(требует онлайн)* *(требует GPS)*
+* **Файл...** - сохранение и загрузка данных с файлов устройства.
+* **Заметки/Ошибки...** - скачать (автоматически и вручную) OSM заметки и "ошибки" из валидаторов (сейчас только OSMOSE) *(требует онлайн)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Самый простой способ скачать данные на устройство это приблизить карту до нужного места и выбрать "Скачать текущее местоположение". Вы можете приближать используя движения пальцами, кнопками масштаба или кнопками громкости.  Vespucci скачает данные в текущий вид. Не требуется логин для доступа на ваше устройство.
 
 ### Редактирование
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
+Чтобы избежать ошибочных правок, Vespucci начинает в "закрытом" режиме, где можно только приближаться и двигать карту. Тапните  ![Locked](../images/locked.png) иконку чтобы разблокировать экран. Длинное нажатие на иконке замка начнёт режим "Только редактирование тегов" который позволит вам создавать новые объекты либо редактировать геометрию объектов, этот режим отмечается слегка другой белой иконкой замка.
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
+По умолчанию, выделяемые точки и линии имеют оранжевую подсветку вокруг них, означающую где вам нужно прикоснуться чтобы выбрать объект. 
+Если вы пытаетесь выбрать объект и Vespucci определяет что выделение должно значить несколько объектов, он отобразит меню выделения. Выделенные объекты же отображаются жёлтым.
 
 Если вы пытаетесь редактировать область с высокой плотностью данных, разумно будет приблизить её.
 
@@ -38,13 +39,13 @@ By default, selectable nodes and ways have an orange area around them indicating
 
 #### Выделение / Снятие выделения
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Тап по объекту выделит и подсветит его, второй тап по тому же объекту откроет редактор тегов у элемента. Тап по экрану в пустом месте снимет выделение. Если вы выделили объект и вам нужно выделить дополнительный объект, то тапните его: снимать выделение не требуется. Двойной тап по объекту начнёт [Multiselect mode](../en/Multiselect.md).
 
 #### Добавление новой точки/узла или линии
 
 Используйте долгое нажатие на том месте, в котором вы хотите разместить точку или начало линии. Вы увидите чёрный крестик. Повторное нажатие в этом же месте создаст точку. Прикосновение за пределами восприимчивой к нажатиям области добавит сегмент линии от начального положения к текущему. 
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
+Просто тапните экран где вы хотите добавить последующие точки линии. Чтобы завершить, нажмите последнюю точку дважды. Если первая и последняя точки расположены на линии, они будут включены в линию автоматически.
 
 #### Перемещение точки или линии
 
@@ -62,9 +63,9 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 В Vespucci предусмотрена функция "добавления адресных тегов", которая старается упростить разметку адресов. Её можно выбрать 
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* после долгого нажатия: Vespucci добавит точку и сделает лучшее в его силах, чтобы угадать теги адресов, которые вы недавно использовали. Если точка на контуре здания, ей поставится тег "entrance=yes" автоматически на эту точку. Откроется редактор тегов для объекта и позволит сделать дальнейшие корректировки.
+* в режиме точки или линии: Vespucci  добавит адресные теги как выше и откроет редактор тегов .
+* в редакторе тегов.
 
 Для того, чтобы интерполяция номеров домов работала, обычно требуется, чтобы на каждой стороне дороги уже существовало хотя бы два номера. Чем больше номеров домов имеется в данных этой области, тем лучше.
 
@@ -80,13 +81,13 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type in the tag menu
 
-### Vespucci in "locked" mode
+### Vespucci в "locked" режиме
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+Когда показывается красный замок, то все не изменяющие действия активны. Дополнительно, долгий тап по объекту покажет детальную информацию по OSM объекту.
 
 ### Сохранение изменений
 
-*(требует подключения к сети)*
+*(требует онлайн)*
 
 Используйте ту же кнопку или меню, которые вы выбирали для подгрузки данных, но теперь нажмите "Передача данных на сервер OSM".
 
@@ -106,7 +107,7 @@ You can use Vespucci to create a GPX track and display it on your device. Furthe
 
 If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
 
-## Notes and Bugs
+## Заметки и ошибки
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
