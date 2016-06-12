@@ -1,22 +1,23 @@
 # 
 # Translators:
-# Nuri Uzunçakmak <cancerus@gmail.com>, 2015
+# Alexandre Magno <alexandre.mbm+transifex@gmail.com>, 2015
+# Thiago Vieira <thipvieira@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-06-12 17:23+0200\n"
 "PO-Revision-Date: 2016-06-12 15:24+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/openstreetmap/presets/language/tr/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
+"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: master_preset.xml:10583(item:name|group:Crafts|preset:Metal_works)
 msgid "Metal works"
-msgstr "Metal işleri"
+msgstr ""
 
 #: master_preset.xml:4535(check:text|group:Leisure|preset:Tanning_Studio|key:self-service)
 msgid "Self-service"
@@ -24,25 +25,25 @@ msgstr ""
 
 #: master_preset.xml:1227(item:name|group:Ways|preset:Dedicated_Cycleway)
 msgid "Dedicated Cycleway"
-msgstr "Ayrılmış Bisiklet Yolu"
+msgstr "Ciclovia dedicada"
 
 #: master_preset.xml:360(text:text|key:branch)
 #: master_preset.xml:330(text:text|key:branch)
 #: master_preset.xml:7079(text:text|group:Power|preset:Power_Plant|key:branch)
 msgid "Branch operator"
-msgstr "Şube operatörü"
+msgstr ""
 
 #: master_preset.xml:3440(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:rental)
 msgid "Bicycles are rented"
-msgstr "Bisiklet kiralanır"
+msgstr "Bicicletas para aluguel"
 
 #: master_preset.xml:6533(item:name|group:Motorsport|preset:Raceway)
 msgid "Raceway"
-msgstr ""
+msgstr "Pista de corrida"
 
 #: master_preset.xml:9977(role:text|group:Relations|preset:Turn_Restriction|key:to)
 msgid "to way"
-msgstr ""
+msgstr "para a via"
 
 #: master_preset.xml:10687(item:name|group:Crafts|preset:Sculptor)
 msgid "Sculptor"
@@ -52,7 +53,7 @@ msgstr ""
 #: master_preset.xml:4352(check:text|group:Tourism|preset:Guidepost|key:bicycle)
 #: master_preset.xml:4314(check:text|group:Tourism|preset:Map|key:bicycle)
 msgid "Cycling"
-msgstr ""
+msgstr "Ciclismo"
 
 #: master_preset.xml:9287(item:name|group:Nature|preset:Bare_Rock)
 msgid "Bare Rock"
@@ -64,36 +65,36 @@ msgstr ""
 
 #: master_preset.xml:145(combo:text|key:opening_hours)
 msgid "Opening Hours"
-msgstr "Açılış Saatleri"
+msgstr "Horário de funcionamento"
 
 #: master_preset.xml:1260(item:name|group:Ways|preset:Combined_Foot-_and_Cycleway)
 msgid "Combined Foot- and Cycleway"
-msgstr "Kombine Yürüme ve Bisiklet Yolu"
+msgstr "Via compartilhada entre pedestres e bicicletas"
 
 #: master_preset.xml:36(combo:text|key:surface)
 #: master_preset.xml:19(combo:text|key:surface)
 #: master_preset.xml:5982(combo:text|group:Sport_Facilities|preset:Racetrack|key:surface)
 #: master_preset.xml:2643(combo:text|group:Water|preset:Beach|key:surface)
 msgid "Surface"
-msgstr "Yüzey"
+msgstr "Superfície"
 
 #: master_preset.xml:5966(item:name|group:Sport_Facilities|preset:Racetrack)
 msgid "Racetrack"
-msgstr ""
+msgstr "Pista de corrida"
 
 #: master_preset.xml:9731(text:text|group:Addresses_and_Contact|preset:Name|key:alt_name)
 msgid "Alternative name"
-msgstr ""
+msgstr "Nome alternativo"
 
 #: master_preset.xml:1113(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1069(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right)
 #: master_preset.xml:1095(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "right"
-msgstr ""
+msgstr "direita"
 
 #: master_preset.xml:1949(item:name|group:Barriers|preset:Lift_Gate)
 msgid "Lift Gate"
-msgstr "Kalkar Geçit"
+msgstr "Ponte elevatória"
 
 #: master_preset.xml:10416(item:name|group:Crafts|preset:Cabinet_maker)
 msgid "Cabinet maker"
@@ -109,11 +110,11 @@ msgstr ""
 
 #: master_preset.xml:451(combo:display_values|key:stars)
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Compacted"
-msgstr ""
+msgstr "Compactado"
 
 #: master_preset.xml:4289(label:text|group:Tourism|preset:Information_Office)
 msgid "An office where you can get information about a town or region."
@@ -126,30 +127,30 @@ msgstr ""
 #: master_preset.xml:3921(text:text|group:Accommodation|preset:Hotel|key:rooms)
 #: master_preset.xml:4061(text:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:rooms)
 msgid "Rooms"
-msgstr ""
+msgstr "Quartos"
 
 #: master_preset.xml:1818(item:name|group:Barriers|preset:Hedge)
 msgid "Hedge"
-msgstr "Çit"
+msgstr ""
 
 #: master_preset.xml:7342(combo:text|preset:Power_Converter|key:poles)
 msgid "Number of poles"
-msgstr ""
+msgstr "Número de polos"
 
 #: master_preset.xml:3320(item:name|group:Car|preset:Tires)
 msgid "Tires"
-msgstr "Lastikler"
+msgstr "Pneus"
 
 #: master_preset.xml:6123(group:name|group:Sport)
 #: master_preset.xml:231(combo:text|key:sport)
 #: master_preset.xml:2644(combo:text|group:Water|preset:Beach|key:sport)
 #: master_preset.xml:5979(combo:text|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgid "Sport"
-msgstr "Spor"
+msgstr "Esporte"
 
 #: master_preset.xml:3832(item:name|group:Airport|preset:Helipad)
 msgid "Helipad"
-msgstr ""
+msgstr "Heliponto"
 
 #: master_preset.xml:8700(check:text|preset:Payment_Methods|key:payment:ep_geldkarte)
 msgid "Geldkarte (de)"
@@ -166,32 +167,32 @@ msgstr ""
 #: master_preset.xml:7588(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 #: master_preset.xml:9315(item:name|group:Nature|preset:Stone)
 msgid "Stone"
-msgstr ""
+msgstr "Rocha"
 
 #: master_preset.xml:307(list_entry:short_description|value:mixed)
 msgid "Habitat with evergreen and deciduous vegetation."
-msgstr "Yaprak döken ve dökmeyen bitkilerin doğal ortamı"
+msgstr ""
 
 #: master_preset.xml:10146(role:text|group:Routes|preset:Ski_Route|key:start)
 #: master_preset.xml:10125(role:text|group:Routes|preset:Piste_Route|key:start)
 msgid "entry points"
-msgstr "giriş noktası"
+msgstr ""
 
 #: master_preset.xml:3612(check:text|group:Public_Transport|preset:Platform|key:funicular)
 msgid "funicular"
-msgstr "Füniküler"
+msgstr "funicular"
 
 #: master_preset.xml:7643(group:name|group:Shops)
 msgid "Shops"
-msgstr ""
+msgstr "Lojas"
 
 #: master_preset.xml:7461(item:name|preset:Insulator)
 msgid "Insulator"
-msgstr ""
+msgstr "Isolador"
 
 #: master_preset.xml:10408(item:name|group:Crafts|preset:Builder)
 msgid "Builder"
-msgstr ""
+msgstr "Construtor"
 
 #: master_preset.xml:8111(item:name|group:Cash|preset:Pawnbroker)
 msgid "Pawnbroker"
@@ -199,19 +200,19 @@ msgstr ""
 
 #: master_preset.xml:10607(item:name|group:Crafts|preset:Photographic_laboratory)
 msgid "Photographic laboratory"
-msgstr ""
+msgstr "Laboratório fotográfico"
 
 #: master_preset.xml:6727(combo:text|group:Man_Made|preset:Storage_Tank|key:content)
 msgid "Content"
-msgstr ""
+msgstr "Conteúdo"
 
 #: master_preset.xml:3193(check:text|group:Car|preset:Fuel|key:fuel:HGV_diesel)
 msgid "Diesel for Heavy Good Vehicles"
-msgstr ""
+msgstr "Diesel para caminhões"
 
 #: master_preset.xml:5666(check:text|group:Facilities|preset:Clock|key:date)
 msgid "Shows current date"
-msgstr ""
+msgstr "Mostra a data atual"
 
 #: master_preset.xml:9952(role:text|group:Relations|preset:Site|key:entrance)
 msgid "entrances to the site, on the perimeter"
@@ -220,18 +221,18 @@ msgstr ""
 #: master_preset.xml:993(item:name|group:Streets|preset:Construction)
 #: master_preset.xml:10791(item:name|group:Crafts|preset:Construction)
 msgid "Construction"
-msgstr "İnşaat"
+msgstr "Construção"
 
 #: master_preset.xml:4546(text:text|group:Leisure|preset:Horse_Riding|key:fee)
 #: master_preset.xml:5607(combo:text|group:Facilities|preset:Shower|key:fee)
 #: master_preset.xml:252(combo:text|key:fee)
 #: master_preset.xml:249(combo:text|key:fee)
 msgid "Fee"
-msgstr "Ücret"
+msgstr "Tarifa"
 
 #: master_preset.xml:4425(check:text|group:Leisure|preset:Movie_Theater/Cinema|key:drive_in)
 msgid "Drive-in theater"
-msgstr ""
+msgstr "Cinema drive-in"
 
 #: master_preset.xml:5250(text:text|group:Health|preset:Emergency_Access_Point|key:name)
 msgid "Point Name"
@@ -239,7 +240,7 @@ msgstr ""
 
 #: master_preset.xml:8122(group:name|group:Home_decoration)
 msgid "Home decoration"
-msgstr ""
+msgstr "Decorações"
 
 #: master_preset.xml:3247(combo:text|group:Car|preset:Charging_Station|key:socket:tesla_supercharger)
 msgid "Tesla Supercharger"
@@ -247,19 +248,19 @@ msgstr ""
 
 #: master_preset.xml:8168(item:name|group:Home_decoration|preset:Art)
 msgid "Art"
-msgstr ""
+msgstr "Arte"
 
 #: master_preset.xml:3437(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:retail)
 msgid "Bicycles are sold"
-msgstr "Bisiklet satış"
+msgstr "Bicicletas à venda"
 
 #: master_preset.xml:4121(item:name|group:Food+Drinks|preset:Fast_Food)
 msgid "Fast Food"
-msgstr ""
+msgstr "Fast Food"
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Thai"
-msgstr ""
+msgstr "Tailandês"
 
 #: master_preset.xml:4310(combo:text|group:Tourism|preset:Map|key:map_size)
 msgid "Shown Area"
@@ -267,22 +268,22 @@ msgstr ""
 
 #: master_preset.xml:1836(item:name|group:Barriers|preset:Fence)
 msgid "Fence"
-msgstr "Çit"
+msgstr "Cerca"
 
 #: master_preset.xml:279(combo:display_values|key:access)
 #: master_preset.xml:261(combo:display_values|key:access)
 #: master_preset.xml:5602(list_entry:short_description|group:Facilities|preset:Shower|value:permissive)
 #: master_preset.xml:5575(list_entry:short_description|group:Facilities|preset:Toilets/Restrooms|value:permissive)
 msgid "Permissive"
-msgstr ""
+msgstr "Permissivo"
 
 #: master_preset.xml:6315(item:name|group:Sport_(Ball)|preset:Canadian_Football)
 msgid "Canadian Football"
-msgstr ""
+msgstr "Futebol Canadense"
 
 #: master_preset.xml:3393(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:safety_inspection)
 msgid "Safety inspection"
-msgstr "Güvenlik denetimi"
+msgstr "Inspeção de segurança"
 
 #: master_preset.xml:10360(item:name|group:Crafts|preset:Basket_maker)
 msgid "Basket maker"
@@ -290,7 +291,7 @@ msgstr ""
 
 #: master_preset.xml:6683(item:name|group:Man_Made|preset:Windmill)
 msgid "Windmill"
-msgstr ""
+msgstr "Moinho de vento"
 
 #: master_preset.xml:1106(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left:through)
 #: master_preset.xml:1062(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left:through)
@@ -304,7 +305,7 @@ msgstr ""
 
 #: master_preset.xml:6199(item:name|group:Sport|preset:Equestrian)
 msgid "Equestrian"
-msgstr ""
+msgstr "Hipismo"
 
 #: master_preset.xml:7453(label:text|preset:Pole_with_Transformer)
 msgid "Transformer Attributes:"
@@ -320,15 +321,15 @@ msgstr ""
 
 #: master_preset.xml:6353(item:name|group:Sport_(Ball)|preset:Basketball)
 msgid "Basketball"
-msgstr ""
+msgstr "Basquetebol"
 
 #: master_preset.xml:3228(combo:text|group:Car|preset:Charging_Station|key:voltage)
 msgid "Voltage"
-msgstr "Voltaj"
+msgstr "Voltagem"
 
 #: master_preset.xml:1009(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
-msgstr "Kavşak"
+msgstr "Junção"
 
 #: master_preset.xml:7167(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:CANDU)
 msgid "CANada Deuterium Uranium reactor (CANDU)"
@@ -336,15 +337,15 @@ msgstr ""
 
 #: master_preset.xml:4493(item:name|group:Leisure|preset:Swimming_Pool)
 msgid "Swimming Pool"
-msgstr ""
+msgstr "Piscina"
 
 #: master_preset.xml:2599(label:text|group:Water|preset:Wetland)
 msgid "Waterlogged area, either permanently or seasonally with vegetation."
-msgstr "Sürekli yada mevsimsel bitki örtüsü ile kaplı su emmiş alan."
+msgstr ""
 
 #: master_preset.xml:3036(text:text|group:Aerialway|preset:Gondola|key:aerialway:occupancy)
 msgid "Number of people per gondola"
-msgstr "Gondol başına kişi sayısı"
+msgstr ""
 
 #: master_preset.xml:3251(combo:text|group:Car|preset:Charging_Station|key:socket:cee_red_32a)
 msgid "CEE red 32A"
@@ -353,7 +354,7 @@ msgstr ""
 #: master_preset.xml:10298(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:2338(item:name|group:Water|preset:Ditch)
 msgid "Ditch"
-msgstr "Hendek"
+msgstr "Dique"
 
 #: master_preset.xml:2612(list_entry:short_description|group:Water|preset:Wetland|value:string_bog)
 msgid "String bog"
@@ -361,7 +362,7 @@ msgstr ""
 
 #: master_preset.xml:4978(item:name|group:Public_Building|preset:Embassy)
 msgid "Embassy"
-msgstr ""
+msgstr "Embaixada"
 
 #: master_preset.xml:5921(group:name|group:Sport_Facilities)
 msgid "Sport Facilities"
@@ -373,11 +374,11 @@ msgstr ""
 
 #: master_preset.xml:3123(text:text|group:Car|preset:Parking|key:capacity)
 msgid "Capacity (overall)"
-msgstr "Kapasite (genel)"
+msgstr ""
 
 #: master_preset.xml:447(list_entry:display_value|value:victim)
 msgid "Victims"
-msgstr ""
+msgstr "Vítimas"
 
 #: master_preset.xml:1100(text:text|group:Lane_attributes|preset:Bi-directional_roads|key:maxspeed:lanes:forward)
 msgid "Maxspeed per lane in way direction"
@@ -385,34 +386,34 @@ msgstr ""
 
 #: master_preset.xml:8212(item:name|group:Home_decoration|preset:Antiques)
 msgid "Antiques"
-msgstr ""
+msgstr "Antiguidades"
 
 #: master_preset.xml:415(combo:display_values|key:substance)
 msgid "Heat"
-msgstr ""
+msgstr "Calor"
 
 #: master_preset.xml:10298(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:2352(item:name|group:Water|preset:Stream)
 msgid "Stream"
-msgstr "Akıntı"
+msgstr ""
 
 #: master_preset.xml:10400(item:name|group:Crafts|preset:Brewery)
 msgid "Brewery"
-msgstr ""
+msgstr "Cervejaria"
 
 #: master_preset.xml:9043(item:name|group:Geography|preset:Cliff)
 msgid "Cliff"
-msgstr "Uçurum"
+msgstr ""
 
 #: master_preset.xml:2101(check:text|group:Passageways|preset:Arcade|key:arcade:right)
 #: master_preset.xml:2118(check:text|group:Passageways|preset:Colonnade|key:colonnade:right)
 #: master_preset.xml:2137(check:text|group:Passageways|preset:Avalanche_Protector|key:avalanche_protector:right)
 msgid "Open on right side"
-msgstr "Sağdan açılır"
+msgstr ""
 
 #: master_preset.xml:1696(item:name|preset:Elevator)
 msgid "Elevator"
-msgstr "Asansör"
+msgstr "Elevador"
 
 #: master_preset.xml:5665(combo:display_values|group:Facilities|preset:Clock|key:visibility)
 msgid "area (more than 20m)"
@@ -435,7 +436,7 @@ msgstr ""
 #: master_preset.xml:7160(combo:text|group:Power_Generator|preset:Nuclear_Reactor|key:generator:type)
 #: master_preset.xml:7202(combo:text|group:Power_Generator|preset:Waste_Power_Generator|key:generator:type)
 msgid "Generator Type"
-msgstr ""
+msgstr "Tipo de gerador"
 
 #: master_preset.xml:8938(label:text|group:Places|preset:Farm)
 msgid "(please use isolated_dwelling for an isolated farm)"
@@ -461,33 +462,33 @@ msgstr ""
 
 #: master_preset.xml:6347(item:name|group:Sport_(Ball)|preset:Baseball)
 msgid "Baseball"
-msgstr ""
+msgstr "Baseball"
 
 #: master_preset.xml:5840(check:text|group:Facilities|preset:Hunting_Stand|key:lock)
 msgid "Lock"
-msgstr ""
+msgstr "Cadeado"
 
 #: master_preset.xml:395(check:text|key:intermittent)
 msgid "Intermittent"
-msgstr ""
+msgstr "Intermitente"
 
 #: master_preset.xml:3477(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:chain_tool)
 msgid "Chain tool"
-msgstr "Zincir aracı"
+msgstr ""
 
 #: master_preset.xml:6810(item:name|group:Man_Made|preset:Pipeline)
 msgid "Pipeline"
-msgstr ""
+msgstr "Duto"
 
 #: master_preset.xml:3867(item:name|group:Airport|preset:Beacon)
 #: master_preset.xml:6925(item:name|group:Man_Made|preset:Beacon)
 msgid "Beacon"
-msgstr ""
+msgstr "Farol"
 
 #: master_preset.xml:1399(combo:text|group:Waypoints|preset:Traffic_Signal|key:crossing)
 #: master_preset.xml:1456(combo:text|group:Waypoints|preset:Pedestrian_Crossing|key:crossing)
 msgid "Pedestrian crossing type"
-msgstr "Yaya geçişi türü"
+msgstr "Tipo de travessia de pedestres"
 
 #: master_preset.xml:10984(item:name|group:Offices|preset:Ngo)
 msgid "Ngo"
@@ -501,7 +502,7 @@ msgstr ""
 #: master_preset.xml:361(text:text|key:start_date)
 #: master_preset.xml:7266(text:text|preset:Power_Substation|key:start_date)
 msgid "Start date"
-msgstr "Başlangıç tarihi"
+msgstr "Data de ínicio"
 
 #: master_preset.xml:644(text:text|group:Streets|preset:Trunk_Link|key:destination:ref)
 #: master_preset.xml:581(text:text|group:Streets|preset:Motorway_Link|key:destination:ref)
@@ -512,12 +513,12 @@ msgstr ""
 
 #: master_preset.xml:8311(item:name|group:For_the_body|preset:Beauty)
 msgid "Beauty"
-msgstr ""
+msgstr "Beleza"
 
 #: master_preset.xml:9934(role:text|group:Relations|preset:Boundary|key:outer)
 #: master_preset.xml:9912(role:text|group:Relations|preset:Multipolygon|key:outer)
 msgid "outer segment"
-msgstr ""
+msgstr "segmento externo"
 
 #: master_preset.xml:6963(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:galileo)
 msgid "Galileo Signals"
@@ -530,15 +531,15 @@ msgstr ""
 #: master_preset.xml:5730(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:aluminium)
 #: master_preset.xml:5690(check:text|group:Facilities|preset:Recycling_Container|key:recycling:aluminium)
 msgid "Aluminium"
-msgstr ""
+msgstr "Alumínio"
 
 #: master_preset.xml:8742(combo:text|group:Boundaries|preset:Political|key:political_division)
 msgid "Division"
-msgstr ""
+msgstr "Divisão"
 
 #: master_preset.xml:3125(combo:text|group:Car|preset:Parking|key:capacity:women)
 msgid "Spaces for Women"
-msgstr "Kadınlar için alan"
+msgstr "Vagas femininas"
 
 #: master_preset.xml:9121(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
@@ -547,7 +548,7 @@ msgstr ""
 #: master_preset.xml:2551(check:text|group:Water|preset:Water|key:tidal)
 #: master_preset.xml:397(check:text|key:tidal)
 msgid "In the tidal range"
-msgstr ""
+msgstr "No alcance da maré"
 
 #: master_preset.xml:7208(combo:text|group:Power_Generator|preset:Water_Turbine|key:generator:method)
 #: master_preset.xml:7112(combo:text|group:Power_Generator|preset:Biomass_Power_Generator|key:generator:method)
@@ -556,7 +557,7 @@ msgstr ""
 #: master_preset.xml:7195(combo:text|group:Power_Generator|preset:Waste_Power_Generator|key:generator:method)
 #: master_preset.xml:7159(combo:text|group:Power_Generator|preset:Nuclear_Reactor|key:generator:method)
 msgid "Method"
-msgstr ""
+msgstr "Método"
 
 #: master_preset.xml:8714(check:text|preset:Payment_Methods|key:payment:dogecoin)
 msgid "Dogecoin"
@@ -572,11 +573,11 @@ msgstr ""
 #: master_preset.xml:6714(combo:text|group:Man_Made|preset:Silo|key:building)
 #: master_preset.xml:6565(combo:text|group:Man_Made|preset:Building|key:building)
 msgid "Building"
-msgstr "Bina"
+msgstr "Edifício"
 
 #: master_preset.xml:5669(check:text|group:Facilities|preset:Clock|key:hygrometer)
 msgid "Shows humidity"
-msgstr ""
+msgstr "Mostra humidade"
 
 #: master_preset.xml:112(check:text|key:motorcycle)
 #: master_preset.xml:2209(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle)
@@ -585,11 +586,11 @@ msgstr ""
 #: master_preset.xml:3360(group:name|group:Motorcycle)
 #: master_preset.xml:103(check:text|key:motorcycle)
 msgid "Motorcycle"
-msgstr "Motosiklet"
+msgstr "Moto"
 
 #: master_preset.xml:3095(item:name|group:Aerialway|preset:Pylon)
 msgid "Pylon"
-msgstr "Pilon"
+msgstr "Pilão"
 
 #: master_preset.xml:10304(text:text|preset:Waterway|key:ref:fgkz)
 msgid "Reference FGKZ (DE)"
@@ -597,11 +598,11 @@ msgstr ""
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Unpaved"
-msgstr ""
+msgstr "Não pavimentado"
 
 #: master_preset.xml:7759(item:name|group:Food|preset:Tea)
 msgid "Tea"
-msgstr ""
+msgstr "Chá"
 
 #: master_preset.xml:8648(list_entry:short_description|preset:Vending_Machine|value:SIM-cards)
 msgid "SIM-cards"
@@ -614,19 +615,19 @@ msgstr ""
 #: master_preset.xml:7517(item:name|group:Historic_Places|preset:Ruins)
 #: master_preset.xml:7514(check:text|group:Historic_Places|preset:Castle|key:ruins)
 msgid "Ruins"
-msgstr ""
+msgstr "Ruínas"
 
 #: master_preset.xml:3077(item:name|group:Aerialway|preset:Goods)
 msgid "Goods"
-msgstr "Eşyalar"
+msgstr "Bens"
 
 #: master_preset.xml:245(list_entry:short_description|value:5)
 msgid "5 tables"
-msgstr ""
+msgstr "5 mesas"
 
 #: master_preset.xml:10260(role:text|preset:Street|key:address)
 msgid "addresses belonging to the street"
-msgstr ""
+msgstr "endereços pertencentes à rua"
 
 #: master_preset.xml:279(combo:display_values|key:access)
 #: master_preset.xml:11161(item:name|group:Offices|preset:Forestry)
@@ -635,15 +636,15 @@ msgstr ""
 
 #: master_preset.xml:365(combo:text|key:generator:output:biogas)
 msgid "biogas"
-msgstr "biyogaz"
+msgstr ""
 
 #: master_preset.xml:10000(role:text|group:Relations|preset:Enforcement|key:force)
 msgid "traffic light or barrier that stops you"
-msgstr ""
+msgstr "semáforo ou barreira que te faça parar"
 
 #: master_preset.xml:11209(item:name|group:Offices|preset:Register)
 msgid "Register"
-msgstr ""
+msgstr "Registro"
 
 #: master_preset.xml:10171(text:text|group:Routes|preset:Detour_Route|key:detour)
 msgid "Ref of the way this is a detour to"
@@ -652,19 +653,19 @@ msgstr ""
 #: master_preset.xml:5697(check:text|group:Facilities|preset:Recycling_Container|key:recycling:engine_oil)
 #: master_preset.xml:5737(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:engine_oil)
 msgid "Engine oil"
-msgstr ""
+msgstr "Óleo de motor"
 
 #: master_preset.xml:11201(item:name|group:Offices|preset:Publisher)
 msgid "Publisher"
-msgstr ""
+msgstr "Editora"
 
 #: master_preset.xml:1170(list_entry:short_description|group:Ways|preset:Path|value:hiking)
 msgid "Trail well cleared. Area flat or slightly sloped, no fall hazard"
-msgstr "Patika gayet açık. Alan genelde düz ya da hafif eğimli, düşme tehlikesi yok"
+msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Sandwich"
-msgstr ""
+msgstr "Sanduíche"
 
 #: master_preset.xml:315(combo:display_values|key:denomination)
 msgid "Old catholic"
@@ -680,7 +681,7 @@ msgstr ""
 
 #: master_preset.xml:9937(role:text|group:Relations|preset:Boundary|key:admin_centre)
 msgid "Administration centre"
-msgstr ""
+msgstr "Centro administrativo"
 
 #: master_preset.xml:4940(item:name|group:Public_Building|preset:Public_Building_(deprecated))
 msgid "Public Building (deprecated)"
@@ -689,7 +690,7 @@ msgstr ""
 #: master_preset.xml:5149(combo:text|group:Education|preset:Music_School|key:operator:type)
 #: master_preset.xml:5074(combo:text|group:Education|preset:Childcare|key:operator:type)
 msgid "Operator type"
-msgstr ""
+msgstr "Tipo de operador"
 
 #: master_preset.xml:240(list_entry:short_description|value:room)
 msgid "Dedicated room"
@@ -702,7 +703,7 @@ msgstr ""
 
 #: master_preset.xml:8862(item:name|group:Places|preset:Village)
 msgid "Village"
-msgstr ""
+msgstr "Vila"
 
 #: master_preset.xml:10703(item:name|group:Crafts|preset:Stonemason)
 msgid "Stonemason"
@@ -714,7 +715,7 @@ msgstr ""
 
 #: master_preset.xml:4508(item:name|group:Leisure|preset:Fitness_Station)
 msgid "Fitness Station"
-msgstr ""
+msgstr "Equipamentos de ginástica"
 
 #: master_preset.xml:4133(check:text|group:Food+Drinks|preset:Fast_Food|key:outdoor_seating)
 #: master_preset.xml:4207(check:text|group:Food+Drinks|preset:Pub|key:outdoor_seating)
@@ -724,15 +725,15 @@ msgstr ""
 #: master_preset.xml:4150(check:text|group:Food+Drinks|preset:Food_Court|key:outdoor_seating)
 #: master_preset.xml:4245(check:text|group:Food+Drinks|preset:Bar|key:outdoor_seating)
 msgid "Outdoor seating"
-msgstr ""
+msgstr "Assento externo"
 
 #: master_preset.xml:10027(item:name|group:Routes|preset:Mountain_Biking_Route)
 msgid "Mountain Biking Route"
-msgstr ""
+msgstr "Rota de Mountain Bike"
 
 #: master_preset.xml:7279(combo:text|preset:Power_Transformer|key:transformer)
 msgid "Type of transformer"
-msgstr ""
+msgstr "Tipo de transformador"
 
 #: master_preset.xml:3518(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:)
 #: master_preset.xml:3498(role:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:)
@@ -749,28 +750,28 @@ msgstr ""
 #: master_preset.xml:10069(role:text|group:Routes|preset:Hiking_Route|key:)
 #: master_preset.xml:10140(role:text|group:Routes|preset:Ski_Route|key:)
 msgid "route segment"
-msgstr "rota bölümleri"
+msgstr "segmento de rota"
 
 #: master_preset.xml:2644(combo:display_values|group:Water|preset:Beach|key:sport)
 #: master_preset.xml:6250(item:name|group:Sport|preset:Swimming)
 msgid "Swimming"
-msgstr ""
+msgstr "Natação"
 
 #: master_preset.xml:6163(item:name|group:Sport|preset:Running)
 msgid "Running"
-msgstr ""
+msgstr "Corrida"
 
 #: master_preset.xml:10559(item:name|group:Crafts|preset:Locksmith)
 msgid "Locksmith"
-msgstr ""
+msgstr "Chaveiro"
 
 #: master_preset.xml:5668(check:text|group:Facilities|preset:Clock|key:barometer)
 msgid "Shows barometric pressure"
-msgstr ""
+msgstr "Mostra pressão barométrica"
 
 #: master_preset.xml:7181(item:name|group:Power_Generator|preset:Solar_Power_Generator)
 msgid "Solar Power Generator"
-msgstr ""
+msgstr "Gerador solar"
 
 #: master_preset.xml:8527(item:name|group:Other|preset:Watches)
 msgid "Watches"
@@ -778,7 +779,7 @@ msgstr ""
 
 #: master_preset.xml:6696(item:name|group:Man_Made|preset:Gasometer)
 msgid "Gasometer"
-msgstr ""
+msgstr "Gasômetro"
 
 #: master_preset.xml:1174(list_entry:short_description|group:Ways|preset:Path|value:demanding_alpine_hiking)
 msgid ""
@@ -792,28 +793,28 @@ msgstr ""
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Ground"
-msgstr ""
+msgstr "Solo"
 
 #: master_preset.xml:10128(item:name|group:Routes|preset:Ski_Route)
 msgid "Ski Route"
-msgstr ""
+msgstr "Rota de Ski"
 
 #: master_preset.xml:6980(item:name|group:Man_Made|preset:Survey_Point)
 msgid "Survey Point"
-msgstr ""
+msgstr "Ponto de fiscalização"
 
 #: master_preset.xml:1458(combo:text|group:Waypoints|preset:Pedestrian_Crossing|key:supervised)
 #: master_preset.xml:1403(combo:text|group:Waypoints|preset:Traffic_Signal|key:supervised)
 msgid "Crossing attendant"
-msgstr "Geçiş görevlisi"
+msgstr ""
 
 #: master_preset.xml:1398(optional:text|group:Waypoints|preset:Traffic_Signal)
 msgid "Optional crossing attributes:"
-msgstr "İsteğe bağlı geçiş öznitelikleri:"
+msgstr ""
 
 #: master_preset.xml:6303(item:name|group:Sport_(Ball)|preset:Australian_Football)
 msgid "Australian Football"
-msgstr ""
+msgstr "Futebol Australiano"
 
 #: master_preset.xml:5883(multiselect:display_values|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Dunlop (Woods)"
@@ -825,12 +826,12 @@ msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Korean"
-msgstr ""
+msgstr "Koreano"
 
 #: master_preset.xml:8735(item:name|group:Boundaries|preset:Political)
 #: master_preset.xml:9929(combo:display_values|group:Relations|preset:Boundary|key:boundary)
 msgid "Political"
-msgstr ""
+msgstr "Político"
 
 #: master_preset.xml:1579(item:name|group:Traffic_Calming|preset:Rumble_strip)
 msgid "Rumble strip"
@@ -838,17 +839,17 @@ msgstr ""
 
 #: master_preset.xml:3229(combo:text|group:Car|preset:Charging_Station|key:amperage)
 msgid "Amperage"
-msgstr "Amperaj"
+msgstr "Amperagem"
 
 #: master_preset.xml:818(check:text|group:Streets|preset:Minor_road|key:passing_places)
 #: master_preset.xml:939(check:text|group:Streets|preset:Service|key:passing_places)
 #: master_preset.xml:1272(check:text|group:Ways|preset:Combined_Foot-_and_Cycleway|key:passing_places)
 msgid "Passing Places"
-msgstr "Geçiş Yerleri"
+msgstr ""
 
 #: master_preset.xml:436(list_entry:display_value|value:disabled)
 msgid "Disabled"
-msgstr ""
+msgstr "Deficiente"
 
 #: master_preset.xml:2643(combo:display_values|group:Water|preset:Beach|key:surface)
 #: master_preset.xml:19(combo:display_values|key:surface)
@@ -865,15 +866,15 @@ msgstr ""
 
 #: master_preset.xml:457(multiselect:text|key:brand)
 msgid "Motorcycle brand"
-msgstr ""
+msgstr "Marca de motocicleta"
 
 #: master_preset.xml:5837(combo:text|group:Facilities|preset:Hunting_Stand|key:height)
 msgid "Height"
-msgstr ""
+msgstr "Altura"
 
 #: master_preset.xml:10448(item:name|group:Crafts|preset:Cleaning)
 msgid "Cleaning"
-msgstr ""
+msgstr "Limpeza"
 
 #: master_preset.xml:9953(role:text|group:Relations|preset:Site|key:)
 msgid "members of site"
@@ -881,17 +882,17 @@ msgstr ""
 
 #: master_preset.xml:3583(check:text|group:Public_Transport|preset:Stop_Position|key:ferry)
 msgid "Ferry"
-msgstr "Feribot"
+msgstr "Barca"
 
 #: master_preset.xml:3438(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:second_hand)
 msgid "Second-hand bicycles are sold"
-msgstr "İkinci el bisiklet satış"
+msgstr "Bicicletas usadas à venda"
 
 #: master_preset.xml:968(label:text|group:Streets|preset:Escape)
 msgid ""
 "Emergency lane beside long descending slopes for trucks and other vehicles "
 "to stop safely after brake failure."
-msgstr "Emniyet alanı yokuş aşağı inişlerde kamyon ve diğer araçların fren arızası gibi durumlarda güvenle durdurmak için kullanılır"
+msgstr ""
 
 #: master_preset.xml:7211(list_entry:short_description|group:Power_Generator|preset:Water_Turbine|value:hydrodynamic_screw)
 msgid "run-of-the-river"
@@ -899,7 +900,7 @@ msgstr ""
 
 #: master_preset.xml:2462(item:name|group:Water|preset:Groyne)
 msgid "Groyne"
-msgstr "Set"
+msgstr ""
 
 #: master_preset.xml:6327(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:hurling)
 msgid "Hurling"
@@ -907,7 +908,7 @@ msgstr ""
 
 #: master_preset.xml:11005(item:name|group:Offices|preset:Telecommunication)
 msgid "Telecommunication"
-msgstr ""
+msgstr "Telecomunicação"
 
 #: master_preset.xml:8225(item:name|group:Printed_Material|preset:Stationery)
 msgid "Stationery"
@@ -915,11 +916,11 @@ msgstr ""
 
 #: master_preset.xml:8583(item:name|group:Other|preset:Bag)
 msgid "Bag"
-msgstr ""
+msgstr "Bolsa"
 
 #: master_preset.xml:3809(item:name|group:Airport|preset:Runway)
 msgid "Runway"
-msgstr ""
+msgstr "Pista de pouso"
 
 #: master_preset.xml:3119(text:text|group:Car|preset:Parking|key:maxheight)
 #: master_preset.xml:2083(text:text|group:Passageways|preset:Building_Passage|key:maxheight)
@@ -928,7 +929,7 @@ msgstr ""
 #: master_preset.xml:221(text:text|key:maxheight)
 #: master_preset.xml:2292(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxheight)
 msgid "Max. height (meters)"
-msgstr "Maks. yükseklik (metre)"
+msgstr "Altura máxima (metros)"
 
 #: master_preset.xml:6385(combo:text|group:Sport_(Ball)|preset:Billiards|key:leisure)
 #: master_preset.xml:6190(combo:text|group:Sport|preset:Cycling|key:leisure)
@@ -988,7 +989,7 @@ msgstr "Maks. yükseklik (metre)"
 #: master_preset.xml:6471(combo:text|group:Motorsport|preset:Motorsport|key:leisure)
 #: master_preset.xml:5584(combo:text|group:Facilities|preset:Toilets/Restrooms|key:toilets:disposal)
 msgid "Type"
-msgstr "Tür"
+msgstr "Tipo"
 
 #: master_preset.xml:1114(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:sharp_right)
 #: master_preset.xml:1070(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:sharp_right)
@@ -1006,11 +1007,11 @@ msgstr ""
 
 #: master_preset.xml:8645(list_entry:short_description|preset:Vending_Machine|value:photos)
 msgid "Photos"
-msgstr ""
+msgstr "Fotos"
 
 #: master_preset.xml:2647(item:name|group:Water|preset:Bay)
 msgid "Bay"
-msgstr "Koy"
+msgstr "Baía"
 
 #: master_preset.xml:3249(combo:text|group:Car|preset:Charging_Station|key:socket:cee_blue)
 msgid "CEE blue"
@@ -1018,7 +1019,7 @@ msgstr ""
 
 #: master_preset.xml:8636(list_entry:short_description|preset:Vending_Machine|value:animal_food)
 msgid "Animal food"
-msgstr ""
+msgstr "Comida para animais"
 
 #: master_preset.xml:8324(item:name|group:For_the_body|preset:Tobacco)
 msgid "Tobacco"
@@ -1037,15 +1038,15 @@ msgstr ""
 #: master_preset.xml:863(check:text|group:Streets|preset:Bicycle_Road|key:oneway)
 #: master_preset.xml:648(check:text|group:Streets|preset:Trunk_Link|key:oneway)
 msgid "Oneway"
-msgstr "Tek yön"
+msgstr "Mão única"
 
 #: master_preset.xml:1442(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
-msgstr "Yaya Geçidi"
+msgstr "Travessia de pedestres"
 
 #: master_preset.xml:9582(item:name|group:Land_use|preset:Commercial)
 msgid "Commercial"
-msgstr ""
+msgstr "Comercial"
 
 #: master_preset.xml:8707(check:text|preset:Payment_Methods|key:payment:ep_proton)
 msgid "Proton (be)"
@@ -1057,15 +1058,15 @@ msgstr ""
 
 #: master_preset.xml:2025(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr "Turnike"
+msgstr ""
 
 #: master_preset.xml:9000(item:name|group:Geography|preset:Volcano)
 msgid "Volcano"
-msgstr ""
+msgstr "Vulcão"
 
 #: master_preset.xml:3041(item:name|group:Aerialway|preset:Mixed_Lift)
 msgid "Mixed Lift"
-msgstr "Karışık Asansör"
+msgstr ""
 
 #: master_preset.xml:7172(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:PWR)
 msgid "Pressurized water reactor (PWR)"
@@ -1073,7 +1074,7 @@ msgstr ""
 
 #: master_preset.xml:4414(item:name|group:Leisure|preset:Movie_Theater/Cinema)
 msgid "Movie Theater/Cinema"
-msgstr ""
+msgstr "Cinema"
 
 #: master_preset.xml:8651(list_entry:short_description|preset:Vending_Machine|value:tampons)
 msgid "Tampons"
@@ -1081,27 +1082,27 @@ msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Barbecue"
-msgstr ""
+msgstr "Churrasco"
 
 #: master_preset.xml:9383(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
-msgstr ""
+msgstr "Árvores"
 
 #: master_preset.xml:242(list_entry:short_description|value:2)
 msgid "2 tables"
-msgstr ""
+msgstr "2 mesas"
 
 #: master_preset.xml:8272(item:name|group:Printed_Material|preset:Ticket)
 msgid "Ticket"
-msgstr ""
+msgstr "Ingresso"
 
 #: master_preset.xml:26(list_entry:short_description|value:intermediate)
 msgid "Wheels: city bike, wheelchair, scooter"
-msgstr "Tekerlekler: şehir bisikleti, tekerlekli sandalye, skuter"
+msgstr ""
 
 #: master_preset.xml:4717(item:name|group:Culture|preset:Library)
 msgid "Library"
-msgstr ""
+msgstr "Biblioteca"
 
 #: master_preset.xml:8021(item:name|group:Electronic|preset:Hifi)
 msgid "Hifi"
@@ -1113,11 +1114,11 @@ msgstr ""
 
 #: master_preset.xml:1181(combo:text|group:Ways|preset:Path|key:ski)
 msgid "Ski"
-msgstr "Kayak"
+msgstr "Esqui"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Paving stones"
-msgstr ""
+msgstr "Blocos de concreto"
 
 #: master_preset.xml:4337(item:name|group:Tourism|preset:Guidepost)
 msgid "Guidepost"
@@ -1129,11 +1130,11 @@ msgstr ""
 
 #: master_preset.xml:1223(combo:text|group:Ways|preset:Cycle_Lane/Track|key:highway)
 msgid "Highway"
-msgstr "Karayolu"
+msgstr "Estrada"
 
 #: master_preset.xml:27(list_entry:short_description|value:bad)
 msgid "Robust Wheels: trekking bike, car, rickshaw"
-msgstr "Güçlü Tekerlekler: yürüyüş bisikleti, araba, çekçek"
+msgstr ""
 
 #: master_preset.xml:8549(combo:text|group:Other|preset:Gift/Souvenir|key:religion)
 #: master_preset.xml:7623(combo:text|group:Historic_Places|preset:Wayside_Shrine|key:religion)
@@ -1141,58 +1142,58 @@ msgstr "Güçlü Tekerlekler: yürüyüş bisikleti, araba, çekçek"
 #: master_preset.xml:7606(combo:text|group:Historic_Places|preset:Wayside_Cross|key:religion)
 #: master_preset.xml:313(combo:text|key:religion)
 msgid "Religion"
-msgstr "Din"
+msgstr "Religião"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 #: master_preset.xml:9452(item:name|group:Land_use|preset:Grass)
 msgid "Grass"
-msgstr ""
+msgstr "Grama"
 
 #: master_preset.xml:8641(list_entry:short_description|preset:Vending_Machine|value:excrement_bags)
 msgid "Excrement bags"
-msgstr ""
+msgstr "Bolsa de excremento"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Asphalt"
-msgstr ""
+msgstr "Asfalto"
 
 #: master_preset.xml:7391(item:name|preset:Power_Tower)
 msgid "Power Tower"
-msgstr ""
+msgstr "Torre de transmissão"
 
 #: master_preset.xml:8649(list_entry:short_description|preset:Vending_Machine|value:stamps)
 msgid "Stamps"
-msgstr ""
+msgstr "Selos"
 
 #: master_preset.xml:2274(combo:text|group:Access_Restrictions|preset:General_access|key:access)
 #: master_preset.xml:279(combo:text|key:access)
 msgid "General Access"
-msgstr "Genel Erişim"
+msgstr "Acesso geral"
 
 #: master_preset.xml:5207(item:name|group:Health|preset:Pharmacy)
 msgid "Pharmacy"
-msgstr ""
+msgstr "Farmácia"
 
 #: master_preset.xml:8043(item:name|group:Electronic|preset:Video_Games)
 msgid "Video Games"
-msgstr ""
+msgstr "Vídeo Games"
 
 #: master_preset.xml:3858(item:name|group:Airport|preset:Hangar)
 msgid "Hangar"
-msgstr ""
+msgstr "Hangar"
 
 #: master_preset.xml:4972(label:text|group:Public_Building|preset:Community_Centre)
 #: master_preset.xml:4964(item:name|group:Public_Building|preset:Community_Centre)
 msgid "Community Centre"
-msgstr ""
+msgstr "Centro Comunitário"
 
 #: master_preset.xml:7094(group:name|group:Power_Generator)
 msgid "Power Generator"
-msgstr ""
+msgstr "Gerador Elétrico"
 
 #: master_preset.xml:150(list_entry:short_description|value:yes)
 msgid "Unrestricted access"
-msgstr ""
+msgstr "Completamente acessível"
 
 #: master_preset.xml:8382(check:text|group:For_the_body|preset:Medical_Supply|key:dispensing)
 #: master_preset.xml:5219(check:text|group:Health|preset:Pharmacy|key:dispensing)
@@ -1201,7 +1202,7 @@ msgstr ""
 
 #: master_preset.xml:7019(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:angle)
 msgid "Inclination in degrees"
-msgstr ""
+msgstr "Inclinação em graus"
 
 #: master_preset.xml:313(combo:display_values|key:religion)
 msgid "Bahai"
@@ -1218,32 +1219,32 @@ msgstr ""
 
 #: master_preset.xml:6970(check:text|group:Man_Made|preset:Monitoring_Station|key:recording:automated)
 msgid "Automated"
-msgstr ""
+msgstr "Automático"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "Down"
-msgstr ""
+msgstr "Baixo"
 
 #: master_preset.xml:7084(combo:text|group:Power|preset:Power_Plant|key:plant:output:hot_air)
 #: master_preset.xml:368(combo:text|key:generator:output:hot_air)
 msgid "hot air"
-msgstr "sıcak hava"
+msgstr "ar quente"
 
 #: master_preset.xml:10161(item:name|group:Routes|preset:Detour_Route)
 msgid "Detour Route"
-msgstr ""
+msgstr "Desvio"
 
 #: master_preset.xml:2728(item:name|group:Shipping|preset:Pier)
 msgid "Pier"
-msgstr "Rıhtım"
+msgstr "Píer"
 
 #: master_preset.xml:857(combo:text|group:Streets|preset:Bicycle_Road|key:vehicle)
 msgid "Vehicle access"
-msgstr "Araç erişimi"
+msgstr "Acesso para veículos"
 
 #: master_preset.xml:5316(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
-msgstr ""
+msgstr "Mangueira de incêndio"
 
 #: master_preset.xml:2687(item:name|group:Shipping|preset:Marina)
 msgid "Marina"
@@ -1255,7 +1256,7 @@ msgstr ""
 
 #: master_preset.xml:6775(combo:text|group:Man_Made|preset:Mineshaft|key:mineshaft_type)
 msgid "Function"
-msgstr ""
+msgstr "Função"
 
 #: master_preset.xml:10432(item:name|group:Crafts|preset:Carpet_layer)
 msgid "Carpet layer"
@@ -1263,24 +1264,24 @@ msgstr ""
 
 #: master_preset.xml:9441(item:name|group:Land_use|preset:Garden)
 msgid "Garden"
-msgstr ""
+msgstr "Jardim"
 
 #: master_preset.xml:4447(item:name|group:Leisure|preset:Dog_Park)
 msgid "Dog Park"
-msgstr ""
+msgstr "Parque de cães"
 
 #: master_preset.xml:9064(label:text|group:Geography|preset:Cave_Entrance)
 msgid "The entrance to a cave."
-msgstr ""
+msgstr "Entrada de caverna"
 
 #: master_preset.xml:1124(item:name|group:Ways|preset:Track)
 msgid "Track"
-msgstr "İz"
+msgstr "Trilha"
 
 #: master_preset.xml:480(text:text|key:from)
 #: master_preset.xml:3673(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:from)
 msgid "From (initial stop)"
-msgstr ""
+msgstr "De (parada inicial)"
 
 #: master_preset.xml:9149(label:text|group:Nature|preset:Wood)
 msgid "Woodland where timber production does not dominate use."
@@ -1288,7 +1289,7 @@ msgstr ""
 
 #: master_preset.xml:5345(item:name|group:Emergency|preset:Water_Tank)
 msgid "Water Tank"
-msgstr ""
+msgstr "Tanque de Água"
 
 #: master_preset.xml:7081(optional:text|group:Power|preset:Power_Plant)
 msgid "Output forms of energy (optional):"
@@ -1296,11 +1297,11 @@ msgstr ""
 
 #: master_preset.xml:9834(group:name|group:Annotation)
 msgid "Annotation"
-msgstr ""
+msgstr "Anotação"
 
 #: master_preset.xml:441(list_entry:display_value|value:mental_health)
 msgid "Mental health"
-msgstr ""
+msgstr "Saúde mental"
 
 #: master_preset.xml:3370(text:text|group:Motorcycle|preset:Parking|key:capacity)
 #: master_preset.xml:5459(text:text|group:Social_Facilities|preset:Retirement_Home|key:capacity)
@@ -1313,7 +1314,7 @@ msgstr ""
 #: master_preset.xml:3230(combo:text|group:Car|preset:Charging_Station|key:capacity)
 #: master_preset.xml:5516(text:text|group:Social_Facilities|preset:Shelter|key:capacity)
 msgid "Capacity"
-msgstr "Kapasite"
+msgstr "Capacidade"
 
 #: master_preset.xml:442(list_entry:display_value|value:migrant)
 msgid "Migrants"
@@ -1322,35 +1323,35 @@ msgstr ""
 #: master_preset.xml:5950(item:name|group:Sport_Facilities|preset:Pitch)
 #: master_preset.xml:227(combo:display_values|key:leisure)
 msgid "Pitch"
-msgstr ""
+msgstr "Quadra"
 
 #: master_preset.xml:1219(combo:text|group:Ways|preset:Cycle_Lane/Track|key:cycleway:right)
 msgid "Cycleway right"
-msgstr "Bisiklet yolu sağ"
+msgstr "Ciclofaixa à direita"
 
 #: master_preset.xml:689(item:name|group:Streets|preset:Primary_Link)
 msgid "Primary Link"
-msgstr "Birincil bağlantısı"
+msgstr "Link Primário"
 
 #: master_preset.xml:7186(list_entry:short_description|group:Power_Generator|preset:Solar_Power_Generator|value:solar_photovoltaic_panel)
 msgid "photovoltaic"
-msgstr ""
+msgstr "fotovoltaico"
 
 #: master_preset.xml:2225(combo:text|group:Access_Restrictions|preset:Motorcar|key:motorcar)
 #: master_preset.xml:104(check:text|key:motorcar)
 #: master_preset.xml:2212(item:name|group:Access_Restrictions|preset:Motorcar)
 #: master_preset.xml:2208(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar)
 msgid "Motorcar"
-msgstr "Otomobil"
+msgstr "Veículo motorizado"
 
 #: master_preset.xml:7086(combo:text|group:Power|preset:Power_Plant|key:plant:output:cold_air)
 #: master_preset.xml:370(combo:text|key:generator:output:cold_air)
 msgid "cold air"
-msgstr "soğuk hava"
+msgstr "ar frio"
 
 #: master_preset.xml:1728(group:name|group:Barriers)
 msgid "Barriers"
-msgstr "Bariyerler"
+msgstr "Barreiras"
 
 #: master_preset.xml:8967(label:text|group:Geography|preset:Peak)
 msgid "The top (summit) of a mountain or hill."
@@ -1358,11 +1359,11 @@ msgstr ""
 
 #: master_preset.xml:410(combo:text|key:canoe)
 msgid "Canoe"
-msgstr "Kano"
+msgstr "Canoagem"
 
 #: master_preset.xml:10972(item:name|group:Offices|preset:Lawyer)
 msgid "Lawyer"
-msgstr ""
+msgstr "Advogado"
 
 #: master_preset.xml:10222(item:name|preset:Route_Network)
 msgid "Route Network"
@@ -1370,17 +1371,17 @@ msgstr ""
 
 #: master_preset.xml:2941(item:name|group:Railway|preset:Crossing)
 msgid "Crossing"
-msgstr "Geçit"
+msgstr "Cruzamento"
 
 #: master_preset.xml:4206(check:text|group:Food+Drinks|preset:Pub|key:microbrewery)
 #: master_preset.xml:4225(check:text|group:Food+Drinks|preset:Beer_Garden|key:microbrewery)
 #: master_preset.xml:4111(check:text|group:Food+Drinks|preset:Restaurant|key:microbrewery)
 msgid "Microbrewery"
-msgstr ""
+msgstr "Micro cervejaria"
 
 #: master_preset.xml:9517(item:name|group:Land_use|preset:Residential_Area)
 msgid "Residential Area"
-msgstr ""
+msgstr "Área Residencial"
 
 #: master_preset.xml:8652(list_entry:short_description|preset:Vending_Machine|value:telephone_vouchers)
 msgid "Telephone vouchers"
@@ -1388,7 +1389,7 @@ msgstr ""
 
 #: master_preset.xml:8790(item:name|group:Places|preset:Continent)
 msgid "Continent"
-msgstr ""
+msgstr "Continente"
 
 #: master_preset.xml:11109(item:name|group:Offices|preset:Quango)
 msgid "Quango"
@@ -1396,7 +1397,7 @@ msgstr ""
 
 #: master_preset.xml:6380(item:name|group:Sport_(Ball)|preset:Billiards)
 msgid "Billiards"
-msgstr ""
+msgstr "Bilhar"
 
 #: master_preset.xml:10142(role:text|group:Routes|preset:Ski_Route|key:backward)
 #: master_preset.xml:10047(role:text|group:Routes|preset:Mountain_Biking_Route|key:backward)
@@ -1410,16 +1411,16 @@ msgstr ""
 #: master_preset.xml:1457(combo:text|group:Waypoints|preset:Pedestrian_Crossing|key:crossing_ref)
 #: master_preset.xml:1400(combo:text|group:Waypoints|preset:Traffic_Signal|key:crossing_ref)
 msgid "Crossing type name (UK)"
-msgstr "Geçiş türü ismi (UK)"
+msgstr ""
 
 #: master_preset.xml:3606(check:text|group:Public_Transport|preset:Platform|key:train)
 #: master_preset.xml:3574(check:text|group:Public_Transport|preset:Stop_Position|key:train)
 msgid "Train"
-msgstr "Tren"
+msgstr "Trem"
 
 #: master_preset.xml:28(list_entry:short_description|value:very_bad)
 msgid "High Clearance: light duty off-road vehicle"
-msgstr "Yüksek Tavan: hafif yüklü off-road araçları"
+msgstr ""
 
 #: master_preset.xml:10216(role:text|group:Routes|preset:Road_Route|key:forward)
 #: master_preset.xml:10046(role:text|group:Routes|preset:Mountain_Biking_Route|key:forward)
@@ -1453,20 +1454,20 @@ msgstr ""
 #: master_preset.xml:10799(item:name|group:Crafts|preset:Electronics)
 #: master_preset.xml:7992(item:name|group:Electronic|preset:Electronics)
 msgid "Electronics"
-msgstr ""
+msgstr "Eletrônicos"
 
 #: master_preset.xml:3344(item:name|group:Car|preset:Sharing)
 msgid "Sharing"
-msgstr "Paylaşım"
+msgstr "Compartilhamento"
 
 #: master_preset.xml:3202(check:text|group:Car|preset:Fuel|key:fuel:lpg)
 #: master_preset.xml:2722(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:lpg)
 msgid "LPG (Liquefied petroleum gas)"
-msgstr "LPG (Sıvılaştırılmış Petrol Gazı)"
+msgstr "GLP (Gás Liquefeito de Petróleo)"
 
 #: master_preset.xml:10283(role:text|preset:Destination_Sign|key:intersection)
 msgid "node of the intersection"
-msgstr ""
+msgstr "nó de interseção"
 
 #: master_preset.xml:5886(item:name|group:Facilities|preset:Advertising_Column)
 msgid "Advertising Column"
@@ -1474,7 +1475,7 @@ msgstr ""
 
 #: master_preset.xml:894(item:name|group:Streets|preset:Pedestrian)
 msgid "Pedestrian"
-msgstr "Yaya"
+msgstr "Pedestre"
 
 #: master_preset.xml:7406(combo:text|preset:Power_Tower|key:material)
 #: master_preset.xml:7449(combo:text|preset:Pole_with_Transformer|key:material)
@@ -1486,15 +1487,15 @@ msgstr "Yaya"
 #: master_preset.xml:1738(combo:text|group:Barriers|preset:Block|key:material)
 #: master_preset.xml:7432(combo:text|preset:Pole|key:material)
 msgid "Material"
-msgstr "Malzeme"
+msgstr "Material"
 
 #: master_preset.xml:2997(item:name|group:Aerialway|preset:Cable_Car)
 msgid "Cable Car"
-msgstr "Teleferik"
+msgstr ""
 
 #: master_preset.xml:5153(group:name|group:Health)
 msgid "Health"
-msgstr ""
+msgstr "Saúde"
 
 #: master_preset.xml:9396(item:name|group:Land_use|preset:Greenhouse_Horticulture)
 msgid "Greenhouse Horticulture"
@@ -1502,15 +1503,15 @@ msgstr ""
 
 #: master_preset.xml:6754(item:name|group:Man_Made|preset:Crane)
 msgid "Crane"
-msgstr ""
+msgstr "Guindaste"
 
 #: master_preset.xml:5304(item:name|group:Emergency|preset:Fire_Extinguisher)
 msgid "Fire Extinguisher"
-msgstr ""
+msgstr "Extintor de Incêndio"
 
 #: master_preset.xml:294(text:text|key:ascent)
 msgid "Ascent (m)"
-msgstr "Yokuş (m)"
+msgstr "Subida (m)"
 
 #: master_preset.xml:5858(text:text|group:Facilities|preset:Drinking_Water|key:description)
 #: master_preset.xml:9848(text:text|group:Annotation|preset:Description|key:description)
@@ -1524,16 +1525,16 @@ msgstr "Yokuş (m)"
 #: master_preset.xml:3678(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:description)
 #: master_preset.xml:298(text:text|key:description)
 msgid "Description"
-msgstr "Açıklama"
+msgstr "Descrição"
 
 #: master_preset.xml:6796(combo:text|group:Man_Made|preset:Adit|key:resource)
 #: master_preset.xml:6778(combo:text|group:Man_Made|preset:Mineshaft|key:resource)
 msgid "Resource"
-msgstr ""
+msgstr "Recurso"
 
 #: master_preset.xml:10456(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "Relojoeiro"
 
 #: master_preset.xml:7611(item:name|group:Historic_Places|preset:Wayside_Shrine)
 msgid "Wayside Shrine"
@@ -1541,7 +1542,7 @@ msgstr ""
 
 #: master_preset.xml:8061(item:name|group:Cash|preset:Bank)
 msgid "Bank"
-msgstr ""
+msgstr "Banco"
 
 #: master_preset.xml:5547(item:name|group:Social_Facilities|preset:Youth_Centre)
 msgid "Youth Centre"
@@ -1554,27 +1555,27 @@ msgstr ""
 
 #: master_preset.xml:9776(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
-msgstr ""
+msgstr "Interpolação de Endereço"
 
 #: master_preset.xml:207(combo:display_values|key:smoking)
 msgid "Isolated"
-msgstr ""
+msgstr "Isolado"
 
 #: master_preset.xml:1052(group:name|group:Lane_attributes)
 msgid "Lane attributes"
-msgstr ""
+msgstr "Atributos da faixa"
 
 #: master_preset.xml:10939(item:name|group:Offices|preset:Government)
 msgid "Government"
-msgstr ""
+msgstr "Governo"
 
 #: master_preset.xml:2675(item:name|group:Shipping|preset:Ferry_Route)
 msgid "Ferry Route"
-msgstr "Feribot Rotası"
+msgstr "Rota de Barca"
 
 #: master_preset.xml:3614(check:text|group:Public_Transport|preset:Platform|key:ferry)
 msgid "ferry"
-msgstr "Feribot"
+msgstr "barca"
 
 #: master_preset.xml:4309(combo:text|group:Tourism|preset:Map|key:map_type)
 msgid "Detail Grade"
@@ -1582,7 +1583,7 @@ msgstr ""
 
 #: master_preset.xml:9760(text:text|group:Addresses_and_Contact|preset:Addresses|key:addr:place)
 msgid "Place name"
-msgstr ""
+msgstr "Nome do lugar"
 
 #: master_preset.xml:8698(check:text|preset:Payment_Methods|key:payment:ep_cash)
 msgid "Cash (ch)"
@@ -1590,7 +1591,7 @@ msgstr ""
 
 #: master_preset.xml:2960(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
-msgstr "Döner"
+msgstr ""
 
 #: master_preset.xml:385(text:text|key:maxspeed:backward)
 #: master_preset.xml:2063(text:text|group:Passageways|preset:Tunnel|key:maxspeed:backward)
@@ -1600,11 +1601,11 @@ msgstr ""
 
 #: master_preset.xml:315(combo:display_values|key:denomination)
 msgid "Catholic"
-msgstr ""
+msgstr "Católico"
 
 #: master_preset.xml:8958(item:name|group:Geography|preset:Peak)
 msgid "Peak"
-msgstr ""
+msgstr "Pico"
 
 #: master_preset.xml:10289(item:name|preset:Waterway)
 msgid "Waterway"
@@ -1616,23 +1617,23 @@ msgstr ""
 
 #: master_preset.xml:3120(combo:text|group:Car|preset:Parking|key:park_ride)
 msgid "Park and Ride"
-msgstr "Park et devam et"
+msgstr ""
 
 #: master_preset.xml:9302(item:name|group:Nature|preset:Rock)
 msgid "Rock"
-msgstr ""
+msgstr "Rocha"
 
 #: master_preset.xml:2522(item:name|group:Water|preset:Covered_Reservoir)
 msgid "Covered Reservoir"
-msgstr "Kapalı Rezervuar"
+msgstr "Reservatório Coberto"
 
 #: master_preset.xml:3970(item:name|group:Accommodation|preset:Chalet)
 msgid "Chalet"
-msgstr ""
+msgstr "Chalé"
 
 #: master_preset.xml:3991(item:name|group:Accommodation|preset:Hostel)
 msgid "Hostel"
-msgstr ""
+msgstr "Albergue"
 
 #: master_preset.xml:9271(label:text|group:Nature|preset:Heath)
 msgid ""
@@ -1644,7 +1645,7 @@ msgstr ""
 #: master_preset.xml:5704(check:text|group:Facilities|preset:Recycling_Container|key:recycling:plastic_bottles)
 #: master_preset.xml:5744(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:plastic_bottles)
 msgid "Plastic Bottles"
-msgstr ""
+msgstr "Garrafas Plásticas"
 
 #: master_preset.xml:5140(combo:text|group:Education|preset:Driving_School|key:license_classes)
 msgid "License Classes"
@@ -1653,7 +1654,7 @@ msgstr ""
 #: master_preset.xml:2719(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_100)
 #: master_preset.xml:3199(check:text|group:Car|preset:Fuel|key:fuel:octane_100)
 msgid "Octane 100"
-msgstr "100 Oktan"
+msgstr ""
 
 #: master_preset.xml:7187(list_entry:short_description|group:Power_Generator|preset:Solar_Power_Generator|value:solar_thermal_collector)
 msgid "solar thermal"
@@ -1665,7 +1666,7 @@ msgstr ""
 
 #: master_preset.xml:2244(item:name|group:Access_Restrictions|preset:Heavy_Goods_Vehicle)
 msgid "Heavy Goods Vehicle"
-msgstr ""
+msgstr "Caminhão"
 
 #: master_preset.xml:3241(combo:text|group:Car|preset:Charging_Station|key:socket:type1)
 msgid "Type 1 (Yazaki)"
@@ -1688,15 +1689,15 @@ msgstr ""
 #: master_preset.xml:3609(check:text|group:Public_Transport|preset:Platform|key:share_taxi)
 #: master_preset.xml:3578(check:text|group:Public_Transport|preset:Stop_Position|key:share_taxi)
 msgid "Share taxi"
-msgstr "Dolmuş"
+msgstr ""
 
 #: master_preset.xml:873(item:name|group:Streets|preset:Living_Street)
 msgid "Living Street"
-msgstr "Yaya öncelikli yol"
+msgstr ""
 
 #: master_preset.xml:1331(check:text|group:Ways|preset:Steps|key:handrail:left)
 msgid "Left handrail"
-msgstr "Sol trabzan"
+msgstr ""
 
 #: master_preset.xml:6023(combo:text|group:Golf|preset:Hole|key:handicap)
 msgid "Handicap rating"
@@ -1714,11 +1715,11 @@ msgstr ""
 #: master_preset.xml:3025(check:text|group:Aerialway|preset:Chair_Lift|key:aerialway:bubble)
 #: master_preset.xml:3050(check:text|group:Aerialway|preset:Mixed_Lift|key:aerialway:bubble)
 msgid "Has bubble?"
-msgstr "Kabarcık var mı?"
+msgstr ""
 
 #: master_preset.xml:2622(label:text|group:Water|preset:Mud)
 msgid "Large area covered with mud."
-msgstr "Çamurla kaplı geniş alan."
+msgstr "Grande área coberta de lama."
 
 #: master_preset.xml:1117(text:text|group:Lane_attributes|preset:Bi-directional_roads|key:destination:ref:lanes:backward)
 msgid "Refs per lane opposite to way direction"
@@ -1730,7 +1731,7 @@ msgstr ""
 
 #: master_preset.xml:1187(item:name|group:Ways|preset:Dedicated_Bridleway)
 msgid "Dedicated Bridleway"
-msgstr "Ayrılmış at binme yolu"
+msgstr ""
 
 #: master_preset.xml:1068(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left:through)
 #: master_preset.xml:1112(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left:through)
@@ -1740,11 +1741,11 @@ msgstr ""
 
 #: master_preset.xml:5324(item:name|group:Emergency|preset:Fire_Hydrant)
 msgid "Fire Hydrant"
-msgstr ""
+msgstr "Hidrante"
 
 #: master_preset.xml:406(optional:text)
 msgid "Water access rules:"
-msgstr "Su erişim kuralları:"
+msgstr ""
 
 #: master_preset.xml:8628(item:name|preset:Vending_Machine)
 msgid "Vending Machine"
@@ -1760,11 +1761,11 @@ msgstr ""
 
 #: master_preset.xml:1674(item:name|preset:Traffic_Mirror)
 msgid "Traffic Mirror"
-msgstr "Trafik Aynası"
+msgstr ""
 
 #: master_preset.xml:4657(item:name|group:Leisure|preset:Strip_Club)
 msgid "Strip Club"
-msgstr ""
+msgstr "Boate de Strip"
 
 #: master_preset.xml:6258(item:name|group:Sport|preset:Scuba_Diving)
 msgid "Scuba Diving"
@@ -1772,7 +1773,7 @@ msgstr ""
 
 #: master_preset.xml:1619(item:name|preset:Turning_Circle)
 msgid "Turning Circle"
-msgstr "Dönüş Çapı"
+msgstr "Mini Rotatória"
 
 #: master_preset.xml:6421(item:name|group:Sport_(Ball)|preset:Field_Hockey)
 msgid "Field Hockey"
@@ -1784,11 +1785,11 @@ msgstr ""
 
 #: master_preset.xml:6373(item:name|group:Sport_(Ball)|preset:Beach_Volleyball)
 msgid "Beach Volleyball"
-msgstr ""
+msgstr "Vôlei de Praia"
 
 #: master_preset.xml:6776(text:text|group:Man_Made|preset:Mineshaft|key:depth)
 msgid "Depth in meters"
-msgstr ""
+msgstr "Profundidade em metros"
 
 #: master_preset.xml:7163(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-3)
 msgid "Boiling Water Reactor 3 (BWR-3)"
@@ -1796,7 +1797,7 @@ msgstr ""
 
 #: master_preset.xml:1074(text:text|group:Lane_attributes|preset:Single_direction_roads|key:maxspeed:lanes)
 msgid "Maxspeed per lane"
-msgstr ""
+msgstr "Velocidade máxima por faixa"
 
 #: master_preset.xml:313(combo:display_values|key:religion)
 msgid "Zoroastrian"
@@ -1804,12 +1805,12 @@ msgstr ""
 
 #: master_preset.xml:2019(combo:display_values|group:Barriers|preset:Stile|key:stile)
 msgid "Ladder"
-msgstr ""
+msgstr "Escada"
 
 #: master_preset.xml:5733(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:cardboard)
 #: master_preset.xml:5693(check:text|group:Facilities|preset:Recycling_Container|key:recycling:cardboard)
 msgid "Cardboard"
-msgstr ""
+msgstr "Papelão"
 
 #: master_preset.xml:9995(text:text|group:Relations|preset:Enforcement|key:maxspeed)
 msgid "Max. speed (km/h, only if enforcement=maxspeed)"
@@ -1817,7 +1818,7 @@ msgstr ""
 
 #: master_preset.xml:315(combo:display_values|key:denomination)
 msgid "Anglican"
-msgstr ""
+msgstr "Anglicana"
 
 #: master_preset.xml:10743(item:name|group:Crafts|preset:Tinsmith)
 msgid "Tinsmith"
@@ -1842,11 +1843,11 @@ msgstr ""
 #: master_preset.xml:2655(label:text|group:Water|preset:Bay)
 msgid ""
 "A large body of water partially enclosed by land but with a wide mouth."
-msgstr "Kısmen karayla kaplı geniş bir ağzı olan büyük su kütlesi."
+msgstr ""
 
 #: master_preset.xml:6956(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:tide_gauge)
 msgid "Tide Level"
-msgstr ""
+msgstr "Nível da Maré"
 
 #: master_preset.xml:6955(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:water_level)
 msgid "Water level"
@@ -1858,15 +1859,15 @@ msgstr ""
 
 #: master_preset.xml:10615(item:name|group:Crafts|preset:Plasterer)
 msgid "Plasterer"
-msgstr ""
+msgstr "Gesseiro"
 
 #: master_preset.xml:9791(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "All"
-msgstr ""
+msgstr "Tudo"
 
 #: master_preset.xml:3148(item:name|group:Car|preset:Parking_Entrance)
 msgid "Parking Entrance"
-msgstr "Park Alanı Girişi"
+msgstr "Entrada do Estacionamento"
 
 #: master_preset.xml:6731(item:name|group:Man_Made|preset:Water_Works)
 msgid "Water Works"
@@ -1882,7 +1883,7 @@ msgstr ""
 
 #: master_preset.xml:5087(item:name|group:Education|preset:School)
 msgid "School"
-msgstr ""
+msgstr "Escola"
 
 #: master_preset.xml:3576(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Railway halt (legacy)"
@@ -1903,7 +1904,7 @@ msgstr ""
 
 #: master_preset.xml:4141(item:name|group:Food+Drinks|preset:Food_Court)
 msgid "Food Court"
-msgstr ""
+msgstr "Praça de Alimentação"
 
 #: master_preset.xml:7913(combo:display_values|group:Clothes|preset:Shoes|key:second_hand)
 #: master_preset.xml:7889(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
@@ -1913,7 +1914,7 @@ msgstr ""
 #: master_preset.xml:8257(combo:display_values|group:Printed_Material|preset:Book_Store|key:second_hand)
 #: master_preset.xml:4134(combo:display_values|group:Food+Drinks|preset:Fast_Food|key:takeaway)
 msgid "Only"
-msgstr ""
+msgstr "Somente"
 
 #: master_preset.xml:10090(item:name|group:Routes|preset:Riding_Route)
 msgid "Riding Route"
@@ -1922,11 +1923,11 @@ msgstr ""
 #: master_preset.xml:2584(check:text|group:Water|preset:Riverbank|key:intermittent)
 #: master_preset.xml:2550(check:text|group:Water|preset:Water|key:intermittent)
 msgid "Is the water body intermittent (disappears seasonally)?"
-msgstr "Su kütlesi aralıklı mı (mevsimsel olarak kayboluyor mu)?"
+msgstr ""
 
 #: master_preset.xml:6450(item:name|group:Sport_(Ball)|preset:Table_Tennis/Ping-Pong)
 msgid "Table Tennis/Ping-Pong"
-msgstr ""
+msgstr "Ping Pong"
 
 #: master_preset.xml:10114(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 msgid "Skitour"
@@ -1940,11 +1941,11 @@ msgstr ""
 #: master_preset.xml:3544(text:text|group:Public_Transport|preset:Stop_Area|key:uic_ref)
 #: master_preset.xml:3564(text:text|group:Public_Transport|preset:Stop_Position|key:uic_ref)
 msgid "UIC reference"
-msgstr ""
+msgstr "Referência UIC"
 
 #: master_preset.xml:9282(label:text|group:Nature|preset:Sand)
 msgid "Large area covered with sand."
-msgstr ""
+msgstr "Grande área coberta com areia."
 
 #: master_preset.xml:7166(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-6)
 msgid "Boiling Water Reactor 6 (BWR-6)"
@@ -1956,11 +1957,11 @@ msgstr ""
 
 #: master_preset.xml:6206(item:name|group:Sport|preset:Horse_Racing)
 msgid "Horse Racing"
-msgstr ""
+msgstr "Corrida de Cavalos"
 
 #: master_preset.xml:73(combo:text|key:sidewalk)
 msgid "Sidewalk"
-msgstr "Kaldırım"
+msgstr "Calçada"
 
 #: master_preset.xml:1053(item:name|group:Lane_attributes|preset:Single_direction_roads)
 msgid "Single direction roads"
@@ -1969,7 +1970,7 @@ msgstr ""
 #: master_preset.xml:1456(combo:display_values|group:Waypoints|preset:Pedestrian_Crossing|key:crossing)
 #: master_preset.xml:9073(item:name|group:Geography|preset:Island)
 msgid "Island"
-msgstr ""
+msgstr "Ilha"
 
 #: master_preset.xml:9970(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "No straight on"
@@ -1977,11 +1978,11 @@ msgstr ""
 
 #: master_preset.xml:9695(item:name|group:Land_use|preset:Quarry)
 msgid "Quarry"
-msgstr ""
+msgstr "Pedreira"
 
 #: master_preset.xml:10623(item:name|group:Crafts|preset:Plumber)
 msgid "Plumber"
-msgstr ""
+msgstr "Encanador"
 
 #: master_preset.xml:4266(item:name|group:Tourism|preset:Viewpoint)
 msgid "Viewpoint"
@@ -1993,34 +1994,34 @@ msgstr ""
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Paved"
-msgstr ""
+msgstr "Pavimentado"
 
 #: master_preset.xml:7939(item:name|group:Clothes|preset:Dry_Cleaning)
 msgid "Dry Cleaning"
-msgstr ""
+msgstr "Lavagem à Seco"
 
 #: master_preset.xml:3650(item:name|group:Public_Transport|preset:Ticket_Machine)
 msgid "Ticket Machine"
-msgstr "Bilet Makinesi"
+msgstr ""
 
 #: master_preset.xml:2494(combo:text|group:Water|preset:Culvert|key:layer)
 #: master_preset.xml:381(combo:text|key:layer)
 #: master_preset.xml:50(combo:text|key:layer)
 #: master_preset.xml:2057(combo:text|group:Passageways|preset:Tunnel|key:layer)
 msgid "Layer"
-msgstr "Katman"
+msgstr "Camada"
 
 #: master_preset.xml:8713(check:text|preset:Payment_Methods|key:payment:bitcoin)
 msgid "Bitcoin"
-msgstr ""
+msgstr "Bitcoin"
 
 #: master_preset.xml:4097(item:name|group:Food+Drinks|preset:Restaurant)
 msgid "Restaurant"
-msgstr ""
+msgstr "Restaurante"
 
 #: master_preset.xml:8824(item:name|group:Places|preset:County)
 msgid "County"
-msgstr ""
+msgstr "Condado"
 
 #: master_preset.xml:4413(group:name|group:Leisure)
 msgid "Leisure"
@@ -2028,15 +2029,15 @@ msgstr ""
 
 #: master_preset.xml:9916(item:name|group:Relations|preset:Boundary)
 msgid "Boundary"
-msgstr ""
+msgstr "Fronteira"
 
 #: master_preset.xml:243(list_entry:short_description|value:3)
 msgid "3 tables"
-msgstr ""
+msgstr "3 mesas"
 
 #: master_preset.xml:6242(item:name|group:Sport|preset:Skateboard)
 msgid "Skateboard"
-msgstr ""
+msgstr "Skate"
 
 #: master_preset.xml:1318(check:text|group:Ways|preset:Steps|key:ramp)
 msgid "Ramp"
@@ -2048,7 +2049,7 @@ msgstr ""
 
 #: master_preset.xml:1635(item:name|preset:City_Limit)
 msgid "City Limit"
-msgstr "İl Sınırı"
+msgstr "Limite municipal"
 
 #: master_preset.xml:5612(item:name|group:Facilities|preset:Post_Box)
 msgid "Post Box"
@@ -2056,45 +2057,45 @@ msgstr ""
 
 #: master_preset.xml:3124(combo:text|group:Car|preset:Parking|key:capacity:disabled)
 msgid "Spaces for Disabled"
-msgstr "Engelliler için alan"
+msgstr "Vagas para Deficientes"
 
 #: master_preset.xml:446(list_entry:display_value|value:unemployed)
 msgid "Unemployed"
-msgstr ""
+msgstr "Desempregado"
 
 #: master_preset.xml:11016(item:name|group:Offices|preset:Travel_agent)
 msgid "Travel agent"
-msgstr ""
+msgstr "Agente de Viagens"
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Vegetarian"
-msgstr ""
+msgstr "Vegetariano"
 
 #: master_preset.xml:1899(combo:display_values|group:Barriers|preset:Jersey_Barrier|key:material)
 #: master_preset.xml:1738(combo:display_values|group:Barriers|preset:Block|key:material)
 #: master_preset.xml:19(combo:display_values|key:surface)
 #: master_preset.xml:1755(combo:display_values|group:Barriers|preset:Bollard|key:material)
 msgid "Concrete"
-msgstr ""
+msgstr "Concreto"
 
 #: master_preset.xml:5104(item:name|group:Education|preset:University)
 msgid "University"
-msgstr ""
+msgstr "Universidade"
 
 #: master_preset.xml:7265(combo:text|preset:Power_Substation|key:rating)
 #: master_preset.xml:7457(combo:text|preset:Pole_with_Transformer|key:rating)
 #: master_preset.xml:7282(combo:text|preset:Power_Transformer|key:rating)
 msgid "Power rating (kVA/MVA)"
-msgstr ""
+msgstr "Faixa de potência (kVA/MVA)"
 
 #: master_preset.xml:7951(item:name|group:Clothes|preset:Laundry)
 msgid "Laundry"
-msgstr ""
+msgstr "Lavanderia"
 
 #: master_preset.xml:7458(combo:text|preset:Pole_with_Transformer|key:phases)
 #: master_preset.xml:7283(combo:text|preset:Power_Transformer|key:phases)
 msgid "Phases"
-msgstr ""
+msgstr "Fases"
 
 #: master_preset.xml:7588(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgid "Bust"
@@ -2103,11 +2104,11 @@ msgstr ""
 #: master_preset.xml:3570(check:text|group:Public_Transport|preset:Stop_Position|key:bus)
 #: master_preset.xml:3603(check:text|group:Public_Transport|preset:Platform|key:bus)
 msgid "Bus"
-msgstr "Otobüs"
+msgstr "Ônibus"
 
 #: master_preset.xml:5003(item:name|group:Public_Building|preset:Prison)
 msgid "Prison"
-msgstr ""
+msgstr "Prisão"
 
 #: master_preset.xml:3059(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Drag lift (generic)"
@@ -2120,14 +2121,14 @@ msgstr ""
 #: master_preset.xml:5741(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:paper)
 #: master_preset.xml:5701(check:text|group:Facilities|preset:Recycling_Container|key:recycling:paper)
 msgid "Paper"
-msgstr ""
+msgstr "Papel"
 
 #: master_preset.xml:3104(item:name|group:Car|preset:Parking)
 #: master_preset.xml:934(combo:display_values|group:Streets|preset:Service|key:service)
 #: master_preset.xml:3402(item:name|group:Bicycle|preset:Parking)
 #: master_preset.xml:3361(item:name|group:Motorcycle|preset:Parking)
 msgid "Parking"
-msgstr "Park alanı"
+msgstr "Estacionamento"
 
 #: master_preset.xml:9791(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Odd"
@@ -2135,7 +2136,7 @@ msgstr ""
 
 #: master_preset.xml:4069(check:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:tents)
 msgid "Tents allowed"
-msgstr ""
+msgstr "Barracas permitidas"
 
 #: master_preset.xml:9609(item:name|group:Land_use|preset:Garages)
 msgid "Garages"
@@ -2147,7 +2148,7 @@ msgstr ""
 
 #: master_preset.xml:11098(item:name|group:Offices|preset:Newspaper)
 msgid "Newspaper"
-msgstr ""
+msgstr "Jornal"
 
 #: master_preset.xml:9970(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only left turn"
@@ -2155,7 +2156,7 @@ msgstr ""
 
 #: master_preset.xml:2800(group:name|group:Transport)
 msgid "Transport"
-msgstr "Ulaşım"
+msgstr "Transporte"
 
 #: master_preset.xml:10927(item:name|group:Offices|preset:Estate_agent)
 msgid "Estate agent"
@@ -2176,7 +2177,7 @@ msgstr ""
 
 #: master_preset.xml:415(combo:text|key:substance)
 msgid "Substance"
-msgstr ""
+msgstr "Substância"
 
 #: master_preset.xml:430(combo:text|key:placement)
 msgid "Placement"
@@ -2184,19 +2185,19 @@ msgstr ""
 
 #: master_preset.xml:6148(item:name|group:Sport|preset:Archery)
 msgid "Archery"
-msgstr ""
+msgstr "Arco e Flecha"
 
 #: master_preset.xml:707(item:name|group:Streets|preset:Secondary)
 msgid "Secondary"
-msgstr "İkincil"
+msgstr "Secundária"
 
 #: master_preset.xml:9096(item:name|group:Nature|preset:Tree)
 msgid "Tree"
-msgstr ""
+msgstr "Árvore"
 
 #: master_preset.xml:8506(item:name|group:Other|preset:Musical_Instrument)
 msgid "Musical Instrument"
-msgstr ""
+msgstr "Instrumento Musical"
 
 #: master_preset.xml:5861(item:name|group:Facilities|preset:Water_Point)
 msgid "Water Point"
@@ -2212,7 +2213,7 @@ msgstr ""
 
 #: master_preset.xml:7839(item:name|group:Food|preset:Alcohol)
 msgid "Alcohol"
-msgstr ""
+msgstr "Álcool"
 
 #: master_preset.xml:5665(combo:display_values|group:Facilities|preset:Clock|key:visibility)
 msgid "house (up to 5m)"
@@ -2220,11 +2221,11 @@ msgstr ""
 
 #: master_preset.xml:8574(item:name|group:Other|preset:Lottery)
 msgid "Lottery"
-msgstr ""
+msgstr "Loteria"
 
 #: master_preset.xml:10591(item:name|group:Crafts|preset:Painter)
 msgid "Painter"
-msgstr ""
+msgstr "Pintor"
 
 #: master_preset.xml:207(combo:display_values|key:smoking)
 msgid "Separated"
@@ -2232,11 +2233,11 @@ msgstr ""
 
 #: master_preset.xml:8566(item:name|group:Other|preset:Bookmaker)
 msgid "Bookmaker"
-msgstr ""
+msgstr "Editora"
 
 #: master_preset.xml:8496(item:name|group:Other|preset:Travel_Agency)
 msgid "Travel Agency"
-msgstr ""
+msgstr "Agência de Viagens"
 
 #: master_preset.xml:5120(item:name|group:Education|preset:College)
 msgid "College"
@@ -2269,7 +2270,7 @@ msgstr ""
 #: master_preset.xml:3009(text:text|group:Aerialway|preset:Cable_Car|key:aerialway:capacity)
 #: master_preset.xml:3035(text:text|group:Aerialway|preset:Gondola|key:aerialway:capacity)
 msgid "Number of people per hour"
-msgstr "Saatlik kişi sayısı"
+msgstr ""
 
 #: master_preset.xml:5791(combo:text|group:Facilities|preset:Sanitary_Dump_Station|key:opening_hours)
 #: master_preset.xml:6940(combo:text|group:Man_Made|preset:Street_Lamp|key:opening_hours)
@@ -2283,7 +2284,7 @@ msgstr ""
 #: master_preset.xml:8123(item:name|group:Home_decoration|preset:Furniture)
 #: master_preset.xml:10807(item:name|group:Crafts|preset:Furniture)
 msgid "Furniture"
-msgstr ""
+msgstr "Mobília"
 
 #: master_preset.xml:3685(role:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:stop)
 msgid "halt point"
@@ -2291,7 +2292,7 @@ msgstr ""
 
 #: master_preset.xml:415(combo:display_values|key:substance)
 msgid "Oil"
-msgstr ""
+msgstr "Óleo"
 
 #: master_preset.xml:11137(item:name|group:Offices|preset:Consulting)
 msgid "Consulting"
@@ -2317,11 +2318,11 @@ msgstr ""
 #: master_preset.xml:4040(check:text|group:Accommodation|preset:Wilderness_Hut|key:toilets)
 #: master_preset.xml:1384(check:text|group:Waypoints|preset:Rest_Area|key:toilets)
 msgid "Toilets"
-msgstr "Tuvaletler"
+msgstr "Banheiros"
 
 #: master_preset.xml:2008(item:name|group:Barriers|preset:Chain)
 msgid "Chain"
-msgstr "Zincir"
+msgstr "Corrente"
 
 #: master_preset.xml:1515(item:name|group:Traffic_Calming|preset:Choker)
 msgid "Choker"
@@ -2331,19 +2332,19 @@ msgstr ""
 #: master_preset.xml:3572(check:text|group:Public_Transport|preset:Stop_Position|key:tram)
 #: master_preset.xml:2867(item:name|group:Railway|preset:Tram)
 msgid "Tram"
-msgstr "Tramvay"
+msgstr "Bonde"
 
 #: master_preset.xml:9155(item:name|group:Nature|preset:Forest)
 msgid "Forest"
-msgstr ""
+msgstr "Floresta"
 
 #: master_preset.xml:8395(item:name|group:For_the_body|preset:Erotic)
 msgid "Erotic"
-msgstr ""
+msgstr "Erótico"
 
 #: master_preset.xml:4848(item:name|group:Place_of_Worship|preset:Buddhist_Temple)
 msgid "Buddhist Temple"
-msgstr ""
+msgstr "Templo Budista"
 
 #: master_preset.xml:5623(combo:text|group:Facilities|preset:Post_Box|key:collection_times)
 msgid "Collection times"
@@ -2352,7 +2353,7 @@ msgstr ""
 #: master_preset.xml:9117(text:text|group:Nature|preset:Tree|key:taxon)
 #: master_preset.xml:1832(text:text|group:Barriers|preset:Hedge|key:taxon)
 msgid "Taxon"
-msgstr "Takson"
+msgstr ""
 
 #: master_preset.xml:1296(check:text|group:Ways|preset:Dedicated_Footway|key:segregated)
 #: master_preset.xml:1243(check:text|group:Ways|preset:Dedicated_Cycleway|key:segregated)
@@ -2361,37 +2362,37 @@ msgstr ""
 
 #: master_preset.xml:8643(list_entry:short_description|preset:Vending_Machine|value:newspapers)
 msgid "Newspapers"
-msgstr ""
+msgstr "Jornais"
 
 #: master_preset.xml:8080(item:name|group:Cash|preset:Money_Exchange)
 msgid "Money Exchange"
-msgstr ""
+msgstr "Casa de Câmbio"
 
 #: master_preset.xml:148(combo:text|key:wheelchair)
 msgid "Wheelchairs"
-msgstr "Tekerlekli sandalyeler"
+msgstr "Cadeira de rodas"
 
 #: master_preset.xml:528(group:name|group:Streets)
 msgid "Streets"
-msgstr "Sokaklar"
+msgstr "Ruas"
 
 #: master_preset.xml:6885(item:name|group:Man_Made|preset:Fountain)
 msgid "Fountain"
-msgstr ""
+msgstr "Fonte"
 
 #: master_preset.xml:1356(item:name|group:Waypoints|preset:Services)
 msgid "Services"
-msgstr "Hizmetler"
+msgstr "Serviços"
 
 #: master_preset.xml:111(check:text|key:horse)
 #: master_preset.xml:2311(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:horse)
 #: master_preset.xml:102(check:text|key:horse)
 msgid "Horse"
-msgstr "At"
+msgstr "Cavalo"
 
 #: master_preset.xml:9992(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Max. height"
-msgstr ""
+msgstr "Altura Máxima"
 
 #: master_preset.xml:7499(check:text|preset:Power_Cable|key:communication)
 #: master_preset.xml:7484(check:text|preset:Power_Line|key:communication)
@@ -2404,7 +2405,7 @@ msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10°"
-msgstr ""
+msgstr "10°"
 
 #: master_preset.xml:3852(item:name|group:Airport|preset:Plane_Parking_Position)
 msgid "Plane Parking Position"
@@ -2417,7 +2418,7 @@ msgstr ""
 #: master_preset.xml:270(combo:text|key:supervised)
 #: master_preset.xml:2935(check:text|group:Railway|preset:Level_Crossing|key:supervised)
 msgid "Supervised"
-msgstr "Denetimli"
+msgstr "Supervisionado"
 
 #: master_preset.xml:4541(item:name|group:Leisure|preset:Horse_Riding)
 msgid "Horse Riding"
@@ -2425,7 +2426,7 @@ msgstr ""
 
 #: master_preset.xml:4704(item:name|group:Culture|preset:Theatre)
 msgid "Theatre"
-msgstr ""
+msgstr "Teatro"
 
 #: master_preset.xml:10218(role:text|group:Routes|preset:Road_Route|key:link)
 #: master_preset.xml:10143(role:text|group:Routes|preset:Ski_Route|key:link)
@@ -2435,7 +2436,7 @@ msgstr ""
 
 #: master_preset.xml:241(list_entry:short_description|value:1)
 msgid "1 table"
-msgstr ""
+msgstr "1 mesa"
 
 #: master_preset.xml:1961(item:name|group:Barriers|preset:Swing_Gate)
 msgid "Swing Gate"
@@ -2443,7 +2444,7 @@ msgstr ""
 
 #: master_preset.xml:1858(item:name|group:Barriers|preset:Wall)
 msgid "Wall"
-msgstr "Duvar"
+msgstr "Muro"
 
 #: master_preset.xml:8202(item:name|group:Home_decoration|preset:Interior_Decoration)
 msgid "Interior Decoration"
@@ -2462,11 +2463,11 @@ msgstr ""
 #: master_preset.xml:10327(text:text|preset:Bridge|key:length)
 #: master_preset.xml:10342(text:text|preset:Tunnel|key:length)
 msgid "Length (meters)"
-msgstr ""
+msgstr "Comprimento (metros)"
 
 #: master_preset.xml:8135(item:name|group:Home_decoration|preset:Kitchen)
 msgid "Kitchen"
-msgstr ""
+msgstr "Cozinha"
 
 #: master_preset.xml:3242(combo:text|group:Car|preset:Charging_Station|key:socket:type1_combo)
 msgid "Type 1 Combo"
@@ -2480,23 +2481,23 @@ msgstr ""
 #: master_preset.xml:10213(text:text|group:Routes|preset:Road_Route|key:distance)
 #: master_preset.xml:293(text:text|key:distance)
 msgid "Distance (km)"
-msgstr "Mesafe (km)"
+msgstr "Distância (km)"
 
 #: master_preset.xml:6972(check:text|group:Man_Made|preset:Monitoring_Station|key:recording:remote)
 msgid "Remote"
-msgstr ""
+msgstr "Remoto"
 
 #: master_preset.xml:451(combo:display_values|key:stars)
 msgid "**"
-msgstr ""
+msgstr "**"
 
 #: master_preset.xml:2741(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"
-msgstr ""
+msgstr "Ancoragem"
 
 #: master_preset.xml:9595(item:name|group:Land_use|preset:Industrial)
 msgid "Industrial"
-msgstr ""
+msgstr "Industrial"
 
 #: master_preset.xml:7596(item:name|group:Historic_Places|preset:Wayside_Cross)
 msgid "Wayside Cross"
@@ -2509,24 +2510,24 @@ msgstr ""
 #: master_preset.xml:3517(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:platform_entry_only)
 #: master_preset.xml:3497(role:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:platform_entry_only)
 msgid "platform (entry only)"
-msgstr "platform (sadece giriş)"
+msgstr ""
 
 #: master_preset.xml:5712(item:name|group:Facilities|preset:Recycling_Centre)
 msgid "Recycling Centre"
-msgstr ""
+msgstr "Centro de Reciclagem"
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Turkish"
-msgstr ""
+msgstr "Turco"
 
 #: master_preset.xml:7418(item:name|preset:Pole)
 #: master_preset.xml:1847(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgid "Pole"
-msgstr ""
+msgstr "Pólo"
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Asian"
-msgstr ""
+msgstr "Asiático"
 
 #: master_preset.xml:8284(item:name|group:For_the_body|preset:Chemist)
 msgid "Chemist"
@@ -2535,7 +2536,7 @@ msgstr ""
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 #: master_preset.xml:4182(item:name|group:Food+Drinks|preset:Ice_cream)
 msgid "Ice cream"
-msgstr ""
+msgstr "Sorvete"
 
 #: master_preset.xml:5069(item:name|group:Education|preset:Childcare)
 msgid "Childcare"
@@ -2551,7 +2552,7 @@ msgstr ""
 #: master_preset.xml:101(check:text|key:bicycle)
 #: master_preset.xml:110(check:text|key:bicycle)
 msgid "Bicycle"
-msgstr "Bisiklet"
+msgstr "Bicicleta"
 
 #: master_preset.xml:10149(item:name|group:Routes|preset:Inline_Skating_Route)
 msgid "Inline Skating Route"
@@ -2559,23 +2560,23 @@ msgstr ""
 
 #: master_preset.xml:2644(combo:display_values|group:Water|preset:Beach|key:sport)
 msgid "Surfing"
-msgstr ""
+msgstr "Surf"
 
 #: master_preset.xml:1332(check:text|group:Ways|preset:Steps|key:handrail:center)
 msgid "Center handrail"
-msgstr "Merkez trabzan"
+msgstr ""
 
 #: master_preset.xml:5626(item:name|group:Facilities|preset:Telephone)
 msgid "Telephone"
-msgstr ""
+msgstr "Telefone"
 
 #: master_preset.xml:2436(item:name|group:Water|preset:Weir)
 msgid "Weir"
-msgstr "Su Seddi"
+msgstr ""
 
 #: master_preset.xml:3604(check:text|group:Public_Transport|preset:Platform|key:highway)
 msgid "Highway platform (legacy)"
-msgstr "Karayolu platformu (eski)"
+msgstr ""
 
 #: master_preset.xml:3245(combo:text|group:Car|preset:Charging_Station|key:socket:type3)
 msgid "Type 3 (SCAME)"
@@ -2588,12 +2589,12 @@ msgstr ""
 #: master_preset.xml:3516(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:platform_exit_only)
 #: master_preset.xml:3496(role:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:platform_exit_only)
 msgid "platform (exit only)"
-msgstr "platform (sadece çıkış)"
+msgstr ""
 
 #: master_preset.xml:8670(check:text|preset:Payment_Methods|key:payment:coins)
 #: master_preset.xml:5638(check:text|group:Facilities|preset:Telephone|key:payment:coins)
 msgid "Coins"
-msgstr ""
+msgstr "Moedas"
 
 #: master_preset.xml:10352(item:name|group:Crafts|preset:Agricultural_engines)
 msgid "Agricultural engines"
@@ -2601,25 +2602,25 @@ msgstr ""
 
 #: master_preset.xml:934(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Emergency access"
-msgstr ""
+msgstr "Acesso de emergência"
 
 #: master_preset.xml:6971(check:text|group:Man_Made|preset:Monitoring_Station|key:recording:manually)
 msgid "Manually"
-msgstr ""
+msgstr "Manualmente"
 
 #: master_preset.xml:7645(item:name|group:Food|preset:Supermarket)
 msgid "Supermarket"
-msgstr ""
+msgstr "Supermercado"
 
 #: master_preset.xml:1324(combo:text|group:Ways|preset:Steps|key:ramp:wheelchair)
 msgid "Wheelchair ramp"
-msgstr "Elektrikli sandalye rampası"
+msgstr "Rampa para cadeirantes"
 
 #: master_preset.xml:5698(check:text|group:Facilities|preset:Recycling_Container|key:recycling:glass)
 #: master_preset.xml:5738(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:glass)
 #: master_preset.xml:10488(item:name|group:Crafts|preset:Glass)
 msgid "Glass"
-msgstr ""
+msgstr "Vidro"
 
 #: master_preset.xml:6933(item:name|group:Man_Made|preset:Street_Lamp)
 msgid "Street Lamp"
@@ -2627,16 +2628,16 @@ msgstr ""
 
 #: master_preset.xml:2774(item:name|group:Shipping|preset:Boatyard)
 msgid "Boatyard"
-msgstr "Tersane"
+msgstr ""
 
 #: master_preset.xml:1321(check:text|group:Ways|preset:Steps|key:ramp:stroller)
 msgid "Stroller ramp"
-msgstr "Puset rampası"
+msgstr ""
 
 #: master_preset.xml:116(optional:text) master_preset.xml:99(optional:text)
 #: master_preset.xml:108(optional:text)
 msgid "Allowed traffic:"
-msgstr "İzin verilen trafik:"
+msgstr ""
 
 #: master_preset.xml:3232(label:text|group:Car|preset:Charging_Station)
 msgid "Types of vehicles which can be charged:"
@@ -2644,22 +2645,22 @@ msgstr ""
 
 #: master_preset.xml:8644(list_entry:short_description|preset:Vending_Machine|value:parking_tickets)
 msgid "Parking tickets"
-msgstr ""
+msgstr "Bilhete de estacionamento"
 
 #: master_preset.xml:9805(text:text|group:Addresses_and_Contact|preset:Contact|key:email)
 #: master_preset.xml:9825(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:contact:email)
 msgid "Email Address"
-msgstr ""
+msgstr "Endereço de Email"
 
 #: master_preset.xml:9372(item:name|group:Land_use|preset:Orchard)
 msgid "Orchard"
-msgstr ""
+msgstr "Orquidário"
 
 #: master_preset.xml:279(combo:display_values|key:access)
 #: master_preset.xml:2261(item:name|group:Access_Restrictions|preset:General_access)
 #: master_preset.xml:261(combo:display_values|key:access)
 msgid "General access"
-msgstr "Genel erişim"
+msgstr "Acesso geral"
 
 #: master_preset.xml:7313(item:name|preset:Power_Bay)
 msgid "Power Bay"
@@ -2667,7 +2668,7 @@ msgstr ""
 
 #: master_preset.xml:5336(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:diameter)
 msgid "Diameter (in mm)"
-msgstr ""
+msgstr "Diâmetro (mm)"
 
 #: master_preset.xml:5696(check:text|group:Facilities|preset:Recycling_Container|key:recycling:electrical_appliances)
 #: master_preset.xml:5736(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:electrical_appliances)
@@ -2682,7 +2683,7 @@ msgstr ""
 #: master_preset.xml:4461(combo:text|group:Leisure|preset:Dog_Park|key:barrier)
 #: master_preset.xml:2938(combo:text|group:Railway|preset:Level_Crossing|key:crossing:barrier)
 msgid "Barrier"
-msgstr "Bariyer"
+msgstr "Barreira"
 
 #: master_preset.xml:7262(combo:text|preset:Power_Substation|key:substation)
 msgid "Type of substation"
@@ -2695,7 +2696,7 @@ msgstr ""
 #: master_preset.xml:3194(check:text|group:Car|preset:Fuel|key:fuel:octane_80)
 #: master_preset.xml:2714(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_80)
 msgid "Octane 80"
-msgstr "80 Oktan"
+msgstr ""
 
 #: master_preset.xml:8944(item:name|group:Places|preset:Locality)
 msgid "Locality"
@@ -2703,7 +2704,7 @@ msgstr ""
 
 #: master_preset.xml:8050(item:name|group:Electronic|preset:Music)
 msgid "Music"
-msgstr ""
+msgstr "Música"
 
 #: master_preset.xml:10345(role:text|preset:Tunnel|key:through)
 msgid "ways passing through the tunnel"
@@ -2723,7 +2724,7 @@ msgstr ""
 
 #: master_preset.xml:2907(item:name|group:Railway|preset:Abandoned_Rail)
 msgid "Abandoned Rail"
-msgstr "Terk edilmiş Demiryolu"
+msgstr ""
 
 #: master_preset.xml:4743(item:name|group:Culture|preset:Artwork)
 msgid "Artwork"
@@ -2732,11 +2733,11 @@ msgstr ""
 #: master_preset.xml:3396(text:text|group:Motorcycle|preset:Motorcycle_Dealer|key:services)
 #: master_preset.xml:8406(group:name|group:Other)
 msgid "Other"
-msgstr "Diğer"
+msgstr "Outro"
 
 #: master_preset.xml:567(item:name|group:Streets|preset:Motorway_Link)
 msgid "Motorway Link"
-msgstr "Otoyol Bağlantısı"
+msgstr ""
 
 #: master_preset.xml:8705(check:text|preset:Payment_Methods|key:payment:ep_monedero4b)
 msgid "Mondero 4b (es)"
@@ -2753,36 +2754,36 @@ msgstr ""
 #: master_preset.xml:2718(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_98)
 #: master_preset.xml:3198(check:text|group:Car|preset:Fuel|key:fuel:octane_98)
 msgid "Octane 98"
-msgstr "98 Oktan"
+msgstr ""
 
 #: master_preset.xml:3197(check:text|group:Car|preset:Fuel|key:fuel:octane_95)
 #: master_preset.xml:2717(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_95)
 msgid "Octane 95"
-msgstr "95 Oktan"
+msgstr ""
 
 #: master_preset.xml:279(combo:display_values|key:access)
 #: master_preset.xml:261(combo:display_values|key:access)
 #: master_preset.xml:152(list_entry:short_description|value:no)
 msgid "No access"
-msgstr ""
+msgstr "Sem acesso"
 
 #: master_preset.xml:3195(check:text|group:Car|preset:Fuel|key:fuel:octane_91)
 #: master_preset.xml:2715(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_91)
 msgid "Octane 91"
-msgstr "91 Oktan"
+msgstr ""
 
 #: master_preset.xml:2716(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_92)
 #: master_preset.xml:3196(check:text|group:Car|preset:Fuel|key:fuel:octane_92)
 msgid "Octane 92"
-msgstr "92 Oktan"
+msgstr ""
 
 #: master_preset.xml:6213(item:name|group:Sport|preset:Gymnastics)
 msgid "Gymnastics"
-msgstr ""
+msgstr "Ginástica"
 
 #: master_preset.xml:11024(item:name|group:Offices|preset:Accountant)
 msgid "Accountant"
-msgstr ""
+msgstr "Contador"
 
 #: master_preset.xml:1065(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:through)
 #: master_preset.xml:1089(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:slight_left)
@@ -2801,35 +2802,35 @@ msgstr ""
 
 #: master_preset.xml:934(combo:text|group:Streets|preset:Service|key:service)
 msgid "Service way type"
-msgstr "Servis yolu türü"
+msgstr ""
 
 #: master_preset.xml:3015(item:name|group:Aerialway|preset:Chair_Lift)
 msgid "Chair Lift"
-msgstr "Telesiyej"
+msgstr ""
 
 #: master_preset.xml:7969(item:name|group:Clothes|preset:Fabric)
 msgid "Fabric"
-msgstr ""
+msgstr "Tecido"
 
 #: master_preset.xml:11090(item:name|group:Offices|preset:Guide)
 msgid "Guide"
-msgstr ""
+msgstr "Guia"
 
 #: master_preset.xml:95(combo:text|key:gauge)
 msgid "Gauge (mm)"
-msgstr "Ölçü (mm)"
+msgstr "Bitola (mm)"
 
 #: master_preset.xml:5742(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:PET)
 #: master_preset.xml:5702(check:text|group:Facilities|preset:Recycling_Container|key:recycling:PET)
 msgid "PET"
-msgstr ""
+msgstr "PET"
 
 #: master_preset.xml:7199(list_entry:short_description|group:Power_Generator|preset:Waste_Power_Generator|value:reciprocating_engine)
 #: master_preset.xml:7117(list_entry:short_description|group:Power_Generator|preset:Biomass_Power_Generator|value:steam_turbine)
 #: master_preset.xml:7200(list_entry:short_description|group:Power_Generator|preset:Waste_Power_Generator|value:steam_generator)
 #: master_preset.xml:7116(list_entry:short_description|group:Power_Generator|preset:Biomass_Power_Generator|value:steam_generator)
 msgid "combustion"
-msgstr ""
+msgstr "combustão"
 
 #: master_preset.xml:5388(item:name|group:Social_Facilities|preset:Ambulatory_Care)
 msgid "Ambulatory Care"
@@ -2845,11 +2846,11 @@ msgstr ""
 #: master_preset.xml:3103(group:name|group:Car)
 #: master_preset.xml:3236(check:text|group:Car|preset:Charging_Station|key:car)
 msgid "Car"
-msgstr "Araba"
+msgstr "Carro"
 
 #: master_preset.xml:8650(list_entry:short_description|preset:Vending_Machine|value:sweets)
 msgid "Sweets"
-msgstr ""
+msgstr "Doces"
 
 #: master_preset.xml:4818(combo:text|group:Place_of_Worship|preset:Mosque|key:building)
 #: master_preset.xml:4794(combo:text|group:Place_of_Worship|preset:Church|key:building)
@@ -2859,7 +2860,7 @@ msgstr ""
 
 #: master_preset.xml:202(combo:text|key:internet_access)
 msgid "Internet access"
-msgstr "İnternet erişimi"
+msgstr "Acesso à internet"
 
 #: master_preset.xml:10871(item:name|group:Crafts|preset:Jeweller)
 msgid "Jeweller"
@@ -2895,13 +2896,13 @@ msgstr ""
 
 #: master_preset.xml:10907(item:name|group:Offices|preset:Advertising_agency)
 msgid "Advertising agency"
-msgstr ""
+msgstr "Agência de publicidade"
 
 #: master_preset.xml:3590(check:text|group:Public_Transport|preset:Platform|key:bench)
 #: master_preset.xml:3764(check:text|group:Public_Transport_(Legacy)|preset:Bus_Stop|key:bench)
 #: master_preset.xml:5794(item:name|group:Facilities|preset:Bench)
 msgid "Bench"
-msgstr "Tezgah"
+msgstr ""
 
 #: master_preset.xml:8257(combo:text|group:Printed_Material|preset:Book_Store|key:second_hand)
 #: master_preset.xml:3295(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
@@ -2909,19 +2910,19 @@ msgstr "Tezgah"
 #: master_preset.xml:3388(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
 #: master_preset.xml:7889(combo:text|group:Clothes|preset:Clothes|key:second_hand)
 msgid "Second hand"
-msgstr "İkinci el"
+msgstr "Segunda mão"
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamita"
 
 #: master_preset.xml:6309(item:name|group:Sport_(Ball)|preset:American_Football)
 msgid "American Football"
-msgstr ""
+msgstr "Futebol Americano"
 
 #: master_preset.xml:8919(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
-msgstr ""
+msgstr "Vizinhança"
 
 #: master_preset.xml:4800(item:name|group:Place_of_Worship|preset:Mosque)
 msgid "Mosque"
@@ -2933,11 +2934,11 @@ msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Burger"
-msgstr ""
+msgstr "Hamburguer"
 
 #: master_preset.xml:2951(combo:text|group:Railway|preset:Crossing|key:crossing)
 msgid "Crossing type"
-msgstr "Geçiş tipi"
+msgstr ""
 
 #: master_preset.xml:4037(combo:text|group:Accommodation|preset:Wilderness_Hut|key:access)
 #: master_preset.xml:5573(combo:text|group:Facilities|preset:Toilets/Restrooms|key:access)
@@ -2967,7 +2968,7 @@ msgstr ""
 
 #: master_preset.xml:4426(check:text|group:Leisure|preset:Movie_Theater/Cinema|key:cinema:3D)
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: master_preset.xml:8688(check:text|preset:Payment_Methods|key:payment:diners_club)
 msgid "Diners Club"
@@ -2975,11 +2976,11 @@ msgstr ""
 
 #: master_preset.xml:5170(item:name|group:Health|preset:Clinic)
 msgid "Clinic"
-msgstr ""
+msgstr "Clínica"
 
 #: master_preset.xml:10711(item:name|group:Crafts|preset:Sun_protection)
 msgid "Sun protection"
-msgstr ""
+msgstr "Proteção solar"
 
 #: master_preset.xml:2744(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
@@ -2989,11 +2990,11 @@ msgstr ""
 msgid ""
 "Trail with continuous line and balanced ascent. Terrain partially steep, "
 "fall hazard possible"
-msgstr "Patika sürekli inişli çıkışlı. Arazi kısmen dik, düşme tehlikesi var."
+msgstr ""
 
 #: master_preset.xml:5883(multiselect:text|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Valves"
-msgstr ""
+msgstr "Válvulas"
 
 #: master_preset.xml:10284(role:text|preset:Destination_Sign|key:to)
 msgid "first way after junction"
@@ -3009,7 +3010,7 @@ msgstr ""
 
 #: master_preset.xml:207(combo:display_values|key:smoking)
 msgid "Dedicated"
-msgstr ""
+msgstr "Dedicado"
 
 #: master_preset.xml:6871(item:name|group:Man_Made|preset:Watermill)
 msgid "Watermill"
@@ -3017,7 +3018,7 @@ msgstr ""
 
 #: master_preset.xml:8190(item:name|group:Home_decoration|preset:Bed)
 msgid "Bed"
-msgstr ""
+msgstr "Cama"
 
 #: master_preset.xml:6179(item:name|group:Sport|preset:Canoeing/Kayaking)
 msgid "Canoeing/Kayaking"
@@ -3037,7 +3038,7 @@ msgstr ""
 
 #: master_preset.xml:489(combo:text|key:tactile_paving)
 msgid "Tactile paving"
-msgstr ""
+msgstr "Piso táctil"
 
 #: master_preset.xml:10236(item:name|preset:Associated_Street)
 msgid "Associated Street"
@@ -3045,7 +3046,7 @@ msgstr ""
 
 #: master_preset.xml:1217(combo:text|group:Ways|preset:Cycle_Lane/Track|key:cycleway)
 msgid "Cycleway"
-msgstr "Bisiklet yolu"
+msgstr "Ciclovia"
 
 #: master_preset.xml:5665(combo:text|group:Facilities|preset:Clock|key:visibility)
 msgid "Visibility/readability"
@@ -3053,7 +3054,7 @@ msgstr ""
 
 #: master_preset.xml:7270(item:name|preset:Power_Transformer)
 msgid "Power Transformer"
-msgstr ""
+msgstr "Transformador de Potência"
 
 #: master_preset.xml:7165(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-5)
 msgid "Boiling Water Reactor 5 (BWR-5)"
@@ -3065,19 +3066,19 @@ msgstr ""
 
 #: master_preset.xml:2316(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:psv)
 msgid "Public Service Vehicles (psv)"
-msgstr "Kamu Hizmet Araçları (KHA)"
+msgstr ""
 
 #: master_preset.xml:3265(item:name|group:Car|preset:Wash)
 msgid "Wash"
-msgstr "Yıkama"
+msgstr ""
 
 #: master_preset.xml:407(combo:text|key:ship)
 msgid "Ship"
-msgstr "Gemi"
+msgstr "Navio"
 
 #: master_preset.xml:8260(item:name|group:Printed_Material|preset:Newspaper_Stand)
 msgid "Newspaper Stand"
-msgstr ""
+msgstr "Banca de Jornais"
 
 #: master_preset.xml:8654(list_entry:short_description|preset:Vending_Machine|value:vouchers)
 msgid "Vouchers"
@@ -3089,16 +3090,16 @@ msgstr ""
 
 #: master_preset.xml:6914(item:name|group:Man_Made|preset:Lighthouse)
 msgid "Lighthouse"
-msgstr ""
+msgstr "Farol"
 
 #: master_preset.xml:10847(item:name|group:Crafts|preset:Winery)
 msgid "Winery"
-msgstr ""
+msgstr "Adega"
 
 #: master_preset.xml:9768(text:text|group:Addresses_and_Contact|preset:Addresses|key:addr:suburb)
 #: master_preset.xml:8905(item:name|group:Places|preset:Suburb)
 msgid "Suburb"
-msgstr ""
+msgstr "Bairro"
 
 #: master_preset.xml:313(combo:display_values|key:religion)
 msgid "Shinto"
@@ -3119,7 +3120,7 @@ msgstr ""
 #: master_preset.xml:4577(check:text|group:Leisure|preset:Picnic_Site|key:fireplace)
 #: master_preset.xml:5826(check:text|group:Facilities|preset:Shelter|key:fireplace)
 msgid "Fireplace"
-msgstr ""
+msgstr "Lareira"
 
 #: master_preset.xml:6481(item:name|group:Motorsport|preset:Motocross)
 msgid "Motocross"
@@ -3131,16 +3132,16 @@ msgstr ""
 
 #: master_preset.xml:4579(item:name|group:Leisure|preset:Picnic_Table)
 msgid "Picnic Table"
-msgstr ""
+msgstr "Mesa de Picnic"
 
 #: master_preset.xml:5920(group:name|group:Sports)
 #: master_preset.xml:7928(item:name|group:Clothes|preset:Sports)
 msgid "Sports"
-msgstr ""
+msgstr "Esportes"
 
 #: master_preset.xml:9312(check:text|group:Nature|preset:Rock|key:tourism)
 msgid "Tourism attraction"
-msgstr ""
+msgstr "Atração turística"
 
 #: master_preset.xml:7114(list_entry:short_description|group:Power_Generator|preset:Biomass_Power_Generator|value:bioreactor)
 msgid "anaerobic_digestion / combustion"
@@ -3148,21 +3149,21 @@ msgstr ""
 
 #: master_preset.xml:2587(item:name|group:Water|preset:Wetland)
 msgid "Wetland"
-msgstr "Sulak"
+msgstr "Pântano"
 
 #: master_preset.xml:7082(combo:text|group:Power|preset:Power_Plant|key:plant:output:electricity)
 #: master_preset.xml:366(combo:text|key:generator:output:electricity)
 msgid "electricity"
-msgstr "elektrik akımı"
+msgstr "eletricidade"
 
 #: master_preset.xml:3487(key:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:public_transport:version)
 #: master_preset.xml:3670(key:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:public_transport:version)
 msgid "Version"
-msgstr "Sürüm"
+msgstr "Versão"
 
 #: master_preset.xml:7865(item:name|group:Food|preset:Wine)
 msgid "Wine"
-msgstr ""
+msgstr "Vinho"
 
 #: master_preset.xml:10188(item:name|group:Routes|preset:Railway_Route)
 msgid "Railway Route"
@@ -3171,19 +3172,19 @@ msgstr ""
 #: master_preset.xml:6616(item:name|group:Man_Made|preset:Entrance)
 #: master_preset.xml:6627(combo:text|group:Man_Made|preset:Entrance|key:entrance)
 msgid "Entrance"
-msgstr ""
+msgstr "Entrada"
 
 #: master_preset.xml:9929(combo:display_values|group:Relations|preset:Boundary|key:boundary)
 msgid "Protected area"
-msgstr ""
+msgstr "Área protegida"
 
 #: master_preset.xml:234(combo:text|key:bin)
 msgid "Bin"
-msgstr "Çöp kutusu"
+msgstr ""
 
 #: master_preset.xml:2163(item:name|group:Access_Restrictions|preset:Motor_vehicle)
 msgid "Motor vehicle"
-msgstr "Motorlu araç"
+msgstr ""
 
 #: master_preset.xml:1336(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
@@ -3195,7 +3196,7 @@ msgstr ""
 #: master_preset.xml:1737(text:text|group:Barriers|preset:Block|key:maxwidth)
 #: master_preset.xml:222(text:text|key:maxwidth)
 msgid "Max. width (meters)"
-msgstr "Maks. genişlik (metre)"
+msgstr ""
 
 #: master_preset.xml:8032(item:name|group:Electronic|preset:Video)
 msgid "Video"
@@ -3203,7 +3204,7 @@ msgstr ""
 
 #: master_preset.xml:6718(item:name|group:Man_Made|preset:Storage_Tank)
 msgid "Storage Tank"
-msgstr ""
+msgstr "Tanque de armazenamento"
 
 #: master_preset.xml:1098(text:text|group:Lane_attributes|preset:Bi-directional_roads|key:destination:lanes:forward)
 msgid "Destinations per lane in way direction"
@@ -3212,12 +3213,12 @@ msgstr ""
 #: master_preset.xml:279(combo:display_values|key:access)
 #: master_preset.xml:2313(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:agricultural)
 msgid "Agricultural"
-msgstr "Zirai"
+msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 #: master_preset.xml:7720(item:name|group:Food|preset:Seafood)
 msgid "Seafood"
-msgstr ""
+msgstr "Frutos do mar"
 
 #: master_preset.xml:7165(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-5)
 #: master_preset.xml:7162(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-2)
@@ -3245,11 +3246,11 @@ msgstr ""
 #: master_preset.xml:5785(list_entry:short_description|group:Facilities|preset:Sanitary_Dump_Station|value:yes)
 #: master_preset.xml:5601(list_entry:short_description|group:Facilities|preset:Shower|value:yes)
 msgid "Public"
-msgstr ""
+msgstr "Público"
 
 #: master_preset.xml:10154(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: master_preset.xml:5029(item:name|group:Public_Building|preset:Ranger_Station)
 msgid "Ranger Station"
@@ -3269,7 +3270,7 @@ msgstr ""
 
 #: master_preset.xml:3010(text:text|group:Aerialway|preset:Cable_Car|key:aerialway:occupancy)
 msgid "Number of people per car"
-msgstr "Araç başına kişi sayısı"
+msgstr ""
 
 #: master_preset.xml:8973(item:name|group:Geography|preset:Saddle)
 msgid "Saddle"
@@ -3281,7 +3282,7 @@ msgstr ""
 
 #: master_preset.xml:2032(item:name|group:Barriers|preset:Sally_Port)
 msgid "Sally Port"
-msgstr "Çıkış kapısı"
+msgstr ""
 
 #: master_preset.xml:5707(check:text|group:Facilities|preset:Recycling_Container|key:recycling:shoes)
 #: master_preset.xml:5747(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:shoes)
@@ -3299,11 +3300,11 @@ msgstr ""
 
 #: master_preset.xml:1246(item:name|group:Ways|preset:Segregated_Foot-_and_Cycleway)
 msgid "Segregated Foot- and Cycleway"
-msgstr "Ayrılmış Yürüme ve Bisiklet Yolu"
+msgstr ""
 
 #: master_preset.xml:975(item:name|group:Streets|preset:Road_(Unknown_Type))
 msgid "Road (Unknown Type)"
-msgstr "Yol (Bilinmeyen Tür)"
+msgstr ""
 
 #: master_preset.xml:7625(check:text|group:Historic_Places|preset:Wayside_Shrine|key:amenity)
 msgid "Place of worship"
@@ -3319,7 +3320,7 @@ msgstr ""
 
 #: master_preset.xml:8420(item:name|group:Other|preset:Mall)
 msgid "Mall"
-msgstr ""
+msgstr "Shopping"
 
 #: master_preset.xml:7171(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:ICF)
 msgid "Inertial Confinement Fusion (ICF)"
@@ -3335,11 +3336,11 @@ msgstr ""
 
 #: master_preset.xml:142(combo:text|key:service_times)
 msgid "Service Times"
-msgstr "Hizmet Zamanları"
+msgstr ""
 
 #: master_preset.xml:2662(item:name|group:Shipping|preset:Ferry_Terminal)
 msgid "Ferry Terminal"
-msgstr "Feribot Terminali"
+msgstr "Terminal de barcas"
 
 #: master_preset.xml:2001(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
@@ -3351,11 +3352,11 @@ msgstr ""
 
 #: master_preset.xml:25(list_entry:short_description|value:good)
 msgid "Thin Wheels: racing bike"
-msgstr "İnce Tekerlekler: yarış bisikleti"
+msgstr ""
 
 #: master_preset.xml:3132(item:name|group:Car|preset:Parking_Space)
 msgid "Parking Space"
-msgstr "Park Yeri"
+msgstr ""
 
 #: master_preset.xml:10261(role:text|preset:Street|key:house)
 msgid "houses belonging to the street"
@@ -3367,7 +3368,7 @@ msgstr ""
 
 #: master_preset.xml:1705(item:name|preset:Grit_Bin)
 msgid "Grit Bin"
-msgstr "Kumtaşı Kutusu"
+msgstr ""
 
 #: master_preset.xml:5764(item:name|group:Facilities|preset:Waste_Disposal/Dumpster)
 msgid "Waste Disposal/Dumpster"
@@ -3388,7 +3389,7 @@ msgstr ""
 #: master_preset.xml:4175(combo:text|group:Food+Drinks|preset:Cafe|key:takeaway)
 #: master_preset.xml:4134(combo:text|group:Food+Drinks|preset:Fast_Food|key:takeaway)
 msgid "Takeaway"
-msgstr ""
+msgstr "Para viagem"
 
 #: master_preset.xml:10333(role:text|preset:Bridge|key:edge)
 msgid "edge ways parallel to 'across'"
@@ -3401,7 +3402,7 @@ msgstr ""
 #: master_preset.xml:261(combo:text|key:access)
 #: master_preset.xml:4537(combo:text|group:Leisure|preset:Tanning_Studio|key:access)
 msgid "Access"
-msgstr "Erişim"
+msgstr "Acesso"
 
 #: master_preset.xml:10424(item:name|group:Crafts|preset:Carpenter)
 msgid "Carpenter"
@@ -3418,15 +3419,15 @@ msgstr ""
 
 #: master_preset.xml:10252(item:name|preset:Street)
 msgid "Street"
-msgstr ""
+msgstr "Rua"
 
 #: master_preset.xml:2312(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:goods)
 msgid "Light Commercial Vehicles (goods)"
-msgstr "Hafif Ticari Araçlar (eşya)"
+msgstr ""
 
 #: master_preset.xml:4760(item:name|group:Culture|preset:Studio)
 msgid "Studio"
-msgstr ""
+msgstr "Estúdio"
 
 #: master_preset.xml:5275(item:name|group:Emergency|preset:Ambulance_Station)
 msgid "Ambulance Station"
@@ -3455,15 +3456,15 @@ msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10%"
-msgstr ""
+msgstr "10%"
 
 #: master_preset.xml:1123(group:name|group:Ways)
 msgid "Ways"
-msgstr "Yollar"
+msgstr ""
 
 #: master_preset.xml:1412(item:name|group:Waypoints|preset:Stop)
 msgid "Stop"
-msgstr "Dur"
+msgstr ""
 
 #: master_preset.xml:7389(combo:text|preset:Power_Portal|key:design)
 msgid "Portal design"
@@ -3475,11 +3476,11 @@ msgstr ""
 
 #: master_preset.xml:1333(check:text|group:Ways|preset:Steps|key:handrail:right)
 msgid "Right handrail"
-msgstr "Sağ trabzan"
+msgstr ""
 
 #: master_preset.xml:6635(item:name|group:Man_Made|preset:Tower)
 msgid "Tower"
-msgstr ""
+msgstr "Torre"
 
 #: master_preset.xml:8554(item:name|group:Other|preset:Variety_Store)
 msgid "Variety Store"
@@ -3491,7 +3492,7 @@ msgstr ""
 
 #: master_preset.xml:149(list_entry:short_description|value:designated)
 msgid "Dedicated facilities"
-msgstr ""
+msgstr "Instalações especialmente projetadas"
 
 #: master_preset.xml:6329(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:camogie)
 msgid "Camogie"
@@ -3511,11 +3512,11 @@ msgstr ""
 
 #: master_preset.xml:3280(item:name|group:Car|preset:Car_Dealer)
 msgid "Car Dealer"
-msgstr "Araba bayisi"
+msgstr ""
 
 #: master_preset.xml:451(combo:display_values|key:stars)
 msgid "******"
-msgstr ""
+msgstr "******"
 
 #: master_preset.xml:1483(item:name|group:Traffic_Calming|preset:Bump)
 msgid "Bump"
@@ -3523,7 +3524,7 @@ msgstr ""
 
 #: master_preset.xml:3048(text:text|group:Aerialway|preset:Mixed_Lift|key:aerialway:occupancy)
 msgid "Number of people per gondola/chair"
-msgstr "Sandalye/gondol başına kişi sayısı"
+msgstr ""
 
 #: master_preset.xml:890(check:text|group:Streets|preset:Living_Street|key:trolley_wire)
 #: master_preset.xml:728(check:text|group:Streets|preset:Secondary|key:trolley_wire)
@@ -3543,7 +3544,7 @@ msgstr ""
 
 #: master_preset.xml:9972(multiselect:text|group:Relations|preset:Turn_Restriction|key:except)
 msgid "Exceptions"
-msgstr ""
+msgstr "Exceções"
 
 #: master_preset.xml:315(combo:display_values|key:denomination)
 msgid "Jehovahs witness"
@@ -3551,11 +3552,11 @@ msgstr ""
 
 #: master_preset.xml:451(combo:display_values|key:stars)
 msgid "****"
-msgstr ""
+msgstr "****"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Fine gravel"
-msgstr ""
+msgstr "Cascalho fino"
 
 #: master_preset.xml:6632(text:text|group:Man_Made|preset:Entrance|key:addr:flats)
 msgid "Flat numbers"
@@ -3563,7 +3564,7 @@ msgstr ""
 
 #: master_preset.xml:30(list_entry:short_description|value:very_horrible)
 msgid "Specialized off-road: tractor, ATV"
-msgstr "Özel off-road aracı: traktör, ATV"
+msgstr ""
 
 #: master_preset.xml:279(combo:display_values|key:access)
 #: master_preset.xml:550(text:text|group:Streets|preset:Motorway|key:destination)
@@ -3579,16 +3580,16 @@ msgstr ""
 #: master_preset.xml:7088(combo:text|group:Power|preset:Power_Plant|key:plant:output:steam)
 #: master_preset.xml:372(combo:text|key:generator:output:steam)
 msgid "steam"
-msgstr "buhar"
+msgstr "vapor"
 
 #: master_preset.xml:3493(role:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:stop)
 #: master_preset.xml:3512(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:stop)
 msgid "stop position"
-msgstr "duruş pozisyonu"
+msgstr ""
 
 #: master_preset.xml:425(text:text|key:icao)
 msgid "ICAO"
-msgstr ""
+msgstr "ICAO"
 
 #: master_preset.xml:5781(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:pump-out)
 msgid "Suction pumpout"
@@ -3630,7 +3631,7 @@ msgstr ""
 #: master_preset.xml:1831(text:text|group:Barriers|preset:Hedge|key:species)
 #: master_preset.xml:9424(text:text|group:Land_use|preset:Plant_Nursery|key:species)
 msgid "Species"
-msgstr "Türler"
+msgstr ""
 
 #: master_preset.xml:1057(multiselect:text|group:Lane_attributes|preset:Single_direction_roads|key:turn:lanes)
 msgid "Turning lanes"
@@ -3638,7 +3639,7 @@ msgstr ""
 
 #: master_preset.xml:2069(item:name|group:Passageways|preset:Building_Passage)
 msgid "Building Passage"
-msgstr "Bina Geçidi"
+msgstr ""
 
 #: master_preset.xml:7732(item:name|group:Food|preset:Deli_(Fine_Food))
 msgid "Deli (Fine Food)"
@@ -3658,7 +3659,7 @@ msgstr ""
 
 #: master_preset.xml:2549(check:text|group:Water|preset:Water|key:salt)
 msgid "Salt Water"
-msgstr "Tuzlu Su"
+msgstr ""
 
 #: master_preset.xml:451(combo:display_values|key:stars)
 msgid "*******"
@@ -3674,11 +3675,11 @@ msgstr ""
 
 #: master_preset.xml:529(item:name|group:Streets|preset:Motorway)
 msgid "Motorway"
-msgstr "Otoyol"
+msgstr ""
 
 #: master_preset.xml:2801(group:name|group:Railway)
 msgid "Railway"
-msgstr "Demiryolu"
+msgstr ""
 
 #: master_preset.xml:5672(item:name|group:Facilities|preset:Recycling_Container)
 msgid "Recycling Container"
@@ -3691,7 +3692,7 @@ msgstr ""
 #: master_preset.xml:286(text:text|key:population)
 #: master_preset.xml:8929(text:text|group:Places|preset:Neighbourhood|key:population)
 msgid "Population"
-msgstr "Nüfus"
+msgstr ""
 
 #: master_preset.xml:5036(item:name|group:Public_Building|preset:Fire_Station)
 msgid "Fire Station"
@@ -3703,7 +3704,7 @@ msgstr ""
 
 #: master_preset.xml:3067(item:name|group:Aerialway|preset:Magic_Carpet)
 msgid "Magic Carpet"
-msgstr "Sihirli Halı"
+msgstr ""
 
 #: master_preset.xml:9813(item:name|group:Addresses_and_Contact|preset:Contact_('contact:-'))
 msgid "Contact ('contact:*')"
@@ -3727,7 +3728,7 @@ msgstr ""
 #: master_preset.xml:53(check:text|key:bridge)
 #: master_preset.xml:556(check:text|group:Streets|preset:Motorway|key:bridge)
 msgid "Bridge"
-msgstr "Köprü"
+msgstr ""
 
 #: master_preset.xml:1172(list_entry:short_description|group:Ways|preset:Path|value:demanding_mountain_hiking)
 msgid ""
@@ -3762,7 +3763,7 @@ msgstr ""
 
 #: master_preset.xml:1014(item:name|group:Streets|preset:Roundabout)
 msgid "Roundabout"
-msgstr "Dönel Kavşak"
+msgstr ""
 
 #: master_preset.xml:7563(item:name|group:Historic_Places|preset:Monument)
 msgid "Monument"
@@ -3787,7 +3788,7 @@ msgstr ""
 #: master_preset.xml:1401(check:text|group:Waypoints|preset:Traffic_Signal|key:button_operated)
 #: master_preset.xml:1463(check:text|group:Waypoints|preset:Pedestrian_Crossing|key:button_operated)
 msgid "Button operated"
-msgstr "Çalıştırma düğmesi"
+msgstr ""
 
 #: master_preset.xml:3259(check:text|group:Car|preset:Charging_Station|key:authentication:short_message)
 msgid "Short message"
@@ -3808,7 +3809,7 @@ msgstr ""
 #: master_preset.xml:9762(text:text|group:Addresses_and_Contact|preset:Addresses|key:addr:postcode)
 #: master_preset.xml:287(text:text|key:addr:postcode)
 msgid "Post code"
-msgstr "Posta kodu"
+msgstr ""
 
 #: master_preset.xml:9791(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Alphabetic"
@@ -3836,7 +3837,7 @@ msgstr ""
 
 #: master_preset.xml:296(check:text|key:roundtrip)
 msgid "Roundtrip"
-msgstr "Gidiş"
+msgstr ""
 
 #: master_preset.xml:4029(item:name|group:Accommodation|preset:Wilderness_Hut)
 msgid "Wilderness Hut"
@@ -3853,24 +3854,24 @@ msgstr ""
 #: master_preset.xml:387(text:text|key:maxweight)
 #: master_preset.xml:2290(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxweight)
 msgid "Max. weight (tonnes)"
-msgstr "Maks. ağırlık (ton)"
+msgstr ""
 
 #: master_preset.xml:3392(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:repair)
 #: master_preset.xml:3298(item:name|group:Car|preset:Repair)
 msgid "Repair"
-msgstr "Tamir"
+msgstr ""
 
 #: master_preset.xml:635(item:name|group:Streets|preset:Trunk_Link)
 msgid "Trunk Link"
-msgstr "Anayol Bağlantısı"
+msgstr ""
 
 #: master_preset.xml:5364(item:name|group:Emergency|preset:Emergency_Phone)
 msgid "Emergency Phone"
-msgstr "Acil Telefonu"
+msgstr ""
 
 #: master_preset.xml:3375(item:name|group:Motorcycle|preset:Motorcycle_Dealer)
 msgid "Motorcycle Dealer"
-msgstr "Motosiklet Bayisi"
+msgstr ""
 
 #: master_preset.xml:11034(item:name|group:Offices|preset:Architect)
 msgid "Architect"
@@ -3902,7 +3903,7 @@ msgstr ""
 
 #: master_preset.xml:8932(item:name|group:Places|preset:Farm)
 msgid "Farm"
-msgstr "Çiftlik"
+msgstr ""
 
 #: master_preset.xml:3248(combo:text|group:Car|preset:Charging_Station|key:socket:schuko)
 msgid "Schuko"
@@ -3934,7 +3935,7 @@ msgstr ""
 msgid ""
 "A point where groundwater naturally flows to the surface of the earth from "
 "underground."
-msgstr "Yeraltı suyunun yeryüzüne çıkış noktası."
+msgstr ""
 
 #: master_preset.xml:135(combo:text|key:level)
 msgid "Level (ground floor is 0)"
@@ -3942,11 +3943,11 @@ msgstr ""
 
 #: master_preset.xml:7504(item:name|group:Historic_Places|preset:Castle)
 msgid "Castle"
-msgstr "Kale"
+msgstr ""
 
 #: master_preset.xml:1660(item:name|preset:Speed_Camera)
 msgid "Speed Camera"
-msgstr "Hız Radarı"
+msgstr ""
 
 #: master_preset.xml:9970(combo:text|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Restriction"
@@ -3955,15 +3956,15 @@ msgstr ""
 #: master_preset.xml:2822(combo:text|group:Railway|preset:Narrow_Gauge_Rail|key:usage)
 #: master_preset.xml:2814(combo:text|group:Railway|preset:Rail|key:usage)
 msgid "Usage"
-msgstr "Kullanım"
+msgstr ""
 
 #: master_preset.xml:3127(label:text|group:Car|preset:Parking)
 msgid "See the Wiki for other capacity:[types]=*."
-msgstr "Diğer kapasiteler için Vikiye bakınız "
+msgstr ""
 
 #: master_preset.xml:2470(item:name|group:Water|preset:Breakwater)
 msgid "Breakwater"
-msgstr "Dalgakıran"
+msgstr ""
 
 #: master_preset.xml:4351(check:text|group:Tourism|preset:Guidepost|key:hiking)
 #: master_preset.xml:4313(check:text|group:Tourism|preset:Map|key:hiking)
@@ -3976,7 +3977,7 @@ msgstr ""
 
 #: master_preset.xml:1462(label:text|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "In case of traffic signals:"
-msgstr "trafik işaretleri durumunda:"
+msgstr ""
 
 #: master_preset.xml:934(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Alley"
@@ -4010,7 +4011,7 @@ msgstr ""
 msgid ""
 "Plants that lose their foliage for a very short period, when old leaves fall"
 " off and new foliage growth is starting."
-msgstr "Çok kısa sürede yaprak döken ve eski yaprakları dökerken tekrar yeşeren bitkiler."
+msgstr ""
 
 #: master_preset.xml:4916(item:name|group:Place_of_Worship|preset:Other_Place_of_Worship)
 msgid "Other Place of Worship"
@@ -4030,7 +4031,7 @@ msgstr ""
 #: master_preset.xml:860(combo:text|group:Streets|preset:Bicycle_Road|key:lanes)
 #: master_preset.xml:909(combo:text|group:Streets|preset:Pedestrian|key:lanes)
 msgid "Lanes"
-msgstr "Şeritler"
+msgstr ""
 
 #: master_preset.xml:9030(text:text|group:Geography|preset:Ridge|key:ele)
 #: master_preset.xml:4023(text:text|group:Accommodation|preset:Alpine_Hut|key:ele)
@@ -4043,12 +4044,12 @@ msgstr "Şeritler"
 #: master_preset.xml:8971(text:text|group:Geography|preset:Peak|key:ele)
 #: master_preset.xml:4044(text:text|group:Accommodation|preset:Wilderness_Hut|key:ele)
 msgid "Elevation"
-msgstr "Yükseklik"
+msgstr ""
 
 #: master_preset.xml:2955(check:text|group:Railway|preset:Crossing|key:crossing:light)
 #: master_preset.xml:2936(check:text|group:Railway|preset:Level_Crossing|key:crossing:light)
 msgid "Traffic lights"
-msgstr "Trafik ışıkları"
+msgstr ""
 
 #: master_preset.xml:10262(role:text|preset:Street|key:associated)
 msgid "anything related to the street"
@@ -4089,7 +4090,7 @@ msgstr ""
 
 #: master_preset.xml:2544(label:text|group:Water|preset:Water)
 msgid "A body of standing water, such as a lake or pond."
-msgstr "Durağan su kütlesi, göl veya gölet gibi."
+msgstr ""
 
 #: master_preset.xml:9972(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 #: master_preset.xml:5274(group:name|group:Emergency)
@@ -4102,7 +4103,7 @@ msgstr ""
 
 #: master_preset.xml:297(text:text|key:symbol)
 msgid "Symbol description"
-msgstr "Sembol açıklama"
+msgstr ""
 
 #: master_preset.xml:10282(role:text|preset:Destination_Sign|key:from)
 msgid "last way before junction"
@@ -4122,7 +4123,7 @@ msgstr ""
 
 #: master_preset.xml:1325(combo:text|group:Ways|preset:Steps|key:ramp:luggage)
 msgid "Luggage ramp"
-msgstr "Bagaj rampası"
+msgstr ""
 
 #: master_preset.xml:10896(group:name|group:Offices)
 msgid "Offices"
@@ -4136,7 +4137,7 @@ msgstr ""
 #: master_preset.xml:2117(check:text|group:Passageways|preset:Colonnade|key:colonnade:left)
 #: master_preset.xml:2100(check:text|group:Passageways|preset:Arcade|key:arcade:left)
 msgid "Open on left side"
-msgstr "Soldan açılır"
+msgstr ""
 
 #: master_preset.xml:934(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Parking ailse"
@@ -4195,7 +4196,7 @@ msgstr ""
 #: master_preset.xml:813(text:text|group:Streets|preset:Minor_road|key:ref)
 #: master_preset.xml:6019(text:text|group:Golf|preset:Hole|key:ref)
 msgid "Reference"
-msgstr "Referans"
+msgstr ""
 
 #: master_preset.xml:5079(check:text|group:Education|preset:Childcare|key:after_school)
 msgid "After school care"
@@ -4207,7 +4208,7 @@ msgstr ""
 
 #: master_preset.xml:2315(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:hov)
 msgid "High-occupancy vehicles (hov)"
-msgstr "Yüksek dolu araçlar (hov)"
+msgstr ""
 
 #: master_preset.xml:8708(check:text|preset:Payment_Methods|key:payment:ep_quick)
 msgid "Quick (au)"
@@ -4215,7 +4216,7 @@ msgstr ""
 
 #: master_preset.xml:1182(combo:text|group:Ways|preset:Path|key:snowmobile)
 msgid "Snowmobile"
-msgstr "Kar aracı"
+msgstr ""
 
 #: master_preset.xml:7018(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"
@@ -4244,23 +4245,23 @@ msgstr ""
 #: master_preset.xml:257(text:text|key:ref)
 #: master_preset.xml:4374(text:text|group:Tourism|preset:Information_Terminal|key:ref)
 msgid "Reference number"
-msgstr "Referans numarası"
+msgstr "Número de referência"
 
 #: master_preset.xml:3476(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:pump)
 #: master_preset.xml:3441(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:pump)
 msgid "Free bicycle pump"
-msgstr "Ücretsiz bisiklet pompası"
+msgstr ""
 
 #: master_preset.xml:961(item:name|group:Streets|preset:Escape)
 msgid "Escape"
-msgstr "Kaçış"
+msgstr ""
 
 #: master_preset.xml:4597(check:text|group:Leisure|preset:Public_Grill|key:covered)
 #: master_preset.xml:3593(check:text|group:Public_Transport|preset:Platform|key:covered)
 #: master_preset.xml:4584(check:text|group:Leisure|preset:Picnic_Table|key:covered)
 #: master_preset.xml:3421(check:text|group:Bicycle|preset:Parking|key:covered)
 msgid "Covered"
-msgstr "Kaplı"
+msgstr ""
 
 #: master_preset.xml:2989(item:name|group:Railway|preset:Railway_milestone)
 msgid "Railway milestone"
@@ -4280,7 +4281,7 @@ msgstr ""
 
 #: master_preset.xml:2088(item:name|group:Passageways|preset:Arcade)
 msgid "Arcade"
-msgstr "Çarşı"
+msgstr ""
 
 #: master_preset.xml:1064(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:merge_to_left)
 #: master_preset.xml:1108(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:merge_to_left)
@@ -4315,7 +4316,7 @@ msgstr ""
 
 #: master_preset.xml:1275(item:name|group:Ways|preset:Dedicated_Footway)
 msgid "Dedicated Footway"
-msgstr "Ayrılmış Yaya Yolu"
+msgstr ""
 
 #: master_preset.xml:8721(item:name|group:Boundaries|preset:Administrative)
 #: master_preset.xml:10897(item:name|group:Offices|preset:Administrative)
@@ -4345,7 +4346,7 @@ msgstr ""
 
 #: master_preset.xml:88(combo:text|key:electrified)
 msgid "Electrified"
-msgstr "Elektriklenmiş"
+msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Noodle"
@@ -4402,11 +4403,11 @@ msgstr ""
 #: master_preset.xml:5251(text:text|group:Health|preset:Emergency_Access_Point|key:operator)
 #: master_preset.xml:5881(text:text|group:Facilities|preset:Compressed_Air|key:operator)
 msgid "Operator"
-msgstr "Operatör"
+msgstr ""
 
 #: master_preset.xml:408(combo:text|key:boat)
 msgid "Boat"
-msgstr "Bot"
+msgstr ""
 
 #: master_preset.xml:5080(check:text|group:Education|preset:Childcare|key:orphanage)
 msgid "Orphanage"
@@ -4418,7 +4419,7 @@ msgstr ""
 
 #: master_preset.xml:2015(item:name|group:Barriers|preset:Stile)
 msgid "Stile"
-msgstr "Stil"
+msgstr ""
 
 #: master_preset.xml:3059(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "T-bar"
@@ -4442,7 +4443,7 @@ msgstr ""
 
 #: master_preset.xml:2661(group:name|group:Shipping)
 msgid "Shipping"
-msgstr "Gemiler"
+msgstr ""
 
 #: master_preset.xml:7006(combo:text|group:Man_Made|preset:Surveillance_Camera|key:surveillance:zone)
 msgid "Zone"
@@ -4482,7 +4483,7 @@ msgstr ""
 
 #: master_preset.xml:3536(item:name|group:Public_Transport|preset:Stop_Area)
 msgid "Stop Area"
-msgstr "Durma Alanı"
+msgstr ""
 
 #: master_preset.xml:5883(multiselect:display_values|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Regina"
@@ -4556,7 +4557,7 @@ msgstr ""
 #: master_preset.xml:3636(item:name|group:Public_Transport|preset:Subway_Entrance)
 #: master_preset.xml:3552(role:text|group:Public_Transport|preset:Stop_Area|key:)
 msgid "Subway Entrance"
-msgstr "Metro girişi"
+msgstr ""
 
 #: master_preset.xml:313(combo:display_values|key:religion)
 msgid "Jain"
@@ -4580,7 +4581,7 @@ msgstr ""
 
 #: master_preset.xml:1242(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
-msgstr "Yayalar"
+msgstr ""
 
 #: master_preset.xml:7893(item:name|group:Clothes|preset:Boutique)
 msgid "Boutique"
@@ -4592,7 +4593,7 @@ msgstr ""
 
 #: master_preset.xml:1751(combo:text|group:Barriers|preset:Bollard|key:bollard)
 msgid "Bollard type"
-msgstr "İskele babası tipi"
+msgstr ""
 
 #: master_preset.xml:6020(text:text|group:Golf|preset:Hole|key:par)
 msgid "Par"
@@ -4614,7 +4615,7 @@ msgstr ""
 #: master_preset.xml:4134(combo:display_values|group:Food+Drinks|preset:Fast_Food|key:takeaway)
 #: master_preset.xml:249(combo:display_values|key:fee)
 msgid "No"
-msgstr "Hayır"
+msgstr "Não"
 
 #: master_preset.xml:6705(text:text|group:Man_Made|preset:Gasometer|key:height)
 #: master_preset.xml:9327(text:text|group:Nature|preset:Stone|key:height)
@@ -4634,7 +4635,7 @@ msgstr "Hayır"
 #: master_preset.xml:1829(text:text|group:Barriers|preset:Hedge|key:height)
 #: master_preset.xml:6594(text:text|group:Man_Made|preset:Residential_Building|key:height)
 msgid "Height (meters)"
-msgstr "Yükseklik (metre)"
+msgstr ""
 
 #: master_preset.xml:7223(list_entry:short_description|group:Power_Generator|preset:Tidal_Water_Turbine|value:kaplan_turbine)
 msgid "barrage"
@@ -4642,7 +4643,7 @@ msgstr ""
 
 #: master_preset.xml:304(list_entry:short_description|value:evergreen)
 msgid "Plants that are never entirely without green foliage."
-msgstr "Neredeyse hiç yeşermeyen bitkiler."
+msgstr ""
 
 #: master_preset.xml:5519(item:name|group:Social_Facilities|preset:Social_Club)
 msgid "Social Club"
@@ -4650,7 +4651,7 @@ msgstr ""
 
 #: master_preset.xml:3389(optional:text|group:Motorcycle|preset:Motorcycle_Dealer)
 msgid "Services:"
-msgstr "Hizmetler:"
+msgstr ""
 
 #: master_preset.xml:315(combo:display_values|key:denomination)
 msgid "Mormon"
@@ -4682,14 +4683,14 @@ msgstr ""
 
 #: master_preset.xml:3573(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Tram stop (legacy)"
-msgstr "Tramvay durağı (eski)"
+msgstr ""
 
 #: master_preset.xml:2937(check:text|group:Railway|preset:Level_Crossing|key:crossing:bell)
 #: master_preset.xml:1464(check:text|group:Waypoints|preset:Pedestrian_Crossing|key:traffic_signals:sound)
 #: master_preset.xml:2956(check:text|group:Railway|preset:Crossing|key:crossing:bell)
 #: master_preset.xml:1402(check:text|group:Waypoints|preset:Traffic_Signal|key:traffic_signals:sound)
 msgid "Sound signals"
-msgstr "Ses sinyalleri"
+msgstr ""
 
 #: master_preset.xml:7433(check:text|preset:Pole|key:pole)
 #: master_preset.xml:7415(check:text|preset:Power_Tower|key:tower)
@@ -4727,7 +4728,7 @@ msgstr ""
 #: master_preset.xml:426(text:text|key:wikipedia)
 #: master_preset.xml:7593(text:text|group:Historic_Places|preset:Memorial|key:wikipedia)
 msgid "Wikipedia"
-msgstr "Vikipedia"
+msgstr ""
 
 #: master_preset.xml:7175(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:stellarator)
 #: master_preset.xml:7176(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:tokamak)
@@ -4758,7 +4759,7 @@ msgstr ""
 
 #: master_preset.xml:7540(item:name|group:Historic_Places|preset:Battlefield)
 msgid "Battlefield"
-msgstr ""
+msgstr "Campo de batalha"
 
 #: master_preset.xml:8012(item:name|group:Electronic|preset:Vacuum_Cleaner)
 msgid "Vacuum Cleaner"
@@ -4766,11 +4767,11 @@ msgstr ""
 
 #: master_preset.xml:29(list_entry:short_description|value:horrible)
 msgid "Off-Road: heavy duty off-road vehicle"
-msgstr "Off-Road: ağır yüklü off-road aracı"
+msgstr ""
 
 #: master_preset.xml:1354(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
-msgstr "Numara"
+msgstr ""
 
 #: master_preset.xml:313(combo:display_values|key:religion)
 msgid "Unitarian"
@@ -4785,14 +4786,14 @@ msgstr ""
 #: master_preset.xml:367(combo:text|key:generator:output:hot_water)
 #: master_preset.xml:7083(combo:text|group:Power|preset:Power_Plant|key:plant:output:hot_water)
 msgid "hot water"
-msgstr "sıcak su"
+msgstr ""
 
 #: master_preset.xml:3591(check:text|group:Public_Transport|preset:Platform|key:shelter)
 #: master_preset.xml:5838(check:text|group:Facilities|preset:Hunting_Stand|key:shelter)
 #: master_preset.xml:5814(item:name|group:Facilities|preset:Shelter)
 #: master_preset.xml:3763(check:text|group:Public_Transport_(Legacy)|preset:Bus_Stop|key:shelter)
 msgid "Shelter"
-msgstr "Barınak"
+msgstr ""
 
 #: master_preset.xml:10961(item:name|group:Offices|preset:IT)
 msgid "IT"
@@ -4804,7 +4805,7 @@ msgstr ""
 
 #: master_preset.xml:3424(item:name|group:Bicycle|preset:Bike_Dealer)
 msgid "Bike Dealer"
-msgstr "Bisiklet Bayii"
+msgstr ""
 
 #: master_preset.xml:626(check:text|group:Streets|preset:Trunk|key:cutting)
 #: master_preset.xml:652(check:text|group:Streets|preset:Trunk_Link|key:cutting)
@@ -4812,7 +4813,7 @@ msgstr "Bisiklet Bayii"
 #: master_preset.xml:56(check:text|key:cutting)
 #: master_preset.xml:558(check:text|group:Streets|preset:Motorway|key:cutting)
 msgid "Cutting"
-msgstr "Kesme"
+msgstr ""
 
 #: master_preset.xml:3633(text:text|group:Public_Transport|preset:Station|key:network)
 #: master_preset.xml:10017(combo:text|group:Routes|preset:Bicycle_Route|key:network)
@@ -4829,14 +4830,14 @@ msgstr "Kesme"
 #: master_preset.xml:3547(text:text|group:Public_Transport|preset:Stop_Area|key:network)
 #: master_preset.xml:10080(combo:text|group:Routes|preset:Walking_Route|key:network)
 msgid "Network"
-msgstr "Şebeke"
+msgstr ""
 
 #: master_preset.xml:100(check:text|key:foot)
 #: master_preset.xml:109(check:text|key:foot)
 #: master_preset.xml:2309(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:foot)
 #: master_preset.xml:117(check:text|key:foot)
 msgid "Foot"
-msgstr "Ayak"
+msgstr ""
 
 #: master_preset.xml:8702(check:text|preset:Payment_Methods|key:payment:ep_minicash)
 msgid "Minicash (lu)"
@@ -4848,7 +4849,7 @@ msgstr ""
 
 #: master_preset.xml:2449(item:name|group:Water|preset:Dam)
 msgid "Dam"
-msgstr "Baraj"
+msgstr ""
 
 #: master_preset.xml:6328(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:football)
 msgid "Football"
@@ -4857,7 +4858,7 @@ msgstr ""
 #: master_preset.xml:2483(item:name|group:Water|preset:Culvert)
 #: master_preset.xml:398(combo:display_values|key:tunnel)
 msgid "Culvert"
-msgstr "Menfez"
+msgstr ""
 
 #: master_preset.xml:7109(item:name|group:Power_Generator|preset:Biomass_Power_Generator)
 msgid "Biomass Power Generator"
@@ -4865,7 +4866,7 @@ msgstr ""
 
 #: master_preset.xml:267(combo:text|key:maxstay)
 msgid "Time Limit (minutes)"
-msgstr "Zaman sınırı (dakika)"
+msgstr ""
 
 #: master_preset.xml:8613(item:name|group:Other|preset:Funeral_Directors)
 msgid "Funeral Directors"
@@ -4884,7 +4885,7 @@ msgstr ""
 #: master_preset.xml:89(combo:text|key:voltage)
 #: master_preset.xml:318(combo:text|key:voltage)
 msgid "Voltage in Volts (V)"
-msgstr "Volt gerilim (V)"
+msgstr ""
 
 #: master_preset.xml:4385(label:text|group:Tourism|preset:Audio_Guide)
 msgid "Information using headphones or a mobile phone."
@@ -4897,7 +4898,7 @@ msgstr ""
 #: master_preset.xml:7089(combo:text|group:Power|preset:Power_Plant|key:plant:output:vacuum)
 #: master_preset.xml:373(combo:text|key:generator:output:vacuum)
 msgid "vacuum"
-msgstr "vakum"
+msgstr ""
 
 #: master_preset.xml:1171(list_entry:display_value|group:Ways|preset:Path|value:mountain_hiking)
 msgid "T2 - mountain hiking trail"
@@ -4910,11 +4911,11 @@ msgstr ""
 #: master_preset.xml:3203(check:text|group:Car|preset:Fuel|key:fuel:cng)
 #: master_preset.xml:2723(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:cng)
 msgid "CNG (Compressed Natural Gas)"
-msgstr "CNG (Sıkıştırılmış Doğal Gaz)"
+msgstr ""
 
 #: master_preset.xml:2291(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxaxleload)
 msgid "Max. axleload (tonnes)"
-msgstr "Maks. dingil ağırlığı (ton)"
+msgstr ""
 
 #: master_preset.xml:1037(item:name|group:Streets|preset:Ford)
 msgid "Ford"
@@ -4929,7 +4930,7 @@ msgstr ""
 #: master_preset.xml:6821(combo:text|group:Man_Made|preset:Pipeline|key:location)
 #: master_preset.xml:337(combo:text|key:location)
 msgid "Location"
-msgstr "Konum"
+msgstr ""
 
 #: master_preset.xml:8678(check:text|preset:Payment_Methods|key:payment:girocard)
 msgid "Girocard"
@@ -4942,11 +4943,11 @@ msgstr ""
 
 #: master_preset.xml:1389(item:name|group:Waypoints|preset:Traffic_Signal)
 msgid "Traffic Signal"
-msgstr "Trafik İşareti"
+msgstr ""
 
 #: master_preset.xml:2880(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr "Otobüs Kızağı"
+msgstr ""
 
 #: master_preset.xml:5068(group:name|group:Education)
 msgid "Education"
@@ -4966,7 +4967,7 @@ msgstr ""
 
 #: master_preset.xml:364(optional:text)
 msgid "Output forms of energy:"
-msgstr "Enerji çıkış biçimleri:"
+msgstr ""
 
 #: master_preset.xml:6647(combo:text|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Tower type"
@@ -4979,12 +4980,12 @@ msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "Up"
-msgstr "Yukarı"
+msgstr ""
 
 #: master_preset.xml:90(combo:text|key:frequency)
 #: master_preset.xml:321(combo:text|key:frequency)
 msgid "Frequency in Hertz (Hz)"
-msgstr "Frekans Hertz (Hz)"
+msgstr ""
 
 #: master_preset.xml:1531(item:name|group:Traffic_Calming|preset:Cushion)
 msgid "Cushion"
@@ -5040,7 +5041,7 @@ msgstr ""
 
 #: master_preset.xml:2317(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:tourist_bus)
 msgid "Tourist buses"
-msgstr "Turist otobüsleri"
+msgstr ""
 
 #: master_preset.xml:237(combo:text|key:diaper)
 msgid "Diaper changing facilities"
@@ -5052,7 +5053,7 @@ msgstr ""
 
 #: master_preset.xml:2627(item:name|group:Water|preset:Beach)
 msgid "Beach"
-msgstr "Plaj"
+msgstr ""
 
 #: master_preset.xml:467(list_entry:display_value|value:lowered)
 #: master_preset.xml:473(list_entry:display_value|value:lowered)
@@ -5066,7 +5067,7 @@ msgstr ""
 
 #: master_preset.xml:2277(item:name|group:Access_Restrictions|preset:Physical_restrictions)
 msgid "Physical restrictions"
-msgstr "Fiziksel kısıtlamalar"
+msgstr ""
 
 #: master_preset.xml:1066(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:merge_to_right)
 #: master_preset.xml:1092(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:merge_to_right)
@@ -5076,7 +5077,7 @@ msgstr ""
 
 #: master_preset.xml:1741(item:name|group:Barriers|preset:Bollard)
 msgid "Bollard"
-msgstr "İskele babası"
+msgstr ""
 
 #: master_preset.xml:9766(text:text|group:Addresses_and_Contact|preset:Addresses|key:addr:housename)
 msgid "House name"
@@ -5102,11 +5103,11 @@ msgstr ""
 
 #: master_preset.xml:1440(combo:text|group:Waypoints|preset:Mini-Roundabout|key:direction)
 msgid "Direction"
-msgstr "Yön"
+msgstr ""
 
 #: master_preset.xml:1430(item:name|group:Waypoints|preset:Mini-Roundabout)
 msgid "Mini-Roundabout"
-msgstr "Ufak Dönel Kavşak"
+msgstr ""
 
 #: master_preset.xml:238(list_entry:short_description|value:yes)
 #: master_preset.xml:202(combo:display_values|key:internet_access)
@@ -5156,7 +5157,7 @@ msgstr ""
 
 #: master_preset.xml:295(text:text|key:descent)
 msgid "Descent (m)"
-msgstr "İniş (m)"
+msgstr ""
 
 #: master_preset.xml:9827(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:contact:phone)
 #: master_preset.xml:5252(text:text|group:Health|preset:Emergency_Access_Point|key:phone)
@@ -5166,7 +5167,7 @@ msgstr ""
 
 #: master_preset.xml:1322(check:text|group:Ways|preset:Steps|key:ramp:bicycle)
 msgid "Bicycle ramp"
-msgstr "Bisiklet rampası"
+msgstr ""
 
 #: master_preset.xml:10863(item:name|group:Crafts|preset:Dressmaker)
 msgid "Dressmaker"
@@ -5182,7 +5183,7 @@ msgstr ""
 
 #: master_preset.xml:2107(item:name|group:Passageways|preset:Colonnade)
 msgid "Colonnade"
-msgstr "Kemeraltı"
+msgstr ""
 
 #: master_preset.xml:934(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Drive-through"
@@ -5207,7 +5208,7 @@ msgstr ""
 
 #: master_preset.xml:597(item:name|group:Streets|preset:Trunk)
 msgid "Trunk"
-msgstr "Ana yol"
+msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Chicken"
@@ -5220,7 +5221,7 @@ msgstr ""
 #: master_preset.xml:2192(combo:text|group:Access_Restrictions|preset:Motor_vehicle_(CH)|key:motor_vehicle)
 #: master_preset.xml:2176(combo:text|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
 msgid "Motor vehicles"
-msgstr "Motorlu araçlar"
+msgstr ""
 
 #: master_preset.xml:8679(check:text|preset:Payment_Methods|key:payment:laser)
 msgid "Laser"
@@ -5247,7 +5248,7 @@ msgstr ""
 
 #: master_preset.xml:864(check:text|group:Streets|preset:Bicycle_Road|key:oneway:bicycle)
 msgid "Oneway for bicycle"
-msgstr "Bisiklet için tek yönlü"
+msgstr ""
 
 #: master_preset.xml:8771(text:text|group:Boundaries|preset:Protected_Area|key:protection_title)
 msgid "Title or type of protection"
@@ -5276,11 +5277,11 @@ msgstr ""
 #: master_preset.xml:628(check:text|group:Streets|preset:Trunk|key:lit)
 #: master_preset.xml:560(check:text|group:Streets|preset:Motorway|key:lit)
 msgid "Lit"
-msgstr "Yatak"
+msgstr ""
 
 #: master_preset.xml:1300(item:name|group:Ways|preset:Steps)
 msgid "Steps"
-msgstr "Merdivenler"
+msgstr ""
 
 #: master_preset.xml:6966(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:seismic_activity)
 msgid "Seismic Activity"
@@ -5288,7 +5289,7 @@ msgstr ""
 
 #: master_preset.xml:3208(label:text|group:Car|preset:Fuel)
 msgid "Fuel cards:"
-msgstr "Yakıt kartları:"
+msgstr ""
 
 #: master_preset.xml:5354(text:text|group:Emergency|preset:Water_Tank|key:water_tank:volume)
 msgid "Volume (in liters)"
@@ -5319,7 +5320,7 @@ msgstr ""
 #: master_preset.xml:681(check:text|group:Streets|preset:Primary|key:motorroad)
 #: master_preset.xml:623(check:text|group:Streets|preset:Trunk|key:motorroad)
 msgid "Motorroad"
-msgstr "Motorlu taşıt yolu"
+msgstr ""
 
 #: master_preset.xml:5154(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
@@ -5335,7 +5336,7 @@ msgstr ""
 
 #: master_preset.xml:2145(group:name|group:Access_Restrictions)
 msgid "Access Restrictions"
-msgstr "Erişim Kısıtlamaları"
+msgstr ""
 
 #: master_preset.xml:8433(item:name|group:Other|preset:Florist)
 msgid "Florist"
@@ -5344,7 +5345,7 @@ msgstr ""
 #: master_preset.xml:2710(label:text|group:Shipping|preset:Marine_Fuel)
 #: master_preset.xml:3188(label:text|group:Car|preset:Fuel)
 msgid "Fuel types:"
-msgstr "Yakıt tipi:"
+msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Steak house"
@@ -5360,7 +5361,7 @@ msgstr ""
 
 #: master_preset.xml:2195(item:name|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH))
 msgid "Motorcar and -cycle (CH)"
-msgstr "Otomobil ve -Bisiklet (CH)"
+msgstr ""
 
 #: master_preset.xml:7052(item:name|group:Bridges|preset:Bridge_Support)
 msgid "Bridge Support"
@@ -5376,7 +5377,7 @@ msgstr ""
 
 #: master_preset.xml:823(item:name|group:Streets|preset:Residential)
 msgid "Residential"
-msgstr "Yerleşim"
+msgstr ""
 
 #: master_preset.xml:444(list_entry:display_value|value:senior)
 msgid "Elderly"
@@ -5398,7 +5399,7 @@ msgstr ""
 
 #: master_preset.xml:203(combo:text|key:internet_access:fee)
 msgid "Internet access fee"
-msgstr "İnternet erişimi ücretli"
+msgstr ""
 
 #: master_preset.xml:9260(item:name|group:Nature|preset:Heath)
 msgid "Heath"
@@ -5415,7 +5416,7 @@ msgstr ""
 #: master_preset.xml:10298(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:2323(item:name|group:Water|preset:Drain)
 msgid "Drain"
-msgstr "Tahliye"
+msgstr ""
 
 #: master_preset.xml:4367(label:text|group:Tourism|preset:Information_Terminal)
 msgid "Information access via electronic methods."
@@ -5452,7 +5453,7 @@ msgstr ""
 #: master_preset.xml:4067(combo:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:sanitary_dump_station)
 #: master_preset.xml:2699(combo:text|group:Shipping|preset:Marina|key:sanitary_dump_station)
 msgid "Dump Station"
-msgstr "Boşaltım İstasyonu"
+msgstr ""
 
 #: master_preset.xml:7253(item:name|preset:Power_Substation)
 msgid "Power Substation"
@@ -5460,7 +5461,7 @@ msgstr ""
 
 #: master_preset.xml:2499(item:name|group:Water|preset:Basin)
 msgid "Basin"
-msgstr "Havza"
+msgstr ""
 
 #: master_preset.xml:9056(item:name|group:Geography|preset:Cave_Entrance)
 msgid "Cave Entrance"
@@ -5474,12 +5475,12 @@ msgstr ""
 #: master_preset.xml:3608(check:text|group:Public_Transport|preset:Platform|key:trolleybus)
 #: master_preset.xml:3577(check:text|group:Public_Transport|preset:Stop_Position|key:trolleybus)
 msgid "Trolleybus"
-msgstr "Troleybüs"
+msgstr ""
 
 #: master_preset.xml:2721(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:e85)
 #: master_preset.xml:3201(check:text|group:Car|preset:Fuel|key:fuel:e85)
 msgid "E85 (85% Ethanol mix)"
-msgstr "E85 (%85 Etanol karışım)"
+msgstr ""
 
 #: master_preset.xml:9951(role:text|group:Relations|preset:Site|key:perimeter)
 msgid "perimeter of the site"
@@ -5496,7 +5497,7 @@ msgstr ""
 
 #: master_preset.xml:3442(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:diy)
 msgid "Tools for do-it-yourself repair (may be a bike co-operative)"
-msgstr "Kendin tamir etmek için aletler (belki bisikletçi yardım edebilir)"
+msgstr ""
 
 #: master_preset.xml:1101(multiselect:text|group:Lane_attributes|preset:Bi-directional_roads|key:turn:lanes:backward)
 msgid "Turning lanes opposite to way direction"
@@ -5504,7 +5505,7 @@ msgstr ""
 
 #: master_preset.xml:919(item:name|group:Streets|preset:Service)
 msgid "Service"
-msgstr "Servis"
+msgstr ""
 
 #: master_preset.xml:7588(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgid "War memorial"
@@ -5520,7 +5521,7 @@ msgstr ""
 
 #: master_preset.xml:1758(item:name|group:Barriers|preset:Cycle_Barrier)
 msgid "Cycle Barrier"
-msgstr "Bisiklet Bariyeri"
+msgstr ""
 
 #: master_preset.xml:10249(role:text|preset:Associated_Street|key:house)
 msgid "house"
@@ -5534,11 +5535,11 @@ msgstr ""
 #: master_preset.xml:2954(check:text|group:Railway|preset:Crossing|key:bicycle)
 #: master_preset.xml:1459(check:text|group:Waypoints|preset:Pedestrian_Crossing|key:bicycle)
 msgid "Cross by bicycle"
-msgstr "Bisikletle geçiş"
+msgstr ""
 
 #: master_preset.xml:508(combo:text|key:overtaking)
 msgid "Overtaking"
-msgstr "Sollama"
+msgstr ""
 
 #: master_preset.xml:6235(item:name|group:Sport|preset:Roller_Skating)
 msgid "Roller Skating"
@@ -5562,11 +5563,11 @@ msgstr ""
 
 #: master_preset.xml:3390(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:sale)
 msgid "Sale"
-msgstr "Satış"
+msgstr ""
 
 #: master_preset.xml:3217(item:name|group:Car|preset:Charging_Station)
 msgid "Charging Station"
-msgstr "Şarj İstasyonu"
+msgstr ""
 
 #: master_preset.xml:3186(combo:text|group:Car|preset:Fuel|key:shop)
 msgid "With shop"
@@ -5609,7 +5610,7 @@ msgstr ""
 #: master_preset.xml:7607(combo:text|group:Historic_Places|preset:Wayside_Cross|key:denomination)
 #: master_preset.xml:315(combo:text|key:denomination)
 msgid "Denomination"
-msgstr "Mezhep"
+msgstr ""
 
 #: master_preset.xml:8711(combo:text|preset:Payment_Methods|key:payment:cryptocurrencies)
 msgid "Cryptocurrencies"
@@ -5634,7 +5635,7 @@ msgstr ""
 
 #: master_preset.xml:1767(item:name|group:Barriers|preset:Cattle_Grid)
 msgid "Cattle Grid"
-msgstr "Sığır Engeli"
+msgstr ""
 
 #: master_preset.xml:7745(item:name|group:Food|preset:Candy_Store)
 msgid "Candy Store"
@@ -5699,7 +5700,7 @@ msgstr ""
 #: master_preset.xml:383(text:text|key:maxspeed)
 #: master_preset.xml:2893(text:text|group:Railway|preset:Bus_Guideway|key:maxspeed)
 msgid "Max. speed (km/h)"
-msgstr "Maks. hız (km/s)"
+msgstr ""
 
 #: master_preset.xml:11082(item:name|group:Offices|preset:Foundation)
 msgid "Foundation"
@@ -5732,12 +5733,12 @@ msgstr ""
 
 #: master_preset.xml:2898(item:name|group:Railway|preset:Disused_Rail)
 msgid "Disused Rail"
-msgstr "Kullanılmayan Demiryolu"
+msgstr ""
 
 #: master_preset.xml:1003(combo:text|group:Streets|preset:Construction|key:construction)
 #: master_preset.xml:855(combo:text|group:Streets|preset:Bicycle_Road|key:highway)
 msgid "Highway type"
-msgstr "Karayolu türü"
+msgstr ""
 
 #: master_preset.xml:4586(item:name|group:Leisure|preset:Public_Grill)
 msgid "Public Grill"
@@ -5761,7 +5762,7 @@ msgstr ""
 
 #: master_preset.xml:2802(item:name|group:Railway|preset:Rail)
 msgid "Rail"
-msgstr "Ray"
+msgstr ""
 
 #: master_preset.xml:4688(group:name|group:Culture)
 msgid "Culture"
@@ -5773,11 +5774,11 @@ msgstr ""
 
 #: master_preset.xml:2425(item:name|group:Water|preset:Waterfall)
 msgid "Waterfall"
-msgstr "Şelale"
+msgstr ""
 
 #: master_preset.xml:509(text:text|key:minspeed)
 msgid "Min. speed (km/h)"
-msgstr "Min. hız (km/s)"
+msgstr ""
 
 #: master_preset.xml:5075(text:text|group:Education|preset:Childcare|key:age_group)
 msgid "Age group (ie: 6-12)"
@@ -5789,7 +5790,7 @@ msgstr ""
 
 #: master_preset.xml:2569(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
-msgstr "Nehir kıyısı"
+msgstr ""
 
 #: master_preset.xml:5743(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:plastic)
 #: master_preset.xml:1899(combo:display_values|group:Barriers|preset:Jersey_Barrier|key:material)
@@ -5813,7 +5814,7 @@ msgstr ""
 #: master_preset.xml:1467(item:name|group:Traffic_Calming|preset:Traffic_Calming)
 #: master_preset.xml:1466(group:name|group:Traffic_Calming)
 msgid "Traffic Calming"
-msgstr "Trafik Sakinleştirici"
+msgstr ""
 
 #: master_preset.xml:315(combo:display_values|key:denomination)
 msgid "Presbyterian"
@@ -5834,7 +5835,7 @@ msgstr ""
 
 #: master_preset.xml:527(group:name|group:Highways)
 msgid "Highways"
-msgstr "Karayolu"
+msgstr ""
 
 #: master_preset.xml:9195(label:text|group:Nature|preset:Grassland)
 msgid ""
@@ -5905,7 +5906,7 @@ msgstr ""
 #: master_preset.xml:3191(check:text|group:Car|preset:Fuel|key:fuel:biodiesel)
 #: master_preset.xml:2713(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:biodiesel)
 msgid "Bio Diesel"
-msgstr "Bio Dizel"
+msgstr ""
 
 #: master_preset.xml:9199(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Prairie"
@@ -5913,7 +5914,7 @@ msgstr ""
 
 #: master_preset.xml:3126(combo:text|group:Car|preset:Parking|key:capacity:parent)
 msgid "Spaces for Parents"
-msgstr "Ebeveynler için alan"
+msgstr ""
 
 #: master_preset.xml:9929(combo:text|group:Relations|preset:Boundary|key:boundary)
 msgid "Boundary type"
@@ -5921,7 +5922,7 @@ msgstr ""
 
 #: master_preset.xml:943(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
-msgstr "Park koridoru"
+msgstr ""
 
 #: master_preset.xml:1315(text:text|group:Ways|preset:Steps|key:step_count)
 msgid "Number of steps"
@@ -5946,7 +5947,7 @@ msgstr ""
 #: master_preset.xml:5843(item:name|group:Facilities|preset:Drinking_Water)
 #: master_preset.xml:4042(combo:text|group:Accommodation|preset:Wilderness_Hut|key:drinking_water)
 msgid "Drinking Water"
-msgstr "İçme suyu"
+msgstr ""
 
 #: master_preset.xml:2643(combo:display_values|group:Water|preset:Beach|key:surface)
 #: master_preset.xml:19(combo:display_values|key:surface)
@@ -5964,7 +5965,7 @@ msgstr ""
 
 #: master_preset.xml:3667(item:name|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy))
 msgid "Public transport route (Legacy)"
-msgstr "Toplu taşıma güzergahı (Eski)"
+msgstr ""
 
 #: master_preset.xml:9938(role:text|group:Relations|preset:Boundary|key:label)
 msgid "Label point"
@@ -5977,7 +5978,7 @@ msgstr ""
 #: master_preset.xml:9804(text:text|group:Addresses_and_Contact|preset:Contact|key:website)
 #: master_preset.xml:3357(text:text|group:Car|preset:Sharing|key:website)
 msgid "Website"
-msgstr "Web sitesi"
+msgstr "Website"
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Mexican"
@@ -6204,7 +6205,7 @@ msgstr ""
 #: master_preset.xml:6543(text:text|group:Motorsport|preset:Raceway|key:name)
 #: master_preset.xml:6225(text:text|group:Sport|preset:Skating_(deprecated)|key:name)
 msgid "Name"
-msgstr "İsim"
+msgstr ""
 
 #: master_preset.xml:6953(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring:"
@@ -6216,7 +6217,7 @@ msgstr ""
 
 #: master_preset.xml:2968(item:name|group:Railway|preset:Buffer_Stop)
 msgid "Buffer Stop"
-msgstr "Hortuvar"
+msgstr ""
 
 #: master_preset.xml:6220(item:name|group:Sport|preset:Skating_(deprecated))
 msgid "Skating (deprecated)"
@@ -6241,7 +6242,7 @@ msgstr ""
 
 #: master_preset.xml:1713(item:name|preset:Mountain_Pass)
 msgid "Mountain Pass"
-msgstr "Dağ Geçidi"
+msgstr ""
 
 #: master_preset.xml:8385(item:name|group:For_the_body|preset:Jewellery)
 msgid "Jewellery"
@@ -6249,7 +6250,7 @@ msgstr ""
 
 #: master_preset.xml:2755(item:name|group:Shipping|preset:Turning_Point)
 msgid "Turning Point"
-msgstr "Dönüş Noktası"
+msgstr ""
 
 #: master_preset.xml:5665(combo:display_values|group:Facilities|preset:Clock|key:visibility)
 msgid "street (up to 20m)"
@@ -6261,19 +6262,19 @@ msgstr ""
 
 #: master_preset.xml:151(list_entry:short_description|value:limited)
 msgid "Partial access"
-msgstr ""
+msgstr "Parcialmente acessível"
 
 #: master_preset.xml:1151(item:name|group:Ways|preset:Path)
 msgid "Path"
-msgstr "Patika"
+msgstr ""
 
 #: master_preset.xml:3662(text:text|group:Public_Transport|preset:Ticket_Machine|key:ref)
 msgid "Reference Number"
-msgstr "Referans numarası"
+msgstr ""
 
 #: master_preset.xml:1812(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
-msgstr "Sınır Kontrolü"
+msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Fish and chips"
@@ -6290,7 +6291,7 @@ msgstr ""
 
 #: master_preset.xml:2179(item:name|group:Access_Restrictions|preset:Motor_vehicle_(CH))
 msgid "Motor vehicle (CH)"
-msgstr "Motorlu araç (CH)"
+msgstr ""
 
 #: master_preset.xml:443(list_entry:display_value|value:orphan)
 msgid "Orphans"
@@ -6306,7 +6307,7 @@ msgstr ""
 
 #: master_preset.xml:1218(combo:text|group:Ways|preset:Cycle_Lane/Track|key:cycleway:left)
 msgid "Cycleway left"
-msgstr "Bisiklet yolu sol"
+msgstr ""
 
 #: master_preset.xml:4951(item:name|group:Public_Building|preset:Town_Hall)
 msgid "Town Hall"
@@ -6323,7 +6324,7 @@ msgstr ""
 #: master_preset.xml:10298(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:2390(item:name|group:Water|preset:Canal)
 msgid "Canal"
-msgstr "Kanal"
+msgstr ""
 
 #: master_preset.xml:8704(check:text|preset:Payment_Methods|key:payment:ep_monedero)
 msgid "Mondero (ar)"
@@ -6332,11 +6333,11 @@ msgstr ""
 #: master_preset.xml:2720(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:e10)
 #: master_preset.xml:3200(check:text|group:Car|preset:Fuel|key:fuel:e10)
 msgid "E10 (10% Ethanol mix)"
-msgstr "E10 (%10 Etanol karışım)"
+msgstr ""
 
 #: master_preset.xml:2786(item:name|group:Shipping|preset:Dock)
 msgid "Dock"
-msgstr "Gemi havuzu"
+msgstr ""
 
 #: master_preset.xml:8473(item:name|group:Other|preset:Hardware)
 msgid "Hardware"
@@ -6368,7 +6369,7 @@ msgstr ""
 
 #: master_preset.xml:2848(item:name|group:Railway|preset:Light_Rail)
 msgid "Light Rail"
-msgstr "Hafif Raylı"
+msgstr ""
 
 #: master_preset.xml:4253(group:name|group:Tourism)
 msgid "Tourism"
@@ -6384,7 +6385,7 @@ msgstr ""
 
 #: master_preset.xml:2410(item:name|group:Water|preset:Spring)
 msgid "Spring"
-msgstr "Kaynak"
+msgstr ""
 
 #: master_preset.xml:3726(item:name|group:Public_Transport_(Legacy)|preset:Railway_Platform)
 msgid "Railway Platform"
@@ -6412,12 +6413,12 @@ msgstr ""
 
 #: master_preset.xml:2635(label:text|group:Water|preset:Beach)
 msgid "A flat area of sand, gravel or pebble next to water."
-msgstr "Suyun yanındaki düz kum, çakıl veya düzlük alan."
+msgstr ""
 
 #: master_preset.xml:10298(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:2371(item:name|group:Water|preset:River)
 msgid "River"
-msgstr "Irmak"
+msgstr ""
 
 #: master_preset.xml:3679(combo:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:colour)
 #: master_preset.xml:5811(combo:text|group:Facilities|preset:Bench|key:colour)
@@ -6426,7 +6427,7 @@ msgstr "Irmak"
 #: master_preset.xml:7387(combo:text|preset:Power_Portal|key:colour)
 #: master_preset.xml:486(combo:text|key:colour)
 msgid "Color (HTML name or hexadecimal code)"
-msgstr "Renk (HTML kodu veya on altılık kod)"
+msgstr ""
 
 #: master_preset.xml:4427(text:text|group:Leisure|preset:Movie_Theater/Cinema|key:screen)
 msgid "Number of screens"
@@ -6438,11 +6439,11 @@ msgstr ""
 
 #: master_preset.xml:3553(role:text|group:Public_Transport|preset:Stop_Area|key:)
 msgid "Station or amenities"
-msgstr "İstasyon veya kolaylıklar"
+msgstr ""
 
 #: master_preset.xml:2837(item:name|group:Railway|preset:Preserved)
 msgid "Preserved"
-msgstr "Korunmuş"
+msgstr ""
 
 #: master_preset.xml:6293(item:name|group:Sport_(Ball)|preset:Soccer)
 msgid "Soccer"
@@ -6450,7 +6451,7 @@ msgstr ""
 
 #: master_preset.xml:507(check:text|key:noexit)
 msgid "No exit (cul-de-sac)"
-msgstr "Çıkış yok (çıkmaz sokak)"
+msgstr ""
 
 #: master_preset.xml:8789(group:name|group:Places)
 msgid "Places"
@@ -6462,7 +6463,7 @@ msgstr ""
 
 #: master_preset.xml:2701(item:name|group:Shipping|preset:Marine_Fuel)
 msgid "Marine Fuel"
-msgstr "Deniz Yakıtı"
+msgstr ""
 
 #: master_preset.xml:313(combo:display_values|key:religion)
 msgid "Buddhist"
@@ -6480,7 +6481,7 @@ msgstr ""
 #: master_preset.xml:3610(check:text|group:Public_Transport|preset:Platform|key:subway)
 #: master_preset.xml:3579(check:text|group:Public_Transport|preset:Stop_Position|key:subway)
 msgid "Subway"
-msgstr "Metro"
+msgstr ""
 
 #: master_preset.xml:7142(item:name|group:Power_Generator|preset:Diesel_Power_Generator)
 msgid "Diesel Power Generator"
@@ -6501,7 +6502,7 @@ msgstr ""
 #: master_preset.xml:7085(combo:text|group:Power|preset:Power_Plant|key:plant:output:cold_water)
 #: master_preset.xml:369(combo:text|key:generator:output:cold_water)
 msgid "cold water"
-msgstr "soğuk su"
+msgstr ""
 
 #: master_preset.xml:4599(item:name|group:Leisure|preset:Firepit)
 msgid "Firepit"
@@ -6509,11 +6510,11 @@ msgstr ""
 
 #: master_preset.xml:3581(check:text|group:Public_Transport|preset:Stop_Position|key:funicular)
 msgid "Funicular"
-msgstr "Füniküler"
+msgstr ""
 
 #: master_preset.xml:662(item:name|group:Streets|preset:Primary)
 msgid "Primary"
-msgstr "Birincil"
+msgstr ""
 
 #: master_preset.xml:6673(item:name|group:Man_Made|preset:Chimney)
 msgid "Chimney"
@@ -6537,7 +6538,7 @@ msgstr ""
 #: master_preset.xml:398(combo:text|key:tunnel)
 #: master_preset.xml:2403(combo:text|group:Water|preset:Canal|key:tunnel)
 msgid "Tunnel"
-msgstr "Tünel"
+msgstr ""
 
 #: master_preset.xml:6797(check:text|group:Man_Made|preset:Adit|key:disused)
 #: master_preset.xml:6780(check:text|group:Man_Made|preset:Mineshaft|key:disused)
@@ -6567,7 +6568,7 @@ msgstr ""
 #: master_preset.xml:3557(item:name|group:Public_Transport|preset:Stop_Position)
 #: master_preset.xml:3550(role:text|group:Public_Transport|preset:Stop_Area|key:stop)
 msgid "Stop Position"
-msgstr "Durma Pozisyonu"
+msgstr ""
 
 #: master_preset.xml:9936(role:text|group:Relations|preset:Boundary|key:subarea)
 msgid "Sub area"
@@ -6596,7 +6597,7 @@ msgstr ""
 #: master_preset.xml:3611(check:text|group:Public_Transport|preset:Platform|key:monorail)
 #: master_preset.xml:2826(item:name|group:Railway|preset:Monorail)
 msgid "Monorail"
-msgstr "Tek Ray"
+msgstr ""
 
 #: master_preset.xml:9332(group:name|group:Land_use)
 msgid "Land use"
@@ -6612,7 +6613,7 @@ msgstr ""
 #: master_preset.xml:3395(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:clothes)
 #: master_preset.xml:7876(item:name|group:Clothes|preset:Clothes)
 msgid "Clothes"
-msgstr "Giysiler"
+msgstr ""
 
 #: master_preset.xml:5809(check:text|group:Facilities|preset:Bench|key:backrest)
 msgid "Backrest"
@@ -6628,7 +6629,7 @@ msgstr ""
 
 #: master_preset.xml:1780(item:name|group:Barriers|preset:Spikes)
 msgid "Spikes"
-msgstr "Çivili kapan"
+msgstr ""
 
 #: master_preset.xml:1456(combo:display_values|group:Waypoints|preset:Pedestrian_Crossing|key:crossing)
 msgid "Not controlled"
@@ -6648,7 +6649,7 @@ msgstr ""
 
 #: master_preset.xml:24(list_entry:short_description|value:excellent)
 msgid "Thin Rollers: rollerblade, skateboard"
-msgstr "İnce Silindirler: Paten, kaykay"
+msgstr ""
 
 #: master_preset.xml:10314(role:text|preset:Waterway|key:spring)
 msgid "spring of waterway"
@@ -6680,7 +6681,7 @@ msgstr ""
 
 #: master_preset.xml:85(combo:text|key:service)
 msgid "Service type"
-msgstr "Servis türü"
+msgstr ""
 
 #: master_preset.xml:4215(item:name|group:Food+Drinks|preset:Beer_Garden)
 msgid "Beer Garden"
@@ -6689,7 +6690,7 @@ msgstr ""
 #: master_preset.xml:1408(optional:text|group:Waypoints|preset:Traffic_Signal)
 #: master_preset.xml:9765(optional:text|group:Addresses_and_Contact|preset:Addresses)
 msgid "Optional values for specific countries"
-msgstr "Belirli ülkeler için isteğe bağlı değerler"
+msgstr ""
 
 #: master_preset.xml:440(list_entry:display_value|value:juvenile)
 msgid "Juveniles"
@@ -6729,7 +6730,7 @@ msgstr ""
 
 #: master_preset.xml:1883(item:name|group:Barriers|preset:Retaining_Wall)
 msgid "Retaining Wall"
-msgstr "İstinat Duvarı"
+msgstr ""
 
 #: master_preset.xml:4334(combo:text|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Board Content"
@@ -6741,7 +6742,7 @@ msgstr ""
 
 #: master_preset.xml:3613(check:text|group:Public_Transport|preset:Platform|key:aerialway)
 msgid "aerialway"
-msgstr "Havai taşıma"
+msgstr ""
 
 #: master_preset.xml:9736(text:text|group:Addresses_and_Contact|preset:Name|key:int_name)
 msgid "International name"
@@ -6794,7 +6795,7 @@ msgstr ""
 #: master_preset.xml:3494(role:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:stop_exit_only)
 #: master_preset.xml:3513(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:stop_exit_only)
 msgid "stop position (exit only)"
-msgstr "duruş pozisyonu (sadece çıkış)"
+msgstr ""
 
 #: master_preset.xml:315(combo:display_values|key:denomination)
 msgid "Protestant"
@@ -6802,11 +6803,11 @@ msgstr ""
 
 #: master_preset.xml:2919(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
-msgstr "Hemzemin Geçit"
+msgstr ""
 
 #: master_preset.xml:1371(item:name|group:Waypoints|preset:Rest_Area)
 msgid "Rest Area"
-msgstr "Dinlenme alanı"
+msgstr ""
 
 #: master_preset.xml:8703(check:text|preset:Payment_Methods|key:payment:ep_minipay)
 msgid "Minipay (it)"
@@ -6814,11 +6815,11 @@ msgstr ""
 
 #: master_preset.xml:779(item:name|group:Streets|preset:Tertiary_Link)
 msgid "Tertiary Link"
-msgstr "Üçüncül bağlantısı"
+msgstr ""
 
 #: master_preset.xml:1141(combo:text|group:Ways|preset:Track|key:tracktype)
 msgid "Tracktype"
-msgstr "İz tipi"
+msgstr ""
 
 #: master_preset.xml:7824(item:name|group:Food|preset:Organic)
 #: master_preset.xml:195(combo:text|key:organic)
@@ -6829,7 +6830,7 @@ msgstr ""
 #: master_preset.xml:1830(text:text|group:Barriers|preset:Hedge|key:genus)
 #: master_preset.xml:9423(text:text|group:Land_use|preset:Plant_Nursery|key:genus)
 msgid "Genus"
-msgstr "Cins"
+msgstr ""
 
 #: master_preset.xml:2495(text:text|group:Water|preset:Culvert|key:width)
 #: master_preset.xml:582(text:text|group:Streets|preset:Motorway_Link|key:width)
@@ -6856,7 +6857,7 @@ msgstr "Cins"
 #: master_preset.xml:1911(text:text|group:Barriers|preset:Ditch|key:width)
 #: master_preset.xml:2058(text:text|group:Passageways|preset:Tunnel|key:width)
 msgid "Width (meters)"
-msgstr "Genişlik (metre)"
+msgstr ""
 
 #: master_preset.xml:5419(item:name|group:Social_Facilities|preset:Social_Centre)
 msgid "Social Centre"
@@ -6864,7 +6865,7 @@ msgstr ""
 
 #: master_preset.xml:1342(group:name|group:Waypoints)
 msgid "Waypoints"
-msgstr "Yol işaretleri"
+msgstr ""
 
 #: master_preset.xml:5374(item:name|group:Emergency|preset:Siren)
 msgid "Siren"
@@ -6876,21 +6877,21 @@ msgstr ""
 
 #: master_preset.xml:2294(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxlength)
 msgid "Max. length (meters)"
-msgstr "Maks. uzunluk (metre)"
+msgstr ""
 
 #: master_preset.xml:3439(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:repair)
 msgid "Bicycles are repaired"
-msgstr "Bisiklet tamir edilir"
+msgstr ""
 
 #: master_preset.xml:2673(combo:text|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgid "Cargo"
-msgstr "Kargo"
+msgstr ""
 
 #: master_preset.xml:2322(group:name|group:Water)
 #: master_preset.xml:2321(group:name|group:Water)
 #: master_preset.xml:415(combo:display_values|key:substance)
 msgid "Water"
-msgstr "Su"
+msgstr ""
 
 #: master_preset.xml:10275(text:text|preset:Destination_Sign|key:destination)
 msgid "Destination written on sign (w/o distance)"
@@ -6902,7 +6903,7 @@ msgstr ""
 
 #: master_preset.xml:1873(item:name|group:Barriers|preset:City_Wall)
 msgid "City Wall"
-msgstr "Şehir Duvarı"
+msgstr ""
 
 #: master_preset.xml:434(list_entry:display_value|value:abused)
 msgid "Abused"
@@ -6931,7 +6932,7 @@ msgstr ""
 
 #: master_preset.xml:1936(item:name|group:Barriers|preset:Gate)
 msgid "Gate"
-msgstr "Geçit"
+msgstr ""
 
 #: master_preset.xml:10124(role:text|group:Routes|preset:Piste_Route|key:variant)
 #: master_preset.xml:10145(role:text|group:Routes|preset:Ski_Route|key:variant)
@@ -6940,7 +6941,7 @@ msgstr ""
 
 #: master_preset.xml:1927(item:name|group:Barriers|preset:Entrance_(Barrier_Opening))
 msgid "Entrance (Barrier Opening)"
-msgstr "Giriş (Bariyer Açığı)"
+msgstr ""
 
 #: master_preset.xml:5739(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:glass_bottles)
 #: master_preset.xml:5699(check:text|group:Facilities|preset:Recycling_Container|key:recycling:glass_bottles)
@@ -6950,7 +6951,7 @@ msgstr ""
 #: master_preset.xml:3495(role:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:stop_entry_only)
 #: master_preset.xml:3514(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:stop_entry_only)
 msgid "stop position (entry only)"
-msgstr "duruş pozisyonu (sadece giriş)"
+msgstr ""
 
 #: master_preset.xml:4360(item:name|group:Tourism|preset:Information_Terminal)
 msgid "Information Terminal"
@@ -6968,7 +6969,7 @@ msgstr ""
 #: master_preset.xml:2066(check:text|group:Passageways|preset:Tunnel|key:toll)
 #: master_preset.xml:655(check:text|group:Streets|preset:Trunk_Link|key:toll)
 msgid "Toll"
-msgstr "Geçiş ücreti"
+msgstr ""
 
 #: master_preset.xml:4644(item:name|group:Leisure|preset:Casino)
 msgid "Casino"
@@ -6976,7 +6977,7 @@ msgstr ""
 
 #: master_preset.xml:1629(item:name|preset:Turning_Loop)
 msgid "Turning Loop"
-msgstr "Dönüş alanı"
+msgstr ""
 
 #: master_preset.xml:10775(item:name|group:Crafts|preset:Window_construction)
 msgid "Window construction"
@@ -6992,7 +6993,7 @@ msgstr ""
 
 #: master_preset.xml:2314(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:emergency)
 msgid "Emergency vehicles"
-msgstr "Acil durum araçları"
+msgstr ""
 
 #: master_preset.xml:6464(group:name|group:Motorsport)
 #: master_preset.xml:6465(item:name|group:Motorsport|preset:Motorsport)
@@ -7028,7 +7029,7 @@ msgstr ""
 
 #: master_preset.xml:1612(item:name|preset:Passing_Place)
 msgid "Passing Place"
-msgstr "Geçiş Yeri"
+msgstr ""
 
 #: master_preset.xml:9359(item:name|group:Land_use|preset:Meadow)
 msgid "Meadow"
@@ -7048,7 +7049,7 @@ msgstr ""
 
 #: master_preset.xml:1421(item:name|group:Waypoints|preset:Give_Way)
 msgid "Give Way"
-msgstr "Yol Ver"
+msgstr ""
 
 #: master_preset.xml:10392(item:name|group:Crafts|preset:Bookbinder)
 msgid "Bookbinder"
@@ -7056,7 +7057,7 @@ msgstr ""
 
 #: master_preset.xml:1343(item:name|group:Waypoints|preset:Motorway_Junction)
 msgid "Motorway Junction"
-msgstr "Otoyol kavşağı"
+msgstr ""
 
 #: master_preset.xml:315(combo:display_values|key:denomination)
 msgid "Baptist"
@@ -7064,18 +7065,18 @@ msgstr ""
 
 #: master_preset.xml:3164(item:name|group:Car|preset:Fuel)
 msgid "Fuel"
-msgstr "Yakıt"
+msgstr ""
 
 #: master_preset.xml:3505(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:route)
 #: master_preset.xml:3669(combo:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 #: master_preset.xml:3486(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:route)
 #: master_preset.xml:3525(combo:text|group:Public_Transport|preset:Route_Master|key:route_master)
 msgid "Route type"
-msgstr "Rota türü"
+msgstr ""
 
 #: master_preset.xml:734(item:name|group:Streets|preset:Secondary_Link)
 msgid "Secondary Link"
-msgstr "İkincil bağlantısı"
+msgstr ""
 
 #: master_preset.xml:5561(group:name|group:Facilities)
 #: master_preset.xml:3905(group:name|group:Facilities)
@@ -7104,7 +7105,7 @@ msgstr ""
 
 #: master_preset.xml:1774(item:name|group:Barriers|preset:Bus_Trap)
 msgid "Bus Trap"
-msgstr "Otobüs Tuzağı"
+msgstr ""
 
 #: master_preset.xml:4043(combo:text|group:Accommodation|preset:Wilderness_Hut|key:reservation)
 msgid "Reservation"
@@ -7116,7 +7117,7 @@ msgstr ""
 
 #: master_preset.xml:1179(combo:text|group:Ways|preset:Path|key:trail_visibility)
 msgid "Visibility"
-msgstr "Görünürlük"
+msgstr ""
 
 #: master_preset.xml:10535(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
@@ -7144,7 +7145,7 @@ msgstr ""
 
 #: master_preset.xml:1797(item:name|group:Barriers|preset:Toll_Booth)
 msgid "Toll Booth"
-msgstr "Gişe"
+msgstr ""
 
 #: master_preset.xml:396(check:text|key:seasonal)
 msgid "Seasonal"
@@ -7152,11 +7153,11 @@ msgstr ""
 
 #: master_preset.xml:3666(group:name|group:Public_Transport_(Legacy))
 msgid "Public Transport (Legacy)"
-msgstr "Toplu Taşıma (Eski)"
+msgstr ""
 
 #: master_preset.xml:2124(item:name|group:Passageways|preset:Avalanche_Protector)
 msgid "Avalanche Protector"
-msgstr "Çığ Koruyucu"
+msgstr ""
 
 #: master_preset.xml:7913(combo:display_values|group:Clothes|preset:Shoes|key:second_hand)
 #: master_preset.xml:7889(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
@@ -7170,7 +7171,7 @@ msgstr "Çığ Koruyucu"
 #: master_preset.xml:4134(combo:display_values|group:Food+Drinks|preset:Fast_Food|key:takeaway)
 #: master_preset.xml:249(combo:display_values|key:fee)
 msgid "Yes"
-msgstr "Evet"
+msgstr "Sim"
 
 #: master_preset.xml:8460(item:name|group:Other|preset:Do-It-Yourself_Store)
 msgid "Do-It-Yourself Store"
@@ -7182,7 +7183,7 @@ msgstr ""
 
 #: master_preset.xml:23(combo:text|key:smoothness)
 msgid "Smoothness"
-msgstr "Pürüzsüzlük"
+msgstr ""
 
 #: master_preset.xml:6833(item:name|group:Man_Made|preset:Pipeline_Valve)
 msgid "Pipeline Valve"
@@ -7198,7 +7199,7 @@ msgstr ""
 
 #: master_preset.xml:3023(text:text|group:Aerialway|preset:Chair_Lift|key:aerialway:occupancy)
 msgid "Number of people per chair"
-msgstr "Sandalye başı kişi sayısı"
+msgstr ""
 
 #: master_preset.xml:3675(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:via)
 #: master_preset.xml:482(text:text|key:via)
@@ -7227,7 +7228,7 @@ msgstr ""
 
 #: master_preset.xml:2974(item:name|group:Railway|preset:Railway_Switch)
 msgid "Railway Switch"
-msgstr "Demiryolu Anahtarı"
+msgstr ""
 
 #: master_preset.xml:6435(item:name|group:Sport_(Ball)|preset:Pelota)
 msgid "Pelota"
@@ -7240,7 +7241,7 @@ msgstr ""
 #: master_preset.xml:3190(check:text|group:Car|preset:Fuel|key:fuel:diesel)
 #: master_preset.xml:2712(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:diesel)
 msgid "Diesel"
-msgstr "Dizel"
+msgstr ""
 
 #: master_preset.xml:6228(item:name|group:Sport|preset:Ice_Skating)
 msgid "Ice Skating"
@@ -7250,7 +7251,7 @@ msgstr ""
 msgid ""
 "sometimes need for hand use to get ahead. Terrain quite exposed, precarious "
 "grassy acclivities, jagged rocks, facile snow-free glaciers"
-msgstr "ilerlemek için bazen elleri kullanmak gerekir. Alan gayet açık, tehlikeli çimenler, pürüzlü kayalar, karsız kolay buzullaşma"
+msgstr ""
 
 #: master_preset.xml:227(combo:display_values|key:leisure)
 #: master_preset.xml:5922(item:name|group:Sport_Facilities|preset:Stadium)
@@ -7268,7 +7269,7 @@ msgstr ""
 #: master_preset.xml:2564(label:text|group:Water|preset:Coastline)
 msgid ""
 "Line between the sea and land (with the water on the right side of the way)."
-msgstr "Kara ile deniz arasındaki çizgi (yolun sağ tarafındaki suyla)."
+msgstr ""
 
 #: master_preset.xml:1099(text:text|group:Lane_attributes|preset:Bi-directional_roads|key:destination:ref:lanes:forward)
 msgid "Refs per lane in way direction"
@@ -7310,7 +7311,7 @@ msgstr ""
 #: master_preset.xml:3330(item:name|group:Car|preset:Rental)
 #: master_preset.xml:3446(item:name|group:Bicycle|preset:Rental)
 msgid "Rental"
-msgstr "Kiralık"
+msgstr ""
 
 #: master_preset.xml:5667(check:text|group:Facilities|preset:Clock|key:thermometer)
 msgid "Shows temperature"
@@ -7324,7 +7325,7 @@ msgstr ""
 #: master_preset.xml:3024(text:text|group:Aerialway|preset:Chair_Lift|key:aerialway:duration)
 #: master_preset.xml:3074(text:text|group:Aerialway|preset:Magic_Carpet|key:aerialway:duration)
 msgid "Typical journey time in minutes"
-msgstr "Dakika olarak tipik yolculuk süresi"
+msgstr ""
 
 #: master_preset.xml:10114(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 msgid "Snow park"
@@ -7344,11 +7345,11 @@ msgstr ""
 
 #: master_preset.xml:3607(check:text|group:Public_Transport|preset:Platform|key:railway)
 msgid "Railway platform (legacy)"
-msgstr "Demir yolu platformu (eski)"
+msgstr ""
 
 #: master_preset.xml:751(item:name|group:Streets|preset:Tertiary)
 msgid "Tertiary"
-msgstr "Üçüncül"
+msgstr ""
 
 #: master_preset.xml:4894(item:name|group:Place_of_Worship|preset:Shinto_Shrine)
 msgid "Shinto Shrine"
@@ -7368,11 +7369,11 @@ msgstr ""
 
 #: master_preset.xml:302(combo:text|key:leaf_cycle)
 msgid "Cycle"
-msgstr "Döngü"
+msgstr ""
 
 #: master_preset.xml:1646(text:text|preset:City_Limit|key:alt_name)
 msgid "Second Name"
-msgstr "İkincil adı"
+msgstr ""
 
 #: master_preset.xml:4062(text:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:beds)
 #: master_preset.xml:4005(text:text|group:Accommodation|preset:Hostel|key:beds)
@@ -7389,7 +7390,7 @@ msgstr ""
 
 #: master_preset.xml:1222(optional:text|group:Ways|preset:Cycle_Lane/Track)
 msgid "Edit Highway Attributes:"
-msgstr "Karayolunun Niteliklerini Düzenle:"
+msgstr ""
 
 #: master_preset.xml:5387(group:name|group:Social_Facilities)
 msgid "Social Facilities"
@@ -7401,7 +7402,7 @@ msgstr ""
 
 #: master_preset.xml:1851(item:name|group:Barriers|preset:Guard_Rail)
 msgid "Guard Rail"
-msgstr "Koruma Bariyeri"
+msgstr ""
 
 #: master_preset.xml:5904(item:name|group:Facilities|preset:Excrement_Bags)
 msgid "Excrement Bags"
@@ -7425,11 +7426,11 @@ msgstr ""
 
 #: master_preset.xml:31(list_entry:short_description|value:impassable)
 msgid "No wheeled vehicle"
-msgstr "Tekerlekli araç hariç"
+msgstr ""
 
 #: master_preset.xml:1729(item:name|group:Barriers|preset:Block)
 msgid "Block"
-msgstr "Blok"
+msgstr ""
 
 #: master_preset.xml:9735(text:text|group:Addresses_and_Contact|preset:Name|key:nat_name)
 msgid "National name"
@@ -7438,7 +7439,7 @@ msgstr ""
 #: master_preset.xml:1914(item:name|group:Barriers|preset:Kerb)
 #: master_preset.xml:460(combo:text|key:kerb)
 msgid "Kerb"
-msgstr "Bordür"
+msgstr ""
 
 #: master_preset.xml:8537(item:name|group:Other|preset:Gift/Souvenir)
 msgid "Gift/Souvenir"
@@ -7464,7 +7465,7 @@ msgstr ""
 msgid ""
 "Plants that lose most, but not all, of their foliage for a fraction of the "
 "year."
-msgstr "Yılın belli bir kesiminde yapraklarını kısmen yitiren bitkiler."
+msgstr ""
 
 #: master_preset.xml:10599(item:name|group:Crafts|preset:Parquet_layer)
 msgid "Parquet layer"
@@ -7495,7 +7496,7 @@ msgstr ""
 #: master_preset.xml:2146(item:name|group:Access_Restrictions|preset:All_vehicles)
 #: master_preset.xml:2160(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 msgid "All vehicles"
-msgstr "Tüm araçlar"
+msgstr ""
 
 #: master_preset.xml:191(text:text|key:brand)
 #: master_preset.xml:181(text:text|key:brand)
@@ -7504,7 +7505,7 @@ msgstr "Tüm araçlar"
 #: master_preset.xml:3473(text:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:brand)
 #: master_preset.xml:3181(combo:text|group:Car|preset:Fuel|key:brand)
 msgid "Brand"
-msgstr "Marka"
+msgstr ""
 
 #: master_preset.xml:5342(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgid "Pressure (in bar)"
@@ -7526,7 +7527,7 @@ msgstr ""
 #: master_preset.xml:1406(check:text|group:Waypoints|preset:Traffic_Signal|key:horse)
 #: master_preset.xml:1460(check:text|group:Waypoints|preset:Pedestrian_Crossing|key:horse)
 msgid "Cross on horseback"
-msgstr "Atlı geçiş"
+msgstr ""
 
 #: master_preset.xml:313(combo:display_values|key:religion)
 msgid "Christian"
@@ -7581,7 +7582,7 @@ msgstr ""
 
 #: master_preset.xml:3571(check:text|group:Public_Transport|preset:Stop_Position|key:highway)
 msgid "Bus stop (legacy)"
-msgstr "Otobüs durağı (eski)"
+msgstr ""
 
 #: master_preset.xml:5705(check:text|group:Facilities|preset:Recycling_Container|key:recycling:plastic_packaging)
 #: master_preset.xml:5745(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:plastic_packaging)
@@ -7594,7 +7595,7 @@ msgstr ""
 
 #: master_preset.xml:3443(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:cleaning)
 msgid "Bicycles are washed (for a fee)"
-msgstr "Bisiklet yıkanır (ücretli)"
+msgstr ""
 
 #: master_preset.xml:4373(text:text|group:Tourism|preset:Information_Terminal|key:description)
 #: master_preset.xml:4311(text:text|group:Tourism|preset:Map|key:description)
@@ -7646,11 +7647,11 @@ msgstr ""
 
 #: master_preset.xml:409(combo:text|key:motorboat)
 msgid "Motorboat"
-msgstr "Motorbot"
+msgstr ""
 
 #: master_preset.xml:1985(item:name|group:Barriers|preset:Bump_Gate)
 msgid "Bump Gate"
-msgstr "Çarpma Kapı"
+msgstr ""
 
 #: master_preset.xml:653(check:text|group:Streets|preset:Trunk_Link|key:embankment)
 #: master_preset.xml:559(check:text|group:Streets|preset:Motorway|key:embankment)
@@ -7659,7 +7660,7 @@ msgstr "Çarpma Kapı"
 #: master_preset.xml:627(check:text|group:Streets|preset:Trunk|key:embankment)
 #: master_preset.xml:57(check:text|key:embankment)
 msgid "Embankment"
-msgstr "Dolgu"
+msgstr ""
 
 #: master_preset.xml:4355(check:text|group:Tourism|preset:Guidepost|key:horse)
 #: master_preset.xml:4317(check:text|group:Tourism|preset:Map|key:horse)
@@ -7711,7 +7712,7 @@ msgstr ""
 
 #: master_preset.xml:3029(item:name|group:Aerialway|preset:Gondola)
 msgid "Gondola"
-msgstr "Gondol"
+msgstr ""
 
 #: master_preset.xml:10679(item:name|group:Crafts|preset:Scaffolder)
 msgid "Scaffolder"
@@ -7719,7 +7720,7 @@ msgstr ""
 
 #: master_preset.xml:2548(combo:text|group:Water|preset:Water|key:water)
 msgid "Water Body"
-msgstr "Su Kütlesi"
+msgstr ""
 
 #: master_preset.xml:9199(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Steppe"
@@ -7727,7 +7728,7 @@ msgstr ""
 
 #: master_preset.xml:3054(item:name|group:Aerialway|preset:Drag_Lift)
 msgid "Drag Lift"
-msgstr "Sürükleme Asansörü"
+msgstr ""
 
 #: master_preset.xml:4939(group:name|group:Public_Building)
 msgid "Public Building"
@@ -7748,12 +7749,12 @@ msgstr ""
 
 #: master_preset.xml:2041(group:name|group:Passageways)
 msgid "Passageways"
-msgstr "Geçitler"
+msgstr ""
 
 #: master_preset.xml:2996(group:name|group:Aerialway)
 #: master_preset.xml:3582(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
 msgid "Aerialway"
-msgstr "Havai taşıma"
+msgstr ""
 
 #: master_preset.xml:5562(item:name|group:Facilities|preset:Toilets/Restrooms)
 msgid "Toilets/Restrooms"
@@ -7768,7 +7769,7 @@ msgstr ""
 #: master_preset.xml:3026(check:text|group:Aerialway|preset:Chair_Lift|key:aerialway:heating)
 #: master_preset.xml:3038(check:text|group:Aerialway|preset:Gondola|key:aerialway:heating)
 msgid "Has heating?"
-msgstr "Isıtma var mı?"
+msgstr ""
 
 #: master_preset.xml:8639(list_entry:short_description|preset:Vending_Machine|value:condoms)
 msgid "Condoms"
@@ -7781,7 +7782,7 @@ msgstr ""
 #: master_preset.xml:3311(item:name|group:Car|preset:Parts)
 #: master_preset.xml:3394(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:parts)
 msgid "Parts"
-msgstr "Parçalar"
+msgstr ""
 
 #: master_preset.xml:7447(label:text|preset:Pole_with_Transformer)
 msgid "Pole Attributes:"
@@ -7794,11 +7795,11 @@ msgstr ""
 #: master_preset.xml:19(combo:display_values|key:surface)
 #: master_preset.xml:2616(item:name|group:Water|preset:Mud)
 msgid "Mud"
-msgstr "Çamur"
+msgstr ""
 
 #: master_preset.xml:303(list_entry:short_description|value:deciduous)
 msgid "Plants that are leafless for a certain period during the year."
-msgstr "Yıl boyunca belirli bir süre için yapraksız olan bitkiler."
+msgstr ""
 
 #: master_preset.xml:1061(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left)
 #: master_preset.xml:1087(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
@@ -7840,7 +7841,7 @@ msgstr ""
 
 #: master_preset.xml:2555(item:name|group:Water|preset:Coastline)
 msgid "Coastline"
-msgstr "Kıyı şeridi"
+msgstr ""
 
 #: master_preset.xml:8695(combo:text|preset:Payment_Methods|key:payment:electronic_purses)
 msgid "Electronic purses and Charge cards"
@@ -7852,7 +7853,7 @@ msgstr ""
 
 #: master_preset.xml:3575(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Railway station (legacy)"
-msgstr "Demiryolu istasyonu (eski)"
+msgstr ""
 
 #: master_preset.xml:3907(item:name|group:Accommodation|preset:Hotel)
 msgid "Hotel"
@@ -7868,7 +7869,7 @@ msgstr ""
 
 #: master_preset.xml:848(item:name|group:Streets|preset:Bicycle_Road)
 msgid "Bicycle Road"
-msgstr "Bisiklet Yolu"
+msgstr ""
 
 #: master_preset.xml:6457(item:name|group:Sport_(Ball)|preset:Tennis)
 msgid "Tennis"
@@ -7882,19 +7883,19 @@ msgstr ""
 #: master_preset.xml:1103(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:reverse)
 #: master_preset.xml:1059(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:reverse)
 msgid "Reverse"
-msgstr "Ters"
+msgstr "Inverter"
 
 #: master_preset.xml:13(combo:text|key:incline)
 msgid "Incline"
-msgstr "Eğim"
+msgstr ""
 
 #: master_preset.xml:2762(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr "Kızak"
+msgstr ""
 
 #: master_preset.xml:2511(item:name|group:Water|preset:Reservoir)
 msgid "Reservoir"
-msgstr "Rezervuar"
+msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Indian"
@@ -7906,7 +7907,7 @@ msgstr ""
 #: master_preset.xml:3778(check:text|group:Public_Transport_(Legacy)|preset:Bus_Platform|key:area)
 #: master_preset.xml:3735(check:text|group:Public_Transport_(Legacy)|preset:Railway_Platform|key:area)
 msgid "Area"
-msgstr "Alan"
+msgstr ""
 
 #: master_preset.xml:9734(text:text|group:Addresses_and_Contact|preset:Name|key:reg_name)
 msgid "Regional name"
@@ -7918,7 +7919,7 @@ msgstr ""
 
 #: master_preset.xml:207(combo:text|key:smoking)
 msgid "Smoking"
-msgstr "Sİgara içme"
+msgstr ""
 
 #: master_preset.xml:9108(label:text|group:Nature|preset:Tree)
 msgid "A single tree."
@@ -7954,7 +7955,7 @@ msgstr ""
 msgid ""
 "Used in some countries for a named road junction who.s name serves for local"
 " orientation."
-msgstr "Bazı ülkelerde kullanılan yerel yönetimlerin adlandırdığı ismi olan yol kavşakları"
+msgstr ""
 
 #: master_preset.xml:1456(combo:display_values|group:Waypoints|preset:Pedestrian_Crossing|key:crossing)
 msgid "No crossing"
@@ -7962,7 +7963,7 @@ msgstr ""
 
 #: master_preset.xml:2296(item:name|group:Access_Restrictions|preset:Other_mode_restrictions)
 msgid "Other mode restrictions"
-msgstr "Diğer mod kısıtlamaları"
+msgstr ""
 
 #: master_preset.xml:8668(combo:text|preset:Payment_Methods|key:payment:cash)
 #: master_preset.xml:8060(group:name|group:Cash)
@@ -7975,7 +7976,7 @@ msgstr ""
 
 #: master_preset.xml:1328(check:text|group:Ways|preset:Steps|key:handrail)
 msgid "Handrail"
-msgstr "Trabzan"
+msgstr ""
 
 #: master_preset.xml:5663(combo:text|group:Facilities|preset:Clock|key:display)
 msgid "Display"
@@ -8027,13 +8028,13 @@ msgstr ""
 
 #: master_preset.xml:3481(group:name|group:Public_Transport)
 msgid "Public Transport"
-msgstr "Toplu Taşıma"
+msgstr ""
 
 #: master_preset.xml:3146(check:text|group:Car|preset:Parking_Space|key:covered)
 #: master_preset.xml:3373(check:text|group:Motorcycle|preset:Parking|key:covered)
 #: master_preset.xml:3161(check:text|group:Car|preset:Parking_Entrance|key:covered)
 msgid "Covered (with roof)"
-msgstr "Kapalı (çatı ile)"
+msgstr ""
 
 #: master_preset.xml:9014(combo:text|group:Geography|preset:Volcano|key:volcano:status)
 msgid "Current Status"
@@ -8049,11 +8050,11 @@ msgstr ""
 
 #: master_preset.xml:3464(item:name|group:Bicycle|preset:Public_Bicycle_Repair_Station)
 msgid "Public Bicycle Repair Station"
-msgstr "Kamu Bisiklet Tamir İstasyonu"
+msgstr ""
 
 #: master_preset.xml:2818(item:name|group:Railway|preset:Narrow_Gauge_Rail)
 msgid "Narrow Gauge Rail"
-msgstr "Dekovil"
+msgstr ""
 
 #: master_preset.xml:199(multiselect:display_values|key:cuisine)
 msgid "Chinese"
@@ -8061,7 +8062,7 @@ msgstr ""
 
 #: master_preset.xml:1220(check:text|group:Ways|preset:Cycle_Lane/Track|key:oneway:bicycle)
 msgid "Oneway (bicycle)"
-msgstr "Tek yön (bisiklet)"
+msgstr ""
 
 #: master_preset.xml:8681(check:text|preset:Payment_Methods|key:payment:visa_debit)
 msgid "Visa Debit"
@@ -8146,7 +8147,7 @@ msgstr ""
 #: master_preset.xml:371(combo:text|key:generator:output:compressed_air)
 #: master_preset.xml:7087(combo:text|group:Power|preset:Power_Plant|key:plant:output:compressed_air)
 msgid "compressed air"
-msgstr "basınçlı hava"
+msgstr ""
 
 #: master_preset.xml:9970(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only right turn"
@@ -8187,7 +8188,7 @@ msgstr ""
 #: master_preset.xml:256(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Surface"
-msgstr "Yüzey"
+msgstr "Superfície"
 
 #: master_preset.xml:256(combo:display_values|key:parking)
 msgctxt "parking"
@@ -8237,7 +8238,7 @@ msgstr ""
 #: master_preset.xml:508(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid "Yes"
-msgstr "Evet"
+msgstr "Sim"
 
 #: master_preset.xml:508(combo:display_values|key:overtaking)
 msgctxt "overtaking"
@@ -8257,12 +8258,12 @@ msgstr ""
 #: master_preset.xml:5504(item:name|group:Social_Facilities|preset:Shelter)
 msgctxt "social_facility"
 msgid "Shelter"
-msgstr "Barınak"
+msgstr ""
 
 #: master_preset.xml:4596(combo:text|group:Leisure|preset:Public_Grill|key:fuel)
 msgctxt "grill"
 msgid "Fuel"
-msgstr "Yakıt"
+msgstr ""
 
 #: master_preset.xml:9885(label:text|group:Annotation|preset:Fixme)
 msgctxt "fixme=*"
@@ -8274,7 +8275,7 @@ msgstr ""
 #: master_preset.xml:3088(item:name|group:Aerialway|preset:Station)
 msgctxt "aerialway"
 msgid "Station"
-msgstr "İstasyon"
+msgstr ""
 
 #: master_preset.xml:9357(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -8294,7 +8295,7 @@ msgstr ""
 #: master_preset.xml:9357(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Grass"
-msgstr ""
+msgstr "Grama"
 
 #: master_preset.xml:9357(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -8314,7 +8315,7 @@ msgstr ""
 #: master_preset.xml:6627(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Service"
-msgstr "Servis"
+msgstr "Serviço"
 
 #: master_preset.xml:6627(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
@@ -8324,7 +8325,7 @@ msgstr ""
 #: master_preset.xml:6627(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Yes"
-msgstr "Evet"
+msgstr "Sim"
 
 #: master_preset.xml:6627(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
@@ -8334,7 +8335,7 @@ msgstr ""
 #: master_preset.xml:1901(item:name|group:Barriers|preset:Ditch)
 msgctxt "Barrier"
 msgid "Ditch"
-msgstr "Hendek"
+msgstr "Dique"
 
 #: master_preset.xml:9866(label:text|group:Annotation|preset:Note)
 msgctxt "note=*"
@@ -8344,7 +8345,7 @@ msgstr ""
 #: master_preset.xml:3894(item:name|group:Airport|preset:Gate)
 msgctxt "airport"
 msgid "Gate"
-msgstr "Geçit"
+msgstr ""
 
 #: master_preset.xml:7410(combo:text|preset:Power_Tower|key:tower:type)
 msgctxt "power"
@@ -8433,7 +8434,7 @@ msgstr ""
 #: master_preset.xml:11225(item:name|group:Offices|preset:Religion)
 msgctxt "office"
 msgid "Religion"
-msgstr "Din"
+msgstr "Religião"
 
 #: master_preset.xml:6593(combo:text|group:Man_Made|preset:Residential_Building|key:building:levels)
 #: master_preset.xml:6611(combo:text|group:Man_Made|preset:Building_part|key:building:levels)
@@ -8473,7 +8474,7 @@ msgstr ""
 #: master_preset.xml:1563(item:name|group:Traffic_Calming|preset:Island)
 msgctxt "traffic_calming"
 msgid "Island"
-msgstr ""
+msgstr "Ilha"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8493,7 +8494,7 @@ msgstr ""
 #: master_preset.xml:5982(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Ground"
-msgstr ""
+msgstr "Solo"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8503,29 +8504,29 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Canoe"
-msgstr "Kano"
+msgstr "Canoagem"
 
 #: master_preset.xml:5982(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Concrete"
-msgstr ""
+msgstr "Concreto"
 
 #: master_preset.xml:5979(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Equestrian"
-msgstr ""
+msgstr "Hipismo"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Climbing"
-msgstr ""
+msgstr "Escalada"
 
 #: master_preset.xml:5979(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Cycling"
-msgstr ""
+msgstr "Ciclismo"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8535,12 +8536,12 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Croquet"
-msgstr ""
+msgstr "Croquete"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Basketball"
-msgstr ""
+msgstr "Basquetebol"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8550,12 +8551,12 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Golf"
-msgstr ""
+msgstr "Golfe"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Billiards"
-msgstr ""
+msgstr "Bilhar"
 
 #: master_preset.xml:5979(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:231(combo:display_values|key:sport)
@@ -8566,12 +8567,12 @@ msgstr ""
 #: master_preset.xml:5982(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Grass"
-msgstr ""
+msgstr "Grama"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Shooting"
-msgstr ""
+msgstr "Tiro desportivo"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8586,7 +8587,7 @@ msgstr ""
 #: master_preset.xml:5982(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Asphalt"
-msgstr ""
+msgstr "Asfalto"
 
 #: master_preset.xml:5982(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
@@ -8612,7 +8613,7 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Gymnastics"
-msgstr ""
+msgstr "Ginástica"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8628,7 +8629,7 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Baseball"
-msgstr ""
+msgstr "Baseball"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8638,7 +8639,7 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Archery"
-msgstr ""
+msgstr "Arco e Flecha"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8653,13 +8654,13 @@ msgstr ""
 #: master_preset.xml:5982(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Sand"
-msgstr ""
+msgstr "Areia"
 
 #: master_preset.xml:5979(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Skating"
-msgstr ""
+msgstr "Patinação"
 
 #: master_preset.xml:5979(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:231(combo:display_values|key:sport)
@@ -8670,7 +8671,7 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Swimming"
-msgstr ""
+msgstr "Natação"
 
 #: master_preset.xml:5982(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
@@ -8686,12 +8687,12 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Running"
-msgstr ""
+msgstr "Corrida"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Volleyball"
-msgstr ""
+msgstr "Voleibol"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8711,12 +8712,12 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Handball"
-msgstr ""
+msgstr "Andebol"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Soccer"
-msgstr ""
+msgstr "Futebol"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8741,7 +8742,7 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Tennis"
-msgstr ""
+msgstr "Tenis"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8751,7 +8752,7 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Cricket"
-msgstr ""
+msgstr "Críquete"
 
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8761,7 +8762,7 @@ msgstr ""
 #: master_preset.xml:231(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Skateboard"
-msgstr ""
+msgstr "Skate"
 
 #: master_preset.xml:5979(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:231(combo:display_values|key:sport)
@@ -8792,7 +8793,7 @@ msgstr ""
 #: master_preset.xml:1688(item:name|preset:Named_Junction)
 msgctxt "junction=yes"
 msgid "Named Junction"
-msgstr "İsimli Kavşak"
+msgstr ""
 
 #: master_preset.xml:6628(combo:display_values|group:Man_Made|preset:Entrance|key:access)
 msgctxt "access"
@@ -8802,12 +8803,12 @@ msgstr ""
 #: master_preset.xml:6628(combo:display_values|group:Man_Made|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Yes"
-msgstr "Evet"
+msgstr "Sim"
 
 #: master_preset.xml:6628(combo:display_values|group:Man_Made|preset:Entrance|key:access)
 msgctxt "access"
 msgid "No"
-msgstr "Hayır"
+msgstr "Não"
 
 #: master_preset.xml:6628(combo:display_values|group:Man_Made|preset:Entrance|key:access)
 msgctxt "access"
@@ -8817,38 +8818,38 @@ msgstr ""
 #: master_preset.xml:1290(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Sidewalk"
-msgstr "Kaldırım"
+msgstr "Calçada"
 
 #: master_preset.xml:1290(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Crossing"
-msgstr "Geçit"
+msgstr "Cruzamento"
 
 #: master_preset.xml:3617(item:name|group:Public_Transport|preset:Station)
 #: master_preset.xml:3691(item:name|group:Public_Transport_(Legacy)|preset:Station)
 msgctxt "railway"
 msgid "Station"
-msgstr "İstasyon"
+msgstr ""
 
 #: master_preset.xml:94(combo:text|key:tracks)
 msgctxt "railway"
 msgid "Tracks"
-msgstr "Raylar"
+msgstr ""
 
 #: master_preset.xml:418(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Pole"
-msgstr ""
+msgstr "Pólo"
 
 #: master_preset.xml:418(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Ground"
-msgstr ""
+msgstr "Solo"
 
 #: master_preset.xml:418(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Billboard"
-msgstr ""
+msgstr "Letreiro"
 
 #: master_preset.xml:418(combo:display_values|key:support)
 msgctxt "mounting/support"
@@ -8873,12 +8874,12 @@ msgstr ""
 #: master_preset.xml:9140(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
 msgid "Wood"
-msgstr ""
+msgstr "Floresta"
 
 #: master_preset.xml:2534(item:name|group:Water|preset:Water)
 msgctxt "natural"
 msgid "Water"
-msgstr "Su"
+msgstr ""
 
 #: master_preset.xml:9868(text:text|group:Annotation|preset:Note|key:note)
 #: master_preset.xml:9854(item:name|group:Annotation|preset:Note)
@@ -8889,7 +8890,7 @@ msgstr ""
 #: master_preset.xml:5839(check:text|group:Facilities|preset:Hunting_Stand|key:hide)
 msgctxt "hunting stand"
 msgid "Hide"
-msgstr ""
+msgstr "Ocultar"
 
 #: master_preset.xml:76(list_entry:short_description|value:right)
 msgctxt "sidewalk"

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Nenhum</item>
+    <item>Régua (métrico)</item>
+    <item>Grade (métrico)</item>
+    <item>Régua (imperial)</item>
+    <item>Grade (imperial)</item>
+  </string-array>
+</resources>

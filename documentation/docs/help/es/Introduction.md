@@ -80,7 +80,7 @@ Vespucci tiene una forma rápida de añadir restricciones de giro. Nota: si nece
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type in the tag menu
 
-### Vespucci in "locked" mode
+### Vespucci en modo «bloqueado»
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 

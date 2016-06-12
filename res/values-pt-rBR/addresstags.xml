@@ -14,8 +14,8 @@
     <item>Distrito (addr:district)</item>
     <item>Província (addr:province)</item>
     <item>Estado (addr:state)</item>
-    <item>Flats (addr:flats)</item>
-    <item>Door (addr:door)</item>
+    <item>Quarto (addr:flats)</item>
+    <item>Porta (addr:door)</item>
     <item>Unidade (addr:unit)</item>
   </string-array>
 </resources>
