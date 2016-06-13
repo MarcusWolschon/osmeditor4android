@@ -10,7 +10,6 @@ import android.text.method.QwertyKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Filter;
 import de.blau.android.R;
 

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import de.blau.android.prefs.Preferences;
 
