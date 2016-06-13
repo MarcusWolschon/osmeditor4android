@@ -59,12 +59,14 @@ public final class ThemeUtils {
     	TypedArray ta = null;
     	try {
 			ta = context.getTheme().obtainStyledAttributes(attrs);
-			 return ta.getDimensionPixelSize(0, 0);
+			return ta.getDimensionPixelSize(0, 0);
 		} catch (Resources.NotFoundException nfe) {
     		Log.d("ThemeUtils", "getIntFromAttribute attr "+ attr + " not found");
     		return 0;
 		} finally {
-			ta.recycle();
+			if (ta != null) {
+				ta.recycle();
+			}
 		} 	
     }
     

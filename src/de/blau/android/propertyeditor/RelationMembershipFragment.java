@@ -57,6 +57,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 	private EditorUpdate tagListener = null;
 	
 	static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
+	static Object actionModeCallbackLock = new Object();
 	
 	/**
      */
@@ -414,23 +415,26 @@ public class RelationMembershipFragment extends BaseFragment implements
 			selected.setEnabled(true);
 		}
 	} // RelationMembershipRow
-	    
-	
-	protected synchronized void parentSelected() {
-		LinearLayout rowLayout = (LinearLayout) getOurView();
-		if (parentSelectedActionModeCallback == null) {
-			parentSelectedActionModeCallback = new SelectedRowsActionModeCallback(this, rowLayout);
-			((AppCompatActivity)getActivity()).startSupportActionMode(parentSelectedActionModeCallback);
-		}	
+	    	
+	protected void parentSelected() {
+		synchronized (actionModeCallbackLock) {
+			LinearLayout rowLayout = (LinearLayout) getOurView();
+			if (parentSelectedActionModeCallback == null) {
+				parentSelectedActionModeCallback = new SelectedRowsActionModeCallback(this, rowLayout);
+				((AppCompatActivity)getActivity()).startSupportActionMode(parentSelectedActionModeCallback);
+			}	
+		}
 	}
 	
 	@Override
-	public synchronized void deselectRow() {
-		if (parentSelectedActionModeCallback != null) {
-			if (parentSelectedActionModeCallback.rowsDeselected(true)) {
-				parentSelectedActionModeCallback = null;
-			}
-		}	
+	public void deselectRow() {
+		synchronized (actionModeCallbackLock) {
+			if (parentSelectedActionModeCallback != null) {
+				if (parentSelectedActionModeCallback.rowsDeselected(true)) {
+					parentSelectedActionModeCallback = null;
+				}
+			}	
+		}
 	}
 	
 	protected void selectAllParents() {

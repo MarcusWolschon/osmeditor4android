@@ -60,6 +60,7 @@ public class RelationMembersFragment extends BaseFragment implements
 	private long id = -1;
 
 	static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
+	static Object actionModeCallbackLock = new Object();
 	
 	static enum Connected { NOT, UP, DOWN, BOTH, RING_TOP, RING, RING_BOTTOM, CLOSEDWAY, CLOSEDWAY_UP, CLOSEDWAY_DOWN, CLOSEDWAY_BOTH, CLOSEDWAY_RING }
 	
@@ -692,23 +693,27 @@ public class RelationMembersFragment extends BaseFragment implements
 		}
 	}
 
-	protected synchronized void memberSelected(LinearLayout rowLayout) {
-		if (memberSelectedActionModeCallback == null) {
-			memberSelectedActionModeCallback = new RelationMemberSelectedActionModeCallback(this, rowLayout);
-			((AppCompatActivity)getActivity()).startSupportActionMode(memberSelectedActionModeCallback);
-		}	
-		memberSelectedActionModeCallback.invalidate();
+	protected void memberSelected(LinearLayout rowLayout) {
+		synchronized (actionModeCallbackLock) {
+			if (memberSelectedActionModeCallback == null) {
+				memberSelectedActionModeCallback = new RelationMemberSelectedActionModeCallback(this, rowLayout);
+				((AppCompatActivity)getActivity()).startSupportActionMode(memberSelectedActionModeCallback);
+			}	
+			memberSelectedActionModeCallback.invalidate();
+		}
 	}
 	
 	@Override
-	public synchronized void deselectRow() {
-		if (memberSelectedActionModeCallback != null) {
-			if (memberSelectedActionModeCallback.rowsDeselected(true)) {
-				memberSelectedActionModeCallback = null;
-			} else {
-				memberSelectedActionModeCallback.invalidate();
-			}
-		}	
+	public void deselectRow() {
+		synchronized (actionModeCallbackLock) {
+			if (memberSelectedActionModeCallback != null) {
+				if (memberSelectedActionModeCallback.rowsDeselected(true)) {
+					memberSelectedActionModeCallback = null;
+				} else {
+					memberSelectedActionModeCallback.invalidate();
+				}
+			}	
+		}
 	}
 	
 	protected void selectAllMembers() {

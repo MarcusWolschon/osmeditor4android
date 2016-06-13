@@ -92,6 +92,7 @@ public class EasyEditManager {
 	
 	private ActionMode currentActionMode = null;
 	private EasyEditActionModeCallback currentActionModeCallback = null;
+	private Object actionModeCallbackLock = new Object();
 	
 	private ActionMenuView cabBottomBar;
 	
@@ -110,11 +111,15 @@ public class EasyEditManager {
 	 * @return
 	 */
 	public boolean isProcessingAction() {
-		return (currentActionModeCallback != null);
+		synchronized (actionModeCallbackLock) {
+			return (currentActionModeCallback != null);
+		}
 	}
 	
 	public boolean inElementSelectedMode() {
-		return isProcessingAction() && (currentActionModeCallback instanceof ElementSelectionActionModeCallback ||  currentActionModeCallback instanceof ExtendSelectionActionModeCallback);
+		synchronized (actionModeCallbackLock) {
+			return (currentActionModeCallback != null) && (currentActionModeCallback instanceof ElementSelectionActionModeCallback ||  currentActionModeCallback instanceof ExtendSelectionActionModeCallback);
+		}
 	}
 	
 	/**
@@ -153,8 +158,10 @@ public class EasyEditManager {
 		if (!doubleTap && currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
 			return; // don't deselect all just because we didn't hit anything TODO display a toast
 		}
-		if (currentActionModeCallback instanceof ElementSelectionActionModeCallback || currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
-			currentActionMode.finish();
+		synchronized (actionModeCallbackLock) {
+			if (currentActionModeCallback instanceof ElementSelectionActionModeCallback || currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
+				currentActionMode.finish();
+			}
 		}
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
@@ -167,60 +174,18 @@ public class EasyEditManager {
 	 * @param element The OSM element to edit.
 	 */
 	public void editElement(OsmElement element) {
-		if (currentActionModeCallback == null || !currentActionModeCallback.handleElementClick(element)) {
-			// No callback or didn't handle the click, perform default (select element)
-			ActionMode.Callback cb = null;
-			if (element instanceof Node) cb = new NodeSelectionActionModeCallback((Node)element);
-			if (element instanceof Way ) cb = new  WaySelectionActionModeCallback((Way )element);
-			if (element instanceof Relation ) cb = new RelationSelectionActionModeCallback((Relation )element);
-			if (cb != null) {
-				main.startSupportActionMode(cb);
-				String toast = element.getDescription(main);
-				if (element.hasProblem(main)) {
-					String problem = element.describeProblem();
-					toast = !problem.equals("") ? toast + "\n" + problem : toast;
-				}
-				Toast.makeText(main, toast, Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-	
-	/**
-	 * Edit currently selected elements.
-	 */
-	public void editElements() {
-		if (currentActionModeCallback == null) {
-			// No callback or didn't handle the click, perform default (select element)
-			ActionMode.Callback cb = null;
-			OsmElement e = null;
-			if (logic.getSelectedNodes() != null && logic.getSelectedNodes().size() == 1 && logic.getSelectedWays() == null && logic.getSelectedRelations() == null) {
-				e = logic.getSelectedNode();
-				cb = new NodeSelectionActionModeCallback((Node) e);
-			} else if (logic.getSelectedNodes() == null && logic.getSelectedWays() != null && logic.getSelectedWays().size() == 1 && logic.getSelectedRelations() == null) {
-				e = logic.getSelectedWay();
-				cb = new  WaySelectionActionModeCallback((Way) e);
-			} else if (logic.getSelectedNodes() == null && logic.getSelectedWays() == null && logic.getSelectedRelations() != null && logic.getSelectedRelations().size() == 1) {
-				e = logic.getSelectedRelations().get(0);
-				cb = new RelationSelectionActionModeCallback((Relation )e);
-			} else if (logic.getSelectedNodes() != null || logic.getSelectedWays() != null || logic.getSelectedRelations() != null) {
-				ArrayList<OsmElement> selection = new ArrayList<OsmElement>(); 
-				if (logic.getSelectedNodes() != null) {
-					selection.addAll(logic.getSelectedNodes());
-				}
-				if (logic.getSelectedWays() != null) {
-					selection.addAll(logic.getSelectedWays());
-				}
-				if (logic.getSelectedRelations() != null) {
-					selection.addAll(logic.getSelectedRelations());
-				}
-				cb = new ExtendSelectionActionModeCallback(selection);
-			}
-			if (cb != null) {
-				main.startSupportActionMode(cb);
-				if (e != null) {
-					String toast = e.getDescription(main);
-					if (e.hasProblem(main)) {
-						String problem = e.describeProblem();
+		synchronized (actionModeCallbackLock) {
+			if (currentActionModeCallback == null || !currentActionModeCallback.handleElementClick(element)) {
+				// No callback or didn't handle the click, perform default (select element)
+				ActionMode.Callback cb = null;
+				if (element instanceof Node) cb = new NodeSelectionActionModeCallback((Node)element);
+				if (element instanceof Way ) cb = new  WaySelectionActionModeCallback((Way )element);
+				if (element instanceof Relation ) cb = new RelationSelectionActionModeCallback((Relation )element);
+				if (cb != null) {
+					main.startSupportActionMode(cb);
+					String toast = element.getDescription(main);
+					if (element.hasProblem(main)) {
+						String problem = element.describeProblem();
 						toast = !problem.equals("") ? toast + "\n" + problem : toast;
 					}
 					Toast.makeText(main, toast, Toast.LENGTH_SHORT).show();
@@ -229,14 +194,61 @@ public class EasyEditManager {
 		}
 	}
 	
+	/**
+	 * Edit currently selected elements.
+	 */
+	public void editElements() {
+		synchronized (actionModeCallbackLock) {
+			if (currentActionModeCallback == null) {
+				// No callback or didn't handle the click, perform default (select element)
+				ActionMode.Callback cb = null;
+				OsmElement e = null;
+				if (logic.getSelectedNodes() != null && logic.getSelectedNodes().size() == 1 && logic.getSelectedWays() == null && logic.getSelectedRelations() == null) {
+					e = logic.getSelectedNode();
+					cb = new NodeSelectionActionModeCallback((Node) e);
+				} else if (logic.getSelectedNodes() == null && logic.getSelectedWays() != null && logic.getSelectedWays().size() == 1 && logic.getSelectedRelations() == null) {
+					e = logic.getSelectedWay();
+					cb = new  WaySelectionActionModeCallback((Way) e);
+				} else if (logic.getSelectedNodes() == null && logic.getSelectedWays() == null && logic.getSelectedRelations() != null && logic.getSelectedRelations().size() == 1) {
+					e = logic.getSelectedRelations().get(0);
+					cb = new RelationSelectionActionModeCallback((Relation )e);
+				} else if (logic.getSelectedNodes() != null || logic.getSelectedWays() != null || logic.getSelectedRelations() != null) {
+					ArrayList<OsmElement> selection = new ArrayList<OsmElement>(); 
+					if (logic.getSelectedNodes() != null) {
+						selection.addAll(logic.getSelectedNodes());
+					}
+					if (logic.getSelectedWays() != null) {
+						selection.addAll(logic.getSelectedWays());
+					}
+					if (logic.getSelectedRelations() != null) {
+						selection.addAll(logic.getSelectedRelations());
+					}
+					cb = new ExtendSelectionActionModeCallback(selection);
+				}
+				if (cb != null) {
+					main.startSupportActionMode(cb);
+					if (e != null) {
+						String toast = e.getDescription(main);
+						if (e.hasProblem(main)) {
+							String problem = e.describeProblem();
+							toast = !problem.equals("") ? toast + "\n" + problem : toast;
+						}
+						Toast.makeText(main, toast, Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		}
+	}
+	
 	/** This gets called when the map is long-pressed in easy-edit mode */
 	public boolean handleLongClick(View v, float x, float y) {
-
-		if ((currentActionModeCallback instanceof PathCreationActionModeCallback)) 
-		{
-			// we don't do long clicks in the above modes
-			Log.d("EasyEditManager", "handleLongClick ignoring long click");
-			return false; // this probably should really return true aka click handled
+		synchronized (actionModeCallbackLock) {
+			if ((currentActionModeCallback instanceof PathCreationActionModeCallback)) 
+			{
+				// we don't do long clicks in the above modes
+				Log.d("EasyEditManager", "handleLongClick ignoring long click");
+				return false; // this probably should really return true aka click handled
+			}
 		}
 		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 		// TODO: Need to patch ABS, see https://github.com/JakeWharton/ActionBarSherlock/issues/642
@@ -246,41 +258,46 @@ public class EasyEditManager {
 		return true;
 	}
 	
-	
 	public void startExtendedSelection(OsmElement osmElement) {
-		if ((currentActionModeCallback instanceof WaySelectionActionModeCallback)
-				|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
-				|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
-		{
-			// one element already selected
-			((ElementSelectionActionModeCallback)currentActionModeCallback).deselect = false; // keep the element visually selected
-			main.startSupportActionMode(new ExtendSelectionActionModeCallback(((ElementSelectionActionModeCallback)currentActionModeCallback).element));
-			// add 2nd element FIXME may need some checks
-			((ExtendSelectionActionModeCallback)currentActionModeCallback).handleElementClick(osmElement);
-		} else if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
-			// ignore for now
-		} else if (currentActionModeCallback != null) {
-			// ignore for now
-		} else {
-			// nothing selected
-			main.startSupportActionMode(new ExtendSelectionActionModeCallback(osmElement));
+		synchronized (actionModeCallbackLock) {
+			if ((currentActionModeCallback instanceof WaySelectionActionModeCallback)
+					|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
+					|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
+			{
+				// one element already selected
+				((ElementSelectionActionModeCallback)currentActionModeCallback).deselect = false; // keep the element visually selected
+				main.startSupportActionMode(new ExtendSelectionActionModeCallback(((ElementSelectionActionModeCallback)currentActionModeCallback).element));
+				// add 2nd element FIXME may need some checks
+				((ExtendSelectionActionModeCallback)currentActionModeCallback).handleElementClick(osmElement);
+			} else if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
+				// ignore for now
+			} else if (currentActionModeCallback != null) {
+				// ignore for now
+			} else {
+				// nothing selected
+				main.startSupportActionMode(new ExtendSelectionActionModeCallback(osmElement));
+			}
 		}
 	}
 	
 	public void invalidate() {
-		if (currentActionMode != null) {
-			currentActionMode.invalidate();
+		synchronized (actionModeCallbackLock) {
+			if (currentActionMode != null) {
+				currentActionMode.invalidate();
+			}
 		}
 	}
-	
+
 	/**
 	 * call the onBackPressed method for the currently active action mode
 	 * @return
 	 */
 	public boolean handleBackPressed() {
-		if (currentActionModeCallback != null)
-			return currentActionModeCallback.onBackPressed();
-		return false;
+		synchronized (actionModeCallbackLock) {
+			if (currentActionModeCallback != null)
+				return currentActionModeCallback.onBackPressed();
+			return false;
+		}
 	}
 	
 	/**
@@ -398,16 +415,20 @@ public class EasyEditManager {
 	}
 	
 	public void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
-		if (currentActionModeCallback instanceof LongClickActionModeCallback) {
-			((LongClickActionModeCallback)currentActionModeCallback).handleActivityResult(requestCode, resultCode, data);
+		synchronized (actionModeCallbackLock) {
+			if (currentActionModeCallback instanceof LongClickActionModeCallback) {
+				((LongClickActionModeCallback)currentActionModeCallback).handleActivityResult(requestCode, resultCode, data);
+			}
 		}
 	}
-	
+
 	public boolean processShortcut(Character c) {
-		if (currentActionModeCallback != null) {
-			return currentActionModeCallback.processShortcut(c);
+		synchronized (actionModeCallbackLock) {
+			if (currentActionModeCallback != null) {
+				return currentActionModeCallback.processShortcut(c);
+			}
+			return false;
 		}
-		return false;
 	}
 	
 	/**
@@ -436,9 +457,11 @@ public class EasyEditManager {
 	 * @param menu
 	 */
 	public void createContextMenu(ContextMenu menu) {
-		if (currentActionModeCallback != null) {
-			currentActionModeCallback.onCreateContextMenu(menu);
-		}	
+		synchronized (actionModeCallbackLock) {
+			if (currentActionModeCallback != null) {
+				currentActionModeCallback.onCreateContextMenu(menu);
+			}	
+		}
 	}
 	
 	/**
@@ -460,8 +483,10 @@ public class EasyEditManager {
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			Log.d("EasyEditActionModeCallback", "onCreateActionMode");
-			currentActionMode = mode;
-			currentActionModeCallback = this;
+			synchronized (actionModeCallbackLock) {
+				currentActionMode = mode;
+				currentActionModeCallback = this;
+			}
 			main.hideLock();
 			
 			if (main.getBottomBar() != null) {
@@ -2137,7 +2162,7 @@ public class EasyEditManager {
 					// split via way and use appropriate segment
 					Way newViaWay = logic.performSplit(viaWay, viaNode);
 					Toast.makeText(main, R.string.toast_split_via, Toast.LENGTH_LONG).show();
-					if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getFirstNode())) {
+					if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getLastNode())) {
 						viaElement = newViaWay;
 					}
 				}

@@ -976,7 +976,46 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		} else {
 			Log.e(DEBUG_TAG,"applyTagSuggestions tagEditorFragment is null");
 		}	
-		
+	}
+
+	@Override
+	public boolean pasteIsPossible() {
+		if (tagEditorFragment != null) {
+			return tagEditorFragment.pasteIsPossible();
+		} else {
+			Log.e(DEBUG_TAG,"pasteIsPossible tagEditorFragment is null");
+		}
+		return false;
+	}
+
+	@Override
+	public boolean paste(boolean replace) {
+		if (tagEditorFragment != null) {
+			return tagEditorFragment.paste(replace);
+		} else {
+			Log.e(DEBUG_TAG,"paste tagEditorFragment is null");
+		}
+		return false;
+	}
+
+	@Override
+	public boolean pasteFromClipboardIsPossible() {
+		if (tagEditorFragment != null) {
+			return tagEditorFragment.pasteFromClipboardIsPossible();
+		} else {
+			Log.e(DEBUG_TAG,"pasteFromClipboardIsPossible tagEditorFragment is null");
+		}
+		return false;
+	}
+
+	@Override
+	public boolean pasteFromClipboard(boolean replace) {
+		if (tagEditorFragment != null) {
+			return tagEditorFragment.pasteFromClipboard(replace);
+		} else {
+			Log.e(DEBUG_TAG,"pasteFromClipboard tagEditorFragment is null");
+		}
+		return false;
 	}
 	
 	@Override
@@ -1036,6 +1075,12 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		return elements[0]; // FIXME validate
 	}
 	
+	
+	@Override
+	public void onSupportActionModeFinished(ActionMode mode) {
+		super.onSupportActionModeFinished(mode);
+	}
+	
 	@Override
 	/**
 	 * Workaround for bug mentioned below
@@ -1047,10 +1092,5 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    mode.invalidate();
 	  }
 	  return mode;
-	}
-	
-	@Override
-	public void onSupportActionModeFinished(ActionMode mode) {
-		super.onSupportActionModeFinished(mode);
 	}
 }

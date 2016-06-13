@@ -69,5 +69,32 @@ abstract interface EditorUpdate {
 	 * @param tags
 	 */
 	abstract void applyTagSuggestions(Names.TagMap tags);
+	
+	/**
+	 * Copy/Cut/Paste related stuff  
+	 */
+	/**
+	 * @return true if we have something in out internal clipboard
+	 */
+	abstract boolean pasteIsPossible();
+	
+	/**
+	 * 
+	 * @param replace currently unsed
+	 * @return true if something was pasted
+	 */
+	abstract boolean paste(boolean replace);
+	
+	/**
+	 * @return true if the system clipboard contains text
+	 */
+	abstract boolean pasteFromClipboardIsPossible();
+	
+	/**
+	 * 
+	 * @param replace currently unsed
+	 * @return true if something was pasted
+	 */
+	abstract boolean pasteFromClipboard(boolean replace);
 }
 

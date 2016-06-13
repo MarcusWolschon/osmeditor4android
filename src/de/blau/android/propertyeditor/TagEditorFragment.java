@@ -81,6 +81,7 @@ public class TagEditorFragment extends BaseFragment implements
 				= new SavingHelper<LinkedHashMap<String,String>>();
 		
 	static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
+	static Object actionModeCallbackLock = new Object();
 	
 	PresetItem autocompletePresetItem = null;
 	
@@ -1104,21 +1105,25 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 	}
 	
-	protected synchronized void tagSelected() {
+	protected void tagSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
-		if (tagSelectedActionModeCallback == null) {
-			tagSelectedActionModeCallback = new TagSelectedActionModeCallback(this, rowLayout);
-			((AppCompatActivity)getActivity()).startSupportActionMode(tagSelectedActionModeCallback);
-		}	
+		synchronized (actionModeCallbackLock) {
+			if (tagSelectedActionModeCallback == null) {
+				tagSelectedActionModeCallback = new TagSelectedActionModeCallback(this, rowLayout);
+				((AppCompatActivity)getActivity()).startSupportActionMode(tagSelectedActionModeCallback);
+			} 
+		}
 	}
 	
 	@Override
-	public synchronized void deselectRow() {
-		if (tagSelectedActionModeCallback != null) {
-			if (tagSelectedActionModeCallback.rowsDeselected(false)) {
-				tagSelectedActionModeCallback = null;
-			}
-		}	
+	public void deselectRow() {
+		synchronized (actionModeCallbackLock) {
+			if (tagSelectedActionModeCallback != null) {
+				if (tagSelectedActionModeCallback.rowsDeselected(false)) {
+					tagSelectedActionModeCallback = null;
+				}
+			}	
+		}
 	}
 	
 	
@@ -1419,6 +1424,8 @@ public class TagEditorFragment extends BaseFragment implements
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.tag_menu, menu);
 		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(getActivity()));
+		menu.findItem(R.id.tag_menu_paste).setVisible(pasteIsPossible());
+		menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(pasteFromClipboardIsPossible());
 	}
 	
 	
@@ -1448,13 +1455,10 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 			return true;
 		case R.id.tag_menu_paste:
-			doPaste(true);
+			paste(true);
 			return true;
 		case R.id.tag_menu_paste_from_clipboard:
-			ArrayList<KeyValue> paste = ClipboardUtils.getKeyValues(getActivity());
-			if (paste != null) {
-				mergeTags(paste, true);
-			}
+			pasteFromClipboard(true);
 			return true;
 		case R.id.tag_menu_revert:
 			doRevert();
@@ -1653,16 +1657,41 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 	}
 	
-	private void doPaste(boolean replace) {
+	@Override
+	public boolean pasteIsPossible() {
+		if (copiedTags == null) {
+			copiedTags = savingHelper.load(getActivity(),PropertyEditor.COPIED_TAGS_FILE, false);
+		}
+		return copiedTags != null;
+	}
+	
+	@Override
+	public boolean paste(boolean replace) {
 		if (copiedTags != null) {
 			mergeTags(copiedTags);
 		} else {
-			Map<String, String> copied = savingHelper.load(getActivity(),PropertyEditor.COPIED_TAGS_FILE, false);
-			if (copied != null) {
-				mergeTags(copied);
+			copiedTags = savingHelper.load(getActivity(),PropertyEditor.COPIED_TAGS_FILE, false);
+			if (copiedTags != null) {
+				mergeTags(copiedTags);
 			}
 		}
 		updateAutocompletePresetItem(null);
+		return copiedTags != null;
+	}
+	
+	@Override
+	public boolean pasteFromClipboardIsPossible() {
+		return ClipboardUtils.checkForText(getActivity());
+	}
+	
+	@Override
+	public boolean pasteFromClipboard(boolean replace) {
+		ArrayList<KeyValue> paste = ClipboardUtils.getKeyValues(getActivity());
+		if (paste != null) {
+			mergeTags(paste, replace);
+		}
+		updateAutocompletePresetItem(null);
+		return paste != null;
 	}
 		
 	/**

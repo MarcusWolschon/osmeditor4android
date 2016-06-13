@@ -349,6 +349,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.tag_form_menu, menu);
 		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(getActivity()));
+		menu.findItem(R.id.tag_menu_paste).setVisible(tagListener.pasteIsPossible());
+		menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
 	}
 	
 	
@@ -384,12 +386,19 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		case R.id.tag_menu_revert:
 			doRevert();
 			return true;
+		case R.id.tag_menu_paste:
+			if (tagListener.paste(true)) {
+				update();
+			}
+			return true;
+		case R.id.tag_menu_paste_from_clipboard:
+			if (tagListener.pasteFromClipboard(true)) {
+				update();
+			}
+			return true;
 		case R.id.tag_menu_mapfeatures:
 			startActivity(Preset.getMapFeaturesIntent(getActivity(),tagListener.getBestPreset()));
 			return true;
-//		case R.id.tag_menu_delete_unassociated_tags:
-//			// remove tags that don't belong to an identified preset
-//			return true;
 		case R.id.tag_menu_resetMRU:
 			for (Preset p:((PropertyEditor)getActivity()).presets)
 				p.resetRecentlyUsed();

@@ -1571,13 +1571,15 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void addElementToRelation(final RelationMember newMember, final Relation rel)
 	{
 		OsmElement e = newMember.getElement();
+		if (e == null) {
+			Log.e(DEBUG_TAG, "addElementToRelation element not found");
+			return;
+		}
 	
 		dirty = true;
 		undo.save(rel);
 
-		if (e != null) {
-			undo.save(e);
-		}
+		undo.save(e);
 
 		rel.addMember(newMember);
 		e.addParentRelation(rel);

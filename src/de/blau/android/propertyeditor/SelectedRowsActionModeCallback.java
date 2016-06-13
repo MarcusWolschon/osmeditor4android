@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.view.ActionMode.Callback;
 import android.view.Menu;
@@ -26,9 +27,8 @@ public class SelectedRowsActionModeCallback implements Callback {
 		void deselect();
 
 		boolean isSelected();
-
 	}
-
+	
 	protected static final int MENU_ITEM_DELETE = 1;
 	protected static final int MENU_ITEM_HELP = 15;
 
@@ -77,6 +77,7 @@ public class SelectedRowsActionModeCallback implements Callback {
 			}
 			if (toDelete.size() > 0) {
 				for (Row r : toDelete) {
+					r.deselect();
 					r.delete();
 				}
 			}
@@ -104,7 +105,9 @@ public class SelectedRowsActionModeCallback implements Callback {
 		((PropertyEditor)caller.getActivity()).enablePresets();
 		PropertyRows rowContainer = (PropertyRows)caller;
 		rowContainer.deselectHeaderCheckBox();
+		rowContainer.deselectRow();
 		currentAction = null;
+		((AppCompatActivity)caller.getActivity()).supportInvalidateOptionsMenu();
 	}
 
 	public boolean rowsDeselected(boolean skipHeaderRow) {

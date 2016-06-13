@@ -32,8 +32,7 @@ public class ClipboardUtils {
 	 */
 	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
-	static boolean checkForText(Context ctx){
-
+	public static boolean checkForText(Context ctx){
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			if (clipboard == null) {
 				clipboard = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
