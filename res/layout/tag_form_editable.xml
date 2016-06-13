@@ -29,7 +29,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:layout_marginRight="0dp"
+            android:layout_marginRight="1dp"
             android:layout_weight="3"
             android:gravity="center_vertical"
             android:minHeight="36dp"
@@ -39,6 +39,33 @@
             android:singleLine="true"
             android:text=""
             android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/form_header_copy"
+    		style="?attr/TableHeader"
+    		android:layout_width="41dp"
+    		android:layout_height="fill_parent"
+    		android:layout_marginBottom="1dp"
+            android:layout_marginRight="1dp"
+    		android:contentDescription="@string/menu_copy"
+    		android:src="?attr/menu_copy" />
+        <ImageButton
+            android:id="@+id/form_header_cut"
+    		style="?attr/TableHeader"
+    		android:layout_width="41dp"
+    		android:layout_height="fill_parent"
+    		android:layout_marginBottom="1dp"
+            android:layout_marginRight="1dp"
+    		android:contentDescription="@string/menu_cut"
+    		android:src="?attr/menu_cut" />
+        <ImageButton
+            android:id="@+id/form_header_delete"
+    		style="?attr/TableHeader"
+    		android:layout_width="41dp"
+    		android:layout_height="fill_parent"
+    		android:layout_marginBottom="1dp"
+    		android:contentDescription="@string/delete"
+    		android:src="?attr/menu_delete" />
+
     </LinearLayout>
 
     <LinearLayout

@@ -60,6 +60,11 @@ abstract interface EditorUpdate {
 	abstract Map<String,PresetItem> getAllPresets();
 	
 	/**
+	 * Trigger an update of the presets
+	 */
+	abstract void updatePresets();
+	
+	/**
 	 * generate best address tags
 	 */
 	abstract void predictAddressTags(boolean allowBlanks);
@@ -96,5 +101,12 @@ abstract interface EditorUpdate {
 	 * @return true if something was pasted
 	 */
 	abstract boolean pasteFromClipboard(boolean replace);
+	
+	/**
+	 * Copy tags to clipboard
+	 * @param tags
+	 */
+	abstract void copyTags(Map<String,String>tags);
+	
 }
 

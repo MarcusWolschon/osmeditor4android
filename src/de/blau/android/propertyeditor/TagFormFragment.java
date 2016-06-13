@@ -43,6 +43,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -444,6 +445,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				} while (row != null && !(row instanceof TagTextRow));
 				if (row != null) {
 					tagListener.updateSingleValue(((TagTextRow) row).getKey(), ((TagTextRow) row).getValue());
+					if (row.getParent() instanceof EditableLayout) {
+						(((EditableLayout)row.getParent())).putTag(((TagTextRow) row).getKey(), ((TagTextRow) row).getValue());
+					}
 				}
 			}
 		}
@@ -527,6 +531,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		
     	PresetItem mainPreset = tagListener.getBestPreset();
     	editableView.setTitle(mainPreset);
+    	editableView.setListeners(tagListener,this);
     	
     	LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
     	Map<String, String> nonEditable;
@@ -536,6 +541,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     			final EditableLayout editableView1  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, ll, false);
     			editableView1.setSaveEnabled(false);
     			editableView1.setTitle(preset);
+    			editableView1.setListeners(tagListener,this);
     			ll.addView(editableView1, pos++);
     			nonEditable = addTagsToViews(editableView1, preset, (LinkedHashMap<String, String>) nonEditable);
     		}
@@ -574,7 +580,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     	}
 	}
 	
-	Map<String,String> addTagsToViews(LinearLayout editableView, PresetItem preset, LinkedHashMap<String, String> tags) {
+	Map<String,String> addTagsToViews(EditableLayout editableView, PresetItem preset, LinkedHashMap<String, String> tags) {
 		LinkedHashMap<String,String> recommendedEditable = new LinkedHashMap<String,String>();
 		LinkedHashMap<String,String> optionalEditable = new LinkedHashMap<String,String>();
 		LinkedHashMap<String,String> linkedTags = new LinkedHashMap<String,String>();
@@ -584,20 +590,24 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		if (preset != null) {
 			List<PresetItem> linkedPresets = preset.getLinkedPresets();
 			for (String key:tags.keySet()) {
-				if (preset.hasKeyValue(key, tags.get(key))) {
+				String value = tags.get(key);
+				if (preset.hasKeyValue(key, value)) {
 					if (preset.isFixedTag(key)) {
 						// skip
 					} else if (preset.isRecommendedTag(key)) {
-						recommendedEditable.put(key, tags.get(key));
+						recommendedEditable.put(key, value);
 					} else {
-						optionalEditable.put(key, tags.get(key));
+						optionalEditable.put(key, value);
 					}
+					// store tags in view
+					editableView.putTag(key, value);
 				} else {
 					boolean found = false;
 					if (linkedPresets != null) { // check if tag is in a linked preset
 						for (PresetItem l:linkedPresets) {
-							if (l.hasKeyValue(key, tags.get(key))) {
-								linkedTags.put(key, tags.get(key));
+							if (l.hasKeyValue(key, value)) {
+								linkedTags.put(key, value);
+								editableView.putTag(key, value);
 								keyToLinkedPreset.put(key, l);
 								found = true;
 								break;
@@ -625,7 +635,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		return nonEditable;
 	}
 	
-	private void addRow(LinearLayout rowLayout, final String key, final String value, PresetItem preset, LinkedHashMap<String, String> allTags) {
+	private void addRow(final LinearLayout rowLayout, final String key, final String value, PresetItem preset, LinkedHashMap<String, String> allTags) {
 		if (rowLayout != null) {
 			if (preset != null) {
 				if (!preset.isFixedTag(key)) {
@@ -701,6 +711,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 							public void onCheckedChanged(
 									CompoundButton buttonView, boolean isChecked) {
 								tagListener.updateSingleValue(key, isChecked?valueOn:valueOff);
+								if (rowLayout instanceof EditableLayout) {
+									((EditableLayout)rowLayout).putTag(key, isChecked?valueOn:valueOff);
+								}
 							} 
 						});
 					} 
@@ -731,7 +744,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
  		}	
 	}
 	
-	TagTextRow addTextRow(LinearLayout rowLayout, PresetItem preset, PresetKeyType keyType, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
+	TagTextRow addTextRow(final LinearLayout rowLayout, final PresetItem preset, final PresetKeyType keyType, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
 		final TagTextRow row = (TagTextRow)inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
@@ -750,7 +763,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			row.valueView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, new String[0]));
 		}
 		if (keyType==PresetKeyType.MULTISELECT) { 
-			// FIXME this should be somewhere better obvious since it creates a non obvious side effect
+			// FIXME this should be somewhere better since it creates a non obvious side effect
 			row.valueView.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
 		}
 		if (keyType==PresetKeyType.TEXT && (adapter==null || adapter.getCount() < 2)) {
@@ -761,9 +774,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		row.valueView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				if (!hasFocus && !row.getValue().equals(value)) {
+				String rowValue = row.getValue();
+				if (!hasFocus && !rowValue.equals(value)) {
 					Log.d(DEBUG_TAG,"onFocusChange");
-					tagListener.updateSingleValue(key, row.getValue());
+					tagListener.updateSingleValue(key, rowValue);
+					if (rowLayout instanceof EditableLayout) {
+						((EditableLayout)rowLayout).putTag(key, rowValue);
+					}
 				}
 			}
 		});
@@ -785,13 +802,16 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					row.valueView.setOrReplaceText((String)o);
 				}
 				tagListener.updateSingleValue(key, row.getValue());
+				if (rowLayout instanceof EditableLayout) {
+					((EditableLayout)rowLayout).putTag(key, row.getValue());
+				}
 			}
 		});
 		
 		return row;
 	}
 	
-	TagComboRow addComboRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
+	TagComboRow addComboRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
 		final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
@@ -823,6 +843,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					value = (String)button.getTag();	
 				} 
 				tagListener.updateSingleValue(key, value);
+				if (rowLayout instanceof EditableLayout) {
+					((EditableLayout)rowLayout).putTag(key, value);
+				}
 				row.setValue(value);
 				row.setChanged(true);
 			}
@@ -830,7 +853,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		return row;
 	}
 	
-	TagMultiselectRow addMultiselectRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key, final ArrayList<String> values, final String defaultValue, ArrayAdapter<?> adapter, LinkedHashMap<String, String> allTags) {
+	TagMultiselectRow addMultiselectRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key, final ArrayList<String> values, final String defaultValue, ArrayAdapter<?> adapter, LinkedHashMap<String, String> allTags) {
 		final TagMultiselectRow row = (TagMultiselectRow)inflater.inflate(R.layout.tag_form_multiselect_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
@@ -840,6 +863,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			public void onCheckedChanged(
 					CompoundButton buttonView, boolean isChecked) {
 				tagListener.updateSingleValue(key, row.getValue());
+				if (rowLayout instanceof EditableLayout) {
+					((EditableLayout)rowLayout).putTag(key, row.getValue());
+				}
 			} 
 		};
 		int count = adapter.getCount();
@@ -1463,6 +1489,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			this.value = value;
 			valueView.setText(description);
 			valueView.setTag(value);
+			if (getParent() instanceof EditableLayout) {
+				((EditableLayout)getParent()).putTag(getKey(), getValue());
+			}
 		}
 		
 		public void setValue(StringWithDescription swd) {
@@ -1696,6 +1725,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		private ImageView headerIconView;
 		private TextView headerTitleView;
 		private LinearLayout rowLayout;
+		private ImageButton copyButton;
+		private ImageButton cutButton;
+		private ImageButton deleteButton;
+		private LinkedHashMap<String,String> tags = new LinkedHashMap<String,String>();
 		
 		public  EditableLayout(Context context) {
 			super(context);
@@ -1713,8 +1746,52 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			headerIconView = (ImageView)findViewById(R.id.form_header_icon_view);
 			headerTitleView = (TextView)findViewById(R.id.form_header_title);
 			rowLayout = (LinearLayout) findViewById(R.id.form_editable_row_layout);
+			copyButton = (ImageButton) findViewById(R.id.form_header_copy);
+			cutButton = (ImageButton) findViewById(R.id.form_header_cut);
+			deleteButton = (ImageButton) findViewById(R.id.form_header_delete);
 		}	
 		
+		/**
+		 * As side effect this sets the onClickListeners for the buttons
+		 * @param listener
+		 */
+		public void setListeners(final EditorUpdate editorListener, final FormUpdate formListener) {
+			Log.d(DEBUG_TAG, "setting listeners");
+			copyButton.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					editorListener.copyTags(tags);
+				}});
+			cutButton.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					editorListener.copyTags(tags);
+					for (String key:tags.keySet()) {
+						editorListener.deleteTag(key);
+					}
+					editorListener.updatePresets();
+					formListener.tagsUpdated();	
+				}});
+			deleteButton.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					Builder builder = new AlertDialog.Builder(v.getContext());
+					builder.setMessage(v.getContext().getString(R.string.delete_tags, headerTitleView.getText()));
+					builder.setNegativeButton(R.string.cancel, null);
+					builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							for (String key:tags.keySet()) {
+								editorListener.deleteTag(key);
+							}
+							editorListener.updatePresets();
+							formListener.tagsUpdated();			
+						}});
+					builder.show();
+				}});
+		}
+			
+			
 		private void setMyVisibility(int visibility) {
 			rowLayout.setVisibility(visibility);
 			for (int i=0;i < rowLayout.getChildCount();i++) {
@@ -1744,9 +1821,19 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					headerIconView.setVisibility(View.GONE);
 				}
 				headerTitleView.setText(preset.getTranslatedName());
+				copyButton.setVisibility(View.VISIBLE);
+				cutButton.setVisibility(View.VISIBLE);
+				deleteButton.setVisibility(View.VISIBLE);
 			} else {
-				headerTitleView.setText("Unknown element (no preset)");
+				headerTitleView.setText(R.string.tag_form_unknown_element);
+				copyButton.setVisibility(View.GONE);
+				cutButton.setVisibility(View.GONE);
+				deleteButton.setVisibility(View.GONE);
 			}
+		}
+		
+		public void putTag(String key, String value) {
+			tags.put(key, value);
 		}
 	}
 

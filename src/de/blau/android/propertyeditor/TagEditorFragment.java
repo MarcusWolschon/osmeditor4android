@@ -59,6 +59,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
+import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
@@ -571,6 +572,11 @@ public class TagEditorFragment extends BaseFragment implements
 		} else {
 			Log.d(DEBUG_TAG,"updateAutocompletePresetItem rowLayout null");
 		}
+	}
+	
+	@Override
+	public void updatePresets() {
+		updateAutocompletePresetItem(null);
 	}
 	
 	@Override
@@ -1692,6 +1698,12 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 		updateAutocompletePresetItem(null);
 		return paste != null;
+	}
+	
+	@Override
+	public void copyTags(Map<String,String>tags) {
+		copiedTags = new LinkedHashMap<String,String>(tags);
+		ClipboardUtils.copyTags(getActivity(), copiedTags);
 	}
 		
 	/**

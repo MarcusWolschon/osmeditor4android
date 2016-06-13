@@ -92,6 +92,7 @@
     <string name="save_file">Enter file to save to</string>
     <string name="existing_track_title">Existing track data</string>
     <string name="existing_track_message">You already have existing track data. You may want to cancel and save first.</string>
+    <string name="delete_tags">Really delete all tags for object \"%1$s\"?</string>
     <string name="element_information">Element information</string>
     <string name="id">Id</string>
     <string name="nodes">Nodes</string>
@@ -316,6 +317,7 @@
     <string name="menu_information">Info</string>
     <string name="menu_voice_commands">Voice commands</string>
     <string name="menu_set_name">Set name</string>
+    <string name="tag_form_unknown_element">Unknown element (no preset found)</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
     <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>

@@ -12,18 +12,18 @@
         app:showAsAction="always"
         android:title="@string/tag_menu_apply_preset"/>
     <item
-        android:id="@+id/tag_menu_revert"
-        android:alphabeticShortcut="@string/shortcut_undo"
-        android:icon="?attr/menu_undo"
-        app:showAsAction="always"
-        android:title="@string/tag_menu_revert"/>
-        <item
         android:id="@+id/tag_menu_paste"
         android:icon="?attr/menu_paste"
         android:title="@string/menu_paste"
         android:alphabeticShortcut="*@string/shortcut_paste"
         app:showAsAction="always"
     />
+    <item
+        android:id="@+id/tag_menu_revert"
+        android:alphabeticShortcut="@string/shortcut_undo"
+        android:icon="?attr/menu_undo"
+        app:showAsAction="always"
+        android:title="@string/tag_menu_revert"/>
     <item
         android:id="@+id/tag_menu_paste_from_clipboard"
         android:title="@string/menu_paste_from_clipboard"

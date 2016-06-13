@@ -1,21 +1,17 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.acra.ACRA;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,30 +21,21 @@ import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.names.Names;
-import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -60,14 +47,11 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
-import de.blau.android.propertyeditor.TagFormFragment.TagFormDialogRow;
-import de.blau.android.propertyeditor.TagFormFragment.TagTextRow;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StreetTagValueAdapter;
-import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ExtendedViewPager;
@@ -960,6 +944,15 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	}
 	
 	@Override
+	public void updatePresets() {
+		if (tagEditorFragment != null) {
+			tagEditorFragment.updatePresets();
+		} else {
+			Log.e(DEBUG_TAG,"updatePresets tagEditorFragment is null");
+		}	
+	}
+	
+	@Override
 	public void predictAddressTags(boolean allowBlanks) {
 		if (tagEditorFragment != null) {
 			tagEditorFragment.predictAddressTags(allowBlanks);
@@ -1016,6 +1009,16 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			Log.e(DEBUG_TAG,"pasteFromClipboard tagEditorFragment is null");
 		}
 		return false;
+	}
+	
+
+	@Override
+	public void copyTags(Map<String, String> tags) {
+		if (tagEditorFragment != null) {
+			tagEditorFragment.copyTags(tags);
+		} else {
+			Log.e(DEBUG_TAG,"copyTags tagEditorFragment is null");
+		}
 	}
 	
 	@Override
