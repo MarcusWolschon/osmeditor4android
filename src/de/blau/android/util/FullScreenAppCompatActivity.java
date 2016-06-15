@@ -25,9 +25,6 @@ public class FullScreenAppCompatActivity extends BugFixedAppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (fullScreen) {
-			hideNavBar();
-		}
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			View decorView = getWindow().getDecorView();
 			decorView.setOnSystemUiVisibilityChangeListener
@@ -37,8 +34,10 @@ public class FullScreenAppCompatActivity extends BugFixedAppCompatActivity {
 					Log.d(DEBUG_TAG,"onSystemUiVisibilityChange " + Integer.toHexString(visibility));
 					if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
 						if (fullScreen) {
-							handler.removeCallbacks(navHider);
-							handler.postDelayed(navHider, 2000); 
+							synchronized (handler) {
+								handler.removeCallbacks(navHider);
+								handler.postDelayed(navHider, 2000);
+							}
 						}
 					} else {
 						// no UI changes for now
@@ -46,12 +45,21 @@ public class FullScreenAppCompatActivity extends BugFixedAppCompatActivity {
 				}
 			});
 		}
+		if (fullScreen) {
+			synchronized (handler) {
+				handler.removeCallbacks(navHider);
+				//FIXME there seems to be a timing issue or similar that causes the nav bar to re-appear just after it has been hidden by
+				//onWindowFocusChanged, this makes sure that the bar is re-hidden. The 1.5 seconds seems to work.
+				handler.postDelayed(navHider, 1500);
+			}
+		}
 	}
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);	
 		if (hasFocus) {
+			Log.d(DEBUG_TAG,"onWindowFocusChanged");
 			hideNavBar();
 		}	
 	}
