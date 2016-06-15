@@ -6562,7 +6562,10 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
             <space />
-            <combo key="building" text="Building" values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />            
+            <combo key="building" text="Building" 
+            	values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower"
+            	display_values="Yes,Roof,Garage,Garages,Industrial,School,Hangar,Commercial,Service,Train station,Barn,Stable,Cabin,Farm auxiliary,Transportation,Greenhouse,Office,University,Hospital,Kindergarten,Manufacture,Warehouse,Retail,Shed,Storage tank,Supermarket,Gasometer,Cowshed,Construction,Basilica,Cathedral,Chapel,Church,Temple,Mosque,Synagogue,Transformer tower" 
+            	values_context="building" default="yes" match="keyvalue!" values_searchable="true" />            
             <optional>
             	<text key="name" text="Name" />
             	<combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" editable="true" values_sort="false" text_context="building" match="key" />
@@ -6587,7 +6590,10 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
             <space />
-            <combo key="building" text="Building" values="residential,apartments,house,hotel,hut,dormitory,terrace,detached,farm,roof" default="residential" match="keyvalue!" values_context="building" values_searchable="true" />
+            <combo key="building" text="Building" 
+            	values="residential,apartments,house,hotel,hut,dormitory,terrace,detached,farm,roof"
+            	display_values="Residential,Apartments,House,Hotel,Hut,Dormitory,Terrace,Detached,Farm,Roof" 
+            	default="residential" match="keyvalue!" values_context="building" values_searchable="true" />
             <optional>
             	<text key="name" text="Name" />
             	<combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" editable="true" values_sort="false" text_context="building" match="key" />
@@ -7886,6 +7892,29 @@
             <space />
             <key key="shop" value="clothes" />
             <reference ref="name_oh_wheelchair_level" />
+            <multiselect key="clothes" text="Kind of clothes" values_searchable="true" match="key">
+                <list_entry value="babies" short_description="Babies" />
+                <list_entry value="children" short_description="Children" />
+                <list_entry value="costumes" short_description="Costumes" />
+                <list_entry value="denim" short_description="Denim" />
+                <list_entry value="fashion" short_description="Fashion" />
+                <list_entry value="fur" short_description="Fur" />
+                <list_entry value="hats" short_description="Hats" />
+                <list_entry value="leather" short_description="Leather" />
+                <list_entry value="maternity" short_description="Maternity" />
+                <list_entry value="men" short_description="Men" />
+                <list_entry value="motorcycle" short_description="Motorcycle" />
+                <list_entry value="oversize" short_description="Oversize" />
+                <list_entry value="schoolwear" short_description="Schoolwear" />
+                <list_entry value="sports" short_description="Sports" />
+                <list_entry value="suits" short_description="Suits" />
+                <list_entry value="swimwear" short_description="Swimwear" />
+                <list_entry value="traditional" short_description="Traditional" />
+                <list_entry value="underwear" short_description="Underwear" />
+                <list_entry value="wedding" short_description="Wedding" />
+                <list_entry value="women" short_description="Women" />
+                <list_entry value="workwear" short_description="Workwear" />
+            </multiselect>
             <combo key="second_hand" text="Second hand" values="only,yes,no" display_values="Only,Yes,No" />
             <reference ref="organic" />
             <reference ref="link_contact_address_payment" />
@@ -8489,6 +8518,16 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=paint" />
             <space />
             <key key="shop" value="paint" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Paint -->
+        <item name="Locksmith" icon="icons/png/shopping_locksmith_16046.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=locksmith"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=locksmith"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:shop=locksmith"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:shop=locksmith" />
+            <space />
+            <key key="shop" value="locksmith" />
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Paint -->
