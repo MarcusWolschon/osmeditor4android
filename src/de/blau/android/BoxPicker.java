@@ -149,7 +149,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 		        if (actionId == EditorInfo.IME_ACTION_SEARCH
 			        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
 		            Search search = new Search(BoxPicker.this, searchItemFoundCallback);
-		            search.find(v.getText().toString());
+		            search.find(v.getText().toString(),null);
 		            return true;
 		        }
 		        return false;

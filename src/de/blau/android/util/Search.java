@@ -84,7 +84,7 @@ public class Search {
 	
 	/**
 	 * Constructor
-	 * @param ctx
+	 * @param appCompatActivity
 	 * @param callback will be called when search result is selected
 	 */
 	public Search(AppCompatActivity appCompatActivity, SearchItemFoundCallback callback) {
@@ -96,8 +96,8 @@ public class Search {
 	 * Query nominatim and then display a list of results to pick from
 	 * @param q
 	 */
-	public void find(String q) {
-		QueryNominatim querier = new QueryNominatim();
+	public void find(String q, BoundingBox bbox) {
+		QueryNominatim querier = new QueryNominatim(bbox);
 		querier.execute(q);
 		try {
 			ArrayList<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
@@ -120,6 +120,15 @@ public class Search {
 	}
 
 	private class QueryNominatim extends AsyncTask<String, Void, ArrayList<SearchResult>> {
+		final BoundingBox bbox;
+
+		public QueryNominatim() {
+			this(null);
+		}
+
+		public QueryNominatim(BoundingBox bbox) {
+			this.bbox = bbox;
+		}
 
 		@Override
 		protected void onPreExecute() {
@@ -128,21 +137,21 @@ public class Search {
 		
 		@Override
 		protected ArrayList<SearchResult> doInBackground(String... params) {
-			BoundingBox bbox = Application.mainActivity.getMap().getViewBox();
-			String viewBoxCoordinates =
-					bbox.getLeft() + "," +
-					bbox.getBottom() + "," +
-					bbox.getRight() + "," +
-					bbox.getTop();
+
 			String query = params[0];
-			Uri uriBuilder = Uri
-					.parse(NOMINATIM_SERVER)
+			Uri.Builder builder = Uri.parse(NOMINATIM_SERVER)
 					.buildUpon()
 					.appendPath("search")
-					.appendQueryParameter("q", query)
-					.appendQueryParameter("viewboxlbrt", viewBoxCoordinates)
-					.appendQueryParameter("format", "jsonv2")
-					.build();
+					.appendQueryParameter("q", query);
+			if (bbox != null) {
+				String viewBoxCoordinates = bbox.getLeft()
+						+ "," + bbox.getBottom()
+						+ "," + bbox.getRight()
+						+ "," + bbox.getTop();
+				builder.appendQueryParameter("viewboxlbrt", viewBoxCoordinates);
+			}
+			Uri uriBuilder = builder.appendQueryParameter("format", "jsonv2").build();
+
 			String urlString = uriBuilder.toString();
 			Log.d("Search", "urlString " + urlString);
 			try {

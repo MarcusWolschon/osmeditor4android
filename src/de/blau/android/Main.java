@@ -534,7 +534,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 	
 	/**
-	 * Loads the preferences into {@link #map} and {@link #logic}, triggers new {@inheritDoc}
+	 * Loads the preferences into {@link #map}, triggers new {@inheritDoc}
 	 */
 	@Override
 	protected void onStart() {
@@ -1106,7 +1106,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_find:
-			SearchForm.showDialog(this,  new de.blau.android.util.SearchItemFoundCallback() {
+			SearchForm.showDialog(this, map.getViewBox(), new de.blau.android.util.SearchItemFoundCallback() {
 				private static final long serialVersionUID = 1L;
 
 				@Override

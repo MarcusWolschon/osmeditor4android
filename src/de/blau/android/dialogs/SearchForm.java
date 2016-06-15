@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import de.blau.android.R;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.Search;
 import de.blau.android.util.Search.SearchResult;
 import de.blau.android.util.SearchItemFoundCallback;
@@ -34,17 +35,18 @@ public class SearchForm extends DialogFragment
 	private static final String DEBUG_TAG = SearchForm.class.getSimpleName();
 	
 	private static final String TAG = "fragment_search_form";
-	
+
+    private BoundingBox bbox;
 	private SearchItemFoundCallback callback;
 	
    	/**
 	 *
 	 */
-	static public void showDialog(AppCompatActivity activity, final SearchItemFoundCallback callback) {
+	static public void showDialog(AppCompatActivity activity, final BoundingBox bbox, final SearchItemFoundCallback callback) {
 		dismissDialog(activity);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
-	    SearchForm searchFormFragment = newInstance(callback);
+	    SearchForm searchFormFragment = newInstance(bbox, callback);
 	    if (searchFormFragment != null) {
 	    	searchFormFragment.show(fm, TAG);
 	    } else {
@@ -64,10 +66,11 @@ public class SearchForm extends DialogFragment
 		
     /**
      */
-    static private SearchForm newInstance(final SearchItemFoundCallback callback) {
+    static private SearchForm newInstance(final BoundingBox bbox, final SearchItemFoundCallback callback) {
     	SearchForm f = new SearchForm();
 
         Bundle args = new Bundle();
+		args.putSerializable("bbox", bbox);
         args.putSerializable("callback", callback);
 
         f.setArguments(args);
@@ -81,7 +84,8 @@ public class SearchForm extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        
+
+        bbox = (BoundingBox) getArguments().getSerializable("bbox");
         callback = (SearchItemFoundCallback) getArguments().getSerializable("callback");
     }
 
@@ -125,7 +129,7 @@ public class SearchForm extends DialogFragment
     			if (actionId == EditorInfo.IME_ACTION_SEARCH
     					|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
     				Search search = new Search((AppCompatActivity) getActivity(), realCallback);
-    				search.find(v.getText().toString());
+    				search.find(v.getText().toString(),bbox);
     				return true;
     			}
     			return false;
