@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -327,9 +328,16 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		return adapter;
 	}
 	
+	/**
+	 * Split multi select values with the preset defined delimiter character
+	 * @param values
+	 * @param preset
+	 * @param key
+	 * @return
+	 */
 	private ArrayList<String> splitValues(ArrayList<String>values, PresetItem preset, String key) {
 		ArrayList<String> result = new ArrayList<String>();
-		String delimiter = "" + preset.getDelimiter(key);
+		String delimiter = Matcher.quoteReplacement("\\Q" + preset.getDelimiter(key)+"\\E"); // always quote to avoid surprises
 		if (values==null) {
 			return null;
 		}
