@@ -8,7 +8,6 @@
 	android:installLocation="auto"
 	>
 	
-	<!-- minSdkVersion is set to 7 to match ActionBarSherlock, but should be able to be set to 4 when ABS supports it -->
 	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="23" />
 	
 	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices

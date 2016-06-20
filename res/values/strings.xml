@@ -625,7 +625,7 @@
 		<item>Force</item>
 		<item>No statusbar</item>
     </string-array>
-        <string-array translatable="false" name="full_screen_preference_no_auto_values">
+    <string-array translatable="false" name="full_screen_preference_no_auto_values">
 		<item>@string/full_screen_never</item>
 		<item>@string/full_screen_force</item>
 		<item>@string/full_screen_no_statusbar</item>

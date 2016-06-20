@@ -3291,8 +3291,8 @@
             <space />
             <key key="shop" value="car" />
             <reference ref="name_operator_oh_wheelchair" />
-	    <reference ref="car_brands" />
-            <combo key="second_hand" text="Second hand" values="only,yes,no" />
+	        <reference ref="car_brands" />
+            <combo key="second_hand" text="Second hand" text_context="transport" values="only,yes,no" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Car Dealer -->
         <item name="Repair" icon="icons/png/shopping_car_repair.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -3305,7 +3305,7 @@
             <space />
             <key key="shop" value="car_repair" />
             <reference ref="name_operator_oh_wheelchair" />
-	    <reference ref="car_brands" />
+	        <reference ref="car_brands" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Repair -->
         <item name="Parts" icon="icons/png/shopping_car_parts_29021.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -3385,7 +3385,7 @@
             <reference ref="motorcycle_brands" />
             <text key="operator" text="Operator" />
             <reference ref="oh_wheelchair" />
-            <combo key="second_hand" text="Second hand" values="only,yes,no" />
+            <combo key="second_hand" text="Second hand" text_context="transport" values="only,yes,no" />
             <optional text="Services:">
                 <combo key="sale" text="Sale" values="yes,brand,no" />
                 <combo key="rental" text="Rental" values="yes,brand,no" />
