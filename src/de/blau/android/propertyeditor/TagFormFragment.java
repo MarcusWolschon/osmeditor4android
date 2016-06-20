@@ -107,6 +107,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	private boolean askForName = false;
 	
 	private int maxInlineValues = 3;
+	
+	private StringWithDescription.LocaleComparator comparator;
 
 	
 	/**
@@ -147,6 +149,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        	Log.d(DEBUG_TAG, "onCreate");
+       	comparator = new StringWithDescription.LocaleComparator();
     }
 	
 	/** 
@@ -286,7 +289,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				if (values != null && !values.isEmpty()) {
 					ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(presetValues);
 					if (preset.sortIt(key)) {
-						Collections.sort(result);
+						Collections.sort(result, comparator);
 					}
 					for (StringWithDescription s:result) {
 						if (counter != null && counter.containsKey(s.getValue())) {
