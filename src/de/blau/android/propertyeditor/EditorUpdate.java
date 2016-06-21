@@ -12,7 +12,7 @@ import de.blau.android.presets.Preset.PresetItem;
  */
 abstract interface EditorUpdate {
 	/**
-	 * Update or add a single key value tupel in the tag editor
+	 * Update or add a single key value pair in the tag editor
 	 * @param key
 	 * @param value
 	 */
@@ -20,8 +20,8 @@ abstract interface EditorUpdate {
 
 	/**
 	 * Update or add multiple keys
-	 * @param tags map containing the new key - value tupels
-	 * @param flush if true delete all existing tags before appliying the update
+	 * @param tags map containing the new key - value pais
+	 * @param flush if true delete all existing tags before applying the update, currently always assumed to be true
 	 */
 	abstract void updateTags(final Map<String,String>tags,final boolean flush);
 	

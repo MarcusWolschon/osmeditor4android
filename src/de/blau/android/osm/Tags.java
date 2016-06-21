@@ -1,11 +1,15 @@
 package de.blau.android.osm;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Key and value constants for tags that are using in the code
  * @author simon
  *
  */
 public class Tags {
+		
 	// Karlsruher schema
 	public static final String KEY_ADDR_BASE = "addr:";
 	public static final String KEY_ADDR_HOUSENUMBER = "addr:housenumber";
@@ -41,6 +45,15 @@ public class Tags {
 	public static final String KEY_NAME = "name";
 	public static final String KEY_OFFICIAL_NAME = "official_name";
 	public static final String KEY_ALT_NAME = "alt_name";
+	public static final String KEY_LOC_NAME = "loc_name";
+	public static final String KEY_OLD_NAME = "old_name";
+	public static final String KEY_SHORT_NAME = "short_name";
+	public static final String KEY_REG_NAME = "reg_name";
+	public static final String KEY_NAT_NAME = "nat_name";
+	public static final String KEY_INT_NAME = "int_name";
+	public static final List<String> I18N_NAME_KEYS = Arrays.asList(KEY_NAME, KEY_OFFICIAL_NAME,
+			KEY_ALT_NAME, KEY_LOC_NAME, KEY_SHORT_NAME, KEY_REG_NAME, KEY_NAT_NAME); 
+    
 	public static final String KEY_NAME_LEFT = "name:left";
 	public static final String KEY_NAME_RIGHT= "name:right";
 	public static final String KEY_REF = "ref";

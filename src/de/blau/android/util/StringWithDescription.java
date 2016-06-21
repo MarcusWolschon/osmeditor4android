@@ -2,7 +2,6 @@ package de.blau.android.util;
 
 import java.io.Serializable;
 import java.text.Collator;
-import java.util.Collections;
 import java.util.Comparator;
 
 import de.blau.android.presets.ValueWithCount;

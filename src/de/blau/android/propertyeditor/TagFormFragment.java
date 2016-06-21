@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -84,11 +86,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	private static final String ASK_FOR_NAME = "askForName";
 
 	private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName();
-	
-	/**
-	 * Max number of entries before we use a normal dropdown list for selection
-	 */
-	private static final int MAX_ENTRIES_MULTISELECT = 8;
 	
 	LayoutInflater inflater = null;
 
@@ -282,24 +279,24 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			} else {
 				HashMap<String, Integer> counter = new HashMap<String, Integer>();
 				ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<ValueWithCount>(getActivity(), R.layout.autocomplete_row);
-	
+
 				if (preset != null) {
-				Collection<StringWithDescription> presetValues = preset.getAutocompleteValues(key);
-				Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + presetValues);
-				if (values != null && !values.isEmpty()) {
-					ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(presetValues);
-					if (preset.sortIt(key)) {
-						Collections.sort(result, comparator);
-					}
-					for (StringWithDescription s:result) {
-						if (counter != null && counter.containsKey(s.getValue())) {
-							continue; // skip stuff that is already listed
+					Collection<StringWithDescription> presetValues = preset.getAutocompleteValues(key);
+					Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + presetValues);
+					if (values != null && !values.isEmpty()) {
+						ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(presetValues);
+						if (preset.sortIt(key)) {
+							Collections.sort(result, comparator);
 						}
-						counter.put(s.getValue(),Integer.valueOf(1));
-						adapter2.add(new ValueWithCount(s.getValue(), s.getDescription(), true));
-					}
-					Log.d(DEBUG_TAG,"key " + key + " type " + preset.getKeyType(key));
-				} 
+						for (StringWithDescription s:result) {
+							if (counter != null && counter.containsKey(s.getValue())) {
+								continue; // skip stuff that is already listed
+							}
+							counter.put(s.getValue(),Integer.valueOf(1));
+							adapter2.add(new ValueWithCount(s.getValue(), s.getDescription(), true));
+						}
+						Log.d(DEBUG_TAG,"key " + key + " type " + preset.getKeyType(key));
+					} 
 				} else {
 					OsmElement element = ((PropertyEditor)getActivity()).getElement();
 					if (((PropertyEditor)getActivity()).presets != null && element != null) { 
@@ -363,6 +360,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(getActivity()));
 		menu.findItem(R.id.tag_menu_paste).setVisible(tagListener.pasteIsPossible());
 		menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
+		Locale locale = Locale.getDefault();
+		if (!(locale.equals(Locale.US) || locale.equals(Locale.UK))) {
+			menu.findItem(R.id.tag_menu_locale).setVisible(true).setTitle(getActivity().getString(R.string.tag_menu_i8n, locale.toString().toUpperCase(Locale.US)));
+		} else {
+			menu.findItem(R.id.tag_menu_locale).setVisible(false);
+		}
+			
 	}
 	
 	
@@ -419,6 +423,30 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		case R.id.tag_menu_reset_address_prediction:
 			// simply overwrite with an empty file
 			Address.resetLastAddresses(getActivity());
+			return true;
+		case R.id.tag_menu_locale:
+			// add locale to any name keys present
+			LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
+			LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
+			Locale locale = Locale.getDefault();
+			for (Entry<String,String> e:allTags.entrySet()) { 
+				String key = e.getKey();
+				result.put(key, e.getValue());
+				if (Tags.I18N_NAME_KEYS.contains(key)) {
+					String languageKey = key + ":" + locale.getLanguage();
+					String variantKey = key + ":" + locale.toString();
+					if (!allTags.containsKey(languageKey)) {
+						result.put(languageKey,"");
+					}
+					if (!allTags.containsKey(variantKey)) {
+						result.put(variantKey,"");
+					}
+				}
+			}
+			if (result.size() != allTags.size()) {
+				tagListener.updateTags(result, true);
+				update();
+			}
 			return true;
 		case R.id.tag_menu_help:
 			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
@@ -604,7 +632,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				String value = tags.get(key);
 				if (preset.hasKeyValue(key, value)) {
 					if (preset.isFixedTag(key)) {
-						// skip
+						// skip, not displayed
 					} else if (preset.isRecommendedTag(key)) {
 						recommendedEditable.put(key, value);
 					} else {
@@ -613,8 +641,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					// store tags in view
 					editableView.putTag(key, value);
 				} else {
-					boolean found = false;
-					if (linkedPresets != null) { // check if tag is in a linked preset
+					// check if i18n version of a name tag
+					boolean found = addI18nKeyToPreset(key, value, preset, recommendedEditable, editableView);
+					
+					if (!found && linkedPresets != null) { // check if tag is in a linked preset
 						for (PresetItem l:linkedPresets) {
 							if (l.hasKeyValue(key, value)) {
 								linkedTags.put(key, value);
@@ -623,8 +653,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 								found = true;
 								break;
 							}
+							// check if i18n version of a name tag
+							if (found = addI18nKeyToPreset(key, value, preset, linkedTags, editableView)) {
+								keyToLinkedPreset.put(key, l);
+								break;
+							}
 						}
 					}
+
 					if (!found) {
 						nonEditable.put(key, tags.get(key));
 					}
@@ -644,6 +680,34 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		}
 
 		return nonEditable;
+	}
+	
+	/**
+	 * Add international name keys to preset
+	 * @param key
+	 * @param value
+	 * @param preset
+	 * @param map
+	 * @param editableView 
+	 * @return
+	 */
+	boolean addI18nKeyToPreset(String key, String value, PresetItem preset, Map<String,String> map, EditableLayout editableView) {
+		for (String tag:Tags.I18N_NAME_KEYS) {
+			if (key.startsWith(tag + ":")) {
+				String[] s = key.split("\\Q:\\E");
+				if (preset.hasKey(tag) && s != null && s.length == 2) {
+					preset.addTag(false, key, PresetKeyType.TEXT, null);
+					String hint = preset.getHint(tag);
+					if (hint != null) {
+						preset.addHint(key, getActivity().getString(R.string.internationalized_hint, hint, s[1])); // FIXME RTL
+					}
+					map.put(key, value);
+					editableView.putTag(key, value);
+					return true;		
+				}
+			}
+		}
+		return false;
 	}
 	
 	private void addRow(final LinearLayout rowLayout, final String key, final String value, PresetItem preset, LinkedHashMap<String, String> allTags) {
@@ -673,6 +737,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					if (keyType == PresetKeyType.TEXT 
 						|| key.startsWith(Tags.KEY_ADDR_BASE)
 						|| preset.isEditable(key)) {
+						// special handling for international names
 						rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, defaultValue, adapter));
 					} else if (preset.getKeyType(key) == PresetKeyType.COMBO || (keyType == PresetKeyType.CHECK && count > 2)) {
 						if (count <= maxInlineValues) {
@@ -727,7 +792,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 								}
 							} 
 						});
-					} 
+					} else {
+						Log.e(DEBUG_TAG,"unknown preset element type " + key + " " + value + " " + preset.getName());
+					}
 				}
 //			} else if (key.startsWith(Tags.KEY_ADDR_BASE)) { // make address tags always editable
 //				Set<String> usedKeys = allTags.keySet();
@@ -746,7 +813,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					row.valueView.setText(value);
 					rowLayout.addView(row);
 				} else {
-					ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, Util.getArrayList(value), null, allTags);
+					ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, Util.getArrayList(value), null, allTags);		
 					rowLayout.addView(addTextRow(rowLayout, null, PresetKeyType.TEXT, null, key, value, null, adapter));
 				}
 			}
