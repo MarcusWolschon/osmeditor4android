@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.acra.ACRA;
+
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
@@ -538,146 +540,154 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 */
 	private void processNmeaSentance(String sentence) {
 		boolean posUpdate = false;
-		if (sentence.length() > 9) { // everything shorter is invalid
-			int star = sentence.indexOf('*');
-			if (star > 5) {
-				String withoutChecksum = sentence.substring(1, star);
-				int receivedChecksum = Integer.parseInt(sentence.substring(star+1,star+3),16);
-				int checksum = 0;
-				for (byte b:withoutChecksum.getBytes()) {
-					checksum = checksum ^ b;
-				}
-				if (receivedChecksum == checksum) {
-					String talker = withoutChecksum.substring(0,2);
-					String s = withoutChecksum.substring(2,5);
-					
-					double lat = Double.NaN;
-					double lon = Double.NaN;
-					double hdop = Double.NaN;
-					double height = Double.NaN;
-					double course = Double.NaN;
-					double speed = Double.NaN;
-						
-					if (s.equals("GNS")) {
-						String[] values = withoutChecksum.split(",",-12); // java magic
-						if (values.length==13) {
-							try {
-								if ((!values[6].toUpperCase(Locale.US).startsWith("NN") || !values[6].toUpperCase(Locale.US).equals("N")) && Integer.parseInt(values[7]) >= 4) { // at least one "good" system needs a fix
-									lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase(Locale.US).equals("N")?1:-1);
-									lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
-									hdop = Double.parseDouble(values[8]);
-									height = Double.parseDouble(values[9]);
-									posUpdate = true;
+		try {
+			if (sentence.length() > 9) { // everything shorter is invalid
+				int star = sentence.indexOf('*');
+				if (star > 5 && sentence.length() >= star + 3 ) {
+					String withoutChecksum = sentence.substring(1, star);
+					int receivedChecksum = Integer.parseInt(sentence.substring(star+1,star+3),16);
+					int checksum = 0;
+					for (byte b:withoutChecksum.getBytes()) {
+						checksum = checksum ^ b;
+					}
+					if (receivedChecksum == checksum) {
+						String talker = withoutChecksum.substring(0,2);
+						String s = withoutChecksum.substring(2,5);
+
+						double lat = Double.NaN;
+						double lon = Double.NaN;
+						double hdop = Double.NaN;
+						double height = Double.NaN;
+						double course = Double.NaN;
+						double speed = Double.NaN;
+
+						if (s.equals("GNS")) {
+							String[] values = withoutChecksum.split(",",-12); // java magic
+							if (values.length==13) {
+								try {
+									if ((!values[6].toUpperCase(Locale.US).startsWith("NN") || !values[6].toUpperCase(Locale.US).equals("N")) && Integer.parseInt(values[7]) >= 4) { // at least one "good" system needs a fix
+										lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase(Locale.US).equals("N")?1:-1);
+										lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
+										hdop = Double.parseDouble(values[8]);
+										height = Double.parseDouble(values[9]);
+										posUpdate = true;
+									}
+								} catch (NumberFormatException e) {
+									Log.d("TrackerService","Invalid number format in " + sentence);
+									return;
 								}
-							} catch (NumberFormatException e) {
-								Log.d("TrackerService","Invalid number format in " + sentence);
+							} else {
+								Log.d("TrackerService","Invalid number " + values.length + " of values " + sentence);
 								return;
 							}
-						} else {
-							Log.d("TrackerService","Invalid number " + values.length + " of values " + sentence);
-							return;
-						}
-					} else if (s.equals("GGA")) {
-						String[] values = withoutChecksum.split(",",-14); // java magic
-						if (values.length==15) {
-							try {
-								if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) { // we need a fix
-									lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase(Locale.US).equals("N")?1:-1);
-									lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
-									hdop = Double.parseDouble(values[8]);
-									height = Double.parseDouble(values[9]);
-									posUpdate = true;
+						} else if (s.equals("GGA")) {
+							String[] values = withoutChecksum.split(",",-14); // java magic
+							if (values.length==15) {
+								try {
+									if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) { // we need a fix
+										lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase(Locale.US).equals("N")?1:-1);
+										lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
+										hdop = Double.parseDouble(values[8]);
+										height = Double.parseDouble(values[9]);
+										posUpdate = true;
+									}
+								} catch (NumberFormatException e) {
+									Log.d("TrackerService","Invalid number format in " + sentence);
+									return;
 								}
-							} catch (NumberFormatException e) {
-								Log.d("TrackerService","Invalid number format in " + sentence);
+							} else {
+								Log.d("TrackerService","Invalid number " + values.length + " of values " + sentence);
 								return;
 							}
-						} else {
-							Log.d("TrackerService","Invalid number " + values.length + " of values " + sentence);
-							return;
-						}
-					} else if (s.equals("VTG")) {
-						String[] values = withoutChecksum.split(",",-11); // java magic
-						if (values.length==12) {
-							try {
-								if (!values[9].toUpperCase(Locale.US).startsWith("N")) {
-									course = Double.parseDouble(values[1]);
-									nmeaLocation.setBearing((float)course);
-									speed = Double.parseDouble(values[7]);
-									nmeaLocation.setSpeed((float)(speed/3.6D));
+						} else if (s.equals("VTG")) {
+							String[] values = withoutChecksum.split(",",-11); // java magic
+							if (values.length==12) {
+								try {
+									if (!values[9].toUpperCase(Locale.US).startsWith("N")) {
+										course = Double.parseDouble(values[1]);
+										nmeaLocation.setBearing((float)course);
+										speed = Double.parseDouble(values[7]);
+										nmeaLocation.setSpeed((float)(speed/3.6D));
+									}
+								} catch (NumberFormatException e) {
+									Log.d("TrackerService","Invalid number format in " + sentence);
+									return;
 								}
-							} catch (NumberFormatException e) {
-								Log.d("TrackerService","Invalid number format in " + sentence);
+							} else {
+								Log.d("TrackerService","Invalid number " + values.length + " of values " + sentence);
 								return;
 							}
-						} else {
-							Log.d("TrackerService","Invalid number " + values.length + " of values " + sentence);
+						} else { 
+							// unsupported sentence
 							return;
 						}
-					} else { 
-						// unsupported sentence
+						// Log.d("TrackerService","Got from NMEA " + lat + " " + lon + " " + hdop + " " + height);
+						// the following assumes that the behaviour of the GPS receiver will not change
+						// and assume multiple systems are better than GPS which in turn is better the GLONASS ... this naturally may not be really true
+						if (system==GnssSystem.NONE) { // take whatever we get
+							if (talker.equals("GP")) {
+								system=GnssSystem.GPS;
+							} else if (talker.equals("GL")) {
+								system=GnssSystem.GLONASS;
+							} else if (talker.equals("GN")) {
+								system=GnssSystem.MULTIPLE;
+							} else {
+								// new system we don't know about? BEIDOU probably best ignored for now
+								return;
+							}
+						} else if (system==GnssSystem.GLONASS) {
+							if (talker.equals("GP")) {
+								system=GnssSystem.GPS;
+							} else if (talker.equals("GN")) {
+								system=GnssSystem.MULTIPLE;
+							}
+						}else if (system==GnssSystem.GPS) {
+							if (talker.equals("GL")) {
+								// ignore
+								return;
+							} else if (talker.equals("GN")) {
+								system=GnssSystem.MULTIPLE;
+							}
+						} else if (system==GnssSystem.MULTIPLE) {
+							if (!talker.equals("GN")) {
+								return;
+							}
+						}
+
+						if (posUpdate) { // we could do filtering etc here
+							nmeaLocation.setAltitude(height);
+							nmeaLocation.setLatitude(lat);
+							nmeaLocation.setLongitude(lon);
+							// can't call something on the UI thread directly need to send a message
+							Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, nmeaLocation);
+							// Log.d("TrackerService","Update " + l);
+							newLocation.sendToTarget();
+							if (tracking) {
+								track.addTrackPoint(nmeaLocation);
+							}
+							NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+							if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only attempt to download if we have a network
+								if (downloading) {
+									autoDownload(new Location(nmeaLocation));
+								}
+								if (downloadingBugs) {
+									bugAutoDownload(new Location(nmeaLocation));
+								}
+							}
+							lastLocation = nmeaLocation;
+						}
 						return;
 					}
-					// Log.d("TrackerService","Got from NMEA " + lat + " " + lon + " " + hdop + " " + height);
-					// the following assumes that the behaviour of the GPS receiver will not change
-					// and assume multiple systems are better than GPS which in turn is better the GLONASS ... this naturally may not be really true
-					if (system==GnssSystem.NONE) { // take whatever we get
-						if (talker.equals("GP")) {
-							system=GnssSystem.GPS;
-						} else if (talker.equals("GL")) {
-							system=GnssSystem.GLONASS;
-						} else if (talker.equals("GN")) {
-							system=GnssSystem.MULTIPLE;
-						} else {
-							// new system we don't know about? BEIDOU probably best ignored for now
-							return;
-						}
-					} else if (system==GnssSystem.GLONASS) {
-						if (talker.equals("GP")) {
-							system=GnssSystem.GPS;
-						} else if (talker.equals("GN")) {
-							system=GnssSystem.MULTIPLE;
-						}
-					}else if (system==GnssSystem.GPS) {
-						if (talker.equals("GL")) {
-							// ignore
-							return;
-						} else if (talker.equals("GN")) {
-							system=GnssSystem.MULTIPLE;
-						}
-					} else if (system==GnssSystem.MULTIPLE) {
-						if (!talker.equals("GN")) {
-							return;
-						}
-					}
-
-					if (posUpdate) { // we could do filtering etc here
-						nmeaLocation.setAltitude(height);
-						nmeaLocation.setLatitude(lat);
-						nmeaLocation.setLongitude(lon);
-						// can't call something on the UI thread directly need to send a message
-						Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, nmeaLocation);
-						// Log.d("TrackerService","Update " + l);
-						newLocation.sendToTarget();
-						if (tracking) {
-							track.addTrackPoint(nmeaLocation);
-						}
-						NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-						if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only attempt to download if we have a network
-							if (downloading) {
-								autoDownload(new Location(nmeaLocation));
-							}
-							if (downloadingBugs) {
-								bugAutoDownload(new Location(nmeaLocation));
-							}
-						}
-						lastLocation = nmeaLocation;
-					}
-					return;
+					// Log.d(TAG,"Checksum failed " + sentence);
 				}
+				// Log.d(TAG,"Misformed sentence " + sentence + " star " + star + " length " + sentence.length());
 			}
+			// Log.d(TAG,"Misformed sentence " + sentence);
+		} catch (Exception e) {
+			Log.e(TAG, "NMEA sentance " + sentence + " caused exception " + e);
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(e);
 		}
-		Log.d("TrackerService","Checksum failed on " + sentence);
 	}
 
 	/**
