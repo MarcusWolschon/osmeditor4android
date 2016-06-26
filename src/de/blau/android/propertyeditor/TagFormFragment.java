@@ -41,9 +41,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -598,10 +600,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     			addRow(nonEditableView,key, nonEditable.get(key),null, allTags);
     		}
     	}   	
-    	if (askForName) {
-    		askForName = false; // only do this once
-    		buildNameDialog(getActivity()).show();
-    	}
+    	// some final UI stuff
     	if (focusOnAddress) {
     		focusOnAddress = false; // only do it once
     		if (!focusOnTag(Tags.KEY_ADDR_HOUSENUMBER)) {
@@ -616,6 +615,23 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     		focusTag = null;
     	} else {
     		focusOnEmpty(); 
+    	}
+    	// display dialog for name selection for chains
+       	if (askForName) {
+    		askForName = false; // only do this once
+    		AlertDialog d = buildNameDialog(getActivity());
+    		d.show();
+    		// force dropdown and keyboard to appear
+    		final View v = d.findViewById(R.id.textValue);
+    		if (v != null && v instanceof AutoCompleteTextView) {
+    			v.post(new Runnable() {
+					@Override
+					public void run() {
+						((AutoCompleteTextView)v).showDropDown();	
+		    			InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		    			mgr.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
+					}});
+    		}
     	}
 	}
 	
@@ -1983,7 +1999,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				return false;
 			}
 		});
-
+		
 		return dialog;
 	}
 }
