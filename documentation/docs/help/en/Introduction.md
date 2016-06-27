@@ -76,7 +76,7 @@ Once you can see the crosshair symbol:
 * Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically.
 
-See (Creating new objects)[../en/Creating%20new%20objects.md] for more information.
+See (Creating new objects)[../en/Creating new objects.md] for more information.
 
 #### Improving Way Geometry
 
