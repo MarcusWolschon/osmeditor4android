@@ -28,27 +28,49 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 ### Editing
 
+#### Lock, unlock, "tag editing only"
+
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
+#### Editing: Editable objects and the "selection menu".
+
+By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+* Single tap: Selects object. A single object is highlighted immediately. However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
+* Double tap: Start [Multiselect mode](../en/Multiselect.md)
+* Long press: Creates a "crosshair", enabling you to add nodes [Creating new objects](../en/Creating new objects.md)
 
 It is a good strategy to zoom in if you attempt to edit a high density area.
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
-#### Selecting / De-selecting
+#### Selecting / De-selecting (single tap)
 
 Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
-#### Adding a new Node/Point or Way
+#### Selected objects: Editing tags
 
-Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
+If you tap a selected object, the tag editor opens, and you can edit the tags associated with the object.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
+#### Selected objects: Moving a Node or Way
 
-#### Moving a Node or Way
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
 
-Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+#### Selecting / De-selecting overlapping objects: The "selection menu"
+
+Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way) it will present a selection menu: Tap the object you wish to select. You can now move the object as described above.
+
+To edit tags: Once the object is selected, tap the selected object again; the selection menu comes back up, selecting the same object brings up the tag editor; selecting another object selects an alternative object.
+
+#### Adding a new Node/Point or Way (long press)
+
+Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+* If you want to create a new node (not connected to an object), click away from existing objects.
+* If you want to extend a way, click within the "tolerance zone" of the way or a node on the way (indicated by the areas around a node or way).
+Once you can see the crosshair symbol:
+* If the crosshair is not near a node (i.e. outside the tolerance zone of the node), touching the same location again creates a new node. If you are near a way, the new node will be connected to the way.
+* If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
+* Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically.
 
 #### Improving Way Geometry
 
