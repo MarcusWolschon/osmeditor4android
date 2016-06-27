@@ -36,10 +36,10 @@ To avoid accidental edits Vespucci starts in "locked" mode, a mode that only all
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
 * Single tap: Selects object. 
-** An insolated node/way is highlighted immediately. 
-** However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-** Selected objects are highlighted in yellow. 
-** For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
+* * An insolated node/way is highlighted immediately. 
+* * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
+* * Selected objects are highlighted in yellow. 
+* * For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
 * Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
 
