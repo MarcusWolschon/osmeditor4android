@@ -47,23 +47,23 @@ It is a good strategy to zoom in if you attempt to edit a high density area.
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
-#### Selecting / De-selecting (single tap)
+#### Selecting / De-selecting (single tap; "selection menu")
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+
+Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. The selected objects are highlighted in yellow.
+
+For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
 
 #### Selected objects: Editing tags
 
-If you tap a selected object, the tag editor opens, and you can edit the tags associated with the object.
+A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+
+Note that for overlapping objects the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simple selects the other object.
 
 #### Selected objects: Moving a Node or Way
 
 Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
-
-#### Selecting / De-selecting overlapping objects: The "selection menu"
-
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way) it will present a selection menu: Tap the object you wish to select. You can now move the object as described above.
-
-To edit tags: Once the object is selected, tap the selected object again; the selection menu comes back up, selecting the same object brings up the tag editor; selecting another object selects an alternative object.
 
 #### Adding a new Node/Point or Way (long press)
 
