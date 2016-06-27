@@ -1,6 +1,6 @@
 # New
 
-After a long press on the map on the main screen you will enter the "New" mode. This is the main way to add new nodes, ways and OSM Notes in Vespucci. At the place were you touched the screen you will see a cross marker.
+After a long press on the map on the main screen you will enter the "New" mode (also see [Introduction](../en/Introduction.md)). This is the main way to add new nodes, ways and OSM Notes in Vespucci. At the place were you touched the screen you will see a cross marker.
 
 You can now do one of three things:
 
