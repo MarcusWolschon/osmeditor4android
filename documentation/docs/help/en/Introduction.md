@@ -79,7 +79,7 @@ Once you can see the crosshair symbol, you have these options:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See (Creating new objects)[../en/Creating new objects.md] for more information.
+You can also use a menu item: See [Creating new objects](../en/Creating new objects.md) for more information.
 
 #### Improving Way Geometry
 
