@@ -32,7 +32,7 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
 
-#### Editing: Selecting objects and the "selection menu".
+#### Editing: Selecting objects, the "selection menu", multiselect mode, and creating objects
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
 * Single tap: Selects object. 
