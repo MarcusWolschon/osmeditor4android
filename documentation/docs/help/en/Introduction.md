@@ -35,7 +35,7 @@ To avoid accidental edits Vespucci starts in "locked" mode, a mode that only all
 #### Editing: Selecting objects and the "selection menu".
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
-* Single tap: Selects object. An insolated node/way is highlighted immediately. However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. Selected objects are highlighted in yellow.
+* Single tap: Selects object. An insolated node/way is highlighted immediately. However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. Selected objects are highlighted in yellow. For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
 * Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
 
@@ -71,6 +71,8 @@ Once you can see the crosshair symbol:
 * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
 * Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically.
+
+See (Creating new objects)[../en/Creating%20new%20objects.md] for more information.
 
 #### Improving Way Geometry
 
