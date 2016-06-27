@@ -59,7 +59,7 @@ You can also use menu items: For further information see [Node selected](../en/N
 
 A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
 
-Note that for overlapping objects the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simple selects the other object.
+Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simple selects the other object.
 
 #### Selected objects: Moving a Node or Way
 
