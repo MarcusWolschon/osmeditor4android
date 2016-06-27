@@ -1,6 +1,6 @@
 # Way selected
 
-Selected ways can be moved by dragging.
+Way selection is described in the [Introduction](../en/Introduction.md). Selected ways can be moved by dragging. You can also edit tags for selected ways.
 
 ## Actions  
 
