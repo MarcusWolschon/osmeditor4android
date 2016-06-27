@@ -53,7 +53,7 @@ Touch an object to select and highlight it. Touching the screen in an empty regi
 
 Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. The selected objects are highlighted in yellow.
 
-For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
+You can also use menu items: For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
 
 #### Selected objects: Editing tags
 
@@ -69,14 +69,17 @@ Once you have selected an object, it can be moved. Note that objects can be drag
 
 Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
 * If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way or a node on the way (indicated by the areas around a node or way).
-Once you can see the crosshair symbol:
-* If the crosshair is not near a node (i.e. outside the tolerance zone of the node), touching the same location again creates a new node. If you are near a way, the new node will be connected to the way.
-* If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically.
+* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
-See (Creating new objects)[../en/Creating new objects.md] for more information.
+Once you can see the crosshair symbol, you have these options:
+* Touch in the same place.
+ * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
+ * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
+* Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+
+You can also use a menu item: See (Creating new objects)[../en/Creating new objects.md] for more information.
 
 #### Improving Way Geometry
 
