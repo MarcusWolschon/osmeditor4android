@@ -32,7 +32,7 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
 
-#### Editing: Selecting objects, the "selection menu", multiselect mode, and creating objects
+#### Singe tap, double tap, and long press
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
 * Single tap: Selects object. 
@@ -47,7 +47,7 @@ It is a good strategy to zoom in if you attempt to edit a high density area.
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
-#### Selecting / De-selecting (single tap; "selection menu")
+#### Selecting / De-selecting (single tap and "selection menu")
 
 Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
