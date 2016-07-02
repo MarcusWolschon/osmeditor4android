@@ -1,6 +1,6 @@
 # Node selected
 
-Selected nodes can be moved by dragging in the touch area, you can enable a large drag area in the preferences.
+Node selection is described in the [Introduction](../en/Introduction.md). Selected nodes can be moved by dragging in the touch area, you can enable a large drag area in the preferences. You can edit tags for selected nodes.
 
 ## Actions  
 
