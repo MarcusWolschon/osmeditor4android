@@ -258,7 +258,7 @@
     </chunk>
     <chunk id="parking_access_fee_operator_surface_smoothness">
         <space />
-        <combo key="access" text="Access" values="yes,private,customers,permissive,no" display_values="General access,Private,Customers,Permissive,No access" values_sort="false" />
+        <combo key="access" text="Access" values="yes,private,customers,permissive,no" display_values="General access,Private,Customers,Permissive,No access" values_sort="false" match="none" />
         <reference ref="fee_interval" />
         <text key="operator" text="Operator" />
         <reference ref="surface_smoothness" />
@@ -276,7 +276,7 @@
     </chunk>
     <chunk id="general_access">
         <combo key="access" text="General Access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,no" 
-            display_values="General access,Destination,Delivery,Permissive,Private,Customers,Agricultural,Forestry,No access" values_sort="false" values_searchable="true"  match="key" />
+            display_values="General access,Destination,Delivery,Permissive,Private,Customers,Agricultural,Forestry,No access" values_sort="false" values_searchable="true"  match="none" />
     </chunk>
     <chunk id="name_wikipedia">
         <text key="name" text="Name" />
@@ -492,6 +492,9 @@
         <list_entry value="no" display_value="None" />
         <list_entry value="incorrect" display_value="Incorrect" />
      </combo>
+  </chunk>
+  <chunk id="facility_access">
+  	<combo key="access" text="Access" values="yes,permissive,customers,private" display_values="Public,Permissive,Customers,Private" match="none" />
   </chunk>
   <!-- Link chunks -->
   <chunk id="link_contact_address">
@@ -4035,7 +4038,7 @@
             <space />
             <key key="tourism" value="wilderness_hut" />
             <reference ref="name_operator" />
-            <combo key="access" text="Access rights" values="yes,permissive,customers,private" />
+            <reference ref="facility_access" />
             <text key="capacity" text="Capacity" />
             <reference ref="fee" />
             <check key="toilets" text="Toilets" />
@@ -4504,7 +4507,7 @@
             <space />
             <label text="Used for the water area only." />
             <space />
-            <combo key="access" text="Access" values="yes,customers,private" />
+            <reference ref="facility_access" />
         </item> <!-- Swimming Pool -->
         <item name="Fitness Station" icon="icons/png/sport_fitness_station_21009.png" type="node,closedway,multipolygon" preset_name_label="true">
 			<link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=fitness_station" />
@@ -4522,7 +4525,7 @@
             <space />
             <key key="leisure" value="sauna" />
             <reference ref="name_operator_oh_wheelchair" />
-            <combo key="access" text="Access" values="yes,permissive,private" />
+            <reference ref="facility_access" />
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sauna -->
@@ -4535,7 +4538,7 @@
             <key key="leisure" value="tanning_studio" />
             <check key="self-service" text="Self-service" disable_off="true" />
             <reference ref="name_operator_oh_wheelchair" />
-            <combo key="access" text="Access" values="yes,permissive,private" />
+            <reference ref="facility_access" />
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Tanning Studio -->
@@ -4562,6 +4565,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:leisure=playground" />
             <space />
             <key key="leisure" value="playground" />
+            <reference ref="facility_access" />
             <reference ref="name_operator_oh_wheelchair" />
         </item> <!-- Playground -->
         <item name="Picnic Site" icon="icons/png/tourist_picnic.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5571,11 +5575,7 @@
                   zh_TW.href="http://wiki.openstreetmap.org/wiki/Zh-hant:Tag:amenity=toilets" />
             <space />
             <key key="amenity" value="toilets" />
-            <combo key="access" text="Access rights"> 
-                <list_entry value="yes" short_description="Public" />
-                <list_entry value="permissive" short_description="Permissive" />
-                <list_entry value="customers" short_description="Customers" />
-            </combo>
+            <reference ref="facility_access" />
             <optional>
                 <checkgroup columns="3">
                     <check key="female" text="Female" text_context="restroom" disable_off="true" />
@@ -5598,11 +5598,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=shower" />
             <space />
             <key key="amenity" value="shower" />
-            <combo key="access" text="Access rights"> 
-                <list_entry value="yes" short_description="Public" />
-                <list_entry value="permissive" short_description="Permissive" />
-                <list_entry value="customers" short_description="Customers" />
-            </combo>
+            <reference ref="facility_access" />
             <optional>
                 <text key="description" text="Description" />
                 <combo key="fee" text="Fee" values="yes,no" />
@@ -5782,11 +5778,7 @@
             <check key="sanitary_dump_station:pump-out" text="Suction pumpout" disable_off="true" />
             <check key="sanitary_dump_station:round_drain" text="Gravity drain for hose" disable_off="true" />
             <check key="sanitary_dump_station:basin" text="Casette or Elsan Disposal" disable_off="true" />
-            <combo key="access" text="Access"> 
-                <list_entry value="yes" short_description="Public" />
-                <list_entry value="customers" short_description="Customers" />
-                <list_entry value="no" short_description="No" />
-            </combo>
+            <reference ref="facility_access" />
             <reference ref="fee" />
             <text key="operator" text="Operator" />
             <combo key="opening_hours" text="Operation times" values="24/7"  values_no_i18n="true" />
@@ -6632,7 +6624,7 @@
             <space />
             <combo key="entrance" text="Entrance" values="yes,main,service,exit,emergency,staircase" 
             	display_values="Yes,Main,Service,Exit,Emergency,Staircase" values_context="entrance" default="yes" match="key" />
-            <combo key="access" text="Access" values="yes,delivery,private,no" display_values="Yes,Delivery,Private,No" values_context="access" />
+            <combo key="access" text="Access" values="yes,delivery,private,no" display_values="Yes,Delivery,Private,No" values_context="access" match="none" />
             <reference ref="wheelchair" />
             <optional>
                 <text key="ref" text="Entrance number" />
