@@ -1,0 +1,212 @@
+﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
+
+
+1168: various small internal changes, handle match=”none” the same as “key for building the form display.
+
+1166: updated preset.
+
+1164: force show keyboard and dropdown when adding with name suggestions.
+
+1162: protect against broken NMEA sentences, update presets.
+
+1160: better support for language specific name tags.
+ 
+1158: sort combo and multi-select values correctly.
+
+1156: properly quote delimiter character in multi-selects, updated preset and translations.
+
+1154: fix regression when displaying multiple values in a multi-select in the form UI, try to make hiding the navbar more reliable, updated preset.
+
+1152: add a label to nodes without an icon, if icons are turned off, all nodes will get a label, Delete, copy, cut and paste of tags in form UI. Fix issue with box picker when nothing was downloaded.
+
+1150: fix issue with preset search that stopped all results being shown, updated presets and translations.
+
+1148: made name suggestions work better with the form UI
+
+1146: bumped Android version number
+
+1142: minor bug fixes and improvements.
+
+1142: fix error in way bounding box calculation and add zoom to selection function.
+
+1140: fix crash in NotificationCache, disable geometry improvement handles when a relation is selected, fix clipboard related crash on pre-Honeycomb devices.
+
+1138: display house numbers on building centroids, adjustable auto-lock feature (default 60s), limit number of alerts/notifications per class (default 5), make upload dialog comment and source fields full width, bug fixes.
+
+1132: make preset applied  to otherwise empty set of tags or unknown ones the one used for autocomplete values.
+
+1130: fix undo button behavior on long presses,
+
+1128: improved turn-restriction adding that doesn’t require ways to be pre-split. Make high-lighting more visible when only a subset of the elements can be selected. Fixes for relation handling, specifically uno issues for newly created relations.
+
+1126: use dialogs for large combos and multiselects in the TagFormEditor, make tags not associated with a preset editable, some UI fine tuning. More preset fixes. Tiles now stored in database and no longer in a directory hierarchy, try to located that outside of internal phone memory. Preferences available in most action modes.
+
+1124: replace ActionBarSherlock with google AppCompat, related UI rework and restyling. Use on-screen button for “follow GPS” function. In “locked” mode the indication of downloaded areas is removed.
+
+1118: various fixes and improvements imagery alignment mode, Swedish translation.
+
+1117: fix issue with MRU preset display not updating in form fragment.
+
+1116: fixed an issue that could cause a crash when editing street names, updated presets and translations.
+
+1113: dismiss dropdown when hiding keyboard
+
+1112: small improvements address prediction, retain the 10 last changeset comment and source strings, fix issue with post PropertyEditor call selection of objects.
+
+1110: protect against NPE when checking for role conflicts when merging.
+
+1108: fix last edit in text field not being saved in the property editor on older Android versions.
+
+1107: fix crash on restarting if GPS tracking was still running.
+
+1106: bug fixes: API selection dialog not working, issue with new elements and hashmap.
+
+1105: Refactored tag reversing code, support reversing tags of way nodes, various small bug fixes.
+
+1103: Fix for ordering problems of preset values.
+
+1102: Update preset and fix issue with preset multiselects that have descriptions.
+
+1101: Updated preset and translations, add newline to GPX export, various small bug fixes. Display small multiselect presets with checkboxes.
+
+1098: Preset and translation updates, relation element downloads, display of rings in relation member display.
+
+1095: Preset fixes, improvements in relation editing, bug fixes, numerous performance improvements.
+
+1090: Focus on first empty value in form if possible, some further preset handling improvements.
+
+1089: Commit UI blasphemy and make radio button de-selectable by touch on selected button, fix issue with value sync Editor->Form.
+
+1088: New preset-driven form based tag editing and better preset matching. Updated preset.
+
+1086: Updated default preset, enable C&P in some dialogs.
+
+1084: Fix hardwiring of German language for OSMOSE bugs.
+
+1082: Prioritize icons over house number display, show POI icons on buildings.
+
+1080: Flatten menus for pre-Android 11.
+
+1078: Fix issue with photo index/layer.
+
+1077: Don’t enable follow GPS in “goto GPS position”.
+
+1076: Bug fixes (0.9.7 change log), use R-Tree for selecting photos for photo layer, support for semicolon separated lists in tag editor.
+
+1075: Fix serialisation problem in preset code.
+
+1074: Protect against race condition when appending node to way.
+
+1073: Fixed a small number of minor issues and a crash in the PropertyEditor.
+
+1070: Fixed crash if language set to Turkish, wrapping hint in PropertyEditor for pre-3.0 devices, spurious display of BoxPicker on restart.
+
+1069: more preset improvements, updated version numbers for release.
+
+1068: fixed an UI regression in tag editing on pre android 11 devices, improved presets for car and motorcycle dealers.
+
+1067: Documentation and help file improvements, preset translations, improved tag editing mode behaviour.
+
+1066: Documentation and help file improvements, updated name suggestions.
+
+1065: Various bug fixes and stability improvements, update default preset and updated imagery index.
+
+1063: exit locked mode properly when selecting an element from the OSMOSE bug display, fix for issue with no button being shown for preset items with no “icon” attribute.
+
+1062: code refactoring, some work on documentation.
+
+1060: don’t show geometry improvement handles when they can’t be used.
+
+1059: improved preset translation handling and updated preset.
+
+1058: improved preset handling and object descriptions.
+
+1057: bug fixes, translation updates, improvements experimental voice support.
+
+1056: bug fixes, allow deletion of newly created, but not uploaded, Notes.
+
+1055: bug fixes, some map style refinements, removed likely unused styles.
+
+1054: updated translations, improved preset search for presets with translations, added OAuth related functions to tools menu.
+
+1053: moved debugging information to its own page, some improvements address prediction.
+
+1052: bug fixes, provide autocomplete for fixed tags in the tag editor and change relevant preset if fixed tags are changed.
+
+1050: bug fixes, properly display tag-only mode icon after resume, fallback to backup copy of state file if reading the current one fails.
+
+1048: handle route forward/backward roles when reversing ways, improvements NMEA processing and re-enable auto download when using NMEA input.
+
+1046: show add address tags button for entrance nodes without a house number.
+
+1045: don't display icons and house numbers for lower zoom levels, add missing invalidate after moving to coordinates found from nominatim.
+
+1044: bug fixes, reworked preset code to include descriptions and similar.
+
+1043: updated default preset and translations, the “Apply Prest” button in the “TagEditor” now applies optional tags too.
+
+1042: updated default preset, bug fixes.
+
+1041: fix crash in Android 2.x, bug fixes, updated and additional translations.
+
+1040: only ask to enable GPS once per activity life cycle and allow user to turn that off in the advanced preferences.
+
+1039: Refactoring of address prediction code (at least a bit), added preference to turn on/off voice commands.
+
+1038: updated translations, some bug fixes.
+
+1036: disable menu entries that are dependent on network connectivity when no network available.
+
+1035: usability improvements Bug/Notes form, defaults changed. 
+
+1034: some clean up of preset and name search code, re-enabled voice commands.
+
+1033: commented out the main menu voice item for now.
+
+1032: rearranged menus a bit, better support for non-GPS devices, fixed some issues with initial bounding box, translation updates.
+ 
+1031: fix for bug status not updating after edit.
+
+1030: Saving state is now done asynchronously which should address performance problems when starting the PropertyEditor.
+
+1029: Fix issue with not showing current position when returning from /paused/stopped state. Removed old editing modes completely at last.
+
+1028: Removed some code that provided backwards compatibility with Android 5! Save and restore actual viewbox in editing state.
+
+1027: bug fix from master (race condition protection)
+
+1025: handle missing/revoked permissions for storage better.
+
+1024: bug fix from master.
+
+1023: Added slightly makeshift imperial units scale/grid.
+
+1022: Grid/scale display.
+
+1021: Improved keyboard support.
+
+1020: Preset search, voice support in new mode.
+
+1018: more work on i8n.
+
+1017: Translated presets and bug fixes.
+
+1015: Filters for Bugs and other improvements.
+
+1012: bug fixes from master
+
+1010: improvements on notifications and Osmose bug display
+ 
+1007: apply fix from master for misbehaving HW acceleration.
+
+1005: 1st version of refactored “Bug” support. Fixes from master.
+
+1001: bugs fixes auto-download. Made max download speed configurable.
+
+1000: better support for JOSM style remote control (used in notifications).
+
+999: Lots of changes to improve memory footprint and efficiency when loading/saving state files. Moved auto-download to TrackerService and made generating Alerts/Notifications slightly more direction production ready.
+
+998: make list of address tags used for prediction and suggestions configurable.
+
+
