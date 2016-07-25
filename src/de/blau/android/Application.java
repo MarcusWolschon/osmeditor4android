@@ -8,8 +8,11 @@ import org.acra.annotation.ReportsCrashes;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -18,6 +21,8 @@ import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.NotificationCache;
 import de.blau.android.util.rtree.RTree;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 @ReportsCrashes(
 	reportType = org.acra.sender.HttpSender.Type.JSON,
@@ -30,6 +35,7 @@ public class Application extends android.app.Application {
 	public static Main mainActivity;
 	static StorageDelegator delegator = new StorageDelegator();
 	static TaskStorage taskStorage = new TaskStorage();
+	static OkHttpClient httpClient;
 	public static String userAgent;
 	
 	static Application currentApplication;
@@ -98,6 +104,21 @@ public class Application extends android.app.Application {
 		return taskStorage;
 	}
 
+	@NonNull
+	public static OkHttpClient getHttpClient() {
+		if (httpClient == null) {
+			OkHttpClient.Builder builder = new OkHttpClient.Builder();
+			builder.addNetworkInterceptor(new UserAgentInterceptor(userAgent));
+			if (BuildConfig.DEBUG) {
+				HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+				httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+				builder.addNetworkInterceptor(httpLoggingInterceptor);
+			}
+			httpClient = builder.build();
+		}
+		return httpClient;
+	}
+
 	public static Preset[] getCurrentPresets(Context ctx) {
 		synchronized (currentPresetsLock) {
 			if (currentPresets == null) {
@@ -107,7 +128,7 @@ public class Application extends android.app.Application {
 			return currentPresets;
 		}
 	}
-	
+
 	/**
 	 * Resets the current presets, causing them to be re-parsed
 	 */

@@ -1,10 +1,9 @@
 package de.blau.android.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +28,10 @@ import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.jsonreader.JsonReader;
+import okhttp3.Call;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * Search with nominatim
@@ -47,7 +50,7 @@ public class Search {
 		private double lat;
 		private double lon;
 		String display_name;
-		
+
 		@Override
 		public String toString() {
 			return "lat: " + getLat() + " lon: " + getLon() + " " + display_name;
@@ -81,7 +84,7 @@ public class Search {
 			this.lon = lon;
 		}
 	}
-	
+
 	/**
 	 * Constructor
 	 * @param appCompatActivity
@@ -108,16 +111,15 @@ public class Search {
 				Toast.makeText(activity, R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TimeoutException e) {
 			Toast.makeText(activity, R.string.toast_timeout, Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
 	}
+
 
 	private class QueryNominatim extends AsyncTask<String, Void, ArrayList<SearchResult>> {
 		final BoundingBox bbox;
@@ -134,7 +136,7 @@ public class Search {
 		protected void onPreExecute() {
 			Progress.showDialog(activity, Progress.PROGRESS_SEARCHING);
 		}
-		
+
 		@Override
 		protected ArrayList<SearchResult> doInBackground(String... params) {
 
@@ -153,43 +155,50 @@ public class Search {
 			Uri uriBuilder = builder.appendQueryParameter("format", "jsonv2").build();
 
 			String urlString = uriBuilder.toString();
-			Log.d("Search", "urlString " + urlString);
+			Log.d("Search", "urlString: " + urlString);
+			Request request = new Request.Builder()
+					.url(urlString)
+					.build();
+			Call searchCall = Application.getHttpClient().newCall(request);
+			JsonReader reader = null;
+			ResponseBody responseBody = null;
 			try {
-				URL url = new URL(urlString);
-				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-				conn.setRequestProperty("User-Agent", Application.userAgent);
-				JsonReader reader = new JsonReader(new InputStreamReader(conn.getInputStream()));
-				ArrayList<SearchResult> result = new ArrayList<SearchResult>();
-				try {
-					try {
-						reader.beginArray();
-						while (reader.hasNext()) {
-							SearchResult searchResult = readResult(reader);
-							if (searchResult != null) {//TODO handle deprecated 
-								result.add(searchResult);
-								Log.d("Search","received: " + searchResult.toString());
-							}
+				Response searchCallResponse = searchCall.execute();
+				if (searchCallResponse.isSuccessful()) {
+					responseBody = searchCallResponse.body();
+					InputStream inputStream = responseBody.byteStream();
+					reader = new JsonReader(new InputStreamReader(inputStream));
+					ArrayList<SearchResult> result = new ArrayList<SearchResult>();
+					reader.beginArray();
+					while (reader.hasNext()) {
+						SearchResult searchResult = readResult(reader);
+						if (searchResult != null) { //TODO handle deprecated
+							result.add(searchResult);
+							Log.d("Search", "received: " + searchResult.toString());
 						}
-						reader.endArray();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
+					reader.endArray();
 					return result;
 				}
-				finally {
-				       reader.close();
-				}			
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
+			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				try {
+					if (responseBody != null) {
+						responseBody.close();
+					}
+					if (reader != null) {
+						reader.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(ArrayList<SearchResult> res) {
 			Progress.dismissDialog(activity, Progress.PROGRESS_SEARCHING);
@@ -215,7 +224,6 @@ public class Search {
 			reader.endObject();
 			return result;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -229,7 +237,7 @@ public class Search {
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
 		ListView lv = (ListView) inflater.inflate(R.layout.search_results, null);
 		builder.setView(lv);
-		
+
 		ArrayList<String> ar = new ArrayList<String>();
 		for (SearchResult sr:searchResults) {
 			ar.add(sr.display_name);
@@ -240,7 +248,6 @@ public class Search {
 		final AppCompatDialog dialog = builder.create();
 		lv.setOnItemClickListener( new AdapterView.OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		        // 
 		    	// Log.d("Search","Result at pos " + position + " clicked");
 		    	callback.onItemFound(searchResults.get(position));
 		    	dialog.dismiss();
