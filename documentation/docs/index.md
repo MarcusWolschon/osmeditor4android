@@ -3,6 +3,9 @@ notoc:
 ---
 
 <img src="180px-Amerigo_Vespucci.jpg" style="padding-top:30px;padding-left:20px;float:right">
+[<img src="badge-google-play.png" style="padding-top:10px;padding-left:20px;float:right">](https://play.google.com/store/apps/details?id=de.blau.android)
+[<img src="badge-amazon-appstore.png" style="padding-top:10px;padding-left:20px;float:right">](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
+[<img src="badge-f-droid.png" style="padding-top:10px;padding-left:20px;float:right">](https://f-droid.org/app/de.blau.android)
 # Welcome to Vespucci 
 Vespucci is the first [OpenStreetMap](//openstreetmap.org) editor for Android, Codename "Vespucci", continuously improved and developed since 2009. It supports the full OpenStreetMap data model including lots of less known quirks and can be used, if necessary, completely offline. 
 
@@ -12,7 +15,7 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
 
 #### Obtaining Vespucci:
 
- * from [Googles play store](https://play.google.com/store/apps/details?id=de.blau.android) and from [amazon](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1447617332&sr=1-1&keywords=vespucci)
+ * from [Googles play store](https://play.google.com/store/apps/details?id=de.blau.android) and from [amazon](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1447617332&sr=1-1&keywords=vespucci) and from [f-droid](https://f-droid.org/app/de.blau.android)
  * release and beta APKs from our [github repository](https://github.com/MarcusWolschon/osmeditor4android/releases)
  * recently built potentially unstable APKs from [google drive](https://drive.google.com/folderview?id=0B9pKLmh8s1h8bFI5bGd4VnhYWkk&usp=sharing)
  * [source code and repository on github](https://github.com/MarcusWolschon/osmeditor4android)
