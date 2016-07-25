@@ -1881,6 +1881,7 @@ public class Preset implements Serializable {
 		
 		/**
 		 * Return true if the key and value is contained in this preset taking match attribute in to account
+		 * Note mathe="none" is handled the same as "key" in this method
 		 * @param key
 		 * @return
 		 */
@@ -1897,7 +1898,7 @@ public class Preset implements Serializable {
 			PresetKeyType keyType = getKeyType(key);
 
 			if (recommendedTags.containsKey(key)) {
-				if (type==MatchType.KEY || keyType==PresetKeyType.MULTISELECT) { // MULTISELECT always editable
+				if (type==MatchType.KEY || type==MatchType.NONE || keyType==PresetKeyType.MULTISELECT) { // MULTISELECT always editable
 					return true;
 				}
 				StringWithDescription[] swdArray = recommendedTags.get(key);
@@ -1913,7 +1914,7 @@ public class Preset implements Serializable {
 			}
 
 			if (optionalTags.containsKey(key)) { 
-				if (type==MatchType.KEY || keyType==PresetKeyType.MULTISELECT) { // MULTISELECT always editable
+				if (type==MatchType.KEY || type==MatchType.NONE || keyType==PresetKeyType.MULTISELECT) { // MULTISELECT always editable
 					return true;
 				}
 				StringWithDescription[] swdArray = optionalTags.get(key);
