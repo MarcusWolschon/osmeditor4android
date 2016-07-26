@@ -63,6 +63,7 @@
     <string name="config_maxTileDownloadThreads_key">maxTileDownloadThreads</string>
     <string name="config_notificationCacheSize_key">notificationCacheSize</string>
     <string name="config_autoLockDelay_key">autoLockDelay</string>
+    <string name="config_alwaysDrawBoundingBoxes_key">alwaysDrawBoundingBoxes</string>
     <string-array name="gps_source_keys">
 	<item>internal</item>
 	<item>nmea</item>

@@ -109,6 +109,8 @@ public class Preferences {
 	
 	private int autoLockDelay;
 	
+	private final boolean alwaysDrawBoundingBoxes;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	private final SharedPreferences prefs;
@@ -275,6 +277,8 @@ public class Preferences {
 			Log.w(getClass().getName(), "error parsing config_autoLockDelay_key=" + prefs.getString(r.getString(R.string.config_autoLockDelay_key), "60"));
 			autoLockDelay = 60;
 		}
+		
+		alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), true);
 	}
 	
 	/**
@@ -574,5 +578,9 @@ public class Preferences {
 			setShowGPS(true);
 		}
 		return prefs.getBoolean(key, true);
+	}
+	
+	public boolean getAlwaysDrawBoundingBoxes() {	
+		return alwaysDrawBoundingBoxes;
 	}
 }

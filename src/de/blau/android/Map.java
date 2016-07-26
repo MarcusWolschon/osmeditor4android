@@ -130,6 +130,11 @@ public class Map extends View implements IMapView {
 	private boolean showWayIcons = false;
 	
 	/**
+	 * Always darken non-downloaded areas
+	 */
+	private boolean alwaysDrawBoundingBoxes = false;
+	
+	/**
 	 * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
 	 */
 	private final WeakHashMap<Object, Bitmap> iconcache = new WeakHashMap<Object, Bitmap>();
@@ -641,7 +646,7 @@ public class Map extends View implements IMapView {
 	}
 
 	private void paintStorageBox(final Canvas canvas, List<BoundingBox> list) {
-		if (tmpDrawingEditMode != Mode.MODE_MOVE) {
+		if (tmpDrawingEditMode != Mode.MODE_MOVE || alwaysDrawBoundingBoxes) {
 			Canvas c = canvas;
 			Bitmap b = null;
 			// Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
@@ -1247,6 +1252,7 @@ public class Map extends View implements IMapView {
 		showIcons = prefs.getShowIcons();
 		showWayIcons = prefs.getShowWayIcons();
 		iconcache.clear();
+		alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
 	}
 
 	public void updateProfile () {

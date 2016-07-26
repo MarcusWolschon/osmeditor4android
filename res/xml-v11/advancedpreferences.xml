@@ -20,7 +20,11 @@
             android:key="@string/config_followGPSbutton_key"
             android:summary="@string/config_followGPSbutton_summary"
             android:title="@string/config_followGPSbutton_title" />
-
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_alwaysDrawBoundingBoxes_key"
+            android:summary="@string/config_alwaysDrawBoundingBoxes_summary"
+            android:title="@string/config_alwaysDrawBoundingBoxes_title" />
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_voiceCommandsEnabled_key"
