@@ -3433,6 +3433,30 @@ public class Logic {
 	}
 	
 	/**
+	 * @param e
+	 * @return true is e is selected
+	 */
+	public synchronized boolean isSelected(OsmElement e) {
+		if (e instanceof Node) {
+			if (selectedNodes != null && selectedNodes.contains((Node) e)) {
+				return true;
+			}
+			return false;
+		} else if (e instanceof Way) {
+			if (selectedWays != null && selectedNodes.contains((Way) e)) {
+				return true;
+			}
+			return false;
+		} else if (e instanceof Relation) {
+			if (selectedRelations != null && selectedRelations.contains((Relation) e)) {
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+	
+	/**
 	 * Get the selected bug.
 	 * 
 	 * @return The selected bug.

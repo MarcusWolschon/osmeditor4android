@@ -50,6 +50,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -131,6 +133,7 @@ import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Search.SearchResult;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ZoomControls;
 import de.blau.android.voice.Commands;
@@ -2453,6 +2456,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				}
 			}
 			if (clickedNodesAndWays != null) {
+				Logic logic = Application.getLogic();
 				for (OsmElement e : clickedNodesAndWays) {
 					String description = e.getDescription(Application.mainActivity);
 					if (e instanceof Node) {
@@ -2465,7 +2469,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 							description = description + ")";
 						}
 					} 
-					menu.add(Menu.NONE, id++, Menu.NONE, description).setOnMenuItemClickListener(this);
+					if (logic.isSelected(e)) {
+						SpannableString s = new SpannableString(description);
+						s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
+						menu.add(Menu.NONE, id++, Menu.NONE, s).setOnMenuItemClickListener(this);
+					} else {
+						menu.add(Menu.NONE, id++, Menu.NONE, description).setOnMenuItemClickListener(this);
+					}
 				}
 			}
 		}
