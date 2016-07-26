@@ -42,6 +42,13 @@ public class OptimalStringAlignment {
         }
     };
 
+    /**
+     * 
+     * @param s
+     * @param t
+     * @param threshold maximum edit distance
+     * @return -1 if not found
+     */
     public static int editDistance(CharSequence s, CharSequence t, int threshold) {
 
         if (s.length() + 1 > threadLocalBufferSize || t.length() + 1 > threadLocalBufferSize)
@@ -53,7 +60,13 @@ public class OptimalStringAlignment {
         return editDistanceWithBuffers(s, t, (short) threshold, back2, back1, cost);
     }
 
-   
+    /**
+     * 
+     * @param s
+     * @param t
+     * @param threshold maximum edit distance
+     * @return -1 if not found
+     */
     static int editDistanceWithNewBuffers(CharSequence s, CharSequence t, short threshold) {
         int slen = s.length();
         short[] back1 = new short[slen + 1];    // "up 1" row in table

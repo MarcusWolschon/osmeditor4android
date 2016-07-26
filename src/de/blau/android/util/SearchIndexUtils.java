@@ -83,8 +83,13 @@ public class SearchIndexUtils {
 		term = SearchIndexUtils.normalize(term);
 		for (MultiHashMap<String, PresetItem> index:presetSeachIndices) {
 			for (String s:index.getKeys()) {
-				int distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
-				if (distance >= 0 && distance <= maxDistance) {
+				int distance = s.indexOf(term);
+				if (distance == -1) {
+					distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
+				} else {
+					distance = 0; // literal substring match, we don't want to weight this worse than a fuzzy match
+				}
+				if ((distance >= 0 && distance <= maxDistance) ) {
 					Set<PresetItem> presetItems = index.get(s);
 					for (PresetItem pi:presetItems) {
 						if (type == null || pi.appliesTo(type)) {

@@ -153,7 +153,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
      				        ft.remove(prev);
      				    }
      				    ft.commit();
-     				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(SearchIndexUtils.searchInPresets(getActivity(), v.getText().toString(),type,3,10));
+     				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(SearchIndexUtils.searchInPresets(getActivity(), v.getText().toString(),type,2,10));
      				    if (searchResults == null || searchResults.size() == 0) {
      				    	Toast.makeText(getActivity(), R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
      				    	return true;
