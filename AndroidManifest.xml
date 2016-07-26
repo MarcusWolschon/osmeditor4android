@@ -32,17 +32,23 @@
 		android:debuggable="false" 
 		android:largeHeap="true" 
 		android:allowBackup="true" >
+		
+	    <activity
+    		android:name=".Splash"
+    		android:theme="@style/SplashTheme">
+    		<intent-filter>
+        	<action android:name="android.intent.action.MAIN" />
+        		<category android:name="android.intent.category.LAUNCHER" />
+        		<!-- harmless addition for samsung multi window support -->
+				<category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
+    		</intent-filter>
+		</activity>
+	    
 		<activity
 			android:name=".Main"
 			android:theme="@style/Theme.customMain"
 			android:configChanges="orientation|screenSize|keyboardHidden"
 			android:launchMode="singleTask">
-			<intent-filter>
-		    	<action android:name="android.intent.action.MAIN" />
-		    	<category android:name="android.intent.category.LAUNCHER" />
-		    	<!-- harmless addition for samsung multi window support -->
-				<category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
-		  	</intent-filter>
 		</activity>
 		
 		<activity
