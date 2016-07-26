@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1172: add splash screen on startup and make diming non-downloaded areas a pref.
+
 1170: add literal substring matching to preset search 
 
 1168: various small internal changes, handle match=”none” the same as “key for building the form display.
