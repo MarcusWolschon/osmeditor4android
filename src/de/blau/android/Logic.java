@@ -3452,7 +3452,7 @@ public class Logic {
 			}
 			return false;
 		} else if (e instanceof Way) {
-			if (selectedWays != null && selectedNodes.contains((Way) e)) {
+			if (selectedWays != null && selectedWays.contains((Way) e)) {
 				return true;
 			}
 			return false;

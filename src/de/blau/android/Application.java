@@ -9,7 +9,6 @@ import org.acra.annotation.ReportsCrashes;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.net.UserAgentInterceptor;
@@ -36,6 +35,7 @@ public class Application extends android.app.Application {
 	static StorageDelegator delegator = new StorageDelegator();
 	static TaskStorage taskStorage = new TaskStorage();
 	static OkHttpClient httpClient;
+	private static final Object httpClientLock = new Object();
 	public static String userAgent;
 	
 	static Application currentApplication;
@@ -106,17 +106,19 @@ public class Application extends android.app.Application {
 
 	@NonNull
 	public static OkHttpClient getHttpClient() {
-		if (httpClient == null) {
-			OkHttpClient.Builder builder = new OkHttpClient.Builder();
-			builder.addNetworkInterceptor(new UserAgentInterceptor(userAgent));
-			if (BuildConfig.DEBUG) {
-				HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-				httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-				builder.addNetworkInterceptor(httpLoggingInterceptor);
+		synchronized(httpClientLock) {
+			if (httpClient == null) {
+				OkHttpClient.Builder builder = new OkHttpClient.Builder();
+				builder.addNetworkInterceptor(new UserAgentInterceptor(userAgent));
+				if (BuildConfig.DEBUG) {
+					HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+					httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+					builder.addNetworkInterceptor(httpLoggingInterceptor);
+				}
+				httpClient = builder.build();
 			}
-			httpClient = builder.build();
+			return httpClient;
 		}
-		return httpClient;
 	}
 
 	public static Preset[] getCurrentPresets(Context ctx) {

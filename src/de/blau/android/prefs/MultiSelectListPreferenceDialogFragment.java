@@ -20,9 +20,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
-
+import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
 
 public class MultiSelectListPreferenceDialogFragment extends PreferenceDialogFragmentCompat {
