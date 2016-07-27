@@ -30,7 +30,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private final SharedPreferences prefs;
 	private final String PREF_SELECTED_API;
 
-	private final static int DATA_VERSION = 5;
+	private final static int DATA_VERSION = 6;
 	private final static String LOGTAG = "AdvancedPrefDB";
 	
 	public final static String API_DEFAULT = "https://api.openstreetmap.org/api/0.6/";
@@ -60,7 +60,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public synchronized void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
+		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
 		db.execSQL("CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT, active INTEGER DEFAULT 0)");
 	}
 
@@ -83,6 +83,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (oldVersion <= 4 && newVersion >= 5) {
 			db.execSQL("UPDATE apis SET url='"  + API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
 		}
+		
+		if (oldVersion <= 5 && newVersion >= 6) {
+			db.execSQL("ALTER TABLE apis ADD COLUMN readonlyurl TEXT DEFAULT NULL");
+			db.execSQL("ALTER TABLE apis ADD COLUMN notesurl TEXT DEFAULT NULL");
+		}
 	}
 	
 	@Override
@@ -103,7 +108,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
 		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
-		addAPI(db, ID_DEFAULT, name, API_DEFAULT, user, pass, ID_DEFAULT, false, true); 
+		addAPI(db, ID_DEFAULT, name, API_DEFAULT, null, null, user, pass, ID_DEFAULT, true, true); 
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(db,ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");
@@ -154,7 +159,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (api == null) return null;
 		if (currentServer == null) { // only create when necessary
 			String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
-			currentServer =  new Server(api.url, api.user, api.pass, api.oauth, api.accesstoken, api.accesstokensecret, version);
+			currentServer =  new Server(api, version);
 		}
 		return currentServer;
 	}
@@ -165,11 +170,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param name
 	 * @param url
 	 */
-	public synchronized void setAPIDescriptors(String id, String name, String url, boolean oauth) {
+	public synchronized void setAPIDescriptors(String id, String name, String url, String readonlyurl, String notesurl, boolean oauth) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("name", name);
 		values.put("url", url);
+		values.put("readonlyurl", readonlyurl);
+		values.put("notesurl", notesurl);
 		values.put("oauth", oauth ? 1 : 0);
 		db.update("apis", values, "id = ?", new String[] {id});
 		if (!oauth) { // zap any key and secret
@@ -200,7 +207,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		currentServer = null; // force recreation of Server object
 	}
 
-
 	/** Sets login data (user, password) for the current API */
 	public synchronized void setCurrentAPILogin(String user, String pass) {
 		SQLiteDatabase db = getWritableDatabase();
@@ -212,38 +218,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		currentServer = null; // force recreation of Server object
 	}
 	
-	/** Changes the preset (by name) applying to the current API */ 
-	public synchronized void setCurrentAPIPreset(String preset) {
-		SQLiteDatabase db = getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put("preset", preset);
-		db.update("apis", values, "id = ?", new String[] {currentAPI});
-		db.close();
-		Application.resetPresets();
-	}
-	
-	/** Changes the "show node icons" settings for the current API */
-	public synchronized void setCurrentAPIShowIcons(boolean show) {
-		SQLiteDatabase db = getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put("showicon", show ? 1 : 0);
-		db.update("apis", values, "id = ?", new String[] {currentAPI});
-		db.close();		
-	}
-	
 	/** adds a new API with the given values to the API database */
-	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset, boolean showicon, boolean oauth) {
+	public synchronized void addAPI(String id, String name, String url, String readonlyurl, String notesurl, String user, String pass, String preset, boolean showicon, boolean oauth) {
 		SQLiteDatabase db = getWritableDatabase();
-		addAPI(db, id, name, url, user, pass, preset, showicon, oauth);
+		addAPI(db, id, name, url, readonlyurl, notesurl, user, pass, preset, showicon, oauth);
 		db.close();
 	}
 	
 	/** adds a new API with the given values to the supplied database */
-	public synchronized void addAPI(SQLiteDatabase db, String id, String name, String url, String user, String pass, String preset, boolean showicon, boolean oauth) {
+	public synchronized void addAPI(SQLiteDatabase db, String id, String name, String url,  String readonlyurl, String notesurl, String user, String pass, String preset, boolean showicon, boolean oauth) {
 		ContentValues values = new ContentValues();
 		values.put("id", id);
 		values.put("name", name);
 		values.put("url", url);
+		values.put("readonlyurl", readonlyurl);
+		values.put("notesurl", notesurl);
 		values.put("user", user);
 		values.put("pass", pass);
 		values.put("preset", preset);		
@@ -276,7 +265,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private synchronized API[] getAPIs(SQLiteDatabase db, String id) {
 		Cursor dbresult = db.query(
 								"apis",
-								new String[] {"id", "name", "url", "user", "pass", "preset", "showicon", "oauth","accesstoken","accesstokensecret"},
+								new String[] {"id", "name", "url", "readonlyurl", "notesurl", "user", "pass", "preset", "showicon", "oauth","accesstoken","accesstokensecret"},
 								id == null ? null : "id = ?",
 								id == null ? null : new String[] {id},
 								null, null, null, null);
@@ -289,11 +278,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 									dbresult.getString(3),
 									dbresult.getString(4),
 									dbresult.getString(5),
-									dbresult.getInt(6),
-									dbresult.getInt(7),
-									dbresult.getString(8),
-									dbresult.getString(9));
-			Log.d("AdvancedPrefDatabase", dbresult.getString(0) + " " + dbresult.getString(1) + " " + dbresult.getString(8) + " " + dbresult.getString(9));
+									dbresult.getString(6),
+									dbresult.getString(7),
+									dbresult.getInt(8),
+									dbresult.getInt(9),
+									dbresult.getString(10),
+									dbresult.getString(11));
+			Log.d("AdvancedPrefDatabase", "id " + dbresult.getString(0) + " name " + dbresult.getString(1) +
+					" url " + dbresult.getString(2) + " readonly url " + dbresult.getString(3) + " notes url " + dbresult.getString(4) + " " 
+					+ dbresult.getString(10) + " " + dbresult.getString(11));
 			dbresult.moveToNext();
 		}
 		dbresult.close();
@@ -308,6 +301,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		public final String id;
 		public final String name;
 		public final String url;
+		public final String readonlyurl;
+		public final String notesurl;
 		public final String user;
 		public final String pass;
 		public final String preset;
@@ -316,10 +311,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		public String accesstoken;
 		public String accesstokensecret;
 		
-		public API(String id, String name, String url, String user, String pass, String preset, int showicon, int oauth, String accesstoken, String accesstokensecret) {
+		public API(String id, String name, String url, String readonlyurl, String notesurl, 
+				String user, String pass, String preset, int showicon, int oauth, String accesstoken, String accesstokensecret) {
 			this.id = id;
 			this.name = name;
 			this.url = url;
+			this.readonlyurl = readonlyurl;
+			this.notesurl = notesurl;
 			this.user = user;
 			this.pass = pass;
 			this.preset = preset;

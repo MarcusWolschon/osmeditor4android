@@ -251,7 +251,7 @@ public class TransferTasks {
 					// execute() is called below with no arguments (args will be empty)
 					// getDisplayName() is deferred to here in case a lengthy OSM query
 					// is required to determine the nickname
-					Log.d(DEBUG_TAG,"doInBackground " + server.getBaseURL());
+					Log.d(DEBUG_TAG,"doInBackground " + server.getReadWriteUrl());
 					return super.doInBackground(server);
 				}
 

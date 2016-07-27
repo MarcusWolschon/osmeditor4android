@@ -184,12 +184,6 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 				if (apiuser != null && !apiuser.equals("")) {
 					prefdb.setCurrentAPILogin(apiuser, apipass == null ? "" : apipass);
 				}
-				if (apiPresetInfo != null) {
-					prefdb.setCurrentAPIPreset(apiPresetInfo.id);
-				}
-				if (apiicons != null && apiicons.equals("1")) {
-					prefdb.setCurrentAPIShowIcons(true);
-				}
 			}
 			downloadSucessful = true;
 		} else if (requestCode == REQUEST_PRESETEDIT && resultCode == RESULT_OK) {

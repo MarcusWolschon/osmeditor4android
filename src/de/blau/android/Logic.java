@@ -2033,9 +2033,18 @@ public class Logic {
 				int result = 0;
 				try {
 					Server server = prefs.getServer();
-					server.getCapabilities();
-					if (!(server.apiAvailable() && server.readableDB())) {
-						return ErrorCodes.API_OFFLINE;
+					if (server.hasReadOnly()) {
+						server.getReadOnlyCapabilities();
+						if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
+							return ErrorCodes.API_OFFLINE;
+						}
+						// try to get write capabilities in any case FIXME unclear what  we should do if the write server is not available
+						server.getCapabilities();
+					} else {
+						server.getCapabilities();
+						if (!(server.apiAvailable() && server.readableDB())) {
+							return ErrorCodes.API_OFFLINE;
+						}
 					}
 					final OsmParser osmParser = new OsmParser();
 					final InputStream in = prefs.getServer().getStreamForBox(mapBox);

@@ -3,8 +3,8 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <TextView
         android:id="@+id/listedit_labelName"
@@ -12,34 +12,71 @@
         android:layout_height="wrap_content"
         android:text="@string/api_name" />
 
-	<EditText
+    <EditText
         android:id="@+id/listedit_editName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:inputType="text">
+        android:layout_height="wrap_content"
+        android:inputType="text" >
+
         <requestFocus />
-	</EditText>
-	
+    </EditText>
+
     <TextView
         android:id="@+id/listedit_labelValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/api_url" />
-    
+
     <EditText
         android:id="@+id/listedit_editValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textUri" />
+
     <TextView
-        android:id="@+id/listedit_labeloauth"
+        android:id="@+id/listedit_labelValue_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/listedit_enable_oauth" />
-    <CheckBox
-        android:id="@+id/listedit_oauth"
+        android:text="@string/readonly_url" />
+
+    <EditText
+        android:id="@+id/listedit_editValue_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:inputType="textUri" />
+
+    <TextView
+        android:id="@+id/listedit_labelValue_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notes_url" />
+
+    <EditText
+        android:id="@+id/listedit_editValue_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textUri" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        >
+
+        <TextView
+            android:id="@+id/listedit_labeloauth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/listedit_enable_oauth" />
+
+        <CheckBox
+            android:id="@+id/listedit_oauth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
+
+    </RelativeLayout>
 
 </LinearLayout>

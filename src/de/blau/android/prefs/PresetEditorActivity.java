@@ -108,8 +108,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 		}
 		db.addPreset(item.id, item.name, item.value, item.enabled);
 		downloadPresetData(item);
-		if (!isAddingViaIntent()) { // FIXME this is likely obsolete
-			db.setCurrentAPIPreset(item.id);
+		if (!isAddingViaIntent()) { 
 			Application.resetPresets();
 		} else if (item.enabled) { // added a new preset and enabled it: need to rebuild presets
 			Application.resetPresets();
