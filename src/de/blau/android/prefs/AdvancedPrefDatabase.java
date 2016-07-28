@@ -305,8 +305,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		public final String notesurl;
 		public final String user;
 		public final String pass;
-		public final String preset;
-		public final boolean showicon;	
+		public final String preset;     // no longer used
+		public final boolean showicon;	// no longer used
 		public final boolean oauth;
 		public String accesstoken;
 		public String accesstokensecret;

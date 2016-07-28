@@ -26,7 +26,6 @@
     <string name="config_api_oauth_key">apisettings-oauth</string>
     <string name="config_loginbutton_key">loginsettings-button</string>
     <string name="config_presetbutton_key">presetsettings-button</string>
-    <string name="config_iconbutton_key">iconsettings-button</string>
     <string name="config_licensebutton_key">licenseview-button</string>
     <string name="config_debugbutton_key">debugview-button</string>
     <string name="config_selected_api">selectedAPI</string>
@@ -55,6 +54,7 @@
     <string name="config_scale_key">scaleKey</string>
     <string name="config_voiceCommandsEnabled_key">voiceCommandsEnabled</string>
     <string name="config_leaveGpsDisabled_key">leaveGpsDisabled</string>
+    <string name="config_showIcons_key">showIcons</string>
     <string name="config_showWayIcons_key">showWayIcons</string>
     <string name="config_tagFormEnabled_key">tagFormEnabled</string>
     <string name="config_followGPSbutton_key">followGPSbutton</string>

@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
@@ -16,7 +15,6 @@ import de.blau.android.Application;
 import de.blau.android.DebugInformation;
 import de.blau.android.LicenseViewer;
 import de.blau.android.R;
-import de.blau.android.prefs.AdvancedPrefDatabase.API;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
 
@@ -33,7 +31,6 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 	private String KEY_MAPBG;
 	private String KEY_MAPOL;
 	private String KEY_MAPPROFILE;
-	private String KEY_PREFICONS;
 	private String KEY_ADVPREFS;
 	private String KEY_LICENSE;
 	private String KEY_DEBUG;
@@ -51,7 +48,6 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		KEY_MAPBG = r.getString(R.string.config_backgroundLayer_key);
 		KEY_MAPOL = r.getString(R.string.config_overlayLayer_key);
 		KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
-		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
 		KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
 		KEY_DEBUG = r.getString(R.string.config_debugbutton_key);
@@ -62,12 +58,6 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 	public void onResume() {
 		Log.d(DEBUG_TAG, "onResume");
 		super.onResume();
-		
-		CheckBoxPreference iconspref = (CheckBoxPreference) getPreferenceScreen().findPreference(KEY_PREFICONS);
-		AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
-		API current = db.getCurrentAPI();
-
-		iconspref.setChecked(current.showicon);
 		Log.d(DEBUG_TAG, "onResume done");
 	}
 	

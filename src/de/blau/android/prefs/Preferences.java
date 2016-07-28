@@ -99,6 +99,8 @@ public class Preferences {
 	
 	private final boolean leaveGpsDisabled;
 	
+	private final boolean showIcons;
+	
 	private final boolean showWayIcons;
 	
 	private int maxInlineValues;
@@ -244,6 +246,8 @@ public class Preferences {
 		
 		leaveGpsDisabled = prefs.getBoolean(r.getString(R.string.config_leaveGpsDisabled_key), false);
 
+		showIcons = prefs.getBoolean(r.getString(R.string.config_showIcons_key), true);
+		
 		showWayIcons = prefs.getBoolean(r.getString(R.string.config_showWayIcons_key), true);
 		
 		followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), "LEFT");
@@ -399,7 +403,7 @@ public class Preferences {
 	}
 	
 	public boolean getShowIcons() {
-		return advancedPrefs.getCurrentAPI().showicon;
+		return showIcons;
 	}
 	
 	public boolean getShowWayIcons() {
@@ -457,7 +461,6 @@ public class Preferences {
 	}
 
 	public int getBugDownloadRadius() {
-		// TODO Auto-generated method stub
 		return bugDownloadRadius;
 	}
 	

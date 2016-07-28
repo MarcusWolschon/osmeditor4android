@@ -43,9 +43,9 @@
 		/>
 		<android.support.v7.preference.CheckBoxPreference
 			android:title="@string/config_iconbutton_title"
-			android:key="@string/config_iconbutton_key"
+			android:key="@string/config_showIcons_key"
 			android:summary="@string/config_iconbutton_summary"
-			android:persistent="false"
+			android:defaultValue="true"
 		/>
 		<android.support.v7.preference.CheckBoxPreference
 			android:title="@string/config_showWayIcons_title"
