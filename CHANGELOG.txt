@@ -4,7 +4,7 @@
 
 1174: add support for read-only API (experimental) and bug fixes.
 
-1172: add splash screen on startup and make diming non-downloaded areas a pref.
+1172: add splash screen on startup and make dimming non-downloaded areas a pref.
 
 1170: add literal substring matching to preset search 
 
