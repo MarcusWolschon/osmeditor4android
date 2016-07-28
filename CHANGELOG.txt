@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1176: fix regression caused by 1174, preserve history better when merging nodes and ways.
+
 1174: add support for read-only API (experimental) and bug fixes.
 
 1172: add splash screen on startup and make diming non-downloaded areas a pref.
