@@ -303,6 +303,8 @@
     <string name="menu_transfer_bugs_clear">Clear</string>
     <string name="menu_transfer_bugs_clear_long">Clear bugs</string>
     <string name="menu_transfer_autodownload_long">Auto download bugs</string>
+    <string name="menu_transfer_save_notes_all">Save all Notes...</string>
+    <string name="menu_transfer_save_notes_new_and_changed">Save new and changed Notes...</string>
     <string name="menu_save">Save to file</string>
     <string name="menu_join">Join</string>
     <string name="menu_unjoin">Unjoin</string>

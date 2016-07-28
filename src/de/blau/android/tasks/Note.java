@@ -2,34 +2,50 @@ package de.blau.android.tasks;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlSerializer;
 
 import android.text.Html;
 import de.blau.android.Application;
+import de.blau.android.osm.JosmXmlSerializable;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.util.DateFormatter;
 
 
 /**
  * A bug in the OpenStreetBugs database, or a prospective new bug.
+ * This now works with the OSM Notes system, many references to bugs remain for hysterical reasons :-).
  * @author Andrew Gregory
+ * @author Simon
  */
-public class Note extends Task implements Serializable {
+public class Note extends Task implements Serializable, JosmXmlSerializable {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 
 	/**
 	 * Date pattern used to parse the 'date' attribute of a 'note' from XML.
 	 */
 	private static final String DATE_PATTERN_NOTE_CREATED_AT = "yyyy-MM-dd HH:mm:ss z";
+	
+	/**
+	 * This the standard data/time format used in .osn files and elsewhere in the API, and yes it is different than the above
+	 */
+	protected static final SimpleDateFormat JOSM_DATE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
 
+	/** created and closed dates **/
+	Date created = null;
+	Date closed = null;
+	
 	/** Bug comments. */
 	public List<NoteComment> comments = null;
 	private State originalState; // track what we original had
@@ -59,6 +75,7 @@ public class Note extends Task implements Serializable {
 		
 		String text = "No Text";
 		String nickname = "No Name"; 
+		int uid = -1;
 		String action = "Unknown action";
 		Date timestamp = null;
 		
@@ -87,6 +104,24 @@ public class Note extends Task implements Serializable {
 							originalState = State.OPEN;
 						}
 					}
+					if ("date_created".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+						String trimmedDate = parser.getText().trim();
+						try {
+							created = DateFormatter.getDate(
+									DATE_PATTERN_NOTE_CREATED_AT, trimmedDate);
+						} catch (java.text.ParseException pex) {
+							created = new Date();
+						}
+					}
+					if ("date_closed".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+						String trimmedDate = parser.getText().trim();
+						try {
+							closed = DateFormatter.getDate(
+									DATE_PATTERN_NOTE_CREATED_AT, trimmedDate);
+						} catch (java.text.ParseException pex) {
+							closed = new Date();
+						}
+					}
 					if ("comments".equals(tagName)) {
 						comments = new ArrayList<NoteComment>();
 						state = COMMENTS;
@@ -101,18 +136,22 @@ public class Note extends Task implements Serializable {
 					state = COMMENT;
 					text = "No Text";
 					nickname = "No Name"; 
+					uid = -1;
 					action = "Unknown action";
 					timestamp = null;
 				}
 			}
 			else if (state == COMMENT) {
 				if ((eventType == XmlPullParser.END_TAG) && "comment".equals(tagName)) {
-					comments.add(new NoteComment(text, nickname, action, timestamp));
+					comments.add(new NoteComment(this, text, nickname, uid, action, timestamp));
 					state = COMMENTS;
 				}
 				else if (eventType == XmlPullParser.START_TAG) {
 					if ("user".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						nickname = parser.getText().trim();
+					}
+					if ("uid".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+						uid = Integer.parseInt(parser.getText().trim());
 					}
 					if ("action".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						action = parser.getText().trim();
@@ -142,6 +181,7 @@ public class Note extends Task implements Serializable {
 	 */
 	public Note(int lat, int lon) {
 		id = Application.getTaskStorage().getNextId();
+		this.created = new Date();
 		this.lat = lat;
 		this.lon = lon;
 		open();
@@ -194,7 +234,7 @@ public class Note extends Task implements Serializable {
 
 	public void addComment(String comment) {
 		if (comment != null && comment.length() > 0) {
-			comments.add(new NoteComment(comment));
+			comments.add(new NoteComment(this,comment));
 		}
 	}
 	
@@ -219,5 +259,31 @@ public class Note extends Task implements Serializable {
 	
 	public String bugFilterKey() {
 		return "NOTES";
+	}
+
+	@Override
+	public void toJosmXml(final XmlSerializer s)
+			throws IllegalArgumentException, IllegalStateException, IOException {
+		s.startTag("", "note");
+		s.attribute("", "id", Long.toString(id));
+		s.attribute("", "lat", Double.toString((lat / 1E7)));
+		s.attribute("", "lon", Double.toString((lon / 1E7)));
+		if (created != null) {
+			s.attribute("", "created_at", toJOSMDate(created));
+		}
+		if (closed != null) {
+			s.attribute("", "closed_at", toJOSMDate(closed));
+		}
+		if (count() > 0) {
+			for (NoteComment c:comments) {
+				c.toJosmXml(s);
+			}
+		}
+		s.endTag("", "note");
+	}
+	
+	protected static String toJOSMDate(Date date) {
+		String josmDate = JOSM_DATE.format(date);
+		return josmDate.substring(0, josmDate.length()-2); // strip last two digits
 	}
 }

@@ -4,6 +4,11 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
+/**
+ * Serialize to JOSM specific XML
+ * @author simon
+ *
+ */
 public interface JosmXmlSerializable {
 
 	public void toJosmXml(XmlSerializer serializer)

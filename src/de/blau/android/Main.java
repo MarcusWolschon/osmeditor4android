@@ -125,6 +125,7 @@ import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.FilePicker;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
@@ -1292,8 +1293,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			
 		case R.id.menu_transfer_save_file:
 			if (Application.getDelegator() == null) return true;
-			SaveFile.showDialog(this);
+//			SaveFile.showDialog(this);
 //			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
+			FilePicker.save(this);
 			return true;
 		
 		case R.id.menu_transfer_bugs_download_current:
@@ -1325,7 +1327,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		case R.id.menu_transfer_bugs_autodownload:
 			setBugAutoDownload(!getBugAutoDownload());
 			return true;
-			
+		case R.id.menu_transfer_save_notes_all:
+			return true;
+		case R.id.menu_transfer_save_notes_new_and_changed:
+			return true;
 		case R.id.menu_undo:
 			// should not happen
 			undoListener.onClick(null);
