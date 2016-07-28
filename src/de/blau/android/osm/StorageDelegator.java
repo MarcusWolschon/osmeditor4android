@@ -1026,8 +1026,8 @@ public class StorageDelegator implements Serializable, Exportable {
 		boolean mergeOK = true;
 		dirty = true;
 		// first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
-		// this helps preserve history
-		if ((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) {
+		// else check version numbers this helps preserve history
+		if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
 		// swap
 			Log.d("StorageDelegator", "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
 			Node tmpNode = mergeInto;
@@ -1074,9 +1074,9 @@ public class StorageDelegator implements Serializable, Exportable {
 		if ((mergeInto.nodeCount() + mergeFrom.nodeCount()) > Way.maxWayNodes)
 			throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
 		
-		// first determine if one of the ways already has a valid id, if it is not and other way has valid id swap
-		// this helps preserve history
-		if ((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) {
+		// first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
+		// else check version numbers this helps preserve history
+		if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
 			// swap
 			Log.d("StorageDelegator", "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
 			Way tmpWay = mergeInto;
