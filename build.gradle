@@ -22,7 +22,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion project.getMinSdkVersion()
@@ -68,12 +68,24 @@ ext {
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'ch.acra:acra:4.9.0'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.android.support:preference-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
+    compile 'oauth.signpost:signpost-core:1.2.1.2'
+	compile 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
     compile "com.squareup.okhttp3:okhttp:${okHttpVersion}"
     compile "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+}
+
+android {
+    lintOptions {
+        // checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 }
 
 int getMinSdkVersion() {
