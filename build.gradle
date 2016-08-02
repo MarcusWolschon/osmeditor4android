@@ -29,7 +29,8 @@ eclipse {
 
         file {
             beforeMerged { classpath ->
-                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/main/java", "bin"))
+                // conventional android layout: classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/main/java", "bin"))
+                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src", "bin"))
                 // Hardcoded to use debug configuration
                 classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/r/debug", "bin"))
                 classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/buildConfig/debug", "bin"))
