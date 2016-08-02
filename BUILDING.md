@@ -23,13 +23,15 @@ or this command on Windows:
 $ gradlew.bat installDebug
 ```
 
+If you are using eclipse you need to generate the .classpath file initially and on any configuration change or else the IDE is essentially useless, run the gradle "eclipse" task to do this.
+
 ## Building with gradle and Android Studio
 
 The build configuration has been updated for AppCompat and should work out of the box.
 
 Note we currently don't use a standard project layout
 
-## Build with AppCompat and eclipse
+## Build with eclipse
 
 This will likely no longer be possible post version 0.9.8 since we are will change the directory layout to be in line with standard Android Studio and gradle layout. 
 
