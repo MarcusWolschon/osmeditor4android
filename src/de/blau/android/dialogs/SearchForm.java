@@ -1,6 +1,10 @@
 package de.blau.android.dialogs;
 
+import java.io.FileNotFoundException;
+
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -18,6 +22,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.Search;
@@ -100,12 +106,17 @@ public class SearchForm extends DialogFragment
     	// builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
     	searchBuilder.setTitle(R.string.menu_find);
     	searchBuilder.setMessage(R.string.find_message);
-
-
-
     	searchBuilder.setView(searchLayout);
+    	
     	final EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
     	searchEdit.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+      	
+    	searchBuilder.setPositiveButton(R.string.search, new OnClickListener() {
+    			@Override
+    			public void onClick(DialogInterface dialog, int which) {
+    				searchEdit.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)); // emulate pressing the enter button
+    			}
+    		});
     	searchBuilder.setNegativeButton(R.string.cancel, null);
 
     	final AppCompatDialog searchDialog = searchBuilder.create();
@@ -135,7 +146,7 @@ public class SearchForm extends DialogFragment
     			return false;
     		}
     	});
-
+    	
     	return searchDialog;
     }	
     

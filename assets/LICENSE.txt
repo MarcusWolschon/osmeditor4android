@@ -46,7 +46,7 @@ The parser for .PO files was written by Simon Poole and is available under a MIT
 
 The OkHttp and associated libraries are Copyright 2016 Square, Inc. licensed under the Apache License, version 2.
 
-The NoNonsense Filepicker is is licensed under the Mozilla Public License, v. 2.0.
+The NoNonsense Filepicker is licensed under the Mozilla Public License, v. 2.0.
 
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0

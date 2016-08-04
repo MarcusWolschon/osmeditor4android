@@ -87,6 +87,7 @@
     <string name="search_results_title">Search results</string>
     <string name="find_message">Enter search string</string>
     <string name="preset_search_hint">Preset search string</string>
+    <string name="search">Search</string>
     <string name="no_valid_preset">No valid preset!</string>
     <string name="read_file">Select file to read</string>
     <string name="save_file">Enter file to save to</string>
