@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1178: changes for building with buildship, export of Notes in OSN format, better file picker for saving and reading files, search button added to "Find" dialog
+
 1176: fix regression caused by 1174, preserve history better when merging nodes and ways.
 
 1174: add support for read-only API (experimental) and bug fixes.
