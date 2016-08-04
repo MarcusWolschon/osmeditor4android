@@ -63,8 +63,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 
 		mTileDownloader = new OpenStreetMapTileDownloader(ctx, this);
 
-		if(Log.isLoggable(DEBUGTAG, Log.INFO))
-			Log.i(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
+		if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+			Log.d(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
+		}
 	}
 
 	// ===========================================================
@@ -95,9 +96,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				final int bytesGrown = mDatabase.addTileOrIncrement(tile, someData); 
 				mCurrentFSCacheByteSize += bytesGrown;
 
-				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
-					Log.i(DEBUGTAG, "FSCache Size is now: " + mCurrentFSCacheByteSize + " Bytes");
-
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+					Log.d(DEBUGTAG, "FSCache Size is now: " + mCurrentFSCacheByteSize + " Bytes");
+				}
 				/* If Cache is full... */
 				try {
 
@@ -107,12 +108,13 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 						mCurrentFSCacheByteSize -= mDatabase.deleteOldest((int)(mMaxFSCacheByteSize * 0.05f)); // Free 5% of cache
 					}
 				} catch (EmptyCacheException e) {
-					if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
-						Log.e(DEBUGTAG, "Cache empty", e);
+					if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+						Log.d(DEBUGTAG, "Cache empty", e);
+					}
 				}
 			} catch (IllegalStateException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-					Log.e(DEBUGTAG, "Tile saving failed", e);
+					Log.d(DEBUGTAG, "Tile saving failed", e);
 				}
 			}
 		}
@@ -129,8 +131,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 			}
 			mCurrentFSCacheByteSize = 0;
 		} catch (EmptyCacheException e) {
-			if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
-				Log.e(DEBUGTAG, "Cache empty", e);
+			if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+				Log.d(DEBUGTAG, "Cache empty", e);
+			}
 		}
 	}
 
@@ -143,7 +146,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 			mDatabase.flushCache(rendererID);
 		} catch (EmptyCacheException e) {
 			if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-				Log.e(DEBUGTAG, "Flushing tile cache failed", e);
+				Log.d(DEBUGTAG, "Flushing tile cache failed", e);
 			}
 		}
 	}
@@ -169,8 +172,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				synchronized (OpenStreetMapTileFilesystemProvider.this) {
 					byte[] data = OpenStreetMapTileFilesystemProvider.this.mDatabase.getTile(mTile);
 					if (data == null) {
-						if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
-							Log.i(DEBUGTAG, "FS failed, request for download.");
+						if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+							Log.d(DEBUGTAG, "FS failed, request for download.");
+						}
 						mTileDownloader.loadMapTileAsync(mTile, mCallback);
 					} else { // success!
 						mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
@@ -184,15 +188,15 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				}
 			} catch (RemoteException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-					Log.e(DEBUGTAG, "Service failed", e);
+					Log.d(DEBUGTAG, "Service failed", e);
 				}
 			} catch (NullPointerException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-					Log.e(DEBUGTAG, "Service failed", e);
+					Log.d(DEBUGTAG, "Service failed", e);
 				}
 			} catch (IllegalStateException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-					Log.e(DEBUGTAG, "Tile loading failed", e);
+					Log.d(DEBUGTAG, "Tile loading failed", e);
 				}
 			} finally {
 				finished();
