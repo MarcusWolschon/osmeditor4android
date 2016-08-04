@@ -1,15 +1,25 @@
 package de.blau.android.tasks;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
+
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.ErrorCodes;
@@ -21,7 +31,9 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.IssueAlert;
+import de.blau.android.util.SavingHelper;
 
 public class TransferTasks {
 
@@ -291,4 +303,91 @@ public class TransferTasks {
 		}
 		return false;
 	}
+	
+	/**
+	 * Write Notes to a file in (J)OSM compatible format, 
+	 * if fileName contains directories these are created, otherwise it is stored in the standard public dir
+	 * 
+	 * @param fileName
+	 */
+	static public void writeOsnFile(final boolean all, final String fileName) {
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... arg) {
+				final ArrayList<Task>queryResult = Application.getTaskStorage().getTasks();
+				int result = 0;
+				try {
+					File outfile = new File(fileName);
+					String parent = outfile.getParent();
+					if (parent == null) { // no directory specified, save to standard location
+						outfile = new File(FileUtil.getPublicDirectory(), fileName);
+					} else { // ensure directory exists
+						File outdir = new File(parent);
+						outdir.mkdirs();
+						if (!outdir.isDirectory()) {
+							throw new IOException("Unable to create directory " + outdir.getPath());
+						}
+					}
+					Log.d(DEBUG_TAG,"Saving to " + outfile.getPath());
+					final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
+					try {
+						XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
+						serializer.setOutput(out, "UTF-8");
+						serializer.startDocument("UTF-8", null);
+						serializer.startTag(null, "osm-notes");
+						for (Task t:queryResult) {
+							if (t instanceof Note) {
+								Note n = (Note) t;
+								if (all || n.getId() < 0 || n.hasBeenChanged()) {
+									n.toJosmXml(serializer);
+								}
+							}
+						}
+						serializer.endTag(null, "osm-notes");
+						serializer.endDocument();
+						
+					} catch (IllegalArgumentException e) {
+						result = ErrorCodes.FILE_WRITE_FAILED;
+						Log.e(DEBUG_TAG, "Problem writing", e);
+					} catch (IllegalStateException e) {
+						result = ErrorCodes.FILE_WRITE_FAILED;
+						Log.e(DEBUG_TAG, "Problem writing", e);
+					} catch (XmlPullParserException e) {
+						result = ErrorCodes.FILE_WRITE_FAILED;
+						Log.e(DEBUG_TAG, "Problem writing", e);
+					} finally {
+						SavingHelper.close(out);
+					}
+				} catch (IOException e) {
+					result = ErrorCodes.FILE_WRITE_FAILED;
+					Log.e(DEBUG_TAG, "Problem writing", e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
+				if (result != 0) {
+					if (result == ErrorCodes.OUT_OF_MEMORY) {
+						System.gc();
+						if (Application.getTaskStorage().hasChanges()) {
+							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
+						}
+					}
+					if (!Application.mainActivity.isFinishing()) {
+						ErrorAlert.showDialog(Application.mainActivity,result);
+					}
+				}
+			}
+			
+		}.execute();
+	}
+
 }

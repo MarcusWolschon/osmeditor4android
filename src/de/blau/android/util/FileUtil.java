@@ -8,7 +8,12 @@ import android.support.annotation.NonNull;
 import de.blau.android.contract.Paths;
 
 public abstract class FileUtil {
-
+	
+	/**
+	 * Get our public directory, creating it if it doesn't exist
+	 * @return
+	 * @throws IOException
+	 */
     public static
     @NonNull
     File getPublicDirectory() throws IOException {
@@ -17,6 +22,13 @@ public abstract class FileUtil {
                 Paths.DIRECTORY_PATH_VESPUCCI);
     }
 
+    /**
+     * Get a File for directoryName in baseDirectory, if it doesn't exist create it
+     * @param baseDirectory
+     * @param directoryName
+     * @return
+     * @throws IOException
+     */
     public static
     @NonNull
     File getPublicDirectory(@NonNull File baseDirectory, @NonNull String directoryName)

@@ -1,21 +1,29 @@
 package de.blau.android.tasks;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.xmlpull.v1.XmlSerializer;
+
+import android.util.Log;
+import de.blau.android.osm.JosmXmlSerializable;
+
 /**
  * An individual comment associated with an OpenStreetBug.
  * @author Andrew Gregory
  */
-public class NoteComment implements Serializable {
+public class NoteComment implements Serializable, JosmXmlSerializable {
+
+	private static final String DEBUG_TAG = NoteComment.class.getName();
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3L;
 
 	/** The preferred OSB date formats. */
 	private static final DateFormat bugDateFormats[] = {
@@ -25,10 +33,14 @@ public class NoteComment implements Serializable {
 		new SimpleDateFormat("dd/MM/yy HH:mm:ss"    , Locale.US)  // European
 	};
 	
+	/** The Note we belong to **/
+	private Note note;
 	/** The comment text. */
 	private String text;
 	/** The nickname associated with the comment. */
 	private String nickname;
+	/** The uid associated with the comment. */
+	private int uid;
 	/** The action associated with the comment. */
 	private String action;
 	/** The timestamp associated with the comment. */
@@ -37,11 +49,13 @@ public class NoteComment implements Serializable {
 	/**
 	 * Create a new comment based on a string in the following format:
 	 * "Long text comment here [NickName here, YYYY-MM-DD HH:MM:SS ZZZ]"
-	 * Unrecognisable dates will be replaced with the current system date/time.
+	 * Unrecognizable dates will be replaced with the current system date/time.
 	 * @param description A description obtained from the OSB database.
 	 */
-	public NoteComment(String description) {
+	public NoteComment(Note note, String description) {
+		this.note = note;
 		text = description;
+		timestamp = new Date();
 	}
 	
 	/**
@@ -50,9 +64,11 @@ public class NoteComment implements Serializable {
 	 * @param nickname New nickname. Commas are stripped.
 	 * @param timestamp New timestamp.
 	 */
-	public NoteComment(String text, String nickname, String action,  Date timestamp) {
+	public NoteComment(Note note, String text, String nickname, int uid, String action,  Date timestamp) {
+		this.note = note;
 		this.text = text.replaceAll("\\[", "");
 		this.nickname = nickname.replaceAll(",", "");
+		this.uid = uid;
 		this.action = action;
 		this.timestamp = timestamp;
 	}
@@ -102,8 +118,45 @@ public class NoteComment implements Serializable {
 	}
 
 	public boolean isNew() {
-		// TODO Auto-generated method stub
 		return action == null;
 	}
 
+	@Override
+	public void toJosmXml(XmlSerializer s)
+			throws IllegalArgumentException, IllegalStateException, IOException {
+		s.startTag("", "comment");
+		if (action != null) {
+			s.attribute("", "action", action);
+		} else {
+			if (note.getOriginalState() != note.state) {
+				switch (note.state) {
+				case CLOSED:
+					s.attribute("", "action", "closed");
+					break;
+				case OPEN:
+					if (note.isNew()) {
+						s.attribute("", "action", "opened");
+					} else {
+						s.attribute("", "action", "reopened");
+					}
+					break;
+				default:
+					Log.d(DEBUG_TAG, "Illegal state for Note " + note.state);
+					break;
+				}
+			} else {
+				s.attribute("", "action", "commented");
+			}
+		}
+		if (timestamp != null) {
+			s.attribute("", "timestamp", Note.toJOSMDate(timestamp));
+		}
+		if (nickname != null) {
+			s.attribute("", "uid", Integer.toString(uid));
+			s.attribute("", "user", nickname);
+		}
+		s.attribute("", "is_new", Boolean.toString(isNew()));
+		s.text(text);
+		s.endTag("", "comment");		
+	}
 }

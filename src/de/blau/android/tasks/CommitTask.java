@@ -53,7 +53,7 @@ public class CommitTask extends AsyncTask<Server, Void, Boolean> {
 			Log.d(DEBUG_TAG, "CommitTask.doInBackground:Updating OSB");
 			if (comment != null && comment.length() > 0) {
 				// Make the comment
-				NoteComment bc = new NoteComment(comment);
+				NoteComment bc = new NoteComment(bug,comment);
 				// Add or edit the bug as appropriate
 				result = bug.isNew() ? server.addNote(bug, bc) : server.addComment(bug, bc);
 				Log.d(DEBUG_TAG, result ? "sucessful":"failed");

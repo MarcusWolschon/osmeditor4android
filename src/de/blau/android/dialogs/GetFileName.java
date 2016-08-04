@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -18,32 +18,33 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.contract.Paths;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.util.SaveFile;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog asking for a file name to save to
  *
  */
-public class SaveFile extends DialogFragment
+public class GetFileName extends DialogFragment
 {
 	
-	private static final String DEBUG_TAG = SaveFile.class.getSimpleName();
+	private static final String DEBUG_TAG = GetFileName.class.getSimpleName();
 	
 	private static final String TAG = "fragment_save_file";
 		
-	
-   	/**
+	private SaveFile callback;
+
+	/**
 	 
 	 */
-	static public void showDialog(FragmentActivity activity) {
+	static public void showDialog(FragmentActivity activity, de.blau.android.util.SaveFile callback) {
 		dismissDialog(activity);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
-	    SaveFile saveFileFragment = newInstance();
+	    GetFileName saveFileFragment = newInstance(callback);
 	    if (saveFileFragment != null) {
 	    	saveFileFragment.show(fm, TAG);
 	    } else {
@@ -63,9 +64,13 @@ public class SaveFile extends DialogFragment
 		
     /**
      */
-    static private SaveFile newInstance() {
-    	SaveFile f = new SaveFile();
+    static private GetFileName newInstance(de.blau.android.util.SaveFile callback) {
+    	GetFileName f = new GetFileName();
+        Bundle args = new Bundle();
+        args.putSerializable("callback", callback);
 
+        f.setArguments(args);
+        
         f.setShowsDialog(true);
         
         return f;
@@ -76,7 +81,7 @@ public class SaveFile extends DialogFragment
         super.onAttach(activity);
         Log.d(DEBUG_TAG, "onAttach");
         if (!(activity instanceof Main)) {
-            throw new ClassCastException(activity.toString() + " can ownly be called from Main");
+            throw new ClassCastException(activity.toString() + " can only be called from Main");
         }
     }
     
@@ -91,6 +96,7 @@ public class SaveFile extends DialogFragment
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
+        callback = (SaveFile) getArguments().getSerializable("callback");
     	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
     	Builder builder = new AlertDialog.Builder(getActivity());
     	builder.setTitle(R.string.save_file);
@@ -101,8 +107,7 @@ public class SaveFile extends DialogFragment
 		builder.setPositiveButton(R.string.save, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// FIXME instead of hardcoding the directory, this should be the default and alternatives selectable by the user
-				Application.getLogic().writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/" + Paths.DIRECTORY_PATH_VESPUCCI + "/" + saveFileEdit.getText().toString());
+				callback.save(Uri.fromParts("", "", saveFileEdit.getText().toString()));
 			}
 		});
     	return builder.create();

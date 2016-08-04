@@ -470,4 +470,28 @@
 	<style name="DrawerLight" parent="@style/Theme.AppCompat.Light">
 		<item name="android:background">@color/dark_grey</item>
 	</style>
+	
+	<!-- You can also inherit from NNF_BaseTheme -->
+    <style name="FilePickerTheme" parent="NNF_BaseTheme">
+        <!-- Need to set this also to style create folder dialog -->
+        <item name="alertDialogTheme">@style/FilePickerAlertDialogTheme</item>
+
+        <!-- If you want to set a specific toolbar theme, do it here -->
+        <!-- <item name="nnf_toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item> -->
+    </style>
+
+    <style name="FilePickerAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+    </style>
+    
+	<!-- You can also inherit from NNF_BaseTheme.Light -->
+    <style name="FilePickerThemeLight" parent="NNF_BaseTheme.Light">
+        <!-- Need to set this also to style create folder dialog -->
+        <item name="alertDialogTheme">@style/FilePickerAlertDialogThemeLight</item>
+
+        <!-- If you want to set a specific toolbar theme, do it here -->
+        <!-- <item name="nnf_toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item> -->
+    </style>
+
+    <style name="FilePickerAlertDialogThemeLight" parent="Theme.AppCompat.Light.Dialog.Alert">
+    </style>
 </resources>

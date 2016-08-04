@@ -94,7 +94,6 @@ import de.blau.android.dialogs.ImportTrack;
 import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.dialogs.SaveFile;
 import de.blau.android.dialogs.SearchForm;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
@@ -125,12 +124,15 @@ import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.OAuthHelper;
+import de.blau.android.util.ReadFile;
+import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Search.SearchResult;
 import de.blau.android.util.ThemeUtils;
@@ -161,29 +163,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public static final int REQUEST_EDIT_TAG = 1;
 	
 	/**
-	 * Requests a file as an activity-result.
-	 */
-	public static final int READ_OSM_FILE_SELECT_CODE = 2;
-	
-	/**
-	 * Requests a file as an activity-result.
-	 */
-	public static final int WRITE_OSM_FILE_SELECT_CODE = 3;
-	
-	/**
-	 * Requests a file as an activity-result.
-	 */
-	public static final int READ_GPX_FILE_SELECT_CODE = 4;
-	
-	/**
 	 * Requests an activity-result.
 	 */
-	public static final int REQUEST_IMAGE_CAPTURE = 5;
+	public static final int REQUEST_IMAGE_CAPTURE = 2;
 	
 	/**
 	 * Requests voice recognition.
 	 */
-	public static final int VOICE_RECOGNITION_REQUEST_CODE = 6;
+	public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 	
 	private static final String EASY_TAG = "EASY";
 	private static final String TAG_TAG = "TAG";
@@ -1094,7 +1081,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		return true;
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -1220,7 +1206,30 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			
 		case R.id.menu_gps_import:
 			if (Application.getDelegator() == null) return true;
-			showFileChooser(READ_GPX_FILE_SELECT_CODE);
+			SelectFile.read(this, new ReadFile(){
+				@Override
+				public boolean read(Uri fileUri) {
+					// Get the Uri of the selected file 
+			        Log.d(DEBUG_TAG, "Read gpx file Uri: " + fileUri.toString());
+			        if (getTracker() != null) {
+			        	if (getTracker().getTrackPoints().size() > 0 ) {
+			        		ImportTrack.showDialog(Main.this, fileUri);
+			        	} else {
+			        		getTracker().stopTracking(false);
+			        		try {
+								getTracker().importGPXFile(fileUri);
+							} catch (FileNotFoundException e) {
+								try {
+									Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_file_not_found, fileUri.toString()), Toast.LENGTH_LONG).show();
+								} catch (Exception ex) {
+									// protect against translation errors
+								}
+							}
+			        	}
+			        }
+			        map.invalidate();
+					return true;
+				}});
 			return true;
 			
 		case R.id.menu_gps_goto_start:
@@ -1287,13 +1296,33 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		case R.id.menu_transfer_read_file:
 			if (Application.getDelegator() == null) return true;
-			showFileChooser(READ_OSM_FILE_SELECT_CODE);
+			// showFileChooser(READ_OSM_FILE_SELECT_CODE);
+			SelectFile.read(this, new ReadFile(){
+				@Override
+				public boolean read(Uri fileUri) {
+					try {
+						logic.readOsmFile(fileUri, false);
+					} catch (FileNotFoundException e) {
+						try {
+							Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_file_not_found, fileUri.toString()), Toast.LENGTH_LONG).show();
+						} catch (Exception ex) {
+							// protect against translation errors
+						}
+					}
+			        map.invalidate();
+					return true;
+				}});
 			return true;
 			
 		case R.id.menu_transfer_save_file:
 			if (Application.getDelegator() == null) return true;
-			SaveFile.showDialog(this);
-//			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
+			SelectFile.save(this, new SaveFile(){
+				private static final long serialVersionUID = 1L;
+				@Override
+				public boolean save(Uri fileUri) {
+					Application.getLogic().writeOsmFile(fileUri.getPath());
+					return true;
+				}});
 			return true;
 		
 		case R.id.menu_transfer_bugs_download_current:
@@ -1325,7 +1354,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		case R.id.menu_transfer_bugs_autodownload:
 			setBugAutoDownload(!getBugAutoDownload());
 			return true;
-			
+		case R.id.menu_transfer_save_notes_all:
+		case R.id.menu_transfer_save_notes_new_and_changed:
+			if (Application.getTaskStorage() == null) return true;
+			SelectFile.save(this, new SaveFile(){
+				private static final long serialVersionUID = 1L;
+				@Override
+				public boolean save(Uri fileUri) {
+					TransferTasks.writeOsnFile(item.getItemId()==R.id.menu_transfer_save_notes_all,fileUri.getPath());
+					return true;
+				}});
+			return true;
 		case R.id.menu_undo:
 			// should not happen
 			undoListener.onClick(null);
@@ -1571,52 +1610,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 		Log.d(DEBUG_TAG, "onActivityResult");
 		super.onActivityResult(requestCode, resultCode, data);
-		final Logic logic = Application.getLogic();
 		if (requestCode == REQUEST_BOUNDING_BOX && data != null) {
 			handleBoxPickerResult(resultCode, data);
 		} else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK && data != null) {
 			handlePropertyEditorResult(data);
-		} else if (requestCode == READ_OSM_FILE_SELECT_CODE && resultCode == RESULT_OK) {
-			// Get the Uri of the selected file 
-	        Uri uri = data.getData();
-	        Log.d(DEBUG_TAG, "Read file Uri: " + uri.toString());
-	        try {
-				logic.readOsmFile(uri, false);
-			} catch (FileNotFoundException e) {
-				try {
-					Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
-				} catch (Exception ex) {
-					// protect against translation errors
-				}
-			}
-	        map.invalidate();
-		} else if (requestCode == WRITE_OSM_FILE_SELECT_CODE && resultCode == RESULT_OK) {
-			// Get the Uri of the selected file 
-	        Uri uri = data.getData();
-	        Log.d(DEBUG_TAG, "Write file Uri: " + uri.toString());
-	        logic.writeOsmFile(uri.getPath());
-	        map.invalidate();
-		} else if (requestCode == READ_GPX_FILE_SELECT_CODE && resultCode == RESULT_OK) {
-			// Get the Uri of the selected file 
-	        Uri uri = data.getData();
-	        Log.d(DEBUG_TAG, "Read gpx file Uri: " + uri.toString());
-	        if (getTracker() != null) {
-	        	if (getTracker().getTrackPoints().size() > 0 ) {
-	        		ImportTrack.showDialog(this, uri);
-	        	} else {
-	        		getTracker().stopTracking(false);
-	        		try {
-						getTracker().importGPXFile(uri);
-					} catch (FileNotFoundException e) {
-						try {
-							Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
-						} catch (Exception ex) {
-							// protect against translation errors
-						}
-					}
-	        	}
-	        }
-	        map.invalidate();
 		} else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK ) {
 			// reindexPhotos();
 			if (imageFile != null) {
@@ -1636,6 +1633,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				locationForIntent = null;
 				map.invalidate();
 			}
+		} else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
+			SelectFile.handleResult(requestCode, data);
 		}
 		scheduleAutoLock();
 	}

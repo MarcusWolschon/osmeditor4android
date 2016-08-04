@@ -8,7 +8,8 @@
 	android:installLocation="auto"
 	>
 	
-	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="23" />
+	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="23" 
+	    tools:overrideLibrary="com.nononsenseapps.filepicker" /> 	<!-- the filepicker specifies a min version of 9  -->
 	
 	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
@@ -116,6 +117,11 @@
 		    android:name="HelpViewer" 
 		    android:theme="@style/Theme.customHelpViewer" 
 		/>
+		<activity
+       		android:name=".util.ThemedFilePickerActivity"
+       		android:label="@string/app_name"
+      		android:theme="@style/FilePickerTheme">
+    	</activity>
 		<activity
 			android:name="org.acra.dialog.CrashReportDialog"
 			android:theme="@android:style/Theme.Dialog"
