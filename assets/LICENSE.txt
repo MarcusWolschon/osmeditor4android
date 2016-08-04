@@ -30,7 +30,7 @@ The full project contains a small number of icons taken from the JOSM project un
 
 The source code may be obtained from github at https://github.com/MarcusWolschon/osmeditor4android .
 
-If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/presets and assets/images/presets/styles.
+If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/presets and assets/images/presets/styles and disable the use of the "NoNonsense FilePicker".
 
 OAuth support for Vespucci is provided by the oauth-signpost library https://github.com/mttkay/signpost licensed under the Apache License, version 2.
 
@@ -46,9 +46,12 @@ The parser for .PO files was written by Simon Poole and is available under a MIT
 
 The OkHttp and associated libraries are Copyright 2016 Square, Inc. licensed under the Apache License, version 2.
 
+The NoNonsense Filepicker is is licensed under the Mozilla Public License, v. 2.0.
+
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0
   http://www.gnu.org/licenses/gpl-3.0.txt
+  http://mozilla.org/MPL/2.0/
 
 The R-Tree library was originally developed by Colonel Thirty Two:
 
