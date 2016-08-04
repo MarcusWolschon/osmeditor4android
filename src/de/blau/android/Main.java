@@ -1206,6 +1206,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			
 		case R.id.menu_gps_import:
 			if (Application.getDelegator() == null) return true;
+			descheduleAutoLock();
 			SelectFile.read(this, new ReadFile(){
 				@Override
 				public boolean read(Uri fileUri) {
@@ -1296,6 +1297,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		case R.id.menu_transfer_read_file:
 			if (Application.getDelegator() == null) return true;
+			descheduleAutoLock();
 			// showFileChooser(READ_OSM_FILE_SELECT_CODE);
 			SelectFile.read(this, new ReadFile(){
 				@Override
@@ -1316,6 +1318,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			
 		case R.id.menu_transfer_save_file:
 			if (Application.getDelegator() == null) return true;
+			descheduleAutoLock();
 			SelectFile.save(this, new SaveFile(){
 				private static final long serialVersionUID = 1L;
 				@Override
@@ -1357,6 +1360,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		case R.id.menu_transfer_save_notes_all:
 		case R.id.menu_transfer_save_notes_new_and_changed:
 			if (Application.getTaskStorage() == null) return true;
+			descheduleAutoLock();
 			SelectFile.save(this, new SaveFile(){
 				private static final long serialVersionUID = 1L;
 				@Override
