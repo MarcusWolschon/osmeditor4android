@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -12,6 +14,7 @@ import java.util.concurrent.TimeoutException;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
@@ -156,17 +159,28 @@ public class Search {
 
 			String urlString = uriBuilder.toString();
 			Log.d("Search", "urlString: " + urlString);
-			Request request = new Request.Builder()
-					.url(urlString)
-					.build();
-			Call searchCall = Application.getHttpClient().newCall(request);
+			InputStream inputStream = null;
 			JsonReader reader = null;
 			ResponseBody responseBody = null;
 			try {
-				Response searchCallResponse = searchCall.execute();
-				if (searchCallResponse.isSuccessful()) {
-					responseBody = searchCallResponse.body();
-					InputStream inputStream = responseBody.byteStream();
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+					Request request = new Request.Builder()
+							.url(urlString)
+							.build();
+					Call searchCall = Application.getHttpClient().newCall(request);
+					Response searchCallResponse = searchCall.execute();
+					if (searchCallResponse.isSuccessful()) {
+						responseBody = searchCallResponse.body();
+						inputStream = responseBody.byteStream();
+					}
+				} else { //FIXME 2.2/API 8 support
+					URL url = new URL(urlString);
+					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+					conn.setRequestProperty("User-Agent", Application.userAgent);
+					inputStream = conn.getInputStream();
+				}
+
+				if (inputStream != null) {
 					reader = new JsonReader(new InputStreamReader(inputStream));
 					ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 					reader.beginArray();
