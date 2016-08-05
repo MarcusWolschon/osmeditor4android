@@ -42,15 +42,19 @@ There are plenty descriptions available (e.g. [1 ](http://openhandsetmagazine.co
 #### Running Vespucci on "old and small" devices ####
 
 Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.2 and later,
-however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap.
-This can be as low as 16MB. If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints
-should be helpful (ordered in decreasing order of importance):
+however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap (this can be as low as 16MB). If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints should be helpful (ordered in decreasing order of importance):
 
   * turn off any map overlay
   * only load small map areas and don't excessively use the incremental load facility
   * turn off notes and photo overlay
   * turn off name suggestions
   * don't add large presets
+  
+#### Can't download data from OpenStreetMap servers 
+
+If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use https (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing. 
+
+Workaround: create a new non-https API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 
 
 #### What can I do with the editor?
 
@@ -79,9 +83,8 @@ Yes, Vespucci supports manual and automatic download of Notes and offline storag
 Some things missing at this point in time
 
   * No validator (however in general Vespucci tries to stop you from shooting yourself in the foot)
-  * No connectivity checks for relations
-  * No individual relation member download and no functions to change the order of members (planned)
-
+  * Some operations still missing, mainly polygon merging and relation sorting.
+  
 > Remember, Android is intended to be lightweight and easy-to-use.
 
 #### Which languages are supported? ####
@@ -111,6 +114,8 @@ Choose "Upload data to  OSM server" from the transfer menu.
 #### Which user account is used when uploading data to the OSM server? ####
 
 Vespucci will use OAuth authorization as default for new installs. On your first upload you will be directed to an OSM page that we ask you to authorize your Vespucci install. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).
+
+Note: OAuth will work for both the standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.
 
 
 #### How can I zoom into an area? ####
