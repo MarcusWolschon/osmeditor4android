@@ -1975,14 +1975,22 @@ public class Preset implements Serializable {
 			}
 			for (String k:recommendedTags.keySet()) {
 				jsonString = jsonString + tagToJSON(k, null);
-				for (StringWithDescription v:recommendedTags.get(k)) {
-					jsonString = jsonString + tagToJSON(k, v.getValue());
+				// check match attribute
+				MatchType match = getMatchType(k);
+				if (match==null || match == MatchType.KEY_VALUE) {
+					for (StringWithDescription v:recommendedTags.get(k)) {
+						jsonString = jsonString + tagToJSON(k, v.getValue());
+					}
 				}
 			}
 			for (String k:optionalTags.keySet()) {
 				jsonString = jsonString + tagToJSON(k, null);
-				for (StringWithDescription v:optionalTags.get(k)) {
-					jsonString = jsonString + tagToJSON(k, v.getValue());
+				// check match attribute
+				MatchType match = getMatchType(k);
+				if (match==null || match == MatchType.KEY_VALUE) {
+					for (StringWithDescription v:optionalTags.get(k)) {
+						jsonString = jsonString + tagToJSON(k, v.getValue());
+					}
 				}
 			}
 			return jsonString;
@@ -2001,6 +2009,7 @@ public class Preset implements Serializable {
 				presetName = p.getName() + "/" + presetName;
 				p = p.getParent();
 			}
+
 			String result = "{\"description\":\"" + presetName + "\",\"key\": \"" + key + "\"" + (value == null ? "" : ",\"value\": \"" + value + "\"");
 			result = result + ",\"object_types\": [";
 			boolean first = true;
