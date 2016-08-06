@@ -49,6 +49,12 @@ task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"
 	}
 }
 
+task updateImagery(type: Download) {
+	acceptAnyCertificate true
+    src 'https://raw.githubusercontent.com/simonpoole/osm-layer-index/gh-pages/imagery_tms_minified.json'
+    dest new File(projectDir.getPath() + '/assets/', 'imagery.json')
+}
+
 eclipse {
 // pathVariables 'GRADLE_HOME': gradle.gradleUserHomeDir, "ANDROID_HOME": android.sdkDirectory
     classpath {

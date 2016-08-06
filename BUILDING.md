@@ -68,10 +68,15 @@ https://github.com/simonpoole/beautified-JOSM-preset
 Original:
 http://josm.openstreetmap.de/svn/trunk/data/defaultpresets.xml
 
+The gradle task ``updatePreset`` will update the icons and preset.xml file in the asset directory from the github repo. 
+
 ## 3rd Party Configuration Files
 Name suggestion index https://github.com/osmlab/name-suggestion-index
 
-Imagery index https://github.com/osmlab/editor-imagery-index
+Imagery index https://github.com/simonpoole/osm-layer-index (which is a fork of https://github.com/osmlab/editor-imagery-index).
+
+The gradle task ``updateImagery`` will update the imagery.json file in the asset directory from the github repo. 
+
 
 Tags to be discarded https://github.com/openstreetmap/iD/blob/master/data/discarded.json
 
