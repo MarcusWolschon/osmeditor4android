@@ -418,7 +418,10 @@ public class TagEditorFragment extends BaseFragment implements
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
 	protected void loadEdits(LinearLayout rowLayout, final Map<String,ArrayList<String>> tags) {
-	
+		if (rowLayout == null) {
+			Log.e(DEBUG_TAG, "loadEdits rowLayout null");
+			return;
+		}
 		loaded = false;
 		rowLayout.removeAllViews();
 		for (Entry<String, ArrayList<String>> pair : tags.entrySet()) {

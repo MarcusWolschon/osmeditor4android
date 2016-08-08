@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1180: Workaround for issue with onFocusChange listeners being called when fragment views are destroyed, numerous build improvmeents.
+ 
 1178: changes for building with buildship, export of Notes in OSN format, better file picker for saving and reading files, search button added to "Find" dialog
 
 1176: fix regression caused by 1174, preserve history better when merging nodes and ways.

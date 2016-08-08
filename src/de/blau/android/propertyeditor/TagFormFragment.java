@@ -248,14 +248,33 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     
     @Override
     public void onDestroyView() {
+    	// remove onFocusChangeListeners or else bad things might happen (at least with API 23)
+    	ViewGroup v = (ViewGroup) getView();
+        if (v != null) {
+        	loopViews(v);
+        }
     	super.onDestroyView();
     	Log.d(DEBUG_TAG, "onDestroyView");
     }
 
-
+    /**
+     * Recursively loop over views and remove onFocusChangeListeners, might be worth it
+     * to make this more generic
+     * @param view
+     */
+    private void loopViews(ViewGroup view) {
+        for (int i = 0; i < view.getChildCount(); i++) {
+            View v = view.getChildAt(i);
+            if (v instanceof ViewGroup) {
+                this.loopViews((ViewGroup) v);
+            } else {
+            	view.setOnFocusChangeListener(null);
+            }
+        }
+    } 
 	
 	/**
-	 * Simpilified version for non-multi-select and preset only situation
+	 * Simplified version for non-multi-select and preset only situation
 	 * @param key
 	 * @param value
 	 * @param allTags
