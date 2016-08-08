@@ -1,4 +1,16 @@
-[
+{
+"data_format":1,
+"data_url":"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo.json",
+"project":{
+"name":"Vespucci",
+"description":"Offline editor for OSM data on Android.",
+"project_url":"https://github.com/MarcusWolschon/osmeditor4android",
+"doc_url":"http://vespucci.io/",
+"icon_url":"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/res/drawable/osm_logo.png",
+"keywords":[
+"editor"
+]},
+"tags":[
 {"description":"Highways/Streets/Motorway","key": "highway","object_types": ["way"]},
 {"description":"Highways/Streets/Motorway","key": "highway","value": "motorway","object_types": ["way"]},
 {"description":"Highways/Streets/Motorway","key": "ref","object_types": ["way"]},
@@ -13745,5 +13757,4 @@
 {"description":"Offices/Vacant","key": "wheelchair","value": "yes","object_types": ["node","area"]},
 {"description":"Offices/Vacant","key": "wheelchair","value": "limited","object_types": ["node","area"]},
 {"description":"Offices/Vacant","key": "wheelchair","value": "no","object_types": ["node","area"]},
-{"description":"Offices/Vacant","key": "level","object_types": ["node","area"]}
-]
+{"description":"Offices/Vacant","key": "level","object_types": ["node","area"]}]}
