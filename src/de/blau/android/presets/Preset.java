@@ -1,5 +1,6 @@
 package de.blau.android.presets;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,13 +11,16 @@ import java.io.InputStream;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -43,6 +47,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -68,6 +73,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.views.WrappingLayout;
@@ -1970,24 +1976,29 @@ public class Preset implements Serializable {
 		public String toJSON() {
 			String jsonString = "";
 			for (String k:fixedTags.keySet()) {
-				jsonString = jsonString + tagToJSON(k, null);
 				jsonString = jsonString + tagToJSON(k, fixedTags.get(k).getValue());
 			}
 			for (String k:recommendedTags.keySet()) {
-				jsonString = jsonString + tagToJSON(k, null);
 				// check match attribute
 				MatchType match = getMatchType(k);
-				if (match==null || match == MatchType.KEY_VALUE) {
+				PresetKeyType type = getKeyType(k);
+				if (isEditable(k) || type==PresetKeyType.TEXT) {
+					jsonString = jsonString + tagToJSON(k, null);
+				}
+				if (!isEditable(k) && type != PresetKeyType.TEXT && (match==null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
 					for (StringWithDescription v:recommendedTags.get(k)) {
 						jsonString = jsonString + tagToJSON(k, v.getValue());
 					}
 				}
 			}
 			for (String k:optionalTags.keySet()) {
-				jsonString = jsonString + tagToJSON(k, null);
 				// check match attribute
 				MatchType match = getMatchType(k);
-				if (match==null || match == MatchType.KEY_VALUE) {
+				PresetKeyType type = getKeyType(k);
+				if (isEditable(k) || type==PresetKeyType.TEXT || (match != null && match != MatchType.KEY_VALUE)) {
+					jsonString = jsonString + tagToJSON(k, null);
+				}
+				if (!isEditable(k) && type != PresetKeyType.TEXT && (match==null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
 					for (StringWithDescription v:optionalTags.get(k)) {
 						jsonString = jsonString + tagToJSON(k, v.getValue());
 					}
@@ -2171,6 +2182,51 @@ public class Preset implements Serializable {
 			uri = Uri.parse(ctx.getString(R.string.link_mapfeatures));
 		}
 		return new Intent(Intent.ACTION_VIEW, uri);
+	}
+	
+	/**
+	 * This is for the taginfo project repo and not really for testing
+	 */
+	public static void generateTaginfoJson(Context ctx) {
+		Preset[] presets = Application.getCurrentPresets(ctx);
+		
+		File sdcard = Environment.getExternalStorageDirectory();
+		File outdir = new File(sdcard, "Vespucci");
+		outdir.mkdir(); // ensure directory exists;
+		String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss").format(new Date())+".json";
+		File outfile = new File(outdir, filename);
+		PrintStream outputStream = null;
+		try {
+			outputStream = new PrintStream(new BufferedOutputStream(new FileOutputStream(outfile)));
+			
+			outputStream.println("{");
+			outputStream.println("\"data_format\":1,");
+			outputStream.println("\"data_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo.json\",");
+			outputStream.println("\"project\":{");
+			outputStream.println("\"name\":\"Vespucci\",");
+			outputStream.println("\"description\":\"Offline editor for OSM data on Android.\",");
+			outputStream.println("\"project_url\":\"https://github.com/MarcusWolschon/osmeditor4android\",");
+			outputStream.println("\"doc_url\":\"http://vespucci.io/\",");
+			outputStream.println("\"icon_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/res/drawable/osm_logo.png\",");
+			outputStream.println("\"keywords\":[");
+			outputStream.println("\"editor\"");
+			outputStream.println("]},");
+			
+			outputStream.println("\"tags\":[");
+			for (int i=0;i<presets.length;i++) {
+				String json = presets[i].toJSON();
+				if (i==presets.length-1) {
+					int comma = json.lastIndexOf(',');
+					json = json.substring(0, comma);
+				}
+				outputStream.print(json);
+			}
+			outputStream.println("]}");
+		} catch (Exception e) {
+			Log.e("SavingHelper", "Export failed - " + filename);
+		} finally {
+			SavingHelper.close(outputStream);
+		}
 	}
 }
 

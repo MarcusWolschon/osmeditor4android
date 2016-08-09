@@ -81,11 +81,20 @@
         <reference ref="highway_yesno_incline_oneway_lit_width" />
         <reference ref="sidewalk" />
     </chunk>
+    <chunk id="crossing_type">    
+    	<combo key="crossing" text="Pedestrian crossing type" >
+ 			<list_entry value="uncontrolled" short_description="Not controlled" icon="presets/vehicle/crossing.svg" />
+ 			<list_entry value="traffic_signals" short_description="Traffic signals" icon="presets/vehicle/crossing_traffic_signals.svg" />
+			<list_entry value="island" short_description="Island" icon="presets/vehicle/crossing_island.svg" />
+			<list_entry value="unmarked" short_description="Unmarked" icon="presets/vehicle/crossing_unmarked.svg" />
+			<list_entry value="no" short_description="No crossing" />
+ 		</combo>
+ 	</chunk>
     <chunk id="railway_service">
         <combo key="service" text="Service type" values="yard,siding,spur,crossover" />
     </chunk>
     <chunk id="railway_electrified">
-        <combo key="electrified" text="Electrified" values="contact_line,no,yes,rail" />
+        <combo key="electrified" text="Electrified" values="contact_line,no,yes,rail" values_context="electrified" />
         <combo key="voltage" text="Voltage in Volts (V)" values="600,650,750,1500,3000,15000,25000" length="5" />
         <combo key="frequency" text="Frequency in Hertz (Hz)" values="0,16.67,16.7" length="5" />
     </chunk>
@@ -285,7 +294,7 @@
     </chunk>
     <chunk id="population_postcode_website">
         <text key="population" text="Population" />
-        <text key="addr:postcode" text="Post code" />
+        <text key="postal_code" text="Post code" />
         <text key="website" text="Website" />
     </chunk>
     <chunk id="route_hikebike_optionals">
@@ -1400,7 +1409,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=traffic_signals" />
             <key key="highway" value="traffic_signals" />
             <optional text="Optional crossing attributes:">
-                <combo key="crossing" text="Pedestrian crossing type" values="uncontrolled,traffic_signals,island,unmarked,no" />
+            	<reference ref="crossing_type" />
                 <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" />
                 <check key="button_operated" text="Button operated" disable_off="true" />
                 <check key="traffic_signals:sound" text="Sound signals" disable_off="true" />
@@ -1456,8 +1465,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:crossing" />
             <space />
             <key key="highway" value="crossing" />
-            <combo key="crossing" text="Pedestrian crossing type" values="uncontrolled,traffic_signals,island,unmarked,no" 
-                display_values="Not controlled,Traffic signals,Island,Unmarked,No crossing" />
+            <reference ref="crossing_type" />
             <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true" />
             <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" />
             <check key="bicycle" text="Cross by bicycle" disable_off="true" />
@@ -2881,6 +2889,13 @@
                 <reference ref="railway_service_gauge_electrified" />
             </optional>
         </item> <!-- Tram -->
+        <item name="Funicular" icon="presets/transport/railway/funicular.svg" type="way" preset_name_label="true">
+			<link href="http://wiki.openstreetmap.org/wiki/Tag:railway=funicular" />
+			<key key="railway" value="funicular" />
+			<optional>
+ 				<reference ref="railway_service_gauge_electrified" />
+			</optional>
+		</item> <!-- Funicular -->
         <item name="Bus Guideway" icon="icons/png/transport_bus_stop.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=bus_guideway"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=bus_guideway"
@@ -3571,12 +3586,15 @@
                 <text key="network" text="Network" />
                 <reference ref="tactile_paving" />
             </optional>
-            <check key="bus" text="Bus" disable_off="true" />
-            <check key="highway" value_on="bus_stop" value_off="" text="Bus stop (legacy)" />
-            <check key="tram" text="Tram" disable_off="true" />
-            <check key="railway" value_on="tram_stop" value_off="" text="Tram stop (legacy)" />
-            <check key="train" text="Train" disable_off="true" />
-            <check key="railway" value_on="station" value_off="" text="Railway station (legacy)" />
+			<space />
+			<checkgroup columns="2">
+           		<check key="bus" text="Bus" disable_off="true" />
+           		<check key="highway" value_on="bus_stop" value_off="" text="Bus stop (legacy)" />
+            	<check key="tram" text="Tram" disable_off="true" />
+            	<check key="railway" value_on="tram_stop" value_off="" text="Tram stop (legacy)" />
+            	<check key="train" text="Train" disable_off="true" />
+           		<check key="railway" value_on="station" value_off="" text="Railway station (legacy)" />
+           	</checkgroup>
             <check key="railway" value_on="halt" value_off="" text="Railway halt (legacy)" />
             <check key="trolleybus" text="Trolleybus" disable_off="true" />
             <check key="share_taxi" text="Share taxi" disable_off="true" />
@@ -5617,7 +5635,7 @@
             <key key="amenity" value="post_box" />
             <text key="operator" text="Operator" />
             <text key="ref" text="Reference number" />
-            <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30"  values_no_i18n="true" editable="true" />
+            <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30"  values_no_i18n="true" match="none" editable="true" />
             <check key="drive_through" text="Drive through" disable_off="true" />
         </item> <!-- Post Box -->
         <item name="Telephone" icon="icons/png/amenity_telephone.png" type="node" preset_name_label="true">
@@ -5781,7 +5799,7 @@
             <reference ref="facility_access" />
             <reference ref="fee" />
             <text key="operator" text="Operator" />
-            <combo key="opening_hours" text="Operation times" values="24/7"  values_no_i18n="true" />
+            <combo key="opening_hours" text="Operation times" values="24/7" match="none" editable="true" values_no_i18n="true" />
         </item> <!-- Sanitary Dump Station -->
         <separator/>
         <item name="Bench" icon="icons/png/amenity_bench.png" type="node,way" preset_name_label="true">
@@ -5817,8 +5835,15 @@
             <key key="amenity" value="shelter" />
             <text key="name" text="Name" />
             <check key="fireplace" text="Fireplace" disable_off="true" />
-            <combo key="shelter_type" text="Type of shelter" values="basic_hut,lean_to,picnic_shelter,public_transport,weather_shelter,wildlife_hide" values_context="shelter" values_searchable="true" />
-        </item> <!-- Shelter -->
+            <combo key="shelter_type" text="Type of shelter" values_context="shelter" values_searchable="true">
+				<list_entry value="basic_hut" short_description="Basic hut" icon="presets/accommodation/basic_hut_blue.png" />
+				<list_entry value="lean_to" short_description="lean to" icon="presets/accommodation/shelter_lean_to.svg" />
+				<list_entry value="picnic_shelter" short_description="Picnic shelter" icon="presets/accommodation/shelter_picnic_brown.png" />
+				<list_entry value="public_transport" short_description="Public transport" icon="presets/accommodation/shelter_public_transport_brown.png" />
+				<list_entry value="weather_shelter" short_description="Weather shelter" icon="presets/accommodation/shelter.svg" />
+				<list_entry value="wildlife_hide" short_description="Wildlife hide" icon="presets/accommodation/shelter.svg" />
+			</combo>
+		</item> <!-- Shelter -->
         <item name="Hunting Stand" icon="icons/png/amenity_hunting_stand_12076.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=hunting_stand"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=hunting_stand"
@@ -5940,6 +5965,15 @@
             <reference ref="sport" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sports Centre -->
+		<item name="Fitness Centre" icon="presets/sport/fitness_centre.png" type="node,closedway,multipolygon" preset_name_label="true">
+			<link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=fitness_centre" />
+			<space />
+			<key key="leisure" value="fitness_centre" />
+			<text key="name" text="Name" />
+			<reference ref="sport" />
+			<reference ref="link_contact_address_payment" />
+			<preset_link preset_name="Building" />
+		</item> <!-- Fitness Centre -->
         <item name="Pitch" icon="icons/png/sport_pitch_21033.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=pitch"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=pitch"
@@ -6936,7 +6970,7 @@
                   pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:highway=street_lamp" />
             <space />
             <key key="highway" value="street_lamp" />
-            <combo key="opening_hours" text="Operation times" values="Mo-Fr 22:00-05:00" values_no_i18n="true" />
+            <combo key="opening_hours" text="Operation times" values="Mo-Fr 22:00-05:00" match="none" editable="true" values_no_i18n="true" />
         </item> <!-- Street Lamp -->
         <item name="Monitoring Station" icon="icons/png/man_made_monitoring_station_22042.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=monitoring_station"
@@ -7411,7 +7445,7 @@
                 <combo key="design" text="Tower design" values="one-level,two-level,donau,three-level,barrel,asymmetric,triangle,flag,donau;one-level,four-level,six-level,nine-level,delta,delta_two-level,y-frame,x-frame,h-frame,guyed_h-frame,portal,portal_two-level,portal_three-level,guyed_v-frame,bipole,monopolar" values_context="power" />
                 <check key="triple_tower" text="Triple tower" disable_off="true" />
                 <check key="design:incomplete" text="Incomplete tower" disable_off="true" />
-                <check key="tower" text="Location transition" value_on="transition" disable_off="true" />
+                <check key="location:transition" text="Location transition" disable_off="true" />
             </optional>
         </item> <!-- Power Tower -->
         <item name="Pole" icon="icons/png/power_tower_low.png" type="node" preset_name_label="true">
@@ -7429,7 +7463,7 @@
             <key key="power" value="pole" />
             <text key="height" text="Height in meter (m)" />
             <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" />
-            <check key="pole" text="Location transition" value_on="transition" disable_off="true" />
+            <check key="location:transition" text="Location transition" disable_off="true" />
             <reference ref="ref_operator_branch" />
         </item> <!-- Pole -->
         <item name="Pole with Transformer" icon="icons/png/power_transformer_26042.png" type="node" preset_name_label="true">
@@ -7446,7 +7480,7 @@
             <label text="Pole Attributes:" />
             <text key="height" text="Height in meter (m)" />
             <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" />
-            <check key="pole" text="Location transition" value_on="transition" disable_off="true" />
+            <check key="location:transition" text="Location transition" disable_off="true" />
             <reference ref="ref_operator_branch" />
             <space />
             <label text="Transformer Attributes:" />
@@ -8361,6 +8395,11 @@
             <space />
             <key key="shop" value="hairdresser" />
             <reference ref="name_oh_wheelchair_level" />
+			<checkgroup columns="3">
+				<check key="female" text="Female" />
+				<check key="male" text="Male" />
+				<check key="unisex" text="Unisex" />
+			</checkgroup>
             <reference ref="link_contact_address_payment" />
         </item> <!-- Hairdresser/Barber -->
         <item name="Tattoo" icon="icons/png/shopping_tattoo_29190.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -9123,6 +9162,14 @@
             <key key="place" value="islet" />
             <reference ref="name_wikipedia" />
         </item> <!-- Islet -->
+        <item name="Reef" icon="presets/landmark/reef.svg" type="node,closedway,multipolygon" preset_name_label="true">
+			<link href="http://wiki.openstreetmap.org/wiki/Tag:natural=reef"
+					de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:natural=reef" />
+			<space />
+			<key key="natural" value="reef" />
+			<text key="name" text="Name" />
+			<combo key="reef" text="Type" values="coral,oyster,rock,sand" />
+		</item> <!-- Reef -->
     </group> <!-- Geography -->
     <group name="Nature" icon="icons/png/landuse_coniferous_and_deciduous.png">
         <item name="Tree" icon="icons/png/natural_tree_24020.png" type="node" preset_name_label="true">
@@ -9142,13 +9189,10 @@
             <key key="natural" value="tree" />
             <text key="name" text="Name" />
             <text key="height" text="Height in meter (m)" />
-            <text key="name:botanical" text="Botanical Name" />
-            <optional>
-                <text key="genus" text="Genus" />
-                <text key="species" text="Species" />
-                <text key="taxon" text="Taxon" />
-                <reference ref="leaf" />
-            </optional>
+            <text key="genus" text="Genus" />
+            <text key="species" text="Species" />
+            <text key="taxon" text="Taxon" />
+            <reference ref="leaf" />
         </item> <!-- Tree -->
         <item name="Tree Row" icon="icons/png/landuse_coniferous_and_deciduous.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:natural=tree_row"
@@ -10976,7 +11020,9 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:office=government" />
             <space />
             <key key="office" value="government" />
-            <reference ref="name_oh_wheelchair_level" />
+            <text key="name" text="Name" />
+			<combo key="government" text="Type" values="ministry,prosecutor,tax,register_office" display_values="Ministry,Prosecutor,Tax,Register office" />
+            <reference ref="oh_wheelchair_level" />
             <reference ref="link_contact_address" />
         </item> <!-- Government -->
         <item name="Insurance" icon="icons/png/office_insurance_25007.png" type="node,closedway,multipolygon">
