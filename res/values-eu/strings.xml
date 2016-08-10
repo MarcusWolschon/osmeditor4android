@@ -33,7 +33,6 @@
   <string name="toast_not_in_bug_range">Mesedez akats jakinarazpena gehitzera gerturatu  (Bolumena igo/jaitsi edo Lentea/Shift)</string>
   <string name="toast_export_failed">Esportatzeak huts egin du</string>
   <string name="toast_export_success">%1$s-ra esportatu da</string>
-  <string name="toast_preset_overwrote_tags">Oharra - aurrez gainidatzitako etiketa(k)</string>
   <string name="toast_oneway_reversed">Bide bakarreko kalea edo norabide etiketa duen bidea leheneratu duzu. Begiratu mesedez etiketak eta zuzen itzazu beharrezkoa izan ezkero.</string>
   <string name="toast_state_file_failed">Egoera fitxategi irakurgaitza edo hondatua</string>
   <string name="toast_too_many_nodes_for_move">Mugitzeko bidean nodo gehiegi daude</string>
@@ -79,9 +78,6 @@
   <string name="menu_erase">Nodoa ezabatu</string>
   <string name="menu_split">Zatitu</string>
   <string name="menu_append">Erantsi</string>
-  <string name="menu_restriction">Debekua gehitu</string>
-  <string name="menu_restriction_via">Debekua gehitu honen bitarte</string>
-  <string name="menu_restriction_to">Honi debekua gehitu</string>
   <string name="menu_tag">Etiketak editatu</string>
   <string name="menu_openstreetbug">Nota Gehitu</string>
   <string name="menu_easyedit">EdizioErraza</string>

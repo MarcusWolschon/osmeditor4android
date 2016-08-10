@@ -102,9 +102,6 @@
   <string name="menu_erase">Obriši točku</string>
   <string name="menu_split">Podijeli put</string>
   <string name="menu_append">Nastavi</string>
-  <string name="menu_restriction">Dodaj zabranu</string>
-  <string name="menu_restriction_via">Dodaj zabranu via</string>
-  <string name="menu_restriction_to">Dodaj zabranu do</string>
   <string name="menu_relation">Stvori relaciju</string>
   <string name="menu_tag">Uredi oznake</string>
   <string name="menu_openstreetbug">Dodaj bilješku</string>

@@ -118,7 +118,6 @@
   <string name="toast_not_in_bug_range">Будь ласка, збільшіть масштаб щоб додавати нотатки (Гучність +/- або Рушій масштабу)</string>
   <string name="toast_export_failed">Збій експорту</string>
   <string name="toast_export_success">Експортовано у %1$s</string>
-  <string name="toast_preset_overwrote_tags">Примітка - заготовка переписала теґ(и)</string>
   <string name="toast_oneway_reversed">Ви змінили напримок вулиці з одностороннім рухом або лінії, для якої враховується напрямок. Будь ласка перевірте теґи та виправте їх у разі потреби.</string>
   <string name="toast_merge_tag_conflict">Ви об’єднали елементи, що мають конфлікт у значеннях теґів; з різними напрямками; або різними ролям з одного зв’язку. Будь ласка, перевірте теґи та ролі і виправте їх у разі потреби.</string>
   <string name="toast_potential_merge_tag_conflict">Ви намагаєтесь об’єднати елементи, що мають конфлікт у значеннях теґів. Будь ласка, перевірте їх та виправте перед тим як спробувати знов.</string>
@@ -165,7 +164,6 @@
   <string name="replace">Замінити</string>
   <string name="save">Зберегти</string>
   <string name="back">Назад</string>
-  <string name="foward">Вперед</string>
   <string name="keep">Залишити</string>
   <!--Dialog for back button-->
   <string name="exit_title">Дійсно вийти?</string>
@@ -187,9 +185,7 @@
   <string name="tag_menu_resetMRU">Скинути заготовки</string>
   <string name="tag_menu_reset_address_prediction">Скинути прогнозування адрес</string>
   <string name="tag_menu_exit_no_save">Вийти\nбез збереження</string>
-  <string name="tag_value_hint">Натсніть для вибору значень</string>
   <string name="tag_multi_value_hint">Кілька значень</string>
-  <string name="tag_action_title">Виділені теґи</string>
   <string name="menu_up">Вгору</string>
   <string name="menu_top">Верх</string>
   <string name="menu_preset_help">Довідка заготовки</string>
@@ -227,9 +223,6 @@
   <string name="menu_closed_way_split_1">Розбити замкнену лінію, 1-ша точка</string>
   <string name="menu_closed_way_split_2">Розбити замкнуту лінію, 2-га точка</string>
   <string name="menu_append">Додати</string>
-  <string name="menu_restriction">Додати обмеження</string>
-  <string name="menu_restriction_via">Додати обмеження „через“</string>
-  <string name="menu_restriction_to">Додати обмеження „до“</string>
   <string name="menu_relation">Створити зв’язок</string>
   <string name="menu_add_relation_member">Додати члена</string>
   <string name="menu_select_relation_members">Виділити членів</string>

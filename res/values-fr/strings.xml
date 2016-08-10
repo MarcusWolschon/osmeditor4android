@@ -129,7 +129,6 @@ Amusez-vous bien !</string>
   <string name="toast_not_in_bug_range">Veuillez zoomer pour ajouter un bug (Volume +/- ou Loupe/Shift)</string>
   <string name="toast_export_failed">L\'export a échoué</string>
   <string name="toast_export_success">Exporté vers %1$s</string>
-  <string name="toast_preset_overwrote_tags">Note : l\'application des attributs prédéfinis a écrasé un ou plusieurs attributs</string>
   <string name="toast_oneway_reversed">Vous avez inversé une route à sens unique (oneway), ou un chemin contenant un attribut dépendant de la direction. Merci de vérifier les attributs et de les corriger si nécessaire.</string>
   <string name="toast_merge_tag_conflict">Vous avez fusionné des éléments ayant des attributs incompatibles, dépendantes du sens, ou ayant des rôles différents dans une même relation.  Merci de vérifier les tags et les rôles et de les corriger si nécessaire.</string>
   <string name="toast_potential_merge_tag_conflict">Vous essayez de fusioner des élément avec des valeurs de tag incompatibles. Veullez vérifier les tags et les corriger avant de réessayer.</string>
@@ -172,7 +171,6 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="replace">Remplacer</string>
   <string name="save">Enregistrer</string>
   <string name="back">Retour</string>
-  <string name="foward">Avance</string>
   <string name="keep">Conserver</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vraiment quitter ?</string>
@@ -193,9 +191,7 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="tag_menu_resetMRU">Réinitialiser les modèles d\'attributs</string>
   <string name="tag_menu_reset_address_prediction">Remise à zéro de la prédiction des adresses</string>
   <string name="tag_menu_exit_no_save">Quitter\nsans sauvegarder</string>
-  <string name="tag_value_hint">Appuyez pour voir les valeurs</string>
   <string name="tag_multi_value_hint">Plusieur valeurs</string>
-  <string name="tag_action_title">Tags sélectionés</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Télécharger une zone</string>
   <string name="location_choose_radius">Rayon :</string>
@@ -232,9 +228,6 @@ il y a %3$s %4$s</string>
   <string name="menu_closed_way_split_1">Découpage d\'un chemin fermé, 1er nœud</string>
   <string name="menu_closed_way_split_2">Découpage d\'un chemin fermé, 2ème nœud</string>
   <string name="menu_append">Prolonger</string>
-  <string name="menu_restriction">Ajouter une restriction</string>
-  <string name="menu_restriction_via">Ajouter une restriction via</string>
-  <string name="menu_restriction_to">Ajouter une restriction vers</string>
   <string name="menu_relation">Créer une relation</string>
   <string name="menu_add_relation_member">Ajouter un membre</string>
   <string name="menu_select_relation_members">Sélectioner membres</string>

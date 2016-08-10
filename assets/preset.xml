@@ -35,6 +35,11 @@
         <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" values_context="riding" />
         <combo key="surface" text="Surface" values="grass,sand,clay,dirt,fine_gravel,ground,mud,unpaved,compacted" />
     </chunk>
+    <chunk id="lanes">
+        <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" match="none" />
+        <combo key="lanes:forward" text="Lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
+        <combo key="lanes:backward" text="Lanes opposed to way direction" values="1,2,3,4,5" length="3" match="none" />
+    </chunk>
     <chunk id="highway_base">
         <text key="maxspeed" text="Max. speed (km/h)"/>
         <text key="maxspeed:forward" text="Max. speed in way direction" />
@@ -42,9 +47,7 @@
         <space />
         <reference ref="surface_smoothness" />
         <space />
-        <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3"/>
-        <combo key="lanes:forward" text="Lanes in way direction" values="1,2,3,4,5" length="3" />
-        <combo key="lanes:backward" text="Lanes opposed to way direction" values="1,2,3,4,5" length="3" />
+        <reference ref="lanes" />
     </chunk>
     <chunk id="layer" >
     	<combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" match="none" editable="true" />
@@ -493,7 +496,7 @@
     <text key="operator" text="Operator" />
     <text key="network" text="Network" />
     <text key="description" text="Description" />
-    <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" match="none" editable="true" />
+    <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="colour" values="black,brown,green,red,blue,gray,white,#CD853F" match="none" editable="true" />
   </chunk>
   <chunk id="tactile_paving">
   	<combo key="tactile_paving" text="Tactile paving" match="key" values_sort="false" >
@@ -870,7 +873,7 @@
             <combo key="vehicle" text="Vehicle access" values="yes,no,destination" default="no" />
             <text key="maxspeed" text="Max. speed (km/h)" default="30" />
             <optional>
-                <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" />
+                <reference ref="lanes" />
                 <reference ref="layer" />
                 <reference ref="surface_smoothness" />
                 <check key="oneway" text="Oneway" disable_off="true" />
@@ -896,7 +899,7 @@
             <key key="highway" value="living_street" />
             <text key="name" text="Name" />
             <optional>
-                <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" />
+                <reference ref="lanes" />
                 <reference ref="layer" />
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
@@ -919,7 +922,7 @@
             <key key="highway" value="pedestrian" />
             <text key="name" text="Name" />
             <optional>
-                <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" />
+                <reference ref="lanes" />
                 <reference ref="layer" />
                 <reference ref="surface_smoothness" />
                 <check key="area" text="Area" disable_off="true" />
@@ -1041,7 +1044,7 @@
             <combo key="highway" text="Type" values="motorway,motorway_link,trunk,trunk_link,primary,primary_link,secondary,tertiary,unclassified,residential,living_street,service,bus_guideway,construction" values_context="Highway" />
             <optional>
                 <reference ref="name_layer" />
-                <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" />
+                <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" match="none" />
                 <reference ref="highway_yesno_incline_oneway" />
                 <text key="width" text="Width (meters)" />
             </optional>
@@ -1413,7 +1416,7 @@
                 <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" />
                 <check key="button_operated" text="Button operated" disable_off="true" />
                 <check key="traffic_signals:sound" text="Sound signals" disable_off="true" />
-                <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" />
+                <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" />
                 <reference ref="tactile_paving" />
                 <check key="bicycle" text="Cross by bicycle" disable_off="true" />
                 <check key="horse" text="Cross on horseback" disable_off="true" />
@@ -1467,7 +1470,7 @@
             <key key="highway" value="crossing" />
             <reference ref="crossing_type" />
             <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true" />
-            <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" />
+            <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" />
             <check key="bicycle" text="Cross by bicycle" disable_off="true" />
             <check key="horse" text="Cross on horseback" disable_off="true" />
             <reference ref="kerb" />
@@ -3546,7 +3549,7 @@
             <optional>
                 <text key="operator" text="Operator" />
                 <text key="network" text="Network" />
-                <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" />
+                <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="colour" values="black,brown,green,red,blue,gray,white,#CD853F" match="none" editable="true" />
             </optional>
             <roles>
                 <role key="" text="route variant/direction (at least 2)" requisite="required" type="relation" member_expression="type=route" /> <!-- FIXME: at least 2 members are required -->
@@ -3698,7 +3701,7 @@
                 <text key="operator" text="Operator" />
                 <text key="network" text="Network" />
                 <text key="description" text="Description" />
-                <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" />
+                <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="colour" values="black,brown,green,red,blue,gray,white,#CD853F" match="none" editable="true" />
             </optional>
             <roles>
                 <role key="" text="route segment" requisite="optional" type="way,closedway" />
@@ -5819,7 +5822,7 @@
             <key key="amenity" value="bench" />
             <check key="backrest" text="Backrest" disable_off="true" />
             <combo key="material" text="Material" values="concrete,metal,plastic,stone,wood" />
-            <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" />
+            <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="colour" values="black,brown,green,red,blue,gray,white,#CD853F" match="none" editable="true" />
             <combo key="seats" text="Seats count" values="2,3,4,5,6,7,8,9,10" />
         </item> <!-- Bench -->
         <item name="Shelter" icon="icons/png/accommodation_shelter2.png" type="node,closedway" preset_name_label="true">
@@ -7417,7 +7420,7 @@
             <text key="height" text="Height (meters)" />
             <combo key="structure" text="Type of construction" values="lattice,tubular,solid" />
             <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" />
-            <combo key="colour" text="Color (HTML name or hexadecimal code)" values="black,red,white,gray,red/white" values_context="color" />
+            <combo key="colour" text="Color (HTML name or hexadecimal code)" values="black,red,white,gray,red/white" values_context="colour"  match="none" editable="true" />
             <reference ref="ref_operator_branch" />
             <combo key="design" text="Portal design" values="portal,portal_two-level,portal_three-level" values_context="power" />
         </item> <!-- Power Portal -->
@@ -7437,7 +7440,7 @@
             <text key="height" text="Height in meter (m)" />
             <combo key="structure" text="Type of construction" values="lattice,tubular,solid" />
             <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" />
-            <combo key="colour" text="Color (HTML name or hexadecimal code)" values="black,red,white,gray,red/white" values_context="color" />
+            <combo key="colour" text="Color (HTML name or hexadecimal code)" values="black,red,white,gray,red/white" values_context="colour"  match="none" editable="true" />
             <reference ref="ref_operator_branch" />
             <optional>
                 <combo key="tower:type" text="Tower type" values="suspension,anchor,termination,branch,transposing,crossing,transition" text_context="power" values_context="power" />

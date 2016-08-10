@@ -108,9 +108,6 @@
   <string name="menu_set_position">Posició</string>
   <string name="menu_split">Divideix</string>
   <string name="menu_append">Afegeix</string>
-  <string name="menu_restriction">Afegeix una restricció</string>
-  <string name="menu_restriction_via">Afegeix una via de restricció</string>
-  <string name="menu_restriction_to">Afegeix una restricció a</string>
   <string name="menu_relation">Crea una relació</string>
   <string name="menu_tag">Edita les etiquetes</string>
   <string name="menu_openstreetbug">Afegeix una nota</string>

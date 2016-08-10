@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Házszám (addr:housenumber)</item>
+    <item>Utva (addr:street)</item>
+    <item>Irányítószám (addr:postcode)</item>
+    <item>Város/falu/…  (addr:city)</item>
+    <item>Oszág (addr:country)</item>
+    <item>Teljes cím (addr:full)</item>
+    <item>Hely (addr:place)</item>
+    <item>Falucska (addr:hamlet)</item>
+    <item>Előváros (addr:suburb)</item>
+    <item>Alkerület (addr:subdistrict)</item>
+    <item>Kerület (addr:district)</item>
+    <item>Tartomány (addr:province)</item>
+    <item>Állam (addr:state)</item>
+    <item>Lakások (addr:flats)</item>
+    <item>Ajtó (addr:door)</item>
+    <item>Egység (addr:unit)</item>
+  </string-array>
+</resources>

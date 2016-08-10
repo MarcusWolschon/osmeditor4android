@@ -36,7 +36,6 @@
   <string name="toast_not_in_bug_range">Por favor, fai zoom para engadir un erro (Volume +/- ou Lens/Shift)</string>
   <string name="toast_export_failed">Fallou a exportación</string>
   <string name="toast_export_success">Exportado a %1$s</string>
-  <string name="toast_preset_overwrote_tags">Aviso: o preaxuste sobreescribiu unha ou varias etiquetas</string>
   <string name="toast_oneway_reversed">Invertiches unha rúa de sentido único ou unha vía con etiquetas dependentes do sentido. Comproba as etiquetas e corríxeas se é necesario.</string>
   <string name="toast_merge_tag_conflict">Combinaches elementos que teñen valores de etiqueta conflictivos, semántica dependente da dirección ou roles diferentes na mesma relación. Por favor, comproba as etiquetas e os roles e corríxeos se é necesario.</string>
   <string name="toast_state_file_failed">Ficheiro de estado corrupto ou ilexible</string>
@@ -86,9 +85,6 @@
   <string name="menu_erase">Borrar punto</string>
   <string name="menu_split">Dividir</string>
   <string name="menu_append">Engadir</string>
-  <string name="menu_restriction">Engadir restrición</string>
-  <string name="menu_restriction_via">Engadir restrición mediante</string>
-  <string name="menu_restriction_to">Engadir restrición a</string>
   <string name="menu_tag">Editar etiquetas</string>
   <string name="menu_openstreetbug">Engadir Nota</string>
   <string name="menu_easyedit">Edición Fácil</string>

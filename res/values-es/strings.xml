@@ -116,7 +116,6 @@
   <string name="toast_not_in_bug_range">Acerque para añadir un bug (Botón volumen arriba/abajo o Lens/Shift)</string>
   <string name="toast_export_failed">Fallo al exportar</string>
   <string name="toast_export_success">Exportado a %1$s</string>
-  <string name="toast_preset_overwrote_tags">Aviso - el predeterminado sobreescribió la(s) etiqueta(s)</string>
   <string name="toast_oneway_reversed">Invirtió el sentido de una calle o una vía con etiquetas de dirección. Compruebe las etiquetas y corrija si es necesario.</string>
   <string name="toast_merge_tag_conflict">Combinó elementos que tienen valores de etiqueta conflictivos, semántica dependiente de la dirección o roles diferentes en la misma relación. Compruebe las etiquetas y roles y corrija si es necesario.</string>
   <string name="toast_potential_merge_tag_conflict">Está tratando de combinar elementos que tienen conflictos en los valores de las etiquetas. Compruebe las etiquetas y corrija primero antes de intentar de nuevo.</string>
@@ -163,7 +162,6 @@
   <string name="replace">Reemplazar</string>
   <string name="save">Guardar</string>
   <string name="back">Atrás</string>
-  <string name="foward">Adelante</string>
   <string name="keep">Mantener</string>
   <!--Dialog for back button-->
   <string name="exit_title">¿Salir?</string>
@@ -185,12 +183,27 @@
   <string name="tag_menu_resetMRU">Restablecer predeterminados</string>
   <string name="tag_menu_reset_address_prediction">Restablecer predicción de direcciones</string>
   <string name="tag_menu_exit_no_save">Salir\nsin guardar</string>
-  <string name="tag_value_hint">Pulsa para ver valores</string>
+  <string name="tag_value_hint">Tipo de valor</string>
+  <string name="tag_autocomplete_name_hint">Tipo o pulse para obtener sugerencias de nombres</string>
   <string name="tag_multi_value_hint">Valores múltiples</string>
-  <string name="tag_action_title">Eitquetas seleccionadas</string>
+  <string name="tag_dialog_value_hint">Pulse para obtener valores</string>
+  <string name="tag_action_tag_title">Etiqueta(s) seleccionada(s)</string>
+  <string name="tag_action_members_title">Miembro(s) seleccionado(s)</string>
+  <string name="tag_action_parents_title">Relacion(es) seleccionada(s)</string>
+  <string name="tag_additional_properties">Propiedades adicionales</string>
+  <string name="tag_details">Detalles</string>
+  <string name="tag_not_set">No establecer</string>
+  <string name="tag_menu_move_up">Mover arriba</string>
+  <string name="tag_menu_move_top">Mover al principio</string>
+  <string name="tag_menu_move_down">Mover abajo</string>
+  <string name="tag_menu_move_bottom">Mover al final</string>
+  <string name="tag_menu_sort">Ordenar</string>
+  <string name="tag_menu_download">Descargar</string>
   <string name="menu_up">Subir</string>
   <string name="menu_top">Arriba</string>
   <string name="menu_preset_help">Ayuda predeterminados</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i8n">Añadir etiquetas para %1$s</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elegir radio:</string>
@@ -226,9 +239,7 @@
   <string name="menu_closed_way_split_1">Dividir vía cerrada, 1er nodo</string>
   <string name="menu_closed_way_split_2">Dividir vía cerrada, 2do nodo</string>
   <string name="menu_append">Anexar</string>
-  <string name="menu_restriction">Añadir restricción</string>
-  <string name="menu_restriction_via">Añadir restricción vía</string>
-  <string name="menu_restriction_to">Añadir restricción hacia</string>
+  <string name="menu_restriction">Añadir restricción de giro</string>
   <string name="menu_relation">Crear relación</string>
   <string name="menu_add_relation_member">Añadir miembro</string>
   <string name="menu_select_relation_members">Miembros seleccionados</string>
@@ -281,6 +292,8 @@
   <string name="menu_extend_selection">Ampliar selección</string>
   <string name="menu_information">Información</string>
   <string name="menu_voice_commands">Comandos de voz</string>
+  <string name="menu_set_name">Establecer nombre</string>
+  <string name="tag_form_unknown_element">Elemento desconocido (sin preestablecido)</string>
   <string name="menu_tools">Herramientas</string>
   <string name="menu_tools_flush_background_tile_cache">Liberar caché de teselas de fondo</string>
   <string name="menu_tools_flush_overlay_tile_cache">Liberar caché de teselas superpuestas</string>
@@ -311,6 +324,7 @@
   <string name="deleteway_wayandnodes">Eliminar vía y nodos</string>
   <string name="deletenode_relation_description">Está a punto de eliminar un nodo que es un miembro de una o más relaciones. Quitando el nodo de la(s) relacion(es) puede dejarla(s) inválida(s).</string>
   <string name="deletenode">Borrar nodo</string>
+  <string name="split_all_ways">Dividir todas las vías</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vía seleccionada</string>
   <string name="actionmode_nodeselect">Nodo seleccionado</string>
@@ -318,6 +332,7 @@
   <string name="actionmode_createpath">Creando camino</string>
   <string name="actionmode_multiselect">Multiselección</string>
   <!--Preferences-->
+  <string name="config_category_editing">Ajustes de datos y edición</string>
   <string name="config_category_view">Ajustes de la interfaz de usuario</string>
   <string name="config_showCameraAction_title">Mostrar la acción de la cámara</string>
   <string name="config_showCameraAction_summary">Muestra el icono de la cámara en la barra de acciones</string>
@@ -363,6 +378,7 @@
   <string name="config_presetbutton_summary">Añade y habilita predeterminados compatibles con JOSM</string>
   <string name="config_iconbutton_title">Mostrar íconos en nodos</string>
   <string name="config_iconbutton_summary">Muestra el icono del predeterminado que mejor coincidencia sobre los nodos.</string>
+  <string name="config_showWayIcons_title">Mostrar iconos PDI en edificios</string>
   <string name="config_loginbutton_title">Cuenta de usuario</string>
   <string name="config_username_title">Nombre de usuario OSM</string>
   <string name="config_username_summary">Configuración necesaria para subir los datos OSM sólo si no está utilizando OAuth. Consiga una nueva cuenta en http://www.openstreetmap.org/user/new</string>
@@ -415,6 +431,9 @@
   <string name="config_address_tags">Etiquetas de direcciones</string>
   <string name="config_address_tags_summary">Etiquetas utilizadas para la predicción de direcciones</string>
   <string name="config_moreprefs">Más ajustes...</string>
+  <string name="config_tagFormEnabled_title">Mostrar formulario etiqueta</string>
+  <string name="config_tagFormEnabled_summary">Mostrar formulario etiqueta para edición</string>
+  <string name="config_fullscreenMode_title">Modo pantalla completa</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar predeterminados</string>
   <string name="preset_download_successful">Predeterminados descargados correctamente</string>
@@ -445,6 +464,8 @@
   <string name="default_">Predeterminado</string>
   <string name="api_name">Nombre API</string>
   <string name="api_url">URL API</string>
+  <string name="readonly_url">URL API Sólo Lectura (opcional)</string>
+  <string name="notes_url">URL API Notes (opcional)</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Predeterminado</string>
   <string name="api">API</string>
@@ -537,5 +558,20 @@
   <string-array name="note_state">
     <item>Abierto</item>
     <item>Cerrado</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Izquierda</item>
+    <item>Derecha</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Auto</item>
+    <item>Nunca</item>
+    <item>Forzar</item>
+    <item>Sin barra de estado</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Nunca</item>
+    <item>Forzar</item>
+    <item>Sin barra de estado</item>
   </string-array>
 </resources>

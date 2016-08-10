@@ -112,7 +112,6 @@
   <string name="toast_not_in_bug_range">Böcek eklemek için yaklaştırın (Ses yükselt/Alçalt veya Lens/Shift)</string>
   <string name="toast_export_failed">Dışa aktarma başarız</string>
   <string name="toast_export_success">%1$s aktarıldı</string>
-  <string name="toast_preset_overwrote_tags">Uyarı önceden belirlenmiş etiket(ler) üzerine yazılacak</string>
   <string name="toast_oneway_reversed">Tek yönlü ya da etikete bağlı mecburi dönüş olan yolu tersine çevirdiniz. Lütfen etiketleri kontrol edin gerekirse düzenleyin.</string>
   <string name="toast_merge_tag_conflict">Etiket değerleri çakışan unsurları birleştirdiniz, yön semantik olarak bağımlı ya da aynı ilişki içinde farklı bir rolü var. Lütfen etiketlerle rolleri kontrol edin ve gerekliyse düzeltin.</string>
   <string name="toast_potential_merge_tag_conflict">Etiketleri çakışan unsurları birleştirmeye çalışıyorsunuz. Lütfen tekrar denemeden önce etiketleri kontrol edin ve düzeltin.</string>
@@ -155,7 +154,6 @@
   <string name="replace">Değiştir</string>
   <string name="save">Kaydet</string>
   <string name="back">Geri</string>
-  <string name="foward">İleri</string>
   <string name="keep">Sakla</string>
   <!--Dialog for back button-->
   <string name="exit_title">Gerçekten çıkıyor musun?</string>
@@ -177,9 +175,7 @@
   <string name="tag_menu_resetMRU">Öntanımlıları Sıfırla</string>
   <string name="tag_menu_reset_address_prediction">Adres tahminini sıfırla</string>
   <string name="tag_menu_exit_no_save">Kaydetmeden\nçık</string>
-  <string name="tag_value_hint">Değer için dokunun</string>
   <string name="tag_multi_value_hint">Çoklu değer</string>
-  <string name="tag_action_title">Etiketler seçildi</string>
   <string name="menu_up">Yukarı</string>
   <string name="menu_top">En üst</string>
   <string name="menu_preset_help">Öntanımlı yardımı</string>
@@ -217,9 +213,6 @@
   <string name="menu_closed_way_split_1">1.düğüm, bölünmüş kapalı yol</string>
   <string name="menu_closed_way_split_2">2. düğüm, Bölünmüş kapalı yol</string>
   <string name="menu_append">Ekle</string>
-  <string name="menu_restriction">Kısıtlama ekle</string>
-  <string name="menu_restriction_via">Aracılığıyla kısıtlama ekle</string>
-  <string name="menu_restriction_to">İçin kısıtlama ekle</string>
   <string name="menu_relation">İlişki oluştur</string>
   <string name="menu_add_relation_member">Üye ekle</string>
   <string name="menu_select_relation_members">Üye seç</string>

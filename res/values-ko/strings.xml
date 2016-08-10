@@ -79,7 +79,6 @@
   <string name="set">설정</string>
   <string name="save">저장</string>
   <string name="back">뒤로</string>
-  <string name="foward">앞으로</string>
   <string name="keep">유지</string>
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
@@ -96,7 +95,11 @@
   <!--Text should be as short as possible-->
   <!--EasyEdit action mode titles-->
   <!--Preferences-->
+  <string name="config_enableOpenStreetBugs_title">버그와 참고 표시 활성화</string>
+  <string name="config_enableOpenStreetBugs_summary">참고/오류를 표시하고, 편집하고 만듭니다.</string>
   <string name="config_category_misc">기타</string>
+  <string name="config_tagFormEnabled_title">태그 양식 표시</string>
+  <string name="config_tagFormEnabled_summary">편집을 위해 태그 양식 표시</string>
   <!--preset downloader messages-->
   <!--changes-->
   <!--url handler activity-->

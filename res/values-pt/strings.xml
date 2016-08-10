@@ -89,7 +89,6 @@
   <string name="toast_not_in_bug_range">Faça zoom in para adicionar um bug (Volume +/- ou Lente/Shift)</string>
   <string name="toast_export_failed">Exportação falhou</string>
   <string name="toast_export_success">Exportado para %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota - predefinição sobrepôs tag(s)</string>
   <string name="toast_oneway_reversed">Você inverteu uma via de sentido único ou uma via com tags dependentes da direção. Por favor verifique as tags e corrija se necessário.</string>
   <string name="toast_merge_tag_conflict">Você uniu elementos que têm tags com valores conflitantes, ou semântica dependente da direção ou grupos (\'roles\') diferentes na mesma relação. Por favor verifique as tags e grupos (\'roles\') e corrija se necessário.</string>
   <string name="toast_state_file_failed">Arquivo ilegível ou corrompido</string>
@@ -128,7 +127,6 @@ Este é um erro fatal, tentando escrever um ficheiro de exportação para recupe
   <string name="replace">Substituir</string>
   <string name="save">Salvar</string>
   <string name="back">Voltar</string>
-  <string name="foward">Avançar</string>
   <string name="keep">Manter</string>
   <!--Dialog for back button-->
   <string name="exit_title">Quer mesmo sair?</string>
@@ -150,9 +148,7 @@ Este é um erro fatal, tentando escrever um ficheiro de exportação para recupe
   <string name="tag_menu_reset_address_prediction">Redefinir previsão de endereço</string>
   <string name="tag_menu_exit_no_save">Sair
 sem gravar</string>
-  <string name="tag_value_hint">Pressione para os valores</string>
   <string name="tag_multi_value_hint">Múltiplos valores</string>
-  <string name="tag_action_title">Tags selecionados</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carregar Área</string>
   <string name="location_choose_radius">Escolha o raio:</string>
@@ -188,9 +184,6 @@ há %3$s %4$s</string>
   <string name="menu_closed_way_split_1">Dividir via fechada, 1º nó</string>
   <string name="menu_closed_way_split_2">Dividir via fechada, 2º nó</string>
   <string name="menu_append">Acrescentar</string>
-  <string name="menu_restriction">Adicionar restrição</string>
-  <string name="menu_restriction_via">Adicionar restrição via</string>
-  <string name="menu_restriction_to">Adicionar restrição a</string>
   <string name="menu_relation">Criar relação</string>
   <string name="menu_add_relation_member">Adicionar membro</string>
   <string name="menu_select_relation_members">Selecionar membros</string>

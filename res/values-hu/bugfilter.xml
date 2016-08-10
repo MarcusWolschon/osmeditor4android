@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="bug_filter_entries">
+    <item>Megjegyzések</item>
+    <item>Osmose hiba</item>
+    <item>Osmose figyelmeztetés</item>
+    <item>Osmose apró probléma</item>
+  </string-array>
+</resources>

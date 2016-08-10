@@ -71,7 +71,6 @@
   <string name="replace">Substituir</string>
   <string name="save">Salvar</string>
   <string name="back">Voltar</string>
-  <string name="foward">Avançar</string>
   <string name="keep">Manter</string>
   <!--Dialog for back button-->
   <string name="exit_title">Deseja sair?</string>

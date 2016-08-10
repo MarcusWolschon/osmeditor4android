@@ -8,18 +8,21 @@
   <string name="transfer_download_current_back">Επιστροφή (Μην κάνεις τίποτα)</string>
   <string name="upload_problem_title">Πρόβλημα κατά την Αποστολή</string>
   <string name="upload_problem_message">Ορισμένα ή όλα τα δεδομένα δεν έχουν μεταφορτωθεί. Δοκιμάστε τη μεταφόρτωση ξανά αργότερα αν αυτό ήταν μόνο ένα προσωρινό πρόβλημα.</string>
-  <string name="upload_conflict_title">Μεταφόρτωση σύγκρουσης</string>
-  <string name="upload_conflict_message_version">%1$s \nπροκειμένου να ενταχθούν στη τοπική έκδοση %2$s \nστο διακομιστή %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \nπροκειμένου να ενταχθούν στη τοπική έκδοση%2$s \nκαι διαγράφτηκε στο διακομιστή</string>
-  <string name="upload_conflict_message_referential">%1$s \nwas διεγράφη τοπικά\nbut έχει αναφορές στο διακομιστή</string>
-  <string name="no_login_data_title">Πιστοποίηση απέτυχε</string>
-  <string name="no_login_data_message">Εάν χρησιμοποιείτετο το OAuth αυτό είναι πιθανό ένα bug, παρακαλούμε να στείλετε μια αναφορά προβλήματος, εάν χρησιμοποιείτε το όνομα χρήστη και τον κωδικό πρόσβασης (δεν συνιστάται) ελέγξτε ότι έχετε πληκτρολογήσει σωστά.</string>
+  <string name="upload_conflict_title">Διένεξη μεταφόρτωσης</string>
+  <string name="upload_conflict_message_version">%1$s \nέχει τοπική έκδοση %2$s \nκαι στον διακομιστή %3$s</string>
+  <string name="upload_conflict_message_deleted">%1$s \nέχει τοπική έκδοση%2$s \nκαι διαγράφηκε στον διακομιστή</string>
+  <string name="upload_conflict_message_referential">%1$s \nwas διαγράφηκε τοπικά \nαλλά έχει παραπομπές στον διακομιστή</string>
+  <string name="use_local_version">Χρήση \nτοπικής \nέκδοσης</string>
+  <string name="use_server_version">Χρήση \nέκδοσης \nτου διακομιστή</string>
+  <string name="no_login_data_title">Η πιστοποίηση απέτυχε</string>
+  <string name="no_login_data_message">Εάν χρησιμοποιείτε το OAuth αυτό πιθανόν να είναι ένα σφάλμα. Παρακαλούμε να στείλετε μια αναφορά προβλήματος. Εάν χρησιμοποιείτε το όνομα χρήστη και τον κωδικό πρόσβασης (δεν συνιστάται) ελέγξτε ότι τα πληκτρολογείτε σωστά.</string>
   <string name="no_connection_title">Χωρίς σύνδεση στον διακομιστή</string>
-  <string name="no_connection_message">Δεν είναι δυνατή η σύνδεση στον διακομιστή OSM. Παρακαλώ ελέγξτε την σύνδεση σας ή δοκιμάστε αργότερα.</string>
-  <string name="wrong_login_data_title">Πιστοποίηση απέτυχε</string>
-  <string name="data_conflict_title">Έκδοση συγκρούσεων</string>
-  <string name="data_conflict_message">Τα δεδομένα που προσπαθείτε να κατεβάσετε περιλαμβάνει τα στοιχεία που έρχεται σε αντίθεση με τις αλλαγές σας. Παρακαλώ δοκιμάστε να ανεβάσετε τα δεδομένα σας πριν προσπαθήσετε ξανά.</string>
-  <string name="out_of_memory_title">Από Μνήμη</string>
+  <string name="no_connection_message">Δεν είναι δυνατή η σύνδεση στον διακομιστή OSM. Παρακαλώ ελέγξτε τη σύνδεσή σας ή δοκιμάστε αργότερα.</string>
+  <string name="wrong_login_data_title">Η πιστοποίηση απέτυχε</string>
+  <string name="data_conflict_title">Διένεξη Εκδόσεων</string>
+  <string name="data_conflict_message">Τα δεδομένα που προσπαθείτε να κατεβάσετε περιλαμβάνουν στοιχεία που έρχονται σε αντίθεση με τις αλλαγές σας. Παρακαλώ δοκιμάστε πρώτα να μεταφορτώσετε τα δεδομένα σας πριν προσπαθήσετε ξανά.</string>
+  <string name="api_offline_title">API Εκτός Σύνδεσης</string>
+  <string name="out_of_memory_title">Εξάντληση Μνήμης</string>
   <string name="out_of_memory_message">Το Vespucci έχει ξεμείνει από μνήμη φόρτωση των αιτούμενων στοιχείων. Παρακαλώ κάντε επανεκκίνηση και δοκιμάστε να τοποθετήσετε μια μικρότερη περιοχή.</string>
   <string name="out_of_memory_dirty_message">Το Vespucci έχει ξεμείνει από μνήμη φόρτωση των αιτούμενων στοιχείων. Παρακαλώ κάντε επανεκκίνηση και δοκιμάστε να τοποθετήσετε μια μικρότερη περιοχή.</string>
   <string name="invalid_data_received_title">Ελήφθησαν μη αποδεκτά δεδομένα</string>
@@ -28,6 +31,8 @@
   <string name="file_write_failed_message">Δεν μπορεί να γίνει εγγραφή στο επιλεγμένο αρχείο</string>
   <string name="welcome_title">Καλώς ήλθατε</string>
   <string name="read_introduction">Διαβάστε την εισαγωγή τώρα</string>
+  <string name="upgrade_title">Καλώς ήλθατε σε μια νέα έκδοση του Vespucci!</string>
+  <string name="read_upgrade">Διαβάστε για τη νέα έκδοση</string>
   <string name="progress_title">Φόρτωση</string>
   <string name="progress_message">Φόρτωση δεδομένων στη μνήμη…</string>
   <string name="progress_download_message">Λήψη δεδομένων από τον διακομιστή…</string>
@@ -35,6 +40,7 @@
   <string name="progress_deleting_message">Γίνεται διαγραφή…</string>
   <string name="progress_searching_message">Γίνεται αναζήτηση…</string>
   <string name="progress_saving_message">Γίνεται αποθήκευση…</string>
+  <string name="progress_uploading_message">Γίνεται αποστολή...</string>
   <string name="upload_comment_label">Σχόλιο:</string>
   <string name="upload_source_label">Προέλευση:</string>
   <string name="upload_close_changeset_label">Κλείσιμο ομάδας αλλαγών</string>
@@ -42,13 +48,16 @@
   <string name="upload_gpx_tags_label">Ετικέτες</string>
   <string name="upload_gpx_visibility_label">ορατότητα</string>
   <string name="openstreetbug_new_title">Νέα Σημείωση</string>
-  <string name="openstreetbug_new_bug">Τεύχος</string>
+  <string name="openstreetbug_new_bug">Αναφορά Ζητήματος</string>
+  <string name="openstreetbug_bug_title">Ζήτημα</string>
   <string name="openstreetbug_new_nodeway">Δημιουργία Κόμβου/Διαδρομής</string>
   <string name="openstreetbug_edit_title">Επεξεργασία Σημείωσης</string>
   <string name="openstreetbug_commitbutton">Τεύχος</string>
   <string name="openstreetbug_comment_label">Σχόλιο:</string>
   <string name="openstreetbug_edit_close">Κλείσιμο</string>
   <string name="openstreetbug_edit_closed">Έκλεισε</string>
+  <string name="openstreetbug_not_downloaded">δεν ελήφθη</string>
+  <string name="openstreetbug_last_updated">τελευταία ενημερώθηκε στις</string>
   <string name="unsaved_data_title">Προσοχή!</string>
   <string name="unsaved_data_message">Έχετε μη αποθηκευμένες αλλαγές οι οποίες θα χαθούν αν συνεχίσετε.</string>
   <string name="unsaved_data_proceed">Απόρριψη και συνέχεια</string>
@@ -76,29 +85,30 @@
   <string name="version">Έκδοση</string>
   <string name="length_m">Μήκος (Μ)</string>
   <string name="empty_role">άδειος ρόλος</string>
+  <string name="error">σφάλμα</string>
+  <string name="warning">προειδοποίηση</string>
   <!--Toaster-->
   <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα…</string>
   <string name="toast_upload_success">Η αποστολή στον διακομιστή OSM τελείωσε.</string>
-  <string name="toast_not_in_edit_range">Παρακαλούμε μεγέθυνση για επεξεργασια (Αύξηση έντασης/ μειωση ή Lens Shift)</string>
+  <string name="toast_not_in_edit_range">Παρακαλούμε εστιάστε για να επεξεργαστείτε (Αύξηση/Μείωση Έντασης ή Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Ξεκλειδώστε για επεξεργασία</string>
   <string name="toast_edit_outside_downloaded_area">Δεν μπορείτε να επεξεργαστείτε εκτός περιοχής λήψης</string>
   <string name="toast_save_done">Αποθήκευση επιτυχής</string>
   <string name="toast_save_failed">Η αποθήκευση απέτυχε</string>
-  <string name="toast_not_in_bug_range">Παρακαλούμε μεγέθυνση για να προσθέσετε ένα σφάλμα (Αύξηση έντασης/κάτω ή Lens Shift)</string>
+  <string name="toast_not_in_bug_range">Παρακαλούμε εστιάστε για να προσθέσετε ένα σφάλμα (Αύξηση/Μείωση Έντασης ή Lens/Shift)</string>
   <string name="toast_export_failed">Η Εξαγωγή απέτυχε</string>
-  <string name="toast_export_success">Εξήχθη στο </string>
-  <string name="toast_preset_overwrote_tags">Ανακοίνωση - προκαθορισμένη διαγραφη ετικέτας(-ων)</string>
+  <string name="toast_export_success">Εξήχθη στο %1$s</string>
   <string name="toast_oneway_reversed">Έχετε αντιστραφεί απο έναν μονόδρομο δρόμο ή έναν τρόπο με εξαρτώμενη κατεύθυνση ετικετών. Παρακαλώ ελέγξτε τις ετικέτες και ενδεχομένως διορθώστε.</string>
   <string name="toast_merge_tag_conflict">Έχετε συγχωνευσεί στοιχεία που έχουν αντικρουόμενες αξίες ετικέτας, εξαρτάται από την κατεύθυνση σημασιολογίας ή διαφορετικούς ρόλους στην ίδια σχέση. Παρακαλώ ελέγξτε τις ετικέτες και τους ρόλους και διορθώστε, αν είναι απαραίτητο.</string>
   <string name="toast_state_file_failed">Αδύνατη η ανάγνωση ή κατεστραμμένο αρχείο</string>
   <string name="toast_too_many_nodes_for_move">Πάρα πολλοί κόμβοι στο δρόμο για να προχωρήσουμε</string>
   <string name="toast_oauth_handshake_failed">OAuth αναγνώριση απέτυχε, ελέγξτε ότι διαθέτετε τα κατάλληλα κλειδιά των καταναλωτών</string>
-  <string name="toast_unread_mail">Έχετε μη αναγνωσμένo μηνύμα(τα) %1$s στον διακομιστή του OpenStreetMap</string>
+  <string name="toast_unread_mail">Έχετε %1$s μη αναγνωσμένo(α) μήνυμα(τα) στον διακομιστή του OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Ξεκίνησε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_photo_indexing_finished">Ολοκληρώθηκε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_download_bbox_failed">Η λήψη απέτυχε, πιθανόν λόγω επιλογής πολύ μεγάλης περιοχής</string>
   <string name="toast_download_failed">Η λήψη απέτυχε με κωδικό σφάλματος %1$d, μήνυμα %2$s</string>
-  <string name="toast_unsurveyed_road">Unsurveyed road</string>
+  <string name="toast_unsurveyed_road">Μη ερευνημένος δρόμος</string>
   <string name="toast_noname">Ο δρόμος δεν έχει όνομα ή ref</string>
   <string name="toast_notype">Η σχέση δεν έχει τύπο</string>
   <string name="toast_oauth_retry">Παρακαλούμε να επιτραπεί η πρόσβαση του OAuth στο λογαριασμό του OSM σας και, στη συνέχεια, επαναλάβετε την αποστολή.</string>
@@ -111,7 +121,7 @@
   <string name="toast_missing_filemanager">Παρακαλώ εγκαταστήστε ένα πρόγραμμα διαχείρισης αρχείων.</string>
   <string name="toast_outside_of_download">Επεξεργάζεστε εκτός περιοχής λήψης.</string>
   <string name="toast_file_not_found">%1$s δεν βρέθηκε.</string>
-  <string name="toast_imported_track_points">Εισαγόμενα %1$s σημεία παρακολούθησης.</string>
+  <string name="toast_imported_track_points">Εισήχθησαν %1$s σημεία παρακολούθησης.</string>
   <string name="toast_inconsistent_state">Ασυνεπή κατάσταση ανιχνευθηκε, στείλτε το στην αναφορά σφάλματος!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ναι</string>
@@ -125,8 +135,8 @@
   <string name="replace">Αντικατάσταση</string>
   <string name="save">Αποθήκευση</string>
   <string name="back">Πίσω</string>
-  <string name="foward">Εμπρός</string>
   <string name="keep">Διατήρηση</string>
+  <string name="clear">Εκκαθάριση</string>
   <!--Dialog for back button-->
   <string name="exit_title">Να γίνει έξοδος;</string>
   <string name="exit_text">Θέλετε σίγουρα να κλείσετε το πρόγραμμα;</string>
@@ -138,7 +148,7 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Προσθήκη ετικετών διεύθυνσης</string>
   <string name="tag_menu_sourcesurvey">Χαρτογραφήθικε</string>
-  <string name="tag_menu_preset">Προκαθωρισμένες</string>
+  <string name="tag_menu_preset">Προκαθορισμένες</string>
   <string name="tag_menu_repeat">Επανάληψη ετικετών</string>
   <string name="tag_menu_revert">Επαναφορά</string>
   <string name="tag_menu_mapfeatures">Wiki Χαρακτηριστικών Χάρτη</string>
@@ -146,8 +156,9 @@
   <string name="tag_menu_resetMRU">Επαναφορά στα Προκαθορισμένα</string>
   <string name="tag_menu_reset_address_prediction">Επαναφορά πρόβλεψης διεύθυνσης</string>
   <string name="tag_menu_exit_no_save">Έξοδος χωρίς αποθήκευση</string>
-  <string name="tag_value_hint">Πατήστε για τιμές</string>
-  <string name="tag_action_title">Επιλεγμένες ετικέτες</string>
+  <string name="tag_multi_value_hint">Πολλαπλές τιμές</string>
+  <string name="tag_details">Λεπτομέρειες</string>
+  <string name="tag_menu_download">Λήψη</string>
   <string name="menu_up">Επάνω</string>
   <string name="menu_top">Κορυφή</string>
   <!--Strings in LocationPicker-->
@@ -175,7 +186,7 @@
   <string name="menu_edit">Επεξεργασία</string>
   <string name="menu_add">Νέο</string>
   <string name="menu_config">Προτιμήσεις</string>
-  <string name="menu_find">Έυρεση</string>
+  <string name="menu_find">Εύρεση</string>
   <string name="menu_help">Βοήθεια</string>
   <string name="menu_erase">Διαγραφή κόμβου</string>
   <string name="menu_set_position">Θέση</string>
@@ -183,9 +194,6 @@
   <string name="menu_closed_way_split_1">Διαίρεση κλειστού τρόπου, 1ο κόμβος</string>
   <string name="menu_closed_way_split_2">Διαίρεση κλειστού τρόπου, 2ο κόμβος</string>
   <string name="menu_append">Προσάρτηση</string>
-  <string name="menu_restriction">Προσθήκη περιορισμού</string>
-  <string name="menu_restriction_via">Προσθήκη περιορισμού μέσω</string>
-  <string name="menu_restriction_to">Προσθήκη περιορισμού προς</string>
   <string name="menu_relation">Δημιουργία σχέσης</string>
   <string name="menu_add_relation_member">Προσθήκη μέλους</string>
   <string name="menu_select_relation_members">Επιλογή μελών</string>
@@ -210,9 +218,17 @@
   <string name="menu_transfer_download_current_add">Προσθηκη της τρέχουσας όψης για λυψη</string>
   <string name="menu_transfer_download_other">Λήψη άλλης τοποθεσίας</string>
   <string name="menu_transfer_upload">Αποστολή δεδομένων στον διακομιστή </string>
+  <string name="menu_transfer_file">Αρχείο...</string>
   <string name="menu_transfer_export">Εξαγωγή αλλαγών</string>
   <string name="menu_transfer_read_file">Ανάγνωση από αρχείο</string>
   <string name="menu_transfer_save_file">Αποθήκευση σε αρχείο</string>
+  <string name="menu_transfer_bugs">Σημειώσεις/Αναφορές...</string>
+  <string name="menu_transfer_bugs_download_current">Λήψη αναφορών για την τρέχουσα προβολή</string>
+  <string name="menu_transfer_bugs_upload">Αποστολή όλων</string>
+  <string name="menu_transfer_bugs_upload_long">Αποστολή όλων των αναφορών</string>
+  <string name="menu_transfer_bugs_clear">Εκκαθάριση</string>
+  <string name="menu_transfer_bugs_clear_long">Εκκαθάριση αναφορών</string>
+  <string name="menu_transfer_autodownload_long">Αυτόματη λήψη αναφορών</string>
   <string name="menu_save">Αποθήκευση σε αρχείο</string>
   <string name="menu_join">Σύνδεση</string>
   <string name="menu_unjoin">Αποσύνδεση</string>
@@ -223,6 +239,7 @@
   <string name="menu_orthogonalize">Ορθωγωνια</string>
   <string name="menu_circulize">Τακτοποίηση σε κύκλο</string>
   <string name="menu_newnode_gps">Νέος κόμβος στο POS GPS.</string>
+  <string name="menu_set_name">Ορισμός ονόματος</string>
   <string name="menu_tools">Εργαλεία</string>
   <string name="menu_tools_flush_background_tile_cache">Ρουαγιάλ φόντος μνήμης cache</string>
   <string name="menu_tools_flush_overlay_tile_cache">Ρουαγιάλ φόντος μνήμης cache</string>
@@ -266,6 +283,7 @@
   <string name="config_showTolerance_summary">Εμφανίζει την περιοχή όπου μπορείτε να επιλέξετε ένα στοιχείο.</string>
   <string name="config_enableAntiAliasing_title">Ενεργοποίηση Εξομάλυνσης Εικόνας</string>
   <string name="config_enableAntiAliasing_summary">Κάνει τις γραμμές ομαλες</string>
+  <string name="config_enableOpenStreetBugs_title">Ενεργοποίηση προβολής Σημειώσεων και Αναφορών</string>
   <string name="config_enableOpenStreetBugs_summary">Εμφανιση, επεξεργασία και δημιουργία σημειώσεων/Σφάλματων.</string>
   <string name="config_enablePhotoLayer_title">Ενεργοποίηση επιπεδου φωτογραφιών</string>
   <string name="config_enablePhotoLayer_summary">Εμφάνιση γεω-αναφερώμενων φωτογραφιών.</string>
@@ -313,6 +331,10 @@
   <string name="config_largeDragArea_summary">Παροχή μεγάλης έκτασης για μεταφορά των κόμβων</string>
   <string name="config_extTriggeredDownloadRadius_title">Ακτίνα λήψης</string>
   <string name="config_extTriggeredDownloadRadius_summary">Ακτίνα (m) από εξωτερικό προκάλεσε Λήψεις, 0 = κέντρο μόνο στον χάρτη.</string>
+  <string name="config_bugDownloadRadius_title">Ακτίνα λήψης σημειώσεων/αναφορών</string>
+  <string name="config_bugDownloadRadius_summary">Ακτίνα (μ) για λήψη σημειώσεων/αναφορών</string>
+  <string name="config_maxBugDownloadSpeed_summary">Όριο (χλμ/ώ) πάνω από το οποίο διακόπτεται η αυτόματη λήψη σημειώσεων/αναφορών</string>
+  <string name="config_bugFilter_title">Φίλτρο για Σημειώσεις/Αναφορές</string>
   <string name="config_enableNameSuggestions_title">Ενεργοποίηση προτάσεων ονομασίας</string>
   <string name="config_enableNameSuggestions_summary">Ενεργοποίηση προτάσεων για την ονομασία ετικέτας </string>
   <string name="config_enableAutoPreset_title">Ενεργοποίηση Αυτόματης Προεπιλογής</string>
@@ -323,6 +345,9 @@
   <string name="config_gps_source_summary">Πηγή ενημερώσεων τοποθεσίας GPS</string>
   <string name="config_gps_source_tcp_title">NMEA Προέλευση δικτυου</string>
   <string name="config_gps_source_tcp_summary">Διεύθυνση TCP NMEA πηγή ως host: port</string>
+  <string name="config_address_tags">Ετικέτες διεύθυνσης</string>
+  <string name="config_moreprefs">Περισσότερες ρυθμίσεις...</string>
+  <string name="config_fullscreenMode_title">Λειτουργία πλήρης οθόνης</string>
   <!--preset downloader messages-->
   <string name="preset_update">Ενημέρωση προκαθορισμένων</string>
   <string name="preset_download_successful">Προκαθορισμένη λήψη με επιτυχία</string>

@@ -23,6 +23,8 @@
   <string name="wrong_login_data_re_authenticate">Xác minh lại</string>
   <string name="data_conflict_title">Xung đột về Số Phiên bản</string>
   <string name="data_conflict_message">Không thể tải về dữ liệu này vì nó mâu thuẫn với các sửa đổi của bạn. Xin vui lòng thử tải lên dữ liệu của bạn trước khi thử lại.</string>
+  <string name="invalid_bounding_box_title">Hộp bao không hợp lệ</string>
+  <string name="invalid_bounding_box_message">Khu vực được chọn không tuân theo các hạn chế API. Xin hãy chọn khu vực khác.</string>
   <string name="api_offline_title">API Ngoại tuyến</string>
   <string name="api_offline_message">API hiện đang ngoại tuyến nên không thể lấy hoặc ghi dữ liệu.</string>
   <string name="out_of_memory_title">Hết Bộ nhớ</string>
@@ -45,6 +47,8 @@
   <string name="progress_deleting_message">Đang xóa…</string>
   <string name="progress_searching_message">Đang tìm kiếm…</string>
   <string name="progress_saving_message">Đang lưu…</string>
+  <string name="progress_uploading_message">Đang tải lên…</string>
+  <string name="progress_preset_message">Đang tải về thẻ đặt trước…</string>
   <string name="progress_oauth">Đang tải tài khoản của bạn trên openstreetmap.org để cấp phép qua OAuth…</string>
   <string name="upload_comment_label">Miêu tả:</string>
   <string name="upload_source_label">Nguồn:</string>
@@ -87,6 +91,7 @@
   <string name="save_file">Nhập tập tin để ghi vào</string>
   <string name="existing_track_title">Dữ liệu tuyến đường đã tồn tại</string>
   <string name="existing_track_message">Bạn đã có dữ liệu tuyến đường. Có lẽ bạn muốn hủy và lưu trước tiên.</string>
+  <string name="delete_tags">Chắc chắn muốn xóa tất cả các thẻ cho đối tượng “%1$s”?</string>
   <string name="element_information">Thông tin đối tượng</string>
   <string name="id">ID</string>
   <string name="nodes">Các nốt</string>
@@ -116,7 +121,8 @@
   <string name="toast_not_in_bug_range">Xin vui lòng phóng to để báo cáo lỗi (Tăng/Giảm Âm lượng hoặc Lens/Shift)</string>
   <string name="toast_export_failed">Thất bại khi xuất</string>
   <string name="toast_export_success">Đã xuất ra %1$s</string>
-  <string name="toast_preset_overwrote_tags">Chú ý: Các thẻ đặt trước đã ghi đè lên thẻ</string>
+  <string name="toast_preset_overwrote_tags">Chú ý: Thẻ đặt trước đã ghi đè lên thẻ</string>
+  <string name="toast_merge_overwrote_tags">Chú ý: Tác vụ đã ghi đè lên các thẻ</string>
   <string name="toast_oneway_reversed">Bạn đã đảo ngược một con đường một chiều hoặc một lối có thẻ tùy thuộc vào chiều đường. Xin vui lòng kiểm tra và chỉnh lại các thẻ nếu cần.</string>
   <string name="toast_merge_tag_conflict">Bạn đã gộp các phần tử có mâu thuẫn giá trị thẻ, mẫu thuẫn giá trị tùy thuộc chiều đường, hoặc vai trò khác nhau trong cùng một quan hệ. Xin vui lòng kiểm tra và chỉnh lại các thẻ và vai trò nếu cần.</string>
   <string name="toast_potential_merge_tag_conflict">Bạn muốn gộp các phần tử có mâu thuẫn giá trị thẻ. Xin vui lòng kiểm tra và chỉnh lại các thẻ trước khi thử lại.</string>
@@ -151,6 +157,11 @@
   <string name="toast_min_one_preset">Cần phải chọn ít nhát một thẻ đặt trước!</string>
   <string name="toast_used_backup">Tập tin trạng thái bị hỏng, nên phải dùng tập tin sao lưu!</string>
   <string name="toast_used_bug_backup">Tập tin trạng thái lỗi bị hỏng, nên phải dùng tập tin sao lưu!</string>
+  <string name="toast_rmpty_relation">Quan hệ trống – đang tạo báo cáo sự cố.</string>
+  <string name="toast_split_from">Đã chia lối “từ”</string>
+  <string name="toast_split_via">Đã chia lối “qua”</string>
+  <string name="toast_split_from_and_via">Đã chia các lối “từ” và “qua”</string>
+  <string name="toast_split_to">Đã chia lối “đến”</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -163,8 +174,10 @@
   <string name="replace">Thay thế</string>
   <string name="save">Lưu</string>
   <string name="back">Lùi</string>
-  <string name="foward">Tiến</string>
+  <string name="forward">Tiến</string>
   <string name="keep">Giữ</string>
+  <string name="enable">Kích hoạt</string>
+  <string name="clear">Xóa sạch</string>
   <!--Dialog for back button-->
   <string name="exit_title">Thoát?</string>
   <string name="exit_text">Bạn có chắc chắn muốn thoát?</string>
@@ -185,12 +198,31 @@
   <string name="tag_menu_resetMRU">Đặt lại các Thẻ đặt trước</string>
   <string name="tag_menu_reset_address_prediction">Đặt lại suy đoán địa chỉ</string>
   <string name="tag_menu_exit_no_save">Thoát\nmà không lưu</string>
-  <string name="tag_value_hint">Chạm cho các giá trị</string>
+  <string name="tag_menu_delete_unassociated_tags">Xóa các thẻ không có liên quan</string>
+  <string name="tag_menu_top">Cuộn lên trên cùng</string>
+  <string name="tag_menu_bottom">Cuộn xuống dưới cùng</string>
+  <string name="tag_value_hint">Nhập giá trị</string>
+  <string name="tag_autocomplete_value_hint">Nhập hoặc chạm cho các giá trị</string>
+  <string name="tag_autocomplete_name_hint">Nhập hoặc chạm cho gợi ý tên</string>
   <string name="tag_multi_value_hint">Nhiều giá trị</string>
-  <string name="tag_action_title">Các thẻ đã chọn</string>
+  <string name="tag_dialog_value_hint">Chạm cho các giá trị</string>
+  <string name="tag_action_tag_title">Thẻ được chọn</string>
+  <string name="tag_action_members_title">Thành viên được chọn</string>
+  <string name="tag_action_parents_title">Quan hệ được chọn</string>
+  <string name="tag_additional_properties">Thuộc tính bổ sung</string>
+  <string name="tag_details">Chi tiết</string>
+  <string name="tag_not_set">Không đặt</string>
+  <string name="tag_menu_move_up">Chuyển lên</string>
+  <string name="tag_menu_move_top">Chuyển lên trên cùng</string>
+  <string name="tag_menu_move_down">Chuyển xuống</string>
+  <string name="tag_menu_move_bottom">Chuyển xuống dưới cùng</string>
+  <string name="tag_menu_sort">Sắp xếp</string>
+  <string name="tag_menu_download">Tải về</string>
   <string name="menu_up">Trên</string>
   <string name="menu_top">Trên cùng</string>
   <string name="menu_preset_help">Trợ giúp về thẻ đặt trước</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i8n">Thêm thẻ cho %1$s</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Tải Khu vực</string>
   <string name="location_choose_radius">Chọn bán kính:</string>
@@ -226,9 +258,12 @@
   <string name="menu_closed_way_split_1">Cắt đôi lối đóng, nốt đầu tiên</string>
   <string name="menu_closed_way_split_2">Cắt đôi lối đóng, nốt thứ 2</string>
   <string name="menu_append">Gắn thêm</string>
-  <string name="menu_restriction">Thêm hạn chế</string>
-  <string name="menu_restriction_via">Thêm hạn chế qua</string>
-  <string name="menu_restriction_to">Thêm hạn chế đến</string>
+  <string name="menu_restriction">Thêm hạn chế rẽ</string>
+  <string name="menu_restriction_restart_from">Chọn lại khúc “từ”</string>
+  <string name="menu_restriction_via">Thêm khúc/phần tử “qua”</string>
+  <string name="menu_restriction_restart_via">Chọn lại khúc “qua”</string>
+  <string name="menu_restriction_to">Thêm khúc “đến”</string>
+  <string name="menu_restriction_restart_to">Chọn lại khúc “đến”</string>
   <string name="menu_relation">Tạo quan hệ</string>
   <string name="menu_add_relation_member">Thêm thành viên</string>
   <string name="menu_select_relation_members">Chọn các thành viên</string>
@@ -262,7 +297,10 @@
   <string name="menu_transfer_bugs">Ghi chú/Lỗi…</string>
   <string name="menu_transfer_bugs_download_current">Tải về lỗi trong khu vực hiện tại</string>
   <string name="menu_transfer_bugs_upload">Tải lên tất cả</string>
+  <string name="menu_transfer_bugs_upload_long">Tải lên tất cả các lỗi</string>
   <string name="menu_transfer_bugs_clear">Xóa sạch</string>
+  <string name="menu_transfer_bugs_clear_long">Xóa sạch lỗi</string>
+  <string name="menu_transfer_autodownload_long">Tự động tải về lỗi</string>
   <string name="menu_save">Lưu vào tập tin</string>
   <string name="menu_join">Gộp</string>
   <string name="menu_unjoin">Tách</string>
@@ -278,6 +316,8 @@
   <string name="menu_extend_selection">Mở rộng lựa chọn</string>
   <string name="menu_information">Thông tin</string>
   <string name="menu_voice_commands">Lệnh bằng giọng nói</string>
+  <string name="menu_set_name">Đặt tên</string>
+  <string name="tag_form_unknown_element">Phần tử không rõ (không tìm thấy thẻ đặt trước)</string>
   <string name="menu_tools">Công cụ</string>
   <string name="menu_tools_flush_background_tile_cache">Xóa sạch bộ nhớ đệm mảnh nền</string>
   <string name="menu_tools_flush_overlay_tile_cache">Xóa sạch bộ nhớ đệm mảnh phủ</string>
@@ -308,6 +348,7 @@
   <string name="deleteway_wayandnodes">Xóa lối và các nốt</string>
   <string name="deletenode_relation_description">Bạn sắp sửa xóa một nốt trực thuộc một hay nhiều quan hệ. Việc xóa nốt này có thể làm cho các quan hệ không còn hợp lệ.</string>
   <string name="deletenode">Xóa nốt</string>
+  <string name="split_all_ways">Chia tất cả các lối</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Đã chọn lối</string>
   <string name="actionmode_nodeselect">Đã chọn nốt</string>
@@ -315,6 +356,7 @@
   <string name="actionmode_createpath">Đang tạo đường</string>
   <string name="actionmode_multiselect">Chọn nhiều</string>
   <!--Preferences-->
+  <string name="config_category_editing">Tùy chọn Dữ liệu và Sửa đổi</string>
   <string name="config_category_view">Thiết lập Giao diện</string>
   <string name="config_showCameraAction_title">Tác vụ hiển thị máy ảnh</string>
   <string name="config_showCameraAction_summary">Hình hiển thị máy ảnh trên thanh tác vụ</string>
@@ -360,6 +402,8 @@
   <string name="config_presetbutton_summary">Thêm và kích hoạt các thẻ đặt trước tương thích với JOSM</string>
   <string name="config_iconbutton_title">Xem hình nốt</string>
   <string name="config_iconbutton_summary">Hiển thị hình tượng của thẻ đặt trước khớp nhất trên các nốt.</string>
+  <string name="config_showWayIcons_title">Hiển thị hình địa điểm quan tâm trên tòa nhà</string>
+  <string name="config_showWayIcons_summary">Hiển thị hình tượng của thẻ đặt trước khớp nhất trên các tòa nhà.</string>
   <string name="config_loginbutton_title">Tài khoản người dùng</string>
   <string name="config_username_title">Tên người dùng OSM</string>
   <string name="config_username_summary">Nếu bạn không sử dụng OAuth, bạn cần mở tài khoản để tải lên dữ liệu OSM. Bạn có thể mở tài khoản tại http://www.openstreetmap.org/user/new</string>
@@ -412,6 +456,22 @@
   <string name="config_address_tags">Thẻ địa chỉ</string>
   <string name="config_address_tags_summary">Thẻ dùng để suy đoán địa chỉ</string>
   <string name="config_moreprefs">Thiết lập thêm…</string>
+  <string name="config_tagFormEnabled_title">Hiển thị biểu mẫu thẻ</string>
+  <string name="config_tagFormEnabled_summary">Hiển thị biểu mẫu thẻ để sửa đổi</string>
+  <string name="config_followGPSbutton_title">Bố trí nút theo dõi GPS</string>
+  <string name="config_followGPSbutton_summary">Vị trí của nút “theo dõi GPS”</string>
+  <string name="config_fullscreenMode_title">Chế độ toàn màn hình</string>
+  <string name="config_fullscreenMode_summary">Chế độ trong thiết bị có “bàn phím mềm”.</string>
+  <string name="config_maxInlineValues_title">Số giá trí nội dùng tối đa</string>
+  <string name="config_maxInlineValues_summary">Số giá trị nội dòng tối đa được hiển thị dưới dạng thẻ</string>
+  <string name="config_maxTileDownloadThreads_title">Số luồng tải về tối đa</string>
+  <string name="config_maxTileDownloadThreads_summary">Số luồng tối đa dùng để tải về hình bản đồ</string>
+  <string name="config_notificationCacheSize_title">Số thông báo tối đa được hiển thị</string>
+  <string name="config_notificationCacheSize_summary">Số thông báo tối đa được hiển thị theo loại</string>
+  <string name="config_autoLockDelay_title">Thời gian truớc khi tự động khóa</string>
+  <string name="config_autoLockDelay_summary">Số giây để chờ đợi trướci khi tự động khóa (0 để tắt)</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Luôn làm mờ các khu vực không được tải về</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Nếu đặt, các khu vực không được tải về sẽ bị mờ trong chế độ khóa</string>
   <!--preset downloader messages-->
   <string name="preset_update">Cập nhật thẻ đặt trước</string>
   <string name="preset_download_successful">Thẻ đặt trước được tải về thành công</string>
@@ -442,12 +502,15 @@
   <string name="default_">Mặc định</string>
   <string name="api_name">Tên của API</string>
   <string name="api_url">URL của API</string>
+  <string name="readonly_url">URL API chỉ-đọc (tùy chọn)</string>
+  <string name="notes_url">URL API Ghi chú (tùy chọn)</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Thẻ đặt trước</string>
   <string name="api">API</string>
   <string name="undo">Hoàn tác</string>
   <string name="redo">Làm lại</string>
   <string name="undo_nothing">không có gì để hoàn tác</string>
+  <string name="tracking_active_title">Dịch vụ nền Vespucci được kích hoạt</string>
   <string name="tracking_active_text">Vespucci đang thu một tuyến GPS hoặc tải về tự động</string>
   <string name="gps_failure">Thất bại khi kích hoạt GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -477,6 +540,8 @@
   <string name="undo_action_fix_conflict">sửa sự mâu thuẫn</string>
   <string name="undo_action_extract_node">trích nốt</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Vespucci đã bị sự cố hoặc gặp một vấn đề đáng kể lần mở vừa rồi.\n\nXin vui lòng giúp đỡ chúng tôi bằng cách báo cáo lỗi, chỉ việc bấm “OK”.\n</string>
+  <string name="crash_dialog_comment_prompt">Bổ sung thông tin nào mà bạn nghĩ có thể giúp đỡ cũng như (tùy chọn) địa chỉ thư điện tử của bạn nếu bạn muốn nhận được thông tin phản hồi.\n\nCám ơn!</string>
   <string name="config_category_acra">Báo cáo Sự cố</string>
   <string name="pref_enable_acra">Báo cáo sự cố của ứng dụng</string>
   <string name="pref_acra_enabled">Báo cáo sự cố được kích hoạt</string>
@@ -531,5 +596,20 @@
   <string-array name="note_state">
     <item>Mở</item>
     <item>Đóng</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Trái</item>
+    <item>Phải</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Tự động</item>
+    <item>Không bao giờ</item>
+    <item>Luôn luôn</item>
+    <item>Không có thanh trạng thái</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Không bao giờ</item>
+    <item>Luôn luôn</item>
+    <item>Không có thanh trạng thái</item>
   </string-array>
 </resources>

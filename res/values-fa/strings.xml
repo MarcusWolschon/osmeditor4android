@@ -63,7 +63,6 @@
   <string name="toast_not_in_bug_range">برای افزودن باگ لطفا به داخل زووم کنید (ولوم بالا/پایین یا Lens/Shift) </string>
   <string name="toast_export_failed">خارج سازی ناموفق</string>
   <string name="toast_export_success">خارج سازی به %1$s</string>
-  <string name="toast_preset_overwrote_tags">اخطار -پیش تنظیم برچسب(ها) ی نوشته شده</string>
   <string name="toast_oneway_reversed">شما یک راه یک طرفه یا یک راه تابع مسیر برچسب ها را معکوس کرده اید. لطفا برچسب ها را بررسی کنید و اگر نیاز بود تصحیح شان کنید.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">بله</string>

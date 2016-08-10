@@ -104,7 +104,6 @@
   <string name="toast_not_in_bug_range">Ingrandisci per aggiungere una segnalazione (Volume Su/Giù o Lente/Interruttore)</string>
   <string name="toast_export_failed">Esportazione fallita</string>
   <string name="toast_export_success">Esportato su %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota - il valore predefinito ha sovrascritto qualche tag</string>
   <string name="toast_oneway_reversed">Hai invertito una via a senso unico o una via con tag dipendenti dalla direzione. Controlla i tag e correggili se necessario.</string>
   <string name="toast_merge_tag_conflict">Hai unito degli oggetti che hanno valori di etichette, semantica dipendente dalla direzione oppure ruoli diversi nella stessa relazione incompatibili. Controlla le etichette e i ruoli e correggili se necessario.</string>
   <string name="toast_potential_merge_tag_conflict">Gli elementi che stai cercando di unire hanno delle etichette non compatibili tra loro. Prima di riprovare, controllale e modifica laddove necessario.</string>
@@ -144,7 +143,6 @@
   <string name="replace">Sostituisci</string>
   <string name="save">Salva</string>
   <string name="back">Indietro</string>
-  <string name="foward">Avanti</string>
   <string name="keep">Mantieni</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vuoi uscire veramente?</string>
@@ -166,9 +164,7 @@
   <string name="tag_menu_resetMRU">Azzera i predefiniti</string>
   <string name="tag_menu_reset_address_prediction">Azzera la predizione degli indirizzi civici</string>
   <string name="tag_menu_exit_no_save">Esci\nsenza salvare</string>
-  <string name="tag_value_hint">Tocca per aggiungere i valori</string>
   <string name="tag_multi_value_hint">Valori multipli</string>
-  <string name="tag_action_title">Etichette selezionate</string>
   <string name="menu_up">Su</string>
   <string name="menu_top">In alto</string>
   <string name="menu_preset_help">Aiuto prefefiniti</string>
@@ -207,9 +203,6 @@
   <string name="menu_closed_way_split_1">Dividi il percorso chiuso, 1° nodo</string>
   <string name="menu_closed_way_split_2">Dividi il percorso chiuso, 2° nodo</string>
   <string name="menu_append">Aggiungi</string>
-  <string name="menu_restriction">Aggiungi restrizione</string>
-  <string name="menu_restriction_via">Aggiungi restrizione attraverso</string>
-  <string name="menu_restriction_to">Aggiungi restrizione verso</string>
   <string name="menu_relation">Crea una relazione</string>
   <string name="menu_add_relation_member">Aggiungi membro</string>
   <string name="menu_select_relation_members">Seleziona membri</string>

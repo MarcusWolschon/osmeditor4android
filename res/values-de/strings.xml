@@ -23,6 +23,8 @@
   <string name="wrong_login_data_re_authenticate">Authentisierung wiederholen</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="data_conflict_message">Die Daten enthalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
+  <string name="invalid_bounding_box_title">Ungültiges Begrenzungsrechteck</string>
+  <string name="invalid_bounding_box_message">Der ausgewählter Bereich entspricht nicht den API Beschränkungen, bitte einen anderen auswählen.</string>
   <string name="api_offline_title">API nicht verfügbar</string>
   <string name="api_offline_message">Die API ist im Augenblick nicht verfügbar. Daten können weder gelesen noch geschrieben werden.</string>
   <string name="out_of_memory_title">Kein freier Speicher mehr.</string>
@@ -45,6 +47,8 @@
   <string name="progress_deleting_message">Löschen...</string>
   <string name="progress_searching_message">Am Suchen...</string>
   <string name="progress_saving_message">Am Speichern...</string>
+  <string name="progress_uploading_message">Am Hochladen...</string>
+  <string name="progress_preset_message">Vorlage wird heruntergeladen...</string>
   <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth Autorisierung...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
@@ -87,6 +91,7 @@
   <string name="save_file">Datei zum Speichern angeben</string>
   <string name="existing_track_title">Trackdaten vorhanden</string>
   <string name="existing_track_message">Es sind bestehende Trackdaten vorhanden. Möglicherweise sollten die zuerst gespeichert werden.</string>
+  <string name="delete_tags">Wirklich alle Eigenschaften für Objekt \"%1$s\" löschen?</string>
   <string name="element_information">Elementinformationen</string>
   <string name="id">Id</string>
   <string name="nodes">Knoten</string>
@@ -117,6 +122,7 @@
   <string name="toast_export_failed">Export fehlgeschlagen</string>
   <string name="toast_export_success">Exportiert nach %1$s</string>
   <string name="toast_preset_overwrote_tags">Achtung: Die Vorlage hat ein oder mehrere Tags überschrieben</string>
+  <string name="toast_merge_overwrote_tags">Achtung: Die Operation hat einen oder mehrere Tags überschrieben</string>
   <string name="toast_oneway_reversed">Richtung einer Einbahnstrasse oder Weg mit richtungsabhängigen Tags geändert. Bitte Tags überprüfen und falls nötig, korrigieren. </string>
   <string name="toast_merge_tag_conflict">Elemente mit sich widersprechenden Tags, richtungsabhängige Semantik oder sich widersprechende Rollen in derselben Relation zusammengeführt. Tags und Rollen bitte überprüfen und, falls nötig, korrigieren,</string>
   <string name="toast_potential_merge_tag_conflict">Elemente mit sich widersprechenden Tags sollen zusammengeführt werden. Tags bitte überprüfen und vor einem neuen Versuch korrigieren.,</string>
@@ -151,6 +157,11 @@
   <string name="toast_min_one_preset">Mindestens 1 Vorlagensatz muss ausgewählt sein!</string>
   <string name="toast_used_backup">Beschädigtes Zustandsdatei, Backup verwendet!</string>
   <string name="toast_used_bug_backup">Beschädigtes Zustandsdatei für Fehler/Notizen, Backup verwendet!</string>
+  <string name="toast_rmpty_relation">Leere Relation, erstelle Fehlermeldung.</string>
+  <string name="toast_split_from">\"from\" Weg aufgetrennt</string>
+  <string name="toast_split_via">\"via\" Weg aufgetrennt</string>
+  <string name="toast_split_from_and_via">\"from\" und \"via\" Wege aufgetrennt</string>
+  <string name="toast_split_to">\"to\" Weg aufgetrennt</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -163,8 +174,10 @@
   <string name="replace">Ersetzen</string>
   <string name="save">Speichern</string>
   <string name="back">Zurück</string>
-  <string name="foward">Vorwärts</string>
+  <string name="forward">Vorwärts</string>
   <string name="keep">Behalten</string>
+  <string name="enable">Aktivieren</string>
+  <string name="clear">Zurücksetzten</string>
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
@@ -185,12 +198,30 @@
   <string name="tag_menu_resetMRU">Vorlagen zurücksetzen</string>
   <string name="tag_menu_reset_address_prediction">Adressvorhersage zurücksetzen</string>
   <string name="tag_menu_exit_no_save">Ohne Speichern\nverlassen</string>
-  <string name="tag_value_hint">Tippen für mögliche Werte</string>
+  <string name="tag_menu_top">An den Anfang scrollen</string>
+  <string name="tag_menu_bottom">Ans Ende scrollen</string>
+  <string name="tag_value_hint">Wert eingeben</string>
+  <string name="tag_autocomplete_value_hint">Tippen oder schreiben für mögliche Werte</string>
+  <string name="tag_autocomplete_name_hint">Tippen oder schreiben für Namesvorschläge</string>
   <string name="tag_multi_value_hint">Mehrere Werte</string>
-  <string name="tag_action_title">Tags ausgewählt</string>
+  <string name="tag_dialog_value_hint">Tippen für mögliche Werte</string>
+  <string name="tag_action_tag_title">Tag(s) ausgewählt</string>
+  <string name="tag_action_members_title">Mitglied(er) ausgewählt</string>
+  <string name="tag_action_parents_title">Relation(en) ausgewählt</string>
+  <string name="tag_additional_properties">Zusätzliche Eigenschaften</string>
+  <string name="tag_details">Detail</string>
+  <string name="tag_not_set">Nicht vorhanden</string>
+  <string name="tag_menu_move_up">Eine Position nach oben verschieben</string>
+  <string name="tag_menu_move_top">An den Anfang verschieben</string>
+  <string name="tag_menu_move_down">Eine Position nach unten verschieben</string>
+  <string name="tag_menu_move_bottom">Ans Ende verschieben</string>
+  <string name="tag_menu_sort">Sortieren</string>
+  <string name="tag_menu_download">Herunterladen</string>
   <string name="menu_up">Nach oben</string>
   <string name="menu_top">An den Anfang</string>
   <string name="menu_preset_help">Hilfe zu Vorlagen</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i8n">Eigenschaften für %1$s hinzufügen</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Bereich laden</string>
   <string name="location_choose_radius">Wähle Radius aus:</string>
@@ -226,8 +257,11 @@
   <string name="menu_closed_way_split_2">Geschlossenen Weg aufspalten, 2. Knoten</string>
   <string name="menu_append">Anhängen</string>
   <string name="menu_restriction">Abbiegebeschränkung hinzufügen</string>
-  <string name="menu_restriction_via">Einschränkung \"via\" hinzufügen</string>
-  <string name="menu_restriction_to">Einschränkung \"to\" hinzufügen</string>
+  <string name="menu_restriction_restart_from">\"from\" Segment nochmals auswählen</string>
+  <string name="menu_restriction_via">\"via\" Segment hinzufügen</string>
+  <string name="menu_restriction_restart_via">\"via\" Segment nochmals auswählen</string>
+  <string name="menu_restriction_to">\"to\" Segment hinzufügen</string>
+  <string name="menu_restriction_restart_to">\"to\" Segment nochmals auswählen</string>
   <string name="menu_relation">Relation erstellen</string>
   <string name="menu_add_relation_member">Mitglied hinzufügen</string>
   <string name="menu_select_relation_members">Mitglieder auswählen</string>
@@ -280,6 +314,8 @@
   <string name="menu_extend_selection">Auswahl erweitern</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Sprachbefehle</string>
+  <string name="menu_set_name">Namen festlegen</string>
+  <string name="tag_form_unknown_element">Unbekanntes Element (keine Vorlage gefunden)</string>
   <string name="menu_tools">Werkzeuge</string>
   <string name="menu_tools_flush_background_tile_cache">Hintergrund Tile Cache leeren</string>
   <string name="menu_tools_flush_overlay_tile_cache">Overlay Tile Cache leeren</string>
@@ -310,6 +346,7 @@
   <string name="deleteway_wayandnodes">Weg und Knoten löschen</string>
   <string name="deletenode_relation_description">Dieser Punkt ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
   <string name="deletenode">Punkt löschen</string>
+  <string name="split_all_ways">Alle Wege auftrennen</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Weg ausgewählt</string>
   <string name="actionmode_nodeselect">Knoten ausgewählt</string>
@@ -317,6 +354,7 @@
   <string name="actionmode_createpath">Erstelle Pfad</string>
   <string name="actionmode_multiselect">Mehrfachauswahl</string>
   <!--Preferences-->
+  <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_view">Einstellungen Benutzerschnittstelle</string>
   <string name="config_showCameraAction_title">Kameraaktion anzeigen</string>
   <string name="config_showCameraAction_summary">Kamera Icon in Menuleiste anzeigen</string>
@@ -362,6 +400,8 @@
   <string name="config_presetbutton_summary">JOSM kompatible Vorlagen hinzufügen und verwalten</string>
   <string name="config_iconbutton_title">Knoten-Symbole anzeigen</string>
   <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden</string>
+  <string name="config_showWayIcons_title">Symbole für POIs auf Gebaüden anzeigen</string>
+  <string name="config_showWayIcons_summary">Auf Gebäuden das Symbol der am besten passenden Vorlage einblenden</string>
   <string name="config_loginbutton_title">Benutzerkonto</string>
   <string name="config_username_title">OSM-Benutzername</string>
   <string name="config_username_summary">Konfiguration wird nur gebraucht falls kein OAuth verwendet wird. Konten sind hier http://www.openstreetmap.org/user/new verfügbar.</string>
@@ -414,6 +454,22 @@
   <string name="config_address_tags">Adressattribute</string>
   <string name="config_address_tags_summary">Für die Adressvorhersage verwendete Attribute</string>
   <string name="config_moreprefs">Weitere Einstellungen ...</string>
+  <string name="config_tagFormEnabled_title">Eigenschaftsformular anzeigen</string>
+  <string name="config_tagFormEnabled_summary">Formularansicht für Eigenschaften anzeigen</string>
+  <string name="config_followGPSbutton_title">Anordnung des GPS-Position Knopfes</string>
+  <string name="config_followGPSbutton_summary">Wo das \"GPS-Position folgen\" Knopf angezeigt wird</string>
+  <string name="config_fullscreenMode_title">Vollbild Modus</string>
+  <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit \"Bildschrimtasten\"</string>
+  <string name="config_maxInlineValues_title">Max. Anzahl Werte die direkt angezeigt werden</string>
+  <string name="config_maxInlineValues_summary">Max. Anzahl Werte die im EIgenschaftsformular direkt angezeigt werden.</string>
+  <string name="config_maxTileDownloadThreads_title">Max. Anzahl von Download Threads</string>
+  <string name="config_maxTileDownloadThreads_summary">Max. Anzahl von Threads um Kartenkacheln herunterzuladen.</string>
+  <string name="config_notificationCacheSize_title">Max. Anzahl von angezeigeten Hinweisen</string>
+  <string name="config_notificationCacheSize_summary">Max. Anzahl von angezeigeten Hinweisen pro Typ.</string>
+  <string name="config_autoLockDelay_title">Zeit bis zur automatischen Schirmsperrung</string>
+  <string name="config_autoLockDelay_summary">Zeit in Sekunden bis zur automatischen Schirmsperrung, 0 schaltet die Funktion ab.</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Immer nicht heruntergeladene Gebiete verdunkeln</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Falls gesetzt werden nicht heruntergeladene Gebiete auch im gesperrten Modus verdunkelt.</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -537,5 +593,20 @@ in %1$d m %2$s</string>
   <string-array name="note_state">
     <item>Offen</item>
     <item>Behoben</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Links</item>
+    <item>Rechts</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Automatisch</item>
+    <item>Nie</item>
+    <item>Erzwingen</item>
+    <item>Keine Statuszeile</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Nie</item>
+    <item>Erzwingen</item>
+    <item>Keine Statuszeile</item>
   </string-array>
 </resources>

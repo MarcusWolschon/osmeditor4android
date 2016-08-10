@@ -27,7 +27,6 @@
   <string name="toast_not_in_bug_range">Zoom inn for å legge til feilrapport (volum opp/ned eller lens/shift)</string>
   <string name="toast_export_failed">Eksport feila</string>
   <string name="toast_export_success">Eksporterte til %1$s</string>
-  <string name="toast_preset_overwrote_tags">Merk: Knapp overskrev tagg(er)</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nei</string>

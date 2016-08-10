@@ -97,7 +97,6 @@
   <string name="toast_not_in_bug_range">Vinsamlegast þysjaðu inn til að bæta við tilkynningu um mistök (hljóðstyrkstakkar eða myndavélarstjórn)</string>
   <string name="toast_export_failed">Útflutningur mistókst</string>
   <string name="toast_export_success">Flutt í %1$s</string>
-  <string name="toast_preset_overwrote_tags">Athugið - forstilling yfirskrifaði tög</string>
   <string name="toast_oneway_reversed">Þú breyttir áttinni á einstefnugötu eða ferli með merkingum sem reiða á einstefnu. Vinsamlegast skoðaðu merkingarnar og leiðréttu ef þarf.</string>
   <string name="toast_merge_tag_conflict">Þú steyptir saman eigindum með mismunandi hegðan. Vinsamlegast fullvissaðu þig um að þetta eigi í raun að vera svo eða lagaðu ef þarf.</string>
   <string name="toast_state_file_failed">Ólæsileg eða biluð skrá</string>
@@ -136,7 +135,6 @@
   <string name="replace">Skipta út</string>
   <string name="save">Vista</string>
   <string name="back">til baka</string>
-  <string name="foward">Áfram</string>
   <string name="keep">Geyma</string>
   <!--Dialog for back button-->
   <string name="exit_title">Viltu örugglega hætta?</string>
@@ -158,8 +156,6 @@
   <string name="tag_menu_resetMRU">Endurstilla forstillingar</string>
   <string name="tag_menu_reset_address_prediction">Endurstilla heimilisfangagisk</string>
   <string name="tag_menu_exit_no_save">Hætta\nán þess að vista</string>
-  <string name="tag_value_hint">Smelltu fyrir gildi</string>
-  <string name="tag_action_title">Tög valin</string>
   <string name="menu_up">Upp</string>
   <string name="menu_top">Efst</string>
   <!--Strings in LocationPicker-->
@@ -196,9 +192,6 @@
   <string name="menu_closed_way_split_1">Skipta upp ferli, fyrsti hnútur</string>
   <string name="menu_closed_way_split_2">Skipta um lokuðu ferlu, annar hnútur</string>
   <string name="menu_append">Bæta við</string>
-  <string name="menu_restriction">Bæta við hindrun</string>
-  <string name="menu_restriction_via">Bæta við takmörkun</string>
-  <string name="menu_restriction_to">Bæta takmörkun við</string>
   <string name="menu_relation">Búa til vensl</string>
   <string name="menu_add_relation_member">Bæta við</string>
   <string name="menu_select_relation_members">Velja</string>

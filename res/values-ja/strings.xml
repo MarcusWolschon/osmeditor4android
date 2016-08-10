@@ -86,7 +86,6 @@
   <string name="toast_not_in_bug_range">ズームインしてバグを追加してください (ボリュームUp/Down または Lens/Shift)</string>
   <string name="toast_export_failed">エクスポートは失敗しました</string>
   <string name="toast_export_success">%1$s へエクスポート</string>
-  <string name="toast_preset_overwrote_tags">通知　-　上書きタグ(s)をプリセット</string>
   <string name="toast_oneway_reversed">一方通行の道路もしくは方向依存タグがある道を逆走しました。タグを確認し必要があれば修正してください。</string>
   <string name="toast_merge_tag_conflict">同じリレーション内でロールが違っている、方向依存の方向、タグの値などがそろわない要素をマージしました。タグおよびロールを確認して必要があれば修正してください。</string>
   <string name="toast_state_file_failed">状態ファイルが読み込めないか、壊れています</string>
@@ -124,7 +123,6 @@
   <string name="replace">入れ替え</string>
   <string name="save">保存</string>
   <string name="back">戻る</string>
-  <string name="foward">進む</string>
   <string name="keep">そのままにする</string>
   <!--Dialog for back button-->
   <string name="exit_title">終了しますか？</string>
@@ -144,7 +142,6 @@
   <string name="tag_menu_reset_address_prediction">アドレス予測をリセットする</string>
   <string name="tag_menu_exit_no_save">終了
 セーブ無しで</string>
-  <string name="tag_value_hint">タップして値入力</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">ロードするエリア</string>
   <string name="location_choose_radius">半径を選択:</string>
@@ -180,9 +177,6 @@
   <string name="menu_closed_way_split_1">1番目のノードでクローズドウェイを分割する</string>
   <string name="menu_closed_way_split_2">2番目のノードでクローズドウェイを分割する</string>
   <string name="menu_append">接続</string>
-  <string name="menu_restriction">制限を追加</string>
-  <string name="menu_restriction_via">以下からの制限を追加</string>
-  <string name="menu_restriction_to">以下への制限を追加</string>
   <string name="menu_relation">リレーションを作成</string>
   <string name="menu_add_relation_member">メンバーを追加する</string>
   <string name="menu_tag">タグ編集</string>

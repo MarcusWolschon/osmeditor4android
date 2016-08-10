@@ -99,7 +99,6 @@
   <string name="toast_not_in_bug_range">请放大来增加一个错误(音量键上/下)</string>
   <string name="toast_export_failed">导出失败</string>
   <string name="toast_export_success">已导出%1$s</string>
-  <string name="toast_preset_overwrote_tags">注意 - 预置覆盖了标签</string>
   <string name="toast_oneway_reversed">您已反转了单行道或路径方向依据的标签。如果有必要，请检查标签并修正。</string>
   <string name="toast_merge_tag_conflict">您合并的元素有相互冲突的标签值，在相同的关系，方向是依据关系中不同的角色。请检查标签和角色，并在有必要时修正。</string>
   <string name="toast_potential_merge_tag_conflict">您正在试图合并的元素标签值有冲突。请先检查标签，修正后重试。</string>
@@ -139,7 +138,6 @@
   <string name="replace">替换</string>
   <string name="save">保存</string>
   <string name="back">返回</string>
-  <string name="foward">向前</string>
   <string name="keep">保留</string>
   <!--Dialog for back button-->
   <string name="exit_title">真要退出吗?</string>
@@ -161,9 +159,7 @@
   <string name="tag_menu_resetMRU">重置预设</string>
   <string name="tag_menu_reset_address_prediction">重置地址预测</string>
   <string name="tag_menu_exit_no_save">退出\n不保存</string>
-  <string name="tag_value_hint">指定值</string>
   <string name="tag_multi_value_hint">多个值</string>
-  <string name="tag_action_title">选择标签</string>
   <string name="menu_up">向上</string>
   <string name="menu_top">顶部</string>
   <string name="menu_preset_help">预设帮助</string>
@@ -201,9 +197,6 @@
   <string name="menu_closed_way_split_1">第1节点拆分封闭路径</string>
   <string name="menu_closed_way_split_2">第2节点拆分封闭路径</string>
   <string name="menu_append">附加</string>
-  <string name="menu_restriction">添加限制</string>
-  <string name="menu_restriction_via">添加通过限制</string>
-  <string name="menu_restriction_to">添加限制到</string>
   <string name="menu_relation">创建关系</string>
   <string name="menu_add_relation_member">添加成员</string>
   <string name="menu_select_relation_members">选择成员</string>

@@ -7,18 +7,28 @@
   <string name="transfer_download_current_download">Afbryd &amp; download</string>
   <string name="transfer_download_current_back">Gå tilbage (gør intet)</string>
   <string name="upload_problem_title">Problem Med Upload</string>
+  <string name="use_local_version">Brug \nlokal \nversion</string>
+  <string name="use_server_version">Brug \nversion \npå server</string>
   <string name="no_connection_title">Ingen forbindelse til serveren</string>
   <string name="no_connection_message">Kunne ikke forbinde til OSM-Serveren. Check din internet forbindelse eller prøv igen senere.</string>
+  <string name="data_conflict_title">Versions konflikt</string>
+  <string name="out_of_memory_title">Ikke mere hukommelse</string>
+  <string name="welcome_title">Velkommen!</string>
+  <string name="read_upgrade">Læs om den nye version</string>
   <string name="progress_title">Læser</string>
   <string name="progress_message">Læser ind i memory…</string>
   <string name="progress_download_message">Downloader data fra server…</string>
+  <string name="progress_general_title">Vent</string>
   <string name="upload_comment_label">Kommentar:</string>
+  <string name="upload_source_label">Kilde:</string>
   <string name="openstreetbug_new_nodeway">Opret Knude/Vej</string>
   <string name="openstreetbug_commitbutton">Commit</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="unsaved_data_title">Bemærk!</string>
   <string name="unsaved_data_message">Du har ugemte ændringer, som mistes, hvis du fortsætter.</string>
   <string name="unsaved_data_proceed">Kassér &amp; fortsæt</string>
+  <string name="version">Version</string>
+  <string name="length_m">Længde (m)</string>
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
   <string name="toast_upload_success">Upload til OSM server er afsluttet.</string>
@@ -67,6 +77,7 @@
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Vis lokalitet</string>
   <string name="menu_gps_follow">Følg GPS position</string>
+  <string name="menu_gps_goto">Gå til GPS position</string>
   <string name="menu_gps_start">Start GPS spor</string>
   <string name="menu_gps_pause">Pause GPS spor</string>
   <string name="menu_gps_clear">Slet GPS spor</string>
@@ -79,6 +90,7 @@
   <string name="menu_transfer_export">Eksporter ændringer</string>
   <string name="menu_save">Gem til en fil</string>
   <string name="menu_join">Flet sammen</string>
+  <string name="menu_tools">Værktøjer</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historie</string>
@@ -159,6 +171,13 @@
   <!--Notifications-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
+  <string name="days">dage</string>
+  <string name="hours">timer</string>
+  <string name="minutes">minutter</string>
+  <string name="seconds">sekunder</string>
+  <string name="km">km</string>
+  <string name="meter">meter</string>
   <!--Help system-->
+  <string name="toast_nohelp">Ingen hjælp tilgængelig her!</string>
   <!--Arrays-->
 </resources>

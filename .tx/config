@@ -3,42 +3,42 @@ host = https://www.transifex.com
 
 [vespucci.main]
 file_filter = res/values-<lang>/strings.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN 
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE 
 source_file = res/values/strings.xml
 source_lang = en
 minimum_perc = 5
 
 [vespucci.addresstagsxml]
 file_filter = res/values-<lang>/addresstags.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE
 source_file = res/values/addresstags.xml
 source_lang = en
 minimum_perc = 100
 
 [vespucci.bugfilterxml]
 file_filter = res/values-<lang>/bugfilter.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE
 source_file = res/values/bugfilter.xml
 source_lang = en
 minimum_perc = 100
 
 [vespucci.scalexml]
 file_filter = res/values-<lang>/scale.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE
 source_file = res/values/scale.xml
 source_lang = en
 minimum_perc = 100
 
 [vespucci.voicexml]
 file_filter = res/values-<lang>/voice.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE
 source_file = res/values/voice.xml
 source_lang = en
 minimum_perc = 100
 
 [vespucci.introductionmd]
 file_filter = documentation/docs/help/<lang>/Introduction.md
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR,zh-Hans: zh-rCN
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR,zh-Hans: zh-rCN, sv_SE: sv-rSE 
 source_file = documentation/docs/help/en/Introduction.md
 source_lang = en
 minimum_perc = 5
@@ -46,6 +46,6 @@ minimum_perc = 5
 [presets.presetpot]
 type = PO
 file_filter = assets/preset_<lang>.po
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE
 source_lang = en
 minimum_perc = 5

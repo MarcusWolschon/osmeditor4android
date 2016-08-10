@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Nincs</item>
+    <item>Skála (metrikus)</item>
+    <item>Rács (metrikus)</item>
+    <item>Skála (birodalmi)</item>
+    <item>Rács (birodalmi)</item>
+  </string-array>
+</resources>

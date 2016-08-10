@@ -120,7 +120,6 @@
   <string name="toast_not_in_bug_range">Пожалуйста, увеличьте масштаб для добавления заметки (Громкость +/- или Движок масштаба)</string>
   <string name="toast_export_failed">Сбой экспорта</string>
   <string name="toast_export_success">Экспортировано на %1$s</string>
-  <string name="toast_preset_overwrote_tags">Внимание: заготовка перезаписала тег(и)</string>
   <string name="toast_oneway_reversed">Вы изменили направление односторонней улицы или линии, имеющей зависимые от направления теги. Пожалуйста, проверьте теги и скорректируйте их, если потребуется.</string>
   <string name="toast_merge_tag_conflict">Вы объединили элементы, имеющие несовместимые значения тегов, зависящую от направления семантику или разные роли в одном и том же отношении. Пожалуйста, проверьте теги и роли, при необходимости скорректируйте.</string>
   <string name="toast_potential_merge_tag_conflict">Вы пытаетесь объединить элементы с несовместимыми значениями тегов. Пожалуйста, проверьте теги и скорректируйте их, прежде, чем повторять попытку.</string>
@@ -167,7 +166,6 @@
   <string name="replace">Заменить</string>
   <string name="save">Сохранить</string>
   <string name="back">Назад</string>
-  <string name="foward">Вперёд</string>
   <string name="keep">Оставить</string>
   <!--Dialog for back button-->
   <string name="exit_title">Действительно выйти?</string>
@@ -190,9 +188,7 @@
   <string name="tag_menu_reset_address_prediction">Сбросить предсказание адресов</string>
   <string name="tag_menu_exit_no_save">Выйти
 без сохранения</string>
-  <string name="tag_value_hint">Нажмите для значений</string>
   <string name="tag_multi_value_hint">Несколько значений</string>
-  <string name="tag_action_title">Выбраны теги</string>
   <string name="menu_up">Вверх</string>
   <string name="menu_top">Верхнее</string>
   <string name="menu_preset_help">Справка по заготовке</string>
@@ -232,9 +228,6 @@
   <string name="menu_closed_way_split_1">Разбить замкнутую линию, 1-я точка</string>
   <string name="menu_closed_way_split_2">Разбить замкнутую линию, 2-я точка</string>
   <string name="menu_append">Добавить</string>
-  <string name="menu_restriction">Добавить ограничение</string>
-  <string name="menu_restriction_via">Добавить ограничение \"через\"</string>
-  <string name="menu_restriction_to">Добавить ограничение \"на\"</string>
   <string name="menu_relation">Создать отношение</string>
   <string name="menu_add_relation_member">Добавить участника</string>
   <string name="menu_select_relation_members">Выбрать участников</string>
