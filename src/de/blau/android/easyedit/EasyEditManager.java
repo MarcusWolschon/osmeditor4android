@@ -2358,7 +2358,7 @@ public class EasyEditManager {
 				if (members.size() > 0) { // something was actually added
 					if (relation == null) {
 						relation = logic.createRelation(null, members);
-						main.performTagEdit(logic.createRelation(null, members),"type", false, false, false);
+						main.performTagEdit(relation,"type", false, false, false);
 					} else {
 						logic.addMembers(relation, members);
 						main.performTagEdit(relation, null, false, false, false);
