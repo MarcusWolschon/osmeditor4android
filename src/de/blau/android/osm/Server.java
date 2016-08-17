@@ -996,11 +996,38 @@ public class Server {
 			}
 			InputStream in = connection.getErrorStream();
 			if (e == null) {
+				Log.d(DEBUG_TAG, "response message " + responseMessage);
 				throw new OsmServerException(responsecode, responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
 			} else {
 				throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
 			}
 			//TODO: happens the first time on some uploads. responseMessage=ErrorMessage="", works the second time
+		}
+	}
+	
+	public void diffUpload(StorageDelegator delegator) throws MalformedURLException, ProtocolException, IOException {
+		
+		HttpURLConnection connection = null;
+		InputStream in = null;
+
+		try {
+			connection = openConnectionForWriteAccess(getDiffUploadUrl(changesetId), "POST");
+			delegator.writeOsmChange(connection.getOutputStream(), changesetId);
+			checkResponseCode(connection);
+			in = connection.getInputStream();
+			delegator.processDiffUploadResult(xmlParserFactory.newPullParser(),in);
+		} catch (IllegalArgumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalStateException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (XmlPullParserException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			disconnect(connection);
+			SavingHelper.close(in);
 		}
 	}
 
@@ -1101,6 +1128,10 @@ public class Server {
 	private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
 		//return getUpdateUrl(elem);
 		return new URL(getReadWriteUrl()  + SERVER_CHANGESET_PATH + changesetId + "/upload");
+	}
+	
+	private URL getDiffUploadUrl(long changeSetId) throws MalformedURLException {
+		return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changeSetId + "/upload");
 	}
 	
 	private URL getUserDetailsUrl() throws MalformedURLException {

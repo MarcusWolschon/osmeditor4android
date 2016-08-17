@@ -3062,7 +3062,11 @@ public class Logic {
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (!Application.mainActivity.isFinishing()) {
 					if (result.error == ErrorCodes.UPLOAD_CONFLICT) {
-						UploadConflict.showDialog(Application.mainActivity, result);
+						if (result.osmId > 0) {
+							UploadConflict.showDialog(Application.mainActivity, result);
+						} else {
+							ErrorAlert.showDialog(Application.mainActivity,result.error);
+						}
 					} else if (result.error == ErrorCodes.INVALID_LOGIN) {
 						InvalidLogin.showDialog(Application.mainActivity);
 					} else if (result.error != 0) {
