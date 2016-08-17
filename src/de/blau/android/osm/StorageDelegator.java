@@ -1,11 +1,8 @@
 package de.blau.android.osm;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -20,7 +17,6 @@ import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.acra.ACRA;
-import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
@@ -36,7 +32,6 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
-import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -2129,33 +2124,12 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 			}
 		}
-		
-		
+			
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
 		server.openChangeset(comment, source, Util.listToOsmList(imagery));
-		
-		try {
-			server.diffUpload(this);
-		} catch (OsmServerException osx) {
-			if (osx.getErrorCode() == HttpURLConnection.HTTP_CONFLICT) {
-				Log.d(DEBUG_TAG,"Uploading Nodes");
-				uploadCreatedOrModifiedElements(server, apiStorage.getNodes());
-				Log.d(DEBUG_TAG,"Uploading Ways");
-				uploadCreatedOrModifiedElements(server, apiStorage.getWays());
-				Log.d(DEBUG_TAG,"Uploading Relations");
-				uploadCreatedOrModifiedElements(server, apiStorage.getRelations());
-				Log.d(DEBUG_TAG,"Deleting Relations");
-				uploadDeletedElements(server, apiStorage.getRelations());
-				Log.d(DEBUG_TAG,"Deleting Ways");
-				uploadDeletedElements(server, apiStorage.getWays());
-				Log.d(DEBUG_TAG,"Deleting Nodes");
-				uploadDeletedElements(server, apiStorage.getNodes());
-			} else {
-				
-			}
-		}
 
+		server.diffUpload(this);
 		
 		if (closeChangeset) {
 			server.closeChangeset();
@@ -2322,98 +2296,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		serializer.endTag(null, "osmChange");
 		serializer.endDocument();
 	}
-
-	/**
-	 * Process the results of uploading a diff to the API, here because it needs to manipulate the stored data
-	 * @param parser
-	 * @param in
-	 */
-	public void processDiffUploadResult(XmlPullParser parser, InputStream in) throws OsmException {
-		boolean rehash = false; // if ids are changes we need to rehash storage
-		try {
-			parser.setInput(new BufferedInputStream(in, StreamUtils.IO_BUFFER_SIZE), null);
-			int eventType;
-			boolean inResponse = false;
-			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-				if (eventType == XmlPullParser.START_TAG) {
-					String tagName = parser.getName();
-					if (inResponse) {
-						String oldIdStr = parser.getAttributeValue(null, "old_id");
-						if (oldIdStr == null) { // must always be present
-							Log.e(DEBUG_TAG, "oldId missing! tag " + tagName);
-							continue;
-						}
-						long oldId = Long.parseLong(oldIdStr);
-						String newIdStr = parser.getAttributeValue(null, "new_id");
-						String newVersionStr = parser.getAttributeValue(null, "new_version");
-						if ("node".equals(tagName) || "way".equals(tagName) || "relation".equals(tagName)) {
-							OsmElement e = apiStorage.getOsmElement(tagName, oldId);
-							if (e != null) {
-								if (e.getState() == OsmElement.STATE_DELETED && newIdStr == null && newVersionStr == null) {
-									if (!apiStorage.removeElement(e)) {
-										Log.e(DEBUG_TAG, "Deleted " + e + " was already removed from local storage!");
-									}
-									Log.w(DEBUG_TAG, e + " deleted in API");
-									dirty = true;
-								} else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null && newVersionStr != null) {
-									long newId = Long.parseLong(newIdStr);
-									int newVersion = Integer.parseInt(newVersionStr);
-									if (newId > 0) {
-										if (!apiStorage.removeElement(e)) {
-											Log.e(DEBUG_TAG, "New " + e + " was already removed from api storage!");
-										}
-										Log.w(DEBUG_TAG, "New " + e + " added to API");
-										e.setOsmId(newId); // id change requires rehash so that removing works, remove first then set id
-										e.setOsmVersion(newVersion);
-										e.setState(OsmElement.STATE_UNCHANGED);
-										dirty = true;
-										rehash = true;
-									} else {
-										Log.d(DEBUG_TAG, "Didn't get new ID: " + newId);
-									}
-								} else if (e.getState() == OsmElement.STATE_MODIFIED && oldId > 0 && newIdStr != null && newVersionStr != null) {
-									long newId = Long.parseLong(newIdStr);
-									int newVersion = Integer.parseInt(newVersionStr);
-									if (newId==oldId && newVersion > 0) {
-										if (!apiStorage.removeElement(e)) {
-											Log.e(DEBUG_TAG, "Updated " + e + " was already removed from api storage!");
-										}
-										e.setOsmVersion(newVersion);
-										Log.w(DEBUG_TAG, e + " updated in API");
-										e.setState(OsmElement.STATE_UNCHANGED);
-									} else {
-										Log.d(DEBUG_TAG, "Didn't get new version: " + newVersion + " for " + newId);
-									}
-									dirty = true;
-								} else {
-									Log.e(DEBUG_TAG, "Unkown start tag in result: " + tagName);
-								}
-							} else {
-								// log crash or what
-								Log.e(DEBUG_TAG, "" + e + " not found in api storage!");
-							}
-						}
-					} else if (eventType == XmlPullParser.START_TAG && "diffResult".equals(tagName)) {
-						inResponse = true;
-					} else {
-						Log.e(DEBUG_TAG, "Unkown start tag: " + tagName);
-					}
-				}
-			}			
-			if (rehash) {
-				apiStorage.rehash();
-			}
-		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			throw new OsmException(e.toString());		
-		}
-	}
-
+	
 	/**
 	 * saves currentStorage + deleted objects to a file. 
 	 * @throws XmlPullParserException 
@@ -2474,7 +2357,6 @@ public class StorageDelegator implements Serializable, Exportable {
 		serializer.endTag(null, "osm");
 		serializer.endDocument();
 	}
-
 	
 	/**
 	 * Merge additional data with existing, copy to a new storage because this may fail

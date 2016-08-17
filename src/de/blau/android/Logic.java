@@ -2305,7 +2305,7 @@ public class Logic {
 				OsmElement element = null;
 				try {
 					final OsmParser osmParser = new OsmParser();
-					final InputStream in = prefs.getServer().getStreamForElement(null, type, id);
+					final InputStream in = prefs.getServer().getStreamForElement(Way.NAME.equals(type)?"full":null, type, id);
 					try {
 						osmParser.start(in);
 						element = osmParser.getStorage().getOsmElement(type, id);

@@ -16,6 +16,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 import org.acra.ACRA;
@@ -770,6 +772,13 @@ public class Server {
 	public boolean hasOpenChangeset() {
 		return changesetId != -1;
 	}
+	
+	/**
+	 * Reset changeset id 
+	 */
+	public void resetChangeset() {
+		changesetId = -1;
+	}
 
 	/**
 	 * Open a new changeset.
@@ -1013,9 +1022,7 @@ public class Server {
 		try {
 			connection = openConnectionForWriteAccess(getDiffUploadUrl(changesetId), "POST");
 			delegator.writeOsmChange(connection.getOutputStream(), changesetId);
-			checkResponseCode(connection);
-			in = connection.getInputStream();
-			delegator.processDiffUploadResult(xmlParserFactory.newPullParser(),in);
+			processDiffUploadResult(delegator, connection, xmlParserFactory.newPullParser());
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -1030,8 +1037,173 @@ public class Server {
 			SavingHelper.close(in);
 		}
 	}
+	
+	static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET = Pattern.compile("(?i)The changeset ([0-9]+) was closed at");
+	static final Pattern ERROR_MESSAGE_VERSION_CONFLICT = Pattern.compile("(?i)Version mismatch: Provided ([0-9]+), server had: ([0-9]+) of (Node|Way|Relation) ([0-9]+)");
+	static final Pattern ERROR_MESSAGE_DELETED = Pattern.compile("(?i)The (Node|Way|Relation) with the id ([0-9]+) has already been deleted");
+	static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED = Pattern.compile("(?i)Precondition failed: (Node|Way) ([0-9]+) is still used by (way|relation) ([0-9]+)");
+	static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = Pattern.compile("(?i)Precondition failed: The relation ([0-9]+) is used in relation ([0-9]+)");
+	
+	/**
+	 * Process the results of uploading a diff to the API, here because it needs to manipulate the stored data
+	 * @param parser
+	 * @param in
+	 * @throws IOException 
+	 */
+	public void processDiffUploadResult(StorageDelegator delegator, HttpURLConnection connection, XmlPullParser parser) throws IOException {
+		Storage apiStorage = delegator.getApiStorage();
+		int code = connection.getResponseCode();
+		if (code == HttpURLConnection.HTTP_OK) {
+			boolean rehash = false; // if ids are changed we need to rehash
+									// storage
+			try {
+				parser.setInput(new BufferedInputStream(connection.getInputStream(), StreamUtils.IO_BUFFER_SIZE), null);
+				int eventType;
+				boolean inResponse = false;
+				while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+					if (eventType == XmlPullParser.START_TAG) {
+						String tagName = parser.getName();
+						if (inResponse) {
+							String oldIdStr = parser.getAttributeValue(null, "old_id");
+							if (oldIdStr == null) { // must always be present
+								Log.e(DEBUG_TAG, "oldId missing! tag " + tagName);
+								continue;
+							}
+							long oldId = Long.parseLong(oldIdStr);
+							String newIdStr = parser.getAttributeValue(null, "new_id");
+							String newVersionStr = parser.getAttributeValue(null, "new_version");
+							if ("node".equals(tagName) || "way".equals(tagName) || "relation".equals(tagName)) {
+								OsmElement e = apiStorage.getOsmElement(tagName, oldId);
+								if (e != null) {
+									if (e.getState() == OsmElement.STATE_DELETED && newIdStr == null
+											&& newVersionStr == null) {
+										if (!apiStorage.removeElement(e)) {
+											Log.e(DEBUG_TAG,
+													"Deleted " + e + " was already removed from local storage!");
+										}
+										Log.w(DEBUG_TAG, e + " deleted in API");
+										delegator.dirty();
+									} else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null
+											&& newVersionStr != null) {
+										long newId = Long.parseLong(newIdStr);
+										int newVersion = Integer.parseInt(newVersionStr);
+										if (newId > 0) {
+											if (!apiStorage.removeElement(e)) {
+												Log.e(DEBUG_TAG, "New " + e + " was already removed from api storage!");
+											}
+											Log.w(DEBUG_TAG, "New " + e + " added to API");
+											e.setOsmId(newId); // id change requires rehash, so that removing works, remove first then set id
+											e.setOsmVersion(newVersion);
+											e.setState(OsmElement.STATE_UNCHANGED);
+											delegator.dirty();
+											rehash = true;
+										} else {
+											Log.d(DEBUG_TAG, "Didn't get new ID: " + newId);
+										}
+									} else if (e.getState() == OsmElement.STATE_MODIFIED && oldId > 0
+											&& newIdStr != null && newVersionStr != null) {
+										long newId = Long.parseLong(newIdStr);
+										int newVersion = Integer.parseInt(newVersionStr);
+										if (newId == oldId && newVersion > 0) {
+											if (!apiStorage.removeElement(e)) {
+												Log.e(DEBUG_TAG,
+														"Updated " + e + " was already removed from api storage!");
+											}
+											e.setOsmVersion(newVersion);
+											Log.w(DEBUG_TAG, e + " updated in API");
+											e.setState(OsmElement.STATE_UNCHANGED);
+										} else {
+											Log.d(DEBUG_TAG, "Didn't get new version: " + newVersion + " for " + newId);
+										}
+										delegator.dirty();
+									} else {
+										Log.e(DEBUG_TAG, "Unkown start tag in result: " + tagName);
+									}
+								} else {
+									// log crash or what
+									Log.e(DEBUG_TAG, "" + e + " not found in api storage!");
+								}
+							}
+						} else if (eventType == XmlPullParser.START_TAG && "diffResult".equals(tagName)) {
+							inResponse = true;
+						} else {
+							Log.e(DEBUG_TAG, "Unknown start tag: " + tagName);
+						}
+					}
+				}
+				if (rehash) {
+					apiStorage.rehash();
+				}
+			} catch (XmlPullParserException e) {
+				throw new OsmException(e.toString());
+			} catch (NumberFormatException e) {
+				throw new OsmException(e.toString());
+			} catch (IOException e) {
+				throw new OsmException(e.toString());
+			}
+		} else if (code == HttpURLConnection.HTTP_CONFLICT) {
+			// got conflict , possible messages see http://wiki.openstreetmap.org/wiki/API_v0.6#Diff_upload:_POST_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fupload
+			String message = Server.readStream(connection.getErrorStream());
+			Log.d(DEBUG_TAG, "Conflict message: " + message);
+			String responseMessage = connection.getResponseMessage();
 
-	private static String readStream(final InputStream in) {
+			Matcher m = ERROR_MESSAGE_VERSION_CONFLICT.matcher(message);
+			if (m.matches()) {
+				String type = m.group(3);
+				String idStr = m.group(4);
+				generateException(apiStorage, type, idStr, code, responseMessage, message);
+			} else {
+				m = ERROR_MESSAGE_DELETED.matcher(message);
+				if (m.matches()) {
+					String type = m.group(1);
+					String idStr = m.group(2);
+					generateException(apiStorage, type, idStr, code, responseMessage, message);
+				} else {
+					m = ERROR_MESSAGE_PRECONDITION_STILL_USED.matcher(message);
+					if (m.matches()) {
+						String type = m.group(1);
+						String idStr = m.group(2);
+						generateException(apiStorage, type, idStr, code, responseMessage, message);
+					} else {
+						m = ERROR_MESSAGE_PRECONDITION_RELATION_RELATION.matcher(message);
+						if (m.matches()) {
+							String idStr = m.group(1);
+							generateException(apiStorage, "relation", idStr, code, responseMessage, message);
+						} else {
+							m = ERROR_MESSAGE_CLOSED_CHANGESET.matcher(message);
+							if (m.matches()) {
+								// note this should never happen, since we check
+								// if the changeset is still open before upload
+								throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST,
+										code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
+							} else {
+								Log.e(DEBUG_TAG, "Unknown error message: " + message);
+							}
+						}
+					}
+				}
+			}
+			throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST,
+					"Original error " + code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
+		} else {
+			String message = Server.readStream(connection.getErrorStream());
+			throw new OsmServerException(code,
+					code + "=\"" + connection.getResponseMessage() + "\" ErrorMessage: " + message);
+		}
+	}
+
+	private void generateException(Storage apiStorage, String type, String idStr, int code, String responseMessage, String message) throws OsmServerException {
+		if (type != null && idStr != null) {
+			long osmId = Long.parseLong(idStr);
+			OsmElement e = apiStorage.getOsmElement(type.toLowerCase(), osmId);
+			if (e!=null) {
+				throw new OsmServerException(code, e.getName(), e.getOsmId(), code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
+			}
+		}
+		Log.e(DEBUG_TAG, "Error message matched, but parsing failed: " + message);
+	}
+
+	static String readStream(final InputStream in) {
 		String res = "";
 		if (in != null) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);

@@ -142,7 +142,7 @@ public class UploadConflict extends DialogFragment
     			}
     		});
     	} catch (Exception e) {
-    		Log.e(DEBUG_TAG,"Caught exacption " + e);
+    		Log.e(DEBUG_TAG,"Caught exception " + e);
     		ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(e);
     	}
