@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1185: Explicitly set created_by when updating changeset.
+
 1184: Fix double relation creation if no further members are added. 
 
 1182: updated default preset and translations.
