@@ -15,7 +15,6 @@ import org.xmlpull.v1.XmlSerializer;
 import android.text.Html;
 import de.blau.android.Application;
 import de.blau.android.osm.JosmXmlSerializable;
-import de.blau.android.osm.OsmElement;
 import de.blau.android.util.DateFormatter;
 
 
