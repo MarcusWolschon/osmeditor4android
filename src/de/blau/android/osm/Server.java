@@ -1040,9 +1040,9 @@ public class Server {
 	
 	static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET = Pattern.compile("(?i)The changeset ([0-9]+) was closed at");
 	static final Pattern ERROR_MESSAGE_VERSION_CONFLICT = Pattern.compile("(?i)Version mismatch: Provided ([0-9]+), server had: ([0-9]+) of (Node|Way|Relation) ([0-9]+)");
-	static final Pattern ERROR_MESSAGE_DELETED = Pattern.compile("(?i)The (Node|Way|Relation) with the id ([0-9]+) has already been deleted");
-	static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED = Pattern.compile("(?i)Precondition failed: (Node|Way) ([0-9]+) is still used by (way|relation) ([0-9]+)");
-	static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = Pattern.compile("(?i)Precondition failed: The relation ([0-9]+) is used in relation ([0-9]+)");
+	static final Pattern ERROR_MESSAGE_DELETED = Pattern.compile("(?i)The (node|way|relation) with the id ([0-9]+) has already been deleted");
+	static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED = Pattern.compile("(?i)Precondition failed: (Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
+	static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = Pattern.compile("(?i)Precondition failed: The relation ([0-9]+) is used in relation ([0-9]+).");
 	
 	/**
 	 * Process the results of uploading a diff to the API, here because it needs to manipulate the stored data
@@ -1132,7 +1132,10 @@ public class Server {
 					}
 				}
 				if (rehash) {
-					apiStorage.rehash();
+					delegator.getCurrentStorage().rehash();
+					if (!apiStorage.isEmpty()) { // shouldn't happen
+						apiStorage.rehash();
+					}
 				}
 			} catch (XmlPullParserException e) {
 				throw new OsmException(e.toString());
@@ -1141,54 +1144,58 @@ public class Server {
 			} catch (IOException e) {
 				throw new OsmException(e.toString());
 			}
-		} else if (code == HttpURLConnection.HTTP_CONFLICT) {
-			// got conflict , possible messages see http://wiki.openstreetmap.org/wiki/API_v0.6#Diff_upload:_POST_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fupload
+		} else {
 			String message = Server.readStream(connection.getErrorStream());
-			Log.d(DEBUG_TAG, "Conflict message: " + message);
 			String responseMessage = connection.getResponseMessage();
-
-			Matcher m = ERROR_MESSAGE_VERSION_CONFLICT.matcher(message);
-			if (m.matches()) {
-				String type = m.group(3);
-				String idStr = m.group(4);
-				generateException(apiStorage, type, idStr, code, responseMessage, message);
-			} else {
-				m = ERROR_MESSAGE_DELETED.matcher(message);
+			Log.d(DEBUG_TAG, "Error code: " + code + " response: " + responseMessage + " message: " + message);
+			if (code == HttpURLConnection.HTTP_CONFLICT) {
+				// got conflict , possible messages see
+				// http://wiki.openstreetmap.org/wiki/API_v0.6#Diff_upload:_POST_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fupload
+				Matcher m = ERROR_MESSAGE_VERSION_CONFLICT.matcher(message);
+				if (m.matches()) {
+					String type = m.group(3);
+					String idStr = m.group(4);
+					generateException(apiStorage, type, idStr, code, responseMessage, message);
+				} else {
+					m = ERROR_MESSAGE_CLOSED_CHANGESET.matcher(message);
+					if (m.matches()) {
+						// note this should never happen, since we check
+						// if the changeset is still open before upload
+						throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST,
+								code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
+					} 
+				}
+				Log.e(DEBUG_TAG, "Code: " + code + " unknown error message: " + message);
+				throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST,
+						"Original error " + code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
+			} else if (code == HttpURLConnection.HTTP_GONE) {
+				Matcher m = ERROR_MESSAGE_DELETED.matcher(message);
+				if (m.matches()) {
+					String type = m.group(1);
+					String idStr = m.group(2);
+					generateException(apiStorage, type, idStr, code, responseMessage, message);
+				}
+			} else if (code == HttpURLConnection.HTTP_PRECON_FAILED) {
+				// Besides the messages parsed here, theoretically the following two messages could be returned:
+				// Way #{id} requires the nodes with id in (#{missing_ids}), which either do not exist, or are not visible.
+				// and
+				// Relation with id #{id} cannot be saved due to #{element} with id #{element.id}
+				// however it shouldn't be possible to create such situations with vespucci
+				Matcher m = ERROR_MESSAGE_PRECONDITION_STILL_USED.matcher(message);
 				if (m.matches()) {
 					String type = m.group(1);
 					String idStr = m.group(2);
 					generateException(apiStorage, type, idStr, code, responseMessage, message);
 				} else {
-					m = ERROR_MESSAGE_PRECONDITION_STILL_USED.matcher(message);
+					m = ERROR_MESSAGE_PRECONDITION_RELATION_RELATION.matcher(message);
 					if (m.matches()) {
-						String type = m.group(1);
-						String idStr = m.group(2);
-						generateException(apiStorage, type, idStr, code, responseMessage, message);
-					} else {
-						m = ERROR_MESSAGE_PRECONDITION_RELATION_RELATION.matcher(message);
-						if (m.matches()) {
-							String idStr = m.group(1);
-							generateException(apiStorage, "relation", idStr, code, responseMessage, message);
-						} else {
-							m = ERROR_MESSAGE_CLOSED_CHANGESET.matcher(message);
-							if (m.matches()) {
-								// note this should never happen, since we check
-								// if the changeset is still open before upload
-								throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST,
-										code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
-							} else {
-								Log.e(DEBUG_TAG, "Unknown error message: " + message);
-							}
-						}
-					}
+						String idStr = m.group(1);
+						generateException(apiStorage, "relation", idStr, code, responseMessage, message);
+					} 
+					Log.e(DEBUG_TAG, "Unknown error message: " + message);
 				}
 			}
-			throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST,
-					"Original error " + code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
-		} else {
-			String message = Server.readStream(connection.getErrorStream());
-			throw new OsmServerException(code,
-					code + "=\"" + connection.getResponseMessage() + "\" ErrorMessage: " + message);
+			throw new OsmServerException(code, code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
 		}
 	}
 

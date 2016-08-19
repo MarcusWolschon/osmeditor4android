@@ -2987,7 +2987,6 @@ public class Logic {
 			@Override
 			protected void onPreExecute() {
 				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-				getDelegator().clearUndo();
 				lastComments.push(comment);
 				lastSources.push(source);
 			}
@@ -3018,6 +3017,7 @@ public class Logic {
 					case HttpURLConnection.HTTP_FORBIDDEN:
 						result.error = ErrorCodes.INVALID_LOGIN;
 						break;
+					case HttpURLConnection.HTTP_GONE:
 					case HttpURLConnection.HTTP_CONFLICT:
 					case HttpURLConnection.HTTP_PRECON_FAILED:
 						result.error = ErrorCodes.UPLOAD_CONFLICT;
@@ -3026,7 +3026,6 @@ public class Logic {
 						break;
 					case HttpURLConnection.HTTP_BAD_REQUEST:
 					case HttpURLConnection.HTTP_NOT_FOUND:
-					case HttpURLConnection.HTTP_GONE:
 					case HttpURLConnection.HTTP_INTERNAL_ERROR:
 					case HttpURLConnection.HTTP_BAD_GATEWAY:
 					case HttpURLConnection.HTTP_UNAVAILABLE:
@@ -3057,15 +3056,16 @@ public class Logic {
 					save(); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
 					Application.mainActivity.triggerMenuInvalidation();
+					getDelegator().clearUndo(); // only clear on successful upload
 				}
-				getDelegator().clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (!Application.mainActivity.isFinishing()) {
 					if (result.error == ErrorCodes.UPLOAD_CONFLICT) {
 						if (result.osmId > 0) {
 							UploadConflict.showDialog(Application.mainActivity, result);
 						} else {
-							ErrorAlert.showDialog(Application.mainActivity,result.error);
+							Log.e(DEBUG_TAG, "No OSM element found for conflict");
+							ErrorAlert.showDialog(Application.mainActivity,ErrorCodes.UPLOAD_PROBLEM);
 						}
 					} else if (result.error == ErrorCodes.INVALID_LOGIN) {
 						InvalidLogin.showDialog(Application.mainActivity);
@@ -3752,17 +3752,24 @@ public class Logic {
 	public void fixElementWithConflict(long newVersion, OsmElement elementLocal, OsmElement elementOnServer) {
 		createCheckpoint(R.string.undo_action_fix_conflict);
 
-		if (elementOnServer == null) { // deleted
-			// given that the element is deleted on the server we likely need to add it back to ways and relations there too
-			if (elementLocal.getName().equals(Node.NAME)) {
-				for (Way w:getWaysForNode((Node)elementLocal)) {
-					getDelegator().setOsmVersion(w,w.getOsmVersion()+1);
+		if (elementOnServer == null) { // deleted on server
+			if (elementLocal.getState() != OsmElement.STATE_DELETED) { // but not locally	
+				// given that the element is deleted on the server we likely need to add it back to ways and relations there too
+				if (elementLocal.getName().equals(Node.NAME)) {
+					for (Way w:getWaysForNode((Node)elementLocal)) {
+						getDelegator().setOsmVersion(w,w.getOsmVersion()+1);
+					}
 				}
-			}
-			if (elementLocal.hasParentRelations()) {
-				for (Relation r:elementLocal.getParentRelations()) {
-					getDelegator().setOsmVersion(r,r.getOsmVersion()+1);
+				if (elementLocal.hasParentRelations()) {
+					for (Relation r:elementLocal.getParentRelations()) {
+						getDelegator().setOsmVersion(r,r.getOsmVersion()+1);
+					}
 				}
+			} else { // deleted locally too
+				// note this sets the state to unchanged, but the element
+				// isn't referenced anywhere anymore so that doesn't matter
+				getDelegator().removeFromUpload(elementLocal); 
+				return;
 			}
 		}
 		getDelegator().setOsmVersion(elementLocal,newVersion);
