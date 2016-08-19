@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.osm.OsmElement;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.ThemeUtils;
 

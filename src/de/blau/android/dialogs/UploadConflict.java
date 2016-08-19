@@ -107,14 +107,26 @@ public class UploadConflict extends DialogFragment
     		boolean useServerOnly = false;
     		if (elementOnServer != null) {
     			if (elementLocal.getState()==OsmElement.STATE_DELETED) {
-    				builder.setMessage(res.getString(R.string.upload_conflict_message_referential, elementLocal.getDescription()));
+    				builder.setMessage(res.getString(R.string.upload_conflict_message_referential, elementLocal.getDescription(true)));
     				useServerOnly = true;
     			} else {
-    				builder.setMessage(res.getString(R.string.upload_conflict_message_version, elementLocal.getDescription(), elementLocal.getOsmVersion(), elementOnServer.getOsmVersion()));
+    				builder.setMessage(res.getString(R.string.upload_conflict_message_version, elementLocal.getDescription(true), elementLocal.getOsmVersion(), elementOnServer.getOsmVersion()));
     			}
     			newVersion = elementOnServer.getOsmVersion();
     		} else {
-    			builder.setMessage(res.getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(), elementLocal.getOsmVersion()));
+    			if (elementLocal.getState()==OsmElement.STATE_DELETED) {
+    				builder.setMessage(res.getString(R.string.upload_conflict_message_already_deleted, elementLocal.getDescription(true)));
+    				Application.getDelegator().removeFromUpload(elementLocal);
+    	   			builder.setPositiveButton(R.string.retry, new OnClickListener() {
+        				@Override
+        				public void onClick(DialogInterface dialog, int which) {
+        					((Main)getActivity()).confirmUpload(); // FIXME this should be made independent from Main
+        				}
+        			});
+    	   			return builder.create();
+    			} else {
+    				builder.setMessage(res.getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(true), elementLocal.getOsmVersion()));
+    			}
     			newVersion = elementLocal.getOsmVersion() + 1;
     		}
     		if (!useServerOnly) {
@@ -142,7 +154,7 @@ public class UploadConflict extends DialogFragment
     			}
     		});
     	} catch (Exception e) {
-    		Log.e(DEBUG_TAG,"Caught exacption " + e);
+    		Log.e(DEBUG_TAG,"Caught exception " + e);
     		ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(e);
     	}

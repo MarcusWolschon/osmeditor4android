@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import java.io.FileNotFoundException;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -22,8 +20,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.Search;

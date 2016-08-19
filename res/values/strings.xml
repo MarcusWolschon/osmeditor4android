@@ -13,6 +13,7 @@
     <string name="upload_conflict_message_version">%1$s \nhas local version %2$s \nand on the server %3$s </string>
     <string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the server</string>
     <string name="upload_conflict_message_referential">%1$s \nwas deleted locally \nbut has references on the server </string>
+    <string name="upload_conflict_message_already_deleted">%1$s \nwas already deleted on the server </string>
     <string name="use_local_version">Use \nlocal \nversion</string>
     <string name="use_server_version">Use \nversion \non server</string>
     <string name="no_login_data_title">Authentication failed</string>
@@ -182,6 +183,7 @@
     <string name="keep">Keep</string>
     <string name="enable">Enable</string>
     <string name="clear">Clear</string>
+    <string name="retry">Retry</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>

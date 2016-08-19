@@ -2099,48 +2099,12 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	public synchronized void uploadToServer(final Server server, final String comment, String source, boolean closeChangeset) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
-		
-		//check if we have any created elements that will change their id
-		boolean rehash = false;
-		for (Node n:apiStorage.getNodes()) {
-			if (OsmElement.STATE_CREATED == n.getState()) {
-				rehash = true;
-				break;
-			}
-		}
-		if (!rehash) {
-			for (Way w:apiStorage.getWays()) {
-				if (OsmElement.STATE_CREATED == w.getState()) {
-					rehash = true;
-					break;
-				}
-			}
-			if (!rehash) {
-				for (Relation r:apiStorage.getRelations()) {
-					if (OsmElement.STATE_CREATED == r.getState()) {
-						rehash = true;
-						break;
-					}
-				}
-			}
-		}
-		
-		
+			
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
 		server.openChangeset(comment, source, Util.listToOsmList(imagery));
-		Log.d(DEBUG_TAG,"Uploading Nodes");
-		uploadCreatedOrModifiedElements(server, apiStorage.getNodes());
-		Log.d(DEBUG_TAG,"Uploading Ways");
-		uploadCreatedOrModifiedElements(server, apiStorage.getWays());
-		Log.d(DEBUG_TAG,"Uploading Relations");
-		uploadCreatedOrModifiedElements(server, apiStorage.getRelations());
-		Log.d(DEBUG_TAG,"Deleting Relations");
-		uploadDeletedElements(server, apiStorage.getRelations());
-		Log.d(DEBUG_TAG,"Deleting Ways");
-		uploadDeletedElements(server, apiStorage.getWays());
-		Log.d(DEBUG_TAG,"Deleting Nodes");
-		uploadDeletedElements(server, apiStorage.getNodes());
+
+		server.diffUpload(this);
 		
 		if (closeChangeset) {
 			server.closeChangeset();
@@ -2152,75 +2116,9 @@ public class StorageDelegator implements Serializable, Exportable {
 		imagery = new ArrayList<String>();
 		setImageryRecorded(false);
 		
-		if (rehash) {
-			// ids have changed, need to rehash
-			Log.d(DEBUG_TAG, "rehash currentStorage");
-			currentStorage.rehash();
-		}
-		
 		// sanity check
 		if (!apiStorage.isEmpty()) {
 			Log.d(DEBUG_TAG, "apiStorage not empty");
-			if (rehash) {
-				// ids may have changed, need to rehash
-				Log.d(DEBUG_TAG, "rehash apiStorage");
-				apiStorage.rehash();
-			}
-		}
-	}
-
-	//
-	private void uploadDeletedElements(final Server server, final List<? extends OsmElement> elements)
-			throws MalformedURLException, ProtocolException, OsmServerException, IOException {
-		Log.d("StorageDelegator", "uploadDeletedElements: number of elements " + elements.size() );
-		List<? extends OsmElement> elementsToUpload = new ArrayList<OsmElement>(elements);
-		for (OsmElement element:elementsToUpload) {
-			if (element.getState() == OsmElement.STATE_DELETED) {
-				server.deleteElement(element);
-				if (!apiStorage.removeElement(element)) {
-					Log.e(DEBUG_TAG, "Deleted " + element + " was already removed from local storage!");
-				}
-				Log.w(DEBUG_TAG, element + " deleted in API");
-				dirty = true;
-			}
-		}
-	}
-
-	private void uploadCreatedOrModifiedElements(final Server server, final List<? extends OsmElement> elements)
-			throws MalformedURLException, ProtocolException, OsmServerException, IOException {
-		Log.d("StorageDelegator", "uploadCreatedOrModifiedElements: number of elements " + elements.size() );
-		List<? extends OsmElement> elementsToUpload = new ArrayList<OsmElement>(elements);
-		for (OsmElement element:elementsToUpload) {
-			Log.d("StorageDelegator", "uploadCreatedOrModifiedElements: element added for upload, id " + element.osmId);
-			switch (element.getState()) {
-			case OsmElement.STATE_CREATED:
-				long osmId = server.createElement(element);
-				if (osmId > 0) {
-					if (!apiStorage.removeElement(element)) {
-						Log.e(DEBUG_TAG, "New " + element + " was already removed from local storage!");
-					}
-					Log.w(DEBUG_TAG, "New " + element + " added to API");
-					element.setOsmId(osmId); // id change requires rehash so that removing works, remove first then set id
-					element.setState(OsmElement.STATE_UNCHANGED);
-				} else {
-					Log.d(DEBUG_TAG, "Didn't get new ID: " + osmId);
-				}
-				break;
-			case OsmElement.STATE_MODIFIED:
-				long osmVersion = server.updateElement(element);
-				if (osmVersion > 0) {
-					element.osmVersion = osmVersion;
-					if (!apiStorage.removeElement(element)) {
-						Log.e(DEBUG_TAG, "Updated " + element + " was already removed from local storage!");
-					}
-					Log.w(DEBUG_TAG, element + " updated in API");
-					element.setState(OsmElement.STATE_UNCHANGED);
-				} else {
-					Log.d(DEBUG_TAG, "Didn't get new version: " + osmVersion);
-				}
-				break;
-			}
-			dirty = true;
 		}
 	}
 	
@@ -2229,6 +2127,27 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	@Override
 	public void export(OutputStream outputStream) throws Exception {
+		writeOsmChange(outputStream, null);
+	}
+	
+	@Override
+	public String exportExtension() {
+		return "osc";
+	}
+		
+	/**
+	 * Writes created/changed/deleted data to outputStream in OsmChange format
+	 * http://wiki.openstreetmap.org/wiki/OsmChange
+	 * @param outputStream
+	 * @param changeSetId
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 * @throws IllegalArgumentException 
+	 * @throws XmlPullParserException 
+	 * @throws Exception
+	 */
+	public void writeOsmChange(OutputStream outputStream, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException, XmlPullParserException  {
+		Log.d(DEBUG_TAG, "writing osm change with changesetid " + changeSetId);
 		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
 		serializer.setOutput(outputStream, "UTF-8");
 		serializer.startDocument("UTF-8", null);
@@ -2267,31 +2186,26 @@ public class StorageDelegator implements Serializable, Exportable {
 
 		if (!createdElements.isEmpty()) {
 			serializer.startTag(null, "create");
-			for (OsmElement elem : createdElements) elem.toXml(serializer, null);
+			for (OsmElement elem : createdElements) elem.toXml(serializer, changeSetId);
 			serializer.endTag(null, "create");
 		}
 
 		if (!modifiedElements.isEmpty()) {
 			serializer.startTag(null, "modify");
-			for (OsmElement elem : modifiedElements) elem.toXml(serializer, null);
+			for (OsmElement elem : modifiedElements) elem.toXml(serializer, changeSetId);
 			serializer.endTag(null, "modify");
 		}
 				
 		if (!deletedElements.isEmpty()) {
 			serializer.startTag(null, "delete");
-			for (OsmElement elem : deletedElements) elem.toXml(serializer, null);
+			for (OsmElement elem : deletedElements) elem.toXml(serializer, changeSetId);
 			serializer.endTag(null, "delete");
 		}
 		
 		serializer.endTag(null, "osmChange");
 		serializer.endDocument();
 	}
-
-	@Override
-	public String exportExtension() {
-		return "osc";
-	}
-
+	
 	/**
 	 * saves currentStorage + deleted objects to a file. 
 	 * @throws XmlPullParserException 
@@ -2352,7 +2266,6 @@ public class StorageDelegator implements Serializable, Exportable {
 		serializer.endTag(null, "osm");
 		serializer.endDocument();
 	}
-
 	
 	/**
 	 * Merge additional data with existing, copy to a new storage because this may fail

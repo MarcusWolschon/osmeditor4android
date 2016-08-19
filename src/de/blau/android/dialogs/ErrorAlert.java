@@ -80,6 +80,8 @@ public class ErrorAlert extends DialogFragment
 			return "alert_file_write_failed";
 		case ErrorCodes.NAN:
 			return "alert_nan";
+		case ErrorCodes.INVALID_BOUNDING_BOX:
+			return "invalid_bounding_box";
 		}
 		return null;
 	}
