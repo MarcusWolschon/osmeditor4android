@@ -31,6 +31,7 @@
   <string name="progress_searching_message">Söker...</string>
   <string name="progress_saving_message">Sparar...</string>
   <string name="progress_uploading_message">Laddar upp...</string>
+  <string name="progress_preset_message">Laddar ner förinställning...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Källa:</string>
   <string name="upload_gpx_description_label">Beskrivning</string>
@@ -51,6 +52,7 @@
   <string name="unsaved_data_message">Du har osparade ändringar som kommer att kastas om du fortsätter.</string>
   <string name="unsaved_data_proceed">Kasta bort &amp; fortsätt</string>
   <string name="imagery_offset_description">Beskrivning</string>
+  <string name="imagery_offset_author">Författare</string>
   <string name="imagery_offset_date">Skapades</string>
   <string name="imagery_offset_zoom">Zooma</string>
   <string name="imagery_offset_distance">Avstånd</string>

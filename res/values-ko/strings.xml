@@ -7,6 +7,8 @@
   <string name="transfer_download_current_back">뒤로 (아무 것도 하지 않음)</string>
   <string name="upload_problem_title">올리는 데 문제</string>
   <string name="upload_conflict_title">올리기 충돌</string>
+  <string name="use_local_version">로컬 \n버전 \n사용</string>
+  <string name="use_server_version">서버의 \n버전 \n사용</string>
   <string name="no_login_data_title">인증 실패</string>
   <string name="no_connection_title">서버에 연결할 수 없음</string>
   <string name="wrong_login_data_title">인증 실패</string>
@@ -14,6 +16,7 @@
   <string name="api_offline_title">API 오프라인</string>
   <string name="out_of_memory_title">메모리 초과</string>
   <string name="file_write_failed_title">파일 쓰기 실패</string>
+  <string name="file_write_failed_message">선택된 파일을 쓸 수 없었습니다.</string>
   <string name="welcome_title">환영합니다!</string>
   <string name="read_upgrade">새 버전에 대해 읽기</string>
   <string name="progress_title">불러오는 중</string>
@@ -95,8 +98,16 @@
   <!--Text should be as short as possible-->
   <!--EasyEdit action mode titles-->
   <!--Preferences-->
+  <string name="config_tileCacheSize_title">타일 캐시 크기</string>
+  <string name="config_tileCacheSize_summary">총 타일 캐시 크기 MB로</string>
+  <string name="config_showStats_title">통계 보기</string>
   <string name="config_enableOpenStreetBugs_title">버그와 참고 표시 활성화</string>
   <string name="config_enableOpenStreetBugs_summary">참고/오류를 표시하고, 편집하고 만듭니다.</string>
+  <string name="config_enablePhotoLayer_title">사진 레이어 활성화</string>
+  <string name="config_enableKeepScreenOn_title">화면 켜기 유지</string>
+  <string name="config_enableKeepScreenOn_summary">전원을 절약하기 위한 화면 끄기를 하지 마세요.</string>
+  <string name="config_closeChangesetOnSave_title">바뀜집합 닫기</string>
+  <string name="config_backgroundLayer_title">지도 배경</string>
   <string name="config_category_misc">기타</string>
   <string name="config_tagFormEnabled_title">태그 양식 표시</string>
   <string name="config_tagFormEnabled_summary">편집을 위해 태그 양식 표시</string>
@@ -106,11 +117,35 @@
   <!--common terms-->
   <!--"default" is a reserved Java keyword...-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_add">넣기</string>
+  <string name="undo_action_cut">잘라내기</string>
+  <string name="undo_action_paste">붙여넣기</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
   <!--Misc relation related stuff-->
+  <string name="type">종류</string>
+  <string name="object">개체</string>
   <!--time and distance-->
+  <string name="days">일</string>
+  <string name="hours">시간</string>
+  <string name="minutes">분</string>
+  <string name="seconds">초</string>
   <!--Help system-->
+  <string name="toast_nohelp">여기에 사용할 수 있는 도움말이 없습니다!</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>비공개</item>
+    <item>공개</item>
+    <item>추적할 수 있음</item>
+    <item>식별할 수 있음</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>열림</item>
+    <item>닫힘</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>왼쪽</item>
+    <item>오른쪽</item>
+  </string-array>
 </resources>

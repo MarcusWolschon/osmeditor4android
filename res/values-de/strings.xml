@@ -12,6 +12,7 @@
   <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$s \nund auf dem Server %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$s \nund ist auf dem Server gelöscht</string>
   <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server </string>
+  <string name="upload_conflict_message_already_deleted">%1$s \n ist auf dem Server schon gelöscht</string>
   <string name="use_local_version">Lokale \nVersion \nverwenden</string>
   <string name="use_server_version">Version auf \ndem Server \nverwenden</string>
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
@@ -86,6 +87,7 @@
   <string name="search_results_title">Suchresultate</string>
   <string name="find_message">Suchanfrage eingeben</string>
   <string name="preset_search_hint">Vorlagensuche</string>
+  <string name="search">Suche</string>
   <string name="no_valid_preset">Keine gültige Vorlage!</string>
   <string name="read_file">Datei zum Lesen auswählen</string>
   <string name="save_file">Datei zum Speichern angeben</string>
@@ -178,6 +180,7 @@
   <string name="keep">Behalten</string>
   <string name="enable">Aktivieren</string>
   <string name="clear">Zurücksetzten</string>
+  <string name="retry">Wiederholen</string>
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
@@ -299,6 +302,8 @@
   <string name="menu_transfer_bugs_clear">Zurücksetzten</string>
   <string name="menu_transfer_bugs_clear_long">Hinweise/Bugs zurücksetzen</string>
   <string name="menu_transfer_autodownload_long">Automatischer Download von Hinweisen/Bugs</string>
+  <string name="menu_transfer_save_notes_all">Alle Notizen speichern...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Geänderte und neue Notizen speichern...</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
