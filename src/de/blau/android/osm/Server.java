@@ -850,6 +850,10 @@ public class Server {
 				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
 					startXml(serializer);
 					serializer.startTag("", "changeset");
+					serializer.startTag("", "tag");
+					serializer.attribute("", "k", "created_by");
+					serializer.attribute("", "v", generator);
+					serializer.endTag("", "tag");
 					if (comment != null && comment.length() > 0) {
 						serializer.startTag("", "tag");
 						serializer.attribute("", "k", "comment");
