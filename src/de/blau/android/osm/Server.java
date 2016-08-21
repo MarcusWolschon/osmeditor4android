@@ -1038,6 +1038,9 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * These patterns are fairly, to very, unforgiving, hopefully API 0.7 will give the error codes back in a more structured way
+	 */
 	static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET = Pattern.compile("(?i)The changeset ([0-9]+) was closed at");
 	static final Pattern ERROR_MESSAGE_VERSION_CONFLICT = Pattern.compile("(?i)Version mismatch: Provided ([0-9]+), server had: ([0-9]+) of (Node|Way|Relation) ([0-9]+)");
 	static final Pattern ERROR_MESSAGE_DELETED = Pattern.compile("(?i)The (node|way|relation) with the id ([0-9]+) has already been deleted");
