@@ -535,7 +535,19 @@ public class DialogFactory {
 				}
 				newVersion = elementOnServer.getOsmVersion();
 			} else {
-				uploadConflict.setMessage(caller.getResources().getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(), elementLocal.getOsmVersion()));
+				if (elementLocal.getState() != OsmElement.STATE_DELETED) {
+					uploadConflict.setMessage(caller.getResources().getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(), elementLocal.getOsmVersion()));
+				} else {
+					uploadConflict.setMessage(caller.getResources().getString(R.string.upload_conflict_message_already_deleted, elementLocal.getDescription(true)));
+    				Application.getDelegator().removeFromUpload(elementLocal);
+    				uploadConflict.setPositiveButton(R.string.retry, new OnClickListener() {
+        				@Override
+        				public void onClick(DialogInterface dialog, int which) {
+        					caller.confirmUpload(); // FIXME this should be made independent from Main
+        				}
+        			});
+    				return uploadConflict;
+				}
 				newVersion = elementLocal.getOsmVersion() + 1;
 			}
 			if (!useServerOnly) {
