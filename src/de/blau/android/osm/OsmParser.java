@@ -398,4 +398,13 @@ public class OsmParser extends DefaultHandler {
 		return Relation.MEMBER.equalsIgnoreCase(name);
 	}
 
+	/**
+	 * Clear the list of bounding boxes
+	 */
+	public void clearBoundingBoxes() {
+		List<BoundingBox> boundingBoxes = getStorage().getBoundingBoxes();
+		if (boundingBoxes != null) {
+			boundingBoxes.clear();
+		}
+	}
 }

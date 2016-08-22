@@ -2589,6 +2589,7 @@ public class Logic {
 				int result = 0;
 				try {
 					final OsmParser osmParser = new OsmParser();
+					osmParser.clearBoundingBoxes(); // this removes the default bounding box
 					final InputStream in = new BufferedInputStream(is);
 					try {
 						osmParser.start(in);
@@ -2596,7 +2597,7 @@ public class Logic {
 						getDelegator().reset(false);
 						getDelegator().setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
 						getDelegator().fixupApiStorage();
-						
+
 						viewBox.setBorders(getDelegator().getLastBox()); // set to current or previous
 					} finally {
 						SavingHelper.close(in);

@@ -2514,7 +2514,12 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	public BoundingBox getLastBox() {
-		return currentStorage.getBoundingBoxes().get(getBoundingBoxes().size()-1);
+		int s = getBoundingBoxes().size();
+		if (s > 0) {
+			return currentStorage.getBoundingBoxes().get(getBoundingBoxes().size()-1);
+		} 
+		Log.e(DEBUG_TAG,"Bounding box list empty");
+		return new BoundingBox(); // empty box
 	}
 
 	/**
