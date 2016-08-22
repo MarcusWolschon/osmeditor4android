@@ -315,6 +315,7 @@
     <string name="menu_cut">Cut</string>
     <string name="menu_paste">Paste</string>
     <string name="menu_paste_from_clipboard">Paste from clipboard</string>
+    <string name="menu_zoom_to_selection">"Zoom to selection"</string>
     <string name="menu_rotate">Rotate</string>
     <string name="menu_orthogonalize">Orthogonalize</string>
     <string name="menu_circulize">Arrange in circle</string>
