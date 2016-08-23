@@ -10,8 +10,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
 import java.util.TreeMap;
@@ -55,6 +58,7 @@ import de.blau.android.util.jsonreader.JsonReader;
  *
  */
 public class TileLayerServer {
+	private static final String DEBUG_TAG = TileLayerServer.class.getName();
 	
 	/** A tile layer provide has some attribution text, and one or more coverage areas.
 	 * @author Andrew Gregory
@@ -79,8 +83,7 @@ public class TileLayerServer {
 				double bottom = 0.0d;
 				double top = 0.0d;
 				double left = 0.0d;
-				double right = 0.0d;
-				
+				double right = 0.0d;			
 				
 				while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 					String tagName = parser.getName();
@@ -231,6 +234,9 @@ public class TileLayerServer {
 			return result;
 		}
 	}
+
+	private static final int PREFERENCE_DEFAULT = 0;
+	private static final int PREFERENCE_BEST = 10;
 	
 	private static TileLayerServer cachedBackground = null;
 	private static TileLayerServer cachedOverlay = null;
@@ -245,7 +251,7 @@ public class TileLayerServer {
 	private boolean metadataLoaded;
 	private String id, name, tileUrl, imageFilenameExtension, touUri;
 	private boolean overlay, defaultLayer;
-	private int zoomLevelMin, zoomLevelMax, tileWidth, tileHeight;
+	private int zoomLevelMin, zoomLevelMax, tileWidth, tileHeight, preference;
 	private Drawable brandLogo;
 	private Queue<String> subdomains = new LinkedList<String>();
 	private int defaultAlpha;
@@ -382,7 +388,7 @@ public class TileLayerServer {
 	 */
 	private TileLayerServer(final Resources r, final String id, final String name, final String url, final String type, 
 			final boolean overlay, final boolean defaultLayer, final Provider provider, final String termsOfUseUrl,
-			final int zoomLevelMin, final int zoomLevelMax, final int tileWidth, final int  tileHeight, boolean async) {
+			final int zoomLevelMin, final int zoomLevelMax, final int tileWidth, final int  tileHeight, final int preference, boolean async) {
 		this.r = r;
 		this.id = id;
 		this.name = name;
@@ -395,6 +401,7 @@ public class TileLayerServer {
 		this.tileHeight = tileHeight;
 		this.touUri = termsOfUseUrl;
 		this.offsets = new Offset[zoomLevelMax-zoomLevelMin+1];
+		this.preference = preference;
 		if (provider != null)
 			providers.add(provider);
 		
@@ -592,6 +599,7 @@ public class TileLayerServer {
 		Provider.CoverageArea extent = null;
 		Provider provider = null;
 		String termsOfUseUrl = null;
+		int preference = PREFERENCE_DEFAULT;
 		try {
 			reader.beginObject();
 			while (reader.hasNext()) {
@@ -619,6 +627,8 @@ public class TileLayerServer {
 			    	if (provider == null) 
 			    		provider = new Provider();
 			    	termsOfUseUrl = readAttribution(reader, provider);
+			    } else if (jsonName.equals("best")) {
+			    	preference = reader.nextBoolean() ? PREFERENCE_BEST : PREFERENCE_DEFAULT;
 			    } else {
 			    	reader.skipValue();
 			    }
@@ -631,7 +641,7 @@ public class TileLayerServer {
 		if (type == null || type.equals("wms"))
 			return null;
 		TileLayerServer osmts = new TileLayerServer(r, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl,
-				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, async);
+				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, preference, async);
 		return osmts;
 	}
 	
@@ -893,17 +903,10 @@ public class TileLayerServer {
 		return name;
 	}
 	
-	/**
-	 * Get all the available tile layer IDs. Slightly complex to get a reasonable order
-	 * @param filtered only return servers that overlap/intersect with the current bbox
-	 * @return All available tile layer IDs.
-	 */
-	public static String[] getIds(boolean filtered) {
-		LinkedList<String> ids = new LinkedList<String>();
-		boolean noneSeen = false;
-		TreeSet<String> sortedKeySet = new TreeSet<String>(backgroundServerList.keySet());
-		for (String key:sortedKeySet) {
-			TileLayerServer osmts = backgroundServerList.get(key);
+	private static List<TileLayerServer> getServersFilteredSorted(boolean filtered, HashMap<String,TileLayerServer> serverMap, BoundingBox currentBox) {
+		TileLayerServer noneLayer = null;
+		List<TileLayerServer> list = new ArrayList<TileLayerServer>();
+		for (TileLayerServer osmts:serverMap.values()) {
 			if (filtered) {
 				if (osmts.providers.size() > 0) {
 					boolean covers = false; // default is to not include  
@@ -918,21 +921,47 @@ public class TileLayerServer {
 					}
 				}
 			}
-			
-			if (osmts.defaultLayer) {
-				if (noneSeen)
-					ids.add(1,key);
-				else
-					ids.add(0,key);
-				if (key.equals("NONE"))
-					noneSeen = true;
-			} else
-				ids.addLast(key);
+			// add this after sorting
+			if ("NONE".equals(osmts.id)) {
+				noneLayer = osmts;
+				continue;
+			}
+			// add the rest now
+			list.add(osmts);
 		}
-		String [] result = new String[ids.size()];
-		for (int i = 0; i<result.length; i++)
-			result[i] = ids.get(i);
-		return  result;
+		// sort according to preference, at one time we might take bb size in to account
+		Collections.sort(list, new Comparator<TileLayerServer>() {
+			@Override
+			public int compare(TileLayerServer t1, TileLayerServer t2) {
+				if (t1.preference < t2.preference) {
+					return 1;
+			    } else if (t1.preference > t2.preference) {
+			    	return -1;
+			    }
+				return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
+			}});
+		// add NONE
+		if (noneLayer != null) {
+			list.add(0,noneLayer);
+		}
+		return list;
+	}
+	
+	
+	/**
+	 * Get all the available tile layer IDs. Slightly complex to get a reasonable order
+	 * @param filtered only return servers that overlap/intersect with the current bbox
+	 * @return All available tile layer IDs.
+	 */
+	public static String[] getIds(boolean filtered) {
+		List<String> ids = new ArrayList<String>();
+		List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, Application.mainActivity.getMap().getViewBox());
+		for (TileLayerServer t:list) {
+			ids.add(t.id);
+		}
+		String[] idArray = new String[ids.size()];
+		ids.toArray(idArray);
+		return idArray;
 	}
 	
 	/**
@@ -974,40 +1003,14 @@ public class TileLayerServer {
 	 * @return All available tile layer IDs.
 	 */
 	public static String[] getOverlayIds(boolean filtered) {
-		LinkedList<String> ids = new LinkedList<String>();
-		boolean noneSeen = false;
-		TreeSet<String> sortedKeySet = new TreeSet<String>(overlayServerList.keySet());
-		for (String key:sortedKeySet) {
-			TileLayerServer osmts = overlayServerList.get(key);
-			if (filtered) {
-				if (osmts.providers.size() > 0) {
-					boolean covers = false; // default is to not include  
-					for (Provider p:osmts.providers) {
-						if (p.covers(Application.mainActivity.getMap().getViewBox())) { 
-							covers = true;
-							break;
-						}
-					}
-					if (!covers) {
-						continue;
-					}
-				}
-			}
-			
-			if (osmts.defaultLayer) {
-				if (noneSeen)
-					ids.add(1,key);
-				else
-					ids.add(0,key);
-				if (key.equals("NONE"))
-					noneSeen = true;
-			} else
-				ids.addLast(key);
+		List<String> ids = new ArrayList<String>();
+		List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, Application.mainActivity.getMap().getViewBox());
+		for (TileLayerServer t:list) {
+			ids.add(t.id);
 		}
-		String [] result = new String[ids.size()];
-		for (int i = 0; i<result.length; i++)
-			result[i] = ids.get(i);
-		return  result;
+		String[] idArray = new String[ids.size()];
+		ids.toArray(idArray);
+		return idArray;
 	}
 	
 	/**
