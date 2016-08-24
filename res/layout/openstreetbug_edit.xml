@@ -3,14 +3,14 @@
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
+        android:layout_height="wrap_content" >
 
         <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" 
-            android:layout_marginBottom="20dp" >
+            android:layout_marginTop="10dp"
+            android:paddingBottom="20dp" >
 
             <Spinner
                 android:id="@+id/openstreetbug_state"

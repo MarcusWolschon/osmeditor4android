@@ -136,7 +136,7 @@ public class TaskFragment extends DialogFragment {
     		if ((bug.isNew() && ((Note)bug).count() == 0) || (nc != null && !nc.isNew())) { // only show comment field if we don't have an unsaved comment
     			Log.d(DEBUG_TAG,"enabling comment field");
     			comment.setText("");
-    			comment.setFocusable( true);
+    			comment.setFocusable(true);
     			comment.setFocusableInTouchMode(true);
     			comment.setEnabled(true);
     		} else {
@@ -190,7 +190,7 @@ public class TaskFragment extends DialogFragment {
     		}
     		// these are not used for osmose bugs
     		commentLabel.setVisibility(View.GONE);
-    		comment.setVisibility(View.GONE);
+    		comment.setVisibility(View.GONE); 		
     		//
     		adapter = ArrayAdapter.createFromResource(getActivity(),
         	        R.array.bug_state, android.R.layout.simple_spinner_item);
@@ -268,7 +268,7 @@ public class TaskFragment extends DialogFragment {
     			}
     		});
     	} 
-		d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		// d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE); // not a good idea on small screens
     	return d;
     }
     
