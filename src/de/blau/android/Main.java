@@ -274,14 +274,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private boolean followGPS;
 	
 	/**
-	 * cache of the autodownload state
-	 */
-	private boolean autoDownload;
-	/**
-	 * cache of the bug autodownload state
-	 */
-	private boolean bugAutoDownload;
-	/**
 	 * a local copy of the desired value for {@link TrackerService#setListenerNeedsGPS(boolean)}.
 	 * Will be automatically given to the tracker service on connect.
 	 */
@@ -638,9 +630,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		setShowGPS(prefs.getShowGPS()); 
 		setFollowGPS(followGPS);
-		setAutoDownload(prefs.getAutoDownload());
-		setBugAutoDownload(prefs.getBugAutoDownload());
-		
+
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		scheduleAutoLock();
 	}
@@ -1027,8 +1017,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		menu.findItem(R.id.menu_gps_goto).setEnabled(gpsProviderEnabled);
 		menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
 		menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
-		menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && gpsProviderEnabled && networkConnected).setChecked(getAutoDownload());
-		menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && gpsProviderEnabled && networkConnected).setChecked(getBugAutoDownload());
+		menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && gpsProviderEnabled && networkConnected).setChecked(autoDownload());
+		menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && gpsProviderEnabled && networkConnected).setChecked(bugAutoDownload());
 		
 		menu.findItem(R.id.menu_gps_clear).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
@@ -1246,7 +1236,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 
 		case R.id.menu_gps_autodownload:
-			setAutoDownload(!getAutoDownload());
+			prefs.setAutoDownload(!autoDownload());
+			startStopAutoDownload();
 			return true;
 			
 		case R.id.menu_transfer_download_current:
@@ -1355,7 +1346,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_transfer_bugs_autodownload:
-			setBugAutoDownload(!getBugAutoDownload());
+			prefs.setBugAutoDownload(!bugAutoDownload());
+			startStopBugAutoDownload();
 			return true;
 		case R.id.menu_transfer_save_notes_all:
 		case R.id.menu_transfer_save_notes_new_and_changed:
@@ -1450,42 +1442,36 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	    }
 	}
 	
-	public void setAutoDownload(boolean b) {
-		Log.d(DEBUG_TAG, "autoDownload: "+ b);
-		autoDownload = b;
+	public void startStopAutoDownload() {
+		Log.d(DEBUG_TAG, "autoDownload");
 		if (getTracker() != null && ensureGPSProviderEnabled()) {
-			if (autoDownload) {
+			if (autoDownload()) {
 				getTracker().startAutoDownload();
 			} else {
 				getTracker().stopAutoDownload();
 			}
-		}
-		prefs.setAutoDownload(b);
-		Log.d(DEBUG_TAG,"Setting autoDownload to " + autoDownload);
+		} 
 		triggerMenuInvalidation();
 	}
 	
-	protected boolean getAutoDownload() {
-		return autoDownload;
+	protected boolean autoDownload() {
+		return prefs.getAutoDownload();
 	}
 	
-	public void setBugAutoDownload(boolean b) {
-		Log.d(DEBUG_TAG, "bugAutoDownload: "+ b);
-		bugAutoDownload = b;
+	public void startStopBugAutoDownload() {
+		Log.d(DEBUG_TAG, "bugAutoDownload");
 		if (getTracker() != null && ensureGPSProviderEnabled()) {
-			if (bugAutoDownload) {
+			if (bugAutoDownload()) {
 				getTracker().startBugAutoDownload();
 			} else {
 				getTracker().stopBugAutoDownload();
 			}
 		}
-		prefs.setBugAutoDownload(b);
-		Log.d(DEBUG_TAG,"Setting bugAutoDownload to " + bugAutoDownload);
 		triggerMenuInvalidation();
 	}
 	
-	protected boolean getBugAutoDownload() {
-		return bugAutoDownload;
+	protected boolean bugAutoDownload() {
+		return prefs.getBugAutoDownload();
 	}
 	
 	public void setShowGPS(boolean show) {
@@ -2794,6 +2780,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		map.setTracker(getTracker());
 		getTracker().setListener(this);
 		getTracker().setListenerNeedsGPS(wantLocationUpdates);
+		startStopAutoDownload();
+		startStopBugAutoDownload();
 		triggerMenuInvalidation();
 	}
 
