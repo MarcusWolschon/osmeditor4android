@@ -662,20 +662,38 @@ public class Logic {
 		result.addAll(getClickedWays(x, y));
 		if (returnRelations) {
 			// add any relations that the elements are members of
-			ArrayList<OsmElement> relations = new ArrayList<OsmElement>();
-			for (OsmElement e: result) {
-				if (e.getParentRelations() != null) {
-					for (Relation r: e.getParentRelations()) {
-						if (!relations.contains(r)) { // not very efficient
-							relations.add(r);
+			result.addAll(getParentRelations(result));
+		}
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @param elements
+	 * @return
+	 */
+	private ArrayList<OsmElement> getParentRelations(ArrayList<OsmElement> elements) {
+		ArrayList<OsmElement> relations = new ArrayList<OsmElement>();
+		for (OsmElement e: elements) {
+			if (e.getParentRelations() != null) {
+				for (Relation r: e.getParentRelations()) {
+					if (!relations.contains(r)) { // not very efficient
+						relations.add(r);
+						//FIXME add one level of parent relations of relations
+						// we could do this recursively but would need to add loop protection
+						if (r.getParentRelations() != null) {
+							for (Relation p: r.getParentRelations()) {
+								if (!relations.contains(p)) { 
+									relations.add(p);
+								}
+							}
 						}
 					}
 				}
 			}
-			result.addAll(relations);
 		}
-		return result;
-	}
+		return relations;
+    }
 
 	/**
 	 * Returns all ways within way tolerance from the given coordinates, and their distances from them.
