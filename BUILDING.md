@@ -45,18 +45,11 @@ extras/android/support/design
 
 You need to import _appcompat_, _preference_, _recyclerview_ and the _design_ libraries into eclipse as library projects, since the build requires access to the resource files in the libraries.
 
-You will further need the the following libraries:
-
-ACRA crash reporting http://www.acra.ch/
-
-OAuth support library https://github.com/mttkay/signpost 
-
+You will further need the the libraries listed in build.gradle for a successful build. 
 
 ## Required 3rd Party Libraries
 
 The following libraries are included in this repository in the libs directory that are currently not available from a maven compatible site 
-
-EXIF metadata extractor library https://github.com/drewnoakes/metadata-extractor 
 
 The parser for .PO files https://github.com/simonpoole/PoParser .
 
