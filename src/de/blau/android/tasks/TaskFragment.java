@@ -119,12 +119,13 @@ public class TaskFragment extends DialogFragment {
     	final Spinner state = (Spinner)v.findViewById(R.id.openstreetbug_state);
     	ArrayAdapter<CharSequence> adapter = null;
 
+    	TextView title = (TextView)v.findViewById(R.id.openstreetbug_title);
     	TextView comments = (TextView)v.findViewById(R.id.openstreetbug_comments);
     	EditText comment = (EditText)v.findViewById(R.id.openstreetbug_comment);
     	TextView commentLabel = (TextView)v.findViewById(R.id.openstreetbug_comment_label);
     	LinearLayout elementLayout = (LinearLayout)v.findViewById(R.id.openstreetbug_element_layout);
     	if (bug instanceof Note) {
-    		builder.setTitle(getString((bug.isNew() && ((Note)bug).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));  		
+    		title.setText(getString((bug.isNew() && ((Note)bug).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));  
     		comments.setText(Html.fromHtml(((Note)bug).getComment())); // ugly	
     		comments.setAutoLinkMask(Linkify.WEB_URLS);
     		comments.setMovementMethod(LinkMovementMethod.getInstance()); 
@@ -146,7 +147,7 @@ public class TaskFragment extends DialogFragment {
     		adapter = ArrayAdapter.createFromResource(getActivity(),
         	        R.array.note_state, android.R.layout.simple_spinner_item);
     	} else if (bug instanceof OsmoseBug) {
-    		builder.setTitle(R.string.openstreetbug_bug_title);
+    		title.setText(R.string.openstreetbug_bug_title);
     		comments.setText(Html.fromHtml(((OsmoseBug)bug).getLongDescription(getActivity(), false)));
     		final StorageDelegator storageDelegator = Application.getDelegator();
     		for (final OsmElement e:((OsmoseBug)bug).getElements()) {
