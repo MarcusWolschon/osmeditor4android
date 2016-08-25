@@ -15,7 +15,7 @@ import de.blau.android.prefs.Preferences;
  * @author simon
  *
  */
-public class FullScreenAppCompatActivity extends BugFixedAppCompatActivity {
+public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActivity {
 
 	private static final String DEBUG_TAG = FullScreenAppCompatActivity.class.getSimpleName();
 	private boolean fullScreen = false;

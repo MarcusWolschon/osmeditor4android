@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 
-public class BugFixedAppCompatActivity extends AppCompatActivity {
+public abstract class BugFixedAppCompatActivity extends AppCompatActivity {
 	
 	/**
 	 * See http://stackoverflow.com/questions/32294607/call-requires-api-level-11current-min-is-9-android-app-activityoncreateview

@@ -1205,7 +1205,7 @@ public class Server {
 	private void generateException(Storage apiStorage, String type, String idStr, int code, String responseMessage, String message) throws OsmServerException {
 		if (type != null && idStr != null) {
 			long osmId = Long.parseLong(idStr);
-			OsmElement e = apiStorage.getOsmElement(type.toLowerCase(), osmId);
+			OsmElement e = apiStorage.getOsmElement(type.toLowerCase(Locale.US), osmId);
 			if (e!=null) {
 				throw new OsmServerException(code, e.getName(), e.getOsmId(), code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
 			}

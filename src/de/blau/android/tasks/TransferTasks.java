@@ -15,6 +15,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -221,6 +222,7 @@ public class TransferTasks {
 	 * @param comment Comment to add to the bug.
 	 * @param close Flag to indicate if the bug is to be closed.
 	 */
+	@TargetApi(11)
 	static public boolean uploadNote(final Context context, final Server server, final Note note, final String comment, final boolean close, final boolean quiet) {
 		Log.d(DEBUG_TAG, "uploadNote");
 

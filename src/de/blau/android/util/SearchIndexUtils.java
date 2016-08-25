@@ -4,6 +4,7 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -28,7 +29,7 @@ public class SearchIndexUtils {
 	 * @return
 	 */
 	static public String normalize(String n) {
-		String r = n.toLowerCase().trim();
+		String r = n.toLowerCase(Locale.US).trim();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
 			r = deAccent(r);
 		}
