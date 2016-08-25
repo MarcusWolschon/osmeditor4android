@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -2155,50 +2156,96 @@ public class StorageDelegator implements Serializable, Exportable {
 		serializer.attribute(null, "generator", Application.userAgent);
 		serializer.attribute(null, "version", "0.6");
 		
-		ArrayList<OsmElement> createdElements = new ArrayList<OsmElement>();
-		ArrayList<OsmElement> modifiedElements = new ArrayList<OsmElement>();
-		ArrayList<OsmElement> deletedElements = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> createdNodes = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> modifiedNodes = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> deletedNodes = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> createdWays = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> modifiedWays = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> deletedWays = new ArrayList<OsmElement>();
+		ArrayList<Relation> createdRelations = new ArrayList<Relation>();
+		ArrayList<Relation> modifiedRelations = new ArrayList<Relation>();
+		ArrayList<Relation> deletedRelations = new ArrayList<Relation>();
 		
 		for (OsmElement elem : apiStorage.getNodes()) {
 			Log.d("StorageDelegator", "node added to list for upload, id " + elem.osmId);
 			switch (elem.state) {
-			case OsmElement.STATE_CREATED:   createdElements.add(elem);   break;
-			case OsmElement.STATE_MODIFIED:  modifiedElements.add(elem);  break;
-			case OsmElement.STATE_DELETED:   deletedElements.add(elem);   break;
+			case OsmElement.STATE_CREATED:   createdNodes.add(elem);   break;
+			case OsmElement.STATE_MODIFIED:  modifiedNodes.add(elem);  break;
+			case OsmElement.STATE_DELETED:   deletedNodes.add(elem);   break;
 			}
 		}
 		for (OsmElement elem : apiStorage.getWays()) {
 			Log.d("StorageDelegator", "way added to list for upload, id " + elem.osmId);
 			switch (elem.state) {
-			case OsmElement.STATE_CREATED:   createdElements.add(elem);   break;
-			case OsmElement.STATE_MODIFIED:  modifiedElements.add(elem);  break;
-			case OsmElement.STATE_DELETED:   deletedElements.add(elem);   break;
+			case OsmElement.STATE_CREATED:   createdWays.add(elem);   break;
+			case OsmElement.STATE_MODIFIED:  modifiedWays.add(elem);  break;
+			case OsmElement.STATE_DELETED:   deletedWays.add(elem);   break;
 			}
 		}
 		for (OsmElement elem : apiStorage.getRelations()) {
 			Log.d("StorageDelegator", "relation added to list for upload, id " + elem.osmId);
 			switch (elem.state) {
-			case OsmElement.STATE_CREATED:   createdElements.add(elem);   break;
-			case OsmElement.STATE_MODIFIED:  modifiedElements.add(elem);  break;
-			case OsmElement.STATE_DELETED:   deletedElements.add(elem);   break;
+			case OsmElement.STATE_CREATED:   createdRelations.add((Relation) elem);   break;
+			case OsmElement.STATE_MODIFIED:  modifiedRelations.add((Relation) elem);  break;
+			case OsmElement.STATE_DELETED:   deletedRelations.add((Relation) elem);   break;
 			}
 		}
+		Comparator<Relation> relationOrder = new Comparator<Relation>() {
+			@Override
+			public int compare(Relation r1, Relation r2) {
+				if (r1.hasParentRelation(r2)) {
+					return -1;
+				} 
+				if (r2.hasParentRelation(r1)) {
+					return 1;
+				} 
+				return 0;
+			}};
+		if (!createdRelations.isEmpty()) {
+			// sort the relations so that childs come first, will not handle loops and similar brokenness
+			Collections.sort(createdRelations, relationOrder);
+		}
+		if (!modifiedRelations.isEmpty()) {
+			// sort the relations so that childs come first, will not handle loops and similar brokenness
+			Collections.sort(modifiedRelations, relationOrder);
+		}
+		if (!deletedRelations.isEmpty()) {
+			// sort the relations so that parents come first, will not handle loops and similar brokenness
+			Collections.sort(deletedRelations, new Comparator<Relation>() {
+				@Override
+				public int compare(Relation r1, Relation r2) {
+					if (r1.hasParentRelation(r2)) {
+						return 1;
+					} 
+					if (r2.hasParentRelation(r1)) {
+						return -1;
+					} 
+					return 0;
+				}});
+		}
 
-		if (!createdElements.isEmpty()) {
+		if (!createdNodes.isEmpty() || !createdWays.isEmpty() || !createdRelations.isEmpty()) {
 			serializer.startTag(null, "create");
-			for (OsmElement elem : createdElements) elem.toXml(serializer, changeSetId);
+			for (OsmElement elem : createdNodes) elem.toXml(serializer, changeSetId);
+			for (OsmElement elem : createdWays) elem.toXml(serializer, changeSetId);
+			for (OsmElement elem : createdRelations) elem.toXml(serializer, changeSetId);
 			serializer.endTag(null, "create");
 		}
 
-		if (!modifiedElements.isEmpty()) {
+		if (!modifiedNodes.isEmpty() || !modifiedWays.isEmpty() || !modifiedRelations.isEmpty()) {
 			serializer.startTag(null, "modify");
-			for (OsmElement elem : modifiedElements) elem.toXml(serializer, changeSetId);
+			for (OsmElement elem : modifiedNodes) elem.toXml(serializer, changeSetId);
+			for (OsmElement elem : modifiedWays) elem.toXml(serializer, changeSetId);
+			for (OsmElement elem : modifiedRelations) elem.toXml(serializer, changeSetId);
 			serializer.endTag(null, "modify");
 		}
 				
-		if (!deletedElements.isEmpty()) {
+		// delete in opposite order
+		if (!deletedNodes.isEmpty() || !deletedWays.isEmpty() || !deletedRelations.isEmpty()) {
 			serializer.startTag(null, "delete");
-			for (OsmElement elem : deletedElements) elem.toXml(serializer, changeSetId);
+			for (OsmElement elem : deletedRelations) elem.toXml(serializer, changeSetId);
+			for (OsmElement elem : deletedWays) elem.toXml(serializer, changeSetId);
+			for (OsmElement elem : deletedNodes) elem.toXml(serializer, changeSetId);
 			serializer.endTag(null, "delete");
 		}
 		
