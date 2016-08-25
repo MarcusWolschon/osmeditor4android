@@ -337,7 +337,7 @@ public class RelationMembersFragment extends BaseFragment implements
 					}
 				}
 			}
-		} else {
+		} else if (Node.NAME.equals(currentType)) {
 			Node n = (Node) current.getElement();
 			if (previous != null && Way.NAME.equals(previous.getType()) && previous.downloaded()) {
 				if (((Way)previous.getElement()).getLastNode().equals(n) || ((Way)previous.getElement()).getFirstNode().equals(n)) {
