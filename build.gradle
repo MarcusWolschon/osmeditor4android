@@ -19,6 +19,7 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+        maven { url 'https://dl.bintray.com/simonpoole/div' }               
     }
 }
 
@@ -164,6 +165,7 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
     compile 'com.drewnoakes:metadata-extractor:2.9.1'
     compile 'com.adobe.xmp:xmpcore:5.1.2'
+    compile 'ch.poole:PoParser:0.7.0'
 }
 
 android {

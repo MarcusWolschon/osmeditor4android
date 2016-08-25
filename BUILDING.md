@@ -45,13 +45,7 @@ extras/android/support/design
 
 You need to import _appcompat_, _preference_, _recyclerview_ and the _design_ libraries into eclipse as library projects, since the build requires access to the resource files in the libraries.
 
-You will further need the the libraries listed in build.gradle for a successful build. 
-
-## Required 3rd Party Libraries
-
-The following libraries are included in this repository in the libs directory that are currently not available from a maven compatible site 
-
-The parser for .PO files https://github.com/simonpoole/PoParser .
+You will further need the the libraries listed in build.gradle for a successful build.
 
 ## JOSM Presets
 
@@ -64,6 +58,7 @@ http://josm.openstreetmap.de/svn/trunk/data/defaultpresets.xml
 The gradle task ``updatePreset`` will update the icons and preset.xml file in the asset directory from the github repo. 
 
 ## 3rd Party Configuration Files
+
 Name suggestion index https://github.com/osmlab/name-suggestion-index
 
 Imagery index https://github.com/simonpoole/osm-layer-index (which is a fork of https://github.com/osmlab/editor-imagery-index).
