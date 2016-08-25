@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1188: Fix ordering issues with diffs, fix crash when adding relation to a relation, allow selection of one level of parent relations of relations in UI.
+
 1186: Switch to uploading OsmChange diffs, various small bug fixes and improved conflict handling, updated translations.
 
 1185: Explicitly set created_by when updating changeset.
