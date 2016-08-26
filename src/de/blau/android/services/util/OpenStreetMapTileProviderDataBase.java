@@ -15,10 +15,13 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteFullException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
+import de.blau.android.R;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.views.util.OpenStreetMapViewConstants;
 
@@ -165,9 +168,14 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 					incrementUse.bindLong(5, aTile.y);
 					return incrementUse.executeUpdateDelete() >= 1; // > 1 is naturally an error, but safe to return true here
 				} catch (Exception e) {
+					if (e instanceof SQLiteFullException) {
+						// database/disk is full
+						Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();
+						return true; // don't make the situation worse
+					}
 					ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
-					return true; // this will inidcate that the tile is in the DB which is erring on the safe side
+					return true; // this will indicate that the tile is in the DB which is erring on the safe side
 				}
 			} else {
 				final String[] args = new String[] { "" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x,
@@ -201,6 +209,7 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 						}
 					}
 				}
+				c.close();
 			}
 		} else if(DEBUGMODE) {
 			Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "incrementUse database not open");
@@ -285,8 +294,8 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 		long sizeGained = 0;
 		if(c != null){
 			OpenStreetMapTile tileToBeDeleted; 
-			if(c.moveToFirst()){
-				do{
+			if (c.moveToFirst()) {
+				do {
 					final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
 					sizeGained += sizeItem;
 					
@@ -296,28 +305,34 @@ public class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConst
 					deleteFromDB.add(tileToBeDeleted);
 					Log.d("OpenStreetMapTileProvierDatabase","deleteOldest " + tileToBeDeleted.toString());
 					
-				}while(c.moveToNext() && sizeGained < pSizeNeeded);
-			}else{
+				} while(c.moveToNext() && sizeGained < pSizeNeeded);
+			} else {
 				c.close();
 				throw new EmptyCacheException("Cache seems to be empty.");
 			}
 			c.close();
 
-			for(OpenStreetMapTile t : deleteFromDB) {
-				final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};
-				try {
-					if (mDatabase.isOpen()) { // note we have already deleted the on disks tiles so it is not really an issue if we don't delete everything from the DB
-						mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
-					}
-				} catch (Exception e) {
-					if (e instanceof NullPointerException) {
-						// just log ... likely these are really spurious
-						Log.e(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "NPE in deleteOldest");
-					} else {
-						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-						ACRA.getErrorReporter().handleException(e);	
+			try {
+				for (OpenStreetMapTile t : deleteFromDB) {
+					final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};
+					try {
+						if (mDatabase.isOpen()) { // note we have already deleted the on disks tiles so it is not really an issue if we don't delete everything from the DB
+							mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+						}
+					} catch (Exception e) {
+						if (e instanceof NullPointerException) {
+							// just log ... likely these are really spurious
+							Log.e(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "NPE in deleteOldest");
+						} else if (e instanceof SQLiteFullException) {
+							throw new SQLiteFullException();	
+						} else {
+							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+							ACRA.getErrorReporter().handleException(e);	
+						}
 					}
 				}
+			} catch (SQLiteFullException fex) {
+				Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();			
 			}
 		}
 		return sizeGained;

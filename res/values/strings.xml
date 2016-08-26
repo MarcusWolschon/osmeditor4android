@@ -166,6 +166,7 @@
     <string name="toast_split_via">Splitted "via" way</string>
     <string name="toast_split_from_and_via">Splitted "from" and "via" ways</string>
     <string name="toast_split_to">Splitted "to" way</string>
+    <string name="toast_tile_database_full">Map tile database or disk full!\nExit, delete database or make more space available.</string>
     
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
