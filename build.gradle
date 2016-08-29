@@ -31,6 +31,9 @@ apply plugin: 'eclipse'
 apply plugin: 'com.android.application'
 apply plugin: 'org.kordamp.gradle.markdown'
 
+// note this is currently processed by a slightly modified version of the 
+// org.kordamp.gradle.markdown plugin with support for a html template and 
+// not the original
 markdownToHtml.sourceDir  new File(projectDir.getPath() + '/documentation/docs/help')
 markdownToHtml.inputEncoding "utf8"
 markdownToHtml.outputDir  new File(projectDir.getPath() + '/assets/help')
