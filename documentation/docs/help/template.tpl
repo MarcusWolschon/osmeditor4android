@@ -5,6 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Sorry!</h1><p>Vespucci doesn't have help on this topic in your language yet. Some of the information in the tutorial below might be able to help you or you can tap the Vespucci icon to see a full list of available documents.</p><p>[A general introduction to Vespucci in English](1 Introduction.md)</p>
+$body
 </body>
 </html>

@@ -1,145 +1,46 @@
-<?xml version='1.0' encoding='utf-8' ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	</head>
-	<body>
-		<h1 id="vespucci-introduktion">Vespucci-introduktion</h1>
-		<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on googles Android 2.3 to 6.0 and various AOSP based variants. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. </p>
-		<h2 id="first-time-use">First time use</h2>
-		<p>On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. </p>
-		<p>Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").</p>
-		<h2 id="redigering-med-vespucci">Redigering med Vespucci</h2>
-		<p>Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.</p>
-		<h3 id="laddar-ner-osm-data">Laddar ner OSM-data</h3>
-		<p>Select either the transfer icon 
-			<img alt="" border="0" src="../images/menu_transfer.png"/>  or the "Transfer" menu item. This will display seven options:
-		</p>
-		<ul>
-			<li>
-				<strong>Download current view</strong> - download the area visible on the screen and replace any existing data 
-				<em>(requires network connectivity)</em>
-			</li>
-			<li>
-				<strong>Add current view to download</strong> - download the area visible on the screen and merge it with existing data 
-				<em>(requires network connectivity)</em>
-			</li>
-			<li>
-				<strong>Download other location</strong> - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location 
-				<em>(requires network connectivity)</em>
-			</li>
-			<li>
-				<strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap 
-				<em>(requires authentication)</em> 
-				<em>(requires network connectivity)</em>
-			</li>
-			<li>
-				<strong>Auto download</strong> - download an area around the current location automatically 
-				<em>(requires network connectivity)</em> 
-				<em>(requires GPS)</em>
-			</li>
-			<li>
-				<strong>File...</strong> - saving and loading OSM data to/from on device files.
-			</li>
-			<li>
-				<strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) 
-				<em>(requires network connectivity)</em>
-			</li>
-		</ul>
-		<p>The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.</p>
-		<h3 id="redigering">Redigering</h3>
-		<p>To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the 
-			<img alt="Locked" border="0" src="../images/locked.png"/> icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
-		</p>
-		<p>By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.</p>
-		<p>It is a good strategy to zoom in if you attempt to edit a high density area.</p>
-		<p>Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.</p>
-		<h4 id="selecting-de-selecting">Selecting / De-selecting</h4>
-		<p>Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start 
-			<a href="../en/Multiselect.md">Multiselect mode</a>.
-		</p>
-		<h4 id="adding-a-new-node-point-or-way">Adding a new Node/Point or Way</h4>
-		<p>Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. </p>
-		<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.</p>
-		<h3 id="att-flytta-p-en-nod-eller-v-g">Att flytta på en nod eller väg</h3>
-		<p>Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. </p>
-		<h3 id="f-rb-ttrar-v-gens-geometri">Förbättrar vägens geometri</h3>
-		<p>If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.</p>
-		<h3 id="klippa-ut-kopiera-och-klistra-in">Klippa ut, kopiera och klistra in</h3>
-		<p>You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
-		<h4 id="efficiently-adding-addresses">Efficiently Adding Addresses</h4>
-		<p>Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected </p>
-		<ul>
-			<li>after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.</li>
-			<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
-			<li>in the tag editor.</li>
-		</ul>
-		<p>House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.</p>
-		<p>Consider using this with the "Auto-download" mode.
-			<br/>
-		</p>
-		<h4 id="adding-turn-restrictions">Adding Turn Restrictions</h4>
-		<p>Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.</p>
-		<ul>
-			<li>select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)</li>
-			<li>select "Add restriction" from the menu</li>
-			<li>select the "via" node or way (all possible "via" elements will have the selectable element highlighting)</li>
-			<li>select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no
-				<em>u</em>turn restriction)
-			</li>
-			<li>set the restriction type in the tag menu</li>
-		</ul>
-		<h3 id="vespucci-i-l-st-l-ge">Vespucci i "låst" läge</h3>
-		<p>When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.</p>
-		<h3 id="sparar-dina-ndringar">Sparar dina ändringar</h3>
-		<p>
-			<em>(requires network connectivity)</em>
-		</p>
-		<p>Select the same button or menu item you did for the download and now select "Upload data to OSM server".</p>
-		<p>Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.</p>
-		<p>New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
-		<p>If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. </p>
-		<h4 id="resolving-conflicts-on-uploads">Resolving conflicts on uploads</h4>
-		<p>Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on 
-			<a href="../en/Conflict resolution.md">conflict resolution</a>.
-			<br/>
-		</p>
-		<h2 id="using-gps">Using GPS</h2>
-		<p>You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). </p>
-		<p>If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.</p>
-		<h2 id="notes-and-bugs">Notes and Bugs</h2>
-		<p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the 
-			<a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
-		</p>
-		<p>On the map the Notes and bugs are represented by a small bug icon 
-			<img alt="" border="0" src="../images/bug_open.png"/>, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
-		</p>
-		<p>The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
-		<h2 id="customizing-vespucci">Customizing Vespucci</h2>
-		<h3 id="settings-that-you-might-want-to-change">Settings that you might want to change</h3>
-		<ul>
-			<li>Background layer</li>
-			<li>Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-			<li>Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-			<li>Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
-			<li>Node icons. Default: on.</li>
-			<li>Keep screen on. Default: off.</li>
-			<li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>
-		</ul>
-		<h3 id="avancerade-egenskaper">Avancerade egenskaper</h3>
-		<ul>
-			<li>Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.</li>
-			<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
-			<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.</li>
-			<li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).
-				<br/>
-			</li>
-		</ul>
-		<h2 id="reporting-problems">Reporting Problems</h2>
-		<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: 
-			<a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. If you want to discuss something related to Vespucci, you can either start a discussion on the 
-			<a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci google group</a> or on the 
-			<a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a>
-		</p>
-	</body>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci-introduktion</h1><p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on googles Android 2.3 to 6.0 and various AOSP based variants. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. </p><h2>First time use</h2><p>On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. </p><p>Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").</p><h2>Redigering med Vespucci</h2><p>Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.</p><h3>Laddar ner OSM-data</h3><p>Select either the transfer icon ![](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:</p>
+<ul>
+  <li><strong>Download current view</strong> - download the area visible on the screen and replace any existing data <em>(requires network connectivity)</em></li>
+  <li><strong>Add current view to download</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
+  <li><strong>Download other location</strong> - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location <em>(requires network connectivity)</em></li>
+  <li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+  <li><strong>Auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+  <li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+  <li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
+</ul><p>The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone. Vespucci should then download data for the current view. No authentication is required for downloading data to your device.</p><h3>Redigering</h3><p>To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the <img src="../images/locked.png" alt="Locked" /> icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.</p><p>By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.</p><p>It is a good strategy to zoom in if you attempt to edit a high density area.</p><p>Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.</p><h4>Selecting / De-selecting</h4><p>Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start <a href="../en/Multiselect.html">Multiselect mode</a>.</p><h4>Adding a new Node/Point or Way</h4><p>Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. </p><p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and end nodes are located on a way, they will be inserted into the way automatically.</p><h3>Att flytta på en nod eller väg</h3><p>Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. </p><h3>Förbättrar vägens geometri</h3><p>If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.</p><h3>Klippa ut, kopiera och klistra in</h3><p>You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p><h4>Efficiently Adding Addresses</h4><p>Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected </p>
+<ul>
+  <li>after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.</li>
+  <li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
+  <li>in the tag editor.</li>
+</ul><p>House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.</p><p>Consider using this with the "Auto-download" mode. </p><h4>Adding Turn Restrictions</h4><p>Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.</p>
+<ul>
+  <li>select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)</li>
+  <li>select "Add restriction" from the menu</li>
+  <li>select the "via" node or way (all possible "via" elements will have the selectable element highlighting)</li>
+  <li>select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)</li>
+  <li>set the restriction type in the tag menu</li>
+</ul><h3>Vespucci i "låst" läge</h3><p>When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.</p><h3>Sparar dina ändringar</h3><p><em>(requires network connectivity)</em></p><p>Select the same button or menu item you did for the download and now select "Upload data to OSM server".</p><p>Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.</p><p>New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p><p>If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. </p><h4>Resolving conflicts on uploads</h4><p>Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md). </p><h2>Using GPS</h2><p>You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). </p><p>If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.</p><h2>Notes and Bugs</h2><p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.</p><p>On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. </p><p>The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p><h2>Customizing Vespucci</h2><h3>Settings that you might want to change</h3>
+<ul>
+  <li>Background layer</li>
+  <li>Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+  <li>Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+  <li>Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+  <li>Node icons. Default: on.</li>
+  <li>Keep screen on. Default: off.</li>
+  <li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>
+</ul><h3>Avancerade egenskaper</h3>
+<ul>
+  <li>Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.</li>
+  <li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+  <li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.</li>
+  <li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).</li>
+</ul><h2>Reporting Problems</h2><p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p>
+</body>
 </html>

@@ -41,3 +41,9 @@ The source for the help files is in the language specific directories, currently
 The help files need to be named the same as in the resource file "helptopics.xml". The names of the files can be translated, but the actual help files then need to be renamed too (note in practice this currently doesn't work due to limitations of Android file names), you can however leave the default versions in if you have not translated all files. 
 
 Help with automating the build process would be welcome.
+
+## Generating HTML for inclusion in tha apk
+
+Run gradle task
+
+    markdownToHtml

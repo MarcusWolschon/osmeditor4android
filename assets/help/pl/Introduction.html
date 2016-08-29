@@ -1,148 +1,46 @@
-<?xml version='1.0' encoding='utf-8' ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	</head>
-	<body>
-		<h1 id="wprowadzenie-do-vespucci">Wprowadzenie do Vespucci</h1>
-		<p>Vespucci jest wszechstronnym edytorem OpenStreetMap, który pozwala na wykonanie większości działań możliwych do wykonania w edytorach na komputerach stacjonarnych. Pozytywnie przeszedł testy na platformie Android firmy Google - wersje od 2.3 do 6.0 - oraz wielu wariantach systemów AOSP. Uwaga dla użytkowników: o ile współczesne urządzenia mobilne dorównały możliwościami komputerom stacjonarnym, to szczególnie starsze urządzenia posiadające ograniczoną ilość pamięci na ogól są wolniejsze. Należy brać to pod uwagę podczas korzystania z Vespucci i, dla przykładu, utrzymywać wielkości obszarów edytowanych w rozsądnych ramach. </p>
-		<h2 id="pierwsze-kroki">Pierwsze kroki</h2>
-		<p> Po włączeniu Vespucci pokazuje panel "Pobierz inny obszar"/"Wczytaj obszar". Jeśli widzisz współrzędne na ekranie i chcesz pobrać dane od razu, możesz wybrać odpowiednią opcję i ustawić promień wokół miejsca z którego chcesz pobierać dane. Nie wybieraj zbyt dużych obszarów używając słabszych urządzeń. </p>
-		<p>Alternatywą dla powyższego jest wyłączenie panelu przez naciśnięcie "Pokaż mapę", a następnie przesunięcie i ustawienie przybliżenia do miejsca którego dane chcesz pbrać by je edytować. (zobacz: "Edycja z Vesspuci")</p>
-		<h2 id="edycja-z-vespucci">Edycja z Vespucci</h2>
-		<p>W zależności od wielkości ekranu oraz wieku twojego urządzenia opcje edycji mogą być dostępne bezpośrednio jako ikony na górnym pasku, przez rozwijalne menu po prawej stronie górnego paska, przez ikony dolnego paska (jeśli jest wyświetlany) lub przez klawisz menu.</p>
-		<h3 id="pobieranie-danych-osm">Pobieranie danych OSM</h3>
-		<p>Kliknij albo na ikonę transferu 
-			<img alt="" border="0" src="../images/menu_transfer.png"/> lub wybierz w menu "Transfer". Zostanie wyświetlone 7 opcji:
-		</p>
-		<ul>
-			<li>
-				<strong>Pobierz bieżący widok</strong> - pobiera dane obszaru widocznego na ekranie zastępując wcześniej pobrane dane 
-				<em>(wymagane połączenie z internetem)</em>
-			</li>
-			<li>
-				<strong>Dodaj bieżący widok do pobrania</strong> - pobiera dane obszaru widocznego na ekranie i łączy go z wcześniej pobranymi danymi 
-				<em>(wymagane połączenie z internetem)</em>
-			</li>
-			<li>
-				<strong>Pobierz inny obszar</strong> - pokazuje panel który pozwala na wprowadzenie współrzędnych, wyszukiwanie miejsc lub użycie bieżących współrzędnych; by pobrać dane ze wskazanej okolicy 
-				<em>(wymagane połączenie z internetem)</em>
-			</li>
-			<li>
-				<strong>Wyślij dane na serwer OSM</strong> - wysyła i zapisuje zmienione przez Ciebie dane na OpenStreetMap 
-				<em>(wymagane logowanie)</em> 
-				<em>(wymagane połączenie z internetem)</em>
-			</li>
-			<li>
-				<strong>Auto-pobieranie</strong> - pobiera dane wokół aktualnej lokalizacji automatycznie 
-				<em>(wymagane połączenie z internetem)</em> 
-				<em>(wymagany sygnał GPS)</em>
-			</li>
-			<li>
-				<strong>Plik...</strong> - zapisywanie i wczytywanie danych OSM z/do pliku na urządzeniu
-			</li>
-			<li>
-				<strong>Notatki/Błędy...</strong> - pobieranie (automatyczne lub manualne) notatek z OSM lub "Błędów" z narzędzi weryfikacji jakości danych (aktualnie OSMOSE) 
-				<em>(wymagane połączenie z internetem)</em>
-			</li>
-		</ul>
-		<p>Najprostszym sposobem na pobranie danych na Twoje urządzenie jest przybliżenie i przesunięcie mapy do obszaru który chcesz edytować, a następnie wybranie opcji "Pobierz bieżący widok". Możesz przybliżać używając gestów albo poprzez naciśnięcie odpowiednich przycisków na mapie lub też przycisków kontroli głośności na telefonie. Vespucci powinien pobrać dane z z obszaru widocznego na ekranie. Nie jest do tego potrzebna autoryzacja ze strony serwera OSM.</p>
-		<h3 id="edytowanie">Edytowanie</h3>
-		<p>Aby uniknąć przypadkowych edycji Vespucci uruchamia się w trybie "zablokowanym", który pozwala tylko na przesuwanie mapy. Naciśnij ikonę 
-			<img alt="Locked" border="0" src="../images/locked.png"/> aby odblokować. Długie naciśnięcie na ikonę kłódki włączy tryb "edytowania tagów" w którym nie będzie możliwe tworzenie nowych obiektów ani zmienianie geometrii obiektów już istniejących, ten tryb jest oznaczony ikoną otwartej białej kłódki z literą T.
-		</p>
-		<p>Standardowo, możliwe do zaznaczenia węzły oraz linie mają pomarańczową obwódkę wokół nich pokazującą gdzie - mniej więcej - należny nacisnąć by wybrać ten obiekt. Jeśli próbujesz wybrać obiekt, a Vespucci wykryje że miejsce które zostało naciśnięte może odnosić się do wielu obiektów, zostanie pokazana lista z której można będzie wybrać interesujący obiekt. Zaznaczone obiekty wyświetlane są w kolorze żółtym na mapie.</p>
-		<p>Dobrą praktyką jest przybliżanie widoku gdy edytujesz obszar o dużej ilości elementów.</p>
-		<p>System cofania i ponawiania zmian w Vespucci jest dobrze dopracowany, więc nie bój się eksperymentować, jednakże nie wysyłaj testowych danych na serwer.</p>
-		<h4 id="zaznaczanie-odznaczanie">Zaznaczanie/ Odznaczanie</h4>
-		<p>Dotknij obiektu by zaznaczyć i podświetlić go, kolejne dotknięcie otworzy edytor tagów tego elementu. Dotknięcie ekranu w miejscu w którym nie znajduje się żaden obiekt spowoduje odznaczenie obiektów. Jeśli zaznaczyłeś już obiekt i potrzebujesz zaznaczyć inny, wystarczy że dotkniesz ten następny, nie jest potrzebne wcześniejsze odznaczanie. Szybkie podwójne dotknięcie na obiekt rozpocznie
-			<br/>
-			<a href="../en/Multiselect.md">Multiselect mode</a>.
-		</p>
-		<h4 id="dodawanie-nowych-w-z-w-punkt-w-lub-linii">Dodawanie nowych Węzłów/Punktów lub Linii</h4>
-		<p>Długo naciśnij miejsce w którym chcesz by pojawił się węzeł lub początek linii. Zobaczysz czarny "celownik". Dotknięcie tego samego miejsca stworzy węzeł, zaś dotknięcie miejsca poza obszarem tworzącym węzeł - istnieje pewien stopień tolerancji -stworzy odcinek stanowiący część linii z początkowym miejscem kliknięcia jako pierwszym węzłem tej linii. </p>
-		<p>Dotykaj kolejne miejsca na ekranie by dodać dalsze węzły tworzące linie. Aby zakończyć kliknij ostatni węzeł dwa razy. Jeśli początkowy i końcowy węzeł znajdują się na linii zostaną włączone w nią automatycznie.</p>
-		<h4 id="przenoszenie-w-z-w-lub-linii">Przenoszenie Węzłów lub Linii</h4>
-		<p>Obiekty mogą być przenoszone tylko gdy zostały uprzednio zaznaczone. Jeśli opcja "Duży obszar przeciągania węzłów" jest włączona, wyświetlany jest duży obszar wokół zaznaczonego węzła pozwalając na bardziej precyzyjne przesuwanie. </p>
-		<h4 id="ulepszanie-geometrii-linii">Ulepszanie Geometrii Linii</h4>
-		<p>Jeśli odpowiednio oddalisz mapę, zauważysz mały "x" na środku odcinków linii które są odpowiednio długie. Przeciągnięcie "x" utworzy nowy węzeł linii w tym miejscu. Uwaga: aby uniknąć przypadkowego dodawania węzłów, tolerancja nacisku dla tej czynności jest dość mała.</p>
-		<h4 id="wytnij-kopiuj-wklej">Wytnij, Kopiuj &amp; Wklej</h4>
-		<p>Możesz skopiować lub wyciąć zaznaczone węzły i linie, by później wkleić je raz lub wiele razy do nowych lokalizacji. Wycinanie zachowuje osm id oraz wersję obiektu. By wkleić długo naciśnij docelowe miejsce (zobaczysz celownik wskazujący dokładnie gdzie obiekt się pojawi), a następnie wybierz "Wklej" z menu.</p>
-		<h4 id="efektywne-dodawanie-adres-w">Efektywne Dodawanie Adresów</h4>
-		<p>Vespucci posiada funkcję "Dodaj tagi adresowe" która ma na celu ułatwienie kartowania adresów. Może zostać wybrana </p>
-		<ul>
-			<li>po długim nacisku: Vespucci doda węzeł tym miejscu i postara się zgadnąć który jest to numer domu i  doda odpowiednie tagi które ostatnio używano. Jeśli węzeł jest na brzegu budynku dodatakże tag "entrance=yes" w tym węźle. Edytor tagów otworzy się dla tego obiektu aby pozowlić Ci wprowadzić dalsze zmiany.</li>
-			<li>w czasie gdy zaznaczone są węzły/linie: Vespucci doda tagi tak jak w powyższym przypadku i włączy edytor tagów.</li>
-			<li>w edytorze tagów.</li>
-		</ul>
-		<p>Przewidywanie numerów adresowych zazwyczaj wymaga przynajmniej dwóch numerów po obu stronach drogi by zostać skutecznie użyta, im więcej numerów już zmapowanych tym lepsza dokładność.</p>
-		<p>Zastanów się nad użyciem trybu "Auto-pobierania" podczas użytkowania tej funkcji.
-			<br/>
-		</p>
-		<h4 id="dodawanie-ogranicze-skr-tu">Dodawanie ograniczeń skrętu</h4>
-		<p>W Vespucci jest szybki sposób na dodanie ograniczeń skrętu. Uwaga: musisz wcześniej podzielić linię by umożliwić poprawne dodanie ograniczenia</p>
-		<ul>
-			<li>zaznacz linię z tagiem highway (droga), będzie to element "from" - ograniczenia skrętu moga być dodane tylko do dróg, jeżeli potrzebujesz je zasosowac do innych linii, mozesz użyć bardziej ogólnej funkcji "Utwórz relację", dodatkowo jeżeli nie ma dostępnych prawidłowych elementów "via" pozycja nie wyświetli się </li>
-			<li>wybierz "Dodaj ograniczenie" z menu</li>
-			<li>zaznacz węzeł lub linię "via" (wszystkie elementy możliwe do wykorzystania jako "via" zostaną podświetlone)</li>
-			<li>zaznacz linię "to" (możliwe jest wybranie tego samego elementu "to" jak i "from", Vespucci uzna że chodzi o zakaz zawracania "no
-				<em>u</em>turn")
-			</li>
-			<li>ustaw typ ograniczenia w menu tagów</li>
-		</ul>
-		<h3 id="vespucci-w-trybie-zablokowanym">Vespucci w trybie "zablokowanym"</h3>
-		<p>Gdy czerwona kłódka jest widoczna wszystkie nie-edytujące funkcje są dostępne. Dodatkowo długie naciśnięcie na lub obok obiektu pokaże dokładne informacje o nim, o ile jest to obiekt z OSM.</p>
-		<h3 id="zapisywanie-zmian">Zapisywanie Zmian</h3>
-		<p>
-			<em>(wymagane jest połączenie z Internetem)</em>
-		</p>
-		<p>Kliknij ten sam przycisk lub pozycję w menu, który wybrałeś by pobrać dane i wybierz "Wyślij dane na serwer OSM"</p>
-		<p>Vespucci obsługuje autoryzację OAuth oraz klasyczną metodę podawania loginu i hasła. OAuth jest preferowane gdyż unika wysyłanie niezaszyfrowanego hasła.</p>
-		<p>Niedawno zainstalowane wersje Vespucci mają domyślanie włączona autoryzację OAuth. Przy pierwszej próbie wysłania zmodyfikowanych danych, ukaże się strona internetowa OSM. Po zalogowaniu (poprzez szyfrowane połączenie) zostaniesz zapytany/zapytana o autoryzację dla Vespucci by móc za jego pomocą edytować dane. Jeśli chcesz lub musisz uwierzytelnić OAuth przed edycją istnieje taka opcja w menu "Narzędzia".</p>
-		<p>Jeśli chcesz zapisać swoją pracą, ale nie masz połączenia z internetem możesz zapisać ją do pliku .osm kompatybilnego z JOSM. Następnie po uzyskaniu połączenia możesz wysłać dane za pomocą Vespucci lub JOSM. </p>
-		<h4 id="rozwi-zywanie-konfliktuj-cych-zmian">Rozwiązywanie konfliktujących zmian</h4>
-		<p>Vespucci posiada prostą funkcję rozwiązywania konfliktów edycji. Jednakże jeśli podejrzewasz że istnieją poważne problemy z twoim zestawem zmian, wyeksportuj go do pliku .osc ("Eksport" w menu "Transfer") i spróbuj naprawić je w JOSM. Zobacz dalsze wskazania na 
-			<a href="../en/Conflict resolution.md">conflict resolution</a>.
-			<br/>
-		</p>
-		<h1 id="u-ycie-gps">Użycie GPS</h1>
-		<p>Możesz użyć Vespucci by utworzyć ślad GPX i odczytać go na swoim urządzeniu. Co więcej możesz wyświetlić swoją aktualną pozycję GPS (włączając opcję "Pokaż lokalizację" w menu GPS) i/lub włączyć centrowanie na niej oraz podążanie za pozycją GPS (włączając opcję "Podążaj za pozycją GPS" w menu GPS).
-			<br/>
-		</p>
-		<p>Jeśli wybrałeś drugą opcję, przesunięcie ekranu ręcznie lub edycja sprawi że opcja "podążaj za GPS" wyłączy się i charakter niebieskiej strzałki GPS zmieni się z obrysu na wypełniony kształt. By szybko wrócić do trybu "podążania", wystarczy że dotkniesz ponownie strzałkę lub ponownie włączysz ta opcję w menu.</p>
-		<h2 id="notatki-i-b-dy">Notatki i Błędy</h2>
-		<p>Vespucci umożliwia pobieranie, komentowanie i zamykanie Notatek OSM (poprzednio Błędów OSM) oraz "Błędów" wykrywanych przez 
-			<a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Obydwa mogą zostać pobrane manualnie lub przez funkcję auto-pobierania. Zmienione i zamknięte wpisy można wysyłać pojedynczo od razu lub wszystkie naraz po pewnym czasie.
-		</p>
-		<p>Na mapie Notatki i Błędu wyświetlają się jako mała ikonka robaka 
-			<img alt="" border="0" src="../images/bug_open.png"/>, zielone oznaczają zamknięte/rozwiązane błędy, niebieskie zostały stworzone lub zmienione przez Ciebie, a żółte oznaczają Notatki/Błędy dalej aktywne nie zmienione przez nikogo. 
-		</p>
-		<p>Błędy OSMOSE po zaznaczeniu dają możliwość wybrania adresu do obiektu, dotknięcie adresu wybierze obiekt, wyśrodkuje ekran na nim i pobierze obszar potrzebny do jego edycji jeśli zachodzi taka potrzeba. </p>
-		<h2 id="dostosowywanie-vespucci">Dostosowywanie Vespucci</h2>
-		<h3 id="opcje-kt-re-m-g-by-mog-aby-chcie-zmieni">Opcje które mógłbyś/mogłabyś chcieć zmienić</h3>
-		<ul>
-			<li>Mapa w tle</li>
-			<li>Nakładka mapy. Dodanie nakładki może powodować problemy na starszych urządzeniach i tych z ograniczoną pamięcią. Domyślnie: brak.</li>
-			<li>Wyświetlanie Notatek/Błędów. Aktywne Notatki i Błędy będą wyświetlane jako żółta ikona robaczka, rozwiązane jako zielone. Domyślnie: włączone.</li>
-			<li>Warstwa foto. Wyświetla zgeoreferencjonowane (skalibrowane) fotografie jako czerwone ikony aparatu, jeśli informacja o kierunku jest dostępna ikona zostanie obrócona zgodnie z nią. Domyślnie: wyłączone.</li>
-			<li>Ikony węzłów. Domyślnie: włączone.</li>
-			<li>Pozostaw ekran włączony. Domyślnie: wyłączone.</li>
-			<li>Duży obszar przeciągania węzłów. Przesuwanie węzłów na urządzeniach dotykowych może być problematyczne gdyż twoje palce mogą przysłaniać aktualną pozycję węzła. Włączenie tej opcji zwiększa obszar który może być użyty do przesuwania węzłów przez co można przesuwać węzły nie koniecznie dotykając dokładnie tam gdzie się znajdują (zaznaczanie i inne operacje dalej zachowują normalny obszar responsywności). Domyślnie: wyłączone.</li>
-		</ul>
-		<h4 id="ustawienia-zaawansowane">Ustawienia zaawansowane</h4>
-		<ul>
-			<li>Włącz rozdzielony pasek nawigacyjny. Na nowych urządzeniach pasek nawigacyjny zostanie rozdzielony na dwie części górną oraz dolną, dolna zawierająca przyciski. To zazwyczaj pozwala na pokazanie większej ilości przycisków, ale zajmuje więcej miejsca na ekranie. Wyłączenie tej opcji przeniesie przyciski do górnego paska. Uwaga: należy ponownie uruchomić Vespucci by nastąpiła zmiana.</li>
-			<li>Zawsze pokazuj menu kontekstowe. Włączone zawsze pokazuje menu kontekstowe gdy następuje wybór węzła/linii, wyłączone pokazuje menu kontekstowe tylko gdy zaznaczenie jest niejednoznaczne. Domyślnie: wyłączone (dawniej włączone).</li>
-			<li>Włącz jasny styl. Na nowych urządzeniach domyślnie włączone. Na starszych urządzeniach może być wadliwe.</li>
-			<li>Pokaż statystyki. Pokazuje statystyki służące do odnajdywania błędów oprogramowania, nie są zbyt przydatne. Domyślnie: wyłączone (dawniej włączone).
-				<br/>
-			</li>
-		</ul>
-		<h2 id="zg-aszanie-problem-w">Zgłaszanie Problemów</h2>
-		<p>Jeśli nastąpi awaria Vespucci, lub plik stanu będzie wadliwy, zostaniesz zapytany czy chcesz wysłać raport o błędach. Apelujemy byś to zrobił/zrobiła, ale tylko raz na ten sam rodzaj błędu. Jeśli chcesz dodać więcej informacji lub złożyć prośbę o nową funkcjonalność lub w podobnej sprawie, zrób to tutaj: 
-			<a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. Jeżeli chcesz przedyskutować sprawę związaną z Vespucci, możesz to zrobić albo na 
-			<a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci google group</a> albo na 
-			<a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a>
-		</p>
-	</body>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Wprowadzenie do Vespucci</h1><p>Vespucci jest wszechstronnym edytorem OpenStreetMap, który pozwala na wykonanie większości działań możliwych do wykonania w edytorach na komputerach stacjonarnych. Pozytywnie przeszedł testy na platformie Android firmy Google - wersje od 2.3 do 6.0 - oraz wielu wariantach systemów AOSP. Uwaga dla użytkowników: o ile współczesne urządzenia mobilne dorównały możliwościami komputerom stacjonarnym, to szczególnie starsze urządzenia posiadające ograniczoną ilość pamięci na ogól są wolniejsze. Należy brać to pod uwagę podczas korzystania z Vespucci i, dla przykładu, utrzymywać wielkości obszarów edytowanych w rozsądnych ramach. </p><h2>Pierwsze kroki</h2><p>Po włączeniu Vespucci pokazuje panel "Pobierz inny obszar"/"Wczytaj obszar". Jeśli widzisz współrzędne na ekranie i chcesz pobrać dane od razu, możesz wybrać odpowiednią opcję i ustawić promień wokół miejsca z którego chcesz pobierać dane. Nie wybieraj zbyt dużych obszarów używając słabszych urządzeń. </p><p>Alternatywą dla powyższego jest wyłączenie panelu przez naciśnięcie "Pokaż mapę", a następnie przesunięcie i ustawienie przybliżenia do miejsca którego dane chcesz pbrać by je edytować. (zobacz: "Edycja z Vesspuci")</p><h2>Edycja z Vespucci</h2><p>W zależności od wielkości ekranu oraz wieku twojego urządzenia opcje edycji mogą być dostępne bezpośrednio jako ikony na górnym pasku, przez rozwijalne menu po prawej stronie górnego paska, przez ikony dolnego paska (jeśli jest wyświetlany) lub przez klawisz menu.</p><h3>Pobieranie danych OSM</h3><p>Kliknij albo na ikonę transferu ![](../images/menu_transfer.png) lub wybierz w menu "Transfer". Zostanie wyświetlone 7 opcji:</p>
+<ul>
+  <li><strong>Pobierz bieżący widok</strong> - pobiera dane obszaru widocznego na ekranie zastępując wcześniej pobrane dane <em>(wymagane połączenie z internetem)</em></li>
+  <li><strong>Dodaj bieżący widok do pobrania</strong> - pobiera dane obszaru widocznego na ekranie i łączy go z wcześniej pobranymi danymi <em>(wymagane połączenie z internetem)</em></li>
+  <li><strong>Pobierz inny obszar</strong> - pokazuje panel który pozwala na wprowadzenie współrzędnych, wyszukiwanie miejsc lub użycie bieżących współrzędnych; by pobrać dane ze wskazanej okolicy <em>(wymagane połączenie z internetem)</em></li>
+  <li><strong>Wyślij dane na serwer OSM</strong> - wysyła i zapisuje zmienione przez Ciebie dane na OpenStreetMap <em>(wymagane logowanie)</em> <em>(wymagane połączenie z internetem)</em></li>
+  <li><strong>Auto-pobieranie</strong> - pobiera dane wokół aktualnej lokalizacji automatycznie <em>(wymagane połączenie z internetem)</em> <em>(wymagany sygnał GPS)</em></li>
+  <li><strong>Plik...</strong> - zapisywanie i wczytywanie danych OSM z/do pliku na urządzeniu</li>
+  <li><strong>Notatki/Błędy...</strong> - pobieranie (automatyczne lub manualne) notatek z OSM lub "Błędów" z narzędzi weryfikacji jakości danych (aktualnie OSMOSE) <em>(wymagane połączenie z internetem)</em></li>
+</ul><p>Najprostszym sposobem na pobranie danych na Twoje urządzenie jest przybliżenie i przesunięcie mapy do obszaru który chcesz edytować, a następnie wybranie opcji "Pobierz bieżący widok". Możesz przybliżać używając gestów albo poprzez naciśnięcie odpowiednich przycisków na mapie lub też przycisków kontroli głośności na telefonie. Vespucci powinien pobrać dane z z obszaru widocznego na ekranie. Nie jest do tego potrzebna autoryzacja ze strony serwera OSM.</p><h3>Edytowanie</h3><p>Aby uniknąć przypadkowych edycji Vespucci uruchamia się w trybie "zablokowanym", który pozwala tylko na przesuwanie mapy. Naciśnij ikonę <img src="../images/locked.png" alt="Locked" /> aby odblokować. Długie naciśnięcie na ikonę kłódki włączy tryb "edytowania tagów" w którym nie będzie możliwe tworzenie nowych obiektów ani zmienianie geometrii obiektów już istniejących, ten tryb jest oznaczony ikoną otwartej białej kłódki z literą T.</p><p>Standardowo, możliwe do zaznaczenia węzły oraz linie mają pomarańczową obwódkę wokół nich pokazującą gdzie - mniej więcej - należny nacisnąć by wybrać ten obiekt. Jeśli próbujesz wybrać obiekt, a Vespucci wykryje że miejsce które zostało naciśnięte może odnosić się do wielu obiektów, zostanie pokazana lista z której można będzie wybrać interesujący obiekt. Zaznaczone obiekty wyświetlane są w kolorze żółtym na mapie.</p><p>Dobrą praktyką jest przybliżanie widoku gdy edytujesz obszar o dużej ilości elementów.</p><p>System cofania i ponawiania zmian w Vespucci jest dobrze dopracowany, więc nie bój się eksperymentować, jednakże nie wysyłaj testowych danych na serwer.</p><h4>Zaznaczanie/ Odznaczanie</h4><p>Dotknij obiektu by zaznaczyć i podświetlić go, kolejne dotknięcie otworzy edytor tagów tego elementu. Dotknięcie ekranu w miejscu w którym nie znajduje się żaden obiekt spowoduje odznaczenie obiektów. Jeśli zaznaczyłeś już obiekt i potrzebujesz zaznaczyć inny, wystarczy że dotkniesz ten następny, nie jest potrzebne wcześniejsze odznaczanie. Szybkie podwójne dotknięcie na obiekt rozpocznie <a href="../en/Multiselect.html">Multiselect mode</a>.</p><h4>Dodawanie nowych Węzłów/Punktów lub Linii</h4><p>Długo naciśnij miejsce w którym chcesz by pojawił się węzeł lub początek linii. Zobaczysz czarny "celownik". Dotknięcie tego samego miejsca stworzy węzeł, zaś dotknięcie miejsca poza obszarem tworzącym węzeł - istnieje pewien stopień tolerancji -stworzy odcinek stanowiący część linii z początkowym miejscem kliknięcia jako pierwszym węzłem tej linii. </p><p>Dotykaj kolejne miejsca na ekranie by dodać dalsze węzły tworzące linie. Aby zakończyć kliknij ostatni węzeł dwa razy. Jeśli początkowy i końcowy węzeł znajdują się na linii zostaną włączone w nią automatycznie.</p><h4>Przenoszenie Węzłów lub Linii</h4><p>Obiekty mogą być przenoszone tylko gdy zostały uprzednio zaznaczone. Jeśli opcja "Duży obszar przeciągania węzłów" jest włączona, wyświetlany jest duży obszar wokół zaznaczonego węzła pozwalając na bardziej precyzyjne przesuwanie. </p><h4>Ulepszanie Geometrii Linii</h4><p>Jeśli odpowiednio oddalisz mapę, zauważysz mały "x" na środku odcinków linii które są odpowiednio długie. Przeciągnięcie "x" utworzy nowy węzeł linii w tym miejscu. Uwaga: aby uniknąć przypadkowego dodawania węzłów, tolerancja nacisku dla tej czynności jest dość mała.</p><h4>Wytnij, Kopiuj &amp; Wklej</h4><p>Możesz skopiować lub wyciąć zaznaczone węzły i linie, by później wkleić je raz lub wiele razy do nowych lokalizacji. Wycinanie zachowuje osm id oraz wersję obiektu. By wkleić długo naciśnij docelowe miejsce (zobaczysz celownik wskazujący dokładnie gdzie obiekt się pojawi), a następnie wybierz "Wklej" z menu.</p><h4>Efektywne Dodawanie Adresów</h4><p>Vespucci posiada funkcję "Dodaj tagi adresowe" która ma na celu ułatwienie kartowania adresów. Może zostać wybrana </p>
+<ul>
+  <li>po długim nacisku: Vespucci doda węzeł tym miejscu i postara się zgadnąć który jest to numer domu i doda odpowiednie tagi które ostatnio używano. Jeśli węzeł jest na brzegu budynku dodatakże tag "entrance=yes" w tym węźle. Edytor tagów otworzy się dla tego obiektu aby pozowlić Ci wprowadzić dalsze zmiany.</li>
+  <li>w czasie gdy zaznaczone są węzły/linie: Vespucci doda tagi tak jak w powyższym przypadku i włączy edytor tagów.</li>
+  <li>w edytorze tagów.</li>
+</ul><p>Przewidywanie numerów adresowych zazwyczaj wymaga przynajmniej dwóch numerów po obu stronach drogi by zostać skutecznie użyta, im więcej numerów już zmapowanych tym lepsza dokładność.</p><p>Zastanów się nad użyciem trybu "Auto-pobierania" podczas użytkowania tej funkcji. </p><h4>Dodawanie ograniczeń skrętu</h4><p>W Vespucci jest szybki sposób na dodanie ograniczeń skrętu. Uwaga: musisz wcześniej podzielić linię by umożliwić poprawne dodanie ograniczenia</p>
+<ul>
+  <li>zaznacz linię z tagiem highway (droga), będzie to element "from" - ograniczenia skrętu moga być dodane tylko do dróg, jeżeli potrzebujesz je zasosowac do innych linii, mozesz użyć bardziej ogólnej funkcji "Utwórz relację", dodatkowo jeżeli nie ma dostępnych prawidłowych elementów "via" pozycja nie wyświetli się</li>
+  <li>wybierz "Dodaj ograniczenie" z menu</li>
+  <li>zaznacz węzeł lub linię "via" (wszystkie elementy możliwe do wykorzystania jako "via" zostaną podświetlone)</li>
+  <li>zaznacz linię "to" (możliwe jest wybranie tego samego elementu "to" jak i "from", Vespucci uzna że chodzi o zakaz zawracania "no_u_turn")</li>
+  <li>ustaw typ ograniczenia w menu tagów</li>
+</ul><h3>Vespucci w trybie "zablokowanym"</h3><p>Gdy czerwona kłódka jest widoczna wszystkie nie-edytujące funkcje są dostępne. Dodatkowo długie naciśnięcie na lub obok obiektu pokaże dokładne informacje o nim, o ile jest to obiekt z OSM.</p><h3>Zapisywanie Zmian</h3><p><em>(wymagane jest połączenie z Internetem)</em></p><p>Kliknij ten sam przycisk lub pozycję w menu, który wybrałeś by pobrać dane i wybierz "Wyślij dane na serwer OSM"</p><p>Vespucci obsługuje autoryzację OAuth oraz klasyczną metodę podawania loginu i hasła. OAuth jest preferowane gdyż unika wysyłanie niezaszyfrowanego hasła.</p><p>Niedawno zainstalowane wersje Vespucci mają domyślanie włączona autoryzację OAuth. Przy pierwszej próbie wysłania zmodyfikowanych danych, ukaże się strona internetowa OSM. Po zalogowaniu (poprzez szyfrowane połączenie) zostaniesz zapytany/zapytana o autoryzację dla Vespucci by móc za jego pomocą edytować dane. Jeśli chcesz lub musisz uwierzytelnić OAuth przed edycją istnieje taka opcja w menu "Narzędzia".</p><p>Jeśli chcesz zapisać swoją pracą, ale nie masz połączenia z internetem możesz zapisać ją do pliku .osm kompatybilnego z JOSM. Następnie po uzyskaniu połączenia możesz wysłać dane za pomocą Vespucci lub JOSM. </p><h4>Rozwiązywanie konfliktujących zmian</h4><p>Vespucci posiada prostą funkcję rozwiązywania konfliktów edycji. Jednakże jeśli podejrzewasz że istnieją poważne problemy z twoim zestawem zmian, wyeksportuj go do pliku .osc ("Eksport" w menu "Transfer") i spróbuj naprawić je w JOSM. Zobacz dalsze wskazania na [conflict resolution](../en/Conflict resolution.md). </p><h1>Użycie GPS</h1><p>Możesz użyć Vespucci by utworzyć ślad GPX i odczytać go na swoim urządzeniu. Co więcej możesz wyświetlić swoją aktualną pozycję GPS (włączając opcję "Pokaż lokalizację" w menu GPS) i/lub włączyć centrowanie na niej oraz podążanie za pozycją GPS (włączając opcję "Podążaj za pozycją GPS" w menu GPS). </p><p>Jeśli wybrałeś drugą opcję, przesunięcie ekranu ręcznie lub edycja sprawi że opcja "podążaj za GPS" wyłączy się i charakter niebieskiej strzałki GPS zmieni się z obrysu na wypełniony kształt. By szybko wrócić do trybu "podążania", wystarczy że dotkniesz ponownie strzałkę lub ponownie włączysz ta opcję w menu.</p><h2>Notatki i Błędy</h2><p>Vespucci umożliwia pobieranie, komentowanie i zamykanie Notatek OSM (poprzednio Błędów OSM) oraz "Błędów" wykrywanych przez <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Obydwa mogą zostać pobrane manualnie lub przez funkcję auto-pobierania. Zmienione i zamknięte wpisy można wysyłać pojedynczo od razu lub wszystkie naraz po pewnym czasie.</p><p>Na mapie Notatki i Błędu wyświetlają się jako mała ikonka robaka ![](../images/bug_open.png), zielone oznaczają zamknięte/rozwiązane błędy, niebieskie zostały stworzone lub zmienione przez Ciebie, a żółte oznaczają Notatki/Błędy dalej aktywne nie zmienione przez nikogo. </p><p>Błędy OSMOSE po zaznaczeniu dają możliwość wybrania adresu do obiektu, dotknięcie adresu wybierze obiekt, wyśrodkuje ekran na nim i pobierze obszar potrzebny do jego edycji jeśli zachodzi taka potrzeba. </p><h2>Dostosowywanie Vespucci</h2><h3>Opcje które mógłbyś/mogłabyś chcieć zmienić</h3>
+<ul>
+  <li>Mapa w tle</li>
+  <li>Nakładka mapy. Dodanie nakładki może powodować problemy na starszych urządzeniach i tych z ograniczoną pamięcią. Domyślnie: brak.</li>
+  <li>Wyświetlanie Notatek/Błędów. Aktywne Notatki i Błędy będą wyświetlane jako żółta ikona robaczka, rozwiązane jako zielone. Domyślnie: włączone.</li>
+  <li>Warstwa foto. Wyświetla zgeoreferencjonowane (skalibrowane) fotografie jako czerwone ikony aparatu, jeśli informacja o kierunku jest dostępna ikona zostanie obrócona zgodnie z nią. Domyślnie: wyłączone.</li>
+  <li>Ikony węzłów. Domyślnie: włączone.</li>
+  <li>Pozostaw ekran włączony. Domyślnie: wyłączone.</li>
+  <li>Duży obszar przeciągania węzłów. Przesuwanie węzłów na urządzeniach dotykowych może być problematyczne gdyż twoje palce mogą przysłaniać aktualną pozycję węzła. Włączenie tej opcji zwiększa obszar który może być użyty do przesuwania węzłów przez co można przesuwać węzły nie koniecznie dotykając dokładnie tam gdzie się znajdują (zaznaczanie i inne operacje dalej zachowują normalny obszar responsywności). Domyślnie: wyłączone.</li>
+</ul><h4>Ustawienia zaawansowane</h4>
+<ul>
+  <li>Włącz rozdzielony pasek nawigacyjny. Na nowych urządzeniach pasek nawigacyjny zostanie rozdzielony na dwie części górną oraz dolną, dolna zawierająca przyciski. To zazwyczaj pozwala na pokazanie większej ilości przycisków, ale zajmuje więcej miejsca na ekranie. Wyłączenie tej opcji przeniesie przyciski do górnego paska. Uwaga: należy ponownie uruchomić Vespucci by nastąpiła zmiana.</li>
+  <li>Zawsze pokazuj menu kontekstowe. Włączone zawsze pokazuje menu kontekstowe gdy następuje wybór węzła/linii, wyłączone pokazuje menu kontekstowe tylko gdy zaznaczenie jest niejednoznaczne. Domyślnie: wyłączone (dawniej włączone).</li>
+  <li>Włącz jasny styl. Na nowych urządzeniach domyślnie włączone. Na starszych urządzeniach może być wadliwe.</li>
+  <li>Pokaż statystyki. Pokazuje statystyki służące do odnajdywania błędów oprogramowania, nie są zbyt przydatne. Domyślnie: wyłączone (dawniej włączone).</li>
+</ul><h2>Zgłaszanie Problemów</h2><p>Jeśli nastąpi awaria Vespucci, lub plik stanu będzie wadliwy, zostaniesz zapytany czy chcesz wysłać raport o błędach. Apelujemy byś to zrobił/zrobiła, ale tylko raz na ten sam rodzaj błędu. Jeśli chcesz dodać więcej informacji lub złożyć prośbę o nową funkcjonalność lub w podobnej sprawie, zrób to tutaj: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. Jeżeli chcesz przedyskutować sprawę związaną z Vespucci, możesz to zrobić albo na <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci google group</a> albo na <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p>
+</body>
 </html>

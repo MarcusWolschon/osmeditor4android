@@ -1,67 +1,36 @@
-<?xml version='1.0' encoding='utf-8' ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	</head>
-	<body>
-		<h1 id="vespucci-0-9-8-test-builds-highlights">Vespucci 0.9.8 test builds Highlights</h1>
-		<ul>
-			<li>Preset-driven form based tag editing (this can be disabled in the advanced preferences) with much better preset matching. This has improved the conventional tag editing UI too. The form mode is not available if multiple objects are selected.. The new UI is very dependent on correct presets, please report any problems with them at https://github.com/simonpoole/beautified-JOSM-preset/issues</li>
-		</ul>
-		<ul>
-			<li>Support for semicolon separated lists for tag editing. Any trailing ; will be deleted on save. In the default preset this is available for car and motorcycle brands, cuisine, bicycle pump valves and the contents of vending machines.</li>
-		</ul>
-		<ul>
-			<li>Support for "imagery_used" changeset tag as used by iD, as a result there is no need to add imagery sources to the source tag.</li>
-		</ul>
-		<ul>
-			<li>POI icons displayed with higher priority than house numbers.</li>
-		</ul>
-		<ul>
-			<li>POI icons and house numbers displayed on buildings (selectable in the preferences, note: node icon display needs to be turned on too).</li>
-		</ul>
-		<ul>
-			<li>Closed ways can be selected by touching roughly where the centroid is (even if a POI is not displayed there)</li>
-		</ul>
-		<ul>
-			<li>Improved relation member editing including a topology display a la JOSM. Caveats: if all members are selected the members will be downloaded including ways that are parents of nodes that are a relation member, otherwise the individual members are downloaded and for nodes the parent ways are 
-				<strong>not</strong> downloaded. The topology display does not take member roles into account.
-			</li>
-		</ul>
-		<ul>
-			<li>Reworked UI for main display, with support for full-screen mode for phones that don’t have hardware buttons. Touching the blue GPS arrow to re-enable centering the display has been replaced by a dedicated on-screen button (default on the left, but can be moved to the right.</li>
-		</ul>
-		<ul>
-			<li>Downloaded tiles are now stored in a sqlite database and if possible stored on a secondary storage device (SD card). </li>
-		</ul>
-		<ul>
-			<li>Improved turn restriction adding mode that no-longer requires ways to be pre-split.</li>
-		</ul>
-		<ul>
-			<li>Split ways directly via long touch action mode.</li>
-		</ul>
-		<ul>
-			<li>Auto-lock after predetermined idle time, to disable set value to 0, default is 60s.</li>
-		</ul>
-		<p>The full change log is available here https://github.com/MarcusWolschon/osmeditor4android/commits/master </p>
-		<h1 id="upgrading-from-previous-versions">Upgrading from previous Versions</h1>
-		<ul>
-			<li>The saved editing state file format has changed, please complete any edits before upgrading.</li>
-		</ul>
-		<ul>
-			<li>The goto GPS position function no longer turns on follow GPS mode.</li>
-		</ul>
-		<ul>
-			<li>Touching the blue GPS arrow no longer does anything.</li>
-		</ul>
-		<ul>
-			<li>In "locked" mode we no longer darken non-downloaded areas.</li>
-		</ul>
-		<ul>
-			<li>The old tile storage in the andnav2 directory is no longer needed by Vespucci and the directory can be deleted if not used for other purposes.</li>
-		</ul>
-		<ul>
-			<li>For known problems with the beta build please see https://github.com/MarcusWolschon/osmeditor4android/issues</li>
-		</ul>
-	</body>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 0.9.8 test builds Highlights</h1>
+<ul>
+  <li><p>Preset-driven form based tag editing (this can be disabled in the advanced preferences) with much better preset matching. This has improved the conventional tag editing UI too. The form mode is not available if multiple objects are selected.. The new UI is very dependent on correct presets, please report any problems with them at https://github.com/simonpoole/beautified-JOSM-preset/issues</p></li>
+  <li><p>Support for semicolon separated lists for tag editing. Any trailing ; will be deleted on save. In the default preset this is available for car and motorcycle brands, cuisine, bicycle pump valves and the contents of vending machines.</p></li>
+  <li><p>Support for "imagery_used" changeset tag as used by iD, as a result there is no need to add imagery sources to the source tag.</p></li>
+  <li><p>POI icons displayed with higher priority than house numbers.</p></li>
+  <li><p>POI icons and house numbers displayed on buildings (selectable in the preferences, note: node icon display needs to be turned on too).</p></li>
+  <li><p>Closed ways can be selected by touching roughly where the centroid is (even if a POI is not displayed there)</p></li>
+  <li><p>Improved relation member editing including a topology display a la JOSM. Caveats: if all members are selected the members will be downloaded including ways that are parents of nodes that are a relation member, otherwise the individual members are downloaded and for nodes the parent ways are <strong>not</strong> downloaded. The topology display does not take member roles into account.</p></li>
+  <li><p>Reworked UI for main display, with support for full-screen mode for phones that don’t have hardware buttons. Touching the blue GPS arrow to re-enable centering the display has been replaced by a dedicated on-screen button (default on the left, but can be moved to the right.</p></li>
+  <li><p>Downloaded tiles are now stored in a sqlite database and if possible stored on a secondary storage device (SD card). </p></li>
+  <li><p>Improved turn restriction adding mode that no-longer requires ways to be pre-split.</p></li>
+  <li><p>Split ways directly via long touch action mode.</p></li>
+  <li><p>Auto-lock after predetermined idle time, to disable set value to 0, default is 60s.</p></li>
+  <li><p>Short cut to add tags via name suggestion index in “New” mode</p></li>
+  <li><p>Support for read-only API servers.</p></li>
+  <li><p>Export of Notes in .osn format.</p></li>
+  <li><p>Data upload in OsmChange diff format.</p></li>
+</ul><p>The full change log is available here https://github.com/MarcusWolschon/osmeditor4android/commits/master </p><h1>Upgrading from previous Versions</h1>
+<ul>
+  <li><p>The saved editing state file format has changed, please complete any edits before upgrading.</p></li>
+  <li><p>The goto GPS position function no longer turns on follow GPS mode.</p></li>
+  <li><p>Touching the blue GPS arrow no longer does anything.</p></li>
+  <li><p>In "locked" mode we no longer dims non-downloaded areas by default, the old behaviour can be restored with a corresponding preference setting.</p></li>
+  <li><p>The old tile storage in the andnav2 directory is no longer needed by Vespucci and the directory can be deleted if not used for other purposes.</p></li>
+  <li><p>For known problems with the beta build please see https://github.com/MarcusWolschon/osmeditor4android/issues</p></li>
+</ul>
+</body>
 </html>
