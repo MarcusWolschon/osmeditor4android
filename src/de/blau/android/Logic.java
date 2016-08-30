@@ -38,12 +38,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.dialogs.UploadConflict;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -2814,7 +2816,7 @@ public class Logic {
 	 * 
 	 * @param context 
 	 */
-	void loadFromFile(Context context, final PostAsyncActionHandler postLoad) {
+	void loadFromFile(final Context context, final PostAsyncActionHandler postLoad) {
 		
 		final int READ_FAILED = 0;
 		final int READ_OK = 1;
@@ -2823,17 +2825,16 @@ public class Logic {
 		Context[] c = {context};
 		AsyncTask<Context, Void, Integer> loader = new AsyncTask<Context, Void, Integer>() {
 					
-			Context context;
+			final AlertDialog progress = ProgressDialog.get(context, Progress.PROGRESS_LOADING);
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
-				Log.d("Logic", "loadFromFile onPreExecute");
+				progress.show();
+				Log.d(DEBUG_TAG, "loadFromFile onPreExecute");
 			}
 			
 			@Override
 			protected Integer doInBackground(Context... c) {
-				this.context = c[0];
 				if (getDelegator().readFromFile()) {
 					viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_OK);
@@ -2847,10 +2848,14 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Log.d("Logic", "loadFromFile onPostExecute");
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
+				Log.d(DEBUG_TAG, "loadFromFile onPostExecute");
+				try {
+					progress.dismiss();
+				} catch (Exception ex) {
+					Log.e(DEBUG_TAG, "loadFromFile dismiss dialog failed with " + ex);
+				}
 				if (result.intValue() != READ_FAILED) {
-					Log.d("Logic", "loadfromFile: File read correctly");
+					Log.d(DEBUG_TAG, "loadfromFile: File read correctly");
 					View map = Application.mainActivity.getCurrentFocus();
 					
 					try {

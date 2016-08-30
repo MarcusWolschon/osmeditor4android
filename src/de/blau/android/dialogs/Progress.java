@@ -47,8 +47,7 @@ public class Progress extends DialogFragment
 	
 	public static final int PROGRESS_PRESET = 8;
 	
-	private int titleId;
-	private int messageId;
+	private int dialogType;
 	
 	static public void showDialog(FragmentActivity activity, int dialogType) {
 		showDialog(activity, dialogType, null);
@@ -130,40 +129,11 @@ public class Progress extends DialogFragment
 		return null;
 	}
 	
-	static private Progress newInstance(int dialogType) {
-		switch (dialogType) {
-		case PROGRESS_LOADING:
-			return createNewInstance(R.string.progress_message);
-		case PROGRESS_DOWNLOAD:
-			return createNewInstance(R.string.progress_download_message);
-		case PROGRESS_DELETING:
-			return createNewInstance(R.string.progress_general_title, R.string.progress_deleting_message);
-		case PROGRESS_SEARCHING:
-			return createNewInstance(R.string.progress_general_title, R.string.progress_searching_message);
-		case PROGRESS_SAVING:
-			return createNewInstance(R.string.progress_general_title, R.string.progress_saving_message);
-		case PROGRESS_OAUTH:
-			return createNewInstance(R.string.progress_general_title, R.string.progress_oauth);
-		case PROGRESS_UPLOADING:
-			return createNewInstance(R.string.progress_general_title, R.string.progress_uploading_message);
-		case PROGRESS_PRESET:
-			return createNewInstance(R.string.progress_general_title, R.string.progress_preset_message);
-		}
-		return null;
-	}
-	
-    /**
-     */
-    static private Progress createNewInstance(final int messageId) {
-    	return createNewInstance(R.string.progress_title, messageId);
-    }
-	
-    static private Progress createNewInstance(final int titleId, final int messageId) {
+    static private Progress newInstance(final int dialogType) {
     	Progress f = new Progress();
 
         Bundle args = new Bundle();
-        args.putSerializable("title", titleId);
-        args.putSerializable("message", messageId);
+        args.putSerializable("type", dialogType);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -176,34 +146,12 @@ public class Progress extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        titleId = (Integer) getArguments().getSerializable("title");
-        messageId = (Integer) getArguments().getSerializable("message");
+        dialogType = (Integer) getArguments().getSerializable("type");
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
-		Context ctx = getActivity();
-		
-	   	// inflater needs to be got from a themed view or else all our custom stuff will not style correctly
-    	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
-    	
-    	Builder builder = new AlertDialog.Builder(getActivity());
-    	builder.setTitle(titleId);
-    	
-		View layout = inflater.inflate(R.layout.progress, null);
-		TextView message = (TextView) layout.findViewById(R.id.progressMessage);
-		message.setText(messageId);
-		ProgressBar progressBar = (ProgressBar) layout.findViewById(R.id.progressBar);
-		if (progressBar.getIndeterminateDrawable() != null) {
-			PorterDuff.Mode mode = android.graphics.PorterDuff.Mode.SRC_IN;
-			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-				mode = android.graphics.PorterDuff.Mode.MULTIPLY; // ugly but at least it animates
-			}
-	        progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorAccent, 0), mode);
-		}
-		builder.setView(layout);
-               
-        return builder.create();
+    {               
+        return ProgressDialog.get(getActivity(), dialogType);
     }
 }
