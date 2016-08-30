@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.acra.ACRA;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -39,7 +40,9 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -185,7 +188,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * Where we install the current version of vespucci
 	 */
-	private static final String VERSION_FILE = "version.dat"; 
+	private static final String VERSION_FILE = "version.dat";
+
+	/**
+	 * Id for requesting permission for GPS access
+	 */
+	private static final int LOCATION_PERMISSION_REQUEST = 54321;
+
+	/**
+	 * Id for requesting permission for write access to external storage
+	 */
+	private static final int WRITE_STORAGE_PERMISSION_REQUEST = 12345; 
 	
 	private class ConnectivityChangedReceiver extends BroadcastReceiver {
 		@Override
@@ -301,6 +314,18 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private Location lastLocation = null;
 	
 	private Location locationForIntent = null;
+	
+	/**
+	 * Status of permissions
+	 */
+	private boolean locationPermissionGranted = false;
+	private boolean askedForLocationPermission = false;
+	private Object locationPermissionLock = new Object();
+	
+	private boolean storagePermissionGranted = false;
+	private boolean askedForStoragePermission = false;
+	private Object storagePermissionLock = new Object();
+	
 
 	/**
 	 * file we asked the camera app to create (ugly) 
@@ -526,7 +551,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		prefs = new Preferences(this);
 		Application.getLogic().setPrefs(prefs);
 		
-		// if we have been stopped delegator and viewbox willt not be set if our original Logic instance is still around
+		// if we have been stopped delegator and viewbox will not be set if our original Logic instance is still around
 		map.setDelegator(Application.getDelegator());
 		map.setViewBox(Application.getLogic().getViewBox());
 		
@@ -553,9 +578,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		super.onResume();
 		Log.d(DEBUG_TAG, "onResume");
 		final Logic logic = Application.getLogic();
-		
-		bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
-		
+
+		checkLocationPermission();
+		checkStoragePermission(); 
+
 		// register received for changes in connectivity
 		IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
 		connectivityChangedReceiver = new ConnectivityChangedReceiver();
@@ -633,6 +659,54 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		scheduleAutoLock();
+	}
+	
+	/**
+	 * Check if we have fine location permission and ask for it if not
+	 * Side effect binds to TrackerService
+	 */
+	void checkLocationPermission() {	
+		synchronized (locationPermissionLock) {
+			locationPermissionGranted = false;
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=  PackageManager.PERMISSION_GRANTED) {
+				// Should we show an explanation?
+				if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+					// for now we just repeat the request (max once)
+					if (!askedForLocationPermission) {
+						ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+						askedForLocationPermission = true;
+					}
+				} else {
+					ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+				}
+			} else { // permission was already given
+				bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
+				locationPermissionGranted = true;
+			}
+		}
+	}
+
+	/**
+	 * Check if we have write to external permission and ask for it if not
+	 */
+	void checkStoragePermission() {
+		synchronized (storagePermissionLock) {
+			storagePermissionGranted = false;
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=  PackageManager.PERMISSION_GRANTED) {
+				// Should we show an explanation?
+				if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+					// for now we just repeat the request (max once)
+					if (!askedForStoragePermission) {
+						ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISSION_REQUEST);
+						askedForStoragePermission = true;
+					}
+				} else {
+					ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISSION_REQUEST);
+				}
+			} else { // permission was already given
+				storagePermissionGranted = true;
+			}
+		}
 	}
 	
 	/**
@@ -826,6 +900,32 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	}
 
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		Log.d(DEBUG_TAG, "onRequestPermissionsResult");
+	    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+	    switch (requestCode) {
+	        case LOCATION_PERMISSION_REQUEST:
+	            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+	                // permission was granted :)
+	        		bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
+	        		synchronized (locationPermissionLock) {
+	        			locationPermissionGranted = true;
+	        		}
+	            } // if not granted do nothing for now
+	            break;
+	        case WRITE_STORAGE_PERMISSION_REQUEST:
+	        	if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+	                // permission was granted :)
+	        		synchronized (storagePermissionLock) {
+	        			storagePermissionGranted = true;
+	        		}
+	            } // if not granted do nothing for now
+	            break;
+	    }
+	    triggerMenuInvalidation(); // update menus
+	}
+	
 	/**
 	 * Sets up the Action Bar.
 	 */
@@ -1011,7 +1111,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 
 		boolean networkConnected = NetworkStatus.isConnected(this);
-		boolean gpsProviderEnabled = ensureGPSProviderEnabled();
+		boolean gpsProviderEnabled = ensureGPSProviderEnabled() && locationPermissionGranted;
+		// just as good as any other place to check this
+		if (gpsProviderEnabled) {
+			showFollowButton();
+		} else {
+			hideFollowButton();
+		}
 		menu.findItem(R.id.menu_gps_show).setEnabled(gpsProviderEnabled).setChecked(showGPS);
 		menu.findItem(R.id.menu_gps_follow).setEnabled(gpsProviderEnabled).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_goto).setEnabled(gpsProviderEnabled);
@@ -1051,7 +1157,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
 		menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected);
 		menu.findItem(R.id.menu_voice).setVisible(false); // don't display button for now
-//		menu.findItem(R.id.menu_voice).setEnabled(networkConnected && prefs.voiceCommandsEnabled()).setVisible(prefs.voiceCommandsEnabled());
+//	experimental	menu.findItem(R.id.menu_voice).setEnabled(networkConnected && prefs.voiceCommandsEnabled()).setVisible(prefs.voiceCommandsEnabled());
+		
+		// the following depends on us having permission to write to "external" storage
+		menu.findItem(R.id.menu_transfer_export).setEnabled(storagePermissionGranted);
+		menu.findItem(R.id.menu_transfer_save_file).setEnabled(storagePermissionGranted);
+		menu.findItem(R.id.menu_transfer_save_notes_all).setEnabled(storagePermissionGranted);
+		menu.findItem(R.id.menu_transfer_save_notes_new_and_changed).setEnabled(storagePermissionGranted);
+		menu.findItem(R.id.menu_gps_export).setEnabled(storagePermissionGranted);
 		
 		menuUtil.setShowAlways(menu);
 		// only show camera icon if we have a camera, and a camera app is installed 
@@ -2997,7 +3110,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public void showFollowButton() {
 		FloatingActionButton follow = getFollowButton();
-		if (follow != null && ensureGPSProviderEnabled()) {
+		if (follow != null && ensureGPSProviderEnabled() && locationPermissionGranted) {
 			follow.show();
 		}
 	}

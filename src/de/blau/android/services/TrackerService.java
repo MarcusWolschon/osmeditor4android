@@ -403,7 +403,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 				if (last != null) {
 					onLocationChanged(last);
 				}
-			} catch (Exception e) {} // Ignore
+			} 
+			catch (SecurityException sex) {} // Ignore
+			catch (IllegalArgumentException iaex) {} // Ignore too
 			try {
 				// used to pass updates to UI thread
 				mHandler = new Handler(Looper.getMainLooper()) {
@@ -443,11 +445,22 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						locationManager.addNmeaListener(this);
 					} 
 				}
-			} catch (Exception e) {
-				Log.e(TAG, "Failed to enable GPS", e);
-				Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_SHORT).show();				
+				gpsEnabled = true;
 			}
-			gpsEnabled = true;
+			catch (SecurityException sex) {
+				// note there is no way we can ask for permission here so we do that in the main
+				// activity before actually creating this service
+				Log.e(TAG, "Failed to enable GPS", sex);
+				Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_LONG).show();	
+			} 
+			catch (IllegalArgumentException iaex) {
+				Log.e(TAG, "Failed to enable GPS", iaex);
+				Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_LONG).show();	
+			} 
+			catch (RuntimeException rex) {
+				Log.e(TAG, "Failed to enable GPS", rex);
+				Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_LONG).show();				
+			}
 		} else if (!needed && gpsEnabled) {
 			Log.d(TAG, "Disabling GPS updates");
 			try {
