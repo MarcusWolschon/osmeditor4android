@@ -191,14 +191,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private static final String VERSION_FILE = "version.dat";
 
 	/**
-	 * Id for requesting permission for GPS access
+	 * Id for requesting permissions
 	 */
-	private static final int LOCATION_PERMISSION_REQUEST = 54321;
-
-	/**
-	 * Id for requesting permission for write access to external storage
-	 */
-	private static final int WRITE_STORAGE_PERMISSION_REQUEST = 12345; 
+	private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 54321; 
 	
 	private class ConnectivityChangedReceiver extends BroadcastReceiver {
 		@Override
@@ -579,8 +574,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Log.d(DEBUG_TAG, "onResume");
 		final Logic logic = Application.getLogic();
 
-		checkLocationPermission();
-		checkStoragePermission(); 
+		checkPermissions();
 
 		// register received for changes in connectivity
 		IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
@@ -665,7 +659,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * Check if we have fine location permission and ask for it if not
 	 * Side effect binds to TrackerService
 	 */
-	void checkLocationPermission() {	
+	void checkPermissions() {	
+		final List<String> permissionsList = new ArrayList<String>();
 		synchronized (locationPermissionLock) {
 			locationPermissionGranted = false;
 			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=  PackageManager.PERMISSION_GRANTED) {
@@ -673,23 +668,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 					// for now we just repeat the request (max once)
 					if (!askedForLocationPermission) {
-						ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+						permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
 						askedForLocationPermission = true;
 					}
 				} else {
-					ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+					permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
 				}
 			} else { // permission was already given
 				bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
 				locationPermissionGranted = true;
 			}
 		}
-	}
-
-	/**
-	 * Check if we have write to external permission and ask for it if not
-	 */
-	void checkStoragePermission() {
 		synchronized (storagePermissionLock) {
 			storagePermissionGranted = false;
 			if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=  PackageManager.PERMISSION_GRANTED) {
@@ -697,16 +686,26 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 					// for now we just repeat the request (max once)
 					if (!askedForStoragePermission) {
-						ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISSION_REQUEST);
+						permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 						askedForStoragePermission = true;
 					}
 				} else {
-					ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISSION_REQUEST);
+					permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 				}
 			} else { // permission was already given
 				storagePermissionGranted = true;
 			}
 		}
+		if (permissionsList.size() > 0) {
+			ActivityCompat.requestPermissions(this, permissionsList.toArray(new String[permissionsList.size()]), REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+		}
+	}
+
+	/**
+	 * Check if we have write to external permission and ask for it if not
+	 */
+	void checkStoragePermission() {
+
 	}
 	
 	/**
@@ -888,8 +887,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 //		return logic;
 //	}
 
-	
-	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -903,27 +900,27 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		Log.d(DEBUG_TAG, "onRequestPermissionsResult");
-	    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-	    switch (requestCode) {
-	        case LOCATION_PERMISSION_REQUEST:
-	            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-	                // permission was granted :)
-	        		bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
-	        		synchronized (locationPermissionLock) {
-	        			locationPermissionGranted = true;
-	        		}
-	            } // if not granted do nothing for now
-	            break;
-	        case WRITE_STORAGE_PERMISSION_REQUEST:
-	        	if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-	                // permission was granted :)
-	        		synchronized (storagePermissionLock) {
-	        			storagePermissionGranted = true;
-	        		}
-	            } // if not granted do nothing for now
-	            break;
-	    }
-	    triggerMenuInvalidation(); // update menus
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		switch (requestCode) {
+		case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
+			for (int i=0;i<permissions.length;i++) { 
+				if (permissions[i] == Manifest.permission.ACCESS_FINE_LOCATION && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+					// permission was granted :)
+					bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
+					synchronized (locationPermissionLock) {
+						locationPermissionGranted = true;
+					}
+				} // if not granted do nothing for now
+				if (permissions[i] == Manifest.permission.WRITE_EXTERNAL_STORAGE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					// permission was granted :)
+					synchronized (storagePermissionLock) {
+						storagePermissionGranted = true;
+					}
+				} // if not granted do nothing for now
+			}
+			break;
+		}
+		triggerMenuInvalidation(); // update menus
 	}
 	
 	/**
