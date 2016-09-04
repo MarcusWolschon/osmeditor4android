@@ -40,7 +40,7 @@ public class ClipboardUtils {
 			return clipboard.hasPrimaryClip();
 		} else {
 			if (oldClipboard == null) {
-				oldClipboard = (android.content.ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+				oldClipboard = (android.text.ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
 			}
 			return oldClipboard.hasText();
 		}
