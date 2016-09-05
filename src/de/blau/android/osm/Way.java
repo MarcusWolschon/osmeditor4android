@@ -18,6 +18,8 @@ import de.blau.android.util.rtree.BoundedObject;
 
 public class Way extends OsmElement implements BoundedObject {
 
+	private static final String DEBUG_TAG = "Way";
+
 	/**
 	 * 
 	 */
@@ -54,7 +56,7 @@ public class Way extends OsmElement implements BoundedObject {
 	void addNode(final Node node) {
 		int size = nodes.size();
 		if ((size > 0) && (nodes.get(size - 1) == node)) {
-			Log.i("Way", "addNode attempt to add same node " + node.getOsmId() + " to " + getOsmId());
+			Log.i(DEBUG_TAG, "addNode attempt to add same node " + node.getOsmId() + " to " + getOsmId());
 			return;
 		}
 		nodes.add(node);
@@ -108,7 +110,7 @@ public class Way extends OsmElement implements BoundedObject {
 				s.endTag("", "nd");
 			}
 		} else {
-			Log.i("Way", "Way without nodes");
+			Log.i(DEBUG_TAG, "Way without nodes");
 			throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
 		}
 
@@ -136,7 +138,7 @@ public class Way extends OsmElement implements BoundedObject {
 				s.endTag("", "nd");
 			}
 		} else {
-			Log.i("Way", "Way without nodes");
+			Log.i(DEBUG_TAG, "Way without nodes");
 			throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
 		}
 
@@ -186,7 +188,7 @@ public class Way extends OsmElement implements BoundedObject {
 		if (index > 0 && index < (nodes.size()-1)) { // not the first or last node 
 			if (nodes.get(index-1) == nodes.get(index+1)) {
 				nodes.remove(index-1);
-				Log.i("Way", "removeNode removed duplicate node");
+				Log.i(DEBUG_TAG, "removeNode removed duplicate node");
 			}
 		}
 		while (nodes.remove(node)) {
@@ -203,7 +205,7 @@ public class Way extends OsmElement implements BoundedObject {
 
 	void appendNode(final Node refNode, final Node newNode) {
 		if (refNode == newNode) { // user error
-			Log.i("Way", "appendNode attempt to add same node");
+			Log.i(DEBUG_TAG, "appendNode attempt to add same node");
 			return;
 		}
 		if (nodes.get(0) == refNode) {
@@ -215,7 +217,7 @@ public class Way extends OsmElement implements BoundedObject {
 
 	void addNodeAfter(final Node nodeBefore, final Node newNode) {
 		if (nodeBefore == newNode) { // user error
-			Log.i("Way", "addNodeAfter attempt to add same node");
+			Log.i(DEBUG_TAG, "addNodeAfter attempt to add same node");
 			return;
 		}
 		nodes.add(nodes.indexOf(nodeBefore) + 1, newNode);
@@ -230,9 +232,9 @@ public class Way extends OsmElement implements BoundedObject {
 	void addNodes(List<Node> newNodes, boolean atBeginning) {
 		if (atBeginning) {
 			if ((nodes.size() > 0) && nodes.get(0) == newNodes.get(newNodes.size()-1)) { // user error
-				Log.i("Way", "addNodes attempt to add same node");
+				Log.i(DEBUG_TAG, "addNodes attempt to add same node");
 				if (newNodes.size() > 1) {
-					Log.i("Way", "retrying addNodes");
+					Log.i(DEBUG_TAG, "retrying addNodes");
 					newNodes.remove(newNodes.size()-1);
 					addNodes(newNodes, atBeginning);
 				}
@@ -241,9 +243,9 @@ public class Way extends OsmElement implements BoundedObject {
 			nodes.addAll(0, newNodes);
 		} else {
 			if ((nodes.size() > 0) && newNodes.get(0) == nodes.get(nodes.size()-1)) { // user error
-				Log.i("Way", "addNodes attempt to add same node");
+				Log.i(DEBUG_TAG, "addNodes attempt to add same node");
 				if (newNodes.size() > 1) {
-					Log.i("Way", "retrying addNodes");
+					Log.i(DEBUG_TAG, "retrying addNodes");
 					newNodes.remove(0);
 					addNodes(newNodes, atBeginning);
 				}
@@ -269,6 +271,15 @@ public class Way extends OsmElement implements BoundedObject {
 		int idx;
 		while ((idx = nodes.indexOf(existing)) != -1) {
 			nodes.set(idx, newNode);
+			// check for duplicates
+			if (idx > 0 && nodes.get(idx-1).equals(newNode)) {
+				Log.i(DEBUG_TAG, "replaceNode node would duplicate preceeding node");
+				nodes.remove(idx);
+			}
+			if (idx >= 0 &&  idx < nodes.size()-1 && nodes.get(idx+1).equals(newNode)) {
+				Log.i(DEBUG_TAG, "replaceNode node would duplicate following node");
+				nodes.remove(idx);
+			}
 		}
 	}
 

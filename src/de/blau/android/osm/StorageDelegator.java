@@ -1050,6 +1050,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		for (Way way : currentStorage.getWays(mergeFrom)) {
 			replaceNodeInWay(mergeFrom, mergeInto, way);
 		}
+		// belt and suspenders not really necessary
 		for (Way way : apiStorage.getWays(mergeFrom)) {
 			replaceNodeInWay(mergeFrom, mergeInto, way);
 		}
@@ -1841,7 +1842,6 @@ public class StorageDelegator implements Serializable, Exportable {
 			clipboard.cutTo(e, lat, lon);
 			removeNode((Node)e);
 		} else if (e instanceof Way) {
-
 			// clone all nodes that are members of other ways
 			ArrayList<Node> nodes = new ArrayList<Node>(((Way)e).getNodes());
 			for (Node nd: nodes) {
