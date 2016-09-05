@@ -30,13 +30,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private final SharedPreferences prefs;
 	private final String PREF_SELECTED_API;
 
-	private final static int DATA_VERSION = 6;
+	private final static int DATA_VERSION = 7;
 	private final static String LOGTAG = "AdvancedPrefDB";
 	
 	public final static String API_DEFAULT = "https://api.openstreetmap.org/api/0.6/";
+	public final static String API_DEFAULT_NO_HTTPS = "http://api.openstreetmap.org/api/0.6/";
 	
 	/** The ID string for the default API and the default Preset */
 	public final static String ID_DEFAULT = "default";
+	public final static String ID_DEFAULT_NO_HTTPS = "default_no_https";
 	
 	/** The ID of the currently active API */
 	private String currentAPI;
@@ -83,10 +85,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (oldVersion <= 4 && newVersion >= 5) {
 			db.execSQL("UPDATE apis SET url='"  + API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
 		}
-		
 		if (oldVersion <= 5 && newVersion >= 6) {
 			db.execSQL("ALTER TABLE apis ADD COLUMN readonlyurl TEXT DEFAULT NULL");
 			db.execSQL("ALTER TABLE apis ADD COLUMN notesurl TEXT DEFAULT NULL");
+		}
+		if (oldVersion <= 6 && newVersion >= 7) {
+			addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", API_DEFAULT_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 	
 		}
 	}
 	
@@ -109,6 +113,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
 		addAPI(db, ID_DEFAULT, name, API_DEFAULT, null, null, user, pass, ID_DEFAULT, true, true); 
+		Log.d(LOGTAG, "Adding default URL without https");
+		addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", API_DEFAULT_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(db,ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");
@@ -268,7 +274,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 								new String[] {"id", "name", "url", "readonlyurl", "notesurl", "user", "pass", "preset", "showicon", "oauth","accesstoken","accesstokensecret"},
 								id == null ? null : "id = ?",
 								id == null ? null : new String[] {id},
-								null, null, null, null);
+								null, null, "name ASC", null);
 		API[] result = new API[dbresult.getCount()];
 		dbresult.moveToFirst();
 		for (int i = 0; i < result.length; i++) {
