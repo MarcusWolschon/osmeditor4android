@@ -20,6 +20,7 @@
     <string name="no_login_data_message">If you are using OAuth this is likely a bug, please send a problem report, if you are using login and password (not recommended) please check that they are entered correctly.</string>
     <string name="no_connection_title">No Connection to Server</string>
     <string name="no_connection_message">Could not connect to the OSM-Server. Please check your Internet connection or try again later.</string>
+    <string name="ssl_handshake_failed">Could not connect to the OSM-Server because https negotiation failed. Try switching to a non-encrypted connection in the API preferences.</string>
     <string name="wrong_login_data_title">Authentication failed</string>
     <string name="wrong_login_data_message">If you are using OAuth you should re-authenticate and then retry, if you are using login and password (not recommended) please check that they are entered correctly.</string>
     <string name="wrong_login_data_re_authenticate">Re-Authenticate</string>
@@ -133,7 +134,7 @@
     <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
     <string name="toast_oauth_handshake_failed">OAuth handshake failed, check that you have proper consumer keys</string>
-    <string name="toast_unread_mail">You have %1$s unread mail(s) on the OpenStreetmap server</string>
+    <string name="toast_unread_mail">You have %1$s unread mail(s) on the OpenStreetMap server</string>
     <string name="toast_photo_indexing_started">Started scan for geo-referenced photos</string>
     <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
     <string name="toast_download_bbox_failed">Download failed, probably because the area selected was too large.</string>

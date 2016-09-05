@@ -27,6 +27,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import javax.net.ssl.SSLProtocolException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.acra.ACRA;
@@ -2126,7 +2127,11 @@ public class Logic {
 						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (IOException e) {
-					result = ErrorCodes.NO_CONNECTION;
+					if (e instanceof SSLProtocolException) {
+						result = ErrorCodes.SSL_HANDSHAKE;
+					} else {
+						result = ErrorCodes.NO_CONNECTION;
+					}
 					Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);

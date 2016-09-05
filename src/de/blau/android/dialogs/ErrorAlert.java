@@ -82,6 +82,8 @@ public class ErrorAlert extends DialogFragment
 			return "alert_nan";
 		case ErrorCodes.INVALID_BOUNDING_BOX:
 			return "invalid_bounding_box";
+		case ErrorCodes.SSL_HANDSHAKE:
+			return "ssl_handshake_failed";
 		}
 		return null;
 	}
@@ -90,6 +92,7 @@ public class ErrorAlert extends DialogFragment
 		switch (dialogType) {
 		case ErrorCodes.NO_LOGIN_DATA: return createNewInstance(R.string.no_login_data_title, R.string.no_login_data_message);		
 		case ErrorCodes.NO_CONNECTION: return createNewInstance(R.string.no_connection_title, R.string.no_connection_message);
+		case ErrorCodes.SSL_HANDSHAKE: return createNewInstance(R.string.no_connection_title, R.string.ssl_handshake_failed);
 		case ErrorCodes.UPLOAD_PROBLEM: return createNewInstance(R.string.upload_problem_title, R.string.upload_problem_message);
 		case ErrorCodes.DATA_CONFLICT: return createNewInstance(R.string.data_conflict_title, R.string.data_conflict_message);
 		case ErrorCodes.API_OFFLINE: return createNewInstance(R.string.api_offline_title, R.string.api_offline_message);
