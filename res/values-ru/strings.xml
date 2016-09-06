@@ -126,7 +126,6 @@
   <string name="toast_state_file_failed">Нечитаемый или повреждённый файл состояния</string>
   <string name="toast_too_many_nodes_for_move">В линии слишком много точек для перемещения</string>
   <string name="toast_oauth_handshake_failed">Рукопожатие OAuth не удалось, проверьте, что у вас есть подходящий consumer key.</string>
-  <string name="toast_unread_mail">У вас %1$s непрочитанных сообщения(й) на сервере OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Начато сканирование геопривязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование геопривязанных фото</string>
   <string name="toast_download_bbox_failed">Скачивание не удалось; возможно, выбранная область слишком велика.</string>

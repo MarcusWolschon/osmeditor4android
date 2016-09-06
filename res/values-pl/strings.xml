@@ -86,6 +86,7 @@
   <string name="search_results_title">Wyniki wyszukiwania</string>
   <string name="find_message">Wpisz szukaną frazę</string>
   <string name="preset_search_hint">Wpisz nazwę szablonu</string>
+  <string name="search">Szukaj</string>
   <string name="no_valid_preset">Brak prawidłowego szablonu!</string>
   <string name="read_file">Wybierz plik do otwarcia</string>
   <string name="save_file">Wprowadź plik zapisu</string>
@@ -129,7 +130,6 @@
   <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik stanu</string>
   <string name="toast_too_many_nodes_for_move">Zbyt wiele węzłów do przesunięcia</string>
   <string name="toast_oauth_handshake_failed">Połączenie OAuth nie powiodło się, sprawdź czy masz odpowiednie klucze autoryzacyjne</string>
-  <string name="toast_unread_mail">Masz %1$s nie przeczytaną/e wiadomość/ci na serwerze OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Rozpoczęcie skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończone skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_download_bbox_failed">Pobieranie nie powiodło się, prawdopodobnie wybrano zbyt duży obszar.</string>
@@ -172,6 +172,7 @@
   <string name="back">Cofnij</string>
   <string name="keep">Zachowaj</string>
   <string name="clear">Wyczyść</string>
+  <string name="retry">Spróbuj ponownie</string>
   <!--Dialog for back button-->
   <string name="exit_title">Rzeczywiście zakończyć?</string>
   <string name="exit_text">Czy na pewno chcesz wyjść?</string>
@@ -559,5 +560,9 @@
   <string-array name="note_state">
     <item>Otwarte</item>
     <item>Zamknięte</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Lewo</item>
+    <item>Prawo</item>
   </string-array>
 </resources>

@@ -127,7 +127,6 @@
   <string name="toast_state_file_failed">Olvashatatlan vagy sérült állapotfájl</string>
   <string name="toast_too_many_nodes_for_move">A mozgatáshoz túl sok pont van a vonalban</string>
   <string name="toast_oauth_handshake_failed">Az OAuth kézfogás sikertelen, ellenőrízze, hogy megfelelő-e a kulcsa</string>
-  <string name="toast_unread_mail">%1$s olvasatlan levele van az OpenStreetMap kiszolgálón</string>
   <string name="toast_photo_indexing_started">A földrajzi pozícióval ellátott fényképek keresése elkezdődött</string>
   <string name="toast_photo_indexing_finished">A földrajzi pozícióval ellátott fényképek keresése befejeződött</string>
   <string name="toast_download_bbox_failed">A letöltés nem sikerült, valószínűleg a kijelölt terület túl nagy volt.</string>

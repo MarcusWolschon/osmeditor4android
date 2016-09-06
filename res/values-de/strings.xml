@@ -19,6 +19,7 @@
   <string name="no_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="no_connection_title">Keine Verbindung zum Server</string>
   <string name="no_connection_message">Konnte keine Verbindung zum OSM-Server herstellen. Bitte überprüfen Sie ihre Internetverbindung oder versuchen Sie es später noch einmal.</string>
+  <string name="ssl_handshake_failed">Konnte keine Verbindung zum OSM-Server herstellen da das Aushandeln einer https Verbindung fehlschlug. Schalten Sie auf eine nicht verschlüsselte Verbindung in den API Einstellungen um.</string>
   <string name="wrong_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="wrong_login_data_message">Falls OAuth verwendet wird, nochmals authentisieren und dann widerholen, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="wrong_login_data_re_authenticate">Authentisierung wiederholen</string>
@@ -164,6 +165,7 @@
   <string name="toast_split_via">\"via\" Weg aufgetrennt</string>
   <string name="toast_split_from_and_via">\"from\" und \"via\" Wege aufgetrennt</string>
   <string name="toast_split_to">\"to\" Weg aufgetrennt</string>
+  <string name="toast_tile_database_full">Kartenkacheln Datenbank oder Speicher voll.\nProgram verlassen und entweder die Datenbank löschen oder mehr Platz schaffen.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -311,6 +313,7 @@
   <string name="menu_cut">Ausschneiden</string>
   <string name="menu_paste">Einfügen</string>
   <string name="menu_paste_from_clipboard">Von Clipboard einfügen</string>
+  <string name="menu_zoom_to_selection">Auf Auswahl zoomen</string>
   <string name="menu_rotate">Drehen</string>
   <string name="menu_orthogonalize">Rechtwinklig machen</string>
   <string name="menu_circulize">Im Kreis anordnen</string>

@@ -91,7 +91,6 @@
   <string name="toast_state_file_failed">状態ファイルが読み込めないか、壊れています</string>
   <string name="toast_too_many_nodes_for_move">移動するにはウェイにノードが多すぎます</string>
   <string name="toast_oauth_handshake_failed">OAuth　ハンドシェイクに失敗しました。正しいコンシューマーキーを利用しているか確認してください</string>
-  <string name="toast_unread_mail">%1$s　通(s)の未読のメールが OpenStreetmap サーバ上にあります</string>
   <string name="toast_photo_indexing_started">地理的情報が付加された写真のスキャンを開始</string>
   <string name="toast_photo_indexing_finished">地理的情報が付加された写真のスキャンが完了</string>
   <string name="toast_download_bbox_failed">ダウンロードに失敗しました。対象エリアが大きすぎた可能性があります。</string>

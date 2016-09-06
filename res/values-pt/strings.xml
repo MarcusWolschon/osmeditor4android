@@ -94,7 +94,6 @@
   <string name="toast_state_file_failed">Arquivo ilegível ou corrompido</string>
   <string name="toast_too_many_nodes_for_move">Muitos nós na via para ser possível mover</string>
   <string name="toast_oauth_handshake_failed">Autenticação OAuth falhou, verifique que tem as chaves de consumidor apropriadas</string>
-  <string name="toast_unread_mail">Você tem %1$s mensagem(ens) não lidas no servidor OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Buscando por fotos georreferenciadas</string>
   <string name="toast_photo_indexing_finished">Concluída a busca de fotos georreferenciadas</string>
   <string name="toast_download_bbox_failed">O download falhou, provavelmente porque a área selecionada era muito grande.</string>

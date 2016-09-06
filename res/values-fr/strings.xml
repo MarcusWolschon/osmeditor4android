@@ -135,7 +135,6 @@ Amusez-vous bien !</string>
   <string name="toast_state_file_failed">Fichier d\'état illisible ou corrompu</string>
   <string name="toast_too_many_nodes_for_move">Le chemin contient trop de nœuds pour être déplacé</string>
   <string name="toast_oauth_handshake_failed">L\'authentification OAuth a échouée, merci de vérifier que vous avez les bonnes clés clientes.</string>
-  <string name="toast_unread_mail">Vous avez %1$s message(s) non lu(s) sur les serveur OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Début de l\'analyse des photos géo-référencées</string>
   <string name="toast_photo_indexing_finished">Analyse des photos géo-référencées terminée</string>
   <string name="toast_download_bbox_failed">Le téléchargement a échoué, sans doute car la zone sélectionnée était trop grande.</string>

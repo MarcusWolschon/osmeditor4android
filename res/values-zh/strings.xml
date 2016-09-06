@@ -105,7 +105,6 @@
   <string name="toast_state_file_failed">无法读取或已损坏状态的文件</string>
   <string name="toast_too_many_nodes_for_move">要移动路径的节点过多</string>
   <string name="toast_oauth_handshake_failed">OAuth的握手失败，请检查您有正确的用户密钥</string>
-  <string name="toast_unread_mail">在OpenStreetMap 的服务器上，您有%1$s条未读邮件</string>
   <string name="toast_photo_indexing_started">开始扫描地理参考图片</string>
   <string name="toast_photo_indexing_finished">扫描地理参考图片完成</string>
   <string name="toast_download_bbox_failed">下载失败，可能是因为所选择的区域过大。</string>

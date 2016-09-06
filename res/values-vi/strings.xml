@@ -129,7 +129,6 @@
   <string name="toast_state_file_failed">Tập tin trạng thái không thể đọc hoặc hư hỏng</string>
   <string name="toast_too_many_nodes_for_move">Lối sẽ được di chuyển có quá nhiều nốt</string>
   <string name="toast_oauth_handshake_failed">Quá trình bắt tay OAuth bị thất bại; hãy kiểm tra có các chìa khóa trình khách (consumer) chính xác</string>
-  <string name="toast_unread_mail">Bạn có %1$s thư chưa đọc trên máy chủ OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Đã bắt đầu tìm hình ảnh được định vị</string>
   <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
   <string name="toast_download_bbox_failed">Thất bại khi tải về, có lẽ vì khu vực được chọn quá lớn.</string>

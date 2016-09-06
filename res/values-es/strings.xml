@@ -12,6 +12,7 @@
   <string name="upload_conflict_message_version">%1$s \ntiene la versión local %2$s \ny en el servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \ntiene la versión local %2$s \ny fue eliminado en el servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfue eliminado localmente \npero tiene referencias en el servidor</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nya se eliminó en el servidor</string>
   <string name="use_local_version">Usar \nversión \nlocal</string>
   <string name="use_server_version">Usar \versión \nen el servidor</string>
   <string name="no_login_data_title">Fallo de autenticación</string>
@@ -23,6 +24,8 @@
   <string name="wrong_login_data_re_authenticate">Reautenticar</string>
   <string name="data_conflict_title">Conflicto de versión</string>
   <string name="data_conflict_message">Los datos que trata de descargar contiene datos que entra en conflicto con sus ediciones. Intente subir sus datos antes de volver a intentarlo.</string>
+  <string name="invalid_bounding_box_title">Cuadro delimitador inválido</string>
+  <string name="invalid_bounding_box_message">El área seleccionada no se ajuste a las restricciones de la API, elija una diferente.</string>
   <string name="api_offline_title">API fuera de línea</string>
   <string name="api_offline_message">La API está actualmente fuera de línea y no permite que los datos sean recuperados ni escritos.</string>
   <string name="out_of_memory_title">Sin memoria</string>
@@ -45,6 +48,8 @@
   <string name="progress_deleting_message">Eliminando...</string>
   <string name="progress_searching_message">Buscando…</string>
   <string name="progress_saving_message">Guardando…</string>
+  <string name="progress_uploading_message">Subiendo...</string>
+  <string name="progress_preset_message">Descargando predefinido...</string>
   <string name="progress_oauth">Cargando su cuenta en openstreetmap.org para la autorización OAuth...</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fuente:</string>
@@ -82,11 +87,13 @@
   <string name="search_results_title">Resultados de la búsqueda</string>
   <string name="find_message">Introduzca la cadena de búsqueda</string>
   <string name="preset_search_hint">Cadena de búsqueda predeterminada</string>
+  <string name="search">Buscar</string>
   <string name="no_valid_preset">¡Predeterminado no válido!</string>
   <string name="read_file">Seleccionar archivo para leer</string>
   <string name="save_file">Introduzca el archivo para guardar a</string>
   <string name="existing_track_title">Datos existentes de la traza</string>
   <string name="existing_track_message">Usted ya tiene datos de las trazas existentes. Es posible que quiera cancelar y guardar primero.</string>
+  <string name="delete_tags">¿Desea borrar todas las etiquetas para el objeto «%1$s»?</string>
   <string name="element_information">Información del elemento</string>
   <string name="id">Identificador</string>
   <string name="nodes">Nodos</string>
@@ -116,13 +123,14 @@
   <string name="toast_not_in_bug_range">Acerque para añadir un bug (Botón volumen arriba/abajo o Lens/Shift)</string>
   <string name="toast_export_failed">Fallo al exportar</string>
   <string name="toast_export_success">Exportado a %1$s</string>
+  <string name="toast_preset_overwrote_tags">Nota - predefinido sobrescribe etiqueta(s)</string>
+  <string name="toast_merge_overwrote_tags">Nota - operación sobrescribe etiqueta(s)</string>
   <string name="toast_oneway_reversed">Invirtió el sentido de una calle o una vía con etiquetas de dirección. Compruebe las etiquetas y corrija si es necesario.</string>
   <string name="toast_merge_tag_conflict">Combinó elementos que tienen valores de etiqueta conflictivos, semántica dependiente de la dirección o roles diferentes en la misma relación. Compruebe las etiquetas y roles y corrija si es necesario.</string>
   <string name="toast_potential_merge_tag_conflict">Está tratando de combinar elementos que tienen conflictos en los valores de las etiquetas. Compruebe las etiquetas y corrija primero antes de intentar de nuevo.</string>
   <string name="toast_state_file_failed">No se puede leer el archivo de estado</string>
   <string name="toast_too_many_nodes_for_move">Demasiados nodos en la vía para mover</string>
   <string name="toast_oauth_handshake_failed">Fallo en la negociación OAuth, compruebe que tiene las claves de consumidor correctas</string>
-  <string name="toast_unread_mail">Tiene %1$s correo(s) no leído(s) en el servidor de OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Iniciada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_download_bbox_failed">Fallo en la descarga, probablemente porque el área seleccionada era demasiado grande.</string>
@@ -150,6 +158,11 @@
   <string name="toast_min_one_preset">¡Al menos un predeterminado tiene que ser seleccionado!</string>
   <string name="toast_used_backup">¡Archivo de estado dañado, utilice el archivo de respaldo!</string>
   <string name="toast_used_bug_backup">¡Archivo de estado de errores dañado, utilice el archivo de respaldo!</string>
+  <string name="toast_rmpty_relation">Relación vacía, creando informe de error.</string>
+  <string name="toast_split_from">Vía dividida «from»</string>
+  <string name="toast_split_via">Vía dividida «via»</string>
+  <string name="toast_split_from_and_via">Vías divididas «from» y «via»</string>
+  <string name="toast_split_to">Vía dividida «to»</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -162,7 +175,11 @@
   <string name="replace">Reemplazar</string>
   <string name="save">Guardar</string>
   <string name="back">Atrás</string>
+  <string name="forward">Adelante</string>
   <string name="keep">Mantener</string>
+  <string name="enable">Habilitar</string>
+  <string name="clear">Limpiar</string>
+  <string name="retry">Reintentar</string>
   <!--Dialog for back button-->
   <string name="exit_title">¿Salir?</string>
   <string name="exit_text">¿Está seguro que quiere salir?</string>
@@ -183,7 +200,11 @@
   <string name="tag_menu_resetMRU">Restablecer predeterminados</string>
   <string name="tag_menu_reset_address_prediction">Restablecer predicción de direcciones</string>
   <string name="tag_menu_exit_no_save">Salir\nsin guardar</string>
+  <string name="tag_menu_delete_unassociated_tags">Borrar etiquetas no asociadas</string>
+  <string name="tag_menu_top">Ir arriba</string>
+  <string name="tag_menu_bottom">Ir abajo</string>
   <string name="tag_value_hint">Tipo de valor</string>
+  <string name="tag_autocomplete_value_hint">Escribir o golpear para valores</string>
   <string name="tag_autocomplete_name_hint">Tipo o pulse para obtener sugerencias de nombres</string>
   <string name="tag_multi_value_hint">Valores múltiples</string>
   <string name="tag_dialog_value_hint">Pulse para obtener valores</string>
@@ -240,6 +261,11 @@
   <string name="menu_closed_way_split_2">Dividir vía cerrada, 2do nodo</string>
   <string name="menu_append">Anexar</string>
   <string name="menu_restriction">Añadir restricción de giro</string>
+  <string name="menu_restriction_restart_from">Volver a seleccionar segmento «from»</string>
+  <string name="menu_restriction_via">Añadir segmento/elemento «via»</string>
+  <string name="menu_restriction_restart_via">Volver a seleccionar segmento «via»</string>
+  <string name="menu_restriction_to">Añadir segmento «to»</string>
+  <string name="menu_restriction_restart_to">Volver a seleccionar segmento «to»</string>
   <string name="menu_relation">Crear relación</string>
   <string name="menu_add_relation_member">Añadir miembro</string>
   <string name="menu_select_relation_members">Miembros seleccionados</string>
@@ -277,6 +303,8 @@
   <string name="menu_transfer_bugs_clear">Limpiar</string>
   <string name="menu_transfer_bugs_clear_long">Limpiar errores</string>
   <string name="menu_transfer_autodownload_long">Autodescargar errores</string>
+  <string name="menu_transfer_save_notes_all">Guardar todas las notas...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Guardar notas nuevas o cambiadas...</string>
   <string name="menu_save">Guardar archivo</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
@@ -379,6 +407,7 @@
   <string name="config_iconbutton_title">Mostrar íconos en nodos</string>
   <string name="config_iconbutton_summary">Muestra el icono del predeterminado que mejor coincidencia sobre los nodos.</string>
   <string name="config_showWayIcons_title">Mostrar iconos PDI en edificios</string>
+  <string name="config_showWayIcons_summary">Mostrar el icono predefinido que mejor corresponda al edificio de arriba.</string>
   <string name="config_loginbutton_title">Cuenta de usuario</string>
   <string name="config_username_title">Nombre de usuario OSM</string>
   <string name="config_username_summary">Configuración necesaria para subir los datos OSM sólo si no está utilizando OAuth. Consiga una nueva cuenta en http://www.openstreetmap.org/user/new</string>
@@ -433,7 +462,20 @@
   <string name="config_moreprefs">Más ajustes...</string>
   <string name="config_tagFormEnabled_title">Mostrar formulario etiqueta</string>
   <string name="config_tagFormEnabled_summary">Mostrar formulario etiqueta para edición</string>
+  <string name="config_followGPSbutton_title">Disposición de botones seguir GPS</string>
+  <string name="config_followGPSbutton_summary">Dónde se colocará el botón «seguir GPS»</string>
   <string name="config_fullscreenMode_title">Modo pantalla completa</string>
+  <string name="config_fullscreenMode_summary">Comportamiento en dispositivos con teclas «suaves»</string>
+  <string name="config_maxInlineValues_title">Número máx. de valores en línea</string>
+  <string name="config_maxInlineValues_summary">Número máximo de valores en línea mostrados en el formulario de etiqueta</string>
+  <string name="config_maxTileDownloadThreads_title">Número máx. de hilos de descarga</string>
+  <string name="config_maxTileDownloadThreads_summary">Número máximo de hilos para descargar teselas</string>
+  <string name="config_notificationCacheSize_title">Número máx. de notificaciones mostradas</string>
+  <string name="config_notificationCacheSize_summary">Número máximo de notificaciones mostradas por tipo</string>
+  <string name="config_autoLockDelay_title">Tiempo de espera antes de auto-bloqueo</string>
+  <string name="config_autoLockDelay_summary">Tiempo de espera en segundos antes de auto.bloqueo, 0 desactiva.</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Siempre oscurecer áreas no descargadas</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Si aŕeas no descargadas está establecido se oscurecerán en modo bloqueado</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar predeterminados</string>
   <string name="preset_download_successful">Predeterminados descargados correctamente</string>

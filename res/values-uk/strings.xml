@@ -124,7 +124,6 @@
   <string name="toast_state_file_failed">Не читається або пошкоджений файл стану</string>
   <string name="toast_too_many_nodes_for_move">У лінії дуже багато точок для переміщення</string>
   <string name="toast_oauth_handshake_failed">Перевірка OAuth не вдалась, перевірте, що у Вас є відповідні абонентські ключі.</string>
-  <string name="toast_unread_mail">У Вас %1$s непрочитаних повідомлень на сервері OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Розпочато пошук геоприв’язаних світлин</string>
   <string name="toast_photo_indexing_finished">Закінчено пошук геоприв’язаних світлин</string>
   <string name="toast_download_bbox_failed">Збій завантаження, можливо, виділенна ділянка завелика.</string>

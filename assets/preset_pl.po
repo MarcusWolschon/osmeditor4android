@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-08-10 10:53+0200\n"
-"PO-Revision-Date: 2016-08-10 08:56+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2016-08-31 08:59+0000\n"
+"Last-Translator: Teiron <mmok444@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,11 +28,11 @@ msgstr "Świadkowie Jehowy"
 
 #: master_preset.xml:211(multiselect:display_values|key:cuisine)
 msgid "Noodle"
-msgstr ""
+msgstr "Makaron"
 
 #: master_preset.xml:10071(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Max. speed"
-msgstr ""
+msgstr "Maks. prędkość"
 
 #: master_preset.xml:8744(check:text|preset:Payment_Methods|key:payment:coins)
 #: master_preset.xml:5656(check:text|group:Facilities|preset:Telephone|key:payment:coins)
@@ -62,7 +62,7 @@ msgstr "Rampa"
 
 #: master_preset.xml:10559(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "Podłogi"
 
 #: master_preset.xml:9391(check:text|group:Nature|preset:Rock|key:tourism)
 msgid "Tourism attraction"
@@ -98,7 +98,7 @@ msgstr "*"
 
 #: master_preset.xml:7928(list_entry:short_description|group:Clothes|preset:Clothes|value:costumes)
 msgid "Costumes"
-msgstr ""
+msgstr "Kostiumy"
 
 #: master_preset.xml:2624(list_entry:short_description|group:Water|preset:Wetland|value:tidalflat)
 msgid "Tidalflat"
@@ -132,7 +132,7 @@ msgstr ""
 
 #: master_preset.xml:7298(combo:text|preset:Power_Substation|key:substation)
 msgid "Type of substation"
-msgstr ""
+msgstr "Typ podstacji"
 
 #: master_preset.xml:8827(item:name|group:Boundaries|preset:National_Park)
 msgid "National Park"
@@ -140,7 +140,7 @@ msgstr "Park Narodowy"
 
 #: master_preset.xml:9870(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Alphabetic"
-msgstr ""
+msgstr "Alfabetyczna"
 
 #: master_preset.xml:2526(item:name|group:Water|preset:Reservoir)
 msgid "Reservoir"
@@ -178,7 +178,7 @@ msgstr ""
 
 #: master_preset.xml:7815(item:name|group:Food|preset:Public_Market)
 msgid "Public Market"
-msgstr ""
+msgstr "Zakład uzdatniania wody"
 
 #: master_preset.xml:4420(label:text|group:Tourism|preset:Audio_Guide)
 msgid "Audioguide via mobile phone?"
@@ -282,7 +282,7 @@ msgstr "Schrader (zawór)"
 
 #: master_preset.xml:6767(item:name|group:Man_Made|preset:Water_Works)
 msgid "Water Works"
-msgstr ""
+msgstr "Zakład uzdatniania wody"
 
 #: master_preset.xml:7157(item:name|group:Power_Generator|preset:Coal_Power_Generator)
 msgid "Coal Power Generator"
@@ -294,7 +294,7 @@ msgstr "Narkomani"
 
 #: master_preset.xml:6465(item:name|group:Sport_(Ball)|preset:Pelota)
 msgid "Pelota"
-msgstr ""
+msgstr "Pelota"
 
 #: master_preset.xml:8559(item:name|group:Other|preset:Locksmith)
 #: master_preset.xml:10638(item:name|group:Crafts|preset:Locksmith)
@@ -307,12 +307,12 @@ msgstr ""
 
 #: master_preset.xml:464(combo:text|key:stars)
 msgid "Stars"
-msgstr ""
+msgstr "Gwiazdki"
 
 #: master_preset.xml:211(multiselect:display_values|key:cuisine)
 #: master_preset.xml:10233(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 msgid "Regional"
-msgstr ""
+msgstr "Regionalne"
 
 #: master_preset.xml:459(list_entry:display_value|value:unemployed)
 msgid "Unemployed"
@@ -377,7 +377,7 @@ msgstr "Szkółka leśna"
 
 #: master_preset.xml:9054(label:text|group:Geography|preset:Saddle)
 msgid "A saddle point between mountains or hills."
-msgstr ""
+msgstr "Obniżenie między górami lub wzgórzami"
 
 #: master_preset.xml:10339(role:text|preset:Street|key:address)
 msgid "addresses belonging to the street"
@@ -458,7 +458,7 @@ msgstr "Rękodzieło"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Concrete plates"
-msgstr ""
+msgstr "Płyty betonowe"
 
 #: master_preset.xml:9278(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Savanna"
@@ -556,7 +556,7 @@ msgstr "Bród"
 
 #: master_preset.xml:3710(role:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:stop)
 msgid "halt point"
-msgstr ""
+msgstr "miejsce postoju"
 
 #: master_preset.xml:6170(item:name|group:Sport|preset:Ten-pin_Bowling)
 msgid "Ten-pin Bowling"
@@ -721,7 +721,7 @@ msgstr "Populacja"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Cobblestone"
-msgstr ""
+msgstr "Kamień łamany"
 
 #: master_preset.xml:6689(item:name|group:Man_Made|preset:Flagpole)
 msgid "Flagpole"
@@ -765,7 +765,7 @@ msgstr "Trolejbus"
 
 #: master_preset.xml:950(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Driveway"
-msgstr ""
+msgstr "Podjazd"
 
 #: master_preset.xml:10439(item:name|group:Crafts|preset:Basket_maker)
 msgid "Basket maker"
@@ -777,7 +777,7 @@ msgstr "Kolej linowa"
 
 #: master_preset.xml:211(multiselect:display_values|key:cuisine)
 msgid "Vietnamese"
-msgstr ""
+msgstr "Wietnamska"
 
 #: master_preset.xml:10055(role:text|group:Relations|preset:Turn_Restriction|key:via)
 msgid "via node or ways"
@@ -820,7 +820,7 @@ msgstr "Samochody"
 
 #: master_preset.xml:9278(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Puszta"
-msgstr ""
+msgstr "Puszta"
 
 #: master_preset.xml:5892(item:name|group:Facilities|preset:Compressed_Air)
 msgid "Compressed Air"
@@ -848,7 +848,7 @@ msgstr "Nazwa Punktu"
 
 #: master_preset.xml:211(multiselect:display_values|key:cuisine)
 msgid "Thai"
-msgstr ""
+msgstr "Tajska"
 
 #: master_preset.xml:7217(item:name|group:Power_Generator|preset:Solar_Power_Generator)
 msgid "Solar Power Generator"
@@ -914,7 +914,7 @@ msgstr "Ławka"
 #: master_preset.xml:1083(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:slight_right)
 #: master_preset.xml:1109(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:slight_right)
 msgid "Slight right"
-msgstr ""
+msgstr "Lekko w prawo"
 
 #: master_preset.xml:10455(item:name|group:Crafts|preset:Blacksmith)
 msgid "Blacksmith"
@@ -988,7 +988,7 @@ msgstr "Klimatyzacja"
 
 #: master_preset.xml:428(combo:display_values|key:substance)
 msgid "Sewage"
-msgstr ""
+msgstr "Ścieki"
 
 #: master_preset.xml:6222(item:name|group:Sport|preset:Dog_Racing)
 msgid "Dog Racing"
@@ -1017,7 +1017,7 @@ msgstr ""
 
 #: master_preset.xml:326(combo:display_values|key:religion)
 msgid "Unitarian"
-msgstr ""
+msgstr "Unicki"
 
 #: master_preset.xml:10862(item:name|group:Crafts|preset:Confectionery)
 msgid "Confectionery"
@@ -1029,7 +1029,7 @@ msgstr "Widoczność"
 
 #: master_preset.xml:5588(item:name|group:Facilities|preset:Toilets/Restrooms)
 msgid "Toilets/Restrooms"
-msgstr ""
+msgstr "Toalety/Łazienki"
 
 #: master_preset.xml:45(text:text|key:maxspeed:forward)
 #: master_preset.xml:2077(text:text|group:Passageways|preset:Tunnel|key:maxspeed:forward)
@@ -1082,11 +1082,11 @@ msgstr ""
 
 #: master_preset.xml:7940(list_entry:short_description|group:Clothes|preset:Clothes|value:suits)
 msgid "Suits"
-msgstr ""
+msgstr "Garnitury"
 
 #: master_preset.xml:7926(list_entry:short_description|group:Clothes|preset:Clothes|value:babies)
 msgid "Babies"
-msgstr ""
+msgstr "Niemowlęce"
 
 #: master_preset.xml:4342(check:text|group:Tourism|preset:Map|key:horse)
 #: master_preset.xml:4380(check:text|group:Tourism|preset:Guidepost|key:horse)
@@ -1099,7 +1099,7 @@ msgstr "Ciepło"
 
 #: master_preset.xml:950(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Alley"
-msgstr ""
+msgstr "Aleja"
 
 #: master_preset.xml:5413(group:name|group:Social_Facilities)
 msgid "Social Facilities"
@@ -1133,7 +1133,7 @@ msgstr ""
 
 #: master_preset.xml:7929(list_entry:short_description|group:Clothes|preset:Clothes|value:denim)
 msgid "Denim"
-msgstr ""
+msgstr "Dżins"
 
 #: master_preset.xml:9092(item:name|group:Geography|preset:Ridge)
 msgid "Ridge"
@@ -1264,7 +1264,7 @@ msgstr "Hałas"
 #: master_preset.xml:4336(text:text|group:Tourism|preset:Map|key:description)
 #: master_preset.xml:4398(text:text|group:Tourism|preset:Information_Terminal|key:description)
 msgid "Detailed description"
-msgstr ""
+msgstr "Szczegółowy opis"
 
 #: master_preset.xml:7875(item:name|group:Food|preset:Alcohol)
 msgid "Alcohol"
@@ -1369,7 +1369,7 @@ msgstr ""
 
 #: master_preset.xml:211(multiselect:display_values|key:cuisine)
 msgid "Italian"
-msgstr ""
+msgstr "Włoska"
 
 #: master_preset.xml:5996(item:name|group:Sport_Facilities|preset:Racetrack)
 msgid "Racetrack"
@@ -1568,7 +1568,7 @@ msgstr "Bilbord"
 
 #: master_preset.xml:7945(list_entry:short_description|group:Clothes|preset:Clothes|value:women)
 msgid "Women"
-msgstr ""
+msgstr "Damskie"
 
 #: master_preset.xml:10202(role:text|group:Routes|preset:Piste_Route|key:shortcut)
 #: master_preset.xml:10223(role:text|group:Routes|preset:Ski_Route|key:shortcut)
@@ -1739,7 +1739,7 @@ msgstr "Rurociąg"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Paved"
-msgstr ""
+msgstr "Utwardzone"
 
 #: master_preset.xml:6463(combo:text|group:Sport_(Ball)|preset:Ice_Hockey|key:leisure)
 #: master_preset.xml:9278(combo:text|group:Nature|preset:Grassland|key:grassland)
@@ -2104,7 +2104,7 @@ msgstr ""
 
 #: master_preset.xml:11027(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Prosecutor"
-msgstr ""
+msgstr "Prokurator"
 
 #: master_preset.xml:1851(item:name|group:Barriers|preset:Fence)
 msgid "Fence"
@@ -2197,7 +2197,7 @@ msgstr "Nasyp"
 
 #: master_preset.xml:326(combo:display_values|key:religion)
 msgid "Buddhist"
-msgstr ""
+msgstr "Buddyjska"
 
 #: master_preset.xml:9004(text:text|group:Places|preset:Neighbourhood|key:website)
 #: master_preset.xml:301(text:text|key:website)
@@ -2224,7 +2224,7 @@ msgstr "Reaktor jądrowy ciężkowodny (CANDU)"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Sett"
-msgstr ""
+msgstr "Kocie łby"
 
 #: master_preset.xml:6801(item:name|group:Man_Made|preset:Mineshaft)
 msgid "Mineshaft"
@@ -2510,7 +2510,7 @@ msgstr "Żegluga"
 
 #: master_preset.xml:6878(item:name|group:Man_Made|preset:Water_Tower)
 msgid "Water Tower"
-msgstr ""
+msgstr "Wieża ciśnień"
 
 #: master_preset.xml:1401(check:text|group:Waypoints|preset:Rest_Area|key:drinking_water)
 #: master_preset.xml:5887(check:text|group:Facilities|preset:Water_Point|key:drinking_water)
@@ -2679,7 +2679,7 @@ msgstr "Kantor"
 
 #: master_preset.xml:9870(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Odd"
-msgstr ""
+msgstr "Nieparzyste"
 
 #: master_preset.xml:3221(check:text|group:Car|preset:Fuel|key:fuel:octane_100)
 #: master_preset.xml:2734(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_100)
@@ -2715,7 +2715,7 @@ msgstr ""
 
 #: master_preset.xml:9870(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Even"
-msgstr ""
+msgstr "Parzyste"
 
 #: master_preset.xml:11053(item:name|group:Offices|preset:Lawyer)
 msgid "Lawyer"
@@ -3273,7 +3273,7 @@ msgstr ""
 
 #: master_preset.xml:5730(item:name|group:Facilities|preset:Recycling_Centre)
 msgid "Recycling Centre"
-msgstr ""
+msgstr "Zakład recyklingu"
 
 #: master_preset.xml:1073(multiselect:text|group:Lane_attributes|preset:Single_direction_roads|key:turn:lanes)
 msgid "Turning lanes"
@@ -3496,7 +3496,7 @@ msgstr "Wewnątrz budynku"
 
 #: master_preset.xml:9278(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Prairie"
-msgstr ""
+msgstr "Prerja"
 
 #: master_preset.xml:10071(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Check"
@@ -3579,7 +3579,7 @@ msgstr "Krawiectwo"
 
 #: master_preset.xml:5882(item:name|group:Facilities|preset:Water_Point)
 msgid "Water Point"
-msgstr ""
+msgstr "Poidło"
 
 #: master_preset.xml:211(multiselect:display_values|key:cuisine)
 msgid "Vegetarian"
@@ -4358,7 +4358,7 @@ msgstr "Wysepka"
 
 #: master_preset.xml:9278(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Pampas"
-msgstr ""
+msgstr "Pampa"
 
 #: master_preset.xml:3232(check:text|group:Car|preset:Fuel|key:payment:dkv)
 msgid "DKV"
@@ -5009,7 +5009,7 @@ msgstr ""
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Ground"
-msgstr ""
+msgstr "Grunt"
 
 #: master_preset.xml:839(item:name|group:Streets|preset:Residential)
 msgid "Residential"
@@ -5222,7 +5222,7 @@ msgstr "Głębokość w metrach"
 
 #: master_preset.xml:211(multiselect:display_values|key:cuisine)
 msgid "Chicken"
-msgstr ""
+msgstr "Kurczak"
 
 #: master_preset.xml:2016(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
@@ -5286,7 +5286,7 @@ msgstr "Falochron"
 
 #: master_preset.xml:211(multiselect:display_values|key:cuisine)
 msgid "Fish"
-msgstr ""
+msgstr "Ryby"
 
 #: master_preset.xml:8402(check:text|group:For_the_body|preset:Hairdresser/Barber|key:female)
 msgid "Female"
@@ -5417,7 +5417,7 @@ msgstr "Wykop"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Asphalt"
-msgstr ""
+msgstr "Asfalt"
 
 #: master_preset.xml:464(combo:display_values|key:stars)
 msgid "****"
@@ -6257,7 +6257,7 @@ msgstr ""
 
 #: master_preset.xml:7941(list_entry:short_description|group:Clothes|preset:Clothes|value:swimwear)
 msgid "Swimwear"
-msgstr ""
+msgstr "Stroje basenowe"
 
 #: master_preset.xml:7205(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:CPR-1000)
 msgid "China Pressurized Reactor (CPR-1000)"
@@ -6885,7 +6885,7 @@ msgstr "Autokary turystyczne"
 
 #: master_preset.xml:4504(item:name|group:Leisure|preset:Water_Park)
 msgid "Water Park"
-msgstr ""
+msgstr "Park wodny"
 
 #: master_preset.xml:5017(item:name|group:Public_Building|preset:Courthouse)
 msgid "Courthouse"
@@ -6946,7 +6946,7 @@ msgstr ""
 
 #: master_preset.xml:7935(list_entry:short_description|group:Clothes|preset:Clothes|value:men)
 msgid "Men"
-msgstr ""
+msgstr "Męskie"
 
 #: master_preset.xml:11258(item:name|group:Offices|preset:Notary)
 msgid "Notary"
@@ -7008,7 +7008,7 @@ msgstr "Liczba ludzi na gondolę"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10%"
-msgstr ""
+msgstr "10%"
 
 #: master_preset.xml:11226(item:name|group:Offices|preset:Cooperative)
 msgid "Cooperative"
@@ -7182,7 +7182,7 @@ msgstr "Nadajnik"
 
 #: master_preset.xml:211(multiselect:display_values|key:cuisine)
 msgid "Sushi"
-msgstr ""
+msgstr "Sushi"
 
 #: master_preset.xml:789(check:text|group:Streets|preset:Tertiary|key:trolley_wire)
 #: master_preset.xml:906(check:text|group:Streets|preset:Living_Street|key:trolley_wire)
@@ -8007,7 +8007,7 @@ msgstr "Nurkowanie z butlą"
 
 #: master_preset.xml:11027(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Ministry"
-msgstr ""
+msgstr "Ministerstwo"
 
 #: master_preset.xml:4826(item:name|group:Place_of_Worship|preset:Mosque)
 msgid "Mosque"
@@ -8730,7 +8730,7 @@ msgstr ""
 #: master_preset.xml:6663(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Staircase"
-msgstr ""
+msgstr "Klatka schodowa"
 
 #: master_preset.xml:5530(item:name|group:Social_Facilities|preset:Shelter)
 msgctxt "social_facility"
@@ -8925,7 +8925,7 @@ msgstr ""
 #: master_preset.xml:431(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Ground"
-msgstr ""
+msgstr "Grunt"
 
 #: master_preset.xml:431(combo:display_values|key:support)
 msgctxt "mounting/support"
@@ -8950,7 +8950,7 @@ msgstr ""
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Pelota"
-msgstr ""
+msgstr "Pelota"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8965,7 +8965,7 @@ msgstr "Piasek"
 #: master_preset.xml:6012(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Ground"
-msgstr ""
+msgstr "Grunt"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9012,7 +9012,7 @@ msgstr ""
 #: master_preset.xml:6012(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Asphalt"
-msgstr ""
+msgstr "Asfalt"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9033,12 +9033,12 @@ msgstr "Łyżwiarstwo"
 #: master_preset.xml:6012(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Tartan"
-msgstr ""
+msgstr "Tartan"
 
 #: master_preset.xml:6012(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Clay"
-msgstr ""
+msgstr "Glina"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9079,12 +9079,12 @@ msgstr ""
 #: master_preset.xml:6009(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Horse racing"
-msgstr ""
+msgstr "Wyścigi konne"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Ice hockey"
-msgstr ""
+msgstr "Hokej"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9160,19 +9160,19 @@ msgstr "Koszykówka"
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Table tennis"
-msgstr ""
+msgstr "Tenis stołowy"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 #: master_preset.xml:6009(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Dog racing"
-msgstr ""
+msgstr "Wyścigi psów"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 #: master_preset.xml:6009(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Athletics"
-msgstr ""
+msgstr "Atletyka"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9182,7 +9182,7 @@ msgstr "Kajak"
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Karting"
-msgstr ""
+msgstr "Gokarty"
 
 #: master_preset.xml:243(combo:display_values|key:sport)
 msgctxt "sport"

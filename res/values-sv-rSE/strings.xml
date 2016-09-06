@@ -88,7 +88,6 @@
   <string name="toast_export_failed">Export misslyckades</string>
   <string name="toast_export_success">Exporterade till %1$s</string>
   <string name="toast_state_file_failed">Icke läsbar eller korrupt statusfil</string>
-  <string name="toast_unread_mail">Du har %1$s o-lästa mail i OpenStreetmap-servern</string>
   <string name="toast_download_bbox_failed">Nerladdning misslyckades, förmodligen på grund av att det valda området var för stort.</string>
   <string name="toast_noname">Vägen har inget namn eller ref</string>
   <string name="toast_notype">Relationen har ingen typ</string>
