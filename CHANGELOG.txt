@@ -1,14 +1,16 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-1190: Bump android version
+1191: bump android version, updated translations, fix pre-Honeycomb use of system clipboard, use normal dialog for progress display, automatically add no https API entry and catch SSL errors better, handle Android 23 permissions better, remove duplicate nodes when merging.
 
-1188: Fix ordering issues with diffs, fix crash when adding relation to a relation, allow selection of one level of parent relations of relations in UI.
+1190: bump android version
 
-1186: Switch to uploading OsmChange diffs, various small bug fixes and improved conflict handling, updated translations.
+1188: fix ordering issues with diffs, fix crash when adding relation to a relation, allow selection of one level of parent relations of relations in UI.
 
-1185: Explicitly set created_by when updating changeset.
+1186: switch to uploading OsmChange diffs, various small bug fixes and improved conflict handling, updated translations.
 
-1184: Fix double relation creation if no further members are added. 
+1185: explicitly set created_by when updating changeset.
+
+1184: fix double relation creation if no further members are added. 
 
 1182: updated default preset and translations.
 
