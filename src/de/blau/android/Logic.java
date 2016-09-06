@@ -857,9 +857,10 @@ public class Logic {
 	 * 
 	 * @param x x display coordinate
 	 * @param y y display coordinate
+	 * @param inDownloadOnly if true the node has to be new or in one of the downloaded bounding boxes
 	 * @return a hash map mapping Nodes to distances
 	 */
-	public HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y) {
+	public HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
 		HashMap<Node, Double> result = new HashMap<Node, Double>();
 		List<Node> nodes = getDelegator().getCurrentStorage().getNodes();
 
@@ -869,7 +870,7 @@ public class Logic {
 			int lat = node.getLat();
 			int lon = node.getLon();
 
-			if (node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lat, lon)) {
+			if (!inDownloadOnly || node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lat, lon)) {
 				Double dist = clickDistance(node, x, y);
 				if (dist != null) result.put(node, dist);
 			}
@@ -885,7 +886,7 @@ public class Logic {
 	 * @return all nodes within tolerance found in the currentStorage node-list, ordered ascending by distance.
 	 */
 	public List<OsmElement> getClickedNodes(final float x, final float y) {
-		return nodeSorter.sort(getClickedNodesWithDistances(x, y));
+		return nodeSorter.sort(getClickedNodesWithDistances(x, y, true));
 	}
 
 	/**
@@ -917,7 +918,7 @@ public class Logic {
 	public Node getClickedNode(final float x, final float y) {
 		Node bestNode = null;
 		Double bestDistance = Double.MAX_VALUE;
-		HashMap<Node, Double> candidates = getClickedNodesWithDistances(x, y);
+		HashMap<Node, Double> candidates = getClickedNodesWithDistances(x, y, false);
 		for (Entry<Node, Double> candidate : candidates.entrySet()) {
 			if (candidate.getValue() < bestDistance) {
 				bestNode = candidate.getKey();
