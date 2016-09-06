@@ -2875,8 +2875,8 @@ public class Logic {
 							e1.printStackTrace();
 						}
 					}
-					DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 					loadEditingState(true);
+					DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in loadEiditngState
 					
 					if (postLoad != null) {
 						postLoad.execute();
