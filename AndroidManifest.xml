@@ -109,7 +109,7 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<data android:scheme="http" android:host="127.0.0.1" android:port="8111" android:pathPattern="/.*" />
-				<data android:scheme="https" android:host="127.0.0.1" android:port="8111" android:pathPattern="/.*" />
+				<data android:scheme="https" android:host="127.0.0.1" android:port="8112" android:pathPattern="/.*" />
 			</intent-filter>
 		</activity>
 		<activity android:name="LicenseViewer" android:theme="@style/Theme.AppCompat.NoActionBar" />
