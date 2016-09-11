@@ -40,10 +40,19 @@
         <combo key="lanes:forward" text="Lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
         <combo key="lanes:backward" text="Lanes opposed to way direction" values="1,2,3,4,5" length="3" match="none" />
     </chunk>
-    <chunk id="highway_base">
+    <chunk id="maxspeed">
         <text key="maxspeed" text="Max. speed (km/h)"/>
+        <combo key="maxspeed:conditional" text="Max. speed (km/h) @" match="key"
+               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />    
         <text key="maxspeed:forward" text="Max. speed in way direction" />
-        <text key="maxspeed:backward" text="Max. speed opposed to way direction" />
+        <combo key="maxspeed:forward:conditional" text="Max. speed in way direction @" match="key"
+               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />
+        <text key="maxspeed:backward" text="Max. speed opposite way direction" />
+        <combo key="maxspeed:backwardward:conditional" text="Max. speed opposite way direction @" match="key"
+               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />
+    </chunk>
+    <chunk id="highway_base">
+		<reference ref="maxspeed" />
         <space />
         <reference ref="surface_smoothness" />
         <space />
@@ -393,9 +402,7 @@
             <text key="name" text="Name" />
             <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="1" length="3" match="none" editable="true" />
             <space />
-            <text key="maxspeed" text="Max. speed (km/h)" />
-            <text key="maxspeed:forward" text="Max. speed in way direction" />
-            <text key="maxspeed:backward" text="Max. speed opposed to way direction" />
+            <reference ref="maxspeed" />
             <space />
             <text key="maxweight" text="Max. weight (tonnes)" />
             <reference ref="incline" />
@@ -2073,9 +2080,7 @@
                 <text key="width" text="Width (meters)" />
                 <text key="maxheight" text="Max. height (meters)" />
                 <space />
-                <text key="maxspeed" text="Max. speed (km/h)" />
-                <text key="maxspeed:forward" text="Max. speed in way direction" />
-                <text key="maxspeed:backward" text="Max. speed opposed to way direction" />
+                <reference ref="maxspeed" />
                 <space />
                 <reference ref="incline" />
                 <check key="toll" text="Toll" disable_off="true" />
@@ -2271,7 +2276,15 @@
             <space />
             <combo key="hgv" text="Heavy Goods Vehicles" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
 	    	<text key="maxspeed:hgv" text="Max. speed Heavy Goods Vehicles (km/h)" match="key" />
-	    <reference ref="additional_access_tags" /> 
+            <combo key="maxspeed:hgv:conditional" text="Max. speed Heavy Goods Vehicles (km/h) @"
+                  delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />    
+            <text key="maxspeed:hgv:forward" text="Max. speed HGV in way direction" />
+            <combo key="maxspeed:hgv:forward:conditional" text="Max. speed HGV in way direction @"
+                  delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />
+            <text key="maxspeed:hgv:backward" text="Max. speed HGV opposite way direction" />
+            <combo key="maxspeed:hgv:backwardward:conditional" text="Max. speed HGV opposite way direction @"
+                  delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />
+	        <reference ref="additional_access_tags" /> 
         </item> <!-- Heavy Goods Vehicle -->
         <item name="General access"  type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:access"
