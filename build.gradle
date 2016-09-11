@@ -5,7 +5,6 @@ buildscript {
     repositories {
         mavenCentral()
 		maven { url 'https://dl.bintray.com/content/simonpoole/div' }
-		
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
@@ -23,6 +22,7 @@ allprojects {
 		mavenCentral()
 		jcenter()
 		maven { url 'https://dl.bintray.com/simonpoole/div' }
+		maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
 	}
 }
 
@@ -178,6 +178,8 @@ dependencies {
     compile 'com.drewnoakes:metadata-extractor:2.9.1'
     compile 'com.adobe.xmp:xmpcore:5.1.2'
     compile 'ch.poole:PoParser:0.7.0'
+	compile 'ch.poole:OpeningHoursParser:0.1.0'
+	compile 'ch.poole:ConditionalRestrictionParser:0.1.0'
 }
 
 android {

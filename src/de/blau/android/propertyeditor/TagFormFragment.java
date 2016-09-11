@@ -76,7 +76,6 @@ import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
 
-	
 public class TagFormFragment extends BaseFragment implements FormUpdate {
 
 	private static final String FOCUS_TAG = "focusTag";
@@ -772,8 +771,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					if (keyType == PresetKeyType.TEXT 
 						|| key.startsWith(Tags.KEY_ADDR_BASE)
 						|| preset.isEditable(key)) {
-						// special handling for international names
-						rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, defaultValue, adapter));
+						if (key.endsWith(":conditional")) {
+							rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, defaultValue, adapter, allTags));
+						} else {
+							// special handling for international names
+							rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, defaultValue, adapter));
+						}
 					} else if (preset.getKeyType(key) == PresetKeyType.COMBO || (keyType == PresetKeyType.CHECK && count > 2)) {
 						if (count <= maxInlineValues) {
 							rowLayout.addView(addComboRow(rowLayout, preset, hint, key, value, defaultValue, adapter));
@@ -1000,6 +1003,63 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				row.addCheck(description, v, values != null && values.contains(v), onCheckedChangeListener);
 			}
 		}
+		return row;
+	}
+	
+	TagFormDialogRow addConditionalRestrictionDialogRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter, final LinkedHashMap<String, String> allTags) {
+		final TagFormDialogRow row = (TagFormDialogRow)inflater.inflate(R.layout.tag_form_combo_dialog_row, rowLayout, false);
+		row.keyView.setText(hint != null?hint:key);
+		row.keyView.setTag(key);
+		row.setPreset(preset);
+	
+		String selectedValue=null;
+		for (int i=0;i< adapter.getCount();i++) {
+			Object o = adapter.getItem(i);
+			
+			StringWithDescription swd = new StringWithDescription(o);
+			String v = swd.getValue();
+			String description = swd.getDescription();
+			
+			if (v==null || "".equals(v)) {
+				continue;
+			}
+			if (description==null) {
+				description=v;
+			}
+			if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue)) && v.equals(defaultValue)) {
+				row.setValue(description,v);
+				selectedValue = v;
+				break;
+			} else if (v.equals(value)){
+				row.setValue(swd);
+				selectedValue = v;
+				break;
+			}
+		}
+		row.valueView.setHint(R.string.tag_dialog_value_hint);
+		final String finalSelectedValue;
+		if (selectedValue != null) {
+			finalSelectedValue = selectedValue;
+		} else {
+			finalSelectedValue = null;
+		}
+		row.setOnClickListener(new OnClickListener() {
+			@SuppressLint("NewApi")
+			@Override
+			public void onClick(View v) {
+				final View finalView = v;
+				// finalView.setEnabled(false); // FIXME debounce 
+				FragmentManager fm = getChildFragmentManager();
+				FragmentTransaction ft = fm.beginTransaction();
+			    Fragment prev = fm.findFragmentByTag("fragment_conditional_restriction");
+			    if (prev != null) {
+			        ft.remove(prev);
+			    }
+			    ft.commit();
+			    ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key,finalSelectedValue);
+			    conditionalRestrictionDialog.show(fm, "fragment_conditional_restriction");
+			}
+		});
 		return row;
 	}
 	
