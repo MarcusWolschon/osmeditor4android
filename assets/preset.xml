@@ -42,14 +42,14 @@
     </chunk>
     <chunk id="maxspeed">
         <text key="maxspeed" text="Max. speed (km/h)"/>
-        <combo key="maxspeed:conditional" text="Max. speed (km/h) @" match="key"
-               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />    
+        <combo key="maxspeed:conditional" text="Max. speed (km/h)\nconditional" match="key"
+               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />    
         <text key="maxspeed:forward" text="Max. speed in way direction" />
-        <combo key="maxspeed:forward:conditional" text="Max. speed in way direction @" match="key"
-               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />
+        <combo key="maxspeed:forward:conditional" text="Max. speed in way direction\nconditional" match="key"
+               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
         <text key="maxspeed:backward" text="Max. speed opposite way direction" />
-        <combo key="maxspeed:backwardward:conditional" text="Max. speed opposite way direction @" match="key"
-               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />
+        <combo key="maxspeed:backwardward:conditional" text="Max. speed opposite way direction\nconditional" match="key"
+               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
     </chunk>
     <chunk id="highway_base">
 		<reference ref="maxspeed" />
@@ -2178,6 +2178,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="vehicle" text="All vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
+            <combo key="vehicle:conditional" text="All vehicles\nconditional"
+                  delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- All vehicles -->
         <item name="Motor vehicle" icon="icons/png/no_motor_vehicles.png" type="node,way,closedway" preset_name_label="true">
@@ -2194,6 +2196,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
+            <combo key="motor_vehicle:conditional" text="Motor vehicles\nconditional"
+                  delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle -->
         <item name="Motor vehicle (CH)" icon="icons/png/no_motor_vehicles_CH.png" type="node,way,closedway" preset_name_label="true">
@@ -2210,6 +2214,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
+            <combo key="motor_vehicle:conditional" text="Motor vehicles\nconditional"
+                  delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle CH -->
         <item name="Motorcar and -cycle (CH)" icon="icons/png/no_motor_vehicles.png" type="node,way,closedway" preset_name_label="true">
@@ -2226,7 +2232,11 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motorcar" text="Motorcar" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
+            <combo key="motorcar:conditional" text="Motorcar\nconditional"
+                  delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" />
             <combo key="motorcycle" text="Motorcycle" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
+            <combo key="motorcycle:conditional" text="Motorcycle\nconditional"
+                  delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle -->
         <item name="Motorcar" icon="icons/png/no_motor_vehicles_except_motorcycles.png" type="node,way,closedway" preset_name_label="true">
@@ -2243,6 +2253,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motorcar" text="Motorcar" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
+            <combo key="motorcar:conditional" text="Motorcar\nconditional"
+                  delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motorcar -->
         <item name="Motorcycle" icon="icons/png/no_motorcycles.png" type="node,way,closedway" preset_name_label="true">
@@ -2259,6 +2271,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motorcycle" text="Motorcycle" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
+            <combo key="motorcycle:conditional" text="Motorcycle\nconditional"
+                  delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motorcycles -->
         <item name="Heavy Goods Vehicle" icon="icons/png/no_hgv.png" type="node,way,closedway" preset_name_label="true">
@@ -2275,15 +2289,17 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="hgv" text="Heavy Goods Vehicles" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
+	    	<combo key="hgv:conditional" text="Heavy Goods Vehicles\nconditional"
+                  delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    	<text key="maxspeed:hgv" text="Max. speed Heavy Goods Vehicles (km/h)" match="key" />
-            <combo key="maxspeed:hgv:conditional" text="Max. speed Heavy Goods Vehicles (km/h) @"
-                  delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />    
-            <text key="maxspeed:hgv:forward" text="Max. speed HGV in way direction" />
-            <combo key="maxspeed:hgv:forward:conditional" text="Max. speed HGV in way direction @"
-                  delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />
-            <text key="maxspeed:hgv:backward" text="Max. speed HGV opposite way direction" />
-            <combo key="maxspeed:hgv:backwardward:conditional" text="Max. speed HGV opposite way direction @"
-                  delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0" />
+            <combo key="maxspeed:hgv:conditional" text="Max. speed Heavy Goods Vehicles (km/h)\nconditional"
+                  delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" match="key" />    
+            <text key="maxspeed:hgv:forward" text="Max. speed HGV in way direction" match="key" />
+            <combo key="maxspeed:hgv:forward:conditional" text="Max. speed HGV in way direction\nconditional"
+                  delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" match="key" />
+            <text key="maxspeed:hgv:backward" text="Max. speed HGV opposite way direction" match="key" />
+            <combo key="maxspeed:hgv:backwardward:conditional" text="Max. speed HGV opposite way direction\nconditional"
+                  delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" match="key" />
 	        <reference ref="additional_access_tags" /> 
         </item> <!-- Heavy Goods Vehicle -->
         <item name="General access"  type="node,way,closedway" preset_name_label="true">
@@ -2299,7 +2315,9 @@
                   sv.href="http://wiki.openstreetmap.org/wiki/Sv:Key:access"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
-            <combo key="access" text="General Access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,no" match="key" values_searchable="true" />
+            <combo key="access" text="General access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,no" match="key" values_searchable="true" />
+	    	<combo key="access:conditional" text="General access\nconditional"
+                  delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- General access -->
         <item name="Physical restrictions" icon="icons/png/maximum_width.png" type="node,way,closedway" preset_name_label="true">

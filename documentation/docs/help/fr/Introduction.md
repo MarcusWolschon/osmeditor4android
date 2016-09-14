@@ -30,7 +30,7 @@ La plus simple manière de télécharger des données est de zoomer et se dépla
 
 Pour éviter des modifications accidentelles Vespucci démarre en mode "bloqué", lequel ne permet que de zoomer et de se déplacer sur la carte. Appuyez sur l'icone ![bloqué](../images/locked.png) pour débloquer l'édition. Un appui long sur cette icône active le mode "modification des attributs uniquement" qui empèche de créer de nouveaux objets ou de modifier les géométries. Ce mode est indiqué avec une icône un peu plus blanche.
 
-Par défaut, les noeuds et chemins sélectionables ont une marge orange indiquant approximativement où toucher pour sélectioner un objet. Si vous essayez de sélectioner un objet et que Vespucci vois que cela pourrais correspondre à plusieur objets, il affichera un menu de sélection. Les objets sélectionés sont en surbrillance jaune.
+Par défaut, les nœuds et chemins sélectionnables ont une marge orange indiquant approximativement où toucher pour sélectionner l'objet. Si vous essayez de sélectionner un objet et que Vespucci détermine que cette sélection concerne plusieurs objets, il affichera un menu de sélection. Les objets sélectionnés sont en surbrillance jaune.
 
 Il est conseillé de zoomer plus quand vous éditez une zone avec une grande densité de données.
 
@@ -40,35 +40,35 @@ Vespucci a un bon système d'"annuler/refaire" donc n'ayez pas peur d'expérimen
 
 Touchez un objet pour le sélectioner et le mettre en surbrillance; un deuxième appui sur le même objet ouvre l'éditeur d'attributs de cet élément. Toucher l'écran dans une zone vide désélectione. Si vous avec sélectioné un objet et que vous voulez sélectioner autrechose, touchez simplement l'objet en question, il n'y a pas besoin de désélectioner au préalable. Un double appui sur un object démarre le [mode de sélection multiple](../en/Multiselect.md).
 
-#### Ajouter un nouveau noeud ou chemin
+#### Ajouter un nouveau nœud ou chemin
 
-Faites un appui long là ou vous voulez commencer. Vous verrez un symbole noir "réticule". Appuyer au même endroit crée un noeud, appuyer en dehors de la marge de sélection du noeud commence un chemin entre les deux positions. 
+Faites un appui long là ou vous voulez commencer. Vous verrez un symbole noir "réticule". Appuyer au même endroit crée un nœud, appuyer en dehors de la marge de sélection du nœud commence un chemin entre les deux positions. 
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
+Touchez simplement l'écran aux endroits où vous voulez ajouter des nœuds au chemin. Pour finir, toucher le dernier nœud deux fois. Si les nœuds initial et final sont sur le même chemin, ils seront insérés automatiquement dans le chemin.
 
-#### Moving a Node or Way
+#### Déplacer un nœud ou un chemin
 
-Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Les objets ne peuvent être déplacés que quand ils sont sélectionnés. Si vous cochez l'option Zone élargie dans les préférences, vous aurez une zone plus large autour du nœud sélectionné, à partir de laquelle le positionnement de l'objet sera plus facile. 
 
-#### Improving Way Geometry
+#### Améliorer la géométrie du chemin
 
-If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
+Si vous zoomez assez, vous allez voir un petit "x" au milieu des segments de chemin qui sont suffisamment longs. Déplacer ce "x" créera à cet endroit un nouveau nœud sur le chemin. Notez que, pour éviter les créations accidentelles de nœuds, la tolérance au toucher pour cette opération est assez faible. 
 
-#### Cut, Copy & Paste
+#### Couper, copier et coller
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Vous pouvez couper ou copier des nœuds ou chemins sélectionnés, puis les coller à une ou plusieurs reprises à de nouveaux endroits. Couper conservera l'identifiant OSM et l'historique de l'élément. Pour coller, touchez de façon prolongée le lieu où vous voulez coller (qui sera marqué par une croix), puis sélectionnez "Coller" dans le menu.
 
-#### Efficiently Adding Addresses
+#### Ajouter efficacement des adresses
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
+Vespucci propose une fonction "ajouter un tag d'adresse" qui essaie de rendre plus efficace la collecte des adresses. Elle peut être utilisée : 
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* Après un appui prolongé : Vespucci ajoutera un nœud à cet endroit, essaiera de déterminer le numéro du bâtiment et ajoutera un tag d'adresse. Si le nœud se situe sur le chemin traçant un bâtiment, un tag "entrance=yes" y sera automatiquement ajouté. L'éditeur de tag s'ouvrira alors pour l'objet en question pour vous permettre de faire des ajout ou des changements.
+* Dans le mode de sélection de nœud ou de chemin : Vespucci ajoutera les tags d'adresse comme ci-dessus et affichera l'éditeur de tags.
+* Dans l'éditeur de tags.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+La prédiction du numéro de bâtiment nécessite normalement pour fonctionner qu'au moins deux numéros de chaque côté de la voie soient déjà présents. Plus nombreux sont les numéros déjà renseignés, meilleure est la prédiction.
 
-Consider using this with the "Auto-download" mode.  
+Vous pouvez utiliser cette fonction avec le mode "Téléchargement automatique".  
 
 #### Adding Turn Restrictions
 
@@ -80,31 +80,31 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type in the tag menu
 
-### Vespucci in "locked" mode
+### Vespucci en mode verrouillé
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+Quand le cadenas rouge est affiché, les fonctions d'édition sont indisponibles. Un appui long sur ou à proximité d'un objet d'OSM affichera un écran d'information détaillée sur cet objet.
 
-### Saving Your Changes
+### Enregistrer vos modifications
 
-*(requires network connectivity)*
+*(nécessite un accès au réseau)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+Utilisez le même bouton ou menu que pour le téléchargement des données et sélectionnez "Envoyer les données au serveur OSM".
 
-Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
+Vespucci accepte l'identification par OAuth ou par nom d'utilisateur et mot de passe. OAuth est à préférer car il n'envoie pas le mot de passe en clair sur le réseau.
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+Les versions récentes de Vespucci activent OAuth par défaut. Lors de votre premier envoi de données, une page du site OSM s'affiche. Après que vous vous êtes identifié (avec une connexion chiffrée), il vous sera demandé d'autoriser Vespucci à éditer les données en utilisant votre compte. Vous pouvez aussi autoriser l'accès Oauth à votre compte avant toute édition via le menu Outils > Autoriser OAuth.
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+Si vous voulez sauvegarder vos modifications alors que vous n'avez pas accès à internet, il est possible de les enregistrer dans un fichier ".osm"compatible avec JOSM et de les envoyer au serveur plus tard avec Vespucci ou JOSM. 
 
-#### Resolving conflicts on uploads
+#### Résoudre des conflits lors de l'envoi
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
+Vespucci dispose d'un outil de résolution des conflits simples. Cependant, si vous soupçonnez un problème important avec vos modifications, exportez-les dans un fichier ".osc" (menu "Transfert des données" puis "Exporter les modifications") pour les corriger dans JOSM avant de les envoyer. Une aide détaillée est disponible sur [la résolution de conflit](../en/Conflict resolution.md).  
 
-## Using GPS
+## Utiliser le GPS
 
-You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
+Vous pouvez utiliser Vespucci pour créer une trace GPX et l'afficher à l'écran. Vous pouvez aussi afficher votre position GPS actuelle (avec l'option "Afficher ma position" dans le menu GPS) ou recentrer en continu l'écran sur votre position (option "Recentrer sur ma position"). 
 
-If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
+Si cette option de recentrage est activée, déplacer manuellement l'écran ou éditer des données la désactivera. La flèche bleue indiquant votre position, dont seuls les contours étaient affichés, deviendra alors pleine. Pour revenir rapidement au mode Recentrage, il suffit de toucher la flèche ou de recocher l'option.
 
 ## Notes and Bugs
 
