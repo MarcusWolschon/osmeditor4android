@@ -179,7 +179,7 @@ dependencies {
     compile 'com.adobe.xmp:xmpcore:5.1.2'
     compile 'ch.poole:PoParser:0.7.0'
 	compile 'ch.poole:OpeningHoursParser:0.1.0'
-	compile 'ch.poole:ConditionalRestrictionParser:0.1.0'
+	compile 'ch.poole:ConditionalRestrictionParser:0.1.8'
 }
 
 android {

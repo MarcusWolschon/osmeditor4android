@@ -61,31 +61,41 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 	private static final String KEY_KEY = "key";
 	
 	private static final String VALUE_KEY = "value";
+	
+	private static final String TEMPLATES_KEY = "templates";
 
 	private static final String DEBUG_TAG = ConditionalRestrictionFragment.class.getSimpleName();
 
 	private LayoutInflater inflater = null;
-
-	private TextWatcher watcher;
 	
 	private String key;
 	private String conditionalRestrictionValue;
+	private ArrayList<String> templates;
 	
 	private ArrayList<Restriction> restrictions = null;
 	
 	private EditText text;
 	
+	/**
+	 * Lists of possible values generated from templates
+	 */
+	private ArrayList<String> restrictionValues = null;
+	private ArrayList<String> simpleConditionValues = null;
+	private ArrayList<String> expressionConditionValues = null;
+	
+	ScrollView sv;
+	
 	private OnSaveListener saveListener = null;
 
 	/**
 	 */
-	static public ConditionalRestrictionFragment newInstance(String key,String value) {
+	static public ConditionalRestrictionFragment newInstance(String key,String value, ArrayList<String> templates) {
 		ConditionalRestrictionFragment f = new ConditionalRestrictionFragment();
 
 		Bundle args = new Bundle();
 		args.putSerializable(KEY_KEY, key);
 		args.putSerializable(VALUE_KEY, value);
-
+		args.putSerializable(TEMPLATES_KEY, templates);
 		f.setArguments(args);
 		// f.setShowsDialog(true);
 
@@ -121,7 +131,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 	@SuppressLint("InflateParams")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+		Log.d(DEBUG_TAG, "onCreateView");
 		this.inflater = ThemeUtils.getLayoutInflater(getActivity());
 		
 		LinearLayout conditionalRestrictionLayout = (LinearLayout) inflater.inflate(R.layout.conditionalrestriction, null);
@@ -129,11 +139,60 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 		if (savedInstanceState == null) {
 			key = getArguments().getString(KEY_KEY);
 			conditionalRestrictionValue = getArguments().getString(VALUE_KEY);
+			templates = getArguments().getStringArrayList(TEMPLATES_KEY);
 		} else {
 			key = savedInstanceState.getString(KEY_KEY);
 			conditionalRestrictionValue = savedInstanceState.getString(VALUE_KEY);
+			templates = savedInstanceState.getStringArrayList(TEMPLATES_KEY);
 		}
-		
+		if (conditionalRestrictionValue == null) {
+			conditionalRestrictionValue = "";
+		}
+		// generate the list of possible values from the templates
+		for (String t:templates) {
+			Log.d(DEBUG_TAG, "Parsing template " + t );
+			ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(t.getBytes()));
+			try {
+				ArrayList<Restriction> list = parser.restrictions();
+				for (Restriction r:list) {
+					String v = r.getValue();
+					try {
+						Integer.parseInt(v);
+					} catch (NumberFormatException nfex) {
+						// not a number add it to list
+						if (restrictionValues==null) {
+							restrictionValues = new ArrayList<String>();
+						}
+						restrictionValues.add(v);
+					}
+					for (Condition c:r.getConditions()) {
+						if (c.isExpression()) {
+							try {
+								Integer.parseInt(c.term1());
+								if (expressionConditionValues==null) {
+									expressionConditionValues = new ArrayList<String>();
+								}
+								expressionConditionValues.add(c.term2());
+							} catch (NumberFormatException nfex) {
+								// not a number add it to list
+								if (expressionConditionValues==null) {
+									expressionConditionValues = new ArrayList<String>();
+								}
+								expressionConditionValues.add(c.term1());
+							}
+						} else if (!c.isOpeningHours()) {
+							if (simpleConditionValues==null) {
+								simpleConditionValues = new ArrayList<String>();
+							}
+							simpleConditionValues.add(c.term1());
+						}
+					}
+				}
+			} catch (Exception ex) {
+				Log.e(DEBUG_TAG, "Parsing template " + t + " raised " + ex);
+			}
+		}
+			
 		buildLayout(conditionalRestrictionLayout, conditionalRestrictionValue);
 
 		// add callbacks for the buttons
@@ -161,64 +220,11 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 		return true;
 	}
 	
-	/**
-	 * 
-	 * @param conditionalRestrictionLayout
-	 * @param openingHoursValue2
-	 */
-	private void buildLayout(final LinearLayout conditionalRestrictionLayout, String conditionalRestrictionValue) {
-		text = (EditText) conditionalRestrictionLayout.findViewById(R.id.conditional_restriction_string_edit);
-		final ScrollView sv = (ScrollView) conditionalRestrictionLayout.findViewById(R.id.conditional_restriction_view);
-		if (text != null && sv != null) {
-			text.setText(conditionalRestrictionValue);
-			sv.removeAllViews();
-			
-			watcher = new TextWatcher() {
-				@Override
-				public void afterTextChanged(Editable s) {
-					Runnable rebuild = new Runnable() {
-						@Override
-						public void run() {				
-							ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(text.getText().toString().getBytes()));
-							try {
-								restrictions = parser.restrictions();
-								removeHighlight(text);
-							} catch (ParseException pex) {
-								Log.d(DEBUG_TAG, pex.getMessage());
-								highlightParseError(text, pex);
-							} catch (TokenMgrError err) {
-								// we currently can't do anything reasonable here except ignore
-								Log.e(DEBUG_TAG, err.getMessage());
-							}
-							if (restrictions == null) { // couldn't parse anything
-								restrictions = new ArrayList<Restriction>();
-							}
-							buildForm(sv,restrictions);
-						}
-					};
-					text.removeCallbacks(rebuild);
-					text.postDelayed(rebuild, 500);
-				}
-				@Override
-				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				}
-				@Override
-				public void onTextChanged(CharSequence s, int start, int before, int count) {
-				}
-			};
-			text.addTextChangedListener(watcher);
-			
-			FloatingActionButton add = (FloatingActionButton) conditionalRestrictionLayout.findViewById(R.id.add);
-			add.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					LinearLayout ll = (LinearLayout) conditionalRestrictionLayout.findViewById(12345);
-					Restriction r = new Restriction("", new Conditions(Arrays.asList(new Condition("",false)),false));
-					restrictions.add(r);
-					addRestriction(ll, r);
-				}});
-			
-			ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(conditionalRestrictionValue.getBytes()));
+	final Runnable rebuild = new Runnable() {
+		@Override
+		public void run() {				
+			ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(text.getText().toString().getBytes()));
+			text.removeTextChangedListener(watcher); // avoid infinite loop
 			try {
 				restrictions = parser.restrictions();
 				removeHighlight(text);
@@ -226,13 +232,59 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 				Log.d(DEBUG_TAG, pex.getMessage());
 				highlightParseError(text, pex);
 			} catch (TokenMgrError err) {
-				// we currently can't do anything reasonable here except ignore 
+				// we currently can't do anything reasonable here except ignore
 				Log.e(DEBUG_TAG, err.getMessage());
 			}
+			text.addTextChangedListener(watcher);
 			if (restrictions == null) { // couldn't parse anything
 				restrictions = new ArrayList<Restriction>();
 			}
 			buildForm(sv,restrictions);
+		}
+	};
+	
+	final TextWatcher watcher = new TextWatcher() {
+		@Override
+		public void afterTextChanged(Editable s) {
+			text.removeCallbacks(rebuild);
+			text.postDelayed(rebuild, 500);
+		}
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		}
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		}
+	};
+	
+	/**
+	 * Initial setup of layout
+	 * @param conditionalRestrictionLayout
+	 * @param conditionalRestrictionValue
+	 */
+	private void buildLayout(final LinearLayout conditionalRestrictionLayout, final String conditionalRestrictionValue) {
+		text = (EditText) conditionalRestrictionLayout.findViewById(R.id.conditional_restriction_string_edit);
+		sv = (ScrollView) conditionalRestrictionLayout.findViewById(R.id.conditional_restriction_view);
+
+		if (text != null && sv != null) {		
+			text.addTextChangedListener(watcher);
+			text.setText(conditionalRestrictionValue);
+			sv.removeAllViews();
+			FloatingActionButton add = (FloatingActionButton) conditionalRestrictionLayout.findViewById(R.id.add);
+			add.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					LinearLayout ll = (LinearLayout) conditionalRestrictionLayout.findViewById(12345);
+					ArrayList<Condition> c = new ArrayList<Condition>();
+					c.add(new Condition("",false));
+					Restriction r = new Restriction("", new Conditions(c,false));
+					restrictions.add(r);
+					addRestriction(ll, r);
+				}}
+			);
+			// initial build
+			text.removeCallbacks(rebuild);
+			text.post(rebuild);
 		}
 	}
 	
@@ -241,39 +293,38 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 	 * @param text
 	 * @param pex
 	 */
-	private void highlightParseError(EditText text, ParseException pex) {
+	private synchronized void highlightParseError(EditText text, ParseException pex) {
 		if (text.length() > 0) {
 			int c = pex.currentToken.next.beginColumn-1; // starts at 1
 			int pos = text.getSelectionStart();
 			Spannable spannable = new SpannableString(text.getText());
 			spannable.setSpan(new ForegroundColorSpan(Color.RED), c, Math.max(c,Math.min(c+1,spannable.length())), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			text.removeTextChangedListener(watcher); // avoid infinite loop
 			text.setText(spannable, TextView.BufferType.SPANNABLE);
 			text.setSelection(Math.min(pos,spannable.length()));
 			Toast.makeText(text.getContext(), pex.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 		}
-		text.addTextChangedListener(watcher);
 	}
 	
 	/**
 	 * Remove all highlighting
 	 * @param text
 	 */
-	private void removeHighlight(EditText text) {
+	private synchronized void removeHighlight(EditText text) {
 		int pos = text.getSelectionStart();
 		int prevLen = text.length();
-		text.removeTextChangedListener(watcher); // avoid infinite loop
 		String t = Util.restrictionsToString(restrictions);
 		text.setText(t);
 		// text.setText(text.getText().toString());
 		text.setSelection(prevLen < text.length() ? text.length() : Math.min(pos,text.length()));
-		text.addTextChangedListener(watcher);
 	}
 
 	private synchronized void buildForm(ScrollView sv, ArrayList<Restriction> restrictions) {
-
 		sv.removeAllViews();
-		LinearLayout ll = new LinearLayout(getActivity());
+		Activity a = getActivity();
+		if (a == null) {
+			return;
+		}
+		LinearLayout ll = new LinearLayout(a);
 		ll.setId(LINEARLAYOUT_ID);
 		ll.setPadding(0, 0, 0, dpToPixels(64));
 		ll.setOrientation(LinearLayout.VERTICAL);
@@ -290,7 +341,23 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 		TextView header = (TextView) groupHeader.findViewById(R.id.header);
 		header.setText(R.string.tag_restriction_header);
 		final AutoCompleteTextView value = (AutoCompleteTextView) groupHeader.findViewById(R.id.editValue);
-		value.setText(r.getValue().trim());
+		String v = r.getValue().trim();
+		value.setText(v);
+		if (restrictionValues != null) {
+			ArrayAdapter<String>adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,restrictionValues);
+			if (!restrictionValues.contains(v)) {
+				adapter.insert(v, 0);
+			}
+			value.setAdapter(adapter);
+			value.setOnFocusChangeListener(new View.OnFocusChangeListener() {				
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					if (hasFocus) {
+						value.showDropDown();
+					}
+				}
+			});
+		}
 		TextWatcher valueWatcher = new TextWatcher() {
 			@Override
 			public void afterTextChanged(Editable s) {
@@ -332,6 +399,37 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					term1.setText(c.term1());
 					final AutoCompleteTextView term2 = (AutoCompleteTextView) expression.findViewById(R.id.editTerm2);
 					term2.setText(c.term2());
+					if (expressionConditionValues != null) {
+						ArrayAdapter<String>adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,expressionConditionValues);
+						try {
+							Integer.parseInt(c.term1());
+							if (!expressionConditionValues.contains(c.term2())) {
+								adapter.insert(c.term2(), 0);
+							}
+							term2.setAdapter(adapter);
+							term2.setOnFocusChangeListener(new View.OnFocusChangeListener() {				
+								@Override
+								public void onFocusChange(View v, boolean hasFocus) {
+									if (hasFocus) {
+										term2.showDropDown();
+									}
+								}
+							});
+						} catch (NumberFormatException nfex) {
+							if (!expressionConditionValues.contains(c.term1())) {
+								adapter.insert(c.term1(), 0);
+							}
+							term1.setAdapter(adapter);
+							term1.setOnFocusChangeListener(new View.OnFocusChangeListener() {				
+								@Override
+								public void onFocusChange(View v, boolean hasFocus) {
+									if (hasFocus) {
+										term1.showDropDown();
+									}
+								}
+							});
+						}
+					}
 					addMenuItems(expression, r, c);
 					ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 						    getActivity(), R.layout.support_simple_spinner_dropdown_item, Condition.compOpStrings);
@@ -387,24 +485,45 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					} else {
 						conditionText.setText("and");
 					}
-					final AutoCompleteTextView atv = (AutoCompleteTextView) condition.findViewById(R.id.editCondition);					
+					final AutoCompleteTextView term = (AutoCompleteTextView) condition.findViewById(R.id.editCondition);	
+					term.setText(c.term1());
 					if (c.isOpeningHours()) {
+						
 					} else {
+						if (simpleConditionValues != null) {
+							ArrayAdapter<String>adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,simpleConditionValues);
+							if (!simpleConditionValues.contains(c.term1())) {
+								adapter.insert(c.term1(), 0);
+							}
+							term.setAdapter(adapter);
+							term.setOnFocusChangeListener(new View.OnFocusChangeListener() {				
+								@Override
+								public void onFocusChange(View v, boolean hasFocus) {
+									if (hasFocus) {
+										term.showDropDown();
+									}
+								}
+							});
+						}
 					}					
-					atv.setText(c.toString());
 					TextWatcher conditionWatcher = new TextWatcher() {
 						@Override
 						public void afterTextChanged(Editable s) {
 							List<Condition> list = r.getConditions(); 
-							list.set(index, new Condition(atv.getText().toString().trim(), false));
+							String c = term.getText().toString().trim();
+							boolean needsParentheses = c.indexOf(';') >= 0;
+							if (needsParentheses) {
+								r.setInParen();
+							}
+							list.set(index, new Condition(c, false));
 							Runnable rebuild = new Runnable() {
 								@Override
 								public void run() {				
-									updateRestrictionStringFromView(atv, r);
+									updateRestrictionStringFromView(term, r);
 								}
 							};
-							atv.removeCallbacks(rebuild);
-							atv.postDelayed(rebuild, 500);
+							term.removeCallbacks(rebuild);
+							term.postDelayed(rebuild, 500);
 						}
 						@Override
 						public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -413,7 +532,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 						public void onTextChanged(CharSequence s, int start, int before, int count) {
 						}
 					};
-					atv.addTextChangedListener(conditionWatcher);
+					term.addTextChangedListener(conditionWatcher);
 					addMenuItems(condition, r, c);
 					ll.addView(condition);
 				}
@@ -421,7 +540,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 		}
 	}
 	
-	private void updateRestrictionStringFromView(EditText view, Restriction r) {
+	private synchronized void updateRestrictionStringFromView(EditText view, Restriction r) {
 		text.removeTextChangedListener(watcher);
 		int pos = 0;
 		if (view != null) {
@@ -515,7 +634,9 @@ public class ConditionalRestrictionFragment extends DialogFragment {
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
     	Log.d(DEBUG_TAG, "onSaveInstanceState");
+    	outState.putSerializable(KEY_KEY, key);
     	outState.putSerializable(VALUE_KEY, text.getText().toString());
+    	outState.putSerializable(TEMPLATES_KEY, templates);
     }  
 
 	@Override

@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -44,6 +45,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
+import ch.poole.conditionalrestrictionparser.ParseException;
+import ch.poole.conditionalrestrictionparser.TokenMgrError;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
@@ -770,9 +774,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					
 					if (keyType == PresetKeyType.TEXT 
 						|| key.startsWith(Tags.KEY_ADDR_BASE)
-						|| preset.isEditable(key)) {
-						if (key.endsWith(":conditional")) {
-							rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, defaultValue, adapter, allTags));
+						|| preset.isEditable(key)
+						|| key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
+						if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
+							rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, adapter));
 						} else {
 							// special handling for international names
 							rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, defaultValue, adapter));
@@ -1006,43 +1011,35 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		return row;
 	}
 	
-	TagFormDialogRow addConditionalRestrictionDialogRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter, final LinkedHashMap<String, String> allTags) {
+	TagFormDialogRow addConditionalRestrictionDialogRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key, final String value, final ArrayAdapter<?> adapter) {
 		final TagFormDialogRow row = (TagFormDialogRow)inflater.inflate(R.layout.tag_form_combo_dialog_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
 		row.setPreset(preset);
-	
-		String selectedValue=null;
+
+		final ArrayList<String> templates = new ArrayList<String>();
+		Log.d(DEBUG_TAG, "adapter size " + adapter.getCount());
 		for (int i=0;i< adapter.getCount();i++) {
 			Object o = adapter.getItem(i);
 			
 			StringWithDescription swd = new StringWithDescription(o);
+			Log.d(DEBUG_TAG, "adding " + swd);
 			String v = swd.getValue();
-			String description = swd.getDescription();
-			
 			if (v==null || "".equals(v)) {
 				continue;
 			}
-			if (description==null) {
-				description=v;
+			if (v.equals(value)){
+				ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(v.getBytes()));
+				try {
+					row.setValue(ch.poole.conditionalrestrictionparser.Util.prettyPrint(parser.restrictions()));
+				} catch (Exception ex) {
+					row.setValue(v);
+				}
 			}
-			if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue)) && v.equals(defaultValue)) {
-				row.setValue(description,v);
-				selectedValue = v;
-				break;
-			} else if (v.equals(value)){
-				row.setValue(swd);
-				selectedValue = v;
-				break;
-			}
+			Log.d(DEBUG_TAG, "adding " + v + " to templates");
+			templates.add(v);
 		}
 		row.valueView.setHint(R.string.tag_dialog_value_hint);
-		final String finalSelectedValue;
-		if (selectedValue != null) {
-			finalSelectedValue = selectedValue;
-		} else {
-			finalSelectedValue = null;
-		}
 		row.setOnClickListener(new OnClickListener() {
 			@SuppressLint("NewApi")
 			@Override
@@ -1056,7 +1053,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			        ft.remove(prev);
 			    }
 			    ft.commit();
-			    ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key,finalSelectedValue);
+			    ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key,value,templates);
 			    conditionalRestrictionDialog.show(fm, "fragment_conditional_restriction");
 			}
 		});
@@ -1671,6 +1668,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			String description = swd.getDescription();
 			setValue(swd.getValue(),description != null && !"".equals(description)?description:swd.getValue());
 		}
+		
+		public void setValue(String s) {
+			setValue(s,s);
+		}
+
 
 		public String getValue() {
 			return value;
