@@ -23,7 +23,7 @@ or this command on Windows:
 $ gradlew.bat installDebug
 ```
 
-If you are using eclipse you need to generate the .classpath file initially and on any configuration change or else the IDE is essentially useless, run the gradle "eclipse" task to do this.
+If you are using eclipse you need to import the project as a gradle project, and then generate the .classpath file initially and on any configuration change or else the IDE is essentially useless, run the gradle "eclipse" task to do this.
 
 ## Building with gradle and Android Studio
 
