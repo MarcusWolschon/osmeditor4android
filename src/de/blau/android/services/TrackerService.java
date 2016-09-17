@@ -398,6 +398,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		if (needed && !gpsEnabled) {
 			Log.d(TAG, "Enabling GPS updates");
 			Preferences prefs = new Preferences(this);
+			nmeaLocation.removeSpeed(); // be sire that these are not set
+			nmeaLocation.removeBearing();
 			try {
 				Location last = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 				if (last != null) {
