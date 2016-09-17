@@ -688,7 +688,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		
 		setShowGPS(prefs.getShowGPS()); 
-		setFollowGPS(followGPS);
 
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		scheduleAutoLock();
@@ -867,7 +866,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (getTracker() != null) getTracker().setListener(null);
 
 		// always save editing state
-		Application.getLogic().saveEditingState();
+		Application.getLogic().saveEditingState(this);
 		// onPause is the last lifecycle callback guaranteed to be called on pre-honeycomb devices
 		// on honeycomb and later, onStop is also guaranteed to be called, so we can defer saving.
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) saveData();
@@ -1695,6 +1694,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			Log.d(DEBUG_TAG,"Setting lastLocation");
 			onLocationChanged(lastLocation);
 		}
+	}
+	
+	public boolean getFollowGPS() {
+		return followGPS;
 	}
 	
 	private void toggleShowGPS() {

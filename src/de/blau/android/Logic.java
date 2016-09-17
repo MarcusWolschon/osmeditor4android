@@ -2794,11 +2794,10 @@ public class Logic {
 	/**
 	 * Saves the current editing state (selected objects, editing mode, etc) to file.
 	 */
-	void saveEditingState() {
+	void saveEditingState(Main main) {
 		TileLayerServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		EditState editState = new EditState(Application.mainActivity,this, osmts, Application.mainActivity.getImageFileName(),
-				viewBox);
-		new SavingHelper<EditState>().save(Application.mainActivity,EDITSTATE_FILENAME, editState, false);	
+		EditState editState = new EditState(main.getApplicationContext(), this, osmts, main.getImageFileName(), viewBox,  main.getFollowGPS());
+		new SavingHelper<EditState>().save(main,EDITSTATE_FILENAME, editState, false);	
 	}
 	
 	/**
