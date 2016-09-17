@@ -11,7 +11,7 @@
     <item>村莊 (addr:hamlet)</item>
     <item>行政區 (addr:suburb)</item>
     <item>分區 (addr:subdistrict)</item>
-    <item>區 (addr:district)</item>
+    <item>鄉鎮市區 (addr:district)</item>
     <item>省 (addr:province)</item>
     <item>州 (addr:state)</item>
     <item>一排 (addr:flats)</item>

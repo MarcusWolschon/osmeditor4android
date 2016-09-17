@@ -19,6 +19,7 @@
   <string name="no_login_data_message">Si está usando OAuth, esto es posiblemente un error, envíe un informe del problema. Si está usando usuario y contraseña (no recomendado), compruebe que se hayan introducido correctamente.</string>
   <string name="no_connection_title">Sin conexión con el servidor</string>
   <string name="no_connection_message">No se pudo conectar al servidor OSM. Compruebe su conexión a Internet o intente de nuevo más tarde.</string>
+  <string name="ssl_handshake_failed">No se pudo conectar al servidor OSM porque falló la negociación https. Intente cambiando a una conexión no cifrada en las preferencias de la API.</string>
   <string name="wrong_login_data_title">Fallo de autenticación</string>
   <string name="wrong_login_data_message">Si está usando OAuth debe reautenticarse e intente de nuevo, si está usando nombre de usuario y contraseña (no recomendado) compruebe que se hayan introducido correctamente.</string>
   <string name="wrong_login_data_re_authenticate">Reautenticar</string>
@@ -131,6 +132,7 @@
   <string name="toast_state_file_failed">No se puede leer el archivo de estado</string>
   <string name="toast_too_many_nodes_for_move">Demasiados nodos en la vía para mover</string>
   <string name="toast_oauth_handshake_failed">Fallo en la negociación OAuth, compruebe que tiene las claves de consumidor correctas</string>
+  <string name="toast_unread_mail">Tiene %1$s correo(s) no leído(s) en el servidor OpenStrreetMap</string>
   <string name="toast_photo_indexing_started">Iniciada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_download_bbox_failed">Fallo en la descarga, probablemente porque el área seleccionada era demasiado grande.</string>
@@ -163,6 +165,7 @@
   <string name="toast_split_via">Vía dividida «via»</string>
   <string name="toast_split_from_and_via">Vías divididas «from» y «via»</string>
   <string name="toast_split_to">Vía dividida «to»</string>
+  <string name="toast_tile_database_full">¡La base de datos de teselas del mapa o disco está lleno!\nSalga, borre la base de datos o haga más espacio disponible.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -225,6 +228,12 @@
   <string name="menu_preset_help">Ayuda predeterminados</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Añadir etiquetas para %1$s</string>
+  <string name="tag_restriction_header">Valor</string>
+  <string name="tag_restriction_when">cuando</string>
+  <string name="tag_restriction_and">y</string>
+  <string name="tag_restriction_add_simple_condition">Añadir simple condición</string>
+  <string name="tag_restriction_add_expression">Añadir expresión</string>
+  <string name="tag_restriction_add_opening_hours">Añadir horas de apertura</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elegir radio:</string>
@@ -312,6 +321,7 @@
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Pegar</string>
   <string name="menu_paste_from_clipboard">Pegar desde el portapapeles</string>
+  <string name="menu_zoom_to_selection">Acercar para seleccionar</string>
   <string name="menu_rotate">Girar</string>
   <string name="menu_orthogonalize">Escuadrar</string>
   <string name="menu_circulize">Organizar en círculo</string>

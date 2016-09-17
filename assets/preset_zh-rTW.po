@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-09-14 09:56+0200\n"
-"PO-Revision-Date: 2016-09-14 08:00+0000\n"
+"PO-Revision-Date: 2016-09-17 15:14+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -2538,7 +2538,7 @@ msgstr ""
 
 #: master_preset.xml:170(list_entry:short_description|value:designated)
 msgid "Dedicated facilities"
-msgstr ""
+msgstr "專用設備"
 
 #: master_preset.xml:7965(list_entry:short_description|group:Clothes|preset:Clothes|value:maternity)
 msgid "Maternity"
@@ -3226,7 +3226,7 @@ msgstr ""
 
 #: master_preset.xml:9744(item:name|group:Land_use|preset:Military)
 msgid "Military"
-msgstr ""
+msgstr "軍事"
 
 #: master_preset.xml:3625(check:text|group:Public_Transport|preset:Stop_Position|key:bus)
 #: master_preset.xml:3659(check:text|group:Public_Transport|preset:Platform|key:bus)
@@ -3490,7 +3490,7 @@ msgstr ""
 #: master_preset.xml:359(combo:text|key:location)
 #: master_preset.xml:6888(combo:text|group:Man_Made|preset:Pipeline|key:location)
 msgid "Location"
-msgstr ""
+msgstr "位置"
 
 #: master_preset.xml:7041(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Display:"
@@ -4253,7 +4253,7 @@ msgstr ""
 
 #: master_preset.xml:171(list_entry:short_description|value:yes)
 msgid "Unrestricted access"
-msgstr ""
+msgstr "移動不受限制"
 
 #: master_preset.xml:3157(item:name|group:Car|preset:Parking)
 #: master_preset.xml:3414(item:name|group:Motorcycle|preset:Parking)
@@ -4886,7 +4886,7 @@ msgstr ""
 
 #: master_preset.xml:172(list_entry:short_description|value:limited)
 msgid "Partial access"
-msgstr ""
+msgstr "部分可通行"
 
 #: master_preset.xml:2165(group:name|group:Access_Restrictions)
 msgid "Access Restrictions"
@@ -5103,7 +5103,7 @@ msgstr ""
 #: master_preset.xml:7581(check:text|group:Historic_Places|preset:Castle|key:ruins)
 #: master_preset.xml:7584(item:name|group:Historic_Places|preset:Ruins)
 msgid "Ruins"
-msgstr ""
+msgstr "遺跡"
 
 #: master_preset.xml:8765(item:name|preset:Payment_Methods)
 msgid "Payment Methods"
@@ -6121,7 +6121,7 @@ msgstr "單行道"
 #: master_preset.xml:300(combo:display_values|key:access)
 #: master_preset.xml:282(combo:display_values|key:access)
 msgid "No access"
-msgstr ""
+msgstr "不可通行"
 
 #: master_preset.xml:1869(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgid "Electric"
@@ -8694,7 +8694,7 @@ msgstr ""
 #: master_preset.xml:6100(item:name|group:Golf|preset:Bunker)
 msgctxt "golf"
 msgid "Bunker"
-msgstr ""
+msgstr "碉堡"
 
 #: master_preset.xml:6104(combo:text|group:Golf|preset:Bunker|key:natural)
 msgctxt "golf"
@@ -9326,4 +9326,4 @@ msgstr ""
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)
 msgid "translator-credits"
-msgstr ""
+msgstr "Supaplex <b92612009@gmail.com>,2016"

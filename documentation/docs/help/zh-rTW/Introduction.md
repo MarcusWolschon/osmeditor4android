@@ -24,13 +24,13 @@ Vespucci 是一個完整功能的開放街圖編輯器，支援那些桌面系�
 * **檔案...** - 儲存和載入在裝置的 OSM 檔案資料。
 * **備註/錯誤** -從 QA 工具 (目前的 OSMOSE) 下載 (自動或手動) OSM 備註和"錯誤" *(需要網路連線)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+最簡單的下載方式是在裝置上縮放以及平移到你想要編輯的地方，接著選擇"下載當前檢視"。你可以用手勢縮放，用縮放按鈕，或者使用手機的音量控制鍵。Vespucci應該能夠下載當前檢視中的資料。不需要認證就可以下載資料到你的裝置上。
 
 ### 編輯
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
+未了防止不小心編輯，Vespucci啟動時是從鎖定模式開始，只允許縮放和移動地圖。 點選![鑰匙](../images/locked.png)圖示解除螢幕鎖定。長按鎖定圖示將啟動"只允許標籤編輯"，該模式不允許新增新物件或是變動物件幾何形狀，在該模式下會顯示略為不同的白色鎖定圖示。
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
+根據預設設定，可供選取的節點和路徑會有橘色的區域圍繞著，顯示要碰觸那邊才能選取物件。如果你試著選取的物件讓Vespucci覺得可能選到多個物件，就會出現選取選單。被選取的物件會用高亮度的黃色顯示。
 
 如果您試著編輯高密度區域時進行放大，這是一個很好的對策。
 
@@ -38,13 +38,13 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 #### 選擇/取消選擇
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+碰觸物件來選取和突顯亮度，第二次點選同一個物件會打開該物件的標籤編輯器。碰觸螢幕其他空白區域則會解除選取。如果你已經選取一個物件，而你需要選取其他物件，則輕輕點選你想要選的物件，不必先解除選取。雙重點選則會開啟[多重選取模式](../en/Multiselect.md)。
 
 #### 增加新節點/點或是路徑
 
 在您想要的那個節點或開始的道路長按。您將會看到一個黑色的"十字"符號。再次輕觸相同的位置可建立一個新的節點，觸碰位置為容許偏差範圍之外的接觸位置，那將會從原本的地點到目前的位置增加一段道路。 
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
+簡單碰觸螢幕上你想新增節點的路徑。要完成編輯，要碰觸最後節點兩次。如果最初和最後的節點位在路徑上，他們會自動插入路徑上。
 
 #### 移動節點或路徑
 
@@ -62,9 +62,9 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 Vespucci 有一個"增加地址標籤"功能，那讓勘察地址更有效率。它是可以選擇的 
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* 長按之後：Vespucci會自動在該位置新增節點，並且猜測門牌號碼和其他先前你使用過的地址標籤。如果該節點位於建築物外框，則會自動在該節點增加"entrance=yes"標籤。該物件標籤編輯器會打開，增加其他變更。
+* 在節點/路徑選取模式：Vespucci將會加上述的地址標籤，並且開啟標籤編輯器。
+* 在標籤編輯器。
 
 門牌號碼預測，一般需求要在道路的兩側，至少兩間房屋號碼需要輸入到作業中，更多的號碼存在於資料中越好。
 

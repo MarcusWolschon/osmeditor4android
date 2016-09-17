@@ -6,15 +6,15 @@ Vespucci is a full featured OpenStreetMap editor that supports most operations t
 
 On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
-Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
+Como alternativa. puede cerrar el diálogo presionando el botón «Ir al mapa» y alejar o acercar a una ubicación que quiera editar y descargar los datos a continuación (vea más adelante: «Editando con Vespucci»).
 
 ## Editando con Vespucci
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+Dependiendo del tamaño de pantalla y edad de su dispositivo las acciones de edición pueden estar accesibles directamente por medio de iconos en la barra superior, en un menú desplegable a la izquierda de la barra superior, desde la barra inferior (si está presente) o por medio de la tecla de menú.
 
 ## Descargando datos OSM
 
-Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
+Seleccione el ícono de transferencia ![](../images/menu_transfer.png) o la opción del menú «Transferir». Este mostrará siete opciones:
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
@@ -44,7 +44,7 @@ Touch an object to select and highlight it, a second touch on the same object op
 
 Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
+Sólo tiene que tocar la pantalla cuando quiera añadir más nodos a la vía. Para terminar, toque el nodo final dos veces. Si los nodos inicial y final se encuentran en una vía, serán insertados en la vía de forma automática.
 
 #### Moviendo un nodo o vía
 
