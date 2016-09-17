@@ -10,7 +10,7 @@
   <li>the internal NMEA source</li>
   <li>NEMA sentences retrieved from a server</li>
   <li>NEMA sentences sent from a client to a built-in Vespucci server</li>
-</ul><p>The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.</p><p>In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) &gt; GP (GPS) &gt; GL (GLONASS).</p><h3>Setup</h3><p>In the "Advanced preferences" you can select the "GPS source"</p>
+</ul><p>The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.</p><p>In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) &gt; GP (GPS) &gt; GL (GLONASS).</p><p>If your NMEA source does not supply speed values limiting the speed at which auto-downloads happen will not work. If no bearing is supplied the magnetic compass if present will be used to determine the bearing.</p><h3>Setup</h3><p>In the "Advanced preferences" you can select the "GPS source"</p>
 <ul>
   <li><strong>Internal</strong> - default</li>
   <li><strong>Internal NMEA</strong></li>

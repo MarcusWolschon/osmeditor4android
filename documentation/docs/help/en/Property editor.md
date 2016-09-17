@@ -1,20 +1,29 @@
 # Vespucci Property Editor
 
-The property editor screen is the central place for changing object attributes and relation memberships. To exit and save your changes tap the Vespucci icon, pressing the back button will give you the option of exiting without saving. Tags with empty value fields will not be saved.
+The property editor screen is the central place for changing object attributes and relation memberships. To exit and save your changes tap the back icon in the upper left hand corner, pressing the device back button will give you the option of exiting without saving. Tags with empty value fields will not be saved.
 
 Most of the fields use context sensitive auto complete provided by the active presets. Clicking twice (with a short pause) will re-display the auto complete menu. 
 
 Depending on size and orientation of your device the layout will change to make maximum use of the space available.
  
- * small devices: tabbed layout with _Presets_, _Tags_ (including the recently used presets) and _Relations_ tabs. If the selected object is a relation a further _Members_ tab will be available. 
+ * small devices: tab layout with _Presets_, _Properties_ (including the recently used presets), _Details_ and _Relations_ tabs. If the selected object is a relation a further _Members_ tab will be available. 
  * large devices in portrait orientation: multi pane layout with a pane for the tabs, one for the _Recently Used Presets_ and for the _Presets_ screen 
  
-If the property editor is started with multiple elements selected only the _Tags_ tab will be available. Tabs can be changed by swiping or by tapping the header.
+If the property editor is started with multiple elements selected only the _Details_ and _Presets_ tabs will be available. Tabs can be changed by swiping or by tapping the header.
+
+If the _Display tag form_ preference in the _Advanced preferences_ has been disabled pre-0.9.8 behaviour is enabled and the _Details_ tab will have the heading _Properties_.
 
 In the tabs tapping the checkbox in the header row will select/de-select all elements.
 
-## Tags Tab
+## Properties Tab
 
+This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simple remove or reset the value (or delete them 
+in the _Details_ tab).
+
+Fields are added by applying presets, either via the _Preset_ tab or via the ![](../images/tag_menu_apply_preset.png) _Apply best preset_ button.
+
+## Details Tab
+ 
 Display of the key - value attributes of the edited object.
 
 The following operations can be performed on selected tags

@@ -12,6 +12,8 @@ The main purpose of this is (internal NMEA being more of an academic exercise) t
 
 In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) > GP (GPS) > GL (GLONASS).
 
+If your NMEA source does not supply speed values limiting the speed at which auto-downloads happen will not work. If no bearing is supplied the magnetic compass if present will be used to determine the bearing.
+
 ### Setup
 
 In the "Advanced preferences" you can select the "GPS source"
