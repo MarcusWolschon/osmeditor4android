@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1193: refactoring, save follow GPS state over pause - resume cycles, documentation updates.
+
 1192: add support for editing conditional restrictions in the form tag editor and presets.
 
 1191: bump android version, updated translations, fix pre-Honeycomb use of system clipboard, use normal dialog for progress display, automatically add no https API entry and catch SSL errors better, handle Android 23 permissions better, remove duplicate nodes when merging.
