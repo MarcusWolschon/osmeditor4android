@@ -12,6 +12,7 @@
   <string name="upload_conflict_message_version">%1$s \nposiada wersję lokalną %2$s \noraz na serwerze %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \n istnieje lokalnie w wersji %2$s \n ale został usunięty na serwerze</string>
   <string name="upload_conflict_message_referential">%1$s \nzostał usunięty lokalnie \nale ma powiązania na serwerze</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nzostał już usunięty na serwerze</string>
   <string name="use_local_version">Użyj \n wersji \nlokalnej</string>
   <string name="use_server_version">Użyj \nwersji \nz serwera</string>
   <string name="no_login_data_title">Autoryzacja nieudana</string>
@@ -130,6 +131,7 @@
   <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik stanu</string>
   <string name="toast_too_many_nodes_for_move">Zbyt wiele węzłów do przesunięcia</string>
   <string name="toast_oauth_handshake_failed">Połączenie OAuth nie powiodło się, sprawdź czy masz odpowiednie klucze autoryzacyjne</string>
+  <string name="toast_unread_mail">Masz %1$s nieodczytanych wiadomości na serwerze OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Rozpoczęcie skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończone skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_download_bbox_failed">Pobieranie nie powiodło się, prawdopodobnie wybrano zbyt duży obszar.</string>
@@ -158,6 +160,10 @@
   <string name="toast_used_backup">Nieprawidłowy plik stanu, użyto pliku zapasowego!</string>
   <string name="toast_used_bug_backup">Nieprawidłowy plik stanu błędów, użyto pliku zapasowego!</string>
   <string name="toast_rmpty_relation">Pusta relacja, tworzenie raportu awarii.</string>
+  <string name="toast_split_from">Oddzielona linia \"from\"</string>
+  <string name="toast_split_via">Oddzielona linia \"via\"</string>
+  <string name="toast_split_from_and_via">Oddzielone linie \"from\" oraz \"via\"</string>
+  <string name="toast_split_to">Oddzielona linia \"to\"</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
@@ -170,7 +176,9 @@
   <string name="replace">Zamień</string>
   <string name="save">Zapisz</string>
   <string name="back">Cofnij</string>
+  <string name="forward">Naprzód</string>
   <string name="keep">Zachowaj</string>
+  <string name="enable">Włącz</string>
   <string name="clear">Wyczyść</string>
   <string name="retry">Spróbuj ponownie</string>
   <!--Dialog for back button-->
@@ -194,7 +202,11 @@
   <string name="tag_menu_reset_address_prediction">Zresetuj przewidywanie adresu</string>
   <string name="tag_menu_exit_no_save">Wyjdź\nbez zapisywania</string>
   <string name="tag_menu_delete_unassociated_tags">Usuń niezwiązane tagi</string>
+  <string name="tag_menu_top">Przejdź na górę</string>
+  <string name="tag_menu_bottom">Przejdź na dół</string>
+  <string name="tag_value_hint">Wpisz wartość</string>
   <string name="tag_multi_value_hint">Wiele wartości</string>
+  <string name="tag_dialog_value_hint">Dotknij by zobaczyć wartości</string>
   <string name="tag_action_tag_title">Zaznaczone tagi</string>
   <string name="tag_action_parents_title">Relacje zaznaczona</string>
   <string name="tag_details">Szczegóły</string>
@@ -277,6 +289,8 @@
   <string name="menu_transfer_bugs_clear">Wyczyść</string>
   <string name="menu_transfer_bugs_clear_long">Wyczyść błędy</string>
   <string name="menu_transfer_autodownload_long">Automatyczne pobieranie błędów</string>
+  <string name="menu_transfer_save_notes_all">Zapisz wszystkie Uwagi...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Zapisz nowe i zmienione Uwagi</string>
   <string name="menu_save">Zapisz do pliku</string>
   <string name="menu_join">Połącz</string>
   <string name="menu_unjoin">Rozłącz</string>
@@ -284,6 +298,7 @@
   <string name="menu_cut">Wytnij</string>
   <string name="menu_paste">Wklej</string>
   <string name="menu_paste_from_clipboard">Wklej ze schowka</string>
+  <string name="menu_zoom_to_selection">Przybliż do zaznaczenia</string>
   <string name="menu_rotate">Obróć</string>
   <string name="menu_orthogonalize">Wymuś kąty proste</string>
   <string name="menu_circulize">Ułóż w koło</string>
@@ -432,6 +447,8 @@
   <string name="config_address_tags_summary">Tagi używane do przewidywania adresu</string>
   <string name="config_moreprefs">Więcej ustawień...</string>
   <string name="config_fullscreenMode_title">Tryb pełnoekranowy</string>
+  <string name="config_maxTileDownloadThreads_title">Maks. liczba wątków pobierania</string>
+  <string name="config_maxTileDownloadThreads_summary">Maksymalna liczba wątków procesora pobierających kafelki mapy</string>
   <string name="config_notificationCacheSize_title">Maks. liczba powiadomień</string>
   <string name="config_autoLockDelay_title">Czas oczekiwania przed zablokowaniem</string>
   <string name="config_autoLockDelay_summary">Czas oczekiwania przed zablokowaniem, 0 wyłącza funkcję.</string>

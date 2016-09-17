@@ -227,6 +227,12 @@
   <string name="menu_preset_help">Hilfe zu Vorlagen</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Eigenschaften für %1$s hinzufügen</string>
+  <string name="tag_restriction_header">Wert</string>
+  <string name="tag_restriction_when">falls</string>
+  <string name="tag_restriction_and">und</string>
+  <string name="tag_restriction_add_simple_condition">Einfache Bedingung hinzufügen</string>
+  <string name="tag_restriction_add_expression">Ausdruck hinzufügen</string>
+  <string name="tag_restriction_add_opening_hours">Öffnungszeiten hinzufügen</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Bereich laden</string>
   <string name="location_choose_radius">Wähle Radius aus:</string>
