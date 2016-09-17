@@ -230,7 +230,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		try {
 			List<Node> nl = new ArrayList<Node>(currentStorage.getNodes());
 			for (Node n:nl) {
-				if (n.getState()==OsmElement.STATE_MODIFIED || n.getState()==OsmElement.STATE_DELETED) {
+				if (n.getState()!=OsmElement.STATE_UNCHANGED) {
 					apiStorage.insertElementUnsafe(n);
 				}
 				if (n.getState()==OsmElement.STATE_DELETED) {
@@ -239,7 +239,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 			List<Way> wl = new ArrayList<Way>(currentStorage.getWays());
 			for (Way w:wl) {
-				if (w.getState()==OsmElement.STATE_MODIFIED || w.getState()==OsmElement.STATE_DELETED) {
+				if (w.getState()!=OsmElement.STATE_UNCHANGED) {
 					apiStorage.insertElementUnsafe(w);
 				}
 				if (w.getState()==OsmElement.STATE_DELETED) {
@@ -248,7 +248,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 			List<Relation> rl = new ArrayList<Relation>(currentStorage.getRelations());
 			for (Relation r:rl) {
-				if (r.getState()==OsmElement.STATE_MODIFIED || r.getState()==OsmElement.STATE_DELETED) {
+				if (r.getState()!=OsmElement.STATE_UNCHANGED) {
 					apiStorage.insertElementUnsafe(r);
 				}
 				if (r.getState()==OsmElement.STATE_DELETED) {
