@@ -63,7 +63,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author simon
  */
 public class PropertyEditor extends BugFixedAppCompatActivity implements 
-		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters {
+		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters, OnSaveListener {
 	static final String PRESET_FRAGMENT = "preset_fragment";
 	static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 	
@@ -1095,5 +1095,14 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    mode.invalidate();
 	  }
 	  return mode;
+	}
+
+	@Override
+	/**
+	 * A tag has been updated, reflect this in both editors
+	 */
+	public void save(String key, String value) {
+		updateSingleValue(key,value);
+		tagsUpdated();
 	}
 }

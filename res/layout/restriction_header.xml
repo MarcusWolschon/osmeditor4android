@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="0dp"
+    android:layout_marginTop="0dp"
+    android:orientation="vertical"
+    android:paddingTop="16dp" >
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="?attr/colorAccent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="?attr/colorAccent" />
+        
+        <AutoCompleteTextView
+	        android:id="@+id/editValue"
+	        android:saveEnabled="false"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="1dp"
+	        android:layout_marginRight="1dp"
+	        android:layout_weight="4"
+	        android:completionThreshold="1"
+	        android:dropDownWidth="wrap_content"
+	        android:hint="value"
+	        android:inputType="textNoSuggestions"
+	        android:paddingLeft="5dp"
+	        android:paddingRight="0dp"
+	        android:singleLine="true"
+	         />
+
+         <include layout="@layout/menu" />
+    </LinearLayout>
+</LinearLayout>
