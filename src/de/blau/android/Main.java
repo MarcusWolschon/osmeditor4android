@@ -213,19 +213,50 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	
 	/** Objects to handle showing device orientation. */
 	private SensorManager sensorManager;
-	private Sensor sensor;
+	private Sensor magnetometer;
+	private Sensor accelerometer;
+	private Sensor rotation;
+
+	/**
+	 * @see http://www.codingforandroid.com/2011/01/using-orientation-sensors-simple.html and http://www.journal.deviantdev.com/android-compass-azimuth-calculating/
+	 */
 	private final SensorEventListener sensorListener = new SensorEventListener() {
-		float lastOrientation = -9999;
+		float lastAzimut = -9999;
+		float[] acceleration;
+		float[] geomagnetic;
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 		@Override
 		public void onSensorChanged(SensorEvent event) {
-			float orientation = event.values[0];
-			map.setOrientation(orientation);
+			float orientation[] = new float[3];
+			float R[] = new float[9];
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
+				switch (event.sensor.getType()) {
+				case Sensor.TYPE_ACCELEROMETER:
+					acceleration = event.values;
+					break;
+				case Sensor.TYPE_MAGNETIC_FIELD:
+					geomagnetic = event.values;
+					break;
+				default: return;
+				}
+				if (acceleration != null && geomagnetic != null) {
+					float I[] = new float[9];
+					if (!SensorManager.getRotationMatrix(R, I, acceleration, geomagnetic)) {
+						return;
+					}
+				}
+			} else if ( event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+				// calculate th rotation matrix
+				SensorManager.getRotationMatrixFromVector(R, event.values );
+			}
+			SensorManager.getOrientation(R, orientation);
+			float azimut = (int) ( Math.toDegrees( SensorManager.getOrientation( R, orientation )[0] ) + 360 ) % 360;
+			map.setOrientation(azimut);
 			// Repaint map only if orientation changed by at least 1 degree since last repaint
-			if (Math.abs(orientation - lastOrientation) > 1) {
-				lastOrientation = orientation;
+			if (Math.abs(azimut - lastAzimut) > 1) {
+				lastAzimut = azimut;
 				map.invalidate();
 			}
 		}
@@ -360,9 +391,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager != null) {
-			sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-			if (sensor == null) {
-				sensorManager = null;
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
+				magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+				accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+				if (magnetometer == null || accelerometer == null) {
+					sensorManager = null;
+				}
+			} else {
+				rotation = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+				if (rotation == null) {
+					sensorManager = null;
+				}
 			}
 		}
 
@@ -1673,7 +1712,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		//noinspection PointlessBooleanExpression
 		if (wantLocationUpdates == true) return;
 		if (sensorManager != null) {
-			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
+				sensorManager.registerListener(sensorListener, accelerometer, SensorManager.SENSOR_DELAY_UI);
+				sensorManager.registerListener(sensorListener, magnetometer, SensorManager.SENSOR_DELAY_UI);
+			} else {
+				sensorManager.registerListener(sensorListener, rotation, SensorManager.SENSOR_DELAY_UI);
+			}
 		}
 		wantLocationUpdates = true;
 		if (getTracker() != null) getTracker().setListenerNeedsGPS(true);
