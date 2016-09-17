@@ -2,13 +2,11 @@ package de.blau.android.propertyeditor;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,7 +22,6 @@ import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -281,7 +278,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 			add.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					LinearLayout ll = (LinearLayout) conditionalRestrictionLayout.findViewById(12345);
+					LinearLayout ll = (LinearLayout) conditionalRestrictionLayout.findViewById(LINEARLAYOUT_ID);
 					ArrayList<Condition> c = new ArrayList<Condition>();
 					c.add(new Condition("",false));
 					Restriction r = new Restriction("", new Conditions(c,false));

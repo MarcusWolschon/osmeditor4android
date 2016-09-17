@@ -60,7 +60,7 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
      * The tag we use for Android-logging.
      */
     @SuppressWarnings("unused")
-	private static final String DEBUG_TAG = PlaceTagValueAdapter.class.getName();
+	private static final String DEBUG_TAG = PlaceTagValueAdapter.class.getSimpleName();
 
     ElementSearch es;
     
@@ -78,7 +78,7 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
                                        final long osmId,
                                        ArrayList<String> extraValues) {
         super(aContext, aTextViewResourceId);
-        Log.d("PlaceTagValuesCompletionAdapter","Constructor ...");
+        Log.d(DEBUG_TAG,"Constructor ...");
         
         HashMap<String, Integer> counter = new HashMap<String, Integer>();
         if (extraValues != null && extraValues.size() > 0) {

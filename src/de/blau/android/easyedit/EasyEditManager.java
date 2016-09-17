@@ -477,12 +477,13 @@ public class EasyEditManager {
 	 */
 	public abstract class EasyEditActionModeCallback implements ActionMode.Callback {
 		
+		private static final String DEBUG_TAG = "EasyEditActionModeCa...";
 		int helpTopic = 0;
 		MenuUtil menuUtil = new MenuUtil(main);
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			Log.d("EasyEditActionModeCallback", "onCreateActionMode");
+			Log.d(DEBUG_TAG, "onCreateActionMode");
 			synchronized (actionModeCallbackLock) {
 				currentActionMode = mode;
 				currentActionModeCallback = this;
@@ -518,7 +519,7 @@ public class EasyEditManager {
 
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
-			Log.d("EasyEditActionModeCallback", "onDestroyActionMode");
+			Log.d(DEBUG_TAG, "onDestroyActionMode");
 			currentActionMode = null;
 			currentActionModeCallback = null;
 			logic.hideCrosshairs();
@@ -565,7 +566,7 @@ public class EasyEditManager {
 		/** {@inheritDoc} */ // placed here for convenience, allows to avoid unnecessary methods in subclasses
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-			Log.d("EasyEditActionModeCallback", "onActionItemClicked");
+			Log.d(DEBUG_TAG, "onActionItemClicked");
 			if (item.getItemId() == MENUITEM_HELP) {
 				if (helpTopic != 0) {
 					HelpViewer.start(main, helpTopic);
@@ -597,6 +598,7 @@ public class EasyEditManager {
 	}
 	
 	private class LongClickActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
+		private static final String DEBUG2_TAG = "LongClickActionMode...";
 		private static final int MENUITEM_OSB = 1;
 		private static final int MENUITEM_NEWNODEWAY = 2;
 		private static final int MENUITEM_SPLITWAY = 3;
@@ -835,13 +837,13 @@ public class EasyEditManager {
 				try {
 					main.startActivityForResult(intent, Main.VOICE_RECOGNITION_REQUEST_CODE);
 				} catch (Exception ex) {
-					Log.d("EasyEdit","Caught exception " + ex);
+					Log.d(DEBUG2_TAG,"Caught exception " + ex);
 					Toast.makeText(main,"No voice recognition facility present", Toast.LENGTH_LONG).show();
 					logic.showCrosshairs(startX, startY);
 				}
 				return true;
 			default:
-				Log.e("LongClickActionModeCallback", "Unknown menu item");
+				Log.e(DEBUG2_TAG, "Unknown menu item");
 				break;
 			}
 			return false;
@@ -974,6 +976,7 @@ public class EasyEditManager {
 	 * The node and way click handlers are thus never called.
 	 */
 	private class PathCreationActionModeCallback extends EasyEditActionModeCallback {
+		private static final String DEBUG3_TAG = "PathCreationAction...";
 		private static final int MENUITEM_UNDO = 1;
 		private static final int MENUITEM_NEWWAY_PRESET = 2;
 		
@@ -1111,7 +1114,7 @@ public class EasyEditManager {
 				}
 				return true;
 			default:
-				Log.e("PathCreationActionModeCallback", "Unknown menu item");
+				Log.e(DEBUG3_TAG, "Unknown menu item");
 				break;
 			}
 			return false;
@@ -1167,6 +1170,8 @@ public class EasyEditManager {
 	 *
 	 */
 	private abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
+		
+		private static final String DEBUG4_TAG = "ElementSelectionActi...";
 		private static final int MENUITEM_UNDO = 0;
 		private static final int MENUITEM_TAG = 1;
 		private static final int MENUITEM_DELETE = 2;
@@ -1226,7 +1231,7 @@ public class EasyEditManager {
 			}
 			View undoView = MenuItemCompat.getActionView(undo);
 			if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
-				Log.d(DEBUG_TAG,"undoView null");
+				Log.d(DEBUG4_TAG,"undoView null");
 				Preferences prefs = new Preferences(main);
 				Context context =  new ContextThemeWrapper(main, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
 				undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
@@ -1276,7 +1281,7 @@ public class EasyEditManager {
 			case MENUITEM_ZOOM_TO_SELECTION: main.zoomTo(element); main.invalidateMap(); break;
 			case R.id.undo_action:
 				// should not happen
-				Log.d("EasyEditManager.ElementSelectionActionModeCallback","menu undo clicked");
+				Log.d(DEBUG4_TAG,"menu undo clicked");
 				undoListener.onClick(null);
 				break;
 			default: return false;
@@ -1304,7 +1309,7 @@ public class EasyEditManager {
 			logic.setClickableElements(null);
 			logic.setReturnRelations(true);			
 			if (deselect) {
-				Log.d("EasyEditManager.ElementSelectionCallback","deselecting");
+				Log.d(DEBUG4_TAG,"deselecting");
 				logic.setSelectedNode(null);
 				logic.setSelectedWay(null);
 				logic.setSelectedRelation(null);
@@ -1501,6 +1506,7 @@ public class EasyEditManager {
 	}
 	
 	private class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
+		private static final String DEBUG6_TAG = "WaySelectionAction...";
 		private static final int MENUITEM_SPLIT = 9;
 		private static final int MENUITEM_MERGE = 10;
 		private static final int MENUITEM_REVERSE = 11;
@@ -1518,7 +1524,7 @@ public class EasyEditManager {
 		
 		private WaySelectionActionModeCallback(Way way) {
 			super(way);
-			Log.d("WaySelectionActionCallback", "constructor");
+			Log.d(DEBUG6_TAG, "constructor");
 			cachedMergeableWays = findMergeableWays(way);
 			cachedAppendableNodes = findAppendableNodes(way);
 			cachedViaElements = findViaElements(way);
@@ -1528,7 +1534,7 @@ public class EasyEditManager {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			helpTopic = R.string.help_wayselection;
 			super.onCreateActionMode(mode, menu);
-			Log.d("WaySelectionActionCallback", "onCreateActionMode");
+			Log.d(DEBUG6_TAG, "onCreateActionMode");
 			logic.setSelectedNode(null);
 			logic.setSelectedRelationWays(null);
 			logic.setSelectedRelationNodes(null);
@@ -1543,7 +1549,7 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
-			Log.d("WaySelectionActionCallback", "onPrepareActionMode");
+			Log.d(DEBUG6_TAG, "onPrepareActionMode");
 			if (((Way)element).getTags().containsKey(Tags.KEY_BUILDING) && !((Way)element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
 				menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			}
@@ -1870,6 +1876,7 @@ public class EasyEditManager {
 	}
 	
 	private class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
+		private static final String DEBUG7_TAG = "RelationSelectionAct...";
 	
 		private static final int MENUITEM_ADD_RELATION_MEMBERS = 9;
 		private static final int MENUITEM_SELECT_RELATION_MEMBERS = 10;
@@ -1886,14 +1893,14 @@ public class EasyEditManager {
 			logic.setSelectedWay(null);
 			if (element != null && (((Relation)element).getMembers()==null || ((Relation)element).getMembers().size()==0)) {
 				// we can only select an empty relation if there is a reference from another object, this is always a bug 
-				Log.e(DEBUG_TAG,"relation " + element.getOsmId() + " is empty ");
+				Log.e(DEBUG7_TAG,"relation " + element.getOsmId() + " is empty ");
 				Toast.makeText(main, R.string.toast_rmpty_relation, Toast.LENGTH_LONG).show();
 				ACRA.getErrorReporter().handleException(null);
 				super.onDestroyActionMode(mode);
 				return false;
 			}
 			logic.setSelectedRelation((Relation) element);
-			Log.d(DEBUG_TAG,"selected relations " + logic.selectedRelationsCount());
+			Log.d(DEBUG7_TAG,"selected relations " + logic.selectedRelationsCount());
 			mode.setTitle(R.string.actionmode_relationselect);	
 			mode.setSubtitle(null);
 			main.invalidateMap();
@@ -1958,6 +1965,7 @@ public class EasyEditManager {
 	}
 	
 	private class RestartRestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
+		private final static String DEBUG8_TAG = "RestartRestrictionFr...";
 		private Set<OsmElement> fromElements;
 		private Set<OsmElement> viaElements;
 		private boolean fromSelected = false;
@@ -1997,7 +2005,7 @@ public class EasyEditManager {
 				main.startSupportActionMode(new RestrictionViaElementActionModeCallback((Way)element, viaElements.iterator().next()));
 				return true;
 			} 
-			Log.e(DEBUG_TAG, "viaElements size " + viaElements.size());
+			Log.e(DEBUG8_TAG, "viaElements size " + viaElements.size());
 			return false;
 		}
 		
@@ -2199,6 +2207,7 @@ public class EasyEditManager {
 	}
 	
 	private class RestrictionToElementActionModeCallback extends EasyEditActionModeCallback {
+		private final static String DEBUG9_TAG = "RestrictionToElement...";
 		
 		private Way fromWay;
 		private OsmElement viaElement;
@@ -2219,7 +2228,7 @@ public class EasyEditManager {
 			logic.addSelectedRelationWay(toWay);
 			boolean uTurn = fromWay == toWay;
 			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay, uTurn ? Tags.VALUE_NO_U_TURN : null);
-			Log.i("EasyEdit", "Created restriction");
+			Log.i(DEBUG9_TAG, "Created restriction");
 			main.performTagEdit(restriction, !uTurn ? Tags.VALUE_RESTRICTION : null, false, false, false);
 			main.startSupportActionMode(new RelationSelectionActionModeCallback(restriction));
 			return false; // we are actually already finished
@@ -2379,6 +2388,7 @@ public class EasyEditManager {
 	}	
 	
 	private class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
+		private final static String DEBUG10_TAG = "ExtendSelectionAct...";
 		
 		private static final int MENUITEM_TAG = 2;
 		private static final int MENUITEM_DELETE = 3;
@@ -2412,7 +2422,7 @@ public class EasyEditManager {
 		
 		public ExtendSelectionActionModeCallback(OsmElement element) {
 			super();
-			Log.d("EasyEditMangager","Multi-Select create mode with " + element);
+			Log.d(DEBUG10_TAG,"Multi-Select create mode with " + element);
 			selection = new ArrayList<OsmElement>();
 			if (element != null) {
 				addOrRemoveElement(element);
@@ -2588,7 +2598,7 @@ public class EasyEditManager {
 									invalidate(); // update menubar
 								}
 							} else {
-								Log.e("EasyEditManager.ExtendSelectionActionModeCallback","no merged way");
+								Log.e(DEBUG10_TAG,"no merged way");
 							}
 						} catch (OsmIllegalOperationException e) {
 							Toast.makeText(main, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -2598,7 +2608,7 @@ public class EasyEditManager {
 				case MENUITEM_PREFERENCES: 	PrefEditor.start(main); break; 
 				case R.id.undo_action:
 					// should not happen
-					Log.d("EasyEditManager.ExtendSelectionActionModeCallback","menu undo clicked");
+					Log.d(DEBUG10_TAG,"menu undo clicked");
 					undoListener.onClick(null);
 					break;
 				default: return false;
@@ -2609,7 +2619,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be clicked
-			Log.d("EasyEditMangager","Multi-Select add/remove " + element);
+			Log.d(DEBUG10_TAG,"Multi-Select add/remove " + element);
 			addOrRemoveElement(element);
 			setClickableElements();
 			main.invalidateMap();
@@ -2638,7 +2648,7 @@ public class EasyEditManager {
 		}
 		
 		private void menuDelete(boolean deleteFromRelations) {		
-			Log.d("EasyEditManager","Multi-select menuDelete " + deleteFromRelations + " " + selection);
+			Log.d(DEBUG10_TAG,"Multi-select menuDelete " + deleteFromRelations + " " + selection);
 			
 			// check for relation membership
 			if (!deleteFromRelations) {

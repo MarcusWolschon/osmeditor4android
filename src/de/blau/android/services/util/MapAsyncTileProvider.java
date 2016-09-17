@@ -3,7 +3,7 @@ package de.blau.android.services.util;
 import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
 
-import de.blau.android.services.IOpenStreetMapTileProviderCallback;
+import de.blau.android.services.IMapTileProviderCallback;
 
 /**
  * 
@@ -15,7 +15,7 @@ import de.blau.android.services.IOpenStreetMapTileProviderCallback;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  *
  */
-public abstract class OpenStreetMapAsyncTileProvider {
+public abstract class MapAsyncTileProvider {
 
 	public static final int IOERR = 1;
 	public static final int DOESNOTEXIST = 2;
@@ -23,8 +23,8 @@ public abstract class OpenStreetMapAsyncTileProvider {
 	protected ExecutorService mThreadPool;
 	private final HashSet<String> mPending = new HashSet<String>();
 	
-	public void loadMapTileAsync(final OpenStreetMapTile aTile,
-			final IOpenStreetMapTileProviderCallback aCallback) {
+	public void loadMapTileAsync(final MapTile aTile,
+			final IMapTileProviderCallback aCallback) {
 		final String tileID = aTile.toString();
 		
 		if(mPending.contains(tileID))
@@ -35,14 +35,14 @@ public abstract class OpenStreetMapAsyncTileProvider {
 		mThreadPool.execute(getTileLoader(aTile, aCallback));
 	}
 	
-	protected abstract Runnable getTileLoader(final OpenStreetMapTile aTile,
-			final IOpenStreetMapTileProviderCallback aCallback);
+	protected abstract Runnable getTileLoader(final MapTile aTile,
+			final IMapTileProviderCallback aCallback);
 
 	protected abstract class TileLoader implements Runnable {
-		final OpenStreetMapTile mTile;
-		final IOpenStreetMapTileProviderCallback mCallback;
+		final MapTile mTile;
+		final IMapTileProviderCallback mCallback;
 		
-		public TileLoader(final OpenStreetMapTile aTile, final IOpenStreetMapTileProviderCallback aCallback) {
+		public TileLoader(final MapTile aTile, final IMapTileProviderCallback aCallback) {
 			mTile = aTile;
 			mCallback = aCallback;
 		}

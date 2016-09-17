@@ -138,13 +138,13 @@
 		
 		<!-- Service to download tiles -->
 		<service
-			android:name=".services.OpenStreetMapTileProviderService"
+			android:name=".services.MapTileProviderService"
 			android:process=":remote"
 			android:exported="false"
-			android:label="OpenStreetMapTileProviderService"
+			android:label="MapTileProviderService"
 			>
 			<intent-filter>
-				<action android:name="de.blau.android.services.IOpenStreetMapTileProviderService" />
+				<action android:name="de.blau.android.services.IMapTileProviderService" />
 			</intent-filter>
 		</service>
 		<!--  Service for GPS tracking -->

@@ -15,10 +15,10 @@ import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.exception.StorageException;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.services.IOpenStreetMapTileProviderCallback;
-import de.blau.android.services.IOpenStreetMapTileProviderService;
-import de.blau.android.services.util.OpenStreetMapAsyncTileProvider;
-import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.services.IMapTileProviderCallback;
+import de.blau.android.services.IMapTileProviderService;
+import de.blau.android.services.util.MapAsyncTileProvider;
+import de.blau.android.services.util.MapTile;
 import de.blau.android.util.Util;
 
 /**
@@ -31,8 +31,8 @@ import de.blau.android.util.Util;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  * 
  */
-public class OpenStreetMapTileProvider implements ServiceConnection,
-		OpenStreetMapViewConstants {
+public class MapTileProvider implements ServiceConnection,
+		MapViewConstants {
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -40,7 +40,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	/**
 	 * Tag used in debug log-entries.
 	 */
-	public static final String DEBUGTAG = "OpenStreetMapTileProvider";
+	public static final String DEBUGTAG = MapTileProvider.class.getSimpleName();
 
 	// ===========================================================
 	// Fields
@@ -56,10 +56,10 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	/**
 	 * cache provider
 	 */
-	protected OpenStreetMapTileCache mTileCache;
+	protected MapTileCache mTileCache;
 	private HashMap<String,Long> pending = new HashMap<String,Long>();
 
-	private IOpenStreetMapTileProviderService mTileService;
+	private IMapTileProviderService mTileService;
 	private Handler mDownloadFinishedHandler;
 	
 	/**
@@ -71,20 +71,20 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	// Constructors
 	// ===========================================================
 
-	public OpenStreetMapTileProvider(final Context ctx,
+	public MapTileProvider(final Context ctx,
 			final Handler aDownloadFinishedListener) {
 		mCtx = ctx;
 		mNoTilesTile = BitmapFactory.decodeResource(ctx.getResources(),
 				R.drawable.no_tiles);
 		mLoadingMapTile = BitmapFactory.decodeResource(ctx.getResources(),
 				R.drawable.no_tiles);
-		mTileCache = new OpenStreetMapTileCache();
+		mTileCache = new MapTileCache();
 		
 		smallHeap = Runtime.getRuntime().maxMemory() <= 32L*1024L*1024L; // less than 32MB
 	
-		Intent explicitIntent = Util.createExplicitFromImplicitIntent(ctx, new Intent(IOpenStreetMapTileProviderService.class.getName()));
+		Intent explicitIntent = Util.createExplicitFromImplicitIntent(ctx, new Intent(IMapTileProviderService.class.getName()));
 		if(explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
-			Log.e(DEBUGTAG, "Could not bind to " + IOpenStreetMapTileProviderService.class.getName());
+			Log.e(DEBUGTAG, "Could not bind to " + IMapTileProviderService.class.getName());
 		}
 		
 		mDownloadFinishedHandler = aDownloadFinishedListener;
@@ -100,16 +100,16 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 
 	@Override
 	public void onServiceConnected(android.content.ComponentName name, android.os.IBinder service) {
-		mTileService = IOpenStreetMapTileProviderService.Stub.asInterface(service);
-		mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
-		Log.d("MapTileProviderService", "connected");
+		mTileService = IMapTileProviderService.Stub.asInterface(service);
+		mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
+		Log.d(DEBUGTAG, "connected");
 	}
 	
 	//@Override
 	@Override
 	public void onServiceDisconnected(ComponentName name) {
 		mTileService = null;
-		Log.d("MapTileProviderService", "disconnected");
+		Log.d(DEBUGTAG, "disconnected");
 	}
 	
 	// ===========================================================
@@ -137,11 +137,11 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	 * @param aTile The tile to find.
 	 * @return true if the tile is in local storage.
 	 */
-	public boolean isTileAvailable(final OpenStreetMapTile aTile) {
+	public boolean isTileAvailable(final MapTile aTile) {
 		return mTileCache.containsTile(aTile);
 	}
 
-	public Bitmap getMapTile(final OpenStreetMapTile aTile, long owner) {
+	public Bitmap getMapTile(final MapTile aTile, long owner) {
 		Bitmap tile = mTileCache.getMapTile(aTile); 
 		if (tile != null) {
 			// from cache
@@ -158,15 +158,15 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		return null;
 	}
 
-	public void preCacheTile(final OpenStreetMapTile aTile, long owner) {
+	public void preCacheTile(final MapTile aTile, long owner) {
 		if (!isTileAvailable(aTile) && mTileService != null && !pending.containsKey(aTile.toString())) {
 			try {
 				pending.put(aTile.toString(), Long.valueOf(owner));
 				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
 			} catch (RemoteException e) {
-				Log.e("OpenStreetMapTileProvider", "RemoteException in preCacheTile()", e);
+				Log.e(DEBUGTAG, "RemoteException in preCacheTile()", e);
 			} catch (Exception e) {
-				Log.e("OpenStreetMapTileProvider", "Exception in preCacheTile()", e);
+				Log.e(DEBUGTAG, "Exception in preCacheTile()", e);
 			}
 		}
 	}
@@ -175,9 +175,9 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		try {
 			mTileService.flushCache(rendererId);
 		} catch (RemoteException e) {
-			Log.e("OpenStreetMapTileProvider", "RemoteException in flushCache()", e);
+			Log.e(DEBUGTAG, "RemoteException in flushCache()", e);
 		} catch (Exception e) {
-			Log.e("OpenStreetMapTileProvider", "Exception in flushCache()", e);
+			Log.e(DEBUGTAG, "Exception in flushCache()", e);
 		}
 		mTileCache.clear(); // zap everything in in memory cache
 	}
@@ -189,7 +189,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	/**
 	 * Callback for the {@link IOpenStreetMapTileProviderService} we are using.
 	 */
-	private IOpenStreetMapTileProviderCallback mServiceCallback = new IOpenStreetMapTileProviderCallback.Stub() {
+	private IMapTileProviderCallback mServiceCallback = new IMapTileProviderCallback.Stub() {
 		
 		//@Override
 		public void mapTileLoaded(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final byte[] data) throws RemoteException {
@@ -200,22 +200,22 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 				options.inPreferredConfig = Bitmap.Config.ARGB_8888; // Bitmap.Config.RGB_565;
 			}
 	        
-			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
+			MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
 			
 			try {
 				//long start = System.currentTimeMillis();
 				Bitmap aTile = BitmapFactory.decodeByteArray(data, 0, data.length, options);
 				// long duration = System.currentTimeMillis() - start;
 				if (aTile == null) {
-					Log.d("OpenStreetMapTileProvider", "decoded tile is null");
+					Log.d(DEBUGTAG, "decoded tile is null");
 					throw new RemoteException();
 				}
-				// Log.d("OpenStreetMapTileProvider", "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
+				// Log.d(DEBUGTAG, "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
 
 				mTileCache.putTile(t, aTile,pending.get(t.toString()).longValue());
 				pending.remove(t.toString());
-				mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
-				// Log.d("OpenStreetMapTileProvider", "Sending tile success message");
+				mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
+				// Log.d(DEBUGTAG, "Sending tile success message");
 			} catch (StorageException e) {
 				// unable to cache tile
 				if (!smallHeap) { // reduce tile size to half
@@ -226,7 +226,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 					// FIXME this should show a toast ... or a special tile
 				}
 			} catch (NullPointerException npe) {
-				Log.d("OpenStreetMapTileProvider", "Exception in mapTileLoaded callback " + npe);
+				Log.d(DEBUGTAG, "Exception in mapTileLoaded callback " + npe);
 				throw new RemoteException();
 			}
 			if (DEBUGMODE)
@@ -235,8 +235,8 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		
 		//@Override
 		public void mapTileFailed(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason) throws RemoteException {
-			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
-			if (reason == OpenStreetMapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting the proper one
+			MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
+			if (reason == MapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting the proper one
 				TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, false);
 				//TODO check if we are inside the providers bounding box
 				if (zoomLevel < Math.max(0,osmts.getMinZoomLevel()-1)) {

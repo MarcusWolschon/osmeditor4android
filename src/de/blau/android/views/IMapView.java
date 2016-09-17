@@ -5,8 +5,8 @@ import de.blau.android.osm.BoundingBox;
 
 /**
  * Interface for a graphical component that can
- * be used with {@link org.andnav.osm.views.overlay.OpenStreetMapTilesOverlay} and
- * other {@link org.andnav.osm.views.overlay.OpenStreetMapViewOverlay} to render on.
+ * be used with {@link org.MapTilesOverlay.osm.views.overlay.OpenStreetMapTilesOverlay} and
+ * other {@link org.MapViewOverlay.osm.views.overlay.OpenStreetMapViewOverlay} to render on.
  */
 public interface IMapView {
 

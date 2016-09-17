@@ -53,9 +53,9 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
-import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
-import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
+import de.blau.android.views.overlay.MapOverlayTilesOverlay;
+import de.blau.android.views.overlay.MapTilesOverlay;
+import de.blau.android.views.overlay.MapViewOverlay;
 
 /**
  * Paints all data provided previously by {@link Logic}.<br/>
@@ -106,11 +106,11 @@ public class Map extends View implements IMapView {
 	/**
 	 * List of Overlays we are showing.<br/>
 	 * This list is initialized to contain only one
-	 * {@link OpenStreetMapTilesOverlay} at construction-time but
+	 * {@link MapTilesOverlay} at construction-time but
 	 * can be changed to contain additional overlays later.
 	 * @see #getOverlays()
 	 */
-	protected final List<OpenStreetMapViewOverlay> mOverlays = Collections.synchronizedList(new ArrayList<OpenStreetMapViewOverlay>());
+	protected final List<MapViewOverlay> mOverlays = Collections.synchronizedList(new ArrayList<MapViewOverlay>());
 	
 	/**
 	 * The visible area in decimal-degree (WGS84) -space.
@@ -252,13 +252,13 @@ public class Map extends View implements IMapView {
 			if (mOverlays.size() == 0) // only set once
 			{
 				if (prefs == null) // just to be safe
-					mOverlays.add(new OpenStreetMapTilesOverlay(this, TileLayerServer.getDefault(getResources(), true), null));
+					mOverlays.add(new MapTilesOverlay(this, TileLayerServer.getDefault(getResources(), true), null));
 				else {
 					// mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
-					OpenStreetMapTilesOverlay osmto = new OpenStreetMapTilesOverlay(this, TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true), null);
+					MapTilesOverlay osmto = new MapTilesOverlay(this, TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true), null);
 					// Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
 					mOverlays.add(osmto);
-					mOverlays.add(new OpenStreetMapOverlayTilesOverlay(this));
+					mOverlays.add(new MapOverlayTilesOverlay(this));
 				}
 				mOverlays.add(new de.blau.android.tasks.MapOverlay(this, prefs.getServer()));
 				mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
@@ -267,11 +267,11 @@ public class Map extends View implements IMapView {
 		}
 	}
 	
-	public OpenStreetMapTilesOverlay getOpenStreetMapTilesOverlay() {
+	public MapTilesOverlay getOpenStreetMapTilesOverlay() {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-				if ((osmvo instanceof OpenStreetMapTilesOverlay) && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
-					return (OpenStreetMapTilesOverlay)osmvo;
+			for (MapViewOverlay osmvo : mOverlays) {
+				if ((osmvo instanceof MapTilesOverlay) && !(osmvo instanceof MapOverlayTilesOverlay)) {
+					return (MapTilesOverlay)osmvo;
 				}
 			}
 		}
@@ -282,11 +282,11 @@ public class Map extends View implements IMapView {
 	 * The names of these clases are patently silly and should be refactored
 	 * @return
 	 */
-	public OpenStreetMapOverlayTilesOverlay getOpenStreetMapOverlayTilesOverlay() {
+	public MapOverlayTilesOverlay getOpenStreetMapOverlayTilesOverlay() {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-				if (osmvo instanceof OpenStreetMapOverlayTilesOverlay) {
-					return (OpenStreetMapOverlayTilesOverlay)osmvo;
+			for (MapViewOverlay osmvo : mOverlays) {
+				if (osmvo instanceof MapOverlayTilesOverlay) {
+					return (MapOverlayTilesOverlay)osmvo;
 				}
 			}
 		}
@@ -296,7 +296,7 @@ public class Map extends View implements IMapView {
 
 	public de.blau.android.tasks.MapOverlay getOpenStreetBugsOverlay() {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			for (MapViewOverlay osmvo : mOverlays) {
 				if (osmvo instanceof de.blau.android.tasks.MapOverlay) {
 					return (de.blau.android.tasks.MapOverlay)osmvo;
 				}
@@ -307,7 +307,7 @@ public class Map extends View implements IMapView {
 
 	public de.blau.android.photos.MapOverlay getPhotosOverlay() {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			for (MapViewOverlay osmvo : mOverlays) {
 				if (osmvo instanceof de.blau.android.photos.MapOverlay) {
 					return (de.blau.android.photos.MapOverlay)osmvo;
 				}
@@ -318,7 +318,7 @@ public class Map extends View implements IMapView {
 
 	public void onDestroy() {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			for (MapViewOverlay osmvo : mOverlays) {
 				osmvo.onDestroy();
 			}
 		}
@@ -330,7 +330,7 @@ public class Map extends View implements IMapView {
 	
 	public void onLowMemory() {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			for (MapViewOverlay osmvo : mOverlays) {
 				osmvo.onLowMemory();
 			}
 		}
@@ -362,9 +362,9 @@ public class Map extends View implements IMapView {
 		
 		// Draw our Overlays.
 		canvas.getClipBounds(canvasBounds);
-		OpenStreetMapTilesOverlay.resetAttributionArea(canvasBounds, 0);
+		MapTilesOverlay.resetAttributionArea(canvasBounds, 0);
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) { 
+			for (MapViewOverlay osmvo : mOverlays) { 
 				if (!(osmvo instanceof de.blau.android.tasks.MapOverlay)) {
 					osmvo.onManagedDraw(canvas, this);
 				}
@@ -415,7 +415,7 @@ public class Map extends View implements IMapView {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			for (MapViewOverlay osmvo : mOverlays) {
 				if (osmvo.onTouchEvent(event, this)) {
 					return true;
 				}
@@ -427,7 +427,7 @@ public class Map extends View implements IMapView {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			for (MapViewOverlay osmvo : mOverlays) {
 				if (osmvo.onKeyDown(keyCode, event, this)) {
 					return true;
 				}
@@ -439,7 +439,7 @@ public class Map extends View implements IMapView {
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			for (MapViewOverlay osmvo : mOverlays) {
 				if (osmvo.onKeyUp(keyCode, event, this)) {
 					return true;
 				}
@@ -451,7 +451,7 @@ public class Map extends View implements IMapView {
 	@Override
 	public boolean onTrackballEvent(MotionEvent event) {
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			for (MapViewOverlay osmvo : mOverlays) {
 				if (osmvo.onTrackballEvent(event, this)) {
 					return true;
 				}
@@ -1239,13 +1239,13 @@ public class Map extends View implements IMapView {
 		prefs = aPreference;
 		TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-				if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
+			for (MapViewOverlay osmvo : mOverlays) {
+				if (osmvo instanceof MapTilesOverlay && !(osmvo instanceof MapOverlayTilesOverlay)) {
 					final TileLayerServer backgroundTS = TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true);
-					((OpenStreetMapTilesOverlay)osmvo).setRendererInfo(backgroundTS);
-				} else if (osmvo instanceof OpenStreetMapOverlayTilesOverlay) {
+					((MapTilesOverlay)osmvo).setRendererInfo(backgroundTS);
+				} else if (osmvo instanceof MapOverlayTilesOverlay) {
 					final TileLayerServer overlayTS = TileLayerServer.get(Application.mainActivity, prefs.overlayLayer(), true);
-					((OpenStreetMapOverlayTilesOverlay)osmvo).setRendererInfo(overlayTS);
+					((MapOverlayTilesOverlay)osmvo).setRendererInfo(overlayTS);
 				}
 			}
 		}
@@ -1302,10 +1302,10 @@ public class Map extends View implements IMapView {
 	
 	/**
 	 * You can add/remove/reorder your Overlays using the List of
-	 * {@link OpenStreetMapViewOverlay}. The first (index 0) Overlay gets drawn
+	 * {@link MapViewOverlay}. The first (index 0) Overlay gets drawn
 	 * first, the one with the highest as the last one.
 	 */
-	public List<OpenStreetMapViewOverlay> getOverlays() {
+	public List<MapViewOverlay> getOverlays() {
 		return mOverlays;
 	}
 	
@@ -1371,9 +1371,9 @@ public class Map extends View implements IMapView {
 	public ArrayList<String> getImageryNames() {
 		ArrayList<String>result = new ArrayList<String>();
 		synchronized(mOverlays) {
-			for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-				if ((osmvo instanceof OpenStreetMapTilesOverlay)) {
-					result.add(((OpenStreetMapTilesOverlay)osmvo).getRendererInfo().getName());
+			for (MapViewOverlay osmvo : mOverlays) {
+				if ((osmvo instanceof MapTilesOverlay)) {
+					result.add(((MapTilesOverlay)osmvo).getRendererInfo().getName());
 				}
 			}
 		}

@@ -20,14 +20,14 @@ import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
+import de.blau.android.views.overlay.MapViewOverlay;
 
 /**
  * implement a geo-referenced photo overlay, code stolen from the OSB implementation
  * @author simon
  *
  */
-public class MapOverlay extends OpenStreetMapViewOverlay {
+public class MapOverlay extends MapViewOverlay {
 	
 	private final static String DEBUG_TAG = "PhotoOverlay";
 	

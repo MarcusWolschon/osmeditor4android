@@ -15,9 +15,9 @@ import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
+import de.blau.android.views.overlay.MapViewOverlay;
 
-public class MapOverlay extends OpenStreetMapViewOverlay {
+public class MapOverlay extends MapViewOverlay {
 	
 	/** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */ 
 	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;

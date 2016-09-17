@@ -9,7 +9,7 @@ import android.content.Context;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.services.IOpenStreetMapTileProviderCallback;
+import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.CustomDatabaseContext;
 
@@ -23,7 +23,7 @@ import de.blau.android.util.CustomDatabaseContext;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  *
  */
-public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileProvider {
+public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -35,13 +35,13 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	// ===========================================================
 
 	protected final Context mCtx;
-	protected final OpenStreetMapTileProviderDataBase mDatabase;
+	protected final MapTileProviderDataBase mDatabase;
 	protected final File mountPoint;
 	protected final int mMaxFSCacheByteSize;
 	protected int mCurrentFSCacheByteSize;
 
 	/** online provider */
-	protected OpenStreetMapTileDownloader mTileDownloader;
+	protected MapTileDownloader mTileDownloader;
 
 	// ===========================================================
 	// Constructors
@@ -53,15 +53,15 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	 * @param aMaxFSCacheByteSize the size of the cached MapTiles will not exceed this size.
 	 * @param aCache to load fs-tiles to.
 	 */
-	public OpenStreetMapTileFilesystemProvider(final Context ctx, File mountPoint, final int aMaxFSCacheByteSize) {
+	public MapTileFilesystemProvider(final Context ctx, File mountPoint, final int aMaxFSCacheByteSize) {
 		mCtx = ctx;
 		this.mountPoint = mountPoint;
 		mMaxFSCacheByteSize = aMaxFSCacheByteSize;
-		mDatabase = new OpenStreetMapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()), this);
+		mDatabase = new MapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()), this);
 		mCurrentFSCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
 		mThreadPool = Executors.newFixedThreadPool(4);
 
-		mTileDownloader = new OpenStreetMapTileDownloader(ctx, this);
+		mTileDownloader = new MapTileDownloader(ctx, this);
 
 		if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 			Log.d(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
@@ -82,7 +82,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	// ===========================================================
 
 	@Override
-	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
+	protected Runnable getTileLoader(MapTile aTile, IMapTileProviderCallback aCallback) {
 		return new TileLoader(aTile, aCallback);
 	}
 	
@@ -90,7 +90,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	// Methods
 	// ===========================================================
 
-	public void saveFile(final OpenStreetMapTile tile, final byte[] someData) throws IOException{
+	public void saveFile(final MapTile tile, final byte[] someData) throws IOException{
 		synchronized (this) {
 			try {
 				final int bytesGrown = mDatabase.addTileOrIncrement(tile, someData); 
@@ -155,9 +155,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	// Inner and Anonymous Classes
 	// ===========================================================
 
-	private class TileLoader extends OpenStreetMapAsyncTileProvider.TileLoader {
+	private class TileLoader extends MapAsyncTileProvider.TileLoader {
 
-		public TileLoader(final OpenStreetMapTile aTile, final IOpenStreetMapTileProviderCallback aCallback) {
+		public TileLoader(final MapTile aTile, final IMapTileProviderCallback aCallback) {
 			super(aTile, aCallback);
 		}
 
@@ -169,8 +169,8 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
 					return;
 				}
-				synchronized (OpenStreetMapTileFilesystemProvider.this) {
-					byte[] data = OpenStreetMapTileFilesystemProvider.this.mDatabase.getTile(mTile);
+				synchronized (MapTileFilesystemProvider.this) {
+					byte[] data = MapTileFilesystemProvider.this.mDatabase.getTile(mTile);
 					if (data == null) {
 						if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 							Log.d(DEBUGTAG, "FS failed, request for download.");
@@ -212,7 +212,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		mDatabase.close();
 	}
 
-	public void markAsInvalid(OpenStreetMapTile mTile) {
+	public void markAsInvalid(MapTile mTile) {
 		mDatabase.addTileOrIncrement(mTile, null);	
 	}
 }

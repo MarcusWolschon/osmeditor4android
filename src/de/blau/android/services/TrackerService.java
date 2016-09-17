@@ -18,6 +18,7 @@ import java.util.Locale;
 
 import org.acra.ACRA;
 
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
@@ -764,6 +765,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		}
 
 		@Override
+		@TargetApi(19)
 		public void run() {
 			Socket socket = null;
 			DataOutputStream dos = null;

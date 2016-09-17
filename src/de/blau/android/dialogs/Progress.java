@@ -1,24 +1,13 @@
 package de.blau.android.dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import de.blau.android.R;
-import de.blau.android.util.ThemeUtils;
 
 /**
  * ProgressDialog can't be styled, this rolls its own.

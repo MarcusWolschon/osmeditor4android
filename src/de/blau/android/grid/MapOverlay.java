@@ -8,9 +8,9 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
+import de.blau.android.views.overlay.MapViewOverlay;
 
-public class MapOverlay extends OpenStreetMapViewOverlay {
+public class MapOverlay extends MapViewOverlay {
 	
 	private static final String DEBUG_TAG = MapOverlay.class.getName();
 	private static final float DISTANCE2SIDE = 4f;

@@ -7,12 +7,12 @@ import de.blau.android.Map;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.views.IMapView;
 
-public class OpenStreetMapOverlayTilesOverlay extends OpenStreetMapTilesOverlay {
+public class MapOverlayTilesOverlay extends MapTilesOverlay {
 	
 	Map map;
 	boolean enabled = false;
 	
-	public OpenStreetMapOverlayTilesOverlay(final View aView) {
+	public MapOverlayTilesOverlay(final View aView) {
 		super(aView, TileLayerServer.get(Application.mainActivity, ((Map)aView).getPrefs().overlayLayer(), true), null);
 		map = (Map)aView;
 	}

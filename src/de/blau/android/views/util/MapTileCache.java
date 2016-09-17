@@ -4,7 +4,7 @@ package  de.blau.android.views.util;
 import android.graphics.Bitmap;
 import android.util.Log;
 import de.blau.android.exception.StorageException;
-import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.services.util.MapTile;
 
 /**
  * 
@@ -15,7 +15,7 @@ import de.blau.android.services.util.OpenStreetMapTile;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  *
  */
-public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
+public class MapTileCache implements MapViewConstants{
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -30,14 +30,14 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// Constructors
 	// ===========================================================
 	
-	public OpenStreetMapTileCache(){
+	public MapTileCache(){
 		this(defaultCacheBytes());
 	}
 	
 	/**
 	 * @param aMaximumCacheBytes Maximum cache size in bytes.
 	 */
-	public OpenStreetMapTileCache(final long aMaximumCacheBytes){
+	public MapTileCache(final long aMaximumCacheBytes){
 		Log.d("OpenStreetMapTileCache","Created new in memory tile cache with " + aMaximumCacheBytes + " bytes");
 		mCachedTiles = new LRUMapTileCache(aMaximumCacheBytes);
 	}
@@ -46,15 +46,15 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// Getter & Setter
 	// ===========================================================
 	
-	public synchronized Bitmap getMapTile(final OpenStreetMapTile aTile) {
+	public synchronized Bitmap getMapTile(final MapTile aTile) {
 		return mCachedTiles.get(aTile.toString());
 	}
 
-	public synchronized boolean putTile(final OpenStreetMapTile aTile, final Bitmap aImage, final long owner) throws StorageException {
+	public synchronized boolean putTile(final MapTile aTile, final Bitmap aImage, final long owner) throws StorageException {
 		return mCachedTiles.put(aTile.toString(), aImage, true, owner) != null;
 	}
 	
-	public synchronized boolean putTile(final OpenStreetMapTile aTile, final Bitmap aImage, final boolean recycleable, final long owner) throws StorageException {
+	public synchronized boolean putTile(final MapTile aTile, final Bitmap aImage, final boolean recycleable, final long owner) throws StorageException {
 		return mCachedTiles.put(aTile.toString(), aImage, recycleable, owner) != null;
 	}
 
@@ -87,7 +87,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	 * @param aTile The tile to check for.
 	 * @return true if the tile is in the cache.
 	 */
-	public boolean containsTile(final OpenStreetMapTile aTile) {
+	public boolean containsTile(final MapTile aTile) {
 		return mCachedTiles.containsKey(aTile.toString());
 	}
 	

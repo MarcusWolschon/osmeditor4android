@@ -22,11 +22,11 @@ import de.blau.android.views.IMapView;
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  */
-public abstract class OpenStreetMapViewOverlay {
+public abstract class MapViewOverlay {
     /**
      * Tag used for Android-logging.
      */
-	private static final String DEBUG_TAG = OpenStreetMapTilesOverlay.class.getName();
+	private static final String DEBUG_TAG = MapTilesOverlay.class.getName();
 
     // ===========================================================
 	// Constants

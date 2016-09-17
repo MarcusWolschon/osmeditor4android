@@ -216,7 +216,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		
 			String urlString = uriBuilder.build().toString();
 			try {
-				Log.d("BackgroundAlignmentActionModeCallback", "urlString " + urlString);
+				Log.d(DEBUG_TAG, "urlString " + urlString);
 				URL url = new URL(urlString);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestProperty("User-Agent", Application.userAgent);
@@ -326,7 +326,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			try {
 				ImageryOffset offset = params[0];
 				String urlString = offset.toSaveUrl();
-				Log.d("BackgroundAlignmentActionModeCallback","urlString " + urlString);
+				Log.d(DEBUG_TAG,"urlString " + urlString);
 				URL url = new URL(urlString);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestMethod("POST");

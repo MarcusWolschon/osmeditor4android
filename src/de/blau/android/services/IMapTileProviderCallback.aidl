@@ -18,7 +18,7 @@ package de.blau.android.services;
 
 import android.graphics.Bitmap;
 
-interface IOpenStreetMapTileProviderCallback {
+interface IMapTileProviderCallback {
 
 	void mapTileLoaded(in String rendererID, in int zoomLevel, in int tileX, in int tileY, in byte[] aImage);
 

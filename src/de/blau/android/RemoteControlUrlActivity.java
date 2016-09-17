@@ -15,6 +15,7 @@ import de.blau.android.osm.BoundingBox;
  */
 public class RemoteControlUrlActivity extends Activity {
 	
+	private static final String DEBUG_TAG = "RemoteControlUrlAct...";
 	public static final String RCDATA = "de.blau.android.RemoteControlActivity";
 	
 	@Override
@@ -26,14 +27,14 @@ public class RemoteControlUrlActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		Uri data = getIntent().getData(); 
-		Log.d("RemoteControlUrlActivity",data.toString());
+		Log.d(DEBUG_TAG,data.toString());
 	    Intent intent = new Intent(this, Main.class);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    String command = data.getPath();
 	    if (command.startsWith("/")) {
 	    	command = command.substring(1);
 	    }
-	    Log.d("RemoteControlUrlActivity",command);
+	    Log.d(DEBUG_TAG,command);
 	    if (command.equals("load_and_zoom") || command.equals("zoom")) {
 	    	try {
 				Double left = Double.valueOf(data.getQueryParameter("left"));
@@ -45,7 +46,7 @@ public class RemoteControlUrlActivity extends Activity {
 				rcData.setBox(new BoundingBox(left, bottom, right, top));
 				rcData.setLoad(command.equals("load_and_zoom"));
 				
-				Log.d("RemoteControlUrlActivity","bbox " + rcData.getBox() + " load " + rcData.load());
+				Log.d(DEBUG_TAG,"bbox " + rcData.getBox() + " load " + rcData.load());
 				String select = data.getQueryParameter("select");
 				if (rcData.load() && select != null) {
 					rcData.setSelect(select);
@@ -54,10 +55,10 @@ public class RemoteControlUrlActivity extends Activity {
 
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
-				Log.d("RemoteControlUrlActivity","NumberFormatException ", e);
+				Log.d(DEBUG_TAG,"NumberFormatException ", e);
 				e.printStackTrace();
 			} catch (OsmException e) {
-				Log.d("RemoteControlUrlActivity","OsmException ", e);
+				Log.d(DEBUG_TAG,"OsmException ", e);
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

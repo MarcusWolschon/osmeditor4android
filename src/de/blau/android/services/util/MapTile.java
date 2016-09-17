@@ -8,7 +8,7 @@ package de.blau.android.services.util;
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  */
-public class OpenStreetMapTile {
+public class MapTile {
 	
 	public String rendererID;
 	
@@ -20,14 +20,14 @@ public class OpenStreetMapTile {
 	public static final int MAPTILE_SUCCESS_ID = 0;
 	public static final int MAPTILE_FAIL_ID = MAPTILE_SUCCESS_ID + 1;
 	
-	public OpenStreetMapTile(String rendererID, int zoomLevel, int tileX, int tileY) {
+	public MapTile(String rendererID, int zoomLevel, int tileX, int tileY) {
 		this.rendererID = rendererID;
 		this.zoomLevel = zoomLevel;
 		x = tileX;
 		y = tileY;
 	}
 	
-	public OpenStreetMapTile(OpenStreetMapTile tile) {
+	public MapTile(MapTile tile) {
 		this.rendererID = tile.rendererID;
 		this.zoomLevel = tile.zoomLevel;
 		this.x = tile.x;

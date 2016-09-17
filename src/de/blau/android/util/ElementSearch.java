@@ -13,7 +13,9 @@ import de.blau.android.osm.Way;
 
 public class ElementSearch {
     
-    private static final double MAX_DISTANCE = 20000D; // this is just a very rough number to stop including stuff that is very far away
+    private static final String DEBUG_PLACE_TAG = "PlaceTagValues...";
+	private static final String DEBUG_STREET_TAG = "StreetTagValues...";
+	private static final double MAX_DISTANCE = 20000D; // this is just a very rough number to stop including stuff that is very far away
 	private String[] streetNames = null;
     private Map<String, Long> idsByStreetNames = new HashMap<String, Long>();
     
@@ -91,7 +93,7 @@ public class ElementSearch {
 		if (streetNames == null) {
 		   	streetNames = getStreetArray(location);
 		}
-		Log.d("StreetTagValueAutocompletionAdapter","looking for " + name);
+		Log.d(DEBUG_STREET_TAG,"looking for " + name);
 		Long iD = idsByStreetNames.get(name);
 		if (iD != null) {
 			return iD.longValue();
@@ -113,7 +115,7 @@ public class ElementSearch {
     	final StorageDelegator delegator = Application.getDelegator(); 
 		Map<String, Double> distancesByName = new HashMap<String, Double>();
 		String[] nameTags = {Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME};
-		Log.d("PlaceTagValuesCompletionAdapter","searching for place ways...");
+		Log.d(DEBUG_PLACE_TAG,"searching for place ways...");
 		for (Way way : delegator.getCurrentStorage().getWays()) {
 			if (way.getTagWithKey(Tags.KEY_PLACE) != null) {
 				double distance = -1D;
@@ -144,7 +146,7 @@ public class ElementSearch {
 				}
 			}
 		}
-		Log.d("PlaceTagValuesCompletionAdapter","searching for place nodes...");
+		Log.d(DEBUG_PLACE_TAG,"searching for place nodes...");
 		for (Node node : delegator.getCurrentStorage().getNodes()) {
 			if (node.getTagWithKey(Tags.KEY_PLACE) != null) {
 				double distance = -1D;
@@ -152,7 +154,7 @@ public class ElementSearch {
 
 				for (String tag:nameTags) {
 					String name = node.getTagWithKey(tag);
-					Log.d("PlaceTagValuesCompletionAdapter","adding " + name);
+					Log.d(DEBUG_PLACE_TAG,"adding " + name);
 					if (name != null) {
 						if (distance == -1D) { // only calc once
 							distance = node.getDistance(location);
@@ -193,7 +195,7 @@ public class ElementSearch {
 	}
 	
 	public long getPlaceId(String name) throws OsmException {
-		Log.d("PlaceTagValueAutocompletionAdapter","looking for " + name);
+		Log.d(DEBUG_PLACE_TAG,"looking for " + name);
 		if (placeNames == null) {
 		   	placeNames = getPlaceArray(location);
 		}

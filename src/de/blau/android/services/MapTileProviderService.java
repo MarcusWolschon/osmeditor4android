@@ -16,9 +16,9 @@ import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.services.util.OpenStreetMapTile;
-import de.blau.android.services.util.OpenStreetMapTileFilesystemProvider;
-import de.blau.android.services.util.OpenStreetMapTileProviderDataBase;
+import de.blau.android.services.util.MapTile;
+import de.blau.android.services.util.MapTileFilesystemProvider;
+import de.blau.android.services.util.MapTileProviderDataBase;
 
 /**
  * The OpenStreetMapTileProviderService can download map tiles from a server and
@@ -30,9 +30,10 @@ import de.blau.android.services.util.OpenStreetMapTileProviderDataBase;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  * @author Manuel Stahl
  */
-public class OpenStreetMapTileProviderService extends Service {
+public class MapTileProviderService extends Service {
 
-	private OpenStreetMapTileFilesystemProvider mFileSystemProvider;
+	private static final String DEBUG_TAG = MapTileProviderService.class.getSimpleName();
+	private MapTileFilesystemProvider mFileSystemProvider;
 	private boolean mountPointWiteable = false;
 
 	@Override
@@ -58,17 +59,17 @@ public class OpenStreetMapTileProviderService extends Service {
 		File classicTileDir = new File(classicMountPoint, Paths.DIRECTORY_PATH_TILE_CACHE_CLASSIC);
 		if (classicTileDir.exists()) {
 			// remove old database
-			OpenStreetMapTileProviderDataBase.delete(getBaseContext());
+			MapTileProviderDataBase.delete(getBaseContext());
 		}
 
 		File[] storageDirectories = ContextCompat.getExternalFilesDirs(getBaseContext(), null);
 		for (File dir : storageDirectories) { // iterate over the directories preferring a removable one if possible
 			if (dir==null) {
-				Log.d("OpenStreetMapTileProviderService","storage dir null");
+				Log.d(DEBUG_TAG,"storage dir null");
 				continue;
 			}
-			Log.d("OpenStreetMapTileProviderService", "candidate storage directory " + dir.getPath());
-			if (OpenStreetMapTileProviderDataBase.exists(dir)) { // existing tile cache, use
+			Log.d(DEBUG_TAG, "candidate storage directory " + dir.getPath());
+			if (MapTileProviderDataBase.exists(dir)) { // existing tile cache, use
 				mountPointWiteable = dir.canWrite();
 				mountPoint = dir;
 			} else if (dir.canWrite()) {
@@ -83,9 +84,9 @@ public class OpenStreetMapTileProviderService extends Service {
 		}
 
 		if (mountPointWiteable) {
-			Log.d("OpenStreetMapTileProviderService",
+			Log.d(DEBUG_TAG,
 					"Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
-			mFileSystemProvider = new OpenStreetMapTileFilesystemProvider(getBaseContext(), mountPoint,
+			mFileSystemProvider = new MapTileFilesystemProvider(getBaseContext(), mountPoint,
 					tileCacheSize * 1024 * 1024); // FSCache
 		} else {
 			Toast.makeText(this, R.string.toast_storage_error, Toast.LENGTH_LONG).show();
@@ -112,7 +113,7 @@ public class OpenStreetMapTileProviderService extends Service {
 	/**
 	 * The IRemoteInterface is defined through IDL
 	 */
-	private final IOpenStreetMapTileProviderService.Stub mBinder = new IOpenStreetMapTileProviderService.Stub() {
+	private final IMapTileProviderService.Stub mBinder = new IMapTileProviderService.Stub() {
 		// @Override
 		public String[] getTileProviders() throws RemoteException {
 			return TileLayerServer.getIds(false);
@@ -120,11 +121,11 @@ public class OpenStreetMapTileProviderService extends Service {
 
 		// @Override
 		public void getMapTile(String rendererID, int zoomLevel, int tileX, int tileY,
-				IOpenStreetMapTileProviderCallback callback) throws RemoteException {
+				IMapTileProviderCallback callback) throws RemoteException {
 			if (!mountPointWiteable) { // fail silently
 				return;
 			}
-			OpenStreetMapTile tile = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
+			MapTile tile = new MapTile(rendererID, zoomLevel, tileX, tileY);
 			mFileSystemProvider.loadMapTileAsync(tile, callback);
 		}
 

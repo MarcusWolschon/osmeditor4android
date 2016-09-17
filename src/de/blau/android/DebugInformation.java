@@ -15,9 +15,9 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
-import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
-import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
+import de.blau.android.views.overlay.MapOverlayTilesOverlay;
+import de.blau.android.views.overlay.MapTilesOverlay;
+import de.blau.android.views.overlay.MapViewOverlay;
 
 public class DebugInformation extends AppCompatActivity {
 	private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
@@ -39,11 +39,11 @@ public class DebugInformation extends AppCompatActivity {
 		builder.append(getString(R.string.app_name_version) + "\n");
 		builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + "\n");
 		builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + "\n");
-		List<OpenStreetMapViewOverlay> overlays = Application.mainActivity.getMap().mOverlays;
+		List<MapViewOverlay> overlays = Application.mainActivity.getMap().mOverlays;
 		synchronized(overlays) {
-			for (OpenStreetMapViewOverlay ov:overlays) {
-				if (ov instanceof OpenStreetMapTilesOverlay || ov instanceof OpenStreetMapOverlayTilesOverlay) {
-					builder.append("Tile Cache " + ((OpenStreetMapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((OpenStreetMapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + "\n");
+			for (MapViewOverlay ov:overlays) {
+				if (ov instanceof MapTilesOverlay || ov instanceof MapOverlayTilesOverlay) {
+					builder.append("Tile Cache " + ((MapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((MapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + "\n");
 				}
 			}
 		}

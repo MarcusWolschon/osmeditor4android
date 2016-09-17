@@ -199,7 +199,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public void onReceive(Context context, Intent intent) {
 	        if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-	        	Log.d("ConnectivityChangedReceiver","Received broadcast");
+	        	Log.d("ConnectivityChanged...","Received broadcast");
 	        	if (easyEditManager.isProcessingAction()) {
 	    			easyEditManager.invalidate();
 	    		} else {

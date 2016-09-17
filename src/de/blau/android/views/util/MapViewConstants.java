@@ -6,7 +6,7 @@ package de.blau.android.views.util;
  * @author Nicolas Gramlich
  *
  */
-public interface OpenStreetMapViewConstants {
+public interface MapViewConstants {
 	// ===========================================================
 	// Final Fields
 	// ===========================================================

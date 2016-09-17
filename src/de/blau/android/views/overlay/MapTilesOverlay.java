@@ -20,11 +20,11 @@ import de.blau.android.Map;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.util.OpenStreetMapTileProvider;
+import de.blau.android.views.util.MapTileProvider;
 
 /**
  * Overlay that draws downloaded tiles which may be displayed on top of an
@@ -38,8 +38,9 @@ import de.blau.android.views.util.OpenStreetMapTileProvider;
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  */
-public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
+public class MapTilesOverlay extends MapViewOverlay {
 	
+	private static final String DEBUG_TAG = MapTilesOverlay.class.getSimpleName();
 	/** Define a minimum active area for taps on the tile attribution data. */
 	private static final int TAPAREA_MIN_WIDTH = 40;
 	private static final int TAPAREA_MIN_HEIGHT = 40;
@@ -59,7 +60,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	protected TileLayerServer myRendererInfo;
 
 	/** Current renderer */
-	protected final OpenStreetMapTileProvider mTileProvider;
+	protected final MapTileProvider mTileProvider;
 	protected final Paint mPaint = new Paint();
 	protected Paint textPaint = new Paint();
 	
@@ -70,20 +71,20 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * @param aRendererInfo The tile-server to load a rendered map from.
 	 * @param aTileProvider (may be null)
 	 */
-	public OpenStreetMapTilesOverlay(final View aView,
+	public MapTilesOverlay(final View aView,
 			final TileLayerServer aRendererInfo,
-			final OpenStreetMapTileProvider aTileProvider) {
+			final MapTileProvider aTileProvider) {
 		myView = aView;
 		myRendererInfo = aRendererInfo;
 		if(aTileProvider == null) {
-			mTileProvider = new OpenStreetMapTileProvider(myView.getContext().getApplicationContext(), new SimpleInvalidationHandler(myView));
+			mTileProvider = new MapTileProvider(myView.getContext().getApplicationContext(), new SimpleInvalidationHandler(myView));
 		} else {
 			mTileProvider = aTileProvider;
 		}
 		// 
 		textPaint = DataStyle.getCurrent(DataStyle.ATTRIBUTION_TEXT).getPaint();
 		// mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
-		Log.d("OpenStreetMapTilesOverlay","provider " + aRendererInfo.getId() 
+		Log.d(DEBUG_TAG,"provider " + aRendererInfo.getId() 
 				+ " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel());
 	}
 	
@@ -140,7 +141,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		myRendererInfo = aRendererInfo;
 	}
 
-	public OpenStreetMapTileProvider getTileProvider() {
+	public MapTileProvider getTileProvider() {
 		return mTileProvider;
 	}
 	
@@ -198,8 +199,8 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			latOffset = offset.lat;
 		}
 
-		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), 0, 0, 0); // reused instance of OpenStreetMapTile
-		final OpenStreetMapTile originalTile = new OpenStreetMapTile(tile);
+		final MapTile tile = new MapTile(myRendererInfo.getId(), 0, 0, 0); // reused instance of OpenStreetMapTile
+		final MapTile originalTile = new MapTile(tile);
 		// 
 		final double lonLeft   =  osmv.getViewBox().getLeft() / 1E7d - (lonOffset > 0 ? lonOffset : 0d); 	
 		final double lonRight  =  osmv.getViewBox().getRight() / 1E7d - (lonOffset < 0 ? lonOffset : 0d);	
@@ -380,7 +381,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * @param latOffset TODO
 	 */
 	private boolean drawTile(long owner, Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
-		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), z, x, y);
+		final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
 		if (mTileProvider.isTileAvailable(tile)) {
 			// Log.d("OpenStreetMapTileOverlay","smaller tile " + tile.toString() + " available");
 			c.drawBitmap(
@@ -510,7 +511,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		@Override
 		public void handleMessage(final Message msg) {
 			switch (msg.what) {
-				case OpenStreetMapTile.MAPTILE_SUCCESS_ID:
+				case MapTile.MAPTILE_SUCCESS_ID:
 					// Log.d("OpenStreetMapTileOverlay","received invalidate");
 				    if (viewInvalidates == 0) { // try to suppress inordinate number of invalidates
 						Handler handler = new Handler(); 

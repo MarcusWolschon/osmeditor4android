@@ -42,7 +42,7 @@ import de.blau.android.contract.Paths;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.services.util.MapTile;
 import de.blau.android.util.Density;
 import de.blau.android.util.Offset;
 import de.blau.android.util.jsonreader.JsonReader;
@@ -1075,7 +1075,7 @@ public class TileLayerServer {
 	 * @param aTile The tile to get the URL for.
 	 * @return URL of the given tile.
 	 */
-	public String getTileURLString(final OpenStreetMapTile aTile) {
+	public String getTileURLString(final MapTile aTile) {
 		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		String result = tileUrl;
 		
@@ -1105,7 +1105,7 @@ public class TileLayerServer {
 	 * @param aTile The tile coordinates to convert
 	 * @return The QuadTree as String.
 	 */
-	private static String quadTree(final OpenStreetMapTile aTile) {
+	private static String quadTree(final MapTile aTile) {
 		StringBuilder quadKey = new StringBuilder();
 		for (int i = aTile.zoomLevel; i > 0; i--) {
 			int digit = 0;

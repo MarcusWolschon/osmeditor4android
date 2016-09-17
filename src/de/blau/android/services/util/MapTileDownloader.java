@@ -18,7 +18,7 @@ import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.services.IOpenStreetMapTileProviderCallback;
+import de.blau.android.services.IMapTileProviderCallback;
 
 /**
  * The OpenStreetMapTileDownloader loads tiles from a server and passes them to
@@ -31,7 +31,7 @@ import de.blau.android.services.IOpenStreetMapTileProviderCallback;
  * @author Manuel Stahl
  *
  */
-public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider {
+public class MapTileDownloader extends MapAsyncTileProvider {
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -43,13 +43,13 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// ===========================================================
 
 	protected final Context mCtx;
-	protected final OpenStreetMapTileFilesystemProvider mMapTileFSProvider;
+	protected final MapTileFilesystemProvider mMapTileFSProvider;
 
 	// ===========================================================
 	// Constructors
 	// ===========================================================
 
-	public OpenStreetMapTileDownloader(final Context ctx, final OpenStreetMapTileFilesystemProvider aMapTileFSProvider){
+	public MapTileDownloader(final Context ctx, final MapTileFilesystemProvider aMapTileFSProvider){
 		mCtx = ctx;
 		mMapTileFSProvider = aMapTileFSProvider;
 		mThreadPool = Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
@@ -64,7 +64,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// ===========================================================
 
 	@Override
-	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
+	protected Runnable getTileLoader(MapTile aTile, IMapTileProviderCallback aCallback) {
 		return new TileLoader(aTile, aCallback);
 	}
 	
@@ -72,7 +72,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// Methodsorg.andnav.osm.services
 	// ===========================================================
 
-	private String buildURL(final OpenStreetMapTile tile) {
+	private String buildURL(final MapTile tile) {
 		TileLayerServer renderer = TileLayerServer.get(mCtx, tile.rendererID, false);
 		// Log.d("OpenStreetMapTileDownloader","metadata loaded "+ renderer.isMetadataLoaded() + " " + renderer.getTileURLString(tile));
 		return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
@@ -82,9 +82,9 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// Inner and Anonymous Classes
 	// ===========================================================
 	
-	private class TileLoader extends OpenStreetMapAsyncTileProvider.TileLoader {
+	private class TileLoader extends MapAsyncTileProvider.TileLoader {
 		
-		public TileLoader(final OpenStreetMapTile aTile, final IOpenStreetMapTileProviderCallback aCallback) {
+		public TileLoader(final MapTile aTile, final IMapTileProviderCallback aCallback) {
 			super(aTile, aCallback);
 		}
 		
@@ -121,7 +121,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 					}
 					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
 					
-					OpenStreetMapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
+					MapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
 					if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 						Log.d(DEBUGTAG, "Maptile " + tileURLString + " saved");
 					}
@@ -130,7 +130,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 				try {
 					int reason = ioe instanceof FileNotFoundException ? DOESNOTEXIST : IOERR;
 					if (reason == DOESNOTEXIST)
-						OpenStreetMapTileDownloader.this.mMapTileFSProvider.markAsInvalid(mTile);
+						MapTileDownloader.this.mMapTileFSProvider.markAsInvalid(mTile);
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y,reason);
 				} catch (RemoteException re) {
 					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + re, ioe);
