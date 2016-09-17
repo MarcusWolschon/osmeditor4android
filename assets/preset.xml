@@ -42,13 +42,13 @@
     </chunk>
     <chunk id="maxspeed">
         <text key="maxspeed" text="Max. speed (km/h)"/>
-        <combo key="maxspeed:conditional" text="Max. speed (km/h)\nconditional" match="key"
+        <combo key="maxspeed:conditional" text="Max. speed (km/h) conditional" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />    
         <text key="maxspeed:forward" text="Max. speed in way direction" />
-        <combo key="maxspeed:forward:conditional" text="Max. speed in way direction\nconditional" match="key"
+        <combo key="maxspeed:forward:conditional" text="Max. speed in way direction conditional" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
         <text key="maxspeed:backward" text="Max. speed opposite way direction" />
-        <combo key="maxspeed:backwardward:conditional" text="Max. speed opposite way direction\nconditional" match="key"
+        <combo key="maxspeed:backwardward:conditional" text="Max. speed opposite way direction conditional" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
     </chunk>
     <chunk id="highway_base">
@@ -2178,7 +2178,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="vehicle" text="All vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-            <combo key="vehicle:conditional" text="All vehicles\nconditional"
+            <combo key="vehicle:conditional" text="All vehicles conditional"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- All vehicles -->
@@ -2196,7 +2196,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-            <combo key="motor_vehicle:conditional" text="Motor vehicles\nconditional"
+            <combo key="motor_vehicle:conditional" text="Motor vehicles conditional"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle -->
@@ -2214,7 +2214,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-            <combo key="motor_vehicle:conditional" text="Motor vehicles\nconditional"
+            <combo key="motor_vehicle:conditional" text="Motor vehicles conditional"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle CH -->
@@ -2232,10 +2232,10 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motorcar" text="Motorcar" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-            <combo key="motorcar:conditional" text="Motorcar\nconditional"
+            <combo key="motorcar:conditional" text="Motorcar conditional"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" />
             <combo key="motorcycle" text="Motorcycle" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-            <combo key="motorcycle:conditional" text="Motorcycle\nconditional"
+            <combo key="motorcycle:conditional" text="Motorcycle conditional"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle -->
@@ -2253,7 +2253,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motorcar" text="Motorcar" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-            <combo key="motorcar:conditional" text="Motorcar\nconditional"
+            <combo key="motorcar:conditional" text="Motorcar conditional"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motorcar -->
@@ -2271,7 +2271,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motorcycle" text="Motorcycle" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-            <combo key="motorcycle:conditional" text="Motorcycle\nconditional"
+            <combo key="motorcycle:conditional" text="Motorcycle conditional"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motorcycles -->
@@ -2289,16 +2289,16 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="hgv" text="Heavy Goods Vehicles" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-	    	<combo key="hgv:conditional" text="Heavy Goods Vehicles\nconditional"
+	    	<combo key="hgv:conditional" text="Heavy Goods Vehicles conditional"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    	<text key="maxspeed:hgv" text="Max. speed Heavy Goods Vehicles (km/h)" match="key" />
-            <combo key="maxspeed:hgv:conditional" text="Max. speed Heavy Goods Vehicles (km/h)\nconditional"
+            <combo key="maxspeed:hgv:conditional" text="Max. speed Heavy Goods Vehicles (km/h) conditional"
                   delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" match="key" />    
             <text key="maxspeed:hgv:forward" text="Max. speed HGV in way direction" match="key" />
-            <combo key="maxspeed:hgv:forward:conditional" text="Max. speed HGV in way direction\nconditional"
+            <combo key="maxspeed:hgv:forward:conditional" text="Max. speed HGV in way direction conditional"
                   delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" match="key" />
             <text key="maxspeed:hgv:backward" text="Max. speed HGV opposite way direction" match="key" />
-            <combo key="maxspeed:hgv:backwardward:conditional" text="Max. speed HGV opposite way direction\nconditional"
+            <combo key="maxspeed:hgv:backwardward:conditional" text="Max. speed HGV opposite way direction conditional"
                   delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" match="key" />
 	        <reference ref="additional_access_tags" /> 
         </item> <!-- Heavy Goods Vehicle -->
@@ -2316,7 +2316,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="access" text="General access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,no" match="key" values_searchable="true" />
-	    	<combo key="access:conditional" text="General access\nconditional"
+	    	<combo key="access:conditional" text="General access conditional"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" match="key" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- General access -->

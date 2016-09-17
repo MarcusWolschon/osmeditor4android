@@ -104,5 +104,7 @@ public class Tags {
 	public static final String KEY_WIKIPEDIA = "wikipedia";
 	public static final String KEY_WIKIDATA = "wikidata";
 	
+	public static final String KEY_OPENING_HOURS = "opening_hours";
+	
 	public static final String KEY_CONDITIONAL_SUFFIX = ":conditional";
 }

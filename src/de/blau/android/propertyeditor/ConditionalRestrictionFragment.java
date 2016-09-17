@@ -63,6 +63,8 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 	private static final String VALUE_KEY = "value";
 	
 	private static final String TEMPLATES_KEY = "templates";
+	
+	private static final String OH_TEMPLATES_KEY = "oh_templates";
 
 	private static final String DEBUG_TAG = ConditionalRestrictionFragment.class.getSimpleName();
 
@@ -71,6 +73,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 	private String key;
 	private String conditionalRestrictionValue;
 	private ArrayList<String> templates;
+	private ArrayList<String> ohTemplates;
 	
 	private ArrayList<Restriction> restrictions = null;
 	
@@ -89,13 +92,15 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 
 	/**
 	 */
-	static public ConditionalRestrictionFragment newInstance(String key,String value, ArrayList<String> templates) {
+	static public ConditionalRestrictionFragment newInstance(String key, String value, 
+			ArrayList<String> templates, ArrayList<String> ohTemplates) {
 		ConditionalRestrictionFragment f = new ConditionalRestrictionFragment();
 
 		Bundle args = new Bundle();
 		args.putSerializable(KEY_KEY, key);
 		args.putSerializable(VALUE_KEY, value);
 		args.putSerializable(TEMPLATES_KEY, templates);
+		args.putSerializable(OH_TEMPLATES_KEY, ohTemplates);
 		f.setArguments(args);
 		// f.setShowsDialog(true);
 
@@ -140,10 +145,12 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 			key = getArguments().getString(KEY_KEY);
 			conditionalRestrictionValue = getArguments().getString(VALUE_KEY);
 			templates = getArguments().getStringArrayList(TEMPLATES_KEY);
+			ohTemplates = getArguments().getStringArrayList(OH_TEMPLATES_KEY);
 		} else {
 			key = savedInstanceState.getString(KEY_KEY);
 			conditionalRestrictionValue = savedInstanceState.getString(VALUE_KEY);
 			templates = savedInstanceState.getStringArrayList(TEMPLATES_KEY);
+			ohTemplates = savedInstanceState.getStringArrayList(OH_TEMPLATES_KEY);
 		}
 		if (conditionalRestrictionValue == null) {
 			conditionalRestrictionValue = "";
@@ -348,15 +355,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 			if (!restrictionValues.contains(v)) {
 				adapter.insert(v, 0);
 			}
-			value.setAdapter(adapter);
-			value.setOnFocusChangeListener(new View.OnFocusChangeListener() {				
-				@Override
-				public void onFocusChange(View v, boolean hasFocus) {
-					if (hasFocus) {
-						value.showDropDown();
-					}
-				}
-			});
+			setAdapterAndListeners(value, adapter);
 		}
 		TextWatcher valueWatcher = new TextWatcher() {
 			@Override
@@ -399,6 +398,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					term1.setText(c.term1());
 					final AutoCompleteTextView term2 = (AutoCompleteTextView) expression.findViewById(R.id.editTerm2);
 					term2.setText(c.term2());
+					AutoCompleteTextView term = null;
 					if (expressionConditionValues != null) {
 						ArrayAdapter<String>adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,expressionConditionValues);
 						try {
@@ -406,29 +406,14 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 							if (!expressionConditionValues.contains(c.term2())) {
 								adapter.insert(c.term2(), 0);
 							}
-							term2.setAdapter(adapter);
-							term2.setOnFocusChangeListener(new View.OnFocusChangeListener() {				
-								@Override
-								public void onFocusChange(View v, boolean hasFocus) {
-									if (hasFocus) {
-										term2.showDropDown();
-									}
-								}
-							});
+							term = term2;
 						} catch (NumberFormatException nfex) {
 							if (!expressionConditionValues.contains(c.term1())) {
 								adapter.insert(c.term1(), 0);
 							}
-							term1.setAdapter(adapter);
-							term1.setOnFocusChangeListener(new View.OnFocusChangeListener() {				
-								@Override
-								public void onFocusChange(View v, boolean hasFocus) {
-									if (hasFocus) {
-										term1.showDropDown();
-									}
-								}
-							});
+							term = term1;
 						}
+						setAdapterAndListeners(term, adapter);
 					}
 					addMenuItems(expression, r, c);
 					ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -487,25 +472,25 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					}
 					final AutoCompleteTextView term = (AutoCompleteTextView) condition.findViewById(R.id.editCondition);	
 					term.setText(c.term1());
+					ArrayAdapter<String>adapter = null;
 					if (c.isOpeningHours()) {
-						
+						if (ohTemplates != null) {
+							adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,ohTemplates);
+							if (!ohTemplates.contains(c.term1())) {
+								adapter.insert(c.term1(), 0);
+							}
+						}
 					} else {
 						if (simpleConditionValues != null) {
-							ArrayAdapter<String>adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,simpleConditionValues);
+							adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,simpleConditionValues);
 							if (!simpleConditionValues.contains(c.term1())) {
 								adapter.insert(c.term1(), 0);
 							}
-							term.setAdapter(adapter);
-							term.setOnFocusChangeListener(new View.OnFocusChangeListener() {				
-								@Override
-								public void onFocusChange(View v, boolean hasFocus) {
-									if (hasFocus) {
-										term.showDropDown();
-									}
-								}
-							});
-						}
-					}					
+						}	
+					}	
+					if (adapter != null) {
+						setAdapterAndListeners(term, adapter);
+					}
 					TextWatcher conditionWatcher = new TextWatcher() {
 						@Override
 						public void afterTextChanged(Editable s) {
@@ -538,6 +523,26 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 				}
 			}
 		}
+	}
+	
+	private void setAdapterAndListeners(AutoCompleteTextView atv, ArrayAdapter adapter) {
+		atv.setAdapter(adapter);
+		atv.setOnFocusChangeListener(new View.OnFocusChangeListener() {				
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					((AutoCompleteTextView)v).showDropDown();
+				}
+			}
+		});
+		atv.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (v.hasFocus()) {
+					((AutoCompleteTextView)v).showDropDown();
+				}
+			}
+		});
 	}
 	
 	private synchronized void updateRestrictionStringFromView(EditText view, Restriction r) {
@@ -637,6 +642,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
     	outState.putSerializable(KEY_KEY, key);
     	outState.putSerializable(VALUE_KEY, text.getText().toString());
     	outState.putSerializable(TEMPLATES_KEY, templates);
+    	outState.putSerializable(OH_TEMPLATES_KEY, ohTemplates);
     }  
 
 	@Override

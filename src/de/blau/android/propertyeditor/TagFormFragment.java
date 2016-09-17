@@ -1039,6 +1039,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			Log.d(DEBUG_TAG, "adding " + v + " to templates");
 			templates.add(v);
 		}
+		final ArrayList<String> ohTemplates = new ArrayList<String>();
+		for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).getElement().getType(), Tags.KEY_OPENING_HOURS)) {
+			ohTemplates.add(s.getValue());
+		}	
 		row.valueView.setHint(R.string.tag_dialog_value_hint);
 		row.setOnClickListener(new OnClickListener() {
 			@SuppressLint("NewApi")
@@ -1053,7 +1057,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			        ft.remove(prev);
 			    }
 			    ft.commit();
-			    ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key,value,templates);
+			    ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key,value,templates,ohTemplates);
 			    conditionalRestrictionDialog.show(fm, "fragment_conditional_restriction");
 			}
 		});
