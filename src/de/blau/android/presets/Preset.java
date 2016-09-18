@@ -76,6 +76,7 @@ import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.Util;
 import de.blau.android.views.WrappingLayout;
 
 /**
@@ -2050,6 +2051,11 @@ public class Preset implements Serializable {
 				first = false;
 			}
 			return  result + "]},\n";
+		}
+
+		public void groupI18nKeys() {
+			Util.groupI18nKeys(recommendedTags);
+			Util.groupI18nKeys(optionalTags);
 		}
 	}
 	

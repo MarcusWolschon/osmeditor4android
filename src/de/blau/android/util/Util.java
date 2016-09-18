@@ -29,6 +29,7 @@ import de.blau.android.Logic;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 
 public class Util {
@@ -272,5 +273,36 @@ public class Util {
 	    } else {
 	    	ViewCompat.setBackgroundTintList(fab, tint);
 	    }
+	}
+	
+	/**
+	 * Group keys so that i18n follow the base key (which should always come first in map)
+	 * @param <V>
+	 * @param map
+	 */
+	public static <V> void groupI18nKeys(Map<String,V> map) {
+		LinkedHashMap<String,V> temp = new  LinkedHashMap<String,V>();
+		ArrayList<String> keys = new ArrayList<String>(map.keySet());
+		while (keys.size()>0) {
+			String key = keys.get(0);
+			keys.remove(0);
+			if (Tags.I18N_NAME_KEYS.contains(key)) {
+				temp.put(key, map.get(key));
+				int i = 0;
+				while (keys.size()>0 && i < keys.size()) {
+					String i18nKey = keys.get(i);
+					if (i18nKey.startsWith(key+":")) {
+						temp.put(i18nKey, map.get(i18nKey));
+						keys.remove(i);
+					} else {
+						i++;
+					}
+				}
+			} else {
+				temp.put(key, map.get(key));
+			}
+		}
+		map.clear();
+		map.putAll(temp);
 	}
 }

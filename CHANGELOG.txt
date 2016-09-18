@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1196: order tags in form as they are in the preset and group i18n name tags.
+
 1194: correctly add newly created elements to API storage when reading a JOSM style file.
 
 1193: refactoring, save follow GPS state over pause - resume cycles, documentation updates.

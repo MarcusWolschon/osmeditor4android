@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -661,49 +662,75 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		LinkedHashMap<String,String> linkedTags = new LinkedHashMap<String,String>();
 		LinkedHashMap<String,String> nonEditable = new LinkedHashMap<String,String>();
 		HashMap<String,PresetItem> keyToLinkedPreset = new HashMap<String,PresetItem>();
-		
+		boolean groupingRequired = false;
 		if (preset != null) {
+			// iterate over preset entris so that we maintain ordering
 			List<PresetItem> linkedPresets = preset.getLinkedPresets();
-			for (String key:tags.keySet()) {
-				String value = tags.get(key);
-				if (preset.hasKeyValue(key, value)) {
-					if (preset.isFixedTag(key)) {
-						// skip, not displayed
-					} else if (preset.isRecommendedTag(key)) {
+			LinkedHashMap<String,String> tagList = new LinkedHashMap<String,String>(tags);
+			for (Entry<String,StringWithDescription>e:preset.getFixedTags().entrySet()) {
+				String value = tagList.get(e.getKey());
+				if (value != null && value.equals(e.getValue().getValue())) {
+					tagList.remove(e.getKey());
+				}
+			}
+			for (String key:preset.getRecommendedTags().keySet()) {
+				String value = tagList.get(key);
+				if (value != null) {
+					if (preset.hasKeyValue(key, value)) {
 						recommendedEditable.put(key, value);
-					} else {
-						optionalEditable.put(key, value);
-					}
-					// store tags in view
-					editableView.putTag(key, value);
-				} else {
-					// check if i18n version of a name tag
-					boolean found = addI18nKeyToPreset(key, value, preset, recommendedEditable, editableView);
-					
-					if (!found && linkedPresets != null) { // check if tag is in a linked preset
-						for (PresetItem l:linkedPresets) {
-							if (l.hasKeyValue(key, value)) {
-								linkedTags.put(key, value);
-								editableView.putTag(key, value);
-								keyToLinkedPreset.put(key, l);
-								found = true;
-								break;
-							}
-							// check if i18n version of a name tag
-							if (found = addI18nKeyToPreset(key, value, preset, linkedTags, editableView)) {
-								keyToLinkedPreset.put(key, l);
-								break;
-							}
-						}
-					}
-
-					if (!found) {
-						nonEditable.put(key, tags.get(key));
+						tagList.remove(key);
 					}
 				}
 			}
+			for (String key:preset.getOptionalTags().keySet()) {
+				String value = tagList.get(key);
+				if (value != null) {
+					if (preset.hasKeyValue(key, value)) {
+						optionalEditable.put(key, value);
+						tagList.remove(key);
+					}
+				}
+			}
+			// process any remaining tags
+			for (Entry<String,String>e:tagList.entrySet()) {
+				String key = e.getKey();
+				String value = e.getValue();
+				// check if i18n version of a name tag
+				boolean found = addI18nKeyToPreset(key, value, preset, recommendedEditable, editableView);
+				if (found) {
+					groupingRequired = true;
+				}
+				if (!found && linkedPresets != null) { // check if tag is in a linked preset
+					for (PresetItem l:linkedPresets) {
+						if (l.hasKeyValue(key, value)) {
+							linkedTags.put(key, value);
+							editableView.putTag(key, value);
+							keyToLinkedPreset.put(key, l);
+							found = true;
+							break;
+						}
+						// check if i18n version of a name tag
+						if (found = addI18nKeyToPreset(key, value, preset, linkedTags, editableView)) {
+							keyToLinkedPreset.put(key, l);
+							groupingRequired = true;
+							break;
+						}
+					}
+				}
+
+				if (!found) {
+					nonEditable.put(key, tags.get(key));
+				} 
+			}
 		} else {
 			Log.e(DEBUG_TAG,"addTagsToViews called with null preset");
+		}
+		if (groupingRequired) {
+			Log.d(DEBUG_TAG,"grouping i18n keys");
+			preset.groupI18nKeys();
+			Util.groupI18nKeys(recommendedEditable);
+			Util.groupI18nKeys(optionalEditable);
+			Util.groupI18nKeys(linkedTags);
 		}
 		for (String key:recommendedEditable.keySet()) {
 			addRow(editableView,key, recommendedEditable.get(key),preset, tags);
@@ -732,7 +759,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			if (key.startsWith(tag + ":")) {
 				String[] s = key.split("\\Q:\\E");
 				if (preset.hasKey(tag) && s != null && s.length == 2) {
-					preset.addTag(false, key, PresetKeyType.TEXT, null);
+					preset.addTag(preset.isOptionalTag(tag), key, PresetKeyType.TEXT, null);
 					String hint = preset.getHint(tag);
 					if (hint != null) {
 						preset.addHint(key, getActivity().getString(R.string.internationalized_hint, hint, s[1])); // FIXME RTL
@@ -744,7 +771,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			}
 		}
 		return false;
-	}
+	}	
 	
 	private void addRow(final LinearLayout rowLayout, final String key, final String value, PresetItem preset, LinkedHashMap<String, String> allTags) {
 		if (rowLayout != null) {
