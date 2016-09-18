@@ -290,12 +290,14 @@ public class EasyEditManager {
 
 	/**
 	 * call the onBackPressed method for the currently active action mode
-	 * @return
+	 * @return true if the press was consumed
 	 */
 	public boolean handleBackPressed() {
 		synchronized (actionModeCallbackLock) {
-			if (currentActionModeCallback != null)
+			if (currentActionModeCallback != null) {
+				Log.d(DEBUG_TAG, "handleBackPressed for " + currentActionModeCallback.getClass().getSimpleName());
 				return currentActionModeCallback.onBackPressed();
+			}
 			return false;
 		}
 	}
@@ -582,7 +584,8 @@ public class EasyEditManager {
 		 * @return
 		 */
 		public boolean onBackPressed() {
-			return false;
+			finish();
+			return true;
 		}
 		
 		public boolean processShortcut(Character c) {
@@ -2383,7 +2386,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onBackPressed() {
 			backPressed = true;
-			return false; // call the normal stuff
+			return super.onBackPressed(); // call the normal stuff
 		}
 	}	
 	
@@ -2406,8 +2409,7 @@ public class EasyEditManager {
 		
 		protected UndoListener undoListener; 
 		
-		private boolean backPressed = false;
-		private boolean deselect = true;
+		private boolean deselect = false;
 				
 		public ExtendSelectionActionModeCallback(ArrayList<OsmElement> elements) {
 			super();
@@ -2633,6 +2635,7 @@ public class EasyEditManager {
 		
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
+			Log.d(DEBUG10_TAG,"onDestroyActionMode deselect " + deselect); 
 			super.onDestroyActionMode(mode);
 			logic.setClickableElements(null);
 			logic.setReturnRelations(true);
@@ -2648,7 +2651,7 @@ public class EasyEditManager {
 		}
 		
 		private void menuDelete(boolean deleteFromRelations) {		
-			Log.d(DEBUG10_TAG,"Multi-select menuDelete " + deleteFromRelations + " " + selection);
+			Log.d(DEBUG10_TAG,"menuDelete " + deleteFromRelations + " " + selection);
 			
 			// check for relation membership
 			if (!deleteFromRelations) {
@@ -2675,13 +2678,11 @@ public class EasyEditManager {
 			currentActionMode.finish();
 		}	
 		
-		/**
-		 * back button should abort relation creation
-		 */
 		@Override
 		public boolean onBackPressed() {
-			backPressed = true;
-			return false; // call the normal stuff
+			Log.d(DEBUG10_TAG,"onBackPressed");
+			deselect = true;
+			return super.onBackPressed(); // call the normal stuff
 		}
 	}
 }

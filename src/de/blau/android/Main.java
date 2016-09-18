@@ -2264,8 +2264,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			else
 				exitOnBackPressed();
-		} else 
+		} else {
 			exitOnBackPressed();
+		}
 	}
 		
 	/**
@@ -2296,16 +2297,22 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 		
 	
+	private boolean actionResult = false;
 	/**
 	 * catch back button in action modes where onBackPressed is not invoked
-	 * this is probably not guaranteed to work and will not in android 3.something
+	 * this is probably not guaranteed to work 
 	 */
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
-	    if(easyEditManager.isProcessingAction()) {
-	        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-	        	if (easyEditManager.handleBackPressed())
-	        		return true;
+	    if(easyEditManager != null && easyEditManager.isProcessingAction()) {
+	        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+	        	if (event.getAction() == KeyEvent.ACTION_DOWN) {
+	        		Log.d(DEBUG_TAG,"calling handleBackPressed");
+	        		actionResult = easyEditManager.handleBackPressed();
+	        		return actionResult;
+	        	} else { // note to avoid tons of error messages we need to consume both events
+	        		return actionResult;
+	        	}
 	        }
 	    }
 	    return super.dispatchKeyEvent(event);
