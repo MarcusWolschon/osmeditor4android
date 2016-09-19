@@ -2932,10 +2932,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public static void prepareRedownload() {
 		redownloadOnResume = true;
 	}
-	
-	public String getBaseURL() {
-		return prefs.getServer().getReadWriteUrl();
-	}
 
 	@Override
 	public void onServiceConnected(ComponentName name, IBinder service) {

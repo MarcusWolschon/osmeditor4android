@@ -1420,6 +1420,12 @@ public class Server {
 		return url.replaceAll("/api/[0-9]+(?:\\.[0-9]+)+/?$", "/");
 	}
 	
+	/**
+	 * @return the URL the OSM website, FIXME for now hardwired and a bit broken
+	 */
+	public String getWebsiteBaseUrl() {
+		return getBaseUrl(getReadWriteUrl()).replace("api.", "");
+	}
 	
 	/* New Notes API 
 	 * code mostly from old OSB implementation
