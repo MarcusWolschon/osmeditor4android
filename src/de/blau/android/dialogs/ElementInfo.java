@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
+import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -23,10 +24,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toolbar.LayoutParams;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -47,7 +50,7 @@ public class ElementInfo extends DialogFragment {
 	
 	private static final String TAG = "fragment_element_info";
 
-	private static final int FIRST_CELL_WIDTH = 20;
+	private static final int FIRST_CELL_WIDTH = 5;
 	
 	static public void showDialog(FragmentActivity activity, OsmElement e) {
 		dismissDialog(activity);
@@ -111,7 +114,8 @@ public class ElementInfo extends DialogFragment {
         tp.setMargins(10, 2, 10, 2);
        
         if (e != null) {
-        	tl.setShrinkAllColumns(true);
+        	// tl.setShrinkAllColumns(true);
+        	tl.setColumnShrinkable(1, true);
         	
         	tl.addView(createRow(R.string.type,e.getName(),tp));
         	tl.addView(createRow(R.string.id,"#" + e.getOsmId(),tp));
@@ -126,9 +130,10 @@ public class ElementInfo extends DialogFragment {
         		tl.addView(createRow(R.string.length_m, String.format(Locale.US,"%.2f",((Way)e).length()),tp));
         		tl.addView(createRow(R.string.nodes, "" + (((Way)e).nodeCount() + (isClosed?-1:0)),tp));       		
         		tl.addView(createRow(R.string.closed, getString(isClosed ? R.string.yes : R.string.no),tp));
-        		for (Node n:((Way)e).getNodes()) {
-        			tl.addView(createRow("", "" + n.getDescription(),tp));
-        		}
+ //       		Make this expandable before enabling
+ //       		for (Node n:((Way)e).getNodes()) {
+ //       			tl.addView(createRow("", "" + n.getDescription(),tp));
+ //       		}
         	} else if (e.getName().equals(Relation.NAME)) {
         		tl.addView(divider());
         		List<RelationMember> members = ((Relation)e).getMembers();
@@ -205,6 +210,9 @@ public class ElementInfo extends DialogFragment {
     	if (cell2 != null) {
     		cell.setText(cell2);
     		cell.setMinEms(FIRST_CELL_WIDTH);
+    		// cell.setHorizontallyScrolling(true);
+    		// cell.setSingleLine(true);
+    		cell.setEllipsize(TextUtils.TruncateAt.END);
     		Linkify.addLinks(cell,Linkify.WEB_URLS);
     		cell.setMovementMethod(LinkMovementMethod.getInstance());
     		cell.setPadding(5, 0, 0, 0);
@@ -249,9 +257,13 @@ public class ElementInfo extends DialogFragment {
     
     @SuppressWarnings("deprecation")
 	private View divider() {
+    	TableRow tr = new TableRow(getActivity());
     	View v = new View(getActivity());
-    	v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1));
+    	TableRow.LayoutParams trp = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1);
+    	trp.span = 2;
+    	v.setLayoutParams(trp);
     	v.setBackgroundColor(Color.rgb(204, 204, 204));
-    	return v;
+    	tr.addView(v);
+    	return tr;
     }
 }
