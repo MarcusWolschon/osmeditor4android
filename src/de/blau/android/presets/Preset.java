@@ -382,7 +382,7 @@ public class Preset implements Serializable {
         	/** store current combo or multiselect key */
         	private String listKey = null;
         	private ArrayList<StringWithDescription> listValues = null;
-        	private String mainValueContext = null;
+        	private String valuesContext = null;
         	private String delimiter = null;
         	
         	{
@@ -510,16 +510,13 @@ public class Preset implements Serializable {
             		String values = attr.getValue("values");
             		String displayValues = attr.getValue("display_values");
             		String shortDescriptions = attr.getValue("short_descriptions");
+            		valuesContext = attr.getValue("values_context");
             		if (values != null) {
             			currentItem.addTag(inOptionalSection, key, multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO, 
-            					values, displayValues, shortDescriptions, delimiter);
+            					values, displayValues, shortDescriptions, delimiter, valuesContext);
             		} else {
             			listKey = key;
             			listValues = new ArrayList<StringWithDescription>();
-            		}
-            		mainValueContext = attr.getValue("values_context");
-            		if (mainValueContext != null) {
-            			currentItem.setTextContext(key,mainValueContext);
             		}
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {
@@ -591,7 +588,7 @@ public class Preset implements Serializable {
             				if (d == null) {
             					d = attr.getValue("short_description");
             				}
-            				listValues.add(new StringWithDescription(v,po != null ? (mainValueContext != null?po.t(mainValueContext,d):po.t(d)):d));
+            				listValues.add(new StringWithDescription(v,po != null ? (valuesContext != null?po.t(valuesContext,d):po.t(d)):d));
             			}
             		}
             	} else if ("preset_link".equals(name)) {
@@ -1437,10 +1434,10 @@ public class Preset implements Serializable {
 		 * @param values values string from the XML (comma-separated list of possible values)
 		 */
 		public void addTag(boolean optional, String key, PresetKeyType type, String values) {
-			addTag(optional, key, type, values, null, null, COMBO_DELIMITER);
+			addTag(optional, key, type, values, null, null, COMBO_DELIMITER, null);
 		}
 		
-		public void addTag(boolean optional, String key, PresetKeyType type, String values, String displayValues, String shortDescriptions, final String delimiter) {
+		public void addTag(boolean optional, String key, PresetKeyType type, String values, String displayValues, String shortDescriptions, final String delimiter, String valuesContext) {
 			String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(delimiter));
 			String[] displayValueArray = (displayValues == null) ? new String[0] : displayValues.split(Pattern.quote(delimiter));
 			String[] shortDescriptionArray = (shortDescriptions == null) ? new String[0] : shortDescriptions.split(Pattern.quote(delimiter));
@@ -1450,9 +1447,9 @@ public class Preset implements Serializable {
 			for (int i=0;i<valueArray.length;i++){
 				String description = null;
 				if (useDisplayValues) {  
-					description = (po != null && displayValueArray[i] != null) ? po.t(displayValueArray[i]) : displayValueArray[i];
+					description = (po != null && displayValueArray[i] != null) ? (valuesContext != null ? po.t(valuesContext,displayValueArray[i]) : po.t(displayValueArray[i])) : displayValueArray[i];
 				} else if (useShortDescriptions) {
-					description = (po != null && shortDescriptionArray[i] != null) ? po.t(shortDescriptionArray[i]):shortDescriptionArray[i];
+					description = (po != null && shortDescriptionArray[i] != null) ? (valuesContext != null ? po.t(valuesContext,shortDescriptionArray[i]) : po.t(shortDescriptionArray[i])):shortDescriptionArray[i];
 				}
 				valuesWithDesc[i] = new StringWithDescription(valueArray[i], description);
 			}
