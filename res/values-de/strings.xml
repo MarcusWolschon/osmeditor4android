@@ -233,6 +233,7 @@
   <string name="tag_restriction_add_simple_condition">Einfache Bedingung hinzufügen</string>
   <string name="tag_restriction_add_expression">Ausdruck hinzufügen</string>
   <string name="tag_restriction_add_opening_hours">Öffnungszeiten hinzufügen</string>
+  <string name="tag_restriction_value_hint">bedingte Beschränkung</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Bereich laden</string>
   <string name="location_choose_radius">Wähle Radius aus:</string>

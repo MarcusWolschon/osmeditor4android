@@ -74,15 +74,15 @@ Vespucci 有一個"增加地址標籤"功能，那讓勘察地址更有效率。
 
 Vespucci 有個快速的增加轉向限制。注意：如果您為了限制而需要分割一條道路，您須要在開始之前做到這點。
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
-* select "Add restriction" from the menu
-* select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type in the tag menu
+* 選取有highway標籤的路徑(轉彎限制只能加在highway上，如果你想加在其他種類的路徑，請用一般的"建立關係"模式，如果沒有適當的"經過"元件，選單則不會顯示)
+* 選取選單裡"增加關係"選項
+* 選取"經過"節點或路徑(所有可能選擇的"經過"元件會顯示為高亮度)
+* 選取"到"路徑(有可能雙重後退和設定"到"變成"從"元件，Vespucci會假設你要增加不能廻轉限制)
+* 在標籤選單設定限制種類
 
-### Vespucci in "locked" mode
+### Vespucci"鎖定"模式
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+當紅色鎖定圖示顯示時，所有非編輯動作都可以做。除此之外，長按或是接近物件時，如果是OSM物件時會顯示詳細資訊視窗
 
 ### 儲存您的變更
 
@@ -92,7 +92,7 @@ When the red lock is displayed all non-editing actions are available. Additional
 
 Vespucci 除了支援 OAuth 的授權和標準的使用者名稱與密碼的方式。 而 OAuth 更好，因為它避免了以明文發送密碼。
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+新版Vespucci安裝之後，OAuth會預設啟用。當你第一次要上傳變動的資料，一頁OSM網頁會載入。登入之後(透過加密連線)，你會被要求認證Vespucci才能用你帳號編輯。如果你想要或是需要在編輯前，認證你帳號的OAuth連線，你可以在"工具"選單選擇對應的項目。
 
 如果您想要儲存您的工作，並且不能連入網際網路，您可以儲存成 JOSM 相容的 .osm 檔案，以後以 Vespucci 或 JOSM 任何一個上載。 
 

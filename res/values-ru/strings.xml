@@ -86,11 +86,13 @@
   <string name="search_results_title">Результаты поиска</string>
   <string name="find_message">Введите строку поиска</string>
   <string name="preset_search_hint">Строка поиска заготовок</string>
+  <string name="search">Поиск</string>
   <string name="no_valid_preset">Нет подходящей заготовки!</string>
   <string name="read_file">Выберете файл для чтения</string>
   <string name="save_file">Введите файл для сохранения</string>
   <string name="existing_track_title">Существующие данные трека</string>
   <string name="existing_track_message">Имеются несохранённые данные другого трека. Вы можете отменить команду и сначала сохранить данные.</string>
+  <string name="delete_tags">Действительно удалить все теги у объекта \"%1$s\"?</string>
   <string name="element_information">Информация об элементе</string>
   <string name="id">ID</string>
   <string name="nodes">Точки</string>
@@ -166,6 +168,8 @@
   <string name="save">Сохранить</string>
   <string name="back">Назад</string>
   <string name="keep">Оставить</string>
+  <string name="clear">Очистить</string>
+  <string name="retry">Повторить</string>
   <!--Dialog for back button-->
   <string name="exit_title">Действительно выйти?</string>
   <string name="exit_text">Вы действительно хотите выйти?</string>
@@ -187,10 +191,24 @@
   <string name="tag_menu_reset_address_prediction">Сбросить предсказание адресов</string>
   <string name="tag_menu_exit_no_save">Выйти
 без сохранения</string>
+  <string name="tag_value_hint">Введите значение</string>
+  <string name="tag_autocomplete_value_hint">Введите или выберите значение</string>
   <string name="tag_multi_value_hint">Несколько значений</string>
+  <string name="tag_dialog_value_hint">Выберите значение</string>
+  <string name="tag_additional_properties">Дополнительные свойства</string>
+  <string name="tag_details">Подробности</string>
+  <string name="tag_menu_sort">Сортировать</string>
   <string name="menu_up">Вверх</string>
   <string name="menu_top">Верхнее</string>
   <string name="menu_preset_help">Справка по заготовке</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i8n">Добавить теги к %1$s</string>
+  <string name="tag_restriction_header">Значение</string>
+  <string name="tag_restriction_and">и</string>
+  <string name="tag_restriction_add_simple_condition">Добавить простое условие</string>
+  <string name="tag_restriction_add_expression">Добавить выражение</string>
+  <string name="tag_restriction_add_opening_hours">Добавить время работы</string>
+  <string name="tag_restriction_value_hint">условное ограничение</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Область скачивания</string>
   <string name="location_choose_radius">Выберите радиус:</string>
@@ -227,6 +245,7 @@
   <string name="menu_closed_way_split_1">Разбить замкнутую линию, 1-я точка</string>
   <string name="menu_closed_way_split_2">Разбить замкнутую линию, 2-я точка</string>
   <string name="menu_append">Добавить</string>
+  <string name="menu_restriction">Добавить ограничение на поворот</string>
   <string name="menu_relation">Создать отношение</string>
   <string name="menu_add_relation_member">Добавить участника</string>
   <string name="menu_select_relation_members">Выбрать участников</string>
@@ -264,6 +283,7 @@
   <string name="menu_transfer_bugs_clear">Очистить</string>
   <string name="menu_transfer_bugs_clear_long">Очистить ошибки</string>
   <string name="menu_transfer_autodownload_long">Скачивать ошибки автоматом</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Сохранить все заметки...</string>
   <string name="menu_save">Сохранить в файл</string>
   <string name="menu_join">Объединить</string>
   <string name="menu_unjoin">Разъединить</string>
@@ -271,6 +291,7 @@
   <string name="menu_cut">Вырезать</string>
   <string name="menu_paste">Вставить</string>
   <string name="menu_paste_from_clipboard">Вставить из буфера обмена</string>
+  <string name="menu_zoom_to_selection">Приблизить к выделению</string>
   <string name="menu_rotate">Повернуть</string>
   <string name="menu_orthogonalize">Ортогонализировать</string>
   <string name="menu_circulize">Выстроить в круг</string>
@@ -413,6 +434,7 @@
   <string name="config_address_tags">Теги адреса</string>
   <string name="config_address_tags_summary">Теги, используемые для предсказания адресов</string>
   <string name="config_moreprefs">Другие настройки...</string>
+  <string name="config_fullscreenMode_title">Полноэкранный режим</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
   <string name="preset_download_successful">Заготовка успешно загружена</string>

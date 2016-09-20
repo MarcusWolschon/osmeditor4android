@@ -79,7 +79,7 @@ Amusez-vous bien !</string>
   <string name="openstreetbug_new_nodeway">Créer un nœud/chemin</string>
   <string name="openstreetbug_edit_title">Modifier note</string>
   <string name="openstreetbug_commitbutton">Envoyer</string>
-  <string name="openstreetbug_comment_label">Commentaire:</string>
+  <string name="openstreetbug_comment_label">Commentaire :</string>
   <string name="openstreetbug_edit_close">Fermer</string>
   <string name="openstreetbug_edit_closed">Fermé</string>
   <string name="openstreetbug_commit_ok">Modifications de bugs sauvegardées</string>
@@ -166,7 +166,7 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="toast_imported_track_points">%1$s points importés</string>
   <string name="toast_unknown_voice_command">Désolé actuellement \"%1$s\" n\'est pas compris</string>
   <string name="toast_inconsistent_state">État instable détecté, merci d\'envoyer un rapport d\'erreur!</string>
-  <string name="toast_camera_error">Erreur en lançant l\'appli caméra: %1$s</string>
+  <string name="toast_camera_error">Erreur en lançant l\'appli caméra : %1$s</string>
   <string name="toast_no_voice">Pas de système de reconaissance vocale trouvé</string>
   <string name="toast_storage_error">Vespucci ne peut écrire dans le répertoire destiné aux tuiles de carte et autres fichiers.\nCela peut être dû à la configuration des permissions ou à un problème technique avec votre appareil.</string>
   <string name="toast_min_one_preset">Au moins un modèle d\'attributs doit être sélectionné !</string>
@@ -215,6 +215,8 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="tag_details">Détails</string>
   <string name="tag_menu_sort">Trier</string>
   <string name="tag_menu_download">Télécharger</string>
+  <string name="tag_restriction_and">et</string>
+  <string name="tag_restriction_add_opening_hours">Ajouter des horaires d\'ouverture</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Télécharger une zone</string>
   <string name="location_choose_radius">Rayon :</string>
@@ -223,7 +225,7 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="location_current_text">Position actuelle :</string>
   <string name="location_text_unknown">inconnu</string>
   <string name="location_last_text_parameterized">Dernière position connue : %1$s</string>
-  <string name="location_current_text_parameterized">Position actuelle: %1$s</string>
+  <string name="location_current_text_parameterized">Position actuelle : %1$s</string>
   <string name="location_text_metadata_location">
 Lat %1$4g, Lon %2$4g
 il y a %3$s %4$s</string>

@@ -4,41 +4,41 @@ Vespucci est un éditeur OpenStreetMap complet qui supporte la plupart des opér
 
 ## Première utilisation
 
-Au démarrage Vespucci affiche le dialogue "Télécharger autre endroit"/"Télécharger une zone". Si des coordonées sont affichées et que vous voulez télécharger immédiatement, sélectionez l'option correspondante et donnez le rayon autour de l'endroit que vous voulez télécharger. Ne sélectionez pas une zone trop grande sur un appareil lent. 
+Au démarrage Vespucci affiche le dialogue "Télécharger autre endroit"/"Télécharger une zone". Si des coordonnées sont affichées et que vous voulez télécharger immédiatement, sélectionnez l'option correspondante et donnez le rayon autour de l'endroit que vous voulez télécharger. Ne sélectionnez pas une zone trop grande sur un appareil lent. 
 
-Ou alors, fermez le dialogue en tapant le bouton "Aller à la carte", zoomez/déplacez justqu'à l'endroit que vous voulez éditer, et téléchargez les données à partir de là (voir ci-dessous "Éditer avec Vespucci"). 
+Ou alors, fermez le dialogue en tapant le bouton "Aller à la carte", zoomez/déplacez jusqu'à l'endroit que vous voulez éditer, et téléchargez les données à partir de là (voir ci-dessous "Éditer avec Vespucci"). 
 
 ## Éditer avec Vespucci
 
-Selon la taille de votre écran et l'age de l'appareil, les actions d'édition sont accessibles par des icones dans la barre du haut, par un menu déroulant sur la droite de la barre du haut, par la barre du bas (si présente), ou par la touche menu.
+Selon la taille de votre écran et l'age de l'appareil, les actions d'édition sont accessibles par des icônes dans la barre du haut, par un menu déroulant sur la droite de la barre du haut, par la barre du bas (si présente), ou par la touche menu.
 
 ### Télécharger des données OSM
 
-Selectionez soit l'icône transfert ![](../images/menu_transfer.png)  soit "Transfer" dans le meny. Cela affiche sept options :
+Sélectionnez soit l'icône Transfert ![](../images/menu_transfer.png)  soit "Transfert" dans le menu. Cela affiche sept options :
 
-* **Télécharger la vue courante** - télécharge la zone visible à l'écran et remplace les données existantes *(nécessite une connection réseau)*
-* **Ajouer les données de la vue courante** - télécharge la zone visible à l'écran et la fusione avec les données existantes *(nécessite une connection réseau)*
-* **Télécharger un autre endroit** - affiche un formulaire permettant de rechercher un lieu, d'entrer des coordonnées directement, ou d'utiliser la position actuelle pour télécharger une zone autour de ce point *(nécessite une connection réseau)*
-* **Envoyer les données au serveur OSM** - envoie les modification vers OpenStreetMap *(nécessite d'être authentifié)* *(nécessite une connection réseau)*
-* **Téléchargement automatique** - télécharge automatiquement la zone autour de la position courante *(nécessite une connection réseau)* *(nécessite le GPS)*
+* **Télécharger la vue courante** - télécharge la zone visible à l'écran et remplace les données existantes *(nécessite une connexion réseau)*
+* **Ajouter les données de la vue courante** - télécharge la zone visible à l'écran et la fusionne avec les données existantes *(nécessite une connexion réseau)*
+* **Télécharger un autre endroit** - affiche un formulaire permettant de rechercher un lieu, d'entrer des coordonnées directement, ou d'utiliser la position actuelle pour télécharger une zone autour de ce point *(nécessite une connexion réseau)*
+* **Envoyer les données au serveur OSM** - envoie les modification vers OpenStreetMap *(nécessite d'être authentifié)* *(nécessite une connexion réseau)*
+* **Téléchargement automatique** - télécharge automatiquement la zone autour de la position courante *(nécessite une connexion réseau)* *(nécessite le GPS)*
 * **Fichier...** - sauvegarde ou ouvre les données OSM dans des fichiers en local
-* **Notes/Bugs** télécharge (automatiquement et manuellement) les Notes OSM et les "Bugs" des outils d'assurance qualité (OSMOSE pour l'instant) *(nécessite une connection réseau)*
+* **Notes/Bugs** télécharge (automatiquement et manuellement) les Notes OSM et les "Bugs" des outils d'assurance qualité (OSMOSE pour l'instant) *(nécessite une connexion réseau)*
 
-La plus simple manière de télécharger des données est de zoomer et se déplacer vers le lieu que vous voulez éditer, puis de sélectioner "télécharger la vue courante". Vous pouvez zoomer en utilisant le geste pincer/agrandir, avec les botons de zoom, ou avec les boutons de volume du téléphone. Vespucci va alors télécharger les données de la vue courante. Il n'y a pas besoin d'être authentifié pour télécharger les donnes sur votre appareil. 
+La plus simple manière de télécharger des données est de zoomer et se déplacer vers le lieu que vous voulez éditer, puis de sélectionner "télécharger la vue courante". Vous pouvez zoomer en utilisant le geste pincer/agrandir, avec les boutons de zoom, ou avec les boutons de volume du téléphone. Vespucci va alors télécharger les données de la vue courante. Il n'y a pas besoin d'être authentifié pour télécharger les donnes sur votre appareil. 
 
 ### Éditer
 
-Pour éviter des modifications accidentelles Vespucci démarre en mode "bloqué", lequel ne permet que de zoomer et de se déplacer sur la carte. Appuyez sur l'icone ![bloqué](../images/locked.png) pour débloquer l'édition. Un appui long sur cette icône active le mode "modification des attributs uniquement" qui empèche de créer de nouveaux objets ou de modifier les géométries. Ce mode est indiqué avec une icône un peu plus blanche.
+Pour éviter des modifications accidentelles Vespucci démarre en mode "verrouillé", lequel ne permet que de zoomer et de se déplacer sur la carte. Appuyez sur l’icône ![verrouillé](../images/locked.png) pour débloquer l'édition. Un appui long sur cette icône active le mode "modification des attributs uniquement" qui empêche de créer de nouveaux objets ou de modifier les géométries. Ce mode est indiqué avec une icône un peu plus blanche.
 
 Par défaut, les nœuds et chemins sélectionnables ont une marge orange indiquant approximativement où toucher pour sélectionner l'objet. Si vous essayez de sélectionner un objet et que Vespucci détermine que cette sélection concerne plusieurs objets, il affichera un menu de sélection. Les objets sélectionnés sont en surbrillance jaune.
 
 Il est conseillé de zoomer plus quand vous éditez une zone avec une grande densité de données.
 
-Vespucci a un bon système d'"annuler/refaire" donc n'ayez pas peur d'expérimenter sur votre appareil. Cela dit n'envoyez pas de données de test au serveur.
+Vespucci a un bon système d'"annuler/refaire" donc n'ayez pas peur d'expérimenter sur votre appareil. Cela dit, n'envoyez pas de données de test au serveur.
 
-#### Sélectioner / désélectioner
+#### Sélectionner / désélectionner
 
-Touchez un objet pour le sélectioner et le mettre en surbrillance; un deuxième appui sur le même objet ouvre l'éditeur d'attributs de cet élément. Toucher l'écran dans une zone vide désélectione. Si vous avec sélectioné un objet et que vous voulez sélectioner autrechose, touchez simplement l'objet en question, il n'y a pas besoin de désélectioner au préalable. Un double appui sur un object démarre le [mode de sélection multiple](../en/Multiselect.md).
+Touchez un objet pour le sélectionner et le mettre en surbrillance ; un deuxième appui sur le même objet ouvre l'éditeur d'attributs de cet élément. Toucher l'écran dans une zone vide désélectionne. Si vous avez sélectionné un objet et que vous voulez sélectionner autre chose, touchez simplement l'objet en question, il n'y a pas besoin de désélectionner au préalable. Un double appui sur un objet démarre le [mode de sélection multiple](../en/Multiselect.md).
 
 #### Ajouter un nouveau nœud ou chemin
 
