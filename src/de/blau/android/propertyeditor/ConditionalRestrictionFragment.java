@@ -462,10 +462,10 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					LinearLayout condition = (LinearLayout) inflater.inflate(R.layout.condition, null);
 					final TextView conditionText = (TextView) condition.findViewById(R.id.text);
 					if (first) {
-						conditionText.setText("when");
+						conditionText.setText(R.string.tag_restriction_when);
 						first = false;
 					} else {
-						conditionText.setText("and");
+						conditionText.setText(R.string.tag_restriction_and);
 					}
 					final AutoCompleteTextView term = (AutoCompleteTextView) condition.findViewById(R.id.editCondition);	
 					term.setText(c.term1());
