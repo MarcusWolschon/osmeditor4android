@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1197: use back key a bit more consistently, re-fix element info layout, fix regression wrt displaying object history, disable property editor layout changes when restarting, correctly use values_context and don't sort check values
+
 1196: order tags in form as they are in the preset and group i18n name tags.
 
 1194: correctly add newly created elements to API storage when reading a JOSM style file.
