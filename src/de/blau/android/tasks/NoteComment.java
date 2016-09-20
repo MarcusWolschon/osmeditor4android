@@ -149,7 +149,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
 			}
 		}
 		if (timestamp != null) {
-			s.attribute("", "timestamp", Note.toJOSMDate(timestamp));
+			s.attribute("", "timestamp", note.toJOSMDate(timestamp));
 		}
 		if (nickname != null) {
 			s.attribute("", "uid", Integer.toString(uid));
