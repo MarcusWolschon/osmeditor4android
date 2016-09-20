@@ -305,4 +305,18 @@ public class Util {
 		map.clear();
 		map.putAll(temp);
 	}
+
+	/**
+	 * Convert first letter of v to upper case using English
+	 * @param v
+	 * @return
+	 */
+	public static String capitalize(String v) {
+		if (v != null && v.length() > 0) {
+			char[] a = v.toCharArray();
+			a[0] = Character.toUpperCase(a[0]);
+			return String.valueOf(a);
+		}
+		return v;
+	}
 }

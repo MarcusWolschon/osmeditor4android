@@ -480,7 +480,18 @@ public class Preset implements Serializable {
             		} else {
             			values = value_on + COMBO_DELIMITER + value_off;
             		}
-             		currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values);
+            		String displayValues = ""; //FIXME this is a bit of a hack as there is no display_values attribute for checks
+            		boolean first = true;
+            		for (String v:values.split(COMBO_DELIMITER)) {
+            			if (!first) {
+            				displayValues = displayValues + COMBO_DELIMITER;
+            			} else {
+            				first = false;
+            			}
+            			displayValues = displayValues + Util.capitalize(v);
+            		}
+            		currentItem.setSort(key,false); // don't sort
+             		currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values, displayValues, null, COMBO_DELIMITER, null);
              		if (!"yes".equals(value_on)) {
              			currentItem.addOnValue(key,value_on);
              		}
