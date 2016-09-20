@@ -64,6 +64,8 @@ import de.blau.android.views.ExtendedViewPager;
  */
 public class PropertyEditor extends BugFixedAppCompatActivity implements 
 		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters, OnSaveListener {
+	private static final String CURRENTITEM = "current_item";
+	private static final String PANELAYOUT = "pane_layout";
 	static final String PRESET_FRAGMENT = "preset_fragment";
 	static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 	
@@ -194,11 +196,13 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			applyLastAddressTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LAST_ADDRESS_TAGS); 
 			showPresets = (Boolean)getIntent().getSerializableExtra(TAGEDIT_SHOW_PRESETS);
 			askForName = (Boolean)getIntent().getSerializableExtra(TAGEDIT_ASK_FOR_NAME);
+			usePaneLayout = Util.isLandscape(this);
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
 			loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
-			currentItem = savedInstanceState.getInt("CURRENTITEM",-1);
+			currentItem = savedInstanceState.getInt(CURRENTITEM,-1);
+			usePaneLayout = savedInstanceState.getBoolean(PANELAYOUT); //FIXME this disables layout changes on restarting
 		}
 				
 		Log.d(DEBUG_TAG, "... done.");
@@ -225,8 +229,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		
 		presets = Application.getCurrentPresets(this);
 		
-		if (Util.isLandscape(this)) {
-			usePaneLayout = true;
+		if (usePaneLayout) {
 			setContentView(R.layout.pane_view);
 			Log.d(DEBUG_TAG, "Using layout for large devices");
 		} else {
@@ -743,7 +746,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		super.onSaveInstanceState(outState);
 		// no call through. We restore our state from scratch, auto-restore messes up the already loaded edit fields.
 		// outState.putSerializable(TAGEDIT_DATA, new PropertyEditorData(osmId, type, tagEditorFragment.getKeyValueMap(true), originalTags, relationMembershipFragment.getParentRelationMap(), originalParents, relationMembersFragment.getMembersList(), originalMembers));
-		outState.putInt("CURRENTITEM", mViewPager.getCurrentItem());
+		outState.putInt(CURRENTITEM, mViewPager.getCurrentItem());
+		outState.putBoolean(PANELAYOUT, usePaneLayout);
 	}
 	
 	/** When the Activity is interrupted, save MRUs and address cache*/
