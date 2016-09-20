@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="actionbar_bg">#aa000000</color>
-	<color name="tagedit_field_text">@android:color/white</color>
-	<color name="tagedit_field_bg">#d8000000</color>
 	<color name="tagedit_field_static_bg">#fa555555</color>
 	<color name="preset_text">@android:color/white</color>
 	<color name="preset_bg">#ff666666</color>
@@ -16,69 +13,11 @@
 	<color name="grey">#0F0F0F</color>
 	<color name="light_grey">#eeeeee</color>
 	<color name="dark_grey">#aaaaaa</color>
-	<color name="stroke">#000</color>
 	<color name="problem">#F0F</color>
 	<color name="relation">#A8FF7D</color>
-	<color name="motorway">#809BC0</color>
-	<color name="trunk">#7FC97F</color>
-	<color name="primary">#E46D71</color>
-	<color name="secondary">#FDBF6F</color>
-	<color name="tertiary">#FCFA74</color>
-<!-- 
-	<color name="unclassified">#FFFFFF</color>
-	<color name="residential">#FFFFFF</color>
-	<color name="living_street">#FFFFFF</color>
-	<color name="service">#FFFFFF</color>
--->
-	<color name="pedestrian">#EEEEEE</color>
-	<color name="cycleway">#D0E9D0</color>
-	<color name="footway">#DCA86B</color>
-	<color name="bridleway">#70B971</color>
-	<color name="tracktype">#C69C49</color>
-	<color name="river">#B5D6F1</color>
-	<color name="tram">#656565</color>
-	<color name="station">#D80000</color>
-	<color name="halt">#EF2B2B</color>
-	<color name="power">#BABABA</color>
-	<color name="building">#CC9999</color>
-	<color name="leisure">#BDE3CB</color>
-	<color name="college">#DFAFDD</color>
-	<color name="parking">#F7EFB7</color>
-	<color name="forest">#71BE80</color>
-	<color name="retail">#FEEAEA</color>
-	<color name="commercial">#FBFEC8</color>
-	<color name="water">#B5D6F1</color>
-	
+
 	<color name="bug_open">#F00</color>
 	<color name="bug_closed">#00F</color>
-	
-	<!-- copied -->
-	<drawable name="screen_background_black">#ff000000</drawable>
-	<drawable name="translucent_background">#e0000000</drawable>
-	<drawable name="transparent_background">#00000000</drawable>
 	<!-- A light Holo shade of blue -->
 	<color name="holo_blue_light">#ff33b5e5</color>
-	<!-- A light Holo shade of gray -->
-	<color name="holo_gray_light">#33999999</color>
-	<!-- A light Holo shade of green -->
-	<color name="holo_green_light">#ff99cc00</color>
-	<!-- A light Holo shade of red -->
-	<color name="holo_red_light">#ffff4444</color>
-	<!-- A dark Holo shade of blue -->
-	<color name="holo_blue_dark">#ff0099cc</color>
-	<!-- A dark Holo shade of green -->
-	<color name="holo_green_dark">#ff669900</color>
-	<!-- A dark Holo shade of red -->
-	<color name="holo_red_dark">#ffcc0000</color>
-	<!-- A Holo shade of purple -->
-	<color name="holo_purple">#ffaa66cc</color>
-	<!-- A light Holo shade of orange -->
-	<color name="holo_orange_light">#ffffbb33</color>
-	<!-- A dark Holo shade of orange -->
-	<color name="holo_orange_dark">#ffff8800</color>
-	<!-- A really bright Holo shade of blue -->
-	<color name="holo_blue_bright">#ff00ddff</color>
-	<!-- A really bright Holo shade of gray -->
-	<color name="holo_gray_bright">#33CCCCCC</color>
-	
 </resources>
