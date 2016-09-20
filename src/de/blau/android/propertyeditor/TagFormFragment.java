@@ -664,13 +664,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		HashMap<String,PresetItem> keyToLinkedPreset = new HashMap<String,PresetItem>();
 		boolean groupingRequired = false;
 		if (preset != null) {
-			// iterate over preset entris so that we maintain ordering
+			// iterate over preset entries so that we maintain ordering
 			List<PresetItem> linkedPresets = preset.getLinkedPresets();
 			LinkedHashMap<String,String> tagList = new LinkedHashMap<String,String>(tags);
 			for (Entry<String,StringWithDescription>e:preset.getFixedTags().entrySet()) {
-				String value = tagList.get(e.getKey());
+				String key = e.getKey();
+				String value = tagList.get(key);
 				if (value != null && value.equals(e.getValue().getValue())) {
-					tagList.remove(e.getKey());
+					tagList.remove(key);
+					editableView.putTag(key, value);
 				}
 			}
 			for (String key:preset.getRecommendedTags().keySet()) {
@@ -679,6 +681,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					if (preset.hasKeyValue(key, value)) {
 						recommendedEditable.put(key, value);
 						tagList.remove(key);
+						editableView.putTag(key, value);
 					}
 				}
 			}
@@ -688,6 +691,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					if (preset.hasKeyValue(key, value)) {
 						optionalEditable.put(key, value);
 						tagList.remove(key);
+						editableView.putTag(key, value);
 					}
 				}
 			}
