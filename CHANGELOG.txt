@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1199: small bug fixes and documentation updates, change version to reflect release.
+
 1198: fix regression wrt deleting, copying and cutting tags in the form UI
 
 1197: use back key a bit more consistently, re-fix element info layout, fix regression wrt displaying object history, disable property editor layout changes when restarting, correctly use values_context and don't sort check values
