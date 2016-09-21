@@ -1314,12 +1314,7 @@ public class EasyEditManager {
 			logic.setReturnRelations(true);			
 			if (deselect) {
 				Log.d(DEBUG4_TAG,"deselecting");
-				logic.setSelectedNode(null);
-				logic.setSelectedWay(null);
-				logic.setSelectedRelation(null);
-				logic.setSelectedRelationWays(null);
-				logic.setSelectedRelationNodes(null);
-				logic.setSelectedRelationRelations(null);
+				logic.deselectAll();
 			}
 			super.onDestroyActionMode(mode);
 		}
@@ -2361,12 +2356,7 @@ public class EasyEditManager {
 			super.onDestroyActionMode(mode);
 			logic.setClickableElements(null);
 			logic.setReturnRelations(true);
-			logic.setSelectedNode(null);
-			logic.setSelectedWay(null);
-			logic.setSelectedRelationWays(null);
-			logic.setSelectedRelationNodes(null);
-			logic.setSelectedRelationRelations(null);
-			logic.setSelectedRelation(null);
+			logic.deselectAll();
 			if (!backPressed) {
 				if (members.size() > 0) { // something was actually added
 					if (relation == null) {
@@ -2641,12 +2631,7 @@ public class EasyEditManager {
 			logic.setClickableElements(null);
 			logic.setReturnRelations(true);
 			if (deselect) {
-				logic.setSelectedRelationWays(null);
-				logic.setSelectedRelationNodes(null);
-				logic.setSelectedRelationRelations(null);
-				logic.setSelectedWay(null);
-				logic.setSelectedNode(null);
-				logic.setSelectedRelation(null);
+				logic.deselectAll();
 				main.invalidateMap();
 			}
 		}

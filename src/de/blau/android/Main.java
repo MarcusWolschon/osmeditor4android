@@ -619,37 +619,34 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
 		connectivityChangedReceiver = new ConnectivityChangedReceiver();
 		registerReceiver(connectivityChangedReceiver, filter);
+		PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
+			@Override
+			public void execute() {
+				if (rcData != null|| geoData != null) {
+					processIntents();
+				}
+				setupLockButton();
+				updateActionbarEditMode();
+				Mode mode = logic.getMode();
+				if (mode==Mode.MODE_EASYEDIT 
+						&& (logic.getSelectedNode() != null 
+						|| logic.getSelectedWay() != null 
+						|| (logic.getSelectedRelations() != null && logic.getSelectedRelations().size() > 0))) {
+					// need to restart whatever we were doing
+					Log.d(DEBUG_TAG,"restarting action mode");
+					easyEditManager.editElements();		
+				} else if (mode==Mode.MODE_TAG_EDIT) {
+					// de-select everything
+					logic.deselectAll();
+				}
+			}
+		};
 		synchronized (loadOnResumeLock) {	
 			if (redownloadOnResume) {
 				redownloadOnResume = false;
 				logic.downloadLast();
 			} else if (loadOnResume) {
-				loadOnResume = false;
-				PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
-					@Override
-					public void execute() {
-						if (rcData != null|| geoData != null) {
-							processIntents();
-						}
-						setupLockButton();
-						updateActionbarEditMode();
-						Mode mode = logic.getMode();
-						if (mode==Mode.MODE_EASYEDIT 
-								&& (logic.getSelectedNode() != null 
-								|| logic.getSelectedWay() != null 
-								|| (logic.getSelectedRelations() != null && logic.getSelectedRelations().size() > 0))) {
-							// need to restart whatever we were doing
-							Log.d(DEBUG_TAG,"restarting action mode");
-							easyEditManager.editElements();		
-						} else if (mode==Mode.MODE_TAG_EDIT) {
-							// de-select everything
-							logic.setSelectedNode(null);
-							logic.setSelectedWay(null);
-							logic.setSelectedRelation(null);
-						}
-					}
-				};
-
+				loadOnResume = false;	
 				PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
 					@Override
 					public void execute() {
@@ -660,16 +657,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						}
 					}
 				};
-
 				logic.loadFromFile(this,postLoadData);
 				logic.loadBugsFromFile(this,postLoadTasks);
 			} else { // loadFromFile already does this
 				synchronized (setViewBoxLock) {
 					Application.getLogic().loadEditingState(setViewBox);
 				}
-				processIntents();
-				setupLockButton();
-				updateActionbarEditMode();
+				postLoadData.execute();
 				map.invalidate();
 			}
 		}
@@ -1827,7 +1821,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
 			// Read data from extras
 			PropertyEditorData[] result = PropertyEditorData.deserializeArray(b.getSerializable(PropertyEditor.TAGEDIT_DATA));
-			// FIXME Problem saved data may not be read at this point, load here 
+			// FIXME Problem saved data may not be read at this point, load here, probably we should load editing state too
 			synchronized (loadOnResumeLock) {
 				if (loadOnResume) { 
 					loadOnResume = false;
@@ -1856,13 +1850,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			}
 			// this is very expensive: getLogic().saveAsync(); // if nothing was changed the dirty flag wont be set and the save wont actually happen 
 		}
-		if ((logic.getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) || logic.getMode()==Mode.MODE_TAG_EDIT) {
+		if ((logic.getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) 
+				|| logic.getMode()==Mode.MODE_TAG_EDIT) {
 			// not in an easy edit mode, de-select objects avoids inconsistent visual state 
-			logic.setSelectedNode(null);
-			logic.setSelectedWay(null);
-			logic.setSelectedRelation(null);
+			logic.deselectAll();
 		} else {
 			// invalidate the action mode menu ... updates the state of the undo button
+			// for visual feedback reasons we leave selected elements selected (tag edit mode)
 			supportInvalidateOptionsMenu();
 			if (easyEditManager != null) {
 				easyEditManager.invalidate();
@@ -2191,10 +2185,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets, boolean askForName) {
 		descheduleAutoLock();
 		final Logic logic = Application.getLogic();
+		logic.deselectAll();
 		if (selectedElement instanceof Node) {
 			logic.setSelectedNode((Node) selectedElement);
 		} else if (selectedElement instanceof Way) {
 			logic.setSelectedWay((Way) selectedElement);
+		} else if (selectedElement instanceof Relation) {
+			logic.setSelectedRelation((Relation) selectedElement);
 		}
 	
 		if (selectedElement != null) {
