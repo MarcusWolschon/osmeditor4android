@@ -4,7 +4,7 @@ site_description: 'Main site for Vespucci the Android OpenStreetMap Editor'
 theme_dir: 'flatly-custom'
 site_favicon: favicon.ico
 extra:
-  version: 0.9.7
+  version: 0.9.8
   project: Vespucci
 pages:
 - Vespucci: 'index.md'
