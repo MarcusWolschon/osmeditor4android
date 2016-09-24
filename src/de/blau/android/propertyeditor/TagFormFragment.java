@@ -851,7 +851,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 							description=v;
 						}
 						
-						row.getCheckBox().setChecked(valueOn.equals(value));
+						row.getCheckBox().setChecked(valueOn != null?valueOn.equals(value):false);
 						
 						rowLayout.addView(row);
 						row.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
