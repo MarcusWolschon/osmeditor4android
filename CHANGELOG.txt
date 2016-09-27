@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1200: fix post-release issues with documentation, UI and NPE in tag form, version and build number bump.
+
 1199: small bug fixes and documentation updates, change version to reflect release.
 
 1198: fix regression wrt deleting, copying and cutting tags in the form UI
