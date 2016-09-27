@@ -47,6 +47,7 @@
   <string name="progress_deleting_message">Вилучення…</string>
   <string name="progress_searching_message">Пошук…</string>
   <string name="progress_saving_message">Збереження…</string>
+  <string name="progress_uploading_message">Вивантаження...</string>
   <string name="progress_oauth">Завантаження вашого облікового запису з osm.org для OAuth-авторизації…</string>
   <string name="upload_comment_label">Коментар: </string>
   <string name="upload_source_label">Джерело: </string>
@@ -84,6 +85,7 @@
   <string name="search_results_title">Результати пошуку</string>
   <string name="find_message">Введіть рядок пошуку</string>
   <string name="preset_search_hint">Пошук заготовок</string>
+  <string name="search">Пошук</string>
   <string name="no_valid_preset">Немає відповідної заготовки! </string>
   <string name="read_file">Виберіть файл для перегляду</string>
   <string name="save_file">Введіть файл для збереження</string>
@@ -164,6 +166,7 @@
   <string name="save">Зберегти</string>
   <string name="back">Назад</string>
   <string name="keep">Залишити</string>
+  <string name="retry">Повторити</string>
   <!--Dialog for back button-->
   <string name="exit_title">Дійсно вийти?</string>
   <string name="exit_text">Ви впевнені, що хочете вийти?</string>
@@ -185,6 +188,7 @@
   <string name="tag_menu_reset_address_prediction">Скинути прогнозування адрес</string>
   <string name="tag_menu_exit_no_save">Вийти\nбез збереження</string>
   <string name="tag_multi_value_hint">Кілька значень</string>
+  <string name="tag_details">Подробиці</string>
   <string name="menu_up">Вгору</string>
   <string name="menu_top">Верх</string>
   <string name="menu_preset_help">Довідка заготовки</string>
@@ -355,7 +359,9 @@
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Додати та задіяти сумісні з JOSM заготовки</string>
   <string name="config_iconbutton_title">Показувати значки точок</string>
-  <string name="config_iconbutton_summary">Показувати відповідні значки із заготовок на точках.</string>
+  <string name="config_iconbutton_summary">Показувати найбільш відповідні значки на точках.</string>
+  <string name="config_showWayIcons_title">Показувати значки цікавих точок на будівлях</string>
+  <string name="config_showWayIcons_summary">Показувати найбільш відповідні значки на будівлях.</string>
   <string name="config_loginbutton_title">Обліковий запис</string>
   <string name="config_username_title">Логін на сервері OpenStreetMap</string>
   <string name="config_username_summary">Потібно для передачі змін на сервер OpenStreetMap, тільки якщо ви не використовуєте OAuth. Зареєструватись можна за адресою http://www.openstreetmap.org/user/new</string>

@@ -16,6 +16,7 @@
   <string name="upload_conflict_message_referential">%1$s
 было удалено локально
 но имеет ссылки на сервере</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nуже удалено на сервере</string>
   <string name="use_local_version">Использовать \nлокальную \nверсию</string>
   <string name="use_server_version">Использовать \nсерверную \nверсию</string>
   <string name="no_login_data_title">Ошибка аутентификации</string>
@@ -49,6 +50,7 @@
   <string name="progress_deleting_message">Удаление...</string>
   <string name="progress_searching_message">Поиск…</string>
   <string name="progress_saving_message">Сохранение…</string>
+  <string name="progress_preset_message">Скачивается заготовка…</string>
   <string name="progress_oauth">Загружаю вашу учётную запись на openstreetmap.org для авторизации через OAuth...</string>
   <string name="upload_comment_label">Комментарий:</string>
   <string name="upload_source_label">Источник:</string>
@@ -193,11 +195,18 @@
 без сохранения</string>
   <string name="tag_value_hint">Введите значение</string>
   <string name="tag_autocomplete_value_hint">Введите или выберите значение</string>
+  <string name="tag_autocomplete_name_hint">Введите или выберите из предложенных названий</string>
   <string name="tag_multi_value_hint">Несколько значений</string>
   <string name="tag_dialog_value_hint">Выберите значение</string>
   <string name="tag_additional_properties">Дополнительные свойства</string>
   <string name="tag_details">Подробности</string>
+  <string name="tag_not_set">Не задано</string>
+  <string name="tag_menu_move_up">Переместить вверх</string>
+  <string name="tag_menu_move_top">Переместить наверх</string>
+  <string name="tag_menu_move_down">Переместить вниз</string>
+  <string name="tag_menu_move_bottom">Переместить в конец</string>
   <string name="tag_menu_sort">Сортировать</string>
+  <string name="tag_menu_download">Скачать</string>
   <string name="menu_up">Вверх</string>
   <string name="menu_top">Верхнее</string>
   <string name="menu_preset_help">Справка по заготовке</string>
@@ -283,6 +292,7 @@
   <string name="menu_transfer_bugs_clear">Очистить</string>
   <string name="menu_transfer_bugs_clear_long">Очистить ошибки</string>
   <string name="menu_transfer_autodownload_long">Скачивать ошибки автоматом</string>
+  <string name="menu_transfer_save_notes_all">Сохранить все заметки...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Сохранить все заметки...</string>
   <string name="menu_save">Сохранить в файл</string>
   <string name="menu_join">Объединить</string>
@@ -300,6 +310,8 @@
   <string name="menu_extend_selection">Расширить выделение</string>
   <string name="menu_information">Инфо</string>
   <string name="menu_voice_commands">Голосовые команды</string>
+  <string name="menu_set_name">Задать название</string>
+  <string name="tag_form_unknown_element">Неизвестный элемент (заготовка не найдена)</string>
   <string name="menu_tools">Инструменты</string>
   <string name="menu_tools_flush_background_tile_cache">Очистить кэш квадратов карты</string>
   <string name="menu_tools_flush_overlay_tile_cache">Очистить кэш наложений</string>
@@ -330,6 +342,7 @@
   <string name="deleteway_wayandnodes">Удалить линию и точки</string>
   <string name="deletenode_relation_description">Вы собираетесь удалить точку, являющуюся членом одного или нескольких отношений. Удаление точки из отношения может сделать его некорректным.</string>
   <string name="deletenode">Удалить точку</string>
+  <string name="split_all_ways">Разделить все линии</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Выбрана линия</string>
   <string name="actionmode_nodeselect">Выбрана точка</string>
@@ -435,6 +448,8 @@
   <string name="config_address_tags_summary">Теги, используемые для предсказания адресов</string>
   <string name="config_moreprefs">Другие настройки...</string>
   <string name="config_fullscreenMode_title">Полноэкранный режим</string>
+  <string name="config_autoLockDelay_title">Время ожидания до автоблокировки</string>
+  <string name="config_autoLockDelay_summary">Время ожидания в секундах до автоблокировки, 0 - отключена.</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
   <string name="preset_download_successful">Заготовка успешно загружена</string>
@@ -557,5 +572,9 @@
   <string-array name="note_state">
     <item>Открытая</item>
     <item>Закрытая</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Слева</item>
+    <item>Справа</item>
   </string-array>
 </resources>

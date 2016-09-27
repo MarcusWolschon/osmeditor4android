@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2016-09-14 09:56+0200\n"
-"PO-Revision-Date: 2016-09-17 15:14+0000\n"
+"POT-Creation-Date: 2016-09-21 22:16+0200\n"
+"PO-Revision-Date: 2016-09-21 20:23+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -8836,13 +8836,13 @@ msgstr ""
 
 #: master_preset.xml:531(combo:display_values|key:overtaking)
 msgctxt "overtaking"
-msgid " Oppostite to way dorection"
-msgstr ""
+msgid "Yes"
+msgstr "是"
 
 #: master_preset.xml:531(combo:display_values|key:overtaking)
 msgctxt "overtaking"
-msgid "Yes"
-msgstr "是"
+msgid " Opposite to way direction"
+msgstr ""
 
 #: master_preset.xml:531(combo:display_values|key:overtaking)
 msgctxt "overtaking"

@@ -235,6 +235,7 @@
   <string name="tag_restriction_add_simple_condition">增加簡單條件</string>
   <string name="tag_restriction_add_expression">增加表達式</string>
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
+  <string name="tag_restriction_value_hint">條件限制</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">載入區域</string>
   <string name="location_choose_radius">選取半徑：</string>

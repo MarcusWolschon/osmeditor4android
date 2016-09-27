@@ -230,6 +230,13 @@ sem gravar</string>
   <string name="menu_preset_help">Ajuda do modelo de etiquetas</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Adicionar etiquetas para %1$s</string>
+  <string name="tag_restriction_header">Valor</string>
+  <string name="tag_restriction_when">quando</string>
+  <string name="tag_restriction_and">e</string>
+  <string name="tag_restriction_add_simple_condition">Adicionar condição simples</string>
+  <string name="tag_restriction_add_expression">Adicionar expressão</string>
+  <string name="tag_restriction_add_opening_hours">Adicionar horário de funcionamento</string>
+  <string name="tag_restriction_value_hint">restrição condicional</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carregar Área</string>
   <string name="location_choose_radius">Escolha o raio:</string>
@@ -473,6 +480,8 @@ há %3$s %4$s</string>
   <string name="config_followGPSbutton_summary">Onde será posicionado o botão \"seguir GPS\"</string>
   <string name="config_fullscreenMode_title">Modo ecrã total</string>
   <string name="config_fullscreenMode_summary">Comportamento em dispositivos com teclas \"suaves\".</string>
+  <string name="config_maxInlineValues_title">Nº máx. de valores na linha</string>
+  <string name="config_maxInlineValues_summary">Número máximo de valores na linha mostrados no formulário de etiquetas</string>
   <string name="config_maxTileDownloadThreads_title">Número máximo de tarefas de descarregamento</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de tarefas de descarregamento de telas</string>
   <string name="config_notificationCacheSize_title">Número máximo de notificações mostradas</string>
