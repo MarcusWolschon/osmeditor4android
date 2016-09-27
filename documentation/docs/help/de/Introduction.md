@@ -15,7 +15,7 @@ Abhängig der Bildschirmgrösse und Alter des Gerätes können die Bearbeitungsf
 
 ### OSM Daten herunterladen
 
-Wähle entweder das Übertragungs-Icon ![](../images/menu_transfer.png) oder den "Transfer" Menüeintrag Dies wird sieben Optionen zur Auswahl anzeigen:
+Wähle entweder das Übertragungs-Icon ![ ](../images/menu_transfer.png) oder den "Transfer" Menüeintrag Dies wird sieben Optionen zur Auswahl anzeigen:
 
 * **Aktuelle Ansicht herunterladen** - den aktuell sichtbaren Bildschirmbereich herunterladen und allfällig vorhandene Daten ersetzen *(benötigt Netzzugang)*
 * **Diese Ansicht zu dn Daten dazu laden** - den aktuell sichtbaren Bildschirmbereich auf dem Schirm herunterladen und mit vorhandene Daten  zusammenführen *(benötigt Netzzugang)*
@@ -111,7 +111,7 @@ Falls letzteres eingeschaltet ist, wird es beim Verschieben des Schirms oder bei
 
 Vespucci unterstützt das Herunterladen, Kommentieren und Schliessen von OSM Notizen (vormals OSM Bugs) und die entsprechende Funktionalität für "Fehler" die vom [OSMOSE Qualitätssicherungswerkzeug](http://osmose.openstreetmap.fr/en/map/) gemeldet werden. Beide müssen entweder explizit heruntergeladen werden oder die Notizen und Fehler in der Nähe können automatisch geladen werden. Geänderte oder geschlossene Notizen und Fehler können entweder sofort hochgeladen werden oder gespeichert und alle zusammen später hochgeladen werden.
 
-Auf der Karte werden die Notizen und Fehler werden mit einem kleinen Käfer Icon  ![](../images/bug_open.png) angezeigt, grüne sind behoben, blaue sind neu erstellt oder geändert, und Gelb zeigt an, dass die Notiz respektive der Fehler noch unverändert aktiv ist. 
+Auf der Karte werden die Notizen und Fehler werden mit einem kleinen Käfer Icon  ![ ](../images/bug_open.png) angezeigt, grüne sind behoben, blaue sind neu erstellt oder geändert, und Gelb zeigt an, dass die Notiz respektive der Fehler noch unverändert aktiv ist. 
 
 In der Anzeige von OSMOSE Fehler wird jeweils für die betroffenen Objekte ein blau hervorgehobener Link angezeigt, wählt man den Link an, wird das Objekt ausgewählt, der Bildschirm darauf zentriert und, falls nötig, das entsprechende Gebiet heruntergeladen. 
 

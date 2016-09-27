@@ -14,7 +14,7 @@ Selon la taille de votre écran et l'age de l'appareil, les actions d'édition s
 
 ### Télécharger des données OSM
 
-Sélectionnez soit l'icône Transfert ![](../images/menu_transfer.png)  soit "Transfert" dans le menu. Cela affiche sept options :
+Sélectionnez soit l'icône Transfert ![ ](../images/menu_transfer.png)  soit "Transfert" dans le menu. Cela affiche sept options :
 
 * **Télécharger la vue courante** - télécharge la zone visible à l'écran et remplace les données existantes *(nécessite une connexion réseau)*
 * **Ajouter les données de la vue courante** - télécharge la zone visible à l'écran et la fusionne avec les données existantes *(nécessite une connexion réseau)*
@@ -110,7 +110,7 @@ Si cette option de recentrage est activée, déplacer manuellement l'écran ou �
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+On the map the Notes and bugs are represented by a small bug icon ![ ](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 

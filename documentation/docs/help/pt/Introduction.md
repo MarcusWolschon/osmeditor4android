@@ -14,7 +14,7 @@ Dependendo do tamanho do ecrã e a antiguidade do dispositivo que estiver a usar
 
 ### Descarregar Dados OSM
 
-Selecione o ícone de transferir ![](../images/menu_transfer.png)  ou o menu "Transferir". Isto irá mostrar 7 opções:
+Selecione o ícone de transferir ![ ](../images/menu_transfer.png)  ou o menu "Transferir". Isto irá mostrar 7 opções:
 
 * **Descarregar vista atual** - descarrega a área visível no ecrã e substitui dados existentes, se for o caso *(necessita de ligação à Internet)*
 * **Descarregar e adicionar vista atual** - descarrega a área visível no ecrã e faz a fusão com os dados existentes  *(necessita de ligação à Internet)*
@@ -110,7 +110,7 @@ Se tiver ativado o Seguir posição GPS, se deslocar o ecrã manualmente ou edit
 
 O Vespucci permite descarregar, comentar e fechar erros reportados no OpenStreetMap assim como os erros da [ferramenta gestão da de qualidade OSMOSE](http://osmose.openstreetmap.fr/en/map/). Ambos têm de ser descarregados à parte ou utilizando a funcionalidade de descarregar automaticamente, para que sejam mostrados os erros na área que se está a editar. Após editar ou fechar esses erros, pode-se enviar as alterações imediatamente ou todos eles.
 
-Os Erros Reportados e Erros OSMOSE são mostrados no mapa com um pequeno ícone ![](../images/bug_open.png). Os vermelhos são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. 
+Os Erros Reportados e Erros OSMOSE são mostrados no mapa com um pequeno ícone ![ ](../images/bug_open.png). Os vermelhos são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. 
 
 Os erros OSMOSE fornecem um link para o objeto em questão a azul, tocando no link selecionará o objeto, centra o ecrã nele e descarrega a área se for necessário. 
 

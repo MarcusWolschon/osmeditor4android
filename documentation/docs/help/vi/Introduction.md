@@ -14,7 +14,7 @@ Tùy theo kích thước màn hình và thế hệ của thiết bị, các tác
 
 ### Tải về dữ liệu OSM
 
-Chọn hình tượng truyền ![](../images/menu_transfer.png) hoặc mục “Truyền” trong trình đơn. Bảy mục sẽ xuất hiện:
+Chọn hình tượng truyền ![ ](../images/menu_transfer.png) hoặc mục “Truyền” trong trình đơn. Bảy mục sẽ xuất hiện:
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
@@ -110,7 +110,7 @@ If you have the later set, moving the screen manually or editing will cause the 
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-Trên bản đồ, các ghi chú và lỗi được hiển thị với hình bọ nhỏ ![](../images/bug_open.png). Các bọ màu xanh lục chỉ ra ghi chú được đóng/giải quyết, màu xanh lam là do bạn tạo hoặc sửa đổi, và màu vàng có nghĩa rằng nó vẫn đang tích cực và chưa được thay đổi. 
+Trên bản đồ, các ghi chú và lỗi được hiển thị với hình bọ nhỏ ![ ](../images/bug_open.png). Các bọ màu xanh lục chỉ ra ghi chú được đóng/giải quyết, màu xanh lam là do bạn tạo hoặc sửa đổi, và màu vàng có nghĩa rằng nó vẫn đang tích cực và chưa được thay đổi. 
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 

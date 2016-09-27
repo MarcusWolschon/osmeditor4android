@@ -14,7 +14,7 @@ W zależności od wielkości ekranu oraz wieku twojego urządzenia opcje edycji 
 
 ### Pobieranie danych OSM
 
-Kliknij albo na ikonę transferu ![](../images/menu_transfer.png) lub wybierz w menu "Transfer". Zostanie wyświetlone 7 opcji:
+Kliknij albo na ikonę transferu ![ ](../images/menu_transfer.png) lub wybierz w menu "Transfer". Zostanie wyświetlone 7 opcji:
 
 * **Pobierz bieżący widok** - pobiera dane obszaru widocznego na ekranie zastępując wcześniej pobrane dane *(wymagane połączenie z internetem)*
 * **Dodaj bieżący widok do pobrania** - pobiera dane obszaru widocznego na ekranie i łączy go z wcześniej pobranymi danymi *(wymagane połączenie z internetem)*
@@ -111,7 +111,7 @@ Jeśli wybrałeś drugą opcję, przesunięcie ekranu ręcznie lub edycja sprawi
 
 Vespucci umożliwia pobieranie, komentowanie i zamykanie Notatek OSM (poprzednio Błędów OSM) oraz "Błędów" wykrywanych przez [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Obydwa mogą zostać pobrane manualnie lub przez funkcję auto-pobierania. Zmienione i zamknięte wpisy można wysyłać pojedynczo od razu lub wszystkie naraz po pewnym czasie.
 
-Na mapie Notatki i Błędu wyświetlają się jako mała ikonka robaka ![](../images/bug_open.png), zielone oznaczają zamknięte/rozwiązane błędy, niebieskie zostały stworzone lub zmienione przez Ciebie, a żółte oznaczają Notatki/Błędy dalej aktywne nie zmienione przez nikogo. 
+Na mapie Notatki i Błędu wyświetlają się jako mała ikonka robaka ![ ](../images/bug_open.png), zielone oznaczają zamknięte/rozwiązane błędy, niebieskie zostały stworzone lub zmienione przez Ciebie, a żółte oznaczają Notatki/Błędy dalej aktywne nie zmienione przez nikogo. 
 
 Błędy OSMOSE po zaznaczeniu dają możliwość wybrania adresu do obiektu, dotknięcie adresu wybierze obiekt, wyśrodkuje ekran na nim i pobierze obszar potrzebny do jego edycji jeśli zachodzi taka potrzeba. 
 

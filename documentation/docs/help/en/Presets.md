@@ -4,7 +4,7 @@ Vespucci supports JOSM compatible presets and the default preset is derived from
 
 The default preset is maintained at [https://github.com/simonpoole/beautified-JOSM-preset](https://github.com/simonpoole/beautified-JOSM-preset). You can install an additional, updated version by selecting [current Vespucci preset](vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/raw/master/gen/vespucci_zip.zip) *(this link will only work on your device)* after the download you will have to explicitly enable it and disable the built-in version.
 
-## ![](../images/tag_menu_preset.png) Preset pane
+## ![Preset](../images/tag_menu_preset.png) Preset pane
 
 Opens a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the Property Editor screen below the tags. The recently used preset screen can be completely emptied with the corresponding menu item, individual presets can be removed by a long press.
 

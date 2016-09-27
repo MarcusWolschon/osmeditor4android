@@ -5,7 +5,7 @@ No, this is not news. Vespucci has had a tag-only mode since its original creati
 
 Starting with 0.9.6 tag editing only mode can be switched on with a long press on the lock icon.
 
-![](images/Vespucci-tagediting.png)
+![ ](images/Vespucci-tagediting.png)
 
 vespucci can still be locked/unlocked with a normal single touch on the lock and a long touch will get you back to normal editing mode.
 

@@ -12,30 +12,30 @@ Both the last node and the complete way can be moved without leaving "New" mode.
 
 ## Further actions  
 
-### ![](../images/address.png) Add address tags
+### ![Address](../images/address.png) Add address tags
 
 Adds a node at the current location and adds address tags with prediction. If the node is part of a building way it will further add "entrance=yes" if not present.
 
-### ![](../images/tag_menu_preset.png) Add preset
+### ![Preset](../images/tag_menu_preset.png) Add preset
 
 Create the current new object, launch the [property editor](PropertyEditor) and immediately display the preset tab. In multi-pane mode this will simply start the property editor.
 
-### ![](../images/tag_menu_bug.png) Add a OpenStreetMap Note
+### ![Bug](../images/tag_menu_bug.png) Add a OpenStreetMap Note
 
 Create an OpenStreetMap Note at the point.
 
-### ![](../images/tag_menu_append.png) Create path 
+### ![Append](../images/tag_menu_append.png) Create path 
 
 Start the path/way creation mode, just as if you had touch the screen again.
 
-### ![](../images/ic_menu_paste_holo_light.png) Paste
+### ![Paste](../images/ic_menu_paste_holo_light.png) Paste
 
 Copy the object in internal copy and paste buffer to the current position. If the object was originally cut this has the same effect as if you moved the object to the new position and the buffer will be empty after the operation. 
 
-### ![](../images/menu_gps.png) New node at GPS pos.
+### ![GPS](../images/menu_gps.png) New node at GPS pos.
 
 This will create a node at the current GPS position and add elevation tags to it. Note it doesn't matter where on the screen you originally touched, the node will be created at the GPS location.
 
-### ![](../images/menu_help.png) Help
+### ![Help](../images/menu_help.png) Help
 
 Start the Vespucci Help browser

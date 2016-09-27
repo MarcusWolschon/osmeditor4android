@@ -20,7 +20,7 @@ In the tabs tapping the checkbox in the header row will select/de-select all ele
 This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simple remove or reset the value (or delete them 
 in the _Details_ tab).
 
-Fields are added by applying presets, either via the _Preset_ tab or via the ![](../images/tag_menu_apply_preset.png) _Apply best preset_ button.
+Fields are added by applying presets, either via the _Preset_ tab or via the ![Preset](../images/tag_menu_apply_preset.png) _Apply best preset_ button.
 
 ## Details Tab
  
@@ -41,19 +41,19 @@ If the key is "name", selection of a value from the auto complete list will add 
 
 If multiple objects with different values for the same tags are being edited, such value fields will display 'Multiple values' and the auto-complete list will contain the existing values with a count. Setting the value to a specific value will set it for all objects, an empty value will leave the values untouched.
 
-### ![](../images/address.png) Add address tags
+### ![Address](../images/address.png) Add address tags
 
 Add address tags for the object. This function will try to predict the house number to suggest. It works best along straight roads with regular numbering schemes. 
 
-### ![](../images/tag_menu_apply_preset.png) Apply best preset
+### ![Preset](../images/tag_menu_apply_preset.png) Apply best preset
 
 Will locate the best matching preset to the existing tags and apply the preset adding further suggested fields.
 
-### ![](../images/tag_menu_repeat.png) Paste
+### ![Paste](../images/tag_menu_repeat.png) Paste
 
 Paste and merge the tags from the internal clipboard. 
 
-### ![](../images/undolist_undo.png) Revert
+### ![Revert](../images/undolist_undo.png) Revert
 
 Tapping the icon once will reset the tags to the values as they were when the property editor was started.
 
@@ -61,11 +61,11 @@ Tapping the icon once will reset the tags to the values as they were when the pr
 
 Paste and merge multi-line text from the system clipboard. If the lines have the form _key_=_value_ the lines will be split at the = and pasted in to key and values fields, otherwise the complete lines will be copied to the value field. This function can be used for example with OCR apps. 
 
-### ![](../images/tag_menu_sourcesurvey.png) Surveyed
+### ![Surveyed](../images/tag_menu_sourcesurvey.png) Surveyed
 
-Short cut for adding source=survey to the object. This is deprecated, the normal place to add source tags is in the corresponding field on the upload form. 
+Short cut for adding source=survey to the object. This is deprecated, the normal place to add source tags is in the corresponding field on the upload form. The action is only available on the _Details_ tab.
 
-### ![](../images/tag_menu_mapfeatures.png) Map Features Wiki
+### ![Wiki](../images/tag_menu_mapfeatures.png) Map Features Wiki
 
 Invoke a web browser on the map features page in the OpenStreetMap wiki. *(requires network connectivity)* 
 
@@ -77,7 +77,7 @@ Empty the current address cache and re-seed from downloaded OpenStreetMap data.
 
 Reset the most recently used preset list and remove short cuts from the tag editor screen. 
 
-### ![](../images/menu_help.png) Help
+### ![Help](../images/menu_help.png) Help
 
 Start the on device help browser.
 
@@ -89,7 +89,7 @@ The following operation can be performed on selected relations.
 
  * Delete - remove the edited object from this relation.
 
-### ![](../images/undolist_undo.png) Revert
+### ![Revert](../images/undolist_undo.png) Revert
 
 Tapping the icon once will reset the relations to the values as they were when the property editor was started.
 
@@ -97,7 +97,7 @@ Tapping the icon once will reset the relations to the values as they were when t
 
 Add the current object to a existing relation in the download.
 
-### ![](../images/menu_help.png) Help
+### ![Help](../images/menu_help.png) Help
 
 Start the on device help browser.
 
@@ -109,15 +109,28 @@ Members with a dark object field and only a numeric id displayed have not been d
 
 The following operation can be performed on selected relation members.
 
- * Delete - remove the object from this (the edited) relation.
+ * _Delete_ - remove the object from this (the edited) relation.
+ * _Move up_ - move the member up one position.
+ * _Move down_ - move the member down one position.
+ * _Move to top_ - move the member to the top of the list.
+ * _Move to bottom_ - move the member to the bottom of the list.
+ * _Download_ - download the selected members.  if all members are selected the members will be downloaded including ways that are parents of nodes that are a relation member, otherwise the individual members are downloaded and for nodes the parent ways are **not** downloaded.
  
 _There will likely be more operations added in the future, for example sorting_
 
-### ![](../images/undolist_undo.png) Revert
+### ![Revert](../images/undolist_undo.png) Revert
 
 Tapping the icon once will reset the members to the values as they were when the property editor was started.
 
-### ![](../images/menu_help.png) Help
+### Scroll to Top
+
+Scroll the screen to the top.
+
+### Scroll to Bottom
+
+Scroll the screen to the bottom.
+
+### ![Help](../images/menu_help.png) Help
 
 Start the on device help browser.
 
@@ -133,6 +146,6 @@ Go to the top of the preset hierarchy.
 
 Go up one level.
 
-### ![](../images/menu_help.png) Help
+### ![Help](../images/menu_help.png) Help
 
 Start the on device help browser.

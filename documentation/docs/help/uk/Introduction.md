@@ -14,7 +14,7 @@
 
 ### Завантаження даних OSM
 
-Оберіть або значок ![](../images/menu_transfer.png) або меню "Передача". Ви побачите сім пунктів:
+Оберіть або значок ![ ](../images/menu_transfer.png) або меню "Передача". Ви побачите сім пунктів:
 
 * **Звантажити дані для поточного місця** - завантажує дані для ділянки, що показується на екрані та замінює наявні дані *(вимагає з’єднання з мережею)*
 * **Додати поточний вид для звантаження** - завантажує дані для ділянки, що показується на екрані, та об’єднує їх з наявними даними *(вимагає з’єднання з мережею)*
@@ -110,7 +110,7 @@ If you have the later set, moving the screen manually or editing will cause the 
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+On the map the Notes and bugs are represented by a small bug icon ![ ](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 

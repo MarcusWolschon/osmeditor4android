@@ -17,7 +17,7 @@ If you are creating a new object, or adding tags to an object that previously di
 
  Enter the name tag | Start typing<br> and get the auto-complete list | Further typing refines the list | Selecting the correct item sets the<br>name and the corresponding tags 
 ------------------- | ------------------------------------------- | ------------------------------- | ------------------------------------------------------------------
- ![](images/Screenshot_2014-03-07-14-47-13.png) | ![](images/Screenshot_2014-03-07-14-48-08.png) | ![](images/Screenshot_2014-03-07-14-49-03.png) | ![](images/Screenshot_2014-03-07-14-49-28.png)   
+ ![ ](images/Screenshot_2014-03-07-14-47-13.png) | ![ ](images/Screenshot_2014-03-07-14-48-08.png) | ![ ](images/Screenshot_2014-03-07-14-49-03.png) | ![ ](images/Screenshot_2014-03-07-14-49-28.png)   
 
 ## Adding the name to a "pre-tagged" object
 
@@ -25,7 +25,7 @@ In the example the building has already been pre-tagged with amenity=restaurant,
 
  Enter the name tag | Start typing<br>and get the auto-complete list | Select the correct name<br>after further refinement
  ------------------ | ------------------------------------------- | ------------------------------------------------
- ![](images/Screenshot_2014-03-07-14-50-22.png) | ![](images/Screenshot_2014-03-07-14-50-42.png) | ![](images/Screenshot_2014-03-07-14-51-19.png)
+ ![ ](images/Screenshot_2014-03-07-14-50-22.png) | ![ ](images/Screenshot_2014-03-07-14-50-42.png) | ![ ](images/Screenshot_2014-03-07-14-51-19.png)
                                                 | This includes suggestions not just for<br>amenity=restaurant but for<br>potentially further refined tagging. | Vespucci now asks for confirmation<br>if the old tags should be replaced.
 
 This functionality is available in the 0.9.4 and later releases.

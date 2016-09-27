@@ -2,12 +2,12 @@
 
 The main Vespucci map screen is your normal starting point for interacting with the application. It can be in two modes
 
-####  ![](../images/locked.png) locked
+####  ![Locked](../images/locked.png) locked
 In this mode modifying the OpenStreetMap data is disabled, you can however use all the menus and other functions, for example down- or up-load data. The main reason to use this mode is to pan and zoom in high density areas, or to avoid accidental changes when pocketing your device. 
 
 Tapping the lock icon will toggle the mode.
 
-####  ![](../images/unlocked.png) unlocked
+####  ![Unlocked](../images/unlocked.png) unlocked
 In this mode you can add and change the geometry and tags of OpenStreetMap data. *You will still need to zoom in till editing is enabled.*
 
 If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to create new objects of change geometries. A long press on the icon will switch to the normal editing mode.
@@ -35,16 +35,16 @@ With the standard map style certain data issues will be highlighted in magenta, 
 
 ## Available Actions
 
-### ![](../images/undolist_undo.png) Undo
+### ![Undo](../images/undolist_undo.png) Undo
 
 Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" action will be displayed. *Some operations consist of multiple simpler actions that will be listed as individual items.*
 
-### ![](../images/camera.png) Camera
+### ![Camera](../images/camera.png) Camera
 
 Start a camera app, add the resulting photograph to the photo layer is enabled. The photograph itself should be stored in the Vespucci/Pictures 
 directory, however this depends on the specific camera app.
 
-### ![](../images/menu_gps.png) GPS
+### ![GPS](../images/menu_gps.png) GPS
 
  * **Show location** - show arrow symbol at current position
  * **Follow GPS position** - pan and center screen to follow the GPS position
@@ -59,9 +59,9 @@ directory, however this depends on the specific camera app.
  * **Goto start of track** - center the map on the first track point
  
 
-### ![](../images/menu_transfer.png) Transfer
+### ![Transfer](../images/menu_transfer.png) Transfer
 
-Select either the transfer icon ![](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven or eight options:
+Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven or eight options:
 
  * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
  * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
@@ -79,11 +79,11 @@ Select either the transfer icon ![](../images/menu_transfer.png) or the "Transfe
     * **Clear** - remove all bugs from storage
     * **Auto download** - download Notes/Bugs around the current location automatically *(requires network connectivity)* *(requires GPS)*
 
-### ![](../images/menu_config.png) Settings
+### ![Preferences](../images/menu_config.png) Preferences
 
 Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. 
 
-### ![](../images/menu_tools.png) Tools
+### ![Tools](../images/menu_tools.png) Tools
 
  * **Flush background tile cache** - empty the on device cache for the current background *(may take a significant amount of time)*
  * **Flush overlay tile cache** - empty the on device cache for the current overlay *(may take a significant amount of time)*
@@ -92,11 +92,11 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **Reset OAuth** - reset the OAuth tokens, This will force reauthorisation the next time you upload.
  * **Authorise OAuth** - start authorisation process immediately. *(requires network connectivity)*
 
-### ![](../images/ic_menu_search_holo_light.png) Find
+### ![Find](../images/ic_menu_search_holo_light.png) Find
 
 Search for a location and pan to it with the OpenStreetMap Nominatim service *(requires network connectivity)*
 
 
-### ![](../images/menu_help.png) Help
+### ![Help](../images/menu_help.png) Help
 
 Start the on device help browser.
