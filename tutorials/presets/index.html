@@ -67,7 +67,7 @@
                         </li>
                     
                         <li >
-                            <a href="../../help/en/0.9.8 Release notes/">Preliminary 0.9.8 Release notes</a>
+                            <a href="../../help/en/0.9.8 Release notes/">0.9.8 Release notes</a>
                         </li>
                     
                         <li >
@@ -227,7 +227,7 @@
 <p><em>Preliminary documentation for Vespucci 0.9.8</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci however that doesn't mean that there are no differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h3 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci</h3>
-<p><img alt="" src="../images/form_editor_small.png" /></p>
+<p><img alt=" " src="../images/form_editor_small.png" /></p>
 <p>For the preset based editing to work Vespucci has to match the existing tags, including incomplete, key-only ones. with the available presets. This is done in an iterative fashion: the best matching preset is found (weighting presets with fixed key-value tuples higher than such with variable values), then all tags that can be found in linked presets are added (no separate header displayed) and this process is repeated until their are either no tags left or no preset match can be found.  </p>
 <h3 id="supported-josm-preset-elements-and-attributes">Supported JOSM Preset Elements and Attributes</h3>
 <p>Note: this is loosely based on what <a href="https://josm.openstreetmap.de/wiki/TaggingPresets">JOSM claims</a> to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored see <a href="#Translation">Translation</a> "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value.  </p>
