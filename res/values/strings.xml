@@ -35,6 +35,8 @@
     <string name="out_of_memory_dirty_message">Vespucci has run out of memory loading the requested data. Please attempt to save your edits, restart and try loading a smaller area.</string>
     <string name="invalid_data_received_title">Invalid Data Received</string>
     <string name="invalid_data_received_message">Vespucci received invalid data from the server. If you believe that what you were trying to do is correct, please file a bug report.</string>
+    <string name="invalid_data_read_title">Invalid Data</string>
+    <string name="invalid_data_read_message">The file contained invalid data. If you believe that what you were trying to do is correct, please file a bug report.</string>
     <string name="file_write_failed_title">File write failed</string>
     <string name="file_write_failed_message">Could not write to selected file.</string>
     <string name="welcome_title">Welcome!</string>

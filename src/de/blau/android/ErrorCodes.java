@@ -25,6 +25,8 @@ public class ErrorCodes {
 	
 	public static final int SSL_HANDSHAKE = 12;
 	
+	public static final int INVALID_DATA_READ = 13;
+	
 	public static final int UPLOAD_CONFLICT = 50;
 	public static final int INVALID_LOGIN = 51;
 }

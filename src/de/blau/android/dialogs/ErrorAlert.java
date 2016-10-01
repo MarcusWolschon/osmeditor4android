@@ -76,6 +76,8 @@ public class ErrorAlert extends DialogFragment
 			return "alert_out_of_memory_dirty";
 		case ErrorCodes.INVALID_DATA_RECEIVED:
 			return "alert_invalid_data_received";
+		case ErrorCodes.INVALID_DATA_READ:
+			return "alert_invalid_data_read";
 		case ErrorCodes.FILE_WRITE_FAILED:
 			return "alert_file_write_failed";
 		case ErrorCodes.NAN:
@@ -99,6 +101,7 @@ public class ErrorAlert extends DialogFragment
 		case ErrorCodes.OUT_OF_MEMORY: return createNewInstance(R.string.out_of_memory_title, R.string.out_of_memory_message);
 		case ErrorCodes.OUT_OF_MEMORY_DIRTY: return createNewInstance(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
 		case ErrorCodes.INVALID_DATA_RECEIVED: return createNewInstance(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
+		case ErrorCodes.INVALID_DATA_READ: return createNewInstance(R.string.invalid_data_read_title, R.string.invalid_data_read_message);
 		case ErrorCodes.FILE_WRITE_FAILED: return createNewInstance( R.string.file_write_failed_title, R.string.file_write_failed_message);
 		case ErrorCodes.NAN: return createNewInstance( R.string.location_nan_title, R.string.location_nan_message);
 		case ErrorCodes.INVALID_BOUNDING_BOX: return createNewInstance( R.string.invalid_bounding_box_title, R.string.invalid_bounding_box_message);

@@ -2635,13 +2635,12 @@ public class Logic {
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
 						result = ErrorCodes.OUT_OF_MEMORY;
 					} else {
-						result = ErrorCodes.INVALID_DATA_RECEIVED;
+						result = ErrorCodes.INVALID_DATA_READ;
 					}
 				} catch (ParserConfigurationException e) {
 					// crash and burn
-					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
-					result = ErrorCodes.INVALID_DATA_RECEIVED;
+					result = ErrorCodes.INVALID_DATA_READ;
 				} catch (IOException e) {
 					result = ErrorCodes.NO_CONNECTION;
 					Log.e("Vespucci", "Problem reading", e);
