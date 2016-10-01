@@ -2620,9 +2620,10 @@ public class Logic {
 					try {
 						osmParser.start(in);
 						
-						getDelegator().reset(false);
-						getDelegator().setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
-						getDelegator().fixupApiStorage();
+						StorageDelegator sd = getDelegator();
+						sd.reset(false);
+						sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
+						sd.fixupApiStorage();
 
 						viewBox.setBorders(getDelegator().getLastBox()); // set to current or previous
 					} finally {

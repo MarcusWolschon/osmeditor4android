@@ -224,14 +224,20 @@ public class StorageDelegator implements Serializable, Exportable {
 	
 	/**
 	 * Create apiStorage (aka the changes to the original data) based on state field of the elements.
-	 * Assumes that apiStorage is empty.
+	 * Assumes that apiStorage is empty. As a side effect it updates the id sequences for the creation of new elements.
 	 */
-	public void fixupApiStorage() {
+	public synchronized void fixupApiStorage() {
 		try {
+			long minNodeId = 0;
+			long minWayId = 0;
+			long minRelationId = 0;
 			List<Node> nl = new ArrayList<Node>(currentStorage.getNodes());
 			for (Node n:nl) {
 				if (n.getState()!=OsmElement.STATE_UNCHANGED) {
 					apiStorage.insertElementUnsafe(n);
+					if (n.getOsmId() < minNodeId) {
+						minNodeId = n.getOsmId();
+					}
 				}
 				if (n.getState()==OsmElement.STATE_DELETED) {
 					currentStorage.removeElement(n);
@@ -241,6 +247,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			for (Way w:wl) {
 				if (w.getState()!=OsmElement.STATE_UNCHANGED) {
 					apiStorage.insertElementUnsafe(w);
+					if (w.getOsmId() < minWayId) {
+						minWayId = w.getOsmId();
+					}
 				}
 				if (w.getState()==OsmElement.STATE_DELETED) {
 					currentStorage.removeElement(w);
@@ -250,11 +259,15 @@ public class StorageDelegator implements Serializable, Exportable {
 			for (Relation r:rl) {
 				if (r.getState()!=OsmElement.STATE_UNCHANGED) {
 					apiStorage.insertElementUnsafe(r);
+					if (r.getOsmId() < minRelationId) {
+						minRelationId = r.getOsmId();
+					}
 				}
 				if (r.getState()==OsmElement.STATE_DELETED) {
 					currentStorage.removeElement(r);
 				}
 			}
+			getFactory().setIdSequences(minNodeId, minWayId, minRelationId);
 		} catch (StorageException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

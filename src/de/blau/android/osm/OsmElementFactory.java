@@ -35,4 +35,10 @@ public class OsmElementFactory implements Serializable {
 	public Relation createRelationWithNewId() {
 		return createRelation(--relationId, 1, OsmElement.STATE_CREATED);
 	}
+	
+	public synchronized void setIdSequences(long n, long w, long r) {
+		nodeId = n < nodeId ? n : nodeId;
+		wayId =  w < wayId ? w : wayId;
+		relationId = r < relationId ? r : relationId;
+	}
 }
