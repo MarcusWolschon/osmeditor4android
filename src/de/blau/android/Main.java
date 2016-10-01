@@ -224,6 +224,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		float lastAzimut = -9999;
 		float[] acceleration;
 		float[] geomagnetic;
+		float[] truncatedRotationVector;
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
@@ -247,9 +248,24 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						return;
 					}
 				}
-			} else if ( event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
-				// calculate th rotation matrix
-				SensorManager.getRotationMatrixFromVector(R, event.values );
+			} else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+				if (event.values.length > 4) {
+					// See https://groups.google.com/forum/#!topic/android-developers/U3N9eL5BcJk for more information on this
+					//
+					// On some Samsung devices SensorManager.getRotationMatrixFromVector
+					// appears to throw an exception if rotation vector has length > 4.
+					// For the purposes of this class the first 4 values of the
+					// rotation vector are sufficient (see crbug.com/335298 for details).
+					if (truncatedRotationVector == null) {
+						truncatedRotationVector = new float[4];
+					}
+					System.arraycopy(event.values, 0, truncatedRotationVector, 0, 4);
+					SensorManager.getRotationMatrixFromVector(R, truncatedRotationVector);
+				} else {
+					// calculate the rotation matrix
+					SensorManager.getRotationMatrixFromVector(R, event.values );
+				}
+			
 			}
 			SensorManager.getOrientation(R, orientation);
 			float azimut = (int) ( Math.toDegrees( SensorManager.getOrientation( R, orientation )[0] ) + 360 ) % 360;
