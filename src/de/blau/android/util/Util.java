@@ -26,8 +26,10 @@ import android.view.Display;
 import android.view.View;
 import android.widget.ScrollView;
 import de.blau.android.Logic;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -133,6 +135,12 @@ public class Util {
 		if (osmElement instanceof Way) {
 			double[] coords = Logic.centroidLonLat((Way)osmElement);
 			return new int[] {(int) (coords[1]*1E7), (int) (coords[0]*1E7)};
+		}
+		if (osmElement instanceof Relation) { // the center of the bounding box is naturally just a rough estimate
+			BoundingBox bbox = osmElement.getBounds();
+			if (bbox != null) {
+				return new int[] {(int)(bbox.getCenterLat()*1E7), (bbox.getRight()-bbox.getLeft())/2};
+			}
 		}
 		return null;
 	}

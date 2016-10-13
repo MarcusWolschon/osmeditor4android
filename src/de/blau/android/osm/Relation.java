@@ -391,6 +391,4 @@ public class Relation extends OsmElement implements BoundedObject {
 		}
 		return result;
 	}
-	
-	
 }

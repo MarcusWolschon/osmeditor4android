@@ -823,7 +823,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 	
 	/**
-	 * Return lat value of the center of the bounding box
+	 * Return lat value of the center of the bounding box 
 	 * @return
 	 */
 	public double getCenterLat() {
