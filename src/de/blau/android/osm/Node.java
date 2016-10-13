@@ -125,6 +125,9 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 	}
 	
 	public double getDistance(final int[] location) {
+		if (location == null) {
+			return Double.MAX_VALUE;
+		}
 		return Math.hypot(location[0] - getLat(),location[1] - getLon());
 	}
 
