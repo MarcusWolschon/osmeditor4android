@@ -1667,7 +1667,11 @@ public class Preset implements Serializable {
 			if (linkedPresetNames != null) {
 				for (String n:linkedPresetNames) {
 					Integer index = getItemIndexByName(n); // FIXME this involves a sequential search
-					result.add(allItems.get(index.intValue()));
+					if (index != null) {
+						result.add(allItems.get(index.intValue()));
+					} else {
+						Log.e(DEBUG_TAG,"Coudn't find linked preset " + n);
+					}
 				}
 			}
 			return result;
