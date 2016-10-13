@@ -23,7 +23,7 @@
             android:layout_marginRight="1dp"
             android:layout_weight="3"
             android:gravity="top"
-            android:maxLines="2"
+            android:maxLines="3"
             android:minHeight="34dp"
             android:paddingTop="5dp"
             android:paddingLeft="5dp"

@@ -28,7 +28,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:saveEnabled="false"
-           	android:maxLines="2" />
+           	android:maxLines="3" />
 
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/valueSelected"

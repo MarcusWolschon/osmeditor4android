@@ -26,7 +26,7 @@
 	        android:paddingTop="5dp"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
-	       	android:maxLines="2"
+	       	android:maxLines="3"
 	        android:gravity="top"
 	         />	    
 	    <RadioGroup
