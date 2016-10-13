@@ -1670,7 +1670,7 @@ public class Preset implements Serializable {
 					if (index != null) {
 						result.add(allItems.get(index.intValue()));
 					} else {
-						Log.e(DEBUG_TAG,"Coudn't find linked preset " + n);
+						Log.e(DEBUG_TAG,"Couldn't find linked preset " + n);
 					}
 				}
 			}
