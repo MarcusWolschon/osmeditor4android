@@ -1614,7 +1614,7 @@ public class EasyEditManager {
 				case MENUITEM_APPEND: main.startSupportActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
 				case MENUITEM_RESTRICTION: main.startSupportActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
 				case MENUITEM_ROTATE: logic.setRotationMode(); logic.showCrosshairsForCentroid(); break;
-				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); invalidate(); break;
+				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); invalidate(); break; // FIXME move to asynctask
 				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); invalidate(); break;
 				case MENUITEM_SPLIT_POLYGON: main.startSupportActionMode(new WaySplittingActionModeCallback((Way)element, true)); break;
 				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false, false); break;
