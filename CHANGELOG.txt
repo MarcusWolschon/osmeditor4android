@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1203: fix more crashes, calculate rough centroid of relations if possible.
+
 1202: update default preset, increase number of lines for very long (German) key descriptions, fix some crashes.
 
 1201: update ids correctly after reading an .osm file. Fix Samsung 4.3 specific issue https://groups.google.com/forum/#!topic/android-developers/U3N9eL5BcJk
