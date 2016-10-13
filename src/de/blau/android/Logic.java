@@ -3533,14 +3533,14 @@ public class Logic {
 	 * 
 	 * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
-	public void setClickableElements(Set<OsmElement> clickable) {
+	public synchronized void setClickableElements(Set<OsmElement> clickable) {
 		clickableElements = clickable;
 	}
 	
 	/**
 	 * @return the list of clickable elements. May be null, meaning no restrictions on clickable elements
 	 */
-	public Set<OsmElement> getClickableElements() {
+	public synchronized Set<OsmElement> getClickableElements() {
 		return clickableElements;
 	}
 	
