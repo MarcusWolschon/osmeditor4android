@@ -1,6 +1,7 @@
 package de.blau.android;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -98,7 +99,17 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		}
 		
 		super.onCreate(savedInstanceState);
-		int topicId = (Integer)getIntent().getSerializableExtra(TOPIC);
+		int topicId = R.string.help_introduction;
+		Serializable s = getIntent().getSerializableExtra(TOPIC);
+		if ( s != null) {
+			try {
+				topicId = (Integer)s;
+			} catch (Exception e) {
+				Log.e(DEBUG_TAG,"casting topic raised " + e);
+			}
+		} else {
+			Log.d(DEBUG_TAG,"Falling back to default topic");
+		}
 		String topic = getString(topicId); // this assumes that the resources are the same, which is probably safe
 		
 		setContentView(R.layout.help_drawer);
