@@ -1,6 +1,7 @@
 package de.blau.android.dialogs;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -91,13 +92,25 @@ public class Newbie extends DialogFragment
     	builder.setPositiveButton(R.string.okay, new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						((Main)getActivity()).gotoBoxPicker();
+						Main main = (Main) getActivity();
+						if (main != null) {
+							main.gotoBoxPicker();
+						} else {
+							//FIXME do something intelligent here
+							Log.e(DEBUG_TAG,"getActivity returned null in onClick");
+						}
 					}
 				});
     	builder.setNeutralButton(R.string.read_introduction, 	new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						HelpViewer.start(getActivity(), R.string.help_introduction);
+						Context context = getActivity();
+						if (context != null) {
+							HelpViewer.start(context, R.string.help_introduction);
+						} else {
+							//FIXME do something intelligent here
+							Log.e(DEBUG_TAG,"getActivity returned null in onClick");
+						}
 					}
 				});
 
