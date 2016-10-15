@@ -122,12 +122,12 @@ public class UndoStorage implements Serializable {
 	 */
 	protected void save(OsmElement element) {
 		try {
-		if (undoCheckpoints.isEmpty()) {
-			Log.e(TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
-			return;
-		}
-		undoCheckpoints.getLast().add(element);
-		redoCheckpoints.clear();
+			if (undoCheckpoints.isEmpty()) {
+				Log.e(TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
+				return;
+			}
+			undoCheckpoints.getLast().add(element);
+			redoCheckpoints.clear();
 		} catch (Exception ex) {
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex); // don't crash the app send a report

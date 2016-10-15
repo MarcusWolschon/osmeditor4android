@@ -2165,6 +2165,7 @@ public class Logic {
 							ErrorAlert.showDialog(Application.mainActivity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+						ACRA.getErrorReporter().putCustomData("CAUSE",ex.getMessage());
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
 					}
@@ -2670,6 +2671,7 @@ public class Logic {
 							ErrorAlert.showDialog(Application.mainActivity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+						ACRA.getErrorReporter().putCustomData("CAUSE",ex.getMessage());
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
 					}

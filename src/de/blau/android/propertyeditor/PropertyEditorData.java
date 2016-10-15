@@ -68,6 +68,7 @@ public class PropertyEditorData implements Serializable {
 					tempParents.put(Long.valueOf(r.getOsmId()), rm.getRole());
 				} else {
 					Log.e(DEBUG_TAG,"inconsistency in relation membership");
+					ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
 					ACRA.getErrorReporter().handleException(null);
 				}
 			}

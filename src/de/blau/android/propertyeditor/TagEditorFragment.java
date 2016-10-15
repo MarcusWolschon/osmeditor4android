@@ -232,7 +232,8 @@ public class TagEditorFragment extends BaseFragment implements
 			elements = (OsmElement[]) getArguments().getSerializable("elements");
 		} catch (ClassCastException cce) {
 			Log.d(DEBUG_TAG,"onCreateView called in funny state");
-			ACRA.getErrorReporter().handleException(null);
+			ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+			ACRA.getErrorReporter().handleException(cce);
 			return null;
 		}
      	types = new String[elements.length];

@@ -181,7 +181,9 @@ public class ElementInfo extends DialogFragment {
         				tl.addView(createRow(role.equals("")?getString(R.string.empty_role):role,r.getDescription(),tp));
         			} else {
         				// inconsistent state
-        				Log.d(DEBUG_TAG, "inconsistent state: " + e.getDescription() + " is not a member of " + r);
+        				String message = "inconsistent state: " + e.getDescription() + " is not a member of " + r;
+        				Log.d(DEBUG_TAG, message);
+        				ACRA.getErrorReporter().putCustomData("CAUSE", message);
         				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(null);
         			}

@@ -210,7 +210,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		// sanity check
 		StorageDelegator delegator = Application.getDelegator();
 		if (delegator == null || loadData == null) {
-			abort();
+			abort("Delegator null");
 		}
 		
 		osmIds = new long[loadData.length];
@@ -223,7 +223,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			elements[i] = delegator.getOsmElement(types[i], osmIds[i]);
 			// and another sanity check
 			if (elements[i] == null) {
-				abort();
+				abort("Missing elements");
 			}
 		}
 		
@@ -319,8 +319,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		mViewPager.setCurrentItem(currentItem != -1 ? currentItem : (showPresets ? presetFragmentPosition : (formEnabled ? tagFormFragmentPosition : tagEditorFragmentPosition)));
 	}
 	
-	private void abort() {
+	private void abort(String cause) {
 		Toast.makeText(this, R.string.toast_inconsistent_state, Toast.LENGTH_LONG).show();
+		ACRA.getErrorReporter().putCustomData("CAUSE",cause);
 		ACRA.getErrorReporter().handleException(null);
 		finish();
 	}

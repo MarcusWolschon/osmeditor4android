@@ -1892,8 +1892,11 @@ public class EasyEditManager {
 			logic.setSelectedWay(null);
 			if (element != null && (((Relation)element).getMembers()==null || ((Relation)element).getMembers().size()==0)) {
 				// we can only select an empty relation if there is a reference from another object, this is always a bug 
-				Log.e(DEBUG7_TAG,"relation " + element.getOsmId() + " is empty ");
+				String message = "relation " + element.getOsmId() + " is empty";
+				Log.e(DEBUG7_TAG, message);
 				Toast.makeText(main, R.string.toast_rmpty_relation, Toast.LENGTH_LONG).show();
+				ACRA.getErrorReporter().putCustomData("CAUSE", message);
+				ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
 				ACRA.getErrorReporter().handleException(null);
 				super.onDestroyActionMode(mode);
 				return false;
