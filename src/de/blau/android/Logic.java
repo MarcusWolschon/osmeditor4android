@@ -625,11 +625,7 @@ public class Logic {
 	void newEmptyMap(BoundingBox box) {
 		Log.d(DEBUG_TAG, "newEmptyMap");
 		if (box == null) { // probably should do a more general check if the BB is valid
-			try {
-				box = new BoundingBox(-180.0d, -GeoMath.MAX_LAT, +180.0d, GeoMath.MAX_LAT); // maximum possible size in mercator projection
-			} catch (OsmException e) {
-				Log.e(DEBUG_TAG, "creating default bounding box failed"); // this can't really happen
-			}
+			box = BoundingBox.getMaxMercatorExtent();
 		}
 		
 		// not checking will zap edits, given that this method will only be called when we are not downloading, not a good thing
@@ -645,7 +641,7 @@ public class Logic {
 		if (map.getHeight() != 0) {
 			ratio = (float) map.getWidth() / map.getHeight();
 		}
-		viewBox.setBorders(box, ratio, false); // findbugs will complain here however creating box will not actually fail above
+		viewBox.setBorders(box, ratio, false); 
 		map.setViewBox(box);
 		DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.invalidate();

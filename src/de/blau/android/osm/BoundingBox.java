@@ -114,6 +114,20 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	private float ratio = 1;
 	
 	/**
+	 * @return a BoundingBox initialized to the maximum extent of mercator projection
+	 */
+	public static BoundingBox getMaxMercatorExtent() {
+		BoundingBox box = new BoundingBox();
+		box.left = (int) (-180*1E7);
+		box.bottom = (int) (-GeoMath.MAX_LAT*1E7);
+		box.right = (int) (180*1E7);
+		box.top = (int) (GeoMath.MAX_LAT*1E7);
+		box.calcDimensions();
+		box.calcBottomMercator();
+		return box;
+	}
+	
+	/**
 	 * Creates a new bounding box with coordinates initialized to zero
 	 * Careful: will fail validation
 	 */
