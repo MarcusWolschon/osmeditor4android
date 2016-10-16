@@ -2403,7 +2403,7 @@ public class EasyEditManager {
 		
 		protected UndoListener undoListener; 
 		
-		private boolean deselect = false;
+		private boolean deselect = true;
 				
 		public ExtendSelectionActionModeCallback(ArrayList<OsmElement> elements) {
 			super();
