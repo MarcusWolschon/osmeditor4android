@@ -83,7 +83,7 @@ public class MapTileProviderService extends Service {
 			}
 		}
 
-		if (mountPointWiteable) {
+		if (mountPoint != null && mountPointWiteable) {
 			Log.d(DEBUG_TAG,
 					"Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
 			mFileSystemProvider = new MapTileFilesystemProvider(getBaseContext(), mountPoint,
