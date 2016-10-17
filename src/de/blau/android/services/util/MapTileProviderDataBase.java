@@ -14,7 +14,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteFullException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
@@ -130,7 +129,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		Log.i("OSMTileProviderDB", "creating database instance");
 		mCtx = context;
 		mFSProvider = openStreetMapTileFilesystemProvider;
-		mDatabase = new AndNavDatabaseHelper(context).getWritableDatabase();
+		mDatabase = new DatabaseHelper(context).getWritableDatabase();
 		
 		incrementUse = mDatabase.compileStatement(T_FSCACHE_INCREMENT_USE);
 	}
@@ -408,8 +407,8 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	// Inner and Anonymous Classes
 	// ===========================================================
 
-	private class AndNavDatabaseHelper extends SQLiteOpenHelper {
-		AndNavDatabaseHelper(final Context context) {
+	private class DatabaseHelper extends SQLiteOpenHelper {
+		DatabaseHelper(final Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
@@ -461,9 +460,10 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	    	String path = dir.getAbsolutePath() + "/databases/" + DATABASE_NAME + ".db";  
 	        checkDB = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
 	        checkDB.close();
-	    } catch (SQLiteException e) {
+	    } catch (Exception e) {
 	        // database doesn't exist yet.
-	    }
+	    	// NOTE this originally caught just SQLiteException however this seems to cause issues with some Android versions
+	    } 
 	    return checkDB != null;
 	}
 }
