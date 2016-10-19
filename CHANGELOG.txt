@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1205: deselect elements when finishing multi-select mode (regression), protect against SQLiteCantOpenDatabaseException not being caught. Changes for F-Droid.
+
 1204: fix broken default preset, protect against crash if linked preset is missing.
 
 1203: fix more crashes, calculate rough centroid of relations if possible.
