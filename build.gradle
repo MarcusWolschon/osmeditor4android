@@ -21,8 +21,6 @@ allprojects {
 	repositories {
 		mavenCentral()
 		jcenter()
-		maven { url 'https://dl.bintray.com/simonpoole/div' }
-		maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
 	}
 }
 
@@ -177,9 +175,9 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
     compile 'com.drewnoakes:metadata-extractor:2.9.1'
     compile 'com.adobe.xmp:xmpcore:5.1.2'
-    compile 'ch.poole:PoParser:0.7.0'
-	compile 'ch.poole:OpeningHoursParser:0.1.0'
-	compile 'ch.poole:ConditionalRestrictionParser:0.1.9'
+    compile 'ch.poole:PoParser:0.7.2'
+	compile 'ch.poole:OpeningHoursParser:0.1.2'
+	compile 'ch.poole:ConditionalRestrictionParser:0.1.11'
 }
 
 android {
