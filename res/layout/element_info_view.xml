@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:padding="@dimen/alert_dialog_content_margin"
+    tools:background="@android:color/holo_green_dark"
+    tools:layout_width="match_parent">
 
     <TableLayout
         android:id="@+id/element_info_vertical_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp" >
+        tools:background="@android:color/holo_orange_light">
     </TableLayout>
 
 </ScrollView>

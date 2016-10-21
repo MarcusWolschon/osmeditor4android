@@ -1,3 +1,5 @@
 <resources>
     <dimen name="spl_default_splitter_size">12dp</dimen>
+    <!-- See: https://www.google.de/design/spec/components/dialogs.html#dialogs-specs -->
+    <dimen name="alert_dialog_content_margin">24dp</dimen>
 </resources>
