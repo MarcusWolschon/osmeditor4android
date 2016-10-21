@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.text.InputType;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -896,6 +898,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	
 	TagTextRow addTextRow(final LinearLayout rowLayout, final PresetItem preset, final PresetKeyType keyType, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
 		final TagTextRow row = (TagTextRow)inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
+		final boolean isWebsite = Tags.isWebsiteKey(key);
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -931,6 +934,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					if (rowLayout instanceof EditableLayout) {
 						((EditableLayout)rowLayout).putTag(key, rowValue);
 					}
+				} else if (hasFocus && isWebsite) {
+					TagEditorFragment.initWebsite(row.valueView);
 				}
 			}
 		});
@@ -960,7 +965,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		
 		return row;
 	}
-	
+
 	TagComboRow addComboRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
 		final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);

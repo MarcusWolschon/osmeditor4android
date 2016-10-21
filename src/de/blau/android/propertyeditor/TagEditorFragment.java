@@ -26,6 +26,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils.TruncateAt;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -74,6 +75,8 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 	
 public class TagEditorFragment extends BaseFragment implements
 		PropertyRows, EditorUpdate {
+
+	static final String HTTP_PREFIX = "http://";
 
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
@@ -822,6 +825,9 @@ public class TagEditorFragment extends BaseFragment implements
 					if (preset != null && preset.getKeyType(key)==PresetKeyType.MULTISELECT) { 
 						// FIXME this should be somewhere better obvious since it creates a non obvious side effect
 						row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
+					}
+					if (Tags.isWebsiteKey(key)) {
+						initWebsite(row.valueEdit);
 					}
 					if (PropertyEditor.running) {
 						if (row.valueEdit.getText().length() == 0) row.valueEdit.showDropDown();
@@ -1830,10 +1836,10 @@ public class TagEditorFragment extends BaseFragment implements
 				if (edits.containsKey(key)) {
 					if (edits.get(key).size()==1) {
 						String value = edits.get(key).get(0).trim();
-						if (!"".equals(value)) {
+						if (saveTag(key, value)) {
 							addTagToMap(map, key, value);
 						} else {
-							map.remove(key); // zap stuff with empty values
+							map.remove(key); // zap stuff with empty values or just the HTTP prefix
 						}
 					} 
 				} else { // key deleted
@@ -1842,15 +1848,24 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 			// check for new tags
 			for (String editsKey:edits.keySet()) {
-				if (!map.containsKey(editsKey) && edits.get(editsKey).size()==1) { // zap empty stuff
+				if (!map.containsKey(editsKey) && edits.get(editsKey).size()==1) { // zap empty stuff or just the HTTP prefix
 					String value = edits.get(editsKey).get(0).trim();
-					if (!"".equals(value)) {
+					if (saveTag(editsKey,value)) {
 						addTagToMap(map, editsKey, value);
 					}
 				}
 			}
 		}
 		return newTags;
+	}
+
+	/**
+	 * @param key
+	 * @param value
+	 * @return true is value isn't empty and isn't the HTTP prefix
+	 */
+	private boolean saveTag(String key, String value) {
+		return !"".equals(value) && !(Tags.isWebsiteKey(key) && HTTP_PREFIX.equals(value));
 	}
 	
 	@Override
@@ -1900,5 +1915,17 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 		}
 		map.put(key, value);
+	}
+	
+	/**
+	 * Add http:// to empty EditTexts that are supposed to contain a website and set input mode
+	 * @param valueEdit
+	 */
+	public static void initWebsite(final EditText valueEdit) {
+		valueEdit.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_URI);
+		if (valueEdit.getText().length() == 0) {
+			valueEdit.setText(HTTP_PREFIX);
+			valueEdit.setSelection(HTTP_PREFIX.length());
+		}
 	}
 }

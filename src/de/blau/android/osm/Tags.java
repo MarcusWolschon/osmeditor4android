@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Key and value constants for tags that are using in the code
+ * Key and value constants for tags that are used in the code
  * @author simon
  *
  */
@@ -107,4 +107,13 @@ public class Tags {
 	public static final String KEY_OPENING_HOURS = "opening_hours";
 	
 	public static final String KEY_CONDITIONAL_SUFFIX = ":conditional";
+	
+	// keys were the values are URLs
+	public static final String KEY_WEBSITE = "website";
+	public static final String KEY_CONTACT_WEBSITE = "contact:website";
+	public static boolean isWebsiteKey(final String key) {
+		return Tags.KEY_WEBSITE.equals(key)||Tags.KEY_CONTACT_WEBSITE.equals(key);
+	}
+	
+	
 }
