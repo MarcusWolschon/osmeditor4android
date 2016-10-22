@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
@@ -165,6 +166,8 @@ public class ElementInfo extends DialogFragment {
         				tl.addView(createRow(k, Html.fromHtml("<a href=\"http://wikipedia.org/wiki/"+value+"\">"+value+"</a>"),tp));
         			} else if (k.equals(Tags.KEY_WIKIDATA)) {
         				tl.addView(createRow(k, Html.fromHtml("<a href=\"http://wikidata.org/wiki/"+value+"\">"+value+"</a>"),tp));
+        			} else if (Tags.isWebsiteKey(k)) {
+        				tl.addView(createRow(k, Html.fromHtml("<a href=\"" + value + "\">"+value+"</a>"),tp));
         			} else {
         				tl.addView(createRow(k,value,tp));
         			}
@@ -219,9 +222,10 @@ public class ElementInfo extends DialogFragment {
     		cell.setMovementMethod(LinkMovementMethod.getInstance());
     		cell.setPadding(5, 0, 0, 0);
     		cell.setEllipsize(TruncateAt.MARQUEE);
-    		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-    			cell.setTextIsSelectable(true);
-    		}
+// This stops links from working   		
+//    		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//    			cell.setTextIsSelectable(true);
+//    		}
     		tr.addView(cell);
     	}
     	tr.setLayoutParams(tp);
@@ -248,9 +252,10 @@ public class ElementInfo extends DialogFragment {
     		cell.setMovementMethod(LinkMovementMethod.getInstance());
     		cell.setPadding(5, 0, 0, 0);
     		cell.setEllipsize(TruncateAt.MARQUEE);
-    		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-    			cell.setTextIsSelectable(true);
-    		}
+// This stops links from working   		
+//    		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//    			cell.setTextIsSelectable(true);
+//    		}
     		tr.addView(cell);
     	}
     	tr.setLayoutParams(tp);
