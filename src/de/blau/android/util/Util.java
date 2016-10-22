@@ -139,7 +139,7 @@ public class Util {
 		if (osmElement instanceof Relation) { // the center of the bounding box is naturally just a rough estimate
 			BoundingBox bbox = osmElement.getBounds();
 			if (bbox != null) {
-				return new int[] {(int)(bbox.getCenterLat()*1E7), (bbox.getRight()-bbox.getLeft())/2};
+				return new int[] {(int)(bbox.getCenterLat()*1E7), bbox.getLeft()+(bbox.getRight()-bbox.getLeft())/2};
 			}
 		}
 		return null;
