@@ -3,8 +3,6 @@ package de.blau.android.util.geojson;
 import com.google.gson.GsonBuilder;
 import de.blau.android.util.geojson.custom.PositionDeserializer;
 import de.blau.android.util.geojson.custom.PositionSerializer;
-import de.blau.android.util.models.Position;
-import de.blau.android.util.utils.PolylineUtils;
 
 import java.util.ArrayList;
 import java.util.List;

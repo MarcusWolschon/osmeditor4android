@@ -5,7 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import de.blau.android.util.models.Position;
+
+import de.blau.android.util.geojson.Position;
 
 import java.lang.reflect.Type;
 

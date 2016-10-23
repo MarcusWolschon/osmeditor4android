@@ -1,6 +1,4 @@
-package de.blau.android.util.utils;
-
-import de.blau.android.util.models.Position;
+package de.blau.android.util.geojson;
 
 import java.util.ArrayList;
 import java.util.List;

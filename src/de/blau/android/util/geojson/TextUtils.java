@@ -1,4 +1,4 @@
-package de.blau.android.util.utils;
+package de.blau.android.util.geojson;
 
 /**
  * We avoid including a full library like org.apache.commons:commons-lang3 to avoid an unnecessary

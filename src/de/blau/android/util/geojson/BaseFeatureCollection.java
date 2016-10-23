@@ -4,7 +4,6 @@ import com.google.gson.GsonBuilder;
 import de.blau.android.util.geojson.custom.GeometryDeserializer;
 import de.blau.android.util.geojson.custom.PositionDeserializer;
 import de.blau.android.util.geojson.custom.PositionSerializer;
-import de.blau.android.util.models.Position;
 
 /**
  * Shared by FeatureCollection and CarmenFeatureCollection

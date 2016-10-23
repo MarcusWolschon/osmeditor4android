@@ -48,6 +48,8 @@ The OkHttp and associated libraries are Copyright 2016 Square, Inc. licensed und
 
 The NoNonsense Filepicker is licensed under the Mozilla Public License, v. 2.0.
 
+The GeoJson classes are Copyright (c) 2016 Mapbox licensed on MIT terms (see the source directory).
+
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0
   http://www.gnu.org/licenses/gpl-3.0.txt
