@@ -1,15 +1,22 @@
 package de.blau.android.util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
@@ -31,20 +38,28 @@ import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.geojson.Feature;
+import de.blau.android.util.geojson.FeatureCollection;
+import de.blau.android.util.geojson.Geometry;
+import de.blau.android.util.geojson.Point;
 import de.blau.android.util.jsonreader.JsonReader;
+import de.blau.android.util.models.Position;
 import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * Search with nominatim
+ * Search with nominatim, photon and maybe others
  * @author simon
  *
  */
 public class Search {
 
 	public static final String NOMINATIM_SERVER = "http://nominatim.openstreetmap.org/"; //TODO set in prefs
+	public static final String PHOTON_SERVER = "http://photon.komoot.de/"; //TODO set in prefs
 	
 	private AppCompatActivity activity;
 
@@ -100,16 +115,22 @@ public class Search {
 	}
 
 	/**
-	 * Query nominatim and then display a list of results to pick from
+	 * Query and then display a list of results to pick from
 	 * @param q
 	 */
 	public void find(String q, BoundingBox bbox) {
-		QueryNominatim querier = new QueryNominatim(bbox);
+		boolean photon = true;
+		Query querier;
+		if (photon) {
+			querier = new QueryPhoton(bbox);
+		} else {
+			querier = new QueryNominatim(bbox);
+		}
 		querier.execute(q);
 		try {
 			ArrayList<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
 			if (result != null && result.size() > 0) {
-				AppCompatDialog sr = createSearchResultsDialog(result);
+				AppCompatDialog sr = createSearchResultsDialog(result, photon ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
 				sr.show();
 			} else {
 				Toast.makeText(activity, R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
@@ -124,25 +145,50 @@ public class Search {
 		}
 	}
 
-
-	private class QueryNominatim extends AsyncTask<String, Void, ArrayList<SearchResult>> {
+	private class Query extends AsyncTask<String, Void, ArrayList<SearchResult>> {
 		AlertDialog progress = null;
 		
 		final BoundingBox bbox;
 
-		public QueryNominatim() {
+		public Query() {
 			this(null);
 		}
 
-		public QueryNominatim(BoundingBox bbox) {
+		public Query(BoundingBox bbox) {
 			this.bbox = bbox;
 		}
-
+		
 		@Override
 		protected void onPreExecute() {
 			progress = ProgressDialog.get(activity, Progress.PROGRESS_LOADING);
+			progress.show();
+		}
+		
+		@Override
+		protected ArrayList<SearchResult> doInBackground(String... params) {
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(ArrayList<SearchResult> res) {
+			try {
+				progress.dismiss();
+			} catch (Exception ex) {
+				Log.e("Search", "dismiss dialog failed with " + ex);
+			}
+		}
+	}
+
+	private class QueryNominatim extends Query {
+		
+		public QueryNominatim() {
+			super(null);
 		}
 
+		public QueryNominatim(BoundingBox bbox) {
+			super(bbox);
+		}
+		
 		@Override
 		protected ArrayList<SearchResult> doInBackground(String... params) {
 
@@ -188,7 +234,7 @@ public class Search {
 					ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 					reader.beginArray();
 					while (reader.hasNext()) {
-						SearchResult searchResult = readResult(reader);
+						SearchResult searchResult = readNominatimResult(reader);
 						if (searchResult != null) { //TODO handle deprecated
 							result.add(searchResult);
 							Log.d("Search", "received: " + searchResult.toString());
@@ -215,20 +261,9 @@ public class Search {
 			}
 			return null;
 		}
-
-		@Override
-		protected void onPostExecute(ArrayList<SearchResult> res) {
-			try {
-				if (progress != null) {
-					progress.dismiss();
-				}
-			} catch (Exception ex) {
-				Log.e("Search", "loadFromFile dismiss dialog failed with " + ex);
-			}
-		}
 	}
 
-	public SearchResult readResult(JsonReader reader) {
+	public SearchResult readNominatimResult(JsonReader reader) {
 		SearchResult result = new SearchResult();
 		try {
 			reader.beginObject();
@@ -252,8 +287,170 @@ public class Search {
 		return null;
 	}
 	
+	private class QueryPhoton extends Query {
+		
+		public QueryPhoton() {
+			super(null);
+		}
+
+		public QueryPhoton(BoundingBox bbox) {
+			super(bbox);
+		}
+		
+		@Override
+		protected ArrayList<SearchResult> doInBackground(String... params) {
+
+			String query = params[0];
+			Uri.Builder builder = Uri.parse(PHOTON_SERVER)
+					.buildUpon()
+					.appendPath("api")
+					.appendQueryParameter("q", query);
+			if (bbox != null) {
+				double lat = bbox.getCenterLat();
+				double lon = (bbox.getLeft() + (bbox.getRight()-bbox.getLeft())/2)/1E7D;
+				builder.appendQueryParameter("lat", Double.toString(lat));
+				builder.appendQueryParameter("lon", Double.toString(lon));
+			}
+			Uri uriBuilder = builder.build();
+
+			String urlString = uriBuilder.toString();
+			Log.d("Search", "urlString: " + urlString);
+			InputStream inputStream = null;
+			JsonReader reader = null;
+			ResponseBody responseBody = null;
+			try {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+					Request request = new Request.Builder()
+							.url(urlString)
+							.build();
+					Call searchCall = Application.getHttpClient().newCall(request);
+					Response searchCallResponse = searchCall.execute();
+					if (searchCallResponse.isSuccessful()) {
+						responseBody = searchCallResponse.body();
+						inputStream = responseBody.byteStream();
+					}
+				} else { //FIXME 2.2/API 8 support
+					URL url = new URL(urlString);
+					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+					conn.setRequestProperty("User-Agent", Application.userAgent);
+					inputStream = conn.getInputStream();
+				}
+
+				if (inputStream != null) {
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+			        StringBuilder sb = new StringBuilder();
+			        int cp;
+			        while ((cp = rd.read()) != -1) {
+			          sb.append((char) cp);
+			        }
+			        inputStream.close();
+			        
+					ArrayList<SearchResult> result = new ArrayList<SearchResult>();
+					FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
+					for (Feature f:fc.getFeatures()) {
+						SearchResult searchResult = readPhotonResult(f);
+						if (searchResult != null) { 
+							result.add(searchResult);
+							Log.d("Search", "received: " + searchResult.toString());
+						}
+					}
+					return result;
+				}
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (responseBody != null) {
+						responseBody.close();
+					}
+					if (reader != null) {
+						reader.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return null;
+		}
+	}
+	
+	public SearchResult readPhotonResult(Feature f) {
+		SearchResult result = new SearchResult();
+		try {
+			JsonObject properties = f.getProperties();
+			Geometry g = f.getGeometry();
+			if (g instanceof Point) {
+				Point p = (Point)g;
+				Position pos = p.getCoordinates();
+				result.setLat(pos.getLatitude());
+			    result.setLon(pos.getLongitude());
+			    StringBuilder sb = new StringBuilder();
+			    JsonElement name = properties.get("name");
+			    if (name != null) {
+			    	sb.append(name.getAsString());
+			    	JsonElement osmKey = properties.get("osm_key");
+			    	JsonElement osmValue = properties.get("osm_value");
+				    if (osmKey != null && osmValue != null) {
+				    	String key = osmKey.getAsString();
+				    	String value = osmValue.getAsString();
+				    	Map<String,String> tag = new HashMap<String,String>();
+				    	tag.put(key,value);
+					    PresetItem preset = Preset.findBestMatch(Application.getCurrentPresets(activity), tag, false);
+					    if (preset != null) {
+					    	sb.append("\n[" + preset.getTranslatedName() +"]");
+					    } else {
+					    	sb.append("\n[" + key + "=" + value +"]");
+					    }
+			    	}
+			    	StringBuilder sb2 = new StringBuilder();
+			    	JsonElement street = properties.get("street");
+			    	if (street != null) {
+			    		sb2.append(street.getAsString());
+				    	JsonElement housenumber = properties.get("housenumber");
+				    	if (housenumber != null) {
+				    		sb2.append( " " + housenumber.getAsString());
+				    	}
+			    	}
+			    	JsonElement postcode = properties.get("postcode");
+			    	if (postcode != null) {
+			    		if (sb2.length() > 0) {
+			    			sb2.append(", ");
+			    		}
+			    		sb2.append(postcode.getAsString());
+			    	}
+			    	JsonElement state = properties.get("state");
+			    	if (state != null) {
+			    		if (sb2.length() > 0) {
+			    			sb2.append(", ");
+			    		}
+			    		sb2.append(state.getAsString());
+			    	}
+			    	JsonElement country = properties.get("country");
+			    	if (country != null) {
+			    		if (sb2.length() > 0) {
+			    			sb2.append(", ");
+			    		}
+			    		sb2.append(country.getAsString());
+			    	}
+			    	if (sb2.length() > 0) {
+			    		sb.append("\n");
+			    		sb.append(sb2);
+			    	}
+			    }
+			    result.display_name = sb.toString();
+				return result;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
 	@SuppressLint("InflateParams")
-	private AppCompatDialog createSearchResultsDialog(final ArrayList<SearchResult> searchResults) {
+	private AppCompatDialog createSearchResultsDialog(final ArrayList<SearchResult> searchResults, int itemLayout) {
 		// 
 		Builder builder = new AlertDialog.Builder(activity);
 		builder.setTitle(R.string.search_results_title);
@@ -265,7 +462,7 @@ public class Search {
 		for (SearchResult sr:searchResults) {
 			ar.add(sr.display_name);
 		}
-		lv.setAdapter(new ArrayAdapter<String>(activity, R.layout.search_results_item, ar));
+		lv.setAdapter(new ArrayAdapter<String>(activity, itemLayout, ar));
 		lv.setSelection(0);
 		builder.setNegativeButton(R.string.cancel, null);
 		final AppCompatDialog dialog = builder.create();
