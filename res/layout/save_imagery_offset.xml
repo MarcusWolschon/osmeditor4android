@@ -8,9 +8,10 @@
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:paddingLeft="?attr/dialogPreferredPadding"
+        android:paddingRight="?attr/dialogPreferredPadding"
 	>
 		<EditText
-		    android:paddingLeft="20dp"
 			android:id="@+id/imagery_offset_description" 
 			android:hint="@string/imagery_offset_description"
 			android:maxLength="100"
@@ -21,7 +22,6 @@
 		<RelativeLayout
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:paddingLeft="20dp"
 			>
 			
 			<TextView
@@ -40,14 +40,13 @@
 			    android:layout_height="wrap_content"
 			    android:layout_centerVertical="true"
 			    android:hint="@string/imagery_offset_author"
-			    android:paddingLeft="10dp"
+			    android:layout_marginLeft="10dp"
 			    android:textAppearance="?android:attr/textAppearanceMedium" />
 
 		</RelativeLayout>
 		<RelativeLayout 
 		    android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:paddingLeft="20dp"
 		>
 			<LinearLayout
 			    android:id="@+id/linearLayout1"
