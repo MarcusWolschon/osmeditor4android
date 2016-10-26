@@ -1,4 +1,4 @@
-package de.blau.android.util.geojson;
+package de.blau.android.util.mapbox.models;
 
 /**
  * Represents a position defined by a longitude, latitude, and optionally, an altitude.

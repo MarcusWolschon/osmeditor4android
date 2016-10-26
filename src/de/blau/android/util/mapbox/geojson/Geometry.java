@@ -1,4 +1,4 @@
-package de.blau.android.util.geojson;
+package de.blau.android.util.mapbox.geojson;
 
 /**
  * Interface implemented by all Geometry objects, contains common fields.

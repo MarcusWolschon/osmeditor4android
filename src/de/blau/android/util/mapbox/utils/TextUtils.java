@@ -1,4 +1,4 @@
-package de.blau.android.util.geojson;
+package de.blau.android.util.mapbox.utils;
 
 /**
  * We avoid including a full library like org.apache.commons:commons-lang3 to avoid an unnecessary

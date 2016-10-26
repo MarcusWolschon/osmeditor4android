@@ -1,4 +1,4 @@
-package de.blau.android.util.geojson.custom;
+package de.blau.android.util.mapbox.geojson.custom;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -6,7 +6,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import de.blau.android.util.geojson.Position;
+import de.blau.android.util.mapbox.models.Position;
 
 import java.lang.reflect.Type;
 

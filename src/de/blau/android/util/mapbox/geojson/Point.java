@@ -1,8 +1,10 @@
-package de.blau.android.util.geojson;
+package de.blau.android.util.mapbox.geojson;
 
 import com.google.gson.GsonBuilder;
-import de.blau.android.util.geojson.custom.PositionDeserializer;
-import de.blau.android.util.geojson.custom.PositionSerializer;
+
+import de.blau.android.util.mapbox.geojson.custom.PositionDeserializer;
+import de.blau.android.util.mapbox.geojson.custom.PositionSerializer;
+import de.blau.android.util.mapbox.models.Position;
 
 /**
  * A Point is a type of {@link Geometry}.

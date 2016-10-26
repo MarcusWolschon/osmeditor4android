@@ -1,4 +1,4 @@
-package de.blau.android.util.geojson;
+package de.blau.android.util.mapbox.geojson;
 
 import java.util.Arrays;
 import java.util.List;

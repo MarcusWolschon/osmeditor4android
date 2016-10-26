@@ -1,7 +1,9 @@
-package de.blau.android.util.geojson;
+package de.blau.android.util.mapbox.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.blau.android.util.mapbox.models.Position;
 
 /**
  * Polyline utils class contains method that can decode/encode a polyline, simplify a line, and more.
