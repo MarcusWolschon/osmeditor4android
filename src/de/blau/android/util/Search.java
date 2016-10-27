@@ -149,10 +149,10 @@ public class Search {
 					.appendPath("search")
 					.appendQueryParameter("q", query);
 			if (bbox != null) {
-				String viewBoxCoordinates = bbox.getLeft()
-						+ "," + bbox.getBottom()
-						+ "," + bbox.getRight()
-						+ "," + bbox.getTop();
+				String viewBoxCoordinates = bbox.getLeft()/1E7D
+						+ "," + bbox.getBottom()/1E7D
+						+ "," + bbox.getRight()/1E7D
+						+ "," + bbox.getTop()/1E7D;
 				builder.appendQueryParameter("viewboxlbrt", viewBoxCoordinates);
 			}
 			Uri uriBuilder = builder.appendQueryParameter("format", "jsonv2").build();
