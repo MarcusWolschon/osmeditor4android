@@ -35,6 +35,7 @@ import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PixelXorXfermode;
+import android.graphics.RadialGradient;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
@@ -61,6 +62,7 @@ public class DataStyle  extends DefaultHandler {
 	public final static String SELECTED_WAY = "selected_way";
 	public final static String SELECTED_RELATION_WAY = "selected_relation_way";
 	public final static String PROBLEM_WAY = "problem_way";
+	public final static String HIDDEN_WAY = "hidden_way";
 	public final static String NODE_TOLERANCE = "node_tolerance";
 	public final static String NODE_TOLERANCE_2 = "node_tolerance_2";
 	public final static String NODE = "node";
@@ -76,6 +78,7 @@ public class DataStyle  extends DefaultHandler {
 	public final static String SELECTED_RELATION_NODE = "selected_relation_node";
 	public final static String SELECTED_RELATION_NODE_THIN = "selected_relation_node_thin";
 	public static final String SELECTED_RELATION_NODE_TAGGED = "selected_relation_node_tagged";
+	public final static String HIDDEN_NODE = "hidden_node";
 	public final static String WAY_DIRECTION = "way_direction";
 	public final static String ONEWAY_DIRECTION = "oneway_direction";	
 	public final static String LARGE_DRAG_AREA = "large_drag_area";
@@ -390,6 +393,15 @@ public class DataStyle  extends DefaultHandler {
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		featureStyles.put(fp.getName(), fp);
 		
+		fp = new FeatureStyle(HIDDEN_NODE);
+		fp.dontUpdate();
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
+		fp.setColor(ContextCompat.getColor(ctx,R.color.light_grey));
+		fp.getPaint().setStyle(Style.STROKE);
+		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
+		featureStyles.put(fp.getName(), fp);
+		
 		fp = new FeatureStyle(GPS_TRACK,featureStyles.get(WAY)); 	
 		fp.setColor(Color.BLUE);
 		fp.getPaint().setStrokeCap(Cap.ROUND);
@@ -469,6 +481,14 @@ public class DataStyle  extends DefaultHandler {
 		fp = new FeatureStyle(SELECTED_WAY,featureStyles.get(WAY)); 	
 		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
 		fp.setWidthFactor(2f);
+		fp.getPaint().setStrokeCap(Cap.ROUND);
+		fp.getPaint().setStrokeJoin(Join.ROUND);
+		featureStyles.put(fp.getName(), fp);
+		
+		fp = new FeatureStyle(HIDDEN_WAY,featureStyles.get(WAY)); 	
+		fp.setColor(ContextCompat.getColor(ctx,R.color.light_grey));
+		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
+		fp.setWidthFactor(0.5f);
 		fp.getPaint().setStrokeCap(Cap.ROUND);
 		fp.getPaint().setStrokeJoin(Join.ROUND);
 		featureStyles.put(fp.getName(), fp);
@@ -809,7 +829,12 @@ public class DataStyle  extends DefaultHandler {
 				tempFeatureStyle.setWidthFactor(Float.parseFloat(atts.getValue("widthFactor")));
 				tempFeatureStyle.setEditable(Boolean.valueOf(atts.getValue("editable")).booleanValue());
 				tempFeatureStyle.setColor((int)Long.parseLong(atts.getValue("color"),16)); // workaround highest bit set problem
-				tempFeatureStyle.getPaint().setStyle(Style.valueOf(atts.getValue("style")));
+				
+				Style style = Style.valueOf(atts.getValue("style"));
+				tempFeatureStyle.getPaint().setStyle(style);
+				if (style != Style.STROKE) { // hack for filled polygons
+					tempFeatureStyle.getPaint().setAlpha(125);
+				}
 				
 				tempFeatureStyle.getPaint().setStrokeCap(Cap.valueOf(atts.getValue("cap")));
 				tempFeatureStyle.getPaint().setStrokeJoin(Join.valueOf(atts.getValue("join")));

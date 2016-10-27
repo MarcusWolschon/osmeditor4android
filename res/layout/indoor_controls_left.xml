@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true" >
+    
+         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/levelUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="0dp"
+            android:clickable="true"
+            android:src="@drawable/ic_keyboard_arrow_up_black_36dp"
+            android:theme="@style/Theme.customMain"
+            app:backgroundTint="?attr/colorControlNormal"
+            app:fabSize="mini"
+            app:useCompatPadding="true" />
+            
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/levelUp"
+            android:id="@+id/level"
+            >
+        	
+        	<android.support.design.widget.FloatingActionButton
+        	    android:id="@+id/levelTextButton"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"   
+           		android:layout_margin="0dp"
+            	android:clickable="true"
+            	android:theme="@style/Theme.customMain"
+            	app:backgroundTint="?attr/colorControlNormal"
+            	app:fabSize="mini"
+            	app:useCompatPadding="true" />
+            
+            <TextView
+            	android:id="@+id/levelText"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:layout_gravity="center"
+        		android:text="*"
+        		android:elevation="16dp"
+        		android:textColor="@android:color/black"
+        		android:textAppearance="?android:attr/textAppearanceMedium" />
+        </FrameLayout>
+         
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/levelDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/level"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="0dp"
+            android:clickable="true"
+            android:src="@drawable/ic_keyboard_arrow_down_black_36dp"
+            android:theme="@style/Theme.customMain"
+            app:backgroundTint="?attr/colorControlNormal"
+            app:fabSize="mini"
+            app:useCompatPadding="true" />
+ </RelativeLayout>

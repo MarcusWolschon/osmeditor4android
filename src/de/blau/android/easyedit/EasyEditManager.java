@@ -1382,7 +1382,7 @@ public class EasyEditManager {
 			if (joinableElement != null) {
 				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge));
 			}
-			int wayMembershipCount = logic.getWaysForNode((Node)element).size();
+			int wayMembershipCount = logic.getFilteredWaysForNode((Node)element).size();
 			if (wayMembershipCount > 1) {
 				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split));
 			}

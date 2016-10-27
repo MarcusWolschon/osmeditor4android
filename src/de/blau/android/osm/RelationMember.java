@@ -74,6 +74,9 @@ public class RelationMember implements Serializable {
 		this.role = role;
 	}
 	
+	/**
+	 * @return the element if downloaded, null if it isn't
+	 */
 	public OsmElement getElement() {
 		return element;
 	}

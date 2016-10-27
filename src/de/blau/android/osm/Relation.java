@@ -47,7 +47,7 @@ public class Relation extends OsmElement implements BoundedObject {
 
 	/**
 	 * Return complete list of relation members
-	 * @return
+	 * @return list of members, or null if there are none
 	 */
 	public List<RelationMember> getMembers() {
 		return members;

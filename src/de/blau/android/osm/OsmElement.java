@@ -102,6 +102,13 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		return Collections.unmodifiableSortedMap(tags);
 	}
 
+	/**
+	 * @return true if the element has at least one tag
+	 */
+	public boolean hasTags() {
+		return tags != null && tags.size() > 0; 
+	}
+	
 	public byte getState() {
 		return state;
 	}

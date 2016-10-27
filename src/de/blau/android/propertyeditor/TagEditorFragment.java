@@ -158,7 +158,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param displayMRUpresets 
      */
     static public TagEditorFragment newInstance(OsmElement[] elements, ArrayList<LinkedHashMap<String,String>> tags, boolean applyLastAddressTags, 
-    											String focusOnKey, boolean displayMRUpresets) {
+    											String focusOnKey, boolean displayMRUpresets, Integer level) {
     	TagEditorFragment f = new TagEditorFragment();
     	
         Bundle args = new Bundle();
@@ -168,7 +168,8 @@ public class TagEditorFragment extends BaseFragment implements
         args.putSerializable("applyLastAddressTags", Boolean.valueOf(applyLastAddressTags));
         args.putSerializable("focusOnKey", focusOnKey);
         args.putSerializable("displayMRUpresets", Boolean.valueOf(displayMRUpresets));
-
+        args.putSerializable("level", level);
+        
         f.setArguments(args);
         // f.setShowsDialog(true);
         
@@ -289,7 +290,14 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 		}
 
+		// NOTE special case for indoor tagging 
+		Integer level = (Integer) getArguments().getSerializable("level");
+		if (level != null) {
+			addTag(editRowLayout,Tags.KEY_LEVEL,level.toString(), true);
+		}
+		
 		updateAutocompletePresetItem(editRowLayout, null); // set preset from initial tags
+		
 		
 		if (displayMRUpresets) {
 			Log.d(DEBUG_TAG,"Adding MRU prests");
@@ -1864,6 +1872,22 @@ public class TagEditorFragment extends BaseFragment implements
 	 */
 	private boolean saveTag(String key, String value) {
 		return !"".equals(value) && !(Tags.isWebsiteKey(key) && HTTP_PREFIX.equals(value));
+	}
+	
+	/**
+	 * Add tag if it doesn't exist
+	 * @param layout
+	 * @param key
+	 * @param value
+	 */
+	public void addTag(LinearLayout rowLayout,String key, String value, boolean replace) {
+		Log.d(DEBUG_TAG,"adding tag " + key + "=" + value);
+		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(rowLayout,true);
+		if (!currentValues.containsKey(key) || replace) {
+			currentValues.put(key, Util.getArrayList(value));
+			loadEdits(rowLayout,currentValues);
+			updateAutocompletePresetItem(null);
+		}
 	}
 	
 	@Override

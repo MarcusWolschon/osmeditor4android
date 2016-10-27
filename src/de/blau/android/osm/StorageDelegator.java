@@ -1289,8 +1289,9 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * Replace the given node in any ways it is member of.
 	 * @param node The node to be replaced.
+	 * @return null if node was not member of a way, the replacement node if it was
 	 */
-	public void replaceNode(final  Node node) {
+	public Node replaceNode(final  Node node) {
 		List<Way> ways = currentStorage.getWays(node);
 		if (ways.size() > 0) {
 			Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
@@ -1299,7 +1300,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			for (Way way : ways) {
 				replaceNodeInWay(node, newNode,  way);
 			}
+			return newNode;
 		}
+		return null;
 	}
 	
 	/**

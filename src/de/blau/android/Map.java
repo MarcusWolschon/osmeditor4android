@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -15,10 +16,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.Paint.Style;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Path.FillType;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
@@ -32,6 +35,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import de.blau.android.Logic.Mode;
 import de.blau.android.exception.OsmException;
+import de.blau.android.filter.Filter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
@@ -163,6 +167,13 @@ public class Map extends View implements IMapView {
 	private List<Way> tmpDrawingSelectedRelationWays;
 	private List<Node> tmpDrawingSelectedRelationNodes;
 	
+	/**
+	 * 
+	 */
+	private ArrayList<Way> tmpStyledWays = new ArrayList<Way>();
+	private ArrayList<Way> tmpHiddenWays = new ArrayList<Way>();
+	
+	
 	/** Caches the preset during one onDraw pass */
 	private Preset[] tmpPresets;
 	
@@ -177,6 +188,9 @@ public class Map extends View implements IMapView {
 	/** cached zoom level, calculated once per onDraw pass **/
 	int zoomLevel = 0;
 	
+	/** Cache the current filter **/
+	private Filter tmpFilter = null;
+		
 	/** */
 	boolean inNodeIconZoomRange = false;
 	
@@ -349,6 +363,7 @@ public class Map extends View implements IMapView {
 		// set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
 		final Logic logic = Application.getLogic();
 		tmpDrawingEditMode = logic.getMode();
+		tmpFilter = logic.getFilter();
 		tmpDrawingSelectedNodes = logic.getSelectedNodes();
 		tmpDrawingSelectedWays = logic.getSelectedWays();
 		tmpClickableElements = logic.getClickableElements();
@@ -623,8 +638,35 @@ public class Map extends View implements IMapView {
 		
 		//Paint all ways
 		List<Way> ways = delegator.getCurrentStorage().getWays();
-		for (int i = 0, size = ways.size(); i < size; ++i) {
-			paintWay(canvas, ways.get(i));
+		
+		boolean filterMode = tmpFilter != null;
+		if (filterMode) {
+			tmpFilter.clear();
+		}
+		
+		/*
+		 Split the ways it to whose that we are going to show and those that we hide, rendering is far simpler for the later 
+		 */
+		tmpHiddenWays.clear();
+		tmpStyledWays.clear();
+		for (Way w:ways) {
+			if (filterMode) {
+				if (tmpFilter.include(w, tmpDrawingInEditRange && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(w))) {
+					tmpStyledWays.add(w);
+				} else {
+					tmpHiddenWays.add(w);
+				}
+			} else {
+				tmpStyledWays.add(w);
+			}
+		}
+		// draw hidden ways first
+		for (Way w:tmpHiddenWays) {
+			paintHiddenWay(canvas,w);
+		}
+		Collections.sort(tmpStyledWays,layerComparator);
+		for (Way w:tmpStyledWays) {
+			paintWay(canvas,w);
 		}
 		
 		//Paint nodes
@@ -634,6 +676,42 @@ public class Map extends View implements IMapView {
 		}
 		paintHandles(canvas);
 	}
+	
+	/**
+	 * For ordering according to layer value and draw lines on top of areas in the same layer
+	 */
+	Comparator<Way> layerComparator = new Comparator<Way>() {
+		@Override
+		public int compare(Way w1, Way w2) {
+			int layer1 = 0;
+			int layer2 = 0;
+			String layer1Str = w1.getTagWithKey(Tags.KEY_LAYER);
+			if (layer1Str!=null) {
+				try {
+					layer1 = Integer.parseInt(layer1Str);
+				} catch (NumberFormatException e) {
+					// FIXME should validate here
+				}
+			}
+			String layer2Str = w2.getTagWithKey(Tags.KEY_LAYER);
+			if (layer2Str!=null) {
+				try {
+					layer2 = Integer.parseInt(layer2Str);
+				} catch (NumberFormatException e) {
+					// FIXME should validate here
+				}
+			}
+			int result = layer2 == layer1 ? 0 : layer2 > layer1 ? +1 : -1;
+			if (result == 0) {
+				FeatureStyle fs1 = getAndSetStyle(w1);
+				Style style1 = fs1.getPaint().getStyle();
+				FeatureStyle fs2 = getAndSetStyle(w2);
+				Style style2 = fs2.getPaint().getStyle();				
+				result = style2 == style1 ? 0 : style2 == Style.STROKE ? -1 : +1;
+			}
+			return result;
+		}
+	};
 	
 	/**
 	 * 
@@ -696,7 +774,7 @@ public class Map extends View implements IMapView {
 	private void paintNode(final Canvas canvas, final Node node, boolean hwAccelarationWorkaround) {
 		int lat = node.getLat();
 		int lon = node.getLon();
-		boolean isSelected = false;
+		boolean isSelected = tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node);
 
 		BoundingBox viewBox = getViewBox();
 		float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
@@ -704,8 +782,14 @@ public class Map extends View implements IMapView {
 
 		boolean isTagged = node.isTagged();
 
+		boolean filteredObject = false;
+		boolean filterMode = tmpFilter != null;
+		if (filterMode) {
+			filteredObject = tmpFilter.include(node, isSelected); 
+		}
+		
 		//draw tolerance
-		if (tmpDrawingInEditRange) {
+		if ((tmpDrawingInEditRange && !filterMode) || (tmpDrawingInEditRange && filterMode && filteredObject)) {
 			if (prefs.isToleranceVisible() && tmpClickableElements == null) {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y);
 			} else if (tmpClickableElements != null && tmpClickableElements.contains(node)) {
@@ -716,7 +800,7 @@ public class Map extends View implements IMapView {
 		String featureKey;
 		String featureKeyThin;
 		String featureKeyTagged;
-		if (tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node) && tmpDrawingInEditRange) {
+		if (isSelected && tmpDrawingInEditRange) {
 			// general node style
 			featureKey = DataStyle.SELECTED_NODE;
 			// style for house numbers
@@ -726,7 +810,6 @@ public class Map extends View implements IMapView {
 			if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()) { // don't draw large areas in multi-select mode
 				canvas.drawCircle(x, y, DataStyle.getCurrent().largDragToleranceRadius, DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
 			}
-			isSelected = true;
 		} else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
 			// general node style
 			featureKey = DataStyle.SELECTED_RELATION_NODE;
@@ -751,8 +834,16 @@ public class Map extends View implements IMapView {
 			featureKeyTagged = DataStyle.NODE_TAGGED;
 		}
 
-		boolean noIcon = true;
+		boolean noIcon = true;		
 		boolean isTaggedAndInZoomLimit = isTagged && inNodeIconZoomRange;
+		
+		if (filterMode && !filteredObject) {
+			featureKey = DataStyle.HIDDEN_NODE;
+			featureKeyThin = featureKey;
+			featureKeyTagged = featureKey;
+			isTaggedAndInZoomLimit = false;
+		}
+		
 		if (isTaggedAndInZoomLimit && showIcons) {
 			noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null);
 			if (noIcon) {
@@ -763,6 +854,7 @@ public class Map extends View implements IMapView {
 				}
 			} 
 		}
+		
 		if (noIcon) { 
 			// draw regular nodes or without icons
 			Paint p = DataStyle.getCurrent(isTagged ? featureKeyTagged : featureKey).getPaint();
@@ -847,7 +939,7 @@ public class Map extends View implements IMapView {
 			if (element instanceof Way) { 
 				// don't show building icons, but only icons for buildings
 				SortedMap<String,String> tempTags = new TreeMap<String,String>(tags);
-				if (tempTags.remove(Tags.KEY_BUILDING) != null) {
+				if (tempTags.remove(Tags.KEY_BUILDING) != null || element.hasTag(Tags.KEY_INDOOR,Tags.VALUE_ROOM)) {
 					match = Preset.findBestMatch(tmpPresets,tempTags);
 				} 
 			} else {
@@ -923,23 +1015,25 @@ public class Map extends View implements IMapView {
 	private void paintWay(final Canvas canvas, final Way way) {
 		float[] linePoints = pointListToLinePointsArray(way.getNodes());
 		Paint paint;
+		
+		boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be a better idea to do so
+				&& tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way) ;
+		boolean isMemberOfSelectedRelation = tmpDrawingInEditRange 
+				&& tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);	
+		
 		//draw way tolerance
-		if (tmpDrawingInEditRange // if we are not in editing rage none of the further checks are necessary
-			&& (tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
-			|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT)) {
+		if (tmpDrawingInEditRange // if we are not in editing range none of the further checks are necessary
+			&& tmpDrawingEditMode != Logic.Mode.MODE_MOVE 
+			&& tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND) {
 				if (prefs.isToleranceVisible() && tmpClickableElements == null) {
 					canvas.drawLines(linePoints, wayTolerancePaint);
 				} else if (tmpClickableElements != null && tmpClickableElements.contains(way)) {
 					canvas.drawLines(linePoints, wayTolerancePaint2);
 				}
 		}
-		//draw selectedWay highlighting
-		boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be a better idea to do so
-				&& tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way) ;
-		boolean isMemberOfSelectedRelation = tmpDrawingInEditRange 
-				&& tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);		
 				
-		if  (isSelected) {
+		//draw selectedWay highlighting
+		if (isSelected) {
 			paint = DataStyle.getCurrent(DataStyle.SELECTED_WAY).getPaint();
 			canvas.drawLines(linePoints, paint);
 			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
@@ -960,83 +1054,22 @@ public class Map extends View implements IMapView {
 			drawOnewayArrows(canvas, linePoints, false, fp.getPaint());
 		}
 		
+		
 		// 
 		FeatureStyle fp; // no need to get the default here
 		
-		// this logic needs to be separated out
 		if (way.hasProblem(context)) {
 			fp = DataStyle.getCurrent(DataStyle.PROBLEM_WAY);
 		} else {
-			FeatureStyle wayFp = way.getFeatureProfile();
-			if (wayFp == null) {
-				fp = DataStyle.getCurrent(DataStyle.WAY); // default for ways
-				// three levels of hierarchy for roads and special casing of tracks, two levels for everything else
-				String highwayType = way.getTagWithKey(Tags.KEY_HIGHWAY);
-				if (highwayType != null) {
-					FeatureStyle tempFp = DataStyle.getCurrent("way-highway");
-					if (tempFp != null) {
-						fp = tempFp;
-					}
-					tempFp = DataStyle.getCurrent("way-highway-" + highwayType);
-					if (tempFp != null) {
-						fp = tempFp;
-					}
-					String highwaySubType;
-					if (highwayType.equals("track")) { // special case
-						highwaySubType = way.getTagWithKey("tracktype");
-					} else {
-						highwaySubType = way.getTagWithKey(highwayType);
-					}
-					if (highwaySubType != null) {
-						tempFp = DataStyle.getCurrent("way-highway-" + highwayType + "-" + highwaySubType);
-						if (tempFp != null) {
-							fp = tempFp;
-						}
-					} 
-				} else {
-					// order in the array defines precedence
-					String[] tags = {"building","railway","leisure","landuse","waterway","natural","addr:interpolation","boundary","amenity","shop","power",
-							"aerialway","military","historic"};
-					FeatureStyle tempFp = null;
-					for (String tag:tags) {
-						tempFp = getProfile(tag, way);
-						if (tempFp != null) {
-							fp = tempFp;
-							break;
-						}
-					}
-					if (tempFp == null) {
-						ArrayList<Relation> relations = way.getParentRelations();
-						// check for any relation memberships with low prio, take first one
-						String[] relationTags = {"boundary","leisure","landuse","natural","waterway","building"};
-						if (relations != null) { 
-							for (Relation r : relations) {
-								for (String tag:relationTags) {
-									tempFp = getProfile(tag, r);
-									if (tempFp != null) {
-										fp = tempFp;
-										break;
-									} 
-								}
-								if (tempFp != null) { // break out of loop over relations
-									break;
-								}
-							}
-						}
-					}
-				}
-				way.setFeatureProfile(fp);
-			} else {
-				fp = wayFp;
-			}
+			fp = getAndSetStyle(way);
 		}
 			
 		// draw the way itself
 		// canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
 		if (linePoints.length > 2) {
 			path.reset();
+			path.moveTo(linePoints[0], linePoints[1]);
 			for (int i=0;i<(linePoints.length);i=i+4) {
-				path.moveTo(linePoints[i], linePoints[i+1]);
 				path.lineTo(linePoints[i+2], linePoints[i+3]);
 			}
 			canvas.drawPath(path, fp.getPaint());
@@ -1045,7 +1078,7 @@ public class Map extends View implements IMapView {
 		if (tmpDrawingSelectedWays == null 
 				&& tmpDrawingSelectedRelationWays == null
 				&& tmpDrawingSelectedRelationNodes == null
-				&& tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT) { // the handles only work when no way is selected so don't show them
+				&& (tmpDrawingEditMode == Mode.MODE_EASYEDIT || tmpDrawingEditMode == Mode.MODE_INDOOR)) { // the handles only work when no way is selected so don't show them
 			// add "geometry improvement" handles
 			for (int i = 2; i < linePoints.length; i=i+4) {
 				float x0 = linePoints[i-2];
@@ -1060,6 +1093,7 @@ public class Map extends View implements IMapView {
 			}
 		}
 		
+		// display icons on closed ways
 		if (showIcons && showWayIcons && zoomLevel > SHOW_ICONS_LIMIT && way.isClosed()) {
 			int vs = linePoints.length;
 			if (vs < way.nodeCount()*2) {
@@ -1088,6 +1122,102 @@ public class Map extends View implements IMapView {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Paints the given way on the canvas with the "hidden" style.
+	 * 
+	 * @param canvas Canvas, where the node shall be painted on.
+	 * @param way way which shall be painted.
+	 */
+	private void paintHiddenWay(final Canvas canvas, final Way way) {
+		float[] linePoints = pointListToLinePointsArray(way.getNodes());
+			
+		// 
+		FeatureStyle fp = DataStyle.getCurrent(DataStyle.HIDDEN_WAY);
+					
+		// draw the way itself
+		// canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
+		if (linePoints.length > 2) {
+			path.reset();
+			path.moveTo(linePoints[0], linePoints[1]);
+			for (int i=0;i<(linePoints.length);i=i+4) {
+				path.lineTo(linePoints[i+2], linePoints[i+3]);
+			}
+			canvas.drawPath(path, fp.getPaint());
+		}
+	}
+
+	/**
+	 * Determine the style to use for way and cache it in the way object
+	 * @param way
+	 * @return
+	 */
+	private FeatureStyle getAndSetStyle(final Way way) {
+		FeatureStyle fp;
+		FeatureStyle wayFp = way.getFeatureProfile();
+		if (wayFp == null) {
+			fp = DataStyle.getCurrent(DataStyle.WAY); // default for ways
+			// three levels of hierarchy for roads and special casing of tracks, two levels for everything else
+			String highwayType = way.getTagWithKey(Tags.KEY_HIGHWAY);
+			if (highwayType != null) {
+				FeatureStyle tempFp = DataStyle.getCurrent("way-highway");
+				if (tempFp != null) {
+					fp = tempFp;
+				}
+				tempFp = DataStyle.getCurrent("way-highway-" + highwayType);
+				if (tempFp != null) {
+					fp = tempFp;
+				}
+				String highwaySubType;
+				if (highwayType.equals("track")) { // special case
+					highwaySubType = way.getTagWithKey("tracktype");
+				} else {
+					highwaySubType = way.getTagWithKey(highwayType);
+				}
+				if (highwaySubType != null) {
+					tempFp = DataStyle.getCurrent("way-highway-" + highwayType + "-" + highwaySubType);
+					if (tempFp != null) {
+						fp = tempFp;
+					}
+				} 
+			} else {
+				// order in the array defines precedence
+				String[] tags = {"building","railway","leisure","landuse","waterway","natural","addr:interpolation","boundary","amenity","shop","power",
+						"aerialway","military","historic","indoor","building:part"};
+				FeatureStyle tempFp = null;
+				for (String tag:tags) {
+					tempFp = getProfile(tag, way);
+					if (tempFp != null) {
+						fp = tempFp;
+						break;
+					}
+				}
+				if (tempFp == null) {
+					ArrayList<Relation> relations = way.getParentRelations();
+					// check for any relation memberships with low prio, take first one
+					String[] relationTags = {"boundary","leisure","landuse","natural","waterway","building"};
+					if (relations != null) { 
+						for (Relation r : relations) {
+							for (String tag:relationTags) {
+								tempFp = getProfile(tag, r);
+								if (tempFp != null) {
+									fp = tempFp;
+									break;
+								} 
+							}
+							if (tempFp != null) { // break out of loop over relations
+								break;
+							}
+						}
+					}
+				}
+			}
+			way.setFeatureProfile(fp);
+		} else {
+			fp = wayFp;
+		}
+		return fp;
 	}
 
 	void paintHandles(Canvas canvas) {
@@ -1163,41 +1293,56 @@ public class Map extends View implements IMapView {
 	 *              (e.g. a Way or a GPS track)
 	 * @return an array of floats in the format expected by {@link Canvas#drawLines(float[], Paint)}.
 	 */
-	private float[] pointListToLinePointsArray(final Iterable<? extends GeoPoint> nodes) {
+	private float[] pointListToLinePointsArray(final List<? extends GeoPoint> nodes) {
 		ArrayList<Float> points = new ArrayList<Float>();
 		BoundingBox box = getViewBox();
 		
 		//loop over all nodes
 		GeoPoint prevNode = null;
+		GeoPoint lastDrawnNode = null;
 		float prevX=0f;
 		float prevY=0f;
 		int w = getWidth();
 		int h = getHeight();
-		for (GeoPoint node : nodes) {
+		boolean thisIntersects = false;
+		boolean nextIntersects = false;
+		for (int i=0;i<nodes.size();i++) {
+			GeoPoint node = nodes.get(i);
 			int nodeLon = node.getLon();
 			int nodeLat = node.getLat();
 			boolean interrupted = false;
 			if (node instanceof InterruptibleGeoPoint) {
 				interrupted = ((InterruptibleGeoPoint)node).isInterrupted();
 			}
+			nextIntersects = true;
+			GeoPoint nextNode = null;
+			if (i<nodes.size()-1) {
+				nextNode = nodes.get(i+1);
+				nextIntersects = box.intersects(nextNode.getLat(),nextNode.getLon(),nodeLat, nodeLon);
+			}
 			float X = Float.MIN_VALUE;
 			float Y = Float.MIN_VALUE;
-			if (!interrupted && prevNode != null && box.intersects(nodeLat, nodeLon, prevNode.getLat(), prevNode.getLon())) {
-				X = GeoMath.lonE7ToX(w, box, nodeLon);
-				Y = GeoMath.latE7ToY(h, w, box, nodeLat);
-				if (prevX == Float.MIN_VALUE) { // last segment didn't intersect
-					prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
-					prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
+			if (!interrupted && prevNode != null) {
+				if (thisIntersects || nextIntersects 
+						|| (nextNode!=null && lastDrawnNode!=null?box.intersects(nextNode.getLat(),nextNode.getLon(),lastDrawnNode.getLat(),lastDrawnNode.getLon()):true)) {
+					X = GeoMath.lonE7ToX(w, box, nodeLon);
+					Y = GeoMath.latE7ToY(h, w, box, nodeLat);
+					if (prevX == Float.MIN_VALUE) { // last segment didn't intersect
+						prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
+						prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
+					}
+					// Line segment needs to be drawn
+					points.add(prevX);
+					points.add(prevY);
+					points.add(X);
+					points.add(Y);
+					lastDrawnNode = node;
 				}
-				// Line segment needs to be drawn
-				points.add(prevX);
-				points.add(prevY);
-				points.add(X);
-				points.add(Y);
-			}
+			} 
 			prevNode = node;
 			prevX = X;
 			prevY = Y;
+			thisIntersects = nextIntersects;
 		}
 		
 		// convert from ArrayList<Float> to float[]

@@ -115,6 +115,10 @@
     <string name="warning">warning</string>
     <string name="minor_issue">minor issue</string>
     <string name="unknown_error_level">unknown error level</string>
+    <string name="attached_object_warning_title">This operation affects filtered attached objects!</string>
+    <string name="attached_object_warning_message">The changed object is connected to hidden elements that will change too.</string>
+    <string name="attached_object_warning_continue">OK continue to show this message</string>
+    <string name="attached_object_warning_stop">OK stop showing this message</string>
 
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>

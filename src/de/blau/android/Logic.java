@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import de.blau.android.dialogs.AttachedObjectWarning;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
@@ -52,6 +54,8 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.filter.Filter;
+import de.blau.android.filter.IndoorFilter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -88,7 +92,6 @@ import de.blau.android.util.collections.MRUList;
  * <li>pushing relevant updated values to {@link Map}-Object</li>
  * <li>Handle interaction-Events</li>
  * <li>holding the {@link Tracker}-Object</li>
- * <li>holding the {@link StorageDelegator}-Object</li>
  * <li>Starting threads from thread.*</li>
  * </ul>
  * In future releases every responsibility will get outsourced.
@@ -118,7 +121,11 @@ public class Logic {
 		/**
 		 * Background alignment mode
 		 */
-		MODE_ALIGN_BACKGROUND
+		MODE_ALIGN_BACKGROUND,
+		/**
+		 * Indoor mode
+		 */
+		MODE_INDOOR
 	}
 
 	/**
@@ -290,12 +297,20 @@ public class Logic {
 	 */
 	private boolean returnRelations = true;
 	
-
-	
 	/**
 	 * The currently selected handle to be dragged to create a new node in a way.
 	 */
 	private Handle selectedHandle = null;
+
+	/**
+	 * Filter to apply if any
+	 */
+	Filter filter = null;
+
+	/**
+	 * Should we show a warning if hidden/filtered objects are manipulated not persisted in edit state for now
+	 */
+	private boolean attachedObjectWarning = true;
 
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
@@ -358,20 +373,47 @@ public class Logic {
 		this.mode = mode;
 		Main.onEditModeChanged();
 		setSelectedBug(null);
+		Filter filter = getFilter();
 		switch (mode) {
+		case MODE_EASYEDIT:
+			deselectAll();
 		case MODE_TAG_EDIT:
+			// indoor mode is a special case of a filter
+			// needs to be removed here
+			if (filter!=null && filter instanceof IndoorFilter) {
+				filter.hideControls();
+				filter.removeControls();
+				setFilter(null);
+			}
+			break;
+		case MODE_INDOOR:
+			Filter.Update updater = new Filter.Update() {
+				@Override
+				public void execute() {
+					map.invalidate();
+					Application.mainActivity.scheduleAutoLock();
+				} };
+			if (filter!=null) {
+				if (!(filter instanceof IndoorFilter)) {
+					filter.removeControls();
+					setFilter(new IndoorFilter());
+					getFilter().addControls(Application.mainActivity.getMapLayout(), updater);
+				}
+			} else { // no filter yet
+				setFilter(new IndoorFilter());
+				getFilter().addControls(Application.mainActivity.getMapLayout(), updater);
+			}
+			getFilter().showControls();
+			deselectAll();
 			break;
 		case MODE_ALIGN_BACKGROUND:		// action mode sanity check
-		if (Application.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
-			Log.d("Logic","weird state of edit mode, resetting");
-			setMode(Mode.MODE_MOVE);
-		}
-		case MODE_EASYEDIT:
+			if (Application.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
+				Log.d("Logic","weird state of edit mode, resetting");
+				setMode(Mode.MODE_MOVE);
+			}
 		case MODE_MOVE:
 		default:
-			setSelectedNode(null);
-			setSelectedWay(null);
-			setSelectedRelation(null);
+			deselectAll();
 			break;
 		}
 		map.invalidate();
@@ -750,12 +792,18 @@ public class Logic {
 				X = X + (node1X+node2X)*d;
 				Y = Y + (node1Y+node2Y)*d;			
 			}
-			if (showWayIcons && !added && way.isClosed() && way.hasTagKey(Tags.KEY_BUILDING)) {
+			if (showWayIcons && !added && way.isClosed() && (way.hasTagKey(Tags.KEY_BUILDING) || way.hasTag(Tags.KEY_INDOOR, Tags.VALUE_ROOM))) {
 				Y = Y/(3*A);
 				X = X/(3*A);
 				double distance =  Math.hypot(x-X, y-Y);
 				if (distance < DataStyle.getCurrent().nodeToleranceValue) {
-					result.put(way, distance);
+					if (filter != null) {
+						if (filter.include(way, isSelected(way))) {
+							result.put(way, distance);
+						}
+					} else {
+						result.put(way, distance);
+					}
 				}
 			}
 		}		
@@ -814,8 +862,15 @@ public class Logic {
 				double dist = Math.hypot(differenceX, differenceY);
 				// TODO better choice for tolerance 
 				if ((dist <= DataStyle.getCurrent().wayToleranceValue) && (dist < bestDistance)) {
-					bestDistance = dist;
-					result = new Handle(handleX, handleY);
+					if (filter != null) {
+						if (filter.include(way, isSelected(way))) {
+							bestDistance = dist;
+							result = new Handle(handleX, handleY);
+						}
+					} else {
+						bestDistance = dist;
+						result = new Handle(handleX, handleY);
+					}
 				}
 				
 			}
@@ -868,7 +923,23 @@ public class Logic {
 
 			if (!inDownloadOnly || node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lat, lon)) {
 				Double dist = clickDistance(node, x, y);
-				if (dist != null) result.put(node, dist);
+				if (dist != null) {
+					if (filter != null) {
+						if (filter.include(node, isSelected(node))) {
+							result.put(node, dist);
+						} else {
+							// just in case the relevant ways haven't been processed
+							for (Way w:getWaysForNode((Node)node)) {
+								if (filter.include(w, isSelected(w))) {
+									result.put(node, dist);
+									break;
+								}
+							}
+						}
+					} else {
+						result.put(node, dist);
+					}
+				}
 			}
 		}
 		return result;
@@ -994,6 +1065,22 @@ public class Logic {
 	public List<Way> getWaysForNode(final Node node) {
 		return getDelegator().getCurrentStorage().getWays(node);
 	}
+	
+	/**
+	 * Get a list of all the filtered Ways connected to the given Node.
+	 * 
+	 * @param node The Node.
+	 * @return A list of all Ways connected to the Node.
+	 */
+	public List<Way> getFilteredWaysForNode(final Node node) {
+		List<Way> ways = new ArrayList<Way>();
+		for (Way w:getDelegator().getCurrentStorage().getWays(node)) {
+			if (getFilter() == null || filter.include(w, false)) {
+				ways.add(w);
+			}
+		}
+		return ways;
+	}
 
 	/**
 	 * Test if the given Node is an end node of a Way. Isolated nodes not part
@@ -1007,7 +1094,7 @@ public class Logic {
 	}
 	
 	/**
-	 * Check all nodes in way to see if the bbox of the downloaded data.
+	 * Check all nodes in way to see if they are in the downloaded data.
 	 * 
 	 * @param way the way whose nodes should be checked
 	 * @return true if the above is the case
@@ -1022,7 +1109,7 @@ public class Logic {
 	}
 	
 	/**
-	 * Check if node is in the bbox for the downloaded data
+	 * Check if node is in the downloaded data
 	 * 
 	 * @param node
 	 * @return true if the above is the case
@@ -1041,7 +1128,7 @@ public class Logic {
 	 */
 	synchronized void handleTouchEventDown(final float x, final float y) {
 		boolean draggingMultiselect = false;
-		if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
+		if (isInEditZoomRange() && (mode == Mode.MODE_EASYEDIT || mode == Mode.MODE_INDOOR)) {
 			draggingNode = false;
 			draggingWay = false;
 			draggingHandle = false;
@@ -1106,7 +1193,7 @@ public class Logic {
 						if (rotatingWay) {
 							rotatingWay = false;
 							hideCrosshairs();
-						} else if (getMode()==Mode.MODE_EASYEDIT
+						} else if ((getMode()==Mode.MODE_EASYEDIT || getMode()==Mode.MODE_INDOOR)
 								&& selectedWays == null
 								&& selectedRelations == null){
 							// way center / handle
@@ -1185,7 +1272,7 @@ public class Logic {
 							draggingHandle = false;
 							if (prefs.largeDragArea()) {
 								startX = lonE7ToX(selectedNodes.get(0).getLon());
-								startY = latE7ToY( selectedNodes.get(0).getLat());
+								startY = latE7ToY(selectedNodes.get(0).getLat());
 							}
 							Application.mainActivity.easyEditManager.editElement(selectedNodes.get(0)); // this can only happen in EasyEdit mode
 						}
@@ -1195,13 +1282,13 @@ public class Logic {
 						return;
 					}
 				}
+				displayAttachedObjectWarning(selectedNodes.get(0));
 				if (prefs.largeDragArea()) {
 					startY = startY + relativeY;
 					startX = startX - relativeX;
 					lat = yToLatE7(startY);
 					lon = xToLonE7(startX);
-				}	
-				else {
+				} else {
 					lat = yToLatE7(absoluteY);
 					lon = xToLonE7(absoluteX);
 				}
@@ -1222,6 +1309,9 @@ public class Logic {
 						nodes.add(n);
 					}
 				}
+				
+				displayAttachedObjectWarning(nodes);
+
 				getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
 				// update 
 				startLat = lat;
@@ -1256,6 +1346,8 @@ public class Logic {
 			else if ((startY >= startX) && (absoluteY >= absoluteX)) {
 				direction = (startY < absoluteY) ? -1: 1;			
 			}
+			
+			displayAttachedObjectWarning(selectedWays.get(0));
 	
 			getDelegator().rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
 			startY = absoluteY;
@@ -1268,6 +1360,21 @@ public class Logic {
 				performTranslation(relativeX, relativeY);
 		}	
 		map.invalidate();
+	}
+
+	/**
+	 * @return is we should show warnings when filtered attached objects are being changed
+	 */
+	public boolean showAttachedObjectWarning() {
+		return attachedObjectWarning;
+	}
+	
+	/**
+	 * Determine if we should show warnings when filtered attached objects are being changed
+	 * @param show
+	 */
+	public void setAttachedObjectWarning(boolean show) {
+		attachedObjectWarning = show;
 	}
 
 	/**
@@ -1333,7 +1440,7 @@ public class Logic {
 	 * @throws OsmIllegalOperationException 
 	 */
 	public synchronized void performAdd(final float x, final float y) throws OsmIllegalOperationException {
-		Log.d("Logic","performAdd");
+		Log.d(DEBUG_TAG,"performAdd");
 		createCheckpoint(R.string.undo_action_add);
 		Node nextNode;
 		Node lSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
@@ -1455,12 +1562,13 @@ public class Logic {
 			if (createCheckpoint) {
 				createCheckpoint(R.string.undo_action_deletenode);
 			}
+			displayAttachedObjectWarning(node); // needs to be done before removal
 			getDelegator().removeNode(node);
 			map.invalidate();
 			if (!isInDownload(node)) {
 				// warning toast
 				Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
-			}
+			} 
 		}
 	}
 	
@@ -1480,6 +1588,7 @@ public class Logic {
 			getDelegator().updateLatLon(node, latE7, lonE7);
 			viewBox.moveTo(lonE7, latE7);
 			map.invalidate();
+			displayAttachedObjectWarning(node);
 		}
 	}
 
@@ -1494,6 +1603,7 @@ public class Logic {
 		if (createCheckpoint) {
 			createCheckpoint(R.string.undo_action_deleteway);
 		}
+		displayAttachedObjectWarning(way); // needs to be done before removal
 		HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<Node>(way.getNodes()) : null;  //  HashSet guarantees uniqueness
 		getDelegator().removeWay(way);
 		if (deleteOrphanNodes) {
@@ -1515,6 +1625,7 @@ public class Logic {
 			if (createCheckpoint) {
 				createCheckpoint(R.string.undo_action_delete_relation);
 			}
+			displayAttachedObjectWarning(relation); // needs to be done before removal
 			getDelegator().removeRelation(relation);
 			map.invalidate();
 		}
@@ -1525,8 +1636,9 @@ public class Logic {
 	 * @param selection
 	 */
 	public synchronized void performEraseMultipleObjects(ArrayList<OsmElement> selection) {
-		// need to make three passes this probably should really be in logic
+		// need to make three passes
 		createCheckpoint(R.string.undo_action_delete_objects);
+		displayAttachedObjectWarning(selection); // needs to be done before removal
 		for (OsmElement e:selection) {	
 			if (e instanceof Relation && e.getState() != OsmElement.STATE_DELETED) {
 				performEraseRelation((Relation)e, false);
@@ -1545,8 +1657,7 @@ public class Logic {
 			if (e instanceof Node && e.getState() != OsmElement.STATE_DELETED) {
 				performEraseNode((Node)e, false);
 			}
-		}
-		
+		}	
 	}
 	
 	
@@ -1559,6 +1670,7 @@ public class Logic {
 		if (node != null) {
 			// setSelectedNode(node);
 			createCheckpoint(R.string.undo_action_split_ways);
+			displayAttachedObjectWarning(node); // needs to be done before split
 			getDelegator().splitAtNode(node);
 			map.invalidate();
 		}
@@ -1604,6 +1716,7 @@ public class Logic {
 	 */
 	public synchronized boolean performMerge(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
+		displayAttachedObjectWarning(mergeInto, mergeFrom, true); // needs to be done before merge
 		boolean mergeOK = getDelegator().mergeWays(mergeInto, mergeFrom);
 		map.invalidate();
 		return mergeOK;
@@ -1616,6 +1729,7 @@ public class Logic {
 	 */
 	public synchronized boolean performMerge(List<OsmElement> sortedWays) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
+		displayAttachedObjectWarning(sortedWays, true); // needs to be done before merge
 		boolean mergeOK = true;
 		Way previousWay = (Way) sortedWays.get(0);
 		for (int i=1;i<sortedWays.size();i++) {
@@ -1651,6 +1765,13 @@ public class Logic {
 		createCheckpoint(R.string.undo_action_orthogonalize);
 		getDelegator().orthogonalizeWay(ways);
 		map.invalidate();
+		if (getFilter() != null && showAttachedObjectWarning()) {
+			HashSet<Node> nodes = new HashSet<Node>();
+			for (Way w:ways) {
+				nodes.addAll(w.getNodes());
+			}
+			displayAttachedObjectWarning(nodes);
+		}
 	}
 
 	/**
@@ -1658,13 +1779,17 @@ public class Logic {
 	 * leaving node selected, if it already is. Note: relation memberships are not modified
 	 * 
 	 * @param node
+	 * @return the new way node or null if the node was not a way node
 	 */
-	public synchronized void performExtract(final Node node) {
+	public synchronized Node performExtract(final Node node) {
 		if (node != null) {
 			createCheckpoint(R.string.undo_action_extract_node);
-			getDelegator().replaceNode(node);
+			displayAttachedObjectWarning(node); // this needs to be done -before- we replace the node
+			Node newNode = getDelegator().replaceNode(node);
 			map.invalidate();
+			return newNode;
 		}
+		return null;
 	}
 	
 	/**
@@ -1681,7 +1806,7 @@ public class Logic {
 		for (Node node : getDelegator().getCurrentStorage().getNodes()) {
 			if (node != nodeToJoin) {
 				Double distance = clickDistance(node, jx, jy);
-				if (distance != null && distance < closestDistance) {
+				if (distance != null && distance < closestDistance && (filter == null || filter.include(node,false))) {
 					closestDistance = distance;
 					closestElement = node;
 				}
@@ -1702,7 +1827,7 @@ public class Logic {
 						float node2Y = latE7ToY(node2.getLat());
 						if (isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y)) {
 							double distance = GeoMath.getLineDistance(jx, jy, node1X, node1Y, node2X, node2Y);
-							if (distance < closestDistance) {
+							if (distance < closestDistance && (filter == null || filter.include(way,false))) {
 								closestDistance = distance;
 								closestElement = way;
 							}
@@ -1725,6 +1850,7 @@ public class Logic {
 		if (element instanceof Node) {
 			Node node = (Node)element;
 			createCheckpoint(R.string.undo_action_join);
+			displayAttachedObjectWarning(node,nodeToJoin); // needs to be done before join
 			mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
 			map.invalidate();
 		}
@@ -1754,10 +1880,12 @@ public class Logic {
 						node = node2;
 					}
 					if (node == null) {
+						displayAttachedObjectWarning(way,nodeToJoin); // needs to be done before join
 						// move the existing node onto the way and insert it into the way
 						getDelegator().updateLatLon(nodeToJoin, lat, lon);
 						getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
 					} else {
+						displayAttachedObjectWarning(node,nodeToJoin); // needs to be done before join
 						// merge node into tgtNode
 						mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
 					}
@@ -1775,6 +1903,7 @@ public class Logic {
 	 */
 	public synchronized void performUnjoin(Node node) {
 		createCheckpoint(R.string.undo_action_unjoin_ways);
+		displayAttachedObjectWarning(node); // needs to be done before unjoin
 		getDelegator().unjoinWays(node);
 		map.invalidate();
 	}
@@ -1892,6 +2021,11 @@ public class Logic {
 		double savedDistance = Double.MAX_VALUE;
 		//create a new node on a way
 		for (Way way : ways) {
+			if (filter != null) {
+				if (!filter.include(way, isSelected(way))) {
+					continue;
+				}
+			} 			
 			List<Node> wayNodes = way.getNodes();
 			for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
 				Node node1 = wayNodes.get(k - 1);
@@ -3991,6 +4125,7 @@ public class Logic {
 		int[] center = centroid(map.getWidth(), map.getHeight(), viewBox, way);
 		getDelegator().circulizeWay(center, way);
 		map.invalidate();
+		displayAttachedObjectWarning(way);
 	}
 
 	
@@ -4100,5 +4235,110 @@ public class Logic {
 	public void setLastSources(ArrayList<String> sources) {
 		lastSources = new MRUList<String>(sources);
 		lastSources.ensureCapacity(MRULIST_SIZE);
+	}
+	
+	/**
+	 * @return teh current object filter
+	 */
+	public Filter getFilter() {
+		return filter;
+	}
+
+	/**
+	 * Set the object filter
+	 * @param filter
+	 */
+	public void setFilter(Filter filter) {
+		this.filter = filter;
+	}
+	
+	/**
+	 * Display a warning if an operation on the element e would effect a filtered/hidden object
+	 * @param e
+	 */
+	<T extends OsmElement> void displayAttachedObjectWarning(T e) {
+		ArrayList<T> a = new ArrayList<T>();
+		a.add(e);
+		displayAttachedObjectWarning(a);
+	}
+	
+	/**
+	 * Display a warning if an operation on the element e1 or e2 would effect a filtered/hidden object
+	 * @param e1
+	 * @param e2
+	 */
+	<T extends OsmElement> void displayAttachedObjectWarning(T e1, T e2) {
+		ArrayList<T> a = new ArrayList<T>();
+		a.add(e1);
+		a.add(e2);
+		displayAttachedObjectWarning(a);
+	}
+	
+	/**
+	 * Display a warning if an operation on the element e1 or e2 would effect a filtered/hidden object
+	 * @param e1
+	 * @param e2
+	 * @param checkRelationsOnly
+	 */
+	<T extends OsmElement> void displayAttachedObjectWarning(T e1, T e2, boolean checkRelationsOnly) {
+		ArrayList<T> a = new ArrayList<T>();
+		a.add(e1);
+		a.add(e2);
+		displayAttachedObjectWarning(a, checkRelationsOnly);
+	}
+	
+	/**
+	 * Display a warning if an operation on the elements included in list would effect a filtered/hidden object
+	 * @param list
+	 */
+	<T extends OsmElement> void displayAttachedObjectWarning(Collection<T> list) {
+		displayAttachedObjectWarning(list, false);
+	}
+
+	
+	/**
+	 * Display a warning if an operation on the elements included in list would effect a filtered/hidden object
+	 * @param list
+	 * @param checkRelationsOnly
+	 */
+	<T extends OsmElement> void displayAttachedObjectWarning(Collection<T> list, boolean checkRelationsOnly) {
+		if (getFilter() != null && showAttachedObjectWarning()) {
+			elementLoop:
+				for (OsmElement e:list) {
+					if (!checkRelationsOnly) {
+						if (e instanceof Node) {
+							List<Way> ways = getWaysForNode((Node)e);
+							if (ways.size() > 0) {
+								for (Way w:ways) {
+									if (!getFilter().include(w, false)) {
+										AttachedObjectWarning.showDialog(Application.mainActivity);
+										break elementLoop;
+									}
+								}
+							}
+						} else if (e instanceof Way) {
+							for (Node n:((Way)e).getNodes()) {
+								List<Way> ways = getWaysForNode(n);
+								if (ways.size() > 0) {
+									for (Way w:ways) {
+										if (!getFilter().include(w, false)) {
+											AttachedObjectWarning.showDialog(Application.mainActivity);
+											break elementLoop;
+										}
+									}
+								}
+							}
+						}
+					}
+					if (e.hasParentRelations()) {
+						for (Relation r:e.getParentRelations()) {
+							if (!getFilter().include(r, false)) {
+								AttachedObjectWarning.showDialog(Application.mainActivity);
+								break elementLoop;
+							}
+						}
+					}
+				}
+		}
 	}
 }
