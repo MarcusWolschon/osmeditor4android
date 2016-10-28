@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1206: improve entering of website tags, some UI cleanup, catch weird error when opening tile database on some devices, numerous small bug fixes, updated translations
+
 1205: deselect elements when finishing multi-select mode (regression), protect against SQLiteCantOpenDatabaseException not being caught. Changes for F-Droid.
 
 1204: fix broken default preset, protect against crash if linked preset is missing.

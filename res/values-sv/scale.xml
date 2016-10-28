@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Inga</item>
+    <item>Skala (metrisk)</item>
+    <item>Rutnät (metrisk)</item>
+    <item>Skala (imperial)</item>
+    <item>Rutnät (imperial)</item>
+  </string-array>
+</resources>

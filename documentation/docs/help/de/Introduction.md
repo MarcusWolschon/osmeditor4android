@@ -1,10 +1,10 @@
 # Einführung in Vespucci
 
-Vespucci ist ein Editor für OpenStreetMap der die meisten Funktionen unterstützt die ähnliche Programme auf normalen Rechnern vorhanden sind und es ist erfolgreich auf googles Android 2.3 bis 6.0 und verschiedene auf AOSP basierende Varianten getestet worden. Wichtig: während die Leistung von Handys und Tablets Ihre stationären Konkurrenten auf vielen Gebieten eingeholt hat muss man, vor allem bei älteren Geräten, auch nicht vergessen, dass sie eher wenig Hauptspeicher zur Verfügung haben und auch deutlich langsamer sein können bei bestimmten Operationen. Deshalb sollte man beim Editieren dies im Auge behalten und, zum Beispiel, die Grösse der editierten Gebiete in vernünftige Grössen halten.   
+Vespucci ist ein Editor für OpenStreetMap, der die meisten Funktionen unterstützt, die in ähnlichen Programme auf normalen Rechnern vorhanden sind und er ist erfolgreich auf Googles Android 2.3 bis 6.0 und verschiedene auf AOSP basierende Varianten getestet worden. Wichtig: während die Leistung von Handys und Tablets ihre stationären Konkurrenten auf vielen Gebieten eingeholt hat, muss man vor allem bei älteren Geräten auch nicht vergessen, dass sie eher wenig Hauptspeicher zur Verfügung haben und auch deutlich langsamer sein können, bei bestimmten Operationen. Deshalb sollte man beim Bearbeiten dies im Auge behalten und zum Beispiel die Größe der bearbeiteten Gebiete in vernünftige Größen halten.   
 
 ## Erstmaliger Gebrauch
 
-Beim erstmaligen Starten zeigt Vespucci das "Herunterladen einer anderen Position"/"Bereich laden" Formular. Falls Koordinaten angezeigt werden und sofort heruntergeladen werden soll, kann die entsprechende Option gewählt und den Radius um den Punkt herum gesetzt werden. Auf langsamen Geräten sollte nur ein kleiner Bereich ausgewählt werden. 
+Beim erstmaligen Starten zeigt Vespucci das "Herunterladen einer anderen Position"/"Bereich laden" Formular. Falls Koordinaten angezeigt werden und sofort heruntergeladen werden sollen, kann die entsprechende Option gewählt und der Radius um den Punkt herum gesetzt werden. Auf langsamen Geräten sollte nur ein kleiner Bereich ausgewählt werden. 
 
 Alternativ kann mit dem "Zur Karte" direkt zur Karte gewechselt werden, auf das Gebiet das bearbeitet werden soll gezoomt werden und dann Daten für das Gebiet geladen werden (siehe unten "Mit Vespucci OSM Daten bearbeiten").
 
