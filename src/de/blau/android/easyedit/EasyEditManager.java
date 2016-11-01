@@ -1269,8 +1269,8 @@ public class EasyEditManager {
 			case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true, false, false); break;
 			case MENUITEM_DELETE: menuDelete(mode); break;
 			case MENUITEM_HISTORY: showHistory(); break;
-			case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
-			case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
+			case MENUITEM_COPY: logic.copyToClipboard(element); mode.finish(); break;
+			case MENUITEM_CUT: logic.cutToClipboard(element); mode.finish(); break;
 			case MENUITEM_RELATION: 
 				deselect = false; 
 				logic.setSelectedNode(null);
