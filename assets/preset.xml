@@ -153,7 +153,7 @@
         <text key="operator" text="Operator" />
     </chunk>
     <chunk id="level">
-    	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="0" match="none" editable="true" />
+    	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="0" values_sort="false" match="none" editable="true" />
     </chunk>
     <chunk id="name_layer">
         <text key="name" text="Name" />
@@ -5368,7 +5368,7 @@
             <key key="emergency" value="defibrillator" />
             <reference ref="oh_wheelchair_level" />
             <text  key="operator" text="Operator" />
-            <check key="indoor" text="Located inside a building?" disable_off="true" />
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none" />
             <!-- lastcheck is in use for aed devices, but not yet well discussed or documented
             <optional>
                 <text key="lastcheck"      text="Last check date (YYYY-MM-DD)" />
@@ -5386,7 +5386,7 @@
             <key key="emergency" value="fire_extinguisher" />
             <text key="ref" text="Reference" />
             <text key="operator" text="Operator" />
-            <check key="indoor" text="Indoor" />
+            <check key="indoor" text="Indoor" match="none" />
         </item> <!-- Fire Extinguisher -->
         <item name="Fire Hose" icon="icons/png/emergency_fire_hose_17010.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=fire_hose"
@@ -5922,7 +5922,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=drinking_water" />
             <space />
             <key key="amenity" value="drinking_water" />
-            <check key="indoor" text="Indoor" disable_off="true" />
+            <check key="indoor" text="Indoor" disable_off="true" match="none" />
             <optional>
                 <text key="name" text="Name" />
                 <text key="description" text="Description" />
