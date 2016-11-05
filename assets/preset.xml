@@ -165,8 +165,8 @@
     <chunk id="oh">
         <combo key="opening_hours" text="Opening Hours" delimiter="|" values="24/7|08:30-12:30,15:30-20:00|Sa-Su 00:00-24:00|Mo-Fr 08:30-20:00; Sa,Su 08:00-15:00; PH off|Mo-Fr 08:30-20:00, Tu-Su 08:00-15:00; Sa 08:00-12:00|Mo-Su 08:00-18:00; Apr 10-15 off; Jun 08:00-14:00; Aug off; Dec 25 off|sunrise-sunset|Su 10:00+|week 1-53/2 Fr 09:00-12:00; week 2-52/2 We 09:00-12:00" values_no_i18n="true" match="none" editable="true" />
     </chunk>
-    <chunk id="wheelchair" match="none">
-        <combo key="wheelchair" text="Wheelchairs" values_searchable="true" values_sort="false">
+    <chunk id="wheelchair">
+        <combo key="wheelchair" text="Wheelchairs"  match="none" values_searchable="true" values_sort="false">
         <list_entry value="designated" short_description="Dedicated facilities" />
         <list_entry value="yes" short_description="Unrestricted access" />
         <list_entry value="limited" short_description="Partial access" />
@@ -3943,7 +3943,7 @@
             <key key="aeroway" value="windsock" />
         </item> <!-- Windsock -->
         <separator/>
-        <item name="Terminal" icon="icons/png/transport_airport_terminal.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Terminal" name_context="airport" icon="icons/png/transport_airport_terminal.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:aeroway=terminal"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:aeroway=terminal"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:aeroway=terminal"
@@ -3962,7 +3962,7 @@
                   pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:aeroway=gate"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:aeroway=gate" />
             <space />
-            <key key="aeroway" value="gate" />
+            <key key="aeroway" value="gate" values_context="airport" />
             <text key="ref" text="Reference" />
         </item> <!-- Gate -->
     </group> <!-- Airport -->
