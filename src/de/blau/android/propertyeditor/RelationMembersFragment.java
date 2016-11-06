@@ -263,7 +263,7 @@ public class RelationMembersFragment extends BaseFragment implements
 							currentRow.down = w.hasNode(nextLast) ? nextLast : nextFirst;
 						}
 					} else {
-						Node nextNode = (Node)next.getElement();
+						Node nextNode = (Node)nextElement;
 						if (w.hasNode(nextNode)) {
 							if (result == Connected.CLOSEDWAY_UP) {
 								result = Connected.CLOSEDWAY_BOTH;
@@ -328,7 +328,7 @@ public class RelationMembersFragment extends BaseFragment implements
 							}
 						}
 					} else if (Node.NAME.equals(next.getType())) {
-						Node nextNode = (Node)next.getElement();
+						Node nextNode = (Node)nextElement;
 						if (notused == null && (nextNode.equals(first) || nextNode.equals(last))) {
 							result = Connected.DOWN;
 							currentRow.down = nextNode.equals(first) ? first : last;
