@@ -12,7 +12,10 @@ import android.os.Build;
  * Fast storage of unique long values, based on public domain code see http://unlicense.org from Mikhail
  * Vorontsov, see https://github.com/mikvor
  * 
- *  Currently doe not Implement the Iterable interface as returning primitive types would require Java 8
+ * Currently doe not Implement the Iterable interface as returning primitive types would require Java 8
+ * 
+ * This code is not thread safe and requires external synchronization if inserts and removals need to be 
+ * made in a consistent fashion. 
  * 
  * @version 0.1
  * @author simon

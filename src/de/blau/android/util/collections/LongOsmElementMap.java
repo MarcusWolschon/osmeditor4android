@@ -30,7 +30,10 @@ import de.blau.android.osm.OsmElementFactory;
  * key/value implementation in one array, however since the stored value already
  * contains the key additional copies are not needed.
  * 
- * @version 0.2
+ * This code is not thread safe with the exception of iterating over the array when rehashing
+ * and requires external synchronization if inserts and removals need to be consistent. 
+ * 
+ * @version 0.3
  * @author simon
  */
 @SuppressLint("UseSparseArrays")
@@ -344,20 +347,22 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 
 	@SuppressWarnings("unchecked")
 	private void rehash(final int newCapacity) {
-		m_threshold = (int) (newCapacity * m_fillFactor);
-		m_mask = newCapacity - 1;
+		synchronized(this) {
+			m_threshold = (int) (newCapacity * m_fillFactor);
+			m_mask = newCapacity - 1;
 
-		final int oldCapacity = m_data.length;
-		final OsmElement[] oldData = m_data;
+			final int oldCapacity = m_data.length;
+			final OsmElement[] oldData = m_data;
 
-		m_data = new OsmElement[newCapacity];
+			m_data = new OsmElement[newCapacity];
 
-		m_size = 0;
+			m_size = 0;
 
-		for (int i = 0; i < oldCapacity; i++) {
-			final OsmElement e = oldData[i];
-			if (e != FREE_KEY && e != removedKey) {
-				put(e.getOsmId(), (V) e);
+			for (int i = 0; i < oldCapacity; i++) {
+				final OsmElement e = oldData[i];
+				if (e != FREE_KEY && e != removedKey) {
+					put(e.getOsmId(), (V) e);
+				}
 			}
 		}
 	}
@@ -367,16 +372,16 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	 */
 	@SuppressWarnings("unchecked")
 	public void rehash() {
-		final OsmElement[] oldData = m_data;
+		synchronized(this) {
+			final OsmElement[] oldData = m_data;
+			m_data = new OsmElement[m_data.length];
+			m_size = 0;
 
-		m_data = new OsmElement[m_data.length];
-
-		m_size = 0;
-
-		for (int i = 0; i < m_data.length; i++) {
-			final OsmElement e = oldData[i];
-			if (e != FREE_KEY && e != removedKey) {
-				put(e.getOsmId(), (V) e);
+			for (int i = 0; i < m_data.length; i++) {
+				final OsmElement e = oldData[i];
+				if (e != FREE_KEY && e != removedKey) {
+					put(e.getOsmId(), (V) e);
+				}
 			}
 		}
 	}
@@ -386,17 +391,29 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	 */
 	@Override
 	public Iterator<V> iterator() {
-		Iterator<V> it = new Iterator<V>() {
+		return new SafeIterator();
+	}
+	
+	class SafeIterator implements Iterator<V> {
 			int index = 0;
 			int found = 0;
-
+			int m_size_temp = 0;
+			OsmElement[] m_data_temp = null;
+			
+			SafeIterator() {
+				synchronized(LongOsmElementMap.this) {
+					m_size_temp = m_size;
+					m_data_temp = m_data;
+				}
+			}
+			
 			@Override
 			public boolean hasNext() {
 				while (true) {
-					if (found >= m_size || index >= m_data.length) { // all ready returned all elements
+					if (found >= m_size_temp || index >= m_data_temp.length) { // already returned all elements
 						return false;
 					} else {
-						OsmElement e = m_data[index];
+						OsmElement e = m_data_temp[index];
 						if (e != FREE_KEY && e != removedKey) {
 							found++;
 							return true;
@@ -411,11 +428,10 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			@Override
 			public V next() {
 				while (true) {
-					if (index >= m_data.length) { // all ready returned all
-													// elements
+					if (index >= m_data_temp.length) { // already returned all elements
 						throw new NoSuchElementException();
 					} else {
-						OsmElement e = m_data[index];
+						OsmElement e = m_data_temp[index];
 						if (e != FREE_KEY && e != removedKey) {
 							index++;
 							return (V) e;
@@ -430,8 +446,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			public void remove() {
 				throw new UnsupportedOperationException(); // could be implemented
 			}
-		};
-		return it;
+		
 	}
 
 	/**
