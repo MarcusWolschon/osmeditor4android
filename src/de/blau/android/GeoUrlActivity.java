@@ -16,6 +16,7 @@ import de.blau.android.util.GeoMath;
  */
 public class GeoUrlActivity extends Activity {
 	
+	private static final String DEBUG_TAG = "GeoUrlActivity";
 	public static final String GEODATA = "de.blau.android.GeoUrlActivity";
 	
 	@Override
@@ -27,6 +28,10 @@ public class GeoUrlActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		Uri data = getIntent().getData(); 
+		if (data == null) {
+			Log.d(DEBUG_TAG,"Called with null data, aborting");
+			finish();
+		}
 		Log.d("GeoURLActivity",data.toString());
 	    Intent intent = new Intent(this, Main.class);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -40,7 +45,7 @@ public class GeoUrlActivity extends Activity {
 					for (String p:params) {
 						if (p.toLowerCase(Locale.US).matches("crs=.*")) {
 							wgs84 = p.toLowerCase(Locale.US).matches("crs=wgs84");
-							Log.d("GeoUrlActivity","crs found " + p + ", is wgs84 is " + wgs84);
+							Log.d(DEBUG_TAG,"crs found " + p + ", is wgs84 is " + wgs84);
 						}
 					}
 				}

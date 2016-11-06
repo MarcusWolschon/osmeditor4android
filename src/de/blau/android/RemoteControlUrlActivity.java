@@ -27,6 +27,10 @@ public class RemoteControlUrlActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		Uri data = getIntent().getData(); 
+		if (data == null) {
+			Log.d(DEBUG_TAG,"Called with null data, aborting");
+			finish();
+		}
 		Log.d(DEBUG_TAG,data.toString());
 	    Intent intent = new Intent(this, Main.class);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
