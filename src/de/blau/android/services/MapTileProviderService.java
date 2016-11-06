@@ -73,12 +73,20 @@ public class MapTileProviderService extends Service {
 				mountPointWiteable = dir.canWrite();
 				mountPoint = dir;
 			} else if (dir.canWrite()) {
-				mountPointWiteable = true;
-				mountPoint = dir;
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-					if (Environment.isExternalStorageRemovable(dir)) {
-						break;
+					try {
+						if (Environment.isExternalStorageRemovable(dir)) {
+							mountPointWiteable = true;
+							mountPoint = dir;
+							break;
+						}
+					} catch (IllegalArgumentException iae) {
+						// we've seen this on some devices even if it doesn0t make sense
+						Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like that");
 					}
+				} else {
+					mountPointWiteable = true;
+					mountPoint = dir;
 				}
 			}
 		}
