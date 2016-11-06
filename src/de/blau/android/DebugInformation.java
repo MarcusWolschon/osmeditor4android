@@ -39,13 +39,18 @@ public class DebugInformation extends AppCompatActivity {
 		builder.append(getString(R.string.app_name_version) + "\n");
 		builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + "\n");
 		builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + "\n");
-		List<MapViewOverlay> overlays = Application.mainActivity.getMap().mOverlays;
-		synchronized(overlays) {
-			for (MapViewOverlay ov:overlays) {
-				if (ov instanceof MapTilesOverlay || ov instanceof MapOverlayTilesOverlay) {
-					builder.append("Tile Cache " + ((MapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((MapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + "\n");
+		Main main = Application.mainActivity;
+		if (main != null) {
+			List<MapViewOverlay> overlays = main.getMap().mOverlays;
+			synchronized(overlays) {
+				for (MapViewOverlay ov:overlays) {
+					if (ov instanceof MapTilesOverlay || ov instanceof MapOverlayTilesOverlay) {
+						builder.append("Tile Cache " + ((MapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((MapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + "\n");
+					}
 				}
 			}
+		} else {
+			builder.append("Main not available\n");
 		}
 		File stateFile = new File(getFilesDir(), StorageDelegator.FILENAME);
 		if (stateFile.exists()) {
