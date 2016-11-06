@@ -2,9 +2,12 @@ package de.blau.android.services;
 
 import java.io.File;
 
+import org.acra.ACRA;
+
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
@@ -76,6 +79,7 @@ public class MapTileProviderService extends Service {
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 					try {
 						if (Environment.isExternalStorageRemovable(dir)) {
+							Log.d(DEBUG_TAG, "isExternalStorageRemovable claims dir is removeable");
 							mountPointWiteable = true;
 							mountPoint = dir;
 							break;
@@ -94,15 +98,21 @@ public class MapTileProviderService extends Service {
 		if (mountPoint != null && mountPointWiteable) {
 			Log.d(DEBUG_TAG,
 					"Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
-			mFileSystemProvider = new MapTileFilesystemProvider(getBaseContext(), mountPoint,
-					tileCacheSize * 1024 * 1024); // FSCache
-		} else {
-			Toast.makeText(this, R.string.toast_storage_error, Toast.LENGTH_LONG).show();
-			// FIXME potentially we should set both background and overlay
-			// preferences to NONE here or simply zap what we are currently are
-			// using.
-			// don't terminate, simply ignore requests
-		}
+			try {
+				mFileSystemProvider = new MapTileFilesystemProvider(getBaseContext(), mountPoint,
+						tileCacheSize * 1024 * 1024); // FSCache
+				return;
+			} catch (SQLiteException slex) {
+				Log.d(DEBUG_TAG, "Opening DB hit " + slex);
+				ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+				ACRA.getErrorReporter().handleException(slex);
+			}
+		} 			
+		Toast.makeText(this, R.string.toast_storage_error, Toast.LENGTH_LONG).show();
+		// FIXME potentially we should set both background and overlay
+		// preferences to NONE here or simply zap what we are currently are
+		// using.
+		// don't terminate, simply ignore requests
 	}
 
 	@Override
