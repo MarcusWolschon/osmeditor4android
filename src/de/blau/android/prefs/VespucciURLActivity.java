@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
@@ -24,6 +25,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.util.OAuthHelper;
 import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.exception.OAuthNotAuthorizedException;
@@ -104,7 +106,21 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	    if ((oauth_token != null) && (oauth_verifier != null)) {
 	    	mainView.setVisibility(View.GONE);
 	    	Log.i("VespucciURLActivity", "got oauth verifier " + oauth_token + " " + oauth_verifier);
-	    	oAuthHandshake(oauth_verifier);
+	    	String errorMessage = null;
+	    	try {
+				oAuthHandshake(oauth_verifier);
+				setResult(RESULT_OK);
+		    	finish();
+			} catch (OAuthException e) {
+				errorMessage = OAuthHelper.getErrorMessage(this, e);		
+			} catch (InterruptedException e) {
+				errorMessage = getString(R.string.toast_oauth_communication);
+			} catch (ExecutionException e) {
+				errorMessage = getString(R.string.toast_oauth_communication);
+			} catch (TimeoutException e) {
+				errorMessage = getString(R.string.toast_oauth_timeout);
+			}
+	    	Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
 	    	setResult(RESULT_OK);
 	    	finish();
 	    }
@@ -191,57 +207,44 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		}
 	}
 	
-	private void oAuthHandshake(String verifier) {
+	private void oAuthHandshake(String verifier) throws OAuthException, InterruptedException, ExecutionException, TimeoutException {
 		String[] s = {verifier};
-		AsyncTask<String, Void, Void> loader = new AsyncTask<String, Void, Void>() {
-				
-			@Override
-			protected void onPreExecute() {
-			
-				Log.d("VespucciURLActivity", "oAuthHandshake onPreExecute");
-			}
+		class MyTask extends AsyncTask<String, Void, Boolean> {
+			private OAuthException ex = null;
 			
 			@Override
-			protected Void doInBackground(String... s) {
-
+			protected Boolean doInBackground(String... s) {
 		    	OAuthHelper oa = new OAuthHelper(); // if we got here it has already been initialized once
 		    	try {
 					String access[] = oa.getAccessToken(s[0]);
 					prefdb.setAPIAccessToken(access[0], access[1]);
-				} catch (OAuthMessageSignerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (OAuthNotAuthorizedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (OAuthExpectationFailedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (OAuthCommunicationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return null;
+				} catch (OAuthException e) {
+					Log.d("VespucciURL", "oAuthHandshake: " + e);
+					ex = e;
+					return false;
+				} 
+				return true;
 			}
 			
 			@Override
-			protected void onPostExecute(Void v) {
+			protected void onPostExecute(Boolean success) {
 				Log.d("VespucciURLActivity", "oAuthHandshake onPostExecute");
+				// note this is fundamentally broken and needs to be re-thought
 				Application.mainActivity.finishOAuth();
 			}
+			
+			OAuthException getException() {
+				return ex;
+			}
 		};
+		
+		MyTask loader = new MyTask();
 		loader.execute(s);
-		try {
-			loader.get(60, TimeUnit.SECONDS);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (!loader.get(60, TimeUnit.SECONDS)) {
+			OAuthException ex = loader.getException();
+			if (ex != null) {
+				throw ex;
+			}
 		}
 	}
 }

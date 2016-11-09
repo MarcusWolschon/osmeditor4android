@@ -8,6 +8,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import org.acra.ACRA;
 
@@ -142,6 +144,11 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ZoomControls;
 import de.blau.android.voice.Commands;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.exception.OAuthNotAuthorizedException;
 
 /**
  * This is the main Activity from where other Activities will be started.
@@ -2090,8 +2097,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		OAuthHelper oa;
 		try {
 			oa = new OAuthHelper(url);
-		}
-		catch (OsmException oe) {
+		} catch (OsmException oe) {
 			server.setOAuth(false); // ups something went wrong turn oauth off
 			showControls();
 			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_no_oauth), Toast.LENGTH_LONG).show();
@@ -2099,9 +2105,21 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		Log.d(DEBUG_TAG, "oauth auth url " + url);
 	
-		String authUrl = oa.getRequestToken();
+		String authUrl = null;
+		String errorMessage = null;
+		try {
+			authUrl = oa.getRequestToken();
+		} catch (OAuthException e) {
+			errorMessage = OAuthHelper.getErrorMessage(this, e);		
+		} catch (InterruptedException e) {
+			errorMessage = getString(R.string.toast_oauth_communication);
+		} catch (ExecutionException e) {
+			errorMessage = getString(R.string.toast_oauth_communication);
+		} catch (TimeoutException e) {
+			errorMessage = getString(R.string.toast_oauth_timeout);
+		}
 		if (authUrl == null) {
-			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_oauth_handshake_failed), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
 			showControls();
 			return;
 		}

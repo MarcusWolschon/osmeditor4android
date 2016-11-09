@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -18,6 +19,7 @@ import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthProvider;
 import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.exception.OAuthNotAuthorizedException;
@@ -104,51 +106,39 @@ public class OAuthHelper {
 	 * 
 	 * @return null if fails
 	 */
-	public String getRequestToken() {	 
-		class MyTask extends  AsyncTask<Void, Void, String> {
-			String result;
-			 
-			@Override
-			protected void onPreExecute() {
-				Log.d("Main", "oAuthHandshake onPreExecute");
-			}
+	public String getRequestToken() throws OAuthException, InterruptedException, ExecutionException,TimeoutException {	 
+		Log.d("OAuthHelper", "getRequestToken");
+		class MyTask extends AsyncTask<Void, Void, String> {
+			private OAuthException ex = null;
 			
 			@Override
-			protected String doInBackground(Void... params) {		
+			protected String doInBackground(Void... params) {	
 				try {
 					String authUrl = mProvider.retrieveRequestToken(mConsumer, mCallbackUrl);
 					return authUrl;
-				} catch (Exception e) {
-					Log.d("Main", "OAuth handshake failed");
-					e.printStackTrace();
-				}
+				} catch (OAuthException e) {
+					Log.d("OAuthHelper", "getRequestToken " + e);
+					ex = e;
+				} 
 				return null;
 			}
 			
-			@Override
-			protected void onPostExecute(String authUrl) {
-				Log.d("Main", "oAuthHandshake onPostExecute");
-				result = authUrl;	
+			OAuthException getException() {
+				return ex;
 			}
 		}
 		MyTask loader = new MyTask();
 		loader.execute();	
-		try {
-			return loader.get(10, TimeUnit.SECONDS);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String result = loader.get(10, TimeUnit.SECONDS);
+		if (result == null) {
+			OAuthException ex = loader.getException();
+			if (ex != null) {
+				throw ex;
+			}
 		}
-		return null;
+		return result;
 	}
-	
-	
+		
 	public String[] getAccessToken(String verifier)
 			throws OAuthMessageSignerException, OAuthNotAuthorizedException,
 			OAuthExpectationFailedException, OAuthCommunicationException {
@@ -159,6 +149,18 @@ public class OAuthHelper {
 		return new String[] {
 				mConsumer.getToken(), mConsumer.getTokenSecret()
 		};
+	}
+
+	public static String getErrorMessage(Context context, OAuthException e) {
+		if (e instanceof OAuthMessageSignerException) {
+			return context.getString(R.string.toast_oauth_handshake_failed,e.getMessage());
+		} else if (e instanceof OAuthNotAuthorizedException) {
+			return context.getString(R.string.toast_oauth_handshake_failed,e.getMessage());
+		} else if (e instanceof OAuthExpectationFailedException) {
+			return context.getString(R.string.toast_oauth_handshake_failed,e.getMessage());
+		} else {
+			return context.getString(R.string.toast_oauth_handshake_failed,e.getMessage());
+		}
 	}
 	
 }

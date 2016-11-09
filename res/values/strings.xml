@@ -135,7 +135,6 @@
     <string name="toast_potential_merge_tag_conflict">You are trying to merge elements that have conflicting tag values. Please check the tags and correct first before retrying.</string>
     <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
-    <string name="toast_oauth_handshake_failed">OAuth handshake failed, check that you have proper consumer keys</string>
     <string name="toast_unread_mail">You have %1$s unread mail(s) on the OpenStreetMap server</string>
     <string name="toast_photo_indexing_started">Started scan for geo-referenced photos</string>
     <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
@@ -148,6 +147,9 @@
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
     <string name="toast_oauth_not_enabled">OAuth is not enabled for the current API.</string>
+    <string name="toast_oauth_timeout">Timeout during authentication handshake, please retry.</string>
+    <string name="toast_oauth_communication">Communication error during authentication handshake, please retry.</string>
+    <string name="toast_oauth_handshake_failed">OAuth handshake failed: %1$s</string>
     <string name="toast_timeout">Timeout with server</string>
     <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
     <string name="toast_nothing_found">Nothing found</string>
