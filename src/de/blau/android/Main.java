@@ -997,12 +997,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (follow != null) {
 			if (ensureGPSProviderEnabled()) {
 				RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();
-				if (prefs.followGPSbuttonPosition().equals("LEFT")) {
+				if ("LEFT".equals(prefs.followGPSbuttonPosition())) {
 					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,0);
 					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-				} else if (prefs.followGPSbuttonPosition().equals("RIGHT")) {
+				} else if ("RIGHT".equals(prefs.followGPSbuttonPosition())) {
 					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT,0);
 					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+				} else if ("NONE".equals(prefs.followGPSbuttonPosition())) {
+					follow.hide();
 				}
 				follow.setLayoutParams(params);
 			} else {
@@ -3188,7 +3190,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public void showFollowButton() {
 		FloatingActionButton follow = getFollowButton();
-		if (follow != null && ensureGPSProviderEnabled() && locationPermissionGranted) {
+		if (follow != null && ensureGPSProviderEnabled() && locationPermissionGranted && !"NONE".equals(prefs.followGPSbuttonPosition())) {
 			follow.show();
 		}
 	}

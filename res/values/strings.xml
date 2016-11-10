@@ -622,12 +622,15 @@
     <string-array name="followGPSbutton_entries">
         <item>Left</item>
         <item>Right</item>
+        <item>None</item>
     </string-array>
     <string name="follow_GPS_left" translatable="false">LEFT</string>
     <string name="follow_GPS_right" translatable="false">RIGHT</string>
+    <string name="follow_GPS_none" translatable="false">NONE</string>
     <string-array name="followGPSbutton_values" translatable="false">
         <item>@string/follow_GPS_left</item>
         <item>@string/follow_GPS_right</item>
+        <item>@string/follow_GPS_none</item>
     </string-array>
     <string-array name="full_screen_preference_entries">
         <item>Auto</item>
