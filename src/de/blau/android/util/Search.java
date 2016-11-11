@@ -29,6 +29,7 @@ import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.jsonreader.JsonReader;
 import okhttp3.Call;
@@ -125,6 +126,8 @@ public class Search {
 
 
 	private class QueryNominatim extends AsyncTask<String, Void, ArrayList<SearchResult>> {
+		AlertDialog progress = null;
+		
 		final BoundingBox bbox;
 
 		public QueryNominatim() {
@@ -137,7 +140,7 @@ public class Search {
 
 		@Override
 		protected void onPreExecute() {
-			Progress.showDialog(activity, Progress.PROGRESS_SEARCHING);
+			progress = ProgressDialog.get(activity, Progress.PROGRESS_LOADING);
 		}
 
 		@Override
@@ -215,7 +218,13 @@ public class Search {
 
 		@Override
 		protected void onPostExecute(ArrayList<SearchResult> res) {
-			Progress.dismissDialog(activity, Progress.PROGRESS_SEARCHING);
+			try {
+				if (progress != null) {
+					progress.dismiss();
+				}
+			} catch (Exception ex) {
+				Log.e("Search", "loadFromFile dismiss dialog failed with " + ex);
+			}
 		}
 	}
 
