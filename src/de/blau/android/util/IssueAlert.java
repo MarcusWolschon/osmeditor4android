@@ -38,6 +38,15 @@ public class IssueAlert {
 	final static String GROUP_NOTES = "Notes";
 	final static String GROUP_OSMOSE = "Osmose";
 	
+	final static int[] bearings = {R.string.bearing_ne, 
+						    R.string.bearing_e, 
+						    R.string.bearing_se, 
+						    R.string.bearing_s, 
+						    R.string.bearing_sw,
+						    R.string.bearing_w, 
+						    R.string.bearing_nw, 
+						    R.string.bearing_n};
+	
 	static int bugCount = 0;
 	static int noteCOunt = 0;
 	
@@ -92,7 +101,6 @@ public class IssueAlert {
 				return;
 			}
 			long bearing = GeoMath.bearing(location.getLongitude(), location.getLatitude(), eLon, eLat);
-			String[] bearings = {"NE", "E", "SE", "S", "SW", "W", "NW", "N"};
 
 			int index = (int)(bearing - 22.5);
 			if (index < 0)
@@ -202,8 +210,7 @@ public class IssueAlert {
 			}
 			
 			long bearing = GeoMath.bearing(location.getLongitude(), location.getLatitude(), eLon, eLat);
-			String[] bearings = {"NE", "E", "SE", "S", "SW", "W", "NW", "N"};
-
+			
 			int index = (int)(bearing - 22.5);
 			if (index < 0)
 			    index += 360;

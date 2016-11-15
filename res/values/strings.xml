@@ -575,6 +575,14 @@
     <string name="alert_note">Nearby OSM note detected</string>
     <string name="alert_bug">Nearby OSM bug detected</string>
     <string name="alert_distance_direction">in %1$d m %2$s</string>
+    <string name="bearing_ne">NE</string>
+    <string name="bearing_e">E</string>
+    <string name="bearing_se">SE</string>
+    <string name="bearing_s">S</string>
+    <string name="bearing_sw">SW</string>
+    <string name="bearing_w">W</string>
+    <string name="bearing_nw">NW</string>
+    <string name="bearing_n">N</string>
     <!-- Misc relation related stuff -->
     <string name="role">Role</string>
     <string name="role_lc">role</string>
