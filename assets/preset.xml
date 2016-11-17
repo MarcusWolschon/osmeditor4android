@@ -32,11 +32,11 @@
         </combo>
     </chunk>
     <chunk id="riding_surface">
-        <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" values_context="riding" />
+        <combo key="leisure" text="Type" values="horse_riding,pitch,sports_centre,stadium,track" values_context="riding" />
         <combo key="surface" text="Surface" values="grass,sand,clay,dirt,fine_gravel,ground,mud,unpaved,compacted" />
     </chunk>
     <chunk id="lanes">
-        <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" match="none" />
+        <combo key="lanes" text="Lanes" values="1,2,3,4,5,6" length="3" match="none" />
         <combo key="lanes:forward" text="Lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
         <combo key="lanes:backward" text="Lanes opposed to way direction" values="1,2,3,4,5" length="3" match="none" />
     </chunk>
@@ -153,7 +153,7 @@
         <text key="operator" text="Operator" />
     </chunk>
     <chunk id="level">
-    	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="0" values_sort="false" match="none" editable="true" />
+    	<combo text="Level (ground floor 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="0" values_sort="false" match="none" editable="true" />
     </chunk>
     <chunk id="name_layer">
         <text key="name" text="Name" />
@@ -2357,10 +2357,11 @@
             <combo key="horse" text="Horse" values="yes,official,designated,permissive,destination,delivery,private,no" match="key" />
             <combo key="goods" text="Light Commercial Vehicles (goods)" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
             <combo key="agricultural" text="Agricultural" values="yes,official,designated,destination,permissive,private,no" match="key" />
-            <combo key="emergency" text="Emergency vehicles" values="yes,official,designated,destination,permissive,private,no" match="keyvalue" />
+            <combo key="emergency" text="Emergency vehicles" values="yes,official,designated,destination,no" match="keyvalue" />
             <combo key="hov" text="High-occupancy vehicles (hov)" values="yes,official,designated,destination,permissive,private,no" match="key" />
             <combo key="psv" text="Public Service Vehicles (psv)" values="yes,official,designated,destination,permissive,private,no" match="key" />
             <combo key="tourist_bus" text="Tourist buses" values="yes,no" match="key" />
+            <combo key="horse" text="Horse" values="yes,official,designated,permissive,destination,delivery,private,no" />
         </item> <!-- Other mode restrictions -->
     </group>  <!-- access restrictions -->
   </group> <!-- Highways -->
@@ -4032,6 +4033,19 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Guest House/Bed & Breakfast -->
+        <item name="Apartment" icon="presets/accommodation/apartment.svg" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=apartment" />
+            <space />
+            <key key="tourism" value="apartment" />
+            <reference ref="name_operator" />
+            <combo key="number_of_apartments" text="Number of apartments" values="1,2,3,4,5,6,7,8,9,10" />
+            <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" />
+            <reference ref="wheelchair" />
+            <space />
+            <reference ref="internet_smoking" />
+            <space />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Apartment -->
         <item name="Chalet" icon="icons/png/accommodation_chalet2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=chalet"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:tourism=chalet"
@@ -4176,6 +4190,7 @@
             <check key="microbrewery" text="Microbrewery" disable_off="true" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <reference ref="stars" />
             <space />
@@ -4197,6 +4212,7 @@
 			<reference ref="cuisine" />            
 			<check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <space />
             <reference ref="internet_smoking" />
@@ -4213,7 +4229,6 @@
             <key key="amenity" value="food_court" />
             <reference ref="name_operator" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
-            <combo key="takeaway" text="Takeaway" values="yes,no,only" />
             <reference ref="oh_wheelchair_level" />
             <space />
             <reference ref="internet_smoking" />
@@ -4237,7 +4252,8 @@
             <reference ref="name_operator" />
             <combo key="cuisine" text="Cuisine" values="ice_cream" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
-            <combo key="takeaway" text="Takeaway" values="yes,no,only" />
+            <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <space />
             <reference ref="internet_smoking" />
@@ -4250,7 +4266,8 @@
             <key key="amenity" value="ice_cream" />
             <reference ref="name_operator" />
             <check key="outdoor_seating" text="Outdoor seating" />
-            <combo key="takeaway" text="Takeaway" values="yes,no,only" />
+            <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -4270,7 +4287,8 @@
             <reference ref="name_operator" />
             <check key="microbrewery" text="Microbrewery" disable_off="true" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
-            <combo key="takeaway" text="Takeaway" values="yes,no,only" />
+            <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <space />
             <reference ref="internet_smoking" />
@@ -5367,7 +5385,10 @@
             <space />
             <key key="emergency" value="defibrillator" />
             <reference ref="oh_wheelchair_level" />
-            <text  key="operator" text="Operator" />
+            <text key="operator" text="Operator" />
+            <text key="defibrillator:location" text="Location description" />
+            <text key="phone" text="Phone Number" />
+            <combo key="access" text="Access" values="yes,private,customers,permissive,no" display_values="Yes,Private,Customers,Permissive,No" />
             <check key="indoor" text="Located inside a building?" disable_off="true" match="none" />
             <!-- lastcheck is in use for aed devices, but not yet well discussed or documented
             <optional>
@@ -5907,7 +5928,7 @@
             <combo key="height" text="Height" values="low,half,full,5,10,15,20" values_context="height" />
             <check key="shelter" text="Shelter" disable_off="true" />
             <check key="hide" text="Hide" text_context="hunting stand" disable_off="true" />
-            <check key="lock" text="Lock" disable_off="true" />
+            <check key="lockable" text="Lockable" disable_off="true" />
         </item> <!-- Hunting Stand -->
         <separator/>
         <item name="Drinking Water" icon="icons/png/food_drinkingtap.png" type="node" preset_name_label="true">
@@ -5938,6 +5959,15 @@
                 <text key="description" text="Description" />
             </optional>
         </item> <!-- Water Point -->
+        <item name="Animal watering place" icon="presets/misc/watering_place.svg" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=watering_place" />
+            <space />
+            <key key="amenity" value="watering_place" />
+            <optional>
+                <text key="name" text="Name" />
+                <text key="description" text="Description" />
+            </optional>
+        </item> <!-- Animal watering place -->
         <item name="Compressed Air" icon="styles/standard/vehicle/compressed_air.svg" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=compressed_air"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=compressed_air"
@@ -6642,8 +6672,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
             <space />
             <combo key="building" text="Building" 
-            	values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower,public,ruins"
-            	display_values="Yes,Roof,Garage,Garages,Industrial,School,Hangar,Commercial,Service,Train station,Barn,Stable,Cabin,Farm auxiliary,Transportation,Greenhouse,Office,University,Hospital,Kindergarten,Manufacture,Warehouse,Retail,Shed,Storage tank,Supermarket,Gasometer,Cowshed,Construction,Basilica,Cathedral,Chapel,Church,Temple,Mosque,Synagogue,Transformer tower,Public,Ruins" 
+            	values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower,public,ruins"
+            	display_values="Yes,Roof,Garage,Garages,Industrial,School,Hangar,Commercial,Service,Train station,Barn,Stable,Cabin,Farm auxiliary,Transportation,Greenhouse,Office,University,College,Hospital,Kindergarten,Manufacture,Warehouse,Retail,Shed,Storage tank,Supermarket,Gasometer,Cowshed,Construction,Basilica,Cathedral,Chapel,Church,Temple,Mosque,Synagogue,Transformer tower,Public,Ruins" 
             	values_context="building" default="yes" match="keyvalue!" values_searchable="true" />            
             <optional>
             	<text key="name" text="Name" />
@@ -6691,7 +6721,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building:part"
                   zh_CN.href="http://wiki.openstreetmap.org/wiki/Zh-hans:Key:building:part" />
             <space />
-            <combo key="building:part" text="Building part" values="yes,roof,garage,garages,industrial,school,hangar,commercial,barn,farm_auxiliary,transportation,greenhouse,office,university,hospital,warehouse,retail,shed,supermarket,cowshed,construction,ruins" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />
+            <combo key="building:part" text="Building part" values="yes,roof,garage,garages,industrial,school,hangar,commercial,barn,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,warehouse,retail,shed,supermarket,cowshed,construction,ruins" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />
             <text key="name" text="Name" />
             <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" editable="true" text_context="building" />
             <combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10" editable="true" text_context="building" />
@@ -10164,7 +10194,7 @@
                 <key key="type" value="route"/>
                 <key key="route" value="bicycle"/>
                 <text key="name" text="Name" />
-                <combo key="network" text="Network" values="icn,ncn,rcn,lcn" match="keyvalue!" />
+                <combo key="network" text="Network" values="icn,ncn,rcn,lcn" match="keyvalue!" display_values="International,National,Regional,Local" values_sort="false" />
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -10211,7 +10241,7 @@
                 <key key="type" value="route"/>
                 <key key="route" value="hiking"/>
                 <text key="name" text="Name" />
-                <combo key="network" text="Network" values="iwn,nwn,rwn,lwn" match="keyvalue!" />
+                <combo key="network" text="Network" values="iwn,nwn,rwn,lwn" match="keyvalue!" display_values="International,National,Regional,Local" values_sort="false" />
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -10227,7 +10257,7 @@
                 <key key="type" value="route"/>
                 <key key="route" value="foot"/>
                 <text key="name" text="Name" />
-                <combo key="network" text="Network" values="rwn,lwn" match="keyvalue!" />
+                <combo key="network" text="Network" values="rwn,lwn" match="keyvalue!" display_values="Regional,Local" values_sort="false" />
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -10243,7 +10273,7 @@
                 <key key="type" value="route"/>
                 <key key="route" value="horse"/>
                 <text key="name" text="Name" />
-                <combo key="network" text="Network" values="ihn,nhn,rhn,lhn" match="keyvalue!" />
+                <combo key="network" text="Network" values="ihn,nhn,rhn,lhn" match="keyvalue!" display_values="International,National,Regional,Local" values_sort="false" />
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
