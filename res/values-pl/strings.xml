@@ -19,6 +19,7 @@
   <string name="no_login_data_message">Jeśli używasz OAuth oznacza to że wystąpił błąd, prześlij raport o błędach, jednak jeśli używasz loginu i hasła (nie polecane) sprawdź czy wprowadzono je poprawnie</string>
   <string name="no_connection_title">Brak połączenia z serwerem</string>
   <string name="no_connection_message">Nie można połączyć się z serwerem OSM. Sprawdź swoje połączenie z Internetem i spróbuj ponownie.</string>
+  <string name="ssl_handshake_failed">Łączenie z serwerem OSM nie powiodło się. Nieudane uwierzytelnienie https. Możesz spróbować połączyć się za pomocą nieszyfrowanego połączenia w ustawieniach API.</string>
   <string name="wrong_login_data_title">Uwierzytelnianie nieudane</string>
   <string name="wrong_login_data_message">Jeśli używasz usługi OAuth spróbuj ją ponownie uwierzytelnić a następnie spróbować ponownie, jeżeli używasz swojego loginu oraz hasła (nie rekomendowane) sprawdź czy zostały wprowadzone poprawnie.</string>
   <string name="wrong_login_data_re_authenticate">Uwierzytelnij ponownie</string>
@@ -130,7 +131,6 @@
   <string name="toast_potential_merge_tag_conflict">Próbuje się połączyć obiekty, które mają sprzeczne wartości znaczników. Proszę sprawdzić i poprawić znaczniki przed połączeniem.</string>
   <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik stanu</string>
   <string name="toast_too_many_nodes_for_move">Zbyt wiele węzłów na linii do przesunięcia</string>
-  <string name="toast_oauth_handshake_failed">Połączenie OAuth nie powiodło się, sprawdź czy masz odpowiednie klucze autoryzacyjne</string>
   <string name="toast_unread_mail">Masz %1$s nieodczytanych wiadomości na serwerze OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Rozpoczęto skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończono skanowanie zdjęć georeferencyjnych.</string>
@@ -192,7 +192,7 @@
   <string name="Value">Wartość</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Pl:Map_Features</string>
   <string name="tag_menu_address">Dodaj tagi adresowe</string>
-  <string name="tag_menu_sourcesurvey">Oceniony</string>
+  <string name="tag_menu_sourcesurvey">Sprawdzony</string>
   <string name="tag_menu_preset">Szablony</string>
   <string name="tag_menu_apply_preset">Zastosuj najlepszy szablon</string>
   <string name="tag_menu_repeat">Powtórz tagi</string>
@@ -206,13 +206,20 @@
   <string name="tag_menu_top">Przejdź na górę</string>
   <string name="tag_menu_bottom">Przejdź na dół</string>
   <string name="tag_value_hint">Wpisz wartość</string>
+  <string name="tag_autocomplete_value_hint">Wpisz lub wybierz wartość</string>
+  <string name="tag_autocomplete_name_hint">Wpisz lub wybierz nazwę</string>
   <string name="tag_multi_value_hint">Wiele wartości</string>
   <string name="tag_dialog_value_hint">Dotknij by zobaczyć wartości</string>
-  <string name="tag_action_tag_title">Zaznaczone tagi</string>
+  <string name="tag_action_tag_title">Zaznaczono tagi</string>
   <string name="tag_action_members_title">Wybrani członkowie</string>
   <string name="tag_action_parents_title">Relacje zaznaczona</string>
   <string name="tag_additional_properties">Dodatkowe właściwości</string>
   <string name="tag_details">Szczegóły</string>
+  <string name="tag_not_set">Nie przypisano</string>
+  <string name="tag_menu_move_up">Przenieś w górę</string>
+  <string name="tag_menu_move_top">Przenieś na początek</string>
+  <string name="tag_menu_move_down">Przenieś w dół</string>
+  <string name="tag_menu_move_bottom">Przenieś na koniec</string>
   <string name="tag_menu_sort">Sortuj</string>
   <string name="tag_menu_download">Pobierz</string>
   <string name="menu_up">W górę</string>
@@ -223,8 +230,10 @@
   <string name="tag_restriction_header">Wartość</string>
   <string name="tag_restriction_when">kiedy</string>
   <string name="tag_restriction_and">i</string>
+  <string name="tag_restriction_add_simple_condition">Dodaj proste ograniczenie</string>
   <string name="tag_restriction_add_expression">Dodaj wyrażenie</string>
   <string name="tag_restriction_add_opening_hours">Dodaj godziny otwarcia</string>
+  <string name="tag_restriction_value_hint">ograniczenie warunkowe</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Wczytaj obszar</string>
   <string name="location_choose_radius">Wybierz promień:</string>
@@ -254,10 +263,10 @@
   <string name="menu_help">Pomoc</string>
   <string name="menu_erase">Usuń węzeł</string>
   <string name="menu_set_position">Położenie</string>
-  <string name="menu_split">Podziel drogę</string>
+  <string name="menu_split">Przetnij linię</string>
   <string name="menu_extract">Izoluj węzeł</string>
-  <string name="menu_closed_way_split_1">Podziel poligon, pierwszy węzeł</string>
-  <string name="menu_closed_way_split_2">Podziel poligon, drugi węzeł</string>
+  <string name="menu_closed_way_split_1">Przetnij linię zamkniętą, pierwszy węzeł</string>
+  <string name="menu_closed_way_split_2">Przetnij linię zamkniętą, drugi węzeł</string>
   <string name="menu_append">Dołącz</string>
   <string name="menu_restriction">Dodaj ograniczenie skrętu</string>
   <string name="menu_restriction_restart_from">Ponownie wybierz element \"from\"</string>
@@ -352,10 +361,11 @@
   <string name="deleteway_wayandnodes">Usuń drogę i węzły</string>
   <string name="deletenode_relation_description">Masz zamiar usunąć węzeł, który jest członkiem jednej lub wielu relacji. Usuwanie węzła z relacji może spowodować jej / ich nieprawidłowość.</string>
   <string name="deletenode">Usuń węzeł</string>
+  <string name="split_all_ways">Przetnij wszystkie linie</string>
   <!--EasyEdit action mode titles-->
-  <string name="actionmode_wayselect">Zaznaczona linia</string>
+  <string name="actionmode_wayselect">Wybrano linię</string>
   <string name="actionmode_nodeselect">Zaznaczony węzeł</string>
-  <string name="actionmode_relationselect">Zaznaczona relacja</string>
+  <string name="actionmode_relationselect">Wybrano relację</string>
   <string name="actionmode_createpath">Tworzenie linii</string>
   <string name="actionmode_multiselect">Zaznacz wiele</string>
   <!--Preferences-->
@@ -370,7 +380,7 @@
   <string name="config_maxAlertDistance_title">Maksymalna odległość dla powiadomienia</string>
   <string name="config_maxAlertDistance_summary">Maksymalna odległość o jaką może być oddalona notatka lub błąd od aktualnej pozycji aby wygenerować powiadomienie.</string>
   <string name="config_maxStrokeWidth_title">Maksymalna szerokość linii</string>
-  <string name="config_maxStrokeWidth_summary">Nie rysuj drogi grubszej niż ta.</string>
+  <string name="config_maxStrokeWidth_summary">Nie rysuj drogi szerszej od danej wartości</string>
   <string name="config_tileCacheSize_title">Wielkość pamięci podręcznej dla kafelków map</string>
   <string name="config_tileCacheSize_summary">Całkowita wielkość pamięci podręcznej telefonu zarezerwowanej dla kafelków mapy w MB</string>
   <string name="config_showStats_title">Statystyki</string>
@@ -378,7 +388,7 @@
   <string name="config_showTolerance_title">Pokaż tolerancję</string>
   <string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
   <string name="config_enableAntiAliasing_title">Antyaliasing</string>
-  <string name="config_enableAntiAliasing_summary">Wygładza widoczne linie.</string>
+  <string name="config_enableAntiAliasing_summary">Wygładza widoczne linie</string>
   <string name="config_enableOpenStreetBugs_title">Włącz wyświetlanie błędów i notatek</string>
   <string name="config_enableOpenStreetBugs_summary">Wyświetl, Edytuj i utwórz notatkę/błąd</string>
   <string name="config_enablePhotoLayer_title">Warstwa zdjęć</string>
@@ -525,8 +535,8 @@
   <string name="undo_action_deletenode">usuń węzeł</string>
   <string name="undo_action_deleteway">usuń drogę</string>
   <string name="undo_action_delete_objects">usuń obiekty</string>
-  <string name="undo_action_split_ways">podziel drogi</string>
-  <string name="undo_action_split_way">podziel drogę</string>
+  <string name="undo_action_split_ways">przetnij linie</string>
+  <string name="undo_action_split_way">przetnij linię</string>
   <string name="undo_action_merge_ways">połącz drogi</string>
   <string name="undo_action_reverse_way">odwróć drogę</string>
   <string name="undo_action_set_tags">ustaw tagi</string>
@@ -600,14 +610,15 @@
     <item>Otwarte</item>
     <item>Zamknięte</item>
   </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Lewo</item>
-    <item>Prawo</item>
-  </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Automatycznie</item>
     <item>Nigdy</item>
     <item>Wymuś</item>
     <item>Brak paska</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Nigdy</item>
+    <item>Wymuś</item>
+    <item>Bez wstążki statusu</item>
   </string-array>
 </resources>

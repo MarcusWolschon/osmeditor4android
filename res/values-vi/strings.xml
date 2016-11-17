@@ -128,7 +128,6 @@
   <string name="toast_potential_merge_tag_conflict">Bạn muốn gộp các phần tử có mâu thuẫn giá trị thẻ. Xin vui lòng kiểm tra và chỉnh lại các thẻ trước khi thử lại.</string>
   <string name="toast_state_file_failed">Tập tin trạng thái không thể đọc hoặc hư hỏng</string>
   <string name="toast_too_many_nodes_for_move">Lối sẽ được di chuyển có quá nhiều nốt</string>
-  <string name="toast_oauth_handshake_failed">Quá trình bắt tay OAuth bị thất bại; hãy kiểm tra có các chìa khóa trình khách (consumer) chính xác</string>
   <string name="toast_photo_indexing_started">Đã bắt đầu tìm hình ảnh được định vị</string>
   <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
   <string name="toast_download_bbox_failed">Thất bại khi tải về, có lẽ vì khu vực được chọn quá lớn.</string>
@@ -595,10 +594,6 @@
   <string-array name="note_state">
     <item>Mở</item>
     <item>Đóng</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Trái</item>
-    <item>Phải</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Tự động</item>

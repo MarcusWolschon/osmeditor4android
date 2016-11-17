@@ -34,10 +34,12 @@
   <string name="out_of_memory_dirty_message">Vespucci ist hat beim Leden des Gebietes allen verfügbaren Speicher verbraucht. Bitte die bereits gemachten Änderungen speichern, neu starten und ein kleineres Gebiet versuchen.</string>
   <string name="invalid_data_received_title">Ungültige Daten erhalten</string>
   <string name="invalid_data_received_message">Vespucci hat ungültige Daten vom Server empfangen. Falls es keine erkennbaren Gründe für den Fehler gibt, bitte eine Fehlermeldung erstellen.</string>
+  <string name="invalid_data_read_title">Ungültige Daten</string>
+  <string name="invalid_data_read_message">Die Datei enthielt ungültige Daten. Falls es keine erkennbaren Gründe für den Fehler gibt, bitte eine Fehlermeldung erstellen.</string>
   <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="welcome_title">Willkommen!</string>
-  <string name="welcome_message">Danke das Du Vespucci benutzt.\n\nUm anzufangen muss man 2 Sachen wissen:\n\n* durch Antippen des Schlosses in der oberen linken Ecke schaltet man zwischen gesperrten (editieren nicht möglich) und dem entsperrten Status hin- und her\n\n* um ein neues Objekt zu erstellen musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen erstellt einen Punkt, weiter weg antippen beginnt einen neuen Weg.\n\nVergiss bitte nicht zuerst das Gebiet das du bearbeiten willst herunterzuladen.\n\nViel Spass!</string>
+  <string name="welcome_message">Danke, dass Du Vespucci benutzt.\n\nUm anzufangen, musst du 2 Sachen wissen:\n\n* Durch Antippen des Schlosses in der oberen, linken Ecke schaltet man zwischen dem gesperrten (Bearbeiten nicht möglich) und dem entsperrten Status hin- und her\n\n* Um ein neues Objekt zu erstellen, musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen, erstellt einen Punkt, weiter weg antippen, beginnt einen neuen Weg.\n\nVergiss bitte nicht, zuerst das Gebiet, das du bearbeiten willst, herunterzuladen.\n\nViel Spaß!</string>
   <string name="read_introduction">Die Einführung jetzt lesen</string>
   <string name="upgrade_title">Willkommen zu einer neuen Vespucci Version! </string>
   <string name="upgrade_message">Dies ist eine neue Version von Vepsucci mit neuen Funktionen und Verhalten. Wir empfehlen die Amerkungen zu den Änderungen kurz durchzulesen.</string>
@@ -131,7 +133,6 @@
   <string name="toast_potential_merge_tag_conflict">Elemente mit sich widersprechenden Tags sollen zusammengeführt werden. Tags bitte überprüfen und vor einem neuen Versuch korrigieren.,</string>
   <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt </string>
   <string name="toast_too_many_nodes_for_move">Der Weg hat zuviele Punkte um ihn zu verschieben</string>
-  <string name="toast_oauth_handshake_failed">OAuth Verhandlung ist fehlgeschlagen. Bitte überprüfen ob die richtigen \"consumer keys\" vorhanden sind.</string>
   <string name="toast_unread_mail">Im Posteingang von OpenStreetMap befinden sich %1$s ungelesene Nachricht(en).</string>
   <string name="toast_photo_indexing_started">Suche nach geo-refenzierte Fotos begonnen</string>
   <string name="toast_photo_indexing_finished">Suche nach geo-refenzierte Fotos beendet</string>
@@ -144,6 +145,9 @@
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlauben. </string>
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
   <string name="toast_oauth_not_enabled">OAuth ist für die aktuelle API nicht eingeschaltet.</string>
+  <string name="toast_oauth_timeout">Timeout während der Authentifizierung, bitte nochmals versuchen.</string>
+  <string name="toast_oauth_communication">Kommunikationsfehler während der Authentifizierung, bitte nochmals versuchen.</string>
+  <string name="toast_oauth_handshake_failed">OAuth Verhandlung ist fehlgeschlagen: %1$s</string>
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
   <string name="toast_nothing_found">Kein Resutat gefunden</string>
@@ -552,7 +556,7 @@
   <string name="undo_action_extract_node">Knoten extrahieren</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt.\n\nUnterstütze uns mit einem Fehlerreport, einfach \'OK\'. wählen\n</string>
-  <string name="crash_dialog_comment_prompt">Füge weitere Infomationen, und (optional) deine e-Mail Adresse falls du eine Rückmeldung willst, dazu.\n\nDanke!</string>
+  <string name="crash_dialog_comment_prompt">Füge weitere Infomationen, und (optional) deine E-Mail-Adresse dazu, falls du eine Rückmeldung willst.\n\nDanke!</string>
   <string name="config_category_acra">Fehlerreport</string>
   <string name="pref_enable_acra">Programmabstürze melden</string>
   <string name="pref_acra_enabled">Fehlerreport aktiviert</string>
@@ -565,6 +569,14 @@
   <string name="alert_bug">OSM Fehler in der Nähe entdeckt</string>
   <string name="alert_distance_direction">
 in %1$d m %2$s</string>
+  <string name="bearing_ne">NO</string>
+  <string name="bearing_e">O</string>
+  <string name="bearing_se">SO</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_sw">SW</string>
+  <string name="bearing_w">W</string>
+  <string name="bearing_nw">NW</string>
+  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
   <string name="role">Rolle</string>
   <string name="role_lc">Rolle</string>
@@ -608,10 +620,6 @@ in %1$d m %2$s</string>
   <string-array name="note_state">
     <item>Offen</item>
     <item>Behoben</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Links</item>
-    <item>Rechts</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Automatisch</item>

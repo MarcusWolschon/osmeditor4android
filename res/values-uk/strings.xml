@@ -125,7 +125,6 @@
   <string name="toast_potential_merge_tag_conflict">Ви намагаєтесь об’єднати елементи, що мають конфлікт у значеннях теґів. Будь ласка, перевірте їх та виправте перед тим як спробувати знов.</string>
   <string name="toast_state_file_failed">Не читається або пошкоджений файл стану</string>
   <string name="toast_too_many_nodes_for_move">У лінії дуже багато точок для переміщення</string>
-  <string name="toast_oauth_handshake_failed">Перевірка OAuth не вдалась, перевірте, що у Вас є відповідні абонентські ключі.</string>
   <string name="toast_photo_indexing_started">Розпочато пошук геоприв’язаних світлин</string>
   <string name="toast_photo_indexing_finished">Закінчено пошук геоприв’язаних світлин</string>
   <string name="toast_download_bbox_failed">Збій завантаження, можливо, виділенна ділянка завелика.</string>
@@ -414,6 +413,8 @@
   <string name="config_address_tags">Теґи адреси</string>
   <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
   <string name="config_moreprefs">Додаткові налаштування…</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Завжди затінювати незавантажені області</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">При встановленні не завантажені області будуть затінені в режимі перегляду</string>
   <!--preset downloader messages-->
   <string name="preset_update">Оновити заготовку</string>
   <string name="preset_download_successful">Заготовка успішно звантажена</string>

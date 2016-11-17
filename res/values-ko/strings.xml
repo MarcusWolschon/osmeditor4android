@@ -144,8 +144,4 @@
     <item>열림</item>
     <item>닫힘</item>
   </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>왼쪽</item>
-    <item>오른쪽</item>
-  </string-array>
 </resources>

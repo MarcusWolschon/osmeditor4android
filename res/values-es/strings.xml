@@ -34,6 +34,8 @@
   <string name="out_of_memory_dirty_message">Vespucci se quedó sin memoria al cargar los datos solicitados. Intente guardar sus ediciones, reinicie e intente cargar un área más pequeña.</string>
   <string name="invalid_data_received_title">Datos no válidos recibidos</string>
   <string name="invalid_data_received_message">Vespucci recibió datos no válidos desde el servidor. Si cree que lo que estaba intentado hacer es correcto, envíe un informe de error.</string>
+  <string name="invalid_data_read_title">Imformación inválida</string>
+  <string name="invalid_data_read_message">El archivo contenía información inválida. Si cree que lo que estaba intentando es correcto, por favor archive un informe de fallo.</string>
   <string name="file_write_failed_title">Fallo en la escritura de archivos</string>
   <string name="file_write_failed_message">No se pudo escribir en el archivo seleccionado.</string>
   <string name="welcome_title">¡Bienvenido!</string>
@@ -131,7 +133,6 @@
   <string name="toast_potential_merge_tag_conflict">Está tratando de combinar elementos que tienen conflictos en los valores de las etiquetas. Compruebe las etiquetas y corrija primero antes de intentar de nuevo.</string>
   <string name="toast_state_file_failed">No se puede leer el archivo de estado</string>
   <string name="toast_too_many_nodes_for_move">Demasiados nodos en la vía para mover</string>
-  <string name="toast_oauth_handshake_failed">Fallo en la negociación OAuth, compruebe que tiene las claves de consumidor correctas</string>
   <string name="toast_unread_mail">Tiene %1$s correo(s) no leído(s) en el servidor OpenStrreetMap</string>
   <string name="toast_photo_indexing_started">Iniciada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada la búsqueda de fotos georreferenciadas</string>
@@ -144,6 +145,9 @@
   <string name="toast_oauth">Permita el acceso OAuth a su cuenta OSM.</string>
   <string name="toast_no_oauth">No está disponible la configuración OAuth para la API actual. Establezca su nombre de usuario y contraseña.</string>
   <string name="toast_oauth_not_enabled">OAuth no está habilitado para la API actual.</string>
+  <string name="toast_oauth_timeout">Pausa durante la autenticación, por favor inténtelo de nuevo.</string>
+  <string name="toast_oauth_communication">Error de comunicación durante la autenticación, por favor inténtelo de nuevo.</string>
+  <string name="toast_oauth_handshake_failed">OAuth fallido: %1$s</string>
   <string name="toast_timeout">Agotado el tiempo de espera del servidor.</string>
   <string name="coordinates_out_of_range">La longitud debe estar entre -180º y +180º; la latitud entre -85º y 85º</string>
   <string name="toast_nothing_found">No se encontró nada</string>
@@ -234,6 +238,7 @@
   <string name="tag_restriction_add_simple_condition">Añadir simple condición</string>
   <string name="tag_restriction_add_expression">Añadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Añadir horas de apertura</string>
+  <string name="tag_restriction_value_hint">Restricción condicional</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elegir radio:</string>
@@ -567,6 +572,14 @@
   <string name="alert_note">Detectada una nota OSM cercana</string>
   <string name="alert_bug">Detectado un error OSM cercano</string>
   <string name="alert_distance_direction">en %1$d m %2$s</string>
+  <string name="bearing_ne">NE</string>
+  <string name="bearing_e">E</string>
+  <string name="bearing_se">SE</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_sw">SW</string>
+  <string name="bearing_w">W</string>
+  <string name="bearing_nw">NW</string>
+  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
   <string name="role_lc">rol</string>
@@ -614,6 +627,7 @@
   <string-array name="followGPSbutton_entries">
     <item>Izquierda</item>
     <item>Derecha</item>
+    <item>Ninguno</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Auto</item>

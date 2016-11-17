@@ -101,7 +101,6 @@
   <string name="toast_merge_tag_conflict">Þú steyptir saman eigindum með mismunandi hegðan. Vinsamlegast fullvissaðu þig um að þetta eigi í raun að vera svo eða lagaðu ef þarf.</string>
   <string name="toast_state_file_failed">Ólæsileg eða biluð skrá</string>
   <string name="toast_too_many_nodes_for_move">Of margir hnútar í ferlinu til að færa</string>
-  <string name="toast_oauth_handshake_failed">Oauth-lyklun mistókst,  athugaðu hvort lyklar eru réttir</string>
   <string name="toast_photo_indexing_started">Hef leit að myndum með staðsetningu</string>
   <string name="toast_photo_indexing_finished">Lauk leit að myndum með staðsetningu</string>
   <string name="toast_download_bbox_failed">Niðurhal mistókst,  líklega var valið svæði of stórt. </string>

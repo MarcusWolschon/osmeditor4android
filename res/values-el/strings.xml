@@ -102,7 +102,6 @@
   <string name="toast_merge_tag_conflict">Έχετε συγχωνεύσει στοιχεία που έχουν αντικρουόμενες τιμές ετικέτας, ιδιότητες που εξαρτώνται από την κατεύθυνση ή διαφορετικούς ρόλους στην ίδια σχέση. Παρακαλώ ελέγξτε τις ετικέτες και τους ρόλους και ενδεχομένως διορθώστε.</string>
   <string name="toast_state_file_failed">Μη αναγνώσιμο ή κατεστραμμένο αρχείο</string>
   <string name="toast_too_many_nodes_for_move">Πάρα πολλοί κόμβοι στο δρόμο για να προχωρήσουμε</string>
-  <string name="toast_oauth_handshake_failed">OAuth αναγνώριση απέτυχε, ελέγξτε ότι διαθέτετε τα κατάλληλα κλειδιά των καταναλωτών</string>
   <string name="toast_photo_indexing_started">Ξεκίνησε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_photo_indexing_finished">Ολοκληρώθηκε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_download_bbox_failed">Η λήψη απέτυχε, πιθανόν λόγω επιλογής πολύ μεγάλης περιοχής</string>

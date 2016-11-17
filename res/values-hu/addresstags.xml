@@ -2,10 +2,10 @@
 <resources>
   <string-array name="address_tags_entries">
     <item>Házszám (addr:housenumber)</item>
-    <item>Utva (addr:street)</item>
+    <item>Utca (addr:street)</item>
     <item>Irányítószám (addr:postcode)</item>
     <item>Város/falu/…  (addr:city)</item>
-    <item>Oszág (addr:country)</item>
+    <item>Ország (addr:country)</item>
     <item>Teljes cím (addr:full)</item>
     <item>Hely (addr:place)</item>
     <item>Falucska (addr:hamlet)</item>

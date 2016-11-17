@@ -117,7 +117,6 @@
   <string name="toast_potential_merge_tag_conflict">Etiketleri çakışan unsurları birleştirmeye çalışıyorsunuz. Lütfen tekrar denemeden önce etiketleri kontrol edin ve düzeltin.</string>
   <string name="toast_state_file_failed">Bozuk ya da okunamaz durum dosyası</string>
   <string name="toast_too_many_nodes_for_move">Taşımak istediğiniz yolda çok fazla düğüm var</string>
-  <string name="toast_oauth_handshake_failed">OAuth tokalaşması başarısız, lütfen uygun tüketici anahtarına sahip olup olmadığınızı kontrol edin</string>
   <string name="toast_photo_indexing_started">Jeo-referanslı fotoğraf taraması başladı</string>
   <string name="toast_photo_indexing_finished">Jeo-referanslı fotoğraf taraması bitti</string>
   <string name="toast_download_bbox_failed">İndirme başarısız, muhtemelen indirmeye çalışılan alan çok fazla büyük.</string>

@@ -129,7 +129,6 @@
   <string name="toast_potential_merge_tag_conflict">Вы пытаетесь объединить элементы с несовместимыми значениями тегов. Пожалуйста, проверьте теги и скорректируйте их, прежде, чем повторять попытку.</string>
   <string name="toast_state_file_failed">Нечитаемый или повреждённый файл состояния</string>
   <string name="toast_too_many_nodes_for_move">В линии слишком много точек для перемещения</string>
-  <string name="toast_oauth_handshake_failed">Рукопожатие OAuth не удалось, проверьте, что у вас есть подходящий consumer key.</string>
   <string name="toast_photo_indexing_started">Начато сканирование геопривязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование геопривязанных фото</string>
   <string name="toast_download_bbox_failed">Скачивание не удалось; возможно, выбранная область слишком велика.</string>
@@ -572,9 +571,5 @@
   <string-array name="note_state">
     <item>Открытая</item>
     <item>Закрытая</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Слева</item>
-    <item>Справа</item>
   </string-array>
 </resources>

@@ -7,46 +7,97 @@
   <string name="transfer_download_current_download">Zahodit a stáhnout</string>
   <string name="transfer_download_current_back">Zpět (Nedělá nic)</string>
   <string name="upload_problem_title">Problém s nahráváním</string>
+  <string name="upload_problem_message">Některá nebo všechna data nebyla nenahrána. Zkuste to znovu později, pokud se jedná jen o dočasný problém.</string>
+  <string name="use_local_version">Použít \nmístní \nverzi</string>
+  <string name="use_server_version">Použít \nverzi \nna serveru</string>
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>
   <string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>
+  <string name="data_conflict_title">Konflikt verzí</string>
+  <string name="out_of_memory_title">Nedostatek paměti</string>
+  <string name="out_of_memory_message">Vespucci nemá dost paměti pro načtení požadovaných dat. Restartujte ho, prosím, a zkuste načíst menší plochu.</string>
+  <string name="out_of_memory_dirty_message">Vespucci nemá dost paměti pro načtení požadovaných dat. Zkuste, prosím, uložit vaše úpravy, restartujte ho a zkuste načíst menší plochu.</string>
+  <string name="invalid_data_received_title">Přijata neplatná data</string>
+  <string name="file_write_failed_message">Do vybraného souboru nelze zapisovat.</string>
+  <string name="read_upgrade">Informace o nové verzi</string>
   <string name="progress_title">Načítám</string>
   <string name="progress_message">Načítam data do paměti…</string>
   <string name="progress_download_message">Stahuji data ze serveru…</string>
+  <string name="progress_general_title">Čekejte prosím</string>
+  <string name="progress_deleting_message">Mazání...</string>
+  <string name="progress_searching_message">Prohledávání…</string>
+  <string name="progress_saving_message">Ukládání…</string>
+  <string name="progress_uploading_message">Nahrávání...</string>
+  <string name="progress_preset_message">Stahování předvoleb…</string>
+  <string name="progress_oauth">Načítání vašeho účtu na openstreetmap.org pro OAuth autorizaci...</string>
   <string name="upload_comment_label">Komentář:</string>
   <string name="upload_source_label">Zdroj:</string>
+  <string name="upload_close_changeset_label">Uzavřít sadu změn:</string>
+  <string name="upload_gpx_description_label">Popis</string>
   <string name="openstreetbug_new_title">Nová poznámka</string>
+  <string name="openstreetbug_new_bug">Nahlásit problém</string>
   <string name="openstreetbug_new_nodeway">Vytvořit Uzel/Cestu</string>
   <string name="openstreetbug_edit_title">Upravit poznámku</string>
   <string name="openstreetbug_commitbutton">Odeslat</string>
   <string name="openstreetbug_comment_label">Komentář:</string>
   <string name="openstreetbug_edit_close">Uzavřít</string>
   <string name="openstreetbug_edit_closed">Uzavřeno</string>
+  <string name="openstreetbug_not_downloaded">nestaženo</string>
   <string name="unsaved_data_title">Pozor!</string>
-  <string name="unsaved_data_message">Máte neuložene data, které budou smaznány když budete pokračovat.</string>
+  <string name="unsaved_data_message">Máte neuložené změny, které budou smazány, pokud budete pokračovat.</string>
   <string name="unsaved_data_proceed">Smazat &amp; pokračovat</string>
+  <string name="imagery_offset_title">Odsazení snímků</string>
+  <string name="imagery_offset_description">Popis</string>
+  <string name="imagery_offset_author">Autor</string>
+  <string name="imagery_offset_distance">Vzdálenost</string>
+  <string name="search_results_title">Výsledky vyhledávání</string>
+  <string name="find_message">Vložte vyhledávací řetězec</string>
+  <string name="search">Hledat</string>
+  <string name="version">Verze</string>
+  <string name="error">chyba</string>
+  <string name="warning">varování</string>
   <!--Toaster-->
   <string name="toast_no_changes">Zatím jste nic nezměnil…</string>
   <string name="toast_upload_success">Nahrávání na OSM server dokončeno.</string>
   <string name="toast_not_in_edit_range">Prosím přibližte mapu pro editaci (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
+  <string name="toast_unlock_to_edit">Pro editaci odemkněte</string>
+  <string name="toast_edit_outside_downloaded_area">Nemůžete provádět úpravy mimo staženou plochu</string>
   <string name="toast_save_done">Uloženo</string>
+  <string name="toast_save_failed">Ukládání se nezdařilo</string>
   <string name="toast_not_in_bug_range">Prosím přibližte mapu pro přidání chyby (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
   <string name="toast_export_failed">Export selhal</string>
   <string name="toast_export_success">Exportováno do %1$s</string>
   <string name="toast_oneway_reversed">Otočili jste jednosměrnou cestu, nebo cestu se směrově závislými tagy. Zkontrolujte prosím tagy a upravte je, pokud je to nutné.</string>
   <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
   <string name="toast_photo_indexing_finished">Hledání fotografií s georeferencemi ukončeno</string>
+  <string name="toast_nothing_found">Nic nenalezeno</string>
+  <string name="toast_camera_error">Chyba při spouštění aplikace fotoaparátu: %1$s</string>
+  <string name="toast_min_one_preset">Musíte vybrat alespoň jednu předvolbu!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
   <string name="okay">Budiž</string>
   <string name="cancel">Zrušit</string>
   <string name="locked">Uzamčeno</string>
+  <string name="apply">Použít</string>
+  <string name="set">Nastavit</string>
+  <string name="save">Uložit</string>
+  <string name="enable">Povolit</string>
+  <string name="clear">Smazat</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Opravdu odejít?</string>
+  <string name="exit_text">Opravdu chcete odejít?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">klíč</string>
   <string name="value">hodnota</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_preset">Předvolby</string>
+  <string name="tag_menu_revert">Vrátit zpět</string>
   <string name="tag_menu_mapfeatures">Wiki vlastností mapy</string>
+  <string name="tag_menu_addtorelation">Přidat do relace</string>
+  <string name="tag_menu_resetMRU">Resetovat předvolby</string>
+  <string name="tag_additional_properties">Další vlastnosti</string>
+  <string name="tag_details">Detaily</string>
+  <string name="tag_menu_download">Stáhnout</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Načíst oblast</string>
   <string name="location_choose_radius">Vyberte poloměr:</string>
@@ -56,10 +107,15 @@
   <string name="location_text_unknown">unknown</string>
   <string name="location_last_text_parameterized">Poslední známá poloha: %1$s</string>
   <string name="location_current_text_parameterized">Aktuální poloha: %1$s</string>
+  <string name="location_text_metadata_location">\nŠ %1$4g, D %2$4g\n%3$s %4$s zpět</string>
+  <string name="location_text_metadata_accuracy">Přesnost %1$2.0f m,</string>
   <string name="location_map_text">Z mapy (připravujeme)</string>
   <string name="location_coordinates_text">Podle souřadnic:</string>
   <string name="location_lat_label">Zem. šířka:</string>
   <string name="location_lon_label">Zem. délka:</string>
+  <string name="location_search_label">Hledat:</string>
+  <string name="location_load_button">Načíst</string>
+  <string name="location_load_dismiss">Zobrazit mapu</string>
   <string name="location_nan_title">Špatný formát!</string>
   <string name="location_nan_message">Zadejte prosim souřadnice v desetinném formátu (např. \"52.333572\", \"8.741185\"). Zem. šířka musí být mezi -85.0 a +85.0, zem. délka musí být mezi -175.0 a +175.0.</string>
   <!--Menu-->
@@ -67,31 +123,71 @@
   <string name="menu_edit">Upravit</string>
   <string name="menu_add">Nový</string>
   <string name="menu_config">Nastavení</string>
+  <string name="menu_find">Najít</string>
   <string name="menu_help">Nápověda</string>
   <string name="menu_erase">Smazat uzel</string>
+  <string name="menu_set_position">Poloha</string>
   <string name="menu_split">Rozdělit</string>
   <string name="menu_append">Přidat</string>
+  <string name="menu_relation">Vytvořit relaci</string>
   <string name="menu_tag">Upravit tagy</string>
   <string name="menu_openstreetbug">Přidat poznámku</string>
   <string name="menu_easyedit">EasyEdit</string>
+  <string name="menu_camera">Fotoaparát</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Ukazovat polohu GPS</string>
   <string name="menu_gps_follow">Následovat polohu GPS</string>
+  <string name="menu_gps_goto">Jít na GPS pozici</string>
   <string name="menu_gps_start">Spustit GPS stopu</string>
   <string name="menu_gps_pause">Pozastavit GPS stopu</string>
   <string name="menu_gps_clear">Smazat GPS stopu</string>
+  <string name="menu_gps_track_managment">Spravovat stopu...</string>
   <string name="menu_gps_upload">Nahrát GPS stopu na server</string>
   <string name="menu_gps_export">Exportovat GPS stopu</string>
+  <string name="menu_gps_import">Importovat GPS stopu</string>
+  <string name="menu_gps_goto_start">Jít na začátek stopy</string>
+  <string name="menu_gps_autodownload">Stahovat automaticky</string>
   <string name="menu_transfer">Přenos…</string>
   <string name="menu_transfer_download_current">Stáhnout aktuální pohled</string>
+  <string name="menu_transfer_download_current_add">Přidat aktuální pohled ke stažení</string>
   <string name="menu_transfer_download_other">Stáhnout jinou oblast</string>
   <string name="menu_transfer_upload">Nahrát data na OSM server</string>
+  <string name="menu_transfer_close_changeset">Uzavřít aktuální sadu změn</string>
+  <string name="menu_transfer_file">Soubor...</string>
   <string name="menu_transfer_export">Exportovat změny</string>
+  <string name="menu_transfer_read_file">Načíst ze souboru</string>
+  <string name="menu_transfer_save_file">Uložit do souboru</string>
+  <string name="menu_transfer_bugs">Poznámky/Chyby...</string>
+  <string name="menu_transfer_bugs_download_current">Stáhnout chyby pro aktuální pohled</string>
+  <string name="menu_transfer_bugs_upload">Nahrát vše</string>
+  <string name="menu_transfer_bugs_upload_long">Nahrát všechny chyby</string>
+  <string name="menu_transfer_bugs_clear">Smazat</string>
+  <string name="menu_transfer_bugs_clear_long">Smazat chyby</string>
+  <string name="menu_transfer_autodownload_long">Stahovat chyby automaticky</string>
+  <string name="menu_transfer_save_notes_all">Uložit všechny poznámky...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Uložit nové a upravené poznámky...</string>
   <string name="menu_save">Uložit do souboru</string>
+  <string name="menu_join">Spojit</string>
   <string name="menu_copy">Kopírovat</string>
   <string name="menu_cut">Vyjmout</string>
   <string name="menu_paste">Vložit</string>
+  <string name="menu_paste_from_clipboard">Vložit ze schránky</string>
+  <string name="menu_tools">Nástroje</string>
+  <string name="menu_tools_flush_background_tile_cache">Vyčistit mezipaměť s dlaždicemi pozadí</string>
+  <string name="menu_tools_flush_overlay_tile_cache">Vyčistit mezipaměť s překryvnými dlaždicemi</string>
+  <string name="menu_tools_background_properties">Vlastnosti pozadí</string>
+  <string name="menu_tools_background_align">Zarovnat pozadí</string>
+  <string name="menu_tools_background_align_reset">Reset</string>
+  <string name="menu_tools_background_align_zero">Nula</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Z databáze</string>
+  <string name="menu_tools_background_align_save_db">Uložit do DB</string>
+  <string name="menu_tools_background_align_save_device">Uložit do zařízení</string>
+  <string name="menu_tools_background_align_apply2all">Použít (všechna přiblížení)</string>
+  <string name="menu_tools_background_contrast">Kontrast</string>
+  <string name="menu_tools_oauth_reset">Resetovat OAuth</string>
+  <string name="menu_tools_oauth_authorisation">Autorizace OAuth</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Vlastnosti</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historie</string>
   <string name="menu_merge">Spojit cesty</string>
@@ -104,6 +200,10 @@
   <string name="actionmode_nodeselect">Uzel vybrán</string>
   <string name="actionmode_createpath">Vytváří cestu</string>
   <!--Preferences-->
+  <string name="config_category_view">Nastavení uživatelského rozhraní</string>
+  <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
+  <string name="config_showCameraAction_summary">Zobrazit ikonu fotoaparátu na liště nástrojů</string>
+  <string name="config_tileCacheSize_title">Velikost mezipaměti s dlaždicemi</string>
   <string name="config_showStats_title">Zobrazit statistiku</string>
   <string name="config_showStats_summary">Zobrazí statistické data a počet snímků za sekundu v levém spodním rohu.</string>
   <string name="config_showTolerance_title">Zobrazit toleranci</string>
@@ -111,10 +211,15 @@
   <string name="config_enableAntiAliasing_title">Zapnout vyhlazení hran</string>
   <string name="config_enablePhotoLayer_title">Povolit fotovrstvu</string>
   <string name="config_enablePhotoLayer_summary">Zobrazit fotografie s georeferencemi</string>
+  <string name="config_closeChangesetOnSave_title">Uzavřít sady změn</string>
   <string name="config_backgroundLayer_title">Pozadí mapy</string>
+  <string name="config_overlayLayer_title">Překrytí mapy</string>
+  <string name="config_scale_title">Zobrazení měřítka</string>
+  <string name="config_scale_summary">Typ měřítka zobrazeného na mapě.</string>
   <string name="config_category_server">Nastavení serveru</string>
   <string name="config_apibutton_title">URL API OSM</string>
-  <string name="config_apibutton_summary">Zde můźete zadat nestandardní adresu API. Obvykle se nemá měnit!</string>
+  <string name="config_apibutton_summary">Zde můžete zadat nestandardní URL adresu API. Obvykle se nemá měnit!</string>
+  <string name="config_presetbutton_title">Předvolby</string>
   <string name="config_iconbutton_title">Zobrazit ikonky uzlů</string>
   <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předlohy na uzlech.</string>
   <string name="config_loginbutton_title">Uživatelský ůčet</string>
@@ -130,8 +235,18 @@
   <string name="config_advancedprefs">Rozšířená nastavení</string>
   <string name="config_forceContextMenu_title">Vždy používat kontextové menu</string>
   <string name="config_forceContextMenu_summary">Vždy zobrazit kontextové menu v EasyEdit, pokud je výběr nejednoznačný</string>
-  <string name="config_licensebutton_title">Autořy a licence</string>
+  <string name="config_licensebutton_title">Autoři a licence</string>
   <string name="config_licensebutton_summary">Zobrazit autory a licenční informace</string>
+  <string name="config_debugbutton_title">Ladění</string>
+  <string name="config_debugbutton_summary">Zobrazí některé vnitřní informace</string>
+  <string name="config_maxDownloadSpeed_title">Max. rychlost pro auto-stahovaní</string>
+  <string name="config_enableNameSuggestions_title">Povolit návrhy jmen</string>
+  <string name="config_enableLightTheme_title">Povolit světlý vzhled</string>
+  <string name="config_enableLightTheme_summary">Světlý vzhled s bílým pozadím</string>
+  <string name="config_category_misc">Různé</string>
+  <string name="config_moreprefs">Další nastavení...</string>
+  <string name="config_fullscreenMode_title">Režim na celou obrazovku</string>
+  <string name="config_notificationCacheSize_title">Max. počet zobrazených upozornění</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizovat předlohy</string>
   <string name="preset_download_successful">Předlohy úspešně staženy.</string>
@@ -143,6 +258,7 @@
   <string name="changes_changed">\"%1$s\" změněno</string>
   <string name="changes_created">\"%1$s\" vytvořeno</string>
   <string name="confirm_upload_title">Odeslat?</string>
+  <string name="confirm_upload_text">Nahrát následující změny?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předlohu</string>
   <string name="urldialog_preset_exists">Tato předloha již existuje.</string>
@@ -166,15 +282,22 @@
   <string name="gps_failure">Nepovedlo se zapnout GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">posunout uzel</string>
+  <string name="undo_action_moveway">posunout cestu</string>
+  <string name="undo_action_moveobjects">posunout objekt</string>
   <string name="undo_action_add">vložit</string>
   <string name="undo_action_append">přivěsit</string>
   <string name="undo_action_deletenode">smazat uzel</string>
   <string name="undo_action_deleteway">smazat cestu</string>
+  <string name="undo_action_delete_objects">smazat objekty</string>
   <string name="undo_action_split_ways">rozdělit cesty</string>
   <string name="undo_action_split_way">rozdělit cestu</string>
   <string name="undo_action_merge_ways">spojit cesty</string>
   <string name="undo_action_reverse_way">obrátit cestu</string>
   <string name="undo_action_set_tags">nastavit tagy</string>
+  <string name="undo_action_create_relation">vytvořit relaci</string>
+  <string name="undo_action_delete_relation">smazat relaci</string>
+  <string name="undo_action_cut">vyjmout</string>
+  <string name="undo_action_paste">vložit</string>
   <!--ACRA-->
   <string name="config_category_acra">Hlášení pádu</string>
   <string name="pref_enable_acra">Hlásí pády aplikace</string>
@@ -183,8 +306,13 @@
   <!--Exceptions messages-->
   <!--Notifications-->
   <!--Misc relation related stuff-->
+  <string name="relation">Relace</string>
+  <string name="relations">Relace</string>
   <string name="object">Objekt</string>
+  <string name="deleterelation">Smazat relaci</string>
   <!--time and distance-->
+  <string name="seconds">sekundy</string>
+  <string name="meter">metr</string>
   <!--Help system-->
   <!--Arrays-->
 </resources>

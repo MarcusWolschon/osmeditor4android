@@ -109,7 +109,6 @@
   <string name="toast_potential_merge_tag_conflict">Gli elementi che stai cercando di unire hanno delle etichette non compatibili tra loro. Prima di riprovare, controllale e modifica laddove necessario.</string>
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
   <string name="toast_too_many_nodes_for_move">Troppi nodi nella via da spostare</string>
-  <string name="toast_oauth_handshake_failed">Handshake OAuth fallito, controlla di avere le consumer keys appropriate</string>
   <string name="toast_photo_indexing_started">È iniziata la ricerca per le foto geo-referenziate</string>
   <string name="toast_photo_indexing_finished">È terminata la ricerca delle foto geo-referenziate</string>
   <string name="toast_download_bbox_failed">Scaricamento fallito, probabilmente perché l\'area selezionata era troppo grande.</string>

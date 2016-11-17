@@ -40,7 +40,6 @@
   <string name="toast_merge_tag_conflict">Combinaches elementos que teñen valores de etiqueta conflictivos, semántica dependente da dirección ou roles diferentes na mesma relación. Por favor, comproba as etiquetas e os roles e corríxeos se é necesario.</string>
   <string name="toast_state_file_failed">Ficheiro de estado corrupto ou ilexible</string>
   <string name="toast_too_many_nodes_for_move">Hai demasiados puntos na vía para mover</string>
-  <string name="toast_oauth_handshake_failed">A inicialización de OAuth fallou. Comproba que tes as claves de consumidor axeitadas.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Si</string>
   <string name="no">Non</string>

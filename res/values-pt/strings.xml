@@ -131,7 +131,6 @@
   <string name="toast_potential_merge_tag_conflict">Está a tentar unir elementos que têm valores de etiquetas em conflito. Por favor verifique as etiquetas e corrija-as antes de tentar de novo.</string>
   <string name="toast_state_file_failed">Ficheiro ilegível ou corrompido</string>
   <string name="toast_too_many_nodes_for_move">A via tem demasiados nós para poder ser deslocada</string>
-  <string name="toast_oauth_handshake_failed">Autenticação OAuth falhou, verifique que tem as chaves de consumidor apropriadas</string>
   <string name="toast_unread_mail">Tem %1$s mensagens por ler no site do OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Iniciada a procura por fotos geo-referenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada a procura por fotos geo-referenciadas</string>
@@ -615,10 +614,6 @@ há %3$s %4$s</string>
   <string-array name="note_state">
     <item>Aberto</item>
     <item>Fechado</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Esquerda</item>
-    <item>Direita</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Automático</item>

@@ -12,8 +12,13 @@
   <string name="no_connection_title">Ingen forbindelse til serveren</string>
   <string name="no_connection_message">Kunne ikke forbinde til OSM-Serveren. Check din internet forbindelse eller prøv igen senere.</string>
   <string name="data_conflict_title">Versions konflikt</string>
+  <string name="api_offline_title">API offline</string>
+  <string name="api_offline_message">API er i øjeblikket offline, og tillader ikke data bliver hentet eller skrevet.</string>
   <string name="out_of_memory_title">Ikke mere hukommelse</string>
   <string name="welcome_title">Velkommen!</string>
+  <string name="read_introduction">Læs introduktionen nu</string>
+  <string name="upgrade_title">Velkommen til en ny version af Vespucci!</string>
+  <string name="upgrade_message">Dette er en ny version af Vespucci med nye funktioner og opførsel. Det vil være bedst hurtigt at læse opgraderings oplysninger på enheden.</string>
   <string name="read_upgrade">Læs om den nye version</string>
   <string name="progress_title">Læser</string>
   <string name="progress_message">Læser ind i memory…</string>
@@ -21,14 +26,20 @@
   <string name="progress_general_title">Vent</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Kilde:</string>
+  <string name="upload_gpx_tags_label">Tags</string>
+  <string name="openstreetbug_new_title">Ny note</string>
   <string name="openstreetbug_new_nodeway">Opret Knude/Vej</string>
+  <string name="openstreetbug_edit_title">Ret note</string>
   <string name="openstreetbug_commitbutton">Commit</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="unsaved_data_title">Bemærk!</string>
   <string name="unsaved_data_message">Du har ugemte ændringer, som mistes, hvis du fortsætter.</string>
   <string name="unsaved_data_proceed">Kassér &amp; fortsæt</string>
+  <string name="imagery_offset_zoom">Zoom</string>
   <string name="version">Version</string>
   <string name="length_m">Længde (m)</string>
+  <string name="error">fejl</string>
+  <string name="warning">advarsel</string>
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
   <string name="toast_upload_success">Upload til OSM server er afsluttet.</string>
@@ -37,6 +48,7 @@
   <string name="toast_not_in_bug_range">Zoom venligst ind for at tilføje en bug (Volume Op/Ned eller Lens/Shift)</string>
   <string name="toast_export_failed">Eksport mislykkedes</string>
   <string name="toast_export_success">Eksporteret til %1$s</string>
+  <string name="coordinates_out_of_range">Længdegrad skal være mellem -180°/+180°, breddegrad mellem -85°/85°</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
@@ -45,9 +57,21 @@
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
   <string name="key">nøgle</string>
+  <string name="Key">Nøgle</string>
   <string name="value">værdi</string>
+  <string name="Value">Værdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_revert">Tilbagefør</string>
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
+  <string name="tag_menu_move_up">Flyt op</string>
+  <string name="tag_menu_move_top">Flyt til top</string>
+  <string name="tag_menu_move_down">Flyt ned</string>
+  <string name="tag_menu_move_bottom">Flyt til bund</string>
+  <string name="tag_menu_download">Download</string>
+  <string name="menu_up">Op</string>
+  <string name="menu_top">Top</string>
+  <string name="tag_menu_i8n">Tilføj tags for %1$s</string>
+  <string name="tag_restriction_header">Værdi</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Indlæs område</string>
   <string name="location_choose_radius">Vælg radius:</string>
@@ -57,10 +81,13 @@
   <string name="location_text_unknown">ukendt</string>
   <string name="location_last_text_parameterized">Sidste kendte position: %1$s</string>
   <string name="location_current_text_parameterized">Nuværende position: %1$s</string>
+  <string name="location_text_metadata_accuracy">Nøjagtighed %1$2.0f meter,</string>
   <string name="location_map_text">Fra kort:</string>
   <string name="location_coordinates_text">Fra koordinater:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <string name="location_search_label">Søg:</string>
+  <string name="location_load_dismiss">Gå til kort</string>
   <string name="location_nan_title">Forkert Input!</string>
   <string name="location_nan_message">Indtast koordinater med decimaler (f.eks. \"52.333572\",\"8.741185\"). Lat skal være mellem -85.0 og +85.0, og Lon skal være mellem -175.0 og +175.0.</string>
   <!--Menu-->
@@ -68,12 +95,15 @@
   <string name="menu_edit">Ret</string>
   <string name="menu_add">Ny</string>
   <string name="menu_config">Indstillinger</string>
+  <string name="menu_find">Find</string>
   <string name="menu_help">Hjælp</string>
   <string name="menu_erase">Slet knude</string>
   <string name="menu_split">Opdel</string>
   <string name="menu_append">Fortsæt</string>
   <string name="menu_tag">Ret tags</string>
+  <string name="menu_openstreetbug">Tilføj note</string>
   <string name="menu_easyedit">EasyEdit</string>
+  <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Vis lokalitet</string>
   <string name="menu_gps_follow">Følg GPS position</string>
@@ -83,13 +113,17 @@
   <string name="menu_gps_clear">Slet GPS spor</string>
   <string name="menu_gps_upload">Upload GPS track</string>
   <string name="menu_gps_export">Eksporter GPS spor</string>
+  <string name="menu_gps_import">Importer GPS spor</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Download nuværende udsnit</string>
   <string name="menu_transfer_download_other">Download andet område</string>
   <string name="menu_transfer_upload">Upload data til OSM server</string>
   <string name="menu_transfer_export">Eksporter ændringer</string>
+  <string name="menu_transfer_read_file">Læs fra fil</string>
+  <string name="menu_transfer_save_file">Gem til fil</string>
   <string name="menu_save">Gem til en fil</string>
   <string name="menu_join">Flet sammen</string>
+  <string name="menu_information">Info</string>
   <string name="menu_tools">Værktøjer</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
@@ -112,6 +146,9 @@
   <string name="config_category_server">Server Indstillinger</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">Du kan angive en ikke-standard API URL her. Bør normalt ikke ændres!</string>
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">Brug oauth</string>
+  <string name="listedit_enable_oauth">Aktiver oauth</string>
   <string name="config_iconbutton_title">Vis knude-ikoner</string>
   <string name="config_loginbutton_title">Brugerkonto</string>
   <string name="config_username_title">OSM Username</string>
@@ -145,6 +182,8 @@
   <string name="name">Navn</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
+  <string name="api_name">API navn</string>
+  <string name="api_url">API URL</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="api">API</string>
   <string name="undo">Fortryd</string>
@@ -153,16 +192,21 @@
   <string name="gps_failure">Kunne ikke starte GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">flyt knude</string>
+  <string name="undo_action_moveway">flyt vej</string>
+  <string name="undo_action_moveobjects">flyt objekter</string>
   <string name="undo_action_add">indsæt</string>
   <string name="undo_action_append">tilføj</string>
   <string name="undo_action_deletenode">slet knude</string>
   <string name="undo_action_deleteway">slet vej</string>
+  <string name="undo_action_delete_objects">slet objekter</string>
   <string name="undo_action_split_ways">opdel veje</string>
   <string name="undo_action_split_way">opdel vej</string>
   <string name="undo_action_merge_ways">flet veje</string>
   <string name="undo_action_reverse_way">vend vej om</string>
   <string name="undo_action_set_tags">sæt tags</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Vespucci stoppede eller fandt et alvorligt problem sidste gang det kørte.\n\nHjælp os ved at sende en fejlrapport, alt hvad du skal gøre er at klikke på \'OK\'.\n</string>
+  <string name="crash_dialog_comment_prompt">Tilføj yderligere oplysninger, som du tror kan hjælpe og (valgfrit) din e-mail-adresse, hvis du vil have tilbagemelding.\n\nTak!</string>
   <string name="config_category_acra">Crash-rapportering</string>
   <string name="pref_enable_acra">Rapporter applikations-crash</string>
   <string name="pref_acra_enabled">Crash-rapportering er slået til</string>
@@ -170,6 +214,7 @@
   <!--Exceptions messages-->
   <!--Notifications-->
   <!--Misc relation related stuff-->
+  <string name="object">Objekt</string>
   <!--time and distance-->
   <string name="days">dage</string>
   <string name="hours">timer</string>
