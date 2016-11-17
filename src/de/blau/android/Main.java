@@ -2266,13 +2266,21 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		Fragment prev = fm.findFragmentByTag("fragment_bug");
-		if (prev != null) {
-			ft.remove(prev);
+		try {
+			if (prev != null) {
+				ft.remove(prev);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"performBugEdit removing dialog ",isex);
 		}
-		ft.commit();
-
 		TaskFragment bugDialog = TaskFragment.newInstance(bug);
-		bugDialog.show(fm, "fragment_bug");
+		try {
+			bugDialog.show(fm, "fragment_bug");
+		} catch (IllegalStateException isex) {
+			// FIXME properly
+			Log.e(DEBUG_TAG,"performBugEdit showing dialog ",isex);
+		}
 	}
 	
 	/**
