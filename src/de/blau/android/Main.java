@@ -1248,7 +1248,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		final Logic logic = Application.getLogic();
 		switch (item.getItemId()) {
 		case R.id.menu_config:
-			PrefEditor.start(this);
+			PrefEditor.start(this,getMap().getViewBox());
 			return true;
 			
 		case R.id.menu_find:

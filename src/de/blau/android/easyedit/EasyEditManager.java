@@ -1280,7 +1280,7 @@ public class EasyEditManager {
 				break;
 			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startSupportActionMode(new  ExtendSelectionActionModeCallback(element)); break;
 			case MENUITEM_ELEMENT_INFO: ElementInfo.showDialog(main,element); break;
-			case MENUITEM_PREFERENCES: 	PrefEditor.start(main); break;
+			case MENUITEM_PREFERENCES: 	PrefEditor.start(main, main.getMap().getViewBox()); break;
 			case MENUITEM_ZOOM_TO_SELECTION: main.zoomTo(element); main.invalidateMap(); break;
 			case R.id.undo_action:
 				// should not happen
@@ -2601,7 +2601,7 @@ public class EasyEditManager {
 						}	
 					}
 					break;
-				case MENUITEM_PREFERENCES: 	PrefEditor.start(main); break; 
+				case MENUITEM_PREFERENCES: 	PrefEditor.start(main, main.getMap().getViewBox()); break; 
 				case R.id.undo_action:
 					// should not happen
 					Log.d(DEBUG10_TAG,"menu undo clicked");

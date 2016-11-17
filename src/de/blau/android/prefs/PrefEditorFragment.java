@@ -15,6 +15,7 @@ import de.blau.android.Application;
 import de.blau.android.DebugInformation;
 import de.blau.android.LicenseViewer;
 import de.blau.android.R;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
 
@@ -34,15 +35,13 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 	private String KEY_ADVPREFS;
 	private String KEY_LICENSE;
 	private String KEY_DEBUG;
-
-	public static void start(@NonNull Context context) {
-		Intent intent = new Intent(context, PrefEditorFragment.class);
-		context.startActivity(intent);
-	}
+	
+	private BoundingBox viewBox = null;
 
 	@Override
 	public void onCreatePreferences(Bundle arg0, String arg1) {		
 		Log.d(DEBUG_TAG, "onCreatePreferences " + arg1);
+		viewBox =  (BoundingBox) getArguments().getSerializable(PrefEditor.CURRENT_VIEWBOX);
 		setPreferencesFromResource(R.xml.preferences, arg1); 
 		r = getResources();
 		KEY_MAPBG = r.getString(R.string.config_backgroundLayer_key);
@@ -69,7 +68,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		TileLayerServer.applyBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
 		
 		ListPreference mapbgpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPBG);
-		String[] ids = TileLayerServer.getIds(true);
+		String[] ids = TileLayerServer.getIds(viewBox,true);
 		mapbgpref.setEntries(TileLayerServer.getNames(ids));
 		mapbgpref.setEntryValues(ids);
 		OnPreferenceChangeListener l = new OnPreferenceChangeListener() {
@@ -77,7 +76,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				Log.d(DEBUG_TAG, "onPreferenceChange background");
 				String id = (String)newValue;
-				String[] ids = TileLayerServer.getIds(false); // r.getStringArray(R.array.renderer_ids);
+				String[] ids = TileLayerServer.getIds(null,false); // r.getStringArray(R.array.renderer_ids);
 				String[] names = TileLayerServer.getNames(ids); // r.getStringArray(R.array.renderer_names);
 				for (int i = 0; i < ids.length; i++) {
 					if (ids[i].equals(id)) {
@@ -93,7 +92,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		l.onPreferenceChange(mapbgpref, prefs.backgroundLayer());
 		
 		ListPreference mapolpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPOL);
-		String[] overlayIds = TileLayerServer.getOverlayIds(true);
+		String[] overlayIds = TileLayerServer.getOverlayIds(viewBox,true);
 		mapolpref.setEntries(TileLayerServer.getOverlayNames(overlayIds));
 		mapolpref.setEntryValues(overlayIds);
 		OnPreferenceChangeListener ol = new OnPreferenceChangeListener() {
@@ -101,7 +100,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				Log.d(DEBUG_TAG, "onPreferenceChange overlay");
 				String id = (String)newValue;
-				String[] ids = TileLayerServer.getOverlayIds(false); // r.getStringArray(R.array.renderer_ids);
+				String[] ids = TileLayerServer.getOverlayIds(null,false); // r.getStringArray(R.array.renderer_ids);
 				String[] names = TileLayerServer.getOverlayNames(ids); // r.getStringArray(R.array.renderer_names);
 				for (int i = 0; i < ids.length; i++) {
 					if (ids[i].equals(id)) {

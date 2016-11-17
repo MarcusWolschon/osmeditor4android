@@ -9,7 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import de.blau.android.R;
-
+import de.blau.android.osm.BoundingBox;
+import de.blau.android.propertyeditor.TagFormFragment;
 
 /**
  * Simple class for Android's standard-Preference Activity
@@ -18,13 +19,18 @@ import de.blau.android.R;
  */
 public class PrefEditor extends AppCompatActivity {
 	
-	public static void start(@NonNull Context context) {
+	final static String CURRENT_VIEWBOX = "VIEWBOX";
+	BoundingBox viewBox = null;
+	
+	public static void start(@NonNull Context context, BoundingBox viewBox) {
 		Intent intent = new Intent(context, PrefEditor.class);
+		intent.putExtra(CURRENT_VIEWBOX, viewBox);
 		context.startActivity(intent);
 	}
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		
 		Log.d("PrefEditor", "onCreate");
 		Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
@@ -34,10 +40,25 @@ public class PrefEditor extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		
 		ActionBar actionbar = getSupportActionBar();
-		actionbar.setDisplayHomeAsUpEnabled(true);
+		actionbar.setDisplayHomeAsUpEnabled(true);	
+
+		if (savedInstanceState == null) {
+			Log.d("PrefEditor","initializing from intent");
+			// No previous state to restore - get the state from the intent
+			viewBox = (BoundingBox)getIntent().getSerializableExtra(CURRENT_VIEWBOX);
+		} else {
+			Log.d("PrefEditor","initializing from saved state");
+			// Restore activity from saved state
+			viewBox = (BoundingBox) savedInstanceState.getSerializable(CURRENT_VIEWBOX);
+		}
 		
-		getSupportFragmentManager().beginTransaction().replace(android.R.id.content,
-				new PrefEditorFragment()).commit();	
+		PrefEditorFragment f = new PrefEditorFragment();
+    	
+        Bundle args = new Bundle();
+        args.putSerializable(CURRENT_VIEWBOX, viewBox);
+        f.setArguments(args);
+		
+		getSupportFragmentManager().beginTransaction().replace(android.R.id.content,f).commit();	
 	}
 	
 	@Override
@@ -49,5 +70,12 @@ public class PrefEditor extends AppCompatActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	protected void onSaveInstanceState(final Bundle outState) {
+		Log.d("PrefEditor","onSaveInstaceState");
+		super.onSaveInstanceState(outState);		
+		outState.putSerializable(CURRENT_VIEWBOX, viewBox);
 	}
 }

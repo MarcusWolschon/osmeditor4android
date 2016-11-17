@@ -907,11 +907,11 @@ public class TileLayerServer {
 		TileLayerServer noneLayer = null;
 		List<TileLayerServer> list = new ArrayList<TileLayerServer>();
 		for (TileLayerServer osmts:serverMap.values()) {
-			if (filtered) {
+			if (filtered && currentBox != null) {
 				if (osmts.providers.size() > 0) {
 					boolean covers = false; // default is to not include  
 					for (Provider p:osmts.providers) {
-						if (p.covers(Application.mainActivity.getMap().getViewBox())) { 
+						if (p.covers(currentBox)) { 
 							covers = true;
 							break;
 						}
@@ -953,9 +953,9 @@ public class TileLayerServer {
 	 * @param filtered only return servers that overlap/intersect with the current bbox
 	 * @return All available tile layer IDs.
 	 */
-	public static String[] getIds(boolean filtered) {
+	public static String[] getIds(BoundingBox viewBox, boolean filtered) {
 		List<String> ids = new ArrayList<String>();
-		List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, Application.mainActivity.getMap().getViewBox());
+		List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, viewBox);
 		for (TileLayerServer t:list) {
 			ids.add(t.id);
 		}
@@ -969,9 +969,9 @@ public class TileLayerServer {
 	 * @param filtered
 	 * @return
 	 */
-	public static String[] getNames(boolean filtered) {
+	public static String[] getNames(BoundingBox viewBox, boolean filtered) {
 		ArrayList<String> names = new ArrayList<String>();
-		for (String key:getIds(filtered)) {
+		for (String key:getIds(viewBox, filtered)) {
 			TileLayerServer osmts = backgroundServerList.get(key);
 			names.add(osmts.name);
 		}
@@ -1002,9 +1002,9 @@ public class TileLayerServer {
 	 * @param filtered only return servers that overlap/intersect with the current bbox
 	 * @return All available tile layer IDs.
 	 */
-	public static String[] getOverlayIds(boolean filtered) {
+	public static String[] getOverlayIds(BoundingBox viewBox, boolean filtered) {
 		List<String> ids = new ArrayList<String>();
-		List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, Application.mainActivity.getMap().getViewBox());
+		List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, viewBox);
 		for (TileLayerServer t:list) {
 			ids.add(t.id);
 		}
@@ -1018,9 +1018,9 @@ public class TileLayerServer {
 	 * @param filtered
 	 * @return
 	 */
-	public static String[] getOverlayNames(boolean filtered) {
+	public static String[] getOverlayNames(BoundingBox viewBox, boolean filtered) {
 		ArrayList<String> names = new ArrayList<String>();
-		for (String key:getIds(filtered)) {
+		for (String key:getIds(viewBox, filtered)) {
 			TileLayerServer osmts = overlayServerList.get(key);
 			names.add(osmts.name);
 		}

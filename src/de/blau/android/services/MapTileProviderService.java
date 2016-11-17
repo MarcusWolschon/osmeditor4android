@@ -134,7 +134,7 @@ public class MapTileProviderService extends Service {
 	private final IMapTileProviderService.Stub mBinder = new IMapTileProviderService.Stub() {
 		// @Override
 		public String[] getTileProviders() throws RemoteException {
-			return TileLayerServer.getIds(false);
+			return TileLayerServer.getIds(null,false);
 		}
 
 		// @Override
