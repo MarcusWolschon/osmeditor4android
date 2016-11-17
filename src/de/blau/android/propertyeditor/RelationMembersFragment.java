@@ -240,12 +240,14 @@ public class RelationMembersFragment extends BaseFragment implements
 							result = Connected.CLOSEDWAY_UP;
 							currentRow.up = previousRow.down;
 						}
-					} else {
+					} else if (Node.NAME.equals(previous.getType())) {
 						Node prevNode = (Node)previous.getElement();
 						if (w.hasNode(prevNode)) {
 							result = Connected.CLOSEDWAY_UP;
 							currentRow.up = prevNode;
 						} 
+					} else {
+						// FIXME previous is a relation and we could in principle check if we can connect to it
 					}
 				}
 				if (next != null && next.downloaded()) {
@@ -262,7 +264,7 @@ public class RelationMembersFragment extends BaseFragment implements
 							}
 							currentRow.down = w.hasNode(nextLast) ? nextLast : nextFirst;
 						}
-					} else {
+					} else if (Node.NAME.equals(next.getType())) {
 						Node nextNode = (Node)nextElement;
 						if (w.hasNode(nextNode)) {
 							if (result == Connected.CLOSEDWAY_UP) {
@@ -272,6 +274,8 @@ public class RelationMembersFragment extends BaseFragment implements
 							}
 							currentRow.down = nextNode;
 						}
+					} else {
+						// FIXME next is a relation and we could in principle check if we can connect to it
 					}
 				}
 			} else {
