@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.propertyeditor.TagFormFragment;
 
 /**
  * Simple class for Android's standard-Preference Activity

@@ -13,8 +13,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.acra.ACRA;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;

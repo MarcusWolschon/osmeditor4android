@@ -24,11 +24,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.API;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.util.OAuthHelper;
-import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
 
 /**
  * Will process vespucci:// URLs.
