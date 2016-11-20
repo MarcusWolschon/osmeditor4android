@@ -719,8 +719,8 @@ public class EasyEditManager {
 				ways.add(clickedNonClosedWays.get(itemId -1));
 			}
 			try {
-				if (logic.performAddOnWay(ways,startX, startY)) {
-					Node splitPosition = logic.getSelectedNode();
+				Node splitPosition = logic.performAddOnWay(ways,startX, startY);
+				if (splitPosition != null) {
 					for (Way way:ways) {
 						if (way.hasNode(splitPosition)) {
 							logic.performSplit(way,logic.getSelectedNode());
@@ -728,7 +728,8 @@ public class EasyEditManager {
 					}
 				}
 			} catch (OsmIllegalOperationException e) {
-				e.printStackTrace();// FIXME toast or so
+				Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+				Log.d(DEBUG2_TAG,"Caught exception " + e);
 			}
 			currentActionMode.finish();
 			return false;
@@ -765,11 +766,13 @@ public class EasyEditManager {
 					ArrayList<Way>ways = new ArrayList<Way>();
 					ways.add(way);
 					try {
-						if (logic.performAddOnWay(ways,startX, startY)) {
-							logic.performSplit(way,logic.getSelectedNode());
+						Node node = logic.performAddOnWay(ways,startX, startY);
+						if (node != null) {
+							logic.performSplit(way,node);
 						}
 					} catch (OsmIllegalOperationException e) {
-						e.printStackTrace();// FIXME toast
+						Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+						Log.d(DEBUG2_TAG,"Caught exception " + e);
 					}
 					currentActionMode.finish();
 				}
@@ -782,8 +785,8 @@ public class EasyEditManager {
 					logic.setSelectedNode(null);
 					logic.performAdd(x, y);
 				} catch (OsmIllegalOperationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					Toast.makeText(main,e1.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+					Log.d(DEBUG2_TAG,"Caught exception " + e1);
 				}
 				Node lastSelectedNode = logic.getSelectedNode();
 				if (lastSelectedNode != null) {
@@ -828,8 +831,8 @@ public class EasyEditManager {
 					}
 					currentActionMode.finish();
 				} catch (OsmIllegalOperationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+					Log.d(DEBUG2_TAG,"Caught exception " + e);
 				}
 				return true;
 			case MENUITEM_NEWNODE_VOICE:
@@ -1107,9 +1110,8 @@ public class EasyEditManager {
 					logic.setSelectedNode(null);
 					logic.performAdd(x, y);
 				} catch (OsmIllegalOperationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+					Toast.makeText(main,e1.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+					Log.d(DEBUG3_TAG,"Caught exception " + e1);				}
 				Way lastSelectedWay = logic.getSelectedWay();
 				if (lastSelectedWay != null) {
 					main.startSupportActionMode(new WaySelectionActionModeCallback(lastSelectedWay));

@@ -1281,15 +1281,16 @@ public class Logic {
 				if (draggingHandle) { // create node only if we are really dragging
 					Log.d("Logic","creating node at handle position");
 					try {
-						if (performAddOnWay(selectedHandle.x, selectedHandle.y)) {
+						Node newNode = performAddOnWay(selectedHandle.x, selectedHandle.y);
+						if (newNode != null) {
 							selectedHandle = null;
 							draggingNode = true;
 							draggingHandle = false;
 							if (prefs.largeDragArea()) {
-								startX = lonE7ToX(selectedNodes.get(0).getLon());
-								startY = latE7ToY(selectedNodes.get(0).getLat());
+								startX = lonE7ToX(newNode.getLon());
+								startY = latE7ToY(newNode.getLat());
 							}
-							Application.mainActivity.easyEditManager.editElement(selectedNodes.get(0)); // this can only happen in EasyEdit mode
+							Application.mainActivity.easyEditManager.editElement(newNode); // this can only happen in EasyEdit mode
 						}
 						else return;
 					} catch (OsmIllegalOperationException e) {
@@ -1518,10 +1519,10 @@ public class Logic {
 	}
 	
 	/**
-	 * Simplified version that takes geo coords and doesn't try to merge with existing features
+	 * Simplified version of creating a new node that takes geo coords and doesn't try to merge with existing features
 	 * @param lonD
 	 * @param latD
-	 * @return
+	 * @return the create node
 	 */
 	public synchronized Node performAddNode(Double lonD, Double latD) {
 		//A complete new Node...
@@ -1541,17 +1542,27 @@ public class Logic {
 	}
 	
 	/**
-	 * Executes an add-command for x,y but only if on way. Adds new node to storage. Will switch to selected node,
+	 * Executes an add node operation for x,y but only if on a way. Adds new node to storage and will select it.
 	 * 
 	 * @param x screen-coordinate
-	 * @param y screen-coordinate
+	 * @param y screen-coordinate 
+	 * @return the new node or null if none was created 
 	 * @throws OsmIllegalOperationException 
 	 */
-	public synchronized boolean performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
+	public synchronized Node performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
 		return performAddOnWay(null,x,y);
 	}
-		
-	public synchronized boolean performAddOnWay(List<Way>ways,final float x, final float y) throws OsmIllegalOperationException {
+	
+	/**
+	 * Executes an add node operation for x,y but only if on a way. Adds new node to storage and will select it.
+	 * 
+	 * @param ways candidate ways if null all ways will be considered
+	 * @param x screen-coordinate
+	 * @param y screen-coordinate
+	 * @return the new node or null if none was created
+	 * @throws OsmIllegalOperationException
+	 */
+	public synchronized Node performAddOnWay(List<Way>ways,final float x, final float y) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_add);
 		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		
@@ -1559,11 +1570,11 @@ public class Logic {
 
 		if (newSelectedNode == null) {
 			newSelectedNode = savedSelectedNode;
-			return false;
+			return null;
 		}
 			
 		setSelectedNode(newSelectedNode);
-		return true;
+		return newSelectedNode;
 	}
 	
 	/**
