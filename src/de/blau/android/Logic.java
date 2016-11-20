@@ -1623,7 +1623,7 @@ public class Logic {
 	 * 
 	 * @param way the way to be deleted
 	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
-	 * @param createCheckpoint TODO
+	 * @param createCheckpoint if true create an undo checkpoint
 	 */
 	public synchronized void performEraseWay(final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
 		if (createCheckpoint) {

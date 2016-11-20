@@ -30,6 +30,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -807,9 +808,9 @@ public class Map extends View implements IMapView {
 		//draw tolerance
 		if (drawTolerance && (!filterMode || (filterMode && filteredObject))) {
 			if (prefs.isToleranceVisible() && tmpClickableElements == null) {
-				drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y);
+				drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y, nodeTolerancePaint);
 			} else if (tmpClickableElements != null && tmpClickableElements.contains(node)) {
-				drawNodeTolerance2(canvas, node.getState(), lat, lon, isTagged, x, y);
+				drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y, nodeTolerancePaint2);
 			}
 		}
 
@@ -1007,18 +1008,9 @@ public class Map extends View implements IMapView {
 	 * @param node
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
-			boolean isTagged, final float x, final float y) {
-		if ( (!tmpLocked && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
-				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon))) {
-			canvas.drawCircle(x, y, isTagged ? nodeTolerancePaint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth()/2, nodeTolerancePaint);
-		}
-	}
-	
-	private void drawNodeTolerance2(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
-			boolean isTagged, final float x, final float y) {
-		if ( (!tmpLocked && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
-				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon))) {
-			canvas.drawCircle(x, y, isTagged ? nodeTolerancePaint2.getStrokeWidth() : wayTolerancePaint2.getStrokeWidth()/2, nodeTolerancePaint2);
+			boolean isTagged, final float x, final float y, Paint paint) {
+		if (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)) {
+			canvas.drawCircle(x, y, isTagged ? paint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth()/2, paint);
 		}
 	}
 

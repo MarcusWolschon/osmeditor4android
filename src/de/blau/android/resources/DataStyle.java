@@ -832,7 +832,7 @@ public class DataStyle  extends DefaultHandler {
 				
 				Style style = Style.valueOf(atts.getValue("style"));
 				tempFeatureStyle.getPaint().setStyle(style);
-				if (style != Style.STROKE) { // hack for filled polygons
+				if (style != Style.STROKE && tempFeatureStyle.getName().startsWith("way-")) { // hack for filled polygons
 					tempFeatureStyle.getPaint().setAlpha(125);
 				}
 				
