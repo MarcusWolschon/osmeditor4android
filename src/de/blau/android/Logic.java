@@ -107,10 +107,6 @@ public class Logic {
 	 */
 	public static enum Mode {
 		/**
-		 * move nodes by tapping the screen
-		 */
-		MODE_MOVE,
-		/**
 		 * add nodes by tapping the screen
 		 */
 		MODE_TAG_EDIT,
@@ -280,6 +276,11 @@ public class Logic {
 	private Mode mode;
 
 	/**
+	 * Screen locked or not
+	 */
+	private boolean locked;
+	
+	/**
 	 * The viewBox for the map. All changes on this Object are made in here or in {@link Tracker}.
 	 */
 	private final BoundingBox viewBox;
@@ -323,7 +324,8 @@ public class Logic {
 
 		viewBox = getDelegator().getLastBox();
 		
-		mode = Mode.MODE_MOVE;
+		mode = Mode.MODE_EASYEDIT;
+		setLocked(true);
 		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
@@ -360,6 +362,20 @@ public class Logic {
 		}
 	}
 	
+	/**
+	 * @return locked status
+	 */
+	public boolean isLocked() {
+		return locked;
+	}
+
+	/**
+	 * @param locked set locked status 
+	 */
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
 	/**
 	 * Sets new mode.
 	 * If the new mode is different from the current one,
@@ -409,9 +425,8 @@ public class Logic {
 		case MODE_ALIGN_BACKGROUND:		// action mode sanity check
 			if (Application.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
 				Log.d("Logic","weird state of edit mode, resetting");
-				setMode(Mode.MODE_MOVE);
+				setMode(Mode.MODE_EASYEDIT);
 			}
-		case MODE_MOVE:
 		default:
 			deselectAll();
 			break;

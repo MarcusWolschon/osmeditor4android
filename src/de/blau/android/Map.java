@@ -168,6 +168,11 @@ public class Map extends View implements IMapView {
 	private List<Node> tmpDrawingSelectedRelationNodes;
 	
 	/**
+	 * Locked or not
+	 */
+	private boolean tmpLocked;
+	
+	/**
 	 * 
 	 */
 	private ArrayList<Way> tmpStyledWays = new ArrayList<Way>();
@@ -370,6 +375,7 @@ public class Map extends View implements IMapView {
 		tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
 		tmpPresets = Application.getCurrentPresets(Application.mainActivity);
+		tmpLocked = logic.isLocked();
 		
 		inNodeIconZoomRange = zoomLevel > SHOW_ICONS_LIMIT;
 		
@@ -636,6 +642,10 @@ public class Map extends View implements IMapView {
 		// 
 		tmpDrawingInEditRange = Application.getLogic().isInEditZoomRange(); // do this after density calc
 		
+		boolean drawTolerance = tmpDrawingInEditRange // if we are not in editing range none of the further checks are necessary
+								&& !tmpLocked 
+								&& tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND;
+		
 		//Paint all ways
 		List<Way> ways = delegator.getCurrentStorage().getWays();
 		
@@ -664,15 +674,20 @@ public class Map extends View implements IMapView {
 		for (Way w:tmpHiddenWays) {
 			paintHiddenWay(canvas,w);
 		}
+		
+		boolean displayHandles = tmpDrawingSelectedWays == null 
+				&& tmpDrawingSelectedRelationWays == null
+				&& tmpDrawingSelectedRelationNodes == null
+				&& (tmpDrawingEditMode == Mode.MODE_EASYEDIT || tmpDrawingEditMode == Mode.MODE_INDOOR);
 		Collections.sort(tmpStyledWays,layerComparator);
 		for (Way w:tmpStyledWays) {
-			paintWay(canvas,w);
+			paintWay(canvas,w,displayHandles, drawTolerance);
 		}
 		
 		//Paint nodes
 		Boolean hwAccelarationWorkaround = myIsHardwareAccelerated(canvas) && Build.VERSION.SDK_INT < 19;
 		for (Node n:paintNodes) {
-			paintNode(canvas, n, hwAccelarationWorkaround);
+			paintNode(canvas, n, hwAccelarationWorkaround, drawTolerance);
 		}
 		paintHandles(canvas);
 	}
@@ -724,7 +739,7 @@ public class Map extends View implements IMapView {
 	}
 
 	private void paintStorageBox(final Canvas canvas, List<BoundingBox> list) {
-		if (tmpDrawingEditMode != Mode.MODE_MOVE || alwaysDrawBoundingBoxes) {
+		if (!tmpLocked || alwaysDrawBoundingBoxes) {
 			Canvas c = canvas;
 			Bitmap b = null;
 			// Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
@@ -770,8 +785,9 @@ public class Map extends View implements IMapView {
 	 * @param canvas Canvas, where the node shall be painted on.
 	 * @param node Node which shall be painted.
 	 * @param hwAccelarationWorkaround TODO
+	 * @param drawTolerance 
 	 */
-	private void paintNode(final Canvas canvas, final Node node, boolean hwAccelarationWorkaround) {
+	private void paintNode(final Canvas canvas, final Node node, boolean hwAccelarationWorkaround, boolean drawTolerance) {
 		int lat = node.getLat();
 		int lon = node.getLon();
 		boolean isSelected = tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node);
@@ -789,7 +805,7 @@ public class Map extends View implements IMapView {
 		}
 		
 		//draw tolerance
-		if ((tmpDrawingInEditRange && !filterMode) || (tmpDrawingInEditRange && filterMode && filteredObject)) {
+		if (drawTolerance && (!filterMode || (filterMode && filteredObject))) {
 			if (prefs.isToleranceVisible() && tmpClickableElements == null) {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y);
 			} else if (tmpClickableElements != null && tmpClickableElements.contains(node)) {
@@ -992,7 +1008,7 @@ public class Map extends View implements IMapView {
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
 			boolean isTagged, final float x, final float y) {
-		if ( (tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
+		if ( (!tmpLocked && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
 				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon))) {
 			canvas.drawCircle(x, y, isTagged ? nodeTolerancePaint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth()/2, nodeTolerancePaint);
 		}
@@ -1000,7 +1016,7 @@ public class Map extends View implements IMapView {
 	
 	private void drawNodeTolerance2(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
 			boolean isTagged, final float x, final float y) {
-		if ( (tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
+		if ( (!tmpLocked && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
 				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon))) {
 			canvas.drawCircle(x, y, isTagged ? nodeTolerancePaint2.getStrokeWidth() : wayTolerancePaint2.getStrokeWidth()/2, nodeTolerancePaint2);
 		}
@@ -1011,8 +1027,9 @@ public class Map extends View implements IMapView {
 	 * 
 	 * @param canvas Canvas, where the node shall be painted on.
 	 * @param way way which shall be painted.
+	 * @param drawTolerance 
 	 */
-	private void paintWay(final Canvas canvas, final Way way) {
+	private void paintWay(final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
 		float[] linePoints = pointListToLinePointsArray(way.getNodes());
 		Paint paint;
 		
@@ -1022,14 +1039,12 @@ public class Map extends View implements IMapView {
 				&& tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);	
 		
 		//draw way tolerance
-		if (tmpDrawingInEditRange // if we are not in editing range none of the further checks are necessary
-			&& tmpDrawingEditMode != Logic.Mode.MODE_MOVE 
-			&& tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND) {
-				if (prefs.isToleranceVisible() && tmpClickableElements == null) {
-					canvas.drawLines(linePoints, wayTolerancePaint);
-				} else if (tmpClickableElements != null && tmpClickableElements.contains(way)) {
-					canvas.drawLines(linePoints, wayTolerancePaint2);
-				}
+		if (drawTolerance) {
+			if (prefs.isToleranceVisible() && tmpClickableElements == null) {
+				canvas.drawLines(linePoints, wayTolerancePaint);
+			} else if (tmpClickableElements != null && tmpClickableElements.contains(way)) {
+				canvas.drawLines(linePoints, wayTolerancePaint2);
+			}
 		}
 				
 		//draw selectedWay highlighting
@@ -1075,10 +1090,7 @@ public class Map extends View implements IMapView {
 			canvas.drawPath(path, fp.getPaint());
 		}
 		
-		if (tmpDrawingSelectedWays == null 
-				&& tmpDrawingSelectedRelationWays == null
-				&& tmpDrawingSelectedRelationNodes == null
-				&& (tmpDrawingEditMode == Mode.MODE_EASYEDIT || tmpDrawingEditMode == Mode.MODE_INDOOR)) { // the handles only work when no way is selected so don't show them
+		if (displayHandles) { // the handles only work when no way is selected so don't show them
 			// add "geometry improvement" handles
 			for (int i = 2; i < linePoints.length; i=i+4) {
 				float x0 = linePoints[i-2];

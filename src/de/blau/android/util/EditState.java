@@ -27,7 +27,8 @@ import de.blau.android.tasks.Task;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 17L;
+	private static final long serialVersionUID = 18L;
+	final boolean savedLocked;
 	final Mode savedMode;
 	final List<Node> savedNodes;
 	final List<Way> savedWays;
@@ -46,6 +47,7 @@ public class EditState implements Serializable {
 	final Filter savedFilter;
 
 	public EditState(Context context, Logic logic, TileLayerServer osmts, String imageFileName, BoundingBox box, boolean followGPS) {
+		savedLocked = logic.isLocked();
 		savedMode = logic.getMode();
 		savedNodes = logic.getSelectedNodes();
 		savedWays = logic.getSelectedWays();
@@ -65,7 +67,8 @@ public class EditState implements Serializable {
 	}
 	
 	public void setSelected(Logic logic) {
-		logic.setMode(savedMode == null ? Mode.MODE_MOVE : savedMode);
+		logic.setLocked(savedLocked);
+		logic.setMode(savedMode);
 		Log.d("EditState","savedMode " + savedMode);
 		if (savedNodes != null) {
 			for (Node n:savedNodes) {

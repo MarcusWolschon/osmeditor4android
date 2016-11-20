@@ -1064,21 +1064,23 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		        int[] drawableState = ((FloatingActionButton)b).getDrawableState();
 		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
 		        if(drawableState.length == 0 ||  (drawableState[0]!=android.R.attr.state_selected && drawableState[0]!=android.R.attr.state_pressed && drawableState[0]!=android.R.attr.state_focused)){
-		        	if (b.getTag().equals(EASY_TAG)) { 
-		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
-		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_selected}, false); 
-		        	} else if (b.getTag().equals(INDOOR_TAG)) { 
+		        	if (b.getTag().equals(INDOOR_TAG)) { 
 		        		logic.setMode(Logic.Mode.MODE_INDOOR);
 		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_focused}, false); 
-		        	} else {
+		        	} else if (b.getTag().equals(TAG_TAG)) {
 		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
 		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false); 
-		        	}	
+		        	} else { 
+		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
+		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_selected}, false); 
+		        	}
+		        	logic.setLocked(false);
 		        } else {
-		        	logic.setMode(Logic.Mode.MODE_MOVE);
+		        	logic.setLocked(true);
 		        	((FloatingActionButton)b).setImageState(new int[]{0}, false); 
 		        }
 		        onEditModeChanged();
+		        map.invalidate();
 		    }
 		});
 		lock.setOnLongClickListener(new View.OnLongClickListener() {
@@ -1136,22 +1138,27 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			Log.d(DEBUG_TAG, "couldn't find lock button");
 			return null;
 		}
-		switch (mode) {
-		case MODE_EASYEDIT:
-		case MODE_ALIGN_BACKGROUND:
-			lock.setImageState(new int[]{android.R.attr.state_selected}, false); 
-			break;
-		case MODE_TAG_EDIT:
-			lock.setImageState(new int[]{android.R.attr.state_pressed}, false); 
-			break;
-		case MODE_INDOOR:
-			lock.setImageState(new int[]{android.R.attr.state_focused}, false);
-			break;
-		default: 
-			mode = Mode.MODE_MOVE;
+		Logic logic = Application.getLogic();
+		if (logic.isLocked()) {
 			lock.setImageState(new int[0], false); 
+		} else {
+			switch (mode) {
+			case MODE_TAG_EDIT:
+				lock.setImageState(new int[]{android.R.attr.state_pressed}, false); 
+				break;
+			case MODE_INDOOR:
+				lock.setImageState(new int[]{android.R.attr.state_focused}, false);
+				break;
+
+			case MODE_EASYEDIT:
+			case MODE_ALIGN_BACKGROUND:
+			default: 
+				lock.setImageState(new int[]{android.R.attr.state_selected}, false); 
+				break;
+
+			}
+			logic.setMode(mode);
 		}
-		Application.getLogic().setMode(mode); 
 		return lock; // for convenience
 	}
 
@@ -1164,12 +1171,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Mode mode = Application.getLogic().getMode();
 		setLock(mode);
 		supportInvalidateOptionsMenu();
-//		if (mode==Mode.MODE_INDOOR) {
-//			showIndoorControls();
-//			updateLevel(Application.getLogic().getLevel());
-//		} else {
-//			hideIndoorControls();
-//		}
 	}
 	
 	public static void onEditModeChanged() {
@@ -1229,7 +1230,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		final Logic logic = Application.getLogic();
 		MenuItem undo = menu.findItem(R.id.menu_undo);
-		undo.setVisible(logic.getMode() != Mode.MODE_MOVE && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
+		undo.setVisible(!logic.isLocked() && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
 		View undoView = MenuItemCompat.getActionView(undo);
 		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
 			Log.d(DEBUG_TAG,"undoView null");
@@ -1592,7 +1593,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_tools_background_align:
-			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_MOVE; // protect against weird state
+			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT; // protect against weird state
 			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(this, oldMode);
 			logic.setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
 			startSupportActionMode(getBackgroundAlignmentActionModeCallback());
@@ -2508,43 +2509,30 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				boolean isInEditZoomRange = logic.isInEditZoomRange();
 			
 				if (isInEditZoomRange) {
-					switch (mode) {
-					case MODE_MOVE:
-						if (NetworkStatus.isConnected(Main.this) && prefs.voiceCommandsEnabled()) {
+					if (logic.isLocked()) {
+						if (NetworkStatus.isConnected(Application.mainActivity) && prefs.voiceCommandsEnabled()) {
 							locationForIntent = lastLocation; // location when we touched the screen
 							startVoiceRecognition();
 						} else {
 							Toast.makeText(getApplicationContext(), R.string.toast_unlock_to_edit, Toast.LENGTH_SHORT).show();
 						}
-						break;
-					case MODE_TAG_EDIT:
-					case MODE_EASYEDIT:
-					case MODE_INDOOR:
-						performEdit(mode, v, x, y);
-						break;
-					default:
-						break;
+					} else {
+						switch (mode) {
+						case MODE_TAG_EDIT:
+						case MODE_EASYEDIT:
+						case MODE_INDOOR:
+							performEdit(mode, v, x, y);
+							break;
+						default:
+							break;
+						}
 					}
 					map.invalidate();
 				} else {
 					switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + ((clickedPhotos == null) ? 0 : clickedPhotos.size())) {
 					case 0:
-						if (!isInEditZoomRange) {
-							int res;
-							switch (mode) {
-							case MODE_TAG_EDIT:
-							case MODE_EASYEDIT:
-							case MODE_INDOOR:
-								res = R.string.toast_not_in_edit_range;
-								break;
-							case MODE_MOVE:
-							default:
-								res = 0;
-								break;
-							}
-							if (res != 0) {
-								Toast.makeText(getApplicationContext(), res, Toast.LENGTH_LONG).show();
-							}
+						if (!isInEditZoomRange && !logic.isLocked()) {
+							Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
 						}
 						break;
 					case 1:
@@ -2596,7 +2584,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			try {
 				final Logic logic = Application.getLogic();
 				if (!inEasyEditMode(logic)) {
-					if (logic.getMode() == Mode.MODE_MOVE) {
+					if (logic.isLocked()) {
 						// display context menu
 						de.blau.android.tasks.MapOverlay osbo = map.getOpenStreetBugsOverlay();
 						clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
@@ -2769,7 +2757,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						if (ways != null && ways.size() > 0) {
 							description = description + " (";
 							for (Way w:ways) {
-								description = description + w.getDescription(Main.this) + ((ways.indexOf(w)!=(ways.size()-1)?", ":""));
+								description = description + w.getDescription(Application.mainActivity) + ((ways.indexOf(w)!=(ways.size()-1)?", ":""));
 							}
 							description = description + ")";
 						}
@@ -2849,24 +2837,25 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				
 				if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
 					final OsmElement element = clickedNodesAndWays.get(itemId);
-					switch (Application.getLogic().getMode()) {
-					case MODE_MOVE:
+					if (Application.getLogic().isLocked()) {
 						ElementInfo.showDialog(Main.this,element);
-						break;
-					case MODE_TAG_EDIT:
-						performTagEdit(element, null, false, false, false);
-						break;
-					case MODE_EASYEDIT:
-					case MODE_INDOOR:
-						if (doubleTap) {
-							doubleTap = false;
-							easyEditManager.startExtendedSelection(element);
-						} else {
-							easyEditManager.editElement(element);
+					} else {
+						switch (Application.getLogic().getMode()) {
+						case MODE_TAG_EDIT:
+							performTagEdit(element, null, false, false, false);
+							break;
+						case MODE_EASYEDIT:
+						case MODE_INDOOR:
+							if (doubleTap) {
+								doubleTap = false;
+								easyEditManager.startExtendedSelection(element);
+							} else {
+								easyEditManager.editElement(element);
+							}
+							break;
+						default:
+							break;
 						}
-						break;
-					default:
-						break;
 					}
 				}
 			}
@@ -3191,16 +3180,16 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {
 		Log.d(DEBUG_TAG,"zoomToAndEdit Zoom " + map.getZoomLevel());
 		final Logic logic = Application.getLogic();
-		if (logic.getMode()==Mode.MODE_MOVE) { // avoid switching to the wrong mode
-			FloatingActionButton lock = setLock(Mode.MODE_MOVE); // NOP to get button
-			if (EASY_TAG.equals(lock.getTag())) {
-				setLock(Mode.MODE_EASYEDIT);
-			} else if (INDOOR_TAG.equals(lock.getTag())) {
-				setLock(Mode.MODE_INDOOR);
-			} else{
-				setLock(Mode.MODE_TAG_EDIT);
-			}
-		}
+//		if (logic.getMode()==Mode.MODE_MOVE) { // avoid switching to the wrong mode
+//			FloatingActionButton lock = setLock(Mode.MODE_MOVE); // NOP to get button
+//			if (EASY_TAG.equals(lock.getTag())) {
+//				setLock(Mode.MODE_EASYEDIT);
+//			} else if (INDOOR_TAG.equals(lock.getTag())) {
+//				setLock(Mode.MODE_INDOOR);
+//			} else{
+//				setLock(Mode.MODE_TAG_EDIT);
+//			}
+//		}
 		zoomTo(lonE7, latE7, e);
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
@@ -3332,7 +3321,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private Runnable autoLock = new Runnable() {
 		@Override
 		public void run() {
-			if (Application.getLogic().getMode()!=Mode.MODE_MOVE) {
+			if (!Application.getLogic().isLocked()) {
 				if (!easyEditManager.isProcessingAction() || easyEditManager.inElementSelectedMode()) {
 					View lock = getLock();
 					if (lock != null) {
