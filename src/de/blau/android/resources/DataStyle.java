@@ -854,7 +854,7 @@ public class DataStyle  extends DefaultHandler {
 					if (atts.getValue("shadow") != null)
 						tempFeatureStyle.getPaint().setShadowLayer(Integer.parseInt(atts.getValue("shadow")), 0, 0, Color.BLACK);
 				}
-				// Log.i("Style","startElement finshed parsing feature");
+				// Log.i("Style","startElement finished parsing feature");
 			} else if (element.equals("dash")) {
 				tempPhase = Float.parseFloat(atts.getValue("phase"));
 				tempIntervals = new ArrayList<Float>();
