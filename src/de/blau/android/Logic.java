@@ -1143,7 +1143,7 @@ public class Logic {
 	 */
 	synchronized void handleTouchEventDown(final float x, final float y) {
 		boolean draggingMultiselect = false;
-		if (isInEditZoomRange() && (mode == Mode.MODE_EASYEDIT || mode == Mode.MODE_INDOOR)) {
+		if (!isLocked() && isInEditZoomRange() && (mode == Mode.MODE_EASYEDIT || mode == Mode.MODE_INDOOR)) {
 			draggingNode = false;
 			draggingWay = false;
 			draggingHandle = false;
