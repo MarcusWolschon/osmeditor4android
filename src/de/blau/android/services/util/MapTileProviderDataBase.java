@@ -271,7 +271,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 				byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
 				c.close();
 				if (DEBUGMODE) {
-					Log.d(MapTileFilesystemProvider.DEBUGTAG, "Sucessful retrieved " + aTile + " from file");
+					Log.d(MapTileFilesystemProvider.DEBUGTAG, "Sucessfully retrieved " + aTile + " from file");
 				}
 				return tile_data;
 			} else if(DEBUGMODE) {
@@ -284,7 +284,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		return null;
 	}
 	
-	long deleteOldest(final int pSizeNeeded) throws EmptyCacheException {
+	synchronized long deleteOldest(final int pSizeNeeded) throws EmptyCacheException {
 		if (!mDatabase.isOpen()) { // this seems to happen, protect against crashing
 			Log.e(MapTileFilesystemProvider.DEBUGTAG,"deleteOldest called on closed DB");
 			return 0;
@@ -313,26 +313,23 @@ public class MapTileProviderDataBase implements MapViewConstants {
 			c.close();
 
 			try {
-				for (MapTile t : deleteFromDB) {
-					final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};
-					try {
-						if (mDatabase.isOpen()) { // note we have already deleted the on disks tiles so it is not really an issue if we don't delete everything from the DB
-							mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
-						}
-					} catch (Exception e) {
-						if (e instanceof NullPointerException) {
-							// just log ... likely these are really spurious
-							Log.e(MapTileFilesystemProvider.DEBUGTAG, "NPE in deleteOldest");
-						} else if (e instanceof SQLiteFullException) {
-							throw new SQLiteFullException();	
-						} else {
-							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-							ACRA.getErrorReporter().handleException(e);	
-						}
+				if (mDatabase.isOpen()) {
+					for (MapTile t : deleteFromDB) {
+						final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};	 
+						mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
 					}
 				}
-			} catch (SQLiteFullException fex) {
-				Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();			
+			}
+			catch (Exception e) {
+				if (e instanceof NullPointerException) {
+					// just log ... likely these are really spurious
+					Log.e(MapTileFilesystemProvider.DEBUGTAG, "NPE in deleteOldest");
+				} else if (e instanceof SQLiteFullException) {
+					Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();		
+				} else {
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(e);	
+				}
 			}
 		}
 		return sizeGained;
@@ -343,7 +340,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	 * @param rendererID
 	 * @throws EmptyCacheException
 	 */
-	public void flushCache(String rendererID) throws EmptyCacheException {
+	synchronized public void flushCache(String rendererID) throws EmptyCacheException {
 		Log.d(MapTileFilesystemProvider.DEBUGTAG, "Flushing cache for " + rendererID); 
 		final Cursor c = mDatabase.rawQuery("SELECT " + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_RENDERER_ID + "='" + rendererID + "' ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC", null);
 		final ArrayList<MapTile> deleteFromDB = new ArrayList<MapTile>();

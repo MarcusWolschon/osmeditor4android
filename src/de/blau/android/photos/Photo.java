@@ -17,6 +17,7 @@ import de.blau.android.util.rtree.BoundedObject;
  */
 public class Photo implements BoundedObject {
 		
+	private static final String DEBUG_TAG = "Photo";
 	/**  */
 	final String ref;
 	/** Latitude *1E7. */
@@ -59,13 +60,13 @@ public class Photo implements BoundedObject {
 		}
 		lat = (int)(latf * 1E7d);
 		lon = (int)(lonf * 1E7d);
-		Log.d("Photo","lat: " + lat + " lon: " + lon);
+		Log.d(DEBUG_TAG,"lat: " + lat + " lon: " + lon);
 		ref = d.getAbsolutePath() + "/" + f.getName();
 		String dir = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION);
 		if (dir != null) {
 			direction =(int) Double.parseDouble(dir);
 			directionRef = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION_REF);
-			Log.d("Photo","dir " + dir + " direction " + direction + " ref " + directionRef);
+			Log.d(DEBUG_TAG,"dir " + dir + " direction " + direction + " ref " + directionRef);
 		}
 	}
 	
@@ -84,28 +85,33 @@ public class Photo implements BoundedObject {
 		this.ref = ref;
 	}
 	
-	private Float convertToDegree(String stringDMS){
-	   	Float result = null;
-	   	String[] DMS = stringDMS.split(",", 3);
-	
-	   	String[] stringD = DMS[0].split("/", 2);
-	   	Double D0 = Double.valueOf(stringD[0]);
-	   	Double D1 = Double.valueOf(stringD[1]);
-	   	Double FloatD = D0/D1;
-	
-	   	String[] stringM = DMS[1].split("/", 2);
-	   	Double M0 = Double.valueOf(stringM[0]);
-	   	Double M1 = Double.valueOf(stringM[1]);
-	   	Double FloatM = M0/M1;
-	
-	   	String[] stringS = DMS[2].split("/", 2);
-	   	Double S0 = Double.valueOf(stringS[0]);
-	   	Double S1 = Double.valueOf(stringS[1]);
-	   	Double FloatS = S0/S1;
+	private Float convertToDegree(String stringDMS) throws NumberFormatException {
+		try {
+			Float result = null;
+			String[] DMS = stringDMS.split(",", 3);
 
-   	    result = new Float(FloatD + (FloatM/60) + (FloatS/3600));
+			String[] stringD = DMS[0].split("/", 2);
+			Double D0 = Double.valueOf(stringD[0]);
+			Double D1 = Double.valueOf(stringD[1]);
+			Double FloatD = D0/D1;
 
-   	 	return result;
+			String[] stringM = DMS[1].split("/", 2);
+			Double M0 = Double.valueOf(stringM[0]);
+			Double M1 = Double.valueOf(stringM[1]);
+			Double FloatM = M0/M1;
+
+			String[] stringS = DMS[2].split("/", 2);
+			Double S0 = Double.valueOf(stringS[0]);
+			Double S1 = Double.valueOf(stringS[1]);
+			Double FloatS = S0/S1;
+
+			result = new Float(FloatD + (FloatM/60) + (FloatS/3600));
+
+			return result;
+		} catch (Exception ex) {
+			Log.e(DEBUG_TAG,"couldn't parse >" + stringDMS + "< exception " + ex);
+			throw new NumberFormatException("couldn't parse: " + stringDMS);
+		}
    	}
 	
 	/**
@@ -128,7 +134,7 @@ public class Photo implements BoundedObject {
 	 *  should probable encode ref as URI
 	 */
 	public Uri getRef() {
-		Log.d("Photo", "Uri " +  Uri.fromFile(new File(ref)));
+		Log.d(DEBUG_TAG, "Uri " +  Uri.fromFile(new File(ref)));
 		return Uri.fromFile(new File(ref));
 		//return Uri.parse("content:/" + ref);
 	}
