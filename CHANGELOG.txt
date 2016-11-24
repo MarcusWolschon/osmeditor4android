@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1216: Fix issue with determining the tile storage location on some devices without removable storage.
+
 1214: Update default preset, imagery and translations, fix various smaller bugs.
 
 1211: Update default preset and translations, try to improve debugging for tile cache problems and numerous robustness fixes.
