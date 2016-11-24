@@ -447,15 +447,15 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	}
 
 	/**
-	 * Check if the database exist and can be read.
+	 * Check if the database exists and can be read.
 	 * 
-	 * @return true if it exists and can be read, false if it doesn't
+	 * @return true if it exists and can be read and written, false if it doesn't
 	 */
 	public static boolean exists(File dir) {
 	    SQLiteDatabase checkDB = null;
 	    try {
 	    	String path = dir.getAbsolutePath() + "/databases/" + DATABASE_NAME + ".db";  
-	        checkDB = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
+	        checkDB = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
 	        checkDB.close();
 	    } catch (Exception e) {
 	        // database doesn't exist yet.

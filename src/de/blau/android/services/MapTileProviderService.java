@@ -37,7 +37,7 @@ public class MapTileProviderService extends Service {
 
 	private static final String DEBUG_TAG = MapTileProviderService.class.getSimpleName();
 	private MapTileFilesystemProvider mFileSystemProvider;
-	private boolean mountPointWiteable = false;
+	private boolean mountPointWriteable = false;
 
 	@Override
 	public void onCreate() {
@@ -73,29 +73,32 @@ public class MapTileProviderService extends Service {
 			}
 			Log.d(DEBUG_TAG, "candidate storage directory " + dir.getPath());
 			if (MapTileProviderDataBase.exists(dir)) { // existing tile cache, use
-				mountPointWiteable = dir.canWrite();
+				mountPointWriteable = dir.canWrite();
 				mountPoint = dir;
+				if (mountPoint != null && mountPointWriteable) {
+					break;
+				}
 			} else if (dir.canWrite()) {
+				mountPointWriteable = true;
+				mountPoint = dir;
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 					try {
 						if (Environment.isExternalStorageRemovable(dir)) {
+							// prefer removeable storage
 							Log.d(DEBUG_TAG, "isExternalStorageRemovable claims dir is removeable");
-							mountPointWiteable = true;
-							mountPoint = dir;
 							break;
 						}
 					} catch (IllegalArgumentException iae) {
 						// we've seen this on some devices even if it doesn0t make sense
 						Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like that");
 					}
-				} else {
-					mountPointWiteable = true;
-					mountPoint = dir;
-				}
+				} 
+			} else {
+				Log.d(DEBUG_TAG,  dir.getPath() + " not writeable");
 			}
 		}
 
-		if (mountPoint != null && mountPointWiteable) {
+		if (mountPoint != null && mountPointWriteable) {
 			Log.d(DEBUG_TAG,
 					"Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
 			try {
@@ -107,8 +110,11 @@ public class MapTileProviderService extends Service {
 				ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
 				ACRA.getErrorReporter().handleException(slex);
 			}
-		} 			
-		Toast.makeText(this, R.string.toast_storage_error, Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(this, R.string.toast_no_suitable_storage, Toast.LENGTH_LONG).show();
+			return;
+		}
+		Toast.makeText(this, getString(R.string.toast_storage_error, mountPoint), Toast.LENGTH_LONG).show();
 		// FIXME potentially we should set both background and overlay
 		// preferences to NONE here or simply zap what we are currently are
 		// using.
@@ -140,7 +146,7 @@ public class MapTileProviderService extends Service {
 		// @Override
 		public void getMapTile(String rendererID, int zoomLevel, int tileX, int tileY,
 				IMapTileProviderCallback callback) throws RemoteException {
-			if (!mountPointWiteable) { // fail silently
+			if (!mountPointWriteable) { // fail silently
 				return;
 			}
 			MapTile tile = new MapTile(rendererID, zoomLevel, tileX, tileY);

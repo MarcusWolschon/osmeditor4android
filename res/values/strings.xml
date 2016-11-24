@@ -162,7 +162,8 @@
     <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report!</string>
     <string name="toast_camera_error">Error starting camera app: %1$s</string>
     <string name="toast_no_voice">No voice recognition facility present</string>
-    <string name="toast_storage_error">Directory for tiles and other files is not writeable by Vespucci.\nThis may be a permissions or technical issue with your device.</string>
+    <string name="toast_storage_error">%1$s is not writeable by Vespucci.\nThis may be a permissions or technical issue with your device.</string>
+    <string name="toast_no_suitable_storage">The system did not return a suitable location for the tile database.</string>
     <string name="toast_min_one_preset">At least one preset has to be selected!</string>
     <string name="toast_used_backup">Corrupted state file, used backup file!</string>
     <string name="toast_used_bug_backup">Corrupted bug state file, used backup file!</string>
