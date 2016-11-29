@@ -574,6 +574,14 @@
   <string name="alert_note">附近的 OSM 注解檢測</string>
   <string name="alert_bug">附近的 OSM 錯誤檢測</string>
   <string name="alert_distance_direction">在 %1$d 公尺 %2$s</string>
+  <string name="bearing_ne">東北</string>
+  <string name="bearing_e">東</string>
+  <string name="bearing_se">東南</string>
+  <string name="bearing_s">南</string>
+  <string name="bearing_sw">西南</string>
+  <string name="bearing_w">西</string>
+  <string name="bearing_nw">西北</string>
+  <string name="bearing_n">北</string>
   <!--Misc relation related stuff-->
   <string name="role">作用</string>
   <string name="role_lc">作用</string>

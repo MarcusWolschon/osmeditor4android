@@ -147,7 +147,7 @@
   <string name="toast_oauth_not_enabled">OAuth no está habilitado para la API actual.</string>
   <string name="toast_oauth_timeout">Pausa durante la autenticación, por favor inténtelo de nuevo.</string>
   <string name="toast_oauth_communication">Error de comunicación durante la autenticación, por favor inténtelo de nuevo.</string>
-  <string name="toast_oauth_handshake_failed">OAuth fallido: %1$s</string>
+  <string name="toast_oauth_handshake_failed">Negociación OAuth fallido: %1$s</string>
   <string name="toast_timeout">Agotado el tiempo de espera del servidor.</string>
   <string name="coordinates_out_of_range">La longitud debe estar entre -180º y +180º; la latitud entre -85º y 85º</string>
   <string name="toast_nothing_found">No se encontró nada</string>

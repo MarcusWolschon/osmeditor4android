@@ -9,8 +9,8 @@
     <item>Addresse complète (addr:full)</item>
     <item>Place (addr:place)</item>
     <item>Hameau (addr:hamlet)</item>
-    <item>Balieue (addr:suburb)</item>
-    <item>Sousdistrict (addr:subdistrict)</item>
+    <item>Banlieue (addr:suburb)</item>
+    <item>Sous-district (addr:subdistrict)</item>
     <item>District (addr:district)</item>
     <item>Province (addr:province)</item>
     <item>État (addr:state)</item>

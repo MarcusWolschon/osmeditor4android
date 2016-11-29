@@ -34,6 +34,8 @@
   <string name="out_of_memory_dirty_message">Program wykorzystał całą dostępną pamięć wczytując żądane dane. Proszę zapisać zmiany, uruchomić program ponownie i wczytać dane z mniejszego obszaru.</string>
   <string name="invalid_data_received_title">Otrzymano błędne dane</string>
   <string name="invalid_data_received_message">Program otrzymał niepoprawne dane z serwera. Proszę zgłosić błąd, jeśli czynność wykonano prawidłowo.</string>
+  <string name="invalid_data_read_title">Nieprawidłowe Dane</string>
+  <string name="invalid_data_read_message">Plik zawierał nieprawidłowe dane. Jeśli uważasz że to co próbowałeś/aś zrobić jest prawidłowe, prosimy o wysłanie raportu o błędzie.</string>
   <string name="file_write_failed_title">Nieudane zapisanie pliku</string>
   <string name="file_write_failed_message">Nie można zapisać do wskazanego pliku.</string>
   <string name="welcome_title">Witamy!</string>
@@ -58,7 +60,7 @@
   <string name="upload_gpx_description_label">Opis</string>
   <string name="upload_gpx_tags_label">Znaczniki</string>
   <string name="upload_gpx_visibility_label">Widoczność</string>
-  <string name="openstreetbug_new_title">Nowa notatka</string>
+  <string name="openstreetbug_new_title">Nowa uwaga</string>
   <string name="openstreetbug_new_bug">Zgłoś błąd</string>
   <string name="openstreetbug_bug_title">Błąd</string>
   <string name="openstreetbug_new_nodeway">Utwórz węzeł/linię</string>
@@ -121,7 +123,7 @@
   <string name="toast_edit_outside_downloaded_area">Nie można modyfikować danych poza pobranym obszarem</string>
   <string name="toast_save_done">Zapisano</string>
   <string name="toast_save_failed">Nieudane zapisywanie</string>
-  <string name="toast_not_in_bug_range">Proszę przybliżyć, aby zgłosić błąd (Volume Up/Down lub Lens/Shift)</string>
+  <string name="toast_not_in_bug_range">Proszę przybliżyć, aby zgłosić błąd (zwiększenie/zmniejszenie głośności lub Lens/Shift)</string>
   <string name="toast_export_failed">Nieudane eksportowanie</string>
   <string name="toast_export_success">Wyeksportowano do %1$s</string>
   <string name="toast_preset_overwrote_tags">Uwaga - szablon zmienił znacznik(i)</string>
@@ -143,6 +145,9 @@
   <string name="toast_oauth">Włącz autoryzację OAuth dla konta OSM</string>
   <string name="toast_no_oauth">Brak dostępnej konfiguracji OAuth dla aktualnego API, zamiast tego możesz ustawić swój login i hasło.</string>
   <string name="toast_oauth_not_enabled">OAuth jest wyłączony dla aktualnego API.</string>
+  <string name="toast_oauth_timeout">Przekroczenie czasu żądania podczas uwierzytelnienia, proszę spróbować jeszcze raz.</string>
+  <string name="toast_oauth_communication">Błąd w komunikacji podczas uwierzytelnienia, prosimy spróbować jeszcze raz.</string>
+  <string name="toast_oauth_handshake_failed">Uwierzytelnienie OAuth nie powiodło się: %1$s</string>
   <string name="toast_timeout">Przekroczono czas oczekiwania na serwer</string>
   <string name="coordinates_out_of_range">Długość geograficzna musi mieścić się w -180°/+180°, szerokość w -85°/85°</string>
   <string name="toast_nothing_found">Nic nie znaleziono</string>
@@ -191,18 +196,18 @@
   <string name="value">wartość</string>
   <string name="Value">Wartość</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Pl:Map_Features</string>
-  <string name="tag_menu_address">Dodaj tagi adresowe</string>
+  <string name="tag_menu_address">Dodaj znaczniki adresowe</string>
   <string name="tag_menu_sourcesurvey">Sprawdzony</string>
   <string name="tag_menu_preset">Szablony</string>
   <string name="tag_menu_apply_preset">Zastosuj najlepszy szablon</string>
-  <string name="tag_menu_repeat">Powtórz tagi</string>
+  <string name="tag_menu_repeat">Powtórz znaczniki</string>
   <string name="tag_menu_revert">Cofnij</string>
   <string name="tag_menu_mapfeatures">Podstawy (Wiki)</string>
   <string name="tag_menu_addtorelation">Dodaj do relacji</string>
   <string name="tag_menu_resetMRU">Zresetuj szablony</string>
   <string name="tag_menu_reset_address_prediction">Zresetuj przewidywanie adresu</string>
   <string name="tag_menu_exit_no_save">Wyjdź\nbez zapisywania</string>
-  <string name="tag_menu_delete_unassociated_tags">Usuń niezwiązane tagi</string>
+  <string name="tag_menu_delete_unassociated_tags">Usuń nieprzypisane znaczniki</string>
   <string name="tag_menu_top">Przejdź na górę</string>
   <string name="tag_menu_bottom">Przejdź na dół</string>
   <string name="tag_value_hint">Wpisz wartość</string>
@@ -210,7 +215,7 @@
   <string name="tag_autocomplete_name_hint">Wpisz lub wybierz nazwę</string>
   <string name="tag_multi_value_hint">Wiele wartości</string>
   <string name="tag_dialog_value_hint">Dotknij by zobaczyć wartości</string>
-  <string name="tag_action_tag_title">Zaznaczono tagi</string>
+  <string name="tag_action_tag_title">Zaznaczono znaczniki</string>
   <string name="tag_action_members_title">Wybrani członkowie</string>
   <string name="tag_action_parents_title">Relacje zaznaczona</string>
   <string name="tag_additional_properties">Dodatkowe właściwości</string>
@@ -226,7 +231,7 @@
   <string name="menu_top">Początek</string>
   <string name="menu_preset_help">Pomoc szablonu</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Dodaj tagi dla %1$s</string>
+  <string name="tag_menu_i8n">Dodaj znaczniki dla %1$s</string>
   <string name="tag_restriction_header">Wartość</string>
   <string name="tag_restriction_when">kiedy</string>
   <string name="tag_restriction_and">i</string>
@@ -277,8 +282,8 @@
   <string name="menu_relation">Utwórz relację</string>
   <string name="menu_add_relation_member">Dodaj członka</string>
   <string name="menu_select_relation_members">Zaznacz członków</string>
-  <string name="menu_tag">Edytuj tagi</string>
-  <string name="menu_openstreetbug">Dodaj notatkę</string>
+  <string name="menu_tag">Edytuj znaczniki</string>
+  <string name="menu_openstreetbug">Dodaj uwagę</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Aparat</string>
   <string name="menu_gps">GPS…</string>
@@ -332,12 +337,12 @@
   <string name="menu_set_name">Nazwij</string>
   <string name="tag_form_unknown_element">Nieznany element (brak szablonu)</string>
   <string name="menu_tools">Narzędzia</string>
-  <string name="menu_tools_flush_background_tile_cache">Odśwież kafelki tła</string>
+  <string name="menu_tools_flush_background_tile_cache">Odśwież kafelki podkładu</string>
   <string name="menu_tools_flush_overlay_tile_cache">Odśwież kafelki nakładki</string>
-  <string name="menu_tools_background_properties">Właściwości tła</string>
-  <string name="menu_tools_background_align">Kalibracja mapy tła</string>
+  <string name="menu_tools_background_properties">Właściwości podkładu</string>
+  <string name="menu_tools_background_align">Kalibracja podkładu</string>
   <string name="menu_tools_background_align_reset">Reset</string>
-  <string name="menu_tools_background_align_zero">Zero</string>
+  <string name="menu_tools_background_align_zero">Wyzeruj</string>
   <string name="menu_tools_background_align_retrieve_from_db">Z bazy danych</string>
   <string name="menu_tools_background_align_retrieve_from_device">Z urządzenia</string>
   <string name="menu_tools_background_align_save_db">Zapisz do bazy danych</string>
@@ -352,9 +357,9 @@
   <string name="menu_history">Historia</string>
   <string name="menu_merge">Połącz</string>
   <string name="menu_reverse">Odwróć</string>
-  <string name="notreversable_description">Droga z atrybutem zależności od kierunku, który nie może być zmieniony. Zmiana kierunku drogi zniszczy tagowanie.</string>
+  <string name="notreversable_description">Linia posiada znacznik zależny od kierunku. Odwrócenie kierunku linii zmieni jego znaczenie.</string>
   <string name="reverse_anyway">Odwróć mimo to</string>
-  <string name="deleteway_description">Zamierzasz usunąć drogę.\n\nMożesz albo zachować wszystkie węzły lub usunąć węzły które należą do tej drogi i nie mają żadnych tagów.</string>
+  <string name="deleteway_description">Zostanie usunięta linia.\n\nMożna zachować wszystkie węzły lub usunąć węzły należące do tej linii, które nie posiadają znaczników.</string>
   <string name="deleteway_relation_description">Zamierzasz usunąć drogę, która należy do jednej lub większej ilości relacji. Usunięcie drogi z relacji spowoduje jej/ich nieprawidłowość.</string>
   <string name="deleteway_nodesnotdownloaded_description">Linia zawiera węzły poza pobranym obszarem i nie może zostać usunięta bez tworzenia nieścisłości w bazie. Pobierz całą drogę przed ponowną próbą edycji.</string>
   <string name="deleteway_wayonly">Usuń tylko drogę</string>
@@ -369,28 +374,28 @@
   <string name="actionmode_createpath">Tworzenie linii</string>
   <string name="actionmode_multiselect">Zaznacz wiele</string>
   <!--Preferences-->
-  <string name="config_category_editing">Ustawienia danych i edycji</string>
-  <string name="config_category_view">Opcje interfejsu użytkownika</string>
+  <string name="config_category_editing">Dane i edycja</string>
+  <string name="config_category_view">Interfejs użytkownika</string>
   <string name="config_showCameraAction_title">Aparat</string>
   <string name="config_showCameraAction_summary">Wyświetla ikonę aparatu na pasku czynności</string>
-  <string name="config_generateAlerts_title">Generuj powiadomienia</string>
-  <string name="config_generateAlerts_summary">Generuj powiadomienia o danych ze znanymi błędami i notatkami</string>
+  <string name="config_generateAlerts_title">Powiadomienia</string>
+  <string name="config_generateAlerts_summary">Wyświetla powiadomienia o danych ze znanymi błędami lub uwagami</string>
   <string name="config_voiceCommandsEnabled_title">Włącz polecenia głosowe</string>
   <string name="config_voiceCommandsEnabled_summary">Przełącza próbną obsługę poleceń głosowych</string>
   <string name="config_maxAlertDistance_title">Maksymalna odległość dla powiadomienia</string>
   <string name="config_maxAlertDistance_summary">Maksymalna odległość o jaką może być oddalona notatka lub błąd od aktualnej pozycji aby wygenerować powiadomienie.</string>
   <string name="config_maxStrokeWidth_title">Maksymalna szerokość linii</string>
-  <string name="config_maxStrokeWidth_summary">Nie rysuj drogi szerszej od danej wartości</string>
+  <string name="config_maxStrokeWidth_summary">Nie wyświetla linii szerszych od wprowadzonej wartości</string>
   <string name="config_tileCacheSize_title">Wielkość pamięci podręcznej dla kafelków map</string>
   <string name="config_tileCacheSize_summary">Całkowita wielkość pamięci podręcznej telefonu zarezerwowanej dla kafelków mapy w MB</string>
   <string name="config_showStats_title">Statystyki</string>
-  <string name="config_showStats_summary">Wyświetla szybkość obrazu w ramkach/sek. w dolnym lewym rogu.</string>
-  <string name="config_showTolerance_title">Pokaż tolerancję</string>
+  <string name="config_showStats_summary">Wyświetla szybkość obrazu w ramkach/s w dolnym lewym rogu.</string>
+  <string name="config_showTolerance_title">Wyświetlanie tolerancji</string>
   <string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
   <string name="config_enableAntiAliasing_title">Antyaliasing</string>
   <string name="config_enableAntiAliasing_summary">Wygładza widoczne linie</string>
-  <string name="config_enableOpenStreetBugs_title">Włącz wyświetlanie błędów i notatek</string>
-  <string name="config_enableOpenStreetBugs_summary">Wyświetl, Edytuj i utwórz notatkę/błąd</string>
+  <string name="config_enableOpenStreetBugs_title">Wyświetlanie błędów i notatek</string>
+  <string name="config_enableOpenStreetBugs_summary">Wyświetla i pozwala modyfikować oraz zgłaszać uwagi/błędy.</string>
   <string name="config_enablePhotoLayer_title">Warstwa zdjęć</string>
   <string name="config_enablePhotoLayer_summary">Wyświetla zdjęcia skalibrowane przestrzennie.</string>
   <string name="config_enableKeepScreenOn_title">Włączony ekran</string>
@@ -409,10 +414,10 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Używaj  OAuth</string>
   <string name="listedit_enable_oauth">Włącz OAuth</string>
-  <string name="config_offsetServer_title">Serwer offsetowy</string>
-  <string name="config_offsetServer_summary">Adres strony z warstwami służącymi do zniwelowania przesunięć innych warstw</string>
+  <string name="config_offsetServer_title">Serwer przesunięć</string>
+  <string name="config_offsetServer_summary">Określa adres URL serwera przesunięć podkładów map</string>
   <string name="config_presetbutton_title">Szablony</string>
-  <string name="config_presetbutton_summary">Dodaj i włącz szablony kompatybilne z szablonami JOSM</string>
+  <string name="config_presetbutton_summary">Dodaje i włącza szablony kompatybilne z JOSM</string>
   <string name="config_iconbutton_title">Ikony węzłów</string>
   <string name="config_iconbutton_summary">Wyświetla ikonę najbardziej pasującego szablonu nad węzłem.</string>
   <string name="config_showWayIcons_title">Ikony użytecznych miejsc na budynkach</string>
@@ -422,49 +427,49 @@
   <string name="config_username_summary">Konfiguracja danych konta potrzebna do wysyłania danych na OSM dla osób nie korzystających z OAuth. Jeśli nie posiadasz konta załóż teraz na  http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Hasło konta OSM</string>
   <string name="config_password_summary">Pamiętaj: Hasło jest przechowywane i wysyłane w postaci czystego tekstu!</string>
-  <string name="config_category_gps">Ustawienia GPS</string>
+  <string name="config_category_gps">GPS</string>
   <string name="config_gps_distance_title">Najmniejsza odległość GPS</string>
   <string name="config_gps_distance_summary">Minimalny dystans pomiędzy zapisami pozycji GPS, w metrach. Im mniejsza wartość, tym większe zużycie baterii.</string>
   <string name="config_gps_interval_title">Najmniejszy interwał GPS</string>
   <string name="config_gps_interval_summary">Minimalny odstęp czasowy pomiędzy zapisami pozycji GPS, w milisekundach. Im mniejsza wartość, tym większe zużycie baterii.</string>
   <string name="config_category_info">Informacje</string>
   <string name="config_advancedprefs">Ustawienia zaawansowane </string>
-  <string name="config_forceContextMenu_title">Zawsze używaj menu kontekstowego</string>
-  <string name="config_forceContextMenu_summary">Zawsze pokazuj menu kontekstowe w trybie EasyEdit jeśli zaznaczenie jest niejednoznaczne.</string>
+  <string name="config_forceContextMenu_title">Używanie menu podręcznego</string>
+  <string name="config_forceContextMenu_summary">Wyświetla menu podręczne w trybie EasyEdit jeśli zaznaczenie jest niejednoznaczne.</string>
   <string name="config_licensebutton_title">Autorzy oraz licencje</string>
   <string name="config_licensebutton_summary">Wypisuje informacje o autorach i licencji</string>
   <string name="config_debugbutton_title">Diagnozowanie błędów</string>
   <string name="config_debugbutton_summary">Wypisuje pewne wewnętrzne informacje</string>
   <string name="config_mapProfile_title">Profil mapy</string>
   <string name="config_mapProfile_summary">Ustaw styl i widoczność elementów</string>
-  <string name="config_use_back_for_undo_title">Użyj klawisza Wstecz w celu cofnięcia zmian</string>
-  <string name="config_use_back_for_undo_summary">Użyj klawisza wstecz aby zamknąć główne okno edycji</string>
+  <string name="config_use_back_for_undo_title">Cofanie zmian przyciskiem wstecz</string>
+  <string name="config_use_back_for_undo_summary">Używa przycisku wstecz do cofania zmian w oknie edycji</string>
   <string name="config_largeDragArea_title">Duży obszar przeciągania węzłów</string>
   <string name="config_largeDragArea_summary">Zwiększ obszar do przeciągania węzłów</string>
   <string name="config_extTriggeredDownloadRadius_title">Promień obszaru pobierania</string>
   <string name="config_extTriggeredDownloadRadius_summary">Promień (m) pobrań automatycznych, 0 = centrum mapy</string>
   <string name="config_maxDownloadSpeed_title">Maksymalna prędkość dla automatycznego pobierania</string>
   <string name="config_maxDownloadSpeed_summary">Prędkość (w km/h) powyżej której pobieranie danych zostaje zawieszone</string>
-  <string name="config_bugDownloadRadius_title">Promień obszaru pobierania notatek\informacji o błędach</string>
+  <string name="config_bugDownloadRadius_title">Określa promień obszaru pobierania uwag/błędów</string>
   <string name="config_bugDownloadRadius_summary">Promień (m) pobierania notatek/informacji o błędach</string>
   <string name="config_maxBugDownloadSpeed_title">Maksymalna prędkość poruszania się dla automatycznego pobierania notatek/błędów</string>
   <string name="config_maxBugDownloadSpeed_summary">Prędkość (w km/h) powyżej której pobieranie notatek/błędów zostaje zawieszone</string>
-  <string name="config_bugFilter_title">Filtruj notatki/błędy</string>
-  <string name="config_bugFilter_summary">Wybierz które elementy są pokazywane na warstwie notatek/błędów</string>
-  <string name="config_enableNameSuggestions_title">Włącz sugerowanie nazw</string>
-  <string name="config_enableNameSuggestions_summary">Włącz sugestie dla tagu \"name\"</string>
+  <string name="config_bugFilter_title">Filtruj uwagi/błędy</string>
+  <string name="config_bugFilter_summary">Wybiera elementy wyświetlana na warstwie uwag\błędów</string>
+  <string name="config_enableNameSuggestions_title">Sugerowanie nazw</string>
+  <string name="config_enableNameSuggestions_summary">Wyświetla propozycje dla znacznika „name”</string>
   <string name="config_enableAutoPreset_title">Włącz automatyczne szablony</string>
-  <string name="config_enableAutoPreset_summary">Automatycznie zastosuj szablon gdy sugestia tagu \"name\" została zaakceptowana</string>
-  <string name="config_splitActionBarEnabled_title">Włącz rozdzielony pasek nawigacyjny</string>
+  <string name="config_enableAutoPreset_summary">Automatycznie zastosuj szablon po wybraniu propozycji znacznika „name”</string>
+  <string name="config_splitActionBarEnabled_title">Rozdzielony pasek czynności</string>
   <string name="config_splitActionBarEnabled_summary">Włącz rozdzielony pasek nawigacyjny, użycie zależy od używanego urządzenia. Wymaga ponownego uruchomienia oraz wersji Androida &gt;= 4.0</string>
   <string name="config_gps_source_title">Źródło GPS</string>
   <string name="config_gps_source_summary">Źródło sygnału GPS</string>
   <string name="config_gps_source_tcp_title">Źródło połączenia z protokołem NMEA</string>
   <string name="config_gps_source_tcp_summary">Adres TCP źródła połączenia protokołu NMEA jako host:port</string>
   <string name="config_leaveGpsDisabled_title">Pozostaw wyłączony GPS</string>
-  <string name="config_leaveGpsDisabled_summary">Nie pytaj użytkownika o włączenie nawigacji gdy jest wyłączona</string>
-  <string name="config_enableLightTheme_title">Włącz jasny styl</string>
-  <string name="config_enableLightTheme_summary">Jasny styl z białym tłem</string>
+  <string name="config_leaveGpsDisabled_summary">Nie pyta o włączenie nawigacji jeśli jest wyłączona.</string>
+  <string name="config_enableLightTheme_title">Jasny styl</string>
+  <string name="config_enableLightTheme_summary">Używa jasnego stylu z białym tłem</string>
   <string name="config_category_misc">Inne</string>
   <string name="config_address_tags">Znaczniki adresu</string>
   <string name="config_address_tags_summary">Wprowadza znaczniki używane do określania adresu</string>
@@ -539,7 +544,7 @@
   <string name="undo_action_split_way">przetnij linię</string>
   <string name="undo_action_merge_ways">połącz drogi</string>
   <string name="undo_action_reverse_way">odwróć drogę</string>
-  <string name="undo_action_set_tags">ustaw tagi</string>
+  <string name="undo_action_set_tags">ustal znaczniki</string>
   <string name="undo_action_join">dołącz</string>
   <string name="undo_action_unjoin_ways">rozłącz drogi</string>
   <string name="undo_action_create_relation">utwórz relację</string>
@@ -557,15 +562,23 @@
   <string name="crash_dialog_comment_prompt">Dodaj więcej pomocnych informacji i (opcjonalnie) możesz podać swój adres email jeśli chcesz być informowany o postępie. \n\n Dziękujemy!</string>
   <string name="config_category_acra">Zgłaszanie awarii</string>
   <string name="pref_enable_acra">Zgłaszanie awarii aplikacji</string>
-  <string name="pref_acra_enabled">Zgłaszanie awarii włączone</string>
-  <string name="pref_acra_disabled">Zgłaszanie awarii wyłączone</string>
+  <string name="pref_acra_enabled">Włączono zgłaszanie awarii</string>
+  <string name="pref_acra_disabled">Wyłączono zgłaszanie awarii</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">To działanie utworzyłoby linię z zbyt dużą ilością węzłów</string>
   <!--Notifications-->
   <string name="alert_data_issue">Wykryto nieścisłe dane OSM w pobliżu</string>
-  <string name="alert_note">Wykryto notatkę OSM</string>
+  <string name="alert_note">Wykryto pobliską uwagę OSM</string>
   <string name="alert_bug">Wykryto błąd w danych OSM</string>
   <string name="alert_distance_direction">w obębie %1$d m %2$s</string>
+  <string name="bearing_ne">NE</string>
+  <string name="bearing_e">E</string>
+  <string name="bearing_se">SE</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_sw">SW</string>
+  <string name="bearing_w">W</string>
+  <string name="bearing_nw">NW</string>
+  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
   <string name="role">Rola</string>
   <string name="role_lc">rola</string>
@@ -609,6 +622,11 @@
   <string-array name="note_state">
     <item>Otwarte</item>
     <item>Zamknięte</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Lewo</item>
+    <item>Prawo</item>
+    <item>Wyłącz</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Automatycznie</item>

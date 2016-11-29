@@ -102,6 +102,7 @@ Amusez-vous bien !</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Cette suggestion peut remplacer certaines valeurs d\'attributs par des valeurs plus courantes.</string>
   <string name="search_results_title">Résultats de la recherche</string>
   <string name="find_message">Entrez le terme à rechercher</string>
+  <string name="search">Rechercher</string>
   <string name="no_valid_preset">Pas de modèle d\'attributs valide !</string>
   <string name="read_file">Sélectionnez le fichier à lire</string>
   <string name="save_file">Entrez le fichier dans lequel sauvegarder</string>
@@ -275,7 +276,7 @@ il y a %3$s %4$s</string>
   <string name="menu_transfer">Transfert des données…</string>
   <string name="menu_transfer_download_current">Télécharger la vue courante</string>
   <string name="menu_transfer_download_current_add">Ajouter les données de la vue courante</string>
-  <string name="menu_transfer_download_other">Télécharger autre endroit…</string>
+  <string name="menu_transfer_download_other">Télécharger un autre endroit</string>
   <string name="menu_transfer_upload">Envoyer les données au serveur OSM</string>
   <string name="menu_transfer_file">Fichier...</string>
   <string name="menu_transfer_export">Exporter les modifications</string>
@@ -284,6 +285,8 @@ il y a %3$s %4$s</string>
   <string name="menu_transfer_bugs">Notes/Bugs...</string>
   <string name="menu_transfer_bugs_download_current">Télécharger les bugs de la vue courante</string>
   <string name="menu_transfer_bugs_upload">Envoyer tout</string>
+  <string name="menu_transfer_bugs_clear">Effacer</string>
+  <string name="menu_transfer_save_notes_all">Sauvegarder toutes les Notes</string>
   <string name="menu_save">Enregistrer le fichier</string>
   <string name="menu_join">Fusionner</string>
   <string name="menu_unjoin">Séparer</string>
@@ -350,7 +353,7 @@ il y a %3$s %4$s</string>
   <string name="config_tileCacheSize_title">Cache pour les tuiles</string>
   <string name="config_tileCacheSize_summary">Taille totale du cache en Mo</string>
   <string name="config_showStats_title">Afficher les statistiques</string>
-  <string name="config_showStats_summary">Affiche les stats et les images/s dans le coin en bas à gauche.</string>
+  <string name="config_showStats_summary">Affiche les stats et les images/sec dans le coin en bas à gauche.</string>
   <string name="config_showTolerance_title">Afficher les zones interactives</string>
   <string name="config_showTolerance_summary">Affiche la zone où un élément peut être sélectionné</string>
   <string name="config_enableAntiAliasing_title">Active l\'anti-crénelage</string>
@@ -379,7 +382,7 @@ il y a %3$s %4$s</string>
   <string name="config_offsetServer_summary">URL du serveur de décalage de l\'imagerie</string>
   <string name="config_presetbutton_title">Modèles d\'attributs</string>
   <string name="config_presetbutton_summary">Ajouter et activer des modèles d\'attributs de JOSM</string>
-  <string name="config_iconbutton_title">Dessiner les icônes sur les nœuds</string>
+  <string name="config_iconbutton_title">Afficher les icônes sur les nœuds</string>
   <string name="config_iconbutton_summary">Afficher sur les nœuds l\'icône du modèle d\'attributs le plus proche.</string>
   <string name="config_loginbutton_title">Compte d\'utilisateur</string>
   <string name="config_username_title">Nom d\'utilisateur OSM</string>
@@ -397,6 +400,7 @@ il y a %3$s %4$s</string>
   <string name="config_forceContextMenu_summary">Toujours afficher le menu contextuel dans le mode EasyEdit si la sélection est ambigüe.</string>
   <string name="config_licensebutton_title">Auteurs et licences</string>
   <string name="config_licensebutton_summary">Afficher la liste des auteurs et les informations sur la licence.</string>
+  <string name="config_debugbutton_summary">Affiche quelques informations internes</string>
   <string name="config_mapProfile_title">Profil de la carte</string>
   <string name="config_mapProfile_summary">Définir le style et la visibilité des éléments</string>
   <string name="config_use_back_for_undo_title">Bouton Retour pour annuler</string>
@@ -428,10 +432,11 @@ il y a %3$s %4$s</string>
   <string name="config_enableLightTheme_title">Activer le thème clair</string>
   <string name="config_enableLightTheme_summary">Thème clair avec des fonds blancs</string>
   <string name="config_category_misc">Divers</string>
-  <string name="config_address_tags">Tags d\'addresse</string>
-  <string name="config_address_tags_summary">Tags utilisés pour la prédiction d\'addresse</string>
+  <string name="config_address_tags">Tags d\'adresse</string>
+  <string name="config_address_tags_summary">Tags utilisés pour la prédiction d\'adresse</string>
   <string name="config_moreprefs">Plus de paramètres...</string>
   <string name="config_fullscreenMode_title">Mode plein écran</string>
+  <string name="config_fullscreenMode_summary">Comportement sur des appareils avec des boutons \"logiciels\"</string>
   <string name="config_notificationCacheSize_title">Nombre max. de notifications affichées</string>
   <string name="config_notificationCacheSize_summary">Nombre maximal de notifications affichées par type</string>
   <string name="config_autoLockDelay_title">Temps avant auto-verrouillage</string>
@@ -558,5 +563,16 @@ il y a %3$s %4$s</string>
   <string-array name="note_state">
     <item>Ouvert</item>
     <item>Fermé</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Auto</item>
+    <item>Jamais</item>
+    <item>Forcer</item>
+    <item>Pas de barre d\'état</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Jamais</item>
+    <item>Forcer</item>
+    <item>Pas de barre d\'état</item>
   </string-array>
 </resources>

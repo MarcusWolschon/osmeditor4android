@@ -35,6 +35,8 @@
   <string name="out_of_memory_dirty_message">Vespucci не хватило памяти для загрузки запрашиваемых данных. Пожалуйста попробуйте сохранить ваши правки, перезапустите программу и попробуйте загрузить меньшую область</string>
   <string name="invalid_data_received_title">Получены некорректные данные</string>
   <string name="invalid_data_received_message">Vespucci получил неверные данные от сервера. Если вы считаете что делали всё правильно, пожалуйста сообщите об ошибке разработчикам.</string>
+  <string name="invalid_data_read_title">Некорректные данные</string>
+  <string name="invalid_data_read_message">Файл содержит некорректные данные. Если вы считаете что всё делали правильно, сообщите об ошибке разработчикам.</string>
   <string name="file_write_failed_title">Сбой записи в файл</string>
   <string name="file_write_failed_message">Не удалось записать в выбранный файл.</string>
   <string name="welcome_title">Добро пожаловать!</string>
@@ -50,6 +52,7 @@
   <string name="progress_deleting_message">Удаление...</string>
   <string name="progress_searching_message">Поиск…</string>
   <string name="progress_saving_message">Сохранение…</string>
+  <string name="progress_uploading_message">Передача…</string>
   <string name="progress_preset_message">Скачивается заготовка…</string>
   <string name="progress_oauth">Загружаю вашу учётную запись на openstreetmap.org для авторизации через OAuth...</string>
   <string name="upload_comment_label">Комментарий:</string>
@@ -129,6 +132,7 @@
   <string name="toast_potential_merge_tag_conflict">Вы пытаетесь объединить элементы с несовместимыми значениями тегов. Пожалуйста, проверьте теги и скорректируйте их, прежде, чем повторять попытку.</string>
   <string name="toast_state_file_failed">Нечитаемый или повреждённый файл состояния</string>
   <string name="toast_too_many_nodes_for_move">В линии слишком много точек для перемещения</string>
+  <string name="toast_unread_mail">У вас %1$s непрочитанных сообщения(й) на сервере OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Начато сканирование геопривязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование геопривязанных фото</string>
   <string name="toast_download_bbox_failed">Скачивание не удалось; возможно, выбранная область слишком велика.</string>
@@ -197,6 +201,9 @@
   <string name="tag_autocomplete_name_hint">Введите или выберите из предложенных названий</string>
   <string name="tag_multi_value_hint">Несколько значений</string>
   <string name="tag_dialog_value_hint">Выберите значение</string>
+  <string name="tag_action_tag_title">Выделенный(е) тег(и)</string>
+  <string name="tag_action_members_title">Выделенный(е) участник(и)</string>
+  <string name="tag_action_parents_title">Выделенный(е) отношение(я)</string>
   <string name="tag_additional_properties">Дополнительные свойства</string>
   <string name="tag_details">Подробности</string>
   <string name="tag_not_set">Не задано</string>
@@ -254,6 +261,8 @@
   <string name="menu_closed_way_split_2">Разбить замкнутую линию, 2-я точка</string>
   <string name="menu_append">Добавить</string>
   <string name="menu_restriction">Добавить ограничение на поворот</string>
+  <string name="menu_restriction_via">Добавить отрезок/элемент \"via\"</string>
+  <string name="menu_restriction_to">Добавить отрезок \"to\"</string>
   <string name="menu_relation">Создать отношение</string>
   <string name="menu_add_relation_member">Добавить участника</string>
   <string name="menu_select_relation_members">Выбрать участников</string>
@@ -449,6 +458,7 @@
   <string name="config_fullscreenMode_title">Полноэкранный режим</string>
   <string name="config_autoLockDelay_title">Время ожидания до автоблокировки</string>
   <string name="config_autoLockDelay_summary">Время ожидания в секундах до автоблокировки, 0 - отключена.</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Всегда затенять не загруженные области</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
   <string name="preset_download_successful">Заготовка успешно загружена</string>
@@ -479,6 +489,7 @@
   <string name="default_">По умолчанию</string>
   <string name="api_name">Название API</string>
   <string name="api_url">API URL</string>
+  <string name="notes_url">URL API заметок (опционально)</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Заготовка</string>
   <string name="api">API</string>
@@ -528,6 +539,14 @@
   <string name="alert_note">Поблизости обнаружена заметка OSM</string>
   <string name="alert_bug">Поблизости найдена ошибка в данных OSM</string>
   <string name="alert_distance_direction">в %1$d м %2$s</string>
+  <string name="bearing_ne">СВ</string>
+  <string name="bearing_e">В</string>
+  <string name="bearing_se">ЮВ</string>
+  <string name="bearing_s">Ю</string>
+  <string name="bearing_sw">ЮЗ</string>
+  <string name="bearing_w">З</string>
+  <string name="bearing_nw">СЗ</string>
+  <string name="bearing_n">С</string>
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>
