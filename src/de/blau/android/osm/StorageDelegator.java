@@ -2354,22 +2354,24 @@ public class StorageDelegator implements Serializable, Exportable {
 					}
 				} else {
 					if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
-						if (apiNode.getOsmVersion() >= n.getOsmVersion())
+						if (apiNode.getOsmVersion() >= n.getOsmVersion()) {
 							continue; // can use node we already have
-						else
+						} else {
 							return false; // can't resolve conflicts, upload first
+						}
 					}
 					Node existingNode = nodeIndex.get(n.getOsmId());
-					if (existingNode.getOsmVersion() >= n.getOsmVersion()) // larger just to be on the safe side
+					if (existingNode.getOsmVersion() >= n.getOsmVersion()) { // larger just to be on the safe side
 						continue; // can use node we already have
-					else {
+					} else {
 						if (existingNode.isUnchanged()) {
 							temp.insertNodeUnsafe(n);
 							if (postMerge != null) {
 								postMerge.handler(n);
 							}
-						} else
+						} else {
 							return false; // can't resolve conflicts, upload first
+						}
 					}
 				}
 			}
@@ -2386,10 +2388,11 @@ public class StorageDelegator implements Serializable, Exportable {
 					}
 				} else {
 					if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
-						if (apiWay.getOsmVersion() >= w.getOsmVersion())
+						if (apiWay.getOsmVersion() >= w.getOsmVersion()) {
 							continue; // can use way we already have
-						else
+						} else {
 							return false; // can't resolve conflicts, upload first
+						}
 					}
 					Way existingWay = wayIndex.get(w.getOsmId());
 					if (existingWay != null) {
@@ -2401,8 +2404,9 @@ public class StorageDelegator implements Serializable, Exportable {
 								if (postMerge != null) {
 									postMerge.handler(w);
 								}
-							} else
+							} else {
 								return false; // can't resolve conflicts, upload first
+							}
 						}
 					} else {
 						// this shouldn't be able to happen
@@ -2421,15 +2425,36 @@ public class StorageDelegator implements Serializable, Exportable {
 			for (Way w:wayIndex) {
 				List<Node> nodes = w.getNodes();
 				for (int i=0;i<nodes.size();i++) {
-					Node n = nodeIndex.get(nodes.get(i).getOsmId());
+					Node wayNode = nodes.get(i);
+					long wayNodeId = wayNode.getOsmId();
+					Node n = nodeIndex.get(wayNodeId);
 					if (n != null) {
 						nodes.set(i,n);
 					} else {
 						// node might have been deleted, aka somebody deleted nodes outside of the down loaded data bounding box
-						Log.e("StorageDelegator","mergeData null way node for way " + w.getOsmId() + " node " + nodes.get(i).getOsmId());
-						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-						ACRA.getErrorReporter().handleException(null);
-						return false;
+						// that belonged to a not downloaded way
+						Node apiNode = apiStorage.getNode(wayNodeId);
+						if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
+							// attempt to fix this up, reinstate the original node so that any existing references remain
+							// FIXME undoing the original delete will likely cause havoc
+							Log.e("StorageDelegator","mergeData null undeleting node " + wayNodeId);
+							if (apiNode.getOsmVersion() == wayNode.getOsmVersion() 
+									&& (apiNode.isTagged() && apiNode.getTags().equals(wayNode.getTags()))
+									&& apiNode.getLat() == wayNode.getLat()
+									&& wayNode.getLon() == wayNode.getLon()) {
+								apiNode.setState(OsmElement.STATE_UNCHANGED);
+								apiStorage.removeNode(apiNode);
+							} else {
+								apiNode.setState(OsmElement.STATE_MODIFIED);
+							}
+							temp.insertNodeUnsafe(apiNode);
+							nodes.set(i,apiNode);
+						} else {
+							Log.e("StorageDelegator","mergeData null way node for way " + w.getOsmId() + " node " + wayNodeId + " v" + wayNode.getOsmVersion());
+							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+							ACRA.getErrorReporter().handleException(null);
+							return false;
+						}
 					}
 				}
 			}
