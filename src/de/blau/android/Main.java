@@ -2488,6 +2488,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				clickedNodesAndWays = null;
 				Application.getLogic().handleTouchEventDown(m.getX(), m.getY());
 			}
+			if (m.getAction() == MotionEvent.ACTION_UP) {
+				Application.getLogic().handleTouchEventUp(m.getX(), m.getY());
+			}
 			mDetector.onTouchEvent(v, m);
 			return v.onTouchEvent(m);
 		}

@@ -676,7 +676,8 @@ public class Map extends View implements IMapView {
 			paintHiddenWay(canvas,w);
 		}
 		
-		boolean displayHandles = tmpDrawingSelectedWays == null 
+		boolean displayHandles =
+				   tmpDrawingSelectedNodes == null
 				&& tmpDrawingSelectedRelationWays == null
 				&& tmpDrawingSelectedRelationNodes == null
 				&& (tmpDrawingEditMode == Mode.MODE_EASYEDIT || tmpDrawingEditMode == Mode.MODE_INDOOR);
@@ -1044,23 +1045,22 @@ public class Map extends View implements IMapView {
 			paint = DataStyle.getCurrent(DataStyle.SELECTED_WAY).getPaint();
 			canvas.drawLines(linePoints, paint);
 			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
-			drawOnewayArrows(canvas, linePoints, false, paint);
+			drawWayArrows(canvas, linePoints, false, paint, displayHandles && tmpDrawingSelectedWays.size()==1);
 		} else if (isMemberOfSelectedRelation) {
 			paint = DataStyle.getCurrent(DataStyle.SELECTED_RELATION_WAY).getPaint();
 			canvas.drawLines(linePoints, paint);
 			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
-			drawOnewayArrows(canvas, linePoints, false, paint);
+			drawWayArrows(canvas, linePoints, false, paint, false);
 		}
 
 		int onewayCode = way.getOneway();
 		if (onewayCode != 0) {
 			FeatureStyle fp = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
-			drawOnewayArrows(canvas, linePoints, (onewayCode == -1), fp.getPaint());
+			drawWayArrows(canvas, linePoints, (onewayCode == -1), fp.getPaint(), false);
 		} else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
 			FeatureStyle fp = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
-			drawOnewayArrows(canvas, linePoints, false, fp.getPaint());
+			drawWayArrows(canvas, linePoints, false, fp.getPaint(), false);
 		}
-		
 		
 		// 
 		FeatureStyle fp; // no need to get the default here
@@ -1080,21 +1080,6 @@ public class Map extends View implements IMapView {
 				path.lineTo(linePoints[i+2], linePoints[i+3]);
 			}
 			canvas.drawPath(path, fp.getPaint());
-		}
-		
-		if (displayHandles) { // the handles only work when no way is selected so don't show them
-			// add "geometry improvement" handles
-			for (int i = 2; i < linePoints.length; i=i+4) {
-				float x0 = linePoints[i-2];
-				float y0 = linePoints[i-1];
-				float xDelta = linePoints[i] - x0;
-				float yDelta = linePoints[i+1] - y0;
-				double len = Math.hypot(xDelta,yDelta);
-				if (len > DataStyle.getCurrent().minLenForHandle) {
-					if (handles == null) handles = new LongHashSet();
-					handles.put(((long)(Float.floatToRawIntBits(x0 + xDelta/2)) <<32) + (long)Float.floatToRawIntBits(y0 + yDelta/2));
-				}
-			}
 		}
 		
 		// display icons on closed ways
@@ -1230,7 +1215,6 @@ public class Map extends View implements IMapView {
 			float lastX = 0;
 			float lastY = 0;
 			for (long l:handles.values()) {
-
 				// draw handle
 				// canvas.drawCircle(x0 + xDelta/2, y0 + yDelta/2, 5, Profile.getCurrent(Profile.HANDLE).getPaint());
 				// canvas.drawPoint(x0 + xDelta/2, y0 + yDelta/2, Profile.getCurrent(Profile.HANDLE).getPaint());
@@ -1241,7 +1225,6 @@ public class Map extends View implements IMapView {
 				lastX = X;
 				lastY = Y;
 				canvas.drawPath(DataStyle.getCurrent().x_path, DataStyle.getCurrent(DataStyle.HANDLE).getPaint());
-
 			}
 			canvas.restore();
 			handles.clear(); // this is hopefully faster than allocating a new set
@@ -1270,23 +1253,56 @@ public class Map extends View implements IMapView {
 	 * @param linePoints line segment array in the format returned by {@link #pointListToLinePointsArray(Iterable)}.
 	 * @param reverse if true, the arrows will be painted in the reverse direction
 	 * @param paint the paint to use for drawing the arrows
+	 * @param addHandles if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
 	 */
-	private void drawOnewayArrows(Canvas canvas, float[] linePoints, boolean reverse, Paint paint) {
+	private void drawWayArrows(Canvas canvas, float[] linePoints, boolean reverse, Paint paint, boolean addHandles) {
+		double minLen = DataStyle.getCurrent().minLenForHandle;
 		int ptr = 0;
 		while (ptr < linePoints.length) {
-			canvas.save();
+			
 			float x1 = linePoints[ptr++];
 			float y1 = linePoints[ptr++];
 			float x2 = linePoints[ptr++];
 			float y2 = linePoints[ptr++];
 
-			float x = (x1+x2)/2;
-			float y = (y1+y2)/2;
-			canvas.translate(x,y);
+			float xDelta = x2-x1;
+			float yDelta = y2-y1;
+			
+			boolean secondArrow = false;
+			if (addHandles) {
+				double len = Math.hypot(xDelta,yDelta);
+				if (len > minLen) {
+					if (handles == null) handles = new LongHashSet();
+					handles.put(((long)(Float.floatToRawIntBits(x1 + xDelta/2)) <<32) + (long)Float.floatToRawIntBits(y1 + yDelta/2));
+					xDelta = xDelta / 4;
+					yDelta = yDelta / 4;
+					secondArrow = true;
+				} else {
+					xDelta = xDelta / 2;
+					yDelta = yDelta / 2;
+				}
+			} else {
+				xDelta = xDelta / 2;
+				yDelta = yDelta / 2;
+			}
+			
+			float x = x1 + xDelta;
+			float y = y1 + yDelta;
 			float angle = (float)(Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI);
+			
+			canvas.save();
+			canvas.translate(x,y);
 			canvas.rotate(reverse ? angle-180 : angle);
 			canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
 			canvas.restore();
+			
+			if (secondArrow) {
+				canvas.save();
+				canvas.translate(x+2*xDelta,y+2*yDelta);
+				canvas.rotate(reverse ? angle-180 : angle);
+				canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
+				canvas.restore();
+			}
 		}
 	}
 

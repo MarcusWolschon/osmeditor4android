@@ -5,6 +5,7 @@
 <feature name="problem_node_thin" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
 <feature name="problem_way" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way_direction" internal="true" updateWidth="true" widthFactor="0.8" editable="true" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
+<feature name="handle" internal="true" updateWidth="true" widthFactor="0.8" editable="true" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
 <feature name="selected_way" internal="true" updateWidth="true" widthFactor="2.0" editable="true" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" />
 <feature name="way_tolerance" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="40.0" />
 <feature name="way_tolerance_2" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="40.0" />

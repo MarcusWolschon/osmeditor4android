@@ -264,6 +264,7 @@ public class Logic {
 	 * Are we currently dragging a handle?
 	 */
 	private boolean draggingHandle = false;
+	private Node handleNode = null;
 	
 	/**
 	 * 
@@ -1157,15 +1158,22 @@ public class Logic {
 			else {
 				if (selectedWays != null && selectedWays.size() == 1 && selectedNodes == null) {
 					if (!rotatingWay) {	
-						Way clickedWay = getClickedWay(x, y);
-						if (clickedWay != null && (clickedWay.getOsmId() == selectedWays.get(0).getOsmId())) {
-							if (selectedWays.get(0).getNodes().size() <= MAX_NODES_FOR_MOVE) {
-								startLat = yToLatE7(y);
-								startLon = xToLonE7(x);
-								draggingWay = true;
-							}
-							else {
-								Toast.makeText(Application.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
+						Handle handle = getClickedWayHandleWithDistances(x, y);
+						if (handle != null) {
+							Log.d("Logic","start handle drag");
+							selectedHandle = handle;
+							draggingHandle = true;
+						} else {
+							Way clickedWay = getClickedWay(x, y);
+							if (clickedWay != null && (clickedWay.getOsmId() == selectedWays.get(0).getOsmId())) {
+								if (selectedWays.get(0).getNodes().size() <= MAX_NODES_FOR_MOVE) {
+									startLat = yToLatE7(y);
+									startLon = xToLonE7(x);
+									draggingWay = true;
+								}
+								else {
+									Toast.makeText(Application.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
+								}
 							}
 						}
 					} else {
@@ -1208,17 +1216,8 @@ public class Logic {
 						if (rotatingWay) {
 							rotatingWay = false;
 							hideCrosshairs();
-						} else if ((getMode()==Mode.MODE_EASYEDIT || getMode()==Mode.MODE_INDOOR)
-								&& selectedWays == null
-								&& selectedRelations == null){
-							// way center / handle
-							// TODO this may cause issues in action modes were we expect only something from the available selection to be returned
-							Handle handle = getClickedWayHandleWithDistances(x, y);
-							if (handle != null) {
-								Log.d("Logic","start handle drag");
-								selectedHandle = handle;
-								draggingHandle = true;
-							}
+						} else {
+							Log.d(DEBUG_TAG, "We shouldn't have got here");
 						}
 					}
 				}
@@ -1241,6 +1240,11 @@ public class Logic {
 		}
 	}
 
+	synchronized void handleTouchEventUp(final float x, final float y) {
+		handleNode = null;
+		draggingHandle = false;
+	}
+	
 	/**
 	 * Calculates the coordinates for the center of the screen and displays a crosshair there. 
 	 */
@@ -1273,45 +1277,41 @@ public class Logic {
 	 * @throws OsmIllegalOperationException 
 	 */
 	synchronized void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
-		if (draggingNode || draggingWay || (draggingHandle && selectedHandle != null)) {
+		if (draggingNode || draggingWay || draggingHandle) {
 			int lat;
 			int lon;
 			// checkpoint created where draggingNode is set
-			if ((draggingNode && selectedNodes != null && selectedNodes.size() == 1 && selectedWays ==  null) || (draggingHandle && selectedHandle != null)) {
+			if ((draggingNode && selectedNodes != null && selectedNodes.size() == 1 && selectedWays ==  null) || draggingHandle) {
 				if (draggingHandle) { // create node only if we are really dragging
-					Log.d("Logic","creating node at handle position");
 					try {
-						Node newNode = performAddOnWay(selectedHandle.x, selectedHandle.y);
-						if (newNode != null) {
+						if (handleNode == null && selectedHandle != null) {
+							Log.d("Logic","creating node at handle position");
+							handleNode = performAddOnWay(selectedHandle.x, selectedHandle.y);
 							selectedHandle = null;
-							draggingNode = true;
-							draggingHandle = false;
-							if (prefs.largeDragArea()) {
-								startX = lonE7ToX(newNode.getLon());
-								startY = latE7ToY(newNode.getLat());
-							}
-							Application.mainActivity.easyEditManager.editElement(newNode); // this can only happen in EasyEdit mode
 						}
-						else return;
+						if (handleNode != null) {
+							setSelectedNode(null); // performAddOnWay sets this, need to undo
+							getDelegator().updateLatLon(handleNode, yToLatE7(absoluteY), xToLonE7(absoluteX));
+						}
 					} catch (OsmIllegalOperationException e) {
 						Toast.makeText(Application.mainActivity, e.getMessage(), Toast.LENGTH_LONG).show();
 						return;
 					}
-				}
-				displayAttachedObjectWarning(selectedNodes.get(0));
-				if (prefs.largeDragArea()) {
-					startY = startY + relativeY;
-					startX = startX - relativeX;
-					lat = yToLatE7(startY);
-					lon = xToLonE7(startX);
 				} else {
-					lat = yToLatE7(absoluteY);
-					lon = xToLonE7(absoluteX);
+					displayAttachedObjectWarning(selectedNodes.get(0));
+					if (prefs.largeDragArea()) {
+						startY = startY + relativeY;
+						startX = startX - relativeX;
+						lat = yToLatE7(startY);
+						lon = xToLonE7(startX);
+					} else {
+						lat = yToLatE7(absoluteY);
+						lon = xToLonE7(absoluteX);
+					}
+					getDelegator().updateLatLon(selectedNodes.get(0), lat, lon);
 				}
-				getDelegator().updateLatLon(selectedNodes.get(0), lat, lon); 
 				Application.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
-			}
-			else { // way dragging and multi-select
+			} else { // way dragging and multi-select
 				lat = yToLatE7(absoluteY);
 				lon = xToLonE7(absoluteX);
 				ArrayList<Node> nodes = new ArrayList<Node>();
