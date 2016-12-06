@@ -26,18 +26,31 @@
   <string name="progress_general_title">Vent</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Kilde:</string>
+  <string name="upload_gpx_description_label">Beskrivelse</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="openstreetbug_new_title">Ny note</string>
   <string name="openstreetbug_new_nodeway">Opret Knude/Vej</string>
   <string name="openstreetbug_edit_title">Ret note</string>
   <string name="openstreetbug_commitbutton">Commit</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
+  <string name="openstreetbug_last_updated">sidst opdateret</string>
   <string name="unsaved_data_title">Bemærk!</string>
   <string name="unsaved_data_message">Du har ugemte ændringer, som mistes, hvis du fortsætter.</string>
   <string name="unsaved_data_proceed">Kassér &amp; fortsæt</string>
+  <string name="imagery_offset_description">Beskrivelse</string>
+  <string name="imagery_offset_not_found">Ingen forskydninger fundet i 10 km radius!</string>
+  <string name="imagery_offset_author">Forfatter</string>
+  <string name="imagery_offset_offset">Forskydning</string>
+  <string name="imagery_offset_date">Oprettet</string>
   <string name="imagery_offset_zoom">Zoom</string>
+  <string name="imagery_offset_distance">Afstand</string>
+  <string name="search_results_title">Søgeresultater</string>
+  <string name="find_message">Indtast søgetekst</string>
+  <string name="search">Søg</string>
   <string name="version">Version</string>
   <string name="length_m">Længde (m)</string>
+  <string name="empty_role">tom rolle</string>
+  <string name="last_updated">sidst opdateret</string>
   <string name="error">fejl</string>
   <string name="warning">advarsel</string>
   <!--Toaster-->
@@ -54,6 +67,16 @@
   <string name="no">Nej</string>
   <string name="okay">OK</string>
   <string name="cancel">Annulér</string>
+  <string name="locked">Låst</string>
+  <string name="next">Næste</string>
+  <string name="replace">Erstat</string>
+  <string name="save">Gem</string>
+  <string name="back">Tilbage</string>
+  <string name="forward">Frem</string>
+  <string name="keep">Behold</string>
+  <string name="enable">Aktiver</string>
+  <string name="clear">Nulstil</string>
+  <string name="retry">Prøv igen</string>
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
   <string name="key">nøgle</string>
@@ -61,8 +84,11 @@
   <string name="value">værdi</string>
   <string name="Value">Værdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_address">Tilføj adresse tags</string>
+  <string name="tag_menu_repeat">Gentag tags</string>
   <string name="tag_menu_revert">Tilbagefør</string>
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
+  <string name="tag_menu_addtorelation">Tilføj til relation</string>
   <string name="tag_menu_move_up">Flyt op</string>
   <string name="tag_menu_move_top">Flyt til top</string>
   <string name="tag_menu_move_down">Flyt ned</string>
@@ -70,6 +96,7 @@
   <string name="tag_menu_download">Download</string>
   <string name="menu_up">Op</string>
   <string name="menu_top">Top</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Tilføj tags for %1$s</string>
   <string name="tag_restriction_header">Værdi</string>
   <!--Strings in LocationPicker-->
@@ -118,24 +145,29 @@
   <string name="menu_transfer_download_current">Download nuværende udsnit</string>
   <string name="menu_transfer_download_other">Download andet område</string>
   <string name="menu_transfer_upload">Upload data til OSM server</string>
+  <string name="menu_transfer_file">Filer...</string>
   <string name="menu_transfer_export">Eksporter ændringer</string>
   <string name="menu_transfer_read_file">Læs fra fil</string>
   <string name="menu_transfer_save_file">Gem til fil</string>
   <string name="menu_save">Gem til en fil</string>
-  <string name="menu_join">Flet sammen</string>
+  <string name="menu_join">Sammenlæg</string>
+  <string name="menu_unjoin">Adskil</string>
   <string name="menu_information">Info</string>
   <string name="menu_tools">Værktøjer</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historie</string>
-  <string name="menu_merge">Flet sammen</string>
+  <string name="menu_merge">Sammenlæg</string>
   <string name="deleteway_wayonly">Slet kun vej</string>
   <string name="deleteway_wayandnodes">Slet vej og knuder</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vej valgt</string>
   <string name="actionmode_nodeselect">Knude valgt</string>
+  <string name="actionmode_relationselect">Relation valgt</string>
   <string name="actionmode_createpath">Opretter sti</string>
   <!--Preferences-->
+  <string name="config_tileCacheSize_title">Tern cache størrelse</string>
+  <string name="config_tileCacheSize_summary">Total størrelse på tern cache i MB</string>
   <string name="config_showStats_title">Vis statistik</string>
   <string name="config_showStats_summary">Viser datastatistik og billeder/sec i nederste vensdtre hjørne.</string>
   <string name="config_showTolerance_title">Vis tolerance</string>
@@ -204,6 +236,13 @@
   <string name="undo_action_merge_ways">flet veje</string>
   <string name="undo_action_reverse_way">vend vej om</string>
   <string name="undo_action_set_tags">sæt tags</string>
+  <string name="undo_action_join">sammenlæg</string>
+  <string name="undo_action_unjoin_ways">adskil veje</string>
+  <string name="undo_action_create_relation">opret relation</string>
+  <string name="undo_action_delete_relation">slet relation</string>
+  <string name="undo_action_update_relations">updater relationer</string>
+  <string name="undo_action_cut">klip</string>
+  <string name="undo_action_paste">indsæt</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci stoppede eller fandt et alvorligt problem sidste gang det kørte.\n\nHjælp os ved at sende en fejlrapport, alt hvad du skal gøre er at klikke på \'OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Tilføj yderligere oplysninger, som du tror kan hjælpe og (valgfrit) din e-mail-adresse, hvis du vil have tilbagemelding.\n\nTak!</string>
@@ -213,8 +252,22 @@
   <string name="pref_acra_disabled">Crash-rapportering er slået fra</string>
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="bearing_ne">NØ</string>
+  <string name="bearing_e">Ø</string>
+  <string name="bearing_se">SØ</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_sw">SV</string>
+  <string name="bearing_w">V</string>
+  <string name="bearing_nw">NV</string>
+  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
+  <string name="role">Rolle</string>
+  <string name="role_lc">rolle</string>
+  <string name="membership_relation_heading">Medlem af relation</string>
+  <string name="relation">Relation</string>
+  <string name="relations">Relationer</string>
   <string name="object">Objekt</string>
+  <string name="deleterelation">Slet relation</string>
   <!--time and distance-->
   <string name="days">dage</string>
   <string name="hours">timer</string>

@@ -456,6 +456,10 @@
   <string name="config_address_tags_summary">Теги, используемые для предсказания адресов</string>
   <string name="config_moreprefs">Другие настройки...</string>
   <string name="config_fullscreenMode_title">Полноэкранный режим</string>
+  <string name="config_maxTileDownloadThreads_title">Макс. число потоков загрузки</string>
+  <string name="config_maxTileDownloadThreads_summary">Максимальное число потоков загрузки тайлов</string>
+  <string name="config_notificationCacheSize_title">Макс. число показываемых предупреждений</string>
+  <string name="config_notificationCacheSize_summary">Максимальное число показываемых предупреждений по типу</string>
   <string name="config_autoLockDelay_title">Время ожидания до автоблокировки</string>
   <string name="config_autoLockDelay_summary">Время ожидания в секундах до автоблокировки, 0 - отключена.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Всегда затенять не загруженные области</string>
@@ -489,6 +493,7 @@
   <string name="default_">По умолчанию</string>
   <string name="api_name">Название API</string>
   <string name="api_url">API URL</string>
+  <string name="readonly_url">URL API только для чтения (опционально)</string>
   <string name="notes_url">URL API заметок (опционально)</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Заготовка</string>
