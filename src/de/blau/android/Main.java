@@ -639,6 +639,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		connectivityChangedReceiver = new ConnectivityChangedReceiver();
 		registerReceiver(connectivityChangedReceiver, filter);
 		PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void execute() {
 				if (rcData != null|| geoData != null) {
@@ -667,6 +669,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			} else if (loadOnResume) {
 				loadOnResume = false;	
 				PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void execute() {
 						Mode mode = logic.getMode();
@@ -796,6 +800,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, rcData.getBox()); 
 				if (bboxes != null && bboxes.size() > 0) {
 					logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
+						private static final long serialVersionUID = 1L;
+
 						@Override
 						public void execute(){
 							rcDataEdit(rcData);
@@ -1334,6 +1340,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (server != null && server.isLoginSet()) {
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server, new PostAsyncActionHandler() {
+						private static final long serialVersionUID = 1L;
+
 						@Override
 						public void execute() {
 							GpxUpload.showDialog(Main.this);
@@ -1361,6 +1369,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (Application.getDelegator() == null) return true;
 			descheduleAutoLock();
 			SelectFile.read(this, new ReadFile(){
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public boolean read(Uri fileUri) {
 					// Get the Uri of the selected file 
@@ -1454,6 +1464,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			descheduleAutoLock();
 			// showFileChooser(READ_OSM_FILE_SELECT_CODE);
 			SelectFile.read(this, new ReadFile(){
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public boolean read(Uri fileUri) {
 					try {
@@ -1484,6 +1496,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		case R.id.menu_transfer_bugs_download_current:
 			TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public void execute() {
 					map.invalidate();
@@ -1935,6 +1949,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Application.getLogic().downloadCurrent(add);
 		if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
 			TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public void execute() {
 					map.invalidate();
@@ -2007,6 +2023,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (Application.getLogic().hasChanges()) {
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server, new PostAsyncActionHandler() {
+						private static final long serialVersionUID = 1L;
+
 						@Override
 						public void execute() {
 							ConfirmUpload.showDialog(Main.this);
