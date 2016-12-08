@@ -74,6 +74,14 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 public class TagEditorFragment extends BaseFragment implements
 		PropertyRows, EditorUpdate {
 
+	private static final String DISPLAY_MR_UPRESETS = "displayMRUpresets";
+
+	private static final String FOCUS_ON_KEY = "focusOnKey";
+
+	private static final String APPLY_LAST_ADDRESS_TAGS = "applyLastAddressTags";
+
+	private static final String EXTRA_TAGS = "extraTags";
+
 	static final String HTTP_PREFIX = "http://";
 
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
@@ -158,17 +166,17 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param displayMRUpresets 
      */
     static public TagEditorFragment newInstance(OsmElement[] elements, ArrayList<LinkedHashMap<String,String>> tags, boolean applyLastAddressTags, 
-    											String focusOnKey, boolean displayMRUpresets, Integer level) {
+    											String focusOnKey, boolean displayMRUpresets, HashMap<String,String> extraTags) {
     	TagEditorFragment f = new TagEditorFragment();
     	
         Bundle args = new Bundle();
    
         args.putSerializable("elements", elements);
         args.putSerializable("tags", tags);
-        args.putSerializable("applyLastAddressTags", Boolean.valueOf(applyLastAddressTags));
-        args.putSerializable("focusOnKey", focusOnKey);
-        args.putSerializable("displayMRUpresets", Boolean.valueOf(displayMRUpresets));
-        args.putSerializable("level", level);
+        args.putSerializable(APPLY_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
+        args.putSerializable(FOCUS_ON_KEY, focusOnKey);
+        args.putSerializable(DISPLAY_MR_UPRESETS, Boolean.valueOf(displayMRUpresets));
+        args.putSerializable(EXTRA_TAGS, extraTags);
         
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -252,9 +260,9 @@ public class TagEditorFragment extends BaseFragment implements
      	} else {
      		tags = buildEdits();
      	}
-     	boolean applyLastAddressTags = ((Boolean) getArguments().getSerializable("applyLastAddressTags")).booleanValue();
-     	String focusOnKey = (String)  getArguments().getSerializable("focusOnKey");
-     	boolean displayMRUpresets = ((Boolean) getArguments().getSerializable("displayMRUpresets")).booleanValue();
+     	boolean applyLastAddressTags = ((Boolean) getArguments().getSerializable(APPLY_LAST_ADDRESS_TAGS)).booleanValue();
+     	String focusOnKey = (String)  getArguments().getSerializable(FOCUS_ON_KEY);
+     	boolean displayMRUpresets = ((Boolean) getArguments().getSerializable(DISPLAY_MR_UPRESETS)).booleanValue();
      	
        	// Log.d(DEBUG_TAG,"element " + element + " tags " + tags);
 		
@@ -290,10 +298,12 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 		}
 
-		// NOTE special case for indoor tagging 
-		Integer level = (Integer) getArguments().getSerializable("level");
-		if (level != null) {
-			addTag(editRowLayout,Tags.KEY_LEVEL,level.toString(), true);
+		// Add any extra tags that were supplied	
+		HashMap<String, String> extraTags = (HashMap<String,String>) getArguments().getSerializable(EXTRA_TAGS);
+		if (extraTags != null) {
+			for (Entry<String,String>e:extraTags.entrySet()) {
+				addTag(editRowLayout,e.getKey(),e.getValue(), true, false);
+			}
 		}
 		
 		updateAutocompletePresetItem(editRowLayout, null); // set preset from initial tags
@@ -1880,13 +1890,15 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param key
 	 * @param value
 	 */
-	public void addTag(LinearLayout rowLayout,String key, String value, boolean replace) {
+	public void addTag(LinearLayout rowLayout,String key, String value, boolean replace, boolean update) {
 		Log.d(DEBUG_TAG,"adding tag " + key + "=" + value);
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(rowLayout,true);
 		if (!currentValues.containsKey(key) || replace) {
 			currentValues.put(key, Util.getArrayList(value));
 			loadEdits(rowLayout,currentValues);
-			updateAutocompletePresetItem(null);
+			if (update) {
+				updateAutocompletePresetItem(null);
+			}
 		}
 	}
 	

@@ -73,7 +73,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	public static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
 	public static final String TAGEDIT_SHOW_PRESETS = "showPresets";
 	public static final String TAGEDIT_ASK_FOR_NAME = "askForName";
-	public static final String TAGEDIT_LEVEL = "level";
+	public static final String TAGEDIT_EXTRA_TAGS = "extra";
 
 	
 	/** The layout containing the edit rows */
@@ -115,7 +115,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	private boolean applyLastAddressTags = false;
 	private boolean showPresets = false;
 	private boolean askForName = false;
-	private Integer level = null;
+	private HashMap<String,String> extraTags = null;
 	
 	/**
 	 * Handles "enter" key presses.
@@ -167,14 +167,14 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 									  boolean applyLastTags,
 									  boolean showPresets,
 									  boolean askForName, 
-									  Integer level,
+									  HashMap<String,String> extraTags,
 									  int requestCode) {
 		Intent intent = new Intent(activity, PropertyEditor.class);
 		intent.putExtra(TAGEDIT_DATA, dataClass);
 		intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastTags));
 		intent.putExtra(TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
 		intent.putExtra(TAGEDIT_ASK_FOR_NAME, Boolean.valueOf(askForName));
-		intent.putExtra(TAGEDIT_LEVEL, level);
+		intent.putExtra(TAGEDIT_EXTRA_TAGS, extraTags);
 		activity.startActivityForResult(intent, requestCode);
 	}
 	
@@ -202,7 +202,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			applyLastAddressTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LAST_ADDRESS_TAGS); 
 			showPresets = (Boolean)getIntent().getSerializableExtra(TAGEDIT_SHOW_PRESETS);
 			askForName = (Boolean)getIntent().getSerializableExtra(TAGEDIT_ASK_FOR_NAME);
-			level = (Integer)getIntent().getSerializableExtra(TAGEDIT_LEVEL);
+			extraTags = (HashMap<String,String>)getIntent().getSerializableExtra(TAGEDIT_EXTRA_TAGS);
 			usePaneLayout = Util.isLandscape(this);
 		} else {
 			// Restore activity from saved state
@@ -403,7 +403,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    
 	    Fragment tagEditorFragment(int position, boolean displayRecentPresets) {
 	    	tagEditorFragmentPosition = position;
-	    	tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets, level);
+	    	tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets, extraTags);
 			return tagEditorFragment;
 	    }
 	    

@@ -183,10 +183,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 	
-	private static final String EASY_TAG = "EASY";
-	private static final String TAG_TAG = "TAG";
-	private static final String INDOOR_TAG = "INDOOR";
-	
 	private static final double DEFAULT_BOUNDING_BOX_RADIUS = 4000000.0D;
 
 	/**
@@ -667,14 +663,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				}
 				updateActionbarEditMode();
 				Mode mode = logic.getMode();
-				if (inEasyEditMode(logic)
+				if (mode.elementsGeomEditiable()
 						&& (logic.getSelectedNode() != null 
 						|| logic.getSelectedWay() != null 
 						|| (logic.getSelectedRelations() != null && logic.getSelectedRelations().size() > 0))) {
 					// need to restart whatever we were doing
 					Log.d(DEBUG_TAG,"restarting action mode");
 					easyEditManager.editElements();		
-				} else if (mode==Mode.MODE_TAG_EDIT) {
+				} else if (mode.elementsEditable()) {
 					// de-select everything
 					logic.deselectAll();
 				}
@@ -693,7 +689,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					public void execute() {
 						Mode mode = logic.getMode();
 						Task t = logic.getSelectedBug();
-						if (inEasyEditMode(logic) && t!= null) {
+						if (mode.elementsGeomEditiable() && t!= null) {
 							performBugEdit(t);
 						}
 					}
@@ -847,7 +843,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		final Logic logic = Application.getLogic();
 		if (rcData.getSelect() != null) {
 			// need to actually switch to easyeditmode
-			if (!inEasyEditMode(logic)) { // TODO there might be states in which we don't want to exit which ever mode we are in
+			if (!logic.getMode().elementsGeomEditiable()) { // TODO there might be states in which we don't want to exit which ever mode we are in
 				setMode(Mode.MODE_EASYEDIT);
 			}
 			logic.setSelectedNode(null);
@@ -1046,15 +1042,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (lock == null) {
 			return; //FIXME not good but no other alternative right now, already logged in setLock
 		}
-		if (mode == Mode.MODE_EASYEDIT) {
-			lock.setTag(EASY_TAG);
-		} else if ((mode == Mode.MODE_TAG_EDIT)) {
-			lock.setTag(TAG_TAG);
-		} else if ((mode == Mode.MODE_INDOOR)) {
-			lock.setTag(INDOOR_TAG);
-		} else {
-			lock.setTag(EASY_TAG);
-		}
+		lock.setTag(mode.tag());
 		
 		lock.setLongClickable(true);
 		lock.setOnClickListener(new View.OnClickListener() {
@@ -1064,14 +1052,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		        int[] drawableState = ((FloatingActionButton)b).getDrawableState();
 		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
 		        if(drawableState.length == 0 ||  (drawableState[0]!=android.R.attr.state_selected && drawableState[0]!=android.R.attr.state_pressed && drawableState[0]!=android.R.attr.state_focused)){
-		        	if (b.getTag().equals(INDOOR_TAG)) { 
-		        		logic.setMode(Logic.Mode.MODE_INDOOR);
+		        	Mode mode = Mode.modeForTag((String)b.getTag());
+		        	logic.setMode(mode);
+		        	if (Mode.MODE_INDOOR.equals(mode)) {
 		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_focused}, false); 
-		        	} else if (b.getTag().equals(TAG_TAG)) {
-		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
+		        	} else if (Mode.MODE_TAG_EDIT.equals(mode)) {
 		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false); 
 		        	} else { 
-		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
 		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_selected}, false); 
 		        	}
 		        	logic.setLocked(false);
@@ -1090,31 +1077,29 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		        final Logic logic = Application.getLogic();
 		        int[] drawableState = ((FloatingActionButton)b).getDrawableState();
 		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
-		        if(drawableState.length == 1 &&  (drawableState[0]==android.R.attr.state_selected || drawableState[0]==android.R.attr.state_pressed || drawableState[0]==android.R.attr.state_focused)){
-		        	if (logic.getMode() == Logic.Mode.MODE_TAG_EDIT) {
+		        if(drawableState.length == 1 && (drawableState[0]==android.R.attr.state_selected || drawableState[0]==android.R.attr.state_pressed || drawableState[0]==android.R.attr.state_focused)){
+		        	Mode mode = logic.getMode();
+		        	if (Mode.MODE_TAG_EDIT.equals(mode)) {
 		        		logic.setMode(Logic.Mode.MODE_INDOOR);
 		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_focused}, false);
-		        		b.setTag(INDOOR_TAG);
-		        	} else if (logic.getMode() == Logic.Mode.MODE_INDOOR) {
-		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
-		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_selected}, false);
-		        		b.setTag(EASY_TAG);
+		        	} else if (Mode.MODE_INDOOR.equals(mode)) {
+		        		logic.setMode(Logic.Mode.MODE_INDOOR);
+		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_focused}, false);
 		        	} else {
 		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
 		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false);
-		        		b.setTag(TAG_TAG);
 		        	}	 
+		        	b.setTag(logic.getMode().tag());
 		        } else {
-		        	if (b.getTag().equals(EASY_TAG)) {
-		        		logic.setMode(Logic.Mode.MODE_INDOOR);
-	        			b.setTag(INDOOR_TAG);
-		        	} else if (b.getTag().equals(INDOOR_TAG)) {
-		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
-	        			b.setTag(TAG_TAG);
+		        	Mode mode = Mode.modeForTag((String)b.getTag());
+		        	if (Mode.MODE_EASYEDIT.equals(mode)) {
+		        		logic.setMode(Mode.MODE_INDOOR);
+		        	} else if (Mode.MODE_INDOOR.equals(mode)) {
+		        		logic.setMode(Mode.MODE_TAG_EDIT);
 		        	} else{
-		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
-		        		b.setTag(EASY_TAG);
+		        		logic.setMode(Mode.MODE_EASYEDIT);
 		        	}
+		        	b.setTag(logic.getMode().tag());
 		        	((FloatingActionButton)b).setImageState(new int[]{0}, false);
 		        }
 		        onEditModeChanged();
@@ -1926,7 +1911,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			}
 			// this is very expensive: getLogic().saveAsync(); // if nothing was changed the dirty flag wont be set and the save wont actually happen 
 		}
-		if ((inEasyEditMode(logic) && easyEditManager != null && !easyEditManager.isProcessingAction()) 
+		if ((logic.getMode().elementsGeomEditiable() && easyEditManager != null && !easyEditManager.isProcessingAction()) 
 				|| logic.getMode()==Mode.MODE_TAG_EDIT) {
 			// not in an easy edit mode, de-select objects avoids inconsistent visual state 
 			logic.deselectAll();
@@ -2297,7 +2282,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
 				PropertyEditor.startForResult(this, single, applyLastAddressTags,
-						showPresets, askForName, logic.getMode() == Mode.MODE_INDOOR ? ((IndoorFilter)logic.getFilter()).getLevel() : null, REQUEST_EDIT_TAG);
+						showPresets, askForName, logic.getMode().getExtraTags(logic), REQUEST_EDIT_TAG);
 			}
 		}
 	}
@@ -2479,7 +2464,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
-			scheduleAutoLock();
+			descheduleAutoLock();
 			// Log.d("MapTouchListener", "onTouch");
 			if (m.getAction() == MotionEvent.ACTION_DOWN) {
 				// Log.d("MapTouchListener", "onTouch ACTION_DOWN");
@@ -2490,6 +2475,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			}
 			if (m.getAction() == MotionEvent.ACTION_UP) {
 				Application.getLogic().handleTouchEventUp(m.getX(), m.getY());
+				scheduleAutoLock();
 			}
 			mDetector.onTouchEvent(v, m);
 			return v.onTouchEvent(m);
@@ -2500,57 +2486,47 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		@Override
 		public void onClick(View v, float x, float y) {
-			try {
-				de.blau.android.tasks.MapOverlay osbo = map.getOpenStreetBugsOverlay();
-				clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
+			de.blau.android.tasks.MapOverlay osbo = map.getOpenStreetBugsOverlay();
+			clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
+
+			de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
+			clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
 			
-				de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
-				clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
+			final Logic logic = Application.getLogic();
+			Mode mode = logic.getMode();
+			boolean isInEditZoomRange = logic.isInEditZoomRange();
 			
-				final Logic logic = Application.getLogic();
-				Mode mode = logic.getMode();
-				boolean isInEditZoomRange = logic.isInEditZoomRange();
-			
-				if (isInEditZoomRange) {
-					if (logic.isLocked()) {
-						if (NetworkStatus.isConnected(Application.mainActivity) && prefs.voiceCommandsEnabled()) {
-							locationForIntent = lastLocation; // location when we touched the screen
-							startVoiceRecognition();
-						} else {
-							Toast.makeText(getApplicationContext(), R.string.toast_unlock_to_edit, Toast.LENGTH_SHORT).show();
-						}
+			if (isInEditZoomRange) {
+				if (logic.isLocked()) {
+					if (NetworkStatus.isConnected(Application.mainActivity) && prefs.voiceCommandsEnabled()) {
+						locationForIntent = lastLocation; // location when we touched the screen
+						startVoiceRecognition();
 					} else {
-						switch (mode) {
-						case MODE_TAG_EDIT:
-						case MODE_EASYEDIT:
-						case MODE_INDOOR:
-							performEdit(mode, v, x, y);
-							break;
-						default:
-							break;
-						}
+						Toast.makeText(getApplicationContext(), R.string.toast_unlock_to_edit, Toast.LENGTH_SHORT).show();
 					}
-					map.invalidate();
 				} else {
-					switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + ((clickedPhotos == null) ? 0 : clickedPhotos.size())) {
-					case 0:
-						if (!isInEditZoomRange && !logic.isLocked()) {
-							Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
-						}
-						break;
-					case 1:
-						if ((clickedBugs != null) && (clickedBugs.size() > 0))
-							performBugEdit(clickedBugs.get(0));
-						else if ((clickedPhotos != null) && (clickedPhotos.size() > 0))
-							viewPhoto(clickedPhotos.get(0));
-						break;
-					default:
-						v.showContextMenu();
-						break;
+					if (mode.elementsEditable()) {
+						performEdit(mode, v, x, y);
 					}
 				}
-			} finally {
-				scheduleAutoLock();
+				map.invalidate();
+			} else {
+				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + ((clickedPhotos == null) ? 0 : clickedPhotos.size())) {
+				case 0:
+					if (!isInEditZoomRange && !logic.isLocked()) {
+						Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
+					}
+					break;
+				case 1:
+					if ((clickedBugs != null) && (clickedBugs.size() > 0))
+						performBugEdit(clickedBugs.get(0));
+					else if ((clickedPhotos != null) && (clickedPhotos.size() > 0))
+						viewPhoto(clickedPhotos.get(0));
+					break;
+				default:
+					v.showContextMenu();
+					break;
+				}
 			}
 		}
 		
@@ -2573,79 +2549,63 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		@Override
 		public void onUp(View v, float x, float y) {
-			try {
-				if (inEasyEditMode(Application.getLogic())) {
-					easyEditManager.invalidate();
-				}
-			} finally {
-				scheduleAutoLock();
+			if (Application.getLogic().getMode().elementsGeomEditiable()) {
+				easyEditManager.invalidate();
 			}
 		}
 		
 		@Override
 		public boolean onLongClick(final View v, final float x, final float y) {
-			try {
-				final Logic logic = Application.getLogic();
-				if (!inEasyEditMode(logic)) {
-					if (logic.isLocked()) {
-						// display context menu
-						de.blau.android.tasks.MapOverlay osbo = map.getOpenStreetBugsOverlay();
-						clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
-						de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
-						clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
-						clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
-						int bugCount = clickedBugs != null ? clickedBugs.size() : 0;
-						int photoCount = clickedPhotos != null ? clickedPhotos.size() : 0;
-						int elementCount = clickedNodesAndWays != null ? clickedNodesAndWays.size() : 0;
-						int itemCount = bugCount + photoCount + elementCount; 
-						if (itemCount == 1) {
-							if (photoCount==1) {
-								viewPhoto(clickedPhotos.get(0));
-							} else if (bugCount==1) {
-								performBugEdit(clickedBugs.get(0));
-							} else if (elementCount==1) {
-								ElementInfo.showDialog(Main.this,clickedNodesAndWays.get(0));
-							}
-						} else if (itemCount > 0) {
-							v.showContextMenu();
+			final Logic logic = Application.getLogic();
+			if (!logic.getMode().elementsGeomEditiable()) {
+				if (logic.isLocked()) {
+					// display context menu
+					de.blau.android.tasks.MapOverlay osbo = map.getOpenStreetBugsOverlay();
+					clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
+					de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
+					clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
+					clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+					int bugCount = clickedBugs != null ? clickedBugs.size() : 0;
+					int photoCount = clickedPhotos != null ? clickedPhotos.size() : 0;
+					int elementCount = clickedNodesAndWays != null ? clickedNodesAndWays.size() : 0;
+					int itemCount = bugCount + photoCount + elementCount; 
+					if (itemCount == 1) {
+						if (photoCount==1) {
+							viewPhoto(clickedPhotos.get(0));
+						} else if (bugCount==1) {
+							performBugEdit(clickedBugs.get(0));
+						} else if (elementCount==1) {
+							ElementInfo.showDialog(Main.this,clickedNodesAndWays.get(0));
 						}
-						return true; 
+					} else if (itemCount > 0) {
+						v.showContextMenu();
 					}
-					return false; // ignore long clicks
+					return true; 
 				}
-			
-				if (logic.isInEditZoomRange()) {
-					setFollowGPS(false); // editing with the screen moving under you is a pain
-					return easyEditManager.handleLongClick(v, x, y);
-				} else {
-					Toast.makeText(v.getContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
-				}
-			
-				return true; // long click handled
-			} finally {
-				scheduleAutoLock();
+				return false; // ignore long clicks
 			}
+
+			if (logic.isInEditZoomRange()) {
+				setFollowGPS(false); // editing with the screen moving under you is a pain
+				return easyEditManager.handleLongClick(v, x, y);
+			} else {
+				Toast.makeText(v.getContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
+			}
+
+			return true; // long click handled
 		}
 
 		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
-			try {
-				// Log.d("MapTouchListener", "onDrag dx " + dx + " dy " + dy );
-				Application.getLogic().handleTouchEventMove(x, y, -dx, dy);
-				setFollowGPS(false);
-			} finally {
-				scheduleAutoLock();
-			}
+			// Log.d("MapTouchListener", "onDrag dx " + dx + " dy " + dy );
+			Application.getLogic().handleTouchEventMove(x, y, -dx, dy);
+			setFollowGPS(false);
 		}
 		
 		@Override
 		public void onScale(View v, float scaleFactor, float prevSpan, float curSpan) {
-			try {
-				Application.getLogic().zoom((curSpan - prevSpan) / prevSpan);
-				updateZoomControls();
-			} finally {
-				scheduleAutoLock();
-			}
+			Application.getLogic().zoom((curSpan - prevSpan) / prevSpan);
+			updateZoomControls();
 		}
 		
 		/**
@@ -2663,10 +2623,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				if (filter != null) { // filter indoor elements 
 					clickedNodesAndWays = filterElements(clickedNodesAndWays);
 				}
+				boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
 				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size() + ((clickedPhotos == null)? 0 : clickedPhotos.size())) {
 				case 0:
 					// no elements were touched
-					if (inEasyEditMode(logic)) {
+					if (inEasyEditMode) {
 						easyEditManager.nothingTouched(false);
 					}
 					break;
@@ -2678,7 +2639,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					else if (clickedPhotos != null && clickedPhotos.size() == 1) {
 						viewPhoto(clickedPhotos.get(0));
 					} else {
-						if (inEasyEditMode(logic)) {
+						if (inEasyEditMode) {
 							easyEditManager.editElement(clickedNodesAndWays.get(0));
 						} else {
 							performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
@@ -2691,7 +2652,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						v.showContextMenu();
 					} else {
 						// menuRequired tells us it's ok to just take the first one
-						if (inEasyEditMode(logic)) {
+						if (inEasyEditMode) {
 							easyEditManager.editElement(clickedNodesAndWays.get(0));
 						} else {
 							performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
@@ -2843,21 +2804,16 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					if (Application.getLogic().isLocked()) {
 						ElementInfo.showDialog(Main.this,element);
 					} else {
-						switch (Application.getLogic().getMode()) {
-						case MODE_TAG_EDIT:
-							performTagEdit(element, null, false, false, false);
-							break;
-						case MODE_EASYEDIT:
-						case MODE_INDOOR:
+						Mode mode = Application.getLogic().getMode();
+						if (mode.elementsGeomEditiable()) {
 							if (doubleTap) {
 								doubleTap = false;
 								easyEditManager.startExtendedSelection(element);
 							} else {
 								easyEditManager.editElement(element);
 							}
-							break;
-						default:
-							break;
+						} else if (mode.elementsEditable()) {
+							performTagEdit(element, null, false, false, false);
 						}
 					}
 				}
@@ -2896,22 +2852,23 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public boolean onDoubleTap(View v, float x, float y) {
 			final Logic logic = Application.getLogic();
+			boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
 			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
 			switch (clickedNodesAndWays.size()) {
 			case 0:
 				// no elements were touched
-				if (inEasyEditMode(logic)) {
+				if (inEasyEditMode) {
 					easyEditManager.nothingTouched(true); // short cut to finishing multi-select
 				}
 				break;
 			case 1:
-				if (inEasyEditMode(logic)) {
+				if (inEasyEditMode) {
 					easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
 				}
 				break;
 			default:
 				// multiple possible elements touched - show menu
-				if (inEasyEditMode(logic)) {
+				if (inEasyEditMode) {
 					if (menuRequired()) {
 						Log.d(DEBUG_TAG,"onDoubleTap displaying menu");
 						doubleTap  = true; // ugly flag
@@ -2928,15 +2885,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	}
 
-	/**
-	 * MODE_INDOOR is the same as EASYEDIT for most purposes
-	 * @param logic
-	 * @return
-	 */
-	private boolean inEasyEditMode(final Logic logic) {
-		return logic.getMode() == Mode.MODE_EASYEDIT || logic.getMode() == Mode.MODE_INDOOR;
-	}
-	
 	/**
 	 * A KeyListener for all key events.
 	 * 
@@ -3216,7 +3164,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				}
 				break;
 		}
-		if (logic.getMode()==Mode.MODE_EASYEDIT || logic.getMode()==Mode.MODE_INDOOR) {
+		if (logic.getMode().elementsGeomEditiable()) {
 			easyEditManager.editElement(e);
 			map.invalidate();
 		} else { // tag edit mode

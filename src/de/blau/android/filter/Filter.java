@@ -3,11 +3,8 @@ package de.blau.android.filter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.HashSet;
 
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.osm.Node;
@@ -19,7 +16,7 @@ public abstract class Filter implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	/**
 	 * cache for way nodes
 	 */
@@ -111,6 +108,9 @@ public abstract class Filter implements Serializable {
 		cachedNodes.clear();
 		cachedWays.clear();
 		cachedRelations.clear();
+	}
+	
+	public void saveState() {
 	}
 	
 	private void readObject(java.io.ObjectInputStream in)

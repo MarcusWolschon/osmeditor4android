@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -109,19 +110,76 @@ public class Logic {
 		/**
 		 * add nodes by tapping the screen
 		 */
-		MODE_TAG_EDIT,
+		MODE_TAG_EDIT("TAG",true,true,false),
 		/**
 		 * split ways by tapping the screen
 		 */
-		MODE_EASYEDIT,
+		MODE_EASYEDIT("EASY",true,true,true),
 		/**
 		 * Background alignment mode
 		 */
-		MODE_ALIGN_BACKGROUND,
+		MODE_ALIGN_BACKGROUND("EASY",false,false,false),
 		/**
 		 * Indoor mode
 		 */
-		MODE_INDOOR
+		MODE_INDOOR("INDOOR",true,true,true);
+		
+		final private String tag;
+		final private boolean selectable;
+		final private boolean editable;
+		final private boolean geomEditable;
+		
+		Mode(String tag, boolean selectable, boolean editable, boolean geomEditable) {
+			this.tag = tag;
+			this.selectable = selectable;
+			this.editable = editable;
+			this.geomEditable = editable;
+		}
+		
+		boolean elementsSelectable() {
+			return selectable;
+		}
+		
+		boolean elementsEditable() {
+			return editable;
+		}
+		
+		boolean elementsGeomEditiable() {
+			return geomEditable;
+		}
+		
+		String tag() {
+			return tag;
+		}
+		
+		/**
+		 * Return the Mode for a given tag
+		 * @param tag
+		 * @return
+		 */
+		static Mode modeForTag(String tag) {
+			for (Mode mode:Mode.values()) {
+				if (mode.tag().equals(tag)) {
+					return mode;
+				}
+			}
+			return null; // can't happen
+		}
+
+		/**
+		 * Get any special tags for this mode, not very elegant
+		 * @param logic
+		 * @return
+		 */
+		public HashMap<String, String> getExtraTags(Logic logic) {
+			switch (logic.getMode()) {
+			case MODE_INDOOR:
+				HashMap<String,String> result = new HashMap<String,String>();
+				result.put(Tags.KEY_LEVEL, Integer.toString(((IndoorFilter)logic.getFilter()).getLevel()));
+				return result;
+			default: return null;
+			}
+		}		
 	}
 
 	/**
@@ -398,6 +456,7 @@ public class Logic {
 			// indoor mode is a special case of a filter
 			// needs to be removed here
 			if (filter!=null && filter instanceof IndoorFilter) {
+				filter.saveState();
 				filter.hideControls();
 				filter.removeControls();
 				setFilter(null);
@@ -412,6 +471,7 @@ public class Logic {
 				} };
 			if (filter!=null) {
 				if (!(filter instanceof IndoorFilter)) {
+					filter.saveState();
 					filter.removeControls();
 					setFilter(new IndoorFilter());
 					getFilter().addControls(Application.mainActivity.getMapLayout(), updater);
@@ -1144,7 +1204,7 @@ public class Logic {
 	 */
 	synchronized void handleTouchEventDown(final float x, final float y) {
 		boolean draggingMultiselect = false;
-		if (!isLocked() && isInEditZoomRange() && (mode == Mode.MODE_EASYEDIT || mode == Mode.MODE_INDOOR)) {
+		if (!isLocked() && isInEditZoomRange() && mode.elementsGeomEditiable()) {
 			draggingNode = false;
 			draggingWay = false;
 			draggingHandle = false;

@@ -645,7 +645,7 @@ public class Map extends View implements IMapView {
 		
 		boolean drawTolerance = tmpDrawingInEditRange // if we are not in editing range none of the further checks are necessary
 								&& !tmpLocked 
-								&& tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND;
+								&& tmpDrawingEditMode.elementsSelectable();
 		
 		//Paint all ways
 		List<Way> ways = delegator.getCurrentStorage().getWays();
@@ -680,7 +680,7 @@ public class Map extends View implements IMapView {
 				   tmpDrawingSelectedNodes == null
 				&& tmpDrawingSelectedRelationWays == null
 				&& tmpDrawingSelectedRelationNodes == null
-				&& (tmpDrawingEditMode == Mode.MODE_EASYEDIT || tmpDrawingEditMode == Mode.MODE_INDOOR);
+				&& tmpDrawingEditMode.elementsGeomEditiable();
 		Collections.sort(tmpStyledWays,layerComparator);
 		for (Way w:tmpStyledWays) {
 			paintWay(canvas,w,displayHandles, drawTolerance);
