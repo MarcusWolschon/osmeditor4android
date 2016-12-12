@@ -671,7 +671,7 @@ public class EasyEditManager {
 				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_paste)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_paste));
 			}
 			// check if GPS is enabled
-			locationManager = (LocationManager)Application.mainActivity.getSystemService(android.content.Context.LOCATION_SERVICE);
+			locationManager = (LocationManager)main.getSystemService(android.content.Context.LOCATION_SERVICE);
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_gps));
 			}
@@ -703,7 +703,7 @@ public class EasyEditManager {
 				int id = 0;
 				menu.add(Menu.NONE, id++, Menu.NONE, R.string.split_all_ways).setOnMenuItemClickListener(this);
 				for (Way w:clickedNonClosedWays) {
-					menu.add(Menu.NONE, id++, Menu.NONE, w.getDescription(Application.mainActivity)).setOnMenuItemClickListener(this);
+					menu.add(Menu.NONE, id++, Menu.NONE, w.getDescription(main)).setOnMenuItemClickListener(this);
 				}
 			}
 		}	
@@ -1252,7 +1252,7 @@ public class EasyEditManager {
 			menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_multi_select));
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation));
 			if (element.getOsmId() > 0) {
-				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
+				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(main));
 			}
 			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));
 			menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION,  Menu.CATEGORY_SYSTEM|10, R.string.menu_zoom_to_selection);
@@ -1462,9 +1462,9 @@ public class EasyEditManager {
 		}
 		
 		@SuppressLint("InflateParams")
-		AppCompatDialog 	createSetPositionDialog(int lonE7, int latE7) {
-			final LayoutInflater inflater = ThemeUtils.getLayoutInflater(Application.mainActivity);
-			Builder dialog = new AlertDialog.Builder(Application.mainActivity);
+		AppCompatDialog createSetPositionDialog(int lonE7, int latE7) {
+			final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
+			Builder dialog = new AlertDialog.Builder(main);
 			dialog.setTitle(R.string.menu_set_position);
 			
 			View layout = inflater.inflate(R.layout.set_position, null);

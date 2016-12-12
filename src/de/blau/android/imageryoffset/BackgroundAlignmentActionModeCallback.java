@@ -86,9 +86,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	
 	private ActionMenuView cabBottomBar;
 	
-	public BackgroundAlignmentActionModeCallback(Mode oldMode) {
+	public BackgroundAlignmentActionModeCallback(Main main, Mode oldMode) {
 		this.oldMode = oldMode;
-		main = Application.mainActivity; // currently we are only called from here
+		this.main = main; // currently we are only called from here
 		map = main.getMap();
 		osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		oldOffsets = osmts.getOffsets().clone();

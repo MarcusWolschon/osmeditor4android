@@ -1553,7 +1553,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			
 		case R.id.menu_tools_background_align:
 			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_MOVE; // protect against weird state
-			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(oldMode);
+			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(this, oldMode);
 			logic.setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
 			startSupportActionMode(getBackgroundAlignmentActionModeCallback());
 			return true;
@@ -1679,8 +1679,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @return true if GPS is enabled, false if not
 	 */
 	private boolean ensureGPSProviderEnabled() {
-		LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		try {
+			LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				gpsChecked = false;
 				return true;
@@ -2140,7 +2140,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return;
 		}
 		Log.d(DEBUG_TAG, "authURl " + authUrl);
-		oAuthWebView = new WebView(Application.mainActivity);
+		oAuthWebView = new WebView(this);
 		rl.addView(oAuthWebView);
 		oAuthWebView.getSettings().setJavaScriptEnabled(true);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -2463,7 +2463,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (isInEditZoomRange) {
 				switch (mode) {
 				case MODE_MOVE:
-					if (NetworkStatus.isConnected(Application.mainActivity) && prefs.voiceCommandsEnabled()) {
+					if (NetworkStatus.isConnected(Main.this) && prefs.voiceCommandsEnabled()) {
 						locationForIntent = lastLocation; // location when we touched the screen
 						startVoiceRecognition();
 					} else {
@@ -2666,13 +2666,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (clickedNodesAndWays != null) {
 				Logic logic = Application.getLogic();
 				for (OsmElement e : clickedNodesAndWays) {
-					String description = e.getDescription(Application.mainActivity);
+					String description = e.getDescription(Main.this);
 					if (e instanceof Node) {
 						List<Way> ways =  Application.getLogic().getWaysForNode((Node)e);
 						if (ways != null && ways.size() > 0) {
 							description = description + " (";
 							for (Way w:ways) {
-								description = description + w.getDescription(Application.mainActivity) + ((ways.indexOf(w)!=(ways.size()-1)?", ":""));
+								description = description + w.getDescription(Main.this) + ((ways.indexOf(w)!=(ways.size()-1)?", ":""));
 							}
 							description = description + ")";
 						}
