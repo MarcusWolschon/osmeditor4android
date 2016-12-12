@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-11-29 18:17+0100\n"
-"PO-Revision-Date: 2016-11-29 17:20+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2016-12-11 09:48+0000\n"
+"Last-Translator: Teiron <mmok444@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -546,7 +546,7 @@ msgstr ""
 
 #: master_preset.xml:2613(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lagoon"
-msgstr ""
+msgstr "Laguna"
 
 #: master_preset.xml:5576(item:name|group:Social_Facilities|preset:Nursing_Home)
 msgid "Nursing Home"
@@ -8846,22 +8846,22 @@ msgstr ""
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Manufacture"
-msgstr ""
+msgstr "Budynek Produkcyjny"
 
 #: master_preset.xml:552(list_entry:short_description|value:gynaecology)
 msgctxt "healthcare"
 msgid "Gynaecology"
-msgstr ""
+msgstr "Ginekologia"
 
 #: master_preset.xml:558(list_entry:short_description|value:chiropractic)
 msgctxt "healthcare"
 msgid "Chiropractic"
-msgstr ""
+msgstr "Chiropraktyka"
 
 #: master_preset.xml:559(list_entry:short_description|value:dermatology)
 msgctxt "healthcare"
 msgid "Dermatology"
-msgstr ""
+msgstr "Dermatologia"
 
 #: master_preset.xml:554(list_entry:short_description|value:internal)
 msgctxt "healthcare"
@@ -8871,12 +8871,12 @@ msgstr ""
 #: master_preset.xml:557(list_entry:short_description|value:otolaryngology)
 msgctxt "healthcare"
 msgid "Otolaryngology"
-msgstr ""
+msgstr "Laryngologia"
 
 #: master_preset.xml:561(list_entry:short_description|value:radiology)
 msgctxt "healthcare"
 msgid "Radiology"
-msgstr ""
+msgstr "Radiologia"
 
 #: master_preset.xml:551(list_entry:short_description|value:general)
 msgctxt "healthcare"
@@ -8886,27 +8886,27 @@ msgstr ""
 #: master_preset.xml:553(list_entry:short_description|value:ophthalmology)
 msgctxt "healthcare"
 msgid "Ophthalmology"
-msgstr ""
+msgstr "Okulistyka"
 
 #: master_preset.xml:562(list_entry:short_description|value:psychiatry)
 msgctxt "healthcare"
 msgid "Psychiatry"
-msgstr ""
+msgstr "Psychiatria"
 
 #: master_preset.xml:556(list_entry:short_description|value:paediatrics)
 msgctxt "healthcare"
 msgid "Paediatrics"
-msgstr ""
+msgstr "Pediatria"
 
 #: master_preset.xml:560(list_entry:short_description|value:urology)
 msgctxt "healthcare"
 msgid "Urology"
-msgstr ""
+msgstr "Urologia"
 
 #: master_preset.xml:555(list_entry:short_description|value:orthopaedics)
 msgctxt "healthcare"
 msgid "Orthopaedics"
-msgstr ""
+msgstr "Ortopedia "
 
 #: master_preset.xml:6226(item:name|group:Golf|preset:Driving_range)
 msgctxt "golf"

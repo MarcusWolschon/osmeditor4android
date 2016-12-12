@@ -29,10 +29,14 @@
   <string name="upload_gpx_description_label">Beskrivelse</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="openstreetbug_new_title">Ny note</string>
+  <string name="openstreetbug_new_bug">Rapporter problem</string>
+  <string name="openstreetbug_bug_title">Problem</string>
   <string name="openstreetbug_new_nodeway">Opret Knude/Vej</string>
   <string name="openstreetbug_edit_title">Ret note</string>
   <string name="openstreetbug_commitbutton">Commit</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
+  <string name="openstreetbug_edit_close">Luk</string>
+  <string name="openstreetbug_edit_closed">Lukket</string>
   <string name="openstreetbug_last_updated">sidst opdateret</string>
   <string name="unsaved_data_title">Bemærk!</string>
   <string name="unsaved_data_message">Du har ugemte ændringer, som mistes, hvis du fortsætter.</string>
@@ -93,6 +97,7 @@
   <string name="tag_menu_move_top">Flyt til top</string>
   <string name="tag_menu_move_down">Flyt ned</string>
   <string name="tag_menu_move_bottom">Flyt til bund</string>
+  <string name="tag_menu_sort">Sortere</string>
   <string name="tag_menu_download">Download</string>
   <string name="menu_up">Op</string>
   <string name="menu_top">Top</string>
@@ -266,6 +271,8 @@
   <string name="membership_relation_heading">Medlem af relation</string>
   <string name="relation">Relation</string>
   <string name="relations">Relationer</string>
+  <string name="position">Pos.</string>
+  <string name="type">Type</string>
   <string name="object">Objekt</string>
   <string name="deleterelation">Slet relation</string>
   <!--time and distance-->
