@@ -57,6 +57,7 @@ import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.IndoorFilter;
+import de.blau.android.filter.TagFilter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -110,30 +111,32 @@ public class Logic {
 		/**
 		 * add nodes by tapping the screen
 		 */
-		MODE_TAG_EDIT("TAG",true,true,false),
+		MODE_TAG_EDIT("TAG",true,true,false,android.R.attr.state_pressed),
 		/**
 		 * split ways by tapping the screen
 		 */
-		MODE_EASYEDIT("EASY",true,true,true),
+		MODE_EASYEDIT("EASY",true,true,true, android.R.attr.state_selected),
 		/**
 		 * Background alignment mode
 		 */
-		MODE_ALIGN_BACKGROUND("EASY",false,false,false),
+		MODE_ALIGN_BACKGROUND("EASY",false,false,false, android.R.attr.state_selected),
 		/**
 		 * Indoor mode
 		 */
-		MODE_INDOOR("INDOOR",true,true,true);
+		MODE_INDOOR("INDOOR",true,true,true,android.R.attr.state_focused);
 		
 		final private String tag;
 		final private boolean selectable;
 		final private boolean editable;
 		final private boolean geomEditable;
+		final private int lockState; // this is a temp hack
 		
-		Mode(String tag, boolean selectable, boolean editable, boolean geomEditable) {
+		Mode(String tag, boolean selectable, boolean editable, boolean geomEditable, int lockState) {
 			this.tag = tag;
 			this.selectable = selectable;
 			this.editable = editable;
 			this.geomEditable = editable;
+			this.lockState = lockState;
 		}
 		
 		boolean elementsSelectable() {
@@ -146,6 +149,10 @@ public class Logic {
 		
 		boolean elementsGeomEditiable() {
 			return geomEditable;
+		}
+		
+		int getLockState() {
+			return lockState;
 		}
 		
 		String tag() {
@@ -445,6 +452,12 @@ public class Logic {
 	 */
 	public void setMode(final Mode mode) {
 		if (this.mode == mode) return;
+		Filter.Update updater = new Filter.Update() {
+			@Override
+			public void execute() {
+				map.invalidate();
+				Application.mainActivity.scheduleAutoLock();
+			} };
 		this.mode = mode;
 		Main.onEditModeChanged();
 		setSelectedBug(null);
@@ -454,27 +467,31 @@ public class Logic {
 			deselectAll();
 		case MODE_TAG_EDIT:
 			// indoor mode is a special case of a filter
-			// needs to be removed here
-			if (filter!=null && filter instanceof IndoorFilter) {
-				filter.saveState();
-				filter.hideControls();
-				filter.removeControls();
-				setFilter(null);
-			}
+			// needs to be removed here and previous filter, if any, restored
+			if (filter!=null) { 
+				if (filter instanceof IndoorFilter) {
+					filter.saveState();
+					filter.hideControls();
+					filter.removeControls();
+					filter = filter.getSavedFilter();
+					setFilter(filter);
+					if (filter!=null) {
+						filter.addControls(Application.mainActivity.getMapLayout(), updater);
+						filter.showControls();
+					}
+				}
+			} 
 			break;
 		case MODE_INDOOR:
-			Filter.Update updater = new Filter.Update() {
-				@Override
-				public void execute() {
-					map.invalidate();
-					Application.mainActivity.scheduleAutoLock();
-				} };
 			if (filter!=null) {
 				if (!(filter instanceof IndoorFilter)) {
 					filter.saveState();
+					filter.hideControls();
 					filter.removeControls();
-					setFilter(new IndoorFilter());
-					getFilter().addControls(Application.mainActivity.getMapLayout(), updater);
+					IndoorFilter indoor = new IndoorFilter();
+					indoor.saveFilter(filter);
+					setFilter(indoor);
+					indoor.addControls(Application.mainActivity.getMapLayout(), updater);
 				}
 			} else { // no filter yet
 				setFilter(new IndoorFilter());
@@ -4324,7 +4341,7 @@ public class Logic {
 	}
 	
 	/**
-	 * @return teh current object filter
+	 * @return the current object filter
 	 */
 	public Filter getFilter() {
 		return filter;

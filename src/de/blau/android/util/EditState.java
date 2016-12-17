@@ -102,6 +102,9 @@ public class EditState implements Serializable {
 		main.setImageFileName(savedImageFileName);
 		logic.setLastComments(savedLastComments);
 		logic.setLastSources(savedLastSources);
+		if (savedFilter != null) {
+			savedFilter.init(main);
+		}
 		logic.setFilter(savedFilter);
 		Application.setTaskNotifications(main,savedTaskNotifications);
 		Application.setOsmDataNotifications(main,savedOsmDataNotifications);

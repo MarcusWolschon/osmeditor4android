@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 
+import android.content.Context;
 import android.view.ViewGroup;
 import de.blau.android.Application;
 import de.blau.android.Logic;
@@ -16,7 +17,7 @@ public abstract class Filter implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 	/**
 	 * cache for way nodes
 	 */
@@ -26,10 +27,19 @@ public abstract class Filter implements Serializable {
 	
 	transient Logic logic = Application.getLogic();
 
+	Filter savedFilter = null;
+	
 	Filter() {
 		logic.setAttachedObjectWarning(true); // set this to true when we create a new filter 
 	}
 
+	/**
+	 * This is for any serialisation that might have to happen post deseriaisation
+	 * @param context
+	 */
+	public void init(Context context) {	
+	}
+	
 	/**
 	 * If true include this element
 	 * @param node
@@ -70,6 +80,15 @@ public abstract class Filter implements Serializable {
 		}
 		return false;
 	}
+	
+	public void saveFilter(Filter filter) {
+		savedFilter = filter;
+	}
+	
+	public Filter getSavedFilter() {
+		return savedFilter;
+	}
+	
 	
 	public abstract interface Update {
 		abstract void execute();

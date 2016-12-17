@@ -359,6 +359,7 @@
     <string name="menu_tools_background_contrast">Contrast</string>
     <string name="menu_tools_oauth_reset">Reset OAuth</string>
     <string name="menu_tools_oauth_authorisation">Authorise OAuth</string>
+    <string name="menu_enable_tagfilter">Enable filter</string>
 
     <!-- element action mode menu -->
     <string name="menu_tags">Properties</string>
@@ -670,5 +671,23 @@
 		<item>@string/full_screen_never</item>
 		<item>@string/full_screen_force</item>
 		<item>@string/full_screen_no_statusbar</item>
+    </string-array>
+    <string-array translatable="false" name="tagfilter_mode_entries">
+        <item>&#8211;</item>
+		<item>+</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>All</item>
+		<item>Nodes</item>
+		<item>Ways</item>
+<!-- 		<item>Ways+</item> -->
+		<item>Relations</item>
+    </string-array>
+    <string-array translatable="false" name="tagfilter_type_values">
+        <item>*</item>
+		<item>node</item>
+		<item>way</item>
+<!-- 		<item>way+</item> -->
+		<item>relation</item>
     </string-array>
 </resources>

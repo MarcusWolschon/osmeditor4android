@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -32,7 +31,7 @@ public class IndoorFilter extends Filter {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 	final static String DEBUG_TAG = "IndoorFilter";
 	
 	/**
@@ -64,11 +63,13 @@ public class IndoorFilter extends Filter {
 			include = selected || (node.hasTags() && !node.hasTagKey(Tags.KEY_LEVEL) && !node.hasTagKey(Tags.KEY_REPEAT_ON));
 		}
 		
-		// check if it is a relation member 
-		List<Relation> parents = node.getParentRelations();
-		if (parents != null) {
-			for (Relation r:parents) {
-				include = include || include(r, false);
+		if (!include) {
+			// check if it is a relation member 
+			List<Relation> parents = node.getParentRelations();
+			if (parents != null) {
+				for (Relation r:parents) {
+					include = include || include(r, false);
+				}
 			}
 		}
 		
@@ -97,11 +98,13 @@ public class IndoorFilter extends Filter {
 					 && !(way.hasTagKey(Tags.KEY_MIN_LEVEL) || way.hasTagKey(Tags.KEY_MAX_LEVEL)));
 		}
 		
-		// check if it is a relation member 
-		List<Relation> parents = way.getParentRelations();
-		if (parents != null) {
-			for (Relation r:parents) {
-				include = include || include(r, false);
+		if (!include) {
+			// check if it is a relation member 
+			List<Relation> parents = way.getParentRelations();
+			if (parents != null) {
+				for (Relation r:parents) {
+					include = include || include(r, false);
+				}
 			}
 		}
 			

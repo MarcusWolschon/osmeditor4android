@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    style="?attr/Layout" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginBottom="1dp" >
+    	<CheckBox
+       		android:id="@+id/active"
+        	android:layout_width="34dp"
+        	android:layout_height="fill_parent"
+        	android:layout_alignParentTop="true"
+        	android:layout_alignParentLeft="true"
+       	 	android:paddingLeft="5dp"
+		    android:paddingRight="5dp" />
+		<Spinner
+        	android:id="@+id/mode"
+        	android:layout_width="wrap_content"
+        	android:layout_height="fill_parent"
+        	android:minHeight="32dp"
+        	android:layout_marginLeft="1dp"
+        	android:layout_centerVertical="true"
+        	android:layout_toRightOf="@id/active"
+        	style="?attr/spinnerStyle"
+        	android:entries="@array/tagfilter_mode_entries" />
+        <ImageButton
+            android:id="@+id/delete"
+    		style="?attr/TableHeader"
+    		android:layout_width="41dp"
+    		android:layout_height="fill_parent"
+    		android:layout_marginLeft="1dp"
+    		android:layout_alignParentTop="true"
+        	android:layout_alignParentRight="true"
+    		android:contentDescription="@string/delete"
+    		android:src="?attr/menu_delete" />
+    	<Spinner
+        	android:id="@+id/type"
+        	android:layout_width="wrap_content"
+        	android:layout_height="fill_parent"
+        	android:minHeight="32dp"
+        	android:layout_marginLeft="1dp"
+        	android:layout_centerVertical="true"
+        	android:layout_toRightOf="@id/mode"
+        	android:layout_toLeftOf="@id/delete"
+        	style="?attr/spinnerStyle"
+        	android:entries="@array/tagfilter_type_entries" />
+     </RelativeLayout>
+     <LinearLayout
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginBottom="2dp" >
+    	<EditText
+        	android:id="@+id/key"
+    	    android:layout_width="fill_parent"
+       	 	android:layout_height="fill_parent"
+       	 	android:minHeight="32dp"
+    	    android:layout_weight="2"
+        	android:paddingLeft="5dp"
+	    	android:paddingRight="5dp"
+	    	android:inputType="textNoSuggestions"
+	    	android:singleLine="true"
+        	android:hint="@string/key"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+    	<EditText
+        	android:id="@+id/value"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="2"
+        	android:paddingLeft="5dp"
+	    	android:paddingRight="5dp"
+	    	android:layout_marginLeft="1dp"
+	    	android:inputType="textNoSuggestions"
+	    	android:singleLine="true"
+        	android:hint="@string/value"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+</LinearLayout>

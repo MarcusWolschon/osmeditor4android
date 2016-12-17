@@ -106,6 +106,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.IndoorFilter;
+import de.blau.android.filter.TagFilter;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
@@ -722,6 +723,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		scheduleAutoLock();
+		
+		if (prefs.getEnableTagFilter() && logic.getMode() != Mode.MODE_INDOOR) {
+			Filter.Update updater = new Filter.Update() {
+				@Override
+				public void execute() {
+					map.invalidate();
+					scheduleAutoLock();
+				} };
+			logic.setFilter(new TagFilter(this));
+			logic.getFilter().addControls(getMapLayout(), updater);
+		}
 	}
 	
 	/**
@@ -1054,13 +1066,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		        if(drawableState.length == 0 ||  (drawableState[0]!=android.R.attr.state_selected && drawableState[0]!=android.R.attr.state_pressed && drawableState[0]!=android.R.attr.state_focused)){
 		        	Mode mode = Mode.modeForTag((String)b.getTag());
 		        	logic.setMode(mode);
-		        	if (Mode.MODE_INDOOR.equals(mode)) {
-		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_focused}, false); 
-		        	} else if (Mode.MODE_TAG_EDIT.equals(mode)) {
-		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false); 
-		        	} else { 
-		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_selected}, false); 
-		        	}
+		        	((FloatingActionButton)b).setImageState(new int[]{mode.getLockState()}, false); 
 		        	logic.setLocked(false);
 		        } else {
 		        	logic.setLocked(true);
@@ -1077,29 +1083,18 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		        final Logic logic = Application.getLogic();
 		        int[] drawableState = ((FloatingActionButton)b).getDrawableState();
 		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
+		        Mode mode = logic.getMode();
+	        	switch (mode) {
+	        	case MODE_TAG_EDIT: mode = Mode.MODE_INDOOR; break;
+	        	case MODE_INDOOR: mode = Mode.MODE_EASYEDIT; break;
+	        	case MODE_EASYEDIT:
+	        	case MODE_ALIGN_BACKGROUND: mode = Mode.MODE_TAG_EDIT; break;
+	        	}
+	        	logic.setMode(mode);
+	        	b.setTag(mode.tag());
 		        if(drawableState.length == 1 && (drawableState[0]==android.R.attr.state_selected || drawableState[0]==android.R.attr.state_pressed || drawableState[0]==android.R.attr.state_focused)){
-		        	Mode mode = logic.getMode();
-		        	if (Mode.MODE_TAG_EDIT.equals(mode)) {
-		        		logic.setMode(Logic.Mode.MODE_INDOOR);
-		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_focused}, false);
-		        	} else if (Mode.MODE_INDOOR.equals(mode)) {
-		        		logic.setMode(Logic.Mode.MODE_INDOOR);
-		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_focused}, false);
-		        	} else {
-		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
-		        		((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false);
-		        	}	 
-		        	b.setTag(logic.getMode().tag());
-		        } else {
-		        	Mode mode = Mode.modeForTag((String)b.getTag());
-		        	if (Mode.MODE_EASYEDIT.equals(mode)) {
-		        		logic.setMode(Mode.MODE_INDOOR);
-		        	} else if (Mode.MODE_INDOOR.equals(mode)) {
-		        		logic.setMode(Mode.MODE_TAG_EDIT);
-		        	} else{
-		        		logic.setMode(Mode.MODE_EASYEDIT);
-		        	}
-		        	b.setTag(logic.getMode().tag());
+		        	((FloatingActionButton)b).setImageState(new int[]{mode.getLockState()}, false);
+		        } else { // locked
 		        	((FloatingActionButton)b).setImageState(new int[]{0}, false);
 		        }
 		        onEditModeChanged();
@@ -1248,6 +1243,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		menu.findItem(R.id.menu_transfer_save_notes_new_and_changed).setEnabled(storagePermissionGranted);
 		menu.findItem(R.id.menu_gps_export).setEnabled(storagePermissionGranted);
 		
+		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnableTagFilter());
+		
 		menuUtil.setShowAlways(menu);
 		// only show camera icon if we have a camera, and a camera app is installed 
 		PackageManager pm = getPackageManager();
@@ -1294,6 +1291,26 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				}
 			});
 			return true;
+		case R.id.menu_enable_tagfilter:
+			prefs.enableTagFilter(!prefs.getEnableTagFilter());
+			if (prefs.getEnableTagFilter() && logic.getFilter() == null){
+				Filter.Update updater = new Filter.Update() {
+					@Override
+					public void execute() {
+						map.invalidate();
+						scheduleAutoLock();
+					} };
+				logic.setFilter(new TagFilter(this));
+				logic.getFilter().addControls(getMapLayout(), updater);
+				logic.getFilter().showControls();
+			} else if (logic.getFilter() != null && logic.getMode() != Mode.MODE_INDOOR) {
+				logic.getFilter().hideControls();
+				logic.getFilter().removeControls();
+				logic.setFilter(null);
+			}
+			triggerMenuInvalidation();
+			map.invalidate();
+			return true;	
 			
 		case R.id.menu_help:
 			HelpViewer.start(this, R.string.help_main);
