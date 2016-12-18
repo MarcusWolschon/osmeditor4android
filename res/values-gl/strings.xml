@@ -15,6 +15,7 @@
   <string name="progress_title">Cargando</string>
   <string name="progress_message">Cargando datos na memoria...</string>
   <string name="progress_download_message">Descargando datos desde o servidor...</string>
+  <string name="progress_searching_message">Buscando…</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="openstreetbug_new_title">Nova Nota</string>
@@ -28,6 +29,9 @@
   <string name="unsaved_data_title">Coidado!</string>
   <string name="unsaved_data_message">Tes cambios sen gardar que serán descartados se continúas.</string>
   <string name="unsaved_data_proceed">Descartar e continuar</string>
+  <string name="search_results_title">Resultados da busca</string>
+  <string name="find_message">Introduza a cadea de busca</string>
+  <string name="search">Buscar</string>
   <!--Toaster-->
   <string name="toast_no_changes">Aínda non cambiaches nada</string>
   <string name="toast_upload_success">Subida ao servidor de OSM finalizada.</string>
@@ -80,6 +84,7 @@
   <string name="menu_edit">Editar</string>
   <string name="menu_add">Novo</string>
   <string name="menu_config">Preferencias</string>
+  <string name="menu_find">Atopar</string>
   <string name="menu_help">Axuda</string>
   <string name="menu_erase">Borrar punto</string>
   <string name="menu_split">Dividir</string>
@@ -87,19 +92,38 @@
   <string name="menu_tag">Editar etiquetas</string>
   <string name="menu_openstreetbug">Engadir Nota</string>
   <string name="menu_easyedit">Edición Fácil</string>
-  <string name="menu_gps">GPS...</string>
+  <string name="menu_camera">Cámara</string>
+  <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Mostrar localización</string>
   <string name="menu_gps_follow">Seguir posición GPS</string>
+  <string name="menu_gps_goto">Ir a posición GPS</string>
   <string name="menu_gps_start">Iniciar pista GPS</string>
   <string name="menu_gps_pause">Pausar pista GPS</string>
   <string name="menu_gps_clear">Borrar pista GPS</string>
+  <string name="menu_gps_track_managment">Xestión da pista…</string>
   <string name="menu_gps_upload">Subir pista GPS</string>
   <string name="menu_gps_export">Exportar pista GPS</string>
+  <string name="menu_gps_import">Importar pista GPS</string>
+  <string name="menu_gps_goto_start">Ir ao inicio da pista</string>
+  <string name="menu_gps_autodownload">Descarga automática</string>
   <string name="menu_transfer">Transferir...</string>
   <string name="menu_transfer_download_current">Descargar vista actual</string>
+  <string name="menu_transfer_download_current_add">Engadir vista actual á descarga</string>
   <string name="menu_transfer_download_other">Descargar outra localización</string>
   <string name="menu_transfer_upload">Subir datos ao servidor OSM</string>
+  <string name="menu_transfer_file">Ficheiro…</string>
   <string name="menu_transfer_export">Exportar cambios</string>
+  <string name="menu_transfer_read_file">Ler desde ficheiro</string>
+  <string name="menu_transfer_save_file">Gardar en ficheiro</string>
+  <string name="menu_transfer_bugs">Notas/Erros</string>
+  <string name="menu_transfer_bugs_download_current">Descargar erros para a vista actual</string>
+  <string name="menu_transfer_bugs_upload">Subir todo</string>
+  <string name="menu_transfer_bugs_upload_long">Subir tódolos erros</string>
+  <string name="menu_transfer_bugs_clear">Borrar</string>
+  <string name="menu_transfer_bugs_clear_long">Borrar erros</string>
+  <string name="menu_transfer_autodownload_long">Descargar erros automáticamente</string>
+  <string name="menu_transfer_save_notes_all">Gardar tódalas notas</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Gardar notas novas ou modificadas…</string>
   <string name="menu_save">Gardar en ficheiro</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
@@ -107,6 +131,7 @@
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Pegar</string>
   <string name="menu_rotate">Rotar</string>
+  <string name="menu_tools">Ferramentas</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
@@ -125,15 +150,34 @@
   <string name="actionmode_relationselect">Relación seleccionada</string>
   <string name="actionmode_createpath">Creando camiño</string>
   <!--Preferences-->
+  <string name="config_category_editing">Axustes de datos e edición</string>
+  <string name="config_category_view">Axustes da interface de usuario</string>
+  <string name="config_showCameraAction_title">Mostrar a acción da cámara</string>
+  <string name="config_showCameraAction_summary">Mostrar a icona da cámara na barra de acción</string>
+  <string name="config_generateAlerts_title">Xerar notificacións</string>
+  <string name="config_generateAlerts_summary">Xerar notificacións para datos con problemas ou con notas</string>
+  <string name="config_voiceCommandsEnabled_title">Activar comandos de voz</string>
+  <string name="config_voiceCommandsEnabled_summary">Activar soporte experimental para comandos de voz</string>
+  <string name="config_maxAlertDistance_title">Distancia máx. de notificacións</string>
+  <string name="config_maxAlertDistance_summary">A distancia máxima á que un problema ou nota pode estar da posición actual para xerar unha notificación</string>
   <string name="config_maxStrokeWidth_title">Máxima anchura de liña</string>
   <string name="config_maxStrokeWidth_summary">Non debuxar unha vía máis ancha que isto</string>
+  <string name="config_tileCacheSize_title">Tamaño da caché de teselas</string>
+  <string name="config_tileCacheSize_summary">Tamaño total da caché de teselas en MB</string>
   <string name="config_showStats_title">Mostrar estadísticas</string>
   <string name="config_showStats_summary">Mostrar estadísticas de datos e fotogramas/seg na esquina inferior esquerda</string>
   <string name="config_showTolerance_title">Mostrar tolerancia</string>
   <string name="config_showTolerance_summary">Mostra a área onde un elemento pode ser seleccionado.</string>
   <string name="config_enableAntiAliasing_title">Activar Anti-Aliasing</string>
   <string name="config_enableAntiAliasing_summary">Facer as liñas máis suaves.</string>
+  <string name="config_enableOpenStreetBugs_title">Mostrar erros e notas</string>
   <string name="config_enableOpenStreetBugs_summary">Mostrar, editar e crear Notas/Erros.</string>
+  <string name="config_enablePhotoLayer_title">Activar capa fotográfica</string>
+  <string name="config_enablePhotoLayer_summary">Mostrar fotografías xeorreferenciadas.</string>
+  <string name="config_enableKeepScreenOn_title">Manter pantalla acendida</string>
+  <string name="config_enableKeepScreenOn_summary">Non apagar a pantalla para aforrar enerxía.</string>
+  <string name="config_closeChangesetOnSave_title">Cerrar conxuntos de cambios</string>
+  <string name="config_closeChangesetOnSave_summary">Cerrar por defecto conxuntos de cambios ao gardar</string>
   <string name="config_backgroundLayer_title">Fondo de mapa</string>
   <string name="config_backgroundLayer_summary">O fondo gráfico do mapa</string>
   <string name="config_category_server">Axustes do Servidor</string>
@@ -168,6 +212,7 @@
   <string name="changes_changed">\"%1$s\" modificado</string>
   <string name="changes_created">\"%1$s\" creado</string>
   <string name="confirm_upload_title">Subir?</string>
+  <string name="confirm_upload_text">Subir os seguintes cambios?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Engadir preaxuste</string>
   <string name="urldialog_preset_exists">Este preaxuste xa existe</string>
@@ -188,6 +233,7 @@
   <string name="undo">Desfacer</string>
   <string name="redo">Refacer</string>
   <string name="undo_nothing">nada para desfacer</string>
+  <string name="tracking_active_text">Vespucci está gravando unha pista GPS ou descargando automáticamente</string>
   <string name="gps_failure">Fallo ao habilitar o GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover punto</string>

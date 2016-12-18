@@ -51,6 +51,10 @@
   <string name="search_results_title">Søgeresultater</string>
   <string name="find_message">Indtast søgetekst</string>
   <string name="search">Søg</string>
+  <string name="id">Id</string>
+  <string name="problem">Problem</string>
+  <string name="members">Medlemmer</string>
+  <string name="closed">Lukket</string>
   <string name="version">Version</string>
   <string name="length_m">Længde (m)</string>
   <string name="empty_role">tom rolle</string>
@@ -65,7 +69,12 @@
   <string name="toast_not_in_bug_range">Zoom venligst ind for at tilføje en bug (Volume Op/Ned eller Lens/Shift)</string>
   <string name="toast_export_failed">Eksport mislykkedes</string>
   <string name="toast_export_success">Eksporteret til %1$s</string>
+  <string name="toast_unread_mail">Du har %1$s ulæste mail(s) på OpenStreetMap serveren</string>
+  <string name="toast_noname">Vej mangler navn eller ref</string>
+  <string name="toast_notype">Relation mangler type</string>
   <string name="coordinates_out_of_range">Længdegrad skal være mellem -180°/+180°, breddegrad mellem -85°/85°</string>
+  <string name="toast_nothing_found">Intet fundet</string>
+  <string name="toast_file_not_found">%1$s ikke fundet.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
@@ -104,6 +113,12 @@
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Tilføj tags for %1$s</string>
   <string name="tag_restriction_header">Værdi</string>
+  <string name="tag_restriction_when">når</string>
+  <string name="tag_restriction_and">og</string>
+  <string name="tag_restriction_add_simple_condition">Tilføj simpel betingelse</string>
+  <string name="tag_restriction_add_expression">Tilføj udtryk</string>
+  <string name="tag_restriction_add_opening_hours">Tilføj åbningstider</string>
+  <string name="tag_restriction_value_hint">betinget begrænsning</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Indlæs område</string>
   <string name="location_choose_radius">Vælg radius:</string>
@@ -171,6 +186,8 @@
   <string name="actionmode_relationselect">Relation valgt</string>
   <string name="actionmode_createpath">Opretter sti</string>
   <!--Preferences-->
+  <string name="config_maxStrokeWidth_title">Max linjebredde</string>
+  <string name="config_maxStrokeWidth_summary">Tegn ikke en vej tykkere end dette</string>
   <string name="config_tileCacheSize_title">Tern cache størrelse</string>
   <string name="config_tileCacheSize_summary">Total størrelse på tern cache i MB</string>
   <string name="config_showStats_title">Vis statistik</string>

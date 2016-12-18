@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Ingen</item>
+    <item>Skala (meter)</item>
+    <item>Gitter (meter)</item>
+    <item>Skala (britisk)</item>
+    <item>Gitter (britisk)</item>
+  </string-array>
+</resources>

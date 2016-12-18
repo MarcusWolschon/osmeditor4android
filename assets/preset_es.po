@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-11-29 18:17+0100\n"
-"PO-Revision-Date: 2016-12-12 13:02+0000\n"
+"PO-Revision-Date: 2016-12-17 12:17+0000\n"
 "Last-Translator: Albert\n"
 "Language-Team: Spanish (http://www.transifex.com/openstreetmap/presets/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -5925,61 +5925,61 @@ msgstr "Funicular"
 #: master_preset.xml:10352(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 #: master_preset.xml:10215(combo:display_values|group:Routes|preset:Bicycle_Route|key:network)
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: master_preset.xml:1221(combo:text|group:Ways|preset:Path|key:snowmobile)
 msgid "Snowmobile"
-msgstr ""
+msgstr "Motonieve"
 
 #: master_preset.xml:4052(item:name|group:Accommodation|preset:Apartment)
 msgid "Apartment"
-msgstr ""
+msgstr "Apartamento"
 
 #: master_preset.xml:324(combo:text|key:leaf_cycle)
 msgid "Cycle"
-msgstr ""
+msgstr "Bici"
 
 #: master_preset.xml:1145(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left:through)
 #: master_preset.xml:1101(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left:through)
 #: master_preset.xml:1127(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left:through)
 msgid "Left and through"
-msgstr ""
+msgstr "A la izquierda y a través"
 
 #: master_preset.xml:8487(item:name|group:For_the_body|preset:Tobacco)
 msgid "Tobacco"
-msgstr ""
+msgstr "Tabaco"
 
 #: master_preset.xml:5352(item:name|group:Health|preset:Emergency_Access_Point)
 msgid "Emergency Access Point"
-msgstr ""
+msgstr "Punto de Acceso de Emergencia"
 
 #: master_preset.xml:2952(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "Guía de autobuses"
 
 #: master_preset.xml:116(combo:text|key:gauge)
 msgid "Gauge (mm)"
-msgstr ""
+msgstr "Grosor (mm)"
 
 #: master_preset.xml:3327(label:text|group:Car|preset:Charging_Station)
 msgid "Authentication:"
-msgstr ""
+msgstr "Autenticación:"
 
 #: master_preset.xml:10198(role:text|group:Relations|preset:Enforcement|key:force)
 msgid "traffic light or barrier that stops you"
-msgstr ""
+msgstr "semáforo o barrera que le detiene"
 
 #: master_preset.xml:11317(item:name|group:Offices|preset:Research)
 msgid "Research"
-msgstr ""
+msgstr "Investigación"
 
 #: master_preset.xml:477(multiselect:text|key:brand)
 msgid "Motorcycle brand"
-msgstr ""
+msgstr "Marca de motocicleta"
 
 #: master_preset.xml:566(group:name|group:Highways)
 msgid "Highways"
-msgstr ""
+msgstr "Autovías"
 
 #: master_preset.xml:1128(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:slight_left)
 #: master_preset.xml:1148(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:through)
@@ -5988,149 +5988,149 @@ msgstr ""
 #: master_preset.xml:1102(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:slight_left)
 #: master_preset.xml:1146(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:slight_left)
 msgid "Slight left"
-msgstr ""
+msgstr "Un poco a la izquierda"
 
 #: master_preset.xml:8365(item:name|group:Home_decoration|preset:Interior_Decoration)
 msgid "Interior Decoration"
-msgstr ""
+msgstr "Decoración de Interiores"
 
 #: master_preset.xml:8806(item:name|preset:Vending_Machine)
 msgid "Vending Machine"
-msgstr ""
+msgstr "Máquina Expendedora"
 
 #: master_preset.xml:1999(item:name|group:Barriers|preset:Swing_Gate)
 msgid "Swing Gate"
-msgstr ""
+msgstr "Puerta batiente"
 
 #: master_preset.xml:5471(item:name|group:Emergency|preset:Assembly_Point)
 msgid "Assembly Point"
-msgstr ""
+msgstr "Punto de Reunión"
 
 #: master_preset.xml:2991(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
-msgstr ""
+msgstr "Cruce a nivel"
 
 #: master_preset.xml:3688(check:text|group:Public_Transport|preset:Platform|key:aerialway)
 msgid "aerialway"
-msgstr ""
+msgstr "Vía aérea"
 
 #: master_preset.xml:7215(combo:text|group:Power|preset:Power_Plant|key:plant:output:electricity)
 #: master_preset.xml:388(combo:text|key:generator:output:electricity)
 msgid "electricity"
-msgstr ""
+msgstr "electricidad"
 
 #: master_preset.xml:337(combo:display_values|key:denomination)
 msgid "Methodist"
-msgstr ""
+msgstr "Metodista"
 
 #: master_preset.xml:3330(check:text|group:Car|preset:Charging_Station|key:authentication:phone_call)
 msgid "Phone call"
-msgstr ""
+msgstr "Llamada telefónica"
 
 #: master_preset.xml:7729(item:name|group:Historic_Places|preset:Wayside_Cross)
 msgid "Wayside Cross"
-msgstr ""
+msgstr "Cruz junto al camino"
 
 #: master_preset.xml:2105(item:name|group:Passageways|preset:Building_Passage)
 msgid "Building Passage"
-msgstr ""
+msgstr "Pasaje del Edificio"
 
 #: master_preset.xml:2512(item:name|group:Water|preset:Dam)
 msgid "Dam"
-msgstr ""
+msgstr "Presa"
 
 #: master_preset.xml:2586(item:name|group:Water|preset:Covered_Reservoir)
 msgid "Covered Reservoir"
-msgstr ""
+msgstr "Depósito Cubierto"
 
 #: master_preset.xml:2678(list_entry:short_description|group:Water|preset:Wetland|value:saltern)
 msgid "Saltern"
-msgstr ""
+msgstr "Salina"
 
 #: master_preset.xml:317(text:text|key:descent)
 msgid "Descent (m)"
-msgstr ""
+msgstr "Pendiente (m)"
 
 #: master_preset.xml:9702(item:name|group:Land_use|preset:Recreation_Ground)
 msgid "Recreation Ground"
-msgstr ""
+msgstr "Área de Recreo"
 
 #: master_preset.xml:10670(item:name|group:Crafts|preset:Electrician)
 msgid "Electrician"
-msgstr ""
+msgstr "Electricista"
 
 #: master_preset.xml:11329(item:name|group:Offices|preset:Tax_advisor)
 msgid "Tax advisor"
-msgstr ""
+msgstr "Asesor fiscal"
 
 #: master_preset.xml:662(check:text|group:Streets|preset:Trunk|key:motorroad)
 #: master_preset.xml:720(check:text|group:Streets|preset:Primary|key:motorroad)
 #: master_preset.xml:688(check:text|group:Streets|preset:Trunk_Link|key:motorroad)
 #: master_preset.xml:739(check:text|group:Streets|preset:Primary_Link|key:motorroad)
 msgid "Motorroad"
-msgstr ""
+msgstr "Carretera de motor"
 
 #: master_preset.xml:10146(text:text|group:Relations|preset:Site|key:name)
 msgid "Site name"
-msgstr ""
+msgstr "Nombre del lugar"
 
 #: master_preset.xml:9442(label:text|group:Nature|preset:Scrub)
 msgid ""
 "Bare lower lying uncultivated land with bushes but little or no tree cover."
-msgstr ""
+msgstr "Tierra baja desnuda sin cultivar con arbustos pero poca o ninguna cubierta de árboles."
 
 #: master_preset.xml:5364(label:text|group:Health|preset:Emergency_Access_Point)
 msgid "(Use number as shown on plate.)"
-msgstr ""
+msgstr "(Utilice el número como se muestra en la placa.)"
 
 #: master_preset.xml:6705(item:name|group:Man_Made|preset:Residential_Building)
 msgid "Residential Building"
-msgstr ""
+msgstr "Edificio Residencial"
 
 #: master_preset.xml:10149(role:text|group:Relations|preset:Site|key:perimeter)
 msgid "perimeter of the site"
-msgstr ""
+msgstr "Perímetro del sito"
 
 #: master_preset.xml:509(combo:text|key:tactile_paving)
 msgid "Tactile paving"
-msgstr ""
+msgstr "Pavimentación táctil"
 
 #: master_preset.xml:390(combo:text|key:generator:output:hot_air)
 #: master_preset.xml:7217(combo:text|group:Power|preset:Power_Plant|key:plant:output:hot_air)
 msgid "hot air"
-msgstr ""
+msgstr "aire caliente"
 
 #: master_preset.xml:4612(label:text|group:Leisure|preset:Swimming_Pool)
 msgid "Used for the water area only."
-msgstr ""
+msgstr "Utilizado sólo en el área de agua."
 
 #: master_preset.xml:5914(combo:text|group:Facilities|preset:Bench|key:seats)
 msgid "Seats count"
-msgstr ""
+msgstr "Cuenta de asientos"
 
 #: master_preset.xml:4238(item:name|group:Food+Drinks|preset:Food_Court)
 msgid "Food Court"
-msgstr ""
+msgstr "Zona de restaurantes"
 
 #: master_preset.xml:9742(item:name|group:Land_use|preset:Cemetery)
 msgid "Cemetery"
-msgstr ""
+msgstr "Cementerio"
 
 #: master_preset.xml:4797(group:name|group:Culture)
 msgid "Culture"
-msgstr ""
+msgstr "Cultura"
 
 #: master_preset.xml:102(list_entry:short_description|value:no)
 msgid "No crossing"
-msgstr ""
+msgstr "Sin cruce peatonal"
 
 #: master_preset.xml:1712(item:name|preset:Traffic_Mirror)
 msgid "Traffic Mirror"
-msgstr ""
+msgstr "Espejo de Tráfico"
 
 #: master_preset.xml:1965(item:name|group:Barriers|preset:Entrance_(Barrier_Opening))
 msgid "Entrance (Barrier Opening)"
-msgstr ""
+msgstr "Entrada (Apertura de Barrera)"
 
 #: master_preset.xml:6912(check:text|group:Man_Made|preset:Mineshaft|key:headframe)
 msgid "Visible Headframe"
