@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1220: Increase version to 0.9.9, updated translations and release notes, remove sv-SE (just use sv), add filter facility, and indoor mode, add tag based filtering, fix numerous small issues, change way geometry improvement handles work.  
+
 1216: Fix issue with determining the tile storage location on some devices without removable storage.
 
 1214: Update default preset, imagery and translations, fix various smaller bugs.
