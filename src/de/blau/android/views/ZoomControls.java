@@ -69,14 +69,14 @@ public class ZoomControls extends LinearLayout {
 	
 	public void setIsZoomInEnabled (boolean isEnabled) {
 		zoomIn.setEnabled(isEnabled);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			zoomIn.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(context, isEnabled ? R.attr.colorControlNormal:R.attr.colorPrimary,R.color.dark_grey));
-		}
+		 }
 	}
 	
 	public void setIsZoomOutEnabled (boolean isEnabled) {
 		zoomOut.setEnabled(isEnabled);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			zoomOut.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(context, isEnabled ? R.attr.colorControlNormal:R.attr.colorPrimary,R.color.dark_grey));
 		}
 	}

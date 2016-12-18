@@ -10,11 +10,11 @@
 	</style>
 
 	<style name="Theme.AppCompatPrefs" parent="@style/Theme.AppCompat">
-		    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+		<item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 	</style>
 	
 	<style name="Theme.AppCompatPrefsLight" parent="@style/Theme.AppCompat.Light">
-		    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+		 <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 	</style>
 
 	<style name="Theme.custom" parent="@style/Theme.AppCompat">
@@ -230,7 +230,27 @@
 		<item name="not_downloaded_line_small">@drawable/line_small_dark</item>
 		<item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
 	</style>
+	
+	<style name="Theme.customActionBar" parent="@style/Theme.AppCompat">
+	    <item name="windowActionModeOverlay">true</item>
+		<item name="actionBarStyle">@style/TagEditorActionBar</item>
+		<item name="autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
+		<item name="editTextStyle">@style/EditTextDark</item> 
+		<item name="checkboxStyle">@style/CheckBox</item>
+		<item name="android:spinnerStyle">@style/SpinnerStyle</item>
+		<item name="spinnerStyle">@style/SpinnerStyle</item>
+		<item name="RadioGroup">@style/RadioGroupStyleDark</item>
+		<item name="TableHeader">@style/TableHeader</item>
+		<item name="Layout">@style/Layout</item>
+		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
+		<!--  icons  -->
+		<item name="menu_delete">@drawable/ic_action_discard_holo_dark</item>
+	</style>
 
+	<style name="Theme.customTagEditorActionBar" parent="Theme.customTagEditor">
+	    <item name="android:windowActionBar">true</item>
+	</style>
+	
 	<style name="TagEditorActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid" />
 
 
@@ -366,6 +386,23 @@
 		<item name="not_downloaded_node_small">@drawable/node_small_dark</item>
 		<item name="not_downloaded_line_small">@drawable/line_small_dark</item>
 		<item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
+	</style>
+	
+	<style name="Theme.customActionBar.Light" parent="@style/Theme.AppCompat.Light">
+	    <item name="windowActionModeOverlay">true</item>
+		<item name="actionBarStyle">@style/TagEditorActionBarLight</item>
+		<item name="autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
+		<item name="editTextStyle">@style/EditTextLight</item> 
+		<item name="checkboxStyle">@style/CheckBoxLight</item>
+		<item name="android:spinnerStyle">@style/SpinnerStyleLight</item>
+		<item name="spinnerStyle">@style/SpinnerStyleLight</item>
+		<item name="RadioGroup">@style/RadioGroupStyleLight</item>
+		<item name="TableHeader">@style/TableHeaderLight</item>
+		<item name="PagerTabStrip">@style/PagerTabStripLight</item>
+		<item name="Layout">@style/LayoutLight</item>
+		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
+		<!--  icons  -->
+		<item name="menu_delete">@drawable/ic_action_discard_holo_light</item>
 	</style>
 
 	<style name="TagEditorActionBarLight" parent="@style/Widget.AppCompat.Light.ActionBar.Solid" />

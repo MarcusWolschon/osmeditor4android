@@ -557,6 +557,19 @@ public class Preferences {
 		return prefs.getBoolean(key, false);
 	}
 	
+	public void enableTagFilter(boolean on) {
+		prefs.edit().putBoolean(r.getString(R.string.config_tagFilter_key), on).commit();
+	}
+	
+	public boolean getEnableTagFilter() {
+		String key = r.getString(R.string.config_tagFilter_key);
+		if (!prefs.contains(key)) {
+			// create the entry
+			enableTagFilter(false);
+		}
+		return prefs.getBoolean(key, false);
+	}
+	
 	public void setBugAutoDownload(boolean on) {
 		prefs.edit().putBoolean(r.getString(R.string.config_bugAutoDownload_key), on).commit();
 	}

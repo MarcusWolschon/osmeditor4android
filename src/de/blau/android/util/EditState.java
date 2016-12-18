@@ -12,6 +12,7 @@ import de.blau.android.Logic.Mode;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.exception.OsmException;
+import de.blau.android.filter.Filter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
@@ -26,7 +27,8 @@ import de.blau.android.tasks.Task;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 15L;
+	private static final long serialVersionUID = 18L;
+	final boolean savedLocked;
 	final Mode savedMode;
 	final List<Node> savedNodes;
 	final List<Way> savedWays;
@@ -42,8 +44,10 @@ public class EditState implements Serializable {
 	final NotificationCache savedTaskNotifications;
 	final NotificationCache savedOsmDataNotifications;
 	final boolean savedFollowGPS;
+	final Filter savedFilter;
 
 	public EditState(Context context, Logic logic, TileLayerServer osmts, String imageFileName, BoundingBox box, boolean followGPS) {
+		savedLocked = logic.isLocked();
 		savedMode = logic.getMode();
 		savedNodes = logic.getSelectedNodes();
 		savedWays = logic.getSelectedWays();
@@ -59,10 +63,12 @@ public class EditState implements Serializable {
 		savedTaskNotifications = Application.getTaskNotifications(context);
 		savedOsmDataNotifications = Application.getOsmDataNotifications(context);
 		savedFollowGPS = followGPS;
+		savedFilter = logic.getFilter();
 	}
 	
 	public void setSelected(Logic logic) {
-		logic.setMode(savedMode == null ? Mode.MODE_MOVE : savedMode);
+		logic.setLocked(savedLocked);
+		logic.setMode(savedMode);
 		Log.d("EditState","savedMode " + savedMode);
 		if (savedNodes != null) {
 			for (Node n:savedNodes) {
@@ -96,6 +102,10 @@ public class EditState implements Serializable {
 		main.setImageFileName(savedImageFileName);
 		logic.setLastComments(savedLastComments);
 		logic.setLastSources(savedLastSources);
+		if (savedFilter != null) {
+			savedFilter.init(main);
+		}
+		logic.setFilter(savedFilter);
 		Application.setTaskNotifications(main,savedTaskNotifications);
 		Application.setOsmDataNotifications(main,savedOsmDataNotifications);
 		main.setFollowGPS(savedFollowGPS);

@@ -5,6 +5,7 @@
 <feature name="problem_node_thin" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
 <feature name="problem_way" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way_direction" internal="true" updateWidth="true" widthFactor="0.8" editable="true" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
+<feature name="handle" internal="true" updateWidth="true" widthFactor="0.8" editable="true" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
 <feature name="selected_way" internal="true" updateWidth="true" widthFactor="2.0" editable="true" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" />
 <feature name="way_tolerance" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="40.0" />
 <feature name="way_tolerance_2" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="40.0" />
@@ -60,6 +61,12 @@
 <feature name="way-waterway" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-natural-water" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-building" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" />
+<feature name="way-building:part" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
+	<dash phase="1.0">
+		<interval length="2.0" />
+		<interval length="2.0" />
+	</dash>
+</feature>
 <feature name="way-highway-construction" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="88888888" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-proposed" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="88888888" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-pedestrian" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff888888" style="STROKE" cap="BUTT" join="MITER" />
@@ -133,6 +140,9 @@
 		<interval length="2.0" />
 	</dash>
 </feature>
+<!-- Indoor features -->
+<feature name="way-indoor" internal="false" updateWidth="true" widthFactor="0.7" editable="true" color="fff4a442" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
+<feature name="way-indoor-corridor" internal="false" updateWidth="true" widthFactor="0.7" editable="true" color="fff2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
 <!-- OSM node based features -->
 <feature name="node" internal="true" updateWidth="true" widthFactor="1.0" editable="true" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
 <feature name="node_tagged" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />

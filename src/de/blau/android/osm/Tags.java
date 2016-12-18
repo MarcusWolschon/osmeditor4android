@@ -115,5 +115,20 @@ public class Tags {
 		return Tags.KEY_WEBSITE.equals(key)||Tags.KEY_CONTACT_WEBSITE.equals(key);
 	}
 	
+	// Indoor keys
+	public static final String KEY_LEVEL = "level";
+	public static final String KEY_MIN_LEVEL = "min_level";
+	public static final String KEY_MAX_LEVEL = "max_level";
+	public static final String KEY_REPEAT_ON = "repeat_on";
+	public static final String KEY_INDOOR = "indoor";
+	public static final String VALUE_ROOM = "room";
+	public static final String VALUE_CORRIDOR = "corridor";
+	public static final String VALUE_AREA = "area";
+	public static final String VALUE_LEVEL = "level";
 	
+	// S3DB
+	public static final String KEY_BUILDING_PART = "building:part";
+	
+	//
+	public static final String KEY_LAYER = "layer";
 }

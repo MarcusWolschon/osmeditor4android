@@ -169,6 +169,10 @@
         android:icon="?attr/menu_find"
         android:title="@string/menu_find"
         app:showAsAction="ifRoom"/>
+     <item
+        android:id="@+id/menu_enable_tagfilter"
+        android:checkable="true"
+        android:title="@string/menu_enable_tagfilter"/>
     <item
         android:id="@+id/menu_help"
         android:alphabeticShortcut="@string/shortcut_help"
