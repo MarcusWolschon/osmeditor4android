@@ -2450,7 +2450,7 @@ public class StorageDelegator implements Serializable, Exportable {
 							temp.insertNodeUnsafe(apiNode);
 							nodes.set(i,apiNode);
 						} else {
-							Log.e("StorageDelegator","mergeData null way node for way " + w.getOsmId() + " node " + wayNodeId + " v" + wayNode.getOsmVersion());
+							Log.e("StorageDelegator","mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId + " v" + wayNode.getOsmVersion());
 							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 							ACRA.getErrorReporter().handleException(null);
 							return false;
