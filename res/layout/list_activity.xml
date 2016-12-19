@@ -16,10 +16,12 @@
          android:background="?attr/colorPrimary"
          android:drawSelectorOnTop="false" />
 
-<!--      <TextView android:id="@android:id/empty" -->
-<!--                android:layout_width="match_parent" -->
-<!--                android:layout_height="match_parent" -->
-<!--                android:text="No data"/> -->
+     <TextView android:id="@android:id/empty"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_marginTop="12dp"
+               android:text="@string/empty_list"
+               android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add"

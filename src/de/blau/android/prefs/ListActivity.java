@@ -3,6 +3,8 @@ package de.blau.android.prefs;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -33,5 +35,16 @@ public class ListActivity extends AppCompatActivity {
 		} else {
 			return adapter;
 		}
+	}
+	
+	@Override
+	public void onContentChanged() {
+	    super.onContentChanged();
+	    View empty = findViewById(android.R.id.empty);
+	    if (empty != null) {
+	    	getListView().setEmptyView(empty);
+	    } else {
+	    	Log.e("ListActivitiy","empty view not found");
+	    }
 	}
 }

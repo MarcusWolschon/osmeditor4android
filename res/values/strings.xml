@@ -528,6 +528,7 @@
     <string name="name">Name</string>
     <string name="url">URL</string>
     <string name="default_">Default</string>
+    <string name="empty_list">No entries</string>
     <string name="api_name">API Name</string>
     <string name="api_url">API URL</string>
     <string name="readonly_url">Read-only API URL (optional)</string>
