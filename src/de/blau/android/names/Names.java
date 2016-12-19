@@ -12,12 +12,13 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.google.gson.stream.JsonReader;
+
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.SearchIndexUtils;
-import de.blau.android.util.jsonreader.JsonReader;
 
 
 /**

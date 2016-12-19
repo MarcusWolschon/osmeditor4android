@@ -16,6 +16,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -56,8 +59,6 @@ import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.jsonreader.JsonReader;
-import de.blau.android.util.jsonreader.JsonToken;
 
 public class BackgroundAlignmentActionModeCallback implements Callback {
 	

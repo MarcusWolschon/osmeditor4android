@@ -22,21 +22,19 @@ Thanks to:
   Tobias Preuss (Code)
   zibiczek (Polish translation)
 
-everybody helping with translation on Transifex and anyone else we forgot!
+and everybody helping with translation on Transifex and anyone else we forgot!
 
-The Vespucci application, excluding the GPLv3-only preset icons found in the folder assets/images/presets and assets/images/presets/styles, is licensed under the Apache License, version 2. You can find the full text of the license in the file "LICENSE-Apache.txt". The Apache License version 2 allows to use the covered work in a GPLv3 work.
+The Vespucci application, excluding the GPLv3-only preset icons found in the folder assets/images/presets, is licensed under the Apache License, version 2. You can find the full text of the license in the file "LICENSE-Apache.txt". The Apache License version 2 allows to use the covered work in a GPLv3 work.
 
 The full project contains a small number of icons taken from the JOSM project under the GPLv3. Therefore, the full package, consisting of Vespucci and the bundled preset icons, is licensed under the GPLv3. You can find the full text of the GPLv3 in the file "LICENSE-GPL3.txt". The list of contributors and sources for the icons can be found in the "josm-contributors.txt" file.
 
 The source code may be obtained from github at https://github.com/MarcusWolschon/osmeditor4android .
 
-If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/presets and assets/images/presets/styles and disable the use of the "NoNonsense FilePicker".
+If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/presets and disable the use of the "NoNonsense FilePicker", the application will remain functional.
 
 OAuth support for Vespucci is provided by the oauth-signpost library https://github.com/mttkay/signpost licensed under the Apache License, version 2.
 
 EXIF support outside of what is provided by google is implemented with the metadata extractor library https://github.com/drewnoakes/metadata-extractor licensed under the Apache License, version 2.
-
-The JsonReader and related classes are Copyright (C) 2010 The Android Open Source Project licensed under the Apache License, version 2.
 
 MultiSelectListPreference is Copyright (C) 2015 The Android Open Source Project licensed under the Apache License, version 2.
 
@@ -48,7 +46,9 @@ The OkHttp and associated libraries are Copyright 2016 Square, Inc. licensed und
 
 The NoNonsense Filepicker is licensed under the Mozilla Public License, v. 2.0.
 
-The GeoJson classes are Copyright (c) 2016 Mapbox licensed on MIT terms (see the source directory).
+The GeoJson and Turf classes are Copyright (c) 2016 Mapbox licensed on MIT terms (see the source directory).
+
+The google gson library is licensed under the Apache License, version 2.
 
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0

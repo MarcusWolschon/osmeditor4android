@@ -17,6 +17,7 @@ import java.util.concurrent.TimeoutException;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
@@ -40,7 +41,6 @@ import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.util.jsonreader.JsonReader;
 import de.blau.android.util.mapbox.geojson.Feature;
 import de.blau.android.util.mapbox.geojson.FeatureCollection;
 import de.blau.android.util.mapbox.geojson.Geometry;
