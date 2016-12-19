@@ -1243,6 +1243,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		menu.findItem(R.id.menu_transfer_save_notes_new_and_changed).setEnabled(storagePermissionGranted);
 		menu.findItem(R.id.menu_gps_export).setEnabled(storagePermissionGranted);
 		
+		Filter filter = logic.getFilter();
+		if (filter != null && filter instanceof TagFilter && !prefs.getEnableTagFilter()) {
+			// something is wrong, try to sync
+			prefs.enableTagFilter(true);
+			Log.d(DEBUG_TAG,"had to resync tagfilter pref");
+		}
 		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnableTagFilter());
 		
 		menuUtil.setShowAlways(menu);
