@@ -13,6 +13,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import de.blau.android.R;
+import de.blau.android.contract.Urls;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
@@ -225,7 +226,7 @@ public class Preferences {
 			gpsInterval = 1000;
 		}
 		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
-		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
+		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OFFSET_SERVER);
 		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
 		try {
@@ -557,19 +558,6 @@ public class Preferences {
 		return prefs.getBoolean(key, false);
 	}
 	
-	public void enableTagFilter(boolean on) {
-		prefs.edit().putBoolean(r.getString(R.string.config_tagFilter_key), on).commit();
-	}
-	
-	public boolean getEnableTagFilter() {
-		String key = r.getString(R.string.config_tagFilter_key);
-		if (!prefs.contains(key)) {
-			// create the entry
-			enableTagFilter(false);
-		}
-		return prefs.getBoolean(key, false);
-	}
-	
 	public void setBugAutoDownload(boolean on) {
 		prefs.edit().putBoolean(r.getString(R.string.config_bugAutoDownload_key), on).commit();
 	}
@@ -598,5 +586,31 @@ public class Preferences {
 	
 	public boolean getAlwaysDrawBoundingBoxes() {	
 		return alwaysDrawBoundingBoxes;
+	}
+	
+	public void enableTagFilter(boolean on) {
+		prefs.edit().putBoolean(r.getString(R.string.config_tagFilter_key), on).commit();
+	}
+	
+	public boolean getEnableTagFilter() {
+		String key = r.getString(R.string.config_tagFilter_key);
+		if (!prefs.contains(key)) {
+			// create the entry
+			enableTagFilter(false);
+		}
+		return prefs.getBoolean(key, false);
+	}
+	
+	public void setGeocoder(int index) {
+		prefs.edit().putInt(r.getString(R.string.config_geocoder_key), index).commit();
+	}
+	
+	public int getGeocoder() {
+		String key = r.getString(R.string.config_geocoder_key);
+		if (!prefs.contains(key)) {
+			// create the entry
+			setGeocoder(0);
+		}
+		return prefs.getInt(key, 0);
 	}
 }

@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.google.gson.stream.JsonReader;
+
 import android.content.Context;
 import android.util.Log;
 import de.blau.android.Application;
@@ -18,7 +20,6 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.jsonreader.JsonReader;
 
 
 /**

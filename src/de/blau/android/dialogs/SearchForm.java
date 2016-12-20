@@ -15,13 +15,21 @@ import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
 import de.blau.android.util.Search.SearchResult;
 import de.blau.android.util.SearchItemFoundCallback;
@@ -106,7 +114,30 @@ public class SearchForm extends DialogFragment
     	
     	final EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
     	searchEdit.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-      	
+    	
+    	final Spinner searchGeocoder = (Spinner) searchLayout.findViewById(R.id.location_search_geocoder);
+    	AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
+    	final Geocoder[] geocoders = db.getActiveGeocoders();
+    	String[] geocoderNames = new String[geocoders.length];
+    	for (int i=0;i<geocoders.length;i++) {
+    		geocoderNames[i] = geocoders[i].name; 
+    	}
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+    		    getActivity(), android.R.layout.simple_spinner_item, geocoderNames);
+    	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	searchGeocoder.setAdapter(adapter);
+    	final Preferences prefs = new Preferences(getActivity());
+    	searchGeocoder.setSelection(prefs.getGeocoder());
+      	searchGeocoder.setOnItemSelectedListener(new OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+				prefs.setGeocoder(pos);
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}});
+    	
+    	
     	searchBuilder.setPositiveButton(R.string.search, new OnClickListener() {
     			@Override
     			public void onClick(DialogInterface dialog, int which) {
@@ -136,7 +167,7 @@ public class SearchForm extends DialogFragment
     			if (actionId == EditorInfo.IME_ACTION_SEARCH
     					|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
     				Search search = new Search((AppCompatActivity) getActivity(), realCallback);
-    				search.find(v.getText().toString(),bbox);
+    				search.find(geocoders[searchGeocoder.getSelectedItemPosition()],v.getText().toString(),bbox);
     				return true;
     			}
     			return false;

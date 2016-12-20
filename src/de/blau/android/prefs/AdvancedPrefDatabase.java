@@ -15,6 +15,7 @@ import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.contract.Urls;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 
@@ -30,15 +31,16 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private final SharedPreferences prefs;
 	private final String PREF_SELECTED_API;
 
-	private final static int DATA_VERSION = 7;
+	private final static int DATA_VERSION = 8;
 	private final static String LOGTAG = "AdvancedPrefDB";
-	
-	public final static String API_DEFAULT = "https://api.openstreetmap.org/api/0.6/";
-	public final static String API_DEFAULT_NO_HTTPS = "http://api.openstreetmap.org/api/0.6/";
-	
+		
 	/** The ID string for the default API and the default Preset */
 	public final static String ID_DEFAULT = "default";
 	public final static String ID_DEFAULT_NO_HTTPS = "default_no_https";
+	
+	public final static String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
+	public final static String ID_DEFAULT_GEOCODER_PHOTON = "Photon";
+
 	
 	/** The ID of the currently active API */
 	private String currentAPI;
@@ -64,6 +66,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	public synchronized void onCreate(SQLiteDatabase db) {
 		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
 		db.execSQL("CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT, active INTEGER DEFAULT 0)");
+		db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
+		addGeocoder(ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER,true);
+		addGeocoder(ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER,true);
 	}
 
 	@Override
@@ -76,21 +81,26 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			db.execSQL("ALTER TABLE apis ADD COLUMN oauth INTEGER DEFAULT 0");
 			db.execSQL("ALTER TABLE apis ADD COLUMN accesstoken TEXT DEFAULT NULL");
 			db.execSQL("ALTER TABLE apis ADD COLUMN accesstokensecret TEXT DEFAULT NULL");
-			db.execSQL("UPDATE apis SET url='" + API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
+			db.execSQL("UPDATE apis SET url='" + Urls.DEFAULT_API + "' WHERE id='"+ ID_DEFAULT + "'");
 		}
 		if (oldVersion <= 3 && newVersion >= 4) {
 			db.execSQL("ALTER TABLE presets ADD COLUMN active INTEGER DEFAULT 0");
 			db.execSQL("UPDATE presets SET active=1 WHERE id='default'");
 		}
 		if (oldVersion <= 4 && newVersion >= 5) {
-			db.execSQL("UPDATE apis SET url='"  + API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
+			db.execSQL("UPDATE apis SET url='"  + Urls.DEFAULT_API + "' WHERE id='"+ ID_DEFAULT + "'");
 		}
 		if (oldVersion <= 5 && newVersion >= 6) {
 			db.execSQL("ALTER TABLE apis ADD COLUMN readonlyurl TEXT DEFAULT NULL");
 			db.execSQL("ALTER TABLE apis ADD COLUMN notesurl TEXT DEFAULT NULL");
 		}
 		if (oldVersion <= 6 && newVersion >= 7) {
-			addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", API_DEFAULT_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 	
+			addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 	
+		}
+		if (oldVersion <= 7 && newVersion >= 8) {
+			db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
+			addGeocoder(db, ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER,true);
+			addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER,true);
 		}
 	}
 	
@@ -112,9 +122,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
 		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
-		addAPI(db, ID_DEFAULT, name, API_DEFAULT, null, null, user, pass, ID_DEFAULT, true, true); 
+		addAPI(db, ID_DEFAULT, name, Urls.DEFAULT_API, null, null, user, pass, ID_DEFAULT, true, true); 
 		Log.d(LOGTAG, "Adding default URL without https");
-		addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", API_DEFAULT_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 
+		addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(db,ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");
@@ -441,7 +451,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 
 	/**
-	 * adds a new Preset with the given values to the Preset databas
+	 * adds a new Preset with the given values to the Preset database
 	 * @param id
 	 * @param name
 	 * @param url
@@ -482,7 +492,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 
 	/** 
-	 * Sets the sctive value of the given preset to now
+	 * Sets the active value of the given preset 
 	 * @param id the ID of the preset to update
 	 * */
 	public synchronized void setPresetState(String id, boolean active) {
@@ -574,4 +584,159 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (!dir.delete()) Log.e(LOGTAG, "Could not delete "+dir.getAbsolutePath());
 	}
 	
+	public static enum GeocoderType {
+		NOMINATIM,
+		PHOTON
+	}
+	
+	/**
+	 * Data structure class for geocoders
+	 */
+	public class Geocoder {
+		public final String id;
+		public final String name;
+		public final GeocoderType type;
+		public final int version;
+		public final String url;
+		public final boolean active;
+		
+		public Geocoder(String id, String name, GeocoderType type, int version, String url, boolean active) {
+			this.id = id;
+			this.type = type;
+			this.version = version;
+			this.name = name;
+			this.url = url;
+			this.active = active;
+		}
+	}
+	
+	/** returns an array of Geocoder for all currently known Geocoder */
+	public Geocoder[] getGeocoders() {
+		return getGeocoders(null);
+	}
+	
+	/**
+	 * Fetches all Geocoders matching the given ID, or all Geocoders if id is null
+	 * @param value null to fetch all Geocoders, or the id to fetch a specific one
+	 * @return Geocoder[]
+	 */
+	private synchronized Geocoder[] getGeocoders(String id) {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor dbresult = db.query(
+								"geocoders",
+								new String[] {"id", "name", "type", "version", "url", "active"},
+								id == null ? null : "id = ?",
+								id == null ? null : new String[] {id},
+								null, null, null);
+		Geocoder[] result = new Geocoder[dbresult.getCount()];
+		dbresult.moveToFirst();
+		for (int i = 0; i < result.length; i++) {
+			result[i] = new Geocoder(dbresult.getString(0),
+									dbresult.getString(1),
+									GeocoderType.valueOf(dbresult.getString(2)),
+									dbresult.getInt(3),
+									dbresult.getString(4),
+									dbresult.getInt(5) == 1);
+			dbresult.moveToNext();
+		}
+		dbresult.close();
+		db.close();
+		return result;
+	}
+	
+	/**
+	 * Fetches all active Geocoders
+	 * @return Geocoder[]
+	 */
+	public synchronized Geocoder[] getActiveGeocoders() {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor dbresult = db.query(
+								"geocoders",
+								new String[] {"id", "name", "type", "version", "url", "active"},
+								"active = 1",
+								null, null, null, null);
+		Geocoder[] result = new Geocoder[dbresult.getCount()];
+		dbresult.moveToFirst();
+		for (int i = 0; i < result.length; i++) {
+			result[i] = new Geocoder(dbresult.getString(0),
+									dbresult.getString(1),
+									GeocoderType.valueOf(dbresult.getString(2)),
+									dbresult.getInt(3),
+									dbresult.getString(4),
+									dbresult.getInt(5) == 1);
+			dbresult.moveToNext();
+		}
+		dbresult.close();
+		db.close();
+		return result;
+	}
+	
+
+	public synchronized void addGeocoder(String id, String name, GeocoderType type, int version, String url, boolean active) {
+		SQLiteDatabase db = getWritableDatabase();
+		addGeocoder(db, id, name, type, version, url, active);
+		db.close();
+	}
+	
+		
+	/**
+	 * adds a new Geocoder with the given values to the database
+	 * @param id
+	 * @param name
+	 * @param type
+	 * @param version
+	 * @param url
+	 * @param active
+	 */
+	public synchronized void addGeocoder(SQLiteDatabase db, String id, String name, GeocoderType type, int version, String url, boolean active) {
+		ContentValues values = new ContentValues();
+		values.put("id", id);
+		values.put("name", name);
+		values.put("type", type.name());
+		values.put("version", version);
+		values.put("url", url);
+		values.put("active", active ? 1 : 0);
+		db.insert("geocoders", null, values);	
+	}
+
+	/** 
+	 * Sets the active value of the given preset to now
+	 * @param id the ID of the geocoer to update
+	 * */
+	public synchronized void updateGeocoder(String id, String name, GeocoderType type, int version, String url, boolean active) {
+		Log.d(LOGTAG,"Setting geocoder " + id + " active to " + active);
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("name", name);
+		values.put("type", type.name());
+		values.put("version", version);
+		values.put("url", url);
+		values.put("active", active ? 1 : 0);
+		db.update("geocoders", values, "id = ?", new String[] {id});
+		db.close();
+	}
+	
+	/** 
+	 * Sets the active value of the given geocoder
+	 * @param id the ID of the geocoder to update
+	 * */
+	public synchronized void setGeocoderState(String id, boolean active) {
+		Log.d(LOGTAG,"Setting pref " + id + " active to " + active);
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("active", active ? 1 : 0);
+		db.update("geocoders", values, "id = ?", new String[] {id});
+		db.close();
+	}
+	
+	/**
+	 * Deletes a geocoder
+	 * @param id id of the geocoder to delete
+	 */
+	public synchronized void deleteGeocoder(String id) {
+		if (id.equals(ID_DEFAULT_GEOCODER_NOMINATIM)) throw new RuntimeException("Cannot delete default");
+		SQLiteDatabase db = getWritableDatabase();
+		db.delete("geocoders", "id = ?", new String[] { id });
+		db.close();
+	}
 }

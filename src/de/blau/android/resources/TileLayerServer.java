@@ -26,6 +26,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import com.google.gson.stream.JsonReader;
+
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -45,7 +47,6 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.Density;
 import de.blau.android.util.Offset;
-import de.blau.android.util.jsonreader.JsonReader;
 
 /**
  * The OpenStreetMapRendererInfo stores information about available tile servers.

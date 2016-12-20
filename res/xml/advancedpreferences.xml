@@ -135,6 +135,11 @@
             android:key="@string/config_enableAutoPreset_key"
             android:summary="@string/config_enableAutoPreset_summary"
             android:title="@string/config_enableAutoPreset_title" />
+        <android.support.v7.preference.Preference
+            android:key="@string/config_geocoder_button_key"
+            android:summary="@string/config_geocoderbutton_summary"
+            android:title="@string/config_geocoderbutton_title" >
+        </android.support.v7.preference.Preference>
     </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.PreferenceCategory android:title="@string/config_category_gps" >
         <android.support.v7.preference.ListPreference

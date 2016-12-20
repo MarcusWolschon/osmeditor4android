@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,12 +26,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Search;
@@ -101,7 +107,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 	 */
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
-		Preferences prefs = new Preferences(this);
+		final Preferences prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
 			setTheme(R.style.Theme_customLight);
 		}
@@ -128,6 +134,27 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 		loadMapButton.setOnClickListener(onClickListener);
 		dontLoadMapButton.setOnClickListener(onClickListener);
 		
+    	final Spinner searchGeocoder = (Spinner) findViewById(R.id.location_search_geocoder);
+    	AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
+    	final Geocoder[] geocoders = db.getActiveGeocoders();
+    	String[] geocoderNames = new String[geocoders.length];
+    	for (int i=0;i<geocoders.length;i++) {
+    		geocoderNames[i] = geocoders[i].name; 
+    	}
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+    		    this, android.R.layout.simple_spinner_item, geocoderNames);
+    	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	searchGeocoder.setAdapter(adapter);
+    	searchGeocoder.setSelection(prefs.getGeocoder());
+      	searchGeocoder.setOnItemSelectedListener(new OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+				prefs.setGeocoder(pos);
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}});
+		
 		final de.blau.android.util.SearchItemFoundCallback searchItemFoundCallback = new de.blau.android.util.SearchItemFoundCallback() {
 			private static final long serialVersionUID = 1L;
 
@@ -149,7 +176,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 		        if (actionId == EditorInfo.IME_ACTION_SEARCH
 			        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
 		            Search search = new Search(BoxPicker.this, searchItemFoundCallback);
-		            search.find(v.getText().toString(),null);
+		            search.find(geocoders[searchGeocoder.getSelectedItemPosition()],v.getText().toString(),null);
 		            return true;
 		        }
 		        return false;

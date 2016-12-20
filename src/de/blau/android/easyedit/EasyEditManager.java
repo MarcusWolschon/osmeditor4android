@@ -251,7 +251,7 @@ public class EasyEditManager {
 			}
 		}
 		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-		// TODO: Need to patch ABS, see https://github.com/JakeWharton/ActionBarSherlock/issues/642
+		
 		if (main.startSupportActionMode(new LongClickActionModeCallback(x, y)) == null) {
 			main.startSupportActionMode(new PathCreationActionModeCallback(x, y));
 		}

@@ -7,13 +7,6 @@
     android:paddingTop="?attr/dialogPreferredPadding"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/location_headline"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <RadioGroup
         android:id="@+id/location_type_group"
         android:layout_width="fill_parent"
@@ -30,12 +23,7 @@
             android:id="@+id/location_current"
             android:enabled="false"
             android:text="@string/location_current_text" />
-        <!-- <RadioButton -->
-        <!-- android:id="@+id/location_map" -->
-        <!-- android:text="@string/location_map_text" -->
-        <!-- android:enabled="false" -->
-        <!-- /> -->
-
+      
         <RadioButton
             android:id="@+id/location_coordinates"
             android:text="@string/location_coordinates_text" />
@@ -79,25 +67,46 @@
         </LinearLayout>
     </RadioGroup>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content" >
 
         <TextView
+            android:id="@+id/location_search_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:text="@string/location_search_label" />
 
         <EditText
             android:id="@+id/location_search_edit"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_toRightOf="@id/location_search_label"
+            android:layout_alignBaseline="@id/location_search_label"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:singleLine="true" />
-    </LinearLayout>
+        
+        <Spinner
+		    android:id="@+id/location_search_geocoder"
+		    android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_alignLeft="@id/location_search_edit"
+			android:layout_below="@id/location_search_edit"/>
+  
+		<TextView
+		    android:id="@+id/location_search_geocoder_prompt"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:text="@string/geocoder_prompt" 
+			android:layout_alignLeft="@id/location_search_label"
+			android:layout_alignBaseline="@id/location_search_geocoder"/>
+
+	</RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -114,6 +123,7 @@
             android:id="@+id/location_radius_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
             android:text="@string/location_default_radius" />
     </LinearLayout>
 
@@ -121,6 +131,7 @@
         android:id="@+id/location_radius_seeker"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="5dp"
         android:max="1500"
         android:progress="300" />
 

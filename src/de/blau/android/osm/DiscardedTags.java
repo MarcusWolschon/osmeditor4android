@@ -7,10 +7,11 @@ import java.util.HashSet;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import com.google.gson.stream.JsonReader;
+
 import android.content.res.AssetManager;
 import android.util.Log;
 import de.blau.android.Application;
-import de.blau.android.util.jsonreader.JsonReader;
 
 /**
  * Tags that we want to remove before saving to server. List is in discarded.json from the iD repository

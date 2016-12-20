@@ -32,6 +32,7 @@ import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.contract.Urls;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
@@ -136,11 +137,6 @@ public class Server {
 	private static final String DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
 
 	/**
-	 * Base server URL of the OpenStreetMap API
-	 */
-	private static final String SERVER_BASE_URL = "http://api.openstreetmap.org";
-
-	/**
 	 * Server path component for "api/" as in "http://api.openstreetmap.org/api/".
 	 */
 	private static final String SERVER_API_PATH = "api/";
@@ -169,7 +165,7 @@ public class Server {
 		if (api.url != null && !api.url.equals("")) {
 			this.serverURL = api.url;
 		} else {
-			this.serverURL = SERVER_BASE_URL + "/" + SERVER_API_PATH + version + "/"; // probably not needed anymore
+			this.serverURL = Urls.DEFAULT_API_NO_HTTPS; // probably not needed anymore
 		}
 		this.readonlyURL = api.readonlyurl;
 		this.notesURL = api.notesurl;
