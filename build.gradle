@@ -34,27 +34,27 @@ apply plugin: 'org.kordamp.gradle.markdown'
 // not the original
 markdownToHtml.sourceDir  new File(projectDir.getPath() + '/documentation/docs/help')
 markdownToHtml.inputEncoding "utf8"
-markdownToHtml.outputDir  new File(projectDir.getPath() + '/assets/help')
+markdownToHtml.outputDir  new File(projectDir.getPath() + '/src/main/assets/help')
 markdownToHtml.outputEncoding "utf8"
 
 task downloadPresetIconsZipFile(type: Download) {
 	doFirst {
-		delete projectDir.getPath() + '/assets/images/icons/png'
+		delete android.sourceSets.main.assets.srcDirs[0] + '/images/icons/png'
 	}
 	acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/beautified-JOSM-preset/master/gen/vespucci_icons.zip'
-    dest new File(projectDir.getPath() + '/assets/images/icons/png', 'vespucci_icons.zip')
+    dest new File(projectDir.getPath() + '/src/main/assets/images/icons/png', 'vespucci_icons.zip')
 }
 
 task downloadPresetFile(type: Download) {
 	acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/beautified-JOSM-preset/master/gen/vespucci_preset.xml'
-    dest new File(projectDir.getPath() + '/assets/', 'preset.xml')
+    dest new File(projectDir.getPath() + '/src/main/assets/preset.xml')
 }
 
 task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"], type: Copy) {
     from zipTree(downloadPresetIconsZipFile.dest)
-	into projectDir.getPath() + '/assets/images/icons/png'
+	into projectDir.getPath() + '/src/main/assets/images/icons/png'
 	doLast {
 		delete downloadPresetIconsZipFile.dest
 	}
@@ -63,18 +63,17 @@ task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"
 task updateImagery(type: Download) {
 	acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/osm-layer-index/gh-pages/imagery_tms_minified.json'
-    dest new File(projectDir.getPath() + '/assets/', 'imagery.json')
+    dest new File(projectDir.getPath() + '/src/main/assets/imagery.json')
 }
 
 eclipse {
-// pathVariables 'GRADLE_HOME': gradle.gradleUserHomeDir, "ANDROID_HOME": android.sdkDirectory
     classpath {
         plusConfigurations += [ configurations.compile, configurations.testCompile ]
 
         file {
             beforeMerged { classpath ->
-                // conventional android layout: classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/main/java", "bin"))
-                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src", "bin"))
+                // classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/main/java", "bin"))
+                // classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src", "bin"))
                 // Hardcoded to use debug configuration
                 classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/r/debug", "bin"))
                 classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/buildConfig/debug", "bin"))
@@ -103,8 +102,8 @@ eclipse {
                 classpath.entries.addAll(aars)
 
                 def androidJar = new org.gradle.plugins.ide.eclipse.model.Variable(
-                    fileReferenceFactory.fromPath("ANDROID_HOME/platforms/" + android.compileSdkVersion + "/android.jar"))
-                androidJar.sourcePath = fileReferenceFactory.fromPath("ANDROID_HOME/sources/" + android.compileSdkVersion)
+                    fileReferenceFactory.fromPath("${android.sdkDirectory}/platforms/" + android.compileSdkVersion + "/android.jar"))
+                androidJar.sourcePath = fileReferenceFactory.fromPath("${android.sdkDirectory}/sources/" + android.compileSdkVersion)
                 classpath.entries.add(androidJar)
             }
         }
@@ -126,16 +125,6 @@ android {
     }
 
     sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            resources.srcDirs = ['src']
-            aidl.srcDirs = ['src']
-            renderscript.srcDirs = ['src']
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
-        }
-
         // Move the tests to tests/java, tests/res, etc...
         instrumentTest.setRoot('tests')
 
@@ -191,22 +180,22 @@ android {
 }
 
 int getMinSdkVersion() {
-    def xml = getXmlFromFile("${projectDir}/AndroidManifest.xml")
+    def xml = getXmlFromFile("${android.sourceSets.main.manifest.srcFile}")
     return xml.'uses-sdk'.@'android:minSdkVersion'.toInteger()
 }
 
 int getTargetSdkVersion() {
-    def xml = getXmlFromFile("${projectDir}/AndroidManifest.xml")
+    def xml = getXmlFromFile("${android.sourceSets.main.manifest.srcFile}")
     return xml.'uses-sdk'.@'android:targetSdkVersion'.toInteger()
 }
 
 int getVersionCode() {
-    def xml = getXmlFromFile("${projectDir}/AndroidManifest.xml")
+    def xml = getXmlFromFile("${android.sourceSets.main.manifest.srcFile}")
     return xml.@'android:versionCode'.toInteger()
 }
 
 String getVersionName() {
-    def xml = getXmlFromFile("${projectDir}/res/values/appname.xml")
+    def xml = getXmlFromFile("${android.sourceSets.main.res.srcDirs[0]}/values/appname.xml")
     def versionName = xml.string.find { it.@name == 'app_version' }.toString()
     if (versionName == null || versionName.length() == 0) {
         throw new NullPointerException("Failure extracting version name.")
