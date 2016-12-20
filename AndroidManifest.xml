@@ -55,6 +55,7 @@
 		<activity
 			android:name=".prefs.PrefEditor"
 			android:theme="@style/Theme.AppCompatPrefs"
+			android:label="@string/menu_config"
 		/>
 		<activity
 			android:name=".prefs.AdvancedPrefEditor"
@@ -64,6 +65,7 @@
 		<activity
 			android:name="BoxPicker"
 			android:theme="@style/Theme.AppCompat"
+			android:label="@string/menu_transfer_download_other"
 		/>
 		<activity
 			android:name=".propertyeditor.PropertyEditor"
@@ -73,10 +75,17 @@
 		<activity
 			android:name=".prefs.APIEditorActivity"
 			android:theme="@style/Theme.AppCompat"
+			android:label="@string/manage_apis"
 		/>
 		<activity
 			android:name=".prefs.PresetEditorActivity"
 			android:theme="@style/Theme.AppCompat"
+			android:label="@string/manage_presets"
+		/>
+		<activity
+			android:name=".prefs.GeocoderEditorActivity"
+			android:theme="@style/Theme.AppCompat"
+			android:label="@string/manage_geocoders"
 		/>
 		<activity
 			android:name=".prefs.VespucciURLActivity"

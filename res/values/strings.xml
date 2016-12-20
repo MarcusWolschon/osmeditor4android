@@ -90,6 +90,7 @@
     <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular values.</string>
     <string name="search_results_title">Search results</string>
     <string name="find_message">Enter search string</string>
+    <string name="geocoder_prompt">with</string>
     <string name="preset_search_hint">Preset search string</string>
     <string name="search">Search</string>
     <string name="no_valid_preset">No valid preset!</string>
@@ -169,6 +170,7 @@
     <string name="toast_storage_error">%1$s is not writeable by Vespucci.\nThis may be a permissions or technical issue with your device.</string>
     <string name="toast_no_suitable_storage">The system did not return a suitable location for the tile database.</string>
     <string name="toast_min_one_preset">At least one preset has to be selected!</string>
+    <string name="toast_min_one_geocoder">At least one geocoder has to be selected!</string>
     <string name="toast_used_backup">Corrupted state file, used backup file!</string>
     <string name="toast_used_bug_backup">Corrupted bug state file, used backup file!</string>
     <string name="toast_rmpty_relation">Empty relation, creating crash report.</string>
@@ -310,7 +312,7 @@
     <string name="menu_transfer">Transfer…</string>
     <string name="menu_transfer_download_current">Download current view</string>
     <string name="menu_transfer_download_current_add">Add current view to download</string>
-    <string name="menu_transfer_download_other">Download other location</string>
+    <string name="menu_transfer_download_other">Download at other location</string>
     <string name="menu_transfer_upload">Upload data to OSM server</string>
     <string name="menu_transfer_close_changeset">Close current changeset</string>
     <string name="menu_transfer_file">File...</string>
@@ -500,6 +502,11 @@
     <string name="config_autoLockDelay_summary">Time to wait in seconds before auto-locking, 0 disables.</string>
     <string name="config_alwaysDrawBoundingBoxes_title">Always dim non-downloaded areas</string>
     <string name="config_alwaysDrawBoundingBoxes_summary">If set non-downloaded areas will be dimmed in locked mode</string>
+    <string name="config_geocoderbutton_title">Configure geocoders</string>
+    <string name="config_geocoderbutton_summary">Add, edit, delete geocoders for the search functionality</string>
+    <string name="manage_apis">Manage APIs</string>
+    <string name="manage_presets">Manage presets</string>
+    <string name="manage_geocoders">Manage geocoders</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>
@@ -521,6 +528,7 @@
     <string name="urldialog_api_install_successful">API install successful!</string>
     <string name="urldialog_add_api">Add API</string>
     <string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
+    <string name="urldialog_add_geocoder">Add geocoder</string>
     <!-- common terms -->
     <string name="add">Add</string>
     <string name="edit">Edit</string>
@@ -528,11 +536,13 @@
     <string name="name">Name</string>
     <string name="url">URL</string>
     <string name="default_">Default</string>
+    <!--   -->
     <string name="empty_list">No entries</string>
     <string name="api_name">API Name</string>
     <string name="api_url">API URL</string>
     <string name="readonly_url">Read-only API URL (optional)</string>
     <string name="notes_url">Notes API URL (optional)</string>
+    <string name="geocoder_type">Geocoder type</string>
     <!-- "default" is a reserved Java keyword... -->
     <string name="preset">Preset</string>
     <string name="api">API</string>

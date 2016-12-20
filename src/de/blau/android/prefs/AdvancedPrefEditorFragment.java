@@ -19,6 +19,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 	private String KEY_PREFPRESET;
 	private String KEY_PREFFULLSCREEN;
 	private String KEY_PREFLOGIN;
+	private String KEY_PREFGEOCODER;
 	
 	@Override
 	public void onCreatePreferences(Bundle arg0, String arg1) {
@@ -28,6 +29,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 		KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
 		KEY_PREFFULLSCREEN = r.getString(R.string.config_fullscreenMode_key);
 		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
+		KEY_PREFGEOCODER = r.getString(R.string.config_geocoder_button_key);
 		fixUpPrefs();		
 	}
 	
@@ -51,8 +53,8 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 	/** Perform initialization of the advanced preference buttons (API/Presets) */
 	private void fixUpPrefs() {
 		
-		Preference presetpref = getPreferenceScreen().findPreference(KEY_PREFPRESET);
-		presetpref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+		Preference presetPref = getPreferenceScreen().findPreference(KEY_PREFPRESET);
+		presetPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Log.d("AdvancedPrefEditor", "onPreferenceClick");
@@ -61,8 +63,8 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 			}
 		});
 		
-		Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
-		apipref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+		Preference apiPref = getPreferenceScreen().findPreference(KEY_PREFAPI);
+		apiPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Log.d("AdvancedPrefEditor", "onPreferenceClick 2");
@@ -72,6 +74,16 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 				} else {
 					startActivity(intent);
 				}
+				return true;
+			}
+		});
+		
+		Preference geocoderPref = getPreferenceScreen().findPreference(KEY_PREFGEOCODER);
+		geocoderPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Log.d("AdvancedPrefEditor", "onPreferenceClick");
+				GeocoderEditorActivity.start(getActivity());
 				return true;
 			}
 		});

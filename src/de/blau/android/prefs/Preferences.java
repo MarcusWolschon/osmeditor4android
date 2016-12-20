@@ -557,19 +557,6 @@ public class Preferences {
 		return prefs.getBoolean(key, false);
 	}
 	
-	public void enableTagFilter(boolean on) {
-		prefs.edit().putBoolean(r.getString(R.string.config_tagFilter_key), on).commit();
-	}
-	
-	public boolean getEnableTagFilter() {
-		String key = r.getString(R.string.config_tagFilter_key);
-		if (!prefs.contains(key)) {
-			// create the entry
-			enableTagFilter(false);
-		}
-		return prefs.getBoolean(key, false);
-	}
-	
 	public void setBugAutoDownload(boolean on) {
 		prefs.edit().putBoolean(r.getString(R.string.config_bugAutoDownload_key), on).commit();
 	}
@@ -598,5 +585,31 @@ public class Preferences {
 	
 	public boolean getAlwaysDrawBoundingBoxes() {	
 		return alwaysDrawBoundingBoxes;
+	}
+	
+	public void enableTagFilter(boolean on) {
+		prefs.edit().putBoolean(r.getString(R.string.config_tagFilter_key), on).commit();
+	}
+	
+	public boolean getEnableTagFilter() {
+		String key = r.getString(R.string.config_tagFilter_key);
+		if (!prefs.contains(key)) {
+			// create the entry
+			enableTagFilter(false);
+		}
+		return prefs.getBoolean(key, false);
+	}
+	
+	public void setGeocoder(int index) {
+		prefs.edit().putInt(r.getString(R.string.config_geocoder_key), index).commit();
+	}
+	
+	public int getGeocoder() {
+		String key = r.getString(R.string.config_geocoder_key);
+		if (!prefs.contains(key)) {
+			// create the entry
+			setGeocoder(0);
+		}
+		return prefs.getInt(key, 0);
 	}
 }

@@ -39,6 +39,8 @@ import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
+import de.blau.android.prefs.AdvancedPrefDatabase.GeocoderType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.mapbox.geojson.Feature;
@@ -57,9 +59,6 @@ import okhttp3.ResponseBody;
  *
  */
 public class Search {
-
-	public static final String NOMINATIM_SERVER = "http://nominatim.openstreetmap.org/"; //TODO set in prefs
-	public static final String PHOTON_SERVER = "http://photon.komoot.de/"; //TODO set in prefs
 	
 	private AppCompatActivity activity;
 
@@ -118,19 +117,24 @@ public class Search {
 	 * Query and then display a list of results to pick from
 	 * @param q
 	 */
-	public void find(String q, BoundingBox bbox) {
-		boolean photon = true;
-		Query querier;
-		if (photon) {
-			querier = new QueryPhoton(bbox);
-		} else {
-			querier = new QueryNominatim(bbox);
+	public void find(Geocoder geocoder, String q, BoundingBox bbox) {
+		Query querier = null;
+		boolean multiline = false;
+		switch (geocoder.type) {
+		case PHOTON:
+			querier = new QueryPhoton(geocoder.url, bbox);
+			multiline = true;
+			break;
+		case NOMINATIM:
+			querier = new QueryNominatim(geocoder.url, bbox);
+			multiline = false;
+			break;
 		}
 		querier.execute(q);
 		try {
 			ArrayList<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
 			if (result != null && result.size() > 0) {
-				AppCompatDialog sr = createSearchResultsDialog(result, photon ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
+				AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
 				sr.show();
 			} else {
 				Toast.makeText(activity, R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
@@ -149,12 +153,14 @@ public class Search {
 		AlertDialog progress = null;
 		
 		final BoundingBox bbox;
+		final String url;
 
 		public Query() {
-			this(null);
+			this(null, null);
 		}
 
-		public Query(BoundingBox bbox) {
+		public Query(String url, BoundingBox bbox) {
+			this.url = url;
 			this.bbox = bbox;
 		}
 		
@@ -182,18 +188,18 @@ public class Search {
 	private class QueryNominatim extends Query {
 		
 		public QueryNominatim() {
-			super(null);
+			super(null, null);
 		}
 
-		public QueryNominatim(BoundingBox bbox) {
-			super(bbox);
+		public QueryNominatim(String url, BoundingBox bbox) {
+			super(url, bbox);
 		}
 		
 		@Override
 		protected ArrayList<SearchResult> doInBackground(String... params) {
 
 			String query = params[0];
-			Uri.Builder builder = Uri.parse(NOMINATIM_SERVER)
+			Uri.Builder builder = Uri.parse(url)
 					.buildUpon()
 					.appendPath("search")
 					.appendQueryParameter("q", query);
@@ -290,18 +296,18 @@ public class Search {
 	private class QueryPhoton extends Query {
 		
 		public QueryPhoton() {
-			super(null);
+			super(null, null);
 		}
 
-		public QueryPhoton(BoundingBox bbox) {
-			super(bbox);
+		public QueryPhoton(String url, BoundingBox bbox) {
+			super(url, bbox);
 		}
 		
 		@Override
 		protected ArrayList<SearchResult> doInBackground(String... params) {
 
 			String query = params[0];
-			Uri.Builder builder = Uri.parse(PHOTON_SERVER)
+			Uri.Builder builder = Uri.parse(url)
 					.buildUpon()
 					.appendPath("api")
 					.appendQueryParameter("q", query);
@@ -311,6 +317,7 @@ public class Search {
 				builder.appendQueryParameter("lat", Double.toString(lat));
 				builder.appendQueryParameter("lon", Double.toString(lon));
 			}
+			builder.appendQueryParameter("limit", Integer.toString(10));
 			Uri uriBuilder = builder.build();
 
 			String urlString = uriBuilder.toString();
@@ -399,9 +406,9 @@ public class Search {
 				    	tag.put(key,value);
 					    PresetItem preset = Preset.findBestMatch(Application.getCurrentPresets(activity), tag, false);
 					    if (preset != null) {
-					    	sb.append("\n[" + preset.getTranslatedName() +"]");
+					    	sb.append(" [" + preset.getTranslatedName() +"]");
 					    } else {
-					    	sb.append("\n[" + key + "=" + value +"]");
+					    	sb.append(" [" + key + "=" + value +"]");
 					    }
 			    	}
 			    	StringBuilder sb2 = new StringBuilder();
