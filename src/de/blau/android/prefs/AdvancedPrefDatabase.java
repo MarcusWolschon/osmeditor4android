@@ -67,8 +67,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
 		db.execSQL("CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT, active INTEGER DEFAULT 0)");
 		db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
-		addGeocoder(ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.NOMINATIM_SERVER,true);
-		addGeocoder(ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.PHOTON_SERVER,true);
+		addGeocoder(ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER,true);
+		addGeocoder(ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER,true);
 	}
 
 	@Override
@@ -81,26 +81,26 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			db.execSQL("ALTER TABLE apis ADD COLUMN oauth INTEGER DEFAULT 0");
 			db.execSQL("ALTER TABLE apis ADD COLUMN accesstoken TEXT DEFAULT NULL");
 			db.execSQL("ALTER TABLE apis ADD COLUMN accesstokensecret TEXT DEFAULT NULL");
-			db.execSQL("UPDATE apis SET url='" + Urls.API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
+			db.execSQL("UPDATE apis SET url='" + Urls.DEFAULT_API + "' WHERE id='"+ ID_DEFAULT + "'");
 		}
 		if (oldVersion <= 3 && newVersion >= 4) {
 			db.execSQL("ALTER TABLE presets ADD COLUMN active INTEGER DEFAULT 0");
 			db.execSQL("UPDATE presets SET active=1 WHERE id='default'");
 		}
 		if (oldVersion <= 4 && newVersion >= 5) {
-			db.execSQL("UPDATE apis SET url='"  + Urls.API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
+			db.execSQL("UPDATE apis SET url='"  + Urls.DEFAULT_API + "' WHERE id='"+ ID_DEFAULT + "'");
 		}
 		if (oldVersion <= 5 && newVersion >= 6) {
 			db.execSQL("ALTER TABLE apis ADD COLUMN readonlyurl TEXT DEFAULT NULL");
 			db.execSQL("ALTER TABLE apis ADD COLUMN notesurl TEXT DEFAULT NULL");
 		}
 		if (oldVersion <= 6 && newVersion >= 7) {
-			addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.API_DEFAULT_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 	
+			addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 	
 		}
 		if (oldVersion <= 7 && newVersion >= 8) {
 			db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
-			addGeocoder(db, ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.NOMINATIM_SERVER,true);
-			addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.PHOTON_SERVER,true);
+			addGeocoder(db, ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER,true);
+			addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER,true);
 		}
 	}
 	
@@ -122,9 +122,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
 		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
-		addAPI(db, ID_DEFAULT, name, Urls.API_DEFAULT, null, null, user, pass, ID_DEFAULT, true, true); 
+		addAPI(db, ID_DEFAULT, name, Urls.DEFAULT_API, null, null, user, pass, ID_DEFAULT, true, true); 
 		Log.d(LOGTAG, "Adding default URL without https");
-		addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.API_DEFAULT_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 
+		addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(db,ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");

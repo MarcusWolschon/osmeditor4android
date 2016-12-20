@@ -14,6 +14,7 @@ import java.util.zip.GZIPInputStream;
 
 import android.util.Log;
 import de.blau.android.Application;
+import de.blau.android.contract.Urls;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.tasks.Task.State;
 
@@ -21,7 +22,7 @@ public class OsmoseServer {
 	
 	private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
 	
-	final static String serverHost = "http://osmose.openstreetmap.fr/";
+	final static String serverHost = Urls.OSMOSE;
 	final static String apiPath = "/api/0.2/";
 	/** 
 	 * the list of supported languages was simply generated from the list of .po in the osmose repo and tested against the API

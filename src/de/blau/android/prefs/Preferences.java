@@ -13,6 +13,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import de.blau.android.R;
+import de.blau.android.contract.Urls;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
@@ -225,7 +226,7 @@ public class Preferences {
 			gpsInterval = 1000;
 		}
 		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
-		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
+		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OFFSET_SERVER);
 		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
 		try {

@@ -28,6 +28,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import de.blau.android.R;
+import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -159,9 +160,9 @@ public class ElementInfo extends DialogFragment {
         			String value = e.getTags().get(k);
         			// special handling for some stuff
         			if (k.equals(Tags.KEY_WIKIPEDIA)) {
-        				tl.addView(createRow(k, Html.fromHtml("<a href=\"http://wikipedia.org/wiki/"+value+"\">"+value+"</a>"),tp));
+        				tl.addView(createRow(k, Html.fromHtml("<a href=\"" + Urls.WIKIPEDIA + value+"\">"+value+"</a>"),tp));
         			} else if (k.equals(Tags.KEY_WIKIDATA)) {
-        				tl.addView(createRow(k, Html.fromHtml("<a href=\"http://wikidata.org/wiki/"+value+"\">"+value+"</a>"),tp));
+        				tl.addView(createRow(k, Html.fromHtml("<a href=\"" + Urls.WIKIDATA + value+"\">"+value+"</a>"),tp));
         			} else if (Tags.isWebsiteKey(k)) {
         				tl.addView(createRow(k, Html.fromHtml("<a href=\"" + value + "\">"+value+"</a>"),tp));
         			} else {
