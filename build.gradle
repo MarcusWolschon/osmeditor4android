@@ -15,7 +15,10 @@ buildscript {
 plugins {
 	id "de.undercouch.download" version "3.1.1"
 }
+
 import de.undercouch.gradle.tasks.download.Download
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 allprojects {
 	repositories {
@@ -139,6 +142,14 @@ android {
         // Move the tests to tests/java, tests/res, etc...
         instrumentTest.setRoot('tests')
 
+        test.setRoot('test')
+        test {
+            java.srcDirs = ['test/java']
+            testOptions {
+                unitTests.returnDefaultValues = true
+            }
+        }
+
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
         // This moves them out of them default location under src/<type>/... which would
@@ -178,6 +189,24 @@ dependencies {
     compile 'ch.poole:PoParser:0.7.2'
 	compile 'ch.poole:OpeningHoursParser:0.1.2'
 	compile 'ch.poole:ConditionalRestrictionParser:0.1.11'
+
+    // Unit tests
+    testCompile "junit:junit:4.12"
+    testCompile "org.assertj:assertj-core:1.7.1"
+}
+
+tasks.withType(Test) {
+    testLogging {
+        events TestLogEvent.FAILED,
+                TestLogEvent.PASSED,
+                TestLogEvent.SKIPPED,
+                TestLogEvent.STANDARD_ERROR,
+                TestLogEvent.STANDARD_OUT
+        exceptionFormat TestExceptionFormat.FULL
+        showCauses true
+        showExceptions true
+        showStackTraces true
+    }
 }
 
 android {
