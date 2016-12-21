@@ -445,6 +445,7 @@ public class RTree implements Serializable {
 	public BoundedObject queryOne(BoundingBox box) {
 		return queryOne(box,root);
 	}
+	
 	private BoundedObject queryOne(BoundingBox box, Node node) {
 		if (node == null) return null;
 		if (node.isLeaf()) {
@@ -595,12 +596,15 @@ public class RTree implements Serializable {
 		} else {
 			long maxOverlap = Long.MAX_VALUE;
 			Node maxnode = null;
+			double maxnodeArea = Double.MAX_VALUE;
 			for (int i = 0; i < n.children.size(); i++) {
-				long overlap = expansionNeeded(n.children.get(i).box, box);
+				Node child = n.children.get(i);
+				long overlap = expansionNeeded(child.box, box);
 				if ((overlap < maxOverlap) || (overlap == maxOverlap)
-						&& area(n.children.get(i).box) < area(maxnode.box)) {
+						&& area(child.box) < maxnodeArea) {
 					maxOverlap = overlap;
-					maxnode = n.children.get(i);
+					maxnode = child;
+					maxnodeArea = area(maxnode.box);
 				}
 			}
 			
