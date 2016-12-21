@@ -30,7 +30,7 @@ import oauth.signpost.exception.OAuthNotAuthorizedException;
  *
  */
 public class OAuthHelper {
-	private static Object lock = new Object();
+	private final static Object lock = new Object();
 	private static OAuthConsumer mConsumer;
 	private static OAuthProvider mProvider;
 	private static String mCallbackUrl;

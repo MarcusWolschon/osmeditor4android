@@ -31,6 +31,7 @@ public class GeoUrlActivity extends Activity {
 		if (data == null) {
 			Log.d(DEBUG_TAG,"Called with null data, aborting");
 			finish();
+			return;
 		}
 		Log.d("GeoURLActivity",data.toString());
 	    Intent intent = new Intent(this, Main.class);

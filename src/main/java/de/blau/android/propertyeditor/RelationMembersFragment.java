@@ -60,7 +60,7 @@ public class RelationMembersFragment extends BaseFragment implements
 	private long id = -1;
 
 	static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
-	static Object actionModeCallbackLock = new Object();
+	static final Object actionModeCallbackLock = new Object();
 	
 	static enum Connected { NOT, UP, DOWN, BOTH, RING_TOP, RING, RING_BOTTOM, CLOSEDWAY, CLOSEDWAY_UP, CLOSEDWAY_DOWN, CLOSEDWAY_BOTH, CLOSEDWAY_RING }
 	

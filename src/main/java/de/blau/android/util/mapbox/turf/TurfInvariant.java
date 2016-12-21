@@ -57,7 +57,7 @@ public class TurfInvariant {
 
     if (value == null || !value.getType().equals(type)) {
       throw new TurfException("Invalid input to " + name + ": must be a " + type
-        + ", given " + value.getType());
+        + ", given " + (value != null ? value.getType() : " null"));
     }
   }
 

@@ -77,8 +77,8 @@ public class TagFilterActivity extends ListActivity  {
 					oldCursor.close();
 					Log.d(DEBUG_TAG,"button clicked");
 				}});
+			add.setVisibility(View.VISIBLE);
 		}
-		add.setVisibility(View.VISIBLE);
 		// this makes fields in the items focusable
 		getListView().setFocusable(false);
 		getListView().setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);

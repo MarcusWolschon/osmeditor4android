@@ -57,7 +57,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 	private EditorUpdate tagListener = null;
 	
 	static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
-	static Object actionModeCallbackLock = new Object();
+	static final Object actionModeCallbackLock = new Object();
 	
 	/**
      */

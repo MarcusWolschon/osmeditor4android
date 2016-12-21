@@ -90,7 +90,7 @@ public class TagEditorFragment extends BaseFragment implements
 				= new SavingHelper<LinkedHashMap<String,String>>();
 		
 	static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
-	static Object actionModeCallbackLock = new Object();
+	static final Object actionModeCallbackLock = new Object();
 	
 	PresetItem autocompletePresetItem = null;
 	

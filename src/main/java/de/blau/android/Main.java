@@ -318,14 +318,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * Overridden by {@link #redownloadOnResume}.
 	 */
 	private boolean loadOnResume;
-	private Object loadOnResumeLock = new Object();
+	private final Object loadOnResumeLock = new Object();
 	
 	/**
 	 * Flag indicating if we should set the view box bounding box in onResume
 	 * Again we may be already setting the view box by an intent and don't want to overwrite it
 	 */
 	private boolean setViewBox = true;
-	private Object setViewBoxLock = new Object();
+	private final Object setViewBoxLock = new Object();
 
 	private boolean showGPS;
 	private boolean followGPS;
@@ -367,11 +367,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	private boolean locationPermissionGranted = false;
 	private boolean askedForLocationPermission = false;
-	private Object locationPermissionLock = new Object();
+	private final Object locationPermissionLock = new Object();
 	
 	private boolean storagePermissionGranted = false;
 	private boolean askedForStoragePermission = false;
-	private Object storagePermissionLock = new Object();
+	private final Object storagePermissionLock = new Object();
 	
 
 	/**

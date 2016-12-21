@@ -92,7 +92,7 @@ public class EasyEditManager {
 	
 	private ActionMode currentActionMode = null;
 	private EasyEditActionModeCallback currentActionModeCallback = null;
-	private Object actionModeCallbackLock = new Object();
+	private final Object actionModeCallbackLock = new Object();
 	
 	private ActionMenuView cabBottomBar;
 	
