@@ -49,6 +49,8 @@ public class ElementInfo extends DialogFragment {
 	private static final String TAG = "fragment_element_info";
 
 	private static final int FIRST_CELL_WIDTH = 5;
+
+	private static final int MAX_FIRST_CELL_WIDTH = 8;
 	
 	static public void showDialog(FragmentActivity activity, OsmElement e) {
 		dismissDialog(activity);
@@ -203,6 +205,7 @@ public class ElementInfo extends DialogFragment {
     	cell.setSingleLine();
     	cell.setText(cell1);
     	cell.setMinEms(FIRST_CELL_WIDTH);
+    	cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
     	if (cell2 == null) {
     		cell.setTypeface(null,Typeface.BOLD);
     	}
@@ -234,6 +237,7 @@ public class ElementInfo extends DialogFragment {
     	TableRow tr = new TableRow(getActivity());
     	TextView cell = new TextView(getActivity());
     	cell.setMinEms(FIRST_CELL_WIDTH);
+    	cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
     	cell.setMaxLines(2);
     	cell.setText(cell1);
     	if (cell2 == null) {
