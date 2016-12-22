@@ -1,5 +1,5 @@
 
-# Building vespucci 0.9.8 and later
+# Building vespucci 0.9.9 and later
 
 The code has been re-factored to use the compatibility libraries from google instead of 
 the ActionBarSherlock library. This has been tested with the google v7 support library 23.2.X, 
@@ -29,11 +29,9 @@ If you are using eclipse you need to import the project as a gradle project, and
 
 The build configuration has been updated for AppCompat and should work out of the box.
 
-Note we currently don't use a standard project layout
-
 ## Build with eclipse
 
-This will likely no longer be possible post version 0.9.8 since we are will change the directory layout to be in line with standard Android Studio and gradle layout. 
+This is likely no longer possible since we have changed the directory layout to be in line with standard Android Studio and gradle layout with 0.9.9, but you can naturally give it a try. 
 
 You can find the required android support libs in your SDK folder in:
 

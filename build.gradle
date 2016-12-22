@@ -34,27 +34,27 @@ apply plugin: 'org.kordamp.gradle.markdown'
 // not the original
 markdownToHtml.sourceDir  new File(projectDir.getPath() + '/documentation/docs/help')
 markdownToHtml.inputEncoding "utf8"
-markdownToHtml.outputDir  new File(projectDir.getPath() + '/assets/help')
+markdownToHtml.outputDir  new File(projectDir.getPath() + '/src/main/assets/help')
 markdownToHtml.outputEncoding "utf8"
 
 task downloadPresetIconsZipFile(type: Download) {
 	doFirst {
-		delete projectDir.getPath() + '/assets/images/icons/png'
+		delete android.sourceSets.main.assets.srcDirs[0] + '/images/icons/png'
 	}
 	acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/beautified-JOSM-preset/master/gen/vespucci_icons.zip'
-    dest new File(projectDir.getPath() + '/assets/images/icons/png', 'vespucci_icons.zip')
+    dest new File(projectDir.getPath() + '/src/main/assets/images/icons/png', 'vespucci_icons.zip')
 }
 
 task downloadPresetFile(type: Download) {
 	acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/beautified-JOSM-preset/master/gen/vespucci_preset.xml'
-    dest new File(projectDir.getPath() + '/assets/', 'preset.xml')
+    dest new File(projectDir.getPath() + '/src/main/assets/preset.xml')
 }
 
 task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"], type: Copy) {
     from zipTree(downloadPresetIconsZipFile.dest)
-	into projectDir.getPath() + '/assets/images/icons/png'
+	into projectDir.getPath() + '/src/main/assets/images/icons/png'
 	doLast {
 		delete downloadPresetIconsZipFile.dest
 	}
@@ -63,18 +63,17 @@ task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"
 task updateImagery(type: Download) {
 	acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/osm-layer-index/gh-pages/imagery_tms_minified.json'
-    dest new File(projectDir.getPath() + '/assets/', 'imagery.json')
+    dest new File(projectDir.getPath() + '/src/main/assets/imagery.json')
 }
 
 eclipse {
-// pathVariables 'GRADLE_HOME': gradle.gradleUserHomeDir, "ANDROID_HOME": android.sdkDirectory
     classpath {
         plusConfigurations += [ configurations.compile, configurations.testCompile ]
 
         file {
             beforeMerged { classpath ->
-                // conventional android layout: classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/main/java", "bin"))
-                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src", "bin"))
+                // classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/main/java", "bin"))
+                // classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src", "bin"))
                 // Hardcoded to use debug configuration
                 classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/r/debug", "bin"))
                 classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/buildConfig/debug", "bin"))
@@ -102,9 +101,8 @@ eclipse {
                 classpath.entries.removeAll { it.path.endsWith(".aar") }
                 classpath.entries.addAll(aars)
 
-                def androidJar = new org.gradle.plugins.ide.eclipse.model.Variable(
-                    fileReferenceFactory.fromPath("ANDROID_HOME/platforms/" + android.compileSdkVersion + "/android.jar"))
-                androidJar.sourcePath = fileReferenceFactory.fromPath("ANDROID_HOME/sources/" + android.compileSdkVersion)
+                def androidJar = new org.gradle.plugins.ide.eclipse.model.Library(
+                    fileReferenceFactory.fromPath("${android.sdkDirectory}/platforms/" + android.compileSdkVersion + "/android.jar"))
                 classpath.entries.add(androidJar)
             }
         }
@@ -123,37 +121,26 @@ android {
         targetSdkVersion project.getTargetSdkVersion()
         versionCode project.getVersionCode()
         versionName "${project.getVersionName()}"
-    }
-
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            resources.srcDirs = ['src']
-            aidl.srcDirs = ['src']
-            renderscript.srcDirs = ['src']
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
-        }
-
-        // Move the tests to tests/java, tests/res, etc...
-        instrumentTest.setRoot('tests')
-
-        // Move the build types to build-types/<type>
-        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
-        // This moves them out of them default location under src/<type>/... which would
-        // conflict with src/ being used by the main source set.
-        // Adding new build types or product flavors should be accompanied
-        // by a similar customization.
-        debug.setRoot('build-types/debug')
-        release.setRoot('build-types/release')
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
-
+    
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+    }
+    
+    lintOptions {
+        // checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 }
 
 ext {
@@ -167,7 +154,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.android.support:preference-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:support-annotations:23.3.0'
+    compile 'com.android.support:support-annotations:23.4.0'
+    // compile 'com.android.support:support-annotations:24.0.0'
     compile 'com.nononsenseapps:filepicker:3.0.0'
     compile 'oauth.signpost:signpost-core:1.2.1.2'
 	compile 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
@@ -179,34 +167,35 @@ dependencies {
 	compile 'ch.poole:OpeningHoursParser:0.1.2'
 	compile 'ch.poole:ConditionalRestrictionParser:0.1.11'
 	compile 'com.google.code.gson:gson:2.7'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    // androidTestCompile 'com.android.support:support-annotations:24.0.0'
+    androidTestCompile 'com.android.support:support-annotations:23.4.0'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    // androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 }
 
-android {
-    lintOptions {
-        // checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        abortOnError false
-    }
-}
 
 int getMinSdkVersion() {
-    def xml = getXmlFromFile("${projectDir}/AndroidManifest.xml")
+    def xml = getXmlFromFile("${android.sourceSets.main.manifest.srcFile}")
     return xml.'uses-sdk'.@'android:minSdkVersion'.toInteger()
 }
 
 int getTargetSdkVersion() {
-    def xml = getXmlFromFile("${projectDir}/AndroidManifest.xml")
+    def xml = getXmlFromFile("${android.sourceSets.main.manifest.srcFile}")
     return xml.'uses-sdk'.@'android:targetSdkVersion'.toInteger()
 }
 
 int getVersionCode() {
-    def xml = getXmlFromFile("${projectDir}/AndroidManifest.xml")
+    def xml = getXmlFromFile("${android.sourceSets.main.manifest.srcFile}")
     return xml.@'android:versionCode'.toInteger()
 }
 
 String getVersionName() {
-    def xml = getXmlFromFile("${projectDir}/res/values/appname.xml")
+    def xml = getXmlFromFile("${android.sourceSets.main.res.srcDirs[0]}/values/appname.xml")
     def versionName = xml.string.find { it.@name == 'app_version' }.toString()
     if (versionName == null || versionName.length() == 0) {
         throw new NullPointerException("Failure extracting version name.")
