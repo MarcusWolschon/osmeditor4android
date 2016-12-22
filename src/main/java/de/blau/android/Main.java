@@ -2576,8 +2576,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public boolean onLongClick(final View v, final float x, final float y) {
 			final Logic logic = Application.getLogic();
-			if (!logic.getMode().elementsGeomEditiable()) {
-				if (logic.isLocked()) {
+			if (logic.isLocked()) {
+				if (logic.getMode().elementsGeomEditiable()) {
 					// display context menu
 					de.blau.android.tasks.MapOverlay osbo = map.getOpenStreetBugsOverlay();
 					clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
@@ -2600,8 +2600,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						v.showContextMenu();
 					}
 					return true; 
+				} else {
+					// other modes
+					return false; // ignore long clicks
 				}
-				return false; // ignore long clicks
 			}
 
 			if (logic.isInEditZoomRange()) {
