@@ -157,7 +157,7 @@ public class TagFilter extends Filter {
 				}
 			}
 		}
-		Log.d(DEBUG_TAG,e.getDescription() + " include: " + include);
+		// Log.d(DEBUG_TAG,e.getDescription() + " include: " + include);
 		return include;
 	}
 	
