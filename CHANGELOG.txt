@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1222: Fix issue with new installs, moved code to standard android layout. 
+
 1221: Add support for multiple geocoders, currently supported APIs: Nominatim and Photon, code cleanup.
 
 1220: Increase version to 0.9.9, updated translations and release notes, remove sv-SE (just use sv), add filter facility, and indoor mode, add tag based filtering, fix numerous small issues, change way geometry improvement handles work.  
