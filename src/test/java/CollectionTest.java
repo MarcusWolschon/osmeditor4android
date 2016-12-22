@@ -1,7 +1,6 @@
 
 import org.junit.Test;
 
-import android.util.Log;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
 import de.blau.android.util.rtree.BoundedObject;
