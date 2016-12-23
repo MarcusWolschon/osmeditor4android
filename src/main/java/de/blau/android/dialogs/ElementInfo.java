@@ -1,5 +1,11 @@
 package de.blau.android.dialogs;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 
@@ -159,14 +165,25 @@ public class ElementInfo extends DialogFragment {
         		tl.addView(divider());
         		tl.addView(createRow(R.string.menu_tags,null,tp));
         		for (String k:e.getTags().keySet()) {
-        			String value = e.getTags().get(k);
+        			String value = e.getTags().get(k);				
         			// special handling for some stuff
         			if (k.equals(Tags.KEY_WIKIPEDIA)) {
-        				tl.addView(createRow(k, Html.fromHtml("<a href=\"" + Urls.WIKIPEDIA + value+"\">"+value+"</a>"),tp));
+        				Log.d(DEBUG_TAG,Urls.WIKIPEDIA + encodeHttpPath(value));
+        				tl.addView(createRow(k, Html.fromHtml("<a href=\"" + Urls.WIKIPEDIA + encodeHttpPath(value) +"\">"+value+"</a>"),tp));
         			} else if (k.equals(Tags.KEY_WIKIDATA)) {
-        				tl.addView(createRow(k, Html.fromHtml("<a href=\"" + Urls.WIKIDATA + value+"\">"+value+"</a>"),tp));
+        				tl.addView(createRow(k, Html.fromHtml("<a href=\"" + Urls.WIKIDATA + encodeHttpPath(value) +"\">"+value+"</a>"),tp));
         			} else if (Tags.isWebsiteKey(k)) {
-        				tl.addView(createRow(k, Html.fromHtml("<a href=\"" + value + "\">"+value+"</a>"),tp));
+        				try {
+							URL url = new URL(value);
+							URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+							tl.addView(createRow(k, Html.fromHtml("<a href=\"" + uri.toURL() + "\">"+value+"</a>"),tp));
+						} catch (MalformedURLException e1) {
+							Log.d(DEBUG_TAG,"Value " + value + " caused " + e);
+							tl.addView(createRow(k,value,tp));
+						} catch (URISyntaxException e1) {
+							Log.d(DEBUG_TAG,"Value " + value + " caused " + e);
+							tl.addView(createRow(k,value,tp));
+						}
         			} else {
         				tl.addView(createRow(k,value,tp));
         			}
@@ -196,6 +213,15 @@ public class ElementInfo extends DialogFragment {
         getDialog().setTitle(R.string.element_information);
 
         return sv;
+    }
+    
+    private String encodeHttpPath(String path) {
+    	try {
+			return URLEncoder.encode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			Log.d(DEBUG_TAG,"Path " + path + " caused " + e);
+			return "";
+		}
     }
     
     @SuppressLint("NewApi")
