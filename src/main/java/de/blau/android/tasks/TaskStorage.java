@@ -130,17 +130,20 @@ public class TaskStorage implements Serializable {
 			return;
 		}
 		if (readingLock.tryLock()) {
-			// TODO this doesn't really help with error conditions need to throw exception
-			if (savingHelper.save(ctx, FILENAME, this, true)) { 
-				dirty = false;
-			} else {
-				// this is essentially catastrophic and can only happen if something went really wrong
-				// running out of memory or disk, or HW failure
-				if (ctx != null) {
-					Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+			try {
+				// TODO this doesn't really help with error conditions need to throw exception
+				if (savingHelper.save(ctx, FILENAME, this, true)) { 
+					dirty = false;
+				} else {
+					// this is essentially catastrophic and can only happen if something went really wrong
+					// running out of memory or disk, or HW failure
+					if (ctx != null) {
+						Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+					}
 				}
+			} finally {
+				readingLock.unlock();
 			}
-			readingLock.unlock();
 		} else {
 			Log.i(DEBUG_TAG, "bug state being read, skipping save");
 		}
