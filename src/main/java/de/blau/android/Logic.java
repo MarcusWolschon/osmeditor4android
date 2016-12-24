@@ -382,23 +382,11 @@ public class Logic {
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
 	 * 
-	 * @param map Instance of the Map. All new Values will be pushed to it.
-	 * @param profile The drawing profile used by the map to paint the objects on screen.
 	 */
-	Logic(final Map map) {
-		this.map = map;
-
+	Logic() {
 		viewBox = getDelegator().getLastBox();
-		
 		mode = Mode.MODE_EASYEDIT;
 		setLocked(true);
-		setSelectedBug(null);
-		setSelectedNode(null);
-		setSelectedWay(null);
-		setSelectedRelation(null);
-
-		map.setDelegator(getDelegator());
-		map.setViewBox(viewBox);
 	}
 
 	/**
@@ -409,8 +397,6 @@ public class Logic {
 	 */
 	void setPrefs(final Preferences prefs) {
 		this.prefs = prefs;
-		DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
-		map.invalidate();
 	}
 
 	
@@ -3191,7 +3177,7 @@ public class Logic {
 	 * Loads data from a file
 	 * 
 	 */
-	void syncLoadFromFile() {
+	public void syncLoadFromFile() {
 
 		final int READ_FAILED = 0;
 		final int READ_OK = 1;
@@ -3749,9 +3735,15 @@ public class Logic {
 	 */
 	public void setMap(Map map) {
 		this.map = map;
+		DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
 		DataStyle.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), strokeWidth(viewBox.getWidth())));
 		map.setDelegator(getDelegator());
 		map.setViewBox(viewBox);
+		setSelectedBug(null);
+		setSelectedNode(null);
+		setSelectedWay(null);
+		setSelectedRelation(null);
+		map.invalidate();
 	}
 	
 	/**

@@ -515,12 +515,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		if (Application.getLogic()==null) {
 			Log.i(DEBUG_TAG, "onCreate - creating new logic");
-			Application.newLogic(map);
-		} else {
-			Log.i(DEBUG_TAG, "onCreate - setting new map");
-			Application.getLogic().setMap(map);
+			Application.newLogic();
 		}
+		Log.i(DEBUG_TAG, "onCreate - setting new map");
+
 		DataStyle p = new DataStyle(getApplicationContext()); // this has side effects and needs to be done now (for now)
+		Application.getLogic().setPrefs(prefs);
+		Application.getLogic().setMap(map);
 		
 		Log.d(DEBUG_TAG,"StorageDelegator dirty is " + Application.getDelegator().isDirty());
 		if (isLastActivityAvailable() && !Application.getDelegator().isDirty()) { // data was modified while we were stopped if isDirty is true

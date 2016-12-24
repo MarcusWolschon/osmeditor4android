@@ -42,8 +42,6 @@ public class Application extends android.app.Application {
 	
 	/**
 	 * The logic that manipulates the model. (non-UI)<br/>
-	 * This is created in {@link #onCreate(Bundle)} and never changed afterwards.<br/>
-	 * If may be null or not reflect the current state if accessed from outside this activity.
 	 */
 	private static Logic logic;
 	
@@ -206,9 +204,9 @@ public class Application extends android.app.Application {
 	 * @param map
 	 * @return
 	 */
-	public synchronized static Logic newLogic(de.blau.android.Map map) {
+	public synchronized static Logic newLogic() {
 		if (logic==null) {
-			logic = new Logic(map);
+			logic = new Logic();
 		}
 		return logic;
 	}

@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +35,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import de.blau.android.Application;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.names.Names.TagMap;
@@ -210,6 +212,14 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
 			currentItem = savedInstanceState.getInt(CURRENTITEM,-1);
 			usePaneLayout = savedInstanceState.getBoolean(PANELAYOUT); //FIXME this disables layout changes on restarting
+			
+			Logic logic = Application.newLogic(); //
+			StorageDelegator delegator = Application.getDelegator();
+			if (!delegator.isDirty() && delegator.isEmpty()) { // this can't means: need to load state
+				Log.d(DEBUG_TAG, "Loading saved state");
+				logic.syncLoadFromFile(); // sync load
+				Application.getTaskStorage().readFromFile(this);
+			}
 		}
 				
 		Log.d(DEBUG_TAG, "... done.");
@@ -371,6 +381,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
 		
 	    private ArrayList<LinkedHashMap<String, String>> tags;
+	    private boolean restoring = false;
 		
 	    public PropertyEditorPagerAdapter(FragmentManager fm, ArrayList<LinkedHashMap<String, String>> tags) {
 	        super(fm);
@@ -548,7 +559,20 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	        } else {
 	        	Log.d(DEBUG_TAG, "Unknown fragment ...");
 	        }
+	        // hack to recreate the form ui when restoring as there is no callback that
+	        // runs after the references here have been recreated
+	        if (restoring && tagFormFragment != null && tagEditorFragment != null) {
+	        	tagsUpdated();
+	        }
 	        return fragment;
+	    }
+	    
+	    @Override
+		public void restoreState (Parcelable state, ClassLoader loader) {
+	    	Log.d(DEBUG_TAG, "restoreState");
+	    	super.restoreState(state, loader);
+	    	restoring = true;
+	    	Log.d(DEBUG_TAG, "restoreState done");
 	    }
 	}
 	
@@ -775,6 +799,12 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	}
 	
 
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+		Log.d(DEBUG_TAG,"onRestoreInstanceState");
+	    super.onRestoreInstanceState(savedInstanceState);
+	    Log.d(DEBUG_TAG,"onRestoreInstanceState done");
+	}
+	
 	/**
 	 * Insert a new row of key+value -edit-widgets if some text is entered into the current one.
 	 * 
