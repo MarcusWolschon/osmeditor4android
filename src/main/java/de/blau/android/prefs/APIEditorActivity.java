@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Patterns;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 import de.blau.android.util.ThemeUtils;
@@ -151,6 +154,9 @@ public class APIEditorActivity extends URLListEditActivity {
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
+				Boolean validAPIURL=true;
+				Boolean validReadOnlyAPIURL=true;
+				Boolean validNotesAPIURL = true;
 				String name = editName.getText().toString();
 				String value = editValue.getText().toString();
 				String value_2 = editValue_2.getText().toString();
@@ -158,20 +164,68 @@ public class APIEditorActivity extends URLListEditActivity {
 				boolean enabled = oauth.isChecked();
 				if (item == null) {
 					// new item
-					if (!value.equals("")) {
-						finishCreateItem(new ListEditItem(name, value, !"".equals(value_2)?value_2:null,!"".equals(value_3)?value_3:null,oauth.isChecked()));
+					//validate api here
+					validAPIURL= Patterns.WEB_URL.matcher(value).matches();
+					if(value_2.trim().matches("")==false){
+						validReadOnlyAPIURL=Patterns.WEB_URL.matcher(value_2).matches();
+
 					}
+					if(value_3.trim().matches("")==false){
+						validNotesAPIURL=Patterns.WEB_URL.matcher(value_3).matches();
+					}
+					if(validAPIURL==true && validNotesAPIURL==true && validReadOnlyAPIURL==true) {   //check if fields valid, optional ones checked if values entered
+						if (!value.equals("")) {
+							finishCreateItem(new ListEditItem(name, value, !"".equals(value_2) ? value_2 : null, !"".equals(value_3) ? value_3 : null, oauth.isChecked()));
+
+						}
+					}
+
+					else if(validAPIURL==false){
+
+						Toast.makeText(APIEditorActivity.this, "Invalid API URL", Toast.LENGTH_LONG).show();
+					}
+					else if(validReadOnlyAPIURL==false){
+
+						Toast.makeText(APIEditorActivity.this, "Invalid ReadOnly API URL", Toast.LENGTH_LONG).show();
+					}
+					else if(validNotesAPIURL==false){
+
+						Toast.makeText(APIEditorActivity.this, "Invalid Notes API URL", Toast.LENGTH_LONG).show();
+					}
+
 				} else {
 					item.name = name;
 					item.value = value;
-					item.value_2 = !"".equals(value_2)?value_2:null;
-					item.value_3 = !"".equals(value_3)?value_3:null;
+
+
+					if(value_2.trim().matches("")==false){                //check if empty field
+						validReadOnlyAPIURL=Patterns.WEB_URL.matcher(value_2).matches();
+
+					}
+					if(value_3.trim().matches("")==false){                 //check if empty field
+						validNotesAPIURL=Patterns.WEB_URL.matcher(value_3).matches();
+					}
+
+					if(validReadOnlyAPIURL==true) {                 //check if valid url entered
+						item.value_2 = !"".equals(value_2) ? value_2 : null;
+					}
+					else{
+						Toast.makeText(APIEditorActivity.this, "Invalid ReadOnly API URL", Toast.LENGTH_LONG).show(); //if garbage value entered
+					}
+
+					if(validNotesAPIURL==true) {                   //check if valid url entered
+						item.value_3 = !"".equals(value_3) ? value_3 : null;
+					}
+					else{
+						Toast.makeText(APIEditorActivity.this, "Invalid Notes API URL", Toast.LENGTH_LONG).show();  //if garbage value entered
+					}
 					item.enabled = enabled;
 					finishEditItem(item);
+
+
 				}
 			}
 		});
-
 		builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
