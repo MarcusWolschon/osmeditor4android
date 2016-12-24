@@ -182,15 +182,15 @@ public class APIEditorActivity extends URLListEditActivity {
 
 					else if(validAPIURL==false){
 
-						Toast.makeText(APIEditorActivity.this, "Invalid API URL", Toast.LENGTH_LONG).show();
+						Toast.makeText(APIEditorActivity.this, "Invalid API URL", Toast.LENGTH_LONG).show(); //if garbage value entered
 					}
 					else if(validReadOnlyAPIURL==false){
 
-						Toast.makeText(APIEditorActivity.this, "Invalid ReadOnly API URL", Toast.LENGTH_LONG).show();
+						Toast.makeText(APIEditorActivity.this, "Invalid ReadOnly API URL", Toast.LENGTH_LONG).show(); //if garbage value entered
 					}
 					else if(validNotesAPIURL==false){
 
-						Toast.makeText(APIEditorActivity.this, "Invalid Notes API URL", Toast.LENGTH_LONG).show();
+						Toast.makeText(APIEditorActivity.this, "Invalid Notes API URL", Toast.LENGTH_LONG).show();//if garbage value entered
 					}
 
 				} else {
