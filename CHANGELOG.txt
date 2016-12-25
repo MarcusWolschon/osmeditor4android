@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1224: Fix life cycle issues in PropertyEditor, potential fix for issue when data is not loaded.
+
 1223: Fix regression with long press when screen is locked, another attempt at trying to make the element info dialog look right.
 
 1222: Fix issue with new installs, moved code to standard android layout. 
