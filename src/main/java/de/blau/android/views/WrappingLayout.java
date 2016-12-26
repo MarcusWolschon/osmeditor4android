@@ -48,6 +48,11 @@ public class WrappingLayout extends LinearLayout {
 		wrapper = new LayoutWrapper(context);
 	}
 	
+	public WrappingLayout(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		wrapper = new LayoutWrapper(context);
+	}
+	
 	/**
 	 * @return he list of child views that are being line-wrapped 
 	 */
