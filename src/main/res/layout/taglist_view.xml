@@ -39,11 +39,10 @@
 				android:saveEnabled="false"
 				android:minHeight="34dp" 
 				android:paddingLeft="5dp"
-				android:paddingRight="5dp" 
-				android:singleLine="true"
-				android:gravity="center_vertical" 
+				android:paddingRight="5dp"
+				android:gravity="center_vertical"
 				android:text="@string/Key"
-			 />
+				android:maxLines="1" />
 			<TextView 
 				android:layout_width="fill_parent" 
 				android:layout_height="wrap_content"
@@ -54,11 +53,10 @@
 				android:saveEnabled="false"
 				android:minHeight="34dp" 
 				android:paddingLeft="5dp"
-				android:paddingRight="5dp" 
-				android:singleLine="true"
-				android:gravity="center_vertical" 
+				android:paddingRight="5dp"
+				android:gravity="center_vertical"
 				android:text="@string/Value"
-			/>
+				android:maxLines="1" />
 		</LinearLayout>
 		<LinearLayout
 	   		android:id="@+id/edit_row_layout"

@@ -14,7 +14,6 @@
   			android:inputType="text"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:singleLine="true"
 			android:layout_weight="1"
-		/>
+			android:maxLines="1" />
 </LinearLayout>

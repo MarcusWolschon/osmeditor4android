@@ -36,9 +36,9 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:saveEnabled="false"
-            android:singleLine="true"
-            android:text=""
-            android:textStyle="bold" />
+			android:text=""
+            android:textStyle="bold"
+			android:maxLines="1" />
         <ImageButton
             android:id="@+id/form_header_copy"
     		style="?attr/TableHeader"

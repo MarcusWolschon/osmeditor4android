@@ -62,9 +62,9 @@
         	android:paddingLeft="5dp"
 	    	android:paddingRight="5dp"
 	    	android:inputType="textNoSuggestions"
-	    	android:singleLine="true"
-        	android:hint="@string/key"
-        	android:textAppearance="?android:attr/textAppearanceMedium" />
+			android:hint="@string/key"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+			android:maxLines="1" />
     	<EditText
         	android:id="@+id/value"
         	android:layout_width="fill_parent"
@@ -74,8 +74,8 @@
 	    	android:paddingRight="5dp"
 	    	android:layout_marginLeft="1dp"
 	    	android:inputType="textNoSuggestions"
-	    	android:singleLine="true"
-        	android:hint="@string/value"
-        	android:textAppearance="?android:attr/textAppearanceMedium" />
+			android:hint="@string/value"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+			android:maxLines="1" />
     </LinearLayout>
 </LinearLayout>

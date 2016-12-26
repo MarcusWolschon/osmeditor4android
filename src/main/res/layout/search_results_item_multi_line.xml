@@ -8,7 +8,6 @@
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:scrollHorizontally="true"
-    android:singleLine="false"
     android:textAppearance="?android:attr/textAppearanceMedium" >
 
 </TextView>

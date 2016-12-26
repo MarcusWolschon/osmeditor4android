@@ -44,7 +44,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="0dp"
                 android:saveEnabled="false"
-                android:singleLine="true" />
+                android:maxLines="1" />
 
             <Spinner
                 android:id="@+id/operator"
@@ -66,7 +66,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="0dp"
                 android:saveEnabled="false"
-                android:singleLine="true" />
+                android:maxLines="1" />
          </LinearLayout>
 
          <include layout="@layout/menu" />

@@ -162,70 +162,69 @@ public class TagFilterActivity extends ListActivity  {
             updateRow((Integer)view.getTag(),filter,active.isChecked(), "+".equals((String)mode.getSelectedItem()), type.getSelectedItemPosition(), keyView.getText().toString(), valueView.getText().toString());
         }
 	}
-	
+
 	private class TagFilterAdapter extends CursorAdapter {
-		  public TagFilterAdapter(Context context, Cursor cursor) {
-		      super(context, cursor, 0);
-		  }
-
-		  // The newView method is used to inflate a new view and return it, 
-		  // you don't bind any data to the view at this point. 
-		  @Override
-		  public View newView(Context context, Cursor cursor, ViewGroup parent) {
-		      return LayoutInflater.from(context).inflate(R.layout.tagfilter_item, parent, false);
-		  }
-
-		  // The bindView method is used to bind all data to a given view
-		  // such as setting the text on a TextView. 
-		  @Override
-		  public void bindView(View view, Context context, Cursor cursor) {
-		      // Find fields to populate in inflated template
-			  CheckBox active = (CheckBox) view.findViewById(R.id.active);
-			  Spinner mode = (Spinner) view.findViewById(R.id.mode);
-			  Spinner type = (Spinner) view.findViewById(R.id.type);
-		      TextView keyView = (TextView) view.findViewById(R.id.key);
-		      TextView valueView = (TextView) view.findViewById(R.id.value);
-		      // 
-		      active.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("active"))==1);
-		      mode.setSelection(cursor.getInt(cursor.getColumnIndexOrThrow("include"))==1?1:0);
-		      type.setSelection(getTypeEntryIndex(cursor.getString(cursor.getColumnIndexOrThrow("type"))));
-		      String key = cursor.getString(cursor.getColumnIndexOrThrow("key"));
-		      keyView.setText(key);
-		      String value = cursor.getString(cursor.getColumnIndexOrThrow("value"));
-		      valueView.setText(value);
-		      ImageButton delete = (ImageButton) view.findViewById(R.id.delete);
-		      int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-		      view.setTag(id);
-		      delete.setTag(id);
-		      delete.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						updateDatabaseFromList();
-						db.delete("filterentries", "rowid=" + v.getTag(), null);				
-						Cursor newCursor = db.rawQuery(QUERY + filter + "'", null);
-						Cursor oldCursor = TagFilterAdapter.this.swapCursor(newCursor);
-						oldCursor.close();
-						Log.d("TagFilterActivity","delete clicked");	
-					}});
-		  }
-
+		public TagFilterAdapter(Context context, Cursor cursor) {
+			super(context, cursor, 0);
 		}
-	
-	  int getTypeEntryIndex(String value) {
-		  Resources r = getResources();
-		  String[] values = r.getStringArray(R.array.tagfilter_type_values);
-		  for (int i=0;i<values.length;i++) {
-			  if (values[i].equals(value)) {
-				  return i;
-			  }
-		  }
-		  return 0;
-	  }
-	  
-	  String getTypeValue(int index) {
-		  Resources r = getResources();
-		  String[] values = r.getStringArray(R.array.tagfilter_type_values);
-		  return values[index];
-	  }
-	  
+
+		// The newView method is used to inflate a new view and return it,
+		// you don't bind any data to the view at this point.
+		@Override
+		public View newView(Context context, Cursor cursor, ViewGroup parent) {
+			return LayoutInflater.from(context).inflate(R.layout.tagfilter_item, parent, false);
+		}
+
+		// The bindView method is used to bind all data to a given view
+		// such as setting the text on a TextView.
+		@Override
+		public void bindView(View view, Context context, Cursor cursor) {
+			// Find fields to populate in inflated template
+			CheckBox active = (CheckBox) view.findViewById(R.id.active);
+			Spinner mode = (Spinner) view.findViewById(R.id.mode);
+			Spinner type = (Spinner) view.findViewById(R.id.type);
+			TextView keyView = (TextView) view.findViewById(R.id.key);
+			TextView valueView = (TextView) view.findViewById(R.id.value);
+			//
+			active.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("active"))==1);
+			mode.setSelection(cursor.getInt(cursor.getColumnIndexOrThrow("include"))==1?1:0);
+			type.setSelection(getTypeEntryIndex(cursor.getString(cursor.getColumnIndexOrThrow("type"))));
+			String key = cursor.getString(cursor.getColumnIndexOrThrow("key"));
+			keyView.setText(key);
+			String value = cursor.getString(cursor.getColumnIndexOrThrow("value"));
+			valueView.setText(value);
+			ImageButton delete = (ImageButton) view.findViewById(R.id.delete);
+			int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+			view.setTag(id);
+			delete.setTag(id);
+			delete.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					updateDatabaseFromList();
+					db.delete("filterentries", "rowid=" + v.getTag(), null);
+					Cursor newCursor = db.rawQuery(QUERY + filter + "'", null);
+					Cursor oldCursor = TagFilterAdapter.this.swapCursor(newCursor);
+					oldCursor.close();
+					Log.d("TagFilterActivity","delete clicked");
+				}});
+		}
+
+	}
+
+	int getTypeEntryIndex(String value) {
+		Resources r = getResources();
+		String[] values = r.getStringArray(R.array.tagfilter_type_values);
+		for (int i=0;i<values.length;i++) {
+			if (values[i].equals(value)) {
+				return i;
+			}
+		}
+		return 0;
+	}
+
+	String getTypeValue(int index) {
+		Resources r = getResources();
+		String[] values = r.getStringArray(R.array.tagfilter_type_values);
+		return values[index];
+	}
 }

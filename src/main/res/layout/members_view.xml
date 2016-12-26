@@ -42,10 +42,10 @@
 					android:saveEnabled="false"
 					android:minHeight="34dp" 
 					android:paddingLeft="5dp"
-					android:paddingRight="5dp" 
-					android:singleLine="true"
-					android:gravity="center_vertical" 
-					android:text="@string/role" />
+					android:paddingRight="5dp"
+					android:gravity="center_vertical"
+					android:text="@string/role"
+					android:maxLines="1" />
 				<ImageView 
 				    android:id="@+id/member_type_heading_view"
 					android:layout_width="34dp" 
@@ -74,9 +74,9 @@
 					android:minHeight="34dp"
 					android:paddingLeft="5dp" 
 					android:paddingRight="5dp"
-					android:singleLine="true" 
 					android:gravity="center_vertical"
-					android:text="@string/object" />
+					android:text="@string/object"
+					android:maxLines="1" />
 		</LinearLayout>
 		<LinearLayout
 	   		android:id="@+id/members_vertical_layout"

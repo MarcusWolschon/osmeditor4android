@@ -39,8 +39,7 @@
 	        android:minHeight="34dp"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
-	        android:singleLine="true"
-	        />
+			android:maxLines="1" />
 	        
 	    <ImageView
 	        android:id="@+id/memberType"
@@ -53,9 +52,8 @@
 	        android:minHeight="35dp"
 	        android:paddingLeft="0dp"
 	        android:paddingRight="0dp"
-	        android:singleLine="true"
-	        android:gravity="center_vertical"
-	        />
+			android:gravity="center_vertical"
+			android:maxLines="1" />
 	    
 	    <TextView
 	        android:id="@+id/memberObject"
@@ -68,8 +66,7 @@
 	        android:minHeight="35dp"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
-	        android:singleLine="true"
-	        android:gravity="center_vertical"
-	         />
+			android:gravity="center_vertical"
+			android:maxLines="1" />
     </LinearLayout>
 </view>
