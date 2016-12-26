@@ -100,7 +100,9 @@ public class Map extends View implements IMapView {
 	private final int houseNumberRadius;
 	
 	private final int verticalNumberOffset;
-	
+
+    private final ArrayList<BoundingBox> boundingBoxes = new ArrayList<BoundingBox>();
+
 	private Preferences prefs;
 	
 	/** Direction we're pointing. 0-359 is valid, anything else is invalid.*/
@@ -398,8 +400,10 @@ public class Map extends View implements IMapView {
 		
 		if (zoomLevel > 10) {
 			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND) {
-				// shallow copy to avoid modification issues FIXME this likely simply needs a synchronized statement in paintStorageBox
-				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); 
+				// shallow copy to avoid modification issues
+				boundingBoxes.clear();
+				boundingBoxes.addAll(delegator.getBoundingBoxes());
+				paintStorageBox(canvas, boundingBoxes);
 			}
 			paintGpsTrack(canvas);
 		}
