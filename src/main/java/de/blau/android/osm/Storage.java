@@ -300,8 +300,7 @@ public class Storage implements Serializable {
 				else if (n.getLon() < left) left = n.getLon();
 			}
 		}
-		BoundingBox result  = new BoundingBox(left, bottom, right, top);
-		return result;
+		return new BoundingBox(left, bottom, right, top);
 	}
 	
 	public LongOsmElementMap<Node> getNodeIndex() {

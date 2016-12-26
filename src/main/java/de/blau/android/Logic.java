@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -57,7 +56,6 @@ import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.IndoorFilter;
-import de.blau.android.filter.TagFilter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -3701,20 +3699,11 @@ public class Logic {
 	 */
 	public synchronized boolean isSelected(OsmElement e) {
 		if (e instanceof Node) {
-			if (selectedNodes != null && selectedNodes.contains((Node) e)) {
-				return true;
-			}
-			return false;
+			return selectedNodes != null && selectedNodes.contains((Node) e);
 		} else if (e instanceof Way) {
-			if (selectedWays != null && selectedWays.contains((Way) e)) {
-				return true;
-			}
-			return false;
+			return selectedWays != null && selectedWays.contains((Way) e);
 		} else if (e instanceof Relation) {
-			if (selectedRelations != null && selectedRelations.contains((Relation) e)) {
-				return true;
-			}
-			return false;
+			return selectedRelations != null && selectedRelations.contains((Relation) e);
 		}
 		return false;
 	}
@@ -4096,8 +4085,7 @@ public class Logic {
 		}
 		int lat = GeoMath.yToLatE7(h, w, v, XY[1]);
 		int lon = GeoMath.xToLonE7(w, v, XY[0]);
-		int result[] = {lat,lon};
-		return result;
+		return new int[]{lat,lon};
 	}
 
 
@@ -4133,8 +4121,7 @@ public class Logic {
 			}
 			Y = Y/(3*A);
 			X = X/(3*A);
-			float result[] = {(float)X, (float)Y};
-			return result;
+			return new float[]{(float)X, (float)Y};
 		} else { //
 			double L = 0;
 			double Y = 0;
@@ -4152,8 +4139,7 @@ public class Logic {
 			}
 			Y = Y/L;
 			X = X/L;
-			float result[] = {(float)X, (float)Y};
-			return result;
+			return new float[]{(float)X, (float)Y};
 		}	
 	}
 	
@@ -4185,8 +4171,7 @@ public class Logic {
 			}
 			Y = GeoMath.mercatorToLat(Y/(3*A));
 			X = X/(3*A);
-			double result[] = {X, Y};
-			return result;
+			return new double[]{X, Y};
 		} else { //
 			double L = 0;
 			double Y = 0;
@@ -4204,8 +4189,7 @@ public class Logic {
 			}
 			Y = GeoMath.mercatorToLat(Y/L);
 			X = X/L;
-			double result[] = {X, Y};
-			return result;
+			return new double[]{X, Y};
 		}	
 	}
 

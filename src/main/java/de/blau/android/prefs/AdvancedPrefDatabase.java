@@ -214,7 +214,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	public synchronized void setAPIAccessToken(String token, String secret) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
-		values = new ContentValues();
 		values.put("accesstoken", token);
 		values.put("accesstokensecret", secret);
 		db.update("apis", values, "id = ?", new String[] {currentAPI});

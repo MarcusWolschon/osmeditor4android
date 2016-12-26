@@ -21,7 +21,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Path.FillType;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
@@ -30,7 +29,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -1344,7 +1342,7 @@ public class Map extends View implements IMapView {
 			float Y = Float.MIN_VALUE;
 			if (!interrupted && prevNode != null) {
 				if (thisIntersects || nextIntersects 
-						|| (nextNode!=null && lastDrawnNode!=null?box.intersects(nextNode.getLat(),nextNode.getLon(),lastDrawnNode.getLat(),lastDrawnNode.getLon()):true)) {
+						|| (!(nextNode != null && lastDrawnNode != null) || box.intersects(nextNode.getLat(), nextNode.getLon(), lastDrawnNode.getLat(), lastDrawnNode.getLon()))) {
 					X = GeoMath.lonE7ToX(w, box, nodeLon);
 					Y = GeoMath.latE7ToY(h, w, box, nodeLat);
 					if (prevX == Float.MIN_VALUE) { // last segment didn't intersect

@@ -332,10 +332,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		if (isIn(lat, lon) || isIn(lat2, lon2)) {
 			return true;
 		}
-		if (!isIntersectionPossible(lat, lon, lat2, lon2)) {
-			return false;
-		}
-		return true;
+		return isIntersectionPossible(lat, lon, lat2, lon2);
 	}
 	
 	public boolean intersects(final BoundingBox b) {

@@ -467,6 +467,7 @@ public class Address implements Serializable {
 						String[] numbers =  addrHousenumberValues.get(0).split("[\\,;\\-]");
 						for (String n:numbers) {
 							Log.d(DEBUG_TAG,"add number  " + n);
+							//noinspection EmptyCatchBlock
 							try {
 								result.put(Integer.valueOf(getNumber(n)),a);
 							} catch (NumberFormatException nfe){

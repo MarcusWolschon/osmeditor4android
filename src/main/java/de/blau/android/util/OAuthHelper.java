@@ -114,8 +114,7 @@ public class OAuthHelper {
 			@Override
 			protected String doInBackground(Void... params) {	
 				try {
-					String authUrl = mProvider.retrieveRequestToken(mConsumer, mCallbackUrl);
-					return authUrl;
+					return mProvider.retrieveRequestToken(mConsumer, mCallbackUrl);
 				} catch (OAuthException e) {
 					Log.d("OAuthHelper", "getRequestToken " + e);
 					ex = e;

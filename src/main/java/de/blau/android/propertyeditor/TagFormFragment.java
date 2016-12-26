@@ -850,7 +850,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 							description=v;
 						}
 						
-						row.getCheckBox().setChecked(valueOn != null?valueOn.equals(value):false);
+						row.getCheckBox().setChecked(valueOn != null && valueOn.equals(value));
 						
 						rowLayout.addView(row);
 						row.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -1381,8 +1381,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			}
 		});
 		builder.setNegativeButton(R.string.cancel, null);
-		final AlertDialog dialog = builder.create();
-		return dialog;
+		return builder.create();
 	}
 
 	/**

@@ -183,6 +183,7 @@ public class IndoorFilter extends Filter {
 		String[] l = levelSpec.split(";");
 		if (l.length > 1) {
 			for (String i:l) {
+				//noinspection EmptyCatchBlock
 				try {
 					if (Integer.parseInt(i)==level) {
 						return true;

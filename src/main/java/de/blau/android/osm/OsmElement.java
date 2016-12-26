@@ -289,7 +289,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return
 	 */
 	public boolean hasParentRelation(Relation relation) {
-		return (parentRelations == null ? false : parentRelations.contains(relation));
+		return (parentRelations != null && parentRelations.contains(relation));
 	}
 	
 	/**

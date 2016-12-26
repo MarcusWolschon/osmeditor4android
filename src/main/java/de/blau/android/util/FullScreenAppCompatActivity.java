@@ -19,7 +19,7 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
 
 	private static final String DEBUG_TAG = FullScreenAppCompatActivity.class.getSimpleName();
 	private boolean fullScreen = false;
-	private Handler handler =  new Handler();
+	private final Handler handler =  new Handler();
 
 	@SuppressLint("NewApi")
 	@Override
