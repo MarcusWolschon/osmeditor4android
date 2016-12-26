@@ -32,6 +32,7 @@ public class TagFilterActivity extends ListActivity  {
 	private static final String QUERY = "SELECT rowid as _id, active, include, type, key, value FROM filterentries WHERE filter = '";
 	String filter = null;
 	SQLiteDatabase db;
+	Cursor tagFilterCursor = null;
 	
 	public static void start(@NonNull Context context, String filter) {
 		Intent intent = new Intent(context, TagFilterActivity.class);
@@ -60,7 +61,7 @@ public class TagFilterActivity extends ListActivity  {
 		this.filter = filter;
 		final SQLiteDatabase db = new TagFilterDatabaseHelper(this).getWritableDatabase();
 		this.db = db;
-		Cursor tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
+		tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
 		final TagFilterAdapter filterAdapter = new TagFilterAdapter(this, tagFilterCursor);
 		
 		FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
@@ -70,8 +71,8 @@ public class TagFilterActivity extends ListActivity  {
 				public void onClick(View arg0) {
 					updateDatabaseFromList();
 					insertRow(filter,true,true,0,"","");
-					Cursor newCursor = db.rawQuery(QUERY + filter + "'", null);
-					Cursor oldCursor = filterAdapter.swapCursor(newCursor);
+					tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
+					Cursor oldCursor = filterAdapter.swapCursor(tagFilterCursor);
 					oldCursor.close();
 					Log.d(DEBUG_TAG,"button clicked");
 				}});
@@ -83,6 +84,27 @@ public class TagFilterActivity extends ListActivity  {
 		getListView().setItemsCanFocus(true);
 		// Attach cursor adapter to the ListView 
 		getListView().setAdapter(filterAdapter);	
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		tagFilterCursor.close();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (tagFilterCursor == null || tagFilterCursor.isClosed()) {
+			tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
+			((TagFilterAdapter)getListView().getAdapter()).swapCursor(tagFilterCursor);
+		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		db.close();
 	}
 	
 	void insertRow(String filter,boolean active, boolean include, int type, String key, String value) {
