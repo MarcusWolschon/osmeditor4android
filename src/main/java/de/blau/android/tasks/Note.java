@@ -13,7 +13,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.text.Html;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.osm.JosmXmlSerializable;
 import de.blau.android.util.DateFormatter;
 
@@ -179,7 +179,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 	 * @param lon Longitude *1E7.
 	 */
 	public Note(int lat, int lon) {
-		id = Application.getTaskStorage().getNextId();
+		id = App.getTaskStorage().getNextId();
 		this.created = new Date();
 		this.lat = lat;
 		this.lon = lon;

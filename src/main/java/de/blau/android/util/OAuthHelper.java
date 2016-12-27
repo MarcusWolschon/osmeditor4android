@@ -9,7 +9,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import oauth.signpost.OAuth;
@@ -36,7 +36,7 @@ public class OAuthHelper {
 	private static String mCallbackUrl;
 	
 	public OAuthHelper(String osmBaseUrl) throws OsmException {
-		Resources r = Application.mainActivity.getResources();
+		Resources r = App.mainActivity.getResources();
 		String urls[] = r.getStringArray(R.array.api_urls);
 		String keys[] = r.getStringArray(R.array.api_consumer_keys);
 		String secrets[] = r.getStringArray(R.array.api_consumer_secrets);
@@ -87,7 +87,7 @@ public class OAuthHelper {
 	 * @return
 	 */
 	public OAuthConsumer getConsumer(String osmBaseUrl) {
-		Resources r = Application.mainActivity.getResources();
+		Resources r = App.mainActivity.getResources();
 
 		String urls[] = r.getStringArray(R.array.api_urls);
 		String keys[] = r.getStringArray(R.array.api_consumer_keys);

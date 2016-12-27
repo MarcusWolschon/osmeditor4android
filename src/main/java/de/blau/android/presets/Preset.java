@@ -62,7 +62,7 @@ import android.widget.BaseAdapter;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import ch.poole.poparser.Po;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -1007,7 +1007,7 @@ public class Preset implements Serializable {
 		public Drawable getIcon() {
 			if (icon == null) {
 				if (iconManager == null) {
-					iconManager = getIconManager(Application.mainActivity);
+					iconManager = getIconManager(App.mainActivity);
 				}
 				if (iconpath != null) {
 					icon = iconManager.getDrawableOrPlaceholder(iconpath, 36);
@@ -1022,7 +1022,7 @@ public class Preset implements Serializable {
 		public BitmapDrawable getMapIcon() {
 			if (mapIcon == null && mapiconpath != null) {
 				if (iconManager == null) {
-					iconManager = getIconManager(Application.mainActivity);
+					iconManager = getIconManager(App.mainActivity);
 				}
 				mapIcon = iconManager.getDrawable(mapiconpath, de.blau.android.Map.ICON_SIZE_DP);
 				mapiconpath = null;
@@ -2206,7 +2206,7 @@ public class Preset implements Serializable {
 	 * This is for the taginfo project repo and not really for testing
 	 */
 	public static void generateTaginfoJson(Context ctx) {
-		Preset[] presets = Application.getCurrentPresets(ctx);
+		Preset[] presets = App.getCurrentPresets(ctx);
 		
 		File sdcard = Environment.getExternalStorageDirectory();
 		File outdir = new File(sdcard, "Vespucci");

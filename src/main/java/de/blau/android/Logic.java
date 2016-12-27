@@ -441,7 +441,7 @@ public class Logic {
 			@Override
 			public void execute() {
 				map.invalidate();
-				Application.mainActivity.scheduleAutoLock();
+				App.mainActivity.scheduleAutoLock();
 			} };
 		this.mode = mode;
 		Main.onEditModeChanged();
@@ -461,7 +461,7 @@ public class Logic {
 					filter = filter.getSavedFilter();
 					setFilter(filter);
 					if (filter!=null) {
-						filter.addControls(Application.mainActivity.getMapLayout(), updater);
+						filter.addControls(App.mainActivity.getMapLayout(), updater);
 						filter.showControls();
 					}
 				}
@@ -476,17 +476,17 @@ public class Logic {
 					IndoorFilter indoor = new IndoorFilter();
 					indoor.saveFilter(filter);
 					setFilter(indoor);
-					indoor.addControls(Application.mainActivity.getMapLayout(), updater);
+					indoor.addControls(App.mainActivity.getMapLayout(), updater);
 				}
 			} else { // no filter yet
 				setFilter(new IndoorFilter());
-				getFilter().addControls(Application.mainActivity.getMapLayout(), updater);
+				getFilter().addControls(App.mainActivity.getMapLayout(), updater);
 			}
 			getFilter().showControls();
 			deselectAll();
 			break;
 		case MODE_ALIGN_BACKGROUND:		// action mode sanity check
-			if (Application.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
+			if (App.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
 				Log.d("Logic","weird state of edit mode, resetting");
 				setMode(Mode.MODE_EASYEDIT);
 			}
@@ -662,7 +662,7 @@ public class Logic {
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void createCheckpoint(int stringId) {
-		getDelegator().getUndo().createCheckpoint(Application.mainActivity.getResources().getString(stringId));
+		getDelegator().getUndo().createCheckpoint(App.mainActivity.getResources().getString(stringId));
 	}
 	
 	/**
@@ -671,7 +671,7 @@ public class Logic {
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void removeCheckpoint(int stringId) {
-		getDelegator().getUndo().removeCheckpoint(Application.mainActivity.getResources().getString(stringId));
+		getDelegator().getUndo().removeCheckpoint(App.mainActivity.getResources().getString(stringId));
 	}
 	
 
@@ -757,7 +757,7 @@ public class Logic {
 			Log.e(DEBUG_TAG, "newEmptyMap called on dirty storage");
 		}
 		// if the map view isn't drawn use an approximation for the aspect ratio of the display ... this is a hack 
-		float ratio = (float)Application.mainActivity.getResources().getDisplayMetrics().widthPixels / (float)Application.mainActivity.getResources().getDisplayMetrics().heightPixels;
+		float ratio = (float)App.mainActivity.getResources().getDisplayMetrics().widthPixels / (float)App.mainActivity.getResources().getDisplayMetrics().heightPixels;
 		if (map.getHeight() != 0) {
 			ratio = (float) map.getWidth() / map.getHeight();
 		}
@@ -1234,7 +1234,7 @@ public class Logic {
 									draggingWay = true;
 								}
 								else {
-									Toast.makeText(Application.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
+									Toast.makeText(App.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
 								}
 							}
 						}
@@ -1356,7 +1356,7 @@ public class Logic {
 							getDelegator().updateLatLon(handleNode, yToLatE7(absoluteY), xToLonE7(absoluteX));
 						}
 					} catch (OsmIllegalOperationException e) {
-						Toast.makeText(Application.mainActivity, e.getMessage(), Toast.LENGTH_LONG).show();
+						Toast.makeText(App.mainActivity, e.getMessage(), Toast.LENGTH_LONG).show();
 						return;
 					}
 				} else {
@@ -1372,7 +1372,7 @@ public class Logic {
 					}
 					getDelegator().updateLatLon(selectedNodes.get(0), lat, lon);
 				}
-				Application.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
+				App.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
 			} else { // way dragging and multi-select
 				lat = yToLatE7(absoluteY);
 				lon = xToLonE7(absoluteX);
@@ -1396,7 +1396,7 @@ public class Logic {
 				startLon = lon;
 			}
 			translateOnBorderTouch(absoluteX, absoluteY);
-			Application.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
+			App.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
 		} else if (rotatingWay) {
 			
 			double aSq = (startY-absoluteY)*(startY-absoluteY) + (startX-absoluteX)*(startX-absoluteX);
@@ -1430,7 +1430,7 @@ public class Logic {
 			getDelegator().rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
 			startY = absoluteY;
 			startX = absoluteX;
-			Application.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
+			App.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
 		} else {
 			if (mode == Mode.MODE_ALIGN_BACKGROUND)
 				performBackgroundOffset(relativeX, relativeY);
@@ -1536,7 +1536,7 @@ public class Logic {
 				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
 					Log.d("Logic","Outside of download");
-					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+					Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
 				}
 			}
 		} else {
@@ -1556,7 +1556,7 @@ public class Logic {
 				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
 					Log.d("Logic","Outside of download");
-					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+					Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
 				}
 			} else {
 				//User clicks an existing Node
@@ -1597,7 +1597,7 @@ public class Logic {
 		if (!getDelegator().isInDownload(lat, lon)) {
 			// warning toast
 			Log.d("Logic","Outside of download");
-			Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+			Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
 		}
 		setSelectedNode(newNode);
 		return newNode;
@@ -1655,7 +1655,7 @@ public class Logic {
 			map.invalidate();
 			if (!isInDownload(node)) {
 				// warning toast
-				Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+				Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
 			} 
 		}
 	}
@@ -2055,7 +2055,7 @@ public class Logic {
 				getDelegator().insertElementSafe(node);
 				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
-					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+					Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
 				}
 			}
 			try {
@@ -2249,7 +2249,7 @@ public class Logic {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
 			Log.e(DEBUG_TAG,"downloadBox invalid download box");
-			ErrorAlert.showDialog(Application.mainActivity,ErrorCodes.INVALID_BOUNDING_BOX);
+			ErrorAlert.showDialog(App.mainActivity,ErrorCodes.INVALID_BOUNDING_BOX);
 			return;
 		} 
 		
@@ -2257,7 +2257,7 @@ public class Logic {
 
 			@Override
 			public void handler(OsmElement e) {
-				e.hasProblem(Application.mainActivity);
+				e.hasProblem(App.mainActivity);
 			}
 		};
 		
@@ -2265,7 +2265,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
+				Progress.showDialog(App.mainActivity, Progress.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -2361,9 +2361,9 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {	
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
+				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_LOADING);
 
-				View map = Application.mainActivity.getCurrentFocus();
+				View map = App.mainActivity.getCurrentFocus();
 				try {
 					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				} catch (OsmException e) {
@@ -2379,8 +2379,8 @@ public class Logic {
 						}
 					}	
 					try {
-						if (!Application.mainActivity.isFinishing()) {
-							ErrorAlert.showDialog(Application.mainActivity,result);
+						if (!App.mainActivity.isFinishing()) {
+							ErrorAlert.showDialog(App.mainActivity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("CAUSE",ex.getMessage());
@@ -2818,7 +2818,7 @@ public class Logic {
 		if (uri.getScheme().equals("file")) {
 			is = new FileInputStream(new File(uri.getPath()));
 		} else {
-			ContentResolver cr = Application.mainActivity.getContentResolver();
+			ContentResolver cr = App.mainActivity.getContentResolver();
 			is = cr.openInputStream(uri);
 		}
 		
@@ -2826,7 +2826,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
+				Progress.showDialog(App.mainActivity, Progress.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -2869,8 +2869,8 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
-				View map = Application.mainActivity.getCurrentFocus();
+				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_LOADING);
+				View map = App.mainActivity.getCurrentFocus();
 				try {
 					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				} catch (OsmException e) {
@@ -2885,8 +2885,8 @@ public class Logic {
 						}
 					}
 					try {
-						if (!Application.mainActivity.isFinishing()) {
-							ErrorAlert.showDialog(Application.mainActivity,result);
+						if (!App.mainActivity.isFinishing()) {
+							ErrorAlert.showDialog(App.mainActivity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("CAUSE",ex.getMessage());
@@ -2913,7 +2913,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
+				Progress.showDialog(App.mainActivity, Progress.PROGRESS_SAVING);
 			}
 			
 			@Override
@@ -2956,8 +2956,8 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
-				View map = Application.mainActivity.getCurrentFocus();
+				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_SAVING);
+				View map = App.mainActivity.getCurrentFocus();
 				try {
 					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				} catch (OsmException e) {
@@ -2971,8 +2971,8 @@ public class Logic {
 							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
 					}
-					if (!Application.mainActivity.isFinishing()) {
-						ErrorAlert.showDialog(Application.mainActivity,result);
+					if (!App.mainActivity.isFinishing()) {
+						ErrorAlert.showDialog(App.mainActivity,result);
 					}
 				}
 			}
@@ -2986,8 +2986,8 @@ public class Logic {
 	 */
 	synchronized void save() {
 		try {
-			getDelegator().writeToFile(Application.mainActivity);
-			Application.getTaskStorage().writeToFile(Application.mainActivity);
+			getDelegator().writeToFile(App.mainActivity);
+			App.getTaskStorage().writeToFile(App.mainActivity);
 		} catch (IOException e) {
 			Log.e(DEBUG_TAG, "Problem saving", e);
 		}
@@ -3005,7 +3005,7 @@ public class Logic {
 				// the disadvantage of saving async is that something might have
 				// changed during the write .... so we force the dirty flags on
 				getDelegator().dirty();
-				Application.getTaskStorage().setDirty();
+				App.getTaskStorage().setDirty();
 				return null;
 			}
 		}.execute();
@@ -3025,10 +3025,10 @@ public class Logic {
 	 * @param setViewBox TODO
 	 */
 	void loadEditingState(boolean setViewBox) {
-		EditState editState = new SavingHelper<EditState>().load(Application.mainActivity,EDITSTATE_FILENAME, false);
+		EditState editState = new SavingHelper<EditState>().load(App.mainActivity,EDITSTATE_FILENAME, false);
 		if(editState != null) { // 
 			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
-			editState.setMiscState(Application.mainActivity, this);
+			editState.setMiscState(App.mainActivity, this);
 			editState.setSelected(this);
 			if (setViewBox) {
 				editState.setViewBox(this,map);
@@ -3081,7 +3081,7 @@ public class Logic {
 				}
 				if (result.intValue() != READ_FAILED) {
 					Log.d(DEBUG_TAG, "loadfromFile: File read correctly");
-					View map = Application.mainActivity.getCurrentFocus();
+					View map = App.mainActivity.getCurrentFocus();
 					
 					try {
 						viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
@@ -3103,14 +3103,14 @@ public class Logic {
 					map.invalidate();
 					UndoStorage.updateIcon();
 					if (result.intValue() == READ_BACKUP) { 
-						Toast.makeText(Application.mainActivity, R.string.toast_used_backup, Toast.LENGTH_LONG).show();
+						Toast.makeText(App.mainActivity, R.string.toast_used_backup, Toast.LENGTH_LONG).show();
 					}
 				}
 				else {
 					Log.d("Logic", "loadfromFile: File read failed");
 					Intent intent = new Intent(context, BoxPicker.class);
-					Application.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDING_BOX);
-					Toast.makeText(Application.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+					App.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDING_BOX);
+					Toast.makeText(App.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
 				}
 			}
 		};
@@ -3141,7 +3141,7 @@ public class Logic {
 			@Override
 			protected Integer doInBackground(Context... c) {
 				this.context = c[0];
-				if (Application.getTaskStorage().readFromFile(context)) {
+				if (App.getTaskStorage().readFromFile(context)) {
 					// viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_OK);
 				} 
@@ -3153,7 +3153,7 @@ public class Logic {
 				Log.d("Logic", "loadBugsFromFile onPostExecute");
 				if (result.intValue() != READ_FAILED) {
 					Log.d("Logic", "loadBugsfromFile: File read correctly");
-					View map = Application.mainActivity.getCurrentFocus();
+					View map = App.mainActivity.getCurrentFocus();
 					
 					// FIXME if no bbox exists from data, ty to use one from bugs
 					if (postLoad != null) {
@@ -3184,17 +3184,17 @@ public class Logic {
 
 		int result = READ_FAILED;
 
-		Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
+		Progress.showDialog(App.mainActivity, Progress.PROGRESS_LOADING);
 
 		if (getDelegator().readFromFile()) {
 			viewBox.setBorders(getDelegator().getLastBox());
 			result = READ_OK;
 		} 
 
-		Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
+		Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_LOADING);
 		if (result != READ_FAILED) {
 			Log.d("Logic", "syncLoadfromFile: File read correctly");
-			View map = Application.mainActivity.getCurrentFocus();
+			View map = App.mainActivity.getCurrentFocus();
 
 			try {
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
@@ -3212,12 +3212,12 @@ public class Logic {
 			map.invalidate();
 			UndoStorage.updateIcon();
 			if (result == READ_BACKUP) { 
-				Toast.makeText(Application.mainActivity, R.string.toast_used_backup, Toast.LENGTH_LONG).show();
+				Toast.makeText(App.mainActivity, R.string.toast_used_backup, Toast.LENGTH_LONG).show();
 			}
 		}
 		else {
 			Log.d("Logic", "syncLoadfromFile: File read failed");
-			Toast.makeText(Application.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+			Toast.makeText(App.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -3235,7 +3235,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+				Progress.showDialog(App.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
 				lastComments.push(comment);
 				lastSources.push(source);
 			}
@@ -3300,26 +3300,26 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(UploadResult result) {
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
 				if (result.error == 0) {
 					save(); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
-					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
-					Application.mainActivity.triggerMenuInvalidation();
+					Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+					App.mainActivity.triggerMenuInvalidation();
 					getDelegator().clearUndo(); // only clear on successful upload
 				}
-				Application.mainActivity.getCurrentFocus().invalidate();
-				if (!Application.mainActivity.isFinishing()) {
+				App.mainActivity.getCurrentFocus().invalidate();
+				if (!App.mainActivity.isFinishing()) {
 					if (result.error == ErrorCodes.UPLOAD_CONFLICT) {
 						if (result.osmId > 0) {
-							UploadConflict.showDialog(Application.mainActivity, result);
+							UploadConflict.showDialog(App.mainActivity, result);
 						} else {
 							Log.e(DEBUG_TAG, "No OSM element found for conflict");
-							ErrorAlert.showDialog(Application.mainActivity,ErrorCodes.UPLOAD_PROBLEM);
+							ErrorAlert.showDialog(App.mainActivity,ErrorCodes.UPLOAD_PROBLEM);
 						}
 					} else if (result.error == ErrorCodes.INVALID_LOGIN) {
-						InvalidLogin.showDialog(Application.mainActivity);
+						InvalidLogin.showDialog(App.mainActivity);
 					} else if (result.error != 0) {
-						ErrorAlert.showDialog(Application.mainActivity,result.error);
+						ErrorAlert.showDialog(App.mainActivity,result.error);
 					}
 				}
 			}
@@ -3343,7 +3343,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING);
+				Progress.showDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);
 			}
 			
 			@Override
@@ -3402,17 +3402,17 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING);
+				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);
 				if (result == 0) {
-					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+					Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
 				}
-				Application.mainActivity.getCurrentFocus().invalidate();
+				App.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
-					if (!Application.mainActivity.isFinishing()) {
+					if (!App.mainActivity.isFinishing()) {
 						if (result == ErrorCodes.INVALID_LOGIN) {
-							InvalidLogin.showDialog(Application.mainActivity);
+							InvalidLogin.showDialog(App.mainActivity);
 						} else { 
-							ErrorAlert.showDialog(Application.mainActivity,result);
+							ErrorAlert.showDialog(App.mainActivity,result);
 						}
 					}
 				}
@@ -3446,7 +3446,7 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {
 				if (result > 0) {
-					Context ctx = Application.mainActivity.getApplicationContext();
+					Context ctx = App.mainActivity.getApplicationContext();
 					try {
 						Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unread_mail, result), Toast.LENGTH_LONG).show();
 					} catch (java.util.IllegalFormatFlagsException iffex) {
@@ -4247,7 +4247,7 @@ public class Logic {
 	 * @return the delegator
 	 */
 	public static StorageDelegator getDelegator() {
-		return Application.getDelegator();
+		return App.getDelegator();
 	}
 	
 	public void getDataLock() {
@@ -4389,7 +4389,7 @@ public class Logic {
 							if (ways.size() > 0) {
 								for (Way w:ways) {
 									if (!getFilter().include(w, false)) {
-										AttachedObjectWarning.showDialog(Application.mainActivity);
+										AttachedObjectWarning.showDialog(App.mainActivity);
 										break elementLoop;
 									}
 								}
@@ -4400,7 +4400,7 @@ public class Logic {
 								if (ways.size() > 0) {
 									for (Way w:ways) {
 										if (!getFilter().include(w, false)) {
-											AttachedObjectWarning.showDialog(Application.mainActivity);
+											AttachedObjectWarning.showDialog(App.mainActivity);
 											break elementLoop;
 										}
 									}
@@ -4411,7 +4411,7 @@ public class Logic {
 					if (e.hasParentRelations()) {
 						for (Relation r:e.getParentRelations()) {
 							if (!getFilter().include(r, false)) {
-								AttachedObjectWarning.showDialog(Application.mainActivity);
+								AttachedObjectWarning.showDialog(App.mainActivity);
 								break elementLoop;
 							}
 						}

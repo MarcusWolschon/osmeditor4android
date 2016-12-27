@@ -11,7 +11,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -270,7 +270,7 @@ public class Relation extends OsmElement implements BoundedObject {
 		String description = "";
 		PresetItem p = null;
 		if (ctx != null) {
-			p = Preset.findBestMatch(Application.getCurrentPresets(ctx),tags);
+			p = Preset.findBestMatch(App.getCurrentPresets(ctx),tags);
 		} 
 		if (p!=null) {
 			description = p.getTranslatedName();
@@ -341,7 +341,7 @@ public class Relation extends OsmElement implements BoundedObject {
 		String relationProblem = "";
 		String type = getTagWithKey(Tags.KEY_TYPE);
 		if (type==null || type.equals("")) {
-			relationProblem = Application.mainActivity.getString(R.string.toast_notype);
+			relationProblem = App.mainActivity.getString(R.string.toast_notype);
 		}
 		if (!superProblem.equals("")) 
 			return superProblem + (!relationProblem.equals("") ? "\n" + relationProblem : "");

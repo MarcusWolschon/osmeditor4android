@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.view.ViewGroup;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -25,7 +25,7 @@ public abstract class Filter implements Serializable {
 	transient HashMap<Way,Boolean> cachedWays = new HashMap<Way,Boolean>(100);
 	transient HashMap<Relation,Boolean> cachedRelations = new HashMap<Relation,Boolean>(100);;
 	
-	transient Logic logic = Application.getLogic();
+	transient Logic logic = App.getLogic();
 
 	Filter savedFilter = null;
 	

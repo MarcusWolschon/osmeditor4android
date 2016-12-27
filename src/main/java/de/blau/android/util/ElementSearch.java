@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
@@ -40,7 +40,7 @@ public class ElementSearch {
      */
     private String[] getStreetArray(final int[] location) {
 		// build list of names with their closest distance to location
-    	final StorageDelegator delegator = Application.getDelegator();
+    	final StorageDelegator delegator = App.getDelegator();
 		Map<String, Double> distancesByNames = new HashMap<String, Double>();
 		String[] nameTags = {Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME, Tags.KEY_NAME_LEFT, Tags.KEY_NAME_RIGHT};
 		
@@ -112,7 +112,7 @@ public class ElementSearch {
      */
     private String[] getPlaceArray(final int[] location) {
 		// build list of names with their closest distance to location
-    	final StorageDelegator delegator = Application.getDelegator(); 
+    	final StorageDelegator delegator = App.getDelegator(); 
 		Map<String, Double> distancesByName = new HashMap<String, Double>();
 		String[] nameTags = {Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME};
 		Log.d(DEBUG_PLACE_TAG,"searching for place ways...");

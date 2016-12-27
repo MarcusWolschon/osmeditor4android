@@ -7,7 +7,7 @@ import java.util.Set;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
@@ -36,7 +36,7 @@ public class MapOverlay extends MapViewOverlay {
 	private final Map map;
 	
 	/** Bugs visible on the overlay. */
-	private TaskStorage tasks = Application.getTaskStorage();
+	private TaskStorage tasks = App.getTaskStorage();
 	
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;

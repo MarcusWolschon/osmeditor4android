@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.exception.OsmException;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
@@ -449,14 +449,14 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 						newHeight2 = (long)((width / 2L) / ratio);
 						newWidth2 = (long)(width / 2L);
 					} else { // switch landscape --> portrait
-						float pixelDeg = (float)Application.mainActivity.getMap().getHeight()/(float)width; // height was the old width
-						newWidth2 = (long)(Application.mainActivity.getMap().getWidth() / pixelDeg)/2L;
+						float pixelDeg = (float)App.mainActivity.getMap().getHeight()/(float)width; // height was the old width
+						newWidth2 = (long)(App.mainActivity.getMap().getWidth() / pixelDeg)/2L;
 						newHeight2 = (long)(newWidth2 / ratio );
 					}
 				} else { // landscape
 					if (width < mHeight) { // switch portrait -> landscape
-						float pixelDeg = (float)Application.mainActivity.getMap().getHeight()/(float)width; // height was the old width
-						newWidth2 = (long)(Application.mainActivity.getMap().getWidth() / pixelDeg)/2L;
+						float pixelDeg = (float)App.mainActivity.getMap().getHeight()/(float)width; // height was the old width
+						newWidth2 = (long)(App.mainActivity.getMap().getWidth() / pixelDeg)/2L;
 						newHeight2 = (long)(newWidth2 / ratio );
 					} else {
 						newHeight2 =(long)((width / 2L) / ratio);
@@ -705,8 +705,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		// setting an exact zoom level implies one screen pixel == one tile pixel
 		// calculate one pixel in degrees (mercator) at this zoom level
 		double degE7PerPixel = 3600000000.0d / (256*Math.pow(2, tileZoomLevel));
-		double wDegE7 = Application.mainActivity.getMap().getWidth() * degE7PerPixel;
-		double hDegE7 = Application.mainActivity.getMap().getHeight() * degE7PerPixel;
+		double wDegE7 = App.mainActivity.getMap().getWidth() * degE7PerPixel;
+		double hDegE7 = App.mainActivity.getMap().getHeight() * degE7PerPixel;
 		long centerLon = left + width/2;
 		left = (int) (centerLon - wDegE7/2);
 		right = (int) (left + wDegE7);

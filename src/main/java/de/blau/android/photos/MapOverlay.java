@@ -12,7 +12,7 @@ import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
@@ -92,9 +92,9 @@ public class MapOverlay extends MapViewOverlay {
 		@Override
 		protected void onProgressUpdate(Integer ... progress) {
 			if (progress[0] == 0)
-				Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
+				Toast.makeText(App.mainActivity, R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
 			if (progress[0] == 1)
-				Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
+				Toast.makeText(App.mainActivity, R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
@@ -106,7 +106,7 @@ public class MapOverlay extends MapViewOverlay {
 	};		
 
 	public MapOverlay(final Map map, Server s) {
-		Context context = Application.mainActivity;
+		Context context = App.mainActivity;
 		this.map = map;
 		photos = new ArrayList<Photo>();
 		icon = ContextCompat.getDrawable(context, R.drawable.camera_red);

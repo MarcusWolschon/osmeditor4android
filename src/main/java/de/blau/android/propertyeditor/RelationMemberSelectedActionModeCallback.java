@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -185,7 +185,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 					}
 				}
 			};
-			final Logic logic = Application.getLogic();
+			final Logic logic = App.getLogic();
 			if (selectedCount < size) {
 				for (int i = 0;i<selectedCount;i++) {
 					RelationMemberRow row = selected.get(i);

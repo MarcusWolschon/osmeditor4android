@@ -408,7 +408,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		
 		super.onCreate(savedInstanceState);
-		Application.mainActivity = this;
+		App.mainActivity = this;
 		
 		sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager != null) {
@@ -461,14 +461,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Application.getLogic().zoom(Logic.ZOOM_IN);
+				App.getLogic().zoom(Logic.ZOOM_IN);
 				updateZoomControls();
 			}
 		});
 		zoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Application.getLogic().zoom(Logic.ZOOM_OUT);
+				App.getLogic().zoom(Logic.ZOOM_OUT);
 				updateZoomControls();
 			}
 		});
@@ -515,21 +515,21 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		loadOnResume = false;
 		
-		if (Application.getLogic()==null) {
+		if (App.getLogic()==null) {
 			Log.i(DEBUG_TAG, "onCreate - creating new logic");
-			Application.newLogic();
+			App.newLogic();
 		}
 		Log.i(DEBUG_TAG, "onCreate - setting new map");
 
-		Application.getLogic().setPrefs(prefs);
-		Application.getLogic().setMap(map);
+		App.getLogic().setPrefs(prefs);
+		App.getLogic().setMap(map);
 		
-		Log.d(DEBUG_TAG,"StorageDelegator dirty is " + Application.getDelegator().isDirty());
-		if (isLastActivityAvailable() && !Application.getDelegator().isDirty()) { // data was modified while we were stopped if isDirty is true
+		Log.d(DEBUG_TAG,"StorageDelegator dirty is " + App.getDelegator().isDirty());
+		if (isLastActivityAvailable() && !App.getDelegator().isDirty()) { // data was modified while we were stopped if isDirty is true
 			// Start loading after resume to ensure loading dialog can be removed afterwards
 			loadOnResume = true;
 		} else { // the following code should likely be moved to onStart or onResume 
-			if (geoData == null && rcData == null && Application.getDelegator().isEmpty()) {
+			if (geoData == null && rcData == null && App.getDelegator().isEmpty()) {
 				// check if we have a position
 				Location loc = getLastLocation();
 				BoundingBox box = null;
@@ -606,11 +606,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		super.onStart();
 
 		prefs = new Preferences(this);
-		Application.getLogic().setPrefs(prefs);
+		App.getLogic().setPrefs(prefs);
 		
 		// if we have been stopped delegator and viewbox will not be set if our original Logic instance is still around
-		map.setDelegator(Application.getDelegator());
-		map.setViewBox(Application.getLogic().getViewBox());
+		map.setDelegator(App.getDelegator());
+		map.setViewBox(App.getLogic().getViewBox());
 		
 		map.setPrefs(prefs);
 		map.createOverlays();
@@ -624,7 +624,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
-		Log.d(DEBUG_TAG, "onNewIntent storage dirty " + Application.getDelegator().isDirty());
+		Log.d(DEBUG_TAG, "onNewIntent storage dirty " + App.getDelegator().isDirty());
 		setIntent(intent);
 		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
 		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
@@ -634,7 +634,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	protected void onResume() {
 		super.onResume();
 		Log.d(DEBUG_TAG, "onResume");
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 
 		checkPermissions();
 
@@ -697,7 +697,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				logic.loadBugsFromFile(this,postLoadTasks);
 			} else { // loadFromFile already does this
 				synchronized (setViewBoxLock) {
-					Application.getLogic().loadEditingState(setViewBox);
+					App.getLogic().loadEditingState(setViewBox);
 				}
 				postLoadData.execute();
 				map.invalidate();
@@ -791,14 +791,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * Process geo an JOSM remote control intents
 	 */
 	protected void processIntents() {
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		if (geoData != null) {
-			Log.d(DEBUG_TAG,"got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + Application.getDelegator().isDirty());
+			Log.d(DEBUG_TAG,"got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + App.getDelegator().isDirty());
 			if (prefs.getDownloadRadius() != 0) { // download
 				BoundingBox bbox;
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
-					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
+					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, bbox); 
 					if (bboxes != null && bboxes.size() > 0) {
 						logic.downloadBox(bbox, true, null); 
@@ -820,7 +820,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (rcData != null) {
 			Log.d(DEBUG_TAG,"got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
 			if (rcData.load()) { // download
-				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
+				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
 				ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, rcData.getBox()); 
 				if (bboxes != null && bboxes.size() > 0) {
 					logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
@@ -850,7 +850,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @param rcData Data of a remote control data URL.
 	 */
 	void rcDataEdit(RemoteControlUrlData rcData ) {
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		if (rcData.getSelect() != null) {
 			// need to actually switch to easyeditmode
 			if (!logic.getMode().elementsGeomEditiable()) { // TODO there might be states in which we don't want to exit which ever mode we are in
@@ -896,7 +896,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	@Override
 	protected void onPause() {
 		descheduleAutoLock();
-		Log.d(DEBUG_TAG, "onPause mode " + Application.getLogic().getMode());
+		Log.d(DEBUG_TAG, "onPause mode " + App.getLogic().getMode());
 		runningInstance = null;
 		try {
 			unregisterReceiver(connectivityChangedReceiver);
@@ -909,7 +909,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (getTracker() != null) getTracker().setListener(null);
 
 		// always save editing state
-		Application.getLogic().saveEditingState(this);
+		App.getLogic().saveEditingState(this);
 		// onPause is the last lifecycle callback guaranteed to be called on pre-honeycomb devices
 		// on honeycomb and later, onStop is also guaranteed to be called, so we can defer saving.
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) saveData();
@@ -944,7 +944,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	private void saveData() {
 		Log.i(DEBUG_TAG, "saving data sync="+saveSync);
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		if (saveSync) {
 			logic.save();
 		} else {
@@ -957,7 +957,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * to zoom in/out.
 	 */
 	private void updateZoomControls() {
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		getControls().setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
 		getControls().setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
 	}
@@ -971,7 +971,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-		Application.getLogic().setMap(map);
+		App.getLogic().setMap(map);
 		Log.d(DEBUG_TAG, "onConfigurationChanged");
 		if (easyEditManager.isProcessingAction()) {
 			easyEditManager.invalidate();
@@ -1044,7 +1044,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	@SuppressLint("InflateParams")
 	void setupLockButton()	{
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		Mode mode = logic.getMode();
 		Log.d(DEBUG_TAG, "setupLockButton mode " + mode);
 		//ToggleButton lock = setLock(mode);
@@ -1078,7 +1078,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		    @Override
 			public boolean onLongClick(View b) {
 		        Log.d(DEBUG_TAG, "Lock long pressed " + b.getClass().getName()); 
-		        final Logic logic = Application.getLogic();
+		        final Logic logic = App.getLogic();
 		        int[] drawableState = ((FloatingActionButton)b).getDrawableState();
 		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
 		        Mode mode = logic.getMode();
@@ -1116,7 +1116,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			Log.d(DEBUG_TAG, "couldn't find lock button");
 			return null;
 		}
-		Logic logic = Application.getLogic();
+		Logic logic = App.getLogic();
 		if (logic.isLocked()) {
 			lock.setImageState(new int[0], false); 
 		} else {
@@ -1141,12 +1141,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	public void setMode(Logic.Mode mode) {
-		Application.getLogic().setMode(mode); 
+		App.getLogic().setMode(mode); 
 	}
 	
 	public void updateActionbarEditMode() {
 		Log.d(DEBUG_TAG, "updateActionbarEditMode");
-		Mode mode = Application.getLogic().getMode();
+		Mode mode = App.getLogic().getMode();
 		setLock(mode);
 		supportInvalidateOptionsMenu();
 	}
@@ -1206,7 +1206,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
 		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0 && NetworkStatus.isConnected(this));
 		
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		MenuItem undo = menu.findItem(R.id.menu_undo);
 		undo.setVisible(!logic.isLocked() && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
 		View undoView = MenuItemCompat.getActionView(undo);
@@ -1274,7 +1274,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		Log.d(DEBUG_TAG, "onOptionsItemSelected");
 		final Server server = prefs.getServer();
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		switch (item.getItemId()) {
 		case R.id.menu_config:
 			PrefEditor.start(this,getMap().getViewBox());
@@ -1413,7 +1413,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_gps_import:
-			if (Application.getDelegator() == null) return true;
+			if (App.getDelegator() == null) return true;
 			descheduleAutoLock();
 			SelectFile.read(this, new ReadFile(){
 				private static final long serialVersionUID = 1L;
@@ -1501,13 +1501,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 
 		case R.id.menu_transfer_export: {
-			StorageDelegator storageDelegator = Application.getDelegator();
+			StorageDelegator storageDelegator = App.getDelegator();
 			if (storageDelegator == null) return true;
 			SavingHelper.asyncExport(this, storageDelegator);
 			return true;
 		}
 		case R.id.menu_transfer_read_file:
-			if (Application.getDelegator() == null) return true;
+			if (App.getDelegator() == null) return true;
 			descheduleAutoLock();
 			// showFileChooser(READ_OSM_FILE_SELECT_CODE);
 			SelectFile.read(this, new ReadFile(){
@@ -1530,13 +1530,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_transfer_save_file:
-			if (Application.getDelegator() == null) return true;
+			if (App.getDelegator() == null) return true;
 			descheduleAutoLock();
 			SelectFile.save(this, new SaveFile(){
 				private static final long serialVersionUID = 1L;
 				@Override
 				public boolean save(Uri fileUri) {
-					Application.getLogic().writeOsmFile(fileUri.getPath());
+					App.getLogic().writeOsmFile(fileUri.getPath());
 					return true;
 				}});
 			return true;
@@ -1553,7 +1553,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_transfer_bugs_upload:
-			if (Application.getTaskStorage().hasChanges()) {
+			if (App.getTaskStorage().hasChanges()) {
 				TransferTasks.upload(this, server);
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
@@ -1561,11 +1561,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_transfer_bugs_clear:
-			if (Application.getTaskStorage().hasChanges()) { // FIXME show a dialog and allow override
+			if (App.getTaskStorage().hasChanges()) { // FIXME show a dialog and allow override
 				Toast.makeText(getApplicationContext(), R.string.toast_unsaved_changes, Toast.LENGTH_LONG).show();
 				return true;
 			}
-			Application.getTaskStorage().reset();
+			App.getTaskStorage().reset();
 			map.invalidate();
 			return true;
 			
@@ -1575,7 +1575,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 		case R.id.menu_transfer_save_notes_all:
 		case R.id.menu_transfer_save_notes_new_and_changed:
-			if (Application.getTaskStorage() == null) return true;
+			if (App.getTaskStorage() == null) return true;
 			descheduleAutoLock();
 			SelectFile.save(this, new SaveFile(){
 				private static final long serialVersionUID = 1L;
@@ -1819,7 +1819,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	private void onMenuDownloadCurrent(boolean add) {
 		Log.d(DEBUG_TAG, "onMenuDownloadCurrent");
-		if (Application.getLogic().hasChanges() && !add) {
+		if (App.getLogic().hasChanges() && !add) {
 			DownloadCurrentWithChanges.showDialog(this);
 		} else {
 			performCurrentViewHttpLoad(add);
@@ -1898,7 +1898,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 *             (various data can be attached to Intent "extras").
 	 */
 	private void handlePropertyEditorResult(final Intent data) {
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		Bundle b = data.getExtras();
 		if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
 			// Read data from extras
@@ -1909,7 +1909,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					loadOnResume = false;
 					Log.d(DEBUG_TAG,"handlePropertyEditorResult loading data");
 					logic.syncLoadFromFile(); // sync load
-					Application.getTaskStorage().readFromFile(this);
+					App.getTaskStorage().readFromFile(this);
 				}
 			}
 			for (PropertyEditorData editorData:result) {
@@ -1993,7 +1993,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	public void performCurrentViewHttpLoad(boolean add) {
-		Application.getLogic().downloadCurrent(add);
+		App.getLogic().downloadCurrent(add);
 		if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
 			TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				private static final long serialVersionUID = 1L;
@@ -2007,11 +2007,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		Application.getLogic().downloadBox(box, false, null);
+		App.getLogic().downloadBox(box, false, null);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
-		Application.getLogic().newEmptyMap(box);
+		App.getLogic().newEmptyMap(box);
 	}
 
 	/**
@@ -2021,12 +2021,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 *                       should be closed or kept open.
 	 */
 	public void performUpload(final String comment, final String source, final boolean closeChangeset) {
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
 			boolean hasDataChanges = logic.hasChanges();
-			boolean hasBugChanges = !Application.getTaskStorage().isEmpty() && Application.getTaskStorage().hasChanges();
+			boolean hasBugChanges = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
 			if (hasDataChanges || hasBugChanges) {
 				if (hasDataChanges) {
 					logic.upload(comment, source, closeChangeset);
@@ -2048,7 +2048,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public void performTrackUpload(final String description, final String tags, final Visibility visibility) {
 		
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
@@ -2067,7 +2067,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			if (Application.getLogic().hasChanges()) {
+			if (App.getLogic().hasChanges()) {
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server, new PostAsyncActionHandler() {
 						private static final long serialVersionUID = 1L;
@@ -2130,8 +2130,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			zoomControls.hide();
 		}
 		hideFollowButton();
-		if (Application.getLogic().getFilter() != null) {
-			Application.getLogic().getFilter().hideControls();
+		if (App.getLogic().getFilter() != null) {
+			App.getLogic().getFilter().hideControls();
 		}
 	}
 	
@@ -2147,8 +2147,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			zoomControls.show();
 		}
 		showFollowButton();
-		if (Application.getLogic().getFilter() != null) {
-			Application.getLogic().getFilter().showControls();
+		if (App.getLogic().getFilter() != null) {
+			App.getLogic().getFilter().showControls();
 		}
 	}
 	
@@ -2271,7 +2271,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void gotoBoxPicker() {
 		descheduleAutoLock();
 		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
-		if (Application.getLogic().hasChanges()) {
+		if (App.getLogic().hasChanges()) {
 			DataLossActivity.showDialog(this, intent, REQUEST_BOUNDING_BOX);
 		} else {
 			startActivityForResult(intent, REQUEST_BOUNDING_BOX);
@@ -2287,7 +2287,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets, boolean askForName) {
 		descheduleAutoLock();
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		logic.deselectAll();
 		if (selectedElement instanceof Node) {
 			logic.setSelectedNode((Node) selectedElement);
@@ -2298,7 +2298,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	
 		if (selectedElement != null) {
-			StorageDelegator storageDelegator = Application.getDelegator();
+			StorageDelegator storageDelegator = App.getDelegator();
 			if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
@@ -2311,7 +2311,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
 		descheduleAutoLock();
 		ArrayList<PropertyEditorData> multiple = new ArrayList<PropertyEditorData>();
-		StorageDelegator storageDelegator = Application.getDelegator();
+		StorageDelegator storageDelegator = App.getDelegator();
 		for (OsmElement e:selection) {
 			if (storageDelegator.getOsmElement(e.getName(), e.getOsmId()) != null) {
 				multiple.add(new PropertyEditorData(e, null));
@@ -2333,7 +2333,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void performBugEdit(final Task bug) {
 		Log.d(DEBUG_TAG, "editing bug:"+bug);
 		descheduleAutoLock();
-		Application.getLogic().setSelectedBug(bug);
+		App.getLogic().setSelectedBug(bug);
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		Fragment prev = fm.findFragmentByTag("fragment_bug");
@@ -2367,7 +2367,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return;
 		}
 		if (prefs.useBackForUndo()) {
-			String name = Application.getLogic().undo();
+			String name = App.getLogic().undo();
 			if (name != null)
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			else
@@ -2433,7 +2433,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public void onClick(View arg0) {
 			Log.d(DEBUG_TAG,"normal click");
-			final Logic logic = Application.getLogic();
+			final Logic logic = App.getLogic();
 			String name = logic.undo();
 			if (name != null) {
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
@@ -2447,7 +2447,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public boolean onLongClick(View v) {
 			Log.d(DEBUG_TAG,"long click");
-			final Logic logic = Application.getLogic();
+			final Logic logic = App.getLogic();
 			UndoStorage undo = logic.getUndo();
 			if (undo.canUndo() || undo.canRedo()) {
 				UndoDialogFactory.showUndoDialog(Main.this, logic, undo);
@@ -2492,10 +2492,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				clickedBugs = null;
 				clickedPhotos = null;
 				clickedNodesAndWays = null;
-				Application.getLogic().handleTouchEventDown(m.getX(), m.getY());
+				App.getLogic().handleTouchEventDown(m.getX(), m.getY());
 			}
 			if (m.getAction() == MotionEvent.ACTION_UP) {
-				Application.getLogic().handleTouchEventUp(m.getX(), m.getY());
+				App.getLogic().handleTouchEventUp(m.getX(), m.getY());
 				scheduleAutoLock();
 			}
 			mDetector.onTouchEvent(v, m);
@@ -2513,13 +2513,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
 			clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
 			
-			final Logic logic = Application.getLogic();
+			final Logic logic = App.getLogic();
 			Mode mode = logic.getMode();
 			boolean isInEditZoomRange = logic.isInEditZoomRange();
 			
 			if (isInEditZoomRange) {
 				if (logic.isLocked()) {
-					if (NetworkStatus.isConnected(Application.mainActivity) && prefs.voiceCommandsEnabled()) {
+					if (NetworkStatus.isConnected(App.mainActivity) && prefs.voiceCommandsEnabled()) {
 						locationForIntent = lastLocation; // location when we touched the screen
 						startVoiceRecognition();
 					} else {
@@ -2570,14 +2570,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		@Override
 		public void onUp(View v, float x, float y) {
-			if (Application.getLogic().getMode().elementsGeomEditiable()) {
+			if (App.getLogic().getMode().elementsGeomEditiable()) {
 				easyEditManager.invalidate();
 			}
 		}
 		
 		@Override
 		public boolean onLongClick(final View v, final float x, final float y) {
-			final Logic logic = Application.getLogic();
+			final Logic logic = App.getLogic();
 			if (logic.isLocked()) {
 				if (logic.getMode().elementsGeomEditiable()) {
 					// display context menu
@@ -2621,13 +2621,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
 			// Log.d("MapTouchListener", "onDrag dx " + dx + " dy " + dy );
-			Application.getLogic().handleTouchEventMove(x, y, -dx, dy);
+			App.getLogic().handleTouchEventMove(x, y, -dx, dy);
 			setFollowGPS(false);
 		}
 		
 		@Override
 		public void onScale(View v, float scaleFactor, float prevSpan, float curSpan) {
-			Application.getLogic().zoom((curSpan - prevSpan) / prevSpan);
+			App.getLogic().zoom((curSpan - prevSpan) / prevSpan);
 			updateZoomControls();
 		}
 		
@@ -2640,8 +2640,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		 */
 		public void performEdit(Mode mode, final View v, final float x, final float y) {
 			if (!easyEditManager.actionModeHandledClick(x, y)) {
-				clickedNodesAndWays = Application.getLogic().getClickedNodesAndWays(x, y);
-				Logic logic = Application.getLogic();
+				clickedNodesAndWays = App.getLogic().getClickedNodesAndWays(x, y);
+				Logic logic = App.getLogic();
 				Filter filter = logic.getFilter();
 				if (filter != null) { // filter indoor elements 
 					clickedNodesAndWays = filterElements(clickedNodesAndWays);
@@ -2693,7 +2693,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		 */
 		private ArrayList<OsmElement> filterElements(List<OsmElement> elements) {
 			ArrayList<OsmElement>tmp = new ArrayList<OsmElement>();
-			Logic logic = Application.getLogic();
+			Logic logic = App.getLogic();
 			Filter filter = logic.getFilter();
 			for (OsmElement e:elements) {
 				if (filter.include(e, false)) {
@@ -2736,15 +2736,15 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				}
 			}
 			if (clickedNodesAndWays != null) {
-				Logic logic = Application.getLogic();
+				Logic logic = App.getLogic();
 				for (OsmElement e : clickedNodesAndWays) {
 					String description = e.getDescription(Main.this);
 					if (e instanceof Node) {
-						List<Way> ways =  Application.getLogic().getWaysForNode((Node)e);
+						List<Way> ways =  App.getLogic().getWaysForNode((Node)e);
 						if (ways != null && ways.size() > 0) {
 							description = description + " (";
 							for (Way w:ways) {
-								description = description + w.getDescription(Application.mainActivity) + ((ways.indexOf(w)!=(ways.size()-1)?", ":""));
+								description = description + w.getDescription(App.mainActivity) + ((ways.indexOf(w)!=(ways.size()-1)?", ":""));
 							}
 							description = description + ")";
 						}
@@ -2788,7 +2788,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				if (candidate.hasParentRelations()) {
 					return true; // otherwise a relation that only has nodes as member is not selectable
 				}
-				final Logic logic = Application.getLogic();
+				final Logic logic = App.getLogic();
 				float nodeX = logic.getNodeScreenX(candidate);
 				float nodeY = logic.getNodeScreenY(candidate);
 				for (int i = 1; i < clickedNodesAndWays.size(); i++) {
@@ -2824,10 +2824,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				
 				if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
 					final OsmElement element = clickedNodesAndWays.get(itemId);
-					if (Application.getLogic().isLocked()) {
+					if (App.getLogic().isLocked()) {
 						ElementInfo.showDialog(Main.this,element);
 					} else {
-						Mode mode = Application.getLogic().getMode();
+						Mode mode = App.getLogic().getMode();
 						if (mode.elementsGeomEditiable()) {
 							if (doubleTap) {
 								doubleTap = false;
@@ -2848,7 +2848,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		 * Show toasts displaying the info on nearby objects
 		 */
 		void displayInfo(final float x, final float y) {
-			clickedNodesAndWays = Application.getLogic().getClickedNodesAndWays(x, y);
+			clickedNodesAndWays = App.getLogic().getClickedNodesAndWays(x, y);
 			// clickedPhotos and
 			if (clickedPhotos != null) {
 				for (Photo p : clickedPhotos) {
@@ -2874,7 +2874,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		@Override
 		public boolean onDoubleTap(View v, float x, float y) {
-			final Logic logic = Application.getLogic();
+			final Logic logic = App.getLogic();
 			boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
 			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
 			switch (clickedNodesAndWays.size()) {
@@ -2919,7 +2919,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public boolean onKey(final View v, final int keyCode, final KeyEvent event) {
 			scheduleAutoLock();
-			final Logic logic = Application.getLogic();
+			final Logic logic = App.getLogic();
 			switch (event.getAction()) {
 			case KeyEvent.ACTION_UP:
 				if (!v.onKeyUp(keyCode, event)) {
@@ -2986,7 +2986,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		private void translate(final CursorPaddirection direction) {
 			setFollowGPS(false);
-			Application.getLogic().translate(direction);
+			App.getLogic().translate(direction);
 		}
 	}
 	
@@ -3001,7 +3001,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@SuppressLint("NewApi")
 		@Override
 		public boolean onGenericMotion(View arg0,MotionEvent event) {
-			final Logic logic = Application.getLogic();
+			final Logic logic = App.getLogic();
 			if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)) {
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_SCROLL:
@@ -3024,7 +3024,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
 	public String getPendingChanges() {
-		List<String> changes = Application.getLogic().getPendingChanges(this);
+		List<String> changes = App.getLogic().getPendingChanges(this);
 		StringBuilder retval = new StringBuilder();
 		for (String change : changes) {
 			retval.append(change).append('\n');
@@ -3044,7 +3044,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 	
 	public static boolean hasChanges() {
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		//noinspection SimplifiableIfStatement
 		if (logic == null) return false;
 		return logic.hasChanges();
@@ -3124,10 +3124,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * MUST BE CALLED FROM THE MAIN/UI THREAD!
 	 */
 	public static void triggerMenuInvalidationStatic() {
-		if (Application.mainActivity == null) return;
+		if (App.mainActivity == null) return;
 		// DO NOT IGNORE "wrong thread" EXCEPTIONS FROM THIS.
 		// It *will* mess up your menu in many creative ways.
-		Application.mainActivity.triggerMenuInvalidation();
+		App.mainActivity.triggerMenuInvalidation();
 	}
 
 	/**
@@ -3153,7 +3153,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	
 	public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {
 		Log.d(DEBUG_TAG,"zoomToAndEdit Zoom " + map.getZoomLevel());
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 //		if (logic.getMode()==Mode.MODE_MOVE) { // avoid switching to the wrong mode
 //			FloatingActionButton lock = setLock(Mode.MODE_MOVE); // NOP to get button
 //			if (EASY_TAG.equals(lock.getTag())) {
@@ -3204,7 +3204,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void zoomTo(int lonE7, int latE7, OsmElement e) {
 		setFollowGPS(false); // otherwise the screen could move around
 		if (e instanceof Node && map.getZoomLevel() < 22) {
-			Application.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
+			App.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
 		} else {
 			map.getViewBox().setBorders(e.getBounds(),false);
 		}
@@ -3214,7 +3214,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void zoomTo( OsmElement e) {
 		setFollowGPS(false); // otherwise the screen could move around
 		if (e instanceof Node && map.getZoomLevel() < 22) {
-			Application.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
+			App.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
 			map.getViewBox().moveTo(((Node)e).getLon(), ((Node)e).getLat());
 		} else {
 			map.getViewBox().setBorders(e.getBounds(),false);
@@ -3295,14 +3295,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private Runnable autoLock = new Runnable() {
 		@Override
 		public void run() {
-			if (!Application.getLogic().isLocked()) {
+			if (!App.getLogic().isLocked()) {
 				if (!easyEditManager.isProcessingAction() || easyEditManager.inElementSelectedMode()) {
 					View lock = getLock();
 					if (lock != null) {
 						lock.performClick();
 					}
 					if (easyEditManager.inElementSelectedMode()) {
-						Application.getLogic().deselectAll();
+						App.getLogic().deselectAll();
 						easyEditManager.finish();
 					}
 				} else { // can't lock now, reschedule

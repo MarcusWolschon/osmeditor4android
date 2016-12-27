@@ -11,7 +11,7 @@ import com.google.gson.stream.JsonReader;
 
 import android.content.res.AssetManager;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 
 /**
  * Tags that we want to remove before saving to server. List is in discarded.json from the iD repository
@@ -30,7 +30,7 @@ public class DiscardedTags {
 	DiscardedTags() {	
 		Log.d("DiscardedTags","Parsing configuration file");
 
-		AssetManager assetManager = Application.getCurrentApplication().getAssets();
+		AssetManager assetManager = App.getCurrentApplication().getAssets();
 
 		try {
 			InputStream is = assetManager.open("discarded.json");

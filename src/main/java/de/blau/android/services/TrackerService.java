@@ -44,7 +44,7 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
@@ -198,7 +198,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		tracking = true;
 		track.markNewSegment();
 		try {
-			Application.mainActivity.triggerMenuInvalidation();
+			App.mainActivity.triggerMenuInvalidation();
 		} catch (Exception e) {
 			Log.e(TAG,"startTrackingInternal triggerMenuInvalidation failed " + e);
 		} 
@@ -215,7 +215,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		startInternal();
 		downloading = true;
 		try {
-			Application.mainActivity.triggerMenuInvalidation();
+			App.mainActivity.triggerMenuInvalidation();
 		} catch (Exception e) {
 			Log.e(TAG,"startAutoDownloadInternal triggerMenuInvalidation failed " + e);
 		} 	
@@ -232,7 +232,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		startInternal();
 		downloadingBugs = true;
 		try {
-			Application.mainActivity.triggerMenuInvalidation();
+			App.mainActivity.triggerMenuInvalidation();
 		} catch (Exception e) {
 			Log.e(TAG,"startBugAutoDownloadInternal triggerMenuInvalidation failed " + e);
 		} 
@@ -420,7 +420,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	                        	onLocationChanged(l);
 	                        	break;
 	                        case CONNECTION_FAILED:
-	                        	Toast.makeText(Application.mainActivity, (String)inputMessage.obj, Toast.LENGTH_LONG).show();
+	                        	Toast.makeText(App.mainActivity, (String)inputMessage.obj, Toast.LENGTH_LONG).show();
 	                        	break;
 	                    }
 	                }
@@ -509,7 +509,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
+				Progress.showDialog(App.mainActivity, Progress.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -528,9 +528,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			@Override
 			protected void onPostExecute(Integer result) {
 				try {
-					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
-					Toast.makeText(Application.mainActivity.getApplicationContext(), 
-							Application.mainActivity.getApplicationContext().getResources().getString(R.string.toast_imported_track_points,track.getTrackPoints().size()-existingPoints), Toast.LENGTH_LONG).show();
+					Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_LOADING);
+					Toast.makeText(App.mainActivity.getApplicationContext(), 
+							App.mainActivity.getApplicationContext().getResources().getString(R.string.toast_imported_track_points,track.getTrackPoints().size()-existingPoints), Toast.LENGTH_LONG).show();
 					// the following is extremely ugly
 					Main.triggerMenuInvalidationStatic();
 				} catch (IllegalStateException e) {
@@ -870,7 +870,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		// speed needs to be <= 6km/h (aka brisk walking speed) 
 		int radius = prefs.getDownloadRadius();
 		if ((location.getSpeed() < prefs.getMaxDownloadSpeed()/3.6f) && (previousLocation==null || location.distanceTo(previousLocation) > radius/8)) {
-			StorageDelegator storageDelegator = Application.getDelegator();
+			StorageDelegator storageDelegator = App.getDelegator();
 			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(storageDelegator.getBoundingBoxes());
 			BoundingBox newBox = getNextBox(bbList,previousLocation, location,radius);
 			if (newBox != null) {
@@ -884,7 +884,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						}
 						storageDelegator.addBoundingBox(b);  // will be filled once download is complete
 						Log.d(TAG,"getNextCenter loading " + b.toString());
-						Application.getLogic().autoDownloadBox(this,prefs.getServer(), b); 
+						App.getLogic().autoDownloadBox(this,prefs.getServer(), b); 
 					}
 				}
 				previousLocation  = location;
@@ -965,7 +965,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		// speed needs to be <= 6km/h (aka brisk walking speed) 
 		int radius = prefs.getBugDownloadRadius();
 		if ((location.getSpeed() < prefs.getMaxBugDownloadSpeed()/3.6f) && (previousBugLocation==null || location.distanceTo(previousBugLocation) > radius/8)) {
-			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getTaskStorage().getBoundingBoxes());
+			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getTaskStorage().getBoundingBoxes());
 			BoundingBox newBox = getNextBox(bbList,previousBugLocation, location, radius);
 			if (newBox != null) {
 				if (radius != 0) { // download
@@ -976,7 +976,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 							Log.d(TAG,"bugAutoDownload very small bb " + b.toString());
 							continue;
 						}
-						Application.getTaskStorage().add(b);  // will be filled once download is complete
+						App.getTaskStorage().add(b);  // will be filled once download is complete
 						Log.d(TAG,"bugAutoDownloads loading " + b.toString());
 						TransferTasks.downloadBox(this,prefs.getServer(), b, true, null);
 					}

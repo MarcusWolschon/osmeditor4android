@@ -18,7 +18,7 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
@@ -95,7 +95,7 @@ public class ImportTrack extends DialogFragment
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
-		Builder builder = new AlertDialog.Builder(Application.mainActivity);
+		Builder builder = new AlertDialog.Builder(App.mainActivity);
 		builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
 		builder.setTitle(R.string.existing_track_title);
 		builder.setMessage(R.string.existing_track_message);

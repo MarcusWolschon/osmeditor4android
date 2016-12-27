@@ -14,7 +14,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -157,7 +157,7 @@ public class IssueAlert {
 			NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 			// mId allows you to update the notification later on.
 			mNotificationManager.notify(id(e), mBuilder.build());
-			Application.getOsmDataNotifications(context).save(mNotificationManager,id(e));
+			App.getOsmDataNotifications(context).save(mNotificationManager,id(e));
 			
 		} catch (OsmException e1) {
 			Log.d("IssueAlert","Illegal BB created from lat " + eLat+ " lon " + eLon + " r " + prefs.getDownloadRadius());
@@ -171,7 +171,7 @@ public class IssueAlert {
 	
 	public static void cancel(Context context, OsmElement e) {
 		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		Application.getOsmDataNotifications(context).remove(mNotificationManager,id(e));
+		App.getOsmDataNotifications(context).remove(mNotificationManager,id(e));
 	}
 	
 	/**
@@ -260,7 +260,7 @@ public class IssueAlert {
 		// mId allows you to update the notification later on.
 		int id = id(b);
 		mNotificationManager.notify(id(b), mBuilder.build());
-		Application.getTaskNotifications(context).save(mNotificationManager,id(b));
+		App.getTaskNotifications(context).save(mNotificationManager,id(b));
 		bugCount++;
 
 	}
@@ -271,7 +271,7 @@ public class IssueAlert {
 	
 	public static void cancel(Context context, Task b) {
 		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		Application.getTaskNotifications(context).remove(mNotificationManager,id(b)); // cancels and removes from cache
+		App.getTaskNotifications(context).remove(mNotificationManager,id(b)); // cancels and removes from cache
 	}
 	
 	static class ClosestPoint{

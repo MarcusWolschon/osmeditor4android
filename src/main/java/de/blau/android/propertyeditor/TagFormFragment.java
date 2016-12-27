@@ -57,7 +57,7 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.names.Names;
@@ -187,7 +187,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     	prefs = new Preferences(getActivity());
 		
 		if (prefs.getEnableNameSuggestions()) {
-			names = Application.getNames(getActivity());
+			names = App.getNames(getActivity());
 		}
 		
 		maxInlineValues = prefs.getMaxInlineValues();
@@ -2057,7 +2057,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	 * @return
 	 */
 	protected AlertDialog buildNameDialog(Context ctx) {
-		Names names = Application.getNames(ctx);
+		Names names = App.getNames(ctx);
 		ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(new TreeMap<String, String>())); 
 		ArrayAdapter<NameAndTags> adapter = null;
 		if (suggestions != null && !suggestions.isEmpty()) {

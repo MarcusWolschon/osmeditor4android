@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 import android.content.Context;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
@@ -83,7 +83,7 @@ public class Address implements Serializable {
 	 * @param tags the relevant address tags
 	 */
 	Address(String type, long id, LinkedHashMap<String, ArrayList<String>> tags) {
-		OsmElement e = Application.getDelegator().getOsmElement(type, id);
+		OsmElement e = App.getDelegator().getOsmElement(type, id);
 		if (e == null) {
 			Log.e(DEBUG_TAG,type + " " + id + " doesn't exist in storage ");
 			//FIXME is might make sense to create a crash dump here
@@ -138,7 +138,7 @@ public class Address implements Serializable {
 	 */
 	void setSide(long wayId) {
 		side = Side.UNKNOWN;
-		Way w = (Way)Application.getDelegator().getOsmElement(Way.NAME,wayId);
+		Way w = (Way)App.getDelegator().getOsmElement(Way.NAME,wayId);
 		if (w == null) {
 			return;
 		}
@@ -212,7 +212,7 @@ public class Address implements Serializable {
 		}
 		boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE);
 		boolean hasNumber = current.containsKey(Tags.KEY_ADDR_HOUSENUMBER); // if the object already had a number don't overwrite it
-		StorageDelegator storageDelegator = Application.getDelegator();
+		StorageDelegator storageDelegator = App.getDelegator();
 		if (es != null /* || hasPlace */) {
 			// the arrays should now be calculated, retrieve street names if any
 			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(es.getStreetNames()));
@@ -396,7 +396,7 @@ public class Address implements Serializable {
 				}
 			} else { // last ditch attemot
 				// fill with Karlsruher schema
-				Preferences prefs = new Preferences(Application.getCurrentApplication());
+				Preferences prefs = new Preferences(App.getCurrentApplication());
 				Set<String> addressTags = prefs.addressTags();
 				for (String key:addressTags) {
 					newAddress.tags.put(key, Util.getArrayList(""));
@@ -503,7 +503,7 @@ public class Address implements Serializable {
 	
 	protected static LinkedHashMap<String,ArrayList<String>> getAddressTags(LinkedHashMap<String,ArrayList<String>> sortedMap) {
 		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<String,ArrayList<String>>();
-		Preferences prefs = new Preferences(Application.getCurrentApplication());
+		Preferences prefs = new Preferences(App.getCurrentApplication());
 		Set<String> addressTags = prefs.addressTags();
 		for (String key:sortedMap.keySet()) {
 			// include everything except interpolation related tags

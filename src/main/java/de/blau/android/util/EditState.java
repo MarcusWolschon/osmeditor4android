@@ -6,7 +6,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Logic.Mode;
 import de.blau.android.Main;
@@ -60,8 +60,8 @@ public class EditState implements Serializable {
 		savedBox = box;
 		savedLastComments = logic.getLastComments();
 		savedLastSources = logic.getLastSources();
-		savedTaskNotifications = Application.getTaskNotifications(context);
-		savedOsmDataNotifications = Application.getOsmDataNotifications(context);
+		savedTaskNotifications = App.getTaskNotifications(context);
+		savedOsmDataNotifications = App.getOsmDataNotifications(context);
 		savedFollowGPS = followGPS;
 		savedFilter = logic.getFilter();
 	}
@@ -72,7 +72,7 @@ public class EditState implements Serializable {
 		Log.d("EditState","savedMode " + savedMode);
 		if (savedNodes != null) {
 			for (Node n:savedNodes) {
-				Node nodeInStorage = (Node) Application.getDelegator().getOsmElement(Node.NAME,n.getOsmId());
+				Node nodeInStorage = (Node) App.getDelegator().getOsmElement(Node.NAME,n.getOsmId());
 				if (nodeInStorage != null) {
 					logic.addSelectedNode(nodeInStorage);
 				}
@@ -80,7 +80,7 @@ public class EditState implements Serializable {
 		}
 		if (savedWays != null) {
 			for (Way w:savedWays) {
-				Way wayInStorage = (Way) Application.getDelegator().getOsmElement(Way.NAME,w.getOsmId());
+				Way wayInStorage = (Way) App.getDelegator().getOsmElement(Way.NAME,w.getOsmId());
 				if (wayInStorage != null) {
 					logic.addSelectedWay(wayInStorage);
 				}
@@ -88,7 +88,7 @@ public class EditState implements Serializable {
 		}
 		if (savedRelations != null) {
 			for (Relation r:savedRelations) {
-				Relation relationInStorage = (Relation) Application.getDelegator().getOsmElement(Relation.NAME,r.getOsmId());
+				Relation relationInStorage = (Relation) App.getDelegator().getOsmElement(Relation.NAME,r.getOsmId());
 				if (relationInStorage != null) {
 					logic.addSelectedRelation(relationInStorage);
 				}
@@ -106,8 +106,8 @@ public class EditState implements Serializable {
 			savedFilter.init(main);
 		}
 		logic.setFilter(savedFilter);
-		Application.setTaskNotifications(main,savedTaskNotifications);
-		Application.setOsmDataNotifications(main,savedOsmDataNotifications);
+		App.setTaskNotifications(main,savedTaskNotifications);
+		App.setOsmDataNotifications(main,savedOsmDataNotifications);
 		main.setFollowGPS(savedFollowGPS);
 	}
 	

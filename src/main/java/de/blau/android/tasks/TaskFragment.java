@@ -26,7 +26,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
@@ -83,9 +83,9 @@ public class TaskFragment extends DialogFragment {
     	final View v = inflater.inflate(R.layout.openstreetbug_edit, null);
     	builder.setView(v)
     		// Add action buttons - slightly convoluted 
-    		.setPositiveButton(bug instanceof Note && bug.isNew() ? (Application.getTaskStorage().contains(bug) ? R.string.delete : R.string.openstreetbug_commitbutton): R.string.save, new DialogInterface.OnClickListener() { 
+    		.setPositiveButton(bug instanceof Note && bug.isNew() ? (App.getTaskStorage().contains(bug) ? R.string.delete : R.string.openstreetbug_commitbutton): R.string.save, new DialogInterface.OnClickListener() { 
     			public void onClick(DialogInterface dialog, int id) {
-      				if (bug instanceof Note && bug.isNew() && Application.getTaskStorage().contains(bug)) {
+      				if (bug instanceof Note && bug.isNew() && App.getTaskStorage().contains(bug)) {
     					deleteBug(bug);
     					return;
     				}
@@ -148,7 +148,7 @@ public class TaskFragment extends DialogFragment {
     	} else if (bug instanceof OsmoseBug) {
     		title.setText(R.string.openstreetbug_bug_title);
     		comments.setText(Html.fromHtml(((OsmoseBug)bug).getLongDescription(getActivity(), false)));
-    		final StorageDelegator storageDelegator = Application.getDelegator();
+    		final StorageDelegator storageDelegator = App.getDelegator();
     		for (final OsmElement e:((OsmoseBug)bug).getElements()) {
     			String text;
     			if (e.getOsmVersion() < 0) { // fake element
@@ -167,12 +167,12 @@ public class TaskFragment extends DialogFragment {
 						if (e.getOsmVersion() < 0) { // fake element
 							try {
 								BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7/1E7D, lonE7/1E7, 50, true);
-								Application.getLogic().downloadBox(b, true, new PostAsyncActionHandler(){
+								App.getLogic().downloadBox(b, true, new PostAsyncActionHandler(){
 									@Override
 									public void execute(){
 										OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
 										if (osm != null) {
-											Application.mainActivity.zoomToAndEdit(lonE7, latE7, osm);
+											App.mainActivity.zoomToAndEdit(lonE7, latE7, osm);
 										}
 									}
 								});
@@ -181,7 +181,7 @@ public class TaskFragment extends DialogFragment {
 								e1.printStackTrace();
 							}
 		    			} else { // real
-		    				Application.mainActivity.zoomToAndEdit(lonE7, latE7, e);
+		    				App.mainActivity.zoomToAndEdit(lonE7, latE7, e);
 		    			}
 					}});
     			tv.setTextColor(ContextCompat.getColor(getActivity(),R.color.holo_blue_light));
@@ -226,7 +226,7 @@ public class TaskFragment extends DialogFragment {
     			public void onShow(DialogInterface dialog) {                    //
     				final Button save = ((AlertDialog) dialog)
     						.getButton(AlertDialog.BUTTON_POSITIVE);
-    				if ((bug instanceof Note && bug.isNew() && ((Note)bug).count() == 1 && !Application.getTaskStorage().contains(bug)) || !bug.hasBeenChanged()) {
+    				if ((bug instanceof Note && bug.isNew() && ((Note)bug).count() == 1 && !App.getTaskStorage().contains(bug)) || !bug.hasBeenChanged()) {
     					save.setEnabled(false);
     				}
     				final Button upload = ((AlertDialog) dialog)
@@ -309,7 +309,7 @@ public class TaskFragment extends DialogFragment {
      */
     void saveBug(View v, Task bug) {
     	if (bug.isNew() && ((Note)bug).count() == 0) {
-			Application.getTaskStorage().add(bug); // sets dirty
+			App.getTaskStorage().add(bug); // sets dirty
 		}
 		String c = ((EditText)v.findViewById(R.id.openstreetbug_comment)).getText().toString();
 		if (c.length() > 0) {
@@ -318,7 +318,7 @@ public class TaskFragment extends DialogFragment {
 		final Spinner state = (Spinner)v.findViewById(R.id.openstreetbug_state);
 		bug.state = pos2state(state.getSelectedItemPosition());
 		bug.changed = true;
-		Application.getTaskStorage().setDirty();
+		App.getTaskStorage().setDirty();
     }
     
     /**
@@ -327,7 +327,7 @@ public class TaskFragment extends DialogFragment {
      */
     void deleteBug(Task bug) {
     	if (bug.isNew()) {
-			Application.getTaskStorage().delete(bug); // sets dirty
+			App.getTaskStorage().delete(bug); // sets dirty
 		}
     }
 }

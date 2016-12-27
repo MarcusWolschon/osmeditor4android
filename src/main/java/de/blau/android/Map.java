@@ -275,7 +275,7 @@ public class Map extends View implements IMapView {
 					mOverlays.add(new MapTilesOverlay(this, TileLayerServer.getDefault(getResources(), true), null));
 				else {
 					// mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
-					MapTilesOverlay osmto = new MapTilesOverlay(this, TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true), null);
+					MapTilesOverlay osmto = new MapTilesOverlay(this, TileLayerServer.get(App.mainActivity, prefs.backgroundLayer(), true), null);
 					// Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
 					mOverlays.add(osmto);
 					mOverlays.add(new MapOverlayTilesOverlay(this));
@@ -367,7 +367,7 @@ public class Map extends View implements IMapView {
 		zoomLevel = calcZoomLevel(canvas);
 		
 		// set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		tmpDrawingEditMode = logic.getMode();
 		tmpFilter = logic.getFilter();
 		tmpDrawingSelectedNodes = logic.getSelectedNodes();
@@ -375,7 +375,7 @@ public class Map extends View implements IMapView {
 		tmpClickableElements = logic.getClickableElements();
 		tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
-		tmpPresets = Application.getCurrentPresets(Application.mainActivity);
+		tmpPresets = App.getCurrentPresets(App.mainActivity);
 		tmpLocked = logic.isLocked();
 		
 		inNodeIconZoomRange = zoomLevel > SHOW_ICONS_LIMIT;
@@ -614,7 +614,7 @@ public class Map extends View implements IMapView {
 	 * @param canvas
 	 */
 	private void paintZoomAndOffset(final Canvas canvas) {
-		int pos = Application.mainActivity.getSupportActionBar().getHeight() + 5; 
+		int pos = App.mainActivity.getSupportActionBar().getHeight() + 5; 
 		Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
 		String text = "Z " + zoomLevel + " Offset " +  (o != null ? String.format(Locale.US,"%.5f",o.lon) + "/" +  String.format(Locale.US,"%.5f",o.lat) : "0.00000/0.00000");
 		float textSize = textPaint.getTextSize();
@@ -643,7 +643,7 @@ public class Map extends View implements IMapView {
 		}
 		
 		// 
-		tmpDrawingInEditRange = Application.getLogic().isInEditZoomRange(); // do this after density calc
+		tmpDrawingInEditRange = App.getLogic().isInEditZoomRange(); // do this after density calc
 		
 		boolean drawTolerance = tmpDrawingInEditRange // if we are not in editing range none of the further checks are necessary
 								&& !tmpLocked 
@@ -1408,10 +1408,10 @@ public class Map extends View implements IMapView {
 		synchronized(mOverlays) {
 			for (MapViewOverlay osmvo : mOverlays) {
 				if (osmvo instanceof MapTilesOverlay && !(osmvo instanceof MapOverlayTilesOverlay)) {
-					final TileLayerServer backgroundTS = TileLayerServer.get(Application.mainActivity, prefs.backgroundLayer(), true);
+					final TileLayerServer backgroundTS = TileLayerServer.get(App.mainActivity, prefs.backgroundLayer(), true);
 					((MapTilesOverlay)osmvo).setRendererInfo(backgroundTS);
 				} else if (osmvo instanceof MapOverlayTilesOverlay) {
-					final TileLayerServer overlayTS = TileLayerServer.get(Application.mainActivity, prefs.overlayLayer(), true);
+					final TileLayerServer overlayTS = TileLayerServer.get(App.mainActivity, prefs.overlayLayer(), true);
 					((MapOverlayTilesOverlay)osmvo).setRendererInfo(overlayTS);
 				}
 			}

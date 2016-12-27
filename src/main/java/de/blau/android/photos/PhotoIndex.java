@@ -18,7 +18,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.rtree.BoundedObject;
@@ -191,7 +191,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		// Log.i(LOGTAG,"Adding entry in " + f.getParent());
 		Photo p = addPhoto(db, f.getParentFile(), f);
 		db.close();
-		RTree index = Application.getPhotoIndex();
+		RTree index = App.getPhotoIndex();
 		if (p!=null && index != null) { // if nothing is in the index the complete DB including this photo will be added
 			index.insert(p);
 		}
@@ -234,7 +234,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	 * @return
 	 */
 	public Collection<Photo> getPhotos(BoundingBox box) {
-		RTree index = Application.getPhotoIndex();
+		RTree index = App.getPhotoIndex();
 		if (index == null) {
 			return new ArrayList<Photo>();
 		}
@@ -244,8 +244,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	
 	public synchronized void fill(RTree index) {
 		if (index==null) {
-			Application.resetPhotoIndex(); // allocate r-tree
-			index = Application.getPhotoIndex();
+			App.resetPhotoIndex(); // allocate r-tree
+			index = App.getPhotoIndex();
 		}
 		try {
 			SQLiteDatabase db = getReadableDatabase();

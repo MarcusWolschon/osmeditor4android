@@ -16,7 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -107,9 +107,9 @@ public class UploadConflict extends DialogFragment
     	builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
     	builder.setTitle(R.string.upload_conflict_title);
     	Resources res = getActivity().getResources();
-    	final Logic logic = Application.getLogic();
+    	final Logic logic = App.getLogic();
     	final OsmElement elementOnServer = logic.getElement(result.elementType, result.osmId);
-    	final OsmElement elementLocal = Application.getDelegator().getOsmElement(result.elementType, result.osmId);
+    	final OsmElement elementLocal = App.getDelegator().getOsmElement(result.elementType, result.osmId);
     	final long newVersion;
     	try {
     		boolean useServerOnly = false;
@@ -124,7 +124,7 @@ public class UploadConflict extends DialogFragment
     		} else {
     			if (elementLocal.getState()==OsmElement.STATE_DELETED) {
     				builder.setMessage(res.getString(R.string.upload_conflict_message_already_deleted, elementLocal.getDescription(true)));
-    				Application.getDelegator().removeFromUpload(elementLocal);
+    				App.getDelegator().removeFromUpload(elementLocal);
     	   			builder.setPositiveButton(R.string.retry, new OnClickListener() {
         				@Override
         				public void onClick(DialogInterface dialog, int which) {
@@ -149,7 +149,7 @@ public class UploadConflict extends DialogFragment
     		builder.setNeutralButton(R.string.use_server_version,new OnClickListener() {
     			@Override
     			public void onClick(DialogInterface dialog, int which) {
-    				StorageDelegator storageDelegator = Application.getDelegator();
+    				StorageDelegator storageDelegator = App.getDelegator();
     				storageDelegator.removeFromUpload(elementLocal);
     				if (elementOnServer != null) {
     					logic.downloadElement(getActivity(), elementLocal.getName(), elementLocal.getOsmId(), false, true, null);

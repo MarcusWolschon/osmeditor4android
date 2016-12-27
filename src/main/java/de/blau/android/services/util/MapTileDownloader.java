@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 import android.content.Context;
 import android.os.RemoteException;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
@@ -102,7 +102,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 						Log.d(DEBUGTAG, "Downloading Maptile from url: " + tileURLString);
 					
 					URLConnection conn = new URL(tileURLString).openConnection();
-					conn.setRequestProperty("User-Agent", Application.userAgent);
+					conn.setRequestProperty("User-Agent", App.userAgent);
 					if ("no-tile".equals(conn.getHeaderField("X-VE-Tile-Info"))) {
 						// handle special Bing header that indicates no tile is available
 						throw new FileNotFoundException("tile not available");

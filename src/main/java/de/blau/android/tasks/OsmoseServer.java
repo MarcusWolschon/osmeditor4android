@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.tasks.Task.State;
@@ -62,7 +62,7 @@ public class OsmoseServer {
 			con.setReadTimeout(TIMEOUT);
 			con.setConnectTimeout(TIMEOUT);
 			con.setRequestProperty("Accept-Encoding", "gzip");
-			con.setRequestProperty("User-Agent", Application.userAgent);
+			con.setRequestProperty("User-Agent", App.userAgent);
 
 			//--Start: got response header
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -104,18 +104,18 @@ public class OsmoseServer {
 			//--Start: header not yet sent
 			con.setReadTimeout(TIMEOUT);
 			con.setConnectTimeout(TIMEOUT);
-			con.setRequestProperty("User-Agent", Application.userAgent);
+			con.setRequestProperty("User-Agent", App.userAgent);
 			int responseCode = con.getResponseCode();
 			if (responseCode != HttpURLConnection.HTTP_OK) {
 				Log.d(DEBUG_TAG, "changeState respnse code " + responseCode);
 				if (responseCode ==  HttpURLConnection.HTTP_GONE) {
 					bug.changed = false; // don't retry
-					Application.getTaskStorage().setDirty();
+					App.getTaskStorage().setDirty();
 				}
 				return false; 
 			}
 			bug.changed = false;
-			Application.getTaskStorage().setDirty();			
+			App.getTaskStorage().setDirty();			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

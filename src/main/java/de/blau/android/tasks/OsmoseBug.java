@@ -11,7 +11,7 @@ import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -147,7 +147,7 @@ public class OsmoseBug extends Task implements Serializable {
 	public ArrayList<OsmElement> getElements() {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 		String[] elements = elems.split("_");
-		StorageDelegator storageDelegator = Application.getDelegator();
+		StorageDelegator storageDelegator = App.getDelegator();
 		for (String e:elements) {
 			try {
 				if (elems.startsWith("way")) {

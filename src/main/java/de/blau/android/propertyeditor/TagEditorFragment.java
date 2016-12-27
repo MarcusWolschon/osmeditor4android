@@ -46,7 +46,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.names.Names;
@@ -247,7 +247,7 @@ public class TagEditorFragment extends BaseFragment implements
     	prefs = new Preferences(getActivity());
     	
 		if (prefs.getEnableNameSuggestions()) {
-			names = Application.getNames(getActivity());
+			names = App.getNames(getActivity());
 		}
     	
      	this.inflater = inflater;
@@ -1369,7 +1369,7 @@ public class TagEditorFragment extends BaseFragment implements
 		
 		//
 		if (addToMRU) {
-			Preset[] presets = Application.getCurrentPresets(getActivity());
+			Preset[] presets = App.getCurrentPresets(getActivity());
 			if (presets != null) {
 				for (Preset p:presets) {
 					if (p.contains(item)) {

@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
@@ -226,7 +226,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			protected void onPostExecute(Boolean success) {
 				Log.d("VespucciURLActivity", "oAuthHandshake onPostExecute");
 				// note this is fundamentally broken and needs to be re-thought
-				Application.mainActivity.finishOAuth();
+				App.mainActivity.finishOAuth();
 			}
 			
 			OAuthException getException() {

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -65,7 +65,7 @@ public class RecentPresetsFragment extends BaseFragment {
    
      	element = (OsmElement) getArguments().getSerializable("element");
 
-    	presets = Application.getCurrentPresets(getActivity());
+    	presets = App.getCurrentPresets(getActivity());
     	
     	View v = getRecentPresetsView(presetsLayout, element, presets);
     	if (v != null) {
@@ -167,7 +167,7 @@ public class RecentPresetsFragment extends BaseFragment {
 	private void removePresetFromMRU(LinearLayout presetLayout, PresetItem item) {
 		
 		//
-		Preset[] presets = Application.getCurrentPresets(getActivity());
+		Preset[] presets = App.getCurrentPresets(getActivity());
 		if (presets != null) {
 			for (Preset p:presets) {
 				if (p.contains(item)) {

@@ -27,7 +27,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
@@ -97,7 +97,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 		}
 		item.active = !item.active;
 		db.setPresetState(item.id, item.active);
-		Application.resetPresets();
+		App.resetPresets();
 		// finish();
 	}
 
@@ -109,9 +109,9 @@ public class PresetEditorActivity extends URLListEditActivity {
 		db.addPreset(item.id, item.name, item.value, item.enabled);
 		downloadPresetData(item);
 		if (!isAddingViaIntent()) { 
-			Application.resetPresets();
+			App.resetPresets();
 		} else if (item.enabled) { // added a new preset and enabled it: need to rebuild presets
-			Application.resetPresets();
+			App.resetPresets();
 		}
 
 	}
@@ -121,13 +121,13 @@ public class PresetEditorActivity extends URLListEditActivity {
 		db.setPresetInfo(item.id, item.name, item.value);
 		db.removePresetDirectory(item.id);
 		downloadPresetData(item);
-		Application.resetPresets();
+		App.resetPresets();
 	}
 
 	@Override
 	protected void onItemDeleted(ListEditItem item) {
 		db.deletePreset(item.id);
-		Application.resetPresets();
+		App.resetPresets();
 	}
 	
 	@Override

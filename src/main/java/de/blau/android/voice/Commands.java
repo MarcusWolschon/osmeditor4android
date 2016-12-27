@@ -15,7 +15,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.speech.RecognizerIntent;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.names.Names.NameAndTags;
@@ -51,7 +51,7 @@ public class Commands {
 	
 	public Commands(Context ctx) {
 		this.ctx = ctx;
-		namesSearchIndex = Application.getNameSearchIndex(ctx);
+		namesSearchIndex = App.getNameSearchIndex(ctx);
 	}
 	
 	public void processIntentResult(Intent data, Location location) {
@@ -59,7 +59,7 @@ public class Commands {
 		// Fill the list view with the strings the recognizer thought it
 		// could have heard
 		ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-		final Logic logic = Application.getLogic();
+		final Logic logic = App.getLogic();
 		// try to find a command it simply stops at the first string that is valid
 		for (String v:matches) {
 			Toast.makeText(ctx,">"+v+"<", Toast.LENGTH_LONG).show();
@@ -119,7 +119,7 @@ public class Commands {
 					if (nt != null) {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.putAll(nt.getTags());
-						PresetItem pi = Preset.findBestMatch(Application.getCurrentPresets(ctx), map);
+						PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(ctx), map);
 						if (pi != null) {
 							addNode(createNode(loc,location), nt.getName(), pi, logic, v);
 							return;
@@ -128,7 +128,7 @@ public class Commands {
 				}
 			} else if (words.length == 1) {
 				if (match(R.string.voice_follow,words[0])) {
-					Application.mainActivity.setFollowGPS(true);
+					App.mainActivity.setFollowGPS(true);
 					return;
 				} else {
 					Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unknown_voice_command,words[0]), Toast.LENGTH_LONG).show();
@@ -170,7 +170,7 @@ public class Commands {
 				double lon = location.getLongitude();
 				double lat = location.getLatitude();
 				if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-					final Logic logic = Application.getLogic();
+					final Logic logic = App.getLogic();
 					logic.setSelectedNode(null);
 					Node node = logic.performAddNode(lon, lat);
 					logic.setSelectedNode(null);
@@ -198,7 +198,7 @@ public class Commands {
 				n.addComment(input.toString().trim());
 				n.open();
 				n.setChanged();
-				Application.getTaskStorage().add(n);
+				App.getTaskStorage().add(n);
 				return n;
 			}
 		}

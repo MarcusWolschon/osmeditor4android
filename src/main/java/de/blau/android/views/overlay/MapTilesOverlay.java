@@ -15,7 +15,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.resources.DataStyle;
@@ -98,7 +98,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_DELETING);
+				Progress.showDialog(App.mainActivity, Progress.PROGRESS_DELETING);
 			}
 			
 			@Override
@@ -109,7 +109,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 			
 			@Override
 			protected void onPostExecute(Void result) {
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_DELETING);
+				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_DELETING);
 			}	
 		}.execute();
 	}

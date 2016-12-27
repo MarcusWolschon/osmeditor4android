@@ -34,7 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -213,19 +213,19 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			currentItem = savedInstanceState.getInt(CURRENTITEM,-1);
 			usePaneLayout = savedInstanceState.getBoolean(PANELAYOUT); //FIXME this disables layout changes on restarting
 			
-			Logic logic = Application.newLogic(); //
-			StorageDelegator delegator = Application.getDelegator();
+			Logic logic = App.newLogic(); //
+			StorageDelegator delegator = App.getDelegator();
 			if (!delegator.isDirty() && delegator.isEmpty()) { // this can't means: need to load state
 				Log.d(DEBUG_TAG, "Loading saved state");
 				logic.syncLoadFromFile(); // sync load
-				Application.getTaskStorage().readFromFile(this);
+				App.getTaskStorage().readFromFile(this);
 			}
 		}
 				
 		Log.d(DEBUG_TAG, "... done.");
 		
 		// sanity check
-		StorageDelegator delegator = Application.getDelegator();
+		StorageDelegator delegator = App.getDelegator();
 		if (delegator == null || loadData == null) {
 			abort("Delegator null");
 		}
@@ -244,7 +244,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			}
 		}
 		
-		presets = Application.getCurrentPresets(this);
+		presets = App.getCurrentPresets(this);
 		
 		if (usePaneLayout) {
 			setContentView(R.layout.pane_view);
@@ -786,7 +786,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	@Override
 	protected void onPause() {
 		running = false;
-		Preset[] presets = Application.getCurrentPresets(this);
+		Preset[] presets = App.getCurrentPresets(this);
 		if (presets != null)  {
 			for (Preset p:presets) {
 				if (p!=null) {
@@ -1089,12 +1089,12 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	 * @return
 	 */
 	public ArrayAdapter<ValueWithCount> getStreetNameAdapter(ArrayList<String> tagValues) {
-		if (Application.getDelegator() == null) {
+		if (App.getDelegator() == null) {
 			return null;
 		}
 		if (streetNameAutocompleteAdapter == null) {
 			streetNameAutocompleteAdapter =	new StreetTagValueAdapter(this,
-					R.layout.autocomplete_row, Application.getDelegator(),
+					R.layout.autocomplete_row, App.getDelegator(),
 					types[0], osmIds[0], tagValues); // FIXME
 		}
 		return streetNameAutocompleteAdapter;
@@ -1105,12 +1105,12 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	 * @return
 	 */
 	public ArrayAdapter<ValueWithCount> getPlaceNameAdapter(ArrayList<String> tagValues) {
-		if (Application.getDelegator() == null) {
+		if (App.getDelegator() == null) {
 			return null;
 		}
 		if (placeNameAutocompleteAdapter == null) {
 			placeNameAutocompleteAdapter =	new PlaceTagValueAdapter(this,
-					R.layout.autocomplete_row, Application.getDelegator(),
+					R.layout.autocomplete_row, App.getDelegator(),
 					types[0], osmIds[0], tagValues); // FIXME
 		}
 		return placeNameAutocompleteAdapter;

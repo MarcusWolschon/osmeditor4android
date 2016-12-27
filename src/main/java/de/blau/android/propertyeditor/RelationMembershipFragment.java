@@ -34,7 +34,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.Relation;
@@ -148,7 +148,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 	protected void loadParents(LinearLayout membershipVerticalLayout, final Map<Long,String> parents) {
 		membershipVerticalLayout.removeAllViews();
 		if (parents != null && parents.size() > 0) {
-			StorageDelegator storageDelegator = Application.getDelegator();
+			StorageDelegator storageDelegator = App.getDelegator();
 			for (Long id :  parents.keySet()) {
 				Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id.longValue());
 				insertNewMembership(membershipVerticalLayout, parents.get(id),r,0, false);
@@ -302,7 +302,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		protected ArrayAdapter<StringWithDescription> getMembershipRoleAutocompleteAdapter() {
 			// Use a set to prevent duplicate keys appearing
 			Set<StringWithDescription> roles = new HashSet<StringWithDescription>();
-			Relation r = (Relation) Application.getDelegator().getOsmElement(Relation.NAME, relationId);
+			Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
 			if ( r!= null) {			
 				if ( owner.presets != null) {
 					PresetItem relationPreset = Preset.findBestMatch(owner.presets,r.getTags());
@@ -323,7 +323,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		
 		protected ArrayAdapter<Relation> getRelationSpinnerAdapter() {
 			//		
-			List<Relation> result = Application.getDelegator().getCurrentStorage().getRelations();
+			List<Relation> result = App.getDelegator().getCurrentStorage().getRelations();
 			// Collections.sort(result);
 			return new ArrayAdapter<Relation>(owner, R.layout.autocomplete_row, result);
 		}
@@ -338,7 +338,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		public RelationMembershipRow setValues(String role, Relation r) {
 			relationId = r.getOsmId();
 			roleEdit.setText(role);
-			parentEdit.setSelection(Application.getDelegator().getCurrentStorage().getRelations().indexOf(r));
+			parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r));
 			return this;
 		}
 		
@@ -350,7 +350,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		 */
 		public RelationMembershipRow setRelation(Relation r) {
 			relationId = r.getOsmId();
-			parentEdit.setSelection(Application.getDelegator().getCurrentStorage().getRelations().indexOf(r));
+			parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r));
 			Log.d(DEBUG_TAG, "Set parent relation to " + relationId + " " + r.getDescription());
 			roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter()); // update 
 			return this;

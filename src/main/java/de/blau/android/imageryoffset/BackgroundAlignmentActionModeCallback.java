@@ -41,7 +41,7 @@ import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
 import de.blau.android.Main;
@@ -220,7 +220,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				Log.d(DEBUG_TAG, "urlString " + urlString);
 				URL url = new URL(urlString);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-				conn.setRequestProperty("User-Agent", Application.userAgent);
+				conn.setRequestProperty("User-Agent", App.userAgent);
 				JsonReader reader = new JsonReader(new InputStreamReader(conn.getInputStream()));
 				ArrayList<ImageryOffset> result = new ArrayList<ImageryOffset>();
 				try {
@@ -331,7 +331,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				URL url = new URL(urlString);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestMethod("POST");
-				conn.setRequestProperty("User-Agent", Application.userAgent);
+				conn.setRequestProperty("User-Agent", App.userAgent);
 				InputStream is = conn.getInputStream();
 				return conn.getResponseCode();
 			} catch (MalformedURLException e) {

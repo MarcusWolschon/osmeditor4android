@@ -39,7 +39,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.contract.Paths;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
@@ -284,7 +284,7 @@ public class TileLayerServer {
 			} else {
 				// assume Internet URL
 				URLConnection conn = new URL(replaceGeneralParameters(metadataUrl)).openConnection();
-				conn.setRequestProperty("User-Agent", Application.userAgent);
+				conn.setRequestProperty("User-Agent", App.userAgent);
 				is = conn.getInputStream();
 			}
 			parser.setInput(is, null);
@@ -302,7 +302,7 @@ public class TileLayerServer {
 						} else {
 							// assume Internet URL
 							URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
-							conn.setRequestProperty("User-Agent", Application.userAgent);
+							conn.setRequestProperty("User-Agent", App.userAgent);
 							InputStream bis = conn.getInputStream();
 							Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
 							// scale according to density
@@ -361,8 +361,8 @@ public class TileLayerServer {
 			}
 			metadataLoaded = true;
 			// once we've got here, a selected layer that was previously non-available might now be available ... reset map preferences
-			if (myCtx == Application.mainActivity) { // don't do this in the service
-				Application.mainActivity.getMap().setPrefs(new Preferences(myCtx));
+			if (myCtx == App.mainActivity) { // don't do this in the service
+				App.mainActivity.getMap().setPrefs(new Preferences(myCtx));
 			}
 		} catch (IOException e) {
 			Log.d("OpenStreetMapTileServer", "Tileserver problem (IOException) metadata URL " + metadataUrl, e);
@@ -467,7 +467,7 @@ public class TileLayerServer {
 	 */
 	public static TileLayerServer getDefault(final Resources r, final boolean async) {
 		// ask for an invalid renderer, so we'll get the fallback default
-		return get(Application.mainActivity, "", async);
+		return get(App.mainActivity, "", async);
 	}
 	
 	/**

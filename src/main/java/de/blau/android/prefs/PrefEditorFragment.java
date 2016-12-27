@@ -9,7 +9,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.DebugInformation;
 import de.blau.android.LicenseViewer;
 import de.blau.android.R;
@@ -82,7 +82,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 						break;
 					}
 				}
-				Application.getDelegator().setImageryRecorded(false);
+				App.getDelegator().setImageryRecorded(false);
 				return true;
 			}
 		};
@@ -106,7 +106,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 						break;
 					}
 				}
-				Application.getDelegator().setImageryRecorded(false);
+				App.getDelegator().setImageryRecorded(false);
 				return true;
 			}
 		};

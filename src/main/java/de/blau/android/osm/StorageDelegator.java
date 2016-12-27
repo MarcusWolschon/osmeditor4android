@@ -26,7 +26,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
@@ -200,8 +200,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void recordImagery() {
 		if (!imageryRecorded) { // flag is reset when we change imagery 
 			try {
-				if (Application.mainActivity != null) { // currently we only modify data when the main activity exists
-					ArrayList<String>currentImagery = Application.mainActivity.getMap().getImageryNames();
+				if (App.mainActivity != null) { // currently we only modify data when the main activity exists
+					ArrayList<String>currentImagery = App.mainActivity.getMap().getImageryNames();
 					for (String i:currentImagery) {
 						if (!imagery.contains(i) && !"None".equalsIgnoreCase(i)) {
 							imagery.add(i);
@@ -316,7 +316,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 		try {
 			if (way.nodeCount() + 1 > Way.maxWayNodes)
-				throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
+				throw new OsmIllegalOperationException(App.mainActivity.getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.addNode(node);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -333,7 +333,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 		try {
 			if (way.nodeCount() + 1 > Way.maxWayNodes)
-				throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
+				throw new OsmIllegalOperationException(App.mainActivity.getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.addNodeAfter(nodeBefore, newNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -349,7 +349,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		try {
 			if (way.nodeCount() + 1 > Way.maxWayNodes)
-				throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
+				throw new OsmIllegalOperationException(App.mainActivity.getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.appendNode(refNode, nextNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -452,9 +452,9 @@ public class StorageDelegator implements Serializable, Exportable {
 				undo.save(nd);
 			}
 
-			int width = Application.mainActivity.getMap().getWidth();
-			int height = Application.mainActivity.getMap().getHeight();
-			BoundingBox box = Application.mainActivity.getMap().getViewBox();
+			int width = App.mainActivity.getMap().getWidth();
+			int height = App.mainActivity.getMap().getHeight();
+			BoundingBox box = App.mainActivity.getMap().getViewBox();
 			Coordinates center = new Coordinates(GeoMath.lonE7ToX(width, box, c[1]), GeoMath.latE7ToY(height,width, box, c[0]));
 			
 			// caclulate average radius
@@ -636,9 +636,9 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 
 				// prepare updated nodes for upload
-				int width = Application.mainActivity.getMap().getWidth();
-				int height = Application.mainActivity.getMap().getHeight();
-				BoundingBox box = Application.mainActivity.getMap().getViewBox();
+				int width = App.mainActivity.getMap().getWidth();
+				int height = App.mainActivity.getMap().getHeight();
+				BoundingBox box = App.mainActivity.getMap().getViewBox();
 				for (int wayIndex=0;wayIndex<wayList.size();wayIndex++) {
 					List<Node> nodes = wayList.get(wayIndex).getNodes();
 					Coordinates[] coords = coordsArray.get(wayIndex);
@@ -706,9 +706,9 @@ public class StorageDelegator implements Serializable, Exportable {
 	
 	private Coordinates[] nodeListToCooardinateArray(List<Node>nodes) {
 		Coordinates points[] = new Coordinates[nodes.size()];
-		int width = Application.mainActivity.getMap().getWidth();
-		int height = Application.mainActivity.getMap().getHeight();
-		BoundingBox box = Application.mainActivity.getMap().getViewBox();
+		int width = App.mainActivity.getMap().getWidth();
+		int height = App.mainActivity.getMap().getHeight();
+		BoundingBox box = App.mainActivity.getMap().getViewBox();
 		
 		//loop over all nodes
 		for (int i=0;i<nodes.size();i++) {
@@ -1087,7 +1087,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		boolean mergeOK = true;
 		
 		if ((mergeInto.nodeCount() + mergeFrom.nodeCount()) > Way.maxWayNodes)
-			throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
+			throw new OsmIllegalOperationException(App.mainActivity.getString(R.string.exception_too_many_nodes));
 		
 		// first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
 		// else check version numbers this helps preserve history
@@ -2052,7 +2052,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public boolean readFromFile(String filename) {
 		try{
 			lock();
-			StorageDelegator newDelegator = savingHelper.load(Application.getCurrentApplication(),filename, true); 
+			StorageDelegator newDelegator = savingHelper.load(App.getCurrentApplication(),filename, true); 
 
 			if (newDelegator != null) {
 				Log.d("StorageDelegator", "read saved state");
@@ -2169,7 +2169,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		serializer.setOutput(outputStream, "UTF-8");
 		serializer.startDocument("UTF-8", null);
 		serializer.startTag(null, "osmChange");
-		serializer.attribute(null, "generator", Application.userAgent);
+		serializer.attribute(null, "generator", App.userAgent);
 		serializer.attribute(null, "version", "0.6");
 		
 		ArrayList<OsmElement> createdNodes = new ArrayList<OsmElement>();
@@ -2281,7 +2281,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		serializer.setOutput(outputStream, "UTF-8");
 		serializer.startDocument("UTF-8", null);
 		serializer.startTag(null, "osm");
-		serializer.attribute(null, "generator", Application.userAgent);
+		serializer.attribute(null, "generator", App.userAgent);
 		serializer.attribute(null, "version", "0.6");
 		serializer.attribute(null, "upload", "true");
 		

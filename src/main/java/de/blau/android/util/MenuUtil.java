@@ -10,7 +10,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 
 public class MenuUtil {
@@ -25,7 +25,7 @@ public class MenuUtil {
 	public MenuUtil(Context ctx) {
 		// hardcoded calculation of how many icons we want to display
 		//TODO de-hardcode
-		DisplayMetrics metrics = Application.mainActivity.getResources().getDisplayMetrics();
+		DisplayMetrics metrics = App.mainActivity.getResources().getDisplayMetrics();
 		screenWidth = metrics.widthPixels;
 		float widthDp = metrics.widthPixels / metrics.density;
 

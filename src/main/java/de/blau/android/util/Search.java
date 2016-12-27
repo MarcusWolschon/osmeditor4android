@@ -34,7 +34,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
@@ -217,7 +217,7 @@ public class Search {
 					Request request = new Request.Builder()
 							.url(urlString)
 							.build();
-					Call searchCall = Application.getHttpClient().newCall(request);
+					Call searchCall = App.getHttpClient().newCall(request);
 					Response searchCallResponse = searchCall.execute();
 					if (searchCallResponse.isSuccessful()) {
 						responseBody = searchCallResponse.body();
@@ -226,7 +226,7 @@ public class Search {
 				} else { //FIXME 2.2/API 8 support
 					URL url = new URL(urlString);
 					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-					conn.setRequestProperty("User-Agent", Application.userAgent);
+					conn.setRequestProperty("User-Agent", App.userAgent);
 					inputStream = conn.getInputStream();
 				}
 
@@ -325,7 +325,7 @@ public class Search {
 					Request request = new Request.Builder()
 							.url(urlString)
 							.build();
-					Call searchCall = Application.getHttpClient().newCall(request);
+					Call searchCall = App.getHttpClient().newCall(request);
 					Response searchCallResponse = searchCall.execute();
 					if (searchCallResponse.isSuccessful()) {
 						responseBody = searchCallResponse.body();
@@ -334,7 +334,7 @@ public class Search {
 				} else { //FIXME 2.2/API 8 support
 					URL url = new URL(urlString);
 					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-					conn.setRequestProperty("User-Agent", Application.userAgent);
+					conn.setRequestProperty("User-Agent", App.userAgent);
 					inputStream = conn.getInputStream();
 				}
 
@@ -399,7 +399,7 @@ public class Search {
 				    	String value = osmValue.getAsString();
 				    	Map<String,String> tag = new HashMap<String,String>();
 				    	tag.put(key,value);
-					    PresetItem preset = Preset.findBestMatch(Application.getCurrentPresets(activity), tag, false);
+					    PresetItem preset = Preset.findBestMatch(App.getCurrentPresets(activity), tag, false);
 					    if (preset != null) {
 					    	sb.append(" [" + preset.getTranslatedName() +"]");
 					    } else {

@@ -45,7 +45,7 @@ import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -103,7 +103,7 @@ public class EasyEditManager {
 	
 	public EasyEditManager(Main main) {
 		this.main = main;
-		this.logic = Application.getLogic();
+		this.logic = App.getLogic();
 	}
 	
 	/**
@@ -874,7 +874,7 @@ public class EasyEditManager {
 			ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
 			// 
-			StorageDelegator storageDelegator = Application.getDelegator();
+			StorageDelegator storageDelegator = App.getDelegator();
 			for (String v:matches) {
 				String[] words = v.split("\\s+", 2);
 				if (words.length > 0) {
@@ -914,7 +914,7 @@ public class EasyEditManager {
 						} 
 					}
 				
-					Map<String, NameAndTags> namesSearchIndex = Application.getNameSearchIndex(main);
+					Map<String, NameAndTags> namesSearchIndex = App.getNameSearchIndex(main);
 					if (namesSearchIndex == null) {
 						return;
 					}
@@ -923,7 +923,7 @@ public class EasyEditManager {
 					if (nt != null) {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.putAll(nt.getTags());
-						PresetItem pi = Preset.findBestMatch(Application.getCurrentPresets(main), map);
+						PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
 						if (pi != null) {
 							Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), nt.getName(), pi, logic, v);
 							if (node != null) {

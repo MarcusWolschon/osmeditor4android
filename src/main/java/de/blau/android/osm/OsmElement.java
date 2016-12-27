@@ -16,7 +16,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -397,7 +397,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 			return "house " + housenb;
 		}
 		if (ctx != null) {
-			PresetItem p = Preset.findBestMatch(Application.getCurrentPresets(ctx),tags);
+			PresetItem p = Preset.findBestMatch(App.getCurrentPresets(ctx),tags);
 			if (p!=null) {
 				return p.getTranslatedName();
 			}

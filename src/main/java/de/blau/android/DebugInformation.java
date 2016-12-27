@@ -39,7 +39,7 @@ public class DebugInformation extends AppCompatActivity {
 		builder.append(getString(R.string.app_name_version) + "\n");
 		builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + "\n");
 		builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + "\n");
-		Main main = Application.mainActivity;
+		Main main = App.mainActivity;
 		if (main != null) {
 			List<MapViewOverlay> overlays = main.getMap().mOverlays;
 			synchronized(overlays) {
@@ -64,7 +64,7 @@ public class DebugInformation extends AppCompatActivity {
 		} else {
 			builder.append("No bug state file found\n");
 		}
-		StorageDelegator delegator = Application.getDelegator();
+		StorageDelegator delegator = App.getDelegator();
 		builder.append("Relations (current/API): " + delegator.getCurrentStorage().getRelations().size() + "/"
 				+ delegator.getApiRelationCount()+"\n");
 		builder.append("Ways (current/API): " + delegator.getCurrentStorage().getWays().size() + "/"

@@ -29,7 +29,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 	mode = ReportingInteractionMode.DIALOG,
 	resDialogText = R.string.crash_dialog_text,
 	resDialogCommentPrompt = R.string.crash_dialog_comment_prompt)
-public class Application extends android.app.Application {
+public class App extends android.app.Application {
 	public static Main mainActivity;
 	static StorageDelegator delegator = new StorageDelegator();
 	static TaskStorage taskStorage = new TaskStorage();
@@ -37,7 +37,7 @@ public class Application extends android.app.Application {
 	private static final Object httpClientLock = new Object();
 	public static String userAgent;
 	
-	static Application currentApplication;
+	static App currentApplication;
 	
 	/**
 	 * The logic that manipulates the model. (non-UI)<br/>
@@ -89,7 +89,7 @@ public class Application extends android.app.Application {
 		currentApplication = this;
 	}
 
-	public static Application getCurrentApplication() {
+	public static App getCurrentApplication() {
 		return currentApplication;
 	}
 	

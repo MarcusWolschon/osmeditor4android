@@ -30,7 +30,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.exception.OsmException;
@@ -334,7 +334,7 @@ public class Server {
 			//--Start: header not yet send
 			con.setReadTimeout(TIMEOUT);
 			con.setConnectTimeout(TIMEOUT);
-			con.setRequestProperty("User-Agent", Application.userAgent);
+			con.setRequestProperty("User-Agent", App.userAgent);
 
 			//connection.getOutputStream().close(); GET doesn't have an outputstream
 			checkResponseCode(con);
@@ -458,7 +458,7 @@ public class Server {
 		con.setReadTimeout(TIMEOUT);
 		con.setConnectTimeout(TIMEOUT);
 		con.setRequestProperty("Accept-Encoding", "gzip");
-		con.setRequestProperty("User-Agent", Application.userAgent);
+		con.setRequestProperty("User-Agent", App.userAgent);
 
 		//--Start: got response header
 		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -471,7 +471,7 @@ public class Server {
 			con.setReadTimeout(TIMEOUT);
 			con.setConnectTimeout(TIMEOUT);
 			con.setRequestProperty("Accept-Encoding", "gzip");
-			con.setRequestProperty("User-Agent", Application.userAgent);
+			con.setRequestProperty("User-Agent", App.userAgent);
 
 			//--Start: got response header
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -479,15 +479,15 @@ public class Server {
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			if (con.getResponseCode() == 400) {
-				Application.mainActivity.runOnUiThread(new Runnable() {
+				App.mainActivity.runOnUiThread(new Runnable() {
 					  @Override
 					public void run() {
-						  Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_download_bbox_failed, Toast.LENGTH_LONG).show();
+						  Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_download_bbox_failed, Toast.LENGTH_LONG).show();
 					  }
 				});
 			}
 			else {
-				Application.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
+				App.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
 			}
 			throwUnexpectedRequestException(con);
 		}
@@ -520,7 +520,7 @@ public class Server {
 		con.setReadTimeout(TIMEOUT);
 		con.setConnectTimeout(TIMEOUT);
 		con.setRequestProperty("Accept-Encoding", "gzip");
-		con.setRequestProperty("User-Agent", Application.userAgent);
+		con.setRequestProperty("User-Agent", App.userAgent);
 
 		//--Start: got response header
 		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -533,7 +533,7 @@ public class Server {
 			con.setReadTimeout(TIMEOUT);
 			con.setConnectTimeout(TIMEOUT);
 			con.setRequestProperty("Accept-Encoding", "gzip");
-			con.setRequestProperty("User-Agent", Application.userAgent);
+			con.setRequestProperty("User-Agent", App.userAgent);
 
 			//--Start: got response header
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -541,15 +541,15 @@ public class Server {
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			if (con.getResponseCode() == 400) {
-				Application.mainActivity.runOnUiThread(new Runnable() {
+				App.mainActivity.runOnUiThread(new Runnable() {
 					  @Override
 					public void run() {
-						  Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_download_bbox_failed, Toast.LENGTH_LONG).show();
+						  Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_download_bbox_failed, Toast.LENGTH_LONG).show();
 					  }
 				});
 			}
 			else {
-				Application.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
+				App.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
 			}
 			throwUnexpectedRequestException(con);
 		}
@@ -574,7 +574,7 @@ public class Server {
 		@Override
 		public void run() {
 			try {
-				Context mainCtx = Application.mainActivity.getApplicationContext();
+				Context mainCtx = App.mainActivity.getApplicationContext();
 				Toast.makeText(mainCtx,
 					  mainCtx.getResources().getString(R.string.toast_download_failed, code, message), Toast.LENGTH_LONG).show();
 			} catch (Exception ex) {
@@ -702,7 +702,7 @@ public class Server {
 		Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestProperty("Content-Type", "" + contentType + "; charset=utf-8");
-		connection.setRequestProperty("User-Agent", Application.userAgent);
+		connection.setRequestProperty("User-Agent", App.userAgent);
 		connection.setConnectTimeout(TIMEOUT);
 		connection.setReadTimeout(TIMEOUT);
 		connection.setRequestMethod(requestMethod);
@@ -1447,7 +1447,7 @@ public class Server {
 			con.setReadTimeout(TIMEOUT);
 			con.setConnectTimeout(TIMEOUT);
 			con.setRequestProperty("Accept-Encoding", "gzip");
-			con.setRequestProperty("User-Agent", Application.userAgent);
+			con.setRequestProperty("User-Agent", App.userAgent);
 
 			//--Start: got response header
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -1519,7 +1519,7 @@ public class Server {
 			con.setReadTimeout(TIMEOUT);
 			con.setConnectTimeout(TIMEOUT);
 			con.setRequestProperty("Accept-Encoding", "gzip");
-			con.setRequestProperty("User-Agent", Application.userAgent);
+			con.setRequestProperty("User-Agent", App.userAgent);
 
 			//--Start: got response header
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -1727,7 +1727,7 @@ public class Server {
 		XmlPullParser parser = xmlParserFactory.newPullParser();
 		parser.setInput(new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE), null);
 		bug.parseBug(parser); // replace contents with result from server
-		Application.getTaskStorage().setDirty();
+		App.getTaskStorage().setDirty();
 	}
 
 	/**

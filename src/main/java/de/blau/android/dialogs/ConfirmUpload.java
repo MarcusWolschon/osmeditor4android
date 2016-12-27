@@ -25,7 +25,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
@@ -127,9 +127,9 @@ public class ConfirmUpload extends DialogFragment
 		closeChangeset.setChecked(new Preferences(getActivity()).closeChangesetOnSave());
 		AutoCompleteTextView comment = (AutoCompleteTextView)layout.findViewById(R.id.upload_comment);
         FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_dropdown_item_1line, Application.getLogic().getLastComments());
+                android.R.layout.simple_dropdown_item_1line, App.getLogic().getLastComments());
         comment.setAdapter(commentAdapter);
-		String lastComment = Application.getLogic().getLastComment();
+		String lastComment = App.getLogic().getLastComment();
 		comment.setText(lastComment == null?"":lastComment);
 		OnClickListener autocompleteOnClick = new OnClickListener() {
 			@Override
@@ -145,9 +145,9 @@ public class ConfirmUpload extends DialogFragment
 		
 		AutoCompleteTextView source = (AutoCompleteTextView)layout.findViewById(R.id.upload_source);
 		FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_dropdown_item_1line, Application.getLogic().getLastSources());
+                android.R.layout.simple_dropdown_item_1line, App.getLogic().getLastSources());
         source.setAdapter(sourceAdapter);
-		String lastSource = Application.getLogic().getLastSource();
+		String lastSource = App.getLogic().getLastSource();
 		source.setText(lastSource == null?"":lastSource);
 		source.setOnClickListener(autocompleteOnClick);
 		source.setThreshold(1);

@@ -12,7 +12,7 @@ import org.acra.ACRA;
 
 import android.util.Log;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -131,7 +131,7 @@ public class UndoStorage implements Serializable {
 		} catch (Exception ex) {
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex); // don't crash the app send a report
-			Toast.makeText(Application.mainActivity, R.string.toast_inconsistent_state, Toast.LENGTH_LONG).show();
+			Toast.makeText(App.mainActivity, R.string.toast_inconsistent_state, Toast.LENGTH_LONG).show();
 		}
 	}
 	

@@ -13,7 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.util.Density;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
@@ -115,7 +115,7 @@ public class PresetIconManager {
 			
 			if (pngStream == null) return null;
 			
-			BitmapDrawable drawable = new BitmapDrawable(Application.mainActivity.getResources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
+			BitmapDrawable drawable = new BitmapDrawable(App.mainActivity.getResources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
 			drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
 			int pxsize = Density.dpToPx(size);
 			drawable.setBounds(0, 0, pxsize, pxsize);

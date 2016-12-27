@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.presets.Preset;
@@ -112,7 +112,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
 				}
 			};
 			
-			Preset[] currentPresets = Application.getCurrentPresets(getActivity());
+			Preset[] currentPresets = App.getCurrentPresets(getActivity());
 			
 			if (!(currentPresets != null && currentPresets.length > 0)) {
 				return null;

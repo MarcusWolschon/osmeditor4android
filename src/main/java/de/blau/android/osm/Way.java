@@ -10,7 +10,7 @@ import java.util.Map;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.GeoMath;
@@ -395,7 +395,7 @@ public class Way extends OsmElement implements BoundedObject {
 		String wayProblem = "";
 		String highway = getTagWithKey(Tags.KEY_HIGHWAY);
 		if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
-			wayProblem = Application.mainActivity.getString(R.string.toast_unsurveyed_road);
+			wayProblem = App.mainActivity.getString(R.string.toast_unsurveyed_road);
 		}
 		if ((getTagWithKey(Tags.KEY_NAME) == null) && (getTagWithKey(Tags.KEY_REF) == null)
 				&& !(hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES))) {
@@ -407,7 +407,7 @@ public class Way extends OsmElement implements BoundedObject {
 				}
 			}
 			if (isImportant) {
-				wayProblem = !wayProblem.equals("") ? wayProblem +", " :  Application.mainActivity.getString(R.string.toast_noname);
+				wayProblem = !wayProblem.equals("") ? wayProblem +", " :  App.mainActivity.getString(R.string.toast_noname);
 			}
 		}
 		if (!superProblem.equals("")) 

@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
@@ -514,7 +514,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.delete("presets", "id = ?", new String[] { id });
 		db.close();
 		removePresetDirectory(id);
-		if (id.equals(getCurrentAPI().preset)) Application.resetPresets();
+		if (id.equals(getCurrentAPI().preset)) App.resetPresets();
 	}
 
 	/**

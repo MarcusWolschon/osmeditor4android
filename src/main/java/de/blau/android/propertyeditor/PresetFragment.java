@@ -23,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
@@ -106,7 +106,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 //    	}
     	OsmElement element = (OsmElement) getArguments().getSerializable("element");
     	type = element.getType();
-        Preset[] presets = Application.getCurrentPresets(getActivity());
+        Preset[] presets = App.getCurrentPresets(getActivity());
         Log.d(DEBUG_TAG,"presets size " + (presets==null ? " is null": presets.length));
         paneMode  = getArguments().getBoolean("paneMode");
     	

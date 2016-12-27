@@ -21,7 +21,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -48,7 +48,7 @@ public class TransferTasks {
 
 	static public void downloadBox(final Context context, final Server server, final BoundingBox box, final boolean add, final PostAsyncActionHandler handler) {
 		
-		final TaskStorage bugs = Application.getTaskStorage();
+		final TaskStorage bugs = App.getTaskStorage();
 		final Preferences prefs = new Preferences(context);
 		
 		try {
@@ -121,13 +121,13 @@ public class TransferTasks {
 		final String PROGRESS_TAG = "tasks";
 
 		if (server != null) {
-			final ArrayList<Task>queryResult = Application.getTaskStorage().getTasks();
+			final ArrayList<Task>queryResult = App.getTaskStorage().getTasks();
 			// check if we need to oAuth first
 			for (Task b:queryResult) {
 				if (b.changed && b instanceof Note) {
 					if (server.isLoginSet()) {
 						if (server.needOAuthHandshake()) {
-							Application.mainActivity.oAuthHandshake(server, new PostAsyncActionHandler() {
+							App.mainActivity.oAuthHandshake(server, new PostAsyncActionHandler() {
 								@Override
 								public void execute() {
 									Preferences prefs = new Preferences(context);
@@ -139,7 +139,7 @@ public class TransferTasks {
 							return;
 						} 
 					} else {
-						ErrorAlert.showDialog(Application.mainActivity,ErrorCodes.NO_LOGIN_DATA);
+						ErrorAlert.showDialog(App.mainActivity,ErrorCodes.NO_LOGIN_DATA);
 						return;
 					}
 				}
@@ -147,7 +147,7 @@ public class TransferTasks {
 			new AsyncTask<Void, Void, Boolean>() {
 				@Override
 				protected void onPreExecute() {
-					Progress.showDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+					Progress.showDialog(App.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
 					Log.d(DEBUG_TAG,"starting up load of total " + queryResult.size() + " tasks");
 				}
 
@@ -178,8 +178,8 @@ public class TransferTasks {
 				
 				@Override
 				protected void onPostExecute(Boolean uploadFailed) {
-					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-					Toast.makeText(Application.mainActivity.getApplicationContext(), !uploadFailed ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
+					Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+					Toast.makeText(App.mainActivity.getApplicationContext(), !uploadFailed ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
 				}
 			}.execute();
 		};
@@ -229,7 +229,7 @@ public class TransferTasks {
 		if (server != null) {
 			if (server.isLoginSet()) {
 				if (server.needOAuthHandshake()) {
-					Application.mainActivity.oAuthHandshake(server, new PostAsyncActionHandler() {
+					App.mainActivity.oAuthHandshake(server, new PostAsyncActionHandler() {
 						@Override
 						public void execute() {
 							Preferences prefs = new Preferences(context);
@@ -237,11 +237,11 @@ public class TransferTasks {
 						}
 					});
 					if (server.getOAuth()) // if still set
-						Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+						Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
 					return false;
 				} 
 			} else {
-				ErrorAlert.showDialog(Application.mainActivity,ErrorCodes.NO_LOGIN_DATA);
+				ErrorAlert.showDialog(App.mainActivity,ErrorCodes.NO_LOGIN_DATA);
 				return false;
 			}
 
@@ -255,7 +255,7 @@ public class TransferTasks {
 					Log.d(DEBUG_TAG,"onPreExecute");
 					newBug = bug.isNew();
 					if (!quiet) {
-						Progress.showDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING);
+						Progress.showDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);
 					}
 				}
 
@@ -270,15 +270,15 @@ public class TransferTasks {
 
 				@Override
 				protected void onPostExecute(Boolean result) {
-					if (newBug && !Application.getTaskStorage().contains(bug)) {
-						Application.getTaskStorage().add(bug);
+					if (newBug && !App.getTaskStorage().contains(bug)) {
+						App.getTaskStorage().add(bug);
 					}
 					if (result) {
 						// upload sucessful
 						bug.changed = false;
 					}	
 					if (!quiet) {
-						Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_UPLOADING);
+						Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);
 						Toast.makeText(context, result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -316,12 +316,12 @@ public class TransferTasks {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
+				Progress.showDialog(App.mainActivity, Progress.PROGRESS_SAVING);
 			}
 			
 			@Override
 			protected Integer doInBackground(Void... arg) {
-				final ArrayList<Task>queryResult = Application.getTaskStorage().getTasks();
+				final ArrayList<Task>queryResult = App.getTaskStorage().getTasks();
 				int result = 0;
 				try {
 					File outfile = new File(fileName);
@@ -374,16 +374,16 @@ public class TransferTasks {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
+				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_SAVING);
 				if (result != 0) {
 					if (result == ErrorCodes.OUT_OF_MEMORY) {
 						System.gc();
-						if (Application.getTaskStorage().hasChanges()) {
+						if (App.getTaskStorage().hasChanges()) {
 							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
 					}
-					if (!Application.mainActivity.isFinishing()) {
-						ErrorAlert.showDialog(Application.mainActivity,result);
+					if (!App.mainActivity.isFinishing()) {
+						ErrorAlert.showDialog(App.mainActivity,result);
 					}
 				}
 			}

@@ -13,7 +13,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetItem;
@@ -78,8 +78,8 @@ public class SearchIndexUtils {
 	 */
 	public static List<PresetItem> searchInPresets(Context ctx, String term, ElementType type, int maxDistance, int limit){
 		ArrayList<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<MultiHashMap<String, PresetItem>>();
-		presetSeachIndices.add(Application.getTranslatedPresetSearchIndex(ctx));	
-		presetSeachIndices.add(Application.getPresetSearchIndex(ctx));	
+		presetSeachIndices.add(App.getTranslatedPresetSearchIndex(ctx));	
+		presetSeachIndices.add(App.getPresetSearchIndex(ctx));	
 		ArrayList<IndexSearchResult> rawResult = new ArrayList<IndexSearchResult>();
 		term = SearchIndexUtils.normalize(term);
 		for (MultiHashMap<String, PresetItem> index:presetSeachIndices) {
@@ -126,7 +126,7 @@ public class SearchIndexUtils {
 	 * @return
 	 */
 	public static NameAndTags searchInNames(Context ctx, String term, int maxDistance) {
-		Map<String,NameAndTags> namesSearchIndex = Application.getNameSearchIndex(ctx);
+		Map<String,NameAndTags> namesSearchIndex = App.getNameSearchIndex(ctx);
 		NameAndTags result = null;
 		int lastDistance = Integer.MAX_VALUE;
 		term = SearchIndexUtils.normalize(term);

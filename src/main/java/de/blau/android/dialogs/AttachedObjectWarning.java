@@ -13,7 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
-import de.blau.android.Application;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
@@ -102,7 +102,7 @@ public class AttachedObjectWarning extends DialogFragment
     	builder.setNeutralButton(R.string.attached_object_warning_stop, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {	
-					Application.getLogic().setAttachedObjectWarning(false);
+					App.getLogic().setAttachedObjectWarning(false);
 				} } );
     	builder.setNegativeButton(R.string.undo, new OnClickListener() {
 			@Override
