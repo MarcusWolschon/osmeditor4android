@@ -314,7 +314,6 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		onItemEdited(item);
 	}
 	
-
 	/**
 	 * Deletes an item
 	 * @param item
