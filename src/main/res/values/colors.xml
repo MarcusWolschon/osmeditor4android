@@ -15,6 +15,7 @@
 	<color name="dark_grey">#aaaaaa</color>
 	<color name="problem">#F0F</color>
 	<color name="relation">#A8FF7D</color>
+	<color name="black">#000000</color>
 
 	<color name="bug_open">#F00</color>
 	<color name="bug_closed">#00F</color>
