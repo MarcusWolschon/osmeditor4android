@@ -54,7 +54,7 @@ however older devices tend to have very limited memory and correspondingly the a
 
 If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use https (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. 
 
-Workaround: create a new non-https API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. =.9.8 will automatically add such an entry so you will only need to select it. 
+Workaround: create a new non-https API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 will automatically add such an entry so you will only need to select it. 
 
 #### What can I do with the editor?
 
