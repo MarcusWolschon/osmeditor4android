@@ -935,7 +935,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (getTracker() != null) getTracker().setListener(null);
 		try {
 			unbindService(this);
-		} catch (Exception ignored) {} // ignore errors, this is just cleanup
+		} catch (Exception ignored) {
+			Log.d(DEBUG_TAG, "Ignored " + ignored);
+		}
 		super.onDestroy();
 	}
 

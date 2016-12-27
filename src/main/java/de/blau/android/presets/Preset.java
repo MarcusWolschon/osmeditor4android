@@ -677,7 +677,13 @@ public class Preset implements Serializable {
         	// Deserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
         	Log.i("Preset", "No usable old MRU list, creating new one ("+e.toString()+")");
         } finally {
-			try { if (mruReader != null) mruReader.close(); } catch (Exception e) {} // ignore IO exceptions
+			try { 
+				if (mruReader != null) {
+					mruReader.close(); 
+				}
+			} catch (Exception ignored) {
+				Log.d(DEBUG_TAG, "Ignored " + ignored);
+			} 
         }
     	return tmpMRU;
 	}
