@@ -269,11 +269,11 @@ public class Address implements Serializable {
 							}
 							// nodes
 							for (Node n: storageDelegator.getCurrentStorage().getNodes()) {
-								seedAddressList(street,streetId, n,lastAddresses);
+								seedAddressList(context, street,streetId, n,lastAddresses);
 							}
 							// ways
 							for (Way w: storageDelegator.getCurrentStorage().getWays()) {
-								seedAddressList(street,streetId, w,lastAddresses);
+								seedAddressList(context, street,streetId, w,lastAddresses);
 							}
 							// and try again
 							list = getHouseNumbers(street, side, lastAddresses);
@@ -396,7 +396,7 @@ public class Address implements Serializable {
 				}
 			} else { // last ditch attemot
 				// fill with Karlsruher schema
-				Preferences prefs = new Preferences(App.getCurrentApplication());
+				Preferences prefs = new Preferences(context);
 				Set<String> addressTags = prefs.addressTags();
 				for (String key:addressTags) {
 					newAddress.tags.put(key, Util.getArrayList(""));
@@ -487,9 +487,9 @@ public class Address implements Serializable {
 	 * @param e
 	 * @param addresses
 	 */
-	private static void seedAddressList(String street,long streetId, OsmElement e,LinkedList<Address> addresses) {
+	private static void seedAddressList(Context context, String street,long streetId, OsmElement e,LinkedList<Address> addresses) {
 		if (e.hasTag(Tags.KEY_ADDR_STREET, street) && e.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-			Address seed = new Address(e,getAddressTags(new LinkedHashMap<String,ArrayList<String>>(Util.getArrayListMap(e.getTags()))));
+			Address seed = new Address(e,getAddressTags(context, new LinkedHashMap<String,ArrayList<String>>(Util.getArrayListMap(e.getTags()))));
 			if (streetId > 0) {
 				seed.setSide(streetId);
 			}
@@ -501,9 +501,9 @@ public class Address implements Serializable {
 		}
 	}
 	
-	protected static LinkedHashMap<String,ArrayList<String>> getAddressTags(LinkedHashMap<String,ArrayList<String>> sortedMap) {
+	protected static LinkedHashMap<String,ArrayList<String>> getAddressTags(Context context,LinkedHashMap<String,ArrayList<String>> sortedMap) {
 		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<String,ArrayList<String>>();
-		Preferences prefs = new Preferences(App.getCurrentApplication());
+		Preferences prefs = new Preferences(context);
 		Set<String> addressTags = prefs.addressTags();
 		for (String key:sortedMap.keySet()) {
 			// include everything except interpolation related tags
@@ -521,7 +521,7 @@ public class Address implements Serializable {
 	
 	protected synchronized static void updateLastAddresses(TagEditorFragment caller, LinkedHashMap<String,ArrayList<String>> tags) {
 		// save any address tags for "last address tags"
-		LinkedHashMap<String,ArrayList<String>> addressTags = getAddressTags(tags);
+		LinkedHashMap<String,ArrayList<String>> addressTags = getAddressTags(caller.getContext(),tags);
 		// this needs to be done after the edit again in case the street name of what ever has changed 
 		if (addressTags.size() > 0) {
 			if (lastAddresses == null) {

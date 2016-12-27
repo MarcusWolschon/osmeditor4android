@@ -37,8 +37,6 @@ public class App extends android.app.Application {
 	private static final Object httpClientLock = new Object();
 	public static String userAgent;
 	
-	static App currentApplication;
-	
 	/**
 	 * The logic that manipulates the model. (non-UI)<br/>
 	 */
@@ -86,11 +84,6 @@ public class App extends android.app.Application {
 		String appName = getString(R.string.app_name);
 		String appVersion = getString(R.string.app_version);
 		userAgent = appName + "/" + appVersion;
-		currentApplication = this;
-	}
-
-	public static App getCurrentApplication() {
-		return currentApplication;
 	}
 	
 	public static StorageDelegator getDelegator() {

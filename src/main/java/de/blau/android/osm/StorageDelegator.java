@@ -2040,8 +2040,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * Loads the storage data from the default storage file
 	 * NOTE: lock is acquired in logic before this is called
 	 */
-	public boolean readFromFile() {
-		return readFromFile(FILENAME);
+	public boolean readFromFile(Context context) {
+		return readFromFile(context, FILENAME);
 	}
 	
 	/**
@@ -2049,10 +2049,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param filename
 	 * @return
 	 */
-	public boolean readFromFile(String filename) {
+	public boolean readFromFile(Context context, String filename) {
 		try{
 			lock();
-			StorageDelegator newDelegator = savingHelper.load(App.getCurrentApplication(),filename, true); 
+			StorageDelegator newDelegator = savingHelper.load(context, filename, true); 
 
 			if (newDelegator != null) {
 				Log.d("StorageDelegator", "read saved state");

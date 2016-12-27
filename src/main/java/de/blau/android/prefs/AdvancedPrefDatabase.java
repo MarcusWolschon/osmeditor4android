@@ -175,7 +175,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (api == null) return null;
 		if (currentServer == null) { // only create when necessary
 			String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
-			currentServer =  new Server(api, version);
+			currentServer =  new Server(context, api, version);
 		}
 		return currentServer;
 	}

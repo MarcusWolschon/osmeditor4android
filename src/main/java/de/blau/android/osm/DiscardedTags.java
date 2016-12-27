@@ -9,6 +9,7 @@ import java.util.TreeMap;
 
 import com.google.gson.stream.JsonReader;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 import de.blau.android.App;
@@ -27,10 +28,10 @@ public class DiscardedTags {
 	/**
 	 * Implicit assumption that the list will be short and that it is OK to read in synchronously
 	 */
-	DiscardedTags() {	
+	DiscardedTags(Context context) {	
 		Log.d("DiscardedTags","Parsing configuration file");
 
-		AssetManager assetManager = App.getCurrentApplication().getAssets();
+		AssetManager assetManager = context.getAssets();
 
 		try {
 			InputStream is = assetManager.open("discarded.json");

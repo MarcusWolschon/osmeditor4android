@@ -160,7 +160,7 @@ public class Server {
 	 * @param oauth 
 	 * @param generator the name of the editor.
 	 */
-	public Server(final API api,final String generator) {
+	public Server(Context context, final API api,final String generator) {
 		Log.d(DEBUG_TAG, "constructor");
 		if (api.url != null && !api.url.equals("")) {
 			this.serverURL = api.url;
@@ -189,7 +189,7 @@ public class Server {
 		xmlParserFactory = factory;
 		
 		// initialize list of redundant tags
-		discardedTags = new DiscardedTags();
+		discardedTags = new DiscardedTags(context);
 	}
 	
 	/**

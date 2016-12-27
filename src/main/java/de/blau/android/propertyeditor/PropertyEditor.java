@@ -217,7 +217,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			StorageDelegator delegator = App.getDelegator();
 			if (!delegator.isDirty() && delegator.isEmpty()) { // this can't means: need to load state
 				Log.d(DEBUG_TAG, "Loading saved state");
-				logic.syncLoadFromFile(); // sync load
+				logic.syncLoadFromFile(this); // sync load
 				App.getTaskStorage().readFromFile(this);
 			}
 		}

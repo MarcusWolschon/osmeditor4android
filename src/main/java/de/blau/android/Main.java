@@ -1910,7 +1910,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				if (loadOnResume) { 
 					loadOnResume = false;
 					Log.d(DEBUG_TAG,"handlePropertyEditorResult loading data");
-					logic.syncLoadFromFile(); // sync load
+					logic.syncLoadFromFile(this); // sync load
 					App.getTaskStorage().readFromFile(this);
 				}
 			}

@@ -3060,10 +3060,10 @@ public class Logic {
 			
 			@Override
 			protected Integer doInBackground(Context... c) {
-				if (getDelegator().readFromFile()) {
+				if (getDelegator().readFromFile(c[0])) {
 					viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_OK);
-				} else if (getDelegator().readFromFile(StorageDelegator.FILENAME + ".backup")) {
+				} else if (getDelegator().readFromFile(c[0],StorageDelegator.FILENAME + ".backup")) {
 					getDelegator().dirty(); // we need to overwrite the saved state asap
 					viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_BACKUP);
@@ -3176,7 +3176,7 @@ public class Logic {
 	 * Loads data from a file
 	 * 
 	 */
-	public void syncLoadFromFile() {
+	public void syncLoadFromFile(Context context) {
 
 		final int READ_FAILED = 0;
 		final int READ_OK = 1;
@@ -3186,7 +3186,7 @@ public class Logic {
 
 		Progress.showDialog(App.mainActivity, Progress.PROGRESS_LOADING);
 
-		if (getDelegator().readFromFile()) {
+		if (getDelegator().readFromFile(context)) {
 			viewBox.setBorders(getDelegator().getLastBox());
 			result = READ_OK;
 		} 
