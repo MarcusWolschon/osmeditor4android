@@ -25,9 +25,8 @@
             android:hint="@string/preset_search_hint"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:singleLine="true" 
             android:background="?attr/colorPrimary"
-             />
+            android:maxLines="1" />
 
         <android.support.v7.widget.ActionMenuView
             android:id="@+id/preset_menu"

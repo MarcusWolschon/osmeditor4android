@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:ellipsize="end"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:maxLines="1" />
 
 </LinearLayout>

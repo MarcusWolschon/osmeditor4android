@@ -40,7 +40,6 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
-import de.blau.android.prefs.AdvancedPrefDatabase.GeocoderType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.mapbox.geojson.Feature;

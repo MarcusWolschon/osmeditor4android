@@ -254,12 +254,12 @@ public class TileLayerServer {
 	private boolean overlay, defaultLayer;
 	private int zoomLevelMin, zoomLevelMax, tileWidth, tileHeight, preference;
 	private Drawable brandLogo;
-	private Queue<String> subdomains = new LinkedList<String>();
+	private final Queue<String> subdomains = new LinkedList<String>();
 	private int defaultAlpha;
 	private Collection<Provider> providers = new ArrayList<Provider>();
 	private Offset[] offsets;
 	
-	private static HashMap<String,TileLayerServer> backgroundServerList =new HashMap<String,TileLayerServer>();
+	private static final HashMap<String,TileLayerServer> backgroundServerList =new HashMap<String,TileLayerServer>();
 	private static HashMap<String,TileLayerServer> overlayServerList = new HashMap<String,TileLayerServer>();
 	private static boolean ready = false;
 	private static Context myCtx;
@@ -323,9 +323,7 @@ public class TileLayerServer {
 							int switchEnd = tileUrl.indexOf("}",switchPos);
 							if (switchEnd >= 0) {
 								String switchValues = tileUrl.substring(switchPos+SWITCH_START.length(), switchEnd);
-								for (String subdomain : switchValues.split(",")) {
-									subdomains.add(subdomain);
-								}
+								Collections.addAll(subdomains, switchValues.split(","));
 								StringBuffer t = new StringBuffer(tileUrl);
 								tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
 							}
@@ -453,9 +451,7 @@ public class TileLayerServer {
 			int switchEnd = tileUrl.indexOf("}",switchPos);
 			if (switchEnd >= 0) {
 				String switchValues = tileUrl.substring(switchPos+SWITCH_START.length(), switchEnd);
-				for (String subdomain : switchValues.split(",")) {
-					subdomains.add(subdomain);
-				}
+				Collections.addAll(subdomains, switchValues.split(","));
 				StringBuffer t = new StringBuffer(tileUrl);
 				tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
 			}

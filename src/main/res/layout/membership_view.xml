@@ -44,10 +44,9 @@
 	        		android:minHeight="34dp"
 	        		android:paddingLeft="5dp"
 	        		android:paddingRight="5dp"
-	        		android:singleLine="true"
-	        		android:gravity="center_vertical"
+					android:gravity="center_vertical"
 	        		android:text="@string/role"
-		        />
+					android:maxLines="1" />
 				<TextView
 			        android:id="@+id/membership_relation_heading_view"
 			        android:layout_width="fill_parent"
@@ -61,10 +60,9 @@
 			        android:minHeight="34dp"
 			        android:paddingLeft="5dp"
 			        android:paddingRight="5dp"
-			        android:singleLine="true"
-			        android:gravity="center_vertical"
+					android:gravity="center_vertical"
 			        android:text="@string/membership_relation_heading"
-			    />
+					android:maxLines="1" />
 		</LinearLayout>
 		<LinearLayout
 	   		android:id="@+id/membership_vertical_layout"

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -57,7 +56,6 @@ import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.IndoorFilter;
-import de.blau.android.filter.TagFilter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -382,23 +380,11 @@ public class Logic {
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
 	 * 
-	 * @param map Instance of the Map. All new Values will be pushed to it.
-	 * @param profile The drawing profile used by the map to paint the objects on screen.
 	 */
-	Logic(final Map map) {
-		this.map = map;
-
+	Logic() {
 		viewBox = getDelegator().getLastBox();
-		
 		mode = Mode.MODE_EASYEDIT;
 		setLocked(true);
-		setSelectedBug(null);
-		setSelectedNode(null);
-		setSelectedWay(null);
-		setSelectedRelation(null);
-
-		map.setDelegator(getDelegator());
-		map.setViewBox(viewBox);
 	}
 
 	/**
@@ -409,8 +395,6 @@ public class Logic {
 	 */
 	void setPrefs(final Preferences prefs) {
 		this.prefs = prefs;
-		DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
-		map.invalidate();
 	}
 
 	
@@ -3191,7 +3175,7 @@ public class Logic {
 	 * Loads data from a file
 	 * 
 	 */
-	void syncLoadFromFile() {
+	public void syncLoadFromFile() {
 
 		final int READ_FAILED = 0;
 		final int READ_OK = 1;
@@ -3715,20 +3699,11 @@ public class Logic {
 	 */
 	public synchronized boolean isSelected(OsmElement e) {
 		if (e instanceof Node) {
-			if (selectedNodes != null && selectedNodes.contains((Node) e)) {
-				return true;
-			}
-			return false;
+			return selectedNodes != null && selectedNodes.contains((Node) e);
 		} else if (e instanceof Way) {
-			if (selectedWays != null && selectedWays.contains((Way) e)) {
-				return true;
-			}
-			return false;
+			return selectedWays != null && selectedWays.contains((Way) e);
 		} else if (e instanceof Relation) {
-			if (selectedRelations != null && selectedRelations.contains((Relation) e)) {
-				return true;
-			}
-			return false;
+			return selectedRelations != null && selectedRelations.contains((Relation) e);
 		}
 		return false;
 	}
@@ -3749,9 +3724,15 @@ public class Logic {
 	 */
 	public void setMap(Map map) {
 		this.map = map;
+		DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
 		DataStyle.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), strokeWidth(viewBox.getWidth())));
 		map.setDelegator(getDelegator());
 		map.setViewBox(viewBox);
+		setSelectedBug(null);
+		setSelectedNode(null);
+		setSelectedWay(null);
+		setSelectedRelation(null);
+		map.invalidate();
 	}
 	
 	/**
@@ -4104,8 +4085,7 @@ public class Logic {
 		}
 		int lat = GeoMath.yToLatE7(h, w, v, XY[1]);
 		int lon = GeoMath.xToLonE7(w, v, XY[0]);
-		int result[] = {lat,lon};
-		return result;
+		return new int[]{lat,lon};
 	}
 
 
@@ -4141,8 +4121,7 @@ public class Logic {
 			}
 			Y = Y/(3*A);
 			X = X/(3*A);
-			float result[] = {(float)X, (float)Y};
-			return result;
+			return new float[]{(float)X, (float)Y};
 		} else { //
 			double L = 0;
 			double Y = 0;
@@ -4160,8 +4139,7 @@ public class Logic {
 			}
 			Y = Y/L;
 			X = X/L;
-			float result[] = {(float)X, (float)Y};
-			return result;
+			return new float[]{(float)X, (float)Y};
 		}	
 	}
 	
@@ -4193,8 +4171,7 @@ public class Logic {
 			}
 			Y = GeoMath.mercatorToLat(Y/(3*A));
 			X = X/(3*A);
-			double result[] = {X, Y};
-			return result;
+			return new double[]{X, Y};
 		} else { //
 			double L = 0;
 			double Y = 0;
@@ -4212,8 +4189,7 @@ public class Logic {
 			}
 			Y = GeoMath.mercatorToLat(Y/L);
 			X = X/L;
-			double result[] = {X, Y};
-			return result;
+			return new double[]{X, Y};
 		}	
 	}
 

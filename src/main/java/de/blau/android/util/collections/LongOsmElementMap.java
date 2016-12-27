@@ -118,6 +118,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			m_data = Arrays.copyOf(map.m_data, map.m_data.length);
 		} else { // sigh
 			m_data = new OsmElement[map.m_data.length];
+			//noinspection ManualArrayCopy
 			for (int i = 0; i < m_data.length; i++) {
 				m_data[i] = map.m_data[i];
 			}

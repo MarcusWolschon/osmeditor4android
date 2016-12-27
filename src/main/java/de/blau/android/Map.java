@@ -21,7 +21,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Path.FillType;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
@@ -30,7 +29,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -102,7 +100,9 @@ public class Map extends View implements IMapView {
 	private final int houseNumberRadius;
 	
 	private final int verticalNumberOffset;
-	
+
+    private final ArrayList<BoundingBox> boundingBoxes = new ArrayList<BoundingBox>();
+
 	private Preferences prefs;
 	
 	/** Direction we're pointing. 0-359 is valid, anything else is invalid.*/
@@ -400,8 +400,10 @@ public class Map extends View implements IMapView {
 		
 		if (zoomLevel > 10) {
 			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND) {
-				// shallow copy to avoid modification issues FIXME this likely simply needs a synchronized statement in paintStorageBox
-				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); 
+				// shallow copy to avoid modification issues
+				boundingBoxes.clear();
+				boundingBoxes.addAll(delegator.getBoundingBoxes());
+				paintStorageBox(canvas, boundingBoxes);
 			}
 			paintGpsTrack(canvas);
 		}
@@ -1344,7 +1346,7 @@ public class Map extends View implements IMapView {
 			float Y = Float.MIN_VALUE;
 			if (!interrupted && prevNode != null) {
 				if (thisIntersects || nextIntersects 
-						|| (nextNode!=null && lastDrawnNode!=null?box.intersects(nextNode.getLat(),nextNode.getLon(),lastDrawnNode.getLat(),lastDrawnNode.getLon()):true)) {
+						|| (!(nextNode != null && lastDrawnNode != null) || box.intersects(nextNode.getLat(), nextNode.getLon(), lastDrawnNode.getLat(), lastDrawnNode.getLon()))) {
 					X = GeoMath.lonE7ToX(w, box, nodeLon);
 					Y = GeoMath.latE7ToY(h, w, box, nodeLat);
 					if (prevX == Float.MIN_VALUE) { // last segment didn't intersect

@@ -363,7 +363,7 @@ public class Way extends OsmElement implements BoundedObject {
 	
 	private boolean hasTagWithValue(String tag, String value) {
 		String tagValue = getTagWithKey(tag);
-		return tagValue != null ? tagValue.equalsIgnoreCase(value) : false;
+		return tagValue != null && tagValue.equalsIgnoreCase(value);
 	}
 	
 	/**

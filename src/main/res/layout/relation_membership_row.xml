@@ -38,8 +38,7 @@
 	        android:inputType="textNoSuggestions"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
-	        android:singleLine="true"
-	         />
+			android:maxLines="1" />
 	    
 	    <Spinner
 	        android:id="@+id/editParent"

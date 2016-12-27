@@ -39,8 +39,7 @@
 	        android:minHeight="34dp"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
-	        android:singleLine="true"
-	         />
+			android:maxLines="1" />
 	    
 	    <de.blau.android.views.CustomAutoCompleteTextView
 	        android:id="@+id/editValue"	      
@@ -57,7 +56,6 @@
 	        android:minHeight="34dp"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
-	        android:singleLine="true"
-	        />
+			android:maxLines="1" />
 	</LinearLayout>
 </view>

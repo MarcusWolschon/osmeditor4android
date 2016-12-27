@@ -27,7 +27,7 @@
             android:layout_marginRight="0dp"
             android:hint="@string/tag_restriction_value_hint"
             android:inputType="textNoSuggestions"
-            android:singleLine="true" />
+            android:maxLines="1" />
     </LinearLayout>
 
     <LinearLayout

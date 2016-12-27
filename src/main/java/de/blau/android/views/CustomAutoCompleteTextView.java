@@ -131,11 +131,7 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
             return false;
         }
         int start = mTokenizer.findTokenStart(text, end);
-        if (end - start >= getThreshold()) {
-            return true;
-        } else {
-            return false;
-        }
+        return end - start >= getThreshold();
     }
     /**
      * Instead of validating the entire text, this subclass method validates
@@ -195,8 +191,7 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
     protected void replaceText(CharSequence text) {
     	if (mTokenizer==null) {
        		super.replaceText(text);
-    		return;
-    	}
+        }
     }
     
     /**

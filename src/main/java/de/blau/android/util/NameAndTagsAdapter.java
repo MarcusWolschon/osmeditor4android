@@ -49,8 +49,7 @@ public class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
     Filter nameFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
-            String str = ((NameAndTags)(resultValue)).getName(); 
-            return str;
+            return ((NameAndTags)(resultValue)).getName();
         }
         
         @Override

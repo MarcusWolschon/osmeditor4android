@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:inputType="numberSigned|numberDecimal"
                 android:minWidth="120dp"
-                android:singleLine="true" />
+                android:maxLines="1" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:inputType="numberSigned|numberDecimal"
                 android:minWidth="120dp"
-                android:singleLine="true" />
+                android:maxLines="1" />
         </LinearLayout>
     </RadioGroup>
 
@@ -83,12 +83,11 @@
             android:id="@+id/location_search_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_toRightOf="@id/location_search_label"
             android:layout_alignBaseline="@id/location_search_label"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:singleLine="true" />
+            android:maxLines="1" />
         
         <Spinner
 		    android:id="@+id/location_search_geocoder"

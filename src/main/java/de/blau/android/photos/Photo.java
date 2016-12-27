@@ -157,8 +157,8 @@ public class Photo implements BoundedObject {
 	/**
 	 * BoundedObject interface
 	 */
+	@SuppressWarnings("UnnecessaryLocalVariable")
 	public BoundingBox getBounds() {
-		BoundingBox r = new BoundingBox(lon,lat);
-		return r;
+		return new BoundingBox(lon,lat);
 	}
 }

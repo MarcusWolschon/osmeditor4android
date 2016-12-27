@@ -38,8 +38,7 @@
 	        android:inputType="textNoSuggestions"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="0dp"
-	        android:singleLine="true"
-	         />
+			android:maxLines="1" />
 
          <include layout="@layout/menu" />
     </LinearLayout>

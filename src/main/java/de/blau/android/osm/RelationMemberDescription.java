@@ -59,13 +59,10 @@ public class RelationMemberDescription extends RelationMember {
 		if (this == o) {
 			return true;
 		}
-		if (o instanceof RelationMemberDescription 
-				&& ref == ((RelationMemberDescription) o).ref 
-				&& type.equals(((RelationMemberDescription) o).type) 
-				&& ((role == null && ((RelationMemberDescription) o).role == null) || (role != null && role.equals(((RelationMemberDescription) o).role)))) {
-			return true;
-		}
-		return false;
+		return o instanceof RelationMemberDescription
+				&& ref == ((RelationMemberDescription) o).ref
+				&& type.equals(((RelationMemberDescription) o).type)
+				&& ((role == null && ((RelationMemberDescription) o).role == null) || (role != null && role.equals(((RelationMemberDescription) o).role)));
 	}
 	
 	@Override
