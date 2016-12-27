@@ -395,6 +395,7 @@ public class Logic {
 	 */
 	void setPrefs(final Preferences prefs) {
 		this.prefs = prefs;
+		DataStyle.switchTo(prefs.getMapProfile());
 	}
 
 	
@@ -3724,8 +3725,6 @@ public class Logic {
 	 */
 	public void setMap(Map map) {
 		this.map = map;
-		DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
-		DataStyle.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), strokeWidth(viewBox.getWidth())));
 		map.setDelegator(getDelegator());
 		map.setViewBox(viewBox);
 		setSelectedBug(null);

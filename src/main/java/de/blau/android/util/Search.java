@@ -125,6 +125,7 @@ public class Search {
 			multiline = true;
 			break;
 		case NOMINATIM:
+		default:
 			querier = new QueryNominatim(geocoder.url, bbox);
 			multiline = false;
 			break;
@@ -144,7 +145,6 @@ public class Search {
 			e.printStackTrace();
 		} catch (TimeoutException e) {
 			Toast.makeText(activity, R.string.toast_timeout, Toast.LENGTH_LONG).show();
-			e.printStackTrace();
 		}
 	}
 
@@ -153,10 +153,6 @@ public class Search {
 		
 		final BoundingBox bbox;
 		final String url;
-
-		public Query() {
-			this(null, null);
-		}
 
 		public Query(String url, BoundingBox bbox) {
 			this.url = url;

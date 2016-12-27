@@ -493,6 +493,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		mapLayout.addView(zoomControls, rlp);
 		
+		DataStyle.getStylesFromFiles(getApplicationContext()); // needs to happen before setContentView
+		
 		setContentView(ml);
 		
         // Find the toolbar view inside the activity layout
@@ -519,7 +521,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		Log.i(DEBUG_TAG, "onCreate - setting new map");
 
-		DataStyle p = new DataStyle(getApplicationContext()); // this has side effects and needs to be done now (for now)
 		Application.getLogic().setPrefs(prefs);
 		Application.getLogic().setMap(map);
 		

@@ -223,7 +223,7 @@ public class DataStyle  extends DefaultHandler {
 	HashMap<String,FeatureStyle> featureStyles;
 	
 	public static DataStyle currentStyle;
-	public static HashMap<String,DataStyle> availableStyles;
+	public static HashMap<String,DataStyle> availableStyles = new HashMap<String,DataStyle>();
 	
 	public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
 
@@ -264,8 +264,6 @@ public class DataStyle  extends DefaultHandler {
 		this.ctx = ctx;
 		// create default 
 		init(ctx.getResources());
-
-		getStylesFromFile(ctx);
 		Log.i("Style","profile " + currentStyle.name);
 	}
 
@@ -565,15 +563,6 @@ public class DataStyle  extends DefaultHandler {
 		fp.getPaint().setXfermode(whiteXor);
 		fp.dontUpdate();
 		featureStyles.put(fp.getName(), fp);
-		
-		synchronized (this) {
-			if (availableStyles == null) {
-				name = BUILTIN_STYLE_NAME;
-				currentStyle = this;
-				availableStyles = new HashMap<String,DataStyle>();
-				availableStyles.put(name,this);
-			}
-		}
 		Log.i("Style","... done");
 	}
 
@@ -643,10 +632,11 @@ public class DataStyle  extends DefaultHandler {
 	 * @return
 	 */
 	public static String[] getStyleList(Activity activity) {
-		if (availableStyles == null) { // shouldn't happen
-			DataStyle p = new DataStyle(activity);
+		if (availableStyles.size() == 0) { // shouldn't happen
 			Log.e("Style","getStyleList called before initialized");
+			addDefaultStye(activity);
 		}
+		// creating the default style object will set availableStyles
 		String[] res = new String[availableStyles.size()];
 		
 		res[0] = BUILTIN_STYLE_NAME;
@@ -902,19 +892,12 @@ public class DataStyle  extends DefaultHandler {
 		}
 		return true;
 	}
-	
-	class StyleFilter implements FilenameFilter {
-		@Override
-		public boolean accept(File dir, String name) {
-			return name.endsWith(FILE_PATH_STYLE_SUFFIX);
-		}
-	}
-	
+		
 	/**
 	 * searches directories for profile files and creates new profiles from them
 	 * @param ctx
 	 */
-	void getStylesFromFile(Context ctx) {
+	public static void getStylesFromFiles(Context ctx) {
 		// assets directory
 		AssetManager assetManager = ctx.getAssets();
 		//
@@ -929,13 +912,19 @@ public class DataStyle  extends DefaultHandler {
 						availableStyles.put(p.name,p);
 					}
 				}
-			}
+			} 
 		} catch (Exception ex) { Log.i("Style", ex.toString());}
 		
 		// from sdcard
 		File sdcard = Environment.getExternalStorageDirectory();
 		File indir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 		if (indir != null) {
+			class StyleFilter implements FilenameFilter {
+				@Override
+				public boolean accept(File dir, String name) {
+					return name.endsWith(FILE_PATH_STYLE_SUFFIX);
+				}
+			}
 			File[] list = indir.listFiles(new StyleFilter());
 			if (list != null) {
 				for (File f:list) {
@@ -950,6 +939,18 @@ public class DataStyle  extends DefaultHandler {
 			}
 			
 		}
+		if (availableStyles.size()==0) {
+			Log.i("Style","No style files found");
+			// no files, need to install a default
+			addDefaultStye(ctx);
+		}
+	}
+
+	private static void addDefaultStye(Context ctx) {
+		DataStyle p = new DataStyle(ctx);
+		p.name = BUILTIN_STYLE_NAME;
+		currentStyle = p;
+		availableStyles.put(p.name,p);
 	}
 	
 	public static String getBuiltinStyleName() {
