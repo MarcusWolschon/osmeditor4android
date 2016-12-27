@@ -7,8 +7,10 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Patterns;
 import android.view.ContextMenu;
@@ -29,11 +31,11 @@ import de.blau.android.util.ThemeUtils;
 public class APIEditorActivity extends URLListEditActivity {
 
 	private AdvancedPrefDatabase db;
-	
+
 	public APIEditorActivity() {
 		super();
 	}
-	
+
 	public static void startForResult(@NonNull Activity activity,
 									  @NonNull String apiName,
 									  @NonNull String apiUrl,
@@ -54,12 +56,12 @@ public class APIEditorActivity extends URLListEditActivity {
 		db = new AdvancedPrefDatabase(this);
 		super.onCreate(savedInstanceState);
 	}
-	
+
 	@Override
 	protected int getAddTextResId() {
 		return R.string.urldialog_add_api;
 	}
-	
+
 	@Override
 	protected void onLoadList(List<ListEditItem> items) {
 		API[] apis = db.getAPIs();
@@ -95,7 +97,7 @@ public class APIEditorActivity extends URLListEditActivity {
 	protected void onItemDeleted(ListEditItem item) {
 		db.deleteAPI(item.id);
 	}
-	
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
@@ -106,16 +108,16 @@ public class APIEditorActivity extends URLListEditActivity {
 				menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
 				for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet() ) {
 					menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE,	r.getString(entry.getValue()))
-						.setOnMenuItemClickListener(this);
+							.setOnMenuItemClickListener(this);
 				}
 			}
 		}
 	}
-	
- 	/**
- 	 * Opens the dialog to edit an item
- 	 * @param item the selected item
- 	 */
+
+	/**
+	 * Opens the dialog to edit an item
+	 * @param item the selected item
+	 */
 	@Override
 	protected void itemEditDialog(final ListEditItem item) {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
@@ -127,7 +129,7 @@ public class APIEditorActivity extends URLListEditActivity {
 		final TextView editValue_2 = (TextView)mainView.findViewById(R.id.listedit_editValue_2);
 		final TextView editValue_3 = (TextView)mainView.findViewById(R.id.listedit_editValue_3);
 		final CheckBox oauth = (CheckBox)mainView.findViewById(R.id.listedit_oauth);
-		
+
 		if (item != null) {
 			editName.setText(item.name);
 			editValue.setText(item.value);
@@ -148,12 +150,45 @@ public class APIEditorActivity extends URLListEditActivity {
 			editValue_2.setEnabled(false);
 			editValue_3.setEnabled(false);
 		}
-		
-		builder.setView(mainView);
 
-		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		builder.setView(mainView);
+		builder.setPositiveButton(android.R.string.ok,
+				new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which){
+
+					}
+				});
+		builder.setNegativeButton(android.R.string.cancel,
+				new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which){
+
+					}
+				});
+		builder.setOnCancelListener(new OnCancelListener() {
+
 			@Override
-			public void onClick(DialogInterface dialog, int whichButton) {
+			public void onCancel(DialogInterface dialog) {
+				if (isAddingViaIntent()) {
+					setResult(RESULT_CANCELED);
+					finish();
+				}
+			}
+		});
+
+		final AlertDialog dialog =builder.create();
+		dialog.setView(mainView);
+		dialog.show();
+		dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v){
+				Boolean wantToCloseDialog1 = false;
+				Boolean wantToCloseDialog2 = false;
+				Boolean wantToCloseDialog3 = false;
 				Boolean validAPIURL=true;
 				Boolean validReadOnlyAPIURL=true;
 				Boolean validNotesAPIURL = true;
@@ -168,82 +203,90 @@ public class APIEditorActivity extends URLListEditActivity {
 					validAPIURL= Patterns.WEB_URL.matcher(value).matches();
 					if(value_2.trim().matches("")==false){
 						validReadOnlyAPIURL=Patterns.WEB_URL.matcher(value_2).matches();
-
+						wantToCloseDialog2 = true;
+						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
 					if(value_3.trim().matches("")==false){
 						validNotesAPIURL=Patterns.WEB_URL.matcher(value_3).matches();
+						wantToCloseDialog3 = true;
+						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
 					if(validAPIURL==true && validNotesAPIURL==true && validReadOnlyAPIURL==true) {   //check if fields valid, optional ones checked if values entered
 						if (!value.equals("")) {
 							finishCreateItem(new ListEditItem(name, value, !"".equals(value_2) ? value_2 : null, !"".equals(value_3) ? value_3 : null, oauth.isChecked()));
-
+							wantToCloseDialog1 = true;
+							wantToCloseDialog2 = true;
+							wantToCloseDialog3= true;
 						}
 					}
-
 					else if(validAPIURL==false){
-
 						Toast.makeText(APIEditorActivity.this, "Invalid API URL", Toast.LENGTH_LONG).show(); //if garbage value entered
+						wantToCloseDialog1 = false;
+						editValue.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
 					}
 					else if(validReadOnlyAPIURL==false){
-
+						wantToCloseDialog2 = false;
 						Toast.makeText(APIEditorActivity.this, "Invalid ReadOnly API URL", Toast.LENGTH_LONG).show(); //if garbage value entered
+						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
 					}
 					else if(validNotesAPIURL==false){
-
+						wantToCloseDialog3 = false;
 						Toast.makeText(APIEditorActivity.this, "Invalid Notes API URL", Toast.LENGTH_LONG).show();//if garbage value entered
+						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
 					}
-
 				} else {
 					item.name = name;
 					item.value = value;
-
-
+					validAPIURL= Patterns.WEB_URL.matcher(value).matches();
+					if(validAPIURL==false){
+						Toast.makeText(APIEditorActivity.this, "Invalid API URL", Toast.LENGTH_LONG).show(); //if garbage value entered
+						wantToCloseDialog1=false;
+						editValue.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
+					}
 					if(value_2.trim().matches("")==false){                //check if empty field
 						validReadOnlyAPIURL=Patterns.WEB_URL.matcher(value_2).matches();
-
+						wantToCloseDialog2 = true;
+						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
 					if(value_3.trim().matches("")==false){                 //check if empty field
+						wantToCloseDialog3 = true;
 						validNotesAPIURL=Patterns.WEB_URL.matcher(value_3).matches();
+						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
-
 					if(validReadOnlyAPIURL==true) {                 //check if valid url entered
 						item.value_2 = !"".equals(value_2) ? value_2 : null;
+						wantToCloseDialog2 = true;
+						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
 					else{
+						wantToCloseDialog2 = false;
 						Toast.makeText(APIEditorActivity.this, "Invalid ReadOnly API URL", Toast.LENGTH_LONG).show(); //if garbage value entered
+						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
 					}
 
 					if(validNotesAPIURL==true) {                   //check if valid url entered
+						wantToCloseDialog3 = true;
 						item.value_3 = !"".equals(value_3) ? value_3 : null;
+						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
 					else{
 						Toast.makeText(APIEditorActivity.this, "Invalid Notes API URL", Toast.LENGTH_LONG).show();  //if garbage value entered
+						wantToCloseDialog3 = false;
+						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
 					}
 					item.enabled = enabled;
 					finishEditItem(item);
-
-
 				}
+			if(wantToCloseDialog1 && wantToCloseDialog2 && wantToCloseDialog3)
+					dialog.dismiss();
 			}
 		});
-		builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+		dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener()
+		{
 			@Override
-			public void onClick(DialogInterface dialog, int whichButton) {
-				dialog.cancel();
+			public void onClick(View v){
+				dialog.dismiss();
 			}
 		});
-		
-		builder.setOnCancelListener(new OnCancelListener() {
-			
-			@Override
-			public void onCancel(DialogInterface dialog) {
-				if (isAddingViaIntent()) {
-					setResult(RESULT_CANCELED);
-					finish();
-				}
-			}
-		});
-		
-		builder.show();
 	}
 }
