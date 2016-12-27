@@ -5,10 +5,10 @@ import de.blau.android.osm.OsmElement.ElementType;
 /**
  * Interface for updating key:value pairs in the TagEditor from other fragments via the activity
  */
-abstract interface PresetFilterUpdate {
+interface PresetFilterUpdate {
 	/**
 	 * Fetch new tags etc
 	 */
-	abstract void typeUpdated(ElementType type);
+	void typeUpdated(ElementType type);
 }
 

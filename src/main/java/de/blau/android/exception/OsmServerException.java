@@ -58,7 +58,7 @@ public class OsmServerException extends OsmException {
 	 * @param errorCode the HTTP response-code
 	 * @return the meaning of that code in english
 	 */
-	public static String errorCodeToMeaning(final int errorCode) {
+	private static String errorCodeToMeaning(final int errorCode) {
 		switch (errorCode) {
 		case HttpURLConnection.HTTP_BAD_REQUEST:
 			return "The payload did not match the request. This happens for example when an \"update\" request is made and the object id given in the XML does not match the object id in the URL, or if the requested bounding box is too big.";

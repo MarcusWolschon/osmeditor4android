@@ -116,7 +116,7 @@ public class OsmoseBug extends Task implements Serializable {
 	/**
 	 * Used for when parsing API output
 	 */
-	public OsmoseBug() {
+	private OsmoseBug() {
 		open();
 	}
 

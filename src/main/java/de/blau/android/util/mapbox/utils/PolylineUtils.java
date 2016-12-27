@@ -273,7 +273,7 @@ public class PolylineUtils {
    * @see <a href="http://mourner.github.io/simplify-js/">JavaScript implementation</a>
    * @since 1.2.0
    */
-  public static Position[] simplify(Position[] points, double tolerance, boolean highestQuality) {
+  private static Position[] simplify(Position[] points, double tolerance, boolean highestQuality) {
     if (points.length <= 2) {
       return points;
     }

@@ -73,7 +73,7 @@ public class WrappingLayout extends LinearLayout {
 	/**
 	 * (Re)does the line-breaking. Use e.g. if you change the size of child elements.
 	 */
-	public void triggerRelayout() {
+	private void triggerRelayout() {
 		needsRelayout = true;
 		requestLayout();
 	}

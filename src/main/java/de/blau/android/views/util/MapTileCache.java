@@ -24,7 +24,7 @@ public class MapTileCache implements MapViewConstants{
 	// Fields
 	// ===========================================================
 	
-	protected LRUMapTileCache mCachedTiles;
+	private LRUMapTileCache mCachedTiles;
 
 	// ===========================================================
 	// Constructors
@@ -37,7 +37,7 @@ public class MapTileCache implements MapViewConstants{
 	/**
 	 * @param aMaximumCacheBytes Maximum cache size in bytes.
 	 */
-	public MapTileCache(final long aMaximumCacheBytes){
+	private MapTileCache(final long aMaximumCacheBytes){
 		Log.d("OpenStreetMapTileCache","Created new in memory tile cache with " + aMaximumCacheBytes + " bytes");
 		mCachedTiles = new LRUMapTileCache(aMaximumCacheBytes);
 	}
@@ -70,7 +70,7 @@ public class MapTileCache implements MapViewConstants{
 	 * Returns a suitable default for the cache size.
 	 * @return The default cache size.
 	 */
-	public static long defaultCacheBytes() {
+	private static long defaultCacheBytes() {
 		// Default to using half the available memory
 		return Runtime.getRuntime().maxMemory() / 8;
 	}

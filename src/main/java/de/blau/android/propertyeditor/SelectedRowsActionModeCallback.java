@@ -18,7 +18,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class SelectedRowsActionModeCallback implements Callback {
+class SelectedRowsActionModeCallback implements Callback {
 
 	public interface Row {
 
@@ -29,8 +29,8 @@ public class SelectedRowsActionModeCallback implements Callback {
 		boolean isSelected();
 	}
 	
-	protected static final int MENU_ITEM_DELETE = 1;
-	protected static final int MENU_ITEM_HELP = 15;
+	static final int MENU_ITEM_DELETE = 1;
+	static final int MENU_ITEM_HELP = 15;
 
 	ActionMode currentAction;
 

@@ -8,7 +8,7 @@ package de.blau.android.exception;
 public class StorageException extends Exception {
 
 	public final static int OOM = 0;
-	int code;
+	private int code;
 	
 	public StorageException(int code) {
 		super();

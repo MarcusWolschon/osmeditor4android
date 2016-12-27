@@ -83,7 +83,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 	private ArrayList<String> simpleConditionValues = null;
 	private ArrayList<String> expressionConditionValues = null;
 	
-	ScrollView sv;
+	private ScrollView sv;
 	
 	private OnSaveListener saveListener = null;
 
@@ -224,7 +224,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 		return true;
 	}
 	
-	final Runnable rebuild = new Runnable() {
+	private final Runnable rebuild = new Runnable() {
 		@Override
 		public void run() {				
 			ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(text.getText().toString().getBytes()));
@@ -247,7 +247,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 		}
 	};
 	
-	final TextWatcher watcher = new TextWatcher() {
+	private final TextWatcher watcher = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
 			text.removeCallbacks(rebuild);
@@ -611,7 +611,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 		return menu;
 	}
 	
-	Runnable updateStringRunnable = new Runnable() {
+	private Runnable updateStringRunnable = new Runnable() {
 		@Override
 		public void run() {
 			int pos = text.getSelectionStart();

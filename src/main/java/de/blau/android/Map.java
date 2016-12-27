@@ -115,7 +115,7 @@ public class Map extends View implements IMapView {
 	 * can be changed to contain additional overlays later.
 	 * @see #getOverlays()
 	 */
-	protected final List<MapViewOverlay> mOverlays = Collections.synchronizedList(new ArrayList<MapViewOverlay>());
+	final List<MapViewOverlay> mOverlays = Collections.synchronizedList(new ArrayList<MapViewOverlay>());
 	
 	/**
 	 * The visible area in decimal-degree (WGS84) -space.
@@ -184,26 +184,26 @@ public class Map extends View implements IMapView {
 	private Preset[] tmpPresets;
 	
 	/** Caches the Paint used for node tolerance */
-	Paint nodeTolerancePaint;
-	Paint nodeTolerancePaint2;
+    private Paint nodeTolerancePaint;
+	private Paint nodeTolerancePaint2;
 	
 	/** Caches the Paint used for way tolerance */
-	Paint wayTolerancePaint;
-	Paint wayTolerancePaint2;
+    private Paint wayTolerancePaint;
+	private Paint wayTolerancePaint2;
 	
 	/** cached zoom level, calculated once per onDraw pass **/
-	int zoomLevel = 0;
+    private int zoomLevel = 0;
 	
 	/** Cache the current filter **/
 	private Filter tmpFilter = null;
 		
 	/** */
-	boolean inNodeIconZoomRange = false;
+    private boolean inNodeIconZoomRange = false;
 	
 	/**
 	 * We just need one path object
 	 */
-	Path path = new Path();
+    private Path path = new Path();
 	
 	private LongHashSet handles;
 	
@@ -699,7 +699,7 @@ public class Map extends View implements IMapView {
 	/**
 	 * For ordering according to layer value and draw lines on top of areas in the same layer
 	 */
-	Comparator<Way> layerComparator = new Comparator<Way>() {
+    private Comparator<Way> layerComparator = new Comparator<Way>() {
 		@Override
 		public int compare(Way w1, Way w2) {
 			int layer1 = 0;
@@ -898,7 +898,7 @@ public class Map extends View implements IMapView {
 	 * @param featureKeyThin
 	 * @param houseNumber
 	 */
-	void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin, final String houseNumber) {
+    private void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin, final String houseNumber) {
 		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
 		canvas.drawCircle(x, y, houseNumberRadius, paint2);
 		canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2); 
@@ -913,7 +913,7 @@ public class Map extends View implements IMapView {
 	 * @param strokeWidth
 	 * @param node
 	 */
-	void paintNodeLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final float strokeWidth, final Node node) {
+    private void paintNodeLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final float strokeWidth, final Node node) {
 		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
 		SortedMap<String, String> tags = node.getTags();
 		String label = labelcache.get(tags); // may be null!
@@ -946,7 +946,7 @@ public class Map extends View implements IMapView {
 	 * @param element
 	 * @return icon or null if none is found
 	 */
-	Bitmap getIcon(OsmElement element) {
+    private Bitmap getIcon(OsmElement element) {
 		SortedMap<String, String> tags = element.getTags();
 		Bitmap icon = iconcache.get(tags); // may be null!
 		if (icon == null && tmpPresets != null) {
@@ -1211,7 +1211,7 @@ public class Map extends View implements IMapView {
 		return fp;
 	}
 
-	void paintHandles(Canvas canvas) {
+	private void paintHandles(Canvas canvas) {
 		if (handles != null && handles.size() > 0) {
 			canvas.save();
 			float lastX = 0;
@@ -1233,7 +1233,7 @@ public class Map extends View implements IMapView {
 		}
 	}	
 	
-	FeatureStyle getProfile(String tag, OsmElement e) {
+	private FeatureStyle getProfile(String tag, OsmElement e) {
 		String mainType = e.getTagWithKey(tag);
 		FeatureStyle fp = null;
 		if (mainType != null) {
@@ -1489,7 +1489,7 @@ public class Map extends View implements IMapView {
 	 * @param viewPort
 	 * @return the tile zoom level
 	 */
-	public int calcZoomLevel(Canvas canvas) {
+    private int calcZoomLevel(Canvas canvas) {
 		final TileLayerServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
 		if (!s.isMetadataLoaded()) // protection on startup
 			return 0;

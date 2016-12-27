@@ -27,7 +27,7 @@ public class Way extends OsmElement implements BoundedObject {
 	
 	private static final String[] importantHighways;
 
-	protected final ArrayList<Node> nodes;
+	final ArrayList<Node> nodes;
 
 	public static final String NAME = "way";
 
@@ -35,7 +35,7 @@ public class Way extends OsmElement implements BoundedObject {
 	
 	public static int maxWayNodes = 2000; // if API has a different value it will replace this
 	
-	transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
+	private transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
 	
 	static {
 		importantHighways = (

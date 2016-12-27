@@ -9,8 +9,8 @@ import de.blau.android.views.IMapView;
 
 public class MapOverlayTilesOverlay extends MapTilesOverlay {
 	
-	Map map;
-	boolean enabled = false;
+	private Map map;
+	private boolean enabled = false;
 	
 	public MapOverlayTilesOverlay(final View aView) {
 		super(aView, TileLayerServer.get(App.mainActivity, ((Map)aView).getPrefs().overlayLayer(), true), null);

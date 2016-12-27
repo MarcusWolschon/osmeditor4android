@@ -19,7 +19,7 @@ import de.blau.android.osm.BoundingBox;
 public class PrefEditor extends AppCompatActivity {
 	
 	final static String CURRENT_VIEWBOX = "VIEWBOX";
-	BoundingBox viewBox = null;
+	private BoundingBox viewBox = null;
 	
 	public static void start(@NonNull Context context, BoundingBox viewBox) {
 		Intent intent = new Intent(context, PrefEditor.class);

@@ -27,7 +27,7 @@ public abstract class Task implements Serializable, BoundedObject {
 	/**
 	 * Enums for modes.
 	 */
-	public static enum State {
+	public enum State {
 		OPEN,
 		CLOSED,
 		FALSE_POSITIVE
@@ -84,7 +84,7 @@ public abstract class Task implements Serializable, BoundedObject {
 	/**
 	 * Close the bug
 	 */
-	public void close() {
+	void close() {
 		state = State.CLOSED;
 	}
 	

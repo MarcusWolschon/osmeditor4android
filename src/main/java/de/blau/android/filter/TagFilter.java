@@ -83,13 +83,13 @@ public class TagFilter extends Filter {
 		}
 	}
 	
-	ArrayList<FilterEntry> filter = new ArrayList<FilterEntry>();
+	private ArrayList<FilterEntry> filter = new ArrayList<FilterEntry>();
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	final static String DEBUG_TAG = "TagFilter";
+	private final static String DEBUG_TAG = "TagFilter";
 	
 	private boolean enabled = true;
 	transient private SQLiteDatabase mDatabase;
@@ -255,9 +255,9 @@ public class TagFilter extends Filter {
      * Tag filter controls
      */
     transient private FloatingActionButton tagFilterButton;
-    transient ViewGroup parent;
-    transient RelativeLayout controls;
-    transient Update update;
+    private transient ViewGroup parent;
+    private transient RelativeLayout controls;
+    private transient Update update;
 	
 	
     @Override

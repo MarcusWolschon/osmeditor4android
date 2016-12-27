@@ -19,11 +19,11 @@ import de.blau.android.App;
  * @author simon
  *
  */
-public class DiscardedTags {
+class DiscardedTags {
 
 	private HashSet<String> redundantTags = new HashSet<String>();
 	
-	SortedMap<String, String> newTags;
+	private SortedMap<String, String> newTags;
 
 	/**
 	 * Implicit assumption that the list will be short and that it is OK to read in synchronously

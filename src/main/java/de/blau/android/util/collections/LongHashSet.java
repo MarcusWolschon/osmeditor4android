@@ -68,7 +68,7 @@ public class LongHashSet implements Serializable {
 	 * @param size
 	 * @param fillFactor
 	 */
-	public LongHashSet(final int size, final float fillFactor) {
+	private LongHashSet(final int size, final float fillFactor) {
 		if (fillFactor <= 0 || fillFactor >= 1) {
 			throw new IllegalArgumentException("FillFactor must be in (0, 1)");
 		}

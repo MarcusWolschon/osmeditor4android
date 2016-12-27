@@ -24,7 +24,7 @@ public class ListActivity extends AppCompatActivity {
 		return mListView;
 	}
 
-	protected void setListAdapter(ListAdapter adapter) {
+	void setListAdapter(ListAdapter adapter) {
 		getListView().setAdapter(adapter);
 	}
 

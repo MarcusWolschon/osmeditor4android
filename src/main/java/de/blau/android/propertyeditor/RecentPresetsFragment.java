@@ -75,7 +75,7 @@ public class RecentPresetsFragment extends BaseFragment {
 		return presetsLayout;
     }
 
-	View getRecentPresetsView(final LinearLayout presetLayout, final OsmElement element, final Preset[] presets) {
+	private View getRecentPresetsView(final LinearLayout presetLayout, final OsmElement element, final Preset[] presets) {
 		View v = null;
 	   	if (presets != null && presets.length >= 1 && element != null) {
     		// check if any of the presets has a MRU
@@ -183,7 +183,7 @@ public class RecentPresetsFragment extends BaseFragment {
 		recreateRecentPresetView((LinearLayout) getOurView());
 	}
 	
-	public void recreateRecentPresetView(LinearLayout presetLayout) {
+	private void recreateRecentPresetView(LinearLayout presetLayout) {
 		Log.d(DEBUG_TAG,"recreateRecentPresetView");
 		presetLayout.removeAllViews();
 		View v = getRecentPresetsView(presetLayout, element, presets);
@@ -200,7 +200,7 @@ public class RecentPresetsFragment extends BaseFragment {
 	 * Return the view we have our rows in and work around some android craziness
 	 * @return
 	 */
-	public View getOurView() {
+	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
 		if (v != null) {
@@ -222,11 +222,11 @@ public class RecentPresetsFragment extends BaseFragment {
 		return null;
 	}
 	
-	protected void enable() {
+	void enable() {
 		enabled = true;
 	}
 	
-	protected void disable() {
+	void disable() {
 		enabled = false;
 	}
 }

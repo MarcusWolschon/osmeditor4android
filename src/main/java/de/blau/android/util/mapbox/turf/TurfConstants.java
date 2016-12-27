@@ -6,7 +6,7 @@ package de.blau.android.util.mapbox.turf;
  * @see <a href="http://turfjs.org/docs/">Turfjs documentation</a>
  * @since 1.2.0
  */
-public class TurfConstants {
+class TurfConstants {
 
   public static final String UNIT_MILES = "miles";
   public static final String UNIT_NAUTICAL_MILES = "nauticalmiles";

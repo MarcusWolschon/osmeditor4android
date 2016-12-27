@@ -34,14 +34,14 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 	// Fields
 	// ===========================================================
 
-	protected final Context mCtx;
-	protected final MapTileProviderDataBase mDatabase;
-	protected final File mountPoint;
-	protected final int mMaxFSCacheByteSize;
-	protected int mCurrentFSCacheByteSize;
+	private final Context mCtx;
+	private final MapTileProviderDataBase mDatabase;
+	private final File mountPoint;
+	private final int mMaxFSCacheByteSize;
+	private int mCurrentFSCacheByteSize;
 
 	/** online provider */
-	protected MapTileDownloader mTileDownloader;
+	private MapTileDownloader mTileDownloader;
 
 	// ===========================================================
 	// Constructors
@@ -124,7 +124,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 		cutCurrentFSCacheBy(Integer.MAX_VALUE); // Delete all
 	}
 	
-	public void cutCurrentFSCacheBy(final int bytesToCut){
+	private void cutCurrentFSCacheBy(final int bytesToCut){
 		try {
 			synchronized (this) {
 				mDatabase.deleteOldest(Integer.MAX_VALUE); // Delete all

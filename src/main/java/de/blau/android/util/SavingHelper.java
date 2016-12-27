@@ -137,7 +137,7 @@ public class SavingHelper<T extends Serializable> {
 		return load(context, filename, compressed, false);
 	}
 	
-	public synchronized T load(Context context, String filename, boolean compressed, boolean deleteOnFail) {
+	private synchronized T load(Context context, String filename, boolean compressed, boolean deleteOnFail) {
 		try
 		{
 			Log.d("SavingHelper", "preparing to load " + filename);
@@ -249,7 +249,7 @@ public class SavingHelper<T extends Serializable> {
 	 * @param originalFileName
 	 * @param newFileName
 	 */
-	static void rename(Context context, String originalFileName, String newFileName) {
+	private static void rename(Context context, String originalFileName, String newFileName) {
 	    File originalFile = context.getFileStreamPath(originalFileName);
 	    if (originalFile.exists()) {
 	    	Log.d("SavingHelper", "renaming " + originalFileName + " size " + originalFile.length() + " to " + newFileName);
@@ -329,7 +329,7 @@ public class SavingHelper<T extends Serializable> {
 	 * @param scanfile directory or file to scan
 	 */
 	@TargetApi(11)
-	public static void triggerMediaScanner(Context context, File scanfile) {
+	private static void triggerMediaScanner(Context context, File scanfile) {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) return; // API 11 - lower versions do not have MTP
 		try {
 			String path = scanfile.getCanonicalPath();
@@ -346,12 +346,12 @@ public class SavingHelper<T extends Serializable> {
 	}
 
 
-	public static interface Exportable {
+	public interface Exportable {
 		/** Exports some data to an OutputStream */
-		public void export(OutputStream outputStream) throws Exception;
+		void export(OutputStream outputStream) throws Exception;
 		
 		/** @returns the extension to be used for exports */
-		public String exportExtension();
+		String exportExtension();
 	}
 	
 }

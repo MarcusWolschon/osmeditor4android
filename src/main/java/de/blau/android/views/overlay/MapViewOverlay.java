@@ -73,7 +73,7 @@ public abstract class MapViewOverlay {
 	// Methods
 	// ===========================================================
 	
-	public boolean isReadyToDraw() {
+	protected boolean isReadyToDraw() {
 		return true;
 	}
 	

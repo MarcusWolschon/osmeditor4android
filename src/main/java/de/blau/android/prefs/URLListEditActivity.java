@@ -51,27 +51,27 @@ import de.blau.android.util.ThemeUtils;
  */
 public abstract class URLListEditActivity extends ListActivity implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
 
-	public static final String ACTION_NEW = "new";
-	public static final String EXTRA_NAME = "name";
-	public static final String EXTRA_VALUE = "value";
+	static final String ACTION_NEW = "new";
+	static final String EXTRA_NAME = "name";
+	static final String EXTRA_VALUE = "value";
 	public static final String EXTRA_ITEM = "item";
-	public static final String EXTRA_ENABLE = "enable";
+	static final String EXTRA_ENABLE = "enable";
 	
-	protected Resources r;
-	protected final Context ctx;
+	Resources r;
+	final Context ctx;
 
-	protected static final int MENUITEM_EDIT = 0;
-	protected static final int MENUITEM_DELETE = 1;
-	protected static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
+	static final int MENUITEM_EDIT = 0;
+	static final int MENUITEM_DELETE = 1;
+	static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
 	
-	protected static final String LISTITEM_ID_DEFAULT = AdvancedPrefDatabase.ID_DEFAULT;
+	static final String LISTITEM_ID_DEFAULT = AdvancedPrefDatabase.ID_DEFAULT;
 	private ListAdapter adapter;
-	protected final List<ListEditItem> items;
+	final List<ListEditItem> items;
 
-	protected ListEditItem selectedItem = null;
+	ListEditItem selectedItem = null;
 	
 	private boolean addingViaIntent = false;
-	protected final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
+	final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
 	
 	public URLListEditActivity() {
 		ctx = this;
@@ -132,7 +132,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	}
 
 	/** refreshes the data adapter (list content) */
-	protected void updateAdapter() {
+	void updateAdapter() {
 		adapter = new ListEditAdapter(ctx, items);
 		setListAdapter(adapter);		
 	}
@@ -191,7 +191,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	 * @param menuId a non-negative integer by which you will recognize the menu item
 	 * @param stringId the resource id of the string that will be the name of the menu item
 	 */
-	protected void addAdditionalContextMenuItem(int menuId, int stringId) {
+	void addAdditionalContextMenuItem(int menuId, int stringId) {
 		additionalMenuItems.put(menuId, stringId);
 	}
  	
@@ -201,7 +201,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
  	 * @param menuItemId the menu item ID supplied when creating the additional menu
  	 * @param clickedItem the item for which the context menu was opened
  	 */
- 	public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
+	void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
 		// default: nothing, override if needed
 	}
 
@@ -209,7 +209,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
  	 * Opens the dialog to edit an item
  	 * @param item the selected item
  	 */
-	protected void itemEditDialog(final ListEditItem item) {
+	void itemEditDialog(final ListEditItem item) {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
 		final View mainView = inflater.inflate(R.layout.listedit_edit, null);
@@ -272,7 +272,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	 * Called by {@link #itemEditDialog(ListEditItem)} when an item is successfully created
 	 * @param item the new item
 	 */
-	protected void finishCreateItem(ListEditItem item) {
+	void finishCreateItem(ListEditItem item) {
 		items.add(item);
 		updateAdapter();
 		onItemCreated(item);
@@ -285,7 +285,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	 * finishes the activity (sending RESULT_OK with the given item) 
 	 * @param item created/edited item to send as result
 	 */
-	protected void sendResultIfApplicable(ListEditItem item) {
+	void sendResultIfApplicable(ListEditItem item) {
 		if (isAddingViaIntent()) {
 			Intent intent = new Intent();
 			intent.putExtra(EXTRA_ITEM, item);
@@ -301,7 +301,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	 * You will probably want to use {@link #sendResultIfApplicable(ListEditItem)}
 	 * @return false to stop the dialog from closing automatically after an intent-initiated edit event
 	 */
-	protected boolean canAutoClose() {
+	boolean canAutoClose() {
 		return true;
 	}
 
@@ -309,7 +309,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	 * Called by {@link #itemEditDialog(ListEditItem)} when an item is successfully edited
 	 * @param item the new item
 	 */
-	protected void finishEditItem(ListEditItem item) {
+	void finishEditItem(ListEditItem item) {
 		updateAdapter();
 		onItemEdited(item);
 	}
@@ -460,7 +460,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	/**
 	 * @return true if this editor has been called via an intent to add an entry
 	 */
-	public boolean isAddingViaIntent() {
+	boolean isAddingViaIntent() {
 		return addingViaIntent;
 	}
 	

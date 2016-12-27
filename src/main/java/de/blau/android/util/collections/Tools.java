@@ -3,7 +3,7 @@ package de.blau.android.util.collections;
 /**
  * Common methods
  */
-public class Tools {
+class Tools {
 
 	/** Taken from FastUtil implementation */
 
@@ -19,7 +19,7 @@ public class Tools {
 	 * @return the least power of two greater than or equal to the specified
 	 *         value.
 	 */
-	public static long nextPowerOfTwo(long x) {
+	private static long nextPowerOfTwo(long x) {
 		if (x == 0)
 			return 1;
 		x--;
@@ -61,7 +61,7 @@ public class Tools {
 		return h ^ (h >> 16);
 	}
 
-	public final static long phiMix(final long x) {
+	public static long phiMix(final long x) {
 		long h = x * LONG_PHI;
 		h ^= h >>> 32;
 		return h ^ (h >>> 16);

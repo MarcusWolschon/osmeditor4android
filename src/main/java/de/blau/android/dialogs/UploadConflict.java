@@ -55,7 +55,7 @@ public class UploadConflict extends DialogFragment
 		}
 	}
 	
-	static public void dismissDialog(FragmentActivity activity) {
+	private static void dismissDialog(FragmentActivity activity) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 	    Fragment fragment = fm.findFragmentByTag(TAG);

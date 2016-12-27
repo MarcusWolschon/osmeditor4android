@@ -8,5 +8,5 @@ import de.blau.android.osm.BoundingBox;
  * @author cnvandev
  */
 public interface BoundedObject {
-	public BoundingBox getBounds();
+	BoundingBox getBounds();
 }

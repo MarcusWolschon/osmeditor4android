@@ -264,7 +264,7 @@ public class Search {
 		}
 	}
 
-	public SearchResult readNominatimResult(JsonReader reader) {
+	private SearchResult readNominatimResult(JsonReader reader) {
 		SearchResult result = new SearchResult();
 		try {
 			reader.beginObject();
@@ -378,7 +378,7 @@ public class Search {
 		}
 	}
 	
-	public SearchResult readPhotonResult(Feature f) {
+	private SearchResult readPhotonResult(Feature f) {
 		SearchResult result = new SearchResult();
 		try {
 			JsonObject properties = f.getProperties();

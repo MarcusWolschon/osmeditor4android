@@ -22,12 +22,12 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 	/**
 	 * WGS84 decimal Latitude-Coordinate times 1E7.
 	 */
-	protected int lat;
+	int lat;
 
 	/**
 	 * WGS84 decimal Longitude-Coordinate times 1E7.
 	 */
-	protected int lon;
+	int lon;
 
 	/**
 	 * It's name in the OSM-XML-scheme.

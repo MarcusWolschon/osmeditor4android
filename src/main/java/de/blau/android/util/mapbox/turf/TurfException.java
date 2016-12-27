@@ -7,7 +7,7 @@ package de.blau.android.util.mapbox.turf;
  * @see <a href="http://turfjs.org/docs/">Turfjs documentation</a>
  * @since 1.2.0
  */
-public class TurfException extends Exception {
+class TurfException extends Exception {
 
   /**
    * A form of {@code Throwable} that indicates conditions that a reasonable application might want

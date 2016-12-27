@@ -36,10 +36,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		
 	/** The ID string for the default API and the default Preset */
 	public final static String ID_DEFAULT = "default";
-	public final static String ID_DEFAULT_NO_HTTPS = "default_no_https";
+	private final static String ID_DEFAULT_NO_HTTPS = "default_no_https";
 	
-	public final static String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
-	public final static String ID_DEFAULT_GEOCODER_PHOTON = "Photon";
+	private final static String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
+	private final static String ID_DEFAULT_GEOCODER_PHOTON = "Photon";
 
 	
 	/** The ID of the currently active API */
@@ -145,7 +145,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public synchronized void selectAPI(SQLiteDatabase db, String id) {
+	private synchronized void selectAPI(SQLiteDatabase db, String id) {
 		Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
 		if (getAPIs(db,id).length == 0) throw new RuntimeException("Non-existant API selected");
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
@@ -241,7 +241,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/** adds a new API with the given values to the supplied database */
-	public synchronized void addAPI(SQLiteDatabase db, String id, String name, String url,  String readonlyurl, String notesurl, String user, String pass, String preset, boolean showicon, boolean oauth) {
+	private synchronized void addAPI(SQLiteDatabase db, String id, String name, String url, String readonlyurl, String notesurl, String user, String pass, String preset, boolean showicon, boolean oauth) {
 		ContentValues values = new ContentValues();
 		values.put("id", id);
 		values.put("name", name);
@@ -380,7 +380,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/** gets a preset by ID (will return null if no preset with this ID exists) */
-	public PresetInfo getPreset(String id) {
+	private PresetInfo getPreset(String id) {
 		PresetInfo[] found = getPresets(id, false);
 		if (found.length == 0) return null;
 		return found[0];
@@ -583,7 +583,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (!dir.delete()) Log.e(LOGTAG, "Could not delete "+dir.getAbsolutePath());
 	}
 	
-	public static enum GeocoderType {
+	public enum GeocoderType {
 		NOMINATIM,
 		PHOTON
 	}
@@ -687,7 +687,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param url
 	 * @param active
 	 */
-	public synchronized void addGeocoder(SQLiteDatabase db, String id, String name, GeocoderType type, int version, String url, boolean active) {
+	private synchronized void addGeocoder(SQLiteDatabase db, String id, String name, GeocoderType type, int version, String url, boolean active) {
 		ContentValues values = new ContentValues();
 		values.put("id", id);
 		values.put("name", name);

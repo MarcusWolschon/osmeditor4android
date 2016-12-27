@@ -34,7 +34,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	private final static int DATA_VERSION = 3;
 	private final static String LOGTAG = "PhotoIndex";
 
-	class JpgFilter implements FilenameFilter {
+	private class JpgFilter implements FilenameFilter {
 		@Override
 		public boolean accept(File dir, String name) {
 			return name.endsWith(Paths.FILE_EXTENSION_IMAGE);
@@ -197,7 +197,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		}
 	}
 	
-	public Photo addPhoto(SQLiteDatabase db, File dir, File f) {
+	private Photo addPhoto(SQLiteDatabase db, File dir, File f) {
 		// Log.i(LOGTAG,"Adding entry from " + f.getName());
 		try {	
 			Photo p = new Photo(dir, f);
@@ -275,7 +275,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	}
 	
 	
-	public ArrayList<Photo>getPhotosFromIndex(RTree index, BoundingBox box) {
+	private ArrayList<Photo>getPhotosFromIndex(RTree index, BoundingBox box) {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
 		index.query(queryResult,box.getBounds());
 		Log.d(LOGTAG,"result count " + queryResult.size());

@@ -420,7 +420,7 @@ public class Track extends DefaultHandler {
 	 * @throws IOException
 	 * @throws ParserConfigurationException
 	 */
-	public void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
+	private void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser saxParser = factory.newSAXParser();
 		saxParser.parse(in, this);
@@ -434,7 +434,7 @@ public class Track extends DefaultHandler {
 	private double parsedLon;
 	private double parsedEle =  Double.NaN;
 	private long parsedTime = 0L;
-	private static enum State {
+	private enum State {
 		NONE, TIME, ELE
 	}
 	private State state = State.NONE;
@@ -488,7 +488,7 @@ public class Track extends DefaultHandler {
 	 * @return
 	 * @throws ParseException
 	 */
-	synchronized long parseTime(String t) throws ParseException {
+	private synchronized long parseTime(String t) throws ParseException {
 		return ISO8601FORMAT.parse(new String(t)).getTime();
 	}
 	

@@ -138,18 +138,18 @@ public class Preset implements Serializable {
 
 	/** Lists items having a tag. The map key is tagkey+"\t"+tagvalue.
 	 * tagItems.get(tagkey+"\t"+tagvalue) will give you all items that have the tag tagkey=tagvalue */
-	protected final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<String, PresetItem>();
+	private final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<String, PresetItem>();
 
 	/** The root group of the preset, containing all top-level groups and items */
-	protected PresetGroup rootGroup;
+	private PresetGroup rootGroup;
 
 	/** {@link PresetIconManager} used for icon loading */
-	protected transient PresetIconManager iconManager;	
+	private transient PresetIconManager iconManager;
 	
 	/** all known preset items in order of loading */
-	protected ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
+	private ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
 	
-	public static enum PresetKeyType {
+	public enum PresetKeyType {
 		/**
 		 * arbitrary single value
 		 */
@@ -168,7 +168,7 @@ public class Preset implements Serializable {
 		CHECK
 	}
 	
-	public static enum MatchType {
+	public enum MatchType {
 		NONE,
 		KEY,
 		KEY_NEG,
@@ -176,25 +176,25 @@ public class Preset implements Serializable {
 		KEY_VALUE_NEG,
 	}
 	
-	public final static String COMBO_DELIMITER = ",";
-	public final static String MULTISELECT_DELIMITER = ";";
+	private final static String COMBO_DELIMITER = ",";
+	private final static String MULTISELECT_DELIMITER = ";";
 
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
-	protected final MultiHashMap<String, StringWithDescription> autosuggestNodes = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestNodes = new MultiHashMap<String, StringWithDescription>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to ways) */
-	protected final MultiHashMap<String, StringWithDescription> autosuggestWays = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestWays = new MultiHashMap<String, StringWithDescription>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
-	protected final MultiHashMap<String, StringWithDescription> autosuggestClosedways = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestClosedways = new MultiHashMap<String, StringWithDescription>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to areas (MPs)) */
-	protected final MultiHashMap<String, StringWithDescription> autosuggestAreas = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestAreas = new MultiHashMap<String, StringWithDescription>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
-	protected final MultiHashMap<String, StringWithDescription> autosuggestRelations = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestRelations = new MultiHashMap<String, StringWithDescription>(true);
 	
 	/** for search support */
-	protected final MultiHashMap<String, PresetItem> searchIndex = new MultiHashMap<String, PresetItem>();
-	protected final MultiHashMap<String, PresetItem> translatedSearchIndex = new MultiHashMap<String, PresetItem>();
+	private final MultiHashMap<String, PresetItem> searchIndex = new MultiHashMap<String, PresetItem>();
+	private final MultiHashMap<String, PresetItem> translatedSearchIndex = new MultiHashMap<String, PresetItem>();
 		
-	protected Po po = null;
+	private Po po = null;
 	
 	/**
 	 * Serializable class for storing Most Recently Used information.
@@ -203,19 +203,19 @@ public class Preset implements Serializable {
 	protected static class PresetMRUInfo implements Serializable {
 		private static final long serialVersionUID = 7708132207266548489L;
 
-		protected PresetMRUInfo(String presetHash) {
+		PresetMRUInfo(String presetHash) {
 			this.presetHash = presetHash;
 		}
 		
 		/** hash of current preset (used to check validity of recentPresets indexes) */
-		protected final String presetHash;
+		final String presetHash;
 	
 		/** indexes of recently used presets (for use with allItems) */
-		protected LinkedList<Integer> recentPresets = new LinkedList<Integer>();
+		LinkedList<Integer> recentPresets = new LinkedList<Integer>();
 
 		public volatile boolean changed = false;
 	}
-	protected final PresetMRUInfo mru;
+	private final PresetMRUInfo mru;
 	private String externalPackage;
 	
 	private class PresetFilter implements FilenameFilter {
@@ -348,7 +348,7 @@ public class Preset implements Serializable {
         Log.d("SearchIndex","length: " + searchIndex.getKeys().size());
 	}
 	
-	PresetIconManager getIconManager(Context ctx) {
+	private PresetIconManager getIconManager(Context ctx) {
 		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
 			return new PresetIconManager(ctx, null, null);
 		} else if (externalPackage != null) {
@@ -738,7 +738,7 @@ public class Preset implements Serializable {
 	 * @param name
 	 * @return
 	 */
-	public Integer getItemIndexByName(String name) {
+	private Integer getItemIndexByName(String name) {
 		Log.d("Preset","getItemIndexByName " + name);
 		for (PresetItem pi:allItems) {
 			if (pi != null) {
@@ -848,7 +848,7 @@ public class Preset implements Serializable {
 	}
 	
     
-    public String toJSON() {
+    private String toJSON() {
     	String result = "";
     	for (PresetItem pi:allItems) {
     		if (!pi.isChunk()) {
@@ -961,18 +961,18 @@ public class Preset implements Serializable {
 		 * 
 		 */
 		private static final long serialVersionUID = 4L;
-		protected String name;
-		protected String nameContext = null;
+		String name;
+		String nameContext = null;
 		private String iconpath;
 		private String mapiconpath;
 		private transient Drawable icon;
 		private transient BitmapDrawable mapIcon;
-		protected PresetGroup parent;
-		protected boolean appliesToWay;
-		protected boolean appliesToNode;
-		protected boolean appliesToClosedway;
-		protected boolean appliesToRelation;
-		protected boolean appliesToArea;
+		PresetGroup parent;
+		boolean appliesToWay;
+		boolean appliesToNode;
+		boolean appliesToClosedway;
+		boolean appliesToRelation;
+		boolean appliesToArea;
 		private String mapFeatures;
 
 		/**
@@ -1049,7 +1049,7 @@ public class Preset implements Serializable {
 		 * Can (and should) be used when implementing {@link #getView(PresetClickHandler)}.
 		 * @return the view
 		 */
-		private final TextView getBaseView(Context ctx) {
+		private TextView getBaseView(Context ctx) {
 			Resources res = ctx.getResources();
 //			GradientDrawable shape =  new GradientDrawable();
 //			shape.setCornerRadius(8);
@@ -1103,7 +1103,7 @@ public class Preset implements Serializable {
 		/**
 		 * Recursively sets the flag indicating that this element is relevant for nodes
 		 */
-		protected void setAppliesToNode() {
+		void setAppliesToNode() {
 			if (!appliesToNode) {
 				appliesToNode = true;
 				if (parent != null) parent.setAppliesToNode();
@@ -1113,7 +1113,7 @@ public class Preset implements Serializable {
 		/**
 		 * Recursively sets the flag indicating that this element is relevant for nodes
 		 */
-		protected void setAppliesToWay() {
+		void setAppliesToWay() {
 			if (!appliesToWay) {
 				appliesToWay = true;
 				if (parent != null) parent.setAppliesToWay();
@@ -1123,7 +1123,7 @@ public class Preset implements Serializable {
 		/**
 		 * Recursively sets the flag indicating that this element is relevant for nodes
 		 */
-		protected void setAppliesToClosedway() {
+		void setAppliesToClosedway() {
 			if (!appliesToClosedway) {
 				appliesToClosedway = true;
 				if (parent != null) parent.setAppliesToClosedway();
@@ -1133,7 +1133,7 @@ public class Preset implements Serializable {
 		/**
 		 * Recursively sets the flag indicating that this element is relevant for relations
 		 */
-		protected void setAppliesToRelation() {
+		void setAppliesToRelation() {
 			if (!appliesToRelation) {
 				appliesToRelation = true;
 				if (parent != null) parent.setAppliesToRelation();
@@ -1143,14 +1143,14 @@ public class Preset implements Serializable {
 		/**
 		 * Recursively sets the flag indicating that this element is relevant for an area
 		 */
-		protected void setAppliesToArea() {
+		void setAppliesToArea() {
 			if (!appliesToArea) {
 				appliesToArea = true;
 				if (parent != null) parent.setAppliesToArea();
 			}
 		}
 		
-		protected void setMapFeatures(String url) {
+		void setMapFeatures(String url) {
 			if (url != null) {
 				mapFeatures = url;
 			}
@@ -1160,7 +1160,7 @@ public class Preset implements Serializable {
 			return Uri.parse(mapFeatures);
 		}
 		
-		protected void setNameContext(String context) {
+		void setNameContext(String context) {
 			nameContext = context;
 		}
 		
@@ -1984,11 +1984,11 @@ public class Preset implements Serializable {
 			return super.toString() + tagStrings;
 		}
 	
-		protected void setChunk() {
+		void setChunk() {
 			chunk = true;
 		}
 		
-		protected boolean isChunk() {
+		boolean isChunk() {
 			return chunk;
 		}
 		
@@ -2123,9 +2123,9 @@ public class Preset implements Serializable {
 
 	/** Interface for handlers handling clicks on item or group icons */
 	public interface PresetClickHandler {
-		public void onItemClick(PresetItem item);
-		public boolean onItemLongClick(PresetItem item);
-		public void onGroupClick(PresetGroup group);
+		void onItemClick(PresetItem item);
+		boolean onItemLongClick(PresetItem item);
+		void onGroupClick(PresetGroup group);
 	}
 
 	static public Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {

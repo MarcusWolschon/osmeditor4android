@@ -31,9 +31,9 @@ import okhttp3.logging.HttpLoggingInterceptor;
 	resDialogCommentPrompt = R.string.crash_dialog_comment_prompt)
 public class App extends android.app.Application {
 	public static Main mainActivity;
-	static StorageDelegator delegator = new StorageDelegator();
-	static TaskStorage taskStorage = new TaskStorage();
-	static OkHttpClient httpClient;
+	private static StorageDelegator delegator = new StorageDelegator();
+	private static TaskStorage taskStorage = new TaskStorage();
+	private static OkHttpClient httpClient;
 	private static final Object httpClientLock = new Object();
 	public static String userAgent;
 	

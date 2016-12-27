@@ -48,7 +48,7 @@ import de.blau.android.util.BugFixedAppCompatActivity;
  */
 public class HelpViewer extends BugFixedAppCompatActivity {
 	
-	static String DEBUG_TAG = HelpViewer.class.getName();
+	private static String DEBUG_TAG = HelpViewer.class.getName();
 	
 	class HelpItem implements Comparable<HelpItem> {
 		boolean displayLanguage = false;
@@ -75,14 +75,14 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 	}
 	
 	
-	public static final String TOPIC = "topic";
-	WebView helpView;
+	private static final String TOPIC = "topic";
+	private WebView helpView;
 	
-	ActionBarDrawerToggle mDrawerToggle;
+	private ActionBarDrawerToggle mDrawerToggle;
 	// drawer that will be our ToC
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
-	ArrayAdapter<HelpItem> tocAdapter;
+	private ArrayAdapter<HelpItem> tocAdapter;
 
 	public static void start(@NonNull Context context, @StringRes int topic) {
 		Intent intent = new Intent(context, HelpViewer.class);

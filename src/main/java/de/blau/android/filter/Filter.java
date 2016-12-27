@@ -23,11 +23,11 @@ public abstract class Filter implements Serializable {
 	 */
 	transient HashMap<Node,Boolean> cachedNodes = new HashMap<Node,Boolean>(100);
 	transient HashMap<Way,Boolean> cachedWays = new HashMap<Way,Boolean>(100);
-	transient HashMap<Relation,Boolean> cachedRelations = new HashMap<Relation,Boolean>(100);;
-	
-	transient Logic logic = App.getLogic();
+	transient HashMap<Relation,Boolean> cachedRelations = new HashMap<Relation,Boolean>(100);
 
-	Filter savedFilter = null;
+	private transient Logic logic = App.getLogic();
+
+	private Filter savedFilter = null;
 	
 	Filter() {
 		logic.setAttachedObjectWarning(true); // set this to true when we create a new filter 
@@ -90,8 +90,8 @@ public abstract class Filter implements Serializable {
 	}
 	
 	
-	public abstract interface Update {
-		abstract void execute();
+	public interface Update {
+		void execute();
 	}
 	
 	/**

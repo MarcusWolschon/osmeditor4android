@@ -22,8 +22,8 @@ import android.util.Log;
  */
 public class ClipboardUtils {
 	
-	static android.text.ClipboardManager oldClipboard = null;
-	static ClipboardManager clipboard = null;
+	private static android.text.ClipboardManager oldClipboard = null;
+	private static ClipboardManager clipboard = null;
 		
 	/**
 	 * Return true if there is text in the clipboard
@@ -52,7 +52,7 @@ public class ClipboardUtils {
 	 * @return
 	 */
 	@SuppressLint("NewApi")
-	public static ArrayList<String> getTextLines(Context ctx) {
+	private static ArrayList<String> getTextLines(Context ctx) {
 
 		String EOL = "\\r?\\n|\\r";
 		

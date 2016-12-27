@@ -48,7 +48,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	private PresetInfo existingPreset = null;
 	private PresetInfo apiPresetInfo = null;
 	private String oauth_token, oauth_verifier;
-	AdvancedPrefDatabase prefdb;
+	private AdvancedPrefDatabase prefdb;
 	private boolean downloadSucessful = false;
 	
 	private View mainView;
@@ -232,8 +232,8 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			OAuthException getException() {
 				return ex;
 			}
-		};
-		
+		}
+
 		MyTask loader = new MyTask();
 		loader.execute(s);
 		if (!loader.get(60, TimeUnit.SECONDS)) {

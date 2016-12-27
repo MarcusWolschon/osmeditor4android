@@ -168,8 +168,8 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
      * override this method to filter with a different pattern, for
      * instance a smaller substring of <code>text</code>.</p>
      */
-    protected void performFiltering(CharSequence text, int start, int end,
-                                    int keyCode) {
+    private void performFiltering(CharSequence text, int start, int end,
+                                  int keyCode) {
     	Log.d(DEBUG_TAG,"performFiltering 2");
         getFilter().filter(text.subSequence(start, end), this);
     }
@@ -213,22 +213,22 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
         editable.replace(start, end, mTokenizer.terminateToken(text));	
 	}
 	
-    public static interface Tokenizer {
+    public interface Tokenizer {
         /**
          * Returns the start of the token that ends at offset
          * <code>cursor</code> within <code>text</code>.
          */
-        public int findTokenStart(CharSequence text, int cursor);
+        int findTokenStart(CharSequence text, int cursor);
         /**
          * Returns the end of the token (minus trailing punctuation)
          * that begins at offset <code>cursor</code> within <code>text</code>.
          */
-        public int findTokenEnd(CharSequence text, int cursor);
+        int findTokenEnd(CharSequence text, int cursor);
         /**
          * Returns <code>text</code>, modified, if necessary, to ensure that
          * it ends with a token terminator (for example a space or comma).
          */
-        public CharSequence terminateToken(CharSequence text);
+        CharSequence terminateToken(CharSequence text);
     }
     
     /**

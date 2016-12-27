@@ -30,7 +30,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	 */
 	private static final long serialVersionUID = 1104911642016294265L;
 
-	protected final ArrayList<RelationMember> members;
+	final ArrayList<RelationMember> members;
 
 	public static final String NAME = "relation";
 
@@ -41,7 +41,7 @@ public class Relation extends OsmElement implements BoundedObject {
 		members = new ArrayList<RelationMember>();
 	}
 
-	protected void addMember(final RelationMember member) {
+	void addMember(final RelationMember member) {
 		members.add(member);
 	}
 
@@ -186,7 +186,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	 * Does not update backlink
 	 * @param member
 	 */
-	protected void removeMember(final RelationMember member) {
+	void removeMember(final RelationMember member) {
 		while (members.remove(member)) {
 		}
 	}
@@ -199,11 +199,11 @@ public class Relation extends OsmElement implements BoundedObject {
 		}
 	}
 
-	protected void addMemberAfter(final RelationMember memberBefore, final RelationMember newMember) {
+	void addMemberAfter(final RelationMember memberBefore, final RelationMember newMember) {
 		members.add(members.indexOf(memberBefore) + 1, newMember);
 	}
 	
-	protected void addMember(int pos, final RelationMember newMember) {
+	void addMember(int pos, final RelationMember newMember) {
 		if (pos < 0 || pos > members.size()) {
 			pos = members.size(); // append
 		}
@@ -252,7 +252,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	 * @param existing The existing member to be replaced.
 	 * @param newMember The new member.
 	 */
-	protected void replaceMembers(Collection<RelationMember> newMembers) {
+	void replaceMembers(Collection<RelationMember> newMembers) {
 		members.clear();
 		members.addAll(newMembers);
 	}

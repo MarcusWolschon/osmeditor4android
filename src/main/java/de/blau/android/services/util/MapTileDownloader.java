@@ -42,8 +42,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 	// Fields
 	// ===========================================================
 
-	protected final Context mCtx;
-	protected final MapTileFilesystemProvider mMapTileFSProvider;
+	private final Context mCtx;
+	private final MapTileFilesystemProvider mMapTileFSProvider;
 
 	// ===========================================================
 	// Constructors

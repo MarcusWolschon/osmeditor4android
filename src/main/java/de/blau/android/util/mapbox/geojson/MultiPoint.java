@@ -64,7 +64,7 @@ public class MultiPoint implements Geometry<List<Position>> {
    * @return {@link MultiPoint}.
    * @since 1.0.0
    */
-  public static MultiPoint fromCoordinates(List<Position> coordinates) {
+  private static MultiPoint fromCoordinates(List<Position> coordinates) {
     return new MultiPoint(coordinates);
   }
 

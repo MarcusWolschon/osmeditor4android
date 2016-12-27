@@ -88,17 +88,17 @@ public class TagEditorFragment extends BaseFragment implements
 
 	private static final String EXTRA_TAGS = "extraTags";
 
-	static final String HTTP_PREFIX = "http://";
+	private static final String HTTP_PREFIX = "http://";
 
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
 		
-	static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
-	static final Object actionModeCallbackLock = new Object();
+	private static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
+	private static final Object actionModeCallbackLock = new Object();
 	
-	PresetItem autocompletePresetItem = null;
+	private PresetItem autocompletePresetItem = null;
 	
 	private Names names = null;
 
@@ -108,29 +108,29 @@ public class TagEditorFragment extends BaseFragment implements
 	private Preferences prefs = null;
 	private OsmElement[] elements = null;
 	
-	LayoutInflater inflater = null;
+	private LayoutInflater inflater = null;
 	
 	private NameAdapters nameAdapters = null;
 
 	/**
 	 * saves any changed fields on onPause
 	 */
-	protected LinkedHashMap<String,ArrayList<String>> savedTags = null;
+	private LinkedHashMap<String,ArrayList<String>> savedTags = null;
 	
 	/**
 	 * per tag preset association
 	 */
-	protected HashMap<String,PresetItem> tags2Preset = new HashMap<String,PresetItem>();
+	private HashMap<String,PresetItem> tags2Preset = new HashMap<String,PresetItem>();
 	
 	/**
 	 * per tag preset association
 	 */
-	protected ArrayList<PresetItem> secondaryPresets = new ArrayList<PresetItem>();
+	private ArrayList<PresetItem> secondaryPresets = new ArrayList<PresetItem>();
 	
 	/**
 	 * selective copy of tags
 	 */
-	protected Map<String, String> copiedTags = null;
+	Map<String, String> copiedTags = null;
 
 	private FormUpdate formUpdate;
 	
@@ -140,8 +140,8 @@ public class TagEditorFragment extends BaseFragment implements
 	 * Interface for handling the key:value pairs in the TagEditor.
 	 * @author Andrew Gregory
 	 */
-	protected interface KeyValueHandler {
-		abstract void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String>tagValues);
+	interface KeyValueHandler {
+		void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues);
 	}
 	
 	/**
@@ -350,7 +350,7 @@ public class TagEditorFragment extends BaseFragment implements
      * Build the data structure we use to build the edit display
      * @return
      */
-    LinkedHashMap<String,ArrayList<String>> buildEdits() {
+	private LinkedHashMap<String,ArrayList<String>> buildEdits() {
 		@SuppressWarnings("unchecked")
     	ArrayList<LinkedHashMap<String,String>> originalTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable("tags");
  		// 
@@ -424,7 +424,7 @@ public class TagEditorFragment extends BaseFragment implements
  	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
  	 * Backwards compatible version
  	 */
- 	protected void loadEditsSingle(final Map<String,String> tags) {
+	private void loadEditsSingle(final Map<String, String> tags) {
  		LinearLayout rowLayout = (LinearLayout) getOurView();
  		LinkedHashMap<String,ArrayList<String>> convertedTags = new LinkedHashMap<String,ArrayList<String>>();
  		for (String key:tags.keySet()) {
@@ -438,7 +438,7 @@ public class TagEditorFragment extends BaseFragment implements
     /**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
-	protected void loadEdits(final Map<String,ArrayList<String>> tags) {
+	private void loadEdits(final Map<String, ArrayList<String>> tags) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		loadEdits(rowLayout, tags);
 	}
@@ -446,7 +446,7 @@ public class TagEditorFragment extends BaseFragment implements
 	/**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
-	protected void loadEdits(LinearLayout rowLayout, final Map<String,ArrayList<String>> tags) {
+	private void loadEdits(LinearLayout rowLayout, final Map<String, ArrayList<String>> tags) {
 		if (rowLayout == null) {
 			Log.e(DEBUG_TAG, "loadEdits rowLayout null");
 			return;
@@ -533,7 +533,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param tags
 	 * @return
 	 */
-	Map<String, String> addPresetsToTags(PresetItem preset, LinkedHashMap<String, String> tags) {
+	private Map<String, String> addPresetsToTags(PresetItem preset, LinkedHashMap<String, String> tags) {
 		LinkedHashMap<String,String> leftOvers = new LinkedHashMap<String,String>();
 		if (preset!=null) {
 			List<PresetItem> linkedPresetList = preset.getLinkedPresets();
@@ -562,15 +562,15 @@ public class TagEditorFragment extends BaseFragment implements
 		return leftOvers;
 	}
 	
-	PresetItem getPreset(String key) {
+	private PresetItem getPreset(String key) {
 		return tags2Preset.get(key);
 	}
 	
-	void storePreset(String key, PresetItem preset) {
+	private void storePreset(String key, PresetItem preset) {
 		tags2Preset.put(key,preset);
 	}
 	
-	void clearPresets() {
+	private void clearPresets() {
 		tags2Preset.clear();
 	}
 	
@@ -579,11 +579,11 @@ public class TagEditorFragment extends BaseFragment implements
 		return tags2Preset;
 	}
 	
-	void addSecondaryPreset(PresetItem nonAssignedPreset) {
+	private void addSecondaryPreset(PresetItem nonAssignedPreset) {
 		secondaryPresets.add(nonAssignedPreset);
 	}
 	
-	void clearSecondaryPresets() {
+	private void clearSecondaryPresets() {
 		secondaryPresets.clear();
 	}
 	
@@ -623,7 +623,7 @@ public class TagEditorFragment extends BaseFragment implements
 		updateAutocompletePresetItem(null);
 	}
 	
-	protected ArrayAdapter<String> getKeyAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, AutoCompleteTextView keyEdit) {
+	private ArrayAdapter<String> getKeyAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, AutoCompleteTextView keyEdit) {
 		// Use a set to prevent duplicate keys appearing
 		Set<String> keys = new HashSet<String>();
 		
@@ -680,7 +680,7 @@ public class TagEditorFragment extends BaseFragment implements
 			|| usedKeys.contains(Tags.KEY_LANDUSE) || usedKeys.contains(Tags.KEY_NATURAL) || usedKeys.contains(Tags.KEY_RAILWAY));
 	}
 	
-	protected ArrayAdapter<?> getValueAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, TagEditRow row) {
+	private ArrayAdapter<?> getValueAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, TagEditRow row) {
 		ArrayAdapter<?> adapter = null;
 		String key = row.getKey();
 		if (key != null && key.length() > 0) {
@@ -695,9 +695,8 @@ public class TagEditorFragment extends BaseFragment implements
 				Log.d(DEBUG_TAG,"generate suggestions for name from name suggestion index");
 				ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(getKeyValueMapSingle(rowLayout,true))); // FIXME
 				if (values != null && !values.isEmpty()) {
-					ArrayList<NameAndTags> result = values;
-					Collections.sort(result);
-					adapter = new ArrayAdapter<NameAndTags>(getActivity(), R.layout.autocomplete_row, result);
+					Collections.sort(values);
+					adapter = new ArrayAdapter<NameAndTags>(getActivity(), R.layout.autocomplete_row, values);
 				}
 			} else {
 				HashMap<String, Integer> counter = new HashMap<String, Integer>();
@@ -764,7 +763,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
 	 * @returns The new TagEditRow.
 	 */
-	protected TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position) {
+	private TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position) {
 		final TagEditRow row = (TagEditRow)inflater.inflate(R.layout.tag_edit_row, rowLayout, false);
 	
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -1102,7 +1101,7 @@ public class TagEditorFragment extends BaseFragment implements
 			selected.setEnabled(false);
 		}
 		
-		protected void enableCheckBox() {
+		void enableCheckBox() {
 			selected.setEnabled(true);
 		}
 	}
@@ -1145,7 +1144,7 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 	}
 	
-	protected void tagSelected() {
+	private void tagSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		synchronized (actionModeCallbackLock) {
 			if (tagSelectedActionModeCallback == null) {
@@ -1167,7 +1166,7 @@ public class TagEditorFragment extends BaseFragment implements
 	}
 	
 	
-	protected void selectAllTags() {
+	private void selectAllTags() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (loaded) {
 			int i = rowLayout.getChildCount();
@@ -1180,7 +1179,7 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 	}
 	
-	protected void deselectAllTags() {
+	private void deselectAllTags() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (loaded) {
 			int i = rowLayout.getChildCount();
@@ -1383,7 +1382,7 @@ public class TagEditorFragment extends BaseFragment implements
 		focusOnEmptyValue();
 	}
 	
-	protected void recreateRecentPresetView() {
+	void recreateRecentPresetView() {
 		Log.d(DEBUG_TAG,"Updating MRU prests");
 		FragmentManager fm = getChildFragmentManager();
 		Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
@@ -1529,12 +1528,12 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
 	 * @return The LinkedHashMap<String,String> of key-value pairs.
 	 */
-	LinkedHashMap<String,ArrayList<String>> getKeyValueMap(final boolean allowBlanks) {
+	private LinkedHashMap<String,ArrayList<String>> getKeyValueMap(final boolean allowBlanks) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		return getKeyValueMap(rowLayout, allowBlanks);
 	}	
 		
-	LinkedHashMap<String,ArrayList<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
+	private LinkedHashMap<String,ArrayList<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
 		
 		final LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<String, ArrayList<String>>();
 		
@@ -1582,7 +1581,7 @@ public class TagEditorFragment extends BaseFragment implements
 		return getKeyValueMapSingle(rowLayout, allowBlanks);
 	}	
 		
-	LinkedHashMap<String,String> getKeyValueMapSingle(LinearLayout rowLayout, final boolean allowBlanks) {
+	private LinkedHashMap<String,String> getKeyValueMapSingle(LinearLayout rowLayout, final boolean allowBlanks) {
 		
 		final LinkedHashMap<String,String> tags = new LinkedHashMap<String, String>();
 		if (rowLayout == null && savedTags != null) {
@@ -1792,7 +1791,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * Return the view we have our rows in and work around some android craziness
 	 * @return
 	 */
-	public View getOurView() {
+	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
 		if (v != null) {
@@ -1905,7 +1904,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param key
 	 * @param value
 	 */
-	public void addTag(LinearLayout rowLayout,String key, String value, boolean replace, boolean update) {
+	private void addTag(LinearLayout rowLayout, String key, String value, boolean replace, boolean update) {
 		Log.d(DEBUG_TAG,"adding tag " + key + "=" + value);
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(rowLayout,true);
 		if (!currentValues.containsKey(key) || replace) {

@@ -45,15 +45,15 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
 	public static final byte STATE_DELETED = 3;
 
-	protected long osmId;
+	long osmId;
 
-	protected long osmVersion;
+	long osmVersion;
 
-	protected SortedMap<String, String> tags;
+	SortedMap<String, String> tags;
 
-	protected byte state;
+	byte state;
 	
-	protected ArrayList<Relation> parentRelations;
+	ArrayList<Relation> parentRelations;
 	
 	/**
 	 * hasProblem() is an expensive test, so the results are cached.
@@ -192,7 +192,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @param value the value to search for (case sensitive)
 	 * @return true if the element has a tag with this key and value.
 	 */
-	public boolean hasTag(final Map<String,String> tags, final String key, final String value) {
+	boolean hasTag(final Map<String, String> tags, final String key, final String value) {
 		if (tags == null) {
 			return false;
 		}
@@ -256,7 +256,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		return getName() + " " + osmId;
 	}
 
-	public void tagsToXml(final XmlSerializer s) throws IllegalArgumentException,
+	void tagsToXml(final XmlSerializer s) throws IllegalArgumentException,
 			IllegalStateException, IOException {
 		if (tags != null) {
 			for (Entry<String, String> tag : tags.entrySet()) {
@@ -385,7 +385,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @param withType
 	 * @return
 	 */
-	public String getDescription(Context ctx, boolean withType) {
+	private String getDescription(Context ctx, boolean withType) {
 		// Use the name if it exists
 		String name = getTagWithKey(Tags.KEY_NAME);
 		if (name != null && name.length() > 0) {
@@ -458,7 +458,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * "fixme" or "todo".
 	 * @return true if the element has any noted problems, false otherwise.
 	 */
-	protected boolean calcProblem() {
+	boolean calcProblem() {
 		final String pattern = "(?i).*\\b(?:fixme|todo)\\b.*";
 		if (tags != null) {
 			for (String key : tags.keySet()) {

@@ -65,8 +65,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
 	private static final String TAG = "TrackerService";
 
-	protected static final int LOCATION_UPDATE = 0;
-	protected static final int CONNECTION_FAILED = 1;
+	private static final int LOCATION_UPDATE = 0;
+	private static final int CONNECTION_FAILED = 1;
 
 	private static final String AUTODOWNLOAD = "autodownload";
 	
@@ -302,7 +302,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		stop();
 	}
 	
-	public void stop()
+	private void stop()
 	{
 		if (!tracking && !downloading && !downloadingBugs) {
 			Log.d(TAG,"Stopping auto-service");
@@ -391,7 +391,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	public void onStatusChanged(String provider, int status, Bundle extras) {}
 	
 	public interface TrackerLocationListener {
-		public void onLocationChanged(Location location);
+		void onLocationChanged(Location location);
 	}
 
 	private void updateGPSState() {
@@ -562,7 +562,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		GPS,
 		MULTIPLE
 	}
-	GnssSystem system = GnssSystem.NONE;
+	private GnssSystem system = GnssSystem.NONE;
 
 	/**
 	 * Minimal parsing of two NMEA 0183 sentences
@@ -728,7 +728,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * @return
 	 * @throws NumberFormatException
 	 */
-	Double nmeaLonToDecimal(String nmea) throws NumberFormatException {
+	private Double nmeaLonToDecimal(String nmea) throws NumberFormatException {
 		int deg = Integer.parseInt(nmea.substring(0,3));
 		Double min = Double.parseDouble(nmea.substring(3));
 		return deg+min/60d;
@@ -740,7 +740,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * @return
 	 * @throws NumberFormatException
 	 */
-	Double nmeaLatToDecimal(String nmea) throws NumberFormatException {
+	private Double nmeaLatToDecimal(String nmea) throws NumberFormatException {
 		int deg = Integer.parseInt(nmea.substring(0,2));
 		Double min = Double.parseDouble(nmea.substring(2));
 		return deg+min/60d;
@@ -892,7 +892,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		}
 	}
 	
-	boolean bbLoaded(ArrayList<BoundingBox> bbs, int lonE7, int latE7) {		
+	private boolean bbLoaded(ArrayList<BoundingBox> bbs, int lonE7, int latE7) {
 		for (BoundingBox b:bbs) {
 			if (b.isIn(latE7, lonE7)) {
 				return true;

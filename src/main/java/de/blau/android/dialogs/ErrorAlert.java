@@ -44,7 +44,7 @@ public class ErrorAlert extends DialogFragment
 		}
 	}
 
-	static public void dismissDialog(FragmentActivity activity, int errorCode) {
+	private static void dismissDialog(FragmentActivity activity, int errorCode) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		Fragment fragment = fm.findFragmentByTag(getTag(errorCode));

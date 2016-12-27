@@ -19,7 +19,7 @@ import de.blau.android.dialogs.GetFileName;
 
 public class SelectFile {
 	
-	static final String DEBUG_TAG = SelectFile.class.getName();
+	private static final String DEBUG_TAG = SelectFile.class.getName();
 	
 	public static final int SAVE_FILE = 7113;
 	public static final int READ_FILE = 9340;

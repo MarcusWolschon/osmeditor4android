@@ -16,7 +16,7 @@ import java.util.List;
  * @see <a href="http://turfjs.org/docs/">Turf documentation</a>
  * @since 1.2.0
  */
-public class TurfMeasurement {
+class TurfMeasurement {
 
   /**
    * Takes two positions and finds the geographic bearing between them.
@@ -27,7 +27,7 @@ public class TurfMeasurement {
    * @see <a href="http://turfjs.org/docs/#bearing">Turf Bearing documentation</a>
    * @since 1.3.0
    */
-  public static double bearing(Position p1, Position p2) {
+  private static double bearing(Position p1, Position p2) {
     return bearing(Point.fromCoordinates(p1), Point.fromCoordinates(p2));
   }
 
@@ -70,7 +70,7 @@ public class TurfMeasurement {
    * @see <a href="http://turfjs.org/docs/#destination">Turf Destination documetation</a>
    * @since 1.3.0
    */
-  public static Position destination(Position p1, double distance, double bearing, String units) throws TurfException {
+  private static Position destination(Position p1, double distance, double bearing, String units) throws TurfException {
     return destination(Point.fromCoordinates(p1), distance, bearing, units).getCoordinates();
   }
 
@@ -120,7 +120,7 @@ public class TurfMeasurement {
    * @see <a href="http://turfjs.org/docs/#distance">Turf distance documentation</a>
    * @since 1.3.0
    */
-  public static double distance(Position point1, Position point2, String units) throws TurfException {
+  private static double distance(Position point1, Position point2, String units) throws TurfException {
     return distance(Point.fromCoordinates(point1), Point.fromCoordinates(point2), units);
   }
 
@@ -193,7 +193,7 @@ public class TurfMeasurement {
    * @see <a href="http://turfjs.org/docs/#linedistance">Turf Line Distance documentation</a>
    * @since 1.2.0
    */
-  public static double lineDistance(Feature line, String units) throws TurfException {
+  private static double lineDistance(Feature line, String units) throws TurfException {
     return lineDistance(line.getGeometry(), units);
   }
 
@@ -207,7 +207,7 @@ public class TurfMeasurement {
    * @see <a href="http://turfjs.org/docs/#linedistance">Turf Line Distance documentation</a>
    * @since 1.2.0
    */
-  public static double lineDistance(Geometry line, String units) throws TurfException {
+  private static double lineDistance(Geometry line, String units) throws TurfException {
     double d;
 
     if (line.getType().equals("LineString")) {
@@ -279,7 +279,7 @@ public class TurfMeasurement {
    * @see <a href="http://turfjs.org/docs/#midpoint">Turf Midpoint documentation</a>
    * @since 1.3.0
    */
-  public static Point midpoint(Point from, Point to) throws TurfException {
+  private static Point midpoint(Point from, Point to) throws TurfException {
     double dist = distance(from, to, TurfConstants.UNIT_MILES);
     double heading = bearing(from, to);
     return destination(from, dist / 2, heading, TurfConstants.UNIT_MILES);

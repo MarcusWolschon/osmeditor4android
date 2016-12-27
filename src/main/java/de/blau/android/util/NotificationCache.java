@@ -16,8 +16,8 @@ import de.blau.android.prefs.Preferences;
 public class NotificationCache implements Serializable {
 	private static final String DEBUG_TAG = "NotificationCache";
 	private static final long serialVersionUID = 1L;
-	ArrayList<Integer> cache;
-	int size = 5;
+	private ArrayList<Integer> cache;
+	private int size = 5;
 	
 
 	
@@ -83,7 +83,7 @@ public class NotificationCache implements Serializable {
 	/**
 	 * Remove oldest notification from cache and cancel it
 	 */
-	synchronized void remove(NotificationManager manager) {
+	private synchronized void remove(NotificationManager manager) {
 		// remove notification
 		int last = cache.size() - 1;
 		// Log.d(DEBUG_TAG, "removing oldest alert " + cache.get(last));

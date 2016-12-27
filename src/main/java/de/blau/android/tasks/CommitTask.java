@@ -10,14 +10,14 @@ import de.blau.android.tasks.Task.State;
  * @author Andrew Gregory
  *
  */
-public class CommitTask extends AsyncTask<Server, Void, Boolean> {
+class CommitTask extends AsyncTask<Server, Void, Boolean> {
 	private static final String DEBUG_TAG = CommitTask.class.getSimpleName();
 	/** Bug associated with the commit. */
-	protected final Note bug;
+	final Note bug;
 	/** Comment associated with the commit. */
-	protected final String comment;
+	private final String comment;
 	/** Flag indicating if the bug should be closed. */
-	protected final boolean close;
+	private final boolean close;
 	
 	/**
 	 * Create the background task to upload changes to OSB.

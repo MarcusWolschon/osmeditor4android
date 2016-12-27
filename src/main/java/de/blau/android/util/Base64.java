@@ -14,7 +14,7 @@ public class Base64 {
 
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
-	public static final char[] alphabet = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', //  0 to  7
+	private static final char[] alphabet = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', //  0 to  7
 			'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', //  8 to 15
 			'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', // 16 to 23
 			'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', // 24 to 31
@@ -32,7 +32,7 @@ public class Base64 {
 		return encode(s.getBytes());
 	}
 
-	public static String encode(final byte[] octetString)
+	private static String encode(final byte[] octetString)
 	//////////////////////////////////////////////////////////////////////
 	{
 		int bits24;

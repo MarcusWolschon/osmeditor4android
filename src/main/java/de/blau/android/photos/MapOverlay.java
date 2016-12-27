@@ -53,13 +53,13 @@ public class MapOverlay extends MapViewOverlay {
 	private final Drawable icon_selected;
 	
 	/** icon dimensions */
-	int h2;
-	int w2;
+	private int h2;
+	private int w2;
 	
 	/**
 	 * Index disk/in-memory of photos
 	 */
-	PhotoIndex pi = null;
+	private PhotoIndex pi = null;
 	
 	/**
 	 * Pref for this layer enabled

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Capabilities {
 
-	public static enum Status {
+	public enum Status {
 		ONLINE,
 		READONLY,
 		OFFLINE

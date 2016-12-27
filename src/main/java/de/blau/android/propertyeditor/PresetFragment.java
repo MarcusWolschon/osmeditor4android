@@ -43,14 +43,14 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 	
     public interface OnPresetSelectedListener {
-        public void onPresetSelected(PresetItem item);
+        void onPresetSelected(PresetItem item);
         
-        public void onPresetSelected(PresetItem item, boolean applyOptional);
+        void onPresetSelected(PresetItem item, boolean applyOptional);
     }
     
 //	private final Context context;
     
-    OnPresetSelectedListener mListener;
+    private OnPresetSelectedListener mListener;
 	
 	/** The type of OSM element to which the preset will be applied (used for filtering) */
 	private ElementType type;
@@ -60,8 +60,8 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	
 	private boolean enabled = true;
 
-	private boolean paneMode = false;;
-	
+	private boolean paneMode = false;
+
 	/**
      */
     static public PresetFragment newInstance(OsmElement e, boolean paneMode) {
@@ -339,7 +339,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	 * Return the view we have our rows in and work around some android craziness
 	 * @return
 	 */
-	public View getOurView() {
+	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
 		if (v != null) {
@@ -365,7 +365,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 		enabled = true;
 	}
 	
-	protected void disable() {
+	void disable() {
 		enabled = false;
 	}
 }

@@ -64,7 +64,7 @@ public class SearchForm extends DialogFragment
 	    }
 	}
 	
-	static public void dismissDialog(AppCompatActivity activity) {
+	private static void dismissDialog(AppCompatActivity activity) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 	    Fragment fragment = fm.findFragmentByTag(TAG);

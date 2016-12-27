@@ -168,12 +168,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * Requests a list of {@link Tag Tags} as an activity-result.
 	 */
-	public static final int REQUEST_EDIT_TAG = 1;
+	private static final int REQUEST_EDIT_TAG = 1;
 	
 	/**
 	 * Requests an activity-result.
 	 */
-	public static final int REQUEST_IMAGE_CAPTURE = 2;
+	private static final int REQUEST_IMAGE_CAPTURE = 2;
 	
 	/**
 	 * Requests voice recognition.
@@ -342,7 +342,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * Optional bottom toolbar 
 	 */
-	android.support.v7.widget.ActionMenuView bottomBar = null;
+	private android.support.v7.widget.ActionMenuView bottomBar = null;
     
 	/**
 	 * GPS FAB
@@ -377,13 +377,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * file we asked the camera app to create (ugly) 
 	 */
-	File imageFile = null;
+	private File imageFile = null;
 
 	private PostAsyncActionHandler restart; // if set this is called to restart post authentication
 
 	private boolean gpsChecked = false; // flag to ensure that we only check once per activity life cycle
 
-	protected boolean saveSync = false; // save synchronously instead of async
+	private boolean saveSync = false; // save synchronously instead of async
 	
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -505,8 +505,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         if (prefs.splitActionBarEnabled()) {
         	setBottomBar((android.support.v7.widget.ActionMenuView) findViewById(R.id.bottomToolbar));
         } else {
-        	findViewById(R.id.bottomBar).setVisibility(View.GONE);;
-        }
+        	findViewById(R.id.bottomBar).setVisibility(View.GONE);
+		}
 		
 		// check if first time user and display something if yes
 		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
@@ -738,7 +738,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * Check if we have fine location permission and ask for it if not
 	 * Side effect binds to TrackerService
 	 */
-	void checkPermissions() {	
+	private void checkPermissions() {
 		final List<String> permissionsList = new ArrayList<String>();
 		synchronized (locationPermissionLock) {
 			locationPermissionGranted = false;
@@ -790,7 +790,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * Process geo an JOSM remote control intents
 	 */
-	protected void processIntents() {
+	private void processIntents() {
 		final Logic logic = App.getLogic();
 		if (geoData != null) {
 			Log.d(DEBUG_TAG,"got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + App.getDelegator().isDirty());
@@ -849,7 +849,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * Parse the parameters of a JOSM remote control URL and select and edit the OSM objects.
 	 * @param rcData Data of a remote control data URL.
 	 */
-	void rcDataEdit(RemoteControlUrlData rcData ) {
+	private void rcDataEdit(RemoteControlUrlData rcData) {
 		final Logic logic = App.getLogic();
 		if (rcData.getSelect() != null) {
 			// need to actually switch to easyeditmode
@@ -1045,7 +1045,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * slightly byzantine code for mode switching follows
 	 */
 	@SuppressLint("InflateParams")
-	void setupLockButton()	{
+	private void setupLockButton()	{
 		final Logic logic = App.getLogic();
 		Mode mode = logic.getMode();
 		Log.d(DEBUG_TAG, "setupLockButton mode " + mode);
@@ -1146,7 +1146,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		App.getLogic().setMode(mode); 
 	}
 	
-	public void updateActionbarEditMode() {
+	private void updateActionbarEditMode() {
 		Log.d(DEBUG_TAG, "updateActionbarEditMode");
 		Mode mode = App.getLogic().getMode();
 		setLock(mode);
@@ -1668,7 +1668,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	    }
 	}
 	
-	public void startStopAutoDownload() {
+	private void startStopAutoDownload() {
 		Log.d(DEBUG_TAG, "autoDownload");
 		if (getTracker() != null && ensureGPSProviderEnabled()) {
 			if (autoDownload()) {
@@ -1680,11 +1680,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		triggerMenuInvalidation();
 	}
 	
-	protected boolean autoDownload() {
+	private boolean autoDownload() {
 		return prefs.getAutoDownload();
 	}
 	
-	public void startStopBugAutoDownload() {
+	private void startStopBugAutoDownload() {
 		Log.d(DEBUG_TAG, "bugAutoDownload");
 		if (getTracker() != null && ensureGPSProviderEnabled()) {
 			if (bugAutoDownload()) {
@@ -1696,11 +1696,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		triggerMenuInvalidation();
 	}
 	
-	protected boolean bugAutoDownload() {
+	private boolean bugAutoDownload() {
 		return prefs.getBugAutoDownload();
 	}
 	
-	public void setShowGPS(boolean show) {
+	private void setShowGPS(boolean show) {
 		if (show && !ensureGPSProviderEnabled()) {
 			show = false;
 		}
@@ -1718,7 +1718,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		triggerMenuInvalidation();
 	}
 	
-	protected boolean getShowGPS() {
+	private boolean getShowGPS() {
 		return showGPS;
 	}
 	
@@ -2120,7 +2120,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	}
 	
-	void hideControls() {
+	private void hideControls() {
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar != null) {
 			actionbar.hide();
@@ -2137,7 +2137,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	}
 	
-	void showControls() {
+	private void showControls() {
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar != null && !prefs.splitActionBarEnabled()) {
 			actionbar.show();
@@ -2332,7 +2332,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * Edit an OpenStreetBug.
 	 * @param bug The bug to edit.
 	 */
-	public void performBugEdit(final Task bug) {
+	private void performBugEdit(final Task bug) {
 		Log.d(DEBUG_TAG, "editing bug:"+bug);
 		descheduleAutoLock();
 		App.getLogic().setSelectedBug(bug);
@@ -2382,7 +2382,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * pop up a dialog asking for confirmation and exit
 	 */
-	void exitOnBackPressed() {
+	private void exitOnBackPressed() {
 	    new AlertDialog.Builder(this)
         .setTitle(R.string.exit_title)
         .setMessage(R.string.exit_text)
@@ -2998,7 +2998,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 *
 	 */
 	@SuppressLint("NewApi")
-	public class MotionEventListener implements OnGenericMotionListener
+	private class MotionEventListener implements OnGenericMotionListener
 	{
 		@SuppressLint("NewApi")
 		@Override
@@ -3149,7 +3149,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * @param tracker the tracker to set
 	 */
-	public void setTracker(TrackerService tracker) {
+	private void setTracker(TrackerService tracker) {
 		this.tracker = tracker;
 	}
 	
@@ -3203,7 +3203,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @param latE7
 	 * @param e
 	 */
-	public void zoomTo(int lonE7, int latE7, OsmElement e) {
+	private void zoomTo(int lonE7, int latE7, OsmElement e) {
 		setFollowGPS(false); // otherwise the screen could move around
 		if (e instanceof Node && map.getZoomLevel() < 22) {
 			App.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
@@ -3252,7 +3252,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * @param bottomBar the bottomToolbar to set
 	 */
-	public void setBottomBar(android.support.v7.widget.ActionMenuView bottomBar) {
+	private void setBottomBar(android.support.v7.widget.ActionMenuView bottomBar) {
 		MenuUtil.setupBottomBar(this, bottomBar, isFullScreen(), prefs.lightThemeEnabled());
 		this.bottomBar = bottomBar;
 	}
@@ -3260,21 +3260,21 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * @return the view containing the zoom + and - buttons
 	 */
-	public ZoomControls getControls() {
+	private ZoomControls getControls() {
 		return zoomControls;
 	}
 	
 	/**
 	 * @return the "center on GPS position button"
 	 */
-	public FloatingActionButton getFollowButton() {
+	private FloatingActionButton getFollowButton() {
 		return follow;
 	}
 	
 	/**
 	 * Display the "center on GPS position" button
 	 */
-	public void hideFollowButton() {
+	private void hideFollowButton() {
 		FloatingActionButton follow = getFollowButton();
 		if (follow != null) {
 			follow.hide();
@@ -3284,7 +3284,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * Display the "center on GPS position" button, checks if GPS is actually on
 	 */
-	public void showFollowButton() {
+	private void showFollowButton() {
 		FloatingActionButton follow = getFollowButton();
 		if (follow != null && ensureGPSProviderEnabled() && locationPermissionGranted && !"NONE".equals(prefs.followGPSbuttonPosition())) {
 			follow.show();
@@ -3335,7 +3335,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * Remove any pending automatic lock tasks 
 	 */
-	void descheduleAutoLock() {
+	private void descheduleAutoLock() {
 		map.removeCallbacks(autoLock);
 	}
 	

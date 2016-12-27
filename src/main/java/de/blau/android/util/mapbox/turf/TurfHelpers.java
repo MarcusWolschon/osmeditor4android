@@ -10,7 +10,7 @@ import java.util.Map;
  * @see <a href="http://turfjs.org/docs/">Turfjs documentation</a>
  * @since 1.2.0
  */
-public class TurfHelpers {
+class TurfHelpers {
 
   private static final Map<String, Double> factors;
 

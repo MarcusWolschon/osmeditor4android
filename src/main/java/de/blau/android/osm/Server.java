@@ -324,7 +324,7 @@ public class Server {
 	 * @param capabilitiesURL
 	 * @return The capabilities for this server, or null if it couldn't be determined.
 	 */
-	public Capabilities getCapabilities(URL capabilitiesURL) {
+	private Capabilities getCapabilities(URL capabilitiesURL) {
 		Capabilities result;
 		HttpURLConnection con = null;
 		// 
@@ -1037,11 +1037,11 @@ public class Server {
 	/**
 	 * These patterns are fairly, to very, unforgiving, hopefully API 0.7 will give the error codes back in a more structured way
 	 */
-	static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET = Pattern.compile("(?i)The changeset ([0-9]+) was closed at");
-	static final Pattern ERROR_MESSAGE_VERSION_CONFLICT = Pattern.compile("(?i)Version mismatch: Provided ([0-9]+), server had: ([0-9]+) of (Node|Way|Relation) ([0-9]+)");
-	static final Pattern ERROR_MESSAGE_DELETED = Pattern.compile("(?i)The (node|way|relation) with the id ([0-9]+) has already been deleted");
-	static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED = Pattern.compile("(?i)Precondition failed: (Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
-	static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = Pattern.compile("(?i)Precondition failed: The relation ([0-9]+) is used in relation ([0-9]+).");
+	private static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET = Pattern.compile("(?i)The changeset ([0-9]+) was closed at");
+	private static final Pattern ERROR_MESSAGE_VERSION_CONFLICT = Pattern.compile("(?i)Version mismatch: Provided ([0-9]+), server had: ([0-9]+) of (Node|Way|Relation) ([0-9]+)");
+	private static final Pattern ERROR_MESSAGE_DELETED = Pattern.compile("(?i)The (node|way|relation) with the id ([0-9]+) has already been deleted");
+	private static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED = Pattern.compile("(?i)Precondition failed: (Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
+	private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = Pattern.compile("(?i)Precondition failed: The relation ([0-9]+) is used in relation ([0-9]+).");
 	
 	/**
 	 * Process the results of uploading a diff to the API, here because it needs to manipulate the stored data
@@ -1049,7 +1049,7 @@ public class Server {
 	 * @param in
 	 * @throws IOException 
 	 */
-	public void processDiffUploadResult(StorageDelegator delegator, HttpURLConnection connection, XmlPullParser parser) throws IOException {
+	private void processDiffUploadResult(StorageDelegator delegator, HttpURLConnection connection, XmlPullParser parser) throws IOException {
 		Storage apiStorage = delegator.getApiStorage();
 		int code = connection.getResponseCode();
 		if (code == HttpURLConnection.HTTP_OK) {
@@ -1209,7 +1209,7 @@ public class Server {
 		Log.e(DEBUG_TAG, "Error message matched, but parsing failed: " + message);
 	}
 
-	static String readStream(final InputStream in) {
+	private static String readStream(final InputStream in) {
 		String res = "";
 		if (in != null) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);

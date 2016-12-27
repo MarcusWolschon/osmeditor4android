@@ -64,7 +64,7 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
 		}	
 	}
 
-	Runnable navHider = new Runnable() {
+	private Runnable navHider = new Runnable() {
 		@Override public void run() {
 			hideNavBar();
 		}
@@ -82,7 +82,7 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
 	 * Turn off a soft button navigation button, note this only works if the main view of the app actually has focus
 	 */
 	@SuppressLint("NewApi")
-	protected void hideNavBar() {
+	private void hideNavBar() {
 		View view = getWindow().getDecorView();
 		if (view != null && fullScreen && Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			Log.d(DEBUG_TAG,"hiding nav bar");

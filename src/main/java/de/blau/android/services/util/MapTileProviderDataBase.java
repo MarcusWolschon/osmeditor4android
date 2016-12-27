@@ -114,11 +114,11 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	// Fields
 	// ===========================================================
 
-	protected final Context mCtx;
-	protected final MapTileFilesystemProvider mFSProvider;
-	protected final SQLiteDatabase mDatabase;
+	private final Context mCtx;
+	private final MapTileFilesystemProvider mFSProvider;
+	private final SQLiteDatabase mDatabase;
 	private final static String DATE_PATTERN_ISO8601_MILLIS = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-	protected final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat(DATE_PATTERN_ISO8601_MILLIS, Locale.US);
+	private final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat(DATE_PATTERN_ISO8601_MILLIS, Locale.US);
 	private final SQLiteStatement incrementUse;
 
 	// ===========================================================
@@ -156,7 +156,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		return existed;
 	}
 	
-	public boolean incrementUse(final MapTile aTile) {
+	private boolean incrementUse(final MapTile aTile) {
 		boolean ret = false;
 		if (mDatabase.isOpen()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

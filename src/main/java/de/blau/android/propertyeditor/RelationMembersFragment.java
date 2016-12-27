@@ -59,10 +59,10 @@ public class RelationMembersFragment extends BaseFragment implements
 	private ArrayList<RelationMemberDescription> savedMembers = null;
 	private long id = -1;
 
-	static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
-	static final Object actionModeCallbackLock = new Object();
+	private static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
+	private static final Object actionModeCallbackLock = new Object();
 	
-	static enum Connected { NOT, UP, DOWN, BOTH, RING_TOP, RING, RING_BOTTOM, CLOSEDWAY, CLOSEDWAY_UP, CLOSEDWAY_DOWN, CLOSEDWAY_BOTH, CLOSEDWAY_RING }
+	enum Connected { NOT, UP, DOWN, BOTH, RING_TOP, RING, RING_BOTTOM, CLOSEDWAY, CLOSEDWAY_UP, CLOSEDWAY_DOWN, CLOSEDWAY_BOTH, CLOSEDWAY_RING }
 	
 	/**
      */
@@ -146,7 +146,7 @@ public class RelationMembersFragment extends BaseFragment implements
     /**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
-	protected void loadMembers(final ArrayList<RelationMemberDescription> members) {
+	private void loadMembers(final ArrayList<RelationMemberDescription> members) {
 		LinearLayout membersVerticalLayout = (LinearLayout) getOurView();
 		loadMembers(membersVerticalLayout, members);
 	}
@@ -154,7 +154,7 @@ public class RelationMembersFragment extends BaseFragment implements
 	/**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
-	protected void loadMembers(LinearLayout membersVerticalLayout, final ArrayList<RelationMemberDescription> members) {
+	private void loadMembers(LinearLayout membersVerticalLayout, final ArrayList<RelationMemberDescription> members) {
 		membersVerticalLayout.removeAllViews();
 		if (members != null && members.size() > 0) {
 			for (int i = 0; i < members.size(); i++) {
@@ -222,7 +222,7 @@ public class RelationMembersFragment extends BaseFragment implements
 	 * @param next
 	 * @return
 	 */
-	Connected getConnection(RelationMemberRow previousRow, RelationMemberRow currentRow, RelationMemberRow nextRow) {
+	private Connected getConnection(RelationMemberRow previousRow, RelationMemberRow currentRow, RelationMemberRow nextRow) {
 		Connected result = Connected.NOT;
 		RelationMemberDescription previous = previousRow != null ? previousRow.getRelationMemberDescription() : null;
 		RelationMemberDescription current = currentRow.getRelationMemberDescription();
@@ -414,7 +414,7 @@ public class RelationMembersFragment extends BaseFragment implements
 	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
 	 * @returns The new RelationMemberRow.
 	 */
-	protected RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position, final Connected c, boolean select) {
+	RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position, final Connected c, boolean select) {
 		RelationMemberRow row = null; 
 		
 		if (rmd.downloaded()) {
@@ -682,7 +682,7 @@ public class RelationMembersFragment extends BaseFragment implements
 			selected.setEnabled(true);
 		}
 		
-		protected ArrayAdapter<StringWithDescription> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
+		ArrayAdapter<StringWithDescription> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
 			// Use a set to prevent duplicate keys appearing
 			Set<StringWithDescription> roles = new HashSet<StringWithDescription>();
 			
@@ -702,7 +702,7 @@ public class RelationMembersFragment extends BaseFragment implements
 		}
 	}
 
-	protected void memberSelected(LinearLayout rowLayout) {
+	private void memberSelected(LinearLayout rowLayout) {
 		synchronized (actionModeCallbackLock) {
 			if (memberSelectedActionModeCallback == null) {
 				memberSelectedActionModeCallback = new RelationMemberSelectedActionModeCallback(this, rowLayout);
@@ -725,7 +725,7 @@ public class RelationMembersFragment extends BaseFragment implements
 		}
 	}
 	
-	protected void selectAllMembers() {
+	private void selectAllMembers() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 
 		int i = rowLayout.getChildCount();
@@ -737,7 +737,7 @@ public class RelationMembersFragment extends BaseFragment implements
 		}
 	}
 
-	protected void deselectAllMembers() {
+	private void deselectAllMembers() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 
 		int i = rowLayout.getChildCount();
@@ -752,7 +752,7 @@ public class RelationMembersFragment extends BaseFragment implements
 	/**
 	 */
 	private interface RelationMemberHandler {
-		abstract void handleRelationMember(final ImageView typeView, final long elementId, final EditText roleEdit, final TextView descView);
+		void handleRelationMember(final ImageView typeView, final long elementId, final EditText roleEdit, final TextView descView);
 	}
 	
 	/**
@@ -855,7 +855,7 @@ public class RelationMembersFragment extends BaseFragment implements
 	 * Return the view we have our rows in and work around some android craziness
 	 * @return
 	 */
-	public View getOurView() {
+	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
 		if (v != null) {

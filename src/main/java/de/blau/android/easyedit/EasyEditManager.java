@@ -440,7 +440,7 @@ public class EasyEditManager {
 	 * @param callback the callback we are currently in
 	 * @return
 	 */
-	protected Menu replaceMenu(Menu menu, final ActionMode actionMode, final ActionMode.Callback callback) {
+	private Menu replaceMenu(Menu menu, final ActionMode actionMode, final ActionMode.Callback callback) {
 		if (cabBottomBar!=null) {
 			menu = cabBottomBar.getMenu();
 			android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
@@ -592,7 +592,7 @@ public class EasyEditManager {
 			return false;
 		}
 		
-		protected void arrangeMenu(Menu menu) {
+		void arrangeMenu(Menu menu) {
 			menuUtil.setShowAlways(menu);
 		}
 		
@@ -1191,11 +1191,11 @@ public class EasyEditManager {
 		private static final int MENUITEM_ZOOM_TO_SELECTION = 22;
 		private static final int MENUITEM_PREFERENCES = 23;
 		
-		protected OsmElement element = null;
+		OsmElement element = null;
 		
-		protected boolean deselect = true;
+		boolean deselect = true;
 		
-		protected UndoListener undoListener; 
+		UndoListener undoListener;
 		
 		public ElementSelectionActionModeCallback(OsmElement element) {
 			super();
@@ -2403,7 +2403,7 @@ public class EasyEditManager {
 		private ArrayList<OsmElement> selection;
 		private List<OsmElement> sortedWays;
 		
-		protected UndoListener undoListener; 
+		UndoListener undoListener;
 		
 		private boolean deselect = true;
 				

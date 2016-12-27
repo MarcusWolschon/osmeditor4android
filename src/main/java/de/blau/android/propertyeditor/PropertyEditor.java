@@ -68,33 +68,33 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters, OnSaveListener {
 	private static final String CURRENTITEM = "current_item";
 	private static final String PANELAYOUT = "pane_layout";
-	static final String PRESET_FRAGMENT = "preset_fragment";
+	private static final String PRESET_FRAGMENT = "preset_fragment";
 	static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 	
 	public static final String TAGEDIT_DATA = "dataClass";
-	public static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
-	public static final String TAGEDIT_SHOW_PRESETS = "showPresets";
-	public static final String TAGEDIT_ASK_FOR_NAME = "askForName";
-	public static final String TAGEDIT_EXTRA_TAGS = "extra";
+	private static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
+	private static final String TAGEDIT_SHOW_PRESETS = "showPresets";
+	private static final String TAGEDIT_ASK_FOR_NAME = "askForName";
+	private static final String TAGEDIT_EXTRA_TAGS = "extra";
 
 	
 	/** The layout containing the edit rows */
 	LinearLayout rowLayout = null;
 	
 	private PresetFragment presetFragment;
-	int presetFragmentPosition = -1;
+	private int presetFragmentPosition = -1;
 	
 	private TagFormFragment tagFormFragment;
-	int	tagFormFragmentPosition = -1;
+	private int	tagFormFragmentPosition = -1;
 	
 	TagEditorFragment tagEditorFragment;
-	int	tagEditorFragmentPosition = -1;
+	private int	tagEditorFragmentPosition = -1;
 
 	RelationMembershipFragment relationMembershipFragment;
 	RelationMembersFragment relationMembersFragment;
 	RecentPresetsFragment recentPresetsFragment;
 	
-	PropertyEditorPagerAdapter  propertyEditorPagerAdapter;
+	private PropertyEditorPagerAdapter  propertyEditorPagerAdapter;
 	
 	/**
 	 * The tag we use for Android-logging.
@@ -110,7 +110,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	 * The OSM element for reference.
 	 * DO NOT ATTEMPT TO MODIFY IT.
 	 */
-	OsmElement elements[];
+	private OsmElement[] elements;
 	
 	private PropertyEditorData[] loadData;
 	
@@ -160,9 +160,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 				= new SavingHelper<LinkedHashMap<String,String>>();
 		
 	private Preferences prefs = null;
-	ExtendedViewPager    mViewPager;
-	boolean usePaneLayout = false;
-	boolean isRelation = false;
+	private ExtendedViewPager    mViewPager;
+	private boolean usePaneLayout = false;
+	private boolean isRelation = false;
 
 	public static void startForResult(@NonNull Activity activity,
 									  @NonNull PropertyEditorData[] dataClass,
@@ -576,7 +576,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    }
 	}
 	
-	class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
+	private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
 		@Override
 		public void onPageSelected(int page) {
 			Log.d(DEBUG_TAG,"page " + page + " selected");
@@ -663,7 +663,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	/**
 	 * Get current values from the fragments and end the activity
 	 */
-	protected void sendResultAndFinish() {
+	void sendResultAndFinish() {
 		
 		ArrayList<LinkedHashMap<String,String>> currentTags = tagEditorFragment.getUpdatedTags();
 //		for (LinkedHashMap<String,String>map:currentTags) {
@@ -728,7 +728,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	 * Note: this considers order relevant
 	 * @return
 	 */
-	boolean same(ArrayList<LinkedHashMap<String,String>> tags1, ArrayList<LinkedHashMap<String,String>> tags2){
+	private boolean same(ArrayList<LinkedHashMap<String, String>> tags1, ArrayList<LinkedHashMap<String, String>> tags2){
 		// check for tag changes
 		if (tags1.size() != tags2.size()) { /// serious error
 			return false;
@@ -746,7 +746,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	 * Note: this considers order relevant
 	 * @return
 	 */
-	boolean sameMembers(ArrayList<RelationMemberDescription> rmds1, ArrayList<RelationMemberDescription> rmds2){
+	private boolean sameMembers(ArrayList<RelationMemberDescription> rmds1, ArrayList<RelationMemberDescription> rmds2){
 		if (rmds1==null) {
 			return rmds2==null;
 		}
@@ -810,7 +810,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	 * 
 	 * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
 	 */
-	class MyKeyListener implements OnKeyListener {
+	private class MyKeyListener implements OnKeyListener {
 		@Override
 		public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
 			if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {

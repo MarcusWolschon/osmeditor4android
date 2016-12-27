@@ -28,23 +28,23 @@ import de.blau.android.tasks.Task;
  */
 public class EditState implements Serializable {
 	private static final long serialVersionUID = 18L;
-	final boolean savedLocked;
-	final Mode savedMode;
-	final List<Node> savedNodes;
-	final List<Way> savedWays;
-	final List<Relation> savedRelations;
-	final Task	savedBug;
-	final String savedTileServerID;
-	final Offset[] savedOffsets;
-	final int savedMinZoom;
-	final String savedImageFileName;
-	final BoundingBox savedBox;
-	final ArrayList<String> savedLastComments;
-	final ArrayList<String> savedLastSources;
-	final NotificationCache savedTaskNotifications;
-	final NotificationCache savedOsmDataNotifications;
-	final boolean savedFollowGPS;
-	final Filter savedFilter;
+	private final boolean savedLocked;
+	private final Mode savedMode;
+	private final List<Node> savedNodes;
+	private final List<Way> savedWays;
+	private final List<Relation> savedRelations;
+	private final Task	savedBug;
+	private final String savedTileServerID;
+	private final Offset[] savedOffsets;
+	private final int savedMinZoom;
+	private final String savedImageFileName;
+	private final BoundingBox savedBox;
+	private final ArrayList<String> savedLastComments;
+	private final ArrayList<String> savedLastSources;
+	private final NotificationCache savedTaskNotifications;
+	private final NotificationCache savedOsmDataNotifications;
+	private final boolean savedFollowGPS;
+	private final Filter savedFilter;
 
 	public EditState(Context context, Logic logic, TileLayerServer osmts, String imageFileName, BoundingBox box, boolean followGPS) {
 		savedLocked = logic.isLocked();

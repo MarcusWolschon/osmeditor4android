@@ -27,7 +27,7 @@ public class GeometryCollection implements GeoJSON {
    * @param geometries List of {@link Geometry}.
    * @since 1.0.0
    */
-  public GeometryCollection(List<Geometry> geometries) {
+  private GeometryCollection(List<Geometry> geometries) {
     this.geometries = geometries;
   }
 

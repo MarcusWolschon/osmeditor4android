@@ -371,7 +371,7 @@ public class RTree implements Serializable {
 	/**
 	 * Default constructor.
 	 */
-	public RTree() {
+	private RTree() {
 		this(2, 12);
 	}
 	

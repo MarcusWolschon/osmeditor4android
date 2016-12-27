@@ -11,17 +11,17 @@ import de.blau.android.osm.BoundingBox;
  */
 public class GeoMath {
 	
-	public static final double _180_PI = 180d / Math.PI;
+	private static final double _180_PI = 180d / Math.PI;
 	
 	public static final double _360_PI = 360d / Math.PI;
 	
-	public static final double PI_360 = Math.PI / 360d;
+	private static final double PI_360 = Math.PI / 360d;
 	
-	public static final double PI_180 = Math.PI / 180d;
+	private static final double PI_180 = Math.PI / 180d;
 	
-	public static final double PI_4 = Math.PI / 4d;
+	private static final double PI_4 = Math.PI / 4d;
 	
-	public static final double PI_2 = Math.PI / 2d;
+	private static final double PI_2 = Math.PI / 2d;
 	
 	public static final double MAX_LAT = Math.toDegrees(Math.atan(Math.sinh(Math.PI)));
 	
@@ -33,7 +33,7 @@ public class GeoMath {
 	/**
 	 * The arithmetic middle of the two WGS84 reference-ellipsoids.
 	 */
-	public static final int EARTH_RADIUS = (6378137 + 6356752) / 2;
+	private static final int EARTH_RADIUS = (6378137 + 6356752) / 2;
 	
 	/**
 	 * Checks if x is between a and b (or equals a or b).

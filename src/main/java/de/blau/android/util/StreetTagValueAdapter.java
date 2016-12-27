@@ -62,7 +62,7 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
     @SuppressWarnings("unused")
 	private static final String DEBUG_TAG = StreetTagValueAdapter.class.getName();
     
-    ElementSearch es;
+    private ElementSearch es;
 
     /**
      * 

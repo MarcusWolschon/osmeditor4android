@@ -22,7 +22,7 @@ public class FeatureCollection extends BaseFeatureCollection {
    * @param features List of {@link Feature}.
    * @since 1.0.0
    */
-  protected FeatureCollection(List<Feature> features) {
+  FeatureCollection(List<Feature> features) {
     this.features = features;
   }
 

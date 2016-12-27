@@ -67,7 +67,7 @@ public class OptimalStringAlignment {
      * @param threshold maximum edit distance
      * @return -1 if not found
      */
-    static int editDistanceWithNewBuffers(CharSequence s, CharSequence t, short threshold) {
+    private static int editDistanceWithNewBuffers(CharSequence s, CharSequence t, short threshold) {
         int slen = s.length();
         short[] back1 = new short[slen + 1];    // "up 1" row in table
         short[] back2 = new short[slen + 1];    // "up 2" row in table

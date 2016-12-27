@@ -51,10 +51,10 @@ public class Address implements Serializable {
 		RIGHT,
 		UNKNOWN
 	}
-	Side side = Side.UNKNOWN;
-	float lat;
-	float lon;
-	LinkedHashMap<String, ArrayList<String>> tags;
+	private Side side = Side.UNKNOWN;
+	private float lat;
+	private float lon;
+	private LinkedHashMap<String, ArrayList<String>> tags;
 	
 	private static LinkedList<Address> lastAddresses = null;
 	
@@ -62,7 +62,7 @@ public class Address implements Serializable {
 	 * Create a copy of Address a
 	 * @param a
 	 */
-	Address(Address a) {
+	private Address(Address a) {
 		side = a.side;
 		lat = a.lat;
 		lon = a.lon;
@@ -72,7 +72,7 @@ public class Address implements Serializable {
 	/**
 	 * Create empty address object
 	 */
-	Address() {
+	private Address() {
 		tags = new LinkedHashMap<String, ArrayList<String>>();
 	}
 	
@@ -82,7 +82,7 @@ public class Address implements Serializable {
 	 * @param id its ID
 	 * @param tags the relevant address tags
 	 */
-	Address(String type, long id, LinkedHashMap<String, ArrayList<String>> tags) {
+	private Address(String type, long id, LinkedHashMap<String, ArrayList<String>> tags) {
 		OsmElement e = App.getDelegator().getOsmElement(type, id);
 		if (e == null) {
 			Log.e(DEBUG_TAG,type + " " + id + " doesn't exist in storage ");
@@ -97,7 +97,7 @@ public class Address implements Serializable {
 	 * @param e the OSM element
 	 * @param tags the relevant address tags
 	 */
-	Address(OsmElement e, LinkedHashMap<String, ArrayList<String>> tags) {
+	private Address(OsmElement e, LinkedHashMap<String, ArrayList<String>> tags) {
 		init(e,tags);
 	}
 	
@@ -136,7 +136,7 @@ public class Address implements Serializable {
 	 * @param wayId
 	 * @return
 	 */
-	void setSide(long wayId) {
+	private void setSide(long wayId) {
 		side = Side.UNKNOWN;
 		Way w = (Way)App.getDelegator().getOsmElement(Way.NAME,wayId);
 		if (w == null) {
@@ -172,7 +172,7 @@ public class Address implements Serializable {
 		// Log.d(DEBUG_TAG,"set side to " + side);
 	}
 	
-	Side getSide() {
+	private Side getSide() {
 		return side;
 	}
 	
@@ -501,7 +501,7 @@ public class Address implements Serializable {
 		}
 	}
 	
-	protected static LinkedHashMap<String,ArrayList<String>> getAddressTags(Context context,LinkedHashMap<String,ArrayList<String>> sortedMap) {
+	private static LinkedHashMap<String,ArrayList<String>> getAddressTags(Context context, LinkedHashMap<String, ArrayList<String>> sortedMap) {
 		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<String,ArrayList<String>>();
 		Preferences prefs = new Preferences(context);
 		Set<String> addressTags = prefs.addressTags();
@@ -514,12 +514,12 @@ public class Address implements Serializable {
 		return result;
 	}
 	
-	protected synchronized static void resetLastAddresses(Context context) {
+	synchronized static void resetLastAddresses(Context context) {
 		savingHelperAddress.save(context, ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
 		lastAddresses = null;
 	}
 	
-	protected synchronized static void updateLastAddresses(TagEditorFragment caller, LinkedHashMap<String,ArrayList<String>> tags) {
+	synchronized static void updateLastAddresses(TagEditorFragment caller, LinkedHashMap<String, ArrayList<String>> tags) {
 		// save any address tags for "last address tags"
 		LinkedHashMap<String,ArrayList<String>> addressTags = getAddressTags(caller.getContext(),tags);
 		// this needs to be done after the edit again in case the street name of what ever has changed 
@@ -550,13 +550,13 @@ public class Address implements Serializable {
 		}
 	}
 	
-	protected synchronized static void saveLastAddresses(Context context) {
+	synchronized static void saveLastAddresses(Context context) {
 		if (lastAddresses != null) {
 			savingHelperAddress.save(context, ADDRESS_TAGS_FILE, lastAddresses, false);
 		}
 	}
 	
-	protected synchronized static void loadLastAddresses(Context context) {
+	synchronized static void loadLastAddresses(Context context) {
 		if (lastAddresses == null) {
 			try {
 				lastAddresses = savingHelperAddress.load(context, ADDRESS_TAGS_FILE, false);

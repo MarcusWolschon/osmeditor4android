@@ -39,7 +39,7 @@ public class PropertyEditorData implements Serializable {
 		this(osmId, type, tags, originalTags, parents, originalParents, members, originalMembers, null);
 	}
 	
-	public PropertyEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, HashMap<Long,String> parents, HashMap<Long,String> originalParents, ArrayList<RelationMemberDescription> members, ArrayList<RelationMemberDescription> originalMembers, String focusOnKey) {
+	private PropertyEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, HashMap<Long, String> parents, HashMap<Long, String> originalParents, ArrayList<RelationMemberDescription> members, ArrayList<RelationMemberDescription> originalMembers, String focusOnKey) {
 		this.osmId = osmId;
 		this.type = type;
 		this.tags = tags;
@@ -51,7 +51,7 @@ public class PropertyEditorData implements Serializable {
 		this.focusOnKey = focusOnKey;
 	}
 	
-	public PropertyEditorData(OsmElement selectedElement) {
+	private PropertyEditorData(OsmElement selectedElement) {
 		this(selectedElement, null);
 	}
 	

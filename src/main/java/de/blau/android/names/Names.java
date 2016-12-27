@@ -275,7 +275,7 @@ public class Names {
 		return result;
 	}
 	
-	public Collection<NameAndTags> getNames() {
+	private Collection<NameAndTags> getNames() {
 		Collection<NameAndTags> result = new ArrayList<NameAndTags>();
 		for (String n:nameList.getKeys()) {
 			TagMap bestTags = null;

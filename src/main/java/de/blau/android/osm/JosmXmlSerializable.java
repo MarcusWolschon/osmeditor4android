@@ -11,7 +11,7 @@ import org.xmlpull.v1.XmlSerializer;
  */
 public interface JosmXmlSerializable {
 
-	public void toJosmXml(XmlSerializer serializer)
+	void toJosmXml(XmlSerializer serializer)
 			throws IllegalArgumentException, IllegalStateException, IOException;
 
 }

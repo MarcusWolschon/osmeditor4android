@@ -30,9 +30,9 @@ public class TagFilterActivity extends ListActivity  {
 	private static final String DEBUG_TAG = "TagFilterActivity";
 	private static final String FILTER = "FILTER";
 	private static final String QUERY = "SELECT rowid as _id, active, include, type, key, value FROM filterentries WHERE filter = '";
-	String filter = null;
-	SQLiteDatabase db;
-	Cursor tagFilterCursor = null;
+	private String filter = null;
+	private SQLiteDatabase db;
+	private Cursor tagFilterCursor = null;
 	
 	public static void start(@NonNull Context context, String filter) {
 		Intent intent = new Intent(context, TagFilterActivity.class);
@@ -107,7 +107,7 @@ public class TagFilterActivity extends ListActivity  {
 		db.close();
 	}
 	
-	void insertRow(String filter,boolean active, boolean include, int type, String key, String value) {
+	private void insertRow(String filter, boolean active, boolean include, int type, String key, String value) {
 		ContentValues values = new ContentValues();
 		values.put("filter", filter);
 		values.put("active", active ? 1 : 0);
@@ -118,7 +118,7 @@ public class TagFilterActivity extends ListActivity  {
 		db.insert("filterentries", null, values);
 	}
 	
-	void updateRow(int id, String filter,boolean active, boolean include, int type, String key, String value) {
+	private void updateRow(int id, String filter, boolean active, boolean include, int type, String key, String value) {
 		ContentValues values = new ContentValues();
 		values.put("filter", filter);
 		values.put("active", active ? 1 : 0);
@@ -172,7 +172,7 @@ public class TagFilterActivity extends ListActivity  {
 		super.onBackPressed();
 	}
 	
-	void updateDatabaseFromList() {
+	private void updateDatabaseFromList() {
         ListView lv = getListView();
         for (int i = 0; i < lv.getCount(); i++) {
             View view = lv.getChildAt(i);
@@ -233,7 +233,7 @@ public class TagFilterActivity extends ListActivity  {
 
 	}
 
-	int getTypeEntryIndex(String value) {
+	private int getTypeEntryIndex(String value) {
 		Resources r = getResources();
 		String[] values = r.getStringArray(R.array.tagfilter_type_values);
 		for (int i=0;i<values.length;i++) {
@@ -244,7 +244,7 @@ public class TagFilterActivity extends ListActivity  {
 		return 0;
 	}
 
-	String getTypeValue(int index) {
+	private String getTypeValue(int index) {
 		Resources r = getResources();
 		String[] values = r.getStringArray(R.array.tagfilter_type_values);
 		return values[index];

@@ -11,7 +11,7 @@ import java.util.Collection;
  */
 public class MRUList<T> extends ArrayList<T> {
 	private static final long serialVersionUID = 1L;
-	int capacity;
+	private int capacity;
 	
 	public MRUList(final int capacity) {
 		super(capacity);

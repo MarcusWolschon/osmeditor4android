@@ -15,10 +15,10 @@ public interface IMapView {
 	 * @return the current ZoomLevel between 0 (equator) and 18/19(closest),
 	 *         depending on the Renderer chosen.
 	 */
-	public abstract int getZoomLevel();
+	int getZoomLevel();
 
 	/**
 	 * @return The visible area in decimal-degree (WGS84) -space.
 	 */
-	public BoundingBox getViewBox();
+	BoundingBox getViewBox();
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * @see <a href="http://turfjs.org/docs/">Turf documentation</a>
  * @since 1.3.0
  */
-public class TurfJoins {
+class TurfJoins {
 
   /**
    * Takes a {@link Position} and a List of Positions making up a polygon and determines if the
@@ -65,7 +65,7 @@ public class TurfJoins {
    * @see <a href="http://turfjs.org/docs/#inside">Turf Inside documentation</a>
    * @since 1.3.0
    */
-  public static boolean inside(Point point, MultiPolygon polygon) throws TurfException {
+  private static boolean inside(Point point, MultiPolygon polygon) throws TurfException {
     Position pt = TurfInvariant.getCoord(point);
     List<List<List<Position>>> polys = polygon.getCoordinates();
 

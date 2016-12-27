@@ -197,7 +197,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * store the currently used imagery
 	 */
-	public void recordImagery() {
+	private void recordImagery() {
 		if (!imageryRecorded) { // flag is reset when we change imagery 
 			try {
 				if (App.mainActivity != null) { // currently we only modify data when the main activity exists
@@ -490,7 +490,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param ways
 	 * @return
 	 */
-	ArrayList<ArrayList<Way>> groupWays(List<Way> ways) {
+	private ArrayList<ArrayList<Way>> groupWays(List<Way> ways) {
 		ArrayList<ArrayList<Way>> groups = new ArrayList<ArrayList<Way>>();
 		int group = 0;
 		int index = 0;
@@ -1168,7 +1168,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * reverse any direction dependent tags on the way nodes
 	 * @param nodes
 	 */
-	void reverseWayNodeTags(List<Node> nodes) {
+	private void reverseWayNodeTags(List<Node> nodes) {
 		for (Node n:nodes) {
 			Map<String,String> nodeDirTags = Reverse.getDirectionDependentTags(n);
 			if (nodeDirTags!=null) {
@@ -1445,7 +1445,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * Remove backlinks in elements
 	 * @param relation
 	 */
-	public void removeRelationFromMembers(final Relation relation) {
+	private void removeRelationFromMembers(final Relation relation) {
 		for (RelationMember rm: relation.getMembers()) {
 			OsmElement e = rm.getElement();
 			if (e != null) { // if null the element wasn't downloaded
@@ -1460,7 +1460,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * parent relation back link is just internal.
 	 * @param element
 	 */
-	public void removeElementFromRelations(final OsmElement element) {
+	private void removeElementFromRelations(final OsmElement element) {
 		try {
 			if (element.hasParentRelations()) {
 				ArrayList<Relation> relations = new ArrayList<Relation>(element.getParentRelations()); // need copy!
@@ -1488,7 +1488,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * parent relation back link is just internal.
 	 * @param element
 	 */
-	public void removeElementFromRelation(final OsmElement element, Relation r) {
+	private void removeElementFromRelation(final OsmElement element, Relation r) {
 		Log.i("StorageDelegator", "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
 		dirty = true;
 		undo.save(r);
@@ -1533,7 +1533,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param role
 	 * @param rel
 	 */
-	public void addElementToRelation(final OsmElement e, final int pos, final String role, final Relation rel)
+	private void addElementToRelation(final OsmElement e, final int pos, final String role, final Relation rel)
 	{
 		dirty = true;
 		undo.save(rel);
@@ -1618,7 +1618,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param role
 	 * @param rel
 	 */
-	public void setRole(final OsmElement e, final String role, final Relation rel)
+	private void setRole(final OsmElement e, final String role, final Relation rel)
 	{
 		dirty = true;
 		undo.save(rel);
@@ -1796,7 +1796,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param mergeInto
 	 * @param mergeFrom
 	 */
-	public void mergeElementsRelations(final OsmElement mergeInto, final OsmElement mergeFrom ) {
+	private void mergeElementsRelations(final OsmElement mergeInto, final OsmElement mergeFrom) {
 		ArrayList<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new ArrayList<Relation>(mergeFrom.getParentRelations()) : new ArrayList<Relation>(); // copy just to be safe
 		ArrayList<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<Relation>();
 		try {

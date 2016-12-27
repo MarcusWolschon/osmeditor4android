@@ -16,7 +16,7 @@ import android.view.View;
  */
 public abstract class VersionedGestureDetector {
 	private static final float DRAG_THRESHOLD = 20f;
-	public static final long LONG_PRESS_DELAY = 500;
+	private static final long LONG_PRESS_DELAY = 500;
 	
 	OnGestureListener mListener;
 	
@@ -24,14 +24,14 @@ public abstract class VersionedGestureDetector {
 	public abstract boolean onTouchEvent(View v, MotionEvent ev);
 	
 	public interface OnGestureListener {
-		public void onDown(View v, float x, float y);
-		public void onClick(View v, float x, float y);
-		public void onUp(View v, float x, float y);
+		void onDown(View v, float x, float y);
+		void onClick(View v, float x, float y);
+		void onUp(View v, float x, float y);
 		/** @return true if long click events are handled, false if they should be ignored */
-		public boolean onLongClick(View v, float x, float y);
-		public void onDrag(View v, float x, float y, float dx, float dy);
-		public void onScale(View v, float scaleFactor, float prevSpan, float curSpan);
-		public boolean onDoubleTap(View v, float x, float y);
+		boolean onLongClick(View v, float x, float y);
+		void onDrag(View v, float x, float y, float dx, float dy);
+		void onScale(View v, float scaleFactor, float prevSpan, float curSpan);
+		boolean onDoubleTap(View v, float x, float y);
 	}
 	
 	public static VersionedGestureDetector newInstance(Context context, OnGestureListener listener) {

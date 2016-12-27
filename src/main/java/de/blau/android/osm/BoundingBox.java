@@ -62,7 +62,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	/**
 	 * Delimiter for the bounding box as String representation.
 	 */
-	public static final String STRING_DELIMITER = ",";
+	private static final String STRING_DELIMITER = ",";
 
 	/**
 	 * The name of the tag in the OSM-XML file.
@@ -196,7 +196,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * @param radius radius in degree
 	 * @throws OsmException see {@link #BoundingBox(int, int, int, int)}
 	 */
-	public BoundingBox(final double centerLat, final double centerLon, final double radius) throws OsmException {
+	private BoundingBox(final double centerLat, final double centerLon, final double radius) throws OsmException {
 		this(centerLon - radius, centerLat - radius, centerLon + radius, centerLat + radius);
 	}
 
@@ -236,7 +236,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	/**
 	 * @return true if left is less than right and bottom is less than top.
 	 */
-	public boolean isValid() {
+	private boolean isValid() {
 		return (left < right) && (bottom < top) && (left >= -MAX_LON_E7) && (right <= MAX_LON_E7) && (top <= MAX_LAT_E7)
 				&& (bottom >= -MAX_LAT_E7);
 	}
@@ -735,7 +735,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * @param newBox
 	 * @param ratio
 	 */
-	public void setBorders(final BoundingBox newBox, float ratio) {
+	private void setBorders(final BoundingBox newBox, float ratio) {
 		setBorders(newBox, ratio, true);
 	}
 	

@@ -42,8 +42,8 @@ import de.blau.android.R;
  * to redistribute the space allocated to each view.
  */
 public class SplitPaneLayout extends ViewGroup {
-    public static final int ORIENTATION_HORIZONTAL = 0;
-    public static final int ORIENTATION_VERTICAL = 1;
+    private static final int ORIENTATION_HORIZONTAL = 0;
+    private static final int ORIENTATION_VERTICAL = 1;
 
     private int mOrientation = 0;
     private int mSplitterSize = 12;
@@ -436,7 +436,7 @@ public class SplitPaneLayout extends ViewGroup {
      *
      * @param position the desired position of the splitter
      */
-    public void setSplitterPositionPercent(float position) {
+    private void setSplitterPositionPercent(float position) {
         if (position < 0) {
             position = 0;
         }

@@ -14,7 +14,7 @@ public class RelationMember implements Serializable {
 	String	type = null;
 	long	ref = Long.MIN_VALUE;
 	String 	role = null;
-	OsmElement element = null;
+	private OsmElement element = null;
 	
 	/**
 	 * Constructor for members that have not been downloaded

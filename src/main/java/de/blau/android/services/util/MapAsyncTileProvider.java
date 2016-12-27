@@ -17,10 +17,10 @@ import de.blau.android.services.IMapTileProviderCallback;
  */
 public abstract class MapAsyncTileProvider {
 
-	public static final int IOERR = 1;
+	static final int IOERR = 1;
 	public static final int DOESNOTEXIST = 2;
 	
-	protected ExecutorService mThreadPool;
+	ExecutorService mThreadPool;
 	private final HashSet<String> mPending = new HashSet<String>();
 	
 	public void loadMapTileAsync(final MapTile aTile,
@@ -38,7 +38,7 @@ public abstract class MapAsyncTileProvider {
 	protected abstract Runnable getTileLoader(final MapTile aTile,
 			final IMapTileProviderCallback aCallback);
 
-	protected abstract class TileLoader implements Runnable {
+	abstract class TileLoader implements Runnable {
 		final MapTile mTile;
 		final IMapTileProviderCallback mCallback;
 		
@@ -47,7 +47,7 @@ public abstract class MapAsyncTileProvider {
 			mCallback = aCallback;
 		}
 		
-		protected void finished() {
+		void finished() {
 			mPending.remove(mTile.toString());
 		}
 	}

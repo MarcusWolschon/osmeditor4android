@@ -19,7 +19,7 @@ public class CustomDatabaseContext extends ContextWrapper {
 
 	private static final String DEBUG_CONTEXT = "DatabaseContext";
 
-	final String path;
+	private final String path;
 
 	public CustomDatabaseContext(Context base, String path) {
 		super(base);

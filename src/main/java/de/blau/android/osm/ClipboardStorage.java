@@ -14,8 +14,8 @@ public class ClipboardStorage implements Serializable  {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public enum Mode { COPY, CUT };
-	
+	public enum Mode { COPY, CUT }
+
 	private Mode mode;
 	
 	private Storage storage;

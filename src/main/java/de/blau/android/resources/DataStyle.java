@@ -47,7 +47,7 @@ import de.blau.android.util.FileUtil;
 
 public class DataStyle  extends DefaultHandler {
 	
-    final static String FILE_PATH_STYLE_SUFFIX = "-profile.xml";
+    private final static String FILE_PATH_STYLE_SUFFIX = "-profile.xml";
 	
 	// constants for the internal profiles
 	public final static String GPS_TRACK = "gps_track";
@@ -219,11 +219,11 @@ public class DataStyle  extends DefaultHandler {
 		}	
 	}
 
-	String name;
-	HashMap<String,FeatureStyle> featureStyles;
+	private String name;
+	private HashMap<String,FeatureStyle> featureStyles;
 	
-	public static DataStyle currentStyle;
-	public static HashMap<String,DataStyle> availableStyles = new HashMap<String,DataStyle>();
+	private static DataStyle currentStyle;
+	private static HashMap<String,DataStyle> availableStyles = new HashMap<String,DataStyle>();
 	
 	public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
 
@@ -254,13 +254,13 @@ public class DataStyle  extends DefaultHandler {
 	
 	public float nodeToleranceValue;
 	public float wayToleranceValue;
-	public float largDragCircleRadius;
+	private float largDragCircleRadius;
 	public float largDragToleranceRadius;
 	public float minLenForHandle;
 
 	private final Context ctx;
 	
-	public DataStyle(final Context ctx) {
+	private DataStyle(final Context ctx) {
 		this.ctx = ctx;
 		// create default 
 		init(ctx.getResources());
@@ -278,7 +278,7 @@ public class DataStyle  extends DefaultHandler {
 		}
 	}
 	
-	public DataStyle(Context ctx, InputStream is) {
+	private DataStyle(Context ctx, InputStream is) {
 		this.ctx = ctx;
 		// create a profile from a file
 		init(ctx.getResources()); // defaults for internal styles 
@@ -674,7 +674,7 @@ public class DataStyle  extends DefaultHandler {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	public void toXml(final XmlSerializer s) throws IllegalArgumentException,
+	private void toXml(final XmlSerializer s) throws IllegalArgumentException,
 			IllegalStateException, IOException {
 		
 		s.startTag("", "profile");
@@ -752,7 +752,7 @@ public class DataStyle  extends DefaultHandler {
 	 * @throws IOException
 	 * @throws ParserConfigurationException
 	 */
-	public void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
+	private void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser saxParser = factory.newSAXParser();
 		saxParser.parse(in, this);
@@ -761,9 +761,9 @@ public class DataStyle  extends DefaultHandler {
 	/**
 	 * vars for the XML parser
 	 */
-	FeatureStyle tempFeatureStyle;
-	ArrayList<Float> tempIntervals;
-	float	tempPhase;
+	private FeatureStyle tempFeatureStyle;
+	private ArrayList<Float> tempIntervals;
+	private float	tempPhase;
 	
 	@Override
 	public void startElement(final String uri, final String element, final String qName, final Attributes atts) {
@@ -881,7 +881,7 @@ public class DataStyle  extends DefaultHandler {
 		} 
 	}
 	
-	boolean read(InputStream is) {
+	private boolean read(InputStream is) {
 		InputStream inputStream = null;
 		try {
 			inputStream = new BufferedInputStream(is);

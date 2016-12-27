@@ -56,8 +56,8 @@ public class RelationMembershipFragment extends BaseFragment implements
 
 	private EditorUpdate tagListener = null;
 	
-	static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
-	static final Object actionModeCallbackLock = new Object();
+	private static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
+	private static final Object actionModeCallbackLock = new Object();
 	
 	/**
      */
@@ -137,7 +137,7 @@ public class RelationMembershipFragment extends BaseFragment implements
     /**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
-	protected void loadParents(final Map<Long,String> parents) {
+	private void loadParents(final Map<Long, String> parents) {
 		LinearLayout membershipVerticalLayout = (LinearLayout) getOurView();
 		loadParents(membershipVerticalLayout, parents);
 	}
@@ -145,7 +145,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 	/**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
-	protected void loadParents(LinearLayout membershipVerticalLayout, final Map<Long,String> parents) {
+	private void loadParents(LinearLayout membershipVerticalLayout, final Map<Long, String> parents) {
 		membershipVerticalLayout.removeAllViews();
 		if (parents != null && parents.size() > 0) {
 			StorageDelegator storageDelegator = App.getDelegator();
@@ -192,7 +192,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 	 * @param showSpinner TODO
 	 * @return the new RelationMembershipRow
 	 */
-	protected RelationMembershipRow insertNewMembership(LinearLayout membershipVerticalLayout, final String role, final Relation r, final int position, boolean showSpinner) {
+	private RelationMembershipRow insertNewMembership(LinearLayout membershipVerticalLayout, final String role, final Relation r, final int position, boolean showSpinner) {
 		RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, membershipVerticalLayout, false);
 
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -299,7 +299,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 			});
 		}
 		
-		protected ArrayAdapter<StringWithDescription> getMembershipRoleAutocompleteAdapter() {
+		ArrayAdapter<StringWithDescription> getMembershipRoleAutocompleteAdapter() {
 			// Use a set to prevent duplicate keys appearing
 			Set<StringWithDescription> roles = new HashSet<StringWithDescription>();
 			Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
@@ -321,7 +321,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 			return new ArrayAdapter<StringWithDescription>(owner, R.layout.autocomplete_row, result);
 		}
 		
-		protected ArrayAdapter<Relation> getRelationSpinnerAdapter() {
+		ArrayAdapter<Relation> getRelationSpinnerAdapter() {
 			//		
 			List<Relation> result = App.getDelegator().getCurrentStorage().getRelations();
 			// Collections.sort(result);
@@ -416,7 +416,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		}
 	} // RelationMembershipRow
 	    	
-	protected void parentSelected() {
+	private void parentSelected() {
 		synchronized (actionModeCallbackLock) {
 			LinearLayout rowLayout = (LinearLayout) getOurView();
 			if (parentSelectedActionModeCallback == null) {
@@ -437,7 +437,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		}
 	}
 	
-	protected void selectAllParents() {
+	private void selectAllParents() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 
 		int i = rowLayout.getChildCount();
@@ -449,7 +449,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		}
 	}
 
-	protected void deselectAllParents() {
+	private void deselectAllParents() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 
 		int i = rowLayout.getChildCount();
@@ -464,7 +464,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 	/**
 	 */
 	private interface ParentRelationHandler {
-		abstract void handleParentRelation(final EditText roleEdit, final long relationId);
+		void handleParentRelation(final EditText roleEdit, final long relationId);
 	}
 	
 	/**
@@ -584,7 +584,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 	 * Return the view we have our rows in and work around some android craziness
 	 * @return
 	 */
-	public View getOurView() {
+	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
 		if (v != null) {

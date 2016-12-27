@@ -34,7 +34,7 @@ public class ImportTrack extends DialogFragment
 	
 	private static final String TAG = "fragment_import_track";
 	
-	Uri uri;
+	private Uri uri;
 		
 	
    	/**
@@ -52,7 +52,7 @@ public class ImportTrack extends DialogFragment
 	    }
 	}
 	
-	static public void dismissDialog(FragmentActivity activity) {
+	private static void dismissDialog(FragmentActivity activity) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 	    Fragment fragment = fm.findFragmentByTag(TAG);

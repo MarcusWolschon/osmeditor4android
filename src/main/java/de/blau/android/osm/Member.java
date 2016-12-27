@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import android.util.Log;
 
-public class Member implements Serializable {
+class Member implements Serializable {
 	/**
 	 * 
 	 */
@@ -14,7 +14,7 @@ public class Member implements Serializable {
 
 	private String role;
 
-	public static final String NAME = "member";
+	private static final String NAME = "member";
 
 	public Member(OsmElement osmElement, String role) {
 		if (osmElement == null) {

@@ -7,7 +7,7 @@ import de.blau.android.Main;
 /**
  * @author mb
  */
-public class GotoAreaPickerListener implements OnClickListener {
+class GotoAreaPickerListener implements OnClickListener {
 
 	private final Main caller;
 

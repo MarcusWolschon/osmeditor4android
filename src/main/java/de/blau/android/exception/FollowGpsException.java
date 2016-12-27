@@ -1,6 +1,6 @@
 package de.blau.android.exception;
 
-public class FollowGpsException extends OsmException {
+class FollowGpsException extends OsmException {
 
 	public FollowGpsException(final String string) {
 		super(string);

@@ -85,7 +85,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
     }
     
 
-	View getResultsView(final LinearLayout presetLayout, final ArrayList<PresetItem> presets) {
+	private View getResultsView(final LinearLayout presetLayout, final ArrayList<PresetItem> presets) {
 		View v = null;
 		if (presets != null && presets.size() >= 1 ) {
 

@@ -62,7 +62,7 @@ import de.blau.android.util.ThemeUtils;
 
 public class BackgroundAlignmentActionModeCallback implements Callback {
 	
-	final static String DEBUG_TAG = "BackgroundAlign...";
+	private final static String DEBUG_TAG = "BackgroundAlign...";
 	
 	private static final int MENUITEM_QUERYDB = 1;
 	private static final int MENUITEM_QUERYLOCAL = 2;
@@ -73,17 +73,17 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	private static final int MENUITEM_SAVELOCAL = 7;
 	private static final int MENUITEM_HELP = 8;
 	
-	Mode oldMode;
+	private Mode oldMode;
 	private final Preferences prefs;
 	private final Uri offsetServerUri;
 	
-	Offset[] oldOffsets;
+	private Offset[] oldOffsets;
 	
-	TileLayerServer osmts;
-	final Map map;
-	final Main main;
+	private TileLayerServer osmts;
+	private final Map map;
+	private final Main main;
 	
-	ArrayList<ImageryOffset> offsetList;
+	private ArrayList<ImageryOffset> offsetList;
 	
 	private ActionMenuView cabBottomBar;
 	
@@ -481,7 +481,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		}
 	}
 
-	protected ImageryOffset readOffset(JsonReader reader) throws IOException {
+	private ImageryOffset readOffset(JsonReader reader) throws IOException {
 		String type = null;
 		ImageryOffset result = new ImageryOffset();
 
@@ -525,7 +525,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		return null;
 	}
 	
-	protected DeprecationNote readDeprecated(JsonReader reader) throws IOException {
+	private DeprecationNote readDeprecated(JsonReader reader) throws IOException {
 		DeprecationNote result = new DeprecationNote();
 
 		reader.beginObject();
@@ -568,7 +568,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		/**
 		 * Date pattern used to describe when the imagery offset was created.
 		 */
-		protected static final String DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT = "yyyy-MM-dd";
+		static final String DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT = "yyyy-MM-dd";
 
 		public String toSaveUrl() {
 			Uri uriBuilder = offsetServerUri.buildUpon()
@@ -650,7 +650,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 * @param index
 	 * @return the OnClickListnener
 	 */
-	OnClickListener createSaveButtonListener(final EditText description, final EditText author, final int index, final ArrayList <ImageryOffset> saveOffsetList) {
+	private OnClickListener createSaveButtonListener(final EditText description, final EditText author, final int index, final ArrayList<ImageryOffset> saveOffsetList) {
 		
 		return new OnClickListener() {
 			@Override

@@ -30,7 +30,7 @@ public class Feature implements GeoJSON {
    * @param id         common identifier of this feature.
    * @since 1.0.0
    */
-  protected Feature(Geometry geometry, JsonObject properties, String id) {
+  private Feature(Geometry geometry, JsonObject properties, String id) {
     this.geometry = geometry;
     this.properties = properties;
     this.id = id;
@@ -261,7 +261,7 @@ public class Feature implements GeoJSON {
    * @return the value of the member, null if it doesn't exist
    * @since 1.0.0
    */
-  public JsonElement getProperty(String key) {
+  private JsonElement getProperty(String key) {
     return getProperties().get(key);
   }
 
@@ -283,7 +283,7 @@ public class Feature implements GeoJSON {
    * @return true if there is the member has the specified name, false otherwise.
    * @since 1.0.0
    */
-  public boolean hasProperty(String key) {
+  private boolean hasProperty(String key) {
     return getProperties().has(key);
   }
 

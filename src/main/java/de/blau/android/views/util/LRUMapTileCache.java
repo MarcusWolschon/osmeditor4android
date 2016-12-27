@@ -218,7 +218,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 		return value;
 	}
 
-	public synchronized Bitmap remove(final String key) {
+	private synchronized Bitmap remove(final String key) {
 		CacheElement toRemove = null;
 		for (CacheElement ce:list) {
 			if (ce.key.equals(key)) {

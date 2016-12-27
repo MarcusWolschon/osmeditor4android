@@ -120,7 +120,7 @@ public class UndoStorage implements Serializable {
 	 * otherwise an error is logged and the function does nothing.
 	 * @param element the element to save
 	 */
-	protected void save(OsmElement element) {
+	void save(OsmElement element) {
 		try {
 			if (undoCheckpoints.isEmpty()) {
 				Log.e(TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
@@ -258,7 +258,7 @@ public class UndoStorage implements Serializable {
 	private abstract class UndoElement implements Serializable {
 		private static final long serialVersionUID = 1L;
 
-		protected final OsmElement element;
+		final OsmElement element;
 		
 		private final long osmId;
 		private final long osmVersion;

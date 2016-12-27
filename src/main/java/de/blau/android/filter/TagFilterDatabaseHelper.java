@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class TagFilterDatabaseHelper extends SQLiteOpenHelper {
+class TagFilterDatabaseHelper extends SQLiteOpenHelper {
 	private static final String DEBUG_TAG = "TagFilterDatabase";
 	private static final String DATABASE_NAME = "tagfilters";
 	private static final int DATABASE_VERSION = 2;

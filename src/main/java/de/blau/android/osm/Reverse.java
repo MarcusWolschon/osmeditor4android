@@ -12,7 +12,7 @@ import java.util.TreeMap;
  * @author simon
  *
  */
-public class Reverse {
+class Reverse {
 	
 	/**
 	 * Return the direction dependent tags and associated values 

@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import de.blau.android.names.Names.NameAndTags;
 
-public class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
+class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
 	
 //	 private final String MY_DEBUG_TAG = "NameAndTagsAdapter";
 //	    private ArrayList<NameAndTags> items;
@@ -46,7 +46,7 @@ public class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
         return nameFilter;
     }
 
-    Filter nameFilter = new Filter() {
+    private Filter nameFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
             return ((NameAndTags)(resultValue)).getName();

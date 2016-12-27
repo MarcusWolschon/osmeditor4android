@@ -14,7 +14,7 @@ import de.blau.android.util.mapbox.utils.TextUtils;
  * @see <a href="http://turfjs.org/docs/">Turf documentation</a>
  * @since 1.2.0
  */
-public class TurfInvariant {
+class TurfInvariant {
 
   /**
    * Unwrap a coordinate from a Feature with a Point geometry, a Point geometry, or a single

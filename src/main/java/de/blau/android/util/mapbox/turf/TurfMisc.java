@@ -15,7 +15,7 @@ import java.util.List;
  * @see <a href="http://turfjs.org/docs/">Turf documentation</a>
  * @since 1.2.0
  */
-public class TurfMisc {
+class TurfMisc {
 
   /**
    * Takes a line, a start {@link Point}, and a stop point and returns the line in between those
@@ -49,7 +49,7 @@ public class TurfMisc {
    * @see <a href="http://turfjs.org/docs/#lineslice">Turf Line slice documentation</a>
    * @since 1.2.0
    */
-  public static LineString lineSlice(Point startPt, Point stopPt, LineString line) throws TurfException {
+  private static LineString lineSlice(Point startPt, Point stopPt, LineString line) throws TurfException {
     List<Position> coords = line.getCoordinates();
 
     Feature startVertex = pointOnLine(startPt, coords);
@@ -87,7 +87,7 @@ public class TurfMisc {
    * @throws TurfException signals that a Turf exception of some sort has occurred.
    * @since 1.3.0
    */
-  public static Feature pointOnLine(Point pt, List<Position> coords) throws TurfException {
+  private static Feature pointOnLine(Point pt, List<Position> coords) throws TurfException {
     String units = TurfConstants.UNIT_MILES;
 
     Feature closestPt = Feature.fromGeometry(

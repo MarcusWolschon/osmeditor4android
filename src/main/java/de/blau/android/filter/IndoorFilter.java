@@ -32,7 +32,7 @@ public class IndoorFilter extends Filter {
 	 * 
 	 */
 	private static final long serialVersionUID = 4L;
-	final static String DEBUG_TAG = "IndoorFilter";
+	private final static String DEBUG_TAG = "IndoorFilter";
 	
 	/**
 	 * Current level
@@ -223,7 +223,7 @@ public class IndoorFilter extends Filter {
 	 * @param level
 	 * @return true if the building/building:part has a level between (inclusive) min/max
 	 */
-	public static boolean buildingHasLevel(OsmElement b, int level) {
+	private static boolean buildingHasLevel(OsmElement b, int level) {
 		if (b.hasTagKey(Tags.KEY_BUILDING) || b.hasTagKey(Tags.KEY_BUILDING_PART)) {
 			String minLevel = b.getTagWithKey(Tags.KEY_MIN_LEVEL);
 			String maxLevel = b.getTagWithKey(Tags.KEY_MAX_LEVEL);
@@ -249,7 +249,7 @@ public class IndoorFilter extends Filter {
 	 * Set level used in indoor mode
 	 * @param level
 	 */
-	public void setLevel(int level) {
+	private void setLevel(int level) {
 		this.level = level;
 	}
 	
@@ -262,9 +262,9 @@ public class IndoorFilter extends Filter {
     transient private TextView levelText;
     transient private FloatingActionButton levelTextButton;
     transient private FloatingActionButton levelDown;
-    transient ViewGroup parent;
-    transient RelativeLayout controls;
-    transient Update update;
+    private transient ViewGroup parent;
+    private transient RelativeLayout controls;
+    private transient Update update;
 	
 	
     @Override
@@ -370,7 +370,7 @@ public class IndoorFilter extends Filter {
 		}
 	}	
 	
-	void updateLevel(int level) {
+	private void updateLevel(int level) {
 		Log.d(DEBUG_TAG,"setting level to " + level);
 		if (levelText != null) {
 			levelText.setText(Integer.toString(level));

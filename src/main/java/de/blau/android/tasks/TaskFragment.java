@@ -47,7 +47,7 @@ import de.blau.android.util.IssueAlert;
 public class TaskFragment extends DialogFragment {
 	private static final String DEBUG_TAG = TaskFragment.class.getSimpleName();
 	 
-	UpdateViewListener mListener;
+	private UpdateViewListener mListener;
 
     /**
      */
@@ -291,7 +291,7 @@ public class TaskFragment extends DialogFragment {
     	}
     }
     
-    public static State pos2state(int pos) {
+    private static State pos2state(int pos) {
 		if (pos == Task.POS_CLOSED) {
 			return State.CLOSED;
 		} else if (pos == Task.POS_OPEN) {
@@ -307,7 +307,7 @@ public class TaskFragment extends DialogFragment {
      * @param v
      * @param bug
      */
-    void saveBug(View v, Task bug) {
+	private void saveBug(View v, Task bug) {
     	if (bug.isNew() && ((Note)bug).count() == 0) {
 			App.getTaskStorage().add(bug); // sets dirty
 		}
@@ -325,7 +325,7 @@ public class TaskFragment extends DialogFragment {
      * Delete a new, non-saved, bug from storage
      * @param bug
      */
-    void deleteBug(Task bug) {
+	private void deleteBug(Task bug) {
     	if (bug.isNew()) {
 			App.getTaskStorage().delete(bug); // sets dirty
 		}

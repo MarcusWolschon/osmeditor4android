@@ -19,16 +19,16 @@ public class Photo implements BoundedObject {
 		
 	private static final String DEBUG_TAG = "Photo";
 	/**  */
-	final String ref;
+	private final String ref;
 	/** Latitude *1E7. */
-	final int lat;
+	private final int lat;
 	/** Longitude *1E7. */
-	final int lon;
+	private final int lon;
 	/**
 	 * compass direction
 	 */
-	int direction = 0; 
-	String directionRef = null; // if null direction not present
+	private int direction = 0;
+	private String directionRef = null; // if null direction not present
 	
 	/**
 	 * Create a Bug from an OSB GPX XML wpt element.

@@ -1,6 +1,6 @@
 package de.blau.android.propertyeditor;
 
-public interface PropertyRows {
+interface PropertyRows {
 
     void deselectHeaderCheckBox();
 

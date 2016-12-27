@@ -47,7 +47,7 @@ public class Commands {
 	private static final String DEBUG_TAG = Commands.class.getSimpleName();
 	private Context ctx;
 	
-	Map<String,NameAndTags> namesSearchIndex;
+	private Map<String,NameAndTags> namesSearchIndex;
 	
 	public Commands(Context ctx) {
 		this.ctx = ctx;
@@ -138,7 +138,7 @@ public class Commands {
 
 	}
 
-	boolean addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
+	private boolean addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
 		if (node != null) {
 			Toast.makeText(ctx, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
 			if (node != null) {
@@ -161,7 +161,7 @@ public class Commands {
 	 * Create a new node at the current or at a provided  GPS pos 
 	 * @return
 	 */
-	Node createNode(String loc, Location location) {
+	private Node createNode(String loc, Location location) {
 		if (location == null) {
 			location = getLocation();
 		}
@@ -181,7 +181,7 @@ public class Commands {
 		return null;
 	}
 	
-	Note createNote(String[] words, Location location) {
+	private Note createNote(String[] words, Location location) {
 		if (location == null) {
 			location = getLocation();
 		}
@@ -205,7 +205,7 @@ public class Commands {
 		return null;
 	}
 	
-	Location getLocation() {
+	private Location getLocation() {
 		LocationManager locationManager = (LocationManager)ctx.getSystemService(android.content.Context.LOCATION_SERVICE);
 		if (locationManager != null) {
 			try {
@@ -218,7 +218,7 @@ public class Commands {
 		return null;
 	}
 
-	boolean match(int resId, String input) {
+	private boolean match(int resId, String input) {
 		final int maxDistance = 1;
 		int distance = OptimalStringAlignment.editDistance(ctx.getString(resId), input, maxDistance);
 		return distance >= 0 && distance <= maxDistance;

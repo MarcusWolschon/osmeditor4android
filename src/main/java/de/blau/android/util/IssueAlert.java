@@ -34,11 +34,11 @@ import de.blau.android.tasks.Task;
  */
 public class IssueAlert {
 	
-	final static String GROUP_DATA = "Data";
-	final static String GROUP_NOTES = "Notes";
-	final static String GROUP_OSMOSE = "Osmose";
+	private final static String GROUP_DATA = "Data";
+	private final static String GROUP_NOTES = "Notes";
+	private final static String GROUP_OSMOSE = "Osmose";
 	
-	final static int[] bearings = {R.string.bearing_ne, 
+	private final static int[] bearings = {R.string.bearing_ne,
 						    R.string.bearing_e, 
 						    R.string.bearing_se, 
 						    R.string.bearing_s, 
@@ -47,9 +47,8 @@ public class IssueAlert {
 						    R.string.bearing_nw, 
 						    R.string.bearing_n};
 	
-	static int bugCount = 0;
-	static int noteCOunt = 0;
-	
+	private static int bugCount = 0;
+
 	/**
 	 * Generate an alert/notification if something is problematic about the OSM object
 	 * @param context
@@ -165,7 +164,7 @@ public class IssueAlert {
 	}
 	
 	
-	static int id(OsmElement e) {
+	private static int id(OsmElement e) {
 		return (e.getName() + e.getOsmId()).hashCode();
 	}
 	
@@ -265,7 +264,7 @@ public class IssueAlert {
 
 	}
 	
-	static int id(Task b) {
+	private static int id(Task b) {
 		return (b.getClass().getSimpleName() + b.getId()).hashCode();
 	}
 	
@@ -280,7 +279,7 @@ public class IssueAlert {
 		double lon;
 	}
 	
-	static ClosestPoint getClosestDistance(double lon, double lat,  Way w) {
+	private static ClosestPoint getClosestDistance(double lon, double lat, Way w) {
 		ClosestPoint closest = new IssueAlert.ClosestPoint();
 
 		double ny = GeoMath.latToMercator(lat);

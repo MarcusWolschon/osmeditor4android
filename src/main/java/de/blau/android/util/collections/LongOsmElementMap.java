@@ -84,7 +84,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	 * @param size
 	 * @param fillFactor
 	 */
-	public LongOsmElementMap(final int size, final float fillFactor) {
+	private LongOsmElementMap(final int size, final float fillFactor) {
 		if (fillFactor <= 0 || fillFactor >= 1) {
 			throw new IllegalArgumentException("FillFactor must be in (0, 1)");
 		}
@@ -339,7 +339,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	 * rehashing.
 	 * @param minimumCapacity
 	 */
-	public void ensureCapacity(int minimumCapacity) {
+	private void ensureCapacity(int minimumCapacity) {
 		int newCapacity = Tools.arraySize(minimumCapacity, m_fillFactor);
 		if (newCapacity > m_data.length) {
 			rehash(newCapacity);

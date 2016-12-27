@@ -11,10 +11,10 @@ public interface MapViewConstants {
 	// Final Fields
 	// ===========================================================
 	
-	public static final boolean DEBUGMODE = false;
+	boolean DEBUGMODE = false;
 	
-	public static final int MAPTILE_LATITUDE_INDEX = 0;
-	public static final int MAPTILE_LONGITUDE_INDEX = 1;
+	int MAPTILE_LATITUDE_INDEX = 0;
+	int MAPTILE_LONGITUDE_INDEX = 1;
 
 	// ===========================================================
 	// Methods

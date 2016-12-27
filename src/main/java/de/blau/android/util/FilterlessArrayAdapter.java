@@ -15,7 +15,7 @@ import android.widget.Filter;
 public class FilterlessArrayAdapter<T> extends ArrayAdapter<T> {
 
 	private Filter filter = new NoFilter();
-	public List<T> items;
+	private List<T> items;
 
 	@Override
 	public Filter getFilter() {

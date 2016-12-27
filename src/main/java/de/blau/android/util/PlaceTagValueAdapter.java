@@ -62,7 +62,7 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
     @SuppressWarnings("unused")
 	private static final String DEBUG_TAG = PlaceTagValueAdapter.class.getSimpleName();
 
-    ElementSearch es;
+    private ElementSearch es;
     
     /**
      * 

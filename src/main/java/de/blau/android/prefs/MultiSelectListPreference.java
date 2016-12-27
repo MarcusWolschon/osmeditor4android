@@ -98,7 +98,7 @@ public class MultiSelectListPreference extends DialogPreference {
      *
      * @hide
      */
-    protected boolean persistStringSet(Set<String> values) {
+    private boolean persistStringSet(Set<String> values) {
         if (shouldPersist()) {
             // Shouldn't store null
             if (values.equals(getPersistedStringSet(null))) {
@@ -130,7 +130,7 @@ public class MultiSelectListPreference extends DialogPreference {
      *
      * @hide
      */
-    protected Set<String> getPersistedStringSet(Set<String> defaultReturnValue) {
+    private Set<String> getPersistedStringSet(Set<String> defaultReturnValue) {
         if (!shouldPersist()) {
             return defaultReturnValue;
         }
@@ -149,7 +149,7 @@ public class MultiSelectListPreference extends DialogPreference {
      * @param entries The entries.
      * @see #setEntryValues(CharSequence[])
      */
-    public void setEntries(CharSequence[] entries) {
+    private void setEntries(CharSequence[] entries) {
         mEntries = entries;
     }
 
@@ -177,7 +177,7 @@ public class MultiSelectListPreference extends DialogPreference {
      *
      * @param entryValues The array to be used as values to save for the preference.
      */
-    public void setEntryValues(CharSequence[] entryValues) {
+    private void setEntryValues(CharSequence[] entryValues) {
         mEntryValues = entryValues;
     }
 
@@ -235,7 +235,7 @@ public class MultiSelectListPreference extends DialogPreference {
         return -1;
     }
 
-    protected boolean[] getSelectedItems() {
+    boolean[] getSelectedItems() {
         final CharSequence[] entries = mEntryValues;
         final int entryCount = entries.length;
         final Set<String> values = mValues;

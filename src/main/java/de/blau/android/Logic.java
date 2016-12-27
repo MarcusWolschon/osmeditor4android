@@ -105,7 +105,7 @@ public class Logic {
 	/**
 	 * Enums for modes.
 	 */
-	public static enum Mode {
+	public enum Mode {
 		/**
 		 * add nodes by tapping the screen
 		 */
@@ -190,7 +190,7 @@ public class Logic {
 	/**
 	 * Enums for directions. Used for translation via cursor-pad.
 	 */
-	public static enum CursorPaddirection {
+	public enum CursorPaddirection {
 		DIRECTION_LEFT,
 		DIRECTION_DOWN,
 		DIRECTION_RIGHT,
@@ -292,7 +292,7 @@ public class Logic {
 	 */
 	private Task selectedBug;
 
-	final static int MRULIST_SIZE = 10;
+	private final static int MRULIST_SIZE = 10;
 	/**
 	 * last changeset comment
 	 */
@@ -370,7 +370,7 @@ public class Logic {
 	/**
 	 * Filter to apply if any
 	 */
-	Filter filter = null;
+	private Filter filter = null;
 
 	/**
 	 * Should we show a warning if hidden/filtered objects are manipulated not persisted in edit state for now
@@ -821,7 +821,7 @@ public class Logic {
 	 * @param y y display coordinate
 	 * @return a hash map mapping Ways to distances
 	 */
-	public HashMap<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
+	private HashMap<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
 		return getClickedWaysWithDistances(true, x, y);
 	}
 	
@@ -833,7 +833,7 @@ public class Logic {
 	 * @param y y display coordinate
 	 * @return a hash map mapping Ways to distances
 	 */
-	public HashMap<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float x, final float y) {
+	private HashMap<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float x, final float y) {
 		HashMap<Way, Double> result = new HashMap<Way, Double>();
 		boolean showWayIcons = prefs.getShowWayIcons();
 
@@ -908,7 +908,7 @@ public class Logic {
 	 * @param y y display coordinate
 	 * @return a hash map mapping Ways to distances
 	 */
-	Handle getClickedWayHandleWithDistances(final float x, final float y) {
+	private Handle getClickedWayHandleWithDistances(final float x, final float y) {
 		
 		Handle result = null;
 		double bestDistance = Double.MAX_VALUE;
@@ -989,7 +989,7 @@ public class Logic {
 	 * @param inDownloadOnly if true the node has to be new or in one of the downloaded bounding boxes
 	 * @return a hash map mapping Nodes to distances
 	 */
-	public HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
+	private HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
 		HashMap<Node, Double> result = new HashMap<Node, Double>();
 		List<Node> nodes = getDelegator().getCurrentStorage().getNodes();
 
@@ -1060,7 +1060,7 @@ public class Logic {
 	 * @param y display-coordinate.
 	 * @return the nearest node found in the current-Storage node-list. null, when no node was found.
 	 */
-	public Node getClickedNode(final float x, final float y) {
+	private Node getClickedNode(final float x, final float y) {
 		Node bestNode = null;
 		Double bestDistance = Double.MAX_VALUE;
 		HashMap<Node, Double> candidates = getClickedNodesWithDistances(x, y, false);
@@ -1081,7 +1081,7 @@ public class Logic {
 	 * @param y y display-coordinate.
 	 * @return the ways
 	 */
-	public List<Way> getClickedWays(final float x, final float y) {
+	private List<Way> getClickedWays(final float x, final float y) {
 		return getClickedWays(true, x, y);
 	}
 	
@@ -1104,7 +1104,7 @@ public class Logic {
 	 * @param y the y display-coordinate.
 	 * @return the closest way, or null if no way is found within the tolerance
 	 */
-	public Way getClickedWay(final float x, final float y) {
+	private Way getClickedWay(final float x, final float y) {
 		Way bestWay = null;
 		Double bestDistance = Double.MAX_VALUE;
 		HashMap<Way, Double> candidates = getClickedWaysWithDistances(x, y);
@@ -1192,7 +1192,7 @@ public class Logic {
 	 * @param node
 	 * @return true if the above is the case
 	 */
-	public boolean isInDownload(Node n) {
+	private boolean isInDownload(Node n) {
 		return getDelegator().isInDownload(n.getLat(), n.getLon());
 	}
 	
@@ -1443,7 +1443,7 @@ public class Logic {
 	/**
 	 * @return is we should show warnings when filtered attached objects are being changed
 	 */
-	public boolean showAttachedObjectWarning() {
+	private boolean showAttachedObjectWarning() {
 		return attachedObjectWarning;
 	}
 	
@@ -1611,7 +1611,7 @@ public class Logic {
 	 * @return the new node or null if none was created 
 	 * @throws OsmIllegalOperationException 
 	 */
-	public synchronized Node performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
+	private synchronized Node performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
 		return performAddOnWay(null,x,y);
 	}
 	
@@ -2216,7 +2216,7 @@ public class Logic {
 	 * @param x screen-coordinate
 	 * @param y screen-coordinate
 	 */
-	public void translateOnBorderTouch(final float x, final float y) {
+	private void translateOnBorderTouch(final float x, final float y) {
 		int translationOnBorderTouch = (int) (viewBox.getWidth() * BORDER_TOCH_TRANSLATION_FACTOR);
 
 		try {
@@ -4077,7 +4077,7 @@ public class Logic {
 	 * @param way
 	 * @return  WS84 coordinates of centroid
 	 */
-	public static int[] centroid(int w, int h, BoundingBox v, final Way way) {
+	private static int[] centroid(int w, int h, BoundingBox v, final Way way) {
 		float XY[] = centroidXY(w,h,v,way);
 		if (XY == null) {
 			return null;
@@ -4096,7 +4096,7 @@ public class Logic {
 	 * @param way
 	 * @return screen coordinates of centroid
 	 */
-	public static float[] centroidXY(int w, int h, BoundingBox v, final Way way) {
+	private static float[] centroidXY(int w, int h, BoundingBox v, final Way way) {
 		if (way == null) {
 			return null;
 		}
@@ -4334,7 +4334,7 @@ public class Logic {
 	 * Display a warning if an operation on the element e would effect a filtered/hidden object
 	 * @param e
 	 */
-	<T extends OsmElement> void displayAttachedObjectWarning(T e) {
+	private <T extends OsmElement> void displayAttachedObjectWarning(T e) {
 		ArrayList<T> a = new ArrayList<T>();
 		a.add(e);
 		displayAttachedObjectWarning(a);
@@ -4345,7 +4345,7 @@ public class Logic {
 	 * @param e1
 	 * @param e2
 	 */
-	<T extends OsmElement> void displayAttachedObjectWarning(T e1, T e2) {
+	private <T extends OsmElement> void displayAttachedObjectWarning(T e1, T e2) {
 		ArrayList<T> a = new ArrayList<T>();
 		a.add(e1);
 		a.add(e2);
@@ -4358,7 +4358,7 @@ public class Logic {
 	 * @param e2
 	 * @param checkRelationsOnly
 	 */
-	<T extends OsmElement> void displayAttachedObjectWarning(T e1, T e2, boolean checkRelationsOnly) {
+	private <T extends OsmElement> void displayAttachedObjectWarning(T e1, T e2, boolean checkRelationsOnly) {
 		ArrayList<T> a = new ArrayList<T>();
 		a.add(e1);
 		a.add(e2);
@@ -4369,7 +4369,7 @@ public class Logic {
 	 * Display a warning if an operation on the elements included in list would effect a filtered/hidden object
 	 * @param list
 	 */
-	<T extends OsmElement> void displayAttachedObjectWarning(Collection<T> list) {
+	private <T extends OsmElement> void displayAttachedObjectWarning(Collection<T> list) {
 		displayAttachedObjectWarning(list, false);
 	}
 
@@ -4379,7 +4379,7 @@ public class Logic {
 	 * @param list
 	 * @param checkRelationsOnly
 	 */
-	<T extends OsmElement> void displayAttachedObjectWarning(Collection<T> list, boolean checkRelationsOnly) {
+	private <T extends OsmElement> void displayAttachedObjectWarning(Collection<T> list, boolean checkRelationsOnly) {
 		if (getFilter() != null && showAttachedObjectWarning()) {
 			elementLoop:
 				for (OsmElement e:list) {

@@ -164,7 +164,7 @@ public class ConfirmUpload extends DialogFragment
 	 * For whatever reason the softkeyboard doesn't work as expected with AutoCompleteTextViews
 	 * This listener simply moves focus to the next view below on enter being pressed or dismisses the keyboard
 	 */
-	class MyKeyListener implements OnKeyListener {
+	private class MyKeyListener implements OnKeyListener {
 		@Override
 		public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
 			if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {

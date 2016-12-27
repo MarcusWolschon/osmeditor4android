@@ -53,16 +53,16 @@ public class MapTilesOverlay extends MapViewOverlay {
 	/**
 	 * The view we are a part of.
 	 */
-	protected View myView;
+	private View myView;
 	/**
 	 * The tile-server to load a rendered map from.
 	 */
-	protected TileLayerServer myRendererInfo;
+	private TileLayerServer myRendererInfo;
 
 	/** Current renderer */
-	protected final MapTileProvider mTileProvider;
-	protected final Paint mPaint = new Paint();
-	protected Paint textPaint = new Paint();
+	private final MapTileProvider mTileProvider;
+	private final Paint mPaint = new Paint();
+	private Paint textPaint = new Paint();
 	
 
 	/**
@@ -163,7 +163,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 	 * @param aZoomLevel a zoom-level of a tile
 	 * @return the longitude of the tile
 	 */
-	static double tile2lon(int x, int aZoomLevel) {
+	private static double tile2lon(int x, int aZoomLevel) {
 		return x / Math.pow(2.0, aZoomLevel) * 360.0 - 180;
 	}
 
@@ -172,7 +172,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 	 * @param aZoomLevel a zoom-level of a tile
 	 * @return the latitude of the tile
 	 */
-	static double tile2lat(int y, int aZoomLevel) {
+	private static double tile2lat(int y, int aZoomLevel) {
 		double n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, aZoomLevel);
 		return Math.toDegrees(Math.atan(Math.sinh(n)));
 	}
@@ -181,7 +181,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 	 * {@inheritDoc}.
 	 */
 	@Override
-	public void onDraw(Canvas c, IMapView osmv) {
+	protected void onDraw(Canvas c, IMapView osmv) {
 		long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which invocation of onDraw the tile belongs too
 		// Do some calculations and drag attributes to local variables to save
 		//some performance.

@@ -70,7 +70,7 @@ public class ElementInfo extends DialogFragment {
 	    }
 	}
 	
-	static public void dismissDialog(FragmentActivity activity) {
+	private static void dismissDialog(FragmentActivity activity) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 	    Fragment fragment = fm.findFragmentByTag(TAG);
@@ -82,7 +82,7 @@ public class ElementInfo extends DialogFragment {
 	
     /**
      */
-    static public ElementInfo newInstance(OsmElement e) {
+    private static ElementInfo newInstance(OsmElement e) {
     	ElementInfo f = new ElementInfo();
 
         Bundle args = new Bundle();

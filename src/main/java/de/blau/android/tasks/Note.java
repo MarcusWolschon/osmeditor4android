@@ -39,14 +39,14 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 	/**
 	 * This the standard data/time format used in .osn files and elsewhere in the API, and yes it is different than the above
 	 */
-	protected final SimpleDateFormat JOSM_DATE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
+	private final SimpleDateFormat JOSM_DATE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
 
 	/** created and closed dates **/
-	Date created = null;
-	Date closed = null;
+	private Date created = null;
+	private Date closed = null;
 	
 	/** Bug comments. */
-	public List<NoteComment> comments = null;
+	private List<NoteComment> comments = null;
 	private State originalState; // track what we original had
 	
 	/**
@@ -281,7 +281,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 		s.endTag("", "note");
 	}
 	
-	protected String toJOSMDate(Date date) {
+	String toJOSMDate(Date date) {
 		String josmDate = JOSM_DATE.format(date);
 		return josmDate.substring(0, josmDate.length()-2); // strip last two digits
 	}

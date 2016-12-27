@@ -182,7 +182,7 @@ public class TransferTasks {
 					Toast.makeText(App.mainActivity.getApplicationContext(), !uploadFailed ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
 				}
 			}.execute();
-		};
+		}
 	}
 	
 	/**

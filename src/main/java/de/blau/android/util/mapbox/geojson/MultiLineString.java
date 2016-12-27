@@ -64,7 +64,7 @@ public class MultiLineString implements Geometry<List<List<Position>>> {
    * @return {@link MultiLineString}.
    * @since 1.0.0
    */
-  public static MultiLineString fromCoordinates(List<List<Position>> coordinates) {
+  private static MultiLineString fromCoordinates(List<List<Position>> coordinates) {
     return new MultiLineString(coordinates);
   }
 

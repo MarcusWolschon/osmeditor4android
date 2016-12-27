@@ -18,7 +18,7 @@ import android.util.Log;
  *
  */
 public class ExtendedExifInterface extends ExifInterface {
-	Metadata metadata;
+	private Metadata metadata;
 	
 	public final static String TAG_GPS_IMG_DIRECTION 		= "GPSImgDirection";
 	public final static String TAG_GPS_IMG_DIRECTION_REF	= "GPSImgDirectionRef";

@@ -40,7 +40,7 @@ public class MapTileProvider implements ServiceConnection,
 	/**
 	 * Tag used in debug log-entries.
 	 */
-	public static final String DEBUGTAG = MapTileProvider.class.getSimpleName();
+	private static final String DEBUGTAG = MapTileProvider.class.getSimpleName();
 
 	// ===========================================================
 	// Fields
@@ -49,14 +49,14 @@ public class MapTileProvider implements ServiceConnection,
 	/**
 	 * place holder if tile not available
 	 */
-	protected final Bitmap mLoadingMapTile;
-	protected final Bitmap mNoTilesTile;
+	private final Bitmap mLoadingMapTile;
+	private final Bitmap mNoTilesTile;
 
-	protected Context mCtx;
+	private Context mCtx;
 	/**
 	 * cache provider
 	 */
-	protected MapTileCache mTileCache;
+	private MapTileCache mTileCache;
 	private HashMap<String,Long> pending = new HashMap<String,Long>();
 
 	private IMapTileProviderService mTileService;
@@ -158,7 +158,7 @@ public class MapTileProvider implements ServiceConnection,
 		return null;
 	}
 
-	public void preCacheTile(final MapTile aTile, long owner) {
+	private void preCacheTile(final MapTile aTile, long owner) {
 		if (!isTileAvailable(aTile) && mTileService != null && !pending.containsKey(aTile.toString())) {
 			try {
 				pending.put(aTile.toString(), Long.valueOf(owner));

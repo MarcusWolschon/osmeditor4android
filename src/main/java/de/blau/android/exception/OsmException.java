@@ -13,7 +13,7 @@ public class OsmException extends IOException {
 		super(string);
 	}
 
-    public OsmException(final String string, final Throwable e) {
+    OsmException(final String string, final Throwable e) {
         super(string);
         initCause(e);
     }
