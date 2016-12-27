@@ -264,7 +264,6 @@ public class DataStyle  extends DefaultHandler {
 		this.ctx = ctx;
 		// create default 
 		init(ctx.getResources());
-		Log.i("Style","profile " + currentStyle.name);
 	}
 
 	
@@ -576,8 +575,6 @@ public class DataStyle  extends DefaultHandler {
 	 * Sets the stroke width of all Elements corresponding to the width of the viewbox (=zoomfactor).
 	 */
 	public static void updateStrokes(final float newStrokeWidth) {
-	
-
 		for (FeatureStyle fp : currentStyle.featureStyles.values()) {
 			fp.setStrokeWidth(newStrokeWidth);
 		}
@@ -898,6 +895,11 @@ public class DataStyle  extends DefaultHandler {
 	 * @param ctx
 	 */
 	public static void getStylesFromFiles(Context ctx) {
+		if (availableStyles.size()==0) {
+			Log.i("Style","No style files found");
+			// no files, need to install a default
+			addDefaultStye(ctx);
+		}
 		// assets directory
 		AssetManager assetManager = ctx.getAssets();
 		//
@@ -938,11 +940,6 @@ public class DataStyle  extends DefaultHandler {
 				}
 			}
 			
-		}
-		if (availableStyles.size()==0) {
-			Log.i("Style","No style files found");
-			// no files, need to install a default
-			addDefaultStye(ctx);
 		}
 	}
 
