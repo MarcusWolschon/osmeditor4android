@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Patterns;
@@ -208,12 +209,12 @@ public class APIEditorActivity extends URLListEditActivity {
 					if(value_2.trim().matches("")==false){
 						validReadOnlyAPIURL=Patterns.WEB_URL.matcher(value_2).matches();
 						wantToCloseDialog2 = true;
-						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
+						editValue_2.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
 					if(value_3.trim().matches("")==false){
 						validNotesAPIURL=Patterns.WEB_URL.matcher(value_3).matches();
 						wantToCloseDialog3 = true;
-						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
+						editValue_3.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
 					if(validAPIURL==true && validNotesAPIURL==true && validReadOnlyAPIURL==true) {   //check if fields valid, optional ones checked if values entered
 						if (!value.equals("")) {
@@ -222,21 +223,18 @@ public class APIEditorActivity extends URLListEditActivity {
 							wantToCloseDialog2 = true;
 							wantToCloseDialog3= true;
 						}
-					}
-					else if(validAPIURL==false){
+					} else if(validAPIURL==false){
 						Toast.makeText(APIEditorActivity.this, R.string.toast_invalid_apiurl, Toast.LENGTH_LONG).show(); //if garbage value entered
 						wantToCloseDialog1 = false;
-						editValue.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);     //change color of edittext field
-					}
-					else if(validReadOnlyAPIURL==false){
+						editValue.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);     //change color of edittext field
+					} else if(validReadOnlyAPIURL==false){
 						wantToCloseDialog2 = false;
 						Toast.makeText(APIEditorActivity.this, R.string.toast_invalid_readonlyurl, Toast.LENGTH_LONG).show(); //if garbage value entered
-						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
-					}
-					else if(validNotesAPIURL==false){
+						editValue_2.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
+					} else if(validNotesAPIURL==false){
 						wantToCloseDialog3 = false;
 						Toast.makeText(APIEditorActivity.this, R.string.toast_invalid_notesurl, Toast.LENGTH_LONG).show();//if garbage value entered
-						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
+						editValue_3.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
 					}
 				} else {
 					item.name = name;
@@ -245,38 +243,36 @@ public class APIEditorActivity extends URLListEditActivity {
 					if(validAPIURL==false){
 						Toast.makeText(APIEditorActivity.this,  R.string.toast_invalid_apiurl, Toast.LENGTH_LONG).show(); //if garbage value entered
 						wantToCloseDialog1=false;
-						editValue.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
+						editValue.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
 					}
 					if(value_2.trim().matches("")==false){                //check if empty field
 						validReadOnlyAPIURL=Patterns.WEB_URL.matcher(value_2).matches();
 						wantToCloseDialog2 = true;
-						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
+						editValue_2.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
 					if(value_3.trim().matches("")==false){                 //check if empty field
 						wantToCloseDialog3 = true;
 						validNotesAPIURL=Patterns.WEB_URL.matcher(value_3).matches();
-						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
+						editValue_3.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.black), PorterDuff.Mode.SRC_ATOP);
 					}
 					if(validReadOnlyAPIURL==true) {                 //check if valid url entered
 						item.value_2 = !"".equals(value_2) ? value_2 : null;
 						wantToCloseDialog2 = true;
-						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
-					}
-					else{
+						editValue_2.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.black), PorterDuff.Mode.SRC_ATOP);
+					} else{
 						wantToCloseDialog2 = false;
 						Toast.makeText(APIEditorActivity.this, R.string.toast_invalid_readonlyurl, Toast.LENGTH_LONG).show(); //if garbage value entered
-						editValue_2.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
+						editValue_2.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
 					}
 
 					if(validNotesAPIURL==true) {                   //check if valid url entered
 						wantToCloseDialog3 = true;
 						item.value_3 = !"".equals(value_3) ? value_3 : null;
-						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
-					}
-					else{
+						editValue_3.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.black), PorterDuff.Mode.SRC_ATOP);
+					} else{
 						Toast.makeText(APIEditorActivity.this,  R.string.toast_invalid_notesurl, Toast.LENGTH_LONG).show();  //if garbage value entered
 						wantToCloseDialog3 = false;
-						editValue_3.getBackground().mutate().setColorFilter(getResources().getColor(R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
+						editValue_3.getBackground().mutate().setColorFilter(ContextCompat.getColor(APIEditorActivity.this,R.color.ccc_blue), PorterDuff.Mode.SRC_ATOP);
 					}
 					item.enabled = enabled;
 					finishEditItem(item);
