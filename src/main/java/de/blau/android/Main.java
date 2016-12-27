@@ -1230,9 +1230,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected);
 		menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(networkConnected);
 		menu.findItem(R.id.menu_transfer_download_other).setEnabled(networkConnected);
-		menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected);
+		// note: isDirty is not a good indicator of if if there is really something to upload
+		menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && !App.getDelegator().getApiStorage().isEmpty()); 
 		menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
-		menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected);
+		menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected && App.getTaskStorage().hasChanges());
 		menu.findItem(R.id.menu_voice).setVisible(false); // don't display button for now
 //	experimental	menu.findItem(R.id.menu_voice).setEnabled(networkConnected && prefs.voiceCommandsEnabled()).setVisible(prefs.voiceCommandsEnabled());
 		
