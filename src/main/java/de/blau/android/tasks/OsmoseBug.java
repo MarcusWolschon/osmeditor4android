@@ -56,60 +56,55 @@ public class OsmoseBug extends Task implements Serializable {
 	
 	public static ArrayList<OsmoseBug> parseBugs(InputStream is) throws  IOException, NumberFormatException {
 		ArrayList<OsmoseBug> result = new ArrayList<OsmoseBug>();
-		try {
-			JsonReader reader = new JsonReader(new InputStreamReader(is));
-			try {
-				try {
-					// key object
-					String key = null;
-					reader.beginObject();
-					while (reader.hasNext()) {						
-						key = reader.nextName(); // 
-						if (key.equals("description")) {
-							reader.skipValue();
-						} else if (key.equals("errors")) {
-							reader.beginArray();
-							while (reader.hasNext()) {
-								OsmoseBug bug = new OsmoseBug();
-								reader.beginArray();
-								bug.lat = (int)(reader.nextDouble()*1E7D);
-								bug.lon = (int)(reader.nextDouble()*1E7D);
-								bug.id = reader.nextLong();
-								bug.item = reader.nextInt();
-								bug.source = reader.nextInt();
-								bug.bugclass = reader.nextInt();
-								bug.elems = reader.nextString();
-								bug.subclass = reader.nextInt();
-								bug.subtitle = reader.nextString();
-								bug.title = reader.nextString();
-								bug.level = reader.nextInt();
-								try {
-									bug.update = DateFormatter.getDate(
-											DATE_PATTERN_OSMOSE_BUG_UPDATED_AT,
-											reader.nextString());
-								} catch (java.text.ParseException pex) {
-									bug.update = new Date();
-								}
-								bug.username = reader.nextString();
-								reader.endArray();
-								result.add(bug);
-							}
-							reader.endArray();
-						}
-					}
-					reader.endObject();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			}
-			finally {
-				reader.close();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        JsonReader reader = new JsonReader(new InputStreamReader(is));
+        try {
+            // key object
+            String key = null;
+            reader.beginObject();
+            while (reader.hasNext()) {
+                key = reader.nextName(); //
+                if (key.equals("description")) {
+                    reader.skipValue();
+                } else if (key.equals("errors")) {
+                    reader.beginArray();
+                    while (reader.hasNext()) {
+                        OsmoseBug bug = new OsmoseBug();
+                        reader.beginArray();
+                        bug.lat = (int)(reader.nextDouble()*1E7D);
+                        bug.lon = (int)(reader.nextDouble()*1E7D);
+                        bug.id = reader.nextLong();
+                        bug.item = reader.nextInt();
+                        bug.source = reader.nextInt();
+                        bug.bugclass = reader.nextInt();
+                        bug.elems = reader.nextString();
+                        bug.subclass = reader.nextInt();
+                        bug.subtitle = reader.nextString();
+                        bug.title = reader.nextString();
+                        bug.level = reader.nextInt();
+                        try {
+                            bug.update = DateFormatter.getDate(
+                                    DATE_PATTERN_OSMOSE_BUG_UPDATED_AT,
+                                    reader.nextString());
+                        } catch (java.text.ParseException pex) {
+                            bug.update = new Date();
+                        }
+                        bug.username = reader.nextString();
+                        reader.endArray();
+                        result.add(bug);
+                    }
+                    reader.endArray();
+                }
+            }
+            reader.endObject();
+        } catch (IOException ioex) {
+            Log.d(DEBUG_TAG,"Ignoring " + ioex);
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException ioex) {
+                Log.d(DEBUG_TAG,"Ignoring " + ioex);
+            }
+        }
 		return result;
 	}
 

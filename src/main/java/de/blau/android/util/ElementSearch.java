@@ -34,8 +34,7 @@ public class ElementSearch {
     
 	/**
      * Get all distance sorted street-names in the area
-     * @param delegator
-     * @param location
+     * @param location position we want the names nearby to
      * @return all street-names
      */
     private String[] getStreetArray(final int[] location) {

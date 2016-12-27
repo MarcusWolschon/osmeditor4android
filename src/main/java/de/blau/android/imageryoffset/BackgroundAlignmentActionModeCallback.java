@@ -259,7 +259,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 					return result;
 				}
 				finally {
-				       reader.close();
+					try {
+						reader.close();
+					} catch (IOException ioex) {
+						Log.d(DEBUG_TAG,"Ignoring " + ioex);
+					}
 				}			
 			} catch (MalformedURLException e) {
 				error = e.getMessage();

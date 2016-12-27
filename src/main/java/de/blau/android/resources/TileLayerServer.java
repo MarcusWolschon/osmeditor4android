@@ -480,30 +480,30 @@ public class TileLayerServer {
 	private static void parseImageryFile(Resources r, InputStream is, final boolean async) throws IOException {
 		JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
 		try {
-			
-			try {
-				reader.beginArray();
-				while (reader.hasNext()) {
-					TileLayerServer osmts = readServer(reader, r, async);
-					if (osmts != null) {
-						if (osmts.overlay && !overlayServerList.containsKey(osmts.id)) {
-							// Log.d("OpenStreetMapTileServer","Adding overlay " + osmts.overlay + " " + osmts.toString());
-							overlayServerList.put(osmts.id,osmts);
-						}
-						else if (!backgroundServerList.containsKey(osmts.id)){
-							// Log.d("OpenStreetMapTileServer","Adding background " + osmts.overlay + " " + osmts.toString());
-							backgroundServerList.put(osmts.id,osmts);
-						}
+			reader.beginArray();
+			while (reader.hasNext()) {
+				TileLayerServer osmts = readServer(reader, r, async);
+				if (osmts != null) {
+					if (osmts.overlay && !overlayServerList.containsKey(osmts.id)) {
+						// Log.d("OpenStreetMapTileServer","Adding overlay " + osmts.overlay + " " + osmts.toString());
+						overlayServerList.put(osmts.id,osmts);
+					}
+					else if (!backgroundServerList.containsKey(osmts.id)){
+						// Log.d("OpenStreetMapTileServer","Adding background " + osmts.overlay + " " + osmts.toString());
+						backgroundServerList.put(osmts.id,osmts);
 					}
 				}
-				reader.endArray();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+			}
+			reader.endArray();
+		} catch (IOException ioex) {
+			Log.d(DEBUG_TAG,"Ignored " + ioex);
 		}
 		finally {
-		       reader.close();
+			try {
+				reader.close();
+			} catch (IOException ioex) {
+				Log.d(DEBUG_TAG,"Ignored " + ioex);
+			}
 		}
 	}
 	
@@ -511,9 +511,9 @@ public class TileLayerServer {
 	 * Get the tile server information for a specified tile server id. If the given
 	 * id cannot be found, a default renderer is selected. 
 	 * Note: will read the the config files it that hasn't happend yet
-	 * @param r The application resources.
+	 * @param ctx activity context
 	 * @param id The internal id of the tile layer, eg "MAPNIK"
-	 * @return
+     * @id async get meta data asynchronously
 	 */
 	public synchronized static TileLayerServer get(final Context ctx, final String id, final boolean async) {	
 		Resources r = ctx.getResources();
@@ -833,7 +833,7 @@ public class TileLayerServer {
 	
 	/**
 	 * Get the latE7 offset
-	 * @param zoomLevel TODO
+	 * @param zoomLevel the zoom level we want the offset for
 	 * @return offset in WGS84, null == no offset
 	 */
 	public Offset getOffset(int zoomLevel) {
@@ -847,8 +847,10 @@ public class TileLayerServer {
 	}
 	
 	/**
-	 * Set the lat offset
-	 * @param o in WGS84
+	 * Set the lat offset for one specific zoom
+     * @param zoomLevel zoom level to set the offset for
+     * @param offsetLon offest in lon direction in WGS84
+     * @param offsetLat offest in lat direction in WGS84
 	 */
 	public void setOffset(int zoomLevel, double offsetLon, double offsetLat) {
 		// Log.d("OpenStreetMapTileServer","setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
@@ -863,7 +865,8 @@ public class TileLayerServer {
 		
 	/**
 	 * Set the offset for all zoom levels
-	 * @param o in WGS84
+	 * @param offsetLon offest in lon direction in WGS84
+     * @param offsetLat offest in lat direction in WGS84
 	 */
 	public void setOffset(double offsetLon, double offsetLat) {
 		for (int i=0;i<offsets.length;i++) {
@@ -876,7 +879,10 @@ public class TileLayerServer {
 	
 	/**
 	 * Set the offset for a range of zoom levels
-	 * @param o in WGS84
+     * @param startZoom start of zoom range
+     * @param endZoom end of zoom range
+     * @param offsetLon offest in lon direction in WGS84
+     * @param offsetLat offest in lat direction in WGS84
 	 */
 	public void setOffset(int startZoom, int endZoom, double offsetLon, double offsetLat) {
 		for (int z=startZoom;z<=endZoom;z++) {
@@ -1189,7 +1195,7 @@ public class TileLayerServer {
 	
 	/**
 	 * Remove all background and overlay entries that match the supplied blacklist
-	 * @param blacklist
+	 * @param blacklist list of servers that sould be removed
 	 */
 	public static void applyBlacklist(ArrayList<String> blacklist) {
 		// first compile the regexs
@@ -1231,6 +1237,4 @@ public class TileLayerServer {
 	public String toString() {
 		return 	"ID: " + id + " Name " + name + " maxZoom " + zoomLevelMax + " Tile URL " + tileUrl;
 	}
-
-
 }

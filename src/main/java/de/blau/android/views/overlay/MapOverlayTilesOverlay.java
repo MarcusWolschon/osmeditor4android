@@ -20,10 +20,7 @@ public class MapOverlayTilesOverlay extends MapTilesOverlay {
 	@Override
 	public boolean isReadyToDraw() {
 		enabled = !getRendererInfo().getId().equals("NONE");
-		if (enabled) {
-			return super.isReadyToDraw();
-		}
-		return true;
+		return !enabled || super.isReadyToDraw();
 	}
 	
 	@Override

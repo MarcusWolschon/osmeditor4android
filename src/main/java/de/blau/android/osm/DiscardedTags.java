@@ -12,7 +12,6 @@ import com.google.gson.stream.JsonReader;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
-import de.blau.android.App;
 
 /**
  * Tags that we want to remove before saving to server. List is in discarded.json from the iD repository
@@ -22,8 +21,6 @@ import de.blau.android.App;
 class DiscardedTags {
 
 	private HashSet<String> redundantTags = new HashSet<String>();
-	
-	private SortedMap<String, String> newTags;
 
 	/**
 	 * Implicit assumption that the list will be short and that it is OK to read in synchronously
@@ -51,7 +48,11 @@ class DiscardedTags {
 				} 
 			}
 			finally {
-				reader.close();
+				try {
+					reader.close();
+				} catch (IOException ioex) {
+					Log.d("DiscardedTags","Ignoring " + ioex);
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -72,7 +73,7 @@ class DiscardedTags {
 			return;
 		}
 		boolean modified = false;
-		newTags = new TreeMap<String, String>(); // zag this!
+		SortedMap<String, String> newTags = new TreeMap<String, String>();
 		for (String key:element.getTags().keySet()) {
 			Log.d("DiscardedTags","Checking " + key);
 			if (!redundantTags.contains(key)) {

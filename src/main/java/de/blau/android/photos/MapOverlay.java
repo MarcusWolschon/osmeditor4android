@@ -121,10 +121,7 @@ public class MapOverlay extends MapViewOverlay {
 	@Override
 	public boolean isReadyToDraw() {
 		enabled = map.getPrefs().isPhotoLayerEnabled();
-		if (enabled) {
-			return map.getOpenStreetMapTilesOverlay().isReadyToDraw();
-		}
-		return true;
+		return !enabled || map.getOpenStreetMapTilesOverlay().isReadyToDraw();
 	}
 	
 	@Override

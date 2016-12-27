@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class CollectionTest {
     
@@ -74,6 +75,7 @@ public class CollectionTest {
 			try {
 				b = new BoundingBox(temp[i].getLon()-1,temp[i].getLat()-1,temp[i].getLon()+1,temp[i].getLat()+1);
 			} catch (OsmException e) {
+				fail("BandingBox creation failed with " + e);
 			}
 			tree.query(result, b);
 			assertTrue(result.contains(temp[i]));

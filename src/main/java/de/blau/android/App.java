@@ -193,8 +193,7 @@ public class App extends android.app.Application {
 	
 	/**
 	 * Allocate new logic, logic contains some state and should only exist once
-	 * @param map
-	 * @return
+	 * @return a new instance of the Logic class
 	 */
 	public synchronized static Logic newLogic() {
 		if (logic==null) {
@@ -205,7 +204,7 @@ public class App extends android.app.Application {
 	
 	/**
 	 * Return the cache for task notifications, allocate if necessary
-	 * @return
+	 * @return the notification cache
 	 */
 	public static NotificationCache getTaskNotifications(Context ctx) {
 		synchronized (taskNotificationsLock) {

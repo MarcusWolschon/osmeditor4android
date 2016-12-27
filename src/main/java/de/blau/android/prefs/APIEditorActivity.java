@@ -80,7 +80,7 @@ public class APIEditorActivity extends URLListEditActivity {
 
 	@Override
 	protected void onItemCreated(ListEditItem item) {
-		db.addAPI(item.id, item.name, item.value, item.value_2, item.value_3, "", "", "", false, item.enabled);
+		db.addAPI(item.id, item.name, item.value, item.value_2, item.value_3, "", "", "", item.enabled);
 	}
 
 	@Override

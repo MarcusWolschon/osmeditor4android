@@ -95,7 +95,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			db.execSQL("ALTER TABLE apis ADD COLUMN notesurl TEXT DEFAULT NULL");
 		}
 		if (oldVersion <= 6 && newVersion >= 7) {
-			addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 	
+			addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true);
 		}
 		if (oldVersion <= 7 && newVersion >= 8) {
 			db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
@@ -122,9 +122,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
 		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
-		addAPI(db, ID_DEFAULT, name, Urls.DEFAULT_API, null, null, user, pass, ID_DEFAULT, true, true); 
+		addAPI(db, ID_DEFAULT, name, Urls.DEFAULT_API, null, null, user, pass, ID_DEFAULT, true);
 		Log.d(LOGTAG, "Adding default URL without https");
-		addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true, true); 
+		addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true);
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(db,ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");
@@ -207,7 +207,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	/**
 	 * Sets access token and secret of the current API entry
-	 * @param id
 	 * @param token
 	 * @param secret
 	 */
@@ -222,8 +221,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		currentServer = null; // force recreation of Server object
 	}
 
-	/** Sets login data (user, password) for the current API */
-	public synchronized void setCurrentAPILogin(String user, String pass) {
+	/**
+	 * 	Sets login data (user, password) for the current API, normally ou would use OAuth
+	 * @param user login/user name
+	 * @param pass passowrd
+     */
+    public synchronized void setCurrentAPILogin(String user, String pass) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("user", user);
@@ -234,14 +237,14 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/** adds a new API with the given values to the API database */
-	public synchronized void addAPI(String id, String name, String url, String readonlyurl, String notesurl, String user, String pass, String preset, boolean showicon, boolean oauth) {
+	public synchronized void addAPI(String id, String name, String url, String readonlyurl, String notesurl, String user, String pass, String preset, boolean oauth) {
 		SQLiteDatabase db = getWritableDatabase();
-		addAPI(db, id, name, url, readonlyurl, notesurl, user, pass, preset, showicon, oauth);
+		addAPI(db, id, name, url, readonlyurl, notesurl, user, pass, preset, oauth);
 		db.close();
 	}
 	
 	/** adds a new API with the given values to the supplied database */
-	private synchronized void addAPI(SQLiteDatabase db, String id, String name, String url, String readonlyurl, String notesurl, String user, String pass, String preset, boolean showicon, boolean oauth) {
+	private synchronized void addAPI(SQLiteDatabase db, String id, String name, String url, String readonlyurl, String notesurl, String user, String pass, String preset, boolean oauth) {
 		ContentValues values = new ContentValues();
 		values.put("id", id);
 		values.put("name", name);
@@ -251,7 +254,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("user", user);
 		values.put("pass", pass);
 		values.put("preset", preset);		
-		values.put("showicon", showicon? 1 : 0);	
+		values.put("showicon", 0); // no longer used
 		values.put("oauth", oauth? 1 : 0);
 		db.insert("apis", null, values);		
 	}
@@ -616,7 +619,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	/**
 	 * Fetches all Geocoders matching the given ID, or all Geocoders if id is null
-	 * @param value null to fetch all Geocoders, or the id to fetch a specific one
+	 * @param id null to fetch all Geocoders, or the id to fetch a specific one
 	 * @return Geocoder[]
 	 */
 	private synchronized Geocoder[] getGeocoders(String id) {

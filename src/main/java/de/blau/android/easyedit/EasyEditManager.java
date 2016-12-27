@@ -426,10 +426,7 @@ public class EasyEditManager {
 
 	public boolean processShortcut(Character c) {
 		synchronized (actionModeCallbackLock) {
-			if (currentActionModeCallback != null) {
-				return currentActionModeCallback.processShortcut(c);
-			}
-			return false;
+			return currentActionModeCallback != null && currentActionModeCallback.processShortcut(c);
 		}
 	}
 	

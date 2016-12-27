@@ -176,7 +176,11 @@ public class Names {
 						} 
 					}
 					finally {
-					       reader.close();
+						try {
+							reader.close();
+						} catch (IOException ioex) {
+							Log.d("Names","Ignoring " + ioex);
+						}
 					}
 					is = assetManager.open("categories.json");
 					reader = new JsonReader(new InputStreamReader(is));
@@ -205,7 +209,11 @@ public class Names {
 						} 
 					}
 					finally {
-					       reader.close();
+						try {
+					        reader.close();
+						} catch (IOException ioex) {
+							Log.d("Names","Ignoring " + ioex);
+						}
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

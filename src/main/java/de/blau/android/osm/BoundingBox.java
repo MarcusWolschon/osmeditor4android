@@ -329,10 +329,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * could not be excluded.
 	 */
 	public boolean intersects(final int lat, final int lon, final int lat2, final int lon2) {
-		if (isIn(lat, lon) || isIn(lat2, lon2)) {
-			return true;
-		}
-		return isIntersectionPossible(lat, lon, lat2, lon2);
+		return isIn(lat, lon) || isIn(lat2, lon2) || isIntersectionPossible(lat, lon, lat2, lon2);
 	}
 	
 	public boolean intersects(final BoundingBox b) {
@@ -447,7 +444,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 				if (ratio <= 1.0) { // portrait and square
 					if (width <= mHeight) { 
 						newHeight2 = (long)((width / 2L) / ratio);
-						newWidth2 = (long)(width / 2L);
+						newWidth2 = width / 2L;
 					} else { // switch landscape --> portrait
 						float pixelDeg = (float)App.mainActivity.getMap().getHeight()/(float)width; // height was the old width
 						newWidth2 = (long)(App.mainActivity.getMap().getWidth() / pixelDeg)/2L;
@@ -460,7 +457,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 						newHeight2 = (long)(newWidth2 / ratio );
 					} else {
 						newHeight2 =(long)((width / 2L) / ratio);
-						newWidth2 = (long)(width / 2L);
+						newWidth2 = width / 2L;
 					}
 				}
 				
