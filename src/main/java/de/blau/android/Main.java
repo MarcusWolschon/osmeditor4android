@@ -3239,7 +3239,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	@Override
+	// currently this is only called by the task UI
 	public void update() {
+		if (App.getLogic().getSelectedBug() != null) {
+			App.getLogic().setSelectedBug(null);
+		}
 		map.invalidate();
 	}
 	
