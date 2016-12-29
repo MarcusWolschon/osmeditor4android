@@ -1,11 +1,14 @@
 package de.blau.android.util;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
 
 import de.blau.android.presets.ValueWithCount;
 
+@SuppressWarnings("NullableProblems")
 public class StringWithDescription implements Comparable<StringWithDescription>, Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -57,7 +60,7 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
 	}
 
 	@Override
-	public int compareTo(StringWithDescription s) {
+	public int compareTo(@NonNull StringWithDescription s) {
 		return value.compareTo(s.getValue());
 	}
 	
@@ -72,7 +75,7 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
 	
 	@Override
 	public boolean equals(Object o) {
-		return this == (StringWithDescription)o 
+		return o instanceof StringWithDescription && this == (StringWithDescription)o
 				|| (this.value.equals(((StringWithDescription)o).value) && ((this.description == null && ((StringWithDescription)o).description == null) || (this.description != null && this.description.equals(((StringWithDescription)o).description))));
 	}
 	

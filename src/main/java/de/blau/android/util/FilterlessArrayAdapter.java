@@ -3,6 +3,7 @@ package de.blau.android.util;
 import java.util.List;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
@@ -17,6 +18,7 @@ public class FilterlessArrayAdapter<T> extends ArrayAdapter<T> {
 	private Filter filter = new NoFilter();
 	private List<T> items;
 
+	@NonNull
 	@Override
 	public Filter getFilter() {
 		return filter;

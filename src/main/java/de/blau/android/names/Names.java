@@ -16,6 +16,7 @@ import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.SearchIndexUtils;
@@ -81,7 +82,7 @@ public class Names {
 		}
 
 		@Override
-		public int compareTo(NameAndTags another) {
+		public int compareTo(@NonNull NameAndTags another) {
 			if (another.name.equals(name)) {
 				// more tags is better
 				if (tags.size() > ((NameAndTags)another).tags.size()) {

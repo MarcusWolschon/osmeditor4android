@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -83,7 +84,8 @@ public class DataLossActivity extends DialogFragment
         requestCode = getArguments().getInt("requestcode");
     }
 
-    @Override
+    @NonNull
+	@Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
     	Builder builder = new AlertDialog.Builder(getActivity());

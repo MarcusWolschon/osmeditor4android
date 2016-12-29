@@ -987,14 +987,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		switch (requestCode) {
 		case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
 			for (int i=0;i<permissions.length;i++) { 
-				if (permissions[i] == Manifest.permission.ACCESS_FINE_LOCATION && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+				if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
 					// permission was granted :)
 					bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
 					synchronized (locationPermissionLock) {
 						locationPermissionGranted = true;
 					}
 				} // if not granted do nothing for now
-				if (permissions[i] == Manifest.permission.WRITE_EXTERNAL_STORAGE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					// permission was granted :)
 					synchronized (storagePermissionLock) {
 						storagePermissionGranted = true;
@@ -3229,7 +3229,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * Workaround for bug mentioned below
 	 */
-	public ActionMode startSupportActionMode(final ActionMode.Callback callback) {
+	public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
 	  // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
 	  final ActionMode mode = super.startSupportActionMode(callback);
 	  if (mode != null) {

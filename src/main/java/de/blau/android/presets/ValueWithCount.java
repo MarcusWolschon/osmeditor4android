@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import android.support.annotation.NonNull;
+
 public class ValueWithCount implements Comparable<ValueWithCount> {
 	private final String value;
 	private String description = null;
@@ -48,7 +50,7 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
 	}
 
 	@Override
-	public int compareTo(ValueWithCount arg0) {
+	public int compareTo(@NonNull ValueWithCount arg0) {
 		if (arg0.count < count) {
 			return -1;
 		} else if (arg0.count > count) {

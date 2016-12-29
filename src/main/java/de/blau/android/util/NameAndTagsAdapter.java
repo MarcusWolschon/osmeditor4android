@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import de.blau.android.names.Names.NameAndTags;
@@ -41,6 +42,7 @@ class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
 //        return v;
 //    }
 
+    @NonNull
     @Override
     public Filter getFilter() {
         return nameFilter;

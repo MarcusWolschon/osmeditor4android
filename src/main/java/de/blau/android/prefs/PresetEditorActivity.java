@@ -149,6 +149,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 	 */
 	private void downloadPresetData(final ListEditItem item) {
 		final File presetDir = db.getPresetDirectory(item.id);
+		//noinspection ResultOfMethodCallIgnored
 		presetDir.mkdir();
 		if (!presetDir.isDirectory()) throw new RuntimeException("Could not create preset directory " + presetDir.getAbsolutePath());
 
@@ -261,6 +262,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 					
 					if (zip) {
 						if (unpackZip(presetDir.getPath() + "/",filename)) {
+							//noinspection ResultOfMethodCallIgnored
 							(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete();
 							return DOWNLOADED_PRESET_ZIP;
 						}
@@ -358,7 +360,8 @@ public class PresetEditorActivity extends URLListEditActivity {
 	             // it will generate an Exception...
 	             if (ze.isDirectory()) {
 	                File fmd = new File(presetDir + filename);
-	                fmd.mkdirs();
+					 //noinspection ResultOfMethodCallIgnored
+					 fmd.mkdirs();
 	                continue;
 	             }
 

@@ -206,6 +206,7 @@ public class Track extends DefaultHandler {
 		}
 		savedTrackPoints = 0;
 		File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
+		//noinspection ResultOfMethodCallIgnored
 		saveFile.delete();
 		if (saveFile.exists()) {
 			markSavingBroken("Failed to delete undesired track file", null);

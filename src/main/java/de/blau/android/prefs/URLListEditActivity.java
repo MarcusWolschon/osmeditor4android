@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -437,8 +438,9 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 			super(context, R.layout.list_item, items);
 		}
 		
+		@NonNull
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 			ListItem v;
 			if (convertView instanceof ListItem) {
 				v = (ListItem)convertView;

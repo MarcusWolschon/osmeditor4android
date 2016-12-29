@@ -57,7 +57,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		String topic;
 		
 		@Override
-		public int compareTo(HelpItem another) {
+		public int compareTo(@NonNull HelpItem another) {
 			if (order < Integer.MAX_VALUE) {
 				if (order > another.order) {
 					return 1;

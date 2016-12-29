@@ -243,7 +243,8 @@ public class Preset implements Serializable {
 		this.directory = directory;
 		this.externalPackage = externalPackage;
 		rootGroup = new PresetGroup(null, "", null);
-		
+
+		//noinspection ResultOfMethodCallIgnored
 		directory.mkdir();
 		
 		InputStream fileStream;
@@ -2216,6 +2217,7 @@ public class Preset implements Serializable {
 		
 		File sdcard = Environment.getExternalStorageDirectory();
 		File outdir = new File(sdcard, "Vespucci");
+		//noinspection ResultOfMethodCallIgnored
 		outdir.mkdir(); // ensure directory exists;
 		String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".json";
 		File outfile = new File(outdir, filename);

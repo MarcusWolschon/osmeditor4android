@@ -1260,7 +1260,7 @@ public class Logic {
 						if (!foundSelected && selectedNodes != null) {
 							List<OsmElement> clickedNodes = getClickedNodes(x,y);
 							for (OsmElement n:clickedNodes) {
-								if (selectedNodes.contains(n)) {
+								if (selectedNodes.contains((Node)n)) {
 									foundSelected = true;
 									break;
 								}
@@ -2203,6 +2203,7 @@ public class Logic {
 			final float node1X, final float node1Y,
 			final float node2X, final float node2Y) {
 		float tolerance = DataStyle.getCurrent().wayToleranceValue / 2f;
+		//noinspection SuspiciousNameCombination
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
 			return (GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y) < tolerance);
 		}
@@ -2926,6 +2927,7 @@ public class Logic {
 						outfile = new File(FileUtil.getPublicDirectory(), fileName);
 					} else { // ensure directory exists
 						File outdir = new File(parent);
+						//noinspection ResultOfMethodCallIgnored
 						outdir.mkdirs();
 						if (!outdir.isDirectory()) {
 							throw new IOException("Unable to create directory " + outdir.getPath());

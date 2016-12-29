@@ -36,6 +36,7 @@ public class CustomDatabaseContext extends ContextWrapper {
 		File result = new File(dbfile);
 
 		if (!result.getParentFile().exists()) {
+			//noinspection ResultOfMethodCallIgnored
 			result.getParentFile().mkdirs();
 		}
 

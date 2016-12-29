@@ -1122,7 +1122,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	
 	
 	@Override
-	public void onSupportActionModeFinished(ActionMode mode) {
+	public void onSupportActionModeFinished(@NonNull ActionMode mode) {
 		super.onSupportActionModeFinished(mode);
 	}
 	
@@ -1130,7 +1130,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	/**
 	 * Workaround for bug mentioned below
 	 */
-	public ActionMode startSupportActionMode(final ActionMode.Callback callback) {
+	public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
 	  // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
 	  final ActionMode mode = super.startSupportActionMode(callback);
 	  if (mode != null) {

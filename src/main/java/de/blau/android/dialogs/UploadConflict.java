@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -100,7 +101,8 @@ public class UploadConflict extends DialogFragment
         result = (UploadResult) getArguments().getSerializable("uploadresult");
     }
 
-    @Override
+    @NonNull
+	@Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
     	Builder builder = new AlertDialog.Builder(getActivity());

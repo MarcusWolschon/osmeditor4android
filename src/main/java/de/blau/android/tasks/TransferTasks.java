@@ -330,6 +330,7 @@ public class TransferTasks {
 						outfile = new File(FileUtil.getPublicDirectory(), fileName);
 					} else { // ensure directory exists
 						File outdir = new File(parent);
+						//noinspection ResultOfMethodCallIgnored
 						outdir.mkdirs();
 						if (!outdir.isDirectory()) {
 							throw new IOException("Unable to create directory " + outdir.getPath());

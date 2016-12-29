@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -68,7 +69,8 @@ public class TaskFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
     
-    @SuppressLint({ "NewApi", "InflateParams" })
+    @NonNull
+	@SuppressLint({ "NewApi", "InflateParams" })
 	@Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
     	final Task bug = (Task) getArguments().getSerializable("bug");

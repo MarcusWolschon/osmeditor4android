@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.MenuItemCompat;
@@ -121,6 +122,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 		Log.d(DEBUG_TAG, "onCreate");
 	}
 
+	@NonNull
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 	  Dialog dialog = super.onCreateDialog(savedInstanceState);
@@ -161,6 +163,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 				for (Restriction r:list) {
 					String v = r.getValue();
 					try {
+						//noinspection ResultOfMethodCallIgnored
 						Integer.parseInt(v);
 					} catch (NumberFormatException nfex) {
 						// not a number add it to list
@@ -172,6 +175,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					for (Condition c:r.getConditions()) {
 						if (c.isExpression()) {
 							try {
+								//noinspection ResultOfMethodCallIgnored
 								Integer.parseInt(c.term1());
 								if (expressionConditionValues==null) {
 									expressionConditionValues = new ArrayList<String>();
@@ -399,6 +403,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					if (expressionConditionValues != null) {
 						ArrayAdapter<String>adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,expressionConditionValues);
 						try {
+							//noinspection ResultOfMethodCallIgnored
 							Integer.parseInt(c.term1());
 							if (!expressionConditionValues.contains(c.term2())) {
 								adapter.insert(c.term2(), 0);

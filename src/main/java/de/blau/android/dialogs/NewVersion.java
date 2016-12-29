@@ -3,6 +3,7 @@ package de.blau.android.dialogs;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -70,7 +71,8 @@ public class NewVersion extends DialogFragment
         setCancelable(true);
     }
 
-    @Override
+    @NonNull
+	@Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
     	Builder builder = new AlertDialog.Builder(getActivity());

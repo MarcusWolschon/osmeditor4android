@@ -855,6 +855,7 @@ public class DataStyle  extends DefaultHandler {
 	@Override
 	public void endElement(final String uri, final String element, final String qName) {
 		if (element == null) {Log.i("Style","element is null"); return;}
+		//noinspection StatementWithEmptyBody
 		if (element.equals("profile")) {
 	
 		} else if (element.equals("feature")) {
@@ -873,7 +874,8 @@ public class DataStyle  extends DefaultHandler {
 			float[] tIntervals = new float[tempIntervals.size()];
 			for (int i=0; i<tIntervals.length;i++) {tIntervals[i] = tempIntervals.get(i).floatValue();}
 			tempFeatureStyle.setDashPath(tIntervals, tempPhase);
-		} else if (element.equals("interval")) {
+		} else //noinspection StatementWithEmptyBody
+			if (element.equals("interval")) {
 			
 		} 
 	}

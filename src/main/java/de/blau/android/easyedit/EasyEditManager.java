@@ -943,19 +943,17 @@ public class EasyEditManager {
 		Node addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
 			if (node != null) {
 				Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
-				if (node != null) {
-					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
-					for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
-						tags.put(tag.getKey(), tag.getValue().getValue());
-					}
-					if (name != null) {
-						tags.put(Tags.KEY_NAME, name);
-					}
-					tags.put("source:original_text", original);
-					logic.setTags(Node.NAME, node.getOsmId(), tags);
-					logic.setSelectedNode(node);
-					return node;
+				TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+				for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
+					tags.put(tag.getKey(), tag.getValue().getValue());
 				}
+				if (name != null) {
+					tags.put(Tags.KEY_NAME, name);
+				}
+				tags.put("source:original_text", original);
+				logic.setTags(Node.NAME, node.getOsmId(), tags);
+				logic.setSelectedNode(node);
+				return node;
 			}
 			return null;
 		}

@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog.Builder;
 import android.text.Html;
 import android.view.View;
@@ -59,8 +60,9 @@ public class UndoDialogFactory {
 			super(context, android.R.layout.simple_list_item_1, objects);
 		}
 
+		@NonNull
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 			return getItem(position);
 		}
 		
