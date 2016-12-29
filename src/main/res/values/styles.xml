@@ -435,7 +435,7 @@
 	</style>
 	
 	<style name="TableHeaderLight">
-		<item name="android:background">@android:color/white</item>
+		<item name="android:background">@color/light_grey</item>
 	</style>
 	
 	<style name="PagerTabStripLight">
