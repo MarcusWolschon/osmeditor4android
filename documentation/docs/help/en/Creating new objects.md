@@ -5,7 +5,7 @@ After a long press on the map on the main screen you will enter the "New" mode (
 You can now do one of three things:
 
 * **touch in the same place again** - this will add a node at the location and start the tag editor. If the location is within the tolerance zone of a way it will be added as a new node to that way.
-* **touch some other place on the screen** - this will create a way from the initial location to this location, the way acan be further extended by adding further node. Touching the last location completes the way and starts the tag editor. 
+* **touch some other place on the screen** - this will create a way from the initial location to the current location, the way can be further extended by adding a further node. Touching the last location completes the way and starts the tag editor. 
 * **select a menu item** see below
 
 Both the last node and the complete way can be moved without leaving "New" mode.
@@ -34,7 +34,7 @@ Open a name selection field and create a POI corresponding to the name. Example:
 
 ### ![Append](../images/tag_menu_append.png) Create path 
 
-Start the path/way creation mode, just as if you had touch the screen again.
+Start the path/way creation mode, just as if you had touched the screen again.
 
 ### ![Paste](../images/ic_menu_paste_holo_light.png) Paste
 
