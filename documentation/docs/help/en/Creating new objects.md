@@ -24,6 +24,14 @@ Create the current new object, launch the [property editor](PropertyEditor) and 
 
 Create an OpenStreetMap Note at the point.
 
+### ![Split](../images/tag_menu_split.png) Split
+
+If the marked location is on a way: create a new way node at the position and split the way. 
+
+### ![Set name](../images/menu_name.png) Set name
+
+Open a name selection field and create a POI corresponding to the name. Example: entering "McDonalds" will add tags for a McDonalds hamburger restaurant.
+
 ### ![Append](../images/tag_menu_append.png) Create path 
 
 Start the path/way creation mode, just as if you had touch the screen again.
