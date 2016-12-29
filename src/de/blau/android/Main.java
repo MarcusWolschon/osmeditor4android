@@ -3165,6 +3165,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 	@Override
 	public void update() {
+		if (Application.getLogic().getSelectedBug() != null) {
+			Application.getLogic().setSelectedBug(null);
+		}
 		map.invalidate();
 	}
 	
