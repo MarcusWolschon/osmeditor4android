@@ -39,7 +39,7 @@ markdownToHtml.outputEncoding "utf8"
 
 task downloadPresetIconsZipFile(type: Download) {
 	doFirst {
-		delete android.sourceSets.main.assets.srcDirs[0] + '/images/icons/png'
+		delete projectDir.getPath() + '/src/main/assets/images/icons/png'
 	}
 	acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/beautified-JOSM-preset/master/gen/vespucci_icons.zip'

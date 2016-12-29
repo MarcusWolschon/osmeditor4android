@@ -3254,8 +3254,9 @@
             <optional>
                 <text key="name" text="Name" />
                 <text key="operator" text="Operator" />
-                <reference ref="oh_wheelchair" />
+                <check key="self_service" text="Self service" disable_off="true" />
                 <combo key="shop" text="With shop" values="yes,convenience,kiosk,no" />
+                <reference ref="oh_wheelchair" />
                 <space />
                 <label text="Fuel types:" />
                 <checkgroup columns="2">
@@ -3346,6 +3347,7 @@
             <space />
             <key key="amenity" value="car_wash" />
             <reference ref="name_brand_operator_oh_wheelchair" />
+            <check key="self_service" text="Self service" disable_off="true" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Wash -->
         <separator/>
@@ -4203,6 +4205,7 @@
             <key key="amenity" value="restaurant" />
             <reference ref="name_operator" />
 			<reference ref="cuisine" />
+			<check key="self_service" text="Self service" disable_off="true" />
             <check key="microbrewery" text="Microbrewery" disable_off="true" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
