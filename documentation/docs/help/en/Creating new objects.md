@@ -5,7 +5,7 @@ After a long press on the map on the main screen you will enter the "New" mode (
 You can now do one of three things:
 
 * **touch in the same place again** - this will add a node at the location and start the tag editor. If the location is within the tolerance zone of a way it will be added as a new node to that way.
-* **touch some other place on the screen** - this will create a way from the initial location to the current location, the way can be further extended by adding a further node. Touching the last location completes the way and starts the tag editor. 
+* **touch some other place on the screen** - this will create a way from the initial location to the current location, the way can be extended by adding further nodes. Touching the last location completes the way and starts the tag editor. If the initial location was near a node that will be used as the first node, and if it was on a way, a new node will be inserted in to that way.
 * **select a menu item** see below
 
 Both the last node and the complete way can be moved without leaving "New" mode.
