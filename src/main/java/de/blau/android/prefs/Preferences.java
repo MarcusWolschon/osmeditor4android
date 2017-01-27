@@ -45,7 +45,7 @@ public class Preferences {
 	
 	private final boolean tagFormEnabled;
 	
-	private final String backgroundLayer;
+	private String backgroundLayer;
 	
 	private final String overlayLayer;
 	
@@ -369,6 +369,11 @@ public class Preferences {
 	 */
 	public String backgroundLayer() {
 		return backgroundLayer;
+	}
+	
+	public void setBackGroundLayer(String name) {
+		backgroundLayer = name;
+		prefs.edit().putString(r.getString(R.string.config_backgroundLayer_key), name).commit();
 	}
 	
 	/**

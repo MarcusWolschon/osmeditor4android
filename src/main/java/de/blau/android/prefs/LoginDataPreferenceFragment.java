@@ -6,7 +6,7 @@ import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import android.view.View;
 import android.widget.EditText;
 import de.blau.android.R;
-import de.blau.android.prefs.AdvancedPrefDatabase.API;
+import de.blau.android.prefs.API;
 
 /** A dialog preference that allows the user to set username and password in one dialog.
  * Changes get saved to the {@link AdvancedPrefDatabase} */

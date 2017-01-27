@@ -59,6 +59,8 @@ import de.blau.android.util.Offset;
  *
  */
 public class TileLayerServer {
+	public static final String LAYER_MAPNIK = "MAPNIK";
+	public static final String LAYER_NONE = "NONE";
 	private static final String DEBUG_TAG = TileLayerServer.class.getName();
 	
 	/** A tile layer provide has some attribution text, and one or more coverage areas.
@@ -570,7 +572,7 @@ public class TileLayerServer {
 				if (cachedOverlay == null || !cachedOverlay.id.equals(id)) {
 					cachedOverlay = overlayServerList.get(id);
 					if (cachedOverlay == null || !cachedOverlay.metadataLoaded)
-						cachedOverlay = overlayServerList.get("NONE");
+						cachedOverlay = overlayServerList.get(LAYER_NONE);
 					Log.d("OpenStreetMapTileServer", "cachedOverlay " + (cachedOverlay == null?"null":cachedOverlay.id));
 				}
 				return cachedOverlay;
@@ -578,7 +580,7 @@ public class TileLayerServer {
 				if (cachedBackground == null || !cachedBackground.id.equals(id)) {
 					cachedBackground = backgroundServerList.get(id);
 					if (cachedBackground == null || !cachedBackground.metadataLoaded)
-						cachedBackground = backgroundServerList.get("MAPNIK");
+						cachedBackground = backgroundServerList.get(LAYER_MAPNIK);
 					Log.d("OpenStreetMapTileServer", "requested id " + id + " cached " + (cachedBackground == null?"null":cachedBackground.id));
 				}
 				return cachedBackground;
@@ -925,7 +927,7 @@ public class TileLayerServer {
 				}
 			}
 			// add this after sorting
-			if ("NONE".equals(osmts.id)) {
+			if (LAYER_NONE.equals(osmts.id)) {
 				noneLayer = osmts;
 				continue;
 			}

@@ -10,7 +10,7 @@ import android.util.Log;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
-import de.blau.android.prefs.AdvancedPrefDatabase.API;
+import de.blau.android.prefs.API;
 
 public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 

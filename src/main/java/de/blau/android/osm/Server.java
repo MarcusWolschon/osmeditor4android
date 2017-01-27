@@ -36,7 +36,7 @@ import de.blau.android.contract.Urls;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
-import de.blau.android.prefs.AdvancedPrefDatabase.API;
+import de.blau.android.prefs.API;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
