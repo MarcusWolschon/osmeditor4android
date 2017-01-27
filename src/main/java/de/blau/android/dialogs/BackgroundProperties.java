@@ -34,12 +34,15 @@ public class BackgroundProperties extends DialogFragment
 	
 	private static final String TAG = "fragment_background_properties";
 		
-	
+	private static int contrastValue=127;
    	/**
 	 
 	 */
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);
+
+		setDialogLayout(activity);
+
 
 		FragmentManager fm = activity.getSupportFragmentManager();
 	    BackgroundProperties backgroundPropertiesFragment = newInstance();
@@ -96,12 +99,14 @@ public class BackgroundProperties extends DialogFragment
     	
     	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
 		DoNothingListener doNothingListener = new DoNothingListener();
-		
+		setDialogLayout(getActivity());
 		View layout = inflater.inflate(R.layout.background_properties, null);
+		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
+		seeker.setProgress(contrastValue);
+		seeker.setOnSeekBarChangeListener(createSeekBarListener());
 		builder.setView(layout);
 		builder.setPositiveButton(R.string.okay, doNothingListener);
-		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
-		seeker.setOnSeekBarChangeListener(createSeekBarListener());
+
 
     	return builder.create();
     }	
@@ -113,6 +118,7 @@ public class BackgroundProperties extends DialogFragment
 				Map map = ((Main) getActivity()).getMap();
 				map.getOpenStreetMapTilesOverlay().setContrast(progress/127.5f - 1f); // range from -1 to +1
 				map.invalidate();
+				contrastValue=progress;
 			}
 			
 			@Override
@@ -123,5 +129,13 @@ public class BackgroundProperties extends DialogFragment
 			public void onStopTrackingTouch(final SeekBar arg0) {
 			}
 		};
+	}
+
+
+	private static void setDialogLayout(Activity activity){
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
+		View layout = inflater.inflate(R.layout.background_properties, null);
+		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
+		seeker.setProgress(contrastValue);
 	}
 }
