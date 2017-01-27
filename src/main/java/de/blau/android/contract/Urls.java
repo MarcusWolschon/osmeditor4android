@@ -11,7 +11,7 @@ public interface Urls {
 	String DEFAULT_NOMINATIM_SERVER = "http://nominatim.openstreetmap.org/";
 	String DEFAULT_PHOTON_SERVER = "http://photon.komoot.de/";
 	
-	String WIKIPEDIA = "http://wikipedia.org/wiki/";
+	String WIKIPEDIA = "http://en.wikipedia.org/wiki/";
 	String WIKIDATA = "http://wikidata.org/wiki/";
 	
 	String OSMOSE = "http://osmose.openstreetmap.fr/";
