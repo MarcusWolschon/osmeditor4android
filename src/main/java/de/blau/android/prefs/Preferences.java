@@ -107,7 +107,7 @@ public class Preferences {
 	private int maxInlineValues;
 	
 	private int maxTileDownloadThreads;
-	
+
 	private int notificationCacheSize;
 	
 	private int autoLockDelay;
@@ -185,6 +185,7 @@ public class Preferences {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			taskFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), taskFilter);
 		}
+
 		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
@@ -553,7 +554,8 @@ public class Preferences {
 	public void setAutoDownload(boolean on) {
 		prefs.edit().putBoolean(r.getString(R.string.config_autoDownload_key), on).commit();
 	}
-	
+
+
 	public boolean getAutoDownload() {
 		String key = r.getString(R.string.config_autoDownload_key);
 		if (!prefs.contains(key)) {
@@ -562,7 +564,19 @@ public class Preferences {
 		}
 		return prefs.getBoolean(key, false);
 	}
-	
+
+	public void setContrastValue(int cValue){
+		prefs.edit().putInt("contrastValue",cValue).commit();
+	}
+
+	public int getContrastValue(){
+		if (!prefs.contains("contrastValue")) {
+			// create the entry
+			setContrastValue(127);
+		}
+		return prefs.getInt("contrastValue", 127);
+	}
+
 	public void setBugAutoDownload(boolean on) {
 		prefs.edit().putBoolean(r.getString(R.string.config_bugAutoDownload_key), on).commit();
 	}

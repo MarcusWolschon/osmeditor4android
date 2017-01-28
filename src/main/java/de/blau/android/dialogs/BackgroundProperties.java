@@ -21,6 +21,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -34,16 +35,13 @@ public class BackgroundProperties extends DialogFragment
 	
 	private static final String TAG = "fragment_background_properties";
 		
-	private static int contrastValue=127;
-   	/**
+	/**
 	 
 	 */
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);
 
 		setDialogLayout(activity);
-
-
 		FragmentManager fm = activity.getSupportFragmentManager();
 	    BackgroundProperties backgroundPropertiesFragment = newInstance();
 	    if (backgroundPropertiesFragment != null) {
@@ -94,6 +92,7 @@ public class BackgroundProperties extends DialogFragment
 	@Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
+		Preferences prefs= new Preferences(getActivity());
     	Builder builder = new AlertDialog.Builder(getActivity());
     	builder.setTitle(R.string.menu_tools_background_properties);
     	
@@ -102,7 +101,7 @@ public class BackgroundProperties extends DialogFragment
 		setDialogLayout(getActivity());
 		View layout = inflater.inflate(R.layout.background_properties, null);
 		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
-		seeker.setProgress(contrastValue);
+		seeker.setProgress(prefs.getContrastValue());
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
 		builder.setView(layout);
 		builder.setPositiveButton(R.string.okay, doNothingListener);
@@ -115,10 +114,11 @@ public class BackgroundProperties extends DialogFragment
 		return new OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {
+				Preferences prefs= new Preferences(getActivity());
 				Map map = ((Main) getActivity()).getMap();
 				map.getOpenStreetMapTilesOverlay().setContrast(progress/127.5f - 1f); // range from -1 to +1
 				map.invalidate();
-				contrastValue=progress;
+				prefs.setContrastValue(progress);
 			}
 			
 			@Override
@@ -130,12 +130,11 @@ public class BackgroundProperties extends DialogFragment
 			}
 		};
 	}
-
-
 	private static void setDialogLayout(Activity activity){
+		Preferences prefs =new Preferences(activity);
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
 		View layout = inflater.inflate(R.layout.background_properties, null);
 		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
-		seeker.setProgress(contrastValue);
+		seeker.setProgress(prefs.getContrastValue());
 	}
 }
