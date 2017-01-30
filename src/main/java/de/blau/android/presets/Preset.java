@@ -1589,8 +1589,16 @@ public class Preset implements Serializable {
 			}
 		}
 		
+		/**
+		 * Get the value that should be used for a checked check box
+		 * @param key the key for the checkbox
+		 * @return either default value or what has been set in the preset
+		 */
 		public String getOnValue(String key) {
-			return onValue != null ? onValue.get(key) : "yes";
+			if (onValue != null) {
+				return onValue.get(key) != null ? onValue.get(key) : "yes";
+			}
+			return "yes";
 		}
 		
 		/**
