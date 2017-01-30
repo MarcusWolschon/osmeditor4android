@@ -488,7 +488,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	/**
 	 * update editor with any potential text changes that haven't been saved yet
 	 */
-	private boolean updateEditorFromText() {
+	boolean updateEditorFromText() {
 		Log.d(DEBUG_TAG,"updating data from last text field");
 		// check for focus on text field
 		View fragementView = getView();
