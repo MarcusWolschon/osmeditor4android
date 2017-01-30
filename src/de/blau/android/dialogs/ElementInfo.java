@@ -159,7 +159,7 @@ public class ElementInfo extends DialogFragment {
         			String value = e.getTags().get(k);
         			// special handling for some stuff
         			if (k.equals(Tags.KEY_WIKIPEDIA)) {
-        				tl.addView(createRow(k, Html.fromHtml("<a href=\"http://wikipedia.org/wiki/"+value+"\">"+value+"</a>"),tp));
+        				tl.addView(createRow(k, Html.fromHtml("<a href=\"http://en.wikipedia.org/wiki/"+value+"\">"+value+"</a>"),tp));
         			} else if (k.equals(Tags.KEY_WIKIDATA)) {
         				tl.addView(createRow(k, Html.fromHtml("<a href=\"http://wikidata.org/wiki/"+value+"\">"+value+"</a>"),tp));
         			} else if (Tags.isWebsiteKey(k)) {
