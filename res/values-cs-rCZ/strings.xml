@@ -10,14 +10,23 @@
   <string name="upload_problem_message">Některá nebo všechna data nebyla nenahrána. Zkuste to znovu později, pokud se jedná jen o dočasný problém.</string>
   <string name="use_local_version">Použít \nmístní \nverzi</string>
   <string name="use_server_version">Použít \nverzi \nna serveru</string>
+  <string name="no_login_data_title">Ověření se nezdařilo</string>
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>
   <string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>
+  <string name="wrong_login_data_title">Ověření se nezdařilo</string>
   <string name="data_conflict_title">Konflikt verzí</string>
   <string name="out_of_memory_title">Nedostatek paměti</string>
   <string name="out_of_memory_message">Vespucci nemá dost paměti pro načtení požadovaných dat. Restartujte ho, prosím, a zkuste načíst menší plochu.</string>
   <string name="out_of_memory_dirty_message">Vespucci nemá dost paměti pro načtení požadovaných dat. Zkuste, prosím, uložit vaše úpravy, restartujte ho a zkuste načíst menší plochu.</string>
   <string name="invalid_data_received_title">Přijata neplatná data</string>
+  <string name="invalid_data_read_title">Neplatná Data</string>
+  <string name="invalid_data_read_message">Soubor obsahoval neplatná data. Pokud si myslíte, že to, co jste se snažili udělat, je správné, vytvořte prosím chybové hlášení.</string>
+  <string name="file_write_failed_title">Zápis souboru se nezdařil</string>
   <string name="file_write_failed_message">Do vybraného souboru nelze zapisovat.</string>
+  <string name="welcome_title">Vítejte!</string>
+  <string name="welcome_message">Děkujeme, že používáte Vespucci.\n\nChcete-li začít, potřebujete znát dvě věci:\n\n* klepnutí na ikonu zámku v levém horním rohu přepnete mezi uzamčeným režimem (bez možnosti úprav) a odemčeným režimem\n\n* pro přidání nového objektu: dlouhým stiskem nebo poklepáním na stejném místě přidáte uzel, dalším klepnutím začnete cestu.\n\nNezapomeňte si stáhnout oblast, kterou chcete upravit.\n\nPříjemnou zábavu!</string>
+  <string name="read_introduction">Přečíst si nyní úvod</string>
+  <string name="upgrade_title">Vítejte v nové verzi Vespucci!</string>
   <string name="read_upgrade">Informace o nové verzi</string>
   <string name="progress_title">Načítám</string>
   <string name="progress_message">Načítam data do paměti…</string>
@@ -33,8 +42,11 @@
   <string name="upload_source_label">Zdroj:</string>
   <string name="upload_close_changeset_label">Uzavřít sadu změn:</string>
   <string name="upload_gpx_description_label">Popis</string>
+  <string name="upload_gpx_tags_label">Tagy</string>
+  <string name="upload_gpx_visibility_label">Viditelnost</string>
   <string name="openstreetbug_new_title">Nová poznámka</string>
   <string name="openstreetbug_new_bug">Nahlásit problém</string>
+  <string name="openstreetbug_bug_title">Problém</string>
   <string name="openstreetbug_new_nodeway">Vytvořit Uzel/Cestu</string>
   <string name="openstreetbug_edit_title">Upravit poznámku</string>
   <string name="openstreetbug_commitbutton">Odeslat</string>
@@ -42,34 +54,63 @@
   <string name="openstreetbug_edit_close">Uzavřít</string>
   <string name="openstreetbug_edit_closed">Uzavřeno</string>
   <string name="openstreetbug_not_downloaded">nestaženo</string>
+  <string name="openstreetbug_last_updated">naposledy upraveno</string>
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Máte neuložené změny, které budou smazány, pokud budete pokračovat.</string>
   <string name="unsaved_data_proceed">Smazat &amp; pokračovat</string>
   <string name="imagery_offset_title">Odsazení snímků</string>
   <string name="imagery_offset_description">Popis</string>
+  <string name="imagery_offset_not_found">Nenalezena žádná odsazení v okruhu 10 km!</string>
   <string name="imagery_offset_author">Autor</string>
+  <string name="imagery_offset_offset">Odsazení</string>
+  <string name="imagery_offset_date">Vytvořeno</string>
+  <string name="imagery_offset_zoom">Přiblížení</string>
   <string name="imagery_offset_distance">Vzdálenost</string>
+  <string name="set_position_datum_label">Geodetické datum</string>
+  <string name="tag_editor_name_suggestion">Navrhování názvu</string>
   <string name="search_results_title">Výsledky vyhledávání</string>
   <string name="find_message">Vložte vyhledávací řetězec</string>
+  <string name="preset_search_hint">Vyhledávací řetězec předvoleb</string>
   <string name="search">Hledat</string>
+  <string name="existing_track_title">Existující data stopy</string>
+  <string name="existing_track_message">Již máte existující data stopy. Možná budete chtít operaci zrušit a data nejdříve uložit.</string>
+  <string name="delete_tags">Opravdu smazat všechny tagy objektu \"%1$s\"?</string>
+  <string name="element_information">Vlastnosti prvku</string>
+  <string name="id">ID</string>
+  <string name="nodes">Uzly</string>
+  <string name="relation_membership">Člen relace</string>
+  <string name="members">Členy</string>
+  <string name="closed">Uzavřeno</string>
   <string name="version">Verze</string>
+  <string name="length_m">Délka (m)</string>
+  <string name="empty_role">neuvedená role</string>
+  <string name="element">prvek</string>
   <string name="error">chyba</string>
   <string name="warning">varování</string>
+  <string name="minor_issue">drobná chyba</string>
   <!--Toaster-->
   <string name="toast_no_changes">Zatím jste nic nezměnil…</string>
   <string name="toast_upload_success">Nahrávání na OSM server dokončeno.</string>
   <string name="toast_not_in_edit_range">Prosím přibližte mapu pro editaci (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Pro editaci odemkněte</string>
-  <string name="toast_edit_outside_downloaded_area">Nemůžete provádět úpravy mimo staženou plochu</string>
+  <string name="toast_edit_outside_downloaded_area">Nemůžete provádět úpravy mimo staženou oblast</string>
   <string name="toast_save_done">Uloženo</string>
   <string name="toast_save_failed">Ukládání se nezdařilo</string>
   <string name="toast_not_in_bug_range">Prosím přibližte mapu pro přidání chyby (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
   <string name="toast_export_failed">Export selhal</string>
   <string name="toast_export_success">Exportováno do %1$s</string>
+  <string name="toast_merge_overwrote_tags">Pozn. - operace přepsala tag(y)</string>
   <string name="toast_oneway_reversed">Otočili jste jednosměrnou cestu, nebo cestu se směrově závislými tagy. Zkontrolujte prosím tagy a upravte je, pokud je to nutné.</string>
   <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
   <string name="toast_photo_indexing_finished">Hledání fotografií s georeferencemi ukončeno</string>
+  <string name="toast_download_bbox_failed">Stažení se nezdařilo, pravděpodobně byla vybraná oblast příliš velká.</string>
+  <string name="toast_oauth_not_enabled">OAuth není povolen pro současné API.</string>
+  <string name="toast_oauth_timeout">Vypršel časový limit pro navázání spojení, zkuste to prosím znovu.</string>
+  <string name="toast_oauth_communication">Chyba komunikace během navazování spojení, zkuste to prosím znovu.</string>
+  <string name="toast_oauth_handshake_failed">OAuth chyba navázání spojení: %1$s</string>
   <string name="toast_nothing_found">Nic nenalezeno</string>
+  <string name="toast_outside_of_download">Provádíte úpravy mimo staženou oblast.</string>
+  <string name="toast_imported_track_points">Importováno %1$s bodů trasy.</string>
   <string name="toast_camera_error">Chyba při spouštění aplikace fotoaparátu: %1$s</string>
   <string name="toast_min_one_preset">Musíte vybrat alespoň jednu předvolbu!</string>
   <!--Some generic labels/buttons-->
@@ -78,9 +119,12 @@
   <string name="okay">Budiž</string>
   <string name="cancel">Zrušit</string>
   <string name="locked">Uzamčeno</string>
+  <string name="next">Další</string>
   <string name="apply">Použít</string>
   <string name="set">Nastavit</string>
+  <string name="replace">Nahradit</string>
   <string name="save">Uložit</string>
+  <string name="keep">Zachovat</string>
   <string name="enable">Povolit</string>
   <string name="clear">Smazat</string>
   <!--Dialog for back button-->
@@ -88,16 +132,33 @@
   <string name="exit_text">Opravdu chcete odejít?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">klíč</string>
+  <string name="Key">Klíč</string>
   <string name="value">hodnota</string>
+  <string name="Value">Hodnota</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_address">Přidat tagy pro adresu</string>
+  <string name="tag_menu_sourcesurvey">Zjištěno průzkumem</string>
   <string name="tag_menu_preset">Předvolby</string>
   <string name="tag_menu_revert">Vrátit zpět</string>
-  <string name="tag_menu_mapfeatures">Wiki vlastností mapy</string>
+  <string name="tag_menu_mapfeatures">Wiki s možnostmi mapovaní</string>
   <string name="tag_menu_addtorelation">Přidat do relace</string>
   <string name="tag_menu_resetMRU">Resetovat předvolby</string>
+  <string name="tag_menu_reset_address_prediction">Resetovat předvyplněnou adresu</string>
+  <string name="tag_autocomplete_name_hint">Pište nebo klikněte pro návrhy názvu</string>
+  <string name="tag_action_tag_title">Zvolené tagy</string>
+  <string name="tag_action_members_title">Zvolené členy</string>
+  <string name="tag_action_parents_title">Zvolené relace</string>
   <string name="tag_additional_properties">Další vlastnosti</string>
   <string name="tag_details">Detaily</string>
+  <string name="tag_menu_move_up">Přesunout výš</string>
+  <string name="tag_menu_move_top">Přesunout na začátek</string>
+  <string name="tag_menu_move_down">Přesunout níž</string>
+  <string name="tag_menu_move_bottom">Přesunout na konec</string>
   <string name="tag_menu_download">Stáhnout</string>
+  <string name="menu_up">O úroveň výš</string>
+  <string name="menu_top">Nejvyšší úroveň</string>
+  <string name="menu_preset_help">Nápověda k předvolbám</string>
+  <string name="tag_menu_i8n">Přidat tagy pro %1$s</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Načíst oblast</string>
   <string name="location_choose_radius">Vyberte poloměr:</string>
@@ -128,8 +189,16 @@
   <string name="menu_erase">Smazat uzel</string>
   <string name="menu_set_position">Poloha</string>
   <string name="menu_split">Rozdělit</string>
+  <string name="menu_extract">Rozpojit uzel</string>
+  <string name="menu_closed_way_split_1">Rozdělit uzavřenou cestu, 1. uzel</string>
+  <string name="menu_closed_way_split_2">Rozdělit uzavřenou cestu, 2. uzel</string>
   <string name="menu_append">Přidat</string>
+  <string name="menu_restriction">Přidat zákaz odbočení</string>
+  <string name="menu_restriction_via">Přidat \"před\" část/prvek</string>
+  <string name="menu_restriction_to">Přidat \"kam\" část/prvek</string>
   <string name="menu_relation">Vytvořit relaci</string>
+  <string name="menu_add_relation_member">Přidat objekty</string>
+  <string name="menu_select_relation_members">Zvolit členy</string>
   <string name="menu_tag">Upravit tagy</string>
   <string name="menu_openstreetbug">Přidat poznámku</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -172,6 +241,15 @@
   <string name="menu_cut">Vyjmout</string>
   <string name="menu_paste">Vložit</string>
   <string name="menu_paste_from_clipboard">Vložit ze schránky</string>
+  <string name="menu_zoom_to_selection">Přiblížit na výběr</string>
+  <string name="menu_rotate">Otočit</string>
+  <string name="menu_orthogonalize">Kolmé rohy</string>
+  <string name="menu_circulize">Uspořádat do kruhu</string>
+  <string name="menu_split_polygon">Rozdělit na dvě plochy</string>
+  <string name="menu_newnode_gps">Nový uzel na GPS pozici</string>
+  <string name="menu_extend_selection">Rozšířit výběr</string>
+  <string name="menu_set_name">Zadat název</string>
+  <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
   <string name="menu_tools">Nástroje</string>
   <string name="menu_tools_flush_background_tile_cache">Vyčistit mezipaměť s dlaždicemi pozadí</string>
   <string name="menu_tools_flush_overlay_tile_cache">Vyčistit mezipaměť s překryvnými dlaždicemi</string>
@@ -192,26 +270,45 @@
   <string name="menu_history">Historie</string>
   <string name="menu_merge">Spojit cesty</string>
   <string name="menu_reverse">Obrátit cestu</string>
+  <string name="deleteway_description">Chystáte se smazat cestu.\n\nMůžete zachovat všechny uzly, nebo smazat uzly, které patří pouze k této cestě a nemají žádné tagy.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Cesta obsahuje uzly mimo staženou oblast a nemůže být smazána bez vytvoření nekonzistentním stavu. Nejdříve si stáhněte celou cestu a zkuste to znovu.</string>
   <string name="deleteway_wayonly">Smazat pouze cestu</string>
   <string name="deleteway_wayandnodes">Smazat cestu a uzly</string>
   <string name="deletenode">Smazat uzel</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Cesta vybrána</string>
   <string name="actionmode_nodeselect">Uzel vybrán</string>
+  <string name="actionmode_relationselect">Zvolená relace</string>
   <string name="actionmode_createpath">Vytváří cestu</string>
+  <string name="actionmode_multiselect">Multiselect</string>
   <!--Preferences-->
   <string name="config_category_view">Nastavení uživatelského rozhraní</string>
   <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
   <string name="config_showCameraAction_summary">Zobrazit ikonu fotoaparátu na liště nástrojů</string>
+  <string name="config_generateAlerts_title">Vytvářet notifikace</string>
+  <string name="config_generateAlerts_summary">Vytvářet notifikace pro data s problémy či poznámkami</string>
+  <string name="config_voiceCommandsEnabled_title">Povolit hlasové příkazy</string>
+  <string name="config_voiceCommandsEnabled_summary">Povolit experimentální podporu hlasových příkazů</string>
+  <string name="config_maxAlertDistance_title">Max. vzdálenost pro notifikace</string>
+  <string name="config_maxAlertDistance_summary">Maximální vzdálenost problému nebo poznámky, která může být od aktuální polohy, pro generování oznámení</string>
+  <string name="config_maxStrokeWidth_title">Max. tloušťka čáry</string>
+  <string name="config_maxStrokeWidth_summary">Nekreslit tlustší cestu než tuto</string>
   <string name="config_tileCacheSize_title">Velikost mezipaměti s dlaždicemi</string>
+  <string name="config_tileCacheSize_summary">Celková velikost mezipaměti s dlaždicemi v MB</string>
   <string name="config_showStats_title">Zobrazit statistiku</string>
   <string name="config_showStats_summary">Zobrazí statistické data a počet snímků za sekundu v levém spodním rohu.</string>
   <string name="config_showTolerance_title">Zobrazit toleranci</string>
-  <string name="config_showTolerance_summary">Zobrazí oblast kde může být vybrán element.</string>
+  <string name="config_showTolerance_summary">Zobrazí oblast ve které lze vybrat prvek.</string>
   <string name="config_enableAntiAliasing_title">Zapnout vyhlazení hran</string>
+  <string name="config_enableAntiAliasing_summary">Dělá čáry hladší.</string>
+  <string name="config_enableOpenStreetBugs_title">Povolit zobrazení chyb a poznámek</string>
+  <string name="config_enableOpenStreetBugs_summary">Zobrazení, úprava a vytváření poznámek/chyb</string>
   <string name="config_enablePhotoLayer_title">Povolit fotovrstvu</string>
   <string name="config_enablePhotoLayer_summary">Zobrazit fotografie s georeferencemi</string>
+  <string name="config_enableKeepScreenOn_title">Nezhasínat obrazovku</string>
+  <string name="config_enableKeepScreenOn_summary">Nevypínat obrazovku pro úsporu energie.</string>
   <string name="config_closeChangesetOnSave_title">Uzavřít sady změn</string>
+  <string name="config_closeChangesetOnSave_summary">Při ukládání bude uzavření sady změn výchozí.</string>
   <string name="config_backgroundLayer_title">Pozadí mapy</string>
   <string name="config_overlayLayer_title">Překrytí mapy</string>
   <string name="config_scale_title">Zobrazení měřítka</string>
@@ -219,11 +316,18 @@
   <string name="config_category_server">Nastavení serveru</string>
   <string name="config_apibutton_title">URL API OSM</string>
   <string name="config_apibutton_summary">Zde můžete zadat nestandardní URL adresu API. Obvykle se nemá měnit!</string>
+  <string name="config_api_url_title">URL API</string>
+  <string name="listedit_enable_oauth">Povolit oauth</string>
+  <string name="config_offsetServer_title">Ofset Server</string>
+  <string name="config_offsetServer_summary">URL serveru s odsazením snímků</string>
   <string name="config_presetbutton_title">Předvolby</string>
   <string name="config_iconbutton_title">Zobrazit ikonky uzlů</string>
-  <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předlohy na uzlech.</string>
+  <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předvolbě uzlu.</string>
+  <string name="config_showWayIcons_title">Zobrazit ikony POI budov</string>
+  <string name="config_showWayIcons_summary">Ukázat ikonku nejlépe odpovídající předvolbě budovy.</string>
   <string name="config_loginbutton_title">Uživatelský ůčet</string>
   <string name="config_username_title">OSM už. jméno</string>
+  <string name="config_username_summary">Konfigurace potřebná k nahrávání OSM-Dat v případě, že nepoužíváte OAuth. Účty jsou dostupné na: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM heslo</string>
   <string name="config_password_summary">Nezaměňte ho za heslo do Wiki. Pamatujte: Je ukládáno a odesíláno v otevřeném formátu!</string>
   <string name="config_category_gps">Nastavení GPS</string>
@@ -239,14 +343,38 @@
   <string name="config_licensebutton_summary">Zobrazit autory a licenční informace</string>
   <string name="config_debugbutton_title">Ladění</string>
   <string name="config_debugbutton_summary">Zobrazí některé vnitřní informace</string>
+  <string name="config_mapProfile_title">Zobrazení prvků</string>
+  <string name="config_use_back_for_undo_title">Tlačítkem zpět vracet změnu</string>
+  <string name="config_use_back_for_undo_summary">Použít tlačítko zpět pro vracení úprav v hlavním okně</string>
+  <string name="config_largeDragArea_title">Větší oblast pro výběr uzlu</string>
+  <string name="config_largeDragArea_summary">Poskytne větší oblast pro vybírání uzlů</string>
   <string name="config_maxDownloadSpeed_title">Max. rychlost pro auto-stahovaní</string>
-  <string name="config_enableNameSuggestions_title">Povolit návrhy jmen</string>
+  <string name="config_enableNameSuggestions_title">Povolit návrhy názvu</string>
+  <string name="config_enableNameSuggestions_summary">Zapnout návrhy pro tag s názvem</string>
+  <string name="config_enableAutoPreset_title">Povolit automatickou předvolbu</string>
+  <string name="config_enableAutoPreset_summary">Automaticky přidat předvolbu, pokud je zvolen návrh názvů</string>
+  <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>
+  <string name="config_splitActionBarEnabled_summary">Umožní rozdělit lištu nástrojů, výsledek závisí na konkrétním telefonu. Vyžaduje restart a Android verze &gt;= 4.0</string>
+  <string name="config_gps_source_title">Zdroj GPS</string>
+  <string name="config_gps_source_summary">Zdroj aktualizaci GPS polohy</string>
+  <string name="config_leaveGpsDisabled_title">Ponechat vypnuté GPS</string>
+  <string name="config_leaveGpsDisabled_summary">Neptat se uživatele na zapnutí GPS, pokud je vypnutá</string>
   <string name="config_enableLightTheme_title">Povolit světlý vzhled</string>
   <string name="config_enableLightTheme_summary">Světlý vzhled s bílým pozadím</string>
   <string name="config_category_misc">Různé</string>
+  <string name="config_address_tags">Tagy pro adresu</string>
+  <string name="config_address_tags_summary">Tagy používané k předvyplnění adresy</string>
   <string name="config_moreprefs">Další nastavení...</string>
+  <string name="config_followGPSbutton_title">Umístění tlačítka GPS</string>
+  <string name="config_followGPSbutton_summary">Umístění tlačítka Následovat polohu GPS</string>
   <string name="config_fullscreenMode_title">Režim na celou obrazovku</string>
-  <string name="config_notificationCacheSize_title">Max. počet zobrazených upozornění</string>
+  <string name="config_fullscreenMode_summary">Chování v zařízeních se softwarovými tlačítky.</string>
+  <string name="config_maxTileDownloadThreads_title">Max. počet vláken pro stahování</string>
+  <string name="config_maxTileDownloadThreads_summary">Maximální počet vláken pro stahování dlaždic.</string>
+  <string name="config_notificationCacheSize_title">Max. počet zobrazených notifikací</string>
+  <string name="config_notificationCacheSize_summary">Maximální počet zobrazených notifikací jednoho typu</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Pokud je nastaveno, nestažené oblasti budou tmavé v Uzamčeném režimu</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizovat předlohy</string>
   <string name="preset_download_successful">Předlohy úspešně staženy.</string>
@@ -273,6 +401,8 @@
   <string name="name">jméno</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
+  <string name="api_name">Název API</string>
+  <string name="api_url">URL API</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Předloha</string>
   <string name="api">API</string>
@@ -296,8 +426,13 @@
   <string name="undo_action_set_tags">nastavit tagy</string>
   <string name="undo_action_create_relation">vytvořit relaci</string>
   <string name="undo_action_delete_relation">smazat relaci</string>
+  <string name="undo_action_update_relations">upravit relace</string>
   <string name="undo_action_cut">vyjmout</string>
   <string name="undo_action_paste">vložit</string>
+  <string name="undo_action_rotateway">otočit cestu</string>
+  <string name="undo_action_orthogonalize">narovnat cestu</string>
+  <string name="undo_action_circulize">uspořádat do kruhu</string>
+  <string name="undo_action_extract_node">rozpojit uzel</string>
   <!--ACRA-->
   <string name="config_category_acra">Hlášení pádu</string>
   <string name="pref_enable_acra">Hlásí pády aplikace</string>
@@ -306,13 +441,50 @@
   <!--Exceptions messages-->
   <!--Notifications-->
   <!--Misc relation related stuff-->
+  <string name="role">Role</string>
+  <string name="role_lc">role</string>
+  <string name="membership_relation_heading">Člen relace</string>
   <string name="relation">Relace</string>
   <string name="relations">Relace</string>
+  <string name="type">Typ</string>
   <string name="object">Objekt</string>
   <string name="deleterelation">Smazat relaci</string>
+  <string name="delete_from_relation_description">Chystáte se smazat tento prvek z relace.</string>
   <!--time and distance-->
   <string name="seconds">sekundy</string>
+  <string name="km">km</string>
   <string name="meter">metr</string>
   <!--Help system-->
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>soukromá</item>
+    <item>veřejná</item>
+    <item>stopovatelná</item>
+    <item>identifikovatelná</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Otevřená</item>
+    <item>Uzavřená</item>
+    <item>Není chyba</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Otevřená</item>
+    <item>Uzavřená</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Vlevo</item>
+    <item>Vpravo</item>
+    <item>Žádné</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Auto</item>
+    <item>Nikdy</item>
+    <item>Vynutit</item>
+    <item>Bez stavové lišty</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Nikdy</item>
+    <item>Vynutit</item>
+    <item>Bez stavové lišty</item>
+  </string-array>
 </resources>

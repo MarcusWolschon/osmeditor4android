@@ -12,7 +12,8 @@
   <string name="use_local_version">Använd \nlokal \nversion</string>
   <string name="no_login_data_title">Autentisering misslyckades</string>
   <string name="no_connection_title">Ingen anslutning till server</string>
-  <string name="no_connection_message">Det gick inte att ansluta till OSM-servern. Kontrollera Internetanslutningen eller försök igen senare.</string>
+  <string name="no_connection_message">Det gick inte att ansluta till OSM-Servern. Kontrollera Internetanslutningen eller försök igen senare.</string>
+  <string name="ssl_handshake_failed">Kunde inte att ansluta till OSM-Servern eftersom https förhandling misslyckades. Försök att byta till en icke-krypterad förbindelse i API-inställningarna.</string>
   <string name="wrong_login_data_title">Autentisering misslyckades</string>
   <string name="wrong_login_data_re_authenticate">Verifiera igen</string>
   <string name="api_offline_title">API Offline</string>
@@ -88,7 +89,7 @@
   <!--Toaster-->
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
-  <string name="toast_upload_success">Uppladdningen till OSM-servern slutfördes.</string>
+  <string name="toast_upload_success">Uppladdning till OSM server slutfördes.</string>
   <string name="toast_not_in_edit_range">Vänligen zooma in för att redigera (Volym upp/ner eller Lins/Shift)</string>
   <string name="toast_unlock_to_edit">Lås upp för att redigera</string>
   <string name="toast_edit_outside_downloaded_area">Du kan inte redigera utanför nedladdat område</string>
@@ -121,6 +122,7 @@
   <string name="back">Tillbaka</string>
   <string name="forward">Framåt</string>
   <string name="keep">Behåll</string>
+  <string name="enable">Aktivera</string>
   <string name="clear">Töm</string>
   <string name="retry">Försök igen</string>
   <!--Dialog for back button-->
@@ -201,15 +203,20 @@
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Visa plats</string>
-  <string name="menu_gps_follow">Följ GPS-plats</string>
-  <string name="menu_gps_goto">Gå till GPS-platsen</string>
+  <string name="menu_gps_follow">Följ GPS position</string>
+  <string name="menu_gps_goto">Gå till GPS position</string>
+  <string name="menu_gps_start">Starta GPS spår</string>
+  <string name="menu_gps_pause">Pausa GPS spår</string>
+  <string name="menu_gps_clear">Rensa GPS spår</string>
   <string name="menu_gps_track_managment">Spårhantering...</string>
+  <string name="menu_gps_upload">Ladda upp GPS spår</string>
+  <string name="menu_gps_export">Exportera GPS spår</string>
   <string name="menu_gps_import">Importera GPS spår</string>
   <string name="menu_gps_goto_start">Gå till GPS spår</string>
   <string name="menu_gps_autodownload">Ladda ner automatiskt</string>
   <string name="menu_transfer">Överför...</string>
   <string name="menu_transfer_download_current">Ladda ner nuvarande vy</string>
-  <string name="menu_transfer_download_current_add">Lägg till nuvarande vy för nedladdning</string>
+  <string name="menu_transfer_download_current_add">Lägg till nuvarande vy till nedladdning</string>
   <string name="menu_transfer_download_other">Ladda ner annan plats</string>
   <string name="menu_transfer_upload">Ladda upp data till OSM server</string>
   <string name="menu_transfer_close_changeset">Stäng nuvarande chnageset</string>
@@ -225,7 +232,7 @@
   <string name="menu_transfer_bugs_clear_long">Töm buggar</string>
   <string name="menu_transfer_autodownload_long">Ladda automatiskt ner buggar</string>
   <string name="menu_transfer_save_notes_all">Spara alla anteckningar...</string>
-  <string name="menu_transfer_save_notes_new_and_changed">Spara nya och ändrade noteringar....</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Spara nya och ändrade anteckningar....</string>
   <string name="menu_save">Spara till fil</string>
   <string name="menu_join">Anslut</string>
   <string name="menu_unjoin">Koppla loss</string>
@@ -245,6 +252,7 @@
   <string name="menu_set_name">Sätt namn</string>
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
   <string name="menu_tools">Verktyg</string>
+  <string name="menu_tools_flush_background_tile_cache">Spola bakgrundstitel cache</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
   <string name="menu_tools_background_align">Justera bakgrund</string>
   <string name="menu_tools_background_align_reset">Återställ</string>
@@ -275,6 +283,7 @@
   <!--Preferences-->
   <string name="config_category_view">Användargränssnitts inställningar </string>
   <string name="config_showCameraAction_title">Visa kamera knapp</string>
+  <string name="config_generateAlerts_title">Generera aviseringar</string>
   <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
   <string name="config_closeChangesetOnSave_summary">Stäng changesets som standard vid sparande</string>
   <string name="config_backgroundLayer_title">Kartans bakgrund</string>
@@ -359,6 +368,11 @@
   <string-array name="note_state">
     <item>Öppna</item>
     <item>Stäng</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Vänster</item>
+    <item>Höger</item>
+    <item>Inget</item>
   </string-array>
   <string-array name="full_screen_preference_no_auto_entries">
     <item>Nyare</item>

@@ -2,17 +2,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">주의!</string>
+  <string name="transfer_download_current_dialog_message">일부를 바꾸었습니다. 버리는 대신 업로드하겠습니까?</string>
   <string name="transfer_download_current_upload">올리기</string>
   <string name="transfer_download_current_download">버리기 및 다운로드</string>
   <string name="transfer_download_current_back">뒤로 (아무 것도 하지 않음)</string>
   <string name="upload_problem_title">올리는 데 문제</string>
+  <string name="upload_problem_message">데이터가 업로드 되지 않았습니다. 일시적인 오류일 경우 나중에 다시 시도해 보십시요</string>
   <string name="upload_conflict_title">올리기 충돌</string>
   <string name="use_local_version">로컬 \n버전 \n사용</string>
   <string name="use_server_version">서버의 \n버전 \n사용</string>
   <string name="no_login_data_title">인증 실패</string>
+  <string name="no_login_data_message">OAuth를 사용할 경우 버그일 가능성이 있습니다. 문제보고를 보내주시기바랍니다. 또 비밀번호를 사용하실 경우(추천하지 않습니다) 정확히 입력하였는지 확인해 주십시요</string>
   <string name="no_connection_title">서버에 연결할 수 없음</string>
+  <string name="no_connection_message">OSM서버에 연결할 수 없습니다. 인터넷 연결 상태를 확인해 보시거나, 나중에 다시 시도해 주십시요</string>
+  <string name="ssl_handshake_failed">OSM서버에 연결할 수 없습니다. https연결로의 변경을 사용할 수 없습니다. API설정에서 암호화되지않은 연결로 변경해 주십시요.</string>
   <string name="wrong_login_data_title">인증 실패</string>
+  <string name="wrong_login_data_message">OAuth를 사용할 경우 재인증을 하시고 시도해 주십시요. 또는 비밀번호를 사용하실 경우(추천하지 않습니다) 정확히 입력하였는지 확인해 주십시요.</string>
   <string name="wrong_login_data_re_authenticate">재인증</string>
+  <string name="data_conflict_title">버전 충돌</string>
   <string name="api_offline_title">API 오프라인</string>
   <string name="out_of_memory_title">메모리 초과</string>
   <string name="file_write_failed_title">파일 쓰기 실패</string>
@@ -26,6 +33,9 @@
   <string name="progress_deleting_message">삭제 중…</string>
   <string name="progress_searching_message">검색 중…</string>
   <string name="progress_saving_message">저장 중…</string>
+  <string name="progress_uploading_message">올리는 중…</string>
+  <string name="progress_preset_message">프리셋 다운로드 중…</string>
+  <string name="progress_oauth">OAuth 인증을 위해 openstreetmap.org에서 당신의 계정을 불러오는 중…</string>
   <string name="upload_comment_label">댓글:</string>
   <string name="upload_source_label">출처:</string>
   <string name="upload_close_changeset_label">바뀜집합 닫음:</string>
@@ -40,6 +50,8 @@
   <string name="openstreetbug_comment_label">댓글:</string>
   <string name="openstreetbug_edit_close">닫기</string>
   <string name="openstreetbug_edit_closed">닫음</string>
+  <string name="openstreetbug_commit_ok">버그 바뀜이 저장됨</string>
+  <string name="openstreetbug_commit_fail">버그 바뀜을 저장할 수 없음</string>
   <string name="openstreetbug_not_downloaded">다운로드되지 않음</string>
   <string name="openstreetbug_last_updated">마지막 업데이트</string>
   <string name="unsaved_data_title">주의!</string>
@@ -51,6 +63,7 @@
   <string name="tag_editor_name_suggestion">이름 제안</string>
   <string name="search_results_title">검색 결과</string>
   <string name="find_message">검색어를 입력하세요</string>
+  <string name="search">검색</string>
   <string name="read_file">읽을 파일 선택</string>
   <string name="id">Id</string>
   <string name="nodes">노드</string>
@@ -64,11 +77,14 @@
   <string name="warning">경고</string>
   <string name="minor_issue">사소한 이슈</string>
   <!--Toaster-->
+  <string name="toast_no_changes">아직 아무것도 바꾸지 않았습니다…</string>
   <string name="toast_unlock_to_edit">편집하려면 잠금 해제</string>
   <string name="toast_save_done">저장 성공</string>
   <string name="toast_save_failed">저장 실패</string>
   <string name="toast_export_failed">내보내기 실패</string>
   <string name="toast_export_success">%1$s로 내보냄</string>
+  <string name="toast_timeout">서버로의 시간초과</string>
+  <string name="coordinates_out_of_range">경도는 -180°/+180° 사이이고, 위도는 -85°/85° 사이여야 합니다</string>
   <string name="toast_nothing_found">아무 것도 찾을 수 없음</string>
   <string name="toast_missing_filemanager">파일 관리자를 설치하세요.</string>
   <!--Some generic labels/buttons-->
@@ -80,19 +96,32 @@
   <string name="next">다음</string>
   <string name="apply">적용</string>
   <string name="set">설정</string>
+  <string name="replace">교체</string>
   <string name="save">저장</string>
   <string name="back">뒤로</string>
+  <string name="forward">앞으로</string>
   <string name="keep">유지</string>
+  <string name="enable">활성화</string>
+  <string name="clear">지우기</string>
+  <string name="retry">다시 시도</string>
   <!--Dialog for back button-->
+  <string name="exit_title">정말 종료하겠습니까?</string>
+  <string name="exit_text">종료하기를 원합니까?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">키</string>
   <string name="Key">키</string>
   <string name="value">값</string>
   <string name="Value">값</string>
+  <string name="tag_menu_address">주소 태그 추가</string>
+  <string name="tag_menu_preset">프리셋</string>
+  <string name="tag_menu_apply_preset">최상의 프리셋 적용</string>
+  <string name="tag_menu_repeat">태그 반복</string>
   <string name="menu_up">위</string>
   <string name="menu_top">상위</string>
   <!--Strings in LocationPicker-->
   <string name="location_text_unknown">알 수 없음</string>
+  <string name="location_lat_label">위도:</string>
+  <string name="location_lon_label">경도:</string>
   <!--Menu-->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->

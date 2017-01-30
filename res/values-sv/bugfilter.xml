@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string-array name="bug_filter_entries">
-    <item>Noteringar</item>
+    <item>Anteckningar</item>
     <item>Osmose error</item>
     <item>Osmose varning</item>
     <item>Osmose små fel</item>

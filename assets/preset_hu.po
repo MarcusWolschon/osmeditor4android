@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-11-29 18:17+0100\n"
-"PO-Revision-Date: 2016-11-29 17:20+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-01-02 17:07+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,20 +23,20 @@ msgstr "Víz"
 
 #: master_preset.xml:337(combo:display_values|key:denomination)
 msgid "Jehovahs witness"
-msgstr "Jehova tanúi"
+msgstr "Jehova Tanúi"
 
 #: master_preset.xml:220(multiselect:display_values|key:cuisine)
 msgid "Noodle"
-msgstr ""
+msgstr "Tészta"
 
 #: master_preset.xml:10190(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Max. speed"
-msgstr "Legnagyobb sebesség"
+msgstr "Sebességkorlátozás"
 
 #: master_preset.xml:8848(check:text|preset:Payment_Methods|key:payment:coins)
 #: master_preset.xml:5744(check:text|group:Facilities|preset:Telephone|key:payment:coins)
 msgid "Coins"
-msgstr "Pénzérmék"
+msgstr "Pénzérme"
 
 #: master_preset.xml:6403(combo:text|group:Sport|preset:Skiing|key:piste:difficulty)
 msgid "Difficulty"
@@ -44,7 +44,7 @@ msgstr "Nehézség"
 
 #: master_preset.xml:258(combo:text|key:diaper)
 msgid "Diaper changing facilities"
-msgstr "Pelenkázó létesítmények"
+msgstr "Pelenkázóhely"
 
 #: master_preset.xml:3548(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:pump)
 #: master_preset.xml:3513(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:pump)
@@ -57,7 +57,7 @@ msgstr "Rámpa"
 
 #: master_preset.xml:10678(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "Padlólerakó"
 
 #: master_preset.xml:9502(check:text|group:Nature|preset:Rock|key:tourism)
 msgid "Tourism attraction"
@@ -73,15 +73,15 @@ msgstr "Hentes"
 
 #: master_preset.xml:3741(group:name|group:Public_Transport_(Legacy))
 msgid "Public Transport (Legacy)"
-msgstr ""
+msgstr "Tömegközlekedés (örökség)"
 
 #: master_preset.xml:4065(item:name|group:Accommodation|preset:Chalet)
 msgid "Chalet"
-msgstr ""
+msgstr "Alpesi faház"
 
 #: master_preset.xml:1262(combo:text|group:Ways|preset:Cycle_Lane/Track|key:highway)
 msgid "Highway"
-msgstr ""
+msgstr "Út"
 
 #: master_preset.xml:5187(check:text|group:Education|preset:Childcare|key:kindergarten)
 msgid "Kindergarten"
@@ -93,7 +93,7 @@ msgstr "*"
 
 #: master_preset.xml:8032(list_entry:short_description|group:Clothes|preset:Clothes|value:costumes)
 msgid "Costumes"
-msgstr ""
+msgstr "Jelmez"
 
 #: master_preset.xml:2674(list_entry:short_description|group:Water|preset:Wetland|value:tidalflat)
 msgid "Tidalflat"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: master_preset.xml:7109(check:text|group:Man_Made|preset:Monitoring_Station|key:display:analog)
 msgid "Analog"
-msgstr ""
+msgstr "Analóg"
 
 #: master_preset.xml:7242(item:name|group:Power_Generator|preset:Biomass_Power_Generator)
 msgid "Biomass Power Generator"
@@ -117,7 +117,7 @@ msgstr "Óvszer"
 
 #: master_preset.xml:2315(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward:conditional)
 msgid "Max. speed HGV in way direction conditional"
-msgstr ""
+msgstr "Sebességkorlátozás – nehéz tehergépjármű, a vonal irányába, feltételes"
 
 #: master_preset.xml:6238(item:name|preset:Miniature_Golf)
 msgid "Miniature Golf"
@@ -127,7 +127,7 @@ msgstr "Minigolf"
 msgid ""
 "A single notable free-standing rock, which may differ from the composition "
 "of the terrain it lies in."
-msgstr ""
+msgstr "Feltűnő, magányos, álló szikla, amely különbözhet a környező terep összetételétől"
 
 #: master_preset.xml:7395(combo:text|preset:Power_Substation|key:substation)
 msgid "Type of substation"
@@ -139,7 +139,7 @@ msgstr "Nemzeti park"
 
 #: master_preset.xml:9989(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Alphabetic"
-msgstr ""
+msgstr "Ábécésorrendben"
 
 #: master_preset.xml:2613(combo:display_values|group:Water|preset:Water|key:water)
 #: master_preset.xml:2574(item:name|group:Water|preset:Reservoir)
@@ -160,15 +160,15 @@ msgstr "Felület"
 #: master_preset.xml:3748(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:from)
 #: master_preset.xml:500(text:text|key:from)
 msgid "From (initial stop)"
-msgstr ""
+msgstr "Innen (kiinduló megálló)"
 
 #: master_preset.xml:6569(item:name|group:Sport_(Ball)|preset:Racquetball)
 msgid "Racquetball"
-msgstr ""
+msgstr "Racquetball"
 
 #: master_preset.xml:415(check:text|key:intermittent)
 msgid "Intermittent"
-msgstr ""
+msgstr "Időszakos"
 
 #: master_preset.xml:1212(list_entry:short_description|group:Ways|preset:Path|value:alpine_hiking)
 msgid ""
@@ -219,17 +219,17 @@ msgstr "Geotermikus erőmű"
 
 #: master_preset.xml:10694(item:name|group:Crafts|preset:Glaziery)
 msgid "Glaziery"
-msgstr ""
+msgstr "Üvegműves"
 
 #: master_preset.xml:1085(combo:display_values|group:Streets|preset:Ford|key:ford)
 msgid "Stepping stones"
-msgstr ""
+msgstr "Lépőkövek"
 
 #: master_preset.xml:3637(text:text|group:Public_Transport|preset:Stop_Position|key:uic_name)
 #: master_preset.xml:3617(text:text|group:Public_Transport|preset:Stop_Area|key:uic_name)
 #: master_preset.xml:3674(text:text|group:Public_Transport|preset:Platform|key:uic_name)
 msgid "UIC name"
-msgstr ""
+msgstr "UIC-név"
 
 #: master_preset.xml:3593(item:name|group:Public_Transport|preset:Route_Master)
 msgid "Route Master"
@@ -242,7 +242,7 @@ msgstr "Kerekesszékrámpa"
 #: master_preset.xml:10509(role:text|preset:Waterway|key:)
 #: master_preset.xml:10510(role:text|preset:Waterway|key:main_stream)
 msgid "waterways (no riverbank)"
-msgstr ""
+msgstr "vízfolyás (nincs part)"
 
 #: master_preset.xml:98(list_entry:short_description|value:uncontrolled)
 msgid "Not controlled"
@@ -250,7 +250,7 @@ msgstr "Nem ellenőrzött"
 
 #: master_preset.xml:356(combo:text|key:circuits)
 msgid "Number of circuits"
-msgstr ""
+msgstr "Áramkörök száma"
 
 #: master_preset.xml:1469(item:name|group:Waypoints|preset:Mini-Roundabout)
 msgid "Mini-Roundabout"
@@ -266,11 +266,11 @@ msgstr "Lépésszám"
 
 #: master_preset.xml:3032(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
-msgstr ""
+msgstr "Fordítókorong"
 
 #: master_preset.xml:2671(list_entry:short_description|group:Water|preset:Wetland|value:marsh)
 msgid "Marsh"
-msgstr ""
+msgstr "Láp"
 
 #: master_preset.xml:429(combo:text|key:motorboat)
 msgid "Motorboat"
@@ -282,7 +282,7 @@ msgstr ""
 
 #: master_preset.xml:6864(item:name|group:Man_Made|preset:Water_Works)
 msgid "Water Works"
-msgstr ""
+msgstr "Vízmű"
 
 #: master_preset.xml:7254(item:name|group:Power_Generator|preset:Coal_Power_Generator)
 msgid "Coal Power Generator"
@@ -303,7 +303,7 @@ msgstr "Lakatos"
 
 #: master_preset.xml:3645(check:text|group:Public_Transport|preset:Stop_Position|key:highway)
 msgid "Bus stop (legacy)"
-msgstr ""
+msgstr "Buszmegálló (örökség)"
 
 #: master_preset.xml:471(combo:text|key:stars)
 #: master_preset.xml:4058(combo:text|group:Accommodation|preset:Apartment|key:stars)
@@ -317,7 +317,7 @@ msgstr "Csillagok"
 #: master_preset.xml:10352(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 #: master_preset.xml:10215(combo:display_values|group:Routes|preset:Bicycle_Route|key:network)
 msgid "Regional"
-msgstr ""
+msgstr "Regionális"
 
 #: master_preset.xml:466(list_entry:display_value|value:unemployed)
 msgid "Unemployed"
@@ -325,7 +325,7 @@ msgstr "Munkanélküli"
 
 #: master_preset.xml:5889(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:basin)
 msgid "Casette or Elsan Disposal"
-msgstr ""
+msgstr "Mobil illemhely kiürítése"
 
 #: master_preset.xml:9930(text:text|group:Addresses_and_Contact|preset:Name|key:old_name)
 msgid "Historical name"
@@ -338,7 +338,7 @@ msgstr "hideg víz"
 
 #: master_preset.xml:52(combo:text|key:maxspeed:backwardward:conditional)
 msgid "Max. speed opposite way direction conditional"
-msgstr ""
+msgstr "Sebességkorlátozás a vonal irányával ellentétesen, feltételes"
 
 #: master_preset.xml:335(combo:display_values|key:religion)
 msgid "Jewish"
@@ -346,23 +346,23 @@ msgstr "Zsidó"
 
 #: master_preset.xml:5888(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:round_drain)
 msgid "Gravity drain for hose"
-msgstr ""
+msgstr "Gravitációs drén csőcsatlakozás"
 
 #: master_preset.xml:10501(text:text|preset:Waterway|key:ref:sandre)
 msgid "Reference Sandre (FR)"
-msgstr ""
+msgstr "Sandre-hivatkozás (FR)"
 
 #: master_preset.xml:450(combo:text|key:placement)
 msgid "Placement"
-msgstr ""
+msgstr "Elhelyezkedés"
 
 #: master_preset.xml:4735(item:name|group:Leisure|preset:Night_Club)
 msgid "Night Club"
-msgstr "Night club"
+msgstr "Diszkó"
 
 #: master_preset.xml:4408(combo:text|group:Tourism|preset:Map|key:map_type)
 msgid "Detail Grade"
-msgstr ""
+msgstr "Részletesség mértéke"
 
 #: master_preset.xml:4409(combo:text|group:Tourism|preset:Map|key:map_size)
 msgid "Shown Area"
@@ -370,11 +370,11 @@ msgstr "Megjelenített terület"
 
 #: master_preset.xml:10193(text:text|group:Relations|preset:Enforcement|key:maxspeed)
 msgid "Max. speed (km/h, only if enforcement=maxspeed)"
-msgstr ""
+msgstr "Sebességkorlátozás (km/h, csak ha enforcement=maxspeed)"
 
 #: master_preset.xml:3054(item:name|group:Railway|preset:Railway_Signal)
 msgid "Railway Signal"
-msgstr ""
+msgstr "Vasúti jelzés"
 
 #: master_preset.xml:3461(optional:text|group:Motorcycle|preset:Motorcycle_Dealer)
 msgid "Services:"
@@ -382,15 +382,15 @@ msgstr "Szolgáltatások:"
 
 #: master_preset.xml:9601(item:name|group:Land_use|preset:Plant_Nursery)
 msgid "Plant Nursery"
-msgstr ""
+msgstr "Növény- vagy faiskola"
 
 #: master_preset.xml:9158(label:text|group:Geography|preset:Saddle)
 msgid "A saddle point between mountains or hills."
-msgstr "Nyeregpont hegyek vagy dombok között."
+msgstr "Hegyek vagy dombok közötti nyeregpont."
 
 #: master_preset.xml:10458(role:text|preset:Street|key:address)
 msgid "addresses belonging to the street"
-msgstr "az utcához tartozó cím"
+msgstr "az utcához tartozó címek"
 
 #: master_preset.xml:11353(item:name|group:Offices|preset:Financial)
 msgid "Financial"
@@ -417,12 +417,12 @@ msgstr "Láb"
 
 #: master_preset.xml:9382(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Veld"
-msgstr ""
+msgstr "Veld"
 
 #: master_preset.xml:3749(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:to)
 #: master_preset.xml:501(text:text|key:to)
 msgid "To (terminal stop)"
-msgstr ""
+msgstr "Eddig (végső megálló)"
 
 #: master_preset.xml:3197(combo:text|group:Car|preset:Parking|key:capacity:women)
 msgid "Spaces for Women"
@@ -438,7 +438,7 @@ msgstr "Tárna"
 
 #: master_preset.xml:2237(item:name|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH))
 msgid "Motorcar and -cycle (CH)"
-msgstr ""
+msgstr "Gépjármű (CH)"
 
 #: master_preset.xml:7088(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:water_level)
 msgid "Water level"
@@ -459,7 +459,7 @@ msgstr "Beltéri"
 
 #: master_preset.xml:1500(label:text|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "In case of traffic signals:"
-msgstr ""
+msgstr "Jelzőlámpa esetén:"
 
 #: master_preset.xml:10702(item:name|group:Crafts|preset:Handicraft)
 msgid "Handicraft"
@@ -467,7 +467,7 @@ msgstr "Kézműves"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Concrete plates"
-msgstr ""
+msgstr "Betonlapok"
 
 #: master_preset.xml:9382(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Savanna"
@@ -484,7 +484,7 @@ msgstr "Konyha"
 
 #: master_preset.xml:6407(item:name|group:Sport|preset:Shooting)
 msgid "Shooting"
-msgstr ""
+msgstr "Lövészet"
 
 #: master_preset.xml:7778(item:name|group:Food|preset:Supermarket)
 msgid "Supermarket"
@@ -512,19 +512,19 @@ msgstr "Kapu"
 
 #: master_preset.xml:8948(text:text|group:Boundaries|preset:Protected_Area|key:protect_class)
 msgid "Protected Class"
-msgstr ""
+msgstr "Védettségi besorolás (1-99)"
 
 #: master_preset.xml:7547(check:text|preset:Power_Tower|key:design:incomplete)
 msgid "Incomplete tower"
-msgstr ""
+msgstr "Befejezetlen oszlop"
 
 #: master_preset.xml:1209(list_entry:short_description|group:Ways|preset:Path|value:hiking)
 msgid "Trail well cleared. Area flat or slightly sloped, no fall hazard"
-msgstr ""
+msgstr "Az ösvény jó ki van tisztítva. A terület sík vagy enyhén emelkedik/lejt, elesés nem valószínű"
 
 #: master_preset.xml:5049(item:name|group:Public_Building|preset:Public_Building_(deprecated))
 msgid "Public Building (deprecated)"
-msgstr ""
+msgstr "Középület (helytelen)"
 
 #: master_preset.xml:8641(item:name|group:Other|preset:Hardware)
 msgid "Hardware"
@@ -544,15 +544,15 @@ msgstr ""
 
 #: master_preset.xml:2613(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lagoon"
-msgstr ""
+msgstr "Lagúna"
 
 #: master_preset.xml:5576(item:name|group:Social_Facilities|preset:Nursing_Home)
 msgid "Nursing Home"
-msgstr ""
+msgstr "Ápoló otthon"
 
 #: master_preset.xml:9384(item:name|group:Nature|preset:Nature_Reserve)
 msgid "Nature Reserve"
-msgstr ""
+msgstr "Természetvédelmi terület"
 
 #: master_preset.xml:7586(label:text|preset:Pole_with_Transformer)
 msgid "Transformer Attributes:"
@@ -561,7 +561,7 @@ msgstr "Transzformátorattribútumok:"
 #: master_preset.xml:10544(role:text|preset:Tunnel|key:outline)
 #: master_preset.xml:10530(role:text|preset:Bridge|key:outline)
 msgid "way forming the outline footprint"
-msgstr ""
+msgstr "a függőleges vetület körvonalát követő vonal"
 
 #: master_preset.xml:1085(combo:text|group:Streets|preset:Ford|key:ford)
 #: master_preset.xml:1076(item:name|group:Streets|preset:Ford)
@@ -570,7 +570,7 @@ msgstr "Gázló"
 
 #: master_preset.xml:3760(role:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:stop)
 msgid "halt point"
-msgstr ""
+msgstr "jármű megállásának pontja"
 
 #: master_preset.xml:6267(item:name|group:Sport|preset:Ten-pin_Bowling)
 msgid "Ten-pin Bowling"
@@ -578,12 +578,12 @@ msgstr "Bowling"
 
 #: master_preset.xml:9332(label:text|group:Nature|preset:Wood)
 msgid "Woodland where timber production does not dominate use."
-msgstr ""
+msgstr "Olyan erdő, amelynek nem a fakitermelés a fő felhasználási formája."
 
 #: master_preset.xml:1952(item:name|group:Barriers|preset:Kerb)
 #: master_preset.xml:480(combo:text|key:kerb)
 msgid "Kerb"
-msgstr ""
+msgstr "Járdaszegély"
 
 #: master_preset.xml:7047(item:name|group:Man_Made|preset:Lighthouse)
 msgid "Lighthouse"
@@ -595,7 +595,7 @@ msgstr "Daru"
 
 #: master_preset.xml:1111(text:text|group:Lane_attributes|preset:Single_direction_roads|key:destination:lanes)
 msgid "Destinations per lane"
-msgstr ""
+msgstr "Útirányok sávonként"
 
 #: master_preset.xml:6369(item:name|group:Sport|preset:Skateboard)
 msgid "Skateboard"
@@ -617,7 +617,7 @@ msgstr ""
 #: master_preset.xml:223(combo:display_values|key:internet_access)
 #: master_preset.xml:259(list_entry:short_description|value:yes)
 msgid "Available"
-msgstr "Rendelkezésre álló"
+msgstr "Rendelkezésre áll"
 
 #: master_preset.xml:10420(item:name|preset:Route_Network)
 msgid "Route Network"
@@ -625,15 +625,15 @@ msgstr "Úthálózat"
 
 #: master_preset.xml:3649(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Railway station (legacy)"
-msgstr ""
+msgstr "Vasútállomás (örökség)"
 
 #: master_preset.xml:10225(item:name|group:Routes|preset:Mountain_Biking_Route)
 msgid "Mountain Biking Route"
-msgstr ""
+msgstr "Hegyikerékpáros útvonal"
 
 #: master_preset.xml:10202(group:name|group:Routes)
 msgid "Routes"
-msgstr ""
+msgstr "Utak"
 
 #: master_preset.xml:6355(item:name|group:Sport|preset:Ice_Skating)
 msgid "Ice Skating"
@@ -641,11 +641,11 @@ msgstr "Korcsolya"
 
 #: master_preset.xml:2752(item:name|group:Shipping|preset:Marina)
 msgid "Marina"
-msgstr ""
+msgstr "Marina"
 
 #: master_preset.xml:3283(check:text|group:Car|preset:Fuel|key:payment:routex)
 msgid "Routex"
-msgstr ""
+msgstr "Routex"
 
 #: master_preset.xml:4975(combo:text|group:Place_of_Worship|preset:Buddhist_Temple|key:denomination)
 #: master_preset.xml:8728(combo:text|group:Other|preset:Gift/Souvenir|key:denomination)
@@ -674,11 +674,11 @@ msgstr "Jégkorong"
 #: master_preset.xml:1504(group:name|group:Traffic_Calming)
 #: master_preset.xml:1505(item:name|group:Traffic_Calming|preset:Traffic_Calming)
 msgid "Traffic Calming"
-msgstr ""
+msgstr "Forgalomlassítás"
 
 #: master_preset.xml:1140(multiselect:text|group:Lane_attributes|preset:Bi-directional_roads|key:turn:lanes:backward)
 msgid "Turning lanes opposite to way direction"
-msgstr ""
+msgstr "Kanyarodósáv a vonal irányával ellentétesen"
 
 #: master_preset.xml:2865(group:name|group:Transport)
 msgid "Transport"
@@ -686,7 +686,7 @@ msgstr "Közlekedés"
 
 #: master_preset.xml:8732(item:name|group:Other|preset:Variety_Store)
 msgid "Variety Store"
-msgstr ""
+msgstr "100 forintos bolt"
 
 #: master_preset.xml:383(text:text|key:start_date)
 #: master_preset.xml:7725(text:text|group:Historic_Places|preset:Memorial|key:start_date)
@@ -712,7 +712,7 @@ msgstr "Energiaellátás"
 
 #: master_preset.xml:10191(text:text|group:Relations|preset:Enforcement|key:maxheight)
 msgid "Max. height (meters, only if enforcement=maxheight)"
-msgstr ""
+msgstr "Magasságkorlátozás (méter, csak ha enforcement=maxheight)"
 
 #: master_preset.xml:2232(combo:text|group:Access_Restrictions|preset:Motor_vehicle_(CH)|key:motor_vehicle)
 #: master_preset.xml:2214(combo:text|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -726,7 +726,7 @@ msgstr "sűrített levegő"
 
 #: master_preset.xml:4616(item:name|group:Leisure|preset:Fitness_Station)
 msgid "Fitness Station"
-msgstr ""
+msgstr "Fitness klub"
 
 #: master_preset.xml:9107(text:text|group:Places|preset:Neighbourhood|key:population)
 #: master_preset.xml:308(text:text|key:population)
@@ -735,7 +735,7 @@ msgstr "Népesség"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Cobblestone"
-msgstr ""
+msgstr "Gömbölyű terméskő"
 
 #: master_preset.xml:6786(item:name|group:Man_Made|preset:Flagpole)
 msgid "Flagpole"
@@ -747,7 +747,7 @@ msgstr "Könyvkötő"
 
 #: master_preset.xml:973(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Emergency access"
-msgstr ""
+msgstr "Tűzoltási felvonulási út"
 
 #: master_preset.xml:9974(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
@@ -755,7 +755,7 @@ msgstr "Címek interpolálása"
 
 #: master_preset.xml:1885(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgid "Chain link"
-msgstr ""
+msgstr "Drótkerítés"
 
 #: master_preset.xml:6251(item:name|group:Sport|preset:Multi)
 msgid "Multi"
@@ -795,7 +795,7 @@ msgstr "Vietnami"
 
 #: master_preset.xml:10174(role:text|group:Relations|preset:Turn_Restriction|key:via)
 msgid "via node or ways"
-msgstr ""
+msgstr "ponttal vagy vonalakkal"
 
 #: master_preset.xml:9989(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "All"
@@ -854,7 +854,7 @@ msgstr "Oktatás"
 #: master_preset.xml:3616(text:text|group:Public_Transport|preset:Stop_Area|key:uic_ref)
 #: master_preset.xml:3636(text:text|group:Public_Transport|preset:Stop_Position|key:uic_ref)
 msgid "UIC reference"
-msgstr ""
+msgstr "UIC hivatkozási szám"
 
 #: master_preset.xml:5361(text:text|group:Health|preset:Emergency_Access_Point|key:name)
 msgid "Point Name"
@@ -948,7 +948,7 @@ msgstr "Szökőkút"
 
 #: master_preset.xml:49(combo:text|key:maxspeed:forward:conditional)
 msgid "Max. speed in way direction conditional"
-msgstr ""
+msgstr "Sebességkorlátozás a vonal irányába, feltételes"
 
 #: master_preset.xml:4869(item:name|group:Culture|preset:Studio)
 msgid "Studio"
@@ -1002,7 +1002,7 @@ msgstr ""
 
 #: master_preset.xml:10480(role:text|preset:Destination_Sign|key:from)
 msgid "last way before junction"
-msgstr ""
+msgstr "a csomópont előtti utolsó vonal"
 
 #: master_preset.xml:223(combo:display_values|key:internet_access)
 msgid "WLAN"
@@ -1032,7 +1032,7 @@ msgstr "Faxszám"
 
 #: master_preset.xml:1717(item:name|preset:Highway_milestone)
 msgid "Highway milestone"
-msgstr ""
+msgstr "Kilométerkő"
 
 #: master_preset.xml:8447(item:name|group:For_the_body|preset:Chemist)
 msgid "Chemist"
@@ -1057,7 +1057,7 @@ msgstr "WC/mellékhelyiség"
 
 #: master_preset.xml:47(text:text|key:maxspeed:forward)
 msgid "Max. speed in way direction"
-msgstr ""
+msgstr "Sebességkorlátozás a vonal irányába"
 
 #: master_preset.xml:9960(text:text|group:Addresses_and_Contact|preset:Address|key:addr:postcode)
 msgid "Post code"
@@ -1099,7 +1099,7 @@ msgstr "Elhajlás fokban"
 
 #: master_preset.xml:1155(text:text|group:Lane_attributes|preset:Bi-directional_roads|key:destination:lanes:backward)
 msgid "Destinations per lane opposite to way direction"
-msgstr ""
+msgstr "Útirányok sávonként a vonal irányával ellentétesen"
 
 #: master_preset.xml:8044(list_entry:short_description|group:Clothes|preset:Clothes|value:suits)
 msgid "Suits"
@@ -1137,7 +1137,7 @@ msgstr "Újságok"
 #: master_preset.xml:3068(group:name|group:Aerialway)
 #: master_preset.xml:3657(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
 msgid "Aerialway"
-msgstr ""
+msgstr "Drótkötélpályás felvonó"
 
 #: master_preset.xml:6768(item:name|group:Man_Made|preset:Tower)
 msgid "Tower"
@@ -1166,7 +1166,7 @@ msgstr ""
 
 #: master_preset.xml:3277(check:text|group:Car|preset:Fuel|key:fuel:1_50)
 msgid "1/50 mix (mofa/moped)"
-msgstr ""
+msgstr "1/50 arányú keverék mopedhez"
 
 #: master_preset.xml:8331(item:name|group:Home_decoration|preset:Art)
 msgid "Art"
@@ -1313,7 +1313,7 @@ msgstr ""
 
 #: master_preset.xml:7261(item:name|group:Power_Generator|preset:Gas_Power_Generator)
 msgid "Gas Power Generator"
-msgstr ""
+msgstr "Földgázerőmű"
 
 #: master_preset.xml:2692(item:name|group:Water|preset:Beach)
 msgid "Beach"
@@ -1333,7 +1333,7 @@ msgstr "Szabadtéri"
 
 #: master_preset.xml:2700(label:text|group:Water|preset:Beach)
 msgid "A flat area of sand, gravel or pebble next to water."
-msgstr ""
+msgstr "Víz melletti homokos, sóderes vagy kavicsos vízszintes terület."
 
 #: master_preset.xml:9300(text:text|group:Nature|preset:Tree|key:species)
 #: master_preset.xml:1869(text:text|group:Barriers|preset:Hedge|key:species)
@@ -1373,7 +1373,7 @@ msgstr ""
 
 #: master_preset.xml:9115(label:text|group:Places|preset:Farm)
 msgid "A farm within a bigger settlement"
-msgstr ""
+msgstr "Nagyobb településen belüli mezőgazdasági üzem, tanya."
 
 #: master_preset.xml:5229(item:name|group:Education|preset:College)
 msgid "College"
@@ -1588,7 +1588,7 @@ msgstr ""
 
 #: master_preset.xml:6014(item:name|group:Facilities|preset:Billboard)
 msgid "Billboard"
-msgstr ""
+msgstr "Óriásplakát"
 
 #: master_preset.xml:8049(list_entry:short_description|group:Clothes|preset:Clothes|value:women)
 msgid "Women"
@@ -1625,7 +1625,7 @@ msgstr ""
 
 #: master_preset.xml:10190(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Max. weight"
-msgstr ""
+msgstr "Súlykorlátozás"
 
 #: master_preset.xml:5533(item:name|group:Social_Facilities|preset:Social_Centre)
 msgid "Social Centre"
@@ -1633,7 +1633,7 @@ msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "-10°"
-msgstr ""
+msgstr "–10°"
 
 #: master_preset.xml:10765(item:name|group:Crafts|preset:Mason)
 msgid "Mason"
@@ -1689,7 +1689,7 @@ msgstr ""
 #: master_preset.xml:2629(label:text|group:Water|preset:Coastline)
 msgid ""
 "Line between the sea and land (with the water on the right side of the way)."
-msgstr "Vonal a tenger és a szárazföld között (a víz az út jobb oldalán van)."
+msgstr "Vonal a tenger és a szárazföld között (a víz a vonal jobb oldalán van)."
 
 #: master_preset.xml:5844(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:glass)
 #: master_preset.xml:10686(item:name|group:Crafts|preset:Glass)
@@ -1722,7 +1722,7 @@ msgstr ""
 
 #: master_preset.xml:1139(text:text|group:Lane_attributes|preset:Bi-directional_roads|key:maxspeed:lanes:forward)
 msgid "Maxspeed per lane in way direction"
-msgstr ""
+msgstr "Sebességkorlátozás sávonként a vonal irányába"
 
 #: master_preset.xml:1367(check:text|group:Ways|preset:Steps|key:handrail)
 msgid "Handrail"
@@ -1749,7 +1749,7 @@ msgstr ""
 
 #: master_preset.xml:4429(label:text|group:Tourism|preset:Information_Board)
 msgid "A board with information."
-msgstr ""
+msgstr "Tábla információkkal."
 
 #: master_preset.xml:482(list_entry:display_value|value:raised)
 #: master_preset.xml:488(list_entry:display_value|value:raised)
@@ -1842,7 +1842,7 @@ msgstr ""
 #: master_preset.xml:1123(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
 #: master_preset.xml:511(list_entry:display_value|value:no)
 msgid "None"
-msgstr ""
+msgstr "Nincs"
 
 #: master_preset.xml:4688(item:name|group:Leisure|preset:Picnic_Table)
 msgid "Picnic Table"
@@ -1895,7 +1895,7 @@ msgstr ""
 
 #: master_preset.xml:5263(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
-msgstr ""
+msgstr "Kórház"
 
 #: master_preset.xml:5843(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:engine_oil)
 #: master_preset.xml:5803(check:text|group:Facilities|preset:Recycling_Container|key:recycling:engine_oil)
@@ -1924,11 +1924,11 @@ msgstr ""
 #: master_preset.xml:657(text:text|group:Streets|preset:Trunk|key:destination:ref)
 #: master_preset.xml:620(text:text|group:Streets|preset:Motorway_Link|key:destination:ref)
 msgid "Destination reference"
-msgstr ""
+msgstr "Útszám"
 
 #: master_preset.xml:4813(item:name|group:Culture|preset:Theatre)
 msgid "Theatre"
-msgstr ""
+msgstr "Színház"
 
 #: master_preset.xml:7104(check:text|group:Man_Made|preset:Monitoring_Station|key:recording:manually)
 msgid "Manually"
@@ -1962,7 +1962,7 @@ msgstr "GLONASS jelek"
 #: master_preset.xml:8420(combo:text|group:Printed_Material|preset:Book_Store|key:second_hand)
 #: master_preset.xml:8076(combo:text|group:Clothes|preset:Shoes|key:second_hand)
 msgid "Second hand"
-msgstr ""
+msgstr "Használt"
 
 #: master_preset.xml:7299(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-6)
 msgid "Boiling Water Reactor 6 (BWR-6)"
@@ -1978,7 +1978,7 @@ msgstr ""
 
 #: master_preset.xml:10175(role:text|group:Relations|preset:Turn_Restriction|key:to)
 msgid "to way"
-msgstr "vonalhoz"
+msgstr "a vonalhoz"
 
 #: master_preset.xml:5778(item:name|group:Facilities|preset:Recycling_Container)
 msgid "Recycling Container"
@@ -1990,11 +1990,11 @@ msgstr ""
 
 #: master_preset.xml:9414(label:text|group:Nature|preset:Shingle)
 msgid "An accumulation of loose rounded rocks on a beach or riverbed."
-msgstr ""
+msgstr "Szétszórt, gömbölyű sziklák felhalmozódása a parton vagy a mederben."
 
 #: master_preset.xml:7203(item:name|group:Power|preset:Power_Plant)
 msgid "Power Plant"
-msgstr ""
+msgstr "Erőmű"
 
 #: master_preset.xml:3131(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Drag lift (generic)"
@@ -2124,7 +2124,7 @@ msgstr ""
 #: master_preset.xml:897(text:text|group:Streets|preset:Bicycle_Road|key:maxspeed)
 #: master_preset.xml:44(text:text|key:maxspeed)
 msgid "Max. speed (km/h)"
-msgstr ""
+msgstr "Sebességkorlátozás (km/h)"
 
 #: master_preset.xml:7344(list_entry:short_description|group:Power_Generator|preset:Water_Turbine|value:hydrodynamic_screw)
 msgid "run-of-the-river"
@@ -2151,7 +2151,7 @@ msgstr "Kerítés"
 
 #: master_preset.xml:2634(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
-msgstr ""
+msgstr "Folyópart"
 
 #: master_preset.xml:1212(list_entry:display_value|group:Ways|preset:Path|value:alpine_hiking)
 msgid "T4 - difficult, exposed, steep alpine trail"
@@ -2159,7 +2159,7 @@ msgstr ""
 
 #: master_preset.xml:3940(item:name|group:Airport|preset:Hangar)
 msgid "Hangar"
-msgstr ""
+msgstr "Hangár"
 
 #: master_preset.xml:5252(item:name|group:Education|preset:Music_School)
 msgid "Music School"
@@ -2188,7 +2188,7 @@ msgstr ""
 
 #: master_preset.xml:6034(text:text|group:Facilities|preset:Excrement_Bags|key:note)
 msgid "Note"
-msgstr ""
+msgstr "Megjegyzés"
 
 #: master_preset.xml:3107(text:text|group:Aerialway|preset:Gondola|key:aerialway:capacity)
 #: master_preset.xml:3145(text:text|group:Aerialway|preset:Magic_Carpet|key:aerialway:capacity)
@@ -2215,7 +2215,7 @@ msgstr ""
 #: master_preset.xml:6742(combo:text|group:Man_Made|preset:Building_part|key:building:part)
 #: master_preset.xml:6733(item:name|group:Man_Made|preset:Building_part)
 msgid "Building part"
-msgstr ""
+msgstr "Épületrész"
 
 #: master_preset.xml:3462(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:sale)
 msgid "Sale"
@@ -2293,7 +2293,7 @@ msgstr ""
 
 #: master_preset.xml:2124(item:name|group:Passageways|preset:Arcade)
 msgid "Arcade"
-msgstr ""
+msgstr "Boltív"
 
 #: master_preset.xml:2614(check:text|group:Water|preset:Water|key:salt)
 msgid "Salt Water"
@@ -2338,7 +2338,7 @@ msgstr ""
 #: master_preset.xml:9466(item:name|group:Nature|preset:Sand)
 #: master_preset.xml:2708(combo:display_values|group:Water|preset:Beach|key:surface)
 msgid "Sand"
-msgstr ""
+msgstr "Homok"
 
 #: master_preset.xml:10195(role:text|group:Relations|preset:Enforcement|key:device)
 msgid "location of enforcement device"
@@ -2422,7 +2422,7 @@ msgstr ""
 #: master_preset.xml:6111(group:name|group:Golf)
 #: master_preset.xml:6514(item:name|group:Sport_(Ball)|preset:Golf)
 msgid "Golf"
-msgstr ""
+msgstr "Golf"
 
 #: master_preset.xml:223(combo:display_values|key:internet_access)
 msgid "Wired"
@@ -2452,7 +2452,7 @@ msgstr ""
 #: master_preset.xml:4559(check:text|group:Leisure|preset:Dog_Park|key:area)
 #: master_preset.xml:3704(check:text|group:Public_Transport|preset:Station|key:area)
 msgid "Area"
-msgstr ""
+msgstr "Terület"
 
 #: master_preset.xml:223(combo:text|key:internet_access)
 msgid "Internet access"
@@ -2460,7 +2460,7 @@ msgstr ""
 
 #: master_preset.xml:5213(item:name|group:Education|preset:University)
 msgid "University"
-msgstr ""
+msgstr "Egyetem"
 
 #: master_preset.xml:7151(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"
@@ -2498,7 +2498,7 @@ msgstr ""
 
 #: master_preset.xml:9793(item:name|group:Land_use|preset:Industrial)
 msgid "Industrial"
-msgstr ""
+msgstr "Ipari"
 
 #: master_preset.xml:1835(item:name|group:Barriers|preset:Toll_Booth)
 msgid "Toll Booth"
@@ -2524,7 +2524,7 @@ msgstr ""
 
 #: master_preset.xml:5196(item:name|group:Education|preset:School)
 msgid "School"
-msgstr ""
+msgstr "Iskola"
 
 #: master_preset.xml:6112(item:name|group:Golf|preset:Golf_Course)
 msgid "Golf Course"
@@ -2557,7 +2557,7 @@ msgstr ""
 
 #: master_preset.xml:6975(item:name|group:Man_Made|preset:Water_Tower)
 msgid "Water Tower"
-msgstr ""
+msgstr "Víztorony"
 
 #: master_preset.xml:5695(combo:text|group:Facilities|preset:Toilets/Restrooms|key:drinking_water)
 #: master_preset.xml:2486(check:text|group:Water|preset:Spring|key:drinking_water)
@@ -2676,7 +2676,7 @@ msgstr ""
 #: master_preset.xml:4209(combo:text|group:Food+Drinks|preset:Restaurant|key:delivery)
 #: master_preset.xml:4286(combo:text|group:Food+Drinks|preset:Ice_cream|key:delivery)
 msgid "Delivery"
-msgstr ""
+msgstr "Szállítás"
 
 #: master_preset.xml:3312(label:text|group:Car|preset:Charging_Station)
 msgid "Number of Sockets:"
@@ -2699,7 +2699,7 @@ msgstr ""
 
 #: master_preset.xml:7235(item:name|group:Power_Generator|preset:Biogas_Power_Generator)
 msgid "Biogas Power Generator"
-msgstr ""
+msgstr "Biogázerőmű"
 
 #: master_preset.xml:1208(combo:text|group:Ways|preset:Path|key:sac_scale)
 msgid "SAC Scale"
@@ -2710,7 +2710,7 @@ msgstr ""
 #: master_preset.xml:516(combo:text|key:access)
 #: master_preset.xml:6761(combo:text|group:Man_Made|preset:Entrance|key:access)
 msgid "Access"
-msgstr ""
+msgstr "Hozzáférés"
 
 #: master_preset.xml:1657(item:name|preset:Turning_Circle)
 msgid "Turning Circle"
@@ -2754,7 +2754,7 @@ msgstr ""
 
 #: master_preset.xml:1157(text:text|group:Lane_attributes|preset:Bi-directional_roads|key:maxspeed:lanes:backward)
 msgid "Maxspeed per lane opposite to way direction"
-msgstr ""
+msgstr "Sebességkorlátozás sávonként a vonal irányával ellentétesen"
 
 #: master_preset.xml:7294(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-1)
 msgid "Boiling Water Reactor 1 (BWR-1)"
@@ -2788,12 +2788,12 @@ msgstr ""
 
 #: master_preset.xml:316(text:text|key:ascent)
 msgid "Ascent (m)"
-msgstr ""
+msgstr "Emelkedés (m)"
 
 #: master_preset.xml:9251(item:name|group:Geography|preset:Island)
 #: master_preset.xml:100(list_entry:short_description|value:island)
 msgid "Island"
-msgstr ""
+msgstr "Sziget"
 
 #: master_preset.xml:220(multiselect:display_values|key:cuisine)
 msgid "Japanese"
@@ -2802,7 +2802,7 @@ msgstr ""
 #: master_preset.xml:502(text:text|key:via)
 #: master_preset.xml:3750(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:via)
 msgid "Via (intermediate stops)"
-msgstr ""
+msgstr "Ezeken át (közbeeső megállók)"
 
 #: master_preset.xml:10662(item:name|group:Crafts|preset:Distillery)
 msgid "Distillery"
@@ -2815,7 +2815,7 @@ msgstr ""
 
 #: master_preset.xml:471(combo:display_values|key:stars)
 msgid "**"
-msgstr ""
+msgstr "**"
 
 #: master_preset.xml:4086(item:name|group:Accommodation|preset:Hostel)
 msgid "Hostel"
@@ -2827,7 +2827,7 @@ msgstr ""
 
 #: master_preset.xml:8865(check:text|preset:Payment_Methods|key:payment:american_express)
 msgid "American Express"
-msgstr ""
+msgstr "American Express"
 
 #: master_preset.xml:2053(item:name|group:Barriers|preset:Stile)
 msgid "Stile"
@@ -2929,7 +2929,7 @@ msgstr "Kalapok"
 
 #: master_preset.xml:3988(group:name|group:Accommodation)
 msgid "Accommodation"
-msgstr ""
+msgstr "Szállás"
 
 #: master_preset.xml:220(multiselect:display_values|key:cuisine)
 msgid "Coffee shop"
@@ -2958,7 +2958,7 @@ msgstr ""
 #: master_preset.xml:19(combo:display_values|key:surface)
 #: master_preset.xml:9650(item:name|group:Land_use|preset:Grass)
 msgid "Grass"
-msgstr ""
+msgstr "Fű"
 
 #: master_preset.xml:2613(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lake"
@@ -2989,7 +2989,7 @@ msgstr ""
 msgid ""
 "A notable rock or group of rocks, with at least one of them firmly attached "
 "to the underlying bedrock."
-msgstr ""
+msgstr "Feltűnő szikla vagy sziklacsoport, amelyek közül legalább egy szilárdan kötődik az aljzatkőzethez."
 
 #: master_preset.xml:1210(list_entry:short_description|group:Ways|preset:Path|value:mountain_hiking)
 msgid ""
@@ -3060,7 +3060,7 @@ msgstr ""
 
 #: master_preset.xml:3989(item:name|group:Accommodation|preset:Hotel)
 msgid "Hotel"
-msgstr ""
+msgstr "Szálloda"
 
 #: master_preset.xml:619(text:text|group:Streets|preset:Motorway_Link|key:destination)
 #: master_preset.xml:300(combo:display_values|key:access)
@@ -3069,7 +3069,7 @@ msgstr ""
 #: master_preset.xml:10368(text:text|group:Routes|preset:Detour_Route|key:destination)
 #: master_preset.xml:589(text:text|group:Streets|preset:Motorway|key:destination)
 msgid "Destination"
-msgstr ""
+msgstr "Útirány"
 
 #: master_preset.xml:4546(item:name|group:Leisure|preset:Dog_Park)
 msgid "Dog Park"
@@ -3103,7 +3103,7 @@ msgstr ""
 
 #: master_preset.xml:471(combo:display_values|key:stars)
 msgid "******"
-msgstr ""
+msgstr "******"
 
 #: master_preset.xml:896(combo:text|group:Streets|preset:Bicycle_Road|key:vehicle)
 msgid "Vehicle access"
@@ -3111,7 +3111,7 @@ msgstr ""
 
 #: master_preset.xml:4403(label:text|group:Tourism|preset:Map)
 msgid "A board with a map."
-msgstr ""
+msgstr "Tábla térképpel."
 
 #: master_preset.xml:8387(group:name|group:Printed_Material)
 msgid "Printed Material"
@@ -3119,7 +3119,7 @@ msgstr ""
 
 #: master_preset.xml:9807(item:name|group:Land_use|preset:Garages)
 msgid "Garages"
-msgstr ""
+msgstr "Garázsok"
 
 #: master_preset.xml:1673(item:name|preset:City_Limit)
 msgid "City Limit"
@@ -3131,11 +3131,11 @@ msgstr ""
 
 #: master_preset.xml:46(combo:text|key:maxspeed:conditional)
 msgid "Max. speed (km/h) conditional"
-msgstr ""
+msgstr "Sebességkorlátozás (km/h), feltételes"
 
 #: master_preset.xml:8814(list_entry:short_description|preset:Vending_Machine|value:animal_food)
 msgid "Animal food"
-msgstr ""
+msgstr "Állateledel"
 
 #: master_preset.xml:2620(item:name|group:Water|preset:Coastline)
 msgid "Coastline"
@@ -3151,7 +3151,7 @@ msgstr ""
 
 #: master_preset.xml:3236(item:name|group:Car|preset:Fuel)
 msgid "Fuel"
-msgstr ""
+msgstr "Tüzelőanyag"
 
 #: master_preset.xml:5807(check:text|group:Facilities|preset:Recycling_Container|key:recycling:paper)
 #: master_preset.xml:5847(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:paper)
@@ -3205,7 +3205,7 @@ msgstr ""
 msgid ""
 "A persistent body of dense ice that is constantly moving under its own "
 "weight."
-msgstr ""
+msgstr "Sűrű, állandó jégtest, amely saját tömege miatt folyamatosan mozog."
 
 #: master_preset.xml:10989(item:name|group:Crafts|preset:Construction)
 #: master_preset.xml:1032(item:name|group:Streets|preset:Construction)
@@ -3222,11 +3222,11 @@ msgstr ""
 
 #: master_preset.xml:9315(label:text|group:Nature|preset:Tree_Row)
 msgid "A line of trees."
-msgstr ""
+msgstr "Fasor"
 
 #: master_preset.xml:5184(text:text|group:Education|preset:Childcare|key:age_group)
 msgid "Age group (ie: 6-12)"
-msgstr ""
+msgstr "Korcsoport (pl. 6-12)"
 
 #: master_preset.xml:1569(item:name|group:Traffic_Calming|preset:Cushion)
 msgid "Cushion"
@@ -3267,11 +3267,11 @@ msgstr ""
 
 #: master_preset.xml:4107(item:name|group:Accommodation|preset:Alpine_Hut)
 msgid "Alpine Hut"
-msgstr ""
+msgstr "Alpesi kunyhó"
 
 #: master_preset.xml:11224(item:name|group:Offices|preset:Accountant)
 msgid "Accountant"
-msgstr ""
+msgstr "Könyvelő"
 
 #: master_preset.xml:3536(item:name|group:Bicycle|preset:Public_Bicycle_Repair_Station)
 msgid "Public Bicycle Repair Station"
@@ -3279,7 +3279,7 @@ msgstr ""
 
 #: master_preset.xml:7268(item:name|group:Power_Generator|preset:Oil_Power_Generator)
 msgid "Oil Power Generator"
-msgstr ""
+msgstr "Kőolajerőmű"
 
 #: master_preset.xml:220(multiselect:display_values|key:cuisine)
 msgid "Fish and chips"
@@ -3331,7 +3331,7 @@ msgstr ""
 
 #: master_preset.xml:4525(check:text|group:Leisure|preset:Movie_Theater/Cinema|key:cinema:3D)
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: master_preset.xml:10369(text:text|group:Routes|preset:Detour_Route|key:detour)
 msgid "Ref of the way this is a detour to"
@@ -3343,11 +3343,11 @@ msgstr ""
 
 #: master_preset.xml:7227(group:name|group:Power_Generator)
 msgid "Power Generator"
-msgstr ""
+msgstr "Generátor"
 
 #: master_preset.xml:7275(item:name|group:Power_Generator|preset:Diesel_Power_Generator)
 msgid "Diesel Power Generator"
-msgstr ""
+msgstr "Dízelolaj-erőmű"
 
 #: master_preset.xml:8046(list_entry:short_description|group:Clothes|preset:Clothes|value:traditional)
 msgid "Traditional"
@@ -3446,7 +3446,7 @@ msgstr ""
 
 #: master_preset.xml:4564(item:name|group:Leisure|preset:Amusement/Theme_Park)
 msgid "Amusement/Theme Park"
-msgstr ""
+msgstr "Vidámpark"
 
 #: master_preset.xml:10170(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 msgid "PSV"
@@ -3478,7 +3478,7 @@ msgstr ""
 
 #: master_preset.xml:337(combo:display_values|key:denomination)
 msgid "Anglican"
-msgstr ""
+msgstr "Anglikán"
 
 #: master_preset.xml:6660(item:name|group:Motorsport|preset:Raceway)
 msgid "Raceway"
@@ -3510,7 +3510,7 @@ msgstr "Országkód"
 
 #: master_preset.xml:1137(text:text|group:Lane_attributes|preset:Bi-directional_roads|key:destination:lanes:forward)
 msgid "Destinations per lane in way direction"
-msgstr ""
+msgstr "Útirányok sávonként a vonal irányába"
 
 #: master_preset.xml:7758(check:text|group:Historic_Places|preset:Wayside_Shrine|key:amenity)
 msgid "Place of worship"
@@ -3547,7 +3547,7 @@ msgstr ""
 
 #: master_preset.xml:5502(item:name|group:Social_Facilities|preset:Ambulatory_Care)
 msgid "Ambulatory Care"
-msgstr ""
+msgstr "Ambuláns ellátás"
 
 #: master_preset.xml:7307(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:RBMK-1500)
 msgid "Reactor Bolshoy Moshchnosti Kanalniy 1500 (RBMK-1500)"
@@ -3582,7 +3582,7 @@ msgstr "Emlékmű"
 
 #: master_preset.xml:7524(item:name|preset:Power_Tower)
 msgid "Power Tower"
-msgstr ""
+msgstr "Távvezetékoszlop"
 
 #: master_preset.xml:10347(item:name|group:Routes|preset:Inline_Skating_Route)
 msgid "Inline Skating Route"
@@ -3590,7 +3590,7 @@ msgstr ""
 
 #: master_preset.xml:5410(check:text|group:Emergency|preset:Automated_Defibrillator|key:indoor)
 msgid "Located inside a building?"
-msgstr ""
+msgstr "Épületen belül?"
 
 #: master_preset.xml:9382(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Prairie"
@@ -3610,7 +3610,7 @@ msgstr ""
 
 #: master_preset.xml:220(multiselect:display_values|key:cuisine)
 msgid "Asian"
-msgstr ""
+msgstr "Ázsiai"
 
 #: master_preset.xml:3558(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:route)
 #: master_preset.xml:3577(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:route)
@@ -3621,7 +3621,7 @@ msgstr ""
 
 #: master_preset.xml:10192(text:text|group:Relations|preset:Enforcement|key:maxweight)
 msgid "Max. weight (tonnes, only if enforcement=maxweight)"
-msgstr ""
+msgstr "Súlykorlátozás (tonna, csak ha enforcement=maxweight)"
 
 #: master_preset.xml:7329(combo:text|group:Power_Generator|preset:Waste_Power_Generator|key:generator:type)
 #: master_preset.xml:7246(combo:text|group:Power_Generator|preset:Biomass_Power_Generator|key:generator:type)
@@ -3640,7 +3640,7 @@ msgstr ""
 #: master_preset.xml:7232(combo:text|group:Power_Generator|preset:Biofuel_Power_Generator|key:generator:type)
 #: master_preset.xml:7335(combo:text|group:Power_Generator|preset:Waste_Power_Generator|key:generator:type)
 msgid "Generator Type"
-msgstr ""
+msgstr "Generátortípus"
 
 #: master_preset.xml:169(combo:text|key:wheelchair)
 msgid "Wheelchairs"
@@ -3705,7 +3705,7 @@ msgstr ""
 
 #: master_preset.xml:7092(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:air_quality)
 msgid "Air Quality"
-msgstr ""
+msgstr "Levegőminőség"
 
 #: master_preset.xml:8601(item:name|group:Other|preset:Florist)
 msgid "Florist"
@@ -3721,7 +3721,7 @@ msgstr ""
 
 #: master_preset.xml:3777(text:text|group:Public_Transport_(Legacy)|preset:Station|key:uic_ref)
 msgid "UIC-Reference"
-msgstr ""
+msgstr "UIC-hivatkozás"
 
 #: master_preset.xml:5977(text:text|group:Facilities|preset:Water_Point|key:description)
 #: master_preset.xml:5986(text:text|group:Facilities|preset:Animal_watering_place|key:description)
@@ -3744,7 +3744,7 @@ msgstr ""
 
 #: master_preset.xml:6297(item:name|group:Sport|preset:Climbing)
 msgid "Climbing"
-msgstr ""
+msgstr "Sziklamászás"
 
 #: master_preset.xml:7346(list_entry:short_description|group:Power_Generator|preset:Water_Turbine|value:pelton_turbine)
 #: master_preset.xml:7345(list_entry:short_description|group:Power_Generator|preset:Water_Turbine|value:kaplan_turbine)
@@ -3805,7 +3805,7 @@ msgstr ""
 
 #: master_preset.xml:10528(role:text|preset:Bridge|key:across)
 msgid "ways supported by (on top of) the bridge"
-msgstr ""
+msgstr "a híd által alátámasztott (rajta lévő) vonalak"
 
 #: master_preset.xml:10150(role:text|group:Relations|preset:Site|key:entrance)
 msgid "entrances to the site, on the perimeter"
@@ -3889,16 +3889,16 @@ msgstr "Erőforrás"
 
 #: master_preset.xml:10482(role:text|preset:Destination_Sign|key:to)
 msgid "first way after junction"
-msgstr ""
+msgstr "a csomópont utáni első vonal"
 
 #: master_preset.xml:1162(group:name|group:Ways)
 msgid "Ways"
-msgstr ""
+msgstr "Vonalak"
 
 #: master_preset.xml:4867(text:text|group:Culture|preset:Artwork|key:artist_name)
 #: master_preset.xml:7724(text:text|group:Historic_Places|preset:Memorial|key:artist_name)
 msgid "Artist Name"
-msgstr ""
+msgstr "Művész neve"
 
 #: master_preset.xml:9969(text:text|group:Addresses_and_Contact|preset:Address|key:addr:province)
 msgid "Province"
@@ -3963,7 +3963,7 @@ msgstr ""
 #: master_preset.xml:1793(combo:display_values|group:Barriers|preset:Bollard|key:material)
 #: master_preset.xml:1937(combo:display_values|group:Barriers|preset:Jersey_Barrier|key:material)
 msgid "Concrete"
-msgstr ""
+msgstr "Beton"
 
 #: master_preset.xml:7066(item:name|group:Man_Made|preset:Street_Lamp)
 msgid "Street Lamp"
@@ -3972,7 +3972,7 @@ msgstr ""
 #: master_preset.xml:9616(item:name|group:Land_use|preset:Aquaculture)
 #: master_preset.xml:9622(combo:text|group:Land_use|preset:Aquaculture|key:aquaculture)
 msgid "Aquaculture"
-msgstr ""
+msgstr "Akvakultúra"
 
 #: master_preset.xml:1339(item:name|group:Ways|preset:Steps)
 msgid "Steps"
@@ -3980,7 +3980,7 @@ msgstr ""
 
 #: master_preset.xml:10473(text:text|preset:Destination_Sign|key:destination)
 msgid "Destination written on sign (w/o distance)"
-msgstr ""
+msgstr "A táblán szereplő útirány (w/o distance)"
 
 #: master_preset.xml:7303(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:EPR)
 msgid "European Pressurized Reactor (EPR)"
@@ -3997,7 +3997,7 @@ msgstr ""
 
 #: master_preset.xml:471(combo:display_values|key:stars)
 msgid "*****"
-msgstr ""
+msgstr "*****"
 
 #: master_preset.xml:2219(item:name|group:Access_Restrictions|preset:Motor_vehicle_(CH))
 msgid "Motor vehicle (CH)"
@@ -4078,7 +4078,7 @@ msgstr ""
 
 #: master_preset.xml:958(item:name|group:Streets|preset:Service)
 msgid "Service"
-msgstr ""
+msgstr "Kiszolgáló épület"
 
 #: master_preset.xml:10646(item:name|group:Crafts|preset:Cleaning)
 msgid "Cleaning"
@@ -4107,7 +4107,7 @@ msgstr ""
 #: master_preset.xml:1042(combo:text|group:Streets|preset:Construction|key:construction)
 #: master_preset.xml:894(combo:text|group:Streets|preset:Bicycle_Road|key:highway)
 msgid "Highway type"
-msgstr ""
+msgstr "Úttípus"
 
 #: master_preset.xml:5468(text:text|group:Emergency|preset:Water_Tank|key:water_tank:volume)
 msgid "Volume (in liters)"
@@ -4186,7 +4186,7 @@ msgstr ""
 
 #: master_preset.xml:9116(label:text|group:Places|preset:Farm)
 msgid "(please use isolated_dwelling for an isolated farm)"
-msgstr ""
+msgstr "(Elszigetelt tanyához az isolated_dwelling értéket használjuk.)"
 
 #: master_preset.xml:9164(item:name|group:Geography|preset:Glacier)
 msgid "Glacier"
@@ -4262,7 +4262,7 @@ msgstr ""
 
 #: master_preset.xml:6608(item:name|group:Motorsport|preset:Motocross)
 msgid "Motocross"
-msgstr ""
+msgstr "Motocross"
 
 #: master_preset.xml:7759(combo:text|group:Historic_Places|preset:Wayside_Shrine|key:building)
 #: master_preset.xml:3947(combo:text|group:Airport|preset:Hangar|key:building)
@@ -4274,7 +4274,7 @@ msgstr ""
 #: master_preset.xml:6837(combo:text|group:Man_Made|preset:Gasometer|key:building)
 #: master_preset.xml:6723(combo:text|group:Man_Made|preset:Residential_Building|key:building)
 msgid "Building"
-msgstr ""
+msgstr "Épület"
 
 #: master_preset.xml:1364(combo:text|group:Ways|preset:Steps|key:ramp:luggage)
 msgid "Luggage ramp"
@@ -4282,7 +4282,7 @@ msgstr ""
 
 #: master_preset.xml:4852(item:name|group:Culture|preset:Artwork)
 msgid "Artwork"
-msgstr ""
+msgstr "Műalkotás"
 
 #: master_preset.xml:337(combo:display_values|key:denomination)
 msgid "Baptist"
@@ -4302,7 +4302,7 @@ msgstr ""
 
 #: master_preset.xml:10457(role:text|preset:Street|key:street)
 msgid "ways being part of street"
-msgstr ""
+msgstr "az utca részét képező vonalak"
 
 #: master_preset.xml:4728(item:name|group:Leisure|preset:Bird_Hide)
 msgid "Bird Hide"
@@ -4375,7 +4375,7 @@ msgstr ""
 
 #: master_preset.xml:10499(text:text|preset:Waterway|key:destination)
 msgid "Name of river/lake/sea/ocean it runs into"
-msgstr ""
+msgstr "Azon folyó/tó/tenger/óceán neve, amelybe belefolyik"
 
 #: master_preset.xml:10550(item:name|group:Crafts|preset:Agricultural_engines)
 msgid "Agricultural engines"
@@ -4393,15 +4393,15 @@ msgstr ""
 #: master_preset.xml:4927(combo:text|group:Place_of_Worship|preset:Mosque|key:building)
 #: master_preset.xml:4951(combo:text|group:Place_of_Worship|preset:Synagogue|key:building)
 msgid "Building type"
-msgstr ""
+msgstr "Épülettípus"
 
 #: master_preset.xml:5188(check:text|group:Education|preset:Childcare|key:after_school)
 msgid "After school care"
-msgstr ""
+msgstr "Napközi"
 
 #: master_preset.xml:2310(text:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv)
 msgid "Max. speed Heavy Goods Vehicles (km/h)"
-msgstr ""
+msgstr "Sebességkorlátozás – nehéz tehergépjármű (km/h)"
 
 #: master_preset.xml:11417(item:name|group:Offices|preset:Therapist)
 msgid "Therapist"
@@ -4422,7 +4422,7 @@ msgstr ""
 #: master_preset.xml:6377(item:name|group:Sport|preset:Swimming)
 #: master_preset.xml:2709(combo:display_values|group:Water|preset:Beach|key:sport)
 msgid "Swimming"
-msgstr ""
+msgstr "Úszás"
 
 #: master_preset.xml:7146(label:text|group:Man_Made|preset:Surveillance_Camera)
 msgid "Camera"
@@ -4435,7 +4435,7 @@ msgstr ""
 #: master_preset.xml:129(optional:text) master_preset.xml:120(optional:text)
 #: master_preset.xml:137(optional:text)
 msgid "Allowed traffic:"
-msgstr ""
+msgstr "Engedélyezett közlekedés:"
 
 #: master_preset.xml:337(combo:display_values|key:denomination)
 msgid "Roman catholic"
@@ -4546,7 +4546,7 @@ msgstr ""
 
 #: master_preset.xml:6507(item:name|group:Sport_(Ball)|preset:Billiards)
 msgid "Billiards"
-msgstr ""
+msgstr "Billiárd"
 
 #: master_preset.xml:933(item:name|group:Streets|preset:Pedestrian)
 msgid "Pedestrian"
@@ -4582,7 +4582,7 @@ msgstr ""
 
 #: master_preset.xml:10463(item:name|preset:Destination_Sign)
 msgid "Destination Sign"
-msgstr ""
+msgstr "Útirányjelző tábla"
 
 #: master_preset.xml:8852(combo:text|preset:Payment_Methods|key:payment:debit_cards)
 msgid "Debit cards"
@@ -4590,7 +4590,7 @@ msgstr ""
 
 #: master_preset.xml:7545(combo:text|preset:Power_Tower|key:design)
 msgid "Tower design"
-msgstr ""
+msgstr "Oszloptípus"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "Down"
@@ -4610,7 +4610,7 @@ msgstr ""
 
 #: master_preset.xml:3926(item:name|group:Airport|preset:Apron)
 msgid "Apron"
-msgstr ""
+msgstr "Előtér"
 
 #: master_preset.xml:5191(text:text|group:Education|preset:Childcare|key:childcare:capacity)
 msgid "Childcare capacity"
@@ -4656,7 +4656,7 @@ msgstr "Tesla gyorstöltő"
 
 #: master_preset.xml:6486(item:name|group:Sport_(Ball)|preset:Handball)
 msgid "Handball"
-msgstr ""
+msgstr "Kézilabda"
 
 #: master_preset.xml:8856(check:text|preset:Payment_Methods|key:payment:girocard)
 msgid "Girocard"
@@ -4704,7 +4704,7 @@ msgstr ""
 #: master_preset.xml:3666(check:text|group:Public_Transport|preset:Platform|key:shelter)
 #: master_preset.xml:5916(item:name|group:Facilities|preset:Shelter)
 msgid "Shelter"
-msgstr ""
+msgstr "Átmeneti szálló"
 
 #: master_preset.xml:7709(item:name|group:Historic_Places|preset:Memorial)
 msgid "Memorial"
@@ -4729,7 +4729,7 @@ msgstr ""
 
 #: master_preset.xml:10333(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
 msgid "Alpine"
-msgstr ""
+msgstr "Alpesi"
 
 #: master_preset.xml:11161(item:name|group:Offices|preset:IT)
 msgid "IT"
@@ -4801,7 +4801,7 @@ msgstr ""
 #: master_preset.xml:4443(label:text|group:Tourism|preset:Guidepost)
 msgid ""
 "A Signpost/Guidepost to indicate the directions to different destinations."
-msgstr ""
+msgstr "Különböző célpontok irányát mutató útjelző tábla."
 
 #: master_preset.xml:1686(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"
@@ -4912,7 +4912,7 @@ msgstr ""
 
 #: master_preset.xml:7504(item:name|preset:Transformer_Tower)
 msgid "Transformer Tower"
-msgstr ""
+msgstr "Transzformátortorony"
 
 #: master_preset.xml:10654(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
@@ -4920,7 +4920,7 @@ msgstr ""
 
 #: master_preset.xml:2313(text:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward)
 msgid "Max. speed HGV in way direction"
-msgstr ""
+msgstr "Sebességkorlátozás – nehéz tehergépjármű, a vonal irányába"
 
 #: master_preset.xml:7512(item:name|preset:Power_Portal)
 msgid "Power Portal"
@@ -4960,11 +4960,11 @@ msgstr ""
 
 #: master_preset.xml:6493(item:name|group:Sport_(Ball)|preset:Volleyball)
 msgid "Volleyball"
-msgstr ""
+msgstr "Röplabda"
 
 #: master_preset.xml:3013(item:name|group:Railway|preset:Crossing)
 msgid "Crossing"
-msgstr ""
+msgstr "Kereszteződés"
 
 #: master_preset.xml:172(list_entry:short_description|value:limited)
 msgid "Partial access"
@@ -4972,7 +4972,7 @@ msgstr "Részleges elérés"
 
 #: master_preset.xml:2181(group:name|group:Access_Restrictions)
 msgid "Access Restrictions"
-msgstr ""
+msgstr "Hozzáférés korlátozásai"
 
 #: master_preset.xml:10861(item:name|group:Crafts|preset:Sailmaker)
 msgid "Sailmaker"
@@ -5000,7 +5000,7 @@ msgstr ""
 
 #: master_preset.xml:2316(text:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backward)
 msgid "Max. speed HGV opposite way direction"
-msgstr ""
+msgstr "Sebességkorlátozás – nehéz tehergépjármű, a vonal irányával ellentétesen"
 
 #: master_preset.xml:7356(list_entry:short_description|group:Power_Generator|preset:Tidal_Water_Turbine|value:kaplan_turbine)
 msgid "barrage"
@@ -5008,7 +5008,7 @@ msgstr ""
 
 #: master_preset.xml:4933(item:name|group:Place_of_Worship|preset:Synagogue)
 msgid "Synagogue"
-msgstr ""
+msgstr "Zsinagóga"
 
 #: master_preset.xml:2883(item:name|group:Railway|preset:Narrow_Gauge_Rail)
 msgid "Narrow Gauge Rail"
@@ -5029,7 +5029,7 @@ msgstr ""
 
 #: master_preset.xml:9991(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:inclusion)
 msgid "Accuracy"
-msgstr ""
+msgstr "Pontosság"
 
 #: master_preset.xml:8873(combo:text|preset:Payment_Methods|key:payment:electronic_purses)
 msgid "Electronic purses and Charge cards"
@@ -5135,11 +5135,11 @@ msgstr "Jobb oldali korlát"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Ground"
-msgstr ""
+msgstr "Talaj"
 
 #: master_preset.xml:862(item:name|group:Streets|preset:Residential)
 msgid "Residential"
-msgstr ""
+msgstr "Lakóépület"
 
 #: master_preset.xml:5846(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:green_waste)
 #: master_preset.xml:5806(check:text|group:Facilities|preset:Recycling_Container|key:recycling:green_waste)
@@ -5172,7 +5172,7 @@ msgstr ""
 
 #: master_preset.xml:8507(check:text|group:For_the_body|preset:Hairdresser/Barber|key:male)
 msgid "Male"
-msgstr ""
+msgstr "Férfi"
 
 #: master_preset.xml:10190(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 #: master_preset.xml:99(list_entry:short_description|value:traffic_signals)
@@ -5181,7 +5181,7 @@ msgstr ""
 
 #: master_preset.xml:9186(label:text|group:Geography|preset:Volcano)
 msgid "A volcano, either dormant, extinct or active."
-msgstr ""
+msgstr "Kialudt, alvó vagy aktív tűzhányó."
 
 #: master_preset.xml:3265(check:text|group:Car|preset:Fuel|key:fuel:HGV_diesel)
 msgid "Diesel for Heavy Good Vehicles"
@@ -5237,7 +5237,7 @@ msgstr ""
 
 #: master_preset.xml:10135(role:text|group:Relations|preset:Boundary|key:admin_centre)
 msgid "Administration centre"
-msgstr ""
+msgstr "Közigazgatási központ"
 
 #: master_preset.xml:11146(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Register office"
@@ -5417,11 +5417,11 @@ msgstr ""
 
 #: master_preset.xml:8506(check:text|group:For_the_body|preset:Hairdresser/Barber|key:female)
 msgid "Female"
-msgstr ""
+msgstr "Női"
 
 #: master_preset.xml:430(combo:text|key:canoe)
 msgid "Canoe"
-msgstr ""
+msgstr "Kenu"
 
 #: master_preset.xml:11253(item:name|group:Offices|preset:Camping)
 msgid "Camping"
@@ -5429,7 +5429,7 @@ msgstr ""
 
 #: master_preset.xml:6340(item:name|group:Sport|preset:Gymnastics)
 msgid "Gymnastics"
-msgstr ""
+msgstr "Torna"
 
 #: master_preset.xml:1870(text:text|group:Barriers|preset:Hedge|key:taxon)
 #: master_preset.xml:9301(text:text|group:Nature|preset:Tree|key:taxon)
@@ -5454,7 +5454,7 @@ msgstr ""
 
 #: master_preset.xml:5771(combo:display_values|group:Facilities|preset:Clock|key:visibility)
 msgid "area (more than 20m)"
-msgstr ""
+msgstr "terület (több mint 20 m)"
 
 #: master_preset.xml:4192(item:name|group:Food+Drinks|preset:Restaurant)
 msgid "Restaurant"
@@ -5516,7 +5516,7 @@ msgstr ""
 
 #: master_preset.xml:6542(item:name|group:Sport_(Ball)|preset:Croquet)
 msgid "Croquet"
-msgstr ""
+msgstr "Krokett"
 
 #: master_preset.xml:10638(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
@@ -5544,11 +5544,11 @@ msgstr ""
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Asphalt"
-msgstr ""
+msgstr "Aszfalt"
 
 #: master_preset.xml:471(combo:display_values|key:stars)
 msgid "****"
-msgstr ""
+msgstr "****"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Unpaved"
@@ -5583,7 +5583,7 @@ msgstr ""
 
 #: master_preset.xml:10543(role:text|preset:Tunnel|key:through)
 msgid "ways passing through the tunnel"
-msgstr ""
+msgstr "az alagúton áthaladó vonalak"
 
 #: master_preset.xml:9893(item:name|group:Land_use|preset:Quarry)
 msgid "Quarry"
@@ -5616,7 +5616,7 @@ msgstr "Fel"
 
 #: master_preset.xml:903(check:text|group:Streets|preset:Bicycle_Road|key:oneway:bicycle)
 msgid "Oneway for bicycle"
-msgstr ""
+msgstr "Kerékpárral egyirányú"
 
 #: master_preset.xml:8830(list_entry:short_description|preset:Vending_Machine|value:telephone_vouchers)
 msgid "Telephone vouchers"
@@ -5784,15 +5784,15 @@ msgstr ""
 
 #: master_preset.xml:8508(check:text|group:For_the_body|preset:Hairdresser/Barber|key:unisex)
 msgid "Unisex"
-msgstr ""
+msgstr "Közös"
 
 #: master_preset.xml:9204(label:text|group:Geography|preset:Ridge)
 msgid "A mountain or hill ridge."
-msgstr ""
+msgstr "Hegygerinc"
 
 #: master_preset.xml:1259(check:text|group:Ways|preset:Cycle_Lane/Track|key:oneway:bicycle)
 msgid "Oneway (bicycle)"
-msgstr ""
+msgstr "Egyirányú (kerékpár)"
 
 #: master_preset.xml:6457(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:rounders)
 msgid "Rounders"
@@ -5800,7 +5800,7 @@ msgstr ""
 
 #: master_preset.xml:2312(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:conditional)
 msgid "Max. speed Heavy Goods Vehicles (km/h) conditional"
-msgstr ""
+msgstr "Sebességkorlátozás – nehéz tehergépjármű (km/h), feltételes"
 
 #: master_preset.xml:4353(item:name|group:Tourism|preset:Attraction)
 msgid "Attraction"
@@ -5812,13 +5812,13 @@ msgstr ""
 
 #: master_preset.xml:10487(item:name|preset:Waterway)
 msgid "Waterway"
-msgstr ""
+msgstr "Vízfolyás"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 #: master_preset.xml:1885(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 #: master_preset.xml:1793(combo:display_values|group:Barriers|preset:Bollard|key:material)
 msgid "Wood"
-msgstr ""
+msgstr "Fa"
 
 #: master_preset.xml:10134(role:text|group:Relations|preset:Boundary|key:subarea)
 msgid "Sub area"
@@ -5830,7 +5830,7 @@ msgstr ""
 #: master_preset.xml:1775(text:text|group:Barriers|preset:Block|key:maxwidth)
 #: master_preset.xml:2355(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxwidth)
 msgid "Max. width (meters)"
-msgstr ""
+msgstr "Szélességkorlátozás (méter)"
 
 #: master_preset.xml:1921(item:name|group:Barriers|preset:Retaining_Wall)
 msgid "Retaining Wall"
@@ -5881,7 +5881,7 @@ msgstr "Fiók operátor"
 
 #: master_preset.xml:2318(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backwardward:conditional)
 msgid "Max. speed HGV opposite way direction conditional"
-msgstr ""
+msgstr "Sebességkorlátozás – nehéz tehergépjármű, a vonal irányával ellentétesen, feltételes"
 
 #: master_preset.xml:9070(item:name|group:Places|preset:Isolated_Dwelling)
 msgid "Isolated Dwelling"
@@ -5893,7 +5893,7 @@ msgstr ""
 
 #: master_preset.xml:6536(item:name|group:Sport_(Ball)|preset:Cricket)
 msgid "Cricket"
-msgstr ""
+msgstr "Krikett"
 
 #: master_preset.xml:5145(item:name|group:Public_Building|preset:Fire_Station)
 msgid "Fire Station"
@@ -5931,7 +5931,7 @@ msgstr ""
 
 #: master_preset.xml:4052(item:name|group:Accommodation|preset:Apartment)
 msgid "Apartment"
-msgstr ""
+msgstr "Lakás"
 
 #: master_preset.xml:324(combo:text|key:leaf_cycle)
 msgid "Cycle"
@@ -6002,7 +6002,7 @@ msgstr ""
 
 #: master_preset.xml:5471(item:name|group:Emergency|preset:Assembly_Point)
 msgid "Assembly Point"
-msgstr ""
+msgstr "Gyülekezőhely"
 
 #: master_preset.xml:2991(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
@@ -6010,7 +6010,7 @@ msgstr ""
 
 #: master_preset.xml:3688(check:text|group:Public_Transport|preset:Platform|key:aerialway)
 msgid "aerialway"
-msgstr ""
+msgstr "drótkötélpályás felvonó"
 
 #: master_preset.xml:7215(combo:text|group:Power|preset:Power_Plant|key:plant:output:electricity)
 #: master_preset.xml:388(combo:text|key:generator:output:electricity)
@@ -6027,11 +6027,11 @@ msgstr ""
 
 #: master_preset.xml:7729(item:name|group:Historic_Places|preset:Wayside_Cross)
 msgid "Wayside Cross"
-msgstr ""
+msgstr "Út menti kereszt"
 
 #: master_preset.xml:2105(item:name|group:Passageways|preset:Building_Passage)
 msgid "Building Passage"
-msgstr ""
+msgstr "Épület alatti átjáró"
 
 #: master_preset.xml:2512(item:name|group:Water|preset:Dam)
 msgid "Dam"
@@ -6079,11 +6079,11 @@ msgstr ""
 
 #: master_preset.xml:5364(label:text|group:Health|preset:Emergency_Access_Point)
 msgid "(Use number as shown on plate.)"
-msgstr ""
+msgstr "(A táblán látható számot használjuk.)"
 
 #: master_preset.xml:6705(item:name|group:Man_Made|preset:Residential_Building)
 msgid "Residential Building"
-msgstr ""
+msgstr "Lakóépület"
 
 #: master_preset.xml:10149(role:text|group:Relations|preset:Site|key:perimeter)
 msgid "perimeter of the site"
@@ -6148,7 +6148,7 @@ msgstr ""
 
 #: master_preset.xml:7343(list_entry:short_description|group:Power_Generator|preset:Water_Turbine|value:francis_turbine)
 msgid "all methods"
-msgstr ""
+msgstr "minden módszer"
 
 #: master_preset.xml:10304(item:name|group:Routes|preset:Piste_Route)
 msgid "Piste Route"
@@ -6163,7 +6163,7 @@ msgstr ""
 
 #: master_preset.xml:5192(text:text|group:Education|preset:Childcare|key:after_school:capacity)
 msgid "After school capacity"
-msgstr ""
+msgstr "Napközis kapacitás"
 
 #: master_preset.xml:6966(item:name|group:Man_Made|preset:Pipeline_Valve)
 msgid "Pipeline Valve"
@@ -6171,7 +6171,7 @@ msgstr ""
 
 #: master_preset.xml:1256(combo:text|group:Ways|preset:Cycle_Lane/Track|key:cycleway)
 msgid "Cycleway"
-msgstr ""
+msgstr "Kerékpárút"
 
 #: master_preset.xml:10504(text:text|preset:Waterway|key:ref:gnis)
 msgid "Reference GNIS (USA)"
@@ -6239,7 +6239,7 @@ msgstr ""
 #: master_preset.xml:687(check:text|group:Streets|preset:Trunk_Link|key:oneway)
 #: master_preset.xml:1263(check:text|group:Ways|preset:Cycle_Lane/Track|key:oneway)
 msgid "Oneway"
-msgstr ""
+msgstr "Egyirányú"
 
 #: master_preset.xml:173(list_entry:short_description|value:no)
 #: master_preset.xml:300(combo:display_values|key:access)
@@ -6253,7 +6253,7 @@ msgstr ""
 
 #: master_preset.xml:223(combo:display_values|key:internet_access)
 msgid "Terminal"
-msgstr ""
+msgstr "Terminál"
 
 #: master_preset.xml:2023(item:name|group:Barriers|preset:Bump_Gate)
 msgid "Bump Gate"
@@ -6269,7 +6269,7 @@ msgstr ""
 
 #: master_preset.xml:9780(item:name|group:Land_use|preset:Commercial)
 msgid "Commercial"
-msgstr ""
+msgstr "Üzleti épület"
 
 #: master_preset.xml:1766(group:name|group:Barriers)
 msgid "Barriers"
@@ -6300,7 +6300,7 @@ msgstr ""
 #: master_preset.xml:1885(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 #: master_preset.xml:7551(item:name|preset:Pole)
 msgid "Pole"
-msgstr ""
+msgstr "Rúd"
 
 #: master_preset.xml:1987(item:name|group:Barriers|preset:Lift_Gate)
 msgid "Lift Gate"
@@ -6312,7 +6312,7 @@ msgstr "Biztonsági ellenőrzés"
 
 #: master_preset.xml:7247(list_entry:short_description|group:Power_Generator|preset:Biomass_Power_Generator|value:bioreactor)
 msgid "anaerobic_digestion / combustion"
-msgstr ""
+msgstr "anaerob szervesanyagbontás / égés"
 
 #: master_preset.xml:1451(item:name|group:Waypoints|preset:Stop)
 msgid "Stop"
@@ -6470,7 +6470,7 @@ msgstr "Fehérnemű"
 
 #: master_preset.xml:9110(item:name|group:Places|preset:Farm)
 msgid "Farm"
-msgstr ""
+msgstr "Tanya"
 
 #: master_preset.xml:11337(item:name|group:Offices|preset:Consulting)
 msgid "Consulting"
@@ -6521,11 +6521,11 @@ msgstr ""
 
 #: master_preset.xml:9767(item:name|group:Land_use|preset:Retail)
 msgid "Retail"
-msgstr ""
+msgstr "Kiskereskedelmi épület"
 
 #: master_preset.xml:10512(role:text|preset:Waterway|key:spring)
 msgid "spring of waterway"
-msgstr ""
+msgstr "vízfolyás forrása"
 
 #: master_preset.xml:9562(item:name|group:Land_use|preset:Orchard)
 msgid "Orchard"
@@ -6580,7 +6580,7 @@ msgstr ""
 #: master_preset.xml:8910(combo:text|group:Boundaries|preset:Administrative|key:admin_level)
 #: master_preset.xml:10129(combo:text|group:Relations|preset:Boundary|key:admin_level)
 msgid "Administrative level"
-msgstr ""
+msgstr "Közigazgatási szint"
 
 #: master_preset.xml:568(item:name|group:Streets|preset:Motorway)
 msgid "Motorway"
@@ -6606,7 +6606,7 @@ msgstr "Szobrász"
 
 #: master_preset.xml:3873(group:name|group:Airport)
 msgid "Airport"
-msgstr ""
+msgstr "Repülőtér"
 
 #: master_preset.xml:2377(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:hov)
 msgid "High-occupancy vehicles (hov)"
@@ -6626,15 +6626,15 @@ msgstr ""
 
 #: master_preset.xml:10173(role:text|group:Relations|preset:Turn_Restriction|key:from)
 msgid "from way"
-msgstr ""
+msgstr "ettől a vonaltól:"
 
 #: master_preset.xml:4057(combo:text|group:Accommodation|preset:Apartment|key:number_of_apartments)
 msgid "Number of apartments"
-msgstr ""
+msgstr "Lakások száma"
 
 #: master_preset.xml:5938(item:name|group:Facilities|preset:Hunting_Stand)
 msgid "Hunting Stand"
-msgstr ""
+msgstr "Magasles"
 
 #: master_preset.xml:228(combo:display_values|key:smoking)
 msgid "Outside"
@@ -6667,15 +6667,15 @@ msgstr ""
 
 #: master_preset.xml:6780(combo:text|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Tower type"
-msgstr ""
+msgstr "Toronytípus"
 
 #: master_preset.xml:5980(item:name|group:Facilities|preset:Animal_watering_place)
 msgid "Animal watering place"
-msgstr ""
+msgstr "Állatitató"
 
 #: master_preset.xml:10529(role:text|preset:Bridge|key:under)
 msgid "ways passing under the bridge"
-msgstr ""
+msgstr "a híd alatt áthaladó vonalak"
 
 #: master_preset.xml:5854(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:small_appliances)
 #: master_preset.xml:5814(check:text|group:Facilities|preset:Recycling_Container|key:recycling:small_appliances)
@@ -6722,7 +6722,7 @@ msgstr "Anyag"
 
 #: master_preset.xml:10511(role:text|preset:Waterway|key:side_stream)
 msgid "branch waterways (no riverbank)"
-msgstr ""
+msgstr "folyóág (nincs part)"
 
 #: master_preset.xml:4450(check:text|group:Tourism|preset:Guidepost|key:hiking)
 #: master_preset.xml:4412(check:text|group:Tourism|preset:Map|key:hiking)
@@ -6786,7 +6786,7 @@ msgstr ""
 
 #: master_preset.xml:3301(combo:text|group:Car|preset:Charging_Station|key:amperage)
 msgid "Amperage"
-msgstr ""
+msgstr "Áramerősség"
 
 #: master_preset.xml:3684(check:text|group:Public_Transport|preset:Platform|key:share_taxi)
 #: master_preset.xml:3653(check:text|group:Public_Transport|preset:Stop_Position|key:share_taxi)
@@ -6800,11 +6800,11 @@ msgstr ""
 #: master_preset.xml:282(combo:display_values|key:access)
 #: master_preset.xml:5258(combo:display_values|group:Education|preset:Music_School|key:operator:type)
 msgid "Private"
-msgstr ""
+msgstr "Privát"
 
 #: master_preset.xml:9407(label:text|group:Nature|preset:Scree)
 msgid "An accumulation of loose rocks."
-msgstr ""
+msgstr "Laza sziklák felhalmozódása."
 
 #: master_preset.xml:3322(combo:text|group:Car|preset:Charging_Station|key:socket:cee_red_16a)
 msgid "CEE red 16A"
@@ -6824,7 +6824,7 @@ msgstr ""
 
 #: master_preset.xml:6474(item:name|group:Sport_(Ball)|preset:Baseball)
 msgid "Baseball"
-msgstr ""
+msgstr "Baseball"
 
 #: master_preset.xml:6530(item:name|group:Sport_(Ball)|preset:Lawn_Bowling)
 msgid "Lawn Bowling"
@@ -6832,7 +6832,7 @@ msgstr ""
 
 #: master_preset.xml:9216(label:text|group:Geography|preset:Valley)
 msgid "A low area between hills."
-msgstr ""
+msgstr "Dombok közötti alacsony terület."
 
 #: master_preset.xml:2785(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:e10)
 #: master_preset.xml:3272(check:text|group:Car|preset:Fuel|key:fuel:e10)
@@ -6861,7 +6861,7 @@ msgstr ""
 
 #: master_preset.xml:4841(item:name|group:Culture|preset:Arts_Centre)
 msgid "Arts Centre"
-msgstr ""
+msgstr "Művészeti központ"
 
 #: master_preset.xml:2160(item:name|group:Passageways|preset:Avalanche_Protector)
 msgid "Avalanche Protector"
@@ -6877,7 +6877,7 @@ msgstr ""
 
 #: master_preset.xml:6436(item:name|group:Sport_(Ball)|preset:American_Football)
 msgid "American Football"
-msgstr ""
+msgstr "Amerikai futball"
 
 #: master_preset.xml:7086(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring:"
@@ -6885,7 +6885,7 @@ msgstr ""
 
 #: master_preset.xml:3061(item:name|group:Railway|preset:Railway_milestone)
 msgid "Railway milestone"
-msgstr ""
+msgstr "Vasúti kilométerkő"
 
 #: master_preset.xml:7296(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-3)
 msgid "Boiling Water Reactor 3 (BWR-3)"
@@ -6893,13 +6893,13 @@ msgstr ""
 
 #: master_preset.xml:10460(role:text|preset:Street|key:associated)
 msgid "anything related to the street"
-msgstr ""
+msgstr "bármi, ami az utcához kötődik"
 
 #: master_preset.xml:2434(item:name|group:Water|preset:River)
 #: master_preset.xml:2613(combo:display_values|group:Water|preset:Water|key:water)
 #: master_preset.xml:10496(combo:display_values|preset:Waterway|key:waterway)
 msgid "River"
-msgstr ""
+msgstr "Folyó"
 
 #: master_preset.xml:8920(combo:text|group:Boundaries|preset:Political|key:political_division)
 msgid "Division"
@@ -6915,7 +6915,7 @@ msgstr ""
 #: master_preset.xml:4285(combo:text|group:Food+Drinks|preset:Ice_cream|key:takeaway)
 #: master_preset.xml:4271(combo:text|group:Food+Drinks|preset:Cafe|key:takeaway)
 msgid "Takeaway"
-msgstr ""
+msgstr "Elvitelre"
 
 #: master_preset.xml:3679(check:text|group:Public_Transport|preset:Platform|key:highway)
 msgid "Highway platform (legacy)"
@@ -6932,7 +6932,7 @@ msgstr ""
 
 #: master_preset.xml:10032(group:name|group:Annotation)
 msgid "Annotation"
-msgstr ""
+msgstr "Megjegyzés"
 
 #: master_preset.xml:10773(item:name|group:Crafts|preset:Metal_construction)
 msgid "Metal construction"
@@ -6990,7 +6990,7 @@ msgstr ""
 
 #: master_preset.xml:4884(item:name|group:Place_of_Worship|preset:Church)
 msgid "Church"
-msgstr ""
+msgstr "Templom"
 
 #: master_preset.xml:4191(group:name|group:Food+Drinks)
 msgid "Food+Drinks"
@@ -7034,7 +7034,7 @@ msgstr ""
 
 #: master_preset.xml:1113(text:text|group:Lane_attributes|preset:Single_direction_roads|key:maxspeed:lanes)
 msgid "Maxspeed per lane"
-msgstr ""
+msgstr "Sebességkorlátozás sávonként"
 
 #: master_preset.xml:5407(text:text|group:Emergency|preset:Automated_Defibrillator|key:defibrillator:location)
 msgid "Location description"
@@ -7046,15 +7046,15 @@ msgstr ""
 
 #: master_preset.xml:9294(label:text|group:Nature|preset:Tree)
 msgid "A single tree."
-msgstr ""
+msgstr "Magányos fa"
 
 #: master_preset.xml:1381(group:name|group:Waypoints)
 msgid "Waypoints"
-msgstr ""
+msgstr "Vonalpontok"
 
 #: master_preset.xml:2379(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:tourist_bus)
 msgid "Tourist buses"
-msgstr ""
+msgstr "Turistabuszok"
 
 #: master_preset.xml:4578(item:name|group:Leisure|preset:Water_Park)
 msgid "Water Park"
@@ -7127,7 +7127,7 @@ msgstr ""
 
 #: master_preset.xml:1460(item:name|group:Waypoints|preset:Give_Way)
 msgid "Give Way"
-msgstr ""
+msgstr "Elsőbbségadás kötelező"
 
 #: master_preset.xml:2677(list_entry:short_description|group:Water|preset:Wetland|value:string_bog)
 msgid "String bog"
@@ -7135,7 +7135,7 @@ msgstr "Dagadóláp"
 
 #: master_preset.xml:3276(check:text|group:Car|preset:Fuel|key:fuel:1_25)
 msgid "1/25 mix (mofa/moped)"
-msgstr ""
+msgstr "1/25 arányú keverék (mopedhez)"
 
 #: master_preset.xml:3314(combo:text|group:Car|preset:Charging_Station|key:socket:type1_combo)
 msgid "Type 1 Combo"
@@ -7147,7 +7147,7 @@ msgstr ""
 
 #: master_preset.xml:2198(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle:conditional)
 msgid "All vehicles conditional"
-msgstr ""
+msgstr "Minden jármű, feltételesen"
 
 #: master_preset.xml:9989(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Numbering scheme"
@@ -7185,7 +7185,7 @@ msgstr "Személyek száma gondolánként"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10%"
-msgstr ""
+msgstr "10%"
 
 #: master_preset.xml:11345(item:name|group:Offices|preset:Cooperative)
 msgid "Cooperative"
@@ -7241,7 +7241,7 @@ msgstr ""
 #: master_preset.xml:5385(group:name|group:Emergency)
 #: master_preset.xml:10170(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 msgid "Emergency"
-msgstr ""
+msgstr "Vészhelyzet"
 
 #: master_preset.xml:4675(item:name|group:Leisure|preset:Picnic_Site)
 msgid "Picnic Site"
@@ -7259,7 +7259,7 @@ msgstr "Városnév"
 
 #: master_preset.xml:2979(item:name|group:Railway|preset:Abandoned_Rail)
 msgid "Abandoned Rail"
-msgstr ""
+msgstr "Elhagyott vasút"
 
 #: master_preset.xml:7495(item:name|preset:Power_Street_Cabinet)
 msgid "Power Street Cabinet"
@@ -7284,7 +7284,7 @@ msgstr ""
 
 #: master_preset.xml:41(combo:text|key:lanes:backward)
 msgid "Lanes opposed to way direction"
-msgstr ""
+msgstr "Sávok a vonal irányával ellentétesen"
 
 #: master_preset.xml:8467(item:name|group:For_the_body|preset:Perfumery)
 msgid "Perfumery"
@@ -7296,7 +7296,7 @@ msgstr ""
 
 #: master_preset.xml:10496(combo:text|preset:Waterway|key:waterway)
 msgid "Subtype of waterway (largest one of members)"
-msgstr ""
+msgstr "Vízfolyás altípusa (legnagyobb tag)"
 
 #: master_preset.xml:7101(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording:"
@@ -7351,11 +7351,11 @@ msgstr ""
 
 #: master_preset.xml:3884(item:name|group:Airport|preset:Runway)
 msgid "Runway"
-msgstr ""
+msgstr "Kifutópálya"
 
 #: master_preset.xml:5749(item:name|group:Facilities|preset:Internet_Access)
 msgid "Internet Access"
-msgstr ""
+msgstr "Internetcsatlakozás"
 
 #: master_preset.xml:7058(item:name|group:Man_Made|preset:Beacon)
 #: master_preset.xml:3949(item:name|group:Airport|preset:Beacon)
@@ -7414,7 +7414,7 @@ msgstr ""
 
 #: master_preset.xml:5386(item:name|group:Emergency|preset:Ambulance_Station)
 msgid "Ambulance Station"
-msgstr ""
+msgstr "Mentőállomás"
 
 #: master_preset.xml:3383(item:name|group:Car|preset:Parts)
 #: master_preset.xml:3466(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:parts)
@@ -7444,7 +7444,7 @@ msgstr ""
 
 #: master_preset.xml:6420(item:name|group:Sport_(Ball)|preset:Soccer)
 msgid "Soccer"
-msgstr ""
+msgstr "Labdarúgás"
 
 #: master_preset.xml:7073(combo:text|group:Man_Made|preset:Street_Lamp|key:opening_hours)
 #: master_preset.xml:5893(combo:text|group:Facilities|preset:Sanitary_Dump_Station|key:opening_hours)
@@ -7474,7 +7474,7 @@ msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10°"
-msgstr ""
+msgstr "10°"
 
 #: master_preset.xml:163(combo:text|key:service_times)
 msgid "Service Times"
@@ -7760,7 +7760,7 @@ msgstr ""
 
 #: master_preset.xml:11105(item:name|group:Offices|preset:Advertising_agency)
 msgid "Advertising agency"
-msgstr ""
+msgstr "Reklámügynökség"
 
 #: master_preset.xml:8029(multiselect:text|group:Clothes|preset:Clothes|key:clothes)
 msgid "Kind of clothes"
@@ -7802,12 +7802,12 @@ msgstr ""
 #: master_preset.xml:5796(check:text|group:Facilities|preset:Recycling_Container|key:recycling:aluminium)
 #: master_preset.xml:5836(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:aluminium)
 msgid "Aluminium"
-msgstr ""
+msgstr "Alumínium"
 
 #: master_preset.xml:2352(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxweight)
 #: master_preset.xml:407(text:text|key:maxweight)
 msgid "Max. weight (tonnes)"
-msgstr ""
+msgstr "Súlykorlátozás (tonna)"
 
 #: master_preset.xml:9679(item:name|group:Land_use|preset:Common)
 msgid "Common"
@@ -7977,7 +7977,7 @@ msgstr ""
 
 #: master_preset.xml:85(combo:text|key:sidewalk)
 msgid "Sidewalk"
-msgstr ""
+msgstr "Járda"
 
 #: master_preset.xml:2652(item:name|group:Water|preset:Wetland)
 msgid "Wetland"
@@ -8018,7 +8018,7 @@ msgstr ""
 
 #: master_preset.xml:1382(item:name|group:Waypoints|preset:Motorway_Junction)
 msgid "Motorway Junction"
-msgstr ""
+msgstr "Autópálya-csomópont"
 
 #: master_preset.xml:2584(combo:display_values|group:Water|preset:Reservoir|key:reservoir_type)
 msgid "Tailings"
@@ -8094,7 +8094,7 @@ msgstr ""
 
 #: master_preset.xml:8375(item:name|group:Home_decoration|preset:Antiques)
 msgid "Antiques"
-msgstr ""
+msgstr "Antikvitás"
 
 #: master_preset.xml:10190(combo:text|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Type of enforcement"
@@ -8162,7 +8162,7 @@ msgstr ""
 
 #: master_preset.xml:6004(item:name|group:Facilities|preset:Advertising_Column)
 msgid "Advertising Column"
-msgstr ""
+msgstr "Hirdetőoszlop"
 
 #: master_preset.xml:9353(item:name|group:Nature|preset:Cutline)
 msgid "Cutline"
@@ -8206,15 +8206,15 @@ msgstr ""
 
 #: master_preset.xml:4909(item:name|group:Place_of_Worship|preset:Mosque)
 msgid "Mosque"
-msgstr ""
+msgstr "Mecset"
 
 #: master_preset.xml:1122(multiselect:text|group:Lane_attributes|preset:Bi-directional_roads|key:turn:lanes:forward)
 msgid "Turning lanes in way direction"
-msgstr ""
+msgstr "Kanyarodósáv a vonal irányába"
 
 #: master_preset.xml:3258(combo:text|group:Car|preset:Fuel|key:shop)
 msgid "With shop"
-msgstr ""
+msgstr "Üzlettel"
 
 #: master_preset.xml:2584(combo:display_values|group:Water|preset:Reservoir|key:reservoir_type)
 msgid "Water storage"
@@ -8222,7 +8222,7 @@ msgstr ""
 
 #: master_preset.xml:50(text:text|key:maxspeed:backward)
 msgid "Max. speed opposite way direction"
-msgstr ""
+msgstr "Sebességkorlátozás a vonal irányával ellentétesen"
 
 #: master_preset.xml:2867(item:name|group:Railway|preset:Rail)
 msgid "Rail"
@@ -8245,7 +8245,7 @@ msgstr ""
 
 #: master_preset.xml:6275(item:name|group:Sport|preset:Archery)
 msgid "Archery"
-msgstr ""
+msgstr "Íjászat"
 
 #: master_preset.xml:8791(item:name|group:Other|preset:Funeral_Directors)
 msgid "Funeral Directors"
@@ -8331,7 +8331,7 @@ msgstr ""
 
 #: master_preset.xml:7228(item:name|group:Power_Generator|preset:Biofuel_Power_Generator)
 msgid "Biofuel Power Generator"
-msgstr ""
+msgstr "Bioüzemanyag-erőmű"
 
 #: master_preset.xml:7487(combo:text|preset:Power_Compensator|key:compensator)
 msgid "Type of compensator"
@@ -8348,7 +8348,7 @@ msgstr ""
 
 #: master_preset.xml:471(combo:display_values|key:stars)
 msgid "*******"
-msgstr ""
+msgstr "*******"
 
 #: master_preset.xml:9472(label:text|group:Nature|preset:Sand)
 msgid "Large area covered with sand."
@@ -8394,7 +8394,7 @@ msgstr ""
 
 #: master_preset.xml:5048(group:name|group:Public_Building)
 msgid "Public Building"
-msgstr ""
+msgstr "Középület"
 
 #: master_preset.xml:8940(item:name|group:Boundaries|preset:Protected_Area)
 msgid "Protected Area"
@@ -8432,11 +8432,11 @@ msgstr ""
 #: master_preset.xml:4418(label:text|group:Tourism|preset:Map)
 #: master_preset.xml:4456(label:text|group:Tourism|preset:Guidepost)
 msgid "... other transportation modes possible"
-msgstr ""
+msgstr "…más lehetséges közlekedési módok"
 
 #: master_preset.xml:11234(item:name|group:Offices|preset:Architect)
 msgid "Architect"
-msgstr ""
+msgstr "Építész"
 
 #: master_preset.xml:4753(item:name|group:Leisure|preset:Casino)
 msgid "Casino"
@@ -8448,11 +8448,11 @@ msgstr ""
 
 #: master_preset.xml:454(list_entry:display_value|value:abused)
 msgid "Abused"
-msgstr ""
+msgstr "Bántalmazottaknak"
 
 #: master_preset.xml:4388(label:text|group:Tourism|preset:Information_Office)
 msgid "An office where you can get information about a town or region."
-msgstr "Iroda, ahol információ kapható a városról vagy a régióról."
+msgstr "Iroda, amely tájékoztat a városról vagy a régióról."
 
 #: master_preset.xml:10168(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "No right turn"
@@ -8461,7 +8461,7 @@ msgstr "Nincs jobbra kanyarodás"
 #: master_preset.xml:2720(label:text|group:Water|preset:Bay)
 msgid ""
 "A large body of water partially enclosed by land but with a wide mouth."
-msgstr ""
+msgstr "Részben szárazföld által határolt, ám széles kijáratú, nagy víztest."
 
 #: master_preset.xml:6956(item:name|group:Man_Made|preset:Pipeline_Marker)
 msgid "Pipeline Marker"
@@ -8492,52 +8492,52 @@ msgstr ""
 #: master_preset.xml:277(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Rooftop"
-msgstr ""
+msgstr "Tető"
 
 #: master_preset.xml:277(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Multi-storey"
-msgstr ""
+msgstr "Több szintes"
 
 #: master_preset.xml:277(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Underground"
-msgstr ""
+msgstr "Mélygarázs"
 
 #: master_preset.xml:277(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Surface"
-msgstr "Felület"
+msgstr "Felszín"
 
 #: master_preset.xml:5932(list_entry:short_description|group:Facilities|preset:Shelter|value:picnic_shelter)
 msgctxt "shelter"
 msgid "Picnic shelter"
-msgstr ""
+msgstr "Fedett piknikezőhely"
 
 #: master_preset.xml:5930(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"
 msgid "Basic hut"
-msgstr ""
+msgstr "Bivakkunyhó"
 
 #: master_preset.xml:5931(list_entry:short_description|group:Facilities|preset:Shelter|value:lean_to)
 msgctxt "shelter"
 msgid "lean to"
-msgstr ""
+msgstr "háromfalú fészer"
 
 #: master_preset.xml:5934(list_entry:short_description|group:Facilities|preset:Shelter|value:weather_shelter)
 msgctxt "shelter"
 msgid "Weather shelter"
-msgstr ""
+msgstr "Esőház"
 
 #: master_preset.xml:5933(list_entry:short_description|group:Facilities|preset:Shelter|value:public_transport)
 msgctxt "shelter"
 msgid "Public transport"
-msgstr ""
+msgstr "Tömegközlekedés"
 
 #: master_preset.xml:5935(list_entry:short_description|group:Facilities|preset:Shelter|value:wildlife_hide)
 msgctxt "shelter"
 msgid "Wildlife hide"
-msgstr ""
+msgstr "Vadfigyelő rejtek"
 
 #: master_preset.xml:6761(combo:display_values|group:Man_Made|preset:Entrance|key:access)
 msgctxt "access"
@@ -8552,12 +8552,12 @@ msgstr "Igen"
 #: master_preset.xml:6761(combo:display_values|group:Man_Made|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Private"
-msgstr ""
+msgstr "Privát"
 
 #: master_preset.xml:6761(combo:display_values|group:Man_Made|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Delivery"
-msgstr ""
+msgstr "Szállítás"
 
 #: master_preset.xml:1939(item:name|group:Barriers|preset:Ditch)
 msgctxt "Barrier"
@@ -8574,37 +8574,37 @@ msgctxt "fixme=*"
 msgid ""
 "A hint for other mappers (not for the end user), that an object needs an "
 "improvement."
-msgstr ""
+msgstr "Utalás a többi térképkészítőnek (nem a végfelhasználóknak) arra, hogy egy objektumot javítani kell."
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Church"
-msgstr ""
+msgstr "Templom"
 
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Residential"
-msgstr ""
+msgstr "Lakóépület"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Mosque"
-msgstr ""
+msgstr "Mecset"
 
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Detached"
-msgstr ""
+msgstr "Egyedül álló családi ház"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Retail"
-msgstr ""
+msgstr "Kiskereskedelmi épület"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Basilica"
-msgstr ""
+msgstr "Bazilika"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -8614,17 +8614,17 @@ msgstr "Romok"
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Cabin"
-msgstr ""
+msgstr "Kis faház"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Hospital"
-msgstr ""
+msgstr "Kórház"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Gasometer"
-msgstr "Gasometer"
+msgstr "Gazométer"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -8634,18 +8634,18 @@ msgstr "Építkezés"
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Hangar"
-msgstr ""
+msgstr "Hangár"
 
 #: master_preset.xml:6700(combo:text|group:Man_Made|preset:Building|key:min_level)
 #: master_preset.xml:6728(combo:text|group:Man_Made|preset:Residential_Building|key:min_level)
 msgctxt "building"
 msgid "Min. level"
-msgstr ""
+msgstr "Legalsó belső szint"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Train station"
-msgstr ""
+msgstr "Vasútállomás"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -8655,7 +8655,7 @@ msgstr "Kápolna"
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Cathedral"
-msgstr ""
+msgstr "Székesegyház"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -8665,27 +8665,27 @@ msgstr "Óvoda"
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "House"
-msgstr ""
+msgstr "Családi ház"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Public"
-msgstr "Nyilvános"
+msgstr "Középület"
 
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Apartments"
-msgstr ""
+msgstr "Társasház"
 
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Terrace"
-msgstr ""
+msgstr "Sorház"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "University"
-msgstr ""
+msgstr "Egyetem"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -8695,32 +8695,32 @@ msgstr "Főiskola"
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Greenhouse"
-msgstr ""
+msgstr "Üvegház"
 
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Hotel"
-msgstr ""
+msgstr "Szálloda"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Office"
-msgstr ""
+msgstr "Irodaház"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Warehouse"
-msgstr ""
+msgstr "Raktár"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Barn"
-msgstr ""
+msgstr "Pajta"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Industrial"
-msgstr ""
+msgstr "Ipari"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -8730,7 +8730,7 @@ msgstr "Igen"
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Transportation"
-msgstr ""
+msgstr "Közlekedési"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -8740,171 +8740,171 @@ msgstr "Szupermarket"
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Synagogue"
-msgstr ""
+msgstr "Zsinagóga"
 
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Dormitory"
-msgstr ""
+msgstr "Kollégium"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Roof"
-msgstr ""
+msgstr "Tető"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "School"
-msgstr ""
+msgstr "Iskola"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Garages"
-msgstr ""
+msgstr "Garázsok"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Storage tank"
-msgstr ""
+msgstr "Tároló"
 
 #: master_preset.xml:6729(combo:text|group:Man_Made|preset:Residential_Building|key:max_level)
 #: master_preset.xml:6701(combo:text|group:Man_Made|preset:Building|key:max_level)
 msgctxt "building"
 msgid "Max. level"
-msgstr ""
+msgstr "Legfelső belső szint"
 
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Hut"
-msgstr ""
+msgstr "Kunyhó"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Service"
-msgstr ""
+msgstr "Kiszolgáló épület"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Stable"
-msgstr ""
+msgstr "Lóistálló"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Commercial"
-msgstr ""
+msgstr "Üzleti épület"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Cowshed"
-msgstr ""
+msgstr "Szarvasmarha-istálló"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Garage"
-msgstr ""
+msgstr "Garázs"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Shed"
-msgstr ""
+msgstr "Fészer"
 
 #: master_preset.xml:6745(combo:text|group:Man_Made|preset:Building_part|key:building:min_level)
 msgctxt "building"
 msgid "Skipped Levels"
-msgstr ""
+msgstr "Kihagyott szintek"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Temple"
-msgstr ""
+msgstr "Nem keresztény templom"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Transformer tower"
-msgstr ""
+msgstr "Transzformátortorony"
 
 #: master_preset.xml:6723(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Farm"
-msgstr ""
+msgstr "Tanya"
 
 #: master_preset.xml:6698(combo:text|group:Man_Made|preset:Building|key:building:levels)
 #: master_preset.xml:6726(combo:text|group:Man_Made|preset:Residential_Building|key:building:levels)
 #: master_preset.xml:6744(combo:text|group:Man_Made|preset:Building_part|key:building:levels)
 msgctxt "building"
 msgid "Levels"
-msgstr ""
+msgstr "Szintek"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Farm auxiliary"
-msgstr ""
+msgstr "Tanya melléképülete"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Manufacture"
-msgstr ""
+msgstr "Gyártóépület"
 
 #: master_preset.xml:552(list_entry:short_description|value:gynaecology)
 msgctxt "healthcare"
 msgid "Gynaecology"
-msgstr ""
+msgstr "Nőgyógyászat"
 
 #: master_preset.xml:558(list_entry:short_description|value:chiropractic)
 msgctxt "healthcare"
 msgid "Chiropractic"
-msgstr ""
+msgstr "Chiropraktika"
 
 #: master_preset.xml:559(list_entry:short_description|value:dermatology)
 msgctxt "healthcare"
 msgid "Dermatology"
-msgstr ""
+msgstr "Bőrgyógyászat"
 
 #: master_preset.xml:554(list_entry:short_description|value:internal)
 msgctxt "healthcare"
 msgid "Internal"
-msgstr ""
+msgstr "Belgyógyászat"
 
 #: master_preset.xml:557(list_entry:short_description|value:otolaryngology)
 msgctxt "healthcare"
 msgid "Otolaryngology"
-msgstr ""
+msgstr "Fül-orr-gégészet"
 
 #: master_preset.xml:561(list_entry:short_description|value:radiology)
 msgctxt "healthcare"
 msgid "Radiology"
-msgstr ""
+msgstr "Radiológia"
 
 #: master_preset.xml:551(list_entry:short_description|value:general)
 msgctxt "healthcare"
 msgid "General"
-msgstr ""
+msgstr "Általános orvoslás"
 
 #: master_preset.xml:553(list_entry:short_description|value:ophthalmology)
 msgctxt "healthcare"
 msgid "Ophthalmology"
-msgstr ""
+msgstr "Szemészet"
 
 #: master_preset.xml:562(list_entry:short_description|value:psychiatry)
 msgctxt "healthcare"
 msgid "Psychiatry"
-msgstr ""
+msgstr "Pszichiátria"
 
 #: master_preset.xml:556(list_entry:short_description|value:paediatrics)
 msgctxt "healthcare"
 msgid "Paediatrics"
-msgstr ""
+msgstr "Gyermekgyógyászat"
 
 #: master_preset.xml:560(list_entry:short_description|value:urology)
 msgctxt "healthcare"
 msgid "Urology"
-msgstr ""
+msgstr "Urológia"
 
 #: master_preset.xml:555(list_entry:short_description|value:orthopaedics)
 msgctxt "healthcare"
 msgid "Orthopaedics"
-msgstr ""
+msgstr "Ortopédia"
 
 #: master_preset.xml:6226(item:name|group:Golf|preset:Driving_range)
 msgctxt "golf"
@@ -8914,17 +8914,17 @@ msgstr ""
 #: master_preset.xml:6136(item:name|group:Golf|preset:Hole)
 msgctxt "golf"
 msgid "Hole"
-msgstr ""
+msgstr "Lyuk"
 
 #: master_preset.xml:6153(item:name|group:Golf|preset:Pin)
 msgctxt "golf"
 msgid "Pin"
-msgstr ""
+msgstr "Zászló"
 
 #: master_preset.xml:6125(item:name|group:Golf|preset:Tee)
 msgctxt "golf"
 msgid "Tee"
-msgstr ""
+msgstr "Labdatartó"
 
 #: master_preset.xml:6172(item:name|group:Golf|preset:Frontal_Water_hazard)
 msgctxt "golf"
@@ -8965,34 +8965,34 @@ msgstr ""
 #: master_preset.xml:10066(text:text|group:Annotation|preset:Note|key:note)
 msgctxt "the tag note=*"
 msgid "Note"
-msgstr ""
+msgstr "Megjegyzés"
 
 #: master_preset.xml:5745(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 #: master_preset.xml:8849(check:text|preset:Payment_Methods|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "Bankjegy"
 
 #: master_preset.xml:3692(item:name|group:Public_Transport|preset:Station)
 #: master_preset.xml:3766(item:name|group:Public_Transport_(Legacy)|preset:Station)
 msgctxt "railway"
 msgid "Station"
-msgstr ""
+msgstr "Állomás"
 
 #: master_preset.xml:115(combo:text|key:tracks)
 msgctxt "railway"
 msgid "Tracks"
-msgstr ""
+msgstr "Vágányok"
 
 #: master_preset.xml:7543(combo:text|preset:Power_Tower|key:tower:type)
 msgctxt "power"
 msgid "Tower type"
-msgstr ""
+msgstr "Oszloptípus"
 
 #: master_preset.xml:8986(item:name|group:Places|preset:State)
 msgctxt "place"
 msgid "State"
-msgstr ""
+msgstr "Állam"
 
 #: master_preset.xml:6760(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
@@ -9002,52 +9002,52 @@ msgstr "Igen"
 #: master_preset.xml:6760(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Service"
-msgstr ""
+msgstr "Kiszolgáló épület"
 
 #: master_preset.xml:6760(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Emergency"
-msgstr ""
+msgstr "Vészhelyzet"
 
 #: master_preset.xml:6760(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Main"
-msgstr ""
+msgstr "Főbejárat"
 
 #: master_preset.xml:6760(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Exit"
-msgstr ""
+msgstr "Kijárat"
 
 #: master_preset.xml:6760(combo:display_values|group:Man_Made|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Staircase"
-msgstr ""
+msgstr "Lépcsőház"
 
 #: master_preset.xml:5618(item:name|group:Social_Facilities|preset:Shelter)
 msgctxt "social_facility"
 msgid "Shelter"
-msgstr ""
+msgstr "Átmeneti szálló"
 
 #: master_preset.xml:5690(check:text|group:Facilities|preset:Toilets/Restrooms|key:female)
 msgctxt "restroom"
 msgid "Female"
-msgstr ""
+msgstr "Női"
 
 #: master_preset.xml:5691(check:text|group:Facilities|preset:Toilets/Restrooms|key:male)
 msgctxt "restroom"
 msgid "Male"
-msgstr ""
+msgstr "Férfi"
 
 #: master_preset.xml:5692(check:text|group:Facilities|preset:Toilets/Restrooms|key:unisex)
 msgctxt "restroom"
 msgid "Unisex"
-msgstr ""
+msgstr "Közös"
 
 #: master_preset.xml:86(list_entry:short_description|value:both)
 msgctxt "sidewalk"
 msgid "Both sides"
-msgstr ""
+msgstr "Mindkét oldalon"
 
 #: master_preset.xml:88(list_entry:short_description|value:right)
 msgctxt "sidewalk"
@@ -9057,7 +9057,7 @@ msgstr "Csak a jobb oldalon"
 #: master_preset.xml:89(list_entry:short_description|value:no)
 msgctxt "sidewalk"
 msgid "None"
-msgstr ""
+msgstr "Nincs"
 
 #: master_preset.xml:87(list_entry:short_description|value:left)
 msgctxt "sidewalk"
@@ -9067,12 +9067,12 @@ msgstr "Csak a bal oldalon"
 #: master_preset.xml:531(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid " In way direction"
-msgstr ""
+msgstr "A vonal irányába"
 
 #: master_preset.xml:531(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid " No"
-msgstr ""
+msgstr "Tilos"
 
 #: master_preset.xml:531(combo:display_values|key:overtaking)
 msgctxt "overtaking"
@@ -9082,19 +9082,19 @@ msgstr "Igen"
 #: master_preset.xml:531(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid " Opposite to way direction"
-msgstr ""
+msgstr "A vonal irányával ellentétesen"
 
 #: master_preset.xml:531(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid " Both directions"
-msgstr ""
+msgstr "Mindkét irányba"
 
 #: master_preset.xml:10087(label:text|group:Annotation|preset:Fixme)
 #: master_preset.xml:10048(label:text|group:Annotation|preset:Description)
 #: master_preset.xml:10068(label:text|group:Annotation|preset:Note)
 msgctxt "note=*, fixme=*, description=*"
 msgid "Similar but different tags:"
-msgstr ""
+msgstr "Hasonló, de különböző tagek:"
 
 #: master_preset.xml:2598(item:name|group:Water|preset:Water)
 msgctxt "natural"
@@ -9104,45 +9104,45 @@ msgstr "Víz"
 #: master_preset.xml:9323(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
 msgid "Wood"
-msgstr ""
+msgstr "Fa"
 
 #: master_preset.xml:2002(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Swing"
-msgstr ""
+msgstr "Elforduló sorompó"
 
 #: master_preset.xml:2002(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Double"
-msgstr ""
+msgstr "Dupla elforduló sorompó"
 
 #: master_preset.xml:3160(item:name|group:Aerialway|preset:Station)
 msgctxt "aerialway"
 msgid "Station"
-msgstr ""
+msgstr "Állomás"
 
 #: master_preset.xml:3460(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
 #: master_preset.xml:3367(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
 msgctxt "transport"
 msgid "Second hand"
-msgstr ""
+msgstr "Használt"
 
 #: master_preset.xml:9971(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:state)
 msgctxt "addr:"
 msgid "State"
-msgstr ""
+msgstr "Állam"
 
 #: master_preset.xml:10044(label:text|group:Annotation|preset:Description)
 msgctxt "description=*"
 msgid ""
 "It might be viewable to the end user (perhaps using a search system or a map"
 " with pop-ups)."
-msgstr ""
+msgstr "Adott esetben a végfelhasználó is láthatja (ha esetleg keresőrendszert vagy felpattanó ablakokkal működő térképet használ)."
 
 #: master_preset.xml:10043(label:text|group:Annotation|preset:Description)
 msgctxt "description=*"
 msgid "A short text with additional information."
-msgstr ""
+msgstr "További tájékoztatást nyújtó rövid szöveg."
 
 #: master_preset.xml:3976(item:name|group:Airport|preset:Gate)
 msgctxt "airport"
@@ -9152,97 +9152,97 @@ msgstr "Kapu"
 #: master_preset.xml:3963(item:name|group:Airport|preset:Terminal)
 msgctxt "airport"
 msgid "Terminal"
-msgstr ""
+msgstr "Terminál"
 
 #: master_preset.xml:1218(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Horrible"
-msgstr ""
+msgstr "Alig látható"
 
 #: master_preset.xml:1218(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Excellent"
-msgstr ""
+msgstr "Kitűnő"
 
 #: master_preset.xml:1218(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Intermediate"
-msgstr ""
+msgstr "Közepes"
 
 #: master_preset.xml:1218(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Bad"
-msgstr ""
+msgstr "Rossz"
 
 #: master_preset.xml:1218(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Not visible"
-msgstr ""
+msgstr "Nem látható"
 
 #: master_preset.xml:1218(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Good"
-msgstr ""
+msgstr "Jó"
 
 #: master_preset.xml:5948(check:text|group:Facilities|preset:Hunting_Stand|key:hide)
 msgctxt "hunting stand"
 msgid "Hide"
-msgstr ""
+msgstr "Zárt"
 
 #: master_preset.xml:1633(item:name|group:Traffic_Calming|preset:Table)
 msgctxt "traffic_calming"
 msgid "Table"
-msgstr ""
+msgstr "Küszöb"
 
 #: master_preset.xml:1601(item:name|group:Traffic_Calming|preset:Island)
 msgctxt "traffic_calming"
 msgid "Island"
-msgstr ""
+msgstr "Sziget"
 
 #: master_preset.xml:10064(label:text|group:Annotation|preset:Note)
 msgctxt "note=*"
 msgid "An important hint for other mappers (not for the end user)."
-msgstr ""
+msgstr "Fontos utalás a többi térképszerkesztőnek (nem a végfelhasználónak)."
 
 #: master_preset.xml:1329(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Sidewalk"
-msgstr ""
+msgstr "Járda"
 
 #: master_preset.xml:1329(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Crossing"
-msgstr ""
+msgstr "Kereszteződés"
 
 #: master_preset.xml:1726(item:name|preset:Named_Junction)
 msgctxt "junction=yes"
 msgid "Named Junction"
-msgstr ""
+msgstr "Névvel rendelkező csomópont"
 
 #: master_preset.xml:438(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Ground"
-msgstr ""
+msgstr "Talaj"
 
 #: master_preset.xml:438(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Billboard"
-msgstr ""
+msgstr "Óriásplakát"
 
 #: master_preset.xml:438(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Pole"
-msgstr ""
+msgstr "Rúd"
 
 #: master_preset.xml:438(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Wall mounted"
-msgstr ""
+msgstr "Falra szerelt"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Boules"
-msgstr ""
+msgstr "Boules"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9252,27 +9252,27 @@ msgstr "Pelota"
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "American football"
-msgstr ""
+msgstr "Amerikai futball"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Sand"
-msgstr ""
+msgstr "Homok"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Ground"
-msgstr ""
+msgstr "Talaj"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Croquet"
-msgstr ""
+msgstr "Krokett"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Grass"
-msgstr ""
+msgstr "Fű"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9282,116 +9282,116 @@ msgstr "Gördeszka"
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Beach volleyball"
-msgstr ""
+msgstr "Strandröplabda"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Cricket"
-msgstr ""
+msgstr "Krikett"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Field hockey"
-msgstr ""
+msgstr "Gyeplabda"
 
 #: master_preset.xml:6106(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Roller skating"
-msgstr ""
+msgstr "Görkorcsolya"
 
 #: master_preset.xml:6106(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Ice skating"
-msgstr ""
+msgstr "Jégkorcsolya"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Asphalt"
-msgstr ""
+msgstr "Aszfalt"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Archery"
-msgstr ""
+msgstr "Íjászat"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Swimming"
-msgstr ""
+msgstr "Úszás"
 
 #: master_preset.xml:6106(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Skating"
-msgstr ""
+msgstr "Korcsolya"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Tartan"
-msgstr ""
+msgstr "Műanyag (tartan)"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Clay"
-msgstr ""
+msgstr "Salak"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Golf"
-msgstr ""
+msgstr "Golf"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Motor"
-msgstr ""
+msgstr "Autóverseny"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Volleyball"
-msgstr ""
+msgstr "Röplabda"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Safety training"
-msgstr ""
+msgstr "Biztonsági képzés"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "9pin"
-msgstr ""
+msgstr "Teke"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Canadian football"
-msgstr ""
+msgstr "Kanadai futball"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Racquet"
-msgstr ""
+msgstr "Racquet"
 
 #: master_preset.xml:6106(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Horse racing"
-msgstr ""
+msgstr "Lóverseny"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Ice hockey"
-msgstr ""
+msgstr "Jégkorong"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Baseball"
-msgstr ""
+msgstr "Baseball"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Rugby union"
-msgstr ""
+msgstr "Rögbi (union)"
 
 #: master_preset.xml:6106(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:252(combo:display_values|key:sport)
@@ -9402,52 +9402,52 @@ msgstr "Futás"
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Concrete"
-msgstr ""
+msgstr "Beton"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "DecoTurf"
-msgstr ""
+msgstr "Műanyag (DecoTurf tenisz)"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Australian football"
-msgstr ""
+msgstr "Ausztrál futball"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Artificial turf"
-msgstr ""
+msgstr "Műfű"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Motocross"
-msgstr ""
+msgstr "Motocross"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Gaelic games"
-msgstr ""
+msgstr "Gél játékok (Írország)"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Billiards"
-msgstr ""
+msgstr "Billiárd"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Shooting"
-msgstr ""
+msgstr "Lövészet"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Climbing"
-msgstr ""
+msgstr "Sziklamászás"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "RC car"
-msgstr ""
+msgstr "Távirányítású autó"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9457,44 +9457,44 @@ msgstr "Kosárlabda"
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Table tennis"
-msgstr ""
+msgstr "Asztalitenisz"
 
 #: master_preset.xml:6106(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Dog racing"
-msgstr ""
+msgstr "Kutyaverseny"
 
 #: master_preset.xml:6106(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Athletics"
-msgstr ""
+msgstr "Atlétika"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Canoe"
-msgstr ""
+msgstr "Kenu"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Karting"
-msgstr ""
+msgstr "Gokart"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "10pin"
-msgstr ""
+msgstr "Bowling"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Rugby league"
-msgstr ""
+msgstr "Rögbi (league)"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Gymnastics"
-msgstr ""
+msgstr "Torna"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9510,22 +9510,22 @@ msgstr "Kerékpározás"
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Model aerodrome"
-msgstr ""
+msgstr "Modellrepülőtér"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Multiple"
-msgstr ""
+msgstr "Több féle"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Soccer"
-msgstr ""
+msgstr "Labdarúgás"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Bowls"
-msgstr ""
+msgstr "Bowls"
 
 #: master_preset.xml:6106(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:252(combo:display_values|key:sport)
@@ -9536,37 +9536,37 @@ msgstr "Lovassport"
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Handball"
-msgstr ""
+msgstr "Kézilabda"
 
 #: master_preset.xml:4705(combo:text|group:Leisure|preset:Public_Grill|key:fuel)
 msgctxt "grill"
 msgid "Fuel"
-msgstr ""
+msgstr "Tüzelőanyag"
 
 #: master_preset.xml:9547(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Corn"
-msgstr ""
+msgstr "Kukorica"
 
 #: master_preset.xml:9547(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Hop"
-msgstr ""
+msgstr "Komló"
 
 #: master_preset.xml:9547(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Grass"
-msgstr ""
+msgstr "Fű"
 
 #: master_preset.xml:9547(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Wheat"
-msgstr ""
+msgstr "Búza"
 
 #: master_preset.xml:9547(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Rice"
-msgstr ""
+msgstr "Rizs"
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)
