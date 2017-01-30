@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1227: Updated presets, translations and imagery, minor bug fixes.
+
 1225: Lots of internal clean up, partially validate API URLs, documentation updates, change header color in the property editor light theme.
 
 1224: Fix life cycle issues in PropertyEditor, potential fix for issue when data is not loaded.
