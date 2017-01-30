@@ -566,15 +566,16 @@ public class Preferences {
 	}
 
 	public void setContrastValue(int cValue){
-		prefs.edit().putInt("contrastValue",cValue).commit();
+		prefs.edit().putInt(r.getString(R.string.config_contrastValue_key),cValue).commit();
 	}
 
 	public int getContrastValue(){
-		if (!prefs.contains("contrastValue")) {
+		String key = r.getString(R.string.config_contrastValue_key);
+		if (!prefs.contains(key)) {
 			// create the entry
 			setContrastValue(127);
 		}
-		return prefs.getInt("contrastValue", 127);
+		return prefs.getInt(key, 127);
 	}
 
 	public void setBugAutoDownload(boolean on) {

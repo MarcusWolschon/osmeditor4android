@@ -452,7 +452,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		
 		mapLayout.addView(map,0); // index 0 so that anything in the layout comes after it/on top 
-		
+
 		mDetector = VersionedGestureDetector.newInstance(getApplicationContext(), mapTouchListener);
 		
 		// Set up the zoom in/out controls
