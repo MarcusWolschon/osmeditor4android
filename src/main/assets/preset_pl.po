@@ -1,14 +1,14 @@
 # 
 # Translators:
 # Teiron <mmok444@gmail.com>, 2016
-# Teiron <mmok444@gmail.com>, 2016
+# Teiron <mmok444@gmail.com>, 2016-2017
 # Piotr Sokół <psokol.l10n@gmail.com>, 2016
 # Ryszard Mikke <Ryszard.Mikke@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-11-29 18:17+0100\n"
-"PO-Revision-Date: 2016-12-13 15:26+0000\n"
+"PO-Revision-Date: 2017-01-25 22:16+0000\n"
 "Last-Translator: Teiron <mmok444@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,7 @@ msgstr "Kostiumy"
 
 #: master_preset.xml:2674(list_entry:short_description|group:Water|preset:Wetland|value:tidalflat)
 msgid "Tidalflat"
-msgstr ""
+msgstr "Równia zalewowa"
 
 #: master_preset.xml:7109(check:text|group:Man_Made|preset:Monitoring_Station|key:display:analog)
 msgid "Analog"
@@ -840,7 +840,7 @@ msgstr "Puszta"
 
 #: master_preset.xml:5989(item:name|group:Facilities|preset:Compressed_Air)
 msgid "Compressed Air"
-msgstr ""
+msgstr "Sprężone powietrze"
 
 #: master_preset.xml:2136(check:text|group:Passageways|preset:Arcade|key:arcade:left)
 #: master_preset.xml:2172(check:text|group:Passageways|preset:Avalanche_Protector|key:avalanche_protector:left)
@@ -1757,7 +1757,7 @@ msgstr "Tablica z informacjami"
 #: master_preset.xml:488(list_entry:display_value|value:raised)
 #: master_preset.xml:494(list_entry:display_value|value:raised)
 msgid "Raised"
-msgstr ""
+msgstr "Podniesiony"
 
 #: master_preset.xml:6943(item:name|group:Man_Made|preset:Pipeline)
 msgid "Pipeline"
@@ -2225,7 +2225,7 @@ msgstr ""
 
 #: master_preset.xml:2738(combo:text|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgid "Cargo"
-msgstr ""
+msgstr "Towarowy"
 
 #: master_preset.xml:628(check:text|group:Streets|preset:Motorway_Link|key:embankment)
 #: master_preset.xml:598(check:text|group:Streets|preset:Motorway|key:embankment)
@@ -2491,7 +2491,7 @@ msgstr "Śluza"
 
 #: master_preset.xml:8165(item:name|group:Electronic|preset:Mobile_Phone)
 msgid "Mobile Phone"
-msgstr ""
+msgstr "Telefony Komórkowe"
 
 #: master_preset.xml:3027(check:text|group:Railway|preset:Crossing|key:crossing:light)
 #: master_preset.xml:3008(check:text|group:Railway|preset:Level_Crossing|key:crossing:light)
@@ -2682,7 +2682,7 @@ msgstr "Dostawa"
 
 #: master_preset.xml:3312(label:text|group:Car|preset:Charging_Station)
 msgid "Number of Sockets:"
-msgstr ""
+msgstr "Liczba kontaktów:"
 
 #: master_preset.xml:1214(list_entry:short_description|group:Ways|preset:Path|value:difficult_alpine_hiking)
 msgid ""
@@ -3285,7 +3285,7 @@ msgstr ""
 
 #: master_preset.xml:220(multiselect:display_values|key:cuisine)
 msgid "Fish and chips"
-msgstr ""
+msgstr "Fish and chips"
 
 #: master_preset.xml:1440(check:text|group:Waypoints|preset:Traffic_Signal|key:button_operated)
 #: master_preset.xml:1501(check:text|group:Waypoints|preset:Pedestrian_Crossing|key:button_operated)
@@ -5554,7 +5554,7 @@ msgstr "****"
 
 #: master_preset.xml:19(combo:display_values|key:surface)
 msgid "Unpaved"
-msgstr ""
+msgstr "Nieutwardzony"
 
 #: master_preset.xml:3445(check:text|group:Motorcycle|preset:Parking|key:covered)
 #: master_preset.xml:3218(check:text|group:Car|preset:Parking_Space|key:covered)
@@ -6251,7 +6251,7 @@ msgstr "Brak dostępu"
 
 #: master_preset.xml:1885(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgid "Electric"
-msgstr ""
+msgstr "Elektryczny"
 
 #: master_preset.xml:223(combo:display_values|key:internet_access)
 msgid "Terminal"
@@ -6573,7 +6573,7 @@ msgstr ""
 #: master_preset.xml:5852(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:scrap_metal)
 #: master_preset.xml:5812(check:text|group:Facilities|preset:Recycling_Container|key:recycling:scrap_metal)
 msgid "Scrap Metal"
-msgstr ""
+msgstr "Złom"
 
 #: master_preset.xml:10726(item:name|group:Crafts|preset:Insulation)
 msgid "Insulation"
@@ -6665,7 +6665,7 @@ msgstr "Przystanek tramwajowy"
 #: master_preset.xml:5851(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:plastic_packaging)
 #: master_preset.xml:5811(check:text|group:Facilities|preset:Recycling_Container|key:recycling:plastic_packaging)
 msgid "Plastic Packaging"
-msgstr ""
+msgstr "Opakowania Plastikowe"
 
 #: master_preset.xml:6780(combo:text|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Tower type"
@@ -6733,7 +6733,7 @@ msgstr "Turystyka piesza"
 
 #: master_preset.xml:7149(combo:text|group:Man_Made|preset:Surveillance_Camera|key:camera:mount)
 msgid "Mounted on"
-msgstr ""
+msgstr "Przymocowane do"
 
 #: master_preset.xml:10459(role:text|preset:Street|key:house)
 msgid "houses belonging to the street"
@@ -7113,7 +7113,7 @@ msgstr ""
 
 #: master_preset.xml:4477(item:name|group:Tourism|preset:Audio_Guide)
 msgid "Audio Guide"
-msgstr ""
+msgstr "Przewodnik Audio"
 
 #: master_preset.xml:3199(label:text|group:Car|preset:Parking)
 msgid "See the Wiki for other capacity:[types]=*."
@@ -7910,7 +7910,7 @@ msgstr ""
 
 #: master_preset.xml:3320(combo:text|group:Car|preset:Charging_Station|key:socket:schuko)
 msgid "Schuko"
-msgstr ""
+msgstr "Schuko"
 
 #: master_preset.xml:495(list_entry:display_value|value:flush)
 #: master_preset.xml:483(list_entry:display_value|value:flush)
@@ -8032,7 +8032,7 @@ msgstr "Ciśnienie (w barach)"
 
 #: master_preset.xml:8102(item:name|group:Clothes|preset:Dry_Cleaning)
 msgid "Dry Cleaning"
-msgstr ""
+msgstr "Czyszczenie chemiczne"
 
 #: master_preset.xml:6635(item:name|group:Motorsport|preset:Model_Aerodrome)
 msgid "Model Aerodrome"
@@ -8376,7 +8376,7 @@ msgstr "Wyścigi gokartowe"
 
 #: master_preset.xml:248(combo:display_values|key:leisure)
 msgid "Sports centre"
-msgstr ""
+msgstr "Centrum sportowe"
 
 #: master_preset.xml:8050(list_entry:short_description|group:Clothes|preset:Clothes|value:workwear)
 msgid "Workwear"
@@ -9414,12 +9414,12 @@ msgstr ""
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Australian football"
-msgstr ""
+msgstr "Futbol australijski"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Artificial turf"
-msgstr ""
+msgstr "Sztuczna Murawa"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9429,7 +9429,7 @@ msgstr "Motocross"
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Gaelic games"
-msgstr ""
+msgstr "Gry Gaelickie"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9491,7 +9491,7 @@ msgstr "10 pionów"
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Rugby league"
-msgstr ""
+msgstr "Liga Rugby"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"

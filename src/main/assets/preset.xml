@@ -411,8 +411,8 @@
         </optional>
     </chunk>
     <chunk id="waterway">
-        <reference ref="name_layer" />
-        <check key="intermittent" text="Intermittent" disable_off="true" />
+    	<reference ref="layer" />
+    	<check key="intermittent" text="Intermittent" disable_off="true" />
         <check key="seasonal" text="Seasonal" disable_off="true" />
         <check key="tidal" text="In the tidal range" disable_off="true" />
         <combo key="tunnel" text="Tunnel" values="culvert,yes" display_values="Culvert,Yes" />
@@ -2395,6 +2395,7 @@
             <space />
             <key key="waterway" value="drain" />
             <optional>
+            	<text key="name" text="Name" />
                 <reference ref="waterway" />
             </optional>
         </item> <!-- Drain -->
@@ -2409,6 +2410,7 @@
             <space />
             <key key="waterway" value="ditch" />
             <optional>
+            	<text key="name" text="Name" />
                 <reference ref="waterway" />
             </optional>
         </item> <!-- Ditch -->
@@ -2426,6 +2428,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:waterway=stream" />
             <space />
             <key key="waterway" value="stream" />
+            <text key="name" text="Name" />
             <optional>
                 <reference ref="waterway_wikipedia" />
             </optional>
@@ -2445,8 +2448,10 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:waterway=river" />
             <space />
             <key key="waterway" value="river" />
+            <text key="name" text="Name" />
             <optional>
                 <reference ref="waterway_wikipedia" />
+                <check key="lock" text="Lock" disable_off="true" />
             </optional>
             <reference ref="water_access" />
         </item> <!-- River -->
@@ -2461,11 +2466,10 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:waterway=canal" />
             <space />
             <key key="waterway" value="canal" />
+            <text key="name" text="Name" />
             <optional>
-                <reference ref="name_layer" />
-                <combo key="tunnel" text="Tunnel" values="culvert,yes" />
-                <text key="width" text="Width (meters)" />
-                <text key="wikipedia" text="Wikipedia" />
+                <reference ref="waterway_wikipedia" />
+                <check key="lock" text="Lock" disable_off="true" />
             </optional>
             <reference ref="water_access" />
         </item> <!-- Canal -->
@@ -2806,7 +2810,7 @@
             <combo key="mooring" text="Mooring" values="yes,no,private,commercial" />
             <check key="floating" text="Floating" />
         </item> <!-- Pier -->
-        <item name="Lock Gate" icon="icons/png/water_lock_gate_34007.png" type="node" preset_name_label="true">
+        <item name="Lock Gate" icon="icons/png/water_lock_gate_34007.png" type="node,way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:waterway=lock_gate"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:waterway=lock_gate"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:waterway=lock_gate"
@@ -4822,10 +4826,76 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=theatre" />
             <space />
             <key key="amenity" value="theatre" />
+            <optional>
+            	<combo key="theatre:genre" text="Theatre type" values_searchable="true">
+            		<list_entry value="drama" display_value="Drama" />
+            		<list_entry value="comedy" display_value="Comedy" />
+           		</combo>
+           	</optional>
             <reference ref="name_operator" />
             <reference ref="wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Theatre -->
+        <item name="Music theatres" icon="icons/png/tourist_concert_hall_12317.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=theatre"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=theatre"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Tag:amenity=theatre"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=theatre"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:amenity=theatre"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=theatre" />
+            <space />
+            <key key="amenity" value="theatre" />
+            <combo key="theatre:genre" text="Theatre type" values_searchable="true">
+            	<list_entry value="opera" display_value="Opera house" />
+            	<list_entry value="musical" display_value="Musical theatre" />
+            	<list_entry value="ballet" display_value="Ballet theatre" />
+            	<list_entry value="philharmonic" display_value="Ochestral music" />
+            	<list_entry value="chamber_music" display_value="Chamber music" />
+            </combo>
+            <reference ref="name_operator" />
+            <reference ref="wheelchair" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Music theatres -->	
+        <item name="Other theatres" icon="icons/png/tourist_theatre.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=theatre"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=theatre"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Tag:amenity=theatre"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=theatre"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:amenity=theatre"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=theatre" />
+            <space />
+            <key key="amenity" value="theatre" />
+            <combo key="theatre:genre" text="Theatre type" values_searchable="true">
+            	<list_entry value="cabaret" display_value="Cabaret" />
+            	<list_entry value="boulevard" display_value="Boulevard" />
+            	<list_entry value="circus" display_value="Circus" />
+            	<list_entry value="stand_up_comedy" display_value="Stand up comdey" />
+            	<list_entry value="political" display_value="Political" />
+            	<list_entry value="variety" display_value="Variety" />
+            </combo>
+            <reference ref="name_operator" />
+            <reference ref="wheelchair" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Other theatres -->	
+       <item name="Figure/puppet theatres" icon="icons/png/tourist_theatre.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=theatre"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=theatre"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Tag:amenity=theatre"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=theatre"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:amenity=theatre"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=theatre" />
+            <space />
+            <key key="amenity" value="theatre" />
+            <combo key="theatre:genre" text="Theatre type" values_searchable="true">
+            	<list_entry value="figure" display_value="Figure" />
+            	<list_entry value="puppet" display_value="Puppet" />
+            	<list_entry value="marionette" display_value="marionette" />
+            	<list_entry value="shadow_play" display_value="Shadow play" />
+            </combo>
+            <reference ref="name_operator" />
+            <reference ref="wheelchair" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Figure/puppet theatres -->
         <item name="Library" icon="icons/png/amenity_library.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=library"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=library"
@@ -6721,8 +6791,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
             <space />
             <combo key="building" text="Building" 
-            	values="residential,apartments,house,hotel,hut,dormitory,terrace,detached,farm,roof"
-            	display_values="Residential,Apartments,House,Hotel,Hut,Dormitory,Terrace,Detached,Farm,Roof" 
+            	values="residential,apartments,house,hotel,hut,bungalow,dormitory,terrace,detached,farm,roof"
+            	display_values="Residential,Apartments,House,Hotel,Hut,Bungalow,Dormitory,Terrace,Detached,Farm,Roof" 
             	default="residential" match="keyvalue!" values_context="building" values_searchable="true" />
             <optional>
             	<text key="name" text="Name" />
@@ -7865,6 +7935,15 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Seafood -->
+		<item name="Dairy" icon="icons/png/shopping_dairy_29205.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=dairy"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=dairy"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=dairy" />
+            <space />
+            <key key="shop" value="dairy" />
+            <reference ref="name_operator_oh_wheelchair" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Dairy -->
         <item name="Deli (Fine Food)" icon="icons/png/shopping_deli_29042.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=deli"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=deli"

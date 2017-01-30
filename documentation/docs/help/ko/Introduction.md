@@ -1,41 +1,40 @@
-# Vespucci Introduktion
+# Vespucci 소개
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on googles Android 2.3 to 6.0 and various AOSP based variants. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+Vespucci는 데스크탑 편집기가 제공하는 대부분의 작업을 지원하는 완전한 기능의 OpenStreetMap 편집기입니다. 그것은 성공적으로 구글의 안드로이드 버전2.3에서 6.0 및 다양한 AOSP 기반 변종에 테스트되었습니다. 주의해야 할 점은 모바일 장치 기능이 데스크톱 경쟁자를 따라 잡았지만, 특히 구형 장치는 사용 가능한 메모리가 매우 제한되어 있고 느린 경향이 있다는 점입니다. Vespucci를 사용할 때는 이것을 고려해야하며 예를 들어 편집하려는 영역의 크기를 적절한 크기로 유지해야합니다. 
 
-## Förstagångs användning
+## First time use
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+시작시 Vespucci는 "로드 된 /경로 외 다른 위치 다운로드"대화 상자를 보여줍니다. 좌표가 표시되고 즉시 다운로드하려는 경우 적절한 옵션을 선택하고 다운로드 할 위치 주변의 반지름을 설정할 수 있습니다. 느린 장치에서는 넓은 영역을 선택하지 마십시오. 
 
-Alternativt kan du stänga dialogen genom att trycka på "Gå till karta" knappen och panorera och zooma in en plats som du vill redigera och hämta data därefter (se nedan: "Redigering med Vespucci").
+또는 "지도로 이동"버튼을 눌러 대화 상자를 닫고 편집 할 위치로 이동하여 확대 / 축소 한 다음 데이터를 다운로드 할 수 있습니다 (아래의 "Vespucci로 편집"참조).
 
-## Redigering med Vespucci
+## Editing with Vespucci
 
-Beroende på skärmstorlek och ålder på enheten redigering åtgärder kan antingen vara tillgängliga direkt via ikoner i det översta fältet, via en rullgardinsmeny till höger om den översta raden, från den nedre listen (i förekommande fall) eller via menyknappen.
+기기의 화면 크기와 나이에 따라 상단 바의 아이콘, 상단 바 오른쪽의 드롭 다운 메뉴, 하단 바 (있는 경우) 또는 메뉴 키를 통해 편집 작업에 직접 액세스 할 수 있습니다.
 
-### Nedladdning av OSM data
+### Downloading OSM Data
 
 Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
 
-977/5000
-* **Hämta nuvarande vy** - ladda ner det område som syns på skärmen och ersätt all befintlig data *(kräver nätverksanslutning)* ↩
-* **Lägg till nuvarande vy till nedladdning** - ladda ner det område som syns på skärmen och slå samman den med befintlig data *(kräver nätverksanslutning)* ↩
-* **Ladda ner annan plats** - visar en form som gör det möjligt att ange koordinater, söka efter en plats eller använda den aktuella positionen och sedan ladda ner ett område runt den platsen *(kräver nätverksanslutning)* ↩
-* **Ladda upp data till OSM server** - ladda upp ändringar till OpenStreetMap *(kräver autentisering)* *(kräver nätverksanslutning)* ↩
-* **Automatisk nedladdning** - ladda ner ett område runt den aktuella platsen automatiskt *(kräver nätverksanslutning)* * (kräver GPS)* ↩
-* **Fil ...** - Spara och ladda OSM data till/från på enheten files.↩
-* **Anteckningar/buggar...** - Ladda ner (automatiskt och manuellt) OSM anteckningar och "buggar" från QA verktyg (för närvarande Osmose) *(kräver nätverksanslutning)*
+* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
+* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
-### Redigering
+### Editing
 
-För att undvika oavsiktliga ändringar startar Vespucci i "låst" läge, ett läge som endast tillåter zoomning och flyttning av kartan. Tryck på ![Låst](../images/locked.png) ikonen för att låsa upp skärmen. Ett långt tryck på hänglåset kommer att aktivera "Tag redigering bara"-läge som inte tillåter dig att skapa nya objekt eller redigera geometrin av objekt, det här läget indikeras av en något annorlunda vit låsikon.
+To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
 
-Som standard, valbara noder och vägar har en orange området kring dem som indikerar ungefär där du måste trycka på för att välja ett objekt. Om du försöker att välja ett objekt och Vespucci bestämmer att valet kan betyda flera objekt kommer ett menyval att presentera. Markerade objekten markeras i gult.
+By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
 
 It is a good strategy to zoom in if you attempt to edit a high density area.
 
-Vespucci har ett bra "ångra/gör om" system så var inte rädd för att experimentera på din enhet, men vänligen ladda inte upp och spara ren testdata.
+Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
 #### Selecting / De-selecting
 
@@ -43,11 +42,11 @@ Touch an object to select and highlight it, a second touch on the same object op
 
 #### Adding a new Node/Point or Way
 
-Långt tryck där du vill att noden ska vara eller väg ska börja. Du kommer att se en svart "hårkors" symbol. Vidrör skapar en ny nod på samma plats igen, vidrör en plats utanför berörings toleranszonen kommer att lägga ett vägsegment från den ursprungliga positionen till den aktuella positionen. 
+Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
 
-#### Flytta en node eller väg
+#### Moving a Node or Way
 
 Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
 
@@ -55,11 +54,11 @@ Objects can be dragged/moved only when they are selected. If you select the larg
 
 If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
 
-#### Klipp ut, kopiera och klistra in
+#### Cut, Copy & Paste
 
 You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
-#### Effektivt lägga till adresser
+#### Efficiently Adding Addresses
 
 Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
 
@@ -81,15 +80,15 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type in the tag menu
 
-### Vespucci i "låst" läge
+### Vespucci in "locked" mode
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-### Spara dina ändringar
+### Saving Your Changes
 
-*(kräver nätverksanslutning)*
+*(requires network connectivity)*
 
-Välj samma knapp eller menyalternativ du gjorde för nedladdning och välj nu "Ladda upp data till OSM server".
+Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
@@ -101,13 +100,13 @@ If you want to save your work and do not have Internet access, you can save to a
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
-## Använda GPS
+## Using GPS
 
 You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
 
 If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
 
-## Anteckningar och buggar
+## Notes and Bugs
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
@@ -117,7 +116,7 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 ## Customizing Vespucci
 
-### Inställningar som du kanske vill ändra
+### Settings that you might want to change
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
