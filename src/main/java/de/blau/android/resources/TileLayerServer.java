@@ -498,7 +498,9 @@ public class TileLayerServer {
 			}
 			reader.endArray();
 		} catch (IOException ioex) {
-			Log.d(DEBUG_TAG,"Ignored " + ioex);
+			Log.d(DEBUG_TAG,"Imagery file ignored " + ioex);
+		} catch (IllegalStateException isex) {
+			Log.d(DEBUG_TAG,"Imagery file ignored " + isex);
 		}
 		finally {
 			try {
