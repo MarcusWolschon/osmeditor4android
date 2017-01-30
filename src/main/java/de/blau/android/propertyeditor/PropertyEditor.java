@@ -608,6 +608,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	@Override
 	public void onBackPressed() {
 		// sendResultAndFinish();
+		if (tagFormFragment != null) {
+			tagFormFragment.updateEditorFromText(); // update any non-synced changes to the editor fragment
+		}
 		ArrayList<LinkedHashMap<String, String>> currentTags = tagEditorFragment.getUpdatedTags();
 		HashMap<Long,String> currentParents = null;
 		ArrayList<RelationMemberDescription> currentMembers = null;

@@ -388,8 +388,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			menu.findItem(R.id.tag_menu_locale).setVisible(true).setTitle(getActivity().getString(R.string.tag_menu_i8n, locale.toString().toUpperCase(Locale.US)));
 		} else {
 			menu.findItem(R.id.tag_menu_locale).setVisible(false);
-		}
-			
+		}		
 	}
 	
 	
@@ -489,7 +488,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	/**
 	 * update editor with any potential text changes that haven't been saved yet
 	 */
-	private boolean updateEditorFromText() {
+	boolean updateEditorFromText() {
 		Log.d(DEBUG_TAG,"updating data from last text field");
 		// check for focus on text field
 		View fragementView = getView();
