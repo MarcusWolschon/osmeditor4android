@@ -9,7 +9,6 @@ public class OsmIllegalOperationException extends OsmException {
 
 	public OsmIllegalOperationException(String string) {
 		super(string);
-		
 	}
 
 	public OsmIllegalOperationException(OsmIllegalOperationException e) {

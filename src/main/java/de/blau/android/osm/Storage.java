@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.StorageException;
@@ -25,6 +26,11 @@ public class Storage implements Serializable {
 
 	private List<BoundingBox> bboxes;
 
+	/**
+	 * Default constructor
+	 * <p>
+	 * Initializes the storage and adds a maximum valid mercator size bounding box 
+	 */
 	Storage() {
 		nodes = new LongOsmElementMap<Node>(1000);
 		ways = new LongOsmElementMap<Way>();
@@ -39,6 +45,10 @@ public class Storage implements Serializable {
 		}
 	}
 	
+	/**
+	 * Construct a new storage object with the contents of an existing one
+	 * @param s storage object to duplicate
+	 */
 	Storage(Storage s) {
 		nodes = new LongOsmElementMap<Node>(s.nodes);
 		ways = new LongOsmElementMap<Way>(s.ways);
@@ -46,14 +56,32 @@ public class Storage implements Serializable {
 		bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>(s.bboxes));
 	}
 
+	/**
+	 * Get a specific node by id
+	 * @param nodeOsmId id of the node
+	 * @return the node or null if not found
+	 */
+	@Nullable
 	public Node getNode(final long nodeOsmId) { 
 		return nodes.get(nodeOsmId);
 	}
 
+	/**
+	 * Get a specific way by id
+	 * @param wayOsmId id of the way
+	 * @return the way or null if not found
+	 */
+	@Nullable
 	public Way getWay(final long wayOsmId) {
 		return ways.get(wayOsmId);
 	}
 	
+	/**
+	 * Get a specific relation by id
+	 * @param relationOsmId id of the relation
+	 * @return the relation or null if not found
+	 */
+	@Nullable
 	public Relation getRelation(final long relationOsmId) {
         return relations.get(relationOsmId);
 	}
@@ -70,51 +98,67 @@ public class Storage implements Serializable {
 	}
 
 	/**
-	 * @return
+	 * Get a unmodifiable list of all nodes
+	 * @return list containing all nodes
 	 */
 	public List<Node> getNodes() {
 		return Collections.unmodifiableList(nodes.values());
 	}
 
 	/**
-	 * Return all nodes in a bounding box, currently this does a sequential scan of all nodes
-	 * @param viewBox
-	 * @return
+	 * Return all nodes in a bounding box
+	 * <p> 
+	 * Note: currently this does a sequential scan of all nodes
+	 * @param box bounding box to search in
+	 * @return a list of all nodes in box
 	 */
-	public List<Node> getNodes(BoundingBox viewBox) {
+	public List<Node> getNodes(BoundingBox box) {
 		ArrayList<Node> result = new ArrayList<Node>(nodes.size());
 		for (Node n:nodes) {
-			if (viewBox.isIn(n.getLat(), n.getLon())) {
+			if (box.isIn(n.getLat(), n.getLon())) {
 				result.add(n);
 			}	
 		}
 		return result;
 	}
+	
 	/**
-	 * @return
+	 * Get a unmodifiable list of all ways
+	 * @return list containing all ways
 	 */
 	public List<Way> getWays() {
 		return Collections.unmodifiableList(ways.values());
 	}	
 	
 	/**
-	 * @return
+	 * Get a unmodifiable list of all relations
+	 * @return list containing all relations
 	 */
 	public List<Relation> getRelations() {
 		return Collections.unmodifiableList(relations.values());
 	}
 
-	public boolean contains(final OsmElement elem) {
-		if (elem instanceof Way) {
-            return ways.containsKey(elem.getOsmId());
-		} else if (elem instanceof Node) {
-            return nodes.containsKey(elem.getOsmId());
-		} else if (elem instanceof Relation) {
-			return relations.containsKey(elem.getOsmId());
+	/**
+	 * Test if an element is present in storage
+	 * @param element element to check for
+	 * @return true if element is in storage
+	 */
+	public boolean contains(final OsmElement element) {
+		if (element instanceof Way) {
+            return ways.containsKey(element.getOsmId());
+		} else if (element instanceof Node) {
+            return nodes.containsKey(element.getOsmId());
+		} else if (element instanceof Relation) {
+			return relations.containsKey(element.getOsmId());
 		}
 		return false;
 	}
 
+	/**
+	 * Insert a node in to storage regardless of it is already present or not
+	 * @param node node to insert
+	 * @throws StorageException
+	 */
 	void insertNodeUnsafe(final Node node) throws StorageException {
 		try {
 			nodes.put(node.getOsmId(),node);
@@ -124,6 +168,11 @@ public class Storage implements Serializable {
 
 	}
 
+	/**
+	 * Insert a way in to storage regardless of it is already present or not
+	 * @param way way to insert
+	 * @throws StorageException
+	 */
 	void insertWayUnsafe(final Way way)  throws StorageException  {
 		try {
 			ways.put(way.getOsmId(),way);
@@ -132,6 +181,11 @@ public class Storage implements Serializable {
 		}
 	}
 
+	/**
+	 * Insert a relation in to storage regardless of it is already present or not
+	 * @param relation relation to insert
+	 * @throws StorageException
+	 */
 	void insertRelationUnsafe(final Relation relation) throws StorageException  {
 		try {
 			relations.put(relation.getOsmId(),relation);
@@ -140,34 +194,66 @@ public class Storage implements Serializable {
 		}
 	}
 	
-	void insertElementSafe(final OsmElement elem) throws StorageException {
-		if (!contains(elem)) {
-			insertElementUnsafe(elem);
+	/**
+	 * Insert an element if it is not already present in storage
+	 * <p>
+	 * Note: the current data structures do not allow multiple entries for the same object in any case
+	 * @param element element to insert
+	 * @throws StorageException
+	 */
+	void insertElementSafe(final OsmElement element) throws StorageException {
+		if (!contains(element)) {
+			insertElementUnsafe(element);
 		}
 	}
 
-	void insertElementUnsafe(final OsmElement elem) throws StorageException {
-		if (elem instanceof Way) {
-			insertWayUnsafe((Way) elem);
-		} else if (elem instanceof Node) {
-			insertNodeUnsafe((Node) elem);
-		} else if (elem instanceof Relation) {
-			insertRelationUnsafe((Relation) elem);
+	/**
+	 * Insert an element in to storage regardless of it is already present or not
+	 * @param element element to insert
+	 * @throws StorageException
+	 */
+	void insertElementUnsafe(final OsmElement element) throws StorageException {
+		if (element instanceof Way) {
+			insertWayUnsafe((Way) element);
+		} else if (element instanceof Node) {
+			insertNodeUnsafe((Node) element);
+		} else if (element instanceof Relation) {
+			insertRelationUnsafe((Relation) element);
 		}
 	}
 
+	/**
+	 * Remove a node from storage
+	 * @param node node to remove
+	 * @return true if the node was in storage
+	 */
 	boolean removeNode(final Node node) {
 		return nodes.remove(node.getOsmId())!=null;
 	}
 
+	/**
+	 * Remove a way from storage
+	 * @param way way to remove
+	 * @return true if the way was in storage
+	 */
 	boolean removeWay(final Way way) {
 		return ways.remove(way.getOsmId())!=null;
 	}
 
+	/**
+	 * Remove a relation from storage
+	 * @param relation relation to remove
+	 * @return true if the relation was in storage
+	 */
 	boolean removeRelation(final Relation relation) {
 		return relations.remove(relation.getOsmId())!=null;
 	}
 	
+	/**
+	 * Remove an element of any type from storage 
+	 * @param element element to remove
+	 * @return true if the element was in storage
+	 */
 	boolean removeElement(final OsmElement element) {
 		if (element instanceof Way) {
 			return ways.remove(element.getOsmId())!=null;
@@ -179,6 +265,10 @@ public class Storage implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Get all bounding boxes of downloaded data
+	 * @return all bounding boxes
+	 */
 	public List<BoundingBox> getBoundingBoxes() {
 		return bboxes;
 	}
@@ -203,8 +293,8 @@ public class Storage implements Serializable {
 	}
 	
 	/**
-	 * Remove boundingbox from list
-	 * @param box
+	 * Remove bounding box from list
+	 * @param box bounding box to remove
 	 */
 	public void deleteBoundingBox(BoundingBox box) {
 		if (this.bboxes != null) {
@@ -221,10 +311,11 @@ public class Storage implements Serializable {
 	}
 
 	/**
-	 * maintaining a reference list in the node would make more sense
-	 * @param node
-	 * @return
+	 * Get a the "first" way containing node
+	 * @param node node to search for
+	 * @return the way or null if none was found
 	 */
+	@Nullable
 	public Way getFirstWay(final Node node) {
 		for (Way way:ways) {
 			if (way.getNodes().contains(node)) {
@@ -235,8 +326,11 @@ public class Storage implements Serializable {
 	}
 
 	/**
-	 * @param node
-	 * @return all ways containing that node
+	 * Get all ways that node is a vertex of
+	 * <p>
+	 * This method currently does a sequential scan of all ways in storage and should be avoided
+	 * @param node node to search for
+	 * @return list containing all ways containing node
 	 */
 	public List<Way> getWays(final Node node) {
 		ArrayList<Way> mWays = new ArrayList<Way>();
@@ -248,6 +342,13 @@ public class Storage implements Serializable {
 		return mWays;
 	}
 
+	/**
+	 * Get all nodes that are vertexes in a way
+	 * <p>
+	 * This method currently does a sequential scan of all ways in storage and should be avoided
+	 * 
+	 * @return all way nodes
+	 */
 	public List<Node> getWaynodes() {
 		ArrayList<Node> waynodes = new ArrayList<Node>();
 		for (Way way:ways) {
@@ -256,6 +357,14 @@ public class Storage implements Serializable {
 		return waynodes;
 	}
 	
+	/**
+	 * Tests if node is first or last node of any way in storage
+	 * <p>
+	 * This method currently does a sequential scan of all ways in storage and should be avoided
+	 * 
+	 * @param node node to check
+	 * @return true if node is the first or last node of at least one way
+	 */
 	public boolean isEndNode(final Node node) {
 		for (Way way:ways) {
 			if (way.isEndNode(node)) {
@@ -264,27 +373,11 @@ public class Storage implements Serializable {
 		}
 		return false;
 	}
-	
-	public void logStorage() {
-		// 
-		for (Node n:nodes) {
-			Log.d("Storage","Node " + n.getOsmId());
-			for (String k:n.getTags().keySet()) {
-				Log.d("Storage",k + "=" + n.getTags().get(k));
-			}
-		}
-		for (Way w:ways) {
-			Log.d("Storage","Way " + w.getOsmId());
-			for (String k:w.getTags().keySet()) {
-				Log.d("Storage",k + "=" + w.getTags().get(k));
-			}
-		}
-	}
 
 	/**
 	 * Calculate a bounding box just covering the data
 	 * @return
-	 * @throws OsmException
+	 * @throws OsmException if no valid BoundingBox could be created
 	 */
 	public BoundingBox calcBoundingBoxFromData() throws OsmException {
 		int top = 0;
@@ -303,21 +396,70 @@ public class Storage implements Serializable {
 		return new BoundingBox(left, bottom, right, top);
 	}
 	
+	/**
+	 * Get the node map
+	 * @return the map indexing nodes
+	 */
 	public LongOsmElementMap<Node> getNodeIndex() {
 		return nodes;
 	}
 	
+	/**
+	 * Get the way map
+	 * @return the map indexing ways
+	 */
 	public LongOsmElementMap<Way> getWayIndex() {
 		return ways;
 	}
 	
+	/**
+	 * Get the relation map
+	 * @return the map indexing relations
+	 */
 	public LongOsmElementMap<Relation> getRelationIndex() {
 		return relations;
 	}
 	
+	/**
+	 * Rehash the maps used for storing elements. 
+	 * <p>
+	 * This is required since elements will change their id when being saved to the OSM database the first time.
+	 */
 	public void rehash() {
 		nodes.rehash();
 		ways.rehash();
 		relations.rehash();
+	}
+	
+	/**
+	 * @return a count of all elements stored
+	 */
+	public int elementCount() {
+		return nodes.size() + ways.size() + relations.size();
+	}
+	
+	/**
+	 * Log the contents
+	 */
+	public void logStorage() {
+		// 
+		for (Node n:nodes) {
+			Log.d("Storage","Node " + n.getOsmId());
+			for (String k:n.getTags().keySet()) {
+				Log.d("Storage",k + "=" + n.getTags().get(k));
+			}
+		}
+		for (Way w:ways) {
+			Log.d("Storage","Way " + w.getOsmId());
+			for (String k:w.getTags().keySet()) {
+				Log.d("Storage",k + "=" + w.getTags().get(k));
+			}
+		}
+		for (Relation r:relations) {
+			Log.d("Storage","Relation " + r.getOsmId());
+			for (String k:r.getTags().keySet()) {
+				Log.d("Storage",k + "=" + r.getTags().get(k));
+			}
+		}
 	}
 }
