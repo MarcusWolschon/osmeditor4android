@@ -452,7 +452,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		
 		mapLayout.addView(map,0); // index 0 so that anything in the layout comes after it/on top 
-		
+
 		mDetector = VersionedGestureDetector.newInstance(getApplicationContext(), mapTouchListener);
 		
 		// Set up the zoom in/out controls
@@ -635,6 +635,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		super.onResume();
 		Log.d(DEBUG_TAG, "onResume");
 		final Logic logic = App.getLogic();
+		prefs =new Preferences(this);
+		map.getOpenStreetMapTilesOverlay().setContrast(prefs.getContrastValue()/127.5f - 1f);
 
 		checkPermissions();
 
