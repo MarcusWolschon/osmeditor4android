@@ -565,17 +565,17 @@ public class Preferences {
 		return prefs.getBoolean(key, false);
 	}
 
-	public void setContrastValue(int cValue){
-		prefs.edit().putInt(r.getString(R.string.config_contrastValue_key),cValue).commit();
+	public void setContrastValue(float cValue){
+		prefs.edit().putFloat(r.getString(R.string.config_contrastValue_key),cValue).commit();
 	}
 
-	public int getContrastValue(){
+	public float getContrastValue(){
 		String key = r.getString(R.string.config_contrastValue_key);
 		if (!prefs.contains(key)) {
 			// create the entry
-			setContrastValue(127);
+			setContrastValue(0);
 		}
-		return prefs.getInt(key, 127);
+		return prefs.getFloat(key, 0);
 	}
 
 	public void setBugAutoDownload(boolean on) {

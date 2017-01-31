@@ -101,24 +101,33 @@ public class BackgroundProperties extends DialogFragment
 		setDialogLayout(getActivity());
 		View layout = inflater.inflate(R.layout.background_properties, null);
 		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
-		seeker.setProgress(prefs.getContrastValue());
+		seeker.setProgress(contrast2progress(prefs.getContrastValue()));
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
 		builder.setView(layout);
 		builder.setPositiveButton(R.string.okay, doNothingListener);
 
-
     	return builder.create();
     }	
 	
+    /**
+     * Convert contrast value -1...+1 to a int suitable for a progress bar
+     * @param contrast
+     * @return
+     */
+    static int contrast2progress(float contrast) {
+    	return (int) ((contrast+1)*127.5f);
+    }
+    
 	private OnSeekBarChangeListener createSeekBarListener() {
 		return new OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {
 				Preferences prefs= new Preferences(getActivity());
 				Map map = ((Main) getActivity()).getMap();
-				map.getOpenStreetMapTilesOverlay().setContrast(progress/127.5f - 1f); // range from -1 to +1
+				float contrast = progress/127.5f - 1f; // range from -1 to +1
+				map.getOpenStreetMapTilesOverlay().setContrast(contrast); 
 				map.invalidate();
-				prefs.setContrastValue(progress);
+				prefs.setContrastValue(contrast);
 			}
 			
 			@Override
@@ -130,11 +139,12 @@ public class BackgroundProperties extends DialogFragment
 			}
 		};
 	}
+	
 	private static void setDialogLayout(Activity activity){
 		Preferences prefs =new Preferences(activity);
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
 		View layout = inflater.inflate(R.layout.background_properties, null);
 		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
-		seeker.setProgress(prefs.getContrastValue());
+		seeker.setProgress(contrast2progress(prefs.getContrastValue()));
 	}
 }

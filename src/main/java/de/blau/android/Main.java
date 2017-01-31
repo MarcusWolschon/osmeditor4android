@@ -614,6 +614,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		map.setPrefs(prefs);
 		map.createOverlays();
+		map.getOpenStreetMapTilesOverlay().setContrast(prefs.getContrastValue());
 		map.requestFocus();
 		
 		undoListener = new UndoListener();
@@ -635,8 +636,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		super.onResume();
 		Log.d(DEBUG_TAG, "onResume");
 		final Logic logic = App.getLogic();
-		prefs =new Preferences(this);
-		map.getOpenStreetMapTilesOverlay().setContrast(prefs.getContrastValue()/127.5f - 1f);
 
 		checkPermissions();
 
