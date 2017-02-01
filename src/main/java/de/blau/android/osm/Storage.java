@@ -274,8 +274,8 @@ public class Storage implements Serializable {
 	}
 
 	/**
-	 * Resets boundingbox list and adds this boundingbox
-	 * @param bbox
+	 * Resets bounding box list and adds this boundingbox
+	 * @param bbox bounding box to add
 	 */
 	void setBoundingBox(final BoundingBox bbox) {
 		this.bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
@@ -283,8 +283,8 @@ public class Storage implements Serializable {
 	}
 	
 	/**
-	 * Add this boundingbox to list
-	 * @param bbox
+	 * Add this bounding box to list
+	 * @param bbox bounding box to add
 	 */
 	void addBoundingBox(final BoundingBox bbox) {
 		if (this.bboxes == null)
@@ -376,7 +376,7 @@ public class Storage implements Serializable {
 
 	/**
 	 * Calculate a bounding box just covering the data
-	 * @return
+	 * @return a bounding box
 	 * @throws OsmException if no valid BoundingBox could be created
 	 */
 	public BoundingBox calcBoundingBoxFromData() throws OsmException {
@@ -429,13 +429,6 @@ public class Storage implements Serializable {
 		nodes.rehash();
 		ways.rehash();
 		relations.rehash();
-	}
-	
-	/**
-	 * @return a count of all elements stored
-	 */
-	public int elementCount() {
-		return nodes.size() + ways.size() + relations.size();
 	}
 	
 	/**

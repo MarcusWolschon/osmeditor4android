@@ -1978,6 +1978,16 @@ public class StorageDelegator implements Serializable, Exportable {
 	public int getApiRelationCount() {
 		return apiStorage.getRelations().size();
 	}
+	
+	/**
+	 * Get the total number of elements in API storage
+	 * <p>
+	 * Returns the total number of elements to be created, modified or deleted
+	 * @return the element count
+	 */
+	public int getApiElementCount() {
+		return apiStorage.getRelations().size() + apiStorage.getWays().size() + apiStorage.getNodes().size();
+	}
 
 	public OsmElement getOsmElement(final String type, final long osmId) {
 		OsmElement elem = apiStorage.getOsmElement(type, osmId);

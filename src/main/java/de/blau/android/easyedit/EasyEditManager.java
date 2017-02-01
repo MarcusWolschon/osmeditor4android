@@ -523,6 +523,7 @@ public class EasyEditManager {
 			currentActionModeCallback = null;
 			logic.hideCrosshairs();
 			main.invalidateMap();
+			main.invalidateOptionsMenu();
 			if (cabBottomBar != null) {
 				cabBottomBar.setVisibility(View.GONE);
 				main.showBottomBar();

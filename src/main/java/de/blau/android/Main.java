@@ -3023,19 +3023,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	}
 	
-	
-	/**
-	 * @return a list of all pending changes to upload (contains newlines)
-	 */
-	public String getPendingChanges() {
-		List<String> changes = App.getLogic().getPendingChanges(this);
-		StringBuilder retval = new StringBuilder();
-		for (String change : changes) {
-			retval.append(change).append('\n');
-		}
-		return retval.toString();
-	}
-	
 	/**
 	 * Invalidates (redraws) the map
 	 */
