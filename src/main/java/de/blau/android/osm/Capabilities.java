@@ -21,7 +21,7 @@ public class Capabilities {
 	float areaMax = 0.25f;
 	int maxTracepointsPerPage = 5000;
 	int maxWayNodes = 2000;
-	int maxElementsInChangeset = 50000;
+	int maxElementsInChangeset = 10000;
 	int timeout = 300;
 	public Status dbStatus = Status.OFFLINE;
 	public Status apiStatus = Status.OFFLINE;
@@ -45,9 +45,7 @@ public class Capabilities {
 	
 	private static ArrayList<String> defaultBlacklist() {
 		ArrayList<String> blacklist = new ArrayList<String>();
-		blacklist.add(".*\\.google\\.ru/.*");
-		blacklist.add(".*\\.google\\.com/.*");
-		blacklist.add(".*\\.googleapis\\.com/.*");
+		blacklist.add(".*\\.google(apis)?\\..*/(vt|kh)[\\?/].*([xyz]=.*){3}.*");
 		return blacklist;
 	}
 

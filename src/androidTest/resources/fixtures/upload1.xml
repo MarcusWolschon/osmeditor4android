@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diffResult generator="OpenStreetMap Server" version="0.6">
+	<node old_id="101792984" new_id="101792984" new_version="7"/>
+	<node old_id="2205375934" new_id="2205375934" new_version="2"/>
+	<node old_id="2205375941" new_id="2205375941" new_version="2"/>
+	<node old_id="2205375947" new_id="2205375947" new_version="2"/>
+	<node old_id="2205375950" new_id="2205375950" new_version="2"/>
+	<node old_id="2205375953" new_id="2205375953" new_version="2"/>
+	<node old_id="2205375956" new_id="2205375956" new_version="2"/>
+	<node old_id="2205375959" new_id="2205375959" new_version="2"/>
+	<node old_id="2205375962" new_id="2205375962" new_version="2"/>
+	<node old_id="2205375965" new_id="2205375965" new_version="2"/>
+	<node old_id="2205375968" new_id="2205375968" new_version="2"/>
+	<node old_id="2205375975" new_id="2205375975" new_version="2"/>
+	<node old_id="2205375978" new_id="2205375978" new_version="2"/>
+	<node old_id="2205375987" new_id="2205375987" new_version="2"/>
+	<node old_id="2205375999" new_id="2205375999" new_version="2"/>
+	<node old_id="2205376001" new_id="2205376001" new_version="2"/>
+	<node old_id="2205376003" new_id="2205376003" new_version="2"/>
+	<node old_id="2205376006" new_id="2205376006" new_version="2"/>
+	<node old_id="2205376009" new_id="2205376009" new_version="2"/>
+	<node old_id="2205376030" new_id="2205376030" new_version="2"/>
+	<node old_id="2205376033" new_id="2205376033" new_version="2"/>
+	<node old_id="2205376036" new_id="2205376036" new_version="2"/>
+	<node old_id="2205376039" new_id="2205376039" new_version="2"/>
+	<node old_id="2205376042" new_id="2205376042" new_version="2"/>
+	<node old_id="2205376045" new_id="2205376045" new_version="2"/>
+	<node old_id="2205376058" new_id="2205376058" new_version="2"/>
+	<node old_id="2205376059" new_id="2205376059" new_version="2"/>
+  	<way old_id="-1545" new_id="123" new_version="1"/>
+  	<way old_id="27009604" new_id="27009604" new_version="19"/>
+  	<way old_id="210461089" new_id="210461089" new_version="4"/>
+ 	<relation old_id="1638705" new_id="1638705" new_version="21"/>
+ 	<relation old_id="2807173" new_id="2807173" new_version="4"/>
+</diffResult>

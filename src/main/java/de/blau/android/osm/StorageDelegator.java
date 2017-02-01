@@ -24,6 +24,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.App;
@@ -2130,12 +2131,21 @@ public class StorageDelegator implements Serializable, Exportable {
 			
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
-		server.openChangeset(comment, source, Util.listToOsmList(imagery));
+		boolean split = getApiElementCount() > server.getCapabilities().maxElementsInChangeset;
+		int part = 1;
+		while (getApiElementCount() > 0) {
+			String tmpSource = source;
+			if (split) {
+				tmpSource = source + " [" + part + "]";
+			}
+			server.openChangeset(comment, tmpSource, Util.listToOsmList(imagery));
 
-		server.diffUpload(this);
-		
-		if (closeChangeset) {
-			server.closeChangeset();
+			server.diffUpload(this);
+
+			if (closeChangeset || split) { // always close when splitting
+				server.closeChangeset();
+			}
+			part++;
 		}
 		// yes, again, just to be sure
 		dirty = true;
@@ -2155,7 +2165,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	@Override
 	public void export(OutputStream outputStream) throws Exception {
-		writeOsmChange(outputStream, null);
+		writeOsmChange(outputStream, null, Integer.MAX_VALUE);
 	}
 	
 	@Override
@@ -2166,15 +2176,16 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * Writes created/changed/deleted data to outputStream in OsmChange format
 	 * http://wiki.openstreetmap.org/wiki/OsmChange
-	 * @param outputStream
-	 * @param changeSetId
-	 * @throws IOException 
-	 * @throws IllegalStateException 
-	 * @throws IllegalArgumentException 
-	 * @throws XmlPullParserException 
-	 * @throws Exception
+	 * @param outputStream stream to write to
+	 * @param changeSetId the allocated changeset id or null if non
+	 * @param maxChanges maximum number of changes to write
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 * @throws XmlPullParserException
 	 */
-	public void writeOsmChange(OutputStream outputStream, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException, XmlPullParserException  {
+	public void writeOsmChange(OutputStream outputStream, @Nullable Long changeSetId, int maxChanges) throws IllegalArgumentException, IllegalStateException, IOException, XmlPullParserException  {
+		int count = 0;
 		Log.d(DEBUG_TAG, "writing osm change with changesetid " + changeSetId);
 		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
 		serializer.setOutput(outputStream, "UTF-8");
@@ -2200,21 +2211,37 @@ public class StorageDelegator implements Serializable, Exportable {
 			case OsmElement.STATE_MODIFIED:  modifiedNodes.add(elem);  break;
 			case OsmElement.STATE_DELETED:   deletedNodes.add(elem);   break;
 			}
-		}
-		for (OsmElement elem : apiStorage.getWays()) {
-			Log.d("StorageDelegator", "way added to list for upload, id " + elem.osmId);
-			switch (elem.state) {
-			case OsmElement.STATE_CREATED:   createdWays.add(elem);   break;
-			case OsmElement.STATE_MODIFIED:  modifiedWays.add(elem);  break;
-			case OsmElement.STATE_DELETED:   deletedWays.add(elem);   break;
+			count++;
+			if (count>=maxChanges) {
+				break;
 			}
 		}
-		for (OsmElement elem : apiStorage.getRelations()) {
-			Log.d("StorageDelegator", "relation added to list for upload, id " + elem.osmId);
-			switch (elem.state) {
-			case OsmElement.STATE_CREATED:   createdRelations.add((Relation) elem);   break;
-			case OsmElement.STATE_MODIFIED:  modifiedRelations.add((Relation) elem);  break;
-			case OsmElement.STATE_DELETED:   deletedRelations.add((Relation) elem);   break;
+		if (count < maxChanges) {
+			for (OsmElement elem : apiStorage.getWays()) {
+				Log.d("StorageDelegator", "way added to list for upload, id " + elem.osmId);
+				switch (elem.state) {
+				case OsmElement.STATE_CREATED:   createdWays.add(elem);   break;
+				case OsmElement.STATE_MODIFIED:  modifiedWays.add(elem);  break;
+				case OsmElement.STATE_DELETED:   deletedWays.add(elem);   break;
+				}
+				count++;
+				if (count>=maxChanges) {
+					break;
+				}
+			}
+		}
+		if (count < maxChanges) {
+			for (OsmElement elem : apiStorage.getRelations()) {
+				Log.d("StorageDelegator", "relation added to list for upload, id " + elem.osmId);
+				switch (elem.state) {
+				case OsmElement.STATE_CREATED:   createdRelations.add((Relation) elem);   break;
+				case OsmElement.STATE_MODIFIED:  modifiedRelations.add((Relation) elem);  break;
+				case OsmElement.STATE_DELETED:   deletedRelations.add((Relation) elem);   break;
+				}
+				count++;
+				if (count>=maxChanges) {
+					break;
+				}
 			}
 		}
 		Comparator<Relation> relationOrder = new Comparator<Relation>() {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diffResult generator="OpenStreetMap Server" version="0.6">
+	<node old_id="101792984" new_id="101792984" new_version="7"/>
+	<node old_id="2205375934" new_id="2205375934" new_version="2"/>
+	<node old_id="2205375941" new_id="2205375941" new_version="2"/>
+	<node old_id="2205375947" new_id="2205375947" new_version="2"/>
+	<node old_id="2205375950" new_id="2205375950" new_version="2"/>
+	<node old_id="2205375953" new_id="2205375953" new_version="2"/>
+	<node old_id="2205375956" new_id="2205375956" new_version="2"/>
+	<node old_id="2205375959" new_id="2205375959" new_version="2"/>
+	<node old_id="2205375962" new_id="2205375962" new_version="2"/>
+	<node old_id="2205375965" new_id="2205375965" new_version="2"/>
+	<node old_id="2205375968" new_id="2205375968" new_version="2"/>
+</diffResult>

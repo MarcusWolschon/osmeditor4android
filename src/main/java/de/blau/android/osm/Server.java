@@ -296,6 +296,9 @@ public class Server {
 
 	
 	public Capabilities getCachedCapabilities() {
+		if (capabilities==null) {
+			return Capabilities.getDefault();
+		}
 		return capabilities;
 	}
 	
@@ -1017,7 +1020,7 @@ public class Server {
 
 		try {
 			connection = openConnectionForWriteAccess(getDiffUploadUrl(changesetId), "POST");
-			delegator.writeOsmChange(connection.getOutputStream(), changesetId);
+			delegator.writeOsmChange(connection.getOutputStream(), changesetId, getCachedCapabilities().maxElementsInChangeset);
 			processDiffUploadResult(delegator, connection, xmlParserFactory.newPullParser());
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block

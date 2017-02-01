@@ -5,7 +5,7 @@
     <area maximum="0.25"/>
     <tracepoints per_page="5000"/>
     <waynodes maximum="2001"/>
-    <changesets maximum_elements="50000"/>
+    <changesets maximum_elements="11"/>
     <timeout seconds="300"/>
     <status database="online" api="online" gpx="online"/>
   </api>

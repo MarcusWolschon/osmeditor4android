@@ -2787,12 +2787,14 @@ public class Logic {
 //	}
 	
 	/**
+	 * Remove an element if it is deleted on the server
+	 * <p>
 	 * Element is deleted on server, delete locally but don't upload
 	 * A bit iffy because of memberships in other objects
 	 * 
-	 * @param e
+	 * @param e element to delete
 	 */
-	public  synchronized void updateToDeleted(OsmElement e) {
+	public synchronized void updateToDeleted(OsmElement e) {
 		createCheckpoint(R.string.undo_action_fix_conflict);
 		if (e.getName().equals(Node.NAME)) {
 			getDelegator().removeNode((Node)e);
@@ -2805,15 +2807,28 @@ public class Logic {
 		map.invalidate();		
 	}
 	
+	
 	/**
 	 * Read a file in (J)OSM format from device
 	 * 
-	 * @param fileName
+	 * @param uri uri of file to load
 	 * @param add unused currently
 	 * @throws FileNotFoundException 
 	 */
-	 synchronized void readOsmFile(final Uri uri, boolean add) throws FileNotFoundException {
-	
+	public void readOsmFile(final Uri uri, boolean add) throws FileNotFoundException {
+		readOsmFile(uri, add, null);
+	}
+
+	/**
+	 * Read a file in (J)OSM format from device
+	 * 
+	 * @param uri uri of file to load
+	 * @param add unused currently
+	 * @param postLoad callback to execute once file is loaded
+	 * @throws FileNotFoundException
+	 */
+	public void readOsmFile(final Uri uri, boolean add, final PostAsyncActionHandler postLoad) throws FileNotFoundException {
+
 		final InputStream is;
 		
 		if (uri.getScheme().equals("file")) {
@@ -2822,6 +2837,18 @@ public class Logic {
 			ContentResolver cr = App.mainActivity.getContentResolver();
 			is = cr.openInputStream(uri);
 		}
+		readOsmFile(is, add, postLoad);
+	}
+	
+	/**
+	 * Read a stream in (J)OSM format
+	 * 
+	 * @param is input
+	 * @param add unused currently
+	 * @param postLoad callback to execute once stream has been loaded
+	 * @throws FileNotFoundException
+	 */
+	public void readOsmFile(final InputStream is, boolean add, final PostAsyncActionHandler postLoad) {
 		
 		new AsyncTask<Boolean, Void, Integer>() {
 			
@@ -2850,7 +2877,7 @@ public class Logic {
 						SavingHelper.close(in);
 					}
 				} catch (SAXException e) {
-					Log.e("Vespucci", "Problem parsing", e);
+					Log.e(DEBUG_TAG, "Problem parsing", e);
 					Exception ce = e.getException();
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
 						result = ErrorCodes.OUT_OF_MEMORY;
@@ -2859,11 +2886,11 @@ public class Logic {
 					}
 				} catch (ParserConfigurationException e) {
 					// crash and burn
-					Log.e("Vespucci", "Problem parsing", e);
+					Log.e(DEBUG_TAG, "Problem parsing", e);
 					result = ErrorCodes.INVALID_DATA_READ;
 				} catch (IOException e) {
 					result = ErrorCodes.NO_CONNECTION;
-					Log.e("Vespucci", "Problem reading", e);
+					Log.e(DEBUG_TAG, "Problem reading", e);
 				}
 				return result;
 			}
@@ -2894,6 +2921,9 @@ public class Logic {
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
 					}
+				}
+				if (postLoad != null) {
+					postLoad.execute();
 				}
 				DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 				map.invalidate();
