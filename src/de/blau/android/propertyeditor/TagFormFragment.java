@@ -379,12 +379,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		// final MenuInflater inflater = getSupportMenuInflater();
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.tag_form_menu, menu);
-		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(getActivity()));
+		FragementActivity activity = getActivity();
+		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(activity));
 		menu.findItem(R.id.tag_menu_paste).setVisible(tagListener.pasteIsPossible());
 		menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
 		Locale locale = Locale.getDefault();
-		if (!(locale.equals(Locale.US) || locale.equals(Locale.UK))) {
-			menu.findItem(R.id.tag_menu_locale).setVisible(true).setTitle(getActivity().getString(R.string.tag_menu_i8n, locale.toString().toUpperCase(Locale.US)));
+		if (activity != null && !(locale.equals(Locale.US) || locale.equals(Locale.UK))) {
+			menu.findItem(R.id.tag_menu_locale).setVisible(true).setTitle(activity.getString(R.string.tag_menu_i8n, locale.toString()));
 		} else {
 			menu.findItem(R.id.tag_menu_locale).setVisible(false);
 		}
