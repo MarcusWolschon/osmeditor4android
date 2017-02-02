@@ -30,7 +30,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.TextUtils.TruncateAt;
+import android.text.style.CharacterStyle;
+import android.text.style.MetricAffectingSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -961,9 +965,29 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				}
 			}
 		});
+		row.valueView.addTextChangedListener(new RemoveFormatingWatcher());
 		
 		return row;
 	}
+	
+	class RemoveFormatingWatcher implements TextWatcher {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			// remove formating from pastes etc
+			CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
+            for (int i = 0; i < toBeRemovedSpans.length; i++)
+                s.removeSpan(toBeRemovedSpans[i]);
+		}
+	};
 
 	private TagComboRow addComboRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
 		final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);

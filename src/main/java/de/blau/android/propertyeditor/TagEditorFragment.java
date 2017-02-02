@@ -27,6 +27,8 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils.TruncateAt;
 import android.text.TextWatcher;
+import android.text.style.CharacterStyle;
+import android.text.style.MetricAffectingSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -896,6 +898,11 @@ public class TagEditorFragment extends BaseFragment implements
 					row.enableCheckBox();
 					ensureEmptyRow(rowLayout);
 				}
+				
+				// remove formating from pastes etc
+				CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
+	            for (int i = 0; i < toBeRemovedSpans.length; i++)
+	                s.removeSpan(toBeRemovedSpans[i]);
 			}
 		};
 		row.keyEdit.addTextChangedListener(emptyWatcher);

@@ -94,7 +94,7 @@ public class SelectFile {
 	
 	
 	public static void handleResult(int code, Intent data) {
-		// for now this doesn't do anything
+		// for now this doesn't do anything when multiple files are selected
 		if (data.getBooleanExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false)) {
             // For JellyBean and above
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
