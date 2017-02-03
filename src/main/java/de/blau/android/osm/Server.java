@@ -1389,8 +1389,8 @@ public class Server {
 		if (apiPos > 0) {
 			String noVersionURL = getReadWriteUrl().substring(0, apiPos) + SERVER_API_PATH;
 			return new URL(noVersionURL  + "capabilities");
-		}
-		return null;
+		} 
+		throw new MalformedURLException("Invalid API URL: " + getReadWriteUrl());
 	}
 
 	/**

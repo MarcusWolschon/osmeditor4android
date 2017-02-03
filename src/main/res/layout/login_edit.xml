@@ -3,7 +3,8 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" android:padding="10dp">
+    android:orientation="vertical" 
+    android:padding="?attr/dialogPreferredPadding">
     
     <TextView
         android:id="@+id/loginedit_labelUsername"
