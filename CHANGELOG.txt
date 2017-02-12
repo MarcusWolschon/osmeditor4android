@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1230: Fix various issues with selecting the preset button in way creation mode.
+
 1229: Updated imagery, auto-split changesets that are too large, minor bug fixes.
 
 1227: Updated presets, translations and imagery, minor bug fixes.
