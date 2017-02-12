@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-	    <HorizontalScrollView  android:layout_width="match_parent" android:layout_height="wrap_content">
-	        <TextView
-	        android:id="@+id/debugText"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:autoLink="all"
-	        android:ellipsize="none"
-	        android:padding="10dp"
-	        android:scrollHorizontally="true"
-	        android:textSize="10sp"
-	        android:typeface="monospace" />
-	
-	</HorizontalScrollView></LinearLayout>
-
-</ScrollView>
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	<ScrollView
+    	android:layout_width="match_parent"
+   	 	android:layout_height="match_parent"
+   	 	android:layout_weight="3" >
+    	<LinearLayout
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="vertical" >
+	    	<HorizontalScrollView  android:layout_width="match_parent" android:layout_height="wrap_content">
+	        	<TextView
+	        		android:id="@+id/debugText"
+	        		android:layout_width="wrap_content"
+	        		android:layout_height="wrap_content"
+	        		android:autoLink="all"
+	        		android:ellipsize="none"
+	        		android:padding="10dp"
+	        		android:scrollHorizontally="true"
+	        		android:textSize="10sp"
+	        		android:typeface="monospace" />
+			</HorizontalScrollView>
+		</LinearLayout>
+	</ScrollView>
+	<Button
+		android:id="@+id/sendDebug"
+     	android:layout_height="wrap_content"
+     	android:layout_width="match_parent"
+     	android:layout_weight="1" 
+     	android:text="@string/send_debug_information"
+     	 />
+</LinearLayout>

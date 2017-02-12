@@ -120,6 +120,7 @@
     <string name="attached_object_warning_message">The changed object is connected to hidden elements that will change too.</string>
     <string name="attached_object_warning_continue">OK continue to show this message</string>
     <string name="attached_object_warning_stop">OK stop showing this message</string>
+    <string name="send_debug_information">Send debug information</string>
 
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
