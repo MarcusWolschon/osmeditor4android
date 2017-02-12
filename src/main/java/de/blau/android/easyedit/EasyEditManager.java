@@ -990,6 +990,8 @@ public class EasyEditManager {
 		private Node appendTargetNode;
 		/** Way to append to */
 		private Way appendTargetWay;
+		/** flag if we don't want to start the property editor in onDestroy **/
+		private boolean dontTag = false;
 		
 		/** contains a pointer to the created way if one was created. used to fix selection after undo. */
 		private Way createdWay = null;
@@ -1101,15 +1103,9 @@ public class EasyEditManager {
 				handleUndo();
 				break;
 			case MENUITEM_NEWWAY_PRESET:
-				logic.hideCrosshairs();
-				try {
-					logic.setSelectedNode(null);
-					logic.performAdd(x, y);
-				} catch (OsmIllegalOperationException e1) {
-					Toast.makeText(main,e1.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-					Log.d(DEBUG3_TAG,"Caught exception " + e1);				}
 				Way lastSelectedWay = logic.getSelectedWay();
 				if (lastSelectedWay != null) {
+					dontTag = true;
 					main.startSupportActionMode(new WaySelectionActionModeCallback(lastSelectedWay));
 					main.performTagEdit(lastSelectedWay, null, false, item.getItemId() == MENUITEM_NEWWAY_PRESET, false); // show preset screen
 				}
@@ -1158,7 +1154,7 @@ public class EasyEditManager {
 			logic.setSelectedWay(null);
 			logic.setSelectedNode(null);
 			super.onDestroyActionMode(mode);
-			if (appendTargetNode == null) { // doesn't work as intended element selected modes get zapped, don't try to select because of this
+			if (appendTargetNode == null && !dontTag) { // doesn't work as intended element selected modes get zapped, don't try to select because of this
 				tagApplicable(lastSelectedNode, lastSelectedWay, false, false); 
 			}
 		}
