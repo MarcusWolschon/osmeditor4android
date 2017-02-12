@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -379,7 +380,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		// final MenuInflater inflater = getSupportMenuInflater();
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.tag_form_menu, menu);
-		FragementActivity activity = getActivity();
+		FragmentActivity activity = getActivity();
 		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(activity));
 		menu.findItem(R.id.tag_menu_paste).setVisible(tagListener.pasteIsPossible());
 		menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
