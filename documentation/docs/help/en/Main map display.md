@@ -68,7 +68,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Download at other location** - shows a form that lets you enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
  * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
- * **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
+ * **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
  * **File...** - saving and loading OSM data to/from on device files.
     * **Export changes** - write a ".osc" format file containing the current edits
     * **Read from file** - read a JOSM compatible XML format file
@@ -77,7 +77,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
     * **Download bugs for current view** - download Notes/Bugs for the area visible on the screen
     * **Upload all** - upload all new or modified Notes/Bugs
     * **Clear** - remove all bugs from storage
-    * **Auto download** - download Notes/Bugs around the current location automatically *(requires network connectivity)* *(requires GPS)*
+    * **Auto download** - download Notes/Bugs around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
 
 ### ![Preferences](../images/menu_config.png) Preferences
 
