@@ -283,15 +283,7 @@
     <string name="menu_set_position">Position</string>
     <string name="menu_split">Split</string>
     <string name="menu_extract">Extract node</string>
-    <string name="menu_closed_way_split_1">Split closed way, 1st node</string>
-    <string name="menu_closed_way_split_2">Split closed way, 2nd node</string>
     <string name="menu_append">Append</string>
-    <string name="menu_restriction">Add turn restriction</string>
-    <string name="menu_restriction_restart_from">Re-select \"from\" segment</string>
-    <string name="menu_restriction_via">Add \"via\" segment/element</string>
-    <string name="menu_restriction_restart_via">Re-select \"via\" segment</string>
-    <string name="menu_restriction_to">Add \"to\" segment</string>
-    <string name="menu_restriction_restart_to">Re-select \"to\" segment</string>
     <string name="menu_relation">Create relation</string>
     <string name="menu_add_relation_member">Add member</string>
     <string name="menu_select_relation_members">Select members</string>
@@ -388,6 +380,17 @@
     <string name="actionmode_relationselect">Relation selected</string>
     <string name="actionmode_createpath">Creating path</string>
     <string name="actionmode_multiselect">Multiselect</string>
+    <!-- EasyEdit action mode sub-titles -->
+    <string name="actionmode_closed_way_split_1">Split closed way, 1st node</string>
+    <string name="actionmode_closed_way_split_2">Split closed way, 2nd node</string>
+    <string name="actionmode_restriction">Add turn restriction</string>
+    <string name="actionmode_restriction_restart_from">Re-select \"from\" segment</string>
+    <string name="actionmode_restriction_via">Add \"via\" segment/element</string>
+    <string name="actionmode_restriction_restart_via">Re-select \"via\" segment</string>
+    <string name="actionmode_restriction_to">Add \"to\" segment</string>
+    <string name="actionmode_restriction_restart_to">Re-select \"to\" segment</string>
+    <string name="actionmode_one_object">1 object</string>
+    <string name="actionmode_object_count">%1$s objects</string>
     <!-- Preferences -->
     <string name="config_category_editing">Data and Editing Settings</string>
     <string name="config_category_view">User Interface Settings</string>

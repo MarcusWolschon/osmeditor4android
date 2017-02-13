@@ -2395,6 +2395,8 @@ public class EasyEditManager {
 		private ArrayList<OsmElement> selection;
 		private List<OsmElement> sortedWays;
 		
+		private ActionMode mode;
+		
 		UndoListener undoListener;
 		
 		private boolean deselect = true;
@@ -2420,6 +2422,10 @@ public class EasyEditManager {
 			undoListener = main.new UndoListener(); 
 		}
 		
+		/**
+		 * Add or remove objects from the selection
+		 * @param element object to add or remove
+		 */
 		private void addOrRemoveElement(OsmElement element) {
 			if (!selection.contains(element)) {
 				selection.add(element);
@@ -2447,14 +2453,31 @@ public class EasyEditManager {
 				sortedWays = Util.sortWays(selection);
 				invalidate();
 			}
+			setSubTitle(mode);
 			main.invalidateMap();
+		}
+		
+		/**
+		 * Set aselected object count in the action mode subtitle
+		 * @param mode the ActionMode
+		 */
+		private void setSubTitle(ActionMode mode) {
+			if (mode != null) {
+				int count = selection.size();
+				if (count > 1) {
+					mode.setSubtitle(main.getString(R.string.actionmode_object_count,count));
+				} else {
+					mode.setSubtitle(R.string.actionmode_one_object);
+				}
+			}
 		}
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			helpTopic = R.string.help_multiselect;
+			this.mode = mode;
 			mode.setTitle(R.string.actionmode_multiselect);
-			mode.setSubtitle("");
+			setSubTitle(mode);
 			super.onCreateActionMode(mode, menu);
 			logic.setReturnRelations(true); // can add relations
 			setClickableElements();
