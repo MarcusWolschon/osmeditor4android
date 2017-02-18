@@ -24,6 +24,10 @@ import de.blau.android.util.ThemeUtils;
 public class ErrorAlert extends DialogFragment
 {
 	
+	private static final String TITLE = "title";
+
+	private static final String MESSAGE = "message";
+
 	private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName();
 		
 	private int titleId;
@@ -116,8 +120,8 @@ public class ErrorAlert extends DialogFragment
     	ErrorAlert f = new ErrorAlert();
 
         Bundle args = new Bundle();
-        args.putSerializable("title", titleId);
-        args.putInt("message", messageId);
+        args.putSerializable(TITLE, titleId);
+        args.putInt(MESSAGE, messageId);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -130,8 +134,8 @@ public class ErrorAlert extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        titleId = (Integer) getArguments().getSerializable("title");
-        messageId = getArguments().getInt("message");
+        titleId = (Integer) getArguments().getSerializable(TITLE);
+        messageId = getArguments().getInt(MESSAGE);
     }
 
     @NonNull

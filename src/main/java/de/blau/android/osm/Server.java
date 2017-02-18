@@ -1005,7 +1005,7 @@ public class Server {
 			InputStream in = connection.getErrorStream();
 			if (e == null) {
 				Log.d(DEBUG_TAG, "response message " + responseMessage);
-				throw new OsmServerException(responsecode, responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
+				throw new OsmServerException(responsecode, readStream(in));
 			} else {
 				throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
 			}
@@ -1013,6 +1013,13 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Upload edits in OCS format and process the server response
+	 * @param delegator reference to the StorageDelegator
+	 * @throws MalformedURLException
+	 * @throws ProtocolException
+	 * @throws IOException
+	 */
 	public void diffUpload(StorageDelegator delegator) throws MalformedURLException, ProtocolException, IOException {
 		
 		HttpURLConnection connection = null;

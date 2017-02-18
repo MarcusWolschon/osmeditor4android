@@ -30,7 +30,8 @@ public class OsmServerException extends OsmException {
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + "\nResponseCode: " + errorCodeToMeaning(getErrorCode());
+    	String errorText = errorCodeToMeaning(getErrorCode());
+        return super.getMessage() + (errorText != null ? "\nError description: " + errorText : "");
     }
 
     /**
@@ -79,6 +80,6 @@ public class OsmServerException extends OsmException {
 		case HttpURLConnection.HTTP_UNAVAILABLE:
 			return "The database has been taken offline for maintenance. ";
 		}
-		return "";
+		return null;
 	}
 }

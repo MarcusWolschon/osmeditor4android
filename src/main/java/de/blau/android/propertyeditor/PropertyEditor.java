@@ -193,7 +193,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		// requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		
 		if (prefs.splitActionBarEnabled()) {
-			// TODO determine if we ant to reinstate the bottom bar
+			// TODO determine if we want to reinstate the bottom bar
 		} 
 
 		// tags

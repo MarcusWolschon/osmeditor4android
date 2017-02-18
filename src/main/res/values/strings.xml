@@ -24,6 +24,8 @@
     <string name="wrong_login_data_title">Authentication failed</string>
     <string name="wrong_login_data_message">If you are using OAuth you should re-authenticate and then retry, if you are using login and password (not recommended) please check that they are entered correctly.</string>
     <string name="wrong_login_data_re_authenticate">Re-Authenticate</string>
+    <string name="forbidden_login_title">Login forbidden</string>
+    <string name="go_to_openstreetmap">Go to openstreetmap.org</string>
     <string name="data_conflict_title">Version Conflict</string>
     <string name="data_conflict_message">The data you are trying to download contains data that conflicts with your edits. Please try to upload your data first before retrying.</string>
     <string name="invalid_bounding_box_title">Invalid Bounding Box</string>
@@ -188,6 +190,7 @@
     <string name="no">No</string>
     <string name="okay">Okay</string>
     <string name="cancel">Cancel</string>
+    <string name="dismiss">Dismiss</string>
     <string name="locked">Locked</string>
     <string name="next">Next</string>
     <string name="apply">Apply</string>

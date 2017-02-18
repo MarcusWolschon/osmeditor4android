@@ -46,6 +46,7 @@ import android.view.View;
 import android.widget.Toast;
 import de.blau.android.dialogs.AttachedObjectWarning;
 import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.dialogs.ForbiddenLogin;
 import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
@@ -3294,8 +3295,10 @@ public class Logic {
 					result.httpError = e.getErrorCode();
 					result.message = e.getMessage();
 					switch (e.getErrorCode()) {
-					case HttpURLConnection.HTTP_UNAUTHORIZED:
 					case HttpURLConnection.HTTP_FORBIDDEN:
+						result.error = ErrorCodes.FORBIDDEN;
+						break;
+					case HttpURLConnection.HTTP_UNAUTHORIZED:
 						result.error = ErrorCodes.INVALID_LOGIN;
 						break;
 					case HttpURLConnection.HTTP_GONE:
@@ -3350,6 +3353,8 @@ public class Logic {
 						}
 					} else if (result.error == ErrorCodes.INVALID_LOGIN) {
 						InvalidLogin.showDialog(App.mainActivity);
+					} else if (result.error == ErrorCodes.FORBIDDEN) {
+						ForbiddenLogin.showDialog(App.mainActivity,result.message);
 					} else if (result.error != 0) {
 						ErrorAlert.showDialog(App.mainActivity,result.error);
 					}
@@ -3392,7 +3397,8 @@ public class Logic {
 					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final OsmServerException e) {
-					switch (e.getErrorCode()) {
+					switch (e.getErrorCode()) { //FIXME use the same mechanics as for data uoload
+					case HttpURLConnection.HTTP_FORBIDDEN: 
 					case HttpURLConnection.HTTP_UNAUTHORIZED:
 						result = ErrorCodes.INVALID_LOGIN;
 						break;
