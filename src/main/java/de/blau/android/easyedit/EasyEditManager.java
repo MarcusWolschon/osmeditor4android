@@ -1557,7 +1557,7 @@ public class EasyEditManager {
 				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
 			}
 			if (((Way)element).getTagWithKey(Tags.KEY_HIGHWAY) != null && (cachedViaElements.size() > 0)) {
-				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_add_restriction));	
+				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_add_restriction));	
 			}
 			if (((Way)element).getNodes().size() > 2) {
 				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_ortho));
@@ -1677,7 +1677,7 @@ public class EasyEditManager {
 			helpTopic = R.string.help_waysplitting;
 			super.onCreateActionMode(mode, menu);
 			if (way.isClosed())
-				mode.setSubtitle(R.string.menu_closed_way_split_1);
+				mode.setSubtitle(R.string.actionmode_closed_way_split_1);
 			else
 				mode.setSubtitle(R.string.menu_split);
 			logic.setClickableElements(new HashSet<OsmElement>(nodes));
@@ -1975,7 +1975,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			helpTopic = R.string.help_addingrestriction;
-			mode.setTitle(R.string.menu_restriction_restart_from);
+			mode.setTitle(R.string.actionmode_restriction_restart_from);
 			logic.setClickableElements(fromElements);
 			logic.setReturnRelations(false);
 			logic.setSelectedRelationWays(null); // just to be safe
@@ -1994,7 +1994,7 @@ public class EasyEditManager {
 			if (viaElements.size() > 1) {
 				fromSelected = true;
 				// redo via selection, this time with pre-split way
-				main.startSupportActionMode(new RestrictionFromElementActionModeCallback(R.string.menu_restriction_restart_via,(Way)element, viaElements));
+				main.startSupportActionMode(new RestrictionFromElementActionModeCallback(R.string.actionmode_restriction_restart_via,(Way)element, viaElements));
 				return true;
 			} else if (viaElements.size() == 1) {
 				fromSelected = true;
@@ -2023,7 +2023,7 @@ public class EasyEditManager {
 		private Way fromWay;
 		private Set<OsmElement> viaElements;
 		private boolean viaSelected = false;
-		private int titleId = R.string.menu_restriction_via;
+		private int titleId = R.string.actionmode_restriction_via;
 		
 		public RestrictionFromElementActionModeCallback(Way way, Set<OsmElement> vias) {
 			super();
@@ -2093,7 +2093,7 @@ public class EasyEditManager {
 			if (newViaWay != null) {
 				// restart via selection
 				Toast.makeText(main, R.string.toast_split_via, Toast.LENGTH_LONG).show();
-				main.startSupportActionMode(new RestrictionFromElementActionModeCallback(R.string.menu_restriction_restart_via,fromWay, viaElements));
+				main.startSupportActionMode(new RestrictionFromElementActionModeCallback(R.string.actionmode_restriction_restart_via,fromWay, viaElements));
 				return true;
 			}
 			viaSelected = true;
@@ -2120,7 +2120,7 @@ public class EasyEditManager {
 		private OsmElement viaElement;
 		private Set<OsmElement> cachedToElements;
 		private boolean toSelected = false;
-		private int titleId = R.string.menu_restriction_to;
+		private int titleId = R.string.actionmode_restriction_to;
 
 		public RestrictionViaElementActionModeCallback(Way from, OsmElement via) {
 			super();
@@ -2134,7 +2134,7 @@ public class EasyEditManager {
 			fromWay = from;
 			viaElement = via;
 			cachedToElements = toElements;
-			this.titleId = R.string.menu_restriction_restart_to;
+			this.titleId = R.string.actionmode_restriction_restart_to;
 		}
 		
 		@Override
@@ -2219,7 +2219,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			helpTopic = R.string.help_addingrestriction;
-			mode.setTitle(R.string.menu_restriction);
+			mode.setTitle(R.string.actionmode_restriction);
 			super.onCreateActionMode(mode, menu);
 			logic.addSelectedRelationWay(toWay);
 			boolean uTurn = fromWay == toWay;
