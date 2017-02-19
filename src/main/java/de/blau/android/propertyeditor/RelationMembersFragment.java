@@ -43,6 +43,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.Density;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -144,6 +145,9 @@ public class RelationMembersFragment extends BaseFragment implements
 				}
 			}
 		});
+		
+       	// add some extra space for the FAB
+		relationMembersLayout.setPadding(0, 0, 0, Density.dpToPx(getResources(),64));
 		
 		return relationMembersLayout;
 	}

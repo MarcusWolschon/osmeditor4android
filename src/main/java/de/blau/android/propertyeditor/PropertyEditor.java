@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -28,6 +29,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -293,6 +295,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
+		FloatingActionButton done = (FloatingActionButton) findViewById(R.id.done);
+		
 		if (usePaneLayout) { // add both preset fragments to panes
 			Log.d(DEBUG_TAG,"Adding MRU prests");
 			FragmentManager fm = getSupportFragmentManager();
@@ -331,6 +335,14 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 				tagFormFragmentPosition = 1;
 				tagEditorFragmentPosition = 1; // FIXME
 			}
+		}
+		if (done != null) {
+			done.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					sendResultAndFinish();
+				}
+			});
 		}
 		
 		mViewPager.setOffscreenPageLimit(4); // FIXME currently this is required or else some of the logic between the fragments will not work
@@ -815,7 +827,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		super.onPause();
 	}
 	
-
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		Log.d(DEBUG_TAG,"onRestoreInstanceState");
 	    super.onRestoreInstanceState(savedInstanceState);

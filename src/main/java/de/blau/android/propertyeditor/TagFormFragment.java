@@ -17,6 +17,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import android.text.style.CharacterStyle;
 import android.text.style.MetricAffectingSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -81,6 +83,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.Density;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
@@ -642,6 +645,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					}});
     		}
     	}
+       	// add some extra space for the FAB
+       	ll.setPadding(0, 0, 0, Density.dpToPx(getResources(),64));
 	}
 	
 	private Map<String,String> addTagsToViews(EditableLayout editableView, PresetItem preset, LinkedHashMap<String, String> tags) {

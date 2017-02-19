@@ -42,6 +42,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.Density;
 import de.blau.android.util.StringWithDescription;
 
 public class RelationMembershipFragment extends BaseFragment implements
@@ -131,6 +132,9 @@ public class RelationMembershipFragment extends BaseFragment implements
 			}
 		});
 		
+       	// add some extra space for the FAB
+		parentRelationsLayout.setPadding(0, 0, 0, Density.dpToPx(getResources(),64));
+       	
 		return parentRelationsLayout;
     }
 

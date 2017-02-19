@@ -63,6 +63,7 @@ import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
+import de.blau.android.util.Density;
 import de.blau.android.util.KeyValue;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
@@ -343,6 +344,10 @@ public class TagEditorFragment extends BaseFragment implements
 				}
 			}
 		});
+		
+       	// add some extra space for the FAB
+		editRowLayout.setPadding(0, 0, 0, Density.dpToPx(getResources(),64));
+		
 		Log.d(DEBUG_TAG,"onCreateView returning");
 		return rowLayout;
 	}

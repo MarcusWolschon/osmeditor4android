@@ -35,8 +35,10 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.Density;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
+import de.blau.android.views.WrappingLayout;
 
 public class PresetFragment extends BaseFragment implements PresetFilterUpdate, PresetClickHandler {
 	
@@ -99,10 +101,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-//       	if (presetView != null) {
-//    		Log.d(DEBUG_TAG, "onCreateView recalled but we still have a view");
-//    		return presetView;
-//    	}
+    	
     	OsmElement element = (OsmElement) getArguments().getSerializable("element");
     	type = element.getType();
         Preset[] presets = App.getCurrentPresets(getActivity());
@@ -135,8 +134,14 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 		}	
 		currentGroup = rootGroup;
 		
-     	presetLayout.addView(getPresetView());
-		
+		ViewGroup vg = (ViewGroup) getPresetView();
+		// this is a rather awful hack to add some extra space for the FAB
+		WrappingLayout wl = (WrappingLayout) vg.getChildAt(0);
+		if (wl != null) {
+			wl.setPadding(0, 0, 0, Density.dpToPx(getResources(),64));
+		}
+     	presetLayout.addView(vg);
+     	
      	EditText presetSearch = (EditText) presetPaneLayout.findViewById(R.id.preset_search_edit);
      	if (presetSearch != null) {
      		presetSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
