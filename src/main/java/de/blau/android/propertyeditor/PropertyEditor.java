@@ -340,6 +340,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			done.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
+					if (tagFormFragment != null) {
+						tagFormFragment.updateEditorFromText();
+					}
 					sendResultAndFinish();
 				}
 			});

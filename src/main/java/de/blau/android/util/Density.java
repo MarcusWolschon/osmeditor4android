@@ -16,7 +16,7 @@ public class Density {
 	}
 	
 	public static float dpToPx(float dp) {
-		return dpToPx(App.resources(), dp);
+		return dpToPx(App.getCurrentInstance(), dp);
 	}
 
 	/**
