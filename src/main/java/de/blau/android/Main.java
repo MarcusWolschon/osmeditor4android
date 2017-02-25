@@ -2062,7 +2062,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			ErrorAlert.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 		}
 	}
-	
 
 	/**
 	 * 

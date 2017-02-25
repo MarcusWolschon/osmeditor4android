@@ -160,7 +160,7 @@ dependencies {
     // compile "com.android.support:support-annotations:24.0.0"
     compile "com.nononsenseapps:filepicker:3.0.0"
     compile "oauth.signpost:signpost-core:$signpostVersion"
-    compile "oauth.signpost:signpost-commonshttp4:$signpostVersion"
+    compile "cz.msebera.android:httpclient:4.4.1.2"
     compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     compile "com.drewnoakes:metadata-extractor:2.9.1"

@@ -338,6 +338,7 @@ public class Server {
 			con.setReadTimeout(TIMEOUT);
 			con.setConnectTimeout(TIMEOUT);
 			con.setRequestProperty("User-Agent", App.userAgent);
+			con.setInstanceFollowRedirects(true);
 
 			//connection.getOutputStream().close(); GET doesn't have an outputstream
 			checkResponseCode(con);
@@ -462,6 +463,7 @@ public class Server {
 		con.setConnectTimeout(TIMEOUT);
 		con.setRequestProperty("Accept-Encoding", "gzip");
 		con.setRequestProperty("User-Agent", App.userAgent);
+		con.setInstanceFollowRedirects(true);
 
 		//--Start: got response header
 		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -475,6 +477,7 @@ public class Server {
 			con.setConnectTimeout(TIMEOUT);
 			con.setRequestProperty("Accept-Encoding", "gzip");
 			con.setRequestProperty("User-Agent", App.userAgent);
+			con.setInstanceFollowRedirects(true);
 
 			//--Start: got response header
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
