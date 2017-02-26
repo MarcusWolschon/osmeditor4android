@@ -2165,7 +2165,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		this.restart = restart;
 		hideControls();
 		
-		String url = server.getBaseUrl(server.getReadWriteUrl());
+		String url = Server.getBaseUrl(server.getReadWriteUrl());
 		OAuthHelper oa;
 		try {
 			oa = new OAuthHelper(url);

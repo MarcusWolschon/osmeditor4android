@@ -173,7 +173,6 @@ public class APIEditorActivity extends URLListEditActivity {
 					}
 				});
 		builder.setOnCancelListener(new OnCancelListener() {
-
 			@Override
 			public void onCancel(DialogInterface dialog) {
 				if (isAddingViaIntent()) {

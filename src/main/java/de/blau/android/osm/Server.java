@@ -1425,7 +1425,7 @@ public class Server {
 	/**
 	 * @return the base URL, i.e. the url with the "/api/version/"-part stripped
 	 */
-	public String getBaseUrl(String url) {
+	public static String getBaseUrl(String url) {
 		return url.replaceAll("/api/[0-9]+(?:\\.[0-9]+)+/?$", "/");
 	}
 	
