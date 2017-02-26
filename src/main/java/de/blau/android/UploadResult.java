@@ -16,7 +16,7 @@ public class UploadResult implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public int error = 0;
+	public int error = ErrorCodes.OK;
 	public int httpError = 0;
 	public String elementType;
 	public long osmId;

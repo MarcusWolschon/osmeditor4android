@@ -1,7 +1,16 @@
 package de.blau.android.tasks;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+
+import org.acra.ACRA;
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.os.AsyncTask;
 import android.util.Log;
+import de.blau.android.ErrorCodes;
+import de.blau.android.UploadResult;
+import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.Server;
 import de.blau.android.tasks.Task.State;
 
@@ -10,7 +19,7 @@ import de.blau.android.tasks.Task.State;
  * @author Andrew Gregory
  *
  */
-class CommitTask extends AsyncTask<Server, Void, Boolean> {
+class CommitTask extends AsyncTask<Server, Void, UploadResult> {
 	private static final String DEBUG_TAG = CommitTask.class.getSimpleName();
 	/** Bug associated with the commit. */
 	final Note bug;
@@ -39,31 +48,63 @@ class CommitTask extends AsyncTask<Server, Void, Boolean> {
 	 * will be used.
 	 */
 	@Override
-	protected Boolean doInBackground(Server... servers) {
+	protected UploadResult doInBackground(Server... servers) {
 		Log.d(DEBUG_TAG,"doInBackGround");
-		boolean result = true;
-		Server server = servers[0];
-		if (!bug.isNew()) {
-			if (bug.getOriginalState() == State.CLOSED && !close) { // reopen, do this before trying to add anything
-				result = server.reopenNote(bug);
+		UploadResult result = new UploadResult();
+		try {
+			Server server = servers[0];
+			if (!bug.isNew()) {
+				if (bug.getOriginalState() == State.CLOSED && !close) { // reopen, do this before trying to add anything
+					server.reopenNote(bug);
+				}
 			}
-		}
 
-		if (bug.getOriginalState() != State.CLOSED) {
-			Log.d(DEBUG_TAG, "CommitTask.doInBackground:Updating OSB");
-			if (comment != null && comment.length() > 0) {
-				// Make the comment
-				NoteComment bc = new NoteComment(bug,comment);
-				// Add or edit the bug as appropriate
-				result = bug.isNew() ? server.addNote(bug, bc) : server.addComment(bug, bc);
-				Log.d(DEBUG_TAG, result ? "sucessful":"failed");
+			if (bug.getOriginalState() != State.CLOSED) {
+				Log.d(DEBUG_TAG, "CommitTask.doInBackground:Updating OSB");
+				if (comment != null && comment.length() > 0) {
+					// Make the comment
+					NoteComment bc = new NoteComment(bug,comment);
+					// Add or edit the bug as appropriate
+					if (bug.isNew()) {
+						server.addNote(bug, bc);
+					} else { 
+						server.addComment(bug, bc);
+					}
+				}
+				// Close  the bug if requested, but only if there haven't been any problems
+				if (close) {
+					server.closeNote(bug);
+				}
 			}
-			// Close  the bug if requested, but only if there haven't been any problems
-			if (result && close) {
-				result = server.closeNote(bug);
+		} catch (final OsmServerException e) {
+			result.httpError = e.getErrorCode();
+			result.message = e.getMessage();
+			switch (e.getErrorCode()) {
+			case HttpURLConnection.HTTP_FORBIDDEN:
+				result.error = ErrorCodes.FORBIDDEN;
+				break;
+			case HttpURLConnection.HTTP_UNAUTHORIZED:
+				result.error = ErrorCodes.INVALID_LOGIN;
+				break;
+			case HttpURLConnection.HTTP_BAD_REQUEST:
+			case HttpURLConnection.HTTP_NOT_FOUND:
+			case HttpURLConnection.HTTP_INTERNAL_ERROR:
+			case HttpURLConnection.HTTP_BAD_GATEWAY:
+			case HttpURLConnection.HTTP_UNAVAILABLE:
+				result.error = ErrorCodes.UPLOAD_PROBLEM;
+				break;
+				//TODO: implement other state handling
+			default:
+				Log.e(DEBUG_TAG, "", e);
+				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+				ACRA.getErrorReporter().handleException(e);
+				break;
 			}
+		} catch (XmlPullParserException e) {
+			result.error = ErrorCodes.INVALID_DATA_RECEIVED;
+		} catch (IOException e) {
+			result.error = ErrorCodes.NO_CONNECTION;
 		}
 		return result;
 	}
-	
 }

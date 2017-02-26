@@ -25,8 +25,12 @@ import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.UploadResult;
 import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.dialogs.ForbiddenLogin;
+import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.UploadConflict;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
@@ -236,8 +240,9 @@ public class TransferTasks {
 							uploadNote(context, prefs.getServer(), note, comment, close, quiet);
 						}
 					});
-					if (server.getOAuth()) // if still set
+					if (server.getOAuth()) { // if still set
 						Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+					}
 					return false;
 				} 
 			} else {
@@ -260,7 +265,7 @@ public class TransferTasks {
 				}
 
 				@Override
-				protected Boolean doInBackground(Server... args) {
+				protected UploadResult doInBackground(Server... args) {
 					// execute() is called below with no arguments (args will be empty)
 					// getDisplayName() is deferred to here in case a lengthy OSM query
 					// is required to determine the nickname
@@ -269,17 +274,26 @@ public class TransferTasks {
 				}
 
 				@Override
-				protected void onPostExecute(Boolean result) {
+				protected void onPostExecute(UploadResult result) {
 					if (newBug && !App.getTaskStorage().contains(bug)) {
 						App.getTaskStorage().add(bug);
 					}
-					if (result) {
+					if (result.error == ErrorCodes.OK) {
 						// upload sucessful
 						bug.changed = false;
 					}	
 					if (!quiet) {
 						Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);
-						Toast.makeText(context, result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
+						// Toast.makeText(context, result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
+						if (!App.mainActivity.isFinishing()) {
+							if (result.error == ErrorCodes.INVALID_LOGIN) {
+								InvalidLogin.showDialog(App.mainActivity);
+							} else if (result.error == ErrorCodes.FORBIDDEN) {
+								ForbiddenLogin.showDialog(App.mainActivity,result.message);
+							} else if (result.error != 0) {
+								ErrorAlert.showDialog(App.mainActivity,result.error);
+							}
+						}
 					}
 				}
 			};
@@ -291,7 +305,7 @@ public class TransferTasks {
 		        ct.execute();
 		    }
 			try {
-				return ct.get();
+				return ct.get().error == ErrorCodes.OK;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

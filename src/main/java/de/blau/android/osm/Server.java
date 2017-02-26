@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -495,7 +496,7 @@ public class Server {
 			else {
 				App.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
 			}
-			throwUnexpectedRequestException(con);
+			throwOsmServerException(con);
 		}
 
 		if (isServerGzipEnabled) {
@@ -557,7 +558,7 @@ public class Server {
 			else {
 				App.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
 			}
-			throwUnexpectedRequestException(con);
+			throwOsmServerException(con);
 		}
 
 		if (isServerGzipEnabled) {
@@ -1001,21 +1002,11 @@ public class Server {
 				Log.d(DEBUG_TAG, e.getOsmId() + " already deleted on server");
 				return;
 			}
-			String responseMessage = connection.getResponseMessage();
-			if (responseMessage == null) {
-				responseMessage = "";
-			}
-			InputStream in = connection.getErrorStream();
-			if (e == null) {
-				Log.d(DEBUG_TAG, "response message " + responseMessage);
-				throw new OsmServerException(responsecode, readStream(in));
-			} else {
-				throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
-			}
+			throwOsmServerException(connection, e, responsecode);
 			//TODO: happens the first time on some uploads. responseMessage=ErrorMessage="", works the second time
 		}
 	}
-	
+
 	/**
 	 * Upload edits in OCS format and process the server response
 	 * @param delegator reference to the StorageDelegator
@@ -1593,38 +1584,33 @@ public class Server {
 	 * @param bug The bug to add the comment to.
 	 * @param comment The comment to add to the bug.
 	 * @return true if the comment was successfully added.
+	 * @throws IOException 
+	 * @throws OsmServerException
+	 * @throws XmlPullParserException 
 	 */
-	public boolean addComment(Note bug, NoteComment comment) {
+	public void addComment(Note bug, NoteComment comment) throws OsmServerException, IOException, XmlPullParserException {
 		if (!bug.isNew()) {
 			Log.d(DEBUG_TAG, "adding note comment" + bug.getId());
 			// http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
 			HttpURLConnection connection = null;
 			try {
-				try {
-					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
-					String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
-					URL addCommentUrl = getAddCommentUrl(Long.toString(bug.getId()), encodedComment);
-					connection = openConnectionForWriteAccess(addCommentUrl, "POST", "text/url");
-					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
-							.defaultCharset());
-		
-					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8")+ "\r\n");
-					out.flush();
-					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throwUnexpectedRequestException(connection);
-					}
-					parseBug(bug, connection.getInputStream());
-					return true;
-				} catch (XmlPullParserException e) {
-					Log.e(DEBUG_TAG, "addComment:Exception", e);
-				} catch (IOException e) {
-					Log.e(DEBUG_TAG, "addComment:Exception", e);
+				// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
+				String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+				URL addCommentUrl = getAddCommentUrl(Long.toString(bug.getId()), encodedComment);
+				connection = openConnectionForWriteAccess(addCommentUrl, "POST", "text/url");
+				OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
+						.defaultCharset());
+
+				// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8")+ "\r\n");
+				out.flush();
+				if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+					throwOsmServerException(connection);
 				}
+				parseBug(bug, connection.getInputStream());
 			} finally {
 				disconnect(connection);
 			}
 		}
-		return false;
 	}
 	
 	//TODO rewrite to XML encoding
@@ -1634,37 +1620,32 @@ public class Server {
 	 * @param bug The bug to add.
 	 * @param comment The first comment for the bug.
 	 * @return true if the bug was successfully added.
+	 * @throws IOException 
+	 * @throws OsmServerException 
+	 * @throws XmlPullParserException 
 	 */
-	public boolean addNote(Note bug, NoteComment comment) {
+	public void addNote(Note bug, NoteComment comment) throws XmlPullParserException, OsmServerException, IOException {
 		if (bug.isNew()) {
 			Log.d(DEBUG_TAG, "adding note");
 			// http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug description with author and date>&format=<Output format>
 			HttpURLConnection connection = null;
 			try {
-				try {
-					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
-					String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
-					URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
-					connection = openConnectionForWriteAccess(addNoteUrl, "POST", "text/xml");
-					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
-							.defaultCharset());
-					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
-					out.flush();
-					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throwUnexpectedRequestException(connection);
-					}
-					parseBug(bug, connection.getInputStream());
-					return true;
-				} catch (XmlPullParserException e) {
-					Log.e(DEBUG_TAG, "addNote:Exception", e);
-				} catch (IOException e) {
-					Log.e(DEBUG_TAG, "addNote:Exception", e);
-				}		
+				// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
+				String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+				URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
+				connection = openConnectionForWriteAccess(addNoteUrl, "POST", "text/xml");
+				OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
+						.defaultCharset());
+				// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
+				out.flush();
+				if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+					throwOsmServerException(connection);
+				}
+				parseBug(bug, connection.getInputStream());
 			} finally {
 				disconnect(connection);
 			}
 		}
-		return false;
 	}
 	
 	//TODO rewrite to XML encoding
@@ -1673,33 +1654,26 @@ public class Server {
 	 * Blocks until the request is complete.
 	 * @param bug The bug to close.
 	 * @return true if the bug was successfully closed.
+	 * @throws IOException 
+	 * @throws OsmServerException 
+	 * @throws XmlPullParserException 
 	 */
-	public boolean closeNote(Note bug) {
-		
+	public void closeNote(Note bug) throws OsmServerException, IOException, XmlPullParserException {
 		if (!bug.isNew()) {
 			Log.d(DEBUG_TAG, "closing note " + bug.getId());
 			HttpURLConnection connection = null;
 			try {
-				try {
-					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
-					URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
-					connection = openConnectionForWriteAccess(closeNoteUrl, "POST", "text/xml");
-					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throwUnexpectedRequestException(connection);
-					}
-					parseBug(bug, connection.getInputStream());
-					return true;
-				} catch (XmlPullParserException e) {
-					Log.e(DEBUG_TAG, "closeNote:Exception", e);
+				// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
+				URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
+				connection = openConnectionForWriteAccess(closeNoteUrl, "POST", "text/xml");
+				if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+					throwOsmServerException(connection);
 				}
-				catch (IOException e) {
-					Log.e(DEBUG_TAG, "closeNote:Exception", e);
-				} 
+				parseBug(bug, connection.getInputStream());
 			} finally {
 				disconnect(connection);
 			}
 		}
-		return false;
 	}
 	
 	/**
@@ -1707,34 +1681,34 @@ public class Server {
 	 * Blocks until the request is complete.
 	 * @param bug The bug to close.
 	 * @return true if the bug was successfully closed.
+	 * @throws IOException 
+	 * @throws OsmServerException
+	 * @throws XmlPullParserException 
 	 */
-	public boolean reopenNote(Note bug) {
-		
+	public void reopenNote(Note bug) throws OsmServerException, IOException, XmlPullParserException {
 		if (!bug.isNew()) {
 			Log.d(DEBUG_TAG, "reopen note " + bug.getId());
 			HttpURLConnection connection = null;
 			try {
-				try {
-					URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
-					connection = openConnectionForWriteAccess(reopenNoteUrl, "POST", "text/xml");
-					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throwUnexpectedRequestException(connection);
-					}
-					parseBug(bug, connection.getInputStream());
-					return true;
-				} catch (XmlPullParserException e) {
-					Log.e(DEBUG_TAG, "reopenNote:Exception", e);
+				URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
+				connection = openConnectionForWriteAccess(reopenNoteUrl, "POST", "text/xml");
+				if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+					throwOsmServerException(connection);
 				}
-				catch (IOException e) {
-					Log.e(DEBUG_TAG, "reopenNote:Exception", e);
-				} 
+				parseBug(bug, connection.getInputStream());
 			} finally {
 				disconnect(connection);
 			}
 		}
-		return false;
 	}
 	
+	/**
+	 * Parse a single OSm note (bug) from an InputStream
+	 * @param bug bug to parse in to
+	 * @param inputStream the input
+	 * @throws IOException
+	 * @throws XmlPullParserException
+	 */
 	private void parseBug(@NonNull Note bug, @NonNull InputStream inputStream)
 			throws IOException, XmlPullParserException {
 		XmlPullParser parser = xmlParserFactory.newPullParser();
@@ -1744,7 +1718,7 @@ public class Server {
 	}
 
 	/**
-	 * GPS track API
+	 * GPS track API visibility/
 	 */
 	public enum Visibility {
 		PRIVATE,
@@ -1754,13 +1728,17 @@ public class Server {
 	}
 	
 	/**
-	 * @throws IOException 
-	 * @throws ProtocolException 
-	 * @throws MalformedURLException 
-	 * @throws XmlPullParserException 
-	 * @throws IllegalStateException 
-	 * @throws IllegalArgumentException 
-	 
+	 * Upload a GPS track in GPX format
+	 * @param track the track	
+	 * @param description optional description
+	 * @param tags optional tags
+	 * @param visibility privacy/visibility setting
+	 * @throws MalformedURLException
+	 * @throws ProtocolException
+	 * @throws IOException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 * @throws XmlPullParserException
 	 */
 	public void uploadTrack(Track track, String description, String tags, Visibility visibility) throws MalformedURLException, ProtocolException, IOException, IllegalArgumentException, IllegalStateException, XmlPullParserException {
 		HttpURLConnection connection = null;
@@ -1792,7 +1770,7 @@ public class Server {
 			out.write("--"+boundary+"--\r\n");
 			out.flush();
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				throwUnexpectedRequestException(connection);
+				throwOsmServerException(connection);
 			}
 		} finally {
 			disconnect(connection);
@@ -1801,7 +1779,7 @@ public class Server {
 
 	/**
 	 * 
-	 * @return
+	 * @return true if we are using OAuth but have not retrieved the accesstoken yet
 	 */
 	public boolean needOAuthHandshake() {
 		return oauth && ((accesstoken == null) || (accesstokensecret == null)) ;
@@ -1815,15 +1793,47 @@ public class Server {
 		oauth = t;
 	}
 	
+	/**
+	 * 
+	 * @return true if oauth is enabled
+	 */
 	public boolean getOAuth() {
 		return oauth;
 	}
-
-	private void throwUnexpectedRequestException(@NonNull HttpURLConnection connection)
-			throws IOException {
-		String detailMessage = "The API server does not except the request: " + connection +
-				", response code: " + connection.getResponseCode() +
-				" \"" + connection.getResponseMessage() + "\"";
-		throw new OsmServerException(connection.getResponseCode(), detailMessage);
+	
+	/**
+	 * Construct and throw an OsmServerException from the connection to the server
+	 * @param connection connection to server
+	 * @throws IOException
+	 * @throws OsmServerException
+	 */
+	private void throwOsmServerException(final HttpURLConnection connection)
+			throws IOException, OsmServerException {
+		throwOsmServerException(connection, null, connection.getResponseCode());
 	}
+	
+	/**
+	 * Construct and throw an OsmServerException from the connection to the server
+	 * @param connection connection connection to server
+	 * @param e the OSM element that the error was caused by
+	 * @param responsecode code returen from server
+	 * @throws IOException
+	 * @throws OsmServerException
+	 */
+	private void throwOsmServerException(final HttpURLConnection connection, final OsmElement e, int responsecode)
+			throws IOException, OsmServerException {
+		String responseMessage = connection.getResponseMessage();
+		if (responseMessage == null) {
+			responseMessage = "";
+		}
+		InputStream in = connection.getErrorStream();
+		if (e == null) {
+			Log.d(DEBUG_TAG, "response message " + responseMessage);
+			throw new OsmServerException(responsecode, readStream(in));
+		} else {
+			throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), readStream(in));
+		}
+	}
+	
+	
 }

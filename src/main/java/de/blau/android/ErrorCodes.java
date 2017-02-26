@@ -1,6 +1,8 @@
 package de.blau.android;
 
 public class ErrorCodes {
+	public static final int OK = 0;
+	
 	public static final int NO_LOGIN_DATA = 1;
 
 	public static final int NO_CONNECTION = 2;
