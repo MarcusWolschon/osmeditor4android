@@ -105,8 +105,6 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	    	String errorMessage = null;
 	    	try {
 				oAuthHandshake(oauth_verifier);
-				setResult(RESULT_OK);
-		    	finish();
 			} catch (OAuthException e) {
 				errorMessage = OAuthHelper.getErrorMessage(this, e);		
 			} catch (InterruptedException e) {
@@ -116,7 +114,9 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			} catch (TimeoutException e) {
 				errorMessage = getString(R.string.toast_oauth_timeout);
 			}
-	    	Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+	    	if (errorMessage != null) {
+	    		Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+	    	}
 	    	setResult(RESULT_OK);
 	    	finish();
 	    }
