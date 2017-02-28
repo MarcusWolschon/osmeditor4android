@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -1151,13 +1152,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Menu menu = m;
 		if (getBottomBar() != null) {
 			menu = getBottomBar().getMenu();
-			android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
+			class MyOnMenuItemClickListener implements android.support.v7.widget.ActionMenuView.OnMenuItemClickListener, Serializable {
+				private static final long serialVersionUID = 1L;
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
 					return onOptionsItemSelected(item);
 				}	
-			};
-			getBottomBar().setOnMenuItemClickListener(listener);
+			}
+			getBottomBar().setOnMenuItemClickListener(new MyOnMenuItemClickListener());
 			Log.d(DEBUG_TAG,"inflated main menu on to bottom toolbar");
 		} 
 		if (menu.size() == 0) {
