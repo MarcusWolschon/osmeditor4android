@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -107,12 +109,16 @@ public class TagFilter extends Filter {
 				"filter = ?", new String[] {DEFAULT_FILTER}, null, null, null);
 		dbresult.moveToFirst();
 		for (int i = 0; i < dbresult.getCount(); i++) {
+			try {
 			filter.add(new FilterEntry(
 					dbresult.getInt(0) == 1,
 					dbresult.getString(1),
 					dbresult.getString(2),
 					dbresult.getString(3),
 					dbresult.getInt(4) == 1));
+			} catch (PatternSyntaxException psex) {
+				Toast.makeText(context, context.getString(R.string.toast_invalid_filter_regexp,dbresult.getString(2),dbresult.getString(3)), Toast.LENGTH_LONG).show();
+			}
 			dbresult.moveToNext();
 		}
 		dbresult.close();
