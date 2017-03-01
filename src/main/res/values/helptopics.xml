@@ -20,6 +20,7 @@
     <string name="help_conflictresolution">Conflict resolution</string>
     <string name="help_gpssources">GPS sources</string>
     <string name="help_keyboard">Keyboard</string>
+    <string name="help_tagfilter">Tag filter</string>
     <string name="help_upgrade">0.9.9 Release notes</string>
     <string name="help_upgrade_098">0.9.8 Release notes</string>
     <string name="help_upgrade_097">0.9.7 Release notes</string>
@@ -38,6 +39,7 @@
     	<item>@string/help_conflictresolution</item>
     	<item>@string/help_gpssources</item>
     	<item>@string/help_keyboard</item>
+    	<item>@string/help_tagfilter</item>
     	<item>@string/help_upgrade</item>
     	<item>@string/help_upgrade_098</item>
     	<item>@string/help_upgrade_097</item>

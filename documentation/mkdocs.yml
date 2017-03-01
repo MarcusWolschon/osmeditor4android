@@ -26,7 +26,8 @@ pages:
     - 'Presets': 'help/en/Presets.md' 
     - 'Aligning background imagery': 'help/en/Aligning background imagery.md'
     - 'Keyboard and mouse': 'help/en/Keyboard.md'  
-    - 'GPS sources': 'help/en/GPS sources.md'           
+    - 'GPS sources': 'help/en/GPS sources.md'
+    - 'Tag based filter': 'help/en/Tag filter.md'           
 - Tutorials and Posts:
     - 'Using name suggestions': 'tutorials/name_suggestions.md'
     - 'Reporting Vespucci issues': 'tutorials/reporting_issues.md'

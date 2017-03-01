@@ -1,5 +1,7 @@
 package de.blau.android.filter;
 
+import java.util.Locale;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -9,23 +11,41 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.ListActivity;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.NetworkStatus;
 
+/**
+ * Activity for editing filter entries.
+ * Due to the diffiulties in using a ListView for editable items, this is a rather hackish and inefficient,
+ * but given that we are only going to have a small number of items likely OK.
+ * @author simon
+ *
+ */
 public class TagFilterActivity extends ListActivity  {
 	private static final String DEBUG_TAG = "TagFilterActivity";
 	private static final String FILTER = "FILTER";
@@ -33,6 +53,7 @@ public class TagFilterActivity extends ListActivity  {
 	private String filter = null;
 	private SQLiteDatabase db;
 	private Cursor tagFilterCursor = null;
+	private TagFilterAdapter filterAdapter;
 	
 	public static void start(@NonNull Context context, String filter) {
 		Intent intent = new Intent(context, TagFilterActivity.class);
@@ -62,7 +83,7 @@ public class TagFilterActivity extends ListActivity  {
 		final SQLiteDatabase db = new TagFilterDatabaseHelper(this).getWritableDatabase();
 		this.db = db;
 		tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
-		final TagFilterAdapter filterAdapter = new TagFilterAdapter(this, tagFilterCursor);
+		filterAdapter = new TagFilterAdapter(this, tagFilterCursor);
 		
 		FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
 		if (add != null) {
@@ -74,6 +95,7 @@ public class TagFilterActivity extends ListActivity  {
 					tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
 					Cursor oldCursor = filterAdapter.swapCursor(tagFilterCursor);
 					oldCursor.close();
+					filterAdapter.notifyDataSetChanged();
 					Log.d(DEBUG_TAG,"button clicked");
 				}});
 			add.setVisibility(View.VISIBLE);
@@ -140,28 +162,22 @@ public class TagFilterActivity extends ListActivity  {
 	}
 	
 	@Override
+	public boolean onCreateOptionsMenu(final Menu menu) {
+		final MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.tagfilter_menu, menu);
+		return true;
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == android.R.id.home) {
-//			new AlertDialog.Builder(this)
-//			.setNeutralButton(R.string.cancel, null)
-//			.setNegativeButton(R.string.tag_menu_exit_no_save,        	
-//					new DialogInterface.OnClickListener() {
-//				@Override
-//				public void onClick(DialogInterface arg0, int arg1) {
-//					finish();
-//				}
-//			})
-//	        .setPositiveButton(R.string.save, 
-//	        	new DialogInterface.OnClickListener() {
-//		            @Override
-//					public void onClick(DialogInterface arg0, int arg1) {
-//		            	updateDatabaseFromList();
-//		                finish();
-//		            }
-//	        }).create().show();
+		switch (item.getItemId()) {
+		case android.R.id.home:
 			updateDatabaseFromList();
-            finish();
-			return true;
+			finish();
+			break;
+		case R.id.menu_help:
+			HelpViewer.start(this, R.string.help_tagfilter);
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -173,6 +189,7 @@ public class TagFilterActivity extends ListActivity  {
 	}
 	
 	private void updateDatabaseFromList() {
+		Log.d(DEBUG_TAG, "update DB");
         ListView lv = getListView();
         for (int i = 0; i < lv.getCount(); i++) {
             View view = lv.getChildAt(i);
@@ -190,17 +207,18 @@ public class TagFilterActivity extends ListActivity  {
 			super(context, cursor, 0);
 		}
 
-		// The newView method is used to inflate a new view and return it,
-		// you don't bind any data to the view at this point.
 		@Override
 		public View newView(Context context, Cursor cursor, ViewGroup parent) {
+			Log.d(DEBUG_TAG, "newView");
 			return LayoutInflater.from(context).inflate(R.layout.tagfilter_item, parent, false);
 		}
 
-		// The bindView method is used to bind all data to a given view
-		// such as setting the text on a TextView.
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
+			Log.d(DEBUG_TAG, "bindView");
+			final int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+			view.setTag(id);
+			Log.d(DEBUG_TAG, "bindView id " + id);
 			// Find fields to populate in inflated template
 			CheckBox active = (CheckBox) view.findViewById(R.id.active);
 			Spinner mode = (Spinner) view.findViewById(R.id.mode);
@@ -209,24 +227,80 @@ public class TagFilterActivity extends ListActivity  {
 			TextView valueView = (TextView) view.findViewById(R.id.value);
 			//
 			active.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("active"))==1);
+			active.setTag(id);
+			active.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton button, boolean isChecked) {
+					ContentValues values = new ContentValues();
+					values.put("active", isChecked ? 1 : 0);
+					db.update("filterentries", values, "rowid="+button.getTag(), null);
+					newCursor();
+					Log.d("TagFilterActivity","updated row " + button.getTag());
+				}
+			});
 			mode.setSelection(cursor.getInt(cursor.getColumnIndexOrThrow("include"))==1?1:0);
+			mode.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int position, long id2) {
+					ContentValues values = new ContentValues();
+					values.put("include", position==1 ? 1 : 0);
+					db.update("filterentries", values, "rowid="+id, null);
+					newCursor();
+					Log.d("TagFilterActivity","updated row " + id);
+				}
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
 			type.setSelection(getTypeEntryIndex(cursor.getString(cursor.getColumnIndexOrThrow("type"))));
+			type.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int position, long id2) {
+					ContentValues values = new ContentValues();
+					values.put("type", getTypeValue(position));
+					db.update("filterentries", values, "rowid="+id, null);
+					newCursor();
+					Log.d("TagFilterActivity","updated row " + id);
+				}
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
 			String key = cursor.getString(cursor.getColumnIndexOrThrow("key"));
 			keyView.setText(key);
+			keyView.setOnFocusChangeListener(new OnFocusChangeListener(){
+				@Override
+				public void onFocusChange(View editText, boolean hasFocus) {
+					if (!hasFocus) {
+						ContentValues values = new ContentValues();
+						values.put("key", ((EditText)editText).getText().toString());
+						db.update("filterentries", values, "rowid="+id, null);
+						// newCursor(); can't call that here or else focus goes crazy, relies on other elements forcing the update
+						Log.d("TagFilterActivity","updated row " + id);
+					}
+				}
+			});
 			String value = cursor.getString(cursor.getColumnIndexOrThrow("value"));
 			valueView.setText(value);
+			valueView.setOnFocusChangeListener(new OnFocusChangeListener(){
+				@Override
+				public void onFocusChange(View editText, boolean hasFocus) {
+					if (!hasFocus) {
+						ContentValues values = new ContentValues();
+						values.put("value", ((EditText)editText).getText().toString());
+						db.update("filterentries", values, "rowid="+id, null);
+						// newCursor(); can't call that here or else focus goes crazy, relies on other elements forcing the update
+						Log.d("TagFilterActivity","updated row " + id);
+					}
+				}
+			});
 			ImageButton delete = (ImageButton) view.findViewById(R.id.delete);
-			int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-			view.setTag(id);
-			delete.setTag(id);
 			delete.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					updateDatabaseFromList();
-					db.delete("filterentries", "rowid=" + v.getTag(), null);
-					Cursor newCursor = db.rawQuery(QUERY + filter + "'", null);
-					Cursor oldCursor = TagFilterAdapter.this.swapCursor(newCursor);
-					oldCursor.close();
+					db.delete("filterentries", "rowid=" + id, null);
+					newCursor();
 					Log.d("TagFilterActivity","delete clicked");
 				}});
 		}
@@ -248,5 +322,11 @@ public class TagFilterActivity extends ListActivity  {
 		Resources r = getResources();
 		String[] values = r.getStringArray(R.array.tagfilter_type_values);
 		return values[index];
+	}
+
+	private void newCursor() {
+		Cursor newCursor = db.rawQuery(QUERY + filter + "'", null);
+		Cursor oldCursor = filterAdapter.swapCursor(newCursor);
+		oldCursor.close();
 	}
 }
