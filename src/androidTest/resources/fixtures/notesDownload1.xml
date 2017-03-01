@@ -1,0 +1,2752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+<note lon="-0.2124547" lat="51.5469454">
+  <id>907807</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/907807</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/907807/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/907807/close</close_url>
+  <date_created>2017-02-27 10:55:28 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-27 10:55:28 UTC</date>
+      <uid>5395477</uid>
+      <user>Margaux Betty</user>
+      <user_url>http://api.openstreetmap.org/user/Margaux%20Betty</user_url>
+      <action>opened</action>
+      <text>Vickies donuts (OSM data version: 2016-07-15T17:38:02Z) #mapsme</text>
+      <html>&lt;p&gt;Vickies donuts (OSM data version: 2016-07-15T17:38:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-27 14:02:41 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>If its the site at https://www.vickysdonuts.com then "The nearest stations are Dalston Junction and Dalston Kingsland" so it's not here.
+.
+Either way, its unwise to map it unless there's a prominent "Vicky's Donuts" sign visible from the road. If there's not, then there's nothing physical to map -- and probably the business doesn't want uninvited callers.</text>
+      <html>&lt;p&gt;If its the site at &lt;a href="https://www.vickysdonuts.com" rel="nofollow"&gt;https://www.vickysdonuts.com&lt;/a&gt; then "The nearest stations are Dalston Junction and Dalston Kingsland" so it's not here.
+&lt;br /&gt;.
+&lt;br /&gt;Either way, its unwise to map it unless there's a prominent "Vicky's Donuts" sign visible from the road. If there's not, then there's nothing physical to map -- and probably the business doesn't want uninvited callers.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.2248925" lat="51.609369">
+  <id>503744</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/503744</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/503744/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/503744/close</close_url>
+  <date_created>2016-01-25 14:35:01 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2016-01-25 14:35:01 UTC</date>
+      <uid>3563430</uid>
+      <user>PeterCom</user>
+      <user_url>http://api.openstreetmap.org/user/PeterCom</user_url>
+      <action>opened</action>
+      <text>Featherstone Road Allotments</text>
+      <html>&lt;p&gt;Featherstone Road Allotments&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2016-01-25 14:37:17 UTC</date>
+      <uid>3563430</uid>
+      <user>PeterCom</user>
+      <user_url>http://api.openstreetmap.org/user/PeterCom</user_url>
+      <action>closed</action>
+      <text>at the moment it is a green patch with Wise Lane on it.</text>
+      <html>&lt;p&gt;at the moment it is a green patch with Wise Lane on it.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2016-01-25 14:39:03 UTC</date>
+      <uid>3563430</uid>
+      <user>PeterCom</user>
+      <user_url>http://api.openstreetmap.org/user/PeterCom</user_url>
+      <action>reopened</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-27 10:28:56 UTC</date>
+      <uid>508</uid>
+      <user>Welshie</user>
+      <user_url>http://api.openstreetmap.org/user/Welshie</user_url>
+      <action>commented</action>
+      <text>The Wise Lane allotments are called Wise Lane, according to http://www.barnetallotments.org.uk/sitelist.php?site=Wise%20Lane</text>
+      <html>&lt;p&gt;The Wise Lane allotments are called Wise Lane, according to &lt;a href="http://www.barnetallotments.org.uk/sitelist.php?site=Wise%20Lane" rel="nofollow"&gt;http://www.barnetallotments.org.uk/sitelist.php?site=Wise%20Lane&lt;/a&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-27 13:44:05 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>Marker position is unlikely to be allotments. They seem to be people's back gardens.</text>
+      <html>&lt;p&gt;Marker position is unlikely to be allotments. They seem to be people's back gardens.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1307952" lat="51.4289892">
+  <id>315591</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/315591</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/315591/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/315591/close</close_url>
+  <date_created>2015-02-12 19:43:58 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2015-02-12 19:43:58 UTC</date>
+      <uid>84681</uid>
+      <user>SK53</user>
+      <user_url>http://api.openstreetmap.org/user/SK53</user_url>
+      <action>opened</action>
+      <text>South London Islamic Centre is in Streatham (in news recently), a basic trawl through unmapped PoWs on OS StreetView might find it.</text>
+      <html>&lt;p&gt;South London Islamic Centre is in Streatham (in news recently), a basic trawl through unmapped PoWs on OS StreetView might find it.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-27 12:00:16 UTC</date>
+      <uid>629478</uid>
+      <user>azahar</user>
+      <user_url>http://api.openstreetmap.org/user/azahar</user_url>
+      <action>commented</action>
+      <text>This is actually on Mitcham Lane next to the Catholic Church</text>
+      <html>&lt;p&gt;This is actually on Mitcham Lane next to the Catholic Church&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1321482" lat="51.6479794">
+  <id>219681</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/219681</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/219681/reopen</reopen_url>
+  <date_created>2014-08-15 13:39:35 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-27 11:15:31 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2014-08-15 13:39:35 UTC</date>
+      <action>opened</action>
+      <text>cycletrach on pavement</text>
+      <html>&lt;p&gt;cycletrach on pavement&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-27 11:15:31 UTC</date>
+      <uid>508</uid>
+      <user>Welshie</user>
+      <user_url>http://api.openstreetmap.org/user/Welshie</user_url>
+      <action>closed</action>
+      <text>mapped cycle path on pavement, and connected to cycle route relations</text>
+      <html>&lt;p&gt;mapped cycle path on pavement, and connected to cycle route relations&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.2052037" lat="51.5150284">
+  <id>907808</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/907808</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/907808/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/907808/close</close_url>
+  <date_created>2017-02-27 10:55:29 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-27 10:55:29 UTC</date>
+      <uid>5395477</uid>
+      <user>Margaux Betty</user>
+      <user_url>http://api.openstreetmap.org/user/Margaux%20Betty</user_url>
+      <action>opened</action>
+      <text>Maisons pastel (OSM data version: 2016-07-15T17:38:02Z) #mapsme</text>
+      <html>&lt;p&gt;Maisons pastel (OSM data version: 2016-07-15T17:38:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.2010866" lat="51.4753034">
+  <id>907806</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/907806</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/907806/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/907806/close</close_url>
+  <date_created>2017-02-27 10:55:28 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-27 10:55:28 UTC</date>
+      <uid>5395477</uid>
+      <user>Margaux Betty</user>
+      <user_url>http://api.openstreetmap.org/user/Margaux%20Betty</user_url>
+      <action>opened</action>
+      <text>Maisons roses (OSM data version: 2016-07-15T17:38:02Z) #mapsme</text>
+      <html>&lt;p&gt;Maisons roses (OSM data version: 2016-07-15T17:38:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1584059" lat="51.5815349">
+  <id>215512</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/215512</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/215512/reopen</reopen_url>
+  <date_created>2014-08-09 22:25:28 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-27 10:43:30 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2014-08-09 22:25:28 UTC</date>
+      <uid>178777</uid>
+      <user>kemcho</user>
+      <user_url>http://api.openstreetmap.org/user/kemcho</user_url>
+      <action>opened</action>
+      <text>Exact location of junction needs resurveying.</text>
+      <html>&lt;p&gt;Exact location of junction needs resurveying.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-27 10:43:30 UTC</date>
+      <uid>508</uid>
+      <user>Welshie</user>
+      <user_url>http://api.openstreetmap.org/user/Welshie</user_url>
+      <action>closed</action>
+      <text>It was in the right place, but tweaked approach to junction a bit.</text>
+      <html>&lt;p&gt;It was in the right place, but tweaked approach to junction a bit.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1671271" lat="51.5933496">
+  <id>855583</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/855583</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/855583/reopen</reopen_url>
+  <date_created>2017-01-18 16:49:28 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-27 10:33:25 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-01-18 16:49:28 UTC</date>
+      <uid>61942</uid>
+      <user>SomeoneElse</user>
+      <user_url>http://api.openstreetmap.org/user/SomeoneElse</user_url>
+      <action>opened</action>
+      <text>http://www.openstreetmap.org/node/4556243890 was added by a MAPS.ME user.  It's likely a shop=music rather than a shop=gift.  Needs survey.</text>
+      <html>&lt;p&gt;&lt;a href="http://www.openstreetmap.org/node/4556243890" rel="nofollow"&gt;http://www.openstreetmap.org/node/4556243890&lt;/a&gt; was added by a MAPS.ME user.  It's likely a shop=music rather than a shop=gift.  Needs survey.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-27 10:33:25 UTC</date>
+      <uid>508</uid>
+      <user>Welshie</user>
+      <user_url>http://api.openstreetmap.org/user/Welshie</user_url>
+      <action>closed</action>
+      <text>Confirmed, it's a music shop, and changed the name to match the shop frontage.</text>
+      <html>&lt;p&gt;Confirmed, it's a music shop, and changed the name to match the shop frontage.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.3059507" lat="51.4426537">
+  <id>905970</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/905970</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/905970/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/905970/close</close_url>
+  <date_created>2017-02-25 20:35:55 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-25 20:35:55 UTC</date>
+      <uid>5234013</uid>
+      <user>amunizp</user>
+      <user_url>http://api.openstreetmap.org/user/amunizp</user_url>
+      <action>opened</action>
+      <text>Some paths uploaded</text>
+      <html>&lt;p&gt;Some paths uploaded&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-27 08:41:41 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>Always good to have more paths added :)
+.
+Is any further action required? If not you can "resolve" the note.</text>
+      <html>&lt;p&gt;Always good to have more paths added :)
+&lt;br /&gt;.
+&lt;br /&gt;Is any further action required? If not you can "resolve" the note.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.3283344" lat="51.4493217">
+  <id>905971</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/905971</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/905971/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/905971/close</close_url>
+  <date_created>2017-02-25 20:40:02 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-25 20:40:03 UTC</date>
+      <uid>5234013</uid>
+      <user>amunizp</user>
+      <user_url>http://api.openstreetmap.org/user/amunizp</user_url>
+      <action>opened</action>
+      <text>Local rute</text>
+      <html>&lt;p&gt;Local rute&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-27 08:39:57 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>Can you give some more information on this. Does it refer to the nearby footpath and does the route have an official name or identification?</text>
+      <html>&lt;p&gt;Can you give some more information on this. Does it refer to the nearby footpath and does the route have an official name or identification?&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1397766" lat="51.5217463">
+  <id>853865</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/853865</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/853865/reopen</reopen_url>
+  <date_created>2017-01-17 02:51:36 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-26 22:21:40 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-01-17 02:51:36 UTC</date>
+      <uid>4621281</uid>
+      <user>Ana Maria Sack</user>
+      <user_url>http://api.openstreetmap.org/user/Ana%20Maria%20Sack</user_url>
+      <action>opened</action>
+      <text>hotel (OSM data version: 2016-12-14T16:41:03Z) #mapsme</text>
+      <html>&lt;p&gt;hotel (OSM data version: 2016-12-14T16:41:03Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-01-17 19:16:59 UTC</date>
+      <action>commented</action>
+      <text>Does this hotel have a name? </text>
+      <html>&lt;p&gt;Does this hotel have a name? &lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-26 22:21:40 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text>There is no hotel here.  None of the buildings on this section of the street have any hotel signage.</text>
+      <html>&lt;p&gt;There is no hotel here.  None of the buildings on this section of the street have any hotel signage.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1397766" lat="51.5217463">
+  <id>853860</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/853860</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/853860/reopen</reopen_url>
+  <date_created>2017-01-17 02:44:13 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-26 22:20:34 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-01-17 02:44:13 UTC</date>
+      <uid>4621281</uid>
+      <user>Ana Maria Sack</user>
+      <user_url>http://api.openstreetmap.org/user/Ana%20Maria%20Sack</user_url>
+      <action>opened</action>
+      <text>hotel (OSM data version: 2016-12-14T16:41:03Z) #mapsme</text>
+      <html>&lt;p&gt;hotel (OSM data version: 2016-12-14T16:41:03Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-01-17 13:19:06 UTC</date>
+      <action>commented</action>
+      <text>Does this hotel have a name?</text>
+      <html>&lt;p&gt;Does this hotel have a name?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-26 22:20:34 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text>There is no hotel here.  None of the buildings on this segment of the street have any hotel signage.</text>
+      <html>&lt;p&gt;There is no hotel here.  None of the buildings on this segment of the street have any hotel signage.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1038" lat="51.49856">
+  <id>904961</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/904961</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/904961/reopen</reopen_url>
+  <date_created>2017-02-24 22:12:31 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-26 21:56:27 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-24 22:12:31 UTC</date>
+      <action>opened</action>
+      <text>就是这个地方</text>
+      <html>&lt;p&gt;就是这个地方&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-25 00:25:35 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>Google translates as "Is this place". Can somebody do better?</text>
+      <html>&lt;p&gt;Google translates as "Is this place". Can somebody do better?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-26 21:56:27 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text>Better translation at https://www.translate.com/ "This is the place". Not an appropriate note for OSM.</text>
+      <html>&lt;p&gt;Better translation at &lt;a href="https://www.translate.com/" rel="nofollow"&gt;https://www.translate.com/&lt;/a&gt; "This is the place". Not an appropriate note for OSM.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.4450563" lat="51.4562326">
+  <id>907208</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/907208</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/907208/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/907208/close</close_url>
+  <date_created>2017-02-26 21:07:25 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-26 21:07:25 UTC</date>
+      <uid>5392191</uid>
+      <user>Kim R</user>
+      <user_url>http://api.openstreetmap.org/user/Kim%20R</user_url>
+      <action>opened</action>
+      <text>Arbeit (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;Arbeit (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.4450563" lat="51.4562326">
+  <id>907207</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/907207</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/907207/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/907207/close</close_url>
+  <date_created>2017-02-26 21:07:21 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-26 21:07:21 UTC</date>
+      <uid>5392191</uid>
+      <user>Kim R</user>
+      <user_url>http://api.openstreetmap.org/user/Kim%20R</user_url>
+      <action>opened</action>
+      <text>Arbeit (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;Arbeit (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.4450563" lat="51.4562326">
+  <id>907206</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/907206</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/907206/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/907206/close</close_url>
+  <date_created>2017-02-26 21:07:21 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-26 21:07:21 UTC</date>
+      <uid>5392191</uid>
+      <user>Kim R</user>
+      <user_url>http://api.openstreetmap.org/user/Kim%20R</user_url>
+      <action>opened</action>
+      <text>Arbeit (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;Arbeit (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.274698" lat="51.661885">
+  <id>768209</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/768209</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/768209/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/768209/close</close_url>
+  <date_created>2016-10-31 21:58:41 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2016-10-31 21:58:41 UTC</date>
+      <action>opened</action>
+      <text>Missing barrier:
+
+This error is submitted from Navmii GPS.</text>
+      <html>&lt;p&gt;Missing barrier:&lt;/p&gt;
+
+&lt;p&gt;This error is submitted from Navmii GPS.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-26 17:43:25 UTC</date>
+      <uid>508</uid>
+      <user>Welshie</user>
+      <user_url>http://api.openstreetmap.org/user/Welshie</user_url>
+      <action>commented</action>
+      <text>Need more information, last time I drove along this road, a few weeks ago, I didn't see a barrier.</text>
+      <html>&lt;p&gt;Need more information, last time I drove along this road, a few weeks ago, I didn't see a barrier.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.2146239" lat="51.6508261">
+  <id>873265</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/873265</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/873265/reopen</reopen_url>
+  <date_created>2017-01-30 06:57:11 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-26 17:36:56 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-01-30 06:57:12 UTC</date>
+      <uid>5154614</uid>
+      <user>hobofragginz</user>
+      <user_url>http://api.openstreetmap.org/user/hobofragginz</user_url>
+      <action>opened</action>
+      <text>Barnet Hospital, Wellhouse Lane, Barnet, Hertfordshire, EN5 3DJ 
+Tel: 020 8216 4600</text>
+      <html>&lt;p&gt;Barnet Hospital, Wellhouse Lane, Barnet, Hertfordshire, EN5 3DJ 
+&lt;br /&gt;Tel: 020 8216 4600&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-01-30 06:57:30 UTC</date>
+      <uid>5154614</uid>
+      <user>hobofragginz</user>
+      <user_url>http://api.openstreetmap.org/user/hobofragginz</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-01-30 06:58:54 UTC</date>
+      <uid>5154614</uid>
+      <user>hobofragginz</user>
+      <user_url>http://api.openstreetmap.org/user/hobofragginz</user_url>
+      <action>reopened</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-26 17:36:56 UTC</date>
+      <uid>508</uid>
+      <user>Welshie</user>
+      <user_url>http://api.openstreetmap.org/user/Welshie</user_url>
+      <action>closed</action>
+      <text>Address and phone number recorded</text>
+      <html>&lt;p&gt;Address and phone number recorded&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1934838" lat="51.6503136">
+  <id>755160</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/755160</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/755160/reopen</reopen_url>
+  <date_created>2016-10-20 21:47:16 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-26 17:33:56 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-10-20 21:47:16 UTC</date>
+      <action>opened</action>
+      <text>According to http://content.tfl.gov.uk/toilets-map.pdf there is a toilet at this station, but it is not currently mapped on OSM. It would be helpful if any editor who has to wait here could investigate its position and map it, together with a text description eg platform 2 and add access=customers if it's inside the ticket barriers, or access=yes if it's outside.</text>
+      <html>&lt;p&gt;According to &lt;a href="http://content.tfl.gov.uk/toilets-map.pdf" rel="nofollow"&gt;http://content.tfl.gov.uk/toilets-map.pdf&lt;/a&gt; there is a toilet at this station, but it is not currently mapped on OSM. It would be helpful if any editor who has to wait here could investigate its position and map it, together with a text description eg platform 2 and add access=customers if it's inside the ticket barriers, or access=yes if it's outside.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-26 17:33:57 UTC</date>
+      <uid>508</uid>
+      <user>Welshie</user>
+      <user_url>http://api.openstreetmap.org/user/Welshie</user_url>
+      <action>closed</action>
+      <text>Toilets mapped</text>
+      <html>&lt;p&gt;Toilets mapped&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0127673" lat="51.4911907">
+  <id>906866</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/906866</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/906866/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/906866/close</close_url>
+  <date_created>2017-02-26 15:23:54 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-26 15:23:54 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>opened</action>
+      <text>Isle of Dogs and District Allotment Society (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;Isle of Dogs and District Allotment Society (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.191837" lat="51.6228043">
+  <id>571338</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/571338</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/571338/reopen</reopen_url>
+  <date_created>2016-05-22 18:03:08 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-26 12:38:38 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-05-22 18:03:08 UTC</date>
+      <uid>3997561</uid>
+      <user>Haroon Bashir</user>
+      <user_url>http://api.openstreetmap.org/user/Haroon%20Bashir</user_url>
+      <action>opened</action>
+      <text>82 Southover, London N12 7HD was not showing the correct location on the map. Now the marker has been moved to show the correct location. Please update the records.</text>
+      <html>&lt;p&gt;82 Southover, London N12 7HD was not showing the correct location on the map. Now the marker has been moved to show the correct location. Please update the records.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-26 12:38:38 UTC</date>
+      <uid>508</uid>
+      <user>Welshie</user>
+      <user_url>http://api.openstreetmap.org/user/Welshie</user_url>
+      <action>closed</action>
+      <text>Numbererd houses on Southover</text>
+      <html>&lt;p&gt;Numbererd houses on Southover&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1862848" lat="51.517097">
+  <id>904184</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/904184</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/904184/reopen</reopen_url>
+  <date_created>2017-02-24 10:31:34 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-25 22:45:20 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-24 10:31:34 UTC</date>
+      <uid>5377693</uid>
+      <user>Paddington Handyman</user>
+      <user_url>http://api.openstreetmap.org/user/Paddington%20Handyman</user_url>
+      <action>opened</action>
+      <text>Paddington Handyman
+157 Porchester Terrace North ,  W2 6BH
+02038598772</text>
+      <html>&lt;p&gt;Paddington Handyman
+&lt;br /&gt;157 Porchester Terrace North ,  W2 6BH
+&lt;br /&gt;02038598772&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-24 13:06:37 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>This looks like a residential area. Does the business have a shop, or a substantial sign visible from the street? OSM is for mapping physical features, not promoting advertisements from assorted work-from-home tradesmen.</text>
+      <html>&lt;p&gt;This looks like a residential area. Does the business have a shop, or a substantial sign visible from the street? OSM is for mapping physical features, not promoting advertisements from assorted work-from-home tradesmen.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-25 22:45:20 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.184658" lat="51.5507893">
+  <id>905912</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/905912</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/905912/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/905912/close</close_url>
+  <date_created>2017-02-25 19:41:53 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-25 19:41:53 UTC</date>
+      <uid>61942</uid>
+      <user>SomeoneElse</user>
+      <user_url>http://api.openstreetmap.org/user/SomeoneElse</user_url>
+      <action>opened</action>
+      <text>Is https://www.openstreetmap.org/node/4600840989 really a mobile phone shop here?</text>
+      <html>&lt;p&gt;Is &lt;a href="https://www.openstreetmap.org/node/4600840989" rel="nofollow"&gt;https://www.openstreetmap.org/node/4600840989&lt;/a&gt; really a mobile phone shop here?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-25 21:48:44 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>Probably not *in* the JW building, though possible I suppose.
+.
+But there's a small building close by, visible on bing, on the other side of fence at back of JW abd now drawn in. More likely to be there, I suspect. Needs a look around.</text>
+      <html>&lt;p&gt;Probably not *in* the JW building, though possible I suppose.
+&lt;br /&gt;.
+&lt;br /&gt;But there's a small building close by, visible on bing, on the other side of fence at back of JW abd now drawn in. More likely to be there, I suspect. Needs a look around.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.150283" lat="51.522928">
+  <id>905934</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/905934</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/905934/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/905934/close</close_url>
+  <date_created>2017-02-25 20:09:32 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-25 20:09:32 UTC</date>
+      <action>opened</action>
+      <text>Onvolledig adres:
+
+Deze fout werd verzonden via de Navmii-gps.</text>
+      <html>&lt;p&gt;Onvolledig adres:&lt;/p&gt;
+
+&lt;p&gt;Deze fout werd verzonden via de Navmii-gps.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-25 20:14:00 UTC</date>
+      <uid>37137</uid>
+      <user>Derick Rethans</user>
+      <user_url>http://api.openstreetmap.org/user/Derick%20Rethans</user_url>
+      <action>commented</action>
+      <text>In English this says "Incomplete address" - but that's not very useful.
+
+Which address is incomplete?</text>
+      <html>&lt;p&gt;In English this says "Incomplete address" - but that's not very useful.&lt;/p&gt;
+
+&lt;p&gt;Which address is incomplete?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-25 21:35:15 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>I'm guessing at London Clinic and have added address data. But I note there's another London Clinic "under construction" since 2013 on the opposite side of the road so it would help if somebody could check for possible completion.</text>
+      <html>&lt;p&gt;I'm guessing at London Clinic and have added address data. But I note there's another London Clinic "under construction" since 2013 on the opposite side of the road so it would help if somebody could check for possible completion.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.36998" lat="51.44124">
+  <id>905549</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/905549</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/905549/reopen</reopen_url>
+  <date_created>2017-02-25 14:18:18 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-25 14:31:24 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-25 14:18:18 UTC</date>
+      <action>opened</action>
+      <text>1
+</text>
+      <html>&lt;p&gt;1
+&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-25 14:31:24 UTC</date>
+      <uid>12355</uid>
+      <user>chillly</user>
+      <user_url>http://api.openstreetmap.org/user/chillly</user_url>
+      <action>closed</action>
+      <text>Notes are intended to help improve OSM data. '1' doesn't do that</text>
+      <html>&lt;p&gt;Notes are intended to help improve OSM data. '1' doesn't do that&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.10366" lat="51.49856">
+  <id>904962</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/904962</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/904962/reopen</reopen_url>
+  <date_created>2017-02-24 22:13:04 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-25 09:28:19 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-24 22:13:04 UTC</date>
+      <action>opened</action>
+      <text>ok</text>
+      <html>&lt;p&gt;ok&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-25 09:28:19 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.0057077" lat="51.5132496">
+  <id>904284</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/904284</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/904284/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/904284/close</close_url>
+  <date_created>2017-02-24 12:09:57 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-24 12:09:57 UTC</date>
+      <uid>486343</uid>
+      <user>peregrination</user>
+      <user_url>http://api.openstreetmap.org/user/peregrination</user_url>
+      <action>opened</action>
+      <text>buildings on the north-west side are now completed</text>
+      <html>&lt;p&gt;buildings on the north-west side are now completed&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.26393" lat="51.59428">
+  <id>904000</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/904000</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/904000/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/904000/close</close_url>
+  <date_created>2017-02-24 08:08:50 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-24 08:08:50 UTC</date>
+      <action>opened</action>
+      <text>Avery Court</text>
+      <html>&lt;p&gt;Avery Court&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-24 10:41:12 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>I've added some missing buildings near your marker. Can you confirm which building is Avery Court ?</text>
+      <html>&lt;p&gt;I've added some missing buildings near your marker. Can you confirm which building is Avery Court ?&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1148187" lat="51.4769606">
+  <id>903687</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/903687</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/903687/reopen</reopen_url>
+  <date_created>2017-02-23 23:15:19 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-24 07:28:50 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-23 23:15:19 UTC</date>
+      <uid>4675687</uid>
+      <user>ofensalat</user>
+      <user_url>http://api.openstreetmap.org/user/ofensalat</user_url>
+      <action>opened</action>
+      <text>The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "No hospital exists at that place, and no "St. God's" exists anywhere in the vicinity " (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "No hospital exists at that place, and no "St. God's" exists anywhere in the vicinity " (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-24 07:28:50 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text>Well spotted. It's an impossible place for a hospital (in the middle of a junction). Not sure whether its an error or someobody's idea of a joke but it was actually created with the comment "delete me". 
+.
+So, that's what I've done :)</text>
+      <html>&lt;p&gt;Well spotted. It's an impossible place for a hospital (in the middle of a junction). Not sure whether its an error or someobody's idea of a joke but it was actually created with the comment "delete me". 
+&lt;br /&gt;.
+&lt;br /&gt;So, that's what I've done :)&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.076687" lat="51.5263077">
+  <id>903544</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/903544</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/903544/reopen</reopen_url>
+  <date_created>2017-02-23 20:46:59 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-23 23:00:58 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-23 20:46:59 UTC</date>
+      <uid>5217748</uid>
+      <user>A Browne (Al_B)</user>
+      <user_url>http://api.openstreetmap.org/user/A%20Browne%20(Al_B)</user_url>
+      <action>opened</action>
+      <text>start here (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;start here (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-23 23:00:58 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text>SPAM</text>
+      <html>&lt;p&gt;SPAM&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.270924" lat="51.36903">
+  <id>903412</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/903412</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/903412/reopen</reopen_url>
+  <date_created>2017-02-23 18:21:27 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-23 18:35:24 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-23 18:21:27 UTC</date>
+      <action>opened</action>
+      <text>Other:
+
+This error is submitted from Navmii GPS.</text>
+      <html>&lt;p&gt;Other:&lt;/p&gt;
+
+&lt;p&gt;This error is submitted from Navmii GPS.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-23 18:35:24 UTC</date>
+      <uid>12992</uid>
+      <user>trigpoint</user>
+      <user_url>http://api.openstreetmap.org/user/trigpoint</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1763418" lat="51.5155698">
+  <id>903084</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/903084</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/903084/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/903084/close</close_url>
+  <date_created>2017-02-23 12:36:56 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-23 12:36:56 UTC</date>
+      <uid>1878856</uid>
+      <user>yourealwaysbe</user>
+      <user_url>http://api.openstreetmap.org/user/yourealwaysbe</user_url>
+      <action>opened</action>
+      <text>I think these shops are out of date and out of place and were in the area a little northwards, between Tournament House and the Hilton (where Boots/Leon/&amp;c are now).</text>
+      <html>&lt;p&gt;I think these shops are out of date and out of place and were in the area a little northwards, between Tournament House and the Hilton (where Boots/Leon/&amp;amp;c are now).&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.2067661" lat="51.4212842">
+  <id>902476</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/902476</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/902476/reopen</reopen_url>
+  <date_created>2017-02-22 22:40:47 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-22 23:34:42 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-22 22:40:47 UTC</date>
+      <uid>5367701</uid>
+      <user>Lostime888</user>
+      <user_url>http://api.openstreetmap.org/user/Lostime888</user_url>
+      <action>opened</action>
+      <text>Wimbledon station</text>
+      <html>&lt;p&gt;Wimbledon station&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-22 23:34:42 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text>Is already mapped on OSM.</text>
+      <html>&lt;p&gt;Is already mapped on OSM.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.2060419" lat="51.4208979">
+  <id>902477</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/902477</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/902477/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/902477/close</close_url>
+  <date_created>2017-02-22 22:41:48 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-22 22:41:48 UTC</date>
+      <uid>5367701</uid>
+      <user>Lostime888</user>
+      <user_url>http://api.openstreetmap.org/user/Lostime888</user_url>
+      <action>opened</action>
+      <text>Wimbledon station side entrance</text>
+      <html>&lt;p&gt;Wimbledon station side entrance&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.0197947" lat="51.5026655">
+  <id>791242</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/791242</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/791242/reopen</reopen_url>
+  <date_created>2016-11-21 16:36:06 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-22 15:54:31 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-11-21 16:36:06 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>opened</action>
+      <text>This brownfield area is now Peruvian Wharf, which looks like it'll be a residential and harbour development.
+
+See also:
+
+http://royalwharfnews.com/posts/new-details-of-peruvian-wharf-released-royal-wharfs-future-neighbour
+
+http://www.newhamrecorder.co.uk/peruvian_wharf_to_bring_cargo_handling_back_to_the_royal_docks_1_4784959</text>
+      <html>&lt;p&gt;This brownfield area is now Peruvian Wharf, which looks like it'll be a residential and harbour development.&lt;/p&gt;
+
+&lt;p&gt;See also:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://royalwharfnews.com/posts/new-details-of-peruvian-wharf-released-royal-wharfs-future-neighbour" rel="nofollow"&gt;http://royalwharfnews.com/posts/new-details-of-peruvian-wharf-released-royal-wharfs-future-neighbour&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.newhamrecorder.co.uk/peruvian_wharf_to_bring_cargo_handling_back_to_the_royal_docks_1_4784959" rel="nofollow"&gt;http://www.newhamrecorder.co.uk/peruvian_wharf_to_bring_cargo_handling_back_to_the_royal_docks_1_4784959&lt;/a&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-19 03:33:32 UTC</date>
+      <uid>5159591</uid>
+      <user>Erol Sari</user>
+      <user_url>http://api.openstreetmap.org/user/Erol%20Sari</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-19 03:33:42 UTC</date>
+      <uid>5159591</uid>
+      <user>Erol Sari</user>
+      <user_url>http://api.openstreetmap.org/user/Erol%20Sari</user_url>
+      <action>reopened</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-19 03:34:27 UTC</date>
+      <uid>5159591</uid>
+      <user>Erol Sari</user>
+      <user_url>http://api.openstreetmap.org/user/Erol%20Sari</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-19 16:44:24 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>reopened</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-22 15:54:32 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.5089693" lat="51.4329971">
+  <id>901216</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/901216</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/901216/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/901216/close</close_url>
+  <date_created>2017-02-22 00:00:40 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-22 00:00:40 UTC</date>
+      <uid>471430</uid>
+      <user>Domen Puncer Kugler</user>
+      <user_url>http://api.openstreetmap.org/user/Domen%20Puncer%20Kugler</user_url>
+      <action>opened</action>
+      <text>old place closed. steam shop and cafe opened (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;old place closed. steam shop and cafe opened (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0690977" lat="51.5173961">
+  <id>901075</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/901075</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/901075/reopen</reopen_url>
+  <date_created>2017-02-21 21:21:55 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 22:09:50 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-21 21:21:55 UTC</date>
+      <uid>5360820</uid>
+      <user>Fabi Bonino</user>
+      <user_url>http://api.openstreetmap.org/user/Fabi%20Bonino</user_url>
+      <action>opened</action>
+      <text>depto (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;depto (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 22:09:50 UTC</date>
+      <uid>12992</uid>
+      <user>trigpoint</user>
+      <user_url>http://api.openstreetmap.org/user/trigpoint</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0690977" lat="51.5173961">
+  <id>901087</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/901087</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/901087/reopen</reopen_url>
+  <date_created>2017-02-21 21:41:17 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 22:09:21 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-21 21:41:17 UTC</date>
+      <uid>5360820</uid>
+      <user>Fabi Bonino</user>
+      <user_url>http://api.openstreetmap.org/user/Fabi%20Bonino</user_url>
+      <action>opened</action>
+      <text>depto (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;depto (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 22:09:21 UTC</date>
+      <uid>12992</uid>
+      <user>trigpoint</user>
+      <user_url>http://api.openstreetmap.org/user/trigpoint</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1315124" lat="51.5230807">
+  <id>675213</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/675213</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/675213/reopen</reopen_url>
+  <date_created>2016-08-17 10:27:12 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 21:37:58 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-08-17 10:27:12 UTC</date>
+      <uid>491515</uid>
+      <user>robertogeb</user>
+      <user_url>http://api.openstreetmap.org/user/robertogeb</user_url>
+      <action>opened</action>
+      <text>building name is Byng Place</text>
+      <html>&lt;p&gt;building name is Byng Place&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 21:37:59 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1400636" lat="51.5183883">
+  <id>842617</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/842617</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/842617/reopen</reopen_url>
+  <date_created>2017-01-05 20:06:07 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 21:33:48 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-01-05 20:06:07 UTC</date>
+      <uid>2958964</uid>
+      <user>tmccleery727</user>
+      <user_url>http://api.openstreetmap.org/user/tmccleery727</user_url>
+      <action>opened</action>
+      <text>shortened name from home slice to homeslice and removed pizza from name (OSM data version: 2016-12-14T16:41:03Z) #mapsme</text>
+      <html>&lt;p&gt;shortened name from home slice to homeslice and removed pizza from name (OSM data version: 2016-12-14T16:41:03Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 21:33:48 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.136959" lat="51.5217252">
+  <id>459336</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/459336</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/459336/reopen</reopen_url>
+  <date_created>2015-10-28 17:05:38 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 19:48:36 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2015-10-28 17:05:38 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>opened</action>
+      <text>There are a couple of big lumps of electrical infrastructure here, which have forced a small diversion of the cycle lane.   They are sitting in the (former) roadway on a huge concrete plinth, and look quite permanent.   Largest bits of "Street Furniture" I've ever seen.   10 foot cubes.</text>
+      <html>&lt;p&gt;There are a couple of big lumps of electrical infrastructure here, which have forced a small diversion of the cycle lane.   They are sitting in the (former) roadway on a huge concrete plinth, and look quite permanent.   Largest bits of "Street Furniture" I've ever seen.   10 foot cubes.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 19:16:04 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>commented</action>
+      <text>The cycle lane between Charlotte Street and Whitfield Street is closed for the foreseeable future, due to the imposition of a concrete plinth bearing three large substations.</text>
+      <html>&lt;p&gt;The cycle lane between Charlotte Street and Whitfield Street is closed for the foreseeable future, due to the imposition of a concrete plinth bearing three large substations.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 19:48:36 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0917959" lat="51.5321414">
+  <id>458427</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/458427</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/458427/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/458427/close</close_url>
+  <date_created>2015-10-26 22:10:01 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2015-10-26 22:10:01 UTC</date>
+      <action>opened</action>
+      <text>Shaftesbury Street 14</text>
+      <html>&lt;p&gt;Shaftesbury Street 14&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 11:56:25 UTC</date>
+      <uid>1611</uid>
+      <user>Harry Wood</user>
+      <user_url>http://api.openstreetmap.org/user/Harry%20Wood</user_url>
+      <action>commented</action>
+      <text>Number 14 is here somewhere is it? We could add it, if you can say where exactly.  But you placed this note in the middle of the road. Ideally you'd also post a photo link so we can see where you mean</text>
+      <html>&lt;p&gt;Number 14 is here somewhere is it? We could add it, if you can say where exactly.  But you placed this note in the middle of the road. Ideally you'd also post a photo link so we can see where you mean&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 19:31:07 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>Anonymous poster probably won't be coming back after a year. But the buildings to the North and South of the marker could do with survey to name or number them. There is (or rather was) a missing building to the West, now added.</text>
+      <html>&lt;p&gt;Anonymous poster probably won't be coming back after a year. But the buildings to the North and South of the marker could do with survey to name or number them. There is (or rather was) a missing building to the West, now added.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.12731" lat="51.4">
+  <id>900798</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/900798</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/900798/reopen</reopen_url>
+  <date_created>2017-02-21 17:24:35 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 17:41:18 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-21 17:24:35 UTC</date>
+      <action>opened</action>
+      <text>Kent Close</text>
+      <html>&lt;p&gt;Kent Close&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 17:41:18 UTC</date>
+      <uid>12992</uid>
+      <user>trigpoint</user>
+      <user_url>http://api.openstreetmap.org/user/trigpoint</user_url>
+      <action>closed</action>
+      <text>Already mapped </text>
+      <html>&lt;p&gt;Already mapped &lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1606" lat="51.4183">
+  <id>900660</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/900660</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/900660/reopen</reopen_url>
+  <date_created>2017-02-21 15:39:01 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 16:22:07 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-21 15:39:01 UTC</date>
+      <action>opened</action>
+      <text>Day 3</text>
+      <html>&lt;p&gt;Day 3&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 16:22:07 UTC</date>
+      <uid>12992</uid>
+      <user>trigpoint</user>
+      <user_url>http://api.openstreetmap.org/user/trigpoint</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1382142" lat="51.5193085">
+  <id>476191</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/476191</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/476191/reopen</reopen_url>
+  <date_created>2015-11-30 10:38:41 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 15:56:23 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2015-11-30 10:38:41 UTC</date>
+      <action>opened</action>
+      <text>Most (all?) of this development is now open.</text>
+      <html>&lt;p&gt;Most (all?) of this development is now open.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 15:56:23 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1023682" lat="51.3652323">
+  <id>539764</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/539764</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/539764/reopen</reopen_url>
+  <date_created>2016-04-05 21:04:02 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 15:44:01 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-04-05 21:04:02 UTC</date>
+      <uid>1878283</uid>
+      <user>anyone</user>
+      <user_url>http://api.openstreetmap.org/user/anyone</user_url>
+      <action>opened</action>
+      <text>Amenity doesn't exist! #mapsme</text>
+      <html>&lt;p&gt;Amenity doesn't exist! #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 15:44:01 UTC</date>
+      <uid>3432400</uid>
+      <user>GinaroZ</user>
+      <user_url>http://api.openstreetmap.org/user/GinaroZ</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.125308" lat="51.380778">
+  <id>776048</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/776048</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/776048/reopen</reopen_url>
+  <date_created>2016-11-07 23:28:20 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 15:42:55 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-11-07 23:28:20 UTC</date>
+      <action>opened</action>
+      <text>Missing speed limit:
+
+This error is submitted from Navmii GPS.</text>
+      <html>&lt;p&gt;Missing speed limit:&lt;/p&gt;
+
+&lt;p&gt;This error is submitted from Navmii GPS.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 15:42:55 UTC</date>
+      <uid>3432400</uid>
+      <user>GinaroZ</user>
+      <user_url>http://api.openstreetmap.org/user/GinaroZ</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1000786" lat="51.4011601">
+  <id>900566</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/900566</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/900566/reopen</reopen_url>
+  <date_created>2017-02-21 14:59:23 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 15:12:51 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-21 14:59:23 UTC</date>
+      <action>opened</action>
+      <text>Day 1</text>
+      <html>&lt;p&gt;Day 1&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 15:12:51 UTC</date>
+      <uid>12992</uid>
+      <user>trigpoint</user>
+      <user_url>http://api.openstreetmap.org/user/trigpoint</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1453332" lat="51.5556977">
+  <id>276112</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/276112</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/276112/reopen</reopen_url>
+  <date_created>2014-11-25 17:12:55 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 13:52:10 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2014-11-25 17:12:55 UTC</date>
+      <action>opened</action>
+      <text>cobbled</text>
+      <html>&lt;p&gt;cobbled&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 13:52:11 UTC</date>
+      <uid>1611</uid>
+      <user>Harry Wood</user>
+      <user_url>http://api.openstreetmap.org/user/Harry%20Wood</user_url>
+      <action>closed</action>
+      <text>Thanks. I've set a surface tag on there.</text>
+      <html>&lt;p&gt;Thanks. I've set a surface tag on there.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1430342" lat="51.5631964">
+  <id>243163</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/243163</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/243163/reopen</reopen_url>
+  <date_created>2014-09-18 20:51:19 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 13:48:50 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2014-09-18 20:51:19 UTC</date>
+      <action>opened</action>
+      <text>ertram Street Low Energy Victorian Terrace</text>
+      <html>&lt;p&gt;ertram Street Low Energy Victorian Terrace&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2016-10-15 09:35:34 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>Found a link at https://www.camden.gov.uk/ccm/content/housing/housing-and-the-environment/retrofit-exemplar-projects/?page=2 but is this a mappable feature? Is it open to visitors? Would an editor be able to feel its lack of energy from the street?</text>
+      <html>&lt;p&gt;Found a link at &lt;a href="https://www.camden.gov.uk/ccm/content/housing/housing-and-the-environment/retrofit-exemplar-projects/?page=2" rel="nofollow"&gt;https://www.camden.gov.uk/ccm/content/housing/housing-and-the-environment/retrofit-exemplar-projects/?page=2&lt;/a&gt; but is this a mappable feature? Is it open to visitors? Would an editor be able to feel its lack of energy from the street?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 13:48:50 UTC</date>
+      <uid>1611</uid>
+      <user>Harry Wood</user>
+      <user_url>http://api.openstreetmap.org/user/Harry%20Wood</user_url>
+      <action>closed</action>
+      <text>no. I would say not</text>
+      <html>&lt;p&gt;no. I would say not&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0935099" lat="51.530673">
+  <id>491515</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/491515</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/491515/reopen</reopen_url>
+  <date_created>2016-01-01 23:24:06 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 12:55:30 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-01-01 23:24:06 UTC</date>
+      <uid>486343</uid>
+      <user>peregrination</user>
+      <user_url>http://api.openstreetmap.org/user/peregrination</user_url>
+      <action>opened</action>
+      <text>is it also called Maldon Apartments ?</text>
+      <html>&lt;p&gt;is it also called Maldon Apartments ?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 11:53:37 UTC</date>
+      <uid>1611</uid>
+      <user>Harry Wood</user>
+      <user_url>http://api.openstreetmap.org/user/Harry%20Wood</user_url>
+      <action>commented</action>
+      <text>Did you see we already have a Maldon Apartments mapped as the building just to the south? Are you saying this is also Maldon Apartments?</text>
+      <html>&lt;p&gt;Did you see we already have a Maldon Apartments mapped as the building just to the south? Are you saying this is also Maldon Apartments?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 12:55:30 UTC</date>
+      <uid>486343</uid>
+      <user>peregrination</user>
+      <user_url>http://api.openstreetmap.org/user/peregrination</user_url>
+      <action>closed</action>
+      <text>I re-mapped the buildings several months after adding that note, the current map is correct.
+I will close the note - thanks !</text>
+      <html>&lt;p&gt;I re-mapped the buildings several months after adding that note, the current map is correct.
+&lt;br /&gt;I will close the note - thanks !&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1351713" lat="51.5207333">
+  <id>799983</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/799983</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/799983/reopen</reopen_url>
+  <date_created>2016-11-29 19:29:56 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 12:37:22 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-11-29 19:29:56 UTC</date>
+      <uid>37137</uid>
+      <user>Derick Rethans</user>
+      <user_url>http://api.openstreetmap.org/user/Derick%20Rethans</user_url>
+      <action>opened</action>
+      <text>it's now a fast food (OSM data version: 2016-11-05T13:55:03Z) #mapsme</text>
+      <html>&lt;p&gt;it's now a fast food (OSM data version: 2016-11-05T13:55:03Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 12:37:23 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.3467774" lat="51.4691139">
+  <id>898913</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/898913</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/898913/reopen</reopen_url>
+  <date_created>2017-02-20 10:24:12 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 11:15:06 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-20 10:24:12 UTC</date>
+      <uid>5351372</uid>
+      <user>Nick Treby</user>
+      <user_url>http://api.openstreetmap.org/user/Nick%20Treby</user_url>
+      <action>opened</action>
+      <text>Oaklands School</text>
+      <html>&lt;p&gt;Oaklands School&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 11:15:06 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text>Already mapped on OSM</text>
+      <html>&lt;p&gt;Already mapped on OSM&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.0080037" lat="51.4666459">
+  <id>898949</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/898949</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/898949/reopen</reopen_url>
+  <date_created>2017-02-20 11:21:50 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 11:01:41 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-20 11:21:50 UTC</date>
+      <uid>5351654</uid>
+      <user>Maxim Logistics</user>
+      <user_url>http://api.openstreetmap.org/user/Maxim%20Logistics</user_url>
+      <action>opened</action>
+      <text>Boulangerie Jade</text>
+      <html>&lt;p&gt;Boulangerie Jade&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 11:01:41 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text>Already mapped on OSM.</text>
+      <html>&lt;p&gt;Already mapped on OSM.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.5095272" lat="51.4337662">
+  <id>900135</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/900135</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/900135/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/900135/close</close_url>
+  <date_created>2017-02-21 08:46:59 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-21 08:46:59 UTC</date>
+      <uid>471430</uid>
+      <user>Domen Puncer Kugler</user>
+      <user_url>http://api.openstreetmap.org/user/Domen%20Puncer%20Kugler</user_url>
+      <action>opened</action>
+      <text>store closed, different store reopened (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;store closed, different store reopened (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.5087869" lat="51.43339">
+  <id>900132</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/900132</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/900132/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/900132/close</close_url>
+  <date_created>2017-02-21 08:44:13 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-21 08:44:13 UTC</date>
+      <uid>471430</uid>
+      <user>Domen Puncer Kugler</user>
+      <user_url>http://api.openstreetmap.org/user/Domen%20Puncer%20Kugler</user_url>
+      <action>opened</action>
+      <text>The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "bhs closed down. this is now a building site" (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "bhs closed down. this is now a building site" (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.111767" lat="51.498626">
+  <id>546855</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/546855</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/546855/reopen</reopen_url>
+  <date_created>2016-04-13 18:04:18 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 02:33:46 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-04-13 18:04:18 UTC</date>
+      <action>opened</action>
+      <text>This error is submitted from Navmii GPS.
+Blocked street:
+</text>
+      <html>&lt;p&gt;This error is submitted from Navmii GPS.
+&lt;br /&gt;Blocked street:
+&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 02:33:46 UTC</date>
+      <uid>1611</uid>
+      <user>Harry Wood</user>
+      <user_url>http://api.openstreetmap.org/user/Harry%20Wood</user_url>
+      <action>closed</action>
+      <text>I don't know what that means "Blocked Street". Maybe this street was blocked back when this note was created 10 months ago</text>
+      <html>&lt;p&gt;I don't know what that means "Blocked Street". Maybe this street was blocked back when this note was created 10 months ago&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1047652" lat="51.5059396">
+  <id>638198</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/638198</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/638198/reopen</reopen_url>
+  <date_created>2016-07-22 17:08:38 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-21 02:22:18 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-07-22 17:08:39 UTC</date>
+      <uid>3629613</uid>
+      <user>torindan</user>
+      <user_url>http://api.openstreetmap.org/user/torindan</user_url>
+      <action>opened</action>
+      <text>The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "it's on the other side of the road" (OSM data version: 2016-07-15T17:38:02Z) #mapsme</text>
+      <html>&lt;p&gt;The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "it's on the other side of the road" (OSM data version: 2016-07-15T17:38:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 02:22:18 UTC</date>
+      <uid>1611</uid>
+      <user>Harry Wood</user>
+      <user_url>http://api.openstreetmap.org/user/Harry%20Wood</user_url>
+      <action>closed</action>
+      <text>Thanks torindan. You're right this whole area was demolished. It's a massive building site now.  I have just hit delete on the stuff cafe which was at this location plus a bunch of other stuff. Need to survey the extent of the construction site though. I think maybe it goes up to Maymott St actually, but certainly this cafe is gone</text>
+      <html>&lt;p&gt;Thanks torindan. You're right this whole area was demolished. It's a massive building site now.  I have just hit delete on the stuff cafe which was at this location plus a bunch of other stuff. Need to survey the extent of the construction site though. I think maybe it goes up to Maymott St actually, but certainly this cafe is gone&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1085168" lat="51.5264062">
+  <id>508518</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/508518</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/508518/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/508518/close</close_url>
+  <date_created>2016-02-05 09:18:47 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2016-02-05 09:18:47 UTC</date>
+      <action>opened</action>
+      <text>Set to become a co-op I think:
+
+http://www.insidermedia.com/insider/southeast/co-op-buys-surrey-budgens-stores
+
+If someone local wants to check on this in a few months, that'd be great.</text>
+      <html>&lt;p&gt;Set to become a co-op I think:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.insidermedia.com/insider/southeast/co-op-buys-surrey-budgens-stores" rel="nofollow"&gt;http://www.insidermedia.com/insider/southeast/co-op-buys-surrey-budgens-stores&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If someone local wants to check on this in a few months, that'd be great.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-21 01:58:41 UTC</date>
+      <uid>1611</uid>
+      <user>Harry Wood</user>
+      <user_url>http://api.openstreetmap.org/user/Harry%20Wood</user_url>
+      <action>commented</action>
+      <text>budgen-&gt;co-op change has been made, but we need to check if there's still cash machine inside now that it's a co-op. Probably not I guess.</text>
+      <html>&lt;p&gt;budgen-&amp;gt;co-op change has been made, but we need to check if there's still cash machine inside now that it's a co-op. Probably not I guess.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.0278091" lat="51.5016236">
+  <id>856341</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/856341</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/856341/reopen</reopen_url>
+  <date_created>2017-01-19 11:35:16 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-20 23:11:23 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-01-19 11:35:16 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>opened</action>
+      <text>There is reportedly public access into the construction site here to visit the marketing suite and a war memorial and a memorial to the Silverton Explosion (1917).
+
+Details and pictures here: http://diamondgeezer.blogspot.com/2017/01/silvertown-100.html</text>
+      <html>&lt;p&gt;There is reportedly public access into the construction site here to visit the marketing suite and a war memorial and a memorial to the Silverton Explosion (1917).&lt;/p&gt;
+
+&lt;p&gt;Details and pictures here: &lt;a href="http://diamondgeezer.blogspot.com/2017/01/silvertown-100.html" rel="nofollow"&gt;http://diamondgeezer.blogspot.com/2017/01/silvertown-100.html&lt;/a&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-20 23:11:23 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text>Surveyed and added,</text>
+      <html>&lt;p&gt;Surveyed and added,&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.047962" lat="51.50165">
+  <id>645308</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/645308</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/645308/reopen</reopen_url>
+  <date_created>2016-07-27 09:45:40 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-20 21:45:18 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-07-27 09:45:40 UTC</date>
+      <action>opened</action>
+      <text>Blocked street:
+
+This error is submitted from Navmii GPS.</text>
+      <html>&lt;p&gt;Blocked street:&lt;/p&gt;
+
+&lt;p&gt;This error is submitted from Navmii GPS.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-20 21:45:19 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text>Definitely isn't blocked now.</text>
+      <html>&lt;p&gt;Definitely isn't blocked now.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.135119" lat="51.5205104">
+  <id>799982</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/799982</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/799982/reopen</reopen_url>
+  <date_created>2016-11-29 19:29:20 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-20 19:40:05 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-11-29 19:29:21 UTC</date>
+      <uid>37137</uid>
+      <user>Derick Rethans</user>
+      <user_url>http://api.openstreetmap.org/user/Derick%20Rethans</user_url>
+      <action>opened</action>
+      <text>The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "shut down" (OSM data version: 2016-11-05T13:55:03Z) #mapsme</text>
+      <html>&lt;p&gt;The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "shut down" (OSM data version: 2016-11-05T13:55:03Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-20 19:40:05 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1377811" lat="51.5235687">
+  <id>613816</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/613816</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/613816/reopen</reopen_url>
+  <date_created>2016-07-03 08:35:25 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-20 19:35:37 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2016-07-03 08:35:25 UTC</date>
+      <uid>133391</uid>
+      <user>tigerandyx9</user>
+      <user_url>http://api.openstreetmap.org/user/tigerandyx9</user_url>
+      <action>opened</action>
+      <text>Venezuelan Consulate
+Consulado Venezolano (OSM data version: 2016-06-20T05:57:02Z) #mapsme</text>
+      <html>&lt;p&gt;Venezuelan Consulate
+&lt;br /&gt;Consulado Venezolano (OSM data version: 2016-06-20T05:57:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-20 19:35:37 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>closed</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.31182" lat="51.45416">
+  <id>899570</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/899570</url>
+  <reopen_url>http://api.openstreetmap.org/api/0.6/notes/899570/reopen</reopen_url>
+  <date_created>2017-02-20 17:41:25 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2017-02-20 18:17:27 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2017-02-20 17:41:25 UTC</date>
+      <action>opened</action>
+      <text>Fall was about here James &amp; Mandy, Neighbours/acquaintances were walking towards Richmond and picked me up Bloodpouring from nose, </text>
+      <html>&lt;p&gt;Fall was about here James &amp;amp; Mandy, Neighbours/acquaintances were walking towards Richmond and picked me up Bloodpouring from nose, &lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-20 18:17:27 UTC</date>
+      <uid>12355</uid>
+      <user>chillly</user>
+      <user_url>http://api.openstreetmap.org/user/chillly</user_url>
+      <action>closed</action>
+      <text>Notes are intended to improve the map data. This looks like a personal pointer. If you want to place a marker to share you could try http://umap.openstreetmap.fr</text>
+      <html>&lt;p&gt;Notes are intended to improve the map data. This looks like a personal pointer. If you want to place a marker to share you could try &lt;a href="http://umap.openstreetmap.fr" rel="nofollow"&gt;http://umap.openstreetmap.fr&lt;/a&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.14064" lat="51.52761">
+  <id>898958</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/898958</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/898958/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/898958/close</close_url>
+  <date_created>2017-02-20 11:28:13 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-20 11:28:13 UTC</date>
+      <uid>4010435</uid>
+      <user>Patricia Kavanagh</user>
+      <user_url>http://api.openstreetmap.org/user/Patricia%20Kavanagh</user_url>
+      <action>opened</action>
+      <text>Netley Primary School Nursery</text>
+      <html>&lt;p&gt;Netley Primary School Nursery&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-20 11:29:56 UTC</date>
+      <action>commented</action>
+      <text>Adult Education Centre</text>
+      <html>&lt;p&gt;Adult Education Centre&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1785104" lat="51.5252709">
+  <id>895925</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/895925</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/895925/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/895925/close</close_url>
+  <date_created>2017-02-17 20:36:09 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-17 20:36:09 UTC</date>
+      <uid>2961845</uid>
+      <user>Nikolay M</user>
+      <user_url>http://api.openstreetmap.org/user/Nikolay%20M</user_url>
+      <action>opened</action>
+      <text>The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "permanently closed" (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "permanently closed" (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-18 10:17:59 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>www.mollysatlittlevenice.co.uk says changes and new menu coming rather than permanent closure. Is there any statement on the shop itself?</text>
+      <html>&lt;p&gt;&lt;a href="http://www.mollysatlittlevenice.co.uk" rel="nofollow"&gt;www.mollysatlittlevenice.co.uk&lt;/a&gt; says changes and new menu coming rather than permanent closure. Is there any statement on the shop itself?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-18 22:23:11 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>Went past here this afternoon. Wasn't open and sign on door says a dentist is opening in April. So I've unmapped Molly's and will leave this unresolved as reminder to add the dentist.</text>
+      <html>&lt;p&gt;Went past here this afternoon. Wasn't open and sign on door says a dentist is opening in April. So I've unmapped Molly's and will leave this unresolved as reminder to add the dentist.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.3342046" lat="51.4751747">
+  <id>896791</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/896791</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/896791/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/896791/close</close_url>
+  <date_created>2017-02-18 12:30:14 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-18 12:30:14 UTC</date>
+      <uid>471430</uid>
+      <user>Domen Puncer Kugler</user>
+      <user_url>http://api.openstreetmap.org/user/Domen%20Puncer%20Kugler</user_url>
+      <action>opened</action>
+      <text>The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "it's mismarked. correct station is linkfield rpad, a few meters away" (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. User comments: "it's mismarked. correct station is linkfield rpad, a few meters away" (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.1822038" lat="51.5691697">
+  <id>675418</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/675418</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/675418/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/675418/close</close_url>
+  <date_created>2016-08-17 13:29:34 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2016-08-17 13:29:34 UTC</date>
+      <uid>4432382</uid>
+      <user>Rob Healy</user>
+      <user_url>http://api.openstreetmap.org/user/Rob%20Healy</user_url>
+      <action>opened</action>
+      <text>The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. (OSM data version: 2016-07-15T17:38:02Z) #mapsme</text>
+      <html>&lt;p&gt;The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. (OSM data version: 2016-07-15T17:38:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2016-08-17 17:04:48 UTC</date>
+      <uid>12992</uid>
+      <user>trigpoint</user>
+      <user_url>http://api.openstreetmap.org/user/trigpoint</user_url>
+      <action>commented</action>
+      <text>Appears on bing imagery, any more info?</text>
+      <html>&lt;p&gt;Appears on bing imagery, any more info?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-16 19:09:37 UTC</date>
+      <action>commented</action>
+      <text>Redevelopment area for new supermarket (Morrisons?)</text>
+      <html>&lt;p&gt;Redevelopment area for new supermarket (Morrisons?)&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.1915634" lat="51.5648996">
+  <id>894592</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/894592</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/894592/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/894592/close</close_url>
+  <date_created>2017-02-16 19:08:12 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-16 19:08:12 UTC</date>
+      <action>opened</action>
+      <text>No westbound bus stop called "Roneo Corner Tesco" No stop between "Park Lane" and "Roneo Corner"</text>
+      <html>&lt;p&gt;No westbound bus stop called "Roneo Corner Tesco" No stop between "Park Lane" and "Roneo Corner"&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.0369823" lat="51.5971611">
+  <id>894470</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/894470</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/894470/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/894470/close</close_url>
+  <date_created>2017-02-16 16:54:52 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-16 16:54:52 UTC</date>
+      <action>opened</action>
+      <text>TTS Personal Training</text>
+      <html>&lt;p&gt;TTS Personal Training&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1302427" lat="51.5119993">
+  <id>894180</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/894180</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/894180/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/894180/close</close_url>
+  <date_created>2017-02-16 13:05:31 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-16 13:05:31 UTC</date>
+      <action>opened</action>
+      <text>Loon Fung Supermarket</text>
+      <html>&lt;p&gt;Loon Fung Supermarket&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.6467772" lat="51.6097555">
+  <id>207448</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/207448</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/207448/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/207448/close</close_url>
+  <date_created>2014-07-28 13:14:14 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2014-07-28 13:14:14 UTC</date>
+      <action>opened</action>
+      <text>car park</text>
+      <html>&lt;p&gt;car park&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-16 12:44:54 UTC</date>
+      <action>commented</action>
+      <text>Solved</text>
+      <html>&lt;p&gt;Solved&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1645566" lat="51.5213862">
+  <id>893858</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/893858</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/893858/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/893858/close</close_url>
+  <date_created>2017-02-16 08:55:06 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-16 08:55:06 UTC</date>
+      <uid>1036916</uid>
+      <user>Zorzs</user>
+      <user_url>http://api.openstreetmap.org/user/Zorzs</user_url>
+      <action>opened</action>
+      <text>Grove house, 248A, Marylebone road London, NW1 6JZ (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;Grove house, 248A, Marylebone road London, NW1 6JZ (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.1615247" lat="51.5516219">
+  <id>892292</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/892292</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/892292/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/892292/close</close_url>
+  <date_created>2017-02-14 20:04:00 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-14 20:04:00 UTC</date>
+      <action>opened</action>
+      <text>this parking is free and public (note created by the app "free parking")</text>
+      <html>&lt;p&gt;this parking is free and public (note created by the app "free parking")&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-14 20:06:21 UTC</date>
+      <uid>61942</uid>
+      <user>SomeoneElse</user>
+      <user_url>http://api.openstreetmap.org/user/SomeoneElse</user_url>
+      <action>closed</action>
+      <text>Already mapped</text>
+      <html>&lt;p&gt;Already mapped&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-15 14:10:18 UTC</date>
+      <uid>5323459</uid>
+      <user>MMorelli35</user>
+      <user_url>http://api.openstreetmap.org/user/MMorelli35</user_url>
+      <action>reopened</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-15 14:16:39 UTC</date>
+      <uid>61942</uid>
+      <user>SomeoneElse</user>
+      <user_url>http://api.openstreetmap.org/user/SomeoneElse</user_url>
+      <action>commented</action>
+      <text>Hi MMorelli35,
+Is there any reason that you've reopened this note?  Is there something else to map here (if so, perhaps add more details to the note)?
+Best Regards,
+Andy
+</text>
+      <html>&lt;p&gt;Hi MMorelli35,
+&lt;br /&gt;Is there any reason that you've reopened this note?  Is there something else to map here (if so, perhaps add more details to the note)?
+&lt;br /&gt;Best Regards,
+&lt;br /&gt;Andy
+&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.2598215" lat="51.4700418">
+  <id>893035</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/893035</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/893035/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/893035/close</close_url>
+  <date_created>2017-02-15 13:41:46 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-15 13:41:46 UTC</date>
+      <action>opened</action>
+      <text>1</text>
+      <html>&lt;p&gt;1&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-15 13:45:56 UTC</date>
+      <action>commented</action>
+      <text>It's mapped as 505-507 which looks correct according to other nearby properties. </text>
+      <html>&lt;p&gt;It's mapped as 505-507 which looks correct according to other nearby properties. &lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.003342" lat="51.5404741">
+  <id>693118</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/693118</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/693118/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/693118/close</close_url>
+  <date_created>2016-08-29 15:40:12 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2016-08-29 15:40:12 UTC</date>
+      <action>opened</action>
+      <text>FOCUS
+</text>
+      <html>&lt;p&gt;FOCUS
+&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2016-08-29 16:13:28 UTC</date>
+      <uid>12992</uid>
+      <user>trigpoint</user>
+      <user_url>http://api.openstreetmap.org/user/trigpoint</user_url>
+      <action>commented</action>
+      <text>What is Focus?</text>
+      <html>&lt;p&gt;What is Focus?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-14 20:43:42 UTC</date>
+      <uid>251221</uid>
+      <user>spiregrain</user>
+      <user_url>http://api.openstreetmap.org/user/spiregrain</user_url>
+      <action>commented</action>
+      <text>Might be something to do with Focus E15, a social housing campaign group.   https://focuse15.org/</text>
+      <html>&lt;p&gt;Might be something to do with Focus E15, a social housing campaign group.   &lt;a href="https://focuse15.org/" rel="nofollow"&gt;https://focuse15.org/&lt;/a&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-15 13:22:14 UTC</date>
+      <action>commented</action>
+      <text>10 Victoria Street according to 118.com but there are currently no numbers or landmarks mapped so needs a survey.</text>
+      <html>&lt;p&gt;10 Victoria Street according to 118.com but there are currently no numbers or landmarks mapped so needs a survey.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0055254" lat="51.344017">
+  <id>890954</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/890954</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/890954/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/890954/close</close_url>
+  <date_created>2017-02-13 13:27:05 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-13 13:27:05 UTC</date>
+      <action>opened</action>
+      <text>road open</text>
+      <html>&lt;p&gt;road open&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="0.0124669" lat="51.5692812">
+  <id>889009</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/889009</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/889009/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/889009/close</close_url>
+  <date_created>2017-02-11 16:13:20 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-11 16:13:20 UTC</date>
+      <uid>711264</uid>
+      <user>VanguardWay</user>
+      <user_url>http://api.openstreetmap.org/user/VanguardWay</user_url>
+      <action>opened</action>
+      <text>Natwest closes 13 June 2017</text>
+      <html>&lt;p&gt;Natwest closes 13 June 2017&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-12 21:35:31 UTC</date>
+      <action>commented</action>
+      <text>No closing date mentioned at http://locator.natwest.com/Branch/601312-Leytonstone.html -- have you seen this confirmed anywhere?</text>
+      <html>&lt;p&gt;No closing date mentioned at &lt;a href="http://locator.natwest.com/Branch/601312-Leytonstone.html" rel="nofollow"&gt;http://locator.natwest.com/Branch/601312-Leytonstone.html&lt;/a&gt; -- have you seen this confirmed anywhere?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-12 22:17:25 UTC</date>
+      <action>commented</action>
+      <text>I have an account at this branch and have received a letter notifying me of the closure.</text>
+      <html>&lt;p&gt;I have an account at this branch and have received a letter notifying me of the closure.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-13 12:19:18 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>That seems like reasonable evidence. I've tagged an end_date and referenced this note but documentation implies it will not actually be removed on that date -- so I think we can only leave this open to be actioned when somebody notices it subsequently.</text>
+      <html>&lt;p&gt;That seems like reasonable evidence. I've tagged an end_date and referenced this note but documentation implies it will not actually be removed on that date -- so I think we can only leave this open to be actioned when somebody notices it subsequently.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1369941" lat="51.5605528">
+  <id>890457</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/890457</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/890457/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/890457/close</close_url>
+  <date_created>2017-02-13 01:26:04 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-13 01:26:04 UTC</date>
+      <uid>1611</uid>
+      <user>Harry Wood</user>
+      <user_url>http://api.openstreetmap.org/user/Harry%20Wood</user_url>
+      <action>opened</action>
+      <text>suppose we could probably just add this based on this tweet https://twitter.com/theTOYprojectuk/status/830702652610723840 but ideally #needssurvey</text>
+      <html>&lt;p&gt;suppose we could probably just add this based on this tweet &lt;a href="https://twitter.com/theTOYprojectuk/status/830702652610723840" rel="nofollow"&gt;https://twitter.com/theTOYprojectuk/status/830702652610723840&lt;/a&gt; but ideally #needssurvey&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1263911" lat="51.5143446">
+  <id>890406</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/890406</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/890406/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/890406/close</close_url>
+  <date_created>2017-02-12 23:29:58 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-12 23:29:58 UTC</date>
+      <uid>1611</uid>
+      <user>Harry Wood</user>
+      <user_url>http://api.openstreetmap.org/user/Harry%20Wood</user_url>
+      <action>opened</action>
+      <text>we've got a shap=mall node here. Doesn't seem like a big enough building for a shopping mall though.
+Maybe the intention was to label the whole Neal's Yard as a shopping mall (which it isn't really)</text>
+      <html>&lt;p&gt;we've got a shap=mall node here. Doesn't seem like a big enough building for a shopping mall though.
+&lt;br /&gt;Maybe the intention was to label the whole Neal's Yard as a shopping mall (which it isn't really)&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0713696" lat="51.525047">
+  <id>855588</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/855588</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/855588/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/855588/close</close_url>
+  <date_created>2017-01-18 16:53:04 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-01-18 16:53:04 UTC</date>
+      <uid>61942</uid>
+      <user>SomeoneElse</user>
+      <user_url>http://api.openstreetmap.org/user/SomeoneElse</user_url>
+      <action>opened</action>
+      <text>http://www.openstreetmap.org/node/4556228890 was added by a MAPS.ME user.  It's likely a shop=music rather than a shop=gift.  Needs survey.</text>
+      <html>&lt;p&gt;&lt;a href="http://www.openstreetmap.org/node/4556228890" rel="nofollow"&gt;http://www.openstreetmap.org/node/4556228890&lt;/a&gt; was added by a MAPS.ME user.  It's likely a shop=music rather than a shop=gift.  Needs survey.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-12 01:36:06 UTC</date>
+      <uid>61942</uid>
+      <user>SomeoneElse</user>
+      <user_url>http://api.openstreetmap.org/user/SomeoneElse</user_url>
+      <action>commented</action>
+      <text>Also https://www.openstreetmap.org/node/4567348592 as a "convenience store"</text>
+      <html>&lt;p&gt;Also &lt;a href="https://www.openstreetmap.org/node/4567348592" rel="nofollow"&gt;https://www.openstreetmap.org/node/4567348592&lt;/a&gt; as a "convenience store"&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0058137" lat="51.5380137">
+  <id>548220</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/548220</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/548220/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/548220/close</close_url>
+  <date_created>2016-04-16 07:46:50 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2016-04-16 07:46:50 UTC</date>
+      <uid>3785888</uid>
+      <user>Γιώργος Γολέμης</user>
+      <user_url>http://api.openstreetmap.org/user/%CE%93%CE%B9%CF%8E%CF%81%CE%B3%CE%BF%CF%82%20%CE%93%CE%BF%CE%BB%CE%AD%CE%BC%CE%B7%CF%82</user_url>
+      <action>opened</action>
+      <text>Has moved to High Street since late 2014!!! #mapsme</text>
+      <html>&lt;p&gt;Has moved to High Street since late 2014!!! #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-11 09:58:08 UTC</date>
+      <uid>238584</uid>
+      <user>mcld</user>
+      <user_url>http://api.openstreetmap.org/user/mcld</user_url>
+      <action>commented</action>
+      <text>What has moved?</text>
+      <html>&lt;p&gt;What has moved?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-11 16:56:22 UTC</date>
+      <action>commented</action>
+      <text>Probably Carpenters Road Medical Practice. I moved it in May. Suspect Γιώργος Γολέμης is using an obsolete map. Though it would be good to know whether anything else is now there.</text>
+      <html>&lt;p&gt;Probably Carpenters Road Medical Practice. I moved it in May. Suspect Γιώργος Γολέμης is using an obsolete map. Though it would be good to know whether anything else is now there.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-11 17:01:35 UTC</date>
+      <action>commented</action>
+      <text>Correction, I see mcld added it :) http://www.openstreetmap.org/node/4222698897</text>
+      <html>&lt;p&gt;Correction, I see mcld added it :) &lt;a href="http://www.openstreetmap.org/node/4222698897" rel="nofollow"&gt;http://www.openstreetmap.org/node/4222698897&lt;/a&gt;&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1898856" lat="51.5671216">
+  <id>888406</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/888406</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/888406/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/888406/close</close_url>
+  <date_created>2017-02-10 23:45:37 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-10 23:45:37 UTC</date>
+      <uid>5018069</uid>
+      <user>Elena Scroccaro</user>
+      <user_url>http://api.openstreetmap.org/user/Elena%20Scroccaro</user_url>
+      <action>opened</action>
+      <text>free zoo open from 7.30 am till dusk (OSM data version: 2016-11-23T15:14:03Z) #mapsme</text>
+      <html>&lt;p&gt;free zoo open from 7.30 am till dusk (OSM data version: 2016-11-23T15:14:03Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1898856" lat="51.5671216">
+  <id>888405</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/888405</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/888405/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/888405/close</close_url>
+  <date_created>2017-02-10 23:45:36 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-10 23:45:37 UTC</date>
+      <uid>5018069</uid>
+      <user>Elena Scroccaro</user>
+      <user_url>http://api.openstreetmap.org/user/Elena%20Scroccaro</user_url>
+      <action>opened</action>
+      <text>i (OSM data version: 2016-11-23T15:14:03Z) #mapsme</text>
+      <html>&lt;p&gt;i (OSM data version: 2016-11-23T15:14:03Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1898856" lat="51.5671216">
+  <id>888404</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/888404</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/888404/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/888404/close</close_url>
+  <date_created>2017-02-10 23:45:36 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-10 23:45:36 UTC</date>
+      <uid>5018069</uid>
+      <user>Elena Scroccaro</user>
+      <user_url>http://api.openstreetmap.org/user/Elena%20Scroccaro</user_url>
+      <action>opened</action>
+      <text>free zoo open from 7.30am to dusk (OSM data version: 2016-11-23T15:14:03Z) #mapsme</text>
+      <html>&lt;p&gt;free zoo open from 7.30am to dusk (OSM data version: 2016-11-23T15:14:03Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1334587" lat="51.5660062">
+  <id>887642</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/887642</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/887642/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/887642/close</close_url>
+  <date_created>2017-02-10 10:01:15 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-10 10:01:15 UTC</date>
+      <uid>5290152</uid>
+      <user>Sean O'Farrell</user>
+      <user_url>http://api.openstreetmap.org/user/Sean%20O'Farrell</user_url>
+      <action>opened</action>
+      <text>The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground. (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-10 12:08:42 UTC</date>
+      <action>commented</action>
+      <text>What has gone? There is currently nothing on OSM where your marker is.</text>
+      <html>&lt;p&gt;What has gone? There is currently nothing on OSM where your marker is.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-10 12:13:08 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>closed</action>
+      <text>Oops, this seems to be a duplicate of http://www.openstreetmap.org/note/886920 -- will continue this there.</text>
+      <html>&lt;p&gt;Oops, this seems to be a duplicate of &lt;a href="http://www.openstreetmap.org/note/886920" rel="nofollow"&gt;http://www.openstreetmap.org/note/886920&lt;/a&gt; -- will continue this there.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-10 12:13:24 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>reopened</action>
+      <text></text>
+      <html>&lt;p&gt;&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-10 12:14:40 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>Sorry, ignore that last comment. I'm looking at the wrong note.</text>
+      <html>&lt;p&gt;Sorry, ignore that last comment. I'm looking at the wrong note.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-10 18:06:09 UTC</date>
+      <action>commented</action>
+      <text>This is not a business or commercial premises. It is where I live: I was trying to save it as a location to navigate from. Also I noticed that only one building in St John's Way N19 3RR has a number (12) whereas streets nearby have numbers per property. Sorry for any confusion.</text>
+      <html>&lt;p&gt;This is not a business or commercial premises. It is where I live: I was trying to save it as a location to navigate from. Also I noticed that only one building in St John's Way N19 3RR has a number (12) whereas streets nearby have numbers per property. Sorry for any confusion.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-10 20:56:48 UTC</date>
+      <uid>20094</uid>
+      <user>harg</user>
+      <user_url>http://api.openstreetmap.org/user/harg</user_url>
+      <action>commented</action>
+      <text>No 40 is also tagged and there is addr:interpolation=even between them, which means that the OSM search box can find any intermediate even number from them. Now, it's possible that MAPS,ME doesn't understand interpolations, but that would be a fault with MAPS.ME not with the OSM data.</text>
+      <html>&lt;p&gt;No 40 is also tagged and there is addr:interpolation=even between them, which means that the OSM search box can find any intermediate even number from them. Now, it's possible that MAPS,ME doesn't understand interpolations, but that would be a fault with MAPS.ME not with the OSM data.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1348776" lat="51.5664402">
+  <id>888172</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/888172</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/888172/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/888172/close</close_url>
+  <date_created>2017-02-10 18:56:57 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-10 18:56:57 UTC</date>
+      <uid>12992</uid>
+      <user>trigpoint</user>
+      <user_url>http://api.openstreetmap.org/user/trigpoint</user_url>
+      <action>opened</action>
+      <text>I am guessing the B519 should continue to the A1?</text>
+      <html>&lt;p&gt;I am guessing the B519 should continue to the A1?&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1961174" lat="51.5457287">
+  <id>887857</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/887857</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/887857/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/887857/close</close_url>
+  <date_created>2017-02-10 13:19:03 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-10 13:19:03 UTC</date>
+      <uid>37137</uid>
+      <user>Derick Rethans</user>
+      <user_url>http://api.openstreetmap.org/user/Derick%20Rethans</user_url>
+      <action>opened</action>
+      <text>Survey the building on this corner (including height, colour and addresses)</text>
+      <html>&lt;p&gt;Survey the building on this corner (including height, colour and addresses)&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.2072695" lat="51.5315596">
+  <id>887856</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/887856</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/887856/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/887856/close</close_url>
+  <date_created>2017-02-10 13:19:03 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-10 13:19:03 UTC</date>
+      <uid>37137</uid>
+      <user>Derick Rethans</user>
+      <user_url>http://api.openstreetmap.org/user/Derick%20Rethans</user_url>
+      <action>opened</action>
+      <text>Figure out where 10-16 Severn Avenue is</text>
+      <html>&lt;p&gt;Figure out where 10-16 Severn Avenue is&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.192368" lat="51.5375716">
+  <id>886827</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/886827</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/886827/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/886827/close</close_url>
+  <date_created>2017-02-09 14:21:42 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-09 14:21:42 UTC</date>
+      <uid>37137</uid>
+      <user>Derick Rethans</user>
+      <user_url>http://api.openstreetmap.org/user/Derick%20Rethans</user_url>
+      <action>opened</action>
+      <text>beauty shop (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;beauty shop (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.2204025" lat="51.5091231">
+  <id>886659</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/886659</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/886659/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/886659/close</close_url>
+  <date_created>2017-02-09 11:36:24 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-09 11:36:24 UTC</date>
+      <uid>1306</uid>
+      <user>PlaneMad</user>
+      <user_url>http://api.openstreetmap.org/user/PlaneMad</user_url>
+      <action>opened</action>
+      <text>Is this really a trunk road A3220? Seems like it should be a trunk_link that connects to Ariel Way?</text>
+      <html>&lt;p&gt;Is this really a trunk road A3220? Seems like it should be a trunk_link that connects to Ariel Way?&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1983654" lat="51.4813261">
+  <id>885689</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/885689</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/885689/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/885689/close</close_url>
+  <date_created>2017-02-08 13:41:05 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-08 13:41:05 UTC</date>
+      <uid>4870795</uid>
+      <user>leutin</user>
+      <user_url>http://api.openstreetmap.org/user/leutin</user_url>
+      <action>opened</action>
+      <text>Toilets no longer here, appear to have been built over with new building extension.</text>
+      <html>&lt;p&gt;Toilets no longer here, appear to have been built over with new building extension.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.5579182" lat="51.4245662">
+  <id>884510</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/884510</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/884510/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/884510/close</close_url>
+  <date_created>2017-02-07 14:17:29 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-07 14:17:29 UTC</date>
+      <uid>2226712</uid>
+      <user>dannykath</user>
+      <user_url>http://api.openstreetmap.org/user/dannykath</user_url>
+      <action>opened</action>
+      <text>Can someone confirm if really exists Spring Rise Play Area ? Thanks!</text>
+      <html>&lt;p&gt;Can someone confirm if really exists Spring Rise Play Area ? Thanks!&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0842321" lat="51.5149722">
+  <id>883586</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/883586</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/883586/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/883586/close</close_url>
+  <date_created>2017-02-06 18:12:19 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-06 18:12:19 UTC</date>
+      <action>opened</action>
+      <text>VARO PARTNERS LTD
+TOWER 42
+25 OLD BROAD STREET
+LONDON
+EC2N 1HN</text>
+      <html>&lt;p&gt;VARO PARTNERS LTD
+&lt;br /&gt;TOWER 42
+&lt;br /&gt;25 OLD BROAD STREET
+&lt;br /&gt;LONDON
+&lt;br /&gt;EC2N 1HN&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.4120195" lat="51.3314094">
+  <id>883379</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/883379</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/883379/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/883379/close</close_url>
+  <date_created>2017-02-06 15:54:20 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-06 15:54:20 UTC</date>
+      <action>opened</action>
+      <text>Cobham Village Hall</text>
+      <html>&lt;p&gt;Cobham Village Hall&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1265466" lat="51.5153914">
+  <id>882030</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/882030</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/882030/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/882030/close</close_url>
+  <date_created>2017-02-05 16:04:59 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-05 16:04:59 UTC</date>
+      <uid>5264676</uid>
+      <user>artoo80</user>
+      <user_url>http://api.openstreetmap.org/user/artoo80</user_url>
+      <action>opened</action>
+      <text>underground (literally) cocktail bar (OSM data version: 2017-01-19T15:17:02Z) #mapsme</text>
+      <html>&lt;p&gt;underground (literally) cocktail bar (OSM data version: 2017-01-19T15:17:02Z) #mapsme&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1158527" lat="51.5601675">
+  <id>881998</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/881998</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/881998/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/881998/close</close_url>
+  <date_created>2017-02-05 15:29:10 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-05 15:29:10 UTC</date>
+      <uid>232386</uid>
+      <user>_yog</user>
+      <user_url>http://api.openstreetmap.org/user/_yog</user_url>
+      <action>opened</action>
+      <text>Double check if there is a private path alongside the church</text>
+      <html>&lt;p&gt;Double check if there is a private path alongside the church&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.0431567" lat="51.5510119">
+  <id>881920</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/881920</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/881920/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/881920/close</close_url>
+  <date_created>2017-02-05 14:14:50 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-05 14:14:50 UTC</date>
+      <uid>238584</uid>
+      <user>mcld</user>
+      <user_url>http://api.openstreetmap.org/user/mcld</user_url>
+      <action>opened</action>
+      <text>Apparently a newly-opened cinema here https://thecastlecinema.com/info/#find-us - please could someone survey correct location, and add it to the map?</text>
+      <html>&lt;p&gt;Apparently a newly-opened cinema here &lt;a href="https://thecastlecinema.com/info/#find-us" rel="nofollow"&gt;https://thecastlecinema.com/info/#find-us&lt;/a&gt; - please could someone survey correct location, and add it to the map?&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.1068879" lat="51.511195">
+  <id>881683</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/881683</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/881683/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/881683/close</close_url>
+  <date_created>2017-02-05 11:04:17 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-05 11:04:17 UTC</date>
+      <uid>82783</uid>
+      <user>Paul The Archivist</user>
+      <user_url>http://api.openstreetmap.org/user/Paul%20The%20Archivist</user_url>
+      <action>opened</action>
+      <text>The southern end of Carmelite St seems to have reopened to vehicles, but looks like it might be one way. Need to survey and update tagging.</text>
+      <html>&lt;p&gt;The southern end of Carmelite St seems to have reopened to vehicles, but looks like it might be one way. Need to survey and update tagging.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+<note lon="-0.24212" lat="51.55449">
+  <id>878948</id>
+  <url>http://api.openstreetmap.org/api/0.6/notes/878948</url>
+  <comment_url>http://api.openstreetmap.org/api/0.6/notes/878948/comment</comment_url>
+  <close_url>http://api.openstreetmap.org/api/0.6/notes/878948/close</close_url>
+  <date_created>2017-02-02 23:24:05 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-02 23:24:05 UTC</date>
+      <action>opened</action>
+      <text>Blocked street:
+
+This error is submitted from Navmii GPS.</text>
+      <html>&lt;p&gt;Blocked street:&lt;/p&gt;
+
+&lt;p&gt;This error is submitted from Navmii GPS.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-03 09:12:04 UTC</date>
+      <action>commented</action>
+      <text>Please, when reporting blocked streets, give the name of the post. We can then search for an official announcement of the blockage.
+
+It's especially important if you cannot be bothered to zoom in and mark the point accurately. In most cases we don't know how accurate your marker is, so it's essential that you named the street. In this case, it's clearly obvious -- because you've marked a *building*, not a street.</text>
+      <html>&lt;p&gt;Please, when reporting blocked streets, give the name of the post. We can then search for an official announcement of the blockage.&lt;/p&gt;
+
+&lt;p&gt;It's especially important if you cannot be bothered to zoom in and mark the point accurately. In most cases we don't know how accurate your marker is, so it's essential that you named the street. In this case, it's clearly obvious -- because you've marked a *building*, not a street.&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2017-02-03 09:12:31 UTC</date>
+      <action>commented</action>
+      <text>Sorry, meant name the *street*</text>
+      <html>&lt;p&gt;Sorry, meant name the *street*&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+</osm>

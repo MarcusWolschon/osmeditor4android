@@ -1660,7 +1660,6 @@ public class Logic {
 			} 
 		}
 	}
-	
 
 	/**
 	 * set new coordinates and center BBox on them
@@ -1749,7 +1748,6 @@ public class Logic {
 		}	
 	}
 	
-	
 	/**
 	 * Splits all ways at the given node.
 	 * 
@@ -1792,7 +1790,6 @@ public class Logic {
 		map.invalidate();
 		return result;
 	}
-
 	
 	/**
 	 * Merge two ways.
@@ -2808,7 +2805,6 @@ public class Logic {
 		map.invalidate();		
 	}
 	
-	
 	/**
 	 * Read a file in (J)OSM format from device
 	 * 
@@ -3770,6 +3766,14 @@ public class Logic {
 		setSelectedWay(null);
 		setSelectedRelation(null);
 		map.invalidate();
+	}
+	
+	/**
+	 * Getter for testing
+	 * @return map object
+	 */
+	public Map getMap() {
+		return map;
 	}
 	
 	/**

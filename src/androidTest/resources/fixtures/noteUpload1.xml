@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+<note lon="0.1" lat="51.0">
+  <id>1</id>
+  <url>http://172.16.1.70:3000/api/0.6/notes/1</url>
+  <comment_url>http://172.16.1.70:3000/api/0.6/notes/1/comment</comment_url>
+  <close_url>http://172.16.1.70:3000/api/0.6/notes/1/close</close_url>
+  <date_created>2017-02-27 18:48:37 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2017-02-27 18:48:37 UTC</date>
+      <action>opened</action>
+      <text>ThisIsANote</text>
+      <html>&lt;p&gt;ThisIsANote&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+</osm>

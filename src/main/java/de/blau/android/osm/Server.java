@@ -1198,7 +1198,7 @@ public class Server {
 					Log.e(DEBUG_TAG, "Unknown error message: " + message);
 				}
 			}
-			throw new OsmServerException(code, code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
+			throw new OsmServerException(code, message);
 		}
 	}
 
@@ -1502,6 +1502,7 @@ public class Server {
 			// TODO ask the user to exit
 			return new ArrayList<Note>(); // empty list
 		}
+		Log.d(DEBUG_TAG, "Read " + result.size() + " notes from input");
 		return result;
 	}
 	

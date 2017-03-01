@@ -95,6 +95,7 @@ public class TaskStorage implements Serializable {
 	public ArrayList<Task>getTasks() {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
 		tasks.query(queryResult);
+		Log.d(DEBUG_TAG,"getTasks result count " + queryResult.size());
 		ArrayList<Task>result = new ArrayList<Task>();
 		for (BoundedObject bo:queryResult) {
 			result.add((Task)bo);

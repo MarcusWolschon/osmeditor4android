@@ -108,7 +108,7 @@ public abstract class Task implements Serializable, BoundedObject {
 
 	/**
 	 * Return true if a newly created bug, only makes sense for Notes
-	 * @return
+	 * @return true if new
 	 */
 	public boolean isNew() {
 		return id <= 0;

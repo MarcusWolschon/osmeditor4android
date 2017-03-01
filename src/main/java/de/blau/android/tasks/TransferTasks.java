@@ -107,7 +107,7 @@ public class TransferTasks {
 						if (!b.isClosed()) {
 							IssueAlert.alert(context, b);
 						}
-					}
+					} 
 				}
 				if (handler != null) {
 					handler.execute();
@@ -275,6 +275,7 @@ public class TransferTasks {
 
 				@Override
 				protected void onPostExecute(UploadResult result) {
+					Log.d(DEBUG_TAG,"onPostExecute");
 					if (newBug && !App.getTaskStorage().contains(bug)) {
 						App.getTaskStorage().add(bug);
 					}
