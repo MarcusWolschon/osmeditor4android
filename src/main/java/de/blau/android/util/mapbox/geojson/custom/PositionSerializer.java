@@ -1,5 +1,7 @@
 package de.blau.android.util.mapbox.geojson.custom;
 
+import java.lang.reflect.Type;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
@@ -7,8 +9,6 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 import de.blau.android.util.mapbox.models.Position;
-
-import java.lang.reflect.Type;
 
 /**
  * Required to handle the special case where the altitude might be a Double.NaN, which isn't a valid

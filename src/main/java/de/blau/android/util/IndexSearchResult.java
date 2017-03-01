@@ -1,7 +1,6 @@
 package de.blau.android.util;
 
 import android.support.annotation.NonNull;
-
 import de.blau.android.presets.Preset.PresetItem;
 
 /**

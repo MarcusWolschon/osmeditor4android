@@ -1,13 +1,13 @@
 package de.blau.android.util.mapbox.turf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.blau.android.util.mapbox.geojson.Feature;
 import de.blau.android.util.mapbox.geojson.LineString;
 import de.blau.android.util.mapbox.geojson.Point;
 import de.blau.android.util.mapbox.models.Position;
 import de.blau.android.util.mapbox.turf.models.LineIntersectsResult;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class contains all the miscellaneous methods that Turf can perform.

@@ -12,15 +12,14 @@ package de.blau.android.util.signpost;
 
 import java.io.IOException;
 
-import oauth.signpost.AbstractOAuthProvider;
-import oauth.signpost.http.HttpRequest;
-
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.client.methods.HttpUriRequest;
 import cz.msebera.android.httpclient.impl.client.HttpClients;
+import oauth.signpost.AbstractOAuthProvider;
+import oauth.signpost.http.HttpRequest;
 
 /**
  * This implementation uses the Apache Commons {@link HttpClient} 4.x HTTP

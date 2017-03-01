@@ -18,7 +18,6 @@ import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
-import de.blau.android.prefs.API;
 
 /**
  * This class provides access to complex settings like OSM APIs which consist of complex/relational data.

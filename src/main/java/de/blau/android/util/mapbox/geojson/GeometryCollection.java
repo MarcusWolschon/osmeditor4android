@@ -1,13 +1,13 @@
 package de.blau.android.util.mapbox.geojson;
 
+import java.util.List;
+
 import com.google.gson.GsonBuilder;
 
 import de.blau.android.util.mapbox.geojson.custom.GeometryDeserializer;
 import de.blau.android.util.mapbox.geojson.custom.PositionDeserializer;
 import de.blau.android.util.mapbox.geojson.custom.PositionSerializer;
 import de.blau.android.util.mapbox.models.Position;
-
-import java.util.List;
 
 /**
  * A GeoJSON object with the type "GeometryCollection" is a geometry object which represents a

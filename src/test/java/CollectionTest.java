@@ -1,21 +1,21 @@
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.junit.Test;
 
-import de.blau.android.util.collections.LongHashSet;
-import de.blau.android.util.collections.LongOsmElementMap;
-import de.blau.android.util.rtree.BoundedObject;
-import de.blau.android.util.rtree.RTree;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import de.blau.android.util.collections.LongHashSet;
+import de.blau.android.util.collections.LongOsmElementMap;
+import de.blau.android.util.rtree.BoundedObject;
+import de.blau.android.util.rtree.RTree;
 
 public class CollectionTest {
     

@@ -30,7 +30,6 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.ForbiddenLogin;
 import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.dialogs.UploadConflict;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;

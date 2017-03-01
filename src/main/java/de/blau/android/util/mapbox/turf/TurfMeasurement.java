@@ -1,13 +1,13 @@
 package de.blau.android.util.mapbox.turf;
 
+import java.util.List;
+
 import de.blau.android.util.mapbox.geojson.Feature;
 import de.blau.android.util.mapbox.geojson.FeatureCollection;
 import de.blau.android.util.mapbox.geojson.Geometry;
 import de.blau.android.util.mapbox.geojson.LineString;
 import de.blau.android.util.mapbox.geojson.Point;
 import de.blau.android.util.mapbox.models.Position;
-
-import java.util.List;
 
 /**
  * Class contains an assortment of methods used to calculate measurments such as bearing,

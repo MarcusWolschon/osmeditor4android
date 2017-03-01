@@ -22,9 +22,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import de.blau.android.R;
-import de.blau.android.prefs.API;
 import de.blau.android.util.ThemeUtils;
 
 /** Provides an activity for editing the API list */

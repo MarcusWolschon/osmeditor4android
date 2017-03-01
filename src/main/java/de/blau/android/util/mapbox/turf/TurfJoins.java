@@ -1,12 +1,12 @@
 package de.blau.android.util.mapbox.turf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.blau.android.util.mapbox.geojson.MultiPolygon;
 import de.blau.android.util.mapbox.geojson.Point;
 import de.blau.android.util.mapbox.geojson.Polygon;
 import de.blau.android.util.mapbox.models.Position;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class contains methods that can determine if points lie within a polygon or not.

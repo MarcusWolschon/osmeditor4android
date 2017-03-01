@@ -1,7 +1,5 @@
 package de.blau.android.filter;
 
-import java.util.Locale;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -37,7 +34,6 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.ListActivity;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.NetworkStatus;
 
 /**
  * Activity for editing filter entries.

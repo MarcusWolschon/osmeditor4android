@@ -1,8 +1,8 @@
 package de.blau.android.dialogs;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,11 +15,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
-import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.presets.Preset;
 import de.blau.android.util.ThemeUtils;
 
 /**

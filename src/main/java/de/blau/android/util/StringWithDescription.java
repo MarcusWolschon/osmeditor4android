@@ -1,11 +1,10 @@
 package de.blau.android.util;
 
-import android.support.annotation.NonNull;
-
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
 
+import android.support.annotation.NonNull;
 import de.blau.android.presets.ValueWithCount;
 
 @SuppressWarnings("NullableProblems")

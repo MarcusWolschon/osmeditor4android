@@ -1,13 +1,13 @@
 package de.blau.android.util.mapbox.geojson.custom;
 
+import java.lang.reflect.Type;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
 import de.blau.android.util.mapbox.geojson.Geometry;
-
-import java.lang.reflect.Type;
 
 /**
  * Required to handle the "Unable to invoke no-args constructor for interface {@link Geometry} error

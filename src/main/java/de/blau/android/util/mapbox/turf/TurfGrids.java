@@ -1,11 +1,11 @@
 package de.blau.android.util.mapbox.turf;
 
+import java.util.ArrayList;
+
 import de.blau.android.util.mapbox.geojson.Feature;
 import de.blau.android.util.mapbox.geojson.FeatureCollection;
 import de.blau.android.util.mapbox.geojson.Point;
 import de.blau.android.util.mapbox.geojson.Polygon;
-
-import java.util.ArrayList;
 
 /**
  * Methods found in this Turf class typically return a set of {@link Point}, {@link Polygon}, or
