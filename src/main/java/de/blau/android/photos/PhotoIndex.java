@@ -217,8 +217,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(sqex);
 		} catch (IOException ioex) {
-			// ignore silently broken pictures are not our business
-			// Log.d(LOGTAG, ioex.toString());
+			// ignore silently, broken pictures are not our business
+		} catch (NumberFormatException bfex) {
+			// ignore silently, broken pictures are not our business
 		} catch (Exception ex) {
 			Log.d(LOGTAG, ex.toString());
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
