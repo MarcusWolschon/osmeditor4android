@@ -234,6 +234,8 @@
         
             <li><a href="#cant-download-data-from-openstreetmap-servers">Can't download data from OpenStreetMap servers</a></li>
         
+            <li><a href="#301-moved-permanently-error-when-trying-to-download">"301 Moved Permanently" error when trying to download</a></li>
+        
             <li><a href="#what-can-i-do-with-the-editor">What can I do with the editor?</a></li>
         
             <li><a href="#does-vespucci-support-osm-notes">Does Vespucci support OSM Notes?</a></li>
@@ -279,7 +281,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <li>An <a href="http://www.openstreetmap.org/user/new">OSM account</a></li>
 </ul>
 <h4 id="what-is-the-status-of-vespucci-development">What is the status of Vespucci development?</h4>
-<p>The current Vespucci version is 0.9.8, 0.9.9 is currently in development.</p>
+<p>The current Vespucci version is 0.9.7, 0.9.8 is currently in developement.</p>
 <h4 id="is-vespucci-available-for-other-mobile-platforms">Is Vespucci available for other mobile platforms?</h4>
 <p>No, with the exception of those that provide an Android compatible environment.</p>
 <h4 id="how-can-i-obtain-vespucci">How can I obtain Vespucci?</h4>
@@ -301,7 +303,9 @@ however older devices tend to have very limited memory and correspondingly the a
 </ul>
 <h4 id="cant-download-data-from-openstreetmap-servers">Can't download data from OpenStreetMap servers</h4>
 <p>If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use https (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. </p>
-<p>Workaround: create a new non-https API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. </p>
+<p>Workaround: create a new non-https API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. Version 0.9.8 and later automatically adds such an entry so you will only need to select it. </p>
+<h4 id="301-moved-permanently-error-when-trying-to-download">"301 Moved Permanently" error when trying to download</h4>
+<p>The OpenStreetMap API server you are using is likely redirecting http (non-encrypted) to https (encyrpted) connections. Try changing the API configuration to use https.</p>
 <h4 id="what-can-i-do-with-the-editor">What can I do with the editor?</h4>
 <p>Currently, you can</p>
 <ul>
