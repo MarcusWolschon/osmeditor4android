@@ -129,13 +129,16 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 			} catch (IOException ioe) {
 				try {
 					int reason = ioe instanceof FileNotFoundException ? DOESNOTEXIST : IOERR;
-					if (reason == DOESNOTEXIST)
+					if (reason == DOESNOTEXIST) {
 						MapTileDownloader.this.mMapTileFSProvider.markAsInvalid(mTile);
+					}
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y,reason);
 				} catch (RemoteException re) {
 					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + re, ioe);
 				} catch (NullPointerException npe) {
 					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + npe, ioe);
+				} catch (IOException ioe2) {
+					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + ioe2, ioe);
 				}
 				if (!(ioe instanceof FileNotFoundException)) {
 					// FileNotFound is an expected exception, any other IOException should be logged 
@@ -145,7 +148,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 				}
 				/* TODO What to do when downloading tile caused an error?
 				 * Also remove it from the mPending?
-				 * Doing not blocks it for the whole existence of this TileDownloder.
+				 * Doing not blocks it for the whole existence of this TileDownloader.
 				 * -> we remove it and the application has to re-request it.
 				 */
 			} catch (RemoteException re) {

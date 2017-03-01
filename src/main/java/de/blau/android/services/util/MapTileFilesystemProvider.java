@@ -62,10 +62,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 		mThreadPool = Executors.newFixedThreadPool(4);
 
 		mTileDownloader = new MapTileDownloader(ctx, this);
-
-		if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-			Log.d(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
-		}
+		Log.d(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
 	}
 
 	// ===========================================================
@@ -90,7 +87,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 	// Methods
 	// ===========================================================
 
-	public void saveFile(final MapTile tile, final byte[] someData) throws IOException{
+	public void saveFile(final MapTile tile, final byte[] someData) throws IOException {
 		synchronized (this) {
 			try {
 				final int bytesGrown = mDatabase.addTileOrIncrement(tile, someData); 
@@ -212,7 +209,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 		mDatabase.close();
 	}
 
-	public void markAsInvalid(MapTile mTile) {
+	public void markAsInvalid(MapTile mTile) throws IOException {
 		mDatabase.addTileOrIncrement(mTile, null);	
 	}
 }
