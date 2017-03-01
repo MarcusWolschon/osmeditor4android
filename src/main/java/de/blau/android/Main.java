@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -1173,13 +1175,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Menu menu = m;
 		if (getBottomBar() != null) {
 			menu = getBottomBar().getMenu();
-			android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
+			class MyOnMenuItemClickListener implements android.support.v7.widget.ActionMenuView.OnMenuItemClickListener, Serializable {
+				private static final long serialVersionUID = 1L;
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
 					return onOptionsItemSelected(item);
 				}	
-			};
-			getBottomBar().setOnMenuItemClickListener(listener);
+			}
+			getBottomBar().setOnMenuItemClickListener(new MyOnMenuItemClickListener());
 			Log.d(DEBUG_TAG,"inflated main menu on to bottom toolbar");
 		} 
 		if (menu.size() == 0) {
@@ -1331,9 +1334,15 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		case R.id.menu_camera:
 			Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			try {
-				imageFile = getImageFile();
-				startCamera.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(imageFile));
-				startActivityForResult(startCamera, REQUEST_IMAGE_CAPTURE);	
+				Uri photoUri = FileProvider.getUriForFile(this,
+						"de.blau.android.osmeditor4android.provider",
+						getImageFile());
+				if (photoUri != null) {
+					imageFile = getImageFile();
+					startCamera.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+					startCamera.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
+					startActivityForResult(startCamera, REQUEST_IMAGE_CAPTURE);	
+				}
 			} catch (Exception ex) {
 				try {
 					Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_camera_error, ex.getMessage()), Toast.LENGTH_LONG).show();
@@ -2557,17 +2566,27 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@SuppressLint("InlinedApi")
 		private void viewPhoto(Photo photo) {
 			try {
-				Intent myIntent = new Intent(Intent.ACTION_VIEW); 
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) 
-					myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-				else
-					myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				myIntent.setDataAndType(photo.getRef(), "image/jpeg"); // black magic only works this way
-				startActivity(myIntent);
-				map.getPhotosOverlay().setSelected(photo);
-				//TODO may need a map.invalidate() here
+				Intent myIntent = new Intent(Intent.ACTION_VIEW);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+					myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT|Intent.FLAG_GRANT_READ_URI_PERMISSION);
+				} else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) { 
+					myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_GRANT_READ_URI_PERMISSION);
+				} else {
+					myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_GRANT_READ_URI_PERMISSION);
+				}
+				Uri photoUri = photo.getRef(Main.this);
+				if (photoUri != null) {
+					myIntent.setDataAndType(photoUri, "image/jpeg"); // black magic only works this way
+					startActivity(myIntent);
+					map.getPhotosOverlay().setSelected(photo);
+					//TODO may need a map.invalidate() here
+				} else {
+					Toast.makeText(Main.this, "Coudn't access photo at " + photo.getRef(), Toast.LENGTH_LONG).show();
+				}
 			} catch (Exception ex) {
 				Log.d(DEBUG_TAG, "viewPhoto exception starting intent: " + ex);	
+				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+				ACRA.getErrorReporter().handleException(ex);
 			}
 		}
 
@@ -2730,7 +2749,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			int id = 0;
 			if (clickedPhotos != null) {
 				for (Photo p : clickedPhotos) {
-					menu.add(Menu.NONE, id++, Menu.NONE, p.getRef().getLastPathSegment()).setOnMenuItemClickListener(this);
+					Uri photoUri = p.getRef(Main.this);
+					if (photoUri != null) {
+						menu.add(Menu.NONE, id++, Menu.NONE, photoUri.getLastPathSegment()).setOnMenuItemClickListener(this);
+					}
 				}
 			}
 			if (clickedBugs != null) {
@@ -2855,7 +2877,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			// clickedPhotos and
 			if (clickedPhotos != null) {
 				for (Photo p : clickedPhotos) {
-					Toast.makeText(getApplicationContext(), p.getRef().getLastPathSegment(), Toast.LENGTH_SHORT).show();
+					Uri photoUri = p.getRef(Main.this);
+					if (photoUri != null) {
+						Toast.makeText(getApplicationContext(), photoUri.getLastPathSegment(), Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 			if (clickedBugs != null) {

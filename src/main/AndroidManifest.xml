@@ -8,7 +8,7 @@
 	android:installLocation="auto"
 	>
 	
-	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="23" 
+	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="24" 
 	    tools:overrideLibrary="com.nononsenseapps.filepicker" /> 	<!-- the filepicker specifies a min version of 9  -->
 	
 	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices
@@ -32,7 +32,8 @@
 		android:icon="@drawable/osm_logo"
 		android:largeHeap="true" 
 		android:allowBackup="true"
-		android:fullBackupContent="@xml/backup">
+		android:fullBackupContent="@xml/backup"
+		android:resizeableActivity="true" >
 		
 	    <activity
     		android:name=".Splash"
@@ -162,6 +163,16 @@
 		</service>
 		<!--  Service for GPS tracking -->
 		<service android:name=".services.TrackerService" android:label="TrackerService" />
+		<provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="de.blau.android.osmeditor4android.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"/>
+        </provider>
+		
 		<!-- harmless addition for samsung multi window support -->
 		<uses-library android:required="false" android:name="com.sec.android.app.multiwindow"> </uses-library>
 		<meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />

@@ -3,8 +3,11 @@ package de.blau.android.photos;
 import java.io.File;
 import java.io.IOException;
 
+import android.content.Context;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.support.v4.BuildConfig;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.ExtendedExifInterface;
@@ -131,12 +134,27 @@ public class Photo implements BoundedObject {
 	}
 	
 	/**
-	 *  should probable encode ref as URI
+	 * 
+	 * @param context
+	 * @return ref as content Uri
 	 */
-	public Uri getRef() {
-		Log.d(DEBUG_TAG, "Uri " +  Uri.fromFile(new File(ref)));
-		return Uri.fromFile(new File(ref));
-		//return Uri.parse("content:/" + ref);
+	public Uri getRef(Context context) {
+		try {
+			return FileProvider.getUriForFile(context,
+				"de.blau.android.osmeditor4android.provider",
+		        new File(ref));
+		} catch (Exception ex) {
+			Log.d(DEBUG_TAG,"Problem with Uri " + ex);
+			return null;
+		}
+	}
+	
+	/**
+	 * 
+	 * @return ref as String
+	 */
+	public String getRef() {
+		return ref;
 	}
 	
 	/**

@@ -34,7 +34,8 @@ import android.graphics.Paint.Cap;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
-import android.graphics.PixelXorXfermode;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
@@ -313,8 +314,7 @@ public class DataStyle  extends DefaultHandler {
 		x_path.moveTo(arm, -arm);
 		x_path.lineTo(-arm, arm);
 		
-		@SuppressWarnings("deprecation")
-		PixelXorXfermode whiteXor = new PixelXorXfermode(Color.WHITE);
+		PorterDuffXfermode pixelOp = new PorterDuffXfermode(PorterDuff.Mode.XOR); 
 		
 		Log.i("Style","setting up default profile elements");
 		featureStyles = new HashMap<String, FeatureStyle>();
@@ -342,12 +342,11 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(HANDLE);
-		fp.dontUpdate();
-		fp.setColor(Color.BLACK);
+		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
 		fp.setWidthFactor(1f);
 		fp.getPaint().setStyle(Style.STROKE);
 		// fp.getPaint().setStrokeCap(Cap.ROUND);
-		fp.getPaint().setXfermode(whiteXor);
+		fp.getPaint().setXfermode(pixelOp);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		featureStyles.put(fp.getName(), fp);
 		
@@ -529,7 +528,7 @@ public class DataStyle  extends DefaultHandler {
 		fp.dontUpdate();
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
-		fp.getPaint().setXfermode(whiteXor);
+		fp.getPaint().setXfermode(pixelOp);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(WAY_DIRECTION);
@@ -559,7 +558,7 @@ public class DataStyle  extends DefaultHandler {
 		fp.setColor(Color.BLACK);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		fp.getPaint().setXfermode(whiteXor);
+		fp.getPaint().setXfermode(pixelOp);
 		fp.dontUpdate();
 		featureStyles.put(fp.getName(), fp);
 		Log.i("Style","... done");
