@@ -8,7 +8,7 @@
 	android:installLocation="auto"
 	>
 	
-	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="24" 
+	<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="24" 
 	    tools:overrideLibrary="com.nononsenseapps.filepicker" /> 	<!-- the filepicker specifies a min version of 9  -->
 	
 	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices
