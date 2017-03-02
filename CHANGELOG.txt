@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1236: Fix regression disabling tag only mode, add some initial filter tests-  
+
 1235: Build again Android N, API 24, fix OAuth with API instances on systems using SNI, improve test coverage, better messaging in case of API errors, fix various issues with the tag filter UI and add some documentation, robustness fixes. 
 
 1231: Add button on the debug screen to force send a crash dump.
