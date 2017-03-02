@@ -108,11 +108,11 @@ public class Logic {
 	 */
 	public enum Mode {
 		/**
-		 * add nodes by tapping the screen
+		 * tag edit only mode
 		 */
 		MODE_TAG_EDIT("TAG",true,true,false,android.R.attr.state_pressed),
 		/**
-		 * split ways by tapping the screen
+		 * edit geometries in "easyedit" mode
 		 */
 		MODE_EASYEDIT("EASY",true,true,true, android.R.attr.state_selected),
 		/**
@@ -134,7 +134,7 @@ public class Logic {
 			this.tag = tag;
 			this.selectable = selectable;
 			this.editable = editable;
-			this.geomEditable = editable;
+			this.geomEditable = geomEditable;
 			this.lockState = lockState;
 		}
 		
@@ -437,6 +437,7 @@ public class Logic {
 	 * @param mode mode.
 	 */
 	public void setMode(final Mode mode) {
+		Log.d(DEBUG_TAG,"current mode " + this.mode + " new mode " + mode);
 		if (this.mode == mode) return;
 		Filter.Update updater = new Filter.Update() {
 			@Override
