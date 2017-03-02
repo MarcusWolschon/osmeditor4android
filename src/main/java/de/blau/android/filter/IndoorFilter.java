@@ -40,6 +40,14 @@ public class IndoorFilter extends Filter {
 	private int level = 0;
 	private boolean inverted = false;
 
+	public boolean isInverted() {
+		return inverted;
+	}
+
+	public void setInverted(boolean inverted) {
+		this.inverted = inverted;
+	}
+
 	public IndoorFilter() {
 		super();
 	}
@@ -249,7 +257,7 @@ public class IndoorFilter extends Filter {
 	 * Set level used in indoor mode
 	 * @param level
 	 */
-	private void setLevel(int level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
 	
