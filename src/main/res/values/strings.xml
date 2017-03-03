@@ -702,14 +702,16 @@
         <item>All</item>
 		<item>Nodes</item>
 		<item>Ways</item>
-<!-- 		<item>Ways+</item> -->
+		<item>Ways+</item>
 		<item>Relations</item>
+		<item>Relations+</item>
     </string-array>
     <string-array translatable="false" name="tagfilter_type_values">
         <item>*</item>
 		<item>node</item>
 		<item>way</item>
-<!-- 		<item>way+</item> -->
+		<item>way+</item>
 		<item>relation</item>
+		<item>relation+</item>
     </string-array>
 </resources>

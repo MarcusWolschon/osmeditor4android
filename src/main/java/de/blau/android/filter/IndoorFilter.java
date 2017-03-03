@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import de.blau.android.R;
+import de.blau.android.filter.Filter.Include;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -55,72 +56,78 @@ public class IndoorFilter extends Filter {
 	@Override
 	public boolean include(Node node, boolean selected) {
 		int level = getLevel();
-		Boolean include = cachedNodes.get(node);
+		Include include = cachedNodes.get(node);
 		if (include != null) {
-			return include;
+			return include  != Include.DONT;
 		}
 		if (!inverted) {
-			include = selected
+			include = (selected
 				|| (node.hasTags() 
 						&& (
 								contains(node.getTagWithKey(Tags.KEY_LEVEL),level)
 								|| contains(node.getTagWithKey(Tags.KEY_REPEAT_ON),level)
 							)
-						);
+						)) ? Include.INCLUDE : Include.DONT;
 		} else {
-			include = selected || (node.hasTags() && !node.hasTagKey(Tags.KEY_LEVEL) && !node.hasTagKey(Tags.KEY_REPEAT_ON));
+			include = (selected || (node.hasTags() && !node.hasTagKey(Tags.KEY_LEVEL) && !node.hasTagKey(Tags.KEY_REPEAT_ON))) ? Include.INCLUDE : Include.DONT;
 		}
 		
-		if (!include) {
+		if (include == Include.DONT) {
 			// check if it is a relation member 
 			List<Relation> parents = node.getParentRelations();
 			if (parents != null) {
 				for (Relation r:parents) {
-					include = include || include(r, false);
+					if (include(r, false)) {
+						include = Include.INCLUDE; // inherit include status from relation
+						break;
+					}
 				}
 			}
 		}
 		
 		cachedNodes.put(node,include);
-		return include;
+		return include != Include.DONT;
 	}
 
 	@Override
 	public boolean include(Way way, boolean selected) {
 		int level = getLevel();
-		Boolean include = cachedWays.get(way);
+		Include include = cachedWays.get(way);
 		if (include != null) {
-			return include;
+			return include != Include.DONT;
 		}
 		if (!inverted) {
-			include = selected
+			include = (selected
 				|| (way.hasTags() 
 						&& (
 								contains(way.getTagWithKey(Tags.KEY_LEVEL),level)
 								|| contains(way.getTagWithKey(Tags.KEY_REPEAT_ON),level)
 								|| buildingHasLevel(way, level)
 							)
-						);
+						)) ? Include.INCLUDE : Include.DONT;
 		} else {
-			include = selected || (way.hasTags() && !way.hasTagKey(Tags.KEY_LEVEL) && !way.hasTagKey(Tags.KEY_REPEAT_ON)
-					 && !(way.hasTagKey(Tags.KEY_MIN_LEVEL) || way.hasTagKey(Tags.KEY_MAX_LEVEL)));
+			include = (selected || (way.hasTags() && !way.hasTagKey(Tags.KEY_LEVEL) && !way.hasTagKey(Tags.KEY_REPEAT_ON)
+					 && !(way.hasTagKey(Tags.KEY_MIN_LEVEL) || way.hasTagKey(Tags.KEY_MAX_LEVEL)))) ? Include.INCLUDE : Include.DONT;
 		}
 		
-		if (!include) {
+		if (include == Include.DONT) {
 			// check if it is a relation member 
 			List<Relation> parents = way.getParentRelations();
 			if (parents != null) {
 				for (Relation r:parents) {
-					include = include || include(r, false);
+					if (include(r, false)) {
+						include = Include.INCLUDE; // inherit include status from relation
+						break;
+					}
 				}
 			}
 		}
 			
 		for (Node n:way.getNodes()) {
-			Boolean includeNode = cachedNodes.get(n);
-			if (includeNode == null || (include && !includeNode)) { 
+			Include includeNode = cachedNodes.get(n);
+			if (includeNode == null || (include  != Include.DONT && includeNode == Include.DONT)) { 
 				// if not originally included overwrite now
-				if (!include && (n.hasTags() || n.hasParentRelations())) { // no entry yet so we have to check tags and relations
+				if (include == Include.DONT && (n.hasTags() || n.hasParentRelations())) { // no entry yet so we have to check tags and relations
 					include(n,false);
 					continue;
 				}
@@ -129,20 +136,20 @@ public class IndoorFilter extends Filter {
 		}
 		cachedWays.put(way,include);
 		
-		return include;
+		return include != Include.DONT;
 	}
 
 	@Override
 	public boolean include(Relation relation, boolean selected) {
 		int level = getLevel();
-		Boolean include = cachedRelations.get(relation);
+		Include include = cachedRelations.get(relation);
 		if (include != null) {
-			return include;
+			return include != Include.DONT;
 		}
 		if (!inverted) {
-			include = selected || buildingHasLevel(relation, level);
+			include = (selected || buildingHasLevel(relation, level)) ? Include.INCLUDE : Include.DONT;
 		} else {
-			include = selected || (relation.hasTags() && !(relation.hasTagKey(Tags.KEY_MIN_LEVEL) || relation.hasTagKey(Tags.KEY_MAX_LEVEL)));
+			include = (selected || (relation.hasTags() && !(relation.hasTagKey(Tags.KEY_MIN_LEVEL) || relation.hasTagKey(Tags.KEY_MAX_LEVEL)))) ? Include.INCLUDE : Include.DONT;
 		}
 		
 		cachedRelations.put(relation, include);
@@ -153,8 +160,8 @@ public class IndoorFilter extends Filter {
 				if (element != null) {
 					if (element instanceof Way) {
 						Way w = (Way)element;
-						Boolean includeWay = cachedWays.get(w);
-						if (includeWay == null || (include && !includeWay)) { 
+						Include includeWay = cachedWays.get(w);
+						if (includeWay == null || (include != Include.DONT && includeWay == Include.DONT)) { 
 							// if not originally included overwrite now
 							for (Node n:w.getNodes()) {
 								cachedNodes.put(n,include);
@@ -163,8 +170,8 @@ public class IndoorFilter extends Filter {
 						} 
 					} else if (element instanceof Node) { 
 						Node n = (Node)element;
-						Boolean includeNode = cachedNodes.get(n);
-						if (includeNode == null || (include && !includeNode)) { 
+						Include includeNode = cachedNodes.get(n);
+						if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) { 
 							// if not originally included overwrite now
 							cachedNodes.put(n,include);
 						} 
@@ -175,7 +182,7 @@ public class IndoorFilter extends Filter {
 			}
 		}
 		
-		return include;
+		return include != Include.DONT;
 	}
 	
 	/**

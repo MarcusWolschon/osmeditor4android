@@ -10,7 +10,6 @@
     	android:layout_marginBottom="1dp" >
     	<CheckBox
        		android:id="@+id/active"
-       		android:focusable="true"
         	android:layout_width="34dp"
         	android:layout_height="fill_parent"
         	android:layout_alignParentTop="true"
@@ -19,7 +18,6 @@
 		    android:paddingRight="5dp" />
 		<Spinner
         	android:id="@+id/mode"
-        	android:focusable="true"
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:minHeight="32dp"
@@ -40,7 +38,6 @@
     		android:src="?attr/menu_delete" />
     	<Spinner
         	android:id="@+id/type"
-        	android:focusable="true"
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:minHeight="32dp"

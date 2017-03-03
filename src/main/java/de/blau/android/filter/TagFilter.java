@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import de.blau.android.R;
+import de.blau.android.filter.Filter.Include;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -35,29 +36,57 @@ import de.blau.android.prefs.Preferences;
  *
  */
 public class TagFilter extends Filter {
-	private static final String DEFAULT_FILTER = "Default";
+	public static final String DEFAULT_FILTER = "Default";
 
 	private class FilterEntry implements Serializable {
 		private static final long serialVersionUID = 2L;
 		
+		/**
+		 * Entry is active
+		 */
 		boolean active = false;
+		/**
+		 * Include matching elements
+		 */
 		boolean include = false;
+		/**
+		 * Include all element types
+		 */
 		boolean allElements = false;
-		boolean withMembers = false;
+		/**
+		 * Include way nodes
+		 */
+		boolean withWayNodes = false;
+		/**
+		 * OSM element type
+		 */
 		String type;
+		/**
+		 * Regular expression for keys of tags
+		 */
 		Pattern key;
+		/**
+		 * Regular expression for values of tags
+		 */
 		Pattern value;
 		
 		FilterEntry(boolean include, String type, String key, String value, boolean active) {
 			this.include = include;
 			allElements = "*".equals(type); // just check this once
-			withMembers = type.endsWith("+");
-			this.type = withMembers ? type.substring(0, type.length()-1) : type;
+			withWayNodes = type.endsWith("+");
+			this.type = withWayNodes ? type.substring(0, type.length()-1) : type;
 			this.key = key != null && !"".equals(key) ? Pattern.compile(key) : null;
 			this.value = value != null && !"".equals(value) ? Pattern.compile(value) : null;
 			this.active = active;
 		}
 		
+		/**
+		 * Test it filter entry matches
+		 * @param type OSM object type
+		 * @param key key of tag
+		 * @param value value of tag
+		 * @return true if a match
+		 */
 		boolean match(String type, String key, String value) {
 			if (allElements || this.type.equals(type)) {
 				Matcher keyMatcher = null;
@@ -129,37 +158,41 @@ public class TagFilter extends Filter {
 		mDatabase = new TagFilterDatabaseHelper(context).getReadableDatabase();
 	}
 	
-	private boolean filter(OsmElement e) {
-		boolean include = false;
+	private Include filter(OsmElement e) {
+		Include include = Include.DONT;
 		String type = e.getName();
 		for (FilterEntry f:filter) {
 			if (f.active) {
-				boolean match = false;
+				Include match = Include.DONT;
 				SortedMap<String,String>tags = e.getTags();
 				if (tags != null && tags.size() > 0) {
 					for (Entry<String,String>t:tags.entrySet()) {
 						if (f.match(type,t.getKey(),t.getValue())) {
-							match = true;
+							match = f.withWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE;
 							break;
 						}
 					}
 				} else {
-					match = f.match(type,null,null);
+					match = f.match(type,null,null) ? (f.withWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE) : Include.DONT;
 				}
-				if (match) {
+				if (match != Include.DONT) {
+					// we have a match 
 					// Log.d(DEBUG_TAG,e.getDescription(true) + " matched " + f.toString());
-					include = f.include; //FIXME should relation membership be able to override this?
+					include = f.include ? match : Include.DONT; //FIXME should relation membership be able to override this?
 					break;
 				}
 			}
 		}
 		
-		if (!include) {
+		if (include == Include.DONT) {
 			// check if it is a relation member 
 			List<Relation> parents = e.getParentRelations();
 			if (parents != null) {
 				for (Relation r:parents) {
-					include = include || include(r, false);
+					Include relationInclude = testRelation(r, false);
+					if (relationInclude != null && relationInclude != Include.DONT) {
+						return relationInclude; // inherit include status from relation
+					}
 				}
 			}
 		}
@@ -172,51 +205,57 @@ public class TagFilter extends Filter {
 		if (!enabled || selected) {
 			return true;
 		}
-		Boolean include = cachedNodes.get(node);
+		Include include = cachedNodes.get(node);
 		if (include != null) {
-			return include;
+			return include  != Include.DONT;
 		}
 
 		include = filter(node);
 		
 		cachedNodes.put(node,include);
-		return include;
+		return include  != Include.DONT;
 	}
 
 	@Override
 	public boolean include(Way way, boolean selected) {
-		if (!enabled || selected) {
-			return true;
+		if (!enabled) {
+			return false;
 		}
-		Boolean include = cachedWays.get(way);
+		Include include = cachedWays.get(way);
 		if (include != null) {
-			return include;
+			return include != Include.DONT;
 		}
 		
 		include = filter(way);
 		
-		for (Node n:way.getNodes()) {
-			Boolean includeNode = cachedNodes.get(n);
-			if (includeNode == null || (include && !includeNode)) { 
-				// if not originally included overwrite now
-				if (!include && (n.hasTags() || n.hasParentRelations())) { // no entry yet so we have to check tags and relations
-					include(n,false);
-					continue;
-				}
-				cachedNodes.put(n,include);
-			} 
+		if (include == Include.INCLUDE_WITH_WAYNODES) {
+			for (Node n:way.getNodes()) {
+				Include  includeNode = cachedNodes.get(n);
+				if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) { 
+					// if not originally included overwrite now
+					if (include == Include.DONT && (n.hasTags() || n.hasParentRelations())) { // no entry yet so we have to check tags and relations
+						include(n,false);
+						continue;
+					}
+					cachedNodes.put(n,include);
+				} 
+			}
 		}
 		cachedWays.put(way,include);
 		
-		return include;
+		return include != Include.DONT || selected;
 	}
 
 	@Override
 	public boolean include(Relation relation, boolean selected) {
+		return testRelation(relation, selected) != Include.DONT;
+	}
+	
+	Include testRelation(Relation relation, boolean selected) {
 		if (!enabled || selected) {
-			return true;
+			return Include.INCLUDE_WITH_WAYNODES; 
 		}
-		Boolean include = cachedRelations.get(relation);
+		Include include = cachedRelations.get(relation);
 		if (include != null) {
 			return include;
 		}
@@ -231,18 +270,20 @@ public class TagFilter extends Filter {
 				if (element != null) {
 					if (element instanceof Way) {
 						Way w = (Way)element;
-						Boolean includeWay = cachedWays.get(w);
-						if (includeWay == null || (include && !includeWay)) { 
+						Include includeWay = cachedWays.get(w);
+						if (includeWay == null || (include != Include.DONT && includeWay == Include.DONT)) { 
 							// if not originally included overwrite now
-							for (Node n:w.getNodes()) {
-								cachedNodes.put(n,include);
+							if (include == Include.INCLUDE_WITH_WAYNODES) {
+								for (Node n:w.getNodes()) {
+									cachedNodes.put(n,include);
+								}
 							}
 							cachedWays.put(w,include);
 						} 
 					} else if (element instanceof Node) { 
 						Node n = (Node)element;
-						Boolean includeNode = cachedNodes.get(n);
-						if (includeNode == null || (include && !includeNode)) { 
+						Include includeNode = cachedNodes.get(n);
+						if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) { 
 							// if not originally included overwrite now
 							cachedNodes.put(n,include);
 						} 
@@ -252,10 +293,8 @@ public class TagFilter extends Filter {
 				}
 			}
 		}
-		
 		return include;
 	}
-	
 
 	/**
      * Tag filter controls

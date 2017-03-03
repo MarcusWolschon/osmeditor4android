@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.ActionBar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,6 +52,16 @@ public class TagFilterActivity extends ListActivity  {
 	private SQLiteDatabase db;
 	private Cursor tagFilterCursor = null;
 	private TagFilterAdapter filterAdapter;
+	
+	private class ViewHolder {
+		int id;
+		boolean modified;
+		CheckBox active;
+		Spinner mode;
+		Spinner type;
+		TextView keyView;
+		TextView valueView;
+	}
 	
 	public static void start(@NonNull Context context, String filter) {
 		Intent intent = new Intent(context, TagFilterActivity.class);
@@ -189,16 +201,28 @@ public class TagFilterActivity extends ListActivity  {
         ListView lv = getListView();
         for (int i = 0; i < lv.getCount(); i++) {
             View view = lv.getChildAt(i);
-            CheckBox active = (CheckBox) view.findViewById(R.id.active);
-            Spinner mode = (Spinner) view.findViewById(R.id.mode);
-            Spinner type = (Spinner) view.findViewById(R.id.type);
-            TextView keyView = (TextView) view.findViewById(R.id.key);
-            TextView valueView = (TextView) view.findViewById(R.id.value);
-            updateRow((Integer)view.getTag(),filter,active.isChecked(), "+".equals((String)mode.getSelectedItem()), type.getSelectedItemPosition(), keyView.getText().toString(), valueView.getText().toString());
+            ViewHolder vh = (ViewHolder) view.getTag();
+            if (vh.modified) {
+            	update(vh);
+            }
         }
 	}
+	
+	private void update(ViewHolder vh) {
+		Log.d(DEBUG_TAG, "saving contents for id " + vh.id);
+    	updateRow(vh.id,filter,vh.active.isChecked(), "+".equals((String)vh.mode.getSelectedItem()), vh.type.getSelectedItemPosition(), vh.keyView.getText().toString(), vh.valueView.getText().toString());
+	}
 
-	private class TagFilterAdapter extends CursorAdapter {
+	/**
+	 * Android doesn't really support editable items in ListViews and recycles the views as necessary.
+	 * Our strategy is to check if the view has been modified before recycling and if yes save to the database
+	 * this means however that changes cannot be undone without storing the original content of the rows in 
+	 * question, which we however currently don't do.
+	 * 
+	 * @author simon
+	 *
+	 */
+	private class TagFilterAdapter extends CursorAdapter {		
 		public TagFilterAdapter(Context context, Cursor cursor) {
 			super(context, cursor, 0);
 		}
@@ -206,90 +230,73 @@ public class TagFilterActivity extends ListActivity  {
 		@Override
 		public View newView(Context context, Cursor cursor, ViewGroup parent) {
 			Log.d(DEBUG_TAG, "newView");
-			return LayoutInflater.from(context).inflate(R.layout.tagfilter_item, parent, false);
+			View view = LayoutInflater.from(context).inflate(R.layout.tagfilter_item, parent, false);
+			ViewHolder vh = new ViewHolder();
+			// Find fields to populate in inflated template
+			vh.active = (CheckBox) view.findViewById(R.id.active);
+			vh.mode = (Spinner) view.findViewById(R.id.mode);
+			vh.type = (Spinner) view.findViewById(R.id.type);
+			vh.keyView = (TextView) view.findViewById(R.id.key);
+			vh.valueView = (TextView) view.findViewById(R.id.value);
+			view.setTag(vh);
+			return view;
 		}
 
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
 			Log.d(DEBUG_TAG, "bindView");
+			final ViewHolder vh = (ViewHolder) view.getTag();
+			if (vh.modified) {
+				update(vh);
+			}
+			vh.modified = false;
 			final int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-			view.setTag(id);
+			vh.id = id;
 			Log.d(DEBUG_TAG, "bindView id " + id);
-			// Find fields to populate in inflated template
-			CheckBox active = (CheckBox) view.findViewById(R.id.active);
-			Spinner mode = (Spinner) view.findViewById(R.id.mode);
-			Spinner type = (Spinner) view.findViewById(R.id.type);
-			TextView keyView = (TextView) view.findViewById(R.id.key);
-			TextView valueView = (TextView) view.findViewById(R.id.value);
+			
 			//
-			active.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("active"))==1);
-			active.setTag(id);
-			active.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			vh.active.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("active"))==1);
+			vh.active.setTag(id);
+			vh.active.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override
 				public void onCheckedChanged(CompoundButton button, boolean isChecked) {
-					ContentValues values = new ContentValues();
-					values.put("active", isChecked ? 1 : 0);
-					db.update("filterentries", values, "rowid="+button.getTag(), null);
-					newCursor();
-					Log.d("TagFilterActivity","updated row " + button.getTag());
+					vh.modified = true;
+					Log.d("TagFilterActivity","marked view as modified");
 				}
 			});
-			mode.setSelection(cursor.getInt(cursor.getColumnIndexOrThrow("include"))==1?1:0);
-			mode.setOnItemSelectedListener(new OnItemSelectedListener() {
+			vh.mode.setSelection(cursor.getInt(cursor.getColumnIndexOrThrow("include"))==1?1:0);
+			OnItemSelectedListener listener = new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int position, long id2) {
-					ContentValues values = new ContentValues();
-					values.put("include", position==1 ? 1 : 0);
-					db.update("filterentries", values, "rowid="+id, null);
-					newCursor();
-					Log.d("TagFilterActivity","updated row " + id);
+					vh.modified = true;
+					Log.d("TagFilterActivity","marked view as modified");
 				}
 				@Override
 				public void onNothingSelected(AdapterView<?> arg0) {
 				}
-			});
-			type.setSelection(getTypeEntryIndex(cursor.getString(cursor.getColumnIndexOrThrow("type"))));
-			type.setOnItemSelectedListener(new OnItemSelectedListener() {
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, int position, long id2) {
-					ContentValues values = new ContentValues();
-					values.put("type", getTypeValue(position));
-					db.update("filterentries", values, "rowid="+id, null);
-					newCursor();
-					Log.d("TagFilterActivity","updated row " + id);
-				}
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-				}
-			});
+			};
+			vh.mode.setOnItemSelectedListener(listener);
+			vh.type.setSelection(getTypeEntryIndex(cursor.getString(cursor.getColumnIndexOrThrow("type"))));
+			vh.type.setOnItemSelectedListener(listener);
 			String key = cursor.getString(cursor.getColumnIndexOrThrow("key"));
-			keyView.setText(key);
-			keyView.setOnFocusChangeListener(new OnFocusChangeListener(){
+			vh.keyView.setText(key);
+			TextWatcher watcher = new TextWatcher() {
 				@Override
-				public void onFocusChange(View editText, boolean hasFocus) {
-					if (!hasFocus) {
-						ContentValues values = new ContentValues();
-						values.put("key", ((EditText)editText).getText().toString());
-						db.update("filterentries", values, "rowid="+id, null);
-						// newCursor(); can't call that here or else focus goes crazy, relies on other elements forcing the update
-						Log.d("TagFilterActivity","updated row " + id);
-					}
+				public void afterTextChanged(Editable arg0) {
+					vh.modified = true;
+					Log.d("TagFilterActivity","marked view as modified");
 				}
-			});
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+				}
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+				}
+			};
+			vh.keyView.addTextChangedListener(watcher);
 			String value = cursor.getString(cursor.getColumnIndexOrThrow("value"));
-			valueView.setText(value);
-			valueView.setOnFocusChangeListener(new OnFocusChangeListener(){
-				@Override
-				public void onFocusChange(View editText, boolean hasFocus) {
-					if (!hasFocus) {
-						ContentValues values = new ContentValues();
-						values.put("value", ((EditText)editText).getText().toString());
-						db.update("filterentries", values, "rowid="+id, null);
-						// newCursor(); can't call that here or else focus goes crazy, relies on other elements forcing the update
-						Log.d("TagFilterActivity","updated row " + id);
-					}
-				}
-			});
+			vh.valueView.setText(value);
+			vh.valueView.addTextChangedListener(watcher);
 			ImageButton delete = (ImageButton) view.findViewById(R.id.delete);
 			delete.setOnClickListener(new OnClickListener() {
 				@Override
@@ -300,7 +307,6 @@ public class TagFilterActivity extends ListActivity  {
 					Log.d("TagFilterActivity","delete clicked");
 				}});
 		}
-
 	}
 
 	private int getTypeEntryIndex(String value) {

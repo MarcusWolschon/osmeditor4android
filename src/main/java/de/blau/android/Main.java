@@ -2665,7 +2665,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				clickedNodesAndWays = App.getLogic().getClickedNodesAndWays(x, y);
 				Logic logic = App.getLogic();
 				Filter filter = logic.getFilter();
-				if (filter != null) { // filter indoor elements 
+				if (filter != null) { // filter elements 
 					clickedNodesAndWays = filterElements(clickedNodesAndWays);
 				}
 				boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
@@ -2720,14 +2720,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			for (OsmElement e:elements) {
 				if (filter.include(e, false)) {
 					tmp.add(e);
-				} else if (e instanceof Node) {
-					for (Way w:logic.getWaysForNode((Node)e)) {
-						if (filter.include(w, false)) {
-							tmp.add(e);
-							break;
-						}
-					}
-				}
+				} 
 			}
 			return tmp;
 		}

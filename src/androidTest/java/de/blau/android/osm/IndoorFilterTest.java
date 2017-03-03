@@ -21,9 +21,11 @@ import org.junit.runner.RunWith;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
@@ -38,6 +40,8 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.filter.IndoorFilter;
+import de.blau.android.filter.TagFilter;
+import de.blau.android.filter.TagFilterDatabaseHelper;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
@@ -48,7 +52,12 @@ import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class FilterTest {
+/**
+ * Note: these test currently only test the filter logic not the UI
+ * @author simon
+ *
+ */
+public class IndoorFilterTest {
 	
 	MockWebServerPlus mockServer = null;
 	Context context = null;
@@ -188,6 +197,36 @@ public class FilterTest {
     		// check way nodes
     		Assert.assertTrue(f.include(n1, false));
     		Assert.assertTrue(f.include(n2, false));	
+    	} catch (OsmIllegalOperationException e) {
+    		Assert.fail(e.getMessage());
+    	}
+    }
+    
+    @Test
+    public void indoorFilterRelation() {
+    	try {
+    		TreeMap<String,String> tags = new TreeMap<String,String>();
+    		Logic logic = App.getLogic();
+
+    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(1000.0f, 1000.0f);
+    		Way w = logic.getSelectedWay();
+    		logic.setSelectedNode(null);
+    		logic.setSelectedWay(null);
+
+    		IndoorFilter f = new IndoorFilter();
+    		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
+    		members.add(w);
+    		Relation r = logic.createRelation("", members);
+    		f.clear();
+    		tags.clear();
+    		tags.put(Tags.KEY_MIN_LEVEL,"" + 8);
+    		tags.put(Tags.KEY_MAX_LEVEL,"" + 10);
+    		tags.put(Tags.KEY_BUILDING,"yes");
+    		r.addTags(tags);
+    		f.setLevel(9);
+    		Assert.assertTrue(f.include(r, false));
+    		Assert.assertTrue(f.include(w, false));
     	} catch (OsmIllegalOperationException e) {
     		Assert.fail(e.getMessage());
     	}

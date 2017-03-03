@@ -17,13 +17,23 @@ public abstract class Filter implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 5L;
+	
 	/**
-	 * cache for way nodes
+	 * Filter action for elements
 	 */
-	transient HashMap<Node,Boolean> cachedNodes = new HashMap<Node,Boolean>(100);
-	transient HashMap<Way,Boolean> cachedWays = new HashMap<Way,Boolean>(100);
-	transient HashMap<Relation,Boolean> cachedRelations = new HashMap<Relation,Boolean>(100);
+	enum Include {
+		DONT,
+		INCLUDE,
+		INCLUDE_WITH_WAYNODES
+	}
+		
+	/**
+	 * cache for element filter actions
+	 */
+	transient HashMap<Node,Include> cachedNodes = new HashMap<Node,Include>(100);
+	transient HashMap<Way,Include> cachedWays = new HashMap<Way,Include>(100);
+	transient HashMap<Relation,Include> cachedRelations = new HashMap<Relation,Include>(100);
 
 	private transient Logic logic = App.getLogic();
 
@@ -136,8 +146,8 @@ public abstract class Filter implements Serializable {
 			throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		// Normal deserialization will not initialize transient objects, need to do it here
-		cachedNodes = new HashMap<Node,Boolean>(100);
-		cachedWays = new HashMap<Way,Boolean>(100);
-		cachedRelations = new HashMap<Relation,Boolean>(100);
+		cachedNodes = new HashMap<Node,Include>(100);
+		cachedWays = new HashMap<Way,Include>(100);
+		cachedRelations = new HashMap<Relation,Include>(100);
 	}
 }
