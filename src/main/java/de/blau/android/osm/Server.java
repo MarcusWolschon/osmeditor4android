@@ -807,37 +807,7 @@ public class Server {
 			}
 		}
 		try {
-			XmlSerializable xmlData = new XmlSerializable() {
-				@Override
-				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-					startXml(serializer);
-					serializer.startTag("", "changeset");
-					serializer.startTag("", "tag");
-					serializer.attribute("", "k", "created_by");
-					serializer.attribute("", "v", generator);
-					serializer.endTag("", "tag");
-					if (comment != null && comment.length() > 0) {
-						serializer.startTag("", "tag");
-						serializer.attribute("", "k", "comment");
-						serializer.attribute("", "v", comment);
-						serializer.endTag("", "tag");
-					}
-					if (source != null && source.length() > 0) {
-						serializer.startTag("", "tag");
-						serializer.attribute("", "k", "source");
-						serializer.attribute("", "v", source);
-						serializer.endTag("", "tag");
-					}
-					if (imagery != null && imagery.length() > 0) {
-						serializer.startTag("", "tag");
-						serializer.attribute("", "k", "imagery_used");
-						serializer.attribute("", "v", imagery);
-						serializer.endTag("", "tag");
-					}
-					serializer.endTag("", "changeset");
-					endXml(serializer);
-				}
-			};
+			XmlSerializable xmlData = changeSetTags(comment, source, imagery);
 			connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
 			sendPayload(connection, xmlData, changesetId);
 			if (connection.getResponseCode() == -1) {
@@ -858,6 +828,44 @@ public class Server {
 			SavingHelper.close(in);
 		}
 		changesetId = newChangesetId;
+	}
+
+	private XmlSerializable changeSetTags(final String comment, final String source, final String imagery) {
+		return new XmlSerializable() {
+			@Override
+			public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+				startXml(serializer);
+				serializer.startTag("", "changeset");
+				serializer.startTag("", "tag");
+				serializer.attribute("", "k", "created_by");
+				serializer.attribute("", "v", generator);
+				serializer.endTag("", "tag");
+				if (comment != null && comment.length() > 0) {
+					serializer.startTag("", "tag");
+					serializer.attribute("", "k", "comment");
+					serializer.attribute("", "v", comment);
+					serializer.endTag("", "tag");
+				}
+				if (source != null && source.length() > 0) {
+					serializer.startTag("", "tag");
+					serializer.attribute("", "k", "source");
+					serializer.attribute("", "v", source);
+					serializer.endTag("", "tag");
+				}
+				if (imagery != null && imagery.length() > 0) {
+					serializer.startTag("", "tag");
+					serializer.attribute("", "k", "imagery_used");
+					serializer.attribute("", "v", imagery);
+					serializer.endTag("", "tag");
+				}
+				serializer.startTag("", "tag");
+				serializer.attribute("", "k", "locale");
+				serializer.attribute("", "v", Locale.getDefault().toString());
+				serializer.endTag("", "tag");
+				serializer.endTag("", "changeset");
+				endXml(serializer);
+			}
+		};
 	}
 
 	/**
@@ -932,37 +940,7 @@ public class Server {
 		InputStream in = null;
 
 		try {
-			XmlSerializable xmlData = new XmlSerializable() {
-				@Override
-				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-					startXml(serializer);
-					serializer.startTag("", "changeset");
-					serializer.startTag("", "tag");
-					serializer.attribute("", "k", "created_by");
-					serializer.attribute("", "v", generator);
-					serializer.endTag("", "tag");
-					if (comment != null && comment.length() > 0) {
-						serializer.startTag("", "tag");
-						serializer.attribute("", "k", "comment");
-						serializer.attribute("", "v", comment);
-						serializer.endTag("", "tag");
-					}
-					if (source != null && source.length() > 0) {
-						serializer.startTag("", "tag");
-						serializer.attribute("", "k", "source");
-						serializer.attribute("", "v", source);
-						serializer.endTag("", "tag");
-					}
-					if (imagery != null && imagery.length() > 0) {
-						serializer.startTag("", "tag");
-						serializer.attribute("", "k", "imagery_used");
-						serializer.attribute("", "v", imagery);
-						serializer.endTag("", "tag");
-					}
-					serializer.endTag("", "changeset");
-					endXml(serializer);
-				}
-			};
+			XmlSerializable xmlData = changeSetTags(comment, source, imagery);
 			connection = openConnectionForWriteAccess(getChangesetUrl(changesetId), "PUT");
 			sendPayload(connection, xmlData, changesetId);
 			checkResponseCode(connection);
