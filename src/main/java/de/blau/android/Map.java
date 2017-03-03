@@ -827,7 +827,7 @@ public class Map extends View implements IMapView {
 			featureKeyThin = DataStyle.SELECTED_NODE_THIN;
 			// style for tagged nodes or otherwise important
 			featureKeyTagged = DataStyle.SELECTED_NODE_TAGGED;
-			if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()) { // don't draw large areas in multi-select mode
+			if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) { // don't draw large areas in multi-select mode
 				canvas.drawCircle(x, y, DataStyle.getCurrent().largDragToleranceRadius, DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
 			}
 		} else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
