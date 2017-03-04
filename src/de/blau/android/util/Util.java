@@ -327,4 +327,13 @@ public class Util {
 		}
 		return v;
 	}
+
+	/**
+	 * Set the alpha value for a FAB, just a workaround of support lib  brokenness
+	 * @param fab the floating action button
+	 * @param fabalpha the alpha value
+	 */
+	public static void setAlpha(FloatingActionButton fab, float fabalpha) {
+		ViewCompat.setAlpha(fab, fabalpha);
+	}
 }

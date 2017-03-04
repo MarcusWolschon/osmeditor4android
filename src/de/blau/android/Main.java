@@ -153,7 +153,6 @@ import oauth.signpost.exception.OAuthException;
  * @author mb
  */
 public class Main extends FullScreenAppCompatActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener {
-
 	/**
 	 * Tag used for Android-logging.
 	 */
@@ -183,6 +182,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private static final String TAG_TAG = "TAG";
 	
 	private static final double DEFAULT_BOUNDING_BOX_RADIUS = 4000000.0D;
+
+    /**
+     * Alpha value for floating action buttons workaround
+     * We should probably find a better place for this
+     */
+	public static final float FABALPHA = 0.90f;
 
 	/**
 	 * Date pattern used for the image file name.
@@ -486,6 +491,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			ColorStateList followTint = ContextCompat.getColorStateList(this,R.color.follow);
 			Util.setBackgroundTintList(follow, followTint);
 		}
+		Util.setAlpha(follow, Main.FABALPHA);
 		
 		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);

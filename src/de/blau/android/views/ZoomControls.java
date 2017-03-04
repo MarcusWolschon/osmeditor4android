@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -43,6 +44,8 @@ public class ZoomControls extends LinearLayout {
 			Util.setBackgroundTintList(zoomIn, zoomTint);
 			Util.setBackgroundTintList(zoomOut, zoomTint);
 		}
+		Util.setAlpha(zoomIn, Main.FABALPHA);
+		Util.setAlpha(zoomOut, Main.FABALPHA);
 	}
 	
 	@SuppressLint("ClickableViewAccessibility")
