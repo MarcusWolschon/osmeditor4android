@@ -9,18 +9,24 @@
   <string name="upload_problem_title">Problem med uppladdning</string>
   <string name="upload_problem_message">En del eller all data laddades inte upp. Försök att ladda upp igen senare om det var bara ett tillfälligt problem.</string>
   <string name="upload_conflict_title">Uppladdningskonflikt</string>
+  <string name="upload_conflict_message_version">%1$s \nharlokal version %2$s \noch på servern %3$s </string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nvar redan borttagen på servern</string>
   <string name="use_local_version">Använd \nlokal \nversion</string>
+  <string name="use_server_version">Använd \nversion\npå servern</string>
   <string name="no_login_data_title">Autentisering misslyckades</string>
   <string name="no_connection_title">Ingen anslutning till server</string>
-  <string name="no_connection_message">Det gick inte att ansluta till OSM-servern. Kontrollera Internetanslutningen eller försök igen senare.</string>
+  <string name="no_connection_message">Det gick inte att ansluta till OSM-Servern. Kontrollera Internetanslutningen eller försök igen senare.</string>
+  <string name="ssl_handshake_failed">Kunde inte att ansluta till OSM-Servern eftersom https förhandling misslyckades. Försök att byta till en icke-krypterad förbindelse i API-inställningarna.</string>
   <string name="wrong_login_data_title">Autentisering misslyckades</string>
   <string name="wrong_login_data_re_authenticate">Verifiera igen</string>
+  <string name="data_conflict_title">Versionskonflikt</string>
   <string name="api_offline_title">API Offline</string>
   <string name="api_offline_message">API är för närvarande offline och data kan inte hämtas eller skrivas.</string>
   <string name="out_of_memory_title">Slut på minne</string>
   <string name="out_of_memory_message">Vespucci har slut på minne för att ladda de begärda uppgifterna. Starta om och prova ladda ett mindre område.</string>
   <string name="out_of_memory_dirty_message">Vespucci har slut på minne för att ladda de begärda uppgifterna. Vänligen försök att spara ändringar, starta om och prova att ladda ett mindre område.</string>
   <string name="invalid_data_received_title">Ogiltiga data mottagna</string>
+  <string name="invalid_data_read_title">Felaktig data</string>
   <string name="file_write_failed_title">Fil skrivning misslyckades</string>
   <string name="file_write_failed_message">Det gick inte att skriva till vald fil.</string>
   <string name="welcome_title">Välkommen!</string>
@@ -57,8 +63,11 @@
   <string name="unsaved_data_title">Försiktigt!</string>
   <string name="unsaved_data_message">Du har osparade ändringar som kommer att kastas om du fortsätter.</string>
   <string name="unsaved_data_proceed">Kasta bort &amp; fortsätt</string>
+  <string name="imagery_offset_title">Bildjustering</string>
   <string name="imagery_offset_description">Beskrivning</string>
+  <string name="imagery_offset_not_found">Inga justeringar hittade inom 10 km radie!</string>
   <string name="imagery_offset_author">Författare</string>
+  <string name="imagery_offset_offset">Justering</string>
   <string name="imagery_offset_date">Skapades</string>
   <string name="imagery_offset_zoom">Zooma</string>
   <string name="imagery_offset_distance">Avstånd</string>
@@ -66,12 +75,18 @@
   <string name="tag_editor_name_suggestion">Namnförslag</string>
   <string name="search_results_title">Sökresultat</string>
   <string name="find_message">Ange söksträng</string>
+  <string name="preset_search_hint">Förinställda söksträngar</string>
+  <string name="search">Sök</string>
   <string name="no_valid_preset">Inga giltiga förinställningar</string>
   <string name="read_file">Välj fil att läsa</string>
   <string name="save_file">Ange fil att spara till</string>
   <string name="existing_track_title">Befintlig spår-data</string>
+  <string name="existing_track_message">Du har redan gått ur track datan. Du kanske skall ångra och spara först.</string>
+  <string name="delete_tags">Verkligen ta bort alla taggar för objectet \"%1$s\"?</string>
+  <string name="element_information">Element information</string>
   <string name="id">ID</string>
   <string name="nodes">Noder</string>
+  <string name="relation_membership">Relation medlemskap</string>
   <string name="problem">Problem</string>
   <string name="members">Medlemmar</string>
   <string name="closed">Stängd</string>
@@ -88,7 +103,7 @@
   <!--Toaster-->
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
-  <string name="toast_upload_success">Uppladdningen till OSM-servern slutfördes.</string>
+  <string name="toast_upload_success">Uppladdning till OSM server slutfördes.</string>
   <string name="toast_not_in_edit_range">Vänligen zooma in för att redigera (Volym upp/ner eller Lins/Shift)</string>
   <string name="toast_unlock_to_edit">Lås upp för att redigera</string>
   <string name="toast_edit_outside_downloaded_area">Du kan inte redigera utanför nedladdat område</string>
@@ -99,7 +114,9 @@
   <string name="toast_export_success">Exporterade till %1$s</string>
   <string name="toast_state_file_failed">Icke läsbar eller korrupt statusfil</string>
   <string name="toast_too_many_nodes_for_move">För många noder att flytta</string>
+  <string name="toast_unread_mail">Du har %1$s olästs meddelanden på OpenStreetMap servern</string>
   <string name="toast_download_bbox_failed">Nerladdning misslyckades, förmodligen på grund av att det valda området var för stort.</string>
+  <string name="toast_unsurveyed_road">Oklassificerad väg</string>
   <string name="toast_noname">Vägen har inget namn eller ref</string>
   <string name="toast_notype">Relationen har ingen typ</string>
   <string name="toast_nothing_found">Hittade inget</string>
@@ -121,6 +138,7 @@
   <string name="back">Tillbaka</string>
   <string name="forward">Framåt</string>
   <string name="keep">Behåll</string>
+  <string name="enable">Aktivera</string>
   <string name="clear">Töm</string>
   <string name="retry">Försök igen</string>
   <!--Dialog for back button-->
@@ -149,6 +167,7 @@
   <string name="tag_multi_value_hint">Flera värden</string>
   <string name="tag_dialog_value_hint">Knacka för värden</string>
   <string name="tag_action_tag_title">Tagg(ar) valda</string>
+  <string name="tag_action_parents_title">Relation(er) vald(a)</string>
   <string name="tag_additional_properties">Extra egenskaper</string>
   <string name="tag_details">Detaljer</string>
   <string name="tag_menu_move_up">Flytta upp</string>
@@ -194,6 +213,7 @@
   <string name="menu_extract">Extrahera nod</string>
   <string name="menu_append">Fäst</string>
   <string name="menu_restriction_to">Lägg till i segment</string>
+  <string name="menu_relation">Skapa relation</string>
   <string name="menu_add_relation_member">Lägg till medlem</string>
   <string name="menu_select_relation_members">Välj medlemmar</string>
   <string name="menu_tag">Redigera taggar</string>
@@ -201,15 +221,20 @@
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Visa plats</string>
-  <string name="menu_gps_follow">Följ GPS-plats</string>
-  <string name="menu_gps_goto">Gå till GPS-platsen</string>
+  <string name="menu_gps_follow">Följ GPS position</string>
+  <string name="menu_gps_goto">Gå till GPS position</string>
+  <string name="menu_gps_start">Starta GPS spår</string>
+  <string name="menu_gps_pause">Pausa GPS spår</string>
+  <string name="menu_gps_clear">Rensa GPS spår</string>
   <string name="menu_gps_track_managment">Spårhantering...</string>
+  <string name="menu_gps_upload">Ladda upp GPS spår</string>
+  <string name="menu_gps_export">Exportera GPS spår</string>
   <string name="menu_gps_import">Importera GPS spår</string>
   <string name="menu_gps_goto_start">Gå till GPS spår</string>
   <string name="menu_gps_autodownload">Ladda ner automatiskt</string>
   <string name="menu_transfer">Överför...</string>
   <string name="menu_transfer_download_current">Ladda ner nuvarande vy</string>
-  <string name="menu_transfer_download_current_add">Lägg till nuvarande vy för nedladdning</string>
+  <string name="menu_transfer_download_current_add">Lägg till nuvarande vy till nedladdning</string>
   <string name="menu_transfer_download_other">Ladda ner annan plats</string>
   <string name="menu_transfer_upload">Ladda upp data till OSM server</string>
   <string name="menu_transfer_close_changeset">Stäng nuvarande chnageset</string>
@@ -225,7 +250,7 @@
   <string name="menu_transfer_bugs_clear_long">Töm buggar</string>
   <string name="menu_transfer_autodownload_long">Ladda automatiskt ner buggar</string>
   <string name="menu_transfer_save_notes_all">Spara alla anteckningar...</string>
-  <string name="menu_transfer_save_notes_new_and_changed">Spara nya och ändrade noteringar....</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Spara nya och ändrade anteckningar....</string>
   <string name="menu_save">Spara till fil</string>
   <string name="menu_join">Anslut</string>
   <string name="menu_unjoin">Koppla loss</string>
@@ -245,6 +270,7 @@
   <string name="menu_set_name">Sätt namn</string>
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
   <string name="menu_tools">Verktyg</string>
+  <string name="menu_tools_flush_background_tile_cache">Spola bakgrundstitel cache</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
   <string name="menu_tools_background_align">Justera bakgrund</string>
   <string name="menu_tools_background_align_reset">Återställ</string>
@@ -254,7 +280,7 @@
   <string name="menu_tools_background_align_save_db">Spara till DB</string>
   <string name="menu_tools_background_align_save_device">Spara till enhet</string>
   <string name="menu_tools_background_align_apply2all">Verkställ (alla zoom)</string>
-  <string name="menu_tools_background_contrast">Kontrsast</string>
+  <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Återställ OAuth</string>
   <string name="menu_tools_oauth_authorisation">Bevilja OAuth</string>
   <!--element action mode menu-->
@@ -264,7 +290,9 @@
   <string name="menu_merge">Anslut</string>
   <string name="menu_reverse">Omvänd</string>
   <string name="reverse_anyway">Omvänd ändå</string>
+  <string name="deleteway_relation_description">Du håller på att ta bort en väg som är medlem i en eller flera relationer. Om du tar bort vägen från relationen/relationerna kanske den/de renderas felaktigt. </string>
   <string name="deleteway_wayonly">Ta endast bort väg</string>
+  <string name="deletenode_relation_description">Du håller på att ta bort en nod som är medlem i en eller flera relationer. Om du tar bort noden från relationen/relationerna kanske den/de renderas felaktigt. </string>
   <string name="deletenode">Ta bort nod</string>
   <string name="split_all_ways">Dela alla vägar</string>
   <!--EasyEdit action mode titles-->
@@ -275,6 +303,8 @@
   <!--Preferences-->
   <string name="config_category_view">Användargränssnitts inställningar </string>
   <string name="config_showCameraAction_title">Visa kamera knapp</string>
+  <string name="config_generateAlerts_title">Generera aviseringar</string>
+  <string name="config_tileCacheSize_title">Tile cache storlek</string>
   <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
   <string name="config_closeChangesetOnSave_summary">Stäng changesets som standard vid sparande</string>
   <string name="config_backgroundLayer_title">Kartans bakgrund</string>
@@ -283,6 +313,8 @@
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Använd oauth</string>
+  <string name="config_offsetServer_title">Justeringsserver</string>
+  <string name="config_offsetServer_summary">URL till servern med bildjusteringar</string>
   <string name="config_presetbutton_title">Förinställda</string>
   <string name="config_loginbutton_title">Användarkonto</string>
   <string name="config_username_title">OSM Användarnamn</string>
@@ -293,8 +325,12 @@
   <string name="config_category_misc">Diverse</string>
   <string name="config_address_tags">Adresstaggar</string>
   <!--preset downloader messages-->
+  <string name="preset_update">Uppdatera förinställda</string>
   <!--changes-->
+  <string name="confirm_upload_title">Ladda upp?</string>
   <!--url handler activity-->
+  <string name="urldialog_add_preset">Lägg till förinställd</string>
+  <string name="urldialog_add_api">Lägg till API</string>
   <!--common terms-->
   <string name="add">Lägg till</string>
   <string name="edit">Redigera</string>
@@ -320,6 +356,7 @@
   <string name="undo_action_deletenode">ta bort nod</string>
   <string name="undo_action_deleteway">ta bort väg</string>
   <string name="undo_action_delete_objects">ta bort objekt</string>
+  <string name="undo_action_split_ways">dela vägar</string>
   <string name="undo_action_split_way">dela väg</string>
   <string name="undo_action_merge_ways">slå ihop vägar</string>
   <string name="undo_action_reverse_way">omvänd väg</string>
@@ -335,18 +372,30 @@
   <string name="undo_action_orthogonalize">rätvinkla väg</string>
   <string name="undo_action_circulize">arrangera i cirkel</string>
   <string name="undo_action_fix_conflict">fix konflikt</string>
+  <string name="undo_action_extract_node">extrahera nod</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="bearing_ne">NE</string>
+  <string name="bearing_e">E</string>
+  <string name="bearing_se">SE</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_sw">SW</string>
+  <string name="bearing_w">W</string>
+  <string name="bearing_nw">NW</string>
+  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
   <string name="role">Roll</string>
   <string name="role_lc">roll</string>
+  <string name="membership_relation_heading">Medlem i relation</string>
   <string name="relation">Relation</string>
   <string name="relations">Relationer</string>
   <string name="position">Pos.</string>
   <string name="type">Typ</string>
   <string name="object">Objekt</string>
+  <string name="deleterelation_relation_description">Du håller på att ta bort en relation som är en medlem i en eller flera relationer. Om du tar bort relationen från relationen/relationerna  kanske den/de renderas felaktigt. </string>
   <string name="deleterelation">Ta bort relation</string>
+  <string name="delete_from_relation_description">Du håller på att ta bort detta element från en relation.</string>
   <!--time and distance-->
   <string name="days">dagar</string>
   <string name="hours">timmar</string>
@@ -355,10 +404,22 @@
   <string name="km">km</string>
   <string name="meter">meter</string>
   <!--Help system-->
+  <string name="toast_nohelp">Ingen hjälp tillgänglig här!</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>privat</item>
+    <item>allmän</item>
+    <item>spårbar</item>
+    <item>synlig</item>
+  </string-array>
   <string-array name="note_state">
     <item>Öppna</item>
     <item>Stäng</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Vänster</item>
+    <item>Höger</item>
+    <item>Inget</item>
   </string-array>
   <string-array name="full_screen_preference_no_auto_entries">
     <item>Nyare</item>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Číslo domu (addr:housenumber)</item>
+    <item>Ulica (addr:street)</item>
+    <item>PSČ (addr:postcode)</item>
+    <item>Mesto/obec/dedina/..  (addr:city)</item>
+    <item>Krajina (addr:country)</item>
+    <item>Úplná adresa (addr:full)</item>
+    <item>Miesto (addr:place)</item>
+    <item>Osada (addr:hamlet)</item>
+    <item>Mestská štvrť (addr:suburb)</item>
+    <item>Podokres (addr:subdistrict)</item>
+    <item>Okres (addr:district)</item>
+    <item>Provincia (addr:province)</item>
+    <item>Štát (addr:state)</item>
+    <item>Byty (addr:flats)</item>
+    <item>Dvere (addr:door)</item>
+    <item>Jednotka (addr:unit)</item>
+  </string-array>
+</resources>

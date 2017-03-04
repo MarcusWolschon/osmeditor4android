@@ -1,6 +1,6 @@
 # Vespucci bevezetés
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on googles Android 2.3 to 6.0 and various AOSP based variants. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+A Vespucci egy teljes értékű OpenStreetMap szerkesztő, ami támogatja a legtöbb műveletet, amit az asztali gépeken elérhető szerkesztők nyújtanak. Sikeresen tesztelve lett Android 2.3-tól 6.0-ig különböző AOSP alapú kiadásokon. Egy figyelmeztetés: míg a mobileszközök képességei utolérték az asztali gépek képességeit, különösen a régebbi eszközöknek nagyon korlátozott a rendelkezésre álló memóriájuk és általában meglehetősen lassúak. Ezt számításba kell vennie a Vespuccit használatakor, és például a szerkesztett területet egy ésszerű méreten belül kell tartania. 
 
 ## Első használat
 
@@ -14,7 +14,7 @@ Depending on screen size and age of your device editing actions may either be ac
 
 ### OSM adatok letöltése
 
-Select either the transfer icon ![ ](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
+Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
@@ -110,7 +110,7 @@ If you have the later set, moving the screen manually or editing will cause the 
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-On the map the Notes and bugs are represented by a small bug icon ![ ](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 

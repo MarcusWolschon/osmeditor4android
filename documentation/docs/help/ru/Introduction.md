@@ -14,7 +14,7 @@ Vespucci — полнофункциональный редактор OpenStreetM
 
 ### Загрузка OSM-данных
 
-Выберите значок передачи ![ ](../images/menu_transfer.png)  или пункт меню "Передача". Будут показаны семь опций:
+Выберите значок передачи ![](../images/menu_transfer.png)  или пункт меню "Передача". Будут показаны семь опций:
 
 * **Скачать текущее местоположение** - скачать видимую область на экране и заменить любые существующие данные *(требует онлайн)*
 * **Добавить текущий вид для скачивания** - скачать видимую область на экране и объединить с существующими данными  *(требует онлайн)*
@@ -75,11 +75,11 @@ Vespucci — полнофункциональный редактор OpenStreetM
 
 В Vespucci есть быстрый способ добавления ограничений поворотов. Заметьте: если для добавления ограничения требуется разбить линию, сделайте это заранее.
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
-* select "Add restriction" from the menu
-* select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type in the tag menu
+* выберите линию с тегом автодороги (ограничения поворота могут быть добавлены только на автодороги, если вам нужно сделать это для других линий, пожалуйста, используйте общий режим "создать отношение", если нет никаких возможных "via" элементов пункт меню также не будет отображаться)
+* выберите "Добавить ограничение" из меню
+* выберите точку или линию "via" (все возможные элементы "via" будут иметь подсветку выбираемого элемента)
+* выберите линию "to" (можно продублировать и установить "to" элемент на элемент "from", Vespucci будет считать, что вы добавляете ограничение no_u_turn)
+* установить тип ограничения в меню тегов
 
 ### Vespucci в "locked" режиме
 
@@ -87,7 +87,7 @@ Vespucci — полнофункциональный редактор OpenStreetM
 
 ### Сохранение изменений
 
-*(требует онлайн)*
+*(требуется доступ в интернет)*
 
 Используйте ту же кнопку или меню, которые вы выбирали для подгрузки данных, но теперь нажмите "Передача данных на сервер OSM".
 
@@ -99,11 +99,11 @@ Vespucci поддерживает и OAuth-авторизацию, и "клас�
 
 #### Разрешение конфликтов данных при передаче на сервер
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
+Vespucci имеет простой распознаватель конфликтов. Тем не менее, если вы подозреваете, что существуют серьезные проблемы с вашими правками, экспортируйте изменения в OSC-файл (пункт меню "Экспорт" в меню "Передача") и исправьте и загрузите их с помощью JOSM. Смотрите подробную справку по [разрешению конфликтов](../en/Conflict resolution.md).  
 
 ## Использование GPS
 
-You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
+Вы можете использовать Vespucci для создания GPX треков и их просмотра на вашем устройстве. Также вы можете отобразить текущее положение по GPS в центре экрана (отметьте "Показывать местоположение" в меню GPS) и/или следовать за ним (отметьте "Следовать за GPS" в меню GPS). 
 
 If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
 
@@ -111,7 +111,7 @@ If you have the later set, moving the screen manually or editing will cause the 
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-On the map the Notes and bugs are represented by a small bug icon ![ ](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+На карте Заметки и ошибки представлены маленьким значком ошибки ![](../images/bug_open.png), зеленые - закрыты/решены, синие были созданы или отредактированы вами, желтые указывают на то, что они по-прежнему активны и не были изменены. 
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
