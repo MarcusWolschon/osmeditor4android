@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Žiadna</item>
+    <item>Mierka (metrická)</item>
+    <item>Mriežka (metrická)</item>
+    <item>Mierka (imperiálna)</item>
+    <item>Mriežka (imperiálna)</item>
+  </string-array>
+</resources>

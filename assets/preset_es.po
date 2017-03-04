@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-11-29 18:17+0100\n"
-"PO-Revision-Date: 2017-01-18 11:53+0000\n"
+"PO-Revision-Date: 2017-03-02 20:33+0000\n"
 "Last-Translator: Albert\n"
 "Language-Team: Spanish (http://www.transifex.com/openstreetmap/presets/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -6568,39 +6568,39 @@ msgstr "Jain"
 
 #: master_preset.xml:10168(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only straight on"
-msgstr ""
+msgstr "Sólo recto"
 
 #: master_preset.xml:5852(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:scrap_metal)
 #: master_preset.xml:5812(check:text|group:Facilities|preset:Recycling_Container|key:recycling:scrap_metal)
 msgid "Scrap Metal"
-msgstr ""
+msgstr "Chatarra"
 
 #: master_preset.xml:10726(item:name|group:Crafts|preset:Insulation)
 msgid "Insulation"
-msgstr ""
+msgstr "Aislamiento"
 
 #: master_preset.xml:8910(combo:text|group:Boundaries|preset:Administrative|key:admin_level)
 #: master_preset.xml:10129(combo:text|group:Relations|preset:Boundary|key:admin_level)
 msgid "Administrative level"
-msgstr ""
+msgstr "Nivel administrativo"
 
 #: master_preset.xml:568(item:name|group:Streets|preset:Motorway)
 msgid "Motorway"
-msgstr ""
+msgstr "Autopista"
 
 #: master_preset.xml:8652(item:name|group:Other|preset:Paint)
 msgid "Paint"
-msgstr ""
+msgstr "Pintura"
 
 #: master_preset.xml:9427(label:text|group:Nature|preset:Fell)
 msgid ""
 "Bare upper lying uncultivated land principally covered with grass and often "
 "grazed."
-msgstr ""
+msgstr "Tierra baldía superior desnuda cubierta principalmente de hierba y a menudo pasto."
 
 #: master_preset.xml:5633(item:name|group:Social_Facilities|preset:Social_Club)
 msgid "Social Club"
-msgstr ""
+msgstr "Club Social"
 
 #: master_preset.xml:10885(item:name|group:Crafts|preset:Sculptor)
 msgid "Sculptor"
@@ -6608,107 +6608,107 @@ msgstr "Escultor"
 
 #: master_preset.xml:3873(group:name|group:Airport)
 msgid "Airport"
-msgstr ""
+msgstr "Aeropuerto"
 
 #: master_preset.xml:2377(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:hov)
 msgid "High-occupancy vehicles (hov)"
-msgstr ""
+msgstr "Vehículos de alta ocupación (hov)"
 
 #: master_preset.xml:10127(combo:text|group:Relations|preset:Boundary|key:boundary)
 msgid "Boundary type"
-msgstr ""
+msgstr "Tipo de frontera"
 
 #: master_preset.xml:6454(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:hurling)
 msgid "Hurling"
-msgstr ""
+msgstr "Lanzamiento"
 
 #: master_preset.xml:973(combo:text|group:Streets|preset:Service|key:service)
 msgid "Service way type"
-msgstr ""
+msgstr "Tipo de camino de servicio"
 
 #: master_preset.xml:10173(role:text|group:Relations|preset:Turn_Restriction|key:from)
 msgid "from way"
-msgstr ""
+msgstr "forma de camino"
 
 #: master_preset.xml:4057(combo:text|group:Accommodation|preset:Apartment|key:number_of_apartments)
 msgid "Number of apartments"
-msgstr ""
+msgstr "Número de apartamentos"
 
 #: master_preset.xml:5938(item:name|group:Facilities|preset:Hunting_Stand)
 msgid "Hunting Stand"
-msgstr ""
+msgstr "Puesto de Caza"
 
 #: master_preset.xml:228(combo:display_values|key:smoking)
 msgid "Outside"
-msgstr ""
+msgstr "Fuera"
 
 #: master_preset.xml:1789(combo:text|group:Barriers|preset:Bollard|key:bollard)
 msgid "Bollard type"
-msgstr ""
+msgstr "Tipo de bolardo"
 
 #: master_preset.xml:1393(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
-msgstr ""
+msgstr "Número"
 
 #: master_preset.xml:10197(role:text|group:Relations|preset:Enforcement|key:to)
 msgid "where enforcement ends"
-msgstr ""
+msgstr "dónde termina la aplicación"
 
 #: master_preset.xml:9097(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
-msgstr ""
+msgstr "Barrio"
 
 #: master_preset.xml:3791(item:name|group:Public_Transport_(Legacy)|preset:Tram_Stop)
 msgid "Tram Stop"
-msgstr ""
+msgstr "Parada de Tranvía"
 
 #: master_preset.xml:5851(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:plastic_packaging)
 #: master_preset.xml:5811(check:text|group:Facilities|preset:Recycling_Container|key:recycling:plastic_packaging)
 msgid "Plastic Packaging"
-msgstr ""
+msgstr "Embalaje de plástico"
 
 #: master_preset.xml:6780(combo:text|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Tower type"
-msgstr ""
+msgstr "Tipo de torre"
 
 #: master_preset.xml:5980(item:name|group:Facilities|preset:Animal_watering_place)
 msgid "Animal watering place"
-msgstr ""
+msgstr "Lugar de abrevadero de animales"
 
 #: master_preset.xml:10529(role:text|preset:Bridge|key:under)
 msgid "ways passing under the bridge"
-msgstr ""
+msgstr "caminos que pasan bajo el puente"
 
 #: master_preset.xml:5854(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:small_appliances)
 #: master_preset.xml:5814(check:text|group:Facilities|preset:Recycling_Container|key:recycling:small_appliances)
 msgid "Small Appliances"
-msgstr ""
+msgstr "Pequeños electrodomésticos"
 
 #: master_preset.xml:10148(role:text|group:Relations|preset:Site|key:label)
 msgid "where to place the label"
-msgstr ""
+msgstr "dónde ubicar la etiqueta"
 
 #: master_preset.xml:9639(item:name|group:Land_use|preset:Garden)
 msgid "Garden"
-msgstr ""
+msgstr "Jardín"
 
 #: master_preset.xml:110(combo:text|key:voltage)
 #: master_preset.xml:7500(combo:text|preset:Power_Street_Cabinet|key:voltage)
 #: master_preset.xml:340(combo:text|key:voltage)
 msgid "Voltage in Volts (V)"
-msgstr ""
+msgstr "Voltaje en voltios (V)"
 
 #: master_preset.xml:9396(item:name|group:Nature|preset:Scree)
 msgid "Scree"
-msgstr ""
+msgstr "Guijarro"
 
 #: master_preset.xml:8859(check:text|preset:Payment_Methods|key:payment:visa_debit)
 msgid "Visa Debit"
-msgstr ""
+msgstr "Tarjeta de débito Visa"
 
 #: master_preset.xml:264(list_entry:short_description|value:3)
 msgid "3 tables"
-msgstr ""
+msgstr "3 mesas"
 
 #: master_preset.xml:1776(combo:text|group:Barriers|preset:Block|key:material)
 #: master_preset.xml:1937(combo:text|group:Barriers|preset:Jersey_Barrier|key:material)
@@ -6724,32 +6724,32 @@ msgstr "Material"
 
 #: master_preset.xml:10511(role:text|preset:Waterway|key:side_stream)
 msgid "branch waterways (no riverbank)"
-msgstr ""
+msgstr "Vías fluviales (sin orillas)"
 
 #: master_preset.xml:4450(check:text|group:Tourism|preset:Guidepost|key:hiking)
 #: master_preset.xml:4412(check:text|group:Tourism|preset:Map|key:hiking)
 msgid "Hiking"
-msgstr ""
+msgstr "Senderismo"
 
 #: master_preset.xml:7149(combo:text|group:Man_Made|preset:Surveillance_Camera|key:camera:mount)
 msgid "Mounted on"
-msgstr ""
+msgstr "Montado en"
 
 #: master_preset.xml:10459(role:text|preset:Street|key:house)
 msgid "houses belonging to the street"
-msgstr ""
+msgstr "Casas pertenecientes a la calle"
 
 #: master_preset.xml:982(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
-msgstr ""
+msgstr "Pasllo de estacionamiento"
 
 #: master_preset.xml:464(list_entry:display_value|value:senior)
 msgid "Elderly"
-msgstr ""
+msgstr "Anciano"
 
 #: master_preset.xml:3204(item:name|group:Car|preset:Parking_Space)
 msgid "Parking Space"
-msgstr ""
+msgstr "Plaza de aparcamiento"
 
 #: master_preset.xml:5478(item:name|group:Emergency|preset:Emergency_Phone)
 msgid "Emergency Phone"
@@ -6761,13 +6761,13 @@ msgstr "Dirección"
 
 #: master_preset.xml:7289(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
-msgstr ""
+msgstr "Reactor nuclear"
 
 #: master_preset.xml:1407(check:text|group:Waypoints|preset:Services|key:toilets)
 #: master_preset.xml:1423(check:text|group:Waypoints|preset:Rest_Area|key:toilets)
 #: master_preset.xml:4135(check:text|group:Accommodation|preset:Wilderness_Hut|key:toilets)
 msgid "Toilets"
-msgstr ""
+msgstr "Lavabos"
 
 #: master_preset.xml:10009(text:text|group:Addresses_and_Contact|preset:Contact|key:image)
 #: master_preset.xml:10029(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:image)
@@ -8989,7 +8989,7 @@ msgstr ""
 #: master_preset.xml:7543(combo:text|preset:Power_Tower|key:tower:type)
 msgctxt "power"
 msgid "Tower type"
-msgstr ""
+msgstr "Tipo de torre"
 
 #: master_preset.xml:8986(item:name|group:Places|preset:State)
 msgctxt "place"

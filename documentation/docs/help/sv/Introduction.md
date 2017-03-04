@@ -1,6 +1,6 @@
 # Vespucci Introduktion
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on googles Android 2.3 to 6.0 and various AOSP based variants. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+Vespucci är en fullfjädrad OpenStreetMap redigerare som stödjer de flesta redigeringar som stationära program tillhandahåller. Det har testats framgångsrikt på googles Android 2,3 till 6,0 och olika AOSP baserade varianter. Ett varningens ord: medan mobila enheter kapacitet har kommit ikapp sina stationära motsvarigheter, särskilt äldre androidenheter har mycket begränsat minne tillgängligt och tenderar att vara ganska långsam. Du bör ta det i beaktande när du använder Vespucci och behålla, till exempel storleken på de områden som du redigerar till en rimlig storlek. 
 
 ## Förstagångs användning
 
@@ -33,11 +33,11 @@ För att undvika oavsiktliga ändringar startar Vespucci i "låst" läge, ett l�
 
 Som standard, valbara noder och vägar har en orange området kring dem som indikerar ungefär där du måste trycka på för att välja ett objekt. Om du försöker att välja ett objekt och Vespucci bestämmer att valet kan betyda flera objekt kommer ett menyval att presentera. Markerade objekten markeras i gult.
 
-It is a good strategy to zoom in if you attempt to edit a high density area.
+Det är en bra strategi att zooma in om du försöker redigera ett område med hög täthet.
 
 Vespucci har ett bra "ångra/gör om" system så var inte rädd för att experimentera på din enhet, men vänligen ladda inte upp och spara ren testdata.
 
-#### Selecting / De-selecting
+#### Välja / Välja bort
 
 Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
@@ -51,7 +51,7 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
 
-#### Improving Way Geometry
+#### Förbättra väg-geometri
 
 If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
 
@@ -69,9 +69,9 @@ Vespucci has an "add address tags" function that tries to make surveying address
 
 House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
 
-Consider using this with the "Auto-download" mode.  
+Fundera på att anvönda det med "Automatisk-nedladdning" läget.  
 
-#### Adding Turn Restrictions
+#### Lägger till Sväng restriktioner
 
 Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
 
@@ -97,7 +97,7 @@ New Vespucci installs will have OAuth enabled by default. On your first attempt 
 
 If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
 
-#### Resolving conflicts on uploads
+#### Lös konfliktervid uppladdning
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
@@ -115,7 +115,7 @@ On the map the Notes and bugs are represented by a small bug icon ![](../images/
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
-## Customizing Vespucci
+## Anpassa Vespucci
 
 ### Inställningar som du kanske vill ändra
 
@@ -127,14 +127,14 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
-#### Advanced preferences
+#### Avancerade inställningar
 
 * Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
 * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
-## Reporting Problems
+## Rapportera problem
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 

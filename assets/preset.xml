@@ -252,7 +252,7 @@
             display_values="Multiple,Archery,Athletics,American football,Australian football,Baseball,Basketball,Beach volleyball,Billiards,Boules,Bowls,Canadian football,Canoe,Climbing,Cricket,Croquet,Cycling,Dog racing,Equestrian,Field hockey,Gaelic games,Golf,Gymnastics,Handball,Horse racing,Ice hockey,Karting,Model aerodrome,Motocross,Motor,Pelota,Racquet,RC car,Rugby league,Rugby union,Running,Safety training,Shooting,Skateboard,Skating,Roller skating,Ice skating,Soccer,Swimming,Table tennis,Tennis,Volleyball,9pin,10pin" values_context="sport" />
     </chunk>
     <chunk id="bin">
-        <combo key="bin" text="Bin" values="yes,no" />
+        <combo key="bin" text="Bin" values="yes,no" display_values="Yes,No" />
     </chunk>
     <chunk id="diaper">
         <combo key="diaper" text="Diaper changing facilities" values_sort="false" >
@@ -859,7 +859,7 @@
             <reference ref="road_access_restrictions" />
             <reference ref="lane_presets" />
         </item> <!-- Unclassified -->
-        <item name="Residential" icon="icons/png/highway_residential_sp.png" type="way,closedway" preset_name_label="true">
+        <item name="Residential" icon="icons/png/highway_residential_sp.png" name_context="Highway" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=residential"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=residential"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:highway=residential"
