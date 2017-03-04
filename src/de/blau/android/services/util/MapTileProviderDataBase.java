@@ -14,6 +14,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDiskIOException;
 import android.database.sqlite.SQLiteFullException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
@@ -156,7 +157,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		return existed;
 	}
 	
-	public boolean incrementUse(final MapTile aTile) {
+	public boolean incrementUse(final MapTile aTile) throws SQLiteFullException, SQLiteDiskIOException {
 		boolean ret = false;
 		if (mDatabase.isOpen()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -170,8 +171,11 @@ public class MapTileProviderDataBase implements MapViewConstants {
 				} catch (Exception e) {
 					if (e instanceof SQLiteFullException) {
 						// database/disk is full
+						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Tile database full");
 						Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();
-						return true; // don't make the situation worse
+						throw new SQLiteFullException(e.getMessage());
+					} else if (e instanceof SQLiteDiskIOException) {
+						throw new SQLiteDiskIOException(e.getMessage());
 					}
 					ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
@@ -181,35 +185,45 @@ public class MapTileProviderDataBase implements MapViewConstants {
 				final String[] args = new String[] { "" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x,
 						"" + aTile.y };
 				Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_USAGECOUNT }, T_FSCACHE_WHERE, args, null,
-						null, null);		
-				if(DEBUGMODE) {
-					Log.d(MapTileFilesystemProvider.DEBUGTAG, "incrementUse found " + c.getCount() + " entries");
-				}			
-				if (c.getCount() == 1) {
-					c.moveToFirst();
-					try {
-						int usageCount = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_USAGECOUNT));
-						ContentValues cv = new ContentValues();
-						if(DEBUGMODE) {
-							Log.d(MapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount);
-						}	
-						cv.put(T_FSCACHE_USAGECOUNT, usageCount + 1);
-						cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
-						ret = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
-						if(DEBUGMODE) {
-							Log.d(MapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount + " update sucessful " + ret);
-						}
-					} catch (Exception e) {
-						if (e instanceof NullPointerException) {
-							// just log ... likely these are really spurious
-							Log.e(MapTileFilesystemProvider.DEBUGTAG, "NPE in incrementUse");
-						} else {
-							ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-							ACRA.getErrorReporter().handleException(e);
+						null, null);
+				try {
+					if(DEBUGMODE) {
+						Log.d(MapTileFilesystemProvider.DEBUGTAG, "incrementUse found " + c.getCount() + " entries");
+					}			
+					if (c.getCount() == 1) {
+						try {
+							c.moveToFirst();
+							int usageCount = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_USAGECOUNT));
+							ContentValues cv = new ContentValues();
+							if(DEBUGMODE) {
+								Log.d(MapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount);
+							}	
+							cv.put(T_FSCACHE_USAGECOUNT, usageCount + 1);
+							cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
+							ret = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
+							if(DEBUGMODE) {
+								Log.d(MapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount + " update sucessful " + ret);
+							}
+						} catch (Exception e) {
+							if (e instanceof NullPointerException) {
+								// just log ... likely these are really spurious
+								Log.e(MapTileFilesystemProvider.DEBUGTAG, "NPE in incrementUse");
+							} else if (e instanceof SQLiteFullException) {
+								// database/disk is full
+								Log.e(MapTileFilesystemProvider.DEBUGTAG, "Tile database full");
+								Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();
+								throw new SQLiteFullException(e.getMessage());
+							} else if (e instanceof SQLiteDiskIOException) {
+								throw new SQLiteDiskIOException(e.getMessage());
+							} else {
+								ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+								ACRA.getErrorReporter().handleException(e);
+							}
 						}
 					}
+				} finally {
+					c.close();
 				}
-				c.close();
 			}
 		} else if(DEBUGMODE) {
 			Log.d(MapTileFilesystemProvider.DEBUGTAG, "incrementUse database not open");
@@ -217,23 +231,29 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		return ret;
 	}
 
-	public synchronized int addTileOrIncrement(final MapTile aTile, final byte[] tile_data) { 
+	public synchronized int addTileOrIncrement(final MapTile aTile, final byte[] tile_data) throws IOException { 
 		if(DEBUGMODE) {
 			Log.d(MapTileFilesystemProvider.DEBUGTAG, "adding or incrementing use " + aTile);
 		}
-		// there seems to be danger for  a race condition here
-		if (incrementUse(aTile)) { // this should actually never be true
-			if(DEBUGMODE) {
-				Log.d(MapTileFilesystemProvider.DEBUGTAG, "Tile existed");
+		try {
+			// there seems to be danger for  a race condition here
+			if (incrementUse(aTile)) { // this should actually never be true
+				if(DEBUGMODE) {
+					Log.d(MapTileFilesystemProvider.DEBUGTAG, "Tile existed");
+				}
+				return 0;
+			} else {
+				insertNewTile(aTile, tile_data);
+				return tile_data != null ? tile_data.length : 0;
 			}
-			return 0;
-		} else {
-			insertNewTileInfo(aTile, tile_data);
-			return tile_data != null ? tile_data.length : 0;
+		} catch (SQLiteFullException sfex) { // handle these the same
+			throw new IOException(sfex.getMessage());
+		} catch (SQLiteDiskIOException sioex) {
+			throw new IOException(sioex.getMessage());
 		}
 	}
 
-	private void insertNewTileInfo(final MapTile aTile, final byte[] tile_data) {
+	private void insertNewTile(final MapTile aTile, final byte[] tile_data) {
 		if(DEBUGMODE) {
 			Log.d(MapTileFilesystemProvider.DEBUGTAG, "Inserting new tile");
 		}
@@ -264,19 +284,28 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		if (DEBUGMODE) {
 			Log.d(MapTileFilesystemProvider.DEBUGTAG, "Trying to retrieve " + aTile + " from file");
 		}
-		if (incrementUse(aTile)) { // checks if DB is open
-			final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
-			final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, args, null, null, null);
-			if (c.moveToFirst()) {
-				byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
-				c.close();
-				if (DEBUGMODE) {
-					Log.d(MapTileFilesystemProvider.DEBUGTAG, "Sucessfully retrieved " + aTile + " from file");
+		try {
+			if (incrementUse(aTile)) { // checks if DB is open
+				final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
+				final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, args, null, null, null);
+				try {
+					if (c.moveToFirst()) {
+						byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
+						if (DEBUGMODE) {
+							Log.d(MapTileFilesystemProvider.DEBUGTAG, "Sucessfully retrieved " + aTile + " from file");
+						}
+						return tile_data;
+					} else if(DEBUGMODE) {
+						Log.d(MapTileFilesystemProvider.DEBUGTAG, "Tile not found but should be 2");
+					}
+				} finally {
+					c.close();
 				}
-				return tile_data;
-			} else if(DEBUGMODE) {
-				Log.d(MapTileFilesystemProvider.DEBUGTAG, "Tile not found but should be 2");
 			}
+		} catch (SQLiteDiskIOException sioex) { // handle these exceptions the same 
+			throw new IOException(sioex.getMessage());
+		} catch (SQLiteFullException sdfex) {
+			throw new IOException(sdfex.getMessage());
 		}
 		if(DEBUGMODE) {
 			Log.d(MapTileFilesystemProvider.DEBUGTAG, "Tile not found in DB");
@@ -290,46 +319,52 @@ public class MapTileProviderDataBase implements MapViewConstants {
 			return 0;
 		}
 		final Cursor c = mDatabase.rawQuery(T_FSCACHE_SELECT_OLDEST, null);
+
 		final ArrayList<MapTile> deleteFromDB = new ArrayList<MapTile>();
 		long sizeGained = 0;
 		if(c != null){
-			MapTile tileToBeDeleted; 
-			if (c.moveToFirst()) {
-				do {
-					final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
-					sizeGained += sizeItem;
-					
-					tileToBeDeleted = new MapTile(c.getString(c.getColumnIndexOrThrow(T_FSCACHE_RENDERER_ID)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
-							c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
-
-					deleteFromDB.add(tileToBeDeleted);
-					Log.d(DEBUG_TAG,"deleteOldest " + tileToBeDeleted.toString());
-					
-				} while(c.moveToNext() && sizeGained < pSizeNeeded);
-			} else {
-				c.close();
-				throw new EmptyCacheException("Cache seems to be empty.");
-			}
-			c.close();
-
 			try {
-				if (mDatabase.isOpen()) {
-					for (MapTile t : deleteFromDB) {
-						final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};	 
-						mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+				MapTile tileToBeDeleted; 
+				try {
+					if (c.moveToFirst()) {
+						do {
+							final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
+							sizeGained += sizeItem;
+
+							tileToBeDeleted = new MapTile(c.getString(c.getColumnIndexOrThrow(T_FSCACHE_RENDERER_ID)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
+									c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
+
+							deleteFromDB.add(tileToBeDeleted);
+							Log.d(DEBUG_TAG,"deleteOldest " + tileToBeDeleted.toString());
+
+						} while(c.moveToNext() && sizeGained < pSizeNeeded);
+					} else {	
+						throw new EmptyCacheException("Cache seems to be empty.");
+					}
+
+					if (mDatabase.isOpen()) {
+						for (MapTile t : deleteFromDB) {
+							final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};	 
+							mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+						}
 					}
 				}
-			}
-			catch (Exception e) {
-				if (e instanceof NullPointerException) {
-					// just log ... likely these are really spurious
-					Log.e(MapTileFilesystemProvider.DEBUGTAG, "NPE in deleteOldest");
-				} else if (e instanceof SQLiteFullException) {
-					Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();		
-				} else {
-					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-					ACRA.getErrorReporter().handleException(e);	
+				catch (Exception e) {
+					if (e instanceof NullPointerException) {
+						// just log ... likely these are really spurious
+						Log.e(MapTileFilesystemProvider.DEBUGTAG, "NPE in deleteOldest " + e);
+					} else if (e instanceof SQLiteFullException) {
+						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Exception in deleteOldest " + e);
+						Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();		
+					} else if (e instanceof SQLiteDiskIOException) {
+						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Exception in deleteOldest " + e);
+					} else {
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(e);	
+					}
 				}
+			} finally {
+				c.close();
 			}
 		}
 		return sizeGained;
@@ -346,6 +381,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		final ArrayList<MapTile> deleteFromDB = new ArrayList<MapTile>();
 		long sizeGained = 0;
 		if(c != null){
+			try {
 			MapTile tileToBeDeleted; 
 			if(c.moveToFirst()){
 				do{
@@ -356,19 +392,20 @@ public class MapTileProviderDataBase implements MapViewConstants {
 							c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
 			
 					deleteFromDB.add(tileToBeDeleted);
-					Log.d(DEBUG_TAG,"flushCache " + tileToBeDeleted.toString());
-				}while(c.moveToNext());
-			}else{
-				c.close();
+					// Log.d(DEBUG_TAG,"flushCache " + tileToBeDeleted.toString());
+				} while (c.moveToNext());
+			} else {
 				throw new EmptyCacheException("Cache seems to be empty.");
 			}
-			c.close();
+				Log.d(DEBUG_TAG,"flushCache freed " + sizeGained);
+			} finally {
+				c.close();
+			}
 
 			for(MapTile t : deleteFromDB) {
 				final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};
 				mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
 			}
-			// FIXME vacuuming might be a good idea
 		}
 	}
 
@@ -387,7 +424,6 @@ public class MapTileProviderDataBase implements MapViewConstants {
 				c.close();
 			}
 		}
-
 		return ret;
 	}
 
