@@ -1014,24 +1014,24 @@ public class Server {
 		}
 	}
 	
-	public void diffUpload(StorageDelegator delegator) throws MalformedURLException, ProtocolException, IOException {
-		
+	public void diffUpload(StorageDelegator delegator) throws MalformedURLException, ProtocolException, IOException {	
 		HttpURLConnection connection = null;
 		InputStream in = null;
-
 		try {
 			connection = openConnectionForWriteAccess(getDiffUploadUrl(changesetId), "POST");
+			for (OsmElement elem : delegator.getApiStorage().getElements()) {
+				if (elem.state != OsmElement.STATE_DELETED) {
+					discardedTags.remove(elem);
+				}
+			}
 			delegator.writeOsmChange(connection.getOutputStream(), changesetId);
 			processDiffUploadResult(delegator, connection, xmlParserFactory.newPullParser());
 		} catch (IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new OsmException(e1.getMessage());
 		} catch (IllegalStateException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new OsmException(e1.getMessage());
 		} catch (XmlPullParserException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new OsmException(e1.getMessage());
 		} finally {
 			disconnect(connection);
 			SavingHelper.close(in);

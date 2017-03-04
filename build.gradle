@@ -102,9 +102,9 @@ eclipse {
                 classpath.entries.removeAll { it.path.endsWith(".aar") }
                 classpath.entries.addAll(aars)
 
-                def androidJar = new org.gradle.plugins.ide.eclipse.model.Variable(
-                    fileReferenceFactory.fromPath("ANDROID_HOME/platforms/" + android.compileSdkVersion + "/android.jar"))
-                androidJar.sourcePath = fileReferenceFactory.fromPath("ANDROID_HOME/sources/" + android.compileSdkVersion)
+                def androidJar = new org.gradle.plugins.ide.eclipse.model.Library(
+                    fileReferenceFactory.fromPath("${android.sdkDirectory}/platforms/" + android.compileSdkVersion + "/android.jar"))
+                // androidJar.sourcePath = fileReferenceFactory.fromPath("ANDROID_HOME/sources/" + android.compileSdkVersion)
                 classpath.entries.add(androidJar)
             }
         }
