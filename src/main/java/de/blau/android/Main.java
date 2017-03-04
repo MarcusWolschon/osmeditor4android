@@ -1035,13 +1035,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (follow != null) {
 			if (ensureGPSProviderEnabled()) {
 				RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();
-				if ("LEFT".equals(prefs.followGPSbuttonPosition())) {
+				if (getString(R.string.follow_GPS_left).equals(prefs.followGPSbuttonPosition())) {
 					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,0);
 					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-				} else if ("RIGHT".equals(prefs.followGPSbuttonPosition())) {
+				} else if (getString(R.string.follow_GPS_right).equals(prefs.followGPSbuttonPosition())) {
 					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT,0);
 					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-				} else if ("NONE".equals(prefs.followGPSbuttonPosition())) {
+				} else if (getString(R.string.follow_GPS_none).equals(prefs.followGPSbuttonPosition())) {
 					follow.hide();
 				}
 				follow.setLayoutParams(params);

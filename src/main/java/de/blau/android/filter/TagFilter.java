@@ -318,7 +318,8 @@ public class TagFilter extends Filter {
 		if (tagFilterButton == null) {
 			Preferences prefs = new Preferences(context);
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			controls = (RelativeLayout)inflater.inflate(prefs.followGPSbuttonPosition().equals("LEFT")?R.layout.tagfilter_controls_right:R.layout.tagfilter_controls_left, layout);
+			String buttonPos = layout.getContext().getString(R.string.follow_GPS_left);
+			controls = (RelativeLayout)inflater.inflate(prefs.followGPSbuttonPosition().equals(buttonPos)?R.layout.tagfilter_controls_right:R.layout.tagfilter_controls_left, layout);
 			tagFilterButton = (FloatingActionButton)controls.findViewById(R.id.tagFilterButton);
 		}
 		
