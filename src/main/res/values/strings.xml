@@ -143,7 +143,7 @@
     <string name="toast_potential_merge_tag_conflict">You are trying to merge elements that have conflicting tag values. Please check the tags and correct first before retrying.</string>
     <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
-    <string name="toast_unread_mail">You have %1$s unread mail(s) on the OpenStreetMap server</string>
+    <string name="toast_unread_mail">You have %1$d unread mail(s) on the OpenStreetMap server</string>
     <string name="toast_photo_indexing_started">Started scan for geo-referenced photos</string>
     <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
     <string name="toast_download_bbox_failed">Download failed, probably because the area selected was too large.</string>
@@ -394,7 +394,7 @@
     <string name="actionmode_restriction_to">Add \"to\" segment</string>
     <string name="actionmode_restriction_restart_to">Re-select \"to\" segment</string>
     <string name="actionmode_one_object">1 object</string>
-    <string name="actionmode_object_count">%1$s objects</string>
+    <string name="actionmode_object_count">%1$d objects</string>
     <!-- Preferences -->
     <string name="config_category_editing">Data and Editing Settings</string>
     <string name="config_category_view">User Interface Settings</string>
@@ -529,7 +529,7 @@
     <string name="changes_created">"%1$s" created</string>
     <string name="confirm_upload_title">Upload?</string>
     <string name="confirm_one_upload_text">Upload the following change?\n%1$s</string>
-    <string name="confirm_multiple_upload_text">Upload the following %1$s changes?\n%2$s</string>
+    <string name="confirm_multiple_upload_text">Upload the following %1$d changes?\n%2$s</string>
     <!-- url handler activity -->
     <string name="urldialog_add_preset">Add preset</string>
     <string name="urldialog_preset_exists">This preset already exists</string>
