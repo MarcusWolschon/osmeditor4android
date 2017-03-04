@@ -3112,18 +3112,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		map.invalidate();
 	}	
 	
-	@SuppressWarnings("EmptyMethod")
-	@Override
-	/**
-	 * DO NOT CALL DIRECTLY in custom code.
-	 * Use {@link #triggerMenuInvalidation()} to make it easier to debug and implement workarounds for android bugs.
-	 * Must be called from the main thread.
-	 */
-	public void invalidateOptionsMenu() { 
-		// Log.d(DEBUG_TAG, "invalidateOptionsMenu called");
-		super.supportInvalidateOptionsMenu();
-	}
-	
 	/**
 	 * Simply calls {@link #invalidateOptionsMenu()}.
 	 * Used to make it easier to implement workarounds.
