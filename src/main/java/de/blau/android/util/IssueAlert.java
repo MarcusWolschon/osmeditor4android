@@ -107,7 +107,7 @@ public class IssueAlert {
 			index = index / 45;
 
 			// message = "in " + distance + "m " /* + bearing + "° " */ + bearings[index] + "\n";
-			message = context.getString(R.string.alert_distance_direction, distance, bearings[index]) + "\n";
+			message = context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n";
 			ticker = ticker + " " + message;
 		}
 		message = message + e.describeProblem();
@@ -216,7 +216,7 @@ public class IssueAlert {
 			index = index / 45;
 
 			// message = "in " + distance + "m " /* + bearing + "° " */ + bearings[index] + "\n";
-			message = context.getString(R.string.alert_distance_direction, distance, bearings[index]) + "\n";
+			message = context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n";
 			ticker = ticker + " " + message;
 		}
 		message = message + b.getDescription();
