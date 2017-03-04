@@ -104,6 +104,7 @@ eclipse {
 
                 def androidJar = new org.gradle.plugins.ide.eclipse.model.Library(
                     fileReferenceFactory.fromPath("${android.sdkDirectory}/platforms/" + android.compileSdkVersion + "/android.jar"))
+                androidJar.sourcePath = fileReferenceFactory.fromPath("${android.sdkDirectory}/sources/" + android.compileSdkVersion)
                 classpath.entries.add(androidJar)
             }
         }

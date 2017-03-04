@@ -137,6 +137,18 @@ public class Storage implements Serializable {
 	public List<Relation> getRelations() {
 		return Collections.unmodifiableList(relations.values());
 	}
+	
+	/**
+	 * Get a unmodifiable list of all elements
+	 * @return list containing all elements
+	 */
+	public List<OsmElement> getElements() {
+		List<OsmElement> l = new ArrayList<OsmElement>();
+		l.addAll(nodes.values());
+		l.addAll(ways.values());
+		l.addAll(relations.values());
+		return Collections.unmodifiableList(l);
+	}
 
 	/**
 	 * Test if an element is present in storage

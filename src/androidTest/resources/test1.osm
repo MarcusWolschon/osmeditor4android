@@ -462,6 +462,7 @@
     <tag k='highway' v='tertiary' />
     <tag k='maxspeed' v='50' />
     <tag k='name' v='Kindhauserstrasse' />
+    <tag k='created_by' v='JOSM' />
   </way>
   <way id='47001848' timestamp='2013-09-03T22:12:12Z' uid='92387' user='SimonPoole' visible='true' version='6' changeset='17662626'>
     <nd ref='599672224' />
