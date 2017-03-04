@@ -173,9 +173,9 @@ public class MapTileProviderDataBase implements MapViewConstants {
 						// database/disk is full
 						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Tile database full");
 						Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();
-						throw e;
+						throw new SQLiteFullException(e.getMessage());
 					} else if (e instanceof SQLiteDiskIOException) {
-						throw e;
+						throw new SQLiteDiskIOException(e.getMessage());
 					}
 					ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
@@ -212,9 +212,9 @@ public class MapTileProviderDataBase implements MapViewConstants {
 								// database/disk is full
 								Log.e(MapTileFilesystemProvider.DEBUGTAG, "Tile database full");
 								Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();
-								throw e;
+								throw new SQLiteFullException(e.getMessage());
 							} else if (e instanceof SQLiteDiskIOException) {
-								throw e;
+								throw new SQLiteDiskIOException(e.getMessage());
 							} else {
 								ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
 								ACRA.getErrorReporter().handleException(e);
@@ -236,16 +236,16 @@ public class MapTileProviderDataBase implements MapViewConstants {
 			Log.d(MapTileFilesystemProvider.DEBUGTAG, "adding or incrementing use " + aTile);
 		}
 		try {
-		// there seems to be danger for  a race condition here
-		if (incrementUse(aTile)) { // this should actually never be true
-			if(DEBUGMODE) {
-				Log.d(MapTileFilesystemProvider.DEBUGTAG, "Tile existed");
+			// there seems to be danger for  a race condition here
+			if (incrementUse(aTile)) { // this should actually never be true
+				if(DEBUGMODE) {
+					Log.d(MapTileFilesystemProvider.DEBUGTAG, "Tile existed");
+				}
+				return 0;
+			} else {
+				insertNewTile(aTile, tile_data);
+				return tile_data != null ? tile_data.length : 0;
 			}
-			return 0;
-		} else {
-			insertNewTile(aTile, tile_data);
-			return tile_data != null ? tile_data.length : 0;
-		}
 		} catch (SQLiteFullException sfex) { // handle these the same
 			throw new IOException(sfex.getMessage());
 		} catch (SQLiteDiskIOException sioex) {
