@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.filter.Filter.Include;
 import de.blau.android.osm.Node;
@@ -21,6 +22,7 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.Util;
 
 /**
  * Filter plus UI for indoor tagging see https://wiki.openstreetmap.org/wiki/Simple_Indoor_Tagging
@@ -315,6 +317,7 @@ public class IndoorFilter extends Filter {
 				update.execute();
 			}
 		});		
+		Util.setAlpha(levelUp, Main.FABALPHA);
 		levelText.setText(Integer.toString(getLevel()));
 		levelTextButton.setClickable(true);
 		levelTextButton.setOnClickListener(new OnClickListener() {
@@ -324,6 +327,7 @@ public class IndoorFilter extends Filter {
 		    	setupControls(true);
 		    }
 		});
+		Util.setAlpha(levelTextButton, Main.FABALPHA);
 		levelDown.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -333,6 +337,7 @@ public class IndoorFilter extends Filter {
 				update.execute();
 			}
 		});
+		Util.setAlpha(levelDown, Main.FABALPHA);
 		setupControls(false);
 	}
     

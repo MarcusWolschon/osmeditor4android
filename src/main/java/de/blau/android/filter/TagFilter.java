@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.filter.Filter.Include;
 import de.blau.android.osm.Node;
@@ -28,6 +29,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.Util;
 
 /**
  * Filter plus UI for filtering on tags
@@ -329,6 +331,7 @@ public class TagFilter extends Filter {
 		    	TagFilterActivity.start(context, DEFAULT_FILTER);
 		    }
 		});
+		Util.setAlpha(tagFilterButton, Main.FABALPHA);
 		setupControls(false);
 	}
     
