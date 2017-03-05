@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
@@ -41,31 +42,38 @@ public class RemoteControlUrlActivity extends Activity {
 	    Log.d(DEBUG_TAG,command);
 	    if (command.equals("load_and_zoom") || command.equals("zoom")) {
 	    	try {
-				Double left = Double.valueOf(data.getQueryParameter("left"));
-				Double right = Double.valueOf(data.getQueryParameter("right"));
-				Double bottom = Double.valueOf(data.getQueryParameter("bottom"));
-				Double top = Double.valueOf(data.getQueryParameter("top"));
-				
-				RemoteControlUrlData rcData = new RemoteControlUrlData();
-				rcData.setBox(new BoundingBox(left, bottom, right, top));
-				rcData.setLoad(command.equals("load_and_zoom"));
-				
-				Log.d(DEBUG_TAG,"bbox " + rcData.getBox() + " load " + rcData.load());
-				String select = data.getQueryParameter("select");
-				if (rcData.load() && select != null) {
-					rcData.setSelect(select);
-				}
-				intent.putExtra(RCDATA, rcData);
+	    		RemoteControlUrlData rcData = new RemoteControlUrlData();
 
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				Log.d(DEBUG_TAG,"NumberFormatException ", e);
-				e.printStackTrace();
-			} catch (OsmException e) {
-				Log.d(DEBUG_TAG,"OsmException ", e);
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	    		rcData.setLoad(command.equals("load_and_zoom"));
+	    		String leftParam = data.getQueryParameter("left");
+	    		String rightParam = data.getQueryParameter("right");
+	    		String bottomParam = data.getQueryParameter("bottom");
+	    		String topParam = data.getQueryParameter("top");
+
+	    		if (leftParam != null && rightParam != null && bottomParam != null && topParam != null) {
+	    			try {
+	    				Double left = Double.valueOf(leftParam);
+	    				Double right = Double.valueOf(rightParam);
+	    				Double bottom = Double.valueOf(bottomParam);
+	    				Double top = Double.valueOf(topParam);
+	    				rcData.setBox(new BoundingBox(left, bottom, right, top));
+	    				Log.d(DEBUG_TAG,"bbox " + rcData.getBox() + " load " + rcData.load());
+	    			} catch (NumberFormatException e) {
+	    				Log.d(DEBUG_TAG,"NumberFormatException ", e);
+	    				e.printStackTrace();
+	    			}
+	    		}
+
+	    		String select = data.getQueryParameter("select");
+	    		if (rcData.load() && select != null) {
+	    			rcData.setSelect(select);
+	    		}
+	    		intent.putExtra(RCDATA, rcData);
+
+	    	} catch (OsmException e) {
+	    		Log.d(DEBUG_TAG,"OsmException ", e);
+	    		e.printStackTrace();
+	    	}
 	    }
 	    startActivity(intent);
 	    finish();
