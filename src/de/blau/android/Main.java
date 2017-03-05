@@ -801,13 +801,15 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			geoData=null; // zap to stop repeated downloads
 		} 
 		if (rcData != null) {
-			Log.d(DEBUG_TAG,"got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
-			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
+			Log.d(DEBUG_TAG,"got data from remote control url " + rcData.getBox() + " load " + rcData.load());
+			StorageDelegator delegator = Application.getDelegator();
+			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(delegator.getBoundingBoxes());
 			BoundingBox loadBox = rcData.getBox();
 			if (loadBox != null) {
 				if (rcData.load()) { // download
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox); 
-					if (bboxes != null && bboxes.size() > 0) {
+					if (bboxes != null && (bboxes.size() > 0 || delegator.isEmpty())) { 
+						// only download if we haven't yet
 						logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
 							private static final long serialVersionUID = 1L;
 							@Override
@@ -820,13 +822,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						rcDataEdit(rcData);
 						rcData=null; // zap to stop repeated downloads
 					}
-				} else {
-					Log.d(DEBUG_TAG,"moving to position");
+				} else { // zoom
 					map.getViewBox().setBorders(rcData.getBox());
 					map.invalidate();
 					rcData=null; // zap to stop repeated downloads
 				}
 			} else {
+				Log.d(DEBUG_TAG,"RC box is null");
 				rcDataEdit(rcData);
 				rcData=null; // zap to stop repeated downloads
 			}
@@ -838,6 +840,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @param rcData Data of a remote control data URL.
 	 */
 	void rcDataEdit(RemoteControlUrlData rcData ) {
+		BoundingBox box = rcData.getBox();
+		if (box != null) {
+			map.getViewBox().setBorders(box);
+		}
 		final Logic logic = Application.getLogic();
 		if (rcData.getSelect() != null) {
 			// need to actually switch to easyeditmode

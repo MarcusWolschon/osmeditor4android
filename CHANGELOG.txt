@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1240: Make JOSM RC more robust, other fixes.
+
 1238: Update default preset, imagery and translations, fix regression wrt discarding useless tags, fix various smaller issues.
 
 1228: Update default preset, imagery and translations, fix various smaller issues.
