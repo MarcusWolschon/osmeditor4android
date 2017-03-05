@@ -1,3 +1,5 @@
+[![Dependency Status](https://www.versioneye.com/user/projects/58b9f4f501b5b7003d62093f/badge.svg)](https://www.versioneye.com/user/projects/58b9f4f501b5b7003d62093f)
+
 # Vespucci - An OpenStreetMap editor for Android
 
 This is the first [OpenStreetMap][openstreetmap] editor for
