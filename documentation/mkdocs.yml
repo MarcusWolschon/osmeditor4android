@@ -32,5 +32,6 @@ pages:
     - 'Reporting Vespucci issues': 'tutorials/reporting_issues.md'
     - 'Tag-only editing':  'tutorials/tag_only.md'
     - 'Vespucci presets': 'tutorials/presets.md'
+    - 'Controlling Vespucci from other apps': 'tutorials/vespucci_intents.md'
 - Screenshots: 'tutorials/screenshots.md'
 - FAQ: 'tutorials/faq.md'
