@@ -245,6 +245,11 @@
 <p><em>left</em>,<em>bottom</em>,<em>right</em>,<em>top</em>: bounding box definition in WGS84 coordinates</p>
 <p><em>osmobjects</em>: optional, comma separated list of OSM objects in the form <em>objectID</em>, ie node1111111,way1234456. </p>
 <p>For more information see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl, note: this has a different format than the JOSM object selection command. The "josm:" scheme Intents are supported from version 0.9.8, build 1242 on.</p>
+<p><strong>geo URLs</strong></p>
+<p>geo:<em>lat</em>,<em>lon</em>?z=<em>zoom_level</em></p>
+<p><em>lat</em>,<em>lon</em>: WGS84 coordinates
+<em>zoom_level</em>: zoom level, not supported</p>
+<p>Partial implementation of geo Urls, only WGS84 coordinates are supported, an area of the size of the current auto-download area is downloaded around the specified location.</p>
 <p><strong>Happy mapping!</strong> </p></div>
 	    
         </div>
