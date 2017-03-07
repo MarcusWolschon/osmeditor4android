@@ -829,12 +829,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		} 
 		if (rcData != null) {
 			Log.d(DEBUG_TAG,"got data from remote control url " + rcData.getBox() + " load " + rcData.load());
-			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
+			StorageDelegator delegator = App.getDelegator();
+			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(delegator.getBoundingBoxes());
 			BoundingBox loadBox = rcData.getBox();
 			if (loadBox != null) {
 				if (rcData.load()) { // download
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox); 
-					if (bboxes != null && bboxes.size() > 0) { // only download if we haven't yet
+					if (bboxes != null && (bboxes.size() > 0 || delegator.isEmpty())) {
+						// only download if we haven't yet
 						logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
 							private static final long serialVersionUID = 1L;
 							@Override
