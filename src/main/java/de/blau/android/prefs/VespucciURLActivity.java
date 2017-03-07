@@ -33,15 +33,20 @@ import oauth.signpost.exception.OAuthException;
  *   apiuser, apipass - login data for the API (if it gets added)<br>
  *   apipreseturl - preset URL to be set for the API after adding (only if present!)<br>
  *   apiicons - set to 1 if icons should be shown<br>
+ *   Note the above are no longer used.
  *   preseturl - preset URL to add to the preset list<br>
  *   presetname - name for the preset (if it gets added)<br>
+ *   oauth_token = oauth token, used during retrieving oauth access tokens<br>
+ *   oauth_verifier - oauth verifier, used during retrieving oauth access tokens<br>
  * @author Jan
  *
  */
 public class VespucciURLActivity extends Activity implements OnClickListener {
+	private static final String DEBUG_TAG = "VespucciURLActivity";
 	private static final int REQUEST_PRESETEDIT = 0;
 	private static final int REQUEST_APIEDIT = 1;
 	
+	private String command;
 	private String apiurl, apiname, apiuser, apipass, apipreseturl, apiicons, apioauth;
 	private String preseturl, presetname;
 	private PresetInfo existingPreset = null;
@@ -71,6 +76,8 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		Uri data = getIntent().getData();
 		if (data != null) {
 			try {
+				command = data.getPath();
+				Log.d(DEBUG_TAG,"Command " + command);
 				apiurl     = data.getQueryParameter("apiurl");
 				apiname    = data.getQueryParameter("apiname");
 				apiuser    = data.getQueryParameter("apiuser");
@@ -83,24 +90,24 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 				oauth_token = data.getQueryParameter("oauth_token");
 				oauth_verifier = data.getQueryParameter("oauth_verifier");
 			} catch (Exception ex) {
-				Log.e("VespucciURLActivity","Uri " + data + " caused " + ex);
+				Log.e(DEBUG_TAG,"Uri " + data + " caused " + ex);
 				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 				ACRA.getErrorReporter().handleException(ex);
 				finish();
 			}
 		} else {
-			Log.e("VespucciURLActivity","Received null Uri, ignoring");
+			Log.e(DEBUG_TAG,"Received null Uri, ignoring");
 		}
 	    super.onStart();
 	}
 	
 	@Override
 	protected void onResume() {
-		Log.i("VespucciURLActivity", "onResume");
+		Log.i(DEBUG_TAG, "onResume");
 		// determining what activity to do based purely on the parameters is rather hackish
 	    if ((oauth_token != null) && (oauth_verifier != null)) {
 	    	mainView.setVisibility(View.GONE);
-	    	Log.i("VespucciURLActivity", "got oauth verifier " + oauth_token + " " + oauth_verifier);
+	    	Log.i(DEBUG_TAG, "got oauth verifier " + oauth_token + " " + oauth_verifier);
 	    	String errorMessage = null;
 	    	try {
 				oAuthHandshake(oauth_verifier);
@@ -223,7 +230,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			
 			@Override
 			protected void onPostExecute(Boolean success) {
-				Log.d("VespucciURLActivity", "oAuthHandshake onPostExecute");
+				Log.d(DEBUG_TAG, "oAuthHandshake onPostExecute");
 				// note this is fundamentally broken and needs to be re-thought
 				App.mainActivity.finishOAuth();
 			}

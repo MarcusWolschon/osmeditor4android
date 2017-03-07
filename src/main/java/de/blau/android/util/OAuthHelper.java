@@ -52,7 +52,7 @@ public class OAuthHelper {
 							oauth_urls[i] + "oauth/access_token",
 							oauth_urls[i] + "oauth/authorize");
 					mProvider.setOAuth10a(true);
-					mCallbackUrl = "vespucci://oauth/"; //OAuth.OUT_OF_BAND; //
+					mCallbackUrl = "vespucci:/oauth/"; //OAuth.OUT_OF_BAND; //
 					return;
 				}
 			}
