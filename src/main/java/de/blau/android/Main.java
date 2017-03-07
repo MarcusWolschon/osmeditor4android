@@ -657,7 +657,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 			@Override
 			public void execute() {
-				if (rcData != null|| geoData != null) {
+				if (rcData != null || geoData != null) {
 					processIntents();
 				}
 				setupLockButton();
@@ -828,28 +828,33 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			geoData=null; // zap to stop repeated downloads
 		} 
 		if (rcData != null) {
-			Log.d(DEBUG_TAG,"got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
-			if (rcData.load()) { // download
-				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
-				ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, rcData.getBox()); 
-				if (bboxes != null && bboxes.size() > 0) {
-					logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
-						private static final long serialVersionUID = 1L;
-
-						@Override
-						public void execute(){
-							rcDataEdit(rcData);
-							rcData=null; // zap to stop repeated downloads
-						}
-					});
-				} else {
-					rcDataEdit(rcData);
+			Log.d(DEBUG_TAG,"got data from remote control url " + rcData.getBox() + " load " + rcData.load());
+			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
+			BoundingBox loadBox = rcData.getBox();
+			if (loadBox != null) {
+				if (rcData.load()) { // download
+					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox); 
+					if (bboxes != null && bboxes.size() > 0) { // only download if we haven't yet
+						logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
+							private static final long serialVersionUID = 1L;
+							@Override
+							public void execute(){
+								rcDataEdit(rcData);
+								rcData=null; // zap to stop repeated downloads
+							}
+						});
+					} else {
+						rcDataEdit(rcData);
+						rcData=null; // zap to stop repeated downloads
+					}
+				} else { // zoom
+					map.getViewBox().setBorders(rcData.getBox());
+					map.invalidate();
 					rcData=null; // zap to stop repeated downloads
 				}
 			} else {
-				Log.d(DEBUG_TAG,"moving to position");
-				map.getViewBox().setBorders(rcData.getBox());
-				map.invalidate();
+				Log.d(DEBUG_TAG,"RC box is null");
+				rcDataEdit(rcData);
 				rcData=null; // zap to stop repeated downloads
 			}
 		}
@@ -860,6 +865,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @param rcData Data of a remote control data URL.
 	 */
 	private void rcDataEdit(RemoteControlUrlData rcData) {
+		BoundingBox box = rcData.getBox();
+		if (box != null) {
+			map.getViewBox().setBorders(box);
+		}
 		final Logic logic = App.getLogic();
 		if (rcData.getSelect() != null) {
 			// need to actually switch to easyeditmode
@@ -1168,6 +1177,19 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (runningInstance != null) runningInstance.updateActionbarEditMode();
 	}
 	
+	BottomBarClickListener bottomBarListener;
+
+	@Override
+	public boolean onPrepareOptionsMenu(final Menu m) {
+		if (bottomBarListener == null && getBottomBar() != null) {
+			// NOTE doing this here tries to keep a valid reference to the activity 
+			// doing it here should guarantee that it always works
+			bottomBarListener = new BottomBarClickListener(this);
+			getBottomBar().setOnMenuItemClickListener(bottomBarListener);	
+		}
+		return true;
+	}
+
 	/**
 	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
 	 * 
@@ -1182,14 +1204,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Menu menu = m;
 		if (getBottomBar() != null) {
 			menu = getBottomBar().getMenu();
-			class MyOnMenuItemClickListener implements android.support.v7.widget.ActionMenuView.OnMenuItemClickListener, Serializable {
-				private static final long serialVersionUID = 1L;
-				@Override
-				public boolean onMenuItemClick(MenuItem item) {
-					return onOptionsItemSelected(item);
-				}	
-			}
-			getBottomBar().setOnMenuItemClickListener(new MyOnMenuItemClickListener());
 			Log.d(DEBUG_TAG,"inflated main menu on to bottom toolbar");
 		} 
 		if (menu.size() == 0) {

@@ -118,7 +118,6 @@ public class SelectFile {
                     }
                 }
             }
-
         } else {
             Uri uri = data.getData();
             if (code == SAVE_FILE) {
