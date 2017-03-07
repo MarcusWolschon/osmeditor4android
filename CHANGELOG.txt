@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1243: Improved JOSM style remote control, added some documentation on supported Intents.
+
 1239: Update default preset, imagery and translations, fix regression wrt discarding useless tags, fix various smaller issues.
 
 1237: Improved functionality for tag filter, fixed issues with tag filter UI.
