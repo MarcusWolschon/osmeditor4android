@@ -41,4 +41,13 @@ josm:/load\_and\_zoom?left=*left*&bottom=*bottom*&right=*right*&top=*top*&select
 
 For more information see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl, note: this has a different format than the JOSM object selection command. The "josm:" scheme Intents are supported from version 0.9.8, build 1242 on.
 
+__geo URLs__
+
+geo:*lat*,*lon*?z=*zoom_level*
+
+*lat*,*lon*: WGS84 coordinates
+*zoom\_level*: zoom level, not supported
+
+Partial implementation of geo Urls, only WGS84 coordinates are supported, an area of the size of the current auto-download area is downloaded around the specified location.
+
 __Happy mapping!__ 
