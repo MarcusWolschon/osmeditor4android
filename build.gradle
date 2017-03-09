@@ -174,12 +174,12 @@ dependencies {
     compile "cz.msebera.android:httpclient:4.4.1.2"
     compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
-    compile "com.drewnoakes:metadata-extractor:2.9.1"
-    compile "com.adobe.xmp:xmpcore:5.1.2"
+    compile "com.drewnoakes:metadata-extractor:2.10.1"
+    compile "com.adobe.xmp:xmpcore:6.1.10"
     compile "ch.poole:PoParser:0.7.2"
     compile "ch.poole:OpeningHoursParser:0.1.2"
     compile "ch.poole:ConditionalRestrictionParser:0.1.11"
-    compile "com.google.code.gson:gson:2.7"
+    compile "com.google.code.gson:gson:2.8.0"
 
     // Unit tests
     testCompile "junit:junit:4.12"
