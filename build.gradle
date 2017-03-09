@@ -59,12 +59,24 @@ task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"
 		delete downloadPresetIconsZipFile.dest
 	}
 }
+updatePreset.group = 'vespucci'
+updatePreset.description = 'Update the default preset from http://simonpoole.github.io/beautified-JOSM-preset/'
 
 task updateImagery(type: Download) {
 	acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/osm-layer-index/gh-pages/imagery_tms_minified.json'
     dest new File(projectDir.getPath() + '/src/main/assets/imagery.json')
 }
+updateImagery.group = 'vespucci'
+updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
+
+task updateTaginfoJson(type: Exec) {
+	def adb = android.getAdbExe().toString()
+	commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
+}
+updateTaginfoJson.group = 'vespucci'
+updateTaginfoJson.description = 'Update the taginfo.json file from test device'
+
 
 eclipse {
     classpath {
@@ -112,7 +124,6 @@ eclipse {
 }
 
 eclipseClasspath.dependsOn "generateDebugSources"
-
 
 android {
     compileSdkVersion 24
@@ -185,8 +196,7 @@ dependencies {
     androidTestCompile ("com.orhanobut:mockwebserverplus:1.0.0") {
     	exclude group: 'org.yaml', module: 'snakeyaml'
     }
- 
-    // androidTestCompile "com.android.support.test.uiautomator:uiautomator-v18:2.1.2"
+    androidTestCompile "com.android.support.test.uiautomator:uiautomator-v18:2.1.2"
 }
 
 

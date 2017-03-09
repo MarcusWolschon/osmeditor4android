@@ -71,6 +71,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.SavingHelper;
@@ -2220,17 +2221,13 @@ public class Preset implements Serializable {
 	/**
 	 * This is for the taginfo project repo and not really for testing
 	 */
-	public static void generateTaginfoJson(Context ctx) {
+	public static boolean generateTaginfoJson(Context ctx, String filename) {
 		Preset[] presets = App.getCurrentPresets(ctx);
 		
-		File sdcard = Environment.getExternalStorageDirectory();
-		File outdir = new File(sdcard, "Vespucci");
-		//noinspection ResultOfMethodCallIgnored
-		outdir.mkdir(); // ensure directory exists;
-		String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".json";
-		File outfile = new File(outdir, filename);
 		PrintStream outputStream = null;
 		try {
+			// String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".json";
+			File outfile = new File(FileUtil.getPublicDirectory(), filename);
 			outputStream = new PrintStream(new BufferedOutputStream(new FileOutputStream(outfile)));
 			
 			outputStream.println("{");
@@ -2257,10 +2254,13 @@ public class Preset implements Serializable {
 			}
 			outputStream.println("]}");
 		} catch (Exception e) {
-			Log.e("SavingHelper", "Export failed - " + filename);
+			Log.e(DEBUG_TAG, "Export failed - " + filename);
+			e.printStackTrace();
+			return false;
 		} finally {
 			SavingHelper.close(outputStream);
 		}
+		return true;
 	}
 }
 
