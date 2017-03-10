@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -74,17 +75,17 @@ public class MapTileProvider implements ServiceConnection,
 	public MapTileProvider(final Context ctx,
 			final Handler aDownloadFinishedListener) {
 		mCtx = ctx;
-		mNoTilesTile = BitmapFactory.decodeResource(ctx.getResources(),
-				R.drawable.no_tiles);
-		mLoadingMapTile = BitmapFactory.decodeResource(ctx.getResources(),
-				R.drawable.no_tiles);
+		Resources r = ctx.getResources();
+		mNoTilesTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles);
+		mLoadingMapTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles);
 		mTileCache = new MapTileCache();
 		
 		smallHeap = Runtime.getRuntime().maxMemory() <= 32L*1024L*1024L; // less than 32MB
 	
-		Intent explicitIntent = Util.createExplicitFromImplicitIntent(ctx, new Intent(IMapTileProviderService.class.getName()));
+		// Intent explicitIntent = Util.createExplicitFromImplicitIntent(ctx, new Intent(r.getString(R.string.tile_service_intent)));
+		Intent explicitIntent = (new Intent(IMapTileProviderService.class.getName())).setPackage(ctx.getPackageName());
 		if(explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
-			Log.e(DEBUGTAG, "Could not bind to " + IMapTileProviderService.class.getName());
+			Log.e(DEBUGTAG, "Could not bind to " + IMapTileProviderService.class.getName() + " in package " + ctx.getPackageName());
 		}
 		
 		mDownloadFinishedHandler = aDownloadFinishedListener;
