@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -521,6 +520,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
 		String lastVersion = savingHelperVersion.load(this,VERSION_FILE, false);
 		boolean newInstall = (lastVersion == null || lastVersion.equals(""));
+		String currentVersion = getString(R.string.app_version);
+		boolean newVersion = (lastVersion != null) && (lastVersion.length()<5 || !lastVersion.subSequence(0,5).equals(currentVersion.subSequence(0,5)));
 		
 		loadOnResume = false;
 		
@@ -561,7 +562,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				openEmptyMap(box);
 
 				// only show box picker if we are not showing welcome dialog
-				if (!newInstall) {
+				if (!(newInstall || newVersion)) {
 					gotoBoxPicker();
 				}
 			}
@@ -574,12 +575,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			// newbie, display welcome dialog
 			Log.d(DEBUG_TAG,"showing welcome dialog");
 			Newbie.showDialog(this);
-		} else {
-			String currentVersion = getString(R.string.app_version);
-			if (lastVersion.length()<5 || !lastVersion.subSequence(0,5).equals(currentVersion.subSequence(0,5))) { // lastVersion already checked against null
-				Log.d(DEBUG_TAG,"new version");
-				NewVersion.showDialog(this);
-			}
+		} else if (newVersion) {
+			Log.d(DEBUG_TAG,"new version");
+			NewVersion.showDialog(this);
 		}
 		savingHelperVersion.save(this,VERSION_FILE, getString(R.string.app_version), false);
 	}

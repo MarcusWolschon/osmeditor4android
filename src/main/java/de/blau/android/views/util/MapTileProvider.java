@@ -82,7 +82,6 @@ public class MapTileProvider implements ServiceConnection,
 		
 		smallHeap = Runtime.getRuntime().maxMemory() <= 32L*1024L*1024L; // less than 32MB
 	
-		// Intent explicitIntent = Util.createExplicitFromImplicitIntent(ctx, new Intent(r.getString(R.string.tile_service_intent)));
 		Intent explicitIntent = (new Intent(IMapTileProviderService.class.getName())).setPackage(ctx.getPackageName());
 		if(explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
 			Log.e(DEBUGTAG, "Could not bind to " + IMapTileProviderService.class.getName() + " in package " + ctx.getPackageName());
