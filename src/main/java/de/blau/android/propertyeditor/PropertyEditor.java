@@ -171,6 +171,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 									  boolean askForName, 
 									  HashMap<String,String> extraTags,
 									  int requestCode) {
+		Log.d(DEBUG_TAG, "startForResult");
 		Intent intent = new Intent(activity, PropertyEditor.class);
 		intent.putExtra(TAGEDIT_DATA, dataClass);
 		intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastTags));
