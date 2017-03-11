@@ -103,7 +103,7 @@ public class TaskFragment extends DialogFragment {
     				if (bug instanceof Note) {
     					Note n = (Note)bug;
     					NoteComment nc = n.getLastComment();
-    					TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED, false);
+    					TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED, false, null);
     				} else if (bug instanceof OsmoseBug) {
     					TransferTasks.uploadOsmoseBug((OsmoseBug)bug);
     				}
@@ -171,11 +171,14 @@ public class TaskFragment extends DialogFragment {
 								BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7/1E7D, lonE7/1E7, 50, true);
 								App.getLogic().downloadBox(b, true, new PostAsyncActionHandler(){
 									@Override
-									public void execute(){
+									public void onSuccess(){
 										OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
 										if (osm != null) {
 											App.mainActivity.zoomToAndEdit(lonE7, latE7, osm);
 										}
+									}
+									@Override
+									public void onError() {
 									}
 								});
 							} catch (OsmException e1) {

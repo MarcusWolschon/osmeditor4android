@@ -303,7 +303,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			Progress.dismissDialog(main, Progress.PROGRESS_SEARCHING);
 			offsetList = res;
 			if (handler != null) {
-				handler.execute();
+				handler.onSuccess();
 			}
 		}
 		
@@ -381,7 +381,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		};
 		PostAsyncActionHandler handler = new PostAsyncActionHandler() {
 			@Override
-			public void execute() {
+			public void onSuccess() {
 				if (offsetList != null && offsetList.size() > 0) {
 					Collections.sort(offsetList, cmp);
 					AppCompatDialog d = createDisplayOffsetDialog(0);
@@ -389,6 +389,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				} else {
 					displayError(main.getString(R.string.imagery_offset_not_found));
 				}
+			}
+			@Override
+			public void onError() {	
 			}
 		};
 		OffsetLoader loader = new OffsetLoader(handler); 

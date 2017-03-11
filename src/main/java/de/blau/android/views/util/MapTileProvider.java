@@ -20,7 +20,6 @@ import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.IMapTileProviderService;
 import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
-import de.blau.android.util.Util;
 
 /**
  * 

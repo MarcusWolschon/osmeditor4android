@@ -2308,11 +2308,13 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * saves currentStorage + deleted objects to a file. 
-	 * @throws XmlPullParserException 
-	 * @throws IOException 
-	 * @throws IllegalStateException 
-	 * @throws IllegalArgumentException 
+	 * Writes currentStorage + deleted objects to an outputstream in JOSM format. 
+	 * Note: currently does not sort output except by OSM object type
+	 * @param outputStream the stream we are writing to
+	 * @throws XmlPullParserException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 * @throws IOException
 	 */
 	public void save(OutputStream outputStream) throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException  {
 		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();

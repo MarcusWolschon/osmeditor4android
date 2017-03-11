@@ -22,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.filter.Filter.Include;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;

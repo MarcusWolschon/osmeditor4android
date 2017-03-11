@@ -40,6 +40,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -355,7 +357,6 @@ public class Logic {
 	 */
 	private Map map;
 
-	
 	private Set<OsmElement> clickableElements;
 	
 	/**
@@ -501,6 +502,7 @@ public class Logic {
 
 	/**
 	 * Returns the current mode that the program is in.
+	 * @return the mode
 	 */
 	public Mode getMode() {
 		return mode;
@@ -527,8 +529,9 @@ public class Logic {
 
 	/**
 	 * Wrapper to ensure the dirty flag is set 
-	 * @return
+	 * @return checkpoint name or null if none available
 	 */
+	@Nullable
 	public String undo() {
 		String name = getDelegator().getUndo().undo();
 		getDelegator().dirty();
@@ -537,8 +540,9 @@ public class Logic {
 	
 	/**
 	 * Wrapper to ensure the dirty flag is set 
-	 * @return
+	 * @return checkpoint name or null if none available
 	 */
+	@Nullable
 	public String redo() {
 		String name = getDelegator().getUndo().redo();
 		getDelegator().dirty();
@@ -2387,9 +2391,12 @@ public class Logic {
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
 					}
+					if (postLoadHandler != null) {
+						postLoadHandler.onError();
+					}
 				} else {
 					if (postLoadHandler != null) {
-						postLoadHandler.execute();
+						postLoadHandler.onSuccess();
 					}
 				}
 				DataStyle.updateStrokes(strokeWidth(mapBox.getWidth()));
@@ -2672,11 +2679,16 @@ public class Logic {
 
 			 @Override
 			 protected void onPostExecute(Integer result) {
-				if (result == 0 && postLoadHandler != null) {
-					postLoadHandler.execute();
+				if (result == 0) {
+					if (postLoadHandler != null) {
+						postLoadHandler.onSuccess();
+					}
+				} else {
+					if (postLoadHandler != null) {
+						postLoadHandler.onError();
+					}
 				}
 			 }
-
 		 }
 		 DownLoadElementTask loader = new DownLoadElementTask();
 		 loader.execute();
@@ -2919,9 +2931,13 @@ public class Logic {
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
 					}
-				}
-				if (postLoad != null) {
-					postLoad.execute();
+					if (postLoad != null) {
+						postLoad.onError();
+					}
+				} else {
+					if (postLoad != null) {
+						postLoad.onSuccess();
+					}
 				}
 				DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 				map.invalidate();
@@ -2935,9 +2951,10 @@ public class Logic {
 	 * Write data to a file in (J)OSM compatible format, 
 	 * if fileName contains directories these are created, otherwise it is stored in the standard public dir
 	 * 
-	 * @param fileName
+	 * @param fileName path of the file to save to
+	 * @param postSaveHandler if not null executes code after saving
 	 */
-	public void writeOsmFile(final String fileName) {
+	public void writeOsmFile(@NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
@@ -3004,13 +3021,18 @@ public class Logic {
 					if (!App.mainActivity.isFinishing()) {
 						ErrorAlert.showDialog(App.mainActivity,result);
 					}
+					if (postSaveHandler != null) {
+						postSaveHandler.onError();
+					}
+				} else {
+					if (postSaveHandler != null) {
+						postSaveHandler.onSuccess();
+					}
 				}
-			}
-			
+			}			
 		}.execute();
 	}
 
-	
 	/**
 	 * Saves to a file (synchronously)
 	 */
@@ -3022,8 +3044,7 @@ public class Logic {
 			Log.e(DEBUG_TAG, "Problem saving", e);
 		}
 	}
-	
-	
+		
 	/**
 	 * Saves to a file (asynchronously)
 	 */
@@ -3052,7 +3073,7 @@ public class Logic {
 	
 	/**
 	 * Loads the current editing state (selected objects, editing mode, etc) from file.
-	 * @param setViewBox TODO
+	 * @param setViewBox set the view box if true
 	 */
 	void loadEditingState(boolean setViewBox) {
 		EditState editState = new SavingHelper<EditState>().load(App.mainActivity,EDITSTATE_FILENAME, false);
@@ -3128,7 +3149,7 @@ public class Logic {
 					DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in loadEiditngState
 					
 					if (postLoad != null) {
-						postLoad.execute();
+						postLoad.onSuccess();
 					}
 					map.invalidate();
 					UndoStorage.updateIcon();
@@ -3141,6 +3162,9 @@ public class Logic {
 					Intent intent = new Intent(context, BoxPicker.class);
 					App.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDING_BOX);
 					Toast.makeText(App.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+					if (postLoad != null) {
+						postLoad.onError();
+					}
 				}
 			}
 		};
@@ -3187,7 +3211,7 @@ public class Logic {
 					
 					// FIXME if no bbox exists from data, ty to use one from bugs
 					if (postLoad != null) {
-						postLoad.execute();
+						postLoad.onSuccess();
 					}
 					// map.invalidate();
 					if (result.intValue() == READ_BACKUP) { 
@@ -3196,6 +3220,9 @@ public class Logic {
 				}
 				else {
 					Log.d("Logic", "loadBugsfromFile: File read failed");
+					if (postLoad != null) {
+						postLoad.onError();
+					}
 				}
 			}
 		};

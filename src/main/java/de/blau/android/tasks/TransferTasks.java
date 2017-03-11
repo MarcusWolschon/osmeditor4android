@@ -19,6 +19,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.App;
@@ -109,7 +111,7 @@ public class TransferTasks {
 					} 
 				}
 				if (handler != null) {
-					handler.execute();
+					handler.onSuccess();
 				}
 			}	
 		}.execute();
@@ -132,9 +134,12 @@ public class TransferTasks {
 						if (server.needOAuthHandshake()) {
 							App.mainActivity.oAuthHandshake(server, new PostAsyncActionHandler() {
 								@Override
-								public void execute() {
+								public void onSuccess() {
 									Preferences prefs = new Preferences(context);
 									upload(context, prefs.getServer());
+								}
+								@Override
+								public void onError() {
 								}
 							});
 							if (server.getOAuth()) // if still set
@@ -167,9 +172,9 @@ public class TransferTasks {
 								Note n = (Note)b;
 								NoteComment nc = n.getLastComment();
 								if (nc != null && nc.isNew()) {
-									uploadFailed = !uploadNote(context, server, n, nc.getText(), n.isClosed(), true) || uploadFailed;
+									uploadFailed = !uploadNote(context, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
 								} else {
-									uploadFailed = !uploadNote(context, server, n, null, n.isClosed(), true) || uploadFailed; // just a state change
+									uploadFailed = !uploadNote(context, server, n, null, n.isClosed(), true, null) || uploadFailed; // just a state change
 								}
 							} else if (b instanceof OsmoseBug) {
 								uploadFailed =  uploadOsmoseBug((OsmoseBug)b) || uploadFailed;
@@ -219,14 +224,20 @@ public class TransferTasks {
 		return false;
 	}
 	
-	
 	/**
-	 * Commit changes to the currently selected OpenStreetBug.
-	 * @param comment Comment to add to the bug.
-	 * @param close Flag to indicate if the bug is to be closed.
+	 * Commit changes to a Note
+	 * @param context Android Context
+	 * @param server Server configuration
+	 * @param note the Note to upload
+	 * @param comment Comment to add to the Note.
+	 * @param close if true the Note is to be closed.
+	 * @param quiet don't display an error message on errors
+	 * @param postUploadHandler execute code after a successful upload
+	 * @return true if upload was successful
 	 */
 	@TargetApi(11)
-	static public boolean uploadNote(final Context context, final Server server, final Note note, final String comment, final boolean close, final boolean quiet) {
+	static public boolean uploadNote(@NonNull final Context context, @NonNull final Server server, @NonNull final Note note, final String comment, 
+			final boolean close, final boolean quiet,  @Nullable final PostAsyncActionHandler postUploadHandler) {
 		Log.d(DEBUG_TAG, "uploadNote");
 
 		if (server != null) {
@@ -234,9 +245,12 @@ public class TransferTasks {
 				if (server.needOAuthHandshake()) {
 					App.mainActivity.oAuthHandshake(server, new PostAsyncActionHandler() {
 						@Override
-						public void execute() {
+						public void onSuccess() {
 							Preferences prefs = new Preferences(context);
-							uploadNote(context, prefs.getServer(), note, comment, close, quiet);
+							uploadNote(context, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
+						}
+						@Override
+						public void onError() {
 						}
 					});
 					if (server.getOAuth()) { // if still set
@@ -279,8 +293,11 @@ public class TransferTasks {
 						App.getTaskStorage().add(bug);
 					}
 					if (result.error == ErrorCodes.OK) {
-						// upload sucessful
+						// upload successful
 						bug.changed = false;
+						if (postUploadHandler != null) {
+							postUploadHandler.onSuccess();
+						}
 					}	
 					if (!quiet) {
 						Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);

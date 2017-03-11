@@ -170,7 +170,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			Progress.showDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
 			PostAsyncActionHandler handler = new PostAsyncActionHandler() {
 				@Override
-				public void execute() {
+				public void onSuccess() {
 					if (currentAction != null) {
 						for (int i = 0;i<selectedCount;i++) {
 							RelationMemberRow row = selected.get(i);
@@ -183,6 +183,9 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 						Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
 						((RelationMembersFragment)caller).setIcons();
 					}
+				}
+				@Override
+				public void onError() {
 				}
 			};
 			final Logic logic = App.getLogic();

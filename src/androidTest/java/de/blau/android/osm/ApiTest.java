@@ -31,8 +31,8 @@ import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.SignalHandler;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -99,11 +99,7 @@ public class ApiTest {
     	mockServer.enqueue("download1");
     	Logic logic = App.getLogic();
     	try {
-			logic.downloadBox(new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new PostAsyncActionHandler() {
-				@Override
-				public void execute() {
-					signal.countDown();
-				}});
+			logic.downloadBox(new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
 		} catch (OsmException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -123,11 +119,7 @@ public class ApiTest {
     	mockServer.enqueue("download2");
     	Logic logic = App.getLogic();
     	try {
-			logic.downloadBox(new BoundingBox(8.3865200D,47.3883000D,8.3838500D,47.3898500D), true, new PostAsyncActionHandler() {
-				@Override
-				public void execute() {				
-					signal.countDown();
-				}});
+			logic.downloadBox(new BoundingBox(8.3865200D,47.3883000D,8.3838500D,47.3898500D), true, new SignalHandler(signal));
 		} catch (OsmException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -146,11 +138,7 @@ public class ApiTest {
 
     	ClassLoader loader = Thread.currentThread().getContextClassLoader();
     	InputStream is = loader.getResourceAsStream("test1.osm");
-    	logic.readOsmFile(is, false, new PostAsyncActionHandler() {
-    		@Override
-    		public void execute() {
-    			signal.countDown();
-    		}});
+    	logic.readOsmFile(is, false, new SignalHandler(signal));
     	try {
     		signal.await(30, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
@@ -195,11 +183,7 @@ public class ApiTest {
 
     	ClassLoader loader = Thread.currentThread().getContextClassLoader();
     	InputStream is = loader.getResourceAsStream("test1.osm");
-    	logic.readOsmFile(is, false, new PostAsyncActionHandler() {
-    		@Override
-    		public void execute() {
-    			signal.countDown();
-    		}});
+    	logic.readOsmFile(is, false, new SignalHandler(signal));
     	try {
     		signal.await(30, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
@@ -251,11 +235,7 @@ public class ApiTest {
     	// we need something changes in memory or else we wont try to upload
        	ClassLoader loader = Thread.currentThread().getContextClassLoader();
     	InputStream is = loader.getResourceAsStream("test1.osm");
-    	logic.readOsmFile(is, false, new PostAsyncActionHandler() {
-    		@Override
-    		public void execute() {
-    			signal.countDown();
-    		}});
+    	logic.readOsmFile(is, false, new SignalHandler(signal));
     	try {
     		signal.await(30, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
@@ -305,11 +285,7 @@ public class ApiTest {
     		Set<String> set = new HashSet<String>(Arrays.asList("NOTES")) ;
 			p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
     		Assert.assertTrue(new Preferences(context).taskFilter().contains("NOTES"));
-			TransferTasks.downloadBox(context,s,new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new PostAsyncActionHandler() {
-				@Override
-				public void execute() {
-					signal.countDown();
-				}});
+			TransferTasks.downloadBox(context,s,new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -330,27 +306,31 @@ public class ApiTest {
     	Assert.assertEquals(458427,tasks.get(0).getId());
 	}
     
-//    @Test
-//	public void noteUpload() {
-//    	mockServer.enqueue("noteUpload1");
-//    	App.getTaskStorage().reset();
-//    	try {
-//    		final Server s = new Server(context, prefDB.getCurrentAPI(),"vesupucci test");
-//    		Note n = new Note((int)(51.0*1E7D),(int)(0.1*1E7D));
-//    		Assert.assertTrue(n.isNew());
-//    		Assert.assertTrue(TransferTasks.uploadNote(context,s, n, "ThisIsANote", false, false));
-//		} catch (Exception e) {
-//			Assert.fail(e.getMessage());
-//		}
-//    	// Assert.assertNotNull(App.getTaskStorage().getTasks()));
-//    	try {
-//    		// ArrayList<Task>tasks = App.getTaskStorage().getTasks(new BoundingBox(50.99, 0.099, 51.01, 0.11));
-//    		ArrayList<Task> tasks = App.getTaskStorage().getTasks();
-//        	Assert.assertEquals(1, tasks.size());
-//        	Note n = (Note) tasks.get(0);
-//        	Assert.assertEquals(n.getLastComment().getText(),"ThisIsANote");
-//    	} catch (Exception e) {
-//    		Assert.fail(e.getMessage());
-//    	}
-//	}
+    @Test
+	public void noteUpload() {
+    	final CountDownLatch signal = new CountDownLatch(1);
+    	mockServer.enqueue("noteUpload1");
+    	App.getTaskStorage().reset();
+    	try {
+    		final Server s = new Server(context, prefDB.getCurrentAPI(),"vesupucci test");
+    		Note n = new Note((int)(51.0*1E7D),(int)(0.1*1E7D));
+    		Assert.assertTrue(n.isNew());
+    		Assert.assertTrue(TransferTasks.uploadNote(context,s, n, "ThisIsANote", false, false, new SignalHandler(signal)));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+       	try {
+    		signal.await(40, TimeUnit.SECONDS);
+    	} catch (InterruptedException e) {
+    		Assert.fail(e.getMessage());
+    	}
+    	try {
+    		ArrayList<Task>tasks = App.getTaskStorage().getTasks(new BoundingBox(0.099, 50.99, 0.111, 51.01));
+        	Assert.assertEquals(1, tasks.size());
+        	Note n = (Note) tasks.get(0);
+        	Assert.assertEquals("<p>ThisIsANote</p>",n.getLastComment().getText());
+    	} catch (Exception e) {
+    		Assert.fail(e.getMessage());
+    	}
+	}
 }

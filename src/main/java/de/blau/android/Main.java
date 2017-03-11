@@ -654,7 +654,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void execute() {
+			public void onSuccess() {
 				if (rcData != null || geoData != null) {
 					processIntents();
 				}
@@ -682,6 +682,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					logic.deselectAll();
 				}
 			}
+			@Override
+			public void onError() {
+			}
 		};
 		synchronized (loadOnResumeLock) {	
 			if (redownloadOnResume) {
@@ -691,14 +694,16 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				loadOnResume = false;	
 				PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
 					private static final long serialVersionUID = 1L;
-
 					@Override
-					public void execute() {
+					public void onSuccess() {
 						Mode mode = logic.getMode();
 						Task t = logic.getSelectedBug();
 						if (mode.elementsGeomEditiable() && t!= null) {
 							performBugEdit(t);
 						}
+					}
+					@Override
+					public void onError() {
 					}
 				};
 				logic.loadFromFile(this,postLoadData);
@@ -707,7 +712,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				synchronized (setViewBoxLock) {
 					App.getLogic().loadEditingState(setViewBox);
 				}
-				postLoadData.execute();
+				postLoadData.onSuccess();
 				map.invalidate();
 			}
 		}
@@ -838,9 +843,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
 							private static final long serialVersionUID = 1L;
 							@Override
-							public void execute(){
+							public void onSuccess(){
 								rcDataEdit(rcData);
 								rcData=null; // zap to stop repeated downloads
+							}
+							@Override
+							public void onError() {
 							}
 						});
 					} else {
@@ -1422,10 +1430,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server, new PostAsyncActionHandler() {
 						private static final long serialVersionUID = 1L;
-
 						@Override
-						public void execute() {
+						public void onSuccess() {
 							GpxUpload.showDialog(Main.this);
+						}
+						@Override
+						public void onError() {
 						}
 					});
 					if (server.getOAuth()) { // if still set
@@ -1570,7 +1580,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				private static final long serialVersionUID = 1L;
 				@Override
 				public boolean save(Uri fileUri) {
-					App.getLogic().writeOsmFile(fileUri.getPath());
+					App.getLogic().writeOsmFile(fileUri.getPath(), null);
 					return true;
 				}});
 			return true;
@@ -1578,10 +1588,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		case R.id.menu_transfer_bugs_download_current:
 			TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				private static final long serialVersionUID = 1L;
-
 				@Override
-				public void execute() {
+				public void onSuccess() {
 					map.invalidate();
+				}
+				@Override
+				public void onError() {
 				}
 			});
 			return true;
@@ -2031,10 +2043,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
 			TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				private static final long serialVersionUID = 1L;
-
 				@Override
-				public void execute() {
+				public void onSuccess() {
 					map.invalidate();
+				}
+				@Override
+				public void onError() {
 				}
 			});
 		}
@@ -2104,10 +2118,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server, new PostAsyncActionHandler() {
 						private static final long serialVersionUID = 1L;
-
 						@Override
-						public void execute() {
+						public void onSuccess() {
 							ConfirmUpload.showDialog(Main.this);
+						}
+						@Override
+						public void onError() {
 						}
 					});
 					if (server.getOAuth()) // if still set
@@ -2290,7 +2306,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			oAuthWebView.destroy();
 			oAuthWebView = null; 
 			if (restart != null) {
-				restart.execute();
+				restart.onSuccess();
 			}
 		} catch (Exception ex) { 
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");

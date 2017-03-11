@@ -1,14 +1,14 @@
 package de.blau.android.util.mapbox.geojson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.GsonBuilder;
 
 import de.blau.android.util.mapbox.geojson.custom.PositionDeserializer;
 import de.blau.android.util.mapbox.geojson.custom.PositionSerializer;
 import de.blau.android.util.mapbox.models.Position;
 import de.blau.android.util.mapbox.utils.PolylineUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A LineString is a type of {@link Geometry}.

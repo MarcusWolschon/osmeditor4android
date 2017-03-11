@@ -6,7 +6,15 @@ public abstract class PostAsyncActionHandler implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
-	public abstract void execute();
+	/**
+	 * call this on success
+	 */
+	public abstract void onSuccess();
+	
+	/**
+	 * method for error handling 
+	 */
+	public abstract void onError();
 }
