@@ -17,6 +17,7 @@ import de.blau.android.App;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.collections.MultiHashMap;
 
 public class SearchIndexUtils {
 	

@@ -70,11 +70,11 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
-import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.views.WrappingLayout;
 
 /**

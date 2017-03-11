@@ -10,6 +10,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.collections.MultiHashMap;
 
 public class ElementSearch {
     

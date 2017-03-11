@@ -1,4 +1,4 @@
-package de.blau.android.util;
+package de.blau.android.util.collections;
 
 import java.io.Serializable;
 import java.util.Arrays;

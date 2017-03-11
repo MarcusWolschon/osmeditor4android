@@ -18,8 +18,8 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.SearchIndexUtils;
+import de.blau.android.util.collections.MultiHashMap;
 
 
 /**

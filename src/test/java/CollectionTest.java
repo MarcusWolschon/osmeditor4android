@@ -4,7 +4,9 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import de.blau.android.exception.OsmException;
@@ -14,6 +16,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
+import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 
@@ -75,10 +78,25 @@ public class CollectionTest {
 			try {
 				b = new BoundingBox(temp[i].getLon()-1,temp[i].getLat()-1,temp[i].getLon()+1,temp[i].getLat()+1);
 			} catch (OsmException e) {
-				fail("BandingBox creation failed with " + e);
+				fail("BoundingBox creation failed with " + e);
 			}
 			tree.query(result, b);
 			assertTrue(result.contains(temp[i]));
 		}
 	}
+    
+    @Test
+    public void multihashmap() {
+    	MultiHashMap<String,String> map = new MultiHashMap<String,String>();
+    	map.add("A", "1");
+    	map.add("A", "2");
+    	map.add("M", "3");
+    	Set<String> r = map.get("A");
+    	Assert.assertTrue(r.size()==2);
+    	Assert.assertTrue(r.contains("1"));
+    	Assert.assertTrue(r.contains("2"));
+    	r = map.get("M");
+    	Assert.assertTrue(r.size()==1);
+    	Assert.assertTrue(r.contains("3"));
+    }
 }
