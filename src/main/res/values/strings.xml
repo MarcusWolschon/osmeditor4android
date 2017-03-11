@@ -395,6 +395,7 @@
     <string name="actionmode_restriction_restart_to">Re-select \"to\" segment</string>
     <string name="actionmode_one_object">1 object</string>
     <string name="actionmode_object_count">%1$d objects</string>
+    <string name="actionmode_rotateway">Rotate way</string>
     <!-- Preferences -->
     <string name="config_category_editing">Data and Editing Settings</string>
     <string name="config_category_view">User Interface Settings</string>

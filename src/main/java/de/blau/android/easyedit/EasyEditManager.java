@@ -159,7 +159,10 @@ public class EasyEditManager {
 			return; // don't deselect all just because we didn't hit anything TODO display a toast
 		}
 		synchronized (actionModeCallbackLock) {
-			if (currentActionModeCallback instanceof ElementSelectionActionModeCallback || currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
+			if (currentActionModeCallback instanceof ElementSelectionActionModeCallback 
+					|| currentActionModeCallback instanceof ExtendSelectionActionModeCallback
+					|| currentActionModeCallback instanceof WayRotationActionModeCallback
+					|| currentActionModeCallback instanceof WayAppendingActionModeCallback) {
 				currentActionMode.finish();
 			}
 		}
@@ -1499,7 +1502,7 @@ public class EasyEditManager {
 	}
 	
 	private class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
-		private static final String DEBUG6_TAG = "WaySelectionAction...";
+		private static final String DEBUG_TAG = "WaySelectionAction...";
 		private static final int MENUITEM_SPLIT = 9;
 		private static final int MENUITEM_MERGE = 10;
 		private static final int MENUITEM_REVERSE = 11;
@@ -1517,7 +1520,7 @@ public class EasyEditManager {
 		
 		private WaySelectionActionModeCallback(Way way) {
 			super(way);
-			Log.d(DEBUG6_TAG, "constructor");
+			Log.d(DEBUG_TAG, "constructor");
 			cachedMergeableWays = findMergeableWays(way);
 			cachedAppendableNodes = findAppendableNodes(way);
 			cachedViaElements = findViaElements(way);
@@ -1527,7 +1530,7 @@ public class EasyEditManager {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			helpTopic = R.string.help_wayselection;
 			super.onCreateActionMode(mode, menu);
-			Log.d(DEBUG6_TAG, "onCreateActionMode");
+			Log.d(DEBUG_TAG, "onCreateActionMode");
 			logic.setSelectedNode(null);
 			logic.setSelectedRelationWays(null);
 			logic.setSelectedRelationNodes(null);
@@ -1542,7 +1545,7 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu = replaceMenu(menu, mode, this);
 			super.onPrepareActionMode(mode, menu);
-			Log.d(DEBUG6_TAG, "onPrepareActionMode");
+			Log.d(DEBUG_TAG, "onPrepareActionMode");
 			if (((Way)element).getTags().containsKey(Tags.KEY_BUILDING) && !((Way)element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
 				menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			}
@@ -1607,7 +1610,7 @@ public class EasyEditManager {
 				case MENUITEM_REVERSE: reverseWay(); break;
 				case MENUITEM_APPEND: main.startSupportActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
 				case MENUITEM_RESTRICTION: main.startSupportActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
-				case MENUITEM_ROTATE: logic.setRotationMode(); logic.showCrosshairsForCentroid(); break;
+				case MENUITEM_ROTATE: deselect=false; main.startSupportActionMode(new WayRotationActionModeCallback((Way)element)); break;
 				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); invalidate(); break; // FIXME move to asynctask
 				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); invalidate(); break;
 				case MENUITEM_SPLIT_POLYGON: main.startSupportActionMode(new WaySplittingActionModeCallback((Way)element, true)); break;
@@ -1740,7 +1743,7 @@ public class EasyEditManager {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			helpTopic = R.string.help_closedwaysplitting;
 			super.onCreateActionMode(mode, menu);
-			mode.setSubtitle(R.string.menu_closed_way_split_2);
+			mode.setSubtitle(R.string.actionmode_closed_way_split_2);
 			logic.setClickableElements(nodes);
 			logic.setReturnRelations(false);
 			return true;
@@ -1866,6 +1869,34 @@ public class EasyEditManager {
 			logic.setReturnRelations(true);
 			super.onDestroyActionMode(mode);
 		}
+	}
+	
+	private class WayRotationActionModeCallback extends EasyEditActionModeCallback  {
+		private static final String DEBUG_TAG = "WayRotationAction...";
+		
+		public WayRotationActionModeCallback(Way way) {
+			super();
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_wayselection;
+			super.onCreateActionMode(mode, menu);
+			Log.d(DEBUG_TAG, "onCreateActionMode");
+			logic.setRotationMode(true); 
+			logic.showCrosshairsForCentroid();
+			mode.setTitle(R.string.actionmode_rotateway);
+			mode.setSubtitle(null);
+			return true;
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.deselectAll();
+			logic.setRotationMode(false); 
+			logic.hideCrosshairs();
+			super.onDestroyActionMode(mode);
+		}	
 	}
 	
 	private class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {

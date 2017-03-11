@@ -1464,9 +1464,10 @@ public class Logic {
 	/**
 	 * Puts the editor into the mode where the selected way will be rotated by
 	 * the handleTouchEventMove function on move events.
+	 * @param on new state
 	 */
-	public void setRotationMode() {
-		rotatingWay = true;
+	public void setRotationMode(boolean on) {
+		rotatingWay = on;
 	}
 	
 	/**
