@@ -16,16 +16,22 @@
 
         <RadioButton
             android:id="@+id/location_last"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:enabled="false"
             android:text="@string/location_last_text" />
 
         <RadioButton
             android:id="@+id/location_current"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:enabled="false"
             android:text="@string/location_current_text" />
       
         <RadioButton
-            android:id="@+id/location_coordinates"
+        	android:id="@+id/location_coordinates"
+        	android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="@string/location_coordinates_text" />
 
         <LinearLayout
