@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1245: Fix regression in handling multi-select values, testing improvements.
+
 1244: EasyEdit consistency improvements, bug fixes and more test coverage.
 
 1243: Improved JOSM style remote control, added some documentation on supported Intents.
