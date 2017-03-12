@@ -651,10 +651,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	
 	/**
 	 * Create an onClick listener that saves the current offset to the offset DB and (if it exists) displays the next offset to be saved
-	 * @param description
-	 * @param author
-	 * @param offset
-	 * @param index
+	 * @param description desciption of the offset in question
+	 * @param author author
+	 * @param index index in the list
 	 * @return the OnClickListnener
 	 */
 	private OnClickListener createSaveButtonListener(final EditText description, final EditText author, final int index, final ArrayList<ImageryOffset> saveOffsetList) {

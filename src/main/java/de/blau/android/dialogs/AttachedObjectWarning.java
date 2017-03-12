@@ -33,11 +33,9 @@ public class AttachedObjectWarning extends DialogFragment
 	private Main main;
 	
    	/**
-	 * Shows a dialog warning the user that he has unsaved changes that will be discarded.
+	 * Shows a dialog warning the user that an invisible object has been changed, the user has the option
+	 * of ignring the warning, supressing it and undoing the change.
 	 * @param activity Activity creating the dialog and starting the intent Activity if confirmed
-	 * @param c class for the Activity to start on confirmation
-	 * @param requestCode If the activity should return a result, a non-negative request code.
-	 *                    If no result is expected, set to -1.
 	 */
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);

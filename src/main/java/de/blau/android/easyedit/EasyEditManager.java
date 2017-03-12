@@ -395,9 +395,8 @@ public class EasyEditManager {
 	
 	/**
 	 * Find possible elements for the "to" role of a restriction relation
-	 * @param way
-	 * @param commonNode
-	 * @return
+	 * @param viaElement the current via OSM element
+	 * @return a set of the candidate to OSM elements
 	 */
 	private Set<OsmElement> findToElements(OsmElement viaElement) {
 		Set<OsmElement> result = new HashSet<OsmElement>();	
@@ -472,7 +471,7 @@ public class EasyEditManager {
 	 * It will handle registering and de-registering the action mode callback with the {@link EasyEditManager}.
 	 * When the {@link EasyEditManager} receives a click on a node or way, it may pass it to the current action mode callback.
 	 * The callback can then swallow it by returning true or allow the default handling to happen by returning false
-	 * in the {@link #handleNodeClick(Node)} or {@link #handleWayClick(Way)} methods.
+	 * in the {@link #handleElementClick(OsmElement)} method.
 	 * 
 	 * @author Jan
 	 *
@@ -1199,7 +1198,7 @@ public class EasyEditManager {
 		}
 		
 		/**
-		 * Internal helper to avoid duplicate code in {@link #handleNodeClick(Node)} and {@link #handleWayClick(Way)}.
+		 * Internal helper to avoid duplicate code in {@link #handleElementClick(OsmElement)}}.
 		 * @param element clicked element
 		 * @return true if handled, false if default handling should apply
 		 */

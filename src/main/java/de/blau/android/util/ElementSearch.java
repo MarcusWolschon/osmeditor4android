@@ -106,7 +106,6 @@ public class ElementSearch {
 	   
     /**
      * Get all distance sorted place-names in the area
-     * @param delegator
      * @param location
      * @return all place-names
      */

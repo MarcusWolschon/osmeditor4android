@@ -60,7 +60,7 @@ public abstract class Filter implements Serializable {
 	
 	/**
 	 * If true include this element
-	 * @param node
+	 * @param way
 	 * @param selected
 	 * @return
 	 */
@@ -68,7 +68,7 @@ public abstract class Filter implements Serializable {
 	
 	/**
 	 * If true include this element
-	 * @param node
+	 * @param relation
 	 * @param selected
 	 * @return
 	 */

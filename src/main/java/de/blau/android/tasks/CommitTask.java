@@ -15,7 +15,9 @@ import de.blau.android.osm.Server;
 import de.blau.android.tasks.Task.State;
 
 /**
- * Task to commit changes to an OpenStreetBug.
+ * Task to commit changes to an OpenStreetMap "Note".
+ * Originally this code was intended for "Bugs" uploaded to the OpenStreetBugs database 
+ * and the expression continues to linger on in various location.
  * @author Andrew Gregory
  *
  */
@@ -29,10 +31,10 @@ class CommitTask extends AsyncTask<Server, Void, UploadResult> {
 	private final boolean close;
 	
 	/**
-	 * Create the background task to upload changes to OSB.
-	 * @param bug The bug to commit changes to.
-	 * @param comment An optional comment to add to the bug.
-	 * @param close A close to indicate if the bug should be closed.
+	 * Create the background task to upload changes to OSM.
+	 * @param bug The Note to commit changes to.
+	 * @param comment An optional comment to add to the Note.
+	 * @param close A close to indicate if the Note should be closed.
 	 */
 	public CommitTask(final Note bug, final String comment, final boolean close) {
 		Log.d(DEBUG_TAG,bug.getDescription() + " >" + comment + "< " + close);
@@ -41,12 +43,6 @@ class CommitTask extends AsyncTask<Server, Void, UploadResult> {
 		this.close = close;
 	}
 	
-	/**
-	 * Commit bug changes to the OSB database.
-	 * @param nickname An array of Strings, but only the first item is used. That item
-	 * is the user nickname to associate with bug comments. If not specified, "NoName"
-	 * will be used.
-	 */
 	@Override
 	protected UploadResult doInBackground(Server... servers) {
 		Log.d(DEBUG_TAG,"doInBackGround");

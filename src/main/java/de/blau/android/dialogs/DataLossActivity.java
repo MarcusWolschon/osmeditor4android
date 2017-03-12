@@ -34,7 +34,7 @@ public class DataLossActivity extends DialogFragment
    	/**
 	 * Shows a dialog warning the user that he has unsaved changes that will be discarded.
 	 * @param activity Activity creating the dialog and starting the intent Activity if confirmed
-	 * @param c class for the Activity to start on confirmation
+	 * @param intent intent for the activity to start
 	 * @param requestCode If the activity should return a result, a non-negative request code.
 	 *                    If no result is expected, set to -1.
 	 */
