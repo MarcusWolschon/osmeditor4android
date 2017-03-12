@@ -4,36 +4,75 @@ There are strings elsewhere in Vespucci that would be nice to be translated, but
 
 ## transifex
 
-The translations are managed on transifex: https://www.transifex.com/projects/p/vespucci/
+The translations are managed on [transifex](https://www.transifex.com/projects/p/vespucci/)
 
-NOTE: for building we assume for now that the SVN repository contains the current language files, if you are adding or changing strings it is your responsibility to retrieve current translations and check them in.
-
-Currently transfex polls the strings.xml in the 0.9 branch for changes, once the branch is merged into trunk that should change to the trunk version. 
+NOTE: for building we assume for now that the github repository contains the current language files which the maintainers will commit now and then. If you want to add or change one of the existing default (English) strings you need to make a pull request against this repository.
 
 ### Setting up transifex locally and retrieving translations
 
 #### Install
 
-get the transifex tx tool see http://support.transifex.com/customer/portal/articles/995605-installation
+- get the transifex tx tool see http://support.transifex.com/customer/portal/articles/995605-installation.
 
-the repository already includes a suitable .tx directory with config file, if that does not work for you do the following
-
-	in your OSMEditor directory execute
-
-	tx init
-
-	tx set --auto-local -r vespucci.main "res\values-<lang>\strings.xml" --source-lang en --source-file res\values\strings.xml --execute
-	(my installation is on a windows machine on *IX "\" -> "/")
-
-	edit .tx/config and add
-	
-	lang_map = cs: cs-rCZ 
-	
-	to the [vespucci.main] section
+- the repository already includes a suitable .tx directory with config file, given that it has become fairly complex you should use that, its contents are included at the end of this document.
  
- #### Retrieving current translations
+#### Retrieving current translations
  
     tx pull -a
  
- will retrieve all translations configured above, skipping up to date translation files and creating new directories and strings.xml files for new languages.
+will retrieve all translations, skipping up to date translation files and creating new directories and strings.xml files for new languages. We was add a gradle task in the future to execute this.
  
+#### transifex configuration file
+
+    [main]
+    host = https://www.transifex.com
+    
+    [vespucci.main]
+    file_filter = src/main/res/values-<lang>/strings.xml
+    lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE, id: in 
+    source_file = src/main/res/values/strings.xml
+    source_lang = en
+    minimum_perc = 5
+    
+    [vespucci.addresstagsxml]
+    file_filter = src/main/res/values-<lang>/addresstags.xml
+    lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE, id: in
+    source_file = src/main/res/values/addresstags.xml
+    source_lang = en
+    minimum_perc = 100
+    
+    [vespucci.bugfilterxml]
+    file_filter = src/main/res/values-<lang>/bugfilter.xml
+    lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE, id: in
+    source_file = src/main/res/values/bugfilter.xml
+    source_lang = en
+    minimum_perc = 100
+    
+    [vespucci.scalexml]
+    file_filter = src/main/res/values-<lang>/scale.xml
+    lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE, id: in
+    source_file = src/main/res/values/scale.xml
+    source_lang = en
+    minimum_perc = 100
+    
+    [vespucci.voicexml]
+    file_filter = src/main/res/values-<lang>/voice.xml
+    lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE, id: in
+    source_file = src/main/res/values/voice.xml
+    source_lang = en
+    minimum_perc = 100
+    
+    [vespucci.introductionmd]
+    file_filter = documentation/docs/help/<lang>/Introduction.md
+    lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR,zh-Hans: zh-rCN, sv_SE: sv-rSE, id: in 
+    source_file = documentation/docs/help/en/Introduction.md
+    source_lang = en
+    minimum_perc = 5
+    
+    [presets.presetpot]
+    type = PO
+    file_filter = src/main/assets/preset_<lang>.po
+    lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE, id: in
+    source_lang = en
+    minimum_perc = 5
+
