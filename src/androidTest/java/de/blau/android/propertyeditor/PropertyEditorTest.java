@@ -28,6 +28,8 @@ import de.blau.android.SignalHandler;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
@@ -42,6 +44,7 @@ public class PropertyEditorTest {
 	ActivityMonitor monitor = null;
 	AdvancedPrefDatabase prefDB = null;
 	Instrumentation instrumentation = null;
+	Main main = null;
 	
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -51,7 +54,7 @@ public class PropertyEditorTest {
     	instrumentation = InstrumentationRegistry.getInstrumentation();
 		context = instrumentation.getTargetContext();
 		monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
-
+		main = (Main)mActivityRule.getActivity(); 
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
     	mockServer = new MockWebServerPlus();
@@ -75,8 +78,6 @@ public class PropertyEditorTest {
     
     @Test
 	public void node() {
-	    Main main = (Main)mActivityRule.getActivity(); 
-	    
     	final CountDownLatch signal = new CountDownLatch(1);
     	mockServer.enqueue("capabilities1");
     	mockServer.enqueue("download1");
@@ -102,5 +103,53 @@ public class PropertyEditorTest {
 //    	TagEditorFragment tef = ((PropertyEditor)propertyEditor).tagEditorFragment;
 //    	PresetItem presetItem = tef.getBestPreset();
 //    	Assert.assertEquals("Entrance", presetItem.getName());
+    }
+    
+    @Test
+	public void way() {
+    	final CountDownLatch signal = new CountDownLatch(1);
+    	mockServer.enqueue("capabilities1");
+    	mockServer.enqueue("download1");
+    	Logic logic = App.getLogic();
+    	try {
+			logic.downloadBox(new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+		} catch (OsmException e) {
+			Assert.fail(e.getMessage());
+		}
+    	try {
+			signal.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Assert.fail(e.getMessage());
+		}
+    	Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604);
+    	Assert.assertNotNull(w);
+
+    	main.performTagEdit(w, null, false, false, false);
+    	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+    	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+    }
+    
+    @Test
+	public void relation() {
+   	final CountDownLatch signal = new CountDownLatch(1);
+    	mockServer.enqueue("capabilities1");
+    	mockServer.enqueue("download1");
+    	Logic logic = App.getLogic();
+    	try {
+			logic.downloadBox(new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+		} catch (OsmException e) {
+			Assert.fail(e.getMessage());
+		}
+    	try {
+			signal.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Assert.fail(e.getMessage());
+		}
+    	Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+    	Assert.assertNotNull(r);
+
+    	main.performTagEdit(r, null, false, false, false);
+    	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+    	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
     }
 }
