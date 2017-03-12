@@ -360,7 +360,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	 */
 	private ArrayList<String> splitValues(ArrayList<String>values, PresetItem preset, String key) {
 		ArrayList<String> result = new ArrayList<String>();
-		String delimiter = Matcher.quoteReplacement("\\Q" + preset.getDelimiter(key)+"\\E"); // always quote to avoid surprises
+		// String delimiter = Matcher.quoteReplacement("\\Q" + preset.getDelimiter(key)+"\\E"); // always quote to avoid surprises
+		// FIXME it is not clear why quoting as above stopped working needs investigation
+		String delimiter = String.valueOf(preset.getDelimiter(key));
 		if (values==null) {
 			return null;
 		}
@@ -1338,7 +1340,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		
 		layout.setTag(key);
 		ArrayList<String> values = splitValues(Util.getArrayList(row.getValue()), row.getPreset(), key);
-		
 		int count = adapter.getCount();
 		for (int i=0;i<count;i++) {
 			Object o = adapter.getItem(i);
@@ -1583,8 +1584,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			if (isInEditMode()) return; // allow visual editor to work
 			
 			keyView = (TextView)findViewById(R.id.textKey);
-			valueGroup = (RadioGroup)findViewById(R.id.valueGroup);
-			
+			valueGroup = (RadioGroup)findViewById(R.id.valueGroup);	
 		}
 		
 		/**
@@ -1782,9 +1782,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		public void setValue(ArrayList<StringWithDescription> values) {
 			String value = "";
 			char delimiter = preset.getDelimiter(getKey());
-			int childCont = valueList.getChildCount();
-			for (int pos = 1;pos < childCont ;pos++) { // don^t delete first child
-				valueList.removeViewAt(1);
+			int childCount = valueList.getChildCount();
+			for (int pos = 0;pos < childCount ;pos++) { // don^t delete first child, just clear
+				if (pos == 0) {
+					setValue("","");
+				} else {
+					valueList.removeViewAt(1);
+				}
 			}
 			boolean first=true;
 			for (StringWithDescription swd:values) {
@@ -1835,8 +1839,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			if (isInEditMode()) return; // allow visual editor to work
 			
 			keyView = (TextView)findViewById(R.id.textKey);
-			valueLayout = (LinearLayout)findViewById(R.id.valueGroup);
-			
+			valueLayout = (LinearLayout)findViewById(R.id.valueGroup);		
 		}
 		
 		/**
