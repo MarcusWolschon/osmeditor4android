@@ -146,6 +146,12 @@ android {
         debug {
             testCoverageEnabled true
         }
+        release {
+        	// currently there are too many uninvestigated warnings to actually turn this on
+        	// minifyEnabled true
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'),
+            //        'proguard-rules.pro'
+        }
     }
     
     lintOptions {
@@ -174,8 +180,8 @@ dependencies {
     compile "cz.msebera.android:httpclient:4.4.1.2"
     compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    compile "com.adobe.xmp:xmpcore:5.1.3"
     compile "com.drewnoakes:metadata-extractor:2.10.1"
-    compile "com.adobe.xmp:xmpcore:6.1.10"
     compile "ch.poole:PoParser:0.7.2"
     compile "ch.poole:OpeningHoursParser:0.1.2"
     compile "ch.poole:ConditionalRestrictionParser:0.1.11"
