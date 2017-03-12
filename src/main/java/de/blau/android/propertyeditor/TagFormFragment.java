@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.regex.Matcher;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -354,32 +353,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		}
 		Log.d(DEBUG_TAG,adapter==null ? "adapter is null": "adapter has " + adapter.getCount() + " elements");
 		return adapter;
-	}
-	
-	/**
-	 * Split multi select values with the preset defined delimiter character
-	 * @param values
-	 * @param preset
-	 * @param key
-	 * @return
-	 */
-	private ArrayList<String> splitValues(ArrayList<String>values, PresetItem preset, String key) {
-		ArrayList<String> result = new ArrayList<String>();
-		// String delimiter = Matcher.quoteReplacement("\\Q" + preset.getDelimiter(key)+"\\E"); // always quote to avoid surprises
-		// FIXME it is not clear why quoting as above stopped working needs investigation
-		String delimiter = String.valueOf(preset.getDelimiter(key));
-		if (values==null) {
-			return null;
-		}
-		for (String v:values) {
-			if (v==null) {
-				return null;
-			}
-			for (String s:v.split(delimiter)) {
-				result.add(s.trim());
-			}
-		}
-		return result;
 	}
 	
 	@Override
@@ -791,7 +764,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					ArrayAdapter<?> adapter = null;
 					ArrayList<String> values = null;
 					if (preset != null && preset.getKeyType(key) == PresetKeyType.MULTISELECT) {
-						values = splitValues(Util.getArrayList(value), preset, key);
+						values = Preset.splitValues(Util.getArrayList(value), preset, key);
 						adapter = getValueAutocompleteAdapter(key, values, preset, allTags);
 					} else {
 						adapter = getValueAutocompleteAdapter(key, Util.getArrayList(value), preset, allTags);
@@ -1194,7 +1167,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		row.keyView.setTag(key);
 		row.setPreset(preset);
 		Log.d(DEBUG_TAG, "addMultiselectDialogRow value " + value);
-		ArrayList<String> multiselectValues = splitValues(Util.getArrayList(value),preset,key);
+		ArrayList<String> multiselectValues = Preset.splitValues(Util.getArrayList(value),preset,key);
 		
 		ArrayList<StringWithDescription> selectedValues= new ArrayList<StringWithDescription>();
 		for (int i=0;i< adapter.getCount();i++) {
@@ -1363,7 +1336,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		buttonLayoutParams.width = LayoutParams.FILL_PARENT;
 		
 		layout.setTag(key);
-		ArrayList<String> values = splitValues(Util.getArrayList(row.getValue()), row.getPreset(), key);
+		ArrayList<String> values = Preset.splitValues(Util.getArrayList(row.getValue()), row.getPreset(), key);
 		int count = adapter.getCount();
 		for (int i=0;i<count;i++) {
 			Object o = adapter.getItem(i);

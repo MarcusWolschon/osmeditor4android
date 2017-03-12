@@ -25,7 +25,7 @@ public class TaginfoDump {
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
     
     @Before
-    public void setups() {
+    public void setup() {
     	TestUtils.grantPermissons();
     }
     

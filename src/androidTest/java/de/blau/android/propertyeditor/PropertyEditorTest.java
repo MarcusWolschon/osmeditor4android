@@ -1,4 +1,4 @@
-package de.blau.android.osm;
+package de.blau.android.propertyeditor;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -26,9 +26,10 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.SignalHandler;
 import de.blau.android.exception.OsmException;
+import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Node;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.resources.TileLayerServer;
 import okhttp3.HttpUrl;
 
@@ -96,6 +97,10 @@ public class PropertyEditorTest {
     	main.performTagEdit(n, null, false, false, false);
     	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
-    	// FIXME test something...
+//    	((PropertyEditor)propertyEditor).mViewPager.setCurrentItem(2);
+//    	TagFormFragment tff = ((PropertyEditor)propertyEditor).tagFormFragment;
+//    	TagEditorFragment tef = ((PropertyEditor)propertyEditor).tagEditorFragment;
+//    	PresetItem presetItem = tef.getBestPreset();
+//    	Assert.assertEquals("Entrance", presetItem.getName());
     }
 }

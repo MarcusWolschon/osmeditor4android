@@ -18,15 +18,16 @@ public class TestUtils {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 			for (;;) {
-				UiObject allowPermissions = mDevice.findObject(new UiSelector().text("Allow"));
+				// nOTE: contrary to "text", "textStartsWith" is case insensitive
+				UiObject allowPermissions = mDevice.findObject(new UiSelector().clickable(true).textStartsWith("allow")); 
 				if (!allowPermissions.exists()) {
-					allowPermissions = mDevice.findObject(new UiSelector().text("ZULASSEN"));
+					allowPermissions = mDevice.findObject(new UiSelector().clickable(true).textStartsWith("zulassen"));
 				}
 				if (allowPermissions.exists()) {
 					try {
 						allowPermissions.click();
 					} catch (UiObjectNotFoundException e) {
-						Log.e("grantWritePermission", "There is no permissions dialog to interact with ");
+						Log.e("grantWritePermission", "There is no permissions dialog to interact with.");
 					}
 				} else {
 					break;

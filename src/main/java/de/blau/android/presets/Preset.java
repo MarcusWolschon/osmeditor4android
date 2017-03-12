@@ -45,6 +45,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -68,6 +70,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
@@ -2194,12 +2197,12 @@ public class Preset implements Serializable {
 	}
 	
 	/**
-	 * Build an intent to startup up the correct mapfeatures wili page
+	 * Build an intent to startup up the correct mapfeatures wiki page
 	 * @param ctx
 	 * @param p
 	 * @return
 	 */
-	public static Intent getMapFeaturesIntent(Context ctx,PresetItem p) {
+	public static Intent getMapFeaturesIntent(Context ctx, PresetItem p) {
 		Uri uri = null;
 		if (p != null) {
 			try {
@@ -2213,6 +2216,33 @@ public class Preset implements Serializable {
 			uri = Uri.parse(ctx.getString(R.string.link_mapfeatures));
 		}
 		return new Intent(Intent.ACTION_VIEW, uri);
+	}
+	
+	/**
+	 * Split multi select values with the preset defined delimiter character
+	 * @param values list of values that can potentially be split
+	 * @param preset the preset that sould be used
+	 * @param key the key used to determine the delimter value
+	 * @return list of split values
+	 */
+	@Nullable
+	public static ArrayList<String> splitValues(ArrayList<String>values, @NonNull PresetItem preset, @NonNull String key) {
+		ArrayList<String> result = new ArrayList<String>();
+		// String delimiter = Matcher.quoteReplacement("\\Q" + preset.getDelimiter(key)+"\\E"); // always quote to avoid surprises
+		// FIXME it is not clear why quoting as above stopped working needs investigation
+		String delimiter = String.valueOf(preset.getDelimiter(key));
+		if (values==null) {
+			return null;
+		}
+		for (String v:values) {
+			if (v==null) {
+				continue;
+			}
+			for (String s:v.split(delimiter)) {
+				result.add(s.trim());
+			}
+		}
+		return result;
 	}
 	
 	/**

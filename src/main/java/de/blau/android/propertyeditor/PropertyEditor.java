@@ -81,10 +81,10 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	/** The layout containing the edit rows */
 	LinearLayout rowLayout = null;
 	
-	private PresetFragment presetFragment;
+	PresetFragment presetFragment;
 	private int presetFragmentPosition = -1;
 	
-	private TagFormFragment tagFormFragment;
+	TagFormFragment tagFormFragment;
 	private int	tagFormFragmentPosition = -1;
 	
 	TagEditorFragment tagEditorFragment;
@@ -160,7 +160,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 				= new SavingHelper<LinkedHashMap<String,String>>();
 		
 	private Preferences prefs = null;
-	private ExtendedViewPager    mViewPager;
+	private ExtendedViewPager mViewPager;
 	private boolean usePaneLayout = false;
 	private boolean isRelation = false;
 
