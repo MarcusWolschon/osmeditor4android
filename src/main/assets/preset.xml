@@ -267,10 +267,10 @@
 	</combo>
     </chunk>
     <chunk id="fee">
-        <combo key="fee" text="Fee" values="yes,no" display_values="Yes,No" />
+        <combo key="fee" text="Fee" values="yes,no" display_values="Yes,No" match="none" />
     </chunk>
     <chunk id="fee_interval">
-        <combo key="fee" text="Fee" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false" editable="true" />
+        <combo key="fee" text="Fee" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" values_sort="false" editable="true" />
     </chunk>
     <chunk id="parking_name_type_ref">
         <text key="name" text="Name" />
@@ -2218,7 +2218,7 @@
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle -->
-        <item name="Motor vehicle (CH)" icon="icons/png/no_motor_vehicles_CH.png" type="node,way,closedway" preset_name_label="true">
+        <item name="Motor vehicle (CH)" region="CH" icon="icons/png/no_motor_vehicles_CH.png" type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:access"
                   da.href="http://wiki.openstreetmap.org/wiki/Da:Key:access"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:access"
@@ -2237,7 +2237,7 @@
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle CH -->
-        <item name="Motorcar and -cycle (CH)" icon="icons/png/no_motor_vehicles.png" type="node,way,closedway" preset_name_label="true">
+        <item name="Motorcar and -cycle (CH)" region="CH" icon="icons/png/no_motor_vehicles.png" type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:access"
                   da.href="http://wiki.openstreetmap.org/wiki/Da:Key:access"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:access"
@@ -4064,7 +4064,7 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Guest House/Bed & Breakfast -->
-        <item name="Apartment" icon="presets/accommodation/apartment.svg" type="node,closedway" preset_name_label="true">
+        <item name="Holiday apartment" icon="presets/accommodation/apartment.svg" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=apartment" />
             <space />
             <key key="tourism" value="apartment" />
@@ -5128,7 +5128,7 @@
         </item> <!-- Other Place of Worship -->
     </group> <!-- Place of Worship -->
     <group name="Public Building" icon="icons/png/amenity_public_building2.png">
-        <item name="Public Building (deprecated)" icon="icons/png/amenity_public_building2.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Public Building (deprecated)" deprecated="true" icon="icons/png/amenity_public_building2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=public_building"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:amenity=public_building"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=public_building"
@@ -6426,7 +6426,7 @@
             <text key="name" text="Name" />
             <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
         </item> <!-- Gymnastics -->
-        <item name="Skating (deprecated)" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Skating (deprecated)" deprecated="true" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=skating"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:sport=skating" />
             <space />
@@ -6847,6 +6847,9 @@
                 <text key="addr:flats" text="Flat numbers" />
             </optional>
         </item> <!-- Entrance -->
+        <item name="Entrance (deprecated)" deprecated="true" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
+            <key key="building" value="entrance" />
+        </item> <!-- Entrance (deprecated) -->
         <item name="Tower" icon="icons/png/poi_tower_communications.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=tower"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:man_made=tower"
