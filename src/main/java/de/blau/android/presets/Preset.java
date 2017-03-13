@@ -395,222 +395,232 @@ public class Preset implements Serializable {
              * ${@inheritDoc}.
              */
 			@Override
-            public void startElement(String name, AttributeList attr) throws SAXException {
-            	if ("group".equals(name)) {
-            		PresetGroup parent = groupstack.peek();
-            		PresetGroup g = new PresetGroup(parent, attr.getValue("name"), attr.getValue("icon"));
-            		String context = attr.getValue("name_context");
-            		if (context != null) {
-            			g.setNameContext(context);
-            		}
-            		groupstack.push(g);
-            	} else if ("item".equals(name)) {
-            		if (currentItem != null) throw new SAXException("Nested items are not allowed");
-            		PresetGroup parent = groupstack.peek();
-            		String type = attr.getValue("type");
-            		if (type == null) {
-            			type = attr.getValue("gtype"); // note gtype seems to be undocumented
-            		}
-            		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), type);
-            		String context = attr.getValue("name_context");
-            		if (context != null) {
-            			currentItem.setNameContext(context);
-            		}
-            	} else if ("chunk".equals(name)) {
-                	if (currentItem != null) throw new SAXException("Nested items are not allowed");
-                	String type = attr.getValue("type");
-            		if (type == null) {
-            			type = attr.getValue("gtype"); // note gtype seems to be undocumented
-            		}
-                	currentItem = new PresetItem(null, attr.getValue("id"), attr.getValue("icon"), type);
-                	currentItem.setChunk();
-            	} else if ("separator".equals(name)) {
-            		new PresetSeparator(groupstack.peek());
-            	} else if ("optional".equals(name)) {
-            		inOptionalSection = true;
-            	} else if ("key".equals(name)) {
-            		String key = attr.getValue("key");
-            		String match = attr.getValue("match");
-            		if (!inOptionalSection) {
-            			 if ("none".equals(match)) {// don't include in fixed tags if not used for matching
-            				 currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue("value"));
-            			 } else {
-            				 currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue("value"), attr.getValue("text"));
-            			 }
-            		} else {
-            			// Optional fixed tags should not happen, their values will NOT be automatically inserted.
-            			currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue("value"));
-            		}
-            		if (match != null) {
-            			currentItem.setMatchType(key,match);
-            		}
-            		String textContext = attr.getValue("text_context");
-            		if (textContext != null) {
-            			currentItem.setTextContext(key,textContext);
-            		}
-            	} else if ("text".equals(name)) {
-            		String key = attr.getValue("key");
-            		currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String)null);
-            		String text = attr.getValue("text");
-            		if (text != null) {
-            			currentItem.addHint(attr.getValue("key"),text);
-            		}
-            		String textContext = attr.getValue("text_context");
-            		if (textContext != null) {
-            			currentItem.setTextContext(key,textContext);
-            		}
-              		String match = attr.getValue("match");
-            		if (match != null) {
-            			currentItem.setMatchType(key,match);
-            		}
-            	} else if ("link".equals(name)) {
-            		String language = Locale.getDefault().getLanguage();
-            		String href = attr.getValue(language.toLowerCase(Locale.US)+".href");
-            		if (href==null) {
-            			href = attr.getValue("href");
-            		}
-            		currentItem.setMapFeatures(href); 
-            	} else if ("check".equals(name)) {
-            		String key = attr.getValue("key");
-            		String value_on = attr.getValue("value_on") == null ? "yes" : attr.getValue("value_on");
-            		String value_off = attr.getValue("value_off") == null ? "no" : attr.getValue("value_off");
-            		String disable_off = attr.getValue("disable_off");
-            		String values = value_on;
-            		// zap value_off if disabled
-            		if (disable_off != null && disable_off.equals("true")) {
-            			value_off = "";
-            		} else {
-            			values = value_on + COMBO_DELIMITER + value_off;
-            		}
-            		String displayValues = ""; //FIXME this is a bit of a hack as there is no display_values attribute for checks
-            		boolean first = true;
-            		for (String v:values.split(COMBO_DELIMITER)) {
-            			if (!first) {
-            				displayValues = displayValues + COMBO_DELIMITER;
-            			} else {
-            				first = false;
-            			}
-            			displayValues = displayValues + Util.capitalize(v);
-            		}
-            		currentItem.setSort(key,false); // don't sort
-             		currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values, displayValues, null, COMBO_DELIMITER, null);
-             		if (!"yes".equals(value_on)) {
-             			currentItem.addOnValue(key,value_on);
-             		}
-            		String defaultValue = attr.getValue("default") == null ? value_off : (attr.getValue("default").equals("on") ? value_on : value_off);
-            		if (defaultValue != null) {
-            			currentItem.addDefault(key,defaultValue);
-            		}
-               		String text = attr.getValue("text");
-            		if (text != null) {
-            			currentItem.addHint(key,text);
-            		}
-            		String textContext = attr.getValue("text_context");
-            		if (textContext != null) {
-            			currentItem.setTextContext(key,textContext);
-            		}
-              		String match = attr.getValue("match");
-            		if (match != null) {
-            			currentItem.setMatchType(key,match);
-            		}
-            	} else if ("combo".equals(name) || "multiselect".equals(name)) {
-            		boolean multiselect = "multiselect".equals(name);
-            		String key = attr.getValue("key");
-            		delimiter = attr.getValue("delimiter");
-            		if (delimiter == null) {
-            			delimiter = multiselect ? MULTISELECT_DELIMITER : COMBO_DELIMITER; 
-            		}
-            		String values = attr.getValue("values");
-            		String displayValues = attr.getValue("display_values");
-            		String shortDescriptions = attr.getValue("short_descriptions");
-            		valuesContext = attr.getValue("values_context");
-            		if (values != null) {
-            			currentItem.addTag(inOptionalSection, key, multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO, 
-            					values, displayValues, shortDescriptions, delimiter, valuesContext);
-            		} else {
-            			listKey = key;
-            			listValues = new ArrayList<StringWithDescription>();
-            		}
-            		String defaultValue = attr.getValue("default");
-            		if (defaultValue != null) {
-            			currentItem.addDefault(key,defaultValue);
-            		}
-               		String text = attr.getValue("text");
-            		if (text != null) {
-            			currentItem.addHint(key, text);
-            		}
-            		String textContext = attr.getValue("text_context");
-            		if (textContext != null) {
-            			currentItem.setTextContext(key,textContext);
-            		}
-              		String match = attr.getValue("match");
-            		if (match != null) {
-            			currentItem.setMatchType(key,match);
-            		}
-             		String sort = attr.getValue("values_sort");
-            		if (sort != null) {
-            			currentItem.setSort(key,"yes".equals(sort) || "true".equals(sort)); // normally this will not be set because true is the default
-            		}
-             		String editable = attr.getValue("editable");
-            		if (editable != null) {
-            			currentItem.setEditable(key,"yes".equals(editable) || "true".equals(editable));
-            		}
-            	} else if ("role".equals(name)) {
-            		String key = attr.getValue("key");
-            		String text = attr.getValue("text");
-               		String textContext = attr.getValue("text_context");
-            		if (textContext != null) {
-            			currentItem.setTextContext(key,textContext);
-            		}
-            		currentItem.addRole(new StringWithDescription(key, po != null && text != null ? (textContext!=null?po.t(textContext,text):po.t(text)) : text));
-            	} else if ("reference".equals(name)) {
-            		PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
-            		if (chunk != null) {
-            			currentItem.fixedTags.putAll(chunk.getFixedTags());
-            			if (!currentItem.isChunk()) {
-            				for (Entry<String,StringWithDescription> e:chunk.getFixedTags().entrySet()) {
-            					StringWithDescription v = e.getValue();
-            					String value = "";
-            					if (v != null && v.getValue() != null) {
-            						value = v.getValue();
-            					}
-            					tagItems.add(e.getKey()+"\t"+value, currentItem);
-            				}
-            			}
-            			currentItem.optionalTags.putAll(chunk.getOptionalTags());
-            			addToTagItems(currentItem, chunk.getOptionalTags());
-            			
-            			currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
-            			addToTagItems(currentItem, chunk.getRecommendedTags());
-               			
-            			currentItem.hints.putAll(chunk.hints);
-            			currentItem.addAllDefaults(chunk.defaults);
-            			currentItem.keyType.putAll(chunk.keyType);
-            			currentItem.setAllMatchTypes(chunk.matchType);
-            			currentItem.addAllRoles(chunk.roles); // FIXME this and the following could lead to duplicate entries
-            			currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
-            			currentItem.setAllSort(chunk.sort);
-            			currentItem.setAllEditable(chunk.editable);
-            			currentItem.addAllDelimiters(chunk.delimiters);
-            		}
-            	} else if ("list_entry".equals(name)) {
-            		if (listValues != null) {
-            			String v = attr.getValue("value");
-            			if (v != null) {
-            				String d = attr.getValue("display_value");
-            				if (d == null) {
-            					d = attr.getValue("short_description");
-            				}
-            				listValues.add(new StringWithDescription(v,po != null ? (valuesContext != null?po.t(valuesContext,d):po.t(d)):d));
-            			}
-            		}
-            	} else if ("preset_link".equals(name)) {
-            		String presetName = attr.getValue("preset_name");
-            		if (presetName != null) {
-            			currentItem.addLinkedPresetName(presetName);
-            		}
-            	}
-            }
+			public void startElement(String name, AttributeList attr) throws SAXException {
+				if ("presets".equals(name)) {
+					// do nothing for now
+				} else if ("group".equals(name)) {
+					PresetGroup parent = groupstack.peek();
+					PresetGroup g = new PresetGroup(parent, attr.getValue("name"), attr.getValue("icon"));
+					String context = attr.getValue("name_context");
+					if (context != null) {
+						g.setNameContext(context);
+					}
+					groupstack.push(g);
+				} else if ("item".equals(name)) {
+					if (currentItem != null) throw new SAXException("Nested items are not allowed");
+					PresetGroup parent = groupstack.peek();
+					String type = attr.getValue("type");
+					if (type == null) {
+						type = attr.getValue("gtype"); // note gtype seems to be undocumented
+					}
+					currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), type);
+					String context = attr.getValue("name_context");
+					if (context != null) {
+						currentItem.setNameContext(context);
+					}
+					currentItem.setDeprecated("true".equals(attr.getValue("deprecated")));
+				} else if ("chunk".equals(name)) {
+					if (currentItem != null) throw new SAXException("Nested items are not allowed");
+					String type = attr.getValue("type");
+					if (type == null) {
+						type = attr.getValue("gtype"); // note gtype seems to be undocumented
+					}
+					currentItem = new PresetItem(null, attr.getValue("id"), attr.getValue("icon"), type);
+					currentItem.setChunk();
+				} else if ("separator".equals(name)) {
+					new PresetSeparator(groupstack.peek());
+				} else if (currentItem != null) { // the following only make sense if we actually found an item
+					if ("optional".equals(name)) {
+						inOptionalSection = true;
+					} else if ("key".equals(name)) {
+						String key = attr.getValue("key");
+						String match = attr.getValue("match");
+						if (!inOptionalSection) {
+							if ("none".equals(match)) {// don't include in fixed tags if not used for matching
+								currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue("value"));
+							} else {
+								currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue("value"), attr.getValue("text"));
+							}
+						} else {
+							// Optional fixed tags should not happen, their values will NOT be automatically inserted.
+							currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue("value"));
+						}
+						if (match != null) {
+							currentItem.setMatchType(key,match);
+						}
+						String textContext = attr.getValue("text_context");
+						if (textContext != null) {
+							currentItem.setTextContext(key,textContext);
+						}
+					} else if ("text".equals(name)) {
+						String key = attr.getValue("key");
+						currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String)null);
+						String text = attr.getValue("text");
+						if (text != null) {
+							currentItem.addHint(attr.getValue("key"),text);
+						}
+						String textContext = attr.getValue("text_context");
+						if (textContext != null) {
+							currentItem.setTextContext(key,textContext);
+						}
+						String match = attr.getValue("match");
+						if (match != null) {
+							currentItem.setMatchType(key,match);
+						}
+					} else if ("link".equals(name)) {
+						String language = Locale.getDefault().getLanguage();
+						String href = attr.getValue(language.toLowerCase(Locale.US)+".href");
+						if (href==null) {
+							href = attr.getValue("href");
+						}
+						if (href!=null) {
+							currentItem.setMapFeatures(href);
+						}
+					} else if ("check".equals(name)) {
+						String key = attr.getValue("key");
+						String value_on = attr.getValue("value_on") == null ? "yes" : attr.getValue("value_on");
+						String value_off = attr.getValue("value_off") == null ? "no" : attr.getValue("value_off");
+						String disable_off = attr.getValue("disable_off");
+						String values = value_on;
+						// zap value_off if disabled
+						if (disable_off != null && disable_off.equals("true")) {
+							value_off = "";
+						} else {
+							values = value_on + COMBO_DELIMITER + value_off;
+						}
+						String displayValues = ""; //FIXME this is a bit of a hack as there is no display_values attribute for checks
+						boolean first = true;
+						for (String v:values.split(COMBO_DELIMITER)) {
+							if (!first) {
+								displayValues = displayValues + COMBO_DELIMITER;
+							} else {
+								first = false;
+							}
+							displayValues = displayValues + Util.capitalize(v);
+						}
+						currentItem.setSort(key,false); // don't sort
+						currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values, displayValues, null, COMBO_DELIMITER, null);
+						if (!"yes".equals(value_on)) {
+							currentItem.addOnValue(key,value_on);
+						}
+						String defaultValue = attr.getValue("default") == null ? value_off : (attr.getValue("default").equals("on") ? value_on : value_off);
+						if (defaultValue != null) {
+							currentItem.addDefault(key,defaultValue);
+						}
+						String text = attr.getValue("text");
+						if (text != null) {
+							currentItem.addHint(key,text);
+						}
+						String textContext = attr.getValue("text_context");
+						if (textContext != null) {
+							currentItem.setTextContext(key,textContext);
+						}
+						String match = attr.getValue("match");
+						if (match != null) {
+							currentItem.setMatchType(key,match);
+						}
+					} else if ("combo".equals(name) || "multiselect".equals(name)) {
+						boolean multiselect = "multiselect".equals(name);
+						String key = attr.getValue("key");
+						delimiter = attr.getValue("delimiter");
+						if (delimiter == null) {
+							delimiter = multiselect ? MULTISELECT_DELIMITER : COMBO_DELIMITER; 
+						}
+						String values = attr.getValue("values");
+						String displayValues = attr.getValue("display_values");
+						String shortDescriptions = attr.getValue("short_descriptions");
+						valuesContext = attr.getValue("values_context");
+						if (values != null) {
+							currentItem.addTag(inOptionalSection, key, multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO, 
+									values, displayValues, shortDescriptions, delimiter, valuesContext);
+						} else {
+							listKey = key;
+							listValues = new ArrayList<StringWithDescription>();
+						}
+						String defaultValue = attr.getValue("default");
+						if (defaultValue != null) {
+							currentItem.addDefault(key,defaultValue);
+						}
+						String text = attr.getValue("text");
+						if (text != null) {
+							currentItem.addHint(key, text);
+						}
+						String textContext = attr.getValue("text_context");
+						if (textContext != null) {
+							currentItem.setTextContext(key,textContext);
+						}
+						String match = attr.getValue("match");
+						if (match != null) {
+							currentItem.setMatchType(key,match);
+						}
+						String sort = attr.getValue("values_sort");
+						if (sort != null) {
+							currentItem.setSort(key,"yes".equals(sort) || "true".equals(sort)); // normally this will not be set because true is the default
+						}
+						String editable = attr.getValue("editable");
+						if (editable != null) {
+							currentItem.setEditable(key,"yes".equals(editable) || "true".equals(editable));
+						}
+					} else if ("role".equals(name)) {
+						String key = attr.getValue("key");
+						String text = attr.getValue("text");
+						String textContext = attr.getValue("text_context");
+						if (textContext != null) {
+							currentItem.setTextContext(key,textContext);
+						}
+						currentItem.addRole(new StringWithDescription(key, po != null && text != null ? (textContext!=null?po.t(textContext,text):po.t(text)) : text));
+					} else if ("reference".equals(name)) {
+						PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
+						if (chunk != null) {
+							currentItem.fixedTags.putAll(chunk.getFixedTags());
+							if (!currentItem.isChunk()) {
+								for (Entry<String,StringWithDescription> e:chunk.getFixedTags().entrySet()) {
+									StringWithDescription v = e.getValue();
+									String value = "";
+									if (v != null && v.getValue() != null) {
+										value = v.getValue();
+									}
+									tagItems.add(e.getKey()+"\t"+value, currentItem);
+								}
+							}
+							currentItem.optionalTags.putAll(chunk.getOptionalTags());
+							addToTagItems(currentItem, chunk.getOptionalTags());
+
+							currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
+							addToTagItems(currentItem, chunk.getRecommendedTags());
+
+							currentItem.hints.putAll(chunk.hints);
+							currentItem.addAllDefaults(chunk.defaults);
+							currentItem.keyType.putAll(chunk.keyType);
+							currentItem.setAllMatchTypes(chunk.matchType);
+							currentItem.addAllRoles(chunk.roles); // FIXME this and the following could lead to duplicate entries
+							currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
+							currentItem.setAllSort(chunk.sort);
+							currentItem.setAllEditable(chunk.editable);
+							currentItem.addAllDelimiters(chunk.delimiters);
+						}
+					} else if ("list_entry".equals(name)) {
+						if (listValues != null) {
+							String v = attr.getValue("value");
+							if (v != null) {
+								String d = attr.getValue("display_value");
+								if (d == null) {
+									d = attr.getValue("short_description");
+								}
+								listValues.add(new StringWithDescription(v,po != null ? (valuesContext != null?po.t(valuesContext,d):po.t(d)):d));
+							}
+						}
+					} else if ("preset_link".equals(name)) {
+						String presetName = attr.getValue("preset_name");
+						if (presetName != null) {
+							currentItem.addLinkedPresetName(presetName);
+						}
+					}
+				} else {
+					Log.d(DEBUG_TAG, name + " must be in a preset item");
+					throw new SAXException(name + " must be in a preset item");
+				}
+			}
 			
 			void addToTagItems(PresetItem currentItem, Map<String,StringWithDescription[]>tags) {
 				if (currentItem.isChunk()) { // only do this on the final expansion
@@ -638,7 +648,9 @@ public class Preset implements Serializable {
             		inOptionalSection = false;
             	} else if ("item".equals(name)) {
                     // Log.d("Preset","PresetItem: " + currentItem.toString());
-            		currentItem.buildSearchIndex();
+            		if (!currentItem.isDeprecated()) {
+            			currentItem.buildSearchIndex();
+            		}
             		currentItem = null;
               		listKey = null;
             		listValues = null;
@@ -944,12 +956,14 @@ public class Preset implements Serializable {
 	{
 		ArrayList<PresetElement> filteredElements = new ArrayList<PresetElement>();
 		for (PresetElement e : originalElements) {
-			if (e.appliesTo(type)) {
-				filteredElements.add(e);
-			} else if ((e instanceof PresetSeparator) && !filteredElements.isEmpty() &&
-					!(filteredElements.get(filteredElements.size()-1) instanceof PresetSeparator)) {
-				// add separators if there is a non-separator element above them
-				filteredElements.add(e);
+			if (!e.isDeprecated()) {
+				if (e.appliesTo(type)) {
+					filteredElements.add(e);
+				} else if ((e instanceof PresetSeparator) && !filteredElements.isEmpty() &&
+						!(filteredElements.get(filteredElements.size()-1) instanceof PresetSeparator)) {
+					// add separators if there is a non-separator element above them
+					filteredElements.add(e);
+				}
 			}
 		}
 		return filteredElements;
@@ -962,7 +976,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 4L;
+		private static final long serialVersionUID = 5L;
 		String name;
 		String nameContext = null;
 		private String iconpath;
@@ -975,6 +989,8 @@ public class Preset implements Serializable {
 		boolean appliesToClosedway;
 		boolean appliesToRelation;
 		boolean appliesToArea;
+		private boolean deprecated = false;
+		private String region = null;
 		private String mapFeatures;
 
 		/**
@@ -1166,6 +1182,22 @@ public class Preset implements Serializable {
 			nameContext = context;
 		}
 		
+		public boolean isDeprecated() {
+			return deprecated;
+		}
+
+		public void setDeprecated(boolean deprecated) {
+			this.deprecated = deprecated;
+		}
+
+		public String getRegion() {
+			return region;
+		}
+
+		public void setRegion(String region) {
+			this.region = region;
+		}
+
 		@Override
 		public String toString() {
 			return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation + " " + appliesToArea;
