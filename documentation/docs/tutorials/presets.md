@@ -29,6 +29,7 @@ __&lt;item&gt;__             |                               | supported |
                    | type                          | supported |
                    | name_template                 | ignored   |
                    | preset_name_label             | ignored   |
+                   | deprecated                    | extension | only use the preset for matching and map icon display 
 __&lt;chunk&gt;__            |                               | supported | 
                    | id                            | supported | required
 __&lt;reference&gt;__        |                               | supported |
