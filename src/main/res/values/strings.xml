@@ -123,6 +123,7 @@
     <string name="attached_object_warning_continue">OK continue to show this message</string>
     <string name="attached_object_warning_stop">OK stop showing this message</string>
     <string name="send_debug_information">Send debug information</string>
+    <string name="evaluate">Evaluate</string>
 
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -244,6 +245,7 @@
     <string name="tag_menu_move_bottom">Move to bottom</string>
     <string name="tag_menu_sort">Sort</string>
     <string name="tag_menu_download">Download</string>
+    <string name="tag_menu_js_console">JS Console</string>
     <string name="menu_up">Up</string>
     <string name="menu_top">Top</string>
     <string name="menu_preset_help">Preset help</string>
