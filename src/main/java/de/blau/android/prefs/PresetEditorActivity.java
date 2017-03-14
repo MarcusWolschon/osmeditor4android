@@ -38,6 +38,8 @@ import de.blau.android.services.util.StreamUtils;
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
 
+	private static final String DEBUG_TAG = "PresetEditorActivity";
+
 	private AdvancedPrefDatabase db;
 	
 	private final static int MENU_RELOAD = 1;
@@ -138,7 +140,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 			break;
 
 		default:
-			Log.e("PresetEditorActivity", "Unknown menu item "+ menuItemId);
+			Log.e(DEBUG_TAG, "Unknown menu item "+ menuItemId);
 			break;
 		}
 	}
@@ -201,7 +203,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 					
 				ArrayList<String> urls = Preset.parseForURLs(presetDir);
 				if (urls == null) {
-					Log.e("PresetEditorActivity", "Could not parse preset for URLs");
+					Log.e(DEBUG_TAG, "Could not parse preset for URLs");
 					return RESULT_PRESET_NOT_PARSABLE;
 				}
 
@@ -242,7 +244,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 				}
 			
 				try {
-					Log.d("PresetEditorActivity", "Downloading " + url + " to " + presetDir + "/" + filename);
+					Log.d(DEBUG_TAG, "Downloading " + url + " to " + presetDir + "/" + filename);
 					HttpURLConnection conn = (HttpURLConnection)((new URL(url)).openConnection());
 					conn.setInstanceFollowRedirects(true);
 					if (conn.getResponseCode() != 200) {
@@ -269,7 +271,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 					}
 					return DOWNLOADED_PRESET_XML;
 				} catch (Exception e) {
-					Log.w("PresetDownloader", "Could not download file " + url, e);
+					Log.e("PresetDownloader", "Could not download file " + url + " " + e.getMessage());
 					return DOWNLOADED_PRESET_ERROR;
 				}				
 			}
@@ -355,13 +357,22 @@ public class PresetEditorActivity extends URLListEditActivity {
 	         {
 	             // zapis do souboru
 	             filename = ze.getName();
-
+	             // Log.d(DEBUG_TAG, "Unzip " + filename);
 	             // Need to create directories if not exists, or
 	             // it will generate an Exception...
-	             if (ze.isDirectory()) {
+	             if (filename.indexOf("/") > 0 && !filename.endsWith("/")) {
+	            	int slash = filename.lastIndexOf("/");
+	            	String path =  filename.substring(0, slash);
+	            	File fmd = new File(presetDir + path);
+	            	if (!fmd.exists()) {
+	            		fmd.mkdirs();
+	            	}
+	             } else if (ze.isDirectory()) {
 	                File fmd = new File(presetDir + filename);
-					 //noinspection ResultOfMethodCallIgnored
-					 fmd.mkdirs();
+					//noinspection ResultOfMethodCallIgnored
+	                if (!fmd.exists()) {
+	                	fmd.mkdirs();
+	                }
 	                continue;
 	             }
 
@@ -381,6 +392,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 	     } 
 	     catch(IOException e)
 	     {
+	    	 Log.e(DEBUG_TAG,"Unzipping failed with " + e.getMessage());
 	         e.printStackTrace();
 	         return false;
 	     }

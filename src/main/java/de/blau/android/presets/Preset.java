@@ -219,7 +219,7 @@ public class Preset implements Serializable {
 	private final PresetMRUInfo mru;
 	private String externalPackage;
 	
-	private class PresetFilter implements FilenameFilter {
+	private static class PresetFilter implements FilenameFilter {
 		@Override
 		public boolean accept(File dir, String name) {
 			return name.endsWith(".xml");
@@ -314,8 +314,12 @@ public class Preset implements Serializable {
 							Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
 						}
 					}
+				} else {
+					Log.e("Preset","Can't find preset file" );
 				}
-			} 			
+			} else {
+				Log.e("Preset","Can't open preset directory " + directory.toString());
+			}
 		}		
 		
 		DigestInputStream hashStream = new DigestInputStream(
@@ -459,6 +463,10 @@ public class Preset implements Serializable {
 						if (text != null) {
 							currentItem.addHint(attr.getValue("key"),text);
 						}
+						String defaultValue = attr.getValue("default");
+						if (defaultValue != null) {
+							currentItem.addDefault(key,defaultValue);
+						}
 						String textContext = attr.getValue("text_context");
 						if (textContext != null) {
 							currentItem.setTextContext(key,textContext);
@@ -466,6 +474,10 @@ public class Preset implements Serializable {
 						String match = attr.getValue("match");
 						if (match != null) {
 							currentItem.setMatchType(key,match);
+						}
+						String javaScript = attr.getValue("javascript");
+						if (javaScript != null) {
+							currentItem.setJavaScript(key,javaScript);
 						}
 					} else if ("link".equals(name)) {
 						String language = Locale.getDefault().getLanguage();
@@ -596,6 +608,7 @@ public class Preset implements Serializable {
 							currentItem.addAllRoles(chunk.roles); // FIXME this and the following could lead to duplicate entries
 							currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
 							currentItem.setAllSort(chunk.sort);
+							currentItem.setAllJavaScript(chunk.javascript);
 							currentItem.setAllEditable(chunk.editable);
 							currentItem.addAllDelimiters(chunk.delimiters);
 						}
@@ -710,10 +723,19 @@ public class Preset implements Serializable {
 	@SuppressWarnings("deprecation")
 	public static ArrayList<String> parseForURLs(File presetDir) {
 		final ArrayList<String> urls = new ArrayList<String>();
+		File[] list = presetDir.listFiles(new PresetFilter());
+		String presetFilename = null;
+		if (list != null) {
+			if (list.length > 0) { // simply use the first XML file found
+				presetFilename = list[0].getName();
+			}
+		} else {
+			return null;
+		}
 		try {
 			SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
 			
-	        saxParser.parse(new File(presetDir, PRESETXML), new HandlerBase() {
+	        saxParser.parse(new File(presetDir, presetFilename), new HandlerBase() {
 	            /** 
 	             * ${@inheritDoc}.
 	             */
@@ -730,8 +752,7 @@ public class Preset implements Serializable {
 		} catch (Exception e) {
 			Log.e("PresetURLParser", "Error parsing preset", e);
 			return null;
-		}
-		
+		}		
 		return urls;
 	}
 	
@@ -1306,7 +1327,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 9L;
+		private static final long serialVersionUID = 10L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1375,6 +1396,10 @@ public class Preset implements Serializable {
 		private HashMap<String,String> textContext = null;
 		private HashMap<String,String> valueContext = null;
 		
+		/**
+		 * Scripts for pre-filling text fields
+		 */
+		private HashMap<String,String> javascript = null;
 		
 		/**
 		 * true if a chunk
@@ -1743,6 +1768,26 @@ public class Preset implements Serializable {
 		public boolean sortIt(String key) {
 			return (sort == null ||  sort.get(key) == null) ? true : sort.get(key);
 		}
+		
+		public void setJavaScript(String key, String script) {
+			if (javascript == null) {
+				javascript = new HashMap<String,String>(); 
+			}
+			javascript.put(key,script);
+		}
+		
+		public void setAllJavaScript(HashMap<String,String> newJavaScript) {
+			if (javascript == null) { 
+				javascript = newJavaScript; // doesn't matter if newSort is null
+			} else if (newJavaScript != null){
+				javascript.putAll(newJavaScript);
+			}
+		}
+		
+		public String getJavaScript(String key) {
+			return javascript == null ?  null : javascript.get(key);
+		}
+		
 		
 		public void setEditable(String key, boolean isEditable) {
 			if (editable == null) {
