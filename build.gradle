@@ -160,6 +160,10 @@ android {
         // but continue the build even when errors are found:
         abortOnError false
     }
+    
+    dexOptions {
+        jumboMode = true
+    }
 }
 
 ext {
@@ -186,6 +190,7 @@ dependencies {
     compile "ch.poole:OpeningHoursParser:0.1.2"
     compile "ch.poole:ConditionalRestrictionParser:0.1.11"
     compile "com.google.code.gson:gson:2.8.0"
+    compile 'com.faendir.rhino:rhino-android:1.4'
 
     // Unit tests
     testCompile "junit:junit:4.12"

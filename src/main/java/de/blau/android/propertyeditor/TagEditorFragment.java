@@ -1348,16 +1348,22 @@ public class TagEditorFragment extends BaseFragment implements
 		
 		// Recommended tags, no fixed value is given. We add only those that do not already exist.
 		for (Entry<String, StringWithDescription[]> tag : item.getRecommendedTags().entrySet()) {
-			if (!currentValues.containsKey(tag.getKey())) {
-				currentValues.put(tag.getKey(), Util.getArrayList(""));
+			String key = tag.getKey();
+			if (!currentValues.containsKey(key)) {
+				String script = item.getJavaScript(key);
+				currentValues.put(key, Util.getArrayList(script == null ? "" : 
+					de.blau.android.javascript.Utils.evalString(getActivity(), script, "Key: " + key)));
 			}
 		}
 		
 		// Optional tags, no fixed value is given. We add only those that do not already exist.
 		if (addOptional) {
 			for (Entry<String, StringWithDescription[]> tag : item.getOptionalTags().entrySet()) {
-				if (!currentValues.containsKey(tag.getKey())) {
-					currentValues.put(tag.getKey(), Util.getArrayList(""));
+				String key = tag.getKey();
+				if (!currentValues.containsKey(key)) {
+					String script = item.getJavaScript(key);
+					currentValues.put(key, Util.getArrayList(script == null ? "" : 
+						de.blau.android.javascript.Utils.evalString(getActivity(), "Key: " + key, script)));
 				}
 			}
 		}

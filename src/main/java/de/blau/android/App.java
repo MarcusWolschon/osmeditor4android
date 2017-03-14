@@ -5,6 +5,9 @@ import java.util.Map;
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
+import org.mozilla.javascript.ImporterTopLevel;
+
+import com.faendir.rhino_android.RhinoAndroidHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -75,6 +78,12 @@ public class App extends android.app.Application {
 	private static NotificationCache osmDataNotifications;
 	private static final Object osmDataNotificationsLock = new Object();
 	
+	/**
+	 * Rhino related objects
+	 */
+	private static org.mozilla.javascript.Context rhinoContext;
+	private static org.mozilla.javascript.Scriptable rhinoScope;
+	private static final Object rhinoLock = new Object();
 	
 	@Override
 	public void onCreate() {
@@ -254,4 +263,34 @@ public class App extends android.app.Application {
 		}
 	}
 	
+	/**
+	 * Return a rhino context for scripting
+	 * @param ctx android context
+	 * @return rhino context
+	 */
+	public static org.mozilla.javascript.Context getRhinoContext(Context ctx) {
+		synchronized (rhinoLock) {
+			if (rhinoContext == null) {
+				RhinoAndroidHelper rhinoAndroidHelper = new RhinoAndroidHelper(ctx);
+				rhinoContext = rhinoAndroidHelper.enterContext();
+				rhinoContext.setOptimizationLevel(1);
+				rhinoScope = new ImporterTopLevel(rhinoContext);
+			}
+			return rhinoContext;
+		}
+	}
+	
+	/**
+	 * Return a rhino scope for scripting
+	 * @param ctx android context
+	 * @return rhino scope
+	 */
+	public static org.mozilla.javascript.Scriptable getRhinoScope(Context ctx) {
+		synchronized (rhinoLock) {
+			if (rhinoScope == null) {
+				getRhinoContext(ctx);
+			}
+			return rhinoScope;
+		}
+	}
 }
