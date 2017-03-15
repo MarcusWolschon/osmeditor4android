@@ -88,16 +88,12 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.collections.MRUList;
 
 /**
- * Contains several responsibilities of Logic-Work:
+ * Logic is the gatekeeper to actual object storage and provides higher level operations.
  * <ul>
- * <li>user mode-Administration</li>
- * <li>viewBox-Administration</li>
- * <li>pushing relevant updated values to {@link Map}-Object</li>
- * <li>Handle interaction-Events</li>
- * <li>holding the {@link Tracker}-Object</li>
- * <li>Starting threads from thread.*</li>
+ * <li> hold selected objects
+ * <li> wrap operations with undo checkpoints
+ * <li> hold current mode
  * </ul>
- * In future releases every responsibility will get outsourced.
  * 
  * @author mb
  */
@@ -3814,9 +3810,10 @@ public class Logic {
 
 	/**
 	 * Sets the set of elements that can currently be clicked.
+	 * <ul>
 	 * <li>If set to null, the map will use default behaviour.</li>
 	 * <li>If set to a non-null value, the map will highlight only elements in the list.</li>
-	 * 
+	 * </ul>
 	 * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
 	public synchronized void setClickableElements(Set<OsmElement> clickable) {
@@ -3824,8 +3821,11 @@ public class Logic {
 	}
 	
 	/**
+	 * Get elements that can currently be clicked 
+	 * 
 	 * @return the list of clickable elements. May be null, meaning no restrictions on clickable elements
 	 */
+	@Nullable
 	public synchronized Set<OsmElement> getClickableElements() {
 		return clickableElements;
 	}
