@@ -68,6 +68,7 @@
     <string name="config_geocoder_key">geocoder</string>
     <string name="config_geocoder_button_key">geocoderButton</string>
     <string name="config_contrastValue_key">contrastFloatValue</string>
+    <string name="config_js_console_key">jsConsole</string>
 
     <string-array name="gps_source_keys">
 	<item>internal</item>

@@ -162,6 +162,10 @@
             <item
                 android:id="@+id/menu_tools_oauth_authorisation"
                 android:title="@string/menu_tools_oauth_authorisation"/>
+            <item
+        		android:id="@+id/tag_menu_js_console"
+        		android:title="@string/tag_menu_js_console"
+        		app:showAsAction="never"/>
         </menu>
     </item>
     <item

@@ -235,7 +235,6 @@
             android:numeric="integer"
             android:summary="@string/config_tileCacheSize_summary"
             android:title="@string/config_tileCacheSize_title" />
-
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_showStats_key"
@@ -246,7 +245,6 @@
             android:key="@string/config_enableAntiAliasing_key"
             android:summary="@string/config_enableAntiAliasing_summary"
             android:title="@string/config_enableAntiAliasing_title" />
-
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="16.0"
             android:dialogTitle="@string/config_maxStrokeWidth_title"
@@ -254,6 +252,11 @@
             android:numeric="decimal"
             android:summary="@string/config_maxStrokeWidth_summary"
             android:title="@string/config_maxStrokeWidth_title" />
+         <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_js_console_key"
+            android:summary="@string/config_js_console_summary"
+            android:title="@string/config_js_console_title" />
     </android.support.v7.preference.PreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>

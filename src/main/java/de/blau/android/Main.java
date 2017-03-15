@@ -106,6 +106,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.TagFilter;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
+import de.blau.android.javascript.EvalCallback;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -1285,6 +1286,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnableTagFilter());
 		
+		// enable the JS console menu entry
+		menu.findItem(R.id.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
+		
 		menuUtil.setShowAlways(menu);
 		// only show camera icon if we have a camera, and a camera app is installed 
 		PackageManager pm = getPackageManager();
@@ -1671,10 +1675,26 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				Toast.makeText(getApplicationContext(), R.string.toast_oauth_not_enabled, Toast.LENGTH_LONG).show();
 			}
 			return true;
+		case R.id.tag_menu_js_console:
+			Main.showJsConsole(this); 
+			return true;
 		}	
 		return false;
 	}
-
+	
+	public static void showJsConsole(final Main main) {
+		main.descheduleAutoLock();
+		de.blau.android.javascript.Utils.jsConsoleDialog(main, R.string.js_console_msg_live, new EvalCallback() {
+			@Override
+			public String eval(String input) {
+				String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
+				main.getMap().invalidate();
+				main.scheduleAutoLock();
+				return result;
+			}
+		});
+	}
+	
 	private void startVoiceRecognition() {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);

@@ -53,6 +53,7 @@ import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.javascript.EvalCallback;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -1184,6 +1185,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_TAG_LAST = 21;
 		private static final int MENUITEM_ZOOM_TO_SELECTION = 22;
 		private static final int MENUITEM_PREFERENCES = 23;
+		private static final int MENUITEM_JS_CONSOLE = 24;
 		
 		OsmElement element = null;
 		
@@ -1253,6 +1255,8 @@ public class EasyEditManager {
 			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));
 			menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION,  Menu.CATEGORY_SYSTEM|10, R.string.menu_zoom_to_selection);
 			menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM|10, R.string.menu_config).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_config));
+			Preferences prefs = new Preferences(main);
+			menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE,  Menu.CATEGORY_SYSTEM|10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
@@ -1278,6 +1282,9 @@ public class EasyEditManager {
 			case MENUITEM_ELEMENT_INFO: ElementInfo.showDialog(main,element); break;
 			case MENUITEM_PREFERENCES: 	PrefEditor.start(main, main.getMap().getViewBox()); break;
 			case MENUITEM_ZOOM_TO_SELECTION: main.zoomTo(element); main.invalidateMap(); break;
+			case MENUITEM_JS_CONSOLE:
+				Main.showJsConsole(main);
+				break;
 			case R.id.undo_action:
 				// should not happen
 				Log.d(DEBUG4_TAG,"menu undo clicked");
@@ -2421,6 +2428,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_MERGE_POLYGONS = 9;
 		
 		private static final int MENUITEM_PREFERENCES = 10;
+		private static final int MENUITEM_JS_CONSOLE = 11;
 
 		private ArrayList<OsmElement> selection;
 		private List<OsmElement> sortedWays;
@@ -2557,6 +2565,8 @@ public class EasyEditManager {
 //				menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
 //			}
 			menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM|10, R.string.menu_config).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_config));
+			Preferences prefs = new Preferences(main);
+			menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM|10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			arrangeMenu(menu);
 			return true;
@@ -2648,7 +2658,12 @@ public class EasyEditManager {
 						}	
 					}
 					break;
-				case MENUITEM_PREFERENCES: 	PrefEditor.start(main, main.getMap().getViewBox()); break; 
+				case MENUITEM_PREFERENCES: 	
+					PrefEditor.start(main, main.getMap().getViewBox()); 
+					break;
+				case MENUITEM_JS_CONSOLE:
+					Main.showJsConsole(main);
+					break;
 				case R.id.undo_action:
 					// should not happen
 					Log.d(DEBUG10_TAG,"menu undo clicked");

@@ -1547,7 +1547,7 @@ public class TagEditorFragment extends BaseFragment implements
 			Address.resetLastAddresses(getActivity());
 			return true;
 		case R.id.tag_menu_js_console:
-			de.blau.android.javascript.Utils.jsConsoleDialog(getActivity(),new EvalCallback() {
+			de.blau.android.javascript.Utils.jsConsoleDialog(getActivity(), R.string.js_console_msg_debug, new EvalCallback() {
 				@Override
 				public String eval(String input) {
 					return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, getKeyValueMap(true), "test");
