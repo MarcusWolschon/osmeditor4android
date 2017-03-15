@@ -10,14 +10,13 @@
     <EditText
       android:id="@+id/js_input"
       android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      
+      android:layout_height="wrap_content"      
       android:hint="JavaScript"
       android:paddingLeft="?attr/dialogPreferredPadding"
       android:paddingRight="?attr/dialogPreferredPadding"
       android:minHeight="300dp"
       android:gravity="top"
-      android:inputType="textMultiLine" 
+      android:inputType="textMultiLine|textNoSuggestions" 
       android:text="" />
    </ScrollView>
    <TextView

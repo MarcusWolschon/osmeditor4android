@@ -39,7 +39,7 @@ public class Utils {
 	@Nullable
 	public static String evalString(Context ctx, String scriptName, String script) {
 		Log.d("javascript.Utils", "Eval " + script);
-		Object result = App.getRhinoContext(ctx).evaluateString(App.getRhinoScope(ctx), script, scriptName, 1, null);
+		Object result = App.getRhinoContext(ctx).evaluateString(App.getRestrictedRhinoScope(ctx), script, scriptName, 1, null);
 		return org.mozilla.javascript.Context.toString(result);
 	}
 	
@@ -54,13 +54,13 @@ public class Utils {
 	 */
 	@Nullable
 	public static String evalString(Context ctx, String scriptName, String script, Map<String, ArrayList<String>> tags, String value) {
-		Scriptable scope = App.getRhinoScope(ctx);
+		Scriptable scope = App.getRestrictedRhinoScope(ctx);
 		Object wrappedOut = org.mozilla.javascript.Context.javaToJS(tags, scope);
 		ScriptableObject.putProperty(scope, "tags", wrappedOut);
 		wrappedOut = org.mozilla.javascript.Context.javaToJS(value, scope);
 		ScriptableObject.putProperty(scope, "value", wrappedOut);
 		Log.d("javascript.Utils", "Eval " + script);
-		Object result = App.getRhinoContext(ctx).evaluateString(App.getRhinoScope(ctx), script, scriptName, 1, null);
+		Object result = App.getRhinoContext(ctx).evaluateString(scope, script, scriptName, 1, null);
 		if (result==null) {
 			return null;
 		} else {

@@ -6,6 +6,8 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.mozilla.javascript.ImporterTopLevel;
+import org.mozilla.javascript.LazilyLoadedCtor;
+import org.mozilla.javascript.ScriptableObject;
 
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
@@ -265,6 +267,7 @@ public class App extends android.app.Application {
 	
 	/**
 	 * Return a rhino context for scripting
+	 * * FIXME not clear if we can use the same context the whole time
 	 * @param ctx android context
 	 * @return rhino context
 	 */
@@ -274,21 +277,27 @@ public class App extends android.app.Application {
 				RhinoAndroidHelper rhinoAndroidHelper = new RhinoAndroidHelper(ctx);
 				rhinoContext = rhinoAndroidHelper.enterContext();
 				rhinoContext.setOptimizationLevel(1);
-				rhinoScope = new ImporterTopLevel(rhinoContext);
 			}
 			return rhinoContext;
 		}
 	}
 	
 	/**
-	 * Return a rhino scope for scripting
+	 * Return a sandboxed rhino scope for scripting 
+	 * 
+	 * Allows access to the java package but not to the app internals
+	 * FIXME not clear if we can use the same scope the whole time
 	 * @param ctx android context
 	 * @return rhino scope
 	 */
-	public static org.mozilla.javascript.Scriptable getRhinoScope(Context ctx) {
+	public static org.mozilla.javascript.Scriptable getRestrictedRhinoScope(Context ctx) {
 		synchronized (rhinoLock) {
 			if (rhinoScope == null) {
-				getRhinoContext(ctx);
+				org.mozilla.javascript.Context c = getRhinoContext(ctx);
+				// this is a fairly hackish way of sandboxing, but it does work
+				rhinoScope = c.initStandardObjects(); // don't seal the individual objects
+				c.evaluateString(rhinoScope , "java", "lazyLoad", 0, null);
+				((ScriptableObject)rhinoScope).sealObject();
 			}
 			return rhinoScope;
 		}
