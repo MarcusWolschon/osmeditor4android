@@ -29,6 +29,9 @@ import de.blau.android.util.ThemeUtils;
 
 /**
  * Various JS related utility methods
+ * 
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts">https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts</a>
+ * @see <a href="https://dxr.mozilla.org/mozilla/source/js/rhino/examples/DynamicScopes.java">https://dxr.mozilla.org/mozilla/source/js/rhino/examples/DynamicScopes.java</a>
  * @author simon
  *
  */
@@ -44,7 +47,11 @@ public class Utils {
 	@Nullable
 	public static String evalString(Context ctx, String scriptName, String script) {
 		Log.d("javascript.Utils", "Eval " + script);
-		Object result = App.getRhinoContext(ctx).evaluateString(App.getRestrictedRhinoScope(ctx), script, scriptName, 1, null);
+		Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
+		Scriptable scope = App.getRhinoContext(ctx).newObject(restrictedScope);
+        scope.setPrototype(restrictedScope);
+        scope.setParentScope(null);
+		Object result = App.getRhinoContext(ctx).evaluateString(scope, script, scriptName, 1, null);
 		return org.mozilla.javascript.Context.toString(result);
 	}
 	
@@ -59,7 +66,10 @@ public class Utils {
 	 */
 	@Nullable
 	public static String evalString(Context ctx, String scriptName, String script, Map<String, ArrayList<String>> tags, String value) {
-		Scriptable scope = App.getRestrictedRhinoScope(ctx);
+		Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
+		Scriptable scope = App.getRhinoContext(ctx).newObject(restrictedScope);
+        scope.setPrototype(restrictedScope);
+        scope.setParentScope(null);
 		Object wrappedOut = org.mozilla.javascript.Context.javaToJS(tags, scope);
 		ScriptableObject.putProperty(scope, "tags", wrappedOut);
 		wrappedOut = org.mozilla.javascript.Context.javaToJS(value, scope);
@@ -109,10 +119,7 @@ public class Utils {
 					}
 				});
 				Button neutral = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
-				Drawable share = ContextCompat.getDrawable(ctx, R.drawable.ic_share_black_36dp);
-				ColorStateList tint = ContextCompat.getColorStateList(ctx,
-						ThemeUtils.getResIdFromAttribute(ctx, R.attr.colorAccent));
-				DrawableCompat.setTintList(share, tint);
+				Drawable share = ThemeUtils.getTintedDrawable(ctx, R.drawable.ic_share_black_36dp, R.attr.colorAccent);
 				neutral.setCompoundDrawablesWithIntrinsicBounds(share, null, null, null);
 				neutral.setText("");
 				neutral.setOnClickListener(new View.OnClickListener() {
