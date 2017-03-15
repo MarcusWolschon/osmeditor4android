@@ -9,7 +9,12 @@ import org.mozilla.javascript.ScriptableObject;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.util.Log;
@@ -74,7 +79,7 @@ public class Utils {
 	 * @param callback callback that actually evaluates the input
 	 */
 	@SuppressLint("InflateParams")
-	public static void jsConsoleDialog(Context ctx, final EvalCallback callback) {
+	public static void jsConsoleDialog(final Context ctx, final EvalCallback callback) {
 		// Create some useful objects
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
 
@@ -87,15 +92,13 @@ public class Utils {
 
 		builder.setPositiveButton(R.string.evaluate, null);
 		builder.setNegativeButton(R.string.dismiss, null);
+		builder.setNeutralButton("Share", null);
 		AlertDialog dialog = builder.create();
 		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-
 			@Override
 			public void onShow(DialogInterface dialog) {
-
-				Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-				button.setOnClickListener(new View.OnClickListener() {
-
+				Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+				positive.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						try {
@@ -103,6 +106,23 @@ public class Utils {
 						} catch (Exception ex) {
 							output.setText(ex.getMessage());
 						}
+					}
+				});
+				Button neutral = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
+				Drawable share = ContextCompat.getDrawable(ctx, R.drawable.ic_share_black_36dp);
+				ColorStateList tint = ContextCompat.getColorStateList(ctx,
+						ThemeUtils.getResIdFromAttribute(ctx, R.attr.colorAccent));
+				DrawableCompat.setTintList(share, tint);
+				neutral.setCompoundDrawablesWithIntrinsicBounds(share, null, null, null);
+				neutral.setText("");
+				neutral.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent sendIntent = new Intent();
+						sendIntent.setAction(Intent.ACTION_SEND);
+						sendIntent.putExtra(Intent.EXTRA_TEXT,input.getText().toString());
+						sendIntent.setType("text/plain");
+						ctx.startActivity(sendIntent);
 					}
 				});
 			}
