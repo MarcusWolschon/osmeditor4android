@@ -570,6 +570,9 @@
     <string name="tracking_active_title">Vespucci background service active</string>
     <string name="tracking_active_text">Vespucci is recording a GPS track or auto-downloading</string>
     <string name="gps_failure">Failed to enable GPS</string>
+    <!-- element description -->
+    <string name="address_housenumber">Address %1$s</string>
+    <string name="address_housenumber_street">Address %1$s %2$s</string>
     <!-- undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname" -->
     <string name="undo_action_movenode">move node</string>
     <string name="undo_action_moveway">move way</string>

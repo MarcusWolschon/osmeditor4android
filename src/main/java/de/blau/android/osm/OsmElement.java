@@ -389,15 +389,34 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		if (name != null && name.length() > 0) {
 			return name;
 		}
-		// Then the house number
-		String housenb = getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-		if (housenb != null && housenb.length() > 0) {
-			return "house " + housenb;
+		// Then the address
+		String housenumber = getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+		if (housenumber != null && housenumber.length() > 0) {
+			try {
+				String street = getTagWithKey(Tags.KEY_ADDR_STREET);
+				if (street != null && street.length() > 0) {
+					if (ctx != null) {
+						return ctx.getResources().getString(R.string.address_housenumber_street, street, housenumber);
+					} else {
+						return "address " + housenumber + " " + street;
+					}
+				} else {
+					if (ctx != null) {
+						return ctx.getResources().getString(R.string.address_housenumber, housenumber);
+					} else {
+						return "address " + housenumber;
+					}
+				}
+			} catch (Exception ex) {
+				// protect against translation errors
+			}
 		}
+		// try to match with a preset
 		if (ctx != null) {
 			PresetItem p = Preset.findBestMatch(App.getCurrentPresets(ctx),tags);
 			if (p!=null) {
-				return p.getTranslatedName();
+				String ref = getTagWithKey(Tags.KEY_REF);
+				return p.getTranslatedName() + (ref != null ? " " + ref : "") ;
 			}
 		}
 		// Then the value of the most 'important' tag the element has
