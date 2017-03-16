@@ -31,7 +31,13 @@ public class LongHashSet implements Serializable {
 														// this
 
 	private static final long FREE_KEY = 0; 
+	/**
+	 * Default fill factor
+	 */
 	private static final float DEFAULT_FILLFACTOR = 0.75f;
+	/**
+	 * Default capacity
+	 */
 	private static final int DEFAULT_CAPACITY = 16;
 
 	/** Keys and values */
@@ -57,7 +63,7 @@ public class LongHashSet implements Serializable {
 
 	/**
 	 * Create a new map with the specified size and the default fill factor
-	 * @param size
+	 * @param size initial capacity of the set
 	 */
 	public LongHashSet(final int size) {
 		this(size, DEFAULT_FILLFACTOR);
@@ -65,8 +71,8 @@ public class LongHashSet implements Serializable {
 
 	/**
 	 * Create a new map with the specified size and fill factor
-	 * @param size
-	 * @param fillFactor
+	 * @param size initial capacity of the set
+	 * @param fillFactor fillfactor to us instead of the default 
 	 */
 	private LongHashSet(final int size, final float fillFactor) {
 		if (fillFactor <= 0 || fillFactor >= 1) {
@@ -87,49 +93,47 @@ public class LongHashSet implements Serializable {
 	}
 
 	/**
-	 * Create a shallow copy of the specified map
-	 * @param map
+	 * Create a shallow copy of the specified set
+	 * @param set the set to copy
 	 */
 	@SuppressLint("NewApi")
-	public LongHashSet(LongHashSet map) {
-		m_mask = map.m_mask;
-		m_fillFactor = map.m_fillFactor;
-		m_threshold = map.m_threshold;
-		m_size = map.m_size;
-		m_hasFreeKey = map.m_hasFreeKey;
+	public LongHashSet(LongHashSet set) {
+		m_mask = set.m_mask;
+		m_fillFactor = set.m_fillFactor;
+		m_threshold = set.m_threshold;
+		m_size = set.m_size;
+		m_hasFreeKey = set.m_hasFreeKey;
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-			m_data = Arrays.copyOf(map.m_data, map.m_data.length);
+			m_data = Arrays.copyOf(set.m_data, set.m_data.length);
 		} else { // sigh
-			m_data = new long[map.m_data.length];
-			System.arraycopy(map.m_data, 0, m_data, 0, m_data.length);
+			m_data = new long[set.m_data.length];
+			System.arraycopy(set.m_data, 0, m_data, 0, m_data.length);
 		}
 	}
 
 
 	/**
 	 * Add a single element to the map
-	 * @param key
-	 * @param value
-	 * @return
+	 * @param value value to add
 	 */
-	public void put(final long key) {
-		if (key == FREE_KEY) {
+	public void put(final long value) {
+		if (value == FREE_KEY) {
 			m_hasFreeKey = true;
 			return;
 		}
-		int ptr = (int) ((Tools.phiMix(key) & m_mask));
+		int ptr = (int) ((Tools.phiMix(value) & m_mask));
 		long e = m_data[ptr];
 
 		if (e == FREE_KEY) // end of chain already
 		{
-			m_data[ptr] = key;
+			m_data[ptr] = value;
 			if (m_size >= m_threshold) {
 				rehash(m_data.length * 2); // size is set inside
 			} else {
 				++m_size;
 			}
 			return;
-		} else if (e == key) { // we check FREE and REMOVED prior to this call
+		} else if (e == value) { // we check FREE and REMOVED prior to this call
 			return;
 		}
 
@@ -137,14 +141,14 @@ public class LongHashSet implements Serializable {
 			ptr = (int) ((ptr + 1) & m_mask); // the next index calculation
 			e = m_data[ptr];
 			if (e == FREE_KEY) {
-				m_data[ptr] = key;
+				m_data[ptr] = value;
 				if (m_size >= m_threshold) {
 					rehash(m_data.length * 2); // size is set inside
 				} else {
 					++m_size;
 				}
 				return;
-			} else if (e == key) {
+			} else if (e == value) {
 				return;
 			} 
 		}
@@ -162,21 +166,21 @@ public class LongHashSet implements Serializable {
 //	}
 
 	/**
-	 * Remove element with the specified key from the map, 
+	 * Remove element with the specified value from the set, 
 	 * does not shrink the underlying array
-	 * @param key
-	 * @return
+	 * @param value value to remove
+	 * @return true if found and removed
 	 */
-	public boolean remove(final long key) {
-		if (key == FREE_KEY) {
+	public boolean remove(final long value) {
+		if (value == FREE_KEY) {
 			m_hasFreeKey = false;
 			return true;
 		}
-		int ptr = (int) (Tools.phiMix(key) & m_mask);
+		int ptr = (int) (Tools.phiMix(value) & m_mask);
 		long e = m_data[ptr];
 		if (e == FREE_KEY) {
 			return false; // end of chain already
-		} else if (e == key) // we check FREE and REMOVED prior to this call
+		} else if (e == value) // we check FREE and REMOVED prior to this call
 		{
 			--m_size;
 			shiftKeys( ptr );
@@ -187,7 +191,7 @@ public class LongHashSet implements Serializable {
 			e = m_data[ptr];
 			if (e == FREE_KEY) {
 				return false;
-			} else if (e == key) {
+			} else if (e == value) {
 				--m_size;
 				shiftKeys( ptr );
 				return true;
@@ -220,20 +224,20 @@ public class LongHashSet implements Serializable {
     }
 	
 	/**
-	 * Return true if the map contains an object with the specified key
-	 * @param key
-	 * @return
+	 * Return true if the map contains an object with the specified value
+	 * @param value
+	 * @return true if value was found
 	 */
-	public boolean contains(long key) {
-		if (key == FREE_KEY) {
+	public boolean contains(long value) {
+		if (value == FREE_KEY) {
 			return true;
 		}
-		int ptr = (int) ((Tools.phiMix(key) & m_mask));
+		int ptr = (int) ((Tools.phiMix(value) & m_mask));
 		long e = m_data[ptr];
 		if (e == FREE_KEY) {
 			return false;
 		}
-		if (e == key) { // note this assumes REMOVED_KEY doesn't match
+		if (e == value) { // note this assumes REMOVED_KEY doesn't match
 			return true;
 		}
 		while (true) {
@@ -242,7 +246,7 @@ public class LongHashSet implements Serializable {
 			if (e == FREE_KEY) {
 				return false;
 			}
-			if (e == key) {
+			if (e == value) {
 				return true;
 			}
 		}	
@@ -251,7 +255,7 @@ public class LongHashSet implements Serializable {
 	/**
 	 * Return all values in the set.
 	 * Note: they are returned unordered
-	 * @return
+	 * @return array containing the values
 	 */
 	public long[] values() {
 		int found = 0;
@@ -271,20 +275,23 @@ public class LongHashSet implements Serializable {
 
 	/**
 	 * Return the number of elements in the map
-	 * @return
+	 * @return the element count
 	 */
 	public int size() {
 		return m_size;
 	}
 
 	/**
-	 * Return true if the map is empty
-	 * @return
+	 * Return if the set is empty
+	 * @return true if the set is empty
 	 */
 	public boolean isEmpty() {
 		return m_size == 0;
 	}
 	
+	/**
+	 * Remove all elements from the set
+	 */
 	public void clear() {
 		for (int i=0;i<m_data.length;i++) {
 			m_data[i] = FREE_KEY;
