@@ -720,7 +720,7 @@ public class EasyEditManager {
 				ways.add(clickedNonClosedWays.get(itemId -1));
 			}
 			try {
-				Node splitPosition = logic.performAddOnWay(ways,startX, startY);
+				Node splitPosition = logic.performAddOnWay(ways,startX, startY, false);
 				if (splitPosition != null) {
 					for (Way way:ways) {
 						if (way.hasNode(splitPosition)) {
@@ -767,7 +767,7 @@ public class EasyEditManager {
 					ArrayList<Way>ways = new ArrayList<Way>();
 					ways.add(way);
 					try {
-						Node node = logic.performAddOnWay(ways,startX, startY);
+						Node node = logic.performAddOnWay(ways,startX, startY, false);
 						if (node != null) {
 							logic.performSplit(way,node);
 						}

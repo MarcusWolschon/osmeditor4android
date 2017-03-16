@@ -1364,12 +1364,12 @@ public class Logic {
 			int lat;
 			int lon;
 			// checkpoint created where draggingNode is set
-			if ((draggingNode && selectedNodes != null && selectedNodes.size() == 1 && selectedWays ==  null) || draggingHandle) {
+			if ((draggingNode && selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null) || draggingHandle) {
 				if (draggingHandle) { // create node only if we are really dragging
 					try {
-						if (handleNode == null && selectedHandle != null) {
+						if (handleNode == null && selectedHandle != null && selectedWays != null) {
 							Log.d("Logic","creating node at handle position");
-							handleNode = performAddOnWay(selectedHandle.x, selectedHandle.y);
+							handleNode = performAddOnWay(selectedWays, selectedHandle.x, selectedHandle.y, true);
 							selectedHandle = null;
 						}
 						if (handleNode != null) {
@@ -1628,29 +1628,18 @@ public class Logic {
 	/**
 	 * Executes an add node operation for x,y but only if on a way. Adds new node to storage and will select it.
 	 * 
-	 * @param x screen-coordinate
-	 * @param y screen-coordinate 
-	 * @return the new node or null if none was created 
-	 * @throws OsmIllegalOperationException 
-	 */
-	private synchronized Node performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
-		return performAddOnWay(null,x,y);
-	}
-	
-	/**
-	 * Executes an add node operation for x,y but only if on a way. Adds new node to storage and will select it.
-	 * 
 	 * @param ways candidate ways if null all ways will be considered
 	 * @param x screen-coordinate
 	 * @param y screen-coordinate
+	 * @param forceNew ignore nearby existing nodes
 	 * @return the new node or null if none was created
 	 * @throws OsmIllegalOperationException
 	 */
-	public synchronized Node performAddOnWay(List<Way>ways,final float x, final float y) throws OsmIllegalOperationException {
+	public synchronized Node performAddOnWay(List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_add);
 		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		
-		Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways,x, y);
+		Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways,x, y, forceNew);
 
 		if (newSelectedNode == null) {
 			newSelectedNode = savedSelectedNode;
@@ -2100,7 +2089,7 @@ public class Logic {
 	 * @throws OsmIllegalOperationException 
 	 */
 	private synchronized Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
-		return getClickedNodeOrCreatedWayNode(null,x,y);
+		return getClickedNodeOrCreatedWayNode(null,x,y, false);
 	}
 	
 	/**
@@ -2110,13 +2099,17 @@ public class Logic {
 	 * @param ways list of candidate ways or null for all
 	 * @param x the x screen coordinate
 	 * @param y the y screen coordinate
+	 * @param forceNew do not return existing nodes in tolerance range
 	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
 	 * @throws OsmIllegalOperationException 
 	 */
-	private synchronized Node getClickedNodeOrCreatedWayNode(List<Way>ways,final float x, final float y) throws OsmIllegalOperationException {
-		Node node = getClickedNode(x, y);
-		if (node != null) {
-			return node;
+	private synchronized Node getClickedNodeOrCreatedWayNode(List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
+		Node node = null;
+		if (!forceNew) {
+			node = getClickedNode(x, y);
+			if (node != null) {
+				return node;
+			}
 		}
 		if (ways==null) {
 			ways=getDelegator().getCurrentStorage().getWays();
