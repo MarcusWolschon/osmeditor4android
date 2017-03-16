@@ -826,7 +826,7 @@ public class EasyEditManager {
 									tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
 								}
 								tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
-								logic.setTags(Node.NAME, node.getOsmId(), tags);
+								logic.setTags(node, tags);
 							}
 						}
 					}
@@ -897,12 +897,15 @@ public class EasyEditManager {
 							for (String key:map.keySet()) {
 								tags.put(key, map.get(key).get(0));
 							}
-							logic.setTags(Node.NAME, node.getOsmId(), tags);
+							logic.setTags(node, tags);
 							main.startSupportActionMode(new NodeSelectionActionModeCallback(node));
 							return;
 						}
-					} catch (Exception ex) {
-						// ok wasn't a number
+					} catch (NumberFormatException ex) {
+						// ok wasn't a number, just ignore
+					} catch (OsmIllegalOperationException e) {
+						// FIXME something went seriously wrong
+						Log.e(DEBUG_TAG,e.getMessage());
 					}
 
 					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first,ElementType.NODE,2,1);
@@ -946,18 +949,26 @@ public class EasyEditManager {
 		
 		Node addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
 			if (node != null) {
-				Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
-				TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
-				for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
-					tags.put(tag.getKey(), tag.getValue().getValue());
+				try {
+					Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
+					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+					for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
+						tags.put(tag.getKey(), tag.getValue().getValue());
+					}
+					if (name != null) {
+						tags.put(Tags.KEY_NAME, name);
+					}
+					tags.put("source:original_text", original);
+
+					logic.setTags(node, tags);
+
+					logic.setSelectedNode(node);
+					return node;
+				} catch (OsmIllegalOperationException e) {
+					Log.e(DEBUG_TAG,e.getMessage());
+					Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+					return null;
 				}
-				if (name != null) {
-					tags.put(Tags.KEY_NAME, name);
-				}
-				tags.put("source:original_text", original);
-				logic.setTags(Node.NAME, node.getOsmId(), tags);
-				logic.setSelectedNode(node);
-				return node;
 			}
 			return null;
 		}

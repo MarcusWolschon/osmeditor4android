@@ -14,10 +14,12 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -93,11 +95,15 @@ public class Commands {
 							for (String key:map.keySet()) {
 								tags.put(key, map.get(key).get(0));
 							}
-							logic.setTags(Node.NAME, node.getOsmId(), tags);
+							logic.setTags(node, tags);
 						}
 						return;
-					} catch (Exception ex) {
+					} catch (NumberFormatException ex) {
 						// ok wasn't a number
+					} catch (OsmIllegalOperationException e) {
+						Log.e(DEBUG_TAG,e.getMessage());
+						Toast.makeText(ctx,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+						e.printStackTrace();
 					}
 
 					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(ctx, first,ElementType.NODE,2,1);
@@ -142,16 +148,21 @@ public class Commands {
 		if (node != null) {
 			Toast.makeText(ctx, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
 			if (node != null) {
-				TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
-				for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
-					tags.put(tag.getKey(), tag.getValue().getValue());
+				try {
+					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+					for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
+						tags.put(tag.getKey(), tag.getValue().getValue());
+					}
+					if (name != null) {
+						tags.put(Tags.KEY_NAME, name);
+					}
+					tags.put("source:original_text", original);
+					logic.setTags(node, tags);
+					return true;
+				} catch (OsmIllegalOperationException e) {
+					Log.e(DEBUG_TAG,e.getMessage());
+					Toast.makeText(ctx,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 				}
-				if (name != null) {
-					tags.put(Tags.KEY_NAME, name);
-				}
-				tags.put("source:original_text", original);
-				logic.setTags(Node.NAME, node.getOsmId(), tags);
-				return true;
 			}
 		}
 		return false;

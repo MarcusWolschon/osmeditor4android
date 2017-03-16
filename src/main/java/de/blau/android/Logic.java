@@ -93,6 +93,7 @@ import de.blau.android.util.collections.MRUList;
  * <li> hold selected objects
  * <li> wrap operations with undo checkpoints
  * <li> hold current mode
+ * <li> save and load state
  * </ul>
  * 
  * @author mb
@@ -676,7 +677,25 @@ public class Logic {
 		getDelegator().getUndo().removeCheckpoint(App.mainActivity.getResources().getString(stringId));
 	}
 	
-
+	/**
+	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
+	 * All existing tags will be replaced.
+	 * 
+	 * @param e element to change the tags on
+	 * @param tags Tag-List to be set.
+	 * @return false if the element wasn't in storage and the tags were not applied
+	 * @throws OsmIllegalOperationException if the e isn't in storage
+	 */
+	public synchronized void setTags(@NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags) throws OsmIllegalOperationException { 
+		OsmElement osmElement = getDelegator().getOsmElement(e.getName(), e.getOsmId());
+		if (osmElement != null) {
+			createCheckpoint(R.string.undo_action_set_tags);
+			getDelegator().setTags(osmElement, tags);
+		} else {
+			throw new OsmIllegalOperationException("Element " + osmElement + " not in storage");
+		}
+	}
+	
 	/**
 	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
 	 * All existing tags will be replaced.
@@ -686,7 +705,7 @@ public class Logic {
 	 * @param tags Tag-List to be set.
 	 * @return false if no element exists for the given osmId/type.
 	 */
-	public synchronized boolean setTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
+	public synchronized boolean setTags(final String type, final long osmId, @Nullable final java.util.Map<String, String> tags) {
 		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 
 		if (osmElement == null) {
@@ -4317,7 +4336,7 @@ public class Logic {
 	/**
 	 * @return the delegator
 	 */
-	public static StorageDelegator getDelegator() {
+	private static StorageDelegator getDelegator() {
 		return App.getDelegator();
 	}
 	

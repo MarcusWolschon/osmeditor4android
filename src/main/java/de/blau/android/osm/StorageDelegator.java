@@ -24,6 +24,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
@@ -165,7 +166,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param elem the element to tag
 	 * @param tags the new tags
 	 */
-	public void setTags(final OsmElement elem, final Map<String, String> tags) {
+	public void setTags(@NonNull final OsmElement elem, @Nullable final Map<String, String> tags) {
 		dirty = true;
 		undo.save(elem);
 		

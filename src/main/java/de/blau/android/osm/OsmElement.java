@@ -16,6 +16,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
@@ -113,7 +114,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		return state;
 	}
 
-	/** gives a string description of the element type (e.g. 'node' or 'way') - see also {@link #getType()} */
+	/** gives a string description of the element type (e.g. 'node', 'way' or 'relation') - see also {@link #getType()} is rather confusingly named */
 	abstract public String getName();
 
 	/**
@@ -158,16 +159,13 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @param tags New tags to replace existing tags.
 	 * @return Flag indicating if the tags have actually changed.
 	 */
-	boolean setTags(final Map<String, String> tags) {
+	boolean setTags(@Nullable final Map<String, String> tags) {
 		if (this.tags == null) {
-			this.tags = new TreeMap<String, String>();
 			addTags(tags);
-			checkedForProblem = false;
 			return true;
 		} else if (!this.tags.equals(tags)) {
 			this.tags.clear();
 			addTags(tags);
-			checkedForProblem = false;
 			return true;
 		}
 		return false;

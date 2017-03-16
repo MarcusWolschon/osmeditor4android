@@ -887,7 +887,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
 			logic.setSelectedRelation(null);
-			StorageDelegator storageDelegator = Logic.getDelegator();
+			StorageDelegator storageDelegator = App.getDelegator();
 			for (String s:rcData.getSelect().split(",")) { // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
 				if (s!=null) {
 					Log.d(DEBUG_TAG,"rc select: " + s);
@@ -1688,8 +1688,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			@Override
 			public String eval(String input) {
 				String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
-				main.getMap().invalidate();
-				main.scheduleAutoLock();
+				main.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						main.getMap().invalidate();
+						main.scheduleAutoLock();
+					}
+				});
 				return result;
 			}
 		});

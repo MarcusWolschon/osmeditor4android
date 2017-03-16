@@ -6,11 +6,16 @@ import java.util.Map;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
+import com.faendir.rhino_android.RhinoAndroidHelper;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
@@ -23,6 +28,9 @@ import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.ProgressDialog;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -35,6 +43,8 @@ import de.blau.android.util.ThemeUtils;
  */
 public class Utils {
 	
+	private static final String DEBUG_TAG = "javascript.Utils";
+
 	/**
 	 * Evaluate JS
 	 * @param ctx android context
@@ -44,7 +54,7 @@ public class Utils {
 	 */
 	@Nullable
 	public static String evalString(Context ctx, String scriptName, String script) {
-		Log.d("javascript.Utils", "Eval " + script);
+		Log.d(DEBUG_TAG, "Eval " + script);
 		Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
 		Scriptable scope = App.getRhinoContext(ctx).newObject(restrictedScope);
         scope.setPrototype(restrictedScope);
@@ -64,20 +74,26 @@ public class Utils {
 	 */
 	@Nullable
 	public static String evalString(Context ctx, String scriptName, String script, Map<String, ArrayList<String>> tags, String value) {
-		Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
-		Scriptable scope = App.getRhinoContext(ctx).newObject(restrictedScope);
-        scope.setPrototype(restrictedScope);
-        scope.setParentScope(null);
-		Object wrappedOut = org.mozilla.javascript.Context.javaToJS(tags, scope);
-		ScriptableObject.putProperty(scope, "tags", wrappedOut);
-		wrappedOut = org.mozilla.javascript.Context.javaToJS(value, scope);
-		ScriptableObject.putProperty(scope, "value", wrappedOut);
-		Log.d("javascript.Utils", "Eval (preset): " + script);
-		Object result = App.getRhinoContext(ctx).evaluateString(scope, script, scriptName, 1, null);
-		if (result==null) {
-			return null;
-		} else {
-			return org.mozilla.javascript.Context.toString(result);
+		RhinoAndroidHelper rhinoAndroidHelper = new RhinoAndroidHelper(ctx);	
+		org.mozilla.javascript.Context rhinoContext = rhinoAndroidHelper.enterContext(); 
+		try {
+			Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
+			Scriptable scope = rhinoContext.newObject(restrictedScope);
+			scope.setPrototype(restrictedScope);
+			scope.setParentScope(null);
+			Object wrappedOut = org.mozilla.javascript.Context.javaToJS(tags, scope);
+			ScriptableObject.putProperty(scope, "tags", wrappedOut);
+			wrappedOut = org.mozilla.javascript.Context.javaToJS(value, scope);
+			ScriptableObject.putProperty(scope, "value", wrappedOut);
+			Log.d(DEBUG_TAG, "Eval (preset): " + script);
+			Object result = App.getRhinoContext(ctx).evaluateString(scope, script, scriptName, 1, null);
+			if (result==null) {
+				return null;
+			} else {
+				return org.mozilla.javascript.Context.toString(result);
+			}
+		} finally {
+			org.mozilla.javascript.Context.exit();
 		}
 	}
 	
@@ -91,18 +107,24 @@ public class Utils {
 	 */
 	@Nullable
 	public static String evalString(Context ctx, String scriptName, String script, Logic logic) {
-		Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
-		Scriptable scope = App.getRhinoContext(ctx).newObject(restrictedScope);
-        scope.setPrototype(restrictedScope);
-        scope.setParentScope(null);
-		Object wrappedOut = org.mozilla.javascript.Context.javaToJS(logic, scope);
-		ScriptableObject.putProperty(scope, "logic", wrappedOut);
-		Log.d("javascript.Utils", "Eval (logic): " + script);
-		Object result = App.getRhinoContext(ctx).evaluateString(scope, script, scriptName, 1, null);
-		if (result==null) {
-			return null;
-		} else {
-			return org.mozilla.javascript.Context.toString(result);
+		RhinoAndroidHelper rhinoAndroidHelper = new RhinoAndroidHelper(ctx);	
+		org.mozilla.javascript.Context rhinoContext = rhinoAndroidHelper.enterContext(); 
+		try {
+			Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
+			Scriptable scope = rhinoContext.newObject(restrictedScope);
+			scope.setPrototype(restrictedScope);
+			scope.setParentScope(null);
+			Object wrappedOut = org.mozilla.javascript.Context.javaToJS(logic, scope);
+			ScriptableObject.putProperty(scope, "logic", wrappedOut);
+			Log.d(DEBUG_TAG, "Eval (logic): " + script);
+			Object result = App.getRhinoContext(ctx).evaluateString(scope, script, scriptName, 1, null);
+			if (result==null) {
+				return null;
+			} else {
+				return org.mozilla.javascript.Context.toString(result);
+			}
+		} finally {
+			org.mozilla.javascript.Context.exit();
 		}
 	}
 	
@@ -112,7 +134,7 @@ public class Utils {
 	 * @param callback callback that actually evaluates the input
 	 */
 	@SuppressLint("InflateParams")
-	public static void jsConsoleDialog(final Context ctx, int msgResource, final EvalCallback callback) {
+	public static void jsConsoleDialog(final Activity ctx, int msgResource, final EvalCallback callback) {
 		// Create some useful objects
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
 
@@ -128,6 +150,7 @@ public class Utils {
 		builder.setNegativeButton(R.string.dismiss, null);
 		builder.setNeutralButton("Share", null);
 		AlertDialog dialog = builder.create();
+		final Handler handler = new Handler();
 		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 			@Override
 			public void onShow(DialogInterface dialog) {
@@ -135,11 +158,33 @@ public class Utils {
 				positive.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						try {
-							output.setText(callback.eval(input.getText().toString()));
-						} catch (Exception ex) {
-							output.setText(ex.getMessage());
-						}
+						final AsyncTask<String, Void, String> runner = new AsyncTask<String, Void, String>() {
+							final AlertDialog progress = ProgressDialog.get(ctx, Progress.PROGRESS_DOWNLOAD);
+							@Override
+							protected void onPreExecute() {
+								progress.show();
+							}
+							@Override
+							protected String doInBackground(String... js) {
+								try {
+									return callback.eval(js[0]);
+								} catch (Exception ex) {
+									Log.e(DEBUG_TAG, "dialog failed with " + ex);
+									ex.printStackTrace();
+									return ex.getMessage();
+								}
+							}
+							@Override
+							protected void onPostExecute(final String result) {
+								try {
+									progress.dismiss();
+								} catch (Exception ex) {
+									Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
+								}
+								output.setText(result);
+							}
+						};
+						runner.execute(input.getText().toString());
 					}
 				});
 				Button neutral = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
