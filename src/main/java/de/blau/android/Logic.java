@@ -3797,6 +3797,72 @@ public class Logic {
 	}
 	
 	/**
+	 * Get a list of all nodes currently in storage
+	 * @return unmodifiable list of all nodes currently loaded
+	 */
+	public List<Node> getNodes() {
+		return getDelegator().getCurrentStorage().getNodes();
+	}
+	
+	/**
+	 * Get a list of all nodes contained in bounding box box currently in storage
+	 * @param box the bounding box
+	 * @return unmodifiable list of all nodes currently loaded contained in box
+	 */
+	public List<Node> getNodes(BoundingBox box) {
+		return getDelegator().getCurrentStorage().getNodes(box);
+	}
+	
+	/**
+	 * Get a list of all modified (created, modified, deleted) nodes currently in storage
+	 * @return all modified nodes currently loaded
+	 */
+	public List<Node> getModifiedNodes() {
+		return getDelegator().getApiStorage().getNodes();
+	}
+	
+	/**
+	 * Get a list of all  nodes contained in bounding box box currently in storage
+	 * @param box the bounding box
+	 * @return all modified nodes currently loaded contained in box
+	 */
+	public List<Node> getModifiedNodes(BoundingBox box) {
+		return getDelegator().getApiStorage().getNodes(box);
+	}
+	
+	/**
+	 * Get a list of all ways currently in storage
+	 * @return unmodifiable list of all ways currently loaded
+	 */
+	public List<Way> getWays() {
+		return getDelegator().getCurrentStorage().getWays();
+	}
+	
+	/**
+	 * Get a list of all modified (created, modified, deleted) ways currently in storage
+	 * @return unmodifiable list of all modified ways currently loaded
+	 */
+	public List<Way> getModifiedWays() {
+		return getDelegator().getApiStorage().getWays();
+	}
+	
+	/**
+	 * Get a list of all relations currently in storage
+	 * @return unmodifiable list of all relations currently loaded
+	 */
+	public List<Relation> getRelations() {
+		return getDelegator().getCurrentStorage().getRelations();
+	}
+	
+	/**
+	 * Get a list of all modified (created, modified, deleted) relations currently in storage
+	 * @return unmodifiable list of all modified relations currently loaded
+	 */
+	public List<Relation> getModifiedRelations() {
+		return getDelegator().getApiStorage().getRelations();
+	}
+	
+	/**
 	 * Will be called when the screen orientation was changed.
 	 * 
 	 * @param map the new Map-Instance. Be aware: The View-dimensions are not yet set...
