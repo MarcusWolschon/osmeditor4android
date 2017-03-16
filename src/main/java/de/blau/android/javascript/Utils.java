@@ -6,8 +6,6 @@ import java.util.Map;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
-import com.faendir.rhino_android.RhinoAndroidHelper;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -30,7 +28,6 @@ import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
-import de.blau.android.osm.StorageDelegator;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -55,14 +52,19 @@ public class Utils {
 	@Nullable
 	public static String evalString(Context ctx, String scriptName, String script) {
 		Log.d(DEBUG_TAG, "Eval " + script);
-		Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
-		Scriptable scope = App.getRhinoContext(ctx).newObject(restrictedScope);
-        scope.setPrototype(restrictedScope);
-        scope.setParentScope(null);
-		Object result = App.getRhinoContext(ctx).evaluateString(scope, script, scriptName, 1, null);
-		return org.mozilla.javascript.Context.toString(result);
+		org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext(); 
+		try {
+			Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
+			Scriptable scope = rhinoContext.newObject(restrictedScope);
+			scope.setPrototype(restrictedScope);
+			scope.setParentScope(null);
+			Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
+			return org.mozilla.javascript.Context.toString(result);
+		} finally {
+			org.mozilla.javascript.Context.exit();
+		}
 	}
-	
+
 	/**
 	 * Evaluate JS associated with a key in a preset
 	 * @param ctx android context
@@ -73,9 +75,8 @@ public class Utils {
 	 * @return the value that should be assigned to the tag or null if no value should be set
 	 */
 	@Nullable
-	public static String evalString(Context ctx, String scriptName, String script, Map<String, ArrayList<String>> tags, String value) {
-		RhinoAndroidHelper rhinoAndroidHelper = new RhinoAndroidHelper(ctx);	
-		org.mozilla.javascript.Context rhinoContext = rhinoAndroidHelper.enterContext(); 
+	public static String evalString(Context ctx, String scriptName, String script, Map<String, ArrayList<String>> tags, String value) {	
+		org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext(); 
 		try {
 			Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
 			Scriptable scope = rhinoContext.newObject(restrictedScope);
@@ -86,7 +87,7 @@ public class Utils {
 			wrappedOut = org.mozilla.javascript.Context.javaToJS(value, scope);
 			ScriptableObject.putProperty(scope, "value", wrappedOut);
 			Log.d(DEBUG_TAG, "Eval (preset): " + script);
-			Object result = App.getRhinoContext(ctx).evaluateString(scope, script, scriptName, 1, null);
+			Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
 			if (result==null) {
 				return null;
 			} else {
@@ -103,12 +104,11 @@ public class Utils {
 	 * @param scriptName name for error reporting
 	 * @param script the javascript
 	 * @param logic an instance of Logic
-	 * @return
+	 * @return result of evaluating the JS as a string
 	 */
 	@Nullable
 	public static String evalString(Context ctx, String scriptName, String script, Logic logic) {
-		RhinoAndroidHelper rhinoAndroidHelper = new RhinoAndroidHelper(ctx);	
-		org.mozilla.javascript.Context rhinoContext = rhinoAndroidHelper.enterContext(); 
+		org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
 		try {
 			Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
 			Scriptable scope = rhinoContext.newObject(restrictedScope);
@@ -117,7 +117,7 @@ public class Utils {
 			Object wrappedOut = org.mozilla.javascript.Context.javaToJS(logic, scope);
 			ScriptableObject.putProperty(scope, "logic", wrappedOut);
 			Log.d(DEBUG_TAG, "Eval (logic): " + script);
-			Object result = App.getRhinoContext(ctx).evaluateString(scope, script, scriptName, 1, null);
+			Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
 			if (result==null) {
 				return null;
 			} else {

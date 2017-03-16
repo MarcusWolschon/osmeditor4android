@@ -83,7 +83,7 @@ public class App extends android.app.Application {
 	/**
 	 * Rhino related objects
 	 */
-	private static org.mozilla.javascript.Context rhinoContext;
+	private static RhinoAndroidHelper rhinoHelper;
 	private static org.mozilla.javascript.Scriptable rhinoScope;
 	private static final Object rhinoLock = new Object();
 	
@@ -266,19 +266,16 @@ public class App extends android.app.Application {
 	}
 	
 	/**
-	 * Return a rhino context for scripting
-	 * * FIXME not clear if we can use the same context the whole time
+	 * Return a rhino helper for scripting
 	 * @param ctx android context
-	 * @return rhino context
+	 * @return a RhinoAndroidHelper
 	 */
-	public static org.mozilla.javascript.Context getRhinoContext(Context ctx) {
+	public static RhinoAndroidHelper getRhinoHelper(Context ctx) {
 		synchronized (rhinoLock) {
-			if (rhinoContext == null) {
-				RhinoAndroidHelper rhinoAndroidHelper = new RhinoAndroidHelper(ctx);
-				rhinoContext = rhinoAndroidHelper.enterContext();
-				rhinoContext.setOptimizationLevel(1);
+			if (rhinoHelper == null) {
+				rhinoHelper = new RhinoAndroidHelper(ctx);
 			}
-			return rhinoContext;
+			return rhinoHelper;
 		}
 	}
 	
@@ -293,11 +290,18 @@ public class App extends android.app.Application {
 	public static org.mozilla.javascript.Scriptable getRestrictedRhinoScope(Context ctx) {
 		synchronized (rhinoLock) {
 			if (rhinoScope == null) {
-				org.mozilla.javascript.Context c = getRhinoContext(ctx);
-				// this is a fairly hackish way of sandboxing, but it does work
-				rhinoScope = c.initStandardObjects(); // don't seal the individual objects
-				c.evaluateString(rhinoScope , "java", "lazyLoad", 0, null);
-				((ScriptableObject)rhinoScope).sealObject();
+				org.mozilla.javascript.Context c = rhinoHelper.enterContext();
+				try {
+					// this is a fairly hackish way of sandboxing, but it does work
+					// rhinoScope = c.initStandardObjects(); // don't seal the individual objects
+					rhinoScope = new ImporterTopLevel(c);
+					c.evaluateString(rhinoScope , "java", "lazyLoad", 0, null);
+					c.evaluateString(rhinoScope , "importClass(Packages.de.blau.android.osm.BoundingBox)", "lazyLoad", 0, null);
+					c.evaluateString(rhinoScope , "importClass(Packages.de.blau.android.util.GeoMath)", "lazyLoad", 0, null);
+					((ScriptableObject)rhinoScope).sealObject();
+				} finally {
+					org.mozilla.javascript.Context.exit();
+				}
 			}
 			return rhinoScope;
 		}

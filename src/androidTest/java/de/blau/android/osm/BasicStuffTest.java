@@ -1,6 +1,5 @@
 package de.blau.android.osm;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SortedMap;
 
@@ -13,18 +12,14 @@ import org.junit.runner.RunWith;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
-import de.blau.android.Map;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.util.GeoMath;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -48,7 +43,6 @@ public class BasicStuffTest {
     public void teardown() {
     }
 
-    @UiThreadTest
     @Test
 	public void setTags() {
     	// 

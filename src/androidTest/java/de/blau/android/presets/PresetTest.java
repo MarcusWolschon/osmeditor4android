@@ -15,9 +15,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import de.blau.android.App;
 import de.blau.android.Main;
-import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.propertyeditor.TagFormFragment;
 
 /**
  * This is just a convenient way of generating the default preset dump
