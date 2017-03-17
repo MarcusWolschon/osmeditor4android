@@ -37,7 +37,7 @@ import de.blau.android.R;
 
 /**
  * A layout that splits the available space between two child views.
- * <p/>
+ * 
  * An optionally movable bar exists between the children which allows the user
  * to redistribute the space allocated to each view.
  */

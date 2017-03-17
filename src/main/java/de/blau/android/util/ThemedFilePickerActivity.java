@@ -2,10 +2,8 @@ package de.blau.android.util;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
-import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.Menu;
@@ -38,9 +36,7 @@ public class ThemedFilePickerActivity extends FilePickerActivity {
 		MenuItem createDirItem = menu.findItem(R.id.nnf_action_createdir);
 		if (createDirItem != null) {
 			Drawable createDirIcon = DrawableCompat.wrap(createDirItem.getIcon());
-			ColorStateList tint = ContextCompat.getColorStateList(this,
-					ThemeUtils.getResIdFromAttribute(this, R.attr.colorAccent));
-			DrawableCompat.setTintList(createDirIcon, tint);
+			createDirIcon = ThemeUtils.getTintedDrawable(this, createDirIcon, R.attr.colorAccent);
 			createDirItem.setIcon(createDirIcon);
 		} else {
 			Log.d(DEBUG_TAG, "item not found");

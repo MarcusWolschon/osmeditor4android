@@ -176,7 +176,7 @@ public class GeometryEditsTest {
     		logic.setSelectedWay(null);
     		logic.setSelectedNode(null);
 
-    		Node tempNode = logic.performAddOnWay(null,X, 500.0f);
+    		Node tempNode = logic.performAddOnWay(null,X, 500.0f, false);
     		Node n1 = logic.getSelectedNode();
     		Assert.assertEquals(n1,tempNode);
     		Assert.assertEquals(1, logic.getWaysForNode(n1).size());

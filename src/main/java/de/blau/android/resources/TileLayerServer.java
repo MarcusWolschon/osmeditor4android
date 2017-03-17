@@ -50,12 +50,12 @@ import de.blau.android.util.Offset;
 
 /**
  * The OpenStreetMapRendererInfo stores information about available tile servers.
- * <br/>
+ * 
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06
- * by Marcus Wolschon to be integrated into the de.blau.androin
- * OSMEditor. 
+ * by Marcus Wolschon to be integrated into the de.blau.android.osmeditor4android.
+ *  
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon Marcus@Wolschon.biz
  *
  */
 public class TileLayerServer {
@@ -517,7 +517,7 @@ public class TileLayerServer {
 	 * Note: will read the the config files it that hasn't happend yet
 	 * @param ctx activity context
 	 * @param id The internal id of the tile layer, eg "MAPNIK"
-     * @id async get meta data asynchronously
+     * @param async get meta data asynchronously
 	 */
 	public synchronized static TileLayerServer get(final Context ctx, final String id, final boolean async) {	
 		Resources r = ctx.getResources();

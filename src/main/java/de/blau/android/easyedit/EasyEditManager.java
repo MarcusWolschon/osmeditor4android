@@ -53,6 +53,7 @@ import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.javascript.EvalCallback;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -719,7 +720,7 @@ public class EasyEditManager {
 				ways.add(clickedNonClosedWays.get(itemId -1));
 			}
 			try {
-				Node splitPosition = logic.performAddOnWay(ways,startX, startY);
+				Node splitPosition = logic.performAddOnWay(ways,startX, startY, false);
 				if (splitPosition != null) {
 					for (Way way:ways) {
 						if (way.hasNode(splitPosition)) {
@@ -766,7 +767,7 @@ public class EasyEditManager {
 					ArrayList<Way>ways = new ArrayList<Way>();
 					ways.add(way);
 					try {
-						Node node = logic.performAddOnWay(ways,startX, startY);
+						Node node = logic.performAddOnWay(ways,startX, startY, false);
 						if (node != null) {
 							logic.performSplit(way,node);
 						}
@@ -825,7 +826,7 @@ public class EasyEditManager {
 									tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
 								}
 								tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
-								logic.setTags(Node.NAME, node.getOsmId(), tags);
+								logic.setTags(node, tags);
 							}
 						}
 					}
@@ -896,12 +897,15 @@ public class EasyEditManager {
 							for (String key:map.keySet()) {
 								tags.put(key, map.get(key).get(0));
 							}
-							logic.setTags(Node.NAME, node.getOsmId(), tags);
+							logic.setTags(node, tags);
 							main.startSupportActionMode(new NodeSelectionActionModeCallback(node));
 							return;
 						}
-					} catch (Exception ex) {
-						// ok wasn't a number
+					} catch (NumberFormatException ex) {
+						// ok wasn't a number, just ignore
+					} catch (OsmIllegalOperationException e) {
+						// FIXME something went seriously wrong
+						Log.e(DEBUG_TAG,e.getMessage());
 					}
 
 					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first,ElementType.NODE,2,1);
@@ -945,18 +949,26 @@ public class EasyEditManager {
 		
 		Node addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
 			if (node != null) {
-				Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
-				TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
-				for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
-					tags.put(tag.getKey(), tag.getValue().getValue());
+				try {
+					Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
+					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+					for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
+						tags.put(tag.getKey(), tag.getValue().getValue());
+					}
+					if (name != null) {
+						tags.put(Tags.KEY_NAME, name);
+					}
+					tags.put("source:original_text", original);
+
+					logic.setTags(node, tags);
+
+					logic.setSelectedNode(node);
+					return node;
+				} catch (OsmIllegalOperationException e) {
+					Log.e(DEBUG_TAG,e.getMessage());
+					Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+					return null;
 				}
-				if (name != null) {
-					tags.put(Tags.KEY_NAME, name);
-				}
-				tags.put("source:original_text", original);
-				logic.setTags(Node.NAME, node.getOsmId(), tags);
-				logic.setSelectedNode(node);
-				return node;
 			}
 			return null;
 		}
@@ -1184,6 +1196,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_TAG_LAST = 21;
 		private static final int MENUITEM_ZOOM_TO_SELECTION = 22;
 		private static final int MENUITEM_PREFERENCES = 23;
+		private static final int MENUITEM_JS_CONSOLE = 24;
 		
 		OsmElement element = null;
 		
@@ -1253,6 +1266,8 @@ public class EasyEditManager {
 			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));
 			menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION,  Menu.CATEGORY_SYSTEM|10, R.string.menu_zoom_to_selection);
 			menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM|10, R.string.menu_config).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_config));
+			Preferences prefs = new Preferences(main);
+			menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE,  Menu.CATEGORY_SYSTEM|10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
@@ -1278,6 +1293,9 @@ public class EasyEditManager {
 			case MENUITEM_ELEMENT_INFO: ElementInfo.showDialog(main,element); break;
 			case MENUITEM_PREFERENCES: 	PrefEditor.start(main, main.getMap().getViewBox()); break;
 			case MENUITEM_ZOOM_TO_SELECTION: main.zoomTo(element); main.invalidateMap(); break;
+			case MENUITEM_JS_CONSOLE:
+				Main.showJsConsole(main);
+				break;
 			case R.id.undo_action:
 				// should not happen
 				Log.d(DEBUG4_TAG,"menu undo clicked");
@@ -2421,6 +2439,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_MERGE_POLYGONS = 9;
 		
 		private static final int MENUITEM_PREFERENCES = 10;
+		private static final int MENUITEM_JS_CONSOLE = 11;
 
 		private ArrayList<OsmElement> selection;
 		private List<OsmElement> sortedWays;
@@ -2557,6 +2576,8 @@ public class EasyEditManager {
 //				menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
 //			}
 			menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM|10, R.string.menu_config).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_config));
+			Preferences prefs = new Preferences(main);
+			menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM|10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			arrangeMenu(menu);
 			return true;
@@ -2648,7 +2669,12 @@ public class EasyEditManager {
 						}	
 					}
 					break;
-				case MENUITEM_PREFERENCES: 	PrefEditor.start(main, main.getMap().getViewBox()); break; 
+				case MENUITEM_PREFERENCES: 	
+					PrefEditor.start(main, main.getMap().getViewBox()); 
+					break;
+				case MENUITEM_JS_CONSOLE:
+					Main.showJsConsole(main);
+					break;
 				case R.id.undo_action:
 					// should not happen
 					Log.d(DEBUG10_TAG,"menu undo clicked");

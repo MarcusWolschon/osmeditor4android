@@ -160,6 +160,24 @@ android {
         // but continue the build even when errors are found:
         abortOnError false
     }
+    
+    dexOptions {
+        jumboMode = true
+    }
+}
+
+android.applicationVariants.all { variant ->
+  task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+    description "Generates Javadoc for $variant.name."
+    group "Documentation"
+    source = variant.javaCompile.source
+    ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+    classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+    options.links("http://docs.oracle.com/javase/7/docs/api/");
+    options.links("http://d.android.com/reference/");
+    exclude '**/BuildConfig.java'
+    exclude '**/R.java'
+  }
 }
 
 ext {
@@ -174,7 +192,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
     compile "com.android.support:preference-v7:$supportLibVersion"
     compile "com.android.support:design:$supportLibVersion"
- 	compile "com.android.support:support-annotations:24.1.1" 
+ 	compile "com.android.support:support-annotations:24.2.0" 
     compile "com.nononsenseapps:filepicker:3.0.0"
     compile "oauth.signpost:signpost-core:$signpostVersion"
     compile "cz.msebera.android:httpclient:4.4.1.2"
@@ -186,12 +204,13 @@ dependencies {
     compile "ch.poole:OpeningHoursParser:0.1.2"
     compile "ch.poole:ConditionalRestrictionParser:0.1.11"
     compile "com.google.code.gson:gson:2.8.0"
+    compile 'com.faendir.rhino:rhino-android:1.4'
 
     // Unit tests
     testCompile "junit:junit:4.12"
 
     // Instrumentation tests
-    androidTestCompile "com.android.support:support-annotations:24.1.1"
+    androidTestCompile "com.android.support:support-annotations:24.2.0"
     androidTestCompile "com.android.support.test:runner:0.5"
     androidTestCompile "com.android.support.test:rules:0.5"
     androidTestCompile "org.hamcrest:hamcrest-library:1.3"

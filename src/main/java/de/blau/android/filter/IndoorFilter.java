@@ -266,6 +266,9 @@ public class IndoorFilter extends Filter {
 	 * @param level
 	 */
 	public void setLevel(int level) {
+		if (level != this.level) {
+			clear();
+		}
 		this.level = level;
 	}
 	
@@ -341,6 +344,9 @@ public class IndoorFilter extends Filter {
 	}
     
     private void setupControls(boolean toggle) {
+    	if (toggle) {
+    		clear();
+    	}
     	inverted = toggle ? !inverted : inverted;
     	if (inverted) {
     		levelText.setText("--");

@@ -1,8 +1,12 @@
 package de.blau.android.util;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -75,4 +79,30 @@ public final class ThemeUtils {
 		Context context =  new ContextThemeWrapper(caller, prefs.lightThemeEnabled() ? R.style.Theme_DialogLight : R.style.Theme_DialogDark);
 		return (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+    
+    /**
+     * Find a Drawable and tint it
+     * @param ctx android Context
+     * @param resource the resource id of the drawable
+     * @param attr the id of the themeable color attribtue
+     * @return the tinted Drawable
+     */
+    public static Drawable getTintedDrawable(Context ctx, int resource, int attr) {
+    	Drawable drawable = ContextCompat.getDrawable(ctx, resource);
+		return getTintedDrawable(ctx, drawable, attr);
+    }
+
+    /**
+     * Find a Drawable and tint it
+     * @param ctx android Context
+     * @param drawable the drawable
+     * @param attr the id of the themeable color attribtue
+     * @return the tinted Drawable
+     */
+	public static Drawable getTintedDrawable(Context ctx, Drawable drawable, int attr) {
+    	ColorStateList tint = ContextCompat.getColorStateList(ctx,
+			ThemeUtils.getResIdFromAttribute(ctx, attr));
+		DrawableCompat.setTintList(drawable, tint);
+		return drawable;
+	}
 }

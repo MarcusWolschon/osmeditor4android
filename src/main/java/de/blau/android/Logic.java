@@ -88,16 +88,13 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.collections.MRUList;
 
 /**
- * Contains several responsibilities of Logic-Work:
+ * Logic is the gatekeeper to actual object storage and provides higher level operations.
  * <ul>
- * <li>user mode-Administration</li>
- * <li>viewBox-Administration</li>
- * <li>pushing relevant updated values to {@link Map}-Object</li>
- * <li>Handle interaction-Events</li>
- * <li>holding the {@link Tracker}-Object</li>
- * <li>Starting threads from thread.*</li>
+ * <li> hold selected objects
+ * <li> wrap operations with undo checkpoints
+ * <li> hold current mode
+ * <li> save and load state
  * </ul>
- * In future releases every responsibility will get outsourced.
  * 
  * @author mb
  */
@@ -163,7 +160,7 @@ public class Logic {
 		/**
 		 * Return the Mode for a given tag
 		 * @param tag
-		 * @return
+		 * @return the corresponding Mode
 		 */
 		static Mode modeForTag(String tag) {
 			for (Mode mode:Mode.values()) {
@@ -176,14 +173,19 @@ public class Logic {
 
 		/**
 		 * Get any special tags for this mode, not very elegant
-		 * @param logic
-		 * @return
+		 * @param logic the current Logic instance
+		 * @param e the selected element
+		 * @return map containing the additional tags or null
 		 */
-		public HashMap<String, String> getExtraTags(Logic logic) {
-			switch (logic.getMode()) {
+		@Nullable
+		public HashMap<String, String> getExtraTags(Filter filter, OsmElement e) {
+			switch (this) {
 			case MODE_INDOOR:
 				HashMap<String,String> result = new HashMap<String,String>();
-				result.put(Tags.KEY_LEVEL, Integer.toString(((IndoorFilter)logic.getFilter()).getLevel()));
+				// we only want to apply a level tag automatically to newly created objects if they don't already have the tag and not when the filter is inverted
+				if (filter != null && filter instanceof IndoorFilter && !((IndoorFilter)filter).isInverted() && e.getState() == OsmElement.STATE_CREATED && !e.hasTagKey(Tags.KEY_LEVEL)) { 
+					result.put(Tags.KEY_LEVEL, Integer.toString(((IndoorFilter)filter).getLevel()));
+				}
 				return result;
 			default: return null;
 			}
@@ -680,7 +682,25 @@ public class Logic {
 		getDelegator().getUndo().removeCheckpoint(App.mainActivity.getResources().getString(stringId));
 	}
 	
-
+	/**
+	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
+	 * All existing tags will be replaced.
+	 * 
+	 * @param e element to change the tags on
+	 * @param tags Tag-List to be set.
+	 * @return false if the element wasn't in storage and the tags were not applied
+	 * @throws OsmIllegalOperationException if the e isn't in storage
+	 */
+	public synchronized void setTags(@NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags) throws OsmIllegalOperationException { 
+		OsmElement osmElement = getDelegator().getOsmElement(e.getName(), e.getOsmId());
+		if (osmElement != null) {
+			createCheckpoint(R.string.undo_action_set_tags);
+			getDelegator().setTags(osmElement, tags);
+		} else {
+			throw new OsmIllegalOperationException("Element " + osmElement + " not in storage");
+		}
+	}
+	
 	/**
 	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
 	 * All existing tags will be replaced.
@@ -690,7 +710,7 @@ public class Logic {
 	 * @param tags Tag-List to be set.
 	 * @return false if no element exists for the given osmId/type.
 	 */
-	public synchronized boolean setTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
+	public synchronized boolean setTags(final String type, final long osmId, @Nullable final java.util.Map<String, String> tags) {
 		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 
 		if (osmElement == null) {
@@ -1349,12 +1369,12 @@ public class Logic {
 			int lat;
 			int lon;
 			// checkpoint created where draggingNode is set
-			if ((draggingNode && selectedNodes != null && selectedNodes.size() == 1 && selectedWays ==  null) || draggingHandle) {
+			if ((draggingNode && selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null) || draggingHandle) {
 				if (draggingHandle) { // create node only if we are really dragging
 					try {
-						if (handleNode == null && selectedHandle != null) {
+						if (handleNode == null && selectedHandle != null && selectedWays != null) {
 							Log.d("Logic","creating node at handle position");
-							handleNode = performAddOnWay(selectedHandle.x, selectedHandle.y);
+							handleNode = performAddOnWay(selectedWays, selectedHandle.x, selectedHandle.y, true);
 							selectedHandle = null;
 						}
 						if (handleNode != null) {
@@ -1613,29 +1633,18 @@ public class Logic {
 	/**
 	 * Executes an add node operation for x,y but only if on a way. Adds new node to storage and will select it.
 	 * 
-	 * @param x screen-coordinate
-	 * @param y screen-coordinate 
-	 * @return the new node or null if none was created 
-	 * @throws OsmIllegalOperationException 
-	 */
-	private synchronized Node performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
-		return performAddOnWay(null,x,y);
-	}
-	
-	/**
-	 * Executes an add node operation for x,y but only if on a way. Adds new node to storage and will select it.
-	 * 
 	 * @param ways candidate ways if null all ways will be considered
 	 * @param x screen-coordinate
 	 * @param y screen-coordinate
+	 * @param forceNew ignore nearby existing nodes
 	 * @return the new node or null if none was created
 	 * @throws OsmIllegalOperationException
 	 */
-	public synchronized Node performAddOnWay(List<Way>ways,final float x, final float y) throws OsmIllegalOperationException {
+	public synchronized Node performAddOnWay(List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_add);
 		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		
-		Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways,x, y);
+		Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways,x, y, forceNew);
 
 		if (newSelectedNode == null) {
 			newSelectedNode = savedSelectedNode;
@@ -2085,7 +2094,7 @@ public class Logic {
 	 * @throws OsmIllegalOperationException 
 	 */
 	private synchronized Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
-		return getClickedNodeOrCreatedWayNode(null,x,y);
+		return getClickedNodeOrCreatedWayNode(null,x,y, false);
 	}
 	
 	/**
@@ -2095,13 +2104,17 @@ public class Logic {
 	 * @param ways list of candidate ways or null for all
 	 * @param x the x screen coordinate
 	 * @param y the y screen coordinate
+	 * @param forceNew do not return existing nodes in tolerance range
 	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
 	 * @throws OsmIllegalOperationException 
 	 */
-	private synchronized Node getClickedNodeOrCreatedWayNode(List<Way>ways,final float x, final float y) throws OsmIllegalOperationException {
-		Node node = getClickedNode(x, y);
-		if (node != null) {
-			return node;
+	private synchronized Node getClickedNodeOrCreatedWayNode(List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
+		Node node = null;
+		if (!forceNew) {
+			node = getClickedNode(x, y);
+			if (node != null) {
+				return node;
+			}
 		}
 		if (ways==null) {
 			ways=getDelegator().getCurrentStorage().getWays();
@@ -3535,7 +3548,8 @@ public class Logic {
 	}
 	
 	/**
-	 *  Setter to a) set the internal value and b) push the value to {@link #map}.
+	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 * @param selectedNode node to select
 	 */
 	public synchronized void setSelectedNode(final Node selectedNode) {
 		if (selectedNode != null) { // always restart
@@ -3545,10 +3559,12 @@ public class Logic {
 			selectedNodes = null;
 		}
 		map.setSelectedNodes(selectedNodes);
+		resetFilterCache();
 	}
 	
 	/**
 	 * Add nodes to the internal list
+	 * @param selectedNode node to add to selection
 	 */
 	public synchronized void addSelectedNode(final Node selectedNode) {
 		if (selectedNodes == null) {
@@ -3558,19 +3574,26 @@ public class Logic {
 				selectedNodes.add(selectedNode);
 			}
 		}
+		resetFilterCache();
 	}
 	
+	/**
+	 * De-select a node
+	 * @param node node to remove from selection
+	 */
 	public synchronized void removeSelectedNode(Node node) {
 		if (selectedNodes != null) {
 			selectedNodes.remove(node);
 			if (selectedNodes.size() == 0) {
 				selectedNodes = null;
 			}
+			resetFilterCache();
 		}
 	}
 	
 	/**
 	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 * @param selectedWay way to select
 	 */
 	public synchronized void setSelectedWay(final Way selectedWay) {
 		if (selectedWay != null) {  // always restart
@@ -3580,10 +3603,12 @@ public class Logic {
 			selectedWays = null;
 		}
 		map.setSelectedWays(selectedWays);
+		resetFilterCache();
 	}
 	
 	/**
 	 * Adds the given way to the list of currently selected ways.
+	 * @param selectedWay way to add to selection
 	 */
 	public synchronized void addSelectedWay(final Way selectedWay) {
 		if (selectedWays == null) {
@@ -3593,10 +3618,12 @@ public class Logic {
 				selectedWays.add(selectedWay);
 			}
 		}
+		resetFilterCache();
 	}
 	
 	/**
 	 * Removes the given way from the list of currently selected ways.
+	 * @param way way to de-select
 	 */
 	public synchronized void removeSelectedWay(Way way) {
 		if (selectedWays != null) {
@@ -3604,11 +3631,13 @@ public class Logic {
 			if (selectedWays.size() == 0) {
 				selectedWays = null;
 			}
+			resetFilterCache();
 		}
 	}
 	
 	/**
 	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 * @param selectedRelation relation to select
 	 */
 	public synchronized void setSelectedRelation(final Relation selectedRelation) {
 		if (selectedRelation != null) {  // always restart
@@ -3620,19 +3649,26 @@ public class Logic {
 		if (selectedRelation != null) {
 			selectRelation(selectedRelation);
 		}
+		resetFilterCache();
 	}
 	
+	/**
+	 * De-select the relation
+	 * @param relation relation to remove from selection
+	 */
 	public synchronized void removeSelectedRelation(Relation relation) {
 		if (selectedRelations != null) {
 			selectedRelations.remove(relation);
 			if (selectedRelations.size() == 0) {
 				selectedRelations = null;
 			}
+			resetFilterCache();
 		}
 	}
 	
 	/**
 	 * Adds the given relation to the list of currently selected relations.
+	 * @param selectedRelation relation to add to selection
 	 */
 	public synchronized void addSelectedRelation(final Relation selectedRelation) {
 		if (selectedRelations == null) {
@@ -3641,6 +3677,16 @@ public class Logic {
 			if (!selectedRelations.contains(selectedRelation)) {
 				selectedRelations.add(selectedRelation);
 			}
+		}
+		resetFilterCache();
+	}
+	
+	/**
+	 * Helper to clear the current, if any, filter cache
+	 */
+	private void resetFilterCache() {
+		if (filter != null) {
+			filter.clear();
 		}
 	}
 	
@@ -3782,6 +3828,72 @@ public class Logic {
 	}
 	
 	/**
+	 * Get a list of all nodes currently in storage
+	 * @return unmodifiable list of all nodes currently loaded
+	 */
+	public List<Node> getNodes() {
+		return getDelegator().getCurrentStorage().getNodes();
+	}
+	
+	/**
+	 * Get a list of all nodes contained in bounding box box currently in storage
+	 * @param box the bounding box
+	 * @return unmodifiable list of all nodes currently loaded contained in box
+	 */
+	public List<Node> getNodes(BoundingBox box) {
+		return getDelegator().getCurrentStorage().getNodes(box);
+	}
+	
+	/**
+	 * Get a list of all modified (created, modified, deleted) nodes currently in storage
+	 * @return all modified nodes currently loaded
+	 */
+	public List<Node> getModifiedNodes() {
+		return getDelegator().getApiStorage().getNodes();
+	}
+	
+	/**
+	 * Get a list of all  nodes contained in bounding box box currently in storage
+	 * @param box the bounding box
+	 * @return all modified nodes currently loaded contained in box
+	 */
+	public List<Node> getModifiedNodes(BoundingBox box) {
+		return getDelegator().getApiStorage().getNodes(box);
+	}
+	
+	/**
+	 * Get a list of all ways currently in storage
+	 * @return unmodifiable list of all ways currently loaded
+	 */
+	public List<Way> getWays() {
+		return getDelegator().getCurrentStorage().getWays();
+	}
+	
+	/**
+	 * Get a list of all modified (created, modified, deleted) ways currently in storage
+	 * @return unmodifiable list of all modified ways currently loaded
+	 */
+	public List<Way> getModifiedWays() {
+		return getDelegator().getApiStorage().getWays();
+	}
+	
+	/**
+	 * Get a list of all relations currently in storage
+	 * @return unmodifiable list of all relations currently loaded
+	 */
+	public List<Relation> getRelations() {
+		return getDelegator().getCurrentStorage().getRelations();
+	}
+	
+	/**
+	 * Get a list of all modified (created, modified, deleted) relations currently in storage
+	 * @return unmodifiable list of all modified relations currently loaded
+	 */
+	public List<Relation> getModifiedRelations() {
+		return getDelegator().getApiStorage().getRelations();
+	}
+	
+	/**
 	 * Will be called when the screen orientation was changed.
 	 * 
 	 * @param map the new Map-Instance. Be aware: The View-dimensions are not yet set...
@@ -3814,9 +3926,10 @@ public class Logic {
 
 	/**
 	 * Sets the set of elements that can currently be clicked.
+	 * <ul>
 	 * <li>If set to null, the map will use default behaviour.</li>
 	 * <li>If set to a non-null value, the map will highlight only elements in the list.</li>
-	 * 
+	 * </ul>
 	 * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
 	public synchronized void setClickableElements(Set<OsmElement> clickable) {
@@ -3824,8 +3937,11 @@ public class Logic {
 	}
 	
 	/**
+	 * Get elements that can currently be clicked 
+	 * 
 	 * @return the list of clickable elements. May be null, meaning no restrictions on clickable elements
 	 */
+	@Nullable
 	public synchronized Set<OsmElement> getClickableElements() {
 		return clickableElements;
 	}
@@ -4317,7 +4433,7 @@ public class Logic {
 	/**
 	 * @return the delegator
 	 */
-	public static StorageDelegator getDelegator() {
+	private static StorageDelegator getDelegator() {
 		return App.getDelegator();
 	}
 	

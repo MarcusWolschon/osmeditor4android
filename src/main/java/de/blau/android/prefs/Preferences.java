@@ -114,6 +114,8 @@ public class Preferences {
 	
 	private final boolean alwaysDrawBoundingBoxes;
 	
+	private final boolean jsConsoleEnabled;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	private final SharedPreferences prefs;
@@ -285,6 +287,8 @@ public class Preferences {
 		}
 		
 		alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), true);
+		
+		jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
 	}
 	
 	/**
@@ -632,5 +636,9 @@ public class Preferences {
 			setGeocoder(0);
 		}
 		return prefs.getInt(key, 0);
+	}
+
+	public boolean isJsConsoleEnabled() {
+		return jsConsoleEnabled;
 	}
 }

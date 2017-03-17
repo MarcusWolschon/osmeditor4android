@@ -106,6 +106,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.TagFilter;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
+import de.blau.android.javascript.EvalCallback;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -886,7 +887,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
 			logic.setSelectedRelation(null);
-			StorageDelegator storageDelegator = Logic.getDelegator();
+			StorageDelegator storageDelegator = App.getDelegator();
 			for (String s:rcData.getSelect().split(",")) { // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
 				if (s!=null) {
 					Log.d(DEBUG_TAG,"rc select: " + s);
@@ -1285,6 +1286,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnableTagFilter());
 		
+		// enable the JS console menu entry
+		menu.findItem(R.id.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
+		
 		menuUtil.setShowAlways(menu);
 		// only show camera icon if we have a camera, and a camera app is installed 
 		PackageManager pm = getPackageManager();
@@ -1671,10 +1675,31 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				Toast.makeText(getApplicationContext(), R.string.toast_oauth_not_enabled, Toast.LENGTH_LONG).show();
 			}
 			return true;
+		case R.id.tag_menu_js_console:
+			Main.showJsConsole(this); 
+			return true;
 		}	
 		return false;
 	}
-
+	
+	public static void showJsConsole(final Main main) {
+		main.descheduleAutoLock();
+		de.blau.android.javascript.Utils.jsConsoleDialog(main, R.string.js_console_msg_live, new EvalCallback() {
+			@Override
+			public String eval(String input) {
+				String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
+				main.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						main.getMap().invalidate();
+						main.scheduleAutoLock();
+					}
+				});
+				return result;
+			}
+		});
+	}
+	
 	private void startVoiceRecognition() {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -2328,11 +2353,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	/**
+	 * Start the PropertyEditor for the element in question, single element version
 	 * @param selectedElement Selected OpenStreetMap element.
 	 * @param focusOn if not null focus on the value field of this key.
 	 * @param applyLastAddressTags add address tags to the object being edited.
-	 * @param showPresets Boolean flag indication to show or hide presets.
-	 * @param askForName TODO
+	 * @param showPresets show the preset tab on start up.
+	 * @param askForName ask for a value for the name tag
 	 */
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets, boolean askForName) {
 		descheduleAutoLock();
@@ -2352,11 +2378,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
 				PropertyEditor.startForResult(this, single, applyLastAddressTags,
-						showPresets, askForName, logic.getMode().getExtraTags(logic), REQUEST_EDIT_TAG);
+						showPresets, askForName, logic.getMode().getExtraTags(logic.getFilter(), selectedElement), REQUEST_EDIT_TAG);
 			}
 		}
 	}
 	
+	/**
+	 * Start the PropertyEditor for the element in question, multiple element version
+	 * @param selection list of selected elements
+	 * @param applyLastAddressTags add address tags to the object being edited.
+	 * @param showPresets show the preset tab on start up.
+	 */
 	public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
 		descheduleAutoLock();
 		ArrayList<PropertyEditorData> multiple = new ArrayList<PropertyEditorData>();

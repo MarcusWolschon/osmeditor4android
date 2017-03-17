@@ -24,6 +24,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.filter.Filter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -153,7 +155,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		try {
 			currentStorage.insertElementSafe(elem);
 			apiStorage.insertElementSafe(elem);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			// TODO handle OOMk
 			e.printStackTrace();
@@ -165,7 +167,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param elem the element to tag
 	 * @param tags the new tags
 	 */
-	public void setTags(final OsmElement elem, final Map<String, String> tags) {
+	public void setTags(@NonNull final OsmElement elem, @Nullable final Map<String, String> tags) {
 		dirty = true;
 		undo.save(elem);
 		
@@ -174,7 +176,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			elem.updateState(OsmElement.STATE_MODIFIED);
 			try {
 				apiStorage.insertElementSafe(elem);
-				recordImagery();
+				onElementChanged(null, null);
 			} catch (StorageException e) {
 				// TODO handle OOM
 				e.printStackTrace();
@@ -188,7 +190,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		try {
 			currentStorage.insertElementUnsafe(elem);
 			apiStorage.insertElementUnsafe(elem);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			// TODO handle OOMk
 			e.printStackTrace();
@@ -196,7 +198,22 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * store the currently used imagery
+	 * Called after an element has been changed
+	 * 
+	 * As it may be fairly expensive to determine all changes pre and/or post may be null
+	 * @param pre list of changed elements before the operation or null
+	 * @param post list of changed elements after the operation or null
+	 */
+	private void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
+		Filter filter = App.getLogic().getFilter();
+		if (filter != null) {
+			filter.onElementChanged(pre, post);
+		}
+		recordImagery();
+	}
+
+	/**
+	 * Store the currently used imagery
 	 */
 	private void recordImagery() {
 		if (!imageryRecorded) { // flag is reset when we change imagery 
@@ -321,7 +338,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementSafe(way);
 			way.addNode(node);
 			way.updateState(OsmElement.STATE_MODIFIED);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -338,7 +355,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementSafe(way);
 			way.addNodeAfter(nodeBefore, newNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -354,7 +371,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementSafe(way);
 			way.appendNode(refNode, nextNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -369,7 +386,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			node.setLat(latE7);
 			node.setLon(lonE7);
 			node.updateState(OsmElement.STATE_MODIFIED);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -398,7 +415,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				nd.setLon(nd.getLon() + deltaLonE7);
 				nd.updateState(OsmElement.STATE_MODIFIED);
 			}
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -426,7 +443,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				nd.setLon(nd.getLon() + deltaLonE7);
 				nd.updateState(OsmElement.STATE_MODIFIED);
 			}
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -478,7 +495,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				nd.updateState(OsmElement.STATE_MODIFIED);
 				i++;
 			}
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -654,7 +671,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					}
 				}
 			}
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -753,7 +770,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				nd.setLon(lon);
 				nd.updateState(OsmElement.STATE_MODIFIED);
 			}
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -782,7 +799,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			removeElementFromRelations(node);
 			currentStorage.removeNode(node);
 			node.updateState(OsmElement.STATE_DELETED);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -901,7 +918,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					apiStorage.insertElementSafe(r);
 				}
 			}
-			recordImagery();
+			onElementChanged(null, null);
 			Way[] result = new Way[2];
 			result[0] = way;
 			result[1] = newWay;
@@ -1022,7 +1039,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					apiStorage.insertElementSafe(r);
 				}
 			}
-			recordImagery();
+			onElementChanged(null, null);
 			return newWay;
 		} catch (StorageException e) {
 			//TODO handle OOM
@@ -1071,7 +1088,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		mergeElementsRelations(mergeInto, mergeFrom); 
 		// delete mergeFrom node
 		removeNode(mergeFrom);
-		recordImagery();
+		onElementChanged(null, null);
 		return mergeOK;
 	}
 	
@@ -1280,7 +1297,7 @@ public class StorageDelegator implements Serializable, Exportable {
 						}
 					}
 				}
-				recordImagery();
+				onElementChanged(null, null);
 			}
 		} catch (StorageException e) {
 			//TODO handle OOM
@@ -1339,7 +1356,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		way.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(way);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1354,7 +1371,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		way.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(way);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1384,7 +1401,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 				deleted++;
 			}
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1411,7 +1428,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 			removeElementFromRelations(way);
 			way.updateState(OsmElement.STATE_DELETED);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1436,7 +1453,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			removeRelationFromMembers(relation);
 			currentStorage.removeRelation(relation);
 			relation.updateState(OsmElement.STATE_DELETED);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1477,7 +1494,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					element.removeParentRelation(r);
 					Log.i("StorageDelegator", "... done");
 				}
-				recordImagery();
+				onElementChanged(null, null);
 			}
 		} catch (StorageException e) {
 			//TODO handle OOM
@@ -1501,7 +1518,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			undo.save(element);
 			element.removeParentRelation(r);
 			Log.i("StorageDelegator", "... done");
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1519,7 +1536,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		r.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(r);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1548,7 +1565,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException sex) {
 			//TODO handle OOM
 			sex.printStackTrace();
@@ -1575,7 +1592,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException sex) {
 			//TODO handle OOM
 			sex.printStackTrace();
@@ -1607,7 +1624,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException sex) {
 			//TODO handle OOM
 			sex.printStackTrace();
@@ -1634,7 +1651,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException sex) {
 			//TODO handle OOM
 			sex.printStackTrace();
@@ -1662,7 +1679,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1765,7 +1782,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			r.updateState(OsmElement.STATE_MODIFIED);
 			try {
 				apiStorage.insertElementSafe(r);
-				recordImagery();
+				onElementChanged(null, null);
 			} catch (StorageException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1818,7 +1835,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					apiStorage.insertElementSafe(mergeInto);
 				}
 			}
-			recordImagery();
+			onElementChanged(null, null);
 		} catch (StorageException sex) {
 			//TODO handle OOM
 		}

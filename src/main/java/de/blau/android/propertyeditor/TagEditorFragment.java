@@ -51,6 +51,7 @@ import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.javascript.EvalCallback;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
@@ -1348,17 +1349,13 @@ public class TagEditorFragment extends BaseFragment implements
 		
 		// Recommended tags, no fixed value is given. We add only those that do not already exist.
 		for (Entry<String, StringWithDescription[]> tag : item.getRecommendedTags().entrySet()) {
-			if (!currentValues.containsKey(tag.getKey())) {
-				currentValues.put(tag.getKey(), Util.getArrayList(""));
-			}
+			addTagFromPreset(item, currentValues, tag.getKey());
 		}
 		
 		// Optional tags, no fixed value is given. We add only those that do not already exist.
 		if (addOptional) {
 			for (Entry<String, StringWithDescription[]> tag : item.getOptionalTags().entrySet()) {
-				if (!currentValues.containsKey(tag.getKey())) {
-					currentValues.put(tag.getKey(), Util.getArrayList(""));
-				}
+				addTagFromPreset(item, currentValues, tag.getKey());
 			}
 		}
 
@@ -1389,6 +1386,36 @@ public class TagEditorFragment extends BaseFragment implements
 		focusOnEmptyValue();
 	}
 	
+	/**
+	 * Add tag from preset if the tag doesn't exist, execute JS if present
+	 * 
+	 * If evaluating the JS returns null, the key is removed
+	 * @param item current Preset
+	 * @param tags map of current tags
+	 * @param key the key we are processing
+	 */
+	private void addTagFromPreset(PresetItem item, Map<String, ArrayList<String>> tags, String key) {
+		String value = item.getDefault(key) == null ? "" : item.getDefault(key);
+		if (!tags.containsKey(key)) {
+			String script = item.getJavaScript(key);
+			if (script!=null) {
+				try {
+					value = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, tags, value);
+					if (value==null) {
+						tags.remove(key);
+						return;
+					}
+				} catch (Exception ex) {
+					Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_LONG).show();
+				}
+			}
+			tags.put(key, Util.getArrayList(value));
+		}
+	}
+	
+	/**
+	 * Update the MRU preset view
+	 */
 	void recreateRecentPresetView() {
 		Log.d(DEBUG_TAG,"Updating MRU prests");
 		FragmentManager fm = getChildFragmentManager();
@@ -1397,8 +1424,7 @@ public class TagEditorFragment extends BaseFragment implements
 			((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
 		}
 	}
-	
-	
+		
 	/**
 	 * Merge a set of tags in to the current ones
 	 * @param newTags
@@ -1473,8 +1499,7 @@ public class TagEditorFragment extends BaseFragment implements
 		menu.findItem(R.id.tag_menu_paste).setVisible(pasteIsPossible());
 		menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(pasteFromClipboardIsPossible());
 	}
-	
-	
+
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
@@ -1521,11 +1546,18 @@ public class TagEditorFragment extends BaseFragment implements
 			// simply overwrite with an empty file
 			Address.resetLastAddresses(getActivity());
 			return true;
+		case R.id.tag_menu_js_console:
+			de.blau.android.javascript.Utils.jsConsoleDialog(getActivity(), R.string.js_console_msg_debug, new EvalCallback() {
+				@Override
+				public String eval(String input) {
+					return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, getKeyValueMap(true), "test");
+				}
+			});
+			return true;
 		case R.id.tag_menu_help:
 			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
 			return true;
 		}
-		
 		return false;
 	}
 	

@@ -652,10 +652,7 @@ public class Map extends View implements IMapView {
 		//Paint all ways
 		List<Way> ways = delegator.getCurrentStorage().getWays();
 		
-		boolean filterMode = tmpFilter != null;
-		if (filterMode) {
-			tmpFilter.clear();
-		}
+		boolean filterMode = tmpFilter != null; // we have an active filter
 		
 		/*
 		 Split the ways it to whose that we are going to show and those that we hide, rendering is far simpler for the later 
@@ -803,7 +800,7 @@ public class Map extends View implements IMapView {
 		boolean isTagged = node.isTagged();
 
 		boolean filteredObject = false;
-		boolean filterMode = tmpFilter != null;
+		boolean filterMode = tmpFilter != null; // we have an active filter
 		if (filterMode) {
 			filteredObject = tmpFilter.include(node, isSelected); 
 		}

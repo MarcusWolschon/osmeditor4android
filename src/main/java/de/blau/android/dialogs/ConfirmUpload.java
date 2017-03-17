@@ -128,7 +128,7 @@ public class ConfirmUpload extends DialogFragment
 		View layout = inflater.inflate(R.layout.upload_comment, null);
 		builder.setView(layout);
 		TextView changes = (TextView)layout.findViewById(R.id.upload_changes);
-		int changeCount = Logic.getDelegator().getApiElementCount();
+		int changeCount = App.getDelegator().getApiElementCount();
 		if (changeCount == 1) {
 			changes.setText(getString(R.string.confirm_one_upload_text, getPendingChanges(activity)));
 		} else {
