@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1247: Support for 'deprecated' and 'javascript' properties in presets, basic scripting support, fix another regression in multi-select value splitting, improve element description. 
+
 1245: Fix regression in handling multi-select values, testing improvements.
 
 1244: EasyEdit consistency improvements, bug fixes and more test coverage.
