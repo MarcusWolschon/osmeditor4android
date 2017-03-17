@@ -53,7 +53,6 @@ import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.javascript.EvalCallback;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -1448,7 +1447,7 @@ public class EasyEditManager {
 		}
 		
 		@Override
-		protected void menuDelete(ActionMode mode) {
+		protected void menuDelete(final ActionMode mode) {
 			if (element.hasParentRelations()) {
 				new AlertDialog.Builder(main)
 					.setTitle(R.string.delete)
@@ -1458,7 +1457,9 @@ public class EasyEditManager {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								logic.performEraseNode((Node)element, true);
-								currentActionMode.finish();
+								if (mode != null) {
+									mode.finish();
+								}
 							}
 						})
 					.show();
@@ -1639,7 +1640,7 @@ public class EasyEditManager {
 		}
 		
 		@Override
-		protected void menuDelete(ActionMode mode) {
+		protected void menuDelete(final ActionMode mode) {
 			boolean isRelationMember = element.hasParentRelations();
 			boolean allNodesDownloaded = logic.isInDownload((Way)element);
 			
@@ -1652,7 +1653,9 @@ public class EasyEditManager {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								logic.performEraseWay((Way)element, false, true);
-								currentActionMode.finish();
+								if (mode != null) {
+									mode.finish();
+								}
 							}
 						})
 					.setNeutralButton(R.string.deleteway_wayandnodes,
@@ -1660,7 +1663,9 @@ public class EasyEditManager {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								logic.performEraseWay((Way)element, true, true);
-								currentActionMode.finish();
+								if (mode != null) {
+									mode.finish();
+								}
 							}
 						})
 					.show();
@@ -1987,7 +1992,7 @@ public class EasyEditManager {
 		}
 		
 		@Override
-		protected void menuDelete(ActionMode mode) {
+		protected void menuDelete(final ActionMode mode) {
 			if (element.hasParentRelations()) {
 				new AlertDialog.Builder(main)
 					.setTitle(R.string.delete)
@@ -1997,7 +2002,9 @@ public class EasyEditManager {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								logic.performEraseRelation((Relation)element, true);
-								currentActionMode.finish();
+								if (mode != null) {
+									mode.finish();
+								}
 							}
 						})
 					.show();
