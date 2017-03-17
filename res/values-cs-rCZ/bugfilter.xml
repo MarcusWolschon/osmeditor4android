@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="bug_filter_entries">
+    <item>Poznámky</item>
+    <item>Osmose chyba</item>
+    <item>Osmose varování</item>
+    <item>Osmose drobná chyba</item>
+  </string-array>
+</resources>

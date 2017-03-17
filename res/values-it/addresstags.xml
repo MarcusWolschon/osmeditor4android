@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Numero civico (addr:housenumber)</item>
+    <item>Via (addr:street)</item>
+    <item>Codice di avviamento postale (addr:postcode)</item>
+    <item>Città/Villaggio/.. (addr:city)</item>
+    <item>Sigla dello stato (addr:country)</item>
+    <item>Indirizzo completo (addr:full)</item>
+    <item>Luogo (addr:place)</item>
+    <item>Borgo (addr:hamlet)</item>
+    <item>sobborgo (addr:suburb)</item>
+    <item>Sottodistretto (addr:subdistrict)</item>
+    <item>Distretto (addr:district)</item>
+    <item>Provincia (addr:province)</item>
+    <item>Stato o cantone (addr:state)</item>
+    <item>Appartamento (addr:flats)</item>
+    <item>Porta (addr:port)</item>
+    <item>Unità (addr:unit)</item>
+  </string-array>
+</resources>
