@@ -3,8 +3,10 @@ package de.blau.android.filter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -17,7 +19,7 @@ public abstract class Filter implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5L;
+	private static final long serialVersionUID = 6L;
 	
 	/**
 	 * Filter action for elements
@@ -140,6 +142,17 @@ public abstract class Filter implements Serializable {
 	}
 	
 	public void saveState() {
+	}
+	
+	/**
+	 * Call this on element change to update/invalidate the cache.
+	 * 
+	 * The default implementation simply calls {@link #clear()}
+	 * @param pre the element before the change or null
+	 * @param post the element after the change or null
+	 */
+	public void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
+		clear();
 	}
 	
 	private void readObject(java.io.ObjectInputStream in)

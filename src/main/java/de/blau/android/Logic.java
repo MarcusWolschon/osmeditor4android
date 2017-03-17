@@ -160,7 +160,7 @@ public class Logic {
 		/**
 		 * Return the Mode for a given tag
 		 * @param tag
-		 * @return
+		 * @return the corresponding Mode
 		 */
 		static Mode modeForTag(String tag) {
 			for (Mode mode:Mode.values()) {
@@ -173,14 +173,19 @@ public class Logic {
 
 		/**
 		 * Get any special tags for this mode, not very elegant
-		 * @param logic
-		 * @return
+		 * @param logic the current Logic instance
+		 * @param e the selected element
+		 * @return map containing the additional tags or null
 		 */
-		public HashMap<String, String> getExtraTags(Logic logic) {
-			switch (logic.getMode()) {
+		@Nullable
+		public HashMap<String, String> getExtraTags(Filter filter, OsmElement e) {
+			switch (this) {
 			case MODE_INDOOR:
 				HashMap<String,String> result = new HashMap<String,String>();
-				result.put(Tags.KEY_LEVEL, Integer.toString(((IndoorFilter)logic.getFilter()).getLevel()));
+				// we only want to apply a level tag automatically to newly created objects if they don't already have the tag and not when the filter is inverted
+				if (filter != null && filter instanceof IndoorFilter && !((IndoorFilter)filter).isInverted() && e.getState() == OsmElement.STATE_CREATED && !e.hasTagKey(Tags.KEY_LEVEL)) { 
+					result.put(Tags.KEY_LEVEL, Integer.toString(((IndoorFilter)filter).getLevel()));
+				}
 				return result;
 			default: return null;
 			}
@@ -3543,7 +3548,8 @@ public class Logic {
 	}
 	
 	/**
-	 *  Setter to a) set the internal value and b) push the value to {@link #map}.
+	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 * @param selectedNode node to select
 	 */
 	public synchronized void setSelectedNode(final Node selectedNode) {
 		if (selectedNode != null) { // always restart
@@ -3553,10 +3559,12 @@ public class Logic {
 			selectedNodes = null;
 		}
 		map.setSelectedNodes(selectedNodes);
+		resetFilterCache();
 	}
 	
 	/**
 	 * Add nodes to the internal list
+	 * @param selectedNode node to add to selection
 	 */
 	public synchronized void addSelectedNode(final Node selectedNode) {
 		if (selectedNodes == null) {
@@ -3566,19 +3574,26 @@ public class Logic {
 				selectedNodes.add(selectedNode);
 			}
 		}
+		resetFilterCache();
 	}
 	
+	/**
+	 * De-select a node
+	 * @param node node to remove from selection
+	 */
 	public synchronized void removeSelectedNode(Node node) {
 		if (selectedNodes != null) {
 			selectedNodes.remove(node);
 			if (selectedNodes.size() == 0) {
 				selectedNodes = null;
 			}
+			resetFilterCache();
 		}
 	}
 	
 	/**
 	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 * @param selectedWay way to select
 	 */
 	public synchronized void setSelectedWay(final Way selectedWay) {
 		if (selectedWay != null) {  // always restart
@@ -3588,10 +3603,12 @@ public class Logic {
 			selectedWays = null;
 		}
 		map.setSelectedWays(selectedWays);
+		resetFilterCache();
 	}
 	
 	/**
 	 * Adds the given way to the list of currently selected ways.
+	 * @param selectedWay way to add to selection
 	 */
 	public synchronized void addSelectedWay(final Way selectedWay) {
 		if (selectedWays == null) {
@@ -3601,10 +3618,12 @@ public class Logic {
 				selectedWays.add(selectedWay);
 			}
 		}
+		resetFilterCache();
 	}
 	
 	/**
 	 * Removes the given way from the list of currently selected ways.
+	 * @param way way to de-select
 	 */
 	public synchronized void removeSelectedWay(Way way) {
 		if (selectedWays != null) {
@@ -3612,11 +3631,13 @@ public class Logic {
 			if (selectedWays.size() == 0) {
 				selectedWays = null;
 			}
+			resetFilterCache();
 		}
 	}
 	
 	/**
 	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 * @param selectedRelation relation to select
 	 */
 	public synchronized void setSelectedRelation(final Relation selectedRelation) {
 		if (selectedRelation != null) {  // always restart
@@ -3628,19 +3649,26 @@ public class Logic {
 		if (selectedRelation != null) {
 			selectRelation(selectedRelation);
 		}
+		resetFilterCache();
 	}
 	
+	/**
+	 * De-select the relation
+	 * @param relation relation to remove from selection
+	 */
 	public synchronized void removeSelectedRelation(Relation relation) {
 		if (selectedRelations != null) {
 			selectedRelations.remove(relation);
 			if (selectedRelations.size() == 0) {
 				selectedRelations = null;
 			}
+			resetFilterCache();
 		}
 	}
 	
 	/**
 	 * Adds the given relation to the list of currently selected relations.
+	 * @param selectedRelation relation to add to selection
 	 */
 	public synchronized void addSelectedRelation(final Relation selectedRelation) {
 		if (selectedRelations == null) {
@@ -3649,6 +3677,16 @@ public class Logic {
 			if (!selectedRelations.contains(selectedRelation)) {
 				selectedRelations.add(selectedRelation);
 			}
+		}
+		resetFilterCache();
+	}
+	
+	/**
+	 * Helper to clear the current, if any, filter cache
+	 */
+	private void resetFilterCache() {
+		if (filter != null) {
+			filter.clear();
 		}
 	}
 	

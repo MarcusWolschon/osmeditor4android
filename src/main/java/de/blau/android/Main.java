@@ -2353,11 +2353,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	/**
+	 * Start the PropertyEditor for the element in question, single element version
 	 * @param selectedElement Selected OpenStreetMap element.
 	 * @param focusOn if not null focus on the value field of this key.
 	 * @param applyLastAddressTags add address tags to the object being edited.
-	 * @param showPresets Boolean flag indication to show or hide presets.
-	 * @param askForName TODO
+	 * @param showPresets show the preset tab on start up.
+	 * @param askForName ask for a value for the name tag
 	 */
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets, boolean askForName) {
 		descheduleAutoLock();
@@ -2377,11 +2378,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
 				PropertyEditor.startForResult(this, single, applyLastAddressTags,
-						showPresets, askForName, logic.getMode().getExtraTags(logic), REQUEST_EDIT_TAG);
+						showPresets, askForName, logic.getMode().getExtraTags(logic.getFilter(), selectedElement), REQUEST_EDIT_TAG);
 			}
 		}
 	}
 	
+	/**
+	 * Start the PropertyEditor for the element in question, multiple element version
+	 * @param selection list of selected elements
+	 * @param applyLastAddressTags add address tags to the object being edited.
+	 * @param showPresets show the preset tab on start up.
+	 */
 	public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
 		descheduleAutoLock();
 		ArrayList<PropertyEditorData> multiple = new ArrayList<PropertyEditorData>();
