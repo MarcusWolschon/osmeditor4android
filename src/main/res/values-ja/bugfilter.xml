@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="bug_filter_entries">
+    <item>メモ</item>
+    <item>Osmose エラー</item>
+    <item>Osmose 警告</item>
+    <item>Osmose 軽微な問題</item>
+  </string-array>
+</resources>

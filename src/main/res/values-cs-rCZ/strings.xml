@@ -144,6 +144,7 @@
   <string name="tag_menu_addtorelation">Přidat do relace</string>
   <string name="tag_menu_resetMRU">Resetovat předvolby</string>
   <string name="tag_menu_reset_address_prediction">Resetovat předvyplněnou adresu</string>
+  <string name="tag_menu_exit_no_save">Odejít\nbez uložení</string>
   <string name="tag_autocomplete_name_hint">Pište nebo klikněte pro návrhy názvu</string>
   <string name="tag_action_tag_title">Zvolené tagy</string>
   <string name="tag_action_members_title">Zvolené členy</string>
@@ -349,6 +350,8 @@
   <string name="config_largeDragArea_title">Větší oblast pro výběr uzlu</string>
   <string name="config_largeDragArea_summary">Poskytne větší oblast pro vybírání uzlů</string>
   <string name="config_maxDownloadSpeed_title">Max. rychlost pro auto-stahovaní</string>
+  <string name="config_maxDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování pozastaveno</string>
+  <string name="config_maxBugDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování poznámek/chyb pozastaveno</string>
   <string name="config_enableNameSuggestions_title">Povolit návrhy názvu</string>
   <string name="config_enableNameSuggestions_summary">Zapnout návrhy pro tag s názvem</string>
   <string name="config_enableAutoPreset_title">Povolit automatickou předvolbu</string>

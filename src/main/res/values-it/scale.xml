@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Nessuno</item>
+    <item>Righello (sistema metrico)</item>
+    <item>Griglia (sistema metrico)</item>
+    <item>Righello (sistema imperiale)</item>
+    <item>Griglia (sistema imperiale)</item>
+  </string-array>
+</resources>

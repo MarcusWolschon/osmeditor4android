@@ -12,17 +12,21 @@
   <string name="upload_conflict_message_version">%1$s \nha la versione locale %2$s \nmentre sul server è %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$s \nmentre sul server risulta eliminata</string>
   <string name="upload_conflict_message_referential">%1$s \nè stata eliminata localamente \nmentre sul server ha dei riferimenti</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nera già stato eliminato dal server</string>
   <string name="use_local_version">Usa la \nversione \nlocale</string>
   <string name="use_server_version">Usa la \nversione \ndel server</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth si tratta probabilmente di un bug,  inviaci un rapporto del problema, se stai usando login e password (non consigliato) verifica che li hai inseriti correttamente.</string>
   <string name="no_connection_title">Nessuna connessione al server</string>
   <string name="no_connection_message">Impossibile connettersi al server OSM. Verifica la connessione ad Internet o riprova più tardi.</string>
+  <string name="ssl_handshake_failed">Impossibile collegarsi al server OSM perché la negoziazione del protocollo https è fallita. Prova a passare ad una connessione non cifrata nelle preferenze delle API.</string>
   <string name="wrong_login_data_title">Autenticazione fallita.</string>
   <string name="wrong_login_data_message">Se stai usando OAuth prova ad autenticarti di nuovo. Se stai invece usando login e password (sconsigliato) verifica di averli inserti correttamente.</string>
   <string name="wrong_login_data_re_authenticate">Ripeti l\'autenticazione</string>
   <string name="data_conflict_title">Conflitto di versione</string>
   <string name="data_conflict_message">I dati che stai cercando di scaricare contengono elementi che vanno in conflitto con le tue modifiche. Carica i tuoi dati prima di riprovare.</string>
+  <string name="invalid_bounding_box_title">Riquadro di selezione non valido</string>
+  <string name="invalid_bounding_box_message">L\'area selezionata non rispetta i limiti delle API, scegline una differente.</string>
   <string name="api_offline_title">API Offline</string>
   <string name="api_offline_message">Le API sono attualmente offline e non permettono la lettura o scrittua dei dati.</string>
   <string name="out_of_memory_title">Memoria esaurita</string>
@@ -30,6 +34,8 @@
   <string name="out_of_memory_dirty_message">Vespucci ha esaurito la memoria tentando di caricare i dati richiesti. Salva i tuoi dati, riavvialo e prova a caricare un\'area più piccola.</string>
   <string name="invalid_data_received_title">Dati ricevuti non validi</string>
   <string name="invalid_data_received_message">Vespucci ha ricevuto dei dati invalidi dal server. Se pensi di aver fatto tutto correttamente,    inviaci un rapporto sul bug.</string>
+  <string name="invalid_data_read_title">Dati non validi</string>
+  <string name="invalid_data_read_message">Il file conteneva dati non validi. Se credi di non aver commesso errori, segnala il bug agli sviluppatori.</string>
   <string name="file_write_failed_title">Scrittura del file non riuscita</string>
   <string name="file_write_failed_message">Impossibile scrivere sul file selezionato.</string>
   <string name="welcome_title">Benvenuto!</string>
@@ -45,6 +51,7 @@
   <string name="progress_deleting_message">Sto eliminando...</string>
   <string name="progress_searching_message">Sto cercando...</string>
   <string name="progress_saving_message">Sto salvando...</string>
+  <string name="progress_uploading_message">Caricamento in corso...</string>
   <string name="upload_comment_label">Commento:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="upload_close_changeset_label">Chiudi il gruppo di modifiche:</string>
@@ -61,6 +68,7 @@
   <string name="openstreetbug_edit_close">Chiudi</string>
   <string name="openstreetbug_edit_closed">Chiusa</string>
   <string name="openstreetbug_not_downloaded">non scaricato</string>
+  <string name="openstreetbug_last_updated">Ultimo aggiornamento</string>
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Ci sono modifiche non salvate che verranno scartate se si prosegue.</string>
   <string name="unsaved_data_proceed">Scarta &amp; procedi</string>
@@ -77,10 +85,13 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Questi suggerimento può sostituire i valori delle etichette con quelli più popolari.</string>
   <string name="search_results_title">Cerca risultati</string>
   <string name="find_message">Inserisci il testo di ricerca</string>
+  <string name="search">Cerca</string>
+  <string name="no_valid_preset">Predefinito non valido!</string>
   <string name="read_file">Seleziona file da leggere</string>
   <string name="save_file">Inserisci il file dove salvare</string>
   <string name="existing_track_title">Traccia già esistente</string>
   <string name="existing_track_message">Hai già una traccia dati esistente. Prova ad annullare e a salvarla prima di continuare.</string>
+  <string name="delete_tags">Vuoi veramente eliminare tutte le etichette dall\'oggetto \"%1$s\"?</string>
   <string name="element_information">Informazioni sull\'elemento</string>
   <string name="id">Id</string>
   <string name="nodes">Nodi</string>
@@ -92,9 +103,14 @@
   <string name="length_m">Lunghezza (metri)</string>
   <string name="not_downloaded">Non scaricato</string>
   <string name="empty_role">Nessun ruolo</string>
+  <string name="element">elemento</string>
+  <string name="last_updated">ultimo aggiornamento</string>
+  <string name="error">errore</string>
   <string name="warning">avviso</string>
+  <string name="minor_issue">problema minore</string>
   <!--Toaster-->
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
+  <string name="toast_unsaved_changes">Hai delle modifiche non salvate, caricale prima di proseguire.</string>
   <string name="toast_upload_success">Caricamento nel server OSM completato.</string>
   <string name="toast_not_in_edit_range">Ingrandisci per modificare (Volume Su/Giù o Lente/Interruttore)</string>
   <string name="toast_unlock_to_edit">Sblocca per modificare</string>
@@ -119,6 +135,7 @@
   <string name="toast_oauth_retry">Abilita l\'accesso OAuth del tuo account OSM e riprova il caricamento.</string>
   <string name="toast_oauth">Abilita l\'accesso OAuth del tuo account OSM.</string>
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
+  <string name="toast_oauth_not_enabled">OAuth non è disponibile con le API attuali.</string>
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
@@ -129,6 +146,11 @@
   <string name="toast_imported_track_points">È stata importata una traccia con %1$s punti.</string>
   <string name="toast_inconsistent_state">È stato rilevato uno stato inconsistente, si prega di segnalare l\'errore!</string>
   <string name="toast_camera_error">Errore durante l\'esecuzione della app per la videocamera: %1$s</string>
+  <string name="toast_no_voice">Il riconoscimento vocale non è disponibile</string>
+  <string name="toast_min_one_preset">Devi selezionare almeno un predefinito!</string>
+  <string name="toast_used_backup">Il fle di stato è corrotto, ho usato il file di recupero.</string>
+  <string name="toast_used_bug_backup">Il file di stato dei bug è corrotto, ho usato il file di recupero!</string>
+  <string name="toast_rmpty_relation">La relazione è vuota, sto creando un rapporto di interruzione improvvisa.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
@@ -142,6 +164,8 @@
   <string name="save">Salva</string>
   <string name="back">Indietro</string>
   <string name="keep">Mantieni</string>
+  <string name="enable">Abilita</string>
+  <string name="retry">Riprova</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vuoi uscire veramente?</string>
   <string name="exit_text">Sei sicuro che vuoi uscire?</string>
@@ -162,10 +186,28 @@
   <string name="tag_menu_resetMRU">Azzera i predefiniti</string>
   <string name="tag_menu_reset_address_prediction">Azzera la predizione degli indirizzi civici</string>
   <string name="tag_menu_exit_no_save">Esci\nsenza salvare</string>
+  <string name="tag_value_hint">Scrivi un valore</string>
+  <string name="tag_autocomplete_value_hint">Scrivi o premi per i valori</string>
+  <string name="tag_autocomplete_name_hint">Scrivi o premi per dei suggerimenti sul nome</string>
   <string name="tag_multi_value_hint">Valori multipli</string>
+  <string name="tag_dialog_value_hint">Premi per i valori</string>
+  <string name="tag_action_members_title">Membro/i selezionato/i</string>
+  <string name="tag_action_parents_title">Relazione/i selezionata/e</string>
+  <string name="tag_additional_properties">Proprietà aggiuntive</string>
+  <string name="tag_details">Dettagli</string>
+  <string name="tag_menu_sort">Ordina</string>
+  <string name="tag_menu_download">Scarica</string>
   <string name="menu_up">Su</string>
   <string name="menu_top">In alto</string>
   <string name="menu_preset_help">Aiuto prefefiniti</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i8n">Aggiungi etichette per %1$s</string>
+  <string name="tag_restriction_header">Valore</string>
+  <string name="tag_restriction_when">quando</string>
+  <string name="tag_restriction_and">e</string>
+  <string name="tag_restriction_add_simple_condition">Aggiungi una semplice condizione</string>
+  <string name="tag_restriction_add_expression">Aggiungi espressione</string>
+  <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carica area</string>
   <string name="location_choose_radius">Scegli raggio:</string>
@@ -231,7 +273,13 @@
   <string name="menu_transfer_export">Esporta modifiche</string>
   <string name="menu_transfer_read_file">Leggi da file</string>
   <string name="menu_transfer_save_file">Salva su file</string>
+  <string name="menu_transfer_bugs">Note/Bug...</string>
+  <string name="menu_transfer_bugs_download_current">Scarica i bugs nelle vista corrente</string>
   <string name="menu_transfer_bugs_upload">Carica tutto</string>
+  <string name="menu_transfer_bugs_upload_long">Carica tutti i bug</string>
+  <string name="menu_transfer_autodownload_long">Scarica automaticamente i bug</string>
+  <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Salva tutte le note nuove o modificate...</string>
   <string name="menu_save">Salva file</string>
   <string name="menu_join">Unisci</string>
   <string name="menu_unjoin">Separa</string>
@@ -239,6 +287,7 @@
   <string name="menu_cut">Taglia</string>
   <string name="menu_paste">Incolla</string>
   <string name="menu_paste_from_clipboard">Copia dalla clipboard</string>
+  <string name="menu_zoom_to_selection">Ingrandisci la selezione</string>
   <string name="menu_rotate">Ruota</string>
   <string name="menu_orthogonalize">Ortogonalizza</string>
   <string name="menu_circulize">Disponi in cerchio</string>
@@ -247,6 +296,8 @@
   <string name="menu_extend_selection">Estendi selezione</string>
   <string name="menu_information">Informazioni</string>
   <string name="menu_voice_commands">Comandi vocali</string>
+  <string name="menu_set_name">Imposta un nome</string>
+  <string name="tag_form_unknown_element">Elemento sconosciuto (nessun predefinito trovato)</string>
   <string name="menu_tools">Strumenti</string>
   <string name="menu_tools_flush_background_tile_cache">Svuota la cache dei tasselli dello sfondo</string>
   <string name="menu_tools_flush_overlay_tile_cache">Svuota la cache dei tasselli sovrapposti</string>
@@ -260,6 +311,8 @@
   <string name="menu_tools_background_align_save_device">Salva sul dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Applica (a tutti gli ingrandimenti)</string>
   <string name="menu_tools_background_contrast">Contrasto</string>
+  <string name="menu_tools_oauth_reset">Resetta OAuth</string>
+  <string name="menu_tools_oauth_authorisation">Autorizza OAuth</string>
   <!--element action mode menu-->
   <string name="menu_tags">Proprietà</string>
   <!--Text should be as short as possible-->
@@ -282,6 +335,7 @@
   <string name="actionmode_createpath">Creazione percorso</string>
   <string name="actionmode_multiselect">Selezione multipla</string>
   <!--Preferences-->
+  <string name="config_category_editing">Impostazioni sui dati e sulle modifiche</string>
   <string name="config_category_view">Impostazioni interfaccia grafica</string>
   <string name="config_showCameraAction_title">Mostra la videocamera</string>
   <string name="config_showCameraAction_summary">Mostra l\'icona della videocamera nella action bar</string>
@@ -289,6 +343,8 @@
   <string name="config_generateAlerts_summary">Genera notifiche in caso di problemi con i dati o annotazioni</string>
   <string name="config_voiceCommandsEnabled_title">Abilita comandi vocali</string>
   <string name="config_voiceCommandsEnabled_summary">Abilita il supporto sperimentale ai comandi vocali</string>
+  <string name="config_maxAlertDistance_title">Massima distanza per le notifiche</string>
+  <string name="config_maxAlertDistance_summary">La massima distanza alla quale un errore od una nota devono essere dalla posizione corrente per generare una notifica</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Valore massimo per lo spessore di una via</string>
   <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>
@@ -299,6 +355,7 @@
   <string name="config_showTolerance_summary">Mostra l\'area dove un elemento può essere selezionato.</string>
   <string name="config_enableAntiAliasing_title">Abilita Anti-Aliasing</string>
   <string name="config_enableAntiAliasing_summary">Rendi le linee più morbide.</string>
+  <string name="config_enableOpenStreetBugs_title">Abilita la visualizzazione di bug e note</string>
   <string name="config_enableOpenStreetBugs_summary">Mostra, modifica e crea note/segnalazioni.</string>
   <string name="config_enablePhotoLayer_title">Abilita il livello delle foto</string>
   <string name="config_enablePhotoLayer_summary">Mostra foto geo-referenziate</string>
@@ -360,6 +417,7 @@
   <string name="config_enableLightTheme_title">Abilita tema leggero</string>
   <string name="config_enableLightTheme_summary">Tema leggero con sfondi bianchi</string>
   <string name="config_category_misc">Varie</string>
+  <string name="config_fullscreenMode_title">Modalità schermo intero</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aggiorna predefinito</string>
   <string name="preset_download_successful">Predefiniti scaricati con successo</string>
@@ -434,6 +492,14 @@
   <string name="alert_data_issue">È stato individuato un problema con i dati OSM</string>
   <string name="alert_note">Sono state individuate delle annotazioni OSM qua vicino</string>
   <string name="alert_distance_direction">entro %1$d m %2$s</string>
+  <string name="bearing_ne">NE</string>
+  <string name="bearing_e">E</string>
+  <string name="bearing_se">SE</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_sw">SO</string>
+  <string name="bearing_w">O</string>
+  <string name="bearing_nw">NO</string>
+  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
   <string name="role">Ruolo</string>
   <string name="role_lc">ruolo</string>
@@ -446,6 +512,7 @@
   <string name="deleterelation_relation_description">Stai per cancellare una relazione membro di una o più relazioni. Cancellare la relazione dalla/e relazione/i potrebbe renderla/e invalida/e.</string>
   <string name="deleterelation">Cancella relazione</string>
   <string name="delete_from_relation_description">Stai per cancellare questo elemento da una relazione.</string>
+  <string name="unset_relation_type">tipo di relazione non definito</string>
   <!--time and distance-->
   <string name="days">giorni</string>
   <string name="hours">ore</string>
@@ -467,5 +534,10 @@
     <item>Interno NMEA</item>
     <item>NMEA da client TCP</item>
     <item>NMEA da server TCP</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Aperto</item>
+    <item>Chiuso</item>
+    <item>Falso positivo</item>
   </string-array>
 </resources>
