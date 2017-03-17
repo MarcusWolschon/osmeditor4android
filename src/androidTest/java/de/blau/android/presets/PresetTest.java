@@ -54,5 +54,14 @@ public class PresetTest {
     	Assert.assertNull(Preset.splitValues(null, restaurant, "cuisine"));
     	values.add(null);
     	Assert.assertEquals(3,Preset.splitValues(values, restaurant, "cuisine").size());
+    	// lanes uses |
+    	PresetItem lanes = presets[0].getItemByName("Single direction roads");
+    	Assert.assertNotNull(lanes);
+    	values.clear();
+    	values.add("left|right");
+    	result = Preset.splitValues(values, lanes, "turn:lanes");
+    	Assert.assertEquals(2,result.size());
+    	Assert.assertTrue(result.contains("left"));
+    	Assert.assertTrue(result.contains("right"));
 	}
 }

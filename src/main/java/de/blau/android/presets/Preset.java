@@ -788,6 +788,21 @@ public class Preset implements Serializable {
 	}
 	
 	/**
+	 * Return a preset by name
+	 * Note: the names are not guaranteed to be unique, this will simple return the first found
+	 * @param name the name to search for
+	 * @return the preset item or null if not found
+	 */
+	@Nullable
+	public PresetItem getItemByName(String name) {
+		Integer index = getItemIndexByName(name); 
+		if (index != null) {
+			return allItems.get(index.intValue());
+		}
+		return null;
+	}
+	
+	/**
 	 * Returns a view showing the most recently used presets
 	 * @param handler the handler which will handle clicks on the presets
 	 * @param type filter to show only presets applying to this type
@@ -2305,8 +2320,6 @@ public class Preset implements Serializable {
 	@Nullable
 	public static ArrayList<String> splitValues(ArrayList<String>values, @NonNull PresetItem preset, @NonNull String key) {
 		ArrayList<String> result = new ArrayList<String>();
-		// String delimiter = Matcher.quoteReplacement("\\Q" + preset.getDelimiter(key)+"\\E"); // always quote to avoid surprises
-		// FIXME it is not clear why quoting as above stopped working needs investigation
 		String delimiter = String.valueOf(preset.getDelimiter(key));
 		if (values==null) {
 			return null;
@@ -2315,7 +2328,7 @@ public class Preset implements Serializable {
 			if (v==null) {
 				continue;
 			}
-			for (String s:v.split(delimiter)) {
+			for (String s:v.split(Pattern.quote(delimiter))) {
 				result.add(s.trim());
 			}
 		}
