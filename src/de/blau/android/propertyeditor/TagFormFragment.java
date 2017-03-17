@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -360,8 +361,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	 */
 	private ArrayList<String> splitValues(ArrayList<String>values, PresetItem preset, String key) {
 		ArrayList<String> result = new ArrayList<String>();
-		// String delimiter = Matcher.quoteReplacement("\\Q" + preset.getDelimiter(key)+"\\E"); // always quote to avoid surprises
-		// FIXME it is not clear why quoting as above stopped working needs investigation
 		String delimiter = String.valueOf(preset.getDelimiter(key));
 		if (values==null) {
 			return null;
@@ -370,7 +369,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			if (v==null) {
 				return null;
 			}
-			for (String s:v.split(delimiter)) {
+			for (String s:v.split(Pattern.quote(delimiter))) {
 				result.add(s.trim());
 			}
 		}
