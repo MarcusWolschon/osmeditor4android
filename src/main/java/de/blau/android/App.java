@@ -6,12 +6,12 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.mozilla.javascript.ImporterTopLevel;
-import org.mozilla.javascript.LazilyLoadedCtor;
 import org.mozilla.javascript.ScriptableObject;
 
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
@@ -36,6 +36,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 	resDialogCommentPrompt = R.string.crash_dialog_comment_prompt)
 public class App extends android.app.Application {
 	public static Main mainActivity;
+	public static App currentInstance;
 	private static StorageDelegator delegator = new StorageDelegator();
 	private static TaskStorage taskStorage = new TaskStorage();
 	private static OkHttpClient httpClient;
@@ -95,6 +96,7 @@ public class App extends android.app.Application {
 		String appName = getString(R.string.app_name);
 		String appVersion = getString(R.string.app_version);
 		userAgent = appName + "/" + appVersion;
+		currentInstance = this;
 	}
 	
 	public static StorageDelegator getDelegator() {
@@ -103,6 +105,14 @@ public class App extends android.app.Application {
 	
 	public static TaskStorage getTaskStorage() {
 		return taskStorage;
+	}
+	
+	public static App getCurrentInstance() {
+		return currentInstance;
+	}
+	
+	public static Resources resources() {
+		return currentInstance.getResources();
 	}
 
 	@NonNull

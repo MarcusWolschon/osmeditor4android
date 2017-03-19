@@ -189,6 +189,7 @@
     <string name="toast_invalid_readonlyurl">Invalid ReadOnly API URL</string>
     <string name="toast_invalid_notesurl">Invalid Notes API URL</string>
     <string name="toast_invalid_filter_regexp">Invalid regular expression in filter with key="%1$s" value="%2$s"</string>
+    <string name="toast_error_accessing_photo">Can\'t access photo %1$s</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -207,6 +208,7 @@
     <string name="enable">Enable</string>
     <string name="clear">Clear</string>
     <string name="retry">Retry</string>
+    <string name="read">Read</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>

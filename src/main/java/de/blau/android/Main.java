@@ -144,6 +144,7 @@ import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Search.SearchResult;
 import de.blau.android.util.SelectFile;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ZoomControls;
@@ -620,8 +621,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		map.setDelegator(App.getDelegator());
 		map.setViewBox(App.getLogic().getViewBox());
 		
-		map.setPrefs(prefs);
-		map.createOverlays();
+		map.setPrefs(this, prefs);
+		map.createOverlays(this);
 		map.getOpenStreetMapTilesOverlay().setContrast(prefs.getContrastValue());
 		map.requestFocus();
 		
@@ -690,7 +691,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		synchronized (loadOnResumeLock) {	
 			if (redownloadOnResume) {
 				redownloadOnResume = false;
-				logic.downloadLast();
+				logic.downloadLast(this);
 			} else if (loadOnResume) {
 				loadOnResume = false;	
 				PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
@@ -707,11 +708,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					public void onError() {
 					}
 				};
-				logic.loadFromFile(this,postLoadData);
+				logic.loadStateFromFile(this,postLoadData);
 				logic.loadBugsFromFile(this,postLoadTasks);
 			} else { // loadFromFile already does this
 				synchronized (setViewBoxLock) {
-					App.getLogic().loadEditingState(setViewBox);
+					App.getLogic().loadEditingState(this, setViewBox);
 				}
 				postLoadData.onSuccess();
 				map.invalidate();
@@ -815,9 +816,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, bbox); 
 					if (bboxes != null && bboxes.size() > 0) {
-						logic.downloadBox(bbox, true, null); 
+						logic.downloadBox(this, bbox, true, null); 
 					} else {
-						logic.getViewBox().setBorders(bbox);
+						logic.getViewBox().setBorders(getMap(), bbox);
 						map.invalidate();
 					}
 				} catch (OsmException e) {
@@ -826,7 +827,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				}
 			} else {
 				Log.d(DEBUG_TAG,"moving to position");
-				map.getViewBox().moveTo((int)(geoData.getLon()*1E7), (int)(geoData.getLat()*1E7));
+				map.getViewBox().moveTo(getMap(), (int)(geoData.getLon()*1E7), (int)(geoData.getLat()*1E7));
 				map.invalidate();
 			}
 			geoData=null; // zap to stop repeated downloads
@@ -841,7 +842,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox); 
 					if (bboxes != null && (bboxes.size() > 0 || delegator.isEmpty())) {
 						// only download if we haven't yet
-						logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
+						logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
 							private static final long serialVersionUID = 1L;
 							@Override
 							public void onSuccess(){
@@ -857,7 +858,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						rcData=null; // zap to stop repeated downloads
 					}
 				} else { // zoom
-					map.getViewBox().setBorders(rcData.getBox());
+					map.getViewBox().setBorders(getMap(),rcData.getBox());
 					map.invalidate();
 					rcData=null; // zap to stop repeated downloads
 				}
@@ -876,13 +877,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private void rcDataEdit(RemoteControlUrlData rcData) {
 		BoundingBox box = rcData.getBox();
 		if (box != null) {
-			map.getViewBox().setBorders(box);
+			map.getViewBox().setBorders(getMap(),box);
 		}
 		final Logic logic = App.getLogic();
 		if (rcData.getSelect() != null) {
 			// need to actually switch to easyeditmode
 			if (!logic.getMode().elementsGeomEditiable()) { // TODO there might be states in which we don't want to exit which ever mode we are in
-				setMode(Mode.MODE_EASYEDIT);
+				setMode(this, Mode.MODE_EASYEDIT);
 			}
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
@@ -976,9 +977,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Log.i(DEBUG_TAG, "saving data sync="+saveSync);
 		final Logic logic = App.getLogic();
 		if (saveSync) {
-			logic.save();
+			logic.save(this);
 		} else {
-			logic.saveAsync();
+			logic.saveAsync(this);
 		}
 	}
 
@@ -1093,7 +1094,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
 		        if(drawableState.length == 0 ||  (drawableState[0]!=android.R.attr.state_selected && drawableState[0]!=android.R.attr.state_pressed && drawableState[0]!=android.R.attr.state_focused)){
 		        	Mode mode = Mode.modeForTag((String)b.getTag());
-		        	logic.setMode(mode);
+		        	logic.setMode(Main.this, mode);
 		        	((FloatingActionButton)b).setImageState(new int[]{mode.getLockState()}, false); 
 		        	logic.setLocked(false);
 		        } else {
@@ -1118,7 +1119,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	        	case MODE_EASYEDIT:
 	        	case MODE_ALIGN_BACKGROUND: mode = Mode.MODE_TAG_EDIT; break;
 	        	}
-	        	logic.setMode(mode);
+	        	logic.setMode(Main.this, mode);
 	        	b.setTag(mode.tag());
 		        if(drawableState.length == 1 && (drawableState[0]==android.R.attr.state_selected || drawableState[0]==android.R.attr.state_pressed || drawableState[0]==android.R.attr.state_focused)){
 		        	((FloatingActionButton)b).setImageState(new int[]{mode.getLockState()}, false);
@@ -1165,13 +1166,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				break;
 
 			}
-			logic.setMode(mode);
+			logic.setMode(this, mode);
 		}
 		return lock; // for convenience
 	}
 
-	public void setMode(Logic.Mode mode) {
-		App.getLogic().setMode(mode); 
+	public void setMode(Main main, Logic.Mode mode) {
+		App.getLogic().setMode(main, mode); 
 	}
 	
 	private void updateActionbarEditMode() {
@@ -1329,8 +1330,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					// turn this off or else we get bounced back to our current GPS position
 					setFollowGPS(false);
 					getMap().setFollowGPS(false);
-					logic.setZoom(19);
-					getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
+					logic.setZoom(getMap(), 19);
+					getMap().getViewBox().moveTo(getMap(), (int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
 					getMap().invalidate();
 				}
 			});
@@ -1378,7 +1379,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				}
 			} catch (Exception ex) {
 				try {
-					Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_camera_error, ex.getMessage()), Toast.LENGTH_LONG).show();
+					Snack.barError(this, getResources().getString(R.string.toast_camera_error, ex.getMessage()));
 				} catch (Exception e) {
 					// protect against translation errors
 				}
@@ -1401,8 +1402,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				gotoLoc = getLastLocation();
 			} // else moan? without GPS enabled this shouldn't be selectable currently
 			if (gotoLoc != null) {
-				map.getViewBox().moveTo((int) (gotoLoc.getLongitude() * 1E7d), (int) (gotoLoc.getLatitude() * 1E7d));
-				logic.setZoom(19);
+				map.getViewBox().moveTo(getMap(), (int) (gotoLoc.getLongitude() * 1E7d), (int) (gotoLoc.getLatitude() * 1E7d));
+				logic.setZoom(getMap(), 19);
 				map.setLocation(gotoLoc);
 				map.invalidate();
 			}
@@ -1443,7 +1444,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						}
 					});
 					if (server.getOAuth()) { // if still set
-						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+						Snack.barError(this, R.string.toast_oauth);
 						return true;
 					} 
 				}	
@@ -1476,10 +1477,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			        	} else {
 			        		getTracker().stopTracking(false);
 			        		try {
-								getTracker().importGPXFile(fileUri);
+								getTracker().importGPXFile(Main.this, fileUri);
 							} catch (FileNotFoundException e) {
 								try {
-									Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_file_not_found, fileUri.toString()), Toast.LENGTH_LONG).show();
+									Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
 								} catch (Exception ex) {
 									// protect against translation errors
 								}
@@ -1497,8 +1498,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				Log.d(DEBUG_TAG,"Going to start of track");
 				setFollowGPS(false);
 				map.setFollowGPS(false);
-				map.getViewBox().moveTo(l.get(0).getLon(), l.get(0).getLat());
-				logic.setZoom(19);
+				map.getViewBox().moveTo(getMap(), l.get(0).getLon(), l.get(0).getLat());
+				logic.setZoom(getMap(), 19);
 				map.invalidate();
 			}
 			return true;
@@ -1564,10 +1565,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				@Override
 				public boolean read(Uri fileUri) {
 					try {
-						logic.readOsmFile(fileUri, false);
+						logic.readOsmFile(Main.this, fileUri, false);
 					} catch (FileNotFoundException e) {
 						try {
-							Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_file_not_found, fileUri.toString()), Toast.LENGTH_LONG).show();
+							Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
 						} catch (Exception ex) {
 							// protect against translation errors
 						}
@@ -1584,7 +1585,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				private static final long serialVersionUID = 1L;
 				@Override
 				public boolean save(Uri fileUri) {
-					App.getLogic().writeOsmFile(fileUri.getPath(), null);
+					App.getLogic().writeOsmFile(Main.this, fileUri.getPath(), null);
 					return true;
 				}});
 			return true;
@@ -1606,13 +1607,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (App.getTaskStorage().hasChanges()) {
 				TransferTasks.upload(this, server);
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+				Snack.barInfo(this, R.string.toast_no_changes);
 			}
 			return true;
 			
 		case R.id.menu_transfer_bugs_clear:
 			if (App.getTaskStorage().hasChanges()) { // FIXME show a dialog and allow override
-				Toast.makeText(getApplicationContext(), R.string.toast_unsaved_changes, Toast.LENGTH_LONG).show();
+				Snack.barError(this, R.string.toast_unsaved_changes);
 				return true;
 			}
 			App.getTaskStorage().reset();
@@ -1631,7 +1632,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				private static final long serialVersionUID = 1L;
 				@Override
 				public boolean save(Uri fileUri) {
-					TransferTasks.writeOsnFile(item.getItemId()==R.id.menu_transfer_save_notes_all,fileUri.getPath());
+					TransferTasks.writeOsnFile(Main.this, item.getItemId()==R.id.menu_transfer_save_notes_all,fileUri.getPath());
 					return true;
 				}});
 			return true;
@@ -1641,17 +1642,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_tools_flush_background_tile_cache:
-			map.getOpenStreetMapTilesOverlay().flushTileCache();
+			map.getOpenStreetMapTilesOverlay().flushTileCache(this);
 			return true;
 			
 		case R.id.menu_tools_flush_overlay_tile_cache:
-			map.getOpenStreetMapOverlayTilesOverlay().flushTileCache();
+			map.getOpenStreetMapOverlayTilesOverlay().flushTileCache(this);
 			return true;
 			
 		case R.id.menu_tools_background_align:
 			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT; // protect against weird state
 			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(this, oldMode);
-			logic.setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
+			logic.setMode(this, Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
 			startSupportActionMode(getBackgroundAlignmentActionModeCallback());
 			return true;
 			
@@ -1664,7 +1665,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this);	
 				prefdb.setAPIAccessToken(null, null);
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.toast_oauth_not_enabled, Toast.LENGTH_LONG).show();
+				Snack.barError(this, R.string.toast_oauth_not_enabled);
 			}
 			return true;
 			
@@ -1672,7 +1673,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (server.getOAuth()) {
 				oAuthHandshake(server, null);
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.toast_oauth_not_enabled, Toast.LENGTH_LONG).show();
+				Snack.barError(this, R.string.toast_oauth_not_enabled);
 			}
 			return true;
 		case R.id.tag_menu_js_console:
@@ -1707,7 +1708,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
 		} catch (Exception ex) {
 			Log.d(DEBUG_TAG,"Caught exception " + ex);
-			Toast.makeText(getApplicationContext(),R.string.toast_no_voice, Toast.LENGTH_LONG).show();
+			Snack.barError(this, R.string.toast_no_voice);
 		}
 	}
 	
@@ -1732,8 +1733,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	    	startActivityForResult(intent,purpose);
 	    } catch (android.content.ActivityNotFoundException ex) {
 	        // Potentially direct the user to the Market with a Dialog
-	        Toast.makeText(getApplicationContext(), R.string.toast_missing_filemanager, 
-	                Toast.LENGTH_SHORT).show();
+	    	Snack.barError(this,  R.string.toast_missing_filemanager);
 	    }
 	}
 	
@@ -1818,7 +1818,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return false;
 		} catch (Exception e) {
 			Log.d(DEBUG_TAG, "Error when checking for GPS, assuming GPS not available", e);
-			Toast.makeText(getApplicationContext(), R.string.gps_failure, Toast.LENGTH_SHORT).show();
+			Snack.barInfo(this, R.string.gps_failure);
 			return false;
 		}
 	}
@@ -1893,7 +1893,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		if (App.getLogic().hasChanges() && !add) {
 			DownloadCurrentWithChanges.showDialog(this);
 		} else {
-			performCurrentViewHttpLoad(add);
+			performCurrentViewHttpLoad(this, add);
 		}
 	}
 	
@@ -2063,14 +2063,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 	}
 
-	public void performCurrentViewHttpLoad(boolean add) {
-		App.getLogic().downloadCurrent(add);
-		if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
-			TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
+	public static void performCurrentViewHttpLoad(final Main main, boolean add) {
+		App.getLogic().downloadCurrent(main, add);
+		if (main.prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
+			TransferTasks.downloadBox(main, main.prefs.getServer(), main.getMap().getViewBox().copy(), true, new PostAsyncActionHandler() {
 				private static final long serialVersionUID = 1L;
 				@Override
 				public void onSuccess() {
-					map.invalidate();
+					main.getMap().invalidate();
 				}
 				@Override
 				public void onError() {
@@ -2080,11 +2080,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		App.getLogic().downloadBox(box, false, null);
+		App.getLogic().downloadBox(this, box, false, null);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
-		App.getLogic().newEmptyMap(box);
+		App.getLogic().newEmptyMap(this, box);
 	}
 
 	/**
@@ -2102,14 +2102,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			boolean hasBugChanges = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
 			if (hasDataChanges || hasBugChanges) {
 				if (hasDataChanges) {
-					logic.upload(comment, source, closeChangeset);
+					logic.upload(this, comment, source, closeChangeset);
 				}
 				if (hasBugChanges) {
 					TransferTasks.upload(this, server);
 				}
-				logic.checkForMail();
+				logic.checkForMail(this);
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+				Snack.barInfo(this, R.string.toast_no_changes);
 			}
 		} else {
 			ErrorAlert.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
@@ -2125,8 +2125,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			logic.uploadTrack(getTracker().getTrack(), description, tags, visibility);
-			logic.checkForMail();
+			logic.uploadTrack(this, getTracker().getTrack(), description, tags, visibility);
+			logic.checkForMail(this);
 		} else {
 			ErrorAlert.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 		}
@@ -2152,12 +2152,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						}
 					});
 					if (server.getOAuth()) // if still set
-						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+						Snack.barError(this, R.string.toast_oauth);
 					return;
 				} 
 				ConfirmUpload.showDialog(Main.this);
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+				Snack.barInfo(this, R.string.toast_no_changes);
 			}		
 		} else {
 			ErrorAlert.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
@@ -2243,7 +2243,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		} catch (OsmException oe) {
 			server.setOAuth(false); // ups something went wrong turn oauth off
 			showControls();
-			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_no_oauth), Toast.LENGTH_LONG).show();
+			Snack.barError(this, R.string.toast_no_oauth);
 			return;
 		}
 		Log.d(DEBUG_TAG, "oauth auth url " + url);
@@ -2262,7 +2262,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			errorMessage = getString(R.string.toast_oauth_timeout);
 		}
 		if (authUrl == null) {
-			Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+			Snack.barError(this, errorMessage);
 			showControls();
 			return;
 		}
@@ -2449,10 +2449,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		if (prefs.useBackForUndo()) {
 			String name = App.getLogic().undo();
-			if (name != null)
-				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
-			else
+			if (name != null) {
+				Snack.barInfo(this, getResources().getString(R.string.undo) + ": " + name);	
+			} else {
 				exitOnBackPressed();
+			}
 		} else {
 			exitOnBackPressed();
 		}
@@ -2517,9 +2518,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			final Logic logic = App.getLogic();
 			String name = logic.undo();
 			if (name != null) {
-				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
+				Snack.barInfoShort(Main.this, getResources().getString(R.string.undo) + ": " + name);
 			} else {
-				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
+				Snack.barInfoShort(Main.this, R.string.undo_nothing);
 			}
 			resync(logic);
 			map.invalidate();
@@ -2533,7 +2534,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (undo.canUndo() || undo.canRedo()) {
 				UndoDialogFactory.showUndoDialog(Main.this, logic, undo);
 			} else {
-				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
+				Snack.barInfoShort(Main.this, R.string.undo_nothing);
 			}
 			resync(logic);
 			map.invalidate();
@@ -2573,7 +2574,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				clickedBugs = null;
 				clickedPhotos = null;
 				clickedNodesAndWays = null;
-				App.getLogic().handleTouchEventDown(m.getX(), m.getY());
+				App.getLogic().handleTouchEventDown(Main.this,m.getX(), m.getY());
 			}
 			if (m.getAction() == MotionEvent.ACTION_UP) {
 				App.getLogic().handleTouchEventUp(m.getX(), m.getY());
@@ -2600,11 +2601,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			
 			if (isInEditZoomRange) {
 				if (logic.isLocked()) {
-					if (NetworkStatus.isConnected(App.mainActivity) && prefs.voiceCommandsEnabled()) {
+					if (NetworkStatus.isConnected(Main.this) && prefs.voiceCommandsEnabled()) {
 						locationForIntent = lastLocation; // location when we touched the screen
 						startVoiceRecognition();
 					} else {
-						Toast.makeText(getApplicationContext(), R.string.toast_unlock_to_edit, Toast.LENGTH_SHORT).show();
+						Snack.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
 					}
 				} else {
 					if (mode.elementsEditable()) {
@@ -2616,7 +2617,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + ((clickedPhotos == null) ? 0 : clickedPhotos.size())) {
 				case 0:
 					if (!isInEditZoomRange && !logic.isLocked()) {
-						Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
+						Snack.barInfoShort(v, R.string.toast_not_in_edit_range);
 					}
 					break;
 				case 1:
@@ -2650,7 +2651,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					map.getPhotosOverlay().setSelected(photo);
 					//TODO may need a map.invalidate() here
 				} else {
-					Toast.makeText(Main.this, "Coudn't access photo at " + photo.getRef(), Toast.LENGTH_LONG).show();
+					Snack.barError(Main.this, Main.this.getResources().getString(R.string.toast_error_accessing_photo, photo.getRef()));
 				}
 			} catch (Exception ex) {
 				Log.d(DEBUG_TAG, "viewPhoto exception starting intent: " + ex);	
@@ -2703,7 +2704,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				setFollowGPS(false); // editing with the screen moving under you is a pain
 				return easyEditManager.handleLongClick(v, x, y);
 			} else {
-				Toast.makeText(v.getContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
+				Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
 			}
 
 			return true; // long click handled
@@ -2712,7 +2713,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
 			// Log.d("MapTouchListener", "onDrag dx " + dx + " dy " + dy );
-			App.getLogic().handleTouchEventMove(x, y, -dx, dy);
+			App.getLogic().handleTouchEventMove(Main.this, x, y, -dx, dy);
 			setFollowGPS(false);
 		}
 		
@@ -2831,7 +2832,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						if (ways != null && ways.size() > 0) {
 							description = description + " (";
 							for (Way w:ways) {
-								description = description + w.getDescription(App.mainActivity) + ((ways.indexOf(w)!=(ways.size()-1)?", ":""));
+								description = description + w.getDescription(Main.this) + ((ways.indexOf(w)!=(ways.size()-1)?", ":""));
 							}
 							description = description + ")";
 						}
@@ -2929,37 +2930,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				}
 			}
 			return true;
-		}
-		
-		/**
-		 * Show toasts displaying the info on nearby objects
-		 */
-		void displayInfo(final float x, final float y) {
-			clickedNodesAndWays = App.getLogic().getClickedNodesAndWays(x, y);
-			// clickedPhotos and
-			if (clickedPhotos != null) {
-				for (Photo p : clickedPhotos) {
-					Uri photoUri = p.getRef(Main.this);
-					if (photoUri != null) {
-						Toast.makeText(getApplicationContext(), photoUri.getLastPathSegment(), Toast.LENGTH_SHORT).show();
-					}
-				}
-			}
-			if (clickedBugs != null) {
-				for (Task b : clickedBugs) {
-					Toast.makeText(getApplicationContext(), b.getDescription(), Toast.LENGTH_SHORT).show();
-				}
-			}
-			if (clickedNodesAndWays != null) {
-				for (OsmElement e : clickedNodesAndWays) {
-					String toast = e.getDescription();
-					if (e.hasProblem(getApplicationContext())) {
-						String problem = e.describeProblem();
-						toast = !problem.equals("") ? toast + "\n" + problem : toast;
-					}
-					Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
-				}
-			}	
 		}
 
 		@Override
@@ -3165,7 +3135,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				viewBox.zoomIn();
 			}			
 			// re-center on current position
-			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
+			viewBox.moveTo(getMap(), (int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
 		}
 		lastLocation  = location;
 		if (showGPS) {		
@@ -3185,6 +3155,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 	
 	/**
+	 * FIXME this is legacy code and should be removed, currently only called from UndoStorage.updateIcon()
 	 * Invalidates the options menu of the main activity if such an activity exists.
 	 * MUST BE CALLED FROM THE MAIN/UI THREAD!
 	 */
@@ -3269,20 +3240,20 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private void zoomTo(int lonE7, int latE7, OsmElement e) {
 		setFollowGPS(false); // otherwise the screen could move around
 		if (e instanceof Node && map.getZoomLevel() < 22) {
-			App.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
+			App.getLogic().setZoom(getMap(), 22); // FIXME this doesn't seem to work as expected
 		} else {
-			map.getViewBox().setBorders(e.getBounds(),false);
+			map.getViewBox().setBorders(getMap(), e.getBounds(),false);
 		}
-		map.getViewBox().moveTo(lonE7, latE7);
+		map.getViewBox().moveTo(getMap(), lonE7, latE7);
 	}
 	
 	public void zoomTo( OsmElement e) {
 		setFollowGPS(false); // otherwise the screen could move around
 		if (e instanceof Node && map.getZoomLevel() < 22) {
-			App.getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
-			map.getViewBox().moveTo(((Node)e).getLon(), ((Node)e).getLat());
+			App.getLogic().setZoom(getMap(), 22); // FIXME this doesn't seem to work as expected
+			map.getViewBox().moveTo(getMap(), ((Node)e).getLon(), ((Node)e).getLat());
 		} else {
-			map.getViewBox().setBorders(e.getBounds(),false);
+			map.getViewBox().setBorders(getMap(), e.getBounds(),false);
 		}
 		
 	}

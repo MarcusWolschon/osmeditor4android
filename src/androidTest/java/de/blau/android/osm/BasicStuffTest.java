@@ -52,7 +52,7 @@ public class BasicStuffTest {
     	logic.setSelectedRelation(null);
     	// nodes
     	try {
-    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(null, 100.0f, 100.0f);
     	} catch (OsmIllegalOperationException e) {
     		Assert.fail(e.getMessage());
     	}
@@ -65,7 +65,7 @@ public class BasicStuffTest {
        	setTagsElement(logic, n, n2); 
        	// ways
 		try {
-			logic.performAdd(150.0f, 150.0f);
+			logic.performAdd(null,150.0f, 150.0f);
 		} catch (OsmIllegalOperationException e) {
 			Assert.fail(e.getMessage());
 		}

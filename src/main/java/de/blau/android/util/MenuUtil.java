@@ -25,7 +25,7 @@ public class MenuUtil {
 	public MenuUtil(Context ctx) {
 		// hardcoded calculation of how many icons we want to display
 		//TODO de-hardcode
-		DisplayMetrics metrics = App.mainActivity.getResources().getDisplayMetrics();
+		DisplayMetrics metrics = App.resources().getDisplayMetrics();
 		screenWidth = metrics.widthPixels;
 		float widthDp = metrics.widthPixels / metrics.density;
 

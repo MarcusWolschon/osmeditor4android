@@ -395,7 +395,7 @@ public class Way extends OsmElement implements BoundedObject {
 		String wayProblem = "";
 		String highway = getTagWithKey(Tags.KEY_HIGHWAY);
 		if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
-			wayProblem = App.mainActivity.getString(R.string.toast_unsurveyed_road);
+			wayProblem = App.resources().getString(R.string.toast_unsurveyed_road);
 		}
 		if ((getTagWithKey(Tags.KEY_NAME) == null) && (getTagWithKey(Tags.KEY_REF) == null)
 				&& !(hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES))) {
@@ -407,7 +407,7 @@ public class Way extends OsmElement implements BoundedObject {
 				}
 			}
 			if (isImportant) {
-				wayProblem = !wayProblem.equals("") ? wayProblem +", " :  App.mainActivity.getString(R.string.toast_noname);
+				wayProblem = !wayProblem.equals("") ? wayProblem +", " :  App.resources().getString(R.string.toast_noname);
 			}
 		}
 		if (!superProblem.equals("")) 

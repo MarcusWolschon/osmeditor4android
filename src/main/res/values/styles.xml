@@ -99,6 +99,10 @@
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
 		<item name="EditText">@style/EditTextDark</item>
+		<!-- colours -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 	
 	<style name="ActionButtonDark" parent="@style/Widget.AppCompat.ActionButton" />
@@ -150,6 +154,10 @@
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonLight</item>
 		<item name="EditText">@style/EditTextLight</item>
+		<!--  colors -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 
 	<style name="ActionButtonLight" parent="@style/Widget.AppCompat.Light.ActionButton" />
@@ -229,6 +237,10 @@
 		<item name="not_downloaded_node_small">@drawable/node_small_dark</item>
 		<item name="not_downloaded_line_small">@drawable/line_small_dark</item>
 		<item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
+		<!--  colors -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 	
 	<style name="Theme.customActionBar" parent="@style/Theme.AppCompat">
@@ -386,6 +398,10 @@
 		<item name="not_downloaded_node_small">@drawable/node_small_dark</item>
 		<item name="not_downloaded_line_small">@drawable/line_small_dark</item>
 		<item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
+		<!--  colors -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 	
 	<style name="Theme.customActionBar.Light" parent="@style/Theme.AppCompat.Light">

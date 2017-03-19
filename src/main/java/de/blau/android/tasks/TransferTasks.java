@@ -14,6 +14,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import com.drew.lang.annotations.NotNull;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -21,10 +23,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
+import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.UploadResult;
@@ -39,6 +42,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Snack;
 
 public class TransferTasks {
 
@@ -119,10 +123,10 @@ public class TransferTasks {
 	
 	/**
 	 * Upload Notes or bugs to server, needs to be called from main for now (mainly for OAuth dependency)
-	 * @param context
+	 * @param main instance of main calling this
 	 * @param server
 	 */
-	static public void upload(final Context context, final Server server) {
+	static public void upload(@NotNull final Main main, final Server server) {
 		final String PROGRESS_TAG = "tasks";
 
 		if (server != null) {
@@ -132,22 +136,23 @@ public class TransferTasks {
 				if (b.changed && b instanceof Note) {
 					if (server.isLoginSet()) {
 						if (server.needOAuthHandshake()) {
-							App.mainActivity.oAuthHandshake(server, new PostAsyncActionHandler() {
+							main.oAuthHandshake(server, new PostAsyncActionHandler() {
 								@Override
 								public void onSuccess() {
-									Preferences prefs = new Preferences(context);
-									upload(context, prefs.getServer());
+									Preferences prefs = new Preferences(main);
+									upload(main, prefs.getServer());
 								}
 								@Override
 								public void onError() {
 								}
 							});
-							if (server.getOAuth()) // if still set
-								Toast.makeText(context, R.string.toast_oauth, Toast.LENGTH_LONG).show();
+							if (server.getOAuth()) { // if still set
+								Snack.barError(main, R.string.toast_oauth);
+							}
 							return;
 						} 
 					} else {
-						ErrorAlert.showDialog(App.mainActivity,ErrorCodes.NO_LOGIN_DATA);
+						ErrorAlert.showDialog(main,ErrorCodes.NO_LOGIN_DATA);
 						return;
 					}
 				}
@@ -155,7 +160,7 @@ public class TransferTasks {
 			new AsyncTask<Void, Void, Boolean>() {
 				@Override
 				protected void onPreExecute() {
-					Progress.showDialog(App.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+					Progress.showDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
 					Log.d(DEBUG_TAG,"starting up load of total " + queryResult.size() + " tasks");
 				}
 
@@ -172,9 +177,9 @@ public class TransferTasks {
 								Note n = (Note)b;
 								NoteComment nc = n.getLastComment();
 								if (nc != null && nc.isNew()) {
-									uploadFailed = !uploadNote(context, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
+									uploadFailed = !uploadNote(main, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
 								} else {
-									uploadFailed = !uploadNote(context, server, n, null, n.isClosed(), true, null) || uploadFailed; // just a state change
+									uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed; // just a state change
 								}
 							} else if (b instanceof OsmoseBug) {
 								uploadFailed =  uploadOsmoseBug((OsmoseBug)b) || uploadFailed;
@@ -186,8 +191,12 @@ public class TransferTasks {
 				
 				@Override
 				protected void onPostExecute(Boolean uploadFailed) {
-					Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-					Toast.makeText(App.mainActivity.getApplicationContext(), !uploadFailed ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
+					Progress.dismissDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+					if (!uploadFailed) {
+						Snack.barInfo(main, R.string.openstreetbug_commit_ok);
+					} else {
+						Snack.barError(main, R.string.openstreetbug_commit_fail);
+					}
 				}
 			}.execute();
 		}
@@ -226,7 +235,8 @@ public class TransferTasks {
 	
 	/**
 	 * Commit changes to a Note
-	 * @param context Android Context
+	 * 
+	 * @param activity activity that called this
 	 * @param server Server configuration
 	 * @param note the Note to upload
 	 * @param comment Comment to add to the Note.
@@ -236,30 +246,32 @@ public class TransferTasks {
 	 * @return true if upload was successful
 	 */
 	@TargetApi(11)
-	static public boolean uploadNote(@NonNull final Context context, @NonNull final Server server, @NonNull final Note note, final String comment, 
+	static public boolean uploadNote(@NonNull final FragmentActivity activity, @NonNull final Server server, @NonNull final Note note, final String comment, 
 			final boolean close, final boolean quiet,  @Nullable final PostAsyncActionHandler postUploadHandler) {
 		Log.d(DEBUG_TAG, "uploadNote");
 
 		if (server != null) {
 			if (server.isLoginSet()) {
 				if (server.needOAuthHandshake()) {
-					App.mainActivity.oAuthHandshake(server, new PostAsyncActionHandler() {
-						@Override
-						public void onSuccess() {
-							Preferences prefs = new Preferences(context);
-							uploadNote(context, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
-						}
-						@Override
-						public void onError() {
-						}
-					});
+					if (activity instanceof Main) {
+						((Main)activity).oAuthHandshake(server, new PostAsyncActionHandler() {
+							@Override
+							public void onSuccess() {
+								Preferences prefs = new Preferences(activity);
+								uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
+							}
+							@Override
+							public void onError() {
+							}
+						});
+					}
 					if (server.getOAuth()) { // if still set
-						Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+						Snack.barError(activity, R.string.toast_oauth);
 					}
 					return false;
 				} 
 			} else {
-				ErrorAlert.showDialog(App.mainActivity,ErrorCodes.NO_LOGIN_DATA);
+				ErrorAlert.showDialog(activity,ErrorCodes.NO_LOGIN_DATA);
 				return false;
 			}
 
@@ -273,7 +285,7 @@ public class TransferTasks {
 					Log.d(DEBUG_TAG,"onPreExecute");
 					newBug = bug.isNew();
 					if (!quiet) {
-						Progress.showDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);
+						Progress.showDialog(activity, Progress.PROGRESS_UPLOADING);
 					}
 				}
 
@@ -300,15 +312,15 @@ public class TransferTasks {
 						}
 					}	
 					if (!quiet) {
-						Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);
+						Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING);
 						// Toast.makeText(context, result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
-						if (!App.mainActivity.isFinishing()) {
+						if (!activity.isFinishing()) {
 							if (result.error == ErrorCodes.INVALID_LOGIN) {
-								InvalidLogin.showDialog(App.mainActivity);
+								InvalidLogin.showDialog(activity);
 							} else if (result.error == ErrorCodes.FORBIDDEN) {
-								ForbiddenLogin.showDialog(App.mainActivity,result.message);
+								ForbiddenLogin.showDialog(activity,result.message);
 							} else if (result.error != 0) {
-								ErrorAlert.showDialog(App.mainActivity,result.error);
+								ErrorAlert.showDialog(activity,result.error);
 							}
 						}
 					}
@@ -342,12 +354,12 @@ public class TransferTasks {
 	 * 
 	 * @param fileName
 	 */
-	static public void writeOsnFile(final boolean all, final String fileName) {
+	static public void writeOsnFile(@NotNull final FragmentActivity activity, final boolean all, final String fileName) {
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(App.mainActivity, Progress.PROGRESS_SAVING);
+				Progress.showDialog(activity, Progress.PROGRESS_SAVING);
 			}
 			
 			@Override
@@ -406,7 +418,7 @@ public class TransferTasks {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_SAVING);
+				Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
 				if (result != 0) {
 					if (result == ErrorCodes.OUT_OF_MEMORY) {
 						System.gc();
@@ -414,8 +426,8 @@ public class TransferTasks {
 							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
 					}
-					if (!App.mainActivity.isFinishing()) {
-						ErrorAlert.showDialog(App.mainActivity,result);
+					if (!activity.isFinishing()) {
+						ErrorAlert.showDialog(activity,result);
 					}
 				}
 			}

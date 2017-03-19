@@ -18,10 +18,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
-import android.widget.Toast;
-import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -97,7 +96,7 @@ public class ImportTrack extends DialogFragment
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
     {
-		Builder builder = new AlertDialog.Builder(App.mainActivity);
+		Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
 		builder.setTitle(R.string.existing_track_title);
 		builder.setMessage(R.string.existing_track_message);
@@ -105,14 +104,17 @@ public class ImportTrack extends DialogFragment
 		builder.setPositiveButton(R.string.replace, 	new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				((Main) getActivity()).getTracker().stopTracking(true);
-				try {
-					((Main) getActivity()).getTracker().importGPXFile(uri);
-				} catch (FileNotFoundException e) {
+				Main main = (Main) getActivity();
+				if (main != null) {
+					main.getTracker().stopTracking(true);
 					try {
-						Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
-					} catch (Exception ex) {
-						// protect against translation errors
+						main.getTracker().importGPXFile(main, uri);
+					} catch (FileNotFoundException e) {
+						try {
+							Snack.barError(main, main.getResources().getString(R.string.toast_file_not_found, uri.toString()));
+						} catch (Exception ex) {
+							// protect against translation errors
+						}
 					}
 				}
 			}
@@ -120,14 +122,17 @@ public class ImportTrack extends DialogFragment
 		builder.setNeutralButton(R.string.keep, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				((Main) getActivity()).getTracker().stopTracking(false);
-				try {
-					((Main) getActivity()).getTracker().importGPXFile(uri);
-				} catch (FileNotFoundException e) {
+				Main main = (Main) getActivity();
+				if (main != null) {
+					main.getTracker().stopTracking(false);
 					try {
-						Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
-					} catch (Exception ex) {
-						// protect against translation errors
+						main.getTracker().importGPXFile(main, uri);
+					} catch (FileNotFoundException e) {
+						try {
+							Snack.barError(main, main.getResources().getString(R.string.toast_file_not_found, uri.toString()));
+						} catch (Exception ex) {
+							// protect against translation errors
+						}
 					}
 				}
 			}

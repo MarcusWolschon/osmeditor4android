@@ -115,7 +115,7 @@ public class PresetIconManager {
 			
 			if (pngStream == null) return null;
 			
-			BitmapDrawable drawable = new BitmapDrawable(App.mainActivity.getResources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
+			BitmapDrawable drawable = new BitmapDrawable(App.resources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
 			drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
 			int pxsize = Density.dpToPx(size);
 			drawable.setBounds(0, 0, pxsize, pxsize);

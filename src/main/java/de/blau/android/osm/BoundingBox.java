@@ -6,8 +6,9 @@ import java.util.ArrayList;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
-import de.blau.android.App;
+import de.blau.android.Map;
 import de.blau.android.exception.OsmException;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
@@ -397,10 +398,12 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * Changes the dimensions of this bounding box to fit the given ratio.
 	 * Ratio is width divided by height. The smallest dimension will remain,
 	 * the larger one will be resized to fit ratio.
+	 * 
+	 * @param map an instance 
 	 * @param ratio The new aspect ratio.
 	 */
-	public void setRatio(final float ratio) throws OsmException {
-		setRatio(ratio, false);
+	public void setRatio(Map map, final float ratio) throws OsmException {
+		setRatio(map, ratio, false);
 	}
 	
 	/**
@@ -411,7 +414,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * false, the new bounding box is sized such that the currently visible
 	 * area is still visible with the new aspect ratio applied.
 	 */
-	public void setRatio(final float ratio, final boolean preserveZoom) throws OsmException {
+	public void setRatio(Map map, final float ratio, final boolean preserveZoom) throws OsmException {
 		long mTop = GeoMath.latE7ToMercatorE7(top); // note long or else we get an int overflow on calculating the center
 		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		long mHeight = mTop - mBottom;
@@ -446,14 +449,14 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 						newHeight2 = (long)((width / 2L) / ratio);
 						newWidth2 = width / 2L;
 					} else { // switch landscape --> portrait
-						float pixelDeg = (float)App.mainActivity.getMap().getHeight()/(float)width; // height was the old width
-						newWidth2 = (long)(App.mainActivity.getMap().getWidth() / pixelDeg)/2L;
+						float pixelDeg = (float)map.getHeight()/(float)width; // height was the old width
+						newWidth2 = (long)(map.getWidth() / pixelDeg)/2L;
 						newHeight2 = (long)(newWidth2 / ratio );
 					}
 				} else { // landscape
 					if (width < mHeight) { // switch portrait -> landscape
-						float pixelDeg = (float)App.mainActivity.getMap().getHeight()/(float)width; // height was the old width
-						newWidth2 = (long)(App.mainActivity.getMap().getWidth() / pixelDeg)/2L;
+						float pixelDeg = (float)map.getHeight()/(float)width; // height was the old width
+						newWidth2 = (long)(map.getWidth() / pixelDeg)/2L;
 						newHeight2 = (long)(newWidth2 / ratio );
 					} else {
 						newHeight2 =(long)((width / 2L) / ratio);
@@ -522,17 +525,18 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * Performs a translation so the center of this bounding box will be at
 	 * (lonCenter|latCenter).
 	 * 
+	 * @param map current map view
 	 * @param lonCenter the absolute longitude for the center (deg*1E7)
 	 * @param latCenter the absolute latitude for the center (deg*1E7)
 	 */
-	public void moveTo(final int lonCenter, final int latCenter) {
+	public void moveTo(Map map, final int lonCenter, final int latCenter) {
 		// new middle in mercator
 		double mLatCenter = GeoMath.latE7ToMercator(latCenter);
 		double mTop = GeoMath.latE7ToMercator(top);
 		int newBottom = GeoMath.mercatorToLatE7(mLatCenter - (mTop - bottomMercator)/2);
 		
 		try {
-			translate((lonCenter - left - (int)(width / 2L)), newBottom - bottom);
+			translate(map, (lonCenter - left - (int)(width / 2L)), newBottom - bottom);
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -545,10 +549,11 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * 
 	 * Note clamping based on direction of movement can cause problems, always check that we are in bounds
 	 * 
+	 * @param map instance of the current map view
 	 * @param lon the relative longitude change.
 	 * @param lat the relative latitude change.
 	 */
-	public void translate(int lon, int lat) throws OsmException {
+	public void translate(@Nullable Map map, int lon, int lat) throws OsmException {
 		if ((long)right + (long)lon > (long)MAX_LON_E7) {
 			lon = MAX_LON_E7 - right;
 		} else if ((long)left + (long)lon < (long)-MAX_LON_E7) {
@@ -563,7 +568,9 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		right += lon;
 		top += lat;
 		bottom += lat;
-		setRatio(ratio, true); //TODO slightly expensive likely to be better to do everything in mercator
+		if (map != null) {
+			setRatio(map, ratio, true); //TODO slightly expensive likely to be better to do everything in mercator
+		}
 		validate();
 	}
 	
@@ -698,12 +705,12 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * maintain center of bounding box
 	 * @param tileZoomLevel The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
 	 */
-	public void setZoom(int tileZoomLevel) {
+	public void setZoom(Map map, int tileZoomLevel) {
 		// setting an exact zoom level implies one screen pixel == one tile pixel
 		// calculate one pixel in degrees (mercator) at this zoom level
 		double degE7PerPixel = 3600000000.0d / (256*Math.pow(2, tileZoomLevel));
-		double wDegE7 = App.mainActivity.getMap().getWidth() * degE7PerPixel;
-		double hDegE7 = App.mainActivity.getMap().getHeight() * degE7PerPixel;
+		double wDegE7 = map.getWidth() * degE7PerPixel;
+		double hDegE7 = map.getHeight() * degE7PerPixel;
 		long centerLon = left + width/2;
 		left = (int) (centerLon - wDegE7/2);
 		right = (int) (left + wDegE7);
@@ -720,34 +727,46 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the current ratio (that of the window) 
 	 * and maintains zoom level
 	 * 
+	 * @param map current map view
 	 * @param newBox box with the new borders.
 	 */
-	public void setBorders(final BoundingBox newBox) {
-		setBorders(newBox, this.ratio);
+	public void setBorders(Map map, final BoundingBox newBox) {
+		setBorders(map, newBox, this.ratio);
 	}
 	
 	/**
 	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the ratio and maintains zoom level
 	 * 
+	 * @param map current map view
 	 * @param newBox
 	 * @param ratio
 	 */
-	private void setBorders(final BoundingBox newBox, float ratio) {
-		setBorders(newBox, ratio, true);
+	private void setBorders(Map map, final BoundingBox newBox, float ratio) {
+		setBorders(map, newBox, ratio, true);
 	}
 	
 	/**
 	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the current ratio (that of the window) 
 	 * and maintains zoom level depending on the value of preserveZoom
 	 * 
-	 * @param newBox
-	 * @param preserveZoom
+	 * @param map current map view
+	 * @param newBox new bounding box
+	 * @param preserveZoom maintain current zoom level
 	 */
-	public void setBorders(final BoundingBox newBox, boolean preserveZoom) {
-		setBorders(newBox, this.ratio, preserveZoom);
+	public void setBorders(final Map map, final BoundingBox newBox, boolean preserveZoom) {
+		setBorders(map, newBox, this.ratio, preserveZoom);
 	}
 	
-	public void setBorders(final BoundingBox newBox, float ratio, boolean preserveZoom) {
+	/**
+	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the current ratio (that of the window) 
+	 * and maintains zoom level depending on the value of preserveZoom
+	 * 
+	 * @param map map current map view
+	 * @param newBox new bounding box
+	 * @param ratio current window ratio
+	 * @param preserveZoom maintain current zoom level
+	 */
+	public void setBorders(final Map map, final BoundingBox newBox, float ratio, boolean preserveZoom) {
 		left = newBox.left;
 		right = newBox.right;
 		top = newBox.top;
@@ -755,7 +774,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		Log.d("BoundingBox","setBorders " + newBox.toString() + " ratio is " + ratio);
 		try {
 			calcDimensions(); // neede to recalc width
-			setRatio(ratio, preserveZoom);
+			setRatio(map, ratio, preserveZoom);
 			validate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

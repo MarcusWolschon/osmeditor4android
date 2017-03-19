@@ -70,7 +70,6 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
@@ -1067,7 +1066,7 @@ public class Preset implements Serializable {
 		public Drawable getIcon() {
 			if (icon == null) {
 				if (iconManager == null) {
-					iconManager = getIconManager(App.mainActivity);
+					iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
 				}
 				if (iconpath != null) {
 					icon = iconManager.getDrawableOrPlaceholder(iconpath, 36);
@@ -1082,7 +1081,7 @@ public class Preset implements Serializable {
 		public BitmapDrawable getMapIcon() {
 			if (mapIcon == null && mapiconpath != null) {
 				if (iconManager == null) {
-					iconManager = getIconManager(App.mainActivity);
+					iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
 				}
 				mapIcon = iconManager.getDrawable(mapiconpath, de.blau.android.Map.ICON_SIZE_DP);
 				mapiconpath = null;

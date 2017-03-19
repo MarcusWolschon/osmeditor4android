@@ -35,6 +35,9 @@ import org.acra.ACRA;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.drew.lang.annotations.NotNull;
+
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -42,10 +45,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 import de.blau.android.dialogs.AttachedObjectWarning;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.ForbiddenLogin;
@@ -85,6 +88,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Snack;
 import de.blau.android.util.collections.MRUList;
 
 /**
@@ -437,16 +441,17 @@ public class Logic {
 	 * all selected Elements will be nulled, the Map gets repainted,
 	 * and the action bar will be reset.
 	 * 
-	 * @param mode mode.
+	 * @param main instance of main that is calling this
+	 * @param mode mode to set
 	 */
-	public void setMode(final Mode mode) {
+	public void setMode(@NotNull final Main main, @NotNull final Mode mode) {
 		Log.d(DEBUG_TAG,"current mode " + this.mode + " new mode " + mode);
 		if (this.mode == mode) return;
 		Filter.Update updater = new Filter.Update() {
 			@Override
 			public void execute() {
-				map.invalidate();
-				App.mainActivity.scheduleAutoLock();
+				invalidateMap();
+				main.scheduleAutoLock();
 			} };
 		this.mode = mode;
 		Main.onEditModeChanged();
@@ -466,7 +471,7 @@ public class Logic {
 					filter = filter.getSavedFilter();
 					setFilter(filter);
 					if (filter!=null) {
-						filter.addControls(App.mainActivity.getMapLayout(), updater);
+						filter.addControls(main.getMapLayout(), updater);
 						filter.showControls();
 					}
 				}
@@ -481,25 +486,25 @@ public class Logic {
 					IndoorFilter indoor = new IndoorFilter();
 					indoor.saveFilter(filter);
 					setFilter(indoor);
-					indoor.addControls(App.mainActivity.getMapLayout(), updater);
+					indoor.addControls(main.getMapLayout(), updater);
 				}
 			} else { // no filter yet
 				setFilter(new IndoorFilter());
-				getFilter().addControls(App.mainActivity.getMapLayout(), updater);
+				getFilter().addControls(main.getMapLayout(), updater);
 			}
 			getFilter().showControls();
 			deselectAll();
 			break;
 		case MODE_ALIGN_BACKGROUND:		// action mode sanity check
-			if (App.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
+			if (main.getBackgroundAlignmentActionModeCallback() == null) {
 				Log.d("Logic","weird state of edit mode, resetting");
-				setMode(Mode.MODE_EASYEDIT);
+				setMode(main, Mode.MODE_EASYEDIT);
 			}
 		default:
 			deselectAll();
 			break;
 		}
-		map.invalidate();
+		invalidateMap();
 	}
 
 	/**
@@ -571,16 +576,16 @@ public class Logic {
 		try {
 			switch (direction) {
 			case DIRECTION_LEFT:
-				viewBox.translate((int) -translation, 0);
+				viewBox.translate(map, (int) -translation, 0);
 				break;
 			case DIRECTION_DOWN:
-				viewBox.translate(0, -(GeoMath.latE7ToMercatorE7(viewBox.getTop())-(int)(viewBox.getBottomMercator()*1E7D))); 
+				viewBox.translate(map, 0, -(GeoMath.latE7ToMercatorE7(viewBox.getTop())-(int)(viewBox.getBottomMercator()*1E7D))); 
 				break;
 			case DIRECTION_RIGHT:
-				viewBox.translate((int) translation, 0);
+				viewBox.translate(map, (int) translation, 0);
 				break;
 			case DIRECTION_UP:
-				viewBox.translate(0, GeoMath.latE7ToMercatorE7(viewBox.getTop())-(int)(viewBox.getBottomMercator()*1E7D)); 
+				viewBox.translate(map, 0, GeoMath.latE7ToMercatorE7(viewBox.getTop())-(int)(viewBox.getBottomMercator()*1E7D)); 
 				break;
 			}
 		} catch (OsmException e) {
@@ -588,7 +593,7 @@ public class Logic {
 			e.printStackTrace();
 		}
 
-		map.invalidate();
+		invalidateMap();
 	}
 	
 	/**
@@ -645,8 +650,8 @@ public class Logic {
 	 * 
 	 * @param z The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
 	 */
-	public void setZoom(int z) {
-		viewBox.setZoom(z);
+	public void setZoom(Map map,int z) {
+		viewBox.setZoom(map, z);
 		if (rotatingWay) {
 			showCrosshairsForCentroid();
 		}
@@ -670,7 +675,7 @@ public class Logic {
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void createCheckpoint(int stringId) {
-		getDelegator().getUndo().createCheckpoint(App.mainActivity.getResources().getString(stringId));
+		getDelegator().getUndo().createCheckpoint(App.resources().getString(stringId));
 	}
 	
 	/**
@@ -679,7 +684,7 @@ public class Logic {
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void removeCheckpoint(int stringId) {
-		getDelegator().getUndo().removeCheckpoint(App.mainActivity.getResources().getString(stringId));
+		getDelegator().getUndo().removeCheckpoint(App.resources().getString(stringId));
 	}
 	
 	/**
@@ -766,9 +771,10 @@ public class Logic {
 	/**
 	 * Prepares the screen for an empty map. Strokes will be updated and map will be repainted.
 	 * 
+	 * @param activity activity that called us
 	 * @param box the new empty map-box. Don't mess up with the viewBox!
 	 */
-	void newEmptyMap(BoundingBox box) {
+	void newEmptyMap(@NotNull FragmentActivity activity, @NotNull BoundingBox box) {
 		Log.d(DEBUG_TAG, "newEmptyMap");
 		if (box == null) { // probably should do a more general check if the BB is valid
 			box = BoundingBox.getMaxMercatorExtent();
@@ -783,15 +789,15 @@ public class Logic {
 			Log.e(DEBUG_TAG, "newEmptyMap called on dirty storage");
 		}
 		// if the map view isn't drawn use an approximation for the aspect ratio of the display ... this is a hack 
-		float ratio = (float)App.mainActivity.getResources().getDisplayMetrics().widthPixels / (float)App.mainActivity.getResources().getDisplayMetrics().heightPixels;
+		float ratio = (float)App.resources().getDisplayMetrics().widthPixels / (float)App.resources().getDisplayMetrics().heightPixels;
 		if (map.getHeight() != 0) {
 			ratio = (float) map.getWidth() / map.getHeight();
 		}
-		viewBox.setBorders(box, ratio, false); 
+		viewBox.setBorders(map, box, ratio, false); 
 		map.setViewBox(box);
 		DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
-		map.invalidate();
-		UndoStorage.updateIcon();
+		invalidateMap();
+		activity.supportInvalidateOptionsMenu();
 	}
 
 	/**
@@ -1230,7 +1236,7 @@ public class Logic {
 	 * @param x display-coord.
 	 * @param y display-coord.
 	 */
-	synchronized void handleTouchEventDown(final float x, final float y) {
+	synchronized void handleTouchEventDown(Activity activity, final float x, final float y) {
 		boolean draggingMultiselect = false;
 		if (!isLocked() && isInEditZoomRange() && mode.elementsGeomEditiable()) {
 			draggingNode = false;
@@ -1260,7 +1266,7 @@ public class Logic {
 									draggingWay = true;
 								}
 								else {
-									Toast.makeText(App.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
+									Snack.barError(activity, R.string.toast_too_many_nodes_for_move);
 								}
 							}
 						}
@@ -1364,7 +1370,7 @@ public class Logic {
 	 * @param relativeY The difference to the last absolute display-coordinate.
 	 * @throws OsmIllegalOperationException 
 	 */
-	synchronized void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
+	synchronized void handleTouchEventMove(Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
 		if (draggingNode || draggingWay || draggingHandle) {
 			int lat;
 			int lon;
@@ -1382,11 +1388,11 @@ public class Logic {
 							getDelegator().updateLatLon(handleNode, yToLatE7(absoluteY), xToLonE7(absoluteX));
 						}
 					} catch (OsmIllegalOperationException e) {
-						Toast.makeText(App.mainActivity, e.getMessage(), Toast.LENGTH_LONG).show();
+						Snack.barError(main, e.getMessage());
 						return;
 					}
 				} else {
-					displayAttachedObjectWarning(selectedNodes.get(0));
+					displayAttachedObjectWarning(main, selectedNodes.get(0));
 					if (prefs.largeDragArea()) {
 						startY = startY + relativeY;
 						startX = startX - relativeX;
@@ -1398,7 +1404,6 @@ public class Logic {
 					}
 					getDelegator().updateLatLon(selectedNodes.get(0), lat, lon);
 				}
-				App.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
 			} else { // way dragging and multi-select
 				lat = yToLatE7(absoluteY);
 				lon = xToLonE7(absoluteX);
@@ -1414,7 +1419,7 @@ public class Logic {
 					}
 				}
 				
-				displayAttachedObjectWarning(nodes);
+				displayAttachedObjectWarning(main, nodes);
 
 				getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
 				// update 
@@ -1422,7 +1427,7 @@ public class Logic {
 				startLon = lon;
 			}
 			translateOnBorderTouch(absoluteX, absoluteY);
-			App.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
+			main.easyEditManager.invalidate(); // if we are in an action mode update menubar
 		} else if (rotatingWay) {
 			
 			double aSq = (startY-absoluteY)*(startY-absoluteY) + (startX-absoluteX)*(startX-absoluteX);
@@ -1451,19 +1456,19 @@ public class Logic {
 				direction = (startY < absoluteY) ? -1: 1;			
 			}
 			
-			displayAttachedObjectWarning(selectedWays.get(0));
+			displayAttachedObjectWarning(main, selectedWays.get(0));
 	
 			getDelegator().rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
 			startY = absoluteY;
 			startX = absoluteX;
-			App.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
+			main.easyEditManager.invalidate(); // if we are in an action mode update menubar
 		} else {
 			if (mode == Mode.MODE_ALIGN_BACKGROUND)
 				performBackgroundOffset(relativeX, relativeY);
 			else
-				performTranslation(relativeX, relativeY);
+				performTranslation(map, relativeX, relativeY);
 		}	
-		map.invalidate();
+		invalidateMap();
 	}
 
 	/**
@@ -1494,10 +1499,11 @@ public class Logic {
 	 * Converts screen-coords to gps-coords and delegates translation to {@link BoundingBox#translate(int, int)}.
 	 * GPS-Following will be disabled.
 	 * 
+	 * @param map current map view
 	 * @param screenTransX Movement on the screen.
 	 * @param screenTransY Movement on the screen.
 	 */
-	private void performTranslation(final float screenTransX, final float screenTransY) {
+	private void performTranslation(Map map, final float screenTransX, final float screenTransY) {
 		// Log.d(DEBUG_TAG,"performTranslation " + screenTransX + " " + screenTransY);
 		int height = map.getHeight();
 		int lon = xToLonE7(screenTransX);
@@ -1506,7 +1512,7 @@ public class Logic {
 		int relativeLat = lat - viewBox.getBottom();
 
 		try {
-			viewBox.translate(relativeLon, relativeLat);
+			viewBox.translate(map, relativeLon, relativeLat);
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1540,11 +1546,12 @@ public class Logic {
 	 * Executes an add-command for x,y. Adds new nodes and ways to storage. When more than one Node were
 	 * created/selected then a new way will be created.
 	 * 
+	 * @param activity activity this was called from, if null no warnings will be displayed
 	 * @param x screen-coordinate
 	 * @param y screen-coordinate
 	 * @throws OsmIllegalOperationException 
 	 */
-	public synchronized void performAdd(final float x, final float y) throws OsmIllegalOperationException {
+	public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
 		Log.d(DEBUG_TAG,"performAdd");
 		createCheckpoint(R.string.undo_action_add);
 		Node nextNode;
@@ -1561,9 +1568,8 @@ public class Logic {
 				lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
 				getDelegator().insertElementSafe(lSelectedNode);
 				if (!getDelegator().isInDownload(lat, lon)) {
-					// warning toast
 					Log.d("Logic","Outside of download");
-					Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+					Snack.barWarningShort(activity, R.string.toast_outside_of_download);
 				}
 			}
 		} else {
@@ -1581,9 +1587,8 @@ public class Logic {
 				getDelegator().addNodeToWay(lSelectedNode, lSelectedWay);
 				getDelegator().insertElementSafe(lSelectedNode);
 				if (!getDelegator().isInDownload(lat, lon)) {
-					// warning toast
 					Log.d("Logic","Outside of download");
-					Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+					Snack.barWarningShort(activity, R.string.toast_outside_of_download);
 				}
 			} else {
 				//User clicks an existing Node
@@ -1609,11 +1614,12 @@ public class Logic {
 	
 	/**
 	 * Simplified version of creating a new node that takes geo coords and doesn't try to merge with existing features
+	 * @activity activity this was called from, if null no warnings will be displayed
 	 * @param lonD
 	 * @param latD
 	 * @return the create node
 	 */
-	public synchronized Node performAddNode(Double lonD, Double latD) {
+	public synchronized Node performAddNode(@Nullable final Activity activity, Double lonD, Double latD) {
 		//A complete new Node...
 		Log.d("Logic","performAddNode");
 		createCheckpoint(R.string.undo_action_add);
@@ -1624,7 +1630,7 @@ public class Logic {
 		if (!getDelegator().isInDownload(lat, lon)) {
 			// warning toast
 			Log.d("Logic","Outside of download");
-			Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+			Snack.barWarningShort(activity, R.string.toast_outside_of_download);
 		}
 		setSelectedNode(newNode);
 		return newNode;
@@ -1657,56 +1663,59 @@ public class Logic {
 	
 	/**
 	 * Catches the first node at the given position and delegates the deletion to {@link #delegator}.
-	 * @param createCheckpoint TODO
+	 * @param activity activity this was called from, if null no warnings will be displayed
+	 * @param createCheckpoint create and undo checkpoint if true
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public synchronized void performEraseNode(final Node node, boolean createCheckpoint) {
+	public synchronized void performEraseNode(@Nullable final FragmentActivity activity, final Node node, boolean createCheckpoint) {
 		if (node != null) {
 			if (createCheckpoint) {
 				createCheckpoint(R.string.undo_action_deletenode);
 			}
-			displayAttachedObjectWarning(node); // needs to be done before removal
+			displayAttachedObjectWarning(activity, node); // needs to be done before removal
 			getDelegator().removeNode(node);
-			map.invalidate();
+			invalidateMap();
 			if (!isInDownload(node)) {
 				// warning toast
-				Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+				Snack.barWarning(activity, R.string.toast_outside_of_download);
 			} 
 		}
 	}
 
 	/**
-	 * set new coordinates and center BBox on them
+	 * set new coordinates and center viewbox on them
 	 * 
-	 * @param node
-	 * @param lon
-	 * @param lat
+	 * @param activity activity this was called from, if null no warnings will be displayed
+	 * @param node node to set position on
+	 * @param lon longitude
+	 * @param lat latitude
 	 */
-	public void performSetPosition(Node node, double lon, double lat) {
+	public void performSetPosition(@Nullable final FragmentActivity activity, Node node, double lon, double lat) {
 		if (node != null) {
 			createCheckpoint(R.string.undo_action_movenode);
 			int lonE7 = (int)(lon*1E7d);
 			int latE7 = (int)(lat*1E7d);
 			getDelegator().updateLatLon(node, latE7, lonE7);
-			viewBox.moveTo(lonE7, latE7);
-			map.invalidate();
-			displayAttachedObjectWarning(node);
+			viewBox.moveTo(map, lonE7, latE7);
+			invalidateMap();
+			displayAttachedObjectWarning(activity, node);
 		}
 	}
 
 	/**
 	 * Deletes a way.
 	 * 
+	 * @param activity activity this was called from, if null no warnings will be displayed
 	 * @param way the way to be deleted
 	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
 	 * @param createCheckpoint if true create an undo checkpoint
 	 */
-	public synchronized void performEraseWay(final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
+	public synchronized void performEraseWay(@Nullable final FragmentActivity activity, final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
 		if (createCheckpoint) {
 			createCheckpoint(R.string.undo_action_deleteway);
 		}
-		displayAttachedObjectWarning(way); // needs to be done before removal
+		displayAttachedObjectWarning(activity, way); // needs to be done before removal
 		HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<Node>(way.getNodes()) : null;  //  HashSet guarantees uniqueness
 		getDelegator().removeWay(way);
 		if (deleteOrphanNodes) {
@@ -1714,43 +1723,47 @@ public class Logic {
 				if (getWaysForNode(node).isEmpty() && node.getTags().isEmpty()) getDelegator().removeNode(node);
 			}
 		}
-		map.invalidate();
+		invalidateMap();
 	}
 
 	/**
 	 * Catches the first relation at the given position and delegates the deletion to {@link #delegator}.
+	 * 
+	 * @param activity activity this was called from, if null no warnings will be displayed
 	 * @param createCheckpoint TODO
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public synchronized void performEraseRelation(final Relation relation, boolean createCheckpoint) {
+	public synchronized void performEraseRelation(@Nullable final FragmentActivity activity, final Relation relation, boolean createCheckpoint) {
 		if (relation != null) {
 			if (createCheckpoint) {
 				createCheckpoint(R.string.undo_action_delete_relation);
 			}
-			displayAttachedObjectWarning(relation); // needs to be done before removal
+			displayAttachedObjectWarning(activity, relation); // needs to be done before removal
 			getDelegator().removeRelation(relation);
-			map.invalidate();
+			invalidateMap();
 		}
 	}
 
 	/**
 	 * Erase a list of objects
-	 * @param selection
+	 * 
+	 * @param activity activity this method was called from, if null no warnings will be displayed
+	 * @param selection objects to delete
 	 */
-	public synchronized void performEraseMultipleObjects(ArrayList<OsmElement> selection) {
+	public synchronized void performEraseMultipleObjects(@Nullable final FragmentActivity activity, ArrayList<OsmElement> selection) {
 		// need to make three passes
 		createCheckpoint(R.string.undo_action_delete_objects);
-		displayAttachedObjectWarning(selection); // needs to be done before removal
+		displayAttachedObjectWarning(activity, selection); // needs to be done before removal
 		for (OsmElement e:selection) {	
 			if (e instanceof Relation && e.getState() != OsmElement.STATE_DELETED) {
-				performEraseRelation((Relation)e, false);
+				performEraseRelation(activity, (Relation)e, false);
 			}
 		}	
 		for (OsmElement e:selection) {	
 			if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
 				if (isInDownload((Way)e)) {
-					performEraseWay((Way)e, true, false); // TODO maybe we don't want to delete the nodes
+					performEraseWay(activity, (Way)e, true, false); // TODO maybe we don't want to delete the nodes
 				} else {
 					// TODO toast
 				}
@@ -1758,42 +1771,46 @@ public class Logic {
 		}
 		for (OsmElement e:selection) {	
 			if (e instanceof Node && e.getState() != OsmElement.STATE_DELETED) {
-				performEraseNode((Node)e, false);
+				performEraseNode(activity, (Node)e, false);
 			}
 		}	
 	}
 	
 	/**
-	 * Splits all ways at the given node.
+	 * Splits all ways containing the node will be split at the nodes position
 	 * 
-	 * @param node
+	 * @param activity activity this method was called from, if null no warnings will be displayed
+	 * @param node node to split at
 	 */
-	public synchronized void performSplit(final Node node) {
+	public synchronized void performSplit(@Nullable final FragmentActivity activity, final Node node) {
 		if (node != null) {
 			// setSelectedNode(node);
 			createCheckpoint(R.string.undo_action_split_ways);
-			displayAttachedObjectWarning(node); // needs to be done before split
+			displayAttachedObjectWarning(activity, node); // needs to be done before split
 			getDelegator().splitAtNode(node);
-			map.invalidate();
+			invalidateMap();
 		}
 	}
 	
 	/**
 	 * Splits a way at a given node
+	 * 
+	 * @param activity activity this method was called from, if null no warnings will be displayed
 	 * @param way the way to split
 	 * @param node the node at which the way should be split
 	 * @return the new way or null if failed
 	 */
-	public synchronized Way performSplit(final Way way, final Node node) {
+	public synchronized Way performSplit(@Nullable final FragmentActivity activity, final Way way, final Node node) {
 		// setSelectedNode(node);
 		createCheckpoint(R.string.undo_action_split_way);
 		Way result = getDelegator().splitAtNode(way, node);
-		map.invalidate();
+		invalidateMap();
 		return result;
 	}
 	
 	/**
 	 * Split a closed way, needs two nodes
+	 * 
 	 * @param way
 	 * @param node1
 	 * @param node2
@@ -1802,7 +1819,7 @@ public class Logic {
 	public synchronized Way[] performClosedWaySplit(Way way, Node node1, Node node2, boolean createPolygons) {
 		createCheckpoint(R.string.undo_action_split_way);
 		Way[] result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
-		map.invalidate();
+		invalidateMap();
 		return result;
 	}
 	
@@ -1811,26 +1828,30 @@ public class Logic {
 	 * Ways must be valid (i.e. have at least two nodes) and mergeable
 	 * (i.e. have a common start/end node).
 	 *  
+	 * @param activity activity this method was called from, if null no warnings will be displayed
 	 * @param mergeInto Way to merge the other way into. This way will be kept.
 	 * @param mergeFrom Way to merge into the other. This way will be deleted.
 	 * @throws OsmIllegalOperationException 
 	 */
-	public synchronized boolean performMerge(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
+	public synchronized boolean performMerge(@Nullable final FragmentActivity activity, Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
-		displayAttachedObjectWarning(mergeInto, mergeFrom, true); // needs to be done before merge
+		displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
 		boolean mergeOK = getDelegator().mergeWays(mergeInto, mergeFrom);
-		map.invalidate();
+		invalidateMap();
 		return mergeOK;
 	}
 	
 	/**
 	 * Merge a sorted list of ways
-	 * @param sortedWays
+	 * 
+	 * FIXME if sortedWays does not contain only ways things will crash with a cast exception
+	 * @param activity activity this was called from, if null no warnings will be displayed
+	 * @param sortedWays list of ways to be merged
 	 * @throws OsmIllegalOperationException 
 	 */
-	public synchronized boolean performMerge(List<OsmElement> sortedWays) throws OsmIllegalOperationException {
+	public synchronized boolean performMerge(@Nullable FragmentActivity activity, List<OsmElement> sortedWays) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
-		displayAttachedObjectWarning(sortedWays, true); // needs to be done before merge
+		displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
 		boolean mergeOK = true;
 		Way previousWay = (Way) sortedWays.get(0);
 		for (int i=1;i<sortedWays.size();i++) {
@@ -1848,30 +1869,37 @@ public class Logic {
 	
 	/**
 	 * Orthogonalize a way (aka make angles 90°)
-	 * @param way
+	 * 
+	 * @param activity activity this was called from, if null no warnings will be displayed
+	 * @param way way to square
 	 */
-	public void performOrthogonalize(Way way) {
+	public void performOrthogonalize(@Nullable FragmentActivity activity, Way way) {
 		if (way != null && way.getNodes().size() < 3) return;
 		ArrayList<Way> ways = new ArrayList<Way>(1);
 		ways.add(way);
-		performOrthogonalize(ways);
+		performOrthogonalize(activity, ways);
 	}
 	
 	/**
 	 * Orthogonalize multiple ways at once (aka make angles 90°)
-	 * @param ways
+	 * 
+	 * FIXME this can take a long time and should likely be run async
+	 * @param activity activity this was called from, if null no warnings will be displayed
+	 * @param ways ways to square
 	 */
-	public synchronized void performOrthogonalize(List<Way> ways) {
-		if (ways==null || ways.size()==0) return;
+	public synchronized void performOrthogonalize(@Nullable FragmentActivity activity, List<Way> ways) {
+		if (ways==null || ways.size()==0) {
+			return;
+		}
 		createCheckpoint(R.string.undo_action_orthogonalize);
-		getDelegator().orthogonalizeWay(ways);
-		map.invalidate();
+		getDelegator().orthogonalizeWay(map, ways);
+		invalidateMap();
 		if (getFilter() != null && showAttachedObjectWarning()) {
 			HashSet<Node> nodes = new HashSet<Node>();
 			for (Way w:ways) {
 				nodes.addAll(w.getNodes());
 			}
-			displayAttachedObjectWarning(nodes);
+			displayAttachedObjectWarning(activity, nodes);
 		}
 	}
 
@@ -1879,15 +1907,16 @@ public class Logic {
 	 * Replace node in all ways it is a member of with a new node,
 	 * leaving node selected, if it already is. Note: relation memberships are not modified
 	 * 
-	 * @param node
+	 * @param activity activity this was called from, if null no warnings will be displayed
+	 * @param node node to extract from any ways it is a member of
 	 * @return the new way node or null if the node was not a way node
 	 */
-	public synchronized Node performExtract(final Node node) {
+	public synchronized Node performExtract(@Nullable FragmentActivity activity, final Node node) {
 		if (node != null) {
 			createCheckpoint(R.string.undo_action_extract_node);
-			displayAttachedObjectWarning(node); // this needs to be done -before- we replace the node
+			displayAttachedObjectWarning(activity, node); // this needs to be done -before- we replace the node
 			Node newNode = getDelegator().replaceNode(node);
-			map.invalidate();
+			invalidateMap();
 			return newNode;
 		}
 		return null;
@@ -1895,8 +1924,9 @@ public class Logic {
 	
 	/**
 	 * If any ways are close to the node (within the tolerance), return the way.
+	 * 
 	 * @param nodeToJoin
-	 * @return
+	 * @return the closest way to the node
 	 */
 	public OsmElement findJoinableElement(Node nodeToJoin) {
 		OsmElement closestElement = null;
@@ -1942,18 +1972,20 @@ public class Logic {
 	
 	/**
 	 * Join a node to a node or way at the point on the way closest to the node.
+	 * 
+	 * @param activity activity this was called from, if null no warnings will be displayed
 	 * @param element Node or Way that the node will be joined to.
 	 * @param nodeToJoin Node to be joined to the way.
 	 * @throws OsmIllegalOperationException 
 	 */
-	public synchronized boolean performJoin(OsmElement element, Node nodeToJoin) throws OsmIllegalOperationException {
+	public synchronized boolean performJoin(@Nullable FragmentActivity activity, OsmElement element, Node nodeToJoin) throws OsmIllegalOperationException {
 		boolean mergeOK = true;
 		if (element instanceof Node) {
 			Node node = (Node)element;
 			createCheckpoint(R.string.undo_action_join);
-			displayAttachedObjectWarning(node,nodeToJoin); // needs to be done before join
+			displayAttachedObjectWarning(activity, node,nodeToJoin); // needs to be done before join
 			mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
-			map.invalidate();
+			invalidateMap();
 		}
 		else if (element instanceof Way) {
 			Way way = (Way)element;
@@ -1981,16 +2013,16 @@ public class Logic {
 						node = node2;
 					}
 					if (node == null) {
-						displayAttachedObjectWarning(way,nodeToJoin); // needs to be done before join
+						displayAttachedObjectWarning(activity, way,nodeToJoin); // needs to be done before join
 						// move the existing node onto the way and insert it into the way
 						getDelegator().updateLatLon(nodeToJoin, lat, lon);
 						getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
 					} else {
-						displayAttachedObjectWarning(node,nodeToJoin); // needs to be done before join
+						displayAttachedObjectWarning(activity, node,nodeToJoin); // needs to be done before join
 						// merge node into tgtNode
 						mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
 					}
-					map.invalidate();
+					invalidateMap();
 					break; // need to leave loop !!!
 				}
 			}
@@ -2000,13 +2032,16 @@ public class Logic {
 	
 	/**
 	 * Unjoin ways joined by the given node.
+	 * 
+	 * @param activity activity this was called from, if null no warnings will be displayed
+	 * @param activity activity this was called from, if null no warnings will be displayed
 	 * @param node Node that is joining the ways to be unjoined.
 	 */
-	public synchronized void performUnjoin(Node node) {
+	public synchronized void performUnjoin(@Nullable FragmentActivity activity,Node node) {
 		createCheckpoint(R.string.undo_action_unjoin_ways);
-		displayAttachedObjectWarning(node); // needs to be done before unjoin
+		displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
 		getDelegator().unjoinWays(node);
-		map.invalidate();
+		invalidateMap();
 	}
 	
 	/**
@@ -2017,14 +2052,14 @@ public class Logic {
 	public synchronized boolean performReverse(Way way) {
 		createCheckpoint(R.string.undo_action_reverse_way);
 		boolean hadToReverse = getDelegator().reverseWay(way);
-		map.invalidate();
+		invalidateMap();
 		return hadToReverse;
 	}
 	
 	public synchronized void performAppendStart(Way way, Node node) {
 		setSelectedNode(node);
 		setSelectedWay(way);
-		map.invalidate();
+		invalidateMap();
 	}
 	
 	public synchronized void performAppendStart(OsmElement element) {
@@ -2050,7 +2085,14 @@ public class Logic {
 		performAppendStart(lSelectedWay, lSelectedNode);
 	}
 	
-	public synchronized void performAppendAppend(final float x, final float y) throws OsmIllegalOperationException {
+	/**
+	 * 
+	 * @param activity activity this method was called from, if null no warnings will be displayed
+	 * @param x
+	 * @param y
+	 * @throws OsmIllegalOperationException
+	 */
+	public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
 		Log.d("Logic","performAppendAppend");
 		createCheckpoint(R.string.undo_action_append);
 		Node lSelectedNode = getSelectedNode();
@@ -2068,7 +2110,7 @@ public class Logic {
 				getDelegator().insertElementSafe(node);
 				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
-					Toast.makeText(App.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+					Snack.barWarningShort(activity, R.string.toast_outside_of_download);
 				}
 			}
 			try {
@@ -2081,7 +2123,7 @@ public class Logic {
 		}
 		setSelectedNode(lSelectedNode);
 		setSelectedWay(lSelectedWay);
-		map.invalidate();
+		invalidateMap();
 	}
 
 	/**
@@ -2239,15 +2281,15 @@ public class Logic {
 
 		try {
 			if (x > map.getWidth() - PADDING_ON_BORDER_TOUCH) {
-				viewBox.translate(translationOnBorderTouch, 0);
+				viewBox.translate(map, translationOnBorderTouch, 0);
 			} else if (x < PADDING_ON_BORDER_TOUCH) {
-				viewBox.translate(-translationOnBorderTouch, 0);
+				viewBox.translate(map, -translationOnBorderTouch, 0);
 			}
 
 			if (y > map.getHeight() - PADDING_ON_BORDER_TOUCH) {
-				viewBox.translate(0, -translationOnBorderTouch);
+				viewBox.translate(map, 0, -translationOnBorderTouch);
 			} else if (y < PADDING_ON_BORDER_TOUCH) {
-				viewBox.translate(0, translationOnBorderTouch);
+				viewBox.translate(map, 0, translationOnBorderTouch);
 			}
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block
@@ -2258,16 +2300,17 @@ public class Logic {
 	/**
 	 * Loads the area defined by mapBox from the OSM-Server.
 	 * 
+	 * @param activity activity this was called from
 	 * @param mapBox Box defining the area to be loaded.
 	 * @param add if true add this data to existing
 	 * @param postLoadHandler handler to execute after successful download
 	 */
-	public synchronized void downloadBox(final BoundingBox mapBox, final boolean add, final PostAsyncActionHandler postLoadHandler) {
+	public synchronized void downloadBox(final FragmentActivity activity, final BoundingBox mapBox, final boolean add, final PostAsyncActionHandler postLoadHandler) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
 			Log.e(DEBUG_TAG,"downloadBox invalid download box");
-			ErrorAlert.showDialog(App.mainActivity,ErrorCodes.INVALID_BOUNDING_BOX);
+			ErrorAlert.showDialog(activity,ErrorCodes.INVALID_BOUNDING_BOX);
 			return;
 		} 
 		
@@ -2275,7 +2318,7 @@ public class Logic {
 
 			@Override
 			public void handler(OsmElement e) {
-				e.hasProblem(App.mainActivity);
+				e.hasProblem(activity);
 			}
 		};
 		
@@ -2283,7 +2326,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(App.mainActivity, Progress.PROGRESS_LOADING);
+				Progress.showDialog(activity, Progress.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -2334,7 +2377,10 @@ public class Logic {
 								getDelegator().setOriginalBox(mapBox);
 							}
 						}
-						viewBox.setBorders(mapBox != null ? mapBox : getDelegator().getLastBox()); // set to current or previous
+						Map map = activity instanceof Main ? ((Main)activity).getMap() : null;
+						if (map != null) {
+							viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox()); // set to current or previous
+						}
 					} finally {
 						SavingHelper.close(in);
 					}
@@ -2379,16 +2425,17 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {	
-				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_LOADING);
+				Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
 
-				View map = App.mainActivity.getCurrentFocus();
-				try {
-					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				} catch (OsmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				Map map = activity instanceof Main ? ((Main)activity).getMap() : null;
+				if (map != null) {
+					try {
+						viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
+					} catch (OsmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-
 				if (result != 0) {
 					if (result == ErrorCodes.OUT_OF_MEMORY) {
 						System.gc();
@@ -2397,8 +2444,8 @@ public class Logic {
 						}
 					}	
 					try {
-						if (!App.mainActivity.isFinishing()) {
-							ErrorAlert.showDialog(App.mainActivity,result);
+						if (!activity.isFinishing()) {
+							ErrorAlert.showDialog(activity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("CAUSE",ex.getMessage());
@@ -2413,10 +2460,11 @@ public class Logic {
 						postLoadHandler.onSuccess();
 					}
 				}
-				DataStyle.updateStrokes(strokeWidth(mapBox.getWidth()));
-				map.invalidate();
-
-				UndoStorage.updateIcon();
+				if (map != null) {
+					DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
+					invalidateMap();
+				}
+				activity.supportInvalidateOptionsMenu();
 			}	
 		}.execute(add);
 	}
@@ -2424,7 +2472,7 @@ public class Logic {
 	/**
 	 * Loads the area defined by mapBox from the OSM-Server. Static version for auto download
 	 * FIXME try to reduce the code duplication here
-	 * @param context TODO
+	 * @param context android context
 	 * @param mapBox Box defining the area to be loaded.
 	 * @param add if true add this data to existing
 	 * @param auto download is being done automatically, try not mess up/move the display
@@ -2524,28 +2572,31 @@ public class Logic {
 		}.execute();
 	}
 
-
 	/**
 	 * Calls the actual downloadBox function using the current map view as the
 	 * bounding box for the download.
 	 * 
+	 * @param activity activity this was called from
 	 * @param add add if true add this data to existing
-	 * @see #downloadBox(Main, BoundingBox, boolean)
+	 * @see #downloadBox(activity, BoundingBox, boolean)
 	 */
-	void downloadCurrent(boolean add) {
+	void downloadCurrent(final FragmentActivity activity, boolean add) {
 		Log.d("Logic","viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
-		downloadBox(viewBox.copy(),add, null);
+		downloadBox(activity, viewBox.copy(),add, null);
 	}
 	
 	/**
 	 * Re-downloads the same area as last time
 	 * 
-	 * @see #downloadBox(Main, BoundingBox, boolean)
+	 * @param activity activity this was called from
+	 * @see #downloadBox(activity, BoundingBox, boolean)
 	 */
-	void downloadLast() {
+	void downloadLast(final FragmentActivity activity) {
 		getDelegator().reset(false);
 		for (BoundingBox box:getDelegator().getBoundingBoxes()) {
-			if (box != null && box.isValidForApi()) downloadBox(box, true, null);
+			if (box != null && box.isValidForApi()) {
+				downloadBox(activity, box, true, null);
+			}
 		}
 	}
 
@@ -2801,7 +2852,7 @@ public class Logic {
 //						ACRA.getErrorReporter().handleException(ex);
 //					}
 //				}
-//				map.invalidate();
+//				invalidateMap();
 //
 //				UndoStorage.updateIcon();
 //			}
@@ -2829,56 +2880,61 @@ public class Logic {
 			getDelegator().removeRelation((Relation)e);
 		}
 		getDelegator().removeFromUpload(e);
-		map.invalidate();		
+		invalidateMap();		
 	}
 	
 	/**
 	 * Read a file in (J)OSM format from device
 	 * 
+	 * @param activity activity that called this
 	 * @param uri uri of file to load
 	 * @param add unused currently
 	 * @throws FileNotFoundException 
 	 */
-	public void readOsmFile(final Uri uri, boolean add) throws FileNotFoundException {
-		readOsmFile(uri, add, null);
+	public void readOsmFile(@NotNull final FragmentActivity activity, final Uri uri, boolean add) throws FileNotFoundException {
+		readOsmFile(activity, uri, add, null);
 	}
 
 	/**
 	 * Read a file in (J)OSM format from device
 	 * 
+	 * @param activity activity that called this
 	 * @param uri uri of file to load
 	 * @param add unused currently
 	 * @param postLoad callback to execute once file is loaded
 	 * @throws FileNotFoundException
 	 */
-	public void readOsmFile(final Uri uri, boolean add, final PostAsyncActionHandler postLoad) throws FileNotFoundException {
+	public void readOsmFile(@NotNull final FragmentActivity activity, final Uri uri, boolean add, final PostAsyncActionHandler postLoad) throws FileNotFoundException {
 
 		final InputStream is;
 		
 		if (uri.getScheme().equals("file")) {
 			is = new FileInputStream(new File(uri.getPath()));
 		} else {
-			ContentResolver cr = App.mainActivity.getContentResolver();
+			ContentResolver cr = activity.getContentResolver();
 			is = cr.openInputStream(uri);
 		}
-		readOsmFile(is, add, postLoad);
+		readOsmFile(activity, is, add, postLoad);
 	}
 	
 	/**
 	 * Read a stream in (J)OSM format
 	 * 
+	 * @param activity activity that called this
 	 * @param is input
 	 * @param add unused currently
 	 * @param postLoad callback to execute once stream has been loaded
 	 * @throws FileNotFoundException
 	 */
-	public void readOsmFile(final InputStream is, boolean add, final PostAsyncActionHandler postLoad) {
+	public void readOsmFile(@NotNull final FragmentActivity activity, final InputStream is, boolean add, final PostAsyncActionHandler postLoad) {
+		
+		final Map map = activity instanceof Main ? ((Main)activity).getMap() : null;
 		
 		new AsyncTask<Boolean, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(App.mainActivity, Progress.PROGRESS_LOADING);
+				Progress.showDialog(activity, Progress.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -2895,8 +2951,9 @@ public class Logic {
 						sd.reset(false);
 						sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
 						sd.fixupApiStorage();
-
-						viewBox.setBorders(getDelegator().getLastBox()); // set to current or previous
+						if (map != null) {
+							viewBox.setBorders(map, getDelegator().getLastBox()); // set to current or previous
+						}
 					} finally {
 						SavingHelper.close(in);
 					}
@@ -2921,13 +2978,15 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_LOADING);
-				View map = App.mainActivity.getCurrentFocus();
-				try {
-					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				} catch (OsmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+				if (map != null) {
+					try {
+						viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
+					} catch (OsmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 				}
 				if (result != 0) {
 					if (result == ErrorCodes.OUT_OF_MEMORY) {
@@ -2937,8 +2996,8 @@ public class Logic {
 						}
 					}
 					try {
-						if (!App.mainActivity.isFinishing()) {
-							ErrorAlert.showDialog(App.mainActivity,result);
+						if (!activity.isFinishing()) {
+							ErrorAlert.showDialog(activity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("CAUSE",ex.getMessage());
@@ -2953,9 +3012,9 @@ public class Logic {
 						postLoad.onSuccess();
 					}
 				}
-				DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
-				map.invalidate();
-				UndoStorage.updateIcon();
+
+				invalidateMap();
+				activity.supportInvalidateOptionsMenu();
 			}
 			
 		}.execute(add);
@@ -2968,12 +3027,13 @@ public class Logic {
 	 * @param fileName path of the file to save to
 	 * @param postSaveHandler if not null executes code after saving
 	 */
-	public void writeOsmFile(@NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
+	public void writeOsmFile(@NotNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
+		
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(App.mainActivity, Progress.PROGRESS_SAVING);
+				Progress.showDialog(activity, Progress.PROGRESS_SAVING);
 			}
 			
 			@Override
@@ -3017,13 +3077,15 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_SAVING);
-				View map = App.mainActivity.getCurrentFocus();
-				try {
-					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				} catch (OsmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
+				Map map = activity instanceof Main ? ((Main)activity).getMap() : null;
+				if (map != null) {
+					try {
+						viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
+					} catch (OsmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				if (result != 0) {
 					if (result == ErrorCodes.OUT_OF_MEMORY) {
@@ -3032,8 +3094,8 @@ public class Logic {
 							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
 					}
-					if (!App.mainActivity.isFinishing()) {
-						ErrorAlert.showDialog(App.mainActivity,result);
+					if (!activity.isFinishing()) {
+						ErrorAlert.showDialog(activity,result);
 					}
 					if (postSaveHandler != null) {
 						postSaveHandler.onError();
@@ -3049,11 +3111,13 @@ public class Logic {
 
 	/**
 	 * Saves to a file (synchronously)
+	 * 
+	 * @param activity activity that we were called from
 	 */
-	synchronized void save() {
+	synchronized void save(final Activity activity) {
 		try {
-			getDelegator().writeToFile(App.mainActivity);
-			App.getTaskStorage().writeToFile(App.mainActivity);
+			getDelegator().writeToFile(activity);
+			App.getTaskStorage().writeToFile(activity);
 		} catch (IOException e) {
 			Log.e(DEBUG_TAG, "Problem saving", e);
 		}
@@ -3061,12 +3125,14 @@ public class Logic {
 		
 	/**
 	 * Saves to a file (asynchronously)
+	 * 
+	 * @param activity activity that we were called from
 	 */
-	void saveAsync() {
+	void saveAsync(final Activity activity) {
 		new AsyncTask<Void, Void, Void>() {
 			@Override
 			protected Void doInBackground(Void... params) {
-				save();
+				save(activity);
 				// the disadvantage of saving async is that something might have
 				// changed during the write .... so we force the dirty flags on
 				getDelegator().dirty();
@@ -3087,14 +3153,16 @@ public class Logic {
 	
 	/**
 	 * Loads the current editing state (selected objects, editing mode, etc) from file.
+	 * 
+	 * @param main instance of main to setup
 	 * @param setViewBox set the view box if true
 	 */
-	void loadEditingState(boolean setViewBox) {
-		EditState editState = new SavingHelper<EditState>().load(App.mainActivity,EDITSTATE_FILENAME, false);
+	void loadEditingState(Main main, boolean setViewBox) {
+		EditState editState = new SavingHelper<EditState>().load(main,EDITSTATE_FILENAME, false);
 		if(editState != null) { // 
 			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
-			editState.setMiscState(App.mainActivity, this);
-			editState.setSelected(this);
+			editState.setMiscState(main, this);
+			editState.setSelected(main, this);
 			if (setViewBox) {
 				editState.setViewBox(this,map);
 			}
@@ -3106,16 +3174,17 @@ public class Logic {
 	 * 
 	 * @param context 
 	 */
-	void loadFromFile(final Context context, final PostAsyncActionHandler postLoad) {
+	void loadStateFromFile(@NonNull final FragmentActivity activity, final PostAsyncActionHandler postLoad) {
 		
 		final int READ_FAILED = 0;
 		final int READ_OK = 1;
 		final int READ_BACKUP = 2;
 
-		Context[] c = {context};
-		AsyncTask<Context, Void, Integer> loader = new AsyncTask<Context, Void, Integer>() {
+		final Map map = activity instanceof Main ? ((Main)activity).getMap() : null;
+		
+		AsyncTask<Void, Void, Integer> loader = new AsyncTask<Void, Void, Integer>() {
 					
-			final AlertDialog progress = ProgressDialog.get(context, Progress.PROGRESS_LOADING);
+			final AlertDialog progress = ProgressDialog.get(activity, Progress.PROGRESS_LOADING);
 			
 			@Override
 			protected void onPreExecute() {
@@ -3124,13 +3193,17 @@ public class Logic {
 			}
 			
 			@Override
-			protected Integer doInBackground(Context... c) {
-				if (getDelegator().readFromFile(c[0])) {
-					viewBox.setBorders(getDelegator().getLastBox());
+			protected Integer doInBackground(Void... v) {
+				if (getDelegator().readFromFile(activity)) {
+					if (map != null) {
+						viewBox.setBorders(map, getDelegator().getLastBox());
+					}
 					return Integer.valueOf(READ_OK);
-				} else if (getDelegator().readFromFile(c[0],StorageDelegator.FILENAME + ".backup")) {
+				} else if (getDelegator().readFromFile(activity,StorageDelegator.FILENAME + ".backup")) {
 					getDelegator().dirty(); // we need to overwrite the saved state asap
-					viewBox.setBorders(getDelegator().getLastBox());
+					if (map != null) {
+						viewBox.setBorders(map, getDelegator().getLastBox());
+					}
 					return Integer.valueOf(READ_BACKUP);
 				}
 				return Integer.valueOf(READ_FAILED);
@@ -3146,60 +3219,61 @@ public class Logic {
 				}
 				if (result.intValue() != READ_FAILED) {
 					Log.d(DEBUG_TAG, "loadfromFile: File read correctly");
-					View map = App.mainActivity.getCurrentFocus();
-					
-					try {
-						viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-					} catch (Exception e) {
-						// invalid dimensions of similar error
+					if (map != null) {
 						try {
-							viewBox.setBorders(new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
-						} catch (OsmException e1) {
-							// Can't happen?
-							e1.printStackTrace();
+							viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
+						} catch (Exception e) {
+							// invalid dimensions of similar error
+							try {
+								viewBox.setBorders(map, new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
+							} catch (OsmException e1) {
+								// Can't happen?
+								e1.printStackTrace();
+							}
 						}
+						DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in loadEiditngState
+						loadEditingState((Main) activity, true);
 					}
-					loadEditingState(true);
-					DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in loadEiditngState
-					
+
 					if (postLoad != null) {
 						postLoad.onSuccess();
 					}
-					map.invalidate();
-					UndoStorage.updateIcon();
+					if (map != null) {
+						invalidateMap();
+					}
+					// this updates the Undo icon if present
+					activity.supportInvalidateOptionsMenu();
 					if (result.intValue() == READ_BACKUP) { 
-						Toast.makeText(App.mainActivity, R.string.toast_used_backup, Toast.LENGTH_LONG).show();
+						Snack.barError(activity, R.string.toast_used_backup);
 					}
 				}
 				else {
 					Log.d("Logic", "loadfromFile: File read failed");
-					Intent intent = new Intent(context, BoxPicker.class);
-					App.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDING_BOX);
-					Toast.makeText(App.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+					Intent intent = new Intent(activity, BoxPicker.class);
+					activity.startActivityForResult(intent, Main.REQUEST_BOUNDING_BOX);
+					
+					Snack.barError(activity, R.string.toast_state_file_failed);
 					if (postLoad != null) {
 						postLoad.onError();
 					}
 				}
 			}
 		};
-		loader.execute(c);
+		loader.execute();
 	}
 	
 	/**
-	 * Loads data from a file in the background.
+	 * Loads the saved task state from a file in the background.
 	 * 
-	 * @param context 
+	 * @param activity the activity calling this method 
 	 */
-	void loadBugsFromFile(Context context, final PostAsyncActionHandler postLoad) {
+	void loadBugsFromFile(@NonNull final Activity activity, final PostAsyncActionHandler postLoad) {
 		
 		final int READ_FAILED = 0;
 		final int READ_OK = 1;
 		final int READ_BACKUP = 2;
 
-		Context[] c = {context};
-		AsyncTask<Context, Void, Integer> loader = new AsyncTask<Context, Void, Integer>() {
-					
-			Context context;
+		AsyncTask<Void, Void, Integer> loader = new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
@@ -3207,9 +3281,8 @@ public class Logic {
 			}
 			
 			@Override
-			protected Integer doInBackground(Context... c) {
-				this.context = c[0];
-				if (App.getTaskStorage().readFromFile(context)) {
+			protected Integer doInBackground(Void... v) {
+				if (App.getTaskStorage().readFromFile(activity)) {
 					// viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_OK);
 				} 
@@ -3221,15 +3294,13 @@ public class Logic {
 				Log.d("Logic", "loadBugsFromFile onPostExecute");
 				if (result.intValue() != READ_FAILED) {
 					Log.d("Logic", "loadBugsfromFile: File read correctly");
-					View map = App.mainActivity.getCurrentFocus();
 					
 					// FIXME if no bbox exists from data, ty to use one from bugs
 					if (postLoad != null) {
 						postLoad.onSuccess();
 					}
-					// map.invalidate();
 					if (result.intValue() == READ_BACKUP) { 
-						Toast.makeText(context, R.string.toast_used_bug_backup, Toast.LENGTH_LONG).show();
+						Snack.barError(activity, R.string.toast_used_bug_backup);
 					}
 				}
 				else {
@@ -3240,14 +3311,14 @@ public class Logic {
 				}
 			}
 		};
-		loader.execute(c);
+		loader.execute();
 	}
 	
 	/**
 	 * Loads data from a file
 	 * 
 	 */
-	public void syncLoadFromFile(Context context) {
+	public void syncLoadFromFile(@NonNull FragmentActivity activity) {
 
 		final int READ_FAILED = 0;
 		final int READ_OK = 1;
@@ -3255,58 +3326,63 @@ public class Logic {
 
 		int result = READ_FAILED;
 
-		Progress.showDialog(App.mainActivity, Progress.PROGRESS_LOADING);
+		Map map = activity instanceof Main ? ((Main)activity).getMap() : null;
+		Progress.showDialog(activity, Progress.PROGRESS_LOADING);
 
-		if (getDelegator().readFromFile(context)) {
-			viewBox.setBorders(getDelegator().getLastBox());
+		if (getDelegator().readFromFile(activity)) {
+			viewBox.setBorders(map, getDelegator().getLastBox());
 			result = READ_OK;
 		} 
 
-		Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_LOADING);
+		Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
 		if (result != READ_FAILED) {
 			Log.d("Logic", "syncLoadfromFile: File read correctly");
-			View map = App.mainActivity.getCurrentFocus();
-
-			try {
-				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-			} catch (Exception e) {
-				// invalid dimensions of similar error
+			if (map != null) {
 				try {
-					viewBox.setBorders(new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
-				} catch (OsmException e1) {
-					// Can't happen?
-					e1.printStackTrace();
+					viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
+				} catch (Exception e) {
+					// invalid dimensions of similar error
+					try {
+						viewBox.setBorders(map, new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
+					} catch (OsmException e1) {
+						// Can't happen?
+						e1.printStackTrace();
+					}
 				}
+				DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+				loadEditingState((Main) activity, true);
 			}
-			DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
-			loadEditingState(true);
-			map.invalidate();
-			UndoStorage.updateIcon();
-			if (result == READ_BACKUP) { 
-				Toast.makeText(App.mainActivity, R.string.toast_used_backup, Toast.LENGTH_LONG).show();
+		
+			if (map != null) {
+				invalidateMap();
+			}
+			activity.supportInvalidateOptionsMenu();
+			if (result == READ_BACKUP) {
+				Snack.barError(activity, R.string.toast_used_backup);
 			}
 		}
 		else {
 			Log.d("Logic", "syncLoadfromFile: File read failed");
-			Toast.makeText(App.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+			Snack.barError(activity, R.string.toast_state_file_failed);
 		}
 	}
 
 	/**
 	 * Uploads to the server in the background.
 	 * 
+	 * @param activity Activity this is called from
 	 * @param comment Changeset comment.
 	 * @param source The changeset source tag to add.
 	 * @param closeChangeset Whether to close the changeset after upload or not.
 	 */
-	public void upload(final String comment, final String source, final boolean closeChangeset) {
+	public void upload(@NonNull final FragmentActivity activity, final String comment, final String source, final boolean closeChangeset) {
 		final String PROGRESS_TAG = "data";
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, UploadResult>() {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(App.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+				Progress.showDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
 				lastComments.push(comment);
 				lastSources.push(source);
 			}
@@ -3373,32 +3449,31 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(UploadResult result) {
-				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+				Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
 				if (result.error == 0) {
-					save(); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
-					Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
-					App.mainActivity.triggerMenuInvalidation();
+					save(activity); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
+					Snack.barInfo(activity, R.string.toast_upload_success);
 					getDelegator().clearUndo(); // only clear on successful upload
+					activity.supportInvalidateOptionsMenu();
 				}
-				App.mainActivity.getCurrentFocus().invalidate();
-				if (!App.mainActivity.isFinishing()) {
+				activity.getCurrentFocus().invalidate();
+				if (!activity.isFinishing()) {
 					if (result.error == ErrorCodes.UPLOAD_CONFLICT) {
 						if (result.osmId > 0) {
-							UploadConflict.showDialog(App.mainActivity, result);
+							UploadConflict.showDialog(activity, result);
 						} else {
 							Log.e(DEBUG_TAG, "No OSM element found for conflict");
-							ErrorAlert.showDialog(App.mainActivity,ErrorCodes.UPLOAD_PROBLEM);
+							ErrorAlert.showDialog(activity,ErrorCodes.UPLOAD_PROBLEM);
 						}
 					} else if (result.error == ErrorCodes.INVALID_LOGIN) {
-						InvalidLogin.showDialog(App.mainActivity);
+						InvalidLogin.showDialog(activity);
 					} else if (result.error == ErrorCodes.FORBIDDEN) {
-						ForbiddenLogin.showDialog(App.mainActivity,result.message);
+						ForbiddenLogin.showDialog(activity,result.message);
 					} else if (result.error != 0) {
-						ErrorAlert.showDialog(App.mainActivity,result.error);
+						ErrorAlert.showDialog(activity,result.error);
 					}
 				}
-			}
-			
+			}			
 		}.execute();
 	}
 	
@@ -3412,13 +3487,13 @@ public class Logic {
 	 * @param tags the tags to apply to the GPS track (comma delimeted)
 	 * @param visibility the track visibility, one of the following: private, public, trackable, identifiable
 	 */
-	public void uploadTrack(final Track track, final String description, final String tags, final Visibility visibility) {
+	public void uploadTrack(@NonNull final FragmentActivity activity, final Track track, final String description, final String tags, final Visibility visibility) {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);
+				Progress.showDialog(activity, Progress.PROGRESS_UPLOADING);
 			}
 			
 			@Override
@@ -3478,17 +3553,17 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_UPLOADING);
+				Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING);
 				if (result == 0) {
-					Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+					Snack.barInfo(activity, R.string.toast_upload_success);
 				}
-				App.mainActivity.getCurrentFocus().invalidate();
+				activity.getCurrentFocus().invalidate();
 				if (result != 0) {
-					if (!App.mainActivity.isFinishing()) {
+					if (!activity.isFinishing()) {
 						if (result == ErrorCodes.INVALID_LOGIN) {
-							InvalidLogin.showDialog(App.mainActivity);
+							InvalidLogin.showDialog(activity);
 						} else { 
-							ErrorAlert.showDialog(App.mainActivity,result);
+							ErrorAlert.showDialog(activity,result);
 						}
 					}
 				}
@@ -3499,8 +3574,10 @@ public class Logic {
 	
 	/**
 	 * Show a toast indicating how many unread mails are on the server
+	 * 
+	 * @param activity activity calling this method
 	 */
-	public void checkForMail() {
+	public void checkForMail(final FragmentActivity activity) {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
 			
@@ -3522,15 +3599,20 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {
 				if (result > 0) {
-					Context ctx = App.mainActivity.getApplicationContext();
 					try {
-						Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unread_mail, result), Toast.LENGTH_LONG).show();
+						if (activity != null) {
+							Snack.barInfo(activity, activity.getResources().getString(R.string.toast_unread_mail, result),
+									R.string.read, new View.OnClickListener() {
+								@Override
+								public void onClick(View v) {										
+								}
+							});
+						}
 					} catch (java.util.IllegalFormatFlagsException iffex) {
 						// do nothing ... this is stop bugs in the Android format parsing crashing the upload, happens at least with the PL string
 					}
 				}
-			}
-			
+			}	
 		}.execute();
 	}
 	
@@ -3906,7 +3988,7 @@ public class Logic {
 		setSelectedNode(null);
 		setSelectedWay(null);
 		setSelectedRelation(null);
-		map.invalidate();
+		invalidateMap();
 	}
 	
 	/**
@@ -3915,6 +3997,15 @@ public class Logic {
 	 */
 	public Map getMap() {
 		return map;
+	}
+	
+	/**
+	 * Convenience method to invalidate the map 
+	 */
+	private void invalidateMap() {
+		if (map != null) {
+			map.invalidate();
+		}
 	}
 	
 	/**
@@ -4211,7 +4302,7 @@ public class Logic {
 	 */
 	public void showCrosshairs(float x, float y) {
 		map.showCrosshairs(x, y);
-		map.invalidate();
+		invalidateMap();
 	}
 	
 	public void hideCrosshairs() {
@@ -4240,7 +4331,7 @@ public class Logic {
 			Log.d("Logic","centroid " + result[0] + " " + result[1]);
 			getDelegator().cutToClipboard(element, result[0], result[1]);
 		}
-		map.invalidate();
+		invalidateMap();
 	}
 
 	public void pasteFromClipboard(float x, float y) {
@@ -4379,20 +4470,21 @@ public class Logic {
 		}	
 	}
 
-	
 	/**
 	 * Arrange way points in a circle
-	 * @param way
+	 * 
+	 * Note: currently only works if map is present
+	 * @param activity this method was called from, if null no warnings will be displayed
+	 * @param way way to circulize
 	 */
-	public void performCirculize(Way way) {
+	public void performCirculize(@Nullable FragmentActivity activity, Way way) {
 		if (way.getNodes().size() < 3) return;
 		createCheckpoint(R.string.undo_action_circulize);
 		int[] center = centroid(map.getWidth(), map.getHeight(), viewBox, way);
-		getDelegator().circulizeWay(center, way);
-		map.invalidate();
-		displayAttachedObjectWarning(way);
+		getDelegator().circulizeWay(map, center, way);
+		invalidateMap();
+		displayAttachedObjectWarning(activity, way);
 	}
-
 	
 	/**
 	 * convenience function
@@ -4519,54 +4611,59 @@ public class Logic {
 	
 	/**
 	 * Display a warning if an operation on the element e would effect a filtered/hidden object
+	 * @param activity activity this method was called from, if null no warnings will be displayed
 	 * @param e
 	 */
-	private <T extends OsmElement> void displayAttachedObjectWarning(T e) {
+	private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e) {
 		ArrayList<T> a = new ArrayList<T>();
 		a.add(e);
-		displayAttachedObjectWarning(a);
+		displayAttachedObjectWarning(activity, a);
 	}
 	
 	/**
 	 * Display a warning if an operation on the element e1 or e2 would effect a filtered/hidden object
+	 * @param activity activity this method was called from, if null no warnings will be displayed
 	 * @param e1
 	 * @param e2
 	 */
-	private <T extends OsmElement> void displayAttachedObjectWarning(T e1, T e2) {
+	private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e1, T e2) {
 		ArrayList<T> a = new ArrayList<T>();
 		a.add(e1);
 		a.add(e2);
-		displayAttachedObjectWarning(a);
+		displayAttachedObjectWarning(activity, a);
 	}
 	
 	/**
 	 * Display a warning if an operation on the element e1 or e2 would effect a filtered/hidden object
+	 * @param activity activity this method was called from, if null no warnings will be displayed
 	 * @param e1
 	 * @param e2
 	 * @param checkRelationsOnly
 	 */
-	private <T extends OsmElement> void displayAttachedObjectWarning(T e1, T e2, boolean checkRelationsOnly) {
+	private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e1, T e2, boolean checkRelationsOnly) {
 		ArrayList<T> a = new ArrayList<T>();
 		a.add(e1);
 		a.add(e2);
-		displayAttachedObjectWarning(a, checkRelationsOnly);
+		displayAttachedObjectWarning(activity,a, checkRelationsOnly);
 	}
 	
 	/**
 	 * Display a warning if an operation on the elements included in list would effect a filtered/hidden object
+	 * @param activity activity this method was called from, if null no warnings will be displayed
 	 * @param list
 	 */
-	private <T extends OsmElement> void displayAttachedObjectWarning(Collection<T> list) {
-		displayAttachedObjectWarning(list, false);
+	private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, Collection<T> list) {
+		displayAttachedObjectWarning(activity,list, false);
 	}
 
 	
 	/**
 	 * Display a warning if an operation on the elements included in list would effect a filtered/hidden object
+	 * @param activity activity this method was called from, if null no warnings will be displayed
 	 * @param list
 	 * @param checkRelationsOnly
 	 */
-	private <T extends OsmElement> void displayAttachedObjectWarning(Collection<T> list, boolean checkRelationsOnly) {
+	private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, Collection<T> list, boolean checkRelationsOnly) {
 		if (getFilter() != null && showAttachedObjectWarning()) {
 			elementLoop:
 				for (OsmElement e:list) {
@@ -4576,7 +4673,7 @@ public class Logic {
 							if (ways.size() > 0) {
 								for (Way w:ways) {
 									if (!getFilter().include(w, false)) {
-										AttachedObjectWarning.showDialog(App.mainActivity);
+										AttachedObjectWarning.showDialog(activity);
 										break elementLoop;
 									}
 								}
@@ -4587,7 +4684,7 @@ public class Logic {
 								if (ways.size() > 0) {
 									for (Way w:ways) {
 										if (!getFilter().include(w, false)) {
-											AttachedObjectWarning.showDialog(App.mainActivity);
+											AttachedObjectWarning.showDialog(activity);
 											break elementLoop;
 										}
 									}
@@ -4598,7 +4695,7 @@ public class Logic {
 					if (e.hasParentRelations()) {
 						for (Relation r:e.getParentRelations()) {
 							if (!getFilter().include(r, false)) {
-								AttachedObjectWarning.showDialog(App.mainActivity);
+								AttachedObjectWarning.showDialog(activity);
 								break elementLoop;
 							}
 						}

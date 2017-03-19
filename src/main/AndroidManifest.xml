@@ -33,7 +33,8 @@
 		android:largeHeap="true" 
 		android:allowBackup="true"
 		android:fullBackupContent="@xml/backup"
-		android:resizeableActivity="true" >
+		android:resizeableActivity="true" 
+		android:theme="@style/Theme.AppCompat" >
 		
 	    <activity
     		android:name=".Splash"

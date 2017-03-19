@@ -73,6 +73,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SearchIndexUtils;
+import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -191,7 +192,7 @@ public class EasyEditManager {
 						String problem = element.describeProblem();
 						toast = !problem.equals("") ? toast + "\n" + problem : toast;
 					}
-					Toast.makeText(main, toast, Toast.LENGTH_SHORT).show();
+					Snack.barInfoShort(main, toast);
 				}
 			}
 		}
@@ -723,7 +724,7 @@ public class EasyEditManager {
 				if (splitPosition != null) {
 					for (Way way:ways) {
 						if (way.hasNode(splitPosition)) {
-							logic.performSplit(way,logic.getSelectedNode());
+							logic.performSplit(main, way,logic.getSelectedNode());
 						}
 					}
 				}
@@ -768,7 +769,7 @@ public class EasyEditManager {
 					try {
 						Node node = logic.performAddOnWay(ways,startX, startY, false);
 						if (node != null) {
-							logic.performSplit(way,node);
+							logic.performSplit(main, way,node);
 						}
 					} catch (OsmIllegalOperationException e) {
 						Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -783,7 +784,7 @@ public class EasyEditManager {
 				logic.hideCrosshairs();
 				try {
 					logic.setSelectedNode(null);
-					logic.performAdd(x, y);
+					logic.performAdd(main, x, y);
 				} catch (OsmIllegalOperationException e1) {
 					Toast.makeText(main,e1.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 					Log.d(DEBUG2_TAG,"Caught exception " + e1);
@@ -804,7 +805,7 @@ public class EasyEditManager {
 				logic.hideCrosshairs();
 				try {
 					logic.setSelectedNode(null);
-					logic.performAdd(x, y);
+					logic.performAdd(main, x, y);
 					Node node = logic.getSelectedNode();
 					if (locationManager != null && node != null) {
 						Location location = null;
@@ -817,7 +818,7 @@ public class EasyEditManager {
 							double lon = location.getLongitude();
 							double lat = location.getLatitude();
 							if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-								logic.performSetPosition(node,lon,lat);
+								logic.performSetPosition(main, node,lon,lat);
 								TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
 								if (location.hasAltitude()) {
 									tags.put(Tags.KEY_ELE, String.format(Locale.US,"%.1f",location.getAltitude()));
@@ -884,7 +885,7 @@ public class EasyEditManager {
 						int number = Integer.parseInt(first);
 						// worked if there is a further word(s) simply add it/them
 						Toast.makeText(main,+ number  + (words.length == 2?words[1]:""), Toast.LENGTH_LONG).show();
-						Node node = logic.performAddNode(startLon/1E7D, startLat/1E7D);
+						Node node = logic.performAddNode(main, startLon/1E7D, startLat/1E7D);
 						if (node != null) {
 							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + number  + (words.length == 3?words[2]:""));
@@ -910,7 +911,7 @@ public class EasyEditManager {
 					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first,ElementType.NODE,2,1);
 					
 					if (presetItems != null && presetItems.size()==1) {		
-						Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), words.length == 2? words[1]:null, presetItems.get(0), logic, v);
+						Node node = addNode(logic.performAddNode(main, startLon/1E7D, startLat/1E7D), words.length == 2? words[1]:null, presetItems.get(0), logic, v);
 						if (node != null) {
 							main.startSupportActionMode(new NodeSelectionActionModeCallback(node));
 							return;
@@ -928,7 +929,7 @@ public class EasyEditManager {
 						map.putAll(nt.getTags());
 						PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
 						if (pi != null) {
-							Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), nt.getName(), pi, logic, v);
+							Node node = addNode(logic.performAddNode(main, startLon/1E7D, startLat/1E7D), nt.getName(), pi, logic, v);
 							if (node != null) {
 								// set tags from name suggestions
 								Map<String,String> tags = new TreeMap<String, String>(node.getTags());
@@ -1076,9 +1077,9 @@ public class EasyEditManager {
 			Node lastSelectedNode = logic.getSelectedNode();
 			Way lastSelectedWay = logic.getSelectedWay();
 			if (appendTargetNode != null) {
-				logic.performAppendAppend(x, y);
+				logic.performAppendAppend(main, x, y);
 			} else {
-				logic.performAdd(x, y);
+				logic.performAdd(main, x, y);
 			}
 			if (logic.getSelectedNode() == null) {
 				// user clicked last node again -> finish adding
@@ -1416,7 +1417,7 @@ public class EasyEditManager {
 					break;
 				case MENUITEM_JOIN:
 					try {
-						if (!logic.performJoin(joinableElement, (Node) element)) {
+						if (!logic.performJoin(main, joinableElement, (Node) element)) {
 							Toast.makeText(main,
 									R.string.toast_merge_tag_conflict,
 									Toast.LENGTH_LONG).show();
@@ -1429,11 +1430,11 @@ public class EasyEditManager {
 					}
 					break;
 				case MENUITEM_UNJOIN:
-					logic.performUnjoin((Node)element);
+					logic.performUnjoin(main, (Node)element);
 					mode.finish();
 					break;
 				case MENUITEM_EXTRACT:
-					logic.performExtract((Node)element);
+					logic.performExtract(main, (Node)element);
 					invalidate();
 					break;
 				case MENUITEM_SET_POSITION: 
@@ -1456,7 +1457,7 @@ public class EasyEditManager {
 						new DialogInterface.OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseNode((Node)element, true);
+								logic.performEraseNode(main, (Node)element, true);
 								if (mode != null) {
 									mode.finish();
 								}
@@ -1464,7 +1465,7 @@ public class EasyEditManager {
 						})
 					.show();
 			} else {
-				logic.performEraseNode((Node)element, true);
+				logic.performEraseNode(main, (Node)element, true);
 				mode.finish();
 			}
 		}
@@ -1508,7 +1509,7 @@ public class EasyEditManager {
 					double lon = Double.valueOf(lonField.getText().toString());
 					double lat = Double.valueOf(latField.getText().toString());
 					if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-						logic.performSetPosition(node,lon,lat);
+						logic.performSetPosition(main, node,lon,lat);
 						invalidate();
 					} else {
 						createSetPositionDialog((int)(lon*1E7), (int)(lat*1E7)).show();
@@ -1629,8 +1630,8 @@ public class EasyEditManager {
 				case MENUITEM_APPEND: main.startSupportActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
 				case MENUITEM_RESTRICTION: main.startSupportActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
 				case MENUITEM_ROTATE: deselect=false; main.startSupportActionMode(new WayRotationActionModeCallback((Way)element)); break;
-				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); invalidate(); break; // FIXME move to asynctask
-				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); invalidate(); break;
+				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize(main, (Way)element); invalidate(); break; // FIXME move to asynctask
+				case MENUITEM_CIRCULIZE: logic.performCirculize(main, (Way)element); invalidate(); break;
 				case MENUITEM_SPLIT_POLYGON: main.startSupportActionMode(new WaySplittingActionModeCallback((Way)element, true)); break;
 				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false, false); break;
 				default: return false;
@@ -1652,7 +1653,7 @@ public class EasyEditManager {
 						new DialogInterface.OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseWay((Way)element, false, true);
+								logic.performEraseWay(main, (Way)element, false, true);
 								if (mode != null) {
 									mode.finish();
 								}
@@ -1662,7 +1663,7 @@ public class EasyEditManager {
 						new DialogInterface.OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseWay((Way)element, true, true);
+								logic.performEraseWay(main, (Way)element, true, true);
 								if (mode != null) {
 									mode.finish();
 								}
@@ -1721,7 +1722,7 @@ public class EasyEditManager {
 			if (way.isClosed())
 				main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(way, (Node) element, createPolygons));
 			else {
-				logic.performSplit(way, (Node)element);
+				logic.performSplit(main, way, (Node)element);
 				currentActionMode.finish();
 			}
 			return true;
@@ -1830,7 +1831,7 @@ public class EasyEditManager {
 				return false;
 			}
 			try {
-				if (!logic.performMerge(way, (Way)element)) {
+				if (!logic.performMerge(main, way, (Way)element)) {
 					Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
 					if (way.getState() != OsmElement.STATE_DELETED)
 						main.performTagEdit(way, null, false, false, false);
@@ -2001,7 +2002,7 @@ public class EasyEditManager {
 						new DialogInterface.OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseRelation((Relation)element, true);
+								logic.performEraseRelation(main, (Relation)element, true);
 								if (mode != null) {
 									mode.finish();
 								}
@@ -2009,7 +2010,7 @@ public class EasyEditManager {
 						})
 					.show();
 			} else {
-				logic.performEraseRelation((Relation)element, true);
+				logic.performEraseRelation(main, (Relation)element, true);
 				mode.finish();
 			}
 		}
@@ -2126,11 +2127,11 @@ public class EasyEditManager {
 			Way newFromWay = null;
 			if (!fromWay.getFirstNode().equals(viaNode) && !fromWay.getLastNode().equals(viaNode)) {
 				// split from at node
-				newFromWay = logic.performSplit(fromWay,viaNode);
+				newFromWay = logic.performSplit(main, fromWay,viaNode);
 			}
 			Way newViaWay = null;
 			if (viaWay != null && !viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
-				newViaWay = logic.performSplit(viaWay,viaNode);
+				newViaWay = logic.performSplit(main, viaWay,viaNode);
 			}
 			Set<OsmElement> viaElements = new HashSet<OsmElement>();
 			viaElements.add(element);
@@ -2219,7 +2220,7 @@ public class EasyEditManager {
 				viaNode = ((Way)viaElement).getCommonNode(toWay);
 				if (!viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
 					// split via way and use appropriate segment
-					Way newViaWay = logic.performSplit(viaWay, viaNode);
+					Way newViaWay = logic.performSplit(main, viaWay, viaNode);
 					Toast.makeText(main, R.string.toast_split_via, Toast.LENGTH_LONG).show();
 					if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getLastNode())) {
 						viaElement = newViaWay;
@@ -2228,7 +2229,7 @@ public class EasyEditManager {
 			}
 			// now check if we need to split the toWay
 			if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode)) {
-				Way newToWay = logic.performSplit(toWay, viaNode);
+				Way newToWay = logic.performSplit(main, toWay, viaNode);
 				Toast.makeText(main, R.string.toast_split_to, Toast.LENGTH_LONG).show();
 				Set<OsmElement> toCandidates = new HashSet<OsmElement>();
 				toCandidates.add(toWay);
@@ -2634,7 +2635,7 @@ public class EasyEditManager {
 				case MENUITEM_ORTHOGONALIZE: 
 					List<Way> selectedWays = logic.getSelectedWays();
 					if (selectedWays != null && selectedWays.size() >0) {
-						logic.performOrthogonalize(selectedWays);
+						logic.performOrthogonalize(main, selectedWays);
 					}
 					break;
 				case MENUITEM_MERGE:
@@ -2652,7 +2653,7 @@ public class EasyEditManager {
 						main.performTagEdit(selection, false, false);
 					} else {
 						try {
-							boolean result = logic.performMerge(sortedWays);
+							boolean result = logic.performMerge(main,sortedWays);
 							// find the remaing way
 							Way remaining = null;
 							for (OsmElement w:selection) {
@@ -2742,7 +2743,7 @@ public class EasyEditManager {
 				}
 			}
 			
-			logic.performEraseMultipleObjects(selection);
+			logic.performEraseMultipleObjects(main, selection);
 			
 			currentActionMode.finish();
 		}	

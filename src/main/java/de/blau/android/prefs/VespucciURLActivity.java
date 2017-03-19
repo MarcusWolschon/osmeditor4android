@@ -231,8 +231,10 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			@Override
 			protected void onPostExecute(Boolean success) {
 				Log.d(DEBUG_TAG, "oAuthHandshake onPostExecute");
-				// note this is fundamentally broken and needs to be re-thought
-				App.mainActivity.finishOAuth();
+				// FIXME this is fundamentally broken and needs to be re-thought
+				if (App.mainActivity != null) {
+					App.mainActivity.finishOAuth();
+				}
 			}
 			
 			OAuthException getException() {

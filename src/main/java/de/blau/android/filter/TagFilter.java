@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,6 +29,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
 /**
@@ -147,7 +149,10 @@ public class TagFilter extends Filter {
 					dbresult.getString(3),
 					dbresult.getInt(4) == 1));
 			} catch (PatternSyntaxException psex) {
-				Toast.makeText(context, context.getString(R.string.toast_invalid_filter_regexp,dbresult.getString(2),dbresult.getString(3)), Toast.LENGTH_LONG).show();
+				Log.e(DEBUG_TAG,psex.getMessage());
+				if (context instanceof Activity) {
+					Snack.barError((Activity)context, context.getString(R.string.toast_invalid_filter_regexp,dbresult.getString(2),dbresult.getString(3)));
+				}
 			}
 			dbresult.moveToNext();
 		}

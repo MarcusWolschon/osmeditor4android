@@ -11,14 +11,13 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
-import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.MapViewOverlay;
 
@@ -91,10 +90,12 @@ public class MapOverlay extends MapViewOverlay {
 
 		@Override
 		protected void onProgressUpdate(Integer ... progress) {
-			if (progress[0] == 0)
-				Toast.makeText(App.mainActivity, R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
-			if (progress[0] == 1)
-				Toast.makeText(App.mainActivity, R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
+			if (progress[0] == 0) {
+				Snack.barInfoShort(map, R.string.toast_photo_indexing_started);
+			}
+			if (progress[0] == 1) {
+				Snack.barInfoShort(map, R.string.toast_photo_indexing_finished);
+			}
 		}
 
 		@Override
@@ -106,7 +107,7 @@ public class MapOverlay extends MapViewOverlay {
 	};		
 
 	public MapOverlay(final Map map, Server s) {
-		Context context = App.mainActivity;
+		Context context = map.getContext();
 		this.map = map;
 		photos = new ArrayList<Photo>();
 		icon = ContextCompat.getDrawable(context, R.drawable.camera_red);
@@ -134,6 +135,7 @@ public class MapOverlay extends MapViewOverlay {
 			}
 		
 			if (!indexed && !indexing) {
+				
 				indexPhotos.execute();
 				return;
 			}

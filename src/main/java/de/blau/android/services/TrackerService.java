@@ -41,6 +41,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -58,6 +60,7 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
+import de.blau.android.util.Snack;
 
 public class TrackerService extends Service implements LocationListener, NmeaListener, Exportable {
 
@@ -488,11 +491,12 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
 	/**
 	 * Read a file in GPX format from device
+	 * @param activity activity this was called from, if null no messages will be displayed, and menuss will not be updated
 	 * @param fileName
 	 * @param add unused currently
 	 * @throws FileNotFoundException 
 	 */
-	public void importGPXFile(final Uri uri) throws FileNotFoundException {
+	public void importGPXFile(@Nullable final FragmentActivity activity, final Uri uri) throws FileNotFoundException {
 		
 		final InputStream is;
 		
@@ -509,7 +513,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(App.mainActivity, Progress.PROGRESS_LOADING);
+				if (activity != null) {
+					Progress.showDialog(activity, Progress.PROGRESS_LOADING);
+				}
 			}
 			
 			@Override
@@ -528,11 +534,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			@Override
 			protected void onPostExecute(Integer result) {
 				try {
-					Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_LOADING);
-					Toast.makeText(App.mainActivity.getApplicationContext(), 
-							App.mainActivity.getApplicationContext().getResources().getString(R.string.toast_imported_track_points,track.getTrackPoints().size()-existingPoints), Toast.LENGTH_LONG).show();
-					// the following is extremely ugly
-					Main.triggerMenuInvalidationStatic();
+					if (activity != null) {
+						Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+						Snack.barInfo(activity, activity.getResources().getString(R.string.toast_imported_track_points,track.getTrackPoints().size()-existingPoints));
+						activity.supportInvalidateOptionsMenu();
+					}
 				} catch (IllegalStateException e) {
 					 // Avoid crash if activity is paused
 					Log.e(TAG, "onPostExecute", e);

@@ -83,7 +83,7 @@ public class PropertyEditorTest {
     	mockServer.enqueue("download1");
     	Logic logic = App.getLogic();
     	try {
-			logic.downloadBox(new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+			logic.downloadBox(main, new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
 		} catch (OsmException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -112,7 +112,7 @@ public class PropertyEditorTest {
     	mockServer.enqueue("download1");
     	Logic logic = App.getLogic();
     	try {
-			logic.downloadBox(new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+			logic.downloadBox(main, new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
 		} catch (OsmException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -136,7 +136,7 @@ public class PropertyEditorTest {
     	mockServer.enqueue("download1");
     	Logic logic = App.getLogic();
     	try {
-			logic.downloadBox(new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+			logic.downloadBox(main, new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
 		} catch (OsmException e) {
 			Assert.fail(e.getMessage());
 		}
