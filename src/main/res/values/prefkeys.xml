@@ -69,6 +69,9 @@
     <string name="config_geocoder_button_key">geocoderButton</string>
     <string name="config_contrastValue_key">contrastFloatValue</string>
     <string name="config_js_console_key">jsConsole</string>
+    <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
+    <string name="config_osmPreferredDir_key">osmPreferredDir</string>
+    <string name="config_notesPreferredDir_key">notesPreferredDir</string>
 
     <string-array name="gps_source_keys">
 	<item>internal</item>

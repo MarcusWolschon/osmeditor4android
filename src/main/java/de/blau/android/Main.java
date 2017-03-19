@@ -1315,6 +1315,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Log.d(DEBUG_TAG, "onOptionsItemSelected");
 		final Server server = prefs.getServer();
 		final Logic logic = App.getLogic();
+		StorageDelegator delegator = App.getDelegator();
+		if (delegator == null) { // very unlikely error condition
+			Log.e(DEBUG_TAG,"onOptionsItemSelected delegator null");
+			return true;
+		}
 		switch (item.getItemId()) {
 		case R.id.menu_config:
 			PrefEditor.start(this,getMap().getViewBox());
@@ -1461,9 +1466,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_gps_import:
-			if (App.getDelegator() == null) return true;
 			descheduleAutoLock();
-			SelectFile.read(this, new ReadFile(){
+			SelectFile.read(this, R.string.config_gpxPreferredDir_key, new ReadFile(){
 				private static final long serialVersionUID = 1L;
 
 				@Override
@@ -1485,6 +1489,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 								}
 							}
 			        	}
+			        	SelectFile.savePref(prefs, R.string.config_gpxPreferredDir_key, fileUri);
 			        }
 			        map.invalidate();
 					return true;
@@ -1549,16 +1554,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 
 		case R.id.menu_transfer_export: {
-			StorageDelegator storageDelegator = App.getDelegator();
-			if (storageDelegator == null) return true;
-			SavingHelper.asyncExport(this, storageDelegator);
+			SavingHelper.asyncExport(this, delegator);
 			return true;
 		}
 		case R.id.menu_transfer_read_file:
-			if (App.getDelegator() == null) return true;
 			descheduleAutoLock();
 			// showFileChooser(READ_OSM_FILE_SELECT_CODE);
-			SelectFile.read(this, new ReadFile(){
+			SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile(){
 				private static final long serialVersionUID = 1L;
 
 				@Override
@@ -1572,19 +1574,20 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 							// protect against translation errors
 						}
 					}
+					SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
 			        map.invalidate();
 					return true;
 				}});
 			return true;
 			
 		case R.id.menu_transfer_save_file:
-			if (App.getDelegator() == null) return true;
 			descheduleAutoLock();
-			SelectFile.save(this, new SaveFile(){
+			SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile(){
 				private static final long serialVersionUID = 1L;
 				@Override
 				public boolean save(Uri fileUri) {
 					App.getLogic().writeOsmFile(Main.this, fileUri.getPath(), null);
+					SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
 					return true;
 				}});
 			return true;
@@ -1627,11 +1630,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		case R.id.menu_transfer_save_notes_new_and_changed:
 			if (App.getTaskStorage() == null) return true;
 			descheduleAutoLock();
-			SelectFile.save(this, new SaveFile(){
+			SelectFile.save(this, R.string.config_notesPreferredDir_key, new SaveFile(){
 				private static final long serialVersionUID = 1L;
 				@Override
 				public boolean save(Uri fileUri) {
 					TransferTasks.writeOsnFile(Main.this, item.getItemId()==R.id.menu_transfer_save_notes_all,fileUri.getPath());
+					SelectFile.savePref(prefs, R.string.config_notesPreferredDir_key, fileUri);
 					return true;
 				}});
 			return true;
