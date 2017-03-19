@@ -24,12 +24,12 @@ import org.xmlpull.v1.XmlSerializer;
 
 import com.drew.lang.annotations.NotNull;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
@@ -40,6 +40,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
+import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongOsmElementMap;
 
@@ -2050,9 +2051,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			} else {
 				// this is essentially catastrophic and can only happen if something went really wrong
 				// running out of memory or disk, or HW failure
-				if (ctx != null) {
+				if (ctx != null && ctx instanceof Activity) {
 					try {
-						Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+						Snack.barError((Activity)ctx, R.string.toast_statesave_failed);
 					} catch (Exception ignored) {
 						Log.e(DEBUG_TAG,"Emergency toast failed with " + ignored.getMessage());
 					} catch (Error ignored) {

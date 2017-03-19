@@ -49,6 +49,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.AttachedObjectWarning;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.ForbiddenLogin;
@@ -3601,10 +3602,16 @@ public class Logic {
 				if (result > 0) {
 					try {
 						if (activity != null) {
-							Snack.barInfo(activity, activity.getResources().getString(R.string.toast_unread_mail, result),
+							Snack.barInfo(activity, result == 1 ? activity.getResources().getString(R.string.toast_one_unread_mail) : activity.getResources().getString(R.string.toast_unread_mail, result),
 									R.string.read, new View.OnClickListener() {
 								@Override
-								public void onClick(View v) {										
+								public void onClick(View v) {	
+									try {
+										activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Urls.OSM_LOGIN)));
+									} catch (Exception ex) {
+										//never crash
+										Log.e(DEBUG_TAG,"Linking to the OSM login page failed " + ex.getMessage());
+									}
 								}
 							});
 						}

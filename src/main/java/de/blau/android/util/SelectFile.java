@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.R;
 import de.blau.android.dialogs.GetFileName;
 
@@ -86,8 +85,7 @@ public class SelectFile {
 		    	activity.startActivityForResult(intent,READ_FILE_OLD);
 		    } catch (android.content.ActivityNotFoundException ex) {
 		        // Potentially direct the user to the Market with a Dialog
-		        Toast.makeText(activity, R.string.toast_missing_filemanager, 
-		                Toast.LENGTH_SHORT).show();
+		    	Snack.barError(activity, R.string.toast_missing_filemanager);
 		    }
 		}
 	}

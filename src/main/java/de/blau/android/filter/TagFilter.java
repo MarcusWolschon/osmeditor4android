@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Node;

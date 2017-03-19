@@ -40,7 +40,6 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;

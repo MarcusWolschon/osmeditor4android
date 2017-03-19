@@ -33,7 +33,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
@@ -137,14 +136,14 @@ public class Search {
 				AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
 				sr.show();
 			} else {
-				Toast.makeText(activity, R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
+				Snack.barInfo(activity, R.string.toast_nothing_found);
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		} catch (TimeoutException e) {
-			Toast.makeText(activity, R.string.toast_timeout, Toast.LENGTH_LONG).show();
+			Snack.barError(activity, R.string.toast_timeout);
 		}
 	}
 

@@ -146,7 +146,8 @@
     <string name="toast_potential_merge_tag_conflict">You are trying to merge elements that have conflicting tag values. Please check the tags and correct first before retrying.</string>
     <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
-    <string name="toast_unread_mail">You have %1$d unread mail(s) on the OpenStreetMap server</string>
+    <string name="toast_unread_mail">You have %1$d unread OSM messages</string>
+    <string name="toast_one_unread_mail">You have an unread OSM message</string>
     <string name="toast_photo_indexing_started">Started scan for geo-referenced photos</string>
     <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
     <string name="toast_download_bbox_failed">Download failed, probably because the area selected was too large.</string>
@@ -190,6 +191,7 @@
     <string name="toast_invalid_notesurl">Invalid Notes API URL</string>
     <string name="toast_invalid_filter_regexp">Invalid regular expression in filter with key="%1$s" value="%2$s"</string>
     <string name="toast_error_accessing_photo">Can\'t access photo %1$s</string>
+    <string name="toast_no_voice_recognition">No voice recognition facility present</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

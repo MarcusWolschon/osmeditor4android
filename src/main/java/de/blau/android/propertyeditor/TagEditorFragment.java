@@ -47,7 +47,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -67,6 +66,7 @@ import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.KeyValue;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Snack;
 import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
@@ -1360,7 +1360,9 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 
 		loadEdits(currentValues);
-		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
+		if (replacedValue) {
+			Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
+		}
 		
 		if (wasEmpty || getBestPreset() == null) {
 			// preset is what we just applied
@@ -1406,7 +1408,7 @@ public class TagEditorFragment extends BaseFragment implements
 						return;
 					}
 				} catch (Exception ex) {
-					Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_LONG).show();
+					Snack.barError(getActivity(), ex.getLocalizedMessage());
 				}
 			}
 			tags.put(key, Util.getArrayList(value));
@@ -1443,7 +1445,9 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 		
 		loadEdits(currentValues);
-		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_merge_overwrote_tags, Toast.LENGTH_LONG).show();
+		if (replacedValue) {
+			Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
+		}
 		focusOnEmptyValue();
 	}
 	
@@ -1486,7 +1490,9 @@ public class TagEditorFragment extends BaseFragment implements
 		loaded = true;
 		ensureEmptyRow(rowLayout);
 		
-		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_merge_overwrote_tags, Toast.LENGTH_LONG).show();
+		if (replacedValue) {
+			Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
+		}
 		focusOnEmptyValue();
 	}
 	

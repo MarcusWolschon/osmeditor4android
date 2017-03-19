@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -35,6 +34,7 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SearchIndexUtils;
+import de.blau.android.util.Snack;
 
 public class PresetFragment extends BaseFragment implements PresetFilterUpdate, PresetClickHandler {
 	
@@ -155,7 +155,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
      				    ft.commit();
      				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(SearchIndexUtils.searchInPresets(getActivity(), v.getText().toString(),type,2,10));
      				    if (searchResults == null || searchResults.size() == 0) {
-     				    	Toast.makeText(getActivity(), R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
+     				    	Snack.barInfo(getActivity(), R.string.toast_nothing_found);
      				    	return true;
      				    }
      			        PresetSearchResultsFragment searchResultDialog 

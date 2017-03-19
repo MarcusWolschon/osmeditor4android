@@ -40,7 +40,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.poole.conditionalrestrictionparser.Condition;
 import ch.poole.conditionalrestrictionparser.Condition.CompOp;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
@@ -50,6 +49,7 @@ import ch.poole.conditionalrestrictionparser.Restriction;
 import ch.poole.conditionalrestrictionparser.TokenMgrError;
 import ch.poole.conditionalrestrictionparser.Util;
 import de.blau.android.R;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 public class ConditionalRestrictionFragment extends DialogFragment {
@@ -309,7 +309,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 			spannable.setSpan(new ForegroundColorSpan(Color.RED), c, Math.max(c,Math.min(c+1,spannable.length())), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			text.setText(spannable, TextView.BufferType.SPANNABLE);
 			text.setSelection(Math.min(pos,spannable.length()));
-			Toast.makeText(text.getContext(), pex.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+			Snack.barError(getActivity(), pex.getLocalizedMessage());
 		}
 	}
 	
