@@ -26,8 +26,10 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.App;
@@ -44,6 +46,7 @@ import de.blau.android.util.Base64;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Snack;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
@@ -445,12 +448,15 @@ public class Server {
 	
 	
 	/**
-	 * @param area
-	 * @return
-	 * @throws IOException
+	 * Open a connection to an OSM server and request all data in box
+	 * 
+	 * @param context Android context
+	 * @param box the specified bounding box
+	 * @return the stream
 	 * @throws OsmServerException
+	 * @throws IOException
 	 */
-	public InputStream getStreamForBox(final BoundingBox box) throws OsmServerException, IOException {
+	public InputStream getStreamForBox(@Nullable final Context context, final BoundingBox box) throws OsmServerException, IOException {
 		Log.d(DEBUG_TAG, "getStreamForBox");
 		URL url = new URL(getReadOnlyUrl()  + "map?bbox=" + box.toApiString());
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -484,16 +490,18 @@ public class Server {
 		}
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-			if (con.getResponseCode() == 400) {
-				App.mainActivity.runOnUiThread(new Runnable() {
-					  @Override
-					public void run() {
-						  Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_download_bbox_failed, Toast.LENGTH_LONG).show();
-					  }
-				});
-			}
-			else {
-				App.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
+			if (context != null && context instanceof Activity) {
+				if (con.getResponseCode() == 400) {	
+					((Activity) context).runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							Snack.barError((Activity)context, R.string.toast_download_bbox_failed);
+						}
+					});
+				}
+				else {
+					((Activity) context).runOnUiThread(new DownloadErrorToast(context, con.getResponseCode(), con.getResponseMessage()));
+				}
 			}
 			throwOsmServerException(con);
 		}
@@ -507,14 +515,16 @@ public class Server {
 	
 	/**
 	 * Get a single element from the API
-	 * @param full TODO
-	 * @param type
-	 * @param id
-	 * @return
+	 * 
+	 * @param context Android context
+	 * @param mode "full" or null
+	 * @param type type (node, way, relation) of the object
+	 * @param id the OSM id of the object
+	 * @return the stream
 	 * @throws OsmServerException
 	 * @throws IOException
 	 */
-	public InputStream getStreamForElement(String mode, final String type, final long id) throws OsmServerException, IOException {
+	public InputStream getStreamForElement(@Nullable final Context context, @Nullable final String mode, @NonNull final String type, final long id) throws OsmServerException, IOException {
 		Log.d(DEBUG_TAG, "getStreamForElement");
 		URL url = new URL(getReadOnlyUrl() + type + "/" + id + (mode != null ? "/" + mode : ""));
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -546,16 +556,18 @@ public class Server {
 		}
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-			if (con.getResponseCode() == 400) {
-				App.mainActivity.runOnUiThread(new Runnable() {
-					  @Override
-					public void run() {
-						  Toast.makeText(App.mainActivity.getApplicationContext(), R.string.toast_download_bbox_failed, Toast.LENGTH_LONG).show();
-					  }
-				});
-			}
-			else {
-				App.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
+			if (context != null && context instanceof Activity) {
+				if (con.getResponseCode() == 400) {	
+					((Activity) context).runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							Snack.barError((Activity)context, R.string.toast_download_failed);
+						}
+					});
+				}
+				else {
+					((Activity) context).runOnUiThread(new DownloadErrorToast(context, con.getResponseCode(), con.getResponseMessage()));
+				}
 			}
 			throwOsmServerException(con);
 		}
@@ -571,22 +583,24 @@ public class Server {
 	class DownloadErrorToast implements Runnable {
 		final int code;
 		final String message;
+		final Context context;
 		
-		DownloadErrorToast(int code, String message) {
+		DownloadErrorToast(Context context, int code, String message) {
 			this.code = code;
 			this.message = message;
+			this.context = context;
 		}
 		
 		@Override
 		public void run() {
-			try {
-				Context mainCtx = App.mainActivity.getApplicationContext();
-				Toast.makeText(mainCtx,
-					  mainCtx.getResources().getString(R.string.toast_download_failed, code, message), Toast.LENGTH_LONG).show();
-			} catch (Exception ex) {
-			  	// do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error because it is likely caused by a translation error
-				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-				ACRA.getErrorReporter().handleException(ex);
+			if (context != null & context instanceof Activity) {
+				try {
+					Snack.barError((Activity) context, context.getResources().getString(R.string.toast_download_failed, code, message));
+				} catch (Exception ex) {
+					// do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error because it is likely caused by a translation error
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(ex);
+				}
 			}
 		}
 	}

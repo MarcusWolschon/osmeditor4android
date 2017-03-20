@@ -18,12 +18,14 @@ import java.util.zip.GZIPOutputStream;
 import org.acra.ACRA;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.OnScanCompletedListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.R;
@@ -263,10 +265,11 @@ public class SavingHelper<T extends Serializable> {
 
 	/**
 	 * Exports an Exportable asynchronously, displaying a toast on success or failure
+	 * 
 	 * @param ctx context for the toast
 	 * @param exportable the exportable to run
 	 */
-	public static void asyncExport(final Context ctx, final Exportable exportable) {
+	public static void asyncExport(@NonNull final Context ctx, @NonNull final Exportable exportable) {
 		new AsyncTask<Void, Void, String>() {
 			@Override
 			protected String doInBackground(Void... params) {
@@ -305,13 +308,14 @@ public class SavingHelper<T extends Serializable> {
 			protected void onPostExecute(String result) {
 				if (ctx != null) {
 					try {
-						if (result == null) {
-							Toast.makeText(ctx, R.string.toast_export_failed, Toast.LENGTH_SHORT).show();
-						} else {
-							Log.i("SavingHelper", "Successful export to " + result);
-							String text = ctx.getResources().getString(R.string.toast_export_success, result);
-
-							Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+						if (ctx instanceof Activity) {
+							if (result == null) {
+								Snack.barError((Activity)ctx, R.string.toast_export_failed);
+							} else {
+								Log.i("SavingHelper", "Successful export to " + result);
+								String text = ctx.getResources().getString(R.string.toast_export_success, result);
+								Snack.barInfoShort((Activity)ctx, text);
+							}
 						}
 					} catch (Exception ignored) {
 						Log.e(DEBUG_TAG,"Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());

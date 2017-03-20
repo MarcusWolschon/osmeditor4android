@@ -74,6 +74,10 @@
 	<attr name="remove" format="reference" />
 	<attr name="edit" format="reference" />
 	<attr name="name" format="reference" />
+	<!-- Colors -->
+	<attr name="snack_info" format="reference|color" />
+	<attr name="snack_warning" format="reference|color" />
+	<attr name="snack_error" format="reference|color" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

@@ -33,7 +33,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -53,6 +52,7 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Snack;
 import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -216,7 +216,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			
 			Logic logic = App.newLogic(); //
 			StorageDelegator delegator = App.getDelegator();
-			if (!delegator.isDirty() && delegator.isEmpty()) { // this can't means: need to load state
+			if (!delegator.isDirty() && delegator.isEmpty()) { // this can mean: need to load state
 				Log.d(DEBUG_TAG, "Loading saved state");
 				logic.syncLoadFromFile(this); // sync load
 				App.getTaskStorage().readFromFile(this);
@@ -338,7 +338,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	}
 	
 	private void abort(String cause) {
-		Toast.makeText(this, R.string.toast_inconsistent_state, Toast.LENGTH_LONG).show();
+		Snack.barError(this, R.string.toast_inconsistent_state);
 		ACRA.getErrorReporter().putCustomData("CAUSE",cause);
 		ACRA.getErrorReporter().handleException(null);
 		finish();

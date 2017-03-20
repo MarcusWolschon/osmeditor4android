@@ -338,7 +338,7 @@ public class Relation extends OsmElement implements BoundedObject {
 		String relationProblem = "";
 		String type = getTagWithKey(Tags.KEY_TYPE);
 		if (type==null || type.equals("")) {
-			relationProblem = App.mainActivity.getString(R.string.toast_notype);
+			relationProblem = App.resources().getString(R.string.toast_notype);
 		}
 		if (!superProblem.equals("")) 
 			return superProblem + (!relationProblem.equals("") ? "\n" + relationProblem : "");

@@ -50,6 +50,7 @@ public class ApiTest {
 	MockWebServerPlus mockServer = null;
 	Context context = null;
 	AdvancedPrefDatabase prefDB = null;
+	Main main = null;
 	
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -66,6 +67,7 @@ public class ApiTest {
  		prefDB.deleteAPI("Test");
 		prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
  		prefDB.selectAPI("Test");
+ 		main = mActivityRule.getActivity();
     }
     
     @After
@@ -99,7 +101,7 @@ public class ApiTest {
     	mockServer.enqueue("download1");
     	Logic logic = App.getLogic();
     	try {
-			logic.downloadBox(new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+			logic.downloadBox(main, new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
 		} catch (OsmException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -119,7 +121,7 @@ public class ApiTest {
     	mockServer.enqueue("download2");
     	Logic logic = App.getLogic();
     	try {
-			logic.downloadBox(new BoundingBox(8.3865200D,47.3883000D,8.3838500D,47.3898500D), true, new SignalHandler(signal));
+			logic.downloadBox(main, new BoundingBox(8.3865200D,47.3883000D,8.3838500D,47.3898500D), true, new SignalHandler(signal));
 		} catch (OsmException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -138,7 +140,7 @@ public class ApiTest {
 
     	ClassLoader loader = Thread.currentThread().getContextClassLoader();
     	InputStream is = loader.getResourceAsStream("test1.osm");
-    	logic.readOsmFile(is, false, new SignalHandler(signal));
+    	logic.readOsmFile(main, is, false, new SignalHandler(signal));
     	try {
     		signal.await(30, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
@@ -183,7 +185,7 @@ public class ApiTest {
 
     	ClassLoader loader = Thread.currentThread().getContextClassLoader();
     	InputStream is = loader.getResourceAsStream("test1.osm");
-    	logic.readOsmFile(is, false, new SignalHandler(signal));
+    	logic.readOsmFile(main, is, false, new SignalHandler(signal));
     	try {
     		signal.await(30, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
@@ -235,19 +237,19 @@ public class ApiTest {
     	// we need something changes in memory or else we wont try to upload
        	ClassLoader loader = Thread.currentThread().getContextClassLoader();
     	InputStream is = loader.getResourceAsStream("test1.osm");
-    	logic.readOsmFile(is, false, new SignalHandler(signal));
+    	logic.readOsmFile(main, is, false, new SignalHandler(signal));
     	try {
     		signal.await(30, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
     	Assert.assertTrue(App.getDelegator().getApiElementCount() > 0);
-    	apiErrorTest(401);
-    	apiErrorTest(403);
-    	apiErrorTest(999);
+    	uploadErrorTest(401);
+    	uploadErrorTest(403);
+    	uploadErrorTest(999);
 	}
 
-	private void apiErrorTest(int code) {
+	private void uploadErrorTest(int code) {
 		mockServer.enqueue("capabilities1");
     	mockServer.enqueue("" + code);
     	
@@ -271,7 +273,32 @@ public class ApiTest {
 		} 
 		Assert.fail("Expected error " + code);
 	}
+
+	@Test
+	public void dataDownloadErrors() {
+		downloadErrorTest(400);
+		downloadErrorTest(401);
+		downloadErrorTest(403);
+		downloadErrorTest(999);
+	}
     
+	private void downloadErrorTest(int code) {
+	   	final CountDownLatch signal = new CountDownLatch(1);
+    	mockServer.enqueue("capabilities1");
+    	mockServer.enqueue("" + code);
+    	Logic logic = App.getLogic();
+    	try {
+			logic.downloadBox(main, new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+		} catch (OsmException e) {
+			Assert.fail(e.getMessage());
+		}
+    	try {
+			signal.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+	   
     @Test
 	public void notesDownload() {
     	final CountDownLatch signal = new CountDownLatch(1);
@@ -282,9 +309,10 @@ public class ApiTest {
     		final Server s = new Server(context, prefDB.getCurrentAPI(),"vesupucci test");
     		SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
     		Resources r = context.getResources();
-    		Set<String> set = new HashSet<String>(Arrays.asList("NOTES")) ;
+    		String notesSelector = r.getString(R.string.bugfilter_notes);
+    		Set<String> set = new HashSet<String>(Arrays.asList(notesSelector)) ;
 			p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
-    		Assert.assertTrue(new Preferences(context).taskFilter().contains("NOTES"));
+    		Assert.assertTrue(new Preferences(context).taskFilter().contains(notesSelector));
 			TransferTasks.downloadBox(context,s,new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -315,7 +343,7 @@ public class ApiTest {
     		final Server s = new Server(context, prefDB.getCurrentAPI(),"vesupucci test");
     		Note n = new Note((int)(51.0*1E7D),(int)(0.1*1E7D));
     		Assert.assertTrue(n.isNew());
-    		Assert.assertTrue(TransferTasks.uploadNote(context,s, n, "ThisIsANote", false, false, new SignalHandler(signal)));
+    		Assert.assertTrue(TransferTasks.uploadNote(main, s, n, "ThisIsANote", false, false, new SignalHandler(signal)));
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}

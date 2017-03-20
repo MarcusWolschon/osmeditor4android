@@ -22,14 +22,15 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import com.drew.lang.annotations.NotNull;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.App;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -39,6 +40,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
+import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongOsmElementMap;
 
@@ -131,11 +133,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * Clears the undo storage. Must be called on the main thread due to menu invalidation.
+	 * Clears the undo storage.
 	 */
 	public void clearUndo() {
 		undo = new UndoStorage(currentStorage, apiStorage);
-		Main.triggerMenuInvalidationStatic();
 	}
 
 	/**
@@ -209,17 +210,16 @@ public class StorageDelegator implements Serializable, Exportable {
 		if (filter != null) {
 			filter.onElementChanged(pre, post);
 		}
-		recordImagery();
 	}
 
 	/**
 	 * Store the currently used imagery
 	 */
-	private void recordImagery() {
+	public void recordImagery(@Nullable de.blau.android.Map map) {
 		if (!imageryRecorded) { // flag is reset when we change imagery 
 			try {
-				if (App.mainActivity != null) { // currently we only modify data when the main activity exists
-					ArrayList<String>currentImagery = App.mainActivity.getMap().getImageryNames();
+				if (map != null) { // currently we only modify data when the map exists
+					ArrayList<String>currentImagery = map.getImageryNames();
 					for (String i:currentImagery) {
 						if (!imagery.contains(i) && !"None".equalsIgnoreCase(i)) {
 							imagery.add(i);
@@ -334,7 +334,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 		try {
 			if (way.nodeCount() + 1 > Way.maxWayNodes)
-				throw new OsmIllegalOperationException(App.mainActivity.getString(R.string.exception_too_many_nodes));
+				throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.addNode(node);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -351,7 +351,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 		try {
 			if (way.nodeCount() + 1 > Way.maxWayNodes)
-				throw new OsmIllegalOperationException(App.mainActivity.getString(R.string.exception_too_many_nodes));
+				throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.addNodeAfter(nodeBefore, newNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -367,7 +367,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		try {
 			if (way.nodeCount() + 1 > Way.maxWayNodes)
-				throw new OsmIllegalOperationException(App.mainActivity.getString(R.string.exception_too_many_nodes));
+				throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.appendNode(refNode, nextNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -451,11 +451,13 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * arrange way nodes in a circle
-	 * @param center
-	 * @param way
+	 * Arrange way nodes in a circle
+	 * 
+	 * @param map current map view
+	 * @param center center of the circle
+	 * @param way way to circulize
 	 */
-	public void circulizeWay(int[] c, Way way) {
+	public void circulizeWay(@NotNull de.blau.android.Map map, int[] c, @NotNull Way way) {
 		if ((way.getNodes() == null) || (way.getNodes().size()<3)) {
 			Log.d("StorageDelegator", "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
 			return;
@@ -463,16 +465,18 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		try {
 			HashSet<Node> nodes = new HashSet<Node>(way.getNodes()); // Guarantee uniqueness
-			Coordinates coords[] = nodeListToCooardinateArray(new ArrayList<Node>(nodes));
+			
+			int width = map.getWidth();
+			int height = map.getHeight();
+			BoundingBox box = map.getViewBox();
+			
+			Coordinates coords[] = nodeListToCooardinateArray(width, height, box, new ArrayList<Node>(nodes));
 			
 			// save nodes for undo
 			for (Node nd:nodes) { 
 				undo.save(nd);
 			}
 
-			int width = App.mainActivity.getMap().getWidth();
-			int height = App.mainActivity.getMap().getHeight();
-			BoundingBox box = App.mainActivity.getMap().getViewBox();
 			Coordinates center = new Coordinates(GeoMath.lonE7ToX(width, box, c[1]), GeoMath.latE7ToY(height,width, box, c[0]));
 			
 			// caclulate average radius
@@ -556,9 +560,11 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * "square" a way/polygon, based on the algorithm used by iD and before that by P2, originally written by Matt Amos
 	 * If multiple ways are selected the ways are grouped in groups that share nodes and the groups individually squared.
-	 * @param way
+	 * 
+	 * @param map current map view
+	 * @param way way to square
 	 */
-	public void orthogonalizeWay(List<Way> ways) {
+	public void orthogonalizeWay(@NotNull de.blau.android.Map map, @NotNull List<Way> ways) {
 		final int threshold = 10; // degrees within right or straight to alter
 		final double lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
 		final double upperThreshold = Math.cos(threshold * Math.PI / 180);
@@ -580,12 +586,16 @@ public class StorageDelegator implements Serializable, Exportable {
 			
 			List<ArrayList<Way>> groups = groupWays(ways);
 			
+			int width = map.getWidth();
+			int height = map.getHeight();
+			BoundingBox box = map.getViewBox();
+			
 			for (ArrayList<Way> wayList:groups) { 
 				// Coordinates coords[] = nodeListToCooardinateArray(nodes);
 				ArrayList<Coordinates[]> coordsArray = new ArrayList<Coordinates[]>();
 				int totalNodes = 0;
 				for (Way w:wayList) {
-					coordsArray.add(nodeListToCooardinateArray(w.getNodes()));
+					coordsArray.add(nodeListToCooardinateArray(width, height, box, w.getNodes()));
 					totalNodes += w.getNodes().size();
 				}
 				Coordinates a, b, c, p, q;
@@ -654,9 +664,6 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 
 				// prepare updated nodes for upload
-				int width = App.mainActivity.getMap().getWidth();
-				int height = App.mainActivity.getMap().getHeight();
-				BoundingBox box = App.mainActivity.getMap().getViewBox();
 				for (int wayIndex=0;wayIndex<wayList.size();wayIndex++) {
 					List<Node> nodes = wayList.get(wayIndex).getNodes();
 					Coordinates[] coords = coordsArray.get(wayIndex);
@@ -722,11 +729,8 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 	
-	private Coordinates[] nodeListToCooardinateArray(List<Node>nodes) {
+	private Coordinates[] nodeListToCooardinateArray(int width, int height, BoundingBox box, List<Node>nodes) {
 		Coordinates points[] = new Coordinates[nodes.size()];
-		int width = App.mainActivity.getMap().getWidth();
-		int height = App.mainActivity.getMap().getHeight();
-		BoundingBox box = App.mainActivity.getMap().getViewBox();
 		
 		//loop over all nodes
 		for (int i=0;i<nodes.size();i++) {
@@ -1105,7 +1109,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		boolean mergeOK = true;
 		
 		if ((mergeInto.nodeCount() + mergeFrom.nodeCount()) > Way.maxWayNodes)
-			throw new OsmIllegalOperationException(App.mainActivity.getString(R.string.exception_too_many_nodes));
+			throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
 		
 		// first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
 		// else check version numbers this helps preserve history
@@ -1842,10 +1846,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * ake a copy of the element and store it in the clipboard
-	 * @param e
-	 * @param lat
-	 * @param lon
+	 * Make a copy of the element and store it in the clipboard
+	 * @param e element to copy
+	 * @param lat latitude where it was located
+	 * @param lon longitude where it was located
 	 */
 	public void copyToClipboard(OsmElement e, int lat, int lon) {
 		dirty = true; // otherwise clipboard will not get saved without other changes
@@ -1866,10 +1870,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * cut original element to clipboard, does -not- preserve relation memberships
-	 * @param e
-	 * @param lat
-	 * @param lon
+	 * Cut original element to clipboard, does -not- preserve relation memberships
+	 * @param e element to copy
+	 * @param lat latitude where it was located
+	 * @param lon longitude where it was located
 	 */
 	public void cutToClipboard(OsmElement e, int lat, int lon) {
 		dirty = true; // otherwise clipboard will not get saved without other changes
@@ -2046,9 +2050,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			} else {
 				// this is essentially catastrophic and can only happen if something went really wrong
 				// running out of memory or disk, or HW failure
-				if (ctx != null) {
+				if (ctx != null && ctx instanceof Activity) {
 					try {
-						Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+						Snack.barError((Activity)ctx, R.string.toast_statesave_failed);
 					} catch (Exception ignored) {
 						Log.e(DEBUG_TAG,"Emergency toast failed with " + ignored.getMessage());
 					} catch (Error ignored) {

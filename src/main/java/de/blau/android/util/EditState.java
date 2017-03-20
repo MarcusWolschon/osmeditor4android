@@ -66,9 +66,9 @@ public class EditState implements Serializable {
 		savedFilter = logic.getFilter();
 	}
 	
-	public void setSelected(Logic logic) {
+	public void setSelected(Main main, Logic logic) {
 		logic.setLocked(savedLocked);
-		logic.setMode(savedMode);
+		logic.setMode(main, savedMode);
 		Log.d("EditState","savedMode " + savedMode);
 		if (savedNodes != null) {
 			for (Node n:savedNodes) {
@@ -112,9 +112,9 @@ public class EditState implements Serializable {
 	}
 	
 	public void setViewBox(Logic logic, Map map) {
-		logic.getViewBox().setBorders(savedBox);
+		logic.getViewBox().setBorders(map, savedBox);
 		try {
-			logic.getViewBox().setRatio((float)map.getWidth() / (float)map.getHeight());
+			logic.getViewBox().setRatio(map, (float)map.getWidth() / (float)map.getHeight());
 		} catch (OsmException e) {
 			// shouldn't happen since we would have only stored a legal BB
 		}

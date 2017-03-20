@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
@@ -28,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
@@ -164,17 +166,18 @@ public class TaskFragment extends DialogFragment {
 					@Override
 					public void onClick(View v) { // FIXME assumption that we are being called from Main
 						dismiss();
+						final FragmentActivity activity = getActivity();
 						final int lonE7 = bug.getLon();
 						final int latE7 = bug.getLat();
 						if (e.getOsmVersion() < 0) { // fake element
 							try {
 								BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7/1E7D, lonE7/1E7, 50, true);
-								App.getLogic().downloadBox(b, true, new PostAsyncActionHandler(){
+								App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler(){
 									@Override
 									public void onSuccess(){
 										OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
-										if (osm != null) {
-											App.mainActivity.zoomToAndEdit(lonE7, latE7, osm);
+										if (osm != null && activity != null && activity instanceof Main) {
+											((Main)activity).zoomToAndEdit(lonE7, latE7, osm);
 										}
 									}
 									@Override
@@ -185,8 +188,8 @@ public class TaskFragment extends DialogFragment {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-		    			} else { // real
-		    				App.mainActivity.zoomToAndEdit(lonE7, latE7, e);
+		    			} else if (activity != null && activity instanceof Main) { // real
+		    				((Main)activity).zoomToAndEdit(lonE7, latE7, e);
 		    			}
 					}});
     			tv.setTextColor(ContextCompat.getColor(getActivity(),R.color.holo_blue_light));

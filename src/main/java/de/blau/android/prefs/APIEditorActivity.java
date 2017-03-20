@@ -23,6 +23,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.blau.android.R;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 /** Provides an activity for editing the API list */
@@ -232,13 +233,13 @@ public class APIEditorActivity extends URLListEditActivity {
 					}
 					dialog.dismiss();
 				} else if (validAPIURL==false) {
-					Toast.makeText(APIEditorActivity.this, R.string.toast_invalid_apiurl, Toast.LENGTH_LONG).show(); //if garbage value entered
+					Snack.barError(APIEditorActivity.this, R.string.toast_invalid_apiurl); //if garbage value entered
 					changeBackgroundColor(editValue,ERROR_COLOR);
 				} else if (!validReadOnlyAPIURL) {
-					Toast.makeText(APIEditorActivity.this, R.string.toast_invalid_readonlyurl, Toast.LENGTH_LONG).show(); //if garbage value entered
+					Snack.barError(APIEditorActivity.this, R.string.toast_invalid_readonlyurl); //if garbage value entered
 					changeBackgroundColor(editValue_2,ERROR_COLOR);
 				} else if (!validNotesAPIURL) {
-					Toast.makeText(APIEditorActivity.this, R.string.toast_invalid_notesurl, Toast.LENGTH_LONG).show();//if garbage value entered
+					Snack.barError(APIEditorActivity.this, R.string.toast_invalid_notesurl);//if garbage value entered
 					changeBackgroundColor(editValue_3,ERROR_COLOR);
 				}
 			}

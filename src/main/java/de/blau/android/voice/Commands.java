@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
@@ -18,6 +17,7 @@ import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
@@ -47,13 +47,13 @@ import de.blau.android.util.Util;
  */
 public class Commands {
 	private static final String DEBUG_TAG = Commands.class.getSimpleName();
-	private Context ctx;
+	private Main main;
 	
 	private Map<String,NameAndTags> namesSearchIndex;
 	
-	public Commands(Context ctx) {
-		this.ctx = ctx;
-		namesSearchIndex = App.getNameSearchIndex(ctx);
+	public Commands(Main main) {
+		this.main = main;
+		namesSearchIndex = App.getNameSearchIndex(main);
 	}
 	
 	public void processIntentResult(Intent data, Location location) {
@@ -64,49 +64,49 @@ public class Commands {
 		final Logic logic = App.getLogic();
 		// try to find a command it simply stops at the first string that is valid
 		for (String v:matches) {
-			Toast.makeText(ctx,">"+v+"<", Toast.LENGTH_LONG).show();
+			Toast.makeText(main,">"+v+"<", Toast.LENGTH_LONG).show();
 			String[] words = v.split("\\s+", 3);
 			if (words.length > 1) {
 				String loc = words[0].toLowerCase(Locale.getDefault()); 
 				if (match(R.string.voice_left,loc) || match(R.string.voice_here,loc) || match(R.string.voice_right,loc) || match(R.string.voice_note,loc) ) {
 					if (match(R.string.voice_note,loc)) {
 						Note n = createNote(words, location);
-						Toast.makeText(ctx,"Note: " + n.getDescription(), Toast.LENGTH_LONG).show();
+						Toast.makeText(main,"Note: " + n.getDescription(), Toast.LENGTH_LONG).show();
 						return;
 					}
 					if (!match(R.string.voice_here,loc)) {
-						Toast.makeText(ctx,"Sorry currently only the command \"" + ctx.getString(R.string.voice_here) + "\" is supported", Toast.LENGTH_LONG).show();
+						Toast.makeText(main,"Sorry currently only the command \"" + main.getString(R.string.voice_here) + "\" is supported", Toast.LENGTH_LONG).show();
 					} 
 					// 
 					String first = words[1].toLowerCase(Locale.getDefault());
 					try {
 						int number = Integer.parseInt(first);
 						// worked if there is a further word(s) simply add it/them
-						Toast.makeText(ctx,loc + " "+ number  + (words.length == 3?words[2]:""), Toast.LENGTH_LONG).show();
+						Toast.makeText(main,loc + " "+ number  + (words.length == 3?words[2]:""), Toast.LENGTH_LONG).show();
 						Node node = createNode(loc,location);
 						if (node != null) {
 							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + number  + (words.length == 3?words[2]:""));
 							tags.put("source:original_text", v);
-							LinkedHashMap<String, ArrayList<String>> map = Address.predictAddressTags(ctx, Node.NAME, node.getOsmId(), 
+							LinkedHashMap<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(), 
 										new ElementSearch(new int[]{node.getLon(),node.getLat()}, true), 
 										Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
 							tags = new TreeMap<String, String>();
 							for (String key:map.keySet()) {
 								tags.put(key, map.get(key).get(0));
 							}
-							logic.setTags(node, tags);
+							logic.setTags(main, node, tags);
 						}
 						return;
 					} catch (NumberFormatException ex) {
 						// ok wasn't a number
 					} catch (OsmIllegalOperationException e) {
 						Log.e(DEBUG_TAG,e.getMessage());
-						Toast.makeText(ctx,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+						Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 						e.printStackTrace();
 					}
 
-					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(ctx, first,ElementType.NODE,2,1);
+					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first,ElementType.NODE,2,1);
 					if (presetItems != null && presetItems.size()==1) {
 						addNode(createNode(loc,location), words.length == 3? words[2]:null, presetItems.get(0), logic, v);
 						return;
@@ -121,11 +121,11 @@ public class Commands {
 					for (int i=1;i<words.length;i++) {
 						input = input + words[i] + (i<words.length?" ":"");
 					}
-					NameAndTags nt = SearchIndexUtils.searchInNames(ctx, input, 2);
+					NameAndTags nt = SearchIndexUtils.searchInNames(main, input, 2);
 					if (nt != null) {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.putAll(nt.getTags());
-						PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(ctx), map);
+						PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
 						if (pi != null) {
 							addNode(createNode(loc,location), nt.getName(), pi, logic, v);
 							return;
@@ -134,10 +134,10 @@ public class Commands {
 				}
 			} else if (words.length == 1) {
 				if (match(R.string.voice_follow,words[0])) {
-					App.mainActivity.setFollowGPS(true);
+					main.setFollowGPS(true);
 					return;
 				} else {
-					Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unknown_voice_command,words[0]), Toast.LENGTH_LONG).show();
+					Toast.makeText(main,main.getResources().getString(R.string.toast_unknown_voice_command,words[0]), Toast.LENGTH_LONG).show();
 				} 
 			}
 		}
@@ -146,7 +146,7 @@ public class Commands {
 
 	private boolean addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
 		if (node != null) {
-			Toast.makeText(ctx, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
+			Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
 			if (node != null) {
 				try {
 					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
@@ -157,11 +157,11 @@ public class Commands {
 						tags.put(Tags.KEY_NAME, name);
 					}
 					tags.put("source:original_text", original);
-					logic.setTags(node, tags);
+					logic.setTags(main, node, tags);
 					return true;
 				} catch (OsmIllegalOperationException e) {
 					Log.e(DEBUG_TAG,e.getMessage());
-					Toast.makeText(ctx,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+					Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 				}
 			}
 		}
@@ -177,13 +177,13 @@ public class Commands {
 			location = getLocation();
 		}
 		if (location != null) {
-			if (ctx.getString(R.string.voice_here).equals(loc)) {
+			if (main.getString(R.string.voice_here).equals(loc)) {
 				double lon = location.getLongitude();
 				double lat = location.getLatitude();
 				if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
 					final Logic logic = App.getLogic();
 					logic.setSelectedNode(null);
-					Node node = logic.performAddNode(lon, lat);
+					Node node = logic.performAddNode(main, lon, lat);
 					logic.setSelectedNode(null);
 					return node;
 				}
@@ -217,7 +217,7 @@ public class Commands {
 	}
 	
 	private Location getLocation() {
-		LocationManager locationManager = (LocationManager)ctx.getSystemService(android.content.Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager)main.getSystemService(android.content.Context.LOCATION_SERVICE);
 		if (locationManager != null) {
 			try {
 				return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -231,7 +231,7 @@ public class Commands {
 
 	private boolean match(int resId, String input) {
 		final int maxDistance = 1;
-		int distance = OptimalStringAlignment.editDistance(ctx.getString(resId), input, maxDistance);
+		int distance = OptimalStringAlignment.editDistance(main.getString(resId), input, maxDistance);
 		return distance >= 0 && distance <= maxDistance;
 	}
 }

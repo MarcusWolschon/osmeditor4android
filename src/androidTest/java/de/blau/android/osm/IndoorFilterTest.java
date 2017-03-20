@@ -38,6 +38,7 @@ public class IndoorFilterTest {
 	MockWebServerPlus mockServer = null;
 	Context context = null;
 	AdvancedPrefDatabase prefDB = null;
+	Main main = null;
 	
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -47,6 +48,7 @@ public class IndoorFilterTest {
 		context = InstrumentationRegistry.getInstrumentation().getTargetContext();
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+		main = mActivityRule.getActivity();
     }
     
     @After
@@ -59,7 +61,7 @@ public class IndoorFilterTest {
     	tags.put(Tags.KEY_LEVEL,"" + 1);
     	tags.put(Tags.KEY_REPEAT_ON,"" + 11);
     	Logic logic = App.getLogic();
-    	Node n = logic.performAddNode(1.0D, 1.0D);
+    	Node n = logic.performAddNode(main, 1.0D, 1.0D);
     	IndoorFilter f = new IndoorFilter();
     	Assert.assertTrue(!f.include(n, false));
     	f.clear();
@@ -79,7 +81,7 @@ public class IndoorFilterTest {
     	Assert.assertTrue(f.include(n, false));
     	ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     	members.add(n);
-    	Relation r = logic.createRelation("", members);
+    	Relation r = logic.createRelation(main, "", members);
     	f.clear();
     	tags.clear();
     	tags.put(Tags.KEY_MIN_LEVEL,"" + 8);
@@ -95,7 +97,7 @@ public class IndoorFilterTest {
     	TreeMap<String,String> tags = new TreeMap<String,String>();
     	tags.put(Tags.KEY_ENTRANCE,"yes");
     	Logic logic = App.getLogic();
-    	Node n = logic.performAddNode(1.0D, 1.0D);
+    	Node n = logic.performAddNode(main, 1.0D, 1.0D);
     	n.setTags(tags);
     	
     	IndoorFilter f = new IndoorFilter();
@@ -112,10 +114,10 @@ public class IndoorFilterTest {
     		tags.put(Tags.KEY_REPEAT_ON,"" + 11);
     		Logic logic = App.getLogic();
 
-    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(main, 100.0f, 100.0f);
 
     		Node n1 = logic.getSelectedNode();
-    		logic.performAdd(1000.0f, 1000.0f);
+    		logic.performAdd(main, 1000.0f, 1000.0f);
     		Node n2 = logic.getSelectedNode();
     		Way w = logic.getSelectedWay();
     		logic.setSelectedNode(null);
@@ -133,7 +135,7 @@ public class IndoorFilterTest {
     		Assert.assertTrue(f.include(w, false));
     		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     		members.add(w);
-    		Relation r = logic.createRelation("", members);
+    		Relation r = logic.createRelation(main, "", members);
     		f.clear();
     		tags.clear();
     		tags.put(Tags.KEY_MIN_LEVEL,"" + 8);
@@ -156,10 +158,10 @@ public class IndoorFilterTest {
     		TreeMap<String,String> tags = new TreeMap<String,String>();
     		tags.put(Tags.KEY_ENTRANCE,"yes");
     		Logic logic = App.getLogic();
-    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(main, 100.0f, 100.0f);
 
     		Node n1 = logic.getSelectedNode();
-    		logic.performAdd(1000.0f, 1000.0f);
+    		logic.performAdd(main, 1000.0f, 1000.0f);
     		Node n2 = logic.getSelectedNode();
     		Way w = logic.getSelectedWay();
     		logic.setSelectedNode(null);
@@ -184,8 +186,8 @@ public class IndoorFilterTest {
     		TreeMap<String,String> tags = new TreeMap<String,String>();
     		Logic logic = App.getLogic();
 
-    		logic.performAdd(100.0f, 100.0f);
-    		logic.performAdd(1000.0f, 1000.0f);
+    		logic.performAdd(main, 100.0f, 100.0f);
+    		logic.performAdd(main, 1000.0f, 1000.0f);
     		Way w = logic.getSelectedWay();
     		logic.setSelectedNode(null);
     		logic.setSelectedWay(null);
@@ -193,7 +195,7 @@ public class IndoorFilterTest {
     		IndoorFilter f = new IndoorFilter();
     		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     		members.add(w);
-    		Relation r = logic.createRelation("", members);
+    		Relation r = logic.createRelation(main, "", members);
     		f.clear();
     		tags.clear();
     		tags.put(Tags.KEY_MIN_LEVEL,"" + 8);

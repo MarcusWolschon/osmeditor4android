@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.locks.ReentrantLock;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Snack;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 
@@ -138,8 +139,8 @@ public class TaskStorage implements Serializable {
 				} else {
 					// this is essentially catastrophic and can only happen if something went really wrong
 					// running out of memory or disk, or HW failure
-					if (ctx != null) {
-						Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+					if (ctx != null && ctx instanceof Activity) {
+						Snack.barError((Activity)ctx, R.string.toast_statesave_failed);
 					}
 				}
 			} finally {

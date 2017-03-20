@@ -40,7 +40,6 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
@@ -58,6 +57,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 public class BackgroundAlignmentActionModeCallback implements Callback {
@@ -350,10 +350,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		@Override
 		protected void onPostExecute(Integer res) {
 			Progress.dismissDialog(main, Progress.PROGRESS_SAVING);
-			if (res == 200)
-				Toast.makeText(main.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
-			else
-				Toast.makeText(main.getApplicationContext(), R.string.toast_save_failed, Toast.LENGTH_SHORT).show();
+			if (res == 200) {
+				Snack.barInfo(main, R.string.toast_save_done);
+			} else {
+				Snack.barError(main, R.string.toast_save_failed);
+			}
 		}
 		
 		String getError() {
@@ -759,7 +760,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			cabBottomBar.setVisibility(View.GONE);
 		}
 		main.showBottomBar();
-		main.setMode(oldMode);
+		main.setMode(main, oldMode);
 		main.showLock();
 	}
 

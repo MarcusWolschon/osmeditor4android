@@ -121,7 +121,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 				errorMessage = getString(R.string.toast_oauth_timeout);
 			}
 	    	if (errorMessage != null) {
-	    		Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+	    		Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
 	    	}
 	    	setResult(RESULT_OK);
 	    	finish();
@@ -231,8 +231,10 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			@Override
 			protected void onPostExecute(Boolean success) {
 				Log.d(DEBUG_TAG, "oAuthHandshake onPostExecute");
-				// note this is fundamentally broken and needs to be re-thought
-				App.mainActivity.finishOAuth();
+				// FIXME this is fundamentally broken and needs to be re-thought
+				if (App.mainActivity != null) {
+					App.mainActivity.finishOAuth();
+				}
 			}
 			
 			OAuthException getException() {

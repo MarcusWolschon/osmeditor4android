@@ -36,7 +36,7 @@ public class OAuthHelper {
 	private static String mCallbackUrl;
 	
 	public OAuthHelper(String osmBaseUrl) throws OsmException {
-		Resources r = App.mainActivity.getResources();
+		Resources r = App.resources();
 		String urls[] = r.getStringArray(R.array.api_urls);
 		String keys[] = r.getStringArray(R.array.api_consumer_keys);
 		String secrets[] = r.getStringArray(R.array.api_consumer_secrets);
@@ -87,7 +87,7 @@ public class OAuthHelper {
 	 * @return
 	 */
 	public OAuthConsumer getConsumer(String osmBaseUrl) {
-		Resources r = App.mainActivity.getResources();
+		Resources r = App.resources();
 
 		String urls[] = r.getStringArray(R.array.api_urls);
 		String keys[] = r.getStringArray(R.array.api_consumer_keys);

@@ -54,6 +54,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.MapOverlayTilesOverlay;
@@ -265,17 +266,17 @@ public class Map extends View implements IMapView {
 		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
 	}
 	
-	public void createOverlays()
+	public void createOverlays(Context ctx)
 	{
 		// create an overlay that displays pre-rendered tiles from the internet.
 		synchronized(mOverlays) {
 			if (mOverlays.size() == 0) // only set once
 			{
 				if (prefs == null) // just to be safe
-					mOverlays.add(new MapTilesOverlay(this, TileLayerServer.getDefault(getResources(), true), null));
+					mOverlays.add(new MapTilesOverlay(this, TileLayerServer.getDefault(ctx, true), null));
 				else {
 					// mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
-					MapTilesOverlay osmto = new MapTilesOverlay(this, TileLayerServer.get(App.mainActivity, prefs.backgroundLayer(), true), null);
+					MapTilesOverlay osmto = new MapTilesOverlay(this, TileLayerServer.get(ctx, prefs.backgroundLayer(), true), null);
 					// Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
 					mOverlays.add(osmto);
 					mOverlays.add(new MapOverlayTilesOverlay(this));
@@ -375,7 +376,7 @@ public class Map extends View implements IMapView {
 		tmpClickableElements = logic.getClickableElements();
 		tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
-		tmpPresets = App.getCurrentPresets(App.mainActivity);
+		tmpPresets = App.getCurrentPresets(context);
 		tmpLocked = logic.isLocked();
 		
 		inNodeIconZoomRange = zoomLevel > SHOW_ICONS_LIMIT;
@@ -427,7 +428,7 @@ public class Map extends View implements IMapView {
 	protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 		try {
-			myViewBox.setRatio((float) w / h, true);
+			myViewBox.setRatio(this, (float) w / h, true);
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -524,12 +525,20 @@ public class Map extends View implements IMapView {
 	private void paintCrosshairs(Canvas canvas) {
 		// 
 		if (showCrosshairs) {
-			Paint paint = DataStyle.getCurrent(DataStyle.CROSSHAIRS).getPaint();
-			canvas.save();
-			canvas.translate(GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon), GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(),crosshairsLat));
-			canvas.drawPath(DataStyle.getCurrent().crosshairs_path, paint);
-			canvas.restore();
+			float x = GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon);
+			float y = GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(),crosshairsLat);
+			Paint paint = DataStyle.getCurrent(DataStyle.CROSSHAIRS_HALO).getPaint();
+			drawCrosshairs(canvas, x, y, paint);
+			paint = DataStyle.getCurrent(DataStyle.CROSSHAIRS).getPaint();
+			drawCrosshairs(canvas, x, y, paint);
 		}
+	}
+	
+	private void drawCrosshairs(Canvas canvas, float x, float y, Paint paint) {
+		canvas.save();
+		canvas.translate(x, y);
+		canvas.drawPath(DataStyle.getCurrent().crosshairs_path, paint);
+		canvas.restore();
 	}
 	
 	private void paintGpsTrack(final Canvas canvas) {
@@ -614,7 +623,7 @@ public class Map extends View implements IMapView {
 	 * @param canvas
 	 */
 	private void paintZoomAndOffset(final Canvas canvas) {
-		int pos = App.mainActivity.getSupportActionBar().getHeight() + 5; 
+		int pos =  ThemeUtils.getActionBarHeight(context) + 5; 
 		Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
 		String text = "Z " + zoomLevel + " Offset " +  (o != null ? String.format(Locale.US,"%.5f",o.lon) + "/" +  String.format(Locale.US,"%.5f",o.lat) : "0.00000/0.00000");
 		float textSize = textPaint.getTextSize();
@@ -1399,16 +1408,16 @@ public class Map extends View implements IMapView {
 		return prefs;
 	}
 	
-	public void setPrefs(final Preferences aPreference) {
+	public void setPrefs(Context ctx, final Preferences aPreference) {
 		prefs = aPreference;
 		TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
 		synchronized(mOverlays) {
 			for (MapViewOverlay osmvo : mOverlays) {
 				if (osmvo instanceof MapTilesOverlay && !(osmvo instanceof MapOverlayTilesOverlay)) {
-					final TileLayerServer backgroundTS = TileLayerServer.get(App.mainActivity, prefs.backgroundLayer(), true);
+					final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
 					((MapTilesOverlay)osmvo).setRendererInfo(backgroundTS);
 				} else if (osmvo instanceof MapOverlayTilesOverlay) {
-					final TileLayerServer overlayTS = TileLayerServer.get(App.mainActivity, prefs.overlayLayer(), true);
+					final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
 					((MapOverlayTilesOverlay)osmvo).setRendererInfo(overlayTS);
 				}
 			}
@@ -1446,7 +1455,7 @@ public class Map extends View implements IMapView {
 	public void setViewBox(final BoundingBox viewBox) {
 		myViewBox = viewBox;
 		try {
-			myViewBox.setRatio((float) getWidth()/ getHeight(), false);
+			myViewBox.setRatio(this, (float) getWidth()/ getHeight(), false);
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

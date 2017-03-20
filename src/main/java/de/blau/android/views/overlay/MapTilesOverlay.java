@@ -12,10 +12,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.resources.DataStyle;
@@ -77,7 +78,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 		myView = aView;
 		myRendererInfo = aRendererInfo;
 		if(aTileProvider == null) {
-			mTileProvider = new MapTileProvider(myView.getContext().getApplicationContext(), new SimpleInvalidationHandler(myView));
+			mTileProvider = new MapTileProvider(myView.getContext(), new SimpleInvalidationHandler(myView));
 		} else {
 			mTileProvider = aTileProvider;
 		}
@@ -93,12 +94,19 @@ public class MapTilesOverlay extends MapViewOverlay {
 		return myRendererInfo.isMetadataLoaded();
 	}
 	
-	public void flushTileCache() {
+	/**
+	 * Empty the cache
+	 * 
+	 * @param activity activity this was called from, if null don't display progress
+	 */
+	public void flushTileCache(@Nullable final FragmentActivity activity) {
 		new AsyncTask<Void,Void,Void>() {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(App.mainActivity, Progress.PROGRESS_DELETING);
+				if (activity != null) {
+					Progress.showDialog(activity, Progress.PROGRESS_DELETING);
+				}
 			}
 			
 			@Override
@@ -109,7 +117,9 @@ public class MapTilesOverlay extends MapViewOverlay {
 			
 			@Override
 			protected void onPostExecute(Void result) {
-				Progress.dismissDialog(App.mainActivity, Progress.PROGRESS_DELETING);
+				if (activity != null) {
+					Progress.dismissDialog(activity, Progress.PROGRESS_DELETING);
+				}
 			}	
 		}.execute();
 	}

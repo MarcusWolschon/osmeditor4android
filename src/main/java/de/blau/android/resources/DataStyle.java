@@ -89,6 +89,7 @@ public class DataStyle  extends DefaultHandler {
 	public final static String OPEN_NOTE = "open_note";
 	public final static String CLOSED_NOTE = "closed_note";
 	public final static String CROSSHAIRS = "crosshairs";
+	public final static String CROSSHAIRS_HALO = "crosshairs_halo";
 	public final static String HANDLE = "handle";
 	public final static String LABELTEXT = "labeltext";
 	
@@ -345,8 +346,6 @@ public class DataStyle  extends DefaultHandler {
 		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
 		fp.setWidthFactor(1f);
 		fp.getPaint().setStyle(Style.STROKE);
-		// fp.getPaint().setStrokeCap(Cap.ROUND);
-		fp.getPaint().setXfermode(pixelOp);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		featureStyles.put(fp.getName(), fp);
 		
@@ -558,9 +557,18 @@ public class DataStyle  extends DefaultHandler {
 		fp.setColor(Color.BLACK);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		fp.getPaint().setXfermode(pixelOp);
+		// fp.getPaint().setXfermode(pixelOp);
 		fp.dontUpdate();
 		featureStyles.put(fp.getName(), fp);
+		
+		fp = new FeatureStyle(CROSSHAIRS_HALO); 
+		fp.setColor(Color.WHITE);
+		fp.getPaint().setStyle(Style.STROKE);
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,3.0f));
+		// fp.getPaint().setXfermode(pixelOp);
+		fp.dontUpdate();
+		featureStyles.put(fp.getName(), fp);
+		
 		Log.i("Style","... done");
 	}
 

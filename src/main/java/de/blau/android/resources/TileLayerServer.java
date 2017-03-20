@@ -40,6 +40,7 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.contract.Paths;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
@@ -363,8 +364,8 @@ public class TileLayerServer {
 			}
 			metadataLoaded = true;
 			// once we've got here, a selected layer that was previously non-available might now be available ... reset map preferences
-			if (myCtx == App.mainActivity) { // don't do this in the service
-				App.mainActivity.getMap().setPrefs(new Preferences(myCtx));
+			if (myCtx instanceof Main) { // don't do this in the service
+				((Main)myCtx).getMap().setPrefs(myCtx, new Preferences(myCtx));
 			}
 		} catch (IOException e) {
 			Log.d("OpenStreetMapTileServer", "Tileserver problem (IOException) metadata URL " + metadataUrl, e);
@@ -467,9 +468,9 @@ public class TileLayerServer {
 	 * @param r Application resources.
 	 * @return The default tile layer.
 	 */
-	public static TileLayerServer getDefault(final Resources r, final boolean async) {
+	public static TileLayerServer getDefault(final Context ctx, final boolean async) {
 		// ask for an invalid renderer, so we'll get the fallback default
-		return get(App.mainActivity, "", async);
+		return get(ctx, "", async);
 	}
 	
 	/**

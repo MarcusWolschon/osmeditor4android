@@ -12,11 +12,12 @@ import org.junit.runner.RunWith;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.UiThreadTestRule;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
@@ -26,13 +27,15 @@ import de.blau.android.resources.TileLayerServer;
 public class BasicStuffTest {
 	
 	Context context = null;
+	Main main = null;
 	    
     @Rule
-    public UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     @Before
     public void setup() {
 		context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+		main = mActivityRule.getActivity();
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
     	App.getDelegator().reset(false);
@@ -52,7 +55,7 @@ public class BasicStuffTest {
     	logic.setSelectedRelation(null);
     	// nodes
     	try {
-    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(null, 100.0f, 100.0f);
     	} catch (OsmIllegalOperationException e) {
     		Assert.fail(e.getMessage());
     	}
@@ -65,7 +68,7 @@ public class BasicStuffTest {
        	setTagsElement(logic, n, n2); 
        	// ways
 		try {
-			logic.performAdd(150.0f, 150.0f);
+			logic.performAdd(null,150.0f, 150.0f);
 		} catch (OsmIllegalOperationException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -89,7 +92,7 @@ public class BasicStuffTest {
     	tags.put(key1, value1);
     	// new form
     	try {
-    		logic.setTags(eInStorage, tags); 
+    		logic.setTags(main, eInStorage, tags); 
     	} catch (OsmIllegalOperationException e) {
     		Assert.fail(e.getMessage());
     	}
@@ -108,7 +111,7 @@ public class BasicStuffTest {
     	tags.putAll(m);
     	tags.put(key2,  value2);
     	try {
-    		logic.setTags(eInStorage, tags); 
+    		logic.setTags(main, eInStorage, tags); 
     	} catch (OsmIllegalOperationException e) {
     		Assert.fail(e.getMessage());
     	}
@@ -120,27 +123,40 @@ public class BasicStuffTest {
     	Assert.assertTrue(eInStorage.hasTag(key2,value2));
     	Assert.assertEquals(value2, eInStorage.getTagWithKey(key2));
     	try {
-    		logic.setTags(eInStorage, null);
+    		logic.setTags(main, eInStorage, null);
     	} catch (OsmIllegalOperationException e) {
     		Assert.fail(e.getMessage());
     	}
     	Assert.assertFalse(eInStorage.hasTags());
     	// old form
-    	Assert.assertTrue(logic.setTags(eInStorage.getName(),eInStorage.getOsmId(), tags)); 
+    	try {
+    		logic.setTags(main, eInStorage.getName(),eInStorage.getOsmId(), tags); 
+    	} catch (OsmIllegalOperationException e) {
+    		Assert.fail(e.getMessage());
+    	}
     	Assert.assertTrue(eInStorage.hasTags());
     	Assert.assertTrue(eInStorage.hasTagKey(key1));
     	Assert.assertTrue(eInStorage.hasTag(key1,value1));
     	Assert.assertEquals(value1, eInStorage.getTagWithKey(key1));
-    	Assert.assertTrue(logic.setTags(eInStorage.getName(),eInStorage.getOsmId(), null));
+    	try {
+    		logic.setTags(main, eInStorage.getName(),eInStorage.getOsmId(), null);
+    	} catch (OsmIllegalOperationException e) {
+    		Assert.fail(e.getMessage());
+    	}
     	Assert.assertFalse(eInStorage.hasTags());
     	//
  
        	try {
-    		logic.setTags(eNotInStorage, tags);
+    		logic.setTags(main, eNotInStorage, tags);
     		Assert.fail("Element not in storage should fail");
     	} catch (OsmIllegalOperationException e) {
     		// carry on
     	}
-       	Assert.assertFalse(logic.setTags(eNotInStorage.getName(),eNotInStorage.getOsmId(), tags));
+    	try {
+    		logic.setTags(main, eNotInStorage.getName(),eNotInStorage.getOsmId(), tags);
+    		Assert.fail("Element not in storage should fail");
+    	} catch (OsmIllegalOperationException e) {
+    		// carry on
+    	}
 	}
 }

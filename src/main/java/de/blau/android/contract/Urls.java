@@ -19,4 +19,5 @@ public interface Urls {
 	String DEFAULT_OFFSET_SERVER = "http://offsets.textual.ru/";
 	
 	String OSM = "https://openstreetmap.org";
+	String OSM_LOGIN = "https://www.openstreetmap.org/login";
 }

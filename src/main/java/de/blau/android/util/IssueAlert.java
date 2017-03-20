@@ -62,7 +62,7 @@ public class IssueAlert {
 			return;
 		}
 		
-		LocationManager locationManager = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		Location location = null;
 		try {
 			location = locationManager.getLastKnownLocation("gps");
@@ -186,7 +186,7 @@ public class IssueAlert {
 			return;
 		}
 		
-		LocationManager locationManager = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		Location location = null;
 		try {
 			location = locationManager.getLastKnownLocation("gps");

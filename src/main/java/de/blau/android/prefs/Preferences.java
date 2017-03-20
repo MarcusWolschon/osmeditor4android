@@ -11,6 +11,8 @@ import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
@@ -24,6 +26,7 @@ import de.blau.android.resources.DataStyle;
  * @author mb
  */
 public class Preferences {
+	private static String DEBUG_KEY = "Preferences";
 	
 	private final AdvancedPrefDatabase advancedPrefs;
 	
@@ -150,37 +153,37 @@ public class Preferences {
 		try {
 			maxStrokeWidth = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "16"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_maxStrokeWidth_key=" + prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
+			Log.w(DEBUG_KEY, "error parsing config_maxStrokeWidth_key=" + prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
 			maxStrokeWidth = 16;
 		}
 		try {
 			tileCacheSize = Integer.parseInt(prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_tileCacheSize_key=" + prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
+			Log.w(DEBUG_KEY, "error parsing config_tileCacheSize_key=" + prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
 			tileCacheSize = 100;
 		}
 		try {
 			downloadRadius = Integer.parseInt(prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
+			Log.w(DEBUG_KEY, "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
 			downloadRadius = 50;
 		}
 		try {
 			maxDownloadSpeed = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxDownloadSpeed_key), "6"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxDownloadSpeed_key), "6"));
+			Log.w(DEBUG_KEY, "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxDownloadSpeed_key), "6"));
 			maxDownloadSpeed = 6f;
 		}
 		try {
 			bugDownloadRadius = Integer.parseInt(prefs.getString(r.getString(R.string.config_bugDownloadRadius_key), "200"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_bugDownloadRadius_key), "200"));
+			Log.w(DEBUG_KEY, "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_bugDownloadRadius_key), "200"));
 			bugDownloadRadius = 200;
 		}
 		try {
 			maxBugDownloadSpeed = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
+			Log.w(DEBUG_KEY, "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
 			maxBugDownloadSpeed = 30f;
 		}
 		taskFilter = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
@@ -208,11 +211,11 @@ public class Preferences {
 		// check if we actually still have the profile
 		if (DataStyle.getStyle(tempMapProfile) == null) {
 			if (DataStyle.getStyle(DEFAULT_MAP_PROFILE) == null) {
-				Log.w(getClass().getName(), "Using builtin default profile instead of " + tempMapProfile + " and " + DEFAULT_MAP_PROFILE);
+				Log.w(DEBUG_KEY, "Using builtin default profile instead of " + tempMapProfile + " and " + DEFAULT_MAP_PROFILE);
 				mapProfile = DataStyle.getBuiltinStyleName(); // built-in fall back
 			}
 			else {
-				Log.w(getClass().getName(), "Using default profile");
+				Log.w(DEBUG_KEY, "Using default profile");
 				mapProfile = DEFAULT_MAP_PROFILE;
 			}
 		} else {
@@ -224,7 +227,7 @@ public class Preferences {
 			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "2.0"));
 			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_gps_distance_key or config_gps_interval_key");
+			Log.w(DEBUG_KEY, "error parsing config_gps_distance_key or config_gps_interval_key");
 			gpsDistance = 2.0f;
 			gpsInterval = 1000;
 		}
@@ -235,7 +238,7 @@ public class Preferences {
 		try {
 			maxAlertDistance = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxAlertDistance_key), "100"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_maxAlertDistance_key");
+			Log.w(DEBUG_KEY, "error parsing config_maxAlertDistance_key");
 			maxAlertDistance = 100;
 		}
 		// light theme now always default
@@ -261,28 +264,28 @@ public class Preferences {
 		try {
 			maxInlineValues = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxInlineValues_key), "4"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_maxInlineValues_key=" + prefs.getString(r.getString(R.string.config_maxInlineValues_key), "4"));
+			Log.w(DEBUG_KEY, "error parsing config_maxInlineValues_key=" + prefs.getString(r.getString(R.string.config_maxInlineValues_key), "4"));
 			maxInlineValues = 4;
 		}
 		
 		try {
 			maxTileDownloadThreads = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "2"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_maxTileDownloadThreads_key=" + prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "2"));
+			Log.w(DEBUG_KEY, "error parsing config_maxTileDownloadThreads_key=" + prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "2"));
 			maxTileDownloadThreads = 2;
 		}
 		
 		try {
 			notificationCacheSize = Integer.parseInt(prefs.getString(r.getString(R.string.config_notificationCacheSize_key), "5"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_notificationCacheSize_key=" + prefs.getString(r.getString(R.string.config_notificationCacheSize_key), "5"));
+			Log.w(DEBUG_KEY, "error parsing config_notificationCacheSize_key=" + prefs.getString(r.getString(R.string.config_notificationCacheSize_key), "5"));
 			notificationCacheSize = 5;
 		}
 		
 		try {
 			autoLockDelay = Integer.parseInt(prefs.getString(r.getString(R.string.config_autoLockDelay_key), "60"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsing config_autoLockDelay_key=" + prefs.getString(r.getString(R.string.config_autoLockDelay_key), "60"));
+			Log.w(DEBUG_KEY, "error parsing config_autoLockDelay_key=" + prefs.getString(r.getString(R.string.config_autoLockDelay_key), "60"));
 			autoLockDelay = 60;
 		}
 		
@@ -640,5 +643,41 @@ public class Preferences {
 
 	public boolean isJsConsoleEnabled() {
 		return jsConsoleEnabled;
+	}
+
+	/**
+	 * Get a string from shared preferences
+	 * 
+	 * @param prefKey preference key as a string resource
+	 * @return the strings or null if nothing was found
+	 */
+	@Nullable
+	public String getString(int prefKey) {
+		try {
+			String key = r.getString(prefKey);
+			return prefs.getString(key, null);
+		} catch (Exception ex) {
+			Log.e(DEBUG_KEY,"getString " + ex.getMessage());
+			return null;
+		}
+	}
+
+	/**
+	 * Save a string to shared preferences
+	 * 
+	 * @param prefKey preference key as a string resource
+	 * @param s string value to save
+	 */
+	public void putString(int prefKey, @NonNull String s) {
+		try {
+			String key = r.getString(prefKey);
+			if (key != null) {
+				prefs.edit().putString(r.getString(prefKey), s).commit();
+			} else {
+				Log.e(DEBUG_KEY,"" + prefKey + " is not a valid string resource");
+			} 
+		} catch (Exception ex) {
+			Log.e(DEBUG_KEY,"putString " + ex.getMessage());
+		}
 	}
 }

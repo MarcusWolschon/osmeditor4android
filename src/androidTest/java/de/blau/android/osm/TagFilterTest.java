@@ -42,6 +42,7 @@ public class TagFilterTest {
 	Context context = null;
 	AdvancedPrefDatabase prefDB = null;
 	SQLiteDatabase db;
+	Main main = null;
 	
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -52,6 +53,7 @@ public class TagFilterTest {
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
 		db = new TagFilterDatabaseHelper(context).getWritableDatabase();
+		main = mActivityRule.getActivity();
     }
     
     @After
@@ -67,7 +69,7 @@ public class TagFilterTest {
     		tags.put(Tags.KEY_BARRIER,Tags.VALUE_KERB);
     		Logic logic = App.getLogic();
 
-    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(main, 100.0f, 100.0f);
 
     		Node n1 = logic.getSelectedNode();
     		
@@ -97,10 +99,10 @@ public class TagFilterTest {
     		tags.put(Tags.KEY_BUILDING,"yes");
     		Logic logic = App.getLogic();
 
-    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(main, 100.0f, 100.0f);
 
     		Node n1 = logic.getSelectedNode();
-    		logic.performAdd(1000.0f, 1000.0f);
+    		logic.performAdd(main, 1000.0f, 1000.0f);
     		Node n2 = logic.getSelectedNode();
     		Way w = logic.getSelectedWay();
     		logic.setSelectedNode(null);
@@ -125,10 +127,10 @@ public class TagFilterTest {
     		tags.put(Tags.KEY_BUILDING,"yes");
     		Logic logic = App.getLogic();
 
-    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(main, 100.0f, 100.0f);
 
     		Node n1 = logic.getSelectedNode();
-    		logic.performAdd(1000.0f, 1000.0f);
+    		logic.performAdd(main, 1000.0f, 1000.0f);
     		Node n2 = logic.getSelectedNode();
     		Way w = logic.getSelectedWay();
     		logic.setSelectedNode(null);
@@ -153,10 +155,10 @@ public class TagFilterTest {
     		tags.put(Tags.KEY_BUILDING,"yes");
     		Logic logic = App.getLogic();
 
-    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(main, 100.0f, 100.0f);
 
     		Node n1 = logic.getSelectedNode();
-    		logic.performAdd(1000.0f, 1000.0f);
+    		logic.performAdd(main, 1000.0f, 1000.0f);
     		Node n2 = logic.getSelectedNode();
     		Way w = logic.getSelectedWay();
     		logic.setSelectedNode(null);
@@ -164,7 +166,7 @@ public class TagFilterTest {
     		
        		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     		members.add(w);
-    		Relation r = logic.createRelation("", members);
+    		Relation r = logic.createRelation(main, "", members);
     		r.setTags(tags);
 
     		insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "relation", Tags.KEY_BUILDING, null);
@@ -185,10 +187,10 @@ public class TagFilterTest {
     		tags.put(Tags.KEY_BUILDING,"yes");
     		Logic logic = App.getLogic();
 
-    		logic.performAdd(100.0f, 100.0f);
+    		logic.performAdd(main, 100.0f, 100.0f);
 
     		Node n1 = logic.getSelectedNode();
-    		logic.performAdd(1000.0f, 1000.0f);
+    		logic.performAdd(main, 1000.0f, 1000.0f);
     		Node n2 = logic.getSelectedNode();
     		Way w = logic.getSelectedWay();
     		logic.setSelectedNode(null);
@@ -196,7 +198,7 @@ public class TagFilterTest {
     		
        		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     		members.add(w);
-    		Relation r = logic.createRelation("", members);
+    		Relation r = logic.createRelation(main, "", members);
     		r.setTags(tags);
 
     		insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "relation+", Tags.KEY_BUILDING, null);
