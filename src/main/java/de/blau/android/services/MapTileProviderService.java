@@ -51,7 +51,7 @@ public class MapTileProviderService extends Service {
 	 * haven't already created the cache
 	 */
 	private void init() {
-		Preferences prefs = new Preferences(getApplicationContext());
+		Preferences prefs = new Preferences(this);
 		int tileCacheSize = 100; // just in case we can't read the prefs
 		if (prefs != null) {
 			tileCacheSize = prefs.getTileCacheSize();

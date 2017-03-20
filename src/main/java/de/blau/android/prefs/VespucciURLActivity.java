@@ -121,7 +121,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 				errorMessage = getString(R.string.toast_oauth_timeout);
 			}
 	    	if (errorMessage != null) {
-	    		Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+	    		Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
 	    	}
 	    	setResult(RESULT_OK);
 	    	finish();

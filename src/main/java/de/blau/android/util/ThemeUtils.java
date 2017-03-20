@@ -74,6 +74,17 @@ public final class ThemeUtils {
 		} 	
     }
     
+    public static int getActionBarHeight(Context ctx) {
+    	// Calculate ActionBar height
+    	TypedValue tv = new TypedValue();
+    	if (ctx.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true))
+    	{
+    	    return TypedValue.complexToDimensionPixelSize(tv.data,ctx.getResources().getDisplayMetrics());
+    	}
+    	return 0;
+    }
+    
+    
     public static LayoutInflater getLayoutInflater(Context caller) {
     	Preferences prefs = new Preferences(caller);
 		Context context =  new ContextThemeWrapper(caller, prefs.lightThemeEnabled() ? R.style.Theme_DialogLight : R.style.Theme_DialogDark);

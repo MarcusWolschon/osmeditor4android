@@ -54,6 +54,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.MapOverlayTilesOverlay;
@@ -524,12 +525,20 @@ public class Map extends View implements IMapView {
 	private void paintCrosshairs(Canvas canvas) {
 		// 
 		if (showCrosshairs) {
-			Paint paint = DataStyle.getCurrent(DataStyle.CROSSHAIRS).getPaint();
-			canvas.save();
-			canvas.translate(GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon), GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(),crosshairsLat));
-			canvas.drawPath(DataStyle.getCurrent().crosshairs_path, paint);
-			canvas.restore();
+			float x = GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon);
+			float y = GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(),crosshairsLat);
+			Paint paint = DataStyle.getCurrent(DataStyle.CROSSHAIRS_HALO).getPaint();
+			drawCrosshairs(canvas, x, y, paint);
+			paint = DataStyle.getCurrent(DataStyle.CROSSHAIRS).getPaint();
+			drawCrosshairs(canvas, x, y, paint);
 		}
+	}
+	
+	private void drawCrosshairs(Canvas canvas, float x, float y, Paint paint) {
+		canvas.save();
+		canvas.translate(x, y);
+		canvas.drawPath(DataStyle.getCurrent().crosshairs_path, paint);
+		canvas.restore();
 	}
 	
 	private void paintGpsTrack(final Canvas canvas) {
@@ -614,7 +623,7 @@ public class Map extends View implements IMapView {
 	 * @param canvas
 	 */
 	private void paintZoomAndOffset(final Canvas canvas) {
-		int pos = App.mainActivity.getSupportActionBar().getHeight() + 5; 
+		int pos =  ThemeUtils.getActionBarHeight(context) + 5; 
 		Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
 		String text = "Z " + zoomLevel + " Offset " +  (o != null ? String.format(Locale.US,"%.5f",o.lon) + "/" +  String.format(Locale.US,"%.5f",o.lat) : "0.00000/0.00000");
 		float textSize = textPaint.getTextSize();

@@ -11,16 +11,32 @@
 
 	<style name="Theme.AppCompatPrefs" parent="@style/Theme.AppCompat">
 		<item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+		<!--  colors -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 	
 	<style name="Theme.AppCompatPrefsLight" parent="@style/Theme.AppCompat.Light">
 		 <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+		 <!--  colors -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 
 	<style name="Theme.custom" parent="@style/Theme.AppCompat">
+		<!--  colors -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 
 	<style name="Theme.customLight" parent="@style/Theme.AppCompat.Light">
+		<!--  colors -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 	
 	<style name="Theme.noOverlapMenu" parent="@style/Theme.customMain">

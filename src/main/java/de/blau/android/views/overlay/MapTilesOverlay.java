@@ -78,7 +78,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 		myView = aView;
 		myRendererInfo = aRendererInfo;
 		if(aTileProvider == null) {
-			mTileProvider = new MapTileProvider(myView.getContext().getApplicationContext(), new SimpleInvalidationHandler(myView));
+			mTileProvider = new MapTileProvider(myView.getContext(), new SimpleInvalidationHandler(myView));
 		} else {
 			mTileProvider = aTileProvider;
 		}

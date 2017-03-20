@@ -3,9 +3,17 @@ package de.blau.android.util;
 import java.util.LinkedList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+import de.blau.android.App;
 import de.blau.android.R;
 
 /**
@@ -169,7 +177,7 @@ public class Snack {
 	 */
 	public static void barError(View v, int res) {
 		Snackbar snackbar = Snackbar.make(v, res, Snackbar.LENGTH_LONG);
-		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, android.R.color.holo_red_light));
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
 		snackbar.setCallback(callback);
 		enqueueError(snackbar);
 	}
@@ -194,7 +202,7 @@ public class Snack {
 	 */
 	public static void barError(View v, String msg) {
 		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, android.R.color.holo_red_light));
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
 		snackbar.setCallback(callback);
 		enqueueError(snackbar);
 	}
@@ -252,7 +260,7 @@ public class Snack {
 	 */
 	public static void barInfo(View v, int res, int duration) {
 		Snackbar snackbar = Snackbar.make(v, res, duration);
-		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, android.R.color.holo_green_light));
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
 		snackbar.setCallback(callback);
 		enqueueInfo(snackbar);
 	}	
@@ -300,7 +308,7 @@ public class Snack {
 	 */
 	public static void barInfo(View v, String msg, int duration) {
 		Snackbar snackbar = Snackbar.make(v, msg, duration);
-		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, android.R.color.holo_green_light));
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
 		snackbar.setCallback(callback);
 		enqueueInfo(snackbar);
 	}
@@ -313,7 +321,7 @@ public class Snack {
 	 */
 	public static void barInfo(View v, String msg) {
 		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, android.R.color.holo_green_light));
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
 		snackbar.setCallback(callback);
 		enqueueInfo(snackbar);
 	}
@@ -343,7 +351,7 @@ public class Snack {
 	public static void barInfo(View v, String msg, int actionRes, View.OnClickListener listener) {
 		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
 		snackbar.setDuration(5000);
-		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, android.R.color.holo_green_light));
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
 		snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
 		snackbar.setAction (actionRes, listener);
 		snackbar.setCallback(callback);
@@ -375,7 +383,7 @@ public class Snack {
 	public static void barInfo(View v, String msg, String action, View.OnClickListener listener) {
 		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
 		snackbar.setDuration(SHOW_DURATION_ACTION);
-		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, android.R.color.holo_green_light));
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
 		snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
 		snackbar.setAction(action, listener);
 		snackbar.setCallback(callback);
@@ -415,8 +423,28 @@ public class Snack {
 	 */
 	public static void barWarning(View v, int res, int duration) {
 		Snackbar snackbar = Snackbar.make(v, res, duration);
-		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, android.R.color.holo_green_light));
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
 		snackbar.setCallback(callback);
 		enqueueWarning(snackbar);
-	}	
+	}
+	
+	/**
+	 * Display a toast underneath the top action bar
+	 * @param activity activity that called this
+	 * @param msg the message to display
+	 */
+	public static void toastTop(AppCompatActivity activity, String msg) {
+		 LayoutInflater inflater = activity.getLayoutInflater();
+		 View layout = inflater.inflate(R.layout.toast, (ViewGroup) activity.findViewById(R.id.toast_layout_root));
+		 layout.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.snack_info, R.color.material_teal));
+		 TextView text = (TextView) layout.findViewById(R.id.text);
+		 text.setText(msg);
+
+		 Toast toast = new Toast(activity);
+		 int yOffset = ThemeUtils.getActionBarHeight(activity) + 5; 
+		 toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, yOffset);
+		 toast.setDuration(Toast.LENGTH_SHORT);
+		 toast.setView(layout);
+		 toast.show();
+	}
 }

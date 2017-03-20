@@ -447,7 +447,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			Log.d(DEBUG_TAG, "map exists .. destroying");
 			map.onDestroy();
 		}
-		map = new Map(getApplicationContext());
+		map = new Map(this);
 		map.setId(R.id.map_view);
 
 		//Register some Listener
@@ -462,7 +462,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		mapLayout.addView(map,0); // index 0 so that anything in the layout comes after it/on top 
 
-		mDetector = VersionedGestureDetector.newInstance(getApplicationContext(), mapTouchListener);
+		mDetector = VersionedGestureDetector.newInstance(this, mapTouchListener);
 		
 		// Set up the zoom in/out controls
 		zoomControls = new de.blau.android.views.ZoomControls(this);
@@ -503,7 +503,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		mapLayout.addView(zoomControls, rlp);
 		
-		DataStyle.getStylesFromFiles(getApplicationContext()); // needs to happen before setContentView
+		DataStyle.getStylesFromFiles(this); // needs to happen before setContentView
 		
 		setContentView(ml);
 		
@@ -588,7 +588,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * Get the best last position
 	 */
 	private Location getLastLocation() {
-		LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		List<String> providers = locationManager.getProviders(true);
 		Location bestLocation = null;
 		for (String provider : providers) {
@@ -2352,7 +2352,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public void gotoBoxPicker() {
 		descheduleAutoLock();
-		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
+		Intent intent = new Intent(this, BoxPicker.class);
 		if (App.getLogic().hasChanges()) {
 			DataLossActivity.showDialog(this, intent, REQUEST_BOUNDING_BOX);
 		} else {
@@ -3029,11 +3029,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					default:
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 							Character c = Character.toLowerCase((char) event.getUnicodeChar());
-							if (c == Util.getShortCut(getApplicationContext() , R.string.shortcut_zoom_in)) {
+							if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
 								logic.zoom(Logic.ZOOM_IN);
 								updateZoomControls();
 								return true;
-							} else if (c == Util.getShortCut(getApplicationContext(), R.string.shortcut_zoom_out)) {
+							} else if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_out)) {
 								logic.zoom(Logic.ZOOM_OUT);
 								updateZoomControls();
 								return true;

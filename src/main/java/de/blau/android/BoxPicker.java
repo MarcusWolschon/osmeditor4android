@@ -224,7 +224,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 	 */
 	private Location registerLocationListener() {
 		Preferences prefs = new Preferences(this);
-		locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		List<String> providers = locationManager.getProviders(true);
 		Location bestLocation = null;
 		for (String provider : providers) {

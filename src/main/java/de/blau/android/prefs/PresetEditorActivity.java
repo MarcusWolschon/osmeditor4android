@@ -34,6 +34,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
+import de.blau.android.util.Snack;
 
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
@@ -94,7 +95,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 	protected void onItemClicked(ListEditItem item) {
 		if (item.active && db.getActivePresets().length == 1) { // at least one item needs to be selected
 			updateAdapter();
-			Toast.makeText(this, R.string.toast_min_one_preset, Toast.LENGTH_LONG).show();
+			Snack.barWarning(this, R.string.toast_min_one_preset);
 			return;
 		}
 		item.active = !item.active;
@@ -282,7 +283,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 				Progress.dismissDialog(PresetEditorActivity.this, Progress.PROGRESS_PRESET);
 				switch (result) {
 				case RESULT_TOTAL_SUCCESS:
-					Toast.makeText(PresetEditorActivity.this, R.string.preset_download_successful, Toast.LENGTH_LONG).show();
+					Snack.barInfo(PresetEditorActivity.this, R.string.preset_download_successful);
 					PresetEditorActivity.super.sendResultIfApplicable(item);
 					break;
 				case RESULT_TOTAL_FAILURE:
