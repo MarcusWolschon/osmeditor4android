@@ -81,7 +81,7 @@ public class IndoorFilterTest {
     	Assert.assertTrue(f.include(n, false));
     	ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     	members.add(n);
-    	Relation r = logic.createRelation("", members);
+    	Relation r = logic.createRelation(main, "", members);
     	f.clear();
     	tags.clear();
     	tags.put(Tags.KEY_MIN_LEVEL,"" + 8);
@@ -135,7 +135,7 @@ public class IndoorFilterTest {
     		Assert.assertTrue(f.include(w, false));
     		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     		members.add(w);
-    		Relation r = logic.createRelation("", members);
+    		Relation r = logic.createRelation(main, "", members);
     		f.clear();
     		tags.clear();
     		tags.put(Tags.KEY_MIN_LEVEL,"" + 8);
@@ -195,7 +195,7 @@ public class IndoorFilterTest {
     		IndoorFilter f = new IndoorFilter();
     		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     		members.add(w);
-    		Relation r = logic.createRelation("", members);
+    		Relation r = logic.createRelation(main, "", members);
     		f.clear();
     		tags.clear();
     		tags.put(Tags.KEY_MIN_LEVEL,"" + 8);

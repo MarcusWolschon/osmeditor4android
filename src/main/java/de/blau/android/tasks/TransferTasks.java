@@ -19,6 +19,7 @@ import com.drew.lang.annotations.NotNull;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -54,8 +55,16 @@ public class TransferTasks {
 	/** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */ 
 	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
 	
-
-	static public void downloadBox(final Context context, final Server server, final BoundingBox box, final boolean add, final PostAsyncActionHandler handler) {
+	/**
+	 * Download tasks for a bounding box, actual requests will depend on what the current filter for tasks is set to
+	 * 
+	 * @param context Android context
+	 * @param server current server configuration
+	 * @param box the bounding box
+	 * @param add if true merge teh download with existing task data
+	 * @param handler handler to run after the download if not null
+	 */
+	static public void downloadBox(@NotNull final Context context, @NotNull final Server server, @NotNull final BoundingBox box, final boolean add, @Nullable final PostAsyncActionHandler handler) {
 		
 		final TaskStorage bugs = App.getTaskStorage();
 		final Preferences prefs = new Preferences(context);
@@ -75,14 +84,17 @@ public class TransferTasks {
 				Set<String> bugFilter = prefs.taskFilter();
 				Collection<Task> result = new ArrayList<Task>();
 				Collection<Note> noteResult = null;
-				if (bugFilter.contains("NOTES")) {
+				Resources r = context.getResources();
+				if (bugFilter.contains(r.getString(R.string.bugfilter_notes))) {
 					noteResult = server.getNotesForBox(box,1000);
 				}
 				if (noteResult != null) {
 					result.addAll(noteResult);
 				}
 				Collection<OsmoseBug> osmoseResult = null;
-				if (bugFilter.contains("OSMOSE_ERROR") || bugFilter.contains("OSMOSE_WARNING") || bugFilter.contains("OSMOSE_MINOR_ISSUE")) {
+				if (bugFilter.contains(r.getString(R.string.bugfilter_osmose_error)) 
+						|| bugFilter.contains(r.getString(R.string.bugfilter_osmose_warning)) 
+						|| bugFilter.contains(r.getString(R.string.bugfilter_osmose_minor_issue))) {
 					osmoseResult = OsmoseServer.getBugsForBox(box, 1000);
 				}
 				if (osmoseResult != null) {
@@ -124,7 +136,7 @@ public class TransferTasks {
 	/**
 	 * Upload Notes or bugs to server, needs to be called from main for now (mainly for OAuth dependency)
 	 * @param main instance of main calling this
-	 * @param server
+	 * @param server current server config
 	 */
 	static public void upload(@NotNull final Main main, final Server server) {
 		final String PROGRESS_TAG = "tasks";
@@ -204,8 +216,8 @@ public class TransferTasks {
 	
 	/**
 	 * Upload single bug state
-	 * @param b
-	 * @return
+	 * @param b osmose bug to upload
+	 * @return true if successful
 	 */
 	@SuppressLint("InlinedApi")
 	static public boolean uploadOsmoseBug(final OsmoseBug b) {
@@ -349,10 +361,12 @@ public class TransferTasks {
 	}
 	
 	/**
-	 * Write Notes to a file in (J)OSM compatible format, 
-	 * if fileName contains directories these are created, otherwise it is stored in the standard public dir
+	 * Write Notes to a file in (J)OSM compatible format
 	 * 
-	 * @param fileName
+	 * If fileName contains directories these are created, otherwise it is stored in the standard public dir
+	 * @param activity activity that called this
+	 * @param all if true write all notes, if false just those that have been modified
+	 * @param fileName file to write to
 	 */
 	static public void writeOsnFile(@NotNull final FragmentActivity activity, final boolean all, final String fileName) {
 		new AsyncTask<Void, Void, Integer>() {

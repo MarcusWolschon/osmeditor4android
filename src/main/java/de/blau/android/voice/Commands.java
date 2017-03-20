@@ -95,7 +95,7 @@ public class Commands {
 							for (String key:map.keySet()) {
 								tags.put(key, map.get(key).get(0));
 							}
-							logic.setTags(node, tags);
+							logic.setTags(main, node, tags);
 						}
 						return;
 					} catch (NumberFormatException ex) {
@@ -157,7 +157,7 @@ public class Commands {
 						tags.put(Tags.KEY_NAME, name);
 					}
 					tags.put("source:original_text", original);
-					logic.setTags(node, tags);
+					logic.setTags(main, node, tags);
 					return true;
 				} catch (OsmIllegalOperationException e) {
 					Log.e(DEBUG_TAG,e.getMessage());

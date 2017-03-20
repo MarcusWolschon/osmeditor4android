@@ -10,9 +10,7 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
-import de.blau.android.Main;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.R;
 
 /**
  *

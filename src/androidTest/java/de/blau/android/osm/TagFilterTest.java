@@ -166,7 +166,7 @@ public class TagFilterTest {
     		
        		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     		members.add(w);
-    		Relation r = logic.createRelation("", members);
+    		Relation r = logic.createRelation(main, "", members);
     		r.setTags(tags);
 
     		insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "relation", Tags.KEY_BUILDING, null);
@@ -198,7 +198,7 @@ public class TagFilterTest {
     		
        		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     		members.add(w);
-    		Relation r = logic.createRelation("", members);
+    		Relation r = logic.createRelation(main, "", members);
     		r.setTags(tags);
 
     		insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "relation+", Tags.KEY_BUILDING, null);

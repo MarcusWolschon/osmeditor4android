@@ -102,6 +102,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.TagFilter;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
@@ -1993,15 +1994,19 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				}
 				if (editorData.tags != null) {
 					Log.d(DEBUG_TAG,"handlePropertyEditorResult setting tags");
-					logic.setTags(editorData.type, editorData.osmId, editorData.tags);		
+					try {
+						logic.setTags(this, editorData.type, editorData.osmId, editorData.tags);
+					} catch (OsmIllegalOperationException e) {
+						Snack.barError(this, e.getMessage());
+					}		
 				}
 				if (editorData.parents != null) {
 					Log.d(DEBUG_TAG,"handlePropertyEditorResult setting parents");
-					logic.updateParentRelations(editorData.type, editorData.osmId, editorData.parents);		
+					logic.updateParentRelations(this, editorData.type, editorData.osmId, editorData.parents);		
 				}
 				if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
 					Log.d(DEBUG_TAG,"handlePropertyEditorResult setting members");
-					logic.updateRelation(editorData.osmId, editorData.members);
+					logic.updateRelation(this, editorData.osmId, editorData.members);
 				}
 			}
 			// this is very expensive: getLogic().saveAsync(); // if nothing was changed the dirty flag wont be set and the save wont actually happen 

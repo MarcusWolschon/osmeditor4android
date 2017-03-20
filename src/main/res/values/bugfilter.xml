@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="bugfilter_notes" translatable="false">NOTES</string>
+    <string name="bugfilter_osmose_error" translatable="false">OSMOSE_ERROR</string>
+    <string name="bugfilter_osmose_warning" translatable="false">OSMOSE_WARNING</string>
+    <string name="bugfilter_osmose_minor_issue" translatable="false">OSMOSE_MINOR_ISSUE</string>
     <string-array name="bug_filter_entries">
         <item>Notes</item>
 		<item>Osmose error</item>
@@ -7,16 +11,16 @@
 		<item>Osmose minor issue</item>
     </string-array>
     <string-array translatable="false" name="bug_filter_values">
-		<item>NOTES</item>
-		<item>OSMOSE_ERROR</item>
-		<item>OSMOSE_WARNING</item>
-		<item>OSMOSE_MINOR_ISSUE</item>
+		<item>@string/bugfilter_notes</item>
+		<item>@string/bugfilter_osmose_error</item>
+		<item>@string/bugfilter_osmose_warning</item>
+		<item>@string/bugfilter_osmose_minor_issue</item>
     </string-array>
     <string-array translatable="false" name="bug_filter_defaults">
-		<item>NOTES</item>
-		<item>OSMOSE_ERROR</item>
-		<item>OSMOSE_WARNING</item>
-		<item>OSMOSE_MINOR_ISSUE</item>
+		<item>@string/bugfilter_notes</item>
+		<item>@string/bugfilter_osmose_error</item>
+		<item>@string/bugfilter_osmose_warning</item>
+		<item>@string/bugfilter_osmose_minor_issue</item>
     </string-array>
 </resources>
 

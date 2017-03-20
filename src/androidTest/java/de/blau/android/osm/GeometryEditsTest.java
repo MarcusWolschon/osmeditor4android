@@ -86,7 +86,7 @@ public class GeometryEditsTest {
     		System.out.print("Way 2 contains nodes");
     		for (Node n:nList2) System.out.print(" " + n.getOsmId());
     		System.out.println();
-    		Relation r1 = logic.createRestriction(w1, n2, w2, "test rest");
+    		Relation r1 = logic.createRestriction(main, w1, n2, w2, "test rest");
     		ArrayList<OsmElement> mList1 = r1.getMemberElements();
     		Assert.assertEquals(3, mList1.size());
     		Assert.assertEquals(w1,mList1.get(0));
@@ -117,7 +117,7 @@ public class GeometryEditsTest {
     		// add w2 to a normal relation and split
     		ArrayList<OsmElement> mList2 = new ArrayList<OsmElement>();
     		mList2.add(w2);
-    		logic.createRelation("test", mList2);
+    		logic.createRelation(main, "test", mList2);
     		Assert.assertEquals(2, w2.getParentRelations().size());
        		
     	    logic.performSplit(main, n3);
@@ -179,7 +179,7 @@ public class GeometryEditsTest {
     		logic.setSelectedWay(null);
     		logic.setSelectedNode(null);
 
-    		Node tempNode = logic.performAddOnWay(null,X, 500.0f, false);
+    		Node tempNode = logic.performAddOnWay(main, null,X, 500.0f, false);
     		Node n1 = logic.getSelectedNode();
     		Assert.assertEquals(n1,tempNode);
     		Assert.assertEquals(1, logic.getWaysForNode(n1).size());

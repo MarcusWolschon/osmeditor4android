@@ -719,7 +719,7 @@ public class EasyEditManager {
 				ways.add(clickedNonClosedWays.get(itemId -1));
 			}
 			try {
-				Node splitPosition = logic.performAddOnWay(ways,startX, startY, false);
+				Node splitPosition = logic.performAddOnWay(main, ways,startX, startY, false);
 				if (splitPosition != null) {
 					for (Way way:ways) {
 						if (way.hasNode(splitPosition)) {
@@ -766,7 +766,7 @@ public class EasyEditManager {
 					ArrayList<Way>ways = new ArrayList<Way>();
 					ways.add(way);
 					try {
-						Node node = logic.performAddOnWay(ways,startX, startY, false);
+						Node node = logic.performAddOnWay(main, ways,startX, startY, false);
 						if (node != null) {
 							logic.performSplit(main, way,node);
 						}
@@ -796,7 +796,7 @@ public class EasyEditManager {
 				}
 				return true;
 			case MENUITEM_PASTE:
-				logic.pasteFromClipboard(startX, startY);
+				logic.pasteFromClipboard(main, startX, startY);
 				logic.hideCrosshairs();
 				mode.finish();
 				return true;
@@ -825,7 +825,7 @@ public class EasyEditManager {
 									tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
 								}
 								tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
-								logic.setTags(node, tags);
+								logic.setTags(main, node, tags);
 							}
 						}
 					}
@@ -896,7 +896,7 @@ public class EasyEditManager {
 							for (String key:map.keySet()) {
 								tags.put(key, map.get(key).get(0));
 							}
-							logic.setTags(node, tags);
+							logic.setTags(main, node, tags);
 							main.startSupportActionMode(new NodeSelectionActionModeCallback(node));
 							return;
 						}
@@ -935,7 +935,7 @@ public class EasyEditManager {
 								for (String k:map.keySet()) {
 									tags.put(k, map.get(k));
 								}
-								storageDelegator.setTags(node,tags); // note doesn't create a new undo checkpoint
+								storageDelegator.setTags(node,tags); // note doesn't create a new undo checkpoint, performAddNode has already done that
 								main.startSupportActionMode(new NodeSelectionActionModeCallback(node));
 								return;
 							}
@@ -959,7 +959,7 @@ public class EasyEditManager {
 					}
 					tags.put("source:original_text", original);
 
-					logic.setTags(node, tags);
+					logic.setTags(main, node, tags);
 
 					logic.setSelectedNode(node);
 					return node;
@@ -974,7 +974,7 @@ public class EasyEditManager {
 		
 		public boolean processShortcut(Character c) {
 			if (c == Util.getShortCut(main, R.string.shortcut_paste)) {
-				logic.pasteFromClipboard(startX, startY);
+				logic.pasteFromClipboard(main, startX, startY);
 				logic.hideCrosshairs();
 				if (currentActionMode != null) {
 					currentActionMode.finish();
@@ -1280,7 +1280,7 @@ public class EasyEditManager {
 			case MENUITEM_DELETE: menuDelete(mode); break;
 			case MENUITEM_HISTORY: showHistory(); break;
 			case MENUITEM_COPY: logic.copyToClipboard(element); mode.finish(); break;
-			case MENUITEM_CUT: logic.cutToClipboard(element); mode.finish(); break;
+			case MENUITEM_CUT: logic.cutToClipboard(main, element); mode.finish(); break;
 			case MENUITEM_RELATION: 
 				deselect = false; 
 				logic.setSelectedNode(null);
@@ -1337,7 +1337,7 @@ public class EasyEditManager {
 				logic.copyToClipboard(element); currentActionMode.finish();
 				return true;
 			} else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {
-				logic.cutToClipboard(element); currentActionMode.finish();
+				logic.cutToClipboard(main, element); currentActionMode.finish();
 				return true;
 			} else if (c == Util.getShortCut(main, R.string.shortcut_info)) {
 				ElementInfo.showDialog(main,element); 
@@ -1602,14 +1602,14 @@ public class EasyEditManager {
 					new DialogInterface.OnClickListener() {	
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							if (logic.performReverse(way)) { // true if it had oneway tag
+							if (logic.performReverse(main, way)) { // true if it had oneway tag
 								Snack.barWarning(main, R.string.toast_oneway_reversed);
 								main.performTagEdit(way, null, false, false, false);
 							}
 						}
 					})
 				.show();		
-			} else if (logic.performReverse(way)) { // true if it had oneway tag
+			} else if (logic.performReverse(main, way)) { // true if it had oneway tag
 				Snack.barWarning(main, R.string.toast_oneway_reversed);
 				main.performTagEdit(way, null, false, false, false);
 			} else {
@@ -1772,7 +1772,7 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
-			Way[] result = logic.performClosedWaySplit(way, node, (Node)element, createPolygons);
+			Way[] result = logic.performClosedWaySplit(main, way, node, (Node)element, createPolygons);
 			if (result!= null && result.length == 2) {
 				logic.setSelectedNode(null);
 				logic.setSelectedRelation(null);
@@ -2276,7 +2276,7 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			logic.addSelectedRelationWay(toWay);
 			boolean uTurn = fromWay == toWay;
-			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay, uTurn ? Tags.VALUE_NO_U_TURN : null);
+			Relation restriction = logic.createRestriction(main, fromWay, viaElement, toWay, uTurn ? Tags.VALUE_NO_U_TURN : null);
 			Log.i(DEBUG9_TAG, "Created restriction");
 			main.performTagEdit(restriction, !uTurn ? Tags.VALUE_RESTRICTION : null, false, false, false);
 			main.startSupportActionMode(new RelationSelectionActionModeCallback(restriction));
@@ -2410,10 +2410,10 @@ public class EasyEditManager {
 			if (!backPressed) {
 				if (members.size() > 0) { // something was actually added
 					if (relation == null) {
-						relation = logic.createRelation(null, members);
+						relation = logic.createRelation(main, null, members);
 						main.performTagEdit(relation,"type", false, false, false);
 					} else {
-						logic.addMembers(relation, members);
+						logic.addMembers(main, relation, members);
 						main.performTagEdit(relation, null, false, false, false);
 					}
 					// starting action mode here doesn't seem to work ... main.startSupportActionMode(new RelationSelectionActionModeCallback(relation));

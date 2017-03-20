@@ -41,12 +41,14 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import de.blau.android.contract.Urls;
@@ -671,61 +673,60 @@ public class Logic {
 	}
 	
 	/**
-	 * Create an undo checkpoint using a resource string as the name
+	 * Create an undo checkpoint using a resource string as the name, records imagery used at the same time
 	 * 
+	 * @param activity that we were called from for access to the resources, if null we will use the resources from App
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
-	private void createCheckpoint(int stringId) {
-		getDelegator().getUndo().createCheckpoint(App.resources().getString(stringId));
+	private void createCheckpoint(@Nullable Activity activity, int stringId) {
+		Resources r = activity != null ? activity.getResources() : App.resources();
+		getDelegator().getUndo().createCheckpoint(r.getString(stringId));
+		getDelegator().recordImagery(map);
 	}
 	
 	/**
 	 * Remove an undo checkpoint using a resource string as the name
 	 * 
+	 * @param activity that we were called from for access to the resources, if null we will use the resources from App
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
-	private void removeCheckpoint(int stringId) {
-		getDelegator().getUndo().removeCheckpoint(App.resources().getString(stringId));
+	private void removeCheckpoint(@Nullable Activity activity, int stringId) {
+		Resources r = activity != null ? activity.getResources() : App.resources();
+		getDelegator().getUndo().removeCheckpoint(r.getString(stringId));
 	}
 	
 	/**
 	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
 	 * All existing tags will be replaced.
 	 * 
+	 * @param activity activity we were called from
 	 * @param e element to change the tags on
 	 * @param tags Tag-List to be set.
 	 * @return false if the element wasn't in storage and the tags were not applied
 	 * @throws OsmIllegalOperationException if the e isn't in storage
 	 */
-	public synchronized void setTags(@NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags) throws OsmIllegalOperationException { 
-		OsmElement osmElement = getDelegator().getOsmElement(e.getName(), e.getOsmId());
-		if (osmElement != null) {
-			createCheckpoint(R.string.undo_action_set_tags);
-			getDelegator().setTags(osmElement, tags);
-		} else {
-			throw new OsmIllegalOperationException("Element " + osmElement + " not in storage");
-		}
+	public synchronized void setTags(@Nullable Activity activity, @NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags) throws OsmIllegalOperationException { 
+		setTags(activity, e.getName(), e.getOsmId(), tags);
 	}
 	
 	/**
 	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
 	 * All existing tags will be replaced.
 	 * 
+	 * @param activity activity we were called from
 	 * @param type type of the element for the Tag-list.
 	 * @param osmId OSM-ID of the element.
 	 * @param tags Tag-List to be set.
 	 * @return false if no element exists for the given osmId/type.
 	 */
-	public synchronized boolean setTags(final String type, final long osmId, @Nullable final java.util.Map<String, String> tags) {
+	public synchronized void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags) throws OsmIllegalOperationException {
 		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
-
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element " + type + " #" + osmId);
-			return false;
+			throw new OsmIllegalOperationException("Element " + osmElement + " not in storage");
 		} else {
-			createCheckpoint(R.string.undo_action_set_tags);
+			createCheckpoint(activity, R.string.undo_action_set_tags);
 			getDelegator().setTags(osmElement, tags);
-			return true;
 		}
 	}
 	
@@ -733,18 +734,19 @@ public class Logic {
 	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
 	 * All existing tags will be replaced.
 	 * 
+	 * @param activity activity we were called from
 	 * @param type type of the element for the Tag-list.
 	 * @param osmId OSM-ID of the element.
 	 * @param tags Tag-List to be set.
 	 * @return false if no element exists for the given osmId/type.
 	 */
-	public synchronized boolean updateParentRelations(final String type, final long osmId, final HashMap<Long, String> parents) {
+	public synchronized boolean updateParentRelations(@Nullable Activity activity, final String type, final long osmId, final HashMap<Long, String> parents) {
 		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
 			return false;
 		} else {
-			createCheckpoint(R.string.undo_action_update_relations);
+			createCheckpoint(activity, R.string.undo_action_update_relations);
 			getDelegator().updateParentRelations(osmElement, parents);	
 			return true;
 		}
@@ -754,16 +756,17 @@ public class Logic {
 	 * Updates the list of members in the selected relation.
 	 * Actual work is delegated out to {@link StorageDelegator}.
 	 * 
+	 * @param activity activity we were called from
 	 * @param osmId The OSM ID of the relation to change.
 	 * @param members The new list of members to set for the given relation.
 	 */
-	public synchronized boolean updateRelation(long osmId, ArrayList<RelationMemberDescription> members) {
+	public synchronized boolean updateRelation(@Nullable Activity activity, long osmId, ArrayList<RelationMemberDescription> members) {
 		OsmElement osmElement = getDelegator().getOsmElement(Relation.NAME, osmId);
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
 			return false;
 		} else {
-			createCheckpoint(R.string.undo_action_update_relations);
+			createCheckpoint(activity, R.string.undo_action_update_relations);
 			getDelegator().updateRelation((Relation)osmElement, members);	
 			return true;
 		}
@@ -790,7 +793,8 @@ public class Logic {
 			Log.e(DEBUG_TAG, "newEmptyMap called on dirty storage");
 		}
 		// if the map view isn't drawn use an approximation for the aspect ratio of the display ... this is a hack 
-		float ratio = (float)App.resources().getDisplayMetrics().widthPixels / (float)App.resources().getDisplayMetrics().heightPixels;
+		DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
+		float ratio = (float)metrics.widthPixels / (float)metrics.heightPixels;
 		if (map.getHeight() != 0) {
 			ratio = (float) map.getWidth() / map.getHeight();
 		}
@@ -1326,12 +1330,12 @@ public class Logic {
 		Log.d(DEBUG_TAG,"handleTouchEventDown creating checkpoints");
 		if (draggingNode || draggingWay) {
 			if (draggingMultiselect) {
-				createCheckpoint(R.string.undo_action_moveobjects);
+				createCheckpoint(activity, R.string.undo_action_moveobjects);
 			} else {
-				createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
+				createCheckpoint(activity, draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
 			}
 		} else if (rotatingWay) {
-			createCheckpoint(R.string.undo_action_rotateway);
+			createCheckpoint(activity, R.string.undo_action_rotateway);
 		}
 	}
 
@@ -1381,7 +1385,7 @@ public class Logic {
 					try {
 						if (handleNode == null && selectedHandle != null && selectedWays != null) {
 							Log.d("Logic","creating node at handle position");
-							handleNode = performAddOnWay(selectedWays, selectedHandle.x, selectedHandle.y, true);
+							handleNode = performAddOnWay(main, selectedWays, selectedHandle.x, selectedHandle.y, true);
 							selectedHandle = null;
 						}
 						if (handleNode != null) {
@@ -1554,7 +1558,7 @@ public class Logic {
 	 */
 	public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
 		Log.d(DEBUG_TAG,"performAdd");
-		createCheckpoint(R.string.undo_action_add);
+		createCheckpoint(activity, R.string.undo_action_add);
 		Node nextNode;
 		Node lSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		Way lSelectedWay = selectedWays != null && selectedWays.size() > 0 ? selectedWays.get(0) : null;
@@ -1595,7 +1599,7 @@ public class Logic {
 				//User clicks an existing Node
 				if (nextNode == lSelectedNode) {
 					//User clicks the last Node -> end here with adding
-					removeCheckpoint(R.string.undo_action_add);
+					removeCheckpoint(activity, R.string.undo_action_add);
 					lSelectedNode = null;
 					lSelectedWay = null;
 				} else {
@@ -1623,7 +1627,7 @@ public class Logic {
 	public synchronized Node performAddNode(@Nullable final Activity activity, Double lonD, Double latD) {
 		//A complete new Node...
 		Log.d("Logic","performAddNode");
-		createCheckpoint(R.string.undo_action_add);
+		createCheckpoint(activity, R.string.undo_action_add);
 		int lon = (int)(lonD*1E7D);
 		int lat = (int)(latD*1E7D);
 		Node newNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
@@ -1640,6 +1644,7 @@ public class Logic {
 	/**
 	 * Executes an add node operation for x,y but only if on a way. Adds new node to storage and will select it.
 	 * 
+	 * @param activity activity we were called from
 	 * @param ways candidate ways if null all ways will be considered
 	 * @param x screen-coordinate
 	 * @param y screen-coordinate
@@ -1647,8 +1652,8 @@ public class Logic {
 	 * @return the new node or null if none was created
 	 * @throws OsmIllegalOperationException
 	 */
-	public synchronized Node performAddOnWay(List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
-		createCheckpoint(R.string.undo_action_add);
+	public synchronized Node performAddOnWay(@Nullable Activity activity, List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
+		createCheckpoint(activity, R.string.undo_action_add);
 		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		
 		Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways,x, y, forceNew);
@@ -1672,7 +1677,7 @@ public class Logic {
 	public synchronized void performEraseNode(@Nullable final FragmentActivity activity, final Node node, boolean createCheckpoint) {
 		if (node != null) {
 			if (createCheckpoint) {
-				createCheckpoint(R.string.undo_action_deletenode);
+				createCheckpoint(activity, R.string.undo_action_deletenode);
 			}
 			displayAttachedObjectWarning(activity, node); // needs to be done before removal
 			getDelegator().removeNode(node);
@@ -1694,7 +1699,7 @@ public class Logic {
 	 */
 	public void performSetPosition(@Nullable final FragmentActivity activity, Node node, double lon, double lat) {
 		if (node != null) {
-			createCheckpoint(R.string.undo_action_movenode);
+			createCheckpoint(activity, R.string.undo_action_movenode);
 			int lonE7 = (int)(lon*1E7d);
 			int latE7 = (int)(lat*1E7d);
 			getDelegator().updateLatLon(node, latE7, lonE7);
@@ -1714,7 +1719,7 @@ public class Logic {
 	 */
 	public synchronized void performEraseWay(@Nullable final FragmentActivity activity, final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
 		if (createCheckpoint) {
-			createCheckpoint(R.string.undo_action_deleteway);
+			createCheckpoint(activity, R.string.undo_action_deleteway);
 		}
 		displayAttachedObjectWarning(activity, way); // needs to be done before removal
 		HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<Node>(way.getNodes()) : null;  //  HashSet guarantees uniqueness
@@ -1738,7 +1743,7 @@ public class Logic {
 	public synchronized void performEraseRelation(@Nullable final FragmentActivity activity, final Relation relation, boolean createCheckpoint) {
 		if (relation != null) {
 			if (createCheckpoint) {
-				createCheckpoint(R.string.undo_action_delete_relation);
+				createCheckpoint(activity, R.string.undo_action_delete_relation);
 			}
 			displayAttachedObjectWarning(activity, relation); // needs to be done before removal
 			getDelegator().removeRelation(relation);
@@ -1754,7 +1759,7 @@ public class Logic {
 	 */
 	public synchronized void performEraseMultipleObjects(@Nullable final FragmentActivity activity, ArrayList<OsmElement> selection) {
 		// need to make three passes
-		createCheckpoint(R.string.undo_action_delete_objects);
+		createCheckpoint(activity, R.string.undo_action_delete_objects);
 		displayAttachedObjectWarning(activity, selection); // needs to be done before removal
 		for (OsmElement e:selection) {	
 			if (e instanceof Relation && e.getState() != OsmElement.STATE_DELETED) {
@@ -1786,7 +1791,7 @@ public class Logic {
 	public synchronized void performSplit(@Nullable final FragmentActivity activity, final Node node) {
 		if (node != null) {
 			// setSelectedNode(node);
-			createCheckpoint(R.string.undo_action_split_ways);
+			createCheckpoint(activity, R.string.undo_action_split_ways);
 			displayAttachedObjectWarning(activity, node); // needs to be done before split
 			getDelegator().splitAtNode(node);
 			invalidateMap();
@@ -1803,7 +1808,7 @@ public class Logic {
 	 */
 	public synchronized Way performSplit(@Nullable final FragmentActivity activity, final Way way, final Node node) {
 		// setSelectedNode(node);
-		createCheckpoint(R.string.undo_action_split_way);
+		createCheckpoint(activity, R.string.undo_action_split_way);
 		Way result = getDelegator().splitAtNode(way, node);
 		invalidateMap();
 		return result;
@@ -1812,13 +1817,14 @@ public class Logic {
 	/**
 	 * Split a closed way, needs two nodes
 	 * 
+	 * @param activity activity we were called fron
 	 * @param way
 	 * @param node1
 	 * @param node2
 	 * @return null if split fails, the two ways otherwise
 	 */
-	public synchronized Way[] performClosedWaySplit(Way way, Node node1, Node node2, boolean createPolygons) {
-		createCheckpoint(R.string.undo_action_split_way);
+	public synchronized Way[] performClosedWaySplit(@Nullable Activity activity, Way way, Node node1, Node node2, boolean createPolygons) {
+		createCheckpoint(activity, R.string.undo_action_split_way);
 		Way[] result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
 		invalidateMap();
 		return result;
@@ -1835,7 +1841,7 @@ public class Logic {
 	 * @throws OsmIllegalOperationException 
 	 */
 	public synchronized boolean performMerge(@Nullable final FragmentActivity activity, Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
-		createCheckpoint(R.string.undo_action_merge_ways);
+		createCheckpoint(activity, R.string.undo_action_merge_ways);
 		displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
 		boolean mergeOK = getDelegator().mergeWays(mergeInto, mergeFrom);
 		invalidateMap();
@@ -1851,7 +1857,7 @@ public class Logic {
 	 * @throws OsmIllegalOperationException 
 	 */
 	public synchronized boolean performMerge(@Nullable FragmentActivity activity, List<OsmElement> sortedWays) throws OsmIllegalOperationException {
-		createCheckpoint(R.string.undo_action_merge_ways);
+		createCheckpoint(activity, R.string.undo_action_merge_ways);
 		displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
 		boolean mergeOK = true;
 		Way previousWay = (Way) sortedWays.get(0);
@@ -1892,7 +1898,7 @@ public class Logic {
 		if (ways==null || ways.size()==0) {
 			return;
 		}
-		createCheckpoint(R.string.undo_action_orthogonalize);
+		createCheckpoint(activity, R.string.undo_action_orthogonalize);
 		getDelegator().orthogonalizeWay(map, ways);
 		invalidateMap();
 		if (getFilter() != null && showAttachedObjectWarning()) {
@@ -1914,7 +1920,7 @@ public class Logic {
 	 */
 	public synchronized Node performExtract(@Nullable FragmentActivity activity, final Node node) {
 		if (node != null) {
-			createCheckpoint(R.string.undo_action_extract_node);
+			createCheckpoint(activity, R.string.undo_action_extract_node);
 			displayAttachedObjectWarning(activity, node); // this needs to be done -before- we replace the node
 			Node newNode = getDelegator().replaceNode(node);
 			invalidateMap();
@@ -1983,7 +1989,7 @@ public class Logic {
 		boolean mergeOK = true;
 		if (element instanceof Node) {
 			Node node = (Node)element;
-			createCheckpoint(R.string.undo_action_join);
+			createCheckpoint(activity, R.string.undo_action_join);
 			displayAttachedObjectWarning(activity, node,nodeToJoin); // needs to be done before join
 			mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
 			invalidateMap();
@@ -2005,7 +2011,7 @@ public class Logic {
 					float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
 					int lat = yToLatE7(p[1]);
 					int lon = xToLonE7(p[0]);
-					createCheckpoint(R.string.undo_action_join);
+					createCheckpoint(activity, R.string.undo_action_join);
 					Node node = null;
 					if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
 						node = node1;
@@ -2039,7 +2045,7 @@ public class Logic {
 	 * @param node Node that is joining the ways to be unjoined.
 	 */
 	public synchronized void performUnjoin(@Nullable FragmentActivity activity,Node node) {
-		createCheckpoint(R.string.undo_action_unjoin_ways);
+		createCheckpoint(activity, R.string.undo_action_unjoin_ways);
 		displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
 		getDelegator().unjoinWays(node);
 		invalidateMap();
@@ -2047,11 +2053,13 @@ public class Logic {
 	
 	/**
 	 * Reverse a way
+	 * 
+	 * @param activity activity we were called from
 	 * @param way the way to reverse
 	 * @return true if reverseWay returned true, implying that tags had to be reversed
 	 */
-	public synchronized boolean performReverse(Way way) {
-		createCheckpoint(R.string.undo_action_reverse_way);
+	public synchronized boolean performReverse(@Nullable Activity activity, Way way) {
+		createCheckpoint(activity, R.string.undo_action_reverse_way);
 		boolean hadToReverse = getDelegator().reverseWay(way);
 		invalidateMap();
 		return hadToReverse;
@@ -2095,7 +2103,7 @@ public class Logic {
 	 */
 	public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
 		Log.d("Logic","performAppendAppend");
-		createCheckpoint(R.string.undo_action_append);
+		createCheckpoint(activity, R.string.undo_action_append);
 		Node lSelectedNode = getSelectedNode();
 		Way lSelectedWay = getSelectedWay();
 
@@ -2349,7 +2357,7 @@ public class Logic {
 						}
 					}
 					final OsmParser osmParser = new OsmParser();
-					final InputStream in = prefs.getServer().getStreamForBox(mapBox);
+					final InputStream in = prefs.getServer().getStreamForBox(activity, mapBox);
 					try {
 						long startTime = System.currentTimeMillis();
 						osmParser.start(in);
@@ -2505,7 +2513,7 @@ public class Logic {
 				int result = 0;
 				try {
 					final OsmParser osmParser = new OsmParser();
-					final InputStream in = server.getStreamForBox(mapBox);
+					final InputStream in = server.getStreamForBox(context, mapBox);
 					try {
 						osmParser.start(in);
 						if (!getDelegator().mergeData(osmParser.getStorage(),postMerge)) {
@@ -2604,11 +2612,12 @@ public class Logic {
 	/**
 	 * Return a single element from the API, does not merge into storage, synchronous
 	 * 
+	 * @param activity the activity that called us
 	 * @param type type of the element
 	 * @param id id of the element
 	 * @return element if successful, null if not
 	 */
-	public synchronized OsmElement getElement(final String type, final long id) {
+	public synchronized OsmElement getElement(@Nullable final Activity activity, final String type, final long id) {
 
 		class GetElementTask extends AsyncTask<Void, Void, OsmElement> {
 			int result = 0;
@@ -2623,7 +2632,7 @@ public class Logic {
 				OsmElement element = null;
 				try {
 					final OsmParser osmParser = new OsmParser();
-					final InputStream in = prefs.getServer().getStreamForElement(Way.NAME.equals(type)?"full":null, type, id);
+					final InputStream in = prefs.getServer().getStreamForElement(activity, Way.NAME.equals(type)?"full":null, type, id);
 					try {
 						osmParser.start(in);
 						element = osmParser.getStorage().getOsmElement(type, id);
@@ -2676,7 +2685,7 @@ public class Logic {
 	 /**
 	  * Download a single element from the API and merge
 	  * 
-	  * @param ctx COntext
+	  * @param ctx Android context
 	  * @param type type of the element
 	  * @param id OSM id of the element
 	  * @param relationFull if we are downloading a relation download with full option
@@ -2684,9 +2693,9 @@ public class Logic {
 	  * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
 	  * @return an error code 0 for success
 	  */
-	 public synchronized int downloadElement(Context ctx, final String type, final long id, 
+	 public synchronized int downloadElement(@NonNull final Context ctx, @NonNull final String type, final long id, 
 			 final boolean relationFull, final boolean withParents,
-			 final PostAsyncActionHandler postLoadHandler) {
+			 @Nullable final PostAsyncActionHandler postLoadHandler) {
 		 class DownLoadElementTask extends AsyncTask<Void, Void, Integer> {
 			 @Override
 			 protected void onPreExecute() {
@@ -2701,7 +2710,7 @@ public class Logic {
 					
 					 // TODO this currently does not retrieve ways the node may be a member of
 					 // we always retrieve ways with nodes, relations "full" is optional
-					 InputStream in = server.getStreamForElement((type.equals(Relation.NAME) && relationFull) ||  type.equals(Way.NAME)? "full" : null, type, id);
+					 InputStream in = server.getStreamForElement(ctx, (type.equals(Relation.NAME) && relationFull) ||  type.equals(Way.NAME)? "full" : null, type, id);
 					 
 					 try {
 						 osmParser.start(in);
@@ -2710,7 +2719,7 @@ public class Logic {
 					 }
 					 if (withParents) {
 						 // optional retrieve relations the element is a member of
-						 in = server.getStreamForElement("relations", type, id);
+						 in = server.getStreamForElement(ctx, "relations", type, id);
 						 try {
 							 osmParser.start(in);
 						 } finally {
@@ -2869,10 +2878,11 @@ public class Logic {
 	 * Element is deleted on server, delete locally but don't upload
 	 * A bit iffy because of memberships in other objects
 	 * 
+	 * @param activity activity we were called from
 	 * @param e element to delete
 	 */
-	public synchronized void updateToDeleted(OsmElement e) {
-		createCheckpoint(R.string.undo_action_fix_conflict);
+	public synchronized void updateToDeleted(@Nullable Activity activity, OsmElement e) {
+		createCheckpoint(activity, R.string.undo_action_fix_conflict);
 		if (e.getName().equals(Node.NAME)) {
 			getDelegator().removeNode((Node)e);
 		} else if (e.getName().equals(Way.NAME)) {
@@ -4109,15 +4119,16 @@ public class Logic {
 	/**
 	 * Creates a turn restriction relation using the given objects as the members in the relation.
 	 * 
+	 * @param activity activity we were called from
 	 * @param fromWay the way on which turning off of is restricted in some fashion
 	 * @param viaElement the "intersection node" at which the turn is restricted
 	 * @param toWay the way that the turn restriction prevents turning onto
 	 * @param restriction_type the kind of turn which is restricted
 	 * @return a relation element for the turn restriction
 	 */
-	public Relation createRestriction(Way fromWay, OsmElement viaElement, Way toWay, String restriction_type) {
+	public Relation createRestriction(@Nullable Activity activity, Way fromWay, OsmElement viaElement, Way toWay, String restriction_type) {
 		
-		createCheckpoint(R.string.undo_action_create_relation);
+		createCheckpoint(activity, R.string.undo_action_create_relation);
 		Relation restriction = getDelegator().createAndInsertRelation(null);
 		SortedMap<String,String> tags = new TreeMap<String,String>();
 		tags.put("restriction", restriction_type == null ? "" : restriction_type);
@@ -4136,13 +4147,14 @@ public class Logic {
 	/**
 	 * Creates a new relation containing the given members.
 	 * 
+	 * @param activity activity we were called from
 	 * @param type the 'type=*' tag to set on the relation itself
 	 * @param members the osm elements to include in the relation
 	 * @return the new relation
 	 */
-	public Relation createRelation(String type, List<OsmElement> members ) {
+	public Relation createRelation(@Nullable Activity activity, String type, List<OsmElement> members ) {
 		
-		createCheckpoint(R.string.undo_action_create_relation);
+		createCheckpoint(activity, R.string.undo_action_create_relation);
 		Relation relation = getDelegator().createAndInsertRelation(members);
 		SortedMap<String,String> tags = new TreeMap<String,String>();
 		if (type != null)
@@ -4156,9 +4168,11 @@ public class Logic {
 	
 	/**
 	 * Adds the list of elements to the given relation with an empty role set for each new member.
+	 * 
+	 * @param activity activity we were called from
 	 */
-	public void addMembers(Relation relation, ArrayList<OsmElement> members) {
-		createCheckpoint(R.string.undo_action_update_relations);
+	public void addMembers(@Nullable Activity activity, Relation relation, ArrayList<OsmElement> members) {
+		createCheckpoint(activity, R.string.undo_action_update_relations);
 		getDelegator().addMembersToRelation(relation, members);
 	}
 	
@@ -4278,8 +4292,17 @@ public class Logic {
 		setSelectedRelationWays(null);
 	}
 	
-	public void fixElementWithConflict(long newVersion, OsmElement elementLocal, OsmElement elementOnServer) {
-		createCheckpoint(R.string.undo_action_fix_conflict);
+	/**
+	 * Fixup an object with a version conflict
+	 * 
+	 * Note: this could do with some more explaining
+	 * @param activity activity we were called from
+	 * @param newVersion new version to use
+	 * @param elementLocal the local instance of the element
+	 * @param elementOnServer the remote instance of the element
+	 */
+	public void fixElementWithConflict(@Nullable Activity activity, long newVersion, OsmElement elementLocal, OsmElement elementOnServer) {
+		createCheckpoint(activity, R.string.undo_action_fix_conflict);
 
 		if (elementOnServer == null) { // deleted on server
 			if (elementLocal.getState() != OsmElement.STATE_DELETED) { // but not locally	
@@ -4312,11 +4335,17 @@ public class Logic {
 		invalidateMap();
 	}
 	
+	/**
+	 * Hide a display crosshairs
+	 */
 	public void hideCrosshairs() {
 		map.hideCrosshairs();
 	}
 
-
+    /**
+     * Copy element to clipboard
+     * @param element element to copy
+     */
 	public void copyToClipboard(OsmElement element) {
 		if (element instanceof Node) {
 			getDelegator().copyToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
@@ -4328,9 +4357,13 @@ public class Logic {
 		}
 	}
 
-
-	public void cutToClipboard(OsmElement element) {
-		createCheckpoint(R.string.undo_action_cut);
+	/**
+	 * Cut element to clipboard
+	 * @param activity the activity we were called from
+	 * @param element the element to cut
+	 */
+	public void cutToClipboard(@Nullable Activity activity, OsmElement element) {
+		createCheckpoint(activity, R.string.undo_action_cut);
 		if (element instanceof Node) {
 			getDelegator().cutToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
 		} else if (element instanceof Way) {
@@ -4341,8 +4374,14 @@ public class Logic {
 		invalidateMap();
 	}
 
-	public void pasteFromClipboard(float x, float y) {
-		createCheckpoint(R.string.undo_action_paste);
+	/**
+	 * Paste current contents of the clipboard 
+	 * @param activity the activity we were called from
+	 * @param x screen x to position the object at
+	 * @param y screen y to position the object at 
+	 */
+	public void pasteFromClipboard(@Nullable Activity activity, float x, float y) {
+		createCheckpoint(activity, R.string.undo_action_paste);
 		int lat = yToLatE7(y);
 		int lon = xToLonE7(x);
 		getDelegator().pasteFromClipboard(lat, lon);
@@ -4486,7 +4525,7 @@ public class Logic {
 	 */
 	public void performCirculize(@Nullable FragmentActivity activity, Way way) {
 		if (way.getNodes().size() < 3) return;
-		createCheckpoint(R.string.undo_action_circulize);
+		createCheckpoint(activity, R.string.undo_action_circulize);
 		int[] center = centroid(map.getWidth(), map.getHeight(), viewBox, way);
 		getDelegator().circulizeWay(map, center, way);
 		invalidateMap();

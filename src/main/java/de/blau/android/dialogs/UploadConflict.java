@@ -110,7 +110,7 @@ public class UploadConflict extends DialogFragment
     	builder.setTitle(R.string.upload_conflict_title);
     	Resources res = getActivity().getResources();
     	final Logic logic = App.getLogic();
-    	final OsmElement elementOnServer = logic.getElement(result.elementType, result.osmId);
+    	final OsmElement elementOnServer = logic.getElement(getActivity(), result.elementType, result.osmId);
     	final OsmElement elementLocal = App.getDelegator().getOsmElement(result.elementType, result.osmId);
     	final long newVersion;
     	try {
@@ -143,7 +143,7 @@ public class UploadConflict extends DialogFragment
     			builder.setPositiveButton(R.string.use_local_version, 	new OnClickListener() {
     				@Override
     				public void onClick(DialogInterface dialog, int which) {
-    					logic.fixElementWithConflict(newVersion, elementLocal, elementOnServer);
+    					logic.fixElementWithConflict(getActivity(), newVersion, elementLocal, elementOnServer);
     					((Main)getActivity()).confirmUpload(); // FIXME this should be made independent from Main
     				}
     			});
@@ -156,7 +156,7 @@ public class UploadConflict extends DialogFragment
     				if (elementOnServer != null) {
     					logic.downloadElement(getActivity(), elementLocal.getName(), elementLocal.getOsmId(), false, true, null);
     				} else { // delete local element
-    					logic.updateToDeleted(elementLocal);
+    					logic.updateToDeleted(getActivity(), elementLocal);
     				}
     				if (!storageDelegator.getApiStorage().isEmpty()) {
     					((Main)getActivity()).confirmUpload(); // FIXME this should be made independent from Main

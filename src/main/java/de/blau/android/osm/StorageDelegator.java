@@ -210,17 +210,16 @@ public class StorageDelegator implements Serializable, Exportable {
 		if (filter != null) {
 			filter.onElementChanged(pre, post);
 		}
-		recordImagery();
 	}
 
 	/**
 	 * Store the currently used imagery
 	 */
-	private void recordImagery() {
+	public void recordImagery(@Nullable de.blau.android.Map map) {
 		if (!imageryRecorded) { // flag is reset when we change imagery 
 			try {
-				if (App.mainActivity != null) { // currently we only modify data when the main activity exists
-					ArrayList<String>currentImagery = App.mainActivity.getMap().getImageryNames();
+				if (map != null) { // currently we only modify data when the map exists
+					ArrayList<String>currentImagery = map.getImageryNames();
 					for (String i:currentImagery) {
 						if (!imagery.contains(i) && !"None".equalsIgnoreCase(i)) {
 							imagery.add(i);
@@ -1847,10 +1846,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * ake a copy of the element and store it in the clipboard
-	 * @param e
-	 * @param lat
-	 * @param lon
+	 * Make a copy of the element and store it in the clipboard
+	 * @param e element to copy
+	 * @param lat latitude where it was located
+	 * @param lon longitude where it was located
 	 */
 	public void copyToClipboard(OsmElement e, int lat, int lon) {
 		dirty = true; // otherwise clipboard will not get saved without other changes
@@ -1871,10 +1870,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * cut original element to clipboard, does -not- preserve relation memberships
-	 * @param e
-	 * @param lat
-	 * @param lon
+	 * Cut original element to clipboard, does -not- preserve relation memberships
+	 * @param e element to copy
+	 * @param lat latitude where it was located
+	 * @param lon longitude where it was located
 	 */
 	public void cutToClipboard(OsmElement e, int lat, int lon) {
 		dirty = true; // otherwise clipboard will not get saved without other changes
