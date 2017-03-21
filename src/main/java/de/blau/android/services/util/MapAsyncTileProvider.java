@@ -17,8 +17,9 @@ import de.blau.android.services.IMapTileProviderCallback;
  */
 public abstract class MapAsyncTileProvider {
 
-	static final int IOERR = 1;
+	public static final int IOERR = 1;
 	public static final int DOESNOTEXIST = 2;
+	public static final int NONETWORK = 3;
 	
 	ExecutorService mThreadPool;
 	private final HashSet<String> mPending = new HashSet<String>();

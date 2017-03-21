@@ -916,17 +916,8 @@ public class TileLayerServer {
 		List<TileLayerServer> list = new ArrayList<TileLayerServer>();
 		for (TileLayerServer osmts:serverMap.values()) {
 			if (filtered && currentBox != null) {
-				if (osmts.providers.size() > 0) {
-					boolean covers = false; // default is to not include  
-					for (Provider p:osmts.providers) {
-						if (p.covers(currentBox)) { 
-							covers = true;
-							break;
-						}
-					}
-					if (!covers) {
-						continue;
-					}
+				if (!osmts.covers(currentBox)) {
+					continue;
 				}
 			}
 			// add this after sorting
@@ -955,6 +946,22 @@ public class TileLayerServer {
 		return list;
 	}
 	
+	/**
+	 * Test if the bounding box is covered by this tile source
+	 * @param box the bounding box we want to test
+	 * @return true if covered or no coerage information
+	 */
+	public boolean covers(BoundingBox box) {
+		if (providers.size() > 0) { 
+			for (Provider p:providers) {
+				if (p.covers(box)) { 
+					return true;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
 	
 	/**
 	 * Get all the available tile layer IDs. Slightly complex to get a reasonable order

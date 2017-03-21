@@ -240,7 +240,7 @@ public class MapTileProvider implements ServiceConnection,
 				//TODO check if we are inside the providers bounding box
 				if (zoomLevel < Math.max(0,osmts.getMinZoomLevel()-1)) {
 					try {
-						mTileCache.putTile(t, mNoTilesTile, false,0);
+						mTileCache.putTile(t, mNoTilesTile, false, 0);
 					} catch (StorageException e) {
 						// TODO Auto-generated catch block
 						// e.printStackTrace();
@@ -249,7 +249,7 @@ public class MapTileProvider implements ServiceConnection,
 			}
 			pending.remove(t.toString());
 			//if (DEBUGMODE) {
-				Log.e(DEBUGTAG, "MapTile download error " + t.toString());
+			//	Log.e(DEBUGTAG, "MapTile download error " + t.toString());
 			//}
 			// don't send when we fail mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
 		}

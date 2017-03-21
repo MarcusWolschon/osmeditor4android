@@ -19,6 +19,7 @@ import de.blau.android.App;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
+import de.blau.android.util.NetworkStatus;
 
 /**
  * The OpenStreetMapTileDownloader loads tiles from a server and passes them to
@@ -91,11 +92,21 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 		//@Override
 		@Override
 		public void run() {
+			
+			if (!NetworkStatus.isConnected(mCtx)) { // fail immediately
+				try {
+					Log.e(DEBUGTAG, "No network");
+					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y,NONETWORK);
+				} catch (RemoteException re) {
+					Log.e(DEBUGTAG, "Error calling mapTileLoaded for MapTile. Exception: " + re);
+				}
+				return;
+			}
+			
 			InputStream in = null;
 			OutputStream out = null;
 			
 			String tileURLString = buildURL(mTile);
-			
 			try {
 				if (tileURLString.length() > 0) {
 					if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
