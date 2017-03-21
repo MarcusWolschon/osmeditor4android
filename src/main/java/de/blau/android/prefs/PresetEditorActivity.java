@@ -26,7 +26,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;

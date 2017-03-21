@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -26,6 +27,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.drawable.StateListDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -84,7 +86,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
-import de.blau.android.Logic.Mode;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.contract.Paths;
@@ -1071,7 +1072,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 	
 	/**
-	 * slightly byzantine code for mode switching follows
+	 * Setups up the listeners for click and longclick on the lock icon including mode switching logic
 	 */
 	@SuppressLint("InflateParams")
 	private void setupLockButton()	{
@@ -1079,23 +1080,28 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Mode mode = logic.getMode();
 		Log.d(DEBUG_TAG, "setupLockButton mode " + mode);
 		//ToggleButton lock = setLock(mode);
-		FloatingActionButton lock = setLock(mode);
+		final FloatingActionButton lock = setLock(mode);
 		if (lock == null) {
 			return; //FIXME not good but no other alternative right now, already logged in setLock
 		}
 		lock.setTag(mode.tag());
 		
-		lock.setLongClickable(true);
+		StateListDrawable states = new StateListDrawable();
+		states.addState(new int[] {android.R.attr.state_pressed}, ContextCompat.getDrawable(this, mode.iconResourceId()));
+		states.addState(new int[] {0}, ContextCompat.getDrawable(this, R.drawable.locked_opaque));
+		lock.setImageDrawable(states);
+		
+		//
 		lock.setOnClickListener(new View.OnClickListener() {
 		    @Override
 			public void onClick(View b) {
 		        Log.d(DEBUG_TAG, "Lock pressed " + b.getClass().getName());
 		        int[] drawableState = ((FloatingActionButton)b).getDrawableState();
 		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
-		        if(drawableState.length == 0 ||  (drawableState[0]!=android.R.attr.state_selected && drawableState[0]!=android.R.attr.state_pressed && drawableState[0]!=android.R.attr.state_focused)){
+		        if(drawableState.length == 0 || drawableState[0]!=android.R.attr.state_pressed){
 		        	Mode mode = Mode.modeForTag((String)b.getTag());
 		        	logic.setMode(Main.this, mode);
-		        	((FloatingActionButton)b).setImageState(new int[]{mode.getLockState()}, false); 
+		        	((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false); 
 		        	logic.setLocked(false);
 		        } else {
 		        	logic.setLocked(true);
@@ -1105,27 +1111,36 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		        map.invalidate();
 		    }
 		});
+		lock.setLongClickable(true);
 		lock.setOnLongClickListener(new View.OnLongClickListener() {
 		    @Override
 			public boolean onLongClick(View b) {
 		        Log.d(DEBUG_TAG, "Lock long pressed " + b.getClass().getName()); 
 		        final Logic logic = App.getLogic();
-		        int[] drawableState = ((FloatingActionButton)b).getDrawableState();
-		        Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length==1? Integer.toHexString(drawableState[0]):"")); 
+		         
 		        Mode mode = logic.getMode();
-	        	switch (mode) {
-	        	case MODE_TAG_EDIT: mode = Mode.MODE_INDOOR; break;
-	        	case MODE_INDOOR: mode = Mode.MODE_EASYEDIT; break;
-	        	case MODE_EASYEDIT:
-	        	case MODE_ALIGN_BACKGROUND: mode = Mode.MODE_TAG_EDIT; break;
-	        	}
+		        ArrayList<Mode> allModes = new ArrayList<Mode>(Arrays.asList(Mode.values()));
+		        int position = allModes.indexOf(mode);
+		        int size = allModes.size();
+		        // find the next usable mode
+		        for (int i=1;i<allModes.size();i++) {
+		        	Mode newMode = allModes.get((position+i) % size);
+		        	if (newMode.isSubModeOf()==null && newMode.isEnabled()) {
+		        		mode = newMode;
+		        		break;
+		        	}
+		        }
 	        	logic.setMode(Main.this, mode);
 	        	b.setTag(mode.tag());
-		        if(drawableState.length == 1 && (drawableState[0]==android.R.attr.state_selected || drawableState[0]==android.R.attr.state_pressed || drawableState[0]==android.R.attr.state_focused)){
-		        	((FloatingActionButton)b).setImageState(new int[]{mode.getLockState()}, false);
-		        } else { // locked
-		        	((FloatingActionButton)b).setImageState(new int[]{0}, false);
-		        }
+				StateListDrawable states = new StateListDrawable();
+				states.addState(new int[] {android.R.attr.state_pressed}, ContextCompat.getDrawable(Main.this, mode.iconResourceId()));
+				states.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
+				lock.setImageDrawable(states);
+				if (logic.isLocked()) {
+					((FloatingActionButton)b).setImageState(new int[]{0}, false);
+				} else {
+					((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false);
+				}
 		        onEditModeChanged();
 		        return true;
 		    }
@@ -1141,7 +1156,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * @param mode Program mode.
 	 * @return Button to display checked/unchecked states.
 	 */
-	private FloatingActionButton setLock(Logic.Mode mode) {
+	private FloatingActionButton setLock(Mode mode) {
 		FloatingActionButton lock = getLock();
 		if (lock==null) {
 			Log.d(DEBUG_TAG, "couldn't find lock button");
@@ -1149,29 +1164,15 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		Logic logic = App.getLogic();
 		if (logic.isLocked()) {
-			lock.setImageState(new int[0], false); 
+			lock.setImageState(new int[]{0}, false); 
 		} else {
-			switch (mode) {
-			case MODE_TAG_EDIT:
-				lock.setImageState(new int[]{android.R.attr.state_pressed}, false); 
-				break;
-			case MODE_INDOOR:
-				lock.setImageState(new int[]{android.R.attr.state_focused}, false);
-				break;
-
-			case MODE_EASYEDIT:
-			case MODE_ALIGN_BACKGROUND:
-			default: 
-				lock.setImageState(new int[]{android.R.attr.state_selected}, false); 
-				break;
-
-			}
-			logic.setMode(this, mode);
+			lock.setImageState(new int[]{android.R.attr.state_pressed}, false); 
 		}
+		logic.setMode(this, mode);
 		return lock; // for convenience
 	}
 
-	public void setMode(Main main, Logic.Mode mode) {
+	public void setMode(Main main, Mode mode) {
 		App.getLogic().setMode(main, mode); 
 	}
 	

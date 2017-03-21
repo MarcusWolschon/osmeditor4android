@@ -32,7 +32,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import de.blau.android.Logic.Mode;
 import de.blau.android.exception.OsmException;
 import de.blau.android.filter.Filter;
 import de.blau.android.osm.BoundingBox;
@@ -154,7 +153,7 @@ public class Map extends View implements IMapView {
 	private boolean tmpDrawingInEditRange;
 
 	/** Caches the edit mode during one onDraw pass */
-	private Logic.Mode tmpDrawingEditMode;
+	private Mode tmpDrawingEditMode;
 	
 	/** Caches the currently selected nodes during one onDraw pass */
 	private List<Node> tmpDrawingSelectedNodes;

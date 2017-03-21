@@ -64,7 +64,6 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
-import de.blau.android.filter.IndoorFilter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -108,96 +107,6 @@ import de.blau.android.util.collections.MRUList;
 public class Logic {
 
 	private static final String DEBUG_TAG = Logic.class.getSimpleName();
-
-	/**
-	 * Enums for modes.
-	 */
-	public enum Mode {
-		/**
-		 * tag edit only mode
-		 */
-		MODE_TAG_EDIT("TAG",true,true,false,android.R.attr.state_pressed),
-		/**
-		 * edit geometries in "easyedit" mode
-		 */
-		MODE_EASYEDIT("EASY",true,true,true, android.R.attr.state_selected),
-		/**
-		 * Background alignment mode
-		 */
-		MODE_ALIGN_BACKGROUND("EASY",false,false,false, android.R.attr.state_selected),
-		/**
-		 * Indoor mode
-		 */
-		MODE_INDOOR("INDOOR",true,true,true,android.R.attr.state_focused);
-		
-		final private String tag;
-		final private boolean selectable;
-		final private boolean editable;
-		final private boolean geomEditable;
-		final private int lockState; // this is a temp hack
-		
-		Mode(String tag, boolean selectable, boolean editable, boolean geomEditable, int lockState) {
-			this.tag = tag;
-			this.selectable = selectable;
-			this.editable = editable;
-			this.geomEditable = geomEditable;
-			this.lockState = lockState;
-		}
-		
-		boolean elementsSelectable() {
-			return selectable;
-		}
-		
-		boolean elementsEditable() {
-			return editable;
-		}
-		
-		boolean elementsGeomEditiable() {
-			return geomEditable;
-		}
-		
-		int getLockState() {
-			return lockState;
-		}
-		
-		String tag() {
-			return tag;
-		}
-		
-		/**
-		 * Return the Mode for a given tag
-		 * @param tag
-		 * @return the corresponding Mode
-		 */
-		static Mode modeForTag(String tag) {
-			for (Mode mode:Mode.values()) {
-				if (mode.tag().equals(tag)) {
-					return mode;
-				}
-			}
-			return null; // can't happen
-		}
-
-		/**
-		 * Get any special tags for this mode, not very elegant
-		 * @param logic the current Logic instance
-		 * @param e the selected element
-		 * @return map containing the additional tags or null
-		 */
-		@Nullable
-		public HashMap<String, String> getExtraTags(Filter filter, OsmElement e) {
-			switch (this) {
-			case MODE_INDOOR:
-				HashMap<String,String> result = new HashMap<String,String>();
-				// we only want to apply a level tag automatically to newly created objects if they don't already have the tag and not when the filter is inverted
-				if (filter != null && filter instanceof IndoorFilter && !((IndoorFilter)filter).isInverted() && e.getState() == OsmElement.STATE_CREATED && !e.hasTagKey(Tags.KEY_LEVEL)) { 
-					result.put(Tags.KEY_LEVEL, Integer.toString(((IndoorFilter)filter).getLevel()));
-				}
-				return result;
-			default: return null;
-			}
-		}		
-	}
 
 	/**
 	 * Enums for directions. Used for translation via cursor-pad.
@@ -449,64 +358,16 @@ public class Logic {
 	 */
 	public void setMode(@NotNull final Main main, @NotNull final Mode mode) {
 		Log.d(DEBUG_TAG,"current mode " + this.mode + " new mode " + mode);
-		if (this.mode == mode) return;
-		Filter.Update updater = new Filter.Update() {
-			@Override
-			public void execute() {
-				invalidateMap();
-				main.scheduleAutoLock();
-			} };
+		if (this.mode == mode) {
+			return;
+		}
+		Mode oldMode = this.mode; 
 		this.mode = mode;
 		Main.onEditModeChanged();
 		setSelectedBug(null);
-		Filter filter = getFilter();
-		switch (mode) {
-		case MODE_EASYEDIT:
-			deselectAll();
-		case MODE_TAG_EDIT:
-			// indoor mode is a special case of a filter
-			// needs to be removed here and previous filter, if any, restored
-			if (filter!=null) { 
-				if (filter instanceof IndoorFilter) {
-					filter.saveState();
-					filter.hideControls();
-					filter.removeControls();
-					filter = filter.getSavedFilter();
-					setFilter(filter);
-					if (filter!=null) {
-						filter.addControls(main.getMapLayout(), updater);
-						filter.showControls();
-					}
-				}
-			} 
-			break;
-		case MODE_INDOOR:
-			if (filter!=null) {
-				if (!(filter instanceof IndoorFilter)) {
-					filter.saveState();
-					filter.hideControls();
-					filter.removeControls();
-					IndoorFilter indoor = new IndoorFilter();
-					indoor.saveFilter(filter);
-					setFilter(indoor);
-					indoor.addControls(main.getMapLayout(), updater);
-				}
-			} else { // no filter yet
-				setFilter(new IndoorFilter());
-				getFilter().addControls(main.getMapLayout(), updater);
-			}
-			getFilter().showControls();
-			deselectAll();
-			break;
-		case MODE_ALIGN_BACKGROUND:		// action mode sanity check
-			if (main.getBackgroundAlignmentActionModeCallback() == null) {
-				Log.d("Logic","weird state of edit mode, resetting");
-				setMode(main, Mode.MODE_EASYEDIT);
-			}
-		default:
-			deselectAll();
-			break;
-		}
+		deselectAll();
+		oldMode.teardown(main, this);
+		mode.setup(main, this);
 		invalidateMap();
 	}
 
@@ -4018,7 +3879,7 @@ public class Logic {
 	/**
 	 * Convenience method to invalidate the map 
 	 */
-	private void invalidateMap() {
+	void invalidateMap() {
 		if (map != null) {
 			map.invalidate();
 		}

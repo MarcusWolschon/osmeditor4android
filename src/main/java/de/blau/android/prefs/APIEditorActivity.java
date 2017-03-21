@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 import de.blau.android.R;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;

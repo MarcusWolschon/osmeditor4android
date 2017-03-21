@@ -8,9 +8,9 @@ import android.content.Context;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
-import de.blau.android.Logic.Mode;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.Mode;
 import de.blau.android.exception.OsmException;
 import de.blau.android.filter.Filter;
 import de.blau.android.osm.BoundingBox;
@@ -27,7 +27,7 @@ import de.blau.android.tasks.Task;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 18L;
+	private static final long serialVersionUID = 19L;
 	private final boolean savedLocked;
 	private final Mode savedMode;
 	private final List<Node> savedNodes;

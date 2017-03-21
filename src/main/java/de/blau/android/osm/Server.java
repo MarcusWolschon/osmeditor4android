@@ -31,7 +31,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;

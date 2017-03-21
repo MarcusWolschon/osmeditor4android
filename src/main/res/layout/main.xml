@@ -27,7 +27,7 @@
             android:layout_gravity="top"
             android:layout_margin="0dp"
             android:clickable="true"
-            android:src="@drawable/lock_tri_state"
+            android:src="@drawable/lock_bi_state"
             app:fabSize="mini"
             app:useCompatPadding="true" />
         
