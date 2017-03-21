@@ -2,11 +2,19 @@ package de.blau.android.grid;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.Mode;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.MapViewOverlay;
 
@@ -15,7 +23,7 @@ public class MapOverlay extends MapViewOverlay {
 	private static final String DEBUG_TAG = MapOverlay.class.getName();
 	private static final float DISTANCE2SIDE = 4f;
 	private static final float SHORTTICKS = 12f;
-	private static final float LONGTICKS = 20f;
+	public static final float LONGTICKS = 20f;
 	private static final double METERS2FEET = 3.28084;
 	private static final double MILE2FEET = 5280;
 	private static final double YARD2FEET = 3;
@@ -32,6 +40,8 @@ public class MapOverlay extends MapViewOverlay {
 	private final float longTicks;
 	private final float oneDP;
 	private final float textHeight;
+	private final Main main;
+	private final int actionBarHeight;
 	
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
@@ -44,6 +54,8 @@ public class MapOverlay extends MapViewOverlay {
 		shortTicks = Density.dpToPx(map.getContext(),SHORTTICKS);
 		longTicks = Density.dpToPx(map.getContext(),LONGTICKS);
 		oneDP = Density.dpToPx(map.getContext(),1);
+		main = map.getContext() instanceof Main ? (Main) map.getContext() : null;
+		actionBarHeight = ThemeUtils.getActionBarHeight(map.getContext());
 	}
 	
 	@Override
@@ -63,8 +75,14 @@ public class MapOverlay extends MapViewOverlay {
 			double widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft()/1E7D, centerLat, map.getViewBox().getRight()/1E7D, centerLat);
 			// Log.d(DEBUG_TAG,"distance to side " + distance2side + " tick length long " + longTicks + " short " + shortTicks);
 			if (widthInMeters < 1000000 && widthInMeters > 0) { // don't show zoomed out
-				c.drawLine(distance2side, distance2side, w-distance2side, distance2side, fullLine);
-				c.drawLine(w-distance2side, distance2side, w-distance2side, h-distance2side, fullLine);
+				float topOffset = 0f;
+				// avoid drawing behind the action bar
+				if (App.getLogic().getMode() == Mode.MODE_ALIGN_BACKGROUND || (main != null && main.easyEditManager.isProcessingAction())) {
+					topOffset = actionBarHeight;
+					Log.d(DEBUG_TAG,"offset " + topOffset);
+				}
+				c.drawLine(distance2side, distance2side + topOffset, w-distance2side, distance2side + topOffset, fullLine);
+				c.drawLine(w-distance2side, distance2side + topOffset, w-distance2side, h-distance2side, fullLine);
 				if (grid) {
 					c.drawLine(distance2side, h-distance2side, w-distance2side, h-distance2side, fullLine);
 					c.drawLine(distance2side, distance2side, distance2side, h-distance2side, fullLine);
@@ -80,24 +98,24 @@ public class MapOverlay extends MapViewOverlay {
 					float tickDistanceH = Math.round(tickDistance/metersPerPixel);
 
 					boolean km = tickDistance*10 >= 1000;
-					c.drawText(km ? "km" : "m", distance2side, longTicks + oneDP, labelH);
+					c.drawText(km ? "km" : "m", distance2side, longTicks  + topOffset + oneDP, labelH);
 					float nextTick = distance2side;
 					int i = 0;
 					int nextLabel = 0;
 					while (nextTick < (w-distance2side)) {
 						if (i == 10) {
 							i = 0;
-							c.drawLine(nextTick, distance2side, nextTick, grid ? h-distance2side : longTicks, fullLine);
+							c.drawLine(nextTick, distance2side + topOffset, nextTick, (grid ? h-distance2side : longTicks) + topOffset, fullLine);
 							nextLabel = (int) (nextLabel + 10*tickDistance);
-							c.drawText(Integer.toString(km ? nextLabel/1000: nextLabel), nextTick + 2*oneDP, longTicks + 2*oneDP, labelH);
+							c.drawText(Integer.toString(km ? nextLabel/1000: nextLabel), nextTick + 2*oneDP, longTicks + topOffset + 2*oneDP, labelH);
 						} else {
-							c.drawLine(nextTick, distance2side, nextTick, shortTicks, fullLine);
+							c.drawLine(nextTick, distance2side + topOffset, nextTick, shortTicks + topOffset, fullLine);
 						}
 						i++;
 						nextTick = nextTick + tickDistanceH;
 					}
 
-					nextTick = distance2side + tickDistanceH; // dont't draw first tick
+					nextTick = distance2side + tickDistanceH + topOffset; // dont't draw first tick
 					i = 1;
 					nextLabel = 0;
 					while (nextTick < (h-distance2side)) {
@@ -148,31 +166,31 @@ public class MapOverlay extends MapViewOverlay {
 					
 					float tickDistanceH = Math.round(tickDistance/feetPerPixel);
 					
-					c.drawText(mile ? "mile" : "ft", distance2side, longTicks + oneDP, labelH);
+					c.drawText(mile ? "mile" : "ft", distance2side, longTicks + topOffset + oneDP, labelH);
 					float nextTick = distance2side;
 					int i = 0;
 					int nextLabel = 0;
 					while (nextTick < (w-distance2side)) {
 						if (i == smallTickMax) {
 							i = 0;
-							c.drawLine(nextTick, distance2side, nextTick, grid ? h-distance2side : longTicks, fullLine);
+							c.drawLine(nextTick, distance2side + topOffset, nextTick, (grid ? h-distance2side : longTicks) + topOffset, fullLine);
 							if (mile) {
 								// Log.d(DEBUG_TAG,"mile tick " + nextTick + " label " + nextLabel);
 								nextLabel = (int) (nextLabel + smallTickMax*tickDistance);
-								c.drawText(Integer.toString((int)(nextLabel/MILE2FEET)), nextTick + 2*oneDP, longTicks + 2*oneDP, labelH);
+								c.drawText(Integer.toString((int)(nextLabel/MILE2FEET)), nextTick + 2*oneDP, longTicks + topOffset + 2*oneDP, labelH);
 							} else {
 								nextLabel = (int) (nextLabel + 10*tickDistance);
-								c.drawText(Integer.toString((int)(nextLabel)), nextTick + 2*oneDP, longTicks + 2*oneDP, labelH);
+								c.drawText(Integer.toString((int)(nextLabel)), nextTick + 2*oneDP, longTicks + topOffset + 2*oneDP, labelH);
 							}
 						} else {
-							c.drawLine(nextTick, distance2side, nextTick, shortTicks, fullLine);
+							c.drawLine(nextTick, distance2side  + topOffset , nextTick, shortTicks + topOffset, fullLine);
 							
 						}
 						i++;
 						nextTick = nextTick + tickDistanceH;
 					}
 
-					nextTick = distance2side + tickDistanceH; // dont't draw first tick
+					nextTick = distance2side + tickDistanceH + topOffset; // dont't draw first tick
 					i = 1;
 					nextLabel = 0;
 					while (nextTick < (h-distance2side)) {
