@@ -1315,9 +1315,8 @@ public class Logic {
 						if (rotatingWay) {
 							rotatingWay = false;
 							hideCrosshairs();
-						} else {
-							Log.d(DEBUG_TAG, "We shouldn't have got here");
-						}
+						} 
+						// at last really nothing selected or special going on
 					}
 				}
 			}
