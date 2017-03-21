@@ -84,7 +84,8 @@ __&lt;multiselect&gt;__      |                               | supported |
                    | values_no_i18n                | ignored   |
                    | values_from                   | ignored   |
                    | rows                          | ignored   |
-__&lt;list_entry&gt;__       |                               | supported |   
+__&lt;list_entry&gt;__       |                               | supported |  
+                   | value                         | supported | required 
                    | display_value                 | supported |
                    | short_description             | supported |
                    | icon                          | ignored   |
