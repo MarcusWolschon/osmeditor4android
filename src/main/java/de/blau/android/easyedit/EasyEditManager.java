@@ -191,7 +191,7 @@ public class EasyEditManager {
 						String problem = element.describeProblem();
 						toast = !problem.equals("") ? toast + "\n" + problem : toast;
 					}
-					Snack.toastTop(main, toast);
+					Snack.toastTopInfo(main, toast);
 				}
 			}
 		}
@@ -236,7 +236,7 @@ public class EasyEditManager {
 							String problem = e.describeProblem();
 							toast = !problem.equals("") ? toast + "\n" + problem : toast;
 						}
-						Snack.toastTop(main, toast);
+						Snack.toastTopInfo(main, toast);
 					}
 				}
 			}

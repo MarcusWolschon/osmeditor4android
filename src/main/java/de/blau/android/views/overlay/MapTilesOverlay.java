@@ -25,6 +25,7 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
+import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.util.MapTileProvider;
 
@@ -47,6 +48,12 @@ public class MapTilesOverlay extends MapViewOverlay {
 	private static final int TAPAREA_MIN_WIDTH = 40;
 	private static final int TAPAREA_MIN_HEIGHT = 40;
 
+	/**
+	 * 
+	 */
+	private boolean coverageWarningDisplayed = false;
+	private String coverageWarningMessage;
+	
 	/** Tap tracking */
 	private float downX, downY;
 	private boolean moved;
@@ -77,7 +84,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 			final TileLayerServer aRendererInfo,
 			final MapTileProvider aTileProvider) {
 		myView = aView;
-		myRendererInfo = aRendererInfo;
+		setRendererInfo(aRendererInfo);
 		if(aTileProvider == null) {
 			mTileProvider = new MapTileProvider(myView.getContext(), new SimpleInvalidationHandler(myView));
 		} else {
@@ -145,11 +152,22 @@ public class MapTilesOverlay extends MapViewOverlay {
 		return myRendererInfo;
 	}
 
-	public void setRendererInfo(final TileLayerServer aRendererInfo) {
-		if (myRendererInfo != aRendererInfo) {
-			// ...
+	/**
+	 * Set the tile layer to display
+	 * 
+	 * Updates warning message if we are outside of coverage
+	 * @param tileLayer layer to use
+	 */
+	public void setRendererInfo(final TileLayerServer tileLayer) {
+		if (myRendererInfo != tileLayer) {
+			try {
+				coverageWarningMessage = myView.getResources().getString(de.blau.android.R.string.toast_no_coverage,tileLayer.getName());
+			} catch (Exception ex) {
+				coverageWarningMessage = "";
+			}
+			coverageWarningDisplayed = false;
 		}
-		myRendererInfo = aRendererInfo;
+		myRendererInfo = tileLayer;
 	}
 
 	public MapTileProvider getTileProvider() {
@@ -196,8 +214,13 @@ public class MapTilesOverlay extends MapViewOverlay {
 		
 		BoundingBox viewBox = osmv.getViewBox();
 		if (!myRendererInfo.covers(viewBox)) {
+			if (!coverageWarningDisplayed) {
+				coverageWarningDisplayed = true;
+				Snack.toastTopWarning(myView.getContext(), coverageWarningMessage);
+			}
 			return; // no point, return immediately 
 		}
+		coverageWarningDisplayed = false;
 		
 		long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which invocation of onDraw the tile belongs too
 		// Do some calculations and drag attributes to local variables to save

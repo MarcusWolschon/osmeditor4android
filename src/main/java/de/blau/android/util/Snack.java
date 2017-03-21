@@ -429,19 +429,48 @@ public class Snack {
 	}
 	
 	/**
-	 * Display a toast underneath the top action bar
+	 * Display an info toast underneath the top action bar
 	 * @param activity activity that called this
 	 * @param msg the message to display
 	 */
-	public static void toastTop(AppCompatActivity activity, String msg) {
-		 LayoutInflater inflater = activity.getLayoutInflater();
-		 View layout = inflater.inflate(R.layout.toast, (ViewGroup) activity.findViewById(R.id.toast_layout_root));
-		 layout.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.snack_info, R.color.material_teal));
+	public static void toastTopInfo(Context context, String msg) {
+		toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal),Toast.LENGTH_SHORT);
+	}
+	
+	/**
+	 * Display a warning toast underneath the top action bar
+	 * @param activity activity that called this
+	 * @param msg the message to display
+	 */
+	public static void toastTopWarning(Context context, String msg) {
+		toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow),Toast.LENGTH_LONG);
+	}
+	
+	/**
+	 * Display an error toast underneath the top action bar
+	 * @param activity activity that called this
+	 * @param msg the message to display
+	 */
+	public static void toastTopError(Context context, String msg) {
+		toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red),Toast.LENGTH_LONG);
+	}
+	
+	/**
+	 * Display a toast underneath the top action bar
+	 * @param activity activity that called this
+	 * @param msg the message to display
+	 * @param color background color of the message
+	 * @param duration how long to display the message
+	 */
+	private static void toastTop(Context context, String msg, int color, int duration) {
+		 LayoutInflater inflater = LayoutInflater.from(context);
+		 View layout = inflater.inflate(R.layout.toast, null);
+		 layout.setBackgroundColor(color);
 		 TextView text = (TextView) layout.findViewById(R.id.text);
 		 text.setText(msg);
 
-		 Toast toast = new Toast(activity);
-		 int yOffset = ThemeUtils.getActionBarHeight(activity) + 5; 
+		 Toast toast = new Toast(context);
+		 int yOffset = ThemeUtils.getActionBarHeight(context) + 5; 
 		 toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, yOffset);
 		 toast.setDuration(Toast.LENGTH_SHORT);
 		 toast.setView(layout);
