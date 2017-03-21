@@ -10,6 +10,7 @@ import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class MapTileProvider implements ServiceConnection,
 	/**
 	 * Tag used in debug log-entries.
 	 */
-	private static final String DEBUGTAG = MapTileProvider.class.getSimpleName();
+	private static final String DEBUG_TAG = MapTileProvider.class.getSimpleName();
 
 	// ===========================================================
 	// Fields
@@ -49,8 +50,8 @@ public class MapTileProvider implements ServiceConnection,
 	/**
 	 * place holder if tile not available
 	 */
-	private final Bitmap mLoadingMapTile;
-	private final Bitmap mNoTilesTile;
+	private static Bitmap mLoadingMapTile;
+	private static Bitmap mNoTilesTile;
 
 	private Context mCtx;
 	/**
@@ -75,15 +76,22 @@ public class MapTileProvider implements ServiceConnection,
 			final Handler aDownloadFinishedListener) {
 		mCtx = ctx;
 		Resources r = ctx.getResources();
-		mNoTilesTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles);
-		mLoadingMapTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles);
+		if (mNoTilesTile == null) {
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inPreferredConfig =  Bitmap.Config.RGB_565;
+			mNoTilesTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles, options);
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+				Log.d(DEBUG_TAG,"Notiles tile uses " + mNoTilesTile.getByteCount());
+			}
+			// mLoadingMapTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles);
+		}
 		mTileCache = new MapTileCache();
 		
 		smallHeap = Runtime.getRuntime().maxMemory() <= 32L*1024L*1024L; // less than 32MB
 	
 		Intent explicitIntent = (new Intent(IMapTileProviderService.class.getName())).setPackage(ctx.getPackageName());
 		if(explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
-			Log.e(DEBUGTAG, "Could not bind to " + IMapTileProviderService.class.getName() + " in package " + ctx.getPackageName());
+			Log.e(DEBUG_TAG, "Could not bind to " + IMapTileProviderService.class.getName() + " in package " + ctx.getPackageName());
 		}
 		
 		mDownloadFinishedHandler = aDownloadFinishedListener;
@@ -101,14 +109,14 @@ public class MapTileProvider implements ServiceConnection,
 	public void onServiceConnected(android.content.ComponentName name, android.os.IBinder service) {
 		mTileService = IMapTileProviderService.Stub.asInterface(service);
 		mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
-		Log.d(DEBUGTAG, "connected");
+		Log.d(DEBUG_TAG, "connected");
 	}
 	
 	//@Override
 	@Override
 	public void onServiceDisconnected(ComponentName name) {
 		mTileService = null;
-		Log.d(DEBUGTAG, "disconnected");
+		Log.d(DEBUG_TAG, "disconnected");
 	}
 	
 	// ===========================================================
@@ -150,7 +158,7 @@ public class MapTileProvider implements ServiceConnection,
 		} else {
 			// from service
 			if (DEBUGMODE) {
-				Log.i(DEBUGTAG, "Memory MapTileCache failed for: " + aTile.toString());
+				Log.i(DEBUG_TAG, "Memory MapTileCache failed for: " + aTile.toString());
 			}
 			preCacheTile(aTile, owner);
 		}
@@ -163,9 +171,9 @@ public class MapTileProvider implements ServiceConnection,
 				pending.put(aTile.toString(), Long.valueOf(owner));
 				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
 			} catch (RemoteException e) {
-				Log.e(DEBUGTAG, "RemoteException in preCacheTile()", e);
+				Log.e(DEBUG_TAG, "RemoteException in preCacheTile()", e);
 			} catch (Exception e) {
-				Log.e(DEBUGTAG, "Exception in preCacheTile()", e);
+				Log.e(DEBUG_TAG, "Exception in preCacheTile()", e);
 			}
 		}
 	}
@@ -174,9 +182,9 @@ public class MapTileProvider implements ServiceConnection,
 		try {
 			mTileService.flushCache(rendererId);
 		} catch (RemoteException e) {
-			Log.e(DEBUGTAG, "RemoteException in flushCache()", e);
+			Log.e(DEBUG_TAG, "RemoteException in flushCache()", e);
 		} catch (Exception e) {
-			Log.e(DEBUGTAG, "Exception in flushCache()", e);
+			Log.e(DEBUG_TAG, "Exception in flushCache()", e);
 		}
 		mTileCache.clear(); // zap everything in in memory cache
 	}
@@ -206,7 +214,7 @@ public class MapTileProvider implements ServiceConnection,
 				Bitmap aTile = BitmapFactory.decodeByteArray(data, 0, data.length, options);
 				// long duration = System.currentTimeMillis() - start;
 				if (aTile == null) {
-					Log.d(DEBUGTAG, "decoded tile is null");
+					Log.d(DEBUG_TAG, "decoded tile is null");
 					throw new RemoteException();
 				}
 				// Log.d(DEBUGTAG, "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
@@ -225,11 +233,11 @@ public class MapTileProvider implements ServiceConnection,
 					// FIXME this should show a toast ... or a special tile
 				}
 			} catch (NullPointerException npe) {
-				Log.d(DEBUGTAG, "Exception in mapTileLoaded callback " + npe);
+				Log.d(DEBUG_TAG, "Exception in mapTileLoaded callback " + npe);
 				throw new RemoteException();
 			}
 			if (DEBUGMODE)
-				Log.i(DEBUGTAG, "MapTile download success."+t.toString());
+				Log.i(DEBUG_TAG, "MapTile download success."+t.toString());
 		}
 		
 		//@Override
@@ -237,7 +245,6 @@ public class MapTileProvider implements ServiceConnection,
 			MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
 			if (reason == MapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting the proper one
 				TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, false);
-				//TODO check if we are inside the providers bounding box
 				if (zoomLevel < Math.max(0,osmts.getMinZoomLevel()-1)) {
 					try {
 						mTileCache.putTile(t, mNoTilesTile, false, 0);

@@ -2387,7 +2387,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
 				PropertyEditor.startForResult(this, single, applyLastAddressTags,
-						showPresets, askForName, logic.getMode().getExtraTags(logic.getFilter(), selectedElement), REQUEST_EDIT_TAG);
+						showPresets, askForName, logic.getMode().getExtraTags(logic, selectedElement), REQUEST_EDIT_TAG);
 			}
 		}
 	}

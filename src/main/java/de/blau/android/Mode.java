@@ -8,6 +8,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.filter.IndoorFilter;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
+import de.blau.android.presets.Preset;
 
 /**
  * Enums for modes.
@@ -36,6 +37,16 @@ public enum Mode {
 
 		@Override
 		public void teardown(Main main, Logic logic) {
+		}
+
+		@Override
+		public HashMap<String, String> getExtraTags(Logic logic, OsmElement e) {
+			return null;
+		}
+
+		@Override
+		public Preset getPreset(Logic logic, OsmElement e) {
+			return null;
 		}
 	}),
 	/**
@@ -96,6 +107,23 @@ public enum Mode {
 					}
 				}
 			} 	
+		}
+
+		@Override
+		public HashMap<String, String> getExtraTags(Logic logic, OsmElement e) {
+			HashMap<String,String> result = new HashMap<String,String>();
+			// we only want to apply a level tag automatically to newly created objects if they don't already have the tag and not when the filter is inverted
+			Filter filter = logic.getFilter();
+			if (filter != null && filter instanceof IndoorFilter && !((IndoorFilter)filter).isInverted() && e.getState() == OsmElement.STATE_CREATED && !e.hasTagKey(Tags.KEY_LEVEL)) { 
+				result.put(Tags.KEY_LEVEL, Integer.toString(((IndoorFilter)filter).getLevel()));
+			}
+			return result;
+		}
+
+		@Override
+		public Preset getPreset(Logic logic, OsmElement e) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	});
 	
@@ -183,16 +211,10 @@ public enum Mode {
 	 * @return map containing the additional tags or null
 	 */
 	@Nullable
-	public HashMap<String, String> getExtraTags(Filter filter, OsmElement e) {
-		switch (this) {
-		case MODE_INDOOR:
-			HashMap<String,String> result = new HashMap<String,String>();
-			// we only want to apply a level tag automatically to newly created objects if they don't already have the tag and not when the filter is inverted
-			if (filter != null && filter instanceof IndoorFilter && !((IndoorFilter)filter).isInverted() && e.getState() == OsmElement.STATE_CREATED && !e.hasTagKey(Tags.KEY_LEVEL)) { 
-				result.put(Tags.KEY_LEVEL, Integer.toString(((IndoorFilter)filter).getLevel()));
-			}
-			return result;
-		default: return null;
+	public HashMap<String, String> getExtraTags(Logic logic, OsmElement e) {
+		if (config != null) {
+			return config.getExtraTags(logic, e);
 		}
+		return null;
 	}		
 }
