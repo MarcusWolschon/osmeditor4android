@@ -304,7 +304,7 @@ public class TagFilter extends Filter {
 	/**
      * Tag filter controls
      */
-    transient private FloatingActionButton tagFilterButton;
+    private transient FloatingActionButton tagFilterButton;
     private transient ViewGroup parent;
     private transient RelativeLayout controls;
     private transient Update update;
@@ -331,7 +331,6 @@ public class TagFilter extends Filter {
 		    @Override
 			public void onClick(View b) {
 		    	Log.d(DEBUG_TAG,"Button clicked");
-		    	// setupControls(true);
 		    	TagFilterActivity.start(context, DEFAULT_FILTER);
 		    }
 		});

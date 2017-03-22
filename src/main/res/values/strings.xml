@@ -371,7 +371,10 @@
     <string name="menu_tools_background_contrast">Contrast</string>
     <string name="menu_tools_oauth_reset">Reset OAuth</string>
     <string name="menu_tools_oauth_authorisation">Authorise OAuth</string>
-    <string name="menu_enable_tagfilter">Enable filter</string>
+    <string name="menu_enable_tagfilter">Tag filter</string>
+    <string name="menu_enable_presetfilter">Preset filter</string>
+    <string name="preset_menu_waynodes">Include way nodes</string>
+    <string name="preset_menu_invert">Invert filters</string>
 
     <!-- element action mode menu -->
     <string name="menu_tags">Properties</string>

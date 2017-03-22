@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.ActionMenuView;
@@ -182,7 +183,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	}
 	
 	private View getPresetView() {
-		View view = currentGroup.getGroupView(getActivity(), this, type);
+		View view = currentGroup.getGroupView(getActivity(), this, type, null);
 		// view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
 		// view.setOnKeyListener(this);
 		view.setId(R.id.preset_view);
@@ -269,8 +270,18 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	public void onGroupClick(PresetGroup group) {
 		ScrollView scrollView = (ScrollView) getOurView();
 		currentGroup = group;
-		currentGroup.getGroupView(getActivity(), scrollView, this, type);
+		currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
 		scrollView.invalidate();
+		FragmentActivity activity = getActivity();
+		if (activity != null) {
+			activity.supportInvalidateOptionsMenu();
+		}
+	}
+	
+
+	@Override
+	public boolean onGroupLongClick(PresetGroup group) {
+		return false;
 	}
 	
 	@Override
@@ -297,8 +308,8 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
-		// disable address tagging for stuff that won't have an address
-		// menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME) || element.hasTagKey(Tags.KEY_BUILDING));
+		menu.findItem(R.id.preset_menu_top).setEnabled(currentGroup != rootGroup);
+		menu.findItem(R.id.preset_menu_up).setEnabled(currentGroup != rootGroup);
 	}
 	
 	@Override
@@ -311,7 +322,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 		case R.id.preset_menu_top:
 			if (rootGroup != null) {
 				currentGroup = rootGroup;
-				currentGroup.getGroupView(getActivity(), scrollView, this, type);
+				currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
 				scrollView.invalidate();
 				return true;
 			}
@@ -321,7 +332,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 				PresetGroup group = currentGroup.getParent();
 				if (group != null) {
 					currentGroup = group;
-					currentGroup.getGroupView(getActivity(), scrollView, this, type);
+					currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
 					scrollView.invalidate();
 					return true;
 				}
@@ -331,7 +342,10 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 			HelpViewer.start(getActivity(), R.string.help_presets);
 			return true;
 		}
-		
+		FragmentActivity activity = getActivity();
+		if (activity != null) {
+			activity.supportInvalidateOptionsMenu();
+		}
 		return false;
 	}
 	

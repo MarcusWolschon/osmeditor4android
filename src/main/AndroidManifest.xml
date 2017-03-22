@@ -144,6 +144,10 @@
 			android:name=".filter.TagFilterActivity"
 			android:theme="@style/Theme.customActionBar"
 		/>
+    	<activity
+			android:name=".filter.PresetFilterActivity"
+			android:theme="@style/Theme.customActionBar"
+		/>
 		<activity
 			android:name="org.acra.dialog.CrashReportDialog"
 			android:theme="@android:style/Theme.Dialog"

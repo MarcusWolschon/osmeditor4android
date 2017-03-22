@@ -635,6 +635,19 @@ public class Preferences {
 		return prefs.getBoolean(key, false);
 	}
 	
+	public void enablePresetFilter(boolean on) {
+		prefs.edit().putBoolean(r.getString(R.string.config_presetFilter_key), on).commit();
+	}
+	
+	public boolean getEnablePresetFilter() {
+		String key = r.getString(R.string.config_presetFilter_key);
+		if (!prefs.contains(key)) {
+			// create the entry
+			enablePresetFilter(false);
+		}
+		return prefs.getBoolean(key, false);
+	}
+	
 	public void setGeocoder(int index) {
 		prefs.edit().putInt(r.getString(R.string.config_geocoder_key), index).commit();
 	}

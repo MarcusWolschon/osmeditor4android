@@ -109,7 +109,11 @@ public class PresetSearchResultsFragment extends DialogFragment {
 
 				@Override
 				public boolean onItemLongClick(PresetItem item) {
-					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public boolean onGroupLongClick(PresetGroup group) {
 					return false;
 				}
 			};
@@ -126,7 +130,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
 					results.addElement(p);
 				}
 			}
-			v = results.getGroupView(getActivity(), presetClickHandler, null);
+			v = results.getGroupView(getActivity(), presetClickHandler, null, null);
 
 			// v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
 	    	  
