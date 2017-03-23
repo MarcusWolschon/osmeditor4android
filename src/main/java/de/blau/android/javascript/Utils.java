@@ -1,6 +1,7 @@
 package de.blau.android.javascript;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.mozilla.javascript.Scriptable;
@@ -70,19 +71,22 @@ public class Utils {
 	 * @param ctx android context
 	 * @param scriptName name for error reporting
 	 * @param script the javascript
-	 * @param tags the tags of the 
+	 * @param originalTags original tags the property editor was called with
+	 * @param tags the current tags  
 	 * @param value any value associated with the key
 	 * @return the value that should be assigned to the tag or null if no value should be set
 	 */
 	@Nullable
-	public static String evalString(Context ctx, String scriptName, String script, Map<String, ArrayList<String>> tags, String value) {	
+	public static String evalString(Context ctx, String scriptName, String script, Map<String, ArrayList<String>> originalTags, Map<String, ArrayList<String>> tags, String value) {	
 		org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext(); 
 		try {
 			Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
 			Scriptable scope = rhinoContext.newObject(restrictedScope);
 			scope.setPrototype(restrictedScope);
 			scope.setParentScope(null);
-			Object wrappedOut = org.mozilla.javascript.Context.javaToJS(tags, scope);
+			Object wrappedOut = org.mozilla.javascript.Context.javaToJS(originalTags, scope);
+			ScriptableObject.putProperty(scope, "originalTags", wrappedOut);
+			wrappedOut = org.mozilla.javascript.Context.javaToJS(tags, scope);
 			ScriptableObject.putProperty(scope, "tags", wrappedOut);
 			wrappedOut = org.mozilla.javascript.Context.javaToJS(value, scope);
 			ScriptableObject.putProperty(scope, "value", wrappedOut);

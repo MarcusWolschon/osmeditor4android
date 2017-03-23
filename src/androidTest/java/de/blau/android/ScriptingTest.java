@@ -65,7 +65,7 @@ public class ScriptingTest {
     	ArrayList<String>v = new ArrayList<String>();
     	v.add("value");
     	tags.put("key", v);
-    	r = Utils.evalString(context, "sandbox4", "a = new java.util.ArrayList(); a.add('value1'); tags.put('key1',a);tags", tags, "test");
+    	r = Utils.evalString(context, "sandbox4", "a = new java.util.ArrayList(); a.add('value1'); tags.put('key1',a);tags", tags, tags, "test");
     	Assert.assertEquals("{key=[value], key1=[value1]}", r);
     	try {
     		r = Utils.evalString(context, "sandbox4", "importClass(Packages.de.blau.android.App);", App.getLogic());

@@ -1402,7 +1402,7 @@ public class TagEditorFragment extends BaseFragment implements
 			String script = item.getJavaScript(key);
 			if (script!=null) {
 				try {
-					value = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, tags, value);
+					value = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, buildEdits(), tags, value);
 					if (value==null) {
 						tags.remove(key);
 						return;
@@ -1556,7 +1556,7 @@ public class TagEditorFragment extends BaseFragment implements
 			de.blau.android.javascript.Utils.jsConsoleDialog(getActivity(), R.string.js_console_msg_debug, new EvalCallback() {
 				@Override
 				public String eval(String input) {
-					return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, getKeyValueMap(true), "test");
+					return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test");
 				}
 			});
 			return true;
