@@ -3,6 +3,7 @@
 # hakuchi <heimlikloh@mail.com>, 2016
 # Holger Jeromin <mailgithub@katur.de>, 2015
 # Jacob Bräutigam <barth.jacke@hotmail.de>, 2015
+# Jonas Meier <meiers.jonas@gmail.com>, 2017
 # P W <osmco@go4more.de>, 2016
 # Simon Poole <sp8962@gmail.com>, 2015-2016
 # stephan75, 2016
@@ -10,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-11-29 18:17+0100\n"
-"PO-Revision-Date: 2016-11-30 21:25+0000\n"
-"Last-Translator: hakuchi <heimlikloh@mail.com>\n"
+"PO-Revision-Date: 2017-03-20 09:47+0000\n"
+"Last-Translator: Jonas Meier <meiers.jonas@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -866,7 +867,7 @@ msgstr "Punktname"
 
 #: master_preset.xml:220(multiselect:display_values|key:cuisine)
 msgid "Thai"
-msgstr ""
+msgstr "thailändisch"
 
 #: master_preset.xml:9622(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 msgid "Shrimp"
@@ -2385,7 +2386,7 @@ msgstr "Ubahn"
 
 #: master_preset.xml:335(combo:display_values|key:religion)
 msgid "Hindu"
-msgstr ""
+msgstr "hinduistisch"
 
 #: master_preset.xml:6347(item:name|group:Sport|preset:Skating_(deprecated))
 msgid "Skating (deprecated)"
@@ -8649,7 +8650,7 @@ msgstr "Unterstes Stockwerk"
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Train station"
-msgstr ""
+msgstr "Bahnhof"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
