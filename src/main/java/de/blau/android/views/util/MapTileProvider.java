@@ -166,9 +166,9 @@ public class MapTileProvider implements ServiceConnection,
 	}
 
 	private void preCacheTile(final MapTile aTile, long owner) {
-		if (!isTileAvailable(aTile) && mTileService != null && !pending.containsKey(aTile.toString())) {
+		if (!isTileAvailable(aTile) && mTileService != null && !pending.containsKey(aTile.toId())) {
 			try {
-				pending.put(aTile.toString(), Long.valueOf(owner));
+				pending.put(aTile.toId(), Long.valueOf(owner));
 				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
 			} catch (RemoteException e) {
 				Log.e(DEBUG_TAG, "RemoteException in preCacheTile()", e);
@@ -219,8 +219,8 @@ public class MapTileProvider implements ServiceConnection,
 				}
 				// Log.d(DEBUGTAG, "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
 
-				mTileCache.putTile(t, aTile,pending.get(t.toString()).longValue());
-				pending.remove(t.toString());
+				mTileCache.putTile(t, aTile,pending.get(t.toId()).longValue());
+				pending.remove(t.toId());
 				mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
 				// Log.d(DEBUGTAG, "Sending tile success message");
 			} catch (StorageException e) {

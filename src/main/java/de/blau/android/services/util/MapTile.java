@@ -16,6 +16,8 @@ public class MapTile {
 	public int y;
 	
 	public int zoomLevel;
+	
+	private String id = null;
 
 	public static final int MAPTILE_SUCCESS_ID = 0;
 	public static final int MAPTILE_FAIL_ID = MAPTILE_SUCCESS_ID + 1;
@@ -38,5 +40,17 @@ public class MapTile {
 	public String toString() {
 		// Log.d("OpenStreetMapTile","Tile " + rendererID + "/" + zoomLevel + "/" + x + "/" + y);
 		return rendererID + "/" + zoomLevel + "/" + x + "/" + y; 
+	}
+	
+	/**
+	 * Generate an unique id for this tile
+	 * 
+	 * @return the id, generate new if not in cache
+	 */
+	public String toId() {
+		if (id == null) {
+			id = rendererID + "/" + zoomLevel + "/" + x + "/" + y; 
+		}
+		return id; 
 	}
 }

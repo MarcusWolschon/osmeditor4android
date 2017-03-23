@@ -38,7 +38,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 
 	private static final String DEBUG_TAG = MapTileProviderDataBase.class.getSimpleName();
 	private static final String DATABASE_NAME = "osmaptilefscache_db";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 
 	private static final String T_FSCACHE = "tiles";	
 	private static final String T_FSCACHE_RENDERER_ID = "rendererID";
@@ -65,7 +65,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	+ T_FSCACHE_ZOOM_LEVEL + " INTEGER NOT NULL,"
 	+ T_FSCACHE_TILE_X + " INTEGER NOT NULL,"
 	+ T_FSCACHE_TILE_Y + " INTEGER NOT NULL,"
-	+ T_FSCACHE_TIMESTAMP + " DATE NOT NULL,"
+	+ T_FSCACHE_TIMESTAMP + " INTEGER NOT NULL,"
 	+ T_FSCACHE_USAGECOUNT + " INTEGER NOT NULL DEFAULT 1,"
 	+ T_FSCACHE_FILESIZE + " INTEGER NOT NULL,"
 	+ T_FSCACHE_DATA + " BLOB,"
@@ -118,8 +118,6 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	private final Context mCtx;
 	private final MapTileFilesystemProvider mFSProvider;
 	private final SQLiteDatabase mDatabase;
-	private final static String DATE_PATTERN_ISO8601_MILLIS = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-	private final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat(DATE_PATTERN_ISO8601_MILLIS, Locale.US);
 	private final SQLiteStatement incrementUse;
 
 	// ===========================================================
@@ -162,7 +160,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		if (mDatabase.isOpen()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 				try {
-					incrementUse.bindString(1,getNowAsIso8601());
+					incrementUse.bindLong(1,System.currentTimeMillis());
 					incrementUse.bindString(2,aTile.rendererID);
 					incrementUse.bindLong(3, aTile.zoomLevel);
 					incrementUse.bindLong(4, aTile.x);
@@ -199,7 +197,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 								Log.d(MapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount);
 							}	
 							cv.put(T_FSCACHE_USAGECOUNT, usageCount + 1);
-							cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
+							cv.put(T_FSCACHE_TIMESTAMP, System.currentTimeMillis());
 							ret = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
 							if(DEBUGMODE) {
 								Log.d(MapTileFilesystemProvider.DEBUGTAG, "incrementUse count " + usageCount + " update sucessful " + ret);
@@ -263,7 +261,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 			cv.put(T_FSCACHE_ZOOM_LEVEL, aTile.zoomLevel);
 			cv.put(T_FSCACHE_TILE_X, aTile.x);
 			cv.put(T_FSCACHE_TILE_Y, aTile.y);
-			cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
+			cv.put(T_FSCACHE_TIMESTAMP, System.currentTimeMillis());
 			cv.put(T_FSCACHE_FILESIZE, tile_data != null ? tile_data.length : 0); // 0 == invalid
 			cv.put(T_FSCACHE_DATA, tile_data);
 			long result = mDatabase.insert(T_FSCACHE, null, cv);
@@ -426,15 +424,6 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		}
 		return ret;
 	}
-
-	/**
-	 * Get at the moment within ISO8601 format.
-	 * @return
-	 * Date and time in ISO8601 format.
-	 */
-	private String getNowAsIso8601() {
-		return DATE_FORMAT_ISO8601.format(new Date());
-	} 
 
 	// ===========================================================
 	// Inner and Anonymous Classes

@@ -26,7 +26,7 @@ public abstract class MapAsyncTileProvider {
 	
 	public void loadMapTileAsync(final MapTile aTile,
 			final IMapTileProviderCallback aCallback) {
-		final String tileID = aTile.toString();
+		final String tileID = aTile.toId();
 		
 		if(mPending.contains(tileID))
 			return;
@@ -49,7 +49,7 @@ public abstract class MapAsyncTileProvider {
 		}
 		
 		void finished() {
-			mPending.remove(mTile.toString());
+			mPending.remove(mTile.toId());
 		}
 	}
 	

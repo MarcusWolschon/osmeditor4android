@@ -89,7 +89,6 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 			super(aTile, aCallback);
 		}
 		
-		//@Override
 		@Override
 		public void run() {
 			
@@ -114,9 +113,12 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 					
 					URLConnection conn = new URL(tileURLString).openConnection();
 					conn.setRequestProperty("User-Agent", App.userAgent);
-					if ("no-tile".equals(conn.getHeaderField("X-VE-Tile-Info"))) {
-						// handle special Bing header that indicates no tile is available
-						throw new FileNotFoundException("tile not available");
+					if ("bing".equals(mTile.rendererID)) {
+						// this is fairly expensive so only do it is we are actually querying bing
+						if ("no-tile".equals(conn.getHeaderField("X-VE-Tile-Info"))) {
+							// handle special Bing header that indicates no tile is available
+							throw new FileNotFoundException("tile not available");
+						}
 					}
 					in = new BufferedInputStream(conn.getInputStream(), StreamUtils.IO_BUFFER_SIZE);
 					
