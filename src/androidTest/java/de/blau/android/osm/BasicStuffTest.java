@@ -38,6 +38,7 @@ public class BasicStuffTest {
 		main = mActivityRule.getActivity();
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+		main.getMap().setPrefs(main, prefs);
     	App.getDelegator().reset(false);
 		App.getDelegator().setOriginalBox(BoundingBox.getMaxMercatorExtent());
     }

@@ -58,8 +58,10 @@ public class ApiTest {
     @Before
     public void setup() {
 		context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+ 		main = mActivityRule.getActivity();
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+		main.getMap().setPrefs(main, prefs);
     	mockServer = new MockWebServerPlus();
  		HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
 		System.out.println("mock api url " + mockBaseUrl.toString());
@@ -67,7 +69,6 @@ public class ApiTest {
  		prefDB.deleteAPI("Test");
 		prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
  		prefDB.selectAPI("Test");
- 		main = mActivityRule.getActivity();
     }
     
     @After

@@ -36,11 +36,12 @@ public class GeometryEditsTest {
     @Before
     public void setup() {
 		context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+		main = mActivityRule.getActivity();
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+		main.getMap().setPrefs(main, prefs);
     	App.getDelegator().reset(false);
-		App.getDelegator().setOriginalBox(BoundingBox.getMaxMercatorExtent());
-		main = mActivityRule.getActivity();
+		App.getDelegator().setOriginalBox(BoundingBox.getMaxMercatorExtent());		
     }
     
     @After

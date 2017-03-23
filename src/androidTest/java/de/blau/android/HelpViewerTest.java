@@ -43,6 +43,7 @@ public class HelpViewerTest {
 		main = (Main)mActivityRule.getActivity(); 
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+		main.getMap().setPrefs(main, prefs);
     }
     
     @After

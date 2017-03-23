@@ -41,6 +41,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
@@ -245,13 +246,11 @@ public class TileLayerServer {
 	private static TileLayerServer cachedBackground = null;
 	private static TileLayerServer cachedOverlay = null;
 	
-	private Resources r;
-	
 	// ===========================================================
 	// Fields
 	// ===========================================================
 
-	
+	private Context ctx;
 	private boolean metadataLoaded;
 	private String id, name, tileUrl, imageFilenameExtension, touUri;
 	private boolean overlay, defaultLayer;
@@ -265,7 +264,6 @@ public class TileLayerServer {
 	private static final HashMap<String,TileLayerServer> backgroundServerList =new HashMap<String,TileLayerServer>();
 	private static HashMap<String,TileLayerServer> overlayServerList = new HashMap<String,TileLayerServer>();
 	private static boolean ready = false;
-	private static Context myCtx;
 	private static ArrayList<String> imageryBlacklist = null;
 
 	
@@ -275,6 +273,7 @@ public class TileLayerServer {
 	
 	private void loadInfo(String metadataUrl) {
 		try {
+			Resources r = ctx.getResources();
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 			factory.setNamespaceAware(true);
 			XmlPullParser parser = factory.newPullParser();
@@ -301,7 +300,7 @@ public class TileLayerServer {
 						if (brandLogoUri.startsWith("@drawable/")) {
 							// internal URL
 							int resid = r.getIdentifier(brandLogoUri.substring(10), "drawable", "de.blau.android");
-							brandLogo = ContextCompat.getDrawable(myCtx, resid);
+							brandLogo = ContextCompat.getDrawable(ctx, resid);
 						} else {
 							// assume Internet URL
 							URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
@@ -310,7 +309,7 @@ public class TileLayerServer {
 							Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
 							// scale according to density
 							if (brandLogoBitmap != null)
-								brandLogo = new BitmapDrawable(r,Bitmap.createScaledBitmap(brandLogoBitmap, Density.dpToPx(myCtx,brandLogoBitmap.getWidth()), Density.dpToPx(myCtx,brandLogoBitmap.getHeight()), false)); 
+								brandLogo = new BitmapDrawable(r,Bitmap.createScaledBitmap(brandLogoBitmap, Density.dpToPx(ctx,brandLogoBitmap.getWidth()), Density.dpToPx(ctx,brandLogoBitmap.getHeight()), false)); 
 						}
 					}
 					if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
@@ -364,8 +363,8 @@ public class TileLayerServer {
 			}
 			metadataLoaded = true;
 			// once we've got here, a selected layer that was previously non-available might now be available ... reset map preferences
-			if (myCtx instanceof Main) { // don't do this in the service
-				((Main)myCtx).getMap().setPrefs(myCtx, new Preferences(myCtx));
+			if (ctx instanceof Main) { // don't do this in the service
+				((Main)ctx).getMap().setPrefs(ctx, new Preferences(ctx));
 			}
 		} catch (IOException e) {
 			Log.d("OpenStreetMapTileServer", "Tileserver problem (IOException) metadata URL " + metadataUrl, e);
@@ -388,10 +387,10 @@ public class TileLayerServer {
 	 * @param tileHeight
 	 * @param async			run loadInfo in a AsyncTask needed for main process
 	 */
-	private TileLayerServer(final Resources r, final String id, final String name, final String url, final String type, 
+	private TileLayerServer(final Context ctx, final String id, final String name, final String url, final String type, 
 			final boolean overlay, final boolean defaultLayer, final Provider provider, final String termsOfUseUrl,
 			final int zoomLevelMin, final int zoomLevelMax, final int tileWidth, final int  tileHeight, final int preference, boolean async) {
-		this.r = r;
+		this.ctx = ctx;
 		this.id = id;
 		this.name = name;
 		tileUrl = url;
@@ -480,12 +479,12 @@ public class TileLayerServer {
 	 * @param async
 	 * @throws IOException
 	 */
-	private static void parseImageryFile(Resources r, InputStream is, final boolean async) throws IOException {
+	private static void parseImageryFile(Context ctx, InputStream is, final boolean async) throws IOException {
 		JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
 		try {
 			reader.beginArray();
 			while (reader.hasNext()) {
-				TileLayerServer osmts = readServer(reader, r, async);
+				TileLayerServer osmts = readServer(ctx, reader, async);
 				if (osmts != null) {
 					if (osmts.overlay && !overlayServerList.containsKey(osmts.id)) {
 						// Log.d("OpenStreetMapTileServer","Adding overlay " + osmts.overlay + " " + osmts.toString());
@@ -522,7 +521,6 @@ public class TileLayerServer {
 	 */
 	public synchronized static TileLayerServer get(final Context ctx, final String id, final boolean async) {	
 		Resources r = ctx.getResources();
-		myCtx = ctx;
 		
 		synchronized (backgroundServerList) {
 			if (!ready) {
@@ -538,7 +536,7 @@ public class TileLayerServer {
 				Log.i("OpenStreetMapTileServer","Trying to read custom imagery from " + userImagery);
 				try {
 					InputStream is = new FileInputStream(new File(userImagery));		
-					parseImageryFile(r, is, async);
+					parseImageryFile(ctx, is, async);
 				} catch (IOException e) {
 					// Don't care if reading fails
 				}
@@ -549,7 +547,7 @@ public class TileLayerServer {
 				for (String fn:imageryFiles) {
 					try {
 						InputStream is = assetManager.open(fn);
-						parseImageryFile(r, is, async);
+						parseImageryFile(ctx, is, async);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -591,7 +589,7 @@ public class TileLayerServer {
 		} 
 	}
 	
-	private static TileLayerServer readServer(JsonReader reader, final Resources r, boolean async) {
+	private static TileLayerServer readServer(Context ctx, JsonReader reader, boolean async) {
 		String id = null;
 		String name = null;
 		String url = null;
@@ -642,7 +640,7 @@ public class TileLayerServer {
 		}
 		if (type == null || type.equals("wms"))
 			return null;
-		TileLayerServer osmts = new TileLayerServer(r, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl,
+		TileLayerServer osmts = new TileLayerServer(ctx, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl,
 				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, preference, async);
 		return osmts;
 	}
@@ -1077,58 +1075,105 @@ public class TileLayerServer {
 	}
 	
 	private String replaceGeneralParameters(final String s) {
+		Resources r = ctx.getResources();
 		final Locale l = r.getConfiguration().locale;
 		String result = s;
 		result = replaceParameter(result, "culture", l.getLanguage().toLowerCase(Locale.US) + "-" + l.getCountry().toLowerCase(Locale.US));
 		// Bing API key assigned to Andrew Gregory
-		result = replaceParameter(result, "bingapikey", "AtCQFkJNgUBEVk9qiNMBCNExDMVCiz5Hgvn20tpG3AfONcQUcumDChHDnhhNs0YA");
+		try {
+			result = replaceParameter(result, "bingapikey", r.getString(R.string.bingapikey));
+		} catch (Exception ex) {
+			Log.e(DEBUG_TAG,"replacing bingapi key failed: " + ex.getMessage());
+		}
 		return result;
 	}
 	
+	private static final int BASE = 0;
+	private static final int PARAM = 1;
+	/**
+	 * Allocate the following just once
+	 */
+	StringBuilder builder = new StringBuilder(100); // 100 is just an estimate to avoid re-allocating
+	StringBuilder param = new StringBuilder();	
+	StringBuilder quadKey = new StringBuilder();
+	
 	/**
 	 * Get the URL that can be used to obtain the image of the given tile.
+	 * 
+	 * This is 5-100 times faster than the previous implementation.
 	 * @param aTile The tile to get the URL for.
 	 * @return URL of the given tile.
 	 */
 	public String getTileURLString(final MapTile aTile) {
-		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
-		String result = tileUrl;
-		
-		// Named replacements
-		result = replaceParameter(result, "zoom", Integer.toString(aTile.zoomLevel));
-		result = replaceParameter(result, "z", Integer.toString(aTile.zoomLevel));
-		result = replaceParameter(result, "x", Integer.toString(aTile.x));
-		result = replaceParameter(result, "y", Integer.toString(aTile.y));
-		int ymax = 1 << aTile.zoomLevel;
-		int y = ymax - aTile.y - 1;
-		result = replaceParameter(result, "-y", Integer.toString(y));
-		result = replaceParameter(result, "quadkey", quadTree(aTile));
-		
-		// Rotate through the list of subdomains
-		String subdomain = null;
-		synchronized (subdomains) {
-			subdomain = subdomains.poll();
-			if (subdomain != null) subdomains.add(subdomain);
+		if (!metadataLoaded) {
+			throw new IllegalStateException("metadata not loaded");
 		}
-		if (subdomain != null) result = replaceParameter(result, "subdomain", subdomain);
-		// Log.d("OpenStreetMapTileServer",result);
-		return result;
+		builder.setLength(0);		
+		int state = BASE;
+		for(char c:tileUrl.toCharArray()) {
+			if (state == BASE) {
+				if (c=='{') {
+					state = PARAM;
+					param.setLength(0); // reset
+				} else {
+					builder.append(c);
+				}
+			} else {
+				if (c=='}') {
+					state = BASE;
+					String p = param.toString();
+					if ("x".equals(p)) {
+						builder.append(Integer.toString(aTile.x));
+					} else if ("y".equals(p)) {
+						builder.append(Integer.toString(aTile.y));
+					} else if ("z".equals(p)) {
+						builder.append(Integer.toString(aTile.zoomLevel));
+					} else if ("zoom".equals(p)) {
+						builder.append(Integer.toString(aTile.zoomLevel));
+					} else if ("-y".equals(p)) {
+						int ymax = 1 << aTile.zoomLevel;
+						int y = ymax - aTile.y - 1;
+						builder.append(Integer.toString(y));
+					} else if ("quadkey".equals(p)) {
+						builder.append(quadTree(aTile));
+					} else if ("subdomain".equals(p)) {
+						// Rotate through the list of sub-domains
+						String subdomain = null;
+						synchronized (subdomains) {
+							subdomain = subdomains.poll();
+							if (subdomain != null) {
+								subdomains.add(subdomain);
+							}
+						}
+						if (subdomain != null) {
+							builder.append(subdomain);
+						}
+					}
+				} else {
+					param.append(c);
+				}
+			}
+		}
+		
+		return builder.toString();
 	}
-	
+		
 	/**
 	 * Converts TMS tile coordinates to QuadTree
 	 * @param aTile The tile coordinates to convert
 	 * @return The QuadTree as String.
 	 */
-	private static String quadTree(final MapTile aTile) {
-		StringBuilder quadKey = new StringBuilder();
+	String quadTree(final MapTile aTile) {
+		quadKey.setLength(0);
 		for (int i = aTile.zoomLevel; i > 0; i--) {
 			int digit = 0;
 			int mask = 1 << (i - 1);
-			if ((aTile.x & mask) != 0)
+			if ((aTile.x & mask) != 0) {
 				digit += 1;
-			if ((aTile.y & mask) != 0)
+			}
+			if ((aTile.y & mask) != 0) {
 				digit += 2;
+			}
 			quadKey.append(digit);
 		}
 		return quadKey.toString();
@@ -1136,7 +1181,9 @@ public class TileLayerServer {
 	
 	/**
 	 * This is essentially the code in in the reference implementation see
+	 * 
 	 * https://trac.openstreetmap.org/browser/subversion/applications/editors/josm/plugins/imagery_offset_db/src/iodb/ImageryIdGenerator.java#L14
+	 * 
 	 * @return the id for a imagery offset database query
 	 */
 	public String getImageryOffsetId() {

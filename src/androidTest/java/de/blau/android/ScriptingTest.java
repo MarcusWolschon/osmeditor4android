@@ -14,6 +14,7 @@ import org.mozilla.javascript.EvaluatorException;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -27,15 +28,18 @@ import de.blau.android.resources.TileLayerServer;
 public class ScriptingTest {
 	
 	Context context = null;
-	    
+	Main main = null;
+	
     @Rule
-    public UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
-
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
+    
     @Before
     public void setup() {
 		context = InstrumentationRegistry.getInstrumentation().getTargetContext();
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+		main = mActivityRule.getActivity();
+		main.getMap().setPrefs(main, prefs);
     	App.getDelegator().reset(false);
 		App.getDelegator().setOriginalBox(BoundingBox.getMaxMercatorExtent());
     }

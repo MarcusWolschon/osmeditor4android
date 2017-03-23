@@ -50,10 +50,11 @@ public class TagFilterTest {
     @Before
     public void setup() {
 		context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+		main = mActivityRule.getActivity();
 		Preferences prefs = new Preferences(context);
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
 		db = new TagFilterDatabaseHelper(context).getWritableDatabase();
-		main = mActivityRule.getActivity();
+		main.getMap().setPrefs(main, prefs);
     }
     
     @After

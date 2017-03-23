@@ -126,8 +126,8 @@ public class Preferences {
 	private final Resources r;
 	
 	/**
-	 * @param prefs
-	 * @param r
+	 * 
+	 * @param cty Android context
 	 * @throws IllegalArgumentException
 	 * @throws NotFoundException
 	 */

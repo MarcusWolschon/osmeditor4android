@@ -25,4 +25,5 @@
         <item>https://www.openstreetmap.org/</item>
         <item>https://master.apis.dev.openstreetmap.org/</item>
     </string-array>
+    <string translatable="false" name="bingapikey">AtCQFkJNgUBEVk9qiNMBCNExDMVCiz5Hgvn20tpG3AfONcQUcumDChHDnhhNs0YA</string>
 </resources>
