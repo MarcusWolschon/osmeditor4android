@@ -6,7 +6,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import android.content.Context;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -14,7 +13,6 @@ import android.view.View;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.MapTile;
 
 /**

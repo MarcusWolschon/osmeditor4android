@@ -3,8 +3,6 @@ package  de.blau.android.views.util;
 
 import java.util.HashMap;
 
-import com.drew.lang.annotations.NotNull;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;

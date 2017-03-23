@@ -197,6 +197,7 @@ public class TileLayerServer {
 		}
 		/**
 		 * Test if the provider covers the given zoom and area.
+		 * 
 		 * @param zoom Zoom level to test.
 		 * @param area Map area to test.
 		 * @return true if the provider has coverage of the given zoom and area.
@@ -211,14 +212,32 @@ public class TileLayerServer {
 		}
 		
 		public boolean covers(BoundingBox area) {
-			if (coverageAreas.size() == 0)
+			if (coverageAreas.size() == 0) {
 				return true;
+			}
 			for (CoverageArea a : coverageAreas) {
 				if (a.covers(area)) {
 					return true;
 				}
 			}
 			return false;
+		}
+		
+
+		public int getZoom(BoundingBox area) {
+			if (coverageAreas.size() == 0) {
+				return -1;
+			}
+			int max = 0;
+			for (CoverageArea a : coverageAreas) {
+				if (a.covers(area)) {
+					int m = a.zoomMax;
+					if (m > max) {
+						max = m;
+					}
+				}
+			}
+			return max;
 		}
 		
 		public CoverageArea getCoverageArea(double lon, double lat) {
@@ -255,6 +274,7 @@ public class TileLayerServer {
 	private String id, name, tileUrl, imageFilenameExtension, touUri;
 	private boolean overlay, defaultLayer;
 	private int zoomLevelMin, zoomLevelMax, tileWidth, tileHeight, preference;
+	private int maxOverZoom = 3; // currently hardwired
 	private Drawable brandLogo;
 	private final Queue<String> subdomains = new LinkedList<String>();
 	private int defaultAlpha;
@@ -344,7 +364,10 @@ public class TileLayerServer {
 						zoomLevelMin = Integer.parseInt(parser.getText().trim());
 					}
 					if ("ZoomMax".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-						zoomLevelMax = Integer.parseInt(parser.getText().trim());
+						// hack for bing
+						if (!metadataUrl.contains("virtualearth")) {
+							zoomLevelMax = Integer.parseInt(parser.getText().trim());
+						} 
 					}
 					if ("ImageryProvider".equals(tagName)) {
 						try {
@@ -514,7 +537,7 @@ public class TileLayerServer {
 	/**
 	 * Get the tile server information for a specified tile server id. If the given
 	 * id cannot be found, a default renderer is selected. 
-	 * Note: will read the the config files it that hasn't happend yet
+	 * Note: will read the the config files it that hasn't happened yet
 	 * @param ctx activity context
 	 * @param id The internal id of the tile layer, eg "MAPNIK"
      * @param async get meta data asynchronously
@@ -823,7 +846,7 @@ public class TileLayerServer {
 				}
 		}
 		return ret;
-	}
+	}	
 	
 	/**
 	 * Get the End User Terms Of Use URI.
@@ -947,7 +970,7 @@ public class TileLayerServer {
 	/**
 	 * Test if the bounding box is covered by this tile source
 	 * @param box the bounding box we want to test
-	 * @return true if covered or no coerage information
+	 * @return true if covered or no coverage information
 	 */
 	public boolean covers(BoundingBox box) {
 		if (providers.size() > 0) { 
@@ -959,6 +982,25 @@ public class TileLayerServer {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Get location dependent max zoom
+	 * @param box the bounding box we want to get the max zoom for
+	 * @return maximum zoom for this area, -1 if nothing found
+	 */
+	public int getMaxZoom(BoundingBox box) {
+		int max = 0;
+		if (providers.size() > 0) { 
+			for (Provider p:providers) {
+				int m = p.getZoom(box);
+				if (m > max) { 
+					max = m;
+				}
+			}
+			return max;
+		}
+		return -1;
 	}
 	
 	/**
@@ -1177,6 +1219,14 @@ public class TileLayerServer {
 			quadKey.append(digit);
 		}
 		return quadKey.toString();
+	}
+	
+	/**
+	 * Get the maximum we over zoom for this layer
+	 * @return
+	 */
+	public int getMaxOverZoom() {
+		return maxOverZoom;
 	}
 	
 	/**

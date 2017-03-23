@@ -269,6 +269,13 @@ public class MapTilesOverlay extends MapViewOverlay {
 
 		int maxZoom = myRendererInfo.getMaxZoomLevel();
 		int minZoom = myRendererInfo.getMinZoomLevel();
+		int maxOverZoom = myRendererInfo.getMaxOverZoom();
+// Currently not useful for bing
+//		int tempMaxZoom = myRendererInfo.getMaxZoom(viewBox);
+//		if (tempMaxZoom != -1) {
+//			Log.d(DEBUG_TAG,"area max zoom " + tempMaxZoom + " regular " + maxZoom + " maxOverZoom " + maxOverZoom + " current zoom " + zoomLevel);
+//			maxZoom = tempMaxZoom;
+//		}
 
 		final int mapTileMask = (1 << zoomLevel) - 1;
 
@@ -320,8 +327,8 @@ public class MapTilesOverlay extends MapViewOverlay {
 					// mTileProvider.preCacheTile(tile); already done in getMapTile
 					// See if there are any alternative tiles available - try
 					// using larger tiles
-					// maximum 3 zoom  levels up, with standard tiles this reduces the width to 64 bits
-					while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) <= 3 && tile.zoomLevel > minZoom) {
+					// maximum maxOverZoom zoom  levels up, with standard tiles this reduces the width to 64 bits
+					while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) <= maxOverZoom && tile.zoomLevel > minZoom) {
 						// As we zoom out to larger-scale tiles, we want to
 						// draw smaller and smaller sections of them
 						sw >>= 1; // smaller size

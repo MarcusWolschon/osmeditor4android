@@ -20,7 +20,7 @@
         "url": "http://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial/?mapVersion=v1&key={bingapikey}&include=ImageryProviders&output=xml", 
         "default": true, 
         "extent": {
-            "max_zoom": 22
+            "max_zoom": 19
         }, 
         "type": "bing", 
         "id": "BING", 
