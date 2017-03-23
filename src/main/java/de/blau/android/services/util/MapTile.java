@@ -10,7 +10,7 @@ package de.blau.android.services.util;
  */
 public class MapTile {
 	
-	public String rendererID;
+	final public String rendererID;
 	
 	public int x;
 	public int y;
@@ -49,8 +49,16 @@ public class MapTile {
 	 */
 	public String toId() {
 		if (id == null) {
-			id = rendererID + "/" + zoomLevel + "/" + x + "/" + y; 
+			// attempt to reduce the number of times StringBuilder.append is called 
+			id = zoomLevel + rendererID + x + "/" + y; 
 		}
 		return id; 
+	}
+
+	/**
+	 * Reset anything important so that the instance can be reused
+	 */
+	public void reinit() {
+		id = null;
 	}
 }

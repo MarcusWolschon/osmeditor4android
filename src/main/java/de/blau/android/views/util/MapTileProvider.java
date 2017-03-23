@@ -3,6 +3,8 @@ package  de.blau.android.views.util;
 
 import java.util.HashMap;
 
+import com.drew.lang.annotations.NotNull;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +15,8 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Handler;
 import android.os.RemoteException;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.exception.StorageException;
@@ -148,7 +152,15 @@ public class MapTileProvider implements ServiceConnection,
 		return mTileCache.containsTile(aTile);
 	}
 
-	public Bitmap getMapTile(final MapTile aTile, long owner) {
+	/**
+	 * Attempt to return a tile from cache otherwise ask for it from remote
+	 * 
+	 * @param aTile tile spec
+	 * @param owner
+	 * @return the tile or null if it wasn't in cache
+	 */
+	@Nullable
+	public Bitmap getMapTile(@NonNull final MapTile aTile, long owner) {
 		Bitmap tile = mTileCache.getMapTile(aTile); 
 		if (tile != null) {
 			// from cache
@@ -164,9 +176,20 @@ public class MapTileProvider implements ServiceConnection,
 		}
 		return null;
 	}
+	
+	/**
+	 * Attempt to return a tile from cache otherwise ask for it from remote
+	 * 
+	 * @param aTile tile spec
+	 * @param owner
+	 * @return the tile or null if it wasn't in cache
+	 */
+	public Bitmap getMapTileFromCache(final MapTile aTile, long owner) {
+		return mTileCache.getMapTile(aTile);
+	}
 
 	private void preCacheTile(final MapTile aTile, long owner) {
-		if (!isTileAvailable(aTile) && mTileService != null && !pending.containsKey(aTile.toId())) {
+		if (mTileService != null && !pending.containsKey(aTile.toId())) {
 			try {
 				pending.put(aTile.toId(), Long.valueOf(owner));
 				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
@@ -211,15 +234,15 @@ public class MapTileProvider implements ServiceConnection,
 			
 			try {
 				//long start = System.currentTimeMillis();
-				Bitmap aTile = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+				Bitmap tileBitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
 				// long duration = System.currentTimeMillis() - start;
-				if (aTile == null) {
+				if (tileBitmap == null) {
 					Log.d(DEBUG_TAG, "decoded tile is null");
 					throw new RemoteException();
 				}
 				// Log.d(DEBUGTAG, "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
 
-				mTileCache.putTile(t, aTile,pending.get(t.toId()).longValue());
+				mTileCache.putTile(t, tileBitmap,pending.get(t.toId()).longValue());
 				pending.remove(t.toId());
 				mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
 				// Log.d(DEBUGTAG, "Sending tile success message");
@@ -234,6 +257,7 @@ public class MapTileProvider implements ServiceConnection,
 				}
 			} catch (NullPointerException npe) {
 				Log.d(DEBUG_TAG, "Exception in mapTileLoaded callback " + npe);
+				npe.printStackTrace();
 				throw new RemoteException();
 			}
 			if (DEBUGMODE)

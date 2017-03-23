@@ -108,9 +108,9 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 			String tileURLString = buildURL(mTile);
 			try {
 				if (tileURLString.length() > 0) {
-					if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
+					if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 						Log.d(DEBUGTAG, "Downloading Maptile from url: " + tileURLString);
-					
+					}
 					URLConnection conn = new URL(tileURLString).openConnection();
 					conn.setRequestProperty("User-Agent", App.userAgent);
 					if ("bing".equals(mTile.rendererID)) {

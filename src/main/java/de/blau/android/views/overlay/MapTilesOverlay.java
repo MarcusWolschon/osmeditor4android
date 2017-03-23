@@ -284,6 +284,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 		for (int y = tileNeededTop; y <= tileNeededBottom; y++) {
 			// x = x tile number (longitude)
 			for (int x = tileNeededLeft; x <= tileNeededRight; x++) {
+				tile.reinit();
 				// Set the specifications for the required tile
 				tile.zoomLevel = zoomLevel;
 				tile.x = x & mapTileMask;
@@ -312,6 +313,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 					tileBitmap = mTileProvider.getMapTile(tile, owner);
 				}
 				if (tileBitmap == null) {
+					tile.reinit();
 					// Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
 					// OVERZOOM
 					// Preferred tile is not available - request it
@@ -334,9 +336,9 @@ public class MapTilesOverlay extends MapViewOverlay {
 						tile.y >>= 1;
 						--tile.zoomLevel;
 						// Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
-						if (mTileProvider.isTileAvailable(tile) || (originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom)) { 
-							// Guarantees that we only try this for stuff in the cache, 
-							// except it we are overzooming in which case we -do- want to retrieve the maxZoom tiles if we don't have them
+						tileBitmap = mTileProvider.getMapTileFromCache(tile, owner);
+						if (tileBitmap == null && (originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom)) { 
+							// Only try this it we are overzooming in which case we -do- want to retrieve the maxZoom tiles if we don't have them
 							// Log.d("OpenStreetMapTileOverlay","larger tile " + tile.toString() + " available");
 							tileBitmap = mTileProvider.getMapTile(tile, owner);
 						}
@@ -351,6 +353,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 							new Rect(destRect.left + xPos, destRect.top + yPos, destRect.right + xPos,  destRect.bottom + yPos),
 							mPaint);
 				} else {
+					tile.reinit();
 					// Still no tile available - try smaller scale tiles
 					if (!drawTile(owner, c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
 						// Log.d("OpenStreetMapTileOverlay","no usable tiles found");
@@ -422,10 +425,11 @@ public class MapTilesOverlay extends MapViewOverlay {
 	 */
 	private boolean drawTile(long owner, Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
 		final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
-		if (mTileProvider.isTileAvailable(tile)) {
+		Bitmap bitmap = mTileProvider.getMapTileFromCache(tile, owner);
+		if (bitmap != null) {
 			// Log.d("OpenStreetMapTileOverlay","smaller tile " + tile.toString() + " available");
 			c.drawBitmap(
-					mTileProvider.getMapTile(tile, owner),
+					bitmap,
 					new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
 					getScreenRectForTile(c, osmv, z, y, x, squareTiles, lonOffset, latOffset),
 					mPaint);

@@ -47,15 +47,15 @@ public class MapTileCache implements MapViewConstants{
 	// ===========================================================
 	
 	public synchronized Bitmap getMapTile(final MapTile aTile) {
-		return mCachedTiles.get(aTile.toString());
+		return mCachedTiles.get(aTile.toId());
 	}
 
 	public synchronized boolean putTile(final MapTile aTile, final Bitmap aImage, final long owner) throws StorageException {
-		return mCachedTiles.put(aTile.toString(), aImage, true, owner) != null;
+		return mCachedTiles.put(aTile.toId(), aImage, true, owner) != null;
 	}
 	
 	public synchronized boolean putTile(final MapTile aTile, final Bitmap aImage, final boolean recycleable, final long owner) throws StorageException {
-		return mCachedTiles.put(aTile.toString(), aImage, recycleable, owner) != null;
+		return mCachedTiles.put(aTile.toId(), aImage, recycleable, owner) != null;
 	}
 
 	// ===========================================================
@@ -88,7 +88,7 @@ public class MapTileCache implements MapViewConstants{
 	 * @return true if the tile is in the cache.
 	 */
 	public boolean containsTile(final MapTile aTile) {
-		return mCachedTiles.containsKey(aTile.toString());
+		return mCachedTiles.containsKey(aTile.toId());
 	}
 	
 	/**
