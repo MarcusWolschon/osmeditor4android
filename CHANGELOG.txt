@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1250: Performance improvements, workaround bing reporting wrong max zooms.
+
 1249: Moved most messages to snackbars, persist last chosen directory in the file selectors, improve visibility of crosshairs, lots of refactoring.
 
 1247: Support for 'deprecated' and 'javascript' properties in presets, basic scripting support, fix another regression in multi-select value splitting, improve element description. 
