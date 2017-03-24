@@ -8597,9 +8597,9 @@
             <key key="shop" value="hairdresser" />
             <reference ref="name_oh_wheelchair_level" />
 			<checkgroup columns="3">
-				<check key="female" text="Female" />
-				<check key="male" text="Male" />
-				<check key="unisex" text="Unisex" />
+				<check key="female" text="Female" disable_off="true" />
+				<check key="male" text="Male" disable_off="true" />
+				<check key="unisex" text="Unisex" disable_off="true" />
 			</checkgroup>
             <reference ref="link_contact_address_payment" />
         </item> <!-- Hairdresser/Barber -->
