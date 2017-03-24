@@ -52,6 +52,7 @@ public class MapTileProvider implements ServiceConnection,
 	/**
 	 * place holder if tile not available
 	 */
+	Object staticTilesLock = new Object();
 	private static Bitmap mLoadingMapTile;
 	private static Bitmap mNoTilesTile;
 
@@ -78,14 +79,16 @@ public class MapTileProvider implements ServiceConnection,
 			final Handler aDownloadFinishedListener) {
 		mCtx = ctx;
 		Resources r = ctx.getResources();
-		if (mNoTilesTile == null) {
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inPreferredConfig =  Bitmap.Config.RGB_565;
-			mNoTilesTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles, options);
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-				Log.d(DEBUG_TAG,"Notiles tile uses " + mNoTilesTile.getByteCount());
+		synchronized(staticTilesLock) {
+			if (mNoTilesTile == null) {
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inPreferredConfig =  Bitmap.Config.RGB_565;
+				mNoTilesTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles, options);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+					Log.d(DEBUG_TAG,"Notiles tile uses " + mNoTilesTile.getByteCount());
+				}
+				// mLoadingMapTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles);
 			}
-			// mLoadingMapTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles);
 		}
 		mTileCache = new MapTileCache();
 		

@@ -2293,9 +2293,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		oAuthWebView.requestFocus(View.FOCUS_DOWN);
 		class MyWebViewClient extends WebViewClient {
-			final int LOADS = 2;
-			int times = 0; // counter to avoid redisplaying dialog after first complete load
-			
+			Object progressLock = new Object();
+			boolean progressShown = false;
+			Runnable dismiss = new Runnable() {
+				@Override
+				public void run() {
+					Progress.dismissDialog(Main.this, Progress.PROGRESS_OAUTH);		
+				}
+    		};
 		    @Override
 		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
 		    	if (!url.contains("vespucci")) {
@@ -2311,16 +2316,21 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		    @Override
 		    public void onPageStarted(WebView view, String url, Bitmap favicon){
-		    	if (times < LOADS) {
-		    		Progress.showDialog(Main.this, Progress.PROGRESS_OAUTH);
+		    	synchronized(progressLock) {
+		    		if (!progressShown) {
+		    			progressShown = true;
+		    			Progress.showDialog(Main.this, Progress.PROGRESS_OAUTH);
+		    		}
 		    	}
 		    }
 		    
 		    @Override
 		    public void onPageFinished(WebView view, String url){
-		    	if (times < LOADS) {
-		    		times++;
-		    		Progress.dismissDialog(Main.this, Progress.PROGRESS_OAUTH);
+		    	synchronized(progressLock) {
+		    		if (progressShown) {
+		    			oAuthWebView.removeCallbacks(dismiss);
+		    			oAuthWebView.postDelayed(dismiss, 500);		    		
+		    		}
 		    	}
 		    }
 		}
@@ -2330,26 +2340,28 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 	
 	/**
-	 * removes the webview
+	 * Remove the OAuth webview
 	 */
 	public void finishOAuth() {
 		Log.d(DEBUG_TAG,"finishOAuth");
-		mapLayout.removeView(oAuthWebView);
-		showControls();
-		try {
-			// the below loadUrl, even though the "official" way to do it,
-			// seems to be prone to crash on some devices.
-			oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
-			oAuthWebView.setVisibility(View.GONE);
-			oAuthWebView.removeAllViews();
-			oAuthWebView.destroy();
-			oAuthWebView = null; 
-			if (restart != null) {
-				restart.onSuccess();
+		if (oAuthWebView != null) {
+			mapLayout.removeView(oAuthWebView);
+			showControls();
+			try {
+				// the below loadUrl, even though the "official" way to do it,
+				// seems to be prone to crash on some devices.
+				oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
+				oAuthWebView.setVisibility(View.GONE);
+				oAuthWebView.removeAllViews();
+				oAuthWebView.destroy();
+				oAuthWebView = null; 
+				if (restart != null) {
+					restart.onSuccess();
+				}
+			} catch (Exception ex) { 
+				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+				ACRA.getErrorReporter().handleException(ex);
 			}
-		} catch (Exception ex) { 
-			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-			ACRA.getErrorReporter().handleException(ex);
 		}
 	}
 

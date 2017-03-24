@@ -24,7 +24,7 @@ import de.blau.android.exception.StorageException;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  *
  */
-public class LRUMapTileCache implements Serializable {
+public class LRUMapTileCache {
 
 	private static final String DEBUG_TAG = "LRUMapTileCache";
 
@@ -32,7 +32,6 @@ public class LRUMapTileCache implements Serializable {
 	// Constants
 	// ===========================================================
 	
-	private static final long serialVersionUID = 3345124753192560745L;
 
 	// ===========================================================
 	// Fields
@@ -47,8 +46,7 @@ public class LRUMapTileCache implements Serializable {
 	/** LRU list. */
 	private final LinkedList<CacheElement> list;
 	private final ArrayList<CacheElement> reuseList;
-	private class CacheElement implements Serializable {
-		private static final long serialVersionUID = 2;
+	private class CacheElement {
 		boolean recycleable = true;
 		String key;
 		Bitmap bitmap;

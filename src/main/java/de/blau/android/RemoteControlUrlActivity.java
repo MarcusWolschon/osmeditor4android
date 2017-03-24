@@ -76,13 +76,13 @@ public class RemoteControlUrlActivity extends Activity {
 							intent = null;
 						}
 					}
-
-					String select = data.getQueryParameter("select");
-					if (rcData.load() && select != null) {
-						rcData.setSelect(select);
+					if (intent != null) { 
+						String select = data.getQueryParameter("select");
+						if (rcData.load() && select != null) {
+							rcData.setSelect(select);
+						}
+						intent.putExtra(RCDATA, rcData);
 					}
-					intent.putExtra(RCDATA, rcData);
-
 				} catch (OsmException e) {
 					Log.d(DEBUG_TAG,"OsmException ", e);
 					intent = null;
