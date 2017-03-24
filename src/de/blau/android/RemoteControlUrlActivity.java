@@ -31,6 +31,7 @@ public class RemoteControlUrlActivity extends Activity {
 		if (data == null) {
 			Log.d(DEBUG_TAG,"Called with null data, aborting");
 			finish();
+			return;
 		}
 		Log.d(DEBUG_TAG,data.toString());
 	    Intent intent = new Intent(this, Main.class);
