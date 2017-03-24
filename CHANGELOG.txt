@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1253: Make original tags available to scripts in presets, updated presets and translations, correctness fixes, bump android version number.
+
 1250: Performance improvements, workaround bing reporting wrong max zooms.
 
 1249: Moved most messages to snackbars, persist last chosen directory in the file selectors, improve visibility of crosshairs, lots of refactoring.
