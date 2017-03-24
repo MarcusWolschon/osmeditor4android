@@ -19,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.prefs.URLListEditActivity.ListEditItem;
@@ -232,10 +233,9 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			@Override
 			protected void onPostExecute(Boolean success) {
 				Log.d(DEBUG_TAG, "oAuthHandshake onPostExecute");
-				// FIXME this is fundamentally broken and needs to be re-thought
-				if (App.mainActivity != null) {
-					App.mainActivity.finishOAuth();
-				}
+		        Intent intent = new Intent(VespucciURLActivity.this, Main.class);
+		        intent.setAction(Main.ACTION_FINISH_OAUTH);
+		        startActivity(intent);
 			}
 			
 			OAuthException getException() {

@@ -62,11 +62,10 @@ public class DebugInformation extends AppCompatActivity {
 		builder.append(getString(R.string.app_name_version) + eol);
 		builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + eol);
 		builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + eol);
-		Main main = App.mainActivity;
-		if (main != null) {
-			List<MapViewOverlay> overlays = main.getMap().mOverlays;
-			synchronized(overlays) {
-				for (MapViewOverlay ov:overlays) {
+		Map map = App.getLogic().getMap();
+		if (map != null) {
+			synchronized(map.mOverlays) {
+				for (MapViewOverlay ov:map.mOverlays) {
 					if (ov instanceof MapTilesOverlay || ov instanceof MapOverlayTilesOverlay) {
 						builder.append("Tile Cache " + ((MapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((MapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + eol);
 					}

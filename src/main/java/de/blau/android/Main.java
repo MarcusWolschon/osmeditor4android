@@ -186,6 +186,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	
 	private static final double DEFAULT_BOUNDING_BOX_RADIUS = 4000000.0D;
 
+	public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
+	
     /**
      * Alpha value for floating action buttons workaround
      * We should probably find a better place for this
@@ -418,7 +420,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		
 		super.onCreate(savedInstanceState);
-		App.mainActivity = this;
 		
 		sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager != null) {
@@ -636,6 +637,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 		Log.d(DEBUG_TAG, "onNewIntent storage dirty " + App.getDelegator().isDirty());
+		if (ACTION_FINISH_OAUTH.equals(intent.getAction())) {
+			Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
+			finishOAuth();
+			return;
+		}
 		setIntent(intent);
 		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
 		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
