@@ -48,6 +48,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -541,8 +542,12 @@ public class Logic {
 	 */
 	private void createCheckpoint(@Nullable Activity activity, int stringId) {
 		Resources r = activity != null ? activity.getResources() : App.resources();
+		boolean firstCheckpoint = !getDelegator().getUndo().canUndo();
 		getDelegator().getUndo().createCheckpoint(r.getString(stringId));
 		getDelegator().recordImagery(map);
+		if (firstCheckpoint && activity instanceof AppCompatActivity) {
+			((AppCompatActivity)activity).supportInvalidateOptionsMenu();
+		}
 	}
 	
 	/**
@@ -2436,7 +2441,6 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				UndoStorage.updateIcon();
 			}
 		}.execute();
 	}

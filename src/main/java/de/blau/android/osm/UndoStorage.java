@@ -73,14 +73,6 @@ public class UndoStorage implements Serializable {
 	public void setCurrentStorage(Storage currentStorage) {
 		this.currentStorage = currentStorage;
 	}
-	
-	/**
-	 * Updates the "undo" icon visibility by invalidating the menu.
-	 * Avoid calling this off the main thread, or bad things may happen to your menu.
-	 */
-	public static void updateIcon() {
-		Main.triggerMenuInvalidationStatic();
-	}
 
 	/**
 	 * Call to create a new checkpoint. When the user performs an undo operation, 
@@ -103,7 +95,6 @@ public class UndoStorage implements Serializable {
 		while (undoCheckpoints.size() > 100) {
 			undoCheckpoints.removeFirst();
 		}
-		updateIcon();
 	}
 	
 	/**
@@ -149,7 +140,6 @@ public class UndoStorage implements Serializable {
 		Checkpoint redoPoint = new Checkpoint(name);
 		undoCheckpoints.removeLast().restore(redoPoint);
 		redoCheckpoints.add(redoPoint);
-		updateIcon();
 		return name;
 	}
 	
@@ -168,7 +158,6 @@ public class UndoStorage implements Serializable {
 		Checkpoint reundoPoint = new Checkpoint(name);
 		redoCheckpoints.removeLast().restore(reundoPoint);
 		undoCheckpoints.add(reundoPoint);
-		updateIcon();
 		return name;
 	}
 	

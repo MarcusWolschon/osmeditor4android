@@ -44,6 +44,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.App;
@@ -159,10 +160,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * which invokes {@link #startTrackingInternal()}, which does the actual work.
 	 * To start tracking, bind the service, then call this.
 	 */
-	public void startTracking() {
+	public void startTracking(AppCompatActivity activity) {
 		Intent intent = new Intent(this, TrackerService.class);
 		intent.putExtra(TRACK,true);
 		startService(intent);
+		activity.supportInvalidateOptionsMenu();
 	}
 	
 	/**
@@ -170,10 +172,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * which invokes {@link #startTrackingInternal()}, which does the actual work.
 	 * To start tracking, bind the service, then call this.
 	 */
-	public void startAutoDownload() {
+	public void startAutoDownload(AppCompatActivity activity) {
 		Intent intent = new Intent(this, TrackerService.class);
 		intent.putExtra(AUTODOWNLOAD,true);
 		startService(intent);
+		activity.supportInvalidateOptionsMenu();
 	}
 	
 	/**
@@ -181,10 +184,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * which invokes {@link #startTrackingInternal()}, which does the actual work.
 	 * To start tracking, bind the service, then call this.
 	 */
-	public void startBugAutoDownload() {
+	public void startBugAutoDownload(AppCompatActivity activity) {
 		Intent intent = new Intent(this, TrackerService.class);
 		intent.putExtra(BUGAUTODOWNLOAD,true);
 		startService(intent);
+		activity.supportInvalidateOptionsMenu();
 	}
 	
 	/**
@@ -200,11 +204,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		startInternal();
 		tracking = true;
 		track.markNewSegment();
-		try {
-			App.mainActivity.triggerMenuInvalidation();
-		} catch (Exception e) {
-			Log.e(TAG,"startTrackingInternal triggerMenuInvalidation failed " + e);
-		} 
 		updateGPSState();
 	}
 	
@@ -217,11 +216,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		if (downloading) return;
 		startInternal();
 		downloading = true;
-		try {
-			App.mainActivity.triggerMenuInvalidation();
-		} catch (Exception e) {
-			Log.e(TAG,"startAutoDownloadInternal triggerMenuInvalidation failed " + e);
-		} 	
 		updateGPSState();
 	}
 	
@@ -234,11 +228,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		if (downloadingBugs) return;
 		startInternal();
 		downloadingBugs = true;
-		try {
-			App.mainActivity.triggerMenuInvalidation();
-		} catch (Exception e) {
-			Log.e(TAG,"startBugAutoDownloadInternal triggerMenuInvalidation failed " + e);
-		} 
 		updateGPSState();
 	}
 	

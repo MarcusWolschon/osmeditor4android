@@ -1417,9 +1417,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		case R.id.menu_gps_start:
 			if (getTracker() != null && ensureGPSProviderEnabled()) {
-				getTracker().startTracking();
+				getTracker().startTracking(this);
 				setFollowGPS(true);
-				triggerMenuInvalidation();
 			}
 			return true;
 
@@ -1746,7 +1745,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Log.d(DEBUG_TAG, "autoDownload");
 		if (getTracker() != null && ensureGPSProviderEnabled()) {
 			if (autoDownload()) {
-				getTracker().startAutoDownload();
+				getTracker().startAutoDownload(this);
 			} else {
 				getTracker().stopAutoDownload();
 			}
@@ -1762,7 +1761,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Log.d(DEBUG_TAG, "bugAutoDownload");
 		if (getTracker() != null && ensureGPSProviderEnabled()) {
 			if (bugAutoDownload()) {
-				getTracker().startBugAutoDownload();
+				getTracker().startBugAutoDownload(this);
 			} else {
 				getTracker().stopBugAutoDownload();
 			}
@@ -3155,7 +3154,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	
 	/**
 	 * Simply calls {@link #invalidateOptionsMenu()}.
-	 * Used to make it easier to implement workarounds.
 	 * MUST BE CALLED FROM THE MAIN/UI THREAD!
 	 */
 	public void triggerMenuInvalidation() {
@@ -3163,18 +3161,6 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		super.supportInvalidateOptionsMenu(); // TODO delay or make conditional to work around android bug?
 	}
 	
-	/**
-	 * FIXME this is legacy code and should be removed, currently only called from UndoStorage.updateIcon()
-	 * Invalidates the options menu of the main activity if such an activity exists.
-	 * MUST BE CALLED FROM THE MAIN/UI THREAD!
-	 */
-	public static void triggerMenuInvalidationStatic() {
-		if (App.mainActivity == null) return;
-		// DO NOT IGNORE "wrong thread" EXCEPTIONS FROM THIS.
-		// It *will* mess up your menu in many creative ways.
-		App.mainActivity.triggerMenuInvalidation();
-	}
-
 	/**
 	 * @return the backgroundAlignmentActionModeCallback
 	 */

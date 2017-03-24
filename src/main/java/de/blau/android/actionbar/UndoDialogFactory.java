@@ -50,6 +50,7 @@ public class UndoDialogFactory {
 				}
 				dialog.dismiss();
 				main.invalidateMap();
+				main.supportInvalidateOptionsMenu();
 			}
 		});
 		dialog.show();
