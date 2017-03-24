@@ -343,7 +343,10 @@ public class TileLayerServer {
 						zoomLevelMin = Integer.parseInt(parser.getText().trim());
 					}
 					if ("ZoomMax".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-						zoomLevelMax = Integer.parseInt(parser.getText().trim());
+						// workaround for bing
+						if (!metadataUrl.contains("virtualearth")) {
+							zoomLevelMax = Integer.parseInt(parser.getText().trim());
+						}
 					}
 					if ("ImageryProvider".equals(tagName)) {
 						try {
