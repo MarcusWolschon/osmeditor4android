@@ -32,6 +32,7 @@ import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.OptimalStringAlignment;
 import de.blau.android.util.SearchIndexUtils;
+import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 
@@ -64,25 +65,25 @@ public class Commands {
 		final Logic logic = App.getLogic();
 		// try to find a command it simply stops at the first string that is valid
 		for (String v:matches) {
-			Toast.makeText(main,">"+v+"<", Toast.LENGTH_LONG).show();
+			Snack.toastTopInfo(main,">"+v+"<");
 			String[] words = v.split("\\s+", 3);
 			if (words.length > 1) {
 				String loc = words[0].toLowerCase(Locale.getDefault()); 
 				if (match(R.string.voice_left,loc) || match(R.string.voice_here,loc) || match(R.string.voice_right,loc) || match(R.string.voice_note,loc) ) {
 					if (match(R.string.voice_note,loc)) {
 						Note n = createNote(words, location);
-						Toast.makeText(main,"Note: " + n.getDescription(), Toast.LENGTH_LONG).show();
+						Snack.toastTopInfo(main,"Note: " + n.getDescription());
 						return;
 					}
 					if (!match(R.string.voice_here,loc)) {
-						Toast.makeText(main,"Sorry currently only the command \"" + main.getString(R.string.voice_here) + "\" is supported", Toast.LENGTH_LONG).show();
+						Snack.toastTopWarning(main,"Sorry currently only the command \"" + main.getString(R.string.voice_here) + "\" is supported");
 					} 
 					// 
 					String first = words[1].toLowerCase(Locale.getDefault());
 					try {
 						int number = Integer.parseInt(first);
 						// worked if there is a further word(s) simply add it/them
-						Toast.makeText(main,loc + " "+ number  + (words.length == 3?words[2]:""), Toast.LENGTH_LONG).show();
+						Snack.toastTopInfo(main,loc + " "+ number  + (words.length == 3?words[2]:""));
 						Node node = createNode(loc,location);
 						if (node != null) {
 							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
@@ -102,7 +103,7 @@ public class Commands {
 						// ok wasn't a number
 					} catch (OsmIllegalOperationException e) {
 						Log.e(DEBUG_TAG,e.getMessage());
-						Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+						Snack.toastTopError(main,e.getLocalizedMessage());
 						e.printStackTrace();
 					}
 
@@ -137,7 +138,7 @@ public class Commands {
 					main.setFollowGPS(true);
 					return;
 				} else {
-					Toast.makeText(main,main.getResources().getString(R.string.toast_unknown_voice_command,words[0]), Toast.LENGTH_LONG).show();
+					Snack.toastTopWarning(main,main.getResources().getString(R.string.toast_unknown_voice_command,words[0]));
 				} 
 			}
 		}
@@ -146,7 +147,7 @@ public class Commands {
 
 	private boolean addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
 		if (node != null) {
-			Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
+			Snack.toastTopInfo(main, pi.getName()  + (name != null? " name: " + name:""));
 			if (node != null) {
 				try {
 					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
@@ -161,7 +162,7 @@ public class Commands {
 					return true;
 				} catch (OsmIllegalOperationException e) {
 					Log.e(DEBUG_TAG,e.getMessage());
-					Toast.makeText(main,e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+					Snack.toastTopError(main,e.getLocalizedMessage());
 				}
 			}
 		}

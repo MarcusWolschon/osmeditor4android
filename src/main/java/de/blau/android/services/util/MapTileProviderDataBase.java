@@ -20,6 +20,7 @@ import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.R;
 import de.blau.android.services.exceptions.EmptyCacheException;
+import de.blau.android.util.Snack;
 import de.blau.android.views.util.MapViewConstants;
 
 /**
@@ -167,7 +168,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 					if (e instanceof SQLiteFullException) {
 						// database/disk is full
 						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Tile database full");
-						Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();
+						Snack.toastTopError(mCtx,R.string.toast_tile_database_full);
 						throw new SQLiteFullException(e.getMessage());
 					} else if (e instanceof SQLiteDiskIOException) {
 						throw new SQLiteDiskIOException(e.getMessage());
@@ -206,7 +207,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 							} else if (e instanceof SQLiteFullException) {
 								// database/disk is full
 								Log.e(MapTileFilesystemProvider.DEBUGTAG, "Tile database full");
-								Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();
+								Snack.toastTopError(mCtx,R.string.toast_tile_database_full);
 								throw new SQLiteFullException(e.getMessage());
 							} else if (e instanceof SQLiteDiskIOException) {
 								throw new SQLiteDiskIOException(e.getMessage());
@@ -350,7 +351,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 						Log.e(MapTileFilesystemProvider.DEBUGTAG, "NPE in deleteOldest " + e);
 					} else if (e instanceof SQLiteFullException) {
 						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Exception in deleteOldest " + e);
-						Toast.makeText(mCtx,R.string.toast_tile_database_full, Toast.LENGTH_LONG).show();		
+						Snack.toastTopError(mCtx,R.string.toast_tile_database_full);		
 					} else if (e instanceof SQLiteDiskIOException) {
 						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Exception in deleteOldest " + e);
 					} else {

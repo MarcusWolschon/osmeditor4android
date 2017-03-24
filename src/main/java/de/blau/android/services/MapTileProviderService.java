@@ -22,6 +22,7 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.services.util.MapTileProviderDataBase;
+import de.blau.android.util.Snack;
 
 /**
  * The OpenStreetMapTileProviderService can download map tiles from a server and
@@ -111,10 +112,10 @@ public class MapTileProviderService extends Service {
 				ACRA.getErrorReporter().handleException(slex);
 			}
 		} else {
-			Toast.makeText(this, R.string.toast_no_suitable_storage, Toast.LENGTH_LONG).show();
+			Snack.toastTopError(this, R.string.toast_no_suitable_storage);
 			return;
 		}
-		Toast.makeText(this, getString(R.string.toast_storage_error, mountPoint), Toast.LENGTH_LONG).show();
+		Snack.toastTopError(this, getString(R.string.toast_storage_error, mountPoint));
 		// FIXME potentially we should set both background and overlay
 		// preferences to NONE here or simply zap what we are currently are
 		// using.

@@ -23,6 +23,7 @@ import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.util.OAuthHelper;
+import de.blau.android.util.Snack;
 import oauth.signpost.exception.OAuthException;
 
 /**
@@ -121,7 +122,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 				errorMessage = getString(R.string.toast_oauth_timeout);
 			}
 	    	if (errorMessage != null) {
-	    		Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+	    		Snack.toastTopError(this, errorMessage);
 	    	}
 	    	setResult(RESULT_OK);
 	    	finish();

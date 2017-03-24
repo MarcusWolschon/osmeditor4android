@@ -446,10 +446,30 @@ public class Snack {
 	/**
 	 * Display an error toast underneath the top action bar
 	 * @param activity activity that called this
+	 * @param msgRes the message resource to display
+	 */
+	public static void toastTopError(Context context, int msgRes) {
+		toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red),Toast.LENGTH_LONG);
+	}
+	
+	/**
+	 * Display an error toast underneath the top action bar
+	 * @param activity activity that called this
 	 * @param msg the message to display
 	 */
 	public static void toastTopError(Context context, String msg) {
 		toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red),Toast.LENGTH_LONG);
+	}
+	
+	/**
+	 * Display a toast underneath the top action bar
+	 * @param activity activity that called this
+	 * @param msgRes the message resource to display
+	 * @param color background color of the message
+	 * @param duration how long to display the message
+	 */
+	private static void toastTop(Context context, int msgRes, int color, int duration) {
+		toastTop(context, context.getResources().getString(msgRes), color, duration);
 	}
 	
 	/**

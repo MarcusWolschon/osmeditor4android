@@ -423,7 +423,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	                        	onLocationChanged(l);
 	                        	break;
 	                        case CONNECTION_FAILED:
-	                        	Toast.makeText(App.mainActivity, (String)inputMessage.obj, Toast.LENGTH_LONG).show();
+	                        	Snack.toastTopError(TrackerService.this, (String)inputMessage.obj);
 	                        	break;
 	                    }
 	                }
@@ -457,15 +457,15 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 				// note there is no way we can ask for permission here so we do that in the main
 				// activity before actually creating this service
 				Log.e(TAG, "Failed to enable GPS", sex);
-				Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_LONG).show();	
+				Snack.toastTopError(this, R.string.gps_failure);	
 			} 
 			catch (IllegalArgumentException iaex) {
 				Log.e(TAG, "Failed to enable GPS", iaex);
-				Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_LONG).show();	
+				Snack.toastTopError(this, R.string.gps_failure);	
 			} 
 			catch (RuntimeException rex) {
 				Log.e(TAG, "Failed to enable GPS", rex);
-				Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_LONG).show();				
+				Snack.toastTopError(this, R.string.gps_failure);				
 			}
 		} else if (!needed && gpsEnabled) {
 			Log.d(TAG, "Disabling GPS updates");
