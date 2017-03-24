@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>건물번호 (addr:housenumber)</item>
+    <item>도로명 (addr:street)</item>
+    <item>우편 번호 (addr:postcode)</item>
+    <item>시/정/촌/..  (addr:city)</item>
+    <item>국가 (addr:country)</item>
+    <item>전체 주소 (addr:full)</item>
+    <item>장소 (addr:place)</item>
+    <item>작은 마을 (addr:hamlet)</item>
+    <item>교외 (addr:suburb)</item>
+    <item>하위 지구 (addr:subdistrict)</item>
+    <item>지구 (addr:district)</item>
+    <item>도 (addr:province)</item>
+    <item>주 (addr:state)</item>
+    <item>층 (addr:flats)</item>
+    <item>문 (addr:door)</item>
+    <item>단위 (addr:unit)</item>
+  </string-array>
+</resources>

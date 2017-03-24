@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2016-11-29 18:17+0100\n"
-"PO-Revision-Date: 2017-02-22 19:24+0000\n"
+"PO-Revision-Date: 2017-03-21 10:29+0000\n"
 "Last-Translator: Erik Lindahl\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -5422,7 +5422,7 @@ msgstr "Dam"
 
 #: master_preset.xml:430(combo:text|key:canoe)
 msgid "Canoe"
-msgstr ""
+msgstr "Kanot"
 
 #: master_preset.xml:11253(item:name|group:Offices|preset:Camping)
 msgid "Camping"
@@ -5819,7 +5819,7 @@ msgstr "Vattenväg"
 #: master_preset.xml:1885(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 #: master_preset.xml:1793(combo:display_values|group:Barriers|preset:Bollard|key:material)
 msgid "Wood"
-msgstr ""
+msgstr "trä"
 
 #: master_preset.xml:10134(role:text|group:Relations|preset:Boundary|key:subarea)
 msgid "Sub area"
@@ -5966,7 +5966,7 @@ msgstr ""
 
 #: master_preset.xml:10198(role:text|group:Relations|preset:Enforcement|key:force)
 msgid "traffic light or barrier that stops you"
-msgstr ""
+msgstr "trafikljus eller barriär som stoppar en"
 
 #: master_preset.xml:11317(item:name|group:Offices|preset:Research)
 msgid "Research"
@@ -8246,7 +8246,7 @@ msgstr ""
 
 #: master_preset.xml:6275(item:name|group:Sport|preset:Archery)
 msgid "Archery"
-msgstr ""
+msgstr "Pilbåge"
 
 #: master_preset.xml:8791(item:name|group:Other|preset:Funeral_Directors)
 msgid "Funeral Directors"
@@ -8493,17 +8493,17 @@ msgstr ""
 #: master_preset.xml:277(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Rooftop"
-msgstr ""
+msgstr "Takplats"
 
 #: master_preset.xml:277(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Multi-storey"
-msgstr ""
+msgstr "Flervånings"
 
 #: master_preset.xml:277(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Underground"
-msgstr ""
+msgstr "Underjordisk"
 
 #: master_preset.xml:277(combo:display_values|key:parking)
 msgctxt "parking"
@@ -8513,12 +8513,12 @@ msgstr "Yta"
 #: master_preset.xml:5932(list_entry:short_description|group:Facilities|preset:Shelter|value:picnic_shelter)
 msgctxt "shelter"
 msgid "Picnic shelter"
-msgstr ""
+msgstr "Picknick skydd"
 
 #: master_preset.xml:5930(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"
 msgid "Basic hut"
-msgstr ""
+msgstr "Hydda"
 
 #: master_preset.xml:5931(list_entry:short_description|group:Facilities|preset:Shelter|value:lean_to)
 msgctxt "shelter"
@@ -8528,7 +8528,7 @@ msgstr ""
 #: master_preset.xml:5934(list_entry:short_description|group:Facilities|preset:Shelter|value:weather_shelter)
 msgctxt "shelter"
 msgid "Weather shelter"
-msgstr ""
+msgstr "Väderskydd"
 
 #: master_preset.xml:5933(list_entry:short_description|group:Facilities|preset:Shelter|value:public_transport)
 msgctxt "shelter"
@@ -8716,7 +8716,7 @@ msgstr ""
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Barn"
-msgstr ""
+msgstr "Lada"
 
 #: master_preset.xml:6695(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9105,7 +9105,7 @@ msgstr "Vatten"
 #: master_preset.xml:9323(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
 msgid "Wood"
-msgstr ""
+msgstr "trä"
 
 #: master_preset.xml:2002(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
@@ -9283,7 +9283,7 @@ msgstr "Skateboard"
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Beach volleyball"
-msgstr ""
+msgstr "Beach Volleyball"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9299,13 +9299,13 @@ msgstr ""
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Roller skating"
-msgstr ""
+msgstr "Rullskridskor"
 
 #: master_preset.xml:6106(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Ice skating"
-msgstr ""
+msgstr "Skridskor"
 
 #: master_preset.xml:6109(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
@@ -9315,7 +9315,7 @@ msgstr "Asfallt"
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Archery"
-msgstr ""
+msgstr "Pilbåge"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9475,7 +9475,7 @@ msgstr ""
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Canoe"
-msgstr ""
+msgstr "Kanot"
 
 #: master_preset.xml:252(combo:display_values|key:sport)
 msgctxt "sport"

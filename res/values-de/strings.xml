@@ -137,7 +137,7 @@
   <string name="toast_photo_indexing_started">Suche nach geo-refenzierte Fotos begonnen</string>
   <string name="toast_photo_indexing_finished">Suche nach geo-refenzierte Fotos beendet</string>
   <string name="toast_download_bbox_failed">Download fehlgeschlagen, wahrscheinlich was das ausgewählte Gebiet zu gross.</string>
-  <string name="toast_download_failed">Downlod ist mit Fehlercode  %1$d fehlgeschlagen, die Meldung war: %2$s</string>
+  <string name="toast_download_failed">Download ist mit Fehlercode  %1$d fehlgeschlagen, die Meldung war: %2$s</string>
   <string name="toast_unsurveyed_road">Strasse nicht überprüft</string>
   <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
   <string name="toast_notype">Relation hat kein type Wert</string>
@@ -207,6 +207,7 @@
   <string name="tag_menu_resetMRU">Vorlagen zurücksetzen</string>
   <string name="tag_menu_reset_address_prediction">Adressvorhersage zurücksetzen</string>
   <string name="tag_menu_exit_no_save">Ohne Speichern\nverlassen</string>
+  <string name="tag_menu_delete_unassociated_tags">Nicht assoziierte Tags löschen</string>
   <string name="tag_menu_top">An den Anfang scrollen</string>
   <string name="tag_menu_bottom">Ans Ende scrollen</string>
   <string name="tag_value_hint">Wert eingeben</string>
@@ -441,8 +442,8 @@
   <string name="config_debugbutton_summary">Interne Zustandsinformation anzeigen</string>
   <string name="config_mapProfile_title">Datenanzeigestil</string>
   <string name="config_mapProfile_summary">Anzeige und sichtbarkeit der Datenelemente </string>
-  <string name="config_use_back_for_undo_title">Zurücktaste für Undo verwenden</string>
-  <string name="config_use_back_for_undo_summary">Zurücktaste in der Hauptansicht für Undo verwenden</string>
+  <string name="config_use_back_for_undo_title">Zurücktaste für \"Rückgängig machen\" verwenden</string>
+  <string name="config_use_back_for_undo_summary">Zurücktaste in der Hauptansicht für \"Rückgängig machen\" verwenden</string>
   <string name="config_largeDragArea_title">Grosser Bereich um Punkte zu bewegen</string>
   <string name="config_largeDragArea_summary">Macht einen grösseren Bereich verfügbar um Punkte zu verschieben</string>
   <string name="config_extTriggeredDownloadRadius_title">Download Radius</string>
@@ -478,9 +479,9 @@
   <string name="config_followGPSbutton_title">Anordnung des GPS-Position Knopfes</string>
   <string name="config_followGPSbutton_summary">Wo das \"GPS-Position folgen\" Knopf angezeigt wird</string>
   <string name="config_fullscreenMode_title">Vollbild Modus</string>
-  <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit \"Bildschrimtasten\"</string>
+  <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit \"Bildschirmtasten\"</string>
   <string name="config_maxInlineValues_title">Max. Anzahl Werte die direkt angezeigt werden</string>
-  <string name="config_maxInlineValues_summary">Max. Anzahl Werte die im EIgenschaftsformular direkt angezeigt werden.</string>
+  <string name="config_maxInlineValues_summary">Max. Anzahl Werte die im Eigenschaftsformular direkt angezeigt werden.</string>
   <string name="config_maxTileDownloadThreads_title">Max. Anzahl von Download Threads</string>
   <string name="config_maxTileDownloadThreads_summary">Max. Anzahl von Threads um Kartenkacheln herunterzuladen.</string>
   <string name="config_notificationCacheSize_title">Max. Anzahl von angezeigeten Hinweisen</string>
@@ -519,6 +520,8 @@
   <string name="default_">Standard</string>
   <string name="api_name">API Namen</string>
   <string name="api_url">API URL</string>
+  <string name="readonly_url">API-Adresse mit Lesezugriff (optional)</string>
+  <string name="notes_url">API-Adresse für Notizen (optional)</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Vorlage</string>
   <string name="api">API</string>
@@ -620,6 +623,11 @@ in %1$d m %2$s</string>
   <string-array name="note_state">
     <item>Offen</item>
     <item>Behoben</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Links</item>
+    <item>Rechts</item>
+    <item>Kein GPS-Position Knopf</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Automatisch</item>

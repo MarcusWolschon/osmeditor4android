@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>없음</item>
+    <item>축척 (미터법)</item>
+    <item>격자 (미터법)</item>
+    <item>축척 (임페리얼)</item>
+    <item>격자 (임페리얼)</item>
+  </string-array>
+</resources>

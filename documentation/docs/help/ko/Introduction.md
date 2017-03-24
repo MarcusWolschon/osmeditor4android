@@ -2,17 +2,17 @@
 
 Vespucci는 데스크탑 편집기가 제공하는 대부분의 작업을 지원하는 완전한 기능의 OpenStreetMap 편집기입니다. 그것은 성공적으로 구글의 안드로이드 버전2.3에서 6.0 및 다양한 AOSP 기반 변종에 테스트되었습니다. 주의해야 할 점은 모바일 장치 기능이 데스크톱 경쟁자를 따라 잡았지만, 특히 구형 장치는 사용 가능한 메모리가 매우 제한되어 있고 느린 경향이 있다는 점입니다. Vespucci를 사용할 때는 이것을 고려해야하며 예를 들어 편집하려는 영역의 크기를 적절한 크기로 유지해야합니다. 
 
-## First time use
+## 첫번째 사용
 
 시작시 Vespucci는 "다른 위치 다운로드"/"지역 불러오기" 대화 상자를 보여줍니다. 좌표가 표시되고 즉시 다운로드하려는 경우 적절한 옵션을 선택하고 다운로드할 위치 주변의 반지름을 설정할 수 있습니다. 느린 장치에서는 넓은 영역을 선택하지 마십시오. 
 
-또는 "지도로 이동"버튼을 눌러 대화 상자를 닫고 편집 할 위치로 이동하여 확대 / 축소 한 다음 데이터를 다운로드 할 수 있습니다 (아래의 "Vespucci로 편집"참조).
+또는 "지도로 가기"버튼을 눌러 대화 상자를 닫고 편집 할 위치로 이동하여 확대 / 축소 한 다음 데이터를 다운로드 할 수 있습니다 (아래의 "Vespucci로 편집하기"참조).
 
-## Editing with Vespucci
+## Vespucci로 편집하기
 
 기기의 화면 크기와 나이에 따라 상단 바의 아이콘, 상단 바 오른쪽의 드롭 다운 메뉴, 하단 바 (있는 경우) 또는 메뉴 키를 통해 편집 작업에 직접 액세스 할 수 있습니다.
 
-### Downloading OSM Data
+### OSM 데이터 다운로드하기
 
 Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
 
@@ -26,7 +26,7 @@ Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transf
 
 The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
-### Editing
+### 편집하기
 
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
 
@@ -36,29 +36,29 @@ It is a good strategy to zoom in if you attempt to edit a high density area.
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
-#### Selecting / De-selecting
+#### 선택하기 / 선택 취소하기
 
 Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
-#### Adding a new Node/Point or Way
+#### 새 노드/점 또는 길 추가하기
 
 Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
 
-#### Moving a Node or Way
+### 노드 또는 길 이동하기
 
 Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
 
-#### Improving Way Geometry
+#### 길 기하적 개선하기
 
 If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
 
-#### Cut, Copy & Paste
+#### 잘라내기, 복사 및 붙여넣기
 
 You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
-#### Efficiently Adding Addresses
+#### 효율적으로 주소 추가하기
 
 Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
 
@@ -70,7 +70,7 @@ House number prediction typically requires at least two house numbers on each si
 
 Consider using this with the "Auto-download" mode.  
 
-#### Adding Turn Restrictions
+#### 회전 제한 추가하기
 
 Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
 
@@ -80,11 +80,11 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type in the tag menu
 
-### Vespucci in "locked" mode
+### "잠금" 모드헤서의 Vespucci
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-### Saving Your Changes
+### 변경사항 저장하기
 
 *(requires network connectivity)*
 
@@ -96,17 +96,17 @@ New Vespucci installs will have OAuth enabled by default. On your first attempt 
 
 If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
 
-#### Resolving conflicts on uploads
+#### 업로드에서 충돌 해결하기
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
-## Using GPS
+## GPS 사용하기
 
 You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
 
 If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
 
-## Notes and Bugs
+## 참고와 버그
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
@@ -114,9 +114,9 @@ On the map the Notes and bugs are represented by a small bug icon ![](../images/
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
-## Customizing Vespucci
+## Vespucci 사용자 지정
 
-### Settings that you might want to change
+### 변경하고자 하는 설정
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
@@ -126,14 +126,14 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
-#### Advanced preferences
+#### 고급 환경 설정
 
 * Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
 * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
-## Reporting Problems
+## 문제 보고하기
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 

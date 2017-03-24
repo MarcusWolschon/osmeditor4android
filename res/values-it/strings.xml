@@ -52,6 +52,8 @@
   <string name="progress_searching_message">Sto cercando...</string>
   <string name="progress_saving_message">Sto salvando...</string>
   <string name="progress_uploading_message">Caricamento in corso...</string>
+  <string name="progress_preset_message">Scaricamento dei predefiniti in corso...</string>
+  <string name="progress_oauth">Caricamento del tuo account da openstreetmap.org per l\'autorizzazione OAuth...</string>
   <string name="upload_comment_label">Commento:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="upload_close_changeset_label">Chiudi il gruppo di modifiche:</string>
@@ -61,12 +63,14 @@
   <string name="openstreetbug_new_title">Nuova nota</string>
   <string name="openstreetbug_new_bug">Segnala problema</string>
   <string name="openstreetbug_bug_title">Problema</string>
-  <string name="openstreetbug_new_nodeway">Crea nodo/via</string>
+  <string name="openstreetbug_new_nodeway">Crea nodo/percorso</string>
   <string name="openstreetbug_edit_title">Modifica nota</string>
   <string name="openstreetbug_commitbutton">Commit</string>
   <string name="openstreetbug_comment_label">Comment:</string>
   <string name="openstreetbug_edit_close">Chiudi</string>
   <string name="openstreetbug_edit_closed">Chiusa</string>
+  <string name="openstreetbug_commit_ok">Modifiche del bug salvate</string>
+  <string name="openstreetbug_commit_fail">Impossibile salvare le modifiche al bug</string>
   <string name="openstreetbug_not_downloaded">non scaricato</string>
   <string name="openstreetbug_last_updated">Ultimo aggiornamento</string>
   <string name="unsaved_data_title">Attenzione!</string>
@@ -85,6 +89,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Questi suggerimento può sostituire i valori delle etichette con quelli più popolari.</string>
   <string name="search_results_title">Cerca risultati</string>
   <string name="find_message">Inserisci il testo di ricerca</string>
+  <string name="preset_search_hint">Testo di ricerca dei predefiniti</string>
   <string name="search">Cerca</string>
   <string name="no_valid_preset">Predefinito non valido!</string>
   <string name="read_file">Seleziona file da leggere</string>
@@ -108,6 +113,7 @@
   <string name="error">errore</string>
   <string name="warning">avviso</string>
   <string name="minor_issue">problema minore</string>
+  <string name="unknown_error_level">livello di errore sconosciuto</string>
   <!--Toaster-->
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
   <string name="toast_unsaved_changes">Hai delle modifiche non salvate, caricale prima di proseguire.</string>
@@ -120,11 +126,14 @@
   <string name="toast_not_in_bug_range">Ingrandisci per aggiungere una segnalazione (Volume Su/Giù o Lente/Interruttore)</string>
   <string name="toast_export_failed">Esportazione fallita</string>
   <string name="toast_export_success">Esportato su %1$s</string>
+  <string name="toast_preset_overwrote_tags">Nota - il predefinito ha sovrascritto una o più etichette</string>
+  <string name="toast_merge_overwrote_tags">Nota - l\'operazione ha sovrascritto una o più etichette</string>
   <string name="toast_oneway_reversed">Hai invertito una via a senso unico o una via con tag dipendenti dalla direzione. Controlla i tag e correggili se necessario.</string>
   <string name="toast_merge_tag_conflict">Hai unito degli oggetti che hanno valori di etichette, semantica dipendente dalla direzione oppure ruoli diversi nella stessa relazione incompatibili. Controlla le etichette e i ruoli e correggili se necessario.</string>
   <string name="toast_potential_merge_tag_conflict">Gli elementi che stai cercando di unire hanno delle etichette non compatibili tra loro. Prima di riprovare, controllale e modifica laddove necessario.</string>
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
-  <string name="toast_too_many_nodes_for_move">Troppi nodi nella via da spostare</string>
+  <string name="toast_too_many_nodes_for_move">Il percorso da spostare contiene troppi nodi</string>
+  <string name="toast_unread_mail">Hai %1$s messaggi nuovi sul server OpenStreetMap</string>
   <string name="toast_photo_indexing_started">È iniziata la ricerca per le foto geo-referenziate</string>
   <string name="toast_photo_indexing_finished">È terminata la ricerca delle foto geo-referenziate</string>
   <string name="toast_download_bbox_failed">Scaricamento fallito, probabilmente perché l\'area selezionata era troppo grande.</string>
@@ -136,6 +145,9 @@
   <string name="toast_oauth">Abilita l\'accesso OAuth del tuo account OSM.</string>
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_oauth_not_enabled">OAuth non è disponibile con le API attuali.</string>
+  <string name="toast_oauth_timeout">Tempo scaduto durante l\'autenticazione, prova di nuovo.</string>
+  <string name="toast_oauth_communication">Errore di comunicazione durante l\'autenticazione, prova di nuovo.</string>
+  <string name="toast_oauth_handshake_failed">connessione OAuth fallita: %1$s</string>
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
@@ -144,13 +156,20 @@
   <string name="toast_outside_of_download">Stai modificando all\'esterno dell\'area scaricata.</string>
   <string name="toast_file_not_found">%1$s non è stato trovato.</string>
   <string name="toast_imported_track_points">È stata importata una traccia con %1$s punti.</string>
+  <string name="toast_unknown_voice_command">Mi dispiace ma al momento \"%1$s\" non è riconosciuto</string>
   <string name="toast_inconsistent_state">È stato rilevato uno stato inconsistente, si prega di segnalare l\'errore!</string>
   <string name="toast_camera_error">Errore durante l\'esecuzione della app per la videocamera: %1$s</string>
   <string name="toast_no_voice">Il riconoscimento vocale non è disponibile</string>
+  <string name="toast_storage_error">Vespucci non può scrivere nella cartella per i tasselli e gli altri filei.\nPotrebbero esserci dei problemi sui permessi o altro nel tuo dispositivo.</string>
   <string name="toast_min_one_preset">Devi selezionare almeno un predefinito!</string>
   <string name="toast_used_backup">Il fle di stato è corrotto, ho usato il file di recupero.</string>
   <string name="toast_used_bug_backup">Il file di stato dei bug è corrotto, ho usato il file di recupero!</string>
   <string name="toast_rmpty_relation">La relazione è vuota, sto creando un rapporto di interruzione improvvisa.</string>
+  <string name="toast_split_from">Percorso \"da\" diviso</string>
+  <string name="toast_split_via">Percorso \"via\" diviso</string>
+  <string name="toast_split_from_and_via">Percorsi \"da\" e \"via\" divisi</string>
+  <string name="toast_split_to">Percorso \"verso\" diviso</string>
+  <string name="toast_tile_database_full">Il database dei tasselli oppure il disco sono pieni!\nEsci, elimina il database oppure libera un po\' di spazio disponibile.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
@@ -163,12 +182,14 @@
   <string name="replace">Sostituisci</string>
   <string name="save">Salva</string>
   <string name="back">Indietro</string>
+  <string name="forward">Avanti</string>
   <string name="keep">Mantieni</string>
   <string name="enable">Abilita</string>
+  <string name="clear">Pulisci</string>
   <string name="retry">Riprova</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vuoi uscire veramente?</string>
-  <string name="exit_text">Sei sicuro che vuoi uscire?</string>
+  <string name="exit_text">Sei sicuro di voler uscire?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">chiave</string>
   <string name="Key">Chiave</string>
@@ -186,15 +207,24 @@
   <string name="tag_menu_resetMRU">Azzera i predefiniti</string>
   <string name="tag_menu_reset_address_prediction">Azzera la predizione degli indirizzi civici</string>
   <string name="tag_menu_exit_no_save">Esci\nsenza salvare</string>
+  <string name="tag_menu_delete_unassociated_tags">Elimina le etichette non associate</string>
+  <string name="tag_menu_top">Scorri in cima</string>
+  <string name="tag_menu_bottom">Scorri in fondo</string>
   <string name="tag_value_hint">Scrivi un valore</string>
   <string name="tag_autocomplete_value_hint">Scrivi o premi per i valori</string>
   <string name="tag_autocomplete_name_hint">Scrivi o premi per dei suggerimenti sul nome</string>
   <string name="tag_multi_value_hint">Valori multipli</string>
   <string name="tag_dialog_value_hint">Premi per i valori</string>
+  <string name="tag_action_tag_title">Etichetta/e selezionata/e</string>
   <string name="tag_action_members_title">Membro/i selezionato/i</string>
   <string name="tag_action_parents_title">Relazione/i selezionata/e</string>
   <string name="tag_additional_properties">Proprietà aggiuntive</string>
   <string name="tag_details">Dettagli</string>
+  <string name="tag_not_set">Nessun valore</string>
+  <string name="tag_menu_move_up">Vai su</string>
+  <string name="tag_menu_move_top">Vai in cima</string>
+  <string name="tag_menu_move_down">Vai giù</string>
+  <string name="tag_menu_move_bottom">Vai in fondo</string>
   <string name="tag_menu_sort">Ordina</string>
   <string name="tag_menu_download">Scarica</string>
   <string name="menu_up">Su</string>
@@ -208,6 +238,7 @@
   <string name="tag_restriction_add_simple_condition">Aggiungi una semplice condizione</string>
   <string name="tag_restriction_add_expression">Aggiungi espressione</string>
   <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
+  <string name="tag_restriction_value_hint">Regola di accesso condizionata</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carica area</string>
   <string name="location_choose_radius">Scegli raggio:</string>
@@ -243,6 +274,12 @@
   <string name="menu_closed_way_split_1">Dividi il percorso chiuso, 1° nodo</string>
   <string name="menu_closed_way_split_2">Dividi il percorso chiuso, 2° nodo</string>
   <string name="menu_append">Aggiungi</string>
+  <string name="menu_restriction">Aggiungi un divieto di svolta</string>
+  <string name="menu_restriction_restart_from">Seleziona di nuovo il segmento \"da\"</string>
+  <string name="menu_restriction_via">Aggiungi un segmento/elemento \"via\"</string>
+  <string name="menu_restriction_restart_via">Seleziona di nuovo un segmento \"via\"</string>
+  <string name="menu_restriction_to">Aggiungi un segmento \"verso\"</string>
+  <string name="menu_restriction_restart_to">Seleziona di nuovo un segmento \"verso\"</string>
   <string name="menu_relation">Crea una relazione</string>
   <string name="menu_add_relation_member">Aggiungi membro</string>
   <string name="menu_select_relation_members">Seleziona membri</string>
@@ -277,6 +314,8 @@
   <string name="menu_transfer_bugs_download_current">Scarica i bugs nelle vista corrente</string>
   <string name="menu_transfer_bugs_upload">Carica tutto</string>
   <string name="menu_transfer_bugs_upload_long">Carica tutti i bug</string>
+  <string name="menu_transfer_bugs_clear">Pulisci</string>
+  <string name="menu_transfer_bugs_clear_long">Cancella i bug</string>
   <string name="menu_transfer_autodownload_long">Scarica automaticamente i bug</string>
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva tutte le note nuove o modificate...</string>
@@ -319,17 +358,18 @@
   <string name="menu_history">Cronologia</string>
   <string name="menu_merge">Unisci</string>
   <string name="menu_reverse">Inverti</string>
-  <string name="notreversable_description">La via è taggata con attributi dipendenti dalla direzione e non può essere invertita. Invertire la via invaliderebbe i tag.</string>
+  <string name="notreversable_description">Il percorso ha delle proprietà che dipendono dalla direzione e non può essere invertita. Invertire il percorso invaliderebbe le etichette.</string>
   <string name="reverse_anyway">Inverti comunque</string>
   <string name="deleteway_description">Stai per eliminare un percorso.\n\nPuoi lasciare tutti i suoi nodi oppure eliminare tutti quelli che appartengono solo a quel percorso e senza etichette.</string>
   <string name="deleteway_relation_description">Stai per cancellare una via membro di una o più relazioni. Cancellare la via dalla/e relazione/i potrebbe renderla/e invalida/e.</string>
   <string name="deleteway_nodesnotdownloaded_description">La strada contiene dei nodi al di fuori dell\'area scaricata e non può essere eliminata senza portare ad uno stato inconsistente. Scarica l\'intera strada prima di riprovare.</string>
-  <string name="deleteway_wayonly">Cancella solo la via</string>
-  <string name="deleteway_wayandnodes">Cancella via e nodi</string>
+  <string name="deleteway_wayonly">Cancella solo il percorso</string>
+  <string name="deleteway_wayandnodes">Cancella il percorso e nodi</string>
   <string name="deletenode_relation_description">Stai per cancellare un nodo membro di una o più relazioni. Cancellare il nodo dalla/e relazione/i potrebbe renderla/e invalida/e.</string>
   <string name="deletenode">Cancella nodo</string>
+  <string name="split_all_ways">Dividi tutti i percorsi</string>
   <!--EasyEdit action mode titles-->
-  <string name="actionmode_wayselect">Via selezionata</string>
+  <string name="actionmode_wayselect">Percorso selezionato</string>
   <string name="actionmode_nodeselect">Nodo selezionato</string>
   <string name="actionmode_relationselect">Relazione selezionata</string>
   <string name="actionmode_createpath">Creazione percorso</string>
@@ -346,7 +386,7 @@
   <string name="config_maxAlertDistance_title">Massima distanza per le notifiche</string>
   <string name="config_maxAlertDistance_summary">La massima distanza alla quale un errore od una nota devono essere dalla posizione corrente per generare una notifica</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
-  <string name="config_maxStrokeWidth_summary">Valore massimo per lo spessore di una via</string>
+  <string name="config_maxStrokeWidth_summary">Valore massimo per lo spessore di un percorso</string>
   <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>
   <string name="config_tileCacheSize_summary">Dimensione totale della cache dei tasselli in MB</string>
   <string name="config_showStats_title">Mostra statistiche</string>
@@ -367,6 +407,8 @@
   <string name="config_backgroundLayer_summary">La mappa mostrata sullo sfondo </string>
   <string name="config_overlayLayer_title">Mappa sovrapposta</string>
   <string name="config_overlayLayer_summary">La mappa mostrata sovrapposta.</string>
+  <string name="config_scale_title">Visibilità della scala grafica</string>
+  <string name="config_scale_summary">Tipo di scala grafica visibile sulla mappa</string>
   <string name="config_category_server">Impostazioni server</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">Puoi impostare una API URL non-standard qui. Di solito non viene modificata!</string>
@@ -379,6 +421,8 @@
   <string name="config_presetbutton_summary">Aggiungi e abilita le preimpostazioni compatibili con JOSM</string>
   <string name="config_iconbutton_title">Mostra icone dei nodi</string>
   <string name="config_iconbutton_summary">Mostra l\'icona del predefinito più appropriato su ciascun nodo.</string>
+  <string name="config_showWayIcons_title">Mostra le icone dei POI sugli edifici</string>
+  <string name="config_showWayIcons_summary">Mostra le icone dei predefiniti più simili sopra gli edifici</string>
   <string name="config_loginbutton_title">Account utente</string>
   <string name="config_username_title">Nome utente OSM</string>
   <string name="config_username_summary">La configurazione è necessaria per caricare dati su OSM solo se non usi OAuth. Puoi creare un account al link http://www.openstreetmap.org/user/new</string>
@@ -396,6 +440,8 @@
 </string>
   <string name="config_licensebutton_title">Autori e licenze</string>
   <string name="config_licensebutton_summary">Mostra informazioni su autori e licenze</string>
+  <string name="config_debugbutton_title">Debug</string>
+  <string name="config_debugbutton_summary">Mostra alcune informazioni interne</string>
   <string name="config_mapProfile_title">Profilo della mappa</string>
   <string name="config_mapProfile_summary">Imposta stile e visibilità degli elementi</string>
   <string name="config_use_back_for_undo_title">Usa il tasto indietro per annullare</string>
@@ -404,6 +450,14 @@
   <string name="config_largeDragArea_summary">Disegna un\'area più grande quando trascini un nodo</string>
   <string name="config_extTriggeredDownloadRadius_title">Scarica nel raggio di</string>
   <string name="config_extTriggeredDownloadRadius_summary">Raggio (in metri) dell\'area da scaricare, 0 = solo il centro della mappa.</string>
+  <string name="config_maxDownloadSpeed_title">Velocità di scaricamento automatico massima</string>
+  <string name="config_maxDownloadSpeed_summary">Limite (in km/h) oltre il quale lo scaricamento automatico viene interrotto</string>
+  <string name="config_bugDownloadRadius_title">Raggio entro il quale scaricare le note e i bug</string>
+  <string name="config_bugDownloadRadius_summary">Raggio (m) per lo scaricamento di note e bug</string>
+  <string name="config_maxBugDownloadSpeed_title">Velocità massima per lo scaricamento automatico di note e bug</string>
+  <string name="config_maxBugDownloadSpeed_summary">Limite (in km/h) otlre il quale lo scaricamento automatico di note e bug viene interrotto</string>
+  <string name="config_bugFilter_title">Filtro per note e bug</string>
+  <string name="config_bugFilter_summary">Seleziona quali elementi mostrare nel livello delle note e bug</string>
   <string name="config_enableNameSuggestions_title">Abilita il suggerimento dei nomi</string>
   <string name="config_enableNameSuggestions_summary">Abilita i suggerimenti dei nomi</string>
   <string name="config_enableAutoPreset_title">Abilita i predefiniti automatici</string>
@@ -414,10 +468,30 @@
   <string name="config_gps_source_summary">La fonte del segnale GPS per la rilevazione della posizione.</string>
   <string name="config_gps_source_tcp_title">Dispositivo della rete NMEA</string>
   <string name="config_gps_source_tcp_summary">Indirizzo della sorgente NMEA TCP nel formato sito:porta</string>
+  <string name="config_leaveGpsDisabled_title">Mantieni il GPS disabilitato</string>
+  <string name="config_leaveGpsDisabled_summary">Non chiedere all\'utente di abilitare il GPS se questo è disabilitato</string>
   <string name="config_enableLightTheme_title">Abilita tema leggero</string>
   <string name="config_enableLightTheme_summary">Tema leggero con sfondi bianchi</string>
   <string name="config_category_misc">Varie</string>
+  <string name="config_address_tags">Etichette degli indirizzi</string>
+  <string name="config_address_tags_summary">Etichette utilizzate per la predizione dell\'indirizzo</string>
+  <string name="config_moreprefs">Altre impostazioni...</string>
+  <string name="config_tagFormEnabled_title">Mostra la scheda delle etichette</string>
+  <string name="config_tagFormEnabled_summary">Mostra la scheda delle etichette durante la modifica</string>
+  <string name="config_followGPSbutton_title">Disposizione del pulsante di inseguimento GPS</string>
+  <string name="config_followGPSbutton_summary">Dove posizionare il pulsante \"insegui GPS\"</string>
   <string name="config_fullscreenMode_title">Modalità schermo intero</string>
+  <string name="config_fullscreenMode_summary">Comportamento con i dispositivi provvisti di tasti \"soft\"</string>
+  <string name="config_maxInlineValues_title">Numero massimo di valori in linea</string>
+  <string name="config_maxInlineValues_summary">Numero massimo di valori in linea mostrati nella scheda delle etichette</string>
+  <string name="config_maxTileDownloadThreads_title">Massimo numero di scaricamenti paralleli</string>
+  <string name="config_maxTileDownloadThreads_summary">Numero massimo di scaricamenti paralleli di tasselli</string>
+  <string name="config_notificationCacheSize_title">Numero massimo di notifiche mostrate</string>
+  <string name="config_notificationCacheSize_summary">Massimo numero di notifiche mostrate per tipo</string>
+  <string name="config_autoLockDelay_title">Intervallo oltre il quale attivare il blocco</string>
+  <string name="config_autoLockDelay_summary">Intevallo di tempo in secondi oltre il quale le modifiche vengono disabilitate, 0 significato disabilitato.</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Offusca sempre le aree non scaricate</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Se selezionato, le aree non scaricate verranno offuscante durante il blocco</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aggiorna predefinito</string>
   <string name="preset_download_successful">Predefiniti scaricati con successo</string>
@@ -448,26 +522,30 @@
   <string name="default_">Predefinito</string>
   <string name="api_name">Nome API</string>
   <string name="api_url">URL dell\'API</string>
+  <string name="readonly_url">Indirizzo delle API in sola lettura (facoltativo)</string>
+  <string name="notes_url">Indirizzo delle API per le note (facoltativo)</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Predefiniti</string>
   <string name="api">API</string>
   <string name="undo">Annulla</string>
   <string name="redo">Rifai</string>
   <string name="undo_nothing">niente da annullare</string>
+  <string name="tracking_active_title">Il servizio in background di Vespucci è attivo</string>
+  <string name="tracking_active_text">Vespucci sta registrando una traccia GPS oppure scaricando in automatico</string>
   <string name="gps_failure">Impossibile abilitare il GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">sposta nodo</string>
-  <string name="undo_action_moveway">sposta via</string>
+  <string name="undo_action_moveway">sposta percorso</string>
   <string name="undo_action_moveobjects">muovi oggetti</string>
   <string name="undo_action_add">inserisci</string>
   <string name="undo_action_append">aggiungi</string>
   <string name="undo_action_deletenode">cancella nodo</string>
-  <string name="undo_action_deleteway">cancella via</string>
+  <string name="undo_action_deleteway">cancella percorso</string>
   <string name="undo_action_delete_objects">rimuovi oggetti</string>
   <string name="undo_action_split_ways">dividi vie</string>
-  <string name="undo_action_split_way">dividi via</string>
+  <string name="undo_action_split_way">dividi percorso</string>
   <string name="undo_action_merge_ways">unisici vie</string>
-  <string name="undo_action_reverse_way">inverti via</string>
+  <string name="undo_action_reverse_way">inverti percorso</string>
   <string name="undo_action_set_tags">imposta tag</string>
   <string name="undo_action_join">unisci</string>
   <string name="undo_action_unjoin_ways">separa vie</string>
@@ -476,12 +554,14 @@
   <string name="undo_action_update_relations">aggiorna relazioni</string>
   <string name="undo_action_cut">taglia</string>
   <string name="undo_action_paste">incolla</string>
-  <string name="undo_action_rotateway">ruota via</string>
-  <string name="undo_action_orthogonalize">Ortogonalizza la via</string>
+  <string name="undo_action_rotateway">ruota percorso</string>
+  <string name="undo_action_orthogonalize">Ortogonalizza il percorso</string>
   <string name="undo_action_circulize">disponi in cerchio</string>
   <string name="undo_action_fix_conflict">Risolvi il conflitto</string>
   <string name="undo_action_extract_node">estrai nodo</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Vespucci si è interrotto improvvisamente o ha avuto un problema grave durante l\'ultima esecuzione\nAiutaci inviando un rapporto di errore, devi solo premere \'OK\'.\n</string>
+  <string name="crash_dialog_comment_prompt">Aggiungi ulteriori informazioni utili e (facoltativo) il tuo indirizzo e-mail se vuoi ricevere un riscontro.\n\n\Grazie!</string>
   <string name="config_category_acra">Segnalazione crash</string>
   <string name="pref_enable_acra">Segnala i crash dell\'applicazione</string>
   <string name="pref_acra_enabled">Segnalazione crash abilitata</string>
@@ -491,6 +571,7 @@
   <!--Notifications-->
   <string name="alert_data_issue">È stato individuato un problema con i dati OSM</string>
   <string name="alert_note">Sono state individuate delle annotazioni OSM qua vicino</string>
+  <string name="alert_bug">Sono stati individuati dei bug OSM nei dintorni</string>
   <string name="alert_distance_direction">entro %1$d m %2$s</string>
   <string name="bearing_ne">NE</string>
   <string name="bearing_e">E</string>
@@ -539,5 +620,20 @@
     <item>Aperto</item>
     <item>Chiuso</item>
     <item>Falso positivo</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Aperto</item>
+    <item>Chiuso</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Automatico</item>
+    <item>Mai</item>
+    <item>Obbliga</item>
+    <item>Nessuna barra di stato</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Mai</item>
+    <item>Obbliga</item>
+    <item>Nessuna barra di stato</item>
   </string-array>
 </resources>
