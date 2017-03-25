@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" 
+        android:padding="?attr/dialogPreferredPadding" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -16,7 +16,6 @@
                 android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:text="" />
               
             <Spinner
@@ -25,15 +24,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/openstreetbug_title"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:id="@+id/openstreetbug_comments"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/openstreetbug_title"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="" />
 
@@ -42,8 +39,6 @@
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
 			    android:layout_below="@id/openstreetbug_comments"
-			    android:layout_marginLeft="10dp"
-			    android:layout_marginRight="10dp"
 			    android:layout_marginTop="10dp"
 			    android:orientation="vertical" >
 			</LinearLayout>
@@ -52,16 +47,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/openstreetbug_comments"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
                 android:text="@string/openstreetbug_comment_label" />
             <EditText
                 android:id="@+id/openstreetbug_comment"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/openstreetbug_comment_label"
-                android:layout_alignTop="@id/openstreetbug_comment_label"
-                android:layout_toRightOf="@id/openstreetbug_comment_label"
-                android:inputType="text" />
+                android:layout_below="@id/openstreetbug_comment_label"
+                android:layout_alignParentLeft="true"
+                android:inputType="textMultiLine" />
         </RelativeLayout>
     </ScrollView>
