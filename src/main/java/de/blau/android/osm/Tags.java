@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +10,19 @@ import java.util.List;
  *
  */
 public class Tags {
+	/**
+	 * An array of tags considered 'important' and distinctive enough to be shown as part of
+	 * the elements description.
+	 */
+	public static final ArrayList<String>importantTags;
+	static {
+		// Create the array of important tags. Tags are listed from most important to least.
+		importantTags = new ArrayList<String>(Arrays.asList((
+				"highway,barrier,waterway,railway,aeroway,aerialway,power,"+
+				"man_made,building,leisure,amenity,office,shop,craft,emergency,"+
+				"tourism,historic,landuse,military,natural,boundary"
+		).split(",")));
+	}
 		
 	// Karlsruher schema
 	public static final String KEY_ADDR_BASE = "addr:";
@@ -77,6 +91,8 @@ public class Tags {
 	public static final String VALUE_COASTLINE = "coastline";
 	public static final String KEY_PLACE = "place";
 	
+	public static final String KEY_OPERATOR = "operator";
+	public static final String KEY_BRAND = "brand";
 	
 	public static final String KEY_RAILWAY = "railway";
 	//

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
@@ -908,7 +909,6 @@ public class Preset implements Serializable {
     }
 
 	/**
-	 * 
 	 * Finds the preset item best matching a certain tag set, or null if no preset item matches.
 	 * To match, all (mandatory) tags of the preset item need to be in the tag set.
 	 * The preset item does NOT need to have all tags in the tag set, but the tag set needs
@@ -916,6 +916,8 @@ public class Preset implements Serializable {
 	 * 
 	 * If multiple items match, the most specific one (i.e. having most tags) wins.
 	 * If there is a draw, no guarantees are made.
+	 * 
+	 * @param presets presets to match against
 	 * @param tags tags to check against (i.e. tags of a map element)
 	 * @return null, or the "best" matching item for the given tag set
 	 */
@@ -923,6 +925,23 @@ public class Preset implements Serializable {
     	return findBestMatch(presets, tags, false);
     }
     
+    /**
+     * 	Finds the preset item best matching a certain tag set, or null if no preset item matches.
+	 * To match, all (mandatory) tags of the preset item need to be in the tag set.
+	 * The preset item does NOT need to have all tags in the tag set, but the tag set needs
+	 * to have all (mandatory) tags of the preset item.
+	 * 
+	 * If multiple items match, the most specific one (i.e. having most tags) wins.
+	 * If there is a draw, no guarantees are made.
+	 * 
+	 * @param tags tags to check against (i.e. tags of a map element)
+	 * @return null, or the "best" matching item for the given tag set
+     * 
+     * @param presets presets presets to match against
+     * @param tags
+     * @param useAddressKeys
+     * @return
+     */
     static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags, boolean useAddressKeys) {
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
@@ -939,8 +958,8 @@ public class Preset implements Serializable {
 			for (Preset p:presets) {
 				if (p != null) {
 					for (Entry<String, String> tag : tags.entrySet()) {
-						String kew = tag.getKey();
-						if (!kew.startsWith(Tags.KEY_ADDR_BASE) || reallyUseAddressKeys) {
+						String key = tag.getKey();
+						if (Tags.importantTags.contains(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && reallyUseAddressKeys)) {
 							String tagString = tag.getKey()+"\t";
 							possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
 							possibleMatches.addAll(p.tagItems.get(tagString+tag.getValue()));
@@ -1749,13 +1768,33 @@ public class Preset implements Serializable {
 			return linkedPresetNames;
 		}
 		
-		public List<PresetItem> getLinkedPresets() {
+		/**
+		 * Returns a list of linked preset items
+		 * 
+		 * @param noPrimary if true only itmes will be returned that doen't correspond to primary OSM objects
+		 * @return list of PresetItems
+		 */
+		public List<PresetItem> getLinkedPresets(boolean noPrimary) {
 			ArrayList<PresetItem> result = new ArrayList<PresetItem>();
+			Log.e(DEBUG_TAG,"Linked presets for " + getName());
 			if (linkedPresetNames != null) {
+				linkedLoop:
 				for (String n:linkedPresetNames) {
 					Integer index = getItemIndexByName(n); // FIXME this involves a sequential search
 					if (index != null) {
-						result.add(allItems.get(index.intValue()));
+						PresetItem candidateItem = allItems.get(index.intValue());
+						if (noPrimary) { // remove primary objects
+							Set<String>linkedPresetTags = candidateItem.getFixedTags().keySet();
+							if (linkedPresetTags.size()==0) {
+								linkedPresetTags = candidateItem.getRecommendedTags().keySet();
+							}
+							for (String k:linkedPresetTags) {
+								if (Tags.importantTags.contains(k)) {
+									continue linkedLoop; 
+								}
+							}
+						}
+						result.add(candidateItem);
 					} else {
 						Log.e(DEBUG_TAG,"Couldn't find linked preset " + n);
 					}

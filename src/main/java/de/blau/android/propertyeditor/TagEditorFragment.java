@@ -539,7 +539,7 @@ public class TagEditorFragment extends BaseFragment implements
 	private Map<String, String> addPresetsToTags(PresetItem preset, LinkedHashMap<String, String> tags) {
 		LinkedHashMap<String,String> leftOvers = new LinkedHashMap<String,String>();
 		if (preset!=null) {
-			List<PresetItem> linkedPresetList = preset.getLinkedPresets();
+			List<PresetItem> linkedPresetList = preset.getLinkedPresets(true);
 			for (String key:tags.keySet()) {
 				if ( preset.hasKeyValue(key, tags.get(key))) {
 					storePreset(key, preset);
@@ -2020,5 +2020,10 @@ public class TagEditorFragment extends BaseFragment implements
 			valueEdit.setText(HTTP_PREFIX);
 			valueEdit.setSelection(HTTP_PREFIX.length());
 		}
+	}
+
+	@Override
+	public void applyPreset(PresetItem preset, boolean addOptional) {
+		applyPreset(preset, addOptional, true);
 	}
 }

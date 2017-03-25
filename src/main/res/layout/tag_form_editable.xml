@@ -39,6 +39,15 @@
 			android:text=""
             android:textStyle="bold"
 			android:maxLines="1" />
+	    <ImageButton
+            android:id="@+id/tag_menu_apply_preset"
+    		style="?attr/TableHeader"
+    		android:layout_width="41dp"
+    		android:layout_height="fill_parent"
+    		android:layout_marginBottom="1dp"
+            android:layout_marginRight="1dp"
+    		android:contentDescription="@string/tag_menu_apply_preset"
+    		android:src="?attr/menu_apply_preset" />
         <ImageButton
             android:id="@+id/form_header_copy"
     		style="?attr/TableHeader"

@@ -1151,4 +1151,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		updateSingleValue(key,value);
 		tagsUpdated();
 	}
+
+	@Override
+	public void applyPreset(PresetItem preset, boolean addOptional) {
+		tagEditorFragment.applyPreset(preset, true);	
+	}
 }

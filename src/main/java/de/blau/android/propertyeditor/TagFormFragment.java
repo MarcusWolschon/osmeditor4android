@@ -399,7 +399,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		case R.id.tag_menu_apply_preset:
 			PresetItem pi = tagListener.getBestPreset();
 			if (pi!=null) {
-				((PropertyEditor)getActivity()).onPresetSelected(pi, true);
+				tagListener.applyPreset(pi, true);
+				tagsUpdated();
 			}
 			return true;
 		case R.id.tag_menu_revert:
@@ -574,6 +575,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     	PresetItem mainPreset = tagListener.getBestPreset();
     	editableView.setTitle(mainPreset);
     	editableView.setListeners(tagListener,this);
+    	editableView.applyPresetButton.setVisibility(View.GONE);
     	
     	LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
     	Map<String, String> nonEditable;
@@ -645,7 +647,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		boolean groupingRequired = false;
 		if (preset != null) {
 			// iterate over preset entries so that we maintain ordering
-			List<PresetItem> linkedPresets = preset.getLinkedPresets();
 			LinkedHashMap<String,String> tagList = new LinkedHashMap<String,String>(tags);
 			for (Entry<String,StringWithDescription>e:preset.getFixedTags().entrySet()) {
 				String key = e.getKey();
@@ -676,6 +677,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				}
 			}
 			// process any remaining tags
+			List<PresetItem> linkedPresets = preset.getLinkedPresets(true);
+			// loop over the tags assigning them to the remaining linked presets
 			for (Entry<String,String>e:tagList.entrySet()) {
 				String key = e.getKey();
 				String value = e.getValue();
@@ -685,7 +688,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					groupingRequired = true;
 				}
 				if (!found && linkedPresets != null) { // check if tag is in a linked preset
-					for (PresetItem l:linkedPresets) {
+					for (PresetItem l:linkedPresets) {			
 						if (l.hasKeyValue(key, value)) {
 							linkedTags.put(key, value);
 							editableView.putTag(key, value);
@@ -1931,13 +1934,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	}
 	
 	public static class EditableLayout extends LinearLayout {
-
 		private ImageView headerIconView;
 		private TextView headerTitleView;
 		private LinearLayout rowLayout;
+		private ImageButton applyPresetButton;
 		private ImageButton copyButton;
 		private ImageButton cutButton;
 		private ImageButton deleteButton;
+		private PresetItem preset;
 		private LinkedHashMap<String,String> tags = new LinkedHashMap<String,String>();
 		
 		public  EditableLayout(Context context) {
@@ -1956,6 +1960,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			headerIconView = (ImageView)findViewById(R.id.form_header_icon_view);
 			headerTitleView = (TextView)findViewById(R.id.form_header_title);
 			rowLayout = (LinearLayout) findViewById(R.id.form_editable_row_layout);
+			applyPresetButton = (ImageButton) findViewById(R.id.tag_menu_apply_preset);
 			copyButton = (ImageButton) findViewById(R.id.form_header_copy);
 			cutButton = (ImageButton) findViewById(R.id.form_header_cut);
 			deleteButton = (ImageButton) findViewById(R.id.form_header_delete);
@@ -1967,6 +1972,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		 */
 		public void setListeners(final EditorUpdate editorListener, final FormUpdate formListener) {
 			Log.d(DEBUG_TAG, "setting listeners");
+			applyPresetButton.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					editorListener.applyPreset(preset, true);
+					formListener.tagsUpdated();	
+				}});
 			copyButton.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
@@ -2023,6 +2034,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
 			if (preset != null) {
 				Drawable icon = preset.getIcon();
+				this.preset = preset;
 				if (icon != null) {
 					headerIconView.setVisibility(View.VISIBLE);
 					//NOTE directly using the icon seems to trash it, so make a copy
@@ -2031,11 +2043,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					headerIconView.setVisibility(View.GONE);
 				}
 				headerTitleView.setText(preset.getTranslatedName());
+				applyPresetButton.setVisibility(View.VISIBLE);
 				copyButton.setVisibility(View.VISIBLE);
 				cutButton.setVisibility(View.VISIBLE);
 				deleteButton.setVisibility(View.VISIBLE);
 			} else {
 				headerTitleView.setText(R.string.tag_form_unknown_element);
+				applyPresetButton.setVisibility(View.GONE);
 				copyButton.setVisibility(View.GONE);
 				cutButton.setVisibility(View.GONE);
 				deleteButton.setVisibility(View.GONE);

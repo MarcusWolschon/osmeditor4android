@@ -29,12 +29,6 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * 
 	 */
 	private static final long serialVersionUID = 7711945069147743670L;
-	
-	/**
-	 * An array of tags considered 'important' and distinctive enough to be shown as part of
-	 * the elements description.
-	 */
-	static final String[] importantTags;
 
 	public static final long NEW_OSM_ID = -1;
 
@@ -63,15 +57,6 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	private boolean cachedHasProblem = false;
 	private boolean checkedForProblem = false; // flag indicating if cachedHasProblem is valid
 	
-	static {
-		// Create the array of important tags. Tags are listed from most important to least.
-		importantTags = (
-				"highway,barrier,waterway,railway,aeroway,aerialway,power,"+
-				"man_made,building,leisure,amenity,office,shop,craft,emergency,"+
-				"tourism,historic,landuse,military,natural,boundary"
-		).split(",");
-	}
-
 	OsmElement(final long osmId, final long osmVersion, final byte state) {
 		this.osmId = osmId;
 		this.osmVersion = osmVersion;
@@ -433,7 +418,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return the first kay =value of any important tags or null if none found
 	 */
 	public String getPrimaryTag() {
-		for (String tag : importantTags) {
+		for (String tag : Tags.importantTags) {
 			String value = getTagWithKey(tag);
 			if (value != null && value.length() > 0) {
 				return  tag + "=" + value;
