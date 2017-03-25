@@ -108,5 +108,13 @@ interface EditorUpdate {
 	 */
 	void copyTags(Map<String, String> tags);
 	
+	/**
+	 * Apply a preset
+	 * @param preset the preset
+	 * 
+	 * @param addOptional add optional tags
+	 */
+	void applyPreset(PresetItem preset, boolean addOptional);
+	
 }
 

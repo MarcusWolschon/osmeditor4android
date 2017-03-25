@@ -17,8 +17,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
-import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;

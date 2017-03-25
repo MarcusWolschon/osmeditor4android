@@ -14,7 +14,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.speech.RecognizerIntent;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;

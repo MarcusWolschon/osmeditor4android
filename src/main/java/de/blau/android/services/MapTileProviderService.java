@@ -14,7 +14,6 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.prefs.Preferences;

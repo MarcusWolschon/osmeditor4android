@@ -11,11 +11,7 @@ import java.util.TreeMap;
 import org.acra.ACRA;
 
 import android.util.Log;
-import android.widget.Toast;
-import de.blau.android.App;
 import de.blau.android.Logic;
-import de.blau.android.Main;
-import de.blau.android.R;
 import de.blau.android.exception.StorageException;
 
 /**
@@ -319,7 +315,7 @@ public class UndoStorage implements Serializable {
 					return "house " + housenb;
 				}
 				// Then the value of the most 'important' tag the element has
-				for (String tag : OsmElement.importantTags) {
+				for (String tag : Tags.importantTags) {
 					String value = tags.get(tag);
 					if (value != null && value.length() > 0) {
 						return element.getName() + " " + tag + ":" + value;

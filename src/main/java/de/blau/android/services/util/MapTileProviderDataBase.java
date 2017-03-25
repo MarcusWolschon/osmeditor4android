@@ -17,7 +17,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.R;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.Snack;

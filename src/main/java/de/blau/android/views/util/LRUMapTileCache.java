@@ -1,7 +1,6 @@
 // Created by plusminus on 22:13:10 - 28.09.2008
 package de.blau.android.views.util;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
