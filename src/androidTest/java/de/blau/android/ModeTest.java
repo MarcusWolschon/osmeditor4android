@@ -56,12 +56,17 @@ public class ModeTest {
 		}		
 		Assert.assertTrue(snack.waitForExists(5000));
 		
+		main.setMode(main,Mode.MODE_EASYEDIT); // start from a known state
 		UiObject lock = mDevice.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
 		try {
 			lock.click();
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}	
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+		}
 		Assert.assertTrue(!logic.isLocked());
 		
 		Assert.assertEquals(Mode.MODE_EASYEDIT, logic.getMode()); // start with this and cycle through the modes
@@ -70,6 +75,10 @@ public class ModeTest {
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}	
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+		}
 		Assert.assertEquals(Mode.MODE_TAG_EDIT, logic.getMode());
 		
 		try {
@@ -77,6 +86,10 @@ public class ModeTest {
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}	
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+		}
 		Assert.assertEquals(Mode.MODE_INDOOR, logic.getMode());
 		
 		try {
@@ -84,6 +97,10 @@ public class ModeTest {
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}	
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+		}
 		Assert.assertEquals(Mode.MODE_EASYEDIT, logic.getMode());
 	}
 }
