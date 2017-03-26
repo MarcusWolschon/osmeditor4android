@@ -502,7 +502,8 @@ public class Way extends OsmElement implements BoundedObject {
 	/**
 	 * Returns a bounding box covering the way
 	 * FIXME results should be cached in some intelligent way
-	 * @return
+	 * 
+	 * @return the bounding box of the way
 	 */
 	public BoundingBox getBounds() {
 		BoundingBox result = null;
@@ -510,6 +511,26 @@ public class Way extends OsmElement implements BoundedObject {
 		for (Node n : getNodes()) {
 			if (first) {
 				result = new BoundingBox(n.lon,n.lat);
+				first = false;
+			} else {
+				result.union(n.lon,n.lat);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Returns a bounding box covering the way
+	 * FIXME results should be cached in some intelligent way
+	 * 
+	 * @param result a bounding box to use for producing the result, avoids creating an object instance
+	 * @return  the bounding box of the way
+	 */
+	public BoundingBox getBounds(BoundingBox result) {
+		boolean first = true;
+		for (Node n : getNodes()) {
+			if (first) {
+				result.resetTo(n.lon,n.lat);
 				first = false;
 			} else {
 				result.union(n.lon,n.lat);

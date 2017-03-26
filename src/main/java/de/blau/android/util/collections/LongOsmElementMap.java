@@ -400,6 +400,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			int found = 0;
 			int m_size_temp = 0;
 			OsmElement[] m_data_temp = null;
+			OsmElement cachedNext = null;
 			
 			SafeIterator() {
 				synchronized(LongOsmElementMap.this) {
@@ -410,6 +411,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			
 			@Override
 			public boolean hasNext() {
+				cachedNext = null;
 				while (true) {
 					if (found >= m_size_temp || index >= m_data_temp.length) { // already returned all elements
 						return false;
@@ -417,6 +419,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 						OsmElement e = m_data_temp[index];
 						if (e != FREE_KEY && e != removedKey) {
 							found++;
+							cachedNext = e;
 							return true;
 						} else {
 							index++;
@@ -428,6 +431,10 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			@SuppressWarnings("unchecked")
 			@Override
 			public V next() {
+				if (cachedNext != null) {
+					index++;
+					return (V)cachedNext;
+				}
 				while (true) {
 					if (index >= m_data_temp.length) { // already returned all elements
 						throw new NoSuchElementException();

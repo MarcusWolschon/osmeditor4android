@@ -99,6 +99,7 @@ public class Storage implements Serializable {
 
 	/**
 	 * Get a unmodifiable list of all nodes
+	 * 
 	 * @return list containing all nodes
 	 */
 	public List<Node> getNodes() {
@@ -107,7 +108,7 @@ public class Storage implements Serializable {
 
 	/**
 	 * Return all nodes in a bounding box
-	 * <p> 
+	 * 
 	 * Note: currently this does a sequential scan of all nodes
 	 * @param box bounding box to search in
 	 * @return a list of all nodes in box
@@ -124,14 +125,35 @@ public class Storage implements Serializable {
 	
 	/**
 	 * Get a unmodifiable list of all ways
+	 * 
 	 * @return list containing all ways
 	 */
 	public List<Way> getWays() {
 		return Collections.unmodifiableList(ways.values());
-	}	
+	}
+	
+	/**
+	 * Return all ways covered or possibly intersecting a bounding box
+	 * <p> 
+	 * Note: currently this does a sequential scan of all ways
+	 * @param box bounding box to search in
+	 * @return a list of all ways in box
+	 */
+	public List<Way> getWays(BoundingBox box) {
+		ArrayList<Way> result = new ArrayList<Way>(ways.size());
+		BoundingBox newBox = new BoundingBox(); // avoid creating new instances
+		for (Way w:ways) {
+			BoundingBox wayBox = w.getBounds(newBox);
+			if (wayBox.intersects(box)) {
+				result.add(w);
+			}	
+		}
+		return result;
+	}
 	
 	/**
 	 * Get a unmodifiable list of all relations
+	 * 
 	 * @return list containing all relations
 	 */
 	public List<Relation> getRelations() {

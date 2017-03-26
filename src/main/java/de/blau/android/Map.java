@@ -540,9 +540,9 @@ public class Map extends View implements IMapView {
 		canvas.restore();
 	}
 	
-	private void paintGpsTrack(final Canvas canvas) {
+	private void paintGpsTrack(Canvas canvas) {
 		if (tracker == null) return;
-		float[] linePoints = pointListToLinePointsArray(tracker.getTrackPoints());
+		float[] linePoints = pointListToLinePointsArray(new ArrayList<Float>(), tracker.getTrackPoints());
 		canvas.drawLines(linePoints, DataStyle.getCurrent(DataStyle.GPS_TRACK).getPaint());
 	}
 	
@@ -635,6 +635,8 @@ public class Map extends View implements IMapView {
 	 * @param canvas Canvas, where the data shall be painted on.
 	 */
 	private void paintOsmData(final Canvas canvas) {
+		ArrayList<Float> points = new ArrayList<Float>(); // allocate this just once
+		
 		// first find all nodes that we need to display (for density calculations)
 
 		List<Node> paintNodes = delegator.getCurrentStorage().getNodes(getViewBox()); 
@@ -658,7 +660,7 @@ public class Map extends View implements IMapView {
 								&& tmpDrawingEditMode.elementsSelectable();
 		
 		//Paint all ways
-		List<Way> ways = delegator.getCurrentStorage().getWays();
+		List<Way> ways = delegator.getCurrentStorage().getWays(getViewBox());
 		
 		boolean filterMode = tmpFilter != null; // we have an active filter
 		
@@ -680,7 +682,7 @@ public class Map extends View implements IMapView {
 		}
 		// draw hidden ways first
 		for (Way w:tmpHiddenWays) {
-			paintHiddenWay(canvas,w);
+			paintHiddenWay(points, canvas,w);
 		}
 		
 		boolean displayHandles =
@@ -690,7 +692,7 @@ public class Map extends View implements IMapView {
 				&& tmpDrawingEditMode.elementsGeomEditiable();
 		Collections.sort(tmpStyledWays,layerComparator);
 		for (Way w:tmpStyledWays) {
-			paintWay(canvas,w,displayHandles, drawTolerance);
+			paintWay(points, canvas,w,displayHandles, drawTolerance);
 		}
 		
 		//Paint nodes
@@ -1029,8 +1031,8 @@ public class Map extends View implements IMapView {
 	 * @param way way which shall be painted.
 	 * @param drawTolerance 
 	 */
-	private void paintWay(final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
-		float[] linePoints = pointListToLinePointsArray(way.getNodes());
+	private void paintWay(ArrayList<Float>points, final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
+		float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
 		Paint paint;
 		
 		boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be a better idea to do so
@@ -1126,8 +1128,8 @@ public class Map extends View implements IMapView {
 	 * @param canvas Canvas, where the node shall be painted on.
 	 * @param way way which shall be painted.
 	 */
-	private void paintHiddenWay(final Canvas canvas, final Way way) {
-		float[] linePoints = pointListToLinePointsArray(way.getNodes());
+	private void paintHiddenWay(ArrayList<Float>points, final Canvas canvas, final Way way) {
+		float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
 			
 		// 
 		FeatureStyle fp = DataStyle.getCurrent(DataStyle.HIDDEN_WAY);
@@ -1316,14 +1318,16 @@ public class Map extends View implements IMapView {
 	/**
 	 * Converts a geographical way/path/track to a list of screen-coordinate points for drawing.
 	 * Only segments that are inside the ViewBox are included.
+	 * 
+	 * @param points list to (re-)use for projected points
 	 * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn
 	 *              (e.g. a Way or a GPS track)
 	 * @return an array of floats in the format expected by {@link Canvas#drawLines(float[], Paint)}.
 	 */
-	private float[] pointListToLinePointsArray(final List<? extends GeoPoint> nodes) {
-		ArrayList<Float> points = new ArrayList<Float>();
+	private float[] pointListToLinePointsArray(final ArrayList<Float> points, final List<? extends GeoPoint> nodes) {
+		points.clear(); // reset
 		BoundingBox box = getViewBox();
-		
+		boolean testInterrupted = false;
 		//loop over all nodes
 		GeoPoint prevNode = null;
 		GeoPoint lastDrawnNode = null;
@@ -1338,20 +1342,27 @@ public class Map extends View implements IMapView {
 			int nodeLon = node.getLon();
 			int nodeLat = node.getLat();
 			boolean interrupted = false;
-			if (node instanceof InterruptibleGeoPoint) {
+			if (i==0) { // just do this once
+				testInterrupted = node instanceof InterruptibleGeoPoint;
+			}
+			if (testInterrupted) {
 				interrupted = ((InterruptibleGeoPoint)node).isInterrupted();
 			}
 			nextIntersects = true;
 			GeoPoint nextNode = null;
+			int nextNodeLat = 0;
+			int nextNodeLon = 0;
 			if (i<nodes.size()-1) {
 				nextNode = nodes.get(i+1);
-				nextIntersects = box.intersects(nextNode.getLat(),nextNode.getLon(),nodeLat, nodeLon);
+				nextNodeLat = nextNode.getLat();
+				nextNodeLon = nextNode.getLon();
+				nextIntersects = box.intersects(nextNodeLat,nextNodeLon,nodeLat, nodeLon);
 			}
 			float X = Float.MIN_VALUE;
 			float Y = Float.MIN_VALUE;
 			if (!interrupted && prevNode != null) {
 				if (thisIntersects || nextIntersects 
-						|| (!(nextNode != null && lastDrawnNode != null) || box.intersects(nextNode.getLat(), nextNode.getLon(), lastDrawnNode.getLat(), lastDrawnNode.getLon()))) {
+						|| (!(nextNode != null && lastDrawnNode != null) || box.intersects(nextNodeLat, nextNodeLon, lastDrawnNode.getLat(), lastDrawnNode.getLon()))) {
 					X = GeoMath.lonE7ToX(w, box, nodeLon);
 					Y = GeoMath.latE7ToY(h, w, box, nodeLat);
 					if (prevX == Float.MIN_VALUE) { // last segment didn't intersect

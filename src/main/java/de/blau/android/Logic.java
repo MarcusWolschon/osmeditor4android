@@ -3833,6 +3833,15 @@ public class Logic {
 	}
 	
 	/**
+	 * Get a list of all ways contained in or possibly intersecting the bounding box box currently in storage
+	 * @param box the bounding box
+	 * @return unmodifiable list of all nodes currently loaded contained in box
+	 */
+	public List<Way> getWays(BoundingBox box) {
+		return getDelegator().getCurrentStorage().getWays(box);
+	}
+	
+	/**
 	 * Get a list of all modified (created, modified, deleted) ways currently in storage
 	 * @return unmodifiable list of all modified ways currently loaded
 	 */
