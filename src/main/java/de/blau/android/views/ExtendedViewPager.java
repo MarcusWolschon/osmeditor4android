@@ -9,7 +9,7 @@ import de.blau.android.R;
 
 /**
  * 
- * @see https://blog.svpino.com/2011/08/29/disabling-pagingswiping-on-android
+ * @see <a href="https://blog.svpino.com/2011/08/29/disabling-pagingswiping-on-android">disabling paging/swiping on android</a>
  *
  */
 public class ExtendedViewPager extends ViewPager {

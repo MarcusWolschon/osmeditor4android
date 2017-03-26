@@ -9,6 +9,7 @@ import java.util.Locale;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.osm.JosmXmlSerializable;
 
@@ -50,6 +51,8 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
 	 * Create a new comment based on a string in the following format:
 	 * "Long text comment here [NickName here, YYYY-MM-DD HH:MM:SS ZZZ]"
 	 * Unrecognizable dates will be replaced with the current system date/time.
+	 * 
+	 * @param note The note the comment should be attached to
 	 * @param description A description obtained from the OSB database.
 	 */
 	public NoteComment(Note note, String description) {
@@ -60,11 +63,15 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
 	
 	/**
 	 * Create a new comment based on the individual components.
+	 * 
+	 * @param note The note the comment should be attached to
 	 * @param text New comment text. Left square brackets are stripped.
 	 * @param nickname New nickname. Commas are stripped.
+	 * @param uid OSM user id if any
+	 * @param action action associated with the comment
 	 * @param timestamp New timestamp.
 	 */
-	public NoteComment(Note note, String text, String nickname, int uid, String action,  Date timestamp) {
+	public NoteComment(@NonNull Note note, String text, String nickname, int uid, String action,  Date timestamp) {
 		this.note = note;
 		this.text = text.replaceAll("\\[", "");
 		this.nickname = nickname.replaceAll(",", "");

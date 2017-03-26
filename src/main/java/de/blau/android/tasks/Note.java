@@ -239,7 +239,8 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 	
 	/**
 	 * Return the number of comments
-	 * @return
+	 * 
+	 * @return the number of comments attached to this note
 	 */
 	public int count() {
 		return comments == null ? 0 : comments.size();
