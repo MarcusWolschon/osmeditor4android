@@ -95,7 +95,7 @@ public class TransferTasks {
 				if (bugFilter.contains(r.getString(R.string.bugfilter_osmose_error)) 
 						|| bugFilter.contains(r.getString(R.string.bugfilter_osmose_warning)) 
 						|| bugFilter.contains(r.getString(R.string.bugfilter_osmose_minor_issue))) {
-					osmoseResult = OsmoseServer.getBugsForBox(box, 1000);
+					osmoseResult = OsmoseServer.getBugsForBox(context, box, 1000);
 				}
 				if (osmoseResult != null) {
 					result.addAll(osmoseResult);
@@ -135,10 +135,12 @@ public class TransferTasks {
 	
 	/**
 	 * Upload Notes or bugs to server, needs to be called from main for now (mainly for OAuth dependency)
+	 * 
 	 * @param main instance of main calling this
 	 * @param server current server config
+	 * @param postUploadHandler execute code after an upload
 	 */
-	static public void upload(@NotNull final Main main, final Server server) {
+	static public void upload(@NotNull final Main main, final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
 		final String PROGRESS_TAG = "tasks";
 
 		if (server != null) {
@@ -152,7 +154,7 @@ public class TransferTasks {
 								@Override
 								public void onSuccess() {
 									Preferences prefs = new Preferences(main);
-									upload(main, prefs.getServer());
+									upload(main, prefs.getServer(), postUploadHandler);
 								}
 								@Override
 								public void onError() {
@@ -194,7 +196,7 @@ public class TransferTasks {
 									uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed; // just a state change
 								}
 							} else if (b instanceof OsmoseBug) {
-								uploadFailed =  uploadOsmoseBug((OsmoseBug)b) || uploadFailed;
+								uploadFailed =  uploadOsmoseBug(main, (OsmoseBug)b, null) || uploadFailed;
 							}
 						}
 					}
@@ -205,8 +207,14 @@ public class TransferTasks {
 				protected void onPostExecute(Boolean uploadFailed) {
 					Progress.dismissDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
 					if (!uploadFailed) {
+						if (postUploadHandler != null) {
+							postUploadHandler.onSuccess();
+						}
 						Snack.barInfo(main, R.string.openstreetbug_commit_ok);
 					} else {
+						if (postUploadHandler != null) {
+							postUploadHandler.onError();;
+						}
 						Snack.barError(main, R.string.openstreetbug_commit_fail);
 					}
 				}
@@ -216,16 +224,33 @@ public class TransferTasks {
 	
 	/**
 	 * Upload single bug state
+	 * 
+	 * @param context the Android context
 	 * @param b osmose bug to upload
+	 * @param postUploadHandler if not null run this handler after upload
 	 * @return true if successful
 	 */
 	@SuppressLint("InlinedApi")
-	static public boolean uploadOsmoseBug(final OsmoseBug b) {
+	static public boolean uploadOsmoseBug(@NotNull final Context context, @NotNull final OsmoseBug b, @Nullable final PostAsyncActionHandler postUploadHandler) {
 		Log.d(DEBUG_TAG, "uploadOsmoseBug");
 		AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {			
-				return OsmoseServer.changeState((OsmoseBug)b);
+				return OsmoseServer.changeState(context, (OsmoseBug)b);
+			}
+			
+			@Override
+			protected void onPostExecute(Boolean uploadFailed) {
+				
+				if (!uploadFailed) {
+					if (postUploadHandler != null) {
+						postUploadHandler.onSuccess();
+					}
+				} else {
+					if (postUploadHandler != null) {
+						postUploadHandler.onError();
+					}
+				}
 			}
 		};
 	    if(Build.VERSION.SDK_INT >= 11) {
@@ -254,7 +279,7 @@ public class TransferTasks {
 	 * @param comment Comment to add to the Note.
 	 * @param close if true the Note is to be closed.
 	 * @param quiet don't display an error message on errors
-	 * @param postUploadHandler execute code after a successful upload
+	 * @param postUploadHandler execute code after an upload
 	 * @return true if upload was successful
 	 */
 	@TargetApi(11)
@@ -364,6 +389,7 @@ public class TransferTasks {
 	 * Write Notes to a file in (J)OSM compatible format
 	 * 
 	 * If fileName contains directories these are created, otherwise it is stored in the standard public dir
+	 * 
 	 * @param activity activity that called this
 	 * @param all if true write all notes, if false just those that have been modified
 	 * @param fileName file to write to

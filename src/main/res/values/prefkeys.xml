@@ -44,6 +44,7 @@
     <string name="config_closeChangesetOnSave_key">closeChangesetOnSave</string>
     <string name="config_splitActionBarEnabled_key">splitActionBarEnabled</string>
     <string name="config_offsetServer_key">offsetServer</string>
+    <string name="config_osmoseServer_key">offsetServer</string>
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
     <string name="config_maxAlertDistance_key">maxAlertDistance</string>

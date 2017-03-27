@@ -14,7 +14,7 @@ public interface Urls {
 	String WIKIPEDIA = "http://en.wikipedia.org/wiki/";
 	String WIKIDATA = "http://wikidata.org/wiki/";
 	
-	String OSMOSE = "http://osmose.openstreetmap.fr/";
+	String DEFAULT_OSMOSE_SERVER = "http://osmose.openstreetmap.fr/";
 	
 	String DEFAULT_OFFSET_SERVER = "http://offsets.textual.ru/";
 	

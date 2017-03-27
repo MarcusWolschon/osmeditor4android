@@ -170,7 +170,6 @@
             android:numeric="decimal"
             android:summary="@string/config_gps_distance_summary"
             android:title="@string/config_gps_distance_title" />
-
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_leaveGpsDisabled_key"
@@ -183,19 +182,22 @@
             android:summary="@string/config_apibutton_summary"
             android:title="@string/config_apibutton_title" >
         </android.support.v7.preference.Preference>
-
         <de.blau.android.prefs.LoginDataPreference
             android:dialogTitle="@string/config_loginbutton_title"
             android:key="@string/config_loginbutton_key"
             android:singleLine="true"
             android:summary="@string/config_username_summary"
             android:title="@string/config_loginbutton_title" />
-
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="http://offsets.textual.ru/"
             android:key="@string/config_offsetServer_key"
             android:summary="@string/config_offsetServer_summary"
             android:title="@string/config_offsetServer_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="http://osmose.openstreetmap.fr/"
+            android:key="@string/config_osmoseServer_key"
+            android:summary="@string/config_osmoseServer_summary"
+            android:title="@string/config_osmoseServer_title" />
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="2"
             android:dialogTitle="@string/config_maxTileDownloadThreads_title"
@@ -220,7 +222,6 @@
             android:numeric="integer"
             android:summary="@string/config_tileCacheSize_summary"
             android:title="@string/config_tileCacheSize_title" />
-
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_showStats_key"

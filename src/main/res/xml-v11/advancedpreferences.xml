@@ -12,7 +12,6 @@
             android:key="@string/config_showCameraAction_key"
             android:summary="@string/config_showCameraAction_summary"
             android:title="@string/config_showCameraAction_title" />
-
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/follow_GPS_left"
             android:entries="@array/followGPSbutton_entries"
@@ -60,7 +59,6 @@
             android:key="@string/config_splitActionBarEnabled_key"
             android:summary="@string/config_splitActionBarEnabled_summary"
             android:title="@string/config_splitActionBarEnabled_title" />
-
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="4"
             android:dialogTitle="@string/config_maxInlineValues_title"
@@ -116,7 +114,6 @@
             android:numeric="decimal"
             android:summary="@string/config_maxDownloadSpeed_summary"
             android:title="@string/config_maxDownloadSpeed_title" />
-
         <de.blau.android.prefs.MultiSelectListPreference
             android:defaultValue="@array/bug_filter_defaults"
             android:entries="@array/bug_filter_entries"
@@ -124,7 +121,6 @@
             android:key="@string/config_bugFilter_key"
             android:summary="@string/config_bugFilter_summary"
             android:title="@string/config_bugFilter_title" />
-
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="200"
             android:dialogTitle="@string/config_bugDownloadRadius_title"
@@ -139,7 +135,6 @@
             android:numeric="decimal"
             android:summary="@string/config_maxBugDownloadSpeed_summary"
             android:title="@string/config_maxBugDownloadSpeed_title" />
-
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_enableNameSuggestions_key"
@@ -155,7 +150,6 @@
             android:key="@string/config_enableAutoPreset_key"
             android:summary="@string/config_enableAutoPreset_summary"
             android:title="@string/config_enableAutoPreset_title" />
-
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="3"
             android:dialogTitle="@string/config_maxInlineValues_title"
@@ -168,7 +162,6 @@
             android:summary="@string/config_geocoderbutton_summary"
             android:title="@string/config_geocoderbutton_title">
         </android.support.v7.preference.Preference> 
-            
     </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.PreferenceCategory android:title="@string/config_category_gps" >
         <android.support.v7.preference.ListPreference
@@ -178,7 +171,6 @@
             android:key="@string/config_gps_source_key"
             android:summary="@string/config_gps_source_summary"
             android:title="@string/config_gps_source_title" />
-
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="127.0.0.1:1958"
             android:dialogTitle="@string/config_gps_source_tcp_title"
@@ -199,7 +191,6 @@
             android:numeric="decimal"
             android:summary="@string/config_gps_distance_summary"
             android:title="@string/config_gps_distance_title" />
-
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_leaveGpsDisabled_key"
@@ -212,19 +203,22 @@
             android:summary="@string/config_apibutton_summary"
             android:title="@string/config_apibutton_title" >
         </android.support.v7.preference.Preference>
-
         <de.blau.android.prefs.LoginDataPreference
             android:dialogTitle="@string/config_loginbutton_title"
             android:key="@string/config_loginbutton_key"
             android:singleLine="true"
             android:summary="@string/config_username_summary"
             android:title="@string/config_loginbutton_title" />
-
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="http://offsets.textual.ru/"
             android:key="@string/config_offsetServer_key"
             android:summary="@string/config_offsetServer_summary"
             android:title="@string/config_offsetServer_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="http://osmose.openstreetmap.fr/"
+            android:key="@string/config_osmoseServer_key"
+            android:summary="@string/config_osmoseServer_summary"
+            android:title="@string/config_osmoseServer_title" />
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="2"
             android:dialogTitle="@string/config_maxTileDownloadThreads_title"

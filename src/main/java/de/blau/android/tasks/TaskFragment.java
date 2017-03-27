@@ -107,7 +107,7 @@ public class TaskFragment extends DialogFragment {
     					NoteComment nc = n.getLastComment();
     					TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED, false, null);
     				} else if (bug instanceof OsmoseBug) {
-    					TransferTasks.uploadOsmoseBug((OsmoseBug)bug);
+    					TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug)bug, null);
     				}
     				if (bug.hasBeenChanged() && bug.isClosed()) {
     					IssueAlert.cancel(getActivity(), bug);

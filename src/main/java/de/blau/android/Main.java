@@ -1614,7 +1614,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			
 		case R.id.menu_transfer_bugs_upload:
 			if (App.getTaskStorage().hasChanges()) {
-				TransferTasks.upload(this, server);
+				TransferTasks.upload(this, server, null);
 			} else {
 				Snack.barInfo(this, R.string.toast_no_changes);
 			}
@@ -2119,7 +2119,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					logic.upload(this, comment, source, closeChangeset);
 				}
 				if (hasBugChanges) {
-					TransferTasks.upload(this, server);
+					TransferTasks.upload(this, server, null);
 				}
 				logic.checkForMail(this);
 			} else {
