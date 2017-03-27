@@ -1,7 +1,9 @@
 
 package de.blau.android.util;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
@@ -14,6 +16,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 import de.blau.android.R;
 import de.blau.android.dialogs.GetFileName;
 import de.blau.android.prefs.Preferences;
@@ -37,7 +40,7 @@ public class SelectFile {
 
 	private static ReadFile readCallback;
 	private final static Object readCallbackLock = new Object();
-
+	private static FragmentActivity activity = null;
 	
 	/**
 	 * Save a file
@@ -47,8 +50,10 @@ public class SelectFile {
 	 * @param callback callback that does the actual saving, should call {@link #savePref(Preferences, int, Uri)}
 	 */
 	public static void save(@NonNull FragmentActivity activity, int directoryPrefKey, @NonNull de.blau.android.util.SaveFile callback) {
+		
 		synchronized (saveCallbackLock) {
 			saveCallback = callback;
+			SelectFile.activity = activity;
 		}
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
 			Intent i = new Intent(activity, ThemedFilePickerActivity.class);
@@ -156,8 +161,21 @@ public class SelectFile {
                 }
             }
         } else {
-            Uri uri = data.getData();
+            final Uri uri = data.getData();
             if (code == SAVE_FILE) {
+            	 File file = new File(uri.getPath());
+            	 if (file.exists()) {
+            		Snack.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							synchronized (saveCallbackLock) {
+			            		if (saveCallback != null) {
+			            			saveCallback.save(uri);
+			            		}
+			            	}	
+						}
+					});
+            	}
             	synchronized (saveCallbackLock) {
             		if (saveCallback != null) {
             			Log.d(DEBUG_TAG, "saving to " + uri);

@@ -426,6 +426,38 @@ public class Snack {
 	}
 	
 	/**
+	 * Display a snackbar with an warning message with a possible action
+	 * 
+	 * @param activity activity calling us
+	 * @param msg message to display
+	 * @param action action textRes resource for the text of an action
+	 * @param listener called when action is selected
+	 */
+	public static void barWarning(Activity activity, String msg, int actionRes, View.OnClickListener listener) {
+		if (activity != null) {
+			barWarning(activity.findViewById(android.R.id.content), msg, actionRes, listener);
+		}
+	}
+	
+	/**
+	 * Display a snackbar with an warning message with a possible action
+	 * 
+	 * @param v view to display the snackbar on
+	 * @param msg message to display
+	 * @param action action text resrouce id
+	 * @param listener called when action is selected
+	 */
+	public static void barWarning(View v, String msg, int actionRes, View.OnClickListener listener) {
+		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
+		snackbar.setDuration(5000);
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
+		snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
+		snackbar.setAction (actionRes, listener);
+		snackbar.setCallback(callback);
+		enqueueWarning(snackbar);
+	}
+	
+	/**
 	 * Display an info toast underneath the top action bar
 	 * @param activity activity that called this
 	 * @param msg the message to display

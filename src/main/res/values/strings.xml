@@ -193,6 +193,7 @@
     <string name="toast_error_accessing_photo">Can\'t access photo %1$s</string>
     <string name="toast_no_voice_recognition">No voice recognition facility present</string>
     <string name="toast_no_coverage">%1$s has no coverage here</string>
+    <string name="toast_file_exists">File %1$s exists.</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -212,6 +213,7 @@
     <string name="clear">Clear</string>
     <string name="retry">Retry</string>
     <string name="read">Read</string>
+    <string name="overwrite">Overwrite</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
