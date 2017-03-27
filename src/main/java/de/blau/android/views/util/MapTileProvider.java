@@ -242,9 +242,12 @@ public class MapTileProvider implements ServiceConnection,
 					throw new RemoteException();
 				}
 				// Log.d(DEBUGTAG, "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
-
-				mTileCache.putTile(t, tileBitmap,pending.get(t.toId()).longValue());
-				pending.remove(t.toId());
+				String id = t.toId();
+				Long l = pending.get(t.toId());
+				if (l != null) {
+					mTileCache.putTile(t, tileBitmap,l);
+					pending.remove(id);
+				} // else wasn't in pending queue just ignore
 				mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
 				// Log.d(DEBUGTAG, "Sending tile success message");
 			} catch (StorageException e) {
