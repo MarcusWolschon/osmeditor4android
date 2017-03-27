@@ -64,6 +64,8 @@ import de.blau.android.util.Snack;
 
 public class TrackerService extends Service implements LocationListener, NmeaListener, Exportable {
 
+	private static final String TCPSERVER = "tcpserver";
+
 	private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 
 	private static final String TAG = "TrackerService";
@@ -101,7 +103,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	
 	private Preferences prefs = null; 
 	
-	private Location nmeaLocation = new Location("nmea");
+	private Location nmeaLocation = new Location(NMEA);
 	
 	private Handler mHandler = null;
 	
@@ -115,6 +117,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		TCP
 	}
 	private GpsSource source = GpsSource.INTERNAL;
+	
+	private static final String INTERNAL = "internal";
+	private static final String NMEA = "nmea";
+	private static final String TCPCLIENT = "tcpclient";
+
 
 	private ConnectivityManager connectivityManager;
 
@@ -337,25 +344,27 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
 	@Override
 	public void onLocationChanged(Location location) {
-		if (source != GpsSource.INTERNAL && location.getProvider().equals("gps")) {
-			return; // ignore updates from internal gps
+		if (source != GpsSource.INTERNAL) {
+			return; // ignore updates from device
 		}
-		// Log.d(TAG,"onLocationChanged " + location.getProvider());
-		if (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY) {
-			if (tracking) {
+		// Only use GPS provided locations for generating tracks
+		if (tracking && LocationManager.GPS_PROVIDER.equals(location.getProvider())) {
+			if (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY) {
 				track.addTrackPoint(location);
 			}
-			NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-			if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only attempt to download if we have a network
-				if (downloading) {
-					autoDownload(location);
-				}
-				if (downloadingBugs) {
-					bugAutoDownload(location);
-				}
+		}
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only attempt to download if we have a network
+			if (downloading) {
+				autoDownload(location);
+			}
+			if (downloadingBugs) {
+				bugAutoDownload(location);
 			}
 		}
-		if (externalListener != null) externalListener.onLocationChanged(location);
+		if (externalListener != null) {
+			externalListener.onLocationChanged(location);
+		}
 		lastLocation = location;
 	}
 
@@ -390,7 +399,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		if (needed && !gpsEnabled) {
 			Log.d(TAG, "Enabling GPS updates");
 			Preferences prefs = new Preferences(this);
-			nmeaLocation.removeSpeed(); // be sire that these are not set
+			nmeaLocation.removeSpeed(); // be sure that these are not set
 			nmeaLocation.removeBearing();
 			try {
 				Location last = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -416,9 +425,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	                    }
 	                }
 				};
-				if (prefs.getGpsSource().equals("tcpclient") || prefs.getGpsSource().equals("tcpserver")) {
+				if (prefs.getGpsSource().equals(TCPCLIENT) || prefs.getGpsSource().equals(TCPSERVER)) {
 					source = GpsSource.TCP;
-					if (prefs.getGpsSource().equals("tcpclient") && tcpClient == null) {
+					if (prefs.getGpsSource().equals(TCPCLIENT) && tcpClient == null) {
 						tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource());
 						Thread t = new Thread(null, tcpClient, "TcpClient");
 						t.start();
@@ -427,31 +436,26 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						Thread t = new Thread(null, tcpServer, "TcpClientServer");
 						t.start();
 					}
-				}
-	
-				if (prefs.getGpsSource().equals("nmea") || prefs.getGpsSource().equals("internal")) {
+				} else if (prefs.getGpsSource().equals(NMEA) || prefs.getGpsSource().equals(INTERNAL)) {
 					source = GpsSource.INTERNAL;
 					// internal NMEA resource only works if normal updates are turned on
 					locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(),
 							prefs.getGpsDistance(), this);
-					if (prefs.getGpsSource().equals("nmea")) {
+					if (prefs.getGpsSource().equals(NMEA)) {
 						source = GpsSource.NMEA;
 						locationManager.addNmeaListener(this);
 					} 
 				}
 				gpsEnabled = true;
-			}
-			catch (SecurityException sex) {
+			} catch (SecurityException sex) {
 				// note there is no way we can ask for permission here so we do that in the main
 				// activity before actually creating this service
 				Log.e(TAG, "Failed to enable GPS", sex);
 				Snack.toastTopError(this, R.string.gps_failure);	
-			} 
-			catch (IllegalArgumentException iaex) {
+			} catch (IllegalArgumentException iaex) {
 				Log.e(TAG, "Failed to enable GPS", iaex);
 				Snack.toastTopError(this, R.string.gps_failure);	
-			} 
-			catch (RuntimeException rex) {
+			} catch (RuntimeException rex) {
 				Log.e(TAG, "Failed to enable GPS", rex);
 				Snack.toastTopError(this, R.string.gps_failure);				
 			}
@@ -469,17 +473,22 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	public void setListenerNeedsGPS(boolean listenerNeedsGPS) {
 		this.listenerNeedsGPS = listenerNeedsGPS;
 		updateGPSState();
-		if (listenerNeedsGPS && externalListener != null && lastLocation != null) externalListener.onLocationChanged(lastLocation);
+		if (listenerNeedsGPS && externalListener != null && lastLocation != null) {
+			externalListener.onLocationChanged(lastLocation);
+		}
 	}
 
 	public void setListener(TrackerLocationListener listener) {
-		if (listener == null) setListenerNeedsGPS(false);
+		if (listener == null) {
+			setListenerNeedsGPS(false);
+		}
 		externalListener = listener;
 	}
 
 	/**
 	 * Read a file in GPX format from device
-	 * @param activity activity this was called from, if null no messages will be displayed, and menuss will not be updated
+	 * 
+	 * @param activity activity this was called from, if null no messages will be displayed, and menus will not be updated
 	 * @param fileName
 	 * @param add unused currently
 	 * @throws FileNotFoundException 
@@ -896,9 +905,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	}
 	
 	/**
-	 * Return a suitable next BB, simply creates a raster of the download radius size
-	 * @param location
-	 * @return
+	 * Return a suitable next bounding box, simply creates a raster of the download radius size
+	 * 
+	 * @param location current location
+	 * @return the next bounding box
 	 */
 	private BoundingBox getNextBox(ArrayList<BoundingBox> bbs,Location prevLocation, Location location, int radius) {
 	
