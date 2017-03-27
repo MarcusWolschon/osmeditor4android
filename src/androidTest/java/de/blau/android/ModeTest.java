@@ -1,12 +1,15 @@
 package de.blau.android;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.graphics.Rect;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -26,6 +29,7 @@ import android.view.View;
 public class ModeTest {
 	
 	Main main = null;
+	Logic logic = null;
 	View v = null;
 	UiDevice mDevice = null; 
 
@@ -35,14 +39,35 @@ public class ModeTest {
 	@Before
 	public void setup() {
 		main = mActivityRule.getActivity();
+		logic = App.getLogic();
 		TestUtils.grantPermissons();
 		TestUtils.dismissStartUpDialogs(main);
 		mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 	}
+	
+	@After
+	public void teardown() {
+		main.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				main.setMode(main,Mode.MODE_EASYEDIT);
+			}
+		});
+	}
+	
+	// attempt at getting reliable long clicks
+	void longClick(UiObject o) throws UiObjectNotFoundException {
+		Rect rect = o.getBounds();
+		mDevice.swipe(rect.centerX(), rect.centerY(), rect.centerX(), rect.centerY(), 200);
+		// o.longClick();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+		}
+	}
 
 	@Test
 	public void lock() {
-		Logic logic = App.getLogic();
 		logic.setLocked(true);
 		logic.setZoom(main.getMap(), 20);
 		UiObject map = mDevice.findObject(new UiSelector().resourceId("de.blau.android:id/map_view"));
@@ -63,44 +88,28 @@ public class ModeTest {
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}	
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e1) {
-		}
 		Assert.assertTrue(!logic.isLocked());
 		
 		Assert.assertEquals(Mode.MODE_EASYEDIT, logic.getMode()); // start with this and cycle through the modes
 		try {
-			lock.longClick();
+			longClick(lock);
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}	
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e1) {
-		}
 		Assert.assertEquals(Mode.MODE_TAG_EDIT, logic.getMode());
 		
 		try {
-			lock.longClick();
+			longClick(lock);
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}	
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e1) {
-		}
 		Assert.assertEquals(Mode.MODE_INDOOR, logic.getMode());
 		
 		try {
-			lock.longClick();
+			longClick(lock);
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}	
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e1) {
-		}
 		Assert.assertEquals(Mode.MODE_EASYEDIT, logic.getMode());
 	}
 }
