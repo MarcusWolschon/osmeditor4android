@@ -15,7 +15,6 @@ import java.util.zip.GZIPInputStream;
 import android.content.Context;
 import android.util.Log;
 import de.blau.android.App;
-import de.blau.android.contract.Urls;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;

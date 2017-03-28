@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1255: Add preset based filtering;
+
 1254: Improve layout of Task/Note dialog, fix issue in form editor where linked presets without fixed tags were not being handled correctly.
 
 1253: Make original tags available to scripts in presets, updated presets and translations, correctness fixes, bump android version number.

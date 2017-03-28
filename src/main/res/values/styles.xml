@@ -273,6 +273,13 @@
 		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
 		<!--  icons  -->
 		<item name="menu_delete">@drawable/ic_action_discard_holo_dark</item>
+		<item name="menu_preset_up">@drawable/preset_up_dark</item>
+		<item name="menu_preset_top">@drawable/preset_top_dark</item>
+		<item name="menu_help">@drawable/ic_action_help_holo_dark</item>
+		<!--  colors -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 
 	<style name="Theme.customTagEditorActionBar" parent="Theme.customTagEditor">
@@ -435,6 +442,13 @@
 		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
 		<!--  icons  -->
 		<item name="menu_delete">@drawable/ic_action_discard_holo_light</item>
+		<item name="menu_preset_up">@drawable/preset_up_light</item>
+		<item name="menu_preset_top">@drawable/preset_top_light</item>
+		<item name="menu_help">@drawable/ic_action_help_holo_light</item>
+		<!--  colors -->
+		<item name="snack_info">@color/material_teal</item>
+		<item name="snack_warning">@color/material_orange</item>
+		<item name="snack_error">@color/material_red</item>
 	</style>
 
 	<style name="TagEditorActionBarLight" parent="@style/Widget.AppCompat.Light.ActionBar.Solid" />

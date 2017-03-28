@@ -66,6 +66,7 @@
     <string name="config_autoLockDelay_key">autoLockDelay</string>
     <string name="config_alwaysDrawBoundingBoxes_key">alwaysDrawBoundingBoxes</string>
     <string name="config_tagFilter_key">tagFilter</string>
+    <string name="config_presetFilter_key">presetFilter</string>
     <string name="config_geocoder_key">geocoder</string>
     <string name="config_geocoder_button_key">geocoderButton</string>
     <string name="config_contrastValue_key">contrastFloatValue</string>

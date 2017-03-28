@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -150,6 +151,9 @@ public class Preset implements Serializable {
 	/** all known preset items in order of loading */
 	private ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
 	
+	/** all known preset groups in order of loading */
+	private ArrayList<PresetGroup> allGroups = new ArrayList<PresetGroup>();
+	
 	public enum PresetKeyType {
 		/**
 		 * arbitrary single value
@@ -219,7 +223,7 @@ public class Preset implements Serializable {
 	private final PresetMRUInfo mru;
 	private String externalPackage;
 	
-	private static class PresetFilter implements FilenameFilter {
+	private static class PresetFileFilter implements FilenameFilter {
 		@Override
 		public boolean accept(File dir, String name) {
 			return name.endsWith(".xml");
@@ -278,7 +282,7 @@ public class Preset implements Serializable {
 			File indir = new File(directory.toString());
 			fileStream = null; // force crash and burn
 			if (indir != null) {
-				File[] list = indir.listFiles(new PresetFilter());
+				File[] list = indir.listFiles(new PresetFileFilter());
 				if (list != null && list.length > 0) { // simply use the first XML file found
 					String presetFilename = list[0].getName();
 					Log.i("Preset", "Preset file name " + presetFilename);
@@ -353,6 +357,61 @@ public class Preset implements Serializable {
 //        }
         Log.d("SearchIndex","length: " + searchIndex.getKeys().size());
 	}
+	
+	/**
+	 * Construct a new preset from existing elements
+	 * 
+	 * @param elements list of PresetElements
+	 */
+	public Preset(@NonNull List<PresetElement> elements) {
+		mru = null;
+		String name ="Empty Preset";
+		if (elements != null && elements.size() > 0) {
+			name = elements.get(0).getName();
+		}
+		rootGroup = new PresetGroup(null, name, null);
+		addElementsToIndex(rootGroup, elements);
+	}
+	
+	/**
+	 * Recursively add tags from the preset to the index of the new preset
+	 * 
+	 * @param group current group
+	 * @param elements list of PresetElements
+	 */
+	private void addElementsToIndex(PresetGroup group, List<PresetElement> elements) {
+		for (PresetElement e:elements) {
+			if (e instanceof PresetGroup) {
+				addElementsToIndex(group, ((PresetGroup)e).getElements());
+			} else if (e instanceof PresetItem) {
+				// build tagItems from existing preset
+				for (Entry<String,StringWithDescription>entry:((PresetItem)e).getFixedTags().entrySet()) {
+					tagItems.add(entry.getKey()+"\t"+entry.getValue().getValue(), (PresetItem) e);
+				}
+				for (Entry<String,StringWithDescription[]>entry:((PresetItem)e).getRecommendedTags().entrySet()) {
+					String key = entry.getKey();
+					if (entry.getValue()==null || entry.getValue().length == 0) {
+			    		tagItems.add(key+"\t",  (PresetItem) e);
+			    	} else {
+			    		for (StringWithDescription v:entry.getValue()) {
+			    			tagItems.add(key+"\t"+v.getValue(),  (PresetItem) e);
+			    		}
+			    	}
+				}
+				for (Entry<String,StringWithDescription[]>entry:((PresetItem)e).getOptionalTags().entrySet()) {
+					String key = entry.getKey();
+					if (entry.getValue()==null || entry.getValue().length == 0) {
+			    		tagItems.add(key+"\t",  (PresetItem) e);
+			    	} else {
+			    		for (StringWithDescription v:entry.getValue()) {
+			    			tagItems.add(key+"\t"+v.getValue(),  (PresetItem) e);
+			    		}
+			    	}
+				}
+			}
+		}
+	}
+	
 	
 	private PresetIconManager getIconManager(Context ctx) {
 		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
@@ -723,7 +782,7 @@ public class Preset implements Serializable {
 	@SuppressWarnings("deprecation")
 	public static ArrayList<String> parseForURLs(File presetDir) {
 		final ArrayList<String> urls = new ArrayList<String>();
-		File[] list = presetDir.listFiles(new PresetFilter());
+		File[] list = presetDir.listFiles(new PresetFileFilter());
 		String presetFilename = null;
 		if (list != null) {
 			if (list.length > 0) { // simply use the first XML file found
@@ -773,7 +832,7 @@ public class Preset implements Serializable {
 	 * @param name
 	 * @return
 	 */
-	private Integer getItemIndexByName(String name) {
+	private Integer getItemIndexByName(@NonNull String name) {
 		Log.d("Preset","getItemIndexByName " + name);
 		for (PresetItem pi:allItems) {
 			if (pi != null) {
@@ -794,12 +853,92 @@ public class Preset implements Serializable {
 	 * @return the preset item or null if not found
 	 */
 	@Nullable
-	public PresetItem getItemByName(String name) {
+	public PresetItem getItemByName(@NonNull String name) {
 		Integer index = getItemIndexByName(name); 
 		if (index != null) {
 			return allItems.get(index.intValue());
 		}
 		return null;
+	}
+	
+	/**
+	 * Return a preset by index
+	 * 
+	 * @param the index value
+	 * @return the preset item or null if not found
+	 */
+	@Nullable
+	public PresetItem getItemByIndex(int index) {
+		return allItems.get(index);
+	}
+	
+	/**
+	 * Find a preset group by name
+	 * 
+	 * Has to traverse the whole preset tree.
+	 * 
+	 * @param name the preset should have
+	 * @return the group or null if not found
+	 */
+	@Nullable
+	public PresetGroup getGroupByName(@NonNull String name) {
+		return getGroupByName(getRootGroup(), name);
+	}
+	
+	@Nullable
+	private PresetGroup getGroupByName(@NonNull PresetGroup group, @NonNull String name) {
+		for (PresetElement e:group.getElements()) {
+			if (e instanceof PresetGroup) {
+				if (name.equals(e.getName())) {
+					return (PresetGroup) e;
+				} else {
+					PresetGroup g = getGroupByName((PresetGroup) e, name);
+					if (g != null) {
+						return g;
+					}
+				}
+			} 
+		}
+		return null;
+	}
+	
+	/**
+	 * Return a PresetElement by identifiying it with its place in the hierarchy
+	 * 
+	 * @param group PresetGroup to start the search at
+	 * @param path the path
+	 * @return the PresetElement or null if not found
+	 */
+	@Nullable
+	public PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull ElementPath path) {
+		int size = path.path.size();
+		if (size > 0) {
+			String segment = path.path.get(0);
+			for (PresetElement e:group.getElements()) {
+				if (segment.equals(e.getName())) {
+					if (size == 1) {
+						return e;
+					} else {
+						if (e instanceof PresetGroup) {
+							path.path.remove(0);
+							return getElementByPath((PresetGroup) e, path);
+						}
+					}
+				}
+			}
+		} 
+		return null;
+	}
+	
+	/**
+	 * Return a preset group by index
+	 * 
+	 * @param the index value
+	 * @return the preset item or null if not found
+	 */
+	@Nullable
+	public PresetGroup getGroupByIndex(int index) {
+		return allGroups.get(index);
 	}
 	
 	/**
@@ -817,7 +956,7 @@ public class Preset implements Serializable {
 				}
 			}
 		}
-		return recent.getGroupView(ctx, handler, type);
+		return recent.getGroupView(ctx, handler, type, null);
 	}
 	
 	public boolean hasMRU()
@@ -933,14 +1072,11 @@ public class Preset implements Serializable {
 	 * 
 	 * If multiple items match, the most specific one (i.e. having most tags) wins.
 	 * If there is a draw, no guarantees are made.
-	 * 
-	 * @param tags tags to check against (i.e. tags of a map element)
-	 * @return null, or the "best" matching item for the given tag set
      * 
      * @param presets presets presets to match against
-     * @param tags
-     * @param useAddressKeys
-     * @return
+     * @param tags tags to check against (i.e. tags of a map element)
+     * @param useAddressKeys use addr: keys if true
+     * @return a preset or null if none found
      */
     static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags, boolean useAddressKeys) {
 		int bestMatchStrength = 0;
@@ -952,30 +1088,12 @@ public class Preset implements Serializable {
 		}
 		
 		// Build candidate list
-		LinkedHashSet<PresetItem> possibleMatches = new LinkedHashSet<PresetItem>();
-		boolean reallyUseAddressKeys = false;
-		do {
-			for (Preset p:presets) {
-				if (p != null) {
-					for (Entry<String, String> tag : tags.entrySet()) {
-						String key = tag.getKey();
-						if (Tags.importantTags.contains(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && reallyUseAddressKeys)) {
-							String tagString = tag.getKey()+"\t";
-							possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
-							possibleMatches.addAll(p.tagItems.get(tagString+tag.getValue()));
-						}
-					}
-				}
-			}
+		Set<PresetItem> possibleMatches = buildPossibleMatches(presets, tags, false);
 
-			// if we only have address keys retry
-			if (useAddressKeys && possibleMatches.size() == 0 && !reallyUseAddressKeys) {
-				reallyUseAddressKeys = true;
-			}  else {
-				break;
-			}
-		} while (true);
-		
+		// if we only have address keys retry
+		if (useAddressKeys && possibleMatches.size() == 0) {
+			possibleMatches = buildPossibleMatches(presets, tags, true);
+		}  
 		// Find best
 		final int FIXED_WEIGHT = 100; // always prioritize presets with fixed keys
 		for (PresetItem possibleMatch : possibleMatches) {
@@ -998,6 +1116,66 @@ public class Preset implements Serializable {
 		// Log.d(DEBUG_TAG,"findBestMatch " + bestMatch);
 		return bestMatch;
 	}
+    
+    /**
+     * Attempt to find a (any) match of the tags with the supplied presets
+     * 
+     * @param presets presets to search in
+     * @param tags tags to match
+     * @return a preset or null if none found
+     */
+    @Nullable
+    static public PresetItem findMatch(@NonNull Preset presets[], @NonNull Map<String,String> tags) {
+		if (tags==null || presets==null) {
+			Log.e(DEBUG_TAG, "findBestMatch " + (tags==null?"tags null":"presets null"));
+			return null;
+		}
+		
+		// Build candidate list
+		Set<PresetItem> possibleMatches = buildPossibleMatches(presets, tags, false);
+
+		// Find match
+		for (PresetItem possibleMatch : possibleMatches) {
+			if (possibleMatch.getFixedTagCount() > 0) { // has required tags
+				if (possibleMatch.matches(tags)) {
+					return possibleMatch;
+				}
+			} else if (possibleMatch.getRecommendedTags().size() > 0) { // only recommended tags
+				if (possibleMatch.matchesRecommended(tags) > 0) {
+					return possibleMatch;
+				}
+			}
+		}
+		// Log.d(DEBUG_TAG,"findBestMatch " + bestMatch);
+		return null;
+	}
+
+    /**
+     * Return a set of presets that could match the tags 
+     * 
+     * @param presets current presets
+     * @param tags the tags
+     * @param useAddressKeys use address keys
+     * @return set of presets
+     */
+	private static Set<PresetItem> buildPossibleMatches(Preset[] presets, Map<String, String> tags, boolean useAddressKeys) {
+		HashSet<PresetItem> possibleMatches = new HashSet<PresetItem>();
+		for (Preset p:presets) {
+			if (p != null) {
+				for (Entry<String, String> tag : tags.entrySet()) {
+					String key = tag.getKey();
+					if (Tags.importantTags.contains(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && useAddressKeys)) {
+						String tagString = tag.getKey()+"\t";
+						possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
+						possibleMatches.addAll(p.tagItems.get(tagString+tag.getValue()));
+					}
+				}
+			}
+		}
+		return possibleMatches;
+	}
+    
+    
 	
 	/**
 	 * Filter a list of elements by type
@@ -1023,10 +1201,33 @@ public class Preset implements Serializable {
 		return filteredElements;
 	}
 	
+	public class ElementPath implements Serializable {
+		private static final long serialVersionUID = 1L;
+		final ArrayList<String>path;
+		
+		public ElementPath(ElementPath path2) {
+			path = new ArrayList<String>(path2.path);
+		}
+
+		public ElementPath() {
+			path = new ArrayList<String>();
+		}
+		
+		@Override
+		public String toString() {
+			String result = "";
+			for (String s:path) {
+				result += s + "|";
+			}
+			return result;
+		}
+	}
+	
 	/**
 	 * Represents an element (group or item) in a preset data structure
 	 */
 	public abstract class PresetElement implements Serializable {
+		
 		/**
 		 * 
 		 */
@@ -1119,9 +1320,10 @@ public class Preset implements Serializable {
 		/**
 		 * Returns a basic view representing the current element (i.e. a button with icon and name).
 		 * Can (and should) be used when implementing {@link #getView(PresetClickHandler)}.
+		 * @param selected TODO
 		 * @return the view
 		 */
-		private TextView getBaseView(Context ctx) {
+		private TextView getBaseView(Context ctx, boolean selected) {
 			Resources res = ctx.getResources();
 //			GradientDrawable shape =  new GradientDrawable();
 //			shape.setCornerRadius(8);
@@ -1135,9 +1337,9 @@ public class Preset implements Serializable {
 			v.setPadding((int)(4*density), (int)(4*density), (int)(4*density), (int)(4*density));
 			// v.setBackgroundDrawable(shape);
 			if (this instanceof PresetGroup) {
-				v.setBackgroundColor(ContextCompat.getColor(ctx,R.color.dark_grey));
+				v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_200 : R.color.dark_grey));
 			} else {
-				v.setBackgroundColor(ContextCompat.getColor(ctx,R.color.preset_bg));
+				v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));
 			}
 			Drawable icon = getIcon();
 			if (icon != null) {
@@ -1157,9 +1359,10 @@ public class Preset implements Serializable {
 		 * Returns a view representing this element (i.e. a button with icon and name)
 		 * Implement this in subtypes
 		 * @param handler handler to handle clicks on the element (may be null)
+		 * @param selected highlight this element
 		 * @return a view ready to display to represent this element
 		 */
-		public abstract View getView(Context ctx, final PresetClickHandler handler);
+		public abstract View getView(Context ctx, final PresetClickHandler handler, boolean selected);
 		
 		public boolean appliesTo(ElementType type) {
 			switch (type) {
@@ -1251,6 +1454,33 @@ public class Preset implements Serializable {
 		public void setRegion(String region) {
 			this.region = region;
 		}
+		
+		/**
+		 * Get an object documenting where in the hierarchy this element is.
+		 *  
+		 * This is essentially the only unique way of identifying a specific preset
+		 * 
+		 * @param root PresetGroup that this is relative to
+		 * @return and object containing the path elements
+		 */
+		public ElementPath getPath(PresetGroup root) {
+			for (PresetElement e:root.getElements()) {
+				if (e.equals(this)) {
+					ElementPath result = new ElementPath();
+					result.path.add(e.getName());
+					return result;
+				} else {
+					if (e instanceof PresetGroup) {
+						ElementPath result = getPath((PresetGroup) e);
+						if (result != null) {
+							result.path.add(0, e.getName());
+							return result;
+						}
+					}
+				}
+			}
+			return null;
+		}
 
 		@Override
 		public String toString() {
@@ -1272,7 +1502,7 @@ public class Preset implements Serializable {
 		}
 
 		@Override
-		public View getView(Context ctx, PresetClickHandler handler) {
+		public View getView(Context ctx, PresetClickHandler handler, boolean selected) {
 			View v = new View(ctx);
 			v.setMinimumHeight(1);
 			v.setMinimumWidth(99999); // for WrappingLayout
@@ -1288,17 +1518,29 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 2L;
+		
+		private final int groupIndex;
+		
 		/** Elements in this group */
 		private ArrayList<PresetElement> elements = new ArrayList<PresetElement>();
 		
 		
 		public PresetGroup(PresetGroup parent, String name, String iconpath) {
 			super(parent,name,iconpath);
+			groupIndex = allGroups.size();
+			allGroups.add(this);
 		}
 
 		public void addElement(PresetElement element) {
+			addElement(element, true);
+		}
+		
+		public void addElement(PresetElement element, boolean setParent) {
 			elements.add(element);
+			if (setParent) {
+				element.setParent(this);
+			}
 		}
 		
 		public ArrayList<PresetElement> getElements() {
@@ -1310,8 +1552,8 @@ public class Preset implements Serializable {
 		 * @param handler the handler handling clicks on the icon
 		 */
 		@Override
-		public View getView(Context ctx, final PresetClickHandler handler) {
-			TextView v = super.getBaseView(ctx);
+		public View getView(Context ctx, final PresetClickHandler handler, boolean selected) {
+			TextView v = super.getBaseView(ctx, selected);
 			v.setTypeface(null,Typeface.BOLD);
 			if (handler != null) {
 				v.setOnClickListener(new OnClickListener() {
@@ -1320,23 +1562,36 @@ public class Preset implements Serializable {
 						handler.onGroupClick(PresetGroup.this);
 					}
 				});
+				v.setOnLongClickListener(new OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+						return handler.onGroupLongClick(PresetGroup.this);
+					}
+				});
 			}
+			v.setTag("G"+this.getGroupIndex());
 			return v;
 		}
 		
+		public int getGroupIndex() {
+			return groupIndex;
+		}
+
 		/**
+		 * @param selectedElement TODO
 		 * @return a view showing the content (nodes, subgroups) of this group
 		 */
-		public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type) {
+		public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type, PresetElement selectedElement) {
 			ScrollView scrollView = new ScrollView(ctx);		
 			scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-			return getGroupView(ctx, scrollView, handler, type);
+			return getGroupView(ctx, scrollView, handler, type, selectedElement);
 		}
 		
 		/**
+		 * @param selectedElement TODO
 		 * @return a view showing the content (nodes, subgroups) of this group
 		 */
-		public View getGroupView(Context ctx, ScrollView scrollView, PresetClickHandler handler, ElementType type) {
+		public View getGroupView(Context ctx, ScrollView scrollView, PresetClickHandler handler, ElementType type, PresetElement selectedElement) {
 			scrollView.removeAllViews();
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
@@ -1347,7 +1602,7 @@ public class Preset implements Serializable {
 			ArrayList<PresetElement> filteredElements = type == null ? elements : filterElements(elements, type);
 			ArrayList<View> childViews = new ArrayList<View>();
 			for (PresetElement element : filteredElements) {
-				childViews.add(element.getView(ctx, handler));
+				childViews.add(element.getView(ctx, handler, element.equals(selectedElement)));
 			}
 			wrappingLayout.setWrappedChildren(childViews);
 			scrollView.addView(wrappingLayout);
@@ -1439,7 +1694,7 @@ public class Preset implements Serializable {
 		 */
 		private boolean chunk = false;
 		
-		private int itemIndex;
+		private final int itemIndex;
 
 		public PresetItem(PresetGroup parent, String name, String iconpath, String types) {
 			super(parent, name, iconpath);
@@ -2015,8 +2270,8 @@ public class Preset implements Serializable {
 		
 
 		@Override
-		public View getView(Context ctx, final PresetClickHandler handler) {
-			View v = super.getBaseView(ctx);
+		public View getView(Context ctx, final PresetClickHandler handler, boolean selected) {
+			View v = super.getBaseView(ctx, selected);
 			if (handler != null) {
 				v.setOnClickListener(new OnClickListener() {
 					@Override
@@ -2032,6 +2287,7 @@ public class Preset implements Serializable {
 					}	
 				});
 			}
+			v.setTag(""+this.getItemIndex());
 			return v;
 		}
 
@@ -2096,6 +2352,10 @@ public class Preset implements Serializable {
 			return false;
 		}
 		
+		/**
+		 * Get the index of this item 
+		 * @return the index
+		 */
 		public int getItemIndex() {
 			return itemIndex;
 		}
@@ -2237,7 +2497,7 @@ public class Preset implements Serializable {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			return getItem(position).getView(context, handler);
+			return getItem(position).getView(context, handler, false);
 		}
 		
 		@Override
@@ -2266,6 +2526,7 @@ public class Preset implements Serializable {
 		void onItemClick(PresetItem item);
 		boolean onItemLongClick(PresetItem item);
 		void onGroupClick(PresetGroup group);
+		boolean onGroupLongClick(PresetGroup group);
 	}
 
 	static public Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {

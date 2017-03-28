@@ -115,6 +115,11 @@ public class RecentPresetsFragment extends BaseFragment {
     					public void onGroupClick(PresetGroup group) {
     						// should not have groups
     					}
+
+						@Override
+						public boolean onGroupLongClick(PresetGroup group) {
+							return false;
+						}
     				};
     			v = presets[0].getRecentPresetView(getActivity(), presets, presetClickHandler, filterType); //TODO this should really be a call of a static method, all MRUs get added to this view
 

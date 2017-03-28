@@ -20,7 +20,7 @@ public class Tags {
 		importantTags = new ArrayList<String>(Arrays.asList((
 				"highway,barrier,waterway,railway,aeroway,aerialway,power,"+
 				"man_made,building,leisure,amenity,office,shop,craft,emergency,"+
-				"tourism,historic,landuse,military,natural,boundary"
+				"tourism,historic,landuse,military,natural,boundary,type"
 		).split(",")));
 	}
 		

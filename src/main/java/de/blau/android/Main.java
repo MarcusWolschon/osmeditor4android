@@ -105,6 +105,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.filter.Filter;
+import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.javascript.EvalCallback;
@@ -1292,7 +1293,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			prefs.enableTagFilter(true);
 			Log.d(DEBUG_TAG,"had to resync tagfilter pref");
 		}
-		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnableTagFilter());
+		
+		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
+		menu.findItem(R.id.menu_enable_presetfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
 		
 		// enable the JS console menu entry
 		menu.findItem(R.id.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
@@ -1349,21 +1352,53 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			});
 			return true;
 		case R.id.menu_enable_tagfilter:
-			prefs.enableTagFilter(!prefs.getEnableTagFilter());
-			if (prefs.getEnableTagFilter() && logic.getFilter() == null){
+		case R.id.menu_enable_presetfilter:
+			Filter newFilter = null;
+			switch (item.getItemId()) {
+			case R.id.menu_enable_tagfilter:
+				Log.d(DEBUG_TAG,"filter menu tag");
+				if (prefs.getEnableTagFilter()) {
+					// already selected turn off 
+					prefs.enableTagFilter(false);
+					item.setChecked(false);
+				} else {
+					prefs.enableTagFilter(true);
+					item.setChecked(true);
+					prefs.enablePresetFilter(false);
+					newFilter = new TagFilter(this);
+				}
+				break;
+			case R.id.menu_enable_presetfilter:
+				Log.d(DEBUG_TAG,"filter menu preset");
+				if (prefs.getEnablePresetFilter()) {
+					// already selected turn off 
+					prefs.enablePresetFilter(false);
+					item.setChecked(false);
+				} else {
+					prefs.enablePresetFilter(true);
+					item.setChecked(true);
+					prefs.enableTagFilter(false);
+					newFilter = new PresetFilter(this);
+				}
+				break;
+			}
+			Filter currentFilter = logic.getFilter();
+			if (currentFilter != null) {
+				currentFilter.saveState();
+				currentFilter.hideControls();
+				currentFilter.removeControls();
+				logic.setFilter(null);
+			}
+			if (newFilter != null) {
 				Filter.Update updater = new Filter.Update() {
 					@Override
 					public void execute() {
 						map.invalidate();
 						scheduleAutoLock();
 					} };
-				logic.setFilter(new TagFilter(this));
+				logic.setFilter(newFilter);
 				logic.getFilter().addControls(getMapLayout(), updater);
 				logic.getFilter().showControls();
-			} else if (logic.getFilter() != null && logic.getMode() != Mode.MODE_INDOOR) {
-				logic.getFilter().hideControls();
-				logic.getFilter().removeControls();
-				logic.setFilter(null);
 			}
 			triggerMenuInvalidation();
 			map.invalidate();
