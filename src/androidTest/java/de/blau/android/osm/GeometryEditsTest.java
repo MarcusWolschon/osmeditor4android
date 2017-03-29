@@ -18,6 +18,7 @@ import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.Map;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
@@ -140,7 +141,8 @@ public class GeometryEditsTest {
     	try {
     		App.getDelegator().setOriginalBox(new BoundingBox(-1,-1,1,1)); // force ops to be outside box
     		Logic logic = App.getLogic();
-    		logic.setZoom(main.getMap(), 20);
+    		Map map = main.getMap();
+    		logic.setZoom(map, 20);
     		float tolerance = DataStyle.getCurrent().wayToleranceValue;
     		System.out.println("Tolerance " + tolerance);
 
@@ -149,11 +151,13 @@ public class GeometryEditsTest {
     		logic.setSelectedRelation(null);
     		logic.performAdd(main, 1000.0f, 0.0f);
     		Node wn = logic.getSelectedNode();
+    		BoundingBox box = new BoundingBox(wn.getLon(), wn.getLat());
     		float wnY = getY(logic, wn);
     		float wnX = getX(logic, wn);
     		System.out.println("WN1 X " + wnX + " Y " + wnY);
     		logic.performAdd(main, 1000.0f, 1000.0f);
     		wn = logic.getSelectedNode();
+    		box.union(wn.getLon(), wn.getLat());
     		wnY = getY(logic, wn);
     		wnX = getX(logic, wn);
     		System.out.println("WN2 X " + wnX + " Y " + wnY);
@@ -161,7 +165,6 @@ public class GeometryEditsTest {
     		Assert.assertEquals(2, w1.getNodes().size());
     		logic.setSelectedWay(null);
     		logic.setSelectedNode(null);
-
     		// 2nd way tolerance + 1 pixels away
 
     		float X = 1000.0f + tolerance + 1.0f;
@@ -169,11 +172,15 @@ public class GeometryEditsTest {
     		wn = logic.getSelectedNode();
     		wnY = getY(logic, wn);
     		wnX = getX(logic, wn);
+       		box.union(wn.getLon(), wn.getLat());
+       		map.setViewBox(box);
     		System.out.println("WN3 X " + wnX + " Y " + wnY);
     		logic.performAdd(main, X, 1000.0f + tolerance);
     		wn = logic.getSelectedNode();
     		wnY = getY(logic, wn);
     		wnX = getX(logic, wn);
+       		box.union(wn.getLon(), wn.getLat());
+       		map.setViewBox(box);
     		System.out.println("WN4 X " + wnX + " Y " + wnY);
     		Way w2 = logic.getSelectedWay();
     		Assert.assertEquals(2, w2.getNodes().size());
@@ -182,6 +189,8 @@ public class GeometryEditsTest {
 
     		Node tempNode = logic.performAddOnWay(main, null,X, 500.0f, false);
     		Node n1 = logic.getSelectedNode();
+       		box.union(n1.getLon(), n1.getLat());
+       		map.setViewBox(box);
     		Assert.assertEquals(n1,tempNode);
     		Assert.assertEquals(1, logic.getWaysForNode(n1).size());
     		logic.setSelectedWay(null);
