@@ -335,8 +335,16 @@ public class Preferences {
 	/**
 	 * @return
 	 */
-	public boolean isOpenStreetBugsEnabled() {
+	public boolean areBugsEnabled() {
 		return isOpenStreetBugsEnabled;
+	}
+	
+	/**
+	 * Set the status of the tasks/bugs display
+	 * @param on if true enable
+	 */
+	public void setBugsEnabled(boolean on) {
+		prefs.edit().putBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), on).commit();
 	}
 	
 	/**

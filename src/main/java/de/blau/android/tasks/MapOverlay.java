@@ -44,12 +44,12 @@ public class MapOverlay extends MapViewOverlay {
 	
 	@Override
 	public boolean isReadyToDraw() {
-		return !map.getPrefs().isOpenStreetBugsEnabled() || map.getOpenStreetMapTilesOverlay().isReadyToDraw();
+		return !map.getPrefs().areBugsEnabled() || map.getOpenStreetMapTilesOverlay().isReadyToDraw();
 	}
 	
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
-		if (map.getPrefs().isOpenStreetBugsEnabled()) {
+		if (map.getPrefs().areBugsEnabled()) {
 			
 			// the idea is to have the circles a bit bigger when zoomed in, not so
 			// big when zoomed out
@@ -113,7 +113,7 @@ public class MapOverlay extends MapViewOverlay {
 	 */
 	public List<Task> getClickedTasks(final float x, final float y, final BoundingBox viewBox) {
 		List<Task> result = new ArrayList<Task>();
-		if (map.getPrefs().isOpenStreetBugsEnabled()) {
+		if (map.getPrefs().areBugsEnabled()) {
 			final float tolerance = DataStyle.getCurrent().nodeToleranceValue;
 			ArrayList<Task> taskList = tasks.getTasks(viewBox);
 			if (taskList != null) {

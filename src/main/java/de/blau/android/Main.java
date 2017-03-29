@@ -822,10 +822,16 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
 					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
-					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, bbox); 
+					ArrayList<BoundingBox> bboxes = null;
+					if (App.getDelegator().isEmpty()) {
+						bboxes = new ArrayList<BoundingBox>();
+						bboxes.add(bbox);
+					} else {
+						bboxes = BoundingBox.newBoxes(bbList, bbox);
+					}
 					if (bboxes != null && bboxes.size() > 0) {
 						logic.downloadBox(this, bbox, true, null); 
-						if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
+						if (prefs.areBugsEnabled()) { // always adds bugs for now
 							TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
 								private static final long serialVersionUID = 1L;
 								@Override
@@ -838,6 +844,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 							});
 						}
 					} else {
+						Log.d(DEBUG_TAG,"no bbox to download");
 						logic.getViewBox().setBorders(getMap(), bbox);
 						map.invalidate();
 					}
@@ -2127,7 +2134,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public static void performCurrentViewHttpLoad(final Main main, boolean add) {
 		App.getLogic().downloadCurrent(main, add);
 		Preferences prefs = main.prefs;
-		if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
+		if (prefs.areBugsEnabled()) { // always adds bugs for now
 			final Map map = main.getMap();
 			TransferTasks.downloadBox(main, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				private static final long serialVersionUID = 1L;

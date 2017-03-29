@@ -57,7 +57,7 @@ public class MapOverlay extends MapViewOverlay {
 	
 	@Override
 	public boolean isReadyToDraw() {
-		return !map.getPrefs().isOpenStreetBugsEnabled() || map.getOpenStreetMapTilesOverlay().isReadyToDraw();
+		return !map.getPrefs().areBugsEnabled() || map.getOpenStreetMapTilesOverlay().isReadyToDraw();
 	}
 	
 	@Override
