@@ -30,10 +30,13 @@ public class GeoMath {
 	
 	public static final int MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int)(MAX_LAT* 1E7d));
 	
+	public static final int EARTH_RADIUS_EQUATOR = 6378137;
+	public static final int EARTH_RADIUS_POLAR = 6356752;
 	/**
 	 * The arithmetic middle of the two WGS84 reference-ellipsoids.
 	 */
-	private static final int EARTH_RADIUS = (6378137 + 6356752) / 2;
+	private static final int EARTH_RADIUS = (EARTH_RADIUS_EQUATOR + EARTH_RADIUS_POLAR) / 2;
+
 	
 	/**
 	 * Checks if x is between a and b (or equals a or b).
@@ -99,7 +102,7 @@ public class GeoMath {
 	 * @return
 	 */
 	public static double latE7ToMercator(final int latE7) {
-		return latToMercator(latE7 / 1E7d);
+		return latToMercator(latE7 / 1E7);
 	}
 	
 	/**

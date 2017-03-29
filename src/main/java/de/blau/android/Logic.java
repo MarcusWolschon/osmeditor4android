@@ -740,7 +740,7 @@ public class Logic {
 		HashMap<Way, Double> result = new HashMap<Way, Double>();
 		boolean showWayIcons = prefs.getShowWayIcons();
 
-		for (Way way : getDelegator().getCurrentStorage().getWays()) {
+		for (Way way : getDelegator().getCurrentStorage().getWays(map.getViewBox())) {
 			if (way.isClosed() && !includeClosed) {
 				continue;
 			}
@@ -752,18 +752,22 @@ public class Logic {
 			double A = 0;
 			double Y = 0;
 			double X = 0;
+			float node1X = Float.MAX_VALUE;
+			float node1Y = Float.MAX_VALUE;
 			//Iterate over all WayNodes, but not the last one.
 			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
 				Node node1 = wayNodes.get(k);
 				Node node2 = wayNodes.get(k + 1);
-				// TODO only project once per node
-				float node1X = lonE7ToX(node1.getLon());
-				float node1Y = latE7ToY(node1.getLat());
+				if (node1X == Float.MAX_VALUE) {
+					node1X = lonE7ToX(node1.getLon());
+					node1Y = latE7ToY(node1.getLat());
+				}
 				float node2X = lonE7ToX(node2.getLon());
 				float node2Y = latE7ToY(node2.getLat());
-
-				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
-					result.put(way, GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y));
+				
+				double distance = isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+				if (distance >= 0) {
+					result.put(way, distance);
 					added = true;
 					break;
 				}
@@ -771,7 +775,9 @@ public class Logic {
 				double d = node1X*node2Y - node2X*node1Y;
 				A = A + d;
 				X = X + (node1X+node2X)*d;
-				Y = Y + (node1Y+node2Y)*d;			
+				Y = Y + (node1Y+node2Y)*d;	
+				node1X = node2X;
+				node1Y = node2Y;
 			}
 			if (showWayIcons && !added && way.isClosed() && (way.hasTagKey(Tags.KEY_BUILDING) || way.hasTag(Tags.KEY_INDOOR, Tags.VALUE_ROOM))) {
 				Y = Y/(3*A);
@@ -894,10 +900,12 @@ public class Logic {
 	 */
 	private HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
 		HashMap<Node, Double> result = new HashMap<Node, Double>();
-		List<Node> nodes = getDelegator().getCurrentStorage().getNodes();
+		List<Node> nodes = getDelegator().getCurrentStorage().getNodes(map.getViewBox());
 
 		for (Node node : nodes) {
-			if (clickableElements != null && !clickableElements.contains(node)) continue;
+			if (clickableElements != null && !clickableElements.contains(node)) {
+				continue;
+			}
 
 			int lat = node.getLat();
 			int lon = node.getLon();
@@ -1828,8 +1836,8 @@ public class Logic {
 						float node1Y = latE7ToY(node1.getLat());
 						float node2X = lonE7ToX( node2.getLon());
 						float node2Y = latE7ToY(node2.getLat());
-						if (isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y)) {
-							double distance = GeoMath.getLineDistance(jx, jy, node1X, node1Y, node2X, node2Y);
+						double distance = isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
+						if (distance >= 0) {
 							if (distance < closestDistance && (filter == null || filter.include(way,false))) {
 								closestDistance = distance;
 								closestElement = way;
@@ -1872,7 +1880,8 @@ public class Logic {
 				float node1Y = latE7ToY(node1.getLat());
 				float node2X = lonE7ToX(node2.getLon());
 				float node2Y = latE7ToY(node2.getLat());
-				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
+				double distance = isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+				if (distance >= 0) {
 					float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
 					int lat = yToLatE7(p[1]);
 					int lon = xToLonE7(p[0]);
@@ -2057,8 +2066,8 @@ public class Logic {
 				float node2X = lonE7ToX(node2.getLon());
 				float node2Y = latE7ToY(node2.getLat());
 
-				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
-					double distance = GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y);
+				double distance = isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+				if (distance >= 0) {
 					if ((savedNode1 == null && savedNode2 == null) || distance < savedDistance) {
 						savedNode1 = node1;
 						savedNode2 = node2;
@@ -2118,7 +2127,7 @@ public class Logic {
 		float node2Y = latE7ToY(node2.getLat());
 
 		//At first, we check if the x,y is in the bounding box clamping by node1 and node2.
-		if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
+		if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y) >= 0) {
 			float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
 			int lat = yToLatE7(p[1]);
 			int lon = xToLonE7(p[0]);
@@ -2130,17 +2139,25 @@ public class Logic {
 	/**
 	 * Checks if the x,y-position plus the tolerance is on a line between node1(x,y) and node2(x,y).
 	 * 
-	 * @return true, when x,y plus way-tolerance lays on the line between node1 and node2.
+	 * To avoid the typical two time calculation of the distance we actually return it
+	 * @param x screen X coordinate of the position
+	 * @param y screen Y coordinate of the position
+	 * @param node1X screen X coordinate of node1
+	 * @param node1Y screen Y coordinate of node1
+	 * @param node2X screen X coordinate of node2
+	 * @param node2Y screen Y coordinate of node2
+	 * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
 	 */
-	private boolean isPositionOnLine(final float x, final float y,
+	private double isPositionOnLine(final float x, final float y,
 			final float node1X, final float node1Y,
 			final float node2X, final float node2Y) {
 		float tolerance = DataStyle.getCurrent().wayToleranceValue / 2f;
 		//noinspection SuspiciousNameCombination
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
-			return (GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y) < tolerance);
+			double distance = GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y);
+			return distance < tolerance ? distance : -1D;
 		}
-		return false;
+		return -1D;
 	}
 
 
