@@ -825,6 +825,18 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, bbox); 
 					if (bboxes != null && bboxes.size() > 0) {
 						logic.downloadBox(this, bbox, true, null); 
+						if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
+							TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
+								private static final long serialVersionUID = 1L;
+								@Override
+								public void onSuccess() {
+									getMap().invalidate();
+								}
+								@Override
+								public void onError() {
+								}
+							});
+						}
 					} else {
 						logic.getViewBox().setBorders(getMap(), bbox);
 						map.invalidate();
@@ -2114,12 +2126,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 	public static void performCurrentViewHttpLoad(final Main main, boolean add) {
 		App.getLogic().downloadCurrent(main, add);
-		if (main.prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
-			TransferTasks.downloadBox(main, main.prefs.getServer(), main.getMap().getViewBox().copy(), true, new PostAsyncActionHandler() {
+		Preferences prefs = main.prefs;
+		if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
+			final Map map = main.getMap();
+			TransferTasks.downloadBox(main, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				private static final long serialVersionUID = 1L;
 				@Override
 				public void onSuccess() {
-					main.getMap().invalidate();
+					map.invalidate();
 				}
 				@Override
 				public void onError() {
