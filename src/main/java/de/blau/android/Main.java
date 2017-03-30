@@ -1442,11 +1442,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		case R.id.menu_camera:
 			Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			try {
+				imageFile = getImageFile();
 				Uri photoUri = FileProvider.getUriForFile(this,
 						"de.blau.android.osmeditor4android.provider",
-						getImageFile());
+						imageFile);
 				if (photoUri != null) {
-					imageFile = getImageFile();
 					startCamera.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 					startCamera.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
 					startActivityForResult(startCamera, REQUEST_IMAGE_CAPTURE);	
@@ -1789,7 +1789,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	    outDir = FileUtil.getPublicDirectory(outDir, Paths.DIRECTORY_PATH_PICTURES);
 	    String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
 	    File imageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outDir);
-	    Log.d(DEBUG_TAG, "createImageFile " + imageFile.getAbsolutePath());
+	    Log.d(DEBUG_TAG, "getImageFile " + imageFile.getAbsolutePath());
 	    return imageFile;
 	}
 	
@@ -2100,6 +2100,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public void setImageFileName(String savedImageFileName) {
 		if (savedImageFileName != null) {
+			Log.d(DEBUG_TAG, "setting imageFIleName to " + savedImageFileName);
 			imageFile = new File(savedImageFileName);
 		}
 	}
