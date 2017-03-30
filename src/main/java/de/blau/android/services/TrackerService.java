@@ -44,7 +44,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -166,11 +165,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * which invokes {@link #startTrackingInternal()}, which does the actual work.
 	 * To start tracking, bind the service, then call this.
 	 */
-	public void startTracking(AppCompatActivity activity) {
+	public void startTracking() {
 		Intent intent = new Intent(this, TrackerService.class);
 		intent.putExtra(TRACK,true);
 		startService(intent);
-		activity.supportInvalidateOptionsMenu();
 	}
 	
 	/**
@@ -178,11 +176,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * which invokes {@link #startTrackingInternal()}, which does the actual work.
 	 * To start tracking, bind the service, then call this.
 	 */
-	public void startAutoDownload(AppCompatActivity activity) {
+	public void startAutoDownload() {
 		Intent intent = new Intent(this, TrackerService.class);
 		intent.putExtra(AUTODOWNLOAD,true);
 		startService(intent);
-		activity.supportInvalidateOptionsMenu();
 	}
 	
 	/**
@@ -190,11 +187,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * which invokes {@link #startTrackingInternal()}, which does the actual work.
 	 * To start tracking, bind the service, then call this.
 	 */
-	public void startBugAutoDownload(AppCompatActivity activity) {
+	public void startBugAutoDownload() {
 		Intent intent = new Intent(this, TrackerService.class);
 		intent.putExtra(BUGAUTODOWNLOAD,true);
 		startService(intent);
-		activity.supportInvalidateOptionsMenu();
 	}
 	
 	/**
@@ -211,6 +207,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		tracking = true;
 		track.markNewSegment();
 		updateGPSState();
+		if (externalListener != null) {
+			externalListener.onStateChanged();;
+		}
 	}
 	
 	/**
@@ -223,6 +222,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		startInternal();
 		downloading = true;
 		updateGPSState();
+		if (externalListener != null) {
+			externalListener.onStateChanged();;
+		}
 	}
 	
 	/**
@@ -235,6 +237,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		startInternal();
 		downloadingBugs = true;
 		updateGPSState();
+		if (externalListener != null) {
+			externalListener.onStateChanged();;
+		}
 	}
 	
 	/**
@@ -307,6 +312,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			updateGPSState();
 			stopForeground(true);
 			stopSelf();
+		}
+		if (externalListener != null) {
+			externalListener.onStateChanged();;
 		}
 	}
 	
@@ -392,6 +400,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	
 	public interface TrackerLocationListener {
 		void onLocationChanged(Location location);
+		void onStateChanged();
 	}
 
 	private void updateGPSState() {
@@ -911,8 +920,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * @return the next bounding box
 	 */
 	private BoundingBox getNextBox(ArrayList<BoundingBox> bbs,Location prevLocation, Location location, int radius) {
-	
-		
 		double lon = location.getLongitude();
 		double lat = location.getLatitude();
 		double mlat = GeoMath.latToMercator(lat);

@@ -1485,7 +1485,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		case R.id.menu_gps_start:
 			if (getTracker() != null && ensureGPSProviderEnabled()) {
-				getTracker().startTracking(this);
+				getTracker().startTracking();
 				setFollowGPS(true);
 			}
 			return true;
@@ -1813,12 +1813,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Log.d(DEBUG_TAG, "autoDownload");
 		if (getTracker() != null && ensureGPSProviderEnabled()) {
 			if (autoDownload()) {
-				getTracker().startAutoDownload(this);
+				getTracker().startAutoDownload();
 			} else {
 				getTracker().stopAutoDownload();
 			}
 		} 
-		triggerMenuInvalidation();
 	}
 	
 	private boolean autoDownload() {
@@ -1829,12 +1828,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		Log.d(DEBUG_TAG, "bugAutoDownload");
 		if (getTracker() != null && ensureGPSProviderEnabled()) {
 			if (bugAutoDownload()) {
-				getTracker().startBugAutoDownload(this);
+				getTracker().startBugAutoDownload();
 			} else {
 				getTracker().stopBugAutoDownload();
 			}
 		}
-		triggerMenuInvalidation();
 	}
 	
 	private boolean bugAutoDownload() {
@@ -3234,6 +3232,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		map.invalidate();
 	}	
+	
+
+	@Override
+	public void onStateChanged() {
+		supportInvalidateOptionsMenu();
+	}
 	
 	/**
 	 * Simply calls {@link #invalidateOptionsMenu()}.
