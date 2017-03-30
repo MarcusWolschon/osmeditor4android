@@ -47,7 +47,7 @@ Start creating a turn restriction with this way as "from" member. This action is
 
 ### ![Orthogonalize](../images/menu_ortho.png) Orthogonalize
 
-Change angles that are near 90� or 180� to 90� resp. 180�.
+Change angles that are near 90° or 180° to 90° resp. 180°.
 
 ### ![Rotate](../images/ic_menu_rotate.png) Rotate
 
