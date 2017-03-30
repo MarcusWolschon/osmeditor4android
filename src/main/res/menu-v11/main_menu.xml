@@ -184,6 +184,11 @@
         	android:title="@string/menu_enable_presetfilter"/>
     </group>
     <item
+		android:id="@+id/menu_share"
+		android:title="@string/share_position"
+		app:showAsAction="never"
+	/>
+    <item
         android:id="@+id/menu_help"
         android:alphabeticShortcut="@string/shortcut_help"
         android:icon="?attr/menu_help"

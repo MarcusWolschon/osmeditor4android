@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -53,6 +54,7 @@ import de.blau.android.R;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -1192,10 +1194,11 @@ public class EasyEditManager {
 		private static final int MENUITEM_EXTEND_SELECTION = 7;
 		private static final int MENUITEM_ELEMENT_INFO = 8;
 		
-		private static final int MENUITEM_TAG_LAST = 21;
-		private static final int MENUITEM_ZOOM_TO_SELECTION = 22;
-		private static final int MENUITEM_PREFERENCES = 23;
-		private static final int MENUITEM_JS_CONSOLE = 24;
+		protected static final int MENUITEM_SHARE_POSITION = 21;
+		private static final int MENUITEM_TAG_LAST = 22;
+		private static final int MENUITEM_ZOOM_TO_SELECTION = 23;
+		private static final int MENUITEM_PREFERENCES = 24;
+		private static final int MENUITEM_JS_CONSOLE = 25;
 		
 		OsmElement element = null;
 		
@@ -1264,6 +1267,7 @@ public class EasyEditManager {
 			}
 			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));
 			menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION,  Menu.CATEGORY_SYSTEM|10, R.string.menu_zoom_to_selection);
+			menu.add(GROUP_BASE, MENUITEM_SHARE_POSITION,  Menu.CATEGORY_SYSTEM|10, R.string.share_position);
 			menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM|10, R.string.menu_config).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_config));
 			Preferences prefs = new Preferences(main);
 			menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE,  Menu.CATEGORY_SYSTEM|10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
@@ -1340,7 +1344,7 @@ public class EasyEditManager {
 				logic.cutToClipboard(main, element); currentActionMode.finish();
 				return true;
 			} else if (c == Util.getShortCut(main, R.string.shortcut_info)) {
-				ElementInfo.showDialog(main,element); 
+				ElementInfo.showDialog(main,element);
 				return true;
 			}  else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
 				main.performTagEdit(element, null, false, false, false);
@@ -1438,6 +1442,12 @@ public class EasyEditManager {
 					setPosition(); 
 					break;
 				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false, false); break;
+				case MENUITEM_SHARE_POSITION: 
+					double[] lonLat = new double[2];
+					lonLat[0] = ((Node)element).getLon();
+					lonLat[1] = ((Node)element).getLat();
+					Util.sharePosition(main, lonLat);
+					break;
 				default: return false;
 				}
 			}
@@ -1631,6 +1641,9 @@ public class EasyEditManager {
 				case MENUITEM_CIRCULIZE: logic.performCirculize(main, (Way)element); invalidate(); break;
 				case MENUITEM_SPLIT_POLYGON: main.startSupportActionMode(new WaySplittingActionModeCallback((Way)element, true)); break;
 				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false, false); break;
+				case MENUITEM_SHARE_POSITION: 
+					Util.sharePosition(main, Logic.centroidLonLat((Way) element));
+					break;
 				default: return false;
 				}
 			}
@@ -1982,6 +1995,13 @@ public class EasyEditManager {
 						deselect = false;
 						main.startSupportActionMode(new  ExtendSelectionActionModeCallback(selection));
 					} 
+					break;
+				case MENUITEM_SHARE_POSITION: 
+					BoundingBox box = element.getBounds();
+					double[] lonLat = new double[2];
+					lonLat[0] = ((box.getRight() - box.getLeft())/2 + box.getLeft())/1E7;
+					lonLat[1] = ((box.getTop() - box.getBottom())/2 + box.getBottom())/1E7; // rough
+					Util.sharePosition(main, lonLat);
 					break;
 				default: return false;
 				}

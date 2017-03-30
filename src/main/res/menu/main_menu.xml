@@ -211,6 +211,11 @@
         	android:checkable="true"
         	android:title="@string/menu_enable_presetfilter"/>
     </group>
+    <item
+		android:id="@+id/menu_share"
+		android:title="@string/share_position"
+		app:showAsAction="never"
+	/>
 	<item
 		android:id="@+id/menu_help"
 		android:title="@string/menu_help"

@@ -9,10 +9,12 @@ import java.util.Map.Entry;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
@@ -293,5 +295,22 @@ public class Util {
 	 */
 	public static void setAlpha(FloatingActionButton fab, float fabalpha) {
 		ViewCompat.setAlpha(fab, fabalpha);
+	}
+	
+	/**
+	 * Share the supplied position with other apps
+	 * 
+	 * @param activity this activity
+	 * @param lonLat coordinates to sahre
+	 */
+	public static void sharePosition(Activity activity, double[] lonLat) {
+		if (lonLat != null) {
+			Intent sendIntent = new Intent();
+			sendIntent.setAction(Intent.ACTION_SEND);
+			Uri geo = Uri.parse("geo:"+lonLat[1]+","+lonLat[0]);
+			Log.d(DEBUG_TAG,"sharing " + geo);
+			Intent geoIntent = new Intent(Intent.ACTION_VIEW, geo);
+			activity.startActivity(geoIntent);
+		}
 	}
 }

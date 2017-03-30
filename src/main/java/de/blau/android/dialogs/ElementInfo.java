@@ -60,24 +60,31 @@ public class ElementInfo extends DialogFragment {
 	
 	static public void showDialog(FragmentActivity activity, OsmElement e) {
 		dismissDialog(activity);
-
-		FragmentManager fm = activity.getSupportFragmentManager();
-		ElementInfo elementInfoFragment = newInstance(e);
-	    if (elementInfoFragment != null) {
-	    	elementInfoFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create dialog for value " + e.getDescription());
-	    }
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			ElementInfo elementInfoFragment = newInstance(e);
+			if (elementInfoFragment != null) {
+				elementInfoFragment.show(fm, TAG);
+			} else {
+				Log.e(DEBUG_TAG,"Unable to create dialog for value " + e.getDescription());
+			}
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
-	
+
 	private static void dismissDialog(FragmentActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
 	
     /**

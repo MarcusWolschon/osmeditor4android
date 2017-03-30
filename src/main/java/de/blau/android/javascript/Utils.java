@@ -151,7 +151,7 @@ public class Utils {
 
 		builder.setPositiveButton(R.string.evaluate, null);
 		builder.setNegativeButton(R.string.dismiss, null);
-		builder.setNeutralButton("Share", null);
+		builder.setNeutralButton(R.string.share, null);
 		AlertDialog dialog = builder.create();
 		final Handler handler = new Handler();
 		dialog.setOnShowListener(new DialogInterface.OnShowListener() {

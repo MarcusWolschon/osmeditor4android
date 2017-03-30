@@ -1422,6 +1422,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			triggerMenuInvalidation();
 			map.invalidate();
 			return true;	
+		
+		case R.id.menu_share:
+			BoundingBox box = map.getViewBox();
+			double[] lonLat = new double[2];
+			lonLat[0] = ((box.getRight() - box.getLeft())/2 + box.getLeft())/1E7;
+			lonLat[1] = ((box.getTop() - box.getBottom())/2 + box.getBottom())/1E7; // rough
+			Util.sharePosition(this, lonLat);
+			break;
 			
 		case R.id.menu_help:
 			HelpViewer.start(this, R.string.help_main);

@@ -214,6 +214,8 @@
     <string name="retry">Retry</string>
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>
+    <string name="share">Share</string>
+    <string name="share_position">Share position</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
