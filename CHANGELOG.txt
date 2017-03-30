@@ -1,6 +1,8 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-1256: Down load tasks not just data when we get a geo: uri, some small performance improvements.
+1257: Add sharing of current map position or selected object, and reading and savign of scripts, fix regressions wrt taking photographs and menu updates.
+
+1256: Download tasks not just data when we get a geo: uri, some small performance improvements.
 
 1255: Add preset based filtering;
 
