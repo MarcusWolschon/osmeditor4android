@@ -37,6 +37,8 @@ public class Progress extends DialogFragment
 	
 	public static final int PROGRESS_PRESET = 8;
 	
+	public static final int PROGRESS_RUNNING = 9;
+	
 	private int dialogType;
 	
 	static public void showDialog(FragmentActivity activity, int dialogType) {
@@ -95,6 +97,7 @@ public class Progress extends DialogFragment
 		dismissDialog(activity,PROGRESS_OAUTH);
 		dismissDialog(activity,PROGRESS_UPLOADING);
 		dismissDialog(activity,PROGRESS_PRESET);
+		dismissDialog(activity,PROGRESS_RUNNING);
 	}
 	
 	private static String getTag(int dialogType) {
@@ -115,6 +118,8 @@ public class Progress extends DialogFragment
 			return "dialog_progress_uploading";
 		case PROGRESS_PRESET:
 			return "dialog_progress_preset";
+		case PROGRESS_RUNNING:
+			return "dialog_progress_running";
 		}
 		return null;
 	}

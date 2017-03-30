@@ -8,6 +8,8 @@ public interface Paths {
     String DIRECTORY_PATH_EXTERNAL_SD_CARD = "/external_sd";
 
     String DIRECTORY_PATH_PICTURES = "Pictures";
+    
+    String DIRECTORY_PATH_SCRIPTS = "Scripts";
 
     String DIRECTORY_PATH_STORAGE = "/storage";
 

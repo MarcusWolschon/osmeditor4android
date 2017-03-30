@@ -40,6 +40,7 @@ import de.blau.android.R;
 import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.photos.PhotoIndex;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
@@ -52,11 +53,13 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ExtendedViewPager;
+import de.blau.android.voice.Commands;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
@@ -377,6 +380,17 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+		Log.d(DEBUG_TAG, "onActivityResult");
+		if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
+			SelectFile.handleResult(requestCode, data);
+		}
 	}
 		
 	public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
