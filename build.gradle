@@ -130,7 +130,7 @@ sonarqube {
     properties {
         property "sonar.sourceEncoding","UTF-8"
         property "sonar.java.binaries", "build/intermediates/classes/debug"
-        property "sonar.jacoco.reportPath","build/outputs/code-coverage/connected/coverage.ec"
+        property "sonar.jacoco.reportPaths","build/outputs/code-coverage/connected/5n(AVD) - 7.0-coverage.ec"
     }
 }
 
