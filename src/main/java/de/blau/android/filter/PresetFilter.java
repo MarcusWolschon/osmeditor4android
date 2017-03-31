@@ -273,13 +273,6 @@ public class PresetFilter extends Filter {
 		    @Override
 			public void onClick(View b) {
 		    	Log.d(DEBUG_TAG,"Button clicked");
-		    	String msg = "No preset selected";
-		    	if (preset != null && preset.length > 0) {
-		    		PresetElement element = preset[0].getRootGroup();
-		    		if (element != null) {
-		    			msg = element.getName();
-		    		}
-		    	}
 		    	PresetFilterActivity.start(context);
 		    }
 		});
