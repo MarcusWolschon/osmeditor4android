@@ -2441,7 +2441,7 @@ public class StorageDelegator implements Serializable, Exportable {
 							if (apiNode.getOsmVersion() == wayNode.getOsmVersion() 
 									&& (apiNode.isTagged() && apiNode.getTags().equals(wayNode.getTags()))
 									&& apiNode.getLat() == wayNode.getLat()
-									&& wayNode.getLon() == wayNode.getLon()) {
+									&& apiNode.getLon() == wayNode.getLon()) {
 								apiNode.setState(OsmElement.STATE_UNCHANGED);
 								apiStorage.removeNode(apiNode);
 							} else {
