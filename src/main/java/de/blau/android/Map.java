@@ -54,6 +54,7 @@ import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.MapOverlayTilesOverlay;
@@ -1110,7 +1111,7 @@ public class Map extends View implements IMapView {
 				X = X + (x1+x2)*d;
 				Y = Y + (y1+y2)*d;
 			}
-			if (A != 0) {
+			if (Util.notZero(A)) {
 				Y = Y/(3*A);
 				X = X/(3*A);
 				if (tmpPresets == null || !paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?DataStyle.SELECTED_NODE_TAGGED:null)) {

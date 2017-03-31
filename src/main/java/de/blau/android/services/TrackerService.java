@@ -502,13 +502,12 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * @throws FileNotFoundException 
 	 */
 	public void importGPXFile(@Nullable final FragmentActivity activity, final Uri uri) throws FileNotFoundException {
-		
-
-		
-		
 		final int existingPoints = track.getTrackPoints().size();
 	
 		new AsyncTask<Void, Void, Integer>() {
+			
+			final int FILENOTFOUND = -1;
+			final int OK = 0;
 			
 			@Override
 			protected void onPreExecute() {
@@ -521,7 +520,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			protected Integer doInBackground(Void... arg) {
 				InputStream is = null;
 				BufferedInputStream in = null;
-				int result = 0;
+				int result = OK;
 				try {
 					if (uri.getScheme().equals("file")) {
 						is = new FileInputStream(new File(uri.getPath()));
@@ -530,10 +529,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						is = cr.openInputStream(uri);
 					}
 					in = new BufferedInputStream(is);
-
 					track.importFromGPX(in);
 				} catch (FileNotFoundException e) {
-					// do something, but what
+					Log.e(TAG, "File not found: ", e);
+					result = FILENOTFOUND;
 				} finally {
 					SavingHelper.close(in);
 					SavingHelper.close(is);
@@ -548,6 +547,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
 						Snack.barInfo(activity, activity.getResources().getString(R.string.toast_imported_track_points,track.getTrackPoints().size()-existingPoints));
 						activity.supportInvalidateOptionsMenu();
+						if (result==FILENOTFOUND) {
+							Snack.barError(activity, R.string.toast_file_not_found);
+						}
 					}
 				} catch (IllegalStateException e) {
 					 // Avoid crash if activity is paused

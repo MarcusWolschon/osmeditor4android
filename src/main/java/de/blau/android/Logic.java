@@ -92,6 +92,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 import de.blau.android.util.collections.MRUList;
 
 /**
@@ -779,7 +780,7 @@ public class Logic {
 				node1X = node2X;
 				node1Y = node2Y;
 			}
-			if (A != 0 && showWayIcons && !added && way.isClosed() && (way.hasTagKey(Tags.KEY_BUILDING) || way.hasTag(Tags.KEY_INDOOR, Tags.VALUE_ROOM))) {
+			if (Util.notZero(A) && showWayIcons && !added && way.isClosed() && (way.hasTagKey(Tags.KEY_BUILDING) || way.hasTag(Tags.KEY_INDOOR, Tags.VALUE_ROOM))) {
 				Y = Y/(3*A);
 				X = X/(3*A);
 				double distance =  Math.hypot(x-X, y-Y);
@@ -1133,7 +1134,7 @@ public class Logic {
 					if (!rotatingWay) {	
 						Handle handle = getClickedWayHandleWithDistances(x, y);
 						if (handle != null) {
-							Log.d("Logic","start handle drag");
+							Log.d(DEBUG_TAG,"start handle drag");
 							selectedHandle = handle;
 							draggingHandle = true;
 						} else {
@@ -1257,7 +1258,7 @@ public class Logic {
 				if (draggingHandle) { // create node only if we are really dragging
 					try {
 						if (handleNode == null && selectedHandle != null && selectedWays != null) {
-							Log.d("Logic","creating node at handle position");
+							Log.d(DEBUG_TAG,"creating node at handle position");
 							handleNode = performAddOnWay(main, selectedWays, selectedHandle.x, selectedHandle.y, true);
 							selectedHandle = null;
 						}
@@ -1446,7 +1447,7 @@ public class Logic {
 				lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
 				getDelegator().insertElementSafe(lSelectedNode);
 				if (!getDelegator().isInDownload(lat, lon)) {
-					Log.d("Logic","Outside of download");
+					Log.d(DEBUG_TAG,"Outside of download");
 					Snack.barWarningShort(activity, R.string.toast_outside_of_download);
 				}
 			}
@@ -1465,7 +1466,7 @@ public class Logic {
 				getDelegator().addNodeToWay(lSelectedNode, lSelectedWay);
 				getDelegator().insertElementSafe(lSelectedNode);
 				if (!getDelegator().isInDownload(lat, lon)) {
-					Log.d("Logic","Outside of download");
+					Log.d(DEBUG_TAG,"Outside of download");
 					Snack.barWarningShort(activity, R.string.toast_outside_of_download);
 				}
 			} else {
@@ -1499,7 +1500,7 @@ public class Logic {
 	 */
 	public synchronized Node performAddNode(@Nullable final Activity activity, Double lonD, Double latD) {
 		//A complete new Node...
-		Log.d("Logic","performAddNode");
+		Log.d(DEBUG_TAG,"performAddNode");
 		createCheckpoint(activity, R.string.undo_action_add);
 		int lon = (int)(lonD*1E7D);
 		int lat = (int)(latD*1E7D);
@@ -1507,7 +1508,7 @@ public class Logic {
 		getDelegator().insertElementSafe(newNode);
 		if (!getDelegator().isInDownload(lat, lon)) {
 			// warning toast
-			Log.d("Logic","Outside of download");
+			Log.d(DEBUG_TAG,"Outside of download");
 			Snack.barWarningShort(activity, R.string.toast_outside_of_download);
 		}
 		setSelectedNode(newNode);
@@ -1737,7 +1738,7 @@ public class Logic {
 		for (int i=1;i<sortedWays.size();i++) {
 			Way nextWay = (Way) sortedWays.get(i);
 			if (!getDelegator().mergeWays(previousWay, nextWay)) {
-				Log.d("Logic","ways " + previousWay.getDescription() + " and " + nextWay + " caused a merge conflict"); 
+				Log.d(DEBUG_TAG,"ways " + previousWay.getDescription() + " and " + nextWay + " caused a merge conflict"); 
 				mergeOK = false; // signal that we had a problem somewhere
 			}
 			if (previousWay.getState() == OsmElement.STATE_DELETED) {
@@ -1976,7 +1977,7 @@ public class Logic {
 	 * @throws OsmIllegalOperationException
 	 */
 	public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
-		Log.d("Logic","performAppendAppend");
+		Log.d(DEBUG_TAG,"performAppendAppend");
 		createCheckpoint(activity, R.string.undo_action_append);
 		Node lSelectedNode = getSelectedNode();
 		Way lSelectedWay = getSelectedWay();
@@ -2471,7 +2472,7 @@ public class Logic {
 	 * @see #downloadBox(activity, BoundingBox, boolean)
 	 */
 	void downloadCurrent(final FragmentActivity activity, boolean add) {
-		Log.d("Logic","viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
+		Log.d(DEBUG_TAG,"viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
 		downloadBox(activity, viewBox.copy(),add, null);
 	}
 	
@@ -2944,7 +2945,7 @@ public class Logic {
 							throw new IOException("Unable to create directory " + outdir.getPath());
 						}
 					}
-					Log.d("Logic","Saving to " + outfile.getPath());
+					Log.d(DEBUG_TAG,"Saving to " + outfile.getPath());
 					FileOutputStream fout = null;
 					OutputStream out = null;
 					try {
@@ -2953,20 +2954,20 @@ public class Logic {
 						getDelegator().save(out);
 					} catch (IllegalArgumentException e) {
 						result = ErrorCodes.FILE_WRITE_FAILED;
-						Log.e("Logic", "Problem writing", e);
+						Log.e(DEBUG_TAG, "Problem writing", e);
 					} catch (IllegalStateException e) {
 						result = ErrorCodes.FILE_WRITE_FAILED;
-						Log.e("Logic", "Problem writing", e);
+						Log.e(DEBUG_TAG, "Problem writing", e);
 					} catch (XmlPullParserException e) {
 						result = ErrorCodes.FILE_WRITE_FAILED;
-						Log.e("Logic", "Problem writing", e);
+						Log.e(DEBUG_TAG, "Problem writing", e);
 					} finally {
 						SavingHelper.close(out);
 						SavingHelper.close(fout);
 					}
 				} catch (IOException e) {
 					result = ErrorCodes.FILE_WRITE_FAILED;
-					Log.e("Logic", "Problem writing", e);
+					Log.e(DEBUG_TAG, "Problem writing", e);
 				}
 				return result;
 			}
@@ -3144,7 +3145,7 @@ public class Logic {
 					}
 				}
 				else {
-					Log.d("Logic", "loadfromFile: File read failed");
+					Log.d(DEBUG_TAG, "loadfromFile: File read failed");
 					Intent intent = new Intent(activity, BoxPicker.class);
 					activity.startActivityForResult(intent, Main.REQUEST_BOUNDING_BOX);
 					
@@ -3173,7 +3174,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Log.d("Logic", "loadBugsFromFile onPreExecute");
+				Log.d(DEBUG_TAG, "loadBugsFromFile onPreExecute");
 			}
 			
 			@Override
@@ -3187,9 +3188,9 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Log.d("Logic", "loadBugsFromFile onPostExecute");
+				Log.d(DEBUG_TAG, "loadBugsFromFile onPostExecute");
 				if (result.intValue() != READ_FAILED) {
-					Log.d("Logic", "loadBugsfromFile: File read correctly");
+					Log.d(DEBUG_TAG, "loadBugsfromFile: File read correctly");
 					
 					// FIXME if no bbox exists from data, ty to use one from bugs
 					if (postLoad != null) {
@@ -3200,7 +3201,7 @@ public class Logic {
 					}
 				}
 				else {
-					Log.d("Logic", "loadBugsfromFile: File read failed");
+					Log.d(DEBUG_TAG, "loadBugsfromFile: File read failed");
 					if (postLoad != null) {
 						postLoad.onError();
 					}
@@ -3232,7 +3233,7 @@ public class Logic {
 
 		Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
 		if (result != READ_FAILED) {
-			Log.d("Logic", "syncLoadfromFile: File read correctly");
+			Log.d(DEBUG_TAG, "syncLoadfromFile: File read correctly");
 			if (map != null) {
 				try {
 					viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
@@ -3258,7 +3259,7 @@ public class Logic {
 			}
 		}
 		else {
-			Log.d("Logic", "syncLoadfromFile: File read failed");
+			Log.d(DEBUG_TAG, "syncLoadfromFile: File read failed");
 			Snack.barError(activity, R.string.toast_state_file_failed);
 		}
 	}
@@ -4246,8 +4247,11 @@ public class Logic {
 		} else if (element instanceof Way) {
 			// use current centroid of way
 			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
-			Log.d("Logic","centroid " + result[0] + " " + result[1]);
-			getDelegator().copyToClipboard(element, result[0], result[1]);
+			if (result != null) {
+				getDelegator().copyToClipboard(element, result[0], result[1]);
+			} else {
+				Log.e(DEBUG_TAG,"centroid of way " + element.getDescription() + " is null");
+			}
 		}
 	}
 
@@ -4262,8 +4266,11 @@ public class Logic {
 			getDelegator().cutToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
 		} else if (element instanceof Way) {
 			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
-			Log.d("Logic","centroid " + result[0] + " " + result[1]);
-			getDelegator().cutToClipboard(element, result[0], result[1]);
+			if (result != null) {
+				getDelegator().cutToClipboard(element, result[0], result[1]);
+			} else {
+				Log.e(DEBUG_TAG,"centroid of way " + element.getDescription() + " is null");
+			}
 		}
 		invalidateMap();
 	}
@@ -4338,7 +4345,7 @@ public class Logic {
 				X = X + (x1+x2)*d;
 				Y = Y + (y1+y2)*d;
 			}
-			if (A != 0) {
+			if (Util.notZero(A)) {
 				Y = Y/(3*A);
 				X = X/(3*A);
 				return new float[]{(float)X, (float)Y};
@@ -4358,7 +4365,7 @@ public class Logic {
 				X = X + len * (x1+x2)/2;
 				Y = Y + len * (y1+y2)/2;
 			}
-			if (L != 0) {
+			if (Util.notZero(L)) {
 				Y = Y/L;
 				X = X/L;
 				return new float[]{(float)X, (float)Y};
@@ -4395,7 +4402,7 @@ public class Logic {
 				X = X + (x1+x2)*(x1*y2-x2*y1);
 				Y = Y + (y1+y2)*(x1*y2-x2*y1);
 			}
-			if (A !=0) {
+			if (Util.notZero(A)) {
 				Y = GeoMath.mercatorToLat(Y/(3*A));
 				X = X/(3*A);
 				return new double[]{X, Y};
@@ -4415,7 +4422,7 @@ public class Logic {
 				X = X + len * (x1+x2)/2;
 				Y = Y + len * (y1+y2)/2;
 			}
-			if (L != 0) {
+			if (Util.notZero(L)) {
 				Y = GeoMath.mercatorToLat(Y/L);
 				X = X/L;
 				return new double[]{X, Y};

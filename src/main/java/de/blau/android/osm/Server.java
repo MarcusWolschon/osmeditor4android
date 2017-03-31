@@ -592,7 +592,7 @@ public class Server {
 		
 		@Override
 		public void run() {
-			if (context != null & context instanceof Activity) {
+			if (context != null && context instanceof Activity) {
 				try {
 					Snack.barError((Activity) context, context.getResources().getString(R.string.toast_download_failed, code, message));
 				} catch (Exception ex) {
