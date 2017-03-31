@@ -251,63 +251,19 @@ public class Preset implements Serializable {
 
 		//noinspection ResultOfMethodCallIgnored
 		directory.mkdir();
-		
-		InputStream fileStream;
-		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
-			Log.i("Preset", "Loading default preset");
-			iconManager = new PresetIconManager(ctx, null, null);
-			fileStream = iconManager.openAsset(PRESETXML, true);
-			// get translations
-			InputStream poFileStream = iconManager.openAsset("preset_"+Locale.getDefault()+".po", true);
-			if (poFileStream == null) {
-				poFileStream = iconManager.openAsset("preset_"+Locale.getDefault().getLanguage()+".po", true);
-			}
-			if (poFileStream != null) {
+
+		InputStream fileStream = null;
+		try {
+			if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+				Log.i("Preset", "Loading default preset");
+				iconManager = new PresetIconManager(ctx, null, null);
+				fileStream = iconManager.openAsset(PRESETXML, true);
+				// get translations
+				InputStream poFileStream = null;
 				try {
-					po = new Po(poFileStream);
-				} catch (Exception ignored) {
-					Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
-				} catch (Error ignored) {
-					Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
-				}
-			}
-		} else if (externalPackage != null) {
-			Log.i("Preset", "Loading APK preset, package=" + externalPackage + ", directory="+directory.toString());
-			iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
-			fileStream = iconManager.openAsset(PRESETXML, false);
-			// po = new Po(iconManager.openAsset("preset_"+Locale.getDefault()+".po", false));
-		} else {
-			Log.i("Preset", "Loading downloaded preset, directory="+directory.toString());
-			iconManager = new PresetIconManager(ctx, directory.toString(), null);
-			File indir = new File(directory.toString());
-			fileStream = null; // force crash and burn
-			if (indir != null) {
-				File[] list = indir.listFiles(new PresetFileFilter());
-				if (list != null && list.length > 0) { // simply use the first XML file found
-					String presetFilename = list[0].getName();
-					Log.i("Preset", "Preset file name " + presetFilename);
-					fileStream = new FileInputStream(new File(directory, presetFilename));
-					// get translations
-					presetFilename = presetFilename.substring(0, presetFilename.length()-4);
-					InputStream poFileStream = null;
-					// try to open .po files either with the same name as the preset file or the standard name
-					try {
-						poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault()+".po"));
-					} catch (FileNotFoundException fnfe) {
-						try {
-							poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault().getLanguage()+".po"));
-						} catch (FileNotFoundException fnfe2) {
-							try {
-								presetFilename = PRESETXML.substring(0, PRESETXML.length()-4);
-								poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault()+".po"));
-							} catch (FileNotFoundException fnfe3) {
-								try {
-									poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault().getLanguage()+".po"));
-								} catch (FileNotFoundException fnfe4) {
-									// no translations
-								}
-							}
-						}
+					poFileStream = iconManager.openAsset("preset_"+Locale.getDefault()+".po", true);
+					if (poFileStream == null) {
+						poFileStream = iconManager.openAsset("preset_"+Locale.getDefault().getLanguage()+".po", true);
 					}
 					if (poFileStream != null) {
 						try {
@@ -317,6 +273,60 @@ public class Preset implements Serializable {
 						} catch (Error ignored) {
 							Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
 						}
+					}
+				} finally {
+					SavingHelper.close(poFileStream);
+				}
+			} else if (externalPackage != null) {
+				Log.i("Preset", "Loading APK preset, package=" + externalPackage + ", directory="+directory.toString());
+				iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
+				fileStream = iconManager.openAsset(PRESETXML, false);
+				// po = new Po(iconManager.openAsset("preset_"+Locale.getDefault()+".po", false));
+			} else {
+				Log.i("Preset", "Loading downloaded preset, directory="+directory.toString());
+				iconManager = new PresetIconManager(ctx, directory.toString(), null);
+				File indir = new File(directory.toString());
+				fileStream = null; // force crash and burn
+				if (indir != null) {
+					File[] list = indir.listFiles(new PresetFileFilter());
+					if (list != null && list.length > 0) { // simply use the first XML file found
+						String presetFilename = list[0].getName();
+					Log.i("Preset", "Preset file name " + presetFilename);
+					fileStream = new FileInputStream(new File(directory, presetFilename));
+					// get translations
+					presetFilename = presetFilename.substring(0, presetFilename.length()-4);
+					InputStream poFileStream = null;
+					try {
+						// try to open .po files either with the same name as the preset file or the standard name
+						try {
+							poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault()+".po"));
+						} catch (FileNotFoundException fnfe) {
+							try {
+								poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault().getLanguage()+".po"));
+							} catch (FileNotFoundException fnfe2) {
+								try {
+									presetFilename = PRESETXML.substring(0, PRESETXML.length()-4);
+									poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault()+".po"));
+								} catch (FileNotFoundException fnfe3) {
+									try {
+										poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault().getLanguage()+".po"));
+									} catch (FileNotFoundException fnfe4) {
+										// no translations
+									}
+								}
+							}
+						}
+						if (poFileStream != null) {
+							try {
+								po = new Po(poFileStream);
+							} catch (Exception ignored) {
+								Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+							} catch (Error ignored) {
+								Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+							}
+						}
+					} finally {
+						SavingHelper.close(poFileStream);
 					}
 				} else {
 					Log.e("Preset","Can't find preset file" );
@@ -356,6 +366,9 @@ public class Preset implements Serializable {
 //        	Log.d("SearchIndex",l);
 //        }
         Log.d("SearchIndex","length: " + searchIndex.getKeys().size());
+		} finally {
+			SavingHelper.close(fileStream);
+		}
 	}
 	
 	/**
@@ -754,8 +767,10 @@ public class Preset implements Serializable {
 	private PresetMRUInfo initMRU(File directory, String hashValue) {
 		PresetMRUInfo tmpMRU;
 		ObjectInputStream mruReader = null;
+		FileInputStream fout = null;
         try {
-        	mruReader = new ObjectInputStream(new FileInputStream(new File(directory, MRUFILE)));
+        	fout = new FileInputStream(new File(directory, MRUFILE));
+        	mruReader = new ObjectInputStream(fout);
         	tmpMRU = (PresetMRUInfo) mruReader.readObject();
         	if (!tmpMRU.presetHash.equals(hashValue)) throw new InvalidObjectException("hash mismatch");
         } catch (Exception e) {
@@ -763,13 +778,8 @@ public class Preset implements Serializable {
         	// Deserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
         	Log.i("Preset", "No usable old MRU list, creating new one ("+e.toString()+")");
         } finally {
-			try { 
-				if (mruReader != null) {
-					mruReader.close(); 
-				}
-			} catch (Exception ignored) {
-				Log.d(DEBUG_TAG, "Ignored " + ignored);
-			} 
+        	SavingHelper.close(mruReader);
+        	SavingHelper.close(fout);
         }
     	return tmpMRU;
 	}
@@ -1025,13 +1035,18 @@ public class Preset implements Serializable {
 	/** Saves the current MRU data to a file */
 	public void saveMRU() {
 		if (mru.changed) {
+			ObjectOutputStream out = null;
+			FileOutputStream fout = null;
 			try {
-				ObjectOutputStream out =
-					new ObjectOutputStream(new FileOutputStream(new File(directory, MRUFILE)));
+				fout = new FileOutputStream(new File(directory, MRUFILE));
+				out = new ObjectOutputStream(fout);
 				out.writeObject(mru);
 				out.close();
 			} catch (Exception e) {
 				Log.e("Preset", "MRU saving failed", e);
+			} finally {
+				SavingHelper.close(out);
+				SavingHelper.close(fout);
 			}
 		}
 	}
@@ -2641,10 +2656,12 @@ public class Preset implements Serializable {
 		Preset[] presets = App.getCurrentPresets(ctx);
 		
 		PrintStream outputStream = null;
+		FileOutputStream fout = null;
 		try {
 			// String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".json";
 			File outfile = new File(FileUtil.getPublicDirectory(), filename);
-			outputStream = new PrintStream(new BufferedOutputStream(new FileOutputStream(outfile)));
+			fout = new FileOutputStream(outfile);
+			outputStream = new PrintStream(new BufferedOutputStream(fout));
 			
 			outputStream.println("{");
 			outputStream.println("\"data_format\":1,");
@@ -2675,6 +2692,7 @@ public class Preset implements Serializable {
 			return false;
 		} finally {
 			SavingHelper.close(outputStream);
+			SavingHelper.close(fout);
 		}
 		return true;
 	}
