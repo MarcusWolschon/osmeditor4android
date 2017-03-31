@@ -33,6 +33,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
@@ -242,7 +243,8 @@ public class PresetEditorActivity extends URLListEditActivity {
 				if (filename == null) {
 					filename = PresetIconManager.hash(url)+".png";
 				}
-			
+				InputStream downloadStream = null;
+				OutputStream fileStream = null;
 				try {
 					Log.d(DEBUG_TAG, "Downloading " + url + " to " + presetDir + "/" + filename);
 					HttpURLConnection conn = (HttpURLConnection)((new URL(url)).openConnection());
@@ -256,11 +258,10 @@ public class PresetEditorActivity extends URLListEditActivity {
 					if (zip) {
 						filename = FILE_NAME_TEMPORARY_ARCHIVE;
 					}
-					InputStream downloadStream = conn.getInputStream();
-					OutputStream fileStream = new FileOutputStream(new File(presetDir, filename));
+					downloadStream = conn.getInputStream();
+					fileStream = new FileOutputStream(new File(presetDir, filename));
 					StreamUtils.copy(downloadStream, fileStream);
-					downloadStream.close();
-					fileStream.close();
+					
 					
 					if (zip) {
 						if (unpackZip(presetDir.getPath() + "/",filename)) {
@@ -273,7 +274,10 @@ public class PresetEditorActivity extends URLListEditActivity {
 				} catch (Exception e) {
 					Log.e("PresetDownloader", "Could not download file " + url + " " + e.getMessage());
 					return DOWNLOADED_PRESET_ERROR;
-				}				
+				} finally {
+					SavingHelper.close(downloadStream);
+					SavingHelper.close(fileStream);
+				}
 			}
 			
 			@Override
@@ -342,8 +346,8 @@ public class PresetEditorActivity extends URLListEditActivity {
 	 */
 	private boolean unpackZip(String presetDir, String zipname)
 	{       
-	     InputStream is;
-	     ZipInputStream zis;
+	     InputStream is = null;
+	     ZipInputStream zis = null;
 	     try 
 	     {
 	         String filename;
@@ -375,26 +379,30 @@ public class PresetEditorActivity extends URLListEditActivity {
 	                }
 	                continue;
 	             }
+	             
+	             FileOutputStream fout = null;
+	             try {
+	            	 fout= new FileOutputStream(presetDir + filename);
 
-	             FileOutputStream fout = new FileOutputStream(presetDir + filename);
-
-	             // cteni zipu a zapis
-	             while ((count = zis.read(buffer)) != -1) 
-	             {
-	                 fout.write(buffer, 0, count);             
-	             }
-
-	             fout.close();               
+	            	 // cteni zipu a zapis
+	            	 while ((count = zis.read(buffer)) != -1) 
+	            	 {
+	            		 fout.write(buffer, 0, count);             
+	            	 }
+	             } finally {
+	            	 SavingHelper.close(fout);    
+	             }                        
 	             zis.closeEntry();
 	         }
 
-	         zis.close();
-	     } 
-	     catch(IOException e)
-	     {
+	         
+	     } catch(IOException e) {
 	    	 Log.e(DEBUG_TAG,"Unzipping failed with " + e.getMessage());
 	         e.printStackTrace();
 	         return false;
+	     } finally {
+	    	 SavingHelper.close(zis);
+	    	 SavingHelper.close(is);
 	     }
 
 	    return true;

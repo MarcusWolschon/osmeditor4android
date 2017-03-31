@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -46,7 +45,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 	private Date closed = null;
 	
 	/** Bug comments. */
-	private List<NoteComment> comments = null;
+	private ArrayList<NoteComment> comments = null;
 	private State originalState; // track what we original had
 	
 	/**

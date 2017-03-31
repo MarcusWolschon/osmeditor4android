@@ -1,11 +1,9 @@
 package de.blau.android.javascript;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,18 +11,12 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.acra.ACRA;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
-import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParserException;
 
 import com.drew.lang.annotations.NotNull;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -50,19 +42,12 @@ import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
-import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
-import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
-import de.blau.android.exception.OsmException;
-import de.blau.android.exception.StorageException;
-import de.blau.android.osm.OsmParser;
-import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.DataStyle;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
@@ -316,6 +301,8 @@ public class Utils {
 			@Override
 			protected Integer doInBackground(Void... arg) {
 				int result = 0;
+				FileOutputStream fout = null;
+				OutputStream out = null;
 				try {
 					File outfile = new File(fileName);
 					String parent = outfile.getParent();
@@ -330,7 +317,8 @@ public class Utils {
 						}
 					}
 					Log.d(DEBUG_TAG,"Saving to " + outfile.getPath());
-					final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
+					fout = new FileOutputStream(outfile);
+					out = new BufferedOutputStream(fout);
 					try {
 						out.write(script.getBytes());
 					} catch (IllegalArgumentException e) {
@@ -339,12 +327,13 @@ public class Utils {
 					} catch (IllegalStateException e) {
 						result = ErrorCodes.FILE_WRITE_FAILED;
 						Log.e(DEBUG_TAG, "Problem writing", e);
-					} finally {
-						SavingHelper.close(out);
-					}
+					} 
 				} catch (IOException e) {
 					result = ErrorCodes.FILE_WRITE_FAILED;
 					Log.e(DEBUG_TAG, "Problem writing", e);
+				} finally {
+					SavingHelper.close(out);
+					SavingHelper.close(fout);
 				}
 				return result;
 			}
@@ -365,19 +354,7 @@ public class Utils {
 		}.execute();
 	}
 	
-	public static void readScriptFile(@NotNull final FragmentActivity activity, final Uri uri, final EditText input, final PostAsyncActionHandler postLoad) {
-		final InputStream is;
-		try {
-			if (uri.getScheme().equals("file")) {
-				is = new FileInputStream(new File(uri.getPath()));
-			} else {
-				ContentResolver cr = activity.getContentResolver();
-				is = cr.openInputStream(uri);
-			}
-		} catch (FileNotFoundException e) {
-			Snack.barError(activity, R.string.toast_file_not_found);
-			return;
-		}
+	public static void readScriptFile(@NotNull final FragmentActivity activity, final Uri uri, final EditText input, final PostAsyncActionHandler postLoad) {	
 		new AsyncTask<Void, Void, String>() {
 
 			@Override
@@ -387,10 +364,17 @@ public class Utils {
 
 			@Override
 			protected String doInBackground(Void... arg) {
+				InputStream is = null;
+				ByteArrayOutputStream result = null;
 				String r = null;
-				final InputStream in = null;
 				try {
-					ByteArrayOutputStream result = new ByteArrayOutputStream();
+					if (uri.getScheme().equals("file")) {
+						is = new FileInputStream(new File(uri.getPath()));
+					} else {
+						ContentResolver cr = activity.getContentResolver();
+						is = cr.openInputStream(uri);
+					}
+					result = new ByteArrayOutputStream();
 					byte[] buffer = new byte[1024];
 					int length;
 					while ((length = is.read(buffer)) != -1) {
@@ -400,7 +384,8 @@ public class Utils {
 				} catch (IOException e) {
 					Log.e(DEBUG_TAG, "Problem reading", e);
 				} finally {
-					SavingHelper.close(in);
+					SavingHelper.close(result);
+					SavingHelper.close(is);
 				}
 				return r;
 			}

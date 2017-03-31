@@ -779,7 +779,7 @@ public class Logic {
 				node1X = node2X;
 				node1Y = node2Y;
 			}
-			if (showWayIcons && !added && way.isClosed() && (way.hasTagKey(Tags.KEY_BUILDING) || way.hasTag(Tags.KEY_INDOOR, Tags.VALUE_ROOM))) {
+			if (A != 0 && showWayIcons && !added && way.isClosed() && (way.hasTagKey(Tags.KEY_BUILDING) || way.hasTag(Tags.KEY_INDOOR, Tags.VALUE_ROOM))) {
 				Y = Y/(3*A);
 				X = X/(3*A);
 				double distance =  Math.hypot(x-X, y-Y);
@@ -2945,8 +2945,11 @@ public class Logic {
 						}
 					}
 					Log.d("Logic","Saving to " + outfile.getPath());
-					final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
+					FileOutputStream fout = null;
+					OutputStream out = null;
 					try {
+						fout = new FileOutputStream(outfile);
+						out = new BufferedOutputStream(fout);
 						getDelegator().save(out);
 					} catch (IllegalArgumentException e) {
 						result = ErrorCodes.FILE_WRITE_FAILED;
@@ -2959,6 +2962,7 @@ public class Logic {
 						Log.e("Logic", "Problem writing", e);
 					} finally {
 						SavingHelper.close(out);
+						SavingHelper.close(fout);
 					}
 				} catch (IOException e) {
 					result = ErrorCodes.FILE_WRITE_FAILED;
@@ -4303,14 +4307,16 @@ public class Logic {
 
 
 	/**
-	 * calculate the centroid of a way
-	 * @param viewvBox 
-	 * @param h 
-	 * @param w 
-	 * @param way
-	 * @return screen coordinates of centroid
+	 * Calculate the centroid of a way
+	 * 
+	 * @param viewvBox display bounding box
+	 * @param h viewbox height
+	 * @param w  viewbox width
+	 * @param way way to caculate centroid of
+	 * @return screen coordinates of centroid or null if the way has problems
 	 */
-	private static float[] centroidXY(int w, int h, BoundingBox v, final Way way) {
+	@Nullable
+	private static float[] centroidXY(int w, int h, @NonNull BoundingBox v, @NonNull final Way way) {
 		if (way == null) {
 			return null;
 		}
@@ -4332,9 +4338,11 @@ public class Logic {
 				X = X + (x1+x2)*d;
 				Y = Y + (y1+y2)*d;
 			}
-			Y = Y/(3*A);
-			X = X/(3*A);
-			return new float[]{(float)X, (float)Y};
+			if (A != 0) {
+				Y = Y/(3*A);
+				X = X/(3*A);
+				return new float[]{(float)X, (float)Y};
+			}
 		} else { //
 			double L = 0;
 			double Y = 0;
@@ -4350,18 +4358,23 @@ public class Logic {
 				X = X + len * (x1+x2)/2;
 				Y = Y + len * (y1+y2)/2;
 			}
-			Y = Y/L;
-			X = X/L;
-			return new float[]{(float)X, (float)Y};
+			if (L != 0) {
+				Y = Y/L;
+				X = X/L;
+				return new float[]{(float)X, (float)Y};
+			}
 		}	
+		return null;
 	}
 	
 	/**
-	 * calculate the centroid of a way
-	 * @param way
-	 * @return WGS84 coordinates of centroid
+	 * Calculate the centroid of a way
+	 * 
+	 * @param way way to calculate the centroid of
+	 * @return WGS84 coordinates of centroid of null if the way has a problem
 	 */
-	public static double[] centroidLonLat(final Way way) {
+	@Nullable
+	public static double[] centroidLonLat(@NonNull final Way way) {
 		if (way == null) {
 			return null;
 		}
@@ -4382,9 +4395,11 @@ public class Logic {
 				X = X + (x1+x2)*(x1*y2-x2*y1);
 				Y = Y + (y1+y2)*(x1*y2-x2*y1);
 			}
-			Y = GeoMath.mercatorToLat(Y/(3*A));
-			X = X/(3*A);
-			return new double[]{X, Y};
+			if (A !=0) {
+				Y = GeoMath.mercatorToLat(Y/(3*A));
+				X = X/(3*A);
+				return new double[]{X, Y};
+			}
 		} else { //
 			double L = 0;
 			double Y = 0;
@@ -4400,10 +4415,13 @@ public class Logic {
 				X = X + len * (x1+x2)/2;
 				Y = Y + len * (y1+y2)/2;
 			}
-			Y = GeoMath.mercatorToLat(Y/L);
-			X = X/L;
-			return new double[]{X, Y};
+			if (L != 0) {
+				Y = GeoMath.mercatorToLat(Y/L);
+				X = X/L;
+				return new double[]{X, Y};
+			}
 		}	
+		return null;
 	}
 
 	/**

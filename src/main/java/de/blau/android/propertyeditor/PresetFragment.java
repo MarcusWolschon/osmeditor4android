@@ -308,8 +308,9 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
-		menu.findItem(R.id.preset_menu_top).setEnabled(currentGroup != rootGroup);
-		menu.findItem(R.id.preset_menu_up).setEnabled(currentGroup != rootGroup);
+// FIXME this currently causes problems likey in Pane mode
+//		menu.findItem(R.id.preset_menu_top).setEnabled(currentGroup != rootGroup);
+//		menu.findItem(R.id.preset_menu_up).setEnabled(currentGroup != rootGroup);
 	}
 	
 	@Override

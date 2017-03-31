@@ -35,7 +35,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -208,7 +207,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		track.markNewSegment();
 		updateGPSState();
 		if (externalListener != null) {
-			externalListener.onStateChanged();;
+			externalListener.onStateChanged();
 		}
 	}
 	
@@ -223,7 +222,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		downloading = true;
 		updateGPSState();
 		if (externalListener != null) {
-			externalListener.onStateChanged();;
+			externalListener.onStateChanged();
 		}
 	}
 	
@@ -238,7 +237,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		downloadingBugs = true;
 		updateGPSState();
 		if (externalListener != null) {
-			externalListener.onStateChanged();;
+			externalListener.onStateChanged();
 		}
 	}
 	
@@ -504,14 +503,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 */
 	public void importGPXFile(@Nullable final FragmentActivity activity, final Uri uri) throws FileNotFoundException {
 		
-		final InputStream is;
+
 		
-		if (uri.getScheme().equals("file")) {
-			is = new FileInputStream(new File(uri.getPath()));
-		} else {
-			ContentResolver cr = getContentResolver();
-			is = cr.openInputStream(uri);
-		}
 		
 		final int existingPoints = track.getTrackPoints().size();
 	
@@ -526,13 +519,24 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			
 			@Override
 			protected Integer doInBackground(Void... arg) {
+				InputStream is = null;
+				BufferedInputStream in = null;
 				int result = 0;
-				InputStream in;
-				in = new BufferedInputStream(is);
 				try {
+					if (uri.getScheme().equals("file")) {
+						is = new FileInputStream(new File(uri.getPath()));
+					} else {
+						ContentResolver cr = getContentResolver();
+						is = cr.openInputStream(uri);
+					}
+					in = new BufferedInputStream(is);
+
 					track.importFromGPX(in);
+				} catch (FileNotFoundException e) {
+					// do something, but what
 				} finally {
 					SavingHelper.close(in);
+					SavingHelper.close(is);
 				}
 				return result;
 			}
@@ -760,6 +764,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	
 	public class NmeaTcpClient implements Runnable {
 
+		private static final String DEBUG_TAG = "TrackerService";
 		String host;
 		int port;
 		boolean canceled = false;
@@ -783,7 +788,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			DataOutputStream dos = null;
 			BufferedReader input = null;
 			try {
-				Log.d("TrackerService", "Connecting to " + host+":"+port + " ...");
+				Log.d(DEBUG_TAG, "Connecting to " + host+":"+port + " ...");
 
 				socket = new Socket(host, port);
 				dos = new DataOutputStream(socket.getOutputStream());
@@ -796,7 +801,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 				}
 
 			} catch (Exception e) {
-				Log.e("TrackerService", "failed to open/read " + host+":"+port, e);
+				Log.e(DEBUG_TAG, "failed to open/read " + host+":"+port, e);
 				Message failed = mHandler.obtainMessage(CONNECTION_FAILED, e.getMessage());
 				failed.sendToTarget();
 			} catch (Error e) {
@@ -804,8 +809,14 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 				failed.sendToTarget();
 			} finally {
 				SavingHelper.close(dos);
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-					SavingHelper.close(socket);
+				// see https://code.google.com/p/android/issues/detail?id=62909
+				// fow why we can't use helper methods here
+				if (socket != null) {
+					try {
+						socket.close();
+					} catch (IOException e) {
+						Log.e(DEBUG_TAG, "Closing socket threw " + e.getMessage());
+					}
 				}
 				SavingHelper.close(input);
 			}

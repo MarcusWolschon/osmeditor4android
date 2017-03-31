@@ -40,7 +40,6 @@ import de.blau.android.R;
 import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.photos.PhotoIndex;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
@@ -59,7 +58,6 @@ import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ExtendedViewPager;
-import de.blau.android.voice.Commands;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).

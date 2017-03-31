@@ -44,7 +44,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
 	long osmVersion;
 
-	SortedMap<String, String> tags;
+	TreeMap<String, String> tags;
 
 	byte state;
 	

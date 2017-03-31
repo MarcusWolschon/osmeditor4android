@@ -1110,15 +1110,17 @@ public class Map extends View implements IMapView {
 				X = X + (x1+x2)*d;
 				Y = Y + (y1+y2)*d;
 			}
-			Y = Y/(3*A);
-			X = X/(3*A);
-			if (tmpPresets == null || !paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?DataStyle.SELECTED_NODE_TAGGED:null)) {
-				String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-				if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-					paintHouseNumber((float)X,(float)Y,canvas,isSelected?DataStyle.SELECTED_NODE_THIN:DataStyle.NODE_THIN,houseNumber);
-					return;
+			if (A != 0) {
+				Y = Y/(3*A);
+				X = X/(3*A);
+				if (tmpPresets == null || !paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?DataStyle.SELECTED_NODE_TAGGED:null)) {
+					String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+					if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
+						paintHouseNumber((float)X,(float)Y,canvas,isSelected?DataStyle.SELECTED_NODE_THIN:DataStyle.NODE_THIN,houseNumber);
+						return;
+					}
 				}
-			}
+			} 
 		}
 	}
 	

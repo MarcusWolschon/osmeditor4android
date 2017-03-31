@@ -20,14 +20,14 @@ import de.blau.android.osm.RelationMemberDescription;
  * @author Jan
  */
 public class PropertyEditorData implements Serializable {
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 	
 	private static final String DEBUG_TAG = PropertyEditorData.class.getSimpleName();
 	
 	public final long osmId;
 	public final String type;
-	public final Map<String,String> tags;
-	public final Map<String,String> originalTags;
+	public final LinkedHashMap<String,String> tags;
+	public final LinkedHashMap<String,String> originalTags;
 	public final HashMap<Long,String> parents; // just store the ids and role
 	public final HashMap<Long,String> originalParents; // just store the ids and role
 	public final ArrayList<RelationMemberDescription> members;
@@ -42,17 +42,13 @@ public class PropertyEditorData implements Serializable {
 	private PropertyEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, HashMap<Long, String> parents, HashMap<Long, String> originalParents, ArrayList<RelationMemberDescription> members, ArrayList<RelationMemberDescription> originalMembers, String focusOnKey) {
 		this.osmId = osmId;
 		this.type = type;
-		this.tags = tags;
-		this.originalTags = originalTags;
+		this.tags = new LinkedHashMap<String, String>(tags);
+		this.originalTags = new LinkedHashMap<String, String>(originalTags);
 		this.parents = parents;
 		this.originalParents = originalParents;
 		this.members = members;
 		this.originalMembers = originalMembers;
 		this.focusOnKey = focusOnKey;
-	}
-	
-	private PropertyEditorData(OsmElement selectedElement) {
-		this(selectedElement, null);
 	}
 	
 	public PropertyEditorData(OsmElement selectedElement, String focusOnKey) {

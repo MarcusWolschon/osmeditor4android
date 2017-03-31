@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.acra.ACRA;
@@ -247,7 +246,7 @@ public class UndoStorage implements Serializable {
 		private final long osmId;
 		private final long osmVersion;
 		private final byte state;
-		private final SortedMap<String, String> tags;
+		private final TreeMap<String, String> tags;
 		
 		private final boolean inCurrentStorage;
 		private final boolean inApiStorage;

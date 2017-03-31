@@ -279,16 +279,19 @@ public class SavingHelper<T extends Serializable> {
 
 				OutputStream outputStream = null;
 				File outfile = null;
+				FileOutputStream fout = null;
 				try {
 					File outDir = FileUtil.getPublicDirectory();
 					outfile = new File(outDir, filename);
-					outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
+					fout = new FileOutputStream(outfile);
+					outputStream = new BufferedOutputStream(fout);
 					exportable.export(outputStream);
 				} catch (Exception e) {
 					Log.e("SavingHelper", "Export failed - " + filename);
 					return null;
 				} finally {
 					SavingHelper.close(outputStream);
+					SavingHelper.close(fout);
 				}
 				// workaround for android bug - make sure export file shows up via MTP
 				if (ctx != null && outfile != null){
