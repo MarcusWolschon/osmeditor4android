@@ -368,7 +368,7 @@ public class Utils {
 				ByteArrayOutputStream result = null;
 				String r = null;
 				try {
-					if (uri.getScheme().equals("file")) {
+					if ("file".equals(uri.getScheme())) {
 						is = new FileInputStream(new File(uri.getPath()));
 					} else {
 						ContentResolver cr = activity.getContentResolver();

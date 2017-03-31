@@ -379,7 +379,7 @@ public class Preset implements Serializable {
 	public Preset(@NonNull List<PresetElement> elements) {
 		mru = null;
 		String name ="Empty Preset";
-		if (elements != null && elements.size() > 0) {
+		if (elements != null && !elements.isEmpty()) {
 			name = elements.get(0).getName();
 		}
 		rootGroup = new PresetGroup(null, name, null);
