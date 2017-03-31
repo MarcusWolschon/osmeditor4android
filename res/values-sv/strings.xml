@@ -106,7 +106,7 @@
   <!--Toaster-->
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
-  <string name="toast_upload_success">Uppladdning till OSM server slutfördes.</string>
+  <string name="toast_upload_success">Uppladdning till OSM-server slutfördes.</string>
   <string name="toast_not_in_edit_range">Vänligen zooma in för att redigera (Volym upp/ner eller Lins/Shift)</string>
   <string name="toast_unlock_to_edit">Lås upp för att redigera</string>
   <string name="toast_edit_outside_downloaded_area">Du kan inte redigera utanför nedladdat område</string>
@@ -161,6 +161,7 @@
   <string name="tag_menu_apply_preset">Tillämpa bästa förinställning</string>
   <string name="tag_menu_repeat">Repetera taggar</string>
   <string name="tag_menu_revert">Ångra</string>
+  <string name="tag_menu_mapfeatures">Kartfunktioner Wiki</string>
   <string name="tag_menu_addtorelation">Lägg till i relation</string>
   <string name="tag_menu_exit_no_save">Avsluta\n utan att spara</string>
   <string name="tag_menu_delete_unassociated_tags">Radera icke-associerade taggar</string>
@@ -175,6 +176,7 @@
   <string name="tag_action_parents_title">Relation(er) vald(a)</string>
   <string name="tag_additional_properties">Extra egenskaper</string>
   <string name="tag_details">Detaljer</string>
+  <string name="tag_not_set">Inte angivet</string>
   <string name="tag_menu_move_up">Flytta upp</string>
   <string name="tag_menu_move_top">Flytta längst upp</string>
   <string name="tag_menu_move_down">Flytta ner</string>
@@ -183,6 +185,7 @@
   <string name="tag_menu_download">Ladda ner</string>
   <string name="menu_up">Upp</string>
   <string name="menu_top">Topp</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Lägg till etiketter för %1$s</string>
   <string name="tag_restriction_header">Värde</string>
   <string name="tag_restriction_when">när</string>
@@ -228,16 +231,16 @@
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Visa plats</string>
-  <string name="menu_gps_follow">Följ GPS position</string>
-  <string name="menu_gps_goto">Gå till GPS position</string>
-  <string name="menu_gps_start">Starta GPS spår</string>
-  <string name="menu_gps_pause">Pausa GPS spår</string>
-  <string name="menu_gps_clear">Rensa GPS spår</string>
+  <string name="menu_gps_follow">Följ GPS-position</string>
+  <string name="menu_gps_goto">Gå till GPS-position</string>
+  <string name="menu_gps_start">Starta GPS-spår</string>
+  <string name="menu_gps_pause">Pausa GPS-spår</string>
+  <string name="menu_gps_clear">Rensa GPS-spår</string>
   <string name="menu_gps_track_managment">Spårhantering...</string>
-  <string name="menu_gps_upload">Ladda upp GPS spår</string>
-  <string name="menu_gps_export">Exportera GPS spår</string>
-  <string name="menu_gps_import">Importera GPS spår</string>
-  <string name="menu_gps_goto_start">Gå till GPS spår</string>
+  <string name="menu_gps_upload">Ladda upp GPS-spår</string>
+  <string name="menu_gps_export">Exportera GPS-spår</string>
+  <string name="menu_gps_import">Importera GPS-spår</string>
+  <string name="menu_gps_goto_start">Gå till GPS-spår</string>
   <string name="menu_gps_autodownload">Ladda ner automatiskt</string>
   <string name="menu_transfer">Överför...</string>
   <string name="menu_transfer_download_current">Ladda ner nuvarande vy</string>
@@ -270,7 +273,7 @@
   <string name="menu_orthogonalize">Rätvinkla</string>
   <string name="menu_circulize">Arrangera i cirkel</string>
   <string name="menu_split_polygon">Dela upp i polygoner</string>
-  <string name="menu_newnode_gps">Ny nod vid GPS position</string>
+  <string name="menu_newnode_gps">Ny nod vid GPS-position</string>
   <string name="menu_extend_selection">Utöka markering</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Röstkommandon</string>
@@ -278,6 +281,7 @@
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
   <string name="menu_tools">Verktyg</string>
   <string name="menu_tools_flush_background_tile_cache">Spola bakgrundstitel cache</string>
+  <string name="menu_tools_flush_overlay_tile_cache">Spola överdrags cache</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
   <string name="menu_tools_background_align">Justera bakgrund</string>
   <string name="menu_tools_background_align_reset">Återställ</string>
@@ -299,6 +303,7 @@
   <string name="reverse_anyway">Omvänd ändå</string>
   <string name="deleteway_relation_description">Du håller på att ta bort en väg som är medlem i en eller flera relationer. Om du tar bort vägen från relationen/relationerna kanske den/de renderas felaktigt. </string>
   <string name="deleteway_wayonly">Ta endast bort väg</string>
+  <string name="deleteway_wayandnodes">Radera väg och noder</string>
   <string name="deletenode_relation_description">Du håller på att ta bort en nod som är medlem i en eller flera relationer. Om du tar bort noden från relationen/relationerna kanske den/de renderas felaktigt. </string>
   <string name="deletenode">Ta bort nod</string>
   <string name="split_all_ways">Dela alla vägar</string>
@@ -307,13 +312,22 @@
   <string name="actionmode_nodeselect">Nod vald</string>
   <string name="actionmode_relationselect">Relation vald</string>
   <string name="actionmode_createpath">Skapa väg</string>
+  <string name="actionmode_multiselect">Markera flera</string>
   <!--Preferences-->
+  <string name="config_category_editing">Data och redigera inställningar</string>
   <string name="config_category_view">Användargränssnitts inställningar </string>
   <string name="config_showCameraAction_title">Visa kamera knapp</string>
+  <string name="config_showCameraAction_summary">Visa kameraikon på åtgärdsfältet </string>
   <string name="config_generateAlerts_title">Generera aviseringar</string>
+  <string name="config_generateAlerts_summary">Generera aviseringar för data med problem eller anteckningar</string>
+  <string name="config_voiceCommandsEnabled_title">Aktivera röstkommandon</string>
+  <string name="config_voiceCommandsEnabled_summary">Aktivera experimentellt röstkommando stöd</string>
+  <string name="config_maxAlertDistance_title">Max avstånd för aviseringar</string>
   <string name="config_maxStrokeWidth_title">Max linjebredd</string>
   <string name="config_tileCacheSize_title">Tile cache storlek</string>
   <string name="config_showStats_title">Visa statistik</string>
+  <string name="config_showTolerance_title">Visa tolerans</string>
+  <string name="config_enablePhotoLayer_title">Aktivera fotolager</string>
   <string name="config_enableKeepScreenOn_title">Behåll skärm på</string>
   <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
   <string name="config_closeChangesetOnSave_summary">Stäng changesets som standard vid sparande</string>
@@ -334,14 +348,18 @@
   <string name="config_password_title">OSM lösenord</string>
   <string name="config_category_gps">GPS Inställning</string>
   <string name="config_gps_distance_title">Minsta GPS-Distans</string>
+  <string name="config_gps_interval_title">Minsta GPS-Intervall</string>
   <string name="config_category_info">Om</string>
   <string name="config_advancedprefs">Avancerade inställningar</string>
+  <string name="config_licensebutton_title">Upphovsmän och licenser</string>
   <string name="config_debugbutton_title">Felsök</string>
   <string name="config_mapProfile_title">Kartprofil</string>
+  <string name="config_use_back_for_undo_title">Använd tillbaka knappen för Ångra</string>
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
   <string name="config_bugFilter_title">Filtrera för anteckningar/fel</string>
   <string name="config_gps_source_title">GPS-källa</string>
   <string name="config_gps_source_summary">Källa för GPS-plats uppdateringar</string>
+  <string name="config_gps_source_tcp_title">NMEA-nätverkskälla</string>
   <string name="config_leaveGpsDisabled_title">Lämna GPS avaktiverad</string>
   <string name="config_enableLightTheme_title">Aktivera ljust tema</string>
   <string name="config_category_misc">Diverse</string>

@@ -1,8 +1,8 @@
-# Vespucci Introduktion
+# Vespucci introduktion
 
 Vespucci är en fullfjädrad OpenStreetMap redigerare som stödjer de flesta redigeringar som stationära program tillhandahåller. Det har testats framgångsrikt på googles Android 2,3 till 6,0 och olika AOSP baserade varianter. Ett varningens ord: medan mobila enheter kapacitet har kommit ikapp sina stationära motsvarigheter, särskilt äldre androidenheter har mycket begränsat minne tillgängligt och tenderar att vara ganska långsam. Du bör ta det i beaktande när du använder Vespucci och behålla, till exempel storleken på de områden som du redigerar till en rimlig storlek. 
 
-## Förstagångs användning
+## Första gången användning
 
 On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
@@ -12,7 +12,7 @@ Alternativt kan du stänga dialogen genom att trycka på "Gå till karta" knappe
 
 Beroende på skärmstorlek och ålder på enheten redigering åtgärder kan antingen vara tillgängliga direkt via ikoner i det översta fältet, via en rullgardinsmeny till höger om den översta raden, från den nedre listen (i förekommande fall) eller via menyknappen.
 
-### Nedladdning av OSM data
+### Nedladdning av OSM-data
 
 Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
 
@@ -23,7 +23,7 @@ Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transf
 * **Ladda upp data till OSM server** - ladda upp ändringar till OpenStreetMap *(kräver autentisering)* *(kräver nätverksanslutning)* ↩
 * **Automatisk nedladdning** - ladda ner ett område runt den aktuella platsen automatiskt *(kräver nätverksanslutning)* * (kräver GPS)* ↩
 * **Fil ...** - Spara och ladda OSM data till/från på enheten files.↩
-* **Anteckningar/buggar...** - Ladda ner (automatiskt och manuellt) OSM anteckningar och "buggar" från QA verktyg (för närvarande Osmose) *(kräver nätverksanslutning)*
+* **Anteckningar/fel...** - Ladda ner (automatiskt och manuellt) OSM anteckningar och "fel" från QA verktyg (för närvarande Osmose) *(kräver nätverksanslutning)*
 
 The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
@@ -89,7 +89,7 @@ When the red lock is displayed all non-editing actions are available. Additional
 
 *(kräver nätverksanslutning)*
 
-Välj samma knapp eller menyalternativ du gjorde för nedladdning och välj nu "Ladda upp data till OSM server".
+Välj samma knapp eller menyalternativ du gjorde för nedladdning och välj nu "Ladda upp data till OSM-server".
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
@@ -107,7 +107,7 @@ You can use Vespucci to create a GPX track and display it on your device. Furthe
 
 If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
 
-## Anteckningar och buggar
+## Anteckningar och fel
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
