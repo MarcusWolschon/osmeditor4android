@@ -92,10 +92,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
-        setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
-    }
-    
+    } 
     
     @SuppressLint("InflateParams")
 	@Override
@@ -171,6 +168,16 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
      	
 		return presetPaneLayout;
     }
+    
+    @Override
+ 	public void onActivityCreated (Bundle savedInstanceState) {
+     	super.onActivityCreated(savedInstanceState);
+     	// calling setHasOptionsMenu here instead of in on Create supposedly 
+     	// fixes issues with onCreateOptionsMenu being called 
+     	// before the view is inflated
+     	setHasOptionsMenu(true);
+         getActivity().supportInvalidateOptionsMenu();
+     }
 
 	@Override
 	public void typeUpdated(ElementType type) {
