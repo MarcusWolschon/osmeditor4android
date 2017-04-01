@@ -483,7 +483,9 @@ public class Preset implements Serializable {
 					}
 					groupstack.push(g);
 				} else if ("item".equals(name)) {
-					if (currentItem != null) throw new SAXException("Nested items are not allowed");
+					if (currentItem != null) {
+						throw new SAXException("Nested items are not allowed");
+					}
 					PresetGroup parent = groupstack.peek();
 					String type = attr.getValue("type");
 					if (type == null) {
@@ -496,7 +498,9 @@ public class Preset implements Serializable {
 					}
 					currentItem.setDeprecated("true".equals(attr.getValue("deprecated")));
 				} else if ("chunk".equals(name)) {
-					if (currentItem != null) throw new SAXException("Nested items are not allowed");
+					if (currentItem != null) {
+						throw new SAXException("Nested items are not allowed");
+					}
 					String type = attr.getValue("type");
 					if (type == null) {
 						type = attr.getValue("gtype"); // note gtype seems to be undocumented
@@ -587,7 +591,7 @@ public class Preset implements Serializable {
 						if (!"yes".equals(value_on)) {
 							currentItem.addOnValue(key,value_on);
 						}
-						String defaultValue = attr.getValue("default") == null ? value_off : (attr.getValue("default").equals("on") ? value_on : value_off);
+						String defaultValue = attr.getValue("default") == null ? value_off : ("on".equals(attr.getValue("default")) ? value_on : value_off);
 						if (defaultValue != null) {
 							currentItem.addDefault(key,defaultValue);
 						}
@@ -772,7 +776,9 @@ public class Preset implements Serializable {
         	fout = new FileInputStream(new File(directory, MRUFILE));
         	mruReader = new ObjectInputStream(fout);
         	tmpMRU = (PresetMRUInfo) mruReader.readObject();
-        	if (!tmpMRU.presetHash.equals(hashValue)) throw new InvalidObjectException("hash mismatch");
+        	if (!tmpMRU.presetHash.equals(hashValue)) {
+        		throw new InvalidObjectException("hash mismatch");
+        	}
         } catch (Exception e) {
         	tmpMRU = new PresetMRUInfo(hashValue);
         	// Deserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
@@ -1075,7 +1081,7 @@ public class Preset implements Serializable {
 	 * @param tags tags to check against (i.e. tags of a map element)
 	 * @return null, or the "best" matching item for the given tag set
 	 */
-    static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags) {
+    public static PresetItem findBestMatch(Preset presets[], Map<String,String> tags) {
     	return findBestMatch(presets, tags, false);
     }
     
@@ -1093,7 +1099,7 @@ public class Preset implements Serializable {
      * @param useAddressKeys use addr: keys if true
      * @return a preset or null if none found
      */
-    static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags, boolean useAddressKeys) {
+    public static PresetItem findBestMatch(Preset presets[], Map<String,String> tags, boolean useAddressKeys) {
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
 		
@@ -1113,7 +1119,9 @@ public class Preset implements Serializable {
 		final int FIXED_WEIGHT = 100; // always prioritize presets with fixed keys
 		for (PresetItem possibleMatch : possibleMatches) {
 			int fixedTagCount = possibleMatch.getFixedTagCount()*FIXED_WEIGHT;
-			if (fixedTagCount + possibleMatch.getRecommendedTags().size() < bestMatchStrength) continue; // isn't going to help
+			if (fixedTagCount + possibleMatch.getRecommendedTags().size() < bestMatchStrength) {
+				continue; // isn't going to help
+			}
 			int matches = 0;
 			if (fixedTagCount > 0) { // has required tags
 				if (possibleMatch.matches(tags)) {
@@ -1140,7 +1148,7 @@ public class Preset implements Serializable {
      * @return a preset or null if none found
      */
     @Nullable
-    static public PresetItem findMatch(@NonNull Preset presets[], @NonNull Map<String,String> tags) {
+    public static PresetItem findMatch(@NonNull Preset presets[], @NonNull Map<String,String> tags) {
 		if (tags==null || presets==null) {
 			Log.e(DEBUG_TAG, "findBestMatch " + (tags==null?"tags null":"presets null"));
 			return null;
@@ -1155,10 +1163,8 @@ public class Preset implements Serializable {
 				if (possibleMatch.matches(tags)) {
 					return possibleMatch;
 				}
-			} else if (possibleMatch.getRecommendedTags().size() > 0) { // only recommended tags
-				if (possibleMatch.matchesRecommended(tags) > 0) {
-					return possibleMatch;
-				}
+			} else if (possibleMatch.getRecommendedTags().size() > 0 && possibleMatch.matchesRecommended(tags) > 0) {
+				return possibleMatch;
 			}
 		}
 		// Log.d(DEBUG_TAG,"findBestMatch " + bestMatch);
@@ -1276,7 +1282,9 @@ public class Preset implements Serializable {
 			mapiconpath = iconpath;
 			icon = null;
 			mapIcon = null;
-			if (parent != null)	parent.addElement(this);
+			if (parent != null)	{
+				parent.addElement(this);
+			}
 		}		
 		
 		public String getName() {
@@ -1335,7 +1343,7 @@ public class Preset implements Serializable {
 		/**
 		 * Returns a basic view representing the current element (i.e. a button with icon and name).
 		 * Can (and should) be used when implementing {@link #getView(PresetClickHandler)}.
-		 * @param selected TODO
+		 * @param selected if true highlight the background
 		 * @return the view
 		 */
 		private TextView getBaseView(Context ctx, boolean selected) {
@@ -1356,9 +1364,9 @@ public class Preset implements Serializable {
 			} else {
 				v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));
 			}
-			Drawable icon = getIcon();
-			if (icon != null) {
-				v.setCompoundDrawables(null, icon, null, null);
+			Drawable viewIcon = getIcon();
+			if (viewIcon != null) {
+				v.setCompoundDrawables(null, viewIcon, null, null);
 				v.setCompoundDrawablePadding((int)(4*density));
 			} else {
 				// no icon, shouldn't happen anymore leave in logging for now
@@ -1396,7 +1404,9 @@ public class Preset implements Serializable {
 		void setAppliesToNode() {
 			if (!appliesToNode) {
 				appliesToNode = true;
-				if (parent != null) parent.setAppliesToNode();
+				if (parent != null) {
+					parent.setAppliesToNode();
+				}
 			}
 		}
 		
@@ -1406,7 +1416,9 @@ public class Preset implements Serializable {
 		void setAppliesToWay() {
 			if (!appliesToWay) {
 				appliesToWay = true;
-				if (parent != null) parent.setAppliesToWay();
+				if (parent != null) {
+					parent.setAppliesToWay();
+				}
 			}
 		}
 		
@@ -1416,7 +1428,9 @@ public class Preset implements Serializable {
 		void setAppliesToClosedway() {
 			if (!appliesToClosedway) {
 				appliesToClosedway = true;
-				if (parent != null) parent.setAppliesToClosedway();
+				if (parent != null) {
+					parent.setAppliesToClosedway();
+				}
 			}
 		}
 		
@@ -1426,7 +1440,9 @@ public class Preset implements Serializable {
 		void setAppliesToRelation() {
 			if (!appliesToRelation) {
 				appliesToRelation = true;
-				if (parent != null) parent.setAppliesToRelation();
+				if (parent != null) {
+					parent.setAppliesToRelation();
+				}
 			}
 		}
 		
@@ -1436,7 +1452,9 @@ public class Preset implements Serializable {
 		void setAppliesToArea() {
 			if (!appliesToArea) {
 				appliesToArea = true;
-				if (parent != null) parent.setAppliesToArea();
+				if (parent != null) {
+					parent.setAppliesToArea();
+				}
 			}
 		}
 		
@@ -1565,6 +1583,8 @@ public class Preset implements Serializable {
 		/**
 		 * Returns a view showing this group's icon
 		 * @param handler the handler handling clicks on the icon
+		 * @param selected highlight the background if true
+		 * @return a view/button representing this PresetElement
 		 */
 		@Override
 		public View getView(Context ctx, final PresetClickHandler handler, boolean selected) {
@@ -1593,7 +1613,7 @@ public class Preset implements Serializable {
 		}
 
 		/**
-		 * @param selectedElement TODO
+		 * @param selectedElement highlight the background if true
 		 * @return a view showing the content (nodes, subgroups) of this group
 		 */
 		public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type, PresetElement selectedElement) {
@@ -1603,7 +1623,7 @@ public class Preset implements Serializable {
 		}
 		
 		/**
-		 * @param selectedElement TODO
+		 * @param selectedElement highlight the background if true
 		 * @return a view showing the content (nodes, subgroups) of this group
 		 */
 		public View getGroupView(Context ctx, ScrollView scrollView, PresetClickHandler handler, ElementType type, PresetElement selectedElement) {
@@ -1723,12 +1743,19 @@ public class Preset implements Serializable {
 			} else {
 				String[] typesArray = types.split(",");
 				for (String type : typesArray) {
-					if (Node.NAME.equals(type)) setAppliesToNode();
-					else if (Way.NAME.equals(type)) setAppliesToWay();
-					else if ("closedway".equals(type)) setAppliesToClosedway(); // FIXME don't add if it really an area
-					else if ("multipolygon".equals(type)) setAppliesToArea();
-					else if ("area".equals(type)) setAppliesToArea(); // 
-					else if (Relation.NAME.equals(type)) setAppliesToRelation();
+					if (Node.NAME.equals(type)) {
+						setAppliesToNode();
+					} else if (Way.NAME.equals(type)) {
+						setAppliesToWay();
+					} else if ("closedway".equals(type)) {
+						setAppliesToClosedway(); // FIXME don't add if it really an area
+					} else if ("multipolygon".equals(type)) {
+						setAppliesToArea();
+					} else if ("area".equals(type)) {
+						setAppliesToArea(); // 
+					} else if (Relation.NAME.equals(type)) {
+						setAppliesToRelation();
+					}
 				}
 			}	
 			itemIndex = allItems.size();
@@ -1788,8 +1815,12 @@ public class Preset implements Serializable {
 		 * @param value value of the tag
 		 */
 		public void addTag(final String key, final PresetKeyType type, String value, String text) {
-			if (key == null) throw new NullPointerException("null key not supported");
-			if (value == null) value = "";
+			if (key == null) {
+				throw new NullPointerException("null key not supported");
+			}
+			if (value == null) {
+				value = "";
+			}
 			if (text != null && po != null) {
 				text = po.t(text);
 			}
@@ -1799,11 +1830,21 @@ public class Preset implements Serializable {
 			}
 			// Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
 			keyType.put(key,type);
-			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-			if (appliesTo(ElementType.AREA)) autosuggestAreas.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);			
+			if (appliesTo(ElementType.NODE)) {
+				autosuggestNodes.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
+			}
+			if (appliesTo(ElementType.WAY)) {
+				autosuggestWays.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
+			}
+			if (appliesTo(ElementType.CLOSEDWAY)) {
+				autosuggestClosedways.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
+			}
+			if (appliesTo(ElementType.RELATION)) {
+				autosuggestRelations.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
+			}
+			if (appliesTo(ElementType.AREA)) {
+				autosuggestAreas.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);			
+			}
 		}
 		
 		/**
@@ -1847,11 +1888,21 @@ public class Preset implements Serializable {
 		    }
 			// Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
 			keyType.put(key,type);
-			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, valueArray);
-			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, valueArray);
-			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, valueArray);
-			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, valueArray);
-			if (appliesTo(ElementType.AREA)) autosuggestAreas.add(key, valueArray);
+			if (appliesTo(ElementType.NODE)) {
+				autosuggestNodes.add(key, valueArray);
+			}
+			if (appliesTo(ElementType.WAY)) {
+				autosuggestWays.add(key, valueArray);
+			}
+			if (appliesTo(ElementType.CLOSEDWAY)) {
+				autosuggestClosedways.add(key, valueArray);
+			}
+			if (appliesTo(ElementType.RELATION)) {
+				autosuggestRelations.add(key, valueArray);
+			}
+			if (appliesTo(ElementType.AREA)) {
+				autosuggestAreas.add(key, valueArray);
+			}
 			
 			(optional ? optionalTags : recommendedTags).put(key, valueArray);
 			
@@ -2055,7 +2106,7 @@ public class Preset implements Serializable {
 						PresetItem candidateItem = allItems.get(index.intValue());
 						if (noPrimary) { // remove primary objects
 							Set<String>linkedPresetTags = candidateItem.getFixedTags().keySet();
-							if (linkedPresetTags.size()==0) {
+							if (linkedPresetTags.isEmpty()) {
 								linkedPresetTags = candidateItem.getRecommendedTags().keySet();
 							}
 							for (String k:linkedPresetTags) {
@@ -2544,16 +2595,21 @@ public class Preset implements Serializable {
 		boolean onGroupLongClick(PresetGroup group);
 	}
 
-	static public Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
+	public static Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
 		Collection<String> result = new LinkedHashSet<String>();
 		for (Preset p:presets) {
 			if (p!=null) {
 				switch (type) {
-				case NODE: result.addAll(p.autosuggestNodes.getKeys()); break;
-				case WAY: result.addAll(p.autosuggestWays.getKeys()); break;
-				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.getKeys()); break;
-				case RELATION: result.addAll(p.autosuggestRelations.getKeys()); break;
-				case AREA: result.addAll(p.autosuggestAreas.getKeys()); break;
+				case NODE: result.addAll(p.autosuggestNodes.getKeys()); 
+					break;
+				case WAY: result.addAll(p.autosuggestWays.getKeys()); 
+					break;
+				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.getKeys()); 
+					break;
+				case RELATION: result.addAll(p.autosuggestRelations.getKeys()); 
+					break;
+				case AREA: result.addAll(p.autosuggestAreas.getKeys()); 
+					break;
 				default: return null; // should never happen, all cases are covered
 				}
 			}
@@ -2563,16 +2619,21 @@ public class Preset implements Serializable {
 		return r; 
 	}
 	
-	static public Collection<StringWithDescription> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
+	public static Collection<StringWithDescription> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
 		Collection<StringWithDescription> result = new LinkedHashSet<StringWithDescription>();
 		for (Preset p:presets) {
 			if (p!=null) {
 				switch (type) {
-				case NODE: result.addAll(p.autosuggestNodes.get(key)); break;
-				case WAY: result.addAll(p.autosuggestWays.get(key)); break;
-				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.get(key)); break;
-				case RELATION: result.addAll(p.autosuggestRelations.get(key)); break;
-				case AREA: result.addAll(p.autosuggestAreas.get(key)); break;
+				case NODE: result.addAll(p.autosuggestNodes.get(key)); 
+					break;
+				case WAY: result.addAll(p.autosuggestWays.get(key)); 
+					break;
+				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.get(key)); 
+					break;
+				case RELATION: result.addAll(p.autosuggestRelations.get(key)); 
+					break;
+				case AREA: result.addAll(p.autosuggestAreas.get(key)); 
+					break;
 				default: return Collections.emptyList();
 				}
 			}
@@ -2582,7 +2643,7 @@ public class Preset implements Serializable {
 		return r;
 	}
 	
-	static public MultiHashMap<String, PresetItem> getSearchIndex(Preset[] presets) {
+	public static MultiHashMap<String, PresetItem> getSearchIndex(Preset[] presets) {
 		MultiHashMap<String, PresetItem> result = new MultiHashMap<String, PresetItem>();
 		for (Preset p:presets) {
 			if (p != null) {
@@ -2592,7 +2653,7 @@ public class Preset implements Serializable {
 		return result;
 	}
 	
-	static public MultiHashMap<String, PresetItem> getTranslatedSearchIndex(Preset[] presets) {
+	public static MultiHashMap<String, PresetItem> getTranslatedSearchIndex(Preset[] presets) {
 		MultiHashMap<String, PresetItem> result = new MultiHashMap<String, PresetItem>();
 		for (Preset p:presets) {
 			if (p!=null) {
