@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import org.junit.Assert;
+
 import android.content.Context;
 import android.os.Build;
 import android.support.test.InstrumentationRegistry;
@@ -57,6 +59,18 @@ public class TestUtils {
 			}
 		}
 	}
+	
+    public static void clickUp(UiDevice mDevice) {
+		UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Up"));
+		if (!homeButton.exists()) {
+			homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Nach oben"));
+		}
+		try {
+			homeButton.clickAndWaitForNewWindow();
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+    }
 }
 
 

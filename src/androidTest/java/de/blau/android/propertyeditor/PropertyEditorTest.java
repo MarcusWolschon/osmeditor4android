@@ -58,6 +58,7 @@ public class PropertyEditorTest {
 	AdvancedPrefDatabase prefDB = null;
 	Instrumentation instrumentation = null;
 	Main main = null;
+	UiDevice mDevice = null;
 	
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -78,6 +79,7 @@ public class PropertyEditorTest {
  		prefDB.deleteAPI("Test");
 		prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
  		prefDB.selectAPI("Test");
+ 		mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
     }
     
     @After
@@ -91,7 +93,7 @@ public class PropertyEditorTest {
     }
     
     @Test
-	public void node() {
+	public void existingNode() {
     	final CountDownLatch signal = new CountDownLatch(1);
     	mockServer.enqueue("capabilities1");
     	mockServer.enqueue("download1");
@@ -112,36 +114,19 @@ public class PropertyEditorTest {
     	main.performTagEdit(n, null, false, false, false);
     	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
-    	UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
     	TestUtils.clickText(mDevice, main.getString(R.string.menu_tags));
     	final String original = "Bergdietikon";
     	final String edited = "dietikonBerg";
     	mDevice.wait(Until.findObject(By.clickable(true).textStartsWith(original)), 500);
 		UiObject editText = mDevice.findObject(new UiSelector().clickable(true).textStartsWith(original));
 		try {
+			editText.click(); //NOTE this seems to be necessary
 			editText.setText(edited);
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}
-		UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Nach oben"));
-		try {
-			homeButton.click();
-		} catch (UiObjectNotFoundException e) {
-			Assert.fail(e.getMessage());
-		}
-		final CountDownLatch signal2 = new CountDownLatch(1);
-		instrumentation.waitForIdle(new Runnable(){
-			@Override
-			public void run() {
-				signal2.countDown();	
-			}			
-		});
-		try {
-			signal2.await(30, TimeUnit.SECONDS);
-		} catch (InterruptedException e) {
-			Assert.fail(e.getMessage());
-		}
-    	// doesn't work yet Assert.assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
+		TestUtils.clickUp(mDevice); 
+    	Assert.assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
     }
     
     @Test
@@ -167,7 +152,6 @@ public class PropertyEditorTest {
     	main.performTagEdit(n, null, false, false, false);
     	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
-    	UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
     	TestUtils.clickText(mDevice, main.getString(R.string.tag_details));
     	mDevice.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/editKey")), 500);
 		UiObject editText = mDevice.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editKey"));
@@ -182,25 +166,8 @@ public class PropertyEditorTest {
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}
-		UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Nach oben"));
-		try {
-			homeButton.click();
-		} catch (UiObjectNotFoundException e) {
-			Assert.fail(e.getMessage());
-		}
-		final CountDownLatch signal2 = new CountDownLatch(1);
-		instrumentation.waitForIdle(new Runnable(){
-			@Override
-			public void run() {
-				signal2.countDown();	
-			}			
-		});
-		try {
-			signal2.await(30, TimeUnit.SECONDS);
-		} catch (InterruptedException e) {
-			Assert.fail(e.getMessage());
-		}
-    	// Assert.assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
+		TestUtils.clickUp(mDevice);
+    	Assert.assertTrue(n.hasTag("key", "value"));
     }
     
     @Test
@@ -225,6 +192,8 @@ public class PropertyEditorTest {
     	main.performTagEdit(w, null, false, false, false);
     	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+    	UiObject text = mDevice.findObject(new UiSelector().textStartsWith("Kindhauserstrasse"));
+    	Assert.assertTrue(text.exists());
     }
     
     @Test
@@ -249,5 +218,11 @@ public class PropertyEditorTest {
     	main.performTagEdit(r, null, false, false, false);
     	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+    	
+    	TestUtils.clickText(mDevice, main.getString(R.string.tag_details));
+    	TestUtils.clickText(mDevice, main.getString(R.string.relations));
+    	TestUtils.clickText(mDevice, main.getString(R.string.members));
+    	UiObject text = mDevice.findObject(new UiSelector().textStartsWith("Vorbühl"));
+    	Assert.assertTrue(text.exists());
     }
 }
