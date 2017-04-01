@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1261: Fix regression when adding tags to a new element.
+
 1259: Fix crash in the PropertyEditor in pane mode, some correctness fixes based on SonarQube.
 
 1257: Add sharing of current map position or selected object, and reading and savign of scripts, fix regressions wrt taking photographs and menu updates.

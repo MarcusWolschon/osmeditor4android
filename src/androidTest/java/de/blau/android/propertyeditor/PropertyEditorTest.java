@@ -18,20 +18,33 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
+import android.support.test.uiautomator.Until;
 import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.SignalHandler;
+import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
 import okhttp3.HttpUrl;
 
@@ -99,11 +112,95 @@ public class PropertyEditorTest {
     	main.performTagEdit(n, null, false, false, false);
     	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
-//    	((PropertyEditor)propertyEditor).mViewPager.setCurrentItem(2);
-//    	TagFormFragment tff = ((PropertyEditor)propertyEditor).tagFormFragment;
-//    	TagEditorFragment tef = ((PropertyEditor)propertyEditor).tagEditorFragment;
-//    	PresetItem presetItem = tef.getBestPreset();
-//    	Assert.assertEquals("Entrance", presetItem.getName());
+    	UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+    	TestUtils.clickText(mDevice, main.getString(R.string.menu_tags));
+    	final String original = "Bergdietikon";
+    	final String edited = "dietikonBerg";
+    	mDevice.wait(Until.findObject(By.clickable(true).textStartsWith(original)), 500);
+		UiObject editText = mDevice.findObject(new UiSelector().clickable(true).textStartsWith(original));
+		try {
+			editText.setText(edited);
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+		UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Nach oben"));
+		try {
+			homeButton.click();
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+		final CountDownLatch signal2 = new CountDownLatch(1);
+		instrumentation.waitForIdle(new Runnable(){
+			@Override
+			public void run() {
+				signal2.countDown();	
+			}			
+		});
+		try {
+			signal2.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Assert.fail(e.getMessage());
+		}
+    	// doesn't work yet Assert.assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
+    }
+    
+    @Test
+	public void newNode() {
+		Logic logic = App.getLogic();
+		Map map = main.getMap();
+		logic.setZoom(map, 20);
+		float tolerance = DataStyle.getCurrent().wayToleranceValue;
+		System.out.println("Tolerance " + tolerance);
+
+		logic.setSelectedWay(null);
+		logic.setSelectedNode(null);
+		logic.setSelectedRelation(null);
+		try {
+			logic.performAdd(main, 1000.0f, 0.0f);
+		} catch (OsmIllegalOperationException e1) {
+			Assert.fail(e1.getMessage());
+		}
+		
+		Node n = logic.getSelectedNode();
+    	Assert.assertNotNull(n);
+
+    	main.performTagEdit(n, null, false, false, false);
+    	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+    	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+    	UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+    	TestUtils.clickText(mDevice, main.getString(R.string.tag_details));
+    	mDevice.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/editKey")), 500);
+		UiObject editText = mDevice.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editKey"));
+		try {
+			editText.setText("key");
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+		editText = mDevice.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editValue"));
+		try {
+			editText.setText("value");
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+		UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Nach oben"));
+		try {
+			homeButton.click();
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+		final CountDownLatch signal2 = new CountDownLatch(1);
+		instrumentation.waitForIdle(new Runnable(){
+			@Override
+			public void run() {
+				signal2.countDown();	
+			}			
+		});
+		try {
+			signal2.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Assert.fail(e.getMessage());
+		}
+    	// Assert.assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
     }
     
     @Test

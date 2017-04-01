@@ -42,8 +42,8 @@ public class PropertyEditorData implements Serializable {
 	private PropertyEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, HashMap<Long, String> parents, HashMap<Long, String> originalParents, ArrayList<RelationMemberDescription> members, ArrayList<RelationMemberDescription> originalMembers, String focusOnKey) {
 		this.osmId = osmId;
 		this.type = type;
-		this.tags = new LinkedHashMap<String, String>(tags);
-		this.originalTags = new LinkedHashMap<String, String>(originalTags);
+		this.tags = tags != null ? new LinkedHashMap<String, String>(tags) : null;
+		this.originalTags = originalTags != null ? new LinkedHashMap<String, String>(originalTags) : null;
 		this.parents = parents;
 		this.originalParents = originalParents;
 		this.members = members;

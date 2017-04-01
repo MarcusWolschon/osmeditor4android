@@ -23,25 +23,25 @@ public class TestUtils {
 	public static void grantPermissons() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-			clickButton(mDevice, "allow");
-			clickButton(mDevice, "zulassen");
+			clickText(mDevice, "allow");
+			clickText(mDevice, "zulassen");
 		}
 	}
 
 	public static void dismissStartUpDialogs(Context ctx) {
 		UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-		clickButton(mDevice, ctx.getResources().getString(R.string.okay));
-		clickButton(mDevice, ctx.getResources().getString(R.string.location_load_dismiss));
+		clickText(mDevice, ctx.getResources().getString(R.string.okay));
+		clickText(mDevice, ctx.getResources().getString(R.string.location_load_dismiss));
 	}
 	
 	public static void selectIntentRecipient(Context ctx) {
 		UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-		clickButton(mDevice, "Vespucci");
-		clickButton(mDevice, "Just once");
-		clickButton(mDevice, "Nur diesmal");
+		clickText(mDevice, "Vespucci");
+		clickText(mDevice, "Just once");
+		clickText(mDevice, "Nur diesmal");
 	}
 
-	static void clickButton(UiDevice device, String text) {
+	public static void clickText(UiDevice device, String text) {
 		for (;;) {
 			// Note: contrary to "text", "textStartsWith" is case insensitive
 			device.wait(Until.findObject(By.clickable(true).textStartsWith(text)), 500);
