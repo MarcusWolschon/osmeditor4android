@@ -315,11 +315,11 @@ public class Util {
 	}
 
 	/**
-	 * Ceck that a double is not zero
+	 * Check that a double is not zero
 	 * @param a the double to test
 	 * @return true if not zero
 	 */
 	public static boolean notZero(double a) {
-		return a < Double.MIN_VALUE || a > Double.MIN_VALUE;
+		return a < -Double.MIN_VALUE || a > Double.MIN_VALUE;
 	}
 }
