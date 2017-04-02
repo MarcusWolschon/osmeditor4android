@@ -54,7 +54,7 @@ public class HelpViewerTest {
     @Test
 	public void startHelp() {
     	HelpViewer.start(main, R.string.help_main);
-    	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-    	Assert.assertTrue(propertyEditor instanceof HelpViewer);
+    	Activity helpViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+    	Assert.assertTrue(helpViewer instanceof HelpViewer);
     }
 }

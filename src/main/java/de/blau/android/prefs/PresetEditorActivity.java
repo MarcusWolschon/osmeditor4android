@@ -253,7 +253,8 @@ public class PresetEditorActivity extends URLListEditActivity {
 						Log.w("PresetDownloader", "Could not download file " + url + " respose code " + conn.getResponseCode());
 						return DOWNLOADED_PRESET_ERROR;
 					}
-					boolean zip = conn.getContentType().equalsIgnoreCase("application/zip");
+					String contentType = conn.getContentType();
+					boolean zip = contentType != null && contentType.equalsIgnoreCase("application/zip");
 					final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
 					if (zip) {
 						filename = FILE_NAME_TEMPORARY_ARCHIVE;
@@ -262,13 +263,10 @@ public class PresetEditorActivity extends URLListEditActivity {
 					fileStream = new FileOutputStream(new File(presetDir, filename));
 					StreamUtils.copy(downloadStream, fileStream);
 					
-					
-					if (zip) {
-						if (unpackZip(presetDir.getPath() + "/",filename)) {
-							//noinspection ResultOfMethodCallIgnored
-							(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete();
-							return DOWNLOADED_PRESET_ZIP;
-						}
+					if (zip && unpackZip(presetDir.getPath() + "/",filename)) {
+						//noinspection ResultOfMethodCallIgnored
+						(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete();
+						return DOWNLOADED_PRESET_ZIP;
 					}
 					return DOWNLOADED_PRESET_XML;
 				} catch (Exception e) {
@@ -361,10 +359,12 @@ public class PresetEditorActivity extends URLListEditActivity {
 	         {
 	             // zapis do souboru
 	             filename = ze.getName();
-	             // Log.d(DEBUG_TAG, "Unzip " + filename);
+	             Log.d(DEBUG_TAG, "Unzip " + filename);
 	             // Need to create directories if not exists, or
 	             // it will generate an Exception...
-	             if (filename.indexOf("/") > 0 && !filename.endsWith("/")) {
+	             if ("".equals(filename)) {
+	            	 continue;
+	             } else if (filename.indexOf("/") > 0 && !filename.endsWith("/")) {
 	            	int slash = filename.lastIndexOf("/");
 	            	String path =  filename.substring(0, slash);
 	            	File fmd = new File(presetDir + path);
@@ -394,8 +394,6 @@ public class PresetEditorActivity extends URLListEditActivity {
 	             }                        
 	             zis.closeEntry();
 	         }
-
-	         
 	     } catch(IOException e) {
 	    	 Log.e(DEBUG_TAG,"Unzipping failed with " + e.getMessage());
 	         e.printStackTrace();

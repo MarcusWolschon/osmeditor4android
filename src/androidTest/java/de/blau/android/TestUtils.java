@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
@@ -19,44 +20,66 @@ import android.util.Log;
  *
  */
 public class TestUtils {
+	private static final String DEBUG_TAG = "TestUtils";
+
 	/**
 	 * Grant permissions by clicking on the dialogs, currently only works for English and German
 	 */
 	public static void grantPermissons() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-			clickText(mDevice, "allow");
-			clickText(mDevice, "zulassen");
+			boolean notdone = true;
+			while (notdone) {
+				notdone = clickText(mDevice, true, "allow", true) ||
+						clickText(mDevice, true, "zulassen", false);
+			}
 		}
 	}
 
 	public static void dismissStartUpDialogs(Context ctx) {
 		UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-		clickText(mDevice, ctx.getResources().getString(R.string.okay));
-		clickText(mDevice, ctx.getResources().getString(R.string.location_load_dismiss));
+		clickText(mDevice, true, ctx.getResources().getString(R.string.okay), false);
+		clickText(mDevice, true, ctx.getResources().getString(R.string.location_load_dismiss), false);
 	}
 	
 	public static void selectIntentRecipient(Context ctx) {
 		UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-		clickText(mDevice, "Vespucci");
-		clickText(mDevice, "Just once");
-		clickText(mDevice, "Nur diesmal");
+		clickText(mDevice, true, "Vespucci", false);
+		clickText(mDevice, true, "Just once", false);
+		clickText(mDevice, true, "Nur diesmal", false);
 	}
 
-	public static void clickText(UiDevice device, String text) {
-		for (;;) {
-			// Note: contrary to "text", "textStartsWith" is case insensitive
-			device.wait(Until.findObject(By.clickable(true).textStartsWith(text)), 500);
-			UiObject button = device.findObject(new UiSelector().clickable(true).textStartsWith(text)); 
-			if (button.exists()) {
-				try {
+	public static boolean clickText(UiDevice device, boolean clickable, String text, boolean waitForNewWindow) {	
+		Log.w(DEBUG_TAG, "Searching for object with " + text);
+		// Note: contrary to "text", "textStartsWith" is case insensitive
+		BySelector bySelector = null; 
+		UiSelector uiSelector = null; 
+		//NOTE order of the selector terms is significant
+		if (clickable) {
+			bySelector = By.clickable(true).textStartsWith(text);
+			uiSelector = new UiSelector().clickable(true).textStartsWith(text);
+		} else {
+			bySelector = By.textStartsWith(text);
+			uiSelector = new UiSelector().textStartsWith(text);
+		}
+		device.wait(Until.findObject(bySelector), 500);
+		UiObject button = device.findObject(uiSelector); 
+		if (button.exists()) {
+			try {
+				if (waitForNewWindow) {
+					button.clickAndWaitForNewWindow();
+				} else {
 					button.click();
-				} catch (UiObjectNotFoundException e) {
-					Log.e("TestUtils", "Object vanished.");
+					Log.e(DEBUG_TAG, ".... clicked");
 				}
-			} else {
-				return;
+				return true;
+			} catch (UiObjectNotFoundException e) {
+				Log.e(DEBUG_TAG, "Object vanished.");
+				return false;
 			}
+		} else {
+			Log.e(DEBUG_TAG, "Object not found");
+			return false;
 		}
 	}
 	

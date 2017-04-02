@@ -114,7 +114,7 @@ public class PropertyEditorTest {
     	main.performTagEdit(n, null, false, false, false);
     	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
-    	TestUtils.clickText(mDevice, main.getString(R.string.menu_tags));
+    	TestUtils.clickText(mDevice, true, main.getString(R.string.menu_tags), false);
     	final String original = "Bergdietikon";
     	final String edited = "dietikonBerg";
     	mDevice.wait(Until.findObject(By.clickable(true).textStartsWith(original)), 500);
@@ -152,7 +152,7 @@ public class PropertyEditorTest {
     	main.performTagEdit(n, null, false, false, false);
     	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
-    	TestUtils.clickText(mDevice, main.getString(R.string.tag_details));
+    	TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
     	mDevice.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/editKey")), 500);
 		UiObject editText = mDevice.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editKey"));
 		try {
@@ -219,9 +219,9 @@ public class PropertyEditorTest {
     	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
     	
-    	TestUtils.clickText(mDevice, main.getString(R.string.tag_details));
-    	TestUtils.clickText(mDevice, main.getString(R.string.relations));
-    	TestUtils.clickText(mDevice, main.getString(R.string.members));
+    	TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
+    	TestUtils.clickText(mDevice, true, main.getString(R.string.relations), false);
+    	TestUtils.clickText(mDevice, true, main.getString(R.string.members), false);
     	UiObject text = mDevice.findObject(new UiSelector().textStartsWith("Vorbühl"));
     	Assert.assertTrue(text.exists());
     }

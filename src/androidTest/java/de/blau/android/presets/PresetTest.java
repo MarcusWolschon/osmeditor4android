@@ -34,7 +34,7 @@ public class PresetTest {
     }
     
     @Test
-	public void matchAndSplit() {
+	public void matchingt() {
     	Main main = (Main)mActivityRule.getActivity(); 
     	// 
     	Preset[] presets = App.getCurrentPresets(main);
