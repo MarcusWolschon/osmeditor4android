@@ -225,4 +225,47 @@ public class PropertyEditorTest {
     	UiObject text = mDevice.findObject(new UiSelector().textStartsWith("Vorbühl"));
     	Assert.assertTrue(text.exists());
     }
+    
+    @Test
+	public void presets() {
+   	final CountDownLatch signal = new CountDownLatch(1);
+    	mockServer.enqueue("capabilities1");
+    	mockServer.enqueue("download1");
+    	Logic logic = App.getLogic();
+    	try {
+			logic.downloadBox(main, new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+		} catch (OsmException e) {
+			Assert.fail(e.getMessage());
+		}
+    	try {
+			signal.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Assert.fail(e.getMessage());
+		}
+      	Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604);
+    	Assert.assertNotNull(w);
+
+    	main.performTagEdit(w, null, false, false, false);
+    	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+    	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+    	
+    	if (!((PropertyEditor)propertyEditor).paneLayout()) {
+    		Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.tag_menu_preset), false));
+    	}
+    	boolean found = TestUtils.clickText(mDevice, true, "Highways", true);
+    	if (!found) {
+    		found = TestUtils.clickText(mDevice, true, "Strassen", true);
+    	}
+    	Assert.assertTrue(found);
+    	found = TestUtils.clickText(mDevice, true, "Streets", true);
+    	if (!found) {
+    		found = TestUtils.clickText(mDevice, true, "Strassen", true);
+    	}
+    	Assert.assertTrue(found);
+    	found = TestUtils.clickText(mDevice, true, "Motorway", true);
+    	if (!found) {
+    		found = TestUtils.clickText(mDevice, true, "Autobahn", true);
+    	}
+    	Assert.assertTrue(found);
+    }  
 }

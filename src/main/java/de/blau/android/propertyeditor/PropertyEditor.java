@@ -1132,10 +1132,18 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		return placeNameAutocompleteAdapter;
 	}
 	
-	public OsmElement getElement() {
+	OsmElement getElement() {
 		return elements[0]; // FIXME validate
 	}
 	
+	/**
+	 * Return if we are using the pave/tablet layout
+	 * 
+	 * @return true is in pane mode
+	 */
+	boolean paneLayout() {
+		return usePaneLayout;
+	}
 	
 	@Override
 	public void onSupportActionModeFinished(@NonNull ActionMode mode) {

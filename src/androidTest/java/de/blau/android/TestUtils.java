@@ -84,7 +84,7 @@ public class TestUtils {
 	}
 	
     public static void clickUp(UiDevice mDevice) {
-		UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Up"));
+		UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Navigate up"));
 		if (!homeButton.exists()) {
 			homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Nach oben"));
 		}
