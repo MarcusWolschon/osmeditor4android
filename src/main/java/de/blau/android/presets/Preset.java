@@ -1185,7 +1185,7 @@ public class Preset implements Serializable {
 			if (p != null) {
 				for (Entry<String, String> tag : tags.entrySet()) {
 					String key = tag.getKey();
-					if (Tags.importantTags.contains(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && useAddressKeys)) {
+					if (Tags.IMPORTANT_TAGS.contains(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && useAddressKeys)) {
 						String tagString = tag.getKey()+"\t";
 						possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
 						possibleMatches.addAll(p.tagItems.get(tagString+tag.getValue()));
@@ -1196,8 +1196,6 @@ public class Preset implements Serializable {
 		return possibleMatches;
 	}
     
-    
-	
 	/**
 	 * Filter a list of elements by type
 	 * @param originalElements the list to filter
@@ -2092,7 +2090,7 @@ public class Preset implements Serializable {
 		/**
 		 * Returns a list of linked preset items
 		 * 
-		 * @param noPrimary if true only itmes will be returned that doen't correspond to primary OSM objects
+		 * @param noPrimary if true only items will be returned that doen't correspond to primary OSM objects
 		 * @return list of PresetItems
 		 */
 		public List<PresetItem> getLinkedPresets(boolean noPrimary) {
@@ -2110,7 +2108,7 @@ public class Preset implements Serializable {
 								linkedPresetTags = candidateItem.getRecommendedTags().keySet();
 							}
 							for (String k:linkedPresetTags) {
-								if (Tags.importantTags.contains(k)) {
+								if (Tags.IMPORTANT_TAGS.contains(k)) {
 									continue linkedLoop; 
 								}
 							}

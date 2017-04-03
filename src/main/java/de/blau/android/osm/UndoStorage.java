@@ -314,7 +314,7 @@ public class UndoStorage implements Serializable {
 					return "house " + housenb;
 				}
 				// Then the value of the most 'important' tag the element has
-				for (String tag : Tags.importantTags) {
+				for (String tag : Tags.IMPORTANT_TAGS) {
 					String value = tags.get(tag);
 					if (value != null && value.length() > 0) {
 						return element.getName() + " " + tag + ":" + value;

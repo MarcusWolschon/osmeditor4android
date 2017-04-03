@@ -418,7 +418,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return the first kay =value of any important tags or null if none found
 	 */
 	public String getPrimaryTag() {
-		for (String tag : Tags.importantTags) {
+		for (String tag : Tags.IMPORTANT_TAGS) {
 			String value = getTagWithKey(tag);
 			if (value != null && value.length() > 0) {
 				return  tag + "=" + value;

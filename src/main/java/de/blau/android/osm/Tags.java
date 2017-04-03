@@ -1,7 +1,7 @@
 package de.blau.android.osm;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -9,21 +9,7 @@ import java.util.List;
  * @author simon
  *
  */
-public class Tags {
-	/**
-	 * An array of tags considered 'important' and distinctive enough to be shown as part of
-	 * the elements description.
-	 */
-	public static final ArrayList<String>importantTags;
-	static {
-		// Create the array of important tags. Tags are listed from most important to least.
-		importantTags = new ArrayList<String>(Arrays.asList((
-				"highway,barrier,waterway,railway,aeroway,aerialway,power,"+
-				"man_made,building,leisure,amenity,office,shop,craft,emergency,"+
-				"tourism,historic,landuse,military,natural,boundary,type"
-		).split(",")));
-	}
-		
+public class Tags {		
 	// Karlsruher schema
 	public static final String KEY_ADDR_BASE = "addr:";
 	public static final String KEY_ADDR_HOUSENUMBER = "addr:housenumber";
@@ -147,4 +133,33 @@ public class Tags {
 	
 	//
 	public static final String KEY_LAYER = "layer";
+	
+	// more primary keys
+	public static final String KEY_AEROWAY = "aeroway";
+	public static final String KEY_AERIALWAY = "aerialway";
+	public static final String KEY_POWER = "power";
+	public static final String KEY_LEISURE = "leisure";
+	public static final String KEY_AMENITY = "amenity";
+	public static final String KEY_OFFICE = "office";
+	public static final String KEY_SHOP = "shop";
+	public static final String KEY_CRAFT = "craft";
+	public static final String KEY_EMERGENCY = "emergency";
+	public static final String KEY_TOURISM = "tourism";
+	public static final String KEY_HISTORIC = "historic";
+	public static final String KEY_MILITARY = "military";
+	
+	/**
+	 * An array of tags considered 'important'. These are typically tags that define real-world objects
+	 * and not properties of such.
+	 */
+	public static final HashSet<String> IMPORTANT_TAGS = new HashSet<String>(Arrays.asList(
+		KEY_HIGHWAY,KEY_BARRIER,KEY_WATERWAY,KEY_RAILWAY,KEY_AEROWAY,KEY_AERIALWAY,KEY_POWER,
+		KEY_MAN_MADE,KEY_BUILDING,KEY_LEISURE,KEY_AMENITY,KEY_OFFICE,KEY_SHOP,KEY_CRAFT,KEY_EMERGENCY,
+		KEY_TOURISM,KEY_HISTORIC,KEY_LANDUSE,KEY_MILITARY,KEY_NATURAL,KEY_BOUNDARY,KEY_TYPE,KEY_ENTRANCE));	
+	
+	/**
+	 * Private construtor to avaoid getting a public one
+	 */
+	private Tags() {
+	}
 }
