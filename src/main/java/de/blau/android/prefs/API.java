@@ -15,8 +15,8 @@ public class API {
 	public final String preset;     // no longer used
 	public final boolean showicon;	// no longer used
 	public final boolean oauth;
-	public String accesstoken;
-	public String accesstokensecret;
+	public final String accesstoken;
+	public final String accesstokensecret;
 	
 	public API(String id, String name, String url, String readonlyurl, String notesurl, 
 			String user, String pass, String preset, int showicon, int oauth, String accesstoken, String accesstokensecret) {
