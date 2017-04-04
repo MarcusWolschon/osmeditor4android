@@ -214,12 +214,13 @@ public class TaskFragment extends DialogFragment {
     	state.setAdapter(adapter);
     	
     	if (bug.state == State.OPEN) {
-    		state.setSelection(Task.POS_OPEN);
+    		
+    		state.setSelection(State.OPEN.ordinal());
     	} else if (bug.state == State.CLOSED) {
-    		state.setSelection(Task.POS_CLOSED);
+    		state.setSelection(State.CLOSED.ordinal());
     	} else if (bug.state == State.FALSE_POSITIVE) {
     		if (adapter.getCount() == 3) {
-    			state.setSelection(Task.POS_FALSE_POSITIVE);
+    			state.setSelection(State.FALSE_POSITIVE.ordinal());
     		} else {
     			Log.d(DEBUG_TAG, "ArrayAdapter too short");
     		}
@@ -270,7 +271,7 @@ public class TaskFragment extends DialogFragment {
     							int before, int count) {
     						save.setEnabled(true);
     						upload.setEnabled(true);
-    						state.setSelection(Task.POS_OPEN);
+    						state.setSelection(State.OPEN.ordinal());
     					}    				
     				});
     			}
@@ -300,11 +301,11 @@ public class TaskFragment extends DialogFragment {
     }
     
     private static State pos2state(int pos) {
-		if (pos == Task.POS_CLOSED) {
+		if (pos == State.CLOSED.ordinal()) {
 			return State.CLOSED;
-		} else if (pos == Task.POS_OPEN) {
+		} else if (pos == State.OPEN.ordinal()) {
 			return State.OPEN;
-		} else if (pos == Task.POS_FALSE_POSITIVE) {
+		} else if (pos == State.FALSE_POSITIVE.ordinal()) {
 			return State.FALSE_POSITIVE;
 		}
 		return State.OPEN;

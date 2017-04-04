@@ -15,7 +15,7 @@ public abstract class Task implements Serializable, BoundedObject {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6L;
+	private static final long serialVersionUID = 7L;
 
 	/** OSB Bug ID. */
 	long id;
@@ -33,10 +33,6 @@ public abstract class Task implements Serializable, BoundedObject {
 		FALSE_POSITIVE
 	}
 	State state;
-	
-	public static int POS_OPEN = 0;
-	public static int POS_CLOSED = 1;
-	public static int POS_FALSE_POSITIVE = 2;
 
 	/** Has been edited */
 	boolean changed = false;

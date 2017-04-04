@@ -1,8 +1,10 @@
 package de.blau.android.osm;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Key and value constants for tags that are used in the code
@@ -152,13 +154,13 @@ public class Tags {
 	 * An array of tags considered 'important'. These are typically tags that define real-world objects
 	 * and not properties of such.
 	 */
-	public static final HashSet<String> IMPORTANT_TAGS = new HashSet<String>(Arrays.asList(
+	public static final Set<String> IMPORTANT_TAGS = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
 		KEY_HIGHWAY,KEY_BARRIER,KEY_WATERWAY,KEY_RAILWAY,KEY_AEROWAY,KEY_AERIALWAY,KEY_POWER,
 		KEY_MAN_MADE,KEY_BUILDING,KEY_LEISURE,KEY_AMENITY,KEY_OFFICE,KEY_SHOP,KEY_CRAFT,KEY_EMERGENCY,
-		KEY_TOURISM,KEY_HISTORIC,KEY_LANDUSE,KEY_MILITARY,KEY_NATURAL,KEY_BOUNDARY,KEY_TYPE,KEY_ENTRANCE));	
+		KEY_TOURISM,KEY_HISTORIC,KEY_LANDUSE,KEY_MILITARY,KEY_NATURAL,KEY_BOUNDARY,KEY_TYPE,KEY_ENTRANCE)));	
 	
 	/**
-	 * Private construtor to avaoid getting a public one
+	 * Private constructor to avoid getting a public one
 	 */
 	private Tags() {
 	}
