@@ -66,3 +66,7 @@ The gradle task ``updateImagery`` will update the imagery.json file in the asset
 
 Tags to be discarded https://github.com/openstreetmap/iD/blob/master/data/discarded.json
 
+## Testing
+
+Automated testing has come relatively late to Vespucci, however we have made large advanced in improving the coverage in 2017. Note: the on device tests will typically fail the first time if an Vespucci instance was already installed on the device (due to previous state being loaded), either de-install or simply run the tests twice.
+

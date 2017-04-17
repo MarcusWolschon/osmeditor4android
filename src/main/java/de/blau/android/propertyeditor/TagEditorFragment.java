@@ -1923,7 +1923,7 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 			// check for new tags
 			for (String editsKey:edits.keySet()) {
-				if (!map.containsKey(editsKey) && edits.get(editsKey).size()==1) { // zap empty stuff or just the HTTP prefix
+				if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && edits.get(editsKey).size()==1) { // zap empty stuff or just the HTTP prefix
 					String value = edits.get(editsKey).get(0).trim();
 					if (saveTag(editsKey,value)) {
 						addTagToMap(map, editsKey, value);

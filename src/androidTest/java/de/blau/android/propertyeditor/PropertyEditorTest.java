@@ -268,4 +268,40 @@ public class PropertyEditorTest {
     	}
     	Assert.assertTrue(found);
     }  
+    
+    @Test
+	public void emptyKey() {
+    	final CountDownLatch signal = new CountDownLatch(1);
+    	mockServer.enqueue("capabilities1");
+    	mockServer.enqueue("download1");
+    	Logic logic = App.getLogic();
+    	try {
+			logic.downloadBox(main, new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+		} catch (OsmException e) {
+			Assert.fail(e.getMessage());
+		}
+    	try {
+			signal.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Assert.fail(e.getMessage());
+		}
+    	Node n = (Node) logic.performAddNode(main, 1.0, 1.0);
+    	Assert.assertNotNull(n);
+
+    	main.performTagEdit(n, null, false, false, false);
+    	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+    	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+    	TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
+    	mDevice.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/editValue")), 500);
+		UiObject editText = mDevice.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editValue"));
+		String edited="edited";
+		try {
+			editText.click(); //NOTE this seems to be necessary
+			editText.setText(edited);
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+		TestUtils.clickUp(mDevice); 
+    	Assert.assertFalse(n.hasTag("",edited));
+    }
 }
