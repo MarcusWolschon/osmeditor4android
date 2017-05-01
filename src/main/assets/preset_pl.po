@@ -7159,7 +7159,7 @@ msgstr ""
 #: master_preset.xml:1868(text:text|group:Barriers|preset:Hedge|key:genus)
 #: master_preset.xml:9299(text:text|group:Nature|preset:Tree|key:genus)
 msgid "Genus"
-msgstr "Gatunek"
+msgstr "Rodzaj"
 
 #: master_preset.xml:335(combo:display_values|key:religion)
 msgid "Shinto"
