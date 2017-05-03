@@ -601,7 +601,10 @@
 	  	<list_entry value="saltbox" short_description="Saltbox" />
 	  	<list_entry value="skillion" short_description="Skillion" />
 	</combo>
-	<reference ref="roof_orientation" />
+	<combo key="roof:orientation" text="Roof orientation" editable="false" match="key" >
+    	<list_entry value="along" display_value="Along" />
+      	<list_entry value="across" display_value="Across"  />
+    </combo>
 	<reference ref="roof_main" />
   </chunk>
 
