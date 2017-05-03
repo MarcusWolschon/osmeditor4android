@@ -130,6 +130,7 @@
   <string name="toast_merge_overwrote_tags">참고 - 작업 태그 덮어씀</string>
   <string name="toast_oneway_reversed">일방통행 거리나 방향에 의존하는 태그로 된 길을 뒤집었습니다. 필요하다면 태그를 확인하고 고쳐주세요.</string>
   <string name="toast_unread_mail">OpenStreetMap 서버에 읽지 않은 우편 %1$s개가 있습니다</string>
+  <string name="toast_no_oauth">현재 API의  사용할 수 있는 OAuth 환경 설정이 없습니다, 로그인 및 비밀번호를 설정해주세요.</string>
   <string name="toast_timeout">서버로의 시간초과</string>
   <string name="coordinates_out_of_range">경도는 -180°/+180° 사이이고, 위도는 -85°/85° 사이여야 합니다</string>
   <string name="toast_nothing_found">아무 것도 찾을 수 없음</string>
@@ -369,6 +370,7 @@
   <string name="config_showWayIcons_title">건물에 POI 아이콘 보이기</string>
   <string name="config_loginbutton_title">사용자 계정</string>
   <string name="config_username_title">OSM 사용자 이름</string>
+  <string name="config_username_summary">환경 설정은 OAuth를 사용하고 있지 않을 경우에만 OSM-데이터를 업로드하는 데 필요합니다. 계정은 http://www.openstreetmap.org/user/new 에서 사용할 수 있습니다</string>
   <string name="config_password_title">OSM 비밀번호</string>
   <string name="config_category_gps">GPS 설정</string>
   <string name="config_gps_distance_title">최소 GPS 거리</string>
@@ -426,6 +428,7 @@
   <string name="urldialog_preset_download_successful">프리셋 다운로드 성공!</string>
   <string name="urldialog_api_install_successful">API 설치 성공!</string>
   <string name="urldialog_add_api">API 추가</string>
+  <string name="urldialog_nodata_text">환경 설정 URL이 올바른 데이터를 포함하고 있지 않습니다.</string>
   <!--common terms-->
   <string name="add">추가</string>
   <string name="edit">편집</string>
