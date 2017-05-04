@@ -965,7 +965,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             for (int i = 0; i < toBeRemovedSpans.length; i++)
                 s.removeSpan(toBeRemovedSpans[i]);
 		}
-	};
+	}
 
 	private TagComboRow addComboRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
 		final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);

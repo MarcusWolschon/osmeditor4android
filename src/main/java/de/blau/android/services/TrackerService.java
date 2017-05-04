@@ -313,7 +313,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			stopSelf();
 		}
 		if (externalListener != null) {
-			externalListener.onStateChanged();;
+			externalListener.onStateChanged();
 		}
 	}
 	

@@ -213,7 +213,7 @@ public class TransferTasks {
 						Snack.barInfo(main, R.string.openstreetbug_commit_ok);
 					} else {
 						if (postUploadHandler != null) {
-							postUploadHandler.onError();;
+							postUploadHandler.onError();
 						}
 						Snack.barError(main, R.string.openstreetbug_commit_fail);
 					}
