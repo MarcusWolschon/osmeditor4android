@@ -498,12 +498,7 @@ public class Logic {
 	 * @param zoomFactor The factor to zoom by, negative values zoom out, positive zooms in.
 	 */
 	public void zoom(final float zoomFactor) {
-		try {
-			viewBox.zoom(zoomFactor);
-		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		viewBox.zoom(zoomFactor);
 		DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 		if (rotatingWay) {
 			showCrosshairsForCentroid();

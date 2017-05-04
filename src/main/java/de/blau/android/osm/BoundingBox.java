@@ -630,12 +630,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * height remains.
 	 */
 	public void zoomIn()  {
-		try {
-			zoom(ZOOM_IN);
-		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		zoom(ZOOM_IN);
 	}
 	
 	/**
@@ -643,12 +638,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * and height remains.
 	 */
 	public void zoomOut()  {
-		try {
-			zoom(ZOOM_OUT);
-		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		zoom(ZOOM_OUT);
 	}
 
 	/**
@@ -656,7 +646,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * 
 	 * @param zoomFactor factor enlarge/reduce the borders.
 	 */
-	public void zoom(float zoomFactor) throws OsmException {
+	public void zoom(float zoomFactor) {
 		// Log.d("BoundingBox","zoom " + this.toString());
 		zoomFactor = Math.min(zoomInLimit(), zoomFactor);
 		zoomFactor = Math.max(zoomOutLimit(), zoomFactor);
