@@ -19,8 +19,6 @@ public class NotificationCache implements Serializable {
 	private ArrayList<Integer> cache;
 	private int size = 5;
 	
-
-	
 	public NotificationCache(Context ctx) {
 		Preferences prefs = new Preferences(ctx);
 		init(prefs.getNotificationCacheSize());
@@ -86,9 +84,11 @@ public class NotificationCache implements Serializable {
 	private synchronized void remove(NotificationManager manager) {
 		// remove notification
 		int last = cache.size() - 1;
-		// Log.d(DEBUG_TAG, "removing oldest alert " + cache.get(last));
-		manager.cancel(cache.get(last));
-		cache.remove(last);
+		if (last >= 0) {
+			// Log.d(DEBUG_TAG, "removing oldest alert " + cache.get(last));
+			manager.cancel(cache.get(last));
+			cache.remove(last);
+		}
 	}
 	
 	/**
