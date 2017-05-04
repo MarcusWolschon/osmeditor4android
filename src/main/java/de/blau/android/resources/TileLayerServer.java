@@ -8,10 +8,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +40,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
@@ -211,7 +216,12 @@ public class TileLayerServer {
 			return false;
 		}
 		
-		public boolean covers(BoundingBox area) {
+		/**
+		 * Test if the provider covers the area
+		 * @param area area to test
+		 * @return true if the provider has coverage of the given area
+		 */
+		public boolean covers(@NonNull BoundingBox area) {
 			if (coverageAreas.size() == 0) {
 				return true;
 			}
@@ -271,9 +281,20 @@ public class TileLayerServer {
 
 	private Context ctx;
 	private boolean metadataLoaded;
-	private String id, name, tileUrl, imageFilenameExtension, touUri;
-	private boolean overlay, defaultLayer;
-	private int zoomLevelMin, zoomLevelMax, tileWidth, tileHeight, preference;
+	private String id;
+	private String name; 
+	private String tileUrl;
+	private String imageFilenameExtension;
+	private String touUri;
+	private boolean overlay;
+	private boolean defaultLayer;
+	private int zoomLevelMin;
+	private int zoomLevelMax;
+	private int tileWidth; 
+	private int tileHeight;
+	private int preference;
+	private long startDate = -1L;
+	private long endDate = -1L; 
 	private int maxOverZoom = 3; // currently hardwired
 	private Drawable brandLogo;
 	private final Queue<String> subdomains = new LinkedList<String>();
@@ -397,22 +418,29 @@ public class TileLayerServer {
 	}
 	
 	/**
-	 * 
-	 * @param r
-	 * @param id
-	 * @param name
-	 * @param url
-	 * @param type
-	 * @param overlay
-	 * @param zoomLevelMin
-	 * @param zoomLevelMax
-	 * @param tileWidth
-	 * @param tileHeight
+	 * Construnct a new TileLayerServer object from the parameters
+	 * @param ctx			android context
+	 * @param id			the layer id
+	 * @param name			the layer name
+	 * @param url			the template url for the layer
+	 * @param type			the special types of layer: "bing","scanex" 
+	 * @param overlay		true if this layer is an overlay
+	 * @param defaultLayer	true if this should be used as the default
+	 * @param provider		a Provider object containing detailed provider information
+	 * @param termsOfUseUrl	a url pointing to terms of use
+	 * @param zoomLevelMin	minimum supported zoom level
+	 * @param zoomLevelMax	maximum supported room level
+	 * @param tileWidth		width of the tiles in pixels
+	 * @param tileHeight	height of the tiles in pixels
+	 * @param preference	relative preference (larger == better)
+	 * @param startDate		start date as a ms since epoch value, -1 if not available
+	 * @param endDate		end date as a ms since epoch value, -1 if not available
 	 * @param async			run loadInfo in a AsyncTask needed for main process
 	 */
 	private TileLayerServer(final Context ctx, final String id, final String name, final String url, final String type, 
 			final boolean overlay, final boolean defaultLayer, final Provider provider, final String termsOfUseUrl,
-			final int zoomLevelMin, final int zoomLevelMax, final int tileWidth, final int  tileHeight, final int preference, boolean async) {
+			final int zoomLevelMin, final int zoomLevelMax, final int tileWidth, final int  tileHeight, final int preference, 
+			final long startDate, final long endDate, boolean async) {
 		this.ctx = ctx;
 		this.id = id;
 		this.name = name;
@@ -426,6 +454,9 @@ public class TileLayerServer {
 		this.touUri = termsOfUseUrl;
 		this.offsets = new Offset[zoomLevelMax-zoomLevelMin+1];
 		this.preference = preference;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		
 		if (provider != null)
 			providers.add(provider);
 		
@@ -483,8 +514,6 @@ public class TileLayerServer {
 		}
 	}
 	
-	
-	
 	/**
 	 * Get the default tile layer.
 	 * @param r Application resources.
@@ -496,13 +525,13 @@ public class TileLayerServer {
 	}
 	
 	/**
-	 * Parse json files for imagery configs and add them to backgroundServerList or overlayServerList
-	 * @param r
-	 * @param is
-	 * @param async
+	 * Parse a json format InputStream for imagery configs and add them to backgroundServerList or overlayServerList
+	 * @param ctx			android context	
+	 * @param is			InputStream to parse
+	 * @param async			obtain meta data async (bing only)
 	 * @throws IOException
 	 */
-	private static void parseImageryFile(Context ctx, InputStream is, final boolean async) throws IOException {
+	public static void parseImageryFile(@NonNull Context ctx, @NonNull InputStream is, final boolean async) throws IOException {
 		JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
 		try {
 			reader.beginArray();
@@ -623,35 +652,41 @@ public class TileLayerServer {
 		Provider provider = null;
 		String termsOfUseUrl = null;
 		int preference = PREFERENCE_DEFAULT;
+		long startDate = -1L;
+		long endDate = -1L;
 		try {
 			reader.beginObject();
 			while (reader.hasNext()) {
 				String jsonName = reader.nextName();
-				if (jsonName.equals("type")) {
+				if ("type".equals(jsonName)) {
 					type = reader.nextString(); 
-			    } else if (jsonName.equals("id")) {
+			    } else if ("id".equals(jsonName)) {
 					id = reader.nextString();
-			    } else if (jsonName.equals("url")) {
+			    } else if ("url".equals(jsonName)) {
 			        url = reader.nextString();
-			    } else if (jsonName.equals("name")) {
+			    } else if ("name".equals(jsonName)) {
 			    	name = reader.nextString();
-			    } else if (jsonName.equals("overlay")) {
+			    } else if ("overlay".equals(jsonName)) {
 			    	overlay = reader.nextBoolean();
-			    } else if (jsonName.equals("default")) {
+			    } else if ("default".equals(jsonName)) {
 			    	defaultLayer = reader.nextBoolean();
-			    } else if (jsonName.equals("extent")) {
+			    } else if ("extent".equals(jsonName)) {
 			    	extent = readExtent(reader);
 			    	if (extent != null) {
 			    		if (provider == null)
 			    			provider = new Provider();
 			    		provider.addCoverageArea(extent);
 			    	}
-			    } else if (jsonName.equals("attribution")) {
+			    } else if ("attribution".equals(jsonName)) {
 			    	if (provider == null) 
 			    		provider = new Provider();
 			    	termsOfUseUrl = readAttribution(reader, provider);
-			    } else if (jsonName.equals("best")) {
+			    } else if ("best".equals(jsonName)) {
 			    	preference = reader.nextBoolean() ? PREFERENCE_BEST : PREFERENCE_DEFAULT;
+			    } else if ("start_date".equals(jsonName)) {
+			    	startDate = dateStringToTime(reader.nextString());
+			    } else if ("end_date".equals(jsonName)) {
+			    	endDate = dateStringToTime(reader.nextString());
 			    } else {
 			    	reader.skipValue();
 			    }
@@ -661,11 +696,30 @@ public class TileLayerServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (type == null || type.equals("wms"))
+		if (type == null || "wms".equals(type))
 			return null;
 		TileLayerServer osmts = new TileLayerServer(ctx, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl,
-				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, preference, async);
+				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, preference, startDate, endDate, async);
 		return osmts;
+	}
+	
+	/**
+	 * Parse a RFC3339 timestamp into a time value since epoch, ignores non date parts
+	 * @param timeStamp the date string to parse
+	 * @return the time value or -1 if parsing failed
+	 */
+	private static long dateStringToTime(String timeStamp) {
+		long result = -1L;
+		if (timeStamp!=null && !"".equals(timeStamp)) {
+			String[] parts = timeStamp.split("T");
+			try {
+				Date d = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(parts[0]);
+				result = d.getTime();
+			} catch (ParseException e) {
+				Log.e(DEBUG_TAG,"Invalid RFC3339 value " + timeStamp + " " + e.getMessage());
+			}
+		}
+		return result;
 	}
 	
 	private static Provider.CoverageArea readExtent(JsonReader reader) {
@@ -676,11 +730,11 @@ public class TileLayerServer {
 			reader.beginObject();
 			while (reader.hasNext()) {
 				String jsonName = reader.nextName();
-				if (jsonName.equals("max_zoom")) {
+				if ("max_zoom".equals(jsonName)) {
 					zoomMax = reader.nextInt();
-				} else if (jsonName.equals("min_zoom")) {
+				} else if ("min_zoom".equals(jsonName)) {
 					zoomMin = reader.nextInt();
-				} else if (jsonName.equals("bbox")) {
+				} else if ("bbox".equals(jsonName)) {
 					bbox = readBbox(reader);
 				} else{
 			    	reader.skipValue();
@@ -701,13 +755,13 @@ public class TileLayerServer {
 			reader.beginObject();
 			while (reader.hasNext()) {
 				String jsonName = reader.nextName();
-				if (jsonName.equals("min_lon")) {
+				if ("min_lon".equals(jsonName)) {
 					left = reader.nextDouble();
-				} else if (jsonName.equals("max_lon")) {
+				} else if ("max_lon".equals(jsonName)) {
 					right = reader.nextDouble();
-				} else if (jsonName.equals("min_lat")) {
+				} else if ("min_lat".equals(jsonName)) {
 					bottom = reader.nextDouble();
-				} else if (jsonName.equals("max_lat")) {
+				} else if ("max_lat".equals(jsonName)) {
 					top = reader.nextDouble();
 				} else{
 			    	reader.skipValue();
@@ -734,9 +788,9 @@ public class TileLayerServer {
 			reader.beginObject();
 			while (reader.hasNext()) {
 				String jsonName = reader.nextName();
-				if (jsonName.equals("text")) {
+				if ("text".equals(jsonName)) {
 					provider.attribution = reader.nextString();
-				} else if (jsonName.equals("url")) {
+				} else if ("url".equals(jsonName)) {
 					termsOfUseUrl = reader.nextString();
 				} else {
 			    	reader.skipValue();
@@ -932,12 +986,22 @@ public class TileLayerServer {
 		return name;
 	}
 	
-	private static List<TileLayerServer> getServersFilteredSorted(boolean filtered, HashMap<String,TileLayerServer> serverMap, BoundingBox currentBox) {
+	/**
+	 * Return a sorted list of tile servers
+	 * 
+	 * Takes the preference and end date in to account
+	 * @param filtered		if true only return those layers with a coverage area that overlaps with the supplied bounding box
+	 * @param servers		input list of servers to sort and potentially filter
+	 * @param box			bounding box that we are interested in
+	 * @return				list of tile servers
+	 */
+	@NonNull
+	private static List<TileLayerServer> getServersFilteredSorted(boolean filtered, @NonNull HashMap<String,TileLayerServer> servers, @Nullable BoundingBox box) {
 		TileLayerServer noneLayer = null;
 		List<TileLayerServer> list = new ArrayList<TileLayerServer>();
-		for (TileLayerServer osmts:serverMap.values()) {
-			if (filtered && currentBox != null) {
-				if (!osmts.covers(currentBox)) {
+		for (TileLayerServer osmts:servers.values()) {
+			if (filtered && box != null) {
+				if (!osmts.covers(box)) {
 					continue;
 				}
 			}
@@ -949,7 +1013,7 @@ public class TileLayerServer {
 			// add the rest now
 			list.add(osmts);
 		}
-		// sort according to preference, at one time we might take bb size in to account
+		// sort according to preference and end date, in the future we might take bb size in to account
 		Collections.sort(list, new Comparator<TileLayerServer>() {
 			@Override
 			public int compare(TileLayerServer t1, TileLayerServer t2) {
@@ -958,7 +1022,11 @@ public class TileLayerServer {
 			    } else if (t1.preference > t2.preference) {
 			    	return -1;
 			    }
-				return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
+				if (t1.endDate == t2.endDate) {
+					return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
+				} else {
+					return t1.endDate != -1 && (t1.endDate > t2.endDate || t2.endDate == -1) ? -1 : 1; // assumption no end date == ongoing
+				}
 			}});
 		// add NONE
 		if (noneLayer != null) {
@@ -1004,13 +1072,15 @@ public class TileLayerServer {
 	}
 	
 	/**
-	 * Get all the available tile layer IDs. Slightly complex to get a reasonable order
-	 * @param filtered only return servers that overlap/intersect with the current bbox
-	 * @return All available tile layer IDs.
+	 * Get all the available tile layer IDs. 
+	 * @param box		bounding box to test coverage against 
+	 * @param filtered 	only return servers that overlap/intersect with the bounding box
+	 * @return 			available tile layer IDs.
 	 */
-	public static String[] getIds(BoundingBox viewBox, boolean filtered) {
+	@NonNull
+	public static String[] getIds(@Nullable BoundingBox box, boolean filtered) {
 		List<String> ids = new ArrayList<String>();
-		List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, viewBox);
+		List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, box);
 		for (TileLayerServer t:list) {
 			ids.add(t.id);
 		}
@@ -1020,13 +1090,15 @@ public class TileLayerServer {
 	}
 	
 	/**
-	 * Get tile server names
-	 * @param filtered
-	 * @return
+	 * Get all the available tile layer names. 
+	 * @param box		bounding box to test coverage against 
+	 * @param filtered 	only return servers that overlap/intersect with the bounding box
+	 * @return 			available tile layer names.
 	 */
-	public static String[] getNames(BoundingBox viewBox, boolean filtered) {
+	@NonNull
+	public static String[] getNames(@Nullable BoundingBox box, boolean filtered) {
 		ArrayList<String> names = new ArrayList<String>();
-		for (String key:getIds(viewBox, filtered)) {
+		for (String key:getIds(box, filtered)) {
 			TileLayerServer osmts = backgroundServerList.get(key);
 			names.add(osmts.name);
 		}
@@ -1052,14 +1124,17 @@ public class TileLayerServer {
 			result[i] = names.get(i);
 		return  result;
 	}
+	
 	/**
-	 * Get all the available tile layer IDs. Slightly complex to get a reasonable order
-	 * @param filtered only return servers that overlap/intersect with the current bbox
-	 * @return All available tile layer IDs.
+	 * Get all the available overlay tile layer IDs. 
+	 * @param box		bounding box to test coverage against 
+	 * @param filtered 	only return servers that overlap/intersect with the bounding box
+	 * @return 			available tile layer IDs.
 	 */
-	public static String[] getOverlayIds(BoundingBox viewBox, boolean filtered) {
+	@NonNull
+	public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered) {
 		List<String> ids = new ArrayList<String>();
-		List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, viewBox);
+		List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, box);
 		for (TileLayerServer t:list) {
 			ids.add(t.id);
 		}
@@ -1069,13 +1144,15 @@ public class TileLayerServer {
 	}
 	
 	/**
-	 * Get tile server names
-	 * @param filtered
-	 * @return
+	 * Get all the available overlay tile layer names. 
+	 * @param box		bounding box to test coverage against 
+	 * @param filtered 	only return servers that overlap/intersect with the bounding box
+	 * @return 			available tile layer names.
 	 */
-	public static String[] getOverlayNames(BoundingBox viewBox, boolean filtered) {
+	@NonNull
+	public static String[] getOverlayNames(@Nullable BoundingBox box, boolean filtered) {
 		ArrayList<String> names = new ArrayList<String>();
-		for (String key:getIds(viewBox, filtered)) {
+		for (String key:getIds(box, filtered)) {
 			TileLayerServer osmts = overlayServerList.get(key);
 			names.add(osmts.name);
 		}
@@ -1087,10 +1164,11 @@ public class TileLayerServer {
 	
 	/**
 	 * Get tile server names from list of ids
-	 * @param ids
-	 * @return
+	 * @param ids 	id list
+	 * @return		list of names
 	 */
-	public static String[] getOverlayNames(String[] ids) {
+	@NonNull
+	public static String[] getOverlayNames(@NonNull String[] ids) {
 		ArrayList<String> names = new ArrayList<String>();
 		for (String key:ids) {
 			TileLayerServer osmts = overlayServerList.get(key);
@@ -1342,6 +1420,22 @@ public class TileLayerServer {
 		imageryBlacklist  = bl;
 	}
 	
+	/**
+	 * Getter for the start date
+	 * @return the start date as ms since the epoch
+	 */
+	public long getStartDate() {
+		return startDate;
+	}
+	
+	/**
+	 * Getter for the end date
+	 * @return the end date as ms since the epoch
+	 */
+	public long getEndDate() {
+		return endDate;
+	}
+
 	@Override
 	public String toString() {
 		return 	"ID: " + id + " Name " + name + " maxZoom " + zoomLevelMax + " Tile URL " + tileUrl;
