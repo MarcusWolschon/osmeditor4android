@@ -712,11 +712,18 @@ public class TileLayerServer {
 		long result = -1L;
 		if (timeStamp!=null && !"".equals(timeStamp)) {
 			String[] parts = timeStamp.split("T");
+			String f = "yyyy-MM-dd";
 			try {
-				Date d = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(parts[0]);
+				int l = parts[0].length();
+				if (l==4) { // slightly hackish way of determining which format to use
+					f = "YYYY";
+				} else if (l < 8){
+					f = "YYYY-MM";
+				}
+				Date d = new SimpleDateFormat(f, Locale.US).parse(parts[0]);
 				result = d.getTime();
 			} catch (ParseException e) {
-				Log.e(DEBUG_TAG,"Invalid RFC3339 value " + timeStamp + " " + e.getMessage());
+				Log.e(DEBUG_TAG,"Invalid RFC3339 value (" + f + ") "  + timeStamp + " " + e.getMessage());
 			}
 		}
 		return result;
