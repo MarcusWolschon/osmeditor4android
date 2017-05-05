@@ -587,7 +587,7 @@
 	<text key="height" text="Height (meters)" />
 	<combo key="min_level" text="Min. level" values="-5,-4,-3,-2,-1,0,1,2,3,4,5" editable="true" values_sort="false" text_context="building" match="key" />
 	<combo key="max_level" text="Max. level" values="0,1,2,3,4,5,6,7,8,9,10,11" editable="true" values_sort="false" text_context="building" match="key" />
-	<combo key="roof:type" text="Roof type"  values_searchable="true" editable="false" values_context="building" >
+	<combo key="roof:shape" text="Roof type"  values_searchable="true" editable="false" values_context="building" >
 	  	<list_entry value="dome" short_description="Dome" />
 	  	<list_entry value="flat" short_description="Flat" />
 	  	<list_entry value="gabled" short_description="Gabled" />
