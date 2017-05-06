@@ -1231,7 +1231,7 @@ public class TileLayerServer {
 	 * @param aTile The tile to get the URL for.
 	 * @return URL of the given tile.
 	 */
-	public String getTileURLString(final MapTile aTile) {
+	public synchronized String getTileURLString(final MapTile aTile) {
 		if (!metadataLoaded) {
 			throw new IllegalStateException("metadata not loaded");
 		}
