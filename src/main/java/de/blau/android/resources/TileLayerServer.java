@@ -716,9 +716,9 @@ public class TileLayerServer {
 			try {
 				int l = parts[0].length();
 				if (l==4) { // slightly hackish way of determining which format to use
-					f = "YYYY";
+					f = "yyyy";
 				} else if (l < 8){
-					f = "YYYY-MM";
+					f = "yyyy-MM";
 				}
 				Date d = new SimpleDateFormat(f, Locale.US).parse(parts[0]);
 				result = d.getTime();
