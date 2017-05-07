@@ -306,6 +306,7 @@ public class PresetFilter extends Filter {
 	@Override
 	public void hideControls() {
 		if(presetFilterButton != null) {
+			presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
 			presetFilterButton.setVisibility(View.GONE);
 		}
 	}
