@@ -736,7 +736,9 @@ public class Logic {
 		HashMap<Way, Double> result = new HashMap<Way, Double>();
 		boolean showWayIcons = prefs.getShowWayIcons();
 
-		for (Way way : getDelegator().getCurrentStorage().getWays(map.getViewBox())) {
+		List<Way> ways = filter != null ? filter.getVisibleWays() : getDelegator().getCurrentStorage().getWays(map.getViewBox());
+		
+		for (Way way : ways) {
 			if (way.isClosed() && !includeClosed) {
 				continue;
 			}
@@ -780,13 +782,7 @@ public class Logic {
 				X = X/(3*A);
 				double distance =  Math.hypot(x-X, y-Y);
 				if (distance < DataStyle.getCurrent().nodeToleranceValue) {
-					if (filter != null) {
-						if (filter.include(way, isSelected(way))) {
-							result.put(way, distance);
-						}
-					} else {
-						result.put(way, distance);
-					}
+					result.put(way, distance);
 				}
 			}
 		}		
@@ -896,8 +892,8 @@ public class Logic {
 	 */
 	private HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
 		HashMap<Node, Double> result = new HashMap<Node, Double>();
-		List<Node> nodes = getDelegator().getCurrentStorage().getNodes(map.getViewBox());
-
+		List<Node> nodes = filter != null ? filter.getVisibleNodes() : getDelegator().getCurrentStorage().getNodes(map.getViewBox());
+		
 		for (Node node : nodes) {
 			if (clickableElements != null && !clickableElements.contains(node)) {
 				continue;
@@ -909,21 +905,7 @@ public class Logic {
 			if (!inDownloadOnly || node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lat, lon)) {
 				Double dist = clickDistance(node, x, y);
 				if (dist != null) {
-					if (filter != null) {
-						if (filter.include(node, isSelected(node))) {
-							result.put(node, dist);
-						} else {
-							// just in case the relevant ways haven't been processed
-							for (Way w:getWaysForNode((Node)node)) {
-								if (filter.include(w, isSelected(w))) {
-									result.put(node, dist);
-									break;
-								}
-							}
-						}
-					} else {
-						result.put(node, dist);
-					}
+					result.put(node, dist);
 				}
 			}
 		}

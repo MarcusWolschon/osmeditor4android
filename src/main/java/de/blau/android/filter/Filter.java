@@ -2,10 +2,13 @@ package de.blau.android.filter;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import de.blau.android.App;
@@ -139,6 +142,36 @@ public abstract class Filter implements Serializable {
 		cachedNodes.clear();
 		cachedWays.clear();
 		cachedRelations.clear();
+	}
+	
+	/**
+	 * Get all nodes that are currently visible from the cache
+	 * @return
+	 */
+	@NonNull
+	public List<Node> getVisibleNodes() {
+		List<Node>result = new ArrayList<Node>();
+		for (Entry<Node,Include>e:cachedNodes.entrySet()) {
+			if (e.getValue() != Include.DONT) {
+				result.add(e.getKey());
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Get all wayss that are currently visible from the cache
+	 * @return
+	 */
+	@NonNull
+	public List<Way> getVisibleWays() {
+		List<Way>result = new ArrayList<Way>();
+		for (Entry<Way,Include>e:cachedWays.entrySet()) {
+			if (e.getValue() != Include.DONT) {
+				result.add(e.getKey());
+			}
+		}
+		return result;
 	}
 	
 	public void saveState() {
