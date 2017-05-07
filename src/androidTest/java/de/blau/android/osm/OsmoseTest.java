@@ -1,9 +1,6 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -29,12 +26,9 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
-import de.blau.android.exception.OsmException;
-import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;

@@ -27,7 +27,6 @@ import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
-import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.TestUtils;

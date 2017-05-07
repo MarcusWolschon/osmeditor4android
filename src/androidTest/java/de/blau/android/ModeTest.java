@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 
 import android.graphics.Rect;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;

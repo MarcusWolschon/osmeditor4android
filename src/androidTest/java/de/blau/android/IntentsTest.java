@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
-import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
@@ -22,12 +21,10 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.tasks.OsmoseBug;
 import de.blau.android.tasks.Task;
 import okhttp3.HttpUrl;
 
