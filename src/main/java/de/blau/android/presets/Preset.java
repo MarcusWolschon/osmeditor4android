@@ -926,7 +926,7 @@ public class Preset implements Serializable {
 	 * @return the PresetElement or null if not found
 	 */
 	@Nullable
-	public PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull ElementPath path) {
+	public PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path) {
 		int size = path.path.size();
 		if (size > 0) {
 			String segment = path.path.get(0);
@@ -1219,29 +1219,7 @@ public class Preset implements Serializable {
 		}
 		return filteredElements;
 	}
-	
-	public class ElementPath implements Serializable {
-		private static final long serialVersionUID = 1L;
-		final ArrayList<String>path;
 		
-		public ElementPath(ElementPath path2) {
-			path = new ArrayList<String>(path2.path);
-		}
-
-		public ElementPath() {
-			path = new ArrayList<String>();
-		}
-		
-		@Override
-		public String toString() {
-			String result = "";
-			for (String s:path) {
-				result += s + "|";
-			}
-			return result;
-		}
-	}
-	
 	/**
 	 * Represents an element (group or item) in a preset data structure
 	 */
@@ -1494,15 +1472,15 @@ public class Preset implements Serializable {
 		 * @param root PresetGroup that this is relative to
 		 * @return and object containing the path elements
 		 */
-		public ElementPath getPath(PresetGroup root) {
+		public PresetElementPath getPath(PresetGroup root) {
 			for (PresetElement e:root.getElements()) {
 				if (e.equals(this)) {
-					ElementPath result = new ElementPath();
+					PresetElementPath result = new PresetElementPath();
 					result.path.add(e.getName());
 					return result;
 				} else {
 					if (e instanceof PresetGroup) {
-						ElementPath result = getPath((PresetGroup) e);
+						PresetElementPath result = getPath((PresetGroup) e);
 						if (result != null) {
 							result.path.add(0, e.getName());
 							return result;

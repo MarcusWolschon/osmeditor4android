@@ -25,6 +25,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.Util;
 
 /**
@@ -38,14 +39,14 @@ public class PresetFilter extends Filter {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6L;
+	private static final long serialVersionUID = 7L;
 	private final static String DEBUG_TAG = "PresetFilter";
 	
 	private boolean enabled = true;
 	private transient Preset preset[] = null;
 	private transient Context context;
 	private transient PresetElement element = null;
-	private Preset.ElementPath path = null;
+	private PresetElementPath path = null;
 	private boolean includeWayNodes = false;
 	private boolean inverted = false;
 
@@ -56,7 +57,7 @@ public class PresetFilter extends Filter {
 		//
 	}
 	
-	void setPresetElement(@NonNull Preset.ElementPath path) {
+	void setPresetElement(@NonNull PresetElementPath path) {
 		clear();
 		if (path != null) {
 			this.path = path;
