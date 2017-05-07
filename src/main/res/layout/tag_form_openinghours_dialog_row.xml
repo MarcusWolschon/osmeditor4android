@@ -3,7 +3,7 @@
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    class="de.blau.android.propertyeditor.TagFormFragment$TagFormMultiselectDialogRow"
+    class="de.blau.android.propertyeditor.TagFormFragment$TagFormOpeningHoursDialogRow"
     android:orientation="horizontal" >
 
     <LinearLayout
@@ -59,7 +59,7 @@
                 android:saveEnabled="false" 
                 android:singleLine="true"
                 android:ellipsize="none"
-                android:maxLines="1" />
+                android:maxLines="1"/>
         </LinearLayout>
     </LinearLayout>
 

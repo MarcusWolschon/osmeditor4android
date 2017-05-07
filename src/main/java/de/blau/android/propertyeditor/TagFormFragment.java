@@ -21,10 +21,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -63,6 +65,7 @@ import android.widget.TextView;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
 import ch.poole.openinghoursfragment.OpeningHoursFragment;
 import ch.poole.openinghoursparser.OpeningHoursParser;
+import ch.poole.openinghoursparser.Rule;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -792,7 +795,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						|| key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 						if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 							rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, adapter));
-						} else if (Tags.KEY_OPENING_HOURS.equals(key)) {
+						} else if (Tags.KEY_OPENING_HOURS.equals(key) || Tags.KEY_SERVICE_TIMES.equals(key)) {
 							rowLayout.addView(addOpeningHoursDialogRow(rowLayout, preset, hint, key, value, adapter));
 						} else {
 							// special handling for international names
@@ -1104,32 +1107,18 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	}
 	
 	private TagFormDialogRow addOpeningHoursDialogRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key, final String value, final ArrayAdapter<?> adapter) {
-		final TagFormDialogRow row = (TagFormDialogRow)inflater.inflate(R.layout.tag_form_combo_dialog_row, rowLayout, false);
+		final TagFormOpeningHoursDialogRow row = (TagFormOpeningHoursDialogRow)inflater.inflate(R.layout.tag_form_openinghours_dialog_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
 		row.setPreset(preset);
 
-		final ArrayList<String> templates = new ArrayList<String>();
-		Log.d(DEBUG_TAG, "adapter size " + adapter.getCount());
-		for (int i=0;i< adapter.getCount();i++) {
-			Object o = adapter.getItem(i);
-			
-			StringWithDescription swd = new StringWithDescription(o);
-			Log.d(DEBUG_TAG, "adding " + swd);
-			String v = swd.getValue();
-			if (v==null || "".equals(v)) {
-				continue;
-			}
-			if (v.equals(value)){
-				OpeningHoursParser parser = new OpeningHoursParser(new ByteArrayInputStream(v.getBytes()));
-				try {
-					row.setValue(ch.poole.openinghoursparser.Util.rulesToOpeningHoursString(parser.rules(false)));
-				} catch (Exception ex) {
-					row.setValue(v);
-				}
-			}
-			Log.d(DEBUG_TAG, "adding " + v + " to templates");
-			templates.add(v);
+		OpeningHoursParser parser = new OpeningHoursParser(new ByteArrayInputStream(value.getBytes()));
+		try {
+			row.setValue(value, parser.rules(false));
+		} catch (Exception ex) {
+			Log.d(DEBUG_TAG, "parsing >" + value + "< failed with " + ex.getMessage());
+			ex.printStackTrace();
+			row.setValue(value, (ArrayList<Rule>)null);
 		}
 		final ArrayList<String> ohTemplates = new ArrayList<String>();
 		for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).getElement().getType(), Tags.KEY_OPENING_HOURS)) {
@@ -1140,8 +1129,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
-				final View finalView = v;
-				// finalView.setEnabled(false); // FIXME debounce 
 				FragmentManager fm = getChildFragmentManager();
 				FragmentTransaction ft = fm.beginTransaction();
 			    Fragment prev = fm.findFragmentByTag("fragment_conditional_restriction");
@@ -1149,12 +1136,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			        ft.remove(prev);
 			    }
 			    ft.commit();
-			    String temp = value;
+			    String template = value;
 			    if (value==null || "".equals(value)) {
-			    	temp ="Mo-Fr 09:00-12:00,13:30-18:30, Sa 09:00-17:00;PH off";
+			    	template ="Mo-Fr 09:00-12:00,13:30-18:30, Sa 09:00-17:00;PH off";
 			    }
-			    OpeningHoursFragment conditionalRestrictionDialog = OpeningHoursFragment.newInstance(key,temp,R.style.Theme_AppCompat_Light_Dialog_Alert);
-			    conditionalRestrictionDialog.show(fm, "fragment_opening_hours");
+			    OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(key,template,R.style.Theme_AppCompat_Light_Dialog_Alert);
+			    openingHoursDialog.show(fm, "fragment_opening_hours");
 			}
 		});
 		return row;
@@ -1792,6 +1779,87 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		
 		public void click() {
 			valueView.performClick();
+		}
+	}
+	
+	/**
+	 * Row that displays opening_hours values and allows changing them via a dialog
+	 */
+	public static class TagFormOpeningHoursDialogRow extends TagFormDialogRow {
+		
+		OnClickListener listener;
+
+		LinearLayout valueList;
+		final LayoutInflater inflater;
+		int normalTextColor = ContextCompat.getColor(getContext(), R.color.black);
+		int errorTextColor = ContextCompat.getColor(getContext(), ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.textColorError, R.color.material_red));
+		
+		public TagFormOpeningHoursDialogRow(Context context) {
+			super(context);
+			inflater = LayoutInflater.from(context);
+		}
+		
+		public TagFormOpeningHoursDialogRow(Context context, AttributeSet attrs) {
+			super(context, attrs);
+			inflater = LayoutInflater.from(context);
+		}
+		
+		@Override
+		protected void onFinishInflate() {
+			super.onFinishInflate();
+			valueList = (LinearLayout)findViewById(R.id.valueList);
+			
+		}
+		
+		/**
+		 * Set the onclicklistener for every value
+		 */
+		public void setOnClickListener(final OnClickListener listener) {
+			this.listener = listener;
+			for (int pos=0;pos<valueList.getChildCount();pos++) {
+				View v = valueList.getChildAt(pos);
+				if (v instanceof TextView) {
+					((TextView)v).setOnClickListener(listener);
+				}
+			}
+		}
+		
+		/**
+		 * Set the OH value for the row
+		 * @param ohValue	the original opening hours value
+		 * @param rules		rules parsed from the value
+		 */
+		public void setValue(String ohValue, @Nullable ArrayList<Rule> rules) {
+			int childCount = valueList.getChildCount();
+			for (int pos = 0;pos < childCount ;pos++) { // don^t delete first child, just clear
+				if (pos == 0) {
+					setValue("","");
+				} else {
+					valueList.removeViewAt(1);
+				}
+			}
+			valueView.setTextColor(normalTextColor);
+			boolean first=true;
+			if (rules != null && !rules.isEmpty()) {
+				for (Rule r:rules) {
+					if (first) {
+						setValue(r.toString());
+						first = false;
+					} else {
+						TextView extraValue = (TextView)inflater.inflate(R.layout.form_dialog_multiselect_value, valueList, false);
+						extraValue.setText(r.toString());
+						extraValue.setTag(r.toString());
+						valueList.addView(extraValue);
+					}
+				}
+			} else {
+				setValue(ohValue);
+				if (ohValue != null && !"".equals(ohValue)) {
+					valueView.setTextColor(errorTextColor);
+				}
+			}
+			super.value = ohValue;
+			setOnClickListener(listener);
 		}
 	}
 	
