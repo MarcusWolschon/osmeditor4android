@@ -20,7 +20,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
@@ -244,10 +246,15 @@ public class TagFilterActivity extends ListActivity  {
 		public void bindView(View view, Context context, Cursor cursor) {
 			Log.d(DEBUG_TAG, "bindView");
 			final ViewHolder vh = (ViewHolder) view.getTag();
-			if (vh.modified) {
-				update(vh);
-			}
-			vh.modified = false;
+			if (vh.modified) { // very hackish
+				update(vh); 
+				Cursor newCursor = db.rawQuery(QUERY + filter + "'", null);
+				Cursor oldCursor = this.swapCursor(newCursor);
+				oldCursor.close();
+				this.notifyDataSetChanged();
+				vh.modified = false;
+				return;
+			}		
 			final int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
 			vh.id = id;
 			Log.d(DEBUG_TAG, "bindView id " + id);
@@ -276,6 +283,7 @@ public class TagFilterActivity extends ListActivity  {
 			vh.mode.setOnItemSelectedListener(listener);
 			vh.type.setSelection(getTypeEntryIndex(cursor.getString(cursor.getColumnIndexOrThrow("type"))));
 			vh.type.setOnItemSelectedListener(listener);
+			
 			String key = cursor.getString(cursor.getColumnIndexOrThrow("key"));
 			vh.keyView.setText(key);
 			TextWatcher watcher = new TextWatcher() {
@@ -292,9 +300,17 @@ public class TagFilterActivity extends ListActivity  {
 				}
 			};
 			vh.keyView.addTextChangedListener(watcher);
+			
 			String value = cursor.getString(cursor.getColumnIndexOrThrow("value"));
 			vh.valueView.setText(value);
 			vh.valueView.addTextChangedListener(watcher);
+			vh.valueView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					v.requestFocus();
+				}
+			});
+			
 			ImageButton delete = (ImageButton) view.findViewById(R.id.delete);
 			delete.setOnClickListener(new OnClickListener() {
 				@Override
