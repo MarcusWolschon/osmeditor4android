@@ -100,13 +100,18 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
         	}
         }
         
-        es = new ElementSearch(Util.getCenter(delegator, osmElementType, osmId), false);
-        for (String s:es.getPlaceNames()) {
-           	if (counter.size()> 0 && counter.containsKey(s)) {
-        		continue; // skip values that we already have
+        int[] center = Util.getCenter(delegator, osmElementType, osmId);
+        if (center != null) {
+        	es = new ElementSearch(center, false);
+        	for (String s:es.getPlaceNames()) {
+        		if (counter.size()> 0 && counter.containsKey(s)) {
+        			continue; // skip values that we already have
+        		}
+        		ValueWithCount v = new ValueWithCount(s);
+        		super.add(v);
         	}
-        	ValueWithCount v = new ValueWithCount(s);
-        	super.add(v);
+        } else {
+        	Log.e(DEBUG_TAG,"center for " + osmElementType + " " + osmId + " is null");
         }
     }
     

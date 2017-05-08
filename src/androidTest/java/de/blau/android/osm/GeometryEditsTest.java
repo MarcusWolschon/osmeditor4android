@@ -259,6 +259,74 @@ public class GeometryEditsTest {
     	}  
     }
     
+    @UiThreadTest
+    @Test
+    public void cutPasteWay() {
+    	try {
+    		Logic logic = App.getLogic();
+    		logic.setSelectedWay(null);
+    		logic.setSelectedNode(null);
+    		logic.setSelectedRelation(null);
+    		logic.performAdd(main, 1000.0f, 0.0f);
+    		logic.performAdd(main, 1000.0f, 1000.0f);
+    		Way w1 = logic.getSelectedWay();
+    		logic.setSelectedWay(null);
+    		logic.setSelectedNode(null);
+    		logic.cutToClipboard(null, w1);
+    		Assert.assertTrue(w1.getState()==OsmElement.STATE_DELETED);
+    		logic.pasteFromClipboard(null, 500.0f, 500.0f);
+    		Assert.assertTrue(w1.getState()==OsmElement.STATE_CREATED);
+    		
+    		App.getDelegator().updateLatLon(w1.getLastNode(), w1.getFirstNode().getLat(), w1.getFirstNode().getLon()); // w1 should now have both nodes in the same place
+    		
+    		logic.cutToClipboard(null, w1);
+    		Assert.assertTrue(w1.getState()==OsmElement.STATE_DELETED);
+    		logic.pasteFromClipboard(null, 0.0f, 0.0f);
+    		Assert.assertTrue(w1.getState()==OsmElement.STATE_CREATED);
+    		
+    	} catch (Exception igit) {
+    		Assert.fail(igit.getMessage());
+    	}  
+    }
+    
+    @UiThreadTest
+    @Test
+    public void cutPasteClosedWay() {
+    	try {
+    		Logic logic = App.getLogic();
+    		logic.setSelectedWay(null);
+    		logic.setSelectedNode(null);
+    		logic.setSelectedRelation(null); // this is fairly fragile
+    		logic.performAdd(main, 300.0f, 300.0f);
+    		logic.performAdd(main, 300.0f, 500.0f);
+    		logic.performAdd(main, 100.0f, 500.0f);
+    		logic.performAdd(main, 300.0f, 300.0f);
+    		Way w1 = logic.getSelectedWay();
+    		Assert.assertTrue(w1.isClosed());
+    		logic.setSelectedWay(null);
+    		logic.setSelectedNode(null);
+    		logic.cutToClipboard(null, w1);
+    		Assert.assertTrue(w1.getState()==OsmElement.STATE_DELETED);
+    		logic.pasteFromClipboard(null, 500.0f, 500.0f);
+    		Assert.assertTrue(w1.getState()==OsmElement.STATE_CREATED);
+    		
+    		// collapse the area
+    		int lat = w1.getFirstNode().getLat();
+    		int lon = w1.getFirstNode().getLon();
+    		for (Node n:w1.getNodes()) {
+    			App.getDelegator().updateLatLon(n,lat,lon);
+    		}
+    		
+    		logic.cutToClipboard(null, w1);
+    		Assert.assertTrue(w1.getState()==OsmElement.STATE_DELETED);
+    		logic.pasteFromClipboard(null, 0.0f, 0.0f);
+    		Assert.assertTrue(w1.getState()==OsmElement.STATE_CREATED);
+    		
+    	} catch (Exception igit) {
+    		Assert.fail(igit.getMessage());
+    	}  
+    }
+    
 
 	private float getX(Logic logic, Node n) {
 		return GeoMath.lonE7ToX(logic.getMap().getWidth(), logic.getViewBox(), n.getLon());

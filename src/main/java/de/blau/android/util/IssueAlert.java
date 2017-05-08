@@ -76,6 +76,9 @@ public class IssueAlert {
 			eLat = ((Node)e).getLat()/1E7D;
 		} else if ("way".equals(e.getName())) {
 			double[] result = Logic.centroidLonLat((Way)e);
+			if (result== null) {
+				return;
+			}
 			eLon = result[0];
 			eLat = result[1];
 		} else {

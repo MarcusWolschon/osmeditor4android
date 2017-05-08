@@ -4271,7 +4271,6 @@ public class Logic {
 	}
 
 	public boolean clipboardIsEmpty() {
-		
 		return getDelegator().clipboardIsEmpty();
 	}
 
@@ -4302,11 +4301,11 @@ public class Logic {
 	 * @param h viewbox height
 	 * @param w  viewbox width
 	 * @param way way to caculate centroid of
-	 * @return screen coordinates of centroid or null if the way has problems
+	 * @return screen coordinates of centroid, null if the way has problems and if the way has length or area zero return the coordinates of the first node
 	 */
 	@Nullable
 	private static float[] centroidXY(int w, int h, @NonNull BoundingBox v, @NonNull final Way way) {
-		if (way == null) {
+		if (way == null || way.nodeCount() == 0) {
 			return null;
 		}
 		// 
@@ -4331,6 +4330,10 @@ public class Logic {
 				Y = Y/(3*A);
 				X = X/(3*A);
 				return new float[]{(float)X, (float)Y};
+			} else {
+				// area zero -> we can choose any node
+				Node n0 = vertices.get(0);
+				return new float[]{(float)GeoMath.lonE7ToX(w, v, n0.getLon()),(float)GeoMath.latE7ToY(h, w, v, n0.getLat())};
 			}
 		} else { //
 			double L = 0;
@@ -4351,16 +4354,19 @@ public class Logic {
 				Y = Y/L;
 				X = X/L;
 				return new float[]{(float)X, (float)Y};
+			} else {
+				// length zero -> we can choose any node
+				Node n0 = vertices.get(0);
+				return new float[]{(float)GeoMath.lonE7ToX(w, v, n0.getLon()),(float)GeoMath.latE7ToY(h, w, v, n0.getLat())};
 			}
 		}	
-		return null;
 	}
 	
 	/**
 	 * Calculate the centroid of a way
 	 * 
 	 * @param way way to calculate the centroid of
-	 * @return WGS84 coordinates of centroid of null if the way has a problem
+	 * @return WGS84 coordinates of centroid, null if the way has problems and if the way has length or area zero return the coordinates of the first node
 	 */
 	@Nullable
 	public static double[] centroidLonLat(@NonNull final Way way) {
@@ -4388,6 +4394,10 @@ public class Logic {
 				Y = GeoMath.mercatorToLat(Y/(3*A));
 				X = X/(3*A);
 				return new double[]{X, Y};
+			} else {
+				// area zero -> we can choose any node
+				Node n0 = vertices.get(0);
+				return new double[]{n0.getLon()/1E7D,n0.getLat()/1E7D};
 			}
 		} else { //
 			double L = 0;
@@ -4408,9 +4418,12 @@ public class Logic {
 				Y = GeoMath.mercatorToLat(Y/L);
 				X = X/L;
 				return new double[]{X, Y};
+			} else {
+				// length zero -> we can choose any node
+				Node n0 = vertices.get(0);
+				return new double[]{n0.getLon()/1E7D,n0.getLat()/1E7D};
 			}
 		}	
-		return null;
 	}
 
 	/**
@@ -4424,9 +4437,13 @@ public class Logic {
 		if (way.getNodes().size() < 3) return;
 		createCheckpoint(activity, R.string.undo_action_circulize);
 		int[] center = centroid(map.getWidth(), map.getHeight(), viewBox, way);
-		getDelegator().circulizeWay(map, center, way);
-		invalidateMap();
-		displayAttachedObjectWarning(activity, way);
+		if (center != null) {
+			getDelegator().circulizeWay(map, center, way);
+			invalidateMap();
+			displayAttachedObjectWarning(activity, way);
+		} else {
+			Log.e(DEBUG_TAG,"performCirculize  unable to determin centroid for way " + way.getDescription());
+		}
 	}
 	
 	/**

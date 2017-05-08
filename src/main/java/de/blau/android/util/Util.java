@@ -123,8 +123,7 @@ public class Util {
      * @param osmId
      * @return {lat, lon} or null
      */
-	public static int[] getCenter(final StorageDelegator delegator,
-			final String osmElementType, long osmId) {
+	public static int[] getCenter(final StorageDelegator delegator, final String osmElementType, long osmId) {
 		OsmElement osmElement = delegator.getOsmElement(osmElementType, osmId);
 		if (osmElement instanceof Node) {
 			Node n = (Node) osmElement;
@@ -132,7 +131,9 @@ public class Util {
 		}
 		if (osmElement instanceof Way) {
 			double[] coords = Logic.centroidLonLat((Way)osmElement);
-			return new int[] {(int) (coords[1]*1E7), (int) (coords[0]*1E7)};
+			if (coords != null) {
+				return new int[] {(int) (coords[1]*1E7), (int) (coords[0]*1E7)};
+			}
 		}
 		if (osmElement instanceof Relation) { // the center of the bounding box is naturally just a rough estimate
 			BoundingBox bbox = osmElement.getBounds();
