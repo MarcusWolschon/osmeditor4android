@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.acra.ACRA;
@@ -1913,19 +1914,24 @@ public class StorageDelegator implements Serializable, Exportable {
 				newWay.setTags(e.getTags());
 				int deltaLat = lat - clipboard.getSelectionLat();
 				int deltaLon = lon - clipboard.getSelectionLon();
-				Node firstNode = ((Way)e).getFirstNode();
-				List<Node> nodes = ((Way)e).getNodes();
-				for (int i = 0; i < nodes.size(); i++) { 
-					Node nd = nodes.get(i);
-					if (i == 0 || !nd.equals(firstNode)) {
-						Log.d("StorageDelegator", "Pasting to " + (nd.getLat() + deltaLat) + " " + (nd.getLon() + deltaLon));
-						Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
-						newNode.setTags(nd.getTags());
-						newWay.addNode(newNode);
-						insertElementSafe(newNode);
-					} else if (nd.equals(firstNode)) {
-						newWay.addNode(newWay.getFirstNode());
-					}
+				
+				List<Node>nodeList = ((Way)e).getNodes();
+				// this is slightly complicated because we need to handle cases with potentially broken geometry
+				// allocate and set the position of the new nodes
+				Set<Node> nodes = new HashSet<Node>(nodeList);
+				HashMap<Node,Node>newNodes = new HashMap<Node,Node>();
+				for (Node nd:nodes) { 
+					Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
+					newNode.setTags(nd.getTags());
+					newNode.setLat(nd.getLat() + deltaLat);
+					newNode.setLon(nd.getLon() + deltaLon);
+					newNode.updateState(OsmElement.STATE_MODIFIED);
+					insertElementSafe(newNode);
+					newNodes.put(nd, newNode);
+				}	
+				// now add them to the new way
+				for (Node nd:nodeList) {
+					newWay.addNode(newNodes.get(nd));
 				}
 				insertElementSafe(newWay);
 			}	
@@ -1936,15 +1942,12 @@ public class StorageDelegator implements Serializable, Exportable {
 			} else if (e instanceof Way) {
 				int deltaLat = lat - clipboard.getSelectionLat();
 				int deltaLon = lon - clipboard.getSelectionLon();
-				Node firstNode = ((Way)e).getFirstNode();
-				for (int i = 0; i < ((Way)e).getNodes().size(); i++) { 
-					Node nd = ((Way)e).getNodes().get(i);
-					if (i == 0 || !nd.equals(firstNode)) {
-						nd.setLat(nd.getLat() + deltaLat);
-						nd.setLon(nd.getLon() + deltaLon);
-						nd.updateState(OsmElement.STATE_MODIFIED);
-						insertElementSafe(nd); 
-					} 
+				Set<Node> nodes = new HashSet<Node>(((Way)e).getNodes());
+				for (Node nd:nodes) { 
+					nd.setLat(nd.getLat() + deltaLat);
+					nd.setLon(nd.getLon() + deltaLon);
+					nd.updateState(OsmElement.STATE_MODIFIED);
+					insertElementSafe(nd); 
 				}
 			}
 			e.updateState(OsmElement.STATE_MODIFIED);
