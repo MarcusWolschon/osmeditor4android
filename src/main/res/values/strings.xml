@@ -9,6 +9,7 @@
     <string name="transfer_download_current_back">Back (Do nothing)</string>
     <string name="upload_problem_title">Problem With Upload</string>
     <string name="upload_problem_message">Some or all data was not uploaded. Try uploading again later if this was only a temporary problem.</string>
+    <string name="bad_request_message">The API responded with an error, please save your data and report the issue:\n\n</string>
     <string name="upload_conflict_title">Upload conflict</string>
     <string name="upload_conflict_message_version">%1$s \nhas local version %2$s \nand on the server %3$s </string>
     <string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the server</string>

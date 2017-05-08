@@ -27,17 +27,24 @@ public class ErrorAlert extends DialogFragment
 	private static final String TITLE = "title";
 
 	private static final String MESSAGE = "message";
+	
+	private static final String ORIGINAL_MESSAGE = "original_message";
 
 	private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName();
 		
 	private int titleId;
 	private int messageId;
+	private String originalMessage;
 	
 	static public void showDialog(FragmentActivity activity, int errorCode) {
+		showDialog(activity, errorCode, null);
+	}
+	
+	static public void showDialog(FragmentActivity activity, int errorCode, String msg) {
 		dismissDialog(activity, errorCode);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
-		ErrorAlert alertDialogFragment = newInstance(errorCode);
+		ErrorAlert alertDialogFragment = newInstance(errorCode, msg);
 		try {
 			if (alertDialogFragment != null) {
 				alertDialogFragment.show(fm, getTag(errorCode));
@@ -71,6 +78,8 @@ public class ErrorAlert extends DialogFragment
 			return "alert_no_connection";
 		case ErrorCodes.UPLOAD_PROBLEM:
 			return "alert_upload_problem";
+		case ErrorCodes.BAD_REQUEST:
+			return "alert_bad_request";
 		case ErrorCodes.DATA_CONFLICT:
 			return "alert_data_conflict";
 		case ErrorCodes.API_OFFLINE:
@@ -95,33 +104,37 @@ public class ErrorAlert extends DialogFragment
 		return null;
 	}
 	
-	static private ErrorAlert newInstance(int dialogType) {
+	static private ErrorAlert newInstance(int dialogType, String msg) {
 		switch (dialogType) {
-		case ErrorCodes.NO_LOGIN_DATA: return createNewInstance(R.string.no_login_data_title, R.string.no_login_data_message);		
-		case ErrorCodes.NO_CONNECTION: return createNewInstance(R.string.no_connection_title, R.string.no_connection_message);
-		case ErrorCodes.SSL_HANDSHAKE: return createNewInstance(R.string.no_connection_title, R.string.ssl_handshake_failed);
-		case ErrorCodes.UPLOAD_PROBLEM: return createNewInstance(R.string.upload_problem_title, R.string.upload_problem_message);
-		case ErrorCodes.DATA_CONFLICT: return createNewInstance(R.string.data_conflict_title, R.string.data_conflict_message);
-		case ErrorCodes.API_OFFLINE: return createNewInstance(R.string.api_offline_title, R.string.api_offline_message);
-		case ErrorCodes.OUT_OF_MEMORY: return createNewInstance(R.string.out_of_memory_title, R.string.out_of_memory_message);
-		case ErrorCodes.OUT_OF_MEMORY_DIRTY: return createNewInstance(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
-		case ErrorCodes.INVALID_DATA_RECEIVED: return createNewInstance(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
-		case ErrorCodes.INVALID_DATA_READ: return createNewInstance(R.string.invalid_data_read_title, R.string.invalid_data_read_message);
-		case ErrorCodes.FILE_WRITE_FAILED: return createNewInstance( R.string.file_write_failed_title, R.string.file_write_failed_message);
-		case ErrorCodes.NAN: return createNewInstance( R.string.location_nan_title, R.string.location_nan_message);
-		case ErrorCodes.INVALID_BOUNDING_BOX: return createNewInstance( R.string.invalid_bounding_box_title, R.string.invalid_bounding_box_message);
+		case ErrorCodes.NO_LOGIN_DATA: return createNewInstance(R.string.no_login_data_title, R.string.no_login_data_message, msg);		
+		case ErrorCodes.NO_CONNECTION: return createNewInstance(R.string.no_connection_title, R.string.no_connection_message, msg);
+		case ErrorCodes.SSL_HANDSHAKE: return createNewInstance(R.string.no_connection_title, R.string.ssl_handshake_failed, msg);
+		case ErrorCodes.UPLOAD_PROBLEM: return createNewInstance(R.string.upload_problem_title, R.string.upload_problem_message, msg);
+		case ErrorCodes.BAD_REQUEST: return createNewInstance(R.string.upload_problem_title, R.string.bad_request_message, msg);
+		case ErrorCodes.DATA_CONFLICT: return createNewInstance(R.string.data_conflict_title, R.string.data_conflict_message, msg);
+		case ErrorCodes.API_OFFLINE: return createNewInstance(R.string.api_offline_title, R.string.api_offline_message, msg);
+		case ErrorCodes.OUT_OF_MEMORY: return createNewInstance(R.string.out_of_memory_title, R.string.out_of_memory_message, msg);
+		case ErrorCodes.OUT_OF_MEMORY_DIRTY: return createNewInstance(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message, msg);
+		case ErrorCodes.INVALID_DATA_RECEIVED: return createNewInstance(R.string.invalid_data_received_title, R.string.invalid_data_received_message, msg);
+		case ErrorCodes.INVALID_DATA_READ: return createNewInstance(R.string.invalid_data_read_title, R.string.invalid_data_read_message, msg);
+		case ErrorCodes.FILE_WRITE_FAILED: return createNewInstance( R.string.file_write_failed_title, R.string.file_write_failed_message, msg);
+		case ErrorCodes.NAN: return createNewInstance( R.string.location_nan_title, R.string.location_nan_message, msg);
+		case ErrorCodes.INVALID_BOUNDING_BOX: return createNewInstance( R.string.invalid_bounding_box_title, R.string.invalid_bounding_box_message, msg);
 		}	
 		return null;
 	}
 		
     /**
      */
-    static private ErrorAlert createNewInstance(final int titleId, final int messageId) {
+    static private ErrorAlert createNewInstance(final int titleId, final int messageId, String msg) {
     	ErrorAlert f = new ErrorAlert();
 
         Bundle args = new Bundle();
         args.putSerializable(TITLE, titleId);
         args.putInt(MESSAGE, messageId);
+        if (msg != null) {
+        	args.putString(ORIGINAL_MESSAGE, msg);
+        }
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -136,6 +149,7 @@ public class ErrorAlert extends DialogFragment
         setCancelable(true);
         titleId = (Integer) getArguments().getSerializable(TITLE);
         messageId = getArguments().getInt(MESSAGE);
+        originalMessage = getArguments().getString(ORIGINAL_MESSAGE);
     }
 
     @NonNull
@@ -146,7 +160,11 @@ public class ErrorAlert extends DialogFragment
 		builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
 		builder.setTitle(titleId);
 		if (messageId != 0) {
-			builder.setMessage(messageId);
+			String message = getString(messageId);
+			if (originalMessage != null) {
+				message = message + originalMessage;
+			}
+			builder.setMessage(message);
 		}
 		DoNothingListener doNothingListener = new DoNothingListener();
 		builder.setPositiveButton(R.string.okay, doNothingListener);

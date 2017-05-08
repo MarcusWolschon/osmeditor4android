@@ -25,11 +25,11 @@ public class OsmServerException extends OsmException {
 		this.osmId = osmId;
 	}
 
-	   /** 
-     * ${@inheritDoc}.
-     */
-    @Override
-    public String getMessage() {
+	/**
+	 * Return the error message with a description of the error code
+	 * @return a string containing error plus description 
+	 */
+    public String getMessageWithDescription() {
     	String errorText = errorCodeToMeaning(getErrorCode());
         return super.getMessage() + (errorText != null ? "\nError description: " + errorText : "");
     }
@@ -41,14 +41,25 @@ public class OsmServerException extends OsmException {
 		return errorCode;
 	}
 	
+	/**
+	 * @return a string with element typi and id
+	 */
 	public String getElementDescription() {
 		return type + " #" + osmId;
 	}
 
+	/**
+	 * Return the element id
+	 * @return the id as a long
+	 */
 	public long getElementId() {
 		return  osmId;
 	}
 	
+	/**
+	 * Return the element type
+	 * @return one of "node", "way", "relation"
+	 */
 	public String getElementType() {
 		return  type;
 	}

@@ -3281,7 +3281,7 @@ public class Logic {
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final OsmServerException e) {
 					result.httpError = e.getErrorCode();
-					result.message = e.getMessage();
+					result.message = e.getMessageWithDescription();
 					switch (e.getErrorCode()) {
 					case HttpURLConnection.HTTP_FORBIDDEN:
 						result.error = ErrorCodes.FORBIDDEN;
@@ -3297,6 +3297,9 @@ public class Logic {
 						result.osmId = e.getElementId();
 						break;
 					case HttpURLConnection.HTTP_BAD_REQUEST:
+						result.error = ErrorCodes.BAD_REQUEST;
+						result.message = e.getMessage();
+						break;
 					case HttpURLConnection.HTTP_NOT_FOUND:
 					case HttpURLConnection.HTTP_INTERNAL_ERROR:
 					case HttpURLConnection.HTTP_BAD_GATEWAY:
@@ -3343,6 +3346,8 @@ public class Logic {
 						InvalidLogin.showDialog(activity);
 					} else if (result.error == ErrorCodes.FORBIDDEN) {
 						ForbiddenLogin.showDialog(activity,result.message);
+					} else if (result.error == ErrorCodes.BAD_REQUEST) {
+						ErrorAlert.showDialog(activity,result.error,result.message);
 					} else if (result.error != 0) {
 						ErrorAlert.showDialog(activity,result.error);
 					}
