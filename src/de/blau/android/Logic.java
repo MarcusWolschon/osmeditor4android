@@ -78,6 +78,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Util;
 import de.blau.android.util.collections.MRUList;
 
 /**
@@ -3902,10 +3903,15 @@ public class Logic {
 				X = X + (x1+x2)*d;
 				Y = Y + (y1+y2)*d;
 			}
-			Y = Y/(3*A);
-			X = X/(3*A);
-			float result[] = {(float)X, (float)Y};
-			return result;
+			if (Util.notZero(A)) {
+				Y = Y/(3*A);
+				X = X/(3*A);
+				return new float[]{(float)X, (float)Y};
+			} else {
+				// area zero -> we can choose any node
+				Node n0 = vertices.get(0);
+				return new float[]{(float)GeoMath.lonE7ToX(w, v, n0.getLon()),(float)GeoMath.latE7ToY(h, w, v, n0.getLat())};
+			}
 		} else { //
 			double L = 0;
 			double Y = 0;
@@ -3921,10 +3927,15 @@ public class Logic {
 				X = X + len * (x1+x2)/2;
 				Y = Y + len * (y1+y2)/2;
 			}
-			Y = Y/L;
-			X = X/L;
-			float result[] = {(float)X, (float)Y};
-			return result;
+			if (Util.notZero(L)) {
+				Y = Y/L;
+				X = X/L;
+				return new float[]{(float)X, (float)Y};
+			} else {
+				// length zero -> we can choose any node
+				Node n0 = vertices.get(0);
+				return new float[]{(float)GeoMath.lonE7ToX(w, v, n0.getLon()),(float)GeoMath.latE7ToY(h, w, v, n0.getLat())};
+			}
 		}	
 	}
 	
@@ -3954,10 +3965,15 @@ public class Logic {
 				X = X + (x1+x2)*(x1*y2-x2*y1);
 				Y = Y + (y1+y2)*(x1*y2-x2*y1);
 			}
-			Y = GeoMath.mercatorToLat(Y/(3*A));
-			X = X/(3*A);
-			double result[] = {X, Y};
-			return result;
+			if (Util.notZero(A)) {
+				Y = GeoMath.mercatorToLat(Y/(3*A));
+				X = X/(3*A);
+				return new double[]{X, Y};
+			} else {
+				// area zero -> we can choose any node
+				Node n0 = vertices.get(0);
+				return new double[]{n0.getLon()/1E7D,n0.getLat()/1E7D};
+			}
 		} else { //
 			double L = 0;
 			double Y = 0;
@@ -3973,10 +3989,15 @@ public class Logic {
 				X = X + len * (x1+x2)/2;
 				Y = Y + len * (y1+y2)/2;
 			}
-			Y = GeoMath.mercatorToLat(Y/L);
-			X = X/L;
-			double result[] = {X, Y};
-			return result;
+			if (Util.notZero(L)) {
+				Y = GeoMath.mercatorToLat(Y/L);
+				X = X/L;
+				return new double[]{X, Y};
+			} else {
+				// length zero -> we can choose any node
+				Node n0 = vertices.get(0);
+				return new double[]{n0.getLon()/1E7D,n0.getLat()/1E7D};
+			}
 		}	
 	}
 
