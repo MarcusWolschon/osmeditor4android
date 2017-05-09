@@ -3024,35 +3024,38 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public boolean onDoubleTap(View v, float x, float y) {
 			final Logic logic = App.getLogic();
-			boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
-			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
-			switch (clickedNodesAndWays.size()) {
-			case 0:
-				// no elements were touched
-				if (inEasyEditMode) {
-					easyEditManager.nothingTouched(true); // short cut to finishing multi-select
-				}
-				break;
-			case 1:
-				if (inEasyEditMode) {
-					easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
-				}
-				break;
-			default:
-				// multiple possible elements touched - show menu
-				if (inEasyEditMode) {
-					if (menuRequired()) {
-						Log.d(DEBUG_TAG,"onDoubleTap displaying menu");
-						doubleTap  = true; // ugly flag
-						v.showContextMenu();
-					} else  {
-						// menuRequired tells us it's ok to just take the first one
+			if (!logic.isLocked()) {
+				boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
+				clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+				switch (clickedNodesAndWays.size()) {
+				case 0:
+					// no elements were touched
+					if (inEasyEditMode) {
+						easyEditManager.nothingTouched(true); // short cut to finishing multi-select
+					}
+					break;
+				case 1:
+					if (inEasyEditMode) {
 						easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
 					}
+					break;
+				default:
+					// multiple possible elements touched - show menu
+					if (inEasyEditMode) {
+						if (menuRequired()) {
+							Log.d(DEBUG_TAG,"onDoubleTap displaying menu");
+							doubleTap  = true; // ugly flag
+							v.showContextMenu();
+						} else  {
+							// menuRequired tells us it's ok to just take the first one
+							easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
+						}
+					}
+					break;
 				}
-				break;
+			} else {
+				Snack.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
 			}
-
 			return true;
 		}
 	}
