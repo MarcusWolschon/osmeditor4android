@@ -149,7 +149,6 @@ public class App extends android.app.Application {
 			currentPresets = null; 
 			presetSearchIndex = null;
 			translatedPresetSearchIndex = null;
-			System.gc(); // not sure if this actually helps
 		}
 	}
 
