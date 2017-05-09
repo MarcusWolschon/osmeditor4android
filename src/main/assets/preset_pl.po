@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-05-05 18:28+0200\n"
-"PO-Revision-Date: 2017-05-05 16:31+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-05-09 07:59+0000\n"
+"Last-Translator: Teiron\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -401,11 +401,11 @@ msgstr "Park rozrywki"
 
 #: master_preset.xml:10483(label:text|group:Nature|preset:Scree)
 msgid "An accumulation of loose rocks."
-msgstr ""
+msgstr "Nagromadzenie luźnych skał."
 
 #: master_preset.xml:10496(label:text|group:Nature|preset:Shingle)
 msgid "An accumulation of loose rounded rocks on a beach or riverbed."
-msgstr ""
+msgstr "Nagromadzenie luźnych zaokrąglonych skał na plaży lub w okolicach rzeki."
 
 #: master_preset.xml:4736(label:text|group:Tourism|preset:Information_Office)
 msgid "An office where you can get information about a town or region."
@@ -535,7 +535,7 @@ msgstr "Zautomatyzowane"
 
 #: master_preset.xml:5928(item:name|group:Emergency|preset:Automated_Defibrillator)
 msgid "Automated Defibrillator"
-msgstr ""
+msgstr "Automatyczny Defibrylator"
 
 #: master_preset.xml:9153(check:text|group:Cash|preset:Bank|key:atm)
 #: master_preset.xml:9170(item:name|group:Cash|preset:Automated_Teller_Machine)
@@ -809,7 +809,7 @@ msgstr "Bitcoin"
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Black"
-msgstr ""
+msgstr "Czarny"
 
 #: master_preset.xml:11734(item:name|group:Crafts|preset:Blacksmith)
 msgid "Blacksmith"
@@ -821,7 +821,7 @@ msgstr ""
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Blue"
-msgstr ""
+msgstr "Niebieski"
 
 #: master_preset.xml:4781(combo:text|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Board Content"
@@ -1266,7 +1266,7 @@ msgstr "Chata górska"
 
 #: master_preset.xml:5250(list_entry:display_value|group:Culture|preset:Music_theatres|value:chamber_music)
 msgid "Chamber music"
-msgstr ""
+msgstr "Muzyka kameralna"
 
 #: master_preset.xml:3533(item:name|group:Car|preset:Charging_Station)
 msgid "Charging Station"
@@ -1524,7 +1524,7 @@ msgstr "Kooperacja"
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Copper"
-msgstr ""
+msgstr "Miedziany"
 
 #: master_preset.xml:9335(item:name|group:Printed_Material|preset:Copy_Shop)
 msgid "Copy Shop"
@@ -1697,7 +1697,7 @@ msgstr ""
 
 #: master_preset.xml:8703(item:name|group:Food|preset:Dairy)
 msgid "Dairy"
-msgstr ""
+msgstr "Nabiał"
 
 #: master_preset.xml:2666(item:name|group:Water|preset:Dam)
 msgid "Dam"
@@ -2473,7 +2473,7 @@ msgstr "Leśnictwo"
 
 #: master_preset.xml:8485(combo:display_values|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "Fortification"
-msgstr ""
+msgstr "Fortyfikacja"
 
 #: master_preset.xml:12553(item:name|group:Offices|preset:Foundation)
 msgid "Foundation"
@@ -2755,7 +2755,7 @@ msgstr "Szklarnia ogrodnicza"
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Grey"
-msgstr ""
+msgstr "Szary"
 
 #: master_preset.xml:1852(item:name|preset:Grit_Bin)
 msgid "Grit Bin"
@@ -3181,7 +3181,7 @@ msgstr "Dostęp do Internetu"
 
 #: master_preset.xml:6321(item:name|group:Facilities|preset:Internet_Cafe)
 msgid "Internet Cafe"
-msgstr ""
+msgstr "Kafejka internetowa"
 
 #: master_preset.xml:224(combo:text|key:internet_access)
 msgid "Internet access"
@@ -3280,11 +3280,11 @@ msgstr "Krawężnik"
 
 #: master_preset.xml:488(combo:text|key:kerb:left)
 msgid "Kerb (left)"
-msgstr ""
+msgstr "Krawężnik (lewy)"
 
 #: master_preset.xml:494(combo:text|key:kerb:right)
 msgid "Kerb (right)"
-msgstr ""
+msgstr "Krawężnik (prawy)"
 
 #: master_preset.xml:11930(item:name|group:Crafts|preset:Key_cutter)
 msgid "Key cutter"
@@ -3840,7 +3840,7 @@ msgstr "Teren wojskowy"
 
 #: master_preset.xml:9844(list_entry:short_description|preset:Vending_Machine|value:milk)
 msgid "Milk"
-msgstr ""
+msgstr "Mleko"
 
 #: master_preset.xml:11333(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Min. distance"
@@ -4043,7 +4043,7 @@ msgstr "Przełęcz"
 #: master_preset.xml:4762(check:text|group:Tourism|preset:Map|key:mtb)
 #: master_preset.xml:4801(check:text|group:Tourism|preset:Guidepost|key:mtb)
 msgid "Mountainbiking"
-msgstr ""
+msgstr "Kolarstwo górskie"
 
 #: master_preset.xml:7978(item:name|group:Bridges|preset:Movable_Bridge)
 msgid "Movable Bridge"
@@ -4541,7 +4541,7 @@ msgstr "Ilość osób w kabinie"
 
 #: master_preset.xml:3317(text:text|group:Aerialway|preset:Chair_Lift|key:aerialway:occupancy)
 msgid "Number of people per chair"
-msgstr ""
+msgstr "Liczba osób na miejsce siedzące"
 
 #: master_preset.xml:3334(text:text|group:Aerialway|preset:Gondola|key:aerialway:occupancy)
 msgid "Number of people per gondola"
@@ -4558,7 +4558,7 @@ msgstr "Liczba osób na gondolę/ławkę"
 #: master_preset.xml:3363(text:text|group:Aerialway|preset:Drag_Lift|key:aerialway:capacity)
 #: master_preset.xml:3376(text:text|group:Aerialway|preset:Magic_Carpet|key:aerialway:capacity)
 msgid "Number of people per hour"
-msgstr ""
+msgstr "Liczba osób na godzinę"
 
 #: master_preset.xml:4480(text:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:capacity)
 msgid "Number of places"
@@ -4590,7 +4590,7 @@ msgstr "Dom opieki"
 
 #: master_preset.xml:5249(list_entry:display_value|group:Culture|preset:Music_theatres|value:philharmonic)
 msgid "Ochestral music"
-msgstr ""
+msgstr "Muzyka orkiestralna"
 
 #: master_preset.xml:2955(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_100)
 #: master_preset.xml:3515(check:text|group:Car|preset:Fuel|key:fuel:octane_100)
@@ -4717,7 +4717,7 @@ msgstr "Godziny otwarcia"
 
 #: master_preset.xml:5246(list_entry:display_value|group:Culture|preset:Music_theatres|value:opera)
 msgid "Opera house"
-msgstr ""
+msgstr "Opera"
 
 #: master_preset.xml:6496(combo:text|group:Facilities|preset:Sanitary_Dump_Station|key:opening_hours)
 #: master_preset.xml:7872(combo:text|preset:Street_Lamp|key:opening_hours)
@@ -5197,11 +5197,11 @@ msgstr "Szkółka leśna"
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Plants"
-msgstr ""
+msgstr "Rośliny"
 
 #: master_preset.xml:326(list_entry:short_description|value:deciduous)
 msgid "Plants that are leafless for a certain period during the year."
-msgstr ""
+msgstr "Rośliny które przez część roku nie posiadają liści lub igieł."
 
 #: master_preset.xml:327(list_entry:short_description|value:evergreen)
 msgid "Plants that are never entirely without green foliage."
@@ -5693,7 +5693,7 @@ msgstr "Pojemnik na surowce wtórne"
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Red"
-msgstr ""
+msgstr "Czerwony"
 
 #: master_preset.xml:2831(list_entry:short_description|group:Water|preset:Wetland|value:reedbed)
 msgid "Reedbed"
@@ -6305,7 +6305,7 @@ msgstr "Usługi:"
 
 #: master_preset.xml:8485(combo:display_values|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "Settlement"
-msgstr ""
+msgstr "Osada"
 
 #: master_preset.xml:2741(combo:display_values|group:Water|preset:Reservoir|key:reservoir_type)
 #: master_preset.xml:437(combo:display_values|key:substance)
@@ -6511,7 +6511,7 @@ msgstr "Palenie"
 
 #: master_preset.xml:24(combo:text|key:smoothness)
 msgid "Smoothness"
-msgstr ""
+msgstr "Gładkość"
 
 #: master_preset.xml:11454(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 msgid "Snow park"
@@ -7049,7 +7049,7 @@ msgstr "Teatr"
 #: master_preset.xml:5265(combo:text|group:Culture|preset:Other_theatres|key:theatre:genre)
 #: master_preset.xml:5286(combo:text|group:Culture|preset:Figure/puppet_theatres|key:theatre:genre)
 msgid "Theatre type"
-msgstr ""
+msgstr "Typ teatru"
 
 #: master_preset.xml:12695(item:name|group:Offices|preset:Therapist)
 msgid "Therapist"
@@ -7093,7 +7093,7 @@ msgstr "Układanie płytek"
 
 #: master_preset.xml:11626(text:text|preset:Destination_Sign|key:time)
 msgid "Time (hh:mm, for trekking)"
-msgstr ""
+msgstr "Czas (hh:mm, dla turystyki pieszej)"
 
 #: master_preset.xml:289(combo:text|key:maxstay)
 msgid "Time Limit (minutes)"
@@ -7964,7 +7964,7 @@ msgstr "Ubranie robocze"
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Yellow"
-msgstr ""
+msgstr "Żółty"
 
 #: master_preset.xml:1161(combo:display_values|group:Streets|preset:Ford|key:ford)
 #: master_preset.xml:217(combo:display_values|key:organic)

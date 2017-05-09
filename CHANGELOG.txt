@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1264: Update imagery, presets and translations, lots of robustness fixes, support start/end date in the imagery config. Fix performance regression in PresetFilter mode. 
+
 1261: Fix regression when adding tags to a new element.
 
 1259: Fix crash in the PropertyEditor in pane mode, some correctness fixes based on SonarQube.
