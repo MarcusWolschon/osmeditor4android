@@ -364,8 +364,8 @@ public class PresetEditorActivity extends URLListEditActivity {
 	             // it will generate an Exception...
 	             if ("".equals(filename)) {
 	            	 continue;
-	             } else if (filename.indexOf("/") > 0 && !filename.endsWith("/")) {
-	            	int slash = filename.lastIndexOf("/");
+	             } else if (filename.indexOf('/') > 0 && !filename.endsWith("/")) {
+	            	int slash = filename.lastIndexOf('/');
 	            	String path =  filename.substring(0, slash);
 	            	File fmd = new File(presetDir + path);
 	            	if (!fmd.exists()) {

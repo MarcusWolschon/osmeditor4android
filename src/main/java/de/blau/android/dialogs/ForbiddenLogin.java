@@ -42,11 +42,7 @@ public class ForbiddenLogin extends DialogFragment
 		FragmentManager fm = activity.getSupportFragmentManager();
 		ForbiddenLogin alertDialogFragment = newInstance(message);
 		try {
-			if (alertDialogFragment != null) {
-				alertDialogFragment.show(fm, FRAGMENT_TAG);
-			} else {
-				Log.e(DEBUG_TAG,"Unable to create dialog for message " + message);
-			}
+			alertDialogFragment.show(fm, FRAGMENT_TAG);
 		} catch (IllegalStateException isex) {
 			Log.e(DEBUG_TAG,"showDialog",isex);
 		}
