@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1263: Updated translations and presets, backport C&P and centroid calculation robustness fixes.
+
 1260: Fix for incorrect code, updated translations and presets.
 
 1252: Backport multiple fixes, workaround bing bad max zoom issue, update presets and translations.
