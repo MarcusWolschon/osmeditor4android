@@ -1322,9 +1322,10 @@ public class TileLayerServer {
 	 * @return the id for a imagery offset database query
 	 */
 	public String getImageryOffsetId() {
-        if(tileUrl == null)
-  	            return null;
-  	
+        if(tileUrl == null) {
+        	return null;
+        }
+        
         // predefined layers
         if(id.equals("BING")) {
             return "bing";
@@ -1359,18 +1360,20 @@ public class TileLayerServer {
             String[] kv = param.split("=");
             kv[0] = kv[0].toLowerCase(Locale.US);
             // TMS: skip parameters with variable values and Mapbox's access token
-            if ((kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0) || kv[0].equals("access_token"))
+            if ((kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0) || kv[0].equals("access_token")) {
                 continue;
+            }
             qparams.put(kv[0].toLowerCase(Locale.US), kv.length > 1 ? kv[1] : null);
         }
 
         // Reconstruct query parameters
         StringBuilder sb = new StringBuilder();
         for (String qk : qparams.keySet()) {
-            if (sb.length() > 0)
+            if (sb.length() > 0) {
                 sb.append('&');
-            else if (query.length() > 0)
+            } else if (query.length() > 0) {
                 sb.append('?');
+            }
             sb.append(qk).append('=').append(qparams.get(qk));
         }
         query = sb.toString();
@@ -1379,11 +1382,12 @@ public class TileLayerServer {
         tileUrl = tileUrl.replaceAll("\\/\\{[^}]+\\}(?:\\.\\w+)?", "");
         // TMS: remove variable parts
         tileUrl = tileUrl.replaceAll("\\{[^}]+\\}", "");
-        while (tileUrl.contains(".."))
+        while (tileUrl.contains("..")) {
             tileUrl = tileUrl.replace("..", ".");
-        if (tileUrl.startsWith("."))
+        }
+        if (tileUrl.startsWith(".")) {
             tileUrl = tileUrl.substring(1);
-
+        }
         return tileUrl + query;
     }
 	
