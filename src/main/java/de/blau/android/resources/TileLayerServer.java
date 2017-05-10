@@ -1358,8 +1358,8 @@ public class TileLayerServer {
         for (String param : qparamsStr) {
             String[] kv = param.split("=");
             kv[0] = kv[0].toLowerCase(Locale.US);
-            // TMS: skip parameters with variable values
-            if( kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0 )
+            // TMS: skip parameters with variable values and Mapbox's access token
+            if ((kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0) || kv[0].equals("access_token"))
                 continue;
             qparams.put(kv[0].toLowerCase(Locale.US), kv.length > 1 ? kv[1] : null);
         }
