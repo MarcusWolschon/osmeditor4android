@@ -1317,12 +1317,12 @@ public class TileLayerServer {
 	/**
 	 * This is essentially the code in in the reference implementation see
 	 * 
-	 * https://trac.openstreetmap.org/browser/subversion/applications/editors/josm/plugins/imagery_offset_db/src/iodb/ImageryIdGenerator.java#L14
+	 * https://trac.openstreetmap.org/browser/subversion/applications/editors/josm/plugins/imagery_offset_db/src/iodb/ImageryIdGenerator.java#L24
 	 * 
 	 * @return the id for a imagery offset database query
 	 */
 	public String getImageryOffsetId() {
-        if( tileUrl == null )
+        if(tileUrl == null)
   	            return null;
   	
         // predefined layers
@@ -1348,14 +1348,14 @@ public class TileLayerServer {
         // Split URL into address and query string
         i = tileUrl.indexOf('?');
         String query = "";
-        if( i > 0 ) {
+        if (i > 0) {
             query = tileUrl.substring(i);
             tileUrl = tileUrl.substring(0, i);
         }
 
         TreeMap<String, String> qparams = new TreeMap<String, String>();
         String[] qparamsStr = query.length() > 1 ? query.substring(1).split("&") : new String[0];
-        for( String param : qparamsStr ) {
+        for (String param : qparamsStr) {
             String[] kv = param.split("=");
             kv[0] = kv[0].toLowerCase(Locale.US);
             // TMS: skip parameters with variable values
@@ -1366,10 +1366,10 @@ public class TileLayerServer {
 
         // Reconstruct query parameters
         StringBuilder sb = new StringBuilder();
-        for( String qk : qparams.keySet() ) {
-            if( sb.length() > 0 )
+        for (String qk : qparams.keySet()) {
+            if (sb.length() > 0)
                 sb.append('&');
-            else if( query.length() > 0 )
+            else if (query.length() > 0)
                 sb.append('?');
             sb.append(qk).append('=').append(qparams.get(qk));
         }
@@ -1379,9 +1379,9 @@ public class TileLayerServer {
         tileUrl = tileUrl.replaceAll("\\/\\{[^}]+\\}(?:\\.\\w+)?", "");
         // TMS: remove variable parts
         tileUrl = tileUrl.replaceAll("\\{[^}]+\\}", "");
-        while( tileUrl.contains("..") )
+        while (tileUrl.contains(".."))
             tileUrl = tileUrl.replace("..", ".");
-        if( tileUrl.startsWith(".") )
+        if (tileUrl.startsWith("."))
             tileUrl = tileUrl.substring(1);
 
         return tileUrl + query;
