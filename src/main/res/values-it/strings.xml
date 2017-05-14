@@ -301,7 +301,7 @@
   <string name="menu_gps_goto_start">Vai all\'inizio della traccia</string>
   <string name="menu_gps_autodownload">Scarica automaticamente</string>
   <string name="menu_transfer">Trasferimento…</string>
-  <string name="menu_transfer_download_current">Scarica vista attuale</string>
+  <string name="menu_transfer_download_current">Scarica vista corrente</string>
   <string name="menu_transfer_download_current_add">Aggiungi la vista corrente ai dati scaricati</string>
   <string name="menu_transfer_download_other">Scarica altra posizione</string>
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
