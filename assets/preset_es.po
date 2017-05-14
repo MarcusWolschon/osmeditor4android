@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2017-05-05 18:28+0200\n"
-"PO-Revision-Date: 2017-05-05 16:31+0000\n"
+"POT-Creation-Date: 2017-05-13 13:38+0200\n"
+"PO-Revision-Date: 2017-05-13 11:52+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/openstreetmap/presets/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -328,7 +328,7 @@ msgid "All vehicles"
 msgstr "Todo vehículos"
 
 #: master_preset.xml:2334(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle:conditional)
-msgid "All vehicles conditional"
+msgid "All vehicles @"
 msgstr ""
 
 #: master_preset.xml:1040(combo:display_values|group:Streets|preset:Service|key:service)
@@ -1474,6 +1474,48 @@ msgstr "Ordenador"
 msgid "Concrete"
 msgstr "Hormigón"
 
+#: master_preset.xml:2459(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward:conditional)
+#: master_preset.xml:2462(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backwardward:conditional)
+msgid ""
+"Condiditonal maximum speed for heavy goods vehicles in way direction "
+"specified in km/h"
+msgstr ""
+
+#: master_preset.xml:50(combo:long_text|key:maxspeed:forward:conditional)
+msgid "Conditional maximum speed in way direction specified in km/h"
+msgstr ""
+
+#: master_preset.xml:53(combo:long_text|key:maxspeed:backwardward:conditional)
+msgid "Conditional maximum speed opposite way direction specified in km/h"
+msgstr ""
+
+#: master_preset.xml:47(combo:long_text|key:maxspeed:conditional)
+msgid "Conditional maximum speed specified in km/h"
+msgstr ""
+
+#: master_preset.xml:2334(combo:long_text|group:Access_Restrictions|preset:All_vehicles|key:vehicle:conditional)
+msgid "Conditional restriction for all types of vehicles"
+msgstr ""
+
+#: master_preset.xml:2453(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:hgv:conditional)
+msgid "Conditional restriction for heavy goods vehicles"
+msgstr ""
+
+#: master_preset.xml:2354(combo:long_text|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle:conditional)
+#: master_preset.xml:2373(combo:long_text|group:Access_Restrictions|preset:Motor_vehicle_(CH)|key:motor_vehicle:conditional)
+msgid "Conditional restriction for motor vehicles"
+msgstr ""
+
+#: master_preset.xml:2392(combo:long_text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar:conditional)
+#: master_preset.xml:2415(combo:long_text|group:Access_Restrictions|preset:Motorcar|key:motorcar:conditional)
+msgid "Conditional restriction for motorcars"
+msgstr ""
+
+#: master_preset.xml:2396(combo:long_text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle:conditional)
+#: master_preset.xml:2434(combo:long_text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle:conditional)
+msgid "Conditional restriction for motorcycles"
+msgstr ""
+
 #: master_preset.xml:9839(list_entry:short_description|preset:Vending_Machine|value:condoms)
 msgid "Condoms"
 msgstr "Condones"
@@ -2453,6 +2495,10 @@ msgstr "Para áreas de sólida roca visible con escasa vegetación o sin vegetac
 msgid "For group"
 msgstr "Para grupo"
 
+#: master_preset.xml:157(combo:long_text|key:level)
+msgid "For indoor mapping, level 0 is the ground floor"
+msgstr ""
+
 #: master_preset.xml:9392(group:name|group:For_the_body)
 msgid "For the body"
 msgstr "Para el cuerpo"
@@ -2611,8 +2657,8 @@ msgid "General access"
 msgstr "Acceso general"
 
 #: master_preset.xml:2481(combo:text|group:Access_Restrictions|preset:General_access|key:access:conditional)
-msgid "General access conditional"
-msgstr "Acceso general condicional"
+msgid "General access @"
+msgstr ""
 
 #: master_preset.xml:8043(combo:text|group:Power_Generator|preset:Biofuel_Power_Generator|key:generator:type)
 #: master_preset.xml:8050(combo:text|group:Power_Generator|preset:Biogas_Power_Generator|key:generator:type)
@@ -2796,6 +2842,10 @@ msgstr "Gimnasia"
 msgid "HGV"
 msgstr "Vehículo pesado"
 
+#: master_preset.xml:2453(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:hgv:conditional)
+msgid "HGV @"
+msgstr ""
+
 #: master_preset.xml:330(list_entry:short_description|value:mixed)
 msgid "Habitat with evergreen and deciduous vegetation."
 msgstr "Hábitat con vegetacón de hoja perenne y de hoja caduca."
@@ -2876,10 +2926,6 @@ msgstr "Ingeniero térmico"
 #: master_preset.xml:2437(item:name|group:Access_Restrictions|preset:Heavy_Goods_Vehicle)
 msgid "Heavy Goods Vehicle"
 msgstr "Vehículo de bienes pesados"
-
-#: master_preset.xml:2453(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:hgv:conditional)
-msgid "Heavy Goods Vehicles conditional"
-msgstr "Condicional vehículos de bienes pesados"
 
 #: master_preset.xml:1972(item:name|group:Barriers|preset:Hedge)
 msgid "Hedge"
@@ -3356,12 +3402,12 @@ msgstr "Atributos de carril"
 msgid "Lanes"
 msgstr ""
 
-#: master_preset.xml:41(combo:text|key:lanes:forward)
-msgid "Lanes in way direction"
-msgstr "Carriles en la dirección del camino"
-
 #: master_preset.xml:42(combo:text|key:lanes:backward)
-msgid "Lanes opposed to way direction"
+msgid "Lanes ←"
+msgstr ""
+
+#: master_preset.xml:41(combo:text|key:lanes:forward)
+msgid "Lanes →"
 msgstr ""
 
 #: master_preset.xml:2849(label:text|group:Water|preset:Mud)
@@ -3430,8 +3476,8 @@ msgid "Length in meters"
 msgstr "Longitud en metros"
 
 #: master_preset.xml:157(combo:text|key:level)
-msgid "Level (ground floor 0)"
-msgstr "Nivel (planta baja 0)"
+msgid "Level"
+msgstr ""
 
 #: master_preset.xml:3195(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
@@ -3639,6 +3685,42 @@ msgstr "Material"
 msgid "Maternity"
 msgstr "Maternidad"
 
+#: master_preset.xml:45(text:text|key:maxspeed)
+msgid "Max speed"
+msgstr ""
+
+#: master_preset.xml:47(combo:text|key:maxspeed:conditional)
+msgid "Max speed @"
+msgstr ""
+
+#: master_preset.xml:2456(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:conditional)
+msgid "Max speed HGV @"
+msgstr ""
+
+#: master_preset.xml:2462(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backwardward:conditional)
+msgid "Max speed HGV ← @"
+msgstr ""
+
+#: master_preset.xml:2459(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward:conditional)
+msgid "Max speed HGV → @"
+msgstr ""
+
+#: master_preset.xml:51(text:text|key:maxspeed:backward)
+msgid "Max speed ←"
+msgstr ""
+
+#: master_preset.xml:53(combo:text|key:maxspeed:backwardward:conditional)
+msgid "Max speed ← @"
+msgstr ""
+
+#: master_preset.xml:48(text:text|key:maxspeed:forward)
+msgid "Max speed →"
+msgstr ""
+
+#: master_preset.xml:50(combo:text|key:maxspeed:forward:conditional)
+msgid "Max speed → @"
+msgstr ""
+
 #: master_preset.xml:2498(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxaxleload)
 msgid "Max. axleload (tonnes)"
 msgstr "Carga de eje máxima (toneladas)"
@@ -3673,58 +3755,25 @@ msgstr "Velocidad máxima"
 #: master_preset.xml:1811(text:text|preset:Speed_Camera|key:maxspeed)
 #: master_preset.xml:2255(text:text|group:Passageways|preset:Building_Passage|key:maxspeed)
 #: master_preset.xml:3165(text:text|group:Railway|preset:Bus_Guideway|key:maxspeed)
-#: master_preset.xml:45(text:text|key:maxspeed)
 #: master_preset.xml:959(text:text|group:Streets|preset:Bicycle_Road|key:maxspeed)
 msgid "Max. speed (km/h)"
 msgstr "Velocidad máxima (km/h)"
-
-#: master_preset.xml:47(combo:text|key:maxspeed:conditional)
-msgid "Max. speed (km/h) conditional"
-msgstr "Velocidad máxima (km/h) condicional"
 
 #: master_preset.xml:11336(text:text|group:Relations|preset:Enforcement|key:maxspeed)
 msgid "Max. speed (km/h, only if enforcement=maxspeed)"
 msgstr "Máxima velocidad (km/h, sólo si ejecución=velocidad máxima)"
 
-#: master_preset.xml:2457(text:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward)
-msgid "Max. speed HGV in way direction"
-msgstr "Velocidad máxima HGV en la dirección del camino"
-
-#: master_preset.xml:2459(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward:conditional)
-msgid "Max. speed HGV in way direction conditional"
-msgstr "Máxima velocidad HGV en dirección condicional"
-
-#: master_preset.xml:2460(text:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backward)
-msgid "Max. speed HGV opposite way direction"
-msgstr "Velocidad máxima HGV opuesta a la dirección del camino"
-
-#: master_preset.xml:2462(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backwardward:conditional)
-msgid "Max. speed HGV opposite way direction conditional"
-msgstr "Velocidad Máxima HGV opuesta al camino de dirección condicional"
-
 #: master_preset.xml:2454(text:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv)
-msgid "Max. speed Heavy Goods Vehicles (km/h)"
-msgstr "Velocidad máxima para vehículos pesados (km/h)"
-
-#: master_preset.xml:2456(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:conditional)
-msgid "Max. speed Heavy Goods Vehicles (km/h) conditional"
-msgstr "Velocidad máxima condicional para vehículos pesados (km/h)"
-
-#: master_preset.xml:48(text:text|key:maxspeed:forward)
-msgid "Max. speed in way direction"
-msgstr "Máxima velocidad en la dirección"
-
-#: master_preset.xml:50(combo:text|key:maxspeed:forward:conditional)
-msgid "Max. speed in way direction conditional"
-msgstr "Máxima velocidad en la dirección condicional"
-
-#: master_preset.xml:51(text:text|key:maxspeed:backward)
-msgid "Max. speed opposite way direction"
+msgid "Max. speed HGV"
 msgstr ""
 
-#: master_preset.xml:53(combo:text|key:maxspeed:backwardward:conditional)
-msgid "Max. speed opposite way direction conditional"
-msgstr "Máxima velocidad en dirección opuesta condicional"
+#: master_preset.xml:2460(text:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backward)
+msgid "Max. speed HGV ←"
+msgstr ""
+
+#: master_preset.xml:2457(text:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward)
+msgid "Max. speed HGV →"
+msgstr ""
 
 #: master_preset.xml:11333(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Max. weight"
@@ -3746,6 +3795,25 @@ msgstr "Peso máximo (toneladas, sólo si la ejecución=peso máximo)"
 #: master_preset.xml:2500(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxwidth)
 msgid "Max. width (meters)"
 msgstr "Anchura Máxima (metros)"
+
+#: master_preset.xml:2457(text:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward)
+#: master_preset.xml:2460(text:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backward)
+msgid ""
+"Maximum speed for heavy goods vehicles in way direction specified in km/h"
+msgstr ""
+
+#: master_preset.xml:2454(text:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv)
+msgid "Maximum speed for heavy goods vehicles specified in km/h"
+msgstr ""
+
+#: master_preset.xml:48(text:long_text|key:maxspeed:forward)
+#: master_preset.xml:51(text:long_text|key:maxspeed:backward)
+msgid "Maximum speed in way direction specified in km/h"
+msgstr ""
+
+#: master_preset.xml:45(text:long_text|key:maxspeed)
+msgid "Maximum speed specified in km/h"
+msgstr ""
 
 #: master_preset.xml:1189(text:text|group:Lane_attributes|preset:Single_direction_roads|key:maxspeed:lanes)
 msgid "Maxspeed per lane"
@@ -3965,7 +4033,7 @@ msgstr "Vehículo de motor (CH)"
 
 #: master_preset.xml:2354(combo:text|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle:conditional)
 #: master_preset.xml:2373(combo:text|group:Access_Restrictions|preset:Motor_vehicle_(CH)|key:motor_vehicle:conditional)
-msgid "Motor vehicles conditional"
+msgid "Motor vehicles @"
 msgstr ""
 
 #: master_preset.xml:431(combo:text|key:motorboat)
@@ -3977,14 +4045,14 @@ msgstr "Lancha motora"
 msgid "Motorcar"
 msgstr "Automóvil"
 
+#: master_preset.xml:2392(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar:conditional)
+#: master_preset.xml:2415(combo:text|group:Access_Restrictions|preset:Motorcar|key:motorcar:conditional)
+msgid "Motorcar @"
+msgstr ""
+
 #: master_preset.xml:2376(item:name|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH))
 msgid "Motorcar and -cycle (CH)"
 msgstr "Automóvil y -bici (CH)"
-
-#: master_preset.xml:2392(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar:conditional)
-#: master_preset.xml:2415(combo:text|group:Access_Restrictions|preset:Motorcar|key:motorcar:conditional)
-msgid "Motorcar conditional"
-msgstr ""
 
 #: master_preset.xml:125(check:text|key:motorcycle)
 #: master_preset.xml:134(check:text|key:motorcycle)
@@ -3994,6 +4062,11 @@ msgstr ""
 msgid "Motorcycle"
 msgstr "Motocicleta"
 
+#: master_preset.xml:2396(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle:conditional)
+#: master_preset.xml:2434(combo:text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle:conditional)
+msgid "Motorcycle @"
+msgstr ""
+
 #: master_preset.xml:3709(item:name|group:Motorcycle|preset:Motorcycle_Dealer)
 msgid "Motorcycle Dealer"
 msgstr "Concesionario de motocicletas"
@@ -4001,11 +4074,6 @@ msgstr "Concesionario de motocicletas"
 #: master_preset.xml:479(multiselect:text|key:brand)
 msgid "Motorcycle brand"
 msgstr "Marca de motocicleta"
-
-#: master_preset.xml:2396(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle:conditional)
-#: master_preset.xml:2434(combo:text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle:conditional)
-msgid "Motorcycle conditional"
-msgstr ""
 
 #: master_preset.xml:723(check:text|group:Streets|preset:Trunk|key:motorroad)
 #: master_preset.xml:751(check:text|group:Streets|preset:Trunk_Link|key:motorroad)
@@ -4533,6 +4601,14 @@ msgstr "Número de apartamentos"
 #: master_preset.xml:357(combo:text|key:circuits)
 msgid "Number of circuits"
 msgstr "Número de circuitos"
+
+#: master_preset.xml:41(combo:long_text|key:lanes:forward)
+msgid "Number of lanes in way direction"
+msgstr ""
+
+#: master_preset.xml:42(combo:long_text|key:lanes:backward)
+msgid "Number of lanes opposite way direction"
+msgstr ""
 
 #: master_preset.xml:3301(text:text|group:Aerialway|preset:Cable_Car|key:aerialway:occupancy)
 msgid "Number of people per car"
@@ -9014,8 +9090,8 @@ msgstr "Acceso general"
 
 #: master_preset.xml:2451(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:hgv)
 msgctxt "access"
-msgid "Heavy Goods Vehicles"
-msgstr "Vehículos pesados"
+msgid "HGV"
+msgstr "Vehículo pesado"
 
 #: master_preset.xml:2352(combo:text|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
 #: master_preset.xml:2371(combo:text|group:Access_Restrictions|preset:Motor_vehicle_(CH)|key:motor_vehicle)
@@ -9266,21 +9342,6 @@ msgstr "Especialidad"
 #: master_preset.xml:562(list_entry:short_description|value:urology)
 msgctxt "healthcare"
 msgid "Urology"
-msgstr ""
-
-#: master_preset.xml:570(combo:text|key:roof:colour)
-msgctxt "roof_colour"
-msgid "Roof colour"
-msgstr ""
-
-#: master_preset.xml:571(combo:text|key:roof:levels)
-msgctxt "roof_levels"
-msgid "Levels (roof)"
-msgstr ""
-
-#: master_preset.xml:574(combo:text|key:roof:material)
-msgctxt "roof_material"
-msgid "Roof material"
 msgstr ""
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
@@ -9744,6 +9805,16 @@ msgctxt "building"
 msgid "Roof"
 msgstr ""
 
+#: master_preset.xml:570(combo:text|key:roof:colour)
+msgctxt "building"
+msgid "Roof colour"
+msgstr ""
+
+#: master_preset.xml:574(combo:text|key:roof:material)
+msgctxt "building"
+msgid "Roof material"
+msgstr ""
+
 #: master_preset.xml:608(combo:text|key:roof:shape)
 msgctxt "building"
 msgid "Roof type"
@@ -9924,6 +9995,11 @@ msgstr "Madera"
 msgctxt "building"
 msgid "Yes"
 msgstr "Sí"
+
+#: master_preset.xml:571(combo:text|key:roof:levels)
+msgctxt "roof_levels"
+msgid "Levels (roof)"
+msgstr ""
 
 #: master_preset.xml:1345(combo:text|group:Ways|preset:Cycle_Lane/Track|key:highway)
 msgctxt "Highway"

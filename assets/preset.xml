@@ -38,18 +38,18 @@
     </chunk>
     <chunk id="lanes">
         <combo key="lanes" text="Lanes" values="1,2,3,4,5,6" length="3" match="none" />
-        <combo key="lanes:forward" text="Lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
-        <combo key="lanes:backward" text="Lanes opposed to way direction" values="1,2,3,4,5" length="3" match="none" />
+        <combo key="lanes:forward" text="Lanes →" long_text="Number of lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
+        <combo key="lanes:backward" text="Lanes ←" long_text="Number of lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" />
     </chunk>
     <chunk id="maxspeed">
-        <text key="maxspeed" text="Max. speed (km/h)"/>
-        <combo key="maxspeed:conditional" text="Max. speed (km/h) conditional" match="key"
+        <text key="maxspeed" text="Max speed" long_text="Maximum speed specified in km/h" />
+        <combo key="maxspeed:conditional" text="Max speed @" long_text="Conditional maximum speed specified in km/h" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />    
-        <text key="maxspeed:forward" text="Max. speed in way direction" />
-        <combo key="maxspeed:forward:conditional" text="Max. speed in way direction conditional" match="key"
+        <text key="maxspeed:forward" text="Max speed →" long_text="Maximum speed in way direction specified in km/h" />
+        <combo key="maxspeed:forward:conditional" text="Max speed → @" long_text="Conditional maximum speed in way direction specified in km/h" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
-        <text key="maxspeed:backward" text="Max. speed opposite way direction" />
-        <combo key="maxspeed:backwardward:conditional" text="Max. speed opposite way direction conditional" match="key"
+        <text key="maxspeed:backward" text="Max speed ←" long_text="Maximum speed in way direction specified in km/h" />
+        <combo key="maxspeed:backwardward:conditional" text="Max speed ← @" long_text="Conditional maximum speed opposite way direction specified in km/h" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
     </chunk>
     <chunk id="highway_base">
@@ -154,7 +154,7 @@
         <text key="operator" text="Operator" />
     </chunk>
     <chunk id="level">
-    	<combo text="Level (ground floor 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="0" values_sort="false" match="none" editable="true" />
+    	<combo text="Level" long_text="For indoor mapping, level 0 is the ground floor" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" values_sort="false" match="none" editable="true" />
     </chunk>
     <chunk id="name_layer">
         <text key="name" text="Name" />
@@ -567,11 +567,11 @@
   <chunk id="roof_main">
     <combo key="roof:colour" text="Roof colour" values="black,blue,red,yellow,white,grey" 
     	display_values="Black,Blue,Red,Yellow,White,Grey"
-    	editable="true" text_context="roof_colour" />
+    	editable="true" text_context="building" />
     <combo key="roof:levels" text="Levels (roof)" values="1,2,3" editable="true" text_context="roof_levels" />
     <combo key="roof:material" text="Roof material" values="acrylic_glass,concrete,copper,eternit,glass,grass,gravel,metal,plants,roof_tiles,shadecloth,slate,stone,tar_paper,thatch,wood" 
     	display_values="Acrylic glass,Concrete,Copper,Eternit,Glass,Grass,Gravel,Metal,Plants,Roof tiles,Shadecloth,Slate,Stone,Tar paper,Thatch,Wood"
-    	editable="true" text_context="roof_material" values_searchable="true" />
+    	editable="true" text_context="building" values_searchable="true" />
   </chunk>
   <chunk id="roof_orientation">
     <combo key="roof:orientation" text="Roof orientation" default="along" editable="false" match="key" >
@@ -597,7 +597,7 @@
 	<text key="height" text="Height (meters)" />
 	<combo key="min_level" text="Min. level" values="-5,-4,-3,-2,-1,0,1,2,3,4,5" editable="true" values_sort="false" text_context="building" match="key" />
 	<combo key="max_level" text="Max. level" values="0,1,2,3,4,5,6,7,8,9,10,11" editable="true" values_sort="false" text_context="building" match="key" />
-	<combo key="building:use" default="residential" text="Building use" 
+	<combo key="building:use" text="Building use" 
 		values="agricultural,civic,commercial,cultural,education,equestrian,exhibition,foodservice,garage,gathering,government,hotel,industrial,leisure,medical,office,parking,public,railway,religious,research,residential,retail,service,shelter,sport,storage,transportation" 
 		display_values="Agricultural,Civic,Commercial,Cultural,Education,Equestrian,Exhibition,Foodservice,Garage,Gathering,Government,Hotel,Industrial,Leisure,Medical,Office,Parking,Public,Railway,Religious,Research,Residential,Retail,Service,Shelter,Sport,Storage,Transportation" 
 		editable="false" values_context="building" values_searchable="true" />
@@ -2330,7 +2330,7 @@
             <space />
             <combo key="vehicle" text="All vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" 
             	   display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" />
-            <combo key="vehicle:conditional" text="All vehicles conditional"
+            <combo key="vehicle:conditional" text="All vehicles @" long_text="Conditional restriction for all types of vehicles"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- All vehicles -->
@@ -2350,7 +2350,7 @@
             <space />
             <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" 
             	  display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" />
-            <combo key="motor_vehicle:conditional" text="Motor vehicles conditional"
+            <combo key="motor_vehicle:conditional" text="Motor vehicles @" long_text="Conditional restriction for motor vehicles"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle -->
@@ -2369,7 +2369,7 @@
             <space />
             <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" 
                   display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" />
-            <combo key="motor_vehicle:conditional" text="Motor vehicles conditional"
+            <combo key="motor_vehicle:conditional" text="Motor vehicles @" long_text="Conditional restriction for motor vehicles"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
 	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle CH -->
@@ -2388,11 +2388,11 @@
             <space />
             <combo key="motorcar" text="Motorcar" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" 
                   display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" />
-            <combo key="motorcar:conditional" text="Motorcar conditional"
+            <combo key="motorcar:conditional" text="Motorcar @" long_text="Conditional restriction for motorcars"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
             <combo key="motorcycle" text="Motorcycle" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" 
                   display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" />
-            <combo key="motorcycle:conditional" text="Motorcycle conditional"
+            <combo key="motorcycle:conditional" text="Motorcycle @" long_text="Conditional restriction for motorcycles"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle -->
@@ -2411,7 +2411,7 @@
             <space />
             <combo key="motorcar" text="Motorcar" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" 
                   display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" />
-            <combo key="motorcar:conditional" text="Motorcar conditional"
+            <combo key="motorcar:conditional" text="Motorcar @" long_text="Conditional restriction for motorcars"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motorcar -->
@@ -2430,7 +2430,7 @@
             <space />
             <combo key="motorcycle" text="Motorcycle" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" 
                   display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" />
-            <combo key="motorcycle:conditional" text="Motorcycle conditional"
+            <combo key="motorcycle:conditional" text="Motorcycle @" long_text="Conditional restriction for motorcycles"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- Motorcycles -->
@@ -2447,18 +2447,18 @@
                   sv.href="http://wiki.openstreetmap.org/wiki/Sv:Key:access"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
-            <combo key="hgv" text="Heavy Goods Vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" 
+            <combo key="hgv" text="HGV" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" 
                   display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" />
-	    	<combo key="hgv:conditional" text="Heavy Goods Vehicles conditional"
+	    	<combo key="hgv:conditional" text="HGV @" long_text="Conditional restriction for heavy goods vehicles"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
-	    	<text key="maxspeed:hgv" text="Max. speed Heavy Goods Vehicles (km/h)" match="key" />
-            <combo key="maxspeed:hgv:conditional" text="Max. speed Heavy Goods Vehicles (km/h) conditional"
+	    	<text key="maxspeed:hgv" text="Max. speed HGV" long_text="Maximum speed for heavy goods vehicles specified in km/h" match="key" />
+            <combo key="maxspeed:hgv:conditional" text="Max speed HGV @"
                   delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" values_sort="false" match="key" />    
-            <text key="maxspeed:hgv:forward" text="Max. speed HGV in way direction" match="key" />
-            <combo key="maxspeed:hgv:forward:conditional" text="Max. speed HGV in way direction conditional"
+            <text key="maxspeed:hgv:forward" text="Max. speed HGV →" long_text="Maximum speed for heavy goods vehicles in way direction specified in km/h" match="key" />
+            <combo key="maxspeed:hgv:forward:conditional" text="Max speed HGV → @" long_text="Condiditonal maximum speed for heavy goods vehicles in way direction specified in km/h"
                   delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" values_sort="false" match="key" />
-            <text key="maxspeed:hgv:backward" text="Max. speed HGV opposite way direction" match="key" />
-            <combo key="maxspeed:hgv:backwardward:conditional" text="Max. speed HGV opposite way direction conditional"
+            <text key="maxspeed:hgv:backward" text="Max. speed HGV ←" long_text="Maximum speed for heavy goods vehicles in way direction specified in km/h" match="key" />
+            <combo key="maxspeed:hgv:backwardward:conditional" text="Max speed HGV ← @" long_text="Condiditonal maximum speed for heavy goods vehicles in way direction specified in km/h"
                   delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" values_sort="false"  match="key" />
 	        <reference ref="additional_access_tags" /> 
         </item> <!-- Heavy Goods Vehicle -->
@@ -2477,7 +2477,7 @@
             <space />
             <combo key="access" text="General access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,no" 
                   display_values="General access,Destination,Delivery,Permissive,Private,Customers,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" values_searchable="true" />
-	    	<combo key="access:conditional" text="General access conditional"
+	    	<combo key="access:conditional" text="General access @"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
 	    <reference ref="additional_access_tags" /> 
         </item> <!-- General access -->

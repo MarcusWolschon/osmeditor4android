@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1267: Updated preset and translations, bump build number.
+
 1265: Updated imagery.
 
 1263: Updated translations and presets, backport C&P and centroid calculation robustness fixes.

@@ -1,66 +1,66 @@
 # Introduzione a Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on googles Android 2.3 to 6.0 and various AOSP based variants. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+Vespucci è un editor completo che supporta molte delle funzionalità di un normale editor desktop.  È stato testato con successo su Google Android nelle versioni dalla 2.3 alla 6.0 oltre che in alcune varianti basate su AOSP. Un avvertimento: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desktop, quelli particolarmente vecchi tendono ad avere poca memoria disponibile e ad essere piuttosto lenti. Dovresti tenerne conto quando usi Vespucci e per esempio ridurre l'area che stai modificando ad una dimensione accettabile. 
 
 ## Il primo utilizzo
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+All'avvio Vespucci mostra la schermata "Scarica altra posizione"/"Carica area". Se sono visibili le coordinate e vuoi scaricare i dati immediatamente, puoi selezionare l'opzione corrispondente e impostare il raggio dell'area che vuoi ottenere. Non scegliere un'area troppo grande su dispositivi lenti. 
 
-Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
+Altrimenti puoi chiudere la schermata premendo il pulsante "Vai alla mappa", spostandoti e ingrandendo poi sull'area che vuoi modificare per poi scaricarne i dati (vedi più avanti: "Modificare con Vespucci")
 
 ## Mappare con Vespucci
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+A seconda della dimensione dello schermo e dell'età del tuo dispositivo, le diverse azioni potrebbero essere accessibili direttamente attraverso delle icone sulla barra in alto, nel menù a tendina sulla destra della barra in alto, sulla barra in basso (se presente) oppure attraverso il pulsante menù.
 
 ### Scaricare dati OSM
 
-Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
+Seleziona l'icona di trasferimento ![](../images/menu_transfer.png)  oppure "Trasferisci" dal menù. Saranno mostrate sette opzioni:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Scarica vista corrente** - scarica la vista presente sullo schermo e rimpiazza qualsiasi dato già esistente *(è richiesta una connessione di rete)*
+* **Aggiungi la vista corrente ai dati scaricati** - scarica l'area visibile sullo schermo e la aggiunge ai dati già presenti *(è richiesta una connessione di rete)*
+* **Scarica altra posizione** - mostra una schermata per inserire coordinate, cercare un luogo o utilizzare la posizione attuale per poi scaricare i dati in un raggio attorno ad essa *(è richiesta una connessione di rete)*
+* **Carica dati nel server OSM ** - carica le modifiche su OpenStreetMap *(è richiesta l'autenticazione)* *(è richiesta una connessione di rete)*
+* **Scarica automaticamente** - scarica un'area attorno alla posizione attuale in maniera automatica (è richiesta una connessione di rete)* *(è richiesto il GPS)*
+* **File...** - per salvare o caricare dati OSM verso e da file del dispositivo.
+* **Note/Bug...** - scarica (automaticamente e manualmente) note OSM e "bug" dagli strumenti per il controllo della qualità (per ora solo OSMOSE) *(è richiesta una connessione di rete)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Il modo più semplice di scaricare i dati sul dispositivo è di spostarsi e ingrandire sull'area che si vuole modificare e quindi selezionare "Scarica vista corrente". Puoi modificare l'ingrandimento usando i gesti, i pulsanti di zoom oppure i pulsanti per il controllo del volume del telefono. Vespucci a questo punto scaricherà i dati della vista corrente. Per scaricare i dati sul dispositivo non è necessario essere autenticati.
 
 ### Mappare
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
+Per evitare di modificare accidentalmente, Vespucci all'avvio è in modalità "bloccato", una modalità che permette solo di ingrandire e spostarsi sulla mappa. Premi sull'icona [Bloccato](../images/locked.png) per sbloccare lo schermo. Una pressione prolungata sul lucchetto imposta la modalità "solo modifica di etichette" che non permette di aggiungere nuovi oggetti o di modificare la geometria di quelli esistenti; questa modalità è indicata da un'icona di lucchetto bianco leggermente diversa.
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
+Se non diversamente specificato dall'utente, i nodi e i percorsi selezionabili hanno attorno ad essi un'area arancione che ne indica grossolanamente dove premere per selezionarli. Se si cerca di selezionare un oggetto e Vespucci individua più di un oggetto, verrà mostrato un menù di selezione. Gli oggetti selezionati sono evidenziati in giallo.
 
-It is a good strategy to zoom in if you attempt to edit a high density area.
+Se si cerca di modificare un'area ad alta densità di oggetti, è buona norma ingrandire la mappa.
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+Vespucci ha un buon sistema "annulla/ripeti" quindi non temere di sperimentare con il tuo dispositivo, tuttavia sei pregato di non caricare sui server dati inventati di sana pianta.
 
 #### Selezionare / Deselezionare
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Tocca un oggetto per selezionarlo ed evidenziarlo, un'ulteriore pressione sullo stesso oggetto apre l'editor delle etichette di quell'elemento. La pressione sullo schermo in una qualsiasi regione vuota lo deselezionerà. Se hai selezionato un oggetto e vuoi selezionarne un altro, basta premere l'oggetto in questione, senza bisogno di deselezionare prima l'altro. Una pressione doppia su un oggetto farà partire la [modalità multi-selezione](../en/Multiselect.md).
 
-#### Adding a new Node/Point or Way
+#### Aggiungere nuovi Nodi/Punti o percorsi
 
-Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
+Premi a lungo dove vuoi piazzare il nodo o iniziare il percorso. Vedrai il simbolo di una croce nera. Se premi di nuovo nello stesso punto verrà creato un nuovo nodo, se tocchi al di fuori dalla zona di tolleranza verrà invece disegnato un segmento di percorso dal punto originale a quello corrente. 
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
+Basta premere lo schermo dove vuoi aggiungere altri nodi al percorso. Per terminare, premi l'ultimo nodo per una seconda volta. Se il nodo iniziale e quello finale sono appartenenti ad un percorso, verranno inseriti automaticamente nel percorso.
 
 #### Spostare un nodo o un percorso
 
-Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Gli oggetti possono essere trascinati/spostati solo quando sono selezionati. Se hai abilitato l'area di trascinamento estesa nelle preferenze, sarà presente un'area molto estesa attorno al nodo selezionato così da rendere più semplice il riposizionamento dello stesso. 
 
 #### Migliorare la forma di un percorso
 
-If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
+Se ingrandisci abbastanza la mappa sarà visibile una piccola"x" nel centro di quei segmenti di percorso che non sono troppo corti. Trascinando la "x" verrà creato un nodo del percorso in quel punto. Nota: per evitare di creare accidentalmente dei nuovi nodi, la tolleranza al tocco per questa operazione è piuttosto bassa.
 
 #### Tagliare, copiare e incollare
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Puoi copiare o tagliare dei nodi o delle vie selezionati per poi incollare una o più volte in un nuovo punto. Quando si taglia la versione e l'id OSM rimarranno gli stessi. Per incollare, tieni premuto il punto in cui vuoi incollare (sarà visibile il simbolo di una croce nel punto). Poi seleziona "Incolla" nel menù.
 
 #### Aggiungere indirizzi in modo efficiente
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
+Vespucci ha una funzione "aggiungi le etichette dell'indirizzo civico" che tenta di rendere la mappatura degli indirizzi civici più efficiente. Può essere selezionata. 
 
 * after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
@@ -86,29 +86,29 @@ When the red lock is displayed all non-editing actions are available. Additional
 
 ### Salvare le tue modifiche
 
-*(requires network connectivity)*
+*(è richiesta una connessione di rete)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+Usa lo stesso pulsante o elemento del menù che hai usato per scaricare i dati e seleziona "Carica i dati nel server OSM"
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+Le nuove installazioni di Vespucci hanno l'autorizzazione OAuth abilitata. Al primo tentativo di caricare nuovi dati, verrà caricata una pagina del sito OSM. Dopo essersi autenticati (attraverso una connessione cifrata) verrà richiesto di autorizzare Vespucci modificare a nome tuo.  Se vuoi o senti il bisogno di autorizzare l'accesso OAuth al tuo account prima di iniziare a modificare c'è un apposita opzione nel menù "Strumenti".
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+Se vuoi salvare il tuo lavoro quando non hai accesso a Internet, puoi salvarlo su un file .osm compatibile con JOSM e in seguito caricarlo con Vespucci o con JOSM. 
 
 #### Risolvere in conflitti durante il caricamento
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
+Vespucci ha un risolutore semplificato dei conflitti. Se pensi di aver commesso qualche grosso errore nelle tue modifiche, puoi esportare i cambiamenti in un file .osc (opzione "Esporta" nel menù "Trasferisci") e risolverli per poi caricare i dati con JOSM. Ulteriori informazioni su [risoluzione dei confitti](../en/Conflict resolution.md).  
 
 ## Usare un GPS
 
-You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
+Puoi usare Vespucci per creare delle tracce GPX da mostrare sul tuo dispositivo. Puoi inoltre mostrare la posizione GPS attuale (imposta "Mostra posizione" nel menù GPS) e/o impostare il centro dello schermo sulla posizione man mano che questa si aggiorna (imposta "Segui posizione GPS" nel menù GPS). 
 
-If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
+Quando quest'ultima è abilitata, se viene mosso manualmente lo schermo o si eseguono modifiche la modalità "segui GPS" verrà disabilitata e al posto di un contorno verrà mostrata una freccia piena. Per tornare velocemente alla modalità "inseguimento", basta toccare la freccia o rispuntare l'opzione dal menù.
 
 ## Note e bug
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+Vespucci supporta lo scaricamento, l'aggiunta di commenti e la chiusura delle note OSM (precedentemente chiamate Bug OSM) e altrettante azioni per i "Bug" forniti dallo [strumento di controllo della qualità OSMOSE](http://osmose.openstreetmap.fr/en/map/). Per entrambi occorre che siano scaricati esplicitamente oppure può essere usata l'opzione dello scaricamento automatico per accedere gli elementi nell'area vicina. Dopo aver commentato o chiuso una nota o un bug, è possibile caricarli immediatamente o successivamente tutti insieme.
 
 On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
