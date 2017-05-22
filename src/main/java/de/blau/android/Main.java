@@ -655,18 +655,25 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		final Logic logic = App.getLogic();
 
 		checkPermissions();
-
+		
 		// register received for changes in connectivity
 		IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
 		connectivityChangedReceiver = new ConnectivityChangedReceiver();
 		registerReceiver(connectivityChangedReceiver, filter);
+		
 		PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void onSuccess() {
 				if (rcData != null || geoData != null) {
+					setShowGPS(false);
 					processIntents();
+				} else {
+					if (getTracker() != null) {
+						lastLocation = getTracker().getLastLocation();
+					}
+					setShowGPS(prefs.getShowGPS()); 
 				}
 				setupLockButton();
 				if (logic.getFilter()!=null) {
@@ -733,14 +740,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		logic.updateProfile();
 		map.updateProfile();
 		
-		runningInstance = this;
-	
+		// start listening for location updates
 		if (getTracker() != null) {
-			getTracker().setListener(this);
-			lastLocation = getTracker().getLastLocation();
+			getTracker().setListener(Main.this);
 		}
 		
-		setShowGPS(prefs.getShowGPS()); 
+		runningInstance = this;
 
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		scheduleAutoLock();
@@ -1839,6 +1844,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		return prefs.getBugAutoDownload();
 	}
 	
+	/**
+	 * If show is true start locations updates and start following the GPS position
+	 * otherwise turn location updates off
+	 * @param show turn location updates on or off
+	 */
 	private void setShowGPS(boolean show) {
 		if (show && !ensureGPSProviderEnabled()) {
 			show = false;
