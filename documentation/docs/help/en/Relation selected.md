@@ -14,7 +14,7 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 Starts the tag editor on the current selection.
 
-### !Add](../images/relation_add_member.png) Add member 
+### ![Add](../images/relation_add_member.png) Add member 
 
 Add further objects to the relation until "Done" is selected, then the tag editor will be started on the new relation. 
 

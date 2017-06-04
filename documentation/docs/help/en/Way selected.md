@@ -47,7 +47,7 @@ Start creating a turn restriction with this way as "from" member. This action is
 
 ### ![Orthogonalize](../images/menu_ortho.png) Orthogonalize
 
-Change angles that are near 90° or 180° to 90° resp. 180°.
+Change angles that are near 90° or 180° to 90° or 180° respectively.
 
 ### ![Rotate](../images/ic_menu_rotate.png) Rotate
 
@@ -63,7 +63,7 @@ Copy the way to the internal copy and paste buffer.
 
 ### ![Cut](../images/ic_menu_cut_holo_light.png) Cut
 
-Move the way to the internal copy and paste buffer removing it fron the data.
+Move the way to the internal copy and paste buffer removing it from the data.
 
 ### ![Delete](../images/tag_menu_delete.png) Delete
 

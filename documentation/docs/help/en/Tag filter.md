@@ -1,6 +1,6 @@
 # Tag filter
 
-Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting kevs and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines.
+Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines.
 
 All edits and additions to the filter entries are immediately stored on your device.
 

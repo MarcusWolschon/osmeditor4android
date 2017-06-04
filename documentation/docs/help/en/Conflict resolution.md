@@ -1,6 +1,6 @@
-# Conflict Resolution
+# Conflict resolution
 
-Vespucci provides a basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity download only small areas, refresh them often and save early.
+Vespucci provides basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity by downloading only small areas, refreshing them often and saving changes frequently.
 
 Vespucci uploads modified and deleted elements one by one. Any conflicts detected will be related to the current element and will need to be resolved before the upload can be retried. As a consequence, if you suspect that your edits have caused more than a handful of conflicts you should save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM.
 

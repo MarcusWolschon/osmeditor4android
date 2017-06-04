@@ -1,9 +1,9 @@
 # Controlling Vespucci from other apps
 _by Simon Poole_
 
-Android supports a powerful mechanism for starting and controlling other apps that goes be the names of ["Intents"](https://developer.android.com/guide/components/intents-filters.html). Every app needs to register which Intents it can support and the Android operating system will route requests to handle a specific Intent to appropriate app(s), if there is more than one app available you will get the well known app chooser. 
+Android supports a powerful mechanism for starting and controlling other apps that goes by the name of "[Intents](https://developer.android.com/guide/components/intents-filters.html)". Every app needs to register which Intents it can support and the Android operating system will route requests to handle a specific Intent to appropriate app(s). If there is more than one app available you will see the familiar app chooser. 
 
-##Supported intents
+## Supported intents
 
 __Load a preset__
 
@@ -48,6 +48,6 @@ geo:*lat*,*lon*?z=*zoom_level*
 *lat*,*lon*: WGS84 coordinates
 *zoom\_level*: zoom level, not supported
 
-Partial implementation of geo Urls, only WGS84 coordinates are supported, an area of the size of the current auto-download area is downloaded around the specified location.
+Partial implementation of geo URLs, only WGS84 coordinates are supported, an area of the size of the current auto-download area is downloaded around the specified location.
 
 __Happy mapping!__ 
