@@ -1,6 +1,6 @@
 # New
 
-After a long press on the map on the main screen you will enter the "New" mode (also see [Introduction](../en/Introduction.md)). This is the main way to add new nodes, ways and OSM Notes in Vespucci. At the place were you touched the screen you will see a cross marker.
+After a long press on the map on the main screen you will enter the "New" mode (also see [Introduction](../en/Introduction.md)). This is the main way to add new nodes, ways and OSM Notes in Vespucci. At the place where you touched the screen you will see a cross marker.
 
 You can now do one of three things:
 
@@ -30,7 +30,7 @@ If the marked location is on a way: create a new way node at the position and sp
 
 ### ![Set name](../images/menu_name.png) Set name
 
-Open a name selection field and create a POI corresponding to the name. Example: entering "McDonalds" will add tags for a McDonalds hamburger restaurant.
+Open a name selection field and create a POI corresponding to the name. Example: entering "McDonald's" will add tags for a McDonald's hamburger restaurant.
 
 ### ![Append](../images/tag_menu_append.png) Create path 
 
@@ -46,4 +46,4 @@ This will create a node at the current GPS position and add elevation tags to it
 
 ### ![Help](../images/menu_help.png) Help
 
-Start the Vespucci Help browser
+Start the Vespucci Help browser.

@@ -1,9 +1,9 @@
 
-# Building vespucci 0.9.9 and later
+# Building Vespucci 0.9.9 and later
 
-The code has been re-factored to use the compatibility libraries from google instead of 
-the ActionBarSherlock library. This has been tested with the google v7 support library 23.2.X, 
-given that google randomly makes incompatible changes to these and regularly drops existing 
+The code has been re-factored to use the compatibility libraries from Google instead of 
+the ActionBarSherlock library. This has been tested with the Google v7 support library 23.2.X.
+Given that Google randomly makes incompatible changes to these and regularly drops existing 
 functionality, you are on your own if you use any other version. 
 
 
@@ -23,17 +23,17 @@ or this command on Windows:
 $ gradlew.bat installDebug
 ```
 
-If you are using eclipse you need to import the project as a gradle project, and then generate the .classpath file initially and on any configuration change or else the IDE is essentially useless, run the gradle "eclipse" task to do this.
+If you are using Eclipse you need to import the project as a gradle project, and then generate the .classpath file initially and on any configuration change or else the IDE is essentially useless. Run the gradle "eclipse" task to do this.
 
 ## Building with gradle and Android Studio
 
 The build configuration has been updated for AppCompat and should work out of the box.
 
-## Build with eclipse
+## Building with Eclipse
 
-This is likely no longer possible since we have changed the directory layout to be in line with standard Android Studio and gradle layout with 0.9.9, but you can naturally give it a try. 
+This is likely no longer possible since we have changed the directory layout to be in line with the standard Android Studio and gradle layout with 0.9.9, but you can naturally give it a try. 
 
-You can find the required android support libs in your SDK folder in:
+You can find the required Android support libs in your SDK folder in:
 
 extras/android/support/v7
 
@@ -41,9 +41,9 @@ and
 
 extras/android/support/design
 
-You need to import _appcompat_, _preference_, _recyclerview_ and the _design_ libraries into eclipse as library projects, since the build requires access to the resource files in the libraries.
+You need to import _appcompat_, _preference_, _recyclerview_ and the _design_ libraries into Eclipse as library projects, since the build requires access to the resource files in the libraries.
 
-You will further need the the libraries listed in build.gradle for a successful build.
+You will further need the libraries listed in build.gradle for a successful build.
 
 ## JOSM Presets
 
@@ -68,5 +68,5 @@ Tags to be discarded https://github.com/openstreetmap/iD/blob/master/data/discar
 
 ## Testing
 
-Automated testing has come relatively late to Vespucci, however we have made large advanced in improving the coverage in 2017. Note: the on device tests will typically fail the first time if an Vespucci instance was already installed on the device (due to previous state being loaded), either de-install or simply run the tests twice.
+Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage in 2017. Note: the on-device tests will typically fail the first time if Vespucci was already installed on the device (due to previous state being loaded). Either de-install or simply run the tests twice.
 

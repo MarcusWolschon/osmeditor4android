@@ -6,7 +6,7 @@ Node selection is described in the [Introduction](../en/Introduction.md). Select
 
 Note: some of these actions will only be visible if they can actually be executed on the selected node. For example you can only merge a node with a way or node if the selected node is in their tolerance zone.
 
-### !Undo](../images/undolist_undo.png) Undo
+### ![Undo](../images/undolist_undo.png) Undo
 
 Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen. *Some operations consist of multiple simpler actions that will be listed as individual items.*
 

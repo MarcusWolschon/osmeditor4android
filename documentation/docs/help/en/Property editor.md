@@ -35,7 +35,7 @@ The following operations can be performed on selected tags
 
 ### Special auto complete behaviour
 
-If the key of a field is "addr:street" a list of the nearest roads in the down loaded data will be provided.
+If the key of a field is "addr:street" a list of the nearest roads in the downloaded data will be provided.
 
 If the key is "name", selection of a value from the auto complete list will add corresponding tags and if enabled in the settings, apply an appropriate preset. Typical use case: add a name key and start typing "mcd", select "McDonalds's" from the auto completion list and an amenity with the correct tags and name spelling will be added.
 

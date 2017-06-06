@@ -1,6 +1,6 @@
 # Vespucci Introduction
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on googles Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
 
 ## First time use
 
@@ -14,7 +14,7 @@ Depending on screen size and age of your device editing actions may either be ac
 
 ### Downloading OSM Data
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
+Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
@@ -24,7 +24,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png)  or the
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
 ### Editing
 
@@ -64,7 +64,7 @@ You can also use menu items: For further information see [Node selected](../en/N
 
 A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simple selects the other object.
+Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
 
 #### Selected objects: Moving a Node or Way
 
@@ -97,7 +97,7 @@ You can copy or cut selected nodes and ways, and then paste once or multiple tim
 
 #### Efficiently Adding Addresses
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
+Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
 
 * after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
@@ -141,7 +141,7 @@ Vespucci has a simple conflict resolver. However if you suspect that there are m
 
 You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
 
-If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
+If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
 
 ## Notes and Bugs
 
@@ -181,6 +181,6 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 ## Reporting Problems
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

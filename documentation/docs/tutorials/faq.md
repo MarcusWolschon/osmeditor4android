@@ -2,7 +2,7 @@
 
 #### What is Vespucci?
 Vespucci is the first [OpenStreetMap](http://www.openstreetmap.org/) editor for Android.
-That means: It is a light-weight, easy-to-use mapping tool on mobile Android devices.
+That means: it is a light-weight, easy-to-use mapping tool on mobile Android devices.
 
 #### What is Vespucci NOT? ####
   * Vespucci is not primarily a mobile map-viewer. 
@@ -16,8 +16,8 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 #### What do I need to get started with Vespucci? ####
 You need:
 
-  * An Android device (or the emulator) Release 0.9.X has only been tested on Android 2.3 and later.
-  * The Vespucci APK file (available from the Android Market and github)
+  * An Android device (or the emulator), note that Release 0.9.x has only been tested on Android 2.3 and later
+  * The Vespucci APK file (available from Google Play and GitHub)
   * Some familiarity with [OSM Map features](http://wiki.openstreetmap.org/wiki/Map_Features)
   * An [OSM account](http://www.openstreetmap.org/user/new)
 
@@ -28,7 +28,7 @@ The current Vespucci version is 0.9.8, 0.9.9 is currently in development.
 No, with the exception of those that provide an Android compatible environment.
 
 #### How can I obtain Vespucci? ####
-See [Obtaing Vespucci](/#obtaining-vespucci)
+See [Obtaining Vespucci](/#obtaining-vespucci).
 
 #### How can I install Vespucci on my Android device? ####
 Just download and install like any other app =)
@@ -36,7 +36,7 @@ Just download and install like any other app =)
 
 #### How can I install Vespucci on the Android emulator? ####
 Installation of the Vespucci APK is like any other APK.
-There are plenty descriptions available (e.g. [1 ](http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/), [2 ](http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator), [3 ](http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html), [4 ](http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/))
+There are plenty of descriptions available (e.g. [1 ](http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/), [2 ](http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator), [3 ](http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html), [4 ](http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/))
 
 #### Running Vespucci on "old and small" devices ####
 
@@ -51,17 +51,17 @@ however older devices tend to have very limited memory and correspondingly the a
   
 #### Can't download data from OpenStreetMap servers 
 
-If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use https (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. 
+If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use HTTPS (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. 
 
-Workaround: create a new non-https API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. 
+Workaround: create a new non-HTTPS API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. 
 
 #### "301 Moved Permanently" error when trying to download
 
-The OpenStreetMap API server you are using is likely redirecting http (non-encrypted) to https (encyrpted) connections. Try changing the API configuration to use https.
+The OpenStreetMap API server you are using is likely redirecting HTTP (non-encrypted) to HTTPS (encrypted) connections. Try changing the API configuration to use HTTPS.
 
 #### What can I do with the editor?
 
-Currently, you can
+Currently, you can:
 
  * Add and move nodes, ways and relations
  * Rotate ways
@@ -69,13 +69,13 @@ Currently, you can
  * Append nodes to existing ways
  * Delete existing nodes, ways and relations
  * Merge nodes
- * Edit existing relation mambers and add new 
+ * Edit existing relation members and add new 
  * Add turn restrictions
  * Download area around current location from OSM server
  * Download user-specified areas from OSM server
  * Create, save, upload and import GPS tracks
 
-and much more.
+... and much more.
 
 #### Does Vespucci support OSM Notes? ####
 
@@ -83,7 +83,7 @@ Yes, Vespucci supports manual and automatic download of Notes and offline storag
 
 #### What are the limits of Vespucci? ####
 
-Some things missing at this point in time
+Some things missing at this point in time:
 
   * No validator (however in general Vespucci tries to stop you from shooting yourself in the foot)
   * Some operations still missing, mainly polygon merging and relation sorting.
@@ -92,9 +92,9 @@ Some things missing at this point in time
 
 #### Which languages are supported? ####
 
-The user interdace is currently available in: English, German, Chinese (Taiwan), Spanish, Ukranian, Russian, Turkish, French, Italian, Vienamese, Chinese, Icelandic, Greek, Portugeses and Janpanese. These translations are typically complete or only have a small number of terms missing.
+The user interface is currently available in: English, German, Chinese (Taiwan), Spanish, Ukrainian, Russian, Turkish, French, Italian, Vietnamese, Chinese, Icelandic, Greek, Portuguese and Japanese. These translations are typically complete or only have a small number of terms missing.
 
-We also have partial translations for a number of other languages (please see link to transifex below for the current status). Any help in this area would be gratefully received. Please see [](https://www.transifex.com/projects/p/vespucci/).
+We also have partial translations for a number of other languages (please see link to Transifex below for the current status). Any help in this area would be gratefully received. Please see [Vespucci's Transifex page](https://www.transifex.com/projects/p/vespucci/) to help.
 
 #### How can I download OSM data? ####
 
@@ -105,7 +105,7 @@ On the first time startup, Vespucci requests which area to download. You can cho
  * Coordinates. If you need access to specific geographic coordinates you can specify latitude/longitude.
  * Search for a location (New in 0.9.4, requires network connectivity)
 
-For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when  downloading.)
+For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when downloading.)
 
 You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the "Download current view" from the transfer menu.
 
@@ -116,7 +116,7 @@ Choose "Upload data to  OSM server" from the transfer menu.
 
 #### Which user account is used when uploading data to the OSM server? ####
 
-Vespucci will use OAuth authorization as default for new installs. On your first upload you will be directed to an OSM page that we ask you to authorize your Vespucci install. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).
+Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).
 
 Note: OAuth will work for both the standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.
 
@@ -129,5 +129,5 @@ Note: OAuth will work for both the standard API and the development servers, if 
 
 #### Conflict resolution ####
 
-vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osc file, open that with JOSM and use JOSMs conflict resolution capabilities.
+Vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osc file, open that with JOSM and use JOSM's conflict resolution capabilities.
 
