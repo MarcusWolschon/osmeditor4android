@@ -30,7 +30,7 @@ public class CollectionTest {
 		
 		ArrayList<Node>elements = new ArrayList<Node>(100000);
 		for (int i=0;i<100000;i++) { 
-			elements.add(OsmElementFactory.createNode((long) (Math.random()*Long.MAX_VALUE), 1L, OsmElement.STATE_CREATED, 0, 0));
+			elements.add(OsmElementFactory.createNode((long) (Math.random()*Long.MAX_VALUE), 1L, System.currentTimeMillis()/1000, OsmElement.STATE_CREATED, 0, 0));
 		}
 		for (int i=0;i<100000;i++) { 
 			Node n = elements.get(i);
@@ -76,7 +76,7 @@ public class CollectionTest {
 		final int NODES = 10000;
 		Node[] temp = new Node[NODES];
 		for (long i=0;i<NODES;i++) {
-			temp[(int) i]= OsmElementFactory.createNode(i, 1L, OsmElement.STATE_CREATED,(int)(Math.random()*MAX), (int)(Math.random()*MAX));
+			temp[(int) i]= OsmElementFactory.createNode(i, 1L, System.currentTimeMillis()/1000, OsmElement.STATE_CREATED,(int)(Math.random()*MAX), (int)(Math.random()*MAX));
 		}
 		long start = System.currentTimeMillis();	
 		for (long i=0;i<NODES;i++) { 

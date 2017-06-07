@@ -2,8 +2,11 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -42,6 +45,8 @@ public class OsmParser extends DefaultHandler {
 	
 	/** Same as {@link currentNode}. */
 	private Relation currentRelation;
+	
+	private TreeMap<String, String> currentTags;
 
 	private final ArrayList<Exception> exceptions;
 	
@@ -129,9 +134,11 @@ public class OsmParser extends DefaultHandler {
 	public void endElement(final String uri, final String name, final String qName) throws SAXException {
 		try {
 			if (isNode(name)) {
+				addTags(currentNode);
 				storage.insertNodeUnsafe(currentNode);
 				currentNode = null;
 			} else if (isWay(name)) {
+				addTags(currentWay);
 				if (currentWay.getNodes() != null && currentWay.getNodes().size() > 0) {
 					storage.insertWayUnsafe(currentWay);
 				} else {
@@ -139,6 +146,7 @@ public class OsmParser extends DefaultHandler {
 				}
 				currentWay = null;
 			} else if (isRelation(name)) {
+				addTags(currentRelation);
 				storage.insertRelationUnsafe(currentRelation);
 				currentRelation = null;
 			}
@@ -147,6 +155,18 @@ public class OsmParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Add accumulated tags to element
+	 * @param e element to add the tags to
+	 */
+	void addTags(OsmElement e) {
+		if (currentTags != null) {
+			e.setTags(currentTags);
+			currentTags = null;
+		}
+	}
+	
+	
 	/**
 	 * parse API 0.6 output and JOSM OSM files
 	 * @param name
@@ -159,6 +179,17 @@ public class OsmParser extends DefaultHandler {
 			String version = atts.getValue("version");
 			long osmVersion = version == null ? 0 : Long.parseLong(atts.getValue("version")); // hack for JOSM file format support
 			String action = atts.getValue("action");
+			
+			String timestampStr = atts.getValue("timestamp");
+			long timestamp = -1L;
+			if (timestampStr != null) {
+				try {
+					timestamp = new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").parse(timestampStr).getTime()/1000;
+				} catch (ParseException e) {
+					Log.d(DEBUG_TAG, "Invalid timestamp " + timestampStr);
+				}
+			}
+			
 			byte status = OsmElement.STATE_UNCHANGED;
 			if (action != null) {
 				if (action.equalsIgnoreCase("modify")) {
@@ -174,17 +205,17 @@ public class OsmParser extends DefaultHandler {
 			if (isNode(name)) {
 				int lat = (int) (Double.valueOf(atts.getValue("lat")) * 1E7);
 				int lon = (int) (Double.valueOf(atts.getValue("lon")) * 1E7);
-				currentNode = OsmElementFactory.createNode(osmId, osmVersion, status, lat, lon);
+				currentNode = OsmElementFactory.createNode(osmId, osmVersion, timestamp, status, lat, lon);
 				// Log.d(DEBUG_TAG, "Creating node " + osmId);
 			} else if (isWay(name)) {
-				currentWay = OsmElementFactory.createWay(osmId, osmVersion, status);
+				currentWay = OsmElementFactory.createWay(osmId, osmVersion, timestamp, status);
 				if (nodeIndex==null) {
 					nodeIndex = storage.getNodeIndex(); // !!!!! this will fail if input is not ordered
 				}
 				// Log.d(DEBUG_TAG, "Creating way " + osmId);
 			}
 			else if (isRelation(name)) {
-				currentRelation = OsmElementFactory.createRelation(osmId, osmVersion, status);
+				currentRelation = OsmElementFactory.createRelation(osmId, timestamp, osmVersion, status);
 				if (nodeIndex==null) {
 					nodeIndex = storage.getNodeIndex(); // !!!!! this will fail if input is not ordered
 				}
@@ -202,17 +233,16 @@ public class OsmParser extends DefaultHandler {
 	}
 
 	/**
-	 * @param atts
+	 * Parse tags and accumulate them in a collection for later use
+	 * @param atts current set of xml attribute
 	 */
 	private void parseTag(final Attributes atts) {
-		OsmElement currentOsmElement = getCurrentOsmElement();
-		if (currentOsmElement == null) {
-			Log.e(DEBUG_TAG, "Parsing Error: no currentOsmElement set!");
-		} else {
-			String k = atts.getValue("k");
-			String v = atts.getValue("v");
-			currentOsmElement.addOrUpdateTag(k, v);
+		if (currentTags == null) {
+			currentTags = new TreeMap<String,String>();
 		}
+		String k = atts.getValue("k");
+		String v = atts.getValue("v");
+		currentTags.put(k, v);
 	}
 
 	/**

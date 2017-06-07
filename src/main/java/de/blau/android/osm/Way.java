@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -44,8 +45,8 @@ public class Way extends OsmElement implements BoundedObject {
 		).split(",");
 	}
 
-	Way(final long osmId, final long osmVersion, final byte status) {
-		super(osmId, osmVersion, status);
+	Way(final long osmId, final long osmVersion, final long timestamp, final byte status) {
+		super(osmId, osmVersion, timestamp, status);
 		nodes = new ArrayList<Node>();
 	}
 
@@ -102,7 +103,9 @@ public class Way extends OsmElement implements BoundedObject {
 		s.attribute("", "id", Long.toString(osmId));
 		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
-
+		if (timestamp >= 0) {
+			s.attribute("", "timestamp", new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(getTimestamp()*1000));
+		}
 		if (nodes != null) {
 			for (Node node : nodes) {
 				s.startTag("", "nd");
@@ -129,6 +132,9 @@ public class Way extends OsmElement implements BoundedObject {
 			s.attribute("", "action", "modify");
 		}
 		s.attribute("", "version", Long.toString(osmVersion));
+		if (timestamp >= 0) {
+			s.attribute("", "timestamp", new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(getTimestamp()*1000));
+		}
 		s.attribute("", "visible", "true");
 
 		if (nodes != null) {

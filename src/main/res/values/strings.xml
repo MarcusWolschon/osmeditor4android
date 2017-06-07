@@ -116,6 +116,7 @@
     <string name="empty_role">empty role</string>
     <string name="element">element</string>
     <string name="last_updated">last updated</string>
+    <string name="last_edited">Last edited</string>
     <string name="error">error</string>
     <string name="warning">warning</string>
     <string name="minor_issue">minor issue</string>
@@ -196,6 +197,7 @@
     <string name="toast_no_voice_recognition">No voice recognition facility present</string>
     <string name="toast_no_coverage">%1$s has no coverage here</string>
     <string name="toast_file_exists">File %1$s exists.</string>
+    <string name="toast_needs_resurvey">Object may be out of date</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

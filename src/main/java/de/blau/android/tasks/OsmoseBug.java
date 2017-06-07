@@ -136,7 +136,7 @@ public class OsmoseBug extends Task implements Serializable {
 	}
 	
 	/**
-	 * THis returns fake elements with version -1 for objects not downloaded
+	 * This returns fake elements with version -1 for objects not downloaded
 	 * @return
 	 */
 	public ArrayList<OsmElement> getElements() {
@@ -148,19 +148,19 @@ public class OsmoseBug extends Task implements Serializable {
 				if (elems.startsWith("way")) {
 					OsmElement osm = storageDelegator.getOsmElement(Way.NAME, Long.valueOf(e.substring(3)));
 					if (osm == null) {
-						osm = OsmElementFactory.createWay(Long.valueOf(e.substring(3)), -1, (byte) -1);
+						osm = OsmElementFactory.createWay(Long.valueOf(e.substring(3)), -1, -1, (byte) -1);
 					}
 					result.add(osm);
 				} else if (elems.startsWith("node")) {
 					OsmElement osm = storageDelegator.getOsmElement(Node.NAME, Long.valueOf(e.substring(4)));
 					if (osm == null) {
-						osm = OsmElementFactory.createNode(Long.valueOf(e.substring(4)), -1, (byte) -1, 0, 0);
+						osm = OsmElementFactory.createNode(Long.valueOf(e.substring(4)), -1, -1, (byte) -1, 0, 0);
 					}
 					result.add(osm);
 				} else if (elems.startsWith("relation")) {
 					OsmElement osm = storageDelegator.getOsmElement(Relation.NAME, Long.valueOf(e.substring(8)));
 					if (osm == null) {
-						osm = OsmElementFactory.createRelation(Long.valueOf(e.substring(8)), -1, (byte) -1);
+						osm = OsmElementFactory.createRelation(Long.valueOf(e.substring(8)), -1, -1, (byte) -1);
 					}
 					result.add(osm);
 				}

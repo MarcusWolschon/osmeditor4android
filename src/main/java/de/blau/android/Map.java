@@ -809,6 +809,7 @@ public class Map extends View implements IMapView {
 		float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
 
 		boolean isTagged = node.isTagged();
+		boolean hasProblem = false;
 
 		boolean filteredObject = false;
 		boolean filterMode = tmpFilter != null; // we have an active filter
@@ -853,6 +854,7 @@ public class Map extends View implements IMapView {
 			featureKeyThin = DataStyle.PROBLEM_NODE_THIN;
 			// style for tagged nodes or otherwise important
 			featureKeyTagged = DataStyle.PROBLEM_NODE_TAGGED;
+			hasProblem = true;
 		} else {
 			// general node style
 			featureKey = DataStyle.NODE;
@@ -873,7 +875,7 @@ public class Map extends View implements IMapView {
 		}
 		
 		if (isTaggedAndInZoomLimit && showIcons) {
-			noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null);
+			noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureKeyTagged : null);
 			if (noIcon) {
 				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
 				if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers

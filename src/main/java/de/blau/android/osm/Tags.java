@@ -2,8 +2,10 @@ package de.blau.android.osm;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -150,14 +152,31 @@ public class Tags {
 	public static final String KEY_HISTORIC = "historic";
 	public static final String KEY_MILITARY = "military";
 	
+	// more QA keys
+	public static final String KEY_CHECK_DATE = "check_date";
+		
 	/**
-	 * An array of tags considered 'important'. These are typically tags that define real-world objects
+	 * An set of tags considered 'important'. These are typically tags that define real-world objects
 	 * and not properties of such.
 	 */
 	public static final Set<String> IMPORTANT_TAGS = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
 		KEY_HIGHWAY,KEY_BARRIER,KEY_WATERWAY,KEY_RAILWAY,KEY_AEROWAY,KEY_AERIALWAY,KEY_POWER,
 		KEY_MAN_MADE,KEY_BUILDING,KEY_LEISURE,KEY_AMENITY,KEY_OFFICE,KEY_SHOP,KEY_CRAFT,KEY_EMERGENCY,
 		KEY_TOURISM,KEY_HISTORIC,KEY_LANDUSE,KEY_MILITARY,KEY_NATURAL,KEY_BOUNDARY,KEY_TYPE,KEY_ENTRANCE)));	
+	
+	/**
+	 * Tags for objects that should be re-surveyed regularly.
+	 */
+	protected static final Map<String,String> RESURVEY_TAGS = new HashMap<String, String>();
+	static {
+		RESURVEY_TAGS.put("shop",null);
+		RESURVEY_TAGS.put("amenity","restaurant");
+		RESURVEY_TAGS.put("amenity","fast_food");
+		RESURVEY_TAGS.put("amenity","cafe");
+		RESURVEY_TAGS.put("amenity","pub");
+		RESURVEY_TAGS.put("amenity","bar");
+		RESURVEY_TAGS.put("amenity","toilets");
+	}
 	
 	/**
 	 * Private constructor to avoid getting a public one

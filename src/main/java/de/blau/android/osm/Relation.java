@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -36,8 +37,8 @@ public class Relation extends OsmElement implements BoundedObject {
 
 	public static final String MEMBER = "member";
 	
-	Relation(final long osmId, final long osmVersion, final byte status) {
-		super(osmId, osmVersion, status);
+	Relation(final long osmId, final long osmVersion, final long timestamp, final byte status) {
+		super(osmId, osmVersion, timestamp, status);
 		members = new ArrayList<RelationMember>();
 	}
 
@@ -139,7 +140,10 @@ public class Relation extends OsmElement implements BoundedObject {
 		s.attribute("", "id", Long.toString(osmId));
 		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
-
+		if (timestamp >= 0) {
+			s.attribute("", "timestamp", new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(getTimestamp()*1000));
+		}
+		
 		for (RelationMember member : members) {
 			s.startTag("", "member");
 			s.attribute("", "type", member.getType());
@@ -163,6 +167,9 @@ public class Relation extends OsmElement implements BoundedObject {
 			s.attribute("", "action", "modify");
 		}
 		s.attribute("", "version", Long.toString(osmVersion));
+		if (timestamp >= 0) {
+			s.attribute("", "timestamp", new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(getTimestamp()*1000));
+		}
 		s.attribute("", "visible", "true");
 		
 		for (RelationMember member : members) {

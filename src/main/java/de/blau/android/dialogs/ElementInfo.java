@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,6 +51,8 @@ import de.blau.android.prefs.Preferences;
  */
 public class ElementInfo extends DialogFragment {
 	
+	private static final String ELEMENT = "element";
+
 	private static final String DEBUG_TAG = ElementInfo.class.getName();
 	
 	private static final String TAG = "fragment_element_info";
@@ -93,7 +96,7 @@ public class ElementInfo extends DialogFragment {
     	ElementInfo f = new ElementInfo();
 
         Bundle args = new Bundle();
-        args.putSerializable("element", e);
+        args.putSerializable(ELEMENT, e);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -119,7 +122,7 @@ public class ElementInfo extends DialogFragment {
         ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
         TableLayout tl =  (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
        
-        OsmElement e = (OsmElement) getArguments().getSerializable("element");
+        OsmElement e = (OsmElement) getArguments().getSerializable(ELEMENT);
         
         TableLayout.LayoutParams tp=
         		  new TableLayout.LayoutParams
@@ -133,6 +136,10 @@ public class ElementInfo extends DialogFragment {
         	tl.addView(createRow(R.string.type,e.getName(),tp));
         	tl.addView(createRow(R.string.id,"#" + e.getOsmId(),tp));
         	tl.addView(createRow(R.string.version,"" + e.getOsmVersion(),tp));
+        	long timestamp = e.getTimestamp();
+        	if (timestamp > 0) {
+        		tl.addView(createRow(R.string.last_edited,"" + new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(timestamp*1000L),tp));
+        	}
         	
         	if (e.getName().equals(Node.NAME)) {
         		tl.addView(createRow(R.string.location_lon_label, String.format(Locale.US,"%.7f", ((Node)e).getLon()/1E7d) + "°",tp));

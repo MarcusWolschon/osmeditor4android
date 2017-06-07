@@ -131,7 +131,14 @@ public class ApiTest {
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
-    	Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984));
+    	Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
+    	
+    	// test timestamp related stuff, no point in making a separate test
+    	Node t = (Node) App.getDelegator().getOsmElement(Node.NAME,3465444349L);
+    	Assert.assertNotNull(t);
+    	Assert.assertTrue(t.hasTag("amenity", "toilets"));
+    	Assert.assertEquals(1429452889,t.getTimestamp()); // 2015-04-19T14:14:49Z
+    	Assert.assertTrue(t.hasProblem(main));
 	}
     
     @Test

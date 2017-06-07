@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -43,8 +44,8 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 	 * @param lat WGS84 decimal Latitude-Coordinate times 1E7.
 	 * @param lon WGS84 decimal Longitude-Coordinate times 1E7.
 	 */
-	Node(final long osmId, final long osmVersion, final byte status, final int lat, final int lon) {
-		super(osmId, osmVersion, status);
+	Node(final long osmId, final long osmVersion, final long timestamp, final byte status, final int lat, final int lon) {
+		super(osmId, osmVersion, timestamp, status);
 		this.lat = lat;
 		this.lon = lon;
 	}
@@ -90,6 +91,9 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 		s.attribute("", "id", Long.toString(osmId));
 		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
+		if (timestamp >= 0) {
+			s.attribute("", "timestamp", new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(getTimestamp()*1000));
+		}
 		s.attribute("", "lat", Double.toString((lat / 1E7)));
 		s.attribute("", "lon", Double.toString((lon / 1E7)));
 		tagsToXml(s);
@@ -107,6 +111,9 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 			s.attribute("", "action", "modify");
 		}
 		s.attribute("", "version", Long.toString(osmVersion));
+		if (timestamp >= 0) {
+			s.attribute("", "timestamp", new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(getTimestamp()*1000));
+		}
 		s.attribute("", "visible", "true");
 		s.attribute("", "lat", Double.toString((lat / 1E7)));
 		s.attribute("", "lon", Double.toString((lon / 1E7)));

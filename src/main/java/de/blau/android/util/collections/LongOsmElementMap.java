@@ -100,7 +100,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 		m_threshold = (int) (capacity * fillFactor);
 		
 		// NOTE can't be static as it has to be serialized and de-serialized 
-		removedKey = OsmElementFactory.createNode(Long.MIN_VALUE, 1, OsmElement.STATE_CREATED, 0, 0);
+		removedKey = OsmElementFactory.createNode(Long.MIN_VALUE, 1, -1, OsmElement.STATE_CREATED, 0, 0);
 	}
 
 	/**

@@ -2,6 +2,8 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,12 +13,14 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
@@ -28,7 +32,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7711945069147743670L;
+	private static final long serialVersionUID = 7711945069147743671L;
 
 	public static final long NEW_OSM_ID = -1;
 
@@ -40,6 +44,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
 	public static final byte STATE_DELETED = 3;
 
+	public static final long EPOCH = 1104537600L; // 2005-01-01 00:00:00
+	
 	long osmId;
 
 	long osmVersion;
@@ -50,6 +56,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	ArrayList<Relation> parentRelations;
 	
+	// seconds since EPOCH, negative == not set
+	int timestamp = -1; 
+	
 	/**
 	 * hasProblem() is an expensive test, so the results are cached.
 	 * old version used a Boolean object which was silly we could naturally encode these as bits
@@ -57,9 +66,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	private boolean cachedHasProblem = false;
 	private boolean checkedForProblem = false; // flag indicating if cachedHasProblem is valid
 	
-	OsmElement(final long osmId, final long osmVersion, final byte state) {
+	OsmElement(final long osmId, final long osmVersion, final long timestamp, final byte state) {
 		this.osmId = osmId;
 		this.osmVersion = osmVersion;
+		setTimestamp(timestamp);
 		this.tags = null;
 		this.state = state;
 		this.parentRelations = null;
@@ -103,9 +113,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	abstract public String getName();
 
 	/**
-	 * Does not set the state if it's on CREATED, but if new state is DELETED.
+	 * Update state if MODIFIED or DELETED.
 	 * 
-	 * @param newState
+	 * @param newState new state to set
 	 */
 	void updateState(final byte newState) {
 		if (state != STATE_CREATED || newState == STATE_DELETED) {
@@ -113,16 +123,13 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		}
 	}
 
+	/**
+	 * Unconditionally set the state
+	 * 
+	 * @param newState new state to set
+	 */
 	void setState(final byte newState) {
 		state = newState;
-	}
-
-	void addOrUpdateTag(final String tag, final String value) {
-		if (tags==null) {
-			tags = new TreeMap<String, String>();
-		}
-		tags.put(tag, value);
-		checkedForProblem = false;
 	}
 
 	/**
@@ -135,7 +142,6 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 				this.tags = new TreeMap<String, String>();
 			}
 			this.tags.putAll(tags);
-			checkedForProblem = false;
 		}
 	}
 
@@ -365,8 +371,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * Return a concise description of the element
-	 * @param withType
-	 * @return
+	 * @param withType include an indication of the object type (node, way, relation)
+	 * @return a string containing the description
 	 */
 	private String getDescription(Context ctx, boolean withType) {
 		// Use the name if it exists
@@ -456,17 +462,41 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	}
 	
 	/**
+	 * Regex for general tagged issues with the object
+	 */
+	final static Pattern pattern = Pattern.compile("(?i).*\\b(?:fixme|todo)\\b.*");
+	
+	/**
+	 * Time after we consider relevant tags need to be re-surveyed FIXME de-hardwire 
+	 */
+	final static long DAYS365SECS = 365*24*60*60L;
+	
+	/**
 	 * Test if the element has any problems by searching all the tags for the words
-	 * "fixme" or "todo".
+	 * "fixme" or "todo", or if it has a key in the list of things to regularly re-survey 
 	 * @return true if the element has any noted problems, false otherwise.
 	 */
 	boolean calcProblem() {
-		final String pattern = "(?i).*\\b(?:fixme|todo)\\b.*";
 		if (tags != null) {
 			for (String key : tags.keySet()) {
 				// test key and value against pattern
-				if (key.matches(pattern) || tags.get(key).matches(pattern)) {
+				if (pattern.matcher(key).matches() || pattern.matcher(tags.get(key)).matches()) {
 					return true;
+				}
+			}
+			for (String key:Tags.RESURVEY_TAGS.keySet()) {
+				String value = Tags.RESURVEY_TAGS.get(key);
+				if (tags.containsKey(key) && (value == null || value.equals(tags.get(key)))) {
+					long now = System.currentTimeMillis()/1000;
+					long timestamp = getTimestamp();
+					if (timestamp >= 0 && (now - timestamp > DAYS365SECS)) {
+						return true;
+					} else if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
+						return checkAge(now,Tags.KEY_CHECK_DATE);
+					} else if (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key)) {
+						return checkAge(now,Tags.KEY_CHECK_DATE+":"+key);
+					}						
+					return false;
 				}
 			}
 		}
@@ -474,15 +504,40 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	}
 	
 	/**
-	 * return a string giving the problem
+	 * Check that the date value of tag is not more that DAYS365MILIS old
+	 * @param now current time in milliseconds
+	 * @param tag tag to retrieve the date value for
+	 * @return true if the date value is more than DAYS365MILIS old
+	 */
+	boolean checkAge(long now, String tag) {
+		try {
+			return now - new SimpleDateFormat("yyyy-MM-dd").parse(tags.get(tag)).getTime()/1000 >  DAYS365SECS;	
+		} catch (ParseException e) {
+			return true;
+		}
+	}
+	
+	/**
+	 * Return a string giving the problem detected in calcProblem
 	 */
 	public String describeProblem() {
-		final String pattern = "(?i).*\\b(?:fixme|todo)\\b.*";
 		if (tags != null) {
 			for (String key : tags.keySet()) {
 				// test key and value against pattern
-				if (key.matches(pattern) || tags.get(key).matches(pattern)) {
+				if (pattern.matcher(key).matches() || pattern.matcher(tags.get(key)).matches()) {
 					return key + ": " + tags.get(key);
+				}
+			}
+			for (String key: Tags.RESURVEY_TAGS.keySet()) {
+				String value = Tags.RESURVEY_TAGS.get(key);
+				if (tags.containsKey(key) && (value == null || value.equals(tags.get(key)))) {
+					long now = System.currentTimeMillis()/1000;
+					long timestamp = getTimestamp();
+					if ((timestamp >= 0 && (now - timestamp > DAYS365SECS)) 
+						|| (tags.containsKey(Tags.KEY_CHECK_DATE) && checkAge(now,Tags.KEY_CHECK_DATE))
+						|| (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key) && checkAge(now,Tags.KEY_CHECK_DATE+":"+key))) {
+						return App.resources().getString(R.string.toast_needs_resurvey);
+					}						
 				}
 			}
 		}
@@ -539,4 +594,33 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return
 	 */
 	public abstract BoundingBox getBounds();
+	
+	/**
+	 * Set the timestamp
+	 * @param secsSinceUnixEpoch seconds since the Unix Epoch
+	 */
+	public void setTimestamp(long secsSinceUnixEpoch) {
+		timestamp = (int)(secsSinceUnixEpoch-EPOCH);
+//		if (timestamp < 0) {
+//			throw new IllegalArgumentException("timestamp value overflow"); 
+//		}
+	}
+	
+	/**
+	 * Set the timestamp to the current time
+	 */
+	public void stamp() {
+		setTimestamp(System.currentTimeMillis()/1000);
+	}
+	
+	/**
+	 * Get the timestamp for this object
+	 * @return seconds since the Unix Epoch. negative if no value is set
+	 */
+	public long getTimestamp() {
+		if (timestamp >= 0) {
+			return EPOCH + (long)timestamp;
+		}
+		return -1L;
+	}
 }

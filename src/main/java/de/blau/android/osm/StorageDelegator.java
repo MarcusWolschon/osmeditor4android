@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -149,15 +150,20 @@ public class StorageDelegator implements Serializable, Exportable {
 	public OsmElementFactory getFactory() {
 		return factory;
 	}
-
+	
+	/**
+	 * Insert a new element in to storage
+	 * 
+	 * Uses methods that are nops if theelement already is present
+	 * @param elem the element to insert
+	 */
 	public void insertElementSafe(final OsmElement elem) {
 		dirty = true;
 		undo.save(elem);
-		
 		try {
 			currentStorage.insertElementSafe(elem);
 			apiStorage.insertElementSafe(elem);
-			onElementChanged(null, null);
+			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
 		} catch (StorageException e) {
 			// TODO handle OOMk
 			e.printStackTrace();
@@ -165,7 +171,26 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * Insert a new element in to storage
+	 * 
+	 * @param elem the element to insert
+	 */
+	private void insertElementUnsafe(final OsmElement elem) {
+		dirty = true;
+		undo.save(elem);
+		try {
+			currentStorage.insertElementUnsafe(elem);
+			apiStorage.insertElementUnsafe(elem);
+			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
+		} catch (StorageException e) {
+			// TODO handle OOMk
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Sets the tags of the element, replacing all existing ones
+	 * 
 	 * @param elem the element to tag
 	 * @param tags the new tags
 	 */
@@ -176,9 +201,11 @@ public class StorageDelegator implements Serializable, Exportable {
 		if (elem.setTags(tags)) {
 			// OsmElement tags have changed
 			elem.updateState(OsmElement.STATE_MODIFIED);
+			elem.stamp();
+			elem.resetHasProblem();
 			try {
 				apiStorage.insertElementSafe(elem);
-				onElementChanged(null, null);
+				onElementChanged(null, elem);
 			} catch (StorageException e) {
 				// TODO handle OOM
 				e.printStackTrace();
@@ -186,19 +213,6 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
-	private void insertElementUnsafe(final OsmElement elem) {
-		dirty = true;
-		undo.save(elem);
-		try {
-			currentStorage.insertElementUnsafe(elem);
-			apiStorage.insertElementUnsafe(elem);
-			onElementChanged(null, null);
-		} catch (StorageException e) {
-			// TODO handle OOMk
-			e.printStackTrace();
-		}
-	}
-	
 	/**
 	 * Called after an element has been changed
 	 * 
@@ -207,10 +221,31 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param post list of changed elements after the operation or null
 	 */
 	private void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
+		if (post != null) {
+			for (OsmElement e:post) {
+				e.stamp();
+				e.resetHasProblem();
+			}
+		}
 		Filter filter = App.getLogic().getFilter();
 		if (filter != null) {
 			filter.onElementChanged(pre, post);
 		}
+	}
+	
+	private void onElementChanged(@Nullable OsmElement pre, @Nullable OsmElement post) {
+		List<OsmElement> preList =  null;
+		List<OsmElement> postList = null;
+		
+		if (pre != null) {
+			preList = new ArrayList<OsmElement>();
+			preList.add(pre);
+		}
+		if (post != null) {
+			postList = new ArrayList<OsmElement>();
+			postList.add(post);
+		}
+		onElementChanged(preList,postList);
 	}
 
 	/**
@@ -316,8 +351,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * @param firstWayNode
-	 * @return
+	 * Create a new way with one node
+	 * 
+	 * @param firstWayNode the first node
+	 * @return the new way
 	 */
 	public Way createAndInsertWay(final Node firstWayNode) {
 		// undo - nothing done here, way gets saved/marked on insert
@@ -329,6 +366,13 @@ public class StorageDelegator implements Serializable, Exportable {
 		return way;
 	}
 
+	/**
+	 * Add a node at the end of a way
+	 * 
+	 * @param node the node to add
+	 * @param way the way to add the node to
+	 * @throws OsmIllegalOperationException
+	 */
 	public void addNodeToWay(final Node node, final Way way) throws OsmIllegalOperationException {
 		dirty = true;
 		undo.save(way);
@@ -339,13 +383,21 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementSafe(way);
 			way.addNode(node);
 			way.updateState(OsmElement.STATE_MODIFIED);
-			onElementChanged(null, null);
+			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Add a node to a way after a specified node
+	 *  
+	 * @param nodeBefore existing way node the new node is to be added after
+	 * @param newNode the new way node 
+	 * @param way the way to perform the operation on
+	 * @throws OsmIllegalOperationException
+	 */
 	public void addNodeToWayAfter(final Node nodeBefore, final Node newNode, final Way way) throws OsmIllegalOperationException {
 		dirty = true;
 		undo.save(way);
@@ -356,13 +408,21 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementSafe(way);
 			way.addNodeAfter(nodeBefore, newNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
-			onElementChanged(null, null);
+			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Append or prepend a node to a way depending of if refNode is the last or first element of the way
+	 * 
+	 * @param refNode last or first way node
+	 * @param nextNode the new node to add
+	 * @param way the way to preform the operation on
+	 * @throws OsmIllegalOperationException
+	 */
 	public void appendNodeToWay(final Node refNode, final Node nextNode, final Way way) throws OsmIllegalOperationException {
 		dirty = true;
 		undo.save(way);
@@ -372,13 +432,20 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementSafe(way);
 			way.appendNode(refNode, nextNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
-			onElementChanged(null, null);
+			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Move a node to a new position
+	 * 
+	 * @param node the node to move
+	 * @param latE7 the new latitude (E7)
+	 * @param lonE7 the new longitude (E7)
+	 */
 	public void updateLatLon(final Node node, final int latE7, final int lonE7) {
 		dirty = true;
 		undo.save(node);
@@ -387,7 +454,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			node.setLat(latE7);
 			node.setLon(lonE7);
 			node.updateState(OsmElement.STATE_MODIFIED);
-			onElementChanged(null, null);
+			onElementChanged(null, node);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -395,39 +462,23 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
-	 * Mode all nodes in a way, since the nodes keep their ids, the way itself doesn't change and doesn't need to be saved
-	 * apply translation only once to the first node if way is closed
-	 * @param way
-	 * @param deltaLatE7
-	 * @param deltaLonE7
+	 * Move all nodes in a way, since the nodes keep their ids, the way itself doesn't change and doesn't need to be saved
+	 * apply translation only once to every node
+	 * 
+	 * @param way way containing the nodes
+	 * @param deltaLatE7 the delta to move the latitude (E7)
+	 * @param deltaLonE7 the delta to move the longitude (E7)
 	 */
 	public void moveWay(final Way way, final int deltaLatE7, final int deltaLonE7) {
-		if (way.getNodes() == null) {
-			Log.d("StorageDelegator", "moveWay way " + way.getOsmId() + " has no nodes!");
-			return;
-		}
-		dirty = true;
-		try {
-			HashSet<Node> nodes = new HashSet<Node>(way.getNodes()); // Guarantee uniqueness
-			for (Node nd:nodes) { 
-				undo.save(nd);
-				apiStorage.insertElementSafe(nd);
-				nd.setLat(nd.getLat() + deltaLatE7);
-				nd.setLon(nd.getLon() + deltaLonE7);
-				nd.updateState(OsmElement.STATE_MODIFIED);
-			}
-			onElementChanged(null, null);
-		} catch (StorageException e) {
-			//TODO handle OOM
-			e.printStackTrace();
-		}
+		moveNodes(way.getNodes(), deltaLatE7, deltaLonE7);
 	}
 	
 	/**
-	 * Move a list of nodes apply translation only once 
-	 * @param allNodes
-	 * @param deltaLatE7
-	 * @param deltaLonE7
+	 * Move a list of nodes, apply translation only once 
+	 * 
+	 * @param allNodes the list of nodes
+	 * @param deltaLatE7 the delta to move the latitude (E7)
+	 * @param deltaLonE7 the delta to move the longitude (E7)
 	 */
 	public void moveNodes(final List<Node> allNodes, final int deltaLatE7, final int deltaLonE7) {
 		if (allNodes == null) {
@@ -444,7 +495,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				nd.setLon(nd.getLon() + deltaLonE7);
 				nd.updateState(OsmElement.STATE_MODIFIED);
 			}
-			onElementChanged(null, null);
+			onElementChanged(null, new ArrayList<OsmElement>(nodes));
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -500,7 +551,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				nd.updateState(OsmElement.STATE_MODIFIED);
 				i++;
 			}
-			onElementChanged(null, null);
+			onElementChanged(null, new ArrayList<OsmElement>(nodes));
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -509,9 +560,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	
 	/**
 	 * Build groups of ways that have common nodes
+	 * 
 	 * There must be a better way to do this, but they likely all fall afoul of our current data model
-	 * @param ways
-	 * @return
+	 * @param ways the ways to group
+	 * @return a list of list of ways with common nodes
 	 */
 	private ArrayList<ArrayList<Way>> groupWays(List<Way> ways) {
 		ArrayList<ArrayList<Way>> groups = new ArrayList<ArrayList<Way>>();
@@ -679,7 +731,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					}
 				}
 			}
-			onElementChanged(null, null);
+			onElementChanged(null, new ArrayList<OsmElement>(save));
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -744,20 +796,23 @@ public class StorageDelegator implements Serializable, Exportable {
 	
 	/**
 	 * Rotate all nodes in a way, since the nodes keep their ids, the way itself doesn't change and doesn't need to be saved
-	 * apply translation only once to the first node if way is closed. Rotation is done in screen coords
-	 * @param way
-	 * @param v 
-	 * @param k 
-	 * @param j 
-	 * @param deltaLatE7
-	 * @param deltaLonE7
+	 * apply translation only once to each node. Rotation is done in screen coords
+	 * 
+	 * @param way way to rotate
+	 * @param angle angle to rotate the way by
+	 * @param direction rotation direction
+	 * @param pivotX screen X coordinate of the pivot point
+	 * @param pivotY screen Y coordinate of the pivot point
+	 * @param w screen width
+	 * @param h screen height
+	 * @param v screen viewbox
 	 */
 	public void rotateWay(final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h, BoundingBox v) {
 		if (way.getNodes() == null) {
 			Log.d("StorageDelegator", "rotateWay way " + way.getOsmId() + " has no nodes!");
 			return;
 		}
-		// Log.d("StorageDelegator","Roating " + angle + " around " + pivotY + " " + pivotX );
+		// Log.d("StorageDelegator","Rotating " + angle + " around " + pivotY + " " + pivotX );
 		dirty = true;
 		try {
 			HashSet<Node> nodes = new HashSet<Node>(way.getNodes()); // Guarantee uniqness
@@ -775,7 +830,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				nd.setLon(lon);
 				nd.updateState(OsmElement.STATE_MODIFIED);
 			}
-			onElementChanged(null, null);
+			onElementChanged(null, new ArrayList<OsmElement>(nodes));
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -783,14 +838,16 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * updated for relation support
-	 * @param node
+	 * Delete a node
+	 * 
+	 * The operation will remove it from any ways and relations relations it is a member of
+	 * @param node the node to remove
 	 */
 	public void removeNode(final Node node) {
 		// undo - node saved here, affected ways saved in removeWayNodes
 		dirty = true;
 		if (node.state == OsmElement.STATE_DELETED) {
-			Log.d("StorageDelegator", "removeNode: nore already deleted " + node.getOsmId());
+			Log.d("StorageDelegator", "removeNode: node already deleted " + node.getOsmId());
 			return; // node was already deleted
 		}
 		undo.save(node);
@@ -804,7 +861,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			removeElementFromRelations(node);
 			currentStorage.removeNode(node);
 			node.updateState(OsmElement.STATE_DELETED);
-			onElementChanged(null, null);
+			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -822,10 +879,11 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/** 
-	 * split a (closed) way at two points
-	 * @param way
-	 * @param node1
-	 * @param node2
+	 * Split a (closed) way at two points
+	 * 
+	 * @param way way to split
+	 * @param node1 first node to split at
+	 * @param node2 second node to split at
 	 * @param createPolygons split in to two polygons 
 	 * @return null if split failed or wasn't possible, the two resulting ways otherwise
 	 */
@@ -890,12 +948,14 @@ public class StorageDelegator implements Serializable, Exportable {
 			nodesForOldWay2.remove(0);
 			oldNodes.addAll(nodesForOldWay2);
 		}
+		ArrayList<OsmElement>changedElements = new ArrayList<OsmElement>();
 		try {
 			if (createPolygons && way.length() > 2) { // close the original way now
 				way.addNode(way.getFirstNode());
 			}
 			way.updateState(OsmElement.STATE_MODIFIED);
 			apiStorage.insertElementSafe(way);
+			changedElements.add(way);
 	
 			// create the new way
 			Way newWay = factory.createWayWithNewId();
@@ -921,9 +981,11 @@ public class StorageDelegator implements Serializable, Exportable {
 					newWay.addParentRelation(r);
 					r.updateState(OsmElement.STATE_MODIFIED);
 					apiStorage.insertElementSafe(r);
+					changedElements.add(r);
 				}
 			}
-			onElementChanged(null, null);
+
+			onElementChanged(null, changedElements);
 			Way[] result = new Way[2];
 			result[0] = way;
 			result[1] = newWay;
@@ -936,9 +998,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * split way at node with relation support
-	 * @param way
-	 * @param node
+	 * Split way at node with relation support
+	 * 
+	 * @param way way to split
+	 * @param node node to split at
 	 */
 	public Way splitAtNode(final Way way, final Node node) {
 		Log.d("StorageDelegator", "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
@@ -974,9 +1037,11 @@ public class StorageDelegator implements Serializable, Exportable {
 			Log.d("StorageDelegator", "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
 			return null; // do not create 1-node way
 		}
+		ArrayList<OsmElement>changedElements = new ArrayList<OsmElement>();
 		try {
 			way.updateState(OsmElement.STATE_MODIFIED);
 			apiStorage.insertElementSafe(way);
+			changedElements.add(way);
 	
 			// create the new way
 			Way newWay = factory.createWayWithNewId();
@@ -1042,9 +1107,10 @@ public class StorageDelegator implements Serializable, Exportable {
 					}
 					r.updateState(OsmElement.STATE_MODIFIED);
 					apiStorage.insertElementSafe(r);
+					changedElements.add(r);
 				}
 			}
-			onElementChanged(null, null);
+			onElementChanged(null, changedElements);
 			return newWay;
 		} catch (StorageException e) {
 			//TODO handle OOM
@@ -1055,7 +1121,8 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	/**
 	 * Merge two nodes into one.
-	 * Updated for relation support
+	 * 
+	 * Updates ways and relations the node is a member of.
 	 * @param mergeInto The node to merge into. Tags are combined.
 	 * @param mergeFrom The node to merge from. Is deleted.
 	 */
@@ -1074,7 +1141,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 		mergeOK = !roleConflict(mergeInto, mergeFrom); // need to do this before we remove objects from relations.
 		// merge tags
-		setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom));
+		setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom)); // this calls onElementChange for the node
 		// if merging the tags creates multiple-value tags, mergeOK should be set to false
 		for (String v:mergeInto.getTags().values()) {
 			if (v.indexOf(";") >= 0) {
@@ -1093,7 +1160,6 @@ public class StorageDelegator implements Serializable, Exportable {
 		mergeElementsRelations(mergeInto, mergeFrom); 
 		// delete mergeFrom node
 		removeNode(mergeFrom);
-		onElementChanged(null, null);
 		return mergeOK;
 	}
 	
@@ -1245,15 +1311,14 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * Unjoins ways connected at the given node.
 	 * Updated for relation support
+	 * 
 	 * @param node The node connecting ways that are to be unjoined.
-	 */
-	/**
-	 * @param node
 	 */
 	public void unjoinWays(final Node node) {
 		List<Way> ways = currentStorage.getWays(node);
 		try {
 			if (ways.size() > 1) {
+				ArrayList<OsmElement>changedElements = new ArrayList<OsmElement>();
 				boolean first = true;
 				for (Way way : ways) {
 					if (first) {
@@ -1272,6 +1337,7 @@ public class StorageDelegator implements Serializable, Exportable {
 						nodes.set(nodes.indexOf(node), newNode);
 						way.updateState(OsmElement.STATE_MODIFIED);
 						apiStorage.insertElementSafe(way);
+						changedElements.add(way);
 						
 						// check if node is in a relation, if yes, add to new node
 						// should probably check for restrictions
@@ -1298,11 +1364,12 @@ public class StorageDelegator implements Serializable, Exportable {
 								}
 								r.updateState(OsmElement.STATE_MODIFIED);
 								apiStorage.insertElementSafe(r);
+								changedElements.add(r);
 							}
 						}
 					}
 				}
-				onElementChanged(null, null);
+				onElementChanged(null, changedElements);
 			}
 		} catch (StorageException e) {
 			//TODO handle OOM
@@ -1330,8 +1397,9 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * Reverses a way
-	 * @param way
+	 * Reverses a way (reverses the order of its nodes)
+	 * 
+	 * @param way to revers
 	 * @return true is way had tags that needed to be reversed
 	 */
 	public boolean reverseWay(final Way way) {
@@ -1361,7 +1429,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		way.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(way);
-			onElementChanged(null, null);
+			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1376,7 +1444,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		way.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(way);
-			onElementChanged(null, null);
+			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1389,6 +1457,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		int deleted = 0;
 		try {
 			List<Way> ways = currentStorage.getWays(node);
+			ArrayList<OsmElement>changedElements = new ArrayList<OsmElement>();
 			for (Way way:ways) {
 				undo.save(way);
 				if (way.isClosed() && way.isEndNode(node) && way.getNodes().size() > 1) { // note protection against degenerate closed ways
@@ -1403,10 +1472,11 @@ public class StorageDelegator implements Serializable, Exportable {
 				} else {
 					way.updateState(OsmElement.STATE_MODIFIED);
 					apiStorage.insertElementSafe(way);
+					changedElements.add(way);
 				}
 				deleted++;
 			}
-			onElementChanged(null, null);
+			onElementChanged(null, changedElements);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1416,8 +1486,9 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	/**
 	 * Deletes a way
-	 * updated for relations
-	 * @param way
+	 * 
+	 * Removes it from any relations it is a member of
+	 * @param way way to delete
 	 */
 	public void removeWay(final Way way) {
 		dirty = true;
@@ -1433,7 +1504,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 			removeElementFromRelations(way);
 			way.updateState(OsmElement.STATE_DELETED);
-			onElementChanged(null, null);
+			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1458,7 +1529,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			removeRelationFromMembers(relation);
 			currentStorage.removeRelation(relation);
 			relation.updateState(OsmElement.STATE_DELETED);
-			onElementChanged(null, null);
+			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1467,7 +1538,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	
 	/**
 	 * Remove backlinks in elements
-	 * @param relation
+	 * @param relation to remove from members
 	 */
 	private void removeRelationFromMembers(final Relation relation) {
 		for (RelationMember rm: relation.getMembers()) {
@@ -1480,14 +1551,16 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * Note the element does not need to have its state changed of be stored in the API sotrage since the 
+	 * Note the element does not need to have its state changed or be stored in the API storage since the 
 	 * parent relation back link is just internal.
-	 * @param element
+	 * 
+	 * @param element to remove from any relations it is a member of
 	 */
 	private void removeElementFromRelations(final OsmElement element) {
 		try {
 			if (element.hasParentRelations()) {
 				ArrayList<Relation> relations = new ArrayList<Relation>(element.getParentRelations()); // need copy!
+				ArrayList<OsmElement>changedElements = new ArrayList<OsmElement>();
 				for (Relation r : relations) {
 					Log.i("StorageDelegator", "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
 					dirty = true;
@@ -1495,11 +1568,12 @@ public class StorageDelegator implements Serializable, Exportable {
 					r.removeMember(r.getMember(element));
 					r.updateState(OsmElement.STATE_MODIFIED);
 					apiStorage.insertElementSafe(r);
+					changedElements.add(r);
 					undo.save(element);
 					element.removeParentRelation(r);
 					Log.i("StorageDelegator", "... done");
 				}
-				onElementChanged(null, null);
+				onElementChanged(null, changedElements);
 			}
 		} catch (StorageException e) {
 			//TODO handle OOM
@@ -1523,7 +1597,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			undo.save(element);
 			element.removeParentRelation(r);
 			Log.i("StorageDelegator", "... done");
-			onElementChanged(null, null);
+			onElementChanged(null, r);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1541,7 +1615,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		r.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(r);
-			onElementChanged(null, null);
+			onElementChanged(null, r);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1570,7 +1644,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			onElementChanged(null, null);
+			onElementChanged(null, rel);
 		} catch (StorageException sex) {
 			//TODO handle OOM
 			sex.printStackTrace();
@@ -1597,7 +1671,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			onElementChanged(null, null);
+			onElementChanged(null, rel);
 		} catch (StorageException sex) {
 			//TODO handle OOM
 			sex.printStackTrace();
@@ -1629,7 +1703,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			onElementChanged(null, null);
+			onElementChanged(null, rel);
 		} catch (StorageException sex) {
 			//TODO handle OOM
 			sex.printStackTrace();
@@ -1656,7 +1730,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			onElementChanged(null, null);
+			onElementChanged(null, rel);
 		} catch (StorageException sex) {
 			//TODO handle OOM
 			sex.printStackTrace();
@@ -1684,7 +1758,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(rel);
-			onElementChanged(null, null);
+			onElementChanged(null, rel);
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
@@ -1787,7 +1861,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			r.updateState(OsmElement.STATE_MODIFIED);
 			try {
 				apiStorage.insertElementSafe(r);
-				onElementChanged(null, null);
+				onElementChanged(null, r);
 			} catch (StorageException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1799,6 +1873,7 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	/**
 	 * Add further members without role to an existing relation
+	 * 
 	 * @param relation
 	 * @param members
 	 */
@@ -1824,6 +1899,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		ArrayList<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new ArrayList<Relation>(mergeFrom.getParentRelations()) : new ArrayList<Relation>(); // copy just to be safe
 		ArrayList<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<Relation>();
 		try {
+			HashSet<OsmElement>changedElements = new HashSet<OsmElement>();
 			for (Relation r : fromRelations) {
 				if (!toRelations.contains(r)) {
 					dirty = true;
@@ -1838,9 +1914,11 @@ public class StorageDelegator implements Serializable, Exportable {
 					mergeInto.addParentRelation(r);
 					mergeInto.updateState(OsmElement.STATE_MODIFIED);
 					apiStorage.insertElementSafe(mergeInto);
+					changedElements.add(r);
+					changedElements.add(mergeInto);
 				}
 			}
-			onElementChanged(null, null);
+			onElementChanged(null, new ArrayList<OsmElement>(changedElements));
 		} catch (StorageException sex) {
 			//TODO handle OOM
 		}
