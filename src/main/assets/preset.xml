@@ -11245,6 +11245,28 @@
             <preset_link preset_name="Note" />
             <preset_link preset_name="Description" />
         </item> <!-- Fixme -->
+        <item name="Add or update check date" icon="icons/png/osm_exclamation_mark_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:check_date" />
+            <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags 
+                 before the PropertyEditor was started, tags are the current values, by removing the key at the 
+                 end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
+        	<text key="automatic_check_date" javascript="
+function addCheckDate(key) {
+  df = new java.text.SimpleDateFormat('yyyy-MM-dd');
+  v = new java.util.ArrayList();
+  v.add(df.format(new java.util.Date()));
+  tags.put(key,v);
+}
+
+for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {
+  if (key.startsWith('check_date:')) {
+    addCheckDate(key);
+  }
+}
+addCheckDate('check_date');
+tags.remove('automatic_check_date');"
+        	text="Automatic check_date generation"/>	
+		</item> <!-- Add or update check date -->
     </group> <!-- Annotation -->
     <group name="Relations" icon="icons/png/osm_relation_sp.png">
         <item name="Multipolygon" icon="presets/multipolygon.png" type="relation,multipolygon" preset_name_label="true">
