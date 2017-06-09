@@ -1495,22 +1495,23 @@ public class Logic {
 	/**
 	 * Executes an add node operation for x,y but only if on a way. Adds new node to storage and will select it.
 	 * 
-	 * @param activity activity we were called from
-	 * @param ways candidate ways if null all ways will be considered
-	 * @param x screen-coordinate
-	 * @param y screen-coordinate
-	 * @param forceNew ignore nearby existing nodes
-	 * @return the new node or null if none was created
-	 * @throws OsmIllegalOperationException
+	 * @param activity 	activity we were called from
+	 * @param ways 		candidate ways if null all ways will be considered
+	 * @param x 		screen-coordinate
+	 * @param y 		screen-coordinate
+	 * @param forceNew 	ignore nearby existing nodes
+	 * @return 			the new node or null if none was created
+	 * @throws OsmIllegalOperationException if the operation would create an illegal state
 	 */
-	public synchronized Node performAddOnWay(@Nullable Activity activity, List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
+	@Nullable
+	public synchronized Node performAddOnWay(@Nullable Activity activity, @Nullable List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
 		createCheckpoint(activity, R.string.undo_action_add);
 		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		
 		Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways,x, y, forceNew);
 
 		if (newSelectedNode == null) {
-			newSelectedNode = savedSelectedNode;
+			setSelectedNode(savedSelectedNode);
 			return null;
 		}
 			
@@ -1519,13 +1520,13 @@ public class Logic {
 	}
 	
 	/**
-	 * Catches the first node at the given position and delegates the deletion to {@link #delegator}.
-	 * @param activity activity this was called from, if null no warnings will be displayed
-	 * @param createCheckpoint create and undo checkpoint if true
-	 * @param x screen-coordinate.
-	 * @param y screen-coordinate.
+	 * Delete a node 
+	 * 
+	 * @param activity			activity this is running in, null if none
+	 * @param node				Node to delete
+	 * @param createCheckpoint	create an Undo checkpoint
 	 */
-	public synchronized void performEraseNode(@Nullable final FragmentActivity activity, final Node node, boolean createCheckpoint) {
+	public synchronized void performEraseNode(@Nullable final FragmentActivity activity, @NotNull final Node node, boolean createCheckpoint) {
 		if (node != null) {
 			if (createCheckpoint) {
 				createCheckpoint(activity, R.string.undo_action_deletenode);
@@ -1541,14 +1542,14 @@ public class Logic {
 	}
 
 	/**
-	 * set new coordinates and center viewbox on them
+	 * Set new coordinates for an existing node and center viewbox on them
 	 * 
-	 * @param activity activity this was called from, if null no warnings will be displayed
-	 * @param node node to set position on
-	 * @param lon longitude
-	 * @param lat latitude
+	 * @param activity	activity this was called from, if null no warnings will be displayed
+	 * @param node 		node to set position on
+	 * @param lon 		longitude (WGS84)
+	 * @param lat 		latitude (WGS84)
 	 */
-	public void performSetPosition(@Nullable final FragmentActivity activity, Node node, double lon, double lat) {
+	public void performSetPosition(@Nullable final FragmentActivity activity, @NotNull Node node, double lon, double lat) {
 		if (node != null) {
 			createCheckpoint(activity, R.string.undo_action_movenode);
 			int lonE7 = (int)(lon*1E7d);
@@ -1568,7 +1569,7 @@ public class Logic {
 	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
 	 * @param createCheckpoint if true create an undo checkpoint
 	 */
-	public synchronized void performEraseWay(@Nullable final FragmentActivity activity, final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
+	public synchronized void performEraseWay(@Nullable final FragmentActivity activity, @NotNull final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
 		if (createCheckpoint) {
 			createCheckpoint(activity, R.string.undo_action_deleteway);
 		}
@@ -1584,14 +1585,13 @@ public class Logic {
 	}
 
 	/**
-	 * Catches the first relation at the given position and delegates the deletion to {@link #delegator}.
+	 * Delete a relation 
 	 * 
-	 * @param activity activity this was called from, if null no warnings will be displayed
-	 * @param createCheckpoint TODO
-	 * @param x screen-coordinate.
-	 * @param y screen-coordinate.
+	 * @param activity			activity this is running in, null if none
+	 * @param relation			Relation to delete
+	 * @param createCheckpoint	create an Undo checkpoint
 	 */
-	public synchronized void performEraseRelation(@Nullable final FragmentActivity activity, final Relation relation, boolean createCheckpoint) {
+	public synchronized void performEraseRelation(@Nullable final FragmentActivity activity, @NotNull final Relation relation, boolean createCheckpoint) {
 		if (relation != null) {
 			if (createCheckpoint) {
 				createCheckpoint(activity, R.string.undo_action_delete_relation);
@@ -1608,7 +1608,7 @@ public class Logic {
 	 * @param activity activity this method was called from, if null no warnings will be displayed
 	 * @param selection objects to delete
 	 */
-	public synchronized void performEraseMultipleObjects(@Nullable final FragmentActivity activity, ArrayList<OsmElement> selection) {
+	public synchronized void performEraseMultipleObjects(@Nullable final FragmentActivity activity, @NotNull ArrayList<OsmElement> selection) {
 		// need to make three passes
 		createCheckpoint(activity, R.string.undo_action_delete_objects);
 		displayAttachedObjectWarning(activity, selection); // needs to be done before removal
@@ -1636,10 +1636,10 @@ public class Logic {
 	/**
 	 * Splits all ways containing the node will be split at the nodes position
 	 * 
-	 * @param activity activity this method was called from, if null no warnings will be displayed
-	 * @param node node to split at
+	 * @param activity	activity this method was called from, if null no warnings will be displayed
+	 * @param node		node to split at
 	 */
-	public synchronized void performSplit(@Nullable final FragmentActivity activity, final Node node) {
+	public synchronized void performSplit(@Nullable final FragmentActivity activity, @NotNull final Node node) {
 		if (node != null) {
 			// setSelectedNode(node);
 			createCheckpoint(activity, R.string.undo_action_split_ways);
@@ -1652,12 +1652,13 @@ public class Logic {
 	/**
 	 * Splits a way at a given node
 	 * 
-	 * @param activity activity this method was called from, if null no warnings will be displayed
-	 * @param way the way to split
-	 * @param node the node at which the way should be split
-	 * @return the new way or null if failed
+	 * @param activity	activity this method was called from, if null no warnings will be displayed
+	 * @param way		the way to split
+	 * @param node		the node at which the way should be split
+	 * @return			the new way or null if failed
 	 */
-	public synchronized Way performSplit(@Nullable final FragmentActivity activity, final Way way, final Node node) {
+	@Nullable
+	public synchronized Way performSplit(@Nullable final FragmentActivity activity, @NotNull final Way way, @NotNull final Node node) {
 		// setSelectedNode(node);
 		createCheckpoint(activity, R.string.undo_action_split_way);
 		Way result = getDelegator().splitAtNode(way, node);
@@ -1668,13 +1669,15 @@ public class Logic {
 	/**
 	 * Split a closed way, needs two nodes
 	 * 
-	 * @param activity activity we were called fron
-	 * @param way
-	 * @param node1
-	 * @param node2
-	 * @return null if split fails, the two ways otherwise
+	 * @param activity 			activity we were called fron
+	 * @param way				Way to split
+	 * @param node1				first split point
+	 * @param node2				second split point
+	 * @param createPolygons	create polygons by closing the split ways if true 
+	 * @return 					null if the split fails, the two ways otherwise
 	 */
-	public synchronized Way[] performClosedWaySplit(@Nullable Activity activity, Way way, Node node1, Node node2, boolean createPolygons) {
+	@Nullable
+	public synchronized Way[] performClosedWaySplit(@Nullable Activity activity, @NotNull Way way, @NotNull Node node1, @NotNull Node node2, boolean createPolygons) {
 		createCheckpoint(activity, R.string.undo_action_split_way);
 		Way[] result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
 		invalidateMap();
@@ -1686,12 +1689,13 @@ public class Logic {
 	 * Ways must be valid (i.e. have at least two nodes) and mergeable
 	 * (i.e. have a common start/end node).
 	 *  
-	 * @param activity activity this method was called from, if null no warnings will be displayed
-	 * @param mergeInto Way to merge the other way into. This way will be kept.
-	 * @param mergeFrom Way to merge into the other. This way will be deleted.
+	 * @param activity 		activity this method was called from, if null no warnings will be displayed
+	 * @param mergeInto 	Way to merge the other way into. This way will be kept.
+	 * @param mergeFrom 	Way to merge into the other. This way will be deleted.
+	 * @return				false if there were tag conflicts
 	 * @throws OsmIllegalOperationException 
 	 */
-	public synchronized boolean performMerge(@Nullable final FragmentActivity activity, Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
+	public synchronized boolean performMerge(@Nullable final FragmentActivity activity, @NotNull Way mergeInto, @NotNull Way mergeFrom) throws OsmIllegalOperationException {
 		createCheckpoint(activity, R.string.undo_action_merge_ways);
 		displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
 		boolean mergeOK = getDelegator().mergeWays(mergeInto, mergeFrom);
@@ -1702,15 +1706,20 @@ public class Logic {
 	/**
 	 * Merge a sorted list of ways
 	 * 
-	 * FIXME if sortedWays does not contain only ways things will crash with a cast exception
-	 * @param activity activity this was called from, if null no warnings will be displayed
-	 * @param sortedWays list of ways to be merged
-	 * @throws OsmIllegalOperationException 
+	 * @param activity 		activity this was called from, if null no warnings will be displayed
+	 * @param sortedWays 	list of ways to be merged
+	 * @return				false if there were tag conflicts
+	 * @throws OsmIllegalOperationException
 	 */
-	public synchronized boolean performMerge(@Nullable FragmentActivity activity, List<OsmElement> sortedWays) throws OsmIllegalOperationException {
+	public synchronized boolean performMerge(@Nullable FragmentActivity activity, @NotNull List<OsmElement> sortedWays) throws OsmIllegalOperationException {
 		createCheckpoint(activity, R.string.undo_action_merge_ways);
 		displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
 		boolean mergeOK = true;
+		for (OsmElement e:sortedWays) {
+			if (!(e instanceof Way)) {
+				throw new OsmIllegalOperationException("Only ways can be merged");
+			}
+		}
 		Way previousWay = (Way) sortedWays.get(0);
 		for (int i=1;i<sortedWays.size();i++) {
 			Way nextWay = (Way) sortedWays.get(i);
@@ -2004,14 +2013,15 @@ public class Logic {
 	 * Tries to locate the selected node. If x,y lays on a way, a new node at this location will be created, stored in
 	 * storage and returned.
 	 * 
-	 * @param ways list of candidate ways or null for all
-	 * @param x the x screen coordinate
-	 * @param y the y screen coordinate
-	 * @param forceNew do not return existing nodes in tolerance range
-	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
+	 * @param ways 		list of candidate ways or null for all
+	 * @param x 		the x screen coordinate
+	 * @param y 		the y screen coordinate
+	 * @param forceNew 	do not return existing nodes in tolerance range
+	 * @return 			the selected node or the created node, if x,y lays on a way. null if any node or way was selected.
 	 * @throws OsmIllegalOperationException 
 	 */
-	private synchronized Node getClickedNodeOrCreatedWayNode(List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
+	@Nullable
+	private synchronized Node getClickedNodeOrCreatedWayNode(@Nullable List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
 		Node node = null;
 		if (!forceNew) {
 			node = getClickedNode(x, y);
