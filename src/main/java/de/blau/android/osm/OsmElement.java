@@ -505,13 +505,14 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * Check that the date value of tag is not more that DAYS365MILIS old
+	 * 
 	 * @param now current time in milliseconds
 	 * @param tag tag to retrieve the date value for
 	 * @return true if the date value is more than DAYS365MILIS old
 	 */
 	boolean checkAge(long now, String tag) {
 		try {
-			return now - new SimpleDateFormat("yyyy-MM-dd").parse(tags.get(tag)).getTime()/1000 >  DAYS365SECS;	
+			return now - new SimpleDateFormat(Tags.CHECK_DATE_FORMAT).parse(tags.get(tag)).getTime()/1000 >  DAYS365SECS;	
 		} catch (ParseException e) {
 			return true;
 		}

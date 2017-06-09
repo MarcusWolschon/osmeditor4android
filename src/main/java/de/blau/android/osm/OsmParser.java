@@ -29,6 +29,8 @@ import de.blau.android.util.collections.LongOsmElementMap;
  */
 public class OsmParser extends DefaultHandler {
 
+	public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'h:m:ss'Z'";
+
 	private static final String DEBUG_TAG = OsmParser.class.getSimpleName();
 
 	/** The storage, where the data will be stored (e.g. as JavaStorage or SqliteStorage). */
@@ -184,7 +186,7 @@ public class OsmParser extends DefaultHandler {
 			long timestamp = -1L;
 			if (timestampStr != null) {
 				try {
-					timestamp = new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").parse(timestampStr).getTime()/1000;
+					timestamp = new SimpleDateFormat(TIMESTAMP_FORMAT).parse(timestampStr).getTime()/1000;
 				} catch (ParseException e) {
 					Log.d(DEBUG_TAG, "Invalid timestamp " + timestampStr);
 				}

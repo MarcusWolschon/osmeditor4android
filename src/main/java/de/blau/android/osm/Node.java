@@ -92,7 +92,7 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
 		if (timestamp >= 0) {
-			s.attribute("", "timestamp", new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(getTimestamp()*1000));
+			s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp()*1000));
 		}
 		s.attribute("", "lat", Double.toString((lat / 1E7)));
 		s.attribute("", "lon", Double.toString((lon / 1E7)));
@@ -112,7 +112,7 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 		}
 		s.attribute("", "version", Long.toString(osmVersion));
 		if (timestamp >= 0) {
-			s.attribute("", "timestamp", new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(getTimestamp()*1000));
+			s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp()*1000));
 		}
 		s.attribute("", "visible", "true");
 		s.attribute("", "lat", Double.toString((lat / 1E7)));

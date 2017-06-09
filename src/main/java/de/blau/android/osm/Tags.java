@@ -154,6 +154,7 @@ public class Tags {
 	
 	// more QA keys
 	public static final String KEY_CHECK_DATE = "check_date";
+	public static final String CHECK_DATE_FORMAT = "yyyy-MM-dd";
 		
 	/**
 	 * An set of tags considered 'important'. These are typically tags that define real-world objects

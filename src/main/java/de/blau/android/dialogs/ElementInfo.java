@@ -38,6 +38,7 @@ import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
@@ -138,7 +139,7 @@ public class ElementInfo extends DialogFragment {
         	tl.addView(createRow(R.string.version,"" + e.getOsmVersion(),tp));
         	long timestamp = e.getTimestamp();
         	if (timestamp > 0) {
-        		tl.addView(createRow(R.string.last_edited,"" + new SimpleDateFormat("yyyy-MM-dd'T'h:m:ss'Z'").format(timestamp*1000L),tp));
+        		tl.addView(createRow(R.string.last_edited,"" + new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp*1000L),tp));
         	}
         	
         	if (e.getName().equals(Node.NAME)) {
