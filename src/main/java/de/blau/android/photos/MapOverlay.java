@@ -14,7 +14,6 @@ import android.util.Log;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
@@ -106,7 +105,7 @@ public class MapOverlay extends MapViewOverlay {
 		}			
 	};		
 
-	public MapOverlay(final Map map, Server s) {
+	public MapOverlay(final Map map) {
 		Context context = map.getContext();
 		this.map = map;
 		photos = new ArrayList<Photo>();

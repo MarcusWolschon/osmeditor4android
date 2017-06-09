@@ -280,10 +280,10 @@ public class Map extends View implements IMapView {
 					// Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
 					mOverlays.add(osmto);
 					mOverlays.add(new MapOverlayTilesOverlay(this));
+					mOverlays.add(new de.blau.android.tasks.MapOverlay(this));
+					mOverlays.add(new de.blau.android.photos.MapOverlay(this));
+					mOverlays.add(new de.blau.android.grid.MapOverlay(this));
 				}
-				mOverlays.add(new de.blau.android.tasks.MapOverlay(this, prefs.getServer()));
-				mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
-				mOverlays.add(new de.blau.android.grid.MapOverlay(this, prefs.getServer()));
 			}
 		}
 	}
@@ -615,7 +615,7 @@ public class Map extends View implements IMapView {
 		text = "fps: " + fps;
 		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
 		text = "hardware acceleration: " + (myIsHardwareAccelerated(canvas) ? "on" : "off");
-		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
+		canvas.drawText(text, 5, getHeight() - textSize * pos, infotextPaint);
 	}
 	
 	/**
@@ -1363,14 +1363,14 @@ public class Map extends View implements IMapView {
 				nextNodeLon = nextNode.getLon();
 				nextIntersects = box.intersects(nextNodeLat,nextNodeLon,nodeLat, nodeLon);
 			}
-			float X = Float.MIN_VALUE;
-			float Y = Float.MIN_VALUE;
+			float X = -Float.MAX_VALUE;
+			float Y = -Float.MAX_VALUE;
 			if (!interrupted && prevNode != null) {
 				if (thisIntersects || nextIntersects 
 						|| (!(nextNode != null && lastDrawnNode != null) || box.intersects(nextNodeLat, nextNodeLon, lastDrawnNode.getLat(), lastDrawnNode.getLon()))) {
 					X = GeoMath.lonE7ToX(w, box, nodeLon);
 					Y = GeoMath.latE7ToY(h, w, box, nodeLat);
-					if (prevX == Float.MIN_VALUE) { // last segment didn't intersect
+					if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
 						prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
 						prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
 					}

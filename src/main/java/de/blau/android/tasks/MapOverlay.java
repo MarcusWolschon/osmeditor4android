@@ -11,7 +11,6 @@ import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
@@ -38,7 +37,7 @@ public class MapOverlay extends MapViewOverlay {
 	/** Bugs visible on the overlay. */
 	private TaskStorage tasks = App.getTaskStorage();
 	
-	public MapOverlay(final Map map, Server s) {
+	public MapOverlay(final Map map) {
 		this.map = map;
 	}
 	

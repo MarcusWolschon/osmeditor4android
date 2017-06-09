@@ -7,7 +7,6 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.Mode;
-import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
@@ -40,7 +39,7 @@ public class MapOverlay extends MapViewOverlay {
 	private final Main main;
 	private final int actionBarHeight;
 	
-	public MapOverlay(final Map map, Server s) {
+	public MapOverlay(final Map map) {
 		this.map = map;
 		fullLine = DataStyle.getCurrent(DataStyle.CROSSHAIRS).getPaint();
 		labelH = DataStyle.getCurrent(DataStyle.LABELTEXT).getPaint();
