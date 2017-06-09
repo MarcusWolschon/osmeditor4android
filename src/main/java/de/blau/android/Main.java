@@ -2175,10 +2175,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	/**
-	 * @param comment Textual comment associated with the change set.
-	 * @param source Source of the change.
-	 * @param closeChangeset Boolean flag indicating whether the change set
-	 *                       should be closed or kept open.
+	 * Upload changes to the OSM data and tasks to the API, if there are changes 
+	 * 
+	 * @param comment 			Textual comment associated with the change set.
+	 * @param source 			Source of the change.
+	 * @param closeChangeset 	Boolean flag indicating whether the change set
+	 *                       	should be closed or kept open.
 	 */
 	public void performUpload(final String comment, final String source, final boolean closeChangeset) {
 		final Logic logic = App.getLogic();
@@ -2204,7 +2206,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 	
 	/**
+	 * Check login parameters and start the track upload
 	 * 
+	 * @param description	OSM GPX API description value
+	 * @param tags			OSM GPX API tags
+	 * @param visibility	OSM GPX API visibility value
 	 */
 	public void performTrackUpload(final String description, final String tags, final Visibility visibility) {
 		

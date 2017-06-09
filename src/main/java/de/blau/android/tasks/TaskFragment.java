@@ -52,13 +52,17 @@ public class TaskFragment extends DialogFragment {
 	 
 	private UpdateViewListener mListener;
 
-    /**
-     */
-    static public TaskFragment newInstance(Task b) {
+	/**
+	 * Create a new fragment to be displayed
+	 * 
+	 * @param t Task to show
+	 * @return the fragment
+	 */
+    static public TaskFragment newInstance(Task t) {
     	TaskFragment f = new TaskFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable("bug", b);
+        args.putSerializable("bug", t);
 
         f.setArguments(args);
         f.setShowsDialog(true);

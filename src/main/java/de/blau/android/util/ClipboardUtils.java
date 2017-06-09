@@ -16,7 +16,7 @@ import android.os.Build;
 import android.util.Log;
 /**
  * Adapted from the broken google example 
- * @see http://developer.android.com/guide/topics/text/copy-paste.html
+ * @see <a href="http://developer.android.com/guide/topics/text/copy-paste.html">Android copy-paste</a>
  * Should work with pre-HONEYCOMB versions too
  *
  */
@@ -27,8 +27,9 @@ public class ClipboardUtils {
 		
 	/**
 	 * Return true if there is text in the clipboard
-	 * @param ctx
-	 * @return
+	 * 
+	 * @param ctx	Android Context	
+	 * @return		true if there is text present
 	 */
 	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
@@ -48,8 +49,9 @@ public class ClipboardUtils {
 	
 	/**
 	 * Return text content of clipboard as individual lines 
-	 * @param ctx
-	 * @return
+	 * 
+	 * @param ctx	Android Context	
+	 * @return 		list of Strings
 	 */
 	@SuppressLint("NewApi")
 	private static ArrayList<String> getTextLines(Context ctx) {
@@ -119,8 +121,9 @@ public class ClipboardUtils {
 		
 	/**
 	 * Return content of clipboard as key value tuples assuming key=value notation  
-	 * @param ctx
-	 * @return
+	 * 
+	 * @param ctx	Android Context
+	 * @return		list of KeyValue objects
 	 */
 	public static ArrayList<KeyValue> getKeyValues(Context ctx) {
 		ArrayList<String> textLines = getTextLines(ctx);
@@ -150,7 +153,9 @@ public class ClipboardUtils {
 	 * key1=value1
 	 * key2=value2
 	 * .....
-	 * @param tags
+	 * 
+	 * @param ctx	Android Context
+	 * @param tags	Map containing the tags
 	 */
 	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")

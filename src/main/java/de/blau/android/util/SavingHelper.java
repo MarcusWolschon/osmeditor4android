@@ -353,10 +353,15 @@ public class SavingHelper<T extends Serializable> {
 
 
 	public interface Exportable {
-		/** Exports some data to an OutputStream */
+		/**
+		 * Exports some data to an OutputStream
+		 * 
+		 * @param outputStream	the stream to write to
+		 * @throws Exception	thrown on a write error
+		 */
 		void export(OutputStream outputStream) throws Exception;
 		
-		/** @returns the extension to be used for exports */
+		/** @return the extension to be used for exports */
 		String exportExtension();
 	}
 	

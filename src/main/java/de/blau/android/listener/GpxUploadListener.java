@@ -18,8 +18,12 @@ public class GpxUploadListener implements OnClickListener {
 	private final Spinner visibilitySpinner;
 	
 	/**
-	 * @param caller
-	 * @param closeChangeset TODO
+	 * Construct a new listener from paramaters
+	 * 
+	 * @param caller			instance of Main that will be used
+	 * @param descriptionField	EditText holding the OSM GPX API description text  
+	 * @param tagsField			EditText holding the OSM GPX API tags
+	 * @param visibilitySpinner	Spinner with the OSM GPX API visibility values
 	 */
 	public GpxUploadListener(final Main caller, final EditText descriptionField, final EditText tagsField, final Spinner visibilitySpinner) {
 		this.caller = caller;

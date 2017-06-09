@@ -136,8 +136,10 @@ public class OsmoseBug extends Task implements Serializable {
 	}
 	
 	/**
+	 * Return list of elements from OSMOSE list
+	 * 
 	 * This returns fake elements with version -1 for objects not downloaded
-	 * @return
+	 * @return list of OsmElement
 	 */
 	public ArrayList<OsmElement> getElements() {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();

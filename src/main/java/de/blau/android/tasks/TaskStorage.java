@@ -18,7 +18,7 @@ import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 
 /**
- * Storage for bugs and the corresponding coverage bounding boxes
+ * Storage for tasks and the corresponding coverage bounding boxes
  * @author simon
  *
  */
@@ -165,7 +165,7 @@ public class TaskStorage implements Serializable {
 	 * Stores the current storage data to the default storage file
 	 * 
 	 * @param ctx Android Context
-	 * @throws IOException
+	 * @throws IOException on errors writing the file
 	 */
 	public synchronized void writeToFile(@NonNull Context ctx) throws IOException { 
 		if (!dirty) {
@@ -194,7 +194,10 @@ public class TaskStorage implements Serializable {
 	
 	/**
 	 * Loads the storage data from the default storage file
+	 * 
 	 * NOTE: lock is acquired in logic before this is called
+	 * @param context Android context
+	 * @return true if the saved state was successfully read
 	 */
 	public synchronized boolean readFromFile(@NonNull Context context) {
 		try{
