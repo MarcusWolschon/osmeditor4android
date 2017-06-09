@@ -26,7 +26,7 @@ public abstract class MapViewOverlay {
     /**
      * Tag used for Android-logging.
      */
-	private static final String DEBUG_TAG = MapTilesOverlay.class.getName();
+	private static final String DEBUG_TAG = MapViewOverlay.class.getName();
 
     // ===========================================================
 	// Constants

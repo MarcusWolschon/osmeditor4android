@@ -684,6 +684,14 @@ public class Server {
 		return osmVersion;
 	}
 
+	/**
+	 * Send a XmlSerializable Object over a HttpUrlConnection
+	 * 
+	 * @param connection		the connection
+	 * @param xmlSerializable	the object
+	 * @param changeSetId		changeset id to use
+	 * @throws OsmIOException	thrown if a write or other error occurs
+	 */
 	private void sendPayload(final HttpURLConnection connection,
 			final XmlSerializable xmlSerializable, long changeSetId)
 			throws OsmIOException {
@@ -698,6 +706,10 @@ public class Server {
 			throw new OsmIOException("Could not send data to server", e);
 		} catch (IllegalArgumentException e) {
 			throw new OsmIOException("Sending illegal format object failed", e);
+		} catch (IllegalStateException e) {
+			throw new OsmIOException("Sending failed due to serialization error", e);
+		} catch (XmlPullParserException e) {
+			throw new OsmIOException("Sending failed due to serialization error", e);
 		} finally {
 			SavingHelper.close(out);
 		}
@@ -1260,21 +1272,10 @@ public class Server {
 		xmlSerializer.endDocument();
 	}
 
-	private XmlSerializer getXmlSerializer() {
-		try {
-			XmlSerializer serializer = xmlParserFactory.newSerializer();
-			serializer.setPrefix("", "");
-			return serializer;
-		} catch (IllegalArgumentException e) {
-			Log.e(DEBUG_TAG, "Problem getting serializer", e);
-		} catch (IllegalStateException e) {
-			Log.e(DEBUG_TAG, "Problem getting serializer", e);
-		} catch (IOException e) {
-			Log.e(DEBUG_TAG, "Problem getting serializer", e);
-		} catch (XmlPullParserException e) {
-			Log.e(DEBUG_TAG, "Problem getting serializer", e);
-		}
-		return null;
+	private XmlSerializer getXmlSerializer() throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException {
+		XmlSerializer serializer = xmlParserFactory.newSerializer();
+		serializer.setPrefix("", "");
+		return serializer;
 	}
 
 	private URL getCreationUrl(final OsmElement elem) throws MalformedURLException {

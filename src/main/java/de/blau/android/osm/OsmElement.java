@@ -20,7 +20,6 @@ import org.xmlpull.v1.XmlSerializer;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;

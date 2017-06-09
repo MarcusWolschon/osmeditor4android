@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -363,11 +364,11 @@ public class TileLayerServer {
 						final String SWITCH_START = "{switch:";
 						int switchPos = tileUrl.indexOf(SWITCH_START);
 						if (switchPos >= 0) {
-							int switchEnd = tileUrl.indexOf("}",switchPos);
+							int switchEnd = tileUrl.indexOf('}',switchPos);
 							if (switchEnd >= 0) {
 								String switchValues = tileUrl.substring(switchPos+SWITCH_START.length(), switchEnd);
 								Collections.addAll(subdomains, switchValues.split(","));
-								StringBuffer t = new StringBuffer(tileUrl);
+								StringBuilder t = new StringBuilder(tileUrl);
 								tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
 							}
 						}
@@ -468,7 +469,7 @@ public class TileLayerServer {
 		}
 		if (this.id == null) {
 			// generate id from name
-			this.id = name.replaceAll("[\\W\\_]","");
+			this.id = this.name.replaceAll("[\\W\\_]","");
 		}
 		// 
 		this.id = this.id.toUpperCase(Locale.US);
@@ -504,11 +505,11 @@ public class TileLayerServer {
 		final String SWITCH_START = "{switch:";
 		int switchPos = tileUrl.indexOf(SWITCH_START);
 		if (switchPos >= 0) {
-			int switchEnd = tileUrl.indexOf("}",switchPos);
+			int switchEnd = tileUrl.indexOf('}',switchPos);
 			if (switchEnd >= 0) {
 				String switchValues = tileUrl.substring(switchPos+SWITCH_START.length(), switchEnd);
 				Collections.addAll(subdomains, switchValues.split(","));
-				StringBuffer t = new StringBuffer(tileUrl);
+				StringBuilder t = new StringBuilder(tileUrl);
 				tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
 			}
 		}
@@ -572,8 +573,6 @@ public class TileLayerServer {
      * @param async get meta data asynchronously
 	 */
 	public synchronized static TileLayerServer get(final Context ctx, final String id, final boolean async) {	
-		Resources r = ctx.getResources();
-		
 		synchronized (backgroundServerList) {
 			if (!ready) {
 				Log.d("OpenStreetMapTileServer","Parsing configuration files");
@@ -1368,13 +1367,13 @@ public class TileLayerServer {
 
         // Reconstruct query parameters
         StringBuilder sb = new StringBuilder();
-        for (String qk : qparams.keySet()) {
+        for (Entry<String,String> qk : qparams.entrySet()) {
             if (sb.length() > 0) {
                 sb.append('&');
             } else if (query.length() > 0) {
                 sb.append('?');
             }
-            sb.append(qk).append('=').append(qparams.get(qk));
+            sb.append(qk.getKey()).append('=').append(qk.getValue());
         }
         query = sb.toString();
 

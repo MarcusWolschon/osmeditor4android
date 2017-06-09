@@ -209,7 +209,7 @@ public class IndoorFilter extends Filter {
 			}
 			return false;
 		} else { 
-			int hyphen = levelSpec.indexOf("-",1);
+			int hyphen = levelSpec.indexOf('-',1);
 			if (hyphen > 0) { // needs to be split
 				l = levelSpec.split("-",2);
 				if (l.length==2 && !"".equals(l[0])) {			
