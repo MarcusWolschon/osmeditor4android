@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1269: Updated preset, support for OSM object timestamps, generate warnings objects potentially out of date and initial support for "check_date" tag
+
 1268: Updated preset and translations, bump build number.
 
 1266: Updated imagery. Disable double clicking when locked.
