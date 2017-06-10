@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -37,11 +38,12 @@ public class Names {
 		@Override
 		public String toString() {
 			StringBuilder builder = new StringBuilder();
-			for (String s:this.keySet()) {
-				builder.append(s.replace("|", " ") + "=" + this.get(s) + "|");
+			for (Map.Entry<String,String>entry:this.entrySet()) {
+				builder.append(entry.getKey().replace("|", " ") + "=" + entry.getValue() + "|");
 			}
-			if (builder.length() > 0)
+			if (builder.length() > 0) {
 				builder.deleteCharAt(builder.length()-1);
+			}
 			return builder.toString();
 		}
 	}
@@ -248,9 +250,9 @@ public class Names {
 		
 		String origTagKey = tm.toString();
 		
-		for (String tagKey:tagList.keySet()) { 	
-			if (tagKey.contains(origTagKey)) {	
-				TagMap storedTagMap = tagList.get(tagKey);
+		for (Entry<String,TagMap>entry:tagList.entrySet()) { 	
+			if (entry.getKey().contains(origTagKey)) {	
+				TagMap storedTagMap = entry.getValue();
 				for (String n:tags2namesList.get(storedTagMap)) {
 					NameAndTags nt = new NameAndTags(n,storedTagMap);
 					result.add(nt);
@@ -266,9 +268,9 @@ public class Names {
 			if (set.contains(origTagKey)) {
 				for (String catTagKey:set) {				// loop over categories content
 					if (!seen.contains(catTagKey)) {		// suppress dups
-						for (String tagKey:tagList.keySet()) { 	
-							if (tagKey.contains(catTagKey)) {	
-								TagMap storedTagMap = tagList.get(tagKey);
+						for (Entry<String,TagMap>entry:tagList.entrySet()) {
+							if (entry.getKey().contains(catTagKey)) {	
+								TagMap storedTagMap = entry.getValue();
 								for (String n:tags2namesList.get(storedTagMap)) {
 									NameAndTags nt = new NameAndTags(n,storedTagMap);
 									result.add(nt);

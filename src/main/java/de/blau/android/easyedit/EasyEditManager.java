@@ -888,14 +888,14 @@ public class EasyEditManager {
 						Node node = logic.performAddNode(main, startLon/1E7D, startLat/1E7D);
 						if (node != null) {
 							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
-							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + number  + (words.length == 3?words[2]:""));
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number)  + (words.length == 3?words[2]:""));
 							tags.put("source:original_text", v);
 							LinkedHashMap<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(), 
 									new ElementSearch(new int[]{node.getLon(),node.getLat()}, true), 
 									Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
 							tags = new TreeMap<String, String>();
-							for (String key:map.keySet()) {
-								tags.put(key, map.get(key).get(0));
+							for (Entry<String, ArrayList<String>>entry:map.entrySet()) {
+								tags.put(entry.getKey(), entry.getValue().get(0));
 							}
 							logic.setTags(main, node, tags);
 							main.startSupportActionMode(new NodeSelectionActionModeCallback(node));
@@ -933,8 +933,8 @@ public class EasyEditManager {
 							if (node != null) {
 								// set tags from name suggestions
 								Map<String,String> tags = new TreeMap<String, String>(node.getTags());
-								for (String k:map.keySet()) {
-									tags.put(k, map.get(k));
+								for (Entry<String,String>entry:map.entrySet()) {
+									tags.put(entry.getKey(), entry.getValue());
 								}
 								storageDelegator.setTags(node,tags); // note doesn't create a new undo checkpoint, performAddNode has already done that
 								main.startSupportActionMode(new NodeSelectionActionModeCallback(node));

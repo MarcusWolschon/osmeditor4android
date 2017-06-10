@@ -223,15 +223,16 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * Merge the tags from two OsmElements into one set.
-	 * @param e1
-	 * @param e2
-	 * @return
+	 * @param e1	first element
+	 * @param e2	second element
+	 * @return		Map containing the merged tags
 	 */
 	public static Map<String, String> mergedTags(OsmElement e1, OsmElement e2) {
 		Map<String, String> merged = new TreeMap<String, String>(e1.getTags());
 		Map<String, String> fromTags = e2.getTags();
-		for (String key : fromTags.keySet()) {
-			Set<String> values = new HashSet<String>(Arrays.asList(fromTags.get(key).split("\\;")));
+		for (Entry<String,String>entry : fromTags.entrySet()) {
+			String key = entry.getKey();
+			Set<String> values = new HashSet<String>(Arrays.asList(entry.getValue().split("\\;")));
 			if (merged.containsKey(key)) {
 				values.addAll(Arrays.asList(merged.get(key).split("\\;")));
 			}
@@ -483,9 +484,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 */
 	boolean calcProblem() {
 		if (tags != null) {
-			for (String key : tags.keySet()) {
+			for (Entry<String,String>entry : tags.entrySet()) {
 				// test key and value against pattern
-				if (pattern.matcher(key).matches() || pattern.matcher(tags.get(key)).matches()) {
+				if (pattern.matcher(entry.getKey()).matches() || pattern.matcher(entry.getValue()).matches()) {
 					return true;
 				}
 			}
@@ -528,10 +529,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 */
 	public String describeProblem() {
 		if (tags != null) {
-			for (String key : tags.keySet()) {
+			for (Entry<String,String>entry : tags.entrySet()) {
 				// test key and value against pattern
-				if (pattern.matcher(key).matches() || pattern.matcher(tags.get(key)).matches()) {
-					return key + ": " + tags.get(key);
+				if (pattern.matcher(entry.getKey()).matches() || pattern.matcher(entry.getValue()).matches()) {
+					return entry.getKey() + ": " + entry.getValue();
 				}
 			}
 			for (String key: Tags.RESURVEY_TAGS.keySet()) {
