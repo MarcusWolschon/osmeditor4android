@@ -40,25 +40,28 @@ public class BackgroundProperties extends DialogFragment
 	 */
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);
-
-		setDialogLayout(activity);
-		FragmentManager fm = activity.getSupportFragmentManager();
-	    BackgroundProperties backgroundPropertiesFragment = newInstance();
-	    if (backgroundPropertiesFragment != null) {
-	    	backgroundPropertiesFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create background properties dialog ");
-	    }
+		try {
+			setDialogLayout(activity);
+			FragmentManager fm = activity.getSupportFragmentManager();
+			BackgroundProperties backgroundPropertiesFragment = newInstance();
+			backgroundPropertiesFragment.show(fm, TAG);
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
-	
+
 	private static void dismissDialog(FragmentActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+		}
 	}
 		
     /**

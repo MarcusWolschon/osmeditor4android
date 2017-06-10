@@ -42,24 +42,27 @@ public class GetFileName extends DialogFragment
 	 */
 	static public void showDialog(FragmentActivity activity, de.blau.android.util.SaveFile callback) {
 		dismissDialog(activity);
-
-		FragmentManager fm = activity.getSupportFragmentManager();
-	    GetFileName saveFileFragment = newInstance(callback);
-	    if (saveFileFragment != null) {
-	    	saveFileFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create save file dialog ");
-	    }
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			GetFileName saveFileFragment = newInstance(callback);
+			saveFileFragment.show(fm, TAG);
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
 	
 	private static void dismissDialog(FragmentActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+		}
 	}
 		
     /**
@@ -68,11 +71,8 @@ public class GetFileName extends DialogFragment
     	GetFileName f = new GetFileName();
         Bundle args = new Bundle();
         args.putSerializable("callback", callback);
-
         f.setArguments(args);
-        
-        f.setShowsDialog(true);
-        
+        f.setShowsDialog(true);      
         return f;
     }
 

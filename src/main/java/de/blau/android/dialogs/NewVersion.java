@@ -34,24 +34,27 @@ public class NewVersion extends DialogFragment
 	 */
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);
-
-		FragmentManager fm = activity.getSupportFragmentManager();
-	    NewVersion newVersionFragment = newInstance();
-	    if (newVersionFragment != null) {
-	    	newVersionFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create new version dialog ");
-	    }
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			NewVersion newVersionFragment = newInstance();
+			newVersionFragment.show(fm, TAG);
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
-	
+
 	private static void dismissDialog(FragmentActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+		}
 	}
 		
     /**

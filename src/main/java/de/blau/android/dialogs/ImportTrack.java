@@ -30,6 +30,8 @@ import de.blau.android.util.ThemeUtils;
 public class ImportTrack extends DialogFragment
 {
 	
+	private static final String URI = "uri";
+
 	private static final String DEBUG_TAG = ImportTrack.class.getSimpleName();
 	
 	private static final String TAG = "fragment_import_track";
@@ -42,24 +44,27 @@ public class ImportTrack extends DialogFragment
 	 */
 	static public void showDialog(FragmentActivity activity, Uri uri) {
 		dismissDialog(activity);
-
-		FragmentManager fm = activity.getSupportFragmentManager();
-	    ImportTrack importTrackFragment = newInstance(uri);
-	    if (importTrackFragment != null) {
-	    	importTrackFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create save file dialog ");
-	    }
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			ImportTrack importTrackFragment = newInstance(uri);
+			importTrackFragment.show(fm, TAG);
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
-	
+
 	private static void dismissDialog(FragmentActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+		}
 	}
 		
     /**
@@ -67,7 +72,7 @@ public class ImportTrack extends DialogFragment
     static private ImportTrack newInstance(Uri uri) {
     	ImportTrack f = new ImportTrack();
     	Bundle args = new Bundle();
-        args.putParcelable("uri", uri);
+        args.putParcelable(URI, uri);
         f.setArguments(args);
         f.setShowsDialog(true);
         
@@ -88,7 +93,7 @@ public class ImportTrack extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        uri = getArguments().getParcelable("uri");
+        uri = getArguments().getParcelable(URI);
     }
     
     @NonNull

@@ -55,11 +55,7 @@ public class ConfirmUpload extends DialogFragment
 		FragmentManager fm = activity.getSupportFragmentManager();
 	    ConfirmUpload confirmUploadDialogFragment = newInstance();
 	    try {
-	    	if (confirmUploadDialogFragment != null) {
-	    		confirmUploadDialogFragment.show(fm, TAG);
-	    	} else {
-	    		Log.e(DEBUG_TAG,"Unable to create dialog for upload confirmation");
-	    	}
+	    	confirmUploadDialogFragment.show(fm, TAG);
 	    } catch (IllegalStateException isex) {
 	    	Log.e(DEBUG_TAG,"showDialog",isex);
 	    	ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
@@ -77,7 +73,7 @@ public class ConfirmUpload extends DialogFragment
 	    try {
 	    	ft.commit();
 	    } catch (IllegalStateException isex) {
-	    	Log.e(DEBUG_TAG,"showDialog",isex);
+	    	Log.e(DEBUG_TAG,"dismissDialog",isex);
 	    	ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(isex);
 	    }

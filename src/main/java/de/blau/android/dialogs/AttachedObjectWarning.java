@@ -39,24 +39,27 @@ public class AttachedObjectWarning extends DialogFragment
 	 */
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);
-
-		FragmentManager fm = activity.getSupportFragmentManager();
-	    AttachedObjectWarning detachFragment = newInstance();
-	    if (detachFragment != null) {
-	    	detachFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create detatch dialog ");
-	    }
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			AttachedObjectWarning detachFragment = newInstance();
+			detachFragment.show(fm, TAG);
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
-	
+
 	private static void dismissDialog(FragmentActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+		}
 	}
 		
     /**

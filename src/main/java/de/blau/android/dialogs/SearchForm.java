@@ -43,6 +43,10 @@ import de.blau.android.util.ThemeUtils;
 public class SearchForm extends DialogFragment
 {
 	
+	private static final String CALLBACK = "callback";
+
+	private static final String BBOX = "bbox";
+
 	private static final String DEBUG_TAG = SearchForm.class.getSimpleName();
 	
 	private static final String TAG = "fragment_search_form";
@@ -55,34 +59,37 @@ public class SearchForm extends DialogFragment
 	 */
 	static public void showDialog(AppCompatActivity activity, final BoundingBox bbox, final SearchItemFoundCallback callback) {
 		dismissDialog(activity);
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			SearchForm searchFormFragment = newInstance(bbox, callback);
+			searchFormFragment.show(fm, TAG);
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
+	}
 
-		FragmentManager fm = activity.getSupportFragmentManager();
-	    SearchForm searchFormFragment = newInstance(bbox, callback);
-	    if (searchFormFragment != null) {
-	    	searchFormFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create search form dialog ");
-	    }
-	}
-	
 	private static void dismissDialog(AppCompatActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+		}
 	}
-		
+
     /**
      */
     static private SearchForm newInstance(final BoundingBox bbox, final SearchItemFoundCallback callback) {
     	SearchForm f = new SearchForm();
 
         Bundle args = new Bundle();
-		args.putSerializable("bbox", bbox);
-        args.putSerializable("callback", callback);
+		args.putSerializable(BBOX, bbox);
+        args.putSerializable(CALLBACK, callback);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -96,8 +103,8 @@ public class SearchForm extends DialogFragment
         super.onCreate(savedInstanceState);
         setCancelable(true);
 
-        bbox = (BoundingBox) getArguments().getSerializable("bbox");
-        callback = (SearchItemFoundCallback) getArguments().getSerializable("callback");
+        bbox = (BoundingBox) getArguments().getSerializable(BBOX);
+        callback = (SearchItemFoundCallback) getArguments().getSerializable(CALLBACK);
     }
 
     @NonNull
@@ -137,9 +144,7 @@ public class SearchForm extends DialogFragment
 			}
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-			}});
-    	
-    	
+			}});	
     	searchBuilder.setPositiveButton(R.string.search, new OnClickListener() {
     			@Override
     			public void onClick(DialogInterface dialog, int which) {
@@ -184,5 +189,4 @@ public class SearchForm extends DialogFragment
     	super.onStart();
        	getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
-    
 }

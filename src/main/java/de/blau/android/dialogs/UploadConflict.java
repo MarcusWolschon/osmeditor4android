@@ -34,6 +34,8 @@ import de.blau.android.util.ThemeUtils;
 public class UploadConflict extends DialogFragment
 {
 	
+	private static final String UPLOADRESULT = "uploadresult";
+
 	private static final String DEBUG_TAG = UploadConflict.class.getSimpleName();
 	
 	private static final String TAG = "fragment_upload_conflict";
@@ -46,11 +48,7 @@ public class UploadConflict extends DialogFragment
 		FragmentManager fm = activity.getSupportFragmentManager();
 		try {
 			UploadConflict uploadConflictDialogFragment = newInstance(result);
-			if (uploadConflictDialogFragment != null) {
-				uploadConflictDialogFragment.show(fm, TAG);
-			} else {
-				Log.e(DEBUG_TAG,"Unable to create dialog for upload conflict " + result);
-			}
+			uploadConflictDialogFragment.show(fm, TAG);
 		} catch (IllegalStateException isex) {
 			Log.e(DEBUG_TAG,"dismissDialog",isex);
 		}
@@ -76,7 +74,7 @@ public class UploadConflict extends DialogFragment
     	UploadConflict f = new UploadConflict();
 
         Bundle args = new Bundle();
-        args.putSerializable("uploadresult", result);
+        args.putSerializable(UPLOADRESULT, result);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -98,7 +96,7 @@ public class UploadConflict extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        result = (UploadResult) getArguments().getSerializable("uploadresult");
+        result = (UploadResult) getArguments().getSerializable(UPLOADRESULT);
     }
 
     @NonNull

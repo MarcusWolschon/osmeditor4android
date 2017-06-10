@@ -24,40 +24,47 @@ import de.blau.android.util.ThemeUtils;
 public class DataLossActivity extends DialogFragment
 {
 	
+	private static final String REQUESTCODE = "requestcode";
+
 	private static final String DEBUG_TAG = DataLossActivity.class.getSimpleName();
 	
 	private static final String TAG = "fragment_dataloss_activity";
+	private static final String INTENT = "intent";
 		
 	private Intent intent;
 	private int requestCode;
 	
    	/**
 	 * Shows a dialog warning the user that he has unsaved changes that will be discarded.
-	 * @param activity Activity creating the dialog and starting the intent Activity if confirmed
-	 * @param intent intent for the activity to start
-	 * @param requestCode If the activity should return a result, a non-negative request code.
-	 *                    If no result is expected, set to -1.
+	 * 
+	 * @param activity 		Activity creating the dialog and starting the intent Activity if confirmed
+	 * @param intent 		intent for the activity to start
+	 * @param requestCode 	If the activity should return a result, a non-negative request code.
+	 *                    	If no result is expected, set to -1.
 	 */
 	static public void showDialog(FragmentActivity activity, final Intent intent, final int requestCode) {
 		dismissDialog(activity);
-
-		FragmentManager fm = activity.getSupportFragmentManager();
-	    DataLossActivity dataLossActivityFragment = newInstance(intent, requestCode);
-	    if (dataLossActivityFragment != null) {
-	    	dataLossActivityFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create dataloss activity dialog ");
-	    }
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			DataLossActivity dataLossActivityFragment = newInstance(intent, requestCode);
+			dataLossActivityFragment.show(fm, TAG);
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
-	
+
 	private static void dismissDialog(FragmentActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+		}
 	}
 		
     /**
@@ -66,8 +73,8 @@ public class DataLossActivity extends DialogFragment
     	DataLossActivity f = new DataLossActivity();
 
         Bundle args = new Bundle();
-        args.putParcelable("intent", intent);
-        args.putInt("requestcode", requestCode);
+        args.putParcelable(INTENT, intent);
+        args.putInt(REQUESTCODE, requestCode);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -80,8 +87,8 @@ public class DataLossActivity extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        intent = getArguments().getParcelable("intent");
-        requestCode = getArguments().getInt("requestcode");
+        intent = getArguments().getParcelable(INTENT);
+        requestCode = getArguments().getInt(REQUESTCODE);
     }
 
     @NonNull

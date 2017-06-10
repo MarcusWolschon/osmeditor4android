@@ -67,11 +67,7 @@ public class ElementInfo extends DialogFragment {
 		try {
 			FragmentManager fm = activity.getSupportFragmentManager();
 			ElementInfo elementInfoFragment = newInstance(e);
-			if (elementInfoFragment != null) {
-				elementInfoFragment.show(fm, TAG);
-			} else {
-				Log.e(DEBUG_TAG,"Unable to create dialog for value " + e.getDescription());
-			}
+			elementInfoFragment.show(fm, TAG);
 		} catch (IllegalStateException isex) {
 			Log.e(DEBUG_TAG,"showDialog",isex);
 		}
@@ -136,10 +132,10 @@ public class ElementInfo extends DialogFragment {
         	
         	tl.addView(createRow(R.string.type,e.getName(),tp));
         	tl.addView(createRow(R.string.id,"#" + e.getOsmId(),tp));
-        	tl.addView(createRow(R.string.version,"" + e.getOsmVersion(),tp));
+        	tl.addView(createRow(R.string.version,Long.toString(e.getOsmVersion()),tp));
         	long timestamp = e.getTimestamp();
         	if (timestamp > 0) {
-        		tl.addView(createRow(R.string.last_edited,"" + new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp*1000L),tp));
+        		tl.addView(createRow(R.string.last_edited,new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp*1000L),tp));
         	}
         	
         	if (e.getName().equals(Node.NAME)) {
@@ -149,16 +145,16 @@ public class ElementInfo extends DialogFragment {
         		tl.addView(divider());
         		boolean isClosed = ((Way)e).isClosed();
         		tl.addView(createRow(R.string.length_m, String.format(Locale.US,"%.2f",((Way)e).length()),tp));
-        		tl.addView(createRow(R.string.nodes, "" + (((Way)e).nodeCount() + (isClosed?-1:0)),tp));       		
+        		tl.addView(createRow(R.string.nodes, Integer.toString(((Way)e).nodeCount() + (isClosed?-1:0)),tp));       		
         		tl.addView(createRow(R.string.closed, getString(isClosed ? R.string.yes : R.string.no),tp));
  //       		Make this expandable before enabling
  //       		for (Node n:((Way)e).getNodes()) {
- //       			tl.addView(createRow("", "" + n.getDescription(),tp));
+ //       			tl.addView(createRow("", n.getDescription(),tp));
  //       		}
         	} else if (e.getName().equals(Relation.NAME)) {
         		tl.addView(divider());
         		List<RelationMember> members = ((Relation)e).getMembers();
-        		tl.addView(createRow(R.string.members, "" + (members != null ? members.size() : 0),tp));
+        		tl.addView(createRow(R.string.members, Integer.toString(members != null ? members.size() : 0),tp));
         		if (members != null) {
         			int notDownloaded = 0;
         			for (RelationMember rm:members) {
@@ -167,7 +163,7 @@ public class ElementInfo extends DialogFragment {
         				}
         			}
         			if (notDownloaded > 0) {
-        				tl.addView(createRow(R.string.not_downloaded, "" + notDownloaded,tp));
+        				tl.addView(createRow(R.string.not_downloaded, Integer.toString(notDownloaded),tp));
         			}
         		}
         	}

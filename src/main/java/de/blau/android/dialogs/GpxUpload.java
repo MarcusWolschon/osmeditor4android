@@ -28,10 +28,8 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public class GpxUpload extends DialogFragment
-{
-	
-	private static final String DEBUG_TAG = GpxUpload.class.getSimpleName();
-	
+{	
+	private static final String DEBUG_TAG = GpxUpload.class.getSimpleName();	
 	private static final String TAG = "fragment_gpx_upload";
 		
 	
@@ -40,33 +38,34 @@ public class GpxUpload extends DialogFragment
 	 */
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);
-
-		FragmentManager fm = activity.getSupportFragmentManager();
-	    GpxUpload gpxUploadFragment = newInstance();
-	    if (gpxUploadFragment != null) {
-	    	gpxUploadFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create gpx upload dialog ");
-	    }
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			GpxUpload gpxUploadFragment = newInstance();
+			gpxUploadFragment.show(fm, TAG);
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
-	
+
 	private static void dismissDialog(FragmentActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+		}
 	}
 		
     /**
      */
     static private GpxUpload newInstance() {
     	GpxUpload f = new GpxUpload();
-
-        f.setShowsDialog(true);
-        
+        f.setShowsDialog(true);       
         return f;
     }
 

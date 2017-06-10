@@ -36,33 +36,34 @@ public class DownloadCurrentWithChanges extends DialogFragment
 	 */
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);
-
-		FragmentManager fm = activity.getSupportFragmentManager();
-	    DownloadCurrentWithChanges downloadCurrentWithChangesFragment = newInstance();
-	    if (downloadCurrentWithChangesFragment != null) {
-	    	downloadCurrentWithChangesFragment.show(fm, TAG);
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create new version dialog ");
-	    }
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			DownloadCurrentWithChanges downloadCurrentWithChangesFragment = newInstance();
+			downloadCurrentWithChangesFragment.show(fm, TAG);
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+		}
 	}
-	
+
 	private static void dismissDialog(FragmentActivity activity) {
-		FragmentManager fm = activity.getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(TAG);
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		try {
+			FragmentManager fm = activity.getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment fragment = fm.findFragmentByTag(TAG);
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+		}
 	}
 		
     /**
      */
     static private DownloadCurrentWithChanges newInstance() {
     	DownloadCurrentWithChanges f = new DownloadCurrentWithChanges();
-
-        f.setShowsDialog(true);
-        
+        f.setShowsDialog(true);       
         return f;
     }
     

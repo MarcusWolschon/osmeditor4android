@@ -74,10 +74,16 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		this.parentRelations = null;
 	}
 
+	/**
+	 * @return the if of the object (< 0 are temporary ids)
+	 */
 	public long getOsmId() {
 		return osmId;
 	}
 	
+	/**
+	 * @return the version of the object
+	 */
 	public long getOsmVersion() {
 		return osmVersion;
 	}

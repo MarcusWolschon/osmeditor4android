@@ -19,6 +19,8 @@ import android.util.Log;
 public class Progress extends DialogFragment
 {
 	
+	private static final String TYPE = "type";
+
 	private static final String DEBUG_TAG = Progress.class.getSimpleName();
 	
 	public static final int PROGRESS_LOADING = 1;
@@ -52,11 +54,7 @@ public class Progress extends DialogFragment
 	    Progress progressDialogFragment = newInstance(dialogType);
 	    try {
 	    	tag = getTag(dialogType) + (tag != null?"-"+tag:"");
-	    	if (progressDialogFragment != null) {
-	    		progressDialogFragment.show(fm, tag);
-	    	} else {
-	    		Log.e(DEBUG_TAG,"Unable to create dialog for value " + dialogType);
-	    	}
+	    	progressDialogFragment.show(fm, tag);
 	    } catch (IllegalStateException isex) {
 	    	Log.e(DEBUG_TAG,"showDialog",isex);
 	    }
@@ -128,7 +126,7 @@ public class Progress extends DialogFragment
     	Progress f = new Progress();
 
         Bundle args = new Bundle();
-        args.putSerializable("type", dialogType);
+        args.putSerializable(TYPE, dialogType);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -141,7 +139,7 @@ public class Progress extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        dialogType = (Integer) getArguments().getSerializable("type");
+        dialogType = (Integer) getArguments().getSerializable(TYPE);
     }
 
     @NonNull
