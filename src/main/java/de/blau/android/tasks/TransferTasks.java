@@ -461,7 +461,6 @@ public class TransferTasks {
 				Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
 				if (result != 0) {
 					if (result == ErrorCodes.OUT_OF_MEMORY) {
-						System.gc();
 						if (App.getTaskStorage().hasChanges()) {
 							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}

@@ -133,7 +133,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	public boolean hasTile(final MapTile aTile) {
 		boolean existed = false;
 		if (mDatabase.isOpen()) {
-			final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
+			final String[] args = new String[]{aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y)};
 			final Cursor c = mDatabase.query(T_FSCACHE, new String[]{T_FSCACHE_RENDERER_ID}, T_FSCACHE_WHERE, args, null, null, null);
 			existed = c.getCount() > 0;
 			c.close();
@@ -144,7 +144,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	public boolean isInvalid(final MapTile aTile) {
 		boolean existed = false;
 		if (mDatabase.isOpen()) {
-			final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
+			final String[] args = new String[]{aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y)};
 			final Cursor c = mDatabase.query(T_FSCACHE, new String[]{T_FSCACHE_RENDERER_ID}, T_FSCACHE_WHERE_INVALID, args, null, null, null);
 			existed = c.getCount() > 0;
 			c.close();
@@ -177,8 +177,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 					return true; // this will indicate that the tile is in the DB which is erring on the safe side
 				}
 			} else {
-				final String[] args = new String[] { "" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x,
-						"" + aTile.y };
+				final String[] args = new String[] { aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) };
 				Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_USAGECOUNT }, T_FSCACHE_WHERE, args, null,
 						null, null);
 				try {
@@ -281,7 +280,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 		}
 		try {
 			if (incrementUse(aTile)) { // checks if DB is open
-				final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
+				final String[] args = new String[]{aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y)};
 				final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, args, null, null, null);
 				try {
 					if (c.moveToFirst()) {
@@ -339,7 +338,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 
 					if (mDatabase.isOpen()) {
 						for (MapTile t : deleteFromDB) {
-							final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};	 
+							final String[] args = new String[]{t.rendererID, Integer.toString(t.zoomLevel), Integer.toString(t.x), Integer.toString(t.y)};	 
 							mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
 						}
 					}
@@ -398,7 +397,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 			}
 
 			for(MapTile t : deleteFromDB) {
-				final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};
+				final String[] args = new String[]{t.rendererID, Integer.toString(t.zoomLevel), Integer.toString(t.x), Integer.toString(t.y)};
 				mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
 			}
 		}

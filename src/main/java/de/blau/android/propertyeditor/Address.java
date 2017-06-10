@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -206,9 +207,9 @@ public class Address implements Serializable {
 			Log.d("Address","nothing to seed with, creating new");
 		}
 		// merge in any existing tags
-		for (String k: current.keySet()) {
-			Log.d("Address","Adding in existing tag " + k);
-			newAddress.tags.put(k, current.get(k));
+		for (Entry<String,ArrayList<String>> entry:current.entrySet()) {
+			Log.d("Address","Adding in existing tag " + entry.getKey());
+			newAddress.tags.put(entry.getKey(), entry.getValue());
 		}
 		boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE);
 		boolean hasNumber = current.containsKey(Tags.KEY_ADDR_HOUSENUMBER); // if the object already had a number don't overwrite it
@@ -376,7 +377,7 @@ public class Address implements Serializable {
 									newNumber = Math.max(1,newNumber-inc);
 								}
 							}
-							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList("" + newNumber));
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(Integer.toString(newNumber)));
 						} catch (NumberFormatException nfe){
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
 						}
@@ -431,7 +432,7 @@ public class Address implements Serializable {
 	}
 	
 	private static int getNumber(String hn) throws NumberFormatException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (Character c:hn.toCharArray()) {
 			if (Character.isDigit(c)) {
 				sb.append(c);
@@ -505,10 +506,10 @@ public class Address implements Serializable {
 		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<String,ArrayList<String>>();
 		Preferences prefs = new Preferences(context);
 		Set<String> addressTags = prefs.addressTags();
-		for (String key:sortedMap.keySet()) {
+		for (Entry<String,ArrayList<String>> entry:sortedMap.entrySet()) {
 			// include everything except interpolation related tags
-			if (addressTags.contains(key)) {
-				result.put(key, sortedMap.get(key));
+			if (addressTags.contains(entry.getKey())) {
+				result.put(entry.getKey(), entry.getValue());
 			}
 		}
 		return result;

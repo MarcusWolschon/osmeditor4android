@@ -2317,7 +2317,6 @@ public class Logic {
 				}
 				if (result != 0) {
 					if (result == ErrorCodes.OUT_OF_MEMORY) {
-						System.gc();
 						if (getDelegator().isDirty()) {
 							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
@@ -2717,7 +2716,6 @@ public class Logic {
 //
 //				if (result != 0) {
 //					if (result == DialogFactory.OUT_OF_MEMORY) {
-//						System.gc();
 //						if (getDelegator().isDirty()) {
 //							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 //						}
@@ -2870,7 +2868,6 @@ public class Logic {
 				}
 				if (result != 0) {
 					if (result == ErrorCodes.OUT_OF_MEMORY) {
-						System.gc();
 						if (getDelegator().isDirty()) {
 							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
@@ -2973,7 +2970,6 @@ public class Logic {
 				}
 				if (result != 0) {
 					if (result == ErrorCodes.OUT_OF_MEMORY) {
-						System.gc();
 						if (getDelegator().isDirty()) {
 							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}

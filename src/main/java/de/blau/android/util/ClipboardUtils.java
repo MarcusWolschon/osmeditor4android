@@ -3,6 +3,7 @@ package de.blau.android.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
@@ -161,10 +162,10 @@ public class ClipboardUtils {
 	@SuppressLint("NewApi")
 	public static void copyTags(Context ctx,Map<String,String> tags) {
 
-		StringBuffer tagsAsText = new StringBuffer();
+		StringBuilder tagsAsText = new StringBuilder();
 		
-		for (String key:tags.keySet()) {
-			tagsAsText.append(key+"="+tags.get(key)+"\n");
+		for (Entry<String,String>entry:tags.entrySet()) {
+			tagsAsText.append(entry.getKey()+"="+entry.getValue()+"\n");
 		}
 		
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

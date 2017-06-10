@@ -230,6 +230,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		StorageDelegator delegator = App.getDelegator();
 		if (delegator == null || loadData == null) {
 			abort("Delegator null");
+			return;
 		}
 		
 		osmIds = new long[loadData.length];
