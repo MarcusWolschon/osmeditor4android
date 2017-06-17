@@ -1137,12 +1137,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			}
 		}
 		row.setValue(value, rules);
-	    final String template;
-	    if (value==null || "".equals(value)) {
-	    	template ="Mo-Fr 09:00-12:00,13:30-18:30;Sa 09:00-17:00;PH off";
-	    } else {
-	    	template = value;
-	    }
 		
 	    if (value != null && !"".equals(value)) {
 	    	if (!strictSucceeded && lenientSucceeded) {
@@ -1167,6 +1161,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			ohTemplates.add(s.getValue());
 		}	
 		row.valueView.setHint(R.string.tag_dialog_value_hint);
+		final String finalValue = value;
 		row.setOnClickListener(new OnClickListener() {
 			@SuppressLint("NewApi")
 			@Override
@@ -1178,7 +1173,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			        ft.remove(prev);
 			    }
 			    ft.commit();
-			    OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(key,template,R.style.Theme_AppCompat_Light_Dialog_Alert);
+			    OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(key,finalValue,
+			    		prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert:R.style.Theme_AppCompat_Dialog_Alert);
 			    openingHoursDialog.show(fm, "fragment_opening_hours");
 			}
 		});
@@ -1829,7 +1825,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
 		LinearLayout valueList;
 		final LayoutInflater inflater;
-		int normalTextColor = ContextCompat.getColor(getContext(), R.color.black);
 		int errorTextColor = ContextCompat.getColor(getContext(), ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.textColorError, R.color.material_red));
 		
 		public TagFormOpeningHoursDialogRow(Context context) {
@@ -1876,7 +1871,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					valueList.removeViewAt(1);
 				}
 			}
-			valueView.setTextColor(normalTextColor);
 			boolean first=true;
 			if (rules != null && !rules.isEmpty()) {
 				for (Rule r:rules) {
