@@ -3,6 +3,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class BoundingBoxTest {
 			existing.add(existingBox);
 			
 			BoundingBox newBox = new BoundingBox(0.0,0.0,20.0,20.0);
-			ArrayList<BoundingBox>result = BoundingBox.newBoxes(existing, newBox);
+			List<BoundingBox>result = BoundingBox.newBoxes(existing, newBox);
 			assertEquals(2, result.size());
 			
 			newBox = new BoundingBox(0.0,0.0,5.0,20.0);

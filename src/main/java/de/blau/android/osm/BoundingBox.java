@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -57,7 +58,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	/**
 	 * Mercator value for the bottom of the BBos
 	 */
-	//TODO experimental code for using non-approx. projections
 	private double bottomMercator;
 
 	/**
@@ -104,7 +104,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	/**
 	 * Maximum width to zoom out.
 	 */
-	// private static final long MAX_ZOOM_WIDTH = 500000000L;
 	private static final long MAX_ZOOM_WIDTH =   3599999999L;
 
 	private static final String DEBUG_TAG = BoundingBox.class.getSimpleName();
@@ -261,8 +260,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * "left,bottom,right,top" in decimal degrees.
 	 */
 	public String toApiString() {
-		return "" + left / 1E7 + STRING_DELIMITER + bottom / 1E7 + STRING_DELIMITER + right / 1E7 + STRING_DELIMITER
-				+ top / 1E7;
+		return Double.toString(left / 1E7D) + STRING_DELIMITER + Double.toString(bottom / 1E7D) + STRING_DELIMITER + Double.toString(right / 1E7D) + STRING_DELIMITER
+				+ Double.toString(top / 1E7D);
 	}
 
 	/**
@@ -399,7 +398,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 			bottom = t;
 		}
 		height = top - bottom;
-		// Log.d("BoundingBox", "calcdimensions width " + width + " height " + height);
+		// Log.d(DEBUG_TAG, "calcdimensions width " + width + " height " + height);
 	}
 
 	/**
@@ -435,7 +434,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		long mHeight = mTop - mBottom;
 		if (width <= 0 || mHeight <=0) {
 			// should't happen, but just in case
-			Log.d("BoundingBox","Width or height zero: " + width + "/" + height);
+			Log.d(DEBUG_TAG,"Width or height zero: " + width + "/" + height);
 			BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(GeoMath.mercatorE7ToLat((int) (mBottom+mHeight/2)), GeoMath.mercatorE7ToLat((int) (left+width/2)), 10.0f, true);
 			left = bbox.left;
 			bottom = bbox.bottom;
@@ -447,7 +446,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 			mHeight = mTop - mBottom;
 		}
 		
-		//Log.d("BoundingBox","current ratio " + this.ratio + " new ratio " + ratio);
+		//Log.d(DEBUG_TAG,"current ratio " + this.ratio + " new ratio " + ratio);
 		if ((ratio > 0) && !Float.isNaN(ratio)) {
 			if (preserveZoom) {
 				// Apply the new aspect ratio, but preserve the level of zoom
@@ -647,7 +646,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * @param zoomFactor factor enlarge/reduce the borders.
 	 */
 	public void zoom(float zoomFactor) {
-		// Log.d("BoundingBox","zoom " + this.toString());
+		// Log.d(DEBUG_TAG,"zoom " + this.toString());
 		zoomFactor = Math.min(zoomInLimit(), zoomFactor);
 		zoomFactor = Math.max(zoomOutLimit(), zoomFactor);
 	
@@ -731,8 +730,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the current ratio (that of the window) 
 	 * and maintains zoom level
 	 * 
-	 * @param map current map view
-	 * @param newBox box with the new borders.
+	 * @param map 		current map view
+	 * @param newBox 	box with the new borders.
 	 */
 	public void setBorders(Map map, final BoundingBox newBox) {
 		setBorders(map, newBox, this.ratio);
@@ -741,9 +740,9 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	/**
 	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the ratio and maintains zoom level
 	 * 
-	 * @param map current map view
-	 * @param newBox
-	 * @param ratio
+	 * @param map 		current map view
+	 * @param newBox	new bounding box
+	 * @param ratio		width/height ratio
 	 */
 	private void setBorders(Map map, final BoundingBox newBox, float ratio) {
 		setBorders(map, newBox, ratio, true);
@@ -753,9 +752,9 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the current ratio (that of the window) 
 	 * and maintains zoom level depending on the value of preserveZoom
 	 * 
-	 * @param map current map view
-	 * @param newBox new bounding box
-	 * @param preserveZoom maintain current zoom level
+	 * @param map 			current map view
+	 * @param newBox 		new bounding box
+	 * @param preserveZoom 	maintain current zoom level
 	 */
 	public void setBorders(final Map map, final BoundingBox newBox, boolean preserveZoom) {
 		setBorders(map, newBox, this.ratio, preserveZoom);
@@ -765,17 +764,17 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * Sets the borders to the ones of newBox. Recalculates dimensions to fit the current ratio (that of the window) 
 	 * and maintains zoom level depending on the value of preserveZoom
 	 * 
-	 * @param map map current map view
-	 * @param newBox new bounding box
-	 * @param ratio current window ratio
-	 * @param preserveZoom maintain current zoom level
+	 * @param map 			map current map view
+	 * @param newBox 		new bounding box
+	 * @param ratio 		current window ratio
+	 * @param preserveZoom 	maintain current zoom level
 	 */
 	public void setBorders(final Map map, final BoundingBox newBox, float ratio, boolean preserveZoom) {
 		left = newBox.left;
 		right = newBox.right;
 		top = newBox.top;
 		bottom = newBox.bottom;
-		Log.d("BoundingBox","setBorders " + newBox.toString() + " ratio is " + ratio);
+		Log.d(DEBUG_TAG,"setBorders " + newBox.toString() + " ratio is " + ratio);
 		try {
 			calcDimensions(); // neede to recalc width
 			setRatio(map, ratio, preserveZoom);
@@ -803,6 +802,11 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		validate();
 	}
 	
+	/**
+	 * Check if this is a valid bounding box
+	 * 
+	 * @throws OsmException	if not a valid bounding box
+	 */
 	private void validate() throws OsmException {
 		if (!isValid()) {
 			Log.e(DEBUG_TAG, toString());
@@ -810,52 +814,81 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		}
 	}
 
+	/**
+	 * Returns true if the bounding box is completely contained in this
+	 * 
+	 * @param bb	the bounding box
+	 * @return		true if bb is completely inside this
+	 */
 	public boolean contains(BoundingBox bb) {
 		return (bb.bottom >= bottom) && (bb.top <= top) && (bb.left >= left) && (bb.right <= right);
 	}
 	
 	/**
-	 * Returns true if the coordinates are in the box
+	 * Returns true if the coordinates are in this bounding box
+	 * 
 	 * Right and top coordinate are considered inside
-	 * @param lonE7
-	 * @param latE7
-	 * @return
+	 * @param lonE7		longitude in degrees x 1E7
+	 * @param latE7		lattitude in degrees x 1E7
+	 * @return			true if the location is in the bounding box
 	 */
 	public boolean contains(int lonE7, int latE7) {
 		return left <= lonE7 && lonE7 <= right && bottom <= latE7 && latE7 <= top;
 	}
 
 	/**
-	 * Return pre-caclulated mercator value of bottom of the bounding box
-	 * @return
+	 * Return pre-caclulated mercator value for the bottom of the bounding box
+	 * 
+	 * @return the projected bottom value
 	 */
 	public double getBottomMercator() {
 		return bottomMercator;
 	}
 
 	/**
+	 * Set the top value
+	 * 
 	 * The setters are private since without calling calcDimensions the BB will be left in an inconsistent state
-	 * @param latE7
+	 * @param latE7	value to set in degrees x 1E7
 	 */
 	private void setTop(int latE7) {
 		this.top = latE7;
 	}
 	
+	/**
+	 * Set the bottom value
+	 * 
+	 * The setters are private since without calling calcDimensions the BB will be left in an inconsistent state
+	 * @param latE7	value to set in degrees x 1E7
+	 */
 	private void setBottom(int latE7) {
 		this.bottom = latE7;
 	}
 	
+	/**
+	 * Set the right value
+	 * 
+	 * The setters are private since without calling calcDimensions the BB will be left in an inconsistent state
+	 * @param lonE7	value to set in degrees x 1E7
+	 */
 	private void setRight(int lonE7) {
 		this.right = lonE7;
 	}
 	
+	/**
+	 * Set the left value
+	 * 
+	 * The setters are private since without calling calcDimensions the BB will be left in an inconsistent state
+	 * @param lonE7	value to set in degrees x 1E7
+	 */
 	private void setLeft(int lonE7) {
 		this.left = lonE7;
 	}
 	
 	/**
-	 * Return lat value of the center of the bounding box 
-	 * @return
+	 * Return lat value of the vertical center of the bounding box 
+	 * 
+	 * @return vertical center of the bounding box in degrees
 	 */
 	public double getCenterLat() {
 		int mBottom = GeoMath.latE7ToMercatorE7(bottom);
@@ -865,13 +898,14 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	
 	/**
 	 * Given a list of existing bounding boxes and a new bbox. Return a list of pieces of the new bbox that complete the coverage
-	 * @param existing
-	 * @param newBox
-	 * @return
+	 * 
+	 * @param existing	existing list of bounding boxes
+	 * @param newBox	new bounding box
+	 * @return			list of missing bounding boxes
 	 * @throws OsmException 
 	 */
-	public static ArrayList<BoundingBox> newBoxes(ArrayList<BoundingBox> existing, BoundingBox newBox) {
-		ArrayList<BoundingBox> result = new ArrayList<BoundingBox>();
+	public static List<BoundingBox> newBoxes(List<BoundingBox> existing, BoundingBox newBox) {
+		List<BoundingBox> result = new ArrayList<BoundingBox>();
 		result.add(newBox);
 		for (BoundingBox b:existing) {
 			ArrayList<BoundingBox> temp = new ArrayList<BoundingBox>();
@@ -901,7 +935,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 						rb.calcDimensions();
 						rb.calcBottomMercator();
 					} catch (OsmException e) {
-						Log.d("BoundingBox", "Exception " + e.getMessage());
+						Log.d(DEBUG_TAG, "Exception " + e.getMessage());
 					}
 				} else {
 					temp.add(rb);

@@ -826,8 +826,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				BoundingBox bbox;
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
-					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
-					ArrayList<BoundingBox> bboxes = null;
+					List<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
+					List<BoundingBox> bboxes = null;
 					if (App.getDelegator().isEmpty()) {
 						bboxes = new ArrayList<BoundingBox>();
 						bboxes.add(bbox);
@@ -871,7 +871,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			BoundingBox loadBox = rcData.getBox();
 			if (loadBox != null) {
 				if (rcData.load()) { // download
-					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox); 
+					List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox); 
 					if (bboxes != null && (bboxes.size() > 0 || delegator.isEmpty())) {
 						// only download if we haven't yet
 						logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){

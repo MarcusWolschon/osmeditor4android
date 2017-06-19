@@ -898,7 +898,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			BoundingBox newBox = getNextBox(bbList,previousLocation, location,radius);
 			if (newBox != null) {
 				if (radius != 0) { // download
-					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
+					List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
 					for (BoundingBox b:bboxes) {
 						if (b.getWidth() <= 1 || b.getHeight() <= 1) {
 							// ignore super small bb likely due to rounding errors
@@ -991,7 +991,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			BoundingBox newBox = getNextBox(bbList,previousBugLocation, location, radius);
 			if (newBox != null) {
 				if (radius != 0) { // download
-					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
+					List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
 					for (BoundingBox b:bboxes) {
 						if (b.getWidth() <= 1 || b.getHeight() <= 1) {
 							// ignore super small bb likely due to rounding errors
