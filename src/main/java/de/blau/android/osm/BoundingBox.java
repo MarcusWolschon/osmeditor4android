@@ -99,7 +99,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	/**
 	 * Minimum width to zoom in.
 	 */
-	private static final int MIN_ZOOM_WIDTH = 1000; // roughly 110m at the equator
+	private static final int MIN_ZOOM_WIDTH = 250; // roughly 3 m at the equator
 
 	/**
 	 * Maximum width to zoom out.
@@ -110,7 +110,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	private static final String DEBUG_TAG = BoundingBox.class.getSimpleName();
 
 	/**
-	 * The ratio of this BoundingBox. Only needed when it's used as a viewbox.
+	 * The screen w/h ratio of this BoundingBox. Only needed when it's used as a viewbox.
 	 */
 	private float ratio = 1;
 	
@@ -422,17 +422,17 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	
 	/**
 	 * Changes the dimensions of this bounding box to fit the given ratio.
-	 * @param ratio The new aspect ratio.
-	 * @param preserveZoom If true, maintains the current level of zoom by
-	 * creating a new boundingbox at the required ratio at the same center. If
-	 * false, the new bounding box is sized such that the currently visible
-	 * area is still visible with the new aspect ratio applied.
+	 * 
+	 * @param ratio 		The new aspect ratio.
+	 * @param preserveZoom 	If true, maintains the current level of zoom by
+	 * 						creating a new boundingbox at the required ratio at the same center. If
+	 * 						false, the new bounding box is sized such that the currently visible
+	 * 						area is still visible with the new aspect ratio applied.
 	 */
 	public void setRatio(Map map, final float ratio, final boolean preserveZoom) throws OsmException {
 		long mTop = GeoMath.latE7ToMercatorE7(top); // note long or else we get an int overflow on calculating the center
 		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		long mHeight = mTop - mBottom;
-
 		if (width <= 0 || mHeight <=0) {
 			// should't happen, but just in case
 			Log.d("BoundingBox","Width or height zero: " + width + "/" + height);
@@ -460,20 +460,20 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 				long newWidth2 = 0;
 				if (ratio <= 1.0) { // portrait and square
 					if (width <= mHeight) { 
-						newHeight2 = (long)((width / 2L) / ratio);
+						newHeight2 = Math.round(((width / 2L) / ratio));
 						newWidth2 = width / 2L;
 					} else { // switch landscape --> portrait
 						float pixelDeg = (float)map.getHeight()/(float)width; // height was the old width
 						newWidth2 = (long)(map.getWidth() / pixelDeg)/2L;
-						newHeight2 = (long)(newWidth2 / ratio );
+						newHeight2 = Math.round(newWidth2 / ratio );
 					}
 				} else { // landscape
 					if (width < mHeight) { // switch portrait -> landscape
 						float pixelDeg = (float)map.getHeight()/(float)width; // height was the old width
 						newWidth2 = (long)(map.getWidth() / pixelDeg)/2L;
-						newHeight2 = (long)(newWidth2 / ratio );
+						newHeight2 = Math.round(newWidth2 / ratio );
 					} else {
-						newHeight2 =(long)((width / 2L) / ratio);
+						newHeight2 = Math.round((width / 2L) / ratio);
 						newWidth2 = width / 2L;
 					}
 				}
@@ -557,31 +557,31 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		}		
 	}
 	
-
 	/**
 	 * Relative translation.
 	 * 
 	 * Note clamping based on direction of movement can cause problems, always check that we are in bounds
 	 * 
 	 * @param map instance of the current map view
-	 * @param lon the relative longitude change.
-	 * @param lat the relative latitude change.
+	 * @param dLon the relative longitude change.
+	 * @param dLat the relative latitude change.
 	 */
-	public void translate(@Nullable Map map, int lon, int lat) throws OsmException {
-		if ((long)right + (long)lon > (long)MAX_LON_E7) {
-			lon = MAX_LON_E7 - right;
-		} else if ((long)left + (long)lon < (long)-MAX_LON_E7) {
-			lon = -MAX_LON_E7 - left;
+	synchronized public void translate(@Nullable Map map, int dLon, int dLat) throws OsmException {
+		if ((long)right + (long)dLon > (long)MAX_LON_E7) {
+			dLon = MAX_LON_E7 - right;
+		} else if ((long)left + (long)dLon < (long)-MAX_LON_E7) {
+			dLon = -MAX_LON_E7 - left;
 		} 
-		if (top + lat > MAX_LAT_E7) {
-			lat = MAX_LAT_E7 - top;
-		} else if (bottom + lat < -MAX_LAT_E7) {
-			lat = -MAX_LAT_E7 - bottom;
+		if (top + dLat > MAX_LAT_E7) {
+			dLat = MAX_LAT_E7 - top;
+		} else if (bottom + dLat < -MAX_LAT_E7) {
+			dLat = -MAX_LAT_E7 - bottom;
 		}
-		left += lon;
-		right += lon;
-		top += lat;
-		bottom += lat;
+		left += dLon;
+		right += dLon;
+		top += dLat;
+		bottom += dLat;
+		calcBottomMercator();
 		if (map != null) {
 			setRatio(map, ratio, true); //TODO slightly expensive likely to be better to do everything in mercator
 		}
@@ -826,7 +826,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 
 	/**
-	 * Return pre-caclulated meracator value of bottom of the bounding box
+	 * Return pre-caclulated mercator value of bottom of the bounding box
 	 * @return
 	 */
 	public double getBottomMercator() {

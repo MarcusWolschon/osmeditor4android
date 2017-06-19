@@ -29,6 +29,7 @@ public class GeoMath {
 	
 	
 	public static final int MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int)(MAX_LAT* 1E7d));
+	public static final double MAX_MLAT = GeoMath.latE7ToMercator((int)(MAX_LAT* 1E7d));
 	
 	public static final int EARTH_RADIUS_EQUATOR = 6378137;
 	public static final int EARTH_RADIUS_POLAR = 6356752;
@@ -111,11 +112,11 @@ public class GeoMath {
 	 * @return the mercator-projected y-coordinate for a cartesian coordinate system, multiplied by 1E7.
 	 */
 	public static int latE7ToMercatorE7(final int latE7) {
-		return (int) (latToMercator(latE7 / 1E7d) * 1E7d);
+		return (int) Math.round((latToMercator(latE7 / 1E7d) * 1E7d));
 	}
 	
 	/**
-	 * Calculates a projected mercator coordinate to a geo-latitude value. This is the inverse function to
+	 * Converts a projected mercator coordinate to a geo-latitude value. This is the inverse function to
 	 * latToMercator(double).
 	 * 
 	 * @param mer the projected mercator coordinate
@@ -140,7 +141,7 @@ public class GeoMath {
 	 * @return the latitude value, multiplied by 1E7
 	 */
 	public static int mercatorToLatE7(final double mer) {
-		return (int) (mercatorToLat(mer) * 1E7d);
+		return (int) Math.round(mercatorToLat(mer) * 1E7d);
 	}
 	
 	/**
@@ -149,7 +150,7 @@ public class GeoMath {
 	 * @return the latitude value, multiplied by 1E7
 	 */
 	public static int mercatorE7ToLatE7(final int mer) {
-		return (int) (mercatorToLat(mer / 1E7d) * 1E7d);
+		return (int) Math.round(mercatorToLat(mer / 1E7d) * 1E7d);
 	}
 	
 	/**
@@ -262,7 +263,7 @@ public class GeoMath {
 	 * @return longitude representing by the given x-value, multiplied by 1E7
 	 */
 	public static int xToLonE7(final int screenWidth, final BoundingBox viewBox, final float x) {
-		return (int) (((double)x / (double)screenWidth * viewBox.getWidth()) + viewBox.getLeft());
+		return (int) Math.round(((double)x / (double)screenWidth * viewBox.getWidth()) + viewBox.getLeft());
 	}
 
 	/**

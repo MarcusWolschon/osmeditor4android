@@ -1360,7 +1360,6 @@ public class Logic {
 	 * @param screenTransY Movement on the screen.
 	 */
 	private void performTranslation(Map map, final float screenTransX, final float screenTransY) {
-		// Log.d(DEBUG_TAG,"performTranslation " + screenTransX + " " + screenTransY);
 		int height = map.getHeight();
 		int lon = xToLonE7(screenTransX);
 		int lat = yToLatE7(height - screenTransY);

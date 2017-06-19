@@ -539,13 +539,13 @@ public class StorageDelegator implements Serializable, Exportable {
 			r = r / coords.length;
 			for (Coordinates p:coords) {
 				double ratio = r/Math.sqrt((p.x-center.x)*(p.x-center.x)+(p.y-center.y)*(p.y-center.y));
-				p.x = (float) ((p.x-center.x) * ratio)+center.x;
-				p.y = (float) ((p.y-center.y) * ratio)+center.y;
+				p.x = ((p.x-center.x) * ratio)+center.x;
+				p.y = ((p.y-center.y) * ratio)+center.y;
 			}
 			int i=0;
 			for (Node nd:nodes) { 
-				nd.setLon(GeoMath.xToLonE7(width, box, coords[i].x));
-				nd.setLat(GeoMath.yToLatE7(height, width, box, coords[i].y));
+				nd.setLon(GeoMath.xToLonE7(width, box, (float) coords[i].x));
+				nd.setLat(GeoMath.yToLatE7(height, width, box, (float) coords[i].y));
 				apiStorage.insertElementSafe(nd);
 				nd.updateState(OsmElement.STATE_MODIFIED);
 				i++;
@@ -722,8 +722,8 @@ public class StorageDelegator implements Serializable, Exportable {
 					for (int i = 0; i < nodes.size(); i++) { 
 						Node nd = nodes.get(i);
 						//	if (i == 0 || !nd.equals(firstNode)) {
-						nd.setLon(GeoMath.xToLonE7(width, box, coords[i].x));
-						nd.setLat(GeoMath.yToLatE7(height, width, box, coords[i].y));
+						nd.setLon(GeoMath.xToLonE7(width, box, (float) coords[i].x));
+						nd.setLat(GeoMath.yToLatE7(height, width, box, (float) coords[i].y));
 						apiStorage.insertElementSafe(nd);
 						nd.updateState(OsmElement.STATE_MODIFIED);
 						//	}
@@ -752,10 +752,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	private class Coordinates {
-		float x;
-		float y;
+		double x;
+		double y;
 		
-		Coordinates (float x, float y) {
+		Coordinates (double x, double y) {
 			this.x = x;
 			this.y = y;
 		}
@@ -776,7 +776,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			return new Coordinates((float)(this.x/d),(float)(this.y/d));
 		}
 		
-		float length() {
+		double length() {
 			return (float)Math.hypot(x, y);
 		}
 	}
@@ -819,12 +819,12 @@ public class StorageDelegator implements Serializable, Exportable {
 				undo.save(nd);		
 				apiStorage.insertElementSafe(nd);
 
-				float nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
-				float nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
-				float newX = pivotX + (nodeX-pivotX)*(float)Math.cos(angle) - direction * (nodeY-pivotY)*(float)Math.sin(angle);
-				float newY = pivotY + direction * (nodeX-pivotX)*(float)Math.sin(angle) + (nodeY-pivotY)*(float)Math.cos(angle);
-				int lat = GeoMath.yToLatE7(h, w, v, newY);
-				int lon = GeoMath.xToLonE7(w, v, newX);
+				double nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
+				double nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
+				double newX = pivotX + (nodeX-pivotX)*Math.cos(angle) - direction * (nodeY-pivotY)*Math.sin(angle);
+				double newY = pivotY + direction * (nodeX-pivotX)*Math.sin(angle) + (nodeY-pivotY)*Math.cos(angle);
+				int lat = GeoMath.yToLatE7(h, w, v, (float) newY);
+				int lon = GeoMath.xToLonE7(w, v, (float) newX);
 				nd.setLat(lat);
 				nd.setLon(lon);
 				nd.updateState(OsmElement.STATE_MODIFIED);
