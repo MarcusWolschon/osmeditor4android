@@ -209,7 +209,7 @@ android.applicationVariants.all { variant ->
 }
 
 ext {
-    okHttpVersion = "3.7.0"
+    okHttpVersion = "3.8.0"
     signpostVersion = "1.2.1.2"
     supportLibVersion = "24.1.1" // Note: this is the last version that supports API 8 / Android 2.2
 }
@@ -232,7 +232,7 @@ dependencies {
     compile "ch.poole:OpeningHoursParser:0.8.0"
     compile "ch.poole:ConditionalRestrictionParser:0.1.12"
     compile "ch.poole:OpeningHoursFragment:0.0.17"
-    compile "com.google.code.gson:gson:2.8.0"
+    compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
 
     // Unit tests
