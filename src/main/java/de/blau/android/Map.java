@@ -1051,30 +1051,7 @@ public class Map extends View implements IMapView {
 				canvas.drawLines(linePoints, wayTolerancePaint2);
 			}
 		}
-				
-		//draw selectedWay highlighting
-		if (isSelected) {
-			paint = DataStyle.getCurrent(DataStyle.SELECTED_WAY).getPaint();
-			canvas.drawLines(linePoints, paint);
-			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
-			drawWayArrows(canvas, linePoints, false, paint, displayHandles && tmpDrawingSelectedWays.size()==1);
-		} else if (isMemberOfSelectedRelation) {
-			paint = DataStyle.getCurrent(DataStyle.SELECTED_RELATION_WAY).getPaint();
-			canvas.drawLines(linePoints, paint);
-			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
-			drawWayArrows(canvas, linePoints, false, paint, false);
-		}
-
-		int onewayCode = way.getOneway();
-		if (onewayCode != 0) {
-			FeatureStyle fp = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
-			drawWayArrows(canvas, linePoints, (onewayCode == -1), fp.getPaint(), false);
-		} else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
-			FeatureStyle fp = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
-			drawWayArrows(canvas, linePoints, false, fp.getPaint(), false);
-		}
 		
-		// 
 		FeatureStyle fp; // no need to get the default here
 		
 		if (way.hasProblem(context)) {
@@ -1082,6 +1059,34 @@ public class Map extends View implements IMapView {
 		} else {
 			fp = getAndSetStyle(way);
 		}
+				
+		//draw selectedWay highlighting
+		if (isSelected) {
+			FeatureStyle selectedStyle = DataStyle.getCurrent(DataStyle.SELECTED_WAY);
+			paint = selectedStyle.getPaint();
+			paint.setStrokeWidth(fp.getPaint().getStrokeWidth()*selectedStyle.getWidthFactor());
+			canvas.drawLines(linePoints, paint);
+			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
+			drawWayArrows(canvas, linePoints, false, paint, displayHandles && tmpDrawingSelectedWays.size()==1);
+		} else if (isMemberOfSelectedRelation) {
+			FeatureStyle relationSelectedStyle = DataStyle.getCurrent(DataStyle.SELECTED_RELATION_WAY);
+			paint = relationSelectedStyle.getPaint();
+			paint.setStrokeWidth(fp.getPaint().getStrokeWidth()*relationSelectedStyle.getWidthFactor());
+			canvas.drawLines(linePoints, paint);
+			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
+			drawWayArrows(canvas, linePoints, false, paint, false);
+		}
+
+		int onewayCode = way.getOneway();
+		if (onewayCode != 0) {
+			FeatureStyle directionArrows = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
+			drawWayArrows(canvas, linePoints, (onewayCode == -1), directionArrows.getPaint(), false);
+		} else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
+			FeatureStyle directionArrows = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
+			drawWayArrows(canvas, linePoints, false, directionArrows.getPaint(), false);
+		}
+		
+		// 
 			
 		// draw the way itself
 		// canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
