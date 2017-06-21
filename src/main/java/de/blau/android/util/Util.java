@@ -191,10 +191,11 @@ public class Util {
     
 	/**
 	 * Scroll to the supplied view 
-	 * @param sv the ScrollView or NestedScrollView to scroll
-	 * @param row the row to display, if null scrool to top or bottom of sv
-	 * @param up
-	 * @param force
+	 * 
+	 * @param sv 	the ScrollView or NestedScrollView to scroll
+	 * @param row 	the row to display, if null scroll to top or bottom of sv
+	 * @param up	if true scroll to top if row is null, otherwise scroll to bottom
+	 * @param force	if true always try to scroll even if row is already on screen
 	 */
 	public static void scrollToRow(final View sv, final View row,final boolean up, boolean force) {	
 		Rect scrollBounds = new Rect();

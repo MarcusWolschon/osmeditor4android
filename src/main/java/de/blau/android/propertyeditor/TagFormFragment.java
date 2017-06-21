@@ -793,7 +793,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						|| key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 						if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 							rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, adapter));
-						} else if (Tags.KEY_OPENING_HOURS.equals(key) || Tags.KEY_SERVICE_TIMES.equals(key)) {
+						} else if ((Tags.KEY_OPENING_HOURS.equals(key) || Tags.KEY_SERVICE_TIMES.equals(key)) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { //FIXME need at least SDK 12
 							rowLayout.addView(addOpeningHoursDialogRow(rowLayout, preset, hint, key, value, adapter));
 						} else {
 							// special handling for international names
@@ -1174,7 +1174,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			    }
 			    ft.commit();
 			    OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(key,finalValue,
-			    		prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert:R.style.Theme_AppCompat_Dialog_Alert);
+			    		prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert:R.style.Theme_AppCompat_Dialog_Alert, -1);
 			    openingHoursDialog.show(fm, "fragment_opening_hours");
 			}
 		});
