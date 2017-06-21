@@ -111,6 +111,8 @@ public class Tags {
 	public static final String KEY_WIKIDATA = "wikidata";
 	
 	public static final String KEY_OPENING_HOURS = "opening_hours";
+	public static final String KEY_SERVICE_TIMES = "service_times";	
+	
 	
 	public static final String KEY_CONDITIONAL_SUFFIX = ":conditional";
 	
@@ -163,8 +165,8 @@ public class Tags {
 	public static final Set<String> IMPORTANT_TAGS = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
 		KEY_HIGHWAY,KEY_BARRIER,KEY_WATERWAY,KEY_RAILWAY,KEY_AEROWAY,KEY_AERIALWAY,KEY_POWER,
 		KEY_MAN_MADE,KEY_BUILDING,KEY_LEISURE,KEY_AMENITY,KEY_OFFICE,KEY_SHOP,KEY_CRAFT,KEY_EMERGENCY,
-		KEY_TOURISM,KEY_HISTORIC,KEY_LANDUSE,KEY_MILITARY,KEY_NATURAL,KEY_BOUNDARY,KEY_TYPE,KEY_ENTRANCE)));	
-	
+		KEY_TOURISM,KEY_HISTORIC,KEY_LANDUSE,KEY_MILITARY,KEY_NATURAL,KEY_BOUNDARY,KEY_TYPE,KEY_ENTRANCE)));
+
 	/**
 	 * Tags for objects that should be re-surveyed regularly.
 	 */

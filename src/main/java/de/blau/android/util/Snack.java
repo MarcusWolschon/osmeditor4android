@@ -426,6 +426,20 @@ public class Snack {
 	}
 	
 	/**
+	 * Display a snackbar with a warning
+	 * 
+	 * @param v view to display the snackbar on
+	 * @param msg resource id of the message to display
+	 * @param duration hw long to display the message in ms
+	 */
+	public static void barWarning(View v, String msg, int duration) {
+		Snackbar snackbar = Snackbar.make(v, msg, duration);
+		snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
+		snackbar.setCallback(callback);
+		enqueueWarning(snackbar);
+	}
+	
+	/**
 	 * Display a snackbar with an warning message with a possible action
 	 * 
 	 * @param activity activity calling us

@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -613,6 +614,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	/**
 	 * Fetches all active Geocoders
+	 * 
 	 * @return Geocoder[]
 	 */
 	public synchronized Geocoder[] getActiveGeocoders() {
@@ -638,24 +640,35 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		return result;
 	}
 	
-
-	public synchronized void addGeocoder(String id, String name, GeocoderType type, int version, String url, boolean active) {
+	/**
+	 * Add a new Geocoder with the given values to the database 
+	 * 
+	 * Opens the existing or creates the database
+	 * @param id		id of the geocoder
+	 * @param name		name used for display purposes
+	 * @param type		type (Nominatim, Photon)
+	 * @param version	version of the geocoder
+	 * @param url		geocoder API url
+	 * @param active	use this geocoder
+	 */
+	public synchronized void addGeocoder(@NonNull String id, String name, GeocoderType type, int version, String url, boolean active) {
 		SQLiteDatabase db = getWritableDatabase();
 		addGeocoder(db, id, name, type, version, url, active);
 		db.close();
 	}
-	
-		
+			
 	/**
-	 * adds a new Geocoder with the given values to the database
-	 * @param id
-	 * @param name
-	 * @param type
-	 * @param version
-	 * @param url
-	 * @param active
+	 * Add a new Geocoder with the given values to the database
+	 * 
+	 * @param db		database to use
+	 * @param id		id of the geocoder
+	 * @param name		name used for display purposes
+	 * @param type		type (Nominatim, Photon)
+	 * @param version	version of the geocoder
+	 * @param url		geocoder API url
+	 * @param active	use this geocoder if true
 	 */
-	private synchronized void addGeocoder(SQLiteDatabase db, String id, String name, GeocoderType type, int version, String url, boolean active) {
+	private synchronized void addGeocoder(@NonNull SQLiteDatabase db, @NonNull String id, String name, GeocoderType type, int version, String url, boolean active) {
 		ContentValues values = new ContentValues();
 		values.put("id", id);
 		values.put("name", name);
@@ -666,11 +679,17 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.insert("geocoders", null, values);	
 	}
 
-	/** 
-	 * Sets the active value of the given preset to now
-	 * @param id the ID of the geocoer to update
-	 * */
-	public synchronized void updateGeocoder(String id, String name, GeocoderType type, int version, String url, boolean active) {
+	/**
+	 * Update the specified geocoder
+	 * 
+	 * @param id		the ID of the geocoder to update
+	 * @param name		name used for display purposes
+	 * @param type		type (Nominatim, Photon)
+	 * @param version	version of the geocoder
+	 * @param url		geocoder API url
+	 * @param active	use this geocoder if true
+	 */
+	public synchronized void updateGeocoder(@NonNull String id, String name, GeocoderType type, int version, String url, boolean active) {
 		Log.d(LOGTAG,"Setting geocoder " + id + " active to " + active);
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -685,9 +704,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	/** 
 	 * Sets the active value of the given geocoder
-	 * @param id the ID of the geocoder to update
-	 * */
-	public synchronized void setGeocoderState(String id, boolean active) {
+	 * 
+	 * @param id 		the ID of the geocoder to update
+	 * @param active	use this geocoder if true
+	 */
+	public synchronized void setGeocoderState(@NonNull String id, boolean active) {
 		Log.d(LOGTAG,"Setting pref " + id + " active to " + active);
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -697,10 +718,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Deletes a geocoder
+	 * Deletes a geocoder entry
+	 * 
 	 * @param id id of the geocoder to delete
 	 */
-	public synchronized void deleteGeocoder(String id) {
+	public synchronized void deleteGeocoder(@NonNull String id) {
 		if (id.equals(ID_DEFAULT_GEOCODER_NOMINATIM)) throw new RuntimeException("Cannot delete default");
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("geocoders", "id = ?", new String[] { id });

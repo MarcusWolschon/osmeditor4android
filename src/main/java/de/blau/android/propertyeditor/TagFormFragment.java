@@ -21,10 +21,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -61,6 +64,9 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
+import ch.poole.openinghoursfragment.OpeningHoursFragment;
+import ch.poole.openinghoursparser.OpeningHoursParser;
+import ch.poole.openinghoursparser.Rule;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -76,6 +82,7 @@ import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.NetworkStatus;
+import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -132,7 +139,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         args.putSerializable(ASK_FOR_NAME, askForName);
 
         f.setArguments(args);
-        // f.setShowsDialog(true);
         
         return f;
     }
@@ -206,7 +212,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				ft.remove(recentPresetsFragment);
 			}
 			
-			recentPresetsFragment = RecentPresetsFragment.newInstance(((PropertyEditor)getActivity()).getElement()); // FIXME
+			recentPresetsFragment = RecentPresetsFragment.newInstance(((PropertyEditor)getActivity()).getElement()); // FIXME multiselect or what?
 			ft.add(R.id.form_mru_layout,recentPresetsFragment,"recentpresets_fragment");
 			ft.commit();
 		}
@@ -214,7 +220,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		Log.d(DEBUG_TAG,"onCreateView returning");
 		return rowLayout;
 	}
-    
     
     @Override
     public void onStart() {
@@ -286,6 +291,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	 * @param allTags
 	 * @return
 	 */
+    @Nullable
 	private ArrayAdapter<?> getValueAutocompleteAdapter(String key, ArrayList<String> values, PresetItem preset, LinkedHashMap<String, String> allTags) {
 		ArrayAdapter<?> adapter = null;
 	
@@ -357,7 +363,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-		// final MenuInflater inflater = getSupportMenuInflater();
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.tag_form_menu, menu);
 		FragmentActivity activity = getActivity();
@@ -455,8 +460,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		case R.id.tag_menu_help:
 			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
 			return true;
+		default: 		
+			return false;
 		}		
-		return false;
 	}
 
 	/**
@@ -489,7 +495,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				if (row != null) {
 					tagListener.updateSingleValue(((TagTextRow) row).getKey(), ((TagTextRow) row).getValue());
 					if (row.getParent() instanceof EditableLayout) {
-						(((EditableLayout)row.getParent())).putTag(((TagTextRow) row).getKey(), ((TagTextRow) row).getValue());
+						((EditableLayout)row.getParent()).putTag(((TagTextRow) row).getKey(), ((TagTextRow) row).getValue());
 					}
 				}
 			}
@@ -596,13 +602,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     	LinearLayout nel = (LinearLayout) getView().findViewById(R.id.form_immutable_header_layout);
     	if (nel != null) {
     		nel.setVisibility(View.GONE);
+    		if (nonEditable.size() > 0) {
+    			nel.setVisibility(View.VISIBLE);
+    			for (String key:nonEditable.keySet()) {
+    				addRow(nonEditableView,key, nonEditable.get(key),null, allTags);
+    			}
+    		}   	
     	}
-    	if (nonEditable.size() > 0) {
-    		nel.setVisibility(View.VISIBLE);
-    		for (String key:nonEditable.keySet()) {
-    			addRow(nonEditableView,key, nonEditable.get(key),null, allTags);
-    		}
-    	}   	
     	// some final UI stuff
     	if (focusOnAddress) {
     		focusOnAddress = false; // only do it once
@@ -658,22 +664,18 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			}
 			for (String key:preset.getRecommendedTags().keySet()) {
 				String value = tagList.get(key);
-				if (value != null) {
-					if (preset.hasKeyValue(key, value)) {
-						recommendedEditable.put(key, value);
-						tagList.remove(key);
-						editableView.putTag(key, value);
-					}
+				if (value != null && preset.hasKeyValue(key, value)) {
+					recommendedEditable.put(key, value);
+					tagList.remove(key);
+					editableView.putTag(key, value);
 				}
 			}
 			for (String key:preset.getOptionalTags().keySet()) {
 				String value = tagList.get(key);
-				if (value != null) {
-					if (preset.hasKeyValue(key, value)) {
-						optionalEditable.put(key, value);
-						tagList.remove(key);
-						editableView.putTag(key, value);
-					}
+				if (value != null && preset.hasKeyValue(key, value)) {
+					optionalEditable.put(key, value);
+					tagList.remove(key);
+					editableView.putTag(key, value);
 				}
 			}
 			// process any remaining tags
@@ -719,14 +721,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			Util.groupI18nKeys(optionalEditable);
 			Util.groupI18nKeys(linkedTags);
 		}
-		for (String key:recommendedEditable.keySet()) {
-			addRow(editableView,key, recommendedEditable.get(key),preset, tags);
+		for (Entry<String,String>entry:recommendedEditable.entrySet()) {
+			addRow(editableView, entry.getKey(), entry.getValue(), preset, tags);
 		}
-		for (String key:optionalEditable.keySet()) {
-			addRow(editableView,key, optionalEditable.get(key),preset, tags);
+		for (Entry<String,String>entry:optionalEditable.entrySet()) {
+			addRow(editableView, entry.getKey(), entry.getValue(), preset, tags);
 		}
-		for (String key: linkedTags.keySet()) {
-			addRow(editableView,key, linkedTags.get(key), keyToLinkedPreset.get(key), tags);
+		for (Entry<String,String>entry: linkedTags.entrySet()) {
+			String key = entry.getKey();
+			addRow(editableView, key, entry.getValue(), keyToLinkedPreset.get(key), tags);
 		}
 
 		return nonEditable;
@@ -766,7 +769,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				if (!preset.isFixedTag(key)) {
 					ArrayAdapter<?> adapter = null;
 					ArrayList<String> values = null;
-					if (preset != null && preset.getKeyType(key) == PresetKeyType.MULTISELECT) {
+					if (preset.getKeyType(key) == PresetKeyType.MULTISELECT) {
 						values = Preset.splitValues(Util.getArrayList(value), preset, key);
 						adapter = getValueAutocompleteAdapter(key, values, preset, allTags);
 					} else {
@@ -790,6 +793,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						|| key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 						if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 							rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, adapter));
+						} else if ((Tags.KEY_OPENING_HOURS.equals(key) || Tags.KEY_SERVICE_TIMES.equals(key)) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { //FIXME need at least SDK 12
+							rowLayout.addView(addOpeningHoursDialogRow(rowLayout, preset, hint, key, value, adapter));
 						} else {
 							// special handling for international names
 							rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, defaultValue, adapter));
@@ -807,46 +812,51 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 							rowLayout.addView(addMultiselectDialogRow(rowLayout, preset, hint, key, value, defaultValue, adapter, allTags));
 						}
 					} else if (preset.getKeyType(key) == PresetKeyType.CHECK) {
-						final TagCheckRow row = (TagCheckRow)inflater.inflate(R.layout.tag_form_check_row, rowLayout, false);
-						row.keyView.setText(hint != null?hint:key);
-						row.keyView.setTag(key);
-						
-						String v = "";
-						String description = "";
-						final String valueOn = preset.getOnValue(key);
-						String tempValueOff = "";
-						
-						// this is a bit of a roundabout way of determining the non-checked value;
-						for (int i=0;i< adapter.getCount();i++) {
-							Object o = adapter.getItem(i);
-							StringWithDescription swd = new StringWithDescription(o);
-							v = swd.getValue();
-							description = swd.getDescription();
-							if (!v.equals(valueOn)) {
-								tempValueOff = v;
-							}
-						}
-						
-						final String valueOff = tempValueOff;
-						
-						Log.d(DEBUG_TAG,"adapter size " + adapter.getCount() + " checked value >" + valueOn + "< not checked value >" + valueOff + "<");
-						if (description==null) {
-							description=v;
-						}
-						
-						row.getCheckBox().setChecked(valueOn != null && valueOn.equals(value));
-						
-						rowLayout.addView(row);
-						row.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(
-									CompoundButton buttonView, boolean isChecked) {
-								tagListener.updateSingleValue(key, isChecked?valueOn:valueOff);
-								if (rowLayout instanceof EditableLayout) {
-									((EditableLayout)rowLayout).putTag(key, isChecked?valueOn:valueOff);
+						if (adapter != null) {
+							final TagCheckRow row = (TagCheckRow)inflater.inflate(R.layout.tag_form_check_row, rowLayout, false);
+							row.keyView.setText(hint != null?hint:key);
+							row.keyView.setTag(key);
+
+							String v = "";
+							String description = "";
+							final String valueOn = preset.getOnValue(key);
+							String tempValueOff = "";
+
+							// this is a bit of a roundabout way of determining the non-checked value;
+							for (int i=0;i< adapter.getCount();i++) {
+								Object o = adapter.getItem(i);
+								StringWithDescription swd = new StringWithDescription(o);
+								v = swd.getValue();
+								description = swd.getDescription();
+								if (!v.equals(valueOn)) {
+									tempValueOff = v;
 								}
-							} 
-						});
+							}
+
+							final String valueOff = tempValueOff;
+
+							Log.d(DEBUG_TAG,"adapter size " + adapter.getCount() + " checked value >" + valueOn + "< not checked value >" + valueOff + "<");
+							if (description==null) {
+								description=v;
+							}
+
+							row.getCheckBox().setChecked(valueOn != null && valueOn.equals(value));
+
+							rowLayout.addView(row);
+							row.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+								@Override
+								public void onCheckedChanged(
+										CompoundButton buttonView, boolean isChecked) {
+									tagListener.updateSingleValue(key, isChecked?valueOn:valueOff);
+									if (rowLayout instanceof EditableLayout) {
+										((EditableLayout)rowLayout).putTag(key, isChecked?valueOn:valueOff);
+									}
+								} 
+							});
+						}
+						else {
+							Log.e(DEBUG_TAG,"preset element type " + key + " " + value + " " + preset.getName() + " adapter for checkbox is null");
+						}
 					} else {
 						Log.e(DEBUG_TAG,"unknown preset element type " + key + " " + value + " " + preset.getName());
 					}
@@ -952,10 +962,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			// unused
 		}
 		
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			// unused
 		}
 		
 		@Override
@@ -1083,8 +1095,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
-				final View finalView = v;
-				// finalView.setEnabled(false); // FIXME debounce 
 				FragmentManager fm = getChildFragmentManager();
 				FragmentTransaction ft = fm.beginTransaction();
 			    Fragment prev = fm.findFragmentByTag("fragment_conditional_restriction");
@@ -1094,6 +1104,78 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			    ft.commit();
 			    ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key,value,templates,ohTemplates);
 			    conditionalRestrictionDialog.show(fm, "fragment_conditional_restriction");
+			}
+		});
+		return row;
+	}
+	
+	private TagFormDialogRow addOpeningHoursDialogRow(final LinearLayout rowLayout, PresetItem preset, final String hint, final String key, String value, final ArrayAdapter<?> adapter) {
+		final TagFormOpeningHoursDialogRow row = (TagFormOpeningHoursDialogRow)inflater.inflate(R.layout.tag_form_openinghours_dialog_row, rowLayout, false);
+		row.keyView.setText(hint != null?hint:key);
+		row.keyView.setTag(key);
+		row.setPreset(preset);
+
+		boolean strictSucceeded = false;
+		boolean lenientSucceeded = false;
+		ArrayList<Rule> rules = null;
+		
+		OpeningHoursParser parser = new OpeningHoursParser(new ByteArrayInputStream(value.getBytes()));
+		
+		try {
+			rules = parser.rules(true);
+			strictSucceeded = true;
+		} catch (Exception e) {
+			parser = new OpeningHoursParser(new ByteArrayInputStream(value.getBytes()));
+			try {
+				rules = parser.rules(false);
+				value = ch.poole.openinghoursparser.Util.rulesToOpeningHoursString(rules);
+				tagListener.updateSingleValue(key, value);
+				lenientSucceeded = true;
+			} catch (Exception e1) {
+				// failed 
+				rules = null;
+			}
+		}
+		row.setValue(value, rules);
+		
+	    if (value != null && !"".equals(value)) {
+	    	if (!strictSucceeded && lenientSucceeded) {
+	    		rowLayout.post(new Runnable() {
+	    			@Override
+	    			public void run() {
+	    				Snack.barWarning(rowLayout, getString(R.string.toast_openinghours_autocorrected,row.keyView.getText().toString()), Snackbar.LENGTH_LONG);
+	    			}
+	    		});
+	    	} else if (!strictSucceeded && !lenientSucceeded) {
+	    		rowLayout.post(new Runnable() {
+	    			@Override
+	    			public void run() {
+	    				Snack.barWarning(rowLayout, getString(R.string.toast_openinghours_invalid,row.keyView.getText().toString()), Snackbar.LENGTH_LONG);
+	    			}
+	    		});
+	    	}
+	    }
+		
+		final ArrayList<String> ohTemplates = new ArrayList<String>();
+		for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).getElement().getType(), Tags.KEY_OPENING_HOURS)) {
+			ohTemplates.add(s.getValue());
+		}	
+		row.valueView.setHint(R.string.tag_dialog_value_hint);
+		final String finalValue = value;
+		row.setOnClickListener(new OnClickListener() {
+			@SuppressLint("NewApi")
+			@Override
+			public void onClick(View v) {
+				FragmentManager fm = getChildFragmentManager();
+				FragmentTransaction ft = fm.beginTransaction();
+			    Fragment prev = fm.findFragmentByTag("fragment_opening_hours");
+			    if (prev != null) {
+			        ft.remove(prev);
+			    }
+			    ft.commit();
+			    OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(key,finalValue,
+			    		prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert:R.style.Theme_AppCompat_Dialog_Alert, -1);
+			    openingHoursDialog.show(fm, "fragment_opening_hours");
 			}
 		});
 		return row;
@@ -1254,9 +1336,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		String value = row.getValue();
 		Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(hint);
-	   	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
+	   	final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(getActivity());
     	
-		final View layout = inflater.inflate(R.layout.form_combo_dialog, null);
+		final View layout = themedInflater.inflate(R.layout.form_combo_dialog, null);
 		RadioGroup valueGroup = (RadioGroup) layout.findViewById(R.id.valueGroup);
 		builder.setView(layout);
 		
@@ -1274,7 +1356,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		};
 		
 		LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
-		buttonLayoutParams.width = LayoutParams.FILL_PARENT;
+		buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
 		
 		for (int i=0;i< adapter.getCount();i++) {
 			Object o = adapter.getItem(i);
@@ -1329,14 +1411,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	private AlertDialog buildMultiselectDialog(String hint, String key, String defaultValue, ArrayAdapter<?> adapter, final TagFormMultiselectDialogRow row, LinkedHashMap<String, String> allTags) {
 		Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(hint);
-	   	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
+	   	final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(getActivity());
     	
-		final View layout = inflater.inflate(R.layout.form_multiselect_dialog, null);
+		final View layout = themedInflater.inflate(R.layout.form_multiselect_dialog, null);
 		final LinearLayout valueGroup = (LinearLayout) layout.findViewById(R.id.valueGroup);
 		builder.setView(layout);
 		
 		LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
-		buttonLayoutParams.width = LayoutParams.FILL_PARENT;
+		buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
 		
 		layout.setTag(key);
 		ArrayList<String> values = Preset.splitValues(Util.getArrayList(row.getValue()), row.getPreset(), key);
@@ -1356,13 +1438,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			if ((values==null || (values.size()==1 && "".equals(values.get(0)))) && (defaultValue != null && !"".equals(defaultValue))) {
 				addCheck(getActivity(), valueGroup, swd, v.equals(defaultValue), buttonLayoutParams);
 			} else {			
-				addCheck(getActivity(), valueGroup, swd, values.contains(v), buttonLayoutParams);
+				addCheck(getActivity(), valueGroup, swd, values != null ? values.contains(v) : false, buttonLayoutParams);
 			}
 		}
 		
 		builder.setNeutralButton(R.string.clear, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				// do nothing
 			}
 		});
 		builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
@@ -1678,6 +1761,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			valueView = (TextView)findViewById(R.id.textValue);	
 		}
 		
+		@Override
 		public void setOnClickListener(final OnClickListener listener) {
 			valueView.setOnClickListener(listener);
 		}
@@ -1735,6 +1819,86 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	}
 	
 	/**
+	 * Row that displays opening_hours values and allows changing them via a dialog
+	 */
+	public static class TagFormOpeningHoursDialogRow extends TagFormDialogRow {
+		
+		OnClickListener listener;
+
+		LinearLayout valueList;
+		final LayoutInflater inflater;
+		int errorTextColor = ContextCompat.getColor(getContext(), ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.textColorError, R.color.material_red));
+		
+		public TagFormOpeningHoursDialogRow(Context context) {
+			super(context);
+			inflater = LayoutInflater.from(context);
+		}
+		
+		public TagFormOpeningHoursDialogRow(Context context, AttributeSet attrs) {
+			super(context, attrs);
+			inflater = LayoutInflater.from(context);
+		}
+		
+		@Override
+		protected void onFinishInflate() {
+			super.onFinishInflate();
+			valueList = (LinearLayout)findViewById(R.id.valueList);
+			
+		}
+		
+		/**
+		 * Set the onclicklistener for every value
+		 */
+		@Override
+		public void setOnClickListener(final OnClickListener listener) {
+			this.listener = listener;
+			for (int pos=0;pos<valueList.getChildCount();pos++) {
+				View v = valueList.getChildAt(pos);
+				if (v instanceof TextView) {
+					((TextView)v).setOnClickListener(listener);
+				}
+			}
+		}
+		
+		/**
+		 * Set the OH value for the row
+		 * @param ohValue	the original opening hours value
+		 * @param rules		rules parsed from the value
+		 */
+		public void setValue(String ohValue, @Nullable List<Rule> rules) {
+			int childCount = valueList.getChildCount();
+			for (int pos = 0;pos < childCount ;pos++) { // don^t delete first child, just clear
+				if (pos == 0) {
+					setValue("","");
+				} else {
+					valueList.removeViewAt(1);
+				}
+			}
+			boolean first=true;
+			if (rules != null && !rules.isEmpty()) {
+				for (Rule r:rules) {
+					if (first) {
+						setValue(r.toString());
+						first = false;
+					} else {
+						TextView extraValue = (TextView)inflater.inflate(R.layout.form_dialog_multiselect_value, valueList, false);
+						extraValue.setText(r.toString());
+						extraValue.setTag(r.toString());
+						valueList.addView(extraValue);
+					}
+				}
+			} else {
+				setValue(ohValue);
+				if (ohValue != null && !"".equals(ohValue)) {
+					valueView.setTextColor(errorTextColor);
+				}
+			}
+			super.value = ohValue;
+			setOnClickListener(listener);
+		}
+	}
+	
+	/**
 	 * Row that displays multiselect values and allows changing them via a dialog
 	 */
 	public static class TagFormMultiselectDialogRow extends TagFormDialogRow {
@@ -1763,6 +1927,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		/**
 		 * Set the onclicklistener for every value
 		 */
+		@Override
 		public void setOnClickListener(final OnClickListener listener) {
 			this.listener = listener;
 			for (int pos=0;pos<valueList.getChildCount();pos++) {
@@ -1777,7 +1942,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		 * Add additional description values as individual TextViews
 		 * @param values
 		 */
-		public void setValue(ArrayList<StringWithDescription> values) {
+		public void setValue(List<StringWithDescription> values) {
 			String value = "";
 			char delimiter = preset.getDelimiter(getKey());
 			int childCount = valueList.getChildCount();
@@ -2068,11 +2233,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	
 	/**
 	 * Show a dialog to select a name 
-	 * @param ctx
-	 * @return
+	 * 
+	 * @param ctx	Android context
+	 * @return		an AlertDialog
 	 */
 	private AlertDialog buildNameDialog(Context ctx) {
-		Names names = App.getNames(ctx);
+		if (names == null) {
+			names = App.getNames(ctx);
+		}
 		ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(new TreeMap<String, String>())); 
 		ArrayAdapter<NameAndTags> adapter = null;
 		if (suggestions != null && !suggestions.isEmpty()) {

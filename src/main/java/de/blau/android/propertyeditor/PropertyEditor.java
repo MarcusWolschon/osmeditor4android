@@ -66,7 +66,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author simon
  */
 public class PropertyEditor extends BugFixedAppCompatActivity implements 
-		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters, OnSaveListener {
+		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
 	private static final String CURRENTITEM = "current_item";
 	private static final String PANELAYOUT = "pane_layout";
 	private static final String PRESET_FRAGMENT = "preset_fragment";
