@@ -231,7 +231,7 @@ dependencies {
     compile "ch.poole:PoParser:0.7.2"
     compile "ch.poole:OpeningHoursParser:0.8.0"
     compile "ch.poole:ConditionalRestrictionParser:0.1.12"
-    compile "ch.poole:OpeningHoursFragment:0.0.17"
+    compile "ch.poole:OpeningHoursFragment:0.0.19"
     compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
 
