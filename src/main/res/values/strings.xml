@@ -200,6 +200,10 @@
     <string name="toast_needs_resurvey">Object may be out of date</string>
     <string name="toast_openinghours_invalid">Invalid opening hours value for %1$s</string>
     <string name="toast_openinghours_autocorrected">Opening hours value for %1$s was autocorrected</string>
+    <string name="toast_exit_multiselect">Double tap an empty space or use the back arrow to exit</string>
+    <string name="toast_exit_actionmode">Use the back arrow to save and exit</string>
+    <string name="toast_abort_actionmode">Use the back arrow to abort</string>
+    
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -308,6 +312,7 @@
     <string name="menu_extract">Extract node</string>
     <string name="menu_append">Append</string>
     <string name="menu_relation">Create relation</string>
+    <string name="menu_edit_relation">Edit relation</string>
     <string name="menu_add_relation_member">Add member</string>
     <string name="menu_select_relation_members">Select members</string>
     <string name="menu_tag">Edit tags</string>

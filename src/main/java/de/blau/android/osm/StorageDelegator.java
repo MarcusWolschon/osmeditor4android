@@ -1801,12 +1801,12 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * compare current list of relations members to new list and apply the necessary changes
-	 * currently doesn't handle additions or changes in sequence
+	 * Compare current list of relations members to new list and apply the necessary changes
+	 * 
 	 * @param r			the relation
 	 * @param members  	new list of members
 	 */
-	public void updateRelation(Relation r, ArrayList<RelationMemberDescription> members) {
+	public void updateRelation(Relation r, List<RelationMemberDescription> members) {
 		
 		dirty = true;
 		undo.save(r);
@@ -1866,17 +1866,17 @@ public class StorageDelegator implements Serializable, Exportable {
 				e.printStackTrace();
 			}
 		} else {
-			// FIXME remove relation from undo storage
+			undo.remove(r); // nothing changed
 		}
 	}
 
 	/**
 	 * Add further members without role to an existing relation
 	 * 
-	 * @param relation
-	 * @param members
+	 * @param relation	existing relation	
+	 * @param members	list of new members
 	 */
-	public void addMembersToRelation(Relation relation,	ArrayList<OsmElement> members) {
+	public void addMembersToRelation(Relation relation,	List<OsmElement> members) {
 		dirty = true;
 		for (OsmElement e:members) {
 			undo.save(e);

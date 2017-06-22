@@ -151,13 +151,26 @@ public class EasyEditManager {
 	}
 	
 	/**
-	 * Handle case where nothing is touched.
-	 * @param doubleTap TODO
+	 * Handle case where nothing is touched
+	 * .
+	 * @param doubleTap	action was a double tap if true
 	 */
 	public void nothingTouched(boolean doubleTap) {
 		// User clicked an empty area. If something is selected, deselect it.
 		if (!doubleTap && currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
-			return; // don't deselect all just because we didn't hit anything TODO display a toast
+			Snack.toastTopInfo(main, main.getString(R.string.toast_exit_multiselect));
+			return; // don't deselect all just because we didn't hit anything
+		}
+		if (currentActionModeCallback instanceof AddRelationMemberActionModeCallback) {
+			Snack.toastTopInfo(main, main.getString(R.string.toast_exit_actionmode));
+			return; // don't deselect all just because we didn't hit anything
+		}
+		if (currentActionModeCallback instanceof RestrictionViaElementActionModeCallback
+				|| currentActionModeCallback instanceof RestrictionToElementActionModeCallback
+				|| currentActionModeCallback instanceof RestrictionFromElementActionModeCallback
+				|| currentActionModeCallback instanceof RestartRestrictionFromElementActionModeCallback) {
+			Snack.toastTopInfo(main, main.getString(R.string.toast_abort_actionmode));
+			return;
 		}
 		synchronized (actionModeCallbackLock) {
 			if (currentActionModeCallback instanceof ElementSelectionActionModeCallback 
@@ -2065,11 +2078,13 @@ public class EasyEditManager {
 			super.handleElementClick(element);		
 			if (viaElements.size() > 1) {
 				fromSelected = true;
+				logic.addSelectedRelationWay((Way) element);
 				// redo via selection, this time with pre-split way
 				main.startSupportActionMode(new RestrictionFromElementActionModeCallback(R.string.actionmode_restriction_restart_via,(Way)element, viaElements));
 				return true;
 			} else if (viaElements.size() == 1) {
 				fromSelected = true;
+				logic.addSelectedRelationWay((Way) element);
 				main.startSupportActionMode(new RestrictionViaElementActionModeCallback((Way)element, viaElements.iterator().next()));
 				return true;
 			} 
@@ -2122,11 +2137,11 @@ public class EasyEditManager {
 			return true;
 		}
 		
-		@Override
 		/**
 		 * In the simplest case this selects the next step in creating the restriction, in the worst it splits both the via and from way and
 		 * restarts the process.
 		 */
+		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
 			// check if we have to split from or via
@@ -2321,6 +2336,7 @@ public class EasyEditManager {
 		private Relation relation = null;
 		private MenuItem revert = null;
 		private boolean backPressed = false;
+		private boolean existing = false;
 		
 		
 		public AddRelationMemberActionModeCallback(ArrayList<OsmElement> selection) {
@@ -2340,6 +2356,7 @@ public class EasyEditManager {
 			if (element != null)
 				addElement(element);
 			this.relation = relation;
+			existing = true;
 		}
 		
 		private void addElement(OsmElement element) {
@@ -2356,7 +2373,11 @@ public class EasyEditManager {
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			helpTopic = R.string.help_addrelationmember;
-			mode.setTitle(R.string.menu_relation);
+			if (existing) {
+				mode.setTitle(R.string.menu_edit_relation);
+			} else {
+				mode.setTitle(R.string.menu_relation);
+			}
 			mode.setSubtitle(R.string.menu_add_relation_member);
 			super.onCreateActionMode(mode, menu);
 			logic.setReturnRelations(true); // can add relations
@@ -2383,10 +2404,13 @@ public class EasyEditManager {
 				case MENUITEM_REVERT: // remove last item in list
 					if(members.size() > 0) {
 						OsmElement element = members.get(members.size()-1);
-						if (element.getName().equals(Way.NAME))
+						if (element.getName().equals(Way.NAME)) {
 							logic.removeSelectedRelationWay((Way)element);
-						else if (element.getName().equals(Node.NAME))
+						} else if (element.getName().equals(Node.NAME)) {
 							logic.removeSelectedRelationNode((Node)element);
+						} else if (element.getName().equals(Relation.NAME)) {
+							logic.removeSelectedRelationRelation((Relation)element);
+						} 
 						members.remove(members.size()-1);
 						setClickableElements();
 						main.invalidateMap();

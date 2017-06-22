@@ -35,7 +35,7 @@ import de.blau.android.exception.StorageException;
  * @author Jan Schejbal
  */
 public class UndoStorage implements Serializable {
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 1L;
 
 	private static final String TAG = "UndoStorage";
 	
@@ -94,9 +94,21 @@ public class UndoStorage implements Serializable {
 	
 	/**
 	 * remove checkpoint from list. typically called when we otherwise would have an empty checkpoint at the top
+	 * 
+	 * * @param name	checkpoint name
 	 */
 	public void removeCheckpoint(String name) {
-		if (!undoCheckpoints.isEmpty() && undoCheckpoints.getLast().isEmpty() && undoCheckpoints.getLast().name.equals(name))
+		removeCheckpoint(name, false);
+	}
+		
+	/**
+	 * remove checkpoint from list. typically called when we otherwise would have an empty checkpoint at the top
+	 * 
+	 * @param name	checkpoint name
+	 * @param force	remove even if checkpoint is not empty
+	 */
+	public void removeCheckpoint(String name, boolean force) {
+		if (!undoCheckpoints.isEmpty() && (undoCheckpoints.getLast().isEmpty() || force) && undoCheckpoints.getLast().name.equals(name))
 			undoCheckpoints.removeLast();
 	}
 	
@@ -104,6 +116,7 @@ public class UndoStorage implements Serializable {
 	 * Saves the current state of the element in the checkpoint. Call before any changes to the element.
 	 * A checkpoint needs to be created first using {@link #createCheckpoint(String)}, 
 	 * otherwise an error is logged and the function does nothing.
+	 * 
 	 * @param element the element to save
 	 */
 	void save(OsmElement element) {
@@ -117,6 +130,18 @@ public class UndoStorage implements Serializable {
 		} catch (Exception ex) {
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex); // don't crash the app send a report
+		}
+	}
+	
+	/**
+	 * Remove the saved state of this element from the last checkpoint
+	 * 
+	 * @param element	eleent for which the state should be removed
+	 */
+	void remove(OsmElement element) {
+		Checkpoint checkpoint = undoCheckpoints.getLast();
+		if (checkpoint != null) {
+			checkpoint.remove(element);
 		}
 	}
 	
@@ -180,7 +205,7 @@ public class UndoStorage implements Serializable {
 	 * The checkpoint can later be restored using {@link #restore(Checkpoint)}.
 	 */
 	private class Checkpoint implements Serializable {
-		private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 2L;
 		
 		private final HashMap<OsmElement, UndoElement> elements = new HashMap<OsmElement, UndoElement>();
 		public String name;
@@ -201,6 +226,16 @@ public class UndoStorage implements Serializable {
 			else if (element instanceof Way) elements.put(element, new UndoWay((Way)element));
 			else if (element instanceof Relation) elements.put(element, new UndoRelation((Relation)element)); 
 			else throw new IllegalArgumentException("Unsupported element type");
+		}
+		
+		/**
+		 * Remove the saved state for the element from this checkpoint
+		 * 
+		 * @param element	the element for which remove the saved state
+		 */
+		public void remove(OsmElement element) throws IllegalArgumentException {
+			if (!elements.containsKey(element)) return;
+			elements.remove(element);
 		}
 		
 		/**
