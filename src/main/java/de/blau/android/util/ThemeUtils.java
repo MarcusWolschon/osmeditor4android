@@ -38,7 +38,7 @@ public final class ThemeUtils {
         final boolean found = context.getTheme().resolveAttribute(attribResId, tv, true);
         if (!found) {
         	Log.d("ThemeUtils", "themed color not found");
-        	return ContextCompat.getColor(context, defaultValue);
+        	return defaultValue;
         }
         return tv.data;
     }
