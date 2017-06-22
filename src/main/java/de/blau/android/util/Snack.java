@@ -42,8 +42,8 @@ public class Snack {
 	 * Enqueue a snackbar on a queue removing items if space is exhausted
 	 * 
 	 * Note: caller needs to provide synchronization
-	 * @param queue
-	 * @param s
+	 * @param queue	the queue to use
+	 * @param s		the snackbar to queue
 	 */
 	static void enqueue(LinkedList<Snackbar> queue, Snackbar s) {
 		if (queue.size() >= QUEUE_CAPACITY) {
@@ -62,7 +62,7 @@ public class Snack {
 	 * Show the first snackbar on the queue if any and not already being shown
 	 * 
 	 * Note: caller needs to provide synchronization
-	 * @param queue to check
+	 * @param queue 	the queue to check
 	 * @return true if a snackbar was found and shown
 	 */
 	static boolean showFirst(LinkedList<Snackbar> queue) {
@@ -78,7 +78,7 @@ public class Snack {
 	 * Dismiss the first entry on the queue if it is being shown
 	 * 
 	 * Note: caller needs to provide synchronization
-	 * @param queue the queue to check
+	 * @param queue 	the queue to check
 	 */
 	static void dismiss(LinkedList<Snackbar> queue) {
 		Snackbar first = queue.peekFirst();
@@ -90,7 +90,7 @@ public class Snack {
 	/**
 	 * Enqueue a snackbar on the info queue
 	 * 
-	 * @param s the snackbar to queue
+	 * @param s 	the snackbar to queue
 	 */
 	static void enqueueInfo(Snackbar s) {
 		synchronized (queueLock) {
@@ -104,7 +104,7 @@ public class Snack {
 	/**
 	 * Enqueue a snackbar on the warning queue
 	 * 
-	 * @param s the snackbar to queue
+	 * @param s 	the snackbar to queue
 	 */
 	static void enqueueWarning(Snackbar s) {
 		synchronized (queueLock) {
@@ -120,7 +120,7 @@ public class Snack {
 	/**
 	 * Enqueue a snackbar on the error queue
 	 * 
-	 * @param s the snackbar to queue
+	 * @param s 	the snackbar to queue
 	 */
 	static void enqueueError(Snackbar s) {
 		synchronized (queueLock) {
@@ -157,8 +157,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an error message
 	 * 
-	 * @param activity activity calling us
-	 * @param res resource id of the message to display
+	 * @param activity 	activity calling us
+	 * @param res 		resource id of the message to display
 	 */
 	public static void barError(Activity activity, int res) {
 		if (activity != null) {
@@ -169,8 +169,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an error message
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param res resource id of the message to display
+	 * @param v 	view to display the snackbar on
+	 * @param res 	resource id of the message to display
 	 */
 	public static void barError(View v, int res) {
 		Snackbar snackbar = Snackbar.make(v, res, Snackbar.LENGTH_LONG);
@@ -182,8 +182,8 @@ public class Snack {
 	/**
 	 * * Display a snackbar with an error message
 	 * 
-	 * @param activity activity calling us
-	 * @param msg message to display
+	 * @param activity 	activity calling us
+	 * @param msg 		message to display
 	 */
 	public static void barError(Activity activity, String msg) {
 		if (activity != null) {
@@ -194,8 +194,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an error message
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param msg message to display
+	 * @param v 	view to display the snackbar on
+	 * @param msg 	message to display
 	 */
 	public static void barError(View v, String msg) {
 		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
@@ -207,8 +207,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message
 	 * 
-	 * @param activity activity calling us
-	 * @param res resource id of the message to display
+	 * @param activity 	activity calling us
+	 * @param res 		resource id of the message to display
 	 */
 	public static void barInfo(Activity activity, int res) {
 		if (activity != null) {
@@ -219,8 +219,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param res resource id of the message to display
+	 * @param v 	view to display the snackbar on
+	 * @param res 	resource id of the message to display
 	 */
 	public static void barInfo(View v, int res) {
 		barInfo(v, res, Snackbar.LENGTH_LONG);
@@ -229,8 +229,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message for a short duration
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param res resource id of the message to display
+	 * @param v 	view to display the snackbar on
+	 * @param res 	resource id of the message to display
 	 */
 	public static void barInfoShort(View v, int res) {
 		barInfo(v, res, Snackbar.LENGTH_SHORT);
@@ -239,8 +239,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message for a short duration
 	 * 
-	 * @param activity activity calling us
-	 * @param res resource id of the message to display
+	 * @param activity 	activity calling us
+	 * @param res 		resource id of the message to display
 	 */
 	public static void barInfoShort(Activity activity, int res) {
 		if (activity != null) {
@@ -251,9 +251,9 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param res resource id of the message to display
-	 * @param duration hw long to display the message in ms
+	 * @param v 		view to display the snackbar on
+	 * @param res 		resource id of the message to display
+	 * @param duration 	how long to display the message in ms
 	 */
 	public static void barInfo(View v, int res, int duration) {
 		Snackbar snackbar = Snackbar.make(v, res, duration);
@@ -265,8 +265,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message
 	 * 
-	 * @param activity activity calling us
-	 * @param msg message to display
+	 * @param activity 	activity calling us
+	 * @param msg 		message to display
 	 */
 	public static void barInfo(Activity activity, String msg) {
 		if (activity != null) {
@@ -277,8 +277,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message for a short duration
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param msg message to display
+	 * @param v 	view to display the snackbar on
+	 * @param msg 	message to display
 	 */
 	public static void barInfoShort(View v, String msg) {
 		barInfo(v, msg, Snackbar.LENGTH_SHORT);
@@ -287,8 +287,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message for a short duration
 	 * 
-	 * @param activity activity calling us
-	 * @param msg message to display
+	 * @param activity 	activity calling us
+	 * @param msg 		message to display
 	 */
 	public static void barInfoShort(Activity activity, String msg) {
 		if (activity != null) {
@@ -299,9 +299,9 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param msg message to display
-	 * @param duration hw long to display the message in ms
+	 * @param v 		view to display the snackbar on
+	 * @param msg 		message to display
+	 * @param duration 	how long to display the message in ms
 	 */
 	public static void barInfo(View v, String msg, int duration) {
 		Snackbar snackbar = Snackbar.make(v, msg, duration);
@@ -313,8 +313,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param msg message to display
+	 * @param v 	view to display the snackbar on
+	 * @param msg 	message to display
 	 */
 	public static void barInfo(View v, String msg) {
 		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
@@ -340,10 +340,10 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message with a possible action
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param msg message to display
-	 * @param action action textRes resource for the text of an action
-	 * @param listener called when action is selected
+	 * @param v 		view to display the snackbar on
+	 * @param msg 		message to display
+	 * @param action 	action textRes resource for the text of an action
+	 * @param listener 	called when action is selected
 	 */
 	public static void barInfo(View v, String msg, int actionRes, View.OnClickListener listener) {
 		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
@@ -358,10 +358,10 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message with a possible action
 	 * 
-	 * @param activity activity calling us
-	 * @param msg message to display
-	 * @param action action text
-	 * @param listener called when action is selected
+	 * @param activity 	activity calling us
+	 * @param msg 		message to display
+	 * @param action	action text
+	 * @param listener 	called when action is selected
 	 */
 	public static void barInfo(Activity activity, String msg, String action, View.OnClickListener listener) {
 		if (activity != null) {
@@ -372,10 +372,10 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message with a possible action
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param msg message to display
-	 * @param action action text
-	 * @param listener called when action is selected
+	 * @param v 		view to display the snackbar on
+	 * @param msg 		message to display
+	 * @param action 	action text
+	 * @param listener 	called when action is selected
 	 */
 	public static void barInfo(View v, String msg, String action, View.OnClickListener listener) {
 		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
@@ -402,8 +402,8 @@ public class Snack {
 	/**
 	 * Display a snackbar with a warning for a short duration
 	 * 
-	 * @param activity activity calling us
-	 * @param res resource id of the message to display
+	 * @param activity 	activity calling us
+	 * @param res 		resource id of the message to display
 	 */
 	public static void barWarningShort(Activity activity, int res) {
 		if (activity != null) {
@@ -414,9 +414,9 @@ public class Snack {
 	/**
 	 * Display a snackbar with a warning
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param res resource id of the message to display
-	 * @param duration hw long to display the message in ms
+	 * @param v 		view to display the snackbar on
+	 * @param res 		resource id of the message to display
+	 * @param duration 	how long to display the message in ms
 	 */
 	public static void barWarning(View v, int res, int duration) {
 		Snackbar snackbar = Snackbar.make(v, res, duration);
@@ -428,9 +428,9 @@ public class Snack {
 	/**
 	 * Display a snackbar with a warning
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param msg resource id of the message to display
-	 * @param duration hw long to display the message in ms
+	 * @param v 		view to display the snackbar on
+	 * @param msg 		resource id of the message to display
+	 * @param duration 	how long to display the message in ms
 	 */
 	public static void barWarning(View v, String msg, int duration) {
 		Snackbar snackbar = Snackbar.make(v, msg, duration);
@@ -442,10 +442,10 @@ public class Snack {
 	/**
 	 * Display a snackbar with an warning message with a possible action
 	 * 
-	 * @param activity activity calling us
-	 * @param msg message to display
-	 * @param action action textRes resource for the text of an action
-	 * @param listener called when action is selected
+	 * @param activity 	activity calling us
+	 * @param msg 		message to display
+	 * @param action 	action textRes resource for the text of an action
+	 * @param listener 	called when action is selected
 	 */
 	public static void barWarning(Activity activity, String msg, int actionRes, View.OnClickListener listener) {
 		if (activity != null) {
@@ -456,10 +456,10 @@ public class Snack {
 	/**
 	 * Display a snackbar with an warning message with a possible action
 	 * 
-	 * @param v view to display the snackbar on
-	 * @param msg message to display
-	 * @param action action text resrouce id
-	 * @param listener called when action is selected
+	 * @param v 		view to display the snackbar on
+	 * @param msg 		message to display
+	 * @param action 	action text resrouce id
+	 * @param listener 	called when action is selected
 	 */
 	public static void barWarning(View v, String msg, int actionRes, View.OnClickListener listener) {
 		Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
@@ -473,8 +473,9 @@ public class Snack {
 	
 	/**
 	 * Display an info toast underneath the top action bar
-	 * @param activity activity that called this
-	 * @param msg the message to display
+	 * 
+	 * @param activity	activity that called this
+	 * @param msg		the message to display
 	 */
 	public static void toastTopInfo(Context context, String msg) {
 		toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal),Toast.LENGTH_SHORT);
@@ -482,8 +483,9 @@ public class Snack {
 	
 	/**
 	 * Display a warning toast underneath the top action bar
-	 * @param activity activity that called this
-	 * @param msg the message to display
+	 * 
+	 * @param activity	activity that called this
+	 * @param msg 		the message to display
 	 */
 	public static void toastTopWarning(Context context, String msg) {
 		toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow),Toast.LENGTH_LONG);
@@ -491,8 +493,9 @@ public class Snack {
 	
 	/**
 	 * Display an error toast underneath the top action bar
-	 * @param activity activity that called this
-	 * @param msgRes the message resource to display
+	 * 
+	 * @param activity 	activity that called this
+	 * @param msgRes 	the message resource to display
 	 */
 	public static void toastTopError(Context context, int msgRes) {
 		toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red),Toast.LENGTH_LONG);
@@ -500,19 +503,21 @@ public class Snack {
 	
 	/**
 	 * Display an error toast underneath the top action bar
-	 * @param activity activity that called this
-	 * @param msg the message to display
+	 * 
+	 * @param activity 	activity that called this
+	 * @param msg 		the message to display
 	 */
 	public static void toastTopError(Context context, String msg) {
 		toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red),Toast.LENGTH_LONG);
 	}
 	
 	/**
-	 * Display a toast underneath the top action bar
-	 * @param activity activity that called this
-	 * @param msgRes the message resource to display
-	 * @param color background color of the message
-	 * @param duration how long to display the message
+	 * Display a toast 	underneath the top action bar
+	 * 
+	 * @param activity 	activity that called this
+	 * @param msgRes 	the message resource to display
+	 * @param color 	background color of the message
+	 * @param duration 	how long to display the message
 	 */
 	private static void toastTop(Context context, int msgRes, int color, int duration) {
 		toastTop(context, context.getResources().getString(msgRes), color, duration);
@@ -520,10 +525,11 @@ public class Snack {
 	
 	/**
 	 * Display a toast underneath the top action bar
-	 * @param activity activity that called this
-	 * @param msg the message to display
-	 * @param color background color of the message
-	 * @param duration how long to display the message
+	 * 
+	 * @param activity	activity that called this
+	 * @param msg 		the message to display
+	 * @param color 	background color of the message
+	 * @param duration 	how long to display the message
 	 */
 	private static void toastTop(Context context, String msg, int color, int duration) {
 		 LayoutInflater inflater = LayoutInflater.from(context);
