@@ -830,16 +830,20 @@ public class EasyEditManager {
 						if (location != null) {
 							double lon = location.getLongitude();
 							double lat = location.getLatitude();
-							if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-								logic.performSetPosition(main, node,lon,lat);
-								TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
-								if (location.hasAltitude()) {
-									tags.put(Tags.KEY_ELE, String.format(Locale.US,"%.1f",location.getAltitude()));
-									tags.put(Tags.KEY_ELE_MSL, String.format(Locale.US,"%.1f",location.getAltitude()));
-									tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
+							if (Util.notZero(lon) || Util.notZero(lat)) {
+								if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+									logic.performSetPosition(main, node,lon,lat);
+									TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+									if (location.hasAltitude()) {
+										tags.put(Tags.KEY_ELE, String.format(Locale.US,"%.1f",location.getAltitude()));
+										tags.put(Tags.KEY_ELE_MSL, String.format(Locale.US,"%.1f",location.getAltitude()));
+										tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
+									}
+									tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
+									logic.setTags(main, node, tags);
 								}
-								tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
-								logic.setTags(main, node, tags);
+							} else {
+								Snack.barError(main, R.string.toast_null_island);
 							}
 						}
 					}

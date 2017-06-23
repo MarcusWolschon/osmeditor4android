@@ -203,6 +203,7 @@
     <string name="toast_exit_multiselect">Double tap an empty space or use the back arrow to exit</string>
     <string name="toast_exit_actionmode">Use the back arrow to save and exit</string>
     <string name="toast_abort_actionmode">Use the back arrow to abort</string>
+    <string name="toast_null_island">Please do not add elements at 0°/0° (Null Island)</string>
     
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
