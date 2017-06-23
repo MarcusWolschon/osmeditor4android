@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1272: Updated UP fragment, add warning when trying to add nodes with GPS derived location at Null Island.
+
 1271: Various small action mode improvements, updated OH fragment, make casing width dynamic when rendering ways. 
 
 1270: Initial opening hours editing integration.
