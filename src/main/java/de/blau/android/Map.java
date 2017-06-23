@@ -28,6 +28,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -288,6 +289,12 @@ public class Map extends View implements IMapView {
 		}
 	}
 	
+	/**
+	 * Return the current background layer
+	 * 
+	 * @return the current background layer or null if none is configured
+	 */
+	@Nullable
 	public MapTilesOverlay getOpenStreetMapTilesOverlay() {
 		synchronized(mOverlays) {
 			for (MapViewOverlay osmvo : mOverlays) {
@@ -300,9 +307,11 @@ public class Map extends View implements IMapView {
 	}
 
 	/**
-	 * The names of these clases are patently silly and should be refactored
-	 * @return
+	 * Return the current overlay layer
+	 * 
+	 * @return the current overlay layer or null if none is configured
 	 */
+	@Nullable
 	public MapOverlayTilesOverlay getOpenStreetMapOverlayTilesOverlay() {
 		synchronized(mOverlays) {
 			for (MapViewOverlay osmvo : mOverlays) {

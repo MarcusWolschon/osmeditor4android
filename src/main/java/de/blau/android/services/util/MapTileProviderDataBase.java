@@ -366,39 +366,45 @@ public class MapTileProviderDataBase implements MapViewConstants {
 	
 	/**
 	 * Delete all tiles from cache for a specific renderer
-	 * @param rendererID
+	 * 
+	 * @param 	rendererID	the tile server for which to remove the tiles or null to remove all tiles
 	 * @throws EmptyCacheException
 	 */
 	synchronized public void flushCache(String rendererID) throws EmptyCacheException {
-		Log.d(MapTileFilesystemProvider.DEBUGTAG, "Flushing cache for " + rendererID); 
-		final Cursor c = mDatabase.rawQuery("SELECT " + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_RENDERER_ID + "='" + rendererID + "' ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC", null);
-		final ArrayList<MapTile> deleteFromDB = new ArrayList<MapTile>();
-		long sizeGained = 0;
-		if(c != null){
-			try {
-			MapTile tileToBeDeleted; 
-			if(c.moveToFirst()){
-				do{
-					final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
-					sizeGained += sizeItem;
-					
-					tileToBeDeleted = new MapTile(rendererID,c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
-							c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
-			
-					deleteFromDB.add(tileToBeDeleted);
-					// Log.d(DEBUG_TAG,"flushCache " + tileToBeDeleted.toString());
-				} while (c.moveToNext());
-			} else {
-				throw new EmptyCacheException("Cache seems to be empty.");
-			}
-				Log.d(DEBUG_TAG,"flushCache freed " + sizeGained);
-			} finally {
-				c.close();
-			}
+		if (rendererID == null) {
+			Log.d(MapTileFilesystemProvider.DEBUGTAG, "Flushing all caches");
+			mDatabase.execSQL("DELETE FROM " + T_FSCACHE);
+		} else {
+			Log.d(MapTileFilesystemProvider.DEBUGTAG, "Flushing cache for " + rendererID); 
+			final Cursor c = mDatabase.rawQuery("SELECT " + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_RENDERER_ID + "='" + rendererID + "' ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC", null);
+			final ArrayList<MapTile> deleteFromDB = new ArrayList<MapTile>();
+			long sizeGained = 0;
+			if(c != null){
+				try {
+					MapTile tileToBeDeleted; 
+					if(c.moveToFirst()){
+						do{
+							final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
+							sizeGained += sizeItem;
 
-			for(MapTile t : deleteFromDB) {
-				final String[] args = new String[]{t.rendererID, Integer.toString(t.zoomLevel), Integer.toString(t.x), Integer.toString(t.y)};
-				mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+							tileToBeDeleted = new MapTile(rendererID,c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
+									c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
+
+							deleteFromDB.add(tileToBeDeleted);
+							// Log.d(DEBUG_TAG,"flushCache " + tileToBeDeleted.toString());
+						} while (c.moveToNext());
+					} else {
+						throw new EmptyCacheException("Cache seems to be empty.");
+					}
+					Log.d(DEBUG_TAG,"flushCache freed " + sizeGained);
+				} finally {
+					c.close();
+				}
+
+				for(MapTile t : deleteFromDB) {
+					final String[] args = new String[]{t.rendererID, Integer.toString(t.zoomLevel), Integer.toString(t.x), Integer.toString(t.y)};
+					mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+				}
 			}
 		}
 	}

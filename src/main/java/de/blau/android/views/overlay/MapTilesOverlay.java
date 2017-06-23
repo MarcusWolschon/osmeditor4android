@@ -131,7 +131,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 			}	
 		}.execute();
 	}
-
+	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
