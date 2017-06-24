@@ -343,10 +343,11 @@ public class GeoMath {
 	
 	/**
 	 * Caculate the haversine distance between two points
-	 * @param lon1
-	 * @param lat1
-	 * @param lon2
-	 * @param lat2
+	 * 
+	 * @param lon1	longitude of the first point in degrees
+	 * @param lat1	latitude of the first point in degree
+	 * @param lon2	longitude of the second point in degrees
+	 * @param lat2	latitude of the second point in degree
 	 * @return distance between the two point in meters
 	 */
 	public static double haversineDistance(double lon1, double lat1, double lon2, double lat2) {

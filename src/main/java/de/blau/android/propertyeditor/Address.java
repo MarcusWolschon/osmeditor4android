@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -43,6 +46,8 @@ public class Address implements Serializable {
 	
 	private static final String ADDRESS_TAGS_FILE = "addresstags.dat";
 	private static final int MAX_SAVED_ADDRESSES = 100;
+
+	private static final double MAX_LAST_ADDRESS_DISTANCE = 200D; // maximum distance in meters the last address can be away to be used
 	
 	private static SavingHelper<LinkedList<Address>> savingHelperAddress
 	= new SavingHelper<LinkedList<Address>>();
@@ -50,7 +55,21 @@ public class Address implements Serializable {
 	public enum Side {
 		LEFT,
 		RIGHT,
-		UNKNOWN
+		UNKNOWN;
+		
+		/**
+		 * Return the other road side
+		 * 
+		 * @param side	side we want to find the opposite
+		 * @return the other side
+		 */
+		public static Side opposite(Side side) {
+			switch (side) {
+			case LEFT: return RIGHT;
+			case RIGHT: return LEFT;
+			default: return UNKNOWN;
+			}
+		}
 	}
 	private Side side = Side.UNKNOWN;
 	private float lat;
@@ -61,7 +80,8 @@ public class Address implements Serializable {
 	
 	/**
 	 * Create a copy of Address a
-	 * @param a
+	 * 
+	 * @param a	Address object
 	 */
 	private Address(Address a) {
 		side = a.side;
@@ -79,9 +99,10 @@ public class Address implements Serializable {
 	
 	/**
 	 * Create an address object from an OSM element
-	 * @param type type of element	
-	 * @param id its ID
-	 * @param tags the relevant address tags
+	 * 
+	 * @param type	type of element	
+	 * @param id 	its ID
+	 * @param tags 	the relevant address tags
 	 */
 	private Address(String type, long id, LinkedHashMap<String, ArrayList<String>> tags) {
 		OsmElement e = App.getDelegator().getOsmElement(type, id);
@@ -95,17 +116,19 @@ public class Address implements Serializable {
 	
 	/**
 	 * Create an address object from an OSM element 
-	 * @param e the OSM element
-	 * @param tags the relevant address tags
+	 * 
+	 * @param e		the OSM element
+	 * @param tags	the relevant address tags
 	 */
 	private Address(OsmElement e, LinkedHashMap<String, ArrayList<String>> tags) {
 		init(e,tags);
 	}
 	
 	/**
-	 * Initialize an address object from an OSM element 
-	 * @param e the OSM element
-	 * @param tags the relevant address tags
+	 * Initialize an address object from an OSM element
+	 *  
+	 * @param e		the OSM element
+	 * @param tags	the relevant address tags
 	 */
 	private void init(OsmElement e, LinkedHashMap<String, ArrayList<String>> tags) {
 		switch (e.getType()) {
@@ -134,8 +157,8 @@ public class Address implements Serializable {
 
 	/**
 	 * Set which side of the road this address is on
-	 * @param wayId
-	 * @return
+	 * 
+	 * @param wayId	OSM ID
 	 */
 	private void setSide(long wayId) {
 		side = Side.UNKNOWN;
@@ -179,27 +202,53 @@ public class Address implements Serializable {
 	
 	/**
 	 * Predict address tags
+	 * 
 	 * This uses a file to cache/save the address information over invocations of the TagEditor, if the cache doesn't have entries for a specific street/place 
 	 * an attempt to extract the information from the downloaded data is made
 	 *
-	 * @param elementType
-	 * @param elementOsmId
+	 * @param context		Android context
+	 * @param elementType	element type (node, way, relation)
+	 * @param elementOsmId	osm object id
 	 * @param es
-	 * @param current
-	 * @param maxRank determines how far away from the nearest street the last address street can be, 0 will always use the nearest, higher numbers will provide some hysteresis
-	 * @return
+	 * @param current		current tags
+	 * @param maxRank		determines how far away from the nearest street the last address street can be, 0 will always use the nearest, higher numbers will provide some hysteresis
+	 * @return map containing the predicted address tags
 	 */
-	public synchronized static LinkedHashMap<String,ArrayList<String>> predictAddressTags(Context context, final String elementType, final long elementOsmId, final ElementSearch es, final LinkedHashMap<String, ArrayList<String>> current, int maxRank) {
+	public synchronized static Map<String,ArrayList<String>> predictAddressTags(@NonNull Context context, @NonNull final String elementType, final long elementOsmId, @Nullable final ElementSearch es, @NonNull final Map<String, ArrayList<String>> current, int maxRank) {
 		Address newAddress = null;
 			
 		loadLastAddresses(context);
 		
 		if (lastAddresses != null && lastAddresses.size() > 0) {
-			newAddress = new Address(elementType, elementOsmId,lastAddresses.get(0).tags); // last address we added
+			Log.d(DEBUG_TAG,"initializing with last addresses");
+			Address lastAddress = lastAddresses.get(0);
+			newAddress = new Address(elementType, elementOsmId, lastAddress.tags); // last address we added
+			double distance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, lastAddress.lon, lastAddress.lat);
+			if (distance > MAX_LAST_ADDRESS_DISTANCE) { // if the last address was too far away don't use its tags
+				// check if we have a better candidate 
+				Address candidate = null;
+				double candidateDistance = MAX_LAST_ADDRESS_DISTANCE;
+				for (int i=1;i<lastAddresses.size();i++) {
+					Address a = lastAddresses.get(i);
+					double d = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
+					if (d < candidateDistance) {
+						candidate = a;
+						candidateDistance = d;
+					}
+				}
+				if (candidate != null) {
+					// better candidate found
+					newAddress.tags = new LinkedHashMap<String, ArrayList<String>>(candidate.tags);
+					Log.d(DEBUG_TAG,"better candidate found " + candidate);
+				} else {
+					// zap the tags from the last address
+					newAddress.tags = new LinkedHashMap<String, ArrayList<String>>();
+					Log.d(DEBUG_TAG,"no nearby addresses found");
+				}
+			}
 			if (newAddress.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
 				newAddress.tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
 			}
-			Log.d("Address","seeding with last addresses");
 		} 
 
 		if (newAddress == null) { // make sure we have the address object
@@ -211,13 +260,13 @@ public class Address implements Serializable {
 			Log.d("Address","Adding in existing tag " + entry.getKey());
 			newAddress.tags.put(entry.getKey(), entry.getValue());
 		}
+		
 		boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE);
 		boolean hasNumber = current.containsKey(Tags.KEY_ADDR_HOUSENUMBER); // if the object already had a number don't overwrite it
 		StorageDelegator storageDelegator = App.getDelegator();
-		if (es != null /* || hasPlace */) {
+		if (es != null) {
 			// the arrays should now be calculated, retrieve street names if any
-			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(es.getStreetNames()));
-			// ArrayList<String> placeNames = new ArrayList<String>(Arrays.asList(placeAdapter.getNames()));		
+			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(es.getStreetNames()));	
 			if ((streetNames != null && streetNames.size() > 0) || hasPlace) {
 				LinkedHashMap<String, ArrayList<String>> tags = newAddress.tags;
 				Log.d(DEBUG_TAG,"tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
@@ -270,130 +319,21 @@ public class Address implements Serializable {
 							}
 							// nodes
 							for (Node n: storageDelegator.getCurrentStorage().getNodes()) {
-								seedAddressList(context, street,streetId, n,lastAddresses);
+								seedAddressList(context, street, streetId, n,lastAddresses);
 							}
 							// ways
 							for (Way w: storageDelegator.getCurrentStorage().getWays()) {
-								seedAddressList(context, street,streetId, w,lastAddresses);
+								seedAddressList(context, street, streetId, w,lastAddresses);
 							}
 							// and try again
 							list = getHouseNumbers(street, side, lastAddresses);
-
 						} catch (OsmException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
-					// try to predict the next number
-					//
-					// - get all existing numbers for the side of the street we are on
-					// - determine if the increment per number is 1 or 2 (for now everything else is ignored)
-					// - determine the nearest address node
-					// - if it is the last or first node and we are at one side use that and add or subtract the increment
-					// - if the nearest node is somewhere in the middle determine on which side of it we are, 
-					// - inc/dec in that direction
-					// If everything works out correctly even if a prediction is wrong, entering the correct number should improve the next prediction
-					// TODO the above assumes that the road is not doubling back or similar, aka that the addresses are more or less in a straight line, 
-					//     use the length along the way defined by the addresses instead
-					//
-					if (list.size() >= 2) {
-						try {
-							int firstNumber = list.firstKey();
-							int lastNumber = list.lastKey();
-							//
-							// determine increment
-							//
-							int inc = 1;
-							float incTotal = 0;
-							float incCount = 0;
-							ArrayList<Integer> numbers = new ArrayList<Integer>(list.keySet());
-							for (int i=0;i<numbers.size()-1;i++) {
-								int diff = numbers.get(i+1).intValue()-numbers.get(i).intValue();
-								if (diff > 0 && diff <= 2) {
-									incTotal = incTotal + diff;
-									incCount++;
-								}
-							}
-							inc = Math.round(incTotal/incCount);
-							//
-							// find the most appropriate next address
-							//
-							int nearest = -1; 
-							int prev = -1;
-							int post = -1;
-							double distanceFirst = 0;
-							double distanceLast = 0;
-							double distance = Double.MAX_VALUE;
-							for (int i=0;i<numbers.size();i++) {
-								// determine the nearest existing address
-								// FIXME there is an obvious better criteria
-								int number = Integer.valueOf(numbers.get(i));
-								Address a = list.get(number);
-								double newDistance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
-								if (newDistance <= distance) { 
-									// if distance is the same replace with values for the 
-									// current number which will be larger
-									distance = newDistance;
-									nearest = number;
-									prev = numbers.get(Math.max(0, i-1));
-									post = numbers.get(Math.min(numbers.size()-1, i+1));
-								}
-								if (i==0) {
-									distanceFirst = newDistance;
-								} else if (i==numbers.size()-1) {
-									distanceLast = newDistance;
-								}
-							}
-							//
-							double distanceTotal = GeoMath.haversineDistance(list.get(firstNumber).lon, list.get(firstNumber).lat, list.get(lastNumber).lon, list.get(lastNumber).lat);
-							if (nearest == firstNumber) { 
-								if (distanceLast > distanceTotal) {
-									inc = -inc;
-								}
-							} else if (nearest == lastNumber) { 
-								if (distanceFirst < distanceTotal) {
-									inc = -inc;
-								}
-							} else {
-								double distanceNearestFirst = GeoMath.haversineDistance(list.get(firstNumber).lon, list.get(firstNumber).lat, list.get(nearest).lon, list.get(nearest).lat);
-								if (distanceFirst < distanceNearestFirst) {
-									inc = -inc;
-								} // else already correct
-							} 
-							// Toast.makeText(this, "First " + firstNumber + " last " + lastNumber + " nearest " + nearest + "inc " + inc + " prev " + prev + " post " + post + " side " + side, Toast.LENGTH_LONG).show();
-							Log.d("TagEditor","First " + firstNumber + " last " + lastNumber + " nearest " + nearest + " inc " + inc + " prev " + prev + " post " + post + " side " + side);
-							// first apply tags from nearest address if they don't already exist
-							for (String key:list.get(nearest).tags.keySet()) {
-								if (!tags.containsKey(key)) {
-									tags.put(key,list.get(nearest).tags.get(key));
-								}
-							}
-							int newNumber = Math.max(1, nearest+inc);
-							if (numbers.contains(Integer.valueOf(newNumber))) {
-								// try one inc more and one less, if they both fail use the original number
-								if (!numbers.contains(Integer.valueOf(Math.max(1,newNumber+inc)))) {
-									newNumber = Math.max(1,newNumber+inc);
-								} else if (!numbers.contains(Integer.valueOf(Math.max(1,newNumber-inc)))) {
-									newNumber = Math.max(1,newNumber-inc);
-								}
-							}
-							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(Integer.toString(newNumber)));
-						} catch (NumberFormatException nfe){
-							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
-						}
-					} else if (list.size() == 1) {
-						// can't do prediction with only one value 
-						// apply tags from sole existing address if they don't already exist
-						for (String key:list.get(list.firstKey()).tags.keySet()) {
-							if (!tags.containsKey(key)) {
-								tags.put(key,list.get(list.firstKey()).tags.get(key));
-							}
-						}
-					} else if (list.size() == 0) {
-						tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
-						// NOTE this could be the first address on this side of the road and we could
-						// potentially use the house numbers from the opposite side for prediction
-					}
+					// tags = predictNumber(newAddress, tags, street, side, list, false);
+					newAddress.tags = predictNumber(newAddress, tags, street, side, list, false, null);
 				}
 			} else { // last ditch attemot
 				// fill with Karlsruher schema
@@ -430,7 +370,170 @@ public class Address implements Serializable {
 		}
 		return newAddress.tags;
 	}
+
+	/**
+	 * Try to predict the next number
+	 * - get all existing numbers for the side of the street we are on
+ 	 * - determine if the increment per number is 1 or 2 (for now everything else is ignored)
+	 * - determine the nearest address node
+	 * - if it is the last or first node and we are at one side use that and add or subtract the increment
+	 * - if the nearest node is somewhere in the middle determine on which side of it we are, 
+	 * - inc/dec in that direction
+	 * If everything works out correctly even if a prediction is wrong, entering the correct number should improve the next prediction
+	 * TODO the above assumes that the road is not doubling back or similar, aka that the addresses are more or less in a straight line, 
+	 *      use the length along the way defined by the addresses instead
+	 * 
+	 * @param newAddress	the address object for the new address
+	 * @param originalTags	tags for this object			
+	 * @param street		the street name
+	 * @param side			side which we are on
+	 * @param list			list of existing addresses on this side
+	 * @param otherSide		try to predict a number for the other side of the street
+	 * @param otherSideList	numbers found on the other side only used if otherSide is true
+	 * @return the tags for the object
+	 */
+	private static LinkedHashMap<String, ArrayList<String>> predictNumber(@NonNull Address newAddress, @NonNull LinkedHashMap<String, ArrayList<String>> originalTags, @NonNull String street,
+			@NonNull Side side, @NonNull TreeMap<Integer, Address> list, boolean oppositeSide, @Nullable TreeMap<Integer, Address> otherSideList) {
+		LinkedHashMap<String, ArrayList<String>>newTags = new LinkedHashMap<String, ArrayList<String>>(originalTags);
+		if (list.size() >= 2) {
+			try {
+				//
+				// determine increment
+				//
+				int inc = 1;
+				float incTotal = 0;
+				float incCount = 0;
+				ArrayList<Integer> numbers = new ArrayList<Integer>(list.keySet());
+				for (int i=0;i<numbers.size()-1;i++) {
+					int diff = numbers.get(i+1).intValue()-numbers.get(i).intValue();
+					if (diff > 0 && diff <= 2) {
+						incTotal = incTotal + diff;
+						incCount++;
+					}
+				}
+				inc = Math.round(incTotal/incCount);
+				
+				int firstNumber = list.firstKey();
+				int lastNumber = list.lastKey();
+
+				//
+				// find the most appropriate next address
+				//
+				int nearest = -1; 
+				int prev = -1;
+				int post = -1;
+				double distanceFirst = 0;
+				double distanceLast = 0;
+				double distance = Double.MAX_VALUE;
+				for (int i=0;i<numbers.size();i++) {
+					// determine the nearest existing address
+					// FIXME there is an obvious better criteria
+					int number = Integer.valueOf(numbers.get(i));
+					Address a = list.get(number);
+					double newDistance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
+					if (newDistance <= distance) { 
+						// if distance is the same replace with values for the 
+						// current number which will be larger
+						distance = newDistance;
+						nearest = number;
+						prev = numbers.get(Math.max(0, i-1));
+						post = numbers.get(Math.min(numbers.size()-1, i+1));
+					}
+					if (i==0) {
+						distanceFirst = newDistance;
+					} else if (i==numbers.size()-1) {
+						distanceLast = newDistance;
+					}
+				}
+				//
+				double distanceTotal = GeoMath.haversineDistance(list.get(firstNumber).lon, list.get(firstNumber).lat, list.get(lastNumber).lon, list.get(lastNumber).lat);
+				if (nearest == firstNumber) { 
+					if (distanceLast > distanceTotal) {
+						inc = -inc;
+					}
+				} else if (nearest == lastNumber) { 
+					if (distanceFirst < distanceTotal) {
+						inc = -inc;
+					}
+				} else {
+					double distanceNearestFirst = GeoMath.haversineDistance(list.get(firstNumber).lon, list.get(firstNumber).lat, list.get(nearest).lon, list.get(nearest).lat);
+					if (distanceFirst < distanceNearestFirst) {
+						inc = -inc;
+					} // else already correct
+				} 
+				// first apply tags from nearest address if they don't already exist
+				copyTags(list.get(nearest), newTags);
+				
+				if(oppositeSide) { // try to predict address on the other road side
+					Log.d(DEBUG_TAG,"Predicting for other side inc="+inc+" nearest " + nearest);
+					if (Math.abs(inc)>1) {
+						int newNumber = Math.max(1, otherSideList.size()==0 ? nearest+(inc/Math.abs(inc)):otherSideList.firstKey()+inc);
+						Log.d(DEBUG_TAG,"final predicted result for the other side " + newNumber);		
+						newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(Integer.toString(newNumber)));	
+					} else { // no sense to guess pattern
+						Log.d(DEBUG_TAG,"giving up");			
+						newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
+					}
+				} else { // predict on this side
+					int newNumber = Math.max(1, nearest+inc);
+					// Toast.makeText(this, "First " + firstNumber + " last " + lastNumber + " nearest " + nearest + "inc " + inc + " prev " + prev + " post " + post + " side " + side, Toast.LENGTH_LONG).show();
+					Log.d(DEBUG_TAG,"Predicted " + newNumber + " first " + firstNumber + " last " + lastNumber + " nearest " + nearest + " inc " + inc + " prev " + prev + " post " + post + " side " + side);
+					if (numbers.contains(Integer.valueOf(newNumber))) {
+						// try one inc more and one less, if they both fail use the original number
+						if (!numbers.contains(Integer.valueOf(Math.max(1,newNumber+inc)))) {
+							newNumber = Math.max(1,newNumber+inc);
+						} else if (!numbers.contains(Integer.valueOf(Math.max(1,newNumber-inc)))) {
+							newNumber = Math.max(1,newNumber-inc);
+						}
+					}
+					Log.d(DEBUG_TAG,"final predicted result " + newNumber);		
+					newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(Integer.toString(newNumber)));
+				}
+			} catch (NumberFormatException nfe){
+				Log.d(DEBUG_TAG,"exception " + nfe);
+				newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
+			}
+		} else if (list.size() == 1) {
+			Log.d(DEBUG_TAG,"only one number on this side");
+			// can't do prediction with only one value 
+			// apply tags from sole existing address if they don't already exist
+			TreeMap<Integer,Address>otherList = getHouseNumbers(street, Side.opposite(side), lastAddresses);
+			if (otherList.size()>=2) {
+				newTags = predictNumber(newAddress, originalTags, street, side, otherList, true, list);
+			} else {
+				copyTags(list.get(list.firstKey()), newTags);
+			}
+		} else if (list.size() == 0) {
+			Log.d(DEBUG_TAG,"no numbers on this side");
+			TreeMap<Integer,Address>otherList = getHouseNumbers(street, Side.opposite(side), lastAddresses);
+			if (otherList.size()>=2) {
+				newTags = predictNumber(newAddress, originalTags, street, side, otherList, true, list);
+			} else if (otherList.size()==1) {
+				copyTags(list.get(otherSideList.firstKey()), newTags);
+			} else {
+				newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
+			}
+		}
+		return newTags;
+	}
+
+	private static void copyTags(@NonNull Address address, @NonNull LinkedHashMap<String, ArrayList<String>> tags) {
+		for (Entry<String,ArrayList<String>>entry:address.tags.entrySet()) {
+			String key = entry.getKey();
+			if (!tags.containsKey(key)) {
+				tags.put(key,entry.getValue());
+			}
+		}
+	}
 	
+	/**
+	 * Try to extract an integer number from a string
+	 * 
+	 * Simply ignores any non-digits
+	 * @param hn	input string	
+	 * @return	an integer
+	 * @throws NumberFormatException if what was extracted could not be parsed as an int
+	 */
 	private static int getNumber(String hn) throws NumberFormatException {
 		StringBuilder sb = new StringBuilder();
 		for (Character c:hn.toCharArray()) {
@@ -446,15 +549,17 @@ public class Address implements Serializable {
 	}
 	
 	/**
-	 * Return a sorted list of house numbers and the associated address objects
-	 * @param street
-	 * @param side
-	 * @param lastAddresses
-	 * @return
+	 * Return a sorted map of house numbers and the associated address objects from a List of Addresses
+	 * 
+	 * The original addr:housenumber tag is split on ",", ";" and "-"
+	 * @param street			the street name
+	 * @param side				side of the street that should be considered
+	 * @param addresses			the list of addresses
+	 * @return a sorted map with the house numbers as key 
 	 */
-	private synchronized static TreeMap<Integer,Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> lastAddresses ) {
+	private synchronized static TreeMap<Integer,Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> addresses ) {
 		TreeMap<Integer,Address> result = new TreeMap<Integer,Address>(); //list sorted by house numbers
-		for (Address a:lastAddresses) {
+		for (Address a:addresses) {
 			if (a != null && a.tags != null) {
 				ArrayList<String> addrStreetValues = a.tags.get(Tags.KEY_ADDR_STREET);
 				ArrayList<String> addrPlaceValues = a.tags.get(Tags.KEY_ADDR_PLACE);
@@ -515,6 +620,11 @@ public class Address implements Serializable {
 		return result;
 	}
 	
+	/**
+	 * Flush the cache both in memory and on disk
+	 * 
+	 * @param context	Android context
+	 */
 	synchronized static void resetLastAddresses(Context context) {
 		savingHelperAddress.save(context, ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
 		lastAddresses = null;

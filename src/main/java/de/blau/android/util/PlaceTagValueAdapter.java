@@ -39,7 +39,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import de.blau.android.exception.OsmException;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PropertyEditor;
@@ -114,18 +113,11 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
         	Log.e(DEBUG_TAG,"center for " + osmElementType + " " + osmId + " is null");
         }
     }
-    
-    public String[] getNames() {
-    	return es.getPlaceNames();
-    }
-    
-    public long getId(String name) throws OsmException {
-    	return es.getPlaceId(name);
-    }
  
     /**
      * This avoids generating everything twice
-     * @return
+     * 
+     * @return the ElementSearch instance used to create the adapter
      */
     public ElementSearch getElementSearch() {
     	return es;

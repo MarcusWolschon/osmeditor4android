@@ -2,7 +2,6 @@ package de.blau.android.voice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -88,7 +87,7 @@ public class Commands {
 							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + number  + (words.length == 3?words[2]:""));
 							tags.put("source:original_text", v);
-							LinkedHashMap<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(), 
+							Map<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(), 
 										new ElementSearch(new int[]{node.getLon(),node.getLat()}, true), 
 										Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
 							tags = new TreeMap<String, String>();

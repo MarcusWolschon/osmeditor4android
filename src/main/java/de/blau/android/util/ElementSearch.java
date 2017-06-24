@@ -35,6 +35,7 @@ public class ElementSearch {
     
 	/**
      * Get all distance sorted street-names in the area
+     * 
      * @param location position we want the names nearby to
      * @return all street-names
      */
@@ -82,6 +83,11 @@ public class ElementSearch {
 		return retval.getValues().toArray(new String[retval.getValues().size()]);
 	}
 
+    /**
+     * Get a distance sorted list of street names relative to the location given in the constructor 
+     * 
+     * @return array containing the names
+     */
 	public synchronized String[] getStreetNames() {
 		if (streetNames == null) {
 		   	streetNames = getStreetArray(location);
@@ -89,6 +95,13 @@ public class ElementSearch {
 		return streetNames;
 	}
 	
+	/**
+	 * Given a street name return the OSM id of the way
+	 * 
+	 * @param 	name
+	 * @return the OSM id of the way
+	 * @throws OsmException if the name is not found in the index
+	 */
 	public long getStreetId(String name) throws OsmException {
 		if (streetNames == null) {
 		   	streetNames = getStreetArray(location);
@@ -106,6 +119,7 @@ public class ElementSearch {
 	   
     /**
      * Get all distance sorted place-names in the area
+     * 
      * @param location
      * @return all place-names
      */
@@ -186,6 +200,11 @@ public class ElementSearch {
 		return retval.getValues().toArray(new String[retval.getValues().size()]);
 	}
 
+    /**
+     * Get a distance sorted list of place names relative to the location given in the constructor 
+     * 
+     * @return array containing the names
+     */
 	public String[] getPlaceNames() {
 		if (placeNames == null) {
 		   	placeNames = getPlaceArray(location);
@@ -201,6 +220,20 @@ public class ElementSearch {
 		Long iD = idsByPlaceNames.get(name);
 		if (iD != null) {
 			return iD.longValue();
+		}
+		else {
+			throw new OsmException("object not found in adapter");
+		}
+	}
+	
+	public String getPlaceType(String name) throws OsmException {
+		Log.d(DEBUG_PLACE_TAG,"looking for " + name);
+		if (placeNames == null) {
+		   	placeNames = getPlaceArray(location);
+		}
+		String type = typeByPlaceNames.get(name);
+		if (type != null) {
+			return type;
 		}
 		else {
 			throw new OsmException("object not found in adapter");
