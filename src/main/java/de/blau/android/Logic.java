@@ -170,10 +170,14 @@ public class Logic {
 	private static final int MAX_NODES_FOR_MOVE = 100;
 	
 	/**
+	 * Maximum number of objects for multi fetch requests
+	 */
+	private static final int MAX_ELEMENTS_PER_REQUEST = 200; // same value as JOSM
+	
+	/**
 	 * Stores the {@link Preferences} as soon as they are available.
 	 */
 	private Preferences prefs;
-
 
 	/**
 	 * The user-selected node.
@@ -2548,79 +2552,78 @@ public class Logic {
 		}
 	}
 
-	 
-	 /**
-	  * Download a single element from the API and merge
-	  * 
-	  * @param ctx Android context
-	  * @param type type of the element
-	  * @param id OSM id of the element
-	  * @param relationFull if we are downloading a relation download with full option
-	  * @param withParents download parent relations
-	  * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
-	  * @return an error code 0 for success
-	  */
-	 public synchronized int downloadElement(@NonNull final Context ctx, @NonNull final String type, final long id, 
-			 final boolean relationFull, final boolean withParents,
-			 @Nullable final PostAsyncActionHandler postLoadHandler) {
-		 class DownLoadElementTask extends AsyncTask<Void, Void, Integer> {
-			 @Override
-			 protected void onPreExecute() {
-			 }
+	/**
+	 * Download a single element from the API and merge
+	 * 
+	 * @param ctx 				Android context
+	 * @param type 			type of the element
+	 * @param id OSM 			id of the element
+	 * @param relationFull 	if we are downloading a relation download with full option
+	 * @param withParents 		download parent relations
+	 * @param postLoadHandler	callback to execute after download completes if null method waits for download to finish
+	 * @return an error code, 0 for success
+	 */
+	public synchronized int downloadElement(@NonNull final Context ctx, @NonNull final String type, final long id, 
+			final boolean relationFull, final boolean withParents,
+			@Nullable final PostAsyncActionHandler postLoadHandler) {
+		class DownLoadElementTask extends AsyncTask<Void, Void, Integer> {
+			@Override
+			protected void onPreExecute() {
+			}
 
-			 @Override
-			 protected Integer doInBackground(Void... arg) {
-				 int result = 0;
-				 try {
-					 final Server server = prefs.getServer();
-					 final OsmParser osmParser = new OsmParser();
-					
-					 // TODO this currently does not retrieve ways the node may be a member of
-					 // we always retrieve ways with nodes, relations "full" is optional
-					 InputStream in = server.getStreamForElement(ctx, (type.equals(Relation.NAME) && relationFull) ||  type.equals(Way.NAME)? "full" : null, type, id);
-					 
-					 try {
-						 osmParser.start(in);
-					 } finally {
-						 SavingHelper.close(in);
-					 }
-					 if (withParents) {
-						 // optional retrieve relations the element is a member of
-						 in = server.getStreamForElement(ctx, "relations", type, id);
-						 try {
-							 osmParser.start(in);
-						 } finally {
-							 SavingHelper.close(in);
-						 }
-					 }
-					 
-					 if (!getDelegator().mergeData(osmParser.getStorage(),null)) { // FIXME need to check if providing a handler makes sense here
-						 result = ErrorCodes.DATA_CONFLICT;
-					 } 
-				 } catch (SAXException e) {
-					 Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
-					 Exception ce = e.getException();
-					 if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
-						 result = ErrorCodes.OUT_OF_MEMORY;
-					 } else {
-						 result = ErrorCodes.INVALID_DATA_RECEIVED;
-					 }
-				 } catch (ParserConfigurationException e) {
-					 // crash and burn
-					 // TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
-					 Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
-					 result = ErrorCodes.INVALID_DATA_RECEIVED;
-				 } catch (OsmServerException e) {
-					 Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
-				 } catch (IOException e) {
-					 result = ErrorCodes.NO_CONNECTION;
-					 Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
-				 }
-				 return result;
-			 }
+			@Override
+			protected Integer doInBackground(Void... arg) {
+				int result = 0;
+				try {
+					final Server server = prefs.getServer();
+					final OsmParser osmParser = new OsmParser();
 
-			 @Override
-			 protected void onPostExecute(Integer result) {
+					// TODO this currently does not retrieve ways the node may be a member of
+					// we always retrieve ways with nodes, relations "full" is optional
+					InputStream in = server.getStreamForElement(ctx, (type.equals(Relation.NAME) && relationFull) ||  type.equals(Way.NAME)? "full" : null, type, id);
+
+					try {
+						osmParser.start(in);
+					} finally {
+						SavingHelper.close(in);
+					}
+					if (withParents) {
+						// optional retrieve relations the element is a member of
+						in = server.getStreamForElement(ctx, "relations", type, id);
+						try {
+							osmParser.start(in);
+						} finally {
+							SavingHelper.close(in);
+						}
+					}
+
+					if (!getDelegator().mergeData(osmParser.getStorage(),null)) { // FIXME need to check if providing a handler makes sense here
+						result = ErrorCodes.DATA_CONFLICT;
+					} 
+				} catch (SAXException e) {
+					Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = ErrorCodes.OUT_OF_MEMORY;
+					} else {
+						result = ErrorCodes.INVALID_DATA_RECEIVED;
+					}
+				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
+					result = ErrorCodes.INVALID_DATA_RECEIVED;
+				} catch (OsmServerException e) {
+					Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
+				} catch (IOException e) {
+					result = ErrorCodes.NO_CONNECTION;
+					Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
+				}
+				return result;
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
 				if (result == 0) {
 					if (postLoadHandler != null) {
 						postLoadHandler.onSuccess();
@@ -2630,113 +2633,154 @@ public class Logic {
 						postLoadHandler.onError();
 					}
 				}
-			 }
-		 }
-		 DownLoadElementTask loader = new DownLoadElementTask();
-		 loader.execute();
+			}
+		}
+		DownLoadElementTask loader = new DownLoadElementTask();
+		loader.execute();
 
-		 if (postLoadHandler == null) {
-			 try {
-				 return loader.get(20, TimeUnit.SECONDS);
-			 } catch (InterruptedException e) {
-				 return -1;
-			 } catch (ExecutionException e) {
-				 return -1;
-			 } catch (TimeoutException e) {
-				 return -1;
-			 }
-		 } else {
-			 return 0;
-		 }
-	 }
+		if (postLoadHandler == null) {
+			try {
+				return loader.get(20, TimeUnit.SECONDS);
+			} catch (InterruptedException e) {
+				return -1;
+			} catch (ExecutionException e) {
+				return -1;
+			} catch (TimeoutException e) {
+				return -1;
+			}
+		} else {
+			return 0;
+		}
+	}
 	
 	/**
-	 * Return multiple elements of the same type from the API and merge them in to our data
-	 * Since this doesn't return way nodes this method probably doesn't make sense
+	 * Return multiple elements  from the API and merge them in to our data 
 	 * 
-	 * @param type
-	 * @param id
-	 * @return
+	 * @param ctx				Android context
+	 * @param nodes			List containing the node ids
+	 * @param ways				List containing the way ids
+	 * @param relations		List containing the relation ids
+	 * @param postLoadHandler	callback to execute after download completes if null method waits for download to finish
+	 * @return an error code, 0 for succes
 	 */
-//	void downloadElements(final String type, long[] ids) {
-//		
-//		class MyTask extends AsyncTask<Void, Void, Integer> {
-//			int result = 0;
-//			
-//			@Override
-//			protected void onPreExecute() {
-//				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
-//			}
-//			
-//			@Override
-//			protected Integer doInBackground(Void... arg) {
-//				try {
-//					final OsmParser osmParser = new OsmParser();
-//					final InputStream in = prefs.getServer().getStreamForElements(type, ids);
-//					try {
-//						osmParser.start(in);
-//						if (!getDelegator().mergeData(osmParser.getStorage())) {
-//							result = DialogFactory.DATA_CONFLICT;
-//						} 
-//					} finally {
-//						SavingHelper.close(in);
-//					}
-//				} catch (SAXException e) {
-//					Log.e("Vespucci", "Problem parsing", e);
-//					Exception ce = e.getException();
-//					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
-//						result = DialogFactory.OUT_OF_MEMORY;
-//					} else {
-//						result = DialogFactory.INVALID_DATA_RECEIVED;
-//					}
-//				} catch (ParserConfigurationException e) {
-//					// crash and burn
-//					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
-//					Log.e("Vespucci", "Problem parsing", e);
-//					result = DialogFactory.INVALID_DATA_RECEIVED;
-//				} catch (OsmServerException e) {
-//					Log.e("Vespucci", "Problem downloading", e);
-//				} catch (IOException e) {
-//					result = DialogFactory.NO_CONNECTION;
-//					Log.e("Vespucci", "Problem downloading", e);
-//				}
-//				return result;
-//			}
-//			
-//			@Override
-//			protected void onPostExecute(Integer result) {
-//
-//				try {
-//					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
-//				} catch (IllegalArgumentException e) {
-//					// Avoid crash if dialog is already dismissed
-//					Log.d("Logic", "", e);
-//				}
-//
-//				if (result != 0) {
-//					if (result == DialogFactory.OUT_OF_MEMORY) {
-//						if (getDelegator().isDirty()) {
-//							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
-//						}
-//					}	
-//					try {
-//						if (!Application.mainActivity.isFinishing()) {
-//							Application.mainActivity.showDialog(result);
-//						}
-//					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
-//						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-//						ACRA.getErrorReporter().handleException(ex);
-//					}
-//				}
-//				invalidateMap();
-//
-//				UndoStorage.updateIcon();
-//			}
-//			
-//		};
-//		MyTask loader = new MyTask();
-//		loader.execute();
-//	}
+	public synchronized int downloadElements(@NonNull final Context ctx, @Nullable final List<Long>nodes, @Nullable final List<Long>ways, @Nullable final List<Long>relations, @Nullable final PostAsyncActionHandler postLoadHandler) {
+
+		class DownLoadElementsTask extends AsyncTask<Void, Void, Integer> {
+			int result = 0;
+
+			long[] toLongArray(List<Long>list) {
+				long[] result = new long[list.size()];
+				for (int i=0;i<list.size();i++) { 
+					result[i]=list.get(i);
+				}
+				return result;
+			}
+
+			@Override
+			protected void onPreExecute() {
+			}
+
+			@Override
+			protected Integer doInBackground(Void... arg) {
+				try {
+					final OsmParser osmParser = new OsmParser();
+					InputStream in = null;
+					Server server = prefs.getServer();
+					if (nodes != null && !nodes.isEmpty()) {
+						try {
+							int len = nodes.size();
+							for (int i=0;i<len;i=i+MAX_ELEMENTS_PER_REQUEST) {
+								in = server.getStreamForElements(ctx, Node.NAME, toLongArray(nodes.subList(i, Math.min(len, i+MAX_ELEMENTS_PER_REQUEST))));
+								osmParser.reinit();
+								osmParser.start(in);
+							}
+						} finally {
+							SavingHelper.close(in);
+						}
+					}
+					if (ways != null && !ways.isEmpty()) {
+						for (Long id:ways) {
+							try {
+								// FIXME it would be more efficient to use the same strategy that JOSM does and use multi fetch to download the ways, then
+								// determine which nodes need to be downloaded, however currently the logic in OsmParser expects way nodes to be available
+								// when ways are parsed.
+								in = server.getStreamForElement(ctx, "full", Way.NAME, id);	
+								osmParser.reinit();
+								osmParser.start(in);
+							} finally {
+								SavingHelper.close(in);
+							}
+						}
+					}
+					if (relations != null && !relations.isEmpty()) {
+						try {
+							int len = relations.size();
+							for (int i=0;i<len;i=i+MAX_ELEMENTS_PER_REQUEST) {
+								in = server.getStreamForElements(ctx, Relation.NAME, toLongArray(relations.subList(i, Math.min(len, i+MAX_ELEMENTS_PER_REQUEST))));	
+								osmParser.reinit();
+								osmParser.start(in);
+							}
+						} finally {
+							SavingHelper.close(in);
+						}
+					}
+					if (!getDelegator().mergeData(osmParser.getStorage(),null)) { // FIXME need to check if providing a handler makes sense here
+						result = ErrorCodes.DATA_CONFLICT;
+					} 
+				} catch (SAXException e) {
+					Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = ErrorCodes.OUT_OF_MEMORY;
+					} else {
+						result = ErrorCodes.INVALID_DATA_RECEIVED;
+					}
+				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
+					result = ErrorCodes.INVALID_DATA_RECEIVED;
+				} catch (OsmServerException e) {
+					Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
+				} catch (IOException e) {
+					result = ErrorCodes.NO_CONNECTION;
+					Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
+				}
+				return result;
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
+				if (result == 0) {
+					if (postLoadHandler != null) {
+						postLoadHandler.onSuccess();
+					}
+				} else {
+					if (postLoadHandler != null) {
+						postLoadHandler.onError();
+					}
+				}
+			}
+
+
+		};
+		DownLoadElementsTask loader = new DownLoadElementsTask();
+		loader.execute();
+
+		if (postLoadHandler == null) {
+			try {
+				return loader.get(20, TimeUnit.SECONDS);
+			} catch (InterruptedException e) {
+				return -1;
+			} catch (ExecutionException e) {
+				return -1;
+			} catch (TimeoutException e) {
+				return -1;
+			}
+		} else {
+			return 0;
+		}
+	}
 	
 	/**
 	 * Remove an element if it is deleted on the server

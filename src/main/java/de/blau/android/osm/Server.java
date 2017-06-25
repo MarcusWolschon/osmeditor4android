@@ -458,58 +458,7 @@ public class Server {
 	public InputStream getStreamForBox(@Nullable final Context context, final BoundingBox box) throws OsmServerException, IOException {
 		Log.d(DEBUG_TAG, "getStreamForBox");
 		URL url = new URL(getReadOnlyUrl()  + "map?bbox=" + box.toApiString());
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		boolean isServerGzipEnabled;
-
-		Log.d(DEBUG_TAG, "getStreamForBox " + url.toString());
-		
-		//--Start: header not yet send
-		con.setReadTimeout(TIMEOUT);
-		con.setConnectTimeout(TIMEOUT);
-		con.setRequestProperty("Accept-Encoding", "gzip");
-		con.setRequestProperty("User-Agent", App.userAgent);
-		con.setInstanceFollowRedirects(true);
-
-		//--Start: got response header
-		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-		// retry if we have no response-code
-		if (con.getResponseCode() == -1) {
-			Log.w(getClass().getName()+ ":getStreamForBox", "no valid http response-code, trying again");
-			con = (HttpURLConnection) url.openConnection();
-			//--Start: header not yet send
-			con.setReadTimeout(TIMEOUT);
-			con.setConnectTimeout(TIMEOUT);
-			con.setRequestProperty("Accept-Encoding", "gzip");
-			con.setRequestProperty("User-Agent", App.userAgent);
-			con.setInstanceFollowRedirects(true);
-
-			//--Start: got response header
-			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-		}
-
-		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-			if (context != null && context instanceof Activity) {
-				if (con.getResponseCode() == 400) {	
-					((Activity) context).runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							Snack.barError((Activity)context, R.string.toast_download_bbox_failed);
-						}
-					});
-				}
-				else {
-					((Activity) context).runOnUiThread(new DownloadErrorToast(context, con.getResponseCode(), con.getResponseMessage()));
-				}
-			}
-			throwOsmServerException(con);
-		}
-
-		if (isServerGzipEnabled) {
-			return new GZIPInputStream(con.getInputStream());
-		} else {
-			return con.getInputStream();
-		}
+		return openConnection(context, url);
 	}
 	
 	/**
@@ -526,17 +475,62 @@ public class Server {
 	public InputStream getStreamForElement(@Nullable final Context context, @Nullable final String mode, @NonNull final String type, final long id) throws OsmServerException, IOException {
 		Log.d(DEBUG_TAG, "getStreamForElement");
 		URL url = new URL(getReadOnlyUrl() + type + "/" + id + (mode != null ? "/" + mode : ""));
+		return openConnection(context, url);
+	}
+
+	/**
+	 * Get a single element from the API
+	 * 
+	 * @param context Android context
+	 * @param mode "full" or null
+	 * @param type type (node, way, relation) of the object
+	 * @param id the OSM id of the object
+	 * @return the stream
+	 * @throws OsmServerException
+	 * @throws IOException
+	 */
+	public InputStream getStreamForElements(@Nullable final Context context, @NonNull final String type, final long[] ids) throws OsmServerException, IOException {
+		Log.d(DEBUG_TAG, "getStreamForElements");
+		
+		StringBuffer urlString = new StringBuffer();
+		urlString.append(getReadOnlyUrl());
+		urlString.append(type);
+		urlString.append("s?"); // that's a plural s
+		urlString.append(type);
+		urlString.append("s="); // and another one
+		int size = ids.length;
+		for (int i=0;i<size;i++) {
+			urlString.append(Long.toString(ids[i]));
+			if (i<size-1) {
+				urlString.append(',');
+			}
+		}
+		URL url = new URL(urlString.toString());
+		return openConnection(context, url);
+	}
+
+	/**
+	 * Given an URL open the connection and return the InputStream
+	 * 
+	 * @param context	Android context
+	 * @param url		the URL
+	 * @return the InputStream
+	 * @throws IOException
+	 * @throws OsmServerException
+	 */
+	private InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException, OsmServerException {
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		boolean isServerGzipEnabled;
 
-		Log.d(DEBUG_TAG, "getStreamForElement " + url.toString());
+		Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
 		
 		//--Start: header not yet send
 		con.setReadTimeout(TIMEOUT);
 		con.setConnectTimeout(TIMEOUT);
 		con.setRequestProperty("Accept-Encoding", "gzip");
 		con.setRequestProperty("User-Agent", App.userAgent);
-
+		con.setInstanceFollowRedirects(true);
+		
 		//--Start: got response header
 		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 
@@ -556,16 +550,18 @@ public class Server {
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			if (context != null && context instanceof Activity) {
-				if (con.getResponseCode() == 400) {	
+				final int responseCode = con.getResponseCode();
+				final String responseMessage = con.getResponseMessage();
+				if (responseCode == 400) {	
 					((Activity) context).runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							Snack.barError((Activity)context, R.string.toast_download_failed);
+							Snack.barError((Activity)context, context.getString(R.string.toast_download_failed, responseCode, responseMessage));
 						}
 					});
 				}
 				else {
-					((Activity) context).runOnUiThread(new DownloadErrorToast(context, con.getResponseCode(), con.getResponseMessage()));
+					((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, con.getResponseMessage()));
 				}
 			}
 			throwOsmServerException(con);

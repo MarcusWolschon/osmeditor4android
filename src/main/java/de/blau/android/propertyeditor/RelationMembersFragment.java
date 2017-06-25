@@ -50,6 +50,12 @@ import de.blau.android.util.Util;
 public class RelationMembersFragment extends BaseFragment implements
 		PropertyRows {
 
+	private static final String MEMBERS_KEY = "members";
+
+
+	private static final String ID_KEY = "id";
+
+
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
 	
 
@@ -70,11 +76,10 @@ public class RelationMembersFragment extends BaseFragment implements
     	RelationMembersFragment f = new RelationMembersFragment();
 
         Bundle args = new Bundle();
-        args.putLong("id", id);
-        args.putSerializable("members", members);
+        args.putLong(ID_KEY, id);
+        args.putSerializable(MEMBERS_KEY, members);
 
         f.setArguments(args);
-        // f.setShowsDialog(true);
         
         return f;
     }
@@ -117,14 +122,14 @@ public class RelationMembersFragment extends BaseFragment implements
     	ArrayList<RelationMemberDescription> members;
     	if (savedInstanceState != null) {
     		Log.d(DEBUG_TAG,"Restoring from saved state");
-    		id = savedInstanceState.getLong("ID"); 
-    		members = (ArrayList<RelationMemberDescription>)savedInstanceState.getSerializable("MEMBERS"); 		
+    		id = savedInstanceState.getLong(ID_KEY); 
+    		members = (ArrayList<RelationMemberDescription>)savedInstanceState.getSerializable(MEMBERS_KEY); 		
     	} else if (savedMembers != null) {
     		Log.d(DEBUG_TAG,"Restoring from instance variable");
     		members = savedMembers;
     	} else {
-    		id = getArguments().getLong("id");
-    		members = (ArrayList<RelationMemberDescription>)getArguments().getSerializable("members");
+    		id = getArguments().getLong(ID_KEY);
+    		members = (ArrayList<RelationMemberDescription>)getArguments().getSerializable(MEMBERS_KEY);
     	}
     	loadMembers(membersVerticalLayout,  members);
 		
@@ -156,10 +161,10 @@ public class RelationMembersFragment extends BaseFragment implements
 	 */
 	private void loadMembers(LinearLayout membersVerticalLayout, final ArrayList<RelationMemberDescription> members) {
 		membersVerticalLayout.removeAllViews();
-		if (members != null && members.size() > 0) {
+		if (members != null && !members.isEmpty()) {
 			for (int i = 0; i < members.size(); i++) {
 				RelationMemberDescription current = members.get(i);
-				insertNewMember(membersVerticalLayout, i +"", current, -1, Connected.NOT, false);
+				insertNewMember(membersVerticalLayout, Integer.toString(i), current, -1, Connected.NOT, false);
 			}
 		}
 	}
@@ -371,8 +376,8 @@ public class RelationMembersFragment extends BaseFragment implements
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
     	Log.d(DEBUG_TAG, "onSaveInstanceState");
-    	outState.putLong("ID", id);
-    	outState.putSerializable("MEMBERS", savedMembers);
+    	outState.putLong(ID_KEY, id);
+    	outState.putSerializable(MEMBERS_KEY, savedMembers);
     }
     
     @Override
@@ -592,7 +597,7 @@ public class RelationMembersFragment extends BaseFragment implements
 					default: iconId = R.attr.line_small; break;
 					}
 				} else if (Relation.NAME.equals(objectType)) {
-					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.relation_small));
+					iconId=R.attr.relation_small;
 				} else {
 					// don't know yet
 				}
@@ -603,7 +608,7 @@ public class RelationMembersFragment extends BaseFragment implements
 				} else if (Way.NAME.equals(objectType)) {
 					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.not_downloaded_line_small));
 				} else if (Relation.NAME.equals(objectType)) {
-					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.not_downloaded_line_small));
+					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.not_downloaded_relation_small));
 				} else {
 					// don't know yet
 				}
@@ -823,9 +828,8 @@ public class RelationMembersFragment extends BaseFragment implements
 		case R.id.tag_menu_bottom:
 			scrollToRow(null,item.getItemId()==R.id.tag_menu_top,false);
 			return true;
+		default: return false;
 		}
-		
-		return false;
 	}
 	
 	/**
@@ -833,7 +837,7 @@ public class RelationMembersFragment extends BaseFragment implements
 	 */
 	@SuppressWarnings("unchecked")
 	void doRevert() {
-		loadMembers((ArrayList<RelationMemberDescription>)getArguments().getSerializable("members"));
+		loadMembers((ArrayList<RelationMemberDescription>)getArguments().getSerializable(MEMBERS_KEY));
 		setIcons();
 	}
 	

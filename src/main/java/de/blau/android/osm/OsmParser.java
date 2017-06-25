@@ -40,19 +40,19 @@ public class OsmParser extends DefaultHandler {
 	 * Current node (node of OsmElement), where the parser is actually in. Will be used when children of this element
 	 * have to been assigned to their parent.
 	 */
-	private Node currentNode;
+	private Node currentNode = null;
 
 	/** Same as {@link currentNode}. */
-	private Way currentWay;
+	private Way currentWay = null;
 	
 	/** Same as {@link currentNode}. */
-	private Relation currentRelation;
+	private Relation currentRelation = null;
 	
 	private TreeMap<String, String> currentTags;
 
-	private final ArrayList<Exception> exceptions;
+	private final ArrayList<Exception> exceptions = new ArrayList<Exception>();
 	
-	private ArrayList<RelationMember> missingRelations;
+	private ArrayList<RelationMember> missingRelations = new ArrayList<RelationMember>();
 	
 	private LongOsmElementMap<Node>nodeIndex = null;
 	private LongOsmElementMap<Way>wayIndex = null;
@@ -60,11 +60,17 @@ public class OsmParser extends DefaultHandler {
 	public OsmParser() {
 		super();
 		storage = new Storage();
+	}
+
+	/**
+	 * Reset the parser to its initial state but with the existing Storage
+	 */
+	public void reinit() {
 		currentNode = null;
 		currentWay = null;
 		currentRelation = null;
-		exceptions = new ArrayList<Exception>();
-		missingRelations = new ArrayList<RelationMember>();
+		exceptions.clear();;
+		missingRelations.clear();;
 	}
 
 	public Storage getStorage() {

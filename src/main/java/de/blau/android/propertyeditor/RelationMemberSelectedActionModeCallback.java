@@ -1,6 +1,7 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -14,8 +15,10 @@ import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.Way;
 import de.blau.android.propertyeditor.RelationMembersFragment.Connected;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
 import de.blau.android.util.ThemeUtils;
@@ -190,18 +193,22 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			};
 			final Logic logic = App.getLogic();
 			if (selectedCount < size) {
+				List<Long>nodes = new ArrayList<Long>();
+				List<Long>ways = new ArrayList<Long>();
+				List<Long>relations = new ArrayList<Long>();
 				for (int i = 0;i<selectedCount;i++) {
 					RelationMemberRow row = selected.get(i);
 					if (!row.getRelationMemberDescription().downloaded()) {
-						if (logic.downloadElement(caller.getActivity(), row.getType(), row.getOsmId(), 
-								false, false, null) == 0) {
-							updateRow(row, selectedPos.get(i));
-							selected.set(i,row);
+						if (Node.NAME.equals(row.getType())) {
+							nodes.add(row.getOsmId());
+						} else if (Way.NAME.equals(row.getType())) {
+							ways.add(row.getOsmId());
+						} else if (Relation.NAME.equals(row.getType())) {
+							relations.add(row.getOsmId());
 						}
 					}
 				}
-				Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
-				((RelationMembersFragment)caller).setIcons();
+				logic.downloadElements(caller.getActivity(), nodes, ways, relations, handler);
 			} else {
 				logic.downloadElement(caller.getActivity(), Relation.NAME, ((RelationMembersFragment)caller).getOsmId(), 
 					true, false, handler);
