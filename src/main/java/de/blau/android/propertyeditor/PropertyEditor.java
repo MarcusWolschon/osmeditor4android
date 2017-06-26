@@ -503,9 +503,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    			switch(position) {
 	    			case 0: 		
 	    				return instantiate ? tagEditorFragment(position, false) :tagEditorFragment;
-	    			case 2:
+	    			case 1:
 	    				return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment) : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
-	    			case 3:
+	    			case 2:
 	    				return instantiate ? relationMembershipFragment() : relationMembershipFragment;
 	    			}
 	    		}
