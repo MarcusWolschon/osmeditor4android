@@ -86,7 +86,7 @@ When the red lock is displayed all non-editing actions are available. Additional
 
 ### Módosítások mentése
 
-*(requires network connectivity)*
+*(hálózati kapcsolatot igényel)*
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 

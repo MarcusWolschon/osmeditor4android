@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-05-13 13:38+0200\n"
-"PO-Revision-Date: 2017-05-13 11:52+0000\n"
+"PO-Revision-Date: 2017-06-23 07:35+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -1959,7 +1959,7 @@ msgstr "距離 (km)"
 
 #: master_preset.xml:11838(item:name|group:Crafts|preset:Distillery)
 msgid "Distillery"
-msgstr ""
+msgstr "酒廠"
 
 #: master_preset.xml:11088(text:text|group:Addresses_and_Contact|preset:Address|key:addr:district)
 msgid "District"

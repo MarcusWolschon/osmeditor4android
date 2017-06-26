@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-05-13 13:38+0200\n"
-"PO-Revision-Date: 2017-05-13 11:51+0000\n"
+"PO-Revision-Date: 2017-06-15 17:50+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -1959,7 +1959,7 @@ msgstr "Distância (km)"
 
 #: master_preset.xml:11838(item:name|group:Crafts|preset:Distillery)
 msgid "Distillery"
-msgstr ""
+msgstr "Distilaria"
 
 #: master_preset.xml:11088(text:text|group:Addresses_and_Contact|preset:Address|key:addr:district)
 msgid "District"
@@ -4660,7 +4660,7 @@ msgstr ""
 
 #: master_preset.xml:6129(item:name|group:Social_Facilities|preset:Nursing_Home)
 msgid "Nursing Home"
-msgstr ""
+msgstr "Lar de idosos"
 
 #: master_preset.xml:5249(list_entry:display_value|group:Culture|preset:Music_theatres|value:philharmonic)
 msgid "Ochestral music"

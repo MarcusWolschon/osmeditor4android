@@ -12,12 +12,14 @@
   <string name="upload_conflict_message_version">%1$s \nđiện thoại có phiên bản %2$s \ntrong khi máy chủ có %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \ncó phiên bản địa phương %2$s \ntrong khi nó đã bị xóa trên máy chủ</string>
   <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại trong khi còn có tham chiếu trên máy chủ </string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nđã bị xóa trên máy chủ </string>
   <string name="use_local_version">Dùng \nphiên bản \ntrong điện thoại</string>
   <string name="use_server_version">Dùng \nphiên bản \ntrên máy chủ</string>
   <string name="no_login_data_title">Thất bại khi xác thực</string>
   <string name="no_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), có lẽ bạn đã gặp lỗi; xin vui lòng báo cáo vấn đề cho chúng tôi. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
   <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>
   <string name="no_connection_message">Không thể kết nốt với máy chủ OSM. Xin vui lòng kiểm tra kết nối Internet của bạn hoặc thử lại sau.</string>
+  <string name="ssl_handshake_failed">Không thể kết nối với máy chủ OSM vì cuộc đàm phán HTTPS bị thất bại. Hãy thử kết nối không mã hóa dùng tùy chọn API.</string>
   <string name="wrong_login_data_title">Thất bai khi xác thực</string>
   <string name="wrong_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), bạn nên xác minh lại và thử lại. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
   <string name="wrong_login_data_re_authenticate">Xác minh lại</string>
@@ -32,6 +34,8 @@
   <string name="out_of_memory_dirty_message">Việc tải dữ liệu yêu cầu chiếm hết bộ nhớ. Xin vui lòng thử lưu các sửa đổi của bạn, khởi động lại, và thử tải một khu vực nhỏ hơn.</string>
   <string name="invalid_data_received_title">Đã nhận Dữ liệu Không hợp lệ</string>
   <string name="invalid_data_received_message">Vespucci đã nhận dữ liệu không hợp lệ từ máy chủ. Nếu bạn chắc chắn rằng tác vụ có hợp lệ, xin vui lòng báo cáo lỗi.</string>
+  <string name="invalid_data_read_title">Dữ liệu Không hợp lệ</string>
+  <string name="invalid_data_read_message">Tập tin chứa dữ liệu không hợp lệ. Nếu bạn chắc chắn rằng tác vụ có hợp lệ, xin vui lòng báo cáo lỗi.</string>
   <string name="file_write_failed_title">Thất bại khi ghi vào tập tin</string>
   <string name="file_write_failed_message">Không thể ghi vào tập tin đã chọn.</string>
   <string name="welcome_title">Chào mừng!</string>
@@ -86,6 +90,7 @@
   <string name="search_results_title">Kết quả tìm kiếm</string>
   <string name="find_message">Nhập truy vấn</string>
   <string name="preset_search_hint">Chuỗi tìm kiếm thẻ đặt trước</string>
+  <string name="search">Tìm kiếm</string>
   <string name="no_valid_preset">Không có thẻ đặt trước hợp lệ!</string>
   <string name="read_file">Chọn tập tin để đọc</string>
   <string name="save_file">Nhập tập tin để ghi vào</string>
@@ -128,6 +133,7 @@
   <string name="toast_potential_merge_tag_conflict">Bạn muốn gộp các phần tử có mâu thuẫn giá trị thẻ. Xin vui lòng kiểm tra và chỉnh lại các thẻ trước khi thử lại.</string>
   <string name="toast_state_file_failed">Tập tin trạng thái không thể đọc hoặc hư hỏng</string>
   <string name="toast_too_many_nodes_for_move">Lối sẽ được di chuyển có quá nhiều nốt</string>
+  <string name="toast_unread_mail">Bạn có %1$s thư chưa đọc trên máy chủ OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Đã bắt đầu tìm hình ảnh được định vị</string>
   <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
   <string name="toast_download_bbox_failed">Thất bại khi tải về, có lẽ vì khu vực được chọn quá lớn.</string>
@@ -139,6 +145,9 @@
   <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth.</string>
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
   <string name="toast_oauth_not_enabled">OAuth không được kích hoạt cho API hiện tại.</string>
+  <string name="toast_oauth_timeout">Hết thời gian chờ bắt tay để xác thực. Hãy thử lại.</string>
+  <string name="toast_oauth_communication">Lỗi giao thông khi bắt tay để xác thực. Hãy thử lại.</string>
+  <string name="toast_oauth_handshake_failed">Thất bại bắt tay OAuth: %1$s</string>
   <string name="toast_timeout">Hết thời gian chờ máy chủ</string>
   <string name="coordinates_out_of_range">Kinh độ phải nằm giữa −180°/+180°; vĩ độ phải nằm giữa −85°/85°</string>
   <string name="toast_nothing_found">Không tìm thấy kết quả</string>
@@ -160,6 +169,7 @@
   <string name="toast_split_via">Đã chia lối “qua”</string>
   <string name="toast_split_from_and_via">Đã chia các lối “từ” và “qua”</string>
   <string name="toast_split_to">Đã chia lối “đến”</string>
+  <string name="toast_tile_database_full">Cơ sở dữ liệu hình ảnh bản đồ hoặc đĩa đã đầy!\nHãy thoát, xóa cơ sở dữ liệu, hoặc kiếm thêm dung lượng.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -176,6 +186,7 @@
   <string name="keep">Giữ</string>
   <string name="enable">Kích hoạt</string>
   <string name="clear">Xóa sạch</string>
+  <string name="retry">Thử lại</string>
   <!--Dialog for back button-->
   <string name="exit_title">Thoát?</string>
   <string name="exit_text">Bạn có chắc chắn muốn thoát?</string>
@@ -221,6 +232,13 @@
   <string name="menu_preset_help">Trợ giúp về thẻ đặt trước</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Thêm thẻ cho %1$s</string>
+  <string name="tag_restriction_header">Giá trị</string>
+  <string name="tag_restriction_when">khi</string>
+  <string name="tag_restriction_and">và</string>
+  <string name="tag_restriction_add_simple_condition">Thêm điều kiện đơn giản</string>
+  <string name="tag_restriction_add_expression">Thêm biểu thức</string>
+  <string name="tag_restriction_add_opening_hours">Thêm giờ mở cửa</string>
+  <string name="tag_restriction_value_hint">hạn chế có điều kiện</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Tải Khu vực</string>
   <string name="location_choose_radius">Chọn bán kính:</string>
@@ -299,6 +317,8 @@
   <string name="menu_transfer_bugs_clear">Xóa sạch</string>
   <string name="menu_transfer_bugs_clear_long">Xóa sạch lỗi</string>
   <string name="menu_transfer_autodownload_long">Tự động tải về lỗi</string>
+  <string name="menu_transfer_save_notes_all">Lưu Tất cả Ghi chú…</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Lưu các Ghi chú Mới và Thay đổi…</string>
   <string name="menu_save">Lưu vào tập tin</string>
   <string name="menu_join">Gộp</string>
   <string name="menu_unjoin">Tách</string>
@@ -306,6 +326,7 @@
   <string name="menu_cut">Cắt</string>
   <string name="menu_paste">Dán</string>
   <string name="menu_paste_from_clipboard">Dán từ bảng tạm</string>
+  <string name="menu_zoom_to_selection">Phóng vừa lựa chọn</string>
   <string name="menu_rotate">Quay</string>
   <string name="menu_orthogonalize">Làm vuông góc</string>
   <string name="menu_circulize">Làm tròn</string>
@@ -551,6 +572,14 @@
   <string name="alert_note">Đã phát hiện lời ghi chú OSM lân cận</string>
   <string name="alert_bug">Đã phát hiện lỗi OSM lân cận</string>
   <string name="alert_distance_direction">trong vòng %1$d m, %2$s</string>
+  <string name="bearing_ne">ĐB</string>
+  <string name="bearing_e">Đ</string>
+  <string name="bearing_se">ĐN</string>
+  <string name="bearing_s">N</string>
+  <string name="bearing_sw">TN</string>
+  <string name="bearing_w">T</string>
+  <string name="bearing_nw">TB</string>
+  <string name="bearing_n">B</string>
   <!--Misc relation related stuff-->
   <string name="role">Vai trò</string>
   <string name="role_lc">vai trò</string>
@@ -594,6 +623,11 @@
   <string-array name="note_state">
     <item>Mở</item>
     <item>Đóng</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Trái</item>
+    <item>Phải</item>
+    <item>Không</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Tự động</item>

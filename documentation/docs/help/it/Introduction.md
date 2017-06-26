@@ -62,27 +62,27 @@ Puoi copiare o tagliare dei nodi o delle vie selezionati per poi incollare una o
 
 Vespucci ha una funzione "aggiungi le etichette dell'indirizzo civico" che tenta di rendere la mappatura degli indirizzi civici più efficiente. Può essere selezionata. 
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* dopo una pressione prolungata: Vespucci aggiunge un nodo in quel punto e cerca di predire il numero civico e la via sfruttando quelli che hai utilizzato per ultimi. Se il nodo appartiene ad un edificio, verrà aggiunta in automatico l'etichetta "entrance=yes". L'editor delle etichette viene aperto per l'oggetto in questione e potrà essere usato per eventuali altre modifiche.
+* nella modalità nodo/percorso selezionato: Vespucci aggiunge le etichette d'indirizzo come sopra e apre la schermata dell'editor di etichette.
+* nell'editor delle etichette.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+La predizione dei numeri civici per funzionare richiede di solito che siano già stati inseriti due numeri civici per ogni lato della strada, più sono i civici inseriti meglio esso funzionerà.
 
-Consider using this with the "Auto-download" mode.  
+Potrebbe essere utile usare la modalità "download automatico".  
 
 #### Aggiungere divieti di accesso
 
-Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
+Vespucci permette di inserire velocemente i divieti di svolta. Nota: se devi dividere un percorso per un divieto di svolta occorre farlo prima di iniziare.
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
-* select "Add restriction" from the menu
-* select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type in the tag menu
+* selezionare un percorso con l'etichetta highway (i divieti di svolta possono essere aggiunti solo alle strade, in alternativa è possibile usare la più generica modalità "crea relazione", il menù non verrà mostrato nemmeno se non vi sono possibili elementi di tipo "attraverso")
+* selezionare "Aggiungi restrizione" dal menù
+* selezionare un nodo o percorso di tipo "attraverso" (tutti i possibili elementi di tipo "via" saranno evidenziati come selezionabili)
+* selezionare il percorso di tipo "verso" (è possibile ripetersi e impostare l'elemento di tipo "verso" uguale all'elemento di tipo "da", Vespucci in questo caso penserà che si sta  aggiungendo una restrizione di divieto di inversione a U)
+* impostare il tipo di restrizione nel menù delle etichette
 
 ### Vespucci in modalità "blocco"
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+Quando è mostrato il lucchetto rosso, sono disponibili tutte le azioni che non modificano gli oggetti. Inoltre, se si preme a lungo su un oggetto OSM verranno mostrate le sue informazioni dettagliate.
 
 ### Salvare le tue modifiche
 
@@ -90,7 +90,7 @@ When the red lock is displayed all non-editing actions are available. Additional
 
 Usa lo stesso pulsante o elemento del menù che hai usato per scaricare i dati e seleziona "Carica i dati nel server OSM"
 
-Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
+Vespucci è compatibile sia con l'autorizzazione OAuth che con il metodo username e password. È meglio usare l'autorizzazione OAuth visto che evita di comunicare le password in chiaro.
 
 Le nuove installazioni di Vespucci hanno l'autorizzazione OAuth abilitata. Al primo tentativo di caricare nuovi dati, verrà caricata una pagina del sito OSM. Dopo essersi autenticati (attraverso una connessione cifrata) verrà richiesto di autorizzare Vespucci modificare a nome tuo.  Se vuoi o senti il bisogno di autorizzare l'accesso OAuth al tuo account prima di iniziare a modificare c'è un apposita opzione nel menù "Strumenti".
 
@@ -110,28 +110,28 @@ Quando quest'ultima è abilitata, se viene mosso manualmente lo schermo o si ese
 
 Vespucci supporta lo scaricamento, l'aggiunta di commenti e la chiusura delle note OSM (precedentemente chiamate Bug OSM) e altrettante azioni per i "Bug" forniti dallo [strumento di controllo della qualità OSMOSE](http://osmose.openstreetmap.fr/en/map/). Per entrambi occorre che siano scaricati esplicitamente oppure può essere usata l'opzione dello scaricamento automatico per accedere gli elementi nell'area vicina. Dopo aver commentato o chiuso una nota o un bug, è possibile caricarli immediatamente o successivamente tutti insieme.
 
-On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+Sulla mappa le note e i bug sono rappresentati dall'icona di un piccolo insetto ![](../images/bug_open.png), quelli verdi sono risolti, quelli blu sono stati modificati o creati da te, quelli gialli sono ancora attivi e non sono stati modificati. 
 
-The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+La visualizzazione dei bug OSMOSE mostrerà un link di colore blu all'oggetto associato, se si preme i link verrà selezionato l'oggetto , lo schermo lo mostrerà al centro e verrà scaricata l'area prima che sia necessario. 
 
 ## Personalizzare di Vespucci
 
 ### Preferenze che potresti voler cambiare
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* livello dello sfondo
+* livello sovrapposto. L'aggiunta di un livello sovrapposto potrebbe causare qualche problema con i dispositivi vecchi in particolare quelli con poca memoria. Valore predefinito: nessuno.
+* Visualizza Note/Bug. Mostra con l'icona di un insetto giallo le note e i bug ancora aperti, di un insetto verde quelli risolti. Valore predefinito: sì.
+* Livello foto. Mostra le foto georeferenziate con un'icona di una macchina foto di colore rosso, nel caso sia presente anche l'informazione circa la direzione l'icona risulterà ruotata. Valore predefinito: no.
+* Icone dei nodi. Valore predefinito: no.
+* Mantieni lo schermo acceso. Valore predefinito: no.
+* Area di trascinamento dei nodi estesa. Muovere i nodi su un dispositivo con il touchscreen può creare qualche problema se le dita nascondono la posizione corrente nello schermo. Con questa opzione è possibile sfruttare un'area maggiore quando si trascina dai bordi dello schermo (le operazioni di selezione e altre in genere avranno sempre la solita area di tolleranza). Valore predefinito: no.
 
 #### Preferenze avanzate
 
-* Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Abilita la split action bar. Negli smartphone recenti la barra viene suddivisa tra quella in alto e quella in basso dello schermo, i pulsanti sono presenti solo in quest'ultima. In questi casi è possibile mostrare altri pulsanti, anche se a scapito di una parte dello schermo. Se si disabilita questa opzione, i pulsanti saranno presenti solo sulla barra superiore. Nota: Vespucci deve essere riavviato affinché la modifica abbia effetto.
+* Mostra sempre il menù contestuale. Se abilitata, ogni volta che si seleziona un oggetto verrà mostrato un menù contestuale, altrimenti questo verrà mostrato solo se non può essere selezionato un oggetto senza ambiguità. Valore predefinito: no (in versioni passate era "sì").
+* Abilita tema chiaro. Abilitato in maniera predefinita su dispositivi recenti. Anche se può essere abilitato anche su dispositivi vecchi, lo stile potrebbe non essere in questo caso consistente.
+* Mostra statistiche. Mostra statistiche utili al debug, generalmente poco utile. Valore predefinito: no (in versioni passate era "sì").  
 
 ## Segnalare un problema
 

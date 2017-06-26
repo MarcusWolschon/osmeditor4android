@@ -4,7 +4,7 @@ Vespucci är en fullfjädrad OpenStreetMap redigerare som stödjer de flesta red
 
 ## Första gången användning
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+Vid uppstarten visar Vespucci dig dialogrutan "Hämta annan plats"/"Ladda område". Om du har koordinaterna som visas och vill hämta direkt, kan du välja lämpligt alternativ och ställa in radien runt platsen du vill hämta. Välj inte ett stort område på långsamma enheter. 
 
 Alternativt kan du stänga dialogen genom att trycka på "Gå till karta" knappen och panorera och zooma in en plats som du vill redigera och hämta data därefter (se nedan: "Redigering med Vespucci").
 
@@ -14,7 +14,7 @@ Beroende på skärmstorlek och ålder på enheten redigering åtgärder kan anti
 
 ### Nedladdning av OSM-data
 
-Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
+Välj antingen överföringsikonen ![](../images/menu_transfer.png) eller "Överför" i menyn. Detta visar sju alternativ:
 
 977/5000
 * **Hämta nuvarande vy** - ladda ner det område som syns på skärmen och ersätt all befintlig data *(kräver nätverksanslutning)* ↩

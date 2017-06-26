@@ -1,13 +1,13 @@
 # 
 # Translators:
 # Erik Lindahl, 2016-2017
-# Jonatan Nyberg <jonatan@autistici.org>, 2016
+# Jony, 2016
 # Magnus Österlund, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-05-13 13:38+0200\n"
-"PO-Revision-Date: 2017-05-13 11:51+0000\n"
+"PO-Revision-Date: 2017-06-25 20:50+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -1959,7 +1959,7 @@ msgstr "Distans (km)"
 
 #: master_preset.xml:11838(item:name|group:Crafts|preset:Distillery)
 msgid "Distillery"
-msgstr ""
+msgstr "Destilleri"
 
 #: master_preset.xml:11088(text:text|group:Addresses_and_Contact|preset:Address|key:addr:district)
 msgid "District"

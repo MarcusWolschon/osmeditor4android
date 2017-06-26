@@ -23,11 +23,14 @@
   <string name="no_login_data_message">Если вы используете OAuth, то это вероятно ошибка, пожалуйста отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
   <string name="no_connection_title">Нет соединения с сервером</string>
   <string name="no_connection_message">Невозможно соединиться с сервером OSM. Проверьте ваше подключение к интернету и попробуйте еще раз.</string>
+  <string name="ssl_handshake_failed">Не удалось подключиться к OSM-серверу, потому что запрос https не удался. Попробуйте переключиться на нешифрованное соединение в настройках API.</string>
   <string name="wrong_login_data_title">Ошибка аутентификации</string>
   <string name="wrong_login_data_message">Если вы используете OAuth, авторизуйтесь с его помощью заново, а затем повторите попытку. Если вы используете логин и пароль (не рекомендуется), пожалуйста, проверьте их корректность.</string>
   <string name="wrong_login_data_re_authenticate">Войти заново</string>
   <string name="data_conflict_title">Конфликт версий</string>
   <string name="data_conflict_message">Данные, которые вы пытаетесь загрузить, содержат конфликты с вашими правками. Попробуйте загрузить ваши правки на сервер, а затем повторите попытку.</string>
+  <string name="invalid_bounding_box_title">Недопустимая ограничительная рамка</string>
+  <string name="invalid_bounding_box_message">Выбранная область не соответствует требованиям API, выберите другую</string>
   <string name="api_offline_title">API в оффлайне</string>
   <string name="api_offline_message">Нет связи с API, передача данных невозможна.</string>
   <string name="out_of_memory_title">Недостаточно памяти</string>
@@ -127,6 +130,8 @@
   <string name="toast_not_in_bug_range">Пожалуйста, увеличьте масштаб для добавления заметки (Громкость +/- или Движок масштаба)</string>
   <string name="toast_export_failed">Сбой экспорта</string>
   <string name="toast_export_success">Экспортировано на %1$s</string>
+  <string name="toast_preset_overwrote_tags">Внимание: заготовка перезаписала тег(и)</string>
+  <string name="toast_merge_overwrote_tags">Внимание: операция перезаписала тег(и)</string>
   <string name="toast_oneway_reversed">Вы изменили направление односторонней улицы или линии, имеющей зависимые от направления теги. Пожалуйста, проверьте теги и скорректируйте их, если потребуется.</string>
   <string name="toast_merge_tag_conflict">Вы объединили элементы, имеющие несовместимые значения тегов, зависящую от направления семантику или разные роли в одном и том же отношении. Пожалуйста, проверьте теги и роли, при необходимости скорректируйте.</string>
   <string name="toast_potential_merge_tag_conflict">Вы пытаетесь объединить элементы с несовместимыми значениями тегов. Пожалуйста, проверьте теги и скорректируйте их, прежде, чем повторять попытку.</string>
@@ -144,6 +149,9 @@
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
   <string name="toast_no_oauth">Нет доступной конфигурации OAuth для текущего API, укажите логин и пароль.</string>
   <string name="toast_oauth_not_enabled">Для текущего API не включён OAuth.</string>
+  <string name="toast_oauth_timeout">Тайм-аут во время аутентификации, повторите попытку.</string>
+  <string name="toast_oauth_communication">Ошибка связи во время аутентификации, повторите попытку.</string>
+  <string name="toast_oauth_handshake_failed">Не удалось выполнить аутентификацию OAuth: %1$s</string>
   <string name="toast_timeout">Таймаут соединения с сервером</string>
   <string name="coordinates_out_of_range">Долгота должна быть в пределах от -180° до +180°, широта от -85° до +85°</string>
   <string name="toast_nothing_found">Ничего не найдено</string>
@@ -160,6 +168,12 @@
   <string name="toast_min_one_preset">Должна быть выбрана как минимум одна заготовка!</string>
   <string name="toast_used_backup">Файл состояния повреждён, использую резервную копию!</string>
   <string name="toast_used_bug_backup">Поврежден файл ошибок, использую резервную копию!</string>
+  <string name="toast_rmpty_relation">Пустое отношение, создается отчет об ошибке.</string>
+  <string name="toast_split_from">Разделенный \"from\" путь</string>
+  <string name="toast_split_via">Разделенный \"via\" путь</string>
+  <string name="toast_split_from_and_via">Разделенные \"from\" и \"via\" пути</string>
+  <string name="toast_split_to">Разделенный \"to\" путь</string>
+  <string name="toast_tile_database_full">База данных тайлов карты или диск заполнены!\nExit, удалить базу данных или освободите больше памяти.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
@@ -172,7 +186,9 @@
   <string name="replace">Заменить</string>
   <string name="save">Сохранить</string>
   <string name="back">Назад</string>
+  <string name="forward">Вперёд</string>
   <string name="keep">Оставить</string>
+  <string name="enable">Включить</string>
   <string name="clear">Очистить</string>
   <string name="retry">Повторить</string>
   <!--Dialog for back button-->
@@ -196,6 +212,9 @@
   <string name="tag_menu_reset_address_prediction">Сбросить предсказание адресов</string>
   <string name="tag_menu_exit_no_save">Выйти
 без сохранения</string>
+  <string name="tag_menu_delete_unassociated_tags">Удалить несвязанные теги</string>
+  <string name="tag_menu_top">Пролистать наверх</string>
+  <string name="tag_menu_bottom">Пролистать вниз</string>
   <string name="tag_value_hint">Введите значение</string>
   <string name="tag_autocomplete_value_hint">Введите или выберите значение</string>
   <string name="tag_autocomplete_name_hint">Введите или выберите из предложенных названий</string>
@@ -219,6 +238,7 @@
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Добавить теги к %1$s</string>
   <string name="tag_restriction_header">Значение</string>
+  <string name="tag_restriction_when">когда</string>
   <string name="tag_restriction_and">и</string>
   <string name="tag_restriction_add_simple_condition">Добавить простое условие</string>
   <string name="tag_restriction_add_expression">Добавить выражение</string>
@@ -261,8 +281,11 @@
   <string name="menu_closed_way_split_2">Разбить замкнутую линию, 2-я точка</string>
   <string name="menu_append">Добавить</string>
   <string name="menu_restriction">Добавить ограничение на поворот</string>
+  <string name="menu_restriction_restart_from">Повторно выбрать сегмент \"from\"</string>
   <string name="menu_restriction_via">Добавить отрезок/элемент \"via\"</string>
+  <string name="menu_restriction_restart_via">Повторно выбрать сегмент \"via\"</string>
   <string name="menu_restriction_to">Добавить отрезок \"to\"</string>
+  <string name="menu_restriction_restart_to">Повторно выбрать сегмент \"to\"</string>
   <string name="menu_relation">Создать отношение</string>
   <string name="menu_add_relation_member">Добавить участника</string>
   <string name="menu_select_relation_members">Выбрать участников</string>
@@ -358,6 +381,7 @@
   <string name="actionmode_createpath">Рисование линии</string>
   <string name="actionmode_multiselect">Мультивыбор</string>
   <!--Preferences-->
+  <string name="config_category_editing">Настройки данных и редактирования</string>
   <string name="config_category_view">Настройки интерфейса пользователя</string>
   <string name="config_showCameraAction_title">Камера на панели действий</string>
   <string name="config_showCameraAction_summary">Показывать значок камеры на панели действий</string>
@@ -403,6 +427,8 @@
   <string name="config_presetbutton_summary">Добавление и активация JOSM-совместимых заготовок</string>
   <string name="config_iconbutton_title">Показывать иконки точек</string>
   <string name="config_iconbutton_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
+  <string name="config_showWayIcons_title">Показывать значки POI на зданиях</string>
+  <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
   <string name="config_loginbutton_title">Учётная запись</string>
   <string name="config_username_title">Логин на сервер OSM</string>
   <string name="config_username_summary">Настройка необходима для загрузки OSM-данных на сервер, только если вы не используете OAuth. Аккаунты доступны на http://www.openstreetmap.org/user/new</string>
@@ -455,7 +481,14 @@
   <string name="config_address_tags">Теги адреса</string>
   <string name="config_address_tags_summary">Теги, используемые для предсказания адресов</string>
   <string name="config_moreprefs">Другие настройки...</string>
+  <string name="config_tagFormEnabled_title">Показывать форму тега</string>
+  <string name="config_tagFormEnabled_summary">Показывать форму тега для редактирования</string>
+  <string name="config_followGPSbutton_title">Схема кнопок следования GPS</string>
+  <string name="config_followGPSbutton_summary">Где будет расположена кнопка «следовать GPS» </string>
   <string name="config_fullscreenMode_title">Полноэкранный режим</string>
+  <string name="config_fullscreenMode_summary">Поведение на устройствах с виртуальными клавишами.</string>
+  <string name="config_maxInlineValues_title">Макс. число встроенных значений</string>
+  <string name="config_maxInlineValues_summary">Макс. число встроенных значений отображенных в форме тега</string>
   <string name="config_maxTileDownloadThreads_title">Макс. число потоков загрузки</string>
   <string name="config_maxTileDownloadThreads_summary">Максимальное число потоков загрузки тайлов</string>
   <string name="config_notificationCacheSize_title">Макс. число показываемых предупреждений</string>
@@ -463,6 +496,7 @@
   <string name="config_autoLockDelay_title">Время ожидания до автоблокировки</string>
   <string name="config_autoLockDelay_summary">Время ожидания в секундах до автоблокировки, 0 - отключена.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Всегда затенять не загруженные области</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Если установлено, не загруженные области будут затемнены в заблокированном режиме</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
   <string name="preset_download_successful">Заготовка успешно загружена</string>
@@ -595,5 +629,21 @@
   <string-array name="note_state">
     <item>Открытая</item>
     <item>Закрытая</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Слева</item>
+    <item>Справа</item>
+    <item>Никак</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Авто</item>
+    <item>Никогда</item>
+    <item>Принудительно</item>
+    <item>Без строки состояния</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Никогда</item>
+    <item>Принудительно</item>
+    <item>Без строки состояния</item>
   </string-array>
 </resources>

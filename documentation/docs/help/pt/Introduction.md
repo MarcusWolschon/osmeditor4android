@@ -1,20 +1,20 @@
 # Introdução do Vespucci
 
-O Vespucci é um editor OpenStreetMap com muitas funcionalidades que suporta a maioria das operações dos editores em computadores. Foi testato com sucesso em Android nas versões 2.3 a 6.0 e outros baseados em Android. A ter em atenção: apesar dos dispositivos móveis serem cada vez mais potentes e com mais capacidades, os dispositivos antigos com alguns anos podem ser lentos e utilizar o Vespucci. Deve ter isto em mente ao usar o Vespucci e manter, por exemplo, o tamanho das áreas a editar num tamanho razoavelmente pequeno. 
+O Vespucci é um editor OpenStreetMap com muitas funcionalidades que suporta a maioria das operações dos editores em computadores. Foi testado com sucesso em Android nas versões 2.3 a 6.0 e outros baseados em Android. A ter em atenção: apesar dos dispositivos móveis serem cada vez mais potentes e com mais capacidades, os dispositivos antigos com alguns anos podem ser lentos e utilizar o Vespucci. Deve ter isto em mente ao usar o Vespucci e manter, por exemplo, o tamanho das áreas a editar num tamanho razoavelmente pequeno. 
 
 ## Primeira Utilização
 
-Ao iniciar o Vespucci, é mostrada a janela "Descarregar outra localização"/"Carregar Área". Se tiver as coordenadas a serem mostradas e quiser descarregar de imediato, pode selecionar a opção apropriada e selecionar o raio à volta da localização que quer descarregar. Não é recomendável descarregar áreas grandes em dispositivos lentos/antigos. 
+Ao iniciar o Vespucci, é mostrada a janela "Descarregar outra localização"/"Carregar Área". Se tiver as coordenadas a serem mostradas e quiser descarregar de imediato, pode seleccionar a opção apropriada e seleccionar o raio à volta da localização que quer descarregar. Não é recomendável descarregar áreas grandes em dispositivos lentos/antigos. 
 
 Como alternativa, pode fechar a janela pressionando o botão "Ir para o mapa", deslocar e aproximar numa localização que quer editar e descarregar os dados (ver abaixo"Editar no Vespucci").
 
 ## Editar no Vespucci
 
-Dependendo do tamanho do ecrã e a antiguidade do dispositivo que estiver a usar, as funcionalidades de edição podem estar acessíveis através de ícones na barra de cima, através de um menu deslizante à direita da barra de cima, através da barra de baixo (se estiver visível) ou através do botão menu do dispositivo.
+Dependendo do tamanho do ecrã e da antiguidade do dispositivo que estiver a usar, as funcionalidades de edição podem estar acessíveis através de ícones na barra de cima, através de um menu deslizante à direita da barra de cima, através da barra de baixo (se estiver visível) ou através do botão menu do dispositivo.
 
 ### Descarregar Dados OSM
 
-Selecione o ícone de transferir ![ ](../images/menu_transfer.png)  ou o menu "Transferir". Isto irá mostrar 7 opções:
+Selecione o ícone de transferir ![](../images/menu_transfer.png)  ou o menu "Transferir". Isto irá mostrar 7 opções:
 
 * **Descarregar vista atual** - descarrega a área visível no ecrã e substitui dados existentes, se for o caso *(necessita de ligação à Internet)*
 * **Descarregar e adicionar vista atual** - descarrega a área visível no ecrã e faz a fusão com os dados existentes  *(necessita de ligação à Internet)*
@@ -110,7 +110,7 @@ Se tiver ativado o Seguir posição GPS, se deslocar o ecrã manualmente ou edit
 
 O Vespucci permite descarregar, comentar e fechar erros reportados no OpenStreetMap assim como os erros da [ferramenta gestão da de qualidade OSMOSE](http://osmose.openstreetmap.fr/en/map/). Ambos têm de ser descarregados à parte ou utilizando a funcionalidade de descarregar automaticamente, para que sejam mostrados os erros na área que se está a editar. Após editar ou fechar esses erros, pode-se enviar as alterações imediatamente ou todos eles.
 
-Os Erros Reportados e Erros OSMOSE são mostrados no mapa com um pequeno ícone ![ ](../images/bug_open.png). Os vermelhos são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. 
+Os Erros Reportados e Erros OSMOSE são mostrados no mapa com um pequeno ícone ![](../images/bug_open.png). Os vermelhos são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. 
 
 Os erros OSMOSE fornecem um link para o objeto em questão a azul, tocando no link selecionará o objeto, centra o ecrã nele e descarrega a área se for necessário. 
 

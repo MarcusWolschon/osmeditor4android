@@ -105,34 +105,34 @@ Vespucci имеет простой распознаватель конфликт
 
 Вы можете использовать Vespucci для создания GPX треков и их просмотра на вашем устройстве. Также вы можете отобразить текущее положение по GPS в центре экрана (отметьте "Показывать местоположение" в меню GPS) и/или следовать за ним (отметьте "Следовать за GPS" в меню GPS). 
 
-If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
+Если у вас установлен более поздний набор, перемещение экрана вручную или редактирование приведет к отключению режима «следовать за GPS», а синяя стрелка GPS изменится с контура на заполненную стрелку. Чтобы быстро вернуться в режим «следовать», просто коснитесь стрелки или переустановите параметр в меню.
 
 ## Заметки и ошибки
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+Vespucci поддерживает загрузку, комментирование и обработку OSM Заметок (ранее OSM Баги) и эквивалентную функциональность для «Багов», созданных инструментом [обеспечения качества OSMOSE] (http://osmose.openstreetmap.fr/en/map/). Оба должны быть либо загружены самостоятельно, либо вы можете использовать средство автоматической загрузки для доступа к элементам в вашей непосредственной области. После того, как вы отредактировали или обработали, вы можете сразу загрузить этот баг или заметку, или загрузить все вместе.
 
 На карте Заметки и ошибки представлены маленьким значком ошибки ![](../images/bug_open.png), зеленые - закрыты/решены, синие были созданы или отредактированы вами, желтые указывают на то, что они по-прежнему активны и не были изменены. 
 
-The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+Дисплей ошибок OSMOSE предоставит ссылку на затронутый объект синим цветом; касание по ссылке выберет объект, центрирует экран на нем и, если необходимо, предзагрузит область. 
 
 ## Настройка Vespucci
 
 ### Что стоит изменить в настройках
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Фоновый слой
+* Наложение слоя. Добавление наложения может привести к проблемам со старыми устройствами и устройствами с ограниченной памятью. По умолчанию: ничего.
+* Отображение заметок/багов. Открытые заметки и баги будут отображаться как желтый значок бага, а закрытые - зеленым. По умолчанию: включено.
+* Наложение фото. Отображает геопривязанные фотографии в виде красных значков камеры, если информация о направлении доступна, значок будет повернут. По умолчанию: отключено.
+* Значки узлов. По умолчанию: включено.
+* Держать экран включенным. По умолчанию: отключено.
+* Большая область перетаскивания узлов. Перемещение узлов на устройстве с сенсорным экраном проблематично, так как пальцы закрывают дисплей. Включение этого параметра предоставит большую область управления, которая может использоваться для нецентрального перетаскивания (выбор и другие операции по-прежнему используют обычную зону касания). По умолчанию: отключено.
 
 #### Расширенные параметры
 
-* Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Включить разделенную панель действий. На новых устройствах панель действий будет разделена на верхнюю и нижнюю части, где нижняя панель будет содержать кнопки. Обычно это позволяет отображать больше кнопок, однако использует больше экрана. Выключение этого параметра приведет к перемещению кнопок в верхнюю панель. Примечание: вам нужно перезапустить Vespucci, чтобы изменения вступили в силу. 
+* Всегда показывать контекстное меню. При включении каждый процесс выбора отображает контекстное меню, при отлкючении меню отображается только тогда, когда не может быть определен однозначный выбор. По умолчанию: отключено (в предыдущих версиях было включено).
+* Включить светлую тему. На современных устройствах это включено по умолчанию. Хотя вы можете включить это для старых версий Android, вид, скорее всего, будет непоследовательным.
+* Показать статистику. Будет отображаться некоторая статистика для отладки, не очень полезная. По умолчанию: отключено (в предыдущих версиях было включено).  
 
 ## Отчёты об ошибках
 

@@ -1,7 +1,7 @@
 # 
 # Translators:
-# hakuchi <heimlikloh@mail.com>, 2016
-# Holger Jeromin <mailgithub@katur.de>, 2015
+# hakuchi <heimlikloh@mail.com>, 2016-2017
+# Holger Jeromin <mailgithub@katur.de>, 2015,2017
 # Jacob Bräutigam <barth.jacke@hotmail.de>, 2015
 # Jonas Meier <meiers.jonas@gmail.com>, 2017
 # P W <osmco@go4more.de>, 2016
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-05-13 13:38+0200\n"
-"PO-Revision-Date: 2017-05-14 10:33+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-06-22 16:22+0000\n"
+"Last-Translator: hakuchi <heimlikloh@mail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr ""
 
 #: master_preset.xml:5893(label:text|group:Health|preset:Emergency_Access_Point)
 msgid "(Use number as shown on plate.)"
-msgstr ""
+msgstr "(Nutze die Zahl die auf dem Schild steht.)"
 
 #: master_preset.xml:10173(label:text|group:Places|preset:Farm)
 msgid "(please use isolated_dwelling for an isolated farm)"
@@ -138,7 +138,7 @@ msgstr "Ein Bauenhor in einer grösseren Siedlung"
 
 #: master_preset.xml:2863(label:text|group:Water|preset:Beach)
 msgid "A flat area of sand, gravel or pebble next to water."
-msgstr ""
+msgstr "Eine flache Fläche aus Sand, Kies oder Kiesel in der Nähe von Wasserflächen."
 
 #: master_preset.xml:2884(label:text|group:Water|preset:Bay)
 msgid ""
@@ -205,7 +205,7 @@ msgstr "Aufgegebene Bahnstrecke"
 
 #: master_preset.xml:456(list_entry:display_value|value:abused)
 msgid "Abused"
-msgstr "Mishandelte"
+msgstr "Misshandelte"
 
 #: master_preset.xml:283(combo:text|key:access)
 #: master_preset.xml:518(combo:text|key:access)
@@ -236,7 +236,7 @@ msgstr "Quer"
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Acrylic glass"
-msgstr ""
+msgstr "Plexiglas"
 
 #: master_preset.xml:11057(item:name|group:Addresses_and_Contact|preset:Address)
 msgid "Address"
@@ -271,7 +271,7 @@ msgstr "Verwaltungsstufe"
 
 #: master_preset.xml:9834(list_entry:short_description|preset:Vending_Machine|value:admission_tickets;)
 msgid "Admission tickets"
-msgstr ""
+msgstr "Eintrittskarten"
 
 #: master_preset.xml:6629(item:name|group:Facilities|preset:Advertising_Column)
 msgid "Advertising Column"
@@ -607,7 +607,7 @@ msgstr "Bar"
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Barbecue"
-msgstr ""
+msgstr "Grill"
 
 #: master_preset.xml:10564(item:name|group:Nature|preset:Bare_Rock)
 msgid "Bare Rock"
@@ -847,27 +847,27 @@ msgstr ""
 
 #: master_preset.xml:8105(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-1)
 msgid "Boiling Water Reactor 1 (BWR-1)"
-msgstr ""
+msgstr "Siedewasserreaktor 1 (BWR-1)"
 
 #: master_preset.xml:8106(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-2)
 msgid "Boiling Water Reactor 2 (BWR-2)"
-msgstr ""
+msgstr "Siedewasserreaktor 2 (BWR-2)"
 
 #: master_preset.xml:8107(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-3)
 msgid "Boiling Water Reactor 3 (BWR-3)"
-msgstr ""
+msgstr "Siedewasserreaktor 3 (BWR-3)"
 
 #: master_preset.xml:8108(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-4)
 msgid "Boiling Water Reactor 4 (BWR-4)"
-msgstr ""
+msgstr "Siedewasserreaktor 4 (BWR-4)"
 
 #: master_preset.xml:8109(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-5)
 msgid "Boiling Water Reactor 5 (BWR-5)"
-msgstr ""
+msgstr "Siedewasserreaktor 5 (BWR-5)"
 
 #: master_preset.xml:8110(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-6)
 msgid "Boiling Water Reactor 6 (BWR-6)"
-msgstr ""
+msgstr "Siedewasserreaktor 6 (BWR-6)"
 
 #: master_preset.xml:1895(item:name|group:Barriers|preset:Bollard)
 msgid "Bollard"
@@ -2916,7 +2916,7 @@ msgstr "Hörgeräte"
 
 #: master_preset.xml:437(combo:display_values|key:substance)
 msgid "Heat"
-msgstr ""
+msgstr "Wärme"
 
 #: master_preset.xml:10534(item:name|group:Nature|preset:Heath)
 msgid "Heath"
@@ -4177,7 +4177,7 @@ msgstr ""
 
 #: master_preset.xml:3578(check:text|group:Car|preset:Charging_Station|key:authentication:nfc)
 msgid "NFC"
-msgstr ""
+msgstr "NFC"
 
 #: master_preset.xml:10006(text:text|group:Boundaries|preset:Maritime|key:name)
 #: master_preset.xml:1012(text:text|group:Streets|preset:Pedestrian|key:name)

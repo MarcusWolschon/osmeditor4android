@@ -470,8 +470,8 @@
   <string name="config_gps_source_tcp_summary">Indirizzo della sorgente NMEA TCP nel formato sito:porta</string>
   <string name="config_leaveGpsDisabled_title">Mantieni il GPS disabilitato</string>
   <string name="config_leaveGpsDisabled_summary">Non chiedere all\'utente di abilitare il GPS se questo è disabilitato</string>
-  <string name="config_enableLightTheme_title">Abilita tema leggero</string>
-  <string name="config_enableLightTheme_summary">Tema leggero con sfondi bianchi</string>
+  <string name="config_enableLightTheme_title">Abilita tema chiaro</string>
+  <string name="config_enableLightTheme_summary">Tema chiaro con sfondi bianchi</string>
   <string name="config_category_misc">Varie</string>
   <string name="config_address_tags">Etichette degli indirizzi</string>
   <string name="config_address_tags_summary">Etichette utilizzate per la predizione dell\'indirizzo</string>

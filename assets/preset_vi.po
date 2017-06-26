@@ -1,20 +1,18 @@
 # 
 # Translators:
-# Giuseppe Pignataro (Fasbyte01) <rogepix@gmail.com>, 2017
-# hakuchi <heimlikloh@mail.com>, 2017
-# idetao <marcxosm@gmail.com>, 2017
+# Minh Nguyễn <minh@nguyen.cincinnati.oh.us>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-05-13 13:38+0200\n"
-"PO-Revision-Date: 2017-06-22 16:36+0000\n"
-"Last-Translator: hakuchi <heimlikloh@mail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
+"PO-Revision-Date: 2017-06-25 07:02+0000\n"
+"Last-Translator: Minh Nguyễn <minh@nguyen.cincinnati.oh.us>\n"
+"Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: master_preset.xml:8237(label:text|preset:Power_Switchgear)
 msgid ""
@@ -32,39 +30,39 @@ msgstr ""
 
 #: master_preset.xml:473(combo:display_values|key:stars)
 msgid "*"
-msgstr "*"
+msgstr ""
 
 #: master_preset.xml:473(combo:display_values|key:stars)
 msgid "**"
-msgstr "**"
+msgstr ""
 
 #: master_preset.xml:473(combo:display_values|key:stars)
 msgid "***"
-msgstr "***"
+msgstr ""
 
 #: master_preset.xml:473(combo:display_values|key:stars)
 msgid "****"
-msgstr "****"
+msgstr ""
 
 #: master_preset.xml:473(combo:display_values|key:stars)
 msgid "*****"
-msgstr "*****"
+msgstr ""
 
 #: master_preset.xml:473(combo:display_values|key:stars)
 msgid "******"
-msgstr "******"
+msgstr ""
 
 #: master_preset.xml:473(combo:display_values|key:stars)
 msgid "*******"
-msgstr "*******"
+msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "-10%"
-msgstr "-10%"
+msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "-10°"
-msgstr "-10°"
+msgstr ""
 
 #: master_preset.xml:4766(label:text|group:Tourism|preset:Map)
 #: master_preset.xml:4805(label:text|group:Tourism|preset:Guidepost)
@@ -73,7 +71,7 @@ msgstr ""
 
 #: master_preset.xml:263(list_entry:short_description|value:1)
 msgid "1 table"
-msgstr "1 tabella"
+msgstr ""
 
 #: master_preset.xml:3520(check:text|group:Car|preset:Fuel|key:fuel:1_25)
 msgid "1/25 mix (mofa/moped)"
@@ -85,19 +83,19 @@ msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10%"
-msgstr "10%"
+msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10°"
-msgstr "10°"
+msgstr ""
 
 #: master_preset.xml:264(list_entry:short_description|value:2)
 msgid "2 tables"
-msgstr "2 tabelle"
+msgstr ""
 
 #: master_preset.xml:265(list_entry:short_description|value:3)
 msgid "3 tables"
-msgstr "3 tabelle"
+msgstr ""
 
 #: master_preset.xml:4876(check:text|group:Leisure|preset:Movie_Theater/Cinema|key:cinema:3D)
 msgid "3D"
@@ -105,11 +103,11 @@ msgstr "3D"
 
 #: master_preset.xml:266(list_entry:short_description|value:4)
 msgid "4 tables"
-msgstr "4 tabelle"
+msgstr ""
 
 #: master_preset.xml:267(list_entry:short_description|value:5)
 msgid "5 tables"
-msgstr "5 tabelle"
+msgstr ""
 
 #: master_preset.xml:4792(label:text|group:Tourism|preset:Guidepost)
 msgid ""
@@ -201,13 +199,13 @@ msgstr ""
 
 #: master_preset.xml:456(list_entry:display_value|value:abused)
 msgid "Abused"
-msgstr "Abusato"
+msgstr ""
 
 #: master_preset.xml:283(combo:text|key:access)
 #: master_preset.xml:518(combo:text|key:access)
 #: master_preset.xml:5942(combo:text|group:Emergency|preset:Automated_Defibrillator|key:access)
 msgid "Access"
-msgstr "Accesso"
+msgstr ""
 
 #: master_preset.xml:2316(group:name|group:Access_Restrictions)
 msgid "Access Restrictions"
@@ -223,7 +221,7 @@ msgstr ""
 
 #: master_preset.xml:11111(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:inclusion)
 msgid "Accuracy"
-msgstr "Accuratezza "
+msgstr ""
 
 #: master_preset.xml:579(list_entry:display_value|value:across)
 #: master_preset.xml:624(list_entry:display_value|value:across)
@@ -232,11 +230,11 @@ msgstr ""
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Acrylic glass"
-msgstr "Vetro acrilico"
+msgstr ""
 
 #: master_preset.xml:11057(item:name|group:Addresses_and_Contact|preset:Address)
 msgid "Address"
-msgstr "Indirizzo"
+msgstr "Địa chỉ"
 
 #: master_preset.xml:11094(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
@@ -258,12 +256,12 @@ msgstr ""
 #: master_preset.xml:12337(item:name|group:Offices|preset:Administrative)
 #: master_preset.xml:9925(item:name|group:Boundaries|preset:Administrative)
 msgid "Administrative"
-msgstr "Amministrativo"
+msgstr ""
 
 #: master_preset.xml:11255(combo:text|group:Relations|preset:Boundary|key:admin_level)
 #: master_preset.xml:9937(combo:text|group:Boundaries|preset:Administrative|key:admin_level)
 msgid "Administrative level"
-msgstr "Livello amministrativo"
+msgstr ""
 
 #: master_preset.xml:9834(list_entry:short_description|preset:Vending_Machine|value:admission_tickets;)
 msgid "Admission tickets"
@@ -304,11 +302,11 @@ msgstr ""
 
 #: master_preset.xml:7892(check:text|preset:Monitoring_Station|key:monitoring:air_quality)
 msgid "Air Quality"
-msgstr "Qualità dell'aria"
+msgstr ""
 
 #: master_preset.xml:4157(group:name|group:Airport)
 msgid "Airport"
-msgstr "Aereoporto"
+msgstr "Sân bay"
 
 #: master_preset.xml:4158(item:name|group:Airport|preset:Airport_Ground)
 msgid "Airport Ground"
@@ -316,23 +314,23 @@ msgstr ""
 
 #: master_preset.xml:8851(item:name|group:Food|preset:Alcohol)
 msgid "Alcohol"
-msgstr "Alcol"
+msgstr ""
 
 #: master_preset.xml:11109(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "All"
-msgstr "Tutto"
+msgstr "Tất cả"
 
 #: master_preset.xml:2317(item:name|group:Access_Restrictions|preset:All_vehicles)
 msgid "All vehicles"
-msgstr "Tutti i veicoli"
+msgstr ""
 
 #: master_preset.xml:2334(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle:conditional)
 msgid "All vehicles @"
-msgstr "Tutti i veicoli @"
+msgstr ""
 
 #: master_preset.xml:1040(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Alley"
-msgstr "Alleato"
+msgstr ""
 
 #: master_preset.xml:10727(item:name|group:Land_use|preset:Allotments)
 msgid "Allotments"
@@ -341,7 +339,7 @@ msgstr ""
 #: master_preset.xml:121(optional:text) master_preset.xml:130(optional:text)
 #: master_preset.xml:138(optional:text)
 msgid "Allowed traffic:"
-msgstr "Traffico permesso:"
+msgstr ""
 
 #: master_preset.xml:578(list_entry:display_value|value:along)
 #: master_preset.xml:623(list_entry:display_value|value:along)
@@ -350,24 +348,24 @@ msgstr ""
 
 #: master_preset.xml:11109(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Alphabetic"
-msgstr "Alfabetico"
+msgstr ""
 
 #: master_preset.xml:11476(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
 msgid "Alpine"
-msgstr "Alpino"
+msgstr ""
 
 #: master_preset.xml:4422(item:name|group:Accommodation|preset:Alpine_Hut)
 msgid "Alpine Hut"
-msgstr "Rifugio"
+msgstr ""
 
 #: master_preset.xml:11047(text:text|group:Addresses_and_Contact|preset:Name|key:alt_name)
 msgid "Alternative name"
-msgstr "Nome alternativo"
+msgstr "Tên khác"
 
 #: master_preset.xml:6396(check:text|group:Facilities|preset:Recycling_Container|key:recycling:aluminium)
 #: master_preset.xml:6436(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:aluminium)
 msgid "Aluminium"
-msgstr "Alluminio"
+msgstr ""
 
 #: master_preset.xml:5915(item:name|group:Emergency|preset:Ambulance_Station)
 msgid "Ambulance Station"
@@ -379,7 +377,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "American"
-msgstr "Americano"
+msgstr "Mỹ"
 
 #: master_preset.xml:9891(check:text|preset:Payment_Methods|key:payment:american_express)
 msgid "American Express"
@@ -387,11 +385,11 @@ msgstr "American Express"
 
 #: master_preset.xml:7106(item:name|group:Sport_(Ball)|preset:American_Football)
 msgid "American Football"
-msgstr "Football americano"
+msgstr "Bóng bầu dục Mỹ"
 
 #: master_preset.xml:3547(combo:text|group:Car|preset:Charging_Station|key:amperage)
 msgid "Amperage"
-msgstr "Amperaggio"
+msgstr ""
 
 #: master_preset.xml:4918(item:name|group:Leisure|preset:Amusement/Theme_Park)
 msgid "Amusement/Theme Park"
@@ -415,11 +413,11 @@ msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Anglican"
-msgstr "Anglicano"
+msgstr ""
 
 #: master_preset.xml:9835(list_entry:short_description|preset:Vending_Machine|value:animal_food)
 msgid "Animal food"
-msgstr "Cibo per animali"
+msgstr ""
 
 #: master_preset.xml:6598(item:name|group:Facilities|preset:Animal_watering_place)
 msgid "Animal watering place"
@@ -427,11 +425,11 @@ msgstr ""
 
 #: master_preset.xml:11153(group:name|group:Annotation)
 msgid "Annotation"
-msgstr "Annotazione"
+msgstr ""
 
 #: master_preset.xml:9308(item:name|group:Home_decoration|preset:Antiques)
 msgid "Antiques"
-msgstr "Antico"
+msgstr ""
 
 #: master_preset.xml:4219(item:name|group:Airport|preset:Apron)
 msgid "Apron"
@@ -440,7 +438,7 @@ msgstr ""
 #: master_preset.xml:10716(item:name|group:Land_use|preset:Aquaculture)
 #: master_preset.xml:10725(combo:text|group:Land_use|preset:Aquaculture|key:aquaculture)
 msgid "Aquaculture"
-msgstr "Acquacultura"
+msgstr ""
 
 #: master_preset.xml:2259(item:name|group:Passageways|preset:Arcade)
 msgid "Arcade"
@@ -448,7 +446,7 @@ msgstr ""
 
 #: master_preset.xml:8474(item:name|group:Historic_Places|preset:Archaeological_Site)
 msgid "Archaeological Site"
-msgstr "Sito archeologico"
+msgstr ""
 
 #: master_preset.xml:6930(item:name|group:Sport|preset:Archery)
 msgid "Archery"
@@ -456,7 +454,7 @@ msgstr ""
 
 #: master_preset.xml:12500(item:name|group:Offices|preset:Architect)
 msgid "Architect"
-msgstr "Archietetto "
+msgstr "Kiến trúc sư"
 
 #: master_preset.xml:1017(check:text|group:Streets|preset:Pedestrian|key:area)
 #: master_preset.xml:3972(check:text|group:Public_Transport|preset:Station|key:area)
@@ -464,20 +462,20 @@ msgstr "Archietetto "
 #: master_preset.xml:4136(check:text|group:Public_Transport_(Legacy)|preset:Bus_Platform|key:area)
 #: master_preset.xml:4913(check:text|group:Leisure|preset:Dog_Park|key:area)
 msgid "Area"
-msgstr "Area"
+msgstr ""
 
 #: master_preset.xml:9256(item:name|group:Home_decoration|preset:Art)
 msgid "Art"
-msgstr "Arte"
+msgstr ""
 
 #: master_preset.xml:5342(text:text|group:Culture|preset:Artwork|key:artist_name)
 #: master_preset.xml:8547(text:text|group:Historic_Places|preset:Memorial|key:artist_name)
 msgid "Artist Name"
-msgstr "Nome artista"
+msgstr ""
 
 #: master_preset.xml:5313(item:name|group:Culture|preset:Arts_Centre)
 msgid "Arts Centre"
-msgstr "Centro d'arti"
+msgstr ""
 
 #: master_preset.xml:5327(item:name|group:Culture|preset:Artwork)
 msgid "Artwork"
@@ -489,7 +487,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Asian"
-msgstr "Asiatico"
+msgstr "Châu Á"
 
 #: master_preset.xml:6014(item:name|group:Emergency|preset:Assembly_Point)
 msgid "Assembly Point"
@@ -505,15 +503,15 @@ msgstr ""
 
 #: master_preset.xml:12513(item:name|group:Offices|preset:Association)
 msgid "Association"
-msgstr "Associazione"
+msgstr ""
 
 #: master_preset.xml:4699(item:name|group:Tourism|preset:Attraction)
 msgid "Attraction"
-msgstr "Attrazione"
+msgstr ""
 
 #: master_preset.xml:4826(item:name|group:Tourism|preset:Audio_Guide)
 msgid "Audio Guide"
-msgstr "Guida audio"
+msgstr ""
 
 #: master_preset.xml:4843(label:text|group:Tourism|preset:Audio_Guide)
 msgid "Audioguide via mobile phone?"
@@ -521,15 +519,15 @@ msgstr ""
 
 #: master_preset.xml:7099(item:name|group:Sport_(Ball)|preset:Australian_Football)
 msgid "Australian Football"
-msgstr "Football australiano"
+msgstr "Bóng bầu dục Úc"
 
 #: master_preset.xml:3573(label:text|group:Car|preset:Charging_Station)
 msgid "Authentication:"
-msgstr "Autenticazione:"
+msgstr "Xác thực:"
 
 #: master_preset.xml:7903(check:text|preset:Monitoring_Station|key:recording:automated)
 msgid "Automated"
-msgstr "Automatizzato"
+msgstr "Tự động"
 
 #: master_preset.xml:5928(item:name|group:Emergency|preset:Automated_Defibrillator)
 msgid "Automated Defibrillator"
@@ -538,12 +536,12 @@ msgstr ""
 #: master_preset.xml:9153(check:text|group:Cash|preset:Bank|key:atm)
 #: master_preset.xml:9170(item:name|group:Cash|preset:Automated_Teller_Machine)
 msgid "Automated Teller Machine"
-msgstr ""
+msgstr "Máy rút tiền"
 
 #: master_preset.xml:224(combo:display_values|key:internet_access)
 #: master_preset.xml:260(list_entry:short_description|value:yes)
 msgid "Available"
-msgstr "Disponibile"
+msgstr "Có sẵn"
 
 #: master_preset.xml:2295(item:name|group:Passageways|preset:Avalanche_Protector)
 msgid "Avalanche Protector"
@@ -567,7 +565,7 @@ msgstr ""
 
 #: master_preset.xml:9772(item:name|group:Other|preset:Bag)
 msgid "Bag"
-msgstr "Borsa"
+msgstr ""
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Bahai"
@@ -583,11 +581,11 @@ msgstr ""
 
 #: master_preset.xml:9881(check:text|preset:Payment_Methods|key:payment:bancomat)
 msgid "Bancomat"
-msgstr "Bancomat"
+msgstr ""
 
 #: master_preset.xml:9136(item:name|group:Cash|preset:Bank)
 msgid "Bank"
-msgstr "Banca"
+msgstr "Ngân hàng"
 
 #: master_preset.xml:9880(check:text|preset:Payment_Methods|key:payment:bankaxess)
 msgid "BankAxess"
@@ -595,15 +593,15 @@ msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Baptist"
-msgstr "Battista"
+msgstr ""
 
 #: master_preset.xml:4675(item:name|group:Food+Drinks|preset:Bar)
 msgid "Bar"
-msgstr "Bar"
+msgstr "Quán Rượu"
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Barbecue"
-msgstr "Barbecue"
+msgstr ""
 
 #: master_preset.xml:10564(item:name|group:Nature|preset:Bare_Rock)
 msgid "Bare Rock"
@@ -629,19 +627,19 @@ msgstr ""
 
 #: master_preset.xml:4914(combo:text|group:Leisure|preset:Dog_Park|key:barrier)
 msgid "Barrier"
-msgstr "Barriera"
+msgstr ""
 
 #: master_preset.xml:1878(group:name|group:Barriers)
 msgid "Barriers"
-msgstr "Barriere"
+msgstr ""
 
 #: master_preset.xml:7147(item:name|group:Sport_(Ball)|preset:Baseball)
 msgid "Baseball"
-msgstr "Baseball"
+msgstr ""
 
 #: master_preset.xml:2718(item:name|group:Water|preset:Basin)
 msgid "Basin"
-msgstr ""
+msgstr "Lưu vực"
 
 #: master_preset.xml:11711(item:name|group:Crafts|preset:Basket_maker)
 msgid "Basket maker"
@@ -649,24 +647,24 @@ msgstr ""
 
 #: master_preset.xml:7156(item:name|group:Sport_(Ball)|preset:Basketball)
 msgid "Basketball"
-msgstr "Basketball"
+msgstr "Bóng rổ"
 
 #: master_preset.xml:6397(check:text|group:Facilities|preset:Recycling_Container|key:recycling:batteries)
 #: master_preset.xml:6437(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:batteries)
 msgid "Batteries"
-msgstr "Batterie"
+msgstr "Pin"
 
 #: master_preset.xml:8488(item:name|group:Historic_Places|preset:Battlefield)
 msgid "Battlefield"
-msgstr "Campo di battaglia"
+msgstr ""
 
 #: master_preset.xml:2875(item:name|group:Water|preset:Bay)
 msgid "Bay"
-msgstr "Baia"
+msgstr "Vịnh"
 
 #: master_preset.xml:2854(item:name|group:Water|preset:Beach)
 msgid "Beach"
-msgstr "Spiaggia"
+msgstr "Bãi biển"
 
 #: master_preset.xml:4949(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
@@ -687,7 +685,7 @@ msgstr ""
 
 #: master_preset.xml:9281(item:name|group:Home_decoration|preset:Bed)
 msgid "Bed"
-msgstr "Letto"
+msgstr ""
 
 #: master_preset.xml:4310(text:text|group:Accommodation|preset:Hotel|key:beds)
 #: master_preset.xml:4332(text:text|group:Accommodation|preset:Motel|key:beds)
@@ -696,7 +694,7 @@ msgstr "Letto"
 #: master_preset.xml:4415(text:text|group:Accommodation|preset:Hostel|key:beds)
 #: master_preset.xml:4477(text:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:beds)
 msgid "Beds"
-msgstr "Letti"
+msgstr ""
 
 #: master_preset.xml:11719(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
@@ -710,7 +708,7 @@ msgstr ""
 #: master_preset.xml:4121(check:text|group:Public_Transport_(Legacy)|preset:Bus_Stop|key:bench)
 #: master_preset.xml:6499(item:name|group:Facilities|preset:Bench)
 msgid "Bench"
-msgstr ""
+msgstr "Ghế ngồi"
 
 #: master_preset.xml:8866(item:name|group:Food|preset:Beverages)
 msgid "Beverages"
@@ -730,7 +728,7 @@ msgstr ""
 #: master_preset.xml:3737(group:name|group:Bicycle)
 #: master_preset.xml:3992(check:text|group:Public_Transport|preset:Subway_Entrance|key:bicycle)
 msgid "Bicycle"
-msgstr ""
+msgstr "Xe đạp"
 
 #: master_preset.xml:947(item:name|group:Streets|preset:Bicycle_Road)
 msgid "Bicycle Road"
@@ -783,7 +781,7 @@ msgstr ""
 #: master_preset.xml:2949(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:biodiesel)
 #: master_preset.xml:3507(check:text|group:Car|preset:Fuel|key:fuel:biodiesel)
 msgid "Bio Diesel"
-msgstr "Bio Diesel"
+msgstr ""
 
 #: master_preset.xml:8039(item:name|group:Power_Generator|preset:Biofuel_Power_Generator)
 msgid "Biofuel Power Generator"
@@ -803,11 +801,11 @@ msgstr ""
 
 #: master_preset.xml:9917(check:text|preset:Payment_Methods|key:payment:bitcoin)
 msgid "Bitcoin"
-msgstr "Bitcoin"
+msgstr ""
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Black"
-msgstr ""
+msgstr "Đen"
 
 #: master_preset.xml:11734(item:name|group:Crafts|preset:Blacksmith)
 msgid "Blacksmith"
@@ -819,7 +817,7 @@ msgstr ""
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Blue"
-msgstr "Blu"
+msgstr "Xanh lam"
 
 #: master_preset.xml:4781(combo:text|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Board Content"
@@ -887,7 +885,7 @@ msgstr ""
 
 #: master_preset.xml:1964(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
-msgstr ""
+msgstr "Kiểm soát Biên giới"
 
 #: master_preset.xml:10005(combo:text|group:Boundaries|preset:Maritime|key:border_type)
 msgid "Border type"
@@ -907,11 +905,11 @@ msgstr ""
 
 #: master_preset.xml:11239(item:name|group:Relations|preset:Boundary)
 msgid "Boundary"
-msgstr ""
+msgstr "Biên giới"
 
 #: master_preset.xml:8590(item:name|group:Historic_Places|preset:Boundary_Stone)
 msgid "Boundary Stone"
-msgstr ""
+msgstr "Mốc Biên giới"
 
 #: master_preset.xml:11253(combo:text|group:Relations|preset:Boundary|key:boundary)
 msgid "Boundary type"
@@ -919,7 +917,7 @@ msgstr ""
 
 #: master_preset.xml:8934(item:name|group:Clothes|preset:Boutique)
 msgid "Boutique"
-msgstr "Boutique"
+msgstr ""
 
 #: master_preset.xml:353(text:text|key:branch)
 #: master_preset.xml:384(text:text|key:branch)
@@ -934,7 +932,7 @@ msgstr ""
 #: master_preset.xml:3812(text:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:brand)
 #: master_preset.xml:9185(text:text|group:Cash|preset:Automated_Teller_Machine|key:brand)
 msgid "Brand"
-msgstr ""
+msgstr "Nhãn hiệu"
 
 #: master_preset.xml:2688(item:name|group:Water|preset:Breakwater)
 msgid "Breakwater"
@@ -953,7 +951,7 @@ msgstr ""
 #: master_preset.xml:7960(item:name|group:Bridges|preset:Bridge)
 #: master_preset.xml:7974(combo:text|group:Bridges|preset:Bridge|key:bridge)
 msgid "Bridge"
-msgstr "Ponte"
+msgstr "Cầu"
 
 #: master_preset.xml:7990(item:name|group:Bridges|preset:Bridge_Support)
 msgid "Bridge Support"
@@ -965,7 +963,7 @@ msgstr ""
 
 #: master_preset.xml:7959(group:name|group:Bridges)
 msgid "Bridges"
-msgstr "Ponti"
+msgstr "Cầu"
 
 #: master_preset.xml:5179(item:name|group:Leisure|preset:Brothel)
 msgid "Brothel"
@@ -977,11 +975,11 @@ msgstr ""
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Buddhist"
-msgstr "Buddista"
+msgstr "Phật giáo"
 
 #: master_preset.xml:5434(item:name|group:Place_of_Worship|preset:Buddhist_Temple)
 msgid "Buddhist Temple"
-msgstr "Tempio buddista"
+msgstr ""
 
 #: master_preset.xml:3249(item:name|group:Railway|preset:Buffer_Stop)
 msgid "Buffer Stop"
@@ -995,7 +993,7 @@ msgstr ""
 #: master_preset.xml:3973(check:text|group:Public_Transport|preset:Station|key:building)
 #: master_preset.xml:7367(item:name|group:Man_Made|preset:Building)
 msgid "Building"
-msgstr ""
+msgstr "Tòa nhà"
 
 #: master_preset.xml:2239(item:name|group:Passageways|preset:Building_Passage)
 msgid "Building Passage"
@@ -1003,7 +1001,7 @@ msgstr ""
 
 #: master_preset.xml:11280(role:text|group:Relations|preset:Building|key:level_-?\d+)
 msgid "Building level"
-msgstr ""
+msgstr "Lầu nhà"
 
 #: master_preset.xml:7415(item:name|group:Man_Made|preset:Building_part)
 msgid "Building part"
@@ -1034,7 +1032,7 @@ msgstr ""
 #: master_preset.xml:3911(check:text|group:Public_Transport|preset:Stop_Position|key:bus)
 #: master_preset.xml:3945(check:text|group:Public_Transport|preset:Platform|key:bus)
 msgid "Bus"
-msgstr ""
+msgstr "Xe buýt"
 
 #: master_preset.xml:3151(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
@@ -1042,15 +1040,15 @@ msgstr ""
 
 #: master_preset.xml:4125(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
-msgstr ""
+msgstr "Bến Xe buýt"
 
 #: master_preset.xml:4092(item:name|group:Public_Transport_(Legacy)|preset:Bus_Station)
 msgid "Bus Station"
-msgstr ""
+msgstr "Ga Xe buýt"
 
 #: master_preset.xml:4106(item:name|group:Public_Transport_(Legacy)|preset:Bus_Stop)
 msgid "Bus Stop"
-msgstr ""
+msgstr "Trạm Xe buýt"
 
 #: master_preset.xml:1935(item:name|group:Barriers|preset:Bus_Trap)
 msgid "Bus Trap"
@@ -1112,7 +1110,7 @@ msgstr ""
 
 #: master_preset.xml:4582(item:name|group:Food+Drinks|preset:Cafe)
 msgid "Cafe"
-msgstr ""
+msgstr "Quán Cà phê"
 
 #: master_preset.xml:7948(label:text|preset:Surveillance_Camera)
 msgid "Camera"
@@ -1142,7 +1140,7 @@ msgstr ""
 
 #: master_preset.xml:432(combo:text|key:canoe)
 msgid "Canoe"
-msgstr "Canoe"
+msgstr ""
 
 #: master_preset.xml:6965(item:name|group:Sport|preset:Canoeing/Kayaking)
 msgid "Canoeing/Kayaking"
@@ -1174,7 +1172,7 @@ msgstr ""
 #: master_preset.xml:3415(group:name|group:Car)
 #: master_preset.xml:3554(check:text|group:Car|preset:Charging_Station|key:car)
 msgid "Car"
-msgstr ""
+msgstr "Xe hơi"
 
 #: master_preset.xml:3601(item:name|group:Car|preset:Car_Dealer)
 msgid "Car Dealer"
@@ -1208,7 +1206,7 @@ msgstr ""
 #: master_preset.xml:9135(group:name|group:Cash)
 #: master_preset.xml:9872(combo:text|preset:Payment_Methods|key:payment:cash)
 msgid "Cash"
-msgstr ""
+msgstr "Tiền mặt"
 
 #: master_preset.xml:9902(check:text|preset:Payment_Methods|key:payment:ep_cash)
 msgid "Cash (ch)"
@@ -1216,11 +1214,11 @@ msgstr ""
 
 #: master_preset.xml:5149(item:name|group:Leisure|preset:Casino)
 msgid "Casino"
-msgstr "Casino"
+msgstr "Sòng bạc"
 
 #: master_preset.xml:8447(item:name|group:Historic_Places|preset:Castle)
 msgid "Castle"
-msgstr "Castello"
+msgstr ""
 
 #: master_preset.xml:11811(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
@@ -1228,7 +1226,7 @@ msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Catholic"
-msgstr "Cattolico"
+msgstr "Công giáo"
 
 #: master_preset.xml:1925(item:name|group:Barriers|preset:Cattle_Grid)
 msgid "Cattle Grid"
@@ -1236,11 +1234,11 @@ msgstr ""
 
 #: master_preset.xml:10300(item:name|group:Geography|preset:Cave_Entrance)
 msgid "Cave Entrance"
-msgstr "Entrata caverna"
+msgstr ""
 
 #: master_preset.xml:10853(item:name|group:Land_use|preset:Cemetery)
 msgid "Cemetery"
-msgstr "Cimitero"
+msgstr "Nghĩa địa"
 
 #: master_preset.xml:1458(check:text|group:Ways|preset:Steps|key:handrail:center)
 msgid "Center handrail"
@@ -1260,7 +1258,7 @@ msgstr ""
 
 #: master_preset.xml:4379(item:name|group:Accommodation|preset:Chalet)
 msgid "Chalet"
-msgstr "Chalet"
+msgstr ""
 
 #: master_preset.xml:5250(list_entry:display_value|group:Culture|preset:Music_theatres|value:chamber_music)
 msgid "Chamber music"
@@ -1272,7 +1270,7 @@ msgstr ""
 
 #: master_preset.xml:11333(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Check"
-msgstr ""
+msgstr "Séc"
 
 #: master_preset.xml:9393(item:name|group:For_the_body|preset:Chemist)
 msgid "Chemist"
@@ -1284,7 +1282,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Chicken"
-msgstr ""
+msgstr "Gà"
 
 #: master_preset.xml:5672(item:name|group:Education|preset:Childcare)
 msgid "Childcare"
@@ -1297,7 +1295,7 @@ msgstr ""
 #: master_preset.xml:457(list_entry:display_value|value:child)
 #: master_preset.xml:8909(list_entry:short_description|group:Clothes|preset:Clothes|value:children)
 msgid "Children"
-msgstr "Bambini"
+msgstr "Trẻ em"
 
 #: master_preset.xml:7577(item:name|preset:Chimney)
 msgid "Chimney"
@@ -1309,7 +1307,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Chinese"
-msgstr "Cinese"
+msgstr "Trung Quốc"
 
 #: master_preset.xml:9903(check:text|preset:Payment_Methods|key:payment:ep_chipknip)
 msgid "Chipknip (nl)"
@@ -1321,36 +1319,36 @@ msgstr ""
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Christian"
-msgstr "Cristiano"
+msgstr "Kitô giáo"
 
 #: master_preset.xml:5360(item:name|group:Place_of_Worship|preset:Church)
 msgid "Church"
-msgstr "Chiesa"
+msgstr "Nhà thờ"
 
 #: master_preset.xml:9837(list_entry:short_description|preset:Vending_Machine|value:cigarettes)
 msgid "Cigarettes"
-msgstr "Sigarette"
+msgstr ""
 
 #: master_preset.xml:5268(list_entry:display_value|group:Culture|preset:Other_theatres|value:circus)
 msgid "Circus"
-msgstr "Circo"
+msgstr ""
 
 #: master_preset.xml:10060(item:name|group:Places|preset:City)
 #: master_preset.xml:8485(combo:display_values|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "City"
-msgstr "Città"
+msgstr "Thành phố"
 
 #: master_preset.xml:1771(item:name|preset:City_Limit)
 msgid "City Limit"
-msgstr "Confine città"
+msgstr ""
 
 #: master_preset.xml:2035(item:name|group:Barriers|preset:City_Wall)
 msgid "City Wall"
-msgstr "Muro città"
+msgstr "Tường thành"
 
 #: master_preset.xml:11078(text:text|group:Addresses_and_Contact|preset:Address|key:addr:city)
 msgid "City name"
-msgstr "Nome città"
+msgstr "Tên thành phố"
 
 #: master_preset.xml:11822(item:name|group:Crafts|preset:Cleaning)
 msgid "Cleaning"
@@ -1362,7 +1360,7 @@ msgstr ""
 
 #: master_preset.xml:6955(item:name|group:Sport|preset:Climbing)
 msgid "Climbing"
-msgstr ""
+msgstr "Leo núi"
 
 #: master_preset.xml:5798(item:name|group:Health|preset:Clinic)
 msgid "Clinic"
@@ -1370,7 +1368,7 @@ msgstr ""
 
 #: master_preset.xml:6345(item:name|group:Facilities|preset:Clock)
 msgid "Clock"
-msgstr "Orologio"
+msgstr "Đồng hồ"
 
 #: master_preset.xml:11830(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
@@ -1382,7 +1380,7 @@ msgstr ""
 #: master_preset.xml:8892(group:name|group:Clothes)
 #: master_preset.xml:8893(item:name|group:Clothes|preset:Clothes)
 msgid "Clothes"
-msgstr ""
+msgstr "Quần áo"
 
 #: master_preset.xml:8065(item:name|group:Power_Generator|preset:Coal_Power_Generator)
 msgid "Coal Power Generator"
@@ -1395,16 +1393,16 @@ msgstr ""
 #: master_preset.xml:8771(item:name|group:Food|preset:Coffee)
 #: master_preset.xml:9838(list_entry:short_description|preset:Vending_Machine|value:coffee)
 msgid "Coffee"
-msgstr "Caffé"
+msgstr "Cà phê"
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Coffee shop"
-msgstr "Negozio caffé"
+msgstr "Quán cà phê"
 
 #: master_preset.xml:6316(check:text|group:Facilities|preset:Telephone|key:payment:coins)
 #: master_preset.xml:9874(check:text|preset:Payment_Methods|key:payment:coins)
 msgid "Coins"
-msgstr "Monete"
+msgstr ""
 
 #: master_preset.xml:6300(combo:text|group:Facilities|preset:Post_Box|key:collection_times)
 msgid "Collection times"
@@ -1412,7 +1410,7 @@ msgstr ""
 
 #: master_preset.xml:5741(item:name|group:Education|preset:College)
 msgid "College"
-msgstr ""
+msgstr "Trường Cao đẳng"
 
 #: master_preset.xml:2278(item:name|group:Passageways|preset:Colonnade)
 msgid "Colonnade"
@@ -1428,7 +1426,7 @@ msgstr ""
 
 #: master_preset.xml:11628(text:text|preset:Destination_Sign|key:colour:text)
 msgid "Colour of text"
-msgstr ""
+msgstr "Màu văn bản"
 
 #: master_preset.xml:1383(item:name|group:Ways|preset:Combined_Foot-_and_Cycleway)
 msgid "Combined Foot- and Cycleway"
@@ -1436,42 +1434,42 @@ msgstr ""
 
 #: master_preset.xml:5229(list_entry:display_value|group:Culture|preset:Theatre|value:comedy)
 msgid "Comedy"
-msgstr "Commedia"
+msgstr ""
 
 #: master_preset.xml:10892(item:name|group:Land_use|preset:Commercial)
 msgid "Commercial"
-msgstr "Commerciale"
+msgstr ""
 
 #: master_preset.xml:10783(item:name|group:Land_use|preset:Common)
 msgid "Common"
-msgstr "Comune"
+msgstr ""
 
 #: master_preset.xml:11054(text:text|group:Addresses_and_Contact|preset:Name|key:short_name)
 msgid "Common name abbreviation"
-msgstr "Abbreviazione nome comune"
+msgstr ""
 
 #: master_preset.xml:5551(item:name|group:Public_Building|preset:Community_Centre)
 #: master_preset.xml:5561(label:text|group:Public_Building|preset:Community_Centre)
 msgid "Community Centre"
-msgstr "Centro communità"
+msgstr ""
 
 #: master_preset.xml:12530(item:name|group:Offices|preset:Company)
 msgid "Company"
-msgstr "Azienda"
+msgstr "Công ty"
 
 #: master_preset.xml:6613(item:name|group:Facilities|preset:Compressed_Air)
 msgid "Compressed Air"
-msgstr "Aria compressa"
+msgstr ""
 
 #: master_preset.xml:9038(item:name|group:Electronic|preset:Computer)
 msgid "Computer"
-msgstr "Computer"
+msgstr "Máy tính"
 
 #: master_preset.xml:1892(combo:display_values|group:Barriers|preset:Block|key:material)
 #: master_preset.xml:2067(combo:display_values|group:Barriers|preset:Jersey_Barrier|key:material)
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Concrete"
-msgstr "Concreto"
+msgstr "Bê tông"
 
 #: master_preset.xml:2459(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward:conditional)
 #: master_preset.xml:2462(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backwardward:conditional)
@@ -1517,7 +1515,7 @@ msgstr ""
 
 #: master_preset.xml:9839(list_entry:short_description|preset:Vending_Machine|value:condoms)
 msgid "Condoms"
-msgstr "Preservativi"
+msgstr ""
 
 #: master_preset.xml:12207(item:name|group:Crafts|preset:Confectionery)
 #: master_preset.xml:8743(item:name|group:Food|preset:Confectionery)
@@ -1527,27 +1525,27 @@ msgstr ""
 #: master_preset.xml:1104(item:name|group:Streets|preset:Construction)
 #: master_preset.xml:12215(item:name|group:Crafts|preset:Construction)
 msgid "Construction"
-msgstr "Costruzione"
+msgstr "Xây dựng"
 
 #: master_preset.xml:10957(item:name|group:Land_use|preset:Construction_Area)
 msgid "Construction Area"
-msgstr "Area in costruzione"
+msgstr ""
 
 #: master_preset.xml:12615(item:name|group:Offices|preset:Consulting)
 msgid "Consulting"
-msgstr "Consulenza"
+msgstr ""
 
 #: master_preset.xml:11114(item:name|group:Addresses_and_Contact|preset:Contact)
 msgid "Contact"
-msgstr "Contatto"
+msgstr "Liên lạc"
 
 #: master_preset.xml:11132(item:name|group:Addresses_and_Contact|preset:Contact_('contact:-'))
 msgid "Contact ('contact:*')"
-msgstr "Contatto ('contact:*')"
+msgstr ""
 
 #: master_preset.xml:10010(item:name|group:Places|preset:Continent)
 msgid "Continent"
-msgstr "Continente"
+msgstr "Lục địa"
 
 #: master_preset.xml:8621(item:name|group:Food|preset:Convenience_Store)
 msgid "Convenience Store"
@@ -1560,7 +1558,7 @@ msgstr ""
 
 #: master_preset.xml:12623(item:name|group:Offices|preset:Cooperative)
 msgid "Cooperative"
-msgstr "Coperativo"
+msgstr ""
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Copper"
@@ -1572,11 +1570,11 @@ msgstr ""
 
 #: master_preset.xml:9407(item:name|group:For_the_body|preset:Cosmetics)
 msgid "Cosmetics"
-msgstr "Cosmetica"
+msgstr ""
 
 #: master_preset.xml:8910(list_entry:short_description|group:Clothes|preset:Clothes|value:costumes)
 msgid "Costumes"
-msgstr "Costumi"
+msgstr ""
 
 #: master_preset.xml:5998(text:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:count)
 msgid "Count"
@@ -1584,11 +1582,11 @@ msgstr ""
 
 #: master_preset.xml:10020(item:name|group:Places|preset:Country)
 msgid "Country"
-msgstr "Nazione"
+msgstr ""
 
 #: master_preset.xml:11080(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:country)
 msgid "Country code"
-msgstr ""
+msgstr "Mã quốc gia"
 
 #: master_preset.xml:10048(item:name|group:Places|preset:County)
 msgid "County"
@@ -1596,7 +1594,7 @@ msgstr ""
 
 #: master_preset.xml:5582(item:name|group:Public_Building|preset:Courthouse)
 msgid "Courthouse"
-msgstr ""
+msgstr "Tòa án"
 
 #: master_preset.xml:3757(check:text|group:Bicycle|preset:Parking|key:covered)
 #: master_preset.xml:3935(check:text|group:Public_Transport|preset:Platform|key:covered)
@@ -1625,15 +1623,15 @@ msgstr ""
 
 #: master_preset.xml:9889(combo:text|preset:Payment_Methods|key:payment:credit_cards)
 msgid "Credit cards"
-msgstr "Carte di credito"
+msgstr "Thẻ tín dụng"
 
 #: master_preset.xml:7222(item:name|group:Sport_(Ball)|preset:Cricket)
 msgid "Cricket"
-msgstr "Cricket"
+msgstr ""
 
 #: master_preset.xml:7228(item:name|group:Sport_(Ball)|preset:Croquet)
 msgid "Croquet"
-msgstr "Croquet"
+msgstr ""
 
 #: master_preset.xml:1536(check:text|group:Waypoints|preset:Traffic_Signal|key:bicycle)
 #: master_preset.xml:1596(check:text|group:Waypoints|preset:Pedestrian_Crossing|key:bicycle)
@@ -1676,7 +1674,7 @@ msgstr ""
 
 #: master_preset.xml:5197(group:name|group:Culture)
 msgid "Culture"
-msgstr "Cultura"
+msgstr "Văn hóa"
 
 #: master_preset.xml:2701(item:name|group:Water|preset:Culvert)
 #: master_preset.xml:420(combo:display_values|key:tunnel)
@@ -1685,7 +1683,7 @@ msgstr ""
 
 #: master_preset.xml:10255(combo:text|group:Geography|preset:Volcano|key:volcano:status)
 msgid "Current Status"
-msgstr ""
+msgstr "Trạng thái Hiện tại"
 
 #: master_preset.xml:9244(item:name|group:Home_decoration|preset:Curtain)
 msgid "Curtain"
@@ -1699,7 +1697,7 @@ msgstr ""
 #: master_preset.xml:518(combo:display_values|key:access)
 #: master_preset.xml:5942(combo:display_values|group:Emergency|preset:Automated_Defibrillator|key:access)
 msgid "Customers"
-msgstr "Clienti"
+msgstr "Khách hàng"
 
 #: master_preset.xml:10427(item:name|group:Nature|preset:Cutline)
 msgid "Cutline"
@@ -1715,7 +1713,7 @@ msgstr ""
 
 #: master_preset.xml:325(combo:text|key:leaf_cycle)
 msgid "Cycle"
-msgstr ""
+msgstr "Xe đạp"
 
 #: master_preset.xml:1914(item:name|group:Barriers|preset:Cycle_Barrier)
 msgid "Cycle Barrier"
@@ -1729,11 +1727,11 @@ msgstr ""
 #: master_preset.xml:4800(check:text|group:Tourism|preset:Guidepost|key:bicycle)
 #: master_preset.xml:6971(item:name|group:Sport|preset:Cycling)
 msgid "Cycling"
-msgstr ""
+msgstr "Xe đạp"
 
 #: master_preset.xml:3526(check:text|group:Car|preset:Fuel|key:payment:dkv)
 msgid "DKV"
-msgstr "DKV"
+msgstr ""
 
 #: master_preset.xml:8703(item:name|group:Food|preset:Dairy)
 msgid "Dairy"
@@ -1741,15 +1739,15 @@ msgstr ""
 
 #: master_preset.xml:2666(item:name|group:Water|preset:Dam)
 msgid "Dam"
-msgstr ""
+msgstr "Đập nước"
 
 #: master_preset.xml:9878(combo:text|preset:Payment_Methods|key:payment:debit_cards)
 msgid "Debit cards"
-msgstr "Carte di debito"
+msgstr ""
 
 #: master_preset.xml:229(combo:display_values|key:smoking)
 msgid "Dedicated"
-msgstr "Dedicate"
+msgstr ""
 
 #: master_preset.xml:1304(item:name|group:Ways|preset:Dedicated_Bridleway)
 msgid "Dedicated Bridleway"
@@ -1765,7 +1763,7 @@ msgstr ""
 
 #: master_preset.xml:171(list_entry:short_description|value:designated)
 msgid "Dedicated facilities"
-msgstr "Strutture dedicate"
+msgstr ""
 
 #: master_preset.xml:262(list_entry:short_description|value:room)
 msgid "Dedicated room"
@@ -1795,11 +1793,11 @@ msgstr ""
 #: master_preset.xml:8584(combo:text|group:Historic_Places|preset:Wayside_Shrine|key:denomination)
 #: master_preset.xml:9734(combo:text|group:Other|preset:Gift/Souvenir|key:denomination)
 msgid "Denomination"
-msgstr "Denominazione"
+msgstr "Giáo phái"
 
 #: master_preset.xml:5829(item:name|group:Health|preset:Dentist)
 msgid "Dentist"
-msgstr "Dentista"
+msgstr "Nha sĩ"
 
 #: master_preset.xml:9557(item:name|group:Other|preset:Department_Store)
 msgid "Department Store"
@@ -1826,7 +1824,7 @@ msgstr ""
 #: master_preset.xml:6610(text:text|group:Facilities|preset:Animal_watering_place|key:description)
 #: master_preset.xml:8827(text:text|group:Food|preset:Farm_Stand|key:description)
 msgid "Description"
-msgstr "Descrizione"
+msgstr "Miêu tả"
 
 #: master_preset.xml:11512(text:text|group:Routes|preset:Detour_Route|key:destination)
 #: master_preset.xml:651(text:text|group:Streets|preset:Motorway|key:destination)
@@ -1834,7 +1832,7 @@ msgstr "Descrizione"
 #: master_preset.xml:717(text:text|group:Streets|preset:Trunk|key:destination)
 #: master_preset.xml:745(text:text|group:Streets|preset:Trunk_Link|key:destination)
 msgid "Destination"
-msgstr "Destinazione"
+msgstr "Miêu tả"
 
 #: master_preset.xml:11613(item:name|preset:Destination_Sign)
 msgid "Destination Sign"
@@ -1882,7 +1880,7 @@ msgstr ""
 
 #: master_preset.xml:5991(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:diameter)
 msgid "Diameter (in mm)"
-msgstr "Diametro (in mm)"
+msgstr ""
 
 #: master_preset.xml:259(combo:text|key:diaper)
 msgid "Diaper changing facilities"
@@ -1891,7 +1889,7 @@ msgstr ""
 #: master_preset.xml:2948(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:diesel)
 #: master_preset.xml:3506(check:text|group:Car|preset:Fuel|key:fuel:diesel)
 msgid "Diesel"
-msgstr "Diesel"
+msgstr ""
 
 #: master_preset.xml:3508(check:text|group:Car|preset:Fuel|key:fuel:GTL_diesel)
 msgid "Diesel (Gas To Liquid - ultimate diesel)"
@@ -1907,15 +1905,15 @@ msgstr ""
 
 #: master_preset.xml:7910(check:text|preset:Monitoring_Station|key:display:digital)
 msgid "Digital"
-msgstr "Digitale"
+msgstr "Số"
 
 #: master_preset.xml:9892(check:text|preset:Payment_Methods|key:payment:diners_club)
 msgid "Diners Club"
-msgstr "Diners Club"
+msgstr ""
 
 #: master_preset.xml:1577(combo:text|group:Waypoints|preset:Mini-Roundabout|key:direction)
 msgid "Direction"
-msgstr "Direzione"
+msgstr ""
 
 #: master_preset.xml:7953(text:text|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"
@@ -1923,7 +1921,7 @@ msgstr ""
 
 #: master_preset.xml:458(list_entry:display_value|value:disabled)
 msgid "Disabled"
-msgstr "Disabilitato"
+msgstr ""
 
 #: master_preset.xml:9893(check:text|preset:Payment_Methods|key:payment:discover_card)
 msgid "Discover Card"
@@ -1949,21 +1947,21 @@ msgstr ""
 #: master_preset.xml:1830(text:text|preset:Highway_milestone|key:distance)
 #: master_preset.xml:3282(text:text|group:Railway|preset:Railway_milestone|key:distance)
 msgid "Distance (kilometers)"
-msgstr "Distanza (chilometri)"
+msgstr ""
 
 #: master_preset.xml:11557(text:text|group:Routes|preset:Road_Route|key:distance)
 #: master_preset.xml:11625(text:text|preset:Destination_Sign|key:distance)
 #: master_preset.xml:316(text:text|key:distance)
 msgid "Distance (km)"
-msgstr "Distanza (km)"
+msgstr ""
 
 #: master_preset.xml:11838(item:name|group:Crafts|preset:Distillery)
 msgid "Distillery"
-msgstr "Distilleria"
+msgstr "Nhà máy Rượu"
 
 #: master_preset.xml:11088(text:text|group:Addresses_and_Contact|preset:Address|key:addr:district)
 msgid "District"
-msgstr "Distretto"
+msgstr ""
 
 #: master_preset.xml:7699(check:text|preset:Mineshaft|key:disused)
 #: master_preset.xml:7716(check:text|preset:Adit|key:disused)
@@ -1981,7 +1979,7 @@ msgstr ""
 
 #: master_preset.xml:9950(combo:text|group:Boundaries|preset:Political|key:political_division)
 msgid "Division"
-msgstr "Divisione"
+msgstr ""
 
 #: master_preset.xml:9620(item:name|group:Other|preset:Do-It-Yourself_Store)
 msgid "Do-It-Yourself Store"
@@ -1993,15 +1991,15 @@ msgstr ""
 
 #: master_preset.xml:5813(item:name|group:Health|preset:Doctor's_Office)
 msgid "Doctor's Office"
-msgstr "Ufficio del dottore"
+msgstr "Phòng Bác sĩ"
 
 #: master_preset.xml:4897(item:name|group:Leisure|preset:Dog_Park)
 msgid "Dog Park"
-msgstr "Parco per cani"
+msgstr ""
 
 #: master_preset.xml:6979(item:name|group:Sport|preset:Dog_Racing)
 msgid "Dog Racing"
-msgstr "Gara di cani"
+msgstr ""
 
 #: master_preset.xml:9918(check:text|preset:Payment_Methods|key:payment:dogecoin)
 msgid "Dogecoin"
@@ -2009,11 +2007,11 @@ msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "Down"
-msgstr ""
+msgstr "Xuống"
 
 #: master_preset.xml:11454(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 msgid "Downhill"
-msgstr ""
+msgstr "Xuống dốc"
 
 #: master_preset.xml:3353(item:name|group:Aerialway|preset:Drag_Lift)
 msgid "Drag Lift"
@@ -2043,7 +2041,7 @@ msgstr ""
 #: master_preset.xml:6562(item:name|group:Facilities|preset:Drinking_Water)
 #: master_preset.xml:6593(check:text|group:Facilities|preset:Water_Point|key:drinking_water)
 msgid "Drinking Water"
-msgstr ""
+msgstr "Nước uống"
 
 #: master_preset.xml:9840(list_entry:short_description|preset:Vending_Machine|value:drinks)
 msgid "Drinks"
@@ -2075,7 +2073,7 @@ msgstr ""
 
 #: master_preset.xml:8989(item:name|group:Clothes|preset:Dry_Cleaning)
 msgid "Dry Cleaning"
-msgstr ""
+msgstr "Giặt khô"
 
 #: master_preset.xml:2931(combo:text|group:Shipping|preset:Marina|key:sanitary_dump_station)
 #: master_preset.xml:4482(combo:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:sanitary_dump_station)
@@ -2102,11 +2100,11 @@ msgstr ""
 
 #: master_preset.xml:5671(group:name|group:Education)
 msgid "Education"
-msgstr "Educazione"
+msgstr "Giáo dục"
 
 #: master_preset.xml:12542(item:name|group:Offices|preset:Educational_institution)
 msgid "Educational institution"
-msgstr "Istituzione educazionale"
+msgstr ""
 
 #: master_preset.xml:466(list_entry:display_value|value:senior)
 msgid "Elderly"
@@ -2123,7 +2121,7 @@ msgstr ""
 
 #: master_preset.xml:9037(group:name|group:Electronic)
 msgid "Electronic"
-msgstr "Elettronico"
+msgstr "Điện tử"
 
 #: master_preset.xml:9899(combo:text|preset:Payment_Methods|key:payment:electronic_purses)
 msgid "Electronic purses and Charge cards"
@@ -2132,7 +2130,7 @@ msgstr ""
 #: master_preset.xml:12223(item:name|group:Crafts|preset:Electronics)
 #: master_preset.xml:9051(item:name|group:Electronic|preset:Electronics)
 msgid "Electronics"
-msgstr "Elettroniche"
+msgstr ""
 
 #: master_preset.xml:10209(text:text|group:Geography|preset:Peak|key:ele)
 #: master_preset.xml:10223(text:text|group:Geography|preset:Saddle|key:ele)
@@ -2149,7 +2147,7 @@ msgstr ""
 
 #: master_preset.xml:1841(item:name|preset:Elevator)
 msgid "Elevator"
-msgstr "Ascensore"
+msgstr ""
 
 #: master_preset.xml:9841(list_entry:short_description|preset:Vending_Machine|value:elongated_coin)
 msgid "Elongated coin"
@@ -2158,7 +2156,7 @@ msgstr ""
 #: master_preset.xml:11124(text:text|group:Addresses_and_Contact|preset:Contact|key:email)
 #: master_preset.xml:11144(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:contact:email)
 msgid "Email Address"
-msgstr "Indirizzo email"
+msgstr ""
 
 #: master_preset.xml:660(check:text|group:Streets|preset:Motorway|key:embankment)
 #: master_preset.xml:691(check:text|group:Streets|preset:Motorway_Link|key:embankment)
@@ -2171,12 +2169,12 @@ msgstr ""
 
 #: master_preset.xml:5567(item:name|group:Public_Building|preset:Embassy)
 msgid "Embassy"
-msgstr "Ambasciata"
+msgstr "Tòa đại sứ"
 
 #: master_preset.xml:11312(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 #: master_preset.xml:5914(group:name|group:Emergency)
 msgid "Emergency"
-msgstr "Emergenza"
+msgstr "Khẩn cấp"
 
 #: master_preset.xml:5879(item:name|group:Health|preset:Emergency_Access_Point)
 msgid "Emergency Access Point"
@@ -2184,7 +2182,7 @@ msgstr ""
 
 #: master_preset.xml:6022(item:name|group:Emergency|preset:Emergency_Phone)
 msgid "Emergency Phone"
-msgstr ""
+msgstr "Điện thoại khẩn cấp"
 
 #: master_preset.xml:5892(text:text|group:Health|preset:Emergency_Access_Point|key:emergency_telephone_code)
 msgid "Emergency Phone Number"
@@ -2202,11 +2200,11 @@ msgstr ""
 
 #: master_preset.xml:2521(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:emergency)
 msgid "Emergency vehicles"
-msgstr "Veicoli d'emergenza"
+msgstr ""
 
 #: master_preset.xml:12358(item:name|group:Offices|preset:Employment_agency)
 msgid "Employment agency"
-msgstr "Agenzia per l'impiego"
+msgstr ""
 
 #: master_preset.xml:11320(item:name|group:Relations|preset:Enforcement)
 msgid "Enforcement"
@@ -2220,7 +2218,7 @@ msgstr ""
 #: master_preset.xml:11279(role:text|group:Relations|preset:Building|key:entrance)
 #: master_preset.xml:7513(item:name|preset:Entrance)
 msgid "Entrance"
-msgstr "Entrata"
+msgstr "Lối vào"
 
 #: master_preset.xml:2099(item:name|group:Barriers|preset:Entrance_(Barrier_Opening))
 msgid "Entrance (Barrier Opening)"
@@ -2240,7 +2238,7 @@ msgstr ""
 
 #: master_preset.xml:9542(item:name|group:For_the_body|preset:Erotic)
 msgid "Erotic"
-msgstr "Erotico"
+msgstr ""
 
 #: master_preset.xml:1462(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
@@ -2256,7 +2254,7 @@ msgstr ""
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Eternit"
-msgstr "Eternit"
+msgstr ""
 
 #: master_preset.xml:8114(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:EPR)
 msgid "European Pressurized Reactor (EPR)"
@@ -2264,7 +2262,7 @@ msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Evangelical"
-msgstr "Evangelico"
+msgstr ""
 
 #: master_preset.xml:2741(combo:display_values|group:Water|preset:Reservoir|key:reservoir_type)
 msgid "Evaporator"
@@ -2276,7 +2274,7 @@ msgstr ""
 
 #: master_preset.xml:11312(multiselect:text|group:Relations|preset:Turn_Restriction|key:except)
 msgid "Exceptions"
-msgstr "Eccezioni"
+msgstr ""
 
 #: master_preset.xml:6654(item:name|group:Facilities|preset:Excrement_Bags)
 msgid "Excrement Bags"
@@ -2322,22 +2320,22 @@ msgstr ""
 
 #: master_preset.xml:8912(list_entry:short_description|group:Clothes|preset:Clothes|value:fashion)
 msgid "Fashion"
-msgstr "Fashion"
+msgstr ""
 
 #: master_preset.xml:4539(item:name|group:Food+Drinks|preset:Fast_Food)
 msgid "Fast Food"
-msgstr "Fast Food"
+msgstr "Đồ ăn Nhanh"
 
 #: master_preset.xml:11127(text:text|group:Addresses_and_Contact|preset:Contact|key:fax)
 #: master_preset.xml:11147(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:contact:fax)
 msgid "Fax Number"
-msgstr "Numero fax"
+msgstr "Số Fax"
 
 #: master_preset.xml:271(combo:text|key:fee)
 #: master_preset.xml:274(combo:text|key:fee)
 #: master_preset.xml:5030(text:text|group:Leisure|preset:Horse_Riding|key:fee)
 msgid "Fee"
-msgstr ""
+msgstr "Phí"
 
 #: master_preset.xml:10501(item:name|group:Nature|preset:Fell)
 msgid "Fell"
@@ -2345,15 +2343,15 @@ msgstr ""
 
 #: master_preset.xml:9470(check:text|group:For_the_body|preset:Hairdresser/Barber|key:female)
 msgid "Female"
-msgstr "Donna"
+msgstr "Phụ nữ"
 
 #: master_preset.xml:1992(item:name|group:Barriers|preset:Fence)
 msgid "Fence"
-msgstr ""
+msgstr "Hàng rào"
 
 #: master_preset.xml:3925(check:text|group:Public_Transport|preset:Stop_Position|key:ferry)
 msgid "Ferry"
-msgstr ""
+msgstr "Phà"
 
 #: master_preset.xml:2905(item:name|group:Shipping|preset:Ferry_Route)
 msgid "Ferry Route"
@@ -2369,7 +2367,7 @@ msgstr ""
 
 #: master_preset.xml:5287(list_entry:display_value|group:Culture|preset:Figure/puppet_theatres|value:figure)
 msgid "Figure"
-msgstr "Figura"
+msgstr ""
 
 #: master_preset.xml:5277(item:name|group:Culture|preset:Figure/puppet_theatres)
 msgid "Figure/puppet theatres"
@@ -2393,7 +2391,7 @@ msgstr ""
 
 #: master_preset.xml:5637(item:name|group:Public_Building|preset:Fire_Station)
 msgid "Fire Station"
-msgstr ""
+msgstr "Trạm Cứu hỏa"
 
 #: master_preset.xml:5093(item:name|group:Leisure|preset:Firepit)
 msgid "Firepit"
@@ -2407,23 +2405,23 @@ msgstr ""
 #: master_preset.xml:10725(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Fish"
-msgstr "Pesce"
+msgstr "Cá"
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Fish and chips"
-msgstr ""
+msgstr "Cá và khoai tây chiên"
 
 #: master_preset.xml:5105(item:name|group:Leisure|preset:Fishing)
 msgid "Fishing"
-msgstr "Pesca"
+msgstr "Câu cá"
 
 #: master_preset.xml:6703(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
-msgstr "Centro fitness"
+msgstr ""
 
 #: master_preset.xml:4981(item:name|group:Leisure|preset:Fitness_Station)
 msgid "Fitness Station"
-msgstr "Stazione fitness"
+msgstr ""
 
 #: master_preset.xml:11196(item:name|group:Annotation|preset:Fixme)
 #: master_preset.xml:11209(text:text|group:Annotation|preset:Fixme|key:fixme)
@@ -2432,7 +2430,7 @@ msgstr ""
 
 #: master_preset.xml:7555(item:name|preset:Flagpole)
 msgid "Flagpole"
-msgstr ""
+msgstr "Cột cờ"
 
 #: master_preset.xml:7529(text:text|preset:Entrance|key:addr:flats)
 msgid "Flat numbers"
@@ -2459,11 +2457,11 @@ msgstr ""
 #: master_preset.xml:8605(group:name|group:Food)
 #: master_preset.xml:9843(list_entry:short_description|preset:Vending_Machine|value:food)
 msgid "Food"
-msgstr "Cibo"
+msgstr "Đồ ăn"
 
 #: master_preset.xml:6097(item:name|group:Social_Facilities|preset:Food_Bank)
 msgid "Food Bank"
-msgstr "Banca del cibo"
+msgstr ""
 
 #: master_preset.xml:4563(item:name|group:Food+Drinks|preset:Food_Court)
 msgid "Food Court"
@@ -2492,7 +2490,7 @@ msgstr ""
 
 #: master_preset.xml:455(combo:text|key:social_facility:for)
 msgid "For group"
-msgstr "Per gruppi"
+msgstr ""
 
 #: master_preset.xml:157(combo:long_text|key:level)
 msgid "For indoor mapping, level 0 is the ground floor"
@@ -2500,7 +2498,7 @@ msgstr ""
 
 #: master_preset.xml:9392(group:name|group:For_the_body)
 msgid "For the body"
-msgstr "Per il corpo"
+msgstr ""
 
 #: master_preset.xml:1150(item:name|group:Streets|preset:Ford)
 #: master_preset.xml:1161(combo:text|group:Streets|preset:Ford|key:ford)
@@ -2509,7 +2507,7 @@ msgstr ""
 
 #: master_preset.xml:10411(item:name|group:Nature|preset:Forest)
 msgid "Forest"
-msgstr "Foresta"
+msgstr ""
 
 #: master_preset.xml:12639(item:name|group:Offices|preset:Forestry)
 msgid "Forestry"
@@ -2517,7 +2515,7 @@ msgstr ""
 
 #: master_preset.xml:8485(combo:display_values|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "Fortification"
-msgstr "Fortificazione"
+msgstr ""
 
 #: master_preset.xml:12553(item:name|group:Offices|preset:Foundation)
 msgid "Foundation"
@@ -2525,7 +2523,7 @@ msgstr ""
 
 #: master_preset.xml:7812(item:name|preset:Fountain)
 msgid "Fountain"
-msgstr "Fontana"
+msgstr "Vòi nước"
 
 #: master_preset.xml:9268(item:name|group:Home_decoration|preset:Frame)
 msgid "Frame"
@@ -2538,12 +2536,12 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "French"
-msgstr "Francese"
+msgstr "Pháp"
 
 #: master_preset.xml:112(combo:text|key:frequency)
 #: master_preset.xml:344(combo:text|key:frequency)
 msgid "Frequency in Hertz (Hz)"
-msgstr "Frequenza in Hertz (Hz)"
+msgstr ""
 
 #: master_preset.xml:4020(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:from)
 #: master_preset.xml:502(text:text|key:from)
@@ -2552,7 +2550,7 @@ msgstr ""
 
 #: master_preset.xml:3478(item:name|group:Car|preset:Fuel)
 msgid "Fuel"
-msgstr ""
+msgstr "Xăng"
 
 #: master_preset.xml:3524(label:text|group:Car|preset:Fuel)
 msgid "Fuel cards:"
@@ -2565,7 +2563,7 @@ msgstr ""
 
 #: master_preset.xml:7694(combo:text|preset:Mineshaft|key:mineshaft_type)
 msgid "Function"
-msgstr "Funzione"
+msgstr ""
 
 #: master_preset.xml:9808(item:name|group:Other|preset:Funeral_Directors)
 msgid "Funeral Directors"
@@ -2574,7 +2572,7 @@ msgstr ""
 #: master_preset.xml:3139(item:name|group:Railway|preset:Funicular)
 #: master_preset.xml:3923(check:text|group:Public_Transport|preset:Stop_Position|key:funicular)
 msgid "Funicular"
-msgstr "Funicolare"
+msgstr ""
 
 #: master_preset.xml:8913(list_entry:short_description|group:Clothes|preset:Clothes|value:fur)
 msgid "Fur"
@@ -2587,11 +2585,11 @@ msgstr ""
 
 #: master_preset.xml:7895(check:text|preset:Monitoring_Station|key:monitoring:glonass)
 msgid "GLONASS Signals"
-msgstr "Segnali GLONASS"
+msgstr "Tín hiệu GLONASS"
 
 #: master_preset.xml:7894(check:text|preset:Monitoring_Station|key:monitoring:gps)
 msgid "GPS Signals"
-msgstr "Segnali GPS"
+msgstr "Tín hiệu GPS"
 
 #: master_preset.xml:7121(item:name|group:Sport_(Ball)|preset:Gaelic_Games)
 msgid "Gaelic Games"
@@ -2603,11 +2601,11 @@ msgstr ""
 
 #: master_preset.xml:10919(item:name|group:Land_use|preset:Garages)
 msgid "Garages"
-msgstr "Garage"
+msgstr ""
 
 #: master_preset.xml:10742(item:name|group:Land_use|preset:Garden)
 msgid "Garden"
-msgstr "Giardino"
+msgstr "Vườn"
 
 #: master_preset.xml:9603(item:name|group:Other|preset:Garden_Centre)
 msgid "Garden Centre"
@@ -2619,7 +2617,7 @@ msgstr ""
 
 #: master_preset.xml:437(combo:display_values|key:substance)
 msgid "Gas"
-msgstr "Gas"
+msgstr ""
 
 #: master_preset.xml:8072(item:name|group:Power_Generator|preset:Gas_Power_Generator)
 msgid "Gas Power Generator"
@@ -2640,7 +2638,7 @@ msgstr ""
 
 #: master_preset.xml:2110(item:name|group:Barriers|preset:Gate)
 msgid "Gate"
-msgstr ""
+msgstr "Cổng"
 
 #: master_preset.xml:117(combo:text|key:gauge)
 msgid "Gauge (mm)"
@@ -2687,7 +2685,7 @@ msgstr ""
 #: master_preset.xml:10193(group:name|group:Geography)
 #: master_preset.xml:9923(group:name|group:Geography)
 msgid "Geography"
-msgstr "Geografia"
+msgstr "Địa lý"
 
 #: master_preset.xml:8182(item:name|group:Power_Generator|preset:Geothermal_Power_Generator)
 msgid "Geothermal Power Generator"
@@ -2695,7 +2693,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "German"
-msgstr "Tedesco"
+msgstr "Đức"
 
 #: master_preset.xml:9720(item:name|group:Other|preset:Gift/Souvenir)
 msgid "Gift/Souvenir"
@@ -2718,12 +2716,12 @@ msgstr ""
 #: master_preset.xml:6404(check:text|group:Facilities|preset:Recycling_Container|key:recycling:glass)
 #: master_preset.xml:6444(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:glass)
 msgid "Glass"
-msgstr "Vetro"
+msgstr ""
 
 #: master_preset.xml:6405(check:text|group:Facilities|preset:Recycling_Container|key:recycling:glass_bottles)
 #: master_preset.xml:6445(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:glass_bottles)
 msgid "Glass Bottles"
-msgstr "Bottiglie di vetro"
+msgstr ""
 
 #: master_preset.xml:11875(item:name|group:Crafts|preset:Glaziery)
 msgid "Glaziery"
@@ -2736,11 +2734,11 @@ msgstr "Golf"
 
 #: master_preset.xml:6754(item:name|group:Golf|preset:Golf_Course)
 msgid "Golf Course"
-msgstr "Corso di golf"
+msgstr ""
 
 #: master_preset.xml:3323(item:name|group:Aerialway|preset:Gondola)
 msgid "Gondola"
-msgstr "Gondola"
+msgstr ""
 
 #: master_preset.xml:3380(item:name|group:Aerialway|preset:Goods)
 msgid "Goods"
@@ -2748,12 +2746,12 @@ msgstr ""
 
 #: master_preset.xml:12386(item:name|group:Offices|preset:Government)
 msgid "Government"
-msgstr "Governo"
+msgstr ""
 
 #: master_preset.xml:10754(item:name|group:Land_use|preset:Grass)
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Grass"
-msgstr "Erba"
+msgstr "Cỏ"
 
 #: master_preset.xml:10441(item:name|group:Nature|preset:Grassland)
 msgid "Grassland"
@@ -2766,7 +2764,7 @@ msgstr ""
 
 #: master_preset.xml:10838(item:name|group:Land_use|preset:Graveyard)
 msgid "Graveyard"
-msgstr "Cimitero"
+msgstr ""
 
 #: master_preset.xml:6491(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:round_drain)
 msgid "Gravity drain for hose"
@@ -2774,11 +2772,11 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Greek"
-msgstr "Greco"
+msgstr "Hy Lạp"
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Greek catholic"
-msgstr "Cattolico greco"
+msgstr "Công giáo Hy Lạp"
 
 #: master_preset.xml:6406(check:text|group:Facilities|preset:Recycling_Container|key:recycling:green_waste)
 #: master_preset.xml:6446(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:green_waste)
@@ -2799,7 +2797,7 @@ msgstr ""
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Grey"
-msgstr "Grigio"
+msgstr "Xám"
 
 #: master_preset.xml:1852(item:name|preset:Grit_Bin)
 msgid "Grit Bin"
@@ -2827,7 +2825,7 @@ msgstr ""
 
 #: master_preset.xml:12561(item:name|group:Offices|preset:Guide)
 msgid "Guide"
-msgstr "Guida"
+msgstr ""
 
 #: master_preset.xml:4784(item:name|group:Tourism|preset:Guidepost)
 msgid "Guidepost"
@@ -2835,15 +2833,15 @@ msgstr ""
 
 #: master_preset.xml:7002(item:name|group:Sport|preset:Gymnastics)
 msgid "Gymnastics"
-msgstr "Ginnastica"
+msgstr ""
 
 #: master_preset.xml:11312(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 msgid "HGV"
-msgstr "HGV"
+msgstr ""
 
 #: master_preset.xml:2453(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:hgv:conditional)
 msgid "HGV @"
-msgstr "HGV @"
+msgstr ""
 
 #: master_preset.xml:330(list_entry:short_description|value:mixed)
 msgid "Habitat with evergreen and deciduous vegetation."
@@ -2884,7 +2882,7 @@ msgstr ""
 
 #: master_preset.xml:9635(item:name|group:Other|preset:Hardware)
 msgid "Hardware"
-msgstr "Hardware"
+msgstr ""
 
 #: master_preset.xml:3319(check:text|group:Aerialway|preset:Chair_Lift|key:aerialway:bubble)
 #: master_preset.xml:3349(check:text|group:Aerialway|preset:Mixed_Lift|key:aerialway:bubble)
@@ -2900,11 +2898,11 @@ msgstr ""
 
 #: master_preset.xml:8914(list_entry:short_description|group:Clothes|preset:Clothes|value:hats)
 msgid "Hats"
-msgstr "Cappelli"
+msgstr "Nón"
 
 #: master_preset.xml:5781(group:name|group:Health)
 msgid "Health"
-msgstr "Salute"
+msgstr ""
 
 #: master_preset.xml:9504(item:name|group:For_the_body|preset:Hearing_Aids)
 msgid "Hearing Aids"
@@ -2946,7 +2944,7 @@ msgstr ""
 #: master_preset.xml:8314(text:text|preset:Transformer_Tower|key:height)
 #: master_preset.xml:8324(text:text|preset:Power_Portal|key:height)
 msgid "Height (meters)"
-msgstr ""
+msgstr "Độ cao (mét)"
 
 #: master_preset.xml:10370(text:text|group:Nature|preset:Tree|key:height)
 #: master_preset.xml:10390(text:text|group:Nature|preset:Tree_Row|key:height)
@@ -2963,7 +2961,7 @@ msgstr ""
 
 #: master_preset.xml:9088(item:name|group:Electronic|preset:Hifi)
 msgid "Hifi"
-msgstr "Hifi"
+msgstr ""
 
 #: master_preset.xml:29(list_entry:short_description|value:very_bad)
 msgid "High Clearance: light duty off-road vehicle"
@@ -2996,7 +2994,7 @@ msgstr ""
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Hindu"
-msgstr ""
+msgstr "Ấn Độ giáo"
 
 #: master_preset.xml:5457(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
@@ -3024,18 +3022,18 @@ msgstr ""
 
 #: master_preset.xml:461(list_entry:display_value|value:homeless)
 msgid "Homeless"
-msgstr "Senza tetto"
+msgstr "Vô gia cư"
 
 #: master_preset.xml:124(check:text|key:horse)
 #: master_preset.xml:133(check:text|key:horse)
 #: master_preset.xml:2518(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:horse)
 #: master_preset.xml:2525(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:horse)
 msgid "Horse"
-msgstr "Cavallo"
+msgstr "Ngựa"
 
 #: master_preset.xml:6995(item:name|group:Sport|preset:Horse_Racing)
 msgid "Horse Racing"
-msgstr "Corse di cavalli"
+msgstr ""
 
 #: master_preset.xml:5019(item:name|group:Leisure|preset:Horse_Riding)
 msgid "Horse Riding"
@@ -3043,23 +3041,23 @@ msgstr ""
 
 #: master_preset.xml:5782(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
-msgstr "Ospedale"
+msgstr "Bệnh viện"
 
 #: master_preset.xml:4401(item:name|group:Accommodation|preset:Hostel)
 msgid "Hostel"
-msgstr "Ostello"
+msgstr ""
 
 #: master_preset.xml:4294(item:name|group:Accommodation|preset:Hotel)
 msgid "Hotel"
-msgstr "Hotel"
+msgstr "Khách sạn"
 
 #: master_preset.xml:11084(text:text|group:Addresses_and_Contact|preset:Address|key:addr:housename)
 msgid "House name"
-msgstr "Nome casa"
+msgstr ""
 
 #: master_preset.xml:11074(text:text|group:Addresses_and_Contact|preset:Address|key:addr:housenumber)
 msgid "House number"
-msgstr "Numero casa"
+msgstr ""
 
 #: master_preset.xml:9231(item:name|group:Home_decoration|preset:Houseware)
 msgid "Houseware"
@@ -3079,7 +3077,7 @@ msgstr ""
 
 #: master_preset.xml:11904(item:name|group:Crafts|preset:Hvac)
 msgid "Hvac"
-msgstr "Hvac"
+msgstr ""
 
 #: master_preset.xml:446(text:text|key:iata)
 msgid "IATA"
@@ -3091,11 +3089,11 @@ msgstr "ICAO"
 
 #: master_preset.xml:12417(item:name|group:Offices|preset:IT)
 msgid "IT"
-msgstr "IT"
+msgstr "CNTT"
 
 #: master_preset.xml:7241(item:name|group:Sport_(Ball)|preset:Ice_Hockey)
 msgid "Ice Hockey"
-msgstr "Hockey su ghiaccio"
+msgstr ""
 
 #: master_preset.xml:7017(item:name|group:Sport|preset:Ice_Skating)
 msgid "Ice Skating"
@@ -3104,16 +3102,16 @@ msgstr ""
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 #: master_preset.xml:4609(item:name|group:Food+Drinks|preset:Ice_cream)
 msgid "Ice cream"
-msgstr "Gelato"
+msgstr "Kem"
 
 #: master_preset.xml:11130(text:text|group:Addresses_and_Contact|preset:Contact|key:image)
 #: master_preset.xml:11150(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:image)
 msgid "Image"
-msgstr "Immagine"
+msgstr ""
 
 #: master_preset.xml:1599(label:text|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "In case of traffic signals:"
-msgstr "In caso di segnali di traffico:"
+msgstr ""
 
 #: master_preset.xml:2776(check:text|group:Water|preset:Water|key:tidal)
 #: master_preset.xml:419(check:text|key:tidal)
@@ -3134,11 +3132,11 @@ msgstr ""
 
 #: master_preset.xml:514(list_entry:display_value|value:incorrect)
 msgid "Incorrect"
-msgstr "Non corretto"
+msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Indian"
-msgstr "Indiano"
+msgstr "Ấn Độ"
 
 #: master_preset.xml:5963(check:text|group:Emergency|preset:Fire_Extinguisher|key:indoor)
 #: master_preset.xml:6576(check:text|group:Facilities|preset:Drinking_Water|key:indoor)
@@ -3147,7 +3145,7 @@ msgstr ""
 
 #: master_preset.xml:10905(item:name|group:Land_use|preset:Industrial)
 msgid "Industrial"
-msgstr "Industriale"
+msgstr ""
 
 #: master_preset.xml:8115(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:ICF)
 msgid "Inertial Confinement Fusion (ICF)"
@@ -3155,15 +3153,15 @@ msgstr ""
 
 #: master_preset.xml:4769(item:name|group:Tourism|preset:Information_Board)
 msgid "Information Board"
-msgstr ""
+msgstr "Bảng Thông tin"
 
 #: master_preset.xml:4728(item:name|group:Tourism|preset:Information_Office)
 msgid "Information Office"
-msgstr "Ufficio informazioni"
+msgstr "Văn phòng Thông tin"
 
 #: master_preset.xml:4808(item:name|group:Tourism|preset:Information_Terminal)
 msgid "Information Terminal"
-msgstr "Terminale informazioni"
+msgstr ""
 
 #: master_preset.xml:4815(label:text|group:Tourism|preset:Information_Terminal)
 msgid "Information access via electronic methods."
@@ -3185,7 +3183,7 @@ msgstr ""
 #: master_preset.xml:8568(text:text|group:Historic_Places|preset:Wayside_Cross|key:inscription)
 #: master_preset.xml:8588(text:text|group:Historic_Places|preset:Wayside_Shrine|key:inscription)
 msgid "Inscription"
-msgstr "Iscrizione"
+msgstr ""
 
 #: master_preset.xml:11915(item:name|group:Crafts|preset:Insulation)
 msgid "Insulation"
@@ -3197,7 +3195,7 @@ msgstr ""
 
 #: master_preset.xml:12403(item:name|group:Offices|preset:Insurance)
 msgid "Insurance"
-msgstr "Assicurazione"
+msgstr "Bảo hiểm"
 
 #: master_preset.xml:9296(item:name|group:Home_decoration|preset:Interior_Decoration)
 msgid "Interior Decoration"
@@ -3205,7 +3203,7 @@ msgstr ""
 
 #: master_preset.xml:417(check:text|key:intermittent)
 msgid "Intermittent"
-msgstr "Intermittente"
+msgstr ""
 
 #: master_preset.xml:11355(combo:display_values|group:Routes|preset:Bicycle_Route|key:network)
 #: master_preset.xml:11398(combo:display_values|group:Routes|preset:Hiking_Route|key:network)
@@ -3213,27 +3211,27 @@ msgstr "Intermittente"
 #: master_preset.xml:11495(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "International"
-msgstr "Internazionale"
+msgstr "Quốc tế"
 
 #: master_preset.xml:11052(text:text|group:Addresses_and_Contact|preset:Name|key:int_name)
 msgid "International name"
-msgstr "Nome internazionale"
+msgstr "Tên quốc tế"
 
 #: master_preset.xml:6332(item:name|group:Facilities|preset:Internet_Access)
 msgid "Internet Access"
-msgstr "Accesso ad internet"
+msgstr "Truy cập Internet"
 
 #: master_preset.xml:6321(item:name|group:Facilities|preset:Internet_Cafe)
 msgid "Internet Cafe"
-msgstr "Internet Cafe"
+msgstr ""
 
 #: master_preset.xml:224(combo:text|key:internet_access)
 msgid "Internet access"
-msgstr "Accesso ad internet"
+msgstr ""
 
 #: master_preset.xml:225(combo:text|key:internet_access:fee)
 msgid "Internet access fee"
-msgstr "Costo accesso ad internet"
+msgstr ""
 
 #: master_preset.xml:2775(check:text|group:Water|preset:Water|key:intermittent)
 #: master_preset.xml:2808(check:text|group:Water|preset:Riverbank|key:intermittent)
@@ -3243,7 +3241,7 @@ msgstr ""
 #: master_preset.xml:101(list_entry:short_description|value:island)
 #: master_preset.xml:10319(item:name|group:Geography|preset:Island)
 msgid "Island"
-msgstr "Isola"
+msgstr "Đảo"
 
 #: master_preset.xml:10331(item:name|group:Geography|preset:Islet)
 msgid "Islet"
@@ -3259,7 +3257,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Italian"
-msgstr "Italiano"
+msgstr "Ý"
 
 #: master_preset.xml:3359(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "J-bar"
@@ -3275,7 +3273,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Japanese"
-msgstr "Giapponese"
+msgstr "Nhật"
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Jehovahs witness"
@@ -3291,11 +3289,11 @@ msgstr ""
 
 #: master_preset.xml:9529(item:name|group:For_the_body|preset:Jewellery)
 msgid "Jewellery"
-msgstr "Gioielleria"
+msgstr ""
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Jewish"
-msgstr "Ebraico"
+msgstr "Do Thái giáo"
 
 #: master_preset.xml:11922(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
@@ -3303,7 +3301,7 @@ msgstr ""
 
 #: master_preset.xml:1121(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
-msgstr ""
+msgstr "Giao lộ"
 
 #: master_preset.xml:462(list_entry:display_value|value:juvenile)
 msgid "Juveniles"
@@ -3315,7 +3313,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Kebab"
-msgstr "Kebab"
+msgstr ""
 
 #: master_preset.xml:2083(item:name|group:Barriers|preset:Kerb)
 #: master_preset.xml:482(combo:text|key:kerb)
@@ -3345,7 +3343,7 @@ msgstr ""
 
 #: master_preset.xml:8637(item:name|group:Food|preset:Kiosk)
 msgid "Kiosk"
-msgstr "Chisco"
+msgstr ""
 
 #: master_preset.xml:2164(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
@@ -3353,11 +3351,11 @@ msgstr ""
 
 #: master_preset.xml:9217(item:name|group:Home_decoration|preset:Kitchen)
 msgid "Kitchen"
-msgstr "Cucina"
+msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Korean"
-msgstr "Coreano"
+msgstr "Triều Tiên"
 
 #: master_preset.xml:2958(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:lpg)
 #: master_preset.xml:3518(check:text|group:Car|preset:Fuel|key:fuel:lpg)
@@ -3370,7 +3368,7 @@ msgstr ""
 
 #: master_preset.xml:12295(item:name|group:Crafts|preset:Laboratory)
 msgid "Laboratory"
-msgstr "Laboratorio"
+msgstr ""
 
 #: master_preset.xml:2187(combo:display_values|group:Barriers|preset:Stile|key:stile)
 msgid "Ladder"
@@ -3382,11 +3380,11 @@ msgstr ""
 
 #: master_preset.xml:2773(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lake"
-msgstr "Lago"
+msgstr "Hồ"
 
 #: master_preset.xml:10614(group:name|group:Land_use)
 msgid "Land use"
-msgstr ""
+msgstr "Sử dụng đất"
 
 #: master_preset.xml:10997(item:name|group:Land_use|preset:Landfill)
 msgid "Landfill"
@@ -3399,15 +3397,15 @@ msgstr ""
 #: master_preset.xml:1144(combo:text|group:Streets|preset:Roundabout|key:lanes)
 #: master_preset.xml:40(combo:text|key:lanes)
 msgid "Lanes"
-msgstr ""
+msgstr "Làn"
 
 #: master_preset.xml:42(combo:text|key:lanes:backward)
 msgid "Lanes ←"
-msgstr ""
+msgstr "Làn ←"
 
 #: master_preset.xml:41(combo:text|key:lanes:forward)
 msgid "Lanes →"
-msgstr ""
+msgstr "Làn →"
 
 #: master_preset.xml:2849(label:text|group:Water|preset:Mud)
 msgid "Large area covered with mud."
@@ -3419,7 +3417,7 @@ msgstr ""
 
 #: master_preset.xml:9883(check:text|preset:Payment_Methods|key:payment:laser)
 msgid "Laser"
-msgstr "Laser"
+msgstr ""
 
 #: master_preset.xml:9002(item:name|group:Clothes|preset:Laundry)
 msgid "Laundry"
@@ -3431,31 +3429,31 @@ msgstr ""
 
 #: master_preset.xml:12429(item:name|group:Offices|preset:Lawyer)
 msgid "Lawyer"
-msgstr ""
+msgstr "Luật sư"
 
 #: master_preset.xml:2229(combo:text|group:Passageways|preset:Tunnel|key:layer)
 #: master_preset.xml:2713(combo:text|group:Water|preset:Culvert|key:layer)
 #: master_preset.xml:405(combo:text|key:layer)
 #: master_preset.xml:63(combo:text|key:layer)
 msgid "Layer"
-msgstr "Livello"
+msgstr "Lớp"
 
 #: master_preset.xml:11941(item:name|group:Crafts|preset:Leather)
 #: master_preset.xml:8915(list_entry:short_description|group:Clothes|preset:Clothes|value:leather)
 msgid "Leather"
-msgstr "Pelle"
+msgstr ""
 
 #: master_preset.xml:1176(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left)
 #: master_preset.xml:1202(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 #: master_preset.xml:1220(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 msgid "Left"
-msgstr "Sinistra"
+msgstr "Trái"
 
 #: master_preset.xml:1177(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left:through)
 #: master_preset.xml:1203(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left:through)
 #: master_preset.xml:1221(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left:through)
 msgid "Left and through"
-msgstr ""
+msgstr "Trái và thẳng"
 
 #: master_preset.xml:1457(check:text|group:Ways|preset:Steps|key:handrail:left)
 msgid "Left handrail"
@@ -3468,7 +3466,7 @@ msgstr ""
 #: master_preset.xml:11678(text:text|preset:Bridge|key:length)
 #: master_preset.xml:11693(text:text|preset:Tunnel|key:length)
 msgid "Length (meters)"
-msgstr ""
+msgstr "Chiều dài (mét)"
 
 #: master_preset.xml:7713(text:text|preset:Adit|key:length)
 msgid "Length in meters"
@@ -3476,7 +3474,7 @@ msgstr ""
 
 #: master_preset.xml:157(combo:text|key:level)
 msgid "Level"
-msgstr "Livello"
+msgstr ""
 
 #: master_preset.xml:3195(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
@@ -3484,7 +3482,7 @@ msgstr ""
 
 #: master_preset.xml:5296(item:name|group:Culture|preset:Library)
 msgid "Library"
-msgstr "Libreria"
+msgstr "Thư viện"
 
 #: master_preset.xml:5768(combo:text|group:Education|preset:Driving_School|key:license_classes)
 msgid "License Classes"
@@ -3504,7 +3502,7 @@ msgstr ""
 
 #: master_preset.xml:7842(item:name|preset:Lighthouse)
 msgid "Lighthouse"
-msgstr ""
+msgstr "Hải đăng"
 
 #: master_preset.xml:2789(label:text|group:Water|preset:Coastline)
 msgid ""
@@ -3530,7 +3528,7 @@ msgstr ""
 #: master_preset.xml:79(check:text|key:lit)
 #: master_preset.xml:967(check:text|group:Streets|preset:Bicycle_Road|key:lit)
 msgid "Lit"
-msgstr ""
+msgstr "Đèn sáng"
 
 #: master_preset.xml:9919(check:text|preset:Payment_Methods|key:payment:litecoin)
 msgid "Litecoin"
@@ -3546,15 +3544,15 @@ msgstr ""
 #: master_preset.xml:11435(combo:display_values|group:Routes|preset:Riding_Route|key:network)
 #: master_preset.xml:11495(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 msgid "Local"
-msgstr "Locale"
+msgstr "Địa phương"
 
 #: master_preset.xml:11049(text:text|group:Addresses_and_Contact|preset:Name|key:loc_name)
 msgid "Local name"
-msgstr "Nome locale"
+msgstr "Tên địa phương"
 
 #: master_preset.xml:10179(item:name|group:Places|preset:Locality)
 msgid "Locality"
-msgstr "Località"
+msgstr ""
 
 #: master_preset.xml:5943(check:text|group:Emergency|preset:Automated_Defibrillator|key:indoor)
 msgid "Located inside a building?"
@@ -3591,11 +3589,11 @@ msgstr ""
 
 #: master_preset.xml:12647(item:name|group:Offices|preset:Logistics)
 msgid "Logistics"
-msgstr "Logistico"
+msgstr ""
 
 #: master_preset.xml:9761(item:name|group:Other|preset:Lottery)
 msgid "Lottery"
-msgstr "Lotteria"
+msgstr "Xổ số"
 
 #: master_preset.xml:483(list_entry:display_value|value:lowered)
 #: master_preset.xml:489(list_entry:display_value|value:lowered)
@@ -3609,7 +3607,7 @@ msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Lutheran"
-msgstr "Luterano"
+msgstr ""
 
 #: master_preset.xml:1263(combo:text|group:Ways|preset:Track|key:mtb:scale)
 #: master_preset.xml:1294(combo:text|group:Ways|preset:Path|key:mtb:scale)
@@ -3626,7 +3624,7 @@ msgstr ""
 
 #: master_preset.xml:9471(check:text|group:For_the_body|preset:Hairdresser/Barber|key:male)
 msgid "Male"
-msgstr "Uomo"
+msgstr "Nam"
 
 #: master_preset.xml:9572(item:name|group:Other|preset:Mall)
 msgid "Mall"
@@ -3643,11 +3641,11 @@ msgstr ""
 
 #: master_preset.xml:7904(check:text|preset:Monitoring_Station|key:recording:manually)
 msgid "Manually"
-msgstr "Manuale"
+msgstr ""
 
 #: master_preset.xml:4744(item:name|group:Tourism|preset:Map)
 msgid "Map"
-msgstr "Mappa"
+msgstr "Bản đồ"
 
 #: master_preset.xml:2919(item:name|group:Shipping|preset:Marina)
 msgid "Marina"
@@ -3673,24 +3671,24 @@ msgstr ""
 
 #: master_preset.xml:9895(check:text|preset:Payment_Methods|key:payment:mastercard)
 msgid "Mastercard"
-msgstr "Mastercard"
+msgstr "MasterCard"
 
 #: master_preset.xml:1892(combo:text|group:Barriers|preset:Block|key:material)
 #: master_preset.xml:2067(combo:text|group:Barriers|preset:Jersey_Barrier|key:material)
 msgid "Material"
-msgstr "Materiale"
+msgstr ""
 
 #: master_preset.xml:8916(list_entry:short_description|group:Clothes|preset:Clothes|value:maternity)
 msgid "Maternity"
-msgstr "Maternità"
+msgstr ""
 
 #: master_preset.xml:45(text:text|key:maxspeed)
 msgid "Max speed"
-msgstr "Velocità massima"
+msgstr "Tốc độ tối đa"
 
 #: master_preset.xml:47(combo:text|key:maxspeed:conditional)
 msgid "Max speed @"
-msgstr "Velocità massima @"
+msgstr ""
 
 #: master_preset.xml:2456(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:conditional)
 msgid "Max speed HGV @"
@@ -3726,7 +3724,7 @@ msgstr ""
 
 #: master_preset.xml:11333(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Max. height"
-msgstr ""
+msgstr "Chiều cao tối đa"
 
 #: master_preset.xml:2231(text:text|group:Passageways|preset:Tunnel|key:maxheight)
 #: master_preset.xml:2254(text:text|group:Passageways|preset:Building_Passage|key:maxheight)
@@ -3735,7 +3733,7 @@ msgstr ""
 #: master_preset.xml:3431(text:text|group:Car|preset:Parking|key:maxheight)
 #: master_preset.xml:3472(text:text|group:Car|preset:Parking_Entrance|key:maxheight)
 msgid "Max. height (meters)"
-msgstr ""
+msgstr "Chiều cao tối đa (mét)"
 
 #: master_preset.xml:11334(text:text|group:Relations|preset:Enforcement|key:maxheight)
 msgid "Max. height (meters, only if enforcement=maxheight)"
@@ -3743,11 +3741,11 @@ msgstr ""
 
 #: master_preset.xml:2501(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxlength)
 msgid "Max. length (meters)"
-msgstr ""
+msgstr "Chiều dài tối đa (mét)"
 
 #: master_preset.xml:11333(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Max. speed"
-msgstr ""
+msgstr "Tốc độ tối đa"
 
 #: master_preset.xml:1318(text:text|group:Ways|preset:Dedicated_Bridleway|key:maxspeed)
 #: master_preset.xml:1796(text:text|preset:Speed_Limit_Sign|key:maxspeed)
@@ -3756,7 +3754,7 @@ msgstr ""
 #: master_preset.xml:3165(text:text|group:Railway|preset:Bus_Guideway|key:maxspeed)
 #: master_preset.xml:959(text:text|group:Streets|preset:Bicycle_Road|key:maxspeed)
 msgid "Max. speed (km/h)"
-msgstr ""
+msgstr "Tốc độ tối đa (km/giờ)"
 
 #: master_preset.xml:11336(text:text|group:Relations|preset:Enforcement|key:maxspeed)
 msgid "Max. speed (km/h, only if enforcement=maxspeed)"
@@ -3776,12 +3774,12 @@ msgstr ""
 
 #: master_preset.xml:11333(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Max. weight"
-msgstr ""
+msgstr "Trọng lượng"
 
 #: master_preset.xml:2497(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxweight)
 #: master_preset.xml:409(text:text|key:maxweight)
 msgid "Max. weight (tonnes)"
-msgstr ""
+msgstr "Trọng lượng (tấn)"
 
 #: master_preset.xml:11335(text:text|group:Relations|preset:Enforcement|key:maxweight)
 msgid "Max. weight (tonnes, only if enforcement=maxweight)"
@@ -3793,7 +3791,7 @@ msgstr ""
 #: master_preset.xml:244(text:text|key:maxwidth)
 #: master_preset.xml:2500(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxwidth)
 msgid "Max. width (meters)"
-msgstr ""
+msgstr "Chiều rộng tối đa (mét)"
 
 #: master_preset.xml:2457(text:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward)
 #: master_preset.xml:2460(text:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backward)
@@ -3844,15 +3842,15 @@ msgstr ""
 
 #: master_preset.xml:8529(item:name|group:Historic_Places|preset:Memorial)
 msgid "Memorial"
-msgstr "Memoriale"
+msgstr "Đài kỷ niệm"
 
 #: master_preset.xml:8917(list_entry:short_description|group:Clothes|preset:Clothes|value:men)
 msgid "Men"
-msgstr "Uomo"
+msgstr "Nam nhi"
 
 #: master_preset.xml:463(list_entry:display_value|value:mental_health)
 msgid "Mental health"
-msgstr "Salute mentale"
+msgstr ""
 
 #: master_preset.xml:9905(check:text|preset:Payment_Methods|key:payment:ep_mep)
 msgid "Mep (pt)"
@@ -3872,11 +3870,11 @@ msgstr ""
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Metal"
-msgstr "Metallo"
+msgstr ""
 
 #: master_preset.xml:11967(item:name|group:Crafts|preset:Metal_construction)
 msgid "Metal construction"
-msgstr "Costruzione in metallo"
+msgstr ""
 
 #: master_preset.xml:11978(item:name|group:Crafts|preset:Metal_works)
 msgid "Metal works"
@@ -3884,11 +3882,11 @@ msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Methodist"
-msgstr "Metodista"
+msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Mexican"
-msgstr "Messicano"
+msgstr "Mễ"
 
 #: master_preset.xml:4528(check:text|group:Food+Drinks|preset:Restaurant|key:microbrewery)
 #: master_preset.xml:4645(check:text|group:Food+Drinks|preset:Pub|key:microbrewery)
@@ -3898,15 +3896,15 @@ msgstr ""
 
 #: master_preset.xml:464(list_entry:display_value|value:migrant)
 msgid "Migrants"
-msgstr "Migranti"
+msgstr ""
 
 #: master_preset.xml:10945(item:name|group:Land_use|preset:Military)
 msgid "Military"
-msgstr "Militare"
+msgstr "Quân đội"
 
 #: master_preset.xml:9844(list_entry:short_description|preset:Vending_Machine|value:milk)
 msgid "Milk"
-msgstr "Latte"
+msgstr "Sữa"
 
 #: master_preset.xml:11333(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Min. distance"
@@ -3934,7 +3932,7 @@ msgstr ""
 
 #: master_preset.xml:4878(text:text|group:Leisure|preset:Movie_Theater/Cinema|key:min_age)
 msgid "Minimum age"
-msgstr "Età minima"
+msgstr "Tuổi tối thiểu"
 
 #: master_preset.xml:9907(check:text|preset:Payment_Methods|key:payment:ep_minipay)
 msgid "Minipay (it)"
@@ -3962,7 +3960,7 @@ msgstr ""
 
 #: master_preset.xml:9064(item:name|group:Electronic|preset:Mobile_Phone)
 msgid "Mobile Phone"
-msgstr ""
+msgstr "Điện thoại Di động"
 
 #: master_preset.xml:7325(item:name|group:Motorsport|preset:Model_Aerodrome)
 msgid "Model Aerodrome"
@@ -4000,7 +3998,7 @@ msgstr ""
 
 #: master_preset.xml:8514(item:name|group:Historic_Places|preset:Monument)
 msgid "Monument"
-msgstr "Monumento"
+msgstr "Đài tưởng niệm"
 
 #: master_preset.xml:2977(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"
@@ -4012,19 +4010,19 @@ msgstr ""
 
 #: master_preset.xml:5386(item:name|group:Place_of_Worship|preset:Mosque)
 msgid "Mosque"
-msgstr "Moschea"
+msgstr ""
 
 #: master_preset.xml:4317(item:name|group:Accommodation|preset:Motel)
 msgid "Motel"
-msgstr "Motel"
+msgstr ""
 
 #: master_preset.xml:7297(item:name|group:Motorsport|preset:Motocross)
 msgid "Motocross"
-msgstr "Motocross"
+msgstr ""
 
 #: master_preset.xml:2337(item:name|group:Access_Restrictions|preset:Motor_vehicle)
 msgid "Motor vehicle"
-msgstr "Veicolo a motore"
+msgstr ""
 
 #: master_preset.xml:2357(item:name|group:Access_Restrictions|preset:Motor_vehicle_(CH))
 msgid "Motor vehicle (CH)"
@@ -4059,7 +4057,7 @@ msgstr ""
 #: master_preset.xml:3692(group:name|group:Motorcycle)
 #: master_preset.xml:8918(list_entry:short_description|group:Clothes|preset:Clothes|value:motorcycle)
 msgid "Motorcycle"
-msgstr ""
+msgstr "Xe máy"
 
 #: master_preset.xml:2396(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle:conditional)
 #: master_preset.xml:2434(combo:text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle:conditional)
@@ -4068,7 +4066,7 @@ msgstr ""
 
 #: master_preset.xml:3709(item:name|group:Motorcycle|preset:Motorcycle_Dealer)
 msgid "Motorcycle Dealer"
-msgstr ""
+msgstr "Tiệm xe máy"
 
 #: master_preset.xml:479(multiselect:text|key:brand)
 msgid "Motorcycle brand"
@@ -4088,11 +4086,11 @@ msgstr ""
 
 #: master_preset.xml:632(item:name|group:Streets|preset:Motorway)
 msgid "Motorway"
-msgstr ""
+msgstr "Đường Cao tốc"
 
 #: master_preset.xml:1469(item:name|group:Waypoints|preset:Motorway_Junction)
 msgid "Motorway Junction"
-msgstr ""
+msgstr "Giao lộ Đường Cao tốc"
 
 #: master_preset.xml:668(item:name|group:Streets|preset:Motorway_Link)
 msgid "Motorway Link"
@@ -4109,7 +4107,7 @@ msgstr ""
 #: master_preset.xml:4762(check:text|group:Tourism|preset:Map|key:mtb)
 #: master_preset.xml:4801(check:text|group:Tourism|preset:Guidepost|key:mtb)
 msgid "Mountainbiking"
-msgstr "Mountainbiking"
+msgstr ""
 
 #: master_preset.xml:7978(item:name|group:Bridges|preset:Movable_Bridge)
 msgid "Movable Bridge"
@@ -4133,15 +4131,15 @@ msgstr ""
 
 #: master_preset.xml:5198(item:name|group:Culture|preset:Museum)
 msgid "Museum"
-msgstr "Museo"
+msgstr "Viện bảo tàng"
 
 #: master_preset.xml:9123(item:name|group:Electronic|preset:Music)
 msgid "Music"
-msgstr "Musica"
+msgstr "Âm nhạc"
 
 #: master_preset.xml:5771(item:name|group:Education|preset:Music_School)
 msgid "Music School"
-msgstr "Scuola di musica"
+msgstr ""
 
 #: master_preset.xml:5236(item:name|group:Culture|preset:Music_theatres)
 msgid "Music theatres"
@@ -4149,7 +4147,7 @@ msgstr ""
 
 #: master_preset.xml:9685(item:name|group:Other|preset:Musical_Instrument)
 msgid "Musical Instrument"
-msgstr "Strumenti musicali"
+msgstr ""
 
 #: master_preset.xml:5247(list_entry:display_value|group:Culture|preset:Music_theatres|value:musical)
 msgid "Musical theatre"
@@ -4157,7 +4155,7 @@ msgstr ""
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Muslim"
-msgstr "Mussulmano"
+msgstr "Hồi giáo"
 
 #: master_preset.xml:10725(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 msgid "Mussels"
@@ -4165,15 +4163,15 @@ msgstr ""
 
 #: master_preset.xml:3570(combo:text|group:Car|preset:Charging_Station|key:socket:nema_5_15)
 msgid "NEMA 5-15"
-msgstr "NEMA 5-15"
+msgstr ""
 
 #: master_preset.xml:3571(combo:text|group:Car|preset:Charging_Station|key:socket:nema_5_20)
 msgid "NEMA 5-20"
-msgstr "NEMA 5-20"
+msgstr ""
 
 #: master_preset.xml:3578(check:text|group:Car|preset:Charging_Station|key:authentication:nfc)
 msgid "NFC"
-msgstr "NFC"
+msgstr ""
 
 #: master_preset.xml:10006(text:text|group:Boundaries|preset:Maritime|key:name)
 #: master_preset.xml:1012(text:text|group:Streets|preset:Pedestrian|key:name)
@@ -4401,7 +4399,7 @@ msgstr "NFC"
 #: master_preset.xml:9951(text:text|group:Boundaries|preset:Political|key:name)
 #: master_preset.xml:9974(text:text|group:Boundaries|preset:National_Park|key:name)
 msgid "Name"
-msgstr "Nome"
+msgstr "Tên"
 
 #: master_preset.xml:11652(text:text|preset:Waterway|key:destination)
 msgid "Name of river/lake/sea/ocean it runs into"
@@ -4416,31 +4414,31 @@ msgstr ""
 #: master_preset.xml:11435(combo:display_values|group:Routes|preset:Riding_Route|key:network)
 #: master_preset.xml:11495(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 msgid "National"
-msgstr "Nazionale"
+msgstr "Quốc gia"
 
 #: master_preset.xml:9964(item:name|group:Boundaries|preset:National_Park)
 msgid "National Park"
-msgstr "Parco nazionale"
+msgstr "Vườn quốc gia"
 
 #: master_preset.xml:11051(text:text|group:Addresses_and_Contact|preset:Name|key:nat_name)
 msgid "National name"
-msgstr "Nome nazionale"
+msgstr "Tên quốc gia"
 
 #: master_preset.xml:11253(combo:display_values|group:Relations|preset:Boundary|key:boundary)
 msgid "National park"
-msgstr "Parco nazionale"
+msgstr "Vườn quốc gia"
 
 #: master_preset.xml:10353(group:name|group:Nature)
 msgid "Nature"
-msgstr "Natura"
+msgstr "Thiên nhiên"
 
 #: master_preset.xml:10459(item:name|group:Nature|preset:Nature_Reserve)
 msgid "Nature Reserve"
-msgstr "Riserva naturale"
+msgstr ""
 
 #: master_preset.xml:8485(combo:display_values|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "Necropolis"
-msgstr "Necropoli"
+msgstr ""
 
 #: master_preset.xml:10151(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
@@ -4461,11 +4459,11 @@ msgstr ""
 #: master_preset.xml:4024(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:network)
 #: master_preset.xml:506(text:text|key:network)
 msgid "Network"
-msgstr "Rete"
+msgstr "Mạng"
 
 #: master_preset.xml:12569(item:name|group:Offices|preset:Newspaper)
 msgid "Newspaper"
-msgstr "Giornale"
+msgstr "Tờ báo"
 
 #: master_preset.xml:9363(item:name|group:Printed_Material|preset:Newspaper_Stand)
 msgid "Newspaper Stand"
@@ -4473,15 +4471,15 @@ msgstr ""
 
 #: master_preset.xml:9845(list_entry:short_description|preset:Vending_Machine|value:newspapers)
 msgid "Newspapers"
-msgstr "Giornali"
+msgstr ""
 
 #: master_preset.xml:12444(item:name|group:Offices|preset:Ngo)
 msgid "Ngo"
-msgstr "Ngo"
+msgstr "Tổ chức Phi chính phủ"
 
 #: master_preset.xml:5129(item:name|group:Leisure|preset:Night_Club)
 msgid "Night Club"
-msgstr "Night Club"
+msgstr ""
 
 #: master_preset.xml:6911(item:name|group:Sport|preset:Nine-pin_Bowling)
 msgid "Nine-pin Bowling"
@@ -4508,12 +4506,12 @@ msgstr ""
 #: master_preset.xml:8959(combo:display_values|group:Clothes|preset:Shoes|key:second_hand)
 #: master_preset.xml:9360(combo:display_values|group:Printed_Material|preset:Book_Store|key:second_hand)
 msgid "No"
-msgstr "No"
+msgstr "Không"
 
 #: master_preset.xml:174(list_entry:short_description|value:no)
 #: master_preset.xml:283(combo:display_values|key:access)
 msgid "No access"
-msgstr "Nessun accesso"
+msgstr ""
 
 #: master_preset.xml:103(list_entry:short_description|value:no)
 msgid "No crossing"
@@ -4525,19 +4523,19 @@ msgstr ""
 
 #: master_preset.xml:11310(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "No left turn"
-msgstr ""
+msgstr "Cấm rẽ trái"
 
 #: master_preset.xml:11310(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "No right turn"
-msgstr ""
+msgstr "Cấm rẽ phải"
 
 #: master_preset.xml:11310(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "No straight on"
-msgstr ""
+msgstr "Cấm đi thẳng"
 
 #: master_preset.xml:11310(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "No u-turn"
-msgstr ""
+msgstr "Cấm quay ngược"
 
 #: master_preset.xml:32(list_entry:short_description|value:impassable)
 msgid "No wheeled vehicle"
@@ -4545,7 +4543,7 @@ msgstr ""
 
 #: master_preset.xml:7893(check:text|preset:Monitoring_Station|key:monitoring:noise)
 msgid "Noise"
-msgstr "Rumore"
+msgstr ""
 
 #: master_preset.xml:1173(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:none)
 #: master_preset.xml:1199(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
@@ -4553,7 +4551,7 @@ msgstr "Rumore"
 #: master_preset.xml:3575(check:text|group:Car|preset:Charging_Station|key:authentication:none)
 #: master_preset.xml:513(list_entry:display_value|value:no)
 msgid "None"
-msgstr "Nessuno"
+msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Noodle"
@@ -4562,16 +4560,16 @@ msgstr ""
 #: master_preset.xml:11454(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: master_preset.xml:11476(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
 msgid "Nordic"
-msgstr "Nordico"
+msgstr ""
 
 #: master_preset.xml:224(combo:display_values|key:internet_access)
 #: master_preset.xml:261(list_entry:short_description|value:no)
 msgid "Not available"
-msgstr "Non disponibile"
+msgstr "Không có sẵn"
 
 #: master_preset.xml:99(list_entry:short_description|value:uncontrolled)
 msgid "Not controlled"
-msgstr "Non controllato"
+msgstr ""
 
 #: master_preset.xml:12655(item:name|group:Offices|preset:Notary)
 msgid "Notary"
@@ -4579,15 +4577,15 @@ msgstr ""
 
 #: master_preset.xml:6666(text:text|group:Facilities|preset:Excrement_Bags|key:note)
 msgid "Note"
-msgstr "Nota"
+msgstr ""
 
 #: master_preset.xml:8100(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
-msgstr "Reattore nucleare"
+msgstr ""
 
 #: master_preset.xml:1481(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
-msgstr "Numero"
+msgstr "Số"
 
 #: master_preset.xml:3558(label:text|group:Car|preset:Charging_Station)
 msgid "Number of Sockets:"
@@ -4619,11 +4617,11 @@ msgstr ""
 
 #: master_preset.xml:3334(text:text|group:Aerialway|preset:Gondola|key:aerialway:occupancy)
 msgid "Number of people per gondola"
-msgstr "Numero di persone per gondola"
+msgstr ""
 
 #: master_preset.xml:3347(text:text|group:Aerialway|preset:Mixed_Lift|key:aerialway:occupancy)
 msgid "Number of people per gondola/chair"
-msgstr "Numero di persona per gondola/sedia"
+msgstr ""
 
 #: master_preset.xml:3300(text:text|group:Aerialway|preset:Cable_Car|key:aerialway:capacity)
 #: master_preset.xml:3316(text:text|group:Aerialway|preset:Chair_Lift|key:aerialway:capacity)
@@ -4632,23 +4630,23 @@ msgstr "Numero di persona per gondola/sedia"
 #: master_preset.xml:3363(text:text|group:Aerialway|preset:Drag_Lift|key:aerialway:capacity)
 #: master_preset.xml:3376(text:text|group:Aerialway|preset:Magic_Carpet|key:aerialway:capacity)
 msgid "Number of people per hour"
-msgstr "Numero di persone per ora"
+msgstr ""
 
 #: master_preset.xml:4480(text:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:capacity)
 msgid "Number of places"
-msgstr "Numero di luoghi"
+msgstr ""
 
 #: master_preset.xml:8279(combo:text|preset:Power_Converter|key:poles)
 msgid "Number of poles"
-msgstr ""
+msgstr "Số cột"
 
 #: master_preset.xml:4877(text:text|group:Leisure|preset:Movie_Theater/Cinema|key:screen)
 msgid "Number of screens"
-msgstr "Numero di schermi"
+msgstr ""
 
 #: master_preset.xml:1441(text:text|group:Ways|preset:Steps|key:step_count)
 msgid "Number of steps"
-msgstr "Numero di passi"
+msgstr ""
 
 #: master_preset.xml:11109(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Numbering scheme"
@@ -4669,32 +4667,32 @@ msgstr ""
 #: master_preset.xml:2955(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_100)
 #: master_preset.xml:3515(check:text|group:Car|preset:Fuel|key:fuel:octane_100)
 msgid "Octane 100"
-msgstr "100 ottani"
+msgstr ""
 
 #: master_preset.xml:2950(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_80)
 #: master_preset.xml:3510(check:text|group:Car|preset:Fuel|key:fuel:octane_80)
 msgid "Octane 80"
-msgstr "80 ottani"
+msgstr ""
 
 #: master_preset.xml:2951(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_91)
 #: master_preset.xml:3511(check:text|group:Car|preset:Fuel|key:fuel:octane_91)
 msgid "Octane 91"
-msgstr "91 ottani"
+msgstr ""
 
 #: master_preset.xml:2952(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_92)
 #: master_preset.xml:3512(check:text|group:Car|preset:Fuel|key:fuel:octane_92)
 msgid "Octane 92"
-msgstr "92 ottani"
+msgstr ""
 
 #: master_preset.xml:2953(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_95)
 #: master_preset.xml:3513(check:text|group:Car|preset:Fuel|key:fuel:octane_95)
 msgid "Octane 95"
-msgstr "95 ottani"
+msgstr ""
 
 #: master_preset.xml:2954(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_98)
 #: master_preset.xml:3514(check:text|group:Car|preset:Fuel|key:fuel:octane_98)
 msgid "Octane 98"
-msgstr "98 ottani"
+msgstr ""
 
 #: master_preset.xml:11109(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Odd"
@@ -4706,15 +4704,15 @@ msgstr ""
 
 #: master_preset.xml:12336(group:name|group:Offices)
 msgid "Offices"
-msgstr "Uffici"
+msgstr "Văn phòng"
 
 #: master_preset.xml:11053(text:text|group:Addresses_and_Contact|preset:Name|key:official_name)
 msgid "Official name"
-msgstr "Nome ufficiale"
+msgstr ""
 
 #: master_preset.xml:437(combo:display_values|key:substance)
 msgid "Oil"
-msgstr ""
+msgstr "Dầu"
 
 #: master_preset.xml:8079(item:name|group:Power_Generator|preset:Oil_Power_Generator)
 msgid "Oil Power Generator"
@@ -4733,7 +4731,7 @@ msgstr ""
 #: master_preset.xml:750(check:text|group:Streets|preset:Trunk_Link|key:oneway)
 #: master_preset.xml:964(check:text|group:Streets|preset:Bicycle_Road|key:oneway)
 msgid "Oneway"
-msgstr ""
+msgstr "Một chiều"
 
 #: master_preset.xml:1342(check:text|group:Ways|preset:Cycle_Lane/Track|key:oneway:bicycle)
 msgid "Oneway (bicycle)"
@@ -4759,19 +4757,19 @@ msgstr ""
 #: master_preset.xml:8959(combo:display_values|group:Clothes|preset:Shoes|key:second_hand)
 #: master_preset.xml:9360(combo:display_values|group:Printed_Material|preset:Book_Store|key:second_hand)
 msgid "Only"
-msgstr "Solo"
+msgstr "Chỉ cho phép"
 
 #: master_preset.xml:11310(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only left turn"
-msgstr ""
+msgstr "Chỉ cho phép rẽ trái"
 
 #: master_preset.xml:11310(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only right turn"
-msgstr ""
+msgstr "Chỉ cho phép rẽ phải"
 
 #: master_preset.xml:11310(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only straight on"
-msgstr ""
+msgstr "Chỉ cho phép đi thẳng"
 
 #: master_preset.xml:2271(check:text|group:Passageways|preset:Arcade|key:arcade:left)
 #: master_preset.xml:2288(check:text|group:Passageways|preset:Colonnade|key:colonnade:left)
@@ -4787,7 +4785,7 @@ msgstr ""
 
 #: master_preset.xml:167(combo:text|key:opening_hours)
 msgid "Opening Hours"
-msgstr ""
+msgstr "Giờ mở cửa"
 
 #: master_preset.xml:5246(list_entry:display_value|group:Culture|preset:Music_theatres|value:opera)
 msgid "Opera house"
@@ -4850,12 +4848,12 @@ msgstr ""
 #: master_preset.xml:9186(text:text|group:Cash|preset:Automated_Teller_Machine|key:operator)
 #: master_preset.xml:9860(text:text|preset:Vending_Machine|key:operator)
 msgid "Operator"
-msgstr "Operatore"
+msgstr ""
 
 #: master_preset.xml:5677(combo:text|group:Education|preset:Childcare|key:operator:type)
 #: master_preset.xml:5777(combo:text|group:Education|preset:Music_School|key:operator:type)
 msgid "Operator type"
-msgstr "Tipo operatore"
+msgstr ""
 
 #: master_preset.xml:12319(item:name|group:Crafts|preset:Optician)
 #: master_preset.xml:9489(item:name|group:For_the_body|preset:Optician)
@@ -4878,7 +4876,7 @@ msgstr ""
 #: master_preset.xml:217(combo:text|key:organic)
 #: master_preset.xml:8832(item:name|group:Food|preset:Organic)
 msgid "Organic"
-msgstr "Organico"
+msgstr ""
 
 #: master_preset.xml:5683(check:text|group:Education|preset:Childcare|key:orphanage)
 msgid "Orphanage"
@@ -4886,11 +4884,11 @@ msgstr ""
 
 #: master_preset.xml:465(list_entry:display_value|value:orphan)
 msgid "Orphans"
-msgstr "Orfani"
+msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Orthodox"
-msgstr "Ortodosso"
+msgstr "Chính thống giáo"
 
 #: master_preset.xml:8177(item:name|group:Power_Generator|preset:Osmotic_Power_Generator)
 msgid "Osmotic Power Generator"
@@ -4899,7 +4897,7 @@ msgstr ""
 #: master_preset.xml:3732(text:text|group:Motorcycle|preset:Motorcycle_Dealer|key:services)
 #: master_preset.xml:9556(group:name|group:Other)
 msgid "Other"
-msgstr "Altro"
+msgstr "Khác"
 
 #: master_preset.xml:4846(item:name|group:Tourism|preset:Other_Information_Point)
 msgid "Other Information Point"
@@ -4915,11 +4913,11 @@ msgstr ""
 
 #: master_preset.xml:5256(item:name|group:Culture|preset:Other_theatres)
 msgid "Other theatres"
-msgstr "Altri teatri"
+msgstr ""
 
 #: master_preset.xml:8963(item:name|group:Clothes|preset:Outdoor)
 msgid "Outdoor"
-msgstr ""
+msgstr "Ngoài trời"
 
 #: master_preset.xml:4529(check:text|group:Food+Drinks|preset:Restaurant|key:outdoor_seating)
 #: master_preset.xml:4554(check:text|group:Food+Drinks|preset:Fast_Food|key:outdoor_seating)
@@ -4972,19 +4970,19 @@ msgstr ""
 #: master_preset.xml:6408(check:text|group:Facilities|preset:Recycling_Container|key:recycling:PET)
 #: master_preset.xml:6448(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:PET)
 msgid "PET"
-msgstr "PET"
+msgstr ""
 
 #: master_preset.xml:11312(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 msgid "PSV"
-msgstr "PSV"
+msgstr ""
 
 #: master_preset.xml:9649(item:name|group:Other|preset:Paint)
 msgid "Paint"
-msgstr ""
+msgstr "Sơn"
 
 #: master_preset.xml:11986(item:name|group:Crafts|preset:Painter)
 msgid "Painter"
-msgstr ""
+msgstr "Thợ sơn"
 
 #: master_preset.xml:8501(item:name|group:Historic_Places|preset:Palaeontological_Site)
 msgid "Palaeontological Site"
@@ -4997,7 +4995,7 @@ msgstr ""
 #: master_preset.xml:6407(check:text|group:Facilities|preset:Recycling_Container|key:recycling:paper)
 #: master_preset.xml:6447(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:paper)
 msgid "Paper"
-msgstr "Carta"
+msgstr "Giấy"
 
 #: master_preset.xml:6792(text:text|group:Golf|preset:Hole|key:par)
 msgid "Par"
@@ -5013,11 +5011,11 @@ msgstr ""
 
 #: master_preset.xml:12663(item:name|group:Offices|preset:Parish)
 msgid "Parish"
-msgstr ""
+msgstr "Giáo xứ"
 
 #: master_preset.xml:10796(item:name|group:Land_use|preset:Park)
 msgid "Park"
-msgstr "Parco"
+msgstr "Công viên"
 
 #: master_preset.xml:3432(combo:text|group:Car|preset:Parking|key:park_ride)
 msgid "Park and Ride"
@@ -5028,7 +5026,7 @@ msgstr ""
 #: master_preset.xml:3693(item:name|group:Motorcycle|preset:Parking)
 #: master_preset.xml:3738(item:name|group:Bicycle|preset:Parking)
 msgid "Parking"
-msgstr "Parcheggio"
+msgstr "Đậu xe"
 
 #: master_preset.xml:1049(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
@@ -5056,12 +5054,12 @@ msgstr ""
 
 #: master_preset.xml:173(list_entry:short_description|value:limited)
 msgid "Partial access"
-msgstr "Accesso parziale"
+msgstr ""
 
 #: master_preset.xml:3635(item:name|group:Car|preset:Parts)
 #: master_preset.xml:3730(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:parts)
 msgid "Parts"
-msgstr "Parti"
+msgstr ""
 
 #: master_preset.xml:2213(group:name|group:Passageways)
 msgid "Passageways"
@@ -5079,11 +5077,11 @@ msgstr ""
 
 #: master_preset.xml:8728(item:name|group:Food|preset:Pastry)
 msgid "Pastry"
-msgstr ""
+msgstr "Bánh ngọt"
 
 #: master_preset.xml:1267(item:name|group:Ways|preset:Path)
 msgid "Path"
-msgstr "Percorso"
+msgstr ""
 
 #: master_preset.xml:9189(item:name|group:Cash|preset:Pawnbroker)
 msgid "Pawnbroker"
@@ -5095,7 +5093,7 @@ msgstr ""
 
 #: master_preset.xml:10194(item:name|group:Geography|preset:Peak)
 msgid "Peak"
-msgstr ""
+msgstr "Đỉnh"
 
 #: master_preset.xml:2871(combo:display_values|group:Water|preset:Beach|key:surface)
 msgid "Pebblestone"
@@ -5119,7 +5117,7 @@ msgstr ""
 
 #: master_preset.xml:7248(item:name|group:Sport_(Ball)|preset:Pelota)
 msgid "Pelota"
-msgstr "Pelota"
+msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Pentecostal"
@@ -5127,44 +5125,44 @@ msgstr ""
 
 #: master_preset.xml:9418(item:name|group:For_the_body|preset:Perfumery)
 msgid "Perfumery"
-msgstr "Profumeria"
+msgstr ""
 
 #: master_preset.xml:283(combo:display_values|key:access)
 #: master_preset.xml:518(combo:display_values|key:access)
 #: master_preset.xml:5942(combo:display_values|group:Emergency|preset:Automated_Defibrillator|key:access)
 msgid "Permissive"
-msgstr "Permissivo"
+msgstr ""
 
 #: master_preset.xml:9783(item:name|group:Other|preset:Pet)
 msgid "Pet"
-msgstr ""
+msgstr "Vật nuôi"
 
 #: master_preset.xml:5843(item:name|group:Health|preset:Pharmacy)
 msgid "Pharmacy"
-msgstr "Farmacia"
+msgstr "Nhà thuốc"
 
 #: master_preset.xml:8230(combo:text|preset:Power_Transformer|key:phases)
 #: master_preset.xml:8398(combo:text|preset:Pole_with_Transformer|key:phases)
 msgid "Phases"
-msgstr "Fasi"
+msgstr ""
 
 #: master_preset.xml:11126(text:text|group:Addresses_and_Contact|preset:Contact|key:phone)
 #: master_preset.xml:11146(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:contact:phone)
 #: master_preset.xml:5941(text:text|group:Emergency|preset:Automated_Defibrillator|key:phone)
 msgid "Phone Number"
-msgstr "Numero di telefono"
+msgstr "Số Điện thoại"
 
 #: master_preset.xml:3576(check:text|group:Car|preset:Charging_Station|key:authentication:phone_call)
 msgid "Phone call"
-msgstr ""
+msgstr "Cuộc gọi Điện thoại"
 
 #: master_preset.xml:4844(text:text|group:Tourism|preset:Audio_Guide|key:phone)
 msgid "Phone number"
-msgstr "Numero di telefono"
+msgstr "Số điện thoại"
 
 #: master_preset.xml:9797(item:name|group:Other|preset:Photo)
 msgid "Photo"
-msgstr "Foto"
+msgstr "Hình chụp"
 
 #: master_preset.xml:6363(item:name|group:Facilities|preset:Photo_booth)
 msgid "Photo booth"
@@ -5176,19 +5174,19 @@ msgstr ""
 
 #: master_preset.xml:12250(item:name|group:Crafts|preset:Photographer)
 msgid "Photographer"
-msgstr "Fotografo"
+msgstr ""
 
 #: master_preset.xml:12005(item:name|group:Crafts|preset:Photographic_laboratory)
 msgid "Photographic laboratory"
-msgstr "Laboratorio fotografico"
+msgstr ""
 
 #: master_preset.xml:9849(list_entry:short_description|preset:Vending_Machine|value:photos)
 msgid "Photos"
-msgstr "Foto"
+msgstr ""
 
 #: master_preset.xml:2484(item:name|group:Access_Restrictions|preset:Physical_restrictions)
 msgid "Physical restrictions"
-msgstr "Restrinzioni fisiche"
+msgstr ""
 
 #: master_preset.xml:12671(item:name|group:Offices|preset:Physician)
 msgid "Physician"
@@ -5239,7 +5237,7 @@ msgstr "Pizza"
 
 #: master_preset.xml:11077(text:text|group:Addresses_and_Contact|preset:Address|key:addr:place)
 msgid "Place name"
-msgstr ""
+msgstr "Địa danh"
 
 #: master_preset.xml:5359(group:name|group:Place_of_Worship)
 msgid "Place of Worship"
@@ -5271,7 +5269,7 @@ msgstr ""
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Plants"
-msgstr "Piante"
+msgstr ""
 
 #: master_preset.xml:326(list_entry:short_description|value:deciduous)
 msgid "Plants that are leafless for a certain period during the year."
@@ -5301,7 +5299,7 @@ msgstr ""
 #: master_preset.xml:6409(check:text|group:Facilities|preset:Recycling_Container|key:recycling:plastic)
 #: master_preset.xml:6449(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:plastic)
 msgid "Plastic"
-msgstr "Plastica"
+msgstr "Chất dẻo"
 
 #: master_preset.xml:6410(check:text|group:Facilities|preset:Recycling_Container|key:recycling:plastic_bottles)
 #: master_preset.xml:6450(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:plastic_bottles)
@@ -5324,7 +5322,7 @@ msgstr ""
 
 #: master_preset.xml:5035(item:name|group:Leisure|preset:Playground)
 msgid "Playground"
-msgstr ""
+msgstr "Sân chơi"
 
 #: master_preset.xml:12021(item:name|group:Crafts|preset:Plumber)
 msgid "Plumber"
@@ -5340,7 +5338,7 @@ msgstr ""
 
 #: master_preset.xml:8358(item:name|preset:Pole)
 msgid "Pole"
-msgstr ""
+msgstr "Cột"
 
 #: master_preset.xml:8387(label:text|preset:Pole_with_Transformer)
 msgid "Pole Attributes:"
@@ -5352,48 +5350,48 @@ msgstr ""
 
 #: master_preset.xml:5611(item:name|group:Public_Building|preset:Police)
 msgid "Police"
-msgstr "Polizia"
+msgstr "Cảnh sát"
 
 #: master_preset.xml:11253(combo:display_values|group:Relations|preset:Boundary|key:boundary)
 #: master_preset.xml:5270(list_entry:display_value|group:Culture|preset:Other_theatres|value:political)
 #: master_preset.xml:9940(item:name|group:Boundaries|preset:Political)
 msgid "Political"
-msgstr "Politico"
+msgstr "Chính trị"
 
 #: master_preset.xml:12457(item:name|group:Offices|preset:Political_party)
 msgid "Political party"
-msgstr "Partito politico"
+msgstr "Đảng chính trị"
 
 #: master_preset.xml:2773(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Pond"
-msgstr ""
+msgstr "Ao nước"
 
 #: master_preset.xml:10162(text:text|group:Places|preset:Neighbourhood|key:population)
 #: master_preset.xml:309(text:text|key:population)
 msgid "Population"
-msgstr "Popolazione"
+msgstr "Dân số"
 
 #: master_preset.xml:6287(item:name|group:Facilities|preset:Post_Box)
 msgid "Post Box"
-msgstr ""
+msgstr "Hộp thư"
 
 #: master_preset.xml:5652(item:name|group:Public_Building|preset:Post_Office)
 msgid "Post Office"
-msgstr ""
+msgstr "Bưu điện"
 
 #: master_preset.xml:11079(text:text|group:Addresses_and_Contact|preset:Address|key:addr:postcode)
 msgid "Post code"
-msgstr ""
+msgstr "Mã bưu chính"
 
 #: master_preset.xml:9953(item:name|group:Boundaries|preset:Postal_Code)
 #: master_preset.xml:9962(text:text|group:Boundaries|preset:Postal_Code|key:postal_code)
 msgid "Postal Code"
-msgstr "Codice postale"
+msgstr "Mã bưu chính"
 
 #: master_preset.xml:11253(combo:display_values|group:Relations|preset:Boundary|key:boundary)
 #: master_preset.xml:310(text:text|key:postal_code)
 msgid "Postal code"
-msgstr "Codice postale"
+msgstr "Mã bưu chính"
 
 #: master_preset.xml:12032(item:name|group:Crafts|preset:Pottery)
 msgid "Pottery"
@@ -5401,7 +5399,7 @@ msgstr ""
 
 #: master_preset.xml:8012(group:name|group:Power)
 msgid "Power"
-msgstr "Energia"
+msgstr "Điện năng"
 
 #: master_preset.xml:8254(item:name|preset:Power_Bay)
 msgid "Power Bay"
@@ -5429,11 +5427,11 @@ msgstr ""
 
 #: master_preset.xml:8408(item:name|preset:Power_Line)
 msgid "Power Line"
-msgstr ""
+msgstr "Dây điện"
 
 #: master_preset.xml:8013(item:name|group:Power|preset:Power_Plant)
 msgid "Power Plant"
-msgstr ""
+msgstr "Nhà máy Điện"
 
 #: master_preset.xml:8318(item:name|preset:Power_Portal)
 msgid "Power Portal"
@@ -5491,15 +5489,15 @@ msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Presbyterian"
-msgstr "Presbiteriano"
+msgstr ""
 
 #: master_preset.xml:512(list_entry:display_value|value:yes)
 msgid "Present"
-msgstr ""
+msgstr "Hiện tại"
 
 #: master_preset.xml:3088(item:name|group:Railway|preset:Preserved)
 msgid "Preserved"
-msgstr "Preservato"
+msgstr ""
 
 #: master_preset.xml:5997(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgid "Pressure (in bar)"
@@ -5511,7 +5509,7 @@ msgstr ""
 
 #: master_preset.xml:764(item:name|group:Streets|preset:Primary)
 msgid "Primary"
-msgstr "Primario"
+msgstr ""
 
 #: master_preset.xml:790(item:name|group:Streets|preset:Primary_Link)
 msgid "Primary Link"
@@ -5523,11 +5521,11 @@ msgstr ""
 
 #: master_preset.xml:9321(group:name|group:Printed_Material)
 msgid "Printed Material"
-msgstr "Materiale stampato"
+msgstr ""
 
 #: master_preset.xml:5597(item:name|group:Public_Building|preset:Prison)
 msgid "Prison"
-msgstr "Prigione"
+msgstr "Nhà tù"
 
 #: master_preset.xml:283(combo:display_values|key:access)
 #: master_preset.xml:518(combo:display_values|key:access)
@@ -5535,7 +5533,7 @@ msgstr "Prigione"
 #: master_preset.xml:5777(combo:display_values|group:Education|preset:Music_School|key:operator:type)
 #: master_preset.xml:5942(combo:display_values|group:Emergency|preset:Automated_Defibrillator|key:access)
 msgid "Private"
-msgstr "Privato"
+msgstr "Cá nhân"
 
 #: master_preset.xml:12399(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Prosecutor"
@@ -5543,11 +5541,11 @@ msgstr ""
 
 #: master_preset.xml:9976(item:name|group:Boundaries|preset:Protected_Area)
 msgid "Protected Area"
-msgstr "Area protetta"
+msgstr ""
 
 #: master_preset.xml:9987(text:text|group:Boundaries|preset:Protected_Area|key:protect_class)
 msgid "Protected Class"
-msgstr "Classe protetta"
+msgstr ""
 
 #: master_preset.xml:11253(combo:display_values|group:Relations|preset:Boundary|key:boundary)
 msgid "Protected area"
@@ -5555,7 +5553,7 @@ msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Protestant"
-msgstr "Protestante"
+msgstr "Tin Lành"
 
 #: master_preset.xml:9911(check:text|preset:Payment_Methods|key:payment:ep_proton)
 msgid "Proton (be)"
@@ -5563,17 +5561,17 @@ msgstr ""
 
 #: master_preset.xml:11089(text:text|group:Addresses_and_Contact|preset:Address|key:addr:province)
 msgid "Province"
-msgstr "Provincia"
+msgstr "Tỉnh"
 
 #: master_preset.xml:4632(item:name|group:Food+Drinks|preset:Pub)
 msgid "Pub"
-msgstr "Pub"
+msgstr ""
 
 #: master_preset.xml:518(combo:display_values|key:access)
 #: master_preset.xml:5677(combo:display_values|group:Education|preset:Childcare|key:operator:type)
 #: master_preset.xml:5777(combo:display_values|group:Education|preset:Music_School|key:operator:type)
 msgid "Public"
-msgstr "Pubblico"
+msgstr "Công cộng"
 
 #: master_preset.xml:3802(item:name|group:Bicycle|preset:Public_Bicycle_Repair_Station)
 msgid "Public Bicycle Repair Station"
@@ -5593,7 +5591,7 @@ msgstr ""
 
 #: master_preset.xml:8784(item:name|group:Food|preset:Public_Market)
 msgid "Public Market"
-msgstr "Mercato pubblico"
+msgstr ""
 
 #: master_preset.xml:2523(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:psv)
 msgid "Public Service Vehicles (psv)"
@@ -5601,7 +5599,7 @@ msgstr ""
 
 #: master_preset.xml:3820(group:name|group:Public_Transport)
 msgid "Public Transport"
-msgstr "Trasporto pubblico"
+msgstr ""
 
 #: master_preset.xml:4013(group:name|group:Public_Transport_(Legacy))
 msgid "Public Transport (Legacy)"
@@ -5621,7 +5619,7 @@ msgstr ""
 
 #: master_preset.xml:12679(item:name|group:Offices|preset:Publisher)
 msgid "Publisher"
-msgstr ""
+msgstr "Nhà xuất bản"
 
 #: master_preset.xml:5288(list_entry:display_value|group:Culture|preset:Figure/puppet_theatres|value:puppet)
 msgid "Puppet"
@@ -5629,7 +5627,7 @@ msgstr ""
 
 #: master_preset.xml:6045(combo:text|group:Emergency|preset:Siren|key:siren:purpose)
 msgid "Purpose"
-msgstr ""
+msgstr "Mục đích"
 
 #: master_preset.xml:10457(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Puszta"
@@ -5665,7 +5663,7 @@ msgstr ""
 
 #: master_preset.xml:7350(item:name|group:Motorsport|preset:Raceway)
 msgid "Raceway"
-msgstr ""
+msgstr "Đường đua ô tô"
 
 #: master_preset.xml:7255(item:name|group:Sport_(Ball)|preset:Racquetball)
 msgid "Racquetball"
@@ -5673,7 +5671,7 @@ msgstr ""
 
 #: master_preset.xml:7898(check:text|preset:Monitoring_Station|key:monitoring:radiation)
 msgid "Radiation"
-msgstr "Radiazione"
+msgstr ""
 
 #: master_preset.xml:3045(item:name|group:Railway|preset:Rail)
 msgid "Rail"
@@ -5681,7 +5679,7 @@ msgstr ""
 
 #: master_preset.xml:3044(group:name|group:Railway)
 msgid "Railway"
-msgstr ""
+msgstr "Đường sắt"
 
 #: master_preset.xml:4053(item:name|group:Public_Transport_(Legacy)|preset:Railway_Halt)
 msgid "Railway Halt"
@@ -5759,15 +5757,15 @@ msgstr ""
 
 #: master_preset.xml:6418(item:name|group:Facilities|preset:Recycling_Centre)
 msgid "Recycling Centre"
-msgstr ""
+msgstr "Trung tâm Tái chế"
 
 #: master_preset.xml:6376(item:name|group:Facilities|preset:Recycling_Container)
 msgid "Recycling Container"
-msgstr ""
+msgstr "Thùng Tái chế"
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Red"
-msgstr "Rosso"
+msgstr "Đỏ"
 
 #: master_preset.xml:2831(list_entry:short_description|group:Water|preset:Wetland|value:reedbed)
 msgid "Reedbed"
@@ -5877,11 +5875,11 @@ msgstr ""
 
 #: master_preset.xml:6626(multiselect:display_values|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Regina"
-msgstr "Regina"
+msgstr ""
 
 #: master_preset.xml:10040(item:name|group:Places|preset:Region)
 msgid "Region"
-msgstr "Regione"
+msgstr ""
 
 #: master_preset.xml:11355(combo:display_values|group:Routes|preset:Bicycle_Route|key:network)
 #: master_preset.xml:11398(combo:display_values|group:Routes|preset:Hiking_Route|key:network)
@@ -5890,23 +5888,23 @@ msgstr "Regione"
 #: master_preset.xml:11495(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Regional"
-msgstr "Regionale"
+msgstr ""
 
 #: master_preset.xml:11050(text:text|group:Addresses_and_Contact|preset:Name|key:reg_name)
 msgid "Regional name"
-msgstr "Nome regionale"
+msgstr ""
 
 #: master_preset.xml:12687(item:name|group:Offices|preset:Register)
 msgid "Register"
-msgstr "Registro"
+msgstr ""
 
 #: master_preset.xml:12399(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Register office"
-msgstr "Ufficio registro"
+msgstr ""
 
 #: master_preset.xml:11216(group:name|group:Relations)
 msgid "Relations"
-msgstr "Relazioni"
+msgstr ""
 
 #: master_preset.xml:336(combo:text|key:religion)
 #: master_preset.xml:5519(combo:text|group:Place_of_Worship|preset:Other_Place_of_Worship|key:religion)
@@ -5914,11 +5912,11 @@ msgstr "Relazioni"
 #: master_preset.xml:8583(combo:text|group:Historic_Places|preset:Wayside_Shrine|key:religion)
 #: master_preset.xml:9733(combo:text|group:Other|preset:Gift/Souvenir|key:religion)
 msgid "Religion"
-msgstr "Religione"
+msgstr "Tôn giáo"
 
 #: master_preset.xml:10870(item:name|group:Land_use|preset:Religious)
 msgid "Religious"
-msgstr "Religioso"
+msgstr ""
 
 #: master_preset.xml:5677(combo:display_values|group:Education|preset:Childcare|key:operator:type)
 msgid "Religous"
@@ -5926,11 +5924,11 @@ msgstr ""
 
 #: master_preset.xml:7905(check:text|preset:Monitoring_Station|key:recording:remote)
 msgid "Remote"
-msgstr "Remoto"
+msgstr ""
 
 #: master_preset.xml:1907(combo:display_values|group:Barriers|preset:Bollard|key:bollard)
 msgid "Removable"
-msgstr "Rimovibile"
+msgstr ""
 
 #: master_preset.xml:3659(item:name|group:Car|preset:Rental)
 #: master_preset.xml:3727(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:rental)
@@ -5941,11 +5939,11 @@ msgstr ""
 #: master_preset.xml:3620(item:name|group:Car|preset:Repair)
 #: master_preset.xml:3728(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:repair)
 msgid "Repair"
-msgstr "Riparazione"
+msgstr ""
 
 #: master_preset.xml:12591(item:name|group:Offices|preset:Research)
 msgid "Research"
-msgstr "Ricerca"
+msgstr "Nghiên cứu"
 
 #: master_preset.xml:4457(combo:text|group:Accommodation|preset:Wilderness_Hut|key:reservation)
 msgid "Reservation"
@@ -5967,7 +5965,7 @@ msgstr ""
 #: master_preset.xml:7697(combo:text|preset:Mineshaft|key:resource)
 #: master_preset.xml:7715(combo:text|preset:Adit|key:resource)
 msgid "Resource"
-msgstr ""
+msgstr "Tài nguyên"
 
 #: master_preset.xml:1499(item:name|group:Waypoints|preset:Rest_Area)
 msgid "Rest Area"
@@ -5975,15 +5973,15 @@ msgstr ""
 
 #: master_preset.xml:4512(item:name|group:Food+Drinks|preset:Restaurant)
 msgid "Restaurant"
-msgstr "Ristorante"
+msgstr "Nhà hàng"
 
 #: master_preset.xml:11310(combo:text|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Restriction"
-msgstr "Restrizione"
+msgstr "Hạn chế"
 
 #: master_preset.xml:10879(item:name|group:Land_use|preset:Retail)
 msgid "Retail"
-msgstr ""
+msgstr "Bán lẻ"
 
 #: master_preset.xml:2047(item:name|group:Barriers|preset:Retaining_Wall)
 msgid "Retaining Wall"
@@ -5997,7 +5995,7 @@ msgstr ""
 #: master_preset.xml:1200(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:reverse)
 #: master_preset.xml:1218(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:reverse)
 msgid "Reverse"
-msgstr "Inverti"
+msgstr "Đảo ngược"
 
 #: master_preset.xml:10259(item:name|group:Geography|preset:Ridge)
 msgid "Ridge"
@@ -6034,11 +6032,11 @@ msgstr ""
 #: master_preset.xml:2584(item:name|group:Water|preset:River)
 #: master_preset.xml:2773(combo:display_values|group:Water|preset:Water|key:water)
 msgid "River"
-msgstr ""
+msgstr "Sông"
 
 #: master_preset.xml:2794(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
-msgstr ""
+msgstr "Bờ sông"
 
 #: master_preset.xml:1085(item:name|group:Streets|preset:Road_(Unknown_Type))
 msgid "Road (Unknown Type)"
@@ -6054,7 +6052,7 @@ msgstr ""
 
 #: master_preset.xml:10580(item:name|group:Nature|preset:Rock)
 msgid "Rock"
-msgstr "Roccia"
+msgstr "Đá"
 
 #: master_preset.xml:486(list_entry:display_value|value:rolled)
 #: master_preset.xml:492(list_entry:display_value|value:rolled)
@@ -6068,7 +6066,7 @@ msgstr ""
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Roman catholic"
-msgstr "Cattolico romano"
+msgstr "Công giáo Rôma"
 
 #: master_preset.xml:11278(role:text|group:Relations|preset:Building|key:edge)
 msgid "Roof edge"
@@ -6102,7 +6100,7 @@ msgstr ""
 #: master_preset.xml:4414(text:text|group:Accommodation|preset:Hostel|key:rooms)
 #: master_preset.xml:4476(text:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:rooms)
 msgid "Rooms"
-msgstr ""
+msgstr "Số phòng"
 
 #: master_preset.xml:3359(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Rope tow"
@@ -6159,7 +6157,7 @@ msgstr ""
 #: master_preset.xml:8458(check:text|group:Historic_Places|preset:Castle|key:ruins)
 #: master_preset.xml:8461(item:name|group:Historic_Places|preset:Ruins)
 msgid "Ruins"
-msgstr "Rovine"
+msgstr ""
 
 #: master_preset.xml:1710(item:name|group:Traffic_Calming|preset:Rumble_strip)
 msgid "Rumble strip"
@@ -6171,7 +6169,7 @@ msgstr ""
 
 #: master_preset.xml:4170(item:name|group:Airport|preset:Runway)
 msgid "Runway"
-msgstr ""
+msgstr "Đường băng"
 
 #: master_preset.xml:1286(combo:text|group:Ways|preset:Path|key:sac_scale)
 msgid "SAC Scale"
@@ -6179,7 +6177,7 @@ msgstr ""
 
 #: master_preset.xml:9852(list_entry:short_description|preset:Vending_Machine|value:SIM-cards)
 msgid "SIM-cards"
-msgstr "Schede SIM"
+msgstr ""
 
 #: master_preset.xml:10211(item:name|group:Geography|preset:Saddle)
 msgid "Saddle"
@@ -6224,11 +6222,11 @@ msgstr ""
 #: master_preset.xml:10550(item:name|group:Nature|preset:Sand)
 #: master_preset.xml:2871(combo:display_values|group:Water|preset:Beach|key:surface)
 msgid "Sand"
-msgstr "Sabbia"
+msgstr "Cát"
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Sandwich"
-msgstr ""
+msgstr "Bánh mì kẹp"
 
 #: master_preset.xml:6483(item:name|group:Facilities|preset:Sanitary_Dump_Station)
 msgid "Sanitary Dump Station"
@@ -6236,7 +6234,7 @@ msgstr ""
 
 #: master_preset.xml:4993(item:name|group:Leisure|preset:Sauna)
 msgid "Sauna"
-msgstr "Sauna"
+msgstr ""
 
 #: master_preset.xml:10457(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Savanna"
@@ -6252,7 +6250,7 @@ msgstr ""
 
 #: master_preset.xml:5706(item:name|group:Education|preset:School)
 msgid "School"
-msgstr "Scuola"
+msgstr "Trường học"
 
 #: master_preset.xml:8920(list_entry:short_description|group:Clothes|preset:Clothes|value:schoolwear)
 msgid "Schoolwear"
@@ -6293,16 +6291,16 @@ msgstr ""
 
 #: master_preset.xml:12098(item:name|group:Crafts|preset:Sculptor)
 msgid "Sculptor"
-msgstr "Scultore"
+msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 #: master_preset.xml:8689(item:name|group:Food|preset:Seafood)
 msgid "Seafood"
-msgstr ""
+msgstr "Đồ biển"
 
 #: master_preset.xml:418(check:text|key:seasonal)
 msgid "Seasonal"
-msgstr "Stagionale"
+msgstr "Tùy mùa"
 
 #: master_preset.xml:6519(combo:text|group:Facilities|preset:Bench|key:seats)
 msgid "Seats count"
@@ -6320,7 +6318,7 @@ msgstr ""
 
 #: master_preset.xml:808(item:name|group:Streets|preset:Secondary)
 msgid "Secondary"
-msgstr "Secondario"
+msgstr ""
 
 #: master_preset.xml:834(item:name|group:Streets|preset:Secondary_Link)
 msgid "Secondary Link"
@@ -6347,15 +6345,15 @@ msgstr ""
 #: master_preset.xml:3597(check:text|group:Car|preset:Wash|key:self_service)
 #: master_preset.xml:4527(check:text|group:Food+Drinks|preset:Restaurant|key:self_service)
 msgid "Self service"
-msgstr "Self service"
+msgstr ""
 
 #: master_preset.xml:5013(check:text|group:Leisure|preset:Tanning_Studio|key:self-service)
 msgid "Self-service"
-msgstr "Self-service"
+msgstr ""
 
 #: master_preset.xml:229(combo:display_values|key:smoking)
 msgid "Separated"
-msgstr "Separato"
+msgstr ""
 
 #: master_preset.xml:164(combo:text|key:service_times)
 msgid "Service Times"
@@ -6371,11 +6369,11 @@ msgstr ""
 
 #: master_preset.xml:1483(item:name|group:Waypoints|preset:Services)
 msgid "Services"
-msgstr "Servizi"
+msgstr "Dịch vụ"
 
 #: master_preset.xml:3725(optional:text|group:Motorcycle|preset:Motorcycle_Dealer)
 msgid "Services:"
-msgstr "Servizi:"
+msgstr "Dịch vụ:"
 
 #: master_preset.xml:8485(combo:display_values|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "Settlement"
@@ -6440,7 +6438,7 @@ msgstr ""
 
 #: master_preset.xml:429(combo:text|key:ship)
 msgid "Ship"
-msgstr ""
+msgstr "Tàu biển"
 
 #: master_preset.xml:2890(group:name|group:Shipping)
 msgid "Shipping"
@@ -6454,7 +6452,7 @@ msgstr ""
 #: master_preset.xml:6453(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:shoes)
 #: master_preset.xml:8948(item:name|group:Clothes|preset:Shoes)
 msgid "Shoes"
-msgstr "Scarpe"
+msgstr "Giày"
 
 #: master_preset.xml:7072(item:name|group:Sport|preset:Shooting)
 msgid "Shooting"
@@ -6462,16 +6460,16 @@ msgstr ""
 
 #: master_preset.xml:8604(group:name|group:Shops)
 msgid "Shops"
-msgstr "Negozi"
+msgstr ""
 
 #: master_preset.xml:3577(check:text|group:Car|preset:Charging_Station|key:authentication:short_message)
 msgid "Short message"
-msgstr "Messaggio breve"
+msgstr ""
 
 #: master_preset.xml:4455(check:text|group:Accommodation|preset:Wilderness_Hut|key:shower)
 #: master_preset.xml:6265(item:name|group:Facilities|preset:Shower)
 msgid "Shower"
-msgstr "Doccia"
+msgstr ""
 
 #: master_preset.xml:4757(combo:text|group:Tourism|preset:Map|key:map_size)
 msgid "Shown Area"
@@ -6487,15 +6485,15 @@ msgstr ""
 
 #: master_preset.xml:6360(check:text|group:Facilities|preset:Clock|key:hygrometer)
 msgid "Shows humidity"
-msgstr "Mostra umidità"
+msgstr ""
 
 #: master_preset.xml:6358(check:text|group:Facilities|preset:Clock|key:thermometer)
 msgid "Shows temperature"
-msgstr "Mostra temperature"
+msgstr ""
 
 #: master_preset.xml:10725(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 msgid "Shrimp"
-msgstr ""
+msgstr "Tôm"
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Sikh"
@@ -6511,15 +6509,15 @@ msgstr ""
 
 #: master_preset.xml:6034(item:name|group:Emergency|preset:Siren)
 msgid "Siren"
-msgstr "Sirena"
+msgstr ""
 
 #: master_preset.xml:11283(item:name|group:Relations|preset:Site)
 msgid "Site"
-msgstr "Sito"
+msgstr ""
 
 #: master_preset.xml:11287(text:text|group:Relations|preset:Site|key:name)
 msgid "Site name"
-msgstr "Nome sito"
+msgstr ""
 
 #: master_preset.xml:7032(item:name|group:Sport|preset:Skateboard)
 msgid "Skateboard"
@@ -6531,7 +6529,7 @@ msgstr ""
 
 #: master_preset.xml:1298(combo:text|group:Ways|preset:Path|key:ski)
 msgid "Ski"
-msgstr "Sci"
+msgstr "Trượt tuyết"
 
 #: master_preset.xml:11468(item:name|group:Routes|preset:Ski_Route)
 msgid "Ski Route"
@@ -6541,7 +6539,7 @@ msgstr ""
 #: master_preset.xml:4802(check:text|group:Tourism|preset:Guidepost|key:ski)
 #: master_preset.xml:7058(item:name|group:Sport|preset:Skiing)
 msgid "Skiing"
-msgstr ""
+msgstr "Trượt tuyết"
 
 #: master_preset.xml:7428(text:text|group:Man_Made|preset:Building_part|key:min_height)
 msgid "Skipped height (meters)"
@@ -6581,7 +6579,7 @@ msgstr ""
 
 #: master_preset.xml:229(combo:text|key:smoking)
 msgid "Smoking"
-msgstr ""
+msgstr "Hút thuốc"
 
 #: master_preset.xml:24(combo:text|key:smoothness)
 msgid "Smoothness"
@@ -6597,15 +6595,15 @@ msgstr ""
 
 #: master_preset.xml:7088(item:name|group:Sport_(Ball)|preset:Soccer)
 msgid "Soccer"
-msgstr "Calcio"
+msgstr "Bóng đá"
 
 #: master_preset.xml:6083(item:name|group:Social_Facilities|preset:Social_Centre)
 msgid "Social Centre"
-msgstr "Centro sociale"
+msgstr ""
 
 #: master_preset.xml:6190(item:name|group:Social_Facilities|preset:Social_Club)
 msgid "Social Club"
-msgstr "Club sociale"
+msgstr ""
 
 #: master_preset.xml:6049(group:name|group:Social_Facilities)
 msgid "Social Facilities"
@@ -6624,23 +6622,23 @@ msgstr ""
 #: master_preset.xml:3213(check:text|group:Railway|preset:Level_Crossing|key:crossing:bell)
 #: master_preset.xml:3236(check:text|group:Railway|preset:Crossing|key:crossing:bell)
 msgid "Sound signals"
-msgstr "Segnali sonori"
+msgstr ""
 
 #: master_preset.xml:3436(combo:text|group:Car|preset:Parking|key:capacity:disabled)
 msgid "Spaces for Disabled"
-msgstr "Spazi per disabili"
+msgstr ""
 
 #: master_preset.xml:3438(combo:text|group:Car|preset:Parking|key:capacity:parent)
 msgid "Spaces for Parents"
-msgstr "Spazi per genitori"
+msgstr ""
 
 #: master_preset.xml:3437(combo:text|group:Car|preset:Parking|key:capacity:women)
 msgid "Spaces for Women"
-msgstr "Spazi per donne"
+msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Spanish"
-msgstr "Spagnolo"
+msgstr "Tây Ban Nha"
 
 #: master_preset.xml:31(list_entry:short_description|value:very_horrible)
 msgid "Specialized off-road: tractor, ATV"
@@ -6650,7 +6648,7 @@ msgstr ""
 #: master_preset.xml:10714(text:text|group:Land_use|preset:Plant_Nursery|key:species)
 #: master_preset.xml:1987(text:text|group:Barriers|preset:Hedge|key:species)
 msgid "Species"
-msgstr "Specie"
+msgstr "Loài"
 
 #: master_preset.xml:1798(item:name|preset:Speed_Camera)
 msgid "Speed Camera"
@@ -6658,7 +6656,7 @@ msgstr ""
 
 #: master_preset.xml:1786(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"
-msgstr ""
+msgstr "Bảng Tốc độ Tối đa"
 
 #: master_preset.xml:1942(item:name|group:Barriers|preset:Spikes)
 msgid "Spikes"
@@ -6666,16 +6664,16 @@ msgstr ""
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Spiritualist"
-msgstr "Spiritualista"
+msgstr ""
 
 #: master_preset.xml:2872(combo:text|group:Water|preset:Beach|key:sport)
 #: master_preset.xml:6901(group:name|group:Sport)
 msgid "Sport"
-msgstr "Sport"
+msgstr "Thể thao"
 
 #: master_preset.xml:7087(group:name|group:Sport_(Ball))
 msgid "Sport (Ball)"
-msgstr ""
+msgstr "Thể thao (Bóng)"
 
 #: master_preset.xml:6671(group:name|group:Sport_Facilities)
 msgid "Sport Facilities"
@@ -6685,19 +6683,19 @@ msgstr ""
 #: master_preset.xml:8921(list_entry:short_description|group:Clothes|preset:Clothes|value:sports)
 #: master_preset.xml:8976(item:name|group:Clothes|preset:Sports)
 msgid "Sports"
-msgstr "Sport"
+msgstr "Thể thao"
 
 #: master_preset.xml:6687(item:name|group:Sport_Facilities|preset:Sports_Centre)
 msgid "Sports Centre"
-msgstr "Centro sportivo"
+msgstr "Trung tâm Thể thao"
 
 #: master_preset.xml:249(combo:display_values|key:leisure)
 msgid "Sports centre"
-msgstr "Centro sportivo"
+msgstr "Trung tâm thể thao"
 
 #: master_preset.xml:2623(item:name|group:Water|preset:Spring)
 msgid "Spring"
-msgstr ""
+msgstr "Mùa xuân"
 
 #: master_preset.xml:2187(combo:display_values|group:Barriers|preset:Stile|key:stile)
 msgid "Squeezer"
@@ -6706,11 +6704,11 @@ msgstr ""
 #: master_preset.xml:249(combo:display_values|key:leisure)
 #: master_preset.xml:6672(item:name|group:Sport_Facilities|preset:Stadium)
 msgid "Stadium"
-msgstr "Stadio"
+msgstr "Sân vận động"
 
 #: master_preset.xml:9853(list_entry:short_description|preset:Vending_Machine|value:stamps)
 msgid "Stamps"
-msgstr ""
+msgstr "Tem"
 
 #: master_preset.xml:12106(item:name|group:Crafts|preset:Stand_builder)
 msgid "Stand builder"
@@ -6723,7 +6721,7 @@ msgstr ""
 #: master_preset.xml:4372(combo:text|group:Accommodation|preset:Holiday_apartment|key:stars)
 #: master_preset.xml:473(combo:text|key:stars)
 msgid "Stars"
-msgstr "Stelle"
+msgstr "Ngôi sao"
 
 #: master_preset.xml:385(text:text|key:start_date)
 #: master_preset.xml:8024(text:text|group:Power|preset:Power_Plant|key:start_date)
@@ -6733,7 +6731,7 @@ msgstr "Stelle"
 #: master_preset.xml:8587(text:text|group:Historic_Places|preset:Wayside_Shrine|key:start_date)
 #: master_preset.xml:9993(text:text|group:Boundaries|preset:Protected_Area|key:start_date)
 msgid "Start date"
-msgstr ""
+msgstr "Ngày bắt đầu"
 
 #: master_preset.xml:3892(role:text|group:Public_Transport|preset:Stop_Area|key:)
 msgid "Station or amenities"
@@ -6761,7 +6759,7 @@ msgstr ""
 
 #: master_preset.xml:1424(item:name|group:Ways|preset:Steps)
 msgid "Steps"
-msgstr "Passi"
+msgstr ""
 
 #: master_preset.xml:2183(item:name|group:Barriers|preset:Stile)
 msgid "Stile"
@@ -6771,7 +6769,7 @@ msgstr ""
 #: master_preset.xml:1892(combo:display_values|group:Barriers|preset:Block|key:material)
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Stone"
-msgstr "Pietra"
+msgstr ""
 
 #: master_preset.xml:12114(item:name|group:Crafts|preset:Stonemason)
 msgid "Stonemason"
@@ -6801,7 +6799,7 @@ msgstr ""
 
 #: master_preset.xml:11598(item:name|preset:Street)
 msgid "Street"
-msgstr "Strada"
+msgstr ""
 
 #: master_preset.xml:7862(item:name|preset:Street_Lamp)
 msgid "Street Lamp"
@@ -6815,11 +6813,11 @@ msgstr ""
 #: master_preset.xml:11075(text:text|group:Addresses_and_Contact|preset:Address|key:addr:street)
 #: master_preset.xml:11592(text:text|preset:Associated_Street|key:name)
 msgid "Street name"
-msgstr "Nome strada"
+msgstr ""
 
 #: master_preset.xml:631(group:name|group:Streets)
 msgid "Streets"
-msgstr "Strade"
+msgstr ""
 
 #: master_preset.xml:2836(list_entry:short_description|group:Water|preset:Wetland|value:string_bog)
 msgid "String bog"
@@ -6835,11 +6833,11 @@ msgstr ""
 
 #: master_preset.xml:7975(combo:text|group:Bridges|preset:Bridge|key:bridge:structure)
 msgid "Structure"
-msgstr "Struttura"
+msgstr "Cấu trúc"
 
 #: master_preset.xml:5344(item:name|group:Culture|preset:Studio)
 msgid "Studio"
-msgstr "Studio"
+msgstr ""
 
 #: master_preset.xml:11260(role:text|group:Relations|preset:Boundary|key:subarea)
 msgid "Sub area"
@@ -6860,7 +6858,7 @@ msgstr ""
 #: master_preset.xml:10136(item:name|group:Places|preset:Suburb)
 #: master_preset.xml:11086(text:text|group:Addresses_and_Contact|preset:Address|key:addr:suburb)
 msgid "Suburb"
-msgstr ""
+msgstr "Ngoại ô"
 
 #: master_preset.xml:3111(item:name|group:Railway|preset:Subway)
 #: master_preset.xml:3921(check:text|group:Public_Transport|preset:Stop_Position|key:subway)
@@ -6891,7 +6889,7 @@ msgstr ""
 
 #: master_preset.xml:8606(item:name|group:Food|preset:Supermarket)
 msgid "Supermarket"
-msgstr "Supermarket"
+msgstr "Siêu thị"
 
 #: master_preset.xml:292(combo:text|key:supervised)
 #: master_preset.xml:3211(check:text|group:Railway|preset:Level_Crossing|key:supervised)
@@ -6901,7 +6899,7 @@ msgstr ""
 #: master_preset.xml:2871(combo:text|group:Water|preset:Beach|key:surface)
 #: master_preset.xml:37(combo:text|key:surface)
 msgid "Surface"
-msgstr "Superficie"
+msgstr ""
 
 #: master_preset.xml:2872(combo:display_values|group:Water|preset:Beach|key:sport)
 msgid "Surfing"
@@ -6909,7 +6907,7 @@ msgstr ""
 
 #: master_preset.xml:7928(item:name|preset:Surveillance_Camera)
 msgid "Surveillance Camera"
-msgstr "Camera di sorveglianza"
+msgstr ""
 
 #: master_preset.xml:7913(item:name|preset:Survey_Point)
 msgid "Survey Point"
@@ -6917,7 +6915,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Sushi"
-msgstr "Sushi"
+msgstr ""
 
 #: master_preset.xml:2828(list_entry:short_description|group:Water|preset:Wetland|value:swamp)
 msgid "Swamp"
@@ -6934,11 +6932,11 @@ msgstr ""
 #: master_preset.xml:2872(combo:display_values|group:Water|preset:Beach|key:sport)
 #: master_preset.xml:7041(item:name|group:Sport|preset:Swimming)
 msgid "Swimming"
-msgstr ""
+msgstr "Bơi lội"
 
 #: master_preset.xml:4964(item:name|group:Leisure|preset:Swimming_Pool)
 msgid "Swimming Pool"
-msgstr ""
+msgstr "Hồ bơi"
 
 #: master_preset.xml:8923(list_entry:short_description|group:Clothes|preset:Clothes|value:swimwear)
 msgid "Swimwear"
@@ -6958,7 +6956,7 @@ msgstr ""
 
 #: master_preset.xml:3359(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "T-bar"
-msgstr "T-bar"
+msgstr ""
 
 #: master_preset.xml:1287(list_entry:display_value|group:Ways|preset:Path|value:hiking)
 msgid "T1 - hiking trail"
@@ -7019,7 +7017,7 @@ msgstr ""
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Taoist"
-msgstr "Taoista"
+msgstr "Đạo giáo"
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Tar paper"
@@ -7031,7 +7029,7 @@ msgstr ""
 
 #: master_preset.xml:12399(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Tax"
-msgstr "Tassa"
+msgstr "Thuế"
 
 #: master_preset.xml:12605(item:name|group:Offices|preset:Tax_advisor)
 msgid "Tax advisor"
@@ -7039,7 +7037,7 @@ msgstr ""
 
 #: master_preset.xml:4140(item:name|preset:Taxi)
 msgid "Taxi"
-msgstr "Taxi"
+msgstr "Tắc xi"
 
 #: master_preset.xml:4184(item:name|group:Airport|preset:Taxiway)
 msgid "Taxiway"
@@ -7052,19 +7050,19 @@ msgstr ""
 
 #: master_preset.xml:8758(item:name|group:Food|preset:Tea)
 msgid "Tea"
-msgstr "Thè"
+msgstr "Trà"
 
 #: master_preset.xml:12467(item:name|group:Offices|preset:Telecommunication)
 msgid "Telecommunication"
-msgstr "Telecomunicazione"
+msgstr ""
 
 #: master_preset.xml:6303(item:name|group:Facilities|preset:Telephone)
 msgid "Telephone"
-msgstr "Telefono"
+msgstr "Điện thoại"
 
 #: master_preset.xml:6318(check:text|group:Facilities|preset:Telephone|key:payment:telephone_cards)
 msgid "Telephone cards"
-msgstr "Schede telefoniche"
+msgstr "Thẻ điện thoại"
 
 #: master_preset.xml:9856(list_entry:short_description|preset:Vending_Machine|value:telephone_vouchers)
 msgid "Telephone vouchers"
@@ -7076,7 +7074,7 @@ msgstr ""
 
 #: master_preset.xml:7271(item:name|group:Sport_(Ball)|preset:Tennis)
 msgid "Tennis"
-msgstr "Tennis"
+msgstr "Quần vợt"
 
 #: master_preset.xml:4484(check:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:tents)
 msgid "Tents allowed"
@@ -7084,7 +7082,7 @@ msgstr ""
 
 #: master_preset.xml:224(combo:display_values|key:internet_access)
 msgid "Terminal"
-msgstr "Terminale"
+msgstr ""
 
 #: master_preset.xml:851(item:name|group:Streets|preset:Tertiary)
 msgid "Tertiary"
@@ -7100,7 +7098,7 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Thai"
-msgstr "Thai"
+msgstr "Thái"
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Thatch"
@@ -7116,18 +7114,18 @@ msgstr ""
 
 #: master_preset.xml:5214(item:name|group:Culture|preset:Theatre)
 msgid "Theatre"
-msgstr "Teatro"
+msgstr "Nhà hát"
 
 #: master_preset.xml:5227(combo:text|group:Culture|preset:Theatre|key:theatre:genre)
 #: master_preset.xml:5245(combo:text|group:Culture|preset:Music_theatres|key:theatre:genre)
 #: master_preset.xml:5265(combo:text|group:Culture|preset:Other_theatres|key:theatre:genre)
 #: master_preset.xml:5286(combo:text|group:Culture|preset:Figure/puppet_theatres|key:theatre:genre)
 msgid "Theatre type"
-msgstr "Tipo teatro"
+msgstr ""
 
 #: master_preset.xml:12695(item:name|group:Offices|preset:Therapist)
 msgid "Therapist"
-msgstr "Terapista"
+msgstr ""
 
 #: master_preset.xml:25(list_entry:short_description|value:excellent)
 msgid "Thin Rollers: rollerblade, skateboard"
@@ -7139,11 +7137,11 @@ msgstr ""
 
 #: master_preset.xml:9377(item:name|group:Printed_Material|preset:Ticket)
 msgid "Ticket"
-msgstr ""
+msgstr "Vé"
 
 #: master_preset.xml:3995(item:name|group:Public_Transport|preset:Ticket_Machine)
 msgid "Ticket Machine"
-msgstr ""
+msgstr "Máy vé"
 
 #: master_preset.xml:9851(list_entry:short_description|preset:Vending_Machine|value:public_transport_tickets)
 msgid "Tickets (public transport)"
@@ -7179,7 +7177,7 @@ msgstr ""
 
 #: master_preset.xml:3646(item:name|group:Car|preset:Tires)
 msgid "Tires"
-msgstr ""
+msgstr "Bánh xe"
 
 #: master_preset.xml:9988(text:text|group:Boundaries|preset:Protected_Area|key:protection_title)
 msgid "Title or type of protection"
@@ -7192,13 +7190,13 @@ msgstr ""
 
 #: master_preset.xml:9444(item:name|group:For_the_body|preset:Tobacco)
 msgid "Tobacco"
-msgstr "Tabacco"
+msgstr "Thuốc lá"
 
 #: master_preset.xml:1496(check:text|group:Waypoints|preset:Services|key:toilets)
 #: master_preset.xml:1513(check:text|group:Waypoints|preset:Rest_Area|key:toilets)
 #: master_preset.xml:4454(check:text|group:Accommodation|preset:Wilderness_Hut|key:toilets)
 msgid "Toilets"
-msgstr "Bagni"
+msgstr "Vệ sinh"
 
 #: master_preset.xml:6236(item:name|group:Facilities|preset:Toilets/Restrooms)
 msgid "Toilets/Restrooms"
@@ -7224,7 +7222,7 @@ msgstr ""
 
 #: master_preset.xml:4698(group:name|group:Tourism)
 msgid "Tourism"
-msgstr "Turismo"
+msgstr "Du lịch"
 
 #: master_preset.xml:10592(check:text|group:Nature|preset:Rock|key:tourism)
 msgid "Tourism attraction"
@@ -7236,11 +7234,11 @@ msgstr ""
 
 #: master_preset.xml:7535(item:name|preset:Tower)
 msgid "Tower"
-msgstr "Torre"
+msgstr "Tháp"
 
 #: master_preset.xml:7549(combo:text|preset:Tower|key:tower:type)
 msgid "Tower type"
-msgstr "Tipo torre"
+msgstr ""
 
 #: master_preset.xml:10074(item:name|group:Places|preset:Town)
 msgid "Town"
@@ -7253,11 +7251,11 @@ msgstr ""
 #: master_preset.xml:9697(item:name|group:Other|preset:Toys)
 #: master_preset.xml:9857(list_entry:short_description|preset:Vending_Machine|value:toys)
 msgid "Toys"
-msgstr "Giocattoli"
+msgstr "Đồ chơi"
 
 #: master_preset.xml:1239(item:name|group:Ways|preset:Track)
 msgid "Track"
-msgstr "Traccia"
+msgstr ""
 
 #: master_preset.xml:6940(item:name|group:Sport|preset:Track_and_Field_Athletics)
 msgid "Track and Field Athletics"
@@ -7269,11 +7267,11 @@ msgstr ""
 
 #: master_preset.xml:8924(list_entry:short_description|group:Clothes|preset:Clothes|value:traditional)
 msgid "Traditional"
-msgstr "Tradizionale"
+msgstr "Truyền thống"
 
 #: master_preset.xml:7891(check:text|preset:Monitoring_Station|key:monitoring:traffic)
 msgid "Traffic"
-msgstr "Traffico"
+msgstr ""
 
 #: master_preset.xml:1603(group:name|group:Traffic_Calming)
 #: master_preset.xml:1604(item:name|group:Traffic_Calming|preset:Traffic_Calming)
@@ -7286,17 +7284,17 @@ msgstr ""
 
 #: master_preset.xml:1518(item:name|group:Waypoints|preset:Traffic_Signal)
 msgid "Traffic Signal"
-msgstr "Segnale traffico"
+msgstr "Đèn giao thông"
 
 #: master_preset.xml:3212(check:text|group:Railway|preset:Level_Crossing|key:crossing:light)
 #: master_preset.xml:3235(check:text|group:Railway|preset:Crossing|key:crossing:light)
 msgid "Traffic lights"
-msgstr "Luci traffico"
+msgstr "Đèn giao thông"
 
 #: master_preset.xml:100(list_entry:short_description|value:traffic_signals)
 #: master_preset.xml:11333(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Traffic signals"
-msgstr "Segnali traffico"
+msgstr "Đèn giao thông"
 
 #: master_preset.xml:1287(list_entry:short_description|group:Ways|preset:Path|value:hiking)
 msgid "Trail well cleared. Area flat or slightly sloped, no fall hazard"
@@ -7311,13 +7309,13 @@ msgstr ""
 #: master_preset.xml:3915(check:text|group:Public_Transport|preset:Stop_Position|key:train)
 #: master_preset.xml:3948(check:text|group:Public_Transport|preset:Platform|key:train)
 msgid "Train"
-msgstr ""
+msgstr "Xe lửa"
 
 #: master_preset.xml:3125(item:name|group:Railway|preset:Tram)
 #: master_preset.xml:3913(check:text|group:Public_Transport|preset:Stop_Position|key:tram)
 #: master_preset.xml:3947(check:text|group:Public_Transport|preset:Platform|key:tram)
 msgid "Tram"
-msgstr ""
+msgstr "Tàu điện"
 
 #: master_preset.xml:4066(item:name|group:Public_Transport_(Legacy)|preset:Tram_Stop)
 msgid "Tram Stop"
@@ -7337,27 +7335,27 @@ msgstr ""
 
 #: master_preset.xml:3043(group:name|group:Transport)
 msgid "Transport"
-msgstr "Trasporto"
+msgstr ""
 
 #: master_preset.xml:9673(item:name|group:Other|preset:Travel_Agency)
 msgid "Travel Agency"
-msgstr "Agenzia di viaggio"
+msgstr ""
 
 #: master_preset.xml:12479(item:name|group:Offices|preset:Travel_agent)
 msgid "Travel agent"
-msgstr "Agente di viaggio"
+msgstr ""
 
 #: master_preset.xml:10354(item:name|group:Nature|preset:Tree)
 msgid "Tree"
-msgstr "Albero"
+msgstr "Cây"
 
 #: master_preset.xml:10376(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
-msgstr ""
+msgstr "Hàng cây"
 
 #: master_preset.xml:10672(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
-msgstr "Alberi"
+msgstr "Cây cối"
 
 #: master_preset.xml:8353(check:text|preset:Power_Tower|key:triple_tower)
 msgid "Triple tower"
@@ -7370,7 +7368,7 @@ msgstr ""
 
 #: master_preset.xml:3555(check:text|group:Car|preset:Charging_Station|key:truck)
 msgid "Truck"
-msgstr ""
+msgstr "Xe tải"
 
 #: master_preset.xml:699(item:name|group:Streets|preset:Trunk)
 msgid "Trunk"
@@ -7393,15 +7391,15 @@ msgstr ""
 #: master_preset.xml:725(check:text|group:Streets|preset:Trunk|key:tunnel)
 #: master_preset.xml:753(check:text|group:Streets|preset:Trunk_Link|key:tunnel)
 msgid "Tunnel"
-msgstr "Tunnel"
+msgstr "Đường hầm"
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Turkish"
-msgstr "Turco"
+msgstr "Thổ Nhĩ Kỳ"
 
 #: master_preset.xml:11296(item:name|group:Relations|preset:Turn_Restriction)
 msgid "Turn Restriction"
-msgstr ""
+msgstr "Hạn chế rẽ"
 
 #: master_preset.xml:12169(item:name|group:Crafts|preset:Turner)
 msgid "Turner"
@@ -7479,7 +7477,7 @@ msgstr ""
 #: master_preset.xml:7996(combo:text|group:Bridges|preset:Bridge_Support|key:bridge:support)
 #: master_preset.xml:8485(combo:text|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "Type"
-msgstr "Tipo"
+msgstr ""
 
 #: master_preset.xml:3559(combo:text|group:Car|preset:Charging_Station|key:socket:type1)
 msgid "Type 1 (Yazaki)"
@@ -7528,7 +7526,7 @@ msgstr ""
 #: master_preset.xml:3904(text:text|group:Public_Transport|preset:Stop_Position|key:uic_name)
 #: master_preset.xml:3941(text:text|group:Public_Transport|preset:Platform|key:uic_name)
 msgid "UIC name"
-msgstr "Nome UIC"
+msgstr ""
 
 #: master_preset.xml:3883(text:text|group:Public_Transport|preset:Stop_Area|key:uic_ref)
 #: master_preset.xml:3903(text:text|group:Public_Transport|preset:Stop_Position|key:uic_ref)
@@ -7542,23 +7540,23 @@ msgstr ""
 
 #: master_preset.xml:3528(check:text|group:Car|preset:Fuel|key:payment:uta)
 msgid "UTA"
-msgstr "UTA"
+msgstr ""
 
 #: master_preset.xml:467(list_entry:display_value|value:underprivileged)
 msgid "Underprivileged"
-msgstr "Non privilegiato"
+msgstr ""
 
 #: master_preset.xml:8925(list_entry:short_description|group:Clothes|preset:Clothes|value:underwear)
 msgid "Underwear"
-msgstr ""
+msgstr "Quần lót"
 
 #: master_preset.xml:468(list_entry:display_value|value:unemployed)
 msgid "Unemployed"
-msgstr "Non impiegato"
+msgstr ""
 
 #: master_preset.xml:9472(check:text|group:For_the_body|preset:Hairdresser/Barber|key:unisex)
 msgid "Unisex"
-msgstr "Unisex"
+msgstr ""
 
 #: master_preset.xml:11083(text:text|group:Addresses_and_Contact|preset:Address|key:addr:unit)
 msgid "Unit/Suite"
@@ -7570,7 +7568,7 @@ msgstr ""
 
 #: master_preset.xml:5724(item:name|group:Education|preset:University)
 msgid "University"
-msgstr "Università"
+msgstr ""
 
 #: master_preset.xml:102(list_entry:short_description|value:unmarked)
 msgid "Unmarked"
@@ -7578,11 +7576,11 @@ msgstr ""
 
 #: master_preset.xml:172(list_entry:short_description|value:yes)
 msgid "Unrestricted access"
-msgstr "Accesso illimitato"
+msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "Up"
-msgstr "Su"
+msgstr "Lên"
 
 #: master_preset.xml:12177(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
@@ -7591,7 +7589,7 @@ msgstr ""
 #: master_preset.xml:3058(combo:text|group:Railway|preset:Rail|key:usage)
 #: master_preset.xml:3072(combo:text|group:Railway|preset:Narrow_Gauge_Rail|key:usage)
 msgid "Usage"
-msgstr "Utilizzo"
+msgstr ""
 
 #: master_preset.xml:6261(combo:text|group:Facilities|preset:Toilets/Restrooms|key:toilets:position)
 msgid "Usage Position"
@@ -7600,7 +7598,7 @@ msgstr ""
 #: master_preset.xml:8426(check:text|preset:Power_Line|key:communication)
 #: master_preset.xml:8442(check:text|preset:Power_Cable|key:communication)
 msgid "Used for data communications"
-msgstr "Usato per la comunicazione di dati"
+msgstr ""
 
 #: master_preset.xml:4977(label:text|group:Leisure|preset:Swimming_Pool)
 msgid "Used for the water area only."
@@ -7614,15 +7612,15 @@ msgstr ""
 
 #: master_preset.xml:12716(item:name|group:Offices|preset:Vacant)
 msgid "Vacant"
-msgstr ""
+msgstr "Trống"
 
 #: master_preset.xml:9077(item:name|group:Electronic|preset:Vacuum_Cleaner)
 msgid "Vacuum Cleaner"
-msgstr ""
+msgstr "Máy hút bụi"
 
 #: master_preset.xml:10273(item:name|group:Geography|preset:Valley)
 msgid "Valley"
-msgstr ""
+msgstr "Thung lũng"
 
 #: master_preset.xml:6626(multiselect:text|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Valves"
@@ -7630,7 +7628,7 @@ msgstr ""
 
 #: master_preset.xml:5271(list_entry:display_value|group:Culture|preset:Other_theatres|value:variety)
 msgid "Variety"
-msgstr "Varietà"
+msgstr ""
 
 #: master_preset.xml:9738(item:name|group:Other|preset:Variety_Store)
 msgid "Variety Store"
@@ -7638,11 +7636,11 @@ msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Vegetarian"
-msgstr "Vegetariano"
+msgstr ""
 
 #: master_preset.xml:958(combo:text|group:Streets|preset:Bicycle_Road|key:vehicle)
 msgid "Vehicle access"
-msgstr "Accesso veicolo"
+msgstr ""
 
 #: master_preset.xml:10457(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Veld"
@@ -7659,11 +7657,11 @@ msgstr ""
 #: master_preset.xml:3826(key:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:public_transport:version)
 #: master_preset.xml:4017(key:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:public_transport:version)
 msgid "Version"
-msgstr "Versione"
+msgstr "Phiên bản"
 
 #: master_preset.xml:5897(item:name|group:Health|preset:Veterinary)
 msgid "Veterinary"
-msgstr "Veterinario"
+msgstr ""
 
 #: master_preset.xml:4022(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:via)
 #: master_preset.xml:504(text:text|key:via)
@@ -7672,7 +7670,7 @@ msgstr ""
 
 #: master_preset.xml:469(list_entry:display_value|value:victim)
 msgid "Victims"
-msgstr "Vittime"
+msgstr ""
 
 #: master_preset.xml:9101(item:name|group:Electronic|preset:Video)
 msgid "Video"
@@ -7680,11 +7678,11 @@ msgstr "Video"
 
 #: master_preset.xml:9114(item:name|group:Electronic|preset:Video_Games)
 msgid "Video Games"
-msgstr "Videogiochi"
+msgstr ""
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Vietnamese"
-msgstr "Vietnamita"
+msgstr "Việt Nam"
 
 #: master_preset.xml:4712(item:name|group:Tourism|preset:Viewpoint)
 msgid "Viewpoint"
@@ -7692,7 +7690,7 @@ msgstr ""
 
 #: master_preset.xml:10089(item:name|group:Places|preset:Village)
 msgid "Village"
-msgstr "Paese"
+msgstr "Làng"
 
 #: master_preset.xml:10769(item:name|group:Land_use|preset:Village_Green)
 msgid "Village Green"
@@ -7704,19 +7702,19 @@ msgstr ""
 
 #: master_preset.xml:9896(check:text|preset:Payment_Methods|key:payment:visa)
 msgid "Visa"
-msgstr "Visa"
+msgstr ""
 
 #: master_preset.xml:9885(check:text|preset:Payment_Methods|key:payment:visa_debit)
 msgid "Visa Debit"
-msgstr "Visa debit"
+msgstr ""
 
 #: master_preset.xml:9886(check:text|preset:Payment_Methods|key:payment:visa_electron)
 msgid "Visa Electron"
-msgstr "Visa electron"
+msgstr ""
 
 #: master_preset.xml:6356(combo:text|group:Facilities|preset:Clock|key:visibility)
 msgid "Visibility/readability"
-msgstr "Visibilità/leggibilità"
+msgstr ""
 
 #: master_preset.xml:7698(check:text|preset:Mineshaft|key:headframe)
 msgid "Visible Headframe"
@@ -7728,11 +7726,11 @@ msgstr ""
 
 #: master_preset.xml:10240(item:name|group:Geography|preset:Volcano)
 msgid "Volcano"
-msgstr "Vulcano"
+msgstr "Núi lửa"
 
 #: master_preset.xml:7172(item:name|group:Sport_(Ball)|preset:Volleyball)
 msgid "Volleyball"
-msgstr ""
+msgstr "Bóng chuyền"
 
 #: master_preset.xml:3546(combo:text|group:Car|preset:Charging_Station|key:voltage)
 msgid "Voltage"
@@ -7762,7 +7760,7 @@ msgstr ""
 
 #: master_preset.xml:2018(item:name|group:Barriers|preset:Wall)
 msgid "Wall"
-msgstr "Muro"
+msgstr "Tường"
 
 #: master_preset.xml:3583(item:name|group:Car|preset:Wash)
 msgid "Wash"
@@ -7796,7 +7794,7 @@ msgstr ""
 
 #: master_preset.xml:9710(item:name|group:Other|preset:Watches)
 msgid "Watches"
-msgstr ""
+msgstr "Đồng hồ đeo tay"
 
 #: master_preset.xml:12188(item:name|group:Crafts|preset:Watchmaker)
 msgid "Watchmaker"
@@ -7806,7 +7804,7 @@ msgstr ""
 #: master_preset.xml:2530(group:name|group:Water)
 #: master_preset.xml:437(combo:display_values|key:substance)
 msgid "Water"
-msgstr "Acqua"
+msgstr "Nước"
 
 #: master_preset.xml:2773(combo:text|group:Water|preset:Water|key:water)
 msgid "Water Body"
@@ -7826,7 +7824,7 @@ msgstr ""
 
 #: master_preset.xml:7766(item:name|preset:Water_Tower)
 msgid "Water Tower"
-msgstr ""
+msgstr "Tháp nước"
 
 #: master_preset.xml:8149(item:name|group:Power_Generator|preset:Water_Turbine)
 msgid "Water Turbine"
@@ -7854,7 +7852,7 @@ msgstr ""
 
 #: master_preset.xml:2640(item:name|group:Water|preset:Waterfall)
 msgid "Waterfall"
-msgstr ""
+msgstr "Thác nước"
 
 #: master_preset.xml:2823(label:text|group:Water|preset:Wetland)
 msgid "Waterlogged area, either permanently or seasonally with vegetation."
@@ -7890,7 +7888,7 @@ msgstr ""
 
 #: master_preset.xml:7897(check:text|preset:Monitoring_Station|key:monitoring:weather)
 msgid "Weather"
-msgstr ""
+msgstr "Thời tiết"
 
 #: master_preset.xml:10163(text:text|group:Places|preset:Neighbourhood|key:website)
 #: master_preset.xml:11123(text:text|group:Addresses_and_Contact|preset:Contact|key:website)
@@ -7899,11 +7897,11 @@ msgstr ""
 #: master_preset.xml:3689(text:text|group:Car|preset:Sharing|key:website)
 #: master_preset.xml:8796(text:text|group:Food|preset:Public_Market|key:website)
 msgid "Website"
-msgstr "Sito web"
+msgstr "Trang Web"
 
 #: master_preset.xml:8926(list_entry:short_description|group:Clothes|preset:Clothes|value:wedding)
 msgid "Wedding"
-msgstr "Matrimonio"
+msgstr "Đám cưới"
 
 #: master_preset.xml:2652(item:name|group:Water|preset:Weir)
 msgid "Weir"
@@ -7923,7 +7921,7 @@ msgstr ""
 
 #: master_preset.xml:170(combo:text|key:wheelchair)
 msgid "Wheelchairs"
-msgstr "Sedie a rotelle"
+msgstr "Xe lăn"
 
 #: master_preset.xml:27(list_entry:short_description|value:intermediate)
 msgid "Wheels: city bike, wheelchair, scooter"
@@ -7937,7 +7935,7 @@ msgstr ""
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "White"
-msgstr "Bianco"
+msgstr "Trắng"
 
 #: master_preset.xml:1020(text:text|group:Streets|preset:Pedestrian|key:width)
 #: master_preset.xml:10610(text:text|group:Nature|preset:Stone|key:width)
@@ -7963,7 +7961,7 @@ msgstr "Bianco"
 #: master_preset.xml:83(text:text|key:width)
 #: master_preset.xml:968(text:text|group:Streets|preset:Bicycle_Road|key:width)
 msgid "Width (meters)"
-msgstr ""
+msgstr "Chiều rộng (mét)"
 
 #: master_preset.xml:11129(text:text|group:Addresses_and_Contact|preset:Contact|key:wikipedia)
 #: master_preset.xml:11149(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:wikipedia)
@@ -7990,7 +7988,7 @@ msgstr ""
 
 #: master_preset.xml:7588(item:name|preset:Windmill)
 msgid "Windmill"
-msgstr ""
+msgstr "Máy xay gió"
 
 #: master_preset.xml:12196(item:name|group:Crafts|preset:Window_construction)
 msgid "Window construction"
@@ -8002,7 +8000,7 @@ msgstr ""
 
 #: master_preset.xml:8880(item:name|group:Food|preset:Wine)
 msgid "Wine"
-msgstr "Vino"
+msgstr "Rượu vang"
 
 #: master_preset.xml:12283(item:name|group:Crafts|preset:Winery)
 msgid "Winery"
@@ -8018,11 +8016,11 @@ msgstr ""
 
 #: master_preset.xml:8927(list_entry:short_description|group:Clothes|preset:Clothes|value:women)
 msgid "Women"
-msgstr "Donna"
+msgstr ""
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Wood"
-msgstr "Legno"
+msgstr ""
 
 #: master_preset.xml:10405(label:text|group:Nature|preset:Wood)
 msgid "Woodland where timber production does not dominate use."
@@ -8030,7 +8028,7 @@ msgstr ""
 
 #: master_preset.xml:7565(item:name|preset:Works)
 msgid "Works"
-msgstr "Lavori"
+msgstr ""
 
 #: master_preset.xml:8928(list_entry:short_description|group:Clothes|preset:Clothes|value:workwear)
 msgid "Workwear"
@@ -8038,7 +8036,7 @@ msgstr ""
 
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 msgid "Yellow"
-msgstr "Giallo"
+msgstr "Vàng"
 
 #: master_preset.xml:1161(combo:display_values|group:Streets|preset:Ford|key:ford)
 #: master_preset.xml:217(combo:display_values|key:organic)
@@ -8063,19 +8061,19 @@ msgstr "Giallo"
 #: master_preset.xml:8959(combo:display_values|group:Clothes|preset:Shoes|key:second_hand)
 #: master_preset.xml:9360(combo:display_values|group:Printed_Material|preset:Book_Store|key:second_hand)
 msgid "Yes"
-msgstr "Sì"
+msgstr "Có"
 
 #: master_preset.xml:6220(item:name|group:Social_Facilities|preset:Youth_Centre)
 msgid "Youth Centre"
-msgstr "Centro giovanile"
+msgstr ""
 
 #: master_preset.xml:7941(combo:text|preset:Surveillance_Camera|key:surveillance:zone)
 msgid "Zone"
-msgstr "Zona"
+msgstr "Đới"
 
 #: master_preset.xml:4881(item:name|group:Leisure|preset:Zoo)
 msgid "Zoo"
-msgstr "Zoo"
+msgstr "Vườn bách thú"
 
 #: master_preset.xml:336(combo:display_values|key:religion)
 msgid "Zoroastrian"
@@ -8091,7 +8089,7 @@ msgstr ""
 
 #: master_preset.xml:8154(list_entry:short_description|group:Power_Generator|preset:Water_Turbine|value:francis_turbine)
 msgid "all methods"
-msgstr "tutti i metodi"
+msgstr ""
 
 #: master_preset.xml:8058(list_entry:short_description|group:Power_Generator|preset:Biomass_Power_Generator|value:bioreactor)
 msgid "anaerobic_digestion / combustion"
@@ -8124,7 +8122,7 @@ msgstr ""
 
 #: master_preset.xml:389(combo:text|key:generator:output:biogas)
 msgid "biogas"
-msgstr "biogas"
+msgstr ""
 
 #: master_preset.xml:11664(role:text|preset:Waterway|key:side_stream)
 msgid "branch waterways (no riverbank)"
@@ -8144,19 +8142,19 @@ msgstr ""
 #: master_preset.xml:393(combo:text|key:generator:output:cold_water)
 #: master_preset.xml:8029(combo:text|group:Power|preset:Power_Plant|key:plant:output:cold_water)
 msgid "cold water"
-msgstr "acqua fredda"
+msgstr ""
 
 #: master_preset.xml:8060(list_entry:short_description|group:Power_Generator|preset:Biomass_Power_Generator|value:steam_generator)
 #: master_preset.xml:8061(list_entry:short_description|group:Power_Generator|preset:Biomass_Power_Generator|value:steam_turbine)
 #: master_preset.xml:8143(list_entry:short_description|group:Power_Generator|preset:Waste_Power_Generator|value:reciprocating_engine)
 #: master_preset.xml:8144(list_entry:short_description|group:Power_Generator|preset:Waste_Power_Generator|value:steam_generator)
 msgid "combustion"
-msgstr "combustione"
+msgstr ""
 
 #: master_preset.xml:395(combo:text|key:generator:output:compressed_air)
 #: master_preset.xml:8031(combo:text|group:Power|preset:Power_Plant|key:plant:output:compressed_air)
 msgid "compressed air"
-msgstr "aria compressa"
+msgstr ""
 
 #: master_preset.xml:11684(role:text|preset:Bridge|key:edge)
 msgid "edge ways parallel to 'across'"
@@ -8169,7 +8167,7 @@ msgstr ""
 #: master_preset.xml:390(combo:text|key:generator:output:electricity)
 #: master_preset.xml:8026(combo:text|group:Power|preset:Power_Plant|key:plant:output:electricity)
 msgid "electricity"
-msgstr "elettricità"
+msgstr ""
 
 #: master_preset.xml:11291(role:text|group:Relations|preset:Site|key:entrance)
 msgid "entrances to the site, on the perimeter"
@@ -8234,14 +8232,14 @@ msgstr ""
 
 #: master_preset.xml:3954(check:text|group:Public_Transport|preset:Platform|key:funicular)
 msgid "funicular"
-msgstr "funicolare"
+msgstr ""
 
 #: master_preset.xml:8112(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:cold-fusion)
 #: master_preset.xml:8115(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:ICF)
 #: master_preset.xml:8119(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:stellarator)
 #: master_preset.xml:8120(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:tokamak)
 msgid "fusion"
-msgstr "fusione"
+msgstr ""
 
 #: master_preset.xml:8141(list_entry:short_description|group:Power_Generator|preset:Waste_Power_Generator|value:bioreactor)
 msgid "gasification"
@@ -8254,16 +8252,16 @@ msgstr ""
 #: master_preset.xml:392(combo:text|key:generator:output:hot_air)
 #: master_preset.xml:8028(combo:text|group:Power|preset:Power_Plant|key:plant:output:hot_air)
 msgid "hot air"
-msgstr "aria calda"
+msgstr ""
 
 #: master_preset.xml:391(combo:text|key:generator:output:hot_water)
 #: master_preset.xml:8027(combo:text|group:Power|preset:Power_Plant|key:plant:output:hot_water)
 msgid "hot water"
-msgstr "acqua calda"
+msgstr ""
 
 #: master_preset.xml:11595(role:text|preset:Associated_Street|key:house)
 msgid "house"
-msgstr "casa"
+msgstr ""
 
 #: master_preset.xml:6356(combo:display_values|group:Facilities|preset:Clock|key:visibility)
 msgid "house (up to 5m)"
@@ -8277,7 +8275,7 @@ msgstr ""
 #: master_preset.xml:11422(role:text|group:Routes|preset:Walking_Route|key:)
 #: master_preset.xml:11441(role:text|group:Routes|preset:Riding_Route|key:)
 msgid "infrastructure"
-msgstr "infrastruttura"
+msgstr ""
 
 #: master_preset.xml:11236(role:text|group:Relations|preset:Multipolygon|key:inner)
 #: master_preset.xml:11259(role:text|group:Relations|preset:Boundary|key:inner)
@@ -8304,21 +8302,21 @@ msgstr ""
 
 #: master_preset.xml:11576(role:text|preset:Route_Network|key:)
 msgid "member"
-msgstr "membro"
+msgstr ""
 
 #: master_preset.xml:11292(role:text|group:Relations|preset:Site|key:)
 msgid "members of site"
-msgstr "membri del sito"
+msgstr ""
 
 #: master_preset.xml:11405(role:text|group:Routes|preset:Hiking_Route|key:)
 #: master_preset.xml:11423(role:text|group:Routes|preset:Walking_Route|key:)
 #: master_preset.xml:11442(role:text|group:Routes|preset:Riding_Route|key:)
 msgid "natural"
-msgstr "naturale"
+msgstr ""
 
 #: master_preset.xml:11632(role:text|preset:Destination_Sign|key:intersection)
 msgid "node of the intersection"
-msgstr "nodo dell'intersezione"
+msgstr ""
 
 #: master_preset.xml:11339(role:text|group:Relations|preset:Enforcement|key:from)
 msgid "node on way where enforcement starts"
@@ -8335,13 +8333,13 @@ msgstr ""
 
 #: master_preset.xml:8130(list_entry:short_description|group:Power_Generator|preset:Solar_Power_Generator|value:solar_photovoltaic_panel)
 msgid "photovoltaic"
-msgstr "fotovoltaico"
+msgstr ""
 
 #: master_preset.xml:3834(role:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:platform)
 #: master_preset.xml:3854(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:platform)
 #: master_preset.xml:4035(role:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:platform)
 msgid "platform"
-msgstr "piattaforma"
+msgstr ""
 
 #: master_preset.xml:3836(role:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:platform_entry_only)
 #: master_preset.xml:3856(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:platform_entry_only)
@@ -8361,7 +8359,7 @@ msgstr ""
 #: master_preset.xml:1210(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1228(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "right"
-msgstr "destra"
+msgstr ""
 
 #: master_preset.xml:11360(role:text|group:Routes|preset:Bicycle_Route|key:)
 #: master_preset.xml:11384(role:text|group:Routes|preset:Mountain_Biking_Route|key:)
@@ -8442,7 +8440,7 @@ msgstr ""
 
 #: master_preset.xml:11594(role:text|preset:Associated_Street|key:street)
 msgid "street"
-msgstr "strada"
+msgstr ""
 
 #: master_preset.xml:6356(combo:display_values|group:Facilities|preset:Clock|key:visibility)
 msgid "street (up to 20m)"
@@ -8450,11 +8448,11 @@ msgstr ""
 
 #: master_preset.xml:8132(list_entry:short_description|group:Power_Generator|preset:Solar_Power_Generator|value:steam_turbine)
 msgid "thermal"
-msgstr "termale"
+msgstr ""
 
 #: master_preset.xml:11317(role:text|group:Relations|preset:Turn_Restriction|key:to)
 msgid "to way"
-msgstr ""
+msgstr "đến lối"
 
 #: master_preset.xml:11341(role:text|group:Relations|preset:Enforcement|key:force)
 msgid "traffic light or barrier that stops you"
@@ -8511,7 +8509,7 @@ msgstr ""
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Asphalt"
-msgstr "Asfalto"
+msgstr ""
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -8526,7 +8524,7 @@ msgstr ""
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Concrete"
-msgstr "Concreto"
+msgstr "Bê tông"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -8546,7 +8544,7 @@ msgstr ""
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Grass"
-msgstr "Erba"
+msgstr "Cỏ"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -8566,7 +8564,7 @@ msgstr ""
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Metal"
-msgstr "Metallo"
+msgstr ""
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -8591,7 +8589,7 @@ msgstr ""
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Sand"
-msgstr "Sabbia"
+msgstr "Cát"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -8601,7 +8599,7 @@ msgstr ""
 #: master_preset.xml:20(combo:text|key:surface)
 msgctxt "surface"
 msgid "Surface"
-msgstr "Superficie"
+msgstr ""
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -8611,12 +8609,12 @@ msgstr ""
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Wood"
-msgstr "Legno"
+msgstr ""
 
 #: master_preset.xml:36(combo:text|key:leisure)
 msgctxt "riding"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:87(list_entry:short_description|value:both)
 msgctxt "sidewalk"
@@ -8626,17 +8624,17 @@ msgstr ""
 #: master_preset.xml:90(list_entry:short_description|value:no)
 msgctxt "sidewalk"
 msgid "None"
-msgstr "Nessuno"
+msgstr ""
 
 #: master_preset.xml:88(list_entry:short_description|value:left)
 msgctxt "sidewalk"
 msgid "Only left side"
-msgstr "Solo lato sinistro"
+msgstr ""
 
 #: master_preset.xml:89(list_entry:short_description|value:right)
 msgctxt "sidewalk"
 msgid "Only right side"
-msgstr "Solo lato destro"
+msgstr ""
 
 #: master_preset.xml:86(combo:text|key:sidewalk)
 msgctxt "sidewalk"
@@ -8646,33 +8644,33 @@ msgstr ""
 #: master_preset.xml:110(combo:text|key:electrified)
 msgctxt "electrified"
 msgid "Electrified"
-msgstr "Elettrificato"
+msgstr ""
 
 #: master_preset.xml:3959(item:name|group:Public_Transport|preset:Station)
 #: master_preset.xml:4038(item:name|group:Public_Transport_(Legacy)|preset:Station)
 msgctxt "railway"
 msgid "Station"
-msgstr "Stazione"
+msgstr ""
 
 #: master_preset.xml:116(combo:text|key:tracks)
 msgctxt "railway"
 msgid "Tracks"
-msgstr "Traccie"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "10pin"
-msgstr "10pin"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "9pin"
-msgstr "9pin"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "American football"
-msgstr "Football americano"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8687,7 +8685,7 @@ msgstr ""
 #: master_preset.xml:6751(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Asphalt"
-msgstr "Asfalto"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 #: master_preset.xml:6748(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
@@ -8703,12 +8701,12 @@ msgstr ""
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Baseball"
-msgstr "Baseball"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Basketball"
-msgstr "Basketball"
+msgstr "Bóng rổ"
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8738,7 +8736,7 @@ msgstr ""
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Canoe"
-msgstr "Canoe"
+msgstr ""
 
 #: master_preset.xml:6751(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
@@ -8748,28 +8746,28 @@ msgstr ""
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Climbing"
-msgstr ""
+msgstr "Leo núi"
 
 #: master_preset.xml:6751(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Concrete"
-msgstr "Concreto"
+msgstr "Bê tông"
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Cricket"
-msgstr "Cricket"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Croquet"
-msgstr "Croquet"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 #: master_preset.xml:6748(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Cycling"
-msgstr ""
+msgstr "Xe đạp"
 
 #: master_preset.xml:6751(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
@@ -8806,7 +8804,7 @@ msgstr "Golf"
 #: master_preset.xml:6751(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Grass"
-msgstr "Erba"
+msgstr "Cỏ"
 
 #: master_preset.xml:6751(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
@@ -8816,7 +8814,7 @@ msgstr ""
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Gymnastics"
-msgstr "Ginnastica"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8853,7 +8851,7 @@ msgstr ""
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Motocross"
-msgstr "Motocross"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8868,7 +8866,7 @@ msgstr ""
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Pelota"
-msgstr "Pelota"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8910,7 +8908,7 @@ msgstr ""
 #: master_preset.xml:6751(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Sand"
-msgstr "Sabbia"
+msgstr "Cát"
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8931,23 +8929,23 @@ msgstr ""
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Soccer"
-msgstr "Calcio"
+msgstr "Bóng đá"
 
 #: master_preset.xml:253(combo:text|key:sport)
 #: master_preset.xml:6748(combo:text|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Sport"
-msgstr "Sport"
+msgstr "Thể thao"
 
 #: master_preset.xml:6751(combo:text|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Surface"
-msgstr "Superficie"
+msgstr ""
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Swimming"
-msgstr ""
+msgstr "Bơi lội"
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
@@ -8962,12 +8960,12 @@ msgstr ""
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Tennis"
-msgstr "Tennis"
+msgstr "Quần vợt"
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Volleyball"
-msgstr ""
+msgstr "Bóng chuyền"
 
 #: master_preset.xml:278(combo:display_values|key:parking)
 msgctxt "parking"
@@ -8982,12 +8980,12 @@ msgstr ""
 #: master_preset.xml:278(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Surface"
-msgstr "Superficie"
+msgstr ""
 
 #: master_preset.xml:278(combo:text|key:parking)
 msgctxt "parking"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:278(combo:display_values|key:parking)
 msgctxt "parking"
@@ -8997,7 +8995,7 @@ msgstr ""
 #: master_preset.xml:7525(combo:text|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Access"
-msgstr "Accesso"
+msgstr ""
 
 #: master_preset.xml:2332(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2352(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -9016,13 +9014,13 @@ msgstr ""
 #: master_preset.xml:2332(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 msgctxt "access"
 msgid "All vehicles"
-msgstr "Tutti i veicoli"
+msgstr ""
 
 #: master_preset.xml:2479(combo:display_values|group:Access_Restrictions|preset:General_access|key:access)
 #: master_preset.xml:301(combo:display_values|key:access)
 msgctxt "access"
 msgid "Customers"
-msgstr "Clienti"
+msgstr "Khách hàng"
 
 #: master_preset.xml:2332(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2352(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -9051,7 +9049,7 @@ msgstr ""
 #: master_preset.xml:301(combo:display_values|key:access)
 msgctxt "access"
 msgid "Destination"
-msgstr "Destinazione"
+msgstr "Miêu tả"
 
 #: master_preset.xml:2332(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2352(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -9090,7 +9088,7 @@ msgstr ""
 #: master_preset.xml:2451(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:hgv)
 msgctxt "access"
 msgid "HGV"
-msgstr "HGV"
+msgstr ""
 
 #: master_preset.xml:2352(combo:text|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
 #: master_preset.xml:2371(combo:text|group:Access_Restrictions|preset:Motor_vehicle_(CH)|key:motor_vehicle)
@@ -9108,12 +9106,12 @@ msgstr ""
 #: master_preset.xml:2432(combo:text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle)
 msgctxt "access"
 msgid "Motorcycle"
-msgstr ""
+msgstr "Xe máy"
 
 #: master_preset.xml:7525(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "No"
-msgstr "No"
+msgstr "Không"
 
 #: master_preset.xml:2332(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2352(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -9127,7 +9125,7 @@ msgstr "No"
 #: master_preset.xml:301(combo:display_values|key:access)
 msgctxt "access"
 msgid "No access"
-msgstr "Nessun accesso"
+msgstr ""
 
 #: master_preset.xml:2332(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2352(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -9141,7 +9139,7 @@ msgstr "Nessun accesso"
 #: master_preset.xml:301(combo:display_values|key:access)
 msgctxt "access"
 msgid "Permissive"
-msgstr "Permissivo"
+msgstr ""
 
 #: master_preset.xml:2332(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2352(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -9156,12 +9154,12 @@ msgstr "Permissivo"
 #: master_preset.xml:7525(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Private"
-msgstr "Privato"
+msgstr "Cá nhân"
 
 #: master_preset.xml:7525(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Yes"
-msgstr "Sì"
+msgstr "Có"
 
 #: master_preset.xml:8351(combo:text|preset:Power_Tower|key:branch:type)
 msgctxt "power"
@@ -9171,7 +9169,7 @@ msgstr ""
 #: master_preset.xml:360(combo:text|key:location)
 msgctxt "power"
 msgid "Location"
-msgstr "Posizioni"
+msgstr ""
 
 #: master_preset.xml:8424(combo:text|preset:Power_Line|key:wires)
 msgctxt "power"
@@ -9191,7 +9189,7 @@ msgstr ""
 #: master_preset.xml:8350(combo:text|preset:Power_Tower|key:tower:type)
 msgctxt "power"
 msgid "Tower type"
-msgstr "Tipo torre"
+msgstr ""
 
 #: master_preset.xml:8288(combo:text|preset:Power_Compensator|key:compensator)
 msgctxt "power"
@@ -9226,7 +9224,7 @@ msgstr ""
 #: master_preset.xml:440(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Pole"
-msgstr ""
+msgstr "Cột"
 
 #: master_preset.xml:440(combo:text|key:support)
 msgctxt "mounting/support"
@@ -9276,7 +9274,7 @@ msgstr ""
 #: master_preset.xml:533(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid "Yes"
-msgstr "Sì"
+msgstr "Có"
 
 #: master_preset.xml:560(list_entry:short_description|value:chiropractic)
 msgctxt "healthcare"
@@ -9379,7 +9377,7 @@ msgstr ""
 #: master_preset.xml:8586(combo:text|group:Historic_Places|preset:Wayside_Shrine|key:building)
 msgctxt "building"
 msgid "Building"
-msgstr ""
+msgstr "Tòa nhà"
 
 #: master_preset.xml:586(combo:text|key:building:frame:material)
 msgctxt "building"
@@ -9436,7 +9434,7 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Church"
-msgstr "Chiesa"
+msgstr "Nhà thờ"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
@@ -9453,25 +9451,25 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "College"
-msgstr ""
+msgstr "Trường Cao đẳng"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Commercial"
-msgstr "Commerciale"
+msgstr ""
 
 #: master_preset.xml:586(combo:display_values|key:building:frame:material)
 #: master_preset.xml:590(combo:display_values|key:building:wall:material)
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Concrete"
-msgstr "Concreto"
+msgstr "Bê tông"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Construction"
-msgstr "Costruzione"
+msgstr "Xây dựng"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9502,7 +9500,7 @@ msgstr ""
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Education"
-msgstr "Educazione"
+msgstr "Giáo dục"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
@@ -9556,7 +9554,7 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Garages"
-msgstr "Garage"
+msgstr ""
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9573,12 +9571,12 @@ msgstr ""
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Glass"
-msgstr "Vetro"
+msgstr ""
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Government"
-msgstr "Governo"
+msgstr ""
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9605,13 +9603,13 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Hospital"
-msgstr "Ospedale"
+msgstr "Bệnh viện"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 #: master_preset.xml:7411(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Hotel"
-msgstr "Hotel"
+msgstr "Khách sạn"
 
 #: master_preset.xml:7411(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
@@ -9627,7 +9625,7 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Industrial"
-msgstr "Industriale"
+msgstr ""
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9691,7 +9689,7 @@ msgstr ""
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Metal"
-msgstr "Metallo"
+msgstr ""
 
 #: master_preset.xml:586(combo:display_values|key:building:frame:material)
 #: master_preset.xml:590(combo:display_values|key:building:wall:material)
@@ -9715,7 +9713,7 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Mosque"
-msgstr "Moschea"
+msgstr ""
 
 #: master_preset.xml:586(combo:display_values|key:building:frame:material)
 #: master_preset.xml:590(combo:display_values|key:building:wall:material)
@@ -9739,7 +9737,7 @@ msgstr ""
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Parking"
-msgstr "Parcheggio"
+msgstr "Đậu xe"
 
 #: master_preset.xml:586(combo:display_values|key:building:frame:material)
 #: master_preset.xml:590(combo:display_values|key:building:wall:material)
@@ -9753,13 +9751,13 @@ msgstr ""
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Plastic"
-msgstr "Plastica"
+msgstr "Chất dẻo"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Public"
-msgstr "Pubblico"
+msgstr "Công cộng"
 
 #: master_preset.xml:617(list_entry:short_description|value:pyramdial)
 msgctxt "building"
@@ -9774,17 +9772,17 @@ msgstr ""
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Railway"
-msgstr ""
+msgstr "Đường sắt"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Religious"
-msgstr "Religioso"
+msgstr ""
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Research"
-msgstr "Ricerca"
+msgstr "Nghiên cứu"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 #: master_preset.xml:7411(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
@@ -9796,7 +9794,7 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Retail"
-msgstr ""
+msgstr "Bán lẻ"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 #: master_preset.xml:7411(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
@@ -9828,7 +9826,7 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Ruins"
-msgstr "Rovine"
+msgstr ""
 
 #: master_preset.xml:619(list_entry:short_description|value:saltbox)
 #: master_preset.xml:7497(item:name|group:Roof_type|preset:Saltbox)
@@ -9846,7 +9844,7 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "School"
-msgstr "Scuola"
+msgstr "Nhà trường"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
@@ -9878,7 +9876,7 @@ msgstr ""
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Sport"
-msgstr "Sport"
+msgstr "Thể thao"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9897,7 +9895,7 @@ msgstr ""
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Stone"
-msgstr "Pietra"
+msgstr ""
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
@@ -9912,7 +9910,7 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Supermarket"
-msgstr "Supermarket"
+msgstr "Siêu thị"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9948,7 +9946,7 @@ msgstr ""
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Traditional"
-msgstr "Tradizionale"
+msgstr "Truyền thống"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9969,7 +9967,7 @@ msgstr ""
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "University"
-msgstr "Università"
+msgstr ""
 
 #: master_preset.xml:586(combo:display_values|key:building:frame:material)
 #: master_preset.xml:590(combo:display_values|key:building:wall:material)
@@ -9988,12 +9986,12 @@ msgstr ""
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Wood"
-msgstr "Legno"
+msgstr ""
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
 msgid "Yes"
-msgstr "Sì"
+msgstr "Có"
 
 #: master_preset.xml:571(combo:text|key:roof:levels)
 msgctxt "roof_levels"
@@ -10024,7 +10022,7 @@ msgstr ""
 #: master_preset.xml:1141(combo:text|group:Streets|preset:Roundabout|key:highway)
 msgctxt "Highway"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:1296(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
@@ -10059,7 +10057,7 @@ msgstr ""
 #: master_preset.xml:1296(combo:text|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Visibility"
-msgstr "Visibilità"
+msgstr "Mức xuất hiện"
 
 #: master_preset.xml:1339(combo:text|group:Ways|preset:Cycle_Lane/Track|key:cycleway)
 msgctxt "cycleway"
@@ -10089,12 +10087,12 @@ msgstr ""
 #: master_preset.xml:1414(combo:text|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:1694(item:name|group:Traffic_Calming|preset:Island)
 msgctxt "traffic_calming"
 msgid "Island"
-msgstr "Isola"
+msgstr "Đảo"
 
 #: master_preset.xml:1726(item:name|group:Traffic_Calming|preset:Table)
 msgctxt "traffic_calming"
@@ -10119,7 +10117,7 @@ msgstr ""
 #: master_preset.xml:1911(combo:display_values|group:Barriers|preset:Bollard|key:material)
 msgctxt "material"
 msgid "Concrete"
-msgstr "Concreto"
+msgstr "Bê tông"
 
 #: master_preset.xml:2005(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -10135,23 +10133,23 @@ msgstr ""
 #: master_preset.xml:8389(combo:text|preset:Pole_with_Transformer|key:material)
 msgctxt "material"
 msgid "Material"
-msgstr "Materiale"
+msgstr ""
 
 #: master_preset.xml:1911(combo:display_values|group:Barriers|preset:Bollard|key:material)
 #: master_preset.xml:2005(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Metal"
-msgstr "Metallo"
+msgstr ""
 
 #: master_preset.xml:1911(combo:display_values|group:Barriers|preset:Bollard|key:material)
 msgctxt "material"
 msgid "Plastic"
-msgstr "Plastica"
+msgstr "Chất dẻo"
 
 #: master_preset.xml:2005(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Pole"
-msgstr ""
+msgstr "Cột"
 
 #: master_preset.xml:2005(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -10161,12 +10159,12 @@ msgstr ""
 #: master_preset.xml:1911(combo:display_values|group:Barriers|preset:Bollard|key:material)
 msgctxt "material"
 msgid "Stone"
-msgstr "Pietra"
+msgstr ""
 
 #: master_preset.xml:2005(combo:text|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:2005(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -10177,7 +10175,7 @@ msgstr ""
 #: master_preset.xml:2005(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Wood"
-msgstr "Legno"
+msgstr ""
 
 #: master_preset.xml:2069(item:name|group:Barriers|preset:Ditch)
 msgctxt "Barrier"
@@ -10197,17 +10195,17 @@ msgstr ""
 #: master_preset.xml:2145(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:2757(item:name|group:Water|preset:Water)
 msgctxt "natural"
 msgid "Water"
-msgstr "Acqua"
+msgstr "Nước"
 
 #: master_preset.xml:10395(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
 msgid "Wood"
-msgstr "Legno"
+msgstr ""
 
 #: master_preset.xml:2903(combo:text|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgctxt "cargo"
@@ -10218,17 +10216,17 @@ msgstr ""
 #: master_preset.xml:3237(combo:text|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "crossing:barrier"
 msgid "Barrier"
-msgstr "Barriera"
+msgstr ""
 
 #: master_preset.xml:3393(item:name|group:Aerialway|preset:Station)
 msgctxt "aerialway"
 msgid "Station"
-msgstr "Stazione"
+msgstr ""
 
 #: master_preset.xml:7330(combo:text|group:Motorsport|preset:Model_Aerodrome|key:leisure)
 msgctxt "aerialway"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:3617(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
 #: master_preset.xml:3724(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
@@ -10239,37 +10237,37 @@ msgstr ""
 #: master_preset.xml:4279(item:name|group:Airport|preset:Gate)
 msgctxt "airport"
 msgid "Gate"
-msgstr ""
+msgstr "Cổng"
 
 #: master_preset.xml:4266(item:name|group:Airport|preset:Terminal)
 msgctxt "airport"
 msgid "Terminal"
-msgstr "Terminale"
+msgstr ""
 
 #: master_preset.xml:5090(combo:text|group:Leisure|preset:Public_Grill|key:fuel)
 msgctxt "grill"
 msgid "Fuel"
-msgstr ""
+msgstr "Xăng"
 
 #: master_preset.xml:5381(combo:text|group:Place_of_Worship|preset:Church|key:denomination)
 msgctxt "christian"
 msgid "Denomination"
-msgstr "Denominazione"
+msgstr "Giáo hội"
 
 #: master_preset.xml:5429(combo:text|group:Place_of_Worship|preset:Synagogue|key:denomination)
 msgctxt "jewish"
 msgid "Denomination"
-msgstr "Denominazione"
+msgstr "Giáo hội"
 
 #: master_preset.xml:7743(combo:text|preset:Pipeline|key:location)
 msgctxt "pipeline"
 msgid "Location"
-msgstr "Posizioni"
+msgstr ""
 
 #: master_preset.xml:5990(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:type)
 msgctxt "pipeline"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:5996(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:position)
 msgctxt "hydrant position"
@@ -10285,19 +10283,19 @@ msgstr ""
 #: master_preset.xml:6276(check:text|group:Facilities|preset:Shower|key:female)
 msgctxt "restroom"
 msgid "Female"
-msgstr "Donna"
+msgstr "Phụ nữa"
 
 #: master_preset.xml:6252(check:text|group:Facilities|preset:Toilets/Restrooms|key:male)
 #: master_preset.xml:6277(check:text|group:Facilities|preset:Shower|key:male)
 msgctxt "restroom"
 msgid "Male"
-msgstr "Uomo"
+msgstr "Nam"
 
 #: master_preset.xml:6253(check:text|group:Facilities|preset:Toilets/Restrooms|key:unisex)
 #: master_preset.xml:6278(check:text|group:Facilities|preset:Shower|key:unisex)
 msgctxt "restroom"
 msgid "Unisex"
-msgstr "Unisex"
+msgstr ""
 
 #: master_preset.xml:6317(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 #: master_preset.xml:9875(check:text|preset:Payment_Methods|key:payment:notes)
@@ -10353,7 +10351,7 @@ msgstr ""
 #: master_preset.xml:6812(item:name|group:Golf|preset:Bunker)
 msgctxt "golf"
 msgid "Bunker"
-msgstr "Bunker"
+msgstr ""
 
 #: master_preset.xml:6876(item:name|group:Golf|preset:Driving_range)
 msgctxt "golf"
@@ -10410,7 +10408,7 @@ msgstr ""
 #: master_preset.xml:6953(combo:text|group:Sport|preset:Running|key:leisure)
 msgctxt "running"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:6977(combo:text|group:Sport|preset:Cycling|key:leisure)
 #: master_preset.xml:6984(combo:text|group:Sport|preset:Dog_Racing|key:leisure)
@@ -10422,7 +10420,7 @@ msgstr "Tipo"
 #: master_preset.xml:7348(combo:text|group:Motorsport|preset:RC_Car|key:leisure)
 msgctxt "racing"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:7068(combo:text|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
@@ -10437,12 +10435,12 @@ msgstr ""
 #: master_preset.xml:7524(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Emergency"
-msgstr "Emergenza"
+msgstr "Khẩn cấp"
 
 #: master_preset.xml:7524(combo:text|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Entrance"
-msgstr "Entrata"
+msgstr "Lối vào"
 
 #: master_preset.xml:7524(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
@@ -10467,7 +10465,7 @@ msgstr ""
 #: master_preset.xml:7524(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Yes"
-msgstr "Sì"
+msgstr "Có"
 
 #: master_preset.xml:7642(combo:text|preset:Storage_Tank|key:content)
 msgctxt "content"
@@ -10477,7 +10475,7 @@ msgstr ""
 #: master_preset.xml:7950(combo:text|preset:Surveillance_Camera|key:camera:type)
 msgctxt "camera:type"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:7951(combo:text|preset:Surveillance_Camera|key:camera:mount)
 msgctxt "camera:mount"
@@ -10497,7 +10495,7 @@ msgstr ""
 #: master_preset.xml:8440(combo:text|preset:Power_Cable|key:location)
 msgctxt "power cable"
 msgid "Location"
-msgstr "Posizioni"
+msgstr ""
 
 #: master_preset.xml:8544(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -10522,12 +10520,12 @@ msgstr ""
 #: master_preset.xml:8544(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Stone"
-msgstr "Pietra"
+msgstr ""
 
 #: master_preset.xml:8544(combo:text|group:Historic_Places|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:8544(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -10542,7 +10540,7 @@ msgstr ""
 #: master_preset.xml:10439(combo:text|group:Nature|preset:Cutline|key:cutline)
 msgctxt "cutline"
 msgid "Type"
-msgstr "Tipo"
+msgstr "Kiểu"
 
 #: master_preset.xml:10640(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -10557,7 +10555,7 @@ msgstr ""
 #: master_preset.xml:10640(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Grass"
-msgstr "Erba"
+msgstr "Cỏ"
 
 #: master_preset.xml:10640(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -10602,7 +10600,7 @@ msgstr ""
 #: master_preset.xml:11190(text:text|group:Annotation|preset:Note|key:note)
 msgctxt "the tag note=*"
 msgid "Note"
-msgstr "Nota"
+msgstr ""
 
 #: master_preset.xml:11188(label:text|group:Annotation|preset:Note)
 msgctxt "note=*"
@@ -10619,9 +10617,9 @@ msgstr ""
 #: master_preset.xml:12703(item:name|group:Offices|preset:Religion)
 msgctxt "office"
 msgid "Religion"
-msgstr "Religione"
+msgstr "Tôn giáo"
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)
 msgid "translator-credits"
-msgstr "Giuseppe Pignataro a.k.a. Fastbyte01"
+msgstr ""

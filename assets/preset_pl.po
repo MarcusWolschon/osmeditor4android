@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-05-13 13:38+0200\n"
-"PO-Revision-Date: 2017-05-13 11:52+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-06-22 16:01+0000\n"
+"Last-Translator: Teiron\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: master_preset.xml:8237(label:text|preset:Power_Switchgear)
 msgid ""
@@ -165,7 +165,7 @@ msgstr ""
 msgid ""
 "A persistent body of dense ice that is constantly moving under its own "
 "weight."
-msgstr ""
+msgstr "Długookresowe ciało złożone z upakowanego lodu, ciągle zsuwające się pod wpływem własnego ciężaru."
 
 #: master_preset.xml:2634(label:text|group:Water|preset:Spring)
 msgid ""
@@ -203,7 +203,7 @@ msgstr "Opuszczone tory"
 
 #: master_preset.xml:456(list_entry:display_value|value:abused)
 msgid "Abused"
-msgstr ""
+msgstr "Ofiary przemocy fizycznej i psychicznej"
 
 #: master_preset.xml:283(combo:text|key:access)
 #: master_preset.xml:518(combo:text|key:access)
@@ -234,7 +234,7 @@ msgstr ""
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Acrylic glass"
-msgstr ""
+msgstr "Szkło akrylowe"
 
 #: master_preset.xml:11057(item:name|group:Addresses_and_Contact|preset:Address)
 msgid "Address"
@@ -298,7 +298,7 @@ msgstr "Przedział wiekowy (np.6-12)"
 
 #: master_preset.xml:2520(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:agricultural)
 msgid "Agricultural"
-msgstr ""
+msgstr "Pojazdy rolnicze"
 
 #: master_preset.xml:11703(item:name|group:Crafts|preset:Agricultural_engines)
 msgid "Agricultural engines"
@@ -527,7 +527,7 @@ msgstr "Futbol australijski"
 
 #: master_preset.xml:3573(label:text|group:Car|preset:Charging_Station)
 msgid "Authentication:"
-msgstr ""
+msgstr "Uwierzytelnienie: "
 
 #: master_preset.xml:7903(check:text|preset:Monitoring_Station|key:recording:automated)
 msgid "Automated"
@@ -672,7 +672,7 @@ msgstr "Plaża"
 
 #: master_preset.xml:4949(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
-msgstr ""
+msgstr "Resort nadmorski"
 
 #: master_preset.xml:7180(item:name|group:Sport_(Ball)|preset:Beach_Volleyball)
 msgid "Beach Volleyball"
@@ -1925,7 +1925,7 @@ msgstr ""
 
 #: master_preset.xml:458(list_entry:display_value|value:disabled)
 msgid "Disabled"
-msgstr ""
+msgstr "Niepełnosprawni"
 
 #: master_preset.xml:9893(check:text|preset:Payment_Methods|key:payment:discover_card)
 msgid "Discover Card"
@@ -2190,7 +2190,7 @@ msgstr "Telefon alarmowy"
 
 #: master_preset.xml:5892(text:text|group:Health|preset:Emergency_Access_Point|key:emergency_telephone_code)
 msgid "Emergency Phone Number"
-msgstr ""
+msgstr "Numer Alarmowy"
 
 #: master_preset.xml:1040(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Emergency access"
@@ -2258,7 +2258,7 @@ msgstr "Agencja nieruchomości"
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Eternit"
-msgstr ""
+msgstr "Eternit"
 
 #: master_preset.xml:8114(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:EPR)
 msgid "European Pressurized Reactor (EPR)"
@@ -2282,7 +2282,7 @@ msgstr "Wyjątki"
 
 #: master_preset.xml:6654(item:name|group:Facilities|preset:Excrement_Bags)
 msgid "Excrement Bags"
-msgstr ""
+msgstr "Worki Na Odchody"
 
 #: master_preset.xml:9842(list_entry:short_description|preset:Vending_Machine|value:excrement_bags)
 msgid "Excrement bags"
@@ -2469,7 +2469,7 @@ msgstr "Bank Żywności"
 
 #: master_preset.xml:4563(item:name|group:Food+Drinks|preset:Food_Court)
 msgid "Food Court"
-msgstr ""
+msgstr "Punkt gastronomiczny"
 
 #: master_preset.xml:4511(group:name|group:Food+Drinks)
 msgid "Food+Drinks"
@@ -2498,7 +2498,7 @@ msgstr "Dla grupy"
 
 #: master_preset.xml:157(combo:long_text|key:level)
 msgid "For indoor mapping, level 0 is the ground floor"
-msgstr ""
+msgstr "Dla celów mapowania wnętrz poziom 0 oznacza pierwsze piętro nad poziomem terenu"
 
 #: master_preset.xml:9392(group:name|group:For_the_body)
 msgid "For the body"
@@ -2845,7 +2845,7 @@ msgstr "TIR"
 
 #: master_preset.xml:2453(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:hgv:conditional)
 msgid "HGV @"
-msgstr ""
+msgstr "TIR @"
 
 #: master_preset.xml:330(list_entry:short_description|value:mixed)
 msgid "Habitat with evergreen and deciduous vegetation."
@@ -3215,7 +3215,7 @@ msgstr "Okresowe"
 #: master_preset.xml:11495(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "International"
-msgstr ""
+msgstr "Międzynarodowe"
 
 #: master_preset.xml:11052(text:text|group:Addresses_and_Contact|preset:Name|key:int_name)
 msgid "International name"
@@ -3396,7 +3396,7 @@ msgstr "Wysypisko"
 
 #: master_preset.xml:1167(group:name|group:Lane_attributes)
 msgid "Lane attributes"
-msgstr ""
+msgstr "Atrybuty pasów"
 
 #: master_preset.xml:1144(combo:text|group:Streets|preset:Roundabout|key:lanes)
 #: master_preset.xml:40(combo:text|key:lanes)
@@ -3405,11 +3405,11 @@ msgstr "Pasy Ruchu"
 
 #: master_preset.xml:42(combo:text|key:lanes:backward)
 msgid "Lanes ←"
-msgstr ""
+msgstr "Pasy ←"
 
 #: master_preset.xml:41(combo:text|key:lanes:forward)
 msgid "Lanes →"
-msgstr ""
+msgstr "Pasy →"
 
 #: master_preset.xml:2849(label:text|group:Water|preset:Mud)
 msgid "Large area covered with mud."
@@ -3478,7 +3478,7 @@ msgstr "Długość w metrach"
 
 #: master_preset.xml:157(combo:text|key:level)
 msgid "Level"
-msgstr ""
+msgstr "Poziom/Piętro"
 
 #: master_preset.xml:3195(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
@@ -3688,7 +3688,7 @@ msgstr ""
 
 #: master_preset.xml:45(text:text|key:maxspeed)
 msgid "Max speed"
-msgstr ""
+msgstr "Prędkość maks."
 
 #: master_preset.xml:47(combo:text|key:maxspeed:conditional)
 msgid "Max speed @"
@@ -3708,7 +3708,7 @@ msgstr ""
 
 #: master_preset.xml:51(text:text|key:maxspeed:backward)
 msgid "Max speed ←"
-msgstr ""
+msgstr "Prędkość maks. ←"
 
 #: master_preset.xml:53(combo:text|key:maxspeed:backwardward:conditional)
 msgid "Max speed ← @"
@@ -3716,7 +3716,7 @@ msgstr ""
 
 #: master_preset.xml:48(text:text|key:maxspeed:forward)
 msgid "Max speed →"
-msgstr ""
+msgstr "Prędkość maks. →"
 
 #: master_preset.xml:50(combo:text|key:maxspeed:forward:conditional)
 msgid "Max speed → @"
@@ -4442,7 +4442,7 @@ msgstr "Rezerwat"
 
 #: master_preset.xml:8485(combo:display_values|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "Necropolis"
-msgstr ""
+msgstr "Nekropolia"
 
 #: master_preset.xml:10151(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
@@ -4646,7 +4646,7 @@ msgstr "Liczba słupków"
 
 #: master_preset.xml:4877(text:text|group:Leisure|preset:Movie_Theater/Cinema|key:screen)
 msgid "Number of screens"
-msgstr ""
+msgstr "Liczba ekranów"
 
 #: master_preset.xml:1441(text:text|group:Ways|preset:Steps|key:step_count)
 msgid "Number of steps"
@@ -4935,7 +4935,7 @@ msgstr "Ogródek"
 
 #: master_preset.xml:11275(role:text|group:Relations|preset:Building|key:outline)
 msgid "Outline of building"
-msgstr ""
+msgstr "Kontur budynku"
 
 #: master_preset.xml:8025(optional:text|group:Power|preset:Power_Plant)
 msgid "Output forms of energy (optional):"
@@ -5125,7 +5125,7 @@ msgstr "Pelota"
 
 #: master_preset.xml:338(combo:display_values|key:denomination)
 msgid "Pentecostal"
-msgstr ""
+msgstr "Zielonoświątkowcy"
 
 #: master_preset.xml:9418(item:name|group:For_the_body|preset:Perfumery)
 msgid "Perfumery"
@@ -5737,7 +5737,7 @@ msgstr "Rampa"
 
 #: master_preset.xml:6046(text:text|group:Emergency|preset:Siren|key:siren:range)
 msgid "Range (in meters)"
-msgstr ""
+msgstr "Zasięg (metry)"
 
 #: master_preset.xml:5627(item:name|group:Public_Building|preset:Ranger_Station)
 msgid "Ranger Station"
@@ -6091,7 +6091,7 @@ msgstr ""
 
 #: master_preset.xml:7430(group:name|group:Roof_type)
 msgid "Roof type"
-msgstr ""
+msgstr "Kształt dachu"
 
 #: master_preset.xml:12051(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
@@ -9013,7 +9013,7 @@ msgstr "Dostępność"
 #: master_preset.xml:301(combo:display_values|key:access)
 msgctxt "access"
 msgid "Agricultural"
-msgstr ""
+msgstr "Pojazdy rolnicze"
 
 #: master_preset.xml:2332(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 msgctxt "access"
@@ -9238,7 +9238,7 @@ msgstr ""
 #: master_preset.xml:440(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Wall mounted"
-msgstr ""
+msgstr "Przytwierdzony do ściany"
 
 #: master_preset.xml:3869(combo:text|group:Public_Transport|preset:Route_Master|key:colour)
 #: master_preset.xml:4026(combo:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:colour)
@@ -9348,7 +9348,7 @@ msgstr "Urologia"
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Agricultural"
-msgstr ""
+msgstr "Pojazdy rolnicze"
 
 #: master_preset.xml:7411(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
@@ -9370,7 +9370,7 @@ msgstr "Bazylika"
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Brick"
-msgstr ""
+msgstr "Cegła"
 
 #: master_preset.xml:4245(combo:text|group:Airport|preset:Hangar|key:building)
 #: master_preset.xml:7387(combo:text|group:Man_Made|preset:Building|key:building)
@@ -9406,7 +9406,7 @@ msgstr ""
 #: master_preset.xml:590(combo:text|key:building:wall:material)
 msgctxt "building"
 msgid "Building wall material"
-msgstr ""
+msgstr "Materiał ścian budynku"
 
 #: master_preset.xml:7411(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
@@ -9494,7 +9494,7 @@ msgstr "Dom jednorodzinny"
 #: master_preset.xml:7431(item:name|group:Roof_type|preset:Dome)
 msgctxt "building"
 msgid "Dome"
-msgstr ""
+msgstr "Kopułowy"
 
 #: master_preset.xml:7411(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
@@ -9514,7 +9514,7 @@ msgstr "Jeździectwo"
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Exhibition"
-msgstr ""
+msgstr "Wystawa"
 
 #: master_preset.xml:7411(combo:display_values|group:Man_Made|preset:Residential_Building|key:building)
 msgctxt "building"
@@ -9530,7 +9530,7 @@ msgstr ""
 #: master_preset.xml:7437(item:name|group:Roof_type|preset:Flat)
 msgctxt "building"
 msgid "Flat"
-msgstr ""
+msgstr "Płaski"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
@@ -9541,7 +9541,7 @@ msgstr ""
 #: master_preset.xml:7443(item:name|group:Roof_type|preset:Gabled)
 msgctxt "building"
 msgid "Gabled"
-msgstr ""
+msgstr "Dwuspadowy"
 
 #: master_preset.xml:612(list_entry:short_description|value:gambrel)
 #: master_preset.xml:7450(item:name|group:Roof_type|preset:Gambrel)
@@ -9591,7 +9591,7 @@ msgstr "Szklarnia"
 #: master_preset.xml:7457(item:name|group:Roof_type|preset:Half-hipped)
 msgctxt "building"
 msgid "Half-hipped"
-msgstr ""
+msgstr "Naczułkowy"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9602,7 +9602,7 @@ msgstr "Hangar"
 #: master_preset.xml:7464(item:name|group:Roof_type|preset:Hipped)
 msgctxt "building"
 msgid "Hipped"
-msgstr ""
+msgstr "Czterospadowy"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9651,7 +9651,7 @@ msgstr "Piętra"
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Limestone"
-msgstr ""
+msgstr "Wapienny"
 
 #: master_preset.xml:586(combo:display_values|key:building:frame:material)
 #: master_preset.xml:590(combo:display_values|key:building:wall:material)
@@ -9664,7 +9664,7 @@ msgstr ""
 #: master_preset.xml:7471(item:name|group:Roof_type|preset:Mansard)
 msgctxt "building"
 msgid "Mansard"
-msgstr ""
+msgstr "Mansardowy"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9700,7 +9700,7 @@ msgstr "Metal"
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Metal plates"
-msgstr ""
+msgstr "Blaszany"
 
 #: master_preset.xml:598(combo:text|key:min_level)
 msgctxt "building"
@@ -9712,7 +9712,7 @@ msgstr "Najniższe piętro"
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Mirror"
-msgstr ""
+msgstr "Lustrzany"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9766,12 +9766,12 @@ msgstr "Publiczny"
 #: master_preset.xml:617(list_entry:short_description|value:pyramdial)
 msgctxt "building"
 msgid "Pyramdial"
-msgstr ""
+msgstr "Piramidalny"
 
 #: master_preset.xml:7484(item:name|group:Roof_type|preset:Pyramidal)
 msgctxt "building"
 msgid "Pyramidal"
-msgstr ""
+msgstr "Piramidalny"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
@@ -9809,17 +9809,17 @@ msgstr "Dach"
 #: master_preset.xml:570(combo:text|key:roof:colour)
 msgctxt "building"
 msgid "Roof colour"
-msgstr ""
+msgstr "Kolor dachu"
 
 #: master_preset.xml:574(combo:text|key:roof:material)
 msgctxt "building"
 msgid "Roof material"
-msgstr ""
+msgstr "Materiał dachu"
 
 #: master_preset.xml:608(combo:text|key:roof:shape)
 msgctxt "building"
 msgid "Roof type"
-msgstr ""
+msgstr "Kształt dachu"
 
 #: master_preset.xml:618(list_entry:short_description|value:round)
 #: master_preset.xml:7490(item:name|group:Roof_type|preset:Round)
@@ -9843,7 +9843,7 @@ msgstr ""
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Sandstone"
-msgstr ""
+msgstr "Piaskowiec"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -9870,7 +9870,7 @@ msgstr "Schronienie"
 #: master_preset.xml:7504(item:name|group:Roof_type|preset:Skillion)
 msgctxt "building"
 msgid "Skillion"
-msgstr ""
+msgstr "Jednospadowy"
 
 #: master_preset.xml:7427(combo:text|group:Man_Made|preset:Building_part|key:building:min_level)
 msgctxt "building"
@@ -9892,7 +9892,7 @@ msgstr "Stajnia"
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Steel"
-msgstr ""
+msgstr "Stal"
 
 #: master_preset.xml:586(combo:display_values|key:building:frame:material)
 #: master_preset.xml:590(combo:display_values|key:building:wall:material)
@@ -9943,7 +9943,7 @@ msgstr ""
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Tin"
-msgstr ""
+msgstr "Cynk"
 
 #: master_preset.xml:586(combo:display_values|key:building:frame:material)
 #: master_preset.xml:590(combo:display_values|key:building:wall:material)
@@ -9978,7 +9978,7 @@ msgstr "Uniwersytet"
 #: master_preset.xml:607(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Vinyl"
-msgstr ""
+msgstr "Winyl"
 
 #: master_preset.xml:7387(combo:display_values|group:Man_Made|preset:Building|key:building)
 msgctxt "building"
@@ -10000,7 +10000,7 @@ msgstr "Tak"
 #: master_preset.xml:571(combo:text|key:roof:levels)
 msgctxt "roof_levels"
 msgid "Levels (roof)"
-msgstr ""
+msgstr "Poziomy/Piętra (dach)"
 
 #: master_preset.xml:1345(combo:text|group:Ways|preset:Cycle_Lane/Track|key:highway)
 msgctxt "Highway"
