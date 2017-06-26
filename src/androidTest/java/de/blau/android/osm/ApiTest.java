@@ -7,7 +7,10 @@ import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +37,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -117,10 +121,21 @@ public class ApiTest {
     @Test
 	public void dataDownloadMerge() {
     	dataDownload();
+    	
+    	// modify this node
+    	Logic logic = App.getLogic();
+    	Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
+    	Map<String,String> tags = new TreeMap<String,String>(n.getTags());
+    	tags.put(Tags.KEY_NAME,"dietikonBerg");
+    	try {
+			logic.setTags(main, Node.NAME, 101792984L, tags);
+		} catch (OsmIllegalOperationException e1) {
+			Assert.fail(e1.getMessage());
+		}
+    	
     	final CountDownLatch signal = new CountDownLatch(1);
     	mockServer.enqueue("capabilities1");
     	mockServer.enqueue("download2");
-    	Logic logic = App.getLogic();
     	try {
 			logic.downloadBox(main, new BoundingBox(8.3865200D,47.3883000D,8.3838500D,47.3898500D), true, new SignalHandler(signal));
 		} catch (OsmException e) {
@@ -132,6 +147,8 @@ public class ApiTest {
 			Assert.fail(e.getMessage());
 		}
     	Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
+    	n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
+    	n.hasTag(Tags.KEY_NAME,"dietikonBerg");
     	
     	// test timestamp related stuff, no point in making a separate test
     	Node t = (Node) App.getDelegator().getOsmElement(Node.NAME,3465444349L);
@@ -140,6 +157,62 @@ public class ApiTest {
     	Assert.assertEquals(1429452889,t.getTimestamp()); // 2015-04-19T14:14:49Z
     	Assert.assertTrue(t.hasProblem(main));
 	}
+    
+    @Test
+ 	public void dataDownloadMultiFetch() {
+     	final CountDownLatch signal = new CountDownLatch(1);
+     	// mockServer.enqueue("capabilities1");
+     	mockServer.enqueue("multifetch1");
+     	mockServer.enqueue("multifetch2");
+     	mockServer.enqueue("multifetch3");
+     	Logic logic = App.getLogic();
+
+     	List<Long>nodes = new ArrayList<Long>();
+     	nodes.add(Long.valueOf(416083528L));
+     	nodes.add(Long.valueOf(577098580L));
+     	nodes.add(Long.valueOf(577098578L));
+     	nodes.add(Long.valueOf(573380242L));
+     	nodes.add(Long.valueOf(577098597L));
+     	nodes.add(Long.valueOf(984783547L));
+     	nodes.add(Long.valueOf(984784083L));
+     	nodes.add(Long.valueOf(2190871496L));
+     	nodes.add(Long.valueOf(1623520413L));
+     	nodes.add(Long.valueOf(954564305L));
+     	nodes.add(Long.valueOf(990041213L));
+
+     	List<Long>ways = new ArrayList<Long>();
+     	ways.add(Long.valueOf(35479116L));
+     	ways.add(Long.valueOf(35479120L));
+
+     	logic.downloadElements(main, nodes, ways, null, new SignalHandler(signal));
+
+     	try {
+ 			signal.await(30, TimeUnit.SECONDS);
+ 		} catch (InterruptedException e) {
+ 			Assert.fail(e.getMessage());
+ 		}
+     	Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 573380242L));
+     	Assert.assertNotNull(App.getDelegator().getOsmElement(Way.NAME, 35479116L));
+ 	}
+    
+    @Test
+ 	public void dataDownloadElement() {
+     	final CountDownLatch signal = new CountDownLatch(1);
+     	// mockServer.enqueue("capabilities1");
+     	mockServer.enqueue("elementfetch1");
+     	Logic logic = App.getLogic();
+
+     	logic.downloadElement(main, Relation.NAME, 2807173L, true, false, new SignalHandler(signal));
+
+     	try {
+ 			signal.await(30, TimeUnit.SECONDS);
+ 		} catch (InterruptedException e) {
+ 			Assert.fail(e.getMessage());
+ 		}
+     	Assert.assertNotNull(App.getDelegator().getOsmElement(Relation.NAME, 2807173L));
+     	Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 416426192L));
+     	Assert.assertNotNull(App.getDelegator().getOsmElement(Way.NAME, 104364414L));
+ 	}
     
     @Test
 	public void dataUpload() {

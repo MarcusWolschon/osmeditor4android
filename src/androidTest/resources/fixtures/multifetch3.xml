@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.6.0 (3976 thorn-02.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <node id="296055298" visible="true" version="6" changeset="15410822" timestamp="2013-03-18T17:31:26Z" user="SimonPoole" uid="92387" lat="47.3943387" lon="8.3757860"/>
+ <node id="296055299" visible="true" version="6" changeset="15410822" timestamp="2013-03-18T17:31:26Z" user="SimonPoole" uid="92387" lat="47.3942597" lon="8.3758094"/>
+ <node id="416064042" visible="true" version="5" changeset="11922414" timestamp="2012-06-17T07:49:54Z" user="marcschneider" uid="55777" lat="47.3944308" lon="8.3757664"/>
+ <node id="416064044" visible="true" version="6" changeset="11922414" timestamp="2012-06-17T07:49:54Z" user="marcschneider" uid="55777" lat="47.3944881" lon="8.3758006"/>
+ <node id="416064529" visible="true" version="5" changeset="48279066" timestamp="2017-04-30T11:09:03Z" user="SimonPoole" uid="92387" lat="47.3940926" lon="8.3758755"/>
+ <way id="35479116" visible="true" version="9" changeset="48279066" timestamp="2017-04-30T11:09:04Z" user="SimonPoole" uid="92387">
+  <nd ref="416064044"/>
+  <nd ref="416064042"/>
+  <nd ref="296055298"/>
+  <nd ref="296055299"/>
+  <nd ref="416064529"/>
+  <tag k="highway" v="unclassified"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Schönenbergstrasse"/>
+ </way>
+</osm>

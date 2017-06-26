@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.6.0 (7533 thorn-03.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <node id="416083528" visible="true" version="8" changeset="15290439" timestamp="2013-03-08T07:59:34Z" user="d_berger" uid="1234273" lat="47.3941580" lon="8.3804872">
+  <tag k="ele" v="548"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Eichholz"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="shelter" v="yes"/>
+  <tag k="towards" v="Dietikon"/>
+  <tag k="uic_name" v="Kindhausen AG, Eichholz"/>
+  <tag k="uic_ref" v="8590241"/>
+ </node>
+ <node id="573380242" visible="true" version="7" changeset="15290439" timestamp="2013-03-08T07:59:34Z" user="d_berger" uid="1234273" lat="47.3910872" lon="8.3896678">
+  <tag k="ele" v="468"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Bergli"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="shelter" v="no"/>
+  <tag k="towards" v="Dietikon"/>
+  <tag k="uic_name" v="Bergdietikon, Bergli"/>
+  <tag k="uic_ref" v="8590201"/>
+ </node>
+ <node id="577098578" visible="true" version="4" changeset="15290439" timestamp="2013-03-08T07:59:34Z" user="d_berger" uid="1234273" lat="47.3879581" lon="8.3882218">
+  <tag k="ele" v="489"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Bernold"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="shelter" v="yes"/>
+  <tag k="uic_name" v="Bergdietikon, Bernold"/>
+  <tag k="uic_ref" v="8590202"/>
+ </node>
+ <node id="577098580" visible="true" version="4" changeset="15290439" timestamp="2013-03-08T07:59:35Z" user="d_berger" uid="1234273" lat="47.3893208" lon="8.3853346">
+  <tag k="ele" v="518"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Vorbühl"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="shelter" v="yes"/>
+  <tag k="uic_name" v="Bergdietikon, Vorbühl"/>
+  <tag k="uic_ref" v="8590205"/>
+ </node>
+ <node id="577098597" visible="true" version="4" changeset="13483681" timestamp="2012-10-13T19:38:19Z" user="SimonPoole" uid="92387" lat="47.3931062" lon="8.3907821">
+  <tag k="ele" v="448"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Rietwies"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="shelter" v="yes"/>
+  <tag k="uic_name" v="Bergdietikon, Rietwies"/>
+  <tag k="uic_ref" v="8590204"/>
+ </node>
+ <node id="954564305" visible="true" version="5" changeset="22484982" timestamp="2014-05-22T13:41:01Z" user="wheelmap_visitor" uid="290680" lat="47.4048711" lon="8.4033393">
+  <tag k="ele" v="390"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Dietikon, Kirchplatz"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="uic_name" v="Dietikon, Kirchplatz"/>
+  <tag k="uic_ref" v="8590219"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="984783547" visible="true" version="3" changeset="15290439" timestamp="2013-03-08T07:59:33Z" user="d_berger" uid="1234273" lat="47.3924240" lon="8.3927605">
+  <tag k="ele" v="435"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Baltenschwil"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="ref_name" v="Bergdietikon, Baltenschwil"/>
+  <tag k="source" v="Bundesamt für Verkehr (BAV), DIDOK 2009"/>
+  <tag k="uic_name" v="Baltenschwil AG"/>
+  <tag k="uic_ref" v="8587019"/>
+ </node>
+ <node id="984784083" visible="true" version="4" changeset="15290439" timestamp="2013-03-08T07:59:34Z" user="d_berger" uid="1234273" lat="47.3945025" lon="8.3932349">
+  <tag k="ele" v="426"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Dünni"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="source" v="Bundesamt für Verkehr (BAV), DIDOK 2009"/>
+  <tag k="uic_name" v="Bergdietikon, Dünni"/>
+  <tag k="uic_ref" v="8590203"/>
+ </node>
+ <node id="990041213" visible="true" version="4" changeset="15288765" timestamp="2013-03-08T00:17:02Z" user="d_berger" uid="1234273" lat="47.4059698" lon="8.4042352">
+  <tag k="ele" v="388"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Dietikon Bahnhof"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="source" v="Bundesamt für Verkehr (BAV), DIDOK 2009"/>
+  <tag k="uic_name" v="Dietikon, Bahnhof"/>
+  <tag k="uic_ref" v="8587020"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="1623520413" visible="true" version="2" changeset="15284387" timestamp="2013-03-07T17:10:40Z" user="d_berger" uid="1234273" lat="47.4025647" lon="8.4008619">
+  <tag k="ele" v="392"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Dietikon, Stadthaus"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="uic_name" v="Dietikon, Stadthaus"/>
+  <tag k="uic_ref" v="8590223"/>
+ </node>
+ <node id="2190871496" visible="true" version="2" changeset="28865403" timestamp="2015-02-15T15:18:11Z" user="SimonPoole" uid="92387" lat="47.3993378" lon="8.3946681">
+  <tag k="bin" v="yes"/>
+  <tag k="ele" v="403"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Marmoriweiher"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="uic_name" v="Dietikon, Mamori-Weiher"/>
+  <tag k="uic_ref" v="8590220"/>
+ </node>
+</osm>

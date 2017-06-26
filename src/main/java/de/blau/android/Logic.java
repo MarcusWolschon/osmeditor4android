@@ -2483,6 +2483,7 @@ public class Logic {
 	/**
 	 * Return a single element from the API, does not merge into storage, synchronous
 	 * 
+	 * Note: currently doesn't check if the API is available or not
 	 * @param activity the activity that called us
 	 * @param type type of the element
 	 * @param id id of the element
@@ -2524,6 +2525,7 @@ public class Logic {
 					Log.e(DEBUG_TAG, "getElement problem parsing", e);
 					result = ErrorCodes.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
+					result = e.getErrorCode();
 					Log.e(DEBUG_TAG, "getElement problem downloading", e);
 				} catch (IOException e) {
 					result = ErrorCodes.NO_CONNECTION;
@@ -2555,6 +2557,7 @@ public class Logic {
 	/**
 	 * Download a single element from the API and merge
 	 * 
+	 * Note: currently doesn't check if the API is available or not
 	 * @param ctx 				Android context
 	 * @param type 			type of the element
 	 * @param id OSM 			id of the element
@@ -2614,6 +2617,7 @@ public class Logic {
 					Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
 					result = ErrorCodes.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
+					result = e.getErrorCode();
 					Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
 				} catch (IOException e) {
 					result = ErrorCodes.NO_CONNECTION;
@@ -2656,12 +2660,13 @@ public class Logic {
 	/**
 	 * Return multiple elements  from the API and merge them in to our data 
 	 * 
+	 * Note: currently doesn't check if the API is available or not
 	 * @param ctx				Android context
-	 * @param nodes			List containing the node ids
+	 * @param nodes				List containing the node ids
 	 * @param ways				List containing the way ids
-	 * @param relations		List containing the relation ids
+	 * @param relations			List containing the relation ids
 	 * @param postLoadHandler	callback to execute after download completes if null method waits for download to finish
-	 * @return an error code, 0 for succes
+	 * @return an error code, 0 for success
 	 */
 	public synchronized int downloadElements(@NonNull final Context ctx, @Nullable final List<Long>nodes, @Nullable final List<Long>ways, @Nullable final List<Long>relations, @Nullable final PostAsyncActionHandler postLoadHandler) {
 
@@ -2738,13 +2743,13 @@ public class Logic {
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
-					Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
+					Log.e(DEBUG_TAG, "downloadElements problem parsing", e);
 					result = ErrorCodes.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
-					Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
+					Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
 				} catch (IOException e) {
 					result = ErrorCodes.NO_CONNECTION;
-					Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
+					Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
 				}
 				return result;
 			}

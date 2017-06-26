@@ -96,6 +96,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		this.osmId = osmId;
 	}
 
+	/**
+	 * Get the current tags of the element
+	 * 
+	 * @return an unmodifiable map containing the tags
+	 */
 	public SortedMap<String,String> getTags() {
 		if (tags == null) {
 			return Collections.unmodifiableSortedMap(new TreeMap<String, String>()); // for backwards compatibility
