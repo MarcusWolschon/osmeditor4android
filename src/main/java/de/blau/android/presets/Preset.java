@@ -15,6 +15,7 @@ import java.io.PrintStream;
 import java.io.Serializable;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -57,9 +58,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.BaseAdapter;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import ch.poole.poparser.Po;
@@ -242,9 +241,13 @@ public class Preset implements Serializable {
 	 * @param ctx context (used for preset loading)
 	 * @param directory directory to load/store preset data (XML, icons, MRUs)
 	 * @param name of external package containing preset assets for APK presets, null for other presets
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws ParserConfigurationException 
+	 * @throws NoSuchAlgorithmException 
 	 * @throws Exception
 	 */
-	public Preset(Context ctx, File directory, String externalPackage) throws Exception {
+	public Preset(Context ctx, File directory, String externalPackage) throws ParserConfigurationException, SAXException, IOException, NoSuchAlgorithmException {
 		this.directory = directory;
 		this.externalPackage = externalPackage;
 		rootGroup = new PresetGroup(null, "", null);
@@ -255,7 +258,7 @@ public class Preset implements Serializable {
 		InputStream fileStream = null;
 		try {
 			if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
-				Log.i("Preset", "Loading default preset");
+				Log.i(DEBUG_TAG, "Loading default preset");
 				iconManager = new PresetIconManager(ctx, null, null);
 				fileStream = iconManager.openAsset(PRESETXML, true);
 				// get translations
@@ -269,29 +272,28 @@ public class Preset implements Serializable {
 						try {
 							po = new Po(poFileStream);
 						} catch (Exception ignored) {
-							Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+							Log.e(DEBUG_TAG,"Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
 						} catch (Error ignored) {
-							Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+							Log.e(DEBUG_TAG,"Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
 						}
 					}
 				} finally {
 					SavingHelper.close(poFileStream);
 				}
 			} else if (externalPackage != null) {
-				Log.i("Preset", "Loading APK preset, package=" + externalPackage + ", directory="+directory.toString());
+				Log.i(DEBUG_TAG, "Loading APK preset, package=" + externalPackage + ", directory="+directory.toString());
 				iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
 				fileStream = iconManager.openAsset(PRESETXML, false);
 				// po = new Po(iconManager.openAsset("preset_"+Locale.getDefault()+".po", false));
 			} else {
-				Log.i("Preset", "Loading downloaded preset, directory="+directory.toString());
+				Log.i(DEBUG_TAG, "Loading downloaded preset, directory="+directory.toString());
 				iconManager = new PresetIconManager(ctx, directory.toString(), null);
 				File indir = new File(directory.toString());
 				fileStream = null; // force crash and burn
-				if (indir != null) {
-					File[] list = indir.listFiles(new PresetFileFilter());
-					if (list != null && list.length > 0) { // simply use the first XML file found
-						String presetFilename = list[0].getName();
-					Log.i("Preset", "Preset file name " + presetFilename);
+				File[] list = indir.listFiles(new PresetFileFilter());
+				if (list != null && list.length > 0) { // simply use the first XML file found
+					String presetFilename = list[0].getName();
+					Log.i(DEBUG_TAG, "Preset file name " + presetFilename);
 					fileStream = new FileInputStream(new File(directory, presetFilename));
 					// get translations
 					presetFilename = presetFilename.substring(0, presetFilename.length()-4);
@@ -320,52 +322,49 @@ public class Preset implements Serializable {
 							try {
 								po = new Po(poFileStream);
 							} catch (Exception ignored) {
-								Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+								Log.e(DEBUG_TAG,"Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
 							} catch (Error ignored) {
-								Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+								Log.e(DEBUG_TAG,"Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
 							}
 						}
 					} finally {
 						SavingHelper.close(poFileStream);
 					}
 				} else {
-					Log.e("Preset","Can't find preset file" );
+					Log.e(DEBUG_TAG,"Can't find preset file" );
 				}
-			} else {
-				Log.e("Preset","Can't open preset directory " + directory.toString());
-			}
-		}		
-		
-		DigestInputStream hashStream = new DigestInputStream(
-				fileStream,
-				MessageDigest.getInstance("SHA-256"));
+			}		
 
-		parseXML(hashStream);
-        
-        // Finish hash
-        String hashValue = Hash.toHex(hashStream.getMessageDigest().digest());
-        // in theory, it could be possible that the stream parser does not read the entire file
-        // and maybe even randomly stops at a different place each time.
-        // in practice, it does read the full file, which means this gives the actual sha256 of the file,
-        //  - even if you add a 1 MB comment after the document-closing tag.
-        
-        // remove chunks - this messes up the index disabled for now
-//        for (PresetItem c:new ArrayList<PresetItem>(allItems)) {
-//        	if (c.isChunk()) {
-//        		allItems.remove(c);
-//        	}
-//        }
-        
-        mru = initMRU(directory, hashValue);
-        
-//        for (String k:searchIndex.getKeys()) {
-//        	String l = k;
-//        	for (PresetItem pi:searchIndex.get(k)) {
-//        		l = l + " " + pi.getName();
-//        	}
-//        	Log.d("SearchIndex",l);
-//        }
-        Log.d("SearchIndex","length: " + searchIndex.getKeys().size());
+			DigestInputStream hashStream = new DigestInputStream(
+					fileStream,
+					MessageDigest.getInstance("SHA-256"));
+
+			parseXML(hashStream);
+
+			// Finish hash
+			String hashValue = Hash.toHex(hashStream.getMessageDigest().digest());
+			// in theory, it could be possible that the stream parser does not read the entire file
+			// and maybe even randomly stops at a different place each time.
+			// in practice, it does read the full file, which means this gives the actual sha256 of the file,
+			//  - even if you add a 1 MB comment after the document-closing tag.
+
+			// remove chunks - this messes up the index disabled for now
+			//        for (PresetItem c:new ArrayList<PresetItem>(allItems)) {
+			//        	if (c.isChunk()) {
+			//        		allItems.remove(c);
+			//        	}
+			//        }
+
+			mru = initMRU(directory, hashValue);
+
+			//        for (String k:searchIndex.getKeys()) {
+			//        	String l = k;
+			//        	for (PresetItem pi:searchIndex.get(k)) {
+			//        		l = l + " " + pi.getName();
+			//        	}
+			//        	Log.d("SearchIndex",l);
+			//        }
+			Log.d(DEBUG_TAG,"search index length: " + searchIndex.getKeys().size());
 		} finally {
 			SavingHelper.close(fileStream);
 		}
@@ -736,7 +735,7 @@ public class Preset implements Serializable {
             	} else if ("optional".equals(name)) {
             		inOptionalSection = false;
             	} else if ("item".equals(name)) {
-                    // Log.d("Preset","PresetItem: " + currentItem.toString());
+                    // Log.d(DEBUG_TAG,"PresetItem: " + currentItem.toString());
             		if (!currentItem.isDeprecated()) {
             			currentItem.buildSearchIndex();
             		}
@@ -782,7 +781,7 @@ public class Preset implements Serializable {
         } catch (Exception e) {
         	tmpMRU = new PresetMRUInfo(hashValue);
         	// Deserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
-        	Log.i("Preset", "No usable old MRU list, creating new one ("+e.toString()+")");
+        	Log.i(DEBUG_TAG, "No usable old MRU list, creating new one ("+e.toString()+")");
         } finally {
         	SavingHelper.close(mruReader);
         	SavingHelper.close(fout);
@@ -796,7 +795,7 @@ public class Preset implements Serializable {
 	 * @return an ArrayList of http and https URLs as string, or null if there is an error during parsing
 	 */
 	@SuppressWarnings("deprecation")
-	public static ArrayList<String> parseForURLs(File presetDir) {
+	public static List<String> parseForURLs(File presetDir) {
 		final ArrayList<String> urls = new ArrayList<String>();
 		File[] list = presetDir.listFiles(new PresetFileFilter());
 		String presetFilename = null;
@@ -849,7 +848,7 @@ public class Preset implements Serializable {
 	 * @return
 	 */
 	private Integer getItemIndexByName(@NonNull String name) {
-		Log.d("Preset","getItemIndexByName " + name);
+		Log.d(DEBUG_TAG,"getItemIndexByName " + name);
 		for (PresetItem pi:allItems) {
 			if (pi != null) {
 				String n = pi.getName();
@@ -858,7 +857,7 @@ public class Preset implements Serializable {
 				}
 			}
 		}
-		Log.d("Preset","getItemIndexByName " + name + " not found");
+		Log.d(DEBUG_TAG,"getItemIndexByName " + name + " not found");
 		return null;
 	}
 	
@@ -977,7 +976,7 @@ public class Preset implements Serializable {
 	
 	public boolean hasMRU()
 	{
-		return mru.recentPresets.size() > 0;
+		return !mru.recentPresets.isEmpty();
 	}
 	
 	/**
@@ -1004,7 +1003,7 @@ public class Preset implements Serializable {
 								}
 							}
 						} else {
-							Log.e("Preset","linked preset not found for " + n + " in preset " + pi.getName());
+							Log.e(DEBUG_TAG,"linked preset not found for " + n + " in preset " + pi.getName());
 						}
 					}
 				}
@@ -1049,7 +1048,7 @@ public class Preset implements Serializable {
 				out.writeObject(mru);
 				out.close();
 			} catch (Exception e) {
-				Log.e("Preset", "MRU saving failed", e);
+				Log.e(DEBUG_TAG, "MRU saving failed", e);
 			} finally {
 				SavingHelper.close(out);
 				SavingHelper.close(fout);
@@ -1099,7 +1098,7 @@ public class Preset implements Serializable {
      * @param useAddressKeys use addr: keys if true
      * @return a preset or null if none found
      */
-    public static PresetItem findBestMatch(Preset presets[], Map<String,String> tags, boolean useAddressKeys) {
+    public static PresetItem findBestMatch(Preset[] presets, Map<String,String> tags, boolean useAddressKeys) {
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
 		
@@ -1112,7 +1111,7 @@ public class Preset implements Serializable {
 		Set<PresetItem> possibleMatches = buildPossibleMatches(presets, tags, false);
 
 		// if we only have address keys retry
-		if (useAddressKeys && possibleMatches.size() == 0) {
+		if (useAddressKeys && !possibleMatches.isEmpty()) {
 			possibleMatches = buildPossibleMatches(presets, tags, true);
 		}  
 		// Find best
@@ -1552,7 +1551,7 @@ public class Preset implements Serializable {
 			}
 		}
 		
-		public ArrayList<PresetElement> getElements() {
+		public List<PresetElement> getElements() {
 			return elements;
 		}
 		
@@ -1749,10 +1748,11 @@ public class Preset implements Serializable {
 					addToSearchIndex(parentName);
 				}
 			}
-			for (String k:fixedTags.keySet()) {
-				addToSearchIndex(k);
-				addToSearchIndex(fixedTags.get(k).getValue());
-				addToSearchIndex(fixedTags.get(k).getDescription());
+			for (Entry<String,StringWithDescription> entry:fixedTags.entrySet()) {
+				StringWithDescription v = entry.getValue();
+				addToSearchIndex(entry.getKey());
+				addToSearchIndex(v.getValue());
+				addToSearchIndex(v.getDescription());
 			}
 		}
 		
@@ -1766,7 +1766,7 @@ public class Preset implements Serializable {
 			if (term != null) {
 				String normalizedName = SearchIndexUtils.normalize(term);
 				searchIndex.add(normalizedName,this);
-				String words[] = normalizedName.split(" ");
+				String[] words = normalizedName.split(" ");
 				if (words.length > 1) {
 					for (String w:words) {
 						searchIndex.add(w,this);
@@ -1775,7 +1775,7 @@ public class Preset implements Serializable {
 				if (po != null) { // and any translation
 					String normalizedTranslatedName = SearchIndexUtils.normalize(po.t(term));
 					translatedSearchIndex.add(normalizedTranslatedName,this);
-					String translastedWords[] = normalizedName.split(" ");
+					String[] translastedWords = normalizedName.split(" ");
 					if (translastedWords.length > 1) {
 						for (String w:translastedWords) {
 							translatedSearchIndex.add(w,this);
@@ -2061,7 +2061,7 @@ public class Preset implements Serializable {
 			}
 		}
 		
-		public LinkedList<String> getLinkedPresetNames() {
+		public List<String> getLinkedPresetNames() {
 			return linkedPresetNames;
 		}
 		
@@ -2329,7 +2329,7 @@ public class Preset implements Serializable {
 					}	
 				});
 			}
-			v.setTag(""+this.getItemIndex());
+			v.setTag(Integer.toString(this.getItemIndex()));
 			return v;
 		}
 
@@ -2406,20 +2406,20 @@ public class Preset implements Serializable {
 		public String toString() {
 			String tagStrings = "";
 			tagStrings = " required: ";
-			for (String k:fixedTags.keySet()) {
-				tagStrings = tagStrings + " " + k + "=" + fixedTags.get(k);
+			for (Entry<String,StringWithDescription> entry:fixedTags.entrySet()) {
+				tagStrings = tagStrings + " " + entry.getKey() + "=" + entry.getValue();
 			}
 			tagStrings = tagStrings + " recommended: ";
-			for (String k:recommendedTags.keySet()) {
-				tagStrings = tagStrings + " " + k + "="; 
-				for (StringWithDescription v:recommendedTags.get(k)) {
+			for (Entry<String,StringWithDescription[]> entry:recommendedTags.entrySet()) {
+				tagStrings = tagStrings + " " + entry.getKey() + "="; 
+				for (StringWithDescription v:entry.getValue()) {
 					tagStrings = tagStrings + " " + v.getValue();
 				}
 			}
 			tagStrings = tagStrings + " optional: ";
-			for (String k:optionalTags.keySet()) {
-				tagStrings = tagStrings + " " + k + "=";
-				for (StringWithDescription v:optionalTags.get(k)) {
+			for (Entry<String,StringWithDescription[]> entry:optionalTags.entrySet()) {
+				tagStrings = tagStrings + " " + entry.getKey() + "=";
+				for (StringWithDescription v:entry.getValue()) {
 					tagStrings = tagStrings + " " + v.getValue();
 				}
 			}
@@ -2436,31 +2436,33 @@ public class Preset implements Serializable {
 		
 		public String toJSON() {
 			String jsonString = "";
-			for (String k:fixedTags.keySet()) {
-				jsonString = jsonString + tagToJSON(k, fixedTags.get(k).getValue());
+			for (Entry<String,StringWithDescription> entry:fixedTags.entrySet()) {
+				jsonString = jsonString + tagToJSON(entry.getKey(), entry.getValue().getValue());
 			}
-			for (String k:recommendedTags.keySet()) {
+			for (Entry<String,StringWithDescription[]> entry:recommendedTags.entrySet()) {
 				// check match attribute
+				String k = entry.getKey();
 				MatchType match = getMatchType(k);
 				PresetKeyType type = getKeyType(k);
 				if (isEditable(k) || type==PresetKeyType.TEXT) {
 					jsonString = jsonString + tagToJSON(k, null);
 				}
 				if (!isEditable(k) && type != PresetKeyType.TEXT && (match==null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
-					for (StringWithDescription v:recommendedTags.get(k)) {
+					for (StringWithDescription v:entry.getValue()) {
 						jsonString = jsonString + tagToJSON(k, v.getValue());
 					}
 				}
 			}
-			for (String k:optionalTags.keySet()) {
+			for (Entry<String,StringWithDescription[]> entry:optionalTags.entrySet()) {
 				// check match attribute
+				String k = entry.getKey();
 				MatchType match = getMatchType(k);
 				PresetKeyType type = getKeyType(k);
 				if (isEditable(k) || type==PresetKeyType.TEXT || (match != null && match != MatchType.KEY_VALUE)) {
 					jsonString = jsonString + tagToJSON(k, null);
 				}
 				if (!isEditable(k) && type != PresetKeyType.TEXT && (match==null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
-					for (StringWithDescription v:optionalTags.get(k)) {
+					for (StringWithDescription v:entry.getValue()) {
 						jsonString = jsonString + tagToJSON(k, v.getValue());
 					}
 				}
@@ -2516,50 +2518,6 @@ public class Preset implements Serializable {
 		public void groupI18nKeys() {
 			Util.groupI18nKeys(recommendedTags);
 			Util.groupI18nKeys(optionalTags);
-		}
-	}
-	
-	
-	/**
-	 * Adapter providing the preset elements in this group
-	 * currently unused, left here in case it is later needed
-	 */
-	@SuppressWarnings("unused")
-	private class PresetGroupAdapter extends BaseAdapter {
-	
-		private final ArrayList<PresetElement> elements;
-		private PresetClickHandler handler;
-		private final Context context;
-		
-		private PresetGroupAdapter(Context ctx, ArrayList<PresetElement> content, ElementType type, PresetClickHandler handler) {
-			this.handler = handler;
-			context = ctx;
-			elements = filterElements(content, type);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			return getItem(position).getView(context, handler, false);
-		}
-		
-		@Override
-		public int getCount() {
-			return elements.size();
-		}
-	
-		@Override
-		public PresetElement getItem(int position) {
-			return elements.get(position);
-		}
-	
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-		
-		@Override
-		public boolean isEnabled(int position) {
-			return !(getItem(position) instanceof PresetSeparator);
 		}
 	}
 

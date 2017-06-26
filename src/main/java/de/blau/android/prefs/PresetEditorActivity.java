@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -202,7 +201,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 					return RESULT_TOTAL_SUCCESS;
 				} // fall through to further processing
 					
-				ArrayList<String> urls = Preset.parseForURLs(presetDir);
+				List<String> urls = Preset.parseForURLs(presetDir);
 				if (urls == null) {
 					Log.e(DEBUG_TAG, "Could not parse preset for URLs");
 					return RESULT_PRESET_NOT_PARSABLE;

@@ -1,6 +1,6 @@
 package de.blau.android.filter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
@@ -66,7 +66,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
 		rootGroup = presets[0].getRootGroup(); // FIXME this assumes that we have at least one active preset
 		if (presets.length > 1) {
 			// a bit of a hack ... this adds the elements from other presets to the root group of the first one	
-			ArrayList<PresetElement> rootElements = rootGroup.getElements();
+			List<PresetElement> rootElements = rootGroup.getElements();
 			for (Preset p:presets) {
 				if (p != null) {
 					for (PresetElement e:p.getRootGroup().getElements()) {
