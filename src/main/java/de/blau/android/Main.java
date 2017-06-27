@@ -125,6 +125,7 @@ import de.blau.android.photos.PhotoIndex;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.propertyeditor.Address;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
@@ -1736,7 +1737,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		case R.id.menu_tools_background_properties:
 			BackgroundProperties.showDialog(this);
 			return true;
-			
+		case R.id.tag_menu_reset_address_prediction:
+			Address.resetLastAddresses(this);
+			return true;
 		case R.id.menu_tools_oauth_reset: // reset the current OAuth tokens
 			if (server.getOAuth()) {
 				AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this);	

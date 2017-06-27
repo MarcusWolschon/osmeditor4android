@@ -631,7 +631,7 @@ public class Address implements Serializable {
 	 * 
 	 * @param context	Android context
 	 */
-	synchronized static void resetLastAddresses(Context context) {
+	public synchronized static void resetLastAddresses(Context context) {
 		savingHelperAddress.save(context, ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
 		lastAddresses = null;
 	}
