@@ -75,7 +75,7 @@ public class Tags {
 	private static final String KEY_REG_NAME = "reg_name";
 	private static final String KEY_NAT_NAME = "nat_name";
 	public static final String KEY_INT_NAME = "int_name";
-	protected static final List<String> I18N_NAME_KEYS = Arrays.asList(KEY_NAME, KEY_OFFICIAL_NAME,
+	public static final List<String> I18N_NAME_KEYS = Arrays.asList(KEY_NAME, KEY_OFFICIAL_NAME,
 			KEY_ALT_NAME, KEY_LOC_NAME, KEY_SHORT_NAME, KEY_REG_NAME, KEY_NAT_NAME); 
     
 	public static final String KEY_NAME_LEFT = "name:left";
