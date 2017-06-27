@@ -1,10 +1,14 @@
 package de.blau.android.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -247,8 +251,10 @@ public class Util {
 	
 	/**
 	 * Group keys so that i18n follow the base key (which should always come first in map)
-	 * @param <V>
-	 * @param map
+	 * 
+	 * Note: this only works if map preserves insert order
+	 * @param <V>	object containing the tag value(s)
+	 * @param map	map that preserves insert order
 	 */
 	public static <V> void groupI18nKeys(Map<String,V> map) {
 		LinkedHashMap<String,V> temp = new  LinkedHashMap<String,V>();
@@ -275,6 +281,37 @@ public class Util {
 		map.clear();
 		map.putAll(temp);
 	}
+	
+	/**
+	 * Group address tags 
+	 * 
+	 * Note: this only works if map preserves insert order
+	 * @param <V>	object containing the tag value(s)
+	 * @param map	map that preserves insert order
+	 */
+	public static <V> void groupAddrKeys(Map<String,V> map) {
+		List<Entry<String,V>> temp = new ArrayList<Entry<String,V>>();
+		for (Entry<String,V>entry:map.entrySet()) {
+			String key = entry.getKey();
+			if (key.startsWith(Tags.KEY_ADDR_BASE)) {
+				if (Tags.KEY_ADDR_HOUSENUMBER.equals(key)) {
+					temp.add(entry);
+					map.remove(key);
+				}
+			} 
+		}
+		Collections.sort(temp,new Comparator<Entry<String,V>>() {
+			@Override
+			public int compare(Entry<String, V> arg0, Entry<String, V> arg1) {
+				return Tags.ADDRESS_SORT_ORDER.get(arg1.getValue()).compareTo(Tags.ADDRESS_SORT_ORDER.get(arg0.getValue())) ;
+			}
+		});
+		for (Entry<String, V>entry:temp) {
+			map.put(entry.getKey(),entry.getValue());
+		}
+	}
+	
+	
 
 	/**
 	 * Convert first letter of v to upper case using English

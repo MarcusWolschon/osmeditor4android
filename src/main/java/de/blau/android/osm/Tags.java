@@ -34,6 +34,26 @@ public class Tags {
 	public static final String KEY_ADDR_FLATS = "addr:flats";
 	public static final String KEY_ADDR_DOOR = "addr:door";
 	public static final String KEY_ADDR_UNIT = "addr:unit";
+	public static final Map<String,Integer> ADDRESS_SORT_ORDER = new HashMap<String, Integer>();
+	static {
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_HOUSENUMBER,0);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_HOUSENAME,1);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_FLATS,2);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_UNIT,3);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_DOOR,4);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_PLACE,5);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_STREET,5);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_POSTCODE,6);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_HAMLET,7);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_SUBURB,8);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_CITY,9);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_SUBDISTRICT,10);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_DISTRICT,11);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_PROVINCE,12);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_STATE,13);
+		ADDRESS_SORT_ORDER.put(KEY_ADDR_COUNTRY,14);		
+	}
+	
 	// address interpolation
 	public static final String KEY_ADDR_INTERPOLATION = "addr:interpolation";
 	public static final String VALUE_ODD = "odd";
@@ -146,6 +166,13 @@ public class Tags {
 	public static final String KEY_POWER = "power";
 	public static final String KEY_LEISURE = "leisure";
 	public static final String KEY_AMENITY = "amenity";
+	public static final String VALUE_RESTAURANT = "restaurant";
+	public static final String VALUE_FAST_FOOD = "fast_food";
+	public static final String VALUE_CAFE = "cafe";
+	public static final String VALUE_PUB = "pub";
+	public static final String VALUE_BAR = "bar";
+	public static final String VALUE_TOILETS = "toilets";
+	
 	public static final String KEY_OFFICE = "office";
 	public static final String KEY_SHOP = "shop";
 	public static final String KEY_CRAFT = "craft";
@@ -172,13 +199,13 @@ public class Tags {
 	 */
 	protected static final Map<String,String> RESURVEY_TAGS = new HashMap<String, String>();
 	static {
-		RESURVEY_TAGS.put("shop",null);
-		RESURVEY_TAGS.put("amenity","restaurant");
-		RESURVEY_TAGS.put("amenity","fast_food");
-		RESURVEY_TAGS.put("amenity","cafe");
-		RESURVEY_TAGS.put("amenity","pub");
-		RESURVEY_TAGS.put("amenity","bar");
-		RESURVEY_TAGS.put("amenity","toilets");
+		RESURVEY_TAGS.put(KEY_SHOP,null);
+		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_RESTAURANT);
+		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_FAST_FOOD);
+		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_CAFE);
+		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_PUB);
+		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_BAR);
+		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_TOILETS);
 	}
 	
 	/**
