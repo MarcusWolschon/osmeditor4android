@@ -509,7 +509,7 @@ public class Address implements Serializable {
 			if (otherList.size()>=2) {
 				newTags = predictNumber(newAddress, originalTags, street, side, otherList, true, list);
 			} else if (otherList.size()==1) {
-				copyTags(list.get(otherSideList.firstKey()), newTags);
+				copyTags(otherList.get(otherList.firstKey()), newTags);
 			} else {
 				newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
 			}
@@ -517,12 +517,17 @@ public class Address implements Serializable {
 		return newTags;
 	}
 
-	private static void copyTags(@NonNull Address address, @NonNull LinkedHashMap<String, ArrayList<String>> tags) {
-		for (Entry<String,ArrayList<String>>entry:address.tags.entrySet()) {
-			String key = entry.getKey();
-			if (!tags.containsKey(key)) {
-				tags.put(key,entry.getValue());
+	private static void copyTags(@Nullable Address address, @NonNull LinkedHashMap<String, ArrayList<String>> tags) {
+		if (address != null) {
+			for (Entry<String,ArrayList<String>>entry:address.tags.entrySet()) {
+				String key = entry.getKey();
+				if (!tags.containsKey(key)) {
+					tags.put(key,entry.getValue());
+				}
 			}
+		} else {
+			Log.e(DEBUG_TAG,"address shoudn't be null");
+			// maybe a crash dump would be a good ide
 		}
 	}
 	
@@ -557,6 +562,7 @@ public class Address implements Serializable {
 	 * @param addresses			the list of addresses
 	 * @return a sorted map with the house numbers as key 
 	 */
+	@NonNull
 	private synchronized static TreeMap<Integer,Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> addresses ) {
 		TreeMap<Integer,Address> result = new TreeMap<Integer,Address>(); //list sorted by house numbers
 		for (Address a:addresses) {
