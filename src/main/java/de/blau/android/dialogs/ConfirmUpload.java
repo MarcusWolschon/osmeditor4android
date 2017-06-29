@@ -172,11 +172,11 @@ public class ConfirmUpload extends DialogFragment
 	 */
 	public String getPendingChanges(Context ctx) {
 		List<String> changes = App.getLogic().getPendingChanges(ctx);
-		StringBuilder retval = new StringBuilder();
+		StringBuilder builder = new StringBuilder();
 		for (String change : changes) {
-			retval.append(change).append('\n');
+			builder.append(change).append('\n');
 		}
-		return retval.toString();
+		return builder.toString();
 	}
     
 	/**
