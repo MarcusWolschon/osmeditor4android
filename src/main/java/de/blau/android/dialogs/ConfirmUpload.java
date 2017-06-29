@@ -95,7 +95,7 @@ public class ConfirmUpload extends DialogFragment
         super.onAttach(activity);
         Log.d(DEBUG_TAG, "onAttach");
         if (!(activity instanceof Main)) {
-            throw new ClassCastException(activity.toString() + " can ownly be called from Main");
+            throw new ClassCastException(activity.toString() + " can only be called from Main");
         }
     }
     
