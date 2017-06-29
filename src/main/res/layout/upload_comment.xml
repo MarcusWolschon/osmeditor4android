@@ -20,11 +20,12 @@
 	      android:id="@+id/upload_comment"
 	      android:layout_below="@id/upload_comment_label"
 	      android:layout_alignLeft="@id/upload_comment_label"
+	      android:layout_alignStart="@id/upload_comment_label"
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
 	      android:inputType="text"
 	      />
-	
+
 	  <TextView
 	      android:id="@+id/upload_source_label"
 	      android:layout_width="wrap_content"
@@ -38,6 +39,7 @@
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
 	      android:layout_alignLeft="@id/upload_source_label"
+	      android:layout_alignStart="@id/upload_source_label"
 	      android:inputType="text"/>
 		<TextView
 	      android:id="@+id/upload_close_changeset_label"
@@ -52,6 +54,7 @@
 	       android:layout_height="48dp"
 	       android:gravity="center_vertical"
 	       android:layout_below="@id/upload_source"
+	       android:layout_alignEnd="@id/upload_source"
 	       android:layout_alignRight="@id/upload_source"
 	       android:layout_alignBottom="@id/upload_close_changeset_label"
 	       android:layout_alignTop="@id/upload_close_changeset_label"
@@ -59,7 +62,7 @@
 	     />
 
 	</RelativeLayout>
- 
+
   <ScrollView
     android:layout_alignParentTop="true"
     android:layout_above="@id/upload_comment_controls"
