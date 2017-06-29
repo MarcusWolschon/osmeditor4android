@@ -33,7 +33,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 	formUri = "http://acralyzer.vespucci.io/acraproxy",
 	mode = ReportingInteractionMode.DIALOG,
 	resDialogText = R.string.crash_dialog_text,
-	resDialogCommentPrompt = R.string.crash_dialog_comment_prompt)
+	resDialogCommentPrompt = R.string.crash_dialog_comment_prompt,
+	resDialogTheme = R.style.Theme_AppCompat_Light_Dialog)
 public class App extends android.app.Application {
 	private static App currentInstance;
 	private static StorageDelegator delegator = new StorageDelegator();
