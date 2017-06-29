@@ -51,6 +51,7 @@ public class ConfirmUpload extends DialogFragment
 	private static final String TAG = "fragment_confirm_upload";
 	
 	private static final char LINE_DELIMITER = '\n';
+	private static final String LINE_PREFIX = "- ";
 
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);
@@ -176,7 +177,7 @@ public class ConfirmUpload extends DialogFragment
 		List<String> changes = App.getLogic().getPendingChanges(ctx);
 		StringBuilder builder = new StringBuilder();
 		for (String change : changes) {
-			builder.append(change).append(LINE_DELIMITER);
+			builder.append(LINE_PREFIX).append(change).append(LINE_DELIMITER);
 		}
 		return builder.toString();
 	}
