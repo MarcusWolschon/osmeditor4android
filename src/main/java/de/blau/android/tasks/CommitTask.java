@@ -94,6 +94,7 @@ class CommitTask extends AsyncTask<Server, Void, UploadResult> {
 				Log.e(DEBUG_TAG, "", e);
 				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 				ACRA.getErrorReporter().handleException(e);
+				result.error = ErrorCodes.UPLOAD_PROBLEM; // use this as generic error
 				break;
 			}
 		} catch (XmlPullParserException e) {
