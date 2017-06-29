@@ -92,11 +92,11 @@ public class ConfirmUpload extends DialogFragment
 
     @Override
     public void onAttach(Context context) {
-        super.onAttach(context);
+        super.onAttach(activity);
         Log.d(DEBUG_TAG, "onAttach");
         if (!(context instanceof Main)) {
             throw new ClassCastException(context.toString() + " can only be called from Main");
-       }
+        }
     }
 
     @Override
