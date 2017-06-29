@@ -172,7 +172,7 @@ public class ConfirmUpload extends DialogFragment
 	/**
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
-	public String getPendingChanges(Context ctx) {
+	private String getPendingChanges(Context ctx) {
 		List<String> changes = App.getLogic().getPendingChanges(ctx);
 		StringBuilder builder = new StringBuilder();
 		for (String change : changes) {
