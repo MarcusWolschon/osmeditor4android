@@ -43,11 +43,14 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class ConfirmUpload extends DialogFragment {
+public class ConfirmUpload extends DialogFragment
+{
 
     private static final String DEBUG_TAG = ConfirmUpload.class.getSimpleName();
 
     private static final String TAG = "fragment_confirm_upload";
+
+	private static final char LINE_DELIMITER = '\n';
 
     static public void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
@@ -93,11 +96,12 @@ public class ConfirmUpload extends DialogFragment {
         Log.d(DEBUG_TAG, "onAttach");
         if (!(context instanceof Main)) {
             throw new ClassCastException(context.toString() + " can only be called from Main");
-        }
+       }
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setCancelable(true);
     }
@@ -105,7 +109,8 @@ public class ConfirmUpload extends DialogFragment {
     @NonNull
     @SuppressLint("InflateParams")
     @Override
-    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
+    {
         FragmentActivity activity = getActivity();
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
@@ -168,7 +173,7 @@ public class ConfirmUpload extends DialogFragment {
         List<String> changes = App.getLogic().getPendingChanges(ctx);
 		StringBuilder builder = new StringBuilder();
         for (String change : changes) {
-			builder.append(change).append('\n');
+			builder.append(change).append(LINE_DELIMITER);
         }
 		return builder.toString();
     }
