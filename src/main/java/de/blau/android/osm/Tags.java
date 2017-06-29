@@ -131,8 +131,11 @@ public class Tags {
 	public static final String KEY_WIKIDATA = "wikidata";
 	
 	public static final String KEY_OPENING_HOURS = "opening_hours";
-	public static final String KEY_SERVICE_TIMES = "service_times";	
+	public static final String KEY_SERVICE_TIMES = "service_times";
+	public static final String KEY_COLLECTION_TIMES = "collection_times";
 	
+	public static final Set<String> OPENING_HOURS_SYNTAX = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
+			KEY_OPENING_HOURS,KEY_SERVICE_TIMES,KEY_COLLECTION_TIMES)));
 	
 	public static final String KEY_CONDITIONAL_SUFFIX = ":conditional";
 	

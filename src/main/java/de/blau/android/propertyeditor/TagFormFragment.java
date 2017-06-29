@@ -794,7 +794,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						|| key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 						if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 							rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, adapter));
-						} else if ((Tags.KEY_OPENING_HOURS.equals(key) || Tags.KEY_SERVICE_TIMES.equals(key)) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { //FIXME need at least SDK 12
+						} else if (Tags.OPENING_HOURS_SYNTAX.contains(key) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { //FIXME need at least SDK 12 for now
 							rowLayout.addView(addOpeningHoursDialogRow(rowLayout, preset, hint, key, value, adapter));
 						} else {
 							// special handling for international names
