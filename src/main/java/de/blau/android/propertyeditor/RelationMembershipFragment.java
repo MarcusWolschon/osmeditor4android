@@ -124,9 +124,9 @@ public class RelationMembershipFragment extends BaseFragment implements
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					selectAllParents();
+					selectAllRows();
 				} else {
-					deselectAllParents();
+					deselectAllRows();
 				}
 			}
 		});
@@ -437,7 +437,8 @@ public class RelationMembershipFragment extends BaseFragment implements
 		}
 	}
 	
-	private void selectAllParents() {
+	@Override
+	public void selectAllRows() { // select all parents
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 
 		int i = rowLayout.getChildCount();
@@ -449,7 +450,8 @@ public class RelationMembershipFragment extends BaseFragment implements
 		}
 	}
 
-	private void deselectAllParents() {
+	@Override
+	public void deselectAllRows() { // // select all parents
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 
 		int i = rowLayout.getChildCount();
@@ -551,6 +553,9 @@ public class RelationMembershipFragment extends BaseFragment implements
 			return true;
 		case R.id.tag_menu_addtorelation:
 			addToRelation();
+			return true;
+		case R.id.tag_menu_select_all:
+			selectAllRows();
 			return true;
 		case R.id.tag_menu_help:
 			HelpViewer.start(getActivity(), R.string.help_propertyeditor);

@@ -14,6 +14,11 @@
         app:showAsAction="never"
     />
     <item
+        android:id="@+id/tag_menu_select_all"
+        android:title="@string/menu_select_all"
+        app:showAsAction="never"
+    />
+    <item
         android:id="@+id/tag_menu_help"
         android:icon="?attr/menu_help"
         android:alphabeticShortcut="@string/shortcut_help"

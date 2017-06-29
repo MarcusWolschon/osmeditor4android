@@ -1,7 +1,10 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -22,6 +25,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.propertyeditor.RelationMembersFragment.Connected;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 public class RelationMemberSelectedActionModeCallback extends SelectedRowsActionModeCallback {
 	
@@ -34,11 +38,12 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 	private static final int MENU_ITEM_MOVE_UP = 4;
 	private static final int MENU_ITEM_MOVE_DOWN = 5;
 	private static final int MENU_ITEM_SORT = 6;
-	private static final int MENU_ITEM_DOWNLOAD = 7;
-	private static final int MENU_ITEM_TOP = 8;
-	private static final int MENU_ITEM_BOTTOM = 9;
-	private static final int MENU_ITEM_MOVE_TOP = 10;
-	private static final int MENU_ITEM_MOVE_BOTTOM = 11;
+	private static final int MENU_ITEM_REVERSE_ORDER = 7;
+	private static final int MENU_ITEM_DOWNLOAD = 8;
+	private static final int MENU_ITEM_TOP = 9;
+	private static final int MENU_ITEM_BOTTOM = 10;
+	private static final int MENU_ITEM_MOVE_TOP = 11;
+	private static final int MENU_ITEM_MOVE_BOTTOM = 12;
 	
 
 	public RelationMemberSelectedActionModeCallback(Fragment caller, LinearLayout rows) {
@@ -63,8 +68,11 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 		menu.add(Menu.NONE, MENU_ITEM_MOVE_DOWN, Menu.NONE, R.string.tag_menu_move_down)
 		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_down));
 		
-//		menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.tag_menu_sort)
-//		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
+		menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.tag_menu_sort)
+		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
+		
+		menu.add(Menu.NONE, MENU_ITEM_REVERSE_ORDER, Menu.NONE, R.string.tag_menu_reverse_order).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+		//.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
 		
 		// we only display the download button if at least one of the selected elements isn't downloaded 
 		boolean nonDownloadedSelected = false;
@@ -99,7 +107,6 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 	}
 	
 	private boolean performAction(int action) {
-
 		final int size = rows.getChildCount();
 		final ArrayList<RelationMemberRow> selected = new ArrayList<RelationMemberRow>();
 		final ArrayList<Integer> selectedPos = new ArrayList<Integer>();
@@ -163,6 +170,40 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			}
 			// this has some heuristics to avoid the selected row vanishing behind the bottom actionbar
 			((RelationMembersFragment)caller).scrollToRow(selected.get(selected.size()-1),false, action==MENU_ITEM_MOVE_BOTTOM || forceScroll(selectedPos.get(selected.size()-1),size));
+			((RelationMembersFragment)caller).setIcons();
+			return true;
+		case MENU_ITEM_SORT:
+			List<RelationMemberDescription>rmds = new ArrayList<RelationMemberDescription>();
+			Map<RelationMemberDescription, RelationMemberRow>relationMemberRows = new HashMap<RelationMemberDescription, RelationMemberRow>();
+			int top = selectedPos.get(0).intValue();
+			for (int i = 0;i<selectedCount;i++) {
+				RelationMemberRow row = selected.get(i);
+				RelationMemberDescription rmd = row.getRelationMemberDescription();
+				rmds.add(rmd);	
+				relationMemberRows.put(rmd, row);
+				rows.removeView(row);
+			}
+			rmds = Util.sortRelationMembers(rmds);
+			int pos = top;
+			for (RelationMemberDescription rmd:rmds) {
+				rows.addView(relationMemberRows.get(rmd), pos);
+				pos++;
+			}
+			((RelationMembersFragment)caller).scrollToRow(rows.getChildAt(top),false, false);
+			((RelationMembersFragment)caller).setIcons();
+			return true;
+		case MENU_ITEM_REVERSE_ORDER:
+			top = selectedPos.get(0).intValue();
+			List<RelationMemberRow>temp = new ArrayList<RelationMemberRow>(selected);
+			Collections.reverse(temp);
+			for (RelationMemberRow row:selected) {
+				rows.removeView(row);
+			}
+			for (int i=0;i<selectedPos.size();i++) {
+				pos = selectedPos.get(i);
+				rows.addView(temp.get(i), pos);
+			}
+			((RelationMembersFragment)caller).scrollToRow(rows.getChildAt(top),false, false);
 			((RelationMembersFragment)caller).setIcons();
 			return true;
 		case MENU_ITEM_TOP:

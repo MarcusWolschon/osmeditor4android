@@ -265,10 +265,13 @@
     <string name="tag_menu_move_down">Move down</string>
     <string name="tag_menu_move_bottom">Move to bottom</string>
     <string name="tag_menu_sort">Sort</string>
+    <string name="tag_menu_reverse_order">Reverse order</string>
     <string name="tag_menu_download">Download</string>
     <string name="tag_menu_js_console">JS Console</string>
     <string name="menu_up">Up</string>
     <string name="menu_top">Top</string>
+    <string name="menu_select_all">Select all</string>
+    <string name="menu_deselect_all">De-select all</string>
     <string name="menu_preset_help">Preset help</string>
     <string name="internationalized_hint">%1$s (%2$s)</string>
     <string name="tag_menu_i8n">Add tags for %1$s</string>

@@ -138,9 +138,9 @@ public class RelationMembersFragment extends BaseFragment implements
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					selectAllMembers();
+					selectAllRows();
 				} else {
-					deselectAllMembers();
+					deselectAllRows();
 				}
 			}
 		});
@@ -730,28 +730,38 @@ public class RelationMembersFragment extends BaseFragment implements
 		}
 	}
 	
-	private void selectAllMembers() {
-		LinearLayout rowLayout = (LinearLayout) getOurView();
-
-		int i = rowLayout.getChildCount();
-		while (--i >= 0) { 
-			RelationMemberRow row = (RelationMemberRow)rowLayout.getChildAt(i);
-			if (row.selected.isEnabled()) {
-				row.selected.setChecked(true);
+	@Override
+	public void selectAllRows() { // selects all members
+		final LinearLayout rowLayout = (LinearLayout) getOurView();
+		rowLayout.post(new Runnable() { // as there can be a very large number of rows don't do it here
+			@Override
+			public void run() {
+				int i = rowLayout.getChildCount();
+				while (--i >= 0) { 
+					RelationMemberRow row = (RelationMemberRow)rowLayout.getChildAt(i);
+					if (row.selected.isEnabled()) {
+						row.selected.setChecked(true);
+					}
+				}		
 			}
-		}
+		});
 	}
 
-	private void deselectAllMembers() {
-		LinearLayout rowLayout = (LinearLayout) getOurView();
-
-		int i = rowLayout.getChildCount();
-		while (--i >= 0) { 
-			RelationMemberRow row = (RelationMemberRow)rowLayout.getChildAt(i);
-			if (row.selected.isEnabled()) {
-				row.selected.setChecked(false);
+	@Override
+	public void deselectAllRows() { // deselects all members
+		final LinearLayout rowLayout = (LinearLayout) getOurView();
+		rowLayout.post(new Runnable() { // as there can be a very large number of rows don't do it here
+			@Override
+			public void run() {
+				int i = rowLayout.getChildCount();
+				while (--i >= 0) { 
+					RelationMemberRow row = (RelationMemberRow)rowLayout.getChildAt(i);
+					if (row.selected.isEnabled()) {
+						row.selected.setChecked(false);
+					}
+				}
 			}
-		}
+		});
 	}
 	
 	/**
@@ -821,12 +831,15 @@ public class RelationMembersFragment extends BaseFragment implements
 		case R.id.tag_menu_revert:
 			doRevert();
 			return true;
-		case R.id.tag_menu_help:
-			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
-			return true;
 		case R.id.tag_menu_top:
 		case R.id.tag_menu_bottom:
 			scrollToRow(null,item.getItemId()==R.id.tag_menu_top,false);
+			return true;
+		case R.id.tag_menu_select_all:
+			selectAllRows();
+			return true;
+		case R.id.tag_menu_help:
+			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
 			return true;
 		default: return false;
 		}

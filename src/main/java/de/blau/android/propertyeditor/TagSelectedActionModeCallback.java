@@ -118,6 +118,12 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 				currentAction.finish();
 			}
 			break;
+		case MENU_ITEM_SELECT_ALL:
+			((PropertyRows) caller).selectAllRows();
+			return true;
+		case MENU_ITEM_DESELECT_ALL:
+			((PropertyRows) caller).deselectAllRows();
+			return true;
 		case MENU_ITEM_HELP:
 			HelpViewer.start(caller.getActivity(), R.string.help_propertyeditor);
 			return true;

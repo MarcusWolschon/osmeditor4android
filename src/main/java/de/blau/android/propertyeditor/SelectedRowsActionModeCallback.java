@@ -30,6 +30,9 @@ class SelectedRowsActionModeCallback implements Callback {
 	}
 	
 	static final int MENU_ITEM_DELETE = 1;
+	
+	static final int MENU_ITEM_SELECT_ALL = 13;
+	static final int MENU_ITEM_DESELECT_ALL = 14;
 	static final int MENU_ITEM_HELP = 15;
 
 	ActionMode currentAction;
@@ -56,6 +59,8 @@ class SelectedRowsActionModeCallback implements Callback {
 		Context context = caller.getActivity();
 		menu.add(Menu.NONE, MENU_ITEM_DELETE, Menu.NONE, R.string.delete)
 				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_delete));
+		menu.add(EasyEditManager.GROUP_BASE, MENU_ITEM_SELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_select_all).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(EasyEditManager.GROUP_BASE, MENU_ITEM_DESELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_deselect_all).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(EasyEditManager.GROUP_BASE, MENU_ITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help)
 				.setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help))
 				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
@@ -85,6 +90,12 @@ class SelectedRowsActionModeCallback implements Callback {
 				currentAction.finish();
 			}
 			break;
+		case MENU_ITEM_SELECT_ALL:
+			((PropertyRows) caller).selectAllRows();
+			return true;
+		case MENU_ITEM_DESELECT_ALL:
+			((PropertyRows) caller).deselectAllRows();
+			return true;
 		case MENU_ITEM_HELP:
 			HelpViewer.start(caller.getActivity(), R.string.help_propertyeditor);
 			return true;
@@ -133,5 +144,4 @@ class SelectedRowsActionModeCallback implements Callback {
 			currentAction.invalidate();
 		}
 	}
-
 }

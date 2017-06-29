@@ -7,8 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -32,6 +30,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -55,15 +54,17 @@ public class Util {
 	}
 	
 	/**
-	 * Sort a list of ways in the order they are connected, there is likely a far better algorithm than this
-	 * Note: assumes that ways could be reversed
-	 * @param list
-	 * @return null if not connected or not all ways
+	 * Sort a list of ways in the order they are connected
+	 * 
+	 * Note: there is likely a far better algorithm than this, assumes that ways could be reversed. 
+	 * Further this will in general not work for closed ways and assumes that the ways can actually be 
+	 * arranged as a single sorted sequence.
+	 * @param list	List of ways
+	 * @return null if not connected or not all ways connected or the sorted list of ways
 	 */
 	static public List<OsmElement> sortWays(List<OsmElement>list) {
 		List<OsmElement> result = new ArrayList<OsmElement>();
 		List<OsmElement> unconnected = new ArrayList<OsmElement>(list);
-
 
 		OsmElement e = unconnected.get(0);
 		unconnected.remove(0);
@@ -74,7 +75,7 @@ public class Util {
 		while (true) {
 			boolean found = false;
 			for (OsmElement w:unconnected) {
-				if (!w.getName().equals(Way.NAME)) {
+				if (!Way.NAME.equals(w.getName())) {
 					return null; // not all are ways
 				}
 				// this is a bit complicated because we don't want to reverse ways just yet
@@ -104,10 +105,91 @@ public class Util {
 			}
 		}
 	}
+	
+	/**
+	 * Sort a list of RelationMemberDescription in the order they are connected
+	 * 
+	 * Note: there is likely a far better algorithm than this, ignores way direction. 
+	 * @param list	List of relation members
+	 * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come first
+	 */
+	static public List<RelationMemberDescription> sortRelationMembers(List<RelationMemberDescription>list) {
+		List<RelationMemberDescription> result = new ArrayList<RelationMemberDescription>();
+		List<RelationMemberDescription> unconnected = new ArrayList<RelationMemberDescription>(list);
+		int nextWay = 0;
+		while (true) {
+			nextWay = nextWay(nextWay, unconnected);
+			if (nextWay >= unconnected.size()) {
+				break;
+			}
+			RelationMemberDescription currentRmd = unconnected.get(nextWay);
+			unconnected.remove(currentRmd);
+			result.add(currentRmd);
+			int start = result.size()-1;
+
+			for (int i=nextWay;i<unconnected.size();) {
+				RelationMemberDescription rmd = unconnected.get(i);
+				if (!rmd.downloaded() || !Way.NAME.equals(rmd.getType())) {
+					i++;
+					continue;
+				}	
+				
+				Way startWay = (Way) result.get(start).getElement();				
+				Way endWay = (Way) result.get(result.size()-1).getElement();
+				
+				Way currentWay = (Way)rmd.getElement();
+				
+				// the following works for all situation including closed ways but will be a bit slow
+				if (haveCommonNode(endWay,currentWay)) {
+					result.add(rmd);
+					unconnected.remove(rmd);
+				} else if (haveCommonNode(startWay,currentWay)) {
+					result.add(start,rmd);
+					unconnected.remove(rmd);
+				} else {
+					i++;
+				}
+			}
+		}
+		unconnected.addAll(result); // return with unsorted elements at top
+		return unconnected;
+	}
+	
+	private static boolean haveCommonNode(Way way1, Way way2) {
+		List<Node>way1Nodes = way1.getNodes();
+		int size1 = way1Nodes.size();
+		List<Node>way2Nodes = way2.getNodes();
+		int size2 = way2Nodes.size();
+		// optimization: check start and end first, this should make partially sorted list reasonably fast
+		if (way2Nodes.contains(way1Nodes.get(0)) || way2Nodes.contains(way1Nodes.get(size1-1)) || way1Nodes.contains(way2Nodes.get(0)) || way1Nodes.contains(way2Nodes.get(size2-1))) {
+			return true;
+		}
+		// nope have to iterate 
+		List<Node>slice = way2Nodes.subList(1, size2-1);
+		for (int i = 1;i<size1-2;i++) {
+			if (slice.contains(way1Nodes.get(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static int nextWay(int start, List<RelationMemberDescription> unconnected) {
+		// find first way
+		int firstWay = start;
+		for (;firstWay < unconnected.size();firstWay++) {
+			RelationMemberDescription rmd = unconnected.get(firstWay);
+			if (rmd.downloaded() && Way.NAME.equals(rmd.getType())) {
+				break;
+			}
+		}
+		return firstWay;
+	}
 
 	/**
 	 * Safely return a short cut (aka one character) from the string resources
-	 * @param ctx
+	 * 
+	 * @param ctx	Android context
 	 * @param id
 	 * @return character or 0 if no short cut can be found
 	 */

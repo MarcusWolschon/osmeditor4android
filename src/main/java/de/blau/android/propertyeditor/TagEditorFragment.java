@@ -71,8 +71,6 @@ import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
-
-
 	
 public class TagEditorFragment extends BaseFragment implements
 		PropertyRows, EditorUpdate {
@@ -339,9 +337,9 @@ public class TagEditorFragment extends BaseFragment implements
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					selectAllTags();
+					selectAllRows();
 				} else {
-					deselectAllTags();
+					deselectAllRows();
 				}
 			}
 		});
@@ -1173,8 +1171,8 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 	}
 	
-	
-	private void selectAllTags() {
+	@Override
+	public void selectAllRows() { // select all tags
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (loaded) {
 			int i = rowLayout.getChildCount();
@@ -1187,7 +1185,8 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 	}
 	
-	private void deselectAllTags() {
+	@Override
+	public void deselectAllRows() { // deselect all tags
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (loaded) {
 			int i = rowLayout.getChildCount();
@@ -1559,6 +1558,9 @@ public class TagEditorFragment extends BaseFragment implements
 					return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test");
 				}
 			});
+			return true;
+		case R.id.tag_menu_select_all:
+			selectAllRows();
 			return true;
 		case R.id.tag_menu_help:
 			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
