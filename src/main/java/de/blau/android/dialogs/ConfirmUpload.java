@@ -90,8 +90,13 @@ public class ConfirmUpload extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
+<<<<<<< Upstream, based on upload-dialog
         if (!(context instanceof Main)) {
             throw new ClassCastException(context.toString() + " can only be called from Main");
+=======
+        if (!(activity instanceof Main)) {
+            throw new ClassCastException(activity.toString() + " can only be called from Main");
+>>>>>>> ecbe17c Fix typo.
         }
     }
 
