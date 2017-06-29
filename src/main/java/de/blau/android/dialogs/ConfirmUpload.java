@@ -135,7 +135,7 @@ public class ConfirmUpload extends DialogFragment
 		CheckBox closeChangeset = (CheckBox)layout.findViewById(R.id.upload_close_changeset);
 		closeChangeset.setChecked(new Preferences(activity).closeChangesetOnSave());
 		AutoCompleteTextView comment = (AutoCompleteTextView)layout.findViewById(R.id.upload_comment);
-        FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<String>(activity,
+        FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity,
                 android.R.layout.simple_dropdown_item_1line, App.getLogic().getLastComments());
         comment.setAdapter(commentAdapter);
 		String lastComment = App.getLogic().getLastComment();
@@ -153,7 +153,7 @@ public class ConfirmUpload extends DialogFragment
 		comment.setOnKeyListener(new MyKeyListener());
 		
 		AutoCompleteTextView source = (AutoCompleteTextView)layout.findViewById(R.id.upload_source);
-		FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<String>(activity,
+		FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<>(activity,
                 android.R.layout.simple_dropdown_item_1line, App.getLogic().getLastSources());
         source.setAdapter(sourceAdapter);
 		String lastSource = App.getLogic().getLastSource();
