@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1276: Add collection_times to tags with opening_hours semantics, sort and reverse order of relation members.
+
 1275: Update OH Fragment, add reset address prediction to tools menu.
 
 1274: Fix NPE in address prediction, sort address tags in form.
