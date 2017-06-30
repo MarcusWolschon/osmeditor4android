@@ -71,8 +71,8 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 		menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.tag_menu_sort)
 		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
 		
-		menu.add(Menu.NONE, MENU_ITEM_REVERSE_ORDER, Menu.NONE, R.string.tag_menu_reverse_order).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		//.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
+		menu.add(Menu.NONE, MENU_ITEM_REVERSE_ORDER, Menu.NONE, R.string.tag_menu_reverse_order)
+		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_reverse_order));
 		
 		// we only display the download button if at least one of the selected elements isn't downloaded 
 		boolean nonDownloadedSelected = false;

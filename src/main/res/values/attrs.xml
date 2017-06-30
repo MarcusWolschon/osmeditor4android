@@ -41,6 +41,7 @@
 	<attr name="menu_up" format="reference" />
 	<attr name="menu_down" format="reference" />
 	<attr name="menu_sort" format="reference" />
+	<attr name="menu_reverse_order" format="reference" />
 	<attr name="menu_download" format="reference" />
 	<attr name="alert_dialog" format="reference" />
 	<attr name="drawer" format="reference" />

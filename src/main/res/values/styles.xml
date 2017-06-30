@@ -230,6 +230,7 @@
 		<item name="menu_up">@drawable/ic_action_collapse_holo_dark</item>
 		<item name="menu_down" >@drawable/ic_action_expand_holo_dark</item>
 		<item name="menu_sort">@drawable/ic_action_sort_by_size_holo_dark</item>
+		<item name="menu_reverse_order">@drawable/ic_low_priority_white_36dp</item>
 		<item name="menu_download">@drawable/ic_action_download_holo_dark</item>
 		<item name="edit">@drawable/ic_action_edit_holo_dark</item>
 		<item name="search">@drawable/ic_action_search_holo_dark</item>
@@ -398,6 +399,7 @@
 		<item name="menu_up">@drawable/ic_action_collapse_holo_light</item>
 		<item name="menu_down" >@drawable/ic_action_expand_holo_light</item>
 		<item name="menu_sort">@drawable/ic_action_sort_by_size_holo_light</item>
+		<item name="menu_reverse_order">@drawable/ic_low_priority_black_36dp</item>
 		<item name="menu_download">@drawable/ic_action_download_holo_light</item>
 		<item name="edit">@drawable/ic_action_edit_holo_light</item>
 		<item name="search">@drawable/ic_action_search_holo_light</item>
