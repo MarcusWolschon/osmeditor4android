@@ -721,6 +721,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			Util.groupI18nKeys(optionalEditable);
 			Util.groupI18nKeys(linkedTags);
 		}
+		// FIXME this doesn't quite seem to work as intended
 		Util.groupAddrKeys(linkedTags);
 		for (Entry<String,String>entry:recommendedEditable.entrySet()) {
 			addRow(editableView, entry.getKey(), entry.getValue(), preset, tags);

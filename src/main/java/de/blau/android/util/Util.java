@@ -3,6 +3,7 @@ package de.blau.android.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -373,7 +374,7 @@ public class Util {
 	 */
 	public static <V> void groupAddrKeys(Map<String,V> map) {
 		List<Entry<String,V>> temp = new ArrayList<Entry<String,V>>();
-		for (Entry<String,V>entry:map.entrySet()) {
+		for (Entry<String,V>entry:new HashSet<Entry<String,V>>(map.entrySet())) { // needs a copy since we are modifying map
 			String key = entry.getKey();
 			if (key.startsWith(Tags.KEY_ADDR_BASE)) {
 				if (Tags.KEY_ADDR_HOUSENUMBER.equals(key)) {
@@ -385,7 +386,7 @@ public class Util {
 		Collections.sort(temp,new Comparator<Entry<String,V>>() {
 			@Override
 			public int compare(Entry<String, V> arg0, Entry<String, V> arg1) {
-				return Tags.ADDRESS_SORT_ORDER.get(arg1.getValue()).compareTo(Tags.ADDRESS_SORT_ORDER.get(arg0.getValue())) ;
+				return Tags.ADDRESS_SORT_ORDER.get(arg0.getValue()).compareTo(Tags.ADDRESS_SORT_ORDER.get(arg1.getValue())) ;
 			}
 		});
 		for (Entry<String, V>entry:temp) {
