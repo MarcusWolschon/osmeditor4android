@@ -1078,7 +1078,7 @@
         {
             "location": "/help/en/Preset filter/", 
             "text": "Preset filter\n\n\nVespucci provides a simple mechanism to filter displayed and editable objects based on which preset that they match to. Elements that are not selectable and visible will be drawn with light grey lines.\n\n\nThe preset filter is enabled by selecting the corresponding menu entry in the menu on the main map display.\n\n\nActions\n\n\nSelecting a preset\n\n\nThe preset screen can be navigated similar to the other preset selection menus:\n\n\n\n\nclicking a group (light grey background) will enter and display the group\n\n\nclicking a preset (dark grey background) will select that preset for use in the filter\n\n\nlong clicking a group will select the whole group\n\n\n\n\n Help\n\n\nStart the Vespucci Help browser", 
-            "title": "Tag based filter"
+            "title": "Preset based filter"
         }, 
         {
             "location": "/help/en/Preset filter/#preset-filter", 
