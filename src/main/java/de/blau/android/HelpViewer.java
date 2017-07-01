@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map.Entry;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -55,6 +56,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		String language;
 		int order;
 		String topic;
+		String fileName;
 		
 		@Override
 		public int compareTo(@NonNull HelpItem another) {
@@ -77,6 +79,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 	
 	private static final String TOPIC = "topic";
 	private WebView helpView;
+	private HashMap<String,HelpItem> tocList = new HashMap<String,HelpItem>();
 	
 	private ActionBarDrawerToggle mDrawerToggle;
 	// drawer that will be our ToC
@@ -131,10 +134,6 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		actionbar.setDisplayShowTitleEnabled(true);
 		actionbar.show();
 
-
-		
-		
-		
 		// add our content
 		FrameLayout fl =  (FrameLayout) findViewById(R.id.content_frame);
 		helpView = new WebView(this);
@@ -166,34 +165,36 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 			String defaultLanguage = Locale.getDefault().getLanguage();
 			
 			TypedArray tocRes = getResources().obtainTypedArray(R.array.help_tableofcontents);
-			
-			HashMap <String,HelpItem> tocList = new HashMap<String,HelpItem>();
-					
+			TypedArray fileRes = getResources().obtainTypedArray(R.array.help_files);
+								
 			for (int i=0;i<tocRes.length();i++) {
-				String tocTopic = tocRes.getString(i);
+				String fileName = fileRes.getString(i);
 				// Log.d("HelpViewer", "TOC " + tocTopic); 
-				if (defaultList.contains(tocTopic + ".html")) {
+				if (defaultList.contains(fileName + ".html")) {
 					// Log.d("HelpViewer", "TOC " + locale + " " + tocTopic); 
 					HelpItem h = new HelpItem();
 					h.language = defaultLanguage;
-					h.topic = tocTopic;
+					h.topic = tocRes.getString(i);
 					h.order = i;	
+					h.fileName = fileName;
 					if (!tocList.containsKey(h.topic)) {
 						tocList.put(h.topic,h);
 					}
-				} else if (enList.contains(tocTopic + ".html")){
+				} else if (enList.contains(fileName + ".html")){
 					// Log.d("HelpViewer", "TOC en " + tocTopic);
 					HelpItem h = new HelpItem();
 					h.language = "en";
 					h.displayLanguage = true;
-					h.topic = tocTopic;
+					h.topic = tocRes.getString(i);
 					h.order = i;	
+					h.fileName = fileName;
 					if (!tocList.containsKey(h.topic)) {
 						tocList.put(h.topic,h);
 					}
 				}
 			}
 			tocRes.recycle();
+			fileRes.recycle();
 			
 			List<HelpItem> items = new ArrayList<HelpItem>(tocList.values());
 			Collections.sort(items);
@@ -205,11 +206,16 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 			mDrawerList.setAdapter(tocAdapter);
 			mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-			String helpFile = "help/" + Locale.getDefault().getLanguage() + "/"  + topic + ".html";
+			String topicFile = tocList.get(topic).fileName;
+			if (topicFile == null) {
+				topicFile = "no_help";
+			}
+			
+			String helpFile = "help/" + Locale.getDefault().getLanguage() + "/"  + topicFile + ".html";
 			Log.d("HelpViewer","1 Looking for help file: " + helpFile);
-			if (!defaultList.contains(topic + ".html")) {
-				helpFile = "help/en/"  + topic + ".html";
-				if (!enList.contains(topic + ".html")) {
+			if (!defaultList.contains(topicFile + ".html")) {
+				helpFile = "help/en/"  + topicFile + ".html";
+				if (!enList.contains(topicFile + ".html")) {
 					helpFile = "help/en/no_help.html";
 					mDrawerLayout.openDrawer(mDrawerList);
 				}
@@ -273,7 +279,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			HelpItem helpItem = tocAdapter.getItem(position);
-			helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.topic +".html");
+			helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.fileName +".html");
 			mDrawerLayout.closeDrawer(mDrawerList);
 			mDrawerList.setSelected(false);
 			getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + helpItem.topic);
@@ -323,6 +329,12 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		if (lastSlash < 0 || lastDot < 0) {
 			return "Error, got: " + url;
 		}
-		return url.substring(lastSlash+1,lastDot);
+		String fileName = url.substring(lastSlash+1,lastDot);
+		for (Entry<String,HelpItem>entry:tocList.entrySet()) { // could use a HashMap here but probably not worth it
+			if (fileName.equals(entry.getValue().fileName)) {
+				return entry.getKey();
+			}
+		}
+		return "";
 	}
 }
