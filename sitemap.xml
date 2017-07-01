@@ -3,8 +3,8 @@
 
     
     <url>
-     <loc>None/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,108 +12,32 @@
     
         
     <url>
-     <loc>None/help/en/Introduction/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/help/en/Introduction/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/help/en/0.9.8 Release notes/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/help/en/0.9.8 Release notes/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/help/en/0.9.7 Release notes/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/help/en/0.9.7 Release notes/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/help/en/0.9.6 Release notes/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/help/en/0.9.6 Release notes/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/tutorials/old_release_notes/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    
-
-    
-        
-    <url>
-     <loc>None/help/en/Main map display/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Creating new objects/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Node selected/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Way selected/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Relation selected/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Property editor/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Multiselect/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Conflict resolution/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Presets/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Aligning background imagery/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/Keyboard/</loc>
-     <lastmod>2017-03-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/help/en/GPS sources/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/tutorials/old_release_notes/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -122,32 +46,108 @@
     
         
     <url>
-     <loc>None/tutorials/name_suggestions/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/help/en/Main map display/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/tutorials/reporting_issues/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/help/en/Creating new objects/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/tutorials/tag_only/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/help/en/Node selected/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/tutorials/presets/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/help/en/Way selected/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/tutorials/vespucci_intents/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/help/en/Relation selected/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/help/en/Property editor/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/help/en/Multiselect/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/help/en/Conflict resolution/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/help/en/Presets/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/help/en/Aligning background imagery/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/help/en/Keyboard/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/help/en/GPS sources/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>/tutorials/name_suggestions/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/tutorials/reporting_issues/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/tutorials/tag_only/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/tutorials/presets/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/tutorials/vespucci_intents/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -155,16 +155,16 @@
 
     
     <url>
-     <loc>None/tutorials/screenshots/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/tutorials/screenshots/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>None/tutorials/faq/</loc>
-     <lastmod>2017-03-07</lastmod>
+     <loc>/tutorials/faq/</loc>
+     <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
