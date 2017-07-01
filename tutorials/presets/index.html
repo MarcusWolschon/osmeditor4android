@@ -67,6 +67,10 @@
                         </li>
                     
                         <li >
+                            <a href="../../help/en/0.9.9 Release notes/">0.9.9 Release notes</a>
+                        </li>
+                    
+                        <li >
                             <a href="../../help/en/0.9.8 Release notes/">0.9.8 Release notes</a>
                         </li>
                     
@@ -137,6 +141,14 @@
                     
                         <li >
                             <a href="../../help/en/GPS sources/">GPS sources</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../help/en/Tag filter/">Tag based filter</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../help/en/Preset filter/">Tag based filter</a>
                         </li>
                     
                     </ul>
@@ -222,6 +234,8 @@
         
             <li><a href="#translation">Translation </a></li>
         
+            <li><a href="#extensions">Extensions</a></li>
+        
     
     </ul>
 </div></div>
@@ -229,12 +243,12 @@
 
 <h2 id="vespucci-preset-system">Vespucci Preset System</h2>
 <p><em>Preliminary documentation for Vespucci 0.9.8</em></p>
-<p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci however that doesn't mean that there are no differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
+<p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h3 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci</h3>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
-<p>For the preset based editing to work Vespucci has to match the existing tags, including incomplete, key-only ones. with the available presets. This is done in an iterative fashion: the best matching preset is found (weighting presets with fixed key-value tuples higher than such with variable values), then all tags that can be found in linked presets are added (no separate header displayed) and this process is repeated until their are either no tags left or no preset match can be found.  </p>
+<p>For the preset based editing to work Vespucci has to match the existing tags, including incomplete, key-only ones with the available presets. This is done in an iterative fashion: the best matching preset is found (weighting presets with fixed key-value tuples higher than such with variable values), then all tags that can be found in linked presets are added (no separate header displayed) and this process is repeated until their are either no tags left or no preset match can be found.  </p>
 <h3 id="supported-josm-preset-elements-and-attributes">Supported JOSM Preset Elements and Attributes</h3>
-<p>Note: this is loosely based on what <a href="https://josm.openstreetmap.de/wiki/TaggingPresets">JOSM claims</a> to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored see <a href="#Translation">Translation</a> "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value.  </p>
+<p>Note: this is loosely based on what <a href="https://josm.openstreetmap.de/wiki/TaggingPresets">JOSM claims</a> to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored (see <a href="#Translation">Translation</a>). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value.  </p>
 <table>
 <thead>
 <tr>
@@ -322,6 +336,12 @@
 <td>preset_name_label</td>
 <td>ignored</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>deprecated</td>
+<td>extension</td>
+<td>only use the preset for matching and map icon display</td>
 </tr>
 <tr>
 <td><strong>&lt;chunk&gt;</strong></td>
@@ -418,6 +438,12 @@
 <td>alternative_autocomplete_keys</td>
 <td>ignored</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>javascript</td>
+<td>extension</td>
+<td>if value is not set, execute the JS script</td>
 </tr>
 <tr>
 <td><strong>&lt;combo&gt;</strong></td>
@@ -518,6 +544,12 @@
 <tr>
 <td></td>
 <td>values_no_i18n</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>values_from</td>
 <td>ignored</td>
 <td></td>
 </tr>
@@ -625,6 +657,12 @@
 </tr>
 <tr>
 <td></td>
+<td>values_from</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
 <td>rows</td>
 <td>ignored</td>
 <td></td>
@@ -634,6 +672,12 @@
 <td></td>
 <td>supported</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>value</td>
+<td>supported</td>
+<td>required</td>
 </tr>
 <tr>
 <td></td>
@@ -825,14 +869,19 @@
 </table>
 <h3 id="translation">Translation <a name="Translation"></a></h3>
 <p>While the preset specification includes language specific text by prefixing the keys with the two letter ISO code, for example <em>de.text</em>, in practical terms this doesn't really work. Particularly if lots of languages are in use, the preset file itself would explode in size, become essentially illegible and force the application to parse many 100's if not 1000's of attributes for languages it is not interested in. </p>
-<p>For Vespucci I've chosen a different approach based on <a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext</a> format files, the simple <a href="https://github.com/simonpoole/beautified-JOSM-preset/tree/master/src/ch/poole/presetutils">Preset2Pot</a> utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).</p></div>
+<p>For Vespucci I've chosen a different approach based on <a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext</a> format files, the simple <a href="https://github.com/simonpoole/beautified-JOSM-preset/tree/master/src/ch/poole/presetutils">Preset2Pot</a> utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).</p>
+<h3 id="extensions">Extensions</h3>
+<ul>
+<li><em>deprecated</em> only use this preset for matching, do not offer it for new use and do not find it when searched</li>
+<li><em>javascript</em> execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any</li>
+</ul></div>
 	    
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 0.9.8 </center>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 0.9.9 </center>
         </footer>
 
         <script src="../../js/jquery-1.10.2.min.js"></script>

@@ -18,6 +18,12 @@
     </url>
         
     <url>
+     <loc>/help/en/0.9.9 Release notes/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>/help/en/0.9.8 Release notes/</loc>
      <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
@@ -113,6 +119,18 @@
         
     <url>
      <loc>/help/en/GPS sources/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/help/en/Tag filter/</loc>
+     <lastmod>2017-07-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/help/en/Preset filter/</loc>
      <lastmod>2017-07-01</lastmod>
      <changefreq>daily</changefreq>
     </url>

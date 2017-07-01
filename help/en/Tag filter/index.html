@@ -10,7 +10,7 @@
         <link rel="shortcut icon" href="favicon.ico">
         
 
-	<title>Conflict resolution - Vespucci</title>
+	<title>Tag based filter - Vespucci</title>
 
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -123,8 +123,8 @@
                             <a href="../Multiselect/">Multiselect</a>
                         </li>
                     
-                        <li class="active">
-                            <a href="./">Conflict resolution</a>
+                        <li >
+                            <a href="../Conflict resolution/">Conflict resolution</a>
                         </li>
                     
                         <li >
@@ -143,8 +143,8 @@
                             <a href="../GPS sources/">GPS sources</a>
                         </li>
                     
-                        <li >
-                            <a href="../Tag filter/">Tag based filter</a>
+                        <li class="active">
+                            <a href="./">Tag based filter</a>
                         </li>
                     
                         <li >
@@ -206,12 +206,12 @@
                     </a>
                 </li>
                 <li >
-                    <a rel="next" href="../Multiselect/">
+                    <a rel="next" href="../GPS sources/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../Presets/">
+                    <a rel="prev" href="../Preset filter/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -226,25 +226,29 @@
             	<div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#conflict-resolution">Conflict resolution</a></li>
+        <li class="main active"><a href="#tag-filter">Tag filter</a></li>
         
-            <li><a href="#version-conflicts">Version conflicts</a></li>
+            <li><a href="#actions">Actions</a></li>
         
-            <li><a href="#referential-conflicts">Referential conflicts</a></li>
+            <li><a href="#filter-entries">Filter entries</a></li>
         
     
     </ul>
 </div></div>
             	<div class="col-md-9" role="main">
 
-<h1 id="conflict-resolution">Conflict resolution</h1>
-<p>Vespucci provides basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity by downloading only small areas, refreshing them often and saving changes frequently.</p>
-<p>Vespucci uploads modified and deleted elements one by one. Any conflicts detected will be related to the current element and will need to be resolved before the upload can be retried. As a consequence, if you suspect that your edits have caused more than a handful of conflicts you should save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM.</p>
-<h3 id="version-conflicts">Version conflicts</h3>
-<p>The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, use your local version or to overwrite your changes with whatever is on the server.</p>
-<p>It is likely better, except if you have really important changes, to use the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, with other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.</p>
-<h3 id="referential-conflicts">Referential conflicts</h3>
-<p>While Vespucci in general doesn't allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly. Deletes happen at the end of the upload process for this reason to allow the server to check. In such a conflict situation you only have the choice to use the server version or cancel.  </p></div>
+<h1 id="tag-filter">Tag filter</h1>
+<p>Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines. All edits and additions to the filter entries are immediately stored on your device.</p>
+<p>The preset filter is enabled by selecting the corresponding menu entry in the menu on the main map display.</p>
+<h2 id="actions">Actions</h2>
+<h3 id="add">+ Add</h3>
+<p>Add a new filter entry.</p>
+<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help</h3>
+<p>Start the Vespucci Help browser</p>
+<h2 id="filter-entries">Filter entries</h2>
+<p>Default, no entries state, is to not include any objects. Each entry can be enabled/disabled with the checkbox and are applied in the top-down order as they are displayed. Selecting the "+" node will include objects that match, "-" will exclude objects. OSM object type can be either <em>All</em>, <em>Nodes</em>, <em>Ways</em>. <em>Ways+</em> (automatically include way nodes of matched ways), <em>Relations</em> and <em>Relations+</em> (automatically include way nodes of matched ways). Included ways and relations will include their member objects.</p>
+<p>Regular expressions can be entered in the Key and Value text fields, an empty field will match all strings. Combination of tags is currently not supported.</p>
+<p>Clicking the trash can icon will delete the entry.</p></div>
 	    
         </div>
 

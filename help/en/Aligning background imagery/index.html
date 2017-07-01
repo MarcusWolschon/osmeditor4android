@@ -67,6 +67,10 @@
                         </li>
                     
                         <li >
+                            <a href="../0.9.9 Release notes/">0.9.9 Release notes</a>
+                        </li>
+                    
+                        <li >
                             <a href="../0.9.8 Release notes/">0.9.8 Release notes</a>
                         </li>
                     
@@ -137,6 +141,14 @@
                     
                         <li >
                             <a href="../GPS sources/">GPS sources</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../Tag filter/">Tag based filter</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../Preset filter/">Tag based filter</a>
                         </li>
                     
                     </ul>
@@ -230,17 +242,17 @@
             	<div class="col-md-9" role="main">
 
 <h1 id="align-background">Align background</h1>
-<p>Many different background sources are available for OpenStreetMap editors, particularly satellite and aerial imagery however often suffers from small to large offsets from reality. It is important to check and potentially adjust for this <strong>before</strong> tracing anything for inclusion in to OpenStreetMap in every editor. Vespucci provides functions do this both from stored offsets and manually.</p>
+<p>Many different background sources are available for OpenStreetMap editors. Satellite and aerial imagery often suffers from small to large offsets from reality. It is important to check and potentially adjust for this <strong>before</strong> tracing anything for inclusion in OpenStreetMap in every editor. Vespucci provides functions do this both from stored offsets and manually.</p>
 <p>All operations affect only the current background layer.</p>
 <h3 id="manually-adjusting-the-offset">Manually adjusting the offset</h3>
-<p>To adjust the offset manually you need to align it to a reference, this could be a known numeric coordinate offset, GPS traces (from the corresponding overlay) or simply the existing OpenStreetMap data. In the "Align background" screen you can simply drag the background to the desired position, overlays and the OpenStreetMap data will remain stationary. In the upper left hand corner you will see a display indicating current zoom level and the current offset.</p>
-<p>Existing the screen with "Done" will semi-permanently store the offset for this zoom level, to apply it to all zoom levels select "Apply (all Zooms)" from the menu.</p>
+<p>To adjust the offset manually you need to align it to a reference. This could be a known numeric coordinate offset, GPS traces (from the corresponding overlay) or simply the existing OpenStreetMap data. In the "Align background" screen you can simply drag the background to the desired position, overlays and the OpenStreetMap data will remain stationary. In the upper left hand corner you will see a display indicating current zoom level and the current offset.</p>
+<p>Exiting the screen with "Done" will semi-permanently store the offset for this zoom level, to apply it to all zoom levels select "Apply (all Zooms)" from the menu.</p>
 <h3 id="retrieving-an-offset-from-the-imagery-offset-db">Retrieving an offset from the imagery offset DB</h3>
 <p><em>(requires network connectivity)</em></p>
 <p>Select "FROM DB" to retrieve an offset from the imagery offset DB, this searches in a radius of 10km for offsets that are applicable to the current background layer. If offsets are found they will be presented in a nearest first order, with the options to either skip to the next one, apply the offset to all zooms, or just as stored in the offset DB.</p>
 <h3 id="saving-an-offset-to-the-imagery-offset-db">Saving an offset to the imagery offset DB</h3>
 <p><em>(requires network connectivity)</em></p>
-<p>A manually set offset can be saved to the DB. Vespucci will create separate entries for each distinct offset and set of zooms, you can then individually decide to save or not. Please state in your description clearly what wou used as a reference for your offset.</p>
+<p>A manually set offset can be saved to the DB. Vespucci will create separate entries for each distinct offset and set of zooms, you can then individually decide to save or not. Please state in your description clearly what you used as a reference for your offset.</p>
 <h3 id="all-functions">All functions</h3>
 <ul>
 <li><strong>FROM DB</strong> - retrieve offset from imagery offset DB</li>
@@ -256,7 +268,7 @@
         <footer class="col-md-12">
             <hr>
             
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 0.9.8 </center>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 0.9.9 </center>
         </footer>
 
         <script src="../../../js/jquery-1.10.2.min.js"></script>

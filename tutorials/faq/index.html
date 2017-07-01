@@ -67,6 +67,10 @@
                         </li>
                     
                         <li >
+                            <a href="../../help/en/0.9.9 Release notes/">0.9.9 Release notes</a>
+                        </li>
+                    
+                        <li >
                             <a href="../../help/en/0.9.8 Release notes/">0.9.8 Release notes</a>
                         </li>
                     
@@ -137,6 +141,14 @@
                     
                         <li >
                             <a href="../../help/en/GPS sources/">GPS sources</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../help/en/Tag filter/">Tag based filter</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../help/en/Preset filter/">Tag based filter</a>
                         </li>
                     
                     </ul>
@@ -266,7 +278,7 @@
 <h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
 <h4 id="what-is-vespucci">What is Vespucci?</h4>
 <p>Vespucci is the first <a href="http://www.openstreetmap.org/">OpenStreetMap</a> editor for Android.
-That means: It is a light-weight, easy-to-use mapping tool on mobile Android devices.</p>
+That means: it is a light-weight, easy-to-use mapping tool on mobile Android devices.</p>
 <h4 id="what-is-vespucci-not">What is Vespucci NOT?</h4>
 <ul>
 <li>Vespucci is not primarily a mobile map-viewer. </li>
@@ -279,22 +291,22 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <h4 id="what-do-i-need-to-get-started-with-vespucci">What do I need to get started with Vespucci?</h4>
 <p>You need:</p>
 <ul>
-<li>An Android device (or the emulator) Release 0.9.X has only been tested on Android 2.3 and later.</li>
-<li>The Vespucci APK file (available from the Android Market and github)</li>
+<li>An Android device (or the emulator), note that Release 0.9.x has only been tested on Android 2.3 and later</li>
+<li>The Vespucci APK file (available from Google Play and GitHub)</li>
 <li>Some familiarity with <a href="http://wiki.openstreetmap.org/wiki/Map_Features">OSM Map features</a></li>
 <li>An <a href="http://www.openstreetmap.org/user/new">OSM account</a></li>
 </ul>
 <h4 id="what-is-the-status-of-vespucci-development">What is the status of Vespucci development?</h4>
-<p>The current Vespucci version is 0.9.7, 0.9.8 is currently in developement.</p>
+<p>The current Vespucci version is 0.9.8, 0.9.9 is currently in beta release.</p>
 <h4 id="is-vespucci-available-for-other-mobile-platforms">Is Vespucci available for other mobile platforms?</h4>
 <p>No, with the exception of those that provide an Android compatible environment.</p>
 <h4 id="how-can-i-obtain-vespucci">How can I obtain Vespucci?</h4>
-<p>See <a href="../../#obtaining-vespucci">Obtaing Vespucci</a></p>
+<p>See <a href="../../#obtaining-vespucci">Obtaining Vespucci</a>.</p>
 <h4 id="how-can-i-install-vespucci-on-my-android-device">How can I install Vespucci on my Android device?</h4>
 <p>Just download and install like any other app =)</p>
 <h4 id="how-can-i-install-vespucci-on-the-android-emulator">How can I install Vespucci on the Android emulator?</h4>
 <p>Installation of the Vespucci APK is like any other APK.
-There are plenty descriptions available (e.g. <a href="http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/">1 </a>, <a href="http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator">2 </a>, <a href="http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html">3 </a>, <a href="http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/">4 </a>)</p>
+There are plenty of descriptions available (e.g. <a href="http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/">1 </a>, <a href="http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator">2 </a>, <a href="http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html">3 </a>, <a href="http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/">4 </a>)</p>
 <h4 id="running-vespucci-on-old-and-small-devices">Running Vespucci on "old and small" devices</h4>
 <p>Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.2 and later,
 however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap (this can be as low as 16MB). If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints should be helpful (ordered in decreasing order of importance):</p>
@@ -306,12 +318,12 @@ however older devices tend to have very limited memory and correspondingly the a
 <li>don't add large presets</li>
 </ul>
 <h4 id="cant-download-data-from-openstreetmap-servers">Can't download data from OpenStreetMap servers</h4>
-<p>If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use https (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. </p>
-<p>Workaround: create a new non-https API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. Version 0.9.8 and later automatically adds such an entry so you will only need to select it. </p>
+<p>If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use HTTPS (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. </p>
+<p>Workaround: create a new non-HTTPS API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. </p>
 <h4 id="301-moved-permanently-error-when-trying-to-download">"301 Moved Permanently" error when trying to download</h4>
-<p>The OpenStreetMap API server you are using is likely redirecting http (non-encrypted) to https (encyrpted) connections. Try changing the API configuration to use https.</p>
+<p>The OpenStreetMap API server you are using is likely redirecting HTTP (non-encrypted) to HTTPS (encrypted) connections. Try changing the API configuration to use HTTPS.</p>
 <h4 id="what-can-i-do-with-the-editor">What can I do with the editor?</h4>
-<p>Currently, you can</p>
+<p>Currently, you can:</p>
 <ul>
 <li>Add and move nodes, ways and relations</li>
 <li>Rotate ways</li>
@@ -319,27 +331,27 @@ however older devices tend to have very limited memory and correspondingly the a
 <li>Append nodes to existing ways</li>
 <li>Delete existing nodes, ways and relations</li>
 <li>Merge nodes</li>
-<li>Edit existing relation mambers and add new </li>
+<li>Edit existing relation members and add new </li>
 <li>Add turn restrictions</li>
 <li>Download area around current location from OSM server</li>
 <li>Download user-specified areas from OSM server</li>
 <li>Create, save, upload and import GPS tracks</li>
 </ul>
-<p>and much more.</p>
+<p>... and much more.</p>
 <h4 id="does-vespucci-support-osm-notes">Does Vespucci support OSM Notes?</h4>
 <p>Yes, Vespucci supports manual and automatic download of Notes and offline storage of them, further it supports displaying and editing warnings produced by the OSMOSE quality assurance system. OpenStreetBugs is no longer supported.</p>
 <h4 id="what-are-the-limits-of-vespucci">What are the limits of Vespucci?</h4>
-<p>Some things missing at this point in time</p>
+<p>Some things missing at this point in time:</p>
 <ul>
 <li>No validator (however in general Vespucci tries to stop you from shooting yourself in the foot)</li>
-<li>Some operations still missing, mainly polygon merging and relation sorting.</li>
+<li>Some operations still missing, for example polygon merging.</li>
 </ul>
 <blockquote>
 <p>Remember, Android is intended to be lightweight and easy-to-use.</p>
 </blockquote>
 <h4 id="which-languages-are-supported">Which languages are supported?</h4>
-<p>The user interdace is currently available in: English, German, Chinese (Taiwan), Spanish, Ukranian, Russian, Turkish, French, Italian, Vienamese, Chinese, Icelandic, Greek, Portugeses and Janpanese. These translations are typically complete or only have a small number of terms missing.</p>
-<p>We also have partial translations for a number of other languages (please see link to transifex below for the current status). Any help in this area would be gratefully received. Please see <a href="https://www.transifex.com/projects/p/vespucci/"></a>.</p>
+<p>The user interface is currently available in: English, German, Chinese (Taiwan), Spanish, Ukrainian, Russian, Turkish, French, Italian, Vietnamese, Chinese, Icelandic, Greek, Portuguese and Japanese. These translations are typically complete or only have a small number of terms missing.</p>
+<p>We also have partial translations for a number of other languages (please see link to Transifex below for the current status). Any help in this area would be gratefully received. Please see <a href="https://www.transifex.com/projects/p/vespucci/">Vespucci's Transifex page</a> to help.</p>
 <h4 id="how-can-i-download-osm-data">How can I download OSM data?</h4>
 <p>On the first time startup, Vespucci requests which area to download. You can choose from the following options:</p>
 <ul>
@@ -348,13 +360,13 @@ however older devices tend to have very limited memory and correspondingly the a
 <li>Coordinates. If you need access to specific geographic coordinates you can specify latitude/longitude.</li>
 <li>Search for a location (New in 0.9.4, requires network connectivity)</li>
 </ul>
-<p>For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when  downloading.)</p>
+<p>For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when downloading.)</p>
 <p>You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the "Download current view" from the transfer menu.</p>
 <h4 id="how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?</h4>
 <p>Choose "Upload data to  OSM server" from the transfer menu.
 (With other words: Data is not automatically uploaded!)</p>
 <h4 id="which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?</h4>
-<p>Vespucci will use OAuth authorization as default for new installs. On your first upload you will be directed to an OSM page that we ask you to authorize your Vespucci install. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).</p>
+<p>Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).</p>
 <p>Note: OAuth will work for both the standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.</p>
 <h4 id="how-can-i-zoom-into-an-area">How can I zoom into an area?</h4>
 <ul>
@@ -363,14 +375,14 @@ however older devices tend to have very limited memory and correspondingly the a
 <li>Use the volume buttons of your Android device.</li>
 </ul>
 <h4 id="conflict-resolution">Conflict resolution</h4>
-<p>vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osc file, open that with JOSM and use JOSMs conflict resolution capabilities.</p></div>
+<p>Vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osc file, open that with JOSM and use JOSM's conflict resolution capabilities.</p></div>
 	    
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 0.9.8 </center>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 0.9.9 </center>
         </footer>
 
         <script src="../../js/jquery-1.10.2.min.js"></script>
