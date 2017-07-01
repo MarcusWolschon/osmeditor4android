@@ -76,6 +76,8 @@
     <string name="upload_gpx_description_label">Description</string>
     <string name="upload_gpx_tags_label">Tags</string>
     <string name="upload_gpx_visibility_label">Visibility</string>
+    <string name="upload_validation_error_empty_comment">Comment cannot be empty</string>
+    <string name="upload_validation_error_empty_source">Source cannot be empty</string>
     <string name="openstreetbug_new_title">New Note</string>
     <string name="openstreetbug_new_bug">Report Issue</string>
     <string name="openstreetbug_bug_title">Issue</string>

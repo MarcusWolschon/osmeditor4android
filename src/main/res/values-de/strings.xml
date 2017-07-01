@@ -74,6 +74,8 @@
   <string name="upload_gpx_description_label">Beschreibung</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
+  <string name="upload_validation_error_empty_comment">Kommentar kann nicht leer sein</string>
+  <string name="upload_validation_error_empty_source">Quelle kann nicht leer sein</string>
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
   <string name="openstreetbug_bug_title">Problem</string>
