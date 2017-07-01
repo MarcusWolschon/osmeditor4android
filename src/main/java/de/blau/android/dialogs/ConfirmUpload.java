@@ -1,5 +1,6 @@
 package de.blau.android.dialogs;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.acra.ACRA;
@@ -36,6 +37,8 @@ import de.blau.android.listener.UploadListener;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.validation.NotEmptyValidator;
+import de.blau.android.validation.FormValidation;
 
 /**
  * Dialog for final review of changes and adding comment and source tags before upload
@@ -162,13 +165,21 @@ public class ConfirmUpload extends DialogFragment
 		source.setOnClickListener(autocompleteOnClick);
 		source.setThreshold(1);
 		source.setOnKeyListener(new MyKeyListener());
-		
-		builder.setPositiveButton(R.string.transfer_download_current_upload, 
-				new UploadListener((Main) activity, comment, source, closeChangeset));
+
+		FormValidation commentValidator = new NotEmptyValidator(comment,
+				getString(R.string.upload_validation_error_empty_comment));
+		FormValidation sourceValidator = new NotEmptyValidator(source,
+				getString(R.string.upload_validation_error_empty_source));
+		List<FormValidation> validators = Arrays.asList(commentValidator, sourceValidator);
+
+		builder.setPositiveButton(R.string.transfer_download_current_upload, null);
 		builder.setNegativeButton(R.string.no, doNothingListener);
 
-    	return builder.create();
-    }	
+		AlertDialog dialog = builder.create();
+		dialog.setOnShowListener(new UploadListener((Main) activity,
+				comment, source, closeChangeset, validators));
+		return dialog;
+    }
     
 	/**
 	 * @return a list of all pending changes to upload (contains newlines)
