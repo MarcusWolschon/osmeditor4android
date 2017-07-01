@@ -183,7 +183,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
 			((PresetFilter) filter).clear();
 			break;
 		case R.id.menu_help:
-			HelpViewer.start(this, R.string.help_tagfilter);
+			HelpViewer.start(this, R.string.help_presetfilter);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
