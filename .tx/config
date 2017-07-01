@@ -36,12 +36,19 @@ source_file = src/main/res/values/voice.xml
 source_lang = en
 minimum_perc = 100
 
+[vespucci.helptopicsxml]
+file_filter = src/main/res/values-<lang>/helptopics.xml
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh-Hans: zh-rCN, sv_SE: sv-rSE, id: in
+source_file = src/main/res/values/helptopics.xml
+source_lang = en
+minimum_perc = 10
+
 [vespucci.introductionmd]
 file_filter = documentation/docs/help/<lang>/Introduction.md
 lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR,zh-Hans: zh-rCN, sv_SE: sv-rSE, id: in 
 source_file = documentation/docs/help/en/Introduction.md
 source_lang = en
-minimum_perc = 5
+minimum_perc = 10
 
 [presets.presetpot]
 type = PO
