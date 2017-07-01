@@ -119,7 +119,6 @@
   <string name="toast_too_many_nodes_for_move">Taşımak istediğiniz yolda çok fazla düğüm var</string>
   <string name="toast_photo_indexing_started">Jeo-referanslı fotoğraf taraması başladı</string>
   <string name="toast_photo_indexing_finished">Jeo-referanslı fotoğraf taraması bitti</string>
-  <string name="toast_download_bbox_failed">İndirme başarısız, muhtemelen indirmeye çalışılan alan çok fazla büyük.</string>
   <string name="toast_download_failed">İndirme başarısız hata kodu %1$d, mesaj %2$s</string>
   <string name="toast_unsurveyed_road">Keşfedilmemiş yol</string>
   <string name="toast_noname">İsimsiz veya referanssız yol</string>
@@ -138,7 +137,6 @@
   <string name="toast_inconsistent_state">Tutarsız durum algılandı, lütfen bir hata raporu gönderin!</string>
   <string name="toast_camera_error">Kamera uygulaması başlatılırken hata oluştu: %1$s</string>
   <string name="toast_no_voice">Herhangi bir ses tanıma özelliği mevcut değil</string>
-  <string name="toast_storage_error">Karolar ve diğer dosyalar için olan dizin Vespucci tarafında yazılabilir değil.\nİzinlerle ilgili veya cihazınızla ilgili teknik bir sorun olabilir.</string>
   <string name="toast_min_one_preset">En az bir tane önceden belirlenmiş seçilmelidir!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Evet</string>
@@ -208,8 +206,6 @@
   <string name="menu_set_position">Pozisyon</string>
   <string name="menu_split">Böl</string>
   <string name="menu_extract">Düğümü çıkar</string>
-  <string name="menu_closed_way_split_1">1.düğüm, bölünmüş kapalı yol</string>
-  <string name="menu_closed_way_split_2">2. düğüm, Bölünmüş kapalı yol</string>
   <string name="menu_append">Ekle</string>
   <string name="menu_relation">İlişki oluştur</string>
   <string name="menu_add_relation_member">Üye ekle</string>
@@ -234,7 +230,6 @@
   <string name="menu_transfer">Aktarma...</string>
   <string name="menu_transfer_download_current">Şimdiki görünümü indir</string>
   <string name="menu_transfer_download_current_add">Şimdiki görünümü indirmeye ekle</string>
-  <string name="menu_transfer_download_other">Başka konumu indir</string>
   <string name="menu_transfer_upload">Verileri OSM sunucusuna yükle</string>
   <string name="menu_transfer_file">Dosya...</string>
   <string name="menu_transfer_export">Değişimi dışa aktar</string>
@@ -293,6 +288,7 @@
   <string name="actionmode_relationselect">İlişki seçildi</string>
   <string name="actionmode_createpath">Yol oluştur</string>
   <string name="actionmode_multiselect">Çoklu seçim</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_view">Kullanıcı Arayüz Ayarları</string>
   <string name="config_showCameraAction_title">Kamera eylemini göster</string>
@@ -393,7 +389,6 @@
   <string name="changes_changed">\"%1$s\" değiştirildi</string>
   <string name="changes_created">\"%1$s\" oluşturuldu</string>
   <string name="confirm_upload_title">Yükle?</string>
-  <string name="confirm_upload_text">Bu değişiklikleri yükle?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Öntanımlı ekle</string>
   <string name="urldialog_preset_exists">Öntanımlı zaten var</string>
@@ -410,6 +405,7 @@
   <string name="name">Ad</string>
   <string name="url">URL</string>
   <string name="default_">Varsayılan</string>
+  <!---->
   <string name="api_name">API Ad</string>
   <string name="api_url">API URL</string>
   <!--"default" is a reserved Java keyword...-->
@@ -420,6 +416,7 @@
   <string name="undo_nothing">geri alınacak bir şey yok</string>
   <string name="tracking_active_text">Vespucci GPS izini otomatik kaydediyor veya otomatik indiriyor</string>
   <string name="gps_failure">GPS etkinleştirme başarısız</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">düğümü taşı</string>
   <string name="undo_action_moveway">yolu taşı</string>

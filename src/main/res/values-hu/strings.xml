@@ -133,10 +133,8 @@
   <string name="toast_potential_merge_tag_conflict">Olyan elemeket egyesített, melyek ütköző címke értékeket tartalmaznak. Ellenőrizze, hogy a címkék helyesek, mielőtt újra próbálkozik.</string>
   <string name="toast_state_file_failed">Olvashatatlan vagy sérült állapotfájl</string>
   <string name="toast_too_many_nodes_for_move">A mozgatáshoz túl sok pont van a vonalban</string>
-  <string name="toast_unread_mail">%1$s olvasatlan levele van az OpenStreetMap kiszolgálón</string>
   <string name="toast_photo_indexing_started">A földrajzi pozícióval ellátott fényképek keresése elkezdődött</string>
   <string name="toast_photo_indexing_finished">A földrajzi pozícióval ellátott fényképek keresése befejeződött</string>
-  <string name="toast_download_bbox_failed">A letöltés nem sikerült, valószínűleg a kijelölt terület túl nagy volt.</string>
   <string name="toast_download_failed">Sikertelen letöltés, hibakód: %1$d, üzenet: %2$s.</string>
   <string name="toast_unsurveyed_road">Nem felmért út</string>
   <string name="toast_noname">Az útnak nincs neve vagy hivatkozási száma</string>
@@ -160,7 +158,6 @@
   <string name="toast_inconsistent_state">Inkonzisztens állapot észlelve, küldje be a hibajelentésben!</string>
   <string name="toast_camera_error">Hiba a kamera indításakor: %1$s</string>
   <string name="toast_no_voice">Hangfelismerő szolgáltatás nincs jelen</string>
-  <string name="toast_storage_error">A csempék és más fájlok könyvtárát nem tudja írni a Vespucci.\nEz jogosultsági vagy műszaki probléma lehet az eszközén.</string>
   <string name="toast_min_one_preset">Legalább egy előbeállítást ki kell választani!</string>
   <string name="toast_used_backup">Sérült állapotfájl, másolatfájl használva!</string>
   <string name="toast_used_bug_backup">Sérült hibaállapotfájl, másolatfájl használva!</string>
@@ -270,15 +267,7 @@
   <string name="menu_set_position">Pozíció</string>
   <string name="menu_split">Kettévágás</string>
   <string name="menu_extract">Pont kinyerése</string>
-  <string name="menu_closed_way_split_1">Zárt vonal felosztása, 1. pont</string>
-  <string name="menu_closed_way_split_2">Zárt vonal felosztása, 2. pont</string>
   <string name="menu_append">Hozzáfűzés</string>
-  <string name="menu_restriction">Behajtási korlátozás</string>
-  <string name="menu_restriction_restart_from">„from” szakasz újra kiválasztása</string>
-  <string name="menu_restriction_via">„via” szakasz/elem hozzáadása</string>
-  <string name="menu_restriction_restart_via">„via” szakasz újra kiválasztása</string>
-  <string name="menu_restriction_to">„to” szakasz hozzáadása</string>
-  <string name="menu_restriction_restart_to">„to” szakasz újra kiválasztása</string>
   <string name="menu_relation">Kapcsolat létrehozása</string>
   <string name="menu_add_relation_member">Tag hozzáadása</string>
   <string name="menu_select_relation_members">Tagok kijelölése</string>
@@ -302,7 +291,6 @@
   <string name="menu_transfer">Átvitel…</string>
   <string name="menu_transfer_download_current">Jelenlegi nézet letöltése</string>
   <string name="menu_transfer_download_current_add">Jelenlegi nézet hozzáadása a letöltéshez</string>
-  <string name="menu_transfer_download_other">Egyéb hely letöltése</string>
   <string name="menu_transfer_upload">Adatok feltöltése az OSM szerverre</string>
   <string name="menu_transfer_close_changeset">Jelenlegi módosításcsomag lezárása</string>
   <string name="menu_transfer_file">Fájl...</string>
@@ -373,6 +361,7 @@
   <string name="actionmode_relationselect">Kapcsolat kijelölve</string>
   <string name="actionmode_createpath">Vonal készítése</string>
   <string name="actionmode_multiselect">Többszörös kiválasztás</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_editing">Adat és szerkesztési beállítások</string>
   <string name="config_category_view">Felhasználói felület beállítások</string>
@@ -485,7 +474,6 @@
   <string name="config_maxTileDownloadThreads_title">Letöltési szálak maximális száma</string>
   <string name="config_maxTileDownloadThreads_summary">A csempék letöltésére használt szálak maximális száma</string>
   <string name="config_notificationCacheSize_title">Megjelenített értesítések maximális száma</string>
-  <string name="config_notificationCacheSize_summary">Megjelenített értesítések maximális száma típusonként</string>
   <string name="config_autoLockDelay_title">Várakozási idő az automatikus lezárás előtt</string>
   <string name="config_autoLockDelay_summary">Várakozási idő az automatikus lezárás előtt, a 0 letiltja.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Mindig sötétítse el a nem letöltött területeket</string>
@@ -501,7 +489,6 @@
   <string name="changes_changed">„%1$s” módosítva</string>
   <string name="changes_created">„%1$s” létrehozva</string>
   <string name="confirm_upload_title">Feltölti?</string>
-  <string name="confirm_upload_text">Feltölti az alábbi változásokat?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Előbeállítás hozzáadása</string>
   <string name="urldialog_preset_exists">Ez az előbeállítás már létezik</string>
@@ -518,6 +505,7 @@
   <string name="name">Név</string>
   <string name="url">URL</string>
   <string name="default_">Alapértelmezett</string>
+  <!---->
   <string name="api_name">API név</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">Csak olvasható API URL (nem kötelező)</string>
@@ -531,6 +519,7 @@
   <string name="tracking_active_title">Vespucci háttérszolgáltatás aktív</string>
   <string name="tracking_active_text">A Vespucci GPS nyomvonalat rögzít vagy automatikusan letölt</string>
   <string name="gps_failure">Nem sikerült engedélyezni a GPS-t</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">pont mozgatása</string>
   <string name="undo_action_moveway">vonal mozgatása</string>

@@ -129,7 +129,6 @@
   <string name="toast_preset_overwrote_tags">참고 - 프리셋 태그 덮어씀</string>
   <string name="toast_merge_overwrote_tags">참고 - 작업 태그 덮어씀</string>
   <string name="toast_oneway_reversed">일방통행 거리나 방향에 의존하는 태그로 된 길을 뒤집었습니다. 필요하다면 태그를 확인하고 고쳐주세요.</string>
-  <string name="toast_unread_mail">OpenStreetMap 서버에 읽지 않은 우편 %1$s개가 있습니다</string>
   <string name="toast_no_oauth">현재 API의  사용할 수 있는 OAuth 환경 설정이 없습니다, 로그인 및 비밀번호를 설정해주세요.</string>
   <string name="toast_timeout">서버로의 시간초과</string>
   <string name="coordinates_out_of_range">경도는 -180°/+180° 사이이고, 위도는 -85°/85° 사이여야 합니다</string>
@@ -238,9 +237,6 @@
   <string name="menu_set_position">위치</string>
   <string name="menu_split">분할</string>
   <string name="menu_extract">노드 추출</string>
-  <string name="menu_closed_way_split_1">닫힌 길을 분할, 첫번째 노드</string>
-  <string name="menu_closed_way_split_2">닫힌 길을 분할, 두번째 노드</string>
-  <string name="menu_restriction">회전 제한 추가</string>
   <string name="menu_relation">관계 만들기</string>
   <string name="menu_add_relation_member">구성원 추가</string>
   <string name="menu_select_relation_members">구성원 선택</string>
@@ -263,7 +259,6 @@
   <string name="menu_transfer">이송…</string>
   <string name="menu_transfer_download_current">현재 보기 다운로드</string>
   <string name="menu_transfer_download_current_add">다운로드할 현재 보기 추가</string>
-  <string name="menu_transfer_download_other">다른 위치 다운로드</string>
   <string name="menu_transfer_upload">OSM 서버에 데이터 업로드</string>
   <string name="menu_transfer_close_changeset">현재 바뀜집합 닫기</string>
   <string name="menu_transfer_file">파일...</string>
@@ -326,6 +321,7 @@
   <string name="actionmode_relationselect">관계 선택됨</string>
   <string name="actionmode_createpath">경로 만들기</string>
   <string name="actionmode_multiselect">여려선택</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_editing">데이터 및 편집 설정</string>
   <string name="config_category_view">사용자 인터페이스 설정</string>
@@ -421,7 +417,6 @@
   <string name="changes_changed">\"%1$s\" 변경됨</string>
   <string name="changes_created">\"%1$s\" 만듦</string>
   <string name="confirm_upload_title">업로드하겠습니까?</string>
-  <string name="confirm_upload_text">다음 변경을 업로드하겠습니까?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">프리셋 추가</string>
   <string name="urldialog_preset_exists">이 프리셋은 이미 존재합니다</string>
@@ -435,6 +430,7 @@
   <string name="delete">삭제</string>
   <string name="name">이름</string>
   <string name="default_">기본값</string>
+  <!---->
   <string name="api_name">API 이름</string>
   <string name="readonly_url">읽기 전용 API URL (선택 사항)</string>
   <string name="notes_url">참고 API URL (선택 사항)</string>
@@ -444,6 +440,7 @@
   <string name="redo">다시 실행</string>
   <string name="undo_nothing">실행 취소할 것이 없습니다</string>
   <string name="gps_failure">GPS를 활성화하는 데 실패했습니다</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">노드 이동</string>
   <string name="undo_action_moveway">길 이동</string>

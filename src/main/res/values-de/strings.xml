@@ -8,6 +8,7 @@
   <string name="transfer_download_current_back">Zurück</string>
   <string name="upload_problem_title">Problem während des Hochladens</string>
   <string name="upload_problem_message">Ein Teil oder alle Daten wurden nicht hochgeladen. Falls dies nur ein temporäres Problem war versuchen sie es später nochmals. </string>
+  <string name="bad_request_message">Die API gab einen Fehler zurück, bitte die Daten sichern und den Fehler melden:\n\n</string>
   <string name="upload_conflict_title">Konflikt beim Hochladen</string>
   <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$s \nund auf dem Server %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$s \nund ist auf dem Server gelöscht</string>
@@ -23,6 +24,8 @@
   <string name="wrong_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="wrong_login_data_message">Falls OAuth verwendet wird, nochmals authentisieren und dann widerholen, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="wrong_login_data_re_authenticate">Authentisierung wiederholen</string>
+  <string name="forbidden_login_title">Einloggen verboten</string>
+  <string name="go_to_openstreetmap">openstreetmap.org besuchen</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="data_conflict_message">Die Daten enthalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
   <string name="invalid_bounding_box_title">Ungültiges Begrenzungsrechteck</string>
@@ -53,6 +56,7 @@
   <string name="progress_saving_message">Am Speichern...</string>
   <string name="progress_uploading_message">Am Hochladen...</string>
   <string name="progress_preset_message">Vorlage wird heruntergeladen...</string>
+  <string name="progress_running_message">Am Ausführen...</string>
   <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth Autorisierung...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
@@ -89,6 +93,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tagwerte mit beliebteren ersetzen</string>
   <string name="search_results_title">Suchresultate</string>
   <string name="find_message">Suchanfrage eingeben</string>
+  <string name="geocoder_prompt">mit</string>
   <string name="preset_search_hint">Vorlagensuche</string>
   <string name="search">Suche</string>
   <string name="no_valid_preset">Keine gültige Vorlage!</string>
@@ -110,10 +115,19 @@
   <string name="empty_role">Leere Rolle</string>
   <string name="element">Element</string>
   <string name="last_updated">letzte Änderung</string>
+  <string name="last_edited">Zuletzt bearbeitet</string>
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
   <string name="minor_issue">Fehler mit geringer Bedeutung</string>
   <string name="unknown_error_level">Unbekannter Fehlerstatus</string>
+  <string name="attached_object_warning_title">Diese Aktion verändert gefilterte verbundene Objekte!</string>
+  <string name="attached_object_warning_message">Das veränderte Objekt ist mit versteckten Objekten verbunden die auch geändert werden.</string>
+  <string name="attached_object_warning_continue">OK, diese Meldung weiter anzeigen</string>
+  <string name="attached_object_warning_stop">OK, diese Meldung nicht mehr anzeigen</string>
+  <string name="send_debug_information">Informationen zur Problembehebung senden</string>
+  <string name="evaluate">Auswerten</string>
+  <string name="js_console_msg_live">Live Modus!</string>
+  <string name="js_console_msg_debug">Debug Modus!</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_unsaved_changes">Sie haben ungespeicherte Änderungen, bitte zuerst hochladen.</string>
@@ -133,10 +147,10 @@
   <string name="toast_potential_merge_tag_conflict">Elemente mit sich widersprechenden Tags sollen zusammengeführt werden. Tags bitte überprüfen und vor einem neuen Versuch korrigieren.,</string>
   <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt </string>
   <string name="toast_too_many_nodes_for_move">Der Weg hat zuviele Punkte um ihn zu verschieben</string>
-  <string name="toast_unread_mail">Im Posteingang von OpenStreetMap befinden sich %1$s ungelesene Nachricht(en).</string>
+  <string name="toast_unread_mail">Im Posteingang von OpenStreetMap befinden sich %1$dungelesene Nachrichten.</string>
+  <string name="toast_one_unread_mail">Im Posteingang von OpenStreetMap befinden sich eine ungelesene Nachricht.</string>
   <string name="toast_photo_indexing_started">Suche nach geo-refenzierte Fotos begonnen</string>
   <string name="toast_photo_indexing_finished">Suche nach geo-refenzierte Fotos beendet</string>
-  <string name="toast_download_bbox_failed">Download fehlgeschlagen, wahrscheinlich was das ausgewählte Gebiet zu gross.</string>
   <string name="toast_download_failed">Download ist mit Fehlercode  %1$d fehlgeschlagen, die Meldung war: %2$s</string>
   <string name="toast_unsurveyed_road">Strasse nicht überprüft</string>
   <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
@@ -160,8 +174,10 @@
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
-  <string name="toast_storage_error">Das Verzichnis für Kartenkacheln und andere Dateien ist nicht von Vespucci beschreibar.\nDies könnte ein Rechteproblem oder ein technisches Problem mit dem Gerät sein.</string>
+  <string name="toast_storage_error">%1$s ist nicht von Vespucci beschreibar.\nDies könnte ein Rechteproblem oder ein technisches Problem mit dem Gerät sein.</string>
+  <string name="toast_no_suitable_storage">Das Betriebssystem hat keinen verwendbaren Ort für die Datenbank zurückgegeben. </string>
   <string name="toast_min_one_preset">Mindestens 1 Vorlagensatz muss ausgewählt sein!</string>
+  <string name="toast_min_one_geocoder">Mindestens 1 Geocoder muss ausgewählt sein!</string>
   <string name="toast_used_backup">Beschädigtes Zustandsdatei, Backup verwendet!</string>
   <string name="toast_used_bug_backup">Beschädigtes Zustandsdatei für Fehler/Notizen, Backup verwendet!</string>
   <string name="toast_rmpty_relation">Leere Relation, erstelle Fehlermeldung.</string>
@@ -170,11 +186,27 @@
   <string name="toast_split_from_and_via">\"from\" und \"via\" Wege aufgetrennt</string>
   <string name="toast_split_to">\"to\" Weg aufgetrennt</string>
   <string name="toast_tile_database_full">Kartenkacheln Datenbank oder Speicher voll.\nProgram verlassen und entweder die Datenbank löschen oder mehr Platz schaffen.</string>
+  <string name="toast_invalid_apiurl">Ungültige API URL</string>
+  <string name="toast_invalid_readonlyurl">Ungültige \"nur lesen\" API URL</string>
+  <string name="toast_invalid_notesurl">Ungültige Notes API URL</string>
+  <string name="toast_invalid_filter_regexp">Ungültiger Auswahlausdruck im Filter mit Schlüssel \"%1$s\" und Wert \"%2$s\"</string>
+  <string name="toast_error_accessing_photo">Kann auf Photo %1$s nicht zugreifen</string>
+  <string name="toast_no_voice_recognition">Keine Spracherkennung vorhanden</string>
+  <string name="toast_no_coverage">%1$s hat hier keine Abdeckung</string>
+  <string name="toast_file_exists">Datei %1$s existiert bereits.</string>
+  <string name="toast_needs_resurvey">Objekt könnte veraltet sein</string>
+  <string name="toast_openinghours_invalid">Ungültiger Öffnungszeitenwert für %1$s</string>
+  <string name="toast_openinghours_autocorrected">Öffnungszeitenwert für %1$s wurde korrigiert</string>
+  <string name="toast_exit_multiselect">Ein Doppelclick an einer leeren Stelle oder der \"Zurückpfeil\" um den Modus zu verlassen</string>
+  <string name="toast_exit_actionmode">\"Zurückpfeil\" wählen um zu speichern und zu beenden</string>
+  <string name="toast_abort_actionmode">\"Zurückpfeil\" wählen um abzubrechen</string>
+  <string name="toast_null_island">Bitte keine Objekte bei 0°/0° (Null Island) hinzufügen</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
   <string name="okay">Okay</string>
   <string name="cancel">Abbrechen</string>
+  <string name="dismiss">Verwerfen</string>
   <string name="locked">Gesperrt</string>
   <string name="next">Nächstes</string>
   <string name="apply">Anwenden</string>
@@ -187,6 +219,10 @@
   <string name="enable">Aktivieren</string>
   <string name="clear">Zurücksetzten</string>
   <string name="retry">Wiederholen</string>
+  <string name="read">Lesen</string>
+  <string name="overwrite">Überschreiben</string>
+  <string name="share">Teilen</string>
+  <string name="share_position">Position teilen</string>
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
@@ -227,6 +263,7 @@
   <string name="tag_menu_move_bottom">Ans Ende verschieben</string>
   <string name="tag_menu_sort">Sortieren</string>
   <string name="tag_menu_download">Herunterladen</string>
+  <string name="tag_menu_js_console">JS Konsole</string>
   <string name="menu_up">Nach oben</string>
   <string name="menu_top">An den Anfang</string>
   <string name="menu_preset_help">Hilfe zu Vorlagen</string>
@@ -270,16 +307,9 @@
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Weg aufspalten</string>
   <string name="menu_extract">Knoten extrahieren</string>
-  <string name="menu_closed_way_split_1">Geschlossenen Weg aufspalten, 1. Knoten</string>
-  <string name="menu_closed_way_split_2">Geschlossenen Weg aufspalten, 2. Knoten</string>
   <string name="menu_append">Anhängen</string>
-  <string name="menu_restriction">Abbiegebeschränkung hinzufügen</string>
-  <string name="menu_restriction_restart_from">\"from\" Segment nochmals auswählen</string>
-  <string name="menu_restriction_via">\"via\" Segment hinzufügen</string>
-  <string name="menu_restriction_restart_via">\"via\" Segment nochmals auswählen</string>
-  <string name="menu_restriction_to">\"to\" Segment hinzufügen</string>
-  <string name="menu_restriction_restart_to">\"to\" Segment nochmals auswählen</string>
   <string name="menu_relation">Relation erstellen</string>
+  <string name="menu_edit_relation">Relation bearbeiten</string>
   <string name="menu_add_relation_member">Mitglied hinzufügen</string>
   <string name="menu_select_relation_members">Mitglieder auswählen</string>
   <string name="menu_tag">Tags verändern</string>
@@ -302,7 +332,7 @@
   <string name="menu_transfer">Übertragung…</string>
   <string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_download_current_add">Diese Ansicht zu den Daten dazu laden </string>
-  <string name="menu_transfer_download_other">Herunterladen einer anderen Position</string>
+  <string name="menu_transfer_download_other">Daten an anderer Stelle herunterladen</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
   <string name="menu_transfer_close_changeset">Aktuellen changeset schliessen</string>
   <string name="menu_transfer_file">Datei...</string>
@@ -351,6 +381,10 @@
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">OAuth zurücksetzen</string>
   <string name="menu_tools_oauth_authorisation">OAuth-Zugriff autorisieren</string>
+  <string name="menu_enable_tagfilter">Tag-Filter</string>
+  <string name="menu_enable_presetfilter">Vorlagenfilter</string>
+  <string name="preset_menu_waynodes">Wegknoten zurückgeben</string>
+  <string name="preset_menu_invert">Filter umkehren</string>
   <!--element action mode menu-->
   <string name="menu_tags">Eigenschaften</string>
   <!--Text should be as short as possible-->
@@ -373,6 +407,18 @@
   <string name="actionmode_relationselect">Relation ausgewählt</string>
   <string name="actionmode_createpath">Erstelle Pfad</string>
   <string name="actionmode_multiselect">Mehrfachauswahl</string>
+  <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Geschlossenen Weg aufspalten, 1. Knoten</string>
+  <string name="actionmode_closed_way_split_2">Geschlossenen Weg aufspalten, 2. Knoten</string>
+  <string name="actionmode_restriction">Abbiegebeschränkung hinzufügen</string>
+  <string name="actionmode_restriction_restart_from">\"from\" Segment nochmals auswählen</string>
+  <string name="actionmode_restriction_via">\"via\" Segment hinzufügen</string>
+  <string name="actionmode_restriction_restart_via">\"via\" Segment nochmals auswählen</string>
+  <string name="actionmode_restriction_to">\"to\" Segment hinzufügen</string>
+  <string name="actionmode_restriction_restart_to">\"to\" Segment nochmals auswählen</string>
+  <string name="actionmode_one_object">1 Objekt</string>
+  <string name="actionmode_object_count">%1$d Objekte</string>
+  <string name="actionmode_rotateway">Weg drehen</string>
   <!--Preferences-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_view">Einstellungen Benutzerschnittstelle</string>
@@ -406,7 +452,7 @@
   <string name="config_backgroundLayer_summary">Das Bild, das im Hintergrund der Karte angezeigt wird.</string>
   <string name="config_overlayLayer_title">Karten Overlay</string>
   <string name="config_overlayLayer_summary">Das Bild, das über der Karte angezeigt wird.</string>
-  <string name="config_scale_title">Masstabanzeige</string>
+  <string name="config_scale_title">Maßstabsanzeige</string>
   <string name="config_scale_summary">Art der angezeigeten Skala</string>
   <string name="config_category_server">Server-Einstellungen</string>
   <string name="config_apibutton_title">OSM-API-URL</string>
@@ -416,11 +462,13 @@
   <string name="listedit_enable_oauth">OAuth erlauben</string>
   <string name="config_offsetServer_title">Versatzserver</string>
   <string name="config_offsetServer_summary">URL für den Versatzserver</string>
+  <string name="config_osmoseServer_title">OSMOSE Server</string>
+  <string name="config_osmoseServer_summary">URL für den OSMOSE-Server</string>
   <string name="config_presetbutton_title">Vorlagen</string>
   <string name="config_presetbutton_summary">JOSM kompatible Vorlagen hinzufügen und verwalten</string>
   <string name="config_iconbutton_title">Knoten-Symbole anzeigen</string>
   <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden</string>
-  <string name="config_showWayIcons_title">Symbole für POIs auf Gebaüden anzeigen</string>
+  <string name="config_showWayIcons_title">Symbole für POIs auf Gebäuden anzeigen</string>
   <string name="config_showWayIcons_summary">Auf Gebäuden das Symbol der am besten passenden Vorlage einblenden</string>
   <string name="config_loginbutton_title">Benutzerkonto</string>
   <string name="config_username_title">OSM-Benutzername</string>
@@ -485,11 +533,18 @@
   <string name="config_maxTileDownloadThreads_title">Max. Anzahl von Download Threads</string>
   <string name="config_maxTileDownloadThreads_summary">Max. Anzahl von Threads um Kartenkacheln herunterzuladen.</string>
   <string name="config_notificationCacheSize_title">Max. Anzahl von angezeigeten Hinweisen</string>
-  <string name="config_notificationCacheSize_summary">Max. Anzahl von angezeigeten Hinweisen pro Typ.</string>
+  <string name="config_notificationCacheSize_summary">Max. Anzahl von angezeigten Hinweisen pro Typ (mind. 1)</string>
   <string name="config_autoLockDelay_title">Zeit bis zur automatischen Schirmsperrung</string>
   <string name="config_autoLockDelay_summary">Zeit in Sekunden bis zur automatischen Schirmsperrung, 0 schaltet die Funktion ab.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Immer nicht heruntergeladene Gebiete verdunkeln</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Falls gesetzt werden nicht heruntergeladene Gebiete auch im gesperrten Modus verdunkelt.</string>
+  <string name="config_geocoderbutton_title">Geocoder konfigurieren</string>
+  <string name="config_geocoderbutton_summary">Geocoder für die Suchfunktion hinzufügen, bearbeiten und löschen</string>
+  <string name="config_js_console_title">JS Konsole freischalten</string>
+  <string name="config_js_console_summary">Den \"live\" Modus der JS Konsole freischalten</string>
+  <string name="manage_apis">APIs verwalten</string>
+  <string name="manage_presets">Vorlagen verwalten</string>
+  <string name="manage_geocoders">Geocoder verwalten</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -501,7 +556,8 @@
   <string name="changes_changed">\"%1$s\" verändert</string>
   <string name="changes_created">\"%1$s\" angelegt</string>
   <string name="confirm_upload_title">Hochladen?</string>
-  <string name="confirm_upload_text">Sollen folgende Änderungen hochgeladen werden?\n%1$s</string>
+  <string name="confirm_one_upload_text">Soll die folgende Änderung hochgeladen werden?\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Sollen folgenden%1$d Änderungen hochgeladen werden?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
   <string name="urldialog_preset_exists">Diese Vorlage existiert bereits.</string>
@@ -511,6 +567,7 @@
   <string name="urldialog_api_install_successful">API erfolgreich installiert!</string>
   <string name="urldialog_add_api">API hinzufügen</string>
   <string name="urldialog_nodata_text">Die Konfigurations-URL enthält keine gültigen Daten.</string>
+  <string name="urldialog_add_geocoder">Geocoder hinzufügen</string>
   <!--common terms-->
   <string name="add">Hinzufügen</string>
   <string name="edit">Bearbeiten</string>
@@ -518,10 +575,13 @@
   <string name="name">Name</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
+  <!---->
+  <string name="empty_list">Keine Einträge</string>
   <string name="api_name">API Namen</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">API-Adresse mit Lesezugriff (optional)</string>
   <string name="notes_url">API-Adresse für Notizen (optional)</string>
+  <string name="geocoder_type">Geocodertyp</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Vorlage</string>
   <string name="api">API</string>
@@ -531,6 +591,9 @@
   <string name="tracking_active_title">Vespucci Hintergrunddienst aktiv</string>
   <string name="tracking_active_text">Vespucci zeichnet einen GPS-Track auf oder lädt Daten automatisch herunter</string>
   <string name="gps_failure">Konnte GPS nicht aktivieren</string>
+  <!--element description-->
+  <string name="address_housenumber">Adresse %1$s</string>
+  <string name="address_housenumber_street">Adresse %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoten verschieben</string>
   <string name="undo_action_moveway">Weg verschieben</string>
@@ -639,5 +702,13 @@ in %1$d m %2$s</string>
     <item>Nie</item>
     <item>Erzwingen</item>
     <item>Keine Statuszeile</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>Alles</item>
+    <item>Punkte</item>
+    <item>Wege</item>
+    <item>Wege+</item>
+    <item>Relationen</item>
+    <item>Relationen+</item>
   </string-array>
 </resources>

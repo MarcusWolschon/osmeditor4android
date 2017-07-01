@@ -76,7 +76,6 @@
   <string name="menu_gps_export">Eksporter GPS-spor</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Last ned nåværende utsnitt</string>
-  <string name="menu_transfer_download_other">Last ned et annet område</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
   <string name="menu_transfer_export">Eksporter endringar</string>
   <string name="menu_save">Lagre til fil</string>
@@ -91,6 +90,7 @@
   <string name="actionmode_wayselect">Veg valgt</string>
   <string name="actionmode_nodeselect">Node valgt</string>
   <string name="actionmode_createpath">Lager bane</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_showStats_title">Vis statistikk</string>
   <string name="config_showStats_summary">Viser datastatistikk og bilde/sek i nederste venstre hjørne.</string>
@@ -139,12 +139,14 @@
   <string name="delete">Slett</string>
   <string name="name">Navn</string>
   <string name="url">URL</string>
+  <!---->
   <!--"default" is a reserved Java keyword...-->
   <string name="api">API</string>
   <string name="undo">Gjør om</string>
   <string name="redo">Gjenta</string>
   <string name="undo_nothing">Intet å gjøre om</string>
   <string name="gps_failure">Klarte ikke å slå på GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">flytt node</string>
   <string name="undo_action_add">sett inn</string>

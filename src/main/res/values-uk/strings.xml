@@ -8,6 +8,7 @@
   <string name="transfer_download_current_back">Назад (нічого не міняти)</string>
   <string name="upload_problem_title">Проблема з надсиланням</string>
   <string name="upload_problem_message">Частина або всі дані не були надіслані. Спробуйте надіслати дані знову, можливо це тимчасові труднощі.</string>
+  <string name="bad_request_message">API відповів помилкою, будь ласка, збережіть свої дані та повідомте про проблему:\n\n</string>
   <string name="upload_conflict_title">Конфлікт надсилання</string>
   <string name="upload_conflict_message_version">%1$s \n має локальну версію  %2$s \n та версію на сервері %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nмає локальну версію %2$s \nта вилучено на сервері</string>
@@ -23,6 +24,7 @@
   <string name="wrong_login_data_title">Помилка автентифікації</string>
   <string name="wrong_login_data_message">Якщо Ви використовуєте OAuth, вам потрібно ре-автентифікуватись.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
   <string name="wrong_login_data_re_authenticate">Ре-автентифікуватись</string>
+  <string name="forbidden_login_title">Вхід заборонено</string>
   <string name="data_conflict_title">Конфлікт версій</string>
   <string name="data_conflict_message">Дані, які ви намагаєтесь завантажити конфліктують з вашими правками. Спочатку надішліть на сервер ваші зміни перед тим, як спробувати завантажити дані знов.</string>
   <string name="api_offline_title">Немає з’єднання з API</string>
@@ -127,7 +129,6 @@
   <string name="toast_too_many_nodes_for_move">У лінії дуже багато точок для переміщення</string>
   <string name="toast_photo_indexing_started">Розпочато пошук геоприв’язаних світлин</string>
   <string name="toast_photo_indexing_finished">Закінчено пошук геоприв’язаних світлин</string>
-  <string name="toast_download_bbox_failed">Збій завантаження, можливо, виділенна ділянка завелика.</string>
   <string name="toast_download_failed">Збій завантаження, код помилки %1$d, повідомлення %2$s</string>
   <string name="toast_unsurveyed_road">Неперевірені дороги</string>
   <string name="toast_noname">У дороги немає ні імені, ні посилання</string>
@@ -148,7 +149,6 @@
   <string name="toast_inconsistent_state">Виявленно неузгоджений стан, будь ласка надішліть звіт про помилку!</string>
   <string name="toast_camera_error">Помилка запуску камери: %1$s</string>
   <string name="toast_no_voice">Немає можливості розпізнавання голосу</string>
-  <string name="toast_storage_error">Тека для тайлів та інших файлів не досяжна для запису у Веспуччі.\nМожливо у вас технічні проблеми або проблеми з дозволами.</string>
   <string name="toast_min_one_preset">Треба вибрати, принаймні, одну заготовку!</string>
   <string name="toast_used_backup">Файл стану пошкоджений, використовую резервний!</string>
   <string name="toast_used_bug_backup">Файл стану помилок пошкоджений, використовую резервний!</string>
@@ -222,8 +222,6 @@
   <string name="menu_set_position">Положення</string>
   <string name="menu_split">Розділити</string>
   <string name="menu_extract">виокремити точку</string>
-  <string name="menu_closed_way_split_1">Розбити замкнену лінію, 1-ша точка</string>
-  <string name="menu_closed_way_split_2">Розбити замкнуту лінію, 2-га точка</string>
   <string name="menu_append">Додати</string>
   <string name="menu_relation">Створити зв’язок</string>
   <string name="menu_add_relation_member">Додати члена</string>
@@ -248,7 +246,6 @@
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Звантажити дані для поточного місця</string>
   <string name="menu_transfer_download_current_add">Додати поточний вид для звантаження</string>
-  <string name="menu_transfer_download_other">Звантажити інше місце</string>
   <string name="menu_transfer_upload">Надіслати дані на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
   <string name="menu_transfer_file">Файл…</string>
@@ -313,6 +310,7 @@
   <string name="actionmode_relationselect">Зв’язок обрано</string>
   <string name="actionmode_createpath">Креслення лінії</string>
   <string name="actionmode_multiselect">Мультивиділення</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_view">Налаштування зовнішнього вигляду</string>
   <string name="config_showCameraAction_title">Показати камеру</string>
@@ -426,7 +424,6 @@
   <string name="changes_changed">„%1$s“ змінено</string>
   <string name="changes_created">„%1$s“ створено</string>
   <string name="confirm_upload_title">Надіслати?</string>
-  <string name="confirm_upload_text">Надіслати наступні зміни?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Додати заготовку</string>
   <string name="urldialog_preset_exists">Ця заготовка вже існує</string>
@@ -443,6 +440,7 @@
   <string name="name">Назва</string>
   <string name="url">URL</string>
   <string name="default_">Типово</string>
+  <!---->
   <string name="api_name">Назва API</string>
   <string name="api_url">URL для API</string>
   <!--"default" is a reserved Java keyword...-->
@@ -454,6 +452,7 @@
   <string name="tracking_active_title">Фонову службу Веспуччі активовано</string>
   <string name="tracking_active_text">Веспуччі записує GPS-трек чи здійснює авто-завантаження</string>
   <string name="gps_failure">Не вдалося включити GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">переміщення точки</string>
   <string name="undo_action_moveway">переміщення лінії</string>

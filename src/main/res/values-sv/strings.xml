@@ -117,8 +117,6 @@
   <string name="toast_export_success">Exporterade till %1$s</string>
   <string name="toast_state_file_failed">Icke läsbar eller korrupt statusfil</string>
   <string name="toast_too_many_nodes_for_move">För många noder att flytta</string>
-  <string name="toast_unread_mail">Du har %1$s olästs meddelanden på OpenStreetMap servern</string>
-  <string name="toast_download_bbox_failed">Nerladdning misslyckades, förmodligen på grund av att det valda området var för stort.</string>
   <string name="toast_unsurveyed_road">Oklassificerad väg</string>
   <string name="toast_noname">Vägen har inget namn eller ref</string>
   <string name="toast_notype">Relationen har ingen typ</string>
@@ -126,6 +124,7 @@
   <string name="toast_missing_filemanager">Vänligen installera en filhanterare.</string>
   <string name="toast_outside_of_download">Du redigerar utanför den nerladdade datan.</string>
   <string name="toast_file_not_found">%1$s hittades inte.</string>
+  <string name="toast_imported_track_points">Importerade %1$s spårpunkter.</string>
   <string name="toast_unknown_voice_command">Tyvärr för nuvarande förstås inte \"%1$s\"</string>
   <string name="toast_camera_error">Fel vid start av kameraapp: %1$s</string>
   <string name="toast_rmpty_relation">Tom relation, skapar kraschrapport.</string>
@@ -163,6 +162,7 @@
   <string name="tag_menu_revert">Ångra</string>
   <string name="tag_menu_mapfeatures">Kartfunktioner Wiki</string>
   <string name="tag_menu_addtorelation">Lägg till i relation</string>
+  <string name="tag_menu_resetMRU">Återställ förinställningar</string>
   <string name="tag_menu_exit_no_save">Avsluta\n utan att spara</string>
   <string name="tag_menu_delete_unassociated_tags">Radera icke-associerade taggar</string>
   <string name="tag_menu_top">Skrolla till toppen</string>
@@ -173,6 +173,7 @@
   <string name="tag_multi_value_hint">Flera värden</string>
   <string name="tag_dialog_value_hint">Knacka för värden</string>
   <string name="tag_action_tag_title">Tagg(ar) valda</string>
+  <string name="tag_action_members_title">Medlem(mar) valda</string>
   <string name="tag_action_parents_title">Relation(er) vald(a)</string>
   <string name="tag_additional_properties">Extra egenskaper</string>
   <string name="tag_details">Detaljer</string>
@@ -185,11 +186,13 @@
   <string name="tag_menu_download">Ladda ner</string>
   <string name="menu_up">Upp</string>
   <string name="menu_top">Topp</string>
+  <string name="menu_preset_help">Hjälp av förinställning</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Lägg till etiketter för %1$s</string>
   <string name="tag_restriction_header">Värde</string>
   <string name="tag_restriction_when">när</string>
   <string name="tag_restriction_and">och</string>
+  <string name="tag_restriction_add_opening_hours">Lägg till öppettider</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Ladda område</string>
   <string name="location_choose_radius">Välj radie:</string>
@@ -221,7 +224,6 @@
   <string name="menu_split">Dela</string>
   <string name="menu_extract">Extrahera nod</string>
   <string name="menu_append">Fäst</string>
-  <string name="menu_restriction_to">Lägg till i segment</string>
   <string name="menu_relation">Skapa relation</string>
   <string name="menu_add_relation_member">Lägg till medlem</string>
   <string name="menu_select_relation_members">Välj medlemmar</string>
@@ -245,7 +247,6 @@
   <string name="menu_transfer">Överför...</string>
   <string name="menu_transfer_download_current">Ladda ner nuvarande vy</string>
   <string name="menu_transfer_download_current_add">Lägg till nuvarande vy till nedladdning</string>
-  <string name="menu_transfer_download_other">Ladda ner annan plats</string>
   <string name="menu_transfer_upload">Ladda upp data till OSM server</string>
   <string name="menu_transfer_close_changeset">Stäng nuvarande chnageset</string>
   <string name="menu_transfer_file">Fil...</string>
@@ -313,6 +314,7 @@
   <string name="actionmode_relationselect">Relation vald</string>
   <string name="actionmode_createpath">Skapa väg</string>
   <string name="actionmode_multiselect">Markera flera</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_editing">Data och redigera inställningar</string>
   <string name="config_category_view">Användargränssnitts inställningar </string>
@@ -324,9 +326,12 @@
   <string name="config_voiceCommandsEnabled_summary">Aktivera experimentellt röstkommando stöd</string>
   <string name="config_maxAlertDistance_title">Max avstånd för aviseringar</string>
   <string name="config_maxStrokeWidth_title">Max linjebredd</string>
+  <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta</string>
   <string name="config_tileCacheSize_title">Tile cache storlek</string>
   <string name="config_showStats_title">Visa statistik</string>
   <string name="config_showTolerance_title">Visa tolerans</string>
+  <string name="config_enableAntiAliasing_summary">Gör linjerna jämnare.</string>
+  <string name="config_enableOpenStreetBugs_summary">Visa, redigera och skapa anteckningar/fel.</string>
   <string name="config_enablePhotoLayer_title">Aktivera fotolager</string>
   <string name="config_enableKeepScreenOn_title">Behåll skärm på</string>
   <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
@@ -383,6 +388,7 @@
   <string name="name">Namn</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
+  <!---->
   <string name="api_name">API namn</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">Läs bara API URL (frivillig)</string>
@@ -392,6 +398,7 @@
   <string name="undo">Ångra</string>
   <string name="redo">Upprepa</string>
   <string name="undo_nothing">inget att ångra</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">flytta node</string>
   <string name="undo_action_moveway">flytta väg</string>

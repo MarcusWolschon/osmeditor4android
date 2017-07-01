@@ -134,10 +134,8 @@
   <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件，它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
   <string name="toast_state_file_failed">無法讀取或已損壞狀態的檔案</string>
   <string name="toast_too_many_nodes_for_move">要移動的路徑上節點過多</string>
-  <string name="toast_unread_mail">你在OpenStreetMap伺服器上有 %1$s 個未讀訊息(們)</string>
   <string name="toast_photo_indexing_started">開始掃描地理參考圖片</string>
   <string name="toast_photo_indexing_finished">掃描地理參考圖片完成</string>
-  <string name="toast_download_bbox_failed">下載失敗，可能是因為所選區域過大。</string>
   <string name="toast_download_failed">下載失敗，錯誤代碼是 %1$d，訊息為 %2$s</string>
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路沒有名稱或參照</string>
@@ -161,7 +159,6 @@
   <string name="toast_inconsistent_state">檢測到不相容的狀態，請發送錯誤報告！</string>
   <string name="toast_camera_error">啟動相機的 app 錯誤：%1$s</string>
   <string name="toast_no_voice">沒有語音識別設備存在</string>
-  <string name="toast_storage_error">無法由 Vespucc i寫入圖磚目錄和其它檔案。\n這可能是一個權限問題或技術問題於您的裝置。</string>
   <string name="toast_min_one_preset">至少必須選擇一個做預設！</string>
   <string name="toast_used_backup">已損壞情況的檔案，使用備份檔案！</string>
   <string name="toast_used_bug_backup">已損壞呈錯誤情況的檔案，使用備份檔案！</string>
@@ -272,15 +269,7 @@
   <string name="menu_set_position">位置</string>
   <string name="menu_split">拆分</string>
   <string name="menu_extract">抽出節點</string>
-  <string name="menu_closed_way_split_1">第 1 節點拆分封閉路徑</string>
-  <string name="menu_closed_way_split_2">第 2 節點拆分封閉路徑</string>
   <string name="menu_append">追加</string>
-  <string name="menu_restriction">增加轉彎限制</string>
-  <string name="menu_restriction_restart_from">重選\"從\"片段</string>
-  <string name="menu_restriction_via">增加\"經過\"片段/元素</string>
-  <string name="menu_restriction_restart_via">重選\"過\"片段</string>
-  <string name="menu_restriction_to">增加\"到\"片段</string>
-  <string name="menu_restriction_restart_to">重選\"到\"片段</string>
   <string name="menu_relation">建立關係</string>
   <string name="menu_add_relation_member">增加成員</string>
   <string name="menu_select_relation_members">選擇成員</string>
@@ -304,7 +293,6 @@
   <string name="menu_transfer">傳輸…</string>
   <string name="menu_transfer_download_current">下載目前的檢視</string>
   <string name="menu_transfer_download_current_add">增加目前檢視的作下載</string>
-  <string name="menu_transfer_download_other">下載其它位置</string>
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
   <string name="menu_transfer_close_changeset">關閉目前的變更組合</string>
   <string name="menu_transfer_file">檔案...</string>
@@ -375,6 +363,7 @@
   <string name="actionmode_relationselect">已選取關係</string>
   <string name="actionmode_createpath">建立路徑</string>
   <string name="actionmode_multiselect">多重選擇</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_view">使用者介面設定</string>
@@ -488,7 +477,6 @@
   <string name="config_maxTileDownloadThreads_title">最大下載序列數</string>
   <string name="config_maxTileDownloadThreads_summary">最大圖磚下載序列數</string>
   <string name="config_notificationCacheSize_title">最多顯示的通知數量</string>
-  <string name="config_notificationCacheSize_summary">每件最多顯示的通知數量</string>
   <string name="config_autoLockDelay_title">自動鎖定所需等待的時間</string>
   <string name="config_autoLockDelay_summary">自動鎖定之前所需等待的秒教，0意味關閉。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
@@ -504,7 +492,6 @@
   <string name="changes_changed">\"%1$s\" 已變更</string>
   <string name="changes_created">\"%1$s\" 已建立</string>
   <string name="confirm_upload_title">上傳嗎？</string>
-  <string name="confirm_upload_text">上傳以下變更嗎？\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
@@ -521,6 +508,7 @@
   <string name="name">名稱</string>
   <string name="url">URL</string>
   <string name="default_">預設</string>
+  <!---->
   <string name="api_name">API 名稱</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">唯讀API網址 (選擇)</string>
@@ -534,6 +522,7 @@
   <string name="tracking_active_title">Vespucci背景服務啟動</string>
   <string name="tracking_active_text">Vespucci 在錄制 GPS 軌跡或是自動下載</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">移動節點</string>
   <string name="undo_action_moveway">移動路徑</string>

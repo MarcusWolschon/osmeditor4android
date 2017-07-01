@@ -133,10 +133,8 @@
   <string name="toast_potential_merge_tag_conflict">Próbuje się połączyć obiekty, które mają sprzeczne wartości znaczników. Proszę sprawdzić i poprawić znaczniki przed połączeniem.</string>
   <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik stanu</string>
   <string name="toast_too_many_nodes_for_move">Zbyt wiele węzłów na linii do przesunięcia</string>
-  <string name="toast_unread_mail">Masz %1$s nieodczytanych wiadomości na serwerze OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Rozpoczęto skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończono skanowanie zdjęć georeferencyjnych.</string>
-  <string name="toast_download_bbox_failed">Nie udało się pobrać. Prawdopodobnie wybrano zbyt duży obszar.</string>
   <string name="toast_download_failed">Nie udało się pobrać. Kod błędu %1$d, wiadomość %2$s</string>
   <string name="toast_unsurveyed_road">Niezidentyfikowana droga</string>
   <string name="toast_noname">Droga nie ma znaczników „name” lub „ref”</string>
@@ -160,7 +158,6 @@
   <string name="toast_inconsistent_state">Niejednoznaczny stan danych został wykryty, prosimy o wysłanie raportu błędów.</string>
   <string name="toast_camera_error">Błąd podczas włączania aparatu: %1$s</string>
   <string name="toast_no_voice">Brak dostępnej funkcji rozpoznawania głosu</string>
-  <string name="toast_storage_error">Folder dla pamięci podręcznej i innych plików nie jest dostępny dla programu Vespucci.\n Może to być spowodowane niewystarczającymi uprawnieniami lub usterką techniczną w twoim urządzeniu.</string>
   <string name="toast_min_one_preset">Przynajmniej jeden szablon musi być wybrany!</string>
   <string name="toast_used_backup">Nieprawidłowy plik stanu, użyto pliku zapasowego!</string>
   <string name="toast_used_bug_backup">Nieprawidłowy plik stanu błędów, użyto pliku zapasowego!</string>
@@ -270,15 +267,7 @@
   <string name="menu_set_position">Położenie</string>
   <string name="menu_split">Przetnij linię</string>
   <string name="menu_extract">Izoluj węzeł</string>
-  <string name="menu_closed_way_split_1">Przetnij linię zamkniętą, pierwszy węzeł</string>
-  <string name="menu_closed_way_split_2">Przetnij linię zamkniętą, drugi węzeł</string>
   <string name="menu_append">Dołącz</string>
-  <string name="menu_restriction">Dodaj ograniczenie skrętu</string>
-  <string name="menu_restriction_restart_from">Ponownie wybierz element \"from\"</string>
-  <string name="menu_restriction_via">Dodaj element \"via\"</string>
-  <string name="menu_restriction_restart_via">Ponownie wybierz element \"via\"</string>
-  <string name="menu_restriction_to">Dodaj element \"to\"</string>
-  <string name="menu_restriction_restart_to">Ponownie wybierz element \"to\"</string>
   <string name="menu_relation">Utwórz relację</string>
   <string name="menu_add_relation_member">Dodaj członka</string>
   <string name="menu_select_relation_members">Zaznacz członków</string>
@@ -302,7 +291,6 @@
   <string name="menu_transfer">Transfer…</string>
   <string name="menu_transfer_download_current">Pobierz bieżący widok</string>
   <string name="menu_transfer_download_current_add">Dodaj bieżący widok do pobrania</string>
-  <string name="menu_transfer_download_other">Pobierz inny obszar</string>
   <string name="menu_transfer_upload">Wyślij zmiany</string>
   <string name="menu_transfer_close_changeset">Zamknij zestaw zmian</string>
   <string name="menu_transfer_file">Plik...</string>
@@ -373,6 +361,7 @@
   <string name="actionmode_relationselect">Wybrano relację</string>
   <string name="actionmode_createpath">Tworzenie linii</string>
   <string name="actionmode_multiselect">Zaznacz wiele</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_editing">Dane i edycja</string>
   <string name="config_category_view">Interfejs użytkownika</string>
@@ -485,7 +474,6 @@
   <string name="config_maxTileDownloadThreads_title">Maks. liczba wątków pobierania</string>
   <string name="config_maxTileDownloadThreads_summary">Określa maksymalną liczbę wątków pobierania kafelków mapy</string>
   <string name="config_notificationCacheSize_title">Maks. liczba powiadomień</string>
-  <string name="config_notificationCacheSize_summary">Określa maksymalną liczbę wyświetlanych rodzajów powiadomień</string>
   <string name="config_autoLockDelay_title">Czas oczekiwania przed zablokowaniem</string>
   <string name="config_autoLockDelay_summary">Ustala czas oczekiwania przed automatycznym zablokowaniem. Wartość 0 wyłącza funkcję.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Przyciemnianie nie pobranych obszarów</string>
@@ -501,7 +489,6 @@
   <string name="changes_changed">Zmieniono „%1$s”</string>
   <string name="changes_created">Utworzono „%1$s”</string>
   <string name="confirm_upload_title">Wysłać?</string>
-  <string name="confirm_upload_text">Wysłać następujące zmiany?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>
   <string name="urldialog_preset_exists">Szablon już istnieje</string>
@@ -518,6 +505,7 @@
   <string name="name">Nazwa</string>
   <string name="url">URL</string>
   <string name="default_">Domyślne</string>
+  <!---->
   <string name="api_name">Nazwa API</string>
   <string name="api_url">Adres URL API</string>
   <string name="readonly_url">Adres URL API tylko do odczytu (opcjonalny)</string>
@@ -531,6 +519,7 @@
   <string name="tracking_active_title">Działanie Vespucci w tle aktywne</string>
   <string name="tracking_active_text">Vespucci nagrywa ścieżkę GPS lub automatycznie pobiera dane</string>
   <string name="gps_failure">Nie udało się włączyć GPSa</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">przesuń węzeł</string>
   <string name="undo_action_moveway">przesuń linię</string>

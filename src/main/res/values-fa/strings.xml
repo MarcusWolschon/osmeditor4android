@@ -121,7 +121,6 @@
   <string name="menu_gps_export">خارج سازی پیگیری جی پی اس</string>
   <string name="menu_transfer">انتقال...</string>
   <string name="menu_transfer_download_current">دانلود نمای فعلی</string>
-  <string name="menu_transfer_download_other">دانلود سایر مکانها</string>
   <string name="menu_transfer_upload">آپلود داده ها در سرور OSM</string>
   <string name="menu_transfer_export">خارج سازی تغییرات</string>
   <string name="menu_save">ذخیره در پرونده</string>
@@ -138,6 +137,7 @@
   <string name="actionmode_wayselect">راه انتخاب شد</string>
   <string name="actionmode_nodeselect">گره انتخاب شد</string>
   <string name="actionmode_createpath">ایجاد مسیر</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">حداکثر عرض خط</string>
   <string name="config_maxStrokeWidth_summary">راه ضخیم تر از این نکشید</string>
@@ -196,6 +196,7 @@
   <string name="name">نام</string>
   <string name="url">URL</string>
   <string name="default_">پیش فرض</string>
+  <!---->
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">پیش تنظیم</string>
   <string name="api">ای پی آی</string>
@@ -203,6 +204,7 @@
   <string name="redo">به جلو</string>
   <string name="undo_nothing">چیزی برای به عقب نیست</string>
   <string name="gps_failure">خطا در فعالسازی جی پی اس</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">جابجایی گره</string>
   <string name="undo_action_add">وارد کردن</string>

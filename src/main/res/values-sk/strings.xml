@@ -121,7 +121,6 @@
   <string name="toast_oneway_reversed">Obrátili ste jednosmernú cestu alebo cestu so značkami závislými na smere. Prosím, skontrolujte značky a opravte ich, ak je to potrebné.</string>
   <string name="toast_potential_merge_tag_conflict">Pokúšate sa zlúčiť prvky, ktoré majú konfliktné hodnoty značiek. Prosím, skontrolujte značky a opravte ich skôr než to skúsite znovu.</string>
   <string name="toast_too_many_nodes_for_move">Príliš veľa uzlov v ceste na premiestnenie</string>
-  <string name="toast_download_bbox_failed">Preberanie zlyhalo pravdepodobne kvôli výberu príliš veľkej oblasti.</string>
   <string name="toast_download_failed">Preberanie zlyhalo s chybovým kódom %1$d a správou %2$s</string>
   <string name="toast_unsurveyed_road">Nepreskúmaná cesta</string>
   <string name="toast_noname">Cesta bez názvu alebo referenčného čísla</string>
@@ -134,7 +133,6 @@
   <string name="toast_imported_track_points">Importovaných %1$s bodov stopy.</string>
   <string name="toast_unknown_voice_command">Prepáčte, povelu „%1$s“ sa zatiaľ nerozumie</string>
   <string name="toast_camera_error">Chyba pri spúšťaní aplikácie fotoaparátu: %1$s</string>
-  <string name="toast_storage_error">Aplikácia Vespucci nedokáže zapisovať do adresára dlaždíc a iných súborov.\nToto môže byť problém s oprávneniami alebo technický problém s vaším zariadením.</string>
   <string name="toast_min_one_preset">Musí byť vybraná aspoň jedna predvoľba!</string>
   <string name="toast_rmpty_relation">Prázdna relácia. Vytvára sa hlásenie o chybe.</string>
   <string name="toast_split_from">Rozdelená cesta so značkou „z“</string>
@@ -232,15 +230,7 @@
   <string name="menu_set_position">Pozícia</string>
   <string name="menu_split">Rozdeliť</string>
   <string name="menu_extract">Extrahovať uzol</string>
-  <string name="menu_closed_way_split_1">Rozdeliť zatvorenú cestu, 1. uzol</string>
-  <string name="menu_closed_way_split_2">Rozdeliť zatvorenú cestu, 2. uzol</string>
   <string name="menu_append">Pripojiť</string>
-  <string name="menu_restriction">Pridať obmedzenie odbočenia</string>
-  <string name="menu_restriction_restart_from">Znovu vybrať segment „z“</string>
-  <string name="menu_restriction_via">Pridať segment/prvok „cez“</string>
-  <string name="menu_restriction_restart_via">Znovu vybrať segment „cez“</string>
-  <string name="menu_restriction_to">Pridať segment „do“</string>
-  <string name="menu_restriction_restart_to">Znovu vybrať segment „do“</string>
   <string name="menu_relation">Vytvoriť reláciu</string>
   <string name="menu_add_relation_member">Pridať člen</string>
   <string name="menu_select_relation_members">Vybrať členy</string>
@@ -263,7 +253,6 @@
   <string name="menu_transfer">Prenos…</string>
   <string name="menu_transfer_download_current">Prevziať aktuálne zobrazenie</string>
   <string name="menu_transfer_download_current_add">Pridať aktuálne zobrazenie na prevzatie</string>
-  <string name="menu_transfer_download_other">Prevziať iné umiestnenie</string>
   <string name="menu_transfer_upload">Odovzdať údaje na server OSM</string>
   <string name="menu_transfer_close_changeset">Zavrieť aktuálny súbor zmien</string>
   <string name="menu_transfer_file">Súbor...</string>
@@ -327,6 +316,7 @@
   <string name="actionmode_relationselect">Vybraná relácia</string>
   <string name="actionmode_createpath">Vytvorenie cesty</string>
   <string name="actionmode_multiselect">Viacnásobný výber</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_editing">Nastavenia údajov a úprav</string>
   <string name="config_category_view">Nastavenia používateľského rozhrania</string>
@@ -392,7 +382,6 @@
   <string name="preset_download_missing_images">Súbor predvoľby bol úspešne prevzatý. Napriek tomu sa nepodarilo prevziať niektoré ikony a budú chýbať.</string>
   <!--changes-->
   <string name="confirm_upload_title">Odovzdať?</string>
-  <string name="confirm_upload_text">Odovzdať nasledovné zmeny?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Pridať predvoľbu</string>
   <string name="urldialog_preset_exists">Predvoľba už existuje</string>
@@ -404,6 +393,7 @@
   <string name="delete">Odstrániť</string>
   <string name="name">Názov</string>
   <string name="url">URL</string>
+  <!---->
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Predvoľba</string>
   <string name="api">API</string>
@@ -413,6 +403,7 @@
   <string name="tracking_active_title">Služba na pozadí aplikácie Vespucci je aktívna</string>
   <string name="tracking_active_text">Aplikácia Vespucci zaznamenáva stopu GPS alebo vykonáva automatické preberanie</string>
   <string name="gps_failure">Zlyhalo povolenie GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">presun uzla</string>
   <string name="undo_action_moveway">presun cesty</string>

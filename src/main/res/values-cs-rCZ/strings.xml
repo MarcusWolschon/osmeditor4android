@@ -72,6 +72,8 @@
   <string name="find_message">Vložte vyhledávací řetězec</string>
   <string name="preset_search_hint">Vyhledávací řetězec předvoleb</string>
   <string name="search">Hledat</string>
+  <string name="no_valid_preset">Neplatná předvolba!</string>
+  <string name="read_file">Vyber soubor ke čtení</string>
   <string name="existing_track_title">Existující data stopy</string>
   <string name="existing_track_message">Již máte existující data stopy. Možná budete chtít operaci zrušit a data nejdříve uložit.</string>
   <string name="delete_tags">Opravdu smazat všechny tagy objektu \"%1$s\"?</string>
@@ -83,6 +85,7 @@
   <string name="closed">Uzavřeno</string>
   <string name="version">Verze</string>
   <string name="length_m">Délka (m)</string>
+  <string name="not_downloaded">Nestaženo</string>
   <string name="empty_role">neuvedená role</string>
   <string name="element">prvek</string>
   <string name="error">chyba</string>
@@ -103,13 +106,14 @@
   <string name="toast_oneway_reversed">Otočili jste jednosměrnou cestu, nebo cestu se směrově závislými tagy. Zkontrolujte prosím tagy a upravte je, pokud je to nutné.</string>
   <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
   <string name="toast_photo_indexing_finished">Hledání fotografií s georeferencemi ukončeno</string>
-  <string name="toast_download_bbox_failed">Stažení se nezdařilo, pravděpodobně byla vybraná oblast příliš velká.</string>
   <string name="toast_oauth_not_enabled">OAuth není povolen pro současné API.</string>
   <string name="toast_oauth_timeout">Vypršel časový limit pro navázání spojení, zkuste to prosím znovu.</string>
   <string name="toast_oauth_communication">Chyba komunikace během navazování spojení, zkuste to prosím znovu.</string>
   <string name="toast_oauth_handshake_failed">OAuth chyba navázání spojení: %1$s</string>
   <string name="toast_nothing_found">Nic nenalezeno</string>
+  <string name="toast_missing_filemanager">Prosím nainstalujte správce souborů.</string>
   <string name="toast_outside_of_download">Provádíte úpravy mimo staženou oblast.</string>
+  <string name="toast_file_not_found">%1$s nenalezeno.</string>
   <string name="toast_imported_track_points">Importováno %1$s bodů trasy.</string>
   <string name="toast_camera_error">Chyba při spouštění aplikace fotoaparátu: %1$s</string>
   <string name="toast_min_one_preset">Musíte vybrat alespoň jednu předvolbu!</string>
@@ -124,9 +128,11 @@
   <string name="set">Nastavit</string>
   <string name="replace">Nahradit</string>
   <string name="save">Uložit</string>
+  <string name="back">Zpět</string>
   <string name="keep">Zachovat</string>
   <string name="enable">Povolit</string>
   <string name="clear">Smazat</string>
+  <string name="retry">Zkusit znovu</string>
   <!--Dialog for back button-->
   <string name="exit_title">Opravdu odejít?</string>
   <string name="exit_text">Opravdu chcete odejít?</string>
@@ -159,7 +165,10 @@
   <string name="menu_up">O úroveň výš</string>
   <string name="menu_top">Nejvyšší úroveň</string>
   <string name="menu_preset_help">Nápověda k předvolbám</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Přidat tagy pro %1$s</string>
+  <string name="tag_restriction_header">Hodnota</string>
+  <string name="tag_restriction_add_opening_hours">Přidat otevírací hodiny</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Načíst oblast</string>
   <string name="location_choose_radius">Vyberte poloměr:</string>
@@ -191,12 +200,7 @@
   <string name="menu_set_position">Poloha</string>
   <string name="menu_split">Rozdělit</string>
   <string name="menu_extract">Rozpojit uzel</string>
-  <string name="menu_closed_way_split_1">Rozdělit uzavřenou cestu, 1. uzel</string>
-  <string name="menu_closed_way_split_2">Rozdělit uzavřenou cestu, 2. uzel</string>
   <string name="menu_append">Přidat</string>
-  <string name="menu_restriction">Přidat zákaz odbočení</string>
-  <string name="menu_restriction_via">Přidat \"před\" část/prvek</string>
-  <string name="menu_restriction_to">Přidat \"kam\" část/prvek</string>
   <string name="menu_relation">Vytvořit relaci</string>
   <string name="menu_add_relation_member">Přidat objekty</string>
   <string name="menu_select_relation_members">Zvolit členy</string>
@@ -220,7 +224,6 @@
   <string name="menu_transfer">Přenos…</string>
   <string name="menu_transfer_download_current">Stáhnout aktuální pohled</string>
   <string name="menu_transfer_download_current_add">Přidat aktuální pohled ke stažení</string>
-  <string name="menu_transfer_download_other">Stáhnout jinou oblast</string>
   <string name="menu_transfer_upload">Nahrát data na OSM server</string>
   <string name="menu_transfer_close_changeset">Uzavřít aktuální sadu změn</string>
   <string name="menu_transfer_file">Soubor...</string>
@@ -249,6 +252,7 @@
   <string name="menu_split_polygon">Rozdělit na dvě plochy</string>
   <string name="menu_newnode_gps">Nový uzel na GPS pozici</string>
   <string name="menu_extend_selection">Rozšířit výběr</string>
+  <string name="menu_voice_commands">Hlasové příkazy</string>
   <string name="menu_set_name">Zadat název</string>
   <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
   <string name="menu_tools">Nástroje</string>
@@ -259,6 +263,7 @@
   <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_align_zero">Nula</string>
   <string name="menu_tools_background_align_retrieve_from_db">Z databáze</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Ze zařízení</string>
   <string name="menu_tools_background_align_save_db">Uložit do DB</string>
   <string name="menu_tools_background_align_save_device">Uložit do zařízení</string>
   <string name="menu_tools_background_align_apply2all">Použít (všechna přiblížení)</string>
@@ -282,6 +287,7 @@
   <string name="actionmode_relationselect">Zvolená relace</string>
   <string name="actionmode_createpath">Vytváří cestu</string>
   <string name="actionmode_multiselect">Multiselect</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_view">Nastavení uživatelského rozhraní</string>
   <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
@@ -318,6 +324,7 @@
   <string name="config_apibutton_title">URL API OSM</string>
   <string name="config_apibutton_summary">Zde můžete zadat nestandardní URL adresu API. Obvykle se nemá měnit!</string>
   <string name="config_api_url_title">URL API</string>
+  <string name="config_api_oauth_title">Použít oauth</string>
   <string name="listedit_enable_oauth">Povolit oauth</string>
   <string name="config_offsetServer_title">Ofset Server</string>
   <string name="config_offsetServer_summary">URL serveru s odsazením snímků</string>
@@ -349,6 +356,7 @@
   <string name="config_use_back_for_undo_summary">Použít tlačítko zpět pro vracení úprav v hlavním okně</string>
   <string name="config_largeDragArea_title">Větší oblast pro výběr uzlu</string>
   <string name="config_largeDragArea_summary">Poskytne větší oblast pro vybírání uzlů</string>
+  <string name="config_extTriggeredDownloadRadius_title">Poloměr pro stahování</string>
   <string name="config_maxDownloadSpeed_title">Max. rychlost pro auto-stahovaní</string>
   <string name="config_maxDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování pozastaveno</string>
   <string name="config_maxBugDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování poznámek/chyb pozastaveno</string>
@@ -375,7 +383,6 @@
   <string name="config_maxTileDownloadThreads_title">Max. počet vláken pro stahování</string>
   <string name="config_maxTileDownloadThreads_summary">Maximální počet vláken pro stahování dlaždic.</string>
   <string name="config_notificationCacheSize_title">Max. počet zobrazených notifikací</string>
-  <string name="config_notificationCacheSize_summary">Maximální počet zobrazených notifikací jednoho typu</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Pokud je nastaveno, nestažené oblasti budou tmavé v Uzamčeném režimu</string>
   <!--preset downloader messages-->
@@ -389,12 +396,13 @@
   <string name="changes_changed">\"%1$s\" změněno</string>
   <string name="changes_created">\"%1$s\" vytvořeno</string>
   <string name="confirm_upload_title">Odeslat?</string>
-  <string name="confirm_upload_text">Nahrát následující změny?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předlohu</string>
   <string name="urldialog_preset_exists">Tato předloha již existuje.</string>
+  <string name="urldialog_preset_download_successful">Předvolba byla úspěšně stažena!</string>
   <string name="urldialog_api_exists">API s touto adresou již existuje. Mužete přidat dalši (např. pro rychlé přepínání už. účtů).</string>
   <string name="urldialog_api_preset_missing">Předloha pro tuto API chybí. Měli byste jí nejdřive přidat.</string>
+  <string name="urldialog_api_install_successful">Instalace API byla úspěšná!</string>
   <string name="urldialog_add_api">Přidat API</string>
   <string name="urldialog_nodata_text">Konfigurační URL neobsahuje platné ůdaje.</string>
   <!--common terms-->
@@ -404,6 +412,7 @@
   <string name="name">jméno</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
+  <!---->
   <string name="api_name">Název API</string>
   <string name="api_url">URL API</string>
   <!--"default" is a reserved Java keyword...-->
@@ -412,7 +421,9 @@
   <string name="undo">Zpět</string>
   <string name="redo">Vpřed</string>
   <string name="undo_nothing">Nic k vzetí zpět</string>
+  <string name="tracking_active_text">Vespucci nahrává GPS stopu nebo automaticky stahuje</string>
   <string name="gps_failure">Nepovedlo se zapnout GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">posunout uzel</string>
   <string name="undo_action_moveway">posunout cestu</string>
@@ -443,6 +454,14 @@
   <string name="pref_acra_disabled">Hlášení pádů zakázáno</string>
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="bearing_ne">SV</string>
+  <string name="bearing_e">V</string>
+  <string name="bearing_se">JV</string>
+  <string name="bearing_s">J</string>
+  <string name="bearing_sw">JZ</string>
+  <string name="bearing_w">Z</string>
+  <string name="bearing_nw">SZ</string>
+  <string name="bearing_n">S</string>
   <!--Misc relation related stuff-->
   <string name="role">Role</string>
   <string name="role_lc">role</string>

@@ -106,7 +106,6 @@
   <string name="toast_too_many_nodes_for_move">要移动路径的节点过多</string>
   <string name="toast_photo_indexing_started">开始扫描地理参考图片</string>
   <string name="toast_photo_indexing_finished">扫描地理参考图片完成</string>
-  <string name="toast_download_bbox_failed">下载失败，可能是因为所选择的区域过大。</string>
   <string name="toast_download_failed">下载失败，错误代码是%1$d，信息为%2$s</string>
   <string name="toast_unsurveyed_road">未调查的路</string>
   <string name="toast_noname">道路没有名称或参照</string>
@@ -192,8 +191,6 @@
   <string name="menu_set_position">位置</string>
   <string name="menu_split">分开</string>
   <string name="menu_extract">提取节点</string>
-  <string name="menu_closed_way_split_1">第1节点拆分封闭路径</string>
-  <string name="menu_closed_way_split_2">第2节点拆分封闭路径</string>
   <string name="menu_append">附加</string>
   <string name="menu_relation">创建关系</string>
   <string name="menu_add_relation_member">添加成员</string>
@@ -217,7 +214,6 @@
   <string name="menu_transfer">传输...</string>
   <string name="menu_transfer_download_current">下载当前视图</string>
   <string name="menu_transfer_download_current_add">将当前视图添加到下载</string>
-  <string name="menu_transfer_download_other">下载其他位置</string>
   <string name="menu_transfer_upload">上传数据到OSM服务器</string>
   <string name="menu_transfer_close_changeset">关闭当前的变更集</string>
   <string name="menu_transfer_export">导出变更</string>
@@ -271,6 +267,7 @@
   <string name="actionmode_relationselect">选择的关系</string>
   <string name="actionmode_createpath">穿件路径</string>
   <string name="actionmode_multiselect">多选</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_view">用户界面设置</string>
   <string name="config_showCameraAction_title">显示相机操作</string>
@@ -358,7 +355,6 @@
   <string name="changes_changed">\"%1$s\" 已修改</string>
   <string name="changes_created">\"%1$s\" 已创建</string>
   <string name="confirm_upload_title">上传？</string>
-  <string name="confirm_upload_text">上传以下更改吗？\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">添加预设</string>
   <string name="urldialog_preset_exists">这种预设已经存在</string>
@@ -375,6 +371,7 @@
   <string name="name">名称</string>
   <string name="url">网址</string>
   <string name="default_">默认</string>
+  <!---->
   <string name="api_name">API名称</string>
   <string name="api_url">API网址</string>
   <!--"default" is a reserved Java keyword...-->
@@ -384,6 +381,7 @@
   <string name="redo">重做</string>
   <string name="undo_nothing">没什么可撤销</string>
   <string name="gps_failure">启用GPS失败</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">移动节点</string>
   <string name="undo_action_moveway">移动路径</string>

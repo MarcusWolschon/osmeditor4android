@@ -103,7 +103,6 @@
   <string name="toast_too_many_nodes_for_move">Of margir hnútar í ferlinu til að færa</string>
   <string name="toast_photo_indexing_started">Hef leit að myndum með staðsetningu</string>
   <string name="toast_photo_indexing_finished">Lauk leit að myndum með staðsetningu</string>
-  <string name="toast_download_bbox_failed">Niðurhal mistókst,  líklega var valið svæði of stórt. </string>
   <string name="toast_download_failed">Niðurhal mistókst með villuskilaboðum %1$d, %2$s</string>
   <string name="toast_unsurveyed_road">Óskoðaður vegur </string>
   <string name="toast_noname">Vegur hefur hvorki nafn né númer</string>
@@ -187,8 +186,6 @@
   <string name="menu_set_position">Staðsetning</string>
   <string name="menu_split">Skipta</string>
   <string name="menu_extract">Lesa hnút</string>
-  <string name="menu_closed_way_split_1">Skipta upp ferli, fyrsti hnútur</string>
-  <string name="menu_closed_way_split_2">Skipta um lokuðu ferlu, annar hnútur</string>
   <string name="menu_append">Bæta við</string>
   <string name="menu_relation">Búa til vensl</string>
   <string name="menu_add_relation_member">Bæta við</string>
@@ -212,7 +209,6 @@
   <string name="menu_transfer">Færi gögn...</string>
   <string name="menu_transfer_download_current">Niðurhala núverandi sýn</string>
   <string name="menu_transfer_download_current_add">Bæta núverandi sýn við niðurhal</string>
-  <string name="menu_transfer_download_other">Ná í aðra staði</string>
   <string name="menu_transfer_upload">Uppfæra á OSM</string>
   <string name="menu_transfer_close_changeset">Loka núverandi breytingasetti</string>
   <string name="menu_transfer_export">Flytja breytingar út</string>
@@ -264,6 +260,7 @@
   <string name="actionmode_nodeselect">Hnútur valinn</string>
   <string name="actionmode_relationselect">Vensl valin</string>
   <string name="actionmode_createpath">Búa til stíg</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_view">Viðmótsstillingar</string>
   <string name="config_showCameraAction_title">Sýna myndavélaham</string>
@@ -352,7 +349,6 @@
   <string name="changes_changed">\"%1$s\" breytt</string>
   <string name="changes_created">Bjó til \"%1$s\"</string>
   <string name="confirm_upload_title">Upphlaða? </string>
-  <string name="confirm_upload_text">Senda eftirtaldar breytingar?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Bæta við forstillingu</string>
   <string name="urldialog_preset_exists">Þessi forstilling er þegar til</string>
@@ -367,6 +363,7 @@
   <string name="name">Nafn</string>
   <string name="url">Veffang</string>
   <string name="default_">Sjálfgefið</string>
+  <!---->
   <string name="api_name">API nafn</string>
   <string name="api_url">API URL</string>
   <!--"default" is a reserved Java keyword...-->
@@ -376,6 +373,7 @@
   <string name="redo">Endurtaka</string>
   <string name="undo_nothing">ekkert til að hætta við</string>
   <string name="gps_failure">Gat ekki kveikt á GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">færa hnút</string>
   <string name="undo_action_moveway">færa feril</string>

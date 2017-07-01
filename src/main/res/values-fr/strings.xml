@@ -143,10 +143,8 @@ Amusez-vous bien !</string>
   <string name="toast_potential_merge_tag_conflict">Vous essayez de fusioner des élément avec des valeurs de tag incompatibles. Veullez vérifier les tags et les corriger avant de réessayer.</string>
   <string name="toast_state_file_failed">Fichier d\'état illisible ou corrompu</string>
   <string name="toast_too_many_nodes_for_move">Le chemin contient trop de nœuds pour être déplacé</string>
-  <string name="toast_unread_mail">Vous avez %1$s message(s) non lu(s) sur le serveur OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Début de l\'analyse des photos géo-référencées</string>
   <string name="toast_photo_indexing_finished">Analyse des photos géo-référencées terminée</string>
-  <string name="toast_download_bbox_failed">Le téléchargement a échoué, sans doute car la zone sélectionnée était trop grande.</string>
   <string name="toast_download_failed">Le téléchargement a échoué avec le code d\'erreur %1$d, message %2$s</string>
   <string name="toast_unsurveyed_road">Route non vérifiée</string>
   <string name="toast_noname">Nom ou référence manquant</string>
@@ -168,7 +166,6 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="toast_inconsistent_state">État instable détecté, merci d\'envoyer un rapport d\'erreur!</string>
   <string name="toast_camera_error">Erreur en lançant l\'appli caméra : %1$s</string>
   <string name="toast_no_voice">Pas de système de reconaissance vocale trouvé</string>
-  <string name="toast_storage_error">Vespucci ne peut écrire dans le répertoire destiné aux tuiles de carte et autres fichiers.\nCela peut être dû à la configuration des permissions ou à un problème technique avec votre appareil.</string>
   <string name="toast_min_one_preset">Au moins un modèle d\'attributs doit être sélectionné !</string>
   <string name="toast_used_backup">Le fichier est corrompu. Utilisation du fichier de sauvegarde !</string>
   <string name="toast_used_bug_backup">Le fichier des bugs est corrompu. Utilisation du fichier de sauvegarde !</string>
@@ -250,8 +247,6 @@ il y a %3$s %4$s</string>
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Scinder</string>
   <string name="menu_extract">Extraire point</string>
-  <string name="menu_closed_way_split_1">Découpage d\'un chemin fermé, 1er nœud</string>
-  <string name="menu_closed_way_split_2">Découpage d\'un chemin fermé, 2e nœud</string>
   <string name="menu_append">Prolonger</string>
   <string name="menu_relation">Créer une relation</string>
   <string name="menu_add_relation_member">Ajouter un membre</string>
@@ -276,7 +271,6 @@ il y a %3$s %4$s</string>
   <string name="menu_transfer">Transfert des données…</string>
   <string name="menu_transfer_download_current">Télécharger la vue courante</string>
   <string name="menu_transfer_download_current_add">Ajouter les données de la vue courante</string>
-  <string name="menu_transfer_download_other">Télécharger un autre endroit</string>
   <string name="menu_transfer_upload">Envoyer les données au serveur OSM</string>
   <string name="menu_transfer_file">Fichier...</string>
   <string name="menu_transfer_export">Exporter les modifications</string>
@@ -338,6 +332,7 @@ il y a %3$s %4$s</string>
   <string name="actionmode_relationselect">Relation sélectionnée</string>
   <string name="actionmode_createpath">Création du chemin</string>
   <string name="actionmode_multiselect">Multisélection</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_view">Paramètres de l\'interface</string>
   <string name="config_showCameraAction_title">Voir l\'action caméra</string>
@@ -438,7 +433,6 @@ il y a %3$s %4$s</string>
   <string name="config_fullscreenMode_title">Mode plein écran</string>
   <string name="config_fullscreenMode_summary">Comportement sur des appareils avec des boutons \"logiciels\"</string>
   <string name="config_notificationCacheSize_title">Nombre max. de notifications affichées</string>
-  <string name="config_notificationCacheSize_summary">Nombre maximal de notifications affichées par type</string>
   <string name="config_autoLockDelay_title">Temps avant auto-verrouillage</string>
   <string name="config_autoLockDelay_summary">Temps en secondes avant l\'auto-verrouillage. 0 pour désactiver.</string>
   <!--preset downloader messages-->
@@ -452,8 +446,6 @@ il y a %3$s %4$s</string>
   <string name="changes_changed">\"%1$s\" modifié</string>
   <string name="changes_created">\"%1$s\" créé</string>
   <string name="confirm_upload_title">Envoyer ?</string>
-  <string name="confirm_upload_text">Envoyer les modifications suivantes ?
-%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Ajouter un modèle d\'attributs</string>
   <string name="urldialog_preset_exists">Ce modèle d\'attributs existe déjà</string>
@@ -470,6 +462,7 @@ il y a %3$s %4$s</string>
   <string name="name">Nom</string>
   <string name="url">URL</string>
   <string name="default_">Défaut</string>
+  <!---->
   <string name="api_name">Nom de l\'API</string>
   <string name="api_url">URL de l\'API</string>
   <!--"default" is a reserved Java keyword...-->
@@ -481,6 +474,7 @@ il y a %3$s %4$s</string>
   <string name="tracking_active_title">Le service d\'arrière-plan de Vespucci est activé.</string>
   <string name="tracking_active_text">Vespucci est en train d\'enregistrer une trace GPS ou de télécharger automatiquement</string>
   <string name="gps_failure">Échec de l\'activation du GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">déplacement de nœud</string>
   <string name="undo_action_moveway">déplacement d\'un chemin</string>

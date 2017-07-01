@@ -104,7 +104,6 @@
   <string name="toast_too_many_nodes_for_move">Πάρα πολλοί κόμβοι στο δρόμο για να προχωρήσουμε</string>
   <string name="toast_photo_indexing_started">Ξεκίνησε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_photo_indexing_finished">Ολοκληρώθηκε η σάρωση γεωαναφερμένων φωτογραφιών</string>
-  <string name="toast_download_bbox_failed">Η λήψη απέτυχε, πιθανόν λόγω επιλογής πολύ μεγάλης περιοχής</string>
   <string name="toast_download_failed">Η λήψη απέτυχε με κωδικό σφάλματος %1$d, μήνυμα %2$s</string>
   <string name="toast_unsurveyed_road">Μη ερευνημένος δρόμος</string>
   <string name="toast_noname">Ο δρόμος δεν έχει όνομα ή ref</string>
@@ -191,10 +190,7 @@
   <string name="menu_set_position">Θέση</string>
   <string name="menu_split">Διαίρεση</string>
   <string name="menu_extract">Εξαγωγή κόμβου</string>
-  <string name="menu_closed_way_split_1">Διαίρεση κλειστού τρόπου, 1ο κόμβος</string>
-  <string name="menu_closed_way_split_2">Διαίρεση κλειστού τρόπου, 2ο κόμβος</string>
   <string name="menu_append">Προσάρτηση</string>
-  <string name="menu_restriction">Προσθήκη περιορισμού στροφών</string>
   <string name="menu_relation">Δημιουργία σχέσης</string>
   <string name="menu_add_relation_member">Προσθήκη μέλους</string>
   <string name="menu_select_relation_members">Επιλογή μελών</string>
@@ -217,7 +213,6 @@
   <string name="menu_transfer">Γίνεται μεταφορά…</string>
   <string name="menu_transfer_download_current">Λήψη τρέχουσας προβολής</string>
   <string name="menu_transfer_download_current_add">Προσθηκη της τρέχουσας όψης για λυψη</string>
-  <string name="menu_transfer_download_other">Λήψη άλλης τοποθεσίας</string>
   <string name="menu_transfer_upload">Αποστολή δεδομένων στον διακομιστή </string>
   <string name="menu_transfer_close_changeset">Κλείσιμο τρέχουσας ομάδας αλλαγών</string>
   <string name="menu_transfer_file">Αρχείο...</string>
@@ -277,6 +272,7 @@
   <string name="actionmode_nodeselect">Κόμβος επιλέχτηκε</string>
   <string name="actionmode_relationselect">Η Σχέση επιλεχθηκε</string>
   <string name="actionmode_createpath">Δημιουργία διαδρομής</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_voiceCommandsEnabled_title">Ενεργοποίηση φωνητικών εντολών</string>
   <string name="config_voiceCommandsEnabled_summary">Ενεργοποίηση πειραματικής υποστήριξης φωνητικών εντολών</string>
@@ -367,7 +363,6 @@
   <string name="changes_changed">\"%1$s\" άλλαξε</string>
   <string name="changes_created">\"%1$s\" δημιουργήθηκε</string>
   <string name="confirm_upload_title">Αποστολή;</string>
-  <string name="confirm_upload_text">Αποστολή των παρακάτω αλλαγών;\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Προσθήκη Προκαθορισμένου</string>
   <string name="urldialog_preset_exists">Αυτή η προκαθορισμένη ρύθμιση υπάρχει ήδη</string>
@@ -382,6 +377,7 @@
   <string name="name">Όνομα</string>
   <string name="url">URL</string>
   <string name="default_">Προκαθορισμένο</string>
+  <!---->
   <string name="api_name">Όνομα API</string>
   <string name="api_url">URL API</string>
   <!--"default" is a reserved Java keyword...-->
@@ -391,6 +387,7 @@
   <string name="redo">Επαναφορά</string>
   <string name="undo_nothing">τίποτα προς αναίρεση</string>
   <string name="gps_failure">Αποτυχία ενεργοποίησης GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">μετακίνηση κόμβου</string>
   <string name="undo_action_moveway">μετακίνηση διαδρομής</string>

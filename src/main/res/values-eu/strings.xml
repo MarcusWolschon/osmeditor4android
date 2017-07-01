@@ -90,7 +90,6 @@
   <string name="menu_gps_export">GPS bidea esportatu</string>
   <string name="menu_transfer">Transferitu...</string>
   <string name="menu_transfer_download_current">Uneko ikuspegia deskargatu</string>
-  <string name="menu_transfer_download_other">Beste kokapen bat deskargatu</string>
   <string name="menu_transfer_upload">Datuak OSM zerbitzarira igo</string>
   <string name="menu_transfer_export">Aldaketak esportatu</string>
   <string name="menu_save">Fitxategian gorde</string>
@@ -117,6 +116,7 @@
   <string name="actionmode_nodeselect">Nodoa aukeratua</string>
   <string name="actionmode_relationselect">Erlazioa aukeratua</string>
   <string name="actionmode_createpath">Ibilbidea sortzen</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">Lerroaren zab. max.</string>
   <string name="config_maxStrokeWidth_summary">Hau baina lodiagoa den biderik ez marraztu</string>
@@ -179,6 +179,7 @@
   <string name="name">Izena</string>
   <string name="url">URLa</string>
   <string name="default_">Lehenetsia</string>
+  <!---->
   <string name="api_name">APIaren Izena</string>
   <string name="api_url">APIaren URLa</string>
   <!--"default" is a reserved Java keyword...-->
@@ -188,6 +189,7 @@
   <string name="redo">Berregin</string>
   <string name="undo_nothing">ez dago desegiteko ezer</string>
   <string name="gps_failure">GPS gaitzeak huts egin du</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">nodoa mugitu</string>
   <string name="undo_action_moveway">bidea mugitu</string>

@@ -117,7 +117,6 @@
   <string name="menu_transfer">Prijenos…</string>
   <string name="menu_transfer_download_current">Skini trenutni pogled</string>
   <string name="menu_transfer_download_current_add">Dodaj trenutni pogled skinutim</string>
-  <string name="menu_transfer_download_other">Skini drugu lokaciju</string>
   <string name="menu_transfer_upload">Spremi na OSM poslužitelj</string>
   <string name="menu_transfer_export">Izvezi promjene</string>
   <string name="menu_save">Spremi u datoteku</string>
@@ -147,6 +146,7 @@
   <string name="actionmode_nodeselect">Odabrana točka</string>
   <string name="actionmode_relationselect">Relacija odabrana</string>
   <string name="actionmode_createpath">Stvaranje linije</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">Maksimalna širina linije</string>
   <string name="config_showStats_title">Statistika</string>
@@ -186,10 +186,12 @@
   <string name="delete">Obriši</string>
   <string name="name">Ime</string>
   <string name="url">URL</string>
+  <!---->
   <!--"default" is a reserved Java keyword...-->
   <string name="undo">Opovrgni</string>
   <string name="redo">Ponovi</string>
   <string name="undo_nothing">nema se što opovrgnuti</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">pomakni točku</string>
   <string name="undo_action_moveway">pomakni put</string>

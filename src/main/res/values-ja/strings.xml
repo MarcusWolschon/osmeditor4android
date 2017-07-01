@@ -74,7 +74,11 @@
   <string name="openstreetbug_commitbutton">確定</string>
   <string name="openstreetbug_comment_label">コメント:</string>
   <string name="openstreetbug_edit_close">閉じる</string>
-  <string name="openstreetbug_edit_closed">閉じられた</string>
+  <string name="openstreetbug_edit_closed">クローズ済</string>
+  <string name="openstreetbug_commit_ok">バグの変更を保存しました</string>
+  <string name="openstreetbug_commit_fail">バグの変更を保存できませんでした</string>
+  <string name="openstreetbug_not_downloaded">ダウンロードされていません</string>
+  <string name="openstreetbug_last_updated">最終更新</string>
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">このまま進めると、セーブしていない変更は破棄されます</string>
   <string name="unsaved_data_proceed">破棄 &amp; 進める</string>
@@ -91,12 +95,34 @@
   <string name="tag_editor_name_suggestion_overwrite_message">この提案はいくつかのタグの値をより適切なものに置換します。</string>
   <string name="search_results_title">検索結果</string>
   <string name="find_message">検索文字列</string>
+  <string name="preset_search_hint">プリセット検索文字列</string>
+  <string name="search">検索</string>
+  <string name="no_valid_preset">有効なプリセットはありません!</string>
   <string name="read_file">読み込むファイルを選択</string>
   <string name="save_file">保存するファイル名を入力</string>
   <string name="existing_track_title">既存のトラックデータ</string>
   <string name="existing_track_message">すでに既存のトラックデータが存在します。キャンセルして最初に保存してください。</string>
+  <string name="delete_tags">オブジェクト \"%1$s\" のすべてのタグを削除してもよろしいですか?</string>
+  <string name="element_information">要素の情報</string>
+  <string name="id">ID</string>
+  <string name="nodes">ノード</string>
+  <string name="relation_membership">リレーションのメンバーシップ</string>
+  <string name="problem">問題</string>
+  <string name="members">メンバー</string>
+  <string name="closed">クローズ済</string>
+  <string name="version">バージョン</string>
+  <string name="length_m">長さ (m)</string>
+  <string name="not_downloaded">ダウンロードされていません</string>
+  <string name="empty_role">空のロール</string>
+  <string name="element">要素</string>
+  <string name="last_updated">最終更新</string>
+  <string name="error">エラー</string>
+  <string name="warning">警告</string>
+  <string name="minor_issue">軽微な問題</string>
+  <string name="unknown_error_level">エラーレベル不明</string>
   <!--Toaster-->
   <string name="toast_no_changes">変更がありません…</string>
+  <string name="toast_unsaved_changes">変更が保存されていません。先にアップロードしてください。</string>
   <string name="toast_upload_success">OSMサーバへのアップロードが完了しました</string>
   <string name="toast_not_in_edit_range">ズームインしてから編集してください(ボリュームUp/Down または Lens/Shift)</string>
   <string name="toast_unlock_to_edit">編集するためにはロックを解除してください</string>
@@ -112,7 +138,6 @@
   <string name="toast_too_many_nodes_for_move">移動するにはウェイにノードが多すぎます</string>
   <string name="toast_photo_indexing_started">地理的情報が付加された写真のスキャンを開始</string>
   <string name="toast_photo_indexing_finished">地理的情報が付加された写真のスキャンが完了</string>
-  <string name="toast_download_bbox_failed">ダウンロードに失敗しました。対象エリアが大きすぎた可能性があります。</string>
   <string name="toast_download_failed">ダウンロード失敗。エラーコード %1$d メッセージ %2$s</string>
   <string name="toast_unsurveyed_road">未調査の道</string>
   <string name="toast_noname">名称もしくは参照無しの道</string>
@@ -192,14 +217,13 @@
   <string name="menu_erase">ノード削除</string>
   <string name="menu_set_position">位置</string>
   <string name="menu_split">ウェイ分割</string>
-  <string name="menu_closed_way_split_1">1番目のノードでクローズドウェイを分割する</string>
-  <string name="menu_closed_way_split_2">2番目のノードでクローズドウェイを分割する</string>
   <string name="menu_append">接続</string>
   <string name="menu_relation">リレーションを作成</string>
   <string name="menu_add_relation_member">メンバーを追加する</string>
   <string name="menu_tag">タグ編集</string>
   <string name="menu_openstreetbug">ノートを追加</string>
   <string name="menu_easyedit">イージーエディット</string>
+  <string name="menu_camera">カメラ</string>
   <string name="menu_gps">GPS操作…</string>
   <string name="menu_gps_show">現在地を表示</string>
   <string name="menu_gps_follow">GPS測地位置へ移動</string>
@@ -215,7 +239,6 @@
   <string name="menu_transfer">データ変換…</string>
   <string name="menu_transfer_download_current">表示領域をダウンロード</string>
   <string name="menu_transfer_download_current_add">表示領域を追加ダウンロード</string>
-  <string name="menu_transfer_download_other">他の位置をダウンロード</string>
   <string name="menu_transfer_upload">データをOSMサーバへアップロード</string>
   <string name="menu_transfer_export">変更をエクスポート</string>
   <string name="menu_transfer_read_file">ファイルから読み込む</string>
@@ -230,6 +253,7 @@
   <string name="menu_orthogonalize">直交化</string>
   <string name="menu_circulize">円状に配置する</string>
   <string name="menu_newnode_gps">GPS posで新しいノード</string>
+  <string name="tag_form_unknown_element">不明な要素 (プリセットが見つかりません)</string>
   <string name="menu_tools">ツール</string>
   <string name="menu_tools_flush_background_tile_cache">背景画像タイルキャッシュを全削除</string>
   <string name="menu_tools_flush_overlay_tile_cache">オーバーレイのタイルキャッシュを全削除</string>
@@ -264,6 +288,7 @@
   <string name="actionmode_nodeselect">選択されたノード</string>
   <string name="actionmode_relationselect">選択されたリレーション</string>
   <string name="actionmode_createpath">パスを作成</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">ライン幅の最大</string>
   <string name="config_maxStrokeWidth_summary">ウェイの最大表示幅</string>
@@ -343,8 +368,6 @@
   <string name="changes_changed">\"%1$s\" の変更</string>
   <string name="changes_created">\"%1$s\" の作成</string>
   <string name="confirm_upload_title">アップロード？</string>
-  <string name="confirm_upload_text">次の変更をアップロードしますか？
-%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">プリセットを追加</string>
   <string name="urldialog_preset_exists">プリセットは既に存在しています</string>
@@ -359,6 +382,7 @@
   <string name="name">名前</string>
   <string name="url">URL</string>
   <string name="default_">デフォルト</string>
+  <!---->
   <string name="api_name">APIネーム</string>
   <string name="api_url">API URL</string>
   <!--"default" is a reserved Java keyword...-->
@@ -368,6 +392,7 @@
   <string name="redo">繰り返し</string>
   <string name="undo_nothing">やり直すことがありません</string>
   <string name="gps_failure">GPSを使用可能にできませんでした</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">ノードを移動</string>
   <string name="undo_action_moveway">ウェイを動かす</string>

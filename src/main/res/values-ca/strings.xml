@@ -122,7 +122,6 @@
   <string name="menu_gps_export">Exporta la traça GPS</string>
   <string name="menu_transfer">Transfereix...</string>
   <string name="menu_transfer_download_current">Baixa la visualització actual</string>
-  <string name="menu_transfer_download_other">Baixa una altra ubicació</string>
   <string name="menu_transfer_upload">Puja les dades al servidor OSM</string>
   <string name="menu_transfer_export">Exporta els canvis</string>
   <string name="menu_save">Desa al fitxer</string>
@@ -147,6 +146,7 @@
   <string name="actionmode_wayselect">Via seleccionada</string>
   <string name="actionmode_nodeselect">Node seleccionat</string>
   <string name="actionmode_relationselect">Relació seleccionada</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">Amplada màxima de la línia</string>
   <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
@@ -199,6 +199,7 @@
   <string name="name">Nom</string>
   <string name="url">URL</string>
   <string name="default_">Predeterminat</string>
+  <!---->
   <string name="api_name">Nom de l\'API</string>
   <string name="api_url">URL de l\'API</string>
   <!--"default" is a reserved Java keyword...-->
@@ -207,6 +208,7 @@
   <string name="redo">Refés</string>
   <string name="undo_nothing">no hi ha res a desfer</string>
   <string name="gps_failure">No s\'ha pogut habilitar el GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mou el node</string>
   <string name="undo_action_moveway">mou la via</string>

@@ -34,6 +34,8 @@
   <string name="out_of_memory_dirty_message">O Vespucci esgotou a memória ao carregar os dados requisitados. Por favor tente gravar as suas alterações, reinicie e tente carregar uma área mais pequena.</string>
   <string name="invalid_data_received_title">Recebidos Dados Inválidos</string>
   <string name="invalid_data_received_message">O Vespucci recebeu dados inválidos do servidor. Se acredita que está a fazer algo corretamente, por favor submeta um relatório de erro.</string>
+  <string name="invalid_data_read_title">Dados Inválidos</string>
+  <string name="invalid_data_read_message">O ficheiro contém dados inválidos. Se acredita que o que está a fazer está correto, por favor submeta um relatório de erro.</string>
   <string name="file_write_failed_title">Ocorreu uma falha ao gravar o ficheiro</string>
   <string name="file_write_failed_message">Não foi possível gravar no ficheiro escolhido.</string>
   <string name="welcome_title">Bem vindo!</string>
@@ -131,10 +133,8 @@
   <string name="toast_potential_merge_tag_conflict">Está a tentar unir elementos que têm valores de etiquetas em conflito. Por favor verifique as etiquetas e corrija-as antes de tentar de novo.</string>
   <string name="toast_state_file_failed">Ficheiro ilegível ou corrompido</string>
   <string name="toast_too_many_nodes_for_move">A via tem demasiados nós para poder ser deslocada</string>
-  <string name="toast_unread_mail">Tem %1$s mensagens por ler no site do OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Iniciada a procura por fotos geo-referenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada a procura por fotos geo-referenciadas</string>
-  <string name="toast_download_bbox_failed">O descarregamento falhou, provavelmente porque a área selecionada é muito grande.</string>
   <string name="toast_download_failed">O descarregamento falhou com código de erro %1$d, mensagem %2$s</string>
   <string name="toast_unsurveyed_road">Estrada por verificar no terreno</string>
   <string name="toast_noname">A estrada não tem nome ou referência</string>
@@ -143,6 +143,9 @@
   <string name="toast_oauth">Por favor autorize o Vespucci no OAuth para poder aceder à sua conta no OpenStreetMap.</string>
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API atual, por favor indique o nome de utilizador e palavra-chave.</string>
   <string name="toast_oauth_not_enabled">O OAuth não está ativado para a API atual.</string>
+  <string name="toast_oauth_timeout">Tempo esgotado do handshake da autenticação, por favor tente de novo.</string>
+  <string name="toast_oauth_communication">Erro de comunicação durante o handshake da autenticação, por favor tente de novo.</string>
+  <string name="toast_oauth_handshake_failed">Falhou o handshake do OAuth: %1$s</string>
   <string name="toast_timeout">A tentativa de ligação ao servidor excedeu o  tempo</string>
   <string name="coordinates_out_of_range">A longitude deve estar entre -180º e +180º, a latitude entre -85º e +85º</string>
   <string name="toast_nothing_found">Não foi encontrado nada</string>
@@ -156,7 +159,6 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_inconsistent_state">Detetado um estado inconsistente, por favor envie um relatório de erro!</string>
   <string name="toast_camera_error">Erro ao iniciar a app da câmara: %1$s</string>
   <string name="toast_no_voice">Não foram detetadas funcionalidades de reconhecimento de voz</string>
-  <string name="toast_storage_error">O Vespucci não consegue gravar no  diretório das telas e outros ficheiros.\nIsto pode ser devido a permissões  de gravação no seu dispositivo.</string>
   <string name="toast_min_one_preset">Tem de ser selecionado pelo menos um modelo de etiquetas!</string>
   <string name="toast_used_backup">O ficheiro de estado está corrompido. A usar o ficheiro de cópia de segurança!</string>
   <string name="toast_used_bug_backup">O ficheiro de estado de erro está corrompido. A usar o ficheiro de cópia de segurança!</string>
@@ -269,15 +271,7 @@ há %3$s %4$s</string>
   <string name="menu_set_position">Posição</string>
   <string name="menu_split">Dividir</string>
   <string name="menu_extract">Extrair nó</string>
-  <string name="menu_closed_way_split_1">Dividir via fechada, 1º nó</string>
-  <string name="menu_closed_way_split_2">Dividir via fechada, 2º nó</string>
   <string name="menu_append">Acrescentar</string>
-  <string name="menu_restriction">Adicionar restrição de viragem</string>
-  <string name="menu_restriction_restart_from">Re-selecionar segmento \"from\" (de)</string>
-  <string name="menu_restriction_via">Adicionar segmento/elemento \"via\" (através de)</string>
-  <string name="menu_restriction_restart_via">Re-selecionar segmento \"via\" (através de)</string>
-  <string name="menu_restriction_to">Adicionar segmento \"to\" (para)</string>
-  <string name="menu_restriction_restart_to">Re-selecionar segmento \"to\" (para)</string>
   <string name="menu_relation">Criar relação</string>
   <string name="menu_add_relation_member">Adicionar membro</string>
   <string name="menu_select_relation_members">Selecionar membros</string>
@@ -301,7 +295,6 @@ há %3$s %4$s</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descarregar a vista atual</string>
   <string name="menu_transfer_download_current_add">Descarregar e adicionar vista atual</string>
-  <string name="menu_transfer_download_other">Descarregar outra localização</string>
   <string name="menu_transfer_upload">Enviar dados para o OSM</string>
   <string name="menu_transfer_close_changeset">Fechar o conjunto de alterações atual</string>
   <string name="menu_transfer_file">Ficheiro...</string>
@@ -372,6 +365,7 @@ há %3$s %4$s</string>
   <string name="actionmode_relationselect">Relação selecionada</string>
   <string name="actionmode_createpath">A criar caminho</string>
   <string name="actionmode_multiselect">Seleção múltipla</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_editing">Preferências de Dados e Edição</string>
   <string name="config_category_view">Preferências da Interface</string>
@@ -484,7 +478,6 @@ há %3$s %4$s</string>
   <string name="config_maxTileDownloadThreads_title">Número máximo de tarefas de descarregamento</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de tarefas de descarregamento de telas</string>
   <string name="config_notificationCacheSize_title">Número máximo de notificações mostradas</string>
-  <string name="config_notificationCacheSize_summary">Número máximo de notificações mostradas por tipo</string>
   <string name="config_autoLockDelay_title">Tempo de espera antes de bloquear automaticamente</string>
   <string name="config_autoLockDelay_summary">Tempo de espera em segundos antes do bloqueio automático ser ativado, usar 0 para desativar</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer sempre áreas não descarregadas</string>
@@ -500,8 +493,6 @@ há %3$s %4$s</string>
   <string name="changes_changed">\"%1$s\" alterados(as)</string>
   <string name="changes_created">\"%1$s\" criados(as)</string>
   <string name="confirm_upload_title">Enviar?</string>
-  <string name="confirm_upload_text">Enviar as seguintes alterações?
-%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Adicionar modelo de etiquetas</string>
   <string name="urldialog_preset_exists">Este modelo de etiquetas já existe</string>
@@ -518,6 +509,7 @@ há %3$s %4$s</string>
   <string name="name">Nome</string>
   <string name="url">URL</string>
   <string name="default_">Padrão</string>
+  <!---->
   <string name="api_name">Nome da API</string>
   <string name="api_url">URL da API</string>
   <string name="readonly_url">URL da API de leitura apenas (opcional)</string>
@@ -531,6 +523,7 @@ há %3$s %4$s</string>
   <string name="tracking_active_title">Serviço em segundo plano Vespucci ativo</string>
   <string name="tracking_active_text">O Vespucci está a gravar um trilho GPS ou a descarregar automaticamente</string>
   <string name="gps_failure">Não foi possível ativar o GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover nó</string>
   <string name="undo_action_moveway">mover via</string>
@@ -571,6 +564,14 @@ há %3$s %4$s</string>
   <string name="alert_note">Foi detetada um erro reportado no OSM nas redondezas</string>
   <string name="alert_bug">Foi detetado um erro do OpenStreetMap nas redondezas</string>
   <string name="alert_distance_direction">a %1$d m %2$s</string>
+  <string name="bearing_ne">NE</string>
+  <string name="bearing_e">E</string>
+  <string name="bearing_se">SE</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_sw">SO</string>
+  <string name="bearing_w">O</string>
+  <string name="bearing_nw">NO</string>
+  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
   <string name="role">Grupo (\'Role\')</string>
   <string name="role_lc">função</string>
@@ -614,6 +615,11 @@ há %3$s %4$s</string>
   <string-array name="note_state">
     <item>Aberto</item>
     <item>Fechado</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Esquerda</item>
+    <item>Direita</item>
+    <item>Nenhum</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Automático</item>

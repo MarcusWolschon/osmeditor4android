@@ -133,10 +133,8 @@
   <string name="toast_potential_merge_tag_conflict">Gli elementi che stai cercando di unire hanno delle etichette non compatibili tra loro. Prima di riprovare, controllale e modifica laddove necessario.</string>
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
   <string name="toast_too_many_nodes_for_move">Il percorso da spostare contiene troppi nodi</string>
-  <string name="toast_unread_mail">Hai %1$s messaggi nuovi sul server OpenStreetMap</string>
   <string name="toast_photo_indexing_started">È iniziata la ricerca per le foto geo-referenziate</string>
   <string name="toast_photo_indexing_finished">È terminata la ricerca delle foto geo-referenziate</string>
-  <string name="toast_download_bbox_failed">Scaricamento fallito, probabilmente perché l\'area selezionata era troppo grande.</string>
   <string name="toast_download_failed">Scaricamento fallito con codice di errore %1$d, messaggio %2$s</string>
   <string name="toast_unsurveyed_road">Strada non verificata</string>
   <string name="toast_noname">La strada non ha un nome o un codice di riferimento</string>
@@ -160,7 +158,6 @@
   <string name="toast_inconsistent_state">È stato rilevato uno stato inconsistente, si prega di segnalare l\'errore!</string>
   <string name="toast_camera_error">Errore durante l\'esecuzione della app per la videocamera: %1$s</string>
   <string name="toast_no_voice">Il riconoscimento vocale non è disponibile</string>
-  <string name="toast_storage_error">Vespucci non può scrivere nella cartella per i tasselli e gli altri filei.\nPotrebbero esserci dei problemi sui permessi o altro nel tuo dispositivo.</string>
   <string name="toast_min_one_preset">Devi selezionare almeno un predefinito!</string>
   <string name="toast_used_backup">Il fle di stato è corrotto, ho usato il file di recupero.</string>
   <string name="toast_used_bug_backup">Il file di stato dei bug è corrotto, ho usato il file di recupero!</string>
@@ -271,15 +268,7 @@
   <string name="menu_set_position">Posizione</string>
   <string name="menu_split">Dividi</string>
   <string name="menu_extract">Estrai nodo</string>
-  <string name="menu_closed_way_split_1">Dividi il percorso chiuso, 1° nodo</string>
-  <string name="menu_closed_way_split_2">Dividi il percorso chiuso, 2° nodo</string>
   <string name="menu_append">Aggiungi</string>
-  <string name="menu_restriction">Aggiungi un divieto di svolta</string>
-  <string name="menu_restriction_restart_from">Seleziona di nuovo il segmento \"da\"</string>
-  <string name="menu_restriction_via">Aggiungi un segmento/elemento \"via\"</string>
-  <string name="menu_restriction_restart_via">Seleziona di nuovo un segmento \"via\"</string>
-  <string name="menu_restriction_to">Aggiungi un segmento \"verso\"</string>
-  <string name="menu_restriction_restart_to">Seleziona di nuovo un segmento \"verso\"</string>
   <string name="menu_relation">Crea una relazione</string>
   <string name="menu_add_relation_member">Aggiungi membro</string>
   <string name="menu_select_relation_members">Seleziona membri</string>
@@ -303,7 +292,6 @@
   <string name="menu_transfer">Trasferimento…</string>
   <string name="menu_transfer_download_current">Scarica vista corrente</string>
   <string name="menu_transfer_download_current_add">Aggiungi la vista corrente ai dati scaricati</string>
-  <string name="menu_transfer_download_other">Scarica altra posizione</string>
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
   <string name="menu_transfer_close_changeset">Chiusi il gruppo di modifiche corrente</string>
   <string name="menu_transfer_file">File...</string>
@@ -374,6 +362,7 @@
   <string name="actionmode_relationselect">Relazione selezionata</string>
   <string name="actionmode_createpath">Creazione percorso</string>
   <string name="actionmode_multiselect">Selezione multipla</string>
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <string name="config_category_editing">Impostazioni sui dati e sulle modifiche</string>
   <string name="config_category_view">Impostazioni interfaccia grafica</string>
@@ -470,8 +459,8 @@
   <string name="config_gps_source_tcp_summary">Indirizzo della sorgente NMEA TCP nel formato sito:porta</string>
   <string name="config_leaveGpsDisabled_title">Mantieni il GPS disabilitato</string>
   <string name="config_leaveGpsDisabled_summary">Non chiedere all\'utente di abilitare il GPS se questo è disabilitato</string>
-  <string name="config_enableLightTheme_title">Abilita tema leggero</string>
-  <string name="config_enableLightTheme_summary">Tema leggero con sfondi bianchi</string>
+  <string name="config_enableLightTheme_title">Abilita tema chiaro</string>
+  <string name="config_enableLightTheme_summary">Tema chiaro con sfondi bianchi</string>
   <string name="config_category_misc">Varie</string>
   <string name="config_address_tags">Etichette degli indirizzi</string>
   <string name="config_address_tags_summary">Etichette utilizzate per la predizione dell\'indirizzo</string>
@@ -487,7 +476,6 @@
   <string name="config_maxTileDownloadThreads_title">Massimo numero di scaricamenti paralleli</string>
   <string name="config_maxTileDownloadThreads_summary">Numero massimo di scaricamenti paralleli di tasselli</string>
   <string name="config_notificationCacheSize_title">Numero massimo di notifiche mostrate</string>
-  <string name="config_notificationCacheSize_summary">Massimo numero di notifiche mostrate per tipo</string>
   <string name="config_autoLockDelay_title">Intervallo oltre il quale attivare il blocco</string>
   <string name="config_autoLockDelay_summary">Intevallo di tempo in secondi oltre il quale le modifiche vengono disabilitate, 0 significato disabilitato.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Offusca sempre le aree non scaricate</string>
@@ -503,7 +491,6 @@
   <string name="changes_changed">\"%1$s\" modificato</string>
   <string name="changes_created">\"%1$s\" creato</string>
   <string name="confirm_upload_title">Carica?</string>
-  <string name="confirm_upload_text">Carica le seguenti modifiche?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi predefinito</string>
   <string name="urldialog_preset_exists">Questo predefinito esiste già</string>
@@ -520,6 +507,7 @@
   <string name="name">Nome</string>
   <string name="url">URL</string>
   <string name="default_">Predefinito</string>
+  <!---->
   <string name="api_name">Nome API</string>
   <string name="api_url">URL dell\'API</string>
   <string name="readonly_url">Indirizzo delle API in sola lettura (facoltativo)</string>
@@ -533,6 +521,7 @@
   <string name="tracking_active_title">Il servizio in background di Vespucci è attivo</string>
   <string name="tracking_active_text">Vespucci sta registrando una traccia GPS oppure scaricando in automatico</string>
   <string name="gps_failure">Impossibile abilitare il GPS</string>
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">sposta nodo</string>
   <string name="undo_action_moveway">sposta percorso</string>
