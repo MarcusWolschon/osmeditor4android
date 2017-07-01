@@ -18,7 +18,7 @@ Adds a node at the current location and adds address tags with prediction. If th
 
 ### ![Preset](../images/tag_menu_preset.png) Add preset
 
-Create the current new object, launch the [property editor](PropertyEditor) and immediately display the preset tab. In multi-pane mode this will simply start the property editor.
+Create the current new object, launch the [property editor](../en/Property%20editor.md) and immediately display the preset tab. In multi-pane mode this will simply start the property editor.
 
 ### ![Bug](../images/tag_menu_bug.png) Add a OpenStreetMap Note
 

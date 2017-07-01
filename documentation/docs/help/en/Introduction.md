@@ -1,6 +1,6 @@
 # Vespucci Introduction
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## First time use
 
@@ -11,6 +11,8 @@ Alternatively you can dismiss the dialog by pressing the "Go to map" button and 
 ## Editing with Vespucci
 
 Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+
+<a id="download"></a>
 
 ### Downloading OSM Data
 
@@ -28,13 +30,17 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 ### Editing
 
-#### Lock, unlock, "tag editing only"
+<a id="lock"></a>
+
+#### Lock, unlock, "tag editing only", indoor mode 
 
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
 
 A long press on the lock icon will enable "Tag editing only" mode which will not allow you to edit the geometry of objects or move them, this mode is indicated with a slightly different white lock icon. You can however create new nodes and ways with a long press as normal.
 
-#### Singe tap, double tap, and long press
+Another long press will enable [Indoor mode](#indoor), and one more will cycle back to the normal editing mode.
+
+#### Single tap, double tap, and long press
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
 
@@ -105,7 +111,7 @@ Vespucci has an "add address tags" function that tries to make surveying address
 
 House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
 
-Consider using this with the "Auto-download" mode.  
+Consider using this with the [Auto-download](#download) mode.  
 
 #### Adding Turn Restrictions
 
@@ -159,6 +165,24 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 * Osmose error
 * Osmose warning
 * Osmose minor issue
+
+<a id="indoor"></a>
+
+## Indoor mode
+
+Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
+
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, "tag editing only", indoor mode](#lock).
+
+## Filters
+	
+### Tag based filter
+
+The filter can be enabled from the main menu, the filter can then be changed by tapping the filter icon. More documentation can be found on [here](../en/Tag%20filter.md).
+
+### Preset based filter
+
+An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog, similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found on [here](../en/Preset%20filter.md).
 
 
 ## Customizing Vespucci

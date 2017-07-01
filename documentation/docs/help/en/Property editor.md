@@ -17,8 +17,7 @@ In the tabs tapping the checkbox in the header row will select/de-select all ele
 
 ## Properties Tab
 
-This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simple remove or reset the value (or delete them 
-in the _Details_ tab).
+This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simple remove or reset the value (or delete them in the _Details_ tab).
 
 Fields are added by applying presets, either via the _Preset_ tab or via the ![Preset](../images/tag_menu_apply_preset.png) _Apply best preset_ button.
 

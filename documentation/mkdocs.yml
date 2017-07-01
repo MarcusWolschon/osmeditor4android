@@ -4,12 +4,13 @@ site_description: 'Main site for Vespucci the Android OpenStreetMap Editor'
 theme_dir: 'flatly-custom'
 site_favicon: favicon.ico
 extra:
-  version: 0.9.8
+  version: 0.9.9
   project: Vespucci
 pages:
 - Vespucci: 'index.md'
 - Introduction: 
     - 'Introduction': 'help/en/Introduction.md'
+    - '0.9.9 Release notes': 'help/en/0.9.9 Release notes.md'
     - '0.9.8 Release notes': 'help/en/0.9.8 Release notes.md'
     - '0.9.7 Release notes': 'help/en/0.9.7 Release notes.md'
     - '0.9.6 Release notes': 'help/en/0.9.6 Release notes.md'
@@ -27,7 +28,8 @@ pages:
     - 'Aligning background imagery': 'help/en/Aligning background imagery.md'
     - 'Keyboard and mouse': 'help/en/Keyboard.md'  
     - 'GPS sources': 'help/en/GPS sources.md'
-    - 'Tag based filter': 'help/en/Tag filter.md'           
+    - 'Tag based filter': 'help/en/Tag filter.md'
+    - 'Preset based filter': 'help/en/Preset filter.md'           
 - Tutorials and Posts:
     - 'Using name suggestions': 'tutorials/name_suggestions.md'
     - 'Reporting Vespucci issues': 'tutorials/reporting_issues.md'
