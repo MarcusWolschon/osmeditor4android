@@ -8,6 +8,7 @@
   <string name="transfer_download_current_back">返回 (閒置)</string>
   <string name="upload_problem_title">問題上傳</string>
   <string name="upload_problem_message">有一些或全部的資料未被上傳。如果這只是一個臨時的問題，請以後再嘗試上傳。</string>
+  <string name="bad_request_message">API 回傳錯誤，請儲存你的資料然後回報問題:\n\n</string>
   <string name="upload_conflict_title">上傳衝突</string>
   <string name="upload_conflict_message_version">%1$s \n擁有的本機版本 %2$s \n和在伺服器上的 %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \n持有的本機版本 %2$s \n且在伺服器上已被刪除</string>
@@ -23,6 +24,8 @@
   <string name="wrong_login_data_title">驗證失敗</string>
   <string name="wrong_login_data_message">如果您正在使用 OAuth，您應該重新進行身份驗證然後重試，如果您正在使用登入和密碼(不推薦)請檢查是否輸入正確。</string>
   <string name="wrong_login_data_re_authenticate">重認證</string>
+  <string name="forbidden_login_title">禁止登入</string>
+  <string name="go_to_openstreetmap">到 openstreetmap.org</string>
   <string name="data_conflict_title">版本衝突</string>
   <string name="data_conflict_message">您正嘗試下載的資料中，所包含的資料與您的編輯衝突。
 請在重試之前，先試著上傳您的資料。</string>
@@ -54,6 +57,7 @@
   <string name="progress_saving_message">正在儲存…</string>
   <string name="progress_uploading_message">上傳中...</string>
   <string name="progress_preset_message">下載預設組合</string>
+  <string name="progress_running_message">運作中...</string>
   <string name="progress_oauth">在 openstreetmap.org 載入您的帳號，為 OAuth 授權...</string>
   <string name="upload_comment_label">評論：</string>
   <string name="upload_source_label">來源：</string>
@@ -90,6 +94,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">這個建議可以用比較流行的值替換一些標籤值。</string>
   <string name="search_results_title">搜尋結果</string>
   <string name="find_message">輸入搜尋字串</string>
+  <string name="geocoder_prompt">與</string>
   <string name="preset_search_hint">預置搜尋字串</string>
   <string name="search">搜尋</string>
   <string name="no_valid_preset">無有效的預置！</string>
@@ -111,10 +116,13 @@
   <string name="empty_role">空的角色</string>
   <string name="element">元件</string>
   <string name="last_updated">最近更新</string>
+  <string name="last_edited">最近編輯</string>
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
   <string name="minor_issue">次要問題</string>
   <string name="unknown_error_level">未知的錯誤級別</string>
+  <string name="js_console_msg_live">Live 模式！</string>
+  <string name="js_console_msg_debug">Debug 模式</string>
   <!--Toaster-->
   <string name="toast_no_changes">您還沒有變更什麼…</string>
   <string name="toast_unsaved_changes">您有未存儲的變更，請先上傳它們。</string>

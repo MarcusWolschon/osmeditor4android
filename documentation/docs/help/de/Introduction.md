@@ -1,6 +1,6 @@
 # Einführung in Vespucci
 
-Vespucci ist ein Editor für OpenStreetMap, der die meisten Funktionen unterstützt, die in ähnlichen Programme auf normalen Rechnern vorhanden sind. Es ist erfolgreich auf Googles Android 2.3 bis 7.0 und verschiedene auf AOSP basierende Varianten getestet worden. Wichtig: während die Leistung von Handys und Tablets ihre stationären Konkurrenten auf vielen Gebieten eingeholt hat, muss, vor allem bei älteren Geräten, auch nicht vergessen gehen, dass sie eher wenig Hauptspeicher zur Verfügung haben und auch deutlich langsamer  bei bestimmten Operationen sein können. Deshalb sollte man beim Bearbeiten dies im Auge behalten und zum Beispiel die Größe der bearbeiteten Gebiete in vernünftige Größen halten.   
+Vespucci ist ein Editor für OpenStreetMap, der die meisten Funktionen unterstützt, die in ähnlichen Programme auf normalen Rechnern vorhanden sind. Es ist erfolgreich auf Googles Android 2.3 bis 7.0 und verschiedene auf AOSP basierende Varianten getestet worden. Wichtig: während die Leistung von Handys und Tablets ihre stationären Konkurrenten auf vielen Gebieten eingeholt hat, muss, vor allem bei älteren Geräten, auch nicht vergessen gehen, dass sie eher wenig Hauptspeicher zur Verfügung haben und auch deutlich langsamer  bei bestimmten Operationen sein können. Deshalb sollte man beim Bearbeiten dies im Auge behalten und zum Beispiel die bearbeiteten Gebiete eher kleiner wählen.   
 
 ## Erstmaliger Gebrauch
 
@@ -12,6 +12,8 @@ Alternativ kann mit dem "Zur Karte" direkt zur Karte gewechselt werden, auf das 
 ## Mit Vespucci OSM Daten bearbeiten
 
 Abhängig der Bildschirmgrösse und Alter des Gerätes können die Bearbeitungsfunktionen über Icons in der obersten Menüzeile, via ein Menü oben rechts, von der unteren Menüzeile (falls vorhanden) oder mittels der Menütaste zugänglich sein.
+
+<a id="download"></a>
 
 ### OSM Daten herunterladen
 
@@ -25,72 +27,76 @@ Wähle entweder das Übertragungs-Icon ![Transfer](../images/menu_transfer.png) 
 * **Datei..** - Speichern und Laden von OSM Daten zu Dateien auf dem Gerä.
 * **Notizen/Fehler...** - herunterlanden (automatisch und manuell) von OSM Notizen und "Fehlern" von QA Werkzeugen (aktuell OSMOSE) *(benötigt Netzzugang)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Der einfachste Weg um Daten auf dem Gerät zu öffnen ist mit Gesten den Bildschirm auf das gewünschte Gebiet zu zentrieren und dann "Aktuelle Ansicht herunterladen" im Menü anzuwählen. Mit Gesten, den "- | +" Knöpfen oder den Laut-/Leisetasten kann gezoomt werden. Vespucci sollte dann das Gebiet herunterladen. Um Daten herunterzuladen muss man nicht angemeldet sein.
 
 ### Bearbeiten
 
-#### Sperren, entsperren, "nur Eigenschaften bearbeiten" Modus
+<a id="lock"></a>
+
+#### Sperren, entsperren, "nur Eigenschaften bearbeiten"  und Innenraum Modus 
 
 Um versehentliche Änderungen zu verhindern startet Vespucci im "gesperrten" Modus, einen Modus der nur das Zoomen und Verschieben der Karte erlaubt. Tippe auf das ![Schloss](../images/locked.png) Icon um den Schirm zu entsperren.  
 
 Ein langer Druck auf das Schloss schaltet in einen Modus um in dem nur die Eigenschaften der Elemente geändert werden kann, aber keine neuen Objekte erstellt oder die Geometrien geändert werden können. Dieser Modus wird mit einem weissen Schloss mit kleinem "T" angezeigt. 
 
+Ein weiterer langer Druck schaltet in den [Innenraum-Modus](#indoor), ein weiter schaltet wieder in den normalen Editiermodus. 
+
 #### Einfacher Klick, Doppelklick und langer Klick
 
 In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bereich angezeigt, der angibt in welchen Bereich man um den Bildschirm tippen kann um ein Objekt anzuwählen. Die drei Möglichkeiten sind:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
-* Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
+* Einfacher Klick: wählt das Objekt aus. 
+    * Ein freistehender Punkt oder Weg wird sofort ausgewählt. 
+    * Ist die Auswahl nicht eindeutig erscheint ein Auswahlmenü, dass dann die genaue Auswahl des Objektes erlaubt.
+    * Ausgewählte Objekte werden mit einem gelben Rang hervorgehoben. 
+    * Für mehr Informationen siehe [Knoten ausgewählt](../en/Node%20selected.md) , [Weg ausgewählt](../en/Way%20selected.md) und  [Relation ausgewählt](../en/Relation%20selected.md) 
+* Doppelklick: startet die [Mehfachauswahl](../en/Multiselect.md)
+* Langer Klick: zeigt ein Positionskreuz um neue Punkte zu erstellen, siehe unten und [Neue Objekte erstellen](../en/Creating new objects.md)
 
 In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearbeiten weit hineinzuzoomen.
 
-Vespucci hat eine gute Unterstützung von "Undo" und "Redo" deshalb kann man angstfrei auf seinem Gerät experimentieren, bitte aber keine reinen Testdaten auf den OSM Server speichern.
+Vespucci hat eine gute Unterstützung von "Undo" und "Redo" deshalb kann man angst frei auf seinem Gerät experimentieren, bitte aber keine reinen Testdaten auf den OSM Server speichern.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Auswählen / Abwählen (einfacher Klick und "Auswahlmenu"
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Tippe auf ein Objekt um es anzuwählen und hervorzuheben. Ist ein Objekt ausgewählt kann es durch Tippen an einer leeren Stelle abgewählt werden. Um ein Objekt abzuwählen tippe einfach in ein leeren Bereich. Um ein anderes Element anzuwählen tippe einfach darauf, es ist nicht nötig zuerst das aktuell angewählte abzuwählen. Ein "Doppeltipp" startet den [Mehrfachauswahl Modus](../en/Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Hinweis: falls Vespucci nicht eindeutig feststellen kann welches Objekt ausgewählt werden soll (zum Beispiel ein Punkt auf einem Weg oder andere sich überlappende Objekte), wird ein Auswahlmenü angezeigt. Wähle den Eintrag für das Objekt aus und das entsprechende Objekt wird ausgewählt. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Ausgewählte Objekte werden durch einen dünnen, gelben Rand hervorgehoben. Nach der Auswahl erscheint eine Meldung mit einer kurzen Beschreibung des Objekts, dass die Auswahl bestätigt.
 
-You can also use menu items: For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
+Sobald die Auswahl stattgefunden hat, werden, entweder als Schalftfläche oder als Menüeintrag, die verfügbaren Operationen für das ausgewählte Objekt angezeigt: für mehr Informationen siehe [Knoten ausgewählt](../en/Node%20selected.md), [Weg ausgewählt](../en/Way%20selected.md) und [Relation ausgewählt](../en/Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Ausgewählte Objekte: Eigenschaften bearbeiten
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Ein zweites mal Anwählen öffnet den "Eigenschaftseditor" für das Element und die Eigenschaften des Objektes können bearbeitet werden.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Hinweis: für sich überlappende Objekte, z.B. ein Punkt auf einem Weg, erscheint das Auswahlmenü ein weiteres mal. Wählt man das schon ausgewählte Objekt nochmals wird der Eigenschaftseditor gestartet, wählt man ein anderes Objekt so wird dieses ausgewählt.
 
-#### Selected objects: Moving a Node or Way
+#### Ausgewählte Objekte: Einen Knoten oder Weg verschieben
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Ist ein Objekt ausgewählt kann es verschoben werden. Hinweis: Objekte können erst verschoben werden nachdem sie ausgewählt wurden. Durch ziehen in der Nähe (d.h. in der Toleranzzone) kann es dann verschoben werden. In den Einstellungen kann für Punkte einen grösseren Bereich einschalten und anzeigen lassen mit dem der Punkt leichter verschoben werden kann als mit der Standardeinstellung. 
 
-#### Adding a new Node/Point or Way (long press)
+#### Einen neuen Knoten oder Weg erstellen (langer Klick)
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Mit einem langen Klick wird die Position gewählt wo der Weg beginnt oder ein Punkt erstellt werden soll.  Ein Positionskreuzsymbol markiert die Stelle. 
+* Soll ein neuer Knoten erstellt werden muss der nicht mit einem anderen Objekt verbunden ist, muss die Position ausserhalb der "Toleranzzone" liegen.
+* Soll ein bestehender Weg verlängert werden, sollte die Position innerhalb der "Toleranzzone" des Wegs oder eines Knotens auf dem Weg liegen.
 
-Once you can see the crosshair symbol, you have these options:
+Sobald das Positionskreuz erscheint, gibt es die folgenden Möglichkeiten:
 
-* Touch in the same place.
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* Nochmaliges Berühren an der gleichen Stelle.
+    * Ist das Positionskreuz nicht in der Nähe eines Punktes, erstellt das Berühren einen neuen Punkt. Falls die Position in der Nähe eines Weges (aber nicht in der Nähe eines Punktes) ist wird der neue Punkt als Teil des Weges erstellt.
+    * Ist das Positionskreuz in der Nähe eines Punktes, so wird kein neuer Punkt erstellt, sondern nur der Eigenschaftseditor gestartet.
+* Nochmaliges Berühren an einer anderen Stelle. Erstellt einen Punkt wie oben beschrieben und einen Wegabschnitt zu der neuen Position.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+Um den Weg zu verlängern tippe an den Stellen wo du weitere Wegpunkte haben willst. Um den Weg fertigzustellen, tippe nochmals auf den letzten Punkt. Falls der Endpunkt auf einem anderen Weg oder Punkt liegt wird er automatisch in diesen integriert. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating new objects.md) for more information.
+Um den Vorgang abzuschliessen kann auch ein entsprechender Menü-Eintrag ausgewählt werden, siehe [Neue Objekte erstellen](../en/Creating new objects.md) für weitere Informationen.
 
 #### Die Geometrie eines Weges verbessern
 
-Zoomt man genügend nah an ein Wegsegment wird ein kleines "x" sichtbar. Zieht man dran wird ein Knoten im Weg erstellt. Hinweis: um das versehentliche Erstellen solcher Punkte zu verhindern ist der empfindliche Bereich um das "x" ziemlich klein.
+Zoomt man genügend nah an ein ausgewähltes Wegsegment wird ein kleines "x" sichtbar. Zieht man daran wird ein Knoten im Weg erstellt. Hinweis: um das versehentliche Erstellen solcher Punkte zu verhindern ist der empfindliche Bereich um das "x" ziemlich klein.
 
 #### Kopieren, Ausschneiden & Einfügen
 
@@ -106,17 +112,17 @@ Vespucci hat eine "Adresseigenschaften hinzufügen" Funktion, die versucht Adres
 
 Die Hausnummernvorhersage benötigt typischerweise mindestens die Eingabe von je 2 Hausnummern auf jede Seite der Strasse, je mehr Nummern in den Daten vorhanden sind desto besser funktioniert die Vorhersage. 
 
-Es ist sinnvoll dies mit dem "Automatischen Download" zu verwenden.  
+Es ist sinnvoll dies mit [Auto-download](#download) zu verwenden.  
 
 #### Abbiegebeschränkungen eintragen
 
-Vespucci has a fast way to add turn restrictions, if necessary it will split ways automatically and, if necessary, ask you to re-select elements. 
+Vespucci erlaubt es schnell Abbiegebeschränkungen hinzuzufügen. Falls dazu Wege aufgetrennt werden müssen, geschieht dies automatisch und gegebenenfalls wird der Benutzer aufgefordert die Elemente neu auszuwählen. 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type in the property editor
+* wähle ein Weg mit  Strassen ("highway") Eigenschaft aus (Abbiegebeschränkungen können nur mit solchen Wegen erstellt werden, für andere Wege kann dies mit der allgemeineren "Relation erstellen" Funktion gemacht werden)
+* wähle "Abbiegebeschränkung hinzufügen" im Menü
+* wähle den "via" Knoten oder Weg aus (nur die möglichen "via" Elemente werden den Toleranzbereich angezeigt haben) 
+* wähle den Zielweg ("to") aus (es ist auch möglich den ursprünglichen "from" Weg auszuwählen. Vespucci nimmt dann an, dass eine "no_u_turn" Beschränkung erstellt werden soll)
+* setzte den Typ der Abbiegebeschränkung
 
 ### Vespucci im "gesperrten" Modus
 
@@ -142,7 +148,7 @@ Vespucci hat einen einfachen Konfliktbehebungsmechanismus eingebaut. Sind gröss
 
 Vespucci kann auch einen GPX Track erstellen und auf dem Schirm anzeigen. Weiter kann auch die aktuelle GPS-Position ("GPS-Position anzeigen" im Menü) angezeigt werden und/oder der Bildschirm darauf zentriert und nachgeführt werden ("GPS-Position folgen").   
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
+Falls letzteres eingeschaltet ist, wird es beim Verschieben des Schirms oder beim Editieren abgeschaltet und der blaue "GPS-Pfeil" ändert sich vom Umriss auf einen ausgefüllten Pfeil. Um wieder in den Nachführmodus zu gelangen genügt die "GPS-Schalftfläche", oder die Option im Menü wieder auszuwählen.
 
 ## Notizen und Fehler
 
@@ -152,33 +158,50 @@ Auf der Karte werden die Notizen und Fehler werden mit einem kleinen Käfer Icon
 
 In der Anzeige von OSMOSE Fehler wird jeweils für die betroffenen Objekte ein blau hervorgehobener Link angezeigt, wählt man den Link an, wird das Objekt ausgewählt, der Bildschirm darauf zentriert und, falls nötig, das entsprechende Gebiet heruntergeladen. 
 
-### Filtering
+### Anzeigefilter
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
+Zusätzlich zum Freischalten der Notiz- und Fehleranzeige kann eine grobe Auswahl der angezeigten Objekte eingestellt werden. In den "Erweiterten Einstellungen" kann folgendes ausgewählt werden:   
 
 <item>Notes</item>
 <item>Osmose Fehler</item>
 <item>Osmose Warnung</item>
 <item>Osmose nebensächliche Warnung</item>
 
+<a id="indoor"></a>
+
+## Innenraum-Modus
+
+In Innenräumen Daten zu erfassen ist anspruchsvoll auf Grund der grossen Anzahl Objekte und Überlappungen. Vespucci hat einen speziellen Innenraum Modus der es erlaubt alle Objekte die nicht auf der gleichen Etage sind auszufiltern und der bei neu erstellen Objekte automatisch die richtige Etage in den Objekteigenschaften einträgt. 
+
+In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch [Sperren, entsperren, "nur Eigenschaften bearbeiten" und Innenraum Modus](#lock).
+
+## Filter
+
+### Eigenschaft basierende Filter
+
+Der Filter kann vom Hauptmenü eingeschaltet werden, durch Tippen auf die Filter-Schaltfläche kann es dann bearbeitet werden.. Mehr Informationen kann unter [Tag-Filter](../en/Tag%20filter.md) gefunden werden.
+
+### Vorlagen basierende Filter
+
+Eine Alternative zu obigen, Objekte werden entweder durch einzelne, oder Gruppen von Vorlagen gefiltert. Nach einem Tipp auf die Filter-Schaltfläche Mehr Information kann unter [Vorlagenfilter](../en/Preset%20filter.md) gefunden werden.
 
 ## Vespucci individuell anpassen
 
 ### Häufig geänderte Einstellungen
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Kartenhintergrund
+* Karten Overlay. Dies kann Probleme mit älteren Geräten und solchen mit wenig Hauptspeicher verursachen. Standardwert: kein Overlay.
+* Fehler und Notizen anzeigen. Offene Notizen und Fehler werden mit einem gelben Käfer angezeigt, geschlossene in grün. Standardwert: eingeschaltet.
+* Foto Layer. Zeigt verortete Fotos die auf dem Gerät gefunden werden als Kamera Icon an, falls Richtungsinformationen vorhanden sind wird die Kamera entsprechend gedreht. Standardwert: ausgeschaltet.
+* Icons für Knoten mit Eigenschaften. Standardwert: eingeschaltet.
+* Bildschirm nicht abschalten. Standardwert: ausgeschaltet.
+* Grosser Bereich um Punkte zu bewegen. Auf Geräten mit Touchscreen ist das Verschieben von Knoten schwierig da die Finger die Sicht auf den Knoten versperren. Eingeschaltet zeigt diese Option einen grossen Bereich um ausgewählte Knoten herum der für das Verschieben verwendet werden kann. Den normale kleine Bereich wird weiterhin für die Objektauswahl und andere Funktionen verwendet. Standardwert: ausgeschaltet.
 
 Erweiterte Einstellungen
 
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Immer Kontext Menü benutzen. Eingeschaltet wird bei jedem Auswahlprozess das Kontext Menü angezeigt, ausgeschaltet nur dann wenn keine eindeutige Auswahl bestimmt werden kann. Standardwert: aus (früher: ein).
+* Helles Thema verwenden. Auf aktuellen Geräten standardmässig eingeschaltet. Kann auch auf älteren Geräten eingeschaltet werden ist aber eventuell nicht vollständig konsistent.
+* Zeige Statistiken. Zeigt einige Werte für die Fehlerbehebung an, nicht wirklich nützlich. Standardwert: ausgeschaltet (früher: eingeschaltet).  
 
 ## Fehler melden
 

@@ -8,6 +8,7 @@
   <string name="transfer_download_current_back">Voltar (não fazer nada)</string>
   <string name="upload_problem_title">Problema com o Envio</string>
   <string name="upload_problem_message">Todos os dados ou parte destes não foram enviados para o servidor. Tente enviar de novo mais tarde caso seja apenas um problema temporário.</string>
+  <string name="bad_request_message">a API respondeu com um erro, por favor salve os seus dados e reporte a situação:\n\n</string>
   <string name="upload_conflict_title">Conflito no envio</string>
   <string name="upload_conflict_message_version">%1$s \ntem a versão local %2$s \ne no servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s /ntem uma versão local %2$s /ne foi eliminada no servidor</string>
@@ -23,6 +24,8 @@
   <string name="wrong_login_data_title">A autenticação falhou</string>
   <string name="wrong_login_data_message">Se está a usar OAuth deve tornar a autenticar-se e tentar de novo. Se está a usar um nome de utilizador e palavra-chave (não recomendado) por favor verifique se estão ambos correctos.</string>
   <string name="wrong_login_data_re_authenticate">Tornar a autenticar</string>
+  <string name="forbidden_login_title">Autenticação proibida</string>
+  <string name="go_to_openstreetmap">Vá a openstreetmap.org</string>
   <string name="data_conflict_title">Conflito de Versão</string>
   <string name="data_conflict_message">Os dados que está a tentar descarregar contêm dados que entram em conflito com as suas alterações. Tente primeiro enviar as suas alteraçõess antes de tentar descarregar novamente.</string>
   <string name="invalid_bounding_box_title">Caixa de Limites Inválida</string>
@@ -53,6 +56,7 @@
   <string name="progress_saving_message">A gravar...</string>
   <string name="progress_uploading_message">A enviar…</string>
   <string name="progress_preset_message">A descarregar modelos de etiquetas…</string>
+  <string name="progress_running_message">A executar...</string>
   <string name="progress_oauth">A carregar a sua conta no openstreetmap.org para obter a autorização OAuth...</string>
   <string name="upload_comment_label">Comentário:</string>
   <string name="upload_source_label">Fonte:</string>
@@ -89,6 +93,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugestão pode substituir alguns valores de etiquetas com valores mais utilizados.</string>
   <string name="search_results_title">Resultados da pesquisa</string>
   <string name="find_message">Introduza o texto a pesquisar</string>
+  <string name="geocoder_prompt">com</string>
   <string name="preset_search_hint">Expressão de modelo de etiquetas a pesquisar</string>
   <string name="search">Pesquisar</string>
   <string name="no_valid_preset">Nenhum modelo de etiquetas válido!</string>
@@ -110,10 +115,17 @@
   <string name="empty_role">função em branco</string>
   <string name="element">elemento</string>
   <string name="last_updated">última atualização</string>
+  <string name="last_edited">Última edição</string>
   <string name="error">erro</string>
   <string name="warning">aviso</string>
   <string name="minor_issue">pequeno problema</string>
   <string name="unknown_error_level">gravidade desconhecida do erro</string>
+  <string name="attached_object_warning_title">Esta operação afectará os filtros anexados aos objectos!</string>
+  <string name="attached_object_warning_message">O objecto alterado está ligado a elementos ocultos que também serão alterados.</string>
+  <string name="attached_object_warning_continue">OK, continue a mostrar esta mensagem</string>
+  <string name="attached_object_warning_stop">Ok parar de mostrar esta mensagem</string>
+  <string name="send_debug_information">Enviar informação do debug</string>
+  <string name="evaluate">Avaliar</string>
   <!--Toaster-->
   <string name="toast_no_changes">Ainda não alterou nada…</string>
   <string name="toast_unsaved_changes">Tem alterações por gravar, por favor envie-as primeiro.</string>
@@ -133,6 +145,8 @@
   <string name="toast_potential_merge_tag_conflict">Está a tentar unir elementos que têm valores de etiquetas em conflito. Por favor verifique as etiquetas e corrija-as antes de tentar de novo.</string>
   <string name="toast_state_file_failed">Ficheiro ilegível ou corrompido</string>
   <string name="toast_too_many_nodes_for_move">A via tem demasiados nós para poder ser deslocada</string>
+  <string name="toast_unread_mail">Tem %1$d mensagem OSM não lidas</string>
+  <string name="toast_one_unread_mail">Tem uma mensagem OSM não lida</string>
   <string name="toast_photo_indexing_started">Iniciada a procura por fotos geo-referenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada a procura por fotos geo-referenciadas</string>
   <string name="toast_download_failed">O descarregamento falhou com código de erro %1$d, mensagem %2$s</string>
@@ -168,6 +182,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_split_from_and_via">Vias \"from\" (de) e \"via\" (através de) divididas</string>
   <string name="toast_split_to">Via \"to\" (para) dividida</string>
   <string name="toast_tile_database_full">A base de dados das telas do mapa ou o disco está cheio!\nSaia, elimine a base de dados ou disponibilize mais espaço de armazenamento.</string>
+  <string name="toast_error_accessing_photo">Não é possível aceder à foto %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -185,6 +200,10 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="enable">Ativar</string>
   <string name="clear">Limpar</string>
   <string name="retry">Tentar novamente</string>
+  <string name="read">Ler</string>
+  <string name="overwrite">Sobrescrever </string>
+  <string name="share">Partilhar</string>
+  <string name="share_position">Partilhar posição</string>
   <!--Dialog for back button-->
   <string name="exit_title">Quer mesmo sair?</string>
   <string name="exit_text">Tem certeza de que quer sair?</string>
@@ -226,6 +245,7 @@ sem gravar</string>
   <string name="tag_menu_move_bottom">Mover para o fundo</string>
   <string name="tag_menu_sort">Ordenar</string>
   <string name="tag_menu_download">Descarregar</string>
+  <string name="tag_menu_js_console">Consola JS</string>
   <string name="menu_up">Cima</string>
   <string name="menu_top">Abaixo</string>
   <string name="menu_preset_help">Ajuda do modelo de etiquetas</string>
@@ -273,6 +293,7 @@ há %3$s %4$s</string>
   <string name="menu_extract">Extrair nó</string>
   <string name="menu_append">Acrescentar</string>
   <string name="menu_relation">Criar relação</string>
+  <string name="menu_edit_relation">Editar relação</string>
   <string name="menu_add_relation_member">Adicionar membro</string>
   <string name="menu_select_relation_members">Selecionar membros</string>
   <string name="menu_tag">Editar tags</string>
@@ -295,6 +316,7 @@ há %3$s %4$s</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descarregar a vista atual</string>
   <string name="menu_transfer_download_current_add">Descarregar e adicionar vista atual</string>
+  <string name="menu_transfer_download_other">Fazer download de outra localização</string>
   <string name="menu_transfer_upload">Enviar dados para o OSM</string>
   <string name="menu_transfer_close_changeset">Fechar o conjunto de alterações atual</string>
   <string name="menu_transfer_file">Ficheiro...</string>
@@ -343,6 +365,8 @@ há %3$s %4$s</string>
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Repôr OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
+  <string name="menu_enable_tagfilter">Filtro de etiquetas</string>
+  <string name="menu_enable_presetfilter">Filtro de predefinições</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propriedades</string>
   <!--Text should be as short as possible-->

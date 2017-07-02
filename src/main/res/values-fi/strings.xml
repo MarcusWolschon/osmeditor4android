@@ -1,6 +1,133 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Varoitus!</string>
+  <string name="transfer_download_current_dialog_message">Olet tehnyt muutoksia. Haluatko lähettää ne palvelimelle vai hylätä ne?</string>
+  <string name="transfer_download_current_upload">Lähetä</string>
+  <string name="transfer_download_current_download">Hylkää &amp; lataa</string>
+  <string name="transfer_download_current_back">Peruuta (Älä tee mitään)</string>
+  <string name="upload_problem_title">Lähetys ei onnistunut</string>
+  <string name="upload_problem_message">Ainakin osaa datasta ei ole lähetetty. Yritä lähetystä myöhemmin uudestaan mikäli ongelma oli vain väliaikainen.</string>
+  <string name="bad_request_message">API palautti virheen. Tallenna muokkauksesi ja ilmoita virheestä:\n\n</string>
+  <string name="upload_conflict_title">Ristiriita lähetyksessä</string>
+  <string name="upload_conflict_message_version">%1$s \npaikallinen versio on %2$s \nja palvelimella on %3$s</string>
+  <string name="upload_conflict_message_deleted">%1$s \npaikallinen versio on %2$s \nja se on poistettu palvelimelta</string>
+  <string name="upload_conflict_message_referential">%1$s \non poistettu paikallisesti \nmutta siihen viitataan palvelimella</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \noli jo poistettu palvelimelta</string>
+  <string name="use_local_version">Käytä \npaikallista \nversiota</string>
+  <string name="use_server_version">Käytä \npalvelimen \nversiota</string>
+  <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
+  <string name="no_login_data_message">Jos käytät OAuthia, ohjelmassa on todennäköisesti vikaa. Pyydämme ilmoittamaan ongelmasta. Jos käytät tunnusta ja salasanaa (mitä ei suositella), niin tarkista että ne on kirjoitettu oikein.</string>
+  <string name="no_connection_title">Ei yhteyttä palvelimeen</string>
+  <string name="no_connection_message">OSM-palvelimeen ei saatu yhteyttä. Tarkista Internet-yhteytesi tai yritä uudestaan.</string>
+  <string name="ssl_handshake_failed">OSM-palvelimeen ei saatu yhteyttä, koska https-neuvottelu epäonnistui. Kokeile vaihtaa salaamattomaan yhteyteen APIn asetuksista.</string>
+  <string name="wrong_login_data_title">Kirjautuminen epäonnistui</string>
+  <string name="wrong_login_data_message">Jos käytät OAuthia, niin uusi autentikoituminen ja yritä sitten kirjautua uudestaan. Jos käytät tunnusta ja salasanaa (mitä ei suositella), niin tarkista että ne on kirjoitettu oikein.</string>
+  <string name="wrong_login_data_re_authenticate">Uusi autentikoituminen</string>
+  <string name="forbidden_login_title">Kirjautuminen kielletty</string>
+  <string name="go_to_openstreetmap">Mene sivulle openstreetmap.org</string>
+  <string name="data_conflict_title">Ristiriitaiset versiot</string>
+  <string name="data_conflict_message">Data jota yrität ladata on ristiriidassa muokkaustesi kanssa. Yritä lähettää muokkaukset ensin palvelimelle.</string>
+  <string name="invalid_bounding_box_title">Virheellinen alue</string>
+  <string name="invalid_bounding_box_message">Valittu alue ei ole APIn rajoitteiden mukainen. Valitse jokin toinen alue.</string>
+  <string name="api_offline_title">API suljettu</string>
+  <string name="api_offline_message">API on väliaikaisesti suljettu, eikä se hyväksy datan hakemista eikä kirjoittamista.</string>
+  <string name="out_of_memory_title">Muisti ei riitä</string>
+  <string name="out_of_memory_message">Vespuccilta loppui muisti pyydettyä dataa ladattaessa. Käynnistä sovellus uudestaan, ja kokeile pienemmän alueen lataamista.</string>
+  <string name="out_of_memory_dirty_message">Vespuccilta loppui muisti pyydettyä dataa ladattaessa. Yritä tallentaa muokkauksesi, käynnistä sovellus uudestaan, ja kokeile pienemmän alueen lataamista.</string>
+  <string name="invalid_data_received_title">Saatiin virheellistä dataa</string>
+  <string name="invalid_data_received_message">Vespucci sai virheellistä dataa palvelimelta. Ilmoita virheestä, jos uskot yrittäneesi tehdä asiat oikealla tavalla.</string>
+  <string name="invalid_data_read_title">Virhellistä dataa</string>
+  <string name="invalid_data_read_message">Tiedostossa oli virheellistä dataa. Raportoi virhe, jos uskot yrittäneesi tehdä asiat oikealla tavalla.</string>
+  <string name="file_write_failed_title">Tiedostoon ei voi kirjoittaa</string>
+  <string name="file_write_failed_message">Valittuun tiedostoon ei voitu kirjoittaa.</string>
+  <string name="welcome_title">Tervetuloa!</string>
+  <string name="welcome_message">Kiitos että käytät Vespuccia.\n\nPääset alkuun näillä kahdella neuvolla:\n\n* lukkokuvakkeen koskettaminen vaihtaa lukitun (ei voi muokata) ja avatun tilan välillä\n\n* uuden kohteen lisäys: pitkä kosketus – uusi kosketus samaan paikkaan lisää pisteen ja kosketus kauemmas aloittaa viivan.\n\nMuista ladata alue, jota haluat muokata.\n\nPidä hauskaa!</string>
+  <string name="read_introduction">Lue esittely nyt</string>
+  <string name="upgrade_title">Tervetuloa Vespuccin uuteen versioon!</string>
+  <string name="upgrade_message">Tämä on Vespuccin uusi versio uusine ominaisuuksineen ja toimintoineen. Sinun kannattaa lukaista laitteella olevat päivitystiedot.</string>
+  <string name="read_upgrade">Lue uudesta versiosta</string>
+  <string name="progress_title">Ladataan</string>
+  <string name="progress_message">Ladataan dataa muistiin...</string>
+  <string name="progress_download_message">Ladataan dataa palvelimelta...</string>
+  <string name="progress_general_title">Odota</string>
+  <string name="progress_deleting_message">Poistetaan...</string>
+  <string name="progress_searching_message">Etsitään...</string>
+  <string name="progress_saving_message">Tallennetaan...</string>
+  <string name="progress_uploading_message">Lähetetään...</string>
+  <string name="progress_preset_message">Ladataan esivalintaa...</string>
+  <string name="progress_running_message">Suoritetaan...</string>
+  <string name="progress_oauth">Ladataan openstreetmap.orgin tiliä OAuth-todennukseen...</string>
+  <string name="upload_comment_label">Kommentti:</string>
+  <string name="upload_source_label">Lähde:</string>
+  <string name="upload_close_changeset_label">Sulje muutossetti:</string>
+  <string name="upload_gpx_description_label">Kuvaus</string>
+  <string name="upload_gpx_tags_label">Tägit</string>
+  <string name="upload_gpx_visibility_label">Näkyvyys</string>
+  <string name="openstreetbug_new_title">Uusi huomio</string>
+  <string name="openstreetbug_new_bug">Ilmoita ongelmasta</string>
+  <string name="openstreetbug_bug_title">Ongelma</string>
+  <string name="openstreetbug_new_nodeway">Tee piste/viiva</string>
+  <string name="openstreetbug_edit_title">Muokkaa huomiota</string>
+  <string name="openstreetbug_commitbutton">Lähetä</string>
+  <string name="openstreetbug_comment_label">Kommentti:</string>
+  <string name="openstreetbug_edit_close">Sulje</string>
+  <string name="openstreetbug_edit_closed">Suljettu</string>
+  <string name="openstreetbug_commit_ok">Ilmoituksen muutokset tallennettu</string>
+  <string name="openstreetbug_commit_fail">Ilmoituksen muutoksia ei voitu tallentaa</string>
+  <string name="openstreetbug_not_downloaded">ei ladattu</string>
+  <string name="openstreetbug_last_updated">viimeksi päivitetty</string>
+  <string name="unsaved_data_title">Varoitus!</string>
+  <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
+  <string name="unsaved_data_proceed">Hylkää &amp; jatka</string>
+  <string name="imagery_offset_title">Kuvaston siirros</string>
+  <string name="imagery_offset_description">Kuvaus</string>
+  <string name="imagery_offset_not_found">Ei siirroksia 10 km:n säteellä!</string>
+  <string name="imagery_offset_author">Tekijä</string>
+  <string name="imagery_offset_offset">Siirros</string>
+  <string name="imagery_offset_date">Luotu</string>
+  <string name="imagery_offset_zoom">Suurennus</string>
+  <string name="imagery_offset_distance">Etäisyys</string>
+  <string name="set_position_datum_label">Geodeettinen datumi</string>
+  <string name="tag_editor_name_suggestion">Nimiehdotus</string>
+  <string name="tag_editor_name_suggestion_overwrite_message">Tämä ehdotus voi korvata joidenkin tägien arvon suositummilla arvoilla.</string>
+  <string name="search_results_title">Hakutulokset</string>
+  <string name="find_message">Syötä hakuteksti</string>
+  <string name="geocoder_prompt">lisäksi</string>
+  <string name="preset_search_hint">Esivalinnan hakuteksti</string>
+  <string name="search">Hae</string>
+  <string name="no_valid_preset">Ei kelpaavaa esivalintaa!</string>
+  <string name="read_file">Valitse luettava tiedosto</string>
+  <string name="save_file">Anna tallennustiedosto</string>
+  <string name="existing_track_title">Jälki jo olemassa</string>
+  <string name="existing_track_message">Editorissa on jo jälkidataa. Kannattaa ehkä peruuttaa, ja tallentaa se ensin.</string>
+  <string name="delete_tags">Poistetaanko varmasti kaikki kohteen \"%1$s\" tägit?</string>
+  <string name="element_information">Tietoa elementistä</string>
+  <string name="id">ID</string>
+  <string name="nodes">Pisteet</string>
+  <string name="relation_membership">Relaatiojäsenyys</string>
+  <string name="problem">Ongelma</string>
+  <string name="members">Jäsenet</string>
+  <string name="closed">Suljettu</string>
+  <string name="version">Versio</string>
+  <string name="length_m">Pituus (m)</string>
+  <string name="not_downloaded">Ei ladattu</string>
+  <string name="empty_role">tyhjä rooli</string>
+  <string name="element">elementti</string>
+  <string name="last_updated">viimeksi päivitetty</string>
+  <string name="last_edited">Viimeksi muokattu</string>
+  <string name="error">virhe</string>
+  <string name="warning">varoitus</string>
+  <string name="minor_issue">pikkuongelma</string>
+  <string name="unknown_error_level">tuntematon virhetaso</string>
+  <string name="attached_object_warning_title">Tämä toiminto vaikuttaa suodatettuihin liitettyihin kohteisiin!</string>
+  <string name="attached_object_warning_message">Muutettu kohde on kytketty piilotettuihin elementteihin, jotka myös muuttuvat.</string>
+  <string name="attached_object_warning_continue">Selvä, näytä tämä viesti jatkossakin</string>
+  <string name="attached_object_warning_stop">Selvä, älä näytä tätä viestiä enää</string>
+  <string name="send_debug_information">Lähetä tietoa virheestä</string>
+  <string name="evaluate">Arvioi</string>
+  <string name="js_console_msg_live">Suora tila!</string>
+  <string name="js_console_msg_debug">Testaustila!</string>
   <!--Toaster-->
   <!--Some generic labels/buttons-->
   <!--Dialog for back button-->
@@ -10,12 +137,15 @@
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <!--EasyEdit action mode titles-->
+  <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
   <!--preset downloader messages-->
   <!--changes-->
   <!--url handler activity-->
   <!--common terms-->
+  <!---->
   <!--"default" is a reserved Java keyword...-->
+  <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <!--ACRA-->
   <!--Exceptions messages-->
