@@ -282,7 +282,7 @@
 <li>An isolated node/way is highlighted immediately. </li>
 <li>However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. </li>
 <li>Selected objects are highlighted in yellow. </li>
-<li>For further information see <a href="../en/Node%20selected.md">Node selected</a> and <a href="../en/Way%20selected.md">Way selected</a>.</li>
+<li>For further information see <a href="../en/Node%20selected.md">Node selected</a>, <a href="../en/Way%20selected.md">Way selected</a> and <a href="../en/Relation%20selected.md">Relation selected</a>.</li>
 </ul>
 </li>
 <li>Double tap: Start <a href="../Multiselect/">Multiselect mode</a></li>
@@ -294,7 +294,7 @@
 <p>Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start <a href="../Multiselect/">Multiselect mode</a>.</p>
 <p>Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. </p>
 <p>Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.</p>
-<p>You can also use menu items: For further information see <a href="../en/Node%20selected.md">Node selected</a> and <a href="../en/Way%20selected.md">Way selected</a>.</p>
+<p>Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see <a href="../en/Node%20selected.md">Node selected</a>, <a href="../en/Way%20selected.md">Way selected</a> and <a href="../en/Relation%20selected.md">Relation selected</a>.</p>
 <h4 id="selected-objects-editing-tags">Selected objects: Editing tags</h4>
 <p>A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.</p>
 <p>Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.</p>
@@ -316,7 +316,7 @@
 <p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. </p>
 <p>You can also use a menu item: See <a href="../Creating new objects/">Creating new objects</a> for more information.</p>
 <h4 id="improving-way-geometry">Improving Way Geometry</h4>
-<p>If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.</p>
+<p>If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.</p>
 <h4 id="cut-copy-paste">Cut, Copy &amp; Paste</h4>
 <p>You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
 <h4 id="efficiently-adding-addresses">Efficiently Adding Addresses</h4>
@@ -329,13 +329,13 @@
 <p>House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.</p>
 <p>Consider using this with the <a href="#download">Auto-download</a> mode.  </p>
 <h4 id="adding-turn-restrictions">Adding Turn Restrictions</h4>
-<p>Vespucci has a fast way to add turn restrictions, if necessary it will split ways automatically and, if necessary, ask you to re-select elements. </p>
+<p>Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. </p>
 <ul>
 <li>select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)</li>
 <li>select "Add restriction" from the menu</li>
 <li>select the "via" node or way (only possible "via" elements will have the touch area shown)</li>
 <li>select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)</li>
-<li>set the restriction type in the property editor</li>
+<li>set the restriction type</li>
 </ul>
 <h3 id="vespucci-in-locked-mode">Vespucci in "locked" mode</h3>
 <p>When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.</p>
@@ -349,7 +349,7 @@
 <p>Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on <a href="../Conflict resolution/">conflict resolution</a>.  </p>
 <h2 id="using-gps">Using GPS</h2>
 <p>You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). </p>
-<p>If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.</p>
+<p>If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.</p>
 <h2 id="notes-and-bugs">Notes and Bugs</h2>
 <p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.</p>
 <p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. </p>
@@ -368,9 +368,9 @@
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, "tag editing only", indoor mode</a>.</p>
 <h2 id="filters">Filters</h2>
 <h3 id="tag-based-filter">Tag based filter</h3>
-<p>The filter can be enabled from the main menu, the filter can then be changed by tapping the filter icon. More documentation can be found on <a href="../en/Tag%20filter.md">here</a>.</p>
+<p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="../en/Tag%20filter.md">Tag filter</a>.</p>
 <h3 id="preset-based-filter">Preset based filter</h3>
-<p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog, similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found on <a href="../en/Preset%20filter.md">here</a>.</p>
+<p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="../en/Preset%20filter.md">Preset filter</a>.</p>
 <h2 id="customizing-vespucci">Customizing Vespucci</h2>
 <h3 id="settings-that-you-might-want-to-change">Settings that you might want to change</h3>
 <ul>
