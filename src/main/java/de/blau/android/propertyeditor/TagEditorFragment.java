@@ -17,6 +17,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -99,8 +101,6 @@ public class TagEditorFragment extends BaseFragment implements
 	private static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
 	private static final Object actionModeCallbackLock = new Object();
 	
-	private PresetItem autocompletePresetItem = null;
-	
 	private Names names = null;
 
 	private boolean loaded = false;
@@ -124,7 +124,12 @@ public class TagEditorFragment extends BaseFragment implements
 	private HashMap<String,PresetItem> tags2Preset = new HashMap<String,PresetItem>();
 	
 	/**
-	 * per tag preset association
+	 * Best matching preset
+	 */
+	private PresetItem primaryPresetItem = null;
+	
+	/**
+	 * further matching presets
 	 */
 	private ArrayList<PresetItem> secondaryPresets = new ArrayList<PresetItem>();
 	
@@ -315,7 +320,7 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 		}
 		
-		updateAutocompletePresetItem(editRowLayout, null); // set preset from initial tags
+		updateAutocompletePresetItem(editRowLayout, null, false); // set preset from initial tags
 		
 		
 		if (displayMRUpresets) {
@@ -461,25 +466,51 @@ public class TagEditorFragment extends BaseFragment implements
 		ensureEmptyRow(rowLayout);
 	}
 
+	@Override
+	public void updatePresets() {
+		updateAutocompletePresetItem(null);
+	}
+	
+	/**
+	 * Edits may change the best fitting preset
+	 * 
+	 * @param presetItem if null determine best preset from existing tags
+	 */
+	void updateAutocompletePresetItem(@Nullable PresetItem presetItem) {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+		if (rowLayout != null) {
+			updateAutocompletePresetItem(rowLayout, presetItem, false);
+		} else {
+			Log.d(DEBUG_TAG,"updateAutocompletePresetItem rowLayout null");
+		}
+	}
+
 	/**
 	 * If tags have changed the autocomplete adapters need to be recalculated on what is the current preset
-	 * @param rowLayout
-	 * @param preset if null determine best preset from existing tags
+	 * 
+	 * @param rowLayout	the layout containing the tag rows
+	 * @param preset 	if null determine best preset from existing tags
+	 * @param addToMru	add to MRU if true
 	 */
-	private void updateAutocompletePresetItem(LinearLayout rowLayout, PresetItem preset) {
+	private void updateAutocompletePresetItem(@NonNull LinearLayout rowLayout, @Nullable PresetItem preset, boolean addToMru) {
 		Log.d(DEBUG_TAG,"setting new autocompletePresetItem");
+		Preset[] presets = App.getCurrentPresets(getActivity());
+		PresetItem savedPrimaryPresetItem = primaryPresetItem;
+		List<PresetItem> savedSecondaryPresets = new ArrayList<PresetItem>(getSecondaryPresets());
+		
 		clearPresets();
 		clearSecondaryPresets();
 		LinkedHashMap<String, String> allTags = getKeyValueMapSingle(rowLayout,true);
+		
 		if (preset == null) {
-			autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, allTags, true); // FIXME multiselect
+			primaryPresetItem = Preset.findBestMatch(presets, allTags, true); // FIXME multiselect;
 		} else {
-			autocompletePresetItem = preset;
+			primaryPresetItem = preset;
 		}
-    	Map<String, String> nonAssigned = addPresetsToTags(autocompletePresetItem, allTags);
+    	Map<String, String> nonAssigned = addPresetsToTags(primaryPresetItem, allTags);
     	int nonAssignedCount = nonAssigned.size();
     	while (nonAssignedCount > 0) {
-    		PresetItem nonAssignedPreset = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, nonAssigned, true);
+    		PresetItem nonAssignedPreset = Preset.findBestMatch(presets, nonAssigned, true);
     		if (nonAssignedPreset==null) {
     			// no point in continuing
     			break;
@@ -500,6 +531,23 @@ public class TagEditorFragment extends BaseFragment implements
     		ElementType oldType = elements[0].getType();
     		if (newType != oldType) {
     			presetFilterUpdate.typeUpdated(newType);
+    		}
+    		
+    		if (presets != null && addToMru) {
+    			if ((primaryPresetItem!=null && !primaryPresetItem.equals(savedPrimaryPresetItem)) 
+    					 || !savedSecondaryPresets.equals(getSecondaryPresets())) {
+    				List<PresetItem>items = new ArrayList<PresetItem>(getSecondaryPresets());
+    				items.add(primaryPresetItem);
+    				for (PresetItem item:items) {
+    					for (Preset p:presets) {
+    						if (p.contains(item)) {
+    							p.putRecentlyUsed(item);
+    							break;
+    						}
+    					}
+    				}
+    				((PropertyEditor)getActivity()).recreateRecentPresetView();
+    			}
     		}
     	}
 	}
@@ -593,27 +641,9 @@ public class TagEditorFragment extends BaseFragment implements
 		return secondaryPresets;
 	}
 	
-	/**
-	 * Edits may change the best fitting preset
-	 * @param presetItem if null determine best preset from existing tags
-	 */
-	void updateAutocompletePresetItem(PresetItem presetItem) {
-		LinearLayout rowLayout = (LinearLayout) getOurView();
-		if (rowLayout != null) {
-			updateAutocompletePresetItem(rowLayout, presetItem);
-		} else {
-			Log.d(DEBUG_TAG,"updateAutocompletePresetItem rowLayout null");
-		}
-	}
-	
-	@Override
-	public void updatePresets() {
-		updateAutocompletePresetItem(null);
-	}
-	
 	@Override
 	public PresetItem getBestPreset() {
-		return autocompletePresetItem;
+		return primaryPresetItem;
 	}
 	
 	@Override
@@ -629,7 +659,7 @@ public class TagEditorFragment extends BaseFragment implements
 		Set<String> keys = new HashSet<String>();
 		
 		if (preset == null && ((PropertyEditor)getActivity()).presets != null) {
-			updateAutocompletePresetItem(rowLayout, null);
+			updateAutocompletePresetItem(rowLayout, null, false);
 		}
 		
 		if (preset != null) {
@@ -783,7 +813,7 @@ public class TagEditorFragment extends BaseFragment implements
 		row.setValues(aTagKey, tagValues, same);
 
 		// If the user selects addr:street from the menu, auto-fill a suggestion
-		row.keyEdit.setOnItemClickListener(new OnItemClickListener() {
+		row.keyEdit.setOnItemClickListener(new OnItemClickListener() {	
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (Tags.KEY_ADDR_STREET.equals(parent.getItemAtPosition(position)) &&
@@ -799,15 +829,15 @@ public class TagEditorFragment extends BaseFragment implements
 						row.valueEdit.setText(adapter.getItem(0).getValue());
 					}
 				} else{
-					if (autocompletePresetItem != null) {
-						String hint = autocompletePresetItem.getHint(parent.getItemAtPosition(position).toString());
+					if (primaryPresetItem != null) {
+						String hint = primaryPresetItem.getHint(parent.getItemAtPosition(position).toString());
 						if (hint != null) { //
 							row.valueEdit.setHint(hint);
-						} else if (autocompletePresetItem.getRecommendedTags().keySet().size() > 0 || autocompletePresetItem.getOptionalTags().keySet().size() > 0) {
+						} else if (primaryPresetItem.getRecommendedTags().keySet().size() > 0 || primaryPresetItem.getOptionalTags().keySet().size() > 0) {
 							row.valueEdit.setHint(R.string.tag_value_hint);
 						}
 						if (row.getValue().length() == 0) {
-							String defaultValue = autocompletePresetItem.getDefault(parent.getItemAtPosition(position).toString());
+							String defaultValue = primaryPresetItem.getDefault(parent.getItemAtPosition(position).toString());
 							if (defaultValue != null) { //
 								row.valueEdit.setText(defaultValue);
 							} 
@@ -830,9 +860,9 @@ public class TagEditorFragment extends BaseFragment implements
 					row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit));
 					if (PropertyEditor.running && row.getKey().length() == 0) row.keyEdit.showDropDown();
 				} else {
-					String newKey = row.getValue();
+					String newKey = row.getKey();
 					if (!newKey.equals(originalKey)) { // our preset may have changed re-calc
-						updateAutocompletePresetItem(rowLayout, null);
+						updateAutocompletePresetItem(rowLayout, null, true);
 					} 
 				}
 			}
@@ -870,7 +900,7 @@ public class TagEditorFragment extends BaseFragment implements
 					if (!newValue.equals(originalValue)) {
 						// Log.d(DEBUG_TAG,"lost focus");
 						// potentially we should update tagValues here
-						updateAutocompletePresetItem(rowLayout, null);
+						updateAutocompletePresetItem(rowLayout, null, true);
 					} 
 				}
 			}
@@ -902,6 +932,8 @@ public class TagEditorFragment extends BaseFragment implements
 				CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
 	            for (int i = 0; i < toBeRemovedSpans.length; i++)
 	                s.removeSpan(toBeRemovedSpans[i]);
+	            // update presets
+				updateAutocompletePresetItem(rowLayout, null, true);
 			}
 		};
 		row.keyEdit.addTextChangedListener(emptyWatcher);
@@ -1382,7 +1414,7 @@ public class TagEditorFragment extends BaseFragment implements
 					}
 				}
 			}
-			recreateRecentPresetView();
+			((PropertyEditor)getActivity()).recreateRecentPresetView();
 		}
 		focusOnEmptyValue();
 	}
@@ -1947,6 +1979,7 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	/**
 	 * Add tag if it doesn't exist
+	 * 
 	 * @param layout
 	 * @param key
 	 * @param value
@@ -2003,9 +2036,9 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param value
 	 */
 	private void addTagToMap(Map<String,String>map, String key, String value) {
-		if (autocompletePresetItem != null && autocompletePresetItem.getKeyType(key)==PresetKeyType.MULTISELECT) {
+		if (primaryPresetItem != null && primaryPresetItem.getKeyType(key)==PresetKeyType.MULTISELECT) {
 			// trim potential trailing separators 
-			if (value.endsWith(String.valueOf(autocompletePresetItem.getDelimiter(key)))) {
+			if (value.endsWith(String.valueOf(primaryPresetItem.getDelimiter(key)))) {
 				value = value.substring(0, value.length()-1);
 			}
 		}
