@@ -803,7 +803,7 @@ public class TagEditorFragment extends BaseFragment implements
 					row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit));
 					if (PropertyEditor.running && row.getKey().length() == 0) row.keyEdit.showDropDown();
 				} else {
-					String newKey = row.getValue();
+					String newKey = row.getKey();
 					if (!newKey.equals(originalKey)) { // our preset may have changed re-calc
 						updateAutocompletePresetItem(rowLayout, null);
 					} 
@@ -1351,7 +1351,7 @@ public class TagEditorFragment extends BaseFragment implements
 					}
 				}
 			}
-			recreateRecentPresetView();
+			((PropertyEditor)getActivity()).recreateRecentPresetView();
 		}
 		focusOnEmptyValue();
 	}
