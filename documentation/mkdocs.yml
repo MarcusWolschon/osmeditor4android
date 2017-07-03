@@ -29,7 +29,8 @@ pages:
     - 'Keyboard and mouse': 'help/en/Keyboard.md'  
     - 'GPS sources': 'help/en/GPS sources.md'
     - 'Tag based filter': 'help/en/Tag filter.md'
-    - 'Preset based filter': 'help/en/Preset filter.md'           
+    - 'Preset based filter': 'help/en/Preset filter.md'
+    - 'Opening hours': 'help/en/Opening hours.md'           
 - Tutorials and Posts:
     - 'Using name suggestions': 'tutorials/name_suggestions.md'
     - 'Reporting Vespucci issues': 'tutorials/reporting_issues.md'

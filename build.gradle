@@ -84,6 +84,14 @@ task updateTaginfoJson(type: Exec) {
 updateTaginfoJson.group = 'vespucci'
 updateTaginfoJson.description = 'Update the taginfo.json file from test device'
 
+task update3rdPartyDocs(type: Download) {	
+	acceptAnyCertificate true
+    src 'https://raw.githubusercontent.com/simonpoole/OpeningHoursFragment/master/lib/documentation/docs/help/en/Opening%20hours.md'
+    dest new File(projectDir.getPath() + '/documentation/docs/help/en/Opening hours.md')
+}
+update3rdPartyDocs.group = 'vespucci'
+update3rdPartyDocs.description = 'Update markdown help files for 3rd party libraries'
+
 eclipse {
     classpath {
         plusConfigurations += [ configurations.compile, configurations.testCompile, configurations.androidTestCompile ]
@@ -231,7 +239,7 @@ dependencies {
     compile "ch.poole:PoParser:0.7.2"
     compile "ch.poole:OpeningHoursParser:0.9.0"
     compile "ch.poole:ConditionalRestrictionParser:0.1.12"
-    compile "ch.poole:OpeningHoursFragment:0.1.2"
+    compile "ch.poole:OpeningHoursFragment:0.1.5"
     compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
 

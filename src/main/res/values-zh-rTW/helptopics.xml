@@ -32,12 +32,13 @@
     	<item>@string/help_keyboard</item>
     	<item>@string/help_tagfilter</item>
     	<item>@string/help_presetfilter</item>
+    	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
     	<item>@string/help_upgrade_098</item>
     	<item>@string/help_upgrade_097</item>
     	<item>@string/help_upgrade_096</item>
     </array>
-<!--    The following array needs to mirroe the positions in the above one -->
+<!--    The following array needs to mirror the positions in the above one -->
     <array translatable="false" name="help_files">
         <item>Introduction</item>
         <item>Main map display</item>
@@ -54,6 +55,7 @@
     	<item>Keyboard</item>
     	<item>Tag filter</item>
     	<item>Preset filter</item>
+    	<item>Opening hours</item>
     	<item>0.9.9 Release notes</item>
     	<item>0.9.8 Release notes</item>
     	<item>0.9.7 Release notes</item>
