@@ -126,6 +126,8 @@
   <string name="attached_object_warning_stop">Ok parar de mostrar esta mensagem</string>
   <string name="send_debug_information">Enviar informação do debug</string>
   <string name="evaluate">Avaliar</string>
+  <string name="js_console_msg_live">Modo ao vivo!</string>
+  <string name="js_console_msg_debug">Modo debug!</string>
   <!--Toaster-->
   <string name="toast_no_changes">Ainda não alterou nada…</string>
   <string name="toast_unsaved_changes">Tem alterações por gravar, por favor envie-as primeiro.</string>
@@ -173,7 +175,10 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_inconsistent_state">Detetado um estado inconsistente, por favor envie um relatório de erro!</string>
   <string name="toast_camera_error">Erro ao iniciar a app da câmara: %1$s</string>
   <string name="toast_no_voice">Não foram detetadas funcionalidades de reconhecimento de voz</string>
+  <string name="toast_storage_error">%1$snão é gravável pelo Vespucci.\nIsto pode ser uma questão de permissões ou problema técnico do seu dispositivo.</string>
+  <string name="toast_no_suitable_storage">O sistema não devolveu uma localização compatível com o o moisaco</string>
   <string name="toast_min_one_preset">Tem de ser selecionado pelo menos um modelo de etiquetas!</string>
+  <string name="toast_min_one_geocoder">Pelo menos um geocodificador deverá estar seleccionado!</string>
   <string name="toast_used_backup">O ficheiro de estado está corrompido. A usar o ficheiro de cópia de segurança!</string>
   <string name="toast_used_bug_backup">O ficheiro de estado de erro está corrompido. A usar o ficheiro de cópia de segurança!</string>
   <string name="toast_rmpty_relation">Relação sem nada. A criar relatório de erro.</string>
@@ -182,12 +187,27 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_split_from_and_via">Vias \"from\" (de) e \"via\" (através de) divididas</string>
   <string name="toast_split_to">Via \"to\" (para) dividida</string>
   <string name="toast_tile_database_full">A base de dados das telas do mapa ou o disco está cheio!\nSaia, elimine a base de dados ou disponibilize mais espaço de armazenamento.</string>
+  <string name="toast_invalid_apiurl">URL da API inválido</string>
+  <string name="toast_invalid_readonlyurl">URL de leitura da API inválido</string>
+  <string name="toast_invalid_notesurl">URL da API para notas inválido</string>
+  <string name="toast_invalid_filter_regexp">Expressão inválida no filtro com a chave=%1$s e chave=%2$s</string>
   <string name="toast_error_accessing_photo">Não é possível aceder à foto %1$s</string>
+  <string name="toast_no_voice_recognition">Não há instalação de reconhecimento de voz</string>
+  <string name="toast_no_coverage">%1$snão tem cobertura aqui</string>
+  <string name="toast_file_exists">Ficheiro %1$sjá existe</string>
+  <string name="toast_needs_resurvey">O objecto pode estar desactualizado</string>
+  <string name="toast_openinghours_invalid">Horário de abertura inválido para %1$s</string>
+  <string name="toast_openinghours_autocorrected">O horário de abertura para %1$sfoi automaticamente corrigido</string>
+  <string name="toast_exit_multiselect">Toque duas vezes num espaço em branco ou utilize o botão de regresso para sair</string>
+  <string name="toast_exit_actionmode">Utilize o botão de regresso para salvar e sair</string>
+  <string name="toast_abort_actionmode">Utilize o botão de regresso para abortar</string>
+  <string name="toast_null_island">Por favor não adicione elementos em 0°/0°</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="okay">Ok</string>
   <string name="cancel">Cancelar</string>
+  <string name="dismiss">Descartar</string>
   <string name="locked">Bloqueado</string>
   <string name="next">Próximo</string>
   <string name="apply">Aplicar</string>
@@ -367,6 +387,8 @@ há %3$s %4$s</string>
   <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
   <string name="menu_enable_tagfilter">Filtro de etiquetas</string>
   <string name="menu_enable_presetfilter">Filtro de predefinições</string>
+  <string name="preset_menu_waynodes">Incluir nós na via</string>
+  <string name="preset_menu_invert">Inverter filtros</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propriedades</string>
   <!--Text should be as short as possible-->
@@ -390,6 +412,17 @@ há %3$s %4$s</string>
   <string name="actionmode_createpath">A criar caminho</string>
   <string name="actionmode_multiselect">Seleção múltipla</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Separar via fechada, primeiro nó</string>
+  <string name="actionmode_closed_way_split_2">Separar via fechada, segundo nó</string>
+  <string name="actionmode_restriction">Adicionar restrição de viragem</string>
+  <string name="actionmode_restriction_restart_from">Seleccione novamente o segmento \"de\"</string>
+  <string name="actionmode_restriction_via">Adicionar \"via\" segmento/elemento</string>
+  <string name="actionmode_restriction_restart_via">Seleccione novamente o segmento \"via\"</string>
+  <string name="actionmode_restriction_to">Adicionar o segmento \"para\"</string>
+  <string name="actionmode_restriction_restart_to">Seleccione novamente o segmento \"para\"</string>
+  <string name="actionmode_one_object">1 objecto</string>
+  <string name="actionmode_object_count">%1$d objectos</string>
+  <string name="actionmode_rotateway">Rodar via</string>
   <!--Preferences-->
   <string name="config_category_editing">Preferências de Dados e Edição</string>
   <string name="config_category_view">Preferências da Interface</string>
@@ -433,6 +466,8 @@ há %3$s %4$s</string>
   <string name="listedit_enable_oauth">Ativar OAuth</string>
   <string name="config_offsetServer_title">Servidor de Alinhamentos</string>
   <string name="config_offsetServer_summary">URL do servidor de alinhamentos da imagens aéreas</string>
+  <string name="config_osmoseServer_title">Servidor OSMOSE</string>
+  <string name="config_osmoseServer_summary">Endereço URL para servidor OSMOSE</string>
   <string name="config_presetbutton_title">Modelos de etiquetas</string>
   <string name="config_presetbutton_summary">Adicionar e ativar modelos de etiquetas compatíveis com o JOSM</string>
   <string name="config_iconbutton_title">Ver ícones dos nós</string>
@@ -502,10 +537,18 @@ há %3$s %4$s</string>
   <string name="config_maxTileDownloadThreads_title">Número máximo de tarefas de descarregamento</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de tarefas de descarregamento de telas</string>
   <string name="config_notificationCacheSize_title">Número máximo de notificações mostradas</string>
+  <string name="config_notificationCacheSize_summary">Número máximo de notificações por tipo (min 1)</string>
   <string name="config_autoLockDelay_title">Tempo de espera antes de bloquear automaticamente</string>
   <string name="config_autoLockDelay_summary">Tempo de espera em segundos antes do bloqueio automático ser ativado, usar 0 para desativar</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer sempre áreas não descarregadas</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Se ativado, as áreas não descarregadas serão escurecidas no modo bloqueado</string>
+  <string name="config_geocoderbutton_title">Configurar Geocodificadores</string>
+  <string name="config_geocoderbutton_summary">Adicionar, editar, eliminar geocodificador para a funcionalidade de procura</string>
+  <string name="config_js_console_title">Activar consola JS</string>
+  <string name="config_js_console_summary">Tornar a consola JS disponível em modo \"ao vivo\"</string>
+  <string name="manage_apis">Gerir APIs</string>
+  <string name="manage_presets">Gerir predefinições</string>
+  <string name="manage_geocoders">Gerir Geocodificadores</string>
   <!--preset downloader messages-->
   <string name="preset_update">Atualizar modelos de etiquetas</string>
   <string name="preset_download_successful">Modelos de etiquetas descarregados com sucesso</string>
@@ -517,6 +560,8 @@ há %3$s %4$s</string>
   <string name="changes_changed">\"%1$s\" alterados(as)</string>
   <string name="changes_created">\"%1$s\" criados(as)</string>
   <string name="confirm_upload_title">Enviar?</string>
+  <string name="confirm_one_upload_text">Fazer upload da seguinte alteração?\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Fazer upload das seguintes %1$dalterações?\n %2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Adicionar modelo de etiquetas</string>
   <string name="urldialog_preset_exists">Este modelo de etiquetas já existe</string>
@@ -526,6 +571,7 @@ há %3$s %4$s</string>
   <string name="urldialog_api_install_successful">A API foi instalada com sucesso!</string>
   <string name="urldialog_add_api">Adicionar API</string>
   <string name="urldialog_nodata_text">O URL de configuração não contém dados válidos.</string>
+  <string name="urldialog_add_geocoder">Adicionar Geocodificador</string>
   <!--common terms-->
   <string name="add">Adicionar</string>
   <string name="edit">Editar</string>
@@ -534,10 +580,12 @@ há %3$s %4$s</string>
   <string name="url">URL</string>
   <string name="default_">Padrão</string>
   <!---->
+  <string name="empty_list">Sem entradas</string>
   <string name="api_name">Nome da API</string>
   <string name="api_url">URL da API</string>
   <string name="readonly_url">URL da API de leitura apenas (opcional)</string>
   <string name="notes_url">URL da API de Erros Reportados (opcional)</string>
+  <string name="geocoder_type">Tipo de Geocodificador</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Predefinição</string>
   <string name="api">API</string>
@@ -548,6 +596,8 @@ há %3$s %4$s</string>
   <string name="tracking_active_text">O Vespucci está a gravar um trilho GPS ou a descarregar automaticamente</string>
   <string name="gps_failure">Não foi possível ativar o GPS</string>
   <!--element description-->
+  <string name="address_housenumber">Endereço %1$s</string>
+  <string name="address_housenumber_street">Endereço %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover nó</string>
   <string name="undo_action_moveway">mover via</string>
@@ -655,5 +705,13 @@ há %3$s %4$s</string>
     <item>Nunca</item>
     <item>Forçar</item>
     <item>Sem barra de estado</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>Todos</item>
+    <item>Nós</item>
+    <item>Vias</item>
+    <item>Vias+</item>
+    <item>Relações</item>
+    <item>Relações+</item>
   </string-array>
 </resources>
