@@ -400,7 +400,7 @@
   <string name="undo_nothing">inget att ångra</string>
   <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
-  <string name="undo_action_movenode">flytta node</string>
+  <string name="undo_action_movenode">flytta nod</string>
   <string name="undo_action_moveway">flytta väg</string>
   <string name="undo_action_moveobjects">flytta objekt</string>
   <string name="undo_action_add">infoga</string>

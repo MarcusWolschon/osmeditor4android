@@ -1,6 +1,6 @@
 # Wprowadzenie do Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## Pierwsze kroki
 
@@ -11,6 +11,8 @@ Alternatywą dla powyższego jest wyłączenie panelu przez naciśnięcie "Poka�
 ## Edycja z Vespucci
 
 W zależności od wielkości ekranu oraz wieku twojego urządzenia opcje edycji mogą być dostępne bezpośrednio jako ikony na górnym pasku, przez rozwijalne menu po prawej stronie górnego paska, przez ikony dolnego paska (jeśli jest wyświetlany) lub przez klawisz menu.
+
+<a id="download"></a>
 
 ### Pobieranie danych OSM
 
@@ -28,13 +30,17 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 ### Edytowanie
 
-#### Lock, unlock, "tag editing only"
+<a id="lock"></a>
+
+#### Lock, unlock, "tag editing only", indoor mode 
 
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
 
 A long press on the lock icon will enable "Tag editing only" mode which will not allow you to edit the geometry of objects or move them, this mode is indicated with a slightly different white lock icon. You can however create new nodes and ways with a long press as normal.
 
-#### Singe tap, double tap, and long press
+Another long press will enable [Indoor mode](#indoor), and one more will cycle back to the normal editing mode.
+
+#### Single tap, double tap, and long press
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
 
@@ -42,7 +48,7 @@ By default, selectable nodes and ways have an orange area around them indicating
     * An isolated node/way is highlighted immediately. 
     * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
     * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
+    * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
 * Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
 
@@ -58,7 +64,7 @@ Note that if you try to select an object and Vespucci determines that the select
 
 Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
 
-You can also use menu items: For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
+Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 
 #### Selected objects: Editing tags
 
@@ -89,7 +95,7 @@ You can also use a menu item: See [Creating new objects](../en/Creating new obje
 
 #### Ulepszanie Geometrii Linii
 
-Jeśli odpowiednio oddalisz mapę, zauważysz mały "x" na środku odcinków linii które są odpowiednio długie. Przeciągnięcie "x" utworzy nowy węzeł linii w tym miejscu. Uwaga: aby uniknąć przypadkowego dodawania węzłów, tolerancja nacisku dla tej czynności jest dość mała.
+If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
 
 #### Wytnij, Kopiuj & Wklej
 
@@ -105,17 +111,17 @@ Vespucci has an "add address tags" function that tries to make surveying address
 
 Przewidywanie numerów adresowych zazwyczaj wymaga przynajmniej dwóch numerów po obu stronach drogi by zostać skutecznie użyta, im więcej numerów już zmapowanych tym lepsza dokładność.
 
-Zastanów się nad użyciem trybu "Auto-pobierania" podczas użytkowania tej funkcji.  
+Consider using this with the [Auto-download](#download) mode.  
 
 #### Dodawanie ograniczeń skrętu
 
-Vespucci has a fast way to add turn restrictions, if necessary it will split ways automatically and, if necessary, ask you to re-select elements. 
+Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
 * select "Add restriction" from the menu
 * select the "via" node or way (only possible "via" elements will have the touch area shown)
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type in the property editor
+* set the restriction type
 
 ### Vespucci w trybie "zablokowanym"
 
@@ -141,7 +147,7 @@ Vespucci posiada prostą funkcję rozwiązywania konfliktów edycji. Jednakże j
 
 Możesz użyć Vespucci by utworzyć ślad GPX i odczytać go na swoim urządzeniu. Co więcej możesz wyświetlić swoją aktualną pozycję GPS (włączając opcję "Pokaż lokalizację" w menu GPS) i/lub włączyć centrowanie na niej oraz podążanie za pozycją GPS (włączając opcję "Podążaj za pozycją GPS" w menu GPS).  
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
+If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
 
 ## Notatki i Błędy
 
@@ -160,6 +166,23 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 * Osmose warning
 * Osmose minor issue
 
+<a id="indoor"></a>
+
+## Indoor mode
+
+Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
+
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, "tag editing only", indoor mode](#lock).
+
+## Filters
+
+### Tag based filter
+
+The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
+
+### Preset based filter
+
+An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](../en/Preset%20filter.md).
 
 ## Dostosowywanie Vespucci
 

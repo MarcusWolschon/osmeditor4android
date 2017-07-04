@@ -8,6 +8,7 @@
   <string name="transfer_download_current_back">Vissza (ne történjen semmi)</string>
   <string name="upload_problem_title">Probléma a feltöltéssel</string>
   <string name="upload_problem_message">Néhány vagy az összes adat nem lett feltöltve. Próbálja meg később feltölteni, ha ez egy átmeneti probléma.</string>
+  <string name="bad_request_message">Az API hibával válaszolt, mentse el az adatait, és jelentse a problémát:\n\n</string>
   <string name="upload_conflict_title">Feltöltési ütközés</string>
   <string name="upload_conflict_message_version">%1$s \nhelyi verziója %2$s \nés a kiszolgálón %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nhelyi verziója %2$s \nés törölve lett a kiszolgálón</string>
@@ -23,6 +24,8 @@
   <string name="wrong_login_data_title">A hitelesítés sikertelen</string>
   <string name="wrong_login_data_message">OAuth használata esetén hitelesítsen újra, majd ismét próbálja meg. Ha felhasználónevet és jelszót adott meg (nem javasolt), ellenőrizze, hogy helyes-e.</string>
   <string name="wrong_login_data_re_authenticate">Újrahitelesítés</string>
+  <string name="forbidden_login_title">Bejelentkezés megtagadva</string>
+  <string name="go_to_openstreetmap">Ugrás az openstreetmap.org-ra</string>
   <string name="data_conflict_title">Verzióütközés</string>
   <string name="data_conflict_message">Az adatok, amelyeket megpróbál letölteni, ütköznek a szerkesztéseivel. Kérjük, próbálja meg feltölteni az adatait az újrapróbálkozás előtt.</string>
   <string name="invalid_bounding_box_title">Érvénytelen határoló doboz</string>
@@ -53,6 +56,7 @@
   <string name="progress_saving_message">Mentés…</string>
   <string name="progress_uploading_message">Feltöltés…</string>
   <string name="progress_preset_message">Előbeállítás letöltése…</string>
+  <string name="progress_running_message">Futtatás…</string>
   <string name="progress_oauth">Az openstreetmap.org fiókjának betöltése, OAuth engedélyezéshez…</string>
   <string name="upload_comment_label">Megjegyzés:</string>
   <string name="upload_source_label">Forrás:</string>
@@ -89,6 +93,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Ez a javaslat képes lecserélni néhány címkét népszerűbbekre.</string>
   <string name="search_results_title">Keresés eredménye</string>
   <string name="find_message">Adja meg a keresendő szöveget</string>
+  <string name="geocoder_prompt">ezzel:</string>
   <string name="preset_search_hint">Előbeállítás-kereső szöveg</string>
   <string name="search">Keresés</string>
   <string name="no_valid_preset">Nincs érvényes előbeállítás!</string>
@@ -110,10 +115,19 @@
   <string name="empty_role">üres szerep</string>
   <string name="element">elem</string>
   <string name="last_updated">legutóbb frissítve</string>
+  <string name="last_edited">Legutóbb szerkesztett</string>
   <string name="error">hiba</string>
   <string name="warning">figyelmeztetés</string>
   <string name="minor_issue">apró probléma</string>
   <string name="unknown_error_level">ismeretlen hibaszint</string>
+  <string name="attached_object_warning_title">Ez a művelet érinti a szűrt csatolt objektumokat!</string>
+  <string name="attached_object_warning_message">A módosított objektum olyan rejtett elemekhez kapcsolódik, amelyek szintén változni fognak.</string>
+  <string name="attached_object_warning_continue">OK, folytassa ezen üzenet megjelenítését</string>
+  <string name="attached_object_warning_stop">OK, hagyja abba ezen üzenet megjelenítését</string>
+  <string name="send_debug_information">Hibakeresési információk elküldése</string>
+  <string name="evaluate">Kiértékelés</string>
+  <string name="js_console_msg_live">Éles mód!</string>
+  <string name="js_console_msg_debug">Hibakereső mód!</string>
   <!--Toaster-->
   <string name="toast_no_changes">Még nem módosított semmit…</string>
   <string name="toast_unsaved_changes">Mentetlen változtatásai vannak, előbb töltse fel őket.</string>
@@ -133,6 +147,8 @@
   <string name="toast_potential_merge_tag_conflict">Olyan elemeket egyesített, melyek ütköző címke értékeket tartalmaznak. Ellenőrizze, hogy a címkék helyesek, mielőtt újra próbálkozik.</string>
   <string name="toast_state_file_failed">Olvashatatlan vagy sérült állapotfájl</string>
   <string name="toast_too_many_nodes_for_move">A mozgatáshoz túl sok pont van a vonalban</string>
+  <string name="toast_unread_mail">%1$d olvasatlan OSM üzenete van</string>
+  <string name="toast_one_unread_mail">Egy olvasatlan OSM üzenete van</string>
   <string name="toast_photo_indexing_started">A földrajzi pozícióval ellátott fényképek keresése elkezdődött</string>
   <string name="toast_photo_indexing_finished">A földrajzi pozícióval ellátott fényképek keresése befejeződött</string>
   <string name="toast_download_failed">Sikertelen letöltés, hibakód: %1$d, üzenet: %2$s.</string>
@@ -158,7 +174,10 @@
   <string name="toast_inconsistent_state">Inkonzisztens állapot észlelve, küldje be a hibajelentésben!</string>
   <string name="toast_camera_error">Hiba a kamera indításakor: %1$s</string>
   <string name="toast_no_voice">Hangfelismerő szolgáltatás nincs jelen</string>
+  <string name="toast_storage_error">A(z) %1$s nem írható a Vespuccival.\nEz lehet, hogy jogosultság- vagy műszaki probléma az eszközével.</string>
+  <string name="toast_no_suitable_storage">A rendszer nem adott vissza megfelelő helyet a csempe adatbázishoz.</string>
   <string name="toast_min_one_preset">Legalább egy előbeállítást ki kell választani!</string>
+  <string name="toast_min_one_geocoder">Legalább egy geokódolót ki kell választani!</string>
   <string name="toast_used_backup">Sérült állapotfájl, másolatfájl használva!</string>
   <string name="toast_used_bug_backup">Sérült hibaállapotfájl, másolatfájl használva!</string>
   <string name="toast_rmpty_relation">Üres kapcsolat, összeomlás-jelentés létrehozása.</string>
@@ -167,11 +186,27 @@
   <string name="toast_split_from_and_via">Felosztott „from” és „via” vonalak</string>
   <string name="toast_split_to">Felosztott „to” vonal</string>
   <string name="toast_tile_database_full">A térképcsempe adatbázis vagy a lemez megtelt!\nLépjen ki, törölje az adatbázist vagy csináljon több szabad helyet.</string>
+  <string name="toast_invalid_apiurl">Érvénytelen API URL</string>
+  <string name="toast_invalid_readonlyurl">Érvénytelen csak olvasható API URL</string>
+  <string name="toast_invalid_notesurl">Érvénytelen jegyzet API URL</string>
+  <string name="toast_invalid_filter_regexp">Érvénytelen reguláris kifejezés ezekkel: kulcs=\"%1$s\" érték=\"%2$s\"</string>
+  <string name="toast_error_accessing_photo">A(z) %1$s fénykép nem érhető el</string>
+  <string name="toast_no_voice_recognition">Hangfelismerő szolgáltatás nincs jelen</string>
+  <string name="toast_no_coverage">Nincs lefedettség ehhez: %1$s</string>
+  <string name="toast_file_exists">A(z) %1$s fájl létezik.</string>
+  <string name="toast_needs_resurvey">Az objektum elavult lehet</string>
+  <string name="toast_openinghours_invalid">Érvénytelen nyitva tartás ehhez: %1$s</string>
+  <string name="toast_openinghours_autocorrected">A nyitva tartási érték automatikus javításra került ennél: %1$s</string>
+  <string name="toast_exit_multiselect">Pöccintsen duplán egy üres helyre, vagy használja a vissza nyilat a kilépéshez</string>
+  <string name="toast_exit_actionmode">Használja a vissza nyilat a mentéshez és kilépéshez</string>
+  <string name="toast_abort_actionmode">Használja a vissza nyilat a megszakításhoz</string>
+  <string name="toast_null_island">Kérjük ne adjon elemeket hozzá ide: 0°/0° (Nulla sziget)</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Igen</string>
   <string name="no">Nem</string>
   <string name="okay">OK</string>
   <string name="cancel">Mégse</string>
+  <string name="dismiss">Elvetés</string>
   <string name="locked">Zárolva</string>
   <string name="next">Következő</string>
   <string name="apply">Alkalmaz</string>
@@ -184,6 +219,10 @@
   <string name="enable">Engedélyezés</string>
   <string name="clear">Törlés</string>
   <string name="retry">Újra</string>
+  <string name="read">Olvasás</string>
+  <string name="overwrite">Felülírás</string>
+  <string name="share">Megosztás</string>
+  <string name="share_position">Pozíció megosztása</string>
   <!--Dialog for back button-->
   <string name="exit_title">Biztosan kilépsz?</string>
   <string name="exit_text">Biztos vagy benne, hogy ki akarsz lépni?</string>
@@ -224,6 +263,7 @@
   <string name="tag_menu_move_bottom">Mozgatás alulra</string>
   <string name="tag_menu_sort">Rendezés</string>
   <string name="tag_menu_download">Letöltés</string>
+  <string name="tag_menu_js_console">JS konzol</string>
   <string name="menu_up">Fel</string>
   <string name="menu_top">Felülre</string>
   <string name="menu_preset_help">Előbeállítás súgó</string>
@@ -269,6 +309,7 @@
   <string name="menu_extract">Pont kinyerése</string>
   <string name="menu_append">Hozzáfűzés</string>
   <string name="menu_relation">Kapcsolat létrehozása</string>
+  <string name="menu_edit_relation">Kapcsolat szerkesztése</string>
   <string name="menu_add_relation_member">Tag hozzáadása</string>
   <string name="menu_select_relation_members">Tagok kijelölése</string>
   <string name="menu_tag">Címkék szerk.</string>
@@ -291,6 +332,7 @@
   <string name="menu_transfer">Átvitel…</string>
   <string name="menu_transfer_download_current">Jelenlegi nézet letöltése</string>
   <string name="menu_transfer_download_current_add">Jelenlegi nézet hozzáadása a letöltéshez</string>
+  <string name="menu_transfer_download_other">Letöltés más helyre</string>
   <string name="menu_transfer_upload">Adatok feltöltése az OSM szerverre</string>
   <string name="menu_transfer_close_changeset">Jelenlegi módosításcsomag lezárása</string>
   <string name="menu_transfer_file">Fájl...</string>
@@ -339,6 +381,10 @@
   <string name="menu_tools_background_contrast">Kontraszt</string>
   <string name="menu_tools_oauth_reset">OAuth helyreállítása</string>
   <string name="menu_tools_oauth_authorisation">OAuth engedélyezés</string>
+  <string name="menu_enable_tagfilter">Címke szűrő</string>
+  <string name="menu_enable_presetfilter">Előbeállítás szűrő</string>
+  <string name="preset_menu_waynodes">Vonal pontok bele vétele</string>
+  <string name="preset_menu_invert">Szűrők invertálása</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tulajdonságok</string>
   <!--Text should be as short as possible-->
@@ -362,6 +408,17 @@
   <string name="actionmode_createpath">Vonal készítése</string>
   <string name="actionmode_multiselect">Többszörös kiválasztás</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Zárt vonal felosztása, 1. pont</string>
+  <string name="actionmode_closed_way_split_2">Zárt vonal felosztása, 2. pont</string>
+  <string name="actionmode_restriction">Behajtási korlátozás hozzáadása</string>
+  <string name="actionmode_restriction_restart_from">„from” szakasz újra kiválasztása</string>
+  <string name="actionmode_restriction_via">„via” szakasz/elem hozzáadása</string>
+  <string name="actionmode_restriction_restart_via">„via” szakasz újra kiválasztása</string>
+  <string name="actionmode_restriction_to">„to” szakasz hozzáadása</string>
+  <string name="actionmode_restriction_restart_to">„to” szakasz újra kiválasztása</string>
+  <string name="actionmode_one_object">1 objektum</string>
+  <string name="actionmode_object_count">%1$d objektum</string>
+  <string name="actionmode_rotateway">Vonal forgatása</string>
   <!--Preferences-->
   <string name="config_category_editing">Adat és szerkesztési beállítások</string>
   <string name="config_category_view">Felhasználói felület beállítások</string>
@@ -405,6 +462,8 @@
   <string name="listedit_enable_oauth">OAuth engedélyezése</string>
   <string name="config_offsetServer_title">Eltolás kiszolgáló</string>
   <string name="config_offsetServer_summary">URL a térkép-eltolási kiszolgálóhoz</string>
+  <string name="config_osmoseServer_title">OSMOSE kiszolgáló</string>
+  <string name="config_osmoseServer_summary">URL az osmose kiszolgálóhoz</string>
   <string name="config_presetbutton_title">Előbeállítások</string>
   <string name="config_presetbutton_summary">JOSM kompatibilis előbeállítások hozzáadása és engedélyezése</string>
   <string name="config_iconbutton_title">Pont ikonok megjelenítése</string>
@@ -474,10 +533,18 @@
   <string name="config_maxTileDownloadThreads_title">Letöltési szálak maximális száma</string>
   <string name="config_maxTileDownloadThreads_summary">A csempék letöltésére használt szálak maximális száma</string>
   <string name="config_notificationCacheSize_title">Megjelenített értesítések maximális száma</string>
+  <string name="config_notificationCacheSize_summary">Megjelenített értesítések maximális száma típusonként (min. 1)</string>
   <string name="config_autoLockDelay_title">Várakozási idő az automatikus lezárás előtt</string>
   <string name="config_autoLockDelay_summary">Várakozási idő az automatikus lezárás előtt, a 0 letiltja.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Mindig sötétítse el a nem letöltött területeket</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Ha be van kapcsolva, akkor a nem letöltött területek el lesznek sötétítve lezárt módban</string>
+  <string name="config_geocoderbutton_title">Geokódolók beállítása</string>
+  <string name="config_geocoderbutton_summary">Geokódolók hozzáadása, szerkesztése, törlése a keresőfunkcióhoz</string>
+  <string name="config_js_console_title">JS konzol engedélyezése</string>
+  <string name="config_js_console_summary">Tegye elérhetővé a JS konzolt „éles” módban</string>
+  <string name="manage_apis">API-k kezelése</string>
+  <string name="manage_presets">Előbeállítások kezelése</string>
+  <string name="manage_geocoders">Geokódolók kezelése</string>
   <!--preset downloader messages-->
   <string name="preset_update">Előbeállítás frissítése</string>
   <string name="preset_download_successful">Előbeállítás sikeresen letöltve</string>
@@ -489,6 +556,8 @@
   <string name="changes_changed">„%1$s” módosítva</string>
   <string name="changes_created">„%1$s” létrehozva</string>
   <string name="confirm_upload_title">Feltölti?</string>
+  <string name="confirm_one_upload_text">Feltölti az alábbi változást?\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Feltölti az alábbi %1$d változást?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Előbeállítás hozzáadása</string>
   <string name="urldialog_preset_exists">Ez az előbeállítás már létezik</string>
@@ -498,6 +567,7 @@
   <string name="urldialog_api_install_successful">Sikeres API telepítés!</string>
   <string name="urldialog_add_api">API hozzáadása</string>
   <string name="urldialog_nodata_text">A konfigurációs URL nem tartalmaz érvényes adatot.</string>
+  <string name="urldialog_add_geocoder">Geokódoló hozzáadása</string>
   <!--common terms-->
   <string name="add">Hozzáadás</string>
   <string name="edit">Szerkesztés</string>
@@ -506,10 +576,12 @@
   <string name="url">URL</string>
   <string name="default_">Alapértelmezett</string>
   <!---->
+  <string name="empty_list">Nincsenek bejegyzések</string>
   <string name="api_name">API név</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">Csak olvasható API URL (nem kötelező)</string>
   <string name="notes_url">Megjegyzés API URL (nem kötelező)</string>
+  <string name="geocoder_type">Geokódoló típusa</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Előbeállítás</string>
   <string name="api">API</string>
@@ -520,6 +592,8 @@
   <string name="tracking_active_text">A Vespucci GPS nyomvonalat rögzít vagy automatikusan letölt</string>
   <string name="gps_failure">Nem sikerült engedélyezni a GPS-t</string>
   <!--element description-->
+  <string name="address_housenumber">Cím: %1$s</string>
+  <string name="address_housenumber_street">Cím: %1$s%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">pont mozgatása</string>
   <string name="undo_action_moveway">vonal mozgatása</string>
@@ -627,5 +701,13 @@
     <item>Soha</item>
     <item>Erőltetés</item>
     <item>Nincs állapotsor</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>Összes</item>
+    <item>Potnok</item>
+    <item>Vonalak</item>
+    <item>Vonalak+</item>
+    <item>Kapcsolatok</item>
+    <item>Kapcsolatok+</item>
   </string-array>
 </resources>

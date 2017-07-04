@@ -1,20 +1,22 @@
 # Giới thiệu về Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+Vespucci là một chương trình sửa đổi OpenStreetMap có chức năng đầy đủ, kể cả các tác vụ đuợc hỗ trợ bởi các chương trình sửa đổi dành cho máy tính để bàn. Nó đã được kiểm thử thành công trong Android của Google từ 2.3 cho tới 7.0 cũng như một số biến thể gốc AOSP. Xin cẩn thận: tuy các thiết bị di động có khả năng gần như bằng với các máy tính để bàn, các thiết bị di động, nhất là các thiết bị cũ hơn, có bộ nhớ hạn chế và chạy tương đối chậm chạp. Bạn nên nghĩ đến điều này trong việc sử dụng Vespucci và chẳng hạn cố gắng sửa đổi những khu vực có kích thước hợp lý. 
 
 ## Lần sử dụng đầu tiên
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+Khi khởi động, Vespucci hiển thị hộp thoại “Tải về vị trí khác”/“Tải Khu vực”. Nếu bạn biết tọa độ và muốn tải về ngay, chọn mục tọa độ và đặt bán kính bao quanh vị trí muốn tải về. Đừng chọn một khu vực lớn trên một thiết bị chậm chạp. 
 
-Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
+Thay thế, bấm nút “Đi đến bản đồ” để bỏ qua hộp thoại, di chuyển đến vị trí mà bạn muốn sửa đổi, và tải về dữ liệu (xem “Sửa đổi bằng Vespucci” bên dưới).
 
 ## Sửa đổi bằng Vespucci
 
 Tùy theo kích thước màn hình và thế hệ của thiết bị, các tác vụ sửa đổi có thể được truy cập trực tiếp qua các hình tượng trên thanh trên, qua một trình đơn thả xuống vào bên phải của thanh trên, từ thanh dưới (nếu có), hoặc bằng cách bấm phím trình đơn.
 
+<a id="download"></a>
+
 ### Tải về dữ liệu OSM
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Chọn hình tượng truyền ![Truyền](../images/menu_transfer.png) hoặc mục “Truyền” trong trình đơn. Bảy mục sẽ xuất hiện:
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
@@ -28,13 +30,17 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 ### Sửa đổi
 
-#### Lock, unlock, "tag editing only"
+<a id="lock"></a>
+
+#### Khóa, mở khóa, “chỉ sửa đổi thẻ”, chế độ trong nhà 
 
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
 
 A long press on the lock icon will enable "Tag editing only" mode which will not allow you to edit the geometry of objects or move them, this mode is indicated with a slightly different white lock icon. You can however create new nodes and ways with a long press as normal.
 
-#### Singe tap, double tap, and long press
+Bấm lâu lần nữa để kích hoạt [chế độ trong nhà](#indoor); cứ bấm lần nữa để quay lại chế độ sửa đổi bình thường.
+
+#### Chạm, chạm đúp, và bấm lâu
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
 
@@ -42,7 +48,7 @@ By default, selectable nodes and ways have an orange area around them indicating
     * An isolated node/way is highlighted immediately. 
     * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
     * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
+    * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
 * Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
 
@@ -50,7 +56,7 @@ Nếu muốn sửa đổi một khu vực có nhiều dữ liệu, bạn rất n
 
 Vespucci có đầy đủ chức năng hoàn tác/làm lại – đừng có sợ thử nghiệm trên thiết bị của bạn. Tuy nhiên, xin vui lòng đừng tải lên và lưu dữ liệu thử nghiệm.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Chọn / bỏ chọn (chạm và “trình đơn lựa chọn”)
 
 Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
@@ -58,25 +64,25 @@ Note that if you try to select an object and Vespucci determines that the select
 
 Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
 
-You can also use menu items: For further information see [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
+Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Đối tượng đã chọn: Sửa đổi thẻ
 
 A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
 
 Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
 
-#### Selected objects: Moving a Node or Way
+#### Đối tượng đã chọn: Di chuyển nốt hoặc lối
 
 Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
 
-#### Adding a new Node/Point or Way (long press)
+#### Thêm nốt/địa điểm hoặc lối mới (bấm lâu)
 
 Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
 * If you want to create a new node (not connected to an object), click away from existing objects.
 * If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
-Once you can see the crosshair symbol, you have these options:
+Khi bạn mới thấy hình tâm ngắm, bạn có thể:
 
 * Touch in the same place.
     * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
@@ -89,7 +95,7 @@ You can also use a menu item: See [Creating new objects](../en/Creating new obje
 
 #### Cải thiện hình dạng lối
 
-If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
+If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
 
 #### Cắt, sao chép, dán
 
@@ -97,25 +103,25 @@ You can copy or cut selected nodes and ways, and then paste once or multiple tim
 
 #### Ghi địa chỉ một cách tiện lợi
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+Vespucci có chức năng “thêm thẻ địa chỉ” để làm tiện việc lấy các địa chỉ. Để sử dụng chức năng này:
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* nhấn giữ: Vespucci sẽ đặt một nốt vào vị trí, cố gắng đoán ra số nhà, và thêm các thẻ địa chỉ mà bạn đã sử dụng nhiều gần đây. Nếu nốt nằm trên đường nét tòa nhà, thẻ “entrance=yes” sẽ được tự động thêm vào nốt. Trình sửa đổi thẻ sẽ mở lên để cho bạn chỉnh lại đối tượng nếu cần.
+* chọn nốt hoặc lối: Vespucci sẽ thêm thẻ địa chỉ như bên trên và mở trình sửa đổi thẻ.
+* mở trình sửa đổi thẻ.
 
 Để đoán ra số nhà, thường phải có mỗi bên đường là ít nhất hai số nhà, càng thêm số nhà càng chính xác hơn.
 
-Hãy thử sử dụng chức năng này trong chế độ “Tự động tải về”.  
+Hãy thử sử dụng chức năng này trong chế độ [Tự động tải về](#download).  
 
 #### Thêm hạn chế rẽ
 
-Vespucci has a fast way to add turn restrictions, if necessary it will split ways automatically and, if necessary, ask you to re-select elements. 
+Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
 * select "Add restriction" from the menu
 * select the "via" node or way (only possible "via" elements will have the touch area shown)
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type in the property editor
+* set the restriction type
 
 ### Vespucci trong chế độ “khóa”
 
@@ -125,7 +131,7 @@ When the red lock is displayed all non-editing actions are available. Additional
 
 *(cần kết nối mạng)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+Chọn cùng nhút hoặc mục trình đơn mà bạn đã chọn để tải về và sau đó chọn “Tải dữ liệu lên máy chủ OSM”.
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
@@ -141,25 +147,42 @@ Vespucci has a simple conflict resolver. However if you suspect that there are m
 
 You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
+If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
 
 ## Ghi chú và lỗi
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+Trên bản đồ, các ghi chú và lỗi được hiển thị với hình bọ nhỏ ![Lỗi](../images/bug_open.png). Các bọ màu xanh lục chỉ ra ghi chú được đóng/giải quyết, màu xanh lam là do bạn tạo hoặc sửa đổi, và màu vàng có nghĩa rằng nó vẫn đang tích cực và chưa được thay đổi. 
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
-### Filtering
+### Lọc
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* Ghi chú
+* Lỗi Osmose
+* Cảnh báo Osmose
+* Vấn đề nhỏ Osmose
 
+<a id="indoor"></a>
+
+## Chế độ trong nhà
+
+Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
+
+Để kích hoạt chế độ này, bấm lâu vào mục khóa. Xem [Khóa, mở khóa, “chỉ sửa đổi thẻ”, chế độ trong nhà](#lock).
+
+## Filters
+
+### Tag based filter
+
+The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
+
+### Bộ lọc theo thẻ đặt trước
+
+An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](../en/Preset%20filter.md).
 
 ## Tùy chỉnh Vespucci
 

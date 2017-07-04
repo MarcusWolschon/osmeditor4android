@@ -8,6 +8,7 @@
   <string name="transfer_download_current_back">뒤로 (아무 것도 하지 않음)</string>
   <string name="upload_problem_title">업로드하는 데 문제</string>
   <string name="upload_problem_message">일부 또는 모든 데이터가 업로드되지 않았습니다. 일시적인 문제였다면 나중에 다시 업로드해보세요.</string>
+  <string name="bad_request_message">API에 에러가 발생되었습니다. 데이터를 저장하고 보고해 주십시요:\n\n</string>
   <string name="upload_conflict_title">업로드 충돌</string>
   <string name="upload_conflict_message_version">%1$s님이 \n로컬 버전 %2$s를 \n가지고 있으며 서버 %3$s에 있습니다</string>
   <string name="upload_conflict_message_deleted">%1$s님이 \n로컬 버전 %2$s를 \n가지고 있으며 서버에 삭제되었습니다</string>

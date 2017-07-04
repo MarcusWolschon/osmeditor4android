@@ -391,6 +391,7 @@
   <string name="menu_history">Historia</string>
   <string name="menu_merge">Yhdistä</string>
   <string name="menu_reverse">Käännä suunta</string>
+  <string name="notreversable_description">Viivassa on tägejä, jotka riippuvat sen suunnasta, eikä niitä voi kääntää päinvastaiseksi. Tien suunnan kääntäminen teke tägeistä virheellisiä.</string>
   <!--EasyEdit action mode titles-->
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->

@@ -1,6 +1,6 @@
 # Vespucci Introducción
 
-Vespucci é un editor OpenStreetMap con tódalas funcións que admite a maioría das operacións que proporcionan os editores de escritorio. Foi probado con éxito no Android de Google 2.3 a 7.0 e varias variantes baseadas na AOSP. Unha palabra de precaución: mentres as capacidades do dispositivo móbil atópanse cos seus rivais de escritorio, especialmente os dispositivos máis antigos teñen memoria moi limitada dispoñible e adoitan ser bastante lentos. Ten que ter isto en conta ao usar Vespucci e manter, por exemplo, o tamaño das áreas que está editando a un tamaño razoable. 
+Vespucci é un editor OpenStreetMap con tódalas funcións que admite a maioría das operacións que proporcionan os editores de escritorio. Foi probado con éxito no Android de Google 2.3 a 7.0 e varias variantes baseadas na AOSP. Unha palabra de precaución: mentres as capacidades do dispositivo móbil atópanse cos seus rivais de escritorio, especialmente os dispositivos máis antigos teñen memoria moi limitada dispoñible e adoitan ser bastante lentos. Debes ter en conta a miña conta ao usar Vespucci e manter, por exemplo, as áreas que estás a editar nun tamaño razoable. 
 
 ## Primeira vez de uso
 
@@ -11,6 +11,8 @@ Alternativamente, pode descartar o diálogo premendo o botón "Ir ao mapa" e xir
 ## Editando con Vespucci
 
 Dependendo do tamaño da pantalla e da idade do seu dispositivo, as accións de edición poden ser accesibles directamente a través das iconas na barra superior, a través dun menú desplegable á dereita da barra superior, desde a barra inferior (se está presente) ou a través da tecla de menú.
+
+<a id="download"></a>
 
 ### Descargando información OSM
 
@@ -28,23 +30,27 @@ A forma máis sinxela de descargar datos ao dispositivo é achegar e panoramizar
 
 ### Editando
 
-#### Bloquear, desbloquear, "só edición de etiquetas"
+<a id="lock"></a>
+
+#### Bloquear, desbloquear, "só editor de etiquetas", modo interior 
 
 Para evitar edicións accidentais Vespucci comeza no modo "bloqueado", un modo que só permite achegar e mover o mapa. Tócao! [Locked](../images/locked.png) icona para desbloquear a pantalla. 
 
 Unha pulsación longa na icona de bloqueo habilitará o modo "Edición de etiquetas só" que non permitirá editar a xeometría dos obxectos ou moverlos, este modo indícase cun icono de bloqueo branco un pouco diferente. Non obstante, pode crear novos nodos e formas cunha prensa longa como normal.
 
-#### Toque único, dobre toque e prema tempo
+Outra pulsación longa activará  [Indoor mode](#indoor), e outra máis volverá ao modo de edición normal.
+
+Toque único, dobre toque e prema longa
 
 De xeito predeterminado, os nodos e os modos seleccionables teñen unha área en laranxa ao redor dela, indicando aproximadamente onde ten que tocar para seleccionar un obxecto. Tes tres opcións:
 
-* Toque único: selecciona o obxecto. 
-    * Un nó/xeito illado resáltase de inmediato.
-    * Non obstante, se tenta seleccionar un obxecto e Vespucci determina que a selección podería significar varios obxectos, presentará un menú de selección, que lle permite seleccionar o obxecto que desexa seleccionar.
+* Toque único: selecciona o obxecto.
+    * Un nó/xeito illado resáltase de inmediato. 
+    * Non obstante, se tentas seleccionar un obxecto e Vespucci determina que a selección podería significar varios obxectos, presentará un menú de selección, que che permitirá seleccionar o obxecto que desexas seleccionar. 
     * Os obxectos seleccionados están resaltados en amarelo. 
-    * Para máis información consulte [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
-* Toca dúas veces: Iniciar [Multiselect mode](../en/Multiselect.md)
-* Presión longa: crea un "punto de mira", que lle permite engadir nodos, consulte a continuación e [Creating new objects](../en/Creating new objects.md)
+    * Ora obter información vexa [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
+* Doble tap: Inicio [Multiselect mode](../en/Multiselect.md)
+* Presión longa: Creata unha "retícula", activando e engadindo nodos, vexa de seguido [Creating new objects](../en/Creating new objects.md)
 
 Ista é unha boa estratexia facer zoom se ti tentas editar unha área de alta densidade.
 
@@ -58,7 +64,7 @@ Teña en conta que se intentas seleccionar un obxecto e Vespucci determina que a
 
 Os obxectos seleccionados son indicados a través dun delgado borde amarelo. O bordo amarelo pode ser difícil de detectar, dependendo do fondo do mapa e do factor de zoom. Unha vez feita unha selección, verás unha notificación que confirma a selección.
 
-Tamén pode usar elementos de menú: Para máis información, consulte [Node selected](../en/Node%20selected.md) and [Way selected](../en/Way%20selected.md).
+Unha vez completada a selección verá (xa sexa como botóns ou como elementos de menú) unha lista de operacións admitidas para o obxecto seleccionado: Para máis información consulte [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 
 #### Seleccione obxectos: Editando etiquetas
 
@@ -89,7 +95,7 @@ Ti podes usar tamén o artigo do menú: Vexa [Creating new objects](../en/Creati
 
 #### Mellorar a Xeometría do Camiño
 
-Se acaba o zoom, verá un pequeno "x" no medio de segmentos que son o tempo suficiente. Arrastrando o "x" creará un nodo no camiño dese lugar. Nota: para evitar a creación de nodos accidentalmente, a tolerancia táctil para esta operación é bastante pequena.
+Se achegaches o suficiente de forma seleccionada, verás un pequeno "x" no medio dos segmentos que son o suficientemente longo. Arrastrando o "x" creará un nodo no camiño dese lugar. Nota: para evitar a creación de nodos accidentalmente, a área de tolerancia táctil para esta operación é bastante pequena.
 
 #### Cortar, Copiar & Pegar
 
@@ -105,17 +111,17 @@ Vespucci ten unha función de "engadir etiquetas de enderezos" que intenta facer
 
 A predicción de números de casa normalmente require que polo menos dous números de casa a cada lado da estrada para ser ingresados ao traballo, cantos máis números presentes nos datos mellor.
 
-Considere empregar esto con modo "Auto baixada"  
+Considerar usando isto con modo [Auto-download](#download).  
 
 #### Engadindo Restriccións de Xiro
 
-Vespucci ten unha forma rápida de engadir restricións de xiro, se é necesario divídese de forma automática e, se é necesario, pídelle que reaparezca elementos. 
+Vespucci ten un xeito rápido de engadir restricións de xiro. Se é necesario, dividirase automaticamente e pediralle que volva seleccionar elementos. 
 
-* seleccione un camiño cunha etiqueta de estrada (as restricións de turno só se poden engadir ás estradas, se hai que facer isto por outras formas, use o modo xenérico "crear relación").* Selecciona "Engadir restrición" no menú
-* selecione "Engadir restricción" dende o menú
-* seleccione o nodo "vía" ou o camiño (só os elementos "via" posibles terán a área táctil mostrada)
-* seleccione o modo "a" (é posible dobrar e configurar o elemento "a" no elemento "dende", Vespucci suporá que está a engadir unha xiro sen restricións).
-* establecer o tipo de restrición no editor de propiedades
+* Seleccione un camiño cunha etiqueta de estrada (as restricións de turno só se poden engadir ás estradas, se hai que facer isto por outras formas, use o modo xenérico "crear relación").
+* Selecciona "Engadir restrición" no menú
+* Seleccione o nodo "vía" ou o camiño (só os elementos "via" posibles terán a área táctil mostrada)
+* Seleccione o modo "a" (é posible dobrar e configurar o elemento "a" no elemento "de", Vespucci asumirá que está engadindo un xiro sen restricións no_u_turn restriction)
+* Establecer o tipo de restrición
 
 ### Vespucci  en modo "pechado"
 
@@ -141,7 +147,7 @@ Vespucci ten un sinxelo resolvente de conflito. Non obstante, se sospeita que ha
 
 Podes usar Vespucci para crear unha pista GPX e visualizalo no teu dispositivo. Ademais, pode mostrar a posición actual do GPS (configurar "Mostrar localización" no menú GPS) e/ou ter a pantalla en torno e seguir a posición (configure "Seguir posición GPS" no menú GPS). 
 
-Se ten este último axustado, mover a pantalla manualmente ou editar fará que o modo "seguir o GPS" se desactive e que a frecha GPS azul cambie dun esquema a unha frecha chea. Para volver rapidamente ao modo "seguir", simplemente toque a frecha ou revise a opción do menú.
+Se ten este último axustado, mover a pantalla manualmente ou editar fará que o modo "seguir o GPS" se desactive e que a frecha GPS azul cambie dun esquema a unha frecha chea. Para volver rapidamente ao modo "seguir", simplemente toque o botón GPS ou volva a verificar a opción do menú.
 
 ## Notas e Bugs
 
@@ -160,6 +166,23 @@ Ademais de habilitar globalmente as notas e os erros, podes establecer un filtro
 * Osmose coidado
 * Osmose menor edición
 
+<a id="indoor"></a>
+
+## Modo Interior
+
+O mapeo en interiores é un reto debido ao gran número de obxectos que moitas veces se superponerán. Vespucci ten un modo interior dedicado que permite filtrar todos os obxectos que non están no mesmo nivel e que engadirán automaticamente o nivel actual aos novos obxectos creados.
+
+O modo pode ser activado premendo longamente no elemento de bloqueo, consulte [Lock, unlock, "tag editing only", indoor mode](#lock).
+
+## Filtros
+
+###  Filgros baseados en Etiquetas
+
+O filtro pódese habilitar desde o menú principal, entón pode modificarse tocando a icona do filtro. Aquí pódese atopar máis documentación [Tag filter](../en/Tag%20filter.md).
+
+### Base do filtro Presente
+
+Unha alternativa ao anterior, os obxectos son filtrados en presentes individuais ou en grupos predefinidos. Ao tocar na icona do filtro aparecerá un diálogo de selección predefinido similar ao usado noutro lugar en Vespucci. Os predefinidos individuais poden ser seleccionados por un clic normal, os grupos predefinidos mediante un longo clic (o clic normal entre o grupo). Aquí pódese atopar máis documentación[Preset filter](../en/Preset%20filter.md).
 
 ## Persoalizando Vespucci
 
