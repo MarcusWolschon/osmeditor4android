@@ -111,11 +111,11 @@ The following operation can be performed on selected relation members.
  * _Delete_ - remove the object from this (the edited) relation.
  * _Move up_ - move the member up one position.
  * _Move down_ - move the member down one position.
+ * _Sort_ - sort ways so that they are connected, nodes and relations retain the order that they have and are placed above the ways.
+ * _Reverse order_ - reverse the order of the selected members.
  * _Move to top_ - move the member to the top of the list.
  * _Move to bottom_ - move the member to the bottom of the list.
  * _Download_ - download the selected members.  if all members are selected the members will be downloaded including ways that are parents of nodes that are a relation member, otherwise the individual members are downloaded and for nodes the parent ways are **not** downloaded.
- 
-_There will likely be more operations added in the future, for example sorting_
 
 ### ![Revert](../images/undolist_undo.png) Revert
 

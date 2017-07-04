@@ -38,6 +38,18 @@ Create a relation and add this object as the first element. Further objects can 
 
 Show a screen with some detailed information on the selected object. 
 
+### Zoom to selection
+
+Pan and zoom the map to the currently selected object.
+
+### Share position
+
+Share the position of the selected object with other apps on the device.
+
+### ![Preferences](../images/menu_config.png) Preferences
+
+Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. 
+
 ### ![Help](../images/menu_help.png) Help
 
 Start the Vespucci Help browser

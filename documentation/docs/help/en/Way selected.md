@@ -43,7 +43,7 @@ Append to the current selected way. Touch areas will be visible around nodes tha
 
 ### ![TurnRestriction](../images/no_left_turn_light.png) Add turn restriction 
 
-Start creating a turn restriction with this way as "from" member. This action is only available if at least one "via" node or way and a corresponding "to" way exists.
+Start creating a turn restriction with this way as "from" member. This action is only available if the way in question has a "highway" tag. Ways will be split automatically during the process.
 
 ### ![Orthogonalize](../images/menu_ortho.png) Orthogonalize
 
@@ -80,6 +80,18 @@ Create a relation and add this object as the first element. Further objects can 
 ### ![Info](../images/tag_menu_mapfeatures.png) Info
 
 Show a screen with some detailed information on the selected object.
+
+### Zoom to selection
+
+Pan and zoom the map to the currently selected object.
+
+### Share position
+
+Share the position of the selected object with other apps on the device.
+
+### ![Preferences](../images/menu_config.png) Preferences
+
+Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. 
 
 ### ![Help](../images/menu_help.png) Help
 

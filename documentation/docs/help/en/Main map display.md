@@ -10,7 +10,7 @@ Tapping the lock icon will toggle the mode.
 ####  ![Unlocked](../images/unlocked.png) unlocked
 In this mode you can add and change the geometry and tags of OpenStreetMap data. *You will still need to zoom in till editing is enabled.*
 
-If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to create new objects of change geometries. A long press on the icon will switch to the normal editing mode.
+If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to create new objects of change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will switch to the next available and eventually cycle back to the normal unlocked mode..
 
 The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu. 
 
@@ -31,7 +31,14 @@ With the standard map style certain data issues will be highlighted in magenta, 
 * objects with 'fixme' and 'todo' tags (case insensitive)
 * ways with 'highway=road'
 * ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag
-* relations with no 'type' tag  
+* relations with no 'type' tag
+* certain points of interest that haven't been edited of verified in the last year 
+
+### Indoor mode
+   
+In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show suitable objects that doesn’t have a level tag, tapping again will revert to the level selector.
+
+Elements that are not on the current level are drawn in a light grey, this works best on an uncluttered background map, for example the Thunderforest Landscape map. Newly created elements will automatically have the current level assigned in the property editor.
 
 ## Available Actions
 
@@ -45,6 +52,8 @@ Start a camera app, add the resulting photograph to the photo layer is enabled. 
 directory, however this depends on the specific camera app.
 
 ### ![GPS](../images/menu_gps.png) GPS
+
+The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline.
 
  * **Show location** - show arrow symbol at current position
  * **Follow GPS position** - pan and center screen to follow the GPS position
@@ -66,7 +75,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
  * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
  * **Download at other location** - shows a form that lets you enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
- * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+ * **Upload data to OSM server** - upload edits to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available *(requires authentication)* *(requires network connectivity)*
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
  * **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
  * **File...** - saving and loading OSM data to/from on device files.
@@ -78,6 +87,9 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
     * **Upload all** - upload all new or modified Notes/Bugs
     * **Clear** - remove all bugs from storage
     * **Auto download** - download Notes/Bugs around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+    * **File...** - save Notes data to on device storage
+        * **Save all Notes...** - write a ".osn" format file containing all downloaded notes
+        * **Save new and changed Notes...** - write a ".osn" format file containing all new and changed notes
 
 ### ![Preferences](../images/menu_config.png) Preferences
 
@@ -94,8 +106,19 @@ Show the user preference screens. The settings are split into two sets: the firs
 
 ### ![Find](../images/ic_menu_search_holo_light.png) Find
 
-Search for a location and pan to it with the OpenStreetMap Nominatim service *(requires network connectivity)*
+Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service *(requires network connectivity)*
 
+### Tag-Filter *(checkbox)*
+
+Enable the tag based filter, the filter can be configured by tapping the filter button on the map display.
+
+### Preset-Filter *(checkbox)*
+
+Enable the preset based filter, the filter can be configured by tapping the filter button on the map display.
+
+### Share position
+
+Share the current position (center of the displayed map) with other apps on the device.
 
 ### ![Help](../images/menu_help.png) Help
 
