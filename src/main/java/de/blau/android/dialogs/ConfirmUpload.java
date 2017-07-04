@@ -38,7 +38,8 @@ import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.ThemeUtils;
 
 /**
- * Dialog to resolve upload conflicts one by one
+ * Dialog for final review of changes and adding comment and source tags before upload
+ * 
  * @author simon
  *
  */
