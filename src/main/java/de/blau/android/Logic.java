@@ -3506,7 +3506,7 @@ public class Logic {
 	}
 	
 	/**
-	 * Show a toast indicating how many unread mails are on the server
+	 * Show a snackbar indicating how many unread mails are on the server
 	 * 
 	 * @param activity activity calling this method
 	 */

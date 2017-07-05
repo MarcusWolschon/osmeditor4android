@@ -30,12 +30,17 @@ import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiSelector;
+import android.support.v4.app.FragmentActivity;
 import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
+import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
@@ -73,6 +78,8 @@ public class ApiTest {
  		prefDB.deleteAPI("Test");
 		prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
  		prefDB.selectAPI("Test");
+		TestUtils.grantPermissons();
+		TestUtils.dismissStartUpDialogs(main);
     }
     
     @After
@@ -442,4 +449,14 @@ public class ApiTest {
     		Assert.fail(e.getMessage());
     	}
 	}
+    
+    @Test
+ 	public void userdetails() { 
+		UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+    	mockServer.enqueue("userdetails");
+    	Logic logic = App.getLogic();
+    	UiObject snackbarTextView = mDevice.findObject(new UiSelector().resourceId("de.blau.android:id/snackbar_text"));
+    	logic.checkForMail(main);
+    	Assert.assertTrue(snackbarTextView.waitForExists(5000));
+    }
 }

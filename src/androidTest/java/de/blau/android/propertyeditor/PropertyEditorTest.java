@@ -43,6 +43,9 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetGroup;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
 import okhttp3.HttpUrl;
@@ -225,6 +228,34 @@ public class PropertyEditorTest {
     	Assert.assertTrue(text.exists());
     }
     
+    String getTranslatedPresetGroupName(String name) {
+    	String result = null;
+    	Preset[] presets = App.getCurrentPresets(main);
+    	for (Preset p:presets) {
+    		if (p != null) {
+    			PresetGroup group = p.getGroupByName(name);
+    			if (group != null) {
+    				return group.getTranslatedName();
+    			}
+    		}
+    	}
+    	return result;
+    }
+    
+    String getTranslatedPresetItemName(String name) {
+    	String result = null;
+    	Preset[] presets = App.getCurrentPresets(main);
+    	for (Preset p:presets) {
+    		if (p != null) {
+    			PresetItem item = p.getItemByName(name);
+    			if (item != null) {
+    				return item.getTranslatedName();
+    			}
+    		}
+    	}
+    	return result;
+    }
+    
     @Test
 	public void presets() {
    	final CountDownLatch signal = new CountDownLatch(1);
@@ -241,7 +272,7 @@ public class PropertyEditorTest {
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
-      	Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604);
+      	Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
     	Assert.assertNotNull(w);
 
     	main.performTagEdit(w, null, false, false, false);
@@ -251,21 +282,67 @@ public class PropertyEditorTest {
     	if (!((PropertyEditor)propertyEditor).paneLayout()) {
     		Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.tag_menu_preset), false));
     	}
-    	boolean found = TestUtils.clickText(mDevice, true, "Highways", true);
-    	if (!found) {
-    		found = TestUtils.clickText(mDevice, true, "Strassen", true);
-    	}
+    	boolean found = TestUtils.clickText(mDevice, true, getTranslatedPresetGroupName("Highways"), true);
     	Assert.assertTrue(found);
-    	found = TestUtils.clickText(mDevice, true, "Streets", true);
-    	if (!found) {
-    		found = TestUtils.clickText(mDevice, true, "Strassen", true);
-    	}
+    	found = TestUtils.clickText(mDevice, true, getTranslatedPresetGroupName("Streets"), true);
     	Assert.assertTrue(found);
-    	found = TestUtils.clickText(mDevice, true, "Motorway", true);
-    	if (!found) {
-    		found = TestUtils.clickText(mDevice, true, "Autobahn", true);
-    	}
+    	found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Motorway"), true);
     	Assert.assertTrue(found);
+    }  
+    
+    @Test
+	public void presetsViaManualTag() {
+   	final CountDownLatch signal = new CountDownLatch(1);
+    	mockServer.enqueue("capabilities1");
+    	mockServer.enqueue("download1");
+    	Logic logic = App.getLogic();
+    	try {
+			logic.downloadBox(main, new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+		} catch (OsmException e) {
+			Assert.fail(e.getMessage());
+		}
+    	try {
+			signal.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Assert.fail(e.getMessage());
+		}
+      	Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 210468113L);
+    	Assert.assertNotNull(w);
+    	try {
+			logic.setTags(main, w, null);
+		} catch (OsmIllegalOperationException e) {
+			Assert.fail(e.getMessage());
+		}
+
+    	main.performTagEdit(w, null, false, false, false);
+    	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+    	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+    	
+    	TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
+    	mDevice.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/editValue")), 500);
+
+		UiObject keyEditText = mDevice.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editKey"));
+		UiObject valueEditText = mDevice.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editValue"));
+		
+		String key=Tags.KEY_BUILDING;
+		String value = Tags.VALUE_YES;
+		try {
+			keyEditText.click(); 
+			keyEditText.setText(key);
+			valueEditText.click(); 
+			valueEditText.setText(value);
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+    	
+    	if (!((PropertyEditor)propertyEditor).paneLayout()) {
+    		Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.tag_menu_preset), false));
+    	} else {
+    	   	TestUtils.clickText(mDevice, true, main.getString(R.string.menu_tags), false);
+    	}
+    	PresetItem presetItem = ((PropertyEditor)propertyEditor).getBestPreset();
+    	Assert.assertEquals("Building", presetItem.getName());
+    	Assert.assertTrue(TestUtils.clickText(mDevice, true, presetItem.getTranslatedName(), false)); // building preset should now be added to MRU
     }  
     
     @Test
