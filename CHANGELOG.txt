@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1281: Increase android version number, updated imagery and translations, avoid loop when applying presets.
+
 1278: Add help for the opening hours editor, update translations.
 
 1277: Update documentation and translations, add presets to most recently used list when added manually. add translated help topics to help browser.
