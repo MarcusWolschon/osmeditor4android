@@ -19,6 +19,7 @@ import java.util.Locale;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1124,7 +1125,9 @@ public class TileLayerServer {
 	
 	/**
 	 * This is essentially the code in in the reference implementation see
-	 * https://trac.openstreetmap.org/browser/subversion/applications/editors/josm/plugins/imagery_offset_db/src/iodb/ImageryIdGenerator.java#L14
+	 * 
+	 * https://trac.openstreetmap.org/browser/subversion/applications/editors/josm/plugins/imagery_offset_db/src/iodb/ImageryIdGenerator.java#L24
+	 * 
 	 * @return the id for a imagery offset database query
 	 */
 	public String getImageryOffsetId() {
@@ -1174,13 +1177,13 @@ public class TileLayerServer {
 
         // Reconstruct query parameters
         StringBuilder sb = new StringBuilder();
-        for (String qk : qparams.keySet()) {
+        for (Entry<String,String> qk : qparams.entrySet()) {
             if (sb.length() > 0) {
                 sb.append('&');
             } else if (query.length() > 0) {
                 sb.append('?');
             }
-            sb.append(qk).append('=').append(qparams.get(qk));
+            sb.append(qk.getKey()).append('=').append(qk.getValue());
         }
         query = sb.toString();
 
