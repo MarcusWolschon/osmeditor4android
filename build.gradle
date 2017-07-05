@@ -25,7 +25,6 @@ allprojects {
 		mavenCentral()
 		jcenter()
 		maven { url 'https://dl.bintray.com/content/simonpoole/div' }
-		maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
 	}
 }
 
