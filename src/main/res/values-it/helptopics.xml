@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="help_introduction">簡介</string>
-    <string name="help_main">主地圖顯示</string>
-    <string name="help_addrelationmember">已選擇關聯</string>
-    <string name="help_multiselect">多重選擇</string>
-    <string name="help_longclick">建立物件</string>
-    <string name="help_nodeselection">節點已選取</string>
-    <string name="help_pathcreation">建立物件</string>
-    <string name="help_relationselection">已選擇關聯</string>
-    <string name="help_wayselection">道路已選取</string>
-    <string name="help_aligningbackgroundiamgery">對齊背景空圖</string>
-    <string name="help_propertyeditor">屬性編輯器</string>
-    <string name="help_presets">預設</string>
-    <string name="help_conflictresolution">排除衝突</string>
-    <string name="help_gpssources">GPS 來源</string>
-    <string name="help_keyboard">鍵盤</string>
-    <string name="help_tagfilter">標籤篩選器</string>
-    <string name="help_presetfilter">預置篩選器</string>
-    <string name="help_opening_hours">營業時間 </string>
-    <string name="help_upgrade">0.9.9 發布通知</string>
-    <string name="help_upgrade_098">0.9.8 發布通知</string>
-    <string name="help_upgrade_097">0.9.7 發布通知</string>
-    <string name="help_upgrade_096">0.9.6 發布通知</string>
+    <string name="help_introduction">Introduzione</string>
+    <string name="help_main">Visualizza mappa principale</string>
+    <string name="help_addrelationmember">Relazione selezionata</string>
+    <string name="help_multiselect">Selezione multipla</string>
+    <string name="help_longclick">Sto creando i nuovi oggetti</string>
+    <string name="help_nodeselection">Nodo selezionato</string>
+    <string name="help_pathcreation">Sto creando i nuovi oggetti</string>
+    <string name="help_relationselection">Relazione selezionata</string>
+    <string name="help_wayselection">Percorso selezionato</string>
+    <string name="help_aligningbackgroundiamgery">Allinea immagini di sfondo</string>
+    <string name="help_propertyeditor">Editor delle proprietà</string>
+    <string name="help_presets">Predefiniti</string>
+    <string name="help_conflictresolution">Risoluzione dei conflitti</string>
+    <string name="help_gpssources">Dispositivi GPS</string>
+    <string name="help_keyboard">Tastiera</string>
+    <string name="help_tagfilter">Filtro etichette</string>
+    <string name="help_presetfilter">Filtro predefiniti</string>
+    <string name="help_opening_hours">Orari di apertura</string>
+    <string name="help_upgrade">0.9.9 Note di rilascio</string>
+    <string name="help_upgrade_098">0.9.8 Note di rilascio</string>
+    <string name="help_upgrade_097">0.9.7 Note di rilascio</string>
+    <string name="help_upgrade_096">0.9.6 Note di rilascio</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
