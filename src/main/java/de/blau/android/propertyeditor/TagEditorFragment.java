@@ -484,15 +484,30 @@ public class TagEditorFragment extends BaseFragment implements
 			Log.d(DEBUG_TAG,"updateAutocompletePresetItem rowLayout null");
 		}
 	}
+	
+	/**
+	 * Edits may change the best fitting preset
+	 * 
+	 * @param presetItem 	if null determine best preset from existing tags
+	 * @param addToMru		add to MRU if true
+	 */
+	void updateAutocompletePresetItem(@Nullable PresetItem presetItem, boolean addToMru) {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+		if (rowLayout != null) {
+			updateAutocompletePresetItem(rowLayout, presetItem, addToMru);
+		} else {
+			Log.d(DEBUG_TAG,"updateAutocompletePresetItem rowLayout null");
+		}
+	}
 
 	/**
 	 * If tags have changed the autocomplete adapters need to be recalculated on what is the current preset
 	 * 
 	 * @param rowLayout	the layout containing the tag rows
-	 * @param preset 	if null determine best preset from existing tags
+	 * @param presetItem 	if null determine best preset from existing tags
 	 * @param addToMru	add to MRU if true
 	 */
-	private void updateAutocompletePresetItem(@NonNull LinearLayout rowLayout, @Nullable PresetItem preset, boolean addToMru) {
+	private void updateAutocompletePresetItem(@NonNull LinearLayout rowLayout, @Nullable PresetItem presetItem, boolean addToMru) {
 		Log.d(DEBUG_TAG,"setting new autocompletePresetItem");
 		Preset[] presets = App.getCurrentPresets(getActivity());
 		PresetItem savedPrimaryPresetItem = primaryPresetItem;
@@ -502,10 +517,10 @@ public class TagEditorFragment extends BaseFragment implements
 		clearSecondaryPresets();
 		LinkedHashMap<String, String> allTags = getKeyValueMapSingle(rowLayout,true);
 		
-		if (preset == null) {
+		if (presetItem == null) {
 			primaryPresetItem = Preset.findBestMatch(presets, allTags, true); // FIXME multiselect;
 		} else {
-			primaryPresetItem = preset;
+			primaryPresetItem = presetItem;
 		}
     	Map<String, String> nonAssigned = addPresetsToTags(primaryPresetItem, allTags);
     	int nonAssignedCount = nonAssigned.size();
@@ -853,6 +868,7 @@ public class TagEditorFragment extends BaseFragment implements
 			
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
+				Log.d(DEBUG_TAG,"onFocusChange key");
 				PresetItem preset = getPreset(aTagKey);
 				if (hasFocus) {
 					// Log.d(DEBUG_TAG,"got focus");
@@ -862,6 +878,7 @@ public class TagEditorFragment extends BaseFragment implements
 				} else {
 					String newKey = row.getKey();
 					if (!newKey.equals(originalKey)) { // our preset may have changed re-calc
+						originalKey = newKey;
 						updateAutocompletePresetItem(rowLayout, null, true);
 					} 
 				}
@@ -872,6 +889,7 @@ public class TagEditorFragment extends BaseFragment implements
 			
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
+				Log.d(DEBUG_TAG,"onFocusChange value");
 				if (hasFocus) {
 					originalValue = row.getValue();
 					String key = row.getKey();
@@ -898,6 +916,7 @@ public class TagEditorFragment extends BaseFragment implements
 					// our preset may have changed re-calc
 					String newValue = row.getValue();
 					if (!newValue.equals(originalValue)) {
+						originalValue = newValue;
 						// Log.d(DEBUG_TAG,"lost focus");
 						// potentially we should update tagValues here
 						updateAutocompletePresetItem(rowLayout, null, true);
@@ -909,6 +928,7 @@ public class TagEditorFragment extends BaseFragment implements
 		// This TextWatcher reacts to previously empty cells being filled to add additional rows where needed
 		TextWatcher emptyWatcher = new TextWatcher() {
 			private boolean wasEmpty;
+			private String prevValue = null;
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -930,10 +950,15 @@ public class TagEditorFragment extends BaseFragment implements
 				
 				// remove formating from pastes etc
 				CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
-	            for (int i = 0; i < toBeRemovedSpans.length; i++)
+	            for (int i = 0; i < toBeRemovedSpans.length; i++) {
 	                s.removeSpan(toBeRemovedSpans[i]);
-	            // update presets
-				updateAutocompletePresetItem(rowLayout, null, true);
+	            }
+	            // update presets but only if value has changed
+	            String newValue = s.toString();
+	            if (prevValue == null || !prevValue.equals(newValue)) {
+	            	prevValue = newValue;
+	            	updateAutocompletePresetItem(rowLayout, null, true);
+	            }
 			}
 		};
 		row.keyEdit.addTextChangedListener(emptyWatcher);
@@ -1351,8 +1376,10 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	/**
 	 * Applies a preset (e.g. selected from the dialog or MRU), i.e. adds the tags from the preset to the current tag set
-	 * @param item the preset to apply
-	 * @param addOptional TODO
+	 * 
+	 * @param item 			the preset item to apply
+	 * @param addOptional	add optional tags if true
+	 * @param addToMRU		add to preset MRU list if true
 	 */
 	void applyPreset(PresetItem item, boolean addOptional, boolean addToMRU) {
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
@@ -1397,25 +1424,13 @@ public class TagEditorFragment extends BaseFragment implements
 		
 		if (wasEmpty || getBestPreset() == null) {
 			// preset is what we just applied
-			updateAutocompletePresetItem(item);
+			updateAutocompletePresetItem(item, addToMRU);
 		} else {
 			// re-determine best preset
-			updateAutocompletePresetItem(null);
+			updateAutocompletePresetItem(null, addToMRU);
 		}
 		
 		//
-		if (addToMRU) {
-			Preset[] presets = App.getCurrentPresets(getActivity());
-			if (presets != null) {
-				for (Preset p:presets) {
-					if (p.contains(item)) {
-						p.putRecentlyUsed(item);
-						break;
-					}
-				}
-			}
-			((PropertyEditor)getActivity()).recreateRecentPresetView();
-		}
 		focusOnEmptyValue();
 	}
 	
