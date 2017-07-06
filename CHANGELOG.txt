@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1283: Fix bug in way reversing, update preset (fix for lane tagging)
+
 1279: Updated imagery, backport changes to imagery id creation.
 
 1267: Updated preset and translations, bump build number.
