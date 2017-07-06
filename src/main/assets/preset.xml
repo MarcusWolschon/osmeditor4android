@@ -1180,11 +1180,11 @@
                 	    <list_entry value="left:through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
-                	    <list_entry value="through" short_description="Slight left" />
+                	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="left:through" short_description="Right and through" />
-                	    <list_entry value="right" short_description="right" />
+                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
                     <text key="destination:lanes" text="Destinations per lane"  match="key"/>
@@ -1206,11 +1206,11 @@
                 	    <list_entry value="left:through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
-                	    <list_entry value="through" short_description="Slight left" />
+                	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="left:through" short_description="Right and through" />
-                	    <list_entry value="right" short_description="right" />
+                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
                     <text key="destination:lanes:forward" text="Destinations per lane in way direction"  match="key"/>
@@ -1224,11 +1224,11 @@
                 	    <list_entry value="left:through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
-                	    <list_entry value="through" short_description="Slight left" />
+                	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="left:through" short_description="Right and through" />
-                	    <list_entry value="right" short_description="right" />
+                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
                     <text key="destination:lanes:backward" text="Destinations per lane opposite to way direction"  match="key"/>
@@ -10932,7 +10932,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:landuse=commercial"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=commercial" />
             <space />
-            <key key="landuse" value="commercial" />
+            <key key="landuse" value="commercial" values_context="landuse" />
             <text key="name" text="Name" />
         </item> <!-- Commercial -->
         <item name="Industrial" icon="icons/png/landuse_works_22087.png" type="closedway,multipolygon" preset_name_label="true">

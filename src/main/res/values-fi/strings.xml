@@ -2,12 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varoitus!</string>
-  <string name="transfer_download_current_dialog_message">Olet tehnyt muutoksia. Haluatko lähettää ne palvelimelle vai hylätä ne?</string>
+  <string name="transfer_download_current_dialog_message">Olet tehnyt muutoksia. Haluatko että ne lähetetään palvelimelle vai hylätään?</string>
   <string name="transfer_download_current_upload">Lähetä</string>
   <string name="transfer_download_current_download">Hylkää &amp; lataa</string>
   <string name="transfer_download_current_back">Takaisin (Älä tee mitään)</string>
   <string name="upload_problem_title">Lähetys ei onnistunut</string>
-  <string name="upload_problem_message">Ainakin osaa datasta ei ole lähetetty. Yritä lähetystä myöhemmin uudestaan mikäli ongelma oli vain väliaikainen.</string>
+  <string name="upload_problem_message">Ainakaan osaa datasta ei ole lähetetty. Yritä lähetystä myöhemmin uudestaan mikäli ongelma oli vain väliaikainen.</string>
   <string name="bad_request_message">API palautti virheen. Tallenna muokkauksesi ja ilmoita virheestä:\n\n</string>
   <string name="upload_conflict_title">Ristiriita lähetyksessä</string>
   <string name="upload_conflict_message_version">%1$s \npaikallinen versio on %2$s \nja palvelimella on %3$s</string>
@@ -19,11 +19,11 @@
   <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
   <string name="no_login_data_message">Jos käytät OAuthia, ohjelmassa on todennäköisesti vikaa. Pyydämme ilmoittamaan ongelmasta. Jos käytät tunnusta ja salasanaa (mitä ei suositella), niin tarkista että ne on kirjoitettu oikein.</string>
   <string name="no_connection_title">Ei yhteyttä palvelimeen</string>
-  <string name="no_connection_message">OSM-palvelimeen ei saatu yhteyttä. Tarkista Internet-yhteytesi tai yritä uudestaan.</string>
+  <string name="no_connection_message">OSM-palvelimeen ei saatu yhteyttä. Tarkista Internet-yhteytesi tai yritä myöhemmin uudestaan.</string>
   <string name="ssl_handshake_failed">OSM-palvelimeen ei saatu yhteyttä, koska https-neuvottelu epäonnistui. Kokeile vaihtaa salaamattomaan yhteyteen APIn asetuksista.</string>
   <string name="wrong_login_data_title">Kirjautuminen epäonnistui</string>
-  <string name="wrong_login_data_message">Jos käytät OAuthia, niin uusi autentikoituminen ja yritä sitten kirjautua uudestaan. Jos käytät tunnusta ja salasanaa (mitä ei suositella), niin tarkista että ne on kirjoitettu oikein.</string>
-  <string name="wrong_login_data_re_authenticate">Uusi autentikoituminen</string>
+  <string name="wrong_login_data_message">Jos käytät OAuthia, niin tee uusi todennus ja yritä kirjautumista uudestaan. Jos käytät tunnusta ja salasanaa (mitä ei suositella), niin tarkista että ne on kirjoitettu oikein.</string>
+  <string name="wrong_login_data_re_authenticate">Uusi todennus</string>
   <string name="forbidden_login_title">Kirjautuminen kielletty</string>
   <string name="go_to_openstreetmap">Mene sivulle openstreetmap.org</string>
   <string name="data_conflict_title">Ristiriitaiset versiot</string>
@@ -37,16 +37,16 @@
   <string name="out_of_memory_dirty_message">Vespuccilta loppui muisti pyydettyä dataa ladattaessa. Yritä tallentaa muokkauksesi, käynnistä sovellus uudestaan, ja kokeile pienemmän alueen lataamista.</string>
   <string name="invalid_data_received_title">Saatiin virheellistä dataa</string>
   <string name="invalid_data_received_message">Vespucci sai virheellistä dataa palvelimelta. Ilmoita virheestä, jos uskot yrittäneesi tehdä asiat oikealla tavalla.</string>
-  <string name="invalid_data_read_title">Virhellistä dataa</string>
+  <string name="invalid_data_read_title">Virheellistä dataa</string>
   <string name="invalid_data_read_message">Tiedostossa oli virheellistä dataa. Raportoi virhe, jos uskot yrittäneesi tehdä asiat oikealla tavalla.</string>
   <string name="file_write_failed_title">Tiedostoon ei voi kirjoittaa</string>
   <string name="file_write_failed_message">Valittuun tiedostoon ei voitu kirjoittaa.</string>
   <string name="welcome_title">Tervetuloa!</string>
-  <string name="welcome_message">Kiitos että käytät Vespuccia.\n\nPääset alkuun näillä kahdella neuvolla:\n\n* lukkokuvakkeen koskettaminen vaihtaa lukitun (ei voi muokata) ja avatun tilan välillä\n\n* uuden kohteen lisäys: pitkä kosketus – uusi kosketus samaan paikkaan lisää pisteen ja kosketus kauemmas aloittaa viivan.\n\nMuista ladata alue, jota haluat muokata.\n\nPidä hauskaa!</string>
+  <string name="welcome_message">Kiitos että käytät Vespuccia.\n\nPääset alkuun näillä kahdella neuvolla:\n\n* lukkokuvakkeen koskettaminen vaihtaa lukitun (ei voi muokata) ja avatun tilan välillä\n\n* uuden kohteen lisäys: pitkä kosketus – uusi kosketus samaan kohtaan lisää pisteen ja kosketus kauemmas aloittaa viivan.\n\nMuista ladata alue, jota haluat muokata.\n\nPidä hauskaa!</string>
   <string name="read_introduction">Lue esittely nyt</string>
   <string name="upgrade_title">Tervetuloa Vespuccin uuteen versioon!</string>
   <string name="upgrade_message">Tämä on Vespuccin uusi versio uusine ominaisuuksineen ja toimintoineen. Sinun kannattaa lukaista laitteella olevat päivitystiedot.</string>
-  <string name="read_upgrade">Lue uudesta versiosta</string>
+  <string name="read_upgrade">Tietoa uudesta versiosta</string>
   <string name="progress_title">Ladataan</string>
   <string name="progress_message">Ladataan dataa muistiin...</string>
   <string name="progress_download_message">Ladataan dataa palvelimelta...</string>
@@ -57,7 +57,7 @@
   <string name="progress_uploading_message">Lähetetään...</string>
   <string name="progress_preset_message">Ladataan esivalintaa...</string>
   <string name="progress_running_message">Suoritetaan...</string>
-  <string name="progress_oauth">Ladataan openstreetmap.orgin tiliä OAuth-todennukseen...</string>
+  <string name="progress_oauth">Sinun openstreetmap.org-tiliä ladataan OAuth-todennukseen...</string>
   <string name="upload_comment_label">Kommentti:</string>
   <string name="upload_source_label">Lähde:</string>
   <string name="upload_close_changeset_label">Sulje muutossetti:</string>
@@ -73,8 +73,8 @@
   <string name="openstreetbug_comment_label">Kommentti:</string>
   <string name="openstreetbug_edit_close">Sulje</string>
   <string name="openstreetbug_edit_closed">Suljettu</string>
-  <string name="openstreetbug_commit_ok">Ilmoituksen muutokset tallennettu</string>
-  <string name="openstreetbug_commit_fail">Ilmoituksen muutoksia ei voitu tallentaa</string>
+  <string name="openstreetbug_commit_ok">Virheen muutokset tallennettu</string>
+  <string name="openstreetbug_commit_fail">Virheen muutoksia ei voitu tallentaa</string>
   <string name="openstreetbug_not_downloaded">ei ladattu</string>
   <string name="openstreetbug_last_updated">viimeksi päivitetty</string>
   <string name="unsaved_data_title">Varoitus!</string>
@@ -96,11 +96,11 @@
   <string name="geocoder_prompt">lisäksi</string>
   <string name="preset_search_hint">Esivalinnan hakuteksti</string>
   <string name="search">Hae</string>
-  <string name="no_valid_preset">Ei kelpaavaa esivalintaa!</string>
+  <string name="no_valid_preset">Ei sopivaa esivalintaa!</string>
   <string name="read_file">Valitse luettava tiedosto</string>
   <string name="save_file">Anna tallennustiedosto</string>
-  <string name="existing_track_title">Jälki jo olemassa</string>
-  <string name="existing_track_message">Editorissa on jo jälkidataa. Kannattaa ehkä peruuttaa, ja tallentaa se ensin.</string>
+  <string name="existing_track_title">Olemassaoleva jälki</string>
+  <string name="existing_track_message">Muokkaimessa on jo jälkidataa.  Saatat haluta peruuttaa ja tallentaa ensin.</string>
   <string name="delete_tags">Poistetaanko varmasti kaikki kohteen \"%1$s\" tägit?</string>
   <string name="element_information">Tietoa elementistä</string>
   <string name="id">ID</string>
@@ -120,24 +120,24 @@
   <string name="warning">varoitus</string>
   <string name="minor_issue">pikkuongelma</string>
   <string name="unknown_error_level">tuntematon virhetaso</string>
-  <string name="attached_object_warning_title">Tämä toiminto vaikuttaa suodatettuihin liitettyihin kohteisiin!</string>
-  <string name="attached_object_warning_message">Muutettu kohde on kytketty piilotettuihin elementteihin, jotka myös muuttuvat.</string>
+  <string name="attached_object_warning_title">Toiminto vaikuttaa piileviin liitettyihin kohteisiin!</string>
+  <string name="attached_object_warning_message">Muutettuun kohteeseen liittyy suodatettuja elementtejä, jotka muuttuvat myös.</string>
   <string name="attached_object_warning_continue">Selvä, näytä tämä viesti jatkossakin</string>
   <string name="attached_object_warning_stop">Selvä, älä näytä tätä viestiä enää</string>
   <string name="send_debug_information">Lähetä tietoa virheestä</string>
-  <string name="evaluate">Arvioi</string>
-  <string name="js_console_msg_live">Suora tila!</string>
+  <string name="evaluate">Suorita</string>
+  <string name="js_console_msg_live">Suoramuokkaustila!</string>
   <string name="js_console_msg_debug">Testaustila!</string>
   <!--Toaster-->
-  <string name="toast_no_changes">Et ole vielä muuttanut mitään...</string>
+  <string name="toast_no_changes">Et ole vielä tehnyt muutoksia...</string>
   <string name="toast_unsaved_changes">Sinulla on tallentamattomia muutoksia, lähetä ne ensin.</string>
   <string name="toast_upload_success">Data lähetetty OSM-palvelimelle.</string>
   <string name="toast_not_in_edit_range">Lähennä ennen muokkausta (äänenvoimakkuusnäppäimet tai Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Avaa lukitus ennen muokkausta</string>
-  <string name="toast_edit_outside_downloaded_area">Et voi muokata ladatun alueen ulkopuolella</string>
+  <string name="toast_edit_outside_downloaded_area">Et voi muokata ladatun alueen ulkopuolelta</string>
   <string name="toast_save_done">Tallennus onnistui</string>
   <string name="toast_save_failed">Tallennus epäonnistui</string>
-  <string name="toast_not_in_bug_range">Lähennä ennen virheen lisäämistä (äänenvoimakkuusnäppäimet tai Lens/Shift)</string>
+  <string name="toast_not_in_bug_range">Lähennä ennen virheen lisäystä (äänenvoimakkuusnäppäimet tai Lens/Shift)</string>
   <string name="toast_export_failed">Vienti epäonnistui</string>
   <string name="toast_export_success">Viety tiedostoon %1$s</string>
   <string name="toast_preset_overwrote_tags">Huomio: esivalinta muutti tägejä</string>
@@ -146,7 +146,7 @@
   <string name="toast_merge_tag_conflict">Sulautit yhteen elementtejä, joilla on ristiriitaisia tägejä, suunnasta riippuvia merkityksiä tai eri rooleja samassa relaatiossa. Tarkista tägit ja korjaa ne tarvittaessa.</string>
   <string name="toast_potential_merge_tag_conflict">Yrität sulauttaa yhteen elementtejä, joilla on ristiriitaisia tägejä. Tarkista tägit ja korjaa ne ennen uutta yritystä.</string>
   <string name="toast_state_file_failed">Tiedostoa ei voi lukea tai se on vioittunut</string>
-  <string name="toast_too_many_nodes_for_move">Liian monta pistettä siirrettäväksi</string>
+  <string name="toast_too_many_nodes_for_move">Viivassa on liikaa pisteitä siirrettäväksi</string>
   <string name="toast_unread_mail">Sinulla on %1$d lukematonta OSM-viestiä</string>
   <string name="toast_one_unread_mail">Sinulla on lukematon OSM-viesti</string>
   <string name="toast_photo_indexing_started">Geomerkittyjen kuvien etsintä alkaa</string>
@@ -165,36 +165,36 @@
   <string name="toast_timeout">Palvelimen aikaraja umpeutui</string>
   <string name="coordinates_out_of_range">Pituuspiirin pitää olla välillä -180°/+180°, leveyspiirin -85°/85°</string>
   <string name="toast_nothing_found">Mitään ei löytynyt</string>
-  <string name="toast_statesave_failed">Nykyisen tilan tallennus epäonnistui!\nTämä on vakava virhe. Yritetään viedä data tiedostoon, josta ne voi myöhemmin palauttaa JOSMiin.</string>
+  <string name="toast_statesave_failed">Nykyisen tilan tallennus epäonnistui!\nTämä on vakava virhe. Data yritetään viedä tiedostoon, josta sen voi myöhemmin palauttaa JOSMiin.</string>
   <string name="toast_missing_filemanager">Asenna tiedostonhallintasovellus.</string>
   <string name="toast_outside_of_download">Yrität muokata ladatun alueen ulkopuolella.</string>
   <string name="toast_file_not_found">Tiedostoa %1$s ei löytynyt.</string>
   <string name="toast_imported_track_points">Tuotiin %1$s jälkipistettä.</string>
-  <string name="toast_unknown_voice_command">Valitettavasti komentoa \"%1$s\" ei toistaiseksi ymmärretä</string>
-  <string name="toast_inconsistent_state">Epäjohdonmukainen tila. Lähetä vikaraportti.</string>
+  <string name="toast_unknown_voice_command">Komentoa \"%1$s\" ei toistaiseksi ymmärretä</string>
+  <string name="toast_inconsistent_state">Epäjohdonmukainen tila. Ilmoita virheestä, kiitos!</string>
   <string name="toast_camera_error">Virhe kamerasovellusta avattaessa: %1$s</string>
   <string name="toast_no_voice">Puheentunnistusta ei ole saatavilla</string>
-  <string name="toast_storage_error">Vespucci ei voi kirjoittaa laitteelle %1$s.\nSyynä voi olla käyttöoikeudet tai laitteen tekninen ongelma.</string>
+  <string name="toast_storage_error">Vespucci ei voi kirjoittaa laitteelle %1$s.\nSyynä voivat olla käyttöoikeudet tai laitteen tekninen ongelma.</string>
   <string name="toast_no_suitable_storage">Järjestelmä ei palauttanut sopivaa paikkaa laattatietokannalle.</string>
   <string name="toast_min_one_preset">Ainakin yksi esivalinta pitää olla valittuna.</string>
   <string name="toast_min_one_geocoder">Ainakin yhden geokooderin pitää olla valittuna.</string>
   <string name="toast_used_backup">Vioittunut tilatiedosto, käytettiin varmuuskopiota!</string>
   <string name="toast_used_bug_backup">Vioittunut virhetilatiedosto, käytettiin varmuuskopiota!</string>
-  <string name="toast_rmpty_relation">Tyhjä relaatio, tehdään kaatumisilmoitus.</string>
+  <string name="toast_rmpty_relation">Tyhjä relaatio, luodaan kaatumisilmoitus.</string>
   <string name="toast_split_from">From-viiva jaettiin kahtia</string>
   <string name="toast_split_via">Via-viiva jaettiin kahtia</string>
   <string name="toast_split_from_and_via">From- ja via-viivat jaettiin kahtia</string>
   <string name="toast_split_to">To-viiva jaettiin kahtia</string>
   <string name="toast_tile_database_full">Karttalaattatietokanta tai massamuisti täynnä!\nSulje sovellus, ja poista tietokanta tai tee lisää vapaata tilaa.</string>
-  <string name="toast_invalid_apiurl">API:n URL on virheellinen</string>
-  <string name="toast_invalid_readonlyurl">API:n ReadOnly-URL on virheellinen</string>
-  <string name="toast_invalid_notesurl">API:n Notes-URL on virheellinen</string>
+  <string name="toast_invalid_apiurl">APIn URL on virheellinen</string>
+  <string name="toast_invalid_readonlyurl">APIn ReadOnly-URL on virheellinen</string>
+  <string name="toast_invalid_notesurl">APIn Notes-URL on virheellinen</string>
   <string name="toast_invalid_filter_regexp">Virheellinen säännöllinen lauseke suodattimessa, jossa key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Valokuvaa %1$s ei voida lukea</string>
   <string name="toast_no_voice_recognition">Puheentunnistusta ei ole saatavilla</string>
   <string name="toast_no_coverage">%1$s ei kata tätä aluetta</string>
   <string name="toast_file_exists">Tiedosto %1$s on olemassa.</string>
-  <string name="toast_needs_resurvey">Kohde saattaa vaatia päivittämistä</string>
+  <string name="toast_needs_resurvey">Kohde saattaa olla vanhentunut</string>
   <string name="toast_openinghours_invalid">Kohteella %1$s on virheellinen aukioloaika</string>
   <string name="toast_openinghours_autocorrected">Kohteen %1$s aukioloaika korjattiin automaattisesti</string>
   <string name="toast_exit_multiselect">Napauta kahdesti tyhjään kohtaan tai käytä paluunuolta, jos haluat poistua</string>
@@ -220,7 +220,7 @@
   <string name="clear">Nollaa</string>
   <string name="retry">Yritä uudelleen</string>
   <string name="read">Lue</string>
-  <string name="overwrite">Kirjoita päälle</string>
+  <string name="overwrite">Korvaa</string>
   <string name="share">Jaa</string>
   <string name="share_position">Jaa sijainti</string>
   <!--Dialog for back button-->
@@ -643,7 +643,71 @@
   <string name="bearing_nw">luode</string>
   <string name="bearing_n">pohjoinen</string>
   <!--Misc relation related stuff-->
+  <string name="role">Rooli</string>
+  <string name="role_lc">rooli</string>
+  <string name="membership_relation_heading">Relaation jäsen</string>
+  <string name="relation">Relaatio</string>
+  <string name="relations">Relaatiot</string>
+  <string name="position">Sij</string>
+  <string name="type">Tyyppi</string>
+  <string name="object">Kohde</string>
+  <string name="deleterelation_relation_description">Olet poistamassa relaatiota, joka on ainakin yhden relaation jäsen. Jäsenrelaation poistaminen saattaa sotkea muut relaatiot.</string>
+  <string name="deleterelation">Poista relaatio</string>
+  <string name="delete_from_relation_description">Olet poistamassa tämän elementin relaatiosta.</string>
+  <string name="unset_relation_type">tuntematon relaatiotyyppi</string>
   <!--time and distance-->
+  <string name="days">päivää</string>
+  <string name="hours">tuntia</string>
+  <string name="minutes">minuuttia</string>
+  <string name="seconds">sekuntia</string>
+  <string name="km">km</string>
+  <string name="meter">metriä</string>
   <!--Help system-->
+  <string name="toast_nohelp">Tähän ei ole ohjetta!</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>yksityinen</item>
+    <item>julkinen</item>
+    <item>jäljitettävissä</item>
+    <item>tunnistettavissa</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>Sisäinen</item>
+    <item>Sisäinen NMEA</item>
+    <item>NMEA TCP-asiakkaalta</item>
+    <item>NMEA TCP-palvelimelta</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Auki</item>
+    <item>Suljettu</item>
+    <item>Väärä hälytys</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Auki</item>
+    <item>Suljettu</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Vasemmalla</item>
+    <item>Oikealla</item>
+    <item>Ei nappia</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Automaattinen</item>
+    <item>Ei koskaan</item>
+    <item>Pakota</item>
+    <item>Ei tilapalkkia</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Ei koskaan</item>
+    <item>Pakota</item>
+    <item>Ei tilapalkkia</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>Kaikki</item>
+    <item>Pisteet</item>
+    <item>Viivat</item>
+    <item>Viivat+</item>
+    <item>Relaatiot</item>
+    <item>Relaatiot+</item>
+  </string-array>
 </resources>
