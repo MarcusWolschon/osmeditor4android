@@ -94,6 +94,14 @@ Um den Weg zu verlängern tippe an den Stellen wo du weitere Wegpunkte haben wil
 
 Um den Vorgang abzuschliessen kann auch ein entsprechender Menü-Eintrag ausgewählt werden, siehe [Neue Objekte erstellen](../en/Creating new objects.md) für weitere Informationen.
 
+#### Flächen erstellen
+
+Aktuell hat OpenStreetMap keinen eigenen Objekttyp für Flächen im Gegensatz zu anderen Geo-Datensysteme. Der Online-Editor "iD" versucht dem Benutzer eine solche Abstraktion anzubieten, dies funktioniert mal gut, mal schlecht. Vespucci versucht das in der vorliegenden Version nicht, deshalb hier einige Information dazu wie in OSM Flächen abgebildet werden:
+
+* _geschlossene Wege (*Polygone")_: die einfachste und häufigste Flächenvariante sind Wege bei denen Anfang- und Endpunkt derselbe Knoten ist, und die einen geschlossenen "Ring" bilden, z.B. sind die meisten Gebäude von diesem Typ. Solche Flächen sind mit Vespucci einfach zu erstellen, um den Ring fertigzustellen muss einfach der letzte Knoten auf den ersten zu liegen kommen. Hinweis: die Interpretation von geschlossenen Wegen als Fläche hängt von ihren Tags ab, ist ein geschlossener Weg als Kreisel getaggt, so wird es als Fläche interpretiert, ist der Weg als Kreisel getaggt, nicht. In gewissen Fällen in denen beide Interpretationen möglich wären, kann man dies durch ein "area" Tag klären.
+* _Multi-Polygone_: es gibt Flächen die aus mehreren Teilen, Löcher und Ringe bestehen, diese können nicht mit nur einem Weg abgebildet werden. OSM verwendet ein spezieller Typ Relation (das OSM Objekt, dass Beziehungen zwischen mehreren Objekte abbilden kann) um das Problem zu lösen, ein Multi-Polygon. Ein Multi-Polygon kann mehrere äussere ("outer") und innere ("inner") Ringe besitzen. Jeder Ring kann entweder ein geschlossener Weg sein wie oben beschrieben, oder mehrere Wege mit gemeinsamen Endpunkte. Während grosse Multi-Polygone mit jedem Werkzeug schwer zu bearbeiten sind, können kleine einfach mit Vespucci erstellt werden 
+* _Küstenlinien_:  für sehr grosse Flächen, Kontinente und Inseln, versagt auch das Multi-Polygon Modell. Für Küstenlinien (natural=coastline) verwenden wir richtungsabhängige Bedeutung, mit der Landfläche auf der linken Seite und das Wasser auf der rechten. Ein Nebeneffekt ist das die Richtung von solchen Wegen nicht geändert werden sollte. Mehr Information dazu findet man auf dem [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+
 #### Die Geometrie eines Weges verbessern
 
 Zoomt man genügend nah an ein ausgewähltes Wegsegment wird ein kleines "x" sichtbar. Zieht man daran wird ein Knoten im Weg erstellt. Hinweis: um das versehentliche Erstellen solcher Punkte zu verhindern ist der empfindliche Bereich um das "x" ziemlich klein.
