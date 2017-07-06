@@ -85,6 +85,9 @@ public class Tags {
 	public static final String KEY_VALIDATE_NO_NAME = "validate:no_name";
 	public static final String KEY_HIGHWAY = "highway";
 	public static final String VALUE_ROAD = "road";
+	public static final String VALUE_MOTORWAY = "motorway";
+	public static final String VALUE_MOTORWAY_LINK = "motorway_link";
+	public static final String KEY_SIDEWALK = "sidewalk";
 	public static final String KEY_BARRIER = "barrier";
 	public static final String VALUE_RETAINING_WALL = "retaining_wall";
 	public static final String VALUE_KERB = "kerb";
@@ -94,6 +97,7 @@ public class Tags {
 	public static final String KEY_MAN_MADE ="man_made";
 	public static final String VALUE_EMBANKMENT = "embankment";
 	public static final String KEY_ONEWAY = "oneway";
+	public static final String VALUE_REVERSE = "reverse";
 	public static final String KEY_WATERWAY = "waterway"; 
 	public static final String KEY_LANDUSE = "landuse";
 	public static final String KEY_NATURAL = "natural";
@@ -116,9 +120,32 @@ public class Tags {
 	public static final String VALUE_VIA = "via";
 	public static final String VALUE_BUILDING = "building";
 	public static final String VALUE_ROUTE = "route";
+	public static final String ROLE_FORWARD = "forward";
+	public static final String ROLE_BACKWARD = "backward";
 	public static final String VALUE_MULTIPOLYGON = "multipolygon";
 	public static final String VALUE_BOUNDARY = "boundary";
 	public static final String KEY_BOUNDARY = "boundary";
+	
+	
+	//
+	public static final String KEY_DIRECTION = "direction";
+	public static final String KEY_INCLINE = "incline";
+	public static final String VALUE_UP = "up";
+	public static final String VALUE_DOWN = "down";
+	public static final char VALUE_EAST = 'E';
+	public static final char VALUE_WEST = 'W';
+	public static final char VALUE_SOUTH = 'S';
+	public static final char VALUE_NORTH = 'N';
+	
+	//
+	public static final String KEY_TURN = "turn";
+	public static final String KEY_TURN_LANES = "turn:lanes";
+	public static final String VALUE_RIGHT = "right";
+	public static final String VALUE_LEFT = "left";
+	public static final String VALUE_THROUGH = "through";
+	
+	public static final String VALUE_FORWARD = "forward";
+	public static final String VALUE_BACKWARD = "backward";
 	
 	//
 	public static final String KEY_ELE = "ele";
@@ -126,6 +153,7 @@ public class Tags {
 	public static final String KEY_SOURCE_ELE = "ele:source";
 	//
 	public static final String VALUE_YES = "yes";
+	public static final String VALUE_TRUE = "true";
 	//
 	public static final String KEY_WIKIPEDIA = "wikipedia";
 	public static final String KEY_WIKIDATA = "wikidata";

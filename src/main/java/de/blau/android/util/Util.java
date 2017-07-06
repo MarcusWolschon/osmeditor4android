@@ -39,6 +39,10 @@ import de.blau.android.osm.Way;
 public class Util {
 	
 	private static final String DEBUG_TAG = "Util";
+	
+	private Util() {
+		// don't allow instantiating of this class
+	}
 
 	static public ArrayList<String> getArrayList(String s) {
 		ArrayList<String> v = new ArrayList<String>();

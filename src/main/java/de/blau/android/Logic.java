@@ -1916,10 +1916,12 @@ public class Logic {
 	}
 	
 	/**
-	 * Reverse a way
+	 * Reverse a ways direction
 	 * 
-	 * @param activity activity we were called from
-	 * @param way the way to reverse
+	 * Note this does NOT reverse oneway tags, since we assume that changing direction 
+	 * if the oneway was the whole point of calling this
+	 * @param activity 	activity we were called from
+	 * @param way 		the way to reverse
 	 * @return true if reverseWay returned true, implying that tags had to be reversed
 	 */
 	public synchronized boolean performReverse(@Nullable Activity activity, Way way) {
@@ -4066,11 +4068,11 @@ public class Logic {
 		tags.put("type", "restriction");
 		getDelegator().setTags(restriction, tags);
 		RelationMember from = new RelationMember("from", fromWay);
-		getDelegator().addElementToRelation(from, restriction);
+		getDelegator().addMemberToRelation(from, restriction);
 		RelationMember via = new RelationMember("via", viaElement);
-		getDelegator().addElementToRelation(via, restriction);
+		getDelegator().addMemberToRelation(via, restriction);
 		RelationMember to = new RelationMember("to", toWay);
-		getDelegator().addElementToRelation(to, restriction);
+		getDelegator().addMemberToRelation(to, restriction);
 		
 		return restriction;
 	}
@@ -4078,9 +4080,9 @@ public class Logic {
 	/**
 	 * Creates a new relation containing the given members.
 	 * 
-	 * @param activity activity we were called from
-	 * @param type the 'type=*' tag to set on the relation itself
-	 * @param members the osm elements to include in the relation
+	 * @param activity 	activity we were called from
+	 * @param type 		the 'type=*' tag to set on the relation itself
+	 * @param members 	the osm elements to include in the relation
 	 * @return the new relation
 	 */
 	public Relation createRelation(@Nullable Activity activity, String type, List<OsmElement> members ) {
@@ -4102,7 +4104,7 @@ public class Logic {
 	 * 
 	 * @param activity activity we were called from
 	 */
-	public void addMembers(@Nullable Activity activity, Relation relation, ArrayList<OsmElement> members) {
+	public void addMembers(@Nullable Activity activity, Relation relation, List<OsmElement> members) {
 		createCheckpoint(activity, R.string.undo_action_update_relations);
 		getDelegator().addMembersToRelation(relation, members);
 	}

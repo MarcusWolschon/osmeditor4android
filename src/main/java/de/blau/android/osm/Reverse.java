@@ -4,37 +4,63 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Logic for reversing direction dependent tags, this is one of the more arcane things about the OSM data model
+ * 
  * @author simon
  *
  */
 class Reverse {
+	private static final String DEBUG_TAG = "Reverse";
+	
+	private static final String LEFT_INFIX = ":left:";
+	private static final String RIGHT_INFIX = ":right:";
+	private static final String BACKWARD_INFIX = ":backward:";
+	private static final String FORWARD_INFIX = ":forward:";
+	private static final String FORWARD_POSTFIX = ":forward";
+	private static final String BACKWARD_POSTFIX = ":backward";
+	private static final String RIGHT_POSTFIX = ":right";
+	private static final String LEFT_POSTFIX = ":left";
+	private static final String PERCENT = "%";
+	private static final String DEGREE = "°";
+
+	private Reverse() {
+		// don't allow instantiating of this class		
+	}
 	
 	/**
 	 * Return the direction dependent tags and associated values 
-	 * oneway, *:left, *:right, *:backward, *:forward
+	 * oneway, *:left, *:right, *:backward, *:forward from the element
+	 * 
 	 * Probably we should check for issues with relation membership too 
-	 * @return
+	 * @param e element that we extract the direction dependent tags from
+	 * @return	map containing the tags
 	 */
-	public static Map<String, String> getDirectionDependentTags(OsmElement e) {
+	@Nullable
+	public static Map<String, String> getDirectionDependentTags(@NonNull OsmElement e) {
 		Map<String, String> result = null;
 		Map<String, String> tags = e.getTags();
 		if (tags != null) {
-			for (String key : tags.keySet()) {
-				String value = tags.get(key);
-				if ("oneway".equals(key) || "incline".equals(key) 
-						|| "turn".equals(key) || "turn:lanes".equals(key)
-						|| "direction".equals(key) || key.endsWith(":left") 
-						|| key.endsWith(":right") || key.endsWith(":backward") 
-						|| key.endsWith(":forward") 
-						|| key.contains(":forward:") || key.contains(":backward:")
-						|| key.contains(":right:") || key.contains(":left:")
-						|| value.equals("right") || value.equals("left") 
-						|| value.equals("forward") || value.equals("backward")) {
+			for (Entry<String,String>entry : tags.entrySet()) {
+				String key = entry.getKey();
+				String value = entry.getValue();
+				if ((Tags.KEY_HIGHWAY.equals(key) && (Tags.VALUE_MOTORWAY.equals(value) || Tags.VALUE_MOTORWAY_LINK.equals(value)))
+						|| Tags.KEY_ONEWAY.equals(key) 
+						|| Tags.KEY_INCLINE.equals(key) 
+						|| Tags.KEY_DIRECTION.equals(key) 
+						|| key.endsWith(LEFT_POSTFIX) || key.endsWith(RIGHT_POSTFIX) 
+						|| key.endsWith(BACKWARD_POSTFIX) || key.endsWith(FORWARD_POSTFIX) 
+						|| key.contains(FORWARD_INFIX) || key.contains(BACKWARD_INFIX)
+						|| key.contains(RIGHT_INFIX) || key.contains(LEFT_INFIX)
+						|| Tags.VALUE_RIGHT.equals(value) || Tags.VALUE_LEFT.equals(value) 
+						|| Tags.VALUE_FORWARD.equals(value) || Tags.VALUE_BACKWARD.equals(value)) {
 					if (result == null) {
 						result = new TreeMap<String, String>();
 					}
@@ -46,10 +72,13 @@ class Reverse {
 	}
 	
 	/**
-	 * Return a list of (route) relations that this way is a member of with a direction dependent role
-	 * @return
+	 * Return a list of (route) relations that the element is a member of with a direction dependent role
+	 
+	 * @param 	e element for which we need to inspect the parent relations
+	 * @return	List of relations or null if none found
 	 */
-	public static List<Relation> getRelationsWithDirectionDependentRoles(OsmElement e) {
+	@Nullable
+	public static List<Relation> getRelationsWithDirectionDependentRoles(@NonNull OsmElement e) {
 		ArrayList<Relation> result = null;
 		ArrayList<Relation> parents = e.getParentRelations();
 		if (parents != null) {
@@ -57,7 +86,7 @@ class Reverse {
 				String t = r.getTagWithKey(Tags.KEY_TYPE);
 				if (t != null && Tags.VALUE_ROUTE.equals(t)) {
 					RelationMember rm = r.getMember(Way.NAME, e.getOsmId());
-					if (rm != null && ("forward".equals(rm.getRole()) || "backward".equals(rm.getRole()))) {
+					if (rm != null && (Tags.ROLE_FORWARD.equals(rm.getRole()) || Tags.ROLE_BACKWARD.equals(rm.getRole()))) {
 						if (result == null) {
 							result = new ArrayList<Relation>();
 						}
@@ -71,18 +100,20 @@ class Reverse {
 	
 	/**
 	 * Reverse the role of this element in any relations it is in (currently only relevant for routes)
-	 * @param relations
+	 * 
+	 * @param e			element
+	 * @param relations	list of the relations in which e needs it role to be reversed
 	 */
-	public  static void reverseRoleDirection(OsmElement e, List<Relation> relations) {
+	public  static void reverseRoleDirection(@NonNull OsmElement e, @Nullable List<Relation> relations) {
 		if (relations != null) {
 			for (Relation r:relations) {
 				for (RelationMember rm:r.getAllMembers(e)) {
-					if (rm.role != null && "forward".equals(rm.role)) {
-						rm.setRole("backward");
+					if (rm.role != null && Tags.ROLE_FORWARD.equals(rm.role)) {
+						rm.setRole(Tags.ROLE_BACKWARD);
 						continue;
 					} 
-					if (rm.role != null && "backward".equals(rm.role)) {
-						rm.setRole("forward");
+					if (rm.role != null && Tags.ROLE_BACKWARD.equals(rm.role)) {
+						rm.setRole(Tags.ROLE_FORWARD);
 						continue;
 					} 
 				}
@@ -95,10 +126,10 @@ class Reverse {
 		String tmpVal = "";
 		for (int i=0;i<value.length();i++) {
 			switch (value.toUpperCase(Locale.US).charAt(i)) {
-				case 'N': tmpVal = tmpVal + 'S'; break;
-				case 'W': tmpVal = tmpVal + 'E'; break;
-				case 'S': tmpVal = tmpVal + 'N'; break;
-				case 'E': tmpVal = tmpVal + 'W'; break;
+				case Tags.VALUE_NORTH: tmpVal = tmpVal + Tags.VALUE_SOUTH; break;
+				case Tags.VALUE_WEST: tmpVal = tmpVal + Tags.VALUE_EAST; break;
+				case Tags.VALUE_SOUTH: tmpVal = tmpVal + Tags.VALUE_NORTH; break;
+				case Tags.VALUE_EAST: tmpVal = tmpVal + Tags.VALUE_WEST; break;
 				default: throw new NumberFormatException(); 
 			}
 		}
@@ -106,15 +137,15 @@ class Reverse {
 	}
 	
 	private static String reverseDirection(final String value) {
-		if (value.equals("up")) {
-			return "down";
-		} else if (value.equals("down")) {
-			return "up";
+		if (Tags.VALUE_UP.equals(value)) {
+			return Tags.VALUE_DOWN;
+		} else if (Tags.VALUE_DOWN.equals(value)) {
+			return Tags.VALUE_UP;
 		} else {
-			if (value.endsWith("°")) { //degrees
+			if (value.endsWith(DEGREE)) { //degrees
 				try {
 					String tmpVal = value.substring(0,value.length()-1);
-					return floatToString(((Float.valueOf(tmpVal)+180.0f) % 360.0f)) + "°";
+					return floatToString(((Float.valueOf(tmpVal)+180.0f) % 360.0f)) + DEGREE;
 				} catch (NumberFormatException nex) {
 					// oops put back original values 
 					return value;
@@ -136,45 +167,20 @@ class Reverse {
 		}
 	}
 	
-	private static String reverseTurnLanes(final String value) {
-		String tmpValue = "";
-		for (String s:value.split("\\|")) {
-			String tmpValue2 = "";
-			for (String s2:s.split(";")) {
-				if (s2.indexOf("right") >= 0) {
-					s2 = s2.replace("right", "left");
-				} else if (s.indexOf("left") >= 0) {
-					s2 = s2.replace("left", "right");	
-				}
-				if (tmpValue2.equals("")) {	
-					tmpValue2 = s2;
-				} else {
-					tmpValue2 = s2 + ";" + tmpValue2; // reverse order 
-				}
-			}
-			if (tmpValue.equals("")) {	
-				tmpValue = tmpValue2;
-			} else {
-				tmpValue = tmpValue2 + "|" + tmpValue; // reverse order 
-			}
-		}
-		return tmpValue;
-	}
-	
-	private static String reverseIncline(final String value) {
+	private static String reverseIncline(@NonNull final String value) {
 		String tmpVal;
-		if (value.equals("up")) {
-			return "down";
-		} else if (value.equals("down")) {
-			return "up";
+		if (Tags.VALUE_UP.equals(value)) {
+			return Tags.VALUE_DOWN;
+		} else if (Tags.VALUE_DOWN.equals(value)) {
+			return Tags.VALUE_UP;
 		} else {
 			try {
-				if (value.endsWith("°")) { //degrees
+				if (value.endsWith(DEGREE)) { //degrees
 					tmpVal = value.substring(0,value.length()-1);
-					return floatToString((Float.valueOf(tmpVal)*-1)) + "°";
-				} else if (value.endsWith("%")) { // percent{
+					return floatToString((Float.valueOf(tmpVal)*-1)) + DEGREE;
+				} else if (value.endsWith(PERCENT)) { // percent
 					tmpVal = value.substring(0,value.length()-1);
-					return floatToString((Float.valueOf(tmpVal)*-1)) + "%";
+					return floatToString((Float.valueOf(tmpVal)*-1)) + PERCENT;
 				} else {
 					return floatToString((Float.valueOf(value)*-1));
 				}
@@ -185,97 +191,118 @@ class Reverse {
 		}
 	}
 	
-	private static String reverseOneway(final String value) {
-		if (value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("true") || value.equals("1")) {
+	/**
+	 * Reverse the value for a oneway tag 
+	 * 
+	 * @param value current value of the oneway tag
+	 * @return reversed value
+	 */
+	private static String reverseOneway(@NonNull final String value) {
+		if (Tags.VALUE_YES.equalsIgnoreCase(value) || Tags.VALUE_TRUE.equalsIgnoreCase(value)  || "1".equals(value)) {
 			return "-1";
-		} else if (value.equalsIgnoreCase("reverse") || value.equals("-1")) {
-			return "yes";
+		} else if (Tags.VALUE_REVERSE.equalsIgnoreCase(value) || "-1".equals(value)) {
+			return Tags.VALUE_YES;
 		}
 		return value;
 	}
 	
 	/**
 	 * Reverse the direction dependent tags and save them to tags
+	 * 
 	 * Note this code in its original version ran in to complexity limits on Android 2.2 (and probably older). Eliminating if .. else if constructs seems to have
 	 * resolved this
-	 * @param tags Map of all direction dependent tags
+	 * @param tags 			Map of all direction dependent tags
 	 * @param reverseOneway if false don't change the value of the oneway tag if present
 	 */
-	public  static void reverseDirectionDependentTags(OsmElement e, Map<String, String> dirTags, boolean reverseOneway) {
+	public static void reverseDirectionDependentTags(@NonNull OsmElement e, @NonNull Map<String, String> dirTags, boolean reverseOneway) {
 		if (e.getTags() == null) {
 			return;
 		}
 		Map<String, String> tags = new TreeMap<String,String>(e.getTags());
 
+		// remove all dir dependent key first
 		for (String key : dirTags.keySet()) {
-			if (!key.equals("oneway") || reverseOneway) {
-				String value = tags.get(key).trim();
-				tags.remove(key); //			
-				if (key.equals("oneway")) {
+			tags.remove(key);
+		}
+		
+		for (Entry<String,String> entry : dirTags.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue().trim();
+			if (!key.equals(Tags.KEY_ONEWAY) || reverseOneway) {		
+				// special case
+				// motorway and motorway_link have implicit oneway properties, if automatically reversing (reverseOneway), add a oneway tag in the opposite direction
+				if (reverseOneway && Tags.KEY_HIGHWAY.equals(key) && (Tags.VALUE_MOTORWAY.equals(value) || Tags.VALUE_MOTORWAY_LINK.equals(value))) {
+					tags.put(key, value); // don't have to change anything
+					if (!dirTags.containsKey(Tags.KEY_ONEWAY)) {
+						tags.put(Tags.KEY_ONEWAY, "-1");
+					}
+					continue;
+				}
+				// normal case	
+				if (Tags.KEY_ONEWAY.equals(key)) {
 					tags.put(key, reverseOneway(value));
 					continue;
 				} 
-				if (key.equals("direction")) {
+				if (Tags.KEY_DIRECTION.equals(key)) {
 					tags.put(key, reverseDirection(value));
 					continue;
 				} 
-				if (key.equals("incline")) {
+				if (Tags.KEY_INCLINE.equals(key)) {
 					tags.put(key, reverseIncline(value));
 					continue;
 				} 
-				if (key.equals("turn:lanes") || key.equals("turn")) { // turn:lane:forward/backward doesn't need to be handled special
-					tags.put(key,reverseTurnLanes(value));
+				if (key.endsWith(LEFT_POSTFIX)) { // this would be more elegant in a loop
+					tags.put(key.substring(0, key.length()-LEFT_POSTFIX.length()) + RIGHT_POSTFIX, value);
 					continue;
 				} 
-				if (key.endsWith(":left")) { // this would be more elegant in a loop
-					tags.put(key.substring(0, key.length()-5) + ":right", value);
+				if (key.endsWith(RIGHT_POSTFIX)) {
+					tags.put(key.substring(0, key.length()-RIGHT_POSTFIX.length()) + LEFT_POSTFIX, value);
 					continue;
 				} 
-				if (key.endsWith(":right")) {
-					tags.put(key.substring(0, key.length()-6) + ":left", value);
+				if (key.endsWith(BACKWARD_POSTFIX)) {
+					tags.put(key.substring(0, key.length()-BACKWARD_POSTFIX.length()) + FORWARD_POSTFIX, value);
 					continue;
 				} 
-				if (key.endsWith(":backward")) {
-					tags.put(key.substring(0, key.length()-9) + ":forward", value);
+				if (key.endsWith(FORWARD_POSTFIX)) {
+					tags.put(key.substring(0, key.length()-FORWARD_POSTFIX.length()) + BACKWARD_POSTFIX, value);
 					continue;
 				} 
-				if (key.endsWith(":forward")) {
-					tags.put(key.substring(0, key.length()-8) + ":backward", value);
+				if (key.indexOf(FORWARD_INFIX) >= 0) {
+					tags.put(key.replace(FORWARD_INFIX, BACKWARD_INFIX), value);
 					continue;
 				} 
-				if (key.indexOf(":forward:") >= 0) {
-					tags.put(key.replace(":forward:", ":backward:"), value);
+				if (key.indexOf(BACKWARD_INFIX) >= 0) {
+					tags.put(key.replace(BACKWARD_INFIX, FORWARD_INFIX), value);
 					continue;
 				} 
-				if (key.indexOf(":backward:") >= 0) {
-					tags.put(key.replace(":backward:", ":forward:"), value);
+				if (key.indexOf(RIGHT_INFIX) >= 0) {
+					tags.put(key.replace(RIGHT_INFIX, LEFT_INFIX), value);
 					continue;
 				} 
-				if (key.indexOf(":right:") >= 0) {
-					tags.put(key.replace(":right:", ":left:"), value);
+				if (key.indexOf(LEFT_INFIX) >= 0) {
+					tags.put(key.replace(LEFT_INFIX, RIGHT_INFIX), value);
 					continue;
 				} 
-				if (key.indexOf(":left:") >= 0) {
-					tags.put(key.replace(":left:", ":right:"), value);
+				if (Tags.VALUE_RIGHT.equals(value)) {  // doing this for all values is probably dangerous
+					tags.put(key, Tags.VALUE_LEFT);
 					continue;
 				} 
-				if (value.equals("right")) {  // doing this for all values is probably dangerous
-					tags.put(key, "left");
+				if (Tags.VALUE_LEFT.equals(value)) {
+					tags.put(key, Tags.VALUE_RIGHT);
 					continue;
 				} 
-				if (value.equals("left")) {
-					tags.put(key, "right");
-					continue;
-				} 
-				if (value.equals("forward")) {
+				if (Tags.VALUE_FORWARD.equals(value)) {
 					tags.put(key, "backward");
 					continue;
 				} 
-				if (value.equals("backward")) {
-					tags.put(key, "forward");
+				if (Tags.VALUE_BACKWARD.equals(value)) {
+					tags.put(key, Tags.VALUE_FORWARD);
 					continue;
 				} 
-				// can't happen should throw an exception
+				// shouldn't happen 
+				Log.e(DEBUG_TAG,"unhandled key/value " + key + "/" + value);
+				tags.put(key,value);
+			} else {
 				tags.put(key,value);
 			}
 		}

@@ -323,8 +323,9 @@ public class Way extends OsmElement implements BoundedObject {
 	}
 	
 	/**
-	 * There is a set of tags which lead to a way not being reversible, this is EXTREMLY stupid and should be depreciated immediately.
+	 * There is a set of tags which lead to a way not being reversible, this method returns true if we match one of them
 	 * 
+	 * FIXME move the information to Tags
 	 * natural=cliff
 	 * natural=coastline
 	 * barrier=retaining_wall
@@ -334,37 +335,42 @@ public class Way extends OsmElement implements BoundedObject {
 	 * barrier=city_wall if two_sided != yes
 	 * waterway=*
 	 * 
-	 * @return true if somebody added the brain dead tags
+	 * @return true if tags are present
 	 */
 	public boolean notReversable()
 	{
-		boolean brainDead = false;
 		String waterway = getTagWithKey(Tags.KEY_WATERWAY);
 		if (waterway != null) {
-			brainDead = true; // IHMO
-		} else {
-			String natural = getTagWithKey(Tags.KEY_NATURAL);
-			if ((natural != null) && (natural.equals(Tags.VALUE_CLIFF) || natural.equals(Tags.VALUE_COASTLINE))) {
-				brainDead = true; // IHMO
-			} else {
-				String barrier = getTagWithKey(Tags.KEY_BARRIER);
-				if ((barrier != null) && barrier.equals(Tags.VALUE_RETAINING_WALL)) {
-					brainDead = true; // IHMO
-				} else if ((barrier != null) && barrier.equals(Tags.VALUE_KERB)) {
-					brainDead = true; //
-				} else if ((barrier != null) && barrier.equals(Tags.VALUE_GUARD_RAIL)) {
-					brainDead = true; //	
-				} else if ((barrier != null) && barrier.equals(Tags.VALUE_CITY_WALL) && ((getTagWithKey(Tags.KEY_TWO_SIDED) == null) || !getTagWithKey(Tags.KEY_TWO_SIDED).equals(Tags.VALUE_YES))) {
-					brainDead = true; // IMHO
-				} else {
-					String man_made = getTagWithKey(Tags.KEY_MAN_MADE);
-					if ((man_made != null) && man_made.equals(Tags.VALUE_EMBANKMENT)) {
-						brainDead = true; // IHMO
-					}
-				}
+			return true; 
+		} 
+		
+		String natural = getTagWithKey(Tags.KEY_NATURAL);
+		if ((natural != null) && (natural.equals(Tags.VALUE_CLIFF) || natural.equals(Tags.VALUE_COASTLINE))) {
+			return true; 
+		} 
+		
+		String man_made = getTagWithKey(Tags.KEY_MAN_MADE);
+		if ((man_made != null) && man_made.equals(Tags.VALUE_EMBANKMENT)) {
+			return true; // IHMO
+		}
+				
+		String barrier = getTagWithKey(Tags.KEY_BARRIER);
+		if (barrier != null) {
+			if (Tags.VALUE_RETAINING_WALL.equals(barrier)) {
+				return true; 
+			} 
+			if (Tags.VALUE_KERB.equals(barrier)) {
+				return true; 
+			} 
+			if (Tags.VALUE_GUARD_RAIL.equals(barrier)) {
+				return true; 
+			} 
+			String twoSided = getTagWithKey(Tags.KEY_TWO_SIDED);
+			if (Tags.VALUE_CITY_WALL.equals(barrier) && (twoSided == null || !Tags.VALUE_YES.equals(twoSided))) {
+				return true; 
 			}
 		}
-		return brainDead;
+		return false;
 	}
 	
 	private boolean hasTagWithValue(String tag, String value) {

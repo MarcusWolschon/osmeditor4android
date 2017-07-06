@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -68,6 +67,10 @@ public class Utils {
 	
 	private static final String DEBUG_TAG = "javascript.Utils";
 
+	private Utils() {
+		// don't allow instantiating of this class
+	}
+	
 	/**
 	 * Evaluate JS
 	 * @param ctx android context
@@ -181,7 +184,6 @@ public class Utils {
 		builder.setNegativeButton(R.string.dismiss, null);
 		builder.setNeutralButton(R.string.share, null);
 		AlertDialog dialog = builder.create();
-		final Handler handler = new Handler();
 		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 			@Override
 			public void onShow(DialogInterface dialog) {

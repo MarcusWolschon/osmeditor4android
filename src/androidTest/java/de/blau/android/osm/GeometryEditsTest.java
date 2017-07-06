@@ -1,6 +1,8 @@
 package de.blau.android.osm;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -335,4 +337,121 @@ public class GeometryEditsTest {
 	private float getY(Logic logic, Node n) {
 		return GeoMath.latE7ToY(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), n.getLat());
 	}
+	
+    @UiThreadTest
+    @Test
+    public void reverseWay() {
+    	try {
+    		Logic logic = App.getLogic();
+    		logic.setSelectedWay(null);
+    		logic.setSelectedNode(null);
+    		logic.setSelectedRelation(null); // this is fairly fragile
+    		logic.performAdd(main, 300.0f, 300.0f);
+    		logic.performAdd(main, 300.0f, 500.0f);
+    		Way w = logic.getSelectedWay();
+    		
+    		List<OsmElement>members = new ArrayList<OsmElement>();
+    		members.add(w);
+    		Relation route = logic.createRelation(main, Tags.VALUE_ROUTE, null);
+    		App.getDelegator().addMemberToRelation(w, Tags.ROLE_FORWARD, route);
+    		
+    		HashMap<String,String> tags = new HashMap<String,String>();
+    		// first lot of tags
+    		tags.put(Tags.KEY_ONEWAY, Tags.VALUE_YES);
+    		tags.put(Tags.KEY_DIRECTION, Tags.VALUE_UP);
+    		tags.put(Tags.KEY_INCLINE, "10%");
+    		tags.put(Tags.KEY_SIDEWALK, Tags.VALUE_RIGHT);
+    		tags.put(Tags.KEY_TURN_LANES+":forward", Tags.VALUE_THROUGH + "|" + Tags.VALUE_RIGHT);
+    		tags.put(Tags.KEY_TURN_LANES+":backward", Tags.VALUE_LEFT + "|" + Tags.VALUE_RIGHT);
+    		logic.setTags(main, w, tags);
+    		Assert.assertTrue(logic.performReverse(main, w)); // suppose we could press the button here
+    		Assert.assertTrue(Tags.ROLE_BACKWARD.equals(route.getMember(w).getRole()));
+    		// when we are interactively reserving the way, we assume that it is because we 
+    		// we actually want to change the oneway direction and not correct by reversing the tags
+    		Assert.assertEquals(Tags.VALUE_YES, w.getTagWithKey(Tags.KEY_ONEWAY));
+    		Assert.assertEquals(Tags.VALUE_DOWN, w.getTagWithKey(Tags.KEY_DIRECTION));
+    		Assert.assertEquals("-10%", w.getTagWithKey(Tags.KEY_INCLINE));
+    		Assert.assertEquals(Tags.VALUE_LEFT, w.getTagWithKey(Tags.KEY_SIDEWALK));
+    		Assert.assertEquals(Tags.VALUE_THROUGH + "|" + Tags.VALUE_RIGHT, w.getTagWithKey(Tags.KEY_TURN_LANES+":backward"));
+    		Assert.assertEquals(Tags.VALUE_LEFT + "|" + Tags.VALUE_RIGHT, w.getTagWithKey(Tags.KEY_TURN_LANES+":forward"));
+    		Assert.assertTrue(logic.performReverse(main, w));
+    		Assert.assertTrue(Tags.ROLE_FORWARD.equals(route.getMember(w).getRole()));
+    		Assert.assertEquals(Tags.VALUE_YES, w.getTagWithKey(Tags.KEY_ONEWAY)); 
+    		Assert.assertEquals(Tags.VALUE_UP, w.getTagWithKey(Tags.KEY_DIRECTION));
+    		Assert.assertEquals("10%", w.getTagWithKey(Tags.KEY_INCLINE));
+    		Assert.assertEquals(Tags.VALUE_RIGHT, w.getTagWithKey(Tags.KEY_SIDEWALK));
+    		Assert.assertEquals(Tags.VALUE_THROUGH + "|" + Tags.VALUE_RIGHT, w.getTagWithKey(Tags.KEY_TURN_LANES+":forward"));  
+    		Assert.assertEquals(Tags.VALUE_LEFT + "|" + Tags.VALUE_RIGHT, w.getTagWithKey(Tags.KEY_TURN_LANES+":backward"));
+    		
+    		route.removeMember(route.getMember(w));
+    		tags.clear();
+       		// 2nd lot of tags
+    		tags.put(Tags.KEY_DIRECTION, String.valueOf(Tags.VALUE_NORTH));
+    		tags.put(Tags.KEY_INCLINE, Tags.VALUE_UP);
+    		logic.setTags(main, w, tags);
+    		Assert.assertTrue(logic.performReverse(main, w));
+    		Assert.assertEquals(String.valueOf(Tags.VALUE_SOUTH), w.getTagWithKey(Tags.KEY_DIRECTION));
+    		Assert.assertEquals(Tags.VALUE_DOWN, w.getTagWithKey(Tags.KEY_INCLINE));
+    		Assert.assertTrue(logic.performReverse(main, w));
+    		Assert.assertEquals(String.valueOf(Tags.VALUE_NORTH), w.getTagWithKey(Tags.KEY_DIRECTION));
+    		Assert.assertEquals(Tags.VALUE_UP, w.getTagWithKey(Tags.KEY_INCLINE));
+    		
+    		tags.clear();
+       		// 3rd lot of tags
+    		tags.put(Tags.KEY_DIRECTION, "200°");
+    		tags.put(Tags.KEY_INCLINE, "10°");
+    		logic.setTags(main, w, tags);
+    		Assert.assertTrue(logic.performReverse(main, w));
+    		Assert.assertEquals("20°", w.getTagWithKey(Tags.KEY_DIRECTION));
+    		Assert.assertEquals("-10°", w.getTagWithKey(Tags.KEY_INCLINE));
+    		Assert.assertTrue(logic.performReverse(main, w));
+    		Assert.assertEquals("200°", w.getTagWithKey(Tags.KEY_DIRECTION));
+    		Assert.assertEquals("10°", w.getTagWithKey(Tags.KEY_INCLINE));
+    		
+       		tags.clear();
+       		// 4th lot of tags
+    		tags.put(Tags.KEY_DIRECTION, "200");
+    		tags.put(Tags.KEY_INCLINE, "10");
+    		logic.setTags(main, w, tags);
+    		Assert.assertTrue(logic.performReverse(main, w));
+    		Assert.assertEquals("20", w.getTagWithKey(Tags.KEY_DIRECTION));
+    		Assert.assertEquals("-10", w.getTagWithKey(Tags.KEY_INCLINE));
+    		Assert.assertTrue(logic.performReverse(main, w));
+    		Assert.assertEquals("200", w.getTagWithKey(Tags.KEY_DIRECTION));
+    		Assert.assertEquals("10", w.getTagWithKey(Tags.KEY_INCLINE));
+    		
+       		tags.clear();
+       		// 5th lot of tags
+       		tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_MOTORWAY);
+    		tags.put(Tags.KEY_DIRECTION, String.valueOf(Tags.VALUE_EAST));
+    		
+    		logic.setTags(main, w, tags);
+    		Assert.assertTrue(logic.performReverse(main, w));
+    		Assert.assertFalse(w.hasTagKey(Tags.KEY_ONEWAY));
+    		Assert.assertEquals(String.valueOf(Tags.VALUE_WEST), w.getTagWithKey(Tags.KEY_DIRECTION));
+    		Assert.assertTrue(logic.performReverse(main, w));
+    		Assert.assertFalse(w.hasTagKey(Tags.KEY_ONEWAY));
+    		Assert.assertEquals(String.valueOf(Tags.VALUE_EAST), w.getTagWithKey(Tags.KEY_DIRECTION));	
+    		
+    		// reverse "one way" too now
+			java.util.Map<String,String> dirTags = Reverse.getDirectionDependentTags(w);
+			if (dirTags != null) {
+				Reverse.reverseDirectionDependentTags(w, dirTags, true);
+			} else {
+				Assert.fail("no direction dependent tags found");
+			}
+			Assert.assertEquals("-1", w.getTagWithKey(Tags.KEY_ONEWAY));
+			
+			dirTags = Reverse.getDirectionDependentTags(w);
+			if (dirTags != null) {
+				Reverse.reverseDirectionDependentTags(w, dirTags, true);
+			} else {
+				Assert.fail("no direction dependent tags found");
+			}
+			Assert.assertEquals(Tags.VALUE_YES, w.getTagWithKey(Tags.KEY_ONEWAY));
+    		
+    	} catch (Exception igit) {
+    		Assert.fail(igit.getMessage());
+    	}  
+    }
 }

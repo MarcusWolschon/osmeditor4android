@@ -329,10 +329,12 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	/**
 	 * Create empty relation
-	 * @param members 
-	 * @return
+	 * 
+	 * @param members members to add without role 
+	 * @return the new relation
 	 */
-	public Relation createAndInsertRelation(List<OsmElement> members) {
+	@NonNull
+	public Relation createAndInsertRelation(@Nullable List<OsmElement> members) {
 		// undo - nothing done here, way gets saved/marked on insert
 		dirty = true;
 		
@@ -1253,14 +1255,18 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * reverse any direction dependent tags on the way nodes
-	 * @param nodes
+	 * Reverse any direction dependent tags on the way nodes
+	 * 
+	 * @param nodes List of nodes
+	 * @return true if tags on a node had to be reversed
 	 */
-	private void reverseWayNodeTags(List<Node> nodes) {
+	private boolean reverseWayNodeTags(List<Node> nodes) {
+		boolean hadToReverse = false;
 		for (Node n:nodes) {
 			Map<String,String> nodeDirTags = Reverse.getDirectionDependentTags(n);
 			if (nodeDirTags!=null) {
 				undo.save(n);
+				hadToReverse = true;
 				Reverse.reverseDirectionDependentTags(n,nodeDirTags, true);
 				n.updateState(OsmElement.STATE_MODIFIED);
 				try {
@@ -1271,6 +1277,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 			}
 		}
+		return hadToReverse;
 	}
 	
 	/**
@@ -1398,7 +1405,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * Reverses a way (reverses the order of its nodes)
 	 * 
-	 * @param way to revers
+	 * @param way to reverse
 	 * @return true is way had tags that needed to be reversed
 	 */
 	public boolean reverseWay(final Way way) {
@@ -1408,14 +1415,14 @@ public class StorageDelegator implements Serializable, Exportable {
 		Map<String, String> dirTags = Reverse.getDirectionDependentTags(way);
 		//TODO inform user about the tags
 		if (dirTags != null) {
-			Reverse.reverseDirectionDependentTags(way, dirTags, false); // assume he only wants to change the oneway direction for now
+			Reverse.reverseDirectionDependentTags(way, dirTags, false); // assume we only wants to change the oneway direction for now
 		}
-		reverseWayNodeTags(way.getNodes());
+		boolean dirNodeTags = reverseWayNodeTags(way.getNodes());
 		way.reverse();
-		List<Relation>relations = Reverse.getRelationsWithDirectionDependentRoles(way);
-		if (relations != null) {
-			Reverse.reverseRoleDirection(way,relations);
-			for (Relation r:relations) {
+		List<Relation>dirRelations = Reverse.getRelationsWithDirectionDependentRoles(way);
+		if (dirRelations != null) {
+			Reverse.reverseRoleDirection(way,dirRelations);
+			for (Relation r:dirRelations) {
 				r.updateState(OsmElement.STATE_MODIFIED);
 				try {
 					apiStorage.insertElementSafe(r);
@@ -1433,7 +1440,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			//TODO handle OOM
 			e.printStackTrace();
 		}
-		return ((dirTags != null) && dirTags.containsKey(Tags.KEY_ONEWAY));
+		return (dirTags != null || dirRelations != null || dirNodeTags);
 	}
 
 	private void replaceNodeInWay(final Node existingNode, final Node newNode, final Way way) {
@@ -1651,12 +1658,13 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * add element to relation at end
-	 * @param e
-	 * @param role
-	 * @param rel
+	 * Add a new member to relation at end
+	 * 
+	 * @param e		the OsmElement
+	 * @param role	the role of the element
+	 * @param rel	target relation
 	 */
-	public void addElementToRelation(final OsmElement e, final String role, final Relation rel)
+	public void addMemberToRelation(final OsmElement e, final String role, final Relation rel)
 	{
 
 		dirty = true;
@@ -1678,12 +1686,12 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * add element to relation at end
-	 * @param e
-	 * @param role
-	 * @param rel
+	 * Add new member to relation at end
+	 * 
+	 * @param newMember	member to add
+	 * @param rel		target relation
 	 */
-	public void addElementToRelation(final RelationMember newMember, final Relation rel)
+	public void addMemberToRelation(final RelationMember newMember, final Relation rel)
 	{
 		OsmElement e = newMember.getElement();
 		if (e == null) {
