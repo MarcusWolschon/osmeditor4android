@@ -196,6 +196,7 @@ public class Reverse {
 	
 	/**
 	 * Reverse the direction dependent tags and save them to tags
+	 * 
 	 * Note this code in its original version ran in to complexity limits on Android 2.2 (and probably older). Eliminating if .. else if constructs seems to have
 	 * resolved this
 	 * @param tags Map of all direction dependent tags
@@ -207,10 +208,14 @@ public class Reverse {
 		}
 		Map<String, String> tags = new TreeMap<String,String>(e.getTags());
 
+		// remove all dir dependent key first
 		for (String key : dirTags.keySet()) {
+			tags.remove(key);
+		}
+		
+		for (String key : dirTags.keySet()) {
+			String value = dirTags.get(key).trim();	
 			if (!key.equals("oneway") || reverseOneway) {
-				String value = tags.get(key).trim();
-				tags.remove(key); //			
 				if (key.equals("oneway")) {
 					tags.put(key, reverseOneway(value));
 					continue;
@@ -275,7 +280,9 @@ public class Reverse {
 					tags.put(key, "forward");
 					continue;
 				} 
-				// can't happen should throw an exception
+				// shouldn't happen should throw an exception
+				tags.put(key,value);
+			} else {
 				tags.put(key,value);
 			}
 		}
