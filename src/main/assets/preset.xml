@@ -1172,7 +1172,7 @@
             	<link href="http://http://wiki.openstreetmap.org/wiki/Lanes" />
             	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" />
             	<optional>
-                	<multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" >
+                	<multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" editable="true">
                 	    <list_entry value="none" short_description="None" />
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
@@ -1198,7 +1198,7 @@
             	<combo key="lanes:forward" values="1,2,3,4,5,6,7,8" description="# full width lanes in way direction" />
             	<combo key="lanes:backward" values="1,2,3,4,5,6,7,8" description="# full width lanes opposite to way direction" />
             	<optional>
-                	<multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" >
+                	<multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" editable="true">
                 	    <list_entry value="none" short_description="None" />
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
@@ -1216,7 +1216,7 @@
                     <text key="destination:lanes:forward" text="Destinations per lane in way direction"  match="key"/>
 					<text key="destination:ref:lanes:forward" text="Refs per lane in way direction" match="key"/>
 					<text key="maxspeed:lanes:forward" text="Maxspeed per lane in way direction" match="key"/>
-                    <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" >
+                    <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" editable="true">
                 	    <list_entry value="none" short_description="None" />
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
