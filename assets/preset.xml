@@ -565,16 +565,16 @@
 	</combo>
   </chunk>
   <chunk id="roof_main">
-    <combo key="roof:colour" text="Roof colour" values="black,blue,red,yellow,white,grey" 
-    	display_values="Black,Blue,Red,Yellow,White,Grey"
-    	editable="true" text_context="building" />
-    <combo key="roof:levels" text="Levels (roof)" values="1,2,3" editable="true" text_context="roof_levels" />
+    <combo key="roof:colour" text="Roof colour" values="black,blue,brown,red,yellow,white,grey" 
+    	display_values="Black,Blue,Brown,Red,Yellow,White,Grey"
+    	editable="true" text_context="building" match="key" />
+    <combo key="roof:levels" text="Levels (roof)" values="1,2,3" editable="true" text_context="roof_levels" match="key" />
     <combo key="roof:material" text="Roof material" values="acrylic_glass,concrete,copper,eternit,glass,grass,gravel,metal,plants,roof_tiles,shadecloth,slate,stone,tar_paper,thatch,wood" 
     	display_values="Acrylic glass,Concrete,Copper,Eternit,Glass,Grass,Gravel,Metal,Plants,Roof tiles,Shadecloth,Slate,Stone,Tar paper,Thatch,Wood"
-    	editable="true" text_context="building" values_searchable="true" />
+    	editable="true" text_context="building" values_searchable="true" match="key" />
   </chunk>
   <chunk id="roof_orientation">
-    <combo key="roof:orientation" text="Roof orientation" default="along" editable="false" match="key" >
+    <combo key="roof:orientation" text="Roof orientation" default="along" editable="false" >
     	<list_entry value="along" display_value="Along" />
       	<list_entry value="across" display_value="Across"  />
     </combo>
@@ -583,11 +583,11 @@
     <combo key="building:frame:material" text="Building frame material" 
     	values="brick,cement_block,clay,concrete,glass,limestone,masonry,mdf,metal,metal_plates,mirror,mud,plaster,plastic,sandstone,steel,stone,timber_framing,tin,traditional,vinyl,wood" 
     	display_values="Brick,Cement block,Clay,Concrete,Glass,Limestone,Masonry,MDF,Metal,Metal plates,Mirror,Mud,Plaster,Plastic,Sandstone,Steel,Stone,Timber framing,Tin,Traditional,Vinyl,Wood"
-    	editable="false" values_context="building" values_searchable="true" />
+    	editable="false" values_context="building" values_searchable="true" match="key" />
     <combo key="building:wall:material" text="Building wall material" 
     	values="brick,cement_block,clay,concrete,glass,limestone,masonry,mdf,metal,metal_plates,mirror,mud,plaster,plastic,sandstone,steel,stone,timber_framing,tin,traditional,vinyl,wood" 
     	display_values="Brick,Cement block,Clay,Concrete,Glass,Limestone,Masonry,MDF,Metal,Metal plates,Mirror,Mud,Plaster,Plastic,Sandstone,Steel,Stone,Timber framing,Tin,Traditional,Vinyl,Wood"
-    	editable="false" values_context="building" values_searchable="true" />
+    	editable="false" values_context="building" values_searchable="true" match="key" />
   </chunk>
   <chunk id="additional_building_tags">
 	<optional>
@@ -600,11 +600,14 @@
 	<combo key="building:use" text="Building use" 
 		values="agricultural,civic,commercial,cultural,education,equestrian,exhibition,foodservice,garage,gathering,government,hotel,industrial,leisure,medical,office,parking,public,railway,religious,research,residential,retail,service,shelter,sport,storage,transportation" 
 		display_values="Agricultural,Civic,Commercial,Cultural,Education,Equestrian,Exhibition,Foodservice,Garage,Gathering,Government,Hotel,Industrial,Leisure,Medical,Office,Parking,Public,Railway,Religious,Research,Residential,Retail,Service,Shelter,Sport,Storage,Transportation" 
-		editable="false" values_context="building" values_searchable="true" />
+		editable="false" values_context="building" values_searchable="true" match="key" />
+	<combo key="building:colour" text="Building colour" values="black,blue,brown,red,yellow,white,grey" 
+    	display_values="Black,Blue,Brown,Red,Yellow,White,Grey"
+    	editable="true" text_context="building" match="key" />
 	<combo key="building:material" text="Building material" 
 	    values="brick,cement_block,clay,concrete,glass,limestone,masonry,mdf,metal,metal_plates,mirror,mud,plaster,plastic,sandstone,steel,stone,timber_framing,tin,traditional,vinyl,wood" 
 		display_values="Brick,Cement block,Clay,Concrete,Glass,Limestone,Masonry,MDF,Metal,Metal plates,Mirror,Mud,Plaster,Plastic,Sandstone,Steel,Stone,Timber framing,Tin,Traditional,Vinyl,Wood"
-		editable="false" values_context="building" values_searchable="true" /> 
+		editable="false" values_context="building" values_searchable="true" match="key" /> 
 	<combo key="roof:shape" text="Roof type"  values_searchable="true" editable="false" values_context="building" >
 	  	<list_entry value="dome" short_description="Dome" />
 	  	<list_entry value="flat" short_description="Flat" />
@@ -619,7 +622,7 @@
 	  	<list_entry value="saltbox" short_description="Saltbox" />
 	  	<list_entry value="skillion" short_description="Skillion" />
 	</combo>
-	<combo key="roof:orientation" text="Roof orientation" editable="false" match="key" >
+	<combo key="roof:orientation" text="Roof orientation" editable="false" >
     	<list_entry value="along" display_value="Along" />
       	<list_entry value="across" display_value="Across"  />
     </combo>
@@ -1169,7 +1172,7 @@
             	<link href="http://http://wiki.openstreetmap.org/wiki/Lanes" />
             	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" />
             	<optional>
-                	<multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" >
+                	<multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" editable="true">
                 	    <list_entry value="none" short_description="None" />
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
@@ -1177,11 +1180,11 @@
                 	    <list_entry value="left:through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
-                	    <list_entry value="through" short_description="Slight left" />
+                	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="left:through" short_description="Right and through" />
-                	    <list_entry value="right" short_description="right" />
+                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
                     <text key="destination:lanes" text="Destinations per lane"  match="key"/>
@@ -1195,7 +1198,7 @@
             	<combo key="lanes:forward" values="1,2,3,4,5,6,7,8" description="# full width lanes in way direction" />
             	<combo key="lanes:backward" values="1,2,3,4,5,6,7,8" description="# full width lanes opposite to way direction" />
             	<optional>
-                	<multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" >
+                	<multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" editable="true">
                 	    <list_entry value="none" short_description="None" />
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
@@ -1203,17 +1206,17 @@
                 	    <list_entry value="left:through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
-                	    <list_entry value="through" short_description="Slight left" />
+                	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="left:through" short_description="Right and through" />
-                	    <list_entry value="right" short_description="right" />
+                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
                     <text key="destination:lanes:forward" text="Destinations per lane in way direction"  match="key"/>
 					<text key="destination:ref:lanes:forward" text="Refs per lane in way direction" match="key"/>
 					<text key="maxspeed:lanes:forward" text="Maxspeed per lane in way direction" match="key"/>
-                    <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" >
+                    <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" editable="true">
                 	    <list_entry value="none" short_description="None" />
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
@@ -1221,11 +1224,11 @@
                 	    <list_entry value="left:through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
-                	    <list_entry value="through" short_description="Slight left" />
+                	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="left:through" short_description="Right and through" />
-                	    <list_entry value="right" short_description="right" />
+                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
                     <text key="destination:lanes:backward" text="Destinations per lane opposite to way direction"  match="key"/>
@@ -7362,146 +7365,167 @@
         </item> <!-- Raceway -->
     </group> <!-- Motorsport -->
   </group> <!-- Sports -->
-  <group name="Man Made" icon="icons/png/man_made_works_22087.png">
-    <group name="Man Made" icon="icons/png/man_made_works_22087.png">
-        <item name="Building" icon="icons/png/man_made_house_sp.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Key:building"
-            	  bg.href="http://wiki.openstreetmap.org/wiki/Bg:Key:building"
-                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Key:building"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building"
-                  hu.href="http://wiki.openstreetmap.org/wiki/Hu:Key:building"
-                  it.href="http://wiki.openstreetmap.org/wiki/IT:Key:building"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building"
-                  nl.href="http://wiki.openstreetmap.org/wiki/NL:Key:building"
-                  no.href="http://wiki.openstreetmap.org/wiki/No:Key:building"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Key:building"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
-                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
-            <space />
-            <combo key="building" text="Building" 
-            	values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower,public,ruins"
-            	display_values="Yes,Roof,Garage,Garages,Industrial,School,Hangar,Commercial,Service,Train station,Barn,Stable,Cabin,Farm auxiliary,Transportation,Greenhouse,Office,University,College,Hospital,Kindergarten,Manufacture,Warehouse,Retail,Shed,Storage tank,Supermarket,Gasometer,Cowshed,Construction,Basilica,Cathedral,Chapel,Church,Temple,Mosque,Synagogue,Transformer tower,Public,Ruins" 
-            	values_context="building" default="yes" match="keyvalue!" values_searchable="true" /> 
-            <reference ref="additional_building_tags"/>           
-            <preset_link preset_name="Address" />
-        </item> <!-- Building -->
-        <item name="Residential Building" icon="icons/png/man_made_house_sp.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Key:building"
-                  bg.href="http://wiki.openstreetmap.org/wiki/Bg:Key:building"
-                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Key:building"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building"
-                  hu.href="http://wiki.openstreetmap.org/wiki/Hu:Key:building"
-                  it.href="http://wiki.openstreetmap.org/wiki/IT:Key:building"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building"
-                  nl.href="http://wiki.openstreetmap.org/wiki/NL:Key:building"
-                  no.href="http://wiki.openstreetmap.org/wiki/No:Key:building"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Key:building"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
-                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
-            <space />
-            <combo key="building" text="Building" 
-            	values="residential,apartments,house,hotel,hut,bungalow,dormitory,terrace,detached,farm,roof"
-            	display_values="Residential,Apartments,House,Hotel,Hut,Bungalow,Dormitory,Terrace,Detached,Farm,Roof" 
-            	default="residential" match="keyvalue!" values_context="building" values_searchable="true" />
-            <reference ref="additional_building_tags"/>
-            <preset_link preset_name="Address" />
-        </item> <!-- Residential Building -->
-        <item name="Building part" icon="styles/standard/misc/landmark/building.png" type="closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Key:building:part"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building:part"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building:part"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building:part"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building:part"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building:part"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building:part"
-                  zh_CN.href="http://wiki.openstreetmap.org/wiki/Zh-hans:Key:building:part" />
-            <space />
-            <combo key="building:part" text="Building part" values="yes,roof,garage,garages,industrial,school,hangar,commercial,barn,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,warehouse,retail,shed,supermarket,cowshed,construction,ruins" values_context="building" default="yes" match="key" values_searchable="true" />
-            <reference ref="additional_building_tags"/> 
-            <combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10" editable="true" text_context="building" />
-            <text key="min_height" text="Skipped height (meters)" />
-        </item> <!-- Building part -->
+	<group name="Buildings" icon="icons/png/man_made_house_sp.png">
+		<item name="Building" icon="icons/png/man_made_house_sp.png"
+			type="node,closedway,multipolygon" preset_name_label="true">
+			<link href="http://wiki.openstreetmap.org/wiki/Key:building"
+				bg.href="http://wiki.openstreetmap.org/wiki/Bg:Key:building"
+				cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building"
+				de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building"
+				es.href="http://wiki.openstreetmap.org/wiki/ES:Key:building"
+				fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building"
+				hu.href="http://wiki.openstreetmap.org/wiki/Hu:Key:building"
+				it.href="http://wiki.openstreetmap.org/wiki/IT:Key:building"
+				ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building"
+				nl.href="http://wiki.openstreetmap.org/wiki/NL:Key:building"
+				no.href="http://wiki.openstreetmap.org/wiki/No:Key:building"
+				pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building"
+				pt.href="http://wiki.openstreetmap.org/wiki/Pt:Key:building"
+				ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
+				uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
+			<space />
+			<combo key="building" text="Building"
+				values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower,public,ruins"
+				display_values="Yes,Roof,Garage,Garages,Industrial,School,Hangar,Commercial,Service,Train station,Barn,Stable,Cabin,Farm auxiliary,Transportation,Greenhouse,Office,University,College,Hospital,Kindergarten,Manufacture,Warehouse,Retail,Shed,Storage tank,Supermarket,Gasometer,Cowshed,Construction,Basilica,Cathedral,Chapel,Church,Temple,Mosque,Synagogue,Transformer tower,Public,Ruins"
+				values_context="building" default="yes" match="keyvalue!"
+				values_searchable="true" />
+			<reference ref="additional_building_tags" />
+			<preset_link preset_name="Address" />
+		</item> <!-- Building -->
+		<item name="Residential Building" icon="icons/png/man_made_house_sp.png"
+			type="node,closedway,multipolygon" preset_name_label="true">
+			<link href="http://wiki.openstreetmap.org/wiki/Key:building"
+				bg.href="http://wiki.openstreetmap.org/wiki/Bg:Key:building"
+				cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building"
+				de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building"
+				es.href="http://wiki.openstreetmap.org/wiki/ES:Key:building"
+				fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building"
+				hu.href="http://wiki.openstreetmap.org/wiki/Hu:Key:building"
+				it.href="http://wiki.openstreetmap.org/wiki/IT:Key:building"
+				ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building"
+				nl.href="http://wiki.openstreetmap.org/wiki/NL:Key:building"
+				no.href="http://wiki.openstreetmap.org/wiki/No:Key:building"
+				pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building"
+				pt.href="http://wiki.openstreetmap.org/wiki/Pt:Key:building"
+				ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
+				uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
+			<space />
+			<combo key="building" text="Building"
+				values="residential,apartments,house,hotel,hut,bungalow,dormitory,terrace,detached,farm,roof"
+				display_values="Residential,Apartments,House,Hotel,Hut,Bungalow,Dormitory,Terrace,Detached,Farm,Roof"
+				default="residential" match="keyvalue!" values_context="building"
+				values_searchable="true" />
+			<reference ref="additional_building_tags" />
+			<preset_link preset_name="Address" />
+		</item> <!-- Residential Building -->
+		<item name="Building part" icon="styles/standard/misc/landmark/building.png"
+			type="closedway,multipolygon" preset_name_label="true">
+			<link href="http://wiki.openstreetmap.org/wiki/Key:building:part"
+				cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building:part"
+				de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building:part"
+				fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building:part"
+				ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building:part"
+				pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building:part"
+				ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building:part"
+				zh_CN.href="http://wiki.openstreetmap.org/wiki/Zh-hans:Key:building:part" />
+			<space />
+			<combo key="building:part" text="Building part"
+				values="yes,roof,garage,garages,industrial,school,hangar,commercial,barn,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,warehouse,retail,shed,supermarket,cowshed,construction,ruins"
+				values_context="building" default="yes" match="key"
+				values_searchable="true" />
+			<reference ref="additional_building_tags" />
+			<combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10"
+				editable="true" text_context="building" />
+			<text key="min_height" text="Skipped height (meters)" />
+		</item> <!-- Building part -->
 		<group name="Roof type" icon="icons/png/hipped.png">
-			<item name="Dome" icon="icons/png/dome.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Dome" icon="icons/png/dome.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="dome" values_context="building" />
 				<reference ref="roof_main" />
 			</item> <!-- Roof type dome -->
-			<item name="Flat" icon="icons/png/flat.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Flat" icon="icons/png/flat.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="flat" values_context="building" />
 				<reference ref="roof_main" />
 			</item> <!-- Roof type flat -->
-			<item name="Gabled" icon="icons/png/gabled.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Gabled" icon="icons/png/gabled.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="gabled" values_context="building" />
 				<reference ref="roof_main" />
 				<reference ref="roof_orientation" values_context="building" />
 			</item> <!-- Roof type gabled -->
-			<item name="Gambrel" icon="icons/png/gambrel.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Gambrel" icon="icons/png/gambrel.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="gambrel" values_context="building" />
 				<reference ref="roof_main" />
 				<reference ref="roof_orientation" />
 			</item> <!-- Roof type gambrel -->
-			<item name="Half-hipped" icon="icons/png/half-hipped.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Half-hipped" icon="icons/png/half-hipped.png"
+				type="node,way,closedway,multipolygon" name_context="building"
+				preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="half-hipped" values_context="building" />
 				<reference ref="roof_main" />
 				<reference ref="roof_orientation" />
 			</item> <!-- Roof type half-hipped -->
-			<item name="Hipped" icon="icons/png/hipped.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Hipped" icon="icons/png/hipped.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="hipped" values_context="building" />
 				<reference ref="roof_main" />
 				<reference ref="roof_orientation" />
 			</item> <!-- Roof type hipped -->
-			<item name="Mansard" icon="icons/png/mansard.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Mansard" icon="icons/png/mansard.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="mansard" values_context="building" />
 				<reference ref="roof_main" />
 				<reference ref="roof_orientation" />
 			</item> <!-- Roof type mansard -->
-			<item name="Onion" icon="icons/png/onion.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Onion" icon="icons/png/onion.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="onion" values_context="building" />
 				<reference ref="roof_main" />
 			</item> <!-- Roof type onion -->
-			<item name="Pyramidal" icon="icons/png/pyramidal.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Pyramidal" icon="icons/png/pyramidal.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="pyramidal" values_context="building" />
 				<reference ref="roof_main" />
 			</item> <!-- Roof type pyramidal -->
-			<item name="Round" icon="icons/png/round.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Round" icon="icons/png/round.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="round" values_context="building" />
 				<reference ref="roof_main" />
 				<reference ref="roof_orientation" />
 			</item> <!-- Roof type round -->
-			<item name="Saltbox" icon="icons/png/saltbox.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Saltbox" icon="icons/png/saltbox.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="saltbox" values_context="building" />
 				<reference ref="roof_main" />
 				<reference ref="roof_orientation" />
 			</item> <!-- Roof type saltbox -->
-			<item name="Skillion" icon="icons/png/skillion.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
+			<item name="Skillion" icon="icons/png/skillion.png" type="node,way,closedway,multipolygon"
+				name_context="building" preset_name_label="true">
 				<link href="http://wiki.openstreetmap.org/wiki/Simple_3D_Buildings" />
 				<space />
 				<key key="roof:shape" value="skillion" values_context="building" />
@@ -7510,28 +7534,37 @@
 			</item> <!-- Roof type skillion -->
 		</group>
 		<!-- /roof type -->
-        <item name="Entrance" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Key:entrance"
-                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:entrance"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:entrance"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:entrance"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:entrance"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:entrance"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:entrance"
-                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:entrance" />
-            <space />
-            <combo key="entrance" text="Entrance" values="yes,main,service,exit,emergency,staircase" 
-            	display_values="Yes,Main,Service,Exit,Emergency,Staircase" values_context="entrance" default="yes" match="key" />
-            <combo key="access" text="Access" values="yes,delivery,private,no" display_values="Yes,Delivery,Private,No" values_context="access" match="none" />
-            <reference ref="wheelchair" />
-            <optional>
-                <text key="ref" text="Entrance number" />
-                <text key="addr:flats" text="Flat numbers" />
-            </optional>
-        </item> <!-- Entrance -->
-        <item name="Entrance (deprecated)" deprecated="true" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
-            <key key="building" value="entrance" />
-        </item> <!-- Entrance (deprecated) -->
+		<item name="Entrance" icon="icons/png/barrier_entrance.png"
+			type="node" preset_name_label="true">
+			<link href="http://wiki.openstreetmap.org/wiki/Key:entrance"
+				cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:entrance"
+				de.href="http://wiki.openstreetmap.org/wiki/DE:Key:entrance"
+				fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:entrance"
+				ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:entrance"
+				pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:entrance"
+				ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:entrance"
+				uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:entrance" />
+			<space />
+			<combo key="entrance" text="Entrance"
+				values="yes,main,service,exit,emergency,staircase" display_values="Yes,Main,Service,Exit,Emergency,Staircase"
+				values_context="entrance" default="yes" match="key" />
+			<combo key="access" text="Access" values="yes,delivery,private,no"
+				display_values="Yes,Delivery,Private,No" values_context="access"
+				match="none" />
+			<reference ref="wheelchair" />
+			<optional>
+				<text key="ref" text="Entrance number" />
+				<text key="addr:flats" text="Flat numbers" />
+			</optional>
+		</item> <!-- Entrance -->
+		<item name="Entrance (deprecated)" deprecated="true"
+			icon="icons/png/barrier_entrance.png" type="node"
+			preset_name_label="true">
+			<key key="building" value="entrance" />
+		</item> <!-- Entrance (deprecated) -->
+	</group> <!-- Buildings -->
+  <group name="Man Made" icon="icons/png/man_made_works_22087.png">
+    <group name="Man Made" icon="icons/png/man_made_works_22087.png">
         <item name="Tower" icon="icons/png/poi_tower_communications.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=tower"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:man_made=tower"
@@ -10899,7 +10932,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:landuse=commercial"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=commercial" />
             <space />
-            <key key="landuse" value="commercial" />
+            <key key="landuse" value="commercial" values_context="landuse" />
             <text key="name" text="Name" />
         </item> <!-- Commercial -->
         <item name="Industrial" icon="icons/png/landuse_works_22087.png" type="closedway,multipolygon" preset_name_label="true">
@@ -11212,6 +11245,28 @@
             <preset_link preset_name="Note" />
             <preset_link preset_name="Description" />
         </item> <!-- Fixme -->
+        <item name="Add or update check date" icon="icons/png/osm_exclamation_mark_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:check_date" />
+            <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags 
+                 before the PropertyEditor was started, tags are the current values, by removing the key at the 
+                 end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
+        	<text key="automatic_check_date" javascript="
+function addCheckDate(key) {
+  df = new java.text.SimpleDateFormat('yyyy-MM-dd');
+  v = new java.util.ArrayList();
+  v.add(df.format(new java.util.Date()));
+  tags.put(key,v);
+}
+
+for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {
+  if (key.startsWith('check_date:')) {
+    addCheckDate(key);
+  }
+}
+addCheckDate('check_date');
+tags.remove('automatic_check_date');"
+        	text="Automatic check_date generation"/>	
+		</item> <!-- Add or update check date -->
     </group> <!-- Annotation -->
     <group name="Relations" icon="icons/png/osm_relation_sp.png">
         <item name="Multipolygon" icon="presets/multipolygon.png" type="relation,multipolygon" preset_name_label="true">
