@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -275,27 +276,44 @@ public class Relation extends OsmElement implements BoundedObject {
 	@Override
 	public String getDescription(Context ctx) {
 		String description = "";
-		PresetItem p = null;
-		if (ctx != null) {
-			p = Preset.findBestMatch(App.getCurrentPresets(ctx),tags);
-		} 
-		if (p!=null) {
-			description = p.getTranslatedName();
-		} else {
-			String type = getTagWithKey(Tags.KEY_TYPE);
-			if (type != null && !type.equals("")){
+		String type = getTagWithKey(Tags.KEY_TYPE);
+		if (type != null && !"".equals(type)) {
+			PresetItem p = null;
+			if (ctx != null) {
+				p = Preset.findBestMatch(App.getCurrentPresets(ctx),tags);
+			} 
+			if (p!=null) {
+				description = p.getTranslatedName();
+				if (Tags.VALUE_RESTRICTION.equals(type)) {
+					String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);
+					if (restriction != null) {
+						String d = p.getDescriptionForValue(Tags.VALUE_RESTRICTION, restriction);
+						if (d != null) { // the names of turn restrictions are clear enouhg
+							description = d;
+						}
+					}
+				} else {
+					TreeMap<String,String>tagsCopy = new TreeMap<String,String>(tags);
+					if (tagsCopy.remove(Tags.KEY_TYPE)!=null) {
+						p = Preset.findBestMatch(App.getCurrentPresets(ctx),tagsCopy);
+						if (p != null) {
+							description = description + " " + p.getTranslatedName();
+						}
+					}
+				}
+			} else {
 				description = type;
-				if (type.equals(Tags.VALUE_RESTRICTION)) {
+				if (Tags.VALUE_RESTRICTION.equals(type)) {
 					String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);
 					if (restriction != null) {
 						description = restriction + " " + description;
 					}
-				} else if (type.equals(Tags.VALUE_ROUTE)) {
+				} else if (Tags.VALUE_ROUTE.equals(type)) {
 					String route = getTagWithKey(Tags.VALUE_ROUTE);
 					if (route != null) {
 						description = route + " " + description ;
 					}
-				} else if (type.equals(Tags.VALUE_MULTIPOLYGON)) {
+				} else if (Tags.VALUE_MULTIPOLYGON.equals(type)) {
 					String b = getTagWithKey(Tags.KEY_BOUNDARY);
 					if (b != null) {
 						description = b + " " + Tags.KEY_BOUNDARY + " " + description ;
@@ -311,14 +329,11 @@ public class Relation extends OsmElement implements BoundedObject {
 						}
 					}
 				}
-			} else  {
-				if (ctx == null) {
-					description = "unset relation type"; // fallback so that we have something to display
-				} else {
-					description = ctx.getResources().getString(R.string.unset_relation_type);
-				}
 			}
+		} else  {
+			description = App.resources().getString(R.string.unset_relation_type);
 		}
+
 		String name = getTagWithKey(Tags.KEY_NAME);
 		if (name != null) {
 			description = description + " " + name;
@@ -327,7 +342,6 @@ public class Relation extends OsmElement implements BoundedObject {
 		}
 		return description;
 	}
-
 	
 	/**
 	 * Test if the relation has a problem.

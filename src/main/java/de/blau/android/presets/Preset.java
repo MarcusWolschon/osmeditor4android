@@ -2195,7 +2195,8 @@ public class Preset implements Serializable {
 		
 		/**
 		 * Return the number of keys with fixed values
-		 * @return
+		 * 
+		 * @return number of fixed tags
 		 */
 		public int getFixedTagCount() {
 			return fixedTags.size();
@@ -2223,10 +2224,12 @@ public class Preset implements Serializable {
 		
 		/**
 		 * Return a ist of the values suitable for autocomplete, note vales for fixed tags are not returned
-		 * @param key
-		 * @return
+		 * 
+		 * @param key	key to get values for
+		 * @return Collection of StringWithDescription objects
 		 */
-		public Collection<StringWithDescription> getAutocompleteValues(String key) {
+		@NonNull
+		public Collection<StringWithDescription> getAutocompleteValues(@NonNull String key) {
 			Collection<StringWithDescription> result = new LinkedHashSet<StringWithDescription>();
 			if (recommendedTags.containsKey(key)) {
 				result.addAll(Arrays.asList(recommendedTags.get(key)));
@@ -2237,9 +2240,27 @@ public class Preset implements Serializable {
 		}
 		
 		/**
+		 * Get the description for a specific value of a tag
+		 * 
+		 * @param key	the key
+		 * @param value	the value which we want the description for
+		 * @return the description or null if not found
+		 */
+		@Nullable
+		public String getDescriptionForValue(@NonNull String key, @NonNull String value) {
+			Collection<StringWithDescription> presetValues = getAutocompleteValues(key);
+			for (StringWithDescription swd:presetValues) {
+				if (swd.getValue().equals(value)) {
+					return swd.getDescription();
+				}
+			}
+			return null;
+		}
+		
+		/**
 		 * Return what kind of selection applies to the values of this key
-		 * @param key
-		 * @return
+		 * @param key	the key
+		 * @return the selection type for this key
 		 */
 		public PresetKeyType getKeyType(String key) {
 			PresetKeyType result = keyType.get(key);
@@ -2252,8 +2273,9 @@ public class Preset implements Serializable {
 		/**
 		 * Checks if all tags belonging to this item exist in the given tagSet,
 		 * i.e. the node to which the tagSet belongs could be what this preset specifies.
+		 * 
 		 * @param tagSet the tagSet to compare against this item
-		 * @return
+		 * @return true if the tagSet matches
 		 */
 		public boolean matches(Map<String,String> tagSet) {
 			if (name.equals("Addresses")) {

@@ -1287,8 +1287,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @return
 	 */
 	private boolean roleConflict(OsmElement o1, OsmElement o2) {	
-		ArrayList<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<Relation>();
-		ArrayList<Relation> r2 = o2.getParentRelations() != null ? o2.getParentRelations() : new ArrayList<Relation>();
+		List<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<Relation>();
+		List<Relation> r2 = o2.getParentRelations() != null ? o2.getParentRelations() : new ArrayList<Relation>();
 		for (Relation r : r1) {
 			if (r2.contains(r)) {
 				RelationMember rm1 = r.getMember(o1);
@@ -1348,7 +1348,7 @@ public class StorageDelegator implements Serializable, Exportable {
 						// check if node is in a relation, if yes, add to new node
 						// should probably check for restrictions
 						if  (node.hasParentRelations()) {
-							ArrayList<Relation> relations = node.getParentRelations();
+							List<Relation> relations = node.getParentRelations();
 							/* iterate through relations, for all except restrictions add the new node to the relation, for now simply after the old node */
 							for (Relation r : relations) {
 								RelationMember rm = r.getMember(node);
@@ -1903,8 +1903,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param mergeFrom
 	 */
 	private void mergeElementsRelations(final OsmElement mergeInto, final OsmElement mergeFrom) {
-		ArrayList<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new ArrayList<Relation>(mergeFrom.getParentRelations()) : new ArrayList<Relation>(); // copy just to be safe
-		ArrayList<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<Relation>();
+		List<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new ArrayList<Relation>(mergeFrom.getParentRelations()) : new ArrayList<Relation>(); // copy just to be safe
+		List<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<Relation>();
 		try {
 			HashSet<OsmElement>changedElements = new HashSet<OsmElement>();
 			for (Relation r : fromRelations) {

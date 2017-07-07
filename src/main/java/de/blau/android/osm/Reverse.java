@@ -80,7 +80,7 @@ class Reverse {
 	@Nullable
 	public static List<Relation> getRelationsWithDirectionDependentRoles(@NonNull OsmElement e) {
 		ArrayList<Relation> result = null;
-		ArrayList<Relation> parents = e.getParentRelations();
+		List<Relation> parents = e.getParentRelations();
 		if (parents != null) {
 			for (Relation r:parents) {
 				String t = r.getTagWithKey(Tags.KEY_TYPE);

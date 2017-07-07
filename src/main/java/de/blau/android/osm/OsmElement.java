@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -268,13 +269,20 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		}
 	}
 
+	/**
+	 * Check if this element is unchanged
+	 * 
+	 * @return true if the element hasn't been changed
+	 */
 	public boolean isUnchanged() {
 		return state == STATE_UNCHANGED;
 	}
 	
 	/**
 	 * Add reference to parent relation 
-	 * Does not check id to avoid dups!
+	 * Does not check id to avoid dupes!
+	 * 
+	 * @param relation we want to add a ref to
 	 */
 	public void addParentRelation(Relation relation) {
 		if (parentRelations == null) {
@@ -285,8 +293,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * Check for parent relation
-	 * @param relation
-	 * @return
+	 * 
+	 * @param relation relation to check for
+	 * @return true if the relation was found
 	 */
 	public boolean hasParentRelation(Relation relation) {
 		return (parentRelations != null && parentRelations.contains(relation));
@@ -294,8 +303,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * Check for parent relation based on id
-	 * @param relation
-	 * @return
+	 * 
+	 * @param osmId id of the parent relation
+	 * @return true if the relation was found
 	 */
 	public boolean hasParentRelation(long osmId) {
 		if (parentRelations == null) {
@@ -323,10 +333,21 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		}
 	}
 	
-	public ArrayList<Relation> getParentRelations() {
+	/**
+	 * Get the relations this element is a member of
+	 * 
+	 * @return a List of the relations, null if none
+	 */
+	@Nullable
+	public List<Relation> getParentRelations() {
 		return parentRelations;
 	}
 	
+	/**
+	 * Check if this element is a member of a relation
+	 * 
+	 * @return true if if this element is a member of a relation
+	 */
 	public boolean hasParentRelations() {
 		return (parentRelations != null) && (parentRelations.size() > 0);
 	}
@@ -334,6 +355,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	/**
 	 * Remove reference to parent relation
 	 * does not check for id
+	 *
+	 * @param relation relation from which we want to remove this element
 	 */
 	public void removeParentRelation(Relation relation) {
 		if (parentRelations != null) {
@@ -343,6 +366,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * Remove reference to parent relation
+	 * 
+	 * @param osmId id of the relation from which we want to remove this element 
 	 */
 	public void removeParentRelation(long osmId) {
 		if (parentRelations != null) {

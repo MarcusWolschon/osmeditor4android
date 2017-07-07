@@ -331,9 +331,16 @@ public class RelationMembershipFragment extends BaseFragment implements
 		
 		/**
 		 * Sets key and value values
-		 * @param aTagKey the key value to set
+		 * 
+		 * @param aTagKey 	the key value to set
 		 * @param aTagValue the value value to set
 		 * @return the TagEditRow object for convenience
+		 */
+		/**
+		 * Set the 
+		 * @param role
+		 * @param r
+		 * @return
 		 */
 		public RelationMembershipRow setValues(String role, Relation r) {
 			relationId = r.getOsmId();
@@ -344,6 +351,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		
 		/**
 		 * Sets key and value values
+		 * 
 		 * @param aTagKey the key value to set
 		 * @param aTagValue the value value to set
 		 * @return the TagEditRow object for convenience
