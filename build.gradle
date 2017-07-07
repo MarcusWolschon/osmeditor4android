@@ -216,7 +216,7 @@ android.applicationVariants.all { variant ->
 }
 
 ext {
-    okHttpVersion = "3.8.0"
+    okHttpVersion = "3.8.1"
     signpostVersion = "1.2.1.2"
     supportLibVersion = "24.1.1" // Note: this is the last version that supports API 8 / Android 2.2
 }
