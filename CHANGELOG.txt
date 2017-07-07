@@ -1,6 +1,8 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-1282: Improve way reversing code and fix an issue with it, fix porblems with lane presets, and a section on areas to documentation.
+1286: Bump version numbers to make the play store happy.
+
+1282: Improve way reversing code and fix an issue with it, fix problems with lane presets, and a section on areas to documentation.
 
 1281: Increase android version number, updated imagery and translations, avoid loop when applying presets.
 
