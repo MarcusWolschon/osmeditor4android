@@ -2013,10 +2013,7 @@ public class EasyEditManager {
 					break;
 				case MENUITEM_SHARE_POSITION: 
 					BoundingBox box = element.getBounds();
-					double[] lonLat = new double[2];
-					lonLat[0] = ((box.getRight() - box.getLeft())/2 + box.getLeft())/1E7;
-					lonLat[1] = ((box.getTop() - box.getBottom())/2 + box.getBottom())/1E7; // rough
-					Util.sharePosition(main, lonLat);
+					Util.sharePosition(main, box.getCenter()); // the center of the box is only a rough value
 					break;
 				default: return false;
 				}

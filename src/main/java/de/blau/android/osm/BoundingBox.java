@@ -897,6 +897,18 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 	
 	/**
+	 * Get the center of a bounding box in WGS84 coords
+	 * 
+	 * @return an array with lon and lat value
+	 */
+	public double[] getCenter() {
+		double[] result = new double[2];
+		result[0] = ((getRight() - getLeft())/2D + getLeft())/1E7D;
+		result[1] = getCenterLat(); 
+		return result;
+	}
+	
+	/**
 	 * Given a list of existing bounding boxes and a new bbox. Return a list of pieces of the new bbox that complete the coverage
 	 * 
 	 * @param existing	existing list of bounding boxes

@@ -33,6 +33,7 @@ import de.blau.android.tasks.Task;
  *
  */
 public class IssueAlert {
+	final static String DEBUG_TAG = "IssueAlert";
 	
 	private final static String GROUP_DATA = "Data";
 	private final static String GROUP_NOTES = "Notes";
@@ -46,8 +47,6 @@ public class IssueAlert {
 						    R.string.bearing_w, 
 						    R.string.bearing_nw, 
 						    R.string.bearing_n};
-	
-	private static int bugCount = 0;
 
 	/**
 	 * Generate an alert/notification if something is problematic about the OSM object
@@ -69,8 +68,8 @@ public class IssueAlert {
 		} catch (SecurityException sex) {
 			// can be safely ignored
 		}
-		double eLon = 0D;
-		double eLat = 0D;
+		double eLon;
+		double eLat;
 		if ("node".equals(e.getName())) {
 			eLon = ((Node)e).getLon()/1E7D;
 			eLat = ((Node)e).getLat()/1E7D;
@@ -81,7 +80,12 @@ public class IssueAlert {
 			}
 			eLon = result[0];
 			eLat = result[1];
+		} else if ("relation".equals(e.getName())) {
+			double[] result = e.getBounds().getCenter();
+			eLon = result[0];
+			eLat = result[1];
 		} else {
+			Log.e(DEBUG_TAG,"unknown element type " + e);
 			return;
 		}
 		String title = context.getString(R.string.alert_data_issue);
@@ -261,10 +265,8 @@ public class IssueAlert {
 		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		// mId allows you to update the notification later on.
 		int id = id(b);
-		mNotificationManager.notify(id(b), mBuilder.build());
-		App.getTaskNotifications(context).save(mNotificationManager,id(b));
-		bugCount++;
-
+		mNotificationManager.notify(id, mBuilder.build());
+		App.getTaskNotifications(context).save(mNotificationManager,id);
 	}
 	
 	private static int id(Task b) {

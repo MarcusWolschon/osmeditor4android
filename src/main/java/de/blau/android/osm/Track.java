@@ -484,13 +484,15 @@ public class Track extends DefaultHandler {
 	}
 	
 	/**
+	 * Parse a string to a milliseconds since the epoch value
+	 * 
 	 * Synchronized method to avoid potential problem with static DateFormat
-	 * @param t
-	 * @return
+	 * @param t	input time string
+	 * @return	milliseconds sind the epoch
 	 * @throws ParseException
 	 */
 	private synchronized long parseTime(String t) throws ParseException {
-		return ISO8601FORMAT.parse(new String(t)).getTime();
+		return ISO8601FORMAT.parse(t).getTime();
 	}
 	
 	@Override

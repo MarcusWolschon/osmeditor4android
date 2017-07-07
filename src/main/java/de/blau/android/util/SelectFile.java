@@ -208,7 +208,7 @@ public class SelectFile {
 	 */
 	public static void savePref(Preferences prefs, int directoryPrefKey, Uri fileUri) {
         if (fileUri.getScheme().equals("file")) {
-        	int slash = fileUri.getPath().lastIndexOf("/");
+        	int slash = fileUri.getPath().lastIndexOf('/');
         	if (slash >= 0) {
         		String path = fileUri.getPath().substring(0, slash+1);
         		prefs.putString(directoryPrefKey, path);

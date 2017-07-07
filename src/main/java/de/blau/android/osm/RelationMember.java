@@ -43,9 +43,9 @@ public class RelationMember implements Serializable {
 		if (rm.element == null) {
 			type = rm.type;
 			ref = rm.ref;
-			role = new String(rm.role);
+			role = rm.role;
 		} else {
-			role = new String(rm.role);
+			role = rm.role;
 			element = rm.element;
 		}
 	}

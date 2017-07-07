@@ -56,7 +56,7 @@ public class ExtendedExifInterface extends ExifInterface {
 					return null;
 				double d = Double.valueOf(r[0]) / Double.valueOf(r[1]);
 				Log.d("ExtendedExifInterface",GpsDirectory.TAG_IMG_DIRECTION + " " + d);
-				return (Double.valueOf(d).toString());
+				return (Double.toString(d));
 			}
 			else if (directory.containsTag(GpsDirectory.TAG_IMG_DIRECTION_REF)) {
 				Log.d("ExtendedExifInterface",GpsDirectory.TAG_IMG_DIRECTION_REF + " " + directory.getString(GpsDirectory.TAG_IMG_DIRECTION_REF));

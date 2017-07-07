@@ -1719,10 +1719,12 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * set role for e in relation rel to new value role
-	 * @param e
-	 * @param role
-	 * @param rel
+	 * Set role for a relation member to new value 
+	 * 
+	 * Note: does not deal with the same element being a element multiple times
+	 * @param e		member OemELement 
+	 * @param role	the new role to set
+	 * @param rel	the relation in which e is a member
 	 */
 	private void setRole(final OsmElement e, final String role, final Relation rel)
 	{
@@ -1747,10 +1749,13 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * set role for e in relation rel to new value role
-	 * @param e
-	 * @param role
-	 * @param rel
+	 * Set role for a relation member to new value
+	 * 
+	 * Note: does not deal with the same element being a element multiple times
+	 * @param type		member OsmElment type
+	 * @param elementId	member OsmElment id
+	 * @param role		the new role to set
+	 * @param rel		the relation in which e is a member
 	 */
 	public void setRole(final String type, final long elementId, final String role, final Relation rel)
 	{

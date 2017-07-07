@@ -85,14 +85,14 @@ public class Commands {
 						Node node = createNode(loc,location);
 						if (node != null) {
 							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
-							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + number  + (words.length == 3?words[2]:""));
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number)  + (words.length == 3?words[2]:""));
 							tags.put("source:original_text", v);
 							Map<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(), 
 										new ElementSearch(new int[]{node.getLon(),node.getLat()}, true), 
 										Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
 							tags = new TreeMap<String, String>();
-							for (String key:map.keySet()) {
-								tags.put(key, map.get(key).get(0));
+							for (Entry<String,ArrayList<String>>entry:map.entrySet()) {
+								tags.put(entry.getKey(), entry.getValue().get(0));
 							}
 							logic.setTags(main, node, tags);
 						}

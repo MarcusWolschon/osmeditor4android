@@ -73,7 +73,7 @@ public class Base64 {
 			out[outIndex++] = alphabet[bits6];
 
 			// padding
-			out[outIndex++] = '=';
+			out[outIndex] = '=';
 		} else if (octetString.length - i == 1) {
 			// store the octets 
 			bits24 = (octetString[i] & 0xFF) << 16;
@@ -85,7 +85,7 @@ public class Base64 {
 
 			// padding
 			out[outIndex++] = '=';
-			out[outIndex++] = '=';
+			out[outIndex] = '=';
 		}
 
 		return new String(out);
