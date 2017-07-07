@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import android.util.Log;
 import de.blau.android.App;
@@ -77,8 +78,8 @@ public class ElementSearch {
 		}
 		// sort names by distance
 		MultiHashMap<Double, String> retval = new MultiHashMap<Double, String>(true); // true == sorted
-		for (String name : distancesByNames.keySet()) {
-			retval.add(distancesByNames.get(name), name);
+		for (Entry<String,Double> entry : distancesByNames.entrySet()) {
+			retval.add(entry.getValue(), entry.getKey());
 		}	 
 		return retval.getValues().toArray(new String[retval.getValues().size()]);
 	}
@@ -193,10 +194,9 @@ public class ElementSearch {
 		}
 		// sort names by distance
 		MultiHashMap<Double, String> retval = new MultiHashMap<Double, String>(true);
-		for (String name : distancesByName.keySet()) {
-			retval.add(distancesByName.get(name), name);
-		}
-		 
+		for (Entry<String,Double> entry : distancesByName.entrySet()) {
+			retval.add(entry.getValue(), entry.getKey());
+		}	 
 		return retval.getValues().toArray(new String[retval.getValues().size()]);
 	}
 

@@ -604,8 +604,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     		nel.setVisibility(View.GONE);
     		if (nonEditable.size() > 0) {
     			nel.setVisibility(View.VISIBLE);
-    			for (String key:nonEditable.keySet()) {
-    				addRow(nonEditableView,key, nonEditable.get(key),null, allTags);
+    			for (Entry<String,String> entry:nonEditable.entrySet()) {
+    				addRow(nonEditableView, entry.getKey(), entry.getValue(),null, allTags);
     			}
     		}   	
     	}

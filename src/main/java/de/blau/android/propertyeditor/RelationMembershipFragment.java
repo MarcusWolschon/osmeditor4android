@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import android.content.Context;
@@ -149,9 +150,9 @@ public class RelationMembershipFragment extends BaseFragment implements
 		membershipVerticalLayout.removeAllViews();
 		if (parents != null && parents.size() > 0) {
 			StorageDelegator storageDelegator = App.getDelegator();
-			for (Long id :  parents.keySet()) {
-				Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id.longValue());
-				insertNewMembership(membershipVerticalLayout, parents.get(id),r,0, false);
+			for (Entry<Long,String>entry:parents.entrySet()) {
+				Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, entry.getKey().longValue());
+				insertNewMembership(membershipVerticalLayout, entry.getValue(),r,0, false);
 			}
 		} 
 	}

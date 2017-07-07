@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -1145,7 +1146,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom)); // this calls onElementChange for the node
 		// if merging the tags creates multiple-value tags, mergeOK should be set to false
 		for (String v:mergeInto.getTags().values()) {
-			if (v.indexOf(";") >= 0) {
+			if (v.indexOf(';') >= 0) {
 				mergeOK = false;
 				break;
 			}
@@ -1240,7 +1241,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom));
 		// if merging the tags creates multiple-value tags, mergeOK should be set to false
 		for (String v:mergeInto.getTags().values()) {
-			if (v.indexOf(";") >= 0) {
+			if (v.indexOf(';') >= 0) {
 				mergeOK = false;
 				break;
 			}
@@ -1796,13 +1797,14 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 		}
 		// add as new member to relation
-		for (Long l : parents.keySet()) {
-			Log.d(DEBUG_TAG,"updateParentRelations new parent " + l.longValue());
-			if (l.longValue() != -1) { // 
-				Relation r = (Relation) currentStorage.getOsmElement(Relation.NAME, l.longValue());
+		for (Entry<Long,String> entry:parents.entrySet()) {
+			long l = entry.getKey().longValue();
+			Log.d(DEBUG_TAG,"updateParentRelations new parent " + l);
+			if (l != -1) { // 
+				Relation r = (Relation) currentStorage.getOsmElement(Relation.NAME, l);
 				if (!origParents.contains(r)) {
 					Log.d(DEBUG_TAG,"updateParentRelations adding " + e.getDescription() + " to " + r.getDescription());
-					addElementToRelation(e, -1, parents.get(l), r); // append for now only
+					addElementToRelation(e, -1, entry.getValue(), r); // append for now only
 				}
 			}
 		}

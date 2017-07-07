@@ -706,7 +706,7 @@ public class Preferences {
 			if (key != null) {
 				prefs.edit().putString(r.getString(prefKey), s).commit();
 			} else {
-				Log.e(DEBUG_TAG,"" + prefKey + " is not a valid string resource");
+				Log.e(DEBUG_TAG,Integer.toString(prefKey) + " is not a valid string resource");
 			} 
 		} catch (Exception ex) {
 			Log.e(DEBUG_TAG,"putString " + ex.getMessage());

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -120,6 +121,7 @@ public class SearchIndexUtils {
 	
 	/**
 	 * Return match is any of term in the name index
+	 * 
 	 * @param ctx
 	 * @param term
 	 * @param type
@@ -131,11 +133,11 @@ public class SearchIndexUtils {
 		NameAndTags result = null;
 		int lastDistance = Integer.MAX_VALUE;
 		term = SearchIndexUtils.normalize(term);
-		for (String n:namesSearchIndex.keySet()) {
-			int distance = OptimalStringAlignment.editDistance(n, term, maxDistance);
+		for (Entry<String,NameAndTags> entry:namesSearchIndex.entrySet()) {
+			int distance = OptimalStringAlignment.editDistance(entry.getKey(), term, maxDistance);
 			if (distance >= 0 && distance <= maxDistance) {
 				if (distance < lastDistance) {
-					result = namesSearchIndex.get(n);
+					result = entry.getValue();
 					lastDistance = distance;
 					if (distance == 0) { // no point in searching for better results
 						return result;

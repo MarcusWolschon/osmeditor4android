@@ -362,8 +362,9 @@ public class TagEditorFragment extends BaseFragment implements
  		// 
     	LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<String,ArrayList<String>>();
  		for (LinkedHashMap<String,String>map:originalTags) {
- 			for (String key:map.keySet()) {
- 				String value = map.get(key);
+ 			for (Entry<String,String> entry:map.entrySet()) {
+ 				String key = entry.getKey();
+ 				String value = entry.getValue();
  				if (!tags.containsKey(key)) {
  					tags.put(key,new ArrayList<String>());
  				}
@@ -372,7 +373,7 @@ public class TagEditorFragment extends BaseFragment implements
  		}
  		// for those keys that don't have a value for each element add an empty string
  		int l = originalTags.size();
- 		for (ArrayList<String>v:tags.values()) {
+ 		for (List<String>v:tags.values()) {
  			if (v.size() != l) {
  				v.add("");
  			}
@@ -427,16 +428,18 @@ public class TagEditorFragment extends BaseFragment implements
     }
     
     /**
- 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+ 	 * Creates edit rows from a SortedMap containing tags (as sequential key-value pairs)
+ 	 * 
  	 * Backwards compatible version
- 	 */
+     * @param tags map containing the tags
+     */
 	private void loadEditsSingle(final Map<String, String> tags) {
  		LinearLayout rowLayout = (LinearLayout) getOurView();
  		LinkedHashMap<String,ArrayList<String>> convertedTags = new LinkedHashMap<String,ArrayList<String>>();
- 		for (String key:tags.keySet()) {
+ 		for (Entry<String,String> entry:tags.entrySet()) {
  			ArrayList<String> v = new ArrayList<String>();
- 			v.add(tags.get(key));
- 			convertedTags.put(key, v);
+ 			v.add(entry.getValue());
+ 			convertedTags.put(entry.getKey(), v);
  		}
  		loadEdits(rowLayout, convertedTags);
  	}
@@ -592,23 +595,26 @@ public class TagEditorFragment extends BaseFragment implements
 	}
 	
 	/**
-	 * Don't call with null preset
+	 * Create a map from tag keys to preset item 
+	 * 
 	 * @param preset
 	 * @param tags
 	 * @return
 	 */
-	private Map<String, String> addPresetsToTags(PresetItem preset, LinkedHashMap<String, String> tags) {
+	private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull LinkedHashMap<String, String> tags) {
 		LinkedHashMap<String,String> leftOvers = new LinkedHashMap<String,String>();
 		if (preset!=null) {
 			List<PresetItem> linkedPresetList = preset.getLinkedPresets(true);
-			for (String key:tags.keySet()) {
-				if ( preset.hasKeyValue(key, tags.get(key))) {
+			for (Entry<String,String> entry:tags.entrySet()) {
+				String key = entry.getKey();
+				String value = entry.getValue();
+				if ( preset.hasKeyValue(key, value)) {
 					storePreset(key, preset);
 				} else {
 					boolean found = false;
 					if (linkedPresetList != null){
 						for (PresetItem linkedPreset:linkedPresetList) {
-							if (linkedPreset.hasKeyValue(key, tags.get(key))) {
+							if (linkedPreset.hasKeyValue(key, value)) {
 								storePreset(key, linkedPreset);
 								found = true;
 								break;
@@ -616,7 +622,7 @@ public class TagEditorFragment extends BaseFragment implements
 						}
 					}
 					if (!found) {
-						leftOvers.put(key, tags.get(key));
+						leftOvers.put(key, value);
 					}
 				}
 			}
@@ -1506,9 +1512,10 @@ public class TagEditorFragment extends BaseFragment implements
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 		HashMap<String,KeyValue> keyIndex = new HashMap<String, KeyValue>(); // needed for de-duping
 		
-		ArrayList<KeyValue> keysAndValues = new ArrayList<KeyValue>();
-		for (String key:currentValues.keySet()) {
-			KeyValue keyValue = new KeyValue(key, currentValues.get(key));
+		List<KeyValue> keysAndValues = new ArrayList<KeyValue>();
+		for (Entry<String,ArrayList<String>> entry:currentValues.entrySet()) {
+			String key = entry.getKey();
+			KeyValue keyValue = new KeyValue(key, entry.getValue());
 			keysAndValues.add(keyValue);
 			keyIndex.put(key, keyValue);
 		}
@@ -1958,8 +1965,9 @@ public class TagEditorFragment extends BaseFragment implements
 		for (LinkedHashMap<String,String> map:newTags) {
 			for (String key:new TreeSet<String>(map.keySet())) {
 				if (edits.containsKey(key)) {
-					if (edits.get(key).size()==1) {
-						String value = edits.get(key).get(0).trim();
+					List<String>valueList = edits.get(key);
+					if (valueList.size()==1) {
+						String value = valueList.get(0).trim();
 						if (saveTag(key, value)) {
 							addTagToMap(map, key, value);
 						} else {
@@ -1971,9 +1979,11 @@ public class TagEditorFragment extends BaseFragment implements
 				}
 			}
 			// check for new tags
-			for (String editsKey:edits.keySet()) {
-				if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && edits.get(editsKey).size()==1) { // zap empty stuff or just the HTTP prefix
-					String value = edits.get(editsKey).get(0).trim();
+			for (Entry<String,ArrayList<String>> entry: edits.entrySet()) {
+				String editsKey = entry.getKey();
+				List<String>valueList = entry.getValue();
+				if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && valueList.size()==1) { // zap empty stuff or just the HTTP prefix
+					String value = valueList.get(0).trim();
 					if (saveTag(editsKey,value)) {
 						addTagToMap(map, editsKey, value);
 					}
