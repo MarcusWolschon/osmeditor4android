@@ -21,9 +21,9 @@ To manage the presets go to the "Preferences" screen and then to the "Advanced P
 
 **Add preset** will add a new preset, you need to supply an URL for the file containing the preset and a name. Vespucci will download the preset and any icons referenced by URL in the file, presets contained in a ZIP-archive are supported too. *(requires network connectivity)*
 
-Most current JOSM presets can be found in this list [http://josm.openstreetmap.de/wiki/Presets](http://josm.openstreetmap.de/wiki/Presets).
+Most current JOSM presets can be found in this list [http://josm.openstreetmap.de/wiki/Presets](http://josm.openstreetmap.de/wiki/Presets), copy the URL form the "short description" column on the JOSM site to the URL field and add a name.
 
-Some potentially useful ones for direct download:
+Some potentially useful ones for direct download (these links automatically configure a new preset entry):
 
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3fpage=Presets/LaneAttributes%26zip=1&presetname=Lane tagging"> Presets for lane tagging</a> *(this link will only work on your device)*
  * <a href="vespucci://preset/?preseturl=http://zibi.openstreetmap.org.pl/kendzi/k/Simple3dPreset/s3db-preset.zip&presetname=Simple 3D building properties">Presets for Simple 3D building properties</a> *(this link will only work on your device)*
