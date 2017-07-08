@@ -133,3 +133,7 @@ Vespucci has a built in conflict resolution capability. If you want finer grain 
 
 When word prediction is turned on in MessageEase it causes issues entering text for keys in the "Details" tab, disabling word prediction allows it to work.
 
+#### Why do I have to have GPS turned on?
+
+You don't. We assume that typical use is an on the ground survey and that you will want your current position to be displayed on the map. As a result the standard behaviour is to ask you (once) on start up of the app to turn GPS on, you can however disable this in the "Advanced Preferences" in the GPS section, by setting the "Leave GPS off" preference.
+
