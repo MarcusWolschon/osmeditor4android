@@ -137,3 +137,7 @@ When word prediction is turned on in MessageEase it causes issues entering text 
 
 You don't. We assume that typical use is an on the ground survey and that you will want your current position to be displayed on the map. As a result the standard behaviour is to ask you (once) on start up of the app to turn GPS on, you can however disable this in the "Advanced Preferences" in the GPS section, by setting the "Leave GPS off" preference.
 
+#### The translations for language X is incomplete or wrong!
+
+Vespucci is a community developed, open source, project. While not everybody will be able to contribute to the code, everybody should be able to work on the translations on 
+[transifex](https://www.transifex.com/openstreetmap/vespucci/). Translations in the app are updated typically once a month.  
