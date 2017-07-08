@@ -127,5 +127,9 @@ Note: OAuth will work for both the standard API and the development servers, if 
 
 #### Conflict resolution
 
-Vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osc file, open that with JOSM and use JOSM's conflict resolution capabilities.
+Vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osm file, open that with JOSM and use JOSM's conflict resolution capabilities.
+
+#### Can't enter key with MessageEase
+
+When word prediction is turned on in MessageEase it causes issues entering text for keys in the "Details" tab, disabling word prediction allows it to work.
 
