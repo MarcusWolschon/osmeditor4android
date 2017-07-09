@@ -137,7 +137,17 @@ When word prediction is turned on in MessageEase it causes issues entering text 
 
 You don't. We assume that typical use is an on the ground survey and that you will want your current position to be displayed on the map. As a result the standard behaviour is to ask you (once) on start up of the app to turn GPS on, you can however disable this in the "Advanced Preferences" in the GPS section, by setting the "Leave GPS off" preference.
 
-#### The translations for language X is incomplete or wrong!
+#### The translation for language X is incomplete or wrong!
 
 Vespucci is a community developed, open source, project. While not everybody will be able to contribute to the code, everybody should be able to work on the translations on 
 [transifex](https://www.transifex.com/openstreetmap/vespucci/). Translations in the app are updated typically once a month.  
+
+#### Fullscreen mode doesn't work properly
+
+Fullscreen mode on Android is a bit hit and miss (depending on Android version and device) as it is really designed for games and for apps without keyboard use. If it is causing issues simply turn it off in the "Advanced preferences". 
+
+#### Vespucci is getting slower and slower
+
+Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slowdown too. 
+
+Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Download current view" action. 
