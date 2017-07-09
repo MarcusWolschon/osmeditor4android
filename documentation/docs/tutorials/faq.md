@@ -148,6 +148,6 @@ Fullscreen mode on Android is a bit hit and miss (depending on Android version a
 
 #### Vespucci is getting slower and slower
 
-Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slowdown too. 
+Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slowdown too. 
 
 Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Download current view" action. 
