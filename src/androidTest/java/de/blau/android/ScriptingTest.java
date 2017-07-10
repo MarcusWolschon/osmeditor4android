@@ -1,7 +1,7 @@
 package de.blau.android;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.After;
@@ -61,7 +61,7 @@ public class ScriptingTest {
     		// carry on
     	}
     	// scope for presets
-    	Map<String, ArrayList<String>> tags = new HashMap<String, ArrayList<String>>();
+    	Map<String, ArrayList<String>> tags = new LinkedHashMap<String, ArrayList<String>>();
     	ArrayList<String>v = new ArrayList<String>();
     	v.add("value");
     	tags.put("key", v);
