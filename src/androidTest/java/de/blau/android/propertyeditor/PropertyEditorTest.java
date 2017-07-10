@@ -336,8 +336,6 @@ public class PropertyEditorTest {
 		}
     	
     	if (!((PropertyEditor)propertyEditor).paneLayout()) {
-    		Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.tag_menu_preset), false));
-    	} else {
     	   	TestUtils.clickText(mDevice, true, main.getString(R.string.menu_tags), false);
     	}
     	PresetItem presetItem = ((PropertyEditor)propertyEditor).getBestPreset();
