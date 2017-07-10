@@ -135,7 +135,9 @@ When word prediction is turned on in MessageEase it causes issues entering text 
 
 #### Why do I have to have GPS turned on?
 
-You don't. We assume that typical use is an on the ground survey and that you will want your current position to be displayed on the map. As a result the standard behaviour is to ask you (once) on start up of the app to turn GPS on, you can however disable this in the "Advanced Preferences" in the GPS section, by setting the "Leave GPS off" preference.
+You don't. You can return to the app and continue working by pressing the back button when the system asks you to turn on GPS (location based functions will not work). 
+
+The reasoning behind this is that we assume that typical use is an on the ground survey and that you will want your current position to be displayed on the map. As a result the standard behaviour is to ask you (once) on start up of the app to turn GPS on, you can however disable this in the "Advanced Preferences" in the GPS section, by setting the "Leave GPS off" preference. 
 
 #### The translation for language X is incomplete or wrong!
 
@@ -148,6 +150,12 @@ Fullscreen mode on Android is a bit hit and miss (depending on Android version a
 
 #### Vespucci is getting slower and slower
 
-Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slowdown too. 
+Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. 
 
-Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Download current view" action. 
+Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Download current view" action.
+
+#### Why can't you provide technical support on the google play store review section
+
+The google play store allows just one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on [github](https://github.com/MarcusWolschon/osmeditor4android/issues), if you have questions or can't find how do a specific operation you can ask on the [OpenStreetMap help site](http://help.openstreetmap.org) or one of the other communication channels. 
+
+350 characters is 100 characters less than the text above.
