@@ -146,7 +146,9 @@ Vespucci is a community developed, open source, project. While not everybody wil
 
 #### Fullscreen mode doesn't work properly
 
-Fullscreen mode on Android is a bit hit and miss (depending on Android version and device) as it is really designed for games and for apps without keyboard use. If it is causing issues simply turn it off in the "Advanced preferences". 
+Fullscreen mode on Android is a bit hit and miss (depending on Android version and device) as it is really designed for games and for apps without keyboard use. If the Android buttons are hidden, the standard Android way to show them, at least in recent Android versions, is a swipe from the bottom edge. 
+
+If fullscreen mode is causing issues for you, the best solution is to simply turn it off in the "Advanced preferences". 
 
 #### Vespucci is getting slower and slower
 
