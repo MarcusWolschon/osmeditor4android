@@ -296,7 +296,12 @@ public class Server {
 		return null;
 	}
 
-	
+	/**
+	 * Return either the default capabilities or such that have already been retrieved from the server
+	 * 
+	 * This avoids having a time consuming and network requiring call to get a fresh copy
+	 * @return a Capabilities object
+	 */
 	public Capabilities getCachedCapabilities() {
 		if (capabilities==null) {
 			return Capabilities.getDefault();
@@ -307,6 +312,7 @@ public class Server {
 	
 	/**
 	 * Get the capabilities for the current API
+	 * 
 	 * Side effect set capabilities field and update limits that are used elsewhere
 	 * @return The capabilities for this server, or null if it couldn't be determined.
 	 */
@@ -326,7 +332,8 @@ public class Server {
 	
 	/**
 	 * Get the capabilities for the supplied URL
-	 * @param capabilitiesURL
+	 * 
+	 * @param capabilitiesURL	the URL for the API capabilities call
 	 * @return The capabilities for this server, or null if it couldn't be determined.
 	 */
 	private Capabilities getCapabilities(URL capabilitiesURL) {

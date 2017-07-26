@@ -197,7 +197,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		if (prefs.splitActionBarEnabled()) {
 			// TODO determine if we want to reinstate the bottom bar
 		} 
-
+		
 		// tags
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent

@@ -39,7 +39,9 @@ import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.BaseFragment;
@@ -55,6 +57,8 @@ public class RelationMembershipFragment extends BaseFragment implements
 
 	private HashMap<Long, String> savedParents = null;
 
+	private int maxStringLength; // maximum key, value and role length
+	
 	private EditorUpdate tagListener = null;
 	
 	private static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
@@ -118,6 +122,10 @@ public class RelationMembershipFragment extends BaseFragment implements
     		parents = (HashMap<Long,String>) getArguments().getSerializable("parents");
     	}
     
+    	Preferences prefs = new Preferences(getActivity());
+		Server server = prefs.getServer();
+		maxStringLength = server.getCachedCapabilities().maxStringLength;
+    	
     	loadParents(membershipVerticalLayout, parents);
 
 		CheckBox headerCheckBox = (CheckBox) parentRelationsLayout.findViewById(R.id.header_membership_selected);
@@ -205,6 +213,8 @@ public class RelationMembershipFragment extends BaseFragment implements
 		}
 		membershipVerticalLayout.addView(row, (position == -1) ? membershipVerticalLayout.getChildCount() : position);
 		row.showSpinner = showSpinner;
+
+		row.roleEdit.addTextChangedListener(new SanitizeTextWatcher(getActivity(), maxStringLength));
 		
 		row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
@@ -258,7 +268,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 			
 			roleEdit = (AutoCompleteTextView)findViewById(R.id.editRole);
 			roleEdit.setOnKeyListener(owner.myKeyListener);
-			
+
 			parentEdit = (Spinner)findViewById(R.id.editParent);
 			ArrayAdapter<Relation> a = getRelationSpinnerAdapter();
 			// a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

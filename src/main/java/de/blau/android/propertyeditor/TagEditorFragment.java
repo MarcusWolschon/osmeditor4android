@@ -29,8 +29,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils.TruncateAt;
 import android.text.TextWatcher;
-import android.text.style.CharacterStyle;
-import android.text.style.MetricAffectingSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,6 +55,7 @@ import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -141,6 +140,8 @@ public class TagEditorFragment extends BaseFragment implements
 	private FormUpdate formUpdate;
 	
 	private PresetFilterUpdate presetFilterUpdate;
+	
+	private int maxStringLength; // maximum key, value and role length
 	
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
@@ -255,6 +256,9 @@ public class TagEditorFragment extends BaseFragment implements
 		if (prefs.getEnableNameSuggestions()) {
 			names = App.getNames(getActivity());
 		}
+
+		Server server = prefs.getServer();
+		maxStringLength = server.getCachedCapabilities().maxStringLength;
     	
      	this.inflater = inflater;
      	rowLayout = (ScrollView) inflater.inflate(R.layout.taglist_view, container, false);
@@ -931,8 +935,11 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 		});
 		
-		// This TextWatcher reacts to previously empty cells being filled to add additional rows where needed
-		TextWatcher emptyWatcher = new TextWatcher() {
+		/**
+		 *  This TextWatcher reacts to previously empty cells being filled to add additional rows where needed
+		 *  add removes any formatting and truncates to maximum supported API string length
+		 */
+		TextWatcher textWatcher = new TextWatcher() {
 			private boolean wasEmpty;
 			private String prevValue = null;
 			
@@ -954,11 +961,8 @@ public class TagEditorFragment extends BaseFragment implements
 					ensureEmptyRow(rowLayout);
 				}
 				
-				// remove formating from pastes etc
-				CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
-	            for (int i = 0; i < toBeRemovedSpans.length; i++) {
-	                s.removeSpan(toBeRemovedSpans[i]);
-	            }
+				Util.sanitizeString(getActivity(), s, maxStringLength);
+	            
 	            // update presets but only if value has changed
 	            String newValue = s.toString();
 	            if (prevValue == null || !prevValue.equals(newValue)) {
@@ -967,8 +971,8 @@ public class TagEditorFragment extends BaseFragment implements
 	            }
 			}
 		};
-		row.keyEdit.addTextChangedListener(emptyWatcher);
-		row.valueEdit.addTextChangedListener(emptyWatcher);
+		row.keyEdit.addTextChangedListener(textWatcher);
+		row.valueEdit.addTextChangedListener(textWatcher);
 		
 		row.valueEdit.setOnItemClickListener(new OnItemClickListener() {
 			@Override

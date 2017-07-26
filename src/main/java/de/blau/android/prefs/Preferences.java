@@ -417,7 +417,9 @@ public class Preferences {
 	}
 	
 	/**
-	 * @return
+	 * Get the currently used API server
+	 * 
+	 * @return	the current Server object
 	 */
 	public Server getServer() {
 		return advancedPrefs.getServerObject();

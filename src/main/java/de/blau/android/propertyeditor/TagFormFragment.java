@@ -32,11 +32,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatRadioButton;
-import android.text.Editable;
 import android.text.TextUtils.TruncateAt;
-import android.text.TextWatcher;
-import android.text.style.CharacterStyle;
-import android.text.style.MetricAffectingSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -74,6 +70,7 @@ import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -119,6 +116,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	private boolean askForName = false;
 	
 	private int maxInlineValues = 3;
+	
+	private int maxStringLength; // maximum key, value and role length
 	
 	private StringWithDescription.LocaleComparator comparator;
 
@@ -203,6 +202,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		
 		maxInlineValues = prefs.getMaxInlineValues();
 
+		Server server = prefs.getServer();
+		maxStringLength = server.getCachedCapabilities().maxStringLength;
+		
 		if (displayMRUpresets) {
 			Log.d(DEBUG_TAG,"Adding MRU prests");
 			FragmentManager fm = getChildFragmentManager();
@@ -955,32 +957,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				}
 			}
 		});
-		row.valueView.addTextChangedListener(new RemoveFormatingWatcher());
+		row.valueView.addTextChangedListener(new SanitizeTextWatcher(getActivity(), maxStringLength));
 		
 		return row;
 	}
 	
-	class RemoveFormatingWatcher implements TextWatcher {
-		
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
-			// unused
-		}
-		
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			// unused
-		}
-		
-		@Override
-		public void afterTextChanged(Editable s) {
-			// remove formating from pastes etc
-			CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
-            for (int i = 0; i < toBeRemovedSpans.length; i++)
-                s.removeSpan(toBeRemovedSpans[i]);
-		}
-	}
-
 	private TagComboRow addComboRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
 		final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);

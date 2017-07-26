@@ -19,14 +19,21 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.text.Editable;
+import android.text.style.CharacterStyle;
+import android.text.style.MetricAffectingSpan;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.ScrollView;
 import de.blau.android.Logic;
+import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -447,5 +454,29 @@ public class Util {
 	 */
 	public static boolean notZero(double a) {
 		return a < -Double.MIN_VALUE || a > Double.MIN_VALUE;
+	}
+	
+	/**
+	 * Remove formating from s and truncate it if necessary, typically used in a TextWatcher 
+	 * 
+	 * @param activity			if non-null and the string has been truncated display a toast with this activity
+	 * @param s					Editable that needs to be sanitized
+	 * @param maxStringLength	maximum length the string is allowed to have
+	 */
+	public static void sanitizeString(@Nullable Activity activity, @NonNull Editable s, int maxStringLength) {
+		// remove formating from pastes etc
+		CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
+		for (int i = 0; i < toBeRemovedSpans.length; i++) {
+		    s.removeSpan(toBeRemovedSpans[i]);
+		}
+		
+		// truncate if longer than max supported string length
+		int len = s.length();
+		if (len > maxStringLength) {
+			s.delete(maxStringLength, len);
+			if (activity != null) {
+				Snack.toastTopWarning(activity, activity.getString(R.string.toast_string_too_long, len));
+			}
+		}
 	}
 }

@@ -3,8 +3,9 @@ package de.blau.android.osm;
 import java.util.ArrayList;
 
 /**
- * Capabilities of the API server we are connected too
- * Default values are as of September 2014
+ * Capabilities of the API server we are connected to
+ * 
+ * Default values are as of July 2017
  * @author simon
  */
 public class Capabilities {
@@ -22,6 +23,7 @@ public class Capabilities {
 	int maxTracepointsPerPage = 5000;
 	int maxWayNodes = 2000;
 	int maxElementsInChangeset = 10000;
+	public int maxStringLength = 255; // this is not provided by the API yet
 	int timeout = 300;
 	public Status dbStatus = Status.OFFLINE;
 	public Status apiStatus = Status.OFFLINE;
@@ -46,6 +48,8 @@ public class Capabilities {
 	private static ArrayList<String> defaultBlacklist() {
 		ArrayList<String> blacklist = new ArrayList<String>();
 		blacklist.add(".*\\.google(apis)?\\..*/(vt|kh)[\\?/].*([xyz]=.*){3}.*");
+		blacklist.add("http://xdworld\\.vworld\\.kr:8080/.*");
+		blacklist.add(".*\\.here\\.com[/:].*");
 		return blacklist;
 	}
 
@@ -72,8 +76,9 @@ public class Capabilities {
 	}
 
 	/**
-	 * update the limits used in various places to what we have got currently
-	 * likely it would be better for these places to refer to a static version
+	 * Update the limits used in various places to what we have got currently
+	 * 
+	 * Note: likely it would be better for these places to refer to a static version
 	 * of the values here 
 	 */
 	public void updateLimits() {

@@ -39,7 +39,9 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.BaseFragment;
@@ -52,19 +54,18 @@ public class RelationMembersFragment extends BaseFragment implements
 
 	private static final String MEMBERS_KEY = "members";
 
-
 	private static final String ID_KEY = "id";
-
 
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
 	
-
 	private LayoutInflater inflater = null;
 
 
 	private ArrayList<RelationMemberDescription> savedMembers = null;
 	private long id = -1;
 
+	private int maxStringLength; // maximum key, value and role length
+	
 	private static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
 	private static final Object actionModeCallbackLock = new Object();
 	
@@ -131,6 +132,11 @@ public class RelationMembersFragment extends BaseFragment implements
     		id = getArguments().getLong(ID_KEY);
     		members = (ArrayList<RelationMemberDescription>)getArguments().getSerializable(MEMBERS_KEY);
     	}
+    	
+    	Preferences prefs = new Preferences(getActivity());
+		Server server = prefs.getServer();
+		maxStringLength = server.getCachedCapabilities().maxStringLength;
+    	
     	loadMembers(membersVerticalLayout,  members);
 		
 		CheckBox headerCheckBox = (CheckBox) relationMembersLayout.findViewById(R.id.header_member_selected);
@@ -438,6 +444,8 @@ public class RelationMembersFragment extends BaseFragment implements
 		if (select) {
 			row.select();
 		}
+		
+		row.roleEdit.addTextChangedListener(new SanitizeTextWatcher(getActivity(), maxStringLength));
 		
 		membersVerticalLayout.addView(row, (position == -1) ? membersVerticalLayout.getChildCount() : position);
 		
