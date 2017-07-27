@@ -122,6 +122,15 @@ public class ApiTest {
 			Assert.fail(e.getMessage());
 		}
     	Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984));
+    	
+    	// check that we have parsed and post processed relations correctly
+    	Relation r1 = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 1638705);
+    	Relation r2 = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+    	Relation parent = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2078158);
+    	Assert.assertTrue(r1.hasParentRelation(2078158));
+    	Assert.assertTrue(r2.hasParentRelation(2078158));
+    	Assert.assertNotNull(parent.getMember(r1));
+    	Assert.assertNotNull(parent.getMember(r2));
 	}
     
     @Test

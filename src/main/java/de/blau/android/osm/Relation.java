@@ -12,6 +12,8 @@ import java.util.TreeMap;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -49,19 +51,23 @@ public class Relation extends OsmElement implements BoundedObject {
 
 	/**
 	 * Return complete list of relation members
+	 * 
 	 * @return list of members, or null if there are none
 	 */
+	@Nullable
 	public List<RelationMember> getMembers() {
 		return members;
 	}
 	
 	/**
 	 * Return first relation member element for this OSM element
+	 * 
 	 * Note: if the element is present more than once you will only get one
-	 * @param e
-	 * @return
+	 * @param e	OsmElement to search for
+	 * @return the corresponding RelationMember or null if not found
 	 */
-	public RelationMember getMember(OsmElement e) {
+	@Nullable
+	public RelationMember getMember(@NonNull OsmElement e) {
 		for (int i = 0; i < members.size(); i++) {
 			RelationMember member = members.get(i);
 			if (member.getElement() == e) {
@@ -73,10 +79,12 @@ public class Relation extends OsmElement implements BoundedObject {
 	
 	/**
 	 * Return all relation member elements for this OSM element
-	 * @param e
-	 * @return
+	 * 
+	 * @param e	OsmElement to search for
+	 * @return the list of corresponding RelationMembers, empty if non found
 	 */
-	public List<RelationMember> getAllMembers(OsmElement e) {
+	@NonNull
+	public List<RelationMember> getAllMembers(@NonNull OsmElement e) {
 		ArrayList<RelationMember> result = new ArrayList<RelationMember>();
 		for (int i = 0; i < members.size(); i++) {
 			RelationMember member = members.get(i);
@@ -89,12 +97,14 @@ public class Relation extends OsmElement implements BoundedObject {
 	
 	/**
 	 * Return first relation member element for this OSM element
+	 * 
 	 * Note: if the element is present more than once you will only get ont
-	 * @param type
-	 * @param id
-	 * @return
+	 * @param type	type of OsmElement
+	 * @param id	OSM id of the element
+	 * @return the corresponding RelationMember or null if not found
 	 */
-	public RelationMember getMember(String type, long id) {
+	@Nullable
+	public RelationMember getMember(@NonNull String type, long id) {
 		for (int i = 0; i < members.size(); i++) {
 			RelationMember member = members.get(i);
 			if (member.getRef() == id && member.getType().equals(type)) {
@@ -104,8 +114,14 @@ public class Relation extends OsmElement implements BoundedObject {
 		return null;
 	}
 
-	public int getPosition(RelationMember e) {
-		return members.indexOf(e);
+	/**
+	 * Get the position (0 based) of the RelationMember in the list of members
+	 * 
+	 * @param rm	the RelationMember
+	 * @return the position or -1 if not found
+	 */
+	public int getPosition(@NonNull RelationMember rm) {
+		return members.indexOf(rm);
 	}
 	
 	/**

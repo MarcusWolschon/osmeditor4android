@@ -51,8 +51,20 @@ public class OsmParser extends DefaultHandler {
 	private TreeMap<String, String> currentTags;
 
 	private final ArrayList<Exception> exceptions = new ArrayList<Exception>();
-	
-	private ArrayList<RelationMember> missingRelations = new ArrayList<RelationMember>();
+
+	/**
+	 * Helper class to store missing relation information for post processing
+	 */
+	private class MissingRelation {
+		Relation parent;
+		RelationMember member;
+		
+		public MissingRelation(RelationMember member, Relation parent) {
+			this.member = member;
+			this.parent = parent;
+		}
+	}
+	private ArrayList<MissingRelation> missingRelations = new ArrayList<MissingRelation>();
 	
 	private LongOsmElementMap<Node>nodeIndex = null;
 	private LongOsmElementMap<Way>wayIndex = null;
@@ -97,11 +109,13 @@ public class OsmParser extends DefaultHandler {
 	@Override
 	public void endDocument() {
 		Log.d(DEBUG_TAG, "Post processing relations.");
-		for (RelationMember rm : missingRelations)
+		for (MissingRelation mr : missingRelations)
 		{
+			RelationMember rm = mr.member;
 			Relation r = storage.getRelation(rm.ref);
 			if (r != null) {
 				rm.setElement(r);
+				r.addParentRelation(mr.parent);
 				Log.d(DEBUG_TAG, "Added relation " + rm.ref);
 			}
 		}
@@ -280,7 +294,7 @@ public class OsmParser extends DefaultHandler {
 	}
 
 	/**
-	 * @param atts
+	 * @param atts	XML attributes for the current element
 	 * @throws OsmParseException
 	 */
 	private void parseWayNode(final Attributes atts) throws OsmParseException {
@@ -303,7 +317,9 @@ public class OsmParser extends DefaultHandler {
 	}
 	
 	/**
-	 * @param atts
+	 * Parse relation members, storing information on relations that we haven't seen yet for post processing
+	 * 
+	 * @param atts	XML attributes for the current element
 	 * @throws OsmParseException
 	 */
 	private void parseRelationMember(final Attributes atts) throws OsmParseException {
@@ -344,7 +360,8 @@ public class OsmParser extends DefaultHandler {
 					} else {
 						// these need to be saved and reprocessed
 						member = new RelationMember(type, ref, role);
-						missingRelations.add(member);
+						MissingRelation mr = new MissingRelation(member, currentRelation);
+						missingRelations.add(mr);
 						// Log.d(DEBUG_TAG, "Parent relation not available yet or downloaded");
 					}
 					// Log.d(DEBUG_TAG, "Added relation member");
