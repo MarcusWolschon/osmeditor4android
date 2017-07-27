@@ -222,10 +222,88 @@ public class PropertyEditorTest {
     	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
     	
     	TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
-    	TestUtils.clickText(mDevice, true, main.getString(R.string.relations), false);
     	TestUtils.clickText(mDevice, true, main.getString(R.string.members), false);
     	UiObject text = mDevice.findObject(new UiSelector().textStartsWith("Vorbühl"));
     	Assert.assertTrue(text.exists());
+    }
+    
+    @Test
+	public void maxTagLength() {
+   	final CountDownLatch signal = new CountDownLatch(1);
+    	mockServer.enqueue("capabilities1");
+    	mockServer.enqueue("download1");
+    	Logic logic = App.getLogic();
+    	try {
+			logic.downloadBox(main, new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, new SignalHandler(signal));
+		} catch (OsmException e) {
+			Assert.fail(e.getMessage());
+		}
+    	try {
+			signal.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Assert.fail(e.getMessage());
+		}
+    	Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+    	Assert.assertNotNull(r);
+
+    	main.performTagEdit(r, null, false, false, false);
+    	Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+    	Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+    	
+       	String tooLongText = 
+     			  "This is a very long text string to test the that the API limit of 255 characters is enforced by the PropertyEditor by truncating and showing a toast."
+     			+ "This is some more text so that we can actually test the limit by entering a string that is too long to trigger the check";
+    	
+       	TestUtils.clickText(mDevice, true, main.getString(R.string.menu_tags), false);
+       	
+    	mDevice.wait(Until.findObject(By.clickable(true).textStartsWith("Dietikon Bahnhof")), 500);
+		UiObject editText = mDevice.findObject(new UiSelector().clickable(true).textStartsWith("Dietikon Bahnhof"));
+		try {
+			editText.click(); //NOTE this seems to be necessary
+			editText.setText(tooLongText);
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+       	
+       	TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
+    	
+    	mDevice.wait(Until.findObject(By.clickable(true).textStartsWith("from")), 500);
+		editText = mDevice.findObject(new UiSelector().clickable(true).textStartsWith("from"));
+		try {
+			editText.click(); //NOTE this seems to be necessary
+			editText.setText(tooLongText);
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+    	
+    	editText = mDevice.findObject(new UiSelector().clickable(true).textStartsWith("Kindhausen AG"));
+		try {
+			editText.click(); //NOTE this seems to be necessary
+			editText.setText(tooLongText);
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+		
+		TestUtils.clickText(mDevice, true, main.getString(R.string.members), false);
+		
+		mDevice.wait(Until.findObject(By.clickable(true).textStartsWith("stop")), 500);
+    	editText = mDevice.findObject(new UiSelector().clickable(true).textStartsWith("stop")); // this should be node #416064528
+		try {
+			editText.click(); //NOTE this seems to be necessary
+			editText.setText(tooLongText);
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}
+		
+		TestUtils.clickUp(mDevice); // close the PropertEditor and save
+		
+		Assert.assertEquals(255, r.getTagWithKey("to").length()); // value on the form
+		
+		String tooLongKey = tooLongText.substring(0, 255);
+    	Assert.assertTrue(r.hasTagKey(tooLongKey)); // key on details
+    	Assert.assertEquals(255, r.getTagWithKey(tooLongKey).length()); // value on details
+    	
+    	Assert.assertEquals(255,r.getMember(Node.NAME, 416064528).getRole().length()); // role of node #416064528
     }
     
     String getTranslatedPresetGroupName(String name) {
