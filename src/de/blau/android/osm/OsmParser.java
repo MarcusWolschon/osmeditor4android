@@ -45,7 +45,19 @@ public class OsmParser extends DefaultHandler {
 
 	private final ArrayList<Exception> exceptions;
 	
-	private ArrayList<RelationMember> missingRelations;
+	/**
+	 * Helper class to store missing relation information for post processing
+	 */
+	private class MissingRelation {
+		Relation parent;
+		RelationMember member;
+		
+		public MissingRelation(RelationMember member, Relation parent) {
+			this.member = member;
+			this.parent = parent;
+		}
+	}
+	private ArrayList<MissingRelation> missingRelations = new ArrayList<MissingRelation>();
 	
 	private LongOsmElementMap<Node>nodeIndex = null;
 	private LongOsmElementMap<Way>wayIndex = null;
@@ -57,7 +69,7 @@ public class OsmParser extends DefaultHandler {
 		currentWay = null;
 		currentRelation = null;
 		exceptions = new ArrayList<Exception>();
-		missingRelations = new ArrayList<RelationMember>();
+		missingRelations = new ArrayList<MissingRelation>();
 	}
 
 	public Storage getStorage() {
@@ -84,11 +96,13 @@ public class OsmParser extends DefaultHandler {
 	@Override
 	public void endDocument() {
 		Log.d(DEBUG_TAG, "Post processing relations.");
-		for (RelationMember rm : missingRelations)
+		for (MissingRelation mr : missingRelations)
 		{
+			RelationMember rm = mr.member;
 			Relation r = storage.getRelation(rm.ref);
 			if (r != null) {
 				rm.setElement(r);
+				r.addParentRelation(mr.parent);
 				Log.d(DEBUG_TAG, "Added relation " + rm.ref);
 			}
 		}
@@ -306,7 +320,8 @@ public class OsmParser extends DefaultHandler {
 					} else {
 						// these need to be saved and reprocessed
 						member = new RelationMember(type, ref, role);
-						missingRelations.add(member);
+						MissingRelation mr = new MissingRelation(member, currentRelation);
+						missingRelations.add(mr);
 						// Log.d(DEBUG_TAG, "Parent relation not available yet or downloaded");
 					}
 					// Log.d(DEBUG_TAG, "Added relation member");
