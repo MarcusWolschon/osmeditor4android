@@ -11,6 +11,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
@@ -50,9 +52,10 @@ public class PresetIconManager {
 	
 	/**
 	 * Creates a new PresetIconManager.
-	 * @param context Vespucci context to use for loading data
-	 * @param basePath Base path for images downloaded for this preset. May be null.
-	 * @param externalAssetPackage Name of external package to use for loading assets. May be null.
+	 * 
+	 * @param context 				Android context to use for loading data
+	 * @param basePath 				Base path for images downloaded for this preset. May be null.
+	 * @param externalAssetPackage 	Name of external package to use for loading assets. May be null.
 	 */
 	public PresetIconManager(Context context, String basePath, String externalAssetPackage) {
 		this.context = context;
@@ -143,6 +146,7 @@ public class PresetIconManager {
 
 	/**
 	 * Return a dummy icon
+	 * 
 	 * @param size
 	 * @return
 	 */
@@ -165,15 +169,19 @@ public class PresetIconManager {
 	/**
 	 * Loads an asset, trying first the preset-specific external asset file (if given),
 	 * then if allowDefaults is set the default external assets and default internal assets.
+	 * 
 	 * @param path
 	 * @param allowDefault if set to false, loading default assets will be suppressed,
 	 *        returning null if the external asset file does not contain this asset
 	 * @return An InputStream returned by {@link AssetManager#open(String)}, or null if no asset could be opened
 	 */
-	public InputStream openAsset(String path, boolean allowDefault) {
+	@Nullable
+	public InputStream openAsset(@NonNull String path, boolean allowDefault) {
 		// First try external assets, if available
 		try {
-			if (externalAssets != null) return externalAssets.open(path);
+			if (externalAssets != null) {
+				return externalAssets.open(path);
+			}
 		} catch (Exception e) {} // ignore
 		
 		if (!allowDefault) {
@@ -184,7 +192,9 @@ public class PresetIconManager {
 		
 		// then external default assets
 		try {
-			if (externalDefaultAssets != null) return externalDefaultAssets.open(path);
+			if (externalDefaultAssets != null) {
+				return externalDefaultAssets.open(path);
+			}
 		} catch (Exception e) {} // ignore
 		
 		// and finally built-in assets

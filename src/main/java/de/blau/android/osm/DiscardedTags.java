@@ -53,6 +53,11 @@ class DiscardedTags {
 				} catch (IOException ioex) {
 					Log.d("DiscardedTags","Ignoring " + ioex);
 				}
+				try {
+					is.close();
+				} catch (IOException ioex) {
+					Log.d("DiscardedTags","Ignoring " + ioex);
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
