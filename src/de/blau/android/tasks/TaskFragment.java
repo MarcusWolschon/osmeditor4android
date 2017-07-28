@@ -93,6 +93,7 @@ public class TaskFragment extends DialogFragment {
     				if (bug.hasBeenChanged() && bug.isClosed()) {
     					IssueAlert.cancel(getActivity(), bug);
     				}
+    				updateMenu();
     			}
     		})
     		.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() { 
@@ -108,6 +109,7 @@ public class TaskFragment extends DialogFragment {
     				if (bug.hasBeenChanged() && bug.isClosed()) {
     					IssueAlert.cancel(getActivity(), bug);
     				}
+    				updateMenu();
     			}
     		})
     		.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -272,6 +274,16 @@ public class TaskFragment extends DialogFragment {
     	return d;
     }
     
+    /**
+     * Invalidate the menu
+     */
+    private void updateMenu() {
+    	Activity activity = getActivity();
+    	if (activity != null) {
+    		activity.invalidateOptionsMenu();
+    	}
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
