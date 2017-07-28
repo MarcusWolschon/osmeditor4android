@@ -798,7 +798,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 							rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, adapter));
 						} else if (Tags.OPENING_HOURS_SYNTAX.contains(key) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { //FIXME need at least SDK 12 for now
-							rowLayout.addView(addOpeningHoursDialogRow(rowLayout, preset, hint, key, value, adapter));
+							rowLayout.addView(addOpeningHoursDialogRow(rowLayout, preset, hint, key, value));
 						} else {
 							// special handling for international names
 							rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, defaultValue, adapter));
@@ -865,22 +865,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						Log.e(DEBUG_TAG,"unknown preset element type " + key + " " + value + " " + preset.getName());
 					}
 				}
-//			} else if (key.startsWith(Tags.KEY_ADDR_BASE)) { // make address tags always editable
-//				Set<String> usedKeys = allTags.keySet();
-//				ArrayAdapter<?> adapter = null;
-//				if (TagEditorFragment.isStreetName(key, usedKeys)) {
-//					adapter = nameAdapters.getStreetNameAutocompleteAdapter(Util.getArrayList(value));
-//				} else if (TagEditorFragment.isPlaceName(key, usedKeys)) {
-//					adapter = nameAdapters.getPlaceNameAutocompleteAdapter(Util.getArrayList(value));
-//				}
-//				// String hint = preset.getHint(key);
-//				rowLayout.addView(addTextRow(null, null, key, value, adapter));
 			} else {
-				if (false) { // make tags not associated with a preset un-editable, disabled for now, may end up in a preference
-					final TagStaticTextRow row = (TagStaticTextRow)inflater.inflate(R.layout.tag_form_static_text_row, rowLayout, false);
-					row.keyView.setText(key);
-					row.valueView.setText(value);
-					rowLayout.addView(row);
+				if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
+					rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout,null, null, key, value, null));
+				} else if (Tags.OPENING_HOURS_SYNTAX.contains(key) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { //FIXME need at least SDK 12 for now
+					rowLayout.addView(addOpeningHoursDialogRow(rowLayout, null, null, key, value));
 				} else {
 					ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, Util.getArrayList(value), null, allTags);		
 					rowLayout.addView(addTextRow(rowLayout, null, PresetKeyType.TEXT, null, key, value, null, adapter));
@@ -1048,26 +1037,28 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		row.setPreset(preset);
 
 		final ArrayList<String> templates = new ArrayList<String>();
-		Log.d(DEBUG_TAG, "adapter size " + adapter.getCount());
-		for (int i=0;i< adapter.getCount();i++) {
-			Object o = adapter.getItem(i);
-			
-			StringWithDescription swd = new StringWithDescription(o);
-			Log.d(DEBUG_TAG, "adding " + swd);
-			String v = swd.getValue();
-			if (v==null || "".equals(v)) {
-				continue;
-			}
-			if (v.equals(value)){
-				ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(v.getBytes()));
-				try {
-					row.setValue(ch.poole.conditionalrestrictionparser.Util.prettyPrint(parser.restrictions()));
-				} catch (Exception ex) {
-					row.setValue(v);
+		if (adapter != null) {
+			Log.d(DEBUG_TAG, "adapter size " + adapter.getCount());
+			for (int i=0;i< adapter.getCount();i++) {
+				Object o = adapter.getItem(i);
+
+				StringWithDescription swd = new StringWithDescription(o);
+				Log.d(DEBUG_TAG, "adding " + swd);
+				String v = swd.getValue();
+				if (v==null || "".equals(v)) {
+					continue;
 				}
+				Log.d(DEBUG_TAG, "adding " + v + " to templates");
+				templates.add(v);
 			}
-			Log.d(DEBUG_TAG, "adding " + v + " to templates");
-			templates.add(v);
+		}
+		if (value != null && !"".equals(value)) {
+			ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(value.getBytes()));
+			try {
+				row.setValue(ch.poole.conditionalrestrictionparser.Util.prettyPrint(parser.restrictions()));
+			} catch (Exception ex) {
+				row.setValue(value);
+			}
 		}
 		final ArrayList<String> ohTemplates = new ArrayList<String>();
 		for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).getElement().getType(), Tags.KEY_OPENING_HOURS)) {
@@ -1092,7 +1083,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		return row;
 	}
 	
-	private TagFormDialogRow addOpeningHoursDialogRow(final LinearLayout rowLayout, PresetItem preset, final String hint, final String key, String value, final ArrayAdapter<?> adapter) {
+	private TagFormDialogRow addOpeningHoursDialogRow(final LinearLayout rowLayout, PresetItem preset, final String hint, final String key, String value) {
 		final TagFormOpeningHoursDialogRow row = (TagFormOpeningHoursDialogRow)inflater.inflate(R.layout.tag_form_openinghours_dialog_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
