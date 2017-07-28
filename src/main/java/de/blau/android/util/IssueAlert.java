@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
@@ -273,9 +275,17 @@ public class IssueAlert {
 		return (b.getClass().getSimpleName() + b.getId()).hashCode();
 	}
 	
-	public static void cancel(Context context, Task b) {
-		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		App.getTaskNotifications(context).remove(mNotificationManager,id(b)); // cancels and removes from cache
+	/**
+	 * Cancel a notification for a specific task
+	 * 
+	 * @param context	Android Context, if null we do nothing
+	 * @param b			Task we want to remove the notification for
+	 */
+	public static void cancel(@Nullable Context context, @NonNull Task b) {
+		if (context != null) {
+			NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+			App.getTaskNotifications(context).remove(mNotificationManager,id(b)); // cancels and removes from cache
+		}
 	}
 	
 	static class ClosestPoint{

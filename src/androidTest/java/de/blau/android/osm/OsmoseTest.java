@@ -127,7 +127,7 @@ public class OsmoseTest {
     	final CountDownLatch signal = new CountDownLatch(1);
     	mockServer.enqueue("200");
     	try {
-    		Assert.assertTrue(TransferTasks.uploadOsmoseBug(context, b, new SignalHandler(signal)));
+    		Assert.assertTrue(TransferTasks.uploadOsmoseBug(context, b, false, new SignalHandler(signal)));
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -149,7 +149,7 @@ public class OsmoseTest {
     	final CountDownLatch signal = new CountDownLatch(1);
     	mockServer.enqueue("500");
     	try {
-    		Assert.assertFalse(TransferTasks.uploadOsmoseBug(context, b, new SignalHandler(signal)));
+    		Assert.assertFalse(TransferTasks.uploadOsmoseBug(context, b, false, new SignalHandler(signal)));
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}

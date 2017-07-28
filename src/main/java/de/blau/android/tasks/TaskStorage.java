@@ -127,7 +127,7 @@ public class TaskStorage implements Serializable {
 	public ArrayList<Task>getTasks() {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
 		tasks.query(queryResult);
-		Log.d(DEBUG_TAG,"getTasks result count " + queryResult.size());
+		Log.d(DEBUG_TAG,"getTasks result count (no BB) " + queryResult.size());
 		ArrayList<Task>result = new ArrayList<Task>();
 		for (BoundedObject bo:queryResult) {
 			result.add((Task)bo);
@@ -275,9 +275,7 @@ public class TaskStorage implements Serializable {
 	 * @return true if a changed task is found
 	 */
 	public boolean hasChanges() {
-		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
-		tasks.query(queryResult);
-		for (BoundedObject b:queryResult) {
+		for (BoundedObject b:getTasks()) {
 			if (((Task)b).hasBeenChanged()) {
 				return true;
 			}

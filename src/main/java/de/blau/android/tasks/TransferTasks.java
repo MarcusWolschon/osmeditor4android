@@ -58,11 +58,11 @@ public class TransferTasks {
 	/**
 	 * Download tasks for a bounding box, actual requests will depend on what the current filter for tasks is set to
 	 * 
-	 * @param context Android context
-	 * @param server current server configuration
-	 * @param box the bounding box
-	 * @param add if true merge teh download with existing task data
-	 * @param handler handler to run after the download if not null
+	 * @param context	Android context
+	 * @param server	current server configuration
+	 * @param box		the bounding box
+	 * @param add		if true merge the download with existing task data
+	 * @param handler 	handler to run after the download if not null
 	 */
 	static public void downloadBox(@NotNull final Context context, @NotNull final Server server, @NotNull final BoundingBox box, final boolean add, @Nullable final PostAsyncActionHandler handler) {
 		
@@ -136,8 +136,8 @@ public class TransferTasks {
 	/**
 	 * Upload Notes or bugs to server, needs to be called from main for now (mainly for OAuth dependency)
 	 * 
-	 * @param main instance of main calling this
-	 * @param server current server config
+	 * @param main				instance of main calling this
+	 * @param server			current server config
 	 * @param postUploadHandler execute code after an upload
 	 */
 	static public void upload(@NotNull final Main main, final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
@@ -196,7 +196,7 @@ public class TransferTasks {
 									uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed; // just a state change
 								}
 							} else if (b instanceof OsmoseBug) {
-								uploadFailed =  uploadOsmoseBug(main, (OsmoseBug)b, null) || uploadFailed;
+								uploadFailed =  uploadOsmoseBug(main, (OsmoseBug)b, false, null) || uploadFailed;
 							}
 						}
 					}
@@ -211,6 +211,7 @@ public class TransferTasks {
 							postUploadHandler.onSuccess();
 						}
 						Snack.barInfo(main, R.string.openstreetbug_commit_ok);
+						main.invalidateMap();
 					} else {
 						if (postUploadHandler != null) {
 							postUploadHandler.onError();
@@ -225,13 +226,14 @@ public class TransferTasks {
 	/**
 	 * Upload single bug state
 	 * 
-	 * @param context the Android context
-	 * @param b osmose bug to upload
+	 * @param context			the Android context
+	 * @param b					osmose bug to upload
+	 * @param quiet				don't display messages if true
 	 * @param postUploadHandler if not null run this handler after upload
 	 * @return true if successful
 	 */
 	@SuppressLint("InlinedApi")
-	static public boolean uploadOsmoseBug(@NotNull final Context context, @NotNull final OsmoseBug b, @Nullable final PostAsyncActionHandler postUploadHandler) {
+	static public boolean uploadOsmoseBug(@NotNull final Context context, @NotNull final OsmoseBug b, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
 		Log.d(DEBUG_TAG, "uploadOsmoseBug");
 		AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
 			@Override
@@ -240,15 +242,20 @@ public class TransferTasks {
 			}
 			
 			@Override
-			protected void onPostExecute(Boolean uploadFailed) {
-				
+			protected void onPostExecute(Boolean uploadFailed) {			
 				if (!uploadFailed) {
 					if (postUploadHandler != null) {
 						postUploadHandler.onSuccess();
 					}
+					if (!quiet) {
+						Snack.toastTopInfo(context, R.string.openstreetbug_commit_ok); // FIXME we should be using a snack bar here for consistency
+					}
 				} else {
 					if (postUploadHandler != null) {
 						postUploadHandler.onError();
+					}
+					if (!quiet) {
+						Snack.toastTopError(context, R.string.openstreetbug_commit_fail);
 					}
 				}
 			}
@@ -273,12 +280,12 @@ public class TransferTasks {
 	/**
 	 * Commit changes to a Note
 	 * 
-	 * @param activity activity that called this
-	 * @param server Server configuration
-	 * @param note the Note to upload
-	 * @param comment Comment to add to the Note.
-	 * @param close if true the Note is to be closed.
-	 * @param quiet don't display an error message on errors
+	 * @param activity			activity that called this
+	 * @param server 			Server configuration
+	 * @param note 				the Note to upload
+	 * @param comment 			Comment to add to the Note.
+	 * @param close 			if true the Note is to be closed.
+	 * @param quiet 			don't display an error message on errors
 	 * @param postUploadHandler execute code after an upload
 	 * @return true if upload was successful
 	 */
@@ -356,8 +363,10 @@ public class TransferTasks {
 								InvalidLogin.showDialog(activity);
 							} else if (result.error == ErrorCodes.FORBIDDEN) {
 								ForbiddenLogin.showDialog(activity,result.message);
-							} else if (result.error != 0) {
+							} else if (result.error != ErrorCodes.OK) {
 								ErrorAlert.showDialog(activity,result.error);
+							} else { // no error
+								Snack.barInfo(activity, R.string.openstreetbug_commit_ok);
 							}
 						}
 					}
@@ -390,9 +399,9 @@ public class TransferTasks {
 	 * 
 	 * If fileName contains directories these are created, otherwise it is stored in the standard public dir
 	 * 
-	 * @param activity activity that called this
-	 * @param all if true write all notes, if false just those that have been modified
-	 * @param fileName file to write to
+	 * @param activity	activity that called this
+	 * @param all 		if true write all notes, if false just those that have been modified
+	 * @param fileName 	file to write to
 	 */
 	static public void writeOsnFile(@NotNull final FragmentActivity activity, final boolean all, final String fileName) {
 		new AsyncTask<Void, Void, Integer>() {

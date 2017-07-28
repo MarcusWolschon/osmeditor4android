@@ -98,9 +98,8 @@ public class TaskFragment extends DialogFragment {
     					return;
     				}
       				saveBug(v,bug);
-    				if (bug.hasBeenChanged() && bug.isClosed()) {
-    					IssueAlert.cancel(getActivity(), bug);
-    				}
+    				cancelAlert(bug);
+    				updateMenu();
     			}
     		})
     		.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() { 
@@ -111,11 +110,10 @@ public class TaskFragment extends DialogFragment {
     					NoteComment nc = n.getLastComment();
     					TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED, false, null);
     				} else if (bug instanceof OsmoseBug) {
-    					TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug)bug, null);
+    					TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug)bug, false, null);
     				}
-    				if (bug.hasBeenChanged() && bug.isClosed()) {
-    					IssueAlert.cancel(getActivity(), bug);
-    				}
+    				cancelAlert(bug);
+    				updateMenu();
     			}
     		})
     		.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -285,6 +283,16 @@ public class TaskFragment extends DialogFragment {
     	return d;
     }
     
+    /**
+     * Invalidate the menu
+     */
+	private void updateMenu() {
+		Activity activity = getActivity();
+		if (activity != null) {
+			activity.invalidateOptionsMenu();
+		}
+	}
+    
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -316,9 +324,10 @@ public class TaskFragment extends DialogFragment {
     }
     
     /** 
-     * saves bug to storage if it is new, otherwise update comment and/or state
-     * @param v
-     * @param bug
+     * Saves bug to storage if it is new, otherwise update comment and/or state
+     * 
+     * @param v		the view containing the EditText with the text of the note
+     * @param bug	the Task object
      */
 	private void saveBug(View v, Task bug) {
     	if (bug.isNew() && ((Note)bug).count() == 0) {
@@ -336,11 +345,23 @@ public class TaskFragment extends DialogFragment {
     
     /**
      * Delete a new, non-saved, bug from storage
-     * @param bug
+     * 
+     * @param bug	Task we want to delete
      */
-	private void deleteBug(Task bug) {
+	private void deleteBug(@NonNull Task bug) {
     	if (bug.isNew()) {
 			App.getTaskStorage().delete(bug); // sets dirty
 		}
     }
+
+	/**
+	 * Cancel a Notification for the specified task
+	 * 
+	 * @param bug	the task we want to cancel the Notification for
+	 */
+	private void cancelAlert(@NonNull final Task bug) {
+		if (bug.hasBeenChanged() && bug.isClosed()) {
+			IssueAlert.cancel(getActivity(), bug);
+		}
+	}
 }

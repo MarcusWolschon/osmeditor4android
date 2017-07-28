@@ -482,6 +482,16 @@ public class Snack {
 	}
 	
 	/**
+	 * Display an into toast underneath the top action bar
+	 * 
+	 * @param activity 	activity that called this
+	 * @param msgRes 	the message resource to display
+	 */
+	public static void toastTopInfo(Context context, int msgRes) {
+		toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal),Toast.LENGTH_LONG);
+	}
+	
+	/**
 	 * Display a warning toast underneath the top action bar
 	 * 
 	 * @param activity	activity that called this
