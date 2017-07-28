@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>None</item>
+    <item>Viivain (metrijärjestelmä)</item>
+    <item>Ruudukko (metrijärjestelmä)</item>
+    <item>Viivain (brittijärjestelmä)</item>
+    <item>Ruudukko (brittijärjestelmä)</item>
+  </string-array>
+</resources>

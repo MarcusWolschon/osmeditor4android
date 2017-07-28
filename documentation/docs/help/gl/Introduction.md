@@ -44,13 +44,13 @@ Toque único, dobre toque e prema longa
 
 De xeito predeterminado, os nodos e os modos seleccionables teñen unha área en laranxa ao redor dela, indicando aproximadamente onde ten que tocar para seleccionar un obxecto. Tes tres opcións:
 
-* Toque único: selecciona o obxecto.
-    * Un nó/xeito illado resáltase de inmediato. 
-    * Non obstante, se tentas seleccionar un obxecto e Vespucci determina que a selección podería significar varios obxectos, presentará un menú de selección, que che permitirá seleccionar o obxecto que desexas seleccionar. 
-    * Os obxectos seleccionados están resaltados en amarelo. 
-    * Ora obter información vexa [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
-* Doble tap: Inicio [Multiselect mode](../en/Multiselect.md)
-* Presión longa: Creata unha "retícula", activando e engadindo nodos, vexa de seguido [Creating new objects](../en/Creating new objects.md)
+* Toque único: obxecto seleccionado. 
+    * Un nodo/vía aillado é destacado inmediatamente. 
+    * Con todo, se ao tentar seleccionar un obxecto ea selección Vespucci que determina varios obxectos podería significar que presentará un menú de selección, permítelle escoller o obxecto que quere seleccionar. 
+    * Os obxectos seleccionados son destacadas en amarelo. 
+    * Para obter información vexa [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
+* Doble selección: Iniciar [Multiselect mode](../en/Multiselect.md)
+* Presión longa: Crea unha "mira", permítelle engadir nós, vexa abaixo e [Creating new objects](../en/Creating%20new%20objects.md)
 
 Ista é unha boa estratexia facer zoom se ti tentas editar unha área de alta densidade.
 
@@ -91,15 +91,15 @@ Unha vez que podes ver o símbolo da mira, tes estas opcións:
 
 Simplemente toque a pantalla onde desexa engadir máis nodos do camiño. Para rematar, toque o nodo final dúas veces. Se o nodo final está situado nun xeito ou nodo, o segmento estará conectado automaticamente ao camiño ou ao nodo. 
 
-Ti podes usar tamén o artigo do menú: Vexa [Creating new objects](../en/Creating new objects.md) para máis información.
+Tamén pode usar un elemento de menú: Ver [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 
-#### Adding an Area
+#### Engadindo un Área
 
-OpenStreetMap currently doesn't have an "area" object type contrary to other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+OpenStreetMap actualmente non ten un tipo de obxecto de "área" contrario a outros sistemas de datos xeométricos. O editor en liña "iD" tenta crear unha área de abstracción dos elementos OSM subxacentes que funciona ben nalgunhas circunstancias, noutros non é así. Vespucci actualmente non trata de facer nada similar, polo que precisa saber un pouco sobre a forma en que as áreas están representadas:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _closed ways (*polygons")_: A variante de área máis sinxela e máis común, son formas que teñen un primeiro e último nodo compartido que forman un "anel" pechado (por exemplo, a maioría dos edificios son deste tipo). Son moi fáciles de crear en Vespucci, simplemente conéctate ao primeiro nodo cando termine de debuxar a área. Nota: a interpretación do camiño pechado depende da súa etiquetaxe: por exemplo, se un camiño pechado está etiquetado como un edificio considerado como unha área, se está marcado como unha rotonda, non vai. Nalgunhas situacións nas que ambas interpretacións poden ser válidas, unha etiqueta de "área" pode aclarar o uso desexado.
+* _multi-ploygons_:Algunhas áreas teñen múltiples partes, buratos e aneis que non se poden representar con só un xeito. OSM usa un tipo específico de relación (o noso obxecto de propósito xeral que pode modelar as relacións entre elementos) para evitar isto, un multipolígono. Un multipolígono pode ter varios aneis "externos" e múltiples aneis "internos". Cada anel pode ser un xeito pechado como se describe arriba, ou varias formas individuais que teñen nós extremos comúns. Mentres os grandes multipolígonos son difíciles de manexar con calquera ferramenta, os pequenos non son difíciles de crear en Vespucci.
+* _coastlines_: Para obxectos moi grandes, continentes e illas, mesmo o modelo multipolígono non funciona de forma satisfactoria. Por formas natural=coastline tomamos a semántica dependente de dirección: a terra está no lado esquerdo do camiño, o auga no lado dereito. Un efecto secundario disto é que, en xeral, non debe revertir a dirección dun xeito co etiquetado da costa. Pode atopar máis información na páxina [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Mellorar a Xeometría do Camiño
 
@@ -149,7 +149,7 @@ Se desexa gardar o seu traballo e non ten acceso a Internet, pode gardar nun fic
 
 #### Resolvendo conflitos en subidas
 
-Vespucci ten un sinxelo resolvente de conflito. Non obstante, se sospeita que hai grandes problemas coas súas edicións, exporte os seus cambios a un ficheiro .osc (elemento do menú "Exportar" no menú "Transferir") e corrixa e cargue con JOSM. Vexa a axuda polo miudo en [conflict resolution](../en/Conflict resolution.md).  
+Vespucci ten xeitos sinxelos de resolver conflitos. Con todo, se sospeita que hai grandes problemas coas súas edicións, exporte os seus cambios nun arquivo .osc ( "Export" elemento de menú no menú "transferencia") e resolvelos e envios con JOSM. Consulte a axuda detallada sobre [conflict resolution](../en/Conflict%20resolution.md).  
 
 ## Usando GPS
 

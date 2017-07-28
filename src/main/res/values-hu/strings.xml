@@ -29,7 +29,7 @@
   <string name="data_conflict_title">Verzióütközés</string>
   <string name="data_conflict_message">Az adatok, amelyeket megpróbál letölteni, ütköznek a szerkesztéseivel. Kérjük, próbálja meg feltölteni az adatait az újrapróbálkozás előtt.</string>
   <string name="invalid_bounding_box_title">Érvénytelen határoló doboz</string>
-  <string name="invalid_bounding_box_message">A kiválasztott terület nem tartja be az API korlátozásokat, válasszon egy másikat.</string>
+  <string name="invalid_bounding_box_message">A kijelölt terület nem tartja be az API-korlátozásokat, válasszon egy másikat.</string>
   <string name="api_offline_title">API offline</string>
   <string name="api_offline_message">Az API jelenleg offline, és nem engedi az adatok lekérését vagy írását.</string>
   <string name="out_of_memory_title">Nincs elég memória</string>
@@ -40,7 +40,7 @@
   <string name="invalid_data_read_title">Érvénytelen adat</string>
   <string name="invalid_data_read_message">A fájl érvénytelen adatot tartalmaz. Ha úgy gondolja, hogy helyes, amit tenni próbált, kérjük küldjön egy hibajelentést.</string>
   <string name="file_write_failed_title">Fájlírás sikertelen</string>
-  <string name="file_write_failed_message">Nem sikerült a kiválasztott fájlba írni.</string>
+  <string name="file_write_failed_message">Nem sikerült a kijelölt fájlba írni.</string>
   <string name="welcome_title">Üdvözöljük!</string>
   <string name="welcome_message">Köszönjük, hogy a Vespuccit használja.\n\nA kezdéshez két dolgot kell tudnia.\n\n* a zárolás ikonra kattintva válhat a zárt (nincs szerkesztés) és a nyitott mód között\n\n* új objektum hozzáadásához: nyomja hosszan, ugyanabba a pontba érintve egy új jegyzetet ad hozzá, távolabbra kattintva pedig egy új vonalat.\n\nNe felejtse el letölteni a területet, amelyet szerkeszteni akar.\n\nÉrezze jól magát!</string>
   <string name="read_introduction">Olvassa el a bevezetést most</string>
@@ -60,7 +60,7 @@
   <string name="progress_oauth">Az openstreetmap.org fiókjának betöltése, OAuth engedélyezéshez…</string>
   <string name="upload_comment_label">Megjegyzés:</string>
   <string name="upload_source_label">Forrás:</string>
-  <string name="upload_close_changeset_label">Módosításcsomag lezárása:</string>
+  <string name="upload_close_changeset_label">Módosításkészlet bezárása:</string>
   <string name="upload_gpx_description_label">Leírás</string>
   <string name="upload_gpx_tags_label">Címkék</string>
   <string name="upload_gpx_visibility_label">Láthatóság</string>
@@ -97,7 +97,7 @@
   <string name="preset_search_hint">Előbeállítás-kereső szöveg</string>
   <string name="search">Keresés</string>
   <string name="no_valid_preset">Nincs érvényes előbeállítás!</string>
-  <string name="read_file">Válassza ki az olvasandó fájlt</string>
+  <string name="read_file">Jelölje ki az olvasandó fájlt</string>
   <string name="save_file">Adja meg a fájlt, ahová mentene</string>
   <string name="existing_track_title">Létező nyomvonal adatok</string>
   <string name="existing_track_message">Már vannak létező nyomvonal adatok. Lehet hogy meg szeretné szakítani a folyamatot, és menteni előbb.</string>
@@ -172,12 +172,12 @@
   <string name="toast_imported_track_points">%1$s nyomvonalpont importálva.</string>
   <string name="toast_unknown_voice_command">Sajnáljuk, a(z) „%1$s” jelenleg nem értelmezhető</string>
   <string name="toast_inconsistent_state">Inkonzisztens állapot észlelve, küldje be a hibajelentésben!</string>
-  <string name="toast_camera_error">Hiba a kamera indításakor: %1$s</string>
+  <string name="toast_camera_error">Hiba a kameraalkalmazás indításakor: %1$s</string>
   <string name="toast_no_voice">Hangfelismerő szolgáltatás nincs jelen</string>
   <string name="toast_storage_error">A(z) %1$s nem írható a Vespuccival.\nEz lehet, hogy jogosultság- vagy műszaki probléma az eszközével.</string>
   <string name="toast_no_suitable_storage">A rendszer nem adott vissza megfelelő helyet a csempe adatbázishoz.</string>
-  <string name="toast_min_one_preset">Legalább egy előbeállítást ki kell választani!</string>
-  <string name="toast_min_one_geocoder">Legalább egy geokódolót ki kell választani!</string>
+  <string name="toast_min_one_preset">Legalább egy előbeállítást ki kell jelölni!</string>
+  <string name="toast_min_one_geocoder">Legalább egy geokódolót ki kell jelölni!</string>
   <string name="toast_used_backup">Sérült állapotfájl, másolatfájl használva!</string>
   <string name="toast_used_bug_backup">Sérült hibaállapotfájl, másolatfájl használva!</string>
   <string name="toast_rmpty_relation">Üres kapcsolat, összeomlás-jelentés létrehozása.</string>
@@ -251,9 +251,9 @@
   <string name="tag_autocomplete_name_hint">Írjon vagy érintse meg a névjavaslatokért</string>
   <string name="tag_multi_value_hint">Több érték</string>
   <string name="tag_dialog_value_hint">Érintse meg az értékekért</string>
-  <string name="tag_action_tag_title">Kiválasztott címkék</string>
-  <string name="tag_action_members_title">Kiválasztott tag(ok)</string>
-  <string name="tag_action_parents_title">Kiválasztott kapcsolat(ok)</string>
+  <string name="tag_action_tag_title">Címkék kijelölve</string>
+  <string name="tag_action_members_title">Tag(ok) kijelölve</string>
+  <string name="tag_action_parents_title">Kapcsolat(ok) kijelölve</string>
   <string name="tag_additional_properties">További tulajdonságok</string>
   <string name="tag_details">Részletek</string>
   <string name="tag_not_set">Nincs megadva</string>
@@ -289,8 +289,8 @@
   <string name="location_text_metadata_accuracy">Pontosság: %1$2.0f méter,</string>
   <string name="location_map_text">Térképről (hamarosan)</string>
   <string name="location_coordinates_text">Koordinátákból:</string>
-  <string name="location_lat_label">Lat:</string>
-  <string name="location_lon_label">Lon:</string>
+  <string name="location_lat_label">Szél.:</string>
+  <string name="location_lon_label">Hossz.:</string>
   <string name="location_search_label">Keresés:</string>
   <string name="location_load_button">Betöltés</string>
   <string name="location_load_dismiss">Ugrás a térképre</string>
@@ -323,7 +323,7 @@
   <string name="menu_gps_start">GPS nyomvonal indítása</string>
   <string name="menu_gps_pause">GPS nyomvonal szüneteltetése</string>
   <string name="menu_gps_clear">GPS nyomvonal törlése</string>
-  <string name="menu_gps_track_managment">Nyomvonal kezelése...</string>
+  <string name="menu_gps_track_managment">Nyomvonal kezelése</string>
   <string name="menu_gps_upload">GPS nyomvonal feltöltése</string>
   <string name="menu_gps_export">GPS nyomvonal exportálása</string>
   <string name="menu_gps_import">GPS nyomvonal importálása</string>
@@ -334,8 +334,8 @@
   <string name="menu_transfer_download_current_add">Jelenlegi nézet hozzáadása a letöltéshez</string>
   <string name="menu_transfer_download_other">Letöltés más helyre</string>
   <string name="menu_transfer_upload">Adatok feltöltése az OSM szerverre</string>
-  <string name="menu_transfer_close_changeset">Jelenlegi módosításcsomag lezárása</string>
-  <string name="menu_transfer_file">Fájl...</string>
+  <string name="menu_transfer_close_changeset">Jelenlegi módosításkészlet lezárása</string>
+  <string name="menu_transfer_file">Fájl</string>
   <string name="menu_transfer_export">Változtatások exportálása</string>
   <string name="menu_transfer_read_file">Beolvasás fájlból</string>
   <string name="menu_transfer_save_file">Mentés fájlba</string>
@@ -355,9 +355,9 @@
   <string name="menu_cut">Kivágás</string>
   <string name="menu_paste">Beillesztés</string>
   <string name="menu_paste_from_clipboard">Beillesztés vágólapról</string>
-  <string name="menu_zoom_to_selection">Nagyítás a kiválasztásra</string>
+  <string name="menu_zoom_to_selection">Nagyítás a kijelölésre</string>
   <string name="menu_rotate">Forgatás</string>
-  <string name="menu_orthogonalize">Ortogonalizálás</string>
+  <string name="menu_orthogonalize">Derékszögesítés</string>
   <string name="menu_circulize">Elrendezés kör alakban</string>
   <string name="menu_split_polygon">Felosztás sokszögekre</string>
   <string name="menu_newnode_gps">Új pont a GPS pozíciónál</string>
@@ -402,20 +402,20 @@
   <string name="deletenode">Pont törlése</string>
   <string name="split_all_ways">Minden út felosztása</string>
   <!--EasyEdit action mode titles-->
-  <string name="actionmode_wayselect">Kijelölt vonal</string>
-  <string name="actionmode_nodeselect">Kijelölt pont</string>
+  <string name="actionmode_wayselect">Vonal kijelölve</string>
+  <string name="actionmode_nodeselect">Pont kijelölve</string>
   <string name="actionmode_relationselect">Kapcsolat kijelölve</string>
   <string name="actionmode_createpath">Vonal készítése</string>
-  <string name="actionmode_multiselect">Többszörös kiválasztás</string>
+  <string name="actionmode_multiselect">Többszörös kijelölés</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Zárt vonal felosztása, 1. pont</string>
   <string name="actionmode_closed_way_split_2">Zárt vonal felosztása, 2. pont</string>
   <string name="actionmode_restriction">Behajtási korlátozás hozzáadása</string>
-  <string name="actionmode_restriction_restart_from">„from” szakasz újra kiválasztása</string>
+  <string name="actionmode_restriction_restart_from">„from” szakasz ismételt kijelölése</string>
   <string name="actionmode_restriction_via">„via” szakasz/elem hozzáadása</string>
-  <string name="actionmode_restriction_restart_via">„via” szakasz újra kiválasztása</string>
+  <string name="actionmode_restriction_restart_via">„via” szakasz ismételt kijelölése</string>
   <string name="actionmode_restriction_to">„to” szakasz hozzáadása</string>
-  <string name="actionmode_restriction_restart_to">„to” szakasz újra kiválasztása</string>
+  <string name="actionmode_restriction_restart_to">„to” szakasz ismételt kijelölése</string>
   <string name="actionmode_one_object">1 objektum</string>
   <string name="actionmode_object_count">%1$d objektum</string>
   <string name="actionmode_rotateway">Vonal forgatása</string>
@@ -437,7 +437,7 @@
   <string name="config_showStats_title">Statisztika megjelenítése</string>
   <string name="config_showStats_summary">Adatstatisztika és frames/sec érték megjelenítése a jobb alsó sarokban.</string>
   <string name="config_showTolerance_title">Tolerancia megjelenítése</string>
-  <string name="config_showTolerance_summary">Terület megjelenítése, amelyen belül egy elem kijelölhető.</string>
+  <string name="config_showTolerance_summary">Megjeleníti azt a területet, amelyen egy elem kijelölhető.</string>
   <string name="config_enableAntiAliasing_title">Élsimítás engedélyezése</string>
   <string name="config_enableAntiAliasing_summary">A vonalakat simábbá teszi.</string>
   <string name="config_enableOpenStreetBugs_title">Hibák és megjegyzések megjelenítése</string>
@@ -446,8 +446,8 @@
   <string name="config_enablePhotoLayer_summary">Földrajzi pozícióval ellátott fényképek megjelenítése.</string>
   <string name="config_enableKeepScreenOn_title">Képernyő ébren tartása</string>
   <string name="config_enableKeepScreenOn_summary">Ne kapcsoljon ki a képernyő a fogyasztás csökkentése érdekében.</string>
-  <string name="config_closeChangesetOnSave_title">Módosításcsomagok lezárása:</string>
-  <string name="config_closeChangesetOnSave_summary">Módosításcsomagok lezárása alapértelmezetten mentéskor</string>
+  <string name="config_closeChangesetOnSave_title">Módosításkészletek lezárása:</string>
+  <string name="config_closeChangesetOnSave_summary">Módosítákészletek lezárása alapértelmezetten mentéskor</string>
   <string name="config_backgroundLayer_title">Térkép háttér</string>
   <string name="config_backgroundLayer_summary">A grafikus, renderelt térképháttér.</string>
   <string name="config_overlayLayer_title">Térképelőtér</string>
@@ -483,7 +483,7 @@
   <string name="config_category_info">Névjegy</string>
   <string name="config_advancedprefs">Speciális beállítások</string>
   <string name="config_forceContextMenu_title">Mindig használja a környezeti menüt</string>
-  <string name="config_forceContextMenu_summary">Gyorsszerkesztés módban mindig jelenjen meg a környezeti menü, ha a kijelölés nem egyértelmű.</string>
+  <string name="config_forceContextMenu_summary">Gyorsszerkesztés módban mindig jelenjék meg a környezeti menü, ha a kijelölés nem egyértelmű.</string>
   <string name="config_licensebutton_title">Szerzők és licencek</string>
   <string name="config_licensebutton_summary">Szerzők és licencinformációk megjelenítése</string>
   <string name="config_debugbutton_title">Hibakereső</string>
@@ -503,11 +503,11 @@
   <string name="config_maxBugDownloadSpeed_title">Maximális sebesség a megjegyzések/hibák automatikus letöltése közben</string>
   <string name="config_maxBugDownloadSpeed_summary">A korlát (km/h-ban) amely felett a megjegyzések/hibák automatikus letöltése felfüggesztésre kerül</string>
   <string name="config_bugFilter_title">Szűrő a megjegyzésekhez/hibákhoz</string>
-  <string name="config_bugFilter_summary">Kiválasztja mely elemek jelennek meg a megjegyzések/hibák rétegén</string>
+  <string name="config_bugFilter_summary">Kijelöli, mely elemek jelennek meg a megjegyzések/hibák rétegén</string>
   <string name="config_enableNameSuggestions_title">Névjavaslatok engedélyezése</string>
   <string name="config_enableNameSuggestions_summary">A név címke javaslatainak bekapcsolása</string>
   <string name="config_enableAutoPreset_title">Automatikus előbeállítás engedélyezése</string>
-  <string name="config_enableAutoPreset_summary">Előbeállítás automatikus hozzáadása, amikor kiválaszt egy névjavaslatot</string>
+  <string name="config_enableAutoPreset_summary">Előbeállítás automatikus hozzáadása, amikor kijelöl egy névjavaslatot</string>
   <string name="config_splitActionBarEnabled_title">Felosztás műveletsáv engedélyezése</string>
   <string name="config_splitActionBarEnabled_summary">Felosztás műveletsáv engedélyezése, a használat eszközfüggő. Újraindítást, és Android &gt;= 4.0 verziót igényel.</string>
   <string name="config_gps_source_title">GPS forrás</string>
@@ -616,7 +616,7 @@
   <string name="undo_action_cut">kivágás</string>
   <string name="undo_action_paste">beillesztés</string>
   <string name="undo_action_rotateway">vonal forgatása</string>
-  <string name="undo_action_orthogonalize">vonal ortogonalizálása</string>
+  <string name="undo_action_orthogonalize">vonal derékszögesítése</string>
   <string name="undo_action_circulize">elrendezés kör alakban</string>
   <string name="undo_action_fix_conflict">konfliktus feloldása</string>
   <string name="undo_action_extract_node">pont kinyerése</string>

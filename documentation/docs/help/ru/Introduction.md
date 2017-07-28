@@ -50,7 +50,7 @@ By default, selectable nodes and ways have an orange area around them indicating
     * Selected objects are highlighted in yellow. 
     * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
 
 Если вы пытаетесь редактировать область с высокой плотностью данных, разумно будет приблизить её.
 
@@ -91,7 +91,7 @@ Once you can see the crosshair symbol, you have these options:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating new objects.md) for more information.
+You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 
 #### Adding an Area
 
@@ -149,7 +149,7 @@ Vespucci поддерживает и OAuth-авторизацию, и "клас�
 
 #### Разрешение конфликтов данных при передаче на сервер
 
-Vespucci имеет простой распознаватель конфликтов. Тем не менее, если вы подозреваете, что существуют серьезные проблемы с вашими правками, экспортируйте изменения в OSC-файл (пункт меню "Экспорт" в меню "Передача") и исправьте и загрузите их с помощью JOSM. Смотрите подробную справку по [разрешению конфликтов](../en/Conflict resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
 
 ## Использование GPS
 

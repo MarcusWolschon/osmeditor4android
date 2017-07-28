@@ -4,14 +4,14 @@
     <item>Házszám (addr:housenumber)</item>
     <item>Utca (addr:street)</item>
     <item>Irányítószám (addr:postcode)</item>
-    <item>Város/falu/…  (addr:city)</item>
+    <item>Város/község/…  (addr:city)</item>
     <item>Ország (addr:country)</item>
     <item>Teljes cím (addr:full)</item>
-    <item>Hely (addr:place)</item>
+    <item>Hely [utca helyett] (addr:place)</item>
     <item>Falucska (addr:hamlet)</item>
-    <item>Előváros (addr:suburb)</item>
-    <item>Alkerület (addr:subdistrict)</item>
-    <item>Kerület (addr:district)</item>
+    <item>Városrész (addr:suburb)</item>
+    <item>Körzet (addr:subdistrict)</item>
+    <item>Járás (addr:district)</item>
     <item>Tartomány (addr:province)</item>
     <item>Állam (addr:state)</item>
     <item>Lakások (addr:flats)</item>

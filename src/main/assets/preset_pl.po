@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-06 17:30+0200\n"
-"PO-Revision-Date: 2017-07-06 15:32+0000\n"
+"PO-Revision-Date: 2017-07-10 13:49+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -9447,7 +9447,7 @@ msgstr ""
 #: master_preset.xml:7391(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Cabin"
-msgstr ""
+msgstr "Domek letniskowy/kempingowy"
 
 #: master_preset.xml:7391(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"

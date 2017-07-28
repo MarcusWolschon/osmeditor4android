@@ -17,6 +17,7 @@
     <string name="help_keyboard">Teclado</string>
     <string name="help_tagfilter">Filtro de etiquetas</string>
     <string name="help_presetfilter">Filtro actual</string>
+    <string name="help_opening_hours">Horario de apertura</string>
     <string name="help_upgrade">0.9.9 Versión notas</string>
     <string name="help_upgrade_098">0.9.8 Versión notas</string>
     <string name="help_upgrade_097">0.9.7 Versión notas</string>

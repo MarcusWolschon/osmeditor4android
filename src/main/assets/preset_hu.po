@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-06 17:30+0200\n"
-"PO-Revision-Date: 2017-07-06 15:32+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-07-22 14:40+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -983,7 +983,7 @@ msgstr "Bordély"
 #: master_preset.xml:570(combo:display_values|key:roof:colour)
 #: master_preset.xml:606(combo:display_values|key:building:colour)
 msgid "Brown"
-msgstr ""
+msgstr "Barna"
 
 #: master_preset.xml:11005(item:name|group:Land_use|preset:Brownfield)
 msgid "Brownfield"
@@ -1783,7 +1783,7 @@ msgstr "Kijelölt gyalogút"
 
 #: master_preset.xml:171(list_entry:short_description|value:designated)
 msgid "Dedicated facilities"
-msgstr "Kijelölt létesítmények"
+msgstr "Kijelölt létesítmény"
 
 #: master_preset.xml:262(list_entry:short_description|value:room)
 msgid "Dedicated room"
@@ -2496,7 +2496,7 @@ msgstr "Étel & ital"
 #: master_preset.xml:139(check:text|key:foot)
 #: master_preset.xml:2519(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:foot)
 msgid "Foot"
-msgstr "Láb"
+msgstr "Gyalogos"
 
 #: master_preset.xml:7131(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:football)
 msgid "Football"
@@ -2518,7 +2518,7 @@ msgstr "Beltéri térképezésnél: a 0. szint (level 0) a földszint"
 
 #: master_preset.xml:9425(group:name|group:For_the_body)
 msgid "For the body"
-msgstr "A testnek"
+msgstr "Testápolás"
 
 #: master_preset.xml:1153(item:name|group:Streets|preset:Ford)
 #: master_preset.xml:1164(combo:text|group:Streets|preset:Ford|key:ford)
@@ -2908,7 +2908,7 @@ msgstr "Vas-műszaki bolt"
 #: master_preset.xml:3322(check:text|group:Aerialway|preset:Chair_Lift|key:aerialway:bubble)
 #: master_preset.xml:3352(check:text|group:Aerialway|preset:Mixed_Lift|key:aerialway:bubble)
 msgid "Has bubble?"
-msgstr "Buborék (zárt)?"
+msgstr "Van-e védőburka (zárt-e)?"
 
 #: master_preset.xml:3306(check:text|group:Aerialway|preset:Cable_Car|key:aerialway:heating)
 #: master_preset.xml:3323(check:text|group:Aerialway|preset:Chair_Lift|key:aerialway:heating)
@@ -4019,7 +4019,7 @@ msgstr "Egysínű vasút"
 
 #: master_preset.xml:8547(item:name|group:Historic_Places|preset:Monument)
 msgid "Monument"
-msgstr "Kiemelkedően jelentős emlékmű"
+msgstr "Monumentális, épületszerű emlékmű"
 
 #: master_preset.xml:2980(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"
@@ -6040,7 +6040,7 @@ msgstr "Vitorlásfelszerelés-készítő"
 #: master_preset.xml:1213(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1231(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "Right"
-msgstr ""
+msgstr "Jobbra"
 
 #: master_preset.xml:1186(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right:through)
 #: master_preset.xml:1212(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right:through)
@@ -7164,7 +7164,7 @@ msgstr "Vékony kerekű járművel: versenykerékpár"
 #: master_preset.xml:1209(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:through)
 #: master_preset.xml:1227(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:through)
 msgid "Through"
-msgstr ""
+msgstr "Egyenesen tovább"
 
 #: master_preset.xml:9410(item:name|group:Printed_Material|preset:Ticket)
 msgid "Ticket"
@@ -7607,7 +7607,7 @@ msgstr "Jelzetlen"
 
 #: master_preset.xml:172(list_entry:short_description|value:yes)
 msgid "Unrestricted access"
-msgstr "Korlátozás nélkül használható"
+msgstr "Korlátlanul használható"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "Up"
@@ -7887,7 +7887,7 @@ msgstr "Vízesés"
 
 #: master_preset.xml:2826(label:text|group:Water|preset:Wetland)
 msgid "Waterlogged area, either permanently or seasonally with vegetation."
-msgstr "Elmocsarasodott terület, vagy állandóan, vagy évszakosan, növényzettel."
+msgstr "Állandóan vagy időszakosan elmocsarasodott terület, növényzettel."
 
 #: master_preset.xml:7830(item:name|group:Man_Made|preset:Watermill)
 msgid "Watermill"
@@ -8052,7 +8052,7 @@ msgstr "Női"
 
 #: master_preset.xml:574(combo:display_values|key:roof:material)
 msgid "Wood"
-msgstr "Erdő"
+msgstr "Fa"
 
 #: master_preset.xml:10438(label:text|group:Nature|preset:Wood)
 msgid "Woodland where timber production does not dominate use."
@@ -8159,7 +8159,7 @@ msgstr "biogáz"
 
 #: master_preset.xml:11719(role:text|preset:Waterway|key:side_stream)
 msgid "branch waterways (no riverbank)"
-msgstr "folyóág (nincs part)"
+msgstr "folyóág (nem a part)"
 
 #: master_preset.xml:1295(list_entry:short_description|group:Ways|preset:Path|value:difficult_alpine_hiking)
 msgid ""
@@ -8502,7 +8502,7 @@ msgstr "ponttal vagy vonalakkal"
 #: master_preset.xml:11717(role:text|preset:Waterway|key:)
 #: master_preset.xml:11718(role:text|preset:Waterway|key:main_stream)
 msgid "waterways (no riverbank)"
-msgstr "vízfolyás (nincs part)"
+msgstr "vízfolyás (nem a part)"
 
 #: master_preset.xml:11738(role:text|preset:Bridge|key:outline)
 #: master_preset.xml:11752(role:text|preset:Tunnel|key:outline)
@@ -8636,7 +8636,7 @@ msgstr "Burkolatlan"
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Wood"
-msgstr "Erdő"
+msgstr "Fa"
 
 #: master_preset.xml:36(combo:text|key:leisure)
 msgctxt "riding"
@@ -9409,7 +9409,7 @@ msgstr "Épület"
 #: master_preset.xml:606(combo:text|key:building:colour)
 msgctxt "building"
 msgid "Building colour"
-msgstr ""
+msgstr "Épület színe"
 
 #: master_preset.xml:586(combo:text|key:building:frame:material)
 msgctxt "building"
@@ -10018,7 +10018,7 @@ msgstr "Raktárépület"
 #: master_preset.xml:610(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Wood"
-msgstr "Erdő"
+msgstr "Fa"
 
 #: master_preset.xml:7391(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10207,7 +10207,7 @@ msgstr "Drótkerítés"
 #: master_preset.xml:2008(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Wood"
-msgstr "Erdő"
+msgstr "Fa"
 
 #: master_preset.xml:2072(item:name|group:Barriers|preset:Ditch)
 msgctxt "Barrier"
@@ -10237,7 +10237,7 @@ msgstr "Víz"
 #: master_preset.xml:10428(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
 msgid "Wood"
-msgstr "Erdő"
+msgstr "Fa"
 
 #: master_preset.xml:2906(combo:text|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgctxt "cargo"
@@ -10537,7 +10537,7 @@ msgstr "Mellszobor"
 #: master_preset.xml:8577(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Plaque"
-msgstr "Frontális vízakadály"
+msgstr "Emléktábla"
 
 #: master_preset.xml:8577(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -10547,7 +10547,7 @@ msgstr "Szobor"
 #: master_preset.xml:8577(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Stele"
-msgstr "Sztélé"
+msgstr "Kopjafa, sztélé"
 
 #: master_preset.xml:8577(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -10649,7 +10649,7 @@ msgstr "Utalás a többi térképkészítőnek (nem a végfelhasználóknak) arr
 #: master_preset.xml:12758(item:name|group:Offices|preset:Religion)
 msgctxt "office"
 msgid "Religion"
-msgstr "Vallási"
+msgstr "Vallás"
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)

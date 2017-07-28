@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-06 17:30+0200\n"
-"PO-Revision-Date: 2017-07-06 15:32+0000\n"
+"PO-Revision-Date: 2017-07-24 09:48+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -2471,7 +2471,7 @@ msgstr "Florista"
 #: master_preset.xml:491(list_entry:display_value|value:flush)
 #: master_preset.xml:497(list_entry:display_value|value:flush)
 msgid "Flush"
-msgstr ""
+msgstr "Cisterna"
 
 #: master_preset.xml:8638(group:name|group:Food)
 #: master_preset.xml:9876(list_entry:short_description|preset:Vending_Machine|value:food)
@@ -2821,7 +2821,7 @@ msgstr "Gris"
 
 #: master_preset.xml:1855(item:name|preset:Grit_Bin)
 msgid "Grit Bin"
-msgstr ""
+msgstr "Contenedor de sal"
 
 #: master_preset.xml:7923(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:groundwater)
 msgid "Groundwater"
@@ -3018,7 +3018,7 @@ msgstr ""
 
 #: master_preset.xml:5460(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
-msgstr ""
+msgstr "Templo Hindú"
 
 #: master_preset.xml:8479(group:name|group:Historic_Places)
 msgid "Historic Places"
@@ -6461,7 +6461,7 @@ msgstr ""
 
 #: master_preset.xml:5483(item:name|group:Place_of_Worship|preset:Shinto_Shrine)
 msgid "Shinto Shrine"
-msgstr ""
+msgstr "Santuario sintoísta"
 
 #: master_preset.xml:429(combo:text|key:ship)
 msgid "Ship"
@@ -7157,7 +7157,7 @@ msgstr ""
 
 #: master_preset.xml:26(list_entry:short_description|value:good)
 msgid "Thin Wheels: racing bike"
-msgstr ""
+msgstr "Rodas estreitas: bicicleta de carreira"
 
 #: master_preset.xml:1183(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:through)
 #: master_preset.xml:1209(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:through)
@@ -9380,7 +9380,7 @@ msgstr "Apartamentos"
 #: master_preset.xml:7391(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Barn"
-msgstr ""
+msgstr "Celeiro/Hórreo"
 
 #: master_preset.xml:7391(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10456,7 +10456,7 @@ msgstr "Tipo"
 #: master_preset.xml:7071(combo:text|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Difficulty"
-msgstr ""
+msgstr "Dificultade"
 
 #: master_preset.xml:7072(combo:text|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
@@ -10501,7 +10501,7 @@ msgstr "Si"
 #: master_preset.xml:7675(combo:text|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
 msgid "Content"
-msgstr ""
+msgstr "Contido"
 
 #: master_preset.xml:7983(combo:text|group:Man_Made|preset:Surveillance_Camera|key:camera:type)
 msgctxt "camera:type"

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Osoitenumero (addr:housenumber)</item>
+    <item>Katu (addr:street)</item>
+    <item>Postinumero (addr:postcode)</item>
+    <item>Kaupunki/Kunta/Kirkonkylä/..  (addr:city)</item>
+    <item>Maa (addr:country)</item>
+    <item>Koko osoite (addr:full)</item>
+    <item>Paikka (addr:place)</item>
+    <item>Kylä (addr:hamlet)</item>
+    <item>Kaupunginosa (addr:suburb)</item>
+    <item>Alapiirikunta (addr:subdistrict)</item>
+    <item>Piirikunta (addr:district)</item>
+    <item>Provinssi (addr:province)</item>
+    <item>Osavaltio (addr:state)</item>
+    <item>Asunnot (addr:flats)</item>
+    <item>Ovi (addr:door)</item>
+    <item>Yksikkö (addr:unit)</item>
+  </string-array>
+</resources>

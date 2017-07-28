@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Erik Lindahl, 2016-2017
+# Erik L, 2016-2017
 # Jony, 2016
 # Magnus Österlund, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-06 17:30+0200\n"
-"PO-Revision-Date: 2017-07-06 15:32+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-07-28 08:00+0000\n"
+"Last-Translator: Erik L\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -841,7 +841,7 @@ msgstr "Båt"
 
 #: master_preset.xml:11801(item:name|group:Crafts|preset:Boatbuilder)
 msgid "Boatbuilder"
-msgstr ""
+msgstr "Båtbyggare"
 
 #: master_preset.xml:3018(item:name|group:Shipping|preset:Boatyard)
 msgid "Boatyard"
@@ -3020,7 +3020,7 @@ msgstr ""
 
 #: master_preset.xml:5460(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
-msgstr ""
+msgstr "Hindutempel"
 
 #: master_preset.xml:8479(group:name|group:Historic_Places)
 msgid "Historic Places"
@@ -4811,7 +4811,7 @@ msgstr "Öppettider"
 
 #: master_preset.xml:5249(list_entry:display_value|group:Culture|preset:Music_theatres|value:opera)
 msgid "Opera house"
-msgstr ""
+msgstr "Operahus"
 
 #: master_preset.xml:6499(combo:text|group:Facilities|preset:Sanitary_Dump_Station|key:opening_hours)
 #: master_preset.xml:7905(combo:text|group:Man_Made|preset:Street_Lamp|key:opening_hours)
@@ -5966,7 +5966,7 @@ msgstr "Reparatör"
 
 #: master_preset.xml:12646(item:name|group:Offices|preset:Research)
 msgid "Research"
-msgstr ""
+msgstr "Forskning"
 
 #: master_preset.xml:4460(combo:text|group:Accommodation|preset:Wilderness_Hut|key:reservation)
 msgid "Reservation"
@@ -5992,7 +5992,7 @@ msgstr "Resurs"
 
 #: master_preset.xml:1502(item:name|group:Waypoints|preset:Rest_Area)
 msgid "Rest Area"
-msgstr ""
+msgstr "Rastplats"
 
 #: master_preset.xml:4515(item:name|group:Food+Drinks|preset:Restaurant)
 msgid "Restaurant"
@@ -6463,7 +6463,7 @@ msgstr ""
 
 #: master_preset.xml:5483(item:name|group:Place_of_Worship|preset:Shinto_Shrine)
 msgid "Shinto Shrine"
-msgstr ""
+msgstr "Jinja (Shintoistisk helgedom)"
 
 #: master_preset.xml:429(combo:text|key:ship)
 msgid "Ship"
@@ -6709,7 +6709,7 @@ msgstr ""
 #: master_preset.xml:8954(list_entry:short_description|group:Clothes|preset:Clothes|value:sports)
 #: master_preset.xml:9009(item:name|group:Clothes|preset:Sports)
 msgid "Sports"
-msgstr ""
+msgstr "Sporter"
 
 #: master_preset.xml:6690(item:name|group:Sport_Facilities|preset:Sports_Centre)
 msgid "Sports Centre"
@@ -8647,7 +8647,7 @@ msgstr "Typ"
 #: master_preset.xml:87(list_entry:short_description|value:both)
 msgctxt "sidewalk"
 msgid "Both sides"
-msgstr "Båda sidorna"
+msgstr "Båda sidor"
 
 #: master_preset.xml:90(list_entry:short_description|value:no)
 msgctxt "sidewalk"
@@ -9815,13 +9815,13 @@ msgstr "Religös"
 #: master_preset.xml:603(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Research"
-msgstr ""
+msgstr "Forskning"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 #: master_preset.xml:7417(combo:display_values|group:Buildings|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Residential"
-msgstr "Boatd"
+msgstr "Bostad"
 
 #: master_preset.xml:603(combo:display_values|key:building:use)
 #: master_preset.xml:7391(combo:display_values|group:Buildings|preset:Building|key:building)
@@ -10012,7 +10012,7 @@ msgstr ""
 #: master_preset.xml:7391(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Warehouse"
-msgstr "lager"
+msgstr "Lager"
 
 #: master_preset.xml:586(combo:display_values|key:building:frame:material)
 #: master_preset.xml:590(combo:display_values|key:building:wall:material)
@@ -10478,7 +10478,7 @@ msgstr "Ingång"
 #: master_preset.xml:7550(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Exit"
-msgstr ""
+msgstr "Utgång"
 
 #: master_preset.xml:7550(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"

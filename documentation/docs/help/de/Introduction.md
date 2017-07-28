@@ -51,7 +51,7 @@ In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bere
     * Ausgewählte Objekte werden mit einem gelben Rang hervorgehoben. 
     * Für mehr Informationen siehe [Knoten ausgewählt](../en/Node%20selected.md) , [Weg ausgewählt](../en/Way%20selected.md) und  [Relation ausgewählt](../en/Relation%20selected.md) 
 * Doppelklick: startet die [Mehfachauswahl](../en/Multiselect.md)
-* Langer Klick: zeigt ein Positionskreuz um neue Punkte zu erstellen, siehe unten und [Neue Objekte erstellen](../en/Creating new objects.md)
+* Langer Klick: zeigt ein Positionskreuz um neue Punkte zu erstellen, siehe unten und [Neue Objekte erstellen](../en/Creating%20new%20objects.md)
 
 In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearbeiten weit hineinzuzoomen.
 
@@ -92,7 +92,7 @@ Sobald das Positionskreuz erscheint, gibt es die folgenden Möglichkeiten:
 
 Um den Weg zu verlängern tippe an den Stellen wo du weitere Wegpunkte haben willst. Um den Weg fertigzustellen, tippe nochmals auf den letzten Punkt. Falls der Endpunkt auf einem anderen Weg oder Punkt liegt wird er automatisch in diesen integriert. 
 
-Um den Vorgang abzuschliessen kann auch ein entsprechender Menü-Eintrag ausgewählt werden, siehe [Neue Objekte erstellen](../en/Creating new objects.md) für weitere Informationen.
+Um den Vorgang abzuschliessen kann auch ein entsprechender Menü-Eintrag ausgewählt werden, siehe [Neue Objekte erstellen](../en/Creating%20new%20objects.md) für weitere Informationen.
 
 #### Flächen erstellen
 
@@ -150,7 +150,7 @@ Sollen die Änderungen gespeichert werden und es ist kein Internetzugang verfüg
 
 #### Konfliktbehebung beim Upload
 
-Vespucci hat einen einfachen Konfliktbehebungsmechanismus eingebaut. Sind grössere Probleme mit den Änderungen zu erwarten, empfehlen wir sie in ein .osc Datei zu speichern ("Transfer" Menü, "Datei...,"  "Änderungen exportieren") und die Konflikte dann mit JOSM zu beheben. Für Details siehe den [conflict resolution](../en/Conflict resolution.md) Hilfetext.  
+Vespucci hat einen einfachen Konfliktbehebungsmechanismus eingebaut. Sind grössere Probleme mit den Änderungen zu erwarten, empfehlen wir sie in ein .osc Datei zu speichern ("Transfer" Menü, "Datei...,"  "Änderungen exportieren") und die Konflikte dann mit JOSM zu beheben. Für Details siehe den [conflict resolution](../en/Conflict%20resolution.md) Hilfetext.  
 
 ## GPS verwenden
 

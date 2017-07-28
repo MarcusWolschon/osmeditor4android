@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-06 17:30+0200\n"
-"PO-Revision-Date: 2017-07-06 15:32+0000\n"
+"PO-Revision-Date: 2017-07-25 04:44+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -466,7 +466,7 @@ msgstr "Kiến trúc sư"
 #: master_preset.xml:4139(check:text|group:Public_Transport_(Legacy)|preset:Bus_Platform|key:area)
 #: master_preset.xml:4916(check:text|group:Leisure|preset:Dog_Park|key:area)
 msgid "Area"
-msgstr ""
+msgstr "Diện tích"
 
 #: master_preset.xml:9289(item:name|group:Home_decoration|preset:Art)
 msgid "Art"
@@ -3018,7 +3018,7 @@ msgstr "Ấn Độ giáo"
 
 #: master_preset.xml:5460(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
-msgstr ""
+msgstr "Đền Ấn Độ giáo"
 
 #: master_preset.xml:8479(group:name|group:Historic_Places)
 msgid "Historic Places"
@@ -4601,7 +4601,7 @@ msgstr ""
 
 #: master_preset.xml:8133(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
-msgstr ""
+msgstr "Lò Phản ứng Hạt nhân"
 
 #: master_preset.xml:1484(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
@@ -6461,7 +6461,7 @@ msgstr ""
 
 #: master_preset.xml:5483(item:name|group:Place_of_Worship|preset:Shinto_Shrine)
 msgid "Shinto Shrine"
-msgstr ""
+msgstr "Đền thờ Thần đạo"
 
 #: master_preset.xml:429(combo:text|key:ship)
 msgid "Ship"
@@ -7507,7 +7507,7 @@ msgstr ""
 #: master_preset.xml:8029(combo:text|group:Bridges|preset:Bridge_Support|key:bridge:support)
 #: master_preset.xml:8518(combo:text|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "Type"
-msgstr ""
+msgstr "Kiểu"
 
 #: master_preset.xml:3562(combo:text|group:Car|preset:Charging_Station|key:socket:type1)
 msgid "Type 1 (Yazaki)"
@@ -7890,7 +7890,7 @@ msgstr ""
 
 #: master_preset.xml:7830(item:name|group:Man_Made|preset:Watermill)
 msgid "Watermill"
-msgstr ""
+msgstr "Cối Xay Nước"
 
 #: master_preset.xml:11693(item:name|preset:Waterway)
 msgid "Waterway"
@@ -8015,7 +8015,7 @@ msgstr ""
 
 #: master_preset.xml:8221(item:name|group:Power_Generator|preset:Wind_Turbine)
 msgid "Wind Turbine"
-msgstr ""
+msgstr "Tua bin Gió"
 
 #: master_preset.xml:7621(item:name|group:Man_Made|preset:Windmill)
 msgid "Windmill"
@@ -9195,7 +9195,7 @@ msgstr ""
 #: master_preset.xml:360(combo:text|key:location)
 msgctxt "power"
 msgid "Location"
-msgstr ""
+msgstr "Vị trí"
 
 #: master_preset.xml:8457(combo:text|preset:Power_Line|key:wires)
 msgctxt "power"
@@ -10293,7 +10293,7 @@ msgstr "Giáo hội"
 #: master_preset.xml:7776(combo:text|group:Man_Made|preset:Pipeline|key:location)
 msgctxt "pipeline"
 msgid "Location"
-msgstr ""
+msgstr "Vị trí"
 
 #: master_preset.xml:5993(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:type)
 msgctxt "pipeline"
@@ -10501,7 +10501,7 @@ msgstr "Có"
 #: master_preset.xml:7675(combo:text|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
 msgid "Content"
-msgstr ""
+msgstr "Đồ Chứa đựng"
 
 #: master_preset.xml:7983(combo:text|group:Man_Made|preset:Surveillance_Camera|key:camera:type)
 msgctxt "camera:type"
@@ -10526,7 +10526,7 @@ msgstr ""
 #: master_preset.xml:8473(combo:text|preset:Power_Cable|key:location)
 msgctxt "power cable"
 msgid "Location"
-msgstr ""
+msgstr "Vị trí"
 
 #: master_preset.xml:8577(combo:display_values|group:Historic_Places|preset:Memorial|key:memorial)
 msgctxt "memorial"

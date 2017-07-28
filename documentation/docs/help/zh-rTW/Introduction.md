@@ -1,6 +1,6 @@
 # Vespucci 介紹
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版編輯器能做的操作。Vespucci 已經在 Google Android 2.3 到 7.0 等多個以 AOSP 為基礎的版本測試成功。忠告：儘管行動裝置的效能已經追上桌機，但在較老的裝置上面，記憶體並不夠，因此運作速度上會很慢。你應該記住上述的事情，並且可能的話，控制自己編輯的區域大小在合理的大小。 
 
 ## 第一次使用
 
@@ -8,7 +8,7 @@ Vespucci is a full featured OpenStreetMap editor that supports most operations t
 
 除此之外您可以透過按按鈕解除對話框，並平移與放大位置到想要編輯和下載的資料(見下方："編輯于 Vespucci")。
 
-## 編輯于 Vespucci
+## 使用 Vespucci 編輯
 
 根據畫面尺寸和您裝置的新舊，編輯操作可以經由在頂端列的圖示可直接進入，通過下拉選單中頂端列的右側，從底部列(如果存在的話) ，或者透過選單鍵。
 
@@ -16,86 +16,86 @@ Vespucci is a full featured OpenStreetMap editor that supports most operations t
 
 ### 下載 OSM 資料
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+選擇轉移圖示 ![Transfer](../images/menu_transfer.png)，或是轉移選項的項目，這樣會顯示七個選項：
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+ * **下載當前的檢視** - 下載在螢幕上可見的區域，並取代所有目前的資料*(需要網路連線)* 
+* **增加當前的檢視來下載** 下載在螢幕上可見的區域，並合併目前的資料*(需要網路連線)* 
+* **下載其它位置** - 顯示一個表單，允許您輸入座標搜尋位置或直接使用現在位置，然後下載該區域週圍的地方*(需要網路連線)* 
+* **上傳資料到 OSM 伺服器** - 上傳編輯到 OpenStreetMap *(需要認證)* *(需要網路連線)*
+* **自動下載** - 自動的下載目前周圍位置區域 *(需要網路連線)*  *(需要 GPS)*
+* **檔案...** - 儲存和載入在裝置的 OSM 檔案資料。
+* **備註/錯誤** -下載 (自動或手動) OSM 備註，以及從 QA 工具 (目前是 OSMOSE) 下"錯誤" *(需要網路連線)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+最簡單下載資料到裝置的方式是縮放和平移到你想編輯的地方，接著選擇 "下載當前檢視"。你可以用手勢縮放，用縮放按鈕，或是用裝置的音量鍵。Vespucci 應當下載當前檢視的資料，下載資料到裝置時並不需要認證。
 
 ### 編輯
 
 <a id="lock"></a>
 
-#### Lock, unlock, "tag editing only", indoor mode 
+#### 鎖定，解鎖，"只有標籤編輯"，室內模式 
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+要避免不小心編輯的狀況，Vespucci 啟動時處於"鎖定"模式。處於鎖定模式時只允許縮放和移動地圖。點 ![Locked](../images/locked.png)  圖示則會解鎖螢幕。 
 
-A long press on the lock icon will enable "Tag editing only" mode which will not allow you to edit the geometry of objects or move them, this mode is indicated with a slightly different white lock icon. You can however create new nodes and ways with a long press as normal.
+對著鎖定圖示長按的話，則會啟動"只有標籤編輯"模式，就不會編輯物件形狀或是移動物件了。而在只有標籤編輯模式下，會出現略為不同的白色鎖定圖示。你仍可以像平常一樣長按新增新的節點或是路徑。
 
-Another long press will enable [Indoor mode](#indoor), and one more will cycle back to the normal editing mode.
+接著長按則會啟用 [室內模式](#indoor)，再長按則會轉回正常編輯模式。
 
-#### Single tap, double tap, and long press
+#### 單點，雙點和長按
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+根據預設設定，可選擇的節點或是路徑周圍會出現橘色區域，粗略表示你可以從那裡選碰觸選擇物件。你有三個選擇：
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
-* Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
+* 單點：選取物件。
+  * 孤單的節點/路徑馬上會高亮度顯示。
+  * 然後，如果你選取物件，但 Vespucci 覺得選取方式可能意味要多重選擇的話，會顯示選取選單，讓你能決定選那個物件。
+  * 選取的物件會以黃色高亮度顯示。
+  * 要看更多資訊，請看[節點選擇](../en/Node%20selected.md)， [路徑選擇](../en/Way%20selected.md)和[關係選擇](../en/Relation%20selected.md)
+* 雙點：開啟[多重選擇模式](../en/Multiselect.md) 
+* 長按：新建"十字準線"，讓你能新增節點，請見下面敘述和[新建新物件](../en/Creating%20new%20objects.md)
 
 如果您試著編輯高密度區域時進行放大，這是一個很好的對策。
 
 Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您的裝置嘗試，但是請不要上傳和儲存純測試資料。
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### 選擇/取消選擇 (單擊和“選擇選單”)
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+碰觸物件選取和高亮度顯示物件，碰觸螢幕空白處則會取消選取。如果你選取物件後你想再選取其他物件，就輕觸你想選取的物件，不需要先解除選取。在物件雙點會啟用[多重選取模式](../en/Multiselect.md)。
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+注意如果你嘗試選取物件，而 Vespucci 覺得這次選取重作可能意味多重選取物件 (像是路徑上的節點，或是重疊的物件)，之後會出現選取選單：點你想選取的物件，物件就會被選取。 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+選取物件會以黃色細邊線顯示，黃色邊線也許會難以查察，視地圖背景和放大因子而定。一旦選取，你會看到通知確認要選取。
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
+一互選取完成，你會看到 (可能是按鈕或是選單項目) 對選取物件的支援操作清單。要看更多資訊，請見 [物件選取](../en/Node%20selected.md), [路徑選取](../en/Way%20selected.md)和[關係選取](../en/Relation%20selected.md)。
 
-#### Selected objects: Editing tags
+#### 選擇物件：編輯標籤
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+第二次碰觸選取物件會開啟標籤編輯器，而你可以編輯選取物件的標籤。
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+注意當有重疊的物件 (像是路徑上的節點)，選取選單會再次顯示。選取相同物件則會出現標籤編輯器，選取其他物件則會轉而選取其他物件。
 
-#### Selected objects: Moving a Node or Way
+#### 選擇物件：移動節點或路徑
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+一旦你選取物件，也可以移動。注意這個物件在選取動況可以被拖動/移動。簡單在選取物件附近拖動 (在容忍範圍內)。如果你在設定中選擇大拖動範圍，你在選擇節點時會有物件附近的大範圍，能讓你有很方便置放物件。 
 
-#### Adding a new Node/Point or Way (long press)
+#### 增加新節點/點或是路徑 (長按)
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+在你想要放節點或是路徑開始的地方長按，你會看到黑色"準十字星"圖示。
+* 如果你想要創建新節點 (並未連到其他物件)，避開既有的物件。
+* 如果你想要延伸路徑，在"容忍範圍"內點選路徑 (或是路徑上的節點)。容忍範圍是指節點或路徑週圍的區域。
 
-Once you can see the crosshair symbol, you have these options:
+一旦你看到準星圖示，你有這些選擇：
 
-* Touch in the same place.
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* 碰觸同一地方。
+  * 如果十字準星不在節點附近，碰觸同一地方則會再次創建新的節點。如果附近有路徑 (但不在節點附近)，新的節點會在路徑上面 (並且連到路徑上面)。
+＊如果十字準星靠近節點瓶近 (例如在節點容忍範圍)，碰觸相同地方只會選取節點 (標籤編輯器會出現，不會有創建新的節點)。操作的過程與上述敘述一樣。
+* 碰觸其他地方。碰觸其他地點 (在十字準星容忍範圍外) 則會從原始地點到現在位置新增路徑。如果十字準星在路徑或節點附近，新的片段會連到該節點或是路徑。　
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+簡單在你想增加節點的路徑上碰觸螢幕，要完成操作，請在最後一個節點碰觸兩次。如果最後的節點位於路徑或是節點，則片段會自動連到路徑或是節點。 
 
-You can also use a menu item: See [Creating new objects](../en/Creating new objects.md) for more information.
+你也可以使用選單項目：請見[創建新物件](../zh_TW/Creating%20new%20objects.md)得到更多資訊。
 
-#### Adding an Area
+#### 增加區域
 
-OpenStreetMap currently doesn't have an "area" object type contrary to other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+開放街圖與其他地理資料系統不同，目前沒有"區域"物件類型。線上編輯器 "iD" 嘗試創建區域來代表特定底層 OSM 元件，有時候可以順暢運作，其他情況則不行。VEspucci 目前並沒有類型的作法，所以你必須知道路徑區域如何表示：
 
 * _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
 * _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
@@ -149,7 +149,7 @@ Vespucci 除了支援 OAuth 的授權和標準的使用者名稱與密碼的方�
 
 #### 在上傳解決衝突
 
-Vespucci有個簡單的衝突解決器。然而，如果你覺得你的編輯有重大的問題，可以匯出你做的變動，匯出為 .osc 檔案。(在"轉移"選單中的"匯出")，之後用JOSM修正上傳。請見[解決衝突](../en/Conflict resolution.md)的詳細說明。  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
 
 ## 使用 GPS
 
@@ -165,7 +165,7 @@ On the map the Notes and bugs are represented by a small bug icon ![Bug](../imag
 
 OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則會選取物件，並且螢幕置中，如果需要則會下載周邊的區域。 
 
-### Filtering
+### 篩選
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
 
@@ -176,19 +176,19 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## Indoor mode
+## 室內模式
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, "tag editing only", indoor mode](#lock).
 
-## Filters
+## 篩選
 
-### Tag based filter
+### 標籤為依據的篩選
 
 The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
 
-### Preset based filter
+預置為依據的篩選
 
 An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](../en/Preset%20filter.md).
 

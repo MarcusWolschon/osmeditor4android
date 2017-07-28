@@ -188,6 +188,7 @@
   <string name="enable">Включить</string>
   <string name="clear">Очистить</string>
   <string name="retry">Повторить</string>
+  <string name="share">Поделится</string>
   <!--Dialog for back button-->
   <string name="exit_title">Действительно выйти?</string>
   <string name="exit_text">Вы действительно хотите выйти?</string>

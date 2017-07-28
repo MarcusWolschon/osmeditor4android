@@ -1,6 +1,6 @@
 # Vespucci bevezetés
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+A Vespucci teljes körű OpenStreetMap-szerkesztő, amely támogatja a legtöbb olyan műveletet, amelyet asztali gépen futó szerkesztőkkel el lehet végezni. Sikeresen tesztelték a Google Android 2.3–7.0 verzióin és különféle Android nyílt forráskódon alapuló változatokon. Egy kis figyelmeztetés: a mobil eszközök képességei ugyan utolérték az asztali versenytársaikéit, ám elsősorban a régebbi eszközök rendelkezésre álló memóriája korlátozott, ezért előfordulhat, hogy lassúak. A Vespucci használatánál ezt figyelembe kell venni, és – például – a szerkesztendő területet ésszerű méretek között tartani. 
 
 ## Első használat
 
@@ -10,21 +10,21 @@ Másrészt be is zárhatja a párbeszédet az „Ugrás a térképre” gomb meg
 
 ## Szerkesztés a Vespuccival
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+A képernyő méretétől és a készülék életkorától függően a szerkesztési műveletek a következő helyekről érhetők el: közvetlenül a felső sáv ikonjaiból, a felső sáv jobb oldalán található legördülő menüből, az alsó sávból (ha van) vagy a menügombból.
 
 <a id="download"></a>
 
 ### OSM adatok letöltése
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Jelöld ki vagy az Átvitel ikont ![Transfer](../images/menu_transfer.png) vagy az Átvitel menüpontot. Ez hét opciót fog megjeleníteni:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Jelenlegi nézet letöltése** – letölti a képernyőn látható területet és felvált minden meglévő adatot *(hálózati kapcsolatot igényel)*
+* **Jelenlegi nézet hozzáadása a letöltéshez** – letölti a képernyőn látható területet és egyesíti a már meglévő adatokkal *(hálózati kapcsolatot igényel)*
+* **Más helyszín letöltése** – mutat egy űrlapot, amelybe koordinátákat írhatunk, helyet kereshetünk vagy felhasználhatjuk a jelenlegi pozíciónkat, majd letölti az így megadott hely körüli területet *(hálózati kapcsolatot igényel)*
+* **Adatok feltöltése az OSM-kiszolgálóra** – feltölti a szerkesztéseket az OpenStreetMapre *(hitelesítést igényel)* *(hálózati kapcsolatot igényel)*
+* **Automatikus letöltés** – automatikusan letölti a jelenlegi földrajzi hely körüli területet *(hálózati kapcsolatot igényel)* *(GPS-t igényel)*
+* **Fájl…** – OSM-adatok mentése és betöltése a készüléken található fájlokba/-ból.
+* **Megjegyzések / hibák…** – (automatikusan és kézi vezérléssel) letölti az OSM megjegyzéseket és hibákat (ún. „bugok”) egyes minőségbiztosítási eszközökről (jelenleg az OSMOSE-ról) *(hálózati kapcsolatot igényel)*
 
 The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
@@ -32,7 +32,7 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 <a id="lock"></a>
 
-#### Lock, unlock, "tag editing only", indoor mode 
+#### Rögzítés, rögzítés feloldása, „csak címkék szerkesztése”, beltéri mód 
 
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
 
@@ -40,7 +40,7 @@ A long press on the lock icon will enable "Tag editing only" mode which will not
 
 Another long press will enable [Indoor mode](#indoor), and one more will cycle back to the normal editing mode.
 
-#### Single tap, double tap, and long press
+#### Egyszeres koppintás, dupla koppintás, hosszú nyomás
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
 
@@ -50,7 +50,7 @@ By default, selectable nodes and ways have an orange area around them indicating
     * Selected objects are highlighted in yellow. 
     * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
 
 It is a good strategy to zoom in if you attempt to edit a high density area.
 
@@ -72,11 +72,11 @@ A second touch on the selected object opens the tag editor and you can edit the 
 
 Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
 
-#### Selected objects: Moving a Node or Way
+#### Kijelölt objektumok: pont vagy vonal mozgatása
 
 Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
 
-#### Adding a new Node/Point or Way (long press)
+#### Új pont vagy vonal hozzáadása (hosszas nyomás)
 
 Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
 * If you want to create a new node (not connected to an object), click away from existing objects.
@@ -91,9 +91,9 @@ Once you can see the crosshair symbol, you have these options:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating new objects.md) for more information.
+You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 
-#### Adding an Area
+#### Terület hozzáadása
 
 OpenStreetMap currently doesn't have an "area" object type contrary to other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
@@ -149,7 +149,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 #### Ütközések feloldása feltöltéskor
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
 
 ## GPS használata
 
@@ -165,7 +165,7 @@ On the map the Notes and bugs are represented by a small bug icon ![Bug](../imag
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
-### Filtering
+### Szűrés
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
 
@@ -176,19 +176,19 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## Indoor mode
+## Beltéri mód
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, "tag editing only", indoor mode](#lock).
 
-## Filters
+## Szűrők
 
-### Tag based filter
+### Címkealapú szűrő
 
 The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
 
-### Preset based filter
+### Előbeállítás-alapú szűrő
 
 An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](../en/Preset%20filter.md).
 

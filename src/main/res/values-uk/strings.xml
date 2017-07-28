@@ -15,6 +15,7 @@
   <string name="upload_conflict_message_referential">%1$s
  було вилучено локально
  але має посилання на сервері</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nвже вилучено на сервері</string>
   <string name="use_local_version">Використовувати \nлокальну \nверсію</string>
   <string name="use_server_version">Використовувати \nверсію \nз сервера</string>
   <string name="no_login_data_title">Помилка автентифікації</string>
@@ -27,6 +28,8 @@
   <string name="forbidden_login_title">Вхід заборонено</string>
   <string name="data_conflict_title">Конфлікт версій</string>
   <string name="data_conflict_message">Дані, які ви намагаєтесь завантажити конфліктують з вашими правками. Спочатку надішліть на сервер ваші зміни перед тим, як спробувати завантажити дані знов.</string>
+  <string name="invalid_bounding_box_title">Неприпустима обмежувальна рамка</string>
+  <string name="invalid_bounding_box_message">Обрана область не відповідає вимогам API, виберіть іншу</string>
   <string name="api_offline_title">Немає з’єднання з API</string>
   <string name="api_offline_message">Зараз немає зв’язку з API, тому а ні отримати, а ні надіслати дані неможливо.</string>
   <string name="out_of_memory_title">Недостатньо пам’яті</string>
@@ -34,6 +37,8 @@
   <string name="out_of_memory_dirty_message">Веспуччі не вистачило пам’яті для завантаження даних. Спробуйте зберегти ваші зміни, перезапустити застосунок та завантажити меншу ділянку</string>
   <string name="invalid_data_received_title">Отримано некоректні дані</string>
   <string name="invalid_data_received_message">Веспуччі  отримав некоректні дані з сервера. Якщо ви вважаєте, те що ви робите правильно, будт ласка, надішліть звит про помилку.</string>
+  <string name="invalid_data_read_title">Некоректні дані</string>
+  <string name="invalid_data_read_message">Файл містить некоректні дані. Якщо ви вважаєте що все робили правильно, повідомте про помилку розробникам.</string>
   <string name="file_write_failed_title">Збій запису у файл</string>
   <string name="file_write_failed_message">Не вдалося записати в обраний файл.</string>
   <string name="welcome_title">Ласкаво просимо!</string>

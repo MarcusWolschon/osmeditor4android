@@ -50,7 +50,7 @@ By default, selectable nodes and ways have an orange area around them indicating
     * Selected objects are highlighted in yellow. 
     * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
 
 Se si cerca di modificare un'area ad alta densità di oggetti, è buona norma ingrandire la mappa.
 
@@ -91,7 +91,7 @@ Once you can see the crosshair symbol, you have these options:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating new objects.md) for more information.
+You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 
 #### Adding an Area
 
@@ -149,7 +149,7 @@ Se vuoi salvare il tuo lavoro quando non hai accesso a Internet, puoi salvarlo s
 
 #### Risolvere in conflitti durante il caricamento
 
-Vespucci ha un risolutore semplificato dei conflitti. Se pensi di aver commesso qualche grosso errore nelle tue modifiche, puoi esportare i cambiamenti in un file .osc (opzione "Esporta" nel menù "Trasferisci") e risolverli per poi caricare i dati con JOSM. Ulteriori informazioni su [risoluzione dei confitti](../en/Conflict resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
 
 ## Usare un GPS
 

@@ -50,7 +50,7 @@ By default, selectable nodes and ways have an orange area around them indicating
     * Selected objects are highlighted in yellow. 
     * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
 
 Il est conseillé de zoomer plus quand vous éditez une zone avec une grande densité de données.
 
@@ -91,7 +91,7 @@ Once you can see the crosshair symbol, you have these options:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating new objects.md) for more information.
+You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 
 #### Adding an Area
 
@@ -149,7 +149,7 @@ Si vous voulez sauvegarder vos modifications alors que vous n'avez pas accès à
 
 #### Résoudre des conflits lors de l'envoi
 
-Vespucci dispose d'un outil de résolution des conflits simples. Cependant, si vous soupçonnez un problème important avec vos modifications, exportez-les dans un fichier ".osc" (menu "Transfert des données" puis "Exporter les modifications") pour les corriger dans JOSM avant de les envoyer. Une aide détaillée est disponible sur [la résolution de conflit](../en/Conflict resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
 
 ## Utiliser le GPS
 

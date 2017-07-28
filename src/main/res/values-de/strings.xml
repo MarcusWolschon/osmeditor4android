@@ -201,6 +201,7 @@
   <string name="toast_exit_actionmode">\"Zurückpfeil\" wählen um zu speichern und zu beenden</string>
   <string name="toast_abort_actionmode">\"Zurückpfeil\" wählen um abzubrechen</string>
   <string name="toast_null_island">Bitte keine Objekte bei 0°/0° (Null Island) hinzufügen</string>
+  <string name="toast_string_too_long">Text ist zu lang (%1$d Zeichen), gekürzt!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -262,10 +263,13 @@
   <string name="tag_menu_move_down">Eine Position nach unten verschieben</string>
   <string name="tag_menu_move_bottom">Ans Ende verschieben</string>
   <string name="tag_menu_sort">Sortieren</string>
+  <string name="tag_menu_reverse_order">Reihenfolge umkehren</string>
   <string name="tag_menu_download">Herunterladen</string>
   <string name="tag_menu_js_console">JS Konsole</string>
   <string name="menu_up">Nach oben</string>
   <string name="menu_top">An den Anfang</string>
+  <string name="menu_select_all">Alle auswählen</string>
+  <string name="menu_deselect_all">Alles abwählen</string>
   <string name="menu_preset_help">Hilfe zu Vorlagen</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Eigenschaften für %1$s hinzufügen</string>

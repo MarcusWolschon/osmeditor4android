@@ -50,7 +50,7 @@ By default, selectable nodes and ways have an orange area around them indicating
     * Selected objects are highlighted in yellow. 
     * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating new objects.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
 
 Nếu muốn sửa đổi một khu vực có nhiều dữ liệu, bạn rất nên phóng to trước khi sửa đổi.
 
@@ -91,7 +91,7 @@ Khi bạn mới thấy hình tâm ngắm, bạn có thể:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating new objects.md) for more information.
+You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 
 #### Adding an Area
 
@@ -149,7 +149,7 @@ Nếu muốn lưu các thay đổi của bạn đang khi ngoại tuyến, bạn 
 
 #### Giải quyết mâu thuẫn khi tải lên
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
 
 ## Sử dụng GPS
 

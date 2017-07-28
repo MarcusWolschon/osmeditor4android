@@ -19,6 +19,7 @@
   <string name="wrong_login_data_title">Auðkenning mistókst</string>
   <string name="wrong_login_data_message">Ef þú ert að auðkenna þig með OAuth reyndu þá aftur, ef þú ert að nota notandanafn og lykilorð (ekki mælt með því) athugaðu þá að þau séu rétt skrifuð.</string>
   <string name="wrong_login_data_re_authenticate">Reyna auðkenningu aftur</string>
+  <string name="forbidden_login_title">Innskráning óheimil</string>
   <string name="data_conflict_title">Útgáfumismunur</string>
   <string name="data_conflict_message">Gögnin sem þú ert að ná í rekast á við breytingar sem þú hefur gert. Sendu gögn þín áður en þú reynir aftur.</string>
   <string name="api_offline_title">Gagnaskil ekki tengd</string>

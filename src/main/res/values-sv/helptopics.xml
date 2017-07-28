@@ -1,27 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="help_introduction">Bevezetés</string>
-    <string name="help_main">Fő térképmegjelenítő</string>
-    <string name="help_addrelationmember">Kapcsolat kijelölve</string>
-    <string name="help_multiselect">Többszörös kijelölés</string>
-    <string name="help_longclick">Új objektumok létrehozása</string>
-    <string name="help_nodeselection">Pont kijelölve</string>
-    <string name="help_pathcreation">Új objektumok létrehozása</string>
-    <string name="help_relationselection">Kapcsolat kijelölve</string>
-    <string name="help_wayselection">Vonal kijelölve</string>
-    <string name="help_aligningbackgroundiamgery">Légifelvétel-háttér igazítása</string>
-    <string name="help_propertyeditor">Tulajdonságszerkesztő</string>
-    <string name="help_presets">Előbeállítások</string>
-    <string name="help_conflictresolution">Ütközés feloldása</string>
-    <string name="help_gpssources">GPS-források</string>
-    <string name="help_keyboard">Billentyűzet</string>
-    <string name="help_tagfilter">Címkeszűrő</string>
-    <string name="help_presetfilter">Előbeállításszűrő</string>
-    <string name="help_opening_hours">Nyitva tartás</string>
-    <string name="help_upgrade">0.9.9 kiadási megjegyzések</string>
-    <string name="help_upgrade_098">0.9.8 kiadási megjegyzések</string>
-    <string name="help_upgrade_097">0.9.7 kiadási megjegyzések</string>
-    <string name="help_upgrade_096">0.9.6 kiadási megjegyzések</string>
+    <string name="help_introduction">Introduktion</string>
+    <string name="help_relationselection">Relation vald</string>
+    <string name="help_gpssources">GPS källa</string>
+    <string name="help_keyboard">Tangentbord</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
