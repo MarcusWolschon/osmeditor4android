@@ -19,6 +19,7 @@ If an existing opening hours value is loaded, an attempt is made to auto-correct
 ### Main menu button
 
 * __Add rule__: add a new rule.
+* __Add rule for holidays__: add a new rule for a holiday together with a state change.
 * __Add rule for 24/7__: add a rule for an object that is always open, the opening hours specification doesn't support any other sub values for 24/7 however we do allow adding of higher level selectors (for example year ranges).
 * __Load template__: load an existing template.
 * __Save to template__: save the current opening hours value as a template for future use.
