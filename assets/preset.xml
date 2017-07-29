@@ -1192,13 +1192,13 @@
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
                 	    <list_entry value="left" short_description="Left" />
-                	    <list_entry value="left:through" short_description="Left and through" />
+                	    <list_entry value="left;through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
                 	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right;through" short_description="Right and through" />
                 	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
@@ -1218,13 +1218,13 @@
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
                 	    <list_entry value="left" short_description="Left" />
-                	    <list_entry value="left:through" short_description="Left and through" />
+                	    <list_entry value="left;through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
                 	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right;through" short_description="Right and through" />
                 	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
@@ -1236,13 +1236,13 @@
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
                 	    <list_entry value="left" short_description="Left" />
-                	    <list_entry value="left:through" short_description="Left and through" />
+                	    <list_entry value="left;through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
                 	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right;through" short_description="Right and through" />
                 	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
@@ -5303,7 +5303,7 @@
             	<list_entry value="cabaret" display_value="Cabaret" />
             	<list_entry value="boulevard" display_value="Boulevard" />
             	<list_entry value="circus" display_value="Circus" />
-            	<list_entry value="stand_up_comedy" display_value="Stand up comdey" />
+            	<list_entry value="stand_up_comedy" display_value="Stand up comedy" />
             	<list_entry value="political" display_value="Political" />
             	<list_entry value="variety" display_value="Variety" />
             </combo>
@@ -7593,8 +7593,7 @@
 			</item> <!-- Roof type skillion -->
 		</group>
 		<!-- /roof type -->
-		<item name="Entrance" icon="icons/png/barrier_entrance.png"
-			type="node" preset_name_label="true">
+		<item name="Entrance" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
 			<link href="http://wiki.openstreetmap.org/wiki/Key:entrance"
 				cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:entrance"
 				de.href="http://wiki.openstreetmap.org/wiki/DE:Key:entrance"
@@ -7616,9 +7615,7 @@
 				<text key="addr:flats" text="Flat numbers" />
 			</optional>
 		</item> <!-- Entrance -->
-		<item name="Entrance (deprecated)" deprecated="true"
-			icon="icons/png/barrier_entrance.png" type="node"
-			preset_name_label="true">
+		<item name="Entrance (deprecated)" deprecated="true" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
 			<key key="building" value="entrance" />
 		</item> <!-- Entrance (deprecated) -->
 	</group> <!-- Buildings -->
