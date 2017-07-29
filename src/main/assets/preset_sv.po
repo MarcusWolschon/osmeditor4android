@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-28 19:46+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-07-29 07:57+0000\n"
+"Last-Translator: Erik L\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -283,7 +283,7 @@ msgstr ""
 
 #: master_preset.xml:12508(item:name|group:Offices|preset:Advertising_agency)
 msgid "Advertising agency"
-msgstr ""
+msgstr "Reklambyrå"
 
 #: master_preset.xml:3311(group:name|group:Aerialway)
 #: master_preset.xml:3951(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
@@ -645,7 +645,7 @@ msgstr ""
 
 #: master_preset.xml:4951(combo:text|group:Leisure|preset:Dog_Park|key:barrier)
 msgid "Barrier"
-msgstr ""
+msgstr "Barriär"
 
 #: master_preset.xml:1902(group:name|group:Barriers)
 msgid "Barriers"
@@ -1780,7 +1780,7 @@ msgstr ""
 
 #: master_preset.xml:8805(item:name|group:Food|preset:Dairy)
 msgid "Dairy"
-msgstr ""
+msgstr "Dagbok"
 
 #: master_preset.xml:2690(item:name|group:Water|preset:Dam)
 msgid "Dam"
@@ -3967,7 +3967,7 @@ msgstr "Militär"
 
 #: master_preset.xml:9967(list_entry:short_description|preset:Vending_Machine|value:milk)
 msgid "Milk"
-msgstr ""
+msgstr "Mjölk"
 
 #: master_preset.xml:11489(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Min. distance"
@@ -5836,11 +5836,11 @@ msgstr "Återvinningscontainer"
 #: master_preset.xml:576(combo:display_values|key:roof:colour)
 #: master_preset.xml:612(combo:display_values|key:building:colour)
 msgid "Red"
-msgstr ""
+msgstr "Röd"
 
 #: master_preset.xml:2855(list_entry:short_description|group:Water|preset:Wetland|value:reedbed)
 msgid "Reedbed"
-msgstr ""
+msgstr "Vassbälte"
 
 #: master_preset.xml:10469(item:name|group:Geography|preset:Reef)
 msgid "Reef"
@@ -6080,7 +6080,7 @@ msgstr "Ridning"
 
 #: master_preset.xml:11582(item:name|group:Routes|preset:Riding_Route)
 msgid "Riding Route"
-msgstr ""
+msgstr "Ridrutt"
 
 #: master_preset.xml:12201(item:name|group:Crafts|preset:Rigger)
 msgid "Rigger"
@@ -6717,7 +6717,7 @@ msgstr "Platser för kvinnor"
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Spanish"
-msgstr ""
+msgstr "Spanska"
 
 #: master_preset.xml:31(list_entry:short_description|value:very_horrible)
 msgid "Specialized off-road: tractor, ATV"
@@ -7995,7 +7995,7 @@ msgstr ""
 
 #: master_preset.xml:2859(list_entry:short_description|group:Water|preset:Wetland|value:wet_meadow)
 msgid "Wet meadow"
-msgstr ""
+msgstr "Våt äng"
 
 #: master_preset.xml:2835(item:name|group:Water|preset:Wetland)
 msgid "Wetland"
@@ -8107,7 +8107,7 @@ msgstr "Kvinna"
 
 #: master_preset.xml:580(combo:display_values|key:roof:material)
 msgid "Wood"
-msgstr "trä"
+msgstr "Trä"
 
 #: master_preset.xml:10538(label:text|group:Nature|preset:Wood)
 msgid "Woodland where timber production does not dominate use."
@@ -8696,7 +8696,7 @@ msgstr "Obelagd"
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Wood"
-msgstr "trä"
+msgstr "Trä"
 
 #: master_preset.xml:36(combo:text|key:leisure)
 msgctxt "riding"
@@ -8912,7 +8912,7 @@ msgstr "Handboll"
 #: master_preset.xml:6806(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Horse racing"
-msgstr ""
+msgstr "Hästkapplöpning"
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10074,7 +10074,7 @@ msgstr "Lager"
 #: master_preset.xml:616(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Wood"
-msgstr "trä"
+msgstr "Trä"
 
 #: master_preset.xml:7450(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10263,7 +10263,7 @@ msgstr "Kabel"
 #: master_preset.xml:2027(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Wood"
-msgstr "trä"
+msgstr "Trä"
 
 #: master_preset.xml:2092(item:name|group:Barriers|preset:Ditch)
 msgctxt "Barrier"
@@ -10293,7 +10293,7 @@ msgstr "Vatten"
 #: master_preset.xml:10528(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
 msgid "Wood"
-msgstr "trä"
+msgstr "Naturskog"
 
 #: master_preset.xml:2927(combo:text|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgctxt "cargo"
@@ -10304,7 +10304,7 @@ msgstr "Gods"
 #: master_preset.xml:3262(combo:text|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "crossing:barrier"
 msgid "Barrier"
-msgstr ""
+msgstr "Berriär"
 
 #: master_preset.xml:3418(item:name|group:Aerialway|preset:Station)
 msgctxt "aerialway"
