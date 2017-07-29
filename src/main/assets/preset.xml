@@ -1192,13 +1192,13 @@
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
                 	    <list_entry value="left" short_description="Left" />
-                	    <list_entry value="left:through" short_description="Left and through" />
+                	    <list_entry value="left;through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
                 	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right;through" short_description="Right and through" />
                 	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
@@ -1218,13 +1218,13 @@
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
                 	    <list_entry value="left" short_description="Left" />
-                	    <list_entry value="left:through" short_description="Left and through" />
+                	    <list_entry value="left;through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
                 	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right;through" short_description="Right and through" />
                 	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
@@ -1236,13 +1236,13 @@
                 	    <list_entry value="reverse" short_description="Reverse" />
                 	    <list_entry value="sharp_left" short_description="Sharp left" />
                 	    <list_entry value="left" short_description="Left" />
-                	    <list_entry value="left:through" short_description="Left and through" />
+                	    <list_entry value="left;through" short_description="Left and through" />
                 	    <list_entry value="slight_left" short_description="Slight left" />
                 	    <list_entry value="merge_to_left" short_description="Merge to left" />
                 	    <list_entry value="through" short_description="Through" />
                 	    <list_entry value="merge_to_right" short_description="Merge to right" />
                 	    <list_entry value="slight_right" short_description="Slight right" />
-                	    <list_entry value="right:through" short_description="Right and through" />
+                	    <list_entry value="right;through" short_description="Right and through" />
                 	    <list_entry value="right" short_description="Right" />
                 	    <list_entry value="sharp_right" short_description="Sharp right" />
                     </multiselect>
