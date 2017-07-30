@@ -2197,10 +2197,10 @@ public class Logic {
 	/**
 	 * Loads the area defined by mapBox from the OSM-Server.
 	 * 
-	 * @param activity activity this was called from
-	 * @param mapBox Box defining the area to be loaded.
-	 * @param add if true add this data to existing
-	 * @param postLoadHandler handler to execute after successful download
+	 * @param activity			activity this was called from
+	 * @param mapBox 			Box defining the area to be loaded.
+	 * @param add 				if true add this data to existing
+	 * @param postLoadHandler	handler to execute after successful download
 	 */
 	public synchronized void downloadBox(final FragmentActivity activity, final BoundingBox mapBox, final boolean add, final PostAsyncActionHandler postLoadHandler) {
 		try {
@@ -2212,7 +2212,6 @@ public class Logic {
 		} 
 		
 		final PostMergeHandler postMerge =  new PostMergeHandler(){
-
 			@Override
 			public void handler(OsmElement e) {
 				e.hasProblem(activity);
@@ -2367,22 +2366,20 @@ public class Logic {
 	
 	/**
 	 * Loads the area defined by mapBox from the OSM-Server. Static version for auto download
+	 * 
 	 * FIXME try to reduce the code duplication here
-	 * @param context android context
-	 * @param mapBox Box defining the area to be loaded.
-	 * @param add if true add this data to existing
-	 * @param auto download is being done automatically, try not mess up/move the display
+	 * @param context	android context
+	 * @param mapBox 	Box defining the area to be loaded.
 	 */
 	public synchronized void autoDownloadBox(final Context context, final Server server, final BoundingBox mapBox) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} // TODO remove this? and replace with better error messaging
+			Log.d(DEBUG_TAG,"Invalid bounding box");
+			return;
+		} 
 		
 		final PostMergeHandler postMerge =  new PostMergeHandler(){
-
 			@Override
 			public void handler(OsmElement e) {
 				e.hasProblem(context);
