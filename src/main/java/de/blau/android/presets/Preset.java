@@ -659,23 +659,30 @@ public class Preset implements Serializable {
 					} else if ("reference".equals(name)) {
 						PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
 						if (chunk != null) {
-							currentItem.fixedTags.putAll(chunk.getFixedTags());
-							if (!currentItem.isChunk()) {
-								for (Entry<String,StringWithDescription> e:chunk.getFixedTags().entrySet()) {
-									StringWithDescription v = e.getValue();
-									String value = "";
-									if (v != null && v.getValue() != null) {
-										value = v.getValue();
-									}
-									tagItems.add(e.getKey()+"\t"+value, currentItem);
+							if (inOptionalSection) {
+								// fixed tags don't make sense in an optional section, and doesn't seem to happen in practice
+								if (chunk.getFixedTagCount() > 0) {
+									Log.e(DEBUG_TAG,"Chunk " + chunk.name + " has fixed tags but is used in an optional section");
 								}
+								currentItem.optionalTags.putAll(chunk.getRecommendedTags());
+							} else {
+								currentItem.fixedTags.putAll(chunk.getFixedTags());
+								if (!currentItem.isChunk()) {
+									for (Entry<String,StringWithDescription> e:chunk.getFixedTags().entrySet()) {
+										StringWithDescription v = e.getValue();
+										String value = "";
+										if (v != null && v.getValue() != null) {
+											value = v.getValue();
+										}
+										tagItems.add(e.getKey()+"\t"+value, currentItem);
+									}
+								}
+								currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
 							}
-							currentItem.optionalTags.putAll(chunk.getOptionalTags());
-							addToTagItems(currentItem, chunk.getOptionalTags());
-
-							currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
 							addToTagItems(currentItem, chunk.getRecommendedTags());
-
+							currentItem.optionalTags.putAll(chunk.getOptionalTags());	
+							addToTagItems(currentItem, chunk.getOptionalTags());
+							
 							currentItem.hints.putAll(chunk.hints);
 							currentItem.addAllDefaults(chunk.defaults);
 							currentItem.keyType.putAll(chunk.keyType);
