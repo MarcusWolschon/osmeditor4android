@@ -516,6 +516,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	/**
 	 * Test if the element has any problems by searching all the tags for the words
 	 * "fixme" or "todo", or if it has a key in the list of things to regularly re-survey 
+	 * 
 	 * @return true if the element has any noted problems, false otherwise.
 	 */
 	boolean calcProblem() {
@@ -590,9 +591,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	/**
 	 * Test if the element has a noted problem. A noted problem is where someone has
 	 * tagged the element with a "fixme" or "todo" key/value.
+	 * 
+	 * @param context Android context, if non-null used for generating alerts 
 	 * @return true if the element has a noted problem, false if it doesn't.
 	 */
-	public boolean hasProblem(Context context) {
+	public boolean hasProblem(@Nullable Context context) {
 		// This implementation assumes that calcProblem() may be expensive, and
 		// caches the calculation.
 		if (!checkedForProblem) {

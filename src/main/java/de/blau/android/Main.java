@@ -1340,8 +1340,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			Log.d(DEBUG_TAG,"had to resync tagfilter pref");
 		}
 		
-		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
-		menu.findItem(R.id.menu_enable_presetfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
+		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode().supportsFilters()).setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
+		menu.findItem(R.id.menu_enable_presetfilter).setEnabled(logic.getMode().supportsFilters()).setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
 		
 		// enable the JS console menu entry
 		menu.findItem(R.id.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
@@ -2517,7 +2517,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
 				PropertyEditor.startForResult(this, single, applyLastAddressTags,
-						showPresets, askForName, logic.getMode().getExtraTags(logic, selectedElement), REQUEST_EDIT_TAG);
+						showPresets, askForName, logic.getMode().getExtraTags(logic, selectedElement), logic.getMode().getPresetItems(this, selectedElement), REQUEST_EDIT_TAG);
 			}
 		}
 	}
@@ -2543,7 +2543,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
 		PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags,
-				showPresets, false, null, REQUEST_EDIT_TAG);
+				showPresets, false, null, null, REQUEST_EDIT_TAG);
 	}
 
 	/**

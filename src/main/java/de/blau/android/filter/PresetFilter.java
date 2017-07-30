@@ -62,7 +62,7 @@ public class PresetFilter extends Filter {
 		if (path != null) {
 			this.path = path;
 			Preset[] presets = App.getCurrentPresets(context); 
-			element = presets[0].getElementByPath(presets[0].getRootGroup(), path);
+			element = Preset.getElementByPath(presets[0].getRootGroup(), path);
 			if (element==null) {
 				Log.e(DEBUG_TAG, path.toString() + " not found");
 				return;

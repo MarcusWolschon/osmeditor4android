@@ -931,11 +931,11 @@ public class Preset implements Serializable {
 	 * Return a PresetElement by identifiying it with its place in the hierarchy
 	 * 
 	 * @param group PresetGroup to start the search at
-	 * @param path the path
+	 * @param path 	the path
 	 * @return the PresetElement or null if not found
 	 */
 	@Nullable
-	public PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path) {
+	static public PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path) {
 		int size = path.path.size();
 		if (size > 0) {
 			String segment = path.path.get(0);

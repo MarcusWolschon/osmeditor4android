@@ -59,8 +59,10 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
@@ -89,6 +91,8 @@ public class TagEditorFragment extends BaseFragment implements
 	private static final String APPLY_LAST_ADDRESS_TAGS = "applyLastAddressTags";
 
 	private static final String EXTRA_TAGS = "extraTags";
+	
+	private static final String PRESETSTOAPPLY = "presetsToApply";
 
 	private static final String HTTP_PREFIX = "http://";
 
@@ -182,7 +186,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param displayMRUpresets 
      */
     static public TagEditorFragment newInstance(OsmElement[] elements, ArrayList<LinkedHashMap<String,String>> tags, boolean applyLastAddressTags, 
-    											String focusOnKey, boolean displayMRUpresets, HashMap<String,String> extraTags) {
+    											String focusOnKey, boolean displayMRUpresets, HashMap<String,String> extraTags, ArrayList<PresetElementPath> presetsToApply) {
     	TagEditorFragment f = new TagEditorFragment();
     	
         Bundle args = new Bundle();
@@ -193,6 +197,7 @@ public class TagEditorFragment extends BaseFragment implements
         args.putSerializable(FOCUS_ON_KEY, focusOnKey);
         args.putSerializable(DISPLAY_MR_UPRESETS, Boolean.valueOf(displayMRUpresets));
         args.putSerializable(EXTRA_TAGS, extraTags);
+        args.putSerializable(PRESETSTOAPPLY, presetsToApply);
         
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -330,7 +335,6 @@ public class TagEditorFragment extends BaseFragment implements
 		
 		updateAutocompletePresetItem(editRowLayout, null, false); // set preset from initial tags
 		
-		
 		if (displayMRUpresets) {
 			Log.d(DEBUG_TAG,"Adding MRU prests");
 			FragmentManager fm = getChildFragmentManager();
@@ -393,6 +397,17 @@ public class TagEditorFragment extends BaseFragment implements
     public void onStart() {
     	super.onStart();
     	Log.d(DEBUG_TAG, "onStart");
+    	// the following likely wont work in onCreateView
+       	ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY);
+    	Preset[] presets = App.getCurrentPresets(getActivity());
+		if (presetsToApply != null) {
+			for (PresetElementPath pp:presetsToApply) {
+				PresetElement pi = (PresetItem) Preset.getElementByPath(presets[0].getRootGroup(),pp);
+				if (pi != null && pi instanceof PresetItem) {
+					applyPreset((PresetItem) pi,false,true);
+				}
+			}
+		}
     }
     
     @Override

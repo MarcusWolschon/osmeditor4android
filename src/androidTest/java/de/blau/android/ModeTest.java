@@ -109,6 +109,13 @@ public class ModeTest {
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}	
+		Assert.assertEquals(Mode.MODE_CORRECT, logic.getMode());
+		
+		try {
+			longClick(lock);
+		} catch (UiObjectNotFoundException e) {
+			Assert.fail(e.getMessage());
+		}	
 		Assert.assertEquals(Mode.MODE_EASYEDIT, logic.getMode());
 	}
 }
