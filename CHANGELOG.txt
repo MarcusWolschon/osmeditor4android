@@ -1,6 +1,8 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-1287: Backport fix for missing relation backlink, updated preset.
+1291: Back port fix for handling chunks in optional sections, update preset.
+
+1287: Back port fix for missing relation backlink, updated preset.
 
 1285: Bump version numbers to make the play store happy
 

@@ -95,13 +95,13 @@
         <reference ref="sidewalk" />
     </chunk>
     <chunk id="crossing_type">    
-    	<combo key="crossing" text="Pedestrian crossing type" >
+    	<multiselect key="crossing" text="Pedestrian crossing type" >
  			<list_entry value="uncontrolled" short_description="Not controlled" icon="presets/vehicle/crossing.svg" />
  			<list_entry value="traffic_signals" short_description="Traffic signals" icon="presets/vehicle/crossing_traffic_signals.svg" />
 			<list_entry value="island" short_description="Island" icon="presets/vehicle/crossing_island.svg" />
 			<list_entry value="unmarked" short_description="Unmarked" icon="presets/vehicle/crossing_unmarked.svg" />
 			<list_entry value="no" short_description="No crossing" />
- 		</combo>
+ 		</multiselect>
  	</chunk>
     <chunk id="railway_service">
         <combo key="service" text="Service type" values="yard,siding,spur,crossover" />
@@ -1613,7 +1613,9 @@
             <space />
             <key key="highway" value="crossing" />
             <reference ref="crossing_type" />
-            <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true" />
+            <optional>
+            	<combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true" />
+            </optional>
             <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" />
             <check key="bicycle" text="Cross by bicycle" disable_off="true" />
             <check key="horse" text="Cross on horseback" disable_off="true" />
@@ -2749,7 +2751,9 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=basin" />
             <space />
             <key key="landuse" value="basin" />
-            <text key="name" text="Name" />
+            <optional>
+            	<text key="name" text="Name" />
+            </optional>
         </item> <!-- Basin -->
         <item name="Reservoir" icon="icons/png/water_reservoir_22110.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=reservoir"
@@ -7614,9 +7618,11 @@
 				<text key="ref" text="Entrance number" />
 				<text key="addr:flats" text="Flat numbers" />
 			</optional>
+			<preset_link preset_name="Address" />
 		</item> <!-- Entrance -->
 		<item name="Entrance (deprecated)" deprecated="true" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
 			<key key="building" value="entrance" />
+			<preset_link preset_name="Address" />
 		</item> <!-- Entrance (deprecated) -->
 	</group> <!-- Buildings -->
   <group name="Man Made" icon="icons/png/man_made_works_22087.png">
@@ -7922,6 +7928,7 @@
             <space />
             <key key="amenity" value="fountain" />
             <text key="name" text="Name" />
+            <check key="drinking_water" text="Drinking Water" disable_off="true" />
         </item> <!-- Fountain -->
         <item name="Water Well" icon="icons/png/man_made_water_well_22083.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=water_well"
@@ -10769,7 +10776,9 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:landuse=farmland" />
             <space />
             <key key="landuse" value="farmland" />
-            <text key="name" text="Name" />
+            <optional>
+            	<text key="name" text="Name" />
+            </optional>
             <combo key="crop" text="Crop" values="corn,grass,rice,wheat,hop" display_values="Corn,Grass,Rice,Wheat,Hop" editable="true" values_context="crop" />
         </item> <!-- Farmland -->
         <item name="Farm (deprecated)" icon="icons/png/landuse_farm_22120.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true" >
@@ -10788,7 +10797,9 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=meadow" />
             <space />
             <key key="landuse" value="meadow" />
-            <text key="name" text="Name" />
+            <optional>
+            	<text key="name" text="Name" />
+            </optional>
         </item> <!-- Meadow -->
         <item name="Orchard" icon="icons/png/landuse_greengrocer.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=orchard"
@@ -10801,7 +10812,9 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=orchard" />
             <space />
             <key key="landuse" value="orchard" />
-            <text key="name" text="Name" />
+            <optional>
+            	<text key="name" text="Name" />
+            </optional>
             <combo key="trees" text="Trees" values="olive_trees,apple_trees,oil_palms,orange_trees,almond_trees,banana_plants,coconut_palms,hazel_plants,cherry_trees,persimmon_trees,walnut_trees,plum_trees,peach_trees,tea_plants" />
         </item> <!-- Orchard -->
         <item name="Vineyard" icon="icons/png/landuse_wine_29203.png" type="closedway,multipolygon" preset_name_label="true">
@@ -10896,7 +10909,9 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=grass" />
             <space />
             <key key="landuse" value="grass" />
-            <text key="name" text="Name" />
+            <optional>
+            	<text key="name" text="Name" />
+            </optional>
         </item> <!-- Grass -->
         <item name="Village Green" icon="icons/png/landuse_landuse_sp.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=village_green"
@@ -10966,7 +10981,9 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=residential" />
             <space />
             <key key="landuse" value="residential" values_context="landuse" />
-            <text key="name" text="Name" />
+            <optional>
+            	<text key="name" text="Name" />
+            </optional>
         </item> <!-- Residential Area -->
         <item name="Graveyard" icon="icons/png/landuse_grave_yard_12062.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=grave_yard"
