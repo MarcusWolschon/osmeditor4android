@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-29 07:57+0000\n"
+"PO-Revision-Date: 2017-07-30 18:45+0000\n"
 "Last-Translator: Erik L\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -152,7 +152,7 @@ msgstr ""
 
 #: master_preset.xml:10392(label:text|group:Geography|preset:Ridge)
 msgid "A mountain or hill ridge."
-msgstr ""
+msgstr "Ett berg eller en ås."
 
 #: master_preset.xml:10720(label:text|group:Nature|preset:Rock)
 msgid ""
@@ -591,7 +591,7 @@ msgstr ""
 
 #: master_preset.xml:8756(item:name|group:Food|preset:Bakery)
 msgid "Bakery"
-msgstr ""
+msgstr "Bageri"
 
 #: master_preset.xml:5285(list_entry:display_value|group:Culture|preset:Music_theatres|value:ballet)
 msgid "Ballet theatre"
@@ -745,7 +745,7 @@ msgstr "Cykel"
 
 #: master_preset.xml:962(item:name|group:Streets|preset:Bicycle_Road)
 msgid "Bicycle Road"
-msgstr ""
+msgstr "Cykelväg"
 
 #: master_preset.xml:11502(item:name|group:Routes|preset:Bicycle_Route)
 msgid "Bicycle Route"
@@ -832,7 +832,7 @@ msgstr ""
 #: master_preset.xml:576(combo:display_values|key:roof:colour)
 #: master_preset.xml:612(combo:display_values|key:building:colour)
 msgid "Blue"
-msgstr ""
+msgstr "Blå"
 
 #: master_preset.xml:4818(combo:text|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Board Content"
@@ -947,7 +947,7 @@ msgstr ""
 #: master_preset.xml:3839(text:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:brand)
 #: master_preset.xml:9303(text:text|group:Cash|preset:Automated_Teller_Machine|key:brand)
 msgid "Brand"
-msgstr ""
+msgstr "Märke"
 
 #: master_preset.xml:2712(item:name|group:Water|preset:Breakwater)
 msgid "Breakwater"
@@ -1190,7 +1190,7 @@ msgstr "Kapacitet"
 
 #: master_preset.xml:3460(text:text|group:Car|preset:Parking|key:capacity)
 msgid "Capacity (overall)"
-msgstr ""
+msgstr "Kapacitet (totalt)"
 
 #: master_preset.xml:11468(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 #: master_preset.xml:3440(group:name|group:Car)
@@ -1234,7 +1234,7 @@ msgstr "Kontanter"
 
 #: master_preset.xml:10025(check:text|preset:Payment_Methods|key:payment:ep_cash)
 msgid "Cash (ch)"
-msgstr ""
+msgstr "Kontanter"
 
 #: master_preset.xml:5186(item:name|group:Leisure|preset:Casino)
 msgid "Casino"
@@ -1327,7 +1327,7 @@ msgstr "Barn"
 
 #: master_preset.xml:7674(item:name|group:Man_Made|preset:Chimney)
 msgid "Chimney"
-msgstr ""
+msgstr "Skorsten"
 
 #: master_preset.xml:8214(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:CPR-1000)
 msgid "China Pressurized Reactor (CPR-1000)"
@@ -1347,7 +1347,7 @@ msgstr ""
 
 #: master_preset.xml:341(combo:display_values|key:religion)
 msgid "Christian"
-msgstr ""
+msgstr "Kristen"
 
 #: master_preset.xml:5397(item:name|group:Place_of_Worship|preset:Church)
 msgid "Church"
@@ -1392,7 +1392,7 @@ msgstr "Klippa"
 
 #: master_preset.xml:7013(item:name|group:Sport|preset:Climbing)
 msgid "Climbing"
-msgstr ""
+msgstr "Klättring"
 
 #: master_preset.xml:5836(item:name|group:Health|preset:Clinic)
 msgid "Clinic"
@@ -1404,7 +1404,7 @@ msgstr ""
 
 #: master_preset.xml:11987(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "Urmakare"
 
 #: master_preset.xml:3758(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:clothes)
 #: master_preset.xml:6456(check:text|group:Facilities|preset:Recycling_Container|key:recycling:clothes)
@@ -1506,7 +1506,7 @@ msgstr "Dator"
 #: master_preset.xml:2090(combo:display_values|group:Barriers|preset:Jersey_Barrier|key:material)
 #: master_preset.xml:580(combo:display_values|key:roof:material)
 msgid "Concrete"
-msgstr ""
+msgstr "Betong"
 
 #: master_preset.xml:2483(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward:conditional)
 #: master_preset.xml:2486(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backwardward:conditional)
@@ -1648,7 +1648,7 @@ msgstr "Övertäckt (med tak)"
 
 #: master_preset.xml:2767(item:name|group:Water|preset:Covered_Reservoir)
 msgid "Covered Reservoir"
-msgstr ""
+msgstr "Täckt reservoar"
 
 #: master_preset.xml:11858(group:name|group:Crafts)
 msgid "Crafts"
@@ -2258,7 +2258,7 @@ msgstr ""
 
 #: master_preset.xml:12517(item:name|group:Offices|preset:Employment_agency)
 msgid "Employment agency"
-msgstr ""
+msgstr "Arbetsförmedling"
 
 #: master_preset.xml:11476(item:name|group:Relations|preset:Enforcement)
 msgid "Enforcement"
@@ -2276,7 +2276,7 @@ msgstr "Ingång"
 
 #: master_preset.xml:2122(item:name|group:Barriers|preset:Entrance_(Barrier_Opening))
 msgid "Entrance (Barrier Opening)"
-msgstr ""
+msgstr "Ingång (stängsel öppning)"
 
 #: master_preset.xml:7618(item:name|preset:Entrance_(deprecated))
 msgid "Entrance (deprecated)"
@@ -2304,7 +2304,7 @@ msgstr "Utrymmning"
 
 #: master_preset.xml:12531(item:name|group:Offices|preset:Estate_agent)
 msgid "Estate agent"
-msgstr ""
+msgstr "Mäklare"
 
 #: master_preset.xml:580(combo:display_values|key:roof:material)
 msgid "Eternit"
@@ -2471,7 +2471,7 @@ msgstr "Fiske"
 
 #: master_preset.xml:6761(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
-msgstr ""
+msgstr "Träningscenter"
 
 #: master_preset.xml:5018(item:name|group:Leisure|preset:Fitness_Station)
 msgid "Fitness Station"
@@ -2519,7 +2519,7 @@ msgstr ""
 
 #: master_preset.xml:4598(item:name|group:Food+Drinks|preset:Food_Court)
 msgid "Food Court"
-msgstr ""
+msgstr "Mattorg"
 
 #: master_preset.xml:4546(group:name|group:Food+Drinks)
 msgid "Food+Drinks"
@@ -2655,7 +2655,7 @@ msgstr ""
 
 #: master_preset.xml:11052(item:name|group:Land_use|preset:Garages)
 msgid "Garages"
-msgstr ""
+msgstr "Garage"
 
 #: master_preset.xml:10874(item:name|group:Land_use|preset:Garden)
 msgid "Garden"
@@ -3224,7 +3224,7 @@ msgstr ""
 
 #: master_preset.xml:4870(label:text|group:Tourism|preset:Audio_Guide)
 msgid "Information using headphones or a mobile phone."
-msgstr ""
+msgstr "Information från hörlurar eller mobiltelefon."
 
 #: master_preset.xml:11646(item:name|group:Routes|preset:Inline_Skating_Route)
 msgid "Inline Skating Route"
@@ -3344,7 +3344,7 @@ msgstr "Guldhandlare"
 
 #: master_preset.xml:9649(item:name|group:For_the_body|preset:Jewellery)
 msgid "Jewellery"
-msgstr ""
+msgstr "Juvelerare"
 
 #: master_preset.xml:341(combo:display_values|key:religion)
 msgid "Jewish"
@@ -3484,7 +3484,7 @@ msgstr ""
 
 #: master_preset.xml:12588(item:name|group:Offices|preset:Lawyer)
 msgid "Lawyer"
-msgstr ""
+msgstr "Advokat"
 
 #: master_preset.xml:2253(combo:text|group:Passageways|preset:Tunnel|key:layer)
 #: master_preset.xml:2737(combo:text|group:Water|preset:Culvert|key:layer)
@@ -3508,7 +3508,7 @@ msgstr "Vänster"
 #: master_preset.xml:1221(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left:through)
 #: master_preset.xml:1239(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left:through)
 msgid "Left and through"
-msgstr ""
+msgstr "Vänster och rakt fram"
 
 #: master_preset.xml:1478(check:text|group:Ways|preset:Steps|key:handrail:left)
 msgid "Left handrail"
@@ -3687,7 +3687,7 @@ msgstr "Herr"
 
 #: master_preset.xml:9693(item:name|group:Other|preset:Mall)
 msgid "Mall"
-msgstr ""
+msgstr "Galleria"
 
 #: master_preset.xml:7622(group:name|group:Man_Made)
 #: master_preset.xml:7623(group:name|group:Man_Made)
@@ -3716,7 +3716,7 @@ msgstr "Marina"
 
 #: master_preset.xml:2957(item:name|group:Shipping|preset:Marine_Fuel)
 msgid "Marine Fuel"
-msgstr ""
+msgstr "Sjömack"
 
 #: master_preset.xml:10061(check:text|group:Boundaries|preset:Administrative|key:maritime)
 #: master_preset.xml:10119(item:name|group:Boundaries|preset:Maritime)
@@ -3767,7 +3767,7 @@ msgstr ""
 
 #: master_preset.xml:51(text:text|key:maxspeed:backward)
 msgid "Max speed ←"
-msgstr ""
+msgstr "Max hastighet ←"
 
 #: master_preset.xml:53(combo:text|key:maxspeed:backwardward:conditional)
 msgid "Max speed ← @"
@@ -3775,7 +3775,7 @@ msgstr ""
 
 #: master_preset.xml:48(text:text|key:maxspeed:forward)
 msgid "Max speed →"
-msgstr ""
+msgstr "Max hastighet →"
 
 #: master_preset.xml:50(combo:text|key:maxspeed:forward:conditional)
 msgid "Max speed → @"
@@ -4051,7 +4051,7 @@ msgstr "Övervakningsstation"
 
 #: master_preset.xml:7987(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring:"
-msgstr ""
+msgstr "Övervakas:"
 
 #: master_preset.xml:3100(item:name|group:Railway|preset:Monorail)
 #: master_preset.xml:3949(check:text|group:Public_Transport|preset:Stop_Position|key:monorail)
@@ -4089,7 +4089,7 @@ msgstr "Motorfordon"
 
 #: master_preset.xml:2381(item:name|group:Access_Restrictions|preset:Motor_vehicle_(CH))
 msgid "Motor vehicle (CH)"
-msgstr ""
+msgstr "Motorfordon"
 
 #: master_preset.xml:2378(combo:text|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle:conditional)
 #: master_preset.xml:2397(combo:text|group:Access_Restrictions|preset:Motor_vehicle_(CH)|key:motor_vehicle:conditional)
@@ -4108,7 +4108,7 @@ msgstr ""
 #: master_preset.xml:2416(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar:conditional)
 #: master_preset.xml:2439(combo:text|group:Access_Restrictions|preset:Motorcar|key:motorcar:conditional)
 msgid "Motorcar @"
-msgstr ""
+msgstr "Motorfordon @"
 
 #: master_preset.xml:2400(item:name|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH))
 msgid "Motorcar and -cycle (CH)"
@@ -4509,7 +4509,7 @@ msgstr ""
 
 #: master_preset.xml:10275(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
-msgstr ""
+msgstr "Grannskap"
 
 #: master_preset.xml:11511(combo:text|group:Routes|preset:Bicycle_Route|key:network)
 #: master_preset.xml:11554(combo:text|group:Routes|preset:Hiking_Route|key:network)
@@ -4615,7 +4615,7 @@ msgstr "Inga hjulfordon"
 
 #: master_preset.xml:7994(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:noise)
 msgid "Noise"
-msgstr ""
+msgstr "Oväsen"
 
 #: master_preset.xml:1191(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:none)
 #: master_preset.xml:1217(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
@@ -4637,7 +4637,7 @@ msgstr "Nordisk"
 #: master_preset.xml:224(combo:display_values|key:internet_access)
 #: master_preset.xml:261(list_entry:short_description|value:no)
 msgid "Not available"
-msgstr ""
+msgstr "Inte möjlig"
 
 #: master_preset.xml:99(list_entry:short_description|value:uncontrolled)
 msgid "Not controlled"
@@ -4685,7 +4685,7 @@ msgstr ""
 
 #: master_preset.xml:3342(text:text|group:Aerialway|preset:Chair_Lift|key:aerialway:occupancy)
 msgid "Number of people per chair"
-msgstr ""
+msgstr "Antal personer per stol. "
 
 #: master_preset.xml:3359(text:text|group:Aerialway|preset:Gondola|key:aerialway:occupancy)
 msgid "Number of people per gondola"
@@ -5339,7 +5339,7 @@ msgstr "Plantskola"
 
 #: master_preset.xml:580(combo:display_values|key:roof:material)
 msgid "Plants"
-msgstr ""
+msgstr "Växter"
 
 #: master_preset.xml:331(list_entry:short_description|value:deciduous)
 msgid "Plants that are leafless for a certain period during the year."
@@ -5665,7 +5665,7 @@ msgstr "Offentlig marknad"
 
 #: master_preset.xml:2547(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:psv)
 msgid "Public Service Vehicles (psv)"
-msgstr ""
+msgstr "Allmänna färdmedel"
 
 #: master_preset.xml:3847(group:name|group:Public_Transport)
 msgid "Public Transport"
@@ -5717,7 +5717,7 @@ msgstr ""
 
 #: master_preset.xml:11143(item:name|group:Land_use|preset:Quarry)
 msgid "Quarry"
-msgstr ""
+msgstr "Gruva"
 
 #: master_preset.xml:10035(check:text|preset:Payment_Methods|key:payment:ep_quick)
 msgid "Quick (au)"
@@ -6165,7 +6165,7 @@ msgstr ""
 
 #: master_preset.xml:7500(group:name|group:Roof_type)
 msgid "Roof type"
-msgstr ""
+msgstr "Tak typ"
 
 #: master_preset.xml:12209(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
@@ -6427,7 +6427,7 @@ msgstr ""
 
 #: master_preset.xml:5050(check:text|group:Leisure|preset:Tanning_Studio|key:self-service)
 msgid "Self-service"
-msgstr ""
+msgstr "Självbetjäning"
 
 #: master_preset.xml:229(combo:display_values|key:smoking)
 msgid "Separated"
@@ -6455,7 +6455,7 @@ msgstr "Tjänster:"
 
 #: master_preset.xml:8587(combo:display_values|group:Historic_Places|preset:Archaeological_Site|key:site_type)
 msgid "Settlement"
-msgstr ""
+msgstr "Bosättning"
 
 #: master_preset.xml:2765(combo:display_values|group:Water|preset:Reservoir|key:reservoir_type)
 #: master_preset.xml:443(combo:display_values|key:substance)
@@ -6654,7 +6654,7 @@ msgstr ""
 
 #: master_preset.xml:229(combo:text|key:smoking)
 msgid "Smoking"
-msgstr ""
+msgstr "Rökning"
 
 #: master_preset.xml:6331(item:name|group:Facilities|preset:Smoking_area)
 msgid "Smoking area"
@@ -6705,7 +6705,7 @@ msgstr "Ljudsignal"
 
 #: master_preset.xml:3461(combo:text|group:Car|preset:Parking|key:capacity:disabled)
 msgid "Spaces for Disabled"
-msgstr ""
+msgstr "Platser för handikappade"
 
 #: master_preset.xml:3463(combo:text|group:Car|preset:Parking|key:capacity:parent)
 msgid "Spaces for Parents"
@@ -6876,7 +6876,7 @@ msgstr ""
 
 #: master_preset.xml:11754(item:name|preset:Street)
 msgid "Street"
-msgstr ""
+msgstr "Väg"
 
 #: master_preset.xml:7963(item:name|group:Man_Made|preset:Street_Lamp)
 msgid "Street Lamp"
@@ -6906,7 +6906,7 @@ msgstr "Strippklubb"
 
 #: master_preset.xml:1468(check:text|group:Ways|preset:Steps|key:ramp:stroller)
 msgid "Stroller ramp"
-msgstr ""
+msgstr "Barnvagnsramp"
 
 #: master_preset.xml:8076(combo:text|group:Bridges|preset:Bridge|key:bridge:structure)
 msgid "Structure"
@@ -7021,7 +7021,7 @@ msgstr "Badkläder"
 
 #: master_preset.xml:2163(item:name|group:Barriers|preset:Swing_Gate)
 msgid "Swing Gate"
-msgstr ""
+msgstr "Svänggrind"
 
 #: master_preset.xml:320(text:text|key:symbol)
 msgid "Symbol description"
@@ -7182,7 +7182,7 @@ msgstr ""
 
 #: master_preset.xml:10435(label:text|group:Geography|preset:Cave_Entrance)
 msgid "The entrance to a cave."
-msgstr ""
+msgstr "Ingången till en grotta. "
 
 #: master_preset.xml:10330(label:text|group:Geography|preset:Peak)
 msgid "The top (summit) of a mountain or hill."
@@ -7205,7 +7205,7 @@ msgstr ""
 
 #: master_preset.xml:25(list_entry:short_description|value:excellent)
 msgid "Thin Rollers: rollerblade, skateboard"
-msgstr ""
+msgstr "Smala hjul: rullskridskor, skateboard"
 
 #: master_preset.xml:26(list_entry:short_description|value:good)
 msgid "Thin Wheels: racing bike"
@@ -7421,7 +7421,7 @@ msgstr "Transport"
 
 #: master_preset.xml:9794(item:name|group:Other|preset:Travel_Agency)
 msgid "Travel Agency"
-msgstr ""
+msgstr "Resebyrå"
 
 #: master_preset.xml:12638(item:name|group:Offices|preset:Travel_agent)
 msgid "Travel agent"
@@ -7567,11 +7567,11 @@ msgstr ""
 
 #: master_preset.xml:3585(combo:text|group:Car|preset:Charging_Station|key:socket:type1_combo)
 msgid "Type 1 Combo"
-msgstr ""
+msgstr "Type 1 Combo"
 
 #: master_preset.xml:3586(combo:text|group:Car|preset:Charging_Station|key:socket:type2)
 msgid "Type 2 (Mennekes)"
-msgstr ""
+msgstr "Type 2 (Mennekes)"
 
 #: master_preset.xml:3587(combo:text|group:Car|preset:Charging_Station|key:socket:type2_combo)
 msgid "Type 2 Combo"
@@ -7722,7 +7722,7 @@ msgstr "Lågpriskedja"
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Vegetarian"
-msgstr ""
+msgstr "Vegetarisk"
 
 #: master_preset.xml:974(combo:text|group:Streets|preset:Bicycle_Road|key:vehicle)
 msgid "Vehicle access"
@@ -7816,7 +7816,7 @@ msgstr "Vulkan"
 
 #: master_preset.xml:7232(item:name|group:Sport_(Ball)|preset:Volleyball)
 msgid "Volleyball"
-msgstr ""
+msgstr "Volleyball"
 
 #: master_preset.xml:3571(combo:text|group:Car|preset:Charging_Station|key:voltage)
 msgid "Voltage"
@@ -7850,7 +7850,7 @@ msgstr ""
 
 #: master_preset.xml:3608(item:name|group:Car|preset:Wash)
 msgid "Wash"
-msgstr ""
+msgstr "Tvätta"
 
 #: master_preset.xml:6472(check:text|group:Facilities|preset:Recycling_Container|key:recycling:waste)
 #: master_preset.xml:6513(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:waste)
@@ -7864,7 +7864,7 @@ msgstr "Soptunna"
 
 #: master_preset.xml:6530(item:name|group:Facilities|preset:Waste_Disposal/Dumpster)
 msgid "Waste Disposal/Dumpster"
-msgstr ""
+msgstr "Sopstation"
 
 #: master_preset.xml:8237(item:name|group:Power_Generator|preset:Waste_Power_Generator)
 msgid "Waste Power Generator"
@@ -7902,7 +7902,7 @@ msgstr "Vattenpark"
 
 #: master_preset.xml:6640(item:name|group:Facilities|preset:Water_Point)
 msgid "Water Point"
-msgstr ""
+msgstr "Vattentap"
 
 #: master_preset.xml:6038(item:name|group:Emergency|preset:Water_Tank)
 msgid "Water Tank"
@@ -8022,7 +8022,7 @@ msgstr ""
 #: master_preset.xml:576(combo:display_values|key:roof:colour)
 #: master_preset.xml:612(combo:display_values|key:building:colour)
 msgid "White"
-msgstr ""
+msgstr "Vit"
 
 #: master_preset.xml:1036(text:text|group:Streets|preset:Pedestrian|key:width)
 #: master_preset.xml:10743(text:text|group:Nature|preset:Stone|key:width)
@@ -8158,11 +8158,11 @@ msgstr "Ja"
 
 #: master_preset.xml:6264(item:name|group:Social_Facilities|preset:Youth_Centre)
 msgid "Youth Centre"
-msgstr ""
+msgstr "Fritidsgård"
 
 #: master_preset.xml:8042(combo:text|group:Man_Made|preset:Surveillance_Camera|key:surveillance:zone)
 msgid "Zone"
-msgstr ""
+msgstr "Zone"
 
 #: master_preset.xml:4918(item:name|group:Leisure|preset:Zoo)
 msgid "Zoo"
@@ -8308,7 +8308,7 @@ msgstr ""
 
 #: master_preset.xml:4060(role:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:forward_stop)
 msgid "forward halt point"
-msgstr ""
+msgstr "Cykelväg"
 
 #: master_preset.xml:11517(role:text|group:Routes|preset:Bicycle_Route|key:forward)
 #: master_preset.xml:11541(role:text|group:Routes|preset:Mountain_Biking_Route|key:forward)
@@ -8611,7 +8611,7 @@ msgstr ""
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Concrete"
-msgstr ""
+msgstr "Betong"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -8833,12 +8833,12 @@ msgstr ""
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Climbing"
-msgstr ""
+msgstr "Klättring"
 
 #: master_preset.xml:6809(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Concrete"
-msgstr ""
+msgstr "Betong"
 
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
@@ -9052,7 +9052,7 @@ msgstr "Tennis"
 #: master_preset.xml:253(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Volleyball"
-msgstr ""
+msgstr "Volleyball"
 
 #: master_preset.xml:278(combo:display_values|key:parking)
 msgctxt "parking"
@@ -9261,7 +9261,7 @@ msgstr "Plats"
 #: master_preset.xml:8525(combo:text|preset:Power_Line|key:wires)
 msgctxt "power"
 msgid "Number of conductors/wires per cable"
-msgstr ""
+msgstr "Antal ledare/sladdar per ledare"
 
 #: master_preset.xml:8430(combo:text|preset:Power_Portal|key:design)
 msgctxt "power"
@@ -9469,7 +9469,7 @@ msgstr "Byggnad"
 #: master_preset.xml:612(combo:text|key:building:colour)
 msgctxt "building"
 msgid "Building colour"
-msgstr ""
+msgstr "Byggnadsfärg"
 
 #: master_preset.xml:592(combo:text|key:building:frame:material)
 msgctxt "building"
@@ -9509,7 +9509,7 @@ msgstr ""
 #: master_preset.xml:7450(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Cathedral"
-msgstr ""
+msgstr "Katedral"
 
 #: master_preset.xml:592(combo:display_values|key:building:frame:material)
 #: master_preset.xml:596(combo:display_values|key:building:wall:material)
@@ -9556,7 +9556,7 @@ msgstr "Kommersiellt"
 #: master_preset.xml:616(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Concrete"
-msgstr ""
+msgstr "Betong"
 
 #: master_preset.xml:7450(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -9646,7 +9646,7 @@ msgstr ""
 #: master_preset.xml:7450(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Garages"
-msgstr ""
+msgstr "Garage"
 
 #: master_preset.xml:7450(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -9732,7 +9732,7 @@ msgstr ""
 #: master_preset.xml:602(combo:text|key:building:levels)
 msgctxt "building"
 msgid "Levels"
-msgstr ""
+msgstr "Våningar"
 
 #: master_preset.xml:592(combo:display_values|key:building:frame:material)
 #: master_preset.xml:596(combo:display_values|key:building:wall:material)
@@ -9788,7 +9788,7 @@ msgstr "Metall"
 #: master_preset.xml:616(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Metal plates"
-msgstr ""
+msgstr "Metallplattor"
 
 #: master_preset.xml:604(combo:text|key:min_level)
 msgctxt "building"
@@ -9893,7 +9893,7 @@ msgstr "Tak"
 #: master_preset.xml:576(combo:text|key:roof:colour)
 msgctxt "building"
 msgid "Roof colour"
-msgstr ""
+msgstr "Takfärg"
 
 #: master_preset.xml:580(combo:text|key:roof:material)
 msgctxt "building"
@@ -9903,7 +9903,7 @@ msgstr ""
 #: master_preset.xml:617(combo:text|key:roof:shape)
 msgctxt "building"
 msgid "Roof type"
-msgstr ""
+msgstr "Tak typ"
 
 #: master_preset.xml:627(list_entry:short_description|value:round)
 #: master_preset.xml:7571(item:name|group:Roof_type|preset:Round)
@@ -9938,7 +9938,7 @@ msgstr "Skola"
 #: master_preset.xml:7450(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 #: master_preset.xml:7450(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -9988,7 +9988,7 @@ msgstr "Sten"
 #: master_preset.xml:609(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Storage"
-msgstr ""
+msgstr "Förvaring"
 
 #: master_preset.xml:7450(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10013,7 +10013,7 @@ msgstr ""
 #: master_preset.xml:7476(combo:display_values|group:Buildings|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Terrace"
-msgstr ""
+msgstr "Terrass"
 
 #: master_preset.xml:592(combo:display_values|key:building:frame:material)
 #: master_preset.xml:596(combo:display_values|key:building:wall:material)
@@ -10084,7 +10084,7 @@ msgstr "Ja"
 #: master_preset.xml:577(combo:text|key:roof:levels)
 msgctxt "roof_levels"
 msgid "Levels (roof)"
-msgstr ""
+msgstr "Våningar (tak)"
 
 #: master_preset.xml:1364(combo:text|group:Ways|preset:Cycle_Lane/Track|key:highway)
 msgctxt "Highway"
@@ -10105,7 +10105,7 @@ msgstr "Bostad"
 #: master_preset.xml:1040(item:name|group:Streets|preset:Service)
 msgctxt "Highway"
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 #: master_preset.xml:1159(combo:text|group:Streets|preset:Roundabout|key:highway)
 msgctxt "Highway"
@@ -10185,7 +10185,7 @@ msgstr "Ö"
 #: master_preset.xml:1748(item:name|group:Traffic_Calming|preset:Table)
 msgctxt "traffic_calming"
 msgid "Table"
-msgstr ""
+msgstr "Bord"
 
 #: master_preset.xml:1856(item:name|preset:Named_Junction)
 msgctxt "junction=yes"
@@ -10205,7 +10205,7 @@ msgstr "Kedja"
 #: master_preset.xml:1935(combo:display_values|group:Barriers|preset:Bollard|key:material)
 msgctxt "material"
 msgid "Concrete"
-msgstr ""
+msgstr "Betong"
 
 #: master_preset.xml:2027(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -10325,7 +10325,7 @@ msgstr "Second hand"
 #: master_preset.xml:3659(multiselect:text|group:Car|preset:Repair|key:service)
 msgctxt "shop=car_repair"
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 #: master_preset.xml:4274(item:name|group:Airport|preset:Beacon)
 msgctxt "airmark"
@@ -10558,7 +10558,7 @@ msgstr ""
 #: master_preset.xml:7608(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 #: master_preset.xml:7608(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"

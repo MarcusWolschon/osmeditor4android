@@ -2,8 +2,8 @@
 <resources>
   <string-array name="bug_filter_entries">
     <item>Notas</item>
-    <item>Osmose erro</item>
-    <item>Osmose perigo</item>
-    <item>Osmose edición menor </item>
+    <item>Erro Osmose</item>
+    <item>Aviso Osmose</item>
+    <item>Aviso menor Osmose</item>
   </string-array>
 </resources>

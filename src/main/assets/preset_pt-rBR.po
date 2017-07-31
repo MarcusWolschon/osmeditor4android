@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-28 19:46+0000\n"
+"PO-Revision-Date: 2017-07-30 22:28+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -470,7 +470,7 @@ msgstr ""
 #: master_preset.xml:4163(check:text|group:Public_Transport_(Legacy)|preset:Bus_Platform|key:area)
 #: master_preset.xml:4950(check:text|group:Leisure|preset:Dog_Park|key:area)
 msgid "Area"
-msgstr ""
+msgstr "Área"
 
 #: master_preset.xml:9374(item:name|group:Home_decoration|preset:Art)
 msgid "Art"
@@ -1410,7 +1410,7 @@ msgstr "Relojoeiro"
 #: master_preset.xml:9007(group:name|group:Clothes)
 #: master_preset.xml:9008(item:name|group:Clothes|preset:Clothes)
 msgid "Clothes"
-msgstr ""
+msgstr "Roupas"
 
 #: master_preset.xml:8166(item:name|group:Power_Generator|preset:Coal_Power_Generator)
 msgid "Coal Power Generator"
@@ -3051,7 +3051,7 @@ msgstr ""
 
 #: master_preset.xml:5494(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
-msgstr ""
+msgstr "Templo Hindu"
 
 #: master_preset.xml:8547(group:name|group:Historic_Places)
 msgid "Historic Places"
@@ -4651,7 +4651,7 @@ msgstr ""
 
 #: master_preset.xml:8201(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
-msgstr ""
+msgstr "Reator Nuclear"
 
 #: master_preset.xml:1502(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
@@ -6510,7 +6510,7 @@ msgstr ""
 
 #: master_preset.xml:5517(item:name|group:Place_of_Worship|preset:Shinto_Shrine)
 msgid "Shinto Shrine"
-msgstr ""
+msgstr "Capela Xintoísta"
 
 #: master_preset.xml:435(combo:text|key:ship)
 msgid "Ship"
@@ -7944,7 +7944,7 @@ msgstr ""
 
 #: master_preset.xml:7895(item:name|group:Man_Made|preset:Watermill)
 msgid "Watermill"
-msgstr ""
+msgstr "Moinho de Água"
 
 #: master_preset.xml:11794(item:name|preset:Waterway)
 msgid "Waterway"
@@ -8069,7 +8069,7 @@ msgstr ""
 
 #: master_preset.xml:8289(item:name|group:Power_Generator|preset:Wind_Turbine)
 msgid "Wind Turbine"
-msgstr ""
+msgstr "Turbina Eólica"
 
 #: master_preset.xml:7685(item:name|group:Man_Made|preset:Windmill)
 msgid "Windmill"
