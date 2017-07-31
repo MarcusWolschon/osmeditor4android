@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1292: Fix issue with chunks in optional preset sections, update presets, translations and opening hours fragment.
+
 1289: Update presets (with lane preset typo fix), documentation improvements.
 
 1288: Enforce maximum length of tags, fix missing backlink for relations, always use dialogs for opening_hours and conditional access, various minor bug fixes and updated presets and translations.
