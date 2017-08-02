@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-28 19:46+0000\n"
+"PO-Revision-Date: 2017-07-31 23:50+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/openstreetmap/presets/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -7919,7 +7919,7 @@ msgstr ""
 
 #: master_preset.xml:7743(item:name|group:Man_Made|preset:Water_Works)
 msgid "Water Works"
-msgstr ""
+msgstr "Su Şebekesi"
 
 #: master_preset.xml:434(optional:text)
 msgid "Water access rules:"
@@ -7943,7 +7943,7 @@ msgstr "Sürekli yada mevsimsel bitki örtüsü ile kaplı su emmiş alan."
 
 #: master_preset.xml:7895(item:name|group:Man_Made|preset:Watermill)
 msgid "Watermill"
-msgstr ""
+msgstr "Su Değirmeni"
 
 #: master_preset.xml:11794(item:name|preset:Waterway)
 msgid "Waterway"
@@ -8072,7 +8072,7 @@ msgstr ""
 
 #: master_preset.xml:7685(item:name|group:Man_Made|preset:Windmill)
 msgid "Windmill"
-msgstr ""
+msgstr "Yel Değirmeni"
 
 #: master_preset.xml:12355(item:name|group:Crafts|preset:Window_construction)
 msgid "Window construction"

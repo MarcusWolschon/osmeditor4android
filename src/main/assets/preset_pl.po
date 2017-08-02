@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-28 19:46+0000\n"
+"PO-Revision-Date: 2017-08-02 11:44+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -1004,7 +1004,7 @@ msgstr "Świątynia buddyjska"
 
 #: master_preset.xml:3274(item:name|group:Railway|preset:Buffer_Stop)
 msgid "Buffer Stop"
-msgstr ""
+msgstr "Bufor zatrzymania"
 
 #: master_preset.xml:11932(item:name|group:Crafts|preset:Builder)
 msgid "Builder"

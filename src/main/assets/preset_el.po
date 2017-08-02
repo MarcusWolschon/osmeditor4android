@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-28 19:46+0000\n"
+"PO-Revision-Date: 2017-08-02 09:23+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/openstreetmap/presets/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -446,7 +446,7 @@ msgstr ""
 #: master_preset.xml:10848(item:name|group:Land_use|preset:Aquaculture)
 #: master_preset.xml:10857(combo:text|group:Land_use|preset:Aquaculture|key:aquaculture)
 msgid "Aquaculture"
-msgstr ""
+msgstr "Ιχθυοτροφείο"
 
 #: master_preset.xml:2283(item:name|group:Passageways|preset:Arcade)
 msgid "Arcade"
@@ -3051,7 +3051,7 @@ msgstr ""
 
 #: master_preset.xml:5494(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
-msgstr ""
+msgstr "Ινδουιστικός Ναός"
 
 #: master_preset.xml:8547(group:name|group:Historic_Places)
 msgid "Historic Places"
@@ -3138,7 +3138,7 @@ msgstr ""
 
 #: master_preset.xml:453(text:text|key:icao)
 msgid "ICAO"
-msgstr ""
+msgstr "ICAO"
 
 #: master_preset.xml:12576(item:name|group:Offices|preset:IT)
 msgid "IT"
@@ -3236,7 +3236,7 @@ msgstr ""
 #: master_preset.xml:8670(text:text|group:Historic_Places|preset:Wayside_Cross|key:inscription)
 #: master_preset.xml:8690(text:text|group:Historic_Places|preset:Wayside_Shrine|key:inscription)
 msgid "Inscription"
-msgstr ""
+msgstr "Επιγραφή"
 
 #: master_preset.xml:12072(item:name|group:Crafts|preset:Insulation)
 msgid "Insulation"
@@ -3985,7 +3985,7 @@ msgstr ""
 
 #: master_preset.xml:6947(item:name|preset:Miniature_Golf)
 msgid "Miniature Golf"
-msgstr ""
+msgstr "Μίνι Γκολφ"
 
 #: master_preset.xml:10029(check:text|preset:Payment_Methods|key:payment:ep_minicash)
 msgid "Minicash (lu)"
@@ -6112,7 +6112,7 @@ msgstr "Ποτάμι"
 
 #: master_preset.xml:2818(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
-msgstr ""
+msgstr "Όχθη Ποταμού"
 
 #: master_preset.xml:1101(item:name|group:Streets|preset:Road_(Unknown_Type))
 msgid "Road (Unknown Type)"
@@ -6577,7 +6577,7 @@ msgstr ""
 
 #: master_preset.xml:7713(item:name|group:Man_Made|preset:Silo)
 msgid "Silo"
-msgstr ""
+msgstr "Σιλό"
 
 #: master_preset.xml:1186(item:name|group:Lane_attributes|preset:Single_direction_roads)
 msgid "Single direction roads"
@@ -8069,11 +8069,11 @@ msgstr ""
 
 #: master_preset.xml:8289(item:name|group:Power_Generator|preset:Wind_Turbine)
 msgid "Wind Turbine"
-msgstr ""
+msgstr "Ανεμογεννήτρια"
 
 #: master_preset.xml:7685(item:name|group:Man_Made|preset:Windmill)
 msgid "Windmill"
-msgstr ""
+msgstr "Ανεμόμυλος"
 
 #: master_preset.xml:12355(item:name|group:Crafts|preset:Window_construction)
 msgid "Window construction"
@@ -10571,7 +10571,7 @@ msgstr "Ναι"
 #: master_preset.xml:7739(combo:text|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
 msgid "Content"
-msgstr ""
+msgstr "Περιεχόμενο"
 
 #: master_preset.xml:7953(item:name|group:Man_Made|preset:Beacon)
 msgctxt "man_made"

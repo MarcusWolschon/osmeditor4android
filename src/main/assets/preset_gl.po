@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-28 19:46+0000\n"
+"PO-Revision-Date: 2017-07-31 22:17+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -5766,11 +5766,11 @@ msgstr ""
 
 #: master_preset.xml:3292(item:name|group:Railway|preset:Railway_Signal)
 msgid "Railway Signal"
-msgstr ""
+msgstr "Sinal Tren"
 
 #: master_preset.xml:3282(item:name|group:Railway|preset:Railway_Switch)
 msgid "Railway Switch"
-msgstr ""
+msgstr "Garda Agullas"
 
 #: master_preset.xml:3945(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Railway halt (legacy)"

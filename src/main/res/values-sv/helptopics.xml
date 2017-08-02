@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_introduction">Introduktion</string>
+    <string name="help_nodeselection">Nod vald</string>
+    <string name="help_pathcreation">Skapa nya objekt</string>
     <string name="help_relationselection">Relation vald</string>
+    <string name="help_wayselection">Väg vald</string>
+    <string name="help_conflictresolution">Lösa konflikter</string>
     <string name="help_gpssources">GPS källa</string>
     <string name="help_keyboard">Tangentbord</string>
+    <string name="help_tagfilter">Taggfilter</string>
+    <string name="help_opening_hours">Öppettider</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

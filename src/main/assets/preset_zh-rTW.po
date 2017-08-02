@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-28 19:46+0000\n"
+"PO-Revision-Date: 2017-08-01 02:21+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -5772,7 +5772,7 @@ msgstr "鐵道信號"
 
 #: master_preset.xml:3282(item:name|group:Railway|preset:Railway_Switch)
 msgid "Railway Switch"
-msgstr ""
+msgstr "鐵路轉轍器"
 
 #: master_preset.xml:3945(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Railway halt (legacy)"

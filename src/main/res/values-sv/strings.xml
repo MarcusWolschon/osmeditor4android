@@ -21,6 +21,7 @@
   <string name="ssl_handshake_failed">Kunde inte att ansluta till OSM-servern eftersom https förhandling misslyckades. Försök att byta till en icke-krypterad förbindelse i API-inställningarna.</string>
   <string name="wrong_login_data_title">Autentisering misslyckades</string>
   <string name="wrong_login_data_re_authenticate">Verifiera igen</string>
+  <string name="forbidden_login_title">Inloggning förbjuden</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="api_offline_title">API Frånkopplad</string>
   <string name="api_offline_message">API är för närvarande frånkopplad och data kan inte hämtas eller skrivas.</string>
@@ -103,6 +104,8 @@
   <string name="warning">varning</string>
   <string name="minor_issue">mindre fel</string>
   <string name="unknown_error_level">okänd fel-nivå</string>
+  <string name="attached_object_warning_stop">OK, sluta visa detta meddelande</string>
+  <string name="js_console_msg_live">Live-läge!</string>
   <!--Toaster-->
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
@@ -117,9 +120,12 @@
   <string name="toast_export_success">Exporterade till %1$s</string>
   <string name="toast_state_file_failed">Icke läsbar eller korrupt statusfil</string>
   <string name="toast_too_many_nodes_for_move">För många noder att flytta</string>
+  <string name="toast_unread_mail">Du har %1$d olästa OSM-meddelanden</string>
+  <string name="toast_one_unread_mail">Du har ett oläst OSM-meddelande</string>
   <string name="toast_unsurveyed_road">Oklassificerad väg</string>
   <string name="toast_noname">Vägen har inget namn eller ref</string>
   <string name="toast_notype">Relationen har ingen typ</string>
+  <string name="coordinates_out_of_range">Longitud måste vara mellan -180°/+180°, latitud mellan -85°/85°</string>
   <string name="toast_nothing_found">Hittade inget</string>
   <string name="toast_missing_filemanager">Vänligen installera en filhanterare.</string>
   <string name="toast_outside_of_download">Du redigerar utanför den nerladdade datan.</string>
@@ -128,6 +134,8 @@
   <string name="toast_unknown_voice_command">Tyvärr för nuvarande förstås inte \"%1$s\"</string>
   <string name="toast_camera_error">Fel vid start av kameraapp: %1$s</string>
   <string name="toast_rmpty_relation">Tom relation, skapar kraschrapport.</string>
+  <string name="toast_file_exists">Fil %1$s finns.</string>
+  <string name="toast_openinghours_invalid">Felaktig öppettid med värde %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
@@ -145,6 +153,7 @@
   <string name="enable">Aktivera</string>
   <string name="clear">Töm</string>
   <string name="retry">Försök igen</string>
+  <string name="share_position">Dela position</string>
   <!--Dialog for back button-->
   <string name="exit_title">Avsluta?</string>
   <string name="exit_text">Är du säker på att du vill avsluta?</string>
@@ -186,6 +195,7 @@
   <string name="tag_menu_download">Ladda ner</string>
   <string name="menu_up">Upp</string>
   <string name="menu_top">Topp</string>
+  <string name="menu_select_all">Välj allt</string>
   <string name="menu_preset_help">Hjälp av förinställning</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Lägg till etiketter för %1$s</string>
@@ -295,6 +305,8 @@
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Återställ OAuth</string>
   <string name="menu_tools_oauth_authorisation">Bevilja OAuth</string>
+  <string name="menu_enable_tagfilter">Taggfilter</string>
+  <string name="preset_menu_waynodes">Inkludera väg-noder</string>
   <!--element action mode menu-->
   <string name="menu_tags">Egenskaper</string>
   <!--Text should be as short as possible-->
@@ -315,6 +327,7 @@
   <string name="actionmode_createpath">Skapa väg</string>
   <string name="actionmode_multiselect">Markera flera</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_one_object">1 objekt</string>
   <!--Preferences-->
   <string name="config_category_editing">Data och redigera inställningar</string>
   <string name="config_category_view">Användargränssnitts inställningar </string>
@@ -328,11 +341,14 @@
   <string name="config_maxStrokeWidth_title">Max linjebredd</string>
   <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta</string>
   <string name="config_tileCacheSize_title">Tile cache storlek</string>
+  <string name="config_tileCacheSize_summary">Total storlek med tile cache i MB</string>
   <string name="config_showStats_title">Visa statistik</string>
   <string name="config_showTolerance_title">Visa tolerans</string>
+  <string name="config_showTolerance_summary">Visar platsen där ett element kan väljas.</string>
   <string name="config_enableAntiAliasing_summary">Gör linjerna jämnare.</string>
   <string name="config_enableOpenStreetBugs_summary">Visa, redigera och skapa anteckningar/fel.</string>
   <string name="config_enablePhotoLayer_title">Aktivera fotolager</string>
+  <string name="config_enablePhotoLayer_summary">Visa geo-orienterade foton.</string>
   <string name="config_enableKeepScreenOn_title">Behåll skärm på</string>
   <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
   <string name="config_closeChangesetOnSave_summary">Stäng changesets som standard vid sparande</string>
@@ -362,15 +378,18 @@
   <string name="config_use_back_for_undo_title">Använd tillbaka knappen för Ångra</string>
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
   <string name="config_bugFilter_title">Filtrera för anteckningar/fel</string>
+  <string name="config_enableNameSuggestions_summary">Slå på förslag för namn-tagg</string>
   <string name="config_gps_source_title">GPS-källa</string>
   <string name="config_gps_source_summary">Källa för GPS-plats uppdateringar</string>
   <string name="config_gps_source_tcp_title">NMEA-nätverkskälla</string>
   <string name="config_leaveGpsDisabled_title">Lämna GPS avaktiverad</string>
   <string name="config_enableLightTheme_title">Aktivera ljust tema</string>
+  <string name="config_enableLightTheme_summary">Ljust tema med vit bakgrund</string>
   <string name="config_category_misc">Diverse</string>
   <string name="config_address_tags">Adresstaggar</string>
   <string name="config_moreprefs">Flera inställningar...</string>
   <string name="config_fullscreenMode_title">Fullskärmsläge</string>
+  <string name="config_maxTileDownloadThreads_title">Maximalt antal av nedladdningstrådar</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uppdatera förinställda</string>
   <!--changes-->
@@ -389,9 +408,11 @@
   <string name="url">URL</string>
   <string name="default_">Standard</string>
   <!---->
+  <string name="empty_list">Inga poster</string>
   <string name="api_name">API namn</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">Läs bara API URL (frivillig)</string>
+  <string name="geocoder_type">Geocoder typ</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Förinställda</string>
   <string name="api">API</string>
@@ -463,6 +484,17 @@
     <item>allmän</item>
     <item>spårbar</item>
     <item>synlig</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>Intern</item>
+    <item>Intern NMEA</item>
+    <item>NMEA från TCP client</item>
+    <item>NMEA från TCP server</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Öppen</item>
+    <item>Stängd</item>
+    <item>Falsk positiv</item>
   </string-array>
   <string-array name="note_state">
     <item>Öppna</item>
