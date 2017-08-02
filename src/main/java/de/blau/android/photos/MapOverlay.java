@@ -171,10 +171,11 @@ public class MapOverlay extends MapViewOverlay {
 
 	/**
 	 * Given screen coordinates, find all nearby photos.
-	 * @param x Screen X-coordinate.
-	 * @param y Screen Y-coordinate.
-	 * @param viewBox Map view box.
-	 * @return List of bugs close to given location.
+	 * 
+	 * @param x			Screen X-coordinate.
+	 * @param y 		Screen Y-coordinate.
+	 * @param viewBox 	Map view box.
+	 * @return List of photos close to given location.
 	 */
 	public List<Photo> getClickedPhotos(final float x, final float y, final BoundingBox viewBox) {
 		List<Photo> result = new ArrayList<Photo>();

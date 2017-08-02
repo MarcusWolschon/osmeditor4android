@@ -1,5 +1,6 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
-<!--     <external-path name="Pictures" path="Vespucci/Pictures/ "/> -->
-<!--     <external-path name="Pictures Camera" path="DCIM/" /> -->
-	<external-path name="whatever" />
+    <external-path name="Pictures" path="Vespucci/Pictures/" />
+    <external-path name="Pictures Camera" path="DCIM/" />
+<!-- teh following is an undocumented feature that may go away -->
+    <root-path name="Removable storage" path="/storage/" />
 </paths>

@@ -2745,14 +2745,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		private void viewPhoto(Photo photo) {
 			try {
 				Intent myIntent = new Intent(Intent.ACTION_VIEW);
+				int flags = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION;
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-					myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT|Intent.FLAG_GRANT_READ_URI_PERMISSION);
+					flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT;
 				} else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) { 
-					myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_GRANT_READ_URI_PERMISSION);
-				} else {
-					myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_GRANT_READ_URI_PERMISSION);
-				}
-				Uri photoUri = photo.getRef(Main.this);
+					flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK;
+				} 
+				myIntent.setFlags(flags);
+				Uri photoUri = photo.getRefUri(Main.this);
 				if (photoUri != null) {
 					myIntent.setDataAndType(photoUri, "image/jpeg"); // black magic only works this way
 					startActivity(myIntent);
@@ -2919,10 +2919,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		public void onCreateDefaultContextMenu(final ContextMenu menu) {
 			int id = 0;
 			if (clickedPhotos != null) {
-				for (Photo p : clickedPhotos) {
-					Uri photoUri = p.getRef(Main.this);
+				for (Photo p : new ArrayList<Photo>(clickedPhotos)) {
+					Uri photoUri = p.getRefUri(Main.this);
 					if (photoUri != null) {
 						menu.add(Menu.NONE, id++, Menu.NONE, photoUri.getLastPathSegment()).setOnMenuItemClickListener(this);
+					} else {
+						// remove photos with failed Uri generation from the list
+						clickedPhotos.remove(p);
 					}
 				}
 			}

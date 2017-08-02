@@ -33,14 +33,16 @@ public class Photo implements BoundedObject {
 	private String directionRef = null; // if null direction not present
 	
 	/**
-	 * Create a Bug from an OSB GPX XML wpt element.
-	 * @param parser Parser up to a wpt element.
+	 * Create a Photo object from a directory and filename of the image
+	 * 
+	 * @param directory
+	 * @param imageFile
 	 * @throws IOException If there was a problem parsing the XML.
 	 * @throws NumberFormatException If there was a problem parsing the XML.
 	 */
-	public Photo(File d, File f) throws IOException, NumberFormatException {
+	public Photo(File directory, File imageFile) throws IOException, NumberFormatException {
 		// 
-		ExtendedExifInterface exif = new ExtendedExifInterface(f.toString()); // create the ExifInterface file
+		ExtendedExifInterface exif = new ExtendedExifInterface(imageFile.toString()); // create the ExifInterface file
 
 		/** get the attribute. rest of the attributes are the same. i will add convertToDegree on the bottom (not required) **/
 		String lonStr = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
@@ -63,7 +65,7 @@ public class Photo implements BoundedObject {
 		lat = (int)(latf * 1E7d);
 		lon = (int)(lonf * 1E7d);
 		Log.d(DEBUG_TAG,"lat: " + lat + " lon: " + lon);
-		ref = d.getAbsolutePath() + "/" + f.getName();
+		ref = directory.getAbsolutePath() + "/" + imageFile.getName();
 		String dir = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION);
 		if (dir != null) {
 			direction =(int) Double.parseDouble(dir);
@@ -117,7 +119,8 @@ public class Photo implements BoundedObject {
    	}
 	
 	/**
-	 * Get the latitude of the bug.
+	 * Get the latitude of the photo.
+	 * 
 	 * @return The latitude *1E7.
 	 */
 	public int getLat() {
@@ -125,7 +128,8 @@ public class Photo implements BoundedObject {
 	}
 	
 	/**
-	 * Get the longitude of the bug.
+	 * Get the longitude of the photo.
+	 * 
 	 * @return The longitude *1E7.
 	 */
 	public int getLon() {
@@ -133,17 +137,19 @@ public class Photo implements BoundedObject {
 	}
 	
 	/**
+	 * Get an content Uri for the photo
 	 * 
-	 * @param context
+	 * @param	context Android context
 	 * @return ref as content Uri
 	 */
-	public Uri getRef(Context context) {
+	public Uri getRefUri(Context context) {
 		try {
+			Log.d(DEBUG_TAG,"getRef ref is " + ref);
 			return FileProvider.getUriForFile(context,
-				"de.blau.android.osmeditor4android.provider",
-		        new File(ref));
+					"de.blau.android.osmeditor4android.provider",
+			        new File(ref));
 		} catch (Exception ex) {
-			Log.d(DEBUG_TAG,"Problem with Uri " + ex);
+			Log.d(DEBUG_TAG,"getRef Problem with Uri for ref " + ref + " " + ex);
 			return null;
 		}
 	}

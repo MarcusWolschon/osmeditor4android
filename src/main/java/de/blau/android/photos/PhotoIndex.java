@@ -65,6 +65,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		}
 	}
 	
+	/**
+	 * Create or update the index of images on the device
+	 */
 	public synchronized void createOrUpdateIndex()
 	{
 		Log.d(LOGTAG,"starting scan");
@@ -143,9 +146,15 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		}
 	}
 	
+	/**
+	 * Recursively scan directories and add images to index
+	 * 
+	 * @param db		database containing the index
+	 * @param dir		directory we are starting with
+	 * @param lastScan	date we last scanned this directory tree
+	 */
 	private void scanDir(SQLiteDatabase db, String dir, long lastScan) {
-		
-		Log.d(LOGTAG,"directory " + dir + " last Scan " + (new Date(lastScan)).toString());
+		// Log.d(LOGTAG,"directory " + dir + " last Scan " + (new Date(lastScan)).toString());
 		File indir = new File(dir);
 		boolean needsReindex = false;
 		if (indir != null) {
@@ -186,6 +195,11 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		}
 	}
 	
+	/**
+	 * Add image to index
+	 * 
+	 * @param f	the image file
+	 */
 	public synchronized void addPhoto(File f) {
 		SQLiteDatabase db = getWritableDatabase();
 		// Log.i(LOGTAG,"Adding entry in " + f.getParent());
@@ -197,8 +211,16 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		}
 	}
 	
+	/**
+	 * Add image to index
+	 * 
+	 * @param db	database containing the image
+	 * @param dir	directory the image is in
+	 * @param f		the image file
+	 * @return		a Photo object
+	 */
 	private Photo addPhoto(SQLiteDatabase db, File dir, File f) {
-		// Log.i(LOGTAG,"Adding entry from " + f.getName());
+		// Log.i(LOGTAG,"Adding entry for " + dir.getName() + " " + f.getName() + " abs " + dir.getAbsolutePath());
 		try {	
 			Photo p = new Photo(dir, f);
 			ContentValues values = new ContentValues();
