@@ -289,7 +289,7 @@
 <h2 id="preset-based-filter">Preset based filter</h2>
 <p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog, similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group).</p>
 <h2 id="scripting">Scripting</h2>
-<p>Presets now support a "javascript" property that allows a script to manipulate tags, for example a "check_date" tag can be auto filled with the current date. An <a href="https://github.com/simonpoole/preset-scripting-examples">example preset</a>.  Outside of the use in presets, scripts can be run in an expanded mode via the "JS Console". This is currently of limited usefulness as there is no documentation, however it is intended to add that for release.</p>
+<p>Presets now support a "javascript" property that allows a script to manipulate tags, for example a "check_date" tag can be auto filled with the current date. An <a href="https://github.com/simonpoole/preset-scripting-examples">example preset</a>.  Outside of the use in presets, scripts can be run in an expanded mode via the "JS Console". This is currently of limited usefulness as there is no documentation, however it is intended to add that for future releases.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>the "Find" search function now supports Photon based geocoders. The default configuration of the OSMF Nominatim and Komoot's Photon instances can be changed in the advanced preferences.</li>
@@ -300,11 +300,12 @@
 <li>a small set of objects (shops, restaurants, etc) are checked for if their last edit or check_date tag is more than 1 year back, if this is the case the object is highlighted and an alert is generated.</li>
 <li>increased maximum supported zoom so that very small objects can be drawn (please see Known Problems), at the equator the minimum width of the displayed map is now limited to roughly 3 meters compared to the previous 11 meters. </li>
 <li>populate most recently used preset list from manually entered tags.</li>
+<li>the 255 character length limit on tag key, value and relation member role values is now enforced in the editor, previously uploads with such data would fail. </li>
 </ul>
 <p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p>
 <h1 id="known-problems">Known problems</h1>
 <ul>
-<li>Due to a change in the way Android N handles URIs that reference on-device files it may not be possible to display photos that are not in the Vespucci folder.</li>
+<li>Due to a change in the way Android N handles URIs that reference on-device files it may not be possible to display photos that are on removable storage. The current workaround of this problem may not work on your device or go away in future Android versions. </li>
 <li>Some manipulations of very small objects (dimensions roughly 1 meter and smaller), in particular rotation, orthogonalisation and arranging in a circle will possibly not show good results due to the maximum resolution of OSM data which is roughly 1cm at the equator.</li>
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>

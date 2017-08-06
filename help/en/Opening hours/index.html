@@ -244,12 +244,14 @@
 <p>However most of the time you will likely only be using a small part of the definition. The editor takes this in to account by trying to hide the more obscure features in menus and most of the time reducing the "on the road" use to small customizations of pre-defined templates.</p>
 <p><em>This documentation is preliminary and a work in progress</em></p>
 <h2 id="using-the-opening-hours-editor">Using the opening hours editor</h2>
+<p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue on github.</p>
 <p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template.</p>
 <p>Naturally you can build an opening hours value from scratch, but we would recommend using one of the existing templates as a starting point.</p>
 <p>If an existing opening hours value is loaded, an attempt is made to auto-correct it to conform to the opening hours specification. If that is not possible the rough location where the error occurred will be highlighted in the display of the raw OH value and you can try and correct it manually. Roughly a quarter of the OH values in the OpenStreetMap database have problems, but less than 10% can't be corrected, see <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> for more information on what deviations from the specification are tolerated.</p>
 <h3 id="main-menu-button">Main menu button</h3>
 <ul>
 <li><strong>Add rule</strong>: add a new rule.</li>
+<li><strong>Add rule for holidays</strong>: add a new rule for a holiday together with a state change.</li>
 <li><strong>Add rule for 24/7</strong>: add a rule for an object that is always open, the opening hours specification doesn't support any other sub values for 24/7 however we do allow adding of higher level selectors (for example year ranges).</li>
 <li><strong>Load template</strong>: load an existing template.</li>
 <li><strong>Save to template</strong>: save the current opening hours value as a template for future use.</li>
