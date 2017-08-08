@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import com.drew.lang.annotations.NotNull;
-
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.exception.StorageException;
 
@@ -51,11 +50,11 @@ public class LRUMapTileCache {
 		Bitmap bitmap;
 		long owner;
 		
-		public CacheElement(@NotNull String key, @NotNull Bitmap bitmap, boolean recycleable, long owner) {
+		public CacheElement(@NonNull String key, @NonNull Bitmap bitmap, boolean recycleable, long owner) {
 			init(key, bitmap, recycleable, owner);
 		}
 		
-		void init(@NotNull String key, @NotNull Bitmap bitmap, boolean recycleable, long owner) {
+		void init(@NonNull String key, @NonNull Bitmap bitmap, boolean recycleable, long owner) {
 			if (key == null) {
 				throw new IllegalArgumentException("key cannot be null");
 			}

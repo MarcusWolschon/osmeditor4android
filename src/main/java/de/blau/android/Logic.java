@@ -35,8 +35,6 @@ import org.acra.ACRA;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.drew.lang.annotations.NotNull;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -362,7 +360,7 @@ public class Logic {
 	 * @param main instance of main that is calling this
 	 * @param mode mode to set
 	 */
-	public void setMode(@NotNull final Main main, @NotNull final Mode mode) {
+	public void setMode(@NonNull final Main main, @NonNull final Mode mode) {
 		Log.d(DEBUG_TAG,"current mode " + this.mode + " new mode " + mode);
 		if (this.mode == mode) {
 			return;
@@ -644,7 +642,7 @@ public class Logic {
 	 * @param activity activity that called us
 	 * @param box the new empty map-box. Don't mess up with the viewBox!
 	 */
-	void newEmptyMap(@NotNull FragmentActivity activity, @NotNull BoundingBox box) {
+	void newEmptyMap(@NonNull FragmentActivity activity, @NonNull BoundingBox box) {
 		Log.d(DEBUG_TAG, "newEmptyMap");
 		if (box == null) { // probably should do a more general check if the BB is valid
 			box = BoundingBox.getMaxMercatorExtent();
@@ -1529,7 +1527,7 @@ public class Logic {
 	 * @param node				Node to delete
 	 * @param createCheckpoint	create an Undo checkpoint
 	 */
-	public synchronized void performEraseNode(@Nullable final FragmentActivity activity, @NotNull final Node node, boolean createCheckpoint) {
+	public synchronized void performEraseNode(@Nullable final FragmentActivity activity, @NonNull final Node node, boolean createCheckpoint) {
 		if (node != null) {
 			if (createCheckpoint) {
 				createCheckpoint(activity, R.string.undo_action_deletenode);
@@ -1552,7 +1550,7 @@ public class Logic {
 	 * @param lon 		longitude (WGS84)
 	 * @param lat 		latitude (WGS84)
 	 */
-	public void performSetPosition(@Nullable final FragmentActivity activity, @NotNull Node node, double lon, double lat) {
+	public void performSetPosition(@Nullable final FragmentActivity activity, @NonNull Node node, double lon, double lat) {
 		if (node != null) {
 			createCheckpoint(activity, R.string.undo_action_movenode);
 			int lonE7 = (int)(lon*1E7d);
@@ -1572,7 +1570,7 @@ public class Logic {
 	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
 	 * @param createCheckpoint if true create an undo checkpoint
 	 */
-	public synchronized void performEraseWay(@Nullable final FragmentActivity activity, @NotNull final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
+	public synchronized void performEraseWay(@Nullable final FragmentActivity activity, @NonNull final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
 		if (createCheckpoint) {
 			createCheckpoint(activity, R.string.undo_action_deleteway);
 		}
@@ -1594,7 +1592,7 @@ public class Logic {
 	 * @param relation			Relation to delete
 	 * @param createCheckpoint	create an Undo checkpoint
 	 */
-	public synchronized void performEraseRelation(@Nullable final FragmentActivity activity, @NotNull final Relation relation, boolean createCheckpoint) {
+	public synchronized void performEraseRelation(@Nullable final FragmentActivity activity, @NonNull final Relation relation, boolean createCheckpoint) {
 		if (relation != null) {
 			if (createCheckpoint) {
 				createCheckpoint(activity, R.string.undo_action_delete_relation);
@@ -1608,10 +1606,10 @@ public class Logic {
 	/**
 	 * Erase a list of objects
 	 * 
-	 * @param activity activity this method was called from, if null no warnings will be displayed
+	 * @param activity	activity this method was called from, if null no warnings will be displayed
 	 * @param selection objects to delete
 	 */
-	public synchronized void performEraseMultipleObjects(@Nullable final FragmentActivity activity, @NotNull ArrayList<OsmElement> selection) {
+	public synchronized void performEraseMultipleObjects(@Nullable final FragmentActivity activity, @NonNull ArrayList<OsmElement> selection) {
 		// need to make three passes
 		createCheckpoint(activity, R.string.undo_action_delete_objects);
 		displayAttachedObjectWarning(activity, selection); // needs to be done before removal
@@ -1642,7 +1640,7 @@ public class Logic {
 	 * @param activity	activity this method was called from, if null no warnings will be displayed
 	 * @param node		node to split at
 	 */
-	public synchronized void performSplit(@Nullable final FragmentActivity activity, @NotNull final Node node) {
+	public synchronized void performSplit(@Nullable final FragmentActivity activity, @NonNull final Node node) {
 		if (node != null) {
 			// setSelectedNode(node);
 			createCheckpoint(activity, R.string.undo_action_split_ways);
@@ -1661,7 +1659,7 @@ public class Logic {
 	 * @return			the new way or null if failed
 	 */
 	@Nullable
-	public synchronized Way performSplit(@Nullable final FragmentActivity activity, @NotNull final Way way, @NotNull final Node node) {
+	public synchronized Way performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node) {
 		// setSelectedNode(node);
 		createCheckpoint(activity, R.string.undo_action_split_way);
 		Way result = getDelegator().splitAtNode(way, node);
@@ -1680,7 +1678,7 @@ public class Logic {
 	 * @return 					null if the split fails, the two ways otherwise
 	 */
 	@Nullable
-	public synchronized Way[] performClosedWaySplit(@Nullable Activity activity, @NotNull Way way, @NotNull Node node1, @NotNull Node node2, boolean createPolygons) {
+	public synchronized Way[] performClosedWaySplit(@Nullable Activity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2, boolean createPolygons) {
 		createCheckpoint(activity, R.string.undo_action_split_way);
 		Way[] result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
 		invalidateMap();
@@ -1698,7 +1696,7 @@ public class Logic {
 	 * @return				false if there were tag conflicts
 	 * @throws OsmIllegalOperationException 
 	 */
-	public synchronized boolean performMerge(@Nullable final FragmentActivity activity, @NotNull Way mergeInto, @NotNull Way mergeFrom) throws OsmIllegalOperationException {
+	public synchronized boolean performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom) throws OsmIllegalOperationException {
 		createCheckpoint(activity, R.string.undo_action_merge_ways);
 		displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
 		boolean mergeOK = getDelegator().mergeWays(mergeInto, mergeFrom);
@@ -1714,7 +1712,7 @@ public class Logic {
 	 * @return				false if there were tag conflicts
 	 * @throws OsmIllegalOperationException
 	 */
-	public synchronized boolean performMerge(@Nullable FragmentActivity activity, @NotNull List<OsmElement> sortedWays) throws OsmIllegalOperationException {
+	public synchronized boolean performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays) throws OsmIllegalOperationException {
 		createCheckpoint(activity, R.string.undo_action_merge_ways);
 		displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
 		boolean mergeOK = true;
@@ -2819,7 +2817,7 @@ public class Logic {
 	 * @param add unused currently
 	 * @throws FileNotFoundException 
 	 */
-	public void readOsmFile(@NotNull final FragmentActivity activity, final Uri uri, boolean add) throws FileNotFoundException {
+	public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add) throws FileNotFoundException {
 		readOsmFile(activity, uri, add, null);
 	}
 
@@ -2832,7 +2830,7 @@ public class Logic {
 	 * @param postLoad callback to execute once file is loaded
 	 * @throws FileNotFoundException
 	 */
-	public void readOsmFile(@NotNull final FragmentActivity activity, final Uri uri, boolean add, final PostAsyncActionHandler postLoad) throws FileNotFoundException {
+	public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add, final PostAsyncActionHandler postLoad) throws FileNotFoundException {
 
 		final InputStream is;
 		
@@ -2848,13 +2846,13 @@ public class Logic {
 	/**
 	 * Read a stream in (J)OSM format
 	 * 
-	 * @param activity activity that called this
-	 * @param is input
-	 * @param add unused currently
-	 * @param postLoad callback to execute once stream has been loaded
+	 * @param activity 	activity that called this
+	 * @param is 		input
+	 * @param add 		unused currently
+	 * @param postLoad 	callback to execute once stream has been loaded
 	 * @throws FileNotFoundException
 	 */
-	public void readOsmFile(@NotNull final FragmentActivity activity, final InputStream is, boolean add, final PostAsyncActionHandler postLoad) {
+	public void readOsmFile(@NonNull final FragmentActivity activity, final InputStream is, boolean add, final PostAsyncActionHandler postLoad) {
 		
 		final Map map = activity instanceof Main ? ((Main)activity).getMap() : null;
 		
@@ -2951,10 +2949,10 @@ public class Logic {
 	 * Write data to a file in (J)OSM compatible format, 
 	 * if fileName contains directories these are created, otherwise it is stored in the standard public dir
 	 * 
-	 * @param fileName path of the file to save to
-	 * @param postSaveHandler if not null executes code after saving
+	 * @param fileName			path of the file to save to
+	 * @param postSaveHandler	if not null executes code after saving
 	 */
-	public void writeOsmFile(@NotNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
+	public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
 		
 		new AsyncTask<Void, Void, Integer>() {
 			

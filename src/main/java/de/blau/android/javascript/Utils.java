@@ -14,8 +14,6 @@ import java.util.Map;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
-import com.drew.lang.annotations.NotNull;
-
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -291,7 +289,7 @@ public class Utils {
 	 * @param fileName path of the file to save to
 	 * @param postSaveHandler if not null executes code after saving
 	 */
-	private static void writeScriptFile(@NotNull final FragmentActivity activity, @NonNull final String fileName, @NonNull final String script, @Nullable final PostAsyncActionHandler postSaveHandler) {
+	private static void writeScriptFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @NonNull final String script, @Nullable final PostAsyncActionHandler postSaveHandler) {
 		
 		new AsyncTask<Void, Void, Integer>() {
 			
@@ -356,7 +354,7 @@ public class Utils {
 		}.execute();
 	}
 	
-	public static void readScriptFile(@NotNull final FragmentActivity activity, final Uri uri, final EditText input, final PostAsyncActionHandler postLoad) {	
+	public static void readScriptFile(@NonNull final FragmentActivity activity, final Uri uri, final EditText input, final PostAsyncActionHandler postLoad) {	
 		new AsyncTask<Void, Void, String>() {
 
 			@Override

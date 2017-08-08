@@ -14,8 +14,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
-import com.drew.lang.annotations.NotNull;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -64,7 +62,7 @@ public class TransferTasks {
 	 * @param add		if true merge the download with existing task data
 	 * @param handler 	handler to run after the download if not null
 	 */
-	static public void downloadBox(@NotNull final Context context, @NotNull final Server server, @NotNull final BoundingBox box, final boolean add, @Nullable final PostAsyncActionHandler handler) {
+	static public void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add, @Nullable final PostAsyncActionHandler handler) {
 		
 		final TaskStorage bugs = App.getTaskStorage();
 		final Preferences prefs = new Preferences(context);
@@ -140,7 +138,7 @@ public class TransferTasks {
 	 * @param server			current server config
 	 * @param postUploadHandler execute code after an upload
 	 */
-	static public void upload(@NotNull final Main main, final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
+	static public void upload(@NonNull final Main main, final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
 		final String PROGRESS_TAG = "tasks";
 
 		if (server != null) {
@@ -233,7 +231,7 @@ public class TransferTasks {
 	 * @return true if successful
 	 */
 	@SuppressLint("InlinedApi")
-	static public boolean uploadOsmoseBug(@NotNull final Context context, @NotNull final OsmoseBug b, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
+	static public boolean uploadOsmoseBug(@NonNull final Context context, @NonNull final OsmoseBug b, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
 		Log.d(DEBUG_TAG, "uploadOsmoseBug");
 		AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
 			@Override
@@ -403,7 +401,7 @@ public class TransferTasks {
 	 * @param all 		if true write all notes, if false just those that have been modified
 	 * @param fileName 	file to write to
 	 */
-	static public void writeOsnFile(@NotNull final FragmentActivity activity, final boolean all, final String fileName) {
+	static public void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName) {
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
