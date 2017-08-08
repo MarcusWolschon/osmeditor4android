@@ -156,8 +156,14 @@ Adding more data via the auto-download facility and/or the menu item "Add curren
 
 Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Download current view" action.
 
+#### How can I add a custom (aerial/satellite) imagery layer
+
+The preferred method is to add your imagery source to [the editor layer index](https://github.com/osmlab/editor-layer-index) so that it can be used by all OpenStreetMap editors.
+
+However you can add a file 'imagery.json' containing custom sources in the legacy editor-layer-index format in the Vespucci folder on your device. See [sample file on google drive](https://drive.google.com/file/d/0B9pKLmh8s1h8Ti12THZRaDJPdmc/view?usp=sharing).  
+
 #### Why can't you provide technical support on the google play store review section
 
-The google play store allows just one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on [github](https://github.com/MarcusWolschon/osmeditor4android/issues), if you have questions or can't find how do a specific operation you can ask on the [OpenStreetMap help site](http://help.openstreetmap.org) or one of the other communication channels. 
+The google play store allows just one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on [github](https://github.com/MarcusWolschon/osmeditor4android/issues), if you have questions or can't find how do a specific operation you can ask on the [OpenStreetMap help site](http://help.openstreetmap.org) or one of the other OpenStreetMap communication channels. 
 
 350 characters is 100 characters less than the text above.

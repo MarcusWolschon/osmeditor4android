@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-31 22:17+0000\n"
+"PO-Revision-Date: 2017-08-08 11:00+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -2554,7 +2554,7 @@ msgstr "Para o corpo"
 #: master_preset.xml:1168(item:name|group:Streets|preset:Ford)
 #: master_preset.xml:1179(combo:text|group:Streets|preset:Ford|key:ford)
 msgid "Ford"
-msgstr ""
+msgstr "Vao"
 
 #: master_preset.xml:10544(item:name|group:Nature|preset:Forest)
 msgid "Forest"
@@ -5804,7 +5804,7 @@ msgstr "Alcance (en metros)"
 
 #: master_preset.xml:5665(item:name|group:Public_Building|preset:Ranger_Station)
 msgid "Ranger Station"
-msgstr ""
+msgstr "Estación de gardabosques"
 
 #: master_preset.xml:8218(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:RBMK-1000)
 msgid "Reactor Bolshoy Moshchnosti Kanalniy 1000 (RBMK-1000)"
@@ -6244,7 +6244,7 @@ msgstr ""
 
 #: master_preset.xml:4197(item:name|group:Airport|preset:Runway)
 msgid "Runway"
-msgstr ""
+msgstr "Pista de aeroporto"
 
 #: master_preset.xml:1304(combo:text|group:Ways|preset:Path|key:sac_scale)
 msgid "SAC Scale"
@@ -6493,7 +6493,7 @@ msgstr ""
 #: master_preset.xml:6579(item:name|group:Facilities|preset:Shelter)
 #: master_preset.xml:6615(check:text|group:Facilities|preset:Hunting_Stand|key:shelter)
 msgid "Shelter"
-msgstr ""
+msgstr "Abrigo"
 
 #: master_preset.xml:343(combo:display_values|key:denomination)
 msgid "Shia"
@@ -7115,7 +7115,7 @@ msgstr "Taxi"
 
 #: master_preset.xml:4211(item:name|group:Airport|preset:Taxiway)
 msgid "Taxiway"
-msgstr ""
+msgstr "Pista de rodaxe"
 
 #: master_preset.xml:326(text:text|key:taxon)
 msgid "Taxon"
@@ -9074,7 +9074,7 @@ msgstr "Tipo"
 #: master_preset.xml:278(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Underground"
-msgstr ""
+msgstr "Subterráneo"
 
 #: master_preset.xml:7611(combo:text|preset:Entrance|key:access)
 msgctxt "access"
@@ -9945,7 +9945,7 @@ msgstr ""
 #: master_preset.xml:609(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Shelter"
-msgstr ""
+msgstr "Abrigo"
 
 #: master_preset.xml:629(list_entry:short_description|value:skillion)
 #: master_preset.xml:7587(item:name|group:Roof_type|preset:Skillion)
@@ -10372,7 +10372,7 @@ msgstr ""
 #: master_preset.xml:6216(item:name|group:Social_Facilities|preset:Shelter)
 msgctxt "social_facility"
 msgid "Shelter"
-msgstr ""
+msgstr "Abrigo"
 
 #: master_preset.xml:6296(check:text|group:Facilities|preset:Toilets/Restrooms|key:female)
 #: master_preset.xml:6321(check:text|group:Facilities|preset:Shower|key:female)
@@ -10525,7 +10525,7 @@ msgstr "Dificultade"
 #: master_preset.xml:7128(combo:text|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
 msgid "Grooming"
-msgstr ""
+msgstr "Estilo"
 
 #: master_preset.xml:7608(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"

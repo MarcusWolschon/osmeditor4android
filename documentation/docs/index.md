@@ -41,3 +41,7 @@ If you have suggestions for enhancements or are experiencing a problem, please o
 
 If you're interested in this project, you're welcome to help improving it. We need UI designers, translators, and of course Java programmers. Join our Google group or mail Marcus@Wolschon.biz.
 
+#### Legal 
+
+__OpenStreetMap__ and the magnifying glass logo are trademarks of the OpenStreetMap Foundation. The Vespucci app is not endorsed by or affiliated with the OpenStreetMap Foundation. 
+

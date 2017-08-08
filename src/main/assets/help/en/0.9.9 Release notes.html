@@ -30,7 +30,7 @@
   <li>the 255 character length limit on tag key, value and relation member role values is now enforced in the editor, previously uploads with such data would fail.</li>
 </ul><p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p><h1>Known problems</h1>
 <ul>
-  <li>Due to a change in the way Android N handles URIs that reference on-device files it may not be possible to display photos that are not in the Vespucci folder.</li>
+  <li>Due to a change in the way Android N handles URIs that reference on-device files it may not be possible to display photos that are on removable storage. The current workaround of this problem may not work on your device or go away in future Android versions.</li>
   <li>Some manipulations of very small objects (dimensions roughly 1 meter and smaller), in particular rotation, orthogonalisation and arranging in a circle will possibly not show good results due to the maximum resolution of OSM data which is roughly 1cm at the equator.</li>
 </ul><h1>Upgrading from previous versions</h1>
 <ul>
