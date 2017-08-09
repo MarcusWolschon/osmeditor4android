@@ -50,40 +50,44 @@ public abstract class Filter implements Serializable {
 
 	/**
 	 * This is for any serialisation that might have to happen post deseriaisation
-	 * @param context
+	 * 
+	 * @param context	Android Context
 	 */
 	public void init(Context context) {	
 	}
 	
 	/**
 	 * If true include this element
-	 * @param node
-	 * @param selected
-	 * @return
+	 * 
+	 * @param node		Node element
+	 * @param selected	true if element is selected
+	 * @return true if the element should be included
 	 */
 	public abstract boolean include(Node node, boolean selected);
 	
 	/**
 	 * If true include this element
-	 * @param way
-	 * @param selected
-	 * @return
+	 * 
+	 * @param way		Way element
+	 * @param selected	true if element is selected
+	 * @return true if the element should be included
 	 */
 	public abstract boolean include(Way way, boolean selected);
 	
 	/**
 	 * If true include this element
-	 * @param relation
-	 * @param selected
-	 * @return
+	 * 
+	 * @param relation	Relation element
+	 * @param selected	true if element is selected
+	 * @return true if the element should be included
 	 */
 	public abstract boolean include(Relation relation, boolean selected);
 	
 	/**
 	 * Calls the element specific include methods
-	 * @param e
-	 * @param selected
-	 * @return
+	 * @param e			OsmElement
+	 * @param selected	true if element is selected
+	 * @return true if the element should be included
 	 */
 	public boolean include(OsmElement e, boolean selected) {
 		if (e instanceof Node) {
@@ -104,21 +108,21 @@ public abstract class Filter implements Serializable {
 		return savedFilter;
 	}
 	
-	
 	public interface Update {
 		void execute();
 	}
 	
 	/**
 	 * Add the controls if any to layout
-	 * @param layout
+	 * 
+	 * @param layout	the layout the controls should be added to
+	 * @param update	call to update anything necessary when controls are used
 	 */
 	public void addControls(ViewGroup layout, final Update update) {		
 	}
 	
 	/**
 	 * Remove the controls from layout
-	 * @param layout
 	 */
 	public void removeControls() {		
 	}
@@ -130,7 +134,7 @@ public abstract class Filter implements Serializable {
 	}
 	
 	/**
-	 * Show the controls if any 
+	 * Hide the controls if any 
 	 */
 	public void hideControls() {		
 	}
@@ -146,7 +150,8 @@ public abstract class Filter implements Serializable {
 	
 	/**
 	 * Get all nodes that are currently visible from the cache
-	 * @return
+	 * 
+	 * @return List of visible Nodes
 	 */
 	@NonNull
 	public List<Node> getVisibleNodes() {
@@ -160,8 +165,9 @@ public abstract class Filter implements Serializable {
 	}
 	
 	/**
-	 * Get all wayss that are currently visible from the cache
-	 * @return
+	 * Get all ways that are currently visible from the cache
+	 * 
+	 * @return List of visible Ways
 	 */
 	@NonNull
 	public List<Way> getVisibleWays() {
@@ -178,11 +184,11 @@ public abstract class Filter implements Serializable {
 	}
 	
 	/**
-	 * Call this on element(s) change to update/invalidate the cache.
+	 * Call this on element(s) changing to update/invalidate the cache.
 	 * 
 	 * The default implementation simply calls {@link #clear()}
-	 * @param pre the element(s) before the change or null
-	 * @param post the element(s) after the change or null
+	 * @param pre	the element(s) before the change or null
+	 * @param post	the element(s) after the change or null
 	 */
 	public void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
 		clear();

@@ -388,7 +388,7 @@ public class Address implements Serializable {
 	 * @param street		the street name
 	 * @param side			side which we are on
 	 * @param list			list of existing addresses on this side
-	 * @param otherSide		try to predict a number for the other side of the street
+	 * @param oppositeSide		try to predict a number for the other side of the street
 	 * @param otherSideList	numbers found on the other side only used if otherSide is true
 	 * @return the tags for the object
 	 */
