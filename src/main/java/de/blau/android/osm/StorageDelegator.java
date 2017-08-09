@@ -24,8 +24,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
-import com.drew.lang.annotations.NotNull;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -511,7 +509,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param center center of the circle
 	 * @param way way to circulize
 	 */
-	public void circulizeWay(@NotNull de.blau.android.Map map, int[] c, @NotNull Way way) {
+	public void circulizeWay(@NonNull de.blau.android.Map map, int[] c, @NonNull Way way) {
 		if ((way.getNodes() == null) || (way.getNodes().size()<3)) {
 			Log.d("StorageDelegator", "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
 			return;
@@ -619,7 +617,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param map current map view
 	 * @param way way to square
 	 */
-	public void orthogonalizeWay(@NotNull de.blau.android.Map map, @NotNull List<Way> ways) {
+	public void orthogonalizeWay(@NonNull de.blau.android.Map map, @NonNull List<Way> ways) {
 		final int threshold = 10; // degrees within right or straight to alter
 		final double lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
 		final double upperThreshold = Math.cos(threshold * Math.PI / 180);
@@ -2441,9 +2439,29 @@ public class StorageDelegator implements Serializable, Exportable {
 		serializer.attribute(null, "version", "0.6");
 		serializer.attribute(null, "upload", "true");
 		
+		/**
+		 * Comparator to avoid unpleasant surprises when processing unsorted OSM data with
+		 * osmium and tools based on it 
+		 */
+		final Comparator<OsmElement> sortItLikeJochen = new Comparator<OsmElement>() {
+			@Override
+			public int compare(OsmElement  e1, OsmElement  e2)
+			{
+				long id1 = e1.getOsmId();
+				long id2 = e2.getOsmId();
+				if ((id1 < 0 && id2 > 0) || (id1 > 0 && id2 < 0)) { // signs different
+					return Long.compare(id1, id2);
+				}
+				return Long.compare(Math.abs(id1), Math.abs(id2));
+			}
+		};
+		
 		ArrayList<Node> saveNodes = new ArrayList<Node>(currentStorage.getNodes());
+		Collections.sort(saveNodes, sortItLikeJochen);
 		ArrayList<Way> saveWays = new ArrayList<Way>(currentStorage.getWays());
+		Collections.sort(saveWays, sortItLikeJochen);
 		ArrayList<Relation> saveRelations = new ArrayList<Relation>(currentStorage.getRelations());
+		Collections.sort(saveRelations, sortItLikeJochen);
 		
 		for (Node elem : apiStorage.getNodes()) {
 			if (elem.state == OsmElement.STATE_DELETED) {
@@ -2488,7 +2506,9 @@ public class StorageDelegator implements Serializable, Exportable {
 	
 	/**
 	 * Merge additional data with existing, copy to a new storage because this may fail
-	 * @param storage
+	 * 
+	 * @param storage	storage containing data to merg
+	 * @param postMerge	handler to run after merging
 	 */
 	synchronized public boolean mergeData(Storage storage, PostMergeHandler postMerge) {
 		Log.d("StorageDelegator","mergeData called");

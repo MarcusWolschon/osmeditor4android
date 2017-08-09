@@ -287,7 +287,7 @@ public class TaskFragment extends DialogFragment {
      * Invalidate the menu
      */
 	private void updateMenu() {
-		Activity activity = getActivity();
+		FragmentActivity activity = getActivity();
 		if (activity != null) {
 			activity.invalidateOptionsMenu();
 		}
