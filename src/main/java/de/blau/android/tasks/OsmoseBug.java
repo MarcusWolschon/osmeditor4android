@@ -20,6 +20,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.SavingHelper;
 
 
 /**
@@ -99,11 +100,7 @@ public class OsmoseBug extends Task implements Serializable {
         } catch (IOException ioex) {
             Log.d(DEBUG_TAG,"Ignoring " + ioex);
         } finally {
-            try {
-                reader.close();
-            } catch (IOException ioex) {
-                Log.d(DEBUG_TAG,"Ignoring " + ioex);
-            }
+        	SavingHelper.close(reader);
         }
 		return result;
 	}

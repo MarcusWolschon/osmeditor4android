@@ -12,6 +12,7 @@ import com.google.gson.stream.JsonReader;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+import de.blau.android.util.SavingHelper;
 
 /**
  * Tags that we want to remove before saving to server. List is in discarded.json from the iD repository
@@ -30,38 +31,29 @@ class DiscardedTags {
 
 		AssetManager assetManager = context.getAssets();
 
+		InputStream is = null;
+		JsonReader reader = null;
 		try {
-			InputStream is = assetManager.open("discarded.json");
-			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+			is = assetManager.open("discarded.json");
+			reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
 			try {
-
-				try {
-					reader.beginArray();
-					while (reader.hasNext()) {
-						redundantTags.add(reader.nextString());
-					}
-					reader.endArray();
-					Log.d("DiscardedTags","Found " + redundantTags.size() + " tags.");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			}
-			finally {
-				try {
-					reader.close();
-				} catch (IOException ioex) {
-					Log.d("DiscardedTags","Ignoring " + ioex);
+				reader.beginArray();
+				while (reader.hasNext()) {
+					redundantTags.add(reader.nextString());
 				}
-				try {
-					is.close();
-				} catch (IOException ioex) {
-					Log.d("DiscardedTags","Ignoring " + ioex);
-				}
-			}
+				reader.endArray();
+				Log.d("DiscardedTags","Found " + redundantTags.size() + " tags.");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		finally {
+			SavingHelper.close(reader);
+			SavingHelper.close(is);
 		}
 	}
 	

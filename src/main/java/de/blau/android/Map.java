@@ -353,8 +353,12 @@ public class Map extends View implements IMapView {
 			}
 		}
 		tracker = null;
-		iconcache.clear();
-		labelcache.clear();
+		synchronized (iconcache) {
+			iconcache.clear();
+		}
+		synchronized (labelcache) {
+			labelcache.clear();
+		}
 		tmpPresets = null;
 	}
 	
@@ -803,10 +807,10 @@ public class Map extends View implements IMapView {
 	/**
 	 * Paints the given node on the canvas.
 	 * 
-	 * @param canvas Canvas, where the node shall be painted on.
-	 * @param node Node which shall be painted.
-	 * @param hwAccelarationWorkaround TODO
-	 * @param drawTolerance 
+	 * @param canvas 					Canvas, where the node shall be painted on.
+	 * @param node 						Node which shall be painted.
+	 * @param hwAccelarationWorkaround	use a workaround for operatons that are not supported when HW accelation is used
+	 * @param drawTolerance 			draw the touch halo
 	 */
 	private void paintNode(final Canvas canvas, final Node node, boolean hwAccelarationWorkaround, boolean drawTolerance) {
 		int lat = node.getLat();
@@ -948,9 +952,11 @@ public class Map extends View implements IMapView {
 						// if label is still null, leave it as is
 					}
 				}
-				labelcache.put(tags,label);
-				if (label==null) {
-					return;
+				synchronized (labelcache) {
+					labelcache.put(tags,label);
+					if (label==null) {
+						return;
+					}
 				}
 			} else {
 				return;
@@ -992,7 +998,9 @@ public class Map extends View implements IMapView {
 					iconDrawable.draw(new Canvas(icon));
 				}
 			}
-			iconcache.put(tags, icon);
+			synchronized (iconcache) {
+				iconcache.put(tags, icon);
+			}
 		}
 		return icon;
 	}

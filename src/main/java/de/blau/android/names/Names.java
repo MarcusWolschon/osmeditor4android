@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.collections.MultiHashMap;
 
@@ -179,20 +180,12 @@ public class Names {
 						} 
 					}
 					finally {
-						try {
-							reader.close();
-						} catch (IOException ioex) {
-							Log.d("Names","Ignoring " + ioex);
-						}
-						try {
-							is.close();
-						} catch (IOException ioex) {
-							Log.d("Names","Ignoring " + ioex);
-						}
+						SavingHelper.close(reader);
+						SavingHelper.close(is);
 					}
-					is = assetManager.open("categories.json");
-					reader = new JsonReader(new InputStreamReader(is));
 					try {
+						is = assetManager.open("categories.json");
+						reader = new JsonReader(new InputStreamReader(is));
 						try{
 							String category = null;
 							reader.beginObject();
@@ -217,16 +210,8 @@ public class Names {
 						} 
 					}
 					finally {
-						try {
-					        reader.close();
-						} catch (IOException ioex) {
-							Log.d("Names","Ignoring " + ioex);
-						}
-						try {
-							is.close();
-						} catch (IOException ioex) {
-							Log.d("Names","Ignoring " + ioex);
-						}
+						SavingHelper.close(reader);
+						SavingHelper.close(is);
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

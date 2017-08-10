@@ -45,6 +45,7 @@ import de.blau.android.contract.Paths;
 import de.blau.android.resources.DataStyle.FeatureStyle.DashPath;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.SavingHelper;
 
 public class DataStyle  extends DefaultHandler {
 	
@@ -745,7 +746,7 @@ public class DataStyle  extends DefaultHandler {
 		} catch (Exception e) {
 			Log.e("Style", "Save failed - " + filename + " " + e);
 		} finally {
-			try {outputStream.close();} catch (Exception ex) {}
+			SavingHelper.close(outputStream);
 		}
 	}
 	

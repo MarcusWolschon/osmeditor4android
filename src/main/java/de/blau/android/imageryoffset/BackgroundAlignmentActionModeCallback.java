@@ -57,6 +57,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -221,10 +222,10 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				URL url = new URL(urlString);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestProperty("User-Agent", App.userAgent);
-				JsonReader reader = new JsonReader(new InputStreamReader(conn.getInputStream()));
-				ArrayList<ImageryOffset> result = new ArrayList<ImageryOffset>();
+				JsonReader reader = null;
 				try {
-					
+					reader = new JsonReader(new InputStreamReader(conn.getInputStream()));
+					ArrayList<ImageryOffset> result = new ArrayList<ImageryOffset>();
 					try {
 						JsonToken token = reader.peek();
 						if (token.equals(JsonToken.BEGIN_ARRAY)) {
@@ -259,11 +260,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 					return result;
 				}
 				finally {
-					try {
-						reader.close();
-					} catch (IOException ioex) {
-						Log.d(DEBUG_TAG,"Ignoring " + ioex);
-					}
+					SavingHelper.close(reader);
 				}			
 			} catch (MalformedURLException e) {
 				error = e.getMessage();

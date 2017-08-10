@@ -173,11 +173,13 @@ public class Track extends DefaultHandler {
 			Log.e(TAG, "Saving disabled but tried to ensureFileOpen");
 			return;
 		}
-		if (saveFileStream != null) return;
+		if (saveFileStream != null) {
+			return;
+		}
 		File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
+		FileOutputStream fileOutput = null;
+		DataOutputStream out = null;
 		try {
-			FileOutputStream fileOutput = null;
-			DataOutputStream out = null;
 			if (saveFile.exists()) {
 				// append to existing save file
 				fileOutput = ctx.openFileOutput(SAVEFILE, Context.MODE_APPEND);
@@ -192,7 +194,7 @@ public class Track extends DefaultHandler {
 			saveFileStream = out;
 		} catch (Exception e) {
 			markSavingBroken("Failed to open track save file", e);
-		}
+		} 
 	}
 	
 	private void deleteSaveFile() {
@@ -310,6 +312,7 @@ public class Track extends DefaultHandler {
 					return false;
 				} finally {
 					SavingHelper.close(in);
+					SavingHelper.close(fileInput);
 				}
 			}
 			
@@ -330,6 +333,7 @@ public class Track extends DefaultHandler {
 					markSavingBroken("Failed to rewrite broken save file", e);
 				} finally {
 					SavingHelper.close(out);
+					SavingHelper.close(fileOutput);
 				}
 			}
 			

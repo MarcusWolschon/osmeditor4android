@@ -55,6 +55,7 @@ import okhttp3.HttpUrl;
 @LargeTest
 public class ApiTest {
 	
+	static final int TIMEOUT = 90;
 	MockWebServerPlus mockServer = null;
 	Context context = null;
 	AdvancedPrefDatabase prefDB = null;
@@ -117,7 +118,7 @@ public class ApiTest {
 			Assert.fail(e.getMessage());
 		}
     	try {
-			signal.await(30, TimeUnit.SECONDS);
+			signal.await(TIMEOUT, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -157,7 +158,7 @@ public class ApiTest {
 			Assert.fail(e.getMessage());
 		}
     	try {
-    		signal.await(30, TimeUnit.SECONDS);
+    		signal.await(TIMEOUT, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -202,7 +203,7 @@ public class ApiTest {
      	logic.downloadElements(main, nodes, ways, null, new SignalHandler(signal));
 
      	try {
- 			signal.await(30, TimeUnit.SECONDS);
+ 			signal.await(TIMEOUT, TimeUnit.SECONDS);
  		} catch (InterruptedException e) {
  			Assert.fail(e.getMessage());
  		}
@@ -220,7 +221,7 @@ public class ApiTest {
      	logic.downloadElement(main, Relation.NAME, 2807173L, true, false, new SignalHandler(signal));
 
      	try {
- 			signal.await(30, TimeUnit.SECONDS);
+ 			signal.await(TIMEOUT, TimeUnit.SECONDS);
  		} catch (InterruptedException e) {
  			Assert.fail(e.getMessage());
  		}
@@ -238,7 +239,7 @@ public class ApiTest {
     	InputStream is = loader.getResourceAsStream("test1.osm");
     	logic.readOsmFile(main, is, false, new SignalHandler(signal));
     	try {
-    		signal.await(30, TimeUnit.SECONDS);
+    		signal.await(TIMEOUT, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -283,7 +284,7 @@ public class ApiTest {
     	InputStream is = loader.getResourceAsStream("test1.osm");
     	logic.readOsmFile(main, is, false, new SignalHandler(signal));
     	try {
-    		signal.await(30, TimeUnit.SECONDS);
+    		signal.await(TIMEOUT, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -335,7 +336,7 @@ public class ApiTest {
     	InputStream is = loader.getResourceAsStream("test1.osm");
     	logic.readOsmFile(main, is, false, new SignalHandler(signal));
     	try {
-    		signal.await(30, TimeUnit.SECONDS);
+    		signal.await(TIMEOUT, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -389,7 +390,7 @@ public class ApiTest {
 			Assert.fail(e.getMessage());
 		}
     	try {
-			signal.await(30, TimeUnit.SECONDS);
+			signal.await(TIMEOUT, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -414,7 +415,7 @@ public class ApiTest {
 			Assert.fail(e.getMessage());
 		}
     	try {
-			signal.await(40, TimeUnit.SECONDS);
+			signal.await(TIMEOUT, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -444,7 +445,7 @@ public class ApiTest {
 			Assert.fail(e.getMessage());
 		}
        	try {
-    		signal.await(40, TimeUnit.SECONDS);
+    		signal.await(TIMEOUT, TimeUnit.SECONDS);
     	} catch (InterruptedException e) {
     		Assert.fail(e.getMessage());
     	}

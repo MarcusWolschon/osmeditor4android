@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.R;
 
@@ -231,9 +232,10 @@ public class SavingHelper<T extends Serializable> {
 	
 	/**
 	 * Convenience function - closes the given stream (can be any Closable), catching and logging exceptions
+	 * 
 	 * @param stream a Closeable to close
 	 */
-	static public void close(final Closeable stream) {
+	static public void close(@Nullable final Closeable stream) {
 		if (stream != null) {
 			try {
 				stream.close();

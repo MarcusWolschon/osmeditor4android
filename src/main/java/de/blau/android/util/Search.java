@@ -248,16 +248,8 @@ public class Search {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
-				try {
-					if (responseBody != null) {
-						responseBody.close();
-					}
-					if (reader != null) {
-						reader.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				SavingHelper.close(responseBody);
+				SavingHelper.close(reader);
 			}
 			return null;
 		}
@@ -344,7 +336,6 @@ public class Search {
 			        while ((cp = rd.read()) != -1) {
 			          sb.append((char) cp);
 			        }
-			        inputStream.close();
 			        
 					ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 					FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
@@ -362,16 +353,9 @@ public class Search {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
-				try {
-					if (responseBody != null) {
-						responseBody.close();
-					}
-					if (reader != null) {
-						reader.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+		        SavingHelper.close(inputStream);
+		        SavingHelper.close(responseBody);
+		        SavingHelper.close(reader);
 			}
 			return null;
 		}

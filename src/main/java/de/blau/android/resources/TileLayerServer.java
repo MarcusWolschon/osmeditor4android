@@ -55,6 +55,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.Density;
 import de.blau.android.util.Offset;
+import de.blau.android.util.SavingHelper;
 
 /**
  * The OpenStreetMapRendererInfo stores information about available tile servers.
@@ -527,6 +528,7 @@ public class TileLayerServer {
 	
 	/**
 	 * Parse a json format InputStream for imagery configs and add them to backgroundServerList or overlayServerList
+	 * 
 	 * @param ctx			android context	
 	 * @param is			InputStream to parse
 	 * @param async			obtain meta data async (bing only)
@@ -556,11 +558,7 @@ public class TileLayerServer {
 			Log.d(DEBUG_TAG,"Imagery file ignored " + isex);
 		}
 		finally {
-			try {
-				reader.close();
-			} catch (IOException ioex) {
-				Log.d(DEBUG_TAG,"Ignored " + ioex);
-			}
+			SavingHelper.close(reader);
 		}
 	}
 	

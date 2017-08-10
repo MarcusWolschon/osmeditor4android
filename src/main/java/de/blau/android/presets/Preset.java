@@ -1053,7 +1053,6 @@ public class Preset implements Serializable {
 				fout = new FileOutputStream(new File(directory, MRUFILE));
 				out = new ObjectOutputStream(fout);
 				out.writeObject(mru);
-				out.close();
 			} catch (Exception e) {
 				Log.e(DEBUG_TAG, "MRU saving failed", e);
 			} finally {

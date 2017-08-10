@@ -93,14 +93,12 @@ public class IntentsTest {
 		Uri	uri = Uri.parse("geo:47.3905,8.385?z=15");
 		main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
 		TestUtils.selectIntentRecipient(context);
-		GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+		GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(monitor, 60000);
 		Assert.assertNotNull(geo);
 
-		
-    	// instrumentation.waitForMonitorWithTimeout(mainMonitor, 30000);
 		// there currently doesn't seem to be a reasonable way to wait until we have downloaded 
     	try {
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e1) {
 		}
 		Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984));

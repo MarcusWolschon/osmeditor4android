@@ -2107,6 +2107,7 @@ public class EasyEditManager {
 	}
 	
 	private class RestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
+		private final String DEBUG11_TAG = "RestrictionFromElement...";
 		private Way fromWay;
 		private Set<OsmElement> viaElements;
 		private boolean viaSelected = false;
@@ -2153,7 +2154,9 @@ public class EasyEditManager {
 				viaWay = (Way) element;
 				viaNode = fromWay.getCommonNode(viaWay);
 			} else {
-				// ABORT
+				// FIXME show a warning
+				Log.e(DEBUG11_TAG, element.getName() + " clicked");
+				return true;
 			}
 			Way newFromWay = null;
 			if (!fromWay.getFirstNode().equals(viaNode) && !fromWay.getLastNode().equals(viaNode)) {
@@ -2203,6 +2206,7 @@ public class EasyEditManager {
 	}
 	
 	private class RestrictionViaElementActionModeCallback extends EasyEditActionModeCallback {
+		private final String DEBUG12_TAG = "RestrictionViaElement...";
 		private Way fromWay;
 		private OsmElement viaElement;
 		private Set<OsmElement> cachedToElements;
@@ -2257,6 +2261,10 @@ public class EasyEditManager {
 						viaElement = newViaWay;
 					}
 				}
+			} else {
+				// FIXME show a warning
+				Log.e(DEBUG12_TAG, element.getName() + " clicked");
+				return true;
 			}
 			// now check if we need to split the toWay
 			if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode)) {

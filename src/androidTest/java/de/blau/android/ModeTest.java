@@ -60,7 +60,7 @@ public class ModeTest {
 		mDevice.swipe(rect.centerX(), rect.centerY(), rect.centerX(), rect.centerY(), 200);
 		// o.longClick();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e1) {
 		}
 	}
