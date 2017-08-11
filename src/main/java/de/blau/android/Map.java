@@ -436,7 +436,6 @@ public class Map extends View implements IMapView {
 		}
 	}
 	
-
 	@Override
 	protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
@@ -534,7 +533,6 @@ public class Map extends View implements IMapView {
 		return false;
 	}
 	
-
 	private void paintCrosshairs(Canvas canvas) {
 		// 
 		if (showCrosshairs) {
@@ -561,7 +559,9 @@ public class Map extends View implements IMapView {
 	}
 	
 	/**
-	 * @param canvas
+	 * Show a marker for the current GPS position
+	 * 
+	 * @param canvas	canvas to draw on
 	 */
 	private void paintGpsPos(final Canvas canvas) {
 		if (displayLocation == null) return;
@@ -606,6 +606,12 @@ public class Map extends View implements IMapView {
 		}
 	}
 	
+	/**
+	 * Show some statistics for depugging purposes
+	 * 
+	 * @param canvas	canvas to draw on
+	 * @param fps		frames per second
+	 */
 	private void paintStats(final Canvas canvas, final int fps) {
 		int pos = 1;
 		String text = "";
@@ -633,7 +639,8 @@ public class Map extends View implements IMapView {
 	
 	/**
 	 * Paint the current tile zoom level and offset ... very ugly
-	 * @param canvas
+	 * 
+	 * @param canvas canvas to draw on
 	 */
 	private void paintZoomAndOffset(final Canvas canvas) {
 		int pos =  ThemeUtils.getActionBarHeight(context) + 5 + (int)de.blau.android.grid.MapOverlay.LONGTICKS*3; 
@@ -679,7 +686,7 @@ public class Map extends View implements IMapView {
 		boolean filterMode = tmpFilter != null; // we have an active filter
 		
 		/*
-		 Split the ways it to whose that we are going to show and those that we hide, rendering is far simpler for the later 
+		 Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for the later 
 		 */
 		tmpHiddenWays.clear();
 		tmpStyledWays.clear();
@@ -763,6 +770,12 @@ public class Map extends View implements IMapView {
 //		return nodesOnScreenCount>(maxOnScreenNodes-unusedNodeSpace);
 	}
 
+	/**
+	 * Dim everything that hasn't been downloaded
+	 * 
+	 * @param canvas	the canvas we are drawing on
+	 * @param list		list of bounding boxes that we've downloaded
+	 */
 	private void paintStorageBox(final Canvas canvas, List<BoundingBox> list) {
 		if (!tmpLocked || alwaysDrawBoundingBoxes) {
 			Canvas c = canvas;
@@ -915,11 +928,12 @@ public class Map extends View implements IMapView {
 	
 	/**
 	 * Draw a circle with center at x,y with the house number in it
-	 * @param x
-	 * @param y
-	 * @param canvas
-	 * @param featureKeyThin
-	 * @param houseNumber
+	 * 
+	 * @param x					screen x
+	 * @param y					screen y
+	 * @param canvas			canvas we are drawing on
+	 * @param featureKeyThin	style to use for the housenumber
+	 * @param houseNumber		the number as a string
 	 */
     private void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin, final String houseNumber) {
 		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
@@ -928,13 +942,14 @@ public class Map extends View implements IMapView {
 	}
 	
 	/**
-	 * Praint a label under the node, does not try to do collision avoidance
-	 * @param x
-	 * @param y
-	 * @param canvas
-	 * @param featureKeyThin
-	 * @param strokeWidth
-	 * @param node
+	 * Paint a label under the node, does not try to do collision avoidance
+	 * 
+	 * @param x					screen x
+	 * @param y					screen y
+	 * @param canvas			canvas we are drawing on
+	 * @param featureKeyThin	style to use for the label
+	 * @param strokeWidth		current stroke scaling factor
+	 * @param node				the node we are drawing the label for
 	 */
     private void paintNodeLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final float strokeWidth, final Node node) {
 		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
@@ -1007,6 +1022,7 @@ public class Map extends View implements IMapView {
 	
 	/**
 	 * Paints an icon for an element. tmpPreset needs to be available (i.e. not null).
+	 * 
 	 * @param element	the element whose icon should be painted
 	 * @param canvas	the canvas on which to draw
 	 * @param x			the x position where the center of the icon goes
@@ -1029,13 +1045,16 @@ public class Map extends View implements IMapView {
 	}
 
 	/**
-	 * @param canvas
-	 * @param lat
-	 * @param lon
-	 * @param isTagged TODO
-	 * @param x
-	 * @param y
-	 * @param node
+	 * Paint the tolerance halo for a node
+	 * 
+	 * @param canvas	the canvas we are drawing on
+	 * @param nodeState	state of the node
+	 * @param lat		node latitude
+	 * @param lon		node longitude
+	 * @param isTagged	true if the node has any tags
+	 * @param x			screen x
+	 * @param y			screen y
+	 * @param paint		the parameters to use for the colour
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
 			boolean isTagged, final float x, final float y, Paint paint) {
@@ -1047,9 +1066,10 @@ public class Map extends View implements IMapView {
 	/**
 	 * Paints the given way on the canvas.
 	 * 
-	 * @param canvas		Canvas, where the node shall be painted on.
-	 * @param way 			way which shall be painted.
-	 * @param drawTolerance if true draw the halo
+	 * @param canvas			Canvas, where the node shall be painted on.
+	 * @param way 				way which shall be painted.
+	 * @param displayHandles	draw geometry improvement handles
+	 * @param drawTolerance 	if true draw the halo
 	 */
 	private void paintWay(ArrayList<Float>points, final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
 		float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
@@ -1150,8 +1170,8 @@ public class Map extends View implements IMapView {
 	/**
 	 * Paints the given way on the canvas with the "hidden" style.
 	 * 
-	 * @param canvas Canvas, where the node shall be painted on.
-	 * @param way way which shall be painted.
+	 * @param canvas	Canvas, where the node shall be painted on.
+	 * @param way		way which shall be painted.
 	 */
 	private void paintHiddenWay(ArrayList<Float>points, final Canvas canvas, final Way way) {
 		float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
@@ -1173,8 +1193,10 @@ public class Map extends View implements IMapView {
 
 	/**
 	 * Determine the style to use for way and cache it in the way object
-	 * @param way
-	 * @return
+	 * 
+	 * If the way is untagged or a style can't be determined, we return a style for any relations the way is a member of
+	 * @param way	way we need the style for
+	 * @return		the style
 	 */
 	private FeatureStyle getAndSetStyle(final Way way) {
 		FeatureStyle fp;
@@ -1283,11 +1305,12 @@ public class Map extends View implements IMapView {
 	
 	/**
 	 * Draws directional arrows for a way
-	 * @param canvas the canvas on which to draw
-	 * @param linePoints line segment array in the format returned by {@link #pointListToLinePointsArray(Iterable)}.
-	 * @param reverse if true, the arrows will be painted in the reverse direction
-	 * @param paint the paint to use for drawing the arrows
-	 * @param addHandles if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
+	 * 
+	 * @param canvas		the canvas on which to draw
+	 * @param linePoints	line segment array in the format returned by {@link #pointListToLinePointsArray(Iterable)}.
+	 * @param reverse		if true, the arrows will be painted in the reverse direction
+	 * @param paint			the paint to use for drawing the arrows
+	 * @param addHandles	if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
 	 */
 	private void drawWayArrows(Canvas canvas, float[] linePoints, boolean reverse, Paint paint, boolean addHandles) {
 		double minLen = DataStyle.getCurrent().minLenForHandle;
@@ -1342,10 +1365,11 @@ public class Map extends View implements IMapView {
 
 	/**
 	 * Converts a geographical way/path/track to a list of screen-coordinate points for drawing.
+	 * 
 	 * Only segments that are inside the ViewBox are included.
 	 * 
-	 * @param points list to (re-)use for projected points
-	 * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn
+	 * @param points	list to (re-)use for projected points
+	 * @param nodes		An iterable (e.g. List or array) with GeoPoints of the line that should be drawn
 	 *              (e.g. a Way or a GPS track)
 	 * @return an array of floats in the format expected by {@link Canvas#drawLines(float[], Paint)}.
 	 */
@@ -1527,6 +1551,7 @@ public class Map extends View implements IMapView {
 	
 	/**
 	 * This calculates the best tile zoom level to use (not the actual zoom level of the map!)
+	 * 
 	 * @param viewPort
 	 * @return the tile zoom level
 	 */
