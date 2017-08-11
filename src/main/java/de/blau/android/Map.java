@@ -1007,10 +1007,10 @@ public class Map extends View implements IMapView {
 	
 	/**
 	 * Paints an icon for an element. tmpPreset needs to be available (i.e. not null).
-	 * @param element the element whose icon should be painted
-	 * @param canvas the canvas on which to draw
-	 * @param x the x position where the center of the icon goes
-	 * @param y the y position where the center of the icon goes
+	 * @param element	the element whose icon should be painted
+	 * @param canvas	the canvas on which to draw
+	 * @param x			the x position where the center of the icon goes
+	 * @param y			the y position where the center of the icon goes
 	 */
 	private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
 		Bitmap icon = getIcon(element);
@@ -1047,9 +1047,9 @@ public class Map extends View implements IMapView {
 	/**
 	 * Paints the given way on the canvas.
 	 * 
-	 * @param canvas Canvas, where the node shall be painted on.
-	 * @param way way which shall be painted.
-	 * @param drawTolerance 
+	 * @param canvas		Canvas, where the node shall be painted on.
+	 * @param way 			way which shall be painted.
+	 * @param drawTolerance if true draw the halo
 	 */
 	private void paintWay(ArrayList<Float>points, final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
 		float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
@@ -1090,8 +1090,6 @@ public class Map extends View implements IMapView {
 			paint = relationSelectedStyle.getPaint();
 			paint.setStrokeWidth(fp.getPaint().getStrokeWidth()*relationSelectedStyle.getWidthFactor());
 			canvas.drawLines(linePoints, paint);
-			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
-			drawWayArrows(canvas, linePoints, false, paint, false);
 		}
 
 		int onewayCode = way.getOneway();
