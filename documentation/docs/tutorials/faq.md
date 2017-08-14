@@ -22,7 +22,7 @@ You need:
   * An [OSM account](http://www.openstreetmap.org/user/new)
 
 #### What is the status of Vespucci development?
-The current Vespucci version is 0.9.8, 0.9.9 is currently in beta release.
+The current Vespucci version is 0.9.9, 0.9.10 is currently in beta release.
 
 #### Is Vespucci available for other mobile platforms?
 No, with the exception of those that provide an Android compatible environment.
@@ -39,7 +39,7 @@ There are plenty of descriptions available (e.g. [1 ](http://openhandsetmagazine
 
 #### Running Vespucci on "old and small" devices
 
-Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.2 and later,
+Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.3 (2.2 was last supported in version 0.9.8) and later,
 however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap (this can be as low as 16MB). If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints should be helpful (ordered in decreasing order of importance):
 
   * turn off any map overlay
