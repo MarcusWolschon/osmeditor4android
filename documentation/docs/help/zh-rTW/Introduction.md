@@ -97,13 +97,15 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 開放街圖與其他地理資料系統不同，目前沒有"區域"物件類型。線上編輯器 "iD" 嘗試創建區域來代表特定底層 OSM 元件，有時候可以順暢運作，其他情況則不行。VEspucci 目前並沒有類型的作法，所以你必須知道路徑區域如何表示：
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _封閉路徑 (*多邊形")_：最簡單而且最普遍的區域變體，其路徑有共同的第一個節點和最後一個節點，構成封閉的"環狀" (例如大部分的建築都是這種類型)。Vespucci 可以很容易創建封閉路徑，只要畫完區域時最後接回第一個節點。注意：要怎麼解讀區域得看加上去的標籤；舉例來說，如果封閉路徑被標為建築，則會視為區域，如果被標為圓環則不會。有些情況之下，解讀的狀況可能都可以通，被視為"區域"標籤。
+
+* _多重多邊形_：有些區域有多個部件，有空洞區域和環形區域，不能簡單視為單一路徑。OSM 用特定的關係 (我們一般目的物件可以規範物件之間的關係)來完成，一個多重多邊形，一個多重多邊形可以擁有數個"外圈"，以及數個"內圈"。每個圈能以上述的封閉路徑，或是數個共同結束節點的單一路徑。當大的多重多邊形很難以任何工具處理，Vespucci 可以輕易處理小的物件。
+
+* _大陸和島嶼_：對於大型物件，如大陸和島嶼，即便多重多邊形模式也沒辦法以滿意方式處理。如 natural=coastline 路徑我們假設方向相依語意：土地位於路徑左側，水域則是右側。但副作用則是你不能反轉有海岸標籤的路徑。更多資訊則可以到 [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline) 閱讀。
 
 #### 改善道路的幾何形狀
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+如果你放大到夠大的程度，選取夠長的路徑中間會看到小的"x"。拖動"x"會在路徑位置上創建新的節點。注意：要避免不小心創新節點，因此操作碰觸的容忍區域相當小。
 
 #### 剪下、複製和貼上
 
@@ -111,25 +113,27 @@ If you zoom in far enough on a selected way you will see a small "x" in the midd
 
 #### 有效的增加地址
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+Vespucci 擁有"增加地址標籤"功能，讓探察時增加地址更方便。這個功能可以被選擇：
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* 長按之後：Vespucci 會在該位置新增節點，並且猜測這裡的門牌號碼和增其他能被新增的地址標籤。如果節點在建築外框上面，則會自動增加 "entrance=yes" 標籤到節點上面。標籤編輯器則會開啟物件，讓你編輯該做的變動。
+
+在節點/路徑選取模式：Vespucci 會增加地址標籤，並且開始標籤編輯器。
+
+* 在標籤編輯器。
 
 門牌號碼預測，一般需求要在道路的兩側，至少兩間房屋號碼需要輸入到作業中，更多的號碼存在於資料中越好。
 
-Consider using this with the [Auto-download](#download) mode.  
+考慮使用[自動下載](#download)模式。  
 
 #### 增加轉​​彎限制
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+Vespucci 有個快速增加轉彎限制的功能。如果需要則可以自動切割路徑，並且詢問後重新選擇物件。 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type
+* 選取有道路標籤的路徑(轉彎限制只能加道路。如果你需要用其他方式做的話，請使用一般的"創建關係"模式)
+* 從選單選取"增加限制"
+* 選取"經由"節點或路徑 (只有"經由"元件有觸控區域顯示才有可能)
+* 選取"到"路徑 (雙重後退和設定"到"元件變成"從"元件才有可能，Vespucci 會假設你增加不可迴轉限制)
+* 設定限制種類
 
 ### Vespucci"鎖定"模式
 
@@ -149,69 +153,69 @@ Vespucci 除了支援 OAuth 的授權和標準的使用者名稱與密碼的方�
 
 #### 在上傳解決衝突
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
+Vespucci 擁有簡單的衝突解決器。然後如果你懷疑你的編輯有重大問題，你可以匯出你的變動到 .osc 檔案 ("匯出"選單項目在傳輸選單裡)，然後用 JOSM 修正和上傳變動。請見[解決衝突](../en/Conflict%20resolution.md)裡詳盡的說明文件。  
 
 ## 使用 GPS
 
 您可用 Vespucci 建立 GPX 軌跡和顯示在您的裝置上。進一步此外，您可顯示目前 GPS 位置，(在 GPS 選單中設定"顯示位置")具有螢幕中心周圍和追隨的位置，(在 GPS 選單中設定"追隨 GPS 位置")。 
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
+如果你有後者的設定，手動移動螢幕或是編輯導致"跟隨 GPS" 模式關閉，而藍色的 GPS 方向箭頭會從邊框變成填充頭。要快速回到"跟隨"模式，簡單碰觸 GPS 按鈕，或是按選單選項。
 
 ## 備註和錯誤
 
 Vespucci支援下載、回應或是關閉OSM註解(先前叫做OSM臭蟲)，相當於[OSMOSE 品質管控工具](http://osmose.openstreetmap.fr/en/map/)列出的"臭蟲"。兩者都可以完整下載下來，或者使用自動下載工具看到你的區域內的註解。一旦你回應或是關閉註解，你可以上傳單一臭蟲還是註解，或是一次上傳多個註解。
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+註解和臭蟲會以小蟲子圖示  ![Bug](../images/bug_open.png) 顯示在地圖上面，綠色代表關閉/解決，藍色代表被新增或是由你編輯過，而黃色表示仍然有效還沒有變動。 
 
 OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則會選取物件，並且螢幕置中，如果需要則會下載周邊的區域。 
 
 ### 篩選
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
+除了全域時啟用顯示註解和臭蟲以外，你可以設定粗略顯示過瀘降低雜亂程度。在"進階設定"裡，你可以單獨選取：
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* 註解
+* Osmose 錯誤
+* Osmose 警告
+* Osmose 小問題
 
 <a id="indoor"></a>
 
 ## 室內模式
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
+室內繪圖由於有相當多的物件而且常常彼此重疊，因此是相當有挑戰性的事情。Vespucci 發展出室內模式，能夠允許你過濾其他不在同一層的所有物件，並且自動加上目前樓層資訊到新增加的物件上面。
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, "tag editing only", indoor mode](#lock).
+這個模式可以透過長按鎖定鈕，請見[鎖定、解鎖、"只有標籤編輯"、室內模式](#lock)。
 
 ## 篩選
 
 ### 標籤為依據的篩選
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
+在主選單能啟用過濾器，可以按過濾器的圖示變更。更多說明文件可以到這邊[標籤過濾器](../en/Tag%20filter.md)。
 
 預置為依據的篩選
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](../en/Preset%20filter.md).
+上述的替代方式，依據單一預設組合或是預先組合群組過濾物件。按過濾圖示會顯示預設組合選擇選單，類似 Vespucci 裡見到的選單。只要正常按一下就可以選擇單一預設組合，要選擇預設組合群組則長按 (正常按一下之後進入群組)。更多文件說明可到這裡這邊尋找[預設組合過濾器](../en/Preset%20filter.md)。
 
 ## 客製化 Vespucci
 
 ### 設定，當您可能想要更改
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* 背景圖層
+* 地圖覆疊層。增加覆疊可能會替較舊或是記憶體較少的裝置造成問題。預設：無。
+* 註解/臭蟲顯示。開啟註解和臭蟲，並且以黃色蟲子圖示表示，關閉的則是相同圖示綠色顯示。預設：開啟。
+* 圖片圖層。顯示有地理參照的圖片，並且以紅色照相機圖示顯示，如果有方向資訊的話，圖示會旋轉。預設：關閉。
+* 節點圖示。預設：開啟。
+* 保持螢幕開啟。預設：關閉。
+* 大的節點拖曳區域。在觸控裝置上移動節點是相當大的問題，而且你的手指會遮住目前位置。開啟這個功能可以中心外的拖拉相當大的區域 (選擇和其他操作仍然使用相當的觸控容許區域)。預設：關閉。
 
 進階參數選項
 
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* 總是顯示內容選單。當開啟這功能時，每一個選取過程都會顯示內容選單，關閉時則只會顯示無疑問的選取。預設：關閉 (先前是開啟)。
+* 啟用輕亮主題。在現代的裝置上為預設開啟。當你在舊的 Android 版本啟用時往往不一致。
+* 顯示統計數據。會顯示與除錯相關的數據，並不實用。預設：關閉 (先前是開啟)。  
 
 ## 回報問題
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+如果 Vespucci 當掉，或是偵測不一致的狀態，你會被詢問是否傳送當機報告。如果發生的話請寄送報告，但請一次描述特定狀況。如果你想提供更多資訊，或是開啟 issue請求新功能或其他類似請求，請到這邊開：[Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues)。如果你想討論跟 Vespucci 相關的議題，你可以在 cci Google group](https://groups.google.com/forum/#!forum/osmeditor4android)  開討論，或是到 [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

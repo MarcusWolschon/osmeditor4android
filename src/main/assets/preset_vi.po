@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-28 19:46+0000\n"
+"PO-Revision-Date: 2017-08-12 06:38+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -1000,7 +1000,7 @@ msgstr ""
 
 #: master_preset.xml:3274(item:name|group:Railway|preset:Buffer_Stop)
 msgid "Buffer Stop"
-msgstr ""
+msgstr "Chô"
 
 #: master_preset.xml:11932(item:name|group:Crafts|preset:Builder)
 msgid "Builder"
@@ -5766,11 +5766,11 @@ msgstr ""
 
 #: master_preset.xml:3292(item:name|group:Railway|preset:Railway_Signal)
 msgid "Railway Signal"
-msgstr ""
+msgstr "Đèn Đường sắt"
 
 #: master_preset.xml:3282(item:name|group:Railway|preset:Railway_Switch)
 msgid "Railway Switch"
-msgstr ""
+msgstr "Ghi Đường sắt"
 
 #: master_preset.xml:3945(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Railway halt (legacy)"

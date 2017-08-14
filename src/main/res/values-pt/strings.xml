@@ -202,6 +202,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_exit_actionmode">Utilize o botão de regresso para salvar e sair</string>
   <string name="toast_abort_actionmode">Utilize o botão de regresso para abortar</string>
   <string name="toast_null_island">Por favor não adicione elementos em 0°/0°</string>
+  <string name="toast_string_too_long">A string é demasiado longa (%1$dcaracteres), truncado!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -264,10 +265,13 @@ sem gravar</string>
   <string name="tag_menu_move_down">Mover para baixo</string>
   <string name="tag_menu_move_bottom">Mover para o fundo</string>
   <string name="tag_menu_sort">Ordenar</string>
+  <string name="tag_menu_reverse_order">Inverter ordenação</string>
   <string name="tag_menu_download">Descarregar</string>
   <string name="tag_menu_js_console">Consola JS</string>
   <string name="menu_up">Cima</string>
   <string name="menu_top">Abaixo</string>
+  <string name="menu_select_all">Seleccionar todos</string>
+  <string name="menu_deselect_all">Desseleccionar todos</string>
   <string name="menu_preset_help">Ajuda do modelo de etiquetas</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Adicionar etiquetas para %1$s</string>

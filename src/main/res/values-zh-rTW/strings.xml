@@ -202,6 +202,7 @@
   <string name="toast_exit_actionmode">使用返回鍵儲存和離開</string>
   <string name="toast_abort_actionmode">使用返回鍵放棄</string>
   <string name="toast_null_island">請不要在 0°/0° (Null Island) 增加物件</string>
+  <string name="toast_string_too_long">字串太長 (%1$d 文字) 被截斷了！</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -263,10 +264,13 @@
   <string name="tag_menu_move_down">往下移動</string>
   <string name="tag_menu_move_bottom">移到底部</string>
   <string name="tag_menu_sort">排序整理</string>
+  <string name="tag_menu_reverse_order">反轉順序</string>
   <string name="tag_menu_download">下載</string>
   <string name="tag_menu_js_console">JS 主控台</string>
   <string name="menu_up">向上</string>
   <string name="menu_top">頂點</string>
+  <string name="menu_select_all">選取所有</string>
+  <string name="menu_deselect_all">取消選取所有</string>
   <string name="menu_preset_help">預置幫助</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">為 %1$s 增加標籤</string>
@@ -464,7 +468,7 @@
   <string name="listedit_enable_oauth">啟用 oauth</string>
   <string name="config_offsetServer_title">偏移伺服器</string>
   <string name="config_offsetServer_summary">圖片偏移伺服器的網址</string>
-  <string name="config_osmoseServer_title">OSMOSE 伺服哈</string>
+  <string name="config_osmoseServer_title">OSMOSE 伺服器</string>
   <string name="config_osmoseServer_summary">osmose 伺服器網址</string>
   <string name="config_presetbutton_title">預置</string>
   <string name="config_presetbutton_summary">增加並啟用 JOSM 相容的預置</string>

@@ -201,6 +201,7 @@
   <string name="toast_exit_actionmode">Használja a vissza nyilat a mentéshez és kilépéshez</string>
   <string name="toast_abort_actionmode">Használja a vissza nyilat a megszakításhoz</string>
   <string name="toast_null_island">Kérjük ne adjon elemeket hozzá ide: 0°/0° (Nulla sziget)</string>
+  <string name="toast_string_too_long">A karakterlánc túl hosszú (%1$d karakter), csonkolva!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Igen</string>
   <string name="no">Nem</string>
@@ -262,10 +263,13 @@
   <string name="tag_menu_move_down">Mozgatás lefelé</string>
   <string name="tag_menu_move_bottom">Mozgatás alulra</string>
   <string name="tag_menu_sort">Rendezés</string>
+  <string name="tag_menu_reverse_order">Fordított sorrend</string>
   <string name="tag_menu_download">Letöltés</string>
   <string name="tag_menu_js_console">JS konzol</string>
   <string name="menu_up">Fel</string>
   <string name="menu_top">Felülre</string>
+  <string name="menu_select_all">Összes kiválasztása</string>
+  <string name="menu_deselect_all">Kiválasztás visszavonása</string>
   <string name="menu_preset_help">Előbeállítás súgó</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Címkék hozzáadása ehhez: %1$s</string>

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-07-28 21:43+0200\n"
-"PO-Revision-Date: 2017-07-30 22:28+0000\n"
+"PO-Revision-Date: 2017-08-11 21:32+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -7471,7 +7471,7 @@ msgstr ""
 #: master_preset.xml:735(check:text|group:Streets|preset:Trunk|key:tunnel)
 #: master_preset.xml:764(check:text|group:Streets|preset:Trunk_Link|key:tunnel)
 msgid "Tunnel"
-msgstr ""
+msgstr "Túnel"
 
 #: master_preset.xml:221(multiselect:display_values|key:cuisine)
 msgid "Turkish"

@@ -67,6 +67,7 @@ To make editing time spans as easy as possible, we try to choose an optimal time
 
 #### Time span menu
 
+* __Display time picker__: show a large number picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __Switch to 15 minute ticks__: use 15 minute granularity for the range bar.
 * __Switch to 5 minute ticks__: use 5 minute granularity for the range bar.
 * __Switch to 1 minute ticks__: use 1 minute granularity for the range bar, very difficult to use on a phone.
