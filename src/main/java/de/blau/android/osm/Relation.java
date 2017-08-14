@@ -364,9 +364,9 @@ public class Relation extends OsmElement implements BoundedObject {
 	 * @return true if the relation has a problem, false if it doesn't.
 	 */
 	@Override
-	protected boolean calcProblem() {
+	protected boolean calcProblem(Context ctx) {
 		String type = getTagWithKey(Tags.KEY_TYPE);
-		return type == null || type.equals("") || super.calcProblem();
+		return type == null || type.equals("") || super.calcProblem(ctx);
 	}
 	
 	@Override

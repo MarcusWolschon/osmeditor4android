@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -383,7 +384,7 @@ public class Way extends OsmElement implements BoundedObject {
 	 * @return true if the way has a problem, false if it doesn't.
 	 */
 	@Override
-	protected boolean calcProblem() {
+	protected boolean calcProblem(Context ctx) {
 		String highway = getTagWithKey(Tags.KEY_HIGHWAY); // cache frequently accessed key
 		if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
 			// unsurveyed road
@@ -398,7 +399,7 @@ public class Way extends OsmElement implements BoundedObject {
 				}
 			}
 		}
-		return super.calcProblem();
+		return super.calcProblem(ctx);
 	}
 	
 	@Override

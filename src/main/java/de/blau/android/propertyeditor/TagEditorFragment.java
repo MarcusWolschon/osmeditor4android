@@ -632,11 +632,12 @@ public class TagEditorFragment extends BaseFragment implements
 	}
 	
 	/**
-	 * Create a map from tag keys to preset item 
+	 * Create a mapping from tag keys to preset item and return those that coudn't be assigned
 	 * 
-	 * @param preset
-	 * @param tags
-	 * @return
+	 * Tags that are in linked presets are assigned to that preset
+	 * @param preset	PresetItem that we want to assign tags to
+	 * @param tags		the tags we want to assign
+	 * @return map of tags that couldn't be assigned
 	 */
 	private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull LinkedHashMap<String, String> tags) {
 		LinkedHashMap<String,String> leftOvers = new LinkedHashMap<String,String>();
@@ -645,7 +646,7 @@ public class TagEditorFragment extends BaseFragment implements
 			for (Entry<String,String> entry:tags.entrySet()) {
 				String key = entry.getKey();
 				String value = entry.getValue();
-				if ( preset.hasKeyValue(key, value)) {
+				if (preset.hasKeyValue(key, value)) {
 					storePreset(key, preset);
 				} else {
 					boolean found = false;

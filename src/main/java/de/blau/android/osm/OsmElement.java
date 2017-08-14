@@ -20,12 +20,14 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.IssueAlert;
+import de.blau.android.util.StringWithDescription;
 
 public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
 
@@ -517,9 +519,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * Test if the element has any problems by searching all the tags for the words
 	 * "fixme" or "todo", or if it has a key in the list of things to regularly re-survey 
 	 * 
+	 * @param ctx	Android context
 	 * @return true if the element has any noted problems, false otherwise.
 	 */
-	boolean calcProblem() {
+	boolean calcProblem(@NonNull Context ctx) {
 		if (tags != null) {
 			for (Entry<String,String>entry : tags.entrySet()) {
 				// test key and value against pattern
@@ -540,6 +543,18 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 						return checkAge(now,Tags.KEY_CHECK_DATE+":"+key);
 					}						
 					return false;
+				}
+			}
+			Preset[] presets = App.getCurrentPresets(ctx);
+			PresetItem pi = Preset.findBestMatch(presets, tags);
+			String[] checkTags = {"name", "opening_hours", "wheelchair"};
+			if (pi != null) {
+				for (String c:checkTags) {
+					if (pi.hasKey(c, false)) {
+						if (!hasTagKey(c)) {
+							return true;
+						}
+					}
 				}
 			}
 		}
@@ -600,7 +615,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		// caches the calculation.
 		if (!checkedForProblem) {
 			checkedForProblem = true; // don't re-check
-			cachedHasProblem = calcProblem();
+			cachedHasProblem = calcProblem(context);
 			if (cachedHasProblem && context != null) {
 				IssueAlert.alert(context, this); 
 			}

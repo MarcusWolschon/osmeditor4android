@@ -2453,18 +2453,33 @@ public class Preset implements Serializable {
 
 		/**
 		 * Return true if the key is contained in this preset
-		 * @param key
-		 * @return
+		 * 
+		 * @param key	key to look for
+		 * @return true if the key is present in any category (fixed, recommended, optional)
 		 */
 		public boolean hasKey(String key) {
-			return fixedTags.containsKey(key) || recommendedTags.containsKey(key) || optionalTags.containsKey(key);
+			return hasKey(key, true);
 		}
 		
 		/**
+		 * Return true if the key is contained in this preset
+		 * 
+		 * @param key			key to look for
+		 * @param checkOptional	check in optional tags too
+		 * @return true if the key is present in any category (fixed, recommended, and optional if checkOptional is true)
+		 */
+		public boolean hasKey(String key, boolean checkOptional) {
+			return fixedTags.containsKey(key) || recommendedTags.containsKey(key) || (checkOptional && optionalTags.containsKey(key));
+		}
+		
+		
+		/**
 		 * Return true if the key and value is contained in this preset taking match attribute in to account
+		 * 
 		 * Note mathe="none" is handled the same as "key" in this method
-		 * @param key
-		 * @return
+		 * @param key	key to look for
+		 * @param value	value to look for
+		 * @return true if the key- value combination is present in any category (fixed, recommended, and optional)
 		 */
 		public boolean hasKeyValue(String key, String value) {
 
