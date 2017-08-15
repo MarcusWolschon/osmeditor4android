@@ -7616,6 +7616,9 @@
 			<reference ref="wheelchair" />
 			<optional>
 				<text key="ref" text="Entrance number" />
+				<combo key="door" text="Door type"
+					values="hinged,sliding,revolving,folding,trapdoor,overhead,loadingdock,no" display_values="Hinged,Sliding,Revolving,Folding,Trapdoor,Overhead,Loadingdock,None"
+					values_context="entrance" match="key" />
 				<text key="addr:flats" text="Flat numbers" />
 			</optional>
 			<preset_link preset_name="Address" />
@@ -8950,7 +8953,7 @@
             <reference ref="link_contact_address_payment" />
         </item> <!-- Farm Stand -->
         <separator/>
-        <item name="Organic" icon="icons/png/shopping_organic_29120.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Organic (deprecated)" icon="icons/png/shopping_organic_29120.png" type="node,closedway,multipolygon" preset_name_label="true" deprecated="true" >
             <link href="http://wiki.openstreetmap.org/wiki/Key:organic"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:organic"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:organic"
@@ -8958,7 +8961,7 @@
                   it.href="http://wiki.openstreetmap.org/wiki/IT:Key:organic"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:organic" />
             <space />
-            <reference ref="organic" />
+            <key key="shop" value="organic" />
         </item> <!-- Organic -->
         <item name="Fair Trade" icon="icons/png/shopping_fair_trade_29060.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:fair_trade"
