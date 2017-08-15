@@ -8728,6 +8728,7 @@
             <space />
             <key key="shop" value="supermarket" />
             <reference ref="name_oh_wheelchair_level" />
+            <reference ref="organic" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Supermarket -->
         <item name="Convenience Store" icon="icons/png/shopping_convenience.png" gtype="node,closedway,multipolygon" preset_name_label="true">
@@ -8744,6 +8745,7 @@
             <space />
             <key key="shop" value="convenience" />
             <reference ref="name_oh_wheelchair_level" />
+            <reference ref="organic" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Convenience Store -->
         <item name="Kiosk" icon="icons/png/shopping_kiosk.png" type="node,closedway,multipolygon" preset_name_label="true">
