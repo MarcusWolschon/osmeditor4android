@@ -6,8 +6,12 @@ package de.blau.android.contract;
  */
 public interface Urls {
 	String DEFAULT_API = "https://api.openstreetmap.org/api/0.6/";
+	String DEFAULT_API_NAME = "OpenStreetMap";
 	String DEFAULT_API_NO_HTTPS = "http://api.openstreetmap.org/api/0.6/";
-
+	String DEFAULT_API_NO_HTTPS_NAME = "OpenStreetMap no https";
+	String SANDBOX_API = "https://master.apis.dev.openstreetmap.org/api/0.6/";
+	String SANDBOX_API_NAME = "OpenStreetMap sandbox";
+	
 	String DEFAULT_NOMINATIM_SERVER = "http://nominatim.openstreetmap.org/";
 	String DEFAULT_PHOTON_SERVER = "http://photon.komoot.de/";
 	

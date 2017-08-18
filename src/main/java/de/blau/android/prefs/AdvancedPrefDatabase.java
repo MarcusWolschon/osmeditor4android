@@ -32,12 +32,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private final SharedPreferences prefs;
 	private final String PREF_SELECTED_API;
 
-	private final static int DATA_VERSION = 8;
+	private final static int DATA_VERSION = 9;
 	private final static String LOGTAG = "AdvancedPrefDB";
 		
 	/** The ID string for the default API and the default Preset */
 	public final static String ID_DEFAULT = "default";
 	private final static String ID_DEFAULT_NO_HTTPS = "default_no_https";
+	public final static String ID_SANDBOX = "sandbox";
 	
 	private final static String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
 	private final static String ID_DEFAULT_GEOCODER_PHOTON = "Photon";
@@ -96,12 +97,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			db.execSQL("ALTER TABLE apis ADD COLUMN notesurl TEXT DEFAULT NULL");
 		}
 		if (oldVersion <= 6 && newVersion >= 7) {
-			addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true);
+			addAPI(db, ID_DEFAULT_NO_HTTPS, Urls.DEFAULT_API_NO_HTTPS_NAME, Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true);
 		}
 		if (oldVersion <= 7 && newVersion >= 8) {
 			db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
 			addGeocoder(db, ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER,true);
 			addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER,true);
+		}
+		if (oldVersion <= 8 && newVersion >= 9) {
+			addAPI(db, ID_SANDBOX, Urls.SANDBOX_API_NAME, Urls.SANDBOX_API, null, null, "", "", ID_SANDBOX, true);
 		}
 	}
 	
@@ -110,6 +114,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		Log.d(LOGTAG, "Downgrading API DB loosing all settings");
 		db.execSQL("DROP TABLE apis");
 		db.execSQL("DROP TABLE presets");
+		db.execSQL("DROP TABLE geocoders");
 		onCreate(db);
 		migrateAPI(db);
 	}
@@ -121,11 +126,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		Log.d(LOGTAG, "Migrating API");
 		String user = prefs.getString(r.getString(R.string.config_username_key), "");
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
-		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
-		addAPI(db, ID_DEFAULT, name, Urls.DEFAULT_API, null, null, user, pass, ID_DEFAULT, true);
+		addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, null, user, pass, ID_DEFAULT, true);
 		Log.d(LOGTAG, "Adding default URL without https");
-		addAPI(db, ID_DEFAULT_NO_HTTPS, "OpenStreetMap no https", Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true);
+		addAPI(db, ID_DEFAULT_NO_HTTPS, Urls.DEFAULT_API_NO_HTTPS_NAME, Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true);
+		Log.d(LOGTAG, "Adding default dev URL");
+		addAPI(db, ID_SANDBOX, Urls.SANDBOX_API_NAME, Urls.SANDBOX_API, null, null, "", "", ID_SANDBOX, true);
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(db,ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");
