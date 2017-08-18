@@ -18,7 +18,8 @@ Laitteesi näytön koosta ja iästä riippuen muokkaustoiminnot voivat löytyä 
 
 Kosketa ensin siirtokuvaketta ![Siirto](../images/menu_transfer.png) tai avaa valikosta "Siirto". Esiin tulee seitsemän valintaa:
 
-* **Lataa nykyinen näkymä** – lataa näytöllä näkyvä alue ja korvaa kaiken jo ladatun datan *(vaatii internetyhteyden)*
+
+* **Lataa nykyinen näkymä** – lataa näytöllä näkyvä alue ja korvaa kaiken jo ladatun datan *(vaatii internetyhteyden)*
 * **Lisää nyk. näkymä lataukseen** – lataa näytöllä näkyvän alueen ja yhdistä se jo ladattuun dataan *(vaatii internetyhteyden)*
 * **Lataa joku muu alue** – näyttää lomakkeen, johon voit syöttää koordinaatit, etsiä paikkaa tai käyttää nykyistä sijaintia, ja ladata sitten alueen kyseisen paikan ympäriltä *(vaatii internetyhteyden)*
 * **Lähetä OSM-palvelimelle** – lähetä muokkaukset OpenStreetMappiin *(vaatii tunnistautumisen)* *(vaatii internetyhteyden)*
