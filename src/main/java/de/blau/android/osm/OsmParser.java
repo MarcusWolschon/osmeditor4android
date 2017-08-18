@@ -237,14 +237,13 @@ public class OsmParser extends DefaultHandler {
 				// Log.d(DEBUG_TAG, "Creating way " + osmId);
 			}
 			else if (isRelation(name)) {
-				currentRelation = OsmElementFactory.createRelation(osmId, timestamp, osmVersion, status);
+				currentRelation = OsmElementFactory.createRelation(osmId, osmVersion, timestamp, status);
 				if (nodeIndex==null) {
 					nodeIndex = storage.getNodeIndex(); // !!!!! this will fail if input is not ordered
 				}
 				if (wayIndex==null) {
 					wayIndex = storage.getWayIndex(); // !!!!! this will fail if input is not ordered
 				}
-				// Log.d(DEBUG_TAG, "Creating relation " + osmId);
 			}
 			else {
 				throw new OsmParseException("Unknown element " + name);
