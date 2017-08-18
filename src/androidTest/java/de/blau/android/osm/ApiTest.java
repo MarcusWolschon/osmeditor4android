@@ -288,10 +288,22 @@ public class ApiTest {
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
+    	
     	Assert.assertEquals(App.getDelegator().getApiElementCount(),32);
     	Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
     	Assert.assertNotNull(n);
     	Assert.assertEquals(n.getState(), OsmElement.STATE_MODIFIED);
+    	Assert.assertEquals(n.getOsmVersion(), 6L);
+    	
+    	Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604);
+    	Assert.assertNotNull(w);
+    	Assert.assertEquals(w.getState(), OsmElement.STATE_MODIFIED);
+    	Assert.assertEquals(w.getOsmVersion(), 18L);
+    	
+    	Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME,2807173);
+    	Assert.assertNotNull(r);
+    	Assert.assertEquals(r.getState(), OsmElement.STATE_MODIFIED);
+    	Assert.assertEquals(r.getOsmVersion(), 3L);
     	
     	mockServer.enqueue("capabilities2");
     	mockServer.enqueue("changeset2");
@@ -321,9 +333,14 @@ public class ApiTest {
     	Assert.assertNotNull(n);
     	Assert.assertEquals(n.getState(), OsmElement.STATE_UNCHANGED);
     	Assert.assertEquals(n.getOsmVersion(), 7);
-    	Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME,2807173);
+    	w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604);
+    	Assert.assertNotNull(w);
+    	Assert.assertEquals(w.getState(), OsmElement.STATE_UNCHANGED);
+    	Assert.assertEquals(w.getOsmVersion(), 19L);
+    	r = (Relation) App.getDelegator().getOsmElement(Relation.NAME,2807173);
+    	Assert.assertNotNull(r);
     	Assert.assertEquals(r.getState(), OsmElement.STATE_UNCHANGED);
-    	Assert.assertEquals(r.getOsmVersion(), 4);
+    	Assert.assertEquals(r.getOsmVersion(), 4L);
 	}
     
     @Test
