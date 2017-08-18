@@ -3,7 +3,7 @@
   <string-array name="bug_filter_entries">
     <item>Note</item>
     <item>Errore di Osmose</item>
-    <item>Segnalazione di Osmose</item>
-    <item>Errore minore di Osmose</item>
+    <item>Avviso di Osmose</item>
+    <item>Problema minore di Osmose</item>
   </string-array>
 </resources>

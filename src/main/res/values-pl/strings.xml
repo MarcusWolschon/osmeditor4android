@@ -13,8 +13,8 @@
   <string name="upload_conflict_message_deleted">%1$s \n istnieje lokalnie w wersji %2$s \n ale został usunięty na serwerze</string>
   <string name="upload_conflict_message_referential">%1$s \nzostał usunięty lokalnie \nale ma powiązania na serwerze</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nzostał już usunięty na serwerze</string>
-  <string name="use_local_version">Użyj \n wersji \nlokalnej</string>
-  <string name="use_server_version">Użyj \nwersji \nz serwera</string>
+  <string name="use_local_version">Użyj wersji lokalnej</string>
+  <string name="use_server_version">Użyj wersji z serwera</string>
   <string name="no_login_data_title">Nieudane uwierzytelnianie</string>
   <string name="no_login_data_message">Jeśli używasz OAuth oznacza to że wystąpił błąd, prześlij raport o błędach, jednak jeśli używasz loginu i hasła (nie polecane) sprawdź czy wprowadzono je poprawnie</string>
   <string name="no_connection_title">Brak połączenia z serwerem</string>

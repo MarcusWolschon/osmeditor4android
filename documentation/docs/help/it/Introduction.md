@@ -1,32 +1,33 @@
 # Introduzione a Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci è un completo editor per OpenStreetMap, che supporta la maggior parte delle funzionalità disponibili con gli editor desktop.  È stato testato su Android nelle versioni dalla 2.3 alla 7.0, oltre che su alcune varianti di AOSP.
+Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desktop, alcuni dispositivi particolarmente vecchi tendono ad avere poca memoria disponibile e ad essere piuttosto lenti. Dovresti tenerne conto quando usi Vespucci e agire di conseguenza, ad esempio riducendo l'area che stai modificando. 
 
-## Il primo utilizzo
+## Primo utilizzo
 
-All'avvio Vespucci mostra la schermata "Scarica altra posizione"/"Carica area". Se sono visibili le coordinate e vuoi scaricare i dati immediatamente, puoi selezionare l'opzione corrispondente e impostare il raggio dell'area che vuoi ottenere. Non scegliere un'area troppo grande su dispositivi lenti. 
+All'avvio Vespucci mostra la schermata "Scarica altra posizione"/"Carica area". Se sono visibili le coordinate e vuoi scaricare i dati immediatamente, puoi selezionare l'opzione corrispondente e impostare il raggio dell'area che vuoi ottenere. Non scegliere un'area troppo grande se hai un dispositivo lento. 
 
-Altrimenti puoi chiudere la schermata premendo il pulsante "Vai alla mappa", spostandoti e ingrandendo poi sull'area che vuoi modificare per poi scaricarne i dati (vedi più avanti: "Modificare con Vespucci")
+Altrimenti puoi chiudere la schermata premendo il pulsante "Vai alla mappa". Puoi quindi spostare la mappa, ingrandire sull'area che vuoi modificare e scaricarne i dati (vedi più avanti: "Modificare con Vespucci").
 
 ## Mappare con Vespucci
 
-A seconda della dimensione dello schermo e dell'età del tuo dispositivo, le diverse azioni potrebbero essere accessibili direttamente attraverso delle icone sulla barra in alto, nel menù a tendina sulla destra della barra in alto, sulla barra in basso (se presente) oppure attraverso il pulsante menù.
+A seconda della dimensione dello schermo e da quanto è vecchio il tuo dispositivo, le diverse azioni saranno accessibili direttamente attraverso le icone sulla barra in alto, nel menù a tendina sulla destra della barra in alto, sulla barra in basso (se presente) oppure attraverso il pulsante menù.
 
 <a id="download"></a>
 
-### Scaricare dati OSM
+### Download dati OSM
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Seleziona l'icona di trasferimento ![Transfer](../images/menu_transfer.png) oppure l'opzione "Trasferimento" nel menu. Verranno mostrate sette opzioni:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Scarica vista corrente** - scarica l'area visibile sullo schermo e sostituisce i dati già scaricati *(richiede connessione a Internet)*
+* **Aggiungi vista corrente ai dati** - scarica l'area visibile sullo schermo e la unisce con i dati già scaricati *(richiede connessione a Internet)*
+* **Scarica altra posizione** - permette di scaricare l'area attorno alla posizione specificata, che può essere inserita con le coordinate geografiche, cercando il nome del luogo o usando la posizione corrente *(richiede connessione a Internet)*
+* **Carica i dati su OSM** - carica le modifiche su OpenStreetMap *(richiede autenticazione)* *(richiede connessione a Internet)*
+* **Scarica area in automatico** - scarica in automatico l'area attorno alla posizione geografica attuale *(richiede connessione a Internet)* *(richiede GPS)*
+* **File...** - carica o salva dati OSM tramite file salvati sul dispositivo
+* **Note/problemi mappa...** - scarica manualmente o automaticamente le note di OSM e i problemi segnalati dagli strumenti QA (Quality Assurance; attualmente OSMOSE) *(richiede connessione a Internet)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Il modo più semplice di scaricare i dati sul dispositivo è di spostarsi e ingrandire sull'area che si vuole modificare e quindi selezionare "Scarica vista corrente". Puoi modificare l'ingrandimento usando le dita, i pulsanti di zoom oppure i pulsanti per il controllo del volume del dispositivo. Vespucci a questo punto scaricherà i dati della vista corrente. Per scaricare i dati sul dispositivo non è necessario essere l'autenticazione.
 
 ### Mappare
 

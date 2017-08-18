@@ -14,8 +14,6 @@
   <string name="upload_conflict_message_deleted">%1$s \ncó phiên bản địa phương %2$s \ntrong khi nó đã bị xóa trên máy chủ</string>
   <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại trong khi còn có tham chiếu trên máy chủ </string>
   <string name="upload_conflict_message_already_deleted">%1$s \nđã bị xóa trên máy chủ </string>
-  <string name="use_local_version">Dùng \nphiên bản \ntrong điện thoại</string>
-  <string name="use_server_version">Dùng \nphiên bản \ntrên máy chủ</string>
   <string name="no_login_data_title">Thất bại khi xác thực</string>
   <string name="no_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), có lẽ bạn đã gặp lỗi; xin vui lòng báo cáo vấn đề cho chúng tôi. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
   <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>

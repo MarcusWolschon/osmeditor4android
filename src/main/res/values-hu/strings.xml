@@ -14,8 +14,6 @@
   <string name="upload_conflict_message_deleted">%1$s \nhelyi verziója %2$s \nés törölve lett a kiszolgálón</string>
   <string name="upload_conflict_message_referential">%1$s \nhelyben törölve lett \nde van rá hivatkozás a kiszolgálón</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nmár törölve lett a kiszolgálón</string>
-  <string name="use_local_version">Helyi verzió \nhasználata</string>
-  <string name="use_server_version">Kiszolgálón \nlévő verzió \nhasználata</string>
   <string name="no_login_data_title">A hitelesítés sikertelen</string>
   <string name="no_login_data_message">OAuth használata esetén ez valószínűleg hiba, küldjön hibajelentést. Ha felhasználónevet és jelszót adott meg (nem javasolt), ellenőrizze, hogy helyes-e.</string>
   <string name="no_connection_title">Nincs kapcsolat a kiszolgálóval</string>

@@ -18,6 +18,10 @@
     <string name="help_tagfilter">Tag-Filter</string>
     <string name="help_presetfilter">Vorlagenfilter</string>
     <string name="help_opening_hours">Öffnungszeiten</string>
+    <string name="help_upgrade">0.9.9 Versionshinweise</string>
+    <string name="help_upgrade_098">0.9.8 Versionshinweise</string>
+    <string name="help_upgrade_097">0.9.7 Versionshinweise</string>
+    <string name="help_upgrade_096">0.9.6 Versionshinweise</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

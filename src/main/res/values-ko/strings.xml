@@ -14,8 +14,6 @@
   <string name="upload_conflict_message_deleted">%1$s님이 \n로컬 버전 %2$s를 \n가지고 있으며 서버에 삭제되었습니다</string>
   <string name="upload_conflict_message_referential">%1$s님이 \n로컬에서 삭제하였으나 \n서버에 참조되어 있습니다</string>
   <string name="upload_conflict_message_already_deleted">%1$s님이 \n이미 서버에서 삭제했습니다</string>
-  <string name="use_local_version">로컬 \n버전 \n사용</string>
-  <string name="use_server_version">서버의 \n버전 \n사용</string>
   <string name="no_login_data_title">인증 실패</string>
   <string name="no_login_data_message">OAuth를 사용할 경우 버그일 가능성이 있습니다. 문제보고를 보내주시기바랍니다. 또 비밀번호를 사용하실 경우(추천하지 않습니다) 정확히 입력하였는지 확인해 주십시요</string>
   <string name="no_connection_title">서버에 연결할 수 없음</string>

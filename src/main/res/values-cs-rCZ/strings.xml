@@ -8,8 +8,6 @@
   <string name="transfer_download_current_back">Zpět (Nedělá nic)</string>
   <string name="upload_problem_title">Problém s nahráváním</string>
   <string name="upload_problem_message">Některá nebo všechna data nebyla nenahrána. Zkuste to znovu později, pokud se jedná jen o dočasný problém.</string>
-  <string name="use_local_version">Použít \nmístní \nverzi</string>
-  <string name="use_server_version">Použít \nverzi \nna serveru</string>
   <string name="no_login_data_title">Ověření se nezdařilo</string>
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>
   <string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>

@@ -9,6 +9,8 @@
   <string name="upload_problem_title">S\'ha produït un problema amb la pujada</string>
   <string name="upload_conflict_message_version">%1$s \nté un versió local %2$s \ni al servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nté una versió local %2$s \ni s\'ha suprimit del servidor</string>
+  <string name="use_local_version">Usa la versió local</string>
+  <string name="use_server_version">Usa la versió del servidor</string>
   <string name="no_login_data_title">L\'autenticació ha fallat</string>
   <string name="no_connection_title">No hi ha connexió amb el servidor</string>
   <string name="wrong_login_data_title">L\'autenticació ha fallat</string>

@@ -13,8 +13,6 @@
   <string name="upload_conflict_message_deleted">Objekt %1$s \nje v miestnej verzii %2$s \na bol odstránený na serveri</string>
   <string name="upload_conflict_message_referential">Objekt %1$s \nbol miestne odstránený \nale má referencie na serveri </string>
   <string name="upload_conflict_message_already_deleted">Objekt %1$s \nuž bol odstránený na serveri </string>
-  <string name="use_local_version">Použiť \nmiestnu \nverziu</string>
-  <string name="use_server_version">Použiť \nverziu \nna serveri</string>
   <string name="no_login_data_title">Overenie totožnosti zlyhalo</string>
   <string name="no_connection_title">Bez pripojenia na server</string>
   <string name="no_connection_message">Nepodarilo sa pripojiť na server OSM. Prosím, skontrolujte vaše internetové pripojenia, alebo to skúste znovu neskôr.</string>

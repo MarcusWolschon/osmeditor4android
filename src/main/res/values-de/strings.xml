@@ -14,8 +14,8 @@
   <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$s \nund ist auf dem Server gelöscht</string>
   <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server </string>
   <string name="upload_conflict_message_already_deleted">%1$s \n ist auf dem Server schon gelöscht</string>
-  <string name="use_local_version">Lokale \nVersion \nverwenden</string>
-  <string name="use_server_version">Version auf \ndem Server \nverwenden</string>
+  <string name="use_local_version">Lokale Version verwenden</string>
+  <string name="use_server_version">Version auf dem Server verwenden</string>
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="no_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="no_connection_title">Keine Verbindung zum Server</string>

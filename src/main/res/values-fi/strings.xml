@@ -14,8 +14,6 @@
   <string name="upload_conflict_message_deleted">%1$s \npaikallinen versio on %2$s \nja se on poistettu palvelimelta</string>
   <string name="upload_conflict_message_referential">%1$s \non poistettu paikallisesti \nmutta siihen viitataan palvelimella</string>
   <string name="upload_conflict_message_already_deleted">%1$s \noli jo poistettu palvelimelta</string>
-  <string name="use_local_version">Käytä \npaikallista \nversiota</string>
-  <string name="use_server_version">Käytä \npalvelimen \nversiota</string>
   <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
   <string name="no_login_data_message">Jos käytät OAuthia, ohjelmassa on todennäköisesti vikaa. Pyydämme ilmoittamaan ongelmasta. Jos käytät tunnusta ja salasanaa (mitä ei suositella), niin tarkista että ne on kirjoitettu oikein.</string>
   <string name="no_connection_title">Ei yhteyttä palvelimeen</string>

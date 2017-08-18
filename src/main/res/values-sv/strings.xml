@@ -13,8 +13,6 @@
   <string name="upload_conflict_message_deleted">%1$s \nhar lokal version %2$s \noch raderades på servern</string>
   <string name="upload_conflict_message_referential">%1$s \nwas raderades lokalt \nmen har referenser på servern</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nvar redan borttagen på servern</string>
-  <string name="use_local_version">Använd \nlokal \nversion</string>
-  <string name="use_server_version">Använd \nversion\npå servern</string>
   <string name="no_login_data_title">Autentisering misslyckades</string>
   <string name="no_connection_title">Ingen anslutning till server</string>
   <string name="no_connection_message">Det gick inte att ansluta till OSM-servern. Kontrollera Internetanslutningen eller försök igen senare.</string>

@@ -93,7 +93,7 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 
-#### Adding an Area
+#### Thêm Vùng
 
 OpenStreetMap currently doesn't have an "area" object type contrary to other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
@@ -182,9 +182,9 @@ Mapping indoors is challenging due to the high number of objects that very often
 
 Để kích hoạt chế độ này, bấm lâu vào mục khóa. Xem [Khóa, mở khóa, “chỉ sửa đổi thẻ”, chế độ trong nhà](#lock).
 
-## Filters
+## Bộ lọc
 
-### Tag based filter
+### Bộ lọc theo thẻ
 
 The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
 

@@ -14,8 +14,6 @@
   <string name="upload_conflict_message_deleted">%1$s \nhas versión local %2$s \nand foi borrado no server</string>
   <string name="upload_conflict_message_referential">%1$s \nwas borrado local \nbut ten referencias no server </string>
   <string name="upload_conflict_message_already_deleted">%1$s \xa foi eliminado do servidor</string>
-  <string name="use_local_version">Use \nlocal \nversion</string>
-  <string name="use_server_version">Use \nversion \non server</string>
   <string name="no_login_data_title">Fallo de autenticación</string>
   <string name="no_login_data_message">Se estás usando OAuth, isto é probablemente un erro; por favor, envía un informe do problema. Se estás usando usuario e contrasinal (non recomendado), comproba que se introduciron correctamente.</string>
   <string name="no_connection_title">Non hai conexión co servidor</string>

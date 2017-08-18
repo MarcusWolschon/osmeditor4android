@@ -8,6 +8,7 @@
   <string name="transfer_download_current_back">Назад (ничего не менять)</string>
   <string name="upload_problem_title">Проблема с передачей</string>
   <string name="upload_problem_message">Некоторые данные не переданы на сервер. Попробуйте снова через некоторое время если это была временная проблема.</string>
+  <string name="bad_request_message">API сообщает об ошибке. Пожалуйста, сохраните данные и сообщите о проблеме:\n\n</string>
   <string name="upload_conflict_title">Конфликт загрузки</string>
   <string name="upload_conflict_message_version">%1$s
 имеет локальную версию %2$s
@@ -17,8 +18,6 @@
 было удалено локально
 но имеет ссылки на сервере</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nуже удалено на сервере</string>
-  <string name="use_local_version">Использовать \nлокальную \nверсию</string>
-  <string name="use_server_version">Использовать \nсерверную \nверсию</string>
   <string name="no_login_data_title">Ошибка аутентификации</string>
   <string name="no_login_data_message">Если вы используете OAuth, то это вероятно ошибка, пожалуйста отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
   <string name="no_connection_title">Нет соединения с сервером</string>
@@ -27,6 +26,7 @@
   <string name="wrong_login_data_title">Ошибка аутентификации</string>
   <string name="wrong_login_data_message">Если вы используете OAuth, авторизуйтесь с его помощью заново, а затем повторите попытку. Если вы используете логин и пароль (не рекомендуется), пожалуйста, проверьте их корректность.</string>
   <string name="wrong_login_data_re_authenticate">Войти заново</string>
+  <string name="go_to_openstreetmap">Перейти на openstreetmap.org</string>
   <string name="data_conflict_title">Конфликт версий</string>
   <string name="data_conflict_message">Данные, которые вы пытаетесь загрузить, содержат конфликты с вашими правками. Попробуйте загрузить ваши правки на сервер, а затем повторите попытку.</string>
   <string name="invalid_bounding_box_title">Недопустимая ограничительная рамка</string>
@@ -114,10 +114,15 @@
   <string name="empty_role">пустая роль</string>
   <string name="element">элемент</string>
   <string name="last_updated">последнее обновление</string>
+  <string name="last_edited">Последняя правка</string>
   <string name="error">ошибка</string>
   <string name="warning">предупреждение</string>
   <string name="minor_issue">незначительная проблема</string>
   <string name="unknown_error_level">неизвестный уровень ошибки</string>
+  <string name="attached_object_warning_title">Это действие затрагивает соединённые скрытые объекты</string>
+  <string name="attached_object_warning_message">Изменённый объект соединён с другими элементами, которые также будут изменены.</string>
+  <string name="attached_object_warning_continue">Понятно, показать в следующий раз</string>
+  <string name="attached_object_warning_stop">Понятно, больше не показывать это сообщение</string>
   <!--Toaster-->
   <string name="toast_no_changes">Вы ничего не изменили…</string>
   <string name="toast_unsaved_changes">У вас есть несохраненные изменения, пожалуйста, сначала загрузите их на сервер.</string>
@@ -137,6 +142,7 @@
   <string name="toast_potential_merge_tag_conflict">Вы пытаетесь объединить элементы с несовместимыми значениями тегов. Пожалуйста, проверьте теги и скорректируйте их, прежде, чем повторять попытку.</string>
   <string name="toast_state_file_failed">Нечитаемый или повреждённый файл состояния</string>
   <string name="toast_too_many_nodes_for_move">В линии слишком много точек для перемещения</string>
+  <string name="toast_one_unread_mail">У вас есть непрочитанные сообщения</string>
   <string name="toast_photo_indexing_started">Начато сканирование геопривязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование геопривязанных фото</string>
   <string name="toast_download_failed">Загрузка прервана, код ошибки %1$d, сообщение %2$s</string>
@@ -171,6 +177,7 @@
   <string name="toast_split_from_and_via">Разделенные \"from\" и \"via\" пути</string>
   <string name="toast_split_to">Разделенный \"to\" путь</string>
   <string name="toast_tile_database_full">База данных тайлов карты или диск заполнены!\nExit, удалить базу данных или освободите больше памяти.</string>
+  <string name="toast_error_accessing_photo">Нет доступа к фотографии %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
@@ -232,6 +239,8 @@
   <string name="tag_menu_download">Скачать</string>
   <string name="menu_up">Вверх</string>
   <string name="menu_top">Верхнее</string>
+  <string name="menu_select_all">Выбрать все</string>
+  <string name="menu_deselect_all">Снять выделение</string>
   <string name="menu_preset_help">Справка по заготовке</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Добавить теги к %1$s</string>
@@ -277,6 +286,7 @@
   <string name="menu_extract">Извлечь точку</string>
   <string name="menu_append">Добавить</string>
   <string name="menu_relation">Создать отношение</string>
+  <string name="menu_edit_relation">Редактировать отношение</string>
   <string name="menu_add_relation_member">Добавить участника</string>
   <string name="menu_select_relation_members">Выбрать участников</string>
   <string name="menu_tag">Править тэги</string>
@@ -347,6 +357,8 @@
   <string name="menu_tools_background_contrast">Контраст</string>
   <string name="menu_tools_oauth_reset">Сброс OAuth</string>
   <string name="menu_tools_oauth_authorisation">Авторизоваться через OAuth</string>
+  <string name="menu_enable_tagfilter">Фильтр тегов</string>
+  <string name="menu_enable_presetfilter">Фильтр заготовок</string>
   <!--element action mode menu-->
   <string name="menu_tags">Свойства</string>
   <!--Text should be as short as possible-->
@@ -370,6 +382,14 @@
   <string name="actionmode_createpath">Рисование линии</string>
   <string name="actionmode_multiselect">Мультивыбор</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_restriction">Добавить ограничение поворота</string>
+  <string name="actionmode_restriction_restart_from">Повторно выбрать сегмент \"from\"</string>
+  <string name="actionmode_restriction_via">Добавить объект \"via\"</string>
+  <string name="actionmode_restriction_restart_via">Повторно выбрать сегмент \"via\"</string>
+  <string name="actionmode_restriction_to">Добавить отрезок \"to\"</string>
+  <string name="actionmode_restriction_restart_to">Повторно выбрать отрезок \"to\"</string>
+  <string name="actionmode_one_object">1 объект</string>
+  <string name="actionmode_rotateway">Повернуть линию</string>
   <!--Preferences-->
   <string name="config_category_editing">Настройки данных и редактирования</string>
   <string name="config_category_view">Настройки интерфейса пользователя</string>
@@ -486,6 +506,7 @@
   <string name="config_autoLockDelay_summary">Время ожидания в секундах до автоблокировки, 0 - отключена.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Всегда затенять не загруженные области</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Если установлено, не загруженные области будут затемнены в заблокированном режиме</string>
+  <string name="manage_presets">Управление заготовками</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
   <string name="preset_download_successful">Заготовка успешно загружена</string>
@@ -528,6 +549,7 @@
   <string name="tracking_active_text">Vespucci записывает GPS-трек или занят автозагрузкой</string>
   <string name="gps_failure">Не удалось включить GPS</string>
   <!--element description-->
+  <string name="address_housenumber">Адрес %1$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">перемещение точки</string>
   <string name="undo_action_moveway">перемещение линии</string>

@@ -2,19 +2,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attenzione!</string>
-  <string name="transfer_download_current_dialog_message">Hai fatto delle modifiche. Vuoi caricarle invece di annullarle?</string>
-  <string name="transfer_download_current_upload">Carica</string>
-  <string name="transfer_download_current_download">Annulla &amp; scarica</string>
+  <string name="transfer_download_current_dialog_message">Hai fatto delle modifiche. Per sostituire i dati scaricati devi caricare le modifiche su OSM oppure annullarle.</string>
+  <string name="transfer_download_current_upload">Carica modifiche</string>
+  <string name="transfer_download_current_download">Annulla modifiche e scarica</string>
   <string name="transfer_download_current_back">Indietro (non fare niente)</string>
   <string name="upload_problem_title">Problema con il caricamento</string>
   <string name="upload_problem_message">I dati non sono stati parzialmente o totalmente caricati. Se si tratta di un problema temporaneo, prova a caricare di nuovo più tardi.</string>
+  <string name="bad_request_message">Le API hanno risposto con un errore. Salva i tuoi i dati e segnala il problema:\n\n</string>
   <string name="upload_conflict_title">Conflitto di caricamento</string>
   <string name="upload_conflict_message_version">%1$s \nha la versione locale %2$s \nmentre sul server è %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$s \nmentre sul server risulta eliminata</string>
   <string name="upload_conflict_message_referential">%1$s \nè stata eliminata localamente \nmentre sul server ha dei riferimenti</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nera già stato eliminato dal server</string>
-  <string name="use_local_version">Usa la \nversione \nlocale</string>
-  <string name="use_server_version">Usa la \nversione \ndel server</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth si tratta probabilmente di un bug,  inviaci un rapporto del problema, se stai usando login e password (non consigliato) verifica che li hai inseriti correttamente.</string>
   <string name="no_connection_title">Nessuna connessione al server</string>
@@ -55,6 +54,7 @@
   <string name="progress_saving_message">Sto salvando...</string>
   <string name="progress_uploading_message">Caricamento in corso...</string>
   <string name="progress_preset_message">Scaricamento dei predefiniti in corso...</string>
+  <string name="progress_running_message">In esecuzione...</string>
   <string name="progress_oauth">Caricamento del tuo account da openstreetmap.org per l\'autorizzazione OAuth...</string>
   <string name="upload_comment_label">Commento:</string>
   <string name="upload_source_label">Fonte:</string>
@@ -208,6 +208,7 @@
   <string name="enable">Abilita</string>
   <string name="clear">Pulisci</string>
   <string name="retry">Riprova</string>
+  <string name="read">Leggi</string>
   <string name="overwrite">Sovrascrivi</string>
   <string name="share">Condividi</string>
   <string name="share_position">Condividi posizione</string>
@@ -250,10 +251,13 @@
   <string name="tag_menu_move_down">Vai giù</string>
   <string name="tag_menu_move_bottom">Vai in fondo</string>
   <string name="tag_menu_sort">Ordina</string>
+  <string name="tag_menu_reverse_order">Ordine inverso</string>
   <string name="tag_menu_download">Scarica</string>
   <string name="tag_menu_js_console">Console JS</string>
   <string name="menu_up">Su</string>
   <string name="menu_top">In alto</string>
+  <string name="menu_select_all">Seleziona tutto</string>
+  <string name="menu_deselect_all">Deseleziona tutto</string>
   <string name="menu_preset_help">Aiuto prefefiniti</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Aggiungi etichette per %1$s</string>
@@ -304,7 +308,7 @@
   <string name="menu_tag">Modifica etichette</string>
   <string name="menu_openstreetbug">Aggiungi nota</string>
   <string name="menu_easyedit">ModificheFacili</string>
-  <string name="menu_camera">Videoamera</string>
+  <string name="menu_camera">Fotocamera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Mostra posizione</string>
   <string name="menu_gps_follow">Segui posizione GPS</string>
@@ -321,6 +325,7 @@
   <string name="menu_transfer">Trasferimento…</string>
   <string name="menu_transfer_download_current">Scarica vista corrente</string>
   <string name="menu_transfer_download_current_add">Aggiungi la vista corrente ai dati scaricati</string>
+  <string name="menu_transfer_download_other"> Scarica altra posizione</string>
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
   <string name="menu_transfer_close_changeset">Chiusi il gruppo di modifiche corrente</string>
   <string name="menu_transfer_file">File...</string>
@@ -522,6 +527,7 @@
   <string name="config_maxTileDownloadThreads_title">Massimo numero di scaricamenti paralleli</string>
   <string name="config_maxTileDownloadThreads_summary">Numero massimo di scaricamenti paralleli di tasselli</string>
   <string name="config_notificationCacheSize_title">Numero massimo di notifiche mostrate</string>
+  <string name="config_notificationCacheSize_summary">Numero massimo di notifiche visualizzate per tipo (min. 1)</string>
   <string name="config_autoLockDelay_title">Intervallo oltre il quale attivare il blocco</string>
   <string name="config_autoLockDelay_summary">Intevallo di tempo in secondi oltre il quale le modifiche vengono disabilitate, 0 significato disabilitato.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Offusca sempre le aree non scaricate</string>
