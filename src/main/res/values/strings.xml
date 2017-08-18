@@ -15,8 +15,8 @@
     <string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the server</string>
     <string name="upload_conflict_message_referential">%1$s \nwas deleted locally \nbut has references on the server </string>
     <string name="upload_conflict_message_already_deleted">%1$s \nwas already deleted on the server </string>
-    <string name="use_local_version">Use \nlocal \nversion</string>
-    <string name="use_server_version">Use \nversion \non server</string>
+    <string name="use_local_version">Use local version</string>
+    <string name="use_server_version">Use version on server</string>
     <string name="no_login_data_title">Authentication failed</string>
     <string name="no_login_data_message">If you are using OAuth this is likely a bug, please send a problem report, if you are using login and password (not recommended) please check that they are entered correctly.</string>
     <string name="no_connection_title">No Connection to Server</string>
