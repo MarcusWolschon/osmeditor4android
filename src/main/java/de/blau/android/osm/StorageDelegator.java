@@ -2423,7 +2423,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	
 	/**
 	 * Writes currentStorage + deleted objects to an outputstream in JOSM format. 
-	 * Note: currently does not sort output except by OSM object type
+	 * 
+	 * Output is sorted as suggested by Jochen Topf
 	 * @param outputStream the stream we are writing to
 	 * @throws XmlPullParserException
 	 * @throws IllegalArgumentException
@@ -2457,11 +2458,8 @@ public class StorageDelegator implements Serializable, Exportable {
 		};
 		
 		ArrayList<Node> saveNodes = new ArrayList<Node>(currentStorage.getNodes());
-		Collections.sort(saveNodes, sortItLikeJochen);
-		ArrayList<Way> saveWays = new ArrayList<Way>(currentStorage.getWays());
-		Collections.sort(saveWays, sortItLikeJochen);
+		ArrayList<Way> saveWays = new ArrayList<Way>(currentStorage.getWays());		
 		ArrayList<Relation> saveRelations = new ArrayList<Relation>(currentStorage.getRelations());
-		Collections.sort(saveRelations, sortItLikeJochen);
 		
 		for (Node elem : apiStorage.getNodes()) {
 			if (elem.state == OsmElement.STATE_DELETED) {
@@ -2487,7 +2485,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			b.toJosmXml(serializer);
 		}
 		
-		//TODO sort arrays here
+		Collections.sort(saveNodes, sortItLikeJochen);
+		Collections.sort(saveWays, sortItLikeJochen);
+		Collections.sort(saveRelations, sortItLikeJochen);
 		
 		if (!saveNodes.isEmpty()) {
 			for (OsmElement elem : saveNodes) elem.toJosmXml(serializer);
@@ -2498,7 +2498,6 @@ public class StorageDelegator implements Serializable, Exportable {
 		if (!saveRelations.isEmpty()) {
 			for (OsmElement elem : saveRelations) elem.toJosmXml(serializer);
 		}
-		
 		
 		serializer.endTag(null, "osm");
 		serializer.endDocument();
@@ -2674,32 +2673,51 @@ public class StorageDelegator implements Serializable, Exportable {
 			Log.d("StorageDelegator","mergeData added relations");
 			
 			// fixup relation back links and memberships 
+
+			// zap all existing backlinks for our "old" relations
+			for (Relation r:currentStorage.getRelations()) {
+				for (RelationMember rm:r.getMembers()) {
+					if (rm.getType().equals(Node.NAME)) {
+						Node n = nodeIndex.get(rm.getRef());
+						if (n != null) {
+							n.clearParentRelations();
+						}
+					} else if (rm.getType().equals(Way.NAME)) {
+						Way w = wayIndex.get(rm.getRef());
+						if (w != null) {
+							w.clearParentRelations();
+						}
+					} else if (rm.getType().equals(Relation.NAME)) {
+						Relation r2 = relationIndex.get(rm.getRef());
+						if (r2 != null) {
+							r2.clearParentRelations();
+						}
+					}
+				}
+			}
+
+			// add backlinks for all "new" relations
 			for (Relation r:temp.getRelations()) {
 				for (RelationMember rm:r.getMembers()) {
 					if (rm.getType().equals(Node.NAME)) {
-						if (nodeIndex.containsKey(rm.getRef())) { // if node is downloaded always re-set it
-							Node n = nodeIndex.get(rm.getRef());
+						Node n = nodeIndex.get(rm.getRef());
+						if (n!=null) { // if node is downloaded always re-set it
 							rm.setElement(n);
-							if (n.hasParentRelation(r.getOsmId())) {
-								n.removeParentRelation(r.getOsmId()); // this removes based on id
-							}							   			  // net effect is to remove the old rel
-							n.addParentRelation(r);		   			  // and add the updated one
+							n.addParentRelation(r);		   			  
 						} else { // check if deleted
 							Node apiNode = apiStorage.getNode(rm.getRef());
 							if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
 								Log.e("StorageDelegator","mergeData deleted node in downloaded relation " + r.getOsmId());
 								ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 								ACRA.getErrorReporter().handleException(null);
+								fixupBacklinks();
 								return false; // can't resolve conflicts, upload first
 							}
 						}
 					} else if (rm.getType().equals(Way.NAME)) { // same logic as for nodes
-						if (wayIndex.containsKey(rm.getRef())) {
-							Way w = wayIndex.get(rm.getRef());
+						Way w = wayIndex.get(rm.getRef());
+						if (w != null) {
 							rm.setElement(w);
-							if (w.hasParentRelation(r.getOsmId())) {
-								w.removeParentRelation(r.getOsmId());
-							}
 							w.addParentRelation(r);
 						} else { // check if deleted
 							Way apiWay = apiStorage.getWay(rm.getRef());
@@ -2707,16 +2725,14 @@ public class StorageDelegator implements Serializable, Exportable {
 								Log.e("StorageDelegator","mergeData deleted way in downloaded relation");
 								ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 								ACRA.getErrorReporter().handleException(null);
+								fixupBacklinks();
 								return false; // can't resolve conflicts, upload first
 							}
 						}
 					} else if (rm.getType().equals(Relation.NAME)) { // same logic as for nodes
-						if (relationIndex.containsKey(rm.getRef())) {
-							Relation r2 = relationIndex.get(rm.getRef());
+						Relation r2 = relationIndex.get(rm.getRef());
+						if (r2 != null) {
 							rm.setElement(r2);
-							if (r2.hasParentRelation(r.getOsmId())) {
-								r2.removeParentRelation(r.getOsmId());
-							}
 							r2.addParentRelation(r);
 						} else { // check if deleted
 							Relation apiRel = apiStorage.getRelation(rm.getRef());
@@ -2724,13 +2740,14 @@ public class StorageDelegator implements Serializable, Exportable {
 								Log.e("StorageDelegator","mergeData deleted relation in downloaded relation");
 								ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 								ACRA.getErrorReporter().handleException(null);
+								fixupBacklinks();
 								return false; // can't resolve conflicts, upload first
 							}
 						}
 					}
 				}
 			}
-			
+
 			Log.d("StorageDelegator","mergeData fixuped relations");
 			
 		} catch (StorageException sex) {
@@ -2743,6 +2760,54 @@ public class StorageDelegator implements Serializable, Exportable {
 		return true; // Success
 	}
 
+	/**
+	 * Ensure that we have consistent backlinks 
+	 */
+	void fixupBacklinks() {
+		// first zap all
+		for (Relation r:currentStorage.getRelations()) {
+			for (RelationMember rm:r.getMembers()) {
+				if (rm.getType().equals(Node.NAME)) {
+					Node n = currentStorage.getNode(rm.getRef());
+					if (n != null) {
+						n.clearParentRelations();
+					}
+				} else if (rm.getType().equals(Way.NAME)) {
+					Way w = currentStorage.getWay(rm.getRef());
+					if (w != null) {
+						w.clearParentRelations();
+					}
+				} else if (rm.getType().equals(Relation.NAME)) {
+					Relation r2 = currentStorage.getRelation(rm.getRef());
+					if (r2 != null) {
+						r2.clearParentRelations();
+					}
+				}
+			}
+		}
+		// then add them back
+		for (Relation r:currentStorage.getRelations()) {
+			for (RelationMember rm:r.getMembers()) {
+				if (rm.getType().equals(Node.NAME)) {
+					Node n = currentStorage.getNode(rm.getRef());
+					if (n != null) {
+						n.addParentRelation(r);
+					}
+				} else if (rm.getType().equals(Way.NAME)) {
+					Way w = currentStorage.getWay(rm.getRef());
+					if (w != null) {
+						w.addParentRelation(r);
+					}
+				} else if (rm.getType().equals(Relation.NAME)) {
+					Relation r2 = currentStorage.getRelation(rm.getRef());
+					if (r2 != null) {
+						r2.addParentRelation(r);
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * This is only used when trying to fix conflicts
 	 * @param element

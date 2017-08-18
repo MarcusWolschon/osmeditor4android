@@ -379,6 +379,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		}
 	}
 
+	/**
+	 * Remove all back links
+	 */
+	public void clearParentRelations() {
+		parentRelations = null;
+	}
 
 	/**
 	 * Generate a human-readable description/summary of the element.
