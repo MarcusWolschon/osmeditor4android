@@ -534,37 +534,52 @@ public class RTree implements Serializable {
 
 	/**
 	 * Removes the specified object if it is in the tree.
-	 * @param o
+	 * 
+	 * @param o	object to remove
 	 */
 	public synchronized void remove(BoundedObject o) {
 		Node n = chooseLeaf(o.getBounds(), root);
 		// assert(n.isLeaf());
-		n.data.remove(o);
-		n.computeMBR();
+		if (n != null) {
+			n.data.remove(o);
+			n.computeMBR();
+		}
 	}
 	
 	/**
-	 * Return true if o is in the tree.
-	 * @param o
+	 * Check if an object is in the tree.
+	 * 
+	 * @param o	object to search for
+	 * @return true if the object is present in the tree, false otherwise
 	 */
 	public synchronized boolean contains(BoundedObject o) {
 		Node n = chooseLeaf(o.getBounds(), root);
 		// assert(n.isLeaf());
-		return n.data.contains(o);
+		if (n != null) {
+			return n.data.contains(o);
+		}
+		return false;
 	}
 
 	/**
 	 * Inserts object o into the tree. Note that if the value of o.getBounds() changes
 	 * while in the R-tree, the result is undefined.
-	 * @throws NullPointerException If o == null
+	 * 
+	 * @param	o object to insert
+	 * @throws NullPointerException if o is null or no node can be found for storage
 	 */
 	public synchronized void insert(BoundedObject o) {
-		if (o == null) throw new NullPointerException("Cannot store null object");
+		if (o == null) {
+			throw new NullPointerException("Cannot store null object");
+		}
 		if (root == null)
 			root = new Node(true);
 
 		Node n = chooseLeaf(o.getBounds(), root);
 		// assert(n.isLeaf());
+		if (n == null) {
+			throw new NullPointerException("No node found for object");
+		}
 		n.data.add(o);
 		n.computeMBR();
 		splitter.split(n);

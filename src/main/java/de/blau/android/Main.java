@@ -2036,7 +2036,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			} else if (resultCode == RESULT_CANCELED) { // 
 				synchronized (setViewBoxLock) {
 					setViewBox = false; // stop setting the view box in onResume
-					Log.d(DEBUG_TAG,"opening empty map on " + (box != null ? box.toString() : " null bbox"));
+					Log.d(DEBUG_TAG,"opening empty map on " + box.toString());
 					openEmptyMap(box); // we may have a valid box
 				}
 			}
