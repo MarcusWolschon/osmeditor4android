@@ -526,9 +526,11 @@ public class Logic {
 	 * @param width   screenwidth in 10e7 deg.
 	 * @return 		  stroke width
 	 */
-	private float strokeWidth(long width){
+	public float strokeWidth(long width){
 		// prefs may not have been initialized
-		if (prefs != null ) return Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / width);
+		if (prefs != null ) {
+			return Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / width);
+		}
 		return STROKE_FACTOR / width;
 	}
 	

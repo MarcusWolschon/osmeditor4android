@@ -121,7 +121,7 @@ public class EditState implements Serializable {
 			// shouldn't happen since we would have only stored a legal BB
 		}
 		map.setViewBox(logic.getViewBox());
-		DataStyle.updateStrokes(Logic.STROKE_FACTOR / logic.getViewBox().getWidth());
+		DataStyle.updateStrokes(logic.strokeWidth(logic.getViewBox().getWidth()));
 		map.invalidate();
 	}
 	
