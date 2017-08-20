@@ -70,3 +70,5 @@ Tags to be discarded https://github.com/openstreetmap/iD/blob/master/data/discar
 
 Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage in 2017. Note: the on-device tests will typically fail the first time if Vespucci was already installed on the device (due to previous state being loaded). Either de-install or simply run the tests twice.
 
+Note currently the test for maximm tag length enforcement fails on ANdroif version before 7 and if you change the version and build number you need to patch the the test asset "test-result.osm". 
+
