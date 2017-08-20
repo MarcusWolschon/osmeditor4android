@@ -13,11 +13,14 @@
   <string name="upload_conflict_message_deleted">Objekt %1$s \nje v miestnej verzii %2$s \na bol odstránený na serveri</string>
   <string name="upload_conflict_message_referential">Objekt %1$s \nbol miestne odstránený \nale má referencie na serveri </string>
   <string name="upload_conflict_message_already_deleted">Objekt %1$s \nuž bol odstránený na serveri </string>
+  <string name="use_local_version">Použiť miestnu verziu</string>
+  <string name="use_server_version">Použiť verziu na serveri</string>
   <string name="no_login_data_title">Overenie totožnosti zlyhalo</string>
   <string name="no_connection_title">Bez pripojenia na server</string>
   <string name="no_connection_message">Nepodarilo sa pripojiť na server OSM. Prosím, skontrolujte vaše internetové pripojenia, alebo to skúste znovu neskôr.</string>
   <string name="wrong_login_data_title">Overenie totožnosti zlyhalo</string>
   <string name="wrong_login_data_re_authenticate">Overiť totožnosť znovu</string>
+  <string name="go_to_openstreetmap">Prejsť na openstreetmap.org</string>
   <string name="data_conflict_title">Konflikt verzií</string>
   <string name="data_conflict_message">Údaje, ktorá sa pokúšate prevziať, obsahujú údaje, ktoré sú v konflikte s vašimi úpravami. Prosím, skúste najskôr odovzdať vaše údaje a potom to skúste znovu.</string>
   <string name="invalid_bounding_box_title">Neplatný ohraničujúci rámec</string>
@@ -45,6 +48,7 @@
   <string name="progress_saving_message">Ukladá sa…</string>
   <string name="progress_uploading_message">Odovzdáva sa…</string>
   <string name="progress_preset_message">Preberá sa predvoľba…</string>
+  <string name="progress_running_message">Spúšťa sa…</string>
   <string name="progress_oauth">Načítava sa váš účet na službe openstreetmap.org pre autorizáciu OAuth…</string>
   <string name="upload_comment_label">Komentár:</string>
   <string name="upload_source_label">Zdroj:</string>
@@ -100,10 +104,15 @@
   <string name="empty_role">prázdna úloha</string>
   <string name="element">prvok</string>
   <string name="last_updated">naposledy aktualizované</string>
+  <string name="last_edited">Naposledy upravené</string>
   <string name="error">chyba</string>
   <string name="warning">upozornenie</string>
   <string name="minor_issue">menší problém</string>
   <string name="unknown_error_level">neznáma úroveň chyby</string>
+  <string name="attached_object_warning_continue">V poriadku, pokračovať v zobrazovaní tejto správy</string>
+  <string name="attached_object_warning_stop">V poriadku, zastaviť zobrazovanie tejto správy</string>
+  <string name="js_console_msg_live">Režim naživo!</string>
+  <string name="js_console_msg_debug">Režim ladenia!</string>
   <!--Toaster-->
   <string name="toast_no_changes">Zatiaľ ste nič nezmenili…</string>
   <string name="toast_unsaved_changes">Máte neuložené zmeny. Prosím, najskôr ich odovzdajte.</string>
@@ -118,7 +127,10 @@
   <string name="toast_merge_overwrote_tags">Poznámka - operácia prepísala značku(-y)</string>
   <string name="toast_oneway_reversed">Obrátili ste jednosmernú cestu alebo cestu so značkami závislými na smere. Prosím, skontrolujte značky a opravte ich, ak je to potrebné.</string>
   <string name="toast_potential_merge_tag_conflict">Pokúšate sa zlúčiť prvky, ktoré majú konfliktné hodnoty značiek. Prosím, skontrolujte značky a opravte ich skôr než to skúsite znovu.</string>
+  <string name="toast_state_file_failed">Nečitateľný alebo poškodený stavový súbor</string>
   <string name="toast_too_many_nodes_for_move">Príliš veľa uzlov v ceste na premiestnenie</string>
+  <string name="toast_unread_mail">Máte %1$d neprečítaných správ na OSM</string>
+  <string name="toast_one_unread_mail">Máte neprečítanú správu na OSM</string>
   <string name="toast_download_failed">Preberanie zlyhalo s chybovým kódom %1$d a správou %2$s</string>
   <string name="toast_unsurveyed_road">Nepreskúmaná cesta</string>
   <string name="toast_noname">Cesta bez názvu alebo referenčného čísla</string>
@@ -138,6 +150,11 @@
   <string name="toast_split_from_and_via">Rozdelené cesty so značkami „z“ a „cez“</string>
   <string name="toast_split_to">Rozdelená cesta so značkou „do“</string>
   <string name="toast_tile_database_full">Databáza dlaždíc mapy alebo disk je plný!\nUkončite aplikáciu, odstráňte databázu, alebo uvoľnite viac miesta.</string>
+  <string name="toast_error_accessing_photo">Nedá sa získať prístup k fotografii %1$s</string>
+  <string name="toast_file_exists">Súbor %1$s existuje.</string>
+  <string name="toast_needs_resurvey">Objekt môže byť neaktuálny</string>
+  <string name="toast_openinghours_invalid">Neplatná hodnota otváracej doby pre %1$s</string>
+  <string name="toast_openinghours_autocorrected">Hodnota otváracej doby pre %1$s bola automaticky opravená</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Áno</string>
   <string name="no">Nie</string>
@@ -380,6 +397,8 @@
   <string name="preset_download_missing_images">Súbor predvoľby bol úspešne prevzatý. Napriek tomu sa nepodarilo prevziať niektoré ikony a budú chýbať.</string>
   <!--changes-->
   <string name="confirm_upload_title">Odovzdať?</string>
+  <string name="confirm_one_upload_text">Odovzdať nasledovnú zmenu?\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Odovzdať nasledovné/-ých %1$d zmeny/zmien?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Pridať predvoľbu</string>
   <string name="urldialog_preset_exists">Predvoľba už existuje</string>
@@ -402,6 +421,8 @@
   <string name="tracking_active_text">Aplikácia Vespucci zaznamenáva stopu GPS alebo vykonáva automatické preberanie</string>
   <string name="gps_failure">Zlyhalo povolenie GPS</string>
   <!--element description-->
+  <string name="address_housenumber">Adresa %1$s</string>
+  <string name="address_housenumber_street">Adresa %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">presun uzla</string>
   <string name="undo_action_moveway">presun cesty</string>
@@ -460,6 +481,12 @@
   <string name="deleterelation">Odstrániť reláciu</string>
   <string name="delete_from_relation_description">Chystáte sa odstrániť tento prvok z relácie.</string>
   <!--time and distance-->
+  <string name="days">dni</string>
+  <string name="hours">hodiny</string>
+  <string name="minutes">minúty</string>
+  <string name="seconds">sekundy</string>
+  <string name="km">km</string>
+  <string name="meter">meter</string>
   <!--Help system-->
   <string name="toast_nohelp">Tu nie je dostupný žiadny pomocník!</string>
   <!--Arrays-->

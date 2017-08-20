@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1295: Updated imagery, openinghoursfragment, bump build number and change to release.
+
 1294: Fix relation version number corruption, inconsistent backlinks after conflict resolution, updated presets and name suggestion index. Bump android version number.
 
 1293: Fix various photo display related issues, update documentation and translations.

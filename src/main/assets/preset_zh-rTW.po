@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-08-16 19:36+0200\n"
-"PO-Revision-Date: 2017-08-17 20:02+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-08-19 13:46+0000\n"
+"Last-Translator: Supaplex <bejokeup@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,15 +20,15 @@ msgstr ""
 msgid ""
 "(Please only use this tag if more detailed mapping using busbars and bays is"
 " impossible!)"
-msgstr ""
+msgstr "(請在只有更詳盡的畫圖，如無法加上公車彎時，才使用這個標籤！)"
 
 #: master_preset.xml:5935(label:text|group:Health|preset:Emergency_Access_Point)
 msgid "(Use number as shown on plate.)"
-msgstr ""
+msgstr "(使用牌子上顯示的數字)"
 
 #: master_preset.xml:10337(label:text|group:Places|preset:Farm)
 msgid "(please use isolated_dwelling for an isolated farm)"
-msgstr ""
+msgstr "(請在有獨立的農田處使用獨立聚落)"
 
 #: master_preset.xml:479(combo:display_values|key:stars)
 msgid "*"
@@ -73,15 +73,15 @@ msgstr "...其他可能交通模式"
 
 #: master_preset.xml:263(list_entry:short_description|value:1)
 msgid "1 table"
-msgstr ""
+msgstr "1 張桌子"
 
 #: master_preset.xml:3549(check:text|group:Car|preset:Fuel|key:fuel:1_25)
 msgid "1/25 mix (mofa/moped)"
-msgstr ""
+msgstr "1/25 混合 (mofa/moped)"
 
 #: master_preset.xml:3550(check:text|group:Car|preset:Fuel|key:fuel:1_50)
 msgid "1/50 mix (mofa/moped)"
-msgstr ""
+msgstr "1/50 混合 (mofa/moped)"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10%"
@@ -93,11 +93,11 @@ msgstr "10°"
 
 #: master_preset.xml:264(list_entry:short_description|value:2)
 msgid "2 tables"
-msgstr ""
+msgstr "2 張桌子"
 
 #: master_preset.xml:265(list_entry:short_description|value:3)
 msgid "3 tables"
-msgstr ""
+msgstr "3 張桌子"
 
 #: master_preset.xml:4917(check:text|group:Leisure|preset:Movie_Theater/Cinema|key:cinema:3D)
 msgid "3D"
@@ -105,24 +105,24 @@ msgstr "3D"
 
 #: master_preset.xml:266(list_entry:short_description|value:4)
 msgid "4 tables"
-msgstr ""
+msgstr "4 張桌子"
 
 #: master_preset.xml:267(list_entry:short_description|value:5)
 msgid "5 tables"
-msgstr ""
+msgstr "5 張桌子"
 
 #: master_preset.xml:4833(label:text|group:Tourism|preset:Guidepost)
 msgid ""
 "A Signpost/Guidepost to indicate the directions to different destinations."
-msgstr ""
+msgstr "路標/指路牌，顯示到不同目的地的方向。"
 
 #: master_preset.xml:4792(label:text|group:Tourism|preset:Map)
 msgid "A board with a map."
-msgstr ""
+msgstr "有地圖的看板。"
 
 #: master_preset.xml:4818(label:text|group:Tourism|preset:Information_Board)
 msgid "A board with information."
-msgstr ""
+msgstr "有資訊的看板。"
 
 #: master_preset.xml:2796(label:text|group:Water|preset:Water)
 msgid "A body of standing water, such as a lake or pond."
@@ -5831,7 +5831,7 @@ msgstr ""
 
 #: master_preset.xml:11026(item:name|group:Land_use|preset:Recreation_Ground)
 msgid "Recreation Ground"
-msgstr ""
+msgstr "遊憩區"
 
 #: master_preset.xml:6479(item:name|group:Facilities|preset:Recycling_Centre)
 msgid "Recycling Centre"
