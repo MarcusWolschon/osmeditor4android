@@ -315,7 +315,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <li>An <a href="http://www.openstreetmap.org/user/new">OSM account</a></li>
 </ul>
 <h4 id="what-is-the-status-of-vespucci-development">What is the status of Vespucci development?</h4>
-<p>The current Vespucci version is 0.9.8, 0.9.9 is currently in beta release.</p>
+<p>The current Vespucci version is 0.9.9, 0.9.10 is currently in beta release.</p>
 <h4 id="is-vespucci-available-for-other-mobile-platforms">Is Vespucci available for other mobile platforms?</h4>
 <p>No, with the exception of those that provide an Android compatible environment.</p>
 <h4 id="how-can-i-obtain-vespucci">How can I obtain Vespucci?</h4>
@@ -326,7 +326,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <p>Installation of the Vespucci APK is like any other APK.
 There are plenty of descriptions available (e.g. <a href="http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/">1 </a>, <a href="http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator">2 </a>, <a href="http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html">3 </a>, <a href="http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/">4 </a>)</p>
 <h4 id="running-vespucci-on-old-and-small-devices">Running Vespucci on "old and small" devices</h4>
-<p>Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.2 and later,
+<p>Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.3 (2.2 was last supported in version 0.9.8) and later,
 however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap (this can be as low as 16MB). If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints should be helpful (ordered in decreasing order of importance):</p>
 <ul>
 <li>turn off any map overlay</li>
@@ -338,6 +338,7 @@ however older devices tend to have very limited memory and correspondingly the a
 <h4 id="cant-download-data-from-openstreetmap-servers">Can't download data from OpenStreetMap servers</h4>
 <p>If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use HTTPS (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. </p>
 <p>Workaround: create a new non-HTTPS API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. </p>
+<p>Note that the same issue may apply to certain background and overlay layers.</p>
 <h4 id="301-moved-permanently-error-when-trying-to-download">"301 Moved Permanently" error when trying to download</h4>
 <p>The OpenStreetMap API server you are using is likely redirecting HTTP (non-encrypted) to HTTPS (encrypted) connections. Try changing the API configuration to use HTTPS.</p>
 <h4 id="what-can-i-do-with-the-editor">What can I do with the editor?</h4>
@@ -409,8 +410,8 @@ however older devices tend to have very limited memory and correspondingly the a
 <p>Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. </p>
 <p>Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Download current view" action.</p>
 <h4 id="how-can-i-add-a-custom-aerialsatellite-imagery-layer">How can I add a custom (aerial/satellite) imagery layer</h4>
-<p>The preferred method is to add your imagery source to <a href="https://github.com/osmlab/editor-layer-index">https://github.com/osmlab/editor-layer-index</a> so that it can be used by all OpenStreetMap editors.</p>
-<p>However you can add a file 'imagery.json' containing custom sources in the legacy editor-layer-index format in the Vespucci folder on your device. See <a href="https://drive.google.com/file/d/0B9pKLmh8s1h8Ti12THZRaDJPdmc/view?usp=sharing">imagery.json sample on Google drive</a>.  </p>
+<p>The preferred method is to add your imagery source to <a href="https://github.com/osmlab/editor-layer-index">the editor layer index</a> so that it can be used by all OpenStreetMap editors.</p>
+<p>However you can add a file 'imagery.json' containing custom sources in the legacy editor-layer-index format in the Vespucci folder on your device. See <a href="https://drive.google.com/file/d/0B9pKLmh8s1h8Ti12THZRaDJPdmc/view?usp=sharing">sample file on google drive</a>.  </p>
 <h4 id="why-cant-you-provide-technical-support-on-the-google-play-store-review-section">Why can't you provide technical support on the google play store review section</h4>
 <p>The google play store allows just one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">github</a>, if you have questions or can't find how do a specific operation you can ask on the <a href="http://help.openstreetmap.org">OpenStreetMap help site</a> or one of the other OpenStreetMap communication channels. </p>
 <p>350 characters is 100 characters less than the text above.</p></div>
