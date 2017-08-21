@@ -54,6 +54,8 @@ If it is not a connectivity issue you may be running in to the following problem
 
 Workaround: create a new non-HTTPS API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. 
 
+Note that the same issue may apply to certain background and overlay layers.
+
 #### "301 Moved Permanently" error when trying to download
 
 The OpenStreetMap API server you are using is likely redirecting HTTP (non-encrypted) to HTTPS (encrypted) connections. Try changing the API configuration to use HTTPS.
