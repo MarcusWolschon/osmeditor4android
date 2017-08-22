@@ -1062,7 +1062,11 @@ public class Preset implements Serializable {
 		}
 	}
 	
-    
+    /**
+     * Generate a JSON represenation of all PresetItems in this Preset
+     * 
+     * @return JSON format string
+     */
     private String toJSON() {
     	String result = "";
     	for (PresetItem pi:allItems) {
@@ -2462,10 +2466,21 @@ public class Preset implements Serializable {
 			return chunk;
 		}
 		
+		/**
+		 * Create a JSON representation of this item
+		 * 
+		 * @return JSON format string
+		 */
 		public String toJSON() {
+			String presetName = name;
+			PresetElement p = getParent();
+			while (p != null && p != rootGroup && !"".equals(p.getName())){
+				presetName = p.getName() + "/" + presetName;
+				p = p.getParent();
+			}
 			String jsonString = "";
 			for (Entry<String,StringWithDescription> entry:fixedTags.entrySet()) {
-				jsonString = jsonString + tagToJSON(entry.getKey(), entry.getValue().getValue());
+				jsonString = jsonString + tagToJSON(presetName, entry.getKey(), entry.getValue().getValue());
 			}
 			for (Entry<String,StringWithDescription[]> entry:recommendedTags.entrySet()) {
 				// check match attribute
@@ -2473,11 +2488,11 @@ public class Preset implements Serializable {
 				MatchType match = getMatchType(k);
 				PresetKeyType type = getKeyType(k);
 				if (isEditable(k) || type==PresetKeyType.TEXT) {
-					jsonString = jsonString + tagToJSON(k, null);
+					jsonString = jsonString + tagToJSON(presetName, k, null);
 				}
 				if (!isEditable(k) && type != PresetKeyType.TEXT && (match==null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
 					for (StringWithDescription v:entry.getValue()) {
-						jsonString = jsonString + tagToJSON(k, v.getValue());
+						jsonString = jsonString + tagToJSON(presetName, k, v.getValue());
 					}
 				}
 			}
@@ -2487,11 +2502,11 @@ public class Preset implements Serializable {
 				MatchType match = getMatchType(k);
 				PresetKeyType type = getKeyType(k);
 				if (isEditable(k) || type==PresetKeyType.TEXT || (match != null && match != MatchType.KEY_VALUE)) {
-					jsonString = jsonString + tagToJSON(k, null);
+					jsonString = jsonString + tagToJSON(presetName, k, null);
 				}
 				if (!isEditable(k) && type != PresetKeyType.TEXT && (match==null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
 					for (StringWithDescription v:entry.getValue()) {
-						jsonString = jsonString + tagToJSON(k, v.getValue());
+						jsonString = jsonString + tagToJSON(presetName, k, v.getValue());
 					}
 				}
 			}
@@ -2499,19 +2514,14 @@ public class Preset implements Serializable {
 		}
 		
 		/**
-		 * For taginfo.openstreetmap.org
-		 * @param key
-		 * @param value
-		 * @return
+		 * For taginfo.openstreetmap.org Projects
+		 * 
+		 * @param key	tag key
+		 * @param value	tag value
+		 * @return JSON representation of a single tag
 		 */
-		private String tagToJSON(String key, String value) {
-			String presetName = name;
-			PresetElement p = getParent();
-			while (p != null && p != rootGroup && !"".equals(p.getName())){
-				presetName = p.getName() + "/" + presetName;
-				p = p.getParent();
-			}
-
+		@NonNull
+		private String tagToJSON(@NonNull String presetName, @NonNull String key, @Nullable String value) {
 			String result = "{\"description\":\"" + presetName + "\",\"key\": \"" + key + "\"" + (value == null ? "" : ",\"value\": \"" + value + "\"");
 			result = result + ",\"object_types\": [";
 			boolean first = true;
