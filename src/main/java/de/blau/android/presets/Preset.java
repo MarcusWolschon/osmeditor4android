@@ -965,8 +965,9 @@ public class Preset implements Serializable {
 	
 	/**
 	 * Returns a view showing the most recently used presets
-	 * @param handler the handler which will handle clicks on the presets
-	 * @param type filter to show only presets applying to this type
+
+	 * @param handler	the handler which will handle clicks on the presets
+	 * @param type		filter to show only presets applying to this type
 	 * @return the view
 	 */
 	public View getRecentPresetView(Context ctx, Preset[] presets, PresetClickHandler handler, ElementType type) {

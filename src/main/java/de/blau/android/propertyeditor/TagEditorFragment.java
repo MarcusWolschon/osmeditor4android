@@ -512,7 +512,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * 
 	 * @param rowLayout	the layout containing the tag rows
 	 * @param presetItem 	if null determine best preset from existing tags
-	 * @param addToMru	add to MRU if true
+	 * @param addToMru		add to MRU if true
 	 */
 	private void updateAutocompletePresetItem(@NonNull LinearLayout rowLayout, @Nullable PresetItem presetItem, boolean addToMru) {
 		Log.d(DEBUG_TAG,"setting new autocompletePresetItem");
@@ -561,17 +561,27 @@ public class TagEditorFragment extends BaseFragment implements
     				List<PresetItem>items = new ArrayList<PresetItem>(getSecondaryPresets());
     				items.add(primaryPresetItem);
     				for (PresetItem item:items) {
-    					for (Preset p:presets) {
-    						if (p.contains(item)) {
-    							p.putRecentlyUsed(item);
-    							break;
-    						}
-    					}
+    					addToMru(presets, item);
     				}
     				((PropertyEditor)getActivity()).recreateRecentPresetView();
     			}
     		}
     	}
+	}
+
+	/**
+	 * Add item to most recently used list of preset items
+	 * 
+	 * @param presets
+	 * @param item
+	 */
+	void addToMru(Preset[] presets, PresetItem item) {
+		for (Preset p:presets) {
+			if (p.contains(item)) {
+				p.putRecentlyUsed(item);
+				break;
+			}
+		}
 	}
 	
 	private void setHint(TagEditRow row) {

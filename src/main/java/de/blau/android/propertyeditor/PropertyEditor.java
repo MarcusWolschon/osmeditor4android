@@ -859,7 +859,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	
 	@Override
 	public void onPresetSelected(PresetItem item, boolean applyOptional) {
-		if (item != null) {
+		if (item != null && tagEditorFragment != null) {
 			tagEditorFragment.applyPreset(item, applyOptional, true);
 			if (tagFormFragment != null) {
 				tagFormFragment.update();
@@ -867,6 +867,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			} else {
 				mViewPager.setCurrentItem(tagEditorFragmentPosition);
 			}
+			// utility presets need to be explicitly added, while this duplicates adding item in other cases
+			// it has the nice side effect of moving item to the top
+			tagEditorFragment.addToMru(presets, item);
 			recreateRecentPresetView();
 		}
 	}
