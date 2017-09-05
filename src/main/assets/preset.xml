@@ -5365,7 +5365,7 @@
             <combo key="theatre:genre" text="Theatre type" values_searchable="true">
             	<list_entry value="figure" display_value="Figure" />
             	<list_entry value="puppet" display_value="Puppet" />
-            	<list_entry value="marionette" display_value="marionette" />
+            	<list_entry value="marionette" display_value="Marionette" />
             	<list_entry value="shadow_play" display_value="Shadow play" />
             </combo>
             <reference ref="name_operator" />
@@ -5388,6 +5388,28 @@
             <key key="amenity" value="library" />
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
+        </item> <!-- Library -->
+        <item name="Public bookcase" icon="" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=public_bookcase"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=public_bookcase"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=public_bookcase"
+                  el.href="http://wiki.openstreetmap.org/wiki/El:Tag:amenity=public_bookcase"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:amenity=public_bookcase"
+                  et.href="http://wiki.openstreetmap.org/wiki/Et:Tag:amenity=public_bookcase"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:amenity=public_bookcase"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=public_bookcase"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=public_bookcase" />
+            <space />
+            <key key="amenity" value="public_bookcase" />
+            <optional>
+            	<text key="name" text="Name" />
+            	<text key="operator" text="Operator" />
+            	<text key="capacity" text="Capacity" />
+            	<reference ref="oh" />
+            	<combo key="public_bookcase:type" text="Type" 
+            		values="building,glass_cabinet,metal_cabinet,movable_cabinet,phone_box,reading_box,sculpture,shelf,shelter,wooden_cabinet" 
+            		display_values="Building,Glass cabinet,Metal cabinet,Movable cabinet,Phone booth,Reading box,Sculpture,Shelf,Shelter,Wooden cabinet"/>
+            </optional>
         </item> <!-- Library -->
         <item name="Arts Centre" icon="icons/png/amenity_arts_centre_12001.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=arts_centre"
@@ -5416,7 +5438,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:tourism=artwork" />
             <space />
             <key key="tourism" value="artwork" />
-            <combo key="artwork_type" text="Type" values="mural,sculpture,statue" />
+            <combo key="artwork_type" text="Type" values="mural,sculpture,statue" display_values="Mural,Sculpture,Statue"/>
             <text key="name" text="Name" />
             <text key="artist_name" text="Artist Name" />
         </item> <!-- Artwork -->
@@ -5747,6 +5769,21 @@
             <text key="ref" text="Reference" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Post Office -->
+        <item name="Crematorium" icon="icons/png/amenity_crematorium_12318.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=crematorium"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=crematorium"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=crematorium"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:amenity=crematorium"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Tag:amenity=crematorium"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:amenity=crematorium"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=crematorium"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:amenity=crematorium"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=crematorium" />
+            <space />
+            <key key="amenity" value="crematorium" />
+            <reference ref="name_operator_oh_wheelchair" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Crematorium -->
     </group> <!-- Public Buildings -->
     <group name="Education" icon="icons/png/education_school.png">
         <item name="Childcare" icon="icons/png/education_nursery2.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6618,7 +6655,7 @@
             <reference ref="facility_access" />
             <reference ref="fee" />
             <text key="operator" text="Operator" />
-            <combo key="opening_hours" text="Operation times" values="24/7" match="none" editable="true" values_no_i18n="true" />
+            <reference ref="oh" />
         </item> <!-- Sanitary Dump Station -->
         <separator/>
         <item name="Bench" icon="icons/png/amenity_bench.png" type="node,way" preset_name_label="true">
@@ -9069,6 +9106,19 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Coffee -->
+        <item name="Herbalist" icon="icons/png/shopping_herbalist_29180.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=herbalist"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=herbalist"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=herbalist"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:shop=herbalist"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=herbalist"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:shop=herbalist"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=herbalist" />
+            <space />
+            <key key="shop" value="herbalist" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Herbalist -->
         <separator/>
         <item name="Public Market" icon="icons/png/shopping_marketplace.png" type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=marketplace"
@@ -9492,6 +9542,17 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Pawnbroker -->
+        <item name="Money lender" icon="icons/png/money_money_lender_29184.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=money_lender"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=money_lender"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=money_lender"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:shop=money_lender"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=money_lender" />
+            <space />
+            <key key="shop" value="money_lender" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Money lender -->
     </group> <!-- Cash -->
     <group name="Home decoration" icon="icons/png/shopping_interior_decoration_29087.png">
         <item name="Furniture" icon="icons/png/shopping_furniture_29068.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10152,6 +10213,16 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Watches -->
+        <item name="Leather" icon="icons/png/shopping_leather_29207.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=leather"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=leather"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=leather"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=leather" />
+            <space />
+            <key key="shop" value="leather" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Watches -->
         <item name="Gift/Souvenir" icon="icons/png/shopping_gift.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=gift"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=gift"
@@ -10267,6 +10338,26 @@
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Funeral Directors -->
+        <item name="Religion" icon="icons/png/shopping_religion_29125.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=religion"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=religion"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=religion"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=religion" />
+            <space />
+            <key key="shop" value="religion" />
+            <reference ref="name_oh_wheelchair" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Religion -->
+        <item name="Scuba diving" icon="icons/png/shopping_scuba_diving_29044.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=scuba_diving"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=scuba_diving"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=scuba_diving"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=scuba_diving" />
+            <space />
+            <key key="shop" value="scuba_diving" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Scuba diving -->
     </group> <!-- Other -->
     <separator/>
     <item name="Vending Machine" icon="icons/png/shopping_vending_machine.png" type="node" preset_name_label="true">
