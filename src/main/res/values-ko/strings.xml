@@ -14,6 +14,8 @@
   <string name="upload_conflict_message_deleted">%1$s님이 \n로컬 버전 %2$s를 \n가지고 있으며 서버에 삭제되었습니다</string>
   <string name="upload_conflict_message_referential">%1$s님이 \n로컬에서 삭제하였으나 \n서버에 참조되어 있습니다</string>
   <string name="upload_conflict_message_already_deleted">%1$s님이 \n이미 서버에서 삭제했습니다</string>
+  <string name="use_local_version">로컬 버전 사용</string>
+  <string name="use_server_version">서버에 있는 버전 사용</string>
   <string name="no_login_data_title">인증 실패</string>
   <string name="no_login_data_message">OAuth를 사용할 경우 버그일 가능성이 있습니다. 문제보고를 보내주시기바랍니다. 또 비밀번호를 사용하실 경우(추천하지 않습니다) 정확히 입력하였는지 확인해 주십시요</string>
   <string name="no_connection_title">서버에 연결할 수 없음</string>
@@ -22,6 +24,8 @@
   <string name="wrong_login_data_title">인증 실패</string>
   <string name="wrong_login_data_message">OAuth를 사용할 경우 재인증을 하시고 시도해 주십시요. 또는 비밀번호를 사용하실 경우(추천하지 않습니다) 정확히 입력하였는지 확인해 주십시요.</string>
   <string name="wrong_login_data_re_authenticate">재인증</string>
+  <string name="forbidden_login_title">로그인 거부됨</string>
+  <string name="go_to_openstreetmap">openstreetmap.org으로 가세요</string>
   <string name="data_conflict_title">버전 충돌</string>
   <string name="data_conflict_message">다운로드하려는 데이터에 편집 내용과 충돌하는 데이터가 포함되어 있습니다. 다시 시도하기 전에 먼저 데이터를 업로드 해보십시오.</string>
   <string name="invalid_bounding_box_title">유효하지 않은 경계 상자</string>
@@ -39,7 +43,7 @@
   <string name="file_write_failed_message">선택된 파일을 쓸 수 없었습니다.</string>
   <string name="welcome_title">환영합니다!</string>
   <string name="welcome_message">Vespucci를 이용해 주셔서 감사합니다. \n\n 시작하려면 두 가지 사항을 알아야합니다. \n\ n* 왼쪽 상단의 자물쇠 아이콘을 누르면 잠금 모드 (편집 금지)와 잠금 해제 모드가 전환됩니다. \n\n* 새로운 객체를 추가하기 : 길게 누르거나,  같은 위치를 두드리면 노드가 추가되고,  멀리 탭하면 길을 시작할 것입니다. \n\n 편집하려는 영역을 다운로드하는 것을 잊지 마십시오. \n\n 즐거운 시간 되십시오!</string>
-  <string name="read_introduction">지금 소개를 읽어보십시오.</string>
+  <string name="read_introduction">지금 소개를 읽어보세요</string>
   <string name="upgrade_title">Vespucci의 새로운 버전에 오신 것을 환영합니다!</string>
   <string name="upgrade_message">Vespucci의 새로운 버전으로 새로운 기능과 동작이 추가되었습니다. 기기 업그레이드 정보를 빨리 읽는 것이 가장 좋습니다.</string>
   <string name="read_upgrade">새 버전에 대해 읽기</string>
@@ -52,6 +56,7 @@
   <string name="progress_saving_message">저장 중…</string>
   <string name="progress_uploading_message">업로드 중…</string>
   <string name="progress_preset_message">프리셋 다운로드 중…</string>
+  <string name="progress_running_message">실행 중…</string>
   <string name="progress_oauth">OAuth 인증을 위해 openstreetmap.org에서 당신의 계정을 불러오는 중…</string>
   <string name="upload_comment_label">댓글:</string>
   <string name="upload_source_label">출처:</string>
@@ -113,6 +118,8 @@
   <string name="warning">경고</string>
   <string name="minor_issue">사소한 이슈</string>
   <string name="unknown_error_level">알 수 없는 오류 수준</string>
+  <string name="js_console_msg_live">실시간 모드!</string>
+  <string name="js_console_msg_debug">디버그 모드!</string>
   <!--Toaster-->
   <string name="toast_no_changes">아직 아무것도 바꾸지 않았습니다…</string>
   <string name="toast_unsaved_changes">변경 사항을 저장하지 않았습니다. 먼저 변경 사항을 업로드하십시오.</string>
@@ -411,6 +418,8 @@
   <!--preset downloader messages-->
   <string name="preset_update">프리셋 업데이트</string>
   <string name="preset_download_successful">프리셋이 성공적으로 다운로드되었습니다</string>
+  <string name="preset_download_failed">프리셋 파일을 다운로드할 수 없습니다. 프리셋이 작동되지 않을 것입니다.</string>
+  <string name="preset_download_parse_failed">프리셋 파일이 올바르지 않습니다. 프리셋이 작동되지 않을 것입니다.</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" 삭제됨</string>
   <string name="changes_changed">\"%1$s\" 변경됨</string>
@@ -440,6 +449,8 @@
   <string name="undo_nothing">실행 취소할 것이 없습니다</string>
   <string name="gps_failure">GPS를 활성화하는 데 실패했습니다</string>
   <!--element description-->
+  <string name="address_housenumber">주소 %1$s</string>
+  <string name="address_housenumber_street">주소 %2$s %1$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">노드 이동</string>
   <string name="undo_action_moveway">길 이동</string>
@@ -461,6 +472,7 @@
   <string name="undo_action_cut">잘라내기</string>
   <string name="undo_action_paste">붙여넣기</string>
   <string name="undo_action_rotateway">길 회전</string>
+  <string name="undo_action_fix_conflict">충돌 고치기</string>
   <!--ACRA-->
   <string name="config_category_acra">충돌 보고</string>
   <string name="pref_enable_acra">애플리케이션 충돌을 보고합니다</string>
@@ -488,6 +500,7 @@
   <string name="position">위치</string>
   <string name="type">종류</string>
   <string name="object">개체</string>
+  <string name="deleterelation_relation_description">하나 이상의 관계의 구성원인 관계를 삭제하려고 합니다. 관계에서 관계를 제거하는 것은 그것/그들이 올바르지 않게 렌더될 수 있습니다.</string>
   <string name="deleterelation">관계 삭제</string>
   <string name="delete_from_relation_description">관계에서 이 요소를 삭제하려고 합니다.</string>
   <string name="unset_relation_type">관계 유형 설정 해제</string>

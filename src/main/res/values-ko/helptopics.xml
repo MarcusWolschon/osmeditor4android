@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_introduction">소개</string>
+    <string name="help_main">주 지도 표시</string>
+    <string name="help_addrelationmember">관계 선택됨</string>
+    <string name="help_multiselect">여러선택</string>
+    <string name="help_longclick">새 개체 만들기</string>
+    <string name="help_nodeselection">노드 선택됨</string>
+    <string name="help_pathcreation">새 개체 만들기</string>
     <string name="help_relationselection">관계 선택됨</string>
     <string name="help_wayselection">길 선택됨</string>
+    <string name="help_aligningbackgroundiamgery">배경 영상 정렬</string>
     <string name="help_propertyeditor">속성 편집기</string>
+    <string name="help_presets">프리셋</string>
+    <string name="help_conflictresolution">충돌 해결</string>
+    <string name="help_gpssources">GPS 자료</string>
+    <string name="help_keyboard">키보드</string>
+    <string name="help_tagfilter">태그 필터</string>
+    <string name="help_presetfilter">프리셋 필터</string>
+    <string name="help_opening_hours">여는 시간</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

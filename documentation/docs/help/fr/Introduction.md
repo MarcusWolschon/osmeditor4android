@@ -1,6 +1,6 @@
 # Introduction à Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci est un éditeur OpenStreetMap complet qui supporte la plupart des opérations que les éditeur de bureau fournissent. Il a été testé avec succès sur Android de la version 2.3 à 7.0 et sur diverses variantes basés sur AOSP. Un mot d'avertissement : bien que les appareils mobiles ont rattrapé leur retard, les appareils les plus anciens ont une mémoire disponible très limité et ont tendance à être assez lent. Vous devez prendre cela en compte quand vous utilisez Vespucci et garder, par exemple, les aires que vous éditez dans une taille raisonnable.   
 
 ## Première utilisation
 
@@ -16,73 +16,73 @@ Selon la taille de votre écran et l'age de l'appareil, les actions d'édition s
 
 ### Télécharger des données OSM
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Selectionner soit l'icone de transfert ![Transfer](../images/menu_transfer.png), soit l'onglet Transfet dans le menu. Cela affiche sept options : 
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Télécharger la vue courante** - télécharge la zone visible à l'écran et remplace les données existantes *(nécessite une connexion réseau)*
+* **Ajouter les données de la vue courante** - télécharge la zone visible à l'écran et la fusionne avec les données existantes *(nécessite une connexion réseau)*
+* **Télécharger un autre endroit** - affiche un formulaire permettant de rechercher un lieu, d'entrer des coordonnées directement, ou d'utiliser la position actuelle pour télécharger une zone autour de ce point *(nécessite une connexion réseau)*
+* **Envoyer les données au serveur OSM** - envoie les modification vers OpenStreetMap *(nécessite d'être authentifié)* *(nécessite une connexion réseau)*
+* **Téléchargement automatique** - télécharge automatiquement la zone autour de la position courante *(nécessite une connexion réseau)* *(nécessite le GPS)*
+* **Fichier...** - sauvegarde ou ouvre les données OSM dans des fichiers en local
+* **Notes/Bugs** télécharge (automatiquement et manuellement) les Notes OSM et les "Bugs" des outils d'assurance qualité (OSMOSE pour l'instant) *(nécessite une connexion réseau)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+La plus simple manière de télécharger des données est de zoomer et se déplacer vers le lieu que vous voulez éditer, puis de sélectionner "télécharger la vue courante". Vous pouvez zoomer en utilisant le geste pincer/agrandir, avec les boutons de zoom, ou avec les boutons de volume de l'appareil. Vespucci va alors télécharger les données de la vue courante. Il n'y a pas besoin d'être authentifié pour télécharger les donnes sur votre appareil. 
 
 ### Éditer
 
 <a id="lock"></a>
 
-#### Lock, unlock, "tag editing only", indoor mode 
+#### Verrouiller, déverrouiller, édition des tags seulement, mode intérieur 
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+Pour éviter des modifications accidentelles Vespucci démarre en mode "verrouillé", lequel ne permet que de zoomer et de se déplacer sur la carte. Appuyez sur l’icône ![verrouillé](../images/locked.png) pour débloquer l'édition. 
 
-A long press on the lock icon will enable "Tag editing only" mode which will not allow you to edit the geometry of objects or move them, this mode is indicated with a slightly different white lock icon. You can however create new nodes and ways with a long press as normal.
+Une pression longue sur l’icône de verrouillage active le mode "édition des tags seulement", qui ne vous permet pas d'éditer la géométrie des objets ou de les déplacer, ce mode est indiqué avec une icône blanche dévérouillé surmontée d'un "T". Vous pouvez cependant créer des nouveaux nœuds et routes avec une pression longue comme d'habitude.
 
-Another long press will enable [Indoor mode](#indoor), and one more will cycle back to the normal editing mode.
+Une autre pression longue activera [le mode intérieur](#intérieur), et une de plus retournera au mode normal d'édition
 
-#### Single tap, double tap, and long press
+#### Simple pression, double pression, et pression longue
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+Par défaut, les noeuds et les voies selectionnables on une zone orange autour d'eux indiquant approximativement ou vous devez toucher pour sélectionner un objet. Vous avez trois options :
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
-* Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
+*Simple appui : Sélectionner l'objet. 
+    * Un nœud/Chemin isolé est mis en évidence immédiatement.
+    * Cependant, si vous essayer de sélectionner un objet et que Vespucci détermine que la sélection pourrai déterminer plusieurs objets, il présente un menu de sélection, vous permettant de choisir l'objet que vous souhaitez sélectionner.
+    * Les objets sélectionnés sont mis en évidence en jaune.
+    * Pour de plus amples informations voir [Selection de Noeud](../fr/Node%20selected.md),[Sélection de voie](../fr/Way%20selected.md) et [Sélection de relation](../fr/Relation%20selected.md).
+*Double appui : Commencer[Mode Multiple sélection](../fr/Multiselect.md)
+*Appui long : Créer une "croix", vous permettant d'ajouter des noeuds, voir plus bas et [Créer de nouveaux objets](../fr/Creating%20new%20objects.md)    
 
 Il est conseillé de zoomer plus quand vous éditez une zone avec une grande densité de données.
 
 Vespucci a un bon système d'"annuler/refaire" donc n'ayez pas peur d'expérimenter sur votre appareil. Cela dit, n'envoyez pas de données de test au serveur.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Sélectionner / Désélectionner (simple pression et "menu sélection")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Toucher un objet pour le sélectionner et le mettre en évidence. Toucher l'écran dans une région vide le désélectionnera. Si vous avez sélectionné un objet et que vous avez besoin de sélectionner autre chose, toucher simplement l'objet en question, il n'y a pas besoin de désélectionner au préalable . Un double appui sur un objet démarera le[Mode multiselection]../en/Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Notez que si vous essayez de sélectionner un objet et que Vespucci détermine que la sélection peut signifier des objets multiples (tel q'un noeud ou une voie ou d'autre objets se chevauchant), il vous présentera un menu de sélection : Appuiez sur l'objet que vous souhaitez sélectionner et cet objet est sélectionné. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Les objets sélectionnés sont indiqué par une bordure jaune mince. La bordure jaune peut être dure à repérer, dépendant de la carte en arrière plan et du niveau de zoom. Une fois la sélection faite, vous verrez une notification confirmant la sélection.
 
 Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Objets selectionnés : Edition des tags
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Un deuxième appui sur l'objet selectioné ouvre l'éditeur de tag et vous pouvez editer les tags associés à l'objet
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Notez que pour les objets se chevauchant (tel qu' un nœud sur une voie) le menu de sélection remonte une seconde fois. Sélectionner le même objet fait apparaître l'éditeur de tag; sélectionner un autre objet sélectionne simplement un autre objet.
 
-#### Selected objects: Moving a Node or Way
+### Objet sélectionné : Déplacer un nœud ou une voie
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Une fois que vous avez sélectionné un objet, il peut être déplacé. Notez que les objets peuvent être déplacé uniquement lorsqu'ils sont sélectionnés.Glissez simplement (dans la zone de tolérance) l'objet sélectionné pour le déplacer Si vous sélectionnez l'option zone élargie dans les préférences vous aurez une zone plus large autour du nœud sélectionné, ce qui rendra plus facile le positionnement de l'objet 
 
-#### Adding a new Node/Point or Way (long press)
+#### Ajouter un nouveau nœud/point ou chemin (appui long)
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Faites un appui long là ou vous voulez positionner votre nœud ou que votre chemin commence. Vous verrez un symbole noir "réticule". 
+* Si vous voulez créer un nouveau nœud (non connecté à un objet), cliquez loin d'un objet existant.
+* Si vous voulez rallonger un chemin, cliquez dans la "zone de tolérance" du chemin (ou un nœud sur le chemin). La zone de tolérance est indiquée par les zones autour du nœud ou du chemin
 
-Once you can see the crosshair symbol, you have these options:
+Une fois que vous pouvez voir le symbole "réticule", vous avez trois options
 
 * Touch in the same place.
     * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
@@ -180,7 +180,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, "tag editing only", indoor mode](#lock).
+Ce mode peut être activé par un appui long sur le cadenas, voir [verrouiller, déverrouiller, "Édition des tags seulement", mode intérieur](#verrouillage).
 
 ## Filters
 

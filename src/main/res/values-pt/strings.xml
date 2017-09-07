@@ -8,12 +8,14 @@
   <string name="transfer_download_current_back">Voltar (não fazer nada)</string>
   <string name="upload_problem_title">Problema com o Envio</string>
   <string name="upload_problem_message">Todos os dados ou parte destes não foram enviados para o servidor. Tente enviar de novo mais tarde caso seja apenas um problema temporário.</string>
-  <string name="bad_request_message">a API respondeu com um erro, por favor salve os seus dados e reporte a situação:\n\n</string>
+  <string name="bad_request_message">A API respondeu com um erro, por favor grave os seus dados e reporte o problema:\n\n</string>
   <string name="upload_conflict_title">Conflito no envio</string>
   <string name="upload_conflict_message_version">%1$s \ntem a versão local %2$s \ne no servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s /ntem uma versão local %2$s /ne foi eliminada no servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfoi eliminado localmente \nmas tem referências no servidor</string>
   <string name="upload_conflict_message_already_deleted">%1$s \njá foi eliminado no servidor </string>
+  <string name="use_local_version">Usar versão local</string>
+  <string name="use_server_version">Usar versão no servidor</string>
   <string name="no_login_data_title">A autenticação falhou</string>
   <string name="no_login_data_message">Se está a usar OAuth isto é provavelmente um erro do programa, por favor envie um relatório de erro, se está a usar um nome de utilizador e palavra-chave (não recomendado) por favor verifique se estão ambos correctos.</string>
   <string name="no_connection_title">Sem Ligação ao Servidor</string>
@@ -118,14 +120,14 @@
   <string name="warning">aviso</string>
   <string name="minor_issue">pequeno problema</string>
   <string name="unknown_error_level">gravidade desconhecida do erro</string>
-  <string name="attached_object_warning_title">Esta operação afectará os filtros anexados aos objectos!</string>
-  <string name="attached_object_warning_message">O objecto alterado está ligado a elementos ocultos que também serão alterados.</string>
-  <string name="attached_object_warning_continue">OK, continue a mostrar esta mensagem</string>
-  <string name="attached_object_warning_stop">Ok parar de mostrar esta mensagem</string>
-  <string name="send_debug_information">Enviar informação do debug</string>
+  <string name="attached_object_warning_title">Esta operação afetará os filtros anexados aos objetos!</string>
+  <string name="attached_object_warning_message">O objeto alterado está ligado a elementos ocultos que também serão alterados.</string>
+  <string name="attached_object_warning_continue">OK, continuar a mostrar esta mensagem</string>
+  <string name="attached_object_warning_stop">OK, parar de mostrar esta mensagem</string>
+  <string name="send_debug_information">Enviar informação de depuração de erros</string>
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo ao vivo!</string>
-  <string name="js_console_msg_debug">Modo debug!</string>
+  <string name="js_console_msg_debug">Modo depuração de erros!</string>
   <!--Toaster-->
   <string name="toast_no_changes">Ainda não alterou nada…</string>
   <string name="toast_unsaved_changes">Tem alterações por gravar, por favor envie-as primeiro.</string>
@@ -145,8 +147,8 @@
   <string name="toast_potential_merge_tag_conflict">Está a tentar unir elementos que têm valores de etiquetas em conflito. Por favor verifique as etiquetas e corrija-as antes de tentar de novo.</string>
   <string name="toast_state_file_failed">Ficheiro ilegível ou corrompido</string>
   <string name="toast_too_many_nodes_for_move">A via tem demasiados nós para poder ser deslocada</string>
-  <string name="toast_unread_mail">Tem %1$d mensagem OSM não lidas</string>
-  <string name="toast_one_unread_mail">Tem uma mensagem OSM não lida</string>
+  <string name="toast_unread_mail">Tem %1$d mensagens no OpenStreetMap por ler</string>
+  <string name="toast_one_unread_mail">Tem uma mensagem no OpenStreetMap por ler</string>
   <string name="toast_photo_indexing_started">Iniciada a procura por fotos geo-referenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada a procura por fotos geo-referenciadas</string>
   <string name="toast_download_failed">O descarregamento falhou com código de erro %1$d, mensagem %2$s</string>
@@ -174,9 +176,9 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_camera_error">Erro ao iniciar a app da câmara: %1$s</string>
   <string name="toast_no_voice">Não foram detetadas funcionalidades de reconhecimento de voz</string>
   <string name="toast_storage_error">%1$snão é gravável pelo Vespucci.\nIsto pode ser uma questão de permissões ou problema técnico do seu dispositivo.</string>
-  <string name="toast_no_suitable_storage">O sistema não devolveu uma localização compatível com o o moisaco</string>
+  <string name="toast_no_suitable_storage">O sistema não devolveu uma localização adequada para a base de dados de telas.</string>
   <string name="toast_min_one_preset">Tem de ser selecionado pelo menos um modelo de etiquetas!</string>
-  <string name="toast_min_one_geocoder">Pelo menos um geocodificador deverá estar seleccionado!</string>
+  <string name="toast_min_one_geocoder">Tem de estar selecionado pelo menos um geo-codificador!</string>
   <string name="toast_used_backup">O ficheiro de estado está corrompido. A usar o ficheiro de cópia de segurança!</string>
   <string name="toast_used_bug_backup">O ficheiro de estado de erro está corrompido. A usar o ficheiro de cópia de segurança!</string>
   <string name="toast_rmpty_relation">Relação sem nada. A criar relatório de erro.</string>
@@ -187,20 +189,20 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_tile_database_full">A base de dados das telas do mapa ou o disco está cheio!\nSaia, elimine a base de dados ou disponibilize mais espaço de armazenamento.</string>
   <string name="toast_invalid_apiurl">URL da API inválido</string>
   <string name="toast_invalid_readonlyurl">URL de leitura da API inválido</string>
-  <string name="toast_invalid_notesurl">URL da API para notas inválido</string>
-  <string name="toast_invalid_filter_regexp">Expressão inválida no filtro com a chave=%1$s e chave=%2$s</string>
+  <string name="toast_invalid_notesurl">URL da API para erros reportados inválido</string>
+  <string name="toast_invalid_filter_regexp">Expressão inválida no filtro com a chave=%1$s e valor=%2$s</string>
   <string name="toast_error_accessing_photo">Não é possível aceder à foto %1$s</string>
   <string name="toast_no_voice_recognition">Não há instalação de reconhecimento de voz</string>
-  <string name="toast_no_coverage">%1$snão tem cobertura aqui</string>
-  <string name="toast_file_exists">Ficheiro %1$sjá existe</string>
-  <string name="toast_needs_resurvey">O objecto pode estar desactualizado</string>
+  <string name="toast_no_coverage">%1$s não tem cobertura aqui</string>
+  <string name="toast_file_exists">O ficheiro %1$s já existe.</string>
+  <string name="toast_needs_resurvey">O objeto pode estar desatualizado</string>
   <string name="toast_openinghours_invalid">Horário de abertura inválido para %1$s</string>
-  <string name="toast_openinghours_autocorrected">O horário de abertura para %1$sfoi automaticamente corrigido</string>
-  <string name="toast_exit_multiselect">Toque duas vezes num espaço em branco ou utilize o botão de regresso para sair</string>
-  <string name="toast_exit_actionmode">Utilize o botão de regresso para salvar e sair</string>
-  <string name="toast_abort_actionmode">Utilize o botão de regresso para abortar</string>
-  <string name="toast_null_island">Por favor não adicione elementos em 0°/0°</string>
-  <string name="toast_string_too_long">A string é demasiado longa (%1$dcaracteres), truncado!</string>
+  <string name="toast_openinghours_autocorrected">O horário de abertura para %1$s foi automaticamente corrigido</string>
+  <string name="toast_exit_multiselect">Toque duas vezes num espaço em branco ou utilize o botão da seta de voltar para sair</string>
+  <string name="toast_exit_actionmode">Utilize o botão de seta de voltar para gravar e sair</string>
+  <string name="toast_abort_actionmode">Utilize o botão de seta de voltar para abortar</string>
+  <string name="toast_null_island">Por favor não adicione elementos em 0°/0° (Ilha nula)</string>
+  <string name="toast_string_too_long">A expressão é demasiado longa (%1$d caracteres), truncado!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -220,7 +222,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="clear">Limpar</string>
   <string name="retry">Tentar novamente</string>
   <string name="read">Ler</string>
-  <string name="overwrite">Sobrescrever </string>
+  <string name="overwrite">Sobrescrever</string>
   <string name="share">Partilhar</string>
   <string name="share_position">Partilhar posição</string>
   <!--Dialog for back button-->
@@ -263,13 +265,13 @@ sem gravar</string>
   <string name="tag_menu_move_down">Mover para baixo</string>
   <string name="tag_menu_move_bottom">Mover para o fundo</string>
   <string name="tag_menu_sort">Ordenar</string>
-  <string name="tag_menu_reverse_order">Inverter ordenação</string>
+  <string name="tag_menu_reverse_order">Inverter ordem</string>
   <string name="tag_menu_download">Descarregar</string>
-  <string name="tag_menu_js_console">Consola JS</string>
+  <string name="tag_menu_js_console">Consola JavaScript</string>
   <string name="menu_up">Cima</string>
   <string name="menu_top">Abaixo</string>
-  <string name="menu_select_all">Seleccionar todos</string>
-  <string name="menu_deselect_all">Desseleccionar todos</string>
+  <string name="menu_select_all">Selecionar tudo</string>
+  <string name="menu_deselect_all">Desselecionar tudo</string>
   <string name="menu_preset_help">Ajuda do modelo de etiquetas</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Adicionar etiquetas para %1$s</string>
@@ -338,7 +340,7 @@ há %3$s %4$s</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descarregar a vista atual</string>
   <string name="menu_transfer_download_current_add">Descarregar e adicionar vista atual</string>
-  <string name="menu_transfer_download_other">Fazer download de outra localização</string>
+  <string name="menu_transfer_download_other">Descarregar outra localização</string>
   <string name="menu_transfer_upload">Enviar dados para o OSM</string>
   <string name="menu_transfer_close_changeset">Fechar o conjunto de alterações atual</string>
   <string name="menu_transfer_file">Ficheiro...</string>
@@ -388,8 +390,8 @@ há %3$s %4$s</string>
   <string name="menu_tools_oauth_reset">Repôr OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
   <string name="menu_enable_tagfilter">Filtro de etiquetas</string>
-  <string name="menu_enable_presetfilter">Filtro de predefinições</string>
-  <string name="preset_menu_waynodes">Incluir nós na via</string>
+  <string name="menu_enable_presetfilter">Filtro de modelos de etiquetas</string>
+  <string name="preset_menu_waynodes">Incluir nós de linhas</string>
   <string name="preset_menu_invert">Inverter filtros</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propriedades</string>
@@ -414,17 +416,17 @@ há %3$s %4$s</string>
   <string name="actionmode_createpath">A criar caminho</string>
   <string name="actionmode_multiselect">Seleção múltipla</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Separar via fechada, primeiro nó</string>
-  <string name="actionmode_closed_way_split_2">Separar via fechada, segundo nó</string>
+  <string name="actionmode_closed_way_split_1">Separar linha fechada, primeiro nó</string>
+  <string name="actionmode_closed_way_split_2">Separar linha fechada, segundo nó</string>
   <string name="actionmode_restriction">Adicionar restrição de viragem</string>
-  <string name="actionmode_restriction_restart_from">Seleccione novamente o segmento \"de\"</string>
-  <string name="actionmode_restriction_via">Adicionar \"via\" segmento/elemento</string>
-  <string name="actionmode_restriction_restart_via">Seleccione novamente o segmento \"via\"</string>
-  <string name="actionmode_restriction_to">Adicionar o segmento \"para\"</string>
-  <string name="actionmode_restriction_restart_to">Seleccione novamente o segmento \"para\"</string>
-  <string name="actionmode_one_object">1 objecto</string>
-  <string name="actionmode_object_count">%1$d objectos</string>
-  <string name="actionmode_rotateway">Rodar via</string>
+  <string name="actionmode_restriction_restart_from">Selecionar novamente o segmento \"from\" (de)</string>
+  <string name="actionmode_restriction_via">Adicionar segmento/elemento \"via\"</string>
+  <string name="actionmode_restriction_restart_via">Selecionar novamente o segmento \"via\"</string>
+  <string name="actionmode_restriction_to">Adicionar segmento \"to\" (para)</string>
+  <string name="actionmode_restriction_restart_to">Selecionar novamente o segmento \"to\" (para)</string>
+  <string name="actionmode_one_object">1 objeto</string>
+  <string name="actionmode_object_count">%1$d objetos</string>
+  <string name="actionmode_rotateway">Rodar linha</string>
   <!--Preferences-->
   <string name="config_category_editing">Preferências de Dados e Edição</string>
   <string name="config_category_view">Preferências da Interface</string>
@@ -469,7 +471,7 @@ há %3$s %4$s</string>
   <string name="config_offsetServer_title">Servidor de Alinhamentos</string>
   <string name="config_offsetServer_summary">URL do servidor de alinhamentos da imagens aéreas</string>
   <string name="config_osmoseServer_title">Servidor OSMOSE</string>
-  <string name="config_osmoseServer_summary">Endereço URL para servidor OSMOSE</string>
+  <string name="config_osmoseServer_summary">Endereço URL para o servidor OSMOSE</string>
   <string name="config_presetbutton_title">Modelos de etiquetas</string>
   <string name="config_presetbutton_summary">Adicionar e ativar modelos de etiquetas compatíveis com o JOSM</string>
   <string name="config_iconbutton_title">Ver ícones dos nós</string>
@@ -544,13 +546,13 @@ há %3$s %4$s</string>
   <string name="config_autoLockDelay_summary">Tempo de espera em segundos antes do bloqueio automático ser ativado, usar 0 para desativar</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer sempre áreas não descarregadas</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Se ativado, as áreas não descarregadas serão escurecidas no modo bloqueado</string>
-  <string name="config_geocoderbutton_title">Configurar Geocodificadores</string>
-  <string name="config_geocoderbutton_summary">Adicionar, editar, eliminar geocodificador para a funcionalidade de procura</string>
-  <string name="config_js_console_title">Activar consola JS</string>
-  <string name="config_js_console_summary">Tornar a consola JS disponível em modo \"ao vivo\"</string>
+  <string name="config_geocoderbutton_title">Configurar Geo-codificadores</string>
+  <string name="config_geocoderbutton_summary">Adicionar, editar, eliminar geo-codificador para a funcionalidade de procura</string>
+  <string name="config_js_console_title">Ativar consola JavaScript</string>
+  <string name="config_js_console_summary">Disponibilizar a consola JavaScript no modo \"ao vivo\"</string>
   <string name="manage_apis">Gerir APIs</string>
-  <string name="manage_presets">Gerir predefinições</string>
-  <string name="manage_geocoders">Gerir Geocodificadores</string>
+  <string name="manage_presets">Gerir modelos de etiquetas</string>
+  <string name="manage_geocoders">Gerir geo-codificadores</string>
   <!--preset downloader messages-->
   <string name="preset_update">Atualizar modelos de etiquetas</string>
   <string name="preset_download_successful">Modelos de etiquetas descarregados com sucesso</string>
@@ -562,8 +564,8 @@ há %3$s %4$s</string>
   <string name="changes_changed">\"%1$s\" alterados(as)</string>
   <string name="changes_created">\"%1$s\" criados(as)</string>
   <string name="confirm_upload_title">Enviar?</string>
-  <string name="confirm_one_upload_text">Fazer upload da seguinte alteração?\n%1$s</string>
-  <string name="confirm_multiple_upload_text">Fazer upload das seguintes %1$dalterações?\n %2$s</string>
+  <string name="confirm_one_upload_text">Enviar a seguinte alteração?\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Enviar as seguintes %1$d alterações?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Adicionar modelo de etiquetas</string>
   <string name="urldialog_preset_exists">Este modelo de etiquetas já existe</string>
@@ -573,7 +575,7 @@ há %3$s %4$s</string>
   <string name="urldialog_api_install_successful">A API foi instalada com sucesso!</string>
   <string name="urldialog_add_api">Adicionar API</string>
   <string name="urldialog_nodata_text">O URL de configuração não contém dados válidos.</string>
-  <string name="urldialog_add_geocoder">Adicionar Geocodificador</string>
+  <string name="urldialog_add_geocoder">Adicionar geo-codificador</string>
   <!--common terms-->
   <string name="add">Adicionar</string>
   <string name="edit">Editar</string>
@@ -587,7 +589,7 @@ há %3$s %4$s</string>
   <string name="api_url">URL da API</string>
   <string name="readonly_url">URL da API de leitura apenas (opcional)</string>
   <string name="notes_url">URL da API de Erros Reportados (opcional)</string>
-  <string name="geocoder_type">Tipo de Geocodificador</string>
+  <string name="geocoder_type">Tipo de geo-codificador</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Predefinição</string>
   <string name="api">API</string>
@@ -709,10 +711,10 @@ há %3$s %4$s</string>
     <item>Sem barra de estado</item>
   </string-array>
   <string-array name="tagfilter_type_entries">
-    <item>Todos</item>
+    <item>Tudo</item>
     <item>Nós</item>
-    <item>Vias</item>
-    <item>Vias+</item>
+    <item>Linhas</item>
+    <item>Linhas+</item>
     <item>Relações</item>
     <item>Relações+</item>
   </string-array>

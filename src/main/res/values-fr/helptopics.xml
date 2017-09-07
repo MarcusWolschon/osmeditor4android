@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="help_introduction">Introdução</string>
-    <string name="help_main">Mapa principal</string>
-    <string name="help_addrelationmember">Relação selecionada </string>
-    <string name="help_multiselect">Seleção múltipla</string>
-    <string name="help_longclick">Criar novos objetos</string>
-    <string name="help_nodeselection">Nó selecionado</string>
-    <string name="help_pathcreation">Criar novos objetos</string>
-    <string name="help_relationselection">Relação selecionada</string>
-    <string name="help_wayselection">Linha selecionada</string>
-    <string name="help_aligningbackgroundiamgery">Alinhar imagem de fundo</string>
-    <string name="help_propertyeditor">Editor de propriedades</string>
-    <string name="help_presets">Modelos de etiquetas</string>
-    <string name="help_conflictresolution">Resolução de conflitos</string>
-    <string name="help_gpssources">Fontes de GPS</string>
-    <string name="help_keyboard">Teclado</string>
-    <string name="help_tagfilter">Filtro de etiquetas</string>
-    <string name="help_presetfilter">Filtro de modelos de etiquetas</string>
-    <string name="help_opening_hours">Horário de abertura</string>
-    <string name="help_upgrade">Notas da versão 0.9.9</string>
-    <string name="help_upgrade_098">Notas da versão 0.9.8</string>
-    <string name="help_upgrade_097">Notas da versão 0.9.7</string>
-    <string name="help_upgrade_096">Notas da versão 0.9.6</string>
+    <string name="help_introduction">Introduction</string>
+    <string name="help_main">Affichage de la carte principale</string>
+    <string name="help_addrelationmember">Relation sélectionnée</string>
+    <string name="help_multiselect">Sélection Multiple</string>
+    <string name="help_longclick">Créer de nouveaux objets</string>
+    <string name="help_nodeselection">nœud sélectionné</string>
+    <string name="help_pathcreation">Créer de nouveaux objets</string>
+    <string name="help_relationselection">Relation sélectionnée</string>
+    <string name="help_wayselection">Chemin sélectionné</string>
+    <string name="help_aligningbackgroundiamgery">Aligner l\'imagerie d\'arrière plan</string>
+    <string name="help_propertyeditor">Editeur de propriété</string>
+    <string name="help_conflictresolution">Résolution de conflit</string>
+    <string name="help_gpssources">Source GPS</string>
+    <string name="help_keyboard">Clavier</string>
+    <string name="help_opening_hours">Horaires d\'ouverture</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

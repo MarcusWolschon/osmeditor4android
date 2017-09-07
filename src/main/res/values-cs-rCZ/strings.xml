@@ -446,6 +446,8 @@
   <string name="undo_action_circulize">uspořádat do kruhu</string>
   <string name="undo_action_extract_node">rozpojit uzel</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Vespucci během posledního spuštění havaroval nebo zaznamenal vážnou chybu.\n\nProsím pomozte nám zasláním chybového hlášení, stačí kliknout na tlačítko \'OK\'.\n</string>
+  <string name="crash_dialog_comment_prompt">Přidejte jakékoliv další informace, které by mohli pomoci a (volitelně) vaši e-mailovou adresu abychom vás mohli kontaktovat.\n\nDěkujeme!</string>
   <string name="config_category_acra">Hlášení pádu</string>
   <string name="pref_enable_acra">Hlásí pády aplikace</string>
   <string name="pref_acra_enabled">Hlášení pádů povoleno</string>
