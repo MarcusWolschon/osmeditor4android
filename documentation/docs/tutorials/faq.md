@@ -146,6 +146,14 @@ The reasoning behind this is that we assume that typical use is an on the ground
 Vespucci is a community developed, open source, project. While not everybody will be able to contribute to the code, everybody should be able to work on the translations on 
 [transifex](https://www.transifex.com/openstreetmap/vespucci/). Translations in the app are updated typically once a month.  
 
+#### The translation for the presets is broken!
+
+The preset translations tend to be a work in progress and given that a large number (over 2'300) of terms have to be translates, many are incomplete. If you want to use an untranslated preset instead, you can install one via the help page for presets (link at the bottom of the page).
+
+#### Presets for military objects are missing!
+
+Due to the touchy situation having pre-defined presets for military objects on device could create you need to download them and install them yourself. You can find a link at the bottom of the preset help page.
+
 #### Fullscreen mode doesn't work properly
 
 Fullscreen mode on Android is a bit hit and miss (depending on Android version and device) as it is really designed for games and for apps without keyboard use. If the Android buttons are hidden, the standard Android way to show them, at least in recent Android versions, is a swipe from the bottom edge. 
