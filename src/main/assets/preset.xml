@@ -220,6 +220,31 @@
     	<multiselect key="cuisine" text="Cuisine" values="italian;chinese;pizza;burger;greek;german;indian;regional;kebab;turkish;asian;thai;mexican;japanese;french;sandwich;coffee_shop;sushi;steak_house;fish_and_chips;chicken;american;ice_cream;international;seafood;spanish;vietnamese;fish;noodle;barbecue;vegetarian;korean" 
     	     display_values="Italian;Chinese;Pizza;Burger;Greek;German;Indian;Regional;Kebab;Turkish;Asian;Thai;Mexican;Japanese;French;Sandwich;Coffee shop;Sushi;Steak house;Fish and chips;Chicken;American;Ice cream;International;Seafood;Spanish;Vietnamese;Fish;Noodle;Barbecue;Vegetarian;Korean" values_searchable="true" />
     </chunk>
+    <chunk id="clothes">
+    	<multiselect key="clothes" text="Kind of clothes" values_searchable="true" match="key">
+        	<list_entry value="babies" short_description="Babies" />
+            <list_entry value="children" short_description="Children" />
+            <list_entry value="costumes" short_description="Costumes" />
+            <list_entry value="denim" short_description="Denim" />
+            <list_entry value="fashion" short_description="Fashion" />
+            <list_entry value="fur" short_description="Fur" />
+            <list_entry value="hats" short_description="Hats" />
+            <list_entry value="leather" short_description="Leather" />
+            <list_entry value="maternity" short_description="Maternity" />
+            <list_entry value="men" short_description="Men" />
+            <list_entry value="motorcycle" short_description="Motorcycle" />
+            <list_entry value="oversize" short_description="Oversize" />
+            <list_entry value="schoolwear" short_description="Schoolwear" />
+            <list_entry value="sports" short_description="Sports" />
+            <list_entry value="suits" short_description="Suits" />
+            <list_entry value="swimwear" short_description="Swimwear" />
+            <list_entry value="traditional" short_description="Traditional" />
+        	<list_entry value="underwear" short_description="Underwear" />
+        	<list_entry value="wedding" short_description="Wedding" />
+        	<list_entry value="women" short_description="Women" />
+        	<list_entry value="workwear" short_description="Workwear" />
+    	</multiselect>
+    </chunk>
     <chunk id="internet">
          <combo key="internet_access" text="Internet access" values="yes,wlan,wired,terminal,no" display_values="Available,WLAN,Wired,Terminal,Not available" values_sort="false" />
          <combo key="internet_access:fee" text="Internet access fee" values="yes,no" display_values="Yes,No" />
@@ -336,7 +361,6 @@
         </combo>
     </chunk>
     <chunk id="religious">
-        <text key="name" text="Name" />
         <combo key="religion" text="Religion" values="bahai,buddhist,christian,hindu,jain,jewish,muslim,shinto,sikh,spiritualist,taoist,unitarian,zoroastrian" 
             display_values="Bahai,Buddhist,Christian,Hindu,Jain,Jewish,Muslim,Shinto,Sikh,Spiritualist,Taoist,Unitarian,Zoroastrian" />
         <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,evangelical,greek_catholic,jehovahs_witness,lutheran,methodist,mormon,old_catholic,orthodox,pentecostal,presbyterian,protestant,quaker,roman_catholic,shia,sunni" 
@@ -1118,7 +1142,7 @@
             </optional>
             <reference ref="road_access_restrictions" />
         </item> <!-- Road (Unknown Type) -->
-        <item name="Construction" icon="icons/png/construction.png" type="way,closedway" preset_name_label="true">
+        <item name="Construction" icon="icons/png/construction.png" name_context="Highway" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:construction"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:construction"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:construction"
@@ -3407,7 +3431,6 @@
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=drag_lift" />
             <space />
             <combo key="aerialway" text="Type" values="drag_lift,t-bar,j-bar,platter,rope_tow" display_values="Drag lift (generic),T-bar,J-bar,Platter,Rope tow" match="keyvalue" />
-            <key key="aerialway" value="t-bar" />
             <reference ref="name_ref" />
             <optional>
                 <text key="aerialway:capacity" text="Number of people per hour" />
@@ -4956,6 +4979,22 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Zoo -->
+        <item name="Aquarium" icon="icons/png/tourist_aquarium_29063.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=aquarium"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:tourism=aquarium"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:tourism=aquarium"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:tourism=aquarium"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:tourism=aquarium"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:tourism=aquarium"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:tourism=aquarium"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:tourism=aquarium" />
+            <space />
+            <key key="tourism" value="aquarium" />
+            <reference ref="name_oh_wheelchair" />
+            <text key="wikipedia" text="Wikipedia" />
+            <space />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Aquarium -->
         <item name="Dog Park" icon="icons/png/landuse_dog_park_21007.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=dog_park"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=dog_park"
@@ -5064,25 +5103,18 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sauna -->
-        <item name="Dance" icon="icons/png/amenity_dance_21173.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=dance"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=dance"
-            	  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=dance"
-            	  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Tag:leisure=dance"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=dance"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=dance"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:leisure=dance"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:leisure=dance" />
+        <item name="Public bath" icon="icons/png/amenity_public_bath_29162.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=public_bath"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=public_bath"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=public_bath" />
             <space />
-            <key key="leisure" value="dance" />
-            <check key="dance:teaching" text="Teaching" disable_off="true" />
-            <multiselect key="dance:style" text="Styles" values="ballroom;latin;Tango" display_values="BallRoom;Latin" editable="true" values_searchable="true" />
+            <key key="amenity" value="public_bath" />
             <reference ref="name_operator_oh_wheelchair" />
             <reference ref="facility_access" />
             <space />
             <reference ref="link_contact_address_payment" />
-        </item> <!-- Sauna -->
-        <item name="Tanning Studio" icon="" type="node,closedway,multipolygon" preset_name_label="true">
+        </item> <!-- Public bath -->
+        <item name="Tanning Studio" icon="icons/png/amenity_tanning_studio.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=sauna"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=sauna"
                   pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:amenity=sauna"
@@ -5095,6 +5127,24 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Tanning Studio -->
+        <item name="Dance" icon="icons/png/amenity_dance_21173.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=dance"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=dance"
+            	  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=dance"
+            	  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Tag:leisure=dance"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=dance"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=dance"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:leisure=dance"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:leisure=dance" />
+            <space />
+            <key key="leisure" value="dance" />
+            <check key="dance:teaching" text="Teaching" disable_off="true" />
+            <multiselect key="dance:style" text="Styles" values="ballroom;latin;Tango" display_values="Ballroom;Latin" editable="true" values_searchable="true" />
+            <reference ref="name_operator_oh_wheelchair" />
+            <reference ref="facility_access" />
+            <space />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Dance -->
         <item name="Horse Riding" icon="icons/png/sport_horse_racing.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=horse_riding"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=horse_riding"
@@ -5290,6 +5340,20 @@
             <text key="wikipedia" text="Wikipedia" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Museum -->
+        <item name="Art gallery" icon="icons/png/tourist_gallery_30041.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=gallery"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:tourism=gallery"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:tourism=gallery"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:tourism=gallery"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:tourism=gallery"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:tourism=gallery"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:tourism=gallery" />
+            <space />
+            <key key="tourism" value="gallery" />
+            <reference ref="name_operator_oh_wheelchair" />
+            <text key="wikipedia" text="Wikipedia" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Art gallery -->
         <item name="Theatre" icon="icons/png/tourist_theatre.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=theatre"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=theatre"
@@ -8875,8 +8939,10 @@
             <space />
             <key key="historic" value="wayside_cross" />
             <text key="name" text="Name" />
-            <combo key="religion" text="Religion" values="bahai,buddhist,christian,hindu,jain,jewish,muslim,shinto,sikh,spiritualist,taoist,unitarian,zoroastrian" default="christian" />
-            <combo key="denomination" text="Denomination" values="catholic,greek_catholic,old_catholic,orthodox,roman_catholic" default="catholic" />
+            <combo key="religion" text="Religion" values="christian" display_values="Christian" default="christian" />
+            <combo key="denomination" text="Denomination" values="catholic,greek_catholic,old_catholic,orthodox,roman_catholic" 
+            	display_values="Catholic,Greek catholic,Old catholic,Orthodox,Roman catholic"
+            	default="catholic" />
             <text key="start_date" text="Start date" />
             <text key="inscription" text="Inscription" />
         </item> <!-- Wayside Cross -->
@@ -8893,8 +8959,7 @@
             <space />
             <key key="historic" value="wayside_shrine" />
             <text key="name" text="Name" />
-            <combo key="religion" text="Religion" values="bahai,buddhist,christian,hindu,jain,jewish,muslim,shinto,sikh,spiritualist,taoist,unitarian,zoroastrian" default="christian" />
-            <combo key="denomination" text="Denomination" values="catholic,greek_catholic,old_catholic,orthodox,roman_catholic" default="catholic" />
+            <reference ref="religious" />
             <check key="amenity" text="Place of worship" value_on="place_of_worship" disable_off="true" />
             <combo key="building" text="Building" values="wayside_shrine" values_context="building" />
             <text key="start_date" text="Start date" />
@@ -9081,6 +9146,17 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Confectionery -->
+        <item name="Chocolate" icon="" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=chocolate"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=chocolate"
+            	  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=chocolate"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:shop=chocolate"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=chocolate" />
+            <space />
+            <key key="shop" value="chocolate" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Chocolate -->
         <item name="Tea" icon="styles/standard/shop/groceries/tea.svg" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=tea"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=tea"
@@ -9245,34 +9321,12 @@
             <space />
             <key key="shop" value="clothes" />
             <reference ref="name_oh_wheelchair_level" />
-            <multiselect key="clothes" text="Kind of clothes" values_searchable="true" match="key">
-                <list_entry value="babies" short_description="Babies" />
-                <list_entry value="children" short_description="Children" />
-                <list_entry value="costumes" short_description="Costumes" />
-                <list_entry value="denim" short_description="Denim" />
-                <list_entry value="fashion" short_description="Fashion" />
-                <list_entry value="fur" short_description="Fur" />
-                <list_entry value="hats" short_description="Hats" />
-                <list_entry value="leather" short_description="Leather" />
-                <list_entry value="maternity" short_description="Maternity" />
-                <list_entry value="men" short_description="Men" />
-                <list_entry value="motorcycle" short_description="Motorcycle" />
-                <list_entry value="oversize" short_description="Oversize" />
-                <list_entry value="schoolwear" short_description="Schoolwear" />
-                <list_entry value="sports" short_description="Sports" />
-                <list_entry value="suits" short_description="Suits" />
-                <list_entry value="swimwear" short_description="Swimwear" />
-                <list_entry value="traditional" short_description="Traditional" />
-                <list_entry value="underwear" short_description="Underwear" />
-                <list_entry value="wedding" short_description="Wedding" />
-                <list_entry value="women" short_description="Women" />
-                <list_entry value="workwear" short_description="Workwear" />
-            </multiselect>
+            <reference ref="clothes" />
             <combo key="second_hand" text="Second hand" values="only,yes,no" display_values="Only,Yes,No" />
             <reference ref="organic" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Clothes -->
-        <item name="Boutique" icon="presets/boutique.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Boutique" icon="icons/png/shopping_boutique.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=boutique"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=boutique"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=boutique"
@@ -9284,8 +9338,22 @@
             <space />
             <key key="shop" value="boutique" />
             <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="clothes" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Boutique -->
+        <item name="Fashion (deprecated)" icon="icons/png/shopping_boutique.png" type="node,closedway,multipolygon" deprecated="true" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=fashion"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=fashion"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=fashion"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:shop=fashion"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=fashion"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=fashion" />
+            <space />
+            <key key="shop" value="fashio" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="clothes" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Fashion (deprecated) -->
         <item name="Shoes" icon="icons/png/shopping_shoes_29128.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=shoes"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=shoes"
@@ -10116,6 +10184,17 @@
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Paint -->
+        <item name="Arts and craft supplies" icon="icons/png/shopping_handicraft_16029.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=craft"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=craft"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=craft"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:shop=craft"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=craft" />
+            <space />
+            <key key="shop" value="craft" />
+            <reference ref="name_operator_oh_wheelchair_level" />     
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Arts and craft supplies -->
         <item name="Locksmith" icon="icons/png/shopping_locksmith_16046.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=locksmith"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=locksmith"
@@ -10237,9 +10316,8 @@
             <key key="shop" value="gift" />
             <reference ref="name_operator_oh_wheelchair_level" />
             <optional>
-                <combo key="religion" text="Religion" values="bahai,buddhist,christian,hindu,jain,jewish,muslim,sikh,spiritualist,taoist,unitarian,zoroastrian" />
-                <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,evangelical,jehovahs_witness,lutheran,methodist,mormon,orthodox,pentecostal,presbyterian,protestant,quaker,shia,sunni" />
-            </optional>
+ 				<reference ref="religious" />            
+ 			</optional>
             <reference ref="link_contact_address_payment" />
         </item> <!-- Gift/Souvenir -->
         <item name="Variety Store" icon="icons/png/shopping_variety_store_29148.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10346,6 +10424,7 @@
             <space />
             <key key="shop" value="religion" />
             <reference ref="name_oh_wheelchair" />
+            <reference ref="religious" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Religion -->
         <item name="Scuba diving" icon="icons/png/shopping_scuba_diving_29044.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10358,6 +10437,15 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Scuba diving -->
+        <item name="Storage rental" icon="icons/png/shopping_storage_rental.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=storage_rental"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=storage_rental"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:shop=storage_rental" />
+            <space />
+            <key key="shop" value="storage_rental" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Storage rental -->
     </group> <!-- Other -->
     <separator/>
     <item name="Vending Machine" icon="icons/png/shopping_vending_machine.png" type="node" preset_name_label="true">
@@ -11443,6 +11531,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=grave_yard" />
             <space />
             <key key="amenity" value="grave_yard" />
+            <text key="name" text="Name" />
             <reference ref="religious" />
         </item> <!-- Graveyard -->
         <item name="Cemetery" icon="icons/png/landuse_grave_yard_12062.png" type="closedway,multipolygon" preset_name_label="true">
@@ -11460,6 +11549,7 @@
                   zh_TW.href="http://wiki.openstreetmap.org/wiki/Zh-hant:Tag:landuse=cemetery" />
             <space />
             <key key="landuse" value="cemetery" />
+            <text key="name" text="Name" />
             <reference ref="religious" />
         </item> <!-- Cemetery -->
         <item name="Religious" icon="icons/png/landuse_religous.png" type="closedway,multipolygon" preset_name_label="true">
@@ -11469,6 +11559,7 @@
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:landuse=religious" />
             <space />
             <key key="landuse" value="religious" />
+            <text key="name" text="Name" />
             <reference ref="religious" />
         </item> <!-- Religious -->
         <item name="Retail" icon="icons/png/landuse_supermarket.png" type="closedway,multipolygon" preset_name_label="true">
@@ -11561,7 +11652,7 @@
             </optional>
         </item> <!-- Military -->
         <separator/>
-        <item name="Construction Area" icon="icons/png/construction.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Construction Area" icon="icons/png/construction.png" name_context="Landuse" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=construction"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=construction"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=construction"
@@ -12852,15 +12943,7 @@ tags.remove('automatic_check_date');"
             <key key="craft" value="confectionery" />
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
-        </item> <!-- Confectionery -->
-        <item name="Construction" icon="icons/png/craft_construction_16102.png" type="node,closedway,multipolygon">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=construction"
-            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=construction" />
-            <space />
-            <key key="craft" value="construction" />
-            <reference ref="name_oh_wheelchair" />
-            <reference ref="link_contact_address_payment" />
-        </item> <!-- Construction -->
+        </item> <!-- Confectionery -->>
         <item name="Electronics" icon="icons/png/craft_electronics_16103.png" type="node,closedway,multipolygon">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=electronics"
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=electronics" />
@@ -13353,6 +13436,7 @@ tags.remove('automatic_check_date');"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:office=religion" />
             <space />
             <key key="office" value="religion" />
+            <text key="name" text="Name" />
             <reference ref="religious" />
             <reference ref="oh_wheelchair" />
             <reference ref="link_contact_address" />

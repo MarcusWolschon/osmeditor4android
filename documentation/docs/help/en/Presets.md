@@ -23,12 +23,14 @@ To manage the presets go to the "Preferences" screen and then to the "Advanced P
 
 Most current JOSM presets can be found in this list [http://josm.openstreetmap.de/wiki/Presets](http://josm.openstreetmap.de/wiki/Presets), copy the URL form the "short description" column on the JOSM site to the URL field and add a name.
 
-Some potentially useful ones for direct download (these links automatically configure a new preset entry):
+Some potentially useful ones for direct download (these links automatically configure a new preset entry and will only work on your device with Vespucci installed):
 
- * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3fpage=Presets/LaneAttributes%26zip=1&presetname=Lane tagging"> Presets for lane tagging</a> *(this link will only work on your device)*
- * <a href="vespucci://preset/?preseturl=http://zibi.openstreetmap.org.pl/kendzi/k/Simple3dPreset/s3db-preset.zip&presetname=Simple 3D building properties">Presets for Simple 3D building properties</a> *(this link will only work on your device)*
- * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging">Presets for Simple Indoor Tagging</a> *(this link will only work on your device)*
- * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/military-preset/raw/gh-pages/gen/military.zip">Presets for military objects</a> *(this link will only work on your device)*
+ * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip.zip%3fraw=true">Update of default preset</a>
+ * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip_no_translations.zip%3fraw=true">Default preset without translations</a>
+ * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3fpage=Presets/LaneAttributes%26zip=1&presetname=Lane tagging">Presets for lane tagging</a>
+ * <a href="vespucci://preset/?preseturl=http://zibi.openstreetmap.org.pl/kendzi/k/Simple3dPreset/s3db-preset.zip&presetname=Simple 3D building properties">Presets for Simple 3D building properties</a>
+ * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging">Presets for Simple Indoor Tagging</a>
+ * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/military-preset/raw/gh-pages/gen/military.zip">Presets for military objects</a>
 
 
 
