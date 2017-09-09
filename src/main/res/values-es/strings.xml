@@ -13,6 +13,8 @@
   <string name="upload_conflict_message_deleted">%1$s \ntiene la versión local %2$s \ny fue eliminado en el servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfue eliminado localmente \npero tiene referencias en el servidor</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nya se eliminó en el servidor</string>
+  <string name="use_local_version">Usar la versión local</string>
+  <string name="use_server_version">Usar la versión del servidor</string>
   <string name="no_login_data_title">Fallo de autenticación</string>
   <string name="no_login_data_message">Si está usando OAuth, esto es posiblemente un error, envíe un informe del problema. Si está usando usuario y contraseña (no recomendado), compruebe que se hayan introducido correctamente.</string>
   <string name="no_connection_title">Sin conexión con el servidor</string>
@@ -21,6 +23,7 @@
   <string name="wrong_login_data_title">Fallo de autenticación</string>
   <string name="wrong_login_data_message">Si está usando OAuth debe reautenticarse e intente de nuevo, si está usando nombre de usuario y contraseña (no recomendado) compruebe que se hayan introducido correctamente.</string>
   <string name="wrong_login_data_re_authenticate">Reautenticar</string>
+  <string name="go_to_openstreetmap">Ir a openstreetmap.org</string>
   <string name="data_conflict_title">Conflicto de versión</string>
   <string name="data_conflict_message">Los datos que trata de descargar contiene datos que entra en conflicto con sus ediciones. Intente subir sus datos antes de volver a intentarlo.</string>
   <string name="invalid_bounding_box_title">Cuadro delimitador inválido</string>
@@ -477,6 +480,7 @@
   <string name="config_autoLockDelay_summary">Tiempo de espera en segundos antes de auto.bloqueo, 0 desactiva.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Siempre oscurecer áreas no descargadas</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Si aŕeas no descargadas está establecido se oscurecerán en modo bloqueado</string>
+  <string name="config_js_console_title">Habilitar consola JS</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar predeterminados</string>
   <string name="preset_download_successful">Predeterminados descargados correctamente</string>
@@ -484,10 +488,12 @@
   <string name="preset_download_parse_failed">El archivo de predeterminados es invalido. Los predeterminados no funcionarán.</string>
   <string name="preset_download_missing_images">El archivo de predeterminados se descargó correctamente. Sin embargo, algunos iconos no pudieron ser descargados y serán descartados.</string>
   <!--changes-->
-  <string name="changes_deleted">«%1$s» borrado</string>
-  <string name="changes_changed">«%1$s» modificado</string>
-  <string name="changes_created">«%1$s» creado</string>
+  <string name="changes_deleted">\"%1$s\" borrado</string>
+  <string name="changes_changed">\"%1$s\" modificado</string>
+  <string name="changes_created">\"%1$s\" creado</string>
   <string name="confirm_upload_title">¿Subir?</string>
+  <string name="confirm_one_upload_text">¿Subir el siguiente cambio?\n%1$s</string>
+  <string name="confirm_multiple_upload_text">¿Subir los siguientes %1$d cambios?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Añadir predeterminado</string>
   <string name="urldialog_preset_exists">Este predeterminado ya existe</string>
@@ -505,6 +511,7 @@
   <string name="url">URL</string>
   <string name="default_">Predeterminado</string>
   <!---->
+  <string name="empty_list">Ninguna entrada</string>
   <string name="api_name">Nombre API</string>
   <string name="api_url">URL API</string>
   <string name="readonly_url">URL API Sólo Lectura (opcional)</string>
@@ -519,6 +526,8 @@
   <string name="tracking_active_text">Vespucci está grabando una traza GPS o descargando automáticamente</string>
   <string name="gps_failure">Fallo al habilitar el GPS</string>
   <!--element description-->
+  <string name="address_housenumber">Dirección %1$s</string>
+  <string name="address_housenumber_street">Dirección %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover nodo</string>
   <string name="undo_action_moveway">mover vía</string>
@@ -563,9 +572,9 @@
   <string name="bearing_e">E</string>
   <string name="bearing_se">SE</string>
   <string name="bearing_s">S</string>
-  <string name="bearing_sw">SW</string>
+  <string name="bearing_sw">SO</string>
   <string name="bearing_w">W</string>
-  <string name="bearing_nw">NW</string>
+  <string name="bearing_nw">NO</string>
   <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
