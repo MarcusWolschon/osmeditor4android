@@ -1,6 +1,8 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-1296: Updated preset, update imagery, bump version number
+1297: Explicitly add utility preset items to MRU (regression), update presets and imagery.
+
+1296: Updated preset, update imagery, bump version number.
 
 1295: Updated imagery, openinghoursfragment, bump build number and change to release.
 
