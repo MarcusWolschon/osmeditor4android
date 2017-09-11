@@ -577,7 +577,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 */
 	void addToMru(Preset[] presets, PresetItem item) {
 		for (Preset p:presets) {
-			if (p.contains(item)) {
+			if (p != null && p.contains(item)) {
 				p.putRecentlyUsed(item);
 				break;
 			}
