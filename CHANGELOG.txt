@@ -1,10 +1,12 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1298: Update OpeningHoursFragment, more fixes to OAuth UI code.
+
 1297: Explicitly add utility preset items to MRU (regression), update presets and imagery.
 
 1296: Updated preset, update imagery, bump version number.
 
-1295: Updated imagery, openinghoursfragment, bump build number and change to release.
+1295: Updated imagery, OpeningHoursFragment, bump build number and change to release.
 
 1294: Fix relation version number corruption, inconsistent backlinks after conflict resolution, updated presets and name suggestion index. Bump android version number.
 
