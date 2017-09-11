@@ -298,6 +298,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * webview for logging in and authorizing OAuth
 	 */
 	private WebView oAuthWebView;
+	private Object oAuthWebViewLock = new Object();
 	
 	/**
 	 * our map layout
@@ -2363,62 +2364,66 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return;
 		}
 		Log.d(DEBUG_TAG, "authURl " + authUrl);
-		oAuthWebView = new WebView(this);
-		mapLayout.addView(oAuthWebView);
-		oAuthWebView.getSettings().setJavaScriptEnabled(true);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			oAuthWebView.getSettings().setAllowContentAccess(true);
-		}
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-			oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-			oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-		}
-		oAuthWebView.requestFocus(View.FOCUS_DOWN);
-		class MyWebViewClient extends WebViewClient {
-			Object progressLock = new Object();
-			boolean progressShown = false;
-			Runnable dismiss = new Runnable() {
-				@Override
-				public void run() {
-					Progress.dismissDialog(Main.this, Progress.PROGRESS_OAUTH);		
-				}
-    		};
-		    @Override
-		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-		    	if (!url.contains("vespucci")) {
-		            // load in in this webview
-		            view.loadUrl(url);
+		synchronized (oAuthWebViewLock) {
+		    oAuthWebView = new WebView(this);
+		    mapLayout.addView(oAuthWebView);
+		    oAuthWebView.getSettings().setJavaScriptEnabled(true);
+		    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+		        oAuthWebView.getSettings().setAllowContentAccess(true);
+		    }
+		    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+		        oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+		        oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+		    }
+		    oAuthWebView.requestFocus(View.FOCUS_DOWN);
+		    class MyWebViewClient extends WebViewClient {
+		        Object progressLock = new Object();
+		        boolean progressShown = false;
+		        Runnable dismiss = new Runnable() {
+		            @Override
+		            public void run() {
+		                Progress.dismissDialog(Main.this, Progress.PROGRESS_OAUTH);		
+		            }
+		        };
+		        @Override
+		        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+		            if (!url.contains("vespucci")) {
+		                // load in in this webview
+		                view.loadUrl(url);
+		                return true;
+		            }
+		            // vespucci URL
+		            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+		            startActivity(intent);
 		            return true;
 		        }
-		        // vespucci URL
-		        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-		        startActivity(intent);
-		        return true;
+
+		        @Override
+		        public void onPageStarted(WebView view, String url, Bitmap favicon){
+		            synchronized(progressLock) {
+		                if (!progressShown) {
+		                    progressShown = true;
+		                    Progress.showDialog(Main.this, Progress.PROGRESS_OAUTH);
+		                }
+		            }
+		        }
+
+		        @Override
+		        public void onPageFinished(WebView view, String url){
+		            synchronized(progressLock) {
+		                synchronized (oAuthWebViewLock) {
+		                    if (progressShown && oAuthWebView != null) {
+		                        oAuthWebView.removeCallbacks(dismiss);
+		                        oAuthWebView.postDelayed(dismiss, 500);		    		
+		                    }
+		                }
+		            }
+		        }
 		    }
 
-		    @Override
-		    public void onPageStarted(WebView view, String url, Bitmap favicon){
-		    	synchronized(progressLock) {
-		    		if (!progressShown) {
-		    			progressShown = true;
-		    			Progress.showDialog(Main.this, Progress.PROGRESS_OAUTH);
-		    		}
-		    	}
-		    }
-		    
-		    @Override
-		    public void onPageFinished(WebView view, String url){
-		    	synchronized(progressLock) {
-		    		if (progressShown) {
-		    			oAuthWebView.removeCallbacks(dismiss);
-		    			oAuthWebView.postDelayed(dismiss, 500);		    		
-		    		}
-		    	}
-		    }
+		    oAuthWebView.setWebViewClient(new MyWebViewClient());
+		    oAuthWebView.loadUrl(authUrl);
 		}
-		
-		oAuthWebView.setWebViewClient(new MyWebViewClient());
-		oAuthWebView.loadUrl(authUrl);
 	}
 	
 	/**
@@ -2426,24 +2431,26 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public void finishOAuth() {
 		Log.d(DEBUG_TAG,"finishOAuth");
-		if (oAuthWebView != null) {
-			mapLayout.removeView(oAuthWebView);
-			showControls();
-			try {
-				// the below loadUrl, even though the "official" way to do it,
-				// seems to be prone to crash on some devices.
-				oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
-				oAuthWebView.setVisibility(View.GONE);
-				oAuthWebView.removeAllViews();
-				oAuthWebView.destroy();
-				oAuthWebView = null; 
-				if (restart != null) {
-					restart.onSuccess();
-				}
-			} catch (Exception ex) { 
-				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-				ACRA.getErrorReporter().handleException(ex);
-			}
+		synchronized (oAuthWebViewLock) {
+		    if (oAuthWebView != null) {
+		        mapLayout.removeView(oAuthWebView);
+		        showControls();
+		        try {
+		            // the below loadUrl, even though the "official" way to do it,
+		            // seems to be prone to crash on some devices.
+		            oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
+		            oAuthWebView.setVisibility(View.GONE);
+		            oAuthWebView.removeAllViews();
+		            oAuthWebView.destroy();
+		            oAuthWebView = null; 
+		            if (restart != null) {
+		                restart.onSuccess();
+		            }
+		        } catch (Exception ex) { 
+		            ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+		            ACRA.getErrorReporter().handleException(ex);
+		        }
+		    }
 		}
 	}
 
@@ -2550,10 +2557,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public void onBackPressed() {
 		// super.onBackPressed();
 		Log.d(DEBUG_TAG,"onBackPressed()");
-		if (oAuthWebView != null && oAuthWebView.canGoBack()) { 
-			// we are displaying the oAuthWebView and somebody might want to navigate back
-			oAuthWebView.goBack();
-			return;
+		synchronized (oAuthWebViewLock) {
+		    if (oAuthWebView != null && oAuthWebView.canGoBack()) { 
+		        // we are displaying the oAuthWebView and somebody might want to navigate back
+		        oAuthWebView.goBack();
+		        return;
+		    }
 		}
 		if (prefs.useBackForUndo()) {
 			String name = App.getLogic().undo();
