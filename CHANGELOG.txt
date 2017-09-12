@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1299: Update OpeningHoursFragment, don't produce crash dump when deleting tiles when tile database is already closed.
+
 1298: Update OpeningHoursFragment, more fixes to OAuth UI code.
 
 1297: Explicitly add utility preset items to MRU (regression), update presets and imagery.
