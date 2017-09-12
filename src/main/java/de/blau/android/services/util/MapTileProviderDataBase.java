@@ -336,11 +336,13 @@ public class MapTileProviderDataBase implements MapViewConstants {
 						throw new EmptyCacheException("Cache seems to be empty.");
 					}
 
-					if (mDatabase.isOpen()) {
-						for (MapTile t : deleteFromDB) {
-							final String[] args = new String[]{t.rendererID, Integer.toString(t.zoomLevel), Integer.toString(t.x), Integer.toString(t.y)};	 
-							mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
-						}
+					for (MapTile t : deleteFromDB) {
+					    if (mDatabase.isOpen()) {
+					        final String[] args = new String[]{t.rendererID, Integer.toString(t.zoomLevel), Integer.toString(t.x), Integer.toString(t.y)};	 
+					        mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+					    } else {
+					        break; // if the database is closed abort
+					    }
 					}
 				}
 				catch (Exception e) {
@@ -352,6 +354,8 @@ public class MapTileProviderDataBase implements MapViewConstants {
 						Snack.toastTopError(mCtx,R.string.toast_tile_database_full);		
 					} else if (e instanceof SQLiteDiskIOException) {
 						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Exception in deleteOldest " + e);
+					} else if (e instanceof java.lang.IllegalStateException) { // this typically happens if the DB is already closed
+	                    Log.e(MapTileFilesystemProvider.DEBUGTAG, "Exception in deleteOldest " + e);
 					} else {
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(e);	
