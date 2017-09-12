@@ -90,12 +90,34 @@ public class ReadSaveData {
 			byte[] testContent = readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(),TEST_OSM)));
 	    	is = loader.getResourceAsStream("test-result.osm");
 	    	byte[] correctContent = readInputStream(is);
-	    	Assert.assertArrayEquals(correctContent, testContent);
+	    	Assert.assertTrue(dataIsSame(correctContent, testContent));
 		} catch (IOException e) {
 			Assert.fail(e.getMessage());
 		}
 	}
-    
+     
+    /**
+     * Compare skipping build number (roughly)
+     * 
+     * @param correctContent 
+     * @param testContent
+     * 
+     * @return true if "the same"
+     */
+    private boolean dataIsSame(byte[] correctContent, byte[] testContent) {
+        if (correctContent.length == testContent.length) { // this will fail is more than the build changes
+            for (int i=0;i<correctContent.length;i++) {
+                if (correctContent[i]!=testContent[i]) {
+                    if (i < 72 || i > 75) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     byte[] readInputStream(InputStream is) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
