@@ -2635,9 +2635,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			final Logic logic = App.getLogic();
 			String name = logic.undo();
 			if (name != null) {
-				Snack.barInfoShort(Main.this, getResources().getString(R.string.undo) + ": " + name);
+				Snack.toastTopInfo(Main.this, getResources().getString(R.string.undo) + ": " + name);
 			} else {
-				Snack.barInfoShort(Main.this, R.string.undo_nothing);
+				Snack.toastTopInfo(Main.this, R.string.undo_nothing);
 			}
 			resync(logic);
 			map.invalidate();
