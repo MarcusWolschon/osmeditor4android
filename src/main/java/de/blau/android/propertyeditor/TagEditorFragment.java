@@ -511,11 +511,11 @@ public class TagEditorFragment extends BaseFragment implements
 	/**
 	 * If tags have changed the autocomplete adapters need to be recalculated on what is the current preset
 	 * 
-	 * @param rowLayout	the layout containing the tag rows
-	 * @param presetItem 	if null determine best preset from existing tags
-	 * @param addToMru		add to MRU if true
+	 * @param rowLayout    the layout containing the tag rows
+	 * @param presetItem   if null determine best preset from existing tags
+	 * @param addToMru     add to MRU if true
 	 */
-	private void updateAutocompletePresetItem(@NonNull LinearLayout rowLayout, @Nullable PresetItem presetItem, boolean addToMru) {
+	private void updateAutocompletePresetItem(@Nullable LinearLayout rowLayout, @Nullable PresetItem presetItem, boolean addToMru) {
 		Log.d(DEBUG_TAG,"setting new autocompletePresetItem");
 		Preset[] presets = App.getCurrentPresets(getActivity());
 		PresetItem savedPrimaryPresetItem = primaryPresetItem;
@@ -544,8 +544,12 @@ public class TagEditorFragment extends BaseFragment implements
     	}
     	
     	// update hints
-    	for (int i = 0; i < rowLayout.getChildCount()-1; i++) { // don't update empty row at end
-    		setHint((TagEditRow) rowLayout.getChildAt(i));
+    	if (rowLayout != null) {
+    	    for (int i = 0; i < rowLayout.getChildCount()-1; i++) { // don't update empty row at end
+    	        setHint((TagEditRow) rowLayout.getChildAt(i));
+    	    }
+    	} else {
+    	    Log.e(DEBUG_TAG,"updateAutocompletePresetItem called with null layout");
     	}
     	
     	if (elements.length == 1) {
@@ -1157,7 +1161,7 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 			rowLayout.removeView(this);
 			if (isEmpty() && owner.tagEditorFragment != null) {
-				owner.tagEditorFragment.ensureEmptyRow();
+				owner.tagEditorFragment.ensureEmptyRow(rowLayout);
 			}
 		}
 		
@@ -1279,42 +1283,51 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	/**
 	 * Ensures that at least one empty row exists (creating one if needed)
-	 * @return the first empty row found (or the one created), or null if loading was not finished (loaded == false)
+	 * 
+	 * @param rowLayout layout holding the rows
+	 * @return the first empty row found (or the one created), or null if loading was not finished (loaded == false), null if rowLayout is null
 	 */
-	private TagEditRow ensureEmptyRow() {
-		LinearLayout rowLayout = (LinearLayout) getOurView();
-		return ensureEmptyRow(rowLayout);
-	}
-	
-	/**
-	 * Ensures that at least one empty row exists (creating one if needed)
-	 * @return the first empty row found (or the one created), or null if loading was not finished (loaded == false)
-	 */
-	private TagEditRow ensureEmptyRow(LinearLayout rowLayout) {
+	@Nullable
+	private TagEditRow ensureEmptyRow(@Nullable LinearLayout rowLayout) {
+	    if (rowLayout == null) {
+	        return null;
+	    }
 		TagEditRow ret = null;
 		if (loaded) {
 			int i = rowLayout.getChildCount();
 			while (--i >= 0) { 
 				TagEditRow row = (TagEditRow)rowLayout.getChildAt(i);
 				boolean isEmpty = row.isEmpty();
-				if (ret == null) ret = isEmpty ? row : insertNewEdit(rowLayout,"", new ArrayList<String>(), -1);
-				else if (isEmpty) row.deleteRow(rowLayout);
+				if (ret == null) {
+				    ret = isEmpty ? row : insertNewEdit(rowLayout,"", new ArrayList<String>(), -1);
+				} else if (isEmpty) {
+				    row.deleteRow(rowLayout);
+				}
 			}
-			if (ret == null) ret = insertNewEdit(rowLayout,"", new ArrayList<String>(), -1);
+			if (ret == null) {
+			    ret = insertNewEdit(rowLayout,"", new ArrayList<String>(), -1);
+			}
 		}
 		return ret;
 	}
 	
 	/**
 	 * Focus on the value field of the first tag with non empty key and empty value 
-	 * @param key
-	 * @return
+	 * 
+	 * @param key key that we want to find the value field for
+	 * @return true if successful
 	 */
 	private boolean focusOnEmptyValue() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		return focusOnEmptyValue(rowLayout);
 	}
 	
+	/**
+	 * Focus on the first empty value field
+	 * 
+	 * @param rowLayout layout holding the ros
+	 * @return true if successful
+	 */
 	private boolean focusOnEmptyValue(LinearLayout rowLayout) {		
 		boolean found = false;
 		for (int i = 0; i < rowLayout.getChildCount(); i++) {
@@ -1330,8 +1343,9 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	/**
 	 * Move the focus to the key field of the specified row.
+	 * 
 	 * @param index The index of the row to move to, counting from 0.
-	 * @return true if the row was successfully focussed, false otherwise.
+	 * @return true if the row was successfully focused, false otherwise.
 	 */
 	private boolean focusRow(int index) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
@@ -1339,20 +1353,20 @@ public class TagEditorFragment extends BaseFragment implements
 		return row != null && row.keyEdit.requestFocus();
 	}
 	
-
 	/**
 	 * Move the focus to the value field of the specified row.
+	 * 
 	 * @param index The index of the row to move to, counting from 0.
-	 * @return true if the row was successfully focussed, false otherwise.
+	 * @return true if the row was successfully focused, false otherwise.
 	 */
 	private boolean focusRowValue(LinearLayout rowLayout, int index) {
 		TagEditRow row = (TagEditRow)rowLayout.getChildAt(index);
 		return row != null && row.valueEdit.requestFocus();
 	}
 
-
 	/**
 	 * Given a tag edit row, calculate its position.
+	 *
 	 * @param row The tag edit row to find.
 	 * @return The position counting from 0 of the given row, or -1 if it couldn't be found.
 	 */
@@ -1361,6 +1375,13 @@ public class TagEditorFragment extends BaseFragment implements
 		return rowIndex(rowLayout, row);
 	}
 
+	/**
+	 * Get the index of a specific row in the layout
+	 * 
+	 * @param rowLayout    layout holding the rows
+	 * @param row          row we want the index for
+	 * @return the index or -1 if not found
+	 */
 	private int rowIndex(LinearLayout rowLayout,TagEditRow row) {		
 		for (int i = rowLayout.getChildCount() - 1; i >= 0; --i) {
 			if (rowLayout.getChildAt(i) == row) return i;
@@ -1368,11 +1389,11 @@ public class TagEditorFragment extends BaseFragment implements
 		return -1;
 	}
 
-
 	/**
 	 * Focus on the value field of a tag with key "key" 
-	 * @param key
-	 * @return
+
+	 * @param key key that we want to find the value field for
+	 * @return true if successful
 	 */
 	private boolean focusOnValue(LinearLayout rowLayout, String key) {
 		boolean found = false;
@@ -1389,6 +1410,7 @@ public class TagEditorFragment extends BaseFragment implements
 		
 	/**
 	 * Applies a preset (e.g. selected from the dialog or MRU), i.e. adds the tags from the preset to the current tag set
+	 * 
 	 * @param item the preset to apply
 	 */
 	void applyPreset(PresetItem item) {
@@ -1906,8 +1928,10 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	/**
 	 * Return the view we have our rows in and work around some android craziness
-	 * @return
+	 * 
+	 * @return the layout containg the rows, or null if it can't be found
 	 */
+	@Nullable
 	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
@@ -1932,7 +1956,8 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	/**
 	 * Return tags copied or cut
-	 * @return
+	 * 
+	 * @return map containing the copied tags
 	 */
 	public LinkedHashMap<String,String> getCopiedTags() {
 		return (LinkedHashMap<String, String>) copiedTags;
@@ -1957,9 +1982,10 @@ public class TagEditorFragment extends BaseFragment implements
 	/**
 	 * Update the original list of tags to reflect edits
 	 * 
+	 * Note this will silently remove tags with empty key or value
 	 * @return list of maps containing the tags
 	 */
-	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
+	public List<LinkedHashMap<String, String>> getUpdatedTags() {
 		@SuppressWarnings("unchecked")
 		
 		ArrayList<Map<String,String>> oldTags = (ArrayList<Map<String,String>>)getArguments().getSerializable("tags");
@@ -1999,7 +2025,7 @@ public class TagEditorFragment extends BaseFragment implements
 			for (Entry<String,ArrayList<String>> entry: edits.entrySet()) {
 				String editsKey = entry.getKey();
 				List<String>valueList = entry.getValue();
-				if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && valueList.size()==1) { // zap empty stuff or just the HTTP prefix
+				if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && valueList.size()==1) { // zap empty stuff or just the HTTP prefix FIXME throw an exception  when we do zap
 					String value = valueList.get(0).trim();
 					if (saveTag(editsKey,value)) {
 						addTagToMap(map, editsKey, value);

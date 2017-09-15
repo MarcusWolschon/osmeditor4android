@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -625,7 +626,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		if (tagFormFragment != null) {
 			tagFormFragment.updateEditorFromText(); // update any non-synced changes to the editor fragment
 		}
-		ArrayList<LinkedHashMap<String, String>> currentTags = tagEditorFragment.getUpdatedTags();
+		List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
 		HashMap<Long,String> currentParents = null;
 		ArrayList<RelationMemberDescription> currentMembers = null;
 		if (relationMembershipFragment != null) {
@@ -682,71 +683,73 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	 */
 	void sendResultAndFinish() {
 		
-		ArrayList<LinkedHashMap<String,String>> currentTags = tagEditorFragment.getUpdatedTags();
-//		for (LinkedHashMap<String,String>map:currentTags) {
-//			for (String k:map.keySet()) {
-//				Log.d(DEBUG_TAG, "current key " + k + " " + map.get(k) );
-//			}
-//		}
-//		for (LinkedHashMap<String,String>map:originalTags) {
-//			for (String k:map.keySet()) {
-//				Log.d(DEBUG_TAG, "original key " + k + " " + map.get(k) );
-//			}
-//		}
-		
-		// Save tags to our clipboard
-		LinkedHashMap<String,String> copiedTags = tagEditorFragment.getCopiedTags();
-		if (copiedTags != null) {
-			savingHelper.save(this, COPIED_TAGS_FILE, copiedTags, false);
-		}
-		// save any address tags for "last address tags"
-		if (currentTags != null && currentTags.size() == 1) {
-			Address.updateLastAddresses(tagEditorFragment, Util.getArrayListMap(currentTags.get(0)));// FIXME
-		}
-		Intent intent = new Intent();
-		
-		HashMap<Long,String> currentParents = null;
-		ArrayList<RelationMemberDescription> currentMembers = null;
-		PropertyEditorData[] newData = new PropertyEditorData[currentTags.size()];
-		if (currentTags != null && currentTags.size() == 1) { // normal single mode, relations might have changed
-			currentParents = relationMembershipFragment.getParentRelationMap();
-			currentMembers = new ArrayList<RelationMemberDescription>(); //FIXME
-			if (types[0].endsWith(Relation.NAME)) {
-				currentMembers = relationMembersFragment.getMembersList();
-			}
+		List<LinkedHashMap<String,String>> currentTags = getUpdatedTags();
+		if (currentTags != null) {
+		    // Save tags to our clipboard
+		    LinkedHashMap<String,String> copiedTags = tagEditorFragment.getCopiedTags();
+		    if (copiedTags != null) {
+		        savingHelper.save(this, COPIED_TAGS_FILE, copiedTags, false);
+		    }
+		    // save any address tags for "last address tags"
+		    if (currentTags.size() == 1) {
+		        Address.updateLastAddresses(tagEditorFragment, Util.getArrayListMap(currentTags.get(0)));// FIXME
+		    }
+		    Intent intent = new Intent();
 
-			if (!same(currentTags, originalTags) || !(originalParents==null && currentParents.size()==0) && !currentParents.equals(originalParents) 
-					|| (elements != null && elements[0].getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
-				// changes were made
-				Log.d(DEBUG_TAG, "saving tags");
-				for (int i=0;i<currentTags.size();i++) {
-					newData[i] = new PropertyEditorData(osmIds[i], types[i], 
-							currentTags.get(i).equals(originalTags.get(i)) ? null : currentTags.get(i),  null, 
-									(originalParents==null && currentParents.size()==0) || currentParents.equals(originalParents)?null:currentParents, null, 
-											currentMembers.equals(originalMembers)?null:currentMembers, null);
-				}
-			}
-		} else { // multi select just tags could have been changed
-			if (!same(currentTags, originalTags)) {
-				// changes were made
-				for (int i=0;i<currentTags.size();i++) {
-					newData[i] = new PropertyEditorData(osmIds[i], types[i], 
-							currentTags.get(i).equals(originalTags.get(i)) ? null : currentTags.get(i),  null, null, null, null, null);
-				}		
-			}
+		    HashMap<Long,String> currentParents = null;
+		    ArrayList<RelationMemberDescription> currentMembers = null;
+		    PropertyEditorData[] newData = new PropertyEditorData[currentTags.size()];
+
+		    if (currentTags.size() == 1) { // normal single mode, relations might have changed
+		        currentParents = relationMembershipFragment.getParentRelationMap();
+		        currentMembers = new ArrayList<RelationMemberDescription>(); //FIXME
+		        if (types[0].endsWith(Relation.NAME)) {
+		            currentMembers = relationMembersFragment.getMembersList();
+		        }
+
+		        if (!same(currentTags, originalTags) || !(originalParents==null && currentParents.size()==0) && !currentParents.equals(originalParents) 
+		                || (elements != null && elements[0].getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+		            // changes were made
+		            Log.d(DEBUG_TAG, "saving tags");
+		            for (int i=0;i<currentTags.size();i++) {
+		                newData[i] = new PropertyEditorData(osmIds[i], types[i], 
+		                        currentTags.get(i).equals(originalTags.get(i)) ? null : currentTags.get(i),  null, 
+		                                (originalParents==null && currentParents.size()==0) || currentParents.equals(originalParents)?null:currentParents, null, 
+		                                        currentMembers.equals(originalMembers)?null:currentMembers, null);
+		            }
+		        }
+		    } else { // multi select just tags could have been changed
+		        if (!same(currentTags, originalTags)) {
+		            // changes were made
+		            for (int i=0;i<currentTags.size();i++) {
+		                newData[i] = new PropertyEditorData(osmIds[i], types[i], 
+		                        currentTags.get(i).equals(originalTags.get(i)) ? null : currentTags.get(i),  null, null, null, null, null);
+		            }		
+		        }
+		    }
+
+		    intent.putExtra(TAGEDIT_DATA, newData);
+		    setResult(RESULT_OK, intent);
 		}
-		intent.putExtra(TAGEDIT_DATA, newData);
-		setResult(RESULT_OK, intent);
 		finish();
 	}
 	
 	/**
 	 * Check if two lists of tags are the same
+	 * 
 	 * Note: this considers order relevant
-	 * @return
+	 * @param tags1 first list of tags
+     * @param tags2 second list of tags
+	 * @return true if the lists are the same
 	 */
-	private boolean same(ArrayList<LinkedHashMap<String, String>> tags1, ArrayList<LinkedHashMap<String, String>> tags2){
-		// check for tag changes
+	private boolean same(@Nullable List<LinkedHashMap<String, String>> tags1, @Nullable List<LinkedHashMap<String, String>> tags2){
+		if (tags1 == null) {
+		    return tags2 == null; 
+		}
+		if (tags2 == null) {
+		    return tags1 == null;
+		}
+	    // check for tag changes
 		if (tags1.size() != tags2.size()) { /// serious error
 			return false;
 		}
@@ -760,10 +763,13 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	
 	/**
 	 * Check if two lists of RelationMembetDescription are the same
+	 * 
 	 * Note: this considers order relevant
-	 * @return
+	 * @param rmds1 first list of members
+     * @param rmds2 second list of members
+	 * @return true if the lists contain the same members
 	 */
-	private boolean sameMembers(ArrayList<RelationMemberDescription> rmds1, ArrayList<RelationMemberDescription> rmds2){
+	private boolean sameMembers(@Nullable List<RelationMemberDescription> rmds1, @Nullable List<RelationMemberDescription> rmds2){
 		if (rmds1==null) {
 			return rmds2==null;
 		}
@@ -786,7 +792,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		return true;
 	}
 	
-	/** Save the state of this activity instance for future restoration.
+	/** 
+	 * Save the state of this activity instance for future restoration.
+	 * 
 	 * @param outState The object to receive the saved state.
 	 */
 	@Override
@@ -955,7 +963,13 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 		}
 	}
 	
-	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
+	/**
+	 * Get current contents of editor for saving 
+	 * 
+	 * @return list containing the tag maps or null if something went wrong
+	 */
+	@Nullable
+	public List<LinkedHashMap<String, String>> getUpdatedTags() {
 		if (tagEditorFragment != null) {
 			return tagEditorFragment.getUpdatedTags();
 		} else {

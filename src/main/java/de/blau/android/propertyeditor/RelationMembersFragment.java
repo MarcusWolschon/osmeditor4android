@@ -699,7 +699,7 @@ public class RelationMembersFragment extends BaseFragment implements
 			// Use a set to prevent duplicate keys appearing
 			Set<StringWithDescription> roles = new HashSet<StringWithDescription>();
 			
-			ArrayList<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
+			List<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
 			if (allTags != null && allTags.size() > 0) {
 				if ( owner.presets != null) { // 
 					PresetItem relationPreset = Preset.findBestMatch(owner.presets,allTags.get(0));
