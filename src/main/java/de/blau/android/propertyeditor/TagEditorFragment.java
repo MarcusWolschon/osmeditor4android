@@ -153,6 +153,7 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	/**
 	 * Perform some processing for each key:value pair in the TagEditor.
+	 * 
 	 * @param handler The handler that will be called for each key:value pair.
 	 */
 	private void processKeyValues(final KeyValueHandler handler) {
@@ -1662,9 +1663,10 @@ public class TagEditorFragment extends BaseFragment implements
 				public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
 					String key = keyEdit.getText().toString().trim();
 					String value = valueEdit.getText().toString().trim();
+					boolean keyBlank = "".equals(key);
 					boolean valueBlank = "".equals(value);
-					boolean bothBlank = "".equals(key) && valueBlank;
-					boolean neitherBlank = !"".equals(key) && !valueBlank;
+					boolean bothBlank = keyBlank && valueBlank;
+					boolean neitherBlank = !keyBlank && !valueBlank;
 					if (!bothBlank) {
 						// both blank is never acceptable
 						if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && tagValues.size()>0)) {
@@ -1953,8 +1955,9 @@ public class TagEditorFragment extends BaseFragment implements
 	}
 
 	/**
-	 * update the original list of tags to reflect edits
-	 * @return
+	 * Update the original list of tags to reflect edits
+	 * 
+	 * @return list of maps containing the tags
 	 */
 	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
 		@SuppressWarnings("unchecked")
@@ -2008,9 +2011,11 @@ public class TagEditorFragment extends BaseFragment implements
 	}
 
 	/**
-	 * @param key
-	 * @param value
-	 * @return true is value isn't empty and isn't the HTTP prefix
+	 * Check if we should keep this 
+	 * 
+	 * @param key      string containing the key
+	 * @param value    string containing the value
+	 * @return true is value and key isn't empty and isn't the HTTP prefix
 	 */
 	private boolean saveTag(String key, String value) {
 		return !"".equals(value) && !(Tags.isWebsiteKey(key) && HTTP_PREFIX.equals(value));
@@ -2069,10 +2074,11 @@ public class TagEditorFragment extends BaseFragment implements
 	}
 	
 	/**
-	 * Added key-value to a map stripping training list separator
-	 * @param map
-	 * @param key
-	 * @param value
+	 * Add key-value to a map stripping training list separator
+	 * 
+	 * @param map      target map  
+	 * @param key      string containing the key
+	 * @param value    string containing the value
 	 */
 	private void addTagToMap(Map<String,String>map, String key, String value) {
 		if (primaryPresetItem != null && primaryPresetItem.getKeyType(key)==PresetKeyType.MULTISELECT) {
