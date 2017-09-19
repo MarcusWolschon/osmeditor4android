@@ -1443,7 +1443,7 @@ public class TagEditorFragment extends BaseFragment implements
 		for (Entry<String, StringWithDescription> tag : item.getFixedTags().entrySet()) {
 			String v = tag.getValue().getValue();
 			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(v));
-			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(v)) {
+			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(v) && !(oldValue.size() == 1 && "".equals(oldValue.get(0)))) {
 				replacedValue = true;
 			}
 		}
