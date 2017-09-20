@@ -24,7 +24,7 @@ Create an additional node at this location and use it instead of the original no
 
 ### ![Merge](../images/tag_menu_merge.png) Merge 
 
-Merge the selected node with a way (as a new way node) or with an existing node. 
+Merge the selected node with a way (as a new way node) or with an existing node. To make this tool appear in toolbar, select a node and move it next to a way.
 
 ### ![Extract](../images/extract_node.png) Extract node
 
