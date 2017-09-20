@@ -35,6 +35,7 @@
   <string name="progress_saving_message">Ukládání…</string>
   <string name="progress_uploading_message">Nahrávání...</string>
   <string name="progress_preset_message">Stahování předvoleb…</string>
+  <string name="progress_running_message">Běží...</string>
   <string name="progress_oauth">Načítání vašeho účtu na openstreetmap.org pro OAuth autorizaci...</string>
   <string name="upload_comment_label">Komentář:</string>
   <string name="upload_source_label">Zdroj:</string>
@@ -68,6 +69,7 @@
   <string name="tag_editor_name_suggestion">Navrhování názvu</string>
   <string name="search_results_title">Výsledky vyhledávání</string>
   <string name="find_message">Vložte vyhledávací řetězec</string>
+  <string name="geocoder_prompt">pomocí</string>
   <string name="preset_search_hint">Vyhledávací řetězec předvoleb</string>
   <string name="search">Hledat</string>
   <string name="no_valid_preset">Neplatná předvolba!</string>
@@ -89,6 +91,7 @@
   <string name="error">chyba</string>
   <string name="warning">varování</string>
   <string name="minor_issue">drobná chyba</string>
+  <string name="send_debug_information">Poslat ladicí informace</string>
   <!--Toaster-->
   <string name="toast_no_changes">Zatím jste nic nezměnil…</string>
   <string name="toast_upload_success">Nahrávání na OSM server dokončeno.</string>
@@ -100,6 +103,7 @@
   <string name="toast_not_in_bug_range">Prosím přibližte mapu pro přidání chyby (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
   <string name="toast_export_failed">Export selhal</string>
   <string name="toast_export_success">Exportováno do %1$s</string>
+  <string name="toast_preset_overwrote_tags">Pozn. - předvolba přepsala tag(y)</string>
   <string name="toast_merge_overwrote_tags">Pozn. - operace přepsala tag(y)</string>
   <string name="toast_oneway_reversed">Otočili jste jednosměrnou cestu, nebo cestu se směrově závislými tagy. Zkontrolujte prosím tagy a upravte je, pokud je to nutné.</string>
   <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
@@ -115,6 +119,10 @@
   <string name="toast_imported_track_points">Importováno %1$s bodů trasy.</string>
   <string name="toast_camera_error">Chyba při spouštění aplikace fotoaparátu: %1$s</string>
   <string name="toast_min_one_preset">Musíte vybrat alespoň jednu předvolbu!</string>
+  <string name="toast_no_coverage">%1$s zde nemá pokrytí</string>
+  <string name="toast_needs_resurvey">Objekt může být neaktuální.</string>
+  <string name="toast_openinghours_invalid">Neplatná hodnota otevírací doby pro %1$s</string>
+  <string name="toast_openinghours_autocorrected">Hodnota otevírací doby pro %1$s byla automaticky opravena.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
@@ -131,6 +139,9 @@
   <string name="enable">Povolit</string>
   <string name="clear">Smazat</string>
   <string name="retry">Zkusit znovu</string>
+  <string name="read">Načíst</string>
+  <string name="share">Sdílet</string>
+  <string name="share_position">Sdílet pozici</string>
   <!--Dialog for back button-->
   <string name="exit_title">Opravdu odejít?</string>
   <string name="exit_text">Opravdu chcete odejít?</string>
@@ -160,6 +171,7 @@
   <string name="tag_menu_move_down">Přesunout níž</string>
   <string name="tag_menu_move_bottom">Přesunout na konec</string>
   <string name="tag_menu_download">Stáhnout</string>
+  <string name="tag_menu_js_console">JS Konzole</string>
   <string name="menu_up">O úroveň výš</string>
   <string name="menu_top">Nejvyšší úroveň</string>
   <string name="menu_preset_help">Nápověda k předvolbám</string>
@@ -186,7 +198,7 @@
   <string name="location_load_button">Načíst</string>
   <string name="location_load_dismiss">Zobrazit mapu</string>
   <string name="location_nan_title">Špatný formát!</string>
-  <string name="location_nan_message">Zadejte prosim souřadnice v desetinném formátu (např. \"52.333572\", \"8.741185\"). Zem. šířka musí být mezi -85.0 a +85.0, zem. délka musí být mezi -175.0 a +175.0.</string>
+  <string name="location_nan_message">Zadejte prosím souřadnice v desetinném formátu (např. \"52.333572\", \"8.741185\"). Zem. šířka musí být mezi -85.0 a +85.0, zem. délka musí být mezi -175.0 a +175.0.</string>
   <!--Menu-->
   <string name="menu_move">Přesunout</string>
   <string name="menu_edit">Upravit</string>
@@ -222,6 +234,7 @@
   <string name="menu_transfer">Přenos…</string>
   <string name="menu_transfer_download_current">Stáhnout aktuální pohled</string>
   <string name="menu_transfer_download_current_add">Přidat aktuální pohled ke stažení</string>
+  <string name="menu_transfer_download_other">Stáhnout jinou oblast</string>
   <string name="menu_transfer_upload">Nahrát data na OSM server</string>
   <string name="menu_transfer_close_changeset">Uzavřít aktuální sadu změn</string>
   <string name="menu_transfer_file">Soubor...</string>
@@ -268,6 +281,9 @@
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Resetovat OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizace OAuth</string>
+  <string name="menu_enable_tagfilter">Filtr tagů</string>
+  <string name="menu_enable_presetfilter">Filtr předvoleb</string>
+  <string name="preset_menu_waynodes">Zahrnout uzly cest</string>
   <!--element action mode menu-->
   <string name="menu_tags">Vlastnosti</string>
   <!--Text should be as short as possible-->
@@ -383,6 +399,8 @@
   <string name="config_notificationCacheSize_title">Max. počet zobrazených notifikací</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Pokud je nastaveno, nestažené oblasti budou tmavé v Uzamčeném režimu</string>
+  <string name="config_js_console_title">Povolit JS konzoli</string>
+  <string name="manage_apis">Spravovat API</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizovat předlohy</string>
   <string name="preset_download_successful">Předlohy úspešně staženy.</string>
@@ -394,6 +412,8 @@
   <string name="changes_changed">\"%1$s\" změněno</string>
   <string name="changes_created">\"%1$s\" vytvořeno</string>
   <string name="confirm_upload_title">Odeslat?</string>
+  <string name="confirm_one_upload_text">Nahrát následující změnu?\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Nahrát následujících %1$d změn?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předlohu</string>
   <string name="urldialog_preset_exists">Tato předloha již existuje.</string>
@@ -407,7 +427,7 @@
   <string name="add">Přidat</string>
   <string name="edit">Editovat</string>
   <string name="delete">Smazat</string>
-  <string name="name">jméno</string>
+  <string name="name">Název</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
   <!---->
@@ -508,5 +528,13 @@
     <item>Nikdy</item>
     <item>Vynutit</item>
     <item>Bez stavové lišty</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>Vše</item>
+    <item>Uzly</item>
+    <item>Cesty</item>
+    <item>Cesty+</item>
+    <item>Relace</item>
+    <item>Relace+</item>
   </string-array>
 </resources>

@@ -225,6 +225,7 @@
   <string name="tag_menu_move_bottom">Mover al final</string>
   <string name="tag_menu_sort">Ordenar</string>
   <string name="tag_menu_download">Descargar</string>
+  <string name="tag_menu_js_console">Consola JS</string>
   <string name="menu_up">Subir</string>
   <string name="menu_top">Arriba</string>
   <string name="menu_preset_help">Ayuda predeterminados</string>
@@ -271,6 +272,7 @@
   <string name="menu_extract">Extraer nodo</string>
   <string name="menu_append">Anexar</string>
   <string name="menu_relation">Crear relación</string>
+  <string name="menu_edit_relation">Editar relación</string>
   <string name="menu_add_relation_member">Añadir miembro</string>
   <string name="menu_select_relation_members">Miembros seleccionados</string>
   <string name="menu_tag">Editar etiquetas</string>
@@ -289,10 +291,11 @@
   <string name="menu_gps_export">Exportar traza GPS</string>
   <string name="menu_gps_import">Importar traza GPS</string>
   <string name="menu_gps_goto_start">Ir al inicio de la traza</string>
-  <string name="menu_gps_autodownload">Autodescarga</string>
+  <string name="menu_gps_autodownload">Autodescargar</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descargar vista actual</string>
   <string name="menu_transfer_download_current_add">Añadir vista actual a la descarga</string>
+  <string name="menu_transfer_download_other">Descargar otra ubicación...</string>
   <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
   <string name="menu_transfer_close_changeset">Cerrar el conjunto de cambios actual</string>
   <string name="menu_transfer_file">Archivo...</string>
@@ -341,6 +344,8 @@
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Reiniciar OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
+  <string name="menu_enable_tagfilter">Filtro de etiquetas</string>
+  <string name="preset_menu_invert">Invertir filtros</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propiedades</string>
   <!--Text should be as short as possible-->
@@ -364,6 +369,9 @@
   <string name="actionmode_createpath">Creando camino</string>
   <string name="actionmode_multiselect">Multiselección</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_one_object">1 objeto</string>
+  <string name="actionmode_object_count">%1$d objetos</string>
+  <string name="actionmode_rotateway">Rotar vía</string>
   <!--Preferences-->
   <string name="config_category_editing">Ajustes de datos y edición</string>
   <string name="config_category_view">Ajustes de la interfaz de usuario</string>
@@ -385,7 +393,7 @@
   <string name="config_showTolerance_summary">Muestra el área donde un elemento puede ser seleccionado.</string>
   <string name="config_enableAntiAliasing_title">Habilitar antialias</string>
   <string name="config_enableAntiAliasing_summary">Hace las líneas más suaves.</string>
-  <string name="config_enableOpenStreetBugs_title">Habilitar mostrar Errores y Notas</string>
+  <string name="config_enableOpenStreetBugs_title">Habilitar mostrar errores y notas</string>
   <string name="config_enableOpenStreetBugs_summary">Muestra, edita y crea notas y/o errores.</string>
   <string name="config_enablePhotoLayer_title">Activar capa de fotos</string>
   <string name="config_enablePhotoLayer_summary">Muestra fotos georreferenciadas.</string>
@@ -403,10 +411,12 @@
   <string name="config_apibutton_title">URL OSM API</string>
   <string name="config_apibutton_summary">Puede establecer una URL para la API no estandar aquí. ¡Normalmente no debería ser cambiada!</string>
   <string name="config_api_url_title">URL API</string>
-  <string name="config_api_oauth_title">Utilizar oauth</string>
+  <string name="config_api_oauth_title">Usar oauth</string>
   <string name="listedit_enable_oauth">Activar oauth</string>
   <string name="config_offsetServer_title">Servidor desplazamiento</string>
   <string name="config_offsetServer_summary">URL del servidor de desplazamiento de imágenes</string>
+  <string name="config_osmoseServer_title">Servidor Osmose</string>
+  <string name="config_osmoseServer_summary">URL del servidor Osmose</string>
   <string name="config_presetbutton_title">Predeterminados</string>
   <string name="config_presetbutton_summary">Añade y habilita predeterminados compatibles con JOSM</string>
   <string name="config_iconbutton_title">Mostrar íconos en nodos</string>
