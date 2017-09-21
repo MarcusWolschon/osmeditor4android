@@ -1600,7 +1600,7 @@ public class Logic {
 				createCheckpoint(activity, R.string.undo_action_delete_relation);
 			}
 			displayAttachedObjectWarning(activity, relation); // needs to be done before removal
-			getDelegator().removeRelation(relation);
+            getDelegator().removeRelation(relation);
 			invalidateMap();
 		}
 	}

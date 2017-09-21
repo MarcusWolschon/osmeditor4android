@@ -91,7 +91,7 @@ public class GeometryEditsTest {
     		for (Node n:nList2) System.out.print(" " + n.getOsmId());
     		System.out.println();
     		Relation r1 = logic.createRestriction(main, w1, n2, w2, "test rest");
-    		ArrayList<OsmElement> mList1 = r1.getMemberElements();
+    		List<OsmElement> mList1 = r1.getMemberElements();
     		Assert.assertEquals(3, mList1.size());
     		Assert.assertEquals(w1,mList1.get(0));
     		Assert.assertEquals(n2,mList1.get(1));

@@ -2023,6 +2023,7 @@ public class EasyEditManager {
 		
 		@Override
 		protected void menuDelete(final ActionMode mode) {
+		    Relation r = (Relation) element;
 			if (element.hasParentRelations()) {
 				new AlertDialog.Builder(main)
 					.setTitle(R.string.delete)

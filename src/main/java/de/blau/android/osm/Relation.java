@@ -397,16 +397,30 @@ public class Relation extends OsmElement implements BoundedObject {
 	}
 	
 	/**
-	 * return a list of the downloaded elements
-	 * @return
+	 * Return a list of the downloaded elements
+	 * 
+	 * @return List of OsmElement
 	 */
-	public ArrayList<OsmElement> getMemberElements() {
-		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+	public List<OsmElement> getMemberElements() {
+		List<OsmElement> result = new ArrayList<OsmElement>();
 		for (RelationMember rm:getMembers()) {
 			if (rm.getElement()!=null)
 				result.add(rm.getElement());
 		}
 		return result;
+	}
+	
+	/**
+	 * Check if all member elements are downloaded
+	 * 
+	 * @return true if all elements are present
+	 */
+	public boolean allDownloaded() {
+	    for (RelationMember rm:getMembers()) {
+            if (rm.getElement()==null)
+                return false;
+        }
+	    return true;
 	}
 
 	@Override

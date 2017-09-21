@@ -204,6 +204,7 @@
     <string name="toast_abort_actionmode">Use the back arrow to abort</string>
     <string name="toast_null_island">Please do not add elements at 0°/0° (Null Island)</string>
     <string name="toast_string_too_long">String too long (%1$d characters), truncated!</string>
+    <string name="toast_illegal_operation">Illegal operation: %1%s</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

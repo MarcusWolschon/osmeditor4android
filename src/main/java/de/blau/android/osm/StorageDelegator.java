@@ -1517,11 +1517,13 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
-	 * updated for relation support
-	 * @param node
+	 * Delete a relation
+	 * 
+	 * Note this will only remove backlinks from elements in storage
+	 * @param relation relation to remove
 	 */
 	public void removeRelation(final Relation relation) {
-		// undo - node saved here, affected ways saved in removeWayNodes
+		// undo - relation saved here, affected ways saved in removeRelationFromMembers
 		dirty = true;
 		undo.save(relation);
 		try {
@@ -1543,6 +1545,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	
 	/**
 	 * Remove backlinks in elements
+	 * 
 	 * @param relation to remove from members
 	 */
 	private void removeRelationFromMembers(final Relation relation) {
