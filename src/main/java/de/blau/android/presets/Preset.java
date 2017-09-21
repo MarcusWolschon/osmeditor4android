@@ -289,7 +289,6 @@ public class Preset implements Serializable {
 				Log.i(DEBUG_TAG, "Loading downloaded preset, directory="+directory.toString());
 				iconManager = new PresetIconManager(ctx, directory.toString(), null);
 				File indir = new File(directory.toString());
-				fileStream = null; // force crash and burn
 				File[] list = indir.listFiles(new PresetFileFilter());
 				if (list != null && list.length > 0) { // simply use the first XML file found
 					String presetFilename = list[0].getName();
@@ -2549,7 +2548,6 @@ public class Preset implements Serializable {
 					result = result + ",";
 				}
 				result = result + "\"area\"";
-				first = false;
 			}
 			return  result + "]},\n";
 		}
