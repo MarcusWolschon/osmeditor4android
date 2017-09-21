@@ -333,7 +333,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestMethod("POST");
 				conn.setRequestProperty("User-Agent", App.userAgent);
-				InputStream is = conn.getInputStream();
 				return conn.getResponseCode();
 			} catch (MalformedURLException e) {
 				error = e.getMessage();
@@ -438,7 +437,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 					error = main.getString(R.string.toast_timeout);
 				}
 				displayError(error);
-				error=null;
 			} else {
 				author = server.getDisplayName(); // maybe it has been configured
 			}	
