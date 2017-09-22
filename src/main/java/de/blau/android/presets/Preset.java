@@ -1761,8 +1761,17 @@ public class Preset implements Serializable {
 			for (Entry<String,StringWithDescription> entry:fixedTags.entrySet()) {
 				StringWithDescription v = entry.getValue();
 				addToSearchIndex(entry.getKey());
-				addToSearchIndex(v.getValue());
+				String value = v.getValue();
+				addToSearchIndex(value);
 				addToSearchIndex(v.getDescription());
+				// support subtypes
+				StringWithDescription[] subtypes = recommendedTags.get(value);
+				if (subtypes != null) {
+				    for (StringWithDescription subtype:subtypes) {
+				        addToSearchIndex(subtype.getValue());
+		                addToSearchIndex(subtype.getDescription());
+				    }
+				}
 			}
 		}
 		
