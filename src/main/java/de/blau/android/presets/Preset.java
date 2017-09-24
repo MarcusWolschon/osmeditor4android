@@ -647,6 +647,10 @@ public class Preset implements Serializable {
 						if (editable != null) {
 							currentItem.setEditable(key,"yes".equals(editable) || "true".equals(editable));
 						}
+	                    String searchable = attr.getValue("values_searchable");
+	                    if (searchable != null) {
+	                        currentItem.setValuesSearchable(key,"yes".equals(searchable) || "true".equals(searchable));
+	                    }
 					} else if ("role".equals(name)) {
 						String key = attr.getValue("key");
 						String text = attr.getValue("text");
@@ -691,6 +695,7 @@ public class Preset implements Serializable {
 							currentItem.setAllSort(chunk.sort);
 							currentItem.setAllJavaScript(chunk.javascript);
 							currentItem.setAllEditable(chunk.editable);
+							currentItem.setAllValuesSearchable(chunk.valuesSearchable);
 							currentItem.addAllDelimiters(chunk.delimiters);
 						}
 					} else if ("list_entry".equals(name)) {
@@ -1635,7 +1640,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 10L;
+		private static final long serialVersionUID = 11L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1697,6 +1702,13 @@ public class Preset implements Serializable {
 		 * Key to combo and multiselect editable property
 		 */
 		private HashMap<String,Boolean> editable = null; 
+		
+	    /**
+         * Add combo and multiselect values to search index
+         * 
+         * Can be removed after values have been added
+         */
+        private HashMap<String,Boolean> valuesSearchable = null; 
 		
 		/**
 		 * Translation contexts
@@ -1771,8 +1783,21 @@ public class Preset implements Serializable {
 				        addToSearchIndex(subtype.getValue());
 		                addToSearchIndex(subtype.getDescription());
 				    }
+				    if (valuesSearchable != null) {
+				        valuesSearchable.remove(value);
+				    }
 				}
 			}
+			for (Entry<String,StringWithDescription[]> entry:recommendedTags.entrySet()) {
+			    if (valuesSearchable != null && getValuesSearchable(entry.getKey())) {
+			        for (StringWithDescription value:entry.getValue()) {
+                        addToSearchIndex(value.getValue());
+                        addToSearchIndex(value.getDescription());
+                    }
+			    }
+			}
+			// don't need it anymore
+			valuesSearchable = null;
 		}
 		
 		/**
@@ -1844,6 +1869,7 @@ public class Preset implements Serializable {
 		
 		/**
 		 * Adds a recommended or optional tag to the item and populates autosuggest.
+		 * 
 		 * @param optional true if optional, false if recommended
 		 * @param key key name of the tag
 		 * @param values values string from the XML (comma-separated list of possible values)
@@ -2064,6 +2090,46 @@ public class Preset implements Serializable {
 		public MatchType getMatchType(String key) {
 			return matchType != null ? matchType.get(key) : null;
 		}
+		
+		/**
+		 * Record if the values from the combo or multiselect values should be added to the search index
+		 * 
+		 * @param key     combo/multiselect key
+		 * @param search  if true add to index
+		 */
+	    public void setValuesSearchable(String key, boolean search) {
+	        if (valuesSearchable == null) {
+	            valuesSearchable = new HashMap<String,Boolean>();
+	        }
+	        valuesSearchable.put(key, search);
+	    }
+	    
+	    /**
+	     * Add the values in the argument to the list of combo or multiselect that should be added to the search index
+	     * 
+	     * @param newValuesSearchable HashMap of keys and flags
+	     */
+	    public void setAllValuesSearchable(HashMap<String,Boolean> newValuesSearchable) {
+	            if (valuesSearchable == null) { 
+	                valuesSearchable = newValuesSearchable; 
+	            } else if (newValuesSearchable != null){
+	                valuesSearchable.putAll(newValuesSearchable);
+	            }
+	        }
+
+	    /**
+	     * Check if values for this key should be added to the search index
+	     * 
+	     * @param key  key to check
+	     * @return true if values should be added to the search index
+	     */
+	    public boolean getValuesSearchable(String key) {
+	        if (valuesSearchable != null) {
+	            Boolean result = valuesSearchable.get(key);
+	            return result != null ? result : false;
+	        }
+	        return false;
+	    }
 		
 		public void addLinkedPresetName(String presetName) {
 			if (linkedPresetNames == null) {

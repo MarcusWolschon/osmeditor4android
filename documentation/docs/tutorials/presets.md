@@ -61,7 +61,7 @@ __&lt;combo&gt;__            |                               | supported |
                    | values_context                | supported |
                    | editable                      | supported | default is "false"
                    | use_last_as_default           | ignored   |
-                   | values_searchable             | ignored   | all values are currently added to the index
+                   | values_searchable             | supported | subtype values are added regardless of the setting
                    | length                        | ignored   |
                    | values_no_i18n                | ignored   |
                    | values_from                   | ignored   |
@@ -79,7 +79,7 @@ __&lt;multiselect&gt;__      |                               | supported |
                    | values_context                | supported |
                    | editable                      | supported | default is "false"
                    | use_last_as_default           | ignored   |
-                   | values_searchable             | ignored   | all values are currently added to the index
+                   | values_searchable             | supported | subtype values are added regardless of the setting
                    | length                        | ignored   |
                    | values_no_i18n                | ignored   |
                    | values_from                   | ignored   |
