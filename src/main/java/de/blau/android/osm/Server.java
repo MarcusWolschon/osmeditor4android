@@ -1046,7 +1046,7 @@ public class Server {
 	/**
 	 * These patterns are fairly, to very, unforgiving, hopefully API 0.7 will give the error codes back in a more structured way
 	 */
-	private static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET = Pattern.compile("(?i)The changeset ([0-9]+) was closed at");
+	private static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET = Pattern.compile("(?i)The changeset ([0-9]+) was closed at.*");
 	private static final Pattern ERROR_MESSAGE_VERSION_CONFLICT = Pattern.compile("(?i)Version mismatch: Provided ([0-9]+), server had: ([0-9]+) of (Node|Way|Relation) ([0-9]+)");
 	private static final Pattern ERROR_MESSAGE_DELETED = Pattern.compile("(?i)The (node|way|relation) with the id ([0-9]+) has already been deleted");
 	private static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED = Pattern.compile("(?i)Precondition failed: (Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
@@ -1218,7 +1218,14 @@ public class Server {
 		Log.e(DEBUG_TAG, "Error message matched, but parsing failed: " + message);
 	}
 
-	private static String readStream(final InputStream in) {
+	/**
+	 * Read a stream to its "end" and return the results as a String
+	 * 
+	 * @param in   an InputStream to read
+	 * @return a String containing the read contents
+	 */
+	@NonNull
+	private static String readStream(@Nullable final InputStream in) {
 		String res = "";
 		if (in != null) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
@@ -1572,10 +1579,14 @@ public class Server {
 		return result;
 	}
 	
+	   //The note 10597 was closed at 2017-09-24 17:59:18 UTC
+    private static final Pattern ERROR_MESSAGE_NOTE_ALREADY_CLOSED = Pattern.compile("(?i)The note ([0-9]+) was closed at.*");
+	
 	//TODO rewrite to XML encoding (if supported)
 	/**
 	 * Perform an HTTP request to add the specified comment to the specified bug.
-	 * Blocks until the request is complete.
+	 * 
+	 * Blocks until the request is complete. Will reopen the Note if it is already closed.
 	 * @param bug The bug to add the comment to.
 	 * @param comment The comment to add to the bug.
 	 * @return true if the comment was successfully added.
@@ -1585,7 +1596,7 @@ public class Server {
 	 */
 	public void addComment(Note bug, NoteComment comment) throws OsmServerException, IOException, XmlPullParserException {
 		if (!bug.isNew()) {
-			Log.d(DEBUG_TAG, "adding note comment" + bug.getId());
+			Log.d(DEBUG_TAG, "adding note comment " + bug.getId());
 			// http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
 			HttpURLConnection connection = null;
 			try {
@@ -1598,8 +1609,24 @@ public class Server {
 
 				// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8")+ "\r\n");
 				out.flush();
-				if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-					throwOsmServerException(connection);
+				int responseCode = connection.getResponseCode();
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+	                   if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+	                        InputStream errorStream = connection.getErrorStream();
+	                        String message = readStream(errorStream);
+	                        Log.d(DEBUG_TAG, "409: " + message);
+	                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
+	                        if (m.matches()) {
+	                            String idStr = m.group(1);
+	                            Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
+	                            reopenNote(bug);
+	                            addComment(bug, comment);
+	                            return;
+	                        } 
+	                        throwOsmServerException(connection);
+	                    } else {
+	                        throwOsmServerException(connection);
+	                    }
 				}
 				parseBug(bug, connection.getInputStream());
 			} finally {
@@ -1611,6 +1638,7 @@ public class Server {
 	//TODO rewrite to XML encoding
 	/**
 	 * Perform an HTTP request to add the specified bug to the OpenStreetBugs database.
+	 * 
 	 * Blocks until the request is complete.
 	 * @param bug The bug to add.
 	 * @param comment The first comment for the bug.
@@ -1642,11 +1670,12 @@ public class Server {
 			}
 		}
 	}
-	
+		
 	//TODO rewrite to XML encoding
 	/**
 	 * Perform an HTTP request to close the specified bug.
-	 * Blocks until the request is complete.
+	 * 
+	 * Blocks until the request is complete. FIXME If the note is already closed the error is ignored. 
 	 * @param bug The bug to close.
 	 * @return true if the bug was successfully closed.
 	 * @throws IOException 
@@ -1661,8 +1690,21 @@ public class Server {
 				// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
 				URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
 				connection = openConnectionForWriteAccess(closeNoteUrl, "POST", "text/xml");
-				if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-					throwOsmServerException(connection);
+				int responseCode = connection.getResponseCode();
+				if (responseCode != HttpURLConnection.HTTP_OK) {
+				    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+				        InputStream errorStream = connection.getErrorStream();
+				        String message = readStream(errorStream);
+				        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
+	                    if (m.matches()) {
+	                        String idStr = m.group(1);
+	                        Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
+	                        return;
+	                    } 
+	                    throwOsmServerException(connection);
+				    } else {
+				        throwOsmServerException(connection);
+				    }
 				}
 				parseBug(bug, connection.getInputStream());
 			} finally {
@@ -1673,6 +1715,7 @@ public class Server {
 	
 	/**
 	 * Perform an HTTP request to reopen the specified bug.
+	 * 
 	 * Blocks until the request is complete.
 	 * @param bug The bug to close.
 	 * @return true if the bug was successfully closed.
@@ -1809,6 +1852,7 @@ public class Server {
 	
 	/**
 	 * Construct and throw an OsmServerException from the connection to the server
+	 * 
 	 * @param connection connection connection to server
 	 * @param e the OSM element that the error was caused by
 	 * @param responsecode code returen from server
@@ -1823,7 +1867,7 @@ public class Server {
 		}
 		InputStream in = connection.getErrorStream();
 		if (e == null) {
-			Log.d(DEBUG_TAG, "response message " + responseMessage);
+			Log.d(DEBUG_TAG, "respone code " + responsecode + "response message " + responseMessage);
 			throw new OsmServerException(responsecode, readStream(in));
 		} else {
 			throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), readStream(in));

@@ -284,12 +284,15 @@ public class TaskFragment extends DialogFragment {
     }
     
     /**
-     * Invalidate the menu
+     * Invalidate the menu and map if we are called from Main
      */
 	private void updateMenu() {
 		FragmentActivity activity = getActivity();
 		if (activity != null) {
 			activity.invalidateOptionsMenu();
+			if (activity instanceof Main) {
+			    ((Main)activity).invalidateMap();
+			}
 		}
 	}
     

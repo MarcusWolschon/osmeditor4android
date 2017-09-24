@@ -1691,7 +1691,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			
 		case R.id.menu_transfer_bugs_clear:
 			if (App.getTaskStorage().hasChanges()) { // FIXME show a dialog and allow override
-				Snack.barError(this, R.string.toast_unsaved_changes);
+				Snack.barError(this, R.string.toast_unsaved_changes, R.string.clear_anyway, new OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        App.getTaskStorage().reset();
+                        map.invalidate();      
+                    }    
+				});
 				return true;
 			}
 			App.getTaskStorage().reset();

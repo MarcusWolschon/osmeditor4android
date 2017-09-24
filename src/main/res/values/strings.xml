@@ -133,6 +133,7 @@
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_unsaved_changes">You have unsaved changes, please upload them first.</string>
+    <string name="clear_anyway">Clear anyway?</string>
     <string name="toast_upload_success">Upload to OSM server finished.</string>
     <string name="toast_not_in_edit_range">Please zoom in to edit (Volume Up/Down or Lens/Shift)</string>
     <string name="toast_unlock_to_edit">Unlock to edit</string>

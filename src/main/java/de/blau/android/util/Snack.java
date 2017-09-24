@@ -204,6 +204,38 @@ public class Snack {
 		enqueueError(snackbar);
 	}
 	
+	   /**
+     * Display a snackbar with an error message with a possible action
+     * 
+     * @param activity  activity calling us
+     * @param msgRes    message to display
+     * @param actionRes action textRes resource for the text of an action
+     * @param listener called when action is selected
+     */
+    public static void barError(Activity activity, int msgRes, int actionRes, View.OnClickListener listener) {
+        if (activity != null) {
+            barError(activity.findViewById(android.R.id.content), msgRes, actionRes, listener);
+        }
+    }
+    
+    /**
+     * Display a snackbar with an error message with a possible action
+     * 
+     * @param v         view to display the snackbar on
+     * @param msgRes    message to display
+     * @param actionRes action textRes resource for the text of an action
+     * @param listener  called when action is selected
+     */
+    public static void barError(View v, int msgRes, int actionRes, View.OnClickListener listener) {
+        Snackbar snackbar = Snackbar.make(v, msgRes, Snackbar.LENGTH_LONG);
+        snackbar.setDuration(5000);
+        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
+        snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
+        snackbar.setAction (actionRes, listener);
+        snackbar.setCallback(callback);
+        enqueueInfo(snackbar);
+    }
+	
 	/**
 	 * Display a snackbar with an informational message
 	 * 
@@ -326,10 +358,10 @@ public class Snack {
 	/**
 	 * Display a snackbar with an informational message with a possible action
 	 * 
-	 * @param activity activity calling us
-	 * @param msg message to display
-	 * @param action action textRes resource for the text of an action
-	 * @param listener called when action is selected
+	 * @param activity     activity calling us
+	 * @param msg          message to display
+	 * @param actionRes    action textRes resource for the text of an action
+	 * @param listener     called when action is selected
 	 */
 	public static void barInfo(Activity activity, String msg, int actionRes, View.OnClickListener listener) {
 		if (activity != null) {
@@ -342,7 +374,7 @@ public class Snack {
 	 * 
 	 * @param v 		view to display the snackbar on
 	 * @param msg 		message to display
-	 * @param action 	action textRes resource for the text of an action
+	 * @param actionRes action textRes resource for the text of an action
 	 * @param listener 	called when action is selected
 	 */
 	public static void barInfo(View v, String msg, int actionRes, View.OnClickListener listener) {
