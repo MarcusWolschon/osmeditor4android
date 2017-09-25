@@ -549,6 +549,8 @@ public class TileLayerServer {
 						// Log.d("OpenStreetMapTileServer","Adding background " + osmts.overlay + " " + osmts.toString());
 						backgroundServerList.put(osmts.id,osmts);
 					}
+				} else {
+				    Log.e(DEBUG_TAG,"Imagery file couldn't be parsed");
 				}
 			}
 			reader.endArray();
@@ -565,6 +567,7 @@ public class TileLayerServer {
 	/**
 	 * Get the tile server information for a specified tile server id. If the given
 	 * id cannot be found, a default renderer is selected. 
+	 * 
 	 * Note: will read the the config files it that hasn't happened yet
 	 * @param ctx activity context
 	 * @param id The internal id of the tile layer, eg "MAPNIK"
@@ -692,8 +695,9 @@ public class TileLayerServer {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		if (type == null || "wms".equals(type))
+		if (type == null || url == null || "wms".equals(type))
 			return null;
 		TileLayerServer osmts = new TileLayerServer(ctx, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl,
 				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, preference, startDate, endDate, async);
