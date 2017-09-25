@@ -159,7 +159,7 @@ import oauth.signpost.exception.OAuthException;
  * 
  * @author mb
  */
-public class Main extends FullScreenAppCompatActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener {
+public class Main extends FullScreenAppCompatActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.util.SearchItemFoundCallback  {
 
 	/**
 	 * Tag used for Android-logging.
@@ -1343,7 +1343,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 		return true;
 	}
-
+ 	
+    @Override
+    public void onItemFound(SearchResult sr) {
+        // turn this off or else we get bounced back to our current GPS position
+        setFollowGPS(false);
+        getMap().setFollowGPS(false);
+        App.getLogic().setZoom(getMap(), 19);
+        getMap().getViewBox().moveTo(getMap(), (int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
+        getMap().invalidate();
+    }
+    
 	/**
 	 * {@inheritDoc}
 	 */
@@ -1363,19 +1373,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return true;
 			
 		case R.id.menu_find:
-			SearchForm.showDialog(this, map.getViewBox(), new de.blau.android.util.SearchItemFoundCallback() {
-				private static final long serialVersionUID = 1L;
-
-				@Override
-				public void onItemFound(SearchResult sr) {
-					// turn this off or else we get bounced back to our current GPS position
-					setFollowGPS(false);
-					getMap().setFollowGPS(false);
-					logic.setZoom(getMap(), 19);
-					getMap().getViewBox().moveTo(getMap(), (int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
-					getMap().invalidate();
-				}
-			});
+			SearchForm.showDialog(this, map.getViewBox());
 			return true;
 		case R.id.menu_enable_tagfilter:
 		case R.id.menu_enable_presetfilter:

@@ -1,6 +1,7 @@
 package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -57,11 +58,11 @@ public class SearchForm extends DialogFragment
    	/**
 	 *
 	 */
-	static public void showDialog(AppCompatActivity activity, final BoundingBox bbox, final SearchItemFoundCallback callback) {
+	static public void showDialog(AppCompatActivity activity, final BoundingBox bbox) {
 		dismissDialog(activity);
 		try {
 			FragmentManager fm = activity.getSupportFragmentManager();
-			SearchForm searchFormFragment = newInstance(bbox, callback);
+			SearchForm searchFormFragment = newInstance(bbox);
 			searchFormFragment.show(fm, TAG);
 		} catch (IllegalStateException isex) {
 			Log.e(DEBUG_TAG,"showDialog",isex);
@@ -84,12 +85,11 @@ public class SearchForm extends DialogFragment
 
     /**
      */
-    static private SearchForm newInstance(final BoundingBox bbox, final SearchItemFoundCallback callback) {
+    static private SearchForm newInstance(final BoundingBox bbox) {
     	SearchForm f = new SearchForm();
 
         Bundle args = new Bundle();
 		args.putSerializable(BBOX, bbox);
-        args.putSerializable(CALLBACK, callback);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -104,7 +104,17 @@ public class SearchForm extends DialogFragment
         setCancelable(true);
 
         bbox = (BoundingBox) getArguments().getSerializable(BBOX);
-        callback = (SearchItemFoundCallback) getArguments().getSerializable(CALLBACK);
+    }
+    
+    @Override
+    public void onAttach(Activity activity) {
+        Log.d(DEBUG_TAG, "onAttach");
+        super.onAttach(activity);
+        try {
+            callback = (SearchItemFoundCallback) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement ");
+        }
     }
 
     @NonNull

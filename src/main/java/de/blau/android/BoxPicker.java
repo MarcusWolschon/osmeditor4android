@@ -52,7 +52,7 @@ import de.blau.android.util.Search.SearchResult;
  * 
  * @author mb
  */
-public class BoxPicker extends BugFixedAppCompatActivity implements LocationListener {
+public class BoxPicker extends BugFixedAppCompatActivity implements LocationListener, de.blau.android.util.SearchItemFoundCallback {
 	
 	/**
 	 * Tag used for Android-logging.
@@ -101,6 +101,10 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 	
 	private static final int MIN_WIDTH = 50;
 	
+	Button loadMapButton;
+	EditText latEdit;
+	EditText lonEdit;
+	
 	/**
 	 * Registers some listeners, sets the content view and initialize
 	 * {@link #currentRadius}.</br> {@inheritDoc}
@@ -117,10 +121,10 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 		
 		//Load Views
 		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.location_type_group);
-		final Button loadMapButton = (Button) findViewById(R.id.location_button_current);
+		loadMapButton = (Button) findViewById(R.id.location_button_current);
 		Button dontLoadMapButton = ((Button) findViewById(R.id.location_button_no_location));
-		final EditText latEdit = (EditText) findViewById(R.id.location_lat_edit);
-		final EditText lonEdit = (EditText) findViewById(R.id.location_lon_edit);
+		latEdit = (EditText) findViewById(R.id.location_lat_edit);
+		lonEdit = (EditText) findViewById(R.id.location_lon_edit);
 		EditText searchEdit = (EditText) findViewById(R.id.location_search_edit);
 		SeekBar seeker = (SeekBar) findViewById(R.id.location_radius_seeker);
 		
@@ -155,27 +159,12 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 			public void onNothingSelected(AdapterView<?> arg0) {
 			}});
 		
-		final de.blau.android.util.SearchItemFoundCallback searchItemFoundCallback = new de.blau.android.util.SearchItemFoundCallback() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onItemFound(SearchResult sr) {
-				RadioButton rb = (RadioButton) findViewById(R.id.location_coordinates);
-				rb.setChecked(true); // note potential race condition with setting the lat/lon	
-				LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
-				coordinateView.setVisibility(View.VISIBLE);
-				loadMapButton.setEnabled(true);
-				latEdit.setText(Double.toString(sr.getLat()));
-            	lonEdit.setText(Double.toString(sr.getLon()));
-			}
-		};
-		
 		searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 		    @Override
 		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		        if (actionId == EditorInfo.IME_ACTION_SEARCH
 			        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-		            Search search = new Search(BoxPicker.this, searchItemFoundCallback);
+		            Search search = new Search(BoxPicker.this, BoxPicker.this);
 		            search.find(geocoders[searchGeocoder.getSelectedItemPosition()],v.getText().toString(),null);
 		            return true;
 		        }
@@ -187,6 +176,16 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 	
+    @Override
+    public void onItemFound(SearchResult sr) {
+        RadioButton rb = (RadioButton) findViewById(R.id.location_coordinates);
+        rb.setChecked(true); // note potential race condition with setting the lat/lon  
+        LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
+        coordinateView.setVisibility(View.VISIBLE);
+        loadMapButton.setEnabled(true);
+        latEdit.setText(Double.toString(sr.getLat()));
+        lonEdit.setText(Double.toString(sr.getLon()));
+    }
 	
 	@Override
 	protected void onPause() {
