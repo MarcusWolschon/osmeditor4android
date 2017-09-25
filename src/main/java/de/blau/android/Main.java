@@ -352,7 +352,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private boolean wantLocationUpdates = false;
 	
 	private GeoUrlData geoData = null;
+	private Object geoDataLock = new Object();
 	private RemoteControlUrlData rcData = null;
+	private Object rcDataLock = new Object();
 
 	/**
 	 * Optional bottom toolbar 
@@ -413,8 +415,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	protected void onCreate(final Bundle savedInstanceState) {
 		Log.i(DEBUG_TAG, "onCreate " + (savedInstanceState != null?" no saved state " : " saved state exists"));
 		// minimal support for geo: uris and JOSM style remote control
-		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
-		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+		synchronized (geoDataLock) {
+		    geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+		}
+		synchronized (rcDataLock) {
+		    rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+		}
 		
 		prefs = new Preferences(this);
 		
@@ -646,8 +652,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			return;
 		}
 		setIntent(intent);
-		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
-		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+		synchronized (geoDataLock) {
+		    geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+		}
+		
+		synchronized (rcDataLock) {
+		    rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+		}
 	}
 
 	@Override
@@ -818,94 +829,99 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 	
 	/**
-	 * Process geo an JOSM remote control intents
+	 * Process geo and JOSM remote control intents
 	 */
 	private void processIntents() {
-		final Logic logic = App.getLogic();
-		if (geoData != null) {
-			Log.d(DEBUG_TAG,"got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + App.getDelegator().isDirty());
-			if (prefs.getDownloadRadius() != 0) { // download
-				BoundingBox bbox;
-				try {
-					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
-					List<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
-					List<BoundingBox> bboxes = null;
-					if (App.getDelegator().isEmpty()) {
-						bboxes = new ArrayList<BoundingBox>();
-						bboxes.add(bbox);
-					} else {
-						bboxes = BoundingBox.newBoxes(bbList, bbox);
-					}
-					if (bboxes != null && bboxes.size() > 0) {
-						logic.downloadBox(this, bbox, true, null); 
-						if (prefs.areBugsEnabled()) { // always adds bugs for now
-							TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
-								private static final long serialVersionUID = 1L;
-								@Override
-								public void onSuccess() {
-									getMap().invalidate();
-								}
-								@Override
-								public void onError() {
-								}
-							});
-						}
-					} else {
-						Log.d(DEBUG_TAG,"no bbox to download");
-						logic.getViewBox().setBorders(getMap(), bbox);
-						map.invalidate();
-					}
-				} catch (OsmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				Log.d(DEBUG_TAG,"moving to position");
-				map.getViewBox().moveTo(getMap(), (int)(geoData.getLon()*1E7), (int)(geoData.getLat()*1E7));
-				map.invalidate();
-			}
-			geoData=null; // zap to stop repeated downloads
-		} 
-		if (rcData != null) {
-			Log.d(DEBUG_TAG,"got data from remote control url " + rcData.getBox() + " load " + rcData.load());
-			StorageDelegator delegator = App.getDelegator();
-			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(delegator.getBoundingBoxes());
-			BoundingBox loadBox = rcData.getBox();
-			if (loadBox != null) {
-				if (rcData.load()) { // download
-					List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox); 
-					if (bboxes != null && (bboxes.size() > 0 || delegator.isEmpty())) {
-						// only download if we haven't yet
-						logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
-							private static final long serialVersionUID = 1L;
-							@Override
-							public void onSuccess(){
-								rcDataEdit(rcData);
-								rcData=null; // zap to stop repeated downloads
-							}
-							@Override
-							public void onError() {
-							}
-						});
-					} else {
-						rcDataEdit(rcData);
-						rcData=null; // zap to stop repeated downloads
-					}
-				} else { // zoom
-					map.getViewBox().setBorders(getMap(),rcData.getBox());
-					map.invalidate();
-					rcData=null; // zap to stop repeated downloads
-				}
-			} else {
-				Log.d(DEBUG_TAG,"RC box is null");
-				rcDataEdit(rcData);
-				rcData=null; // zap to stop repeated downloads
-			}
-		}
+	    final Logic logic = App.getLogic();
+	    synchronized (geoDataLock) {
+	        if (geoData != null) {
+	            Log.d(DEBUG_TAG,"got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + App.getDelegator().isDirty());
+	            if (prefs.getDownloadRadius() != 0) { // download
+	                BoundingBox bbox;
+	                try {
+	                    bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
+	                    List<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
+	                    List<BoundingBox> bboxes = null;
+	                    if (App.getDelegator().isEmpty()) {
+	                        bboxes = new ArrayList<BoundingBox>();
+	                        bboxes.add(bbox);
+	                    } else {
+	                        bboxes = BoundingBox.newBoxes(bbList, bbox);
+	                    }
+	                    if (bboxes != null && bboxes.size() > 0) {
+	                        logic.downloadBox(this, bbox, true, null); 
+	                        if (prefs.areBugsEnabled()) { // always adds bugs for now
+	                            TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
+	                                private static final long serialVersionUID = 1L;
+	                                @Override
+	                                public void onSuccess() {
+	                                    getMap().invalidate();
+	                                }
+	                                @Override
+	                                public void onError() {
+	                                }
+	                            });
+	                        }
+	                    } else {
+	                        Log.d(DEBUG_TAG,"no bbox to download");
+	                        logic.getViewBox().setBorders(getMap(), bbox);
+	                        map.invalidate();
+	                    }
+	                } catch (OsmException e) {
+	                    // TODO Auto-generated catch block
+	                    e.printStackTrace();
+	                }
+	            } else {
+	                Log.d(DEBUG_TAG,"moving to position");
+	                map.getViewBox().moveTo(getMap(), (int)(geoData.getLon()*1E7), (int)(geoData.getLat()*1E7));
+	                map.invalidate();
+	            }
+	            geoData=null; // zap to stop repeated downloads
+	        } 
+	    }
+	    synchronized (rcDataLock) {
+	        if (rcData != null) {
+	            Log.d(DEBUG_TAG,"got data from remote control url " + rcData.getBox() + " load " + rcData.load());
+	            StorageDelegator delegator = App.getDelegator();
+	            ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(delegator.getBoundingBoxes());
+	            BoundingBox loadBox = rcData.getBox();
+	            if (loadBox != null) {
+	                if (rcData.load()) { // download
+	                    List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox); 
+	                    if (bboxes != null && (bboxes.size() > 0 || delegator.isEmpty())) {
+	                        // only download if we haven't yet
+	                        logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
+	                            private static final long serialVersionUID = 1L;
+	                            @Override
+	                            public void onSuccess(){
+	                                rcDataEdit(rcData);
+	                                rcData=null; // zap to stop repeated downloads
+	                            }
+	                            @Override
+	                            public void onError() {
+	                            }
+	                        });
+	                    } else {
+	                        rcDataEdit(rcData);
+	                        rcData=null; // zap to stop repeated downloads
+	                    }
+	                } else { // zoom
+	                    map.getViewBox().setBorders(getMap(),rcData.getBox());
+	                    map.invalidate();
+	                    rcData=null; // zap to stop repeated downloads
+	                }
+	            } else {
+	                Log.d(DEBUG_TAG,"RC box is null");
+	                rcDataEdit(rcData);
+	                rcData=null; // zap to stop repeated downloads
+	            }
+	        }
+	    }
 	}
 	
 	/**
 	 * Parse the parameters of a JOSM remote control URL and select and edit the OSM objects.
+	 * 
 	 * @param rcData Data of a remote control data URL.
 	 */
 	private void rcDataEdit(RemoteControlUrlData rcData) {
