@@ -1,6 +1,6 @@
 # Vespucci 소개
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci는 데스크탑 편집기가 제공하는 대부분의 작업을 지원하는 완전한 기능의 OpenStreetMap 편집기입니다. 이것은 성공적으로 구글의 안드로이드 버전2.3에서 7.0 및 다양한 AOSP 기반 변종에 테스트되었습니다. 주의해야 할 점은 모바일 장치 기능이 데스크톱 경쟁자를 따라 잡았지만, 특히 구형 장치들은 사용 가능한 메모리가 매우 제한되어 있고 느린 경향이 있다는 점입니다. Vespucci를 사용할 때는 이것을 고려해야합니다. 예를 들어 편집하려는 영역의 크기를 적절한 크기로 유지해야합니다. 
 
 ## 첫번째 사용
 

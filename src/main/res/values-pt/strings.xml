@@ -94,7 +94,7 @@
   <string name="search_results_title">Resultados da pesquisa</string>
   <string name="find_message">Introduza o texto a pesquisar</string>
   <string name="geocoder_prompt">com</string>
-  <string name="preset_search_hint">Expressão de modelo de etiquetas a pesquisar</string>
+  <string name="preset_search_hint">Expressão a pesquisar</string>
   <string name="search">Pesquisar</string>
   <string name="no_valid_preset">Nenhum modelo de etiquetas válido!</string>
   <string name="read_file">Selecione o arquivo para ler</string>
@@ -250,7 +250,7 @@ sem gravar</string>
   <string name="tag_menu_top">Deslocar para cima</string>
   <string name="tag_menu_bottom">Deslocar para baixo</string>
   <string name="tag_value_hint">Escrever valor</string>
-  <string name="tag_autocomplete_value_hint">Escreva ou carregue nos valores</string>
+  <string name="tag_autocomplete_value_hint">Escreva ou escolha os valores</string>
   <string name="tag_autocomplete_name_hint">Escreva ou carregue para sugestões de nomes</string>
   <string name="tag_multi_value_hint">Vários valores</string>
   <string name="tag_dialog_value_hint">Carregar para obter valores</string>
@@ -358,19 +358,19 @@ há %3$s %4$s</string>
   <string name="menu_transfer_save_notes_new_and_changed">Gravar Erros Reportados novos e alterados...</string>
   <string name="menu_save">Gravar no ficheiro</string>
   <string name="menu_join">Unir</string>
-  <string name="menu_unjoin">Separar</string>
+  <string name="menu_unjoin">Dividir</string>
   <string name="menu_copy">Copiar</string>
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Colar</string>
   <string name="menu_paste_from_clipboard">Colar da área de tranferência</string>
-  <string name="menu_zoom_to_selection">Zoom da seleção</string>
+  <string name="menu_zoom_to_selection">Enquadrar seleção</string>
   <string name="menu_rotate">Rodar</string>
   <string name="menu_orthogonalize">Ortogonalizar</string>
   <string name="menu_circulize">Organizar em círculo</string>
-  <string name="menu_split_polygon">Separar em polígonos</string>
+  <string name="menu_split_polygon">Dividir em 2 polígonos</string>
   <string name="menu_newnode_gps">Novo nó na posição do GPS</string>
-  <string name="menu_extend_selection">Aumentar seleção</string>
-  <string name="menu_information">Info</string>
+  <string name="menu_extend_selection">Selecionar mais</string>
+  <string name="menu_information">Informações do elemento</string>
   <string name="menu_voice_commands">Comandos de voz</string>
   <string name="menu_set_name">Definir nome</string>
   <string name="tag_form_unknown_element">Elemento desconhecido (nenhum modelo de etiquetas encontrado)</string>
@@ -416,8 +416,8 @@ há %3$s %4$s</string>
   <string name="actionmode_createpath">A criar caminho</string>
   <string name="actionmode_multiselect">Seleção múltipla</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Separar linha fechada, primeiro nó</string>
-  <string name="actionmode_closed_way_split_2">Separar linha fechada, segundo nó</string>
+  <string name="actionmode_closed_way_split_1">Dividir linha fechada: 1º nó</string>
+  <string name="actionmode_closed_way_split_2">Dividir linha fechada, 2º nó</string>
   <string name="actionmode_restriction">Adicionar restrição de viragem</string>
   <string name="actionmode_restriction_restart_from">Selecionar novamente o segmento \"from\" (de)</string>
   <string name="actionmode_restriction_via">Adicionar segmento/elemento \"via\"</string>
@@ -448,7 +448,7 @@ há %3$s %4$s</string>
   <string name="config_showTolerance_summary">Mostra a área onde um elemento pode ser selecionado.</string>
   <string name="config_enableAntiAliasing_title">Ativar Suavização</string>
   <string name="config_enableAntiAliasing_summary">Torna as linhas mais suaves como anti-serrilhado.</string>
-  <string name="config_enableOpenStreetBugs_title">Ativar visualização de Erros Reportados e OSMOSE</string>
+  <string name="config_enableOpenStreetBugs_title">Mostrar Erros Report. e OSMOSE</string>
   <string name="config_enableOpenStreetBugs_summary">Visualizar, Editar e Criar Erros Reportados/OSMOSE</string>
   <string name="config_enablePhotoLayer_title">Ativar camada de Fotos</string>
   <string name="config_enablePhotoLayer_summary">Mostrar fotos geo-referenciadas</string>
@@ -461,7 +461,7 @@ há %3$s %4$s</string>
   <string name="config_overlayLayer_title">Camada de cima</string>
   <string name="config_overlayLayer_summary">O tema gráfico desenhado sobre o mapa.</string>
   <string name="config_scale_title">Escala mostrada</string>
-  <string name="config_scale_summary">Tipo de escala mostrado no mapa.</string>
+  <string name="config_scale_summary">Tipo de escala mostrada no mapa</string>
   <string name="config_category_server">Configurações do Servidor</string>
   <string name="config_apibutton_title">URL da API do OpenStreetMap</string>
   <string name="config_apibutton_summary">Pode definir aqui um URL da API do OpenStreetMap diferente do usual. Em geral isto não deve ser alterado!</string>
@@ -617,7 +617,7 @@ há %3$s %4$s</string>
   <string name="undo_action_reverse_way">inverter via</string>
   <string name="undo_action_set_tags">definir etiquetas</string>
   <string name="undo_action_join">unir</string>
-  <string name="undo_action_unjoin_ways">separar vias</string>
+  <string name="undo_action_unjoin_ways">dividir vias</string>
   <string name="undo_action_create_relation">criar relação</string>
   <string name="undo_action_delete_relation">eliminar relação</string>
   <string name="undo_action_update_relations">atualizar relações</string>
