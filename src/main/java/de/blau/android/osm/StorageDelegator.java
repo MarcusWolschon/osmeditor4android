@@ -2257,7 +2257,12 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 			server.openChangeset(comment, tmpSource, Util.listToOsmList(imagery));
 
-			server.diffUpload(this);
+			try {
+			    lock();
+			    server.diffUpload(this);
+			} finally {
+			    unlock();
+			}
 
 			if (closeChangeset || split) { // always close when splitting
 				server.closeChangeset();
