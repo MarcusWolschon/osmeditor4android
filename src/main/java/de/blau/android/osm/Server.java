@@ -1579,8 +1579,10 @@ public class Server {
 		return result;
 	}
 	
-	   //The note 10597 was closed at 2017-09-24 17:59:18 UTC
+	//The note 10597 was closed at 2017-09-24 17:59:18 UTC
     private static final Pattern ERROR_MESSAGE_NOTE_ALREADY_CLOSED = Pattern.compile("(?i)The note ([0-9]+) was closed at.*");
+    //
+    private static final Pattern ERROR_MESSAGE_NOTE_ALREADY_OPENED = Pattern.compile("(?i)The note ([0-9]+) is already open.*");
 	
 	//TODO rewrite to XML encoding (if supported)
 	/**
@@ -1675,7 +1677,7 @@ public class Server {
 	/**
 	 * Perform an HTTP request to close the specified bug.
 	 * 
-	 * Blocks until the request is complete. FIXME If the note is already closed the error is ignored. 
+	 * Blocks until the request is complete. If the note is already closed the error is ignored. 
 	 * @param bug The bug to close.
 	 * @return true if the bug was successfully closed.
 	 * @throws IOException 
@@ -1716,7 +1718,7 @@ public class Server {
 	/**
 	 * Perform an HTTP request to reopen the specified bug.
 	 * 
-	 * Blocks until the request is complete.
+	 * Blocks until the request is complete. If the note is already open the error is ignored.
 	 * @param bug The bug to close.
 	 * @return true if the bug was successfully closed.
 	 * @throws IOException 
@@ -1730,9 +1732,22 @@ public class Server {
 			try {
 				URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
 				connection = openConnectionForWriteAccess(reopenNoteUrl, "POST", "text/xml");
-				if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-					throwOsmServerException(connection);
-				}
+				int responseCode = connection.getResponseCode();
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+                        InputStream errorStream = connection.getErrorStream();
+                        String message = readStream(errorStream);
+                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_OPENED.matcher(message);
+                        if (m.matches()) {
+                            String idStr = m.group(1);
+                            Log.d(DEBUG_TAG, "Note " + idStr + " was already open");
+                            return;
+                        } 
+                        throwOsmServerException(connection);
+                    } else {
+                        throwOsmServerException(connection);
+                    }
+                }
 				parseBug(bug, connection.getInputStream());
 			} finally {
 				disconnect(connection);
