@@ -33,6 +33,11 @@ See [Obtaining Vespucci](/#obtaining-vespucci).
 #### How can I install Vespucci on my Android device?
 Just download and install like any other app =)
 
+#### Which special permissions does Vespucci require?
+
+   * fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks
+   * write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the background process that downloads tiles non-functional
+
 #### How can I install Vespucci on the Android emulator?
 Installation of the Vespucci APK is like any other APK.
 There are plenty of descriptions available (e.g. [1 ](http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/), [2 ](http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator), [3 ](http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html), [4 ](http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/))
