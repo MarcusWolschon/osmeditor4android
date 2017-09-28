@@ -250,6 +250,8 @@
         
             <li><a href="#which-special-permissions-does-vespucci-require">Which special permissions does Vespucci require?</a></li>
         
+            <li><a href="#vespucci-warning-that-it-cannot-write-to-an-external-sd-card">Vespucci warning that it cannot write to an external SD card</a></li>
+        
             <li><a href="#how-can-i-install-vespucci-on-the-android-emulator">How can I install Vespucci on the Android emulator?</a></li>
         
             <li><a href="#running-vespucci-on-old-and-small-devices">Running Vespucci on "old and small" devices</a></li>
@@ -333,6 +335,8 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <li>fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks</li>
 <li>write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the background process that downloads tiles non-functional</li>
 </ul>
+<h4 id="vespucci-warning-that-it-cannot-write-to-an-external-sd-card">Vespucci warning that it cannot write to an external SD card</h4>
+<p>Vespucci preferentially attempts to store aerial imagery data on an external SD card if present, this is slower but leaves expensive internal storage free. On some devices this seems to cause persistent issues that are not resolved by giving the app permissions to write to external storage. A potential workaround is to remove the SD card (if this works in your setup), and then run vespucci. If that works and background imagery is displayed you can reinsert the SD card and vespucci should continue to use the internal storage.</p>
 <h4 id="how-can-i-install-vespucci-on-the-android-emulator">How can I install Vespucci on the Android emulator?</h4>
 <p>Installation of the Vespucci APK is like any other APK.
 There are plenty of descriptions available (e.g. <a href="http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/">1 </a>, <a href="http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator">2 </a>, <a href="http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html">3 </a>, <a href="http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/">4 </a>)</p>
