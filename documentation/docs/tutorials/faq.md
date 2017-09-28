@@ -37,6 +37,10 @@ Just download and install like any other app =)
 
    * fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks
    * write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the background process that downloads tiles non-functional
+   
+#### Vespucci warning that it cannot write to an external SD card
+
+Vespucci preferentially attempts to store aerial imagery data on an external SD card if present, this is slower but leaves expensive internal storage free. On some devices this seems to cause persistent issues that are not resolved by giving the app permissions to write to external storage. A potential workaround is to remove the SD card (if this works in your setup), and then run vespucci. If that works and background imagery is displayed you can reinsert the SD card and vespucci should continue to use the internal storage.
 
 #### How can I install Vespucci on the Android emulator?
 Installation of the Vespucci APK is like any other APK.
