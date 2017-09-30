@@ -1,6 +1,6 @@
 # Wprowadzenie do Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci jest w pełni funkcjonalnym editorem OpenStreetMap, który obsługuje większość operacji które udostępniają edytory na komputery. Został przetestowany z powodzeniem na Androidach od 2.3 do 7.0 wraz z różnymi wariantami bazujących na AOSP. Jedna uwaga: gdy urządzenia mobilne dogonią możliwościami komputerów, starsze urządzenia będą działać wolniej. Powinieneś wziąć to pod uwagę podczas korzystania z Vespucci oraz zachowaj na przykład obszary, które są edytowane w uzasadnionym rozmiarze.
 
 ## Pierwsze kroki
 
@@ -23,7 +23,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
 * **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
 * **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
+* **Plik...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.

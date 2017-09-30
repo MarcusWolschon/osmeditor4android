@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_gpssources">Źródła GPS</string>
+    <string name="help_keyboard">Klawiatura</string>
+    <string name="help_opening_hours">Godziny otwarcia</string>
+    <array translatable="false" name="help_tableofcontents">
+    </array>
+<!--    The following array needs to mirror the positions in the above one -->
+    <array translatable="false" name="help_files">
+    </array>
+</resources>
