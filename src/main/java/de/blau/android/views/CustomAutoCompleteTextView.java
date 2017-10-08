@@ -285,12 +285,12 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
                 return text;
             } else {
                 if (text instanceof Spanned) {
-                    SpannableString sp = new SpannableString(text + String.valueOf(separator) + " ");
+                    SpannableString sp = new SpannableString(text + String.valueOf(separator));
                     TextUtils.copySpansFrom((Spanned) text, 0, text.length(),
                                             Object.class, sp, 0);
                     return sp;
                 } else {
-                    return text + String.valueOf(separator) + " ";
+                    return text + String.valueOf(separator);
                 }
             }
         }
