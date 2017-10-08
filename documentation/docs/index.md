@@ -3,7 +3,6 @@ notoc:
 ---
 
 <img src="180px-Amerigo_Vespucci.jpg" style="padding-top:30px;padding-left:20px;float:right">
-[<img src="badge-f-droid.png" style="padding-top:10px;padding-left:20px;float:right">](https://f-droid.org/app/de.blau.android)
 [<img src="badge-amazon-appstore.png" style="padding-top:10px;padding-left:20px;float:right">](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
 [<img src="badge-google-play.png" style="padding-top:10px;padding-left:20px;float:right">](https://play.google.com/store/apps/details?id=de.blau.android)
 
@@ -16,7 +15,7 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
 
 #### Obtaining Vespucci:
 
- * From [Google's Play Store](https://play.google.com/store/apps/details?id=de.blau.android) and from [Amazon](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1447617332&sr=1-1&keywords=vespucci) and from [F-Droid](https://f-droid.org/app/de.blau.android)
+ * From [Google's Play Store](https://play.google.com/store/apps/details?id=de.blau.android) and from [Amazon](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1447617332&sr=1-1&keywords=vespucci).
  * Release and beta APKs from our [GitHub repository](https://github.com/MarcusWolschon/osmeditor4android/releases)
  * Recently built potentially unstable APKs from [Google Drive](https://drive.google.com/folderview?id=0B9pKLmh8s1h8bFI5bGd4VnhYWkk&usp=sharing)
  * [Source code and repository on GitHub](https://github.com/MarcusWolschon/osmeditor4android)
