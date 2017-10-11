@@ -2916,9 +2916,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 
 		/**
-		 * Filter for elements, NOTE expensive for a large number of elements
-		 * @param elements
-		 * @return List of elements that are on the current level
+		 * Filter for elements 
+		 * 
+		 * NOTE expensive for a large number of elements
+		 * @param elements    List of elements to filter
+		 * @return List of elements that have passed the filter
 		 */
 		private ArrayList<OsmElement> filterElements(List<OsmElement> elements) {
 			ArrayList<OsmElement>tmp = new ArrayList<OsmElement>();

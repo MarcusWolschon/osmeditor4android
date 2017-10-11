@@ -56,6 +56,7 @@ public class IndoorFilter extends Filter {
 	
 	@Override
 	public boolean include(Node node, boolean selected) {
+	    // Log.d(DEBUG_TAG,"checking level for node " + node.getDescription());
 		int level = getLevel();
 		Include include = cachedNodes.get(node);
 		if (include != null) {
@@ -92,9 +93,11 @@ public class IndoorFilter extends Filter {
 
 	@Override
 	public boolean include(Way way, boolean selected) {
-		int level = getLevel();
+	    // Log.d(DEBUG_TAG,"checking level for way " + way.getDescription());
+	    int level = getLevel();
 		Include include = cachedWays.get(way);
 		if (include != null) {
+		    // Log.d(DEBUG_TAG,"level cached");
 			return include != Include.DONT;
 		}
 		if (!inverted) {
@@ -106,6 +109,7 @@ public class IndoorFilter extends Filter {
 								|| buildingHasLevel(way, level)
 							)
 						)) ? Include.INCLUDE : Include.DONT;
+			 // Log.d(DEBUG_TAG,"include status " + include);
 		} else {
 			include = (selected || (way.hasTags() && !way.hasTagKey(Tags.KEY_LEVEL) && !way.hasTagKey(Tags.KEY_REPEAT_ON)
 					 && !(way.hasTagKey(Tags.KEY_MIN_LEVEL) || way.hasTagKey(Tags.KEY_MAX_LEVEL)))) ? Include.INCLUDE : Include.DONT;
@@ -142,6 +146,7 @@ public class IndoorFilter extends Filter {
 
 	@Override
 	public boolean include(Relation relation, boolean selected) {
+	    // Log.d(DEBUG_TAG,"checking level for relation " + relation.getDescription());
 		int level = getLevel();
 		Include include = cachedRelations.get(relation);
 		if (include != null) {
@@ -162,7 +167,11 @@ public class IndoorFilter extends Filter {
 					if (element instanceof Way) {
 						Way w = (Way)element;
 						Include includeWay = cachedWays.get(w);
-						if (includeWay == null || (include != Include.DONT && includeWay == Include.DONT)) { 
+						if (includeWay == null) { 
+						    // status hasn't been determined, do that now
+						    includeWay = include(w, false) ? Include.INCLUDE_WITH_WAYNODES : Include.DONT;
+						} 
+						if (include != Include.DONT && includeWay == Include.DONT) { 
 							// if not originally included overwrite now
 							for (Node n:w.getNodes()) {
 								cachedNodes.put(n,include);
@@ -172,12 +181,16 @@ public class IndoorFilter extends Filter {
 					} else if (element instanceof Node) { 
 						Node n = (Node)element;
 						Include includeNode = cachedNodes.get(n);
-						if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) { 
+						if (includeNode == null) {
+						    // status hasn't been determined, do that now
+						    includeNode = include(n, false) ? Include.INCLUDE : Include.DONT;
+						}
+						if (include != Include.DONT && includeNode == Include.DONT) { 
 							// if not originally included overwrite now
 							cachedNodes.put(n,include);
 						} 
 					} else if (element instanceof Relation) {
-						// FIXME
+						// FIXME determine if further inheritance actually makes sense
 					}
 				}
 			}
@@ -187,12 +200,14 @@ public class IndoorFilter extends Filter {
 	}
 	
 	/**
-	 * @param levelSpec either a single integer, a semi-colon separated list, or a range
-	 * @param level
+	 * Check if a specific level is included in a level spec
+	 * 
+	 * @param levelSpec    either a single integer, a semi-colon separated list, or a range
+	 * @param level        level we are interested in
 	 * @return true if the level is contained in levelSpec
 	 */
 	private boolean contains(String levelSpec, int level) {
-		// Log.d("Indoor","levelSpec " + levelSpec + " level " + level);
+		// Log.d(DEBUG_TAG,"levelSpec " + levelSpec + " level " + level);
 		if (levelSpec == null || "".equals(levelSpec)) {
 			return false;
 		}

@@ -713,7 +713,7 @@ public class Map extends View implements IMapView {
 				&& tmpDrawingEditMode.elementsGeomEditiable();
 		Collections.sort(tmpStyledWays,layerComparator);
 		for (Way w:tmpStyledWays) {
-			paintWay(points, canvas,w,displayHandles, drawTolerance);
+			paintWay(points, canvas, w, displayHandles, drawTolerance);
 		}
 		
 		//Paint nodes
