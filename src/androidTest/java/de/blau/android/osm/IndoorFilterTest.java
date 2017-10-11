@@ -192,12 +192,27 @@ public class IndoorFilterTest {
     		Way w = logic.getSelectedWay();
     		logic.setSelectedNode(null);
     		logic.setSelectedWay(null);
-
+            logic.performAdd(main, 100.0f, 400.0f);
+            logic.performAdd(main, 1000.0f, 1000.0f);
+            Way w2 = logic.getSelectedWay();
+            logic.setSelectedNode(null);
+            logic.setSelectedWay(null);
+            tags.put(Tags.KEY_LEVEL,"" + 1);
+            w2.addTags(tags);
+           
     		IndoorFilter f = new IndoorFilter();
     		ArrayList<OsmElement> members = new ArrayList<OsmElement>();
     		members.add(w);
+    		members.add(w2);
     		Relation r = logic.createRelation(main, "", members);
     		f.clear();
+    		f.setLevel(1);
+    		// check that relation without level doesn't change member status
+    		Assert.assertFalse(f.include(r, false));
+    		Assert.assertFalse(f.include(w, false));
+    		Assert.assertTrue(f.include(w2, false));
+    		
+    		// now check inheritance from relation
     		tags.clear();
     		tags.put(Tags.KEY_MIN_LEVEL,"" + 8);
     		tags.put(Tags.KEY_MAX_LEVEL,"" + 10);
