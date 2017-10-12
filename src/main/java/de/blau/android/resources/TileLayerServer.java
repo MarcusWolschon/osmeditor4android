@@ -697,8 +697,10 @@ public class TileLayerServer {
 			e.printStackTrace();
 			return null;
 		}
-		if (type == null || url == null || "wms".equals(type))
+		if (type == null || url == null || "wms".equals(type)) {
+		    Log.e(DEBUG_TAG, "name " + name + " id " + id + " type " + type + " url " + url);
 			return null;
+		}
 		TileLayerServer osmts = new TileLayerServer(ctx, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl,
 				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, preference, startDate, endDate, async);
 		return osmts;

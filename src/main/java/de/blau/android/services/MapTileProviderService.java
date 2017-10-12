@@ -72,14 +72,14 @@ public class MapTileProviderService extends Service {
 				continue;
 			}
 			Log.d(DEBUG_TAG, "candidate storage directory " + dir.getPath());
-			if (MapTileProviderDataBase.exists(dir)) { // existing tile cache, use
-				mountPointWriteable = dir.canWrite();
-				mountPoint = dir;
-				if (mountPoint != null && mountPointWriteable) {
+			if (MapTileProviderDataBase.exists(dir)) { // existing tile cache, only use if we can write
+				if (dir.canWrite()) {
+				    mountPointWriteable = true;
+	                mountPoint = dir;
 					break;
 				}
 			} else if (dir.canWrite()) {
-				mountPointWriteable = true;
+			    mountPointWriteable = true;			
 				mountPoint = dir;
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 					try {
@@ -90,9 +90,11 @@ public class MapTileProviderService extends Service {
 						}
 					} catch (IllegalArgumentException iae) {
 						// we've seen this on some devices even if it doesn0t make sense
-						Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like that");
+						Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like " + dir);
 					}
-				} 
+				} else {
+				    break; // as we can't determine if this is external we may as well use it
+				}
 			} else {
 				Log.d(DEBUG_TAG,  dir.getPath() + " not writeable");
 			}
