@@ -199,9 +199,13 @@ public class TagFilterActivity extends ListActivity  {
         ListView lv = getListView();
         for (int i = 0; i < lv.getCount(); i++) {
             View view = lv.getChildAt(i);
-            ViewHolder vh = (ViewHolder) view.getTag();
-            if (vh.modified) {
-            	update(vh);
+            if (view != null) {
+                ViewHolder vh = (ViewHolder) view.getTag();
+                if (vh != null && vh.modified) {
+                    update(vh);
+                }
+            } else {
+                Log.e(DEBUG_TAG, "view for index " + i + " is null");
             }
         }
 	}
