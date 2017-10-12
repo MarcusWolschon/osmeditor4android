@@ -782,17 +782,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private void checkPermissions() {
 		final List<String> permissionsList = new ArrayList<String>();
 		synchronized (locationPermissionLock) {
-			locationPermissionGranted = false;
 			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=  PackageManager.PERMISSION_GRANTED) {
-				// Should we show an explanation?
-				if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-					// for now we just repeat the request (max once)
-					if (!askedForLocationPermission) {
+		         locationPermissionGranted = false;
+		         if (askedForLocationPermission) {
+		             // Should we show an explanation?
+		             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+		                 // for now we just repeat the request (max once)
 						permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
-						askedForLocationPermission = true;
 					}
 				} else {
 					permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+					askedForLocationPermission = true;
 				}
 			} else { // permission was already given
 				bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
@@ -800,18 +800,18 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			}
 		}
 		synchronized (storagePermissionLock) {
-			storagePermissionGranted = false;
-			if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=  PackageManager.PERMISSION_GRANTED) {
-				// Should we show an explanation?
-				if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-					// for now we just repeat the request (max once)
-					if (!askedForStoragePermission) {
-						permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-						askedForStoragePermission = true;
-					}
-				} else {
-					permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-				}
+		    if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=  PackageManager.PERMISSION_GRANTED) {
+		        storagePermissionGranted = false;
+		        // Should we show an explanation?
+		        if (askedForStoragePermission) {
+		            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+		                // for now we just repeat the request (max once)
+		                permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		            } 
+		        } else {
+		            permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    askedForStoragePermission = true;
+		        }
 			} else { // permission was already given
 				storagePermissionGranted = true;
 			}
