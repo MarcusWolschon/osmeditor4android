@@ -61,17 +61,22 @@ public class DebugInformation extends AppCompatActivity {
 		builder.append(getString(R.string.app_name_version) + eol);
 		builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + eol);
 		builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + eol);
-		Map map = App.getLogic().getMap();
-		if (map != null) {
-			synchronized(map.mOverlays) {
-				for (MapViewOverlay ov:map.mOverlays) {
-					if (ov instanceof MapTilesOverlay || ov instanceof MapOverlayTilesOverlay) {
-						builder.append("Tile Cache " + ((MapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((MapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + eol);
-					}
-				}
-			}
+		Logic logic = App.getLogic();
+		if (logic != null) {
+		    Map map = logic.getMap();
+		    if (map != null) {
+		        synchronized(map.mOverlays) {
+		            for (MapViewOverlay ov:map.mOverlays) {
+		                if (ov instanceof MapTilesOverlay || ov instanceof MapOverlayTilesOverlay) {
+		                    builder.append("Tile Cache " + ((MapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((MapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + eol);
+		                }
+		            }
+		        }
+		    } else {
+		        builder.append("Map not available, this is a seriously curious state, please report a bug!\n");
+		    }
 		} else {
-			builder.append("Main not available\n");
+		    builder.append("Logic not available, this is a seriously curious state, please report a bug!\n");
 		}
 		File stateFile = new File(getFilesDir(), StorageDelegator.FILENAME);
 		if (stateFile.exists()) {
@@ -86,12 +91,16 @@ public class DebugInformation extends AppCompatActivity {
 			builder.append("No bug state file found\n");
 		}
 		StorageDelegator delegator = App.getDelegator();
-		builder.append("Relations (current/API): " + delegator.getCurrentStorage().getRelations().size() + "/"
-				+ delegator.getApiRelationCount()+eol);
-		builder.append("Ways (current/API): " + delegator.getCurrentStorage().getWays().size() + "/"
-				+ delegator.getApiWayCount()+eol);
-		builder.append("Nodes (current/Waynodes/API): " + delegator.getCurrentStorage().getNodes().size() + "/"
-				+ delegator.getCurrentStorage().getWaynodes().size() + "/" + delegator.getApiNodeCount()+eol);
+		if (delegator != null) {
+		    builder.append("Relations (current/API): " + delegator.getCurrentStorage().getRelations().size() + "/"
+		            + delegator.getApiRelationCount()+eol);
+		    builder.append("Ways (current/API): " + delegator.getCurrentStorage().getWays().size() + "/"
+		            + delegator.getApiWayCount()+eol);
+		    builder.append("Nodes (current/Waynodes/API): " + delegator.getCurrentStorage().getNodes().size() + "/"
+		            + delegator.getCurrentStorage().getWaynodes().size() + "/" + delegator.getApiNodeCount()+eol);
+		} else {
+		    builder.append("Delegator not available, this is a seriously curious state, please report a bug!\n");
+		}
 		
 		builder.append("Available location providers\n");
 		LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);

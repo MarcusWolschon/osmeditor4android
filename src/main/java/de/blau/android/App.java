@@ -13,6 +13,7 @@ import com.faendir.rhino_android.RhinoAndroidHelper;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.net.UserAgentInterceptor;
@@ -99,18 +100,27 @@ public class App extends android.app.Application {
 		currentInstance = this;
 	}
 	
+	/**
+	 * Get the current StorageDelegator instance
+	 * 
+	 * @return the current StorageDelegator
+	 */
+	@Nullable
 	public static StorageDelegator getDelegator() {
 		return delegator;
 	}
 	
+	@Nullable
 	public static TaskStorage getTaskStorage() {
 		return taskStorage;
 	}
 	
+	@Nullable
 	public static App getCurrentInstance() {
 		return currentInstance;
 	}
 	
+	@Nullable
 	public static Resources resources() {
 		return currentInstance.getResources();
 	}
@@ -205,14 +215,18 @@ public class App extends android.app.Application {
 	}
 	
 	/**
-	 * @return the logic
+	 * Get the current instance of Logic
+	 * 
+	 * @return the current Logic instance
 	 */
+	@Nullable
 	public static Logic getLogic() {
 		return logic;
 	}
 	
 	/**
 	 * Allocate new logic, logic contains some state and should only exist once
+	 * 
 	 * @return a new instance of the Logic class
 	 */
 	public synchronized static Logic newLogic() {
