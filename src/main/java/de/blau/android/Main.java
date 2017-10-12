@@ -894,8 +894,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	                            private static final long serialVersionUID = 1L;
 	                            @Override
 	                            public void onSuccess(){
-	                                rcDataEdit(rcData);
-	                                rcData=null; // zap to stop repeated downloads
+	                                synchronized (rcDataLock) {
+	                                    if (rcData != null) {
+	                                        rcDataEdit(rcData);
+	                                        rcData=null; // zap to stop repeated downloads
+	                                    }
+	                                }
 	                            }
 	                            @Override
 	                            public void onError() {
