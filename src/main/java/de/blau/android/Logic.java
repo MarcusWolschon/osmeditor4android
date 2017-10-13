@@ -2210,7 +2210,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Progress.showDialog(activity, Progress.PROGRESS_LOADING);
+				Progress.showDialog(activity, Progress.PROGRESS_DOWNLOAD);
 			}
 			
 			@Override
@@ -2309,7 +2309,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {	
-				Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+				Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
 
 				Map map = activity instanceof Main ? ((Main)activity).getMap() : null;
 				if (map != null) {

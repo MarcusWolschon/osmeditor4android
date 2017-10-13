@@ -1552,7 +1552,7 @@ public class Map extends View implements IMapView {
 	/**
 	 * This calculates the best tile zoom level to use (not the actual zoom level of the map!)
 	 * 
-	 * @param viewPort
+	 * @param canvas Canvas we are drawing on
 	 * @return the tile zoom level
 	 */
     private int calcZoomLevel(Canvas canvas) {
