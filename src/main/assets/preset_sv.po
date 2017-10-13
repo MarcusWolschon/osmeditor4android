@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-09-26 09:14+0200\n"
-"PO-Revision-Date: 2017-09-26 07:16+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-10-10 08:06+0000\n"
+"Last-Translator: Erik L\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -442,11 +442,11 @@ msgstr ""
 
 #: master_preset.xml:6972(item:name|group:Facilities|preset:Animal_boarding)
 msgid "Animal boarding"
-msgstr ""
+msgstr "Djurhotell"
 
 #: master_preset.xml:10665(list_entry:short_description|preset:Vending_Machine|value:animal_food)
 msgid "Animal food"
-msgstr ""
+msgstr "Djurmat"
 
 #: master_preset.xml:6950(item:name|group:Facilities|preset:Animal_shelter)
 msgid "Animal shelter"
@@ -460,7 +460,7 @@ msgstr ""
 #: master_preset.xml:6966(multiselect:text|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 #: master_preset.xml:6988(multiselect:text|group:Facilities|preset:Animal_boarding|key:animal_boarding)
 msgid "Animals"
-msgstr ""
+msgstr "Djur"
 
 #: master_preset.xml:12074(group:name|group:Annotation)
 msgid "Annotation"
@@ -534,7 +534,7 @@ msgstr ""
 
 #: master_preset.xml:5593(item:name|group:Culture|preset:Artwork)
 msgid "Artwork"
-msgstr ""
+msgstr "Konst"
 
 #: master_preset.xml:388(text:text|key:ascent)
 msgid "Ascent (m)"
@@ -982,7 +982,7 @@ msgstr "Gränstyp"
 
 #: master_preset.xml:7618(item:name|group:Sport_(Ball)|preset:Boule)
 msgid "Boule"
-msgstr ""
+msgstr "Boule"
 
 #: master_preset.xml:5509(list_entry:display_value|group:Culture|preset:Other_theatres|value:boulevard)
 msgid "Boulevard"
@@ -1006,7 +1006,7 @@ msgstr "Gränslinje"
 
 #: master_preset.xml:9473(item:name|group:Clothes|preset:Boutique)
 msgid "Boutique"
-msgstr ""
+msgstr "Boutique (Dyra kläder och accessoarer)"
 
 #: master_preset.xml:428(text:text|key:branch)
 #: master_preset.xml:460(text:text|key:branch)
@@ -1223,7 +1223,7 @@ msgstr ""
 
 #: master_preset.xml:13461(item:name|group:Offices|preset:Camping)
 msgid "Camping"
-msgstr ""
+msgstr "Campingplats"
 
 #: master_preset.xml:4650(item:name|group:Accommodation|preset:Camping_Site)
 msgid "Camping Site"
@@ -1335,7 +1335,7 @@ msgstr "Slott"
 #: master_preset.xml:6966(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 #: master_preset.xml:6988(multiselect:display_values|group:Facilities|preset:Animal_boarding|key:animal_boarding)
 msgid "Cat"
-msgstr ""
+msgstr "Katt"
 
 #: master_preset.xml:12755(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
@@ -2982,11 +2982,11 @@ msgstr "Gräsmark"
 #: master_preset.xml:2985(combo:display_values|group:Water|preset:Beach|key:surface)
 #: master_preset.xml:650(combo:display_values|key:roof:material)
 msgid "Gravel"
-msgstr ""
+msgstr "Grus"
 
 #: master_preset.xml:11731(item:name|group:Land_use|preset:Graveyard)
 msgid "Graveyard"
-msgstr ""
+msgstr "Kyrkogård"
 
 #: master_preset.xml:6843(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:round_drain)
 msgid "Gravity drain for hose"
@@ -4893,7 +4893,7 @@ msgstr "Ingen övergång."
 
 #: master_preset.xml:608(check:text|key:noexit)
 msgid "No exit (cul-de-sac)"
-msgstr ""
+msgstr "Återvändsgränd"
 
 #: master_preset.xml:12253(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "No left turn"
@@ -4963,15 +4963,15 @@ msgstr "Nummer"
 
 #: master_preset.xml:3702(label:text|group:Car|preset:Charging_Station)
 msgid "Number of Sockets:"
-msgstr ""
+msgstr "Antal uttag:"
 
 #: master_preset.xml:4531(combo:text|group:Accommodation|preset:Holiday_apartment|key:number_of_apartments)
 msgid "Number of apartments"
-msgstr ""
+msgstr "Antal lägenheter"
 
 #: master_preset.xml:3087(text:text|group:Shipping|preset:Boat_rental|key:capacity)
 msgid "Number of boats"
-msgstr ""
+msgstr "Antal båtar"
 
 #: master_preset.xml:432(combo:text|key:circuits)
 msgid "Number of circuits"
@@ -4979,15 +4979,15 @@ msgstr "Antal kretsar"
 
 #: master_preset.xml:41(combo:long_text|key:lanes:forward)
 msgid "Number of lanes in way direction"
-msgstr ""
+msgstr "Antal filer invåhens riktning"
 
 #: master_preset.xml:42(combo:long_text|key:lanes:backward)
 msgid "Number of lanes opposite way direction"
-msgstr ""
+msgstr "Antal filer i motsatt vägens riktning"
 
 #: master_preset.xml:3446(text:text|group:Aerialway|preset:Cable_Car|key:aerialway:occupancy)
 msgid "Number of people per car"
-msgstr ""
+msgstr "Antal personer per bil"
 
 #: master_preset.xml:3462(text:text|group:Aerialway|preset:Chair_Lift|key:aerialway:occupancy)
 msgid "Number of people per chair"
@@ -5028,7 +5028,7 @@ msgstr "Antal steg"
 
 #: master_preset.xml:12030(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Numbering scheme"
-msgstr ""
+msgstr "Numreringsschema"
 
 #: master_preset.xml:5966(check:text|group:Education|preset:Childcare|key:nursery)
 msgid "Nursery"
@@ -5504,7 +5504,7 @@ msgstr "Topp"
 
 #: master_preset.xml:2985(combo:display_values|group:Water|preset:Beach|key:surface)
 msgid "Pebblestone"
-msgstr ""
+msgstr "Småsten"
 
 #: master_preset.xml:3090(check:text|group:Shipping|preset:Boat_rental|key:pedalboat_rental)
 msgid "Pedalos"
@@ -7497,7 +7497,7 @@ msgstr "Symbolbeskrivning"
 
 #: master_preset.xml:5676(item:name|group:Place_of_Worship|preset:Synagogue)
 msgid "Synagogue"
-msgstr ""
+msgstr "Synagoga"
 
 #: master_preset.xml:3504(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "T-bar"
@@ -7533,7 +7533,7 @@ msgstr "Bordtennis"
 
 #: master_preset.xml:587(combo:text|key:tactile_paving)
 msgid "Tactile paving"
-msgstr ""
+msgstr "Taktil beläggning"
 
 #: master_preset.xml:2855(combo:display_values|group:Water|preset:Reservoir|key:reservoir_type)
 msgid "Tailings"
@@ -7646,7 +7646,7 @@ msgstr ""
 
 #: master_preset.xml:3709(combo:text|group:Car|preset:Charging_Station|key:socket:tesla_supercharger)
 msgid "Tesla Supercharger"
-msgstr ""
+msgstr "Tesla superladdare"
 
 #: master_preset.xml:10069(list_entry:short_description|group:For_the_body|preset:Massage|value:thai)
 #: master_preset.xml:279(multiselect:display_values|key:cuisine)
@@ -9141,7 +9141,7 @@ msgstr "Kullersten"
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Compacted"
-msgstr ""
+msgstr "Komprimerad"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -9151,7 +9151,7 @@ msgstr "Betong"
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Concrete lanes"
-msgstr ""
+msgstr "Betongplattor"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -9161,7 +9161,7 @@ msgstr "Betongplattor"
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Fine gravel"
-msgstr ""
+msgstr "Fint grus"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -9176,7 +9176,7 @@ msgstr ""
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Gravel"
-msgstr ""
+msgstr "Grus"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -9201,12 +9201,12 @@ msgstr "Belagd"
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Paving stones"
-msgstr ""
+msgstr "Gatsten"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Pebblestone"
-msgstr ""
+msgstr "Småsten"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -9216,7 +9216,7 @@ msgstr "Sand"
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Sett"
-msgstr ""
+msgstr "Kullersten"
 
 #: master_preset.xml:20(combo:text|key:surface)
 msgctxt "surface"
@@ -9246,7 +9246,7 @@ msgstr "Båda sidor"
 #: master_preset.xml:91(list_entry:short_description|value:separate)
 msgctxt "sidewalk"
 msgid "Mapped separately"
-msgstr ""
+msgstr "Kartlagd separat"
 
 #: master_preset.xml:90(list_entry:short_description|value:no)
 msgctxt "sidewalk"
@@ -9266,7 +9266,7 @@ msgstr "Bara höger sida"
 #: master_preset.xml:86(combo:text|key:sidewalk)
 msgctxt "sidewalk"
 msgid "Sidewalk"
-msgstr ""
+msgstr "Trottoar"
 
 #: master_preset.xml:111(combo:text|key:electrified)
 msgctxt "electrified"
@@ -10548,7 +10548,7 @@ msgstr "Mataffär"
 #: master_preset.xml:7801(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Synagogue"
-msgstr ""
+msgstr "Synagoga"
 
 #: master_preset.xml:7801(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10665,32 +10665,32 @@ msgstr "Typ"
 #: master_preset.xml:1398(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Bad"
-msgstr ""
+msgstr "Dålig"
 
 #: master_preset.xml:1398(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Excellent"
-msgstr ""
+msgstr "Utmärkt"
 
 #: master_preset.xml:1398(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Good"
-msgstr ""
+msgstr "Bra"
 
 #: master_preset.xml:1398(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Horrible"
-msgstr ""
+msgstr "Fruktansvärd"
 
 #: master_preset.xml:1398(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Intermediate"
-msgstr ""
+msgstr "Medel"
 
 #: master_preset.xml:1398(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Not visible"
-msgstr ""
+msgstr "Inte synlig"
 
 #: master_preset.xml:1398(combo:text|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
@@ -10705,7 +10705,7 @@ msgstr "Cykelväg"
 #: master_preset.xml:1443(combo:text|group:Ways|preset:Cycle_Lane/Track|key:cycleway:left)
 msgctxt "cycleway"
 msgid "Cycleway left"
-msgstr ""
+msgstr "Cykelväg vänster"
 
 #: master_preset.xml:1444(combo:text|group:Ways|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
@@ -10720,7 +10720,7 @@ msgstr "Korsning"
 #: master_preset.xml:1519(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Sidewalk"
-msgstr ""
+msgstr "Trottoar"
 
 #: master_preset.xml:1519(combo:text|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
@@ -11083,7 +11083,7 @@ msgstr ""
 #: master_preset.xml:7968(combo:text|preset:Entrance|key:door)
 msgctxt "entrance"
 msgid "Door type"
-msgstr ""
+msgstr "Dörr typ"
 
 #: master_preset.xml:7959(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"

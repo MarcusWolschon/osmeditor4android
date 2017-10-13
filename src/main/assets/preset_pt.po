@@ -1,5 +1,6 @@
 # 
 # Translators:
+# Nuno Caldeira <nunocapelocaldeira@gmail.com>, 2017
 # Rui <xymarior@yandex.com>, 2016-2017
 # Rui <xymarior@yandex.com>, 2016
 # Rui <xymarior@yandex.com>, 2016
@@ -7,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-09-26 09:14+0200\n"
-"PO-Revision-Date: 2017-09-26 11:29+0000\n"
-"Last-Translator: Rui <xymarior@yandex.com>\n"
+"PO-Revision-Date: 2017-10-10 23:08+0000\n"
+"Last-Translator: Nuno Caldeira <nunocapelocaldeira@gmail.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,7 +74,7 @@ msgstr "... outros modos de transporte possíveis"
 
 #: master_preset.xml:175(list_entry:short_description|value:1)
 msgid "1 table"
-msgstr ""
+msgstr "1 mesa"
 
 #: master_preset.xml:3664(check:text|group:Car|preset:Fuel|key:fuel:1_25)
 msgid "1/25 mix (mofa/moped)"
@@ -93,11 +94,11 @@ msgstr "10°"
 
 #: master_preset.xml:176(list_entry:short_description|value:2)
 msgid "2 tables"
-msgstr ""
+msgstr "2 mesas"
 
 #: master_preset.xml:177(list_entry:short_description|value:3)
 msgid "3 tables"
-msgstr ""
+msgstr "3 mesas"
 
 #: master_preset.xml:5058(check:text|group:Leisure|preset:Movie_Theater/Cinema|key:cinema:3D)
 msgid "3D"
@@ -105,11 +106,11 @@ msgstr "3D"
 
 #: master_preset.xml:178(list_entry:short_description|value:4)
 msgid "4 tables"
-msgstr ""
+msgstr "4 mesas"
 
 #: master_preset.xml:179(list_entry:short_description|value:5)
 msgid "5 tables"
-msgstr ""
+msgstr "5 mesas"
 
 #: master_preset.xml:4967(label:text|group:Tourism|preset:Guidepost)
 msgid ""
@@ -130,11 +131,11 @@ msgstr "Um corpo de águas paradas como um lago ou poça."
 
 #: master_preset.xml:11005(label:text|group:Places|preset:Farm)
 msgid "A farm within a bigger settlement"
-msgstr ""
+msgstr "Uma quinta com um grande aldeamento"
 
 #: master_preset.xml:2977(label:text|group:Water|preset:Beach)
 msgid "A flat area of sand, gravel or pebble next to water."
-msgstr ""
+msgstr "Uma área plana de areia, gravilha ou pedras junto à água"
 
 #: master_preset.xml:11227(label:text|group:Nature|preset:Tree_Row)
 msgid "A line of trees."
@@ -142,17 +143,17 @@ msgstr "Uma linha de árvores."
 
 #: master_preset.xml:11113(label:text|group:Geography|preset:Valley)
 msgid "A low area between hills."
-msgstr ""
+msgstr "Área baixa entre montanhas."
 
 #: master_preset.xml:11100(label:text|group:Geography|preset:Ridge)
 msgid "A mountain or hill ridge."
-msgstr ""
+msgstr "Uma montanha ou uma crista de uma vertente"
 
 #: master_preset.xml:11444(label:text|group:Nature|preset:Rock)
 msgid ""
 "A notable rock or group of rocks, with at least one of them firmly attached "
 "to the underlying bedrock."
-msgstr ""
+msgstr "Uma rocha ou grupo de rochas com relevância com pelo menos uma dela firmemente fixa ao manto rochoso"
 
 #: master_preset.xml:11067(label:text|group:Geography|preset:Glacier)
 msgid ""
@@ -168,7 +169,7 @@ msgstr "Um ponto onde a água jorra do subsolo para a superfície naturalmente."
 
 #: master_preset.xml:11052(label:text|group:Geography|preset:Saddle)
 msgid "A saddle point between mountains or hills."
-msgstr ""
+msgstr "Um ponto de passagem baixo entre montanhas ou serras."
 
 #: master_preset.xml:11461(label:text|group:Nature|preset:Stone)
 msgid ""
@@ -196,7 +197,7 @@ msgstr "Ferrovia c/carris removidos"
 
 #: master_preset.xml:532(list_entry:display_value|value:abused)
 msgid "Abused"
-msgstr ""
+msgstr "Abuso"
 
 #: master_preset.xml:354(combo:text|key:access)
 #: master_preset.xml:594(combo:text|key:access)
@@ -223,7 +224,7 @@ msgstr "Precisão"
 #: master_preset.xml:655(list_entry:display_value|value:across)
 #: master_preset.xml:703(list_entry:display_value|value:across)
 msgid "Across"
-msgstr ""
+msgstr "Através"
 
 #: master_preset.xml:650(combo:display_values|key:roof:material)
 msgid "Acrylic glass"
@@ -251,7 +252,7 @@ msgstr "Galeria de acesso a mina"
 
 #: master_preset.xml:12204(role:text|group:Relations|preset:Boundary|key:admin_centre)
 msgid "Administration centre"
-msgstr ""
+msgstr "Centro administrativo"
 
 #: master_preset.xml:10756(item:name|group:Boundaries|preset:Administrative)
 #: master_preset.xml:12196(combo:display_values|group:Relations|preset:Boundary|key:boundary)
@@ -260,7 +261,7 @@ msgstr "Administrativo"
 
 #: master_preset.xml:13275(item:name|group:Offices|preset:Administrative_(deprecated))
 msgid "Administrative (deprecated)"
-msgstr ""
+msgstr "Administrativo (termo descontinuado) "
 
 #: master_preset.xml:10768(combo:text|group:Boundaries|preset:Administrative|key:admin_level)
 #: master_preset.xml:12198(combo:text|group:Relations|preset:Boundary|key:admin_level)
@@ -286,11 +287,11 @@ msgstr "Aéreo por Cabo"
 
 #: master_preset.xml:5971(text:text|group:Education|preset:Childcare|key:after_school:capacity)
 msgid "After school capacity"
-msgstr ""
+msgstr "Capacidade pós-escolar"
 
 #: master_preset.xml:5968(check:text|group:Education|preset:Childcare|key:after_school)
 msgid "After school care"
-msgstr ""
+msgstr "Cuidados pós-escolar"
 
 #: master_preset.xml:5964(text:text|group:Education|preset:Childcare|key:age_group)
 msgid "Age group (ie: 6-12)"
@@ -339,11 +340,11 @@ msgstr "Todos os veículos @"
 
 #: master_preset.xml:1140(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Alley"
-msgstr ""
+msgstr "Beco"
 
 #: master_preset.xml:11602(item:name|group:Land_use|preset:Allotments)
 msgid "Allotments"
-msgstr ""
+msgstr "Loteamentos"
 
 #: master_preset.xml:122(optional:text) master_preset.xml:131(optional:text)
 #: master_preset.xml:139(optional:text)
@@ -357,7 +358,7 @@ msgstr "Amendoeiras"
 #: master_preset.xml:654(list_entry:display_value|value:along)
 #: master_preset.xml:702(list_entry:display_value|value:along)
 msgid "Along"
-msgstr ""
+msgstr "Ao longo"
 
 #: master_preset.xml:12030(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Alphabetic"
@@ -415,17 +416,17 @@ msgstr "Parque de Diversões/Temático"
 
 #: master_preset.xml:11328(label:text|group:Nature|preset:Scree)
 msgid "An accumulation of loose rocks."
-msgstr ""
+msgstr "Uma acumulação de pedras soltas"
 
 #: master_preset.xml:11343(label:text|group:Nature|preset:Shingle)
 msgid "An accumulation of loose rounded rocks on a beach or riverbed."
-msgstr ""
+msgstr "Uma acumulação de pedras soltas arredondadas numa pedra ou num leito de um rio"
 
 #: master_preset.xml:2998(label:text|group:Water|preset:Bay)
 msgid ""
 "An area of water mostly surrounded by land but with level connection to the "
 "ocean or a lake."
-msgstr ""
+msgstr "Uma área de água rodeada sobretudo por terra, mas com uma ligação nivelada a um oceano ou lago"
 
 #: master_preset.xml:4907(label:text|group:Tourism|preset:Information_Office)
 msgid "An office where you can get information about a town or region."
@@ -475,7 +476,7 @@ msgstr "Macieiras"
 
 #: master_preset.xml:4370(item:name|group:Airport|preset:Apron)
 msgid "Apron"
-msgstr ""
+msgstr "Plataforma de Estacionamento"
 
 #: master_preset.xml:11589(item:name|group:Land_use|preset:Aquaculture)
 #: master_preset.xml:11600(combo:text|group:Land_use|preset:Aquaculture|key:aquaculture)
@@ -529,7 +530,7 @@ msgstr "Centro Artístico"
 
 #: master_preset.xml:10398(item:name|group:Other|preset:Arts_and_craft_supplies)
 msgid "Arts and craft supplies"
-msgstr ""
+msgstr "Artes e utensílios para arte"
 
 #: master_preset.xml:5593(item:name|group:Culture|preset:Artwork)
 msgid "Artwork"
@@ -549,7 +550,7 @@ msgstr "Ponto de Encontro"
 
 #: master_preset.xml:6381(item:name|group:Social_Facilities|preset:Assisted_Living)
 msgid "Assisted Living"
-msgstr ""
+msgstr "Centro de cuidados assistidos"
 
 #: master_preset.xml:12523(item:name|preset:Associated_Street)
 msgid "Associated Street"
@@ -627,7 +628,7 @@ msgstr "Produtos para Bebés"
 
 #: master_preset.xml:6868(check:text|group:Facilities|preset:Bench|key:backrest)
 msgid "Backrest"
-msgstr ""
+msgstr "Encosto"
 
 #: master_preset.xml:9517(item:name|group:Clothes|preset:Bag)
 msgid "Bag"
@@ -675,7 +676,7 @@ msgstr "Bar"
 
 #: master_preset.xml:279(multiselect:display_values|key:cuisine)
 msgid "Barbecue"
-msgstr ""
+msgstr "Churrasco"
 
 #: master_preset.xml:11419(item:name|group:Nature|preset:Bare_Rock)
 msgid "Bare Rock"
@@ -746,7 +747,7 @@ msgstr "Praia"
 
 #: master_preset.xml:5147(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
-msgstr ""
+msgstr "Instância balnear"
 
 #: master_preset.xml:7591(item:name|group:Sport_(Ball)|preset:Beach_Volleyball)
 msgid "Beach Volleyball"
@@ -849,7 +850,7 @@ msgstr "Bilhar"
 
 #: master_preset.xml:339(combo:text|key:bin)
 msgid "Bin"
-msgstr ""
+msgstr "Balde para o lixo"
 
 #: master_preset.xml:3063(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:biodiesel)
 #: master_preset.xml:3651(check:text|group:Car|preset:Fuel|key:fuel:biodiesel)
@@ -905,7 +906,7 @@ msgstr ""
 
 #: master_preset.xml:506(combo:text|key:boat)
 msgid "Boat"
-msgstr ""
+msgstr "Barco"
 
 #: master_preset.xml:3078(item:name|group:Shipping|preset:Boat_rental)
 msgid "Boat rental"
@@ -997,7 +998,7 @@ msgstr "Fronteira"
 
 #: master_preset.xml:9112(item:name|group:Historic_Places|preset:Boundary_Stone)
 msgid "Boundary Stone"
-msgstr ""
+msgstr "Marco de Fronteira"
 
 #: master_preset.xml:12196(combo:text|group:Relations|preset:Boundary|key:boundary)
 msgid "Boundary type"
@@ -1005,7 +1006,7 @@ msgstr "Tipo de fronteira"
 
 #: master_preset.xml:9473(item:name|group:Clothes|preset:Boutique)
 msgid "Boutique"
-msgstr ""
+msgstr "Botique"
 
 #: master_preset.xml:428(text:text|key:branch)
 #: master_preset.xml:460(text:text|key:branch)
@@ -1097,7 +1098,7 @@ msgstr "Passagem em Edifício (túnel)"
 
 #: master_preset.xml:12223(role:text|group:Relations|preset:Building|key:level_-?\d+)
 msgid "Building level"
-msgstr ""
+msgstr "Pisos do edifício"
 
 #: master_preset.xml:7832(item:name|group:Buildings|preset:Building_part)
 msgid "Building part"
@@ -1218,7 +1219,7 @@ msgstr "Câmara"
 
 #: master_preset.xml:7540(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:camogie)
 msgid "Camogie"
-msgstr ""
+msgstr "Camogie"
 
 #: master_preset.xml:13461(item:name|group:Offices|preset:Camping)
 msgid "Camping"
@@ -1295,7 +1296,7 @@ msgstr "Parque de Autocaravanas"
 #: master_preset.xml:6749(check:text|group:Facilities|preset:Recycling_Container|key:recycling:cardboard)
 #: master_preset.xml:6790(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:cardboard)
 msgid "Cardboard"
-msgstr ""
+msgstr "Cartão"
 
 #: master_preset.xml:12735(item:name|group:Crafts|preset:Carpenter)
 msgid "Carpenter"
@@ -1347,7 +1348,7 @@ msgstr "Católica"
 
 #: master_preset.xml:2037(item:name|group:Barriers|preset:Cattle_Grid)
 msgid "Cattle Grid"
-msgstr ""
+msgstr "Grelha Anti-Gado"
 
 #: master_preset.xml:11133(item:name|group:Geography|preset:Cave_Entrance)
 msgid "Cave Entrance"
@@ -1391,7 +1392,7 @@ msgstr "Caridade"
 
 #: master_preset.xml:12276(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Check"
-msgstr ""
+msgstr "Verificado"
 
 #: master_preset.xml:9238(item:name|group:Food|preset:Cheese)
 msgid "Cheese"
@@ -1577,7 +1578,7 @@ msgstr "Cor do texto"
 
 #: master_preset.xml:9020(combo:display_values|group:Historic_Places|preset:Tomb|key:tomb)
 msgid "Columbarium"
-msgstr ""
+msgstr "Columbário"
 
 #: master_preset.xml:1488(item:name|group:Ways|preset:Combined_Foot-_and_Cycleway)
 msgid "Combined Foot- and Cycleway"
@@ -1593,7 +1594,7 @@ msgstr "Comercial"
 
 #: master_preset.xml:11667(item:name|group:Land_use|preset:Common)
 msgid "Common"
-msgstr ""
+msgstr "Baldio"
 
 #: master_preset.xml:11975(text:text|group:Addresses_and_Contact|preset:Name|key:short_name)
 msgid "Common name abbreviation"
@@ -1781,7 +1782,7 @@ msgstr "Críquete"
 
 #: master_preset.xml:7639(item:name|group:Sport_(Ball)|preset:Croquet)
 msgid "Croquet"
-msgstr ""
+msgstr "Cróquete"
 
 #: master_preset.xml:8024(item:name|group:Man_Made|preset:Cross)
 msgid "Cross"
@@ -2102,7 +2103,7 @@ msgstr "Direção (graus)"
 
 #: master_preset.xml:534(list_entry:display_value|value:disabled)
 msgid "Disabled"
-msgstr ""
+msgstr "Desativado "
 
 #: master_preset.xml:10724(check:text|preset:Payment_Methods|key:payment:discover_card)
 msgid "Discover Card"
@@ -3220,11 +3221,11 @@ msgstr "Rodovias"
 #: master_preset.xml:4933(check:text|group:Tourism|preset:Map|key:hiking)
 #: master_preset.xml:4974(check:text|group:Tourism|preset:Guidepost|key:hiking)
 msgid "Hiking"
-msgstr ""
+msgstr "Pedestrianismo"
 
 #: master_preset.xml:12332(item:name|group:Routes|preset:Hiking_Route)
 msgid "Hiking Route"
-msgstr ""
+msgstr "Rota de pedestrianismo "
 
 #: master_preset.xml:411(combo:display_values|key:religion)
 msgid "Hindu"
@@ -3244,7 +3245,7 @@ msgstr "Nome histórico"
 
 #: master_preset.xml:4347(item:name|group:Airport|preset:Holding_Position)
 msgid "Holding Position"
-msgstr ""
+msgstr "Ponto de Espera"
 
 #: master_preset.xml:4519(item:name|group:Accommodation|preset:Holiday_apartment)
 msgid "Holiday apartment"
@@ -3309,7 +3310,7 @@ msgstr "Lomba (2-4m)"
 
 #: master_preset.xml:10228(item:name|group:Sports_and_hobbies|preset:Hunting)
 msgid "Hunting"
-msgstr ""
+msgstr "Caça"
 
 #: master_preset.xml:6897(item:name|group:Facilities|preset:Hunting_Stand)
 msgid "Hunting Stand"
@@ -3376,7 +3377,7 @@ msgstr "Inclinação em graus"
 
 #: master_preset.xml:13(combo:text|key:incline)
 msgid "Incline"
-msgstr ""
+msgstr "Inclinação"
 
 #: master_preset.xml:8860(check:text|preset:Power_Tower|key:design:incomplete)
 msgid "Incomplete tower"
@@ -3561,7 +3562,7 @@ msgstr "Judo"
 
 #: master_preset.xml:1223(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
-msgstr ""
+msgstr "Junção"
 
 #: master_preset.xml:538(list_entry:display_value|value:juvenile)
 msgid "Juveniles"
@@ -3751,7 +3752,7 @@ msgstr "Comprimento em metros"
 
 #: master_preset.xml:158(combo:text|key:level)
 msgid "Level"
-msgstr ""
+msgstr "Piso"
 
 #: master_preset.xml:3340(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
@@ -4415,7 +4416,7 @@ msgstr "Marca de motorizadas"
 #: master_preset.xml:877(check:text|group:Streets|preset:Primary|key:motorroad)
 #: master_preset.xml:896(check:text|group:Streets|preset:Primary_Link|key:motorroad)
 msgid "Motorroad"
-msgstr ""
+msgstr "Auto-estrada"
 
 #: master_preset.xml:7691(group:name|group:Motorsport)
 #: master_preset.xml:7692(item:name|group:Motorsport|preset:Motorsport)
@@ -4928,7 +4929,7 @@ msgstr "Nenhum"
 
 #: master_preset.xml:279(multiselect:display_values|key:cuisine)
 msgid "Noodle"
-msgstr ""
+msgstr "Massas"
 
 #: master_preset.xml:12397(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: master_preset.xml:12419(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
@@ -5129,7 +5130,7 @@ msgstr "Sentido Único (bicicleta)"
 
 #: master_preset.xml:1065(check:text|group:Streets|preset:Bicycle_Road|key:oneway:bicycle)
 msgid "Oneway for bicycle"
-msgstr ""
+msgstr "Um sentido para bicicletas"
 
 #: master_preset.xml:10444(combo:display_values|group:Other|preset:Charity|key:second_hand)
 #: master_preset.xml:275(combo:display_values|key:organic)
@@ -5347,7 +5348,7 @@ msgstr ""
 
 #: master_preset.xml:312(combo:display_values|key:smoking)
 msgid "Outside"
-msgstr ""
+msgstr "No exterior"
 
 #: master_preset.xml:1014(check:text|group:Streets|preset:Minor_road|key:trolley_wire)
 #: master_preset.xml:1041(check:text|group:Streets|preset:Residential|key:trolley_wire)
@@ -5361,7 +5362,7 @@ msgstr ""
 
 #: master_preset.xml:294(list_entry:short_description|value:oversize)
 msgid "Oversize"
-msgstr ""
+msgstr "Fora de formato"
 
 #: master_preset.xml:2887(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Oxbow"
@@ -5415,7 +5416,7 @@ msgstr "Paróquia"
 
 #: master_preset.xml:11683(item:name|group:Land_use|preset:Park)
 msgid "Park"
-msgstr ""
+msgstr "Parque"
 
 #: master_preset.xml:3576(combo:text|group:Car|preset:Parking|key:park_ride)
 msgid "Park and Ride"
@@ -5581,7 +5582,7 @@ msgstr "Nº Telefone"
 
 #: master_preset.xml:5576(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Phone booth"
-msgstr ""
+msgstr "Cabine telefónica"
 
 #: master_preset.xml:3720(check:text|group:Car|preset:Charging_Station|key:authentication:phone_call)
 msgid "Phone call"
@@ -7585,7 +7586,7 @@ msgstr "Táxi"
 
 #: master_preset.xml:4335(item:name|group:Airport|preset:Taxiway)
 msgid "Taxiway"
-msgstr ""
+msgstr "Via de circulação (taxiway)"
 
 #: master_preset.xml:397(text:text|key:taxon)
 msgid "Taxon"
@@ -9387,7 +9388,7 @@ msgstr "Críquete"
 #: master_preset.xml:336(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Croquet"
-msgstr ""
+msgstr "Cróquete"
 
 #: master_preset.xml:336(combo:display_values|key:sport)
 #: master_preset.xml:7157(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
@@ -10879,7 +10880,7 @@ msgstr "Serviço"
 #: master_preset.xml:4399(item:name|group:Airport|preset:Beacon)
 msgctxt "airmark"
 msgid "Beacon"
-msgstr "Baliza"
+msgstr "Radio-farol"
 
 #: master_preset.xml:4435(item:name|group:Airport|preset:Gate)
 msgctxt "airport"

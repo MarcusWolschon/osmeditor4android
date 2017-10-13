@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-09-26 09:14+0200\n"
-"PO-Revision-Date: 2017-09-26 07:16+0000\n"
+"PO-Revision-Date: 2017-09-29 08:45+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -2122,7 +2122,7 @@ msgstr ""
 
 #: master_preset.xml:6704(combo:text|group:Facilities|preset:Clock|key:display)
 msgid "Display"
-msgstr ""
+msgstr "Typ wyświetlacza"
 
 #: master_preset.xml:8413(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Display:"
@@ -3840,7 +3840,7 @@ msgstr "Nazwa lokalna"
 
 #: master_preset.xml:11012(item:name|group:Places|preset:Locality)
 msgid "Locality"
-msgstr ""
+msgstr "Miejsce nazwane"
 
 #: master_preset.xml:6249(check:text|group:Emergency|preset:Automated_Defibrillator|key:indoor)
 msgid "Located inside a building?"
@@ -10830,7 +10830,7 @@ msgstr ""
 #: master_preset.xml:2256(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Swing"
-msgstr ""
+msgstr "Huśtawka"
 
 #: master_preset.xml:2256(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"

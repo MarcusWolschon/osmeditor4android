@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-09-26 09:14+0200\n"
-"PO-Revision-Date: 2017-09-26 07:16+0000\n"
+"PO-Revision-Date: 2017-10-06 10:10+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -1763,7 +1763,7 @@ msgstr ""
 
 #: master_preset.xml:8140(item:name|group:Man_Made|preset:Crane)
 msgid "Crane"
-msgstr ""
+msgstr "Cẩu"
 
 #: master_preset.xml:10720(combo:text|preset:Payment_Methods|key:payment:credit_cards)
 msgid "Credit cards"
@@ -10825,7 +10825,7 @@ msgstr ""
 #: master_preset.xml:2256(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Swing"
-msgstr ""
+msgstr "Đu"
 
 #: master_preset.xml:2256(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"

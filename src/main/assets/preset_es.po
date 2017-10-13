@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-09-26 09:14+0200\n"
-"PO-Revision-Date: 2017-09-26 07:16+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-10-08 19:45+0000\n"
+"Last-Translator: Albert\n"
 "Language-Team: Spanish (http://www.transifex.com/openstreetmap/presets/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,7 +71,7 @@ msgstr "-10°"
 #: master_preset.xml:4939(label:text|group:Tourism|preset:Map)
 #: master_preset.xml:4980(label:text|group:Tourism|preset:Guidepost)
 msgid "... other transportation modes possible"
-msgstr ""
+msgstr "... otros modos de transporte posibles"
 
 #: master_preset.xml:175(list_entry:short_description|value:1)
 msgid "1 table"
@@ -79,7 +79,7 @@ msgstr "1 mesa"
 
 #: master_preset.xml:3664(check:text|group:Car|preset:Fuel|key:fuel:1_25)
 msgid "1/25 mix (mofa/moped)"
-msgstr ""
+msgstr "1/25 mix (mofa/moped)"
 
 #: master_preset.xml:3665(check:text|group:Car|preset:Fuel|key:fuel:1_50)
 msgid "1/50 mix (mofa/moped)"
@@ -186,7 +186,7 @@ msgstr "Un solo árbol."
 msgid ""
 "A steep rock face exposure, with a significant vertical, or near vertical "
 "(leave the lower face to the right of the way)."
-msgstr ""
+msgstr "Una exposición a la roca escarpada, con una importante verticalidad, o cerca de la vertical (deja la cara inferior a la derecha del camino)."
 
 #: master_preset.xml:11082(label:text|group:Geography|preset:Volcano)
 msgid "A volcano, either dormant, extinct or active."
@@ -194,11 +194,11 @@ msgstr "Un volcán, ya sea latente, extinto o activo."
 
 #: master_preset.xml:3327(item:name|group:Railway|preset:Abandoned_Rail)
 msgid "Abandoned Rail"
-msgstr ""
+msgstr "Raíl Abandonado"
 
 #: master_preset.xml:532(list_entry:display_value|value:abused)
 msgid "Abused"
-msgstr ""
+msgstr "Malogrado"
 
 #: master_preset.xml:354(combo:text|key:access)
 #: master_preset.xml:594(combo:text|key:access)
@@ -225,11 +225,11 @@ msgstr "Precisión"
 #: master_preset.xml:655(list_entry:display_value|value:across)
 #: master_preset.xml:703(list_entry:display_value|value:across)
 msgid "Across"
-msgstr ""
+msgstr "A través"
 
 #: master_preset.xml:650(combo:display_values|key:roof:material)
 msgid "Acrylic glass"
-msgstr ""
+msgstr "Vidrio acrílico"
 
 #: master_preset.xml:12136(item:name|group:Annotation|preset:Add_or_update_check_date)
 msgid "Add or update check date"
@@ -10829,7 +10829,7 @@ msgstr ""
 #: master_preset.xml:2256(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Swing"
-msgstr ""
+msgstr "Columpio / Hamaca"
 
 #: master_preset.xml:2256(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"

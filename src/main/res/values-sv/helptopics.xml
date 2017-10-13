@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_introduction">Introduktion</string>
+    <string name="help_main">Huvudkartvisning</string>
+    <string name="help_addrelationmember">Relation vald</string>
+    <string name="help_multiselect">Markera flera</string>
+    <string name="help_longclick">Skapa nya objekt</string>
     <string name="help_nodeselection">Nod vald</string>
     <string name="help_pathcreation">Skapa nya objekt</string>
     <string name="help_relationselection">Relation vald</string>

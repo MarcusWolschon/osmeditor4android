@@ -1,6 +1,6 @@
 # Einführung in Vespucci
 
-Vespucci ist ein Editor für OpenStreetMap, der die meisten Funktionen unterstützt, die in ähnlichen Programme auf normalen Rechnern vorhanden sind. Es ist erfolgreich auf Googles Android 2.3 bis 7.0 und verschiedene auf AOSP basierende Varianten getestet worden. Wichtig: während die Leistung von Handys und Tablets ihre stationären Konkurrenten auf vielen Gebieten eingeholt hat, muss, vor allem bei älteren Geräten, auch nicht vergessen gehen, dass sie eher wenig Hauptspeicher zur Verfügung haben und auch deutlich langsamer  bei bestimmten Operationen sein können. Deshalb sollte man beim Bearbeiten dies im Auge behalten und zum Beispiel die bearbeiteten Gebiete eher kleiner wählen.   
+Vespucci ist ein Editor für OpenStreetMap, der die meisten Funktionen unterstützt, die in ähnlichen Programme auf normalen Rechnern vorhanden sind. Es ist erfolgreich auf Googles Android 2.3 bis 7.0 und verschiedenen auf AOSP basierenden Varianten getestet worden. Wichtig: während die Leistung von Handys und Tablets ihre stationären Konkurrenten auf vielen Gebieten eingeholt hat, darf, vor allem bei älteren Geräten, auch nicht vergessen werden, dass sie eher wenig Hauptspeicher zur Verfügung haben und auch deutlich langsamer bei bestimmten Operationen sein können. Dies sollte man beim Bearbeiten im Auge behalten und zum Beispiel die bearbeiteten Gebiete eher kleiner wählen.   
 
 ## Erstmaliger Gebrauch
 
@@ -57,7 +57,7 @@ In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearb
 
 Vespucci hat eine gute Unterstützung von "Undo" und "Redo" deshalb kann man angst frei auf seinem Gerät experimentieren, bitte aber keine reinen Testdaten auf den OSM Server speichern.
 
-#### Auswählen / Abwählen (einfacher Klick und "Auswahlmenu"
+#### Auswählen / Abwählen (einfacher Klick und "Auswahlmenü")
 
 Tippe auf ein Objekt um es anzuwählen und hervorzuheben. Ist ein Objekt ausgewählt kann es durch Tippen an einer leeren Stelle abgewählt werden. Um ein Objekt abzuwählen tippe einfach in ein leeren Bereich. Um ein anderes Element anzuwählen tippe einfach darauf, es ist nicht nötig zuerst das aktuell angewählte abzuwählen. Ein "Doppeltipp" startet den [Mehrfachauswahl Modus](../en/Multiselect.md).
 

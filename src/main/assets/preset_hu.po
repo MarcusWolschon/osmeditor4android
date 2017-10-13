@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-09-26 09:14+0200\n"
-"PO-Revision-Date: 2017-09-26 07:16+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-09-30 19:07+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -912,7 +912,7 @@ msgstr "Hajókölcsönzés"
 
 #: master_preset.xml:3176(item:name|group:Shipping|preset:Boat_storage)
 msgid "Boat storage"
-msgstr ""
+msgstr "Hajótároló"
 
 #: master_preset.xml:12689(item:name|group:Crafts|preset:Boatbuilder)
 msgid "Boatbuilder"
@@ -1374,7 +1374,7 @@ msgstr "Ülőlift"
 
 #: master_preset.xml:4539(item:name|group:Accommodation|preset:Chalet)
 msgid "Chalet"
-msgstr "Alpesi faház"
+msgstr "Nyaralóház"
 
 #: master_preset.xml:5491(list_entry:display_value|group:Culture|preset:Music_theatres|value:chamber_music)
 msgid "Chamber music"
@@ -1678,7 +1678,7 @@ msgstr "Tanácsadó"
 
 #: master_preset.xml:9604(item:name|group:Electronic|preset:Consumer_electronics)
 msgid "Consumer electronics"
-msgstr ""
+msgstr "Szórakoztató elektronika"
 
 #: master_preset.xml:12035(item:name|group:Addresses_and_Contact|preset:Contact)
 msgid "Contact"
@@ -2308,11 +2308,11 @@ msgstr "Elektromos készülék"
 
 #: master_preset.xml:9773(item:name|group:Home_furnishing_and_decoration|preset:Electrical_appliances)
 msgid "Electrical appliances"
-msgstr ""
+msgstr "Háztartási gépek"
 
 #: master_preset.xml:9780(item:name|group:Home_furnishing_and_decoration|preset:Electrical_appliances_(UK))
 msgid "Electrical appliances (UK)"
-msgstr ""
+msgstr "Háztartási gépek (UK)"
 
 #: master_preset.xml:12790(item:name|group:Crafts|preset:Electrician)
 msgid "Electrician"
@@ -3251,7 +3251,7 @@ msgstr "Apartman"
 
 #: master_preset.xml:9758(group:name|group:Home_furnishing_and_decoration)
 msgid "Home furnishing and decoration"
-msgstr ""
+msgstr "Bútor és lakberendezés"
 
 #: master_preset.xml:537(list_entry:display_value|value:homeless)
 msgid "Homeless"
@@ -3308,7 +3308,7 @@ msgstr "Hosszú fekvőrendőr"
 
 #: master_preset.xml:10228(item:name|group:Sports_and_hobbies|preset:Hunting)
 msgid "Hunting"
-msgstr ""
+msgstr "Vadászfelszerelés"
 
 #: master_preset.xml:6897(item:name|group:Facilities|preset:Hunting_Stand)
 msgid "Hunting Stand"
@@ -3336,7 +3336,7 @@ msgstr "ICAO"
 
 #: master_preset.xml:711(multiselect:text|key:isced:level)
 msgid "ISCED level"
-msgstr ""
+msgstr "ISCED-szint"
 
 #: master_preset.xml:13355(item:name|group:Offices|preset:IT)
 msgid "IT"
@@ -3881,11 +3881,11 @@ msgstr "Lottózó"
 
 #: master_preset.xml:714(list_entry:short_description|value:2)
 msgid "Lower secondary (2)"
-msgstr ""
+msgstr "(2) alsó középfokú oktatás"
 
 #: master_preset.xml:717(list_entry:short_description|value:5)
 msgid "Lower tertiary education (5)"
-msgstr ""
+msgstr "(5) felsőoktatási alap- és mesterképzés"
 
 #: master_preset.xml:559(list_entry:display_value|value:lowered)
 #: master_preset.xml:565(list_entry:display_value|value:lowered)
@@ -5819,7 +5819,7 @@ msgstr "Irányítószám"
 
 #: master_preset.xml:716(list_entry:short_description|value:4)
 msgid "Post secondars (4)"
-msgstr ""
+msgstr "(4) felsőoktatási szakképzés"
 
 #: master_preset.xml:10784(item:name|group:Boundaries|preset:Postal_Code)
 #: master_preset.xml:10793(text:text|group:Boundaries|preset:Postal_Code|key:postal_code)
@@ -5927,7 +5927,7 @@ msgstr "Préri"
 
 #: master_preset.xml:712(list_entry:short_description|value:0)
 msgid "Pre-primary (0)"
-msgstr ""
+msgstr "(0) iskola előtti (óvodai) oktatás"
 
 #: master_preset.xml:413(combo:display_values|key:denomination)
 msgid "Presbyterian"
@@ -5955,7 +5955,7 @@ msgstr "Első- vagy másodrendű főút"
 
 #: master_preset.xml:713(list_entry:short_description|value:1)
 msgid "Primary (1)"
-msgstr ""
+msgstr "(1) alapfokú oktatás"
 
 #: master_preset.xml:885(item:name|group:Streets|preset:Primary_Link)
 msgid "Primary Link"
@@ -7218,7 +7218,7 @@ msgstr "Sportközpont"
 
 #: master_preset.xml:10200(group:name|group:Sports_and_hobbies)
 msgid "Sports and hobbies"
-msgstr ""
+msgstr "Sport és hobbi"
 
 #: master_preset.xml:332(combo:display_values|key:leisure)
 msgid "Sports centre"
@@ -7755,7 +7755,7 @@ msgstr "Dohánybolt"
 
 #: master_preset.xml:194(combo:text|key:toilets:access)
 msgid "Toilet access"
-msgstr ""
+msgstr "WC-használat"
 
 #: master_preset.xml:183(check:text|key:toilets)
 msgid "Toilets"
@@ -8171,11 +8171,11 @@ msgstr "Kárpitos"
 
 #: master_preset.xml:715(list_entry:short_description|value:3)
 msgid "Upper secondary (3)"
-msgstr ""
+msgstr "(3) felső középfokú oktatás"
 
 #: master_preset.xml:718(list_entry:short_description|value:6)
 msgid "Upper tertiary education (6)"
-msgstr ""
+msgstr "(6) doktori képzés"
 
 #: master_preset.xml:3202(combo:text|group:Railway|preset:Rail|key:usage)
 #: master_preset.xml:3216(combo:text|group:Railway|preset:Narrow_Gauge_Rail|key:usage)
@@ -8491,7 +8491,7 @@ msgstr "Út menti szentély"
 
 #: master_preset.xml:10644(item:name|group:Other|preset:Weapons)
 msgid "Weapons"
-msgstr ""
+msgstr "Fegyverbolt"
 
 #: master_preset.xml:8403(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:weather)
 msgid "Weather"
@@ -9471,7 +9471,7 @@ msgstr "Gokart"
 #: master_preset.xml:336(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Martial arts"
-msgstr ""
+msgstr "Harcművészetek"
 
 #: master_preset.xml:336(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10805,7 +10805,7 @@ msgstr "Típus"
 #: master_preset.xml:2115(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Wire"
-msgstr "Drótkerítés"
+msgstr "Táblás kerítés"
 
 #: master_preset.xml:2023(combo:display_values|group:Barriers|preset:Bollard|key:material)
 #: master_preset.xml:2115(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
