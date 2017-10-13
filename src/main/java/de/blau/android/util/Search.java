@@ -103,17 +103,21 @@ public class Search {
 
 	/**
 	 * Constructor
-	 * @param appCompatActivity
+	 * 
+	 * @param activity activity calling this
 	 * @param callback will be called when search result is selected
 	 */
-	public Search(AppCompatActivity appCompatActivity, SearchItemFoundCallback callback) {
-		this.activity = appCompatActivity;
+	public Search(AppCompatActivity activity, SearchItemFoundCallback callback) {
+		this.activity = activity;
 		this.callback = callback;
 	}
 
 	/**
 	 * Query and then display a list of results to pick from
-	 * @param q
+	 * 
+	 * @param geocoder the geocoder to use for the querey
+	 * @param q        the query string
+	 * @param bbox     bounding box to limit the search to
 	 */
 	public void find(Geocoder geocoder, String q, BoundingBox bbox) {
 		Query querier = null;

@@ -23,6 +23,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -155,16 +156,24 @@ public class SearchForm extends DialogFragment
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 			}});	
-    	searchBuilder.setPositiveButton(R.string.search, new OnClickListener() {
-    			@Override
-    			public void onClick(DialogInterface dialog, int which) {
-    				searchEdit.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)); // emulate pressing the enter button
-    			}
-    		});
+    	searchBuilder.setPositiveButton(R.string.search, null);
     	searchBuilder.setNegativeButton(R.string.cancel, null);
 
     	final AppCompatDialog searchDialog = searchBuilder.create();
 
+    	searchDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        searchEdit.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)); // emulate pressing the enter button
+                    }
+                });
+            }
+    	});
+    	
     	/*
     	 * NOTE this is slightly hackish but needed to ensure the original dialog (this) gets dismissed 
     	 */
@@ -185,7 +194,6 @@ public class SearchForm extends DialogFragment
     					|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
     				Search search = new Search((AppCompatActivity) getActivity(), realCallback);
     				search.find(geocoders[searchGeocoder.getSelectedItemPosition()],v.getText().toString(),bbox);
-    				return true;
     			}
     			return false;
     		}
