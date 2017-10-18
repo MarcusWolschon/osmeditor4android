@@ -253,9 +253,10 @@ public class PresetEditorActivity extends URLListEditActivity {
 						return DOWNLOADED_PRESET_ERROR;
 					}
 					String contentType = conn.getContentType();
-					boolean zip = contentType != null && contentType.equalsIgnoreCase("application/zip");
+					boolean zip = (contentType != null && contentType.equalsIgnoreCase("application/zip")) || url.toLowerCase().endsWith(".zip");
 					final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
 					if (zip) {
+					    Log.d(DEBUG_TAG, "detected zip file");
 						filename = FILE_NAME_TEMPORARY_ARCHIVE;
 					}
 					downloadStream = conn.getInputStream();

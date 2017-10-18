@@ -238,6 +238,7 @@ public class Preset implements Serializable {
 	
 	/**
 	 * Creates a preset object.
+	 * 
 	 * @param ctx context (used for preset loading)
 	 * @param directory directory to load/store preset data (XML, icons, MRUs)
 	 * @param name of external package containing preset assets for APK presets, null for other presets
