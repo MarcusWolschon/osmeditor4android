@@ -32,5 +32,6 @@ Some potentially useful ones for direct download (these links automatically conf
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging">Presets for Simple Indoor Tagging</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/military-preset/raw/gh-pages/gen/military.zip">Presets for military objects</a>
 
+Note: if you want to replace the default presets with one of the above you will need to disable it in the preferences after installing the replacement.
 
 
