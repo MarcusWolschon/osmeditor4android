@@ -897,7 +897,9 @@ public class Logic {
 	private HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
 		HashMap<Node, Double> result = new HashMap<Node, Double>();
 		List<Node> nodes = filter != null ? filter.getVisibleNodes() : getDelegator().getCurrentStorage().getNodes(map.getViewBox());
-		
+		if (filter != null && getSelectedNodes() != null) { // selected nodes are always visible if a filter is applied
+		    nodes.addAll(getSelectedNodes());
+		}
 		for (Node node : nodes) {
 			if (clickableElements != null && !clickableElements.contains(node)) {
 				continue;
@@ -2011,7 +2013,7 @@ public class Logic {
 	 * @throws OsmIllegalOperationException 
 	 */
 	private synchronized Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
-		return getClickedNodeOrCreatedWayNode(null,x,y, false);
+		return getClickedNodeOrCreatedWayNode(null, x, y, false);
 	}
 	
 	/**
