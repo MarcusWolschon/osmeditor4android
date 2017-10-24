@@ -23,6 +23,7 @@
   <string name="wrong_login_data_title">Uwierzytelnianie nieudane</string>
   <string name="wrong_login_data_message">Jeśli używasz usługi OAuth spróbuj ją ponownie uwierzytelnić a następnie spróbować ponownie, jeżeli używasz swojego loginu oraz hasła (nie rekomendowane) sprawdź czy zostały wprowadzone poprawnie.</string>
   <string name="wrong_login_data_re_authenticate">Uwierzytelnij ponownie</string>
+  <string name="go_to_openstreetmap">Idź do openstreetmap.org</string>
   <string name="data_conflict_title">Konflikt wersji</string>
   <string name="data_conflict_message">Dane, które próbujesz pobrać zawiera dane, które jest sprzeczne z wprowadzonymi zmianami. Najpierw spróbuj przesłać swoje dane przed ponowną próbą.</string>
   <string name="invalid_bounding_box_title">Niepoprawny Obszar Pobierania</string>
@@ -89,6 +90,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Propozycje mogą zamienić niektóre wartości znaczników na bardziej popularne.</string>
   <string name="search_results_title">Wyniki wyszukiwania</string>
   <string name="find_message">Proszę wprowadzić szukany ciąg</string>
+  <string name="geocoder_prompt">z</string>
   <string name="preset_search_hint">Wpisz nazwę szablonu</string>
   <string name="search">Szukaj</string>
   <string name="no_valid_preset">Brak prawidłowego szablonu!</string>
@@ -110,10 +112,14 @@
   <string name="empty_role">pusta rola</string>
   <string name="element">element</string>
   <string name="last_updated">ostatnia zmiana</string>
+  <string name="last_edited">Ostatnio edytowany</string>
   <string name="error">błąd</string>
   <string name="warning">ostrzeżenie</string>
   <string name="minor_issue">drobny problem</string>
   <string name="unknown_error_level">nieznany poziom błędu</string>
+  <string name="attached_object_warning_continue">OK dalej wyświetlaj tą wiadomość</string>
+  <string name="attached_object_warning_stop">OK przestań wyświetlać tą wiadomość</string>
+  <string name="send_debug_information">Prześlij informacje do debugowania</string>
   <!--Toaster-->
   <string name="toast_no_changes">Jeszcze nic nie zmieniono…</string>
   <string name="toast_unsaved_changes">Istnieją niezapisane zmiany, proszę je najpierw wysłać.</string>
@@ -133,6 +139,7 @@
   <string name="toast_potential_merge_tag_conflict">Próbuje się połączyć obiekty, które mają sprzeczne wartości znaczników. Proszę sprawdzić i poprawić znaczniki przed połączeniem.</string>
   <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik stanu</string>
   <string name="toast_too_many_nodes_for_move">Zbyt wiele węzłów na linii do przesunięcia</string>
+  <string name="toast_one_unread_mail">Masz nieprzeczytaną wiadomość w OSM</string>
   <string name="toast_photo_indexing_started">Rozpoczęto skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończono skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_download_failed">Nie udało się pobrać. Kod błędu %1$d, wiadomość %2$s</string>
@@ -167,11 +174,19 @@
   <string name="toast_split_from_and_via">Oddzielonp linie \"from\" oraz \"via\"</string>
   <string name="toast_split_to">Oddzielona linia \"to\"</string>
   <string name="toast_tile_database_full">Pełna baza danych kafli lub niewystarczająca ilość pamięci!\nProszę zakończyć działanie programu i usunąć bazę danych lub zwolnić pamięć.</string>
+  <string name="toast_invalid_apiurl">Błędny URL dla API</string>
+  <string name="toast_invalid_readonlyurl">Błędny URL do ReadOnly API</string>
+  <string name="toast_invalid_notesurl">Błędny URL do API Uwag</string>
+  <string name="toast_no_voice_recognition">Brak funkcji rozpoznawania głosu</string>
+  <string name="toast_file_exists">Plik %1$s istnieje.</string>
+  <string name="toast_openinghours_autocorrected">Wartość godzin otwarcia dla %1$s została poprawiona</string>
+  <string name="toast_null_island">Prosimy nie dodawać obiektów na 0°/0° (Null Island)</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
   <string name="okay">Zatwierdź</string>
   <string name="cancel">Anuluj</string>
+  <string name="dismiss">Odrzuć</string>
   <string name="locked">Zablokowane</string>
   <string name="next">Dalej</string>
   <string name="apply">Zastosuj</string>
@@ -184,6 +199,9 @@
   <string name="enable">Włącz</string>
   <string name="clear">Wyczyść</string>
   <string name="retry">Spróbuj ponownie</string>
+  <string name="overwrite">Nadpisz</string>
+  <string name="share">Udostępnij</string>
+  <string name="share_position">Udostępnij pozycję</string>
   <!--Dialog for back button-->
   <string name="exit_title">Kończenie działania</string>
   <string name="exit_text">Zakończyć działanie programu?</string>
@@ -223,9 +241,13 @@
   <string name="tag_menu_move_down">Przenieś w dół</string>
   <string name="tag_menu_move_bottom">Przenieś na koniec</string>
   <string name="tag_menu_sort">Sortuj</string>
+  <string name="tag_menu_reverse_order">Odwróć kolejność</string>
   <string name="tag_menu_download">Pobierz</string>
+  <string name="tag_menu_js_console">Konsola JS</string>
   <string name="menu_up">W górę</string>
   <string name="menu_top">Początek</string>
+  <string name="menu_select_all">Zaznacz wszystko</string>
+  <string name="menu_deselect_all">Odznacz wszystko</string>
   <string name="menu_preset_help">Pomoc szablonu</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Dodaj znaczniki dla %1$s</string>
@@ -269,6 +291,7 @@
   <string name="menu_extract">Izoluj węzeł</string>
   <string name="menu_append">Dołącz</string>
   <string name="menu_relation">Utwórz relację</string>
+  <string name="menu_edit_relation">Edycja relacji</string>
   <string name="menu_add_relation_member">Dodaj członka</string>
   <string name="menu_select_relation_members">Zaznacz członków</string>
   <string name="menu_tag">Edytuj znaczniki</string>
@@ -339,6 +362,9 @@
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Zresetuj OAuth</string>
   <string name="menu_tools_oauth_authorisation">Uwierzytelnij przez OAuth</string>
+  <string name="menu_enable_tagfilter">Filtr tagu</string>
+  <string name="menu_enable_presetfilter">Filtr szablonu</string>
+  <string name="preset_menu_invert">Odwróć filtry</string>
   <!--element action mode menu-->
   <string name="menu_tags">Właściwości</string>
   <!--Text should be as short as possible-->
@@ -362,6 +388,17 @@
   <string name="actionmode_createpath">Tworzenie linii</string>
   <string name="actionmode_multiselect">Zaznacz wiele</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Podziel zamkniętą linię, pierwszy węzeł </string>
+  <string name="actionmode_closed_way_split_2">Podziel zamkniętą linię, drugi węzeł </string>
+  <string name="actionmode_restriction">Dodaj nakaz/zakaz skrętu</string>
+  <string name="actionmode_restriction_restart_from">Ponownie wybierz segment \"from\"</string>
+  <string name="actionmode_restriction_via">Dodaj segment/węzeł \"via\"</string>
+  <string name="actionmode_restriction_restart_via">Ponownie wybierz segment \"via\"</string>
+  <string name="actionmode_restriction_to">Dodaj segment \"to\"</string>
+  <string name="actionmode_restriction_restart_to">Ponownie wybierz segment \"to\"</string>
+  <string name="actionmode_one_object">1 obiekt</string>
+  <string name="actionmode_object_count">%1$d obiektów</string>
+  <string name="actionmode_rotateway">Obróć linię</string>
   <!--Preferences-->
   <string name="config_category_editing">Dane i edycja</string>
   <string name="config_category_view">Interfejs użytkownika</string>
@@ -405,6 +442,8 @@
   <string name="listedit_enable_oauth">Włącz OAuth</string>
   <string name="config_offsetServer_title">Serwer przesunięć</string>
   <string name="config_offsetServer_summary">Określa adres URL serwera przesunięć podkładów map</string>
+  <string name="config_osmoseServer_title">Serwer OSMOSE</string>
+  <string name="config_osmoseServer_summary">URL do serwera OSMOSE</string>
   <string name="config_presetbutton_title">Szablony</string>
   <string name="config_presetbutton_summary">Dodaje i włącza szablony kompatybilne z JOSM</string>
   <string name="config_iconbutton_title">Ikony węzłów</string>
@@ -474,10 +513,13 @@
   <string name="config_maxTileDownloadThreads_title">Maks. liczba wątków pobierania</string>
   <string name="config_maxTileDownloadThreads_summary">Określa maksymalną liczbę wątków pobierania kafelków mapy</string>
   <string name="config_notificationCacheSize_title">Maks. liczba powiadomień</string>
+  <string name="config_notificationCacheSize_summary">Maksymalna liczba wyświetlonych powiadomień na typ (min. 1)</string>
   <string name="config_autoLockDelay_title">Czas oczekiwania przed zablokowaniem</string>
   <string name="config_autoLockDelay_summary">Ustala czas oczekiwania przed automatycznym zablokowaniem. Wartość 0 wyłącza funkcję.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Przyciemnianie nie pobranych obszarów</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Przełącza przyciemnianie nie pobranych obszarów po zablokowaniu modyfikowania</string>
+  <string name="config_js_console_title">Włącz konsolę JS</string>
+  <string name="manage_presets">Zarządzaj szablonami</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uaktualnij szablon</string>
   <string name="preset_download_successful">Pobrano szablon</string>
@@ -506,6 +548,7 @@
   <string name="url">URL</string>
   <string name="default_">Domyślne</string>
   <!---->
+  <string name="empty_list">Brak wpisów</string>
   <string name="api_name">Nazwa API</string>
   <string name="api_url">Adres URL API</string>
   <string name="readonly_url">Adres URL API tylko do odczytu (opcjonalny)</string>
@@ -520,6 +563,8 @@
   <string name="tracking_active_text">Vespucci nagrywa ścieżkę GPS lub automatycznie pobiera dane</string>
   <string name="gps_failure">Nie udało się włączyć GPSa</string>
   <!--element description-->
+  <string name="address_housenumber">Adres%1$s</string>
+  <string name="address_housenumber_street">Adres %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">przesuń węzeł</string>
   <string name="undo_action_moveway">przesuń linię</string>

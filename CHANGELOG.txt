@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1302: Don't dismiss SearchForm except if a result has been chosen. update OpeningHoursFragment, show an error toast when preset creation fails, fix issue with Node creation when a filter is applied, any xmas:feature to important tags :-), fix regression when matching addr: tags, update preset, update translations.
+
 1301: Fix issue with previous tile caches that are not writable, fix logic for permission requests, various stability issue fixes, inherit level status from relations properly in indoor mode, change spinner message when downloading, updated translations. 
 
 1300: Update OpeningHoursFragment (fixes numerous smaller issues), update presets and translations, avoid a serialisation crash, improve note conflict handling.

@@ -4266,8 +4266,8 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=bus_stop"
                   zh_TW.href="http://wiki.openstreetmap.org/wiki/Zh-hant:Tag:highway=bus_stop" />
             <key key="highway" value="bus_stop" />
+            <text key="name" text="Name" />
             <optional>
-                <text key="name" text="Name" />
                 <check key="shelter" text="Shelter" disable_off="true" />
                 <check key="bench" text="Bench" disable_off="true" />
                 <reference ref="tactile_paving" />
@@ -5272,7 +5272,12 @@
             <space />
             <key key="leisure" value="playground" />
             <reference ref="facility_access" />
-            <reference ref="name_operator_oh_wheelchair" />
+            <optional>
+            	<text key="min_age" text="Minimum age" />
+            	<text key="max_age" text="Maximum age" />
+            	<reference ref="surface" />
+            	<reference ref="name_operator_oh_wheelchair" />
+            </optional>
         </item> <!-- Playground -->
         <item name="Picnic Site" icon="icons/png/tourist_picnic.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=picnic_site"
@@ -5286,7 +5291,9 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:tourism=picnic_site" />
             <space />
             <key key="tourism" value="picnic_site" />
-            <text key="name" text="Name" />
+            <optional>
+            	<text key="name" text="Name" />
+            </optional>
             <check key="fireplace" text="Fireplace" disable_off="true" />
         </item> <!-- Picnic Site -->
         <item name="Picnic Table" icon="icons/png/tourist_picnic.png" type="node" preset_name_label="true">
@@ -8365,6 +8372,13 @@
             <key key="man_made" value="beacon" />
             <text key="name" text="Name" />
         </item> <!-- Beacon -->
+        <item name="Dolphin" icon="icons/png/man_made_dolphin_22022.png" name_context="man_made" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=dolphin" />
+            <key key="man_made" value="dolphin" />
+            <optional>
+            	<text key="ref" text="Ref" />
+            </optional>
+        </item> <!-- Dolphin -->
         <item name="Street Lamp" icon="icons/png/man_made_street_lamp_18027.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=street_lamp"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:highway=street_lamp"
@@ -8461,6 +8475,14 @@
                 <text key="height" text="Height in meter (m)" />
             </optional>
         </item> <!-- Surveillance Camera -->
+        <item name="MDF" icon="icons/png/man_made_MDF_22029.png" name_context="man_made" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=MDF" 
+            de.href="http://wiki.openstreetmap.org/wiki/DE:Key:man_made=MDF" />
+            <key key="man_made" value="MDF" />
+            <optional>
+            	<text key="operator" text="Operator" />
+            </optional>
+        </item> <!-- MDF -->
     </group> <!-- Man Made -->
     <group name="Bridges" icon="icons/png/highway_bridge_sp.png">
         <item name="Bridge" icon="icons/png/highway_bridge_sp.png" type="way,relation,multipolygon" preset_name_label="true">
@@ -8949,180 +8971,229 @@
             </optional>
         </item> <!-- Power Cable -->
     </group> <!-- Power -->
-    <group name="Historic Places" icon="icons/png/tourist_castle2.png">
-        <item name="Castle" icon="icons/png/tourist_castle2.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=castle"
-                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=castle"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=castle"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=castle"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=castle"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=castle"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=castle" />
-            <space />
-            <key key="historic" value="castle" />
-            <reference ref="name_wikipedia" />
-            <check key="ruins" text="Ruins" />
-            <reference ref="link_contact_address_payment" />
-        </item> <!-- Castle -->
-        <item name="Ruins" icon="icons/png/tourist_ruin.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=ruins"
-                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=ruins"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=ruins"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic=ruins"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=ruins"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=ruins"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=ruins"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=ruins"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=ruins" />
-            <space />
-            <key key="historic" value="ruins" />
-            <reference ref="name_oh_wheelchair" />
-        </item> <!-- Ruins -->
-        <item name="Archaeological Site" icon="icons/png/tourist_archaeological.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=archaeological_site"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=archaeological_site"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=archaeological_site"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=archaeological_site"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=archaeological_site"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=archaeological_site"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=archaeological_site" />
-            <space />
-            <key key="historic" value="archaeological_site" />
-            <combo key="site_type" text="Type" values="tumulus,megalith,fortification,settlement,necropolis,city" 
-            	display_values="Tumulus,Megalith,Fortification,Settlement,Necropolis,City" />
-            <reference ref="name_oh_wheelchair" />
-        </item> <!-- Archaeological Site -->
-        <item name="Battlefield" icon="icons/png/tourist_battlefield.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=battlefield"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=battlefield"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=battlefield"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=battlefield"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=battlefield"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=battlefield"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=battlefield"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=battlefield" />
-            <space />
-            <key key="historic" value="battlefield" />
-            <text key="name" text="Name" />
-        </item> <!-- Battlefield -->
-        <item name="Tomb" icon="icons/png/tourist_tomb_19030.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=tomb"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=tomb"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=tomb"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic=tomb"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=tomb"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=tomb"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=tomb" />
-            <space />
-            <key key="historic" value="tomb" />
-            <text key="name" text="Name" />
-            <combo key="tomb" text="Tomb type" values="tumulus,rock-cut,hypogeum,war_grave,mausoleum,columbarium,crypt,pyramid,sarcophagus,vault" 
-            	display_values="Tumulus,Rock-cut,Hypogeum,War grave,Mausoleum,Columbarium,Crypt,Pyramid,Sarcophagus,Vault" />
-        </item> <!-- Tomb -->
-        <item name="Palaeontological Site" icon="icons/png/natural_palaeontological_site_24004.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:geological=palaeontological_site"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:geological=palaeontological_site"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:geological=palaeontological_site"
-                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:geological=palaeontological_site"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:geological=palaeontological_site"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:geological=palaeontological_site"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:geological=palaeontological_site" />
-            <space />
-            <key key="geological" value="palaeontological_site" />
-            <text key="name" text="Name" />
-        </item> <!-- Palaeontological Site -->
-        <separator/>
-        <item name="Monument" icon="icons/png/tourist_monument.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=monument"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=monument"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=monument"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=monument"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=monument"
-                  nl.href="http://wiki.openstreetmap.org/wiki/NL:Tag:historic=monument"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=monument"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=monument"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=monument"
-                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:historic=monument" />
-            <space />
-            <key key="historic" value="monument" />
-            <text key="name" text="Name" />
-        </item> <!-- Monument -->
-        <item name="Memorial" icon="icons/png/tourist_memorial.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=memorial"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=memorial"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=memorial"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic=memorial"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=memorial"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=memorial"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=memorial"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=memorial"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=memorial"
-                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:historic=memorial" />
-            <space />
-            <key key="historic" value="memorial" />
-            <text key="name" text="Name" />
-            <combo key="memorial" text="Type" values="statue,bust,plaque,stele,stone,war_memorial" display_values="Statue,Bust,Plaque,Stele,Stone,War memorial" 
-            	values_context="memorial" values_searchable="true" />
-            <optional>
-                <text key="inscription" text="Inscription" />
-                <text key="artist_name" text="Artist Name" />
-                <text key="start_date" text="Start date" />
-                <text key="wikipedia" text="Wikipedia" />
-            </optional>
-        </item> <!-- Memorial -->
-        <item name="Wayside Cross" icon="icons/png/tourist_wayside_cross.png" type="node,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=wayside_cross"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=wayside_cross"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=wayside_cross"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=wayside_cross"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=wayside_cross"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=wayside_cross"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=wayside_cross"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=wayside_cross"
-                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:historic=wayside_cross" />
-            <space />
-            <key key="historic" value="wayside_cross" />
-            <text key="name" text="Name" />
-            <combo key="religion" text="Religion" values="christian" display_values="Christian" default="christian" />
-            <combo key="denomination" text="Denomination" values="catholic,greek_catholic,old_catholic,orthodox,roman_catholic" 
-            	display_values="Catholic,Greek catholic,Old catholic,Orthodox,Roman catholic"
-            	default="catholic" />
-            <text key="start_date" text="Start date" />
-            <text key="inscription" text="Inscription" />
-        </item> <!-- Wayside Cross -->
-        <item name="Wayside Shrine" icon="icons/png/tourist_wayside_shrine.png" type="node,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=wayside_shrine"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=wayside_shrine"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=wayside_shrine"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=wayside_shrine"
-                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:historic=wayside_shrine"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=wayside_shrine"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=wayside_shrine"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=wayside_shrine"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=wayside_shrine" />
-            <space />
-            <key key="historic" value="wayside_shrine" />
-            <text key="name" text="Name" />
-            <reference ref="religious" />
-            <check key="amenity" text="Place of worship" value_on="place_of_worship" disable_off="true" />
-            <combo key="building" text="Building" values="wayside_shrine" values_context="building" />
-            <text key="start_date" text="Start date" />
-            <text key="inscription" text="Inscription" />
-        </item> <!-- Wayside Shrine -->
-        <item name="Boundary Stone" icon="icons/png/poi_boundary_stone_19004.png" type="node,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=boundary_stone"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=boundary_stone"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=boundary_stone"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=boundary_stone"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=boundary_stone"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=boundary_stone"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=boundary_stone" />
-            <space />
-            <key key="historic" value="boundary_stone" />
-            <text key="name" text="Name" />
-        </item> <!-- Boundary Stone -->
-    </group> <!-- Historic Places -->
   </group> <!-- Man Made -->
+  <group name="Historic Places &amp; Objects" icon="icons/png/tourist_castle2.png">
+  	<item name="Castle" icon="icons/png/tourist_castle2.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=castle"
+               cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=castle"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=castle"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=castle"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=castle"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=castle"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=castle" />
+         <space />
+         <key key="historic" value="castle" />
+         <reference ref="name_wikipedia" />
+         <check key="ruins" text="Ruins" />
+         <reference ref="link_contact_address_payment" />
+     </item> <!-- Castle -->
+     <item name="City gate" icon="icons/png/tourist_city_gate_19009.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=city_gate"
+               cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=city_gate"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=city_gate"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=city_gate"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=city_gate"
+               pl.href="http://wiki.openstreetmap.org/wiki/PL:Tag:historic=city_gate"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=city_gate"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=city_gate" />
+         <space />
+         <key key="historic" value="city_gate" />
+         <reference ref="name_wikipedia" />
+         <check key="ruins" text="Ruins" />
+         <reference ref="link_contact_address_payment" />
+     </item> <!-- City gate -->
+     <item name="Building" icon="icons/png/tourist_building_19005.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic"
+               cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic"
+               es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic"
+               hr.href="http://wiki.openstreetmap.org/wiki/HR:Tag:historic"
+               it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:historic"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic"
+               pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic"
+               tr.href="http://wiki.openstreetmap.org/wiki/TR:Tag:historic" 
+               uk.href="http://wiki.openstreetmap.org/wiki/UK:Tag:historic" />
+         <space />
+         <key key="historic" value="building" />
+         <reference ref="name_wikipedia" />
+         <check key="ruins" text="Ruins" />
+         <reference ref="link_contact_address_payment" />
+     </item> <!-- Building -->
+     <item name="Ruins" icon="icons/png/tourist_ruin.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=ruins"
+               cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=ruins"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=ruins"
+               es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic=ruins"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=ruins"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=ruins"
+               pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=ruins"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=ruins"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=ruins" />
+         <space />
+         <key key="historic" value="ruins" />
+         <reference ref="name_oh_wheelchair" />
+     </item> <!-- Ruins -->
+     <item name="Archaeological Site" icon="icons/png/tourist_archaeological.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=archaeological_site"
+         	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=archaeological_site"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=archaeological_site"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=archaeological_site"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=archaeological_site"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=archaeological_site"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=archaeological_site" />
+         <space />
+         <key key="historic" value="archaeological_site" />
+         <combo key="site_type" text="Type" values="tumulus,megalith,fortification,settlement,necropolis,city" 
+         	display_values="Tumulus,Megalith,Fortification,Settlement,Necropolis,City" />
+         <reference ref="name_oh_wheelchair" />
+     </item> <!-- Archaeological Site -->
+     <item name="Battlefield" icon="icons/png/tourist_battlefield.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=battlefield"
+         	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=battlefield"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=battlefield"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=battlefield"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=battlefield"
+               pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=battlefield"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=battlefield"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=battlefield" />
+         <space />
+         <key key="historic" value="battlefield" />
+         <text key="name" text="Name" />
+     </item> <!-- Battlefield -->
+     <item name="Tomb" icon="icons/png/tourist_tomb_19030.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=tomb"
+         	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=tomb"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=tomb"
+               es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic=tomb"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=tomb"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=tomb"
+               pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=tomb" />
+         <space />
+         <key key="historic" value="tomb" />
+         <text key="name" text="Name" />
+         <combo key="tomb" text="Tomb type" values="tumulus,rock-cut,hypogeum,war_grave,mausoleum,columbarium,crypt,pyramid,sarcophagus,vault" 
+         	display_values="Tumulus,Rock-cut,Hypogeum,War grave,Mausoleum,Columbarium,Crypt,Pyramid,Sarcophagus,Vault" />
+     </item> <!-- Tomb -->
+     <item name="Palaeontological Site" icon="icons/png/natural_palaeontological_site_24004.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:geological=palaeontological_site"
+         	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:geological=palaeontological_site"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:geological=palaeontological_site"
+               it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:geological=palaeontological_site"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:geological=palaeontological_site"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:geological=palaeontological_site"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:geological=palaeontological_site" />
+         <space />
+         <key key="geological" value="palaeontological_site" />
+         <text key="name" text="Name" />
+     </item> <!-- Palaeontological Site -->
+     <separator/>
+     <item name="Monument" icon="icons/png/tourist_monument.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=monument"
+         	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=monument"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=monument"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=monument"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=monument"
+               nl.href="http://wiki.openstreetmap.org/wiki/NL:Tag:historic=monument"
+               pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=monument"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=monument"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=monument"
+               uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:historic=monument" />
+         <space />
+         <key key="historic" value="monument" />
+         <text key="name" text="Name" />
+     </item> <!-- Monument -->
+     <item name="Memorial" icon="icons/png/tourist_memorial.png" type="node,closedway,multipolygon" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=memorial"
+         	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=memorial"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=memorial"
+               es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic=memorial"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=memorial"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=memorial"
+               pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=memorial"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=memorial"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=memorial"
+               uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:historic=memorial" />
+         <space />
+         <key key="historic" value="memorial" />
+         <text key="name" text="Name" />
+         <combo key="memorial" text="Type" values="statue,bust,plaque,stele,stone,war_memorial" display_values="Statue,Bust,Plaque,Stele,Stone,War memorial" 
+         	values_context="memorial" values_searchable="true" />
+         <optional>
+             <text key="inscription" text="Inscription" />
+             <text key="artist_name" text="Artist Name" />
+             <text key="start_date" text="Start date" />
+             <text key="wikipedia" text="Wikipedia" />
+         </optional>
+     </item> <!-- Memorial -->
+     <item name="Wayside Cross" icon="icons/png/tourist_wayside_cross.png" type="node,closedway" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=wayside_cross"
+         	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=wayside_cross"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=wayside_cross"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=wayside_cross"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=wayside_cross"
+               pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=wayside_cross"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=wayside_cross"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=wayside_cross"
+               uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:historic=wayside_cross" />
+         <space />
+         <key key="historic" value="wayside_cross" />
+         <text key="name" text="Name" />
+         <combo key="religion" text="Religion" values="christian" display_values="Christian" default="christian" />
+         <combo key="denomination" text="Denomination" values="catholic,greek_catholic,old_catholic,orthodox,roman_catholic" 
+         	display_values="Catholic,Greek catholic,Old catholic,Orthodox,Roman catholic"
+         	default="catholic" />
+         <text key="start_date" text="Start date" />
+         <text key="inscription" text="Inscription" />
+     </item> <!-- Wayside Cross -->
+     <item name="Wayside Shrine" icon="icons/png/tourist_wayside_shrine.png" type="node,closedway" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=wayside_shrine"
+         	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=wayside_shrine"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=wayside_shrine"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=wayside_shrine"
+               it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:historic=wayside_shrine"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=wayside_shrine"
+               pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:historic=wayside_shrine"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=wayside_shrine"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=wayside_shrine" />
+         <space />
+         <key key="historic" value="wayside_shrine" />
+         <text key="name" text="Name" />
+         <reference ref="religious" />
+         <check key="amenity" text="Place of worship" value_on="place_of_worship" disable_off="true" />
+         <combo key="building" text="Building" values="wayside_shrine" values_context="building" />
+         <text key="start_date" text="Start date" />
+         <text key="inscription" text="Inscription" />
+     </item> <!-- Wayside Shrine -->
+     <item name="Boundary Stone" icon="icons/png/poi_boundary_stone_19004.png" type="node,closedway" preset_name_label="true">
+         <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=boundary_stone"
+         	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=boundary_stone"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=boundary_stone"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=boundary_stone"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=boundary_stone"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=boundary_stone"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=boundary_stone" />
+         <space />
+         <key key="historic" value="boundary_stone" />
+         <text key="name" text="Name" />
+     </item> <!-- Boundary Stone -->
+     <item name="Wreck" icon="icons/png/tourist_wreck_19033.png" type="node,closedway,multipolygon" preset_name_label="true">
+     	  <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=wreck"
+               cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=wreck"
+               de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=wreck"
+               es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic=wreck"
+               fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=wreck"
+               ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=wreck"
+               pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=wreck"
+               ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:historic=wreck" />
+         <space />
+         <key key="historic" value="wreck" />
+         <reference ref="name_wikipedia" />
+         <reference ref="link_contact_address_payment" />
+     </item> <!-- Wreck -->
+  </group> <!-- Historic Places -->
   <group name="Shops" icon="icons/png/shopping_department_store.png">
     <group name="Food" icon="icons/png/shopping_supermarket.png">
         <item name="Supermarket" icon="icons/png/shopping_supermarket.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10416,15 +10487,6 @@
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Locksmith -->
-        <item name="Sewing" icon="icons/png/shopping_dressmaker_16111.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=sewing"
-                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=sewing"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=sewing" />
-            <space />
-            <key key="shop" value="sewing" />
-            <reference ref="name_oh_wheelchair_level" />
-            <reference ref="link_contact_address_payment" />
-        </item> <!-- Sewing -->
         <item name="Second hand" icon="icons/png/shopping_second_hand_29127.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=second_hand"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=second_hand"
