@@ -1127,7 +1127,7 @@ public class Preset implements Serializable {
 		Set<PresetItem> possibleMatches = buildPossibleMatches(presets, tags, false);
 
 		// if we only have address keys retry
-		if (useAddressKeys && !possibleMatches.isEmpty()) {
+		if (useAddressKeys && possibleMatches.isEmpty()) {
 			possibleMatches = buildPossibleMatches(presets, tags, true);
 		}  
 		// Find best
