@@ -502,10 +502,10 @@
     </chunk>
     <chunk id="water_access">
         <optional text="Water access rules:">
-            <combo key="ship" text="Ship" values="yes,designated,destination,delivery,permissive,private,no" values_sort="false" />
-            <combo key="boat" text="Boat" values="yes,designated,destination,delivery,permissive,private,no" values_sort="false" />
-            <combo key="motorboat" text="Motorboat" values="yes,designated,destination,delivery,permissive,private,no" values_sort="false" />
-            <combo key="canoe" text="Canoe" values="yes,designated,destination,delivery,permissive,private,no" values_sort="false" />
+            <combo key="ship" text="Ship" values="yes,designated,destination,delivery,permissive,private,no" values_sort="false" values_context="access" />
+            <combo key="boat" text="Boat" values="yes,designated,destination,delivery,permissive,private,no" values_sort="false" values_context="access" />
+            <combo key="motorboat" text="Motorboat" values="yes,designated,destination,delivery,permissive,private,no" values_sort="false" values_context="access" />
+            <combo key="canoe" text="Canoe" values="yes,designated,destination,delivery,permissive,private,no" values_sort="false" values_context="access" />
         </optional>
     </chunk>
     <chunk id="operator_substance">
@@ -1055,7 +1055,7 @@
             <key key="bicycle" value="designated" />
             <combo key="highway" text="Highway type" values="residential,service,unclassified,path,cycleway" values_context="Highway" default="residential" />
             <text key="name" text="Name" />
-            <combo key="vehicle" text="Vehicle access" values="yes,no,destination" default="no" />
+            <combo key="vehicle" text="Vehicle access" values="yes,no,destination" default="no" values_context="access" />
             <text key="maxspeed" text="Max. speed (km/h)" default="30" />
             <optional>
                 <reference ref="lanes" />
@@ -1398,7 +1398,7 @@
                     display_values="Excellent,Good,Intermediate,Bad,Horrible,Not visible" values_context="trail_visibility" values_sort="false" />
                 <reference ref="wheelchair" />
                 <combo key="ski" text="Ski" values="yes,official,designated,permissive,private,no" />
-                <combo key="snowmobile" text="Snowmobile" values="yes,official,designated,permissive,destination,delivery,private,no" />
+                <combo key="snowmobile" text="Snowmobile" values="yes,official,designated,permissive,destination,delivery,private,no" values_context="access" />
                 <reference ref="road_access_restrictions" />
             </optional>
         </item> <!-- Path -->
@@ -6675,6 +6675,18 @@
             <check key="payment:telephone_cards" text="Telephone cards" disable_off="true" />
             <preset_link preset_name="Payment Methods" />
         </item> <!-- Telephone -->
+        <item name="Coworking space" icon="icons/png/amenity_coworking.png" type="node,closedway,multipolygon">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenits=coworking_space"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenits=coworking_space"
+            	  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:amenits=coworking_space"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenits=coworking_space"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenits=coworking_space" />
+            <space />
+            <key key="amenity" value="coworking_space" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="fee" />
+            <reference ref="link_contact_address" />
+        </item> <!-- Company -->
         <item name="Internet Cafe" icon="" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=internet_cafe"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=internet_cafe"
