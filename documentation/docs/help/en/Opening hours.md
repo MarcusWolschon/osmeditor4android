@@ -47,13 +47,19 @@ Default rules are added as _normal_ rules, this implies that they will override 
     * __Variable time-open end__: from a start variable time onwards
 * __Add week day range__: add a weekday based selector.
 * __Add date range...__
-     * __Date - date__: from a start date (year, month, day) to an end date.
-     * __Variable date - date__: from a start variable date (currently the specification only defines _easter_) to an end date.
-     * __Date - variable date__: from a start date to a variable date.
-     * __Variable date - variable date__: from a start variable date to an end variable date.
-     * __Date - open end__: from a start date onwards,
-     * __Variable date - open end__: from a start variable date onwards.
-     * __With offsets...__: the same entries as above however with offsets specified (this is rarely used).
+    * __Date - date__: from a start date (year, month, day) to an end date.
+    * __Variable date - date__: from a start variable date (currently the specification only defines _easter_) to an end date.
+    * __Date - variable date__: from a start date to a variable date.
+    * __Variable date - variable date__: from a start variable date to an end variable date.
+    * __Occurrence in month - occurrence in month__: from a start weekday occurrence in a month to the same.
+    * __Occurrence in month - date__: from a start weekday occurrence in a month to a end date.
+    * __Date - occurrence in month__: from a start date to an end weekday occurrence in a month.
+    * __Occurrence in month - variable date__: from a start weekday occurrence in a month to an end variable date.
+    * __Variable date - occurrence in month__: from a start variable date to an end weekday occurrence in a month.
+    * __Date - open end__: from a start date onwards,
+    * __Variable date - open end__: from a start variable date onwards.
+    * __Occurrence in month - open end__: from a start weekday occurrence in a month onwards.
+    * __With offsets...__: the same entries as above however with offsets specified (this is rarely used).
 * __Add year range__: add a year based selector.
 * __Add week range__: add a week number based selector.
 * __Show rule type__: display and allow changing of the rule type _normal_, _additive_ and _fallback_ (not available on the first rule).
