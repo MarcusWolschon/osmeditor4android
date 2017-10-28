@@ -67,8 +67,10 @@ import de.blau.android.views.ExtendedViewPager;
  * @author simon
  */
 public class PropertyEditor extends BugFixedAppCompatActivity implements 
-		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
-	private static final String CURRENTITEM = "current_item";
+        PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, 
+        PresetFilterUpdate, NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
+	
+    private static final String CURRENTITEM = "current_item";
 	private static final String PANELAYOUT = "pane_layout";
 	private static final String PRESET_FRAGMENT = "preset_fragment";
 	static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
@@ -392,6 +394,15 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			SelectFile.handleResult(requestCode, data);
 		}
 	}
+	
+	@Override
+    public boolean onTop(Fragment me) {
+	    int item = mViewPager.getCurrentItem();
+	    PropertyEditorPagerAdapter adapter = (PropertyEditorPagerAdapter) mViewPager.getAdapter();
+	    Fragment top = adapter.getItem(false, item);
+	    Log.d(DEBUG_TAG,"onTop " + item + " " + (top != null?top.getClass().getCanonicalName():"null"));
+	    return me == top;
+	}
 		
 	public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
 		
@@ -597,6 +608,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			Log.d(DEBUG_TAG,"page " + page + " selected");
 			if (formEnabled && page == tagFormFragmentPosition && tagFormFragment != null) {
 				tagFormFragment.update();
+			}
+			if (page == tagEditorFragmentPosition && tagEditorFragment != null) {
+			    tagEditorFragment.focusOnEmptyValue();
 			}
 		}
 	}

@@ -141,6 +141,8 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	private PresetFilterUpdate presetFilterUpdate;
 	
+	private PropertyEditorListener propertyEditorListener;
+	
 	private int maxStringLength; // maximum key, value and role length
 	
 	/**
@@ -205,8 +207,9 @@ public class TagEditorFragment extends BaseFragment implements
             nameAdapters = (NameAdapters) context;
             formUpdate = (FormUpdate) context;
             presetFilterUpdate = (PresetFilterUpdate) context;
+            propertyEditorListener = (PropertyEditorListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement NameAdapters. FormUpdate and PresetFilterUpdate");
+            throw new ClassCastException(context.toString() + " must implement PropertyEditorListener,  NameAdapters, FormUpdate and PresetFilterUpdate");
         }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
@@ -1317,9 +1320,10 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param key key that we want to find the value field for
 	 * @return true if successful
 	 */
-	private boolean focusOnEmptyValue() {
+	boolean focusOnEmptyValue() {
+        Log.d(DEBUG_TAG,"focusOnEmptyValue");
 		LinearLayout rowLayout = (LinearLayout) getOurView();
-		return focusOnEmptyValue(rowLayout);
+		return rowLayout != null ? focusOnEmptyValue(rowLayout) : false;
 	}
 	
 	/**
@@ -1429,6 +1433,8 @@ public class TagEditorFragment extends BaseFragment implements
 		boolean wasEmpty = currentValues.size() == 0;
 		boolean replacedValue = false;	
 		
+		Log.d(DEBUG_TAG,"applying preset " + item.getName());
+		
 		// remove everything that doesn't have a value
 		// given that these are likely leftovers from a previous preset
 		Set<String> keySet = new HashSet<String>(currentValues.keySet()); // shallow copy
@@ -1473,8 +1479,10 @@ public class TagEditorFragment extends BaseFragment implements
 			updateAutocompletePresetItem(null, addToMRU);
 		}
 		
-		//
-		focusOnEmptyValue();
+		// only focus on an empty field if we are actually being shown
+		if (propertyEditorListener != null && propertyEditorListener.onTop(this)) {
+		    focusOnEmptyValue();
+		}
 	}
 	
 	/**

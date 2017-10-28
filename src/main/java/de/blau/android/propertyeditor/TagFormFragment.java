@@ -149,7 +149,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         	tagListener = (EditorUpdate) context;
             nameAdapters = (NameAdapters) context;
         } catch (ClassCastException e) {
-        	throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener and NameAdapters");
+        	throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener, NameAdapters");
         }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
