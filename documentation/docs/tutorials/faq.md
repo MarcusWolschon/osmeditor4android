@@ -104,7 +104,7 @@ Some things missing at this point in time:
 
 The user interface is currently available in: English, German, Chinese (Taiwan), Spanish, Ukrainian, Russian, Turkish, French, Italian, Vietnamese, Chinese, Icelandic, Greek, Portuguese and Japanese. These translations are typically complete or only have a small number of terms missing.
 
-We also have partial translations for a number of other languages (please see link to Transifex below for the current status). Any help in this area would be gratefully received. Please see [Vespucci's Transifex page](https://www.transifex.com/projects/p/vespucci/) to help.
+We also have partial translations for a number of other languages (please see link to Transifex below for the current status). If the translation for your language is incomplete or missing, please feel free to request the language on transifex and start translating. Any help in this area would be gratefully received. Please see [Vespucci's Transifex page](https://www.transifex.com/projects/p/vespucci/) to help.
 
 #### How can I download OSM data?
 

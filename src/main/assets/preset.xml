@@ -141,6 +141,16 @@
             <check key="bicycle" text="Bicycle" default="on"/>
         </optional>
     </chunk>
+    <chunk id="min_age">
+        <text key="min_age" text="Minimum age" />
+    </chunk>
+    <chunk id="max_age">
+        <text key="max_age" text="Maximum age" />
+    </chunk>
+    <chunk id="min_max_age">
+    	<reference ref="min_age" />
+    	<reference ref="max_age" />
+    </chunk>
     <chunk id="name_ref">
         <text key="name" text="Name" />
         <text key="ref" text="Reference" />
@@ -327,6 +337,17 @@
             <text key="maxwidth" text="Max. width (meters)" length="7" />
         </optional>
     </chunk>
+    <chunk id="optional_name">
+        <optional>
+            <text key="name" text="Name" />
+        </optional>
+    </chunk>
+    <chunk id="optional_name_operator">
+        <optional>
+            <text key="name" text="Name" />
+            <text key="operator" text="Operator" />
+         </optional>
+     </chunk>
     <chunk id="name_leisure_pitch">
         <text key="name" text="Name" />
         <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" display_values="Pitch,Sports centre,Stadium" default="pitch" />
@@ -427,12 +448,15 @@
         <text key="operator" text="Operator" />
         <text key="branch" text="Branch operator" />
     </chunk>
-    <chunk id="cable_circuit">
+        <chunk id="cables">
         <combo key="cables" text="Cable count" values="1,2,3,4,6,9,12"  />
+    </chunk>
+    <chunk id="cables_circuits">
+        <reference ref="cables" />
         <combo key="circuits" text="Number of circuits" values="1,2,3,4" />
     </chunk>
     <chunk id="power_loc">
-        <combo key="location" text="Location" values="outdoor,indoor,underground,platform,kiosk" values_context="power" />
+        <combo key="location" text="Location" values="outdoor,indoor,underground,platform,rooftop,kiosk" values_context="power" />
     </chunk>
     <chunk id="power_extra">
         <reference ref="power_loc" />
@@ -440,7 +464,7 @@
         <reference ref="ref_operator_branch" />
     </chunk>
     <chunk id="power_line_extra">
-        <reference ref="cable_circuit" />
+        <reference ref="cables_circuits" />
         <reference ref="voltage_frequency" />
     </chunk>
     <chunk id="power_generator">
@@ -475,6 +499,18 @@
             <reference ref="voltage_frequency" />
         </optional>
     </chunk>
+    <chunk id="power_pole">
+        <text key="height" text="Height (meters)" />
+        <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" />
+        <check key="location:transition" text="Location transition" disable_off="true" />
+        <reference ref="ref_operator_branch" />
+    </chunk>
+    <chunk id="optional_rating_phases">
+        <optional>
+            <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA" />
+            <combo key="phases" text="Phases" values="1,3" length="1" />
+         </optional>
+     </chunk>
     <chunk id="optional_bridge">
         <optional>
             <text key="name" text="Name" />
@@ -625,20 +661,28 @@
     <preset_link preset_name="Bi-directional roads" />
   </chunk>
   <chunk id="healthcare_speciality">
-    <combo key="healthcare:speciality" text="Speciality" values_context="healthcare" values_searchable="true" editable="true" >
+    <multiselect key="healthcare:speciality" text="Speciality" values_context="healthcare" values_searchable="true" editable="false" >
 	  <list_entry value="general" short_description="General" />
-	  <list_entry value="gynaecology" short_description="Gynaecology" />
-	  <list_entry value="ophthalmology" short_description="Ophthalmology" />
-	  <list_entry value="internal" short_description="Internal" />
-	  <list_entry value="orthopaedics" short_description="Orthopaedics" />
-	  <list_entry value="paediatrics" short_description="Paediatrics" />
-	  <list_entry value="otolaryngology" short_description="Otolaryngology" />
+	  <list_entry value="abortion" short_description="Abortion" />
+	  <list_entry value="fertility" short_description="Fertility" />
+	  <list_entry value="allergology" short_description="Allergology" />
+	  <list_entry value="cardiology" short_description="Cardiology" />
+	  <list_entry value="child_psychiatry" short_description="Child psychiatry" />
 	  <list_entry value="chiropractic" short_description="Chiropractic" />
 	  <list_entry value="dermatology" short_description="Dermatology" />
-	  <list_entry value="urology" short_description="Urology" />
-	  <list_entry value="radiology" short_description="Radiology" />
+	  <list_entry value="gynaecology" short_description="Gynaecology" />
+	  <list_entry value="internal" short_description="Internal" />
+	  <list_entry value="neurology" short_description="Neurology" />
+	  <list_entry value="ophthalmology" short_description="Ophthalmology" />
+	  <list_entry value="orthopaedics" short_description="Orthopaedics" />
+	  <list_entry value="otolaryngology" short_description="Otolaryngology" />
+	  <list_entry value="podiatry" short_description="Podiatry" />
+	  <list_entry value="paediatrics" short_description="Paediatrics" />
+	  <list_entry value="plastic_surgery" short_description="Plastic surgery" />
 	  <list_entry value="psychiatry" short_description="Psychiatry" />
-	</combo>
+	  <list_entry value="radiology" short_description="Radiology" />
+	  <list_entry value="urology" short_description="Urology" />
+	</multiselect>
   </chunk>
   <chunk id="roof_main">
     <combo key="roof:colour" text="Roof colour" values="black,blue,brown,red,yellow,white,grey" 
@@ -1937,6 +1981,7 @@
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=traffic_mirror"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:highway=traffic_mirror"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=traffic_mirror"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:highway=traffic_mirror"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:highway=traffic_mirror" />
             <key key="highway" value="traffic_mirror" />
         </item> <!-- Traffic Mirror -->
@@ -2157,6 +2202,7 @@
             <link href="http://wiki.openstreetmap.org/wiki/Tag:barrier=city_wall"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:barrier=city_wall"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:barrier=city_wall"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:barrier=city_wall"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:barrier=city_wall"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:barrier=city_wall"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:barrier=city_wall"
@@ -2848,9 +2894,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=basin" />
             <space />
             <key key="landuse" value="basin" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Basin -->
         <item name="Reservoir" icon="icons/png/water_reservoir_22110.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=reservoir"
@@ -2862,8 +2906,8 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=reservoir" />
             <space />
             <key key="landuse" value="reservoir" />
-            <text key="name" text="Name" />
             <combo key="reservoir_type" text="Type" values="evaporator,sewage,tailings,water_storage" display_values="Evaporator,Sewage,Tailings,Water storage" />
+            <reference ref="optional_name" />
         </item> <!-- Reservoir -->
         <item name="Covered Reservoir" icon="icons/png/water_reservoir_covered_22048.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=reservoir_covered"
@@ -2876,7 +2920,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:man_made=reservoir_covered" />
             <space />
             <key key="man_made" value="reservoir_covered" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
         </item> <!-- Covered Reservoir -->
         <separator/>
         <item name="Water" name_context="natural" icon="icons/png/water_water_24008.png" type="closedway,multipolygon" preset_name_label="true">
@@ -3462,7 +3506,8 @@
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:aerialway=chair_lift"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:aerialway=chair_lift"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:aerialway=chair_lift"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=chair_lift" />
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=chair_lift" 
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:aerialway=chair_lift" />
             <space />
             <key key="aerialway" value="chair_lift" />
             <reference ref="name_ref" />
@@ -3476,7 +3521,8 @@
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:aerialway=gondola"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:aerialway=gondola"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:aerialway=gondola"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=gondola" />
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=gondola"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:aerialway=gondola" />
             <space />
             <key key="aerialway" value="gondola" />
             <reference ref="name_ref" />
@@ -3487,7 +3533,8 @@
         </item> <!-- Gondola -->
         <item name="Mixed Lift" icon="icons/png/transport_mixed_lift_10008.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:aerialway=mixed_lift"
-                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:aerialway=mixed_lift" />
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:aerialway=mixed_lift"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:aerialway=mixed_lift" />
             <space />
             <key key="aerialway" value="mixed_lift" />
             <reference ref="name_ref" />
@@ -3500,7 +3547,8 @@
             <link href="http://wiki.openstreetmap.org/wiki/Tag:aerialway=drag_lift"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:aerialway=drag_lift"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:aerialway=drag_lift"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=drag_lift" />
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=drag_lift"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:aerialway=drag_lift" />
             <space />
             <combo key="aerialway" text="Type" values="drag_lift,t-bar,j-bar,platter,rope_tow" display_values="Drag lift (generic),T-bar,J-bar,Platter,Rope tow" match="keyvalue" />
             <reference ref="name_ref" />
@@ -3514,7 +3562,8 @@
             <link href="http://wiki.openstreetmap.org/wiki/Tag:aerialway=magic_carpet"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:aerialway=magic_carpet"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:aerialway=magic_carpet"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=magic_carpet" />
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=magic_carpet"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:aerialway=magic_carpet" />
             <space />
             <key key="aerialway" value="magic_carpet" />
             <reference ref="name_ref" />
@@ -3553,7 +3602,8 @@
             <link href="http://wiki.openstreetmap.org/wiki/Tag:aerialway=pylon"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:aerialway=pylon"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:aerialway=pylon"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=pylon" />
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:aerialway=pylon"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:aerialway=pylon" />
             <space />
             <key key="aerialway" value="pylon" />
             <text key="name" text="Name" />
@@ -3668,6 +3718,9 @@
                     <check key="fuel:1_25" text="1/25 mix (mofa/moped)" disable_off="true" />
                     <check key="fuel:1_50" text="1/50 mix (mofa/moped)" disable_off="true" />
                 </checkgroup>
+                <space />
+                <label text="Additives:" />
+                <check key="fuel:adblue" text="Diesel Exhaust Fluid (AdBlue/AUS32)" />
                 <space />
                 <label text="Fuel cards:" />
                 <checkgroup columns="3">
@@ -4074,6 +4127,7 @@
             <check key="trolleybus" text="Trolleybus" disable_off="true" />
             <check key="share_taxi" text="Share taxi" disable_off="true" />
             <check key="subway" text="Subway" disable_off="true" />
+            <check key="light_rail" text="Light Rail" />
             <check key="monorail" text="Monorail" disable_off="true" />
             <check key="funicular" text="Funicular" disable_off="true" />
             <check key="aerialway" text="Aerialway" disable_off="true" />
@@ -4117,6 +4171,7 @@
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:public_transport=station"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:public_transport=station"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:public_transport=station"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:public_transport=station"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:public_transport=station"
                   nl.href="http://wiki.openstreetmap.org/wiki/NL:Tag:public_transport=station"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:public_transport=station" />
@@ -4403,13 +4458,16 @@
         <item name="Beacon" icon="icons/png/transport_beacon_22008.png" name_context="airmark" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:airmark=beacon"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:airmark=beacon"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:airmark=beacon" />
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:airmark=beacon"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:airmark=beacon" />
             <key key="airmark" value="beacon" />
          </item> <!-- Beacon -->
         <item name="Navigationaid" icon="presets/transport/airport/navigationaid.svg" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:aeroway=navigationaid"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:aeroway=navigationaid"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:aeroway=navigationaid"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:aeroway=navigationaid"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:aeroway=navigationaid"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:aeroway=navigationaid" />
             <key key="aeroway" value="navigationaid" />
         </item> <!-- Navigationaid -->
@@ -4544,6 +4602,7 @@
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=chalet"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:tourism=chalet"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:tourism=chalet"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:tourism=chalet"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:tourism=chalet"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:tourism=chalet"
                   nl.href="http://wiki.openstreetmap.org/wiki/NL:Tag:tourism=chalet"
@@ -4965,6 +5024,7 @@
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:information=guidepost"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:information=guidepost"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:information=guidepost"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:information=guidepost"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:information=guidepost"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:information=guidepost"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:information=guidepost" />
@@ -5061,7 +5121,7 @@
             <check key="drive_in" text="Drive-in theater" disable_off="true" />
             <check key="cinema:3D" text="3D" disable_off="true" />
             <text key="screen" text="Number of screens" />
-            <text key="min_age" text="Minimum age" />
+            <reference ref="min_age" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Movie Theater/Cinema -->
         <item name="Zoo" icon="icons/png/tourist_zoo.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5277,8 +5337,7 @@
             <key key="leisure" value="playground" />
             <reference ref="facility_access" />
             <optional>
-            	<text key="min_age" text="Minimum age" />
-            	<text key="max_age" text="Maximum age" />
+            	<reference ref="min_max_age" />
             	<reference ref="surface" />
             	<reference ref="name_operator_oh_wheelchair" />
             </optional>
@@ -5378,6 +5437,7 @@
             <space />
             <key key="amenity" value="nightclub" />
             <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="min_age" />
             <space />
             <reference ref="internet_smoking" />
             <space />
@@ -5998,6 +6058,7 @@
 			<key key="amenity" value="kindergarten" />
 			<reference ref="isced_level" />
 			<reference ref="name_operator_oh_wheelchair_level" />
+			<reference ref="min_max_age" />
 			<reference ref="education_operator_type" />
 			<optional>
             	<reference ref="religious" />
@@ -6022,6 +6083,7 @@
             <key key="amenity" value="school" />
             <reference ref="isced_level" />
             <reference ref="name_operator_oh_wheelchair" />
+            <reference ref="min_age" />
             <reference ref="education_operator_type" />
             <optional>
             	<reference ref="religious" />
@@ -6109,6 +6171,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:amenity=pharmacy" />
             <space />
             <key key="amenity" value="hospital" />
+            <key key="healthcare" value="hospital" />
             <reference ref="name_operator" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Hospital -->
@@ -6123,6 +6186,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=clinic" />
             <space />
             <key key="amenity" value="clinic" />
+            <key key="healthcare" value="clinic" />
             <reference ref="healthcare_speciality" />
             <reference ref="name_operator" />
             <reference ref="link_contact_address_payment" />
@@ -6139,6 +6203,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=doctors" />
             <space />
             <key key="amenity" value="doctors" />
+            <key key="healthcare" value="doctor" />
  			<reference ref="healthcare_speciality" />
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
@@ -6154,6 +6219,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=dentist" />
             <space />
             <key key="amenity" value="dentist" />
+            <key key="healthcare" value="dentist" />
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Dentist -->
@@ -6193,24 +6259,6 @@
             <reference ref="link_contact_address" />
         </item> <!-- Baby Hatch/Safe Haven -->
         <separator/>
-        <item name="Emergency Access Point" icon="icons/png/health_emergency_access_point_17005.png" type="node,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=emergency_access_point"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:highway=emergency_access_point"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=emergency_access_point"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:highway=emergency_access_point"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:highway=emergency_access_point"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:highway=emergency_access_point"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=emergency_access_point" />
-            <space />
-            <key key="highway" value="emergency_access_point" />
-            <text key="ref" text="Point Number" />
-            <text key="name" text="Point Name" />
-            <text key="operator" text="Operator" />
-            <text key="emergency_telephone_code" text="Emergency Phone Number" />
-            <label text="(Use number as shown on plate.)" />
-            <space />
-        </item> <!-- Emergency Access Point -->
-        <separator/>
         <item name="Veterinary" icon="icons/png/health_veterinary.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=veterinary"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=veterinary"
@@ -6227,6 +6275,53 @@
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Veterinary -->
+        <item name="Other healthcare facilities" icon="icons/png/health_healthcare.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:healthcare"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:healthcare"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:healthcare"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:healthcare"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:healthcare" />
+            <space />
+            <combo key="healthcare" text="Type of shelter"  values_searchable="true">
+				<list_entry value="birthing_center" short_description="Birthing center" />
+				<list_entry value="blood_donation" short_description="Blood donation" />
+				<list_entry value="hospice" short_description="Hospice" />
+				<list_entry value="midwife" short_description="Midwife" />
+			</combo>
+            <reference ref="name_oh_wheelchair" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Other healthcare facilities -->
+        <item name="Alternative medicine" icon="icons/png/health_alternative.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:healthcare"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:healthcare"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:healthcare"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:healthcare"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:healthcare" />
+            <space />
+            <key key="healthcare" value="alternative" />
+            <multiselect key="healthcare:speciality" text="Speciality"  values_searchable="true">
+				<list_entry value="acupuncture" short_description="Acupuncture" />
+				<list_entry value="anthroposophical" short_description="Anthroposophic medicine" />
+				<list_entry value="applied_kinesiology" short_description="Applied kinesiology" />
+				<list_entry value="aromatherapy" short_description="Aromatherapy" />
+				<list_entry value="ayurveda" short_description="Ayurveda" />
+				<list_entry value="chiropractic" short_description="Chiropractic" />
+				<list_entry value="herbalism" short_description="Herbalism" />
+				<list_entry value="homeopathy" short_description="Homeopathy" />
+				<list_entry value="hydrotherapy" short_description="Hydrotherapy" />
+				<list_entry value="hypnosis" short_description="Hypnosis" />
+				<list_entry value="naturopathy" short_description="Naturopathy" />
+				<list_entry value="osteopathy" short_description="Osteopathy" />
+				<list_entry value="reflexology" short_description="Reflexology" />
+				<list_entry value="reiki" short_description="Reiki" />
+				<list_entry value="shiatsu" short_description="Shiatsu" />
+				<list_entry value="traditional_chinese_medicine" short_description="Traditional Chinese medicine" />
+				<list_entry value="tuina" short_description="Tuī ná" />
+				<list_entry value="unani" short_description="Unani medicine" />
+			</multiselect>
+            <reference ref="name_oh_wheelchair" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Alternative medicine -->
     </group> <!-- Health -->
     <group name="Emergency" icon="icons/png/emergency_sos_point_17028.png">
 		<item name="Ambulance Station" icon="icons/png/emergency_ambulance_station_17007.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6370,6 +6465,23 @@
             <text key="ref" text="Reference" />
             <text key="operator" text="Operator" />
         </item> <!-- Life ring -->
+        <item name="Emergency Access Point" icon="icons/png/emergency_emergency_access_point_17005.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=emergency_access_point"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:highway=emergency_access_point"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=emergency_access_point"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:highway=emergency_access_point"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:highway=emergency_access_point"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:highway=emergency_access_point"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=emergency_access_point" />
+            <space />
+            <key key="highway" value="emergency_access_point" />
+            <text key="ref" text="Point Number" />
+            <text key="name" text="Point Name" />
+            <text key="operator" text="Operator" />
+            <text key="emergency_telephone_code" text="Emergency Phone Number" />
+            <label text="(Use number as shown on plate.)" />
+            <space />
+        </item> <!-- Emergency Access Point -->
     </group> <!-- Emergency -->
     <group name="Social Facilities" icon="icons/png/amenity_outreach_12252.png">
         <item name="Ambulatory Care" icon="icons/png/amenity_ambulatory_care_12248.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7168,6 +7280,7 @@
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=track"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=track"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:leisure=track"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:leisure=track"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=track"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=track"
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:leisure=track"
@@ -8769,10 +8882,7 @@
             <key key="power" value="transformer" />
             <combo key="transformer" text="Type of transformer" values="distribution,generator,converter,traction,auto,phase_angle_regulator,yes" match="key" values_context="power" />
             <reference ref="power_extra" />
-            <optional>
-                <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA" />
-                <combo key="phases" text="Phases" values="1,3" length="1" />
-            </optional>
+            <reference ref="optional_rating_phases" />
         </item> <!-- Power Transformer -->
         <item name="Power Switchgear" icon="icons/png/power_switch_26041.png" type="closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:power=switchgear"
@@ -8809,6 +8919,13 @@
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:power=switch" />
             <space />
             <key key="power" value="switch" />
+            <combo key="switch" text="Type of switch" values="mechanical,circuit_breaker,disconnector,earthing" match="key" values_context="power" />
+            <reference ref="power_loc" />
+            <optional>
+                <reference ref="voltage" />
+                <reference ref="cables" />
+                <reference ref="ref_operator_branch" />
+            </optional>
         </item> <!-- Power Switch -->
         <separator/>
         <item name="Power Converter" icon="icons/png/power_converter_26044.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8912,11 +9029,29 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:power=pole" />
             <space />
             <key key="power" value="pole" />
-            <text key="height" text="Height in meter (m)" />
-            <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" values_context="material" />
-            <check key="location:transition" text="Location transition" disable_off="true" />
-            <reference ref="ref_operator_branch" />
+            <reference ref="power_pole" />
         </item> <!-- Pole -->
+        <item name="Pole with Switch" icon="presets/power/pole_switch.svg" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:power=pole"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:power=pole"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:power=pole"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Tag:power=pole"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:power=pole"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:power=pole"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:power=pole"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:power=pole" />
+            <space />
+            <key key="power" value="pole" />
+            <label text="Pole Attributes:" />
+            <reference ref="power_pole" />
+            <space />
+            <label text="Switch Attributes:" />
+            <combo key="switch" text="Type" values="mechanical,circuit_breaker,disconnector,earthing" match="key!" values_context="power" />
+            <optional>
+                <reference ref="voltage" />
+                <reference ref="cables" />
+            </optional>
+        </item> <!-- Pole with Switch -->
         <item name="Pole with Transformer" icon="icons/png/power_transformer_26042.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:power=pole"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:power=pole"
@@ -8929,18 +9064,12 @@
             <space />
             <key key="power" value="pole" />
             <label text="Pole Attributes:" />
-            <text key="height" text="Height in meter (m)" />
-            <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" values_context="material" />
-            <check key="location:transition" text="Location transition" disable_off="true" />
-            <reference ref="ref_operator_branch" />
+            <reference ref="power_pole" />
             <space />
             <label text="Transformer Attributes:" />
             <key key="transformer" value="distribution" match="key!" />
             <reference ref="voltage_frequency" />
-            <optional>
-                <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA" />
-                <combo key="phases" text="Phases" values="1,3" length="1" />
-            </optional>
+            <reference ref="optional_rating_phases" />
         </item> <!-- Pole with Transformer-->
         <item name="Insulator" icon="styles/standard/power/insulator.svg" type="node,way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:power=insulator"
@@ -8964,7 +9093,7 @@
             <reference ref="voltage_frequency" />
             <reference ref="ref_operator_branch" />
             <optional>
-                <reference ref="cable_circuit" />
+                <reference ref="cables_circuits" />
                 <combo key="wires" text="Number of conductors/wires per cable" values="single,double,triple,quad,fivefold,sixfold,eightfold" values_context="power" />
                 <reference ref="layer" />
                 <check key="communication" text="Used for data communications" value_on="line" value_off="" default="off" />
@@ -8980,7 +9109,7 @@
             <reference ref="voltage_frequency" />
             <reference ref="ref_operator_branch" />
             <optional>
-                <reference ref="cable_circuit" />
+                <reference ref="cables_circuits" />
                 <combo key="location" text="Location" values="underground,underwater,overground" values_context="power cable" />
                 <reference ref="layer" />
                 <check key="communication" text="Used for data communications" value_on="line" value_off="" default="off" />
@@ -9056,6 +9185,7 @@
          <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=archaeological_site"
          	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=archaeological_site"
                de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=archaeological_site"
+               es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic=archaeological_site"
                fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=archaeological_site"
                ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=archaeological_site"
                pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=archaeological_site"
@@ -9490,7 +9620,8 @@
             <link href="http://wiki.openstreetmap.org/wiki/Key:fair_trade"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:fair_trade"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:fair_trade"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Key:fair_trade" />
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Key:fair_trade"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:fair_trade" />
             <space />
             <combo text="Fair Trade" key="fair_trade" values="only,yes,no" display_values="Only,Yes,No" match="key" />
         </item> <!-- Fair Trade -->
@@ -10281,6 +10412,7 @@
             <space />
             <key key="shop" value="erotic" />
             <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="min_age" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Erotic -->
     </group> <!-- For the body -->
@@ -11067,6 +11199,16 @@
             <reference ref="name_wikipedia" />
             <reference ref="population_postcode_website" />
         </item> <!-- Suburb -->
+        <item name="Quarter" icon="presets/place/quarter.svg" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:place=quarter"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:place=quarter"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:place=quarter" />
+            <space />
+            <key key="place" value="quarter" />
+            <reference ref="name_wikipedia" />
+            <text key="population" text="Population" />
+            <text key="website" text="Website" />
+        </item> <!-- Quarter -->
         <item name="Neighbourhood" icon="presets/places.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:place=neighbourhood"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:place=neighbourhood"
@@ -11349,9 +11491,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:landuse=forest" />
             <space />
             <key key="landuse" value="forest" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
             <reference ref="leaf" />
         </item> <!-- Forest -->
         <item name="Cutline" icon="styles/standard/misc/landmark/cutline.svg" type="way" preset_name_label="true">
@@ -11393,6 +11533,7 @@
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=nature_reserve"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=nature_reserve"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:leisure=nature_reserve"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:leisure=nature_reserve"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=nature_reserve"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=nature_reserve"
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:leisure=nature_reserve" />
@@ -11566,9 +11707,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:landuse=farmyard" />
             <space />
             <key key="landuse" value="farmyard" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Farmyard -->
         <item name="Farmland" icon="icons/png/landuse_landuse_sp.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=farmland"
@@ -11582,9 +11721,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:landuse=farmland" />
             <space />
             <key key="landuse" value="farmland" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
             <combo key="crop" text="Crop" values="corn,grass,rice,wheat,hop" display_values="Corn,Grass,Rice,Wheat,Hop" editable="true" values_context="crop" />
         </item> <!-- Farmland -->
         <item name="Farm (deprecated)" icon="icons/png/landuse_farm_22120.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true" >
@@ -11603,9 +11740,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=meadow" />
             <space />
             <key key="landuse" value="meadow" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
             <combo key="meadow" text="Meadow type" values="agricultural,perpetual,transitional" 
             	display_values="Agricultural,Perpetual,Transitional" />
         </item> <!-- Meadow -->
@@ -11620,9 +11755,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=orchard" />
             <space />
             <key key="landuse" value="orchard" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
             <combo key="trees" text="Trees" values="olive_trees,apple_trees,oil_palms,orange_trees,almond_trees,banana_plants,coconut_palms,hazel_plants,cherry_trees,persimmon_trees,walnut_trees,plum_trees,peach_trees,tea_plants" 
             	display_values="Olive trees,Apple trees,Oil palms,Orange trees,Almond trees,Banana plants,Coconut palms,Hazel plants,Cherry trees,Persimmon trees,Walnut trees,Plum trees,Peach trees,Tea plants"/>
         </item> <!-- Orchard -->
@@ -11635,9 +11768,8 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=vineyard" />
             <space />
             <key key="landuse" value="vineyard" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <key key="crop" value="grape" match="keyvalue" />
+            <reference ref="optional_name" />
         </item> <!-- Vineyard -->
         <item name="Greenhouse Horticulture" icon="presets/greenhouse_horticulture.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=greenhouse_horticulture"
@@ -11652,10 +11784,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=greenhouse_horticulture" />
             <space />
             <key key="landuse" value="greenhouse_horticulture" />
-            <optional>
-            	<text key="name" text="Name" />
-            	<text key="operator" text="Operator" />
-            </optional>
+            <reference ref="optional_name_operator" />
         </item> <!-- Greenhouse Horticulture -->
         <item name="Plant Nursery" icon="icons/png/landuse_plant_26008.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=plant_nursery"
@@ -11667,12 +11796,23 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=plant_nursery" />
             <space />
             <key key="landuse" value="plant_nursery" />
-            <optional>
-            	<text key="name" text="Name" />
-            	<text key="operator" text="Operator" />
-            </optional>
+            <reference ref="optional_name_operator" />
             <reference ref="genus_species_taxon" />
         </item> <!-- Plant Nursery -->
+        <item name="Salt Pond" icon="presets/landuse/salt_pond.svg" type="closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=salt_pond"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=salt_pond"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=salt_pond"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:landuse=salt_pond"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:landuse=salt_pond"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:landuse=salt_pond"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:landuse=salt_pond"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:landuse=salt_pond"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=salt_pond" />
+            <space />
+            <key key="landuse" value="salt_pond" />
+            <reference ref="optional_name_operator" />
+        </item> <!-- Salt Pond -->
         <item name="Aquaculture" icon="presets/landuse/aquaculture.svg" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=aquaculture"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=aquaculture"
@@ -11680,10 +11820,7 @@
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:landuse=aquaculture" />
             <space />
             <key key="landuse" value="aquaculture" />
-            <optional>
-            	<text key="name" text="Name" />
-            	<text key="operator" text="Operator" />
-            </optional>
+            <reference ref="optional_name_operator" />
             <combo key="aquaculture" text="Aquaculture" values="shrimp,fish,mussels" display_values="Shrimp,Fish,Mussels" />
         </item> <!-- Aquaculture -->
         <item name="Allotments" icon="icons/png/landuse_landuse_sp.png" type="closedway,multipolygon" preset_name_label="true">
@@ -11698,9 +11835,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=allotments" />
             <space />
             <key key="landuse" value="allotments" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Allotments -->
         <separator/>
         <item name="Garden" icon="icons/png/landuse_garden_21010.png" type="closedway,multipolygon" preset_name_label="true">
@@ -11708,6 +11843,7 @@
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=garden"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=garden"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:leisure=garden"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:leisure=garden"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=garden"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=garden"
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:leisure=garden" />
@@ -11730,9 +11866,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=grass" />
             <space />
             <key key="landuse" value="grass" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Grass -->
         <item name="Village Green" icon="icons/png/landuse_landuse_sp.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=village_green"
@@ -11747,9 +11881,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:landuse=village_green" />
             <space />
             <key key="landuse" value="village_green" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>>
+            <reference ref="optional_name" />
         </item> <!-- Village Green -->
         <item name="Common" icon="icons/png/landuse_common_21194.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=common"
@@ -11763,9 +11895,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:leisure=common" />
             <space />
             <key key="leisure" value="common" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Common -->
         <item name="Park" icon="icons/png/landuse_park_21030.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=park"
@@ -11779,9 +11909,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:leisure=park" />
             <space />
             <key key="leisure" value="park" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Park -->
         <item name="Recreation Ground" icon="icons/png/landuse_recreation_ground_21132.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=recreation_ground"
@@ -11794,9 +11922,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=recreation_ground" />
             <space />
             <key key="landuse" value="recreation_ground" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Recreation Ground -->
         <separator/>
         <item name="Residential Area" icon="icons/png/landuse_house_sp.png" type="closedway,multipolygon" preset_name_label="true">
@@ -11811,9 +11937,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=residential" />
             <space />
             <key key="landuse" value="residential" values_context="landuse" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Residential Area -->
         <item name="Graveyard" icon="icons/png/landuse_grave_yard_12062.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=grave_yard"
@@ -11870,9 +11994,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=retail" />
             <space />
             <key key="landuse" value="retail" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+           <reference ref="optional_name" />
         </item> <!-- Retail -->
         <item name="Commercial" icon="presets/empty.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=commercial"
@@ -11885,15 +12007,14 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=commercial" />
             <space />
             <key key="landuse" value="commercial" values_context="landuse" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Commercial -->
         <item name="Industrial" icon="icons/png/landuse_works_22087.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=industrial"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=industrial"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=industrial"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:landuse=industrial"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:landuse=industrial"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:landuse=industrial"
                   nl.href="http://wiki.openstreetmap.org/wiki/NL:Tag:landuse=industrial"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:landuse=industrial"
@@ -11901,9 +12022,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=industrial" />
             <space />
             <key key="landuse" value="industrial" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
             <combo key="industrial" text="Type" values="bakery,brewery,brickyard,depot,distributor,factory,grinding_mill,heating_station,machine_shop,mine,oil,port,salt_pond,sawmill,scrap_yard,shipyard,slaughterhouse,warehouse"
             	display_values="Bakery,Brewery,Brickyard,Depot,Distributor,Factory,Grinding mill,Heating station,Machine shop,Mine,Oil,Port,Salt pond,Sawmill,Scrap yard,Shipyard,Slaughterhouse,Warehouse" 
             	editable="true"
@@ -11920,10 +12039,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=garages" />
             <space />
             <key key="landuse" value="garages" />
-            <optional>
-            	<text key="name" text="Name" />
-            	<text key="operator" text="Operator" />
-            </optional>
+            <reference ref="optional_name_operator" />
         </item> <!-- Garages -->
         <item name="Railway Land" icon="icons/png/landuse_train_station.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=railway"
@@ -11935,9 +12051,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=railway" />
             <space />
             <key key="landuse" value="railway" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Railway Land -->
         <item name="Military" icon="icons/png/landuse_military.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=military"
@@ -11948,9 +12062,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=military" />
             <space />
             <key key="landuse" value="military" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Military -->
         <separator/>
         <item name="Construction Area" icon="icons/png/construction.png" name_context="Landuse" type="closedway,multipolygon" preset_name_label="true">
@@ -11966,9 +12078,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=construction" />
             <space />
             <key key="landuse" value="construction" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Construction Area -->
         <item name="Brownfield" icon="icons/png/landuse_landuse_sp.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=brownfield"
@@ -11981,9 +12091,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=brownfield" />
             <space />
             <key key="landuse" value="brownfield" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Brownfield -->
         <item name="Greenfield" icon="icons/png/landuse_landuse_sp.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=greenfield"
@@ -11995,9 +12103,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:landuse=greenfield" />
             <space />
             <key key="landuse" value="greenfield" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Greenfield -->
         <item name="Landfill" icon="icons/png/landuse_landuse_sp.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=landfill"
@@ -12010,9 +12116,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=landfill" />
             <space />
             <key key="landuse" value="landfill" />
-            <optional>
-            	<text key="name" text="Name" />
-            </optional>
+            <reference ref="optional_name" />
         </item> <!-- Landfill -->
         <item name="Quarry" icon="icons/png/landuse_quary.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=quarry"
@@ -12382,7 +12486,7 @@ tags.remove('automatic_check_date');"
                 <key key="type" value="route"/>
                 <key key="route" value="bicycle"/>
                 <text key="name" text="Name" />
-                <combo key="network" text="Network" values="icn,ncn,rcn,lcn" match="keyvalue!" display_values="International,National,Regional,Local" values_sort="false" />
+                <combo key="network" text="Network" values="icn,ncn,rcn,lcn" match="keyvalue!" display_values="International,National,Regional,Local" values_context="network" values_sort="false" />
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -12425,7 +12529,7 @@ tags.remove('automatic_check_date');"
                 <key key="type" value="route"/>
                 <key key="route" value="hiking"/>
                 <text key="name" text="Name" />
-                <combo key="network" text="Network" values="iwn,nwn,rwn,lwn" match="keyvalue!" display_values="International,National,Regional,Local" values_sort="false" />
+                <combo key="network" text="Network" values="iwn,nwn,rwn,lwn" match="keyvalue!" display_values="International,National,Regional,Local" values_context="network" values_sort="false" />
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -12443,7 +12547,7 @@ tags.remove('automatic_check_date');"
                 <key key="type" value="route"/>
                 <key key="route" value="foot"/>
                 <text key="name" text="Name" />
-                <combo key="network" text="Network" values="rwn,lwn" match="keyvalue!" display_values="Regional,Local" values_sort="false" />
+                <combo key="network" text="Network" values="rwn,lwn" match="keyvalue!" display_values="Regional,Local" values_context="network" values_sort="false" />
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -12462,7 +12566,7 @@ tags.remove('automatic_check_date');"
                 <key key="type" value="route"/>
                 <key key="route" value="horse"/>
                 <text key="name" text="Name" />
-                <combo key="network" text="Network" values="ihn,nhn,rhn,lhn" match="keyvalue!" display_values="International,National,Regional,Local" values_sort="false" />
+                <combo key="network" text="Network" values="ihn,nhn,rhn,lhn" match="keyvalue!" display_values="International,National,Regional,Local" values_context="network" values_sort="false" />
                 <optional>
                     <reference ref="route_hikebike_optionals" />
                 </optional>
@@ -12842,6 +12946,7 @@ tags.remove('automatic_check_date');"
         <item name="Caterer" icon="icons/png/craft_caterer_16021.png" type="node,closedway,multipolygon">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=caterer"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:craft=caterer"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=caterer"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:craft=caterer"
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:craft=caterer"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:craft=caterer" />
@@ -13398,6 +13503,7 @@ tags.remove('automatic_check_date');"
             <link href="http://wiki.openstreetmap.org/wiki/Tag:office=estate_agent"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:office=estate_agent"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=estate_agent"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:office=estate_agent"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:office=estate_agent"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:office=estate_agent"
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:office=estate_agent"
@@ -13580,7 +13686,9 @@ tags.remove('automatic_check_date');"
         <item name="Foundation" icon="icons/png/office_foundation_25029.png" type="node,closedway,multipolygon">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:office=foundation"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:office=foundation"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:office=foundation" />
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:office=foundation"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:office=foundation"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:office=foundation" />
             <space />
             <key key="office" value="foundation" />
             <reference ref="name_oh_wheelchair_level" />
