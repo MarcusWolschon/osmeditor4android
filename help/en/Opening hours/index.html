@@ -244,8 +244,8 @@
 <p>However most of the time you will likely only be using a small part of the definition. The editor takes this in to account by trying to hide the more obscure features in menus and most of the time reducing the "on the road" use to small customizations of pre-defined templates.</p>
 <p><em>This documentation is preliminary and a work in progress</em></p>
 <h2 id="using-the-opening-hours-editor">Using the opening hours editor</h2>
-<p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue on github.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template.</p>
+<p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. </p>
 <p>Naturally you can build an opening hours value from scratch, but we would recommend using one of the existing templates as a starting point.</p>
 <p>If an existing opening hours value is loaded, an attempt is made to auto-correct it to conform to the opening hours specification. If that is not possible the rough location where the error occurred will be highlighted in the display of the raw OH value and you can try and correct it manually. Roughly a quarter of the OH values in the OpenStreetMap database have problems, but less than 10% can't be corrected, see <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> for more information on what deviations from the specification are tolerated.</p>
 <h3 id="main-menu-button">Main menu button</h3>
@@ -283,8 +283,14 @@
 <li><strong>Variable date - date</strong>: from a start variable date (currently the specification only defines <em>easter</em>) to an end date.</li>
 <li><strong>Date - variable date</strong>: from a start date to a variable date.</li>
 <li><strong>Variable date - variable date</strong>: from a start variable date to an end variable date.</li>
+<li><strong>Occurrence in month - occurrence in month</strong>: from a start weekday occurrence in a month to the same.</li>
+<li><strong>Occurrence in month - date</strong>: from a start weekday occurrence in a month to a end date.</li>
+<li><strong>Date - occurrence in month</strong>: from a start date to an end weekday occurrence in a month.</li>
+<li><strong>Occurrence in month - variable date</strong>: from a start weekday occurrence in a month to an end variable date.</li>
+<li><strong>Variable date - occurrence in month</strong>: from a start variable date to an end weekday occurrence in a month.</li>
 <li><strong>Date - open end</strong>: from a start date onwards,</li>
 <li><strong>Variable date - open end</strong>: from a start variable date onwards.</li>
+<li><strong>Occurrence in month - open end</strong>: from a start weekday occurrence in a month onwards.</li>
 <li><strong>With offsets...</strong>: the same entries as above however with offsets specified (this is rarely used).</li>
 </ul>
 </li>
