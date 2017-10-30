@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1305: Update preset.
+
 1304: Update preset, fix UI glitch when applying presets.
 
 1303: Update OpeningHoursFragment, presets, imagery and translations.
