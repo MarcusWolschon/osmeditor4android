@@ -1,5 +1,6 @@
 package de.blau.android.dialogs;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.acra.ACRA;
@@ -36,6 +37,8 @@ import de.blau.android.listener.UploadListener;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.validation.NotEmptyValidator;
+import de.blau.android.validation.FormValidation;
 
 /**
  * Dialog for final review of changes and adding comment and source tags before upload
@@ -50,6 +53,9 @@ public class ConfirmUpload extends DialogFragment
 	
 	private static final String TAG = "fragment_confirm_upload";
 	
+	private static final char LINE_DELIMITER = '\n';
+	private static final String LINE_PREFIX = "- ";
+
 	static public void showDialog(FragmentActivity activity) {
 		dismissDialog(activity);
 
@@ -95,7 +101,7 @@ public class ConfirmUpload extends DialogFragment
         super.onAttach(activity);
         Log.d(DEBUG_TAG, "onAttach");
         if (!(activity instanceof Main)) {
-            throw new ClassCastException(activity.toString() + " can ownly be called from Main");
+            throw new ClassCastException(activity.toString() + " can only be called from Main");
         }
     }
     
@@ -133,7 +139,7 @@ public class ConfirmUpload extends DialogFragment
 		CheckBox closeChangeset = (CheckBox)layout.findViewById(R.id.upload_close_changeset);
 		closeChangeset.setChecked(new Preferences(activity).closeChangesetOnSave());
 		AutoCompleteTextView comment = (AutoCompleteTextView)layout.findViewById(R.id.upload_comment);
-        FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<String>(activity,
+        FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity,
                 android.R.layout.simple_dropdown_item_1line, App.getLogic().getLastComments());
         comment.setAdapter(commentAdapter);
 		String lastComment = App.getLogic().getLastComment();
@@ -151,7 +157,7 @@ public class ConfirmUpload extends DialogFragment
 		comment.setOnKeyListener(new MyKeyListener());
 		
 		AutoCompleteTextView source = (AutoCompleteTextView)layout.findViewById(R.id.upload_source);
-		FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<String>(activity,
+		FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<>(activity,
                 android.R.layout.simple_dropdown_item_1line, App.getLogic().getLastSources());
         source.setAdapter(sourceAdapter);
 		String lastSource = App.getLogic().getLastSource();
@@ -159,24 +165,32 @@ public class ConfirmUpload extends DialogFragment
 		source.setOnClickListener(autocompleteOnClick);
 		source.setThreshold(1);
 		source.setOnKeyListener(new MyKeyListener());
-		
-		builder.setPositiveButton(R.string.transfer_download_current_upload, 
-				new UploadListener((Main) activity, comment, source, closeChangeset));
+
+		FormValidation commentValidator = new NotEmptyValidator(comment,
+				getString(R.string.upload_validation_error_empty_comment));
+		FormValidation sourceValidator = new NotEmptyValidator(source,
+				getString(R.string.upload_validation_error_empty_source));
+		List<FormValidation> validators = Arrays.asList(commentValidator, sourceValidator);
+
+		builder.setPositiveButton(R.string.transfer_download_current_upload, null);
 		builder.setNegativeButton(R.string.no, doNothingListener);
 
-    	return builder.create();
-    }	
+		AlertDialog dialog = builder.create();
+		dialog.setOnShowListener(new UploadListener((Main) activity,
+				comment, source, closeChangeset, validators));
+		return dialog;
+    }
     
 	/**
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
-	public String getPendingChanges(Context ctx) {
+	private String getPendingChanges(Context ctx) {
 		List<String> changes = App.getLogic().getPendingChanges(ctx);
-		StringBuilder retval = new StringBuilder();
+		StringBuilder builder = new StringBuilder();
 		for (String change : changes) {
-			retval.append(change).append('\n');
+			builder.append(LINE_PREFIX).append(change).append(LINE_DELIMITER);
 		}
-		return retval.toString();
+		return builder.toString();
 	}
     
 	/**

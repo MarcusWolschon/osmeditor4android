@@ -558,8 +558,8 @@
   <string name="changes_changed">\"%1$s\" modificado</string>
   <string name="changes_created">\"%1$s\" creado</string>
   <string name="confirm_upload_title">Subir?</string>
-  <string name="confirm_one_upload_text">Cargar a seguinte modificación?\n %1$s</string>
-  <string name="confirm_multiple_upload_text">Subir os seguintes %1$d trocos?\n%2$s</string>
+  <string name="confirm_one_upload_text">Cargar a seguinte modificación?\n\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Subir os seguintes %1$d trocos?\n\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Engadir preaxuste</string>
   <string name="urldialog_preset_exists">Este preaxuste xa existe</string>
