@@ -37,6 +37,8 @@ __&lt;reference&gt;__        |                               | supported |
 __&lt;key&gt;__              |                               | supported |
                    | value                         | supported | required
                    | match                         | partial   | only the "key" and "none" values are supported, "none" will demote the tag from a "fixed" to a recommended key, all other values are ignored
+                   | text		                   | extension | Something to display 
+                   | values_context				   | extension | Translation context
 __&lt;text&gt;__             |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
