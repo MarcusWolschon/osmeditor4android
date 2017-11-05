@@ -37,9 +37,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.AttributeList;
-import org.xml.sax.HandlerBase;
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import android.content.Context;
 import android.content.Intent;
@@ -442,12 +442,11 @@ public class Preset implements Serializable {
 	 * @throws SAXException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("deprecation")
 	private void parseXML(InputStream input)
 			throws ParserConfigurationException, SAXException, IOException {
 		SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
 		
-        saxParser.parse(input, new HandlerBase() {
+        saxParser.parse(input, new DefaultHandler() {
         	/** stack of group-subgroup-subsubgroup... where we currently are*/
         	private Stack<PresetGroup> groupstack = new Stack<PresetGroup>();
         	/** item currently being processed */
@@ -470,7 +469,7 @@ public class Preset implements Serializable {
              * ${@inheritDoc}.
              */
 			@Override
-			public void startElement(String name, AttributeList attr) throws SAXException {
+			public void startElement(String uri, String localName, String name, Attributes attr) throws SAXException {
 				if ("presets".equals(name)) {
 					// do nothing for now
 				} else if ("group".equals(name)) {
@@ -741,7 +740,7 @@ public class Preset implements Serializable {
 			}
             
             @Override
-            public void endElement(String name) throws SAXException {
+            public void endElement(String uri, String localName, String name) throws SAXException {
             	if ("group".equals(name)) {
             		groupstack.pop();
             	} else if ("optional".equals(name)) {
@@ -806,7 +805,6 @@ public class Preset implements Serializable {
 	 * @param presetDir a File object pointing to the directory containing this preset
 	 * @return an ArrayList of http and https URLs as string, or null if there is an error during parsing
 	 */
-	@SuppressWarnings("deprecation")
 	public static List<String> parseForURLs(File presetDir) {
 		final ArrayList<String> urls = new ArrayList<String>();
 		File[] list = presetDir.listFiles(new PresetFileFilter());
@@ -821,12 +819,12 @@ public class Preset implements Serializable {
 		try {
 			SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
 			
-	        saxParser.parse(new File(presetDir, presetFilename), new HandlerBase() {
+	        saxParser.parse(new File(presetDir, presetFilename), new DefaultHandler() {
 	            /** 
 	             * ${@inheritDoc}.
 	             */
 				@Override
-	            public void startElement(String name, AttributeList attr) throws SAXException {
+	            public void startElement(String uri, String locaclName, String name, Attributes attr) throws SAXException {
 	            	if ("group".equals(name) || "item".equals(name)) {
 	            		String url = attr.getValue("icon");
 	            		if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
