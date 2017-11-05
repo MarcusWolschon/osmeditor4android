@@ -20,7 +20,10 @@ NOTE: for building we assume for now that the github repository contains the cur
  
     tx pull -a
  
-will retrieve all translations, skipping up to date translation files and creating new directories and strings.xml files for new languages. We was add a gradle task in the future to execute this.
+will retrieve all translations, skipping up to date translation files and creating new directories and strings.xml files for new languages.
+ 
+If you are building with gradle the ``updateTranslations`` task will run tx for you (if tx is on your path).
+ 
  
 #### transifex configuration file
 

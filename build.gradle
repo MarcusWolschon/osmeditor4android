@@ -91,6 +91,16 @@ task update3rdPartyDocs(type: Download) {
 update3rdPartyDocs.group = 'vespucci'
 update3rdPartyDocs.description = 'Update markdown help files for 3rd party libraries'
 
+task updateTranslations(type: Exec) {
+	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+    	commandLine 'cmd', '/c', 'tx.exe', 'pull', '-a'
+	} else {
+    	commandLine 'tx', 'pull', '-a'
+	}
+}
+updateTranslations.group = 'vespucci'
+updateTranslations.description = 'Update translations by executing the transifex tx utility'
+
 eclipse {
     classpath {
         plusConfigurations += [ configurations.compile, configurations.testCompile, configurations.androidTestCompile ]
