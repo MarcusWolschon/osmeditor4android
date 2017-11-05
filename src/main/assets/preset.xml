@@ -6,7 +6,7 @@
     http://www.sjjb.co.uk/mapicons/ (meanwhile in osm svn)
     http://osm-icons.org/
 
-    Format description: https://josm.openstreetmap.de/wiki/TaggingPresets
+    Format description: https://josm.openstreetmap.de/wiki/TaggingPresets and http://vespucci.io/tutorials/presets/
 -->
     <!-- Item chunks -->
     <chunk id="incline">
@@ -4039,7 +4039,8 @@
             <roles>
                 <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position (train=yes OR subway=yes OR monorail=yes OR tram=yes OR light_rail=yes)" />
                 <role key="stop_exit_only" text="stop position (exit only)" requisite="optional" type="node" member_expression="public_transport=stop_position (train=yes OR subway=yes OR monorail=yes OR tram=yes OR light_rail=yes)" />
-                <role key="stop_entry_only" text="stop position (entry only)" requisite="optional" type="node" member_expression="public_transport=stop_position (train=yes OR subway=yes OR monorail=yes OR tram=yes OR light_rail=yes)" />               <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
+                <role key="stop_entry_only" text="stop position (entry only)" requisite="optional" type="node" member_expression="public_transport=stop_position (train=yes OR subway=yes OR monorail=yes OR tram=yes OR light_rail=yes)" />               
+                <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
                 <role key="platform_exit_only" text="platform (exit only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform" />
                 <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform" />
                 <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="railway" />
@@ -4986,11 +4987,9 @@
             <space />
             <key key="tourism" value="information" />
             <key key="information" value="map" />
-            <optiona>
-            	<text key="name" text="Name" />
-            </optiona>
-            <combo key="map_type" text="Detail Grade" values="topo,street,scheme,toposcope" />
-            <combo key="map_size" text="Shown Area" values="site,city,region" />
+            <reference ref="optional_name" />
+            <combo key="map_type" text="Detail Grade" values="topo,street,scheme,toposcope" display_values="Topo,Street,Scheme,Toposcope" />
+            <combo key="map_size" text="Shown Area" values="site,city,region" display_values="Site,City,Region" />
             <text key="description" text="Detailed description" />
             <optional text="Routes shown for:">
                 <check key="hiking" text="Hiking" disable_off="true" />
@@ -5013,9 +5012,7 @@
             <label text="A board with information." />
             <key key="tourism" value="information" />
             <key key="information" value="board" />
-            <optiona>
-            	<text key="name" text="Name" />
-            </optiona>
+            <reference ref="optional_name" />
             <combo key="board_type" text="Board Content" values="notice,history,nature,wildlife,plants,geology" />
             <text key="description" text="Detailed description" />
         </item> <!-- Information Board -->
@@ -7100,8 +7097,8 @@
                 <multiselect key="animal_shelter" text="Animals" values="dog;cat;horse;wildlife;fish;amphibian;reptile;bird;mammal;sea_mammal;sea_animal" 
                 	display_values="Dog;Cat;Horse;Wildlife;Fish;Amphibian;Reptile;Bird;Mammal;Sea mammal;Sea animal" values_searchable="true" match="key" />
                 <!-- The following two tags should be multiselects accroding to the wiki, but values outside of yes and no are hardly used -->
-                <check key="animal_shelter:adoption" text="For adoption" disable_off="true" /> />
- 				<check key="animal_shelter:release" text="For release" disable_off="true" /> />
+                <check key="animal_shelter:adoption" text="For adoption" disable_off="true" />
+ 				<check key="animal_shelter:release" text="For release" disable_off="true" />
             </optional>
         </item> <!-- Animal shelter -->
         <item name="Animal boarding" icon="icons/png/amenity_animal_boarding_12330.png" type="node,closedway" preset_name_label="true">
@@ -8005,7 +8002,7 @@
 				<space />
 				<key key="roof:shape" value="gabled" values_context="building" />
 				<reference ref="roof_main" />
-				<reference ref="roof_orientation" values_context="building" />
+				<reference ref="roof_orientation" />
 			</item> <!-- Roof type gabled -->
 			<item name="Gambrel" icon="icons/png/gambrel.png" type="node,way,closedway,multipolygon"
 				name_context="building" preset_name_label="true">
@@ -9667,6 +9664,15 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Wine -->
+        <item name="Nutrition supplements" icon="icons/png/shopping_nutrition_supplements.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=nutrition_supplements"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=nutrition_supplements"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=nutrition_supplements" />
+            <space />
+            <key key="shop" value="nutrition_supplements" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Nutrition supplements -->
     </group> <!-- Food -->
     <group name="Clothes" icon="icons/png/shopping_clothes.png">
         <item name="Clothes" icon="icons/png/shopping_clothes.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -9805,7 +9811,7 @@
             <reference ref="link_contact_address_payment" />
         </item> <!-- Fabric -->
     </group> <!-- Clothes -->
-    <group name="Electronic" icon="icons/png/shopping_electronics_29047.png">
+    <group name="Electronics" icon="icons/png/shopping_electronics_29047.png">
         <item name="Computer" icon="icons/png/shopping_computer.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=computer"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=computer"
@@ -9893,7 +9899,18 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Music -->
-    </group> <!-- Electronic -->
+        <item name="Radio and electronics supplies" icon="icons/png/shopping_radiotechnics_29187.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=radiotechnics"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=radiotechnics"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=radiotechnics"
+                  pt.href="http://wiki.openstreetmap.org/wiki/PT:Tag:shop=radiotechnics"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=radiotechnics" />
+            <space />
+            <key key="shop" value="radiotechnics" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Radio and electronics supplies -->
+    </group> <!-- Electronics -->
     <group name="Cash" icon="icons/png/money_bank2.png">
         <item name="Bank" icon="icons/png/money_bank2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=bank"
@@ -10046,6 +10063,17 @@
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Curtain -->
+        <item name="Window blinds" icon="icons/png/shopping_window_blind_29202.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=window_blind"
+                  cs.href="http://wiki.openstreetmap.org/wiki/CS:Tag:shop=window_blind"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=window_blind"
+                  jp.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=window_blind"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=window_blind" />
+            <space />
+            <key key="shop" value="window_blind" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Window blinds -->
         <item name="Art" icon="icons/png/shopping_art_29003.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=art"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=art"
@@ -10147,6 +10175,35 @@
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Vacuum Cleaner -->
+        <item name="Furnace (deprecated)" icon="icons/png/shopping_furnace_29150.png" deprecated="true" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=furnace"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:shop=furnace"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:shop=furnace"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=furnace" />
+            <space />
+            <key key="shop" value="furnace" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Furnace (deprecated) -->
+        <item name="Fireplace" icon="icons/png/shopping_furnace_29150.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=fireplace"
+                  cs.href="http://wiki.openstreetmap.org/wiki/CS:Tag:shop=fireplace"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=fireplace"
+                  jp.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=fireplace"/>
+            <space />
+            <key key="shop" value="fireplace" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Fireplace -->
+        <item name="Candles" icon="icons/png/shopping_candles_29164.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=candles"
+                  cs.href="http://wiki.openstreetmap.org/wiki/CS:Tag:shop=candles"
+                  jp.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=candles"/>
+            <space />
+            <key key="shop" value="candles" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Candles -->
     </group> <!-- Home furnishing and decoration -->
     <group name="Printed Material" icon="icons/png/shopping_stationery_29130.png">
         <item name="Stationery" icon="icons/png/shopping_stationery_29130.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10205,6 +10262,18 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Newspaper Stand -->
+        <item name="Anime" icon="icons/png/shopping_anime_29160.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=anime"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=anime"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:shop=anime"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=anime"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:shop=anime"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=anime" />
+            <space />
+            <key key="shop" value="anime" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Anime -->
     </group> <!-- Printed Material -->
     <group name="For the body" icon="icons/png/shopping_body.png">
         <item name="Chemist" icon="icons/png/shopping_chemist_29025.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10305,7 +10374,7 @@
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Tobacco -->
-        <item name="e-cigarette" icon="" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="e-cigarette" icon="icons/png/shopping_e-cigarette.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=e-cigarette"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=e-cigarette"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=e-cigarette" />
@@ -10431,6 +10500,13 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sports -->
+        <item name="Water sports" icon="icons/png/shopping_water_sports_29208.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:shop" />
+            <space />
+            <key key="shop" value="water_sports" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Water sports -->
         <item name="Fishing" icon="icons/png/shopping_fishing_29064.png" type="node,closedway,multipolygon" preset_name_label="true">
              <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=fishing"
              	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=fishing"
@@ -10869,7 +10945,17 @@
             <key key="shop" value="weapons" />
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
-        </item> <!-- WEapons -->
+        </item> <!-- Weapons -->
+        <item name="Fireworks" icon="icons/png/shopping_pyrotechnics_29186.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=pyrotechnics"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=pyrotechnics"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=pyrotechnics" 
+                  pt.href="http://wiki.openstreetmap.org/wiki/PT:Tag:shop=pyrotechnics" />
+            <space />
+            <key key="shop" value="pyrotechnics" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Fireworks -->
     </group> <!-- Other -->
     <separator/>
     <item name="Vending Machine" icon="icons/png/shopping_vending_machine.png" type="node" preset_name_label="true">
@@ -13349,12 +13435,12 @@ tags.remove('automatic_check_date');"
             <key key="craft" value="confectionery" />
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
-        </item> <!-- Confectionery -->>
-        <item name="Electronics" icon="icons/png/craft_electronics_16103.png" type="node,closedway,multipolygon">
+        </item> <!-- Confectionery -->
+        <item name="Electronics repair" icon="icons/png/craft_electronics_16103.png" type="node,closedway,multipolygon">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=electronics"
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=electronics" />
             <space />
-            <key key="craft" value="electronics" />
+            <key key="craft" value="electronics_repair" />
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Electronics -->
@@ -13586,7 +13672,8 @@ tags.remove('automatic_check_date');"
             <reference ref="link_contact_address" />
         </item> <!-- Ngo -->
         <item name="Political party" icon="icons/png/office_political_party_25020.png" type="node,closedway,multipolygon">
-            cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:office=political_party"
+        	<link href="http://wiki.openstreetmap.org/wiki/Tag:office=political_party"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:office=political_party"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=political_party"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:office=political_party"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:office=political_party" />
