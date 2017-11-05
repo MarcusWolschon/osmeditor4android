@@ -68,42 +68,42 @@ Una vez que la selección se ha completado, verá (como botones o como items de 
 
 #### Objetos seleccionados: Editando etiquetas
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Un segundo toque en el objeto seleccionado abre el editor de etiquetas y puede editar las etiquetas asociadas al objeto.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Tenga en cuenta que para superponer objetos (como un nodo en un camino) el menú de selección vuelve a subir por segunda vez. Al seleccionar el mismo objeto, aparece el editor de etiquetas; seleccionar otro objeto simplemente selecciona el otro objeto.
 
 #### Objetos seleccionados: Moviendo un nodo o vía
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Una vez que haya seleccionado un objeto, puede moverlo. Tenga en cuenta que los objetos sólo se pueden arrastrar/mover cuando se seleccionan. Simplemente arrastre cerca (es decir, dentro de su zona de tolerancia) el objeto seleccionado para moverlo. Si selecciona el área de arrastre grande en las preferencias, obtiene un área grande alrededor del nodo seleccionado que facilita la colocación del objeto. 
 
 #### Añadiendo un nuevo nodo/punto o vía (pulsación larga)
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Mantenga presionada la tecla donde quieras que esté el nodo o la forma de comenzar. Verás un símbolo negro de «cruz». 
+* Si desea crear un nuevo nodo (no conectado a un objeto), haga clic fuera de los objetos existentes.
+* Si desea extender un camino, haga clic dentro de la «zona de tolerancia» del camino (o de un nodo en el camino). La zona de tolerancia está indicada por las áreas alrededor de un nodo o camino.
 
-Once you can see the crosshair symbol, you have these options:
+Una vez pueda ver el símbolo de la cruz, tiene estas opciones:
 
-* Touch in the same place.
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* Toque en el mismo lugar.
+    * Si el punto de mira no está cerca de un nodo, tocar nuevamente la misma ubicación crea un nuevo nodo. Si usted está cerca de un camino (pero no cerca de un nodo), el nuevo nodo estará en camino (y conectado al camino).
+    * Si la cruz está cerca de un nodo (es decir, dentro de la zona de tolerancia del nodo), al tocar la misma ubicación solo se selecciona el nodo (y se abre el editor de etiquetas. No se crea un nuevo nodo. La acción es la misma que la selección anterior.
+* Toque otro lugar. Al tocar otra ubicación (fuera de la zona de tolerancia de la cruz) se añade un segmento de camino desde la posición original a la posición actual. Si la cruz estaba cerca de un camino o nodo, el nuevo segmento se conectará a ese nodo o camino.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+Simplemente toque la pantalla donde desea agregar más nodos del camino. Para finalizar, toque el nodo final dos veces. Si el nodo final está ubicado en una ruta o nodo, el segmento se conectará automáticamente a la ruta o al nodo. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
+También puede usar un elemento del menú: Vea [Creando nuevos objetos](../en/Creating%20new%20objects.md) para más información.
 
 #### Añadiendo un Área
 
-OpenStreetMap currently doesn't have an "area" object type contrary to other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+OpenStreetMap actualmente no tiene un tipo de objeto «área», al contrario de otros sistemas de geodatos. El editor en línea «ID» intenta crear una abstracción de área de los elementos OSM subyacentes que funciona bien en algunas circunstancias, en otros no funcionan. Actualmente Vespucci no intenta hacer algo similar, por lo que necesita saber un poco sobre la forma en que se representan las áreas:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _rutas cerradas («polígonos»)_: la variante de área más simple y más común, son rutas que tienen un primer y último nodo compartido formando un «anillo» cerrado (por ejemplo, la mayoría de los edificios son de este tipo). Estos son muy fáciles de crear en Vespucci, simplemente conéctese de nuevo al primer nodo cuando haya terminado de dibujar el área. Nota: la interpretación del camino cerrado depende de su etiquetado: por ejemplo, si un camino cerrado se etiqueta como un edificio, se considerará un área, si se etiqueta como una rotonda, no. En algunas situaciones en las que ambas interpretaciones pueden ser válidas, una etiqueta de «área» puede aclarar el uso previsto.
+* _multi-polígonos_: algunas áreas tienen múltiples partes, agujeros y anillos que no se pueden representar de una sola manera. OSM usa un tipo específico de relación (nuestro objeto de propósito general que puede modelar las relaciones entre los elementos) para sortear esto, un multi-polígono. Un multi-polígono puede tener múltiples anillos «externos» y múltiples anillos «internos». Cada anillo puede ser cerrado como se describe anteriormente, o múltiples formas individuales que tienen nodos finales comunes. Mientras que los grandes multi-polígonos son difíciles de manejar con cualquier herramienta, los pequeños no son difíciles de crear en Vespucci. 
+* _costas_: para objetos muy grandes, continentes e islas, incluso el modelo de multi-polígonos no funciona de manera satisfactoria. Para las formas naturales=litorales asumimos una semántica dependiente de la dirección: la tierra está en el lado izquierdo del camino, el agua en el lado derecho. Un efecto secundario de esto es que, en general, no debe invertir la dirección de una ruta con el etiquetado de la costa. Puede encontrarse más información en la [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Mejorando la geometría de vías
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+Si hace el suficiente zoom en una ruta seleccionada, verá pequeños segmentos «x» en medio de la ruta que son lo suficientemente largos. Al arrastrar la «x» se creará un nodo en la ruta en esa ubicación. Nota: para evitar la creación accidental de nodos, el área de tolerancia táctil para esta operación es bastante pequeña.
 
 #### Cortar, copiar y pegar
 
@@ -111,25 +111,25 @@ Usted puede copiar o cortar los nodos y caminos seleccionados, y después pegarl
 
 #### Añadiendo direcciones de manera eficiente
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+Vespucci tiene una función de «agregar etiquetas de dirección» que intenta hacer las direcciones topográficas más eficientes. Puede ser seleccionado:
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* tras una larga presión: Vespucci agregará un nodo en la ubicación y hará una mejor estimación del número de la casa y añadirá las etiquetas de dirección que ha estado utilizando últimamente. Si el nodo está en el contorno de un edificio, añadirá automáticamente una etiqueta de «entrada=sí» al nodo. El editor de etiquetas se abrirá para el objeto en cuestión y le permitirá realizar los cambios adicionales necesarios.
+* en los modos nodo/ruta seleccionados: Vespucci agregará las etiquetas de dirección como se indica arriba e iniciará el editor de etiquetas.
+* en el editor de etiquetas.
 
 La predicción de números de casas normalmente requiere al menos dos números de casas a cada lado de la vía para que funcione; cuantos más números presentes en los datos, mejor.
 
-Consider using this with the [Auto-download](#download) mode.  
+Considere utilizar esto con el modo [Auto-descarga](#download).  
 
 #### Añadiendo restricciones de giro
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+Vespucci tiene una manera rápida de agregar restricciones de giro. si es necesario, dividirá las formas automáticamente y le pedirá que vuelva a seleccionar los elementos. 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type
+* seleccione una forma con una etiqueta de autovía (las restricciones de giro solo se pueden añadir a las autovías, si necesita hacer esto de otras maneras, utilice el modo genérico de «crear relación»)
+* seleccione «Añadir restricción» desde el menú
+* seleccione el nodo «vía» o ruta (solo los posibles elementos «via» tendrán el área táctil mostrada)
+* seleccione la ruta «a» (es posible volver a doblar y configurar el elemento «a» al elemento «desde», Vespucci asumirá que está añadiendo una restricción no_u_turn)
+* establezca el tipo de restricción
 
 ### Vespucci en modo «bloqueado»
 
@@ -149,13 +149,13 @@ Si quiere guardar su trabajo y no tiene acceso a Internet, puede guardar un arch
 
 #### Resolviendo conflictos al subir
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
+Vespucci tiene un solucionador de conflictos simple. Sin embargo, si sospecha que hay problemas importantes con sus ediciones, exporte los cambios a un archivo .osc (elemento del menú «Exportar» en el menú «Transferir») y arreglarlos y subirlos con JOSM. Ver la ayuda detallada en [resolución de conflictos](../en/Conflict%20resolution.md).  
 
 ## Usando GPS
 
 Puede utilizar Vespucci para crear una pista GPX y mostrarla en su dispositivo. Además puede mostrar la ubicación GPS actual (seleccione "Mostrar ubicación" en el menú GPS) y/o centrar la pantalla y seguir su posición (seleccione "Seguir ubicación GPS" en el menú GPS). 
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
+Si tiene este último conjunto, mover la pantalla manualmente o editar hará que se deshabilite el modo «Seguir GPS» y la flecha azul del GPS cambiará de un esquema a una flecha llena. Para volver rápidamente al modo «seguir», simplemente toque el botón GPS o vuelva a verificar la opción de menú.
 
 ## Notas y errores
 
@@ -167,7 +167,7 @@ La exposición de error OSMOSE proveerá un enlace al objeto azul afectado, toca
 
 ### Filtrado
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
+Además de habilitar globalmente la visualización de notas y errores, puede configurar un filtro de visualización de grano grueso para reducir el desorden. En las «Preferencias avanzadas» puede seleccionar individualmente:
 
 * Notas
 * Error Osmose
@@ -179,40 +179,40 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 ## Modo de interiores
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
+El mapeo en interiores es un desafío debido a la gran cantidad de objetos que muy a menudo se superponen unos a otros. Vespucci tiene un modo interior dedicado que le permite filtrar todos los objetos que no están en el mismo nivel y que agregarán automáticamente el nivel actual a los nuevos objetos creados.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, "tag editing only", indoor mode](#lock).
+El modo se puede habilitar presionando durante un tiempo el elemento de bloqueo, vea [Bloquear, desbloquear, «solo edición de etiqueta», modo interior](#lock).
 
 ## Filtros
 
-### Tag based filter
+### Filtro basado en etiqueta
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
+El filtro se puede habilitar desde el menú principal, luego se puede cambiar tocando el ícono de filtro. Más documentación se puede encontrar aquí [Filtro de etiqueta](../en/Tag%20filter.md).
 
-### Preset based filter
+### Filtro basado en preajustes
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](../en/Preset%20filter.md).
+Como alternativa a lo anterior, los objetos se filtran en presets individuales o en grupos preestablecidos. Al tocar en el ícono del filtro aparecerá un cuadro de diálogo de selección preestablecido similar al utilizado en Vespucci. Los preajustes individuales se pueden seleccionar con un clic normal, los grupos predefinidos con un clic prolongado (con un clic normal entra al grupo). Más documentación se puede encontrar aquí [Filtro preestablecido](../en/Preset%20filter.md).
 
 ## Personalizando Vespucci
 
 ### Los ajustes que podría querer cambiar
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Capa de fondo
+* Capa de superposición. Añadir una superposición puede causar problemas con dispositivos más antiguos y con una memoria limitada. Predeterminado: ninguno.
+* Visualización de notas/errores. Las notas abiertas y los errores se mostrarán como un ícono de error amarillo, los cerrados de la misma manera en verde. Predeterminado: activado.
+* Capa de foto. Muestra fotografías georreferenciadas como iconos de cámara roja, si la información de dirección está disponible, el icono se rotará. Predeterminado: desactivado.
+* Iconos de nodo. Predeterminado: desactivado.
+* Mantener la pantalla encendida. Predeterminado: desactivado.
+* Área de arrastre de nodo grande. Mover nodos en un dispositivo con entrada táctil es problemático ya que sus dedos oscurecerán la posición actual en la pantalla. Activar esto proporcionará un área grande que se puede usar para arrastrar fuera del centro (la selección y otras operaciones aún usan el área de tolerancia táctil normal). Predeterminado: desactivado.
 
 Preferencias avanzadas
 
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Mostrar siempre el menú contextual. Cuando se enciende, cada proceso de selección muestra el menú contextual, apagado el menú se muestra solo cuando no se puede determinar una selección inequívoca.. Predeterminado: desactivado (usar para activarlo).
+* Habilitar tema de luz. En dispositivos modernos, esto está activado de manera predeterminada. Si bien puede habilitarlo para versiones anteriores de Android, es probable que el estilo sea inconsistente.
+* Mostrar estadísticas. Mostrará algunas estadísticas para la depuración, no es realmente útil. Predeterminado: desactivado (usar para activarlo).  
 
 ## Informar de problemas
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Si Vespucci se bloquea o detecta un estado incoherente, se le pedirá que envíe el volcado. Por favor, hágalo si eso sucede, pero sólo una vez por situación específica, por favor. Si desea dar más información o abrir un problema para una solicitud de función o similar, hágalo aquí: [Rastreador de problemas de Vespucci](https://github.com/MarcusWolschon/osmeditor4android/issues). Si desea analizar algo relacionado con Vespucci, puede iniciar una discusión en el [Grupo de Vespucci de Google](https://groups.google.com/forum/#!forum/osmeditor4android) o en el [Foro de Android de OpenStreetMap](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

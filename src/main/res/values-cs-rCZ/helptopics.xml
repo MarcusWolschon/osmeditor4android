@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_introduction">Úvod</string>
+    <string name="help_main">Hlavní obrazovka s mapou</string>
     <string name="help_addrelationmember">Zvolená relace</string>
     <string name="help_multiselect">Multiselect</string>
     <string name="help_longclick">Vytváření nových objektů</string>
@@ -14,6 +15,8 @@
     <string name="help_conflictresolution">Řešení konfliktů</string>
     <string name="help_gpssources">Zdroje GPS</string>
     <string name="help_keyboard">Klávesnice</string>
+    <string name="help_tagfilter">Filtr tagů</string>
+    <string name="help_presetfilter">Filtr předvoleb</string>
     <string name="help_opening_hours">Otevírací hodiny</string>
     <string name="help_upgrade">0.9.9 Poznámky k vydání</string>
     <string name="help_upgrade_098">0.9.8 Poznámky k vydání</string>

@@ -12,6 +12,8 @@
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>
   <string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>
   <string name="wrong_login_data_title">Ověření se nezdařilo</string>
+  <string name="wrong_login_data_message">Pokud používáte OAuth, měli byste se znovu ověřit a zkusit to znovu, pokud používáte login a heslo (nedoporučuje se), zkontrolujte, zda jsou správně zadány.</string>
+  <string name="wrong_login_data_re_authenticate">Ověřit znovu</string>
   <string name="data_conflict_title">Konflikt verzí</string>
   <string name="out_of_memory_title">Nedostatek paměti</string>
   <string name="out_of_memory_message">Vespucci nemá dost paměti pro načtení požadovaných dat. Restartujte ho, prosím, a zkuste načíst menší plochu.</string>
@@ -88,10 +90,12 @@
   <string name="not_downloaded">Nestaženo</string>
   <string name="empty_role">neuvedená role</string>
   <string name="element">prvek</string>
+  <string name="last_edited">Poslední změna</string>
   <string name="error">chyba</string>
   <string name="warning">varování</string>
   <string name="minor_issue">drobná chyba</string>
   <string name="send_debug_information">Poslat ladicí informace</string>
+  <string name="evaluate">Spustit</string>
   <!--Toaster-->
   <string name="toast_no_changes">Zatím jste nic nezměnil…</string>
   <string name="toast_upload_success">Nahrávání na OSM server dokončeno.</string>
@@ -106,8 +110,11 @@
   <string name="toast_preset_overwrote_tags">Pozn. - předvolba přepsala tag(y)</string>
   <string name="toast_merge_overwrote_tags">Pozn. - operace přepsala tag(y)</string>
   <string name="toast_oneway_reversed">Otočili jste jednosměrnou cestu, nebo cestu se směrově závislými tagy. Zkontrolujte prosím tagy a upravte je, pokud je to nutné.</string>
+  <string name="toast_potential_merge_tag_conflict">Pokoušíte se sloučit prvky, které mají konfliktní hodnoty tagů. Nejprve zkontrolujte a opravte tagy a poté to zkuste znovu.</string>
   <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
   <string name="toast_photo_indexing_finished">Hledání fotografií s georeferencemi ukončeno</string>
+  <string name="toast_notype">Relaci chybí typ</string>
+  <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_oauth_not_enabled">OAuth není povolen pro současné API.</string>
   <string name="toast_oauth_timeout">Vypršel časový limit pro navázání spojení, zkuste to prosím znovu.</string>
   <string name="toast_oauth_communication">Chyba komunikace během navazování spojení, zkuste to prosím znovu.</string>
@@ -123,11 +130,15 @@
   <string name="toast_needs_resurvey">Objekt může být neaktuální.</string>
   <string name="toast_openinghours_invalid">Neplatná hodnota otevírací doby pro %1$s</string>
   <string name="toast_openinghours_autocorrected">Hodnota otevírací doby pro %1$s byla automaticky opravena.</string>
+  <string name="toast_exit_multiselect">Pro ukončení klepněte dvakrát na prázdné místo nebo použijte šipku zpět</string>
+  <string name="toast_exit_actionmode">Pro uložení a ukončení použijte šipku zpět</string>
+  <string name="toast_abort_actionmode">Pro zrušení použijte šipku zpět</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
   <string name="okay">Budiž</string>
   <string name="cancel">Zrušit</string>
+  <string name="dismiss">Ukončit</string>
   <string name="locked">Uzamčeno</string>
   <string name="next">Další</string>
   <string name="apply">Použít</string>
@@ -161,6 +172,7 @@
   <string name="tag_menu_reset_address_prediction">Resetovat předvyplněnou adresu</string>
   <string name="tag_menu_exit_no_save">Odejít\nbez uložení</string>
   <string name="tag_autocomplete_name_hint">Pište nebo klikněte pro návrhy názvu</string>
+  <string name="tag_multi_value_hint">Více hodnot</string>
   <string name="tag_action_tag_title">Zvolené tagy</string>
   <string name="tag_action_members_title">Zvolené členy</string>
   <string name="tag_action_parents_title">Zvolené relace</string>
@@ -174,6 +186,8 @@
   <string name="tag_menu_js_console">JS Konzole</string>
   <string name="menu_up">O úroveň výš</string>
   <string name="menu_top">Nejvyšší úroveň</string>
+  <string name="menu_select_all">Vybrat vše</string>
+  <string name="menu_deselect_all">Zrušit výběr</string>
   <string name="menu_preset_help">Nápověda k předvolbám</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Přidat tagy pro %1$s</string>
@@ -302,6 +316,17 @@
   <string name="actionmode_createpath">Vytváří cestu</string>
   <string name="actionmode_multiselect">Multiselect</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Rozdělení uzavřené cesty, 1. uzel</string>
+  <string name="actionmode_closed_way_split_2">Rozdělení uzavřené cesty, 2. uzel</string>
+  <string name="actionmode_restriction">Přidat omezení odbočení</string>
+  <string name="actionmode_restriction_restart_from">Znovu zvolte \"odkud\" segment</string>
+  <string name="actionmode_restriction_via">Přidat \"přes\" segment/element</string>
+  <string name="actionmode_restriction_restart_via">Znovu zvolte \"přes\" segment</string>
+  <string name="actionmode_restriction_to">Přidat \"kam\" segment</string>
+  <string name="actionmode_restriction_restart_to">Znovu zvolte \"kam\" segment</string>
+  <string name="actionmode_one_object">1 objekt</string>
+  <string name="actionmode_object_count">%1$d objektů</string>
+  <string name="actionmode_rotateway">Otočit cestu</string>
   <!--Preferences-->
   <string name="config_category_view">Nastavení uživatelského rozhraní</string>
   <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
@@ -347,7 +372,7 @@
   <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předvolbě uzlu.</string>
   <string name="config_showWayIcons_title">Zobrazit ikony POI budov</string>
   <string name="config_showWayIcons_summary">Ukázat ikonku nejlépe odpovídající předvolbě budovy.</string>
-  <string name="config_loginbutton_title">Uživatelský ůčet</string>
+  <string name="config_loginbutton_title">Uživatelský účet</string>
   <string name="config_username_title">OSM už. jméno</string>
   <string name="config_username_summary">Konfigurace potřebná k nahrávání OSM-Dat v případě, že nepoužíváte OAuth. Účty jsou dostupné na: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM heslo</string>

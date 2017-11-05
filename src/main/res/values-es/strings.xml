@@ -8,6 +8,7 @@
   <string name="transfer_download_current_back">Volver (no hacer nada)</string>
   <string name="upload_problem_title">Problema con la subida</string>
   <string name="upload_problem_message">Algunos o todos los datos no fueron subidos. Intente subir de nuevo más tarde si esto era sólo un problema temporal.</string>
+  <string name="bad_request_message">La API respondió con un error, guarde sus datos e informe el problema, por favor:\n\n</string>
   <string name="upload_conflict_title">Conflicto en subida</string>
   <string name="upload_conflict_message_version">%1$s \ntiene la versión local %2$s \ny en el servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \ntiene la versión local %2$s \ny fue eliminado en el servidor</string>
@@ -23,6 +24,7 @@
   <string name="wrong_login_data_title">Fallo de autenticación</string>
   <string name="wrong_login_data_message">Si está usando OAuth debe reautenticarse e intente de nuevo, si está usando nombre de usuario y contraseña (no recomendado) compruebe que se hayan introducido correctamente.</string>
   <string name="wrong_login_data_re_authenticate">Reautenticar</string>
+  <string name="forbidden_login_title">Acceso prohibido</string>
   <string name="go_to_openstreetmap">Ir a openstreetmap.org</string>
   <string name="data_conflict_title">Conflicto de versión</string>
   <string name="data_conflict_message">Los datos que trata de descargar contiene datos que entra en conflicto con sus ediciones. Intente subir sus datos antes de volver a intentarlo.</string>
@@ -54,6 +56,7 @@
   <string name="progress_saving_message">Guardando…</string>
   <string name="progress_uploading_message">Subiendo...</string>
   <string name="progress_preset_message">Descargando predefinido...</string>
+  <string name="progress_running_message">Ejecutando…</string>
   <string name="progress_oauth">Cargando su cuenta en openstreetmap.org para la autorización OAuth...</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fuente:</string>
@@ -90,6 +93,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugerencia puede sustituir algunos valores de etiquetas con valores más populares.</string>
   <string name="search_results_title">Resultados de la búsqueda</string>
   <string name="find_message">Introduzca la cadena de búsqueda</string>
+  <string name="geocoder_prompt">con</string>
   <string name="preset_search_hint">Cadena de búsqueda predeterminada</string>
   <string name="search">Buscar</string>
   <string name="no_valid_preset">¡Predeterminado no válido!</string>
@@ -111,10 +115,19 @@
   <string name="empty_role">rol vacío</string>
   <string name="element">elemento</string>
   <string name="last_updated">última actualización</string>
+  <string name="last_edited">Última edición</string>
   <string name="error">error</string>
   <string name="warning">advertencia</string>
   <string name="minor_issue">problema menor</string>
   <string name="unknown_error_level">nivel de error desconocido</string>
+  <string name="attached_object_warning_title">¡Esta operación afecta a los objetos adjuntos filtrados!</string>
+  <string name="attached_object_warning_message">El objeto cambiado está conectado a elementos ocultos que también cambiarán.</string>
+  <string name="attached_object_warning_continue">OK continúa mostrando este mensaje</string>
+  <string name="attached_object_warning_stop">OK deja de mostrar este mensaje</string>
+  <string name="send_debug_information">Enviar información de depuración</string>
+  <string name="evaluate">Evaluar</string>
+  <string name="js_console_msg_live">¡Modo en directo!</string>
+  <string name="js_console_msg_debug">¡Modo de depuración!</string>
   <!--Toaster-->
   <string name="toast_no_changes">No cambió nada aún…</string>
   <string name="toast_unsaved_changes">Tiene cambios sin guardar, súbalos primero.</string>
@@ -134,6 +147,8 @@
   <string name="toast_potential_merge_tag_conflict">Está tratando de combinar elementos que tienen conflictos en los valores de las etiquetas. Compruebe las etiquetas y corrija primero antes de intentar de nuevo.</string>
   <string name="toast_state_file_failed">No se puede leer el archivo de estado</string>
   <string name="toast_too_many_nodes_for_move">Demasiados nodos en la vía para mover</string>
+  <string name="toast_unread_mail">Tiene %1$d mensajes de OSM sin leer</string>
+  <string name="toast_one_unread_mail">Tiene un mensaje de OSM sin leer</string>
   <string name="toast_photo_indexing_started">Iniciada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_download_failed">Fallo en la descarga con código de error %1$d, mensaje %2$s</string>
@@ -159,7 +174,10 @@
   <string name="toast_inconsistent_state">¡Detectado un estado inconsistente, envíe el informe de error!</string>
   <string name="toast_camera_error">Error al iniciar la aplicación de la cámara: %1$s</string>
   <string name="toast_no_voice">Sin reconocimiento de voz en la instancia actual</string>
+  <string name="toast_storage_error">%1$s no puede ser escrito por Vespucci.\nEsto puede ser un problema de permisos o técnico de su dispositivo.</string>
+  <string name="toast_no_suitable_storage">El sistema no devolvió una ubicación adecuada para la base de datos de mosaicos.</string>
   <string name="toast_min_one_preset">¡Al menos un predeterminado tiene que ser seleccionado!</string>
+  <string name="toast_min_one_geocoder">¡Debe seleccionarse al menos un geocodificador!</string>
   <string name="toast_used_backup">¡Archivo de estado dañado, utilice el archivo de respaldo!</string>
   <string name="toast_used_bug_backup">¡Archivo de estado de errores dañado, utilice el archivo de respaldo!</string>
   <string name="toast_rmpty_relation">Relación vacía, creando informe de error.</string>
@@ -168,6 +186,20 @@
   <string name="toast_split_from_and_via">Vías divididas «from» y «via»</string>
   <string name="toast_split_to">Vía dividida «to»</string>
   <string name="toast_tile_database_full">¡La base de datos de teselas del mapa o disco está lleno!\nSalga, borre la base de datos o haga más espacio disponible.</string>
+  <string name="toast_invalid_apiurl">URL API inválida</string>
+  <string name="toast_invalid_readonlyurl">URL de la API de ReadOnly no válida</string>
+  <string name="toast_invalid_notesurl">URL de la API de Notas no válida</string>
+  <string name="toast_invalid_filter_regexp">Expresión regular inválida en filtro con clave=«%1$s» valor=«%2$s»</string>
+  <string name="toast_error_accessing_photo">No puede acceder a la foto %1$s</string>
+  <string name="toast_no_voice_recognition">No hay una instalación de reconocimiento de voz actualmente</string>
+  <string name="toast_no_coverage">%1$s no tiene cobertura aquí</string>
+  <string name="toast_file_exists">El archivo %1$s existe.</string>
+  <string name="toast_needs_resurvey">El objeto puede estar desactualizado</string>
+  <string name="toast_openinghours_invalid">Valor de horas de apertura no válidas para %1$s</string>
+  <string name="toast_openinghours_autocorrected">Se autocorrigió el valor de horas de apertura para %1$s</string>
+  <string name="toast_exit_multiselect">Toca dos veces un espacio vacío o usa la flecha hacia atrás para salir</string>
+  <string name="toast_exit_actionmode">Use la flecha hacia atrás para guardar y salir</string>
+  <string name="toast_abort_actionmode">Use la flecha hacia atrás para abortar</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
