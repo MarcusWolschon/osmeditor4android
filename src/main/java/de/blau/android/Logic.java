@@ -781,7 +781,7 @@ public class Logic {
 				node1X = node2X;
 				node1Y = node2Y;
 			}
-			if (Util.notZero(A) && showWayIcons && !added && way.isClosed() && (way.hasTagKey(Tags.KEY_BUILDING) || way.hasTag(Tags.KEY_INDOOR, Tags.VALUE_ROOM))) {
+			if (Util.notZero(A) && showWayIcons && !added && areaHasIcon(way)) {
 				Y = Y/(3*A);
 				X = X/(3*A);
 				double distance =  Math.hypot(x-X, y-Y);
@@ -791,6 +791,17 @@ public class Logic {
 			}
 		}		
 		return result;
+	}
+	
+	/**
+	 * Determine if the way should have an icon shown and should respond to a touch event on the icon
+	 * 
+	 * Note this should be made configurable in the long run
+	 * @param way the way in question 
+	 * @return true if we should have an icon
+	 */
+	public static boolean areaHasIcon(Way way) {
+	    return way.isClosed() && (way.hasTagKey(Tags.KEY_BUILDING) || way.hasTag(Tags.KEY_INDOOR, Tags.VALUE_ROOM));
 	}
 	
 	/**

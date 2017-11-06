@@ -144,12 +144,18 @@ public class Map extends View implements IMapView {
 	/**
 	 * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
 	 */
-	private final WeakHashMap<Object, Bitmap> iconcache = new WeakHashMap<Object, Bitmap>();
+	private final WeakHashMap<Object, Bitmap> iconCache = new WeakHashMap<Object, Bitmap>();
+	
+	/**
+     * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
+     * This stores icons for areas
+     */
+    private final WeakHashMap<Object, Bitmap> areaIconCache = new WeakHashMap<Object, Bitmap>();
 	
 	/**
 	 * Stores strings that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
 	 */
-	private final WeakHashMap<Object, String> labelcache = new WeakHashMap<Object, String>();
+	private final WeakHashMap<Object, String> labelCache = new WeakHashMap<Object, String>();
 	
 	/** Caches if the map is zoomed into edit range during one onDraw pass */
 	private boolean tmpDrawingInEditRange;
@@ -353,11 +359,14 @@ public class Map extends View implements IMapView {
 			}
 		}
 		tracker = null;
-		synchronized (iconcache) {
-			iconcache.clear();
+		synchronized (iconCache) {
+			iconCache.clear();
 		}
-		synchronized (labelcache) {
-			labelcache.clear();
+	    synchronized (areaIconCache) {
+	        areaIconCache.clear();
+	    }
+		synchronized (labelCache) {
+			labelCache.clear();
 		}
 		tmpPresets = null;
 	}
@@ -954,9 +963,9 @@ public class Map extends View implements IMapView {
     private void paintNodeLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final float strokeWidth, final Node node) {
 		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
 		SortedMap<String, String> tags = node.getTags();
-		String label = labelcache.get(tags); // may be null!
+		String label = labelCache.get(tags); // may be null!
 		if (label == null) {
-			if (!labelcache.containsKey(tags)) {
+			if (!labelCache.containsKey(tags)) {
 				label = node.getTagWithKey(Tags.KEY_NAME);
 				if (label == null && tmpPresets != null) { 
 					PresetItem match = Preset.findBestMatch(tmpPresets,node.getTags());
@@ -967,8 +976,8 @@ public class Map extends View implements IMapView {
 						// if label is still null, leave it as is
 					}
 				}
-				synchronized (labelcache) {
-					labelcache.put(tags,label);
+				synchronized (labelCache) {
+					labelCache.put(tags,label);
 					if (label==null) {
 						return;
 					}
@@ -983,24 +992,31 @@ public class Map extends View implements IMapView {
 	/**
 	 * Retrieve icon for the element, caching it if it isn't in the cache
 	 * 
-	 * @param element
+	 * @param element element we want to find an icon for
 	 * @return icon or null if none is found
 	 */
     private Bitmap getIcon(OsmElement element) {
 		SortedMap<String, String> tags = element.getTags();
-		Bitmap icon = iconcache.get(tags); // may be null!
+		boolean isWay = element instanceof Way;
+		WeakHashMap<Object, Bitmap>tempCache =  isWay ? areaIconCache : iconCache;
+		
+		Bitmap icon = tempCache.get(tags); // may be null!
 		if (icon == null && tmpPresets != null) {
-			if (iconcache.containsKey(tags)) {
+			if (tempCache.containsKey(tags)) {
 				// no point in trying to match
-				return icon;
+				return null;
 			}
 			// icon not cached, ask the preset, render to a bitmap and cache result
 			PresetItem match = null;
-			if (element instanceof Way) { 
-				// don't show building icons, but only icons for buildings
-				SortedMap<String,String> tempTags = new TreeMap<String,String>(tags);
-				if (tempTags.remove(Tags.KEY_BUILDING) != null || element.hasTag(Tags.KEY_INDOOR,Tags.VALUE_ROOM)) {
-					match = Preset.findBestMatch(tmpPresets,tempTags);
+			if (isWay) { 
+				// don't show building icons, only icons for those with POI tags
+				if (Logic.areaHasIcon((Way) element)) {
+				    SortedMap<String,String> tempTags = new TreeMap<String,String>(tags);
+				    tempTags.remove(Tags.KEY_BUILDING);
+				    icon = iconCache.get(tags); // maybe we already cached this for a node
+				    if (icon == null) {
+				        match = Preset.findBestMatch(tmpPresets,tempTags);
+				    }
 				} 
 			} else {
 				match = Preset.findBestMatch(tmpPresets,tags);
@@ -1013,8 +1029,8 @@ public class Map extends View implements IMapView {
 					iconDrawable.draw(new Canvas(icon));
 				}
 			}
-			synchronized (iconcache) {
-				iconcache.put(tags, icon);
+			synchronized (tempCache) {
+				tempCache.put(tags, icon);
 			}
 		}
 		return icon;
@@ -1483,7 +1499,8 @@ public class Map extends View implements IMapView {
 		}
 		showIcons = prefs.getShowIcons();
 		showWayIcons = prefs.getShowWayIcons();
-		iconcache.clear();
+		iconCache.clear();
+		areaIconCache.clear();
 		alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
 	}
 
