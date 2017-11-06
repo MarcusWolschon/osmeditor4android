@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1306: Update preset, update translations, fix issue which caused node icons to vanish when copy/pasting tags between nodes and areas.
+
 1305: Update preset.
 
 1304: Update preset, fix UI glitch when applying presets.
