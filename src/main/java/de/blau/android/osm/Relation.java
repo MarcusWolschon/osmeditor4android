@@ -20,6 +20,7 @@ import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.rtree.BoundedObject;
+import de.blau.android.validation.Validator;
 
 /**
  * Relation represents an OSM relation element which essentially is a collection of other OSM elements.
@@ -358,30 +359,6 @@ public class Relation extends OsmElement implements BoundedObject {
 		}
 		return description;
 	}
-	
-	/**
-	 * Test if the relation has a problem.
-	 * @return true if the relation has a problem, false if it doesn't.
-	 */
-	@Override
-	protected boolean calcProblem(Context ctx) {
-		String type = getTagWithKey(Tags.KEY_TYPE);
-		return type == null || type.equals("") || super.calcProblem(ctx);
-	}
-	
-	@Override
-	public String describeProblem() {
-		String superProblem = super.describeProblem();
-		String relationProblem = "";
-		String type = getTagWithKey(Tags.KEY_TYPE);
-		if (type==null || type.equals("")) {
-			relationProblem = App.resources().getString(R.string.toast_notype);
-		}
-		if (!superProblem.equals("")) 
-			return superProblem + (!relationProblem.equals("") ? "\n" + relationProblem : "");
-		else
-			return relationProblem;
-	}
 
 	@Override
 	public ElementType getType() {
@@ -438,5 +415,10 @@ public class Relation extends OsmElement implements BoundedObject {
 			}
 		}
 		return result;
+	}
+	
+	@Override
+	protected int validate(Validator validator) {
+	    return validator.validate(this);
 	}
 }

@@ -10,13 +10,11 @@ import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.content.Context;
 import android.util.Log;
-import de.blau.android.App;
-import de.blau.android.R;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
+import de.blau.android.validation.Validator;
 
 public class Way extends OsmElement implements BoundedObject {
 
@@ -27,8 +25,6 @@ public class Way extends OsmElement implements BoundedObject {
 	 */
 	private static final long serialVersionUID = 1104911642016294266L;
 	
-	private static final String[] importantHighways;
-
 	final ArrayList<Node> nodes;
 
 	public static final String NAME = "way";
@@ -39,13 +35,6 @@ public class Way extends OsmElement implements BoundedObject {
 	
 	private transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
 	
-	static {
-		importantHighways = (
-				"motorway,motorway_link,trunk,trunk_link,primary,primary_link,"+
-				"secondary,secondary_link,tertiary,residential,unclassified,living_street"
-		).split(",");
-	}
-
 	Way(final long osmId, final long osmVersion, final long timestamp, final byte status) {
 		super(osmId, osmVersion, timestamp, status);
 		nodes = new ArrayList<Node>();
@@ -374,61 +363,6 @@ public class Way extends OsmElement implements BoundedObject {
 		return false;
 	}
 	
-	private boolean hasTagWithValue(String tag, String value) {
-		String tagValue = getTagWithKey(tag);
-		return tagValue != null && tagValue.equalsIgnoreCase(value);
-	}
-	
-	/**
-	 * Test if the way has a problem.
-	 * @return true if the way has a problem, false if it doesn't.
-	 */
-	@Override
-	protected boolean calcProblem(Context ctx) {
-		String highway = getTagWithKey(Tags.KEY_HIGHWAY); // cache frequently accessed key
-		if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
-			// unsurveyed road
-			return true;
-		}
-		if ((getTagWithKey(Tags.KEY_NAME) == null) && (getTagWithKey(Tags.KEY_REF) == null) 
-				&& !(hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES))) {
-			// unnamed way - only the important ones need names
-			for (String h : importantHighways) {
-				if (h.equalsIgnoreCase(highway)) {
-					return true;
-				}
-			}
-		}
-		return super.calcProblem(ctx);
-	}
-	
-	@Override
-	public String describeProblem() {
-		String superProblem = super.describeProblem();
-		String wayProblem = "";
-		String highway = getTagWithKey(Tags.KEY_HIGHWAY);
-		if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
-			wayProblem = App.resources().getString(R.string.toast_unsurveyed_road);
-		}
-		if ((getTagWithKey(Tags.KEY_NAME) == null) && (getTagWithKey(Tags.KEY_REF) == null)
-				&& !(hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES))) {
-			boolean isImportant = false;
-			for (String h : importantHighways) {
-				if (h.equalsIgnoreCase(highway)) {
-					isImportant = true;
-					break;
-				}
-			}
-			if (isImportant) {
-				wayProblem = !wayProblem.equals("") ? wayProblem +", " :  App.resources().getString(R.string.toast_noname);
-			}
-		}
-		if (!superProblem.equals("")) 
-			return superProblem + (!wayProblem.equals("") ? "\n" + wayProblem : "");
-		else
-			return wayProblem;
-	}
-	
 	@Override
 	public ElementType getType() {
 		if (nodes.size() < 2) return ElementType.WAY; // should not happen
@@ -558,5 +492,10 @@ public class Way extends OsmElement implements BoundedObject {
 	 */
 	public static void setMaxWayNodes(int max) {
 		maxWayNodes = max;
+	}
+	
+	@Override
+	protected int validate(Validator validator) {
+	    return validator.validate(this);
 	}
 }

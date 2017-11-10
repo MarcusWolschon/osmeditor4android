@@ -28,6 +28,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
+import de.blau.android.validation.Validator;
 
 /**
  * Generate an Android notification for OSM elements that have an issue and for Notes and other QA "bugs"
@@ -119,7 +120,10 @@ public class IssueAlert {
 			message = context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n";
 			ticker = ticker + " " + message;
 		}
-		message = message + e.describeProblem();
+		Validator validator = App.getDefaultValidator(context);
+		for (String p:validator.describeProblem(context, e)) {
+		    message = message + p;
+		}
 		NotificationCompat.Builder mBuilder;
 		try {
 			mBuilder =

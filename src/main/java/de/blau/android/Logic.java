@@ -92,6 +92,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MRUList;
+import de.blau.android.validation.Validator;
 
 /**
  * Logic is the gatekeeper to actual object storage and provides higher level operations.
@@ -2202,7 +2203,8 @@ public class Logic {
 	 * @param add 				if true add this data to existing
 	 * @param postLoadHandler	handler to execute after successful download
 	 */
-	public synchronized void downloadBox(final FragmentActivity activity, final BoundingBox mapBox, final boolean add, final PostAsyncActionHandler postLoadHandler) {
+	public synchronized void downloadBox(@NonNull final FragmentActivity activity, @NonNull final BoundingBox mapBox, final boolean add, @Nullable final PostAsyncActionHandler postLoadHandler) {
+	    final Validator validator = App.getDefaultValidator(activity);
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -2214,7 +2216,7 @@ public class Logic {
 		final PostMergeHandler postMerge =  new PostMergeHandler(){
 			@Override
 			public void handler(OsmElement e) {
-				e.hasProblem(activity);
+				e.hasProblem(activity, validator);
 			}
 		};
 		
@@ -2371,7 +2373,7 @@ public class Logic {
 	 * @param context	android context
 	 * @param mapBox 	Box defining the area to be loaded.
 	 */
-	public synchronized void autoDownloadBox(final Context context, final Server server, final BoundingBox mapBox) {
+	public synchronized void autoDownloadBox(final Context context, final Server server, final Validator validator, final BoundingBox mapBox) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -2382,7 +2384,7 @@ public class Logic {
 		final PostMergeHandler postMerge =  new PostMergeHandler(){
 			@Override
 			public void handler(OsmElement e) {
-				e.hasProblem(context);
+				e.hasProblem(context, validator);
 			}
 		};
 		

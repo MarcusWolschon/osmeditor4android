@@ -57,6 +57,7 @@ import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongHashSet;
+import de.blau.android.validation.Validator;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.MapOverlayTilesOverlay;
 import de.blau.android.views.overlay.MapTilesOverlay;
@@ -242,6 +243,8 @@ public class Map extends View implements IMapView {
 	private Context context;
 	
 	private Rect canvasBounds;
+	
+	private Validator validator;
 
 	@SuppressLint("NewApi")
 	public Map(final Context context) {
@@ -271,6 +274,8 @@ public class Map extends View implements IMapView {
 		textPaint.setTypeface(Typeface.SANS_SERIF);
 		textPaint.setTextSize(Density.dpToPx(12));
 		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
+		
+		validator = App.getDefaultValidator(context);
 	}
 	
 	public void createOverlays(Context ctx)
@@ -882,7 +887,7 @@ public class Map extends View implements IMapView {
 			// style for tagged nodes or otherwise important
 			featureKeyTagged = DataStyle.SELECTED_RELATION_NODE_TAGGED;
 			isSelected = true;
-		} else if (node.hasProblem(context)) {
+		} else if (node.hasProblem(context, validator) != Validator.OK) {
 			// general node style
 			featureKey = DataStyle.PROBLEM_NODE;
 			// style for house numbers
@@ -1107,7 +1112,7 @@ public class Map extends View implements IMapView {
 		
 		FeatureStyle fp; // no need to get the default here
 		
-		if (way.hasProblem(context)) {
+		if (way.hasProblem(context, validator) != Validator.OK) {
 			fp = DataStyle.getCurrent(DataStyle.PROBLEM_WAY);
 		} else {
 			fp = getAndSetStyle(way);

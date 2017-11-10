@@ -72,6 +72,10 @@
 			android:title="@string/config_advancedprefs"
 			android:key="@string/config_advancedprefs_key"
 		/>
+		<android.support.v7.preference.Preference
+			android:title="@string/config_validatorprefs_title"
+			android:key="@string/config_validatorprefs_key"
+		/>
 	</android.support.v7.preference.PreferenceCategory>
 		
 	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_info">

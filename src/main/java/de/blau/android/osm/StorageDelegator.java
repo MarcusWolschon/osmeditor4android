@@ -273,6 +273,14 @@ public class StorageDelegator implements Serializable, Exportable {
 		imageryRecorded = recorded;
 	}
 
+	public void resetProblems() {
+        for (OsmElement e:currentStorage.getElements()) {
+            e.resetHasProblem();
+        }
+        for (OsmElement e:apiStorage.getElements()) {
+            e.resetHasProblem();
+        }
+	}
 	
 	/**
 	 * Create apiStorage (aka the changes to the original data) based on state field of the elements.

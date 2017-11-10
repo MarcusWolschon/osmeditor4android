@@ -129,6 +129,15 @@
     <string name="evaluate">Evaluate</string>
     <string name="js_console_msg_live">Live mode!</string>
     <string name="js_console_msg_debug">Debug mode!</string>
+    <string name="validator_title">Validator ruleset %1$s</string>
+    <string name="edit_resurvey_title">Edit resurvey entry</string>
+    <string name="add_resurvey_title">Add resurvey entry</string>
+    <string name="edit_check_title">Edit check entry</string>
+    <string name="add_check_title">Add check entry</string>
+    <string name="max_age">Max. age</string>
+    <string name="age">Age</string>
+    <string name="check_opt">Check opt.</string>
+    <string name="check_optional">Check optional</string>
 
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -198,6 +207,7 @@
     <string name="toast_no_coverage">%1$s has no coverage here</string>
     <string name="toast_file_exists">File %1$s exists.</string>
     <string name="toast_needs_resurvey">Object may be out of date</string>
+    <string name="toast_missing_key">Key %1$s missing</string>
     <string name="toast_openinghours_invalid">Invalid opening hours value for %1$s</string>
     <string name="toast_openinghours_autocorrected">Opening hours value for %1$s was autocorrected</string>
     <string name="toast_exit_multiselect">Double tap an empty space or use the back arrow to exit</string>
@@ -552,6 +562,7 @@
     <string name="config_geocoderbutton_summary">Add, edit, delete geocoders for the search functionality</string>
     <string name="config_js_console_title">Enable JS console</string>
     <string name="config_js_console_summary">Make the JS console available in "live" mode</string>
+    <string name="config_validatorprefs_title">Validator preferences</string>
     <string name="manage_apis">Manage APIs</string>
     <string name="manage_presets">Manage presets</string>
     <string name="manage_geocoders">Manage geocoders</string>

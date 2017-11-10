@@ -75,6 +75,7 @@
     <string name="config_osmPreferredDir_key">osmPreferredDir</string>
     <string name="config_notesPreferredDir_key">notesPreferredDir</string>
     <string name="config_scriptsPreferredDir_key">scriptsPreferredDir</string>
+    <string name="config_validatorprefs_key">validatorprefs</string>
 
     <string-array name="gps_source_keys">
 	<item>internal</item>

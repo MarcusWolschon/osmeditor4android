@@ -4,11 +4,13 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
+import de.blau.android.App;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
+import de.blau.android.validation.Validator;
 
 /**
  * Filter plus UI for filtering on presets
@@ -28,6 +30,7 @@ public class CorrectFilter extends Filter {
 	private transient Context context;
 	private boolean includeWayNodes = false;
 	private boolean inverted = false;
+	private transient Validator validator; 
 
 	public CorrectFilter() {
 		this(null);
@@ -45,6 +48,7 @@ public class CorrectFilter extends Filter {
 	public void init(Context context) {
 		Log.d(DEBUG_TAG, "init");
 		this.context = context;
+		validator = App.getDefaultValidator(context);
 		clear();
 	}
 	
@@ -83,7 +87,7 @@ public class CorrectFilter extends Filter {
 
 	private Include filter(OsmElement e) {
 		Include include =Include.DONT;
-		if (e.hasProblem(context)) {
+		if (e.hasProblem(context, validator) != Validator.OK) {
 			return Include.INCLUDE;
 		}
 		return include;

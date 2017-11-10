@@ -25,6 +25,8 @@ import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.NotificationCache;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.rtree.RTree;
+import de.blau.android.validation.BaseValidator;
+import de.blau.android.validation.Validator;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -88,6 +90,12 @@ public class App extends android.app.Application {
 	private static RhinoAndroidHelper rhinoHelper;
 	private static org.mozilla.javascript.Scriptable rhinoScope;
 	private static final Object rhinoLock = new Object();
+	
+	/**
+	 * The default element validator
+	 */
+    private static final Object defaultValidatorLock = new Object();
+    private static Validator defaultValidator;
 	
 	@Override
 	public void onCreate() {
@@ -329,4 +337,17 @@ public class App extends android.app.Application {
 			return rhinoScope;
 		}
 	}
+	
+	   /**
+     * Return the cache for task notifications, allocate if necessary
+     * @return the notification cache
+     */
+    public static Validator getDefaultValidator(Context ctx) {
+        synchronized (defaultValidatorLock) {
+            if (defaultValidator == null) {
+                defaultValidator = new BaseValidator(ctx);
+            }
+            return defaultValidator;
+        }
+    }
 }

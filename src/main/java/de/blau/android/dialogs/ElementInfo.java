@@ -34,6 +34,7 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
@@ -44,6 +45,7 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.validation.Validator;
 
 /**
  * Very simple dialog fragment to display some info on an OSM element
@@ -167,9 +169,18 @@ public class ElementInfo extends DialogFragment {
         			}
         		}
         	}
-        	if (e.hasProblem(getActivity())) {
+        	Validator validator = App.getDefaultValidator(getActivity());
+        	if (e.hasProblem(getActivity(), validator) != Validator.OK) {
         		tl.addView(divider());
-        		tl.addView(createRow(R.string.problem,e.describeProblem(),tp));
+        		boolean first = true;
+        		for (String problem:validator.describeProblem(getActivity(), e)) {
+        		    String header = "";
+        		    if (first) {
+        		        header = getString(R.string.problem);
+        		        first = false;
+        		    }
+        		    tl.addView(createRow(header,problem,tp));
+        		}
         	}
         	
         	if (e.getTags() != null && e.getTags().size() > 0) {

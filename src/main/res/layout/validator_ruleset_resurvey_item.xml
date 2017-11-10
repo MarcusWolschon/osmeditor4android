@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content" 
+	android:paddingTop="?attr/dialogPreferredPadding">
+
+	<TextView
+		android:id="@+id/resurvey_key_legend"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:paddingTop="10dp"
+		android:layout_marginLeft="?attr/dialogPreferredPadding"
+		android:layout_alignParentTop="true"
+		android:textAppearance="?android:attr/textAppearanceMedium" 
+		android:text="@string/Key"/>
+		
+	<EditText 
+		android:id="@+id/resurvey_key"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="?attr/dialogPreferredPadding"
+		android:layout_marginRight="?attr/dialogPreferredPadding"
+		android:layout_alignTop="@id/resurvey_key_legend"
+		android:layout_toRightOf="@id/resurvey_key_legend"
+		android:textAppearance="?android:attr/textAppearanceMedium" />
+		
+	<TextView
+		android:id="@+id/resurvey_value_legend"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="?attr/dialogPreferredPadding"
+		android:paddingTop="10dp"
+		android:layout_below="@id/resurvey_key_legend"
+		android:textAppearance="?android:attr/textAppearanceMedium" 
+		android:text="@string/Value"/>
+		
+	<EditText 
+		android:id="@+id/resurvey_value"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_marginRight="?attr/dialogPreferredPadding"
+		android:layout_alignTop="@id/resurvey_value_legend"
+		android:layout_alignLeft="@id/resurvey_key"
+		android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+    <TextView
+		android:id="@+id/resurvey_days_legend"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="?attr/dialogPreferredPadding"
+		android:paddingTop="10dp"
+		android:layout_below="@id/resurvey_value_legend"
+		android:textAppearance="?android:attr/textAppearanceMedium" 
+		android:text="@string/age"/> 
+		
+	<EditText 
+		android:id="@+id/resurvey_days"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_marginRight="?attr/dialogPreferredPadding"
+		android:layout_alignTop="@id/resurvey_days_legend"
+		android:layout_alignLeft="@id/resurvey_value"
+		android:textAppearance="?android:attr/textAppearanceMedium" /> 
+		  
+</RelativeLayout>

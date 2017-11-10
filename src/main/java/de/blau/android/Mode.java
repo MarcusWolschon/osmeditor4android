@@ -12,6 +12,7 @@ import de.blau.android.filter.IndoorFilter;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
 
 /**
@@ -130,7 +131,7 @@ public enum Mode {
 		}
 	}),
 	
-	MODE_CORRECT("CORRECT", true, true, false, false, null, R.drawable.unlocked_correct_white, new ModeConfig() {
+	MODE_CORRECT("CORRECT", true, true, true, false, null, R.drawable.unlocked_correct_white, new ModeConfig() {
 
 		@Override
 		public void setup(final Main main, final Logic logic) {
@@ -191,7 +192,10 @@ public enum Mode {
 			ArrayList<PresetElementPath>result = new ArrayList<PresetElementPath>();
 			Preset[] presets = App.getCurrentPresets(ctx);
 			if (presets.length > 0 && presets[0] != null) {
-				result.add(Preset.findBestMatch(presets, e.getTags()).getPath(presets[0].getRootGroup()));
+			    PresetItem pi = Preset.findBestMatch(presets, e.getTags());
+			    if (pi != null) { // there naturally may not be a preset
+			        result.add(pi.getPath(presets[0].getRootGroup()));
+			    }
 			}
 			return result;
 		}

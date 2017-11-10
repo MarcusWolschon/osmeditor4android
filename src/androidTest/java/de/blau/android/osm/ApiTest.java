@@ -49,6 +49,7 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
+import de.blau.android.validation.Validator;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -171,7 +172,7 @@ public class ApiTest {
     	Assert.assertNotNull(t);
     	Assert.assertTrue(t.hasTag("amenity", "toilets"));
     	Assert.assertEquals(1429452889,t.getTimestamp()); // 2015-04-19T14:14:49Z
-    	Assert.assertTrue(t.hasProblem(main));
+    	Assert.assertTrue(t.hasProblem(main, App.getDefaultValidator(main)) != Validator.OK);
 	}
     
     @Test
