@@ -3891,6 +3891,7 @@
             <key key="amenity" value="car_sharing" />
             <text key="operator" text="Operator" />
             <text key="capacity" text="Capacity" />
+            <reference ref="level" />
             <reference ref="name_oh_wheelchair" />
             <text key="website" text="Website" />
         </item> <!-- Sharing -->
@@ -6167,8 +6168,8 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=pharmacy"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:amenity=pharmacy" />
             <space />
-            <key key="amenity" value="hospital" />
-            <key key="healthcare" value="hospital" />
+            <key key="amenity" value="hospital" match="keyvalue" />
+            <key key="healthcare" value="hospital" match="keyvalue" />
             <reference ref="name_operator" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Hospital -->
@@ -6182,8 +6183,8 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:amenity=clinic"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=clinic" />
             <space />
-            <key key="amenity" value="clinic" />
-            <key key="healthcare" value="clinic" />
+            <key key="amenity" value="clinic" match="keyvalue" />
+            <key key="healthcare" value="clinic" match="keyvalue" />
             <reference ref="healthcare_speciality" />
             <reference ref="name_operator" />
             <reference ref="link_contact_address_payment" />
@@ -6199,8 +6200,8 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:amenity=doctors"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=doctors" />
             <space />
-            <key key="amenity" value="doctors" />
-            <key key="healthcare" value="doctor" />
+            <key key="amenity" value="doctors" match="keyvalue" />
+            <key key="healthcare" value="doctor" match="keyvalue" />
  			<reference ref="healthcare_speciality" />
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
@@ -6215,8 +6216,8 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:amenity=dentist"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=dentist" />
             <space />
-            <key key="amenity" value="dentist" />
-            <key key="healthcare" value="dentist" />
+            <key key="amenity" value="dentist" match="keyvalue" />
+            <key key="healthcare" value="dentist" match="keyvalue" />
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Dentist -->
@@ -6279,7 +6280,7 @@
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:healthcare"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:healthcare" />
             <space />
-            <combo key="healthcare" text="Type of shelter"  values_searchable="true">
+            <combo key="healthcare" text="Type of facility" values_searchable="true">
 				<list_entry value="birthing_center" short_description="Birthing center" />
 				<list_entry value="blood_donation" short_description="Blood donation" />
 				<list_entry value="hospice" short_description="Hospice" />
