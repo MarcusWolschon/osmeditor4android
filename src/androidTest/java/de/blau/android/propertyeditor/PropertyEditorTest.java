@@ -417,6 +417,7 @@ public class PropertyEditorTest {
     	   	TestUtils.clickText(mDevice, true, main.getString(R.string.menu_tags), false);
     	}
     	PresetItem presetItem = ((PropertyEditor)propertyEditor).getBestPreset();
+    	Assert.assertNotNull(presetItem);
     	Assert.assertEquals("Building", presetItem.getName());
     	Assert.assertTrue(TestUtils.clickText(mDevice, true, presetItem.getTranslatedName(), false)); // building preset should now be added to MRU
     }  

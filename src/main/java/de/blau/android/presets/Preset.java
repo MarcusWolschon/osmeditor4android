@@ -1099,7 +1099,7 @@ public class Preset implements Serializable {
     }
     
     /**
-     * 	Finds the preset item best matching a certain tag set, or null if no preset item matches.
+     * Finds the preset item best matching a certain tag set, or null if no preset item matches.
 	 * To match, all (mandatory) tags of the preset item need to be in the tag set.
 	 * The preset item does NOT need to have all tags in the tag set, but the tag set needs
 	 * to have all (mandatory) tags of the preset item.
@@ -2355,36 +2355,48 @@ public class Preset implements Serializable {
 		}
 		
 		/**
-		 * Checks if all tags belonging to this item exist in the given tagSet,
-		 * i.e. the node to which the tagSet belongs could be what this preset specifies.
+		 * Checks the fixed tags belonging to this item exist in the given tags
 		 * 
-		 * @param tagSet the tagSet to compare against this item
+		 * Uses the match value to control actual behavior
+		 * @param tagSet Map containing tags to compare against this preset item
 		 * @return true if the tagSet matches
 		 */
 		public boolean matches(Map<String,String> tagSet) {
 			if (name.equals("Addresses")) {
 				Log.d(DEBUG_TAG,"matching addresses fixed");
 			}
+			int matchCount = 0;
 			for (Entry<String, StringWithDescription> tag : fixedTags.entrySet()) { // for each own tag
-				String key = tag.getKey();
-				if (!tagSet.containsKey(key)) {
-					return false;
-				}
-				MatchType type = getMatchType(key);
-				if (type==MatchType.NONE) {
-					continue;
-				}
-				String otherTagValue = tagSet.get(key);		
-				if (!tag.getValue().equals(otherTagValue) && type!=MatchType.KEY) {
-					return false;
+	            String key = tag.getKey();
+	            MatchType type = getMatchType(key);
+	            if (type==MatchType.NONE) {
+	                continue;
+	            }
+	            String value = tagSet.get(key); 
+	            if (value == null) { // key doesn't match
+	                if ((type==null || type==MatchType.KEY_VALUE_NEG || type==MatchType.KEY_NEG) && value==null) { // key doesn't exist
+					    matchCount--;
+				    }
+                    continue;
+	            }
+				if (type==MatchType.KEY) { // key match is all we require
+				    matchCount++;
+				    continue;
+				}				
+				if (tag.getValue().equals(value)) { // key and value match
+				    matchCount++;
+				} else if (type==null || type==MatchType.KEY_VALUE_NEG) { // value doesn't match
+				    matchCount--;
 				}
 			}
-			return true;
+			return matchCount > 0;
 		}
 		
 		/**
 		 * Returns the number of matches between the list of recommended tags (really a misnomer) and the provided tags
-		 * @param tagSet
+		 * 
+		 * Uses the match value to control actual behavior
+		 * @param tagSet  Map containing the tags
 		 * @return number of matches
 		 */
 		public int matchesRecommended(Map<String,String> tagSet) {
