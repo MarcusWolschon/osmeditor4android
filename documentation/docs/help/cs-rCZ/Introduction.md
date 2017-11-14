@@ -16,19 +16,19 @@ V závislosti na velikosti obrazovky a stáří vašeho zařízení mohou být m
 
 ###Stahování OSM dat
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Zvolte buď ikonu ![Přenos](../images/menu_transfer.png) nebo položku "Přenos" z menu. Zobrazí se sedm možností:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Stáhnout aktuální pohled** - stáhne oblast viditelnou na obrazovce a nahradí jakákoliv existující data *(vyžaduje připojení k síti)*
+* **Přidat aktuální pohled ke stažení** - stáhne oblast viditelnou na obrazovce a sloučí ji s existujícími daty *(vyžaduje připojení k síti)*
+* **Stáhnout jinou oblast** - zobrazí formulář, který umožňuje zadat souřadnice, vyhledat místo nebo použít aktuální pozici a poté stáhnout oblast kolem daného místa *(vyžaduje připojení k síti)*
+* **Nahrát data na OSM server** - nahraje úpravy na OpenStreetMap *(vyžaduje ověření)* *(vyžaduje připojení k síti)*
+* **Stahovat automaticky** - automaticky stahuje oblast okolo aktuální pozice *(vyžaduje připojení k síti)* *(vyžaduje GPS)*
+* **Soubor...** - ukládání a načítání OSM dat do/ze souborů v zařízení
+* **Poznámky/Chyby...** - stahování (automatické i manuální) OSM Poznámek a "Chyb" z QA nástrojů (aktuálně z OSMOSE) *(vyžaduje připojení k síti)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Nejjednodušším způsobem stahování dat je najít požadovanou oblast, kterou chcete editovat, na mapě a poté zvolit "Stáhnout aktuální pohled". Přibližovat můžete pomocí gest, tlačítek přiblížení nebo pomocí tlačítek pro ovládání hlasitosti vašeho zařízení. Vespucci by poté měl stáhnout data pro aktuální pohled. Pro stahování dat do vašeho zařízení není zapotřebí žádného ověření.
 
-### Editing
+### Editování
 
 <a id="lock"></a>
 
