@@ -371,7 +371,7 @@
          </optional>
      </chunk>
     <chunk id="name_leisure_pitch">
-        <text key="name" text="Name" />
+        <reference ref="optional_name" />
         <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" display_values="Pitch,Sports centre,Stadium" default="pitch" />
     </chunk>
     <chunk id="sport">
@@ -388,9 +388,11 @@
         <combo key="fee" text="Fee" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" values_sort="false" editable="true" />
     </chunk>
     <chunk id="parking_name_type_ref">
-        <text key="name" text="Name" />
         <combo key="parking" text="Type" values="multi-storey,surface,underground,rooftop" display_values="Multi-storey,Surface,Underground,Rooftop" values_context="parking" />
-        <text key="ref" text="Reference number" />
+        <optional>
+            <text key="name" text="Name" />
+        	<text key="ref" text="Reference number" />
+        </optional>
     </chunk>
     <chunk id="parking_access_fee_operator_surface_smoothness">
         <space />
@@ -8113,8 +8115,8 @@
 			<combo key="access" text="Access" values="yes,delivery,private,no"
 				display_values="Yes,Delivery,Private,No" values_context="access"
 				match="none" />
-			<reference ref="wheelchair" />
 			<optional>
+				<reference ref="wheelchair" />
 				<text key="ref" text="Entrance number" />
 				<combo key="door" text="Door type"
 					values="hinged,sliding,revolving,folding,trapdoor,overhead,loadingdock,no" display_values="Hinged,Sliding,Revolving,Folding,Trapdoor,Overhead,Loadingdock,None"
