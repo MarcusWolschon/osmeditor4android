@@ -534,7 +534,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		String lastVersion = savingHelperVersion.load(this,VERSION_FILE, false);
 		boolean newInstall = (lastVersion == null || lastVersion.equals(""));
 		String currentVersion = getString(R.string.app_version);
-		boolean newVersion = (lastVersion != null) && (lastVersion.length()<5 || !lastVersion.subSequence(0,5).equals(currentVersion.subSequence(0,5)));
+		boolean newVersion = (lastVersion != null) && (lastVersion.length()<6 || !lastVersion.subSequence(0,6).equals(currentVersion.subSequence(0,6)));
 		
 		loadOnResume = false;
 		
