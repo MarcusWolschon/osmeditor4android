@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1309: Improved label rendering, removed special highway name check.
+
 1308: Prepare for first beta of 0.9.10, refactored validation, C-Mode, update preset.
 
 1307: Update preset and translations, improve preset matching by support match="keyvalue" and the rest of the possible values for fixed keys.
