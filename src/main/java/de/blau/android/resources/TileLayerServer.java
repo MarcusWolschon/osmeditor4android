@@ -919,10 +919,10 @@ public class TileLayerServer {
 	public String getTouUri() {
 		return touUri;
 	}
-	
-	
+		
 	/**
 	 * Get the latE7 offset
+	 * 
 	 * @param zoomLevel the zoom level we want the offset for
 	 * @return offset in WGS84, null == no offset
 	 */
@@ -938,15 +938,15 @@ public class TileLayerServer {
 	
 	/**
 	 * Set the lat offset for one specific zoom
+	 * 
      * @param zoomLevel zoom level to set the offset for
      * @param offsetLon offest in lon direction in WGS84
      * @param offsetLat offest in lat direction in WGS84
 	 */
 	public void setOffset(int zoomLevel, double offsetLon, double offsetLat) {
 		// Log.d("OpenStreetMapTileServer","setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
-		if (zoomLevel < zoomLevelMin || zoomLevel > zoomLevelMax) {
-			return; // do nothing
-		}
+	    zoomLevel = Math.max(zoomLevel, zoomLevelMin); // clamp to min/max values
+	    zoomLevel = Math.min(zoomLevel, zoomLevelMax);
 		if (offsets[zoomLevel-zoomLevelMin]==null)
 			offsets[zoomLevel-zoomLevelMin] = new Offset();
 		offsets[zoomLevel-zoomLevelMin].lon = offsetLon;

@@ -31,6 +31,7 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Paint.Cap;
+import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
@@ -93,6 +94,13 @@ public class DataStyle  extends DefaultHandler {
 	public final static String CROSSHAIRS_HALO = "crosshairs_halo";
 	public final static String HANDLE = "handle";
 	public final static String LABELTEXT = "labeltext";
+	public final static String LABELTEXT_NORMAL = "labeltext_normal";
+	public final static String LABELTEXT_SMALL = "labeltext_small";
+	public final static String LABELTEXT_NORMAL_SELECTED = "labeltext_normal_selected";
+	public final static String LABELTEXT_SMALL_SELECTED = "labeltext_small_selected";
+	public final static String LABELTEXT_NORMAL_PROBLEM = "labeltext_normal_problem";
+	public final static String LABELTEXT_SMALL_PROBLEM = "labeltext_small_problem";
+	public final static String LABELTEXT_BACKGROUND = "labeltext_background";
 	
 	
 	public class FeatureStyle {
@@ -104,6 +112,7 @@ public class DataStyle  extends DefaultHandler {
 		Paint paint;
 		float widthFactor;
 		DashPath dashPath = null;
+        private FontMetrics fontMetrics = null;
 		
 		public class DashPath {
 			public float[] intervals;
@@ -219,7 +228,14 @@ public class DataStyle  extends DefaultHandler {
 		
 		public void setInternal(boolean i) {
 			internal = i;
-		}	
+		}
+
+        public FontMetrics getFontMetrics() {
+            if (fontMetrics  == null) {
+                fontMetrics = paint.getFontMetrics();
+            }
+            return fontMetrics;
+        }	
 	}
 
 	private String name;
@@ -316,7 +332,7 @@ public class DataStyle  extends DefaultHandler {
 		x_path.moveTo(arm, -arm);
 		x_path.lineTo(-arm, arm);
 		
-		PorterDuffXfermode pixelOp = new PorterDuffXfermode(PorterDuff.Mode.XOR); 
+		PorterDuffXfermode pixelXor = new PorterDuffXfermode(PorterDuff.Mode.XOR); 
 		
 		Log.i("Style","setting up default profile elements");
 		featureStyles = new HashMap<String, FeatureStyle>();
@@ -332,7 +348,8 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(PROBLEM_WAY, standardPath);
-		fp.setColor(ContextCompat.getColor(ctx,R.color.problem));
+		int problemColor = ContextCompat.getColor(ctx,R.color.problem);
+        fp.setColor(problemColor);
 		fp.setWidthFactor(1.5f);
 		featureStyles.put(fp.getName(), fp);
 
@@ -344,45 +361,46 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(HANDLE);
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
+		int cccRed = ContextCompat.getColor(ctx,R.color.ccc_red);
+        fp.setColor(cccRed);
 		fp.setWidthFactor(1f);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(NODE);
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
+		fp.setColor(cccRed);
 		fp.setWidthFactor(1f);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(NODE_TAGGED);
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
+		fp.setColor(cccRed);
 		fp.setWidthFactor(1.5f);
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(NODE_THIN);
 		fp.dontUpdate();
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
+		fp.setColor(cccRed);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(PROBLEM_NODE);
-		fp.setColor(ContextCompat.getColor(ctx,R.color.problem));
+		fp.setColor(problemColor);
 		fp.setWidthFactor(1f);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(PROBLEM_NODE_TAGGED);
-		fp.setColor(ContextCompat.getColor(ctx,R.color.problem));
+		fp.setColor(problemColor);
 		fp.setWidthFactor(1.5f);
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(PROBLEM_NODE_THIN);
 		fp.dontUpdate();
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		fp.setColor(ContextCompat.getColor(ctx,R.color.problem));
+		fp.setColor(problemColor);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
@@ -418,16 +436,18 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_NODE);
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
+		int cccBeige = ContextCompat.getColor(ctx,R.color.ccc_beige);
+        fp.setColor(cccBeige);
 		fp.setWidthFactor(1.5f);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_RELATION_NODE, featureStyles.get(SELECTED_NODE));
-		fp.setColor(ContextCompat.getColor(ctx,R.color.relation));
+		int colorRelation = ContextCompat.getColor(ctx,R.color.relation);
+        fp.setColor(colorRelation);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(NODE_DRAG_RADIUS );
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
+		fp.setColor(cccBeige);
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setAlpha(150);
@@ -435,25 +455,25 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_NODE_TAGGED);
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
+		fp.setColor(cccBeige);
 		fp.setWidthFactor(2f);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_RELATION_NODE_TAGGED, featureStyles.get(SELECTED_NODE_TAGGED));
-		fp.setColor(ContextCompat.getColor(ctx,R.color.relation));
+		fp.setColor(colorRelation);
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(SELECTED_NODE_THIN);
 		fp.dontUpdate();
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
+		fp.setColor(cccBeige);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_RELATION_NODE_THIN, featureStyles.get(SELECTED_NODE_THIN));
-		fp.setColor(ContextCompat.getColor(ctx,R.color.relation));
+		fp.setColor(colorRelation);
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(GPS_POS,featureStyles.get(GPS_TRACK)); 
@@ -474,7 +494,7 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(SELECTED_WAY,featureStyles.get(WAY)); 	
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_beige));
+		fp.setColor(cccBeige);
 		fp.setWidthFactor(2f);
 		fp.getPaint().setStrokeCap(Cap.ROUND);
 		fp.getPaint().setStrokeJoin(Join.ROUND);
@@ -489,7 +509,7 @@ public class DataStyle  extends DefaultHandler {
 		featureStyles.put(fp.getName(), fp);
 		
 		fp = new FeatureStyle(SELECTED_RELATION_WAY,featureStyles.get(SELECTED_WAY));
-		fp.setColor(ContextCompat.getColor(ctx,R.color.relation));
+		fp.setColor(colorRelation);
 		featureStyles.put(fp.getName(), fp);
 
 		fp = new FeatureStyle(NODE_TOLERANCE);
@@ -528,11 +548,73 @@ public class DataStyle  extends DefaultHandler {
 		fp.dontUpdate();
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
-		fp.getPaint().setXfermode(pixelOp);
+		fp.getPaint().setXfermode(pixelXor);
 		featureStyles.put(fp.getName(), fp);
 		
+		fp = new FeatureStyle(LABELTEXT_NORMAL);
+        fp.setColor(Color.BLACK);
+        fp.dontUpdate();
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+        fp.getPaint().setTextSize(Density.dpToPx(ctx,16));
+        //fp.getPaint().setShadowLayer(2f, 2f, 2f, Color.WHITE);
+        featureStyles.put(fp.getName(), fp);
+		
+        fp = new FeatureStyle(LABELTEXT_SMALL);
+        fp.setColor(Color.BLACK);
+        fp.dontUpdate();
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+        fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
+        featureStyles.put(fp.getName(), fp);
+		
+        fp = new FeatureStyle(LABELTEXT_NORMAL_SELECTED);
+        fp.setColor(cccBeige);
+        fp.dontUpdate();
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+        fp.getPaint().setTextSize(Density.dpToPx(ctx,16));
+        featureStyles.put(fp.getName(), fp);;
+		
+        fp = new FeatureStyle(LABELTEXT_SMALL_SELECTED);
+        fp.setColor(cccBeige);
+        fp.dontUpdate();
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+        fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
+        featureStyles.put(fp.getName(), fp);
+		
+        fp = new FeatureStyle(LABELTEXT_NORMAL_PROBLEM);
+        fp.setColor(Color.BLACK);
+        fp.dontUpdate();
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+        fp.getPaint().setTextSize(Density.dpToPx(ctx,16));
+        featureStyles.put(fp.getName(), fp);
+        
+		fp = new FeatureStyle(LABELTEXT_SMALL_PROBLEM);
+        fp.setColor(problemColor);
+        fp.dontUpdate();
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+        fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
+        featureStyles.put(fp.getName(), fp);
+		
+        fp = new FeatureStyle(LABELTEXT_BACKGROUND);
+        fp.setColor(Color.WHITE);
+        fp.getPaint().setAlpha(64);
+        fp.dontUpdate();
+        fp.getPaint().setStyle(Style.FILL);
+        featureStyles.put(fp.getName(), fp);
+        
 		fp = new FeatureStyle(WAY_DIRECTION);
-		fp.setColor(ContextCompat.getColor(ctx,R.color.ccc_red));
+		fp.setColor(cccRed);
 		fp.setWidthFactor(0.8f);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeCap(Cap.SQUARE);

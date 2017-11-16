@@ -226,7 +226,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 		// Do some calculations and drag attributes to local variables to save
 		//some performance.
 		final Rect viewPort = c.getClipBounds();
-		final int zoomLevel = osmv.getZoomLevel();
+		final int zoomLevel = Math.min(osmv.getZoomLevel(), myRendererInfo.getMaxZoomLevel()); // clamp to max zoom here
 		//		if (zoomLevel < myRendererInfo.getMinZoomLevel()) {
 		//			Log.d("OpenStreetMapTilesOverlay","Tiles for " + myRendererInfo.getId() + " are not available for zoom " + zoomLevel);
 		//			return;

@@ -3416,6 +3416,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	
 	/**
 	 * Zoom to the coordinates and try and set the viewbox size to something reasonable
+	 * 
 	 * @param lonE7
 	 * @param latE7
 	 * @param e
