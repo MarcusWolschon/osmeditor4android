@@ -38,15 +38,6 @@ public class BaseValidator implements Validator {
      */
     Map<String,Boolean> checkTags;
 
-    static final String[] IMPORTANT_HIGHWAYS;
-
-    static {
-        IMPORTANT_HIGHWAYS = (
-                "motorway,motorway_link,trunk,trunk_link,primary,primary_link,"+
-                        "secondary,secondary_link,tertiary,residential,unclassified,living_street"
-                ).split(",");
-    }
-
     /**
      * Regex for general tagged issues with the object
      */
@@ -113,7 +104,9 @@ public class BaseValidator implements Validator {
                 String key = entry.getKey();
                 if (pi.hasKey(key, entry.getValue())) {
                     if (!e.hasTagKey(key)) {
-                        status = status | Validator.MISSING_TAG;
+                        if (!(Tags.KEY_NAME.equals(key) && (e.hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES)))) {
+                            status = status | Validator.MISSING_TAG;
+                        }
                     }
                 }
             }
@@ -128,15 +121,6 @@ public class BaseValidator implements Validator {
             // unsurveyed road
             result = result | Validator.HIGHWAY_ROAD;
         }
-        if ((w.getTagWithKey(Tags.KEY_NAME) == null) && (w.getTagWithKey(Tags.KEY_REF) == null) 
-                && !(w.hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || w.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES))) {
-            // unnamed way - only the important ones need names
-            for (String h : IMPORTANT_HIGHWAYS) {
-                if (h.equalsIgnoreCase(highway)) {
-                    result = result | Validator.HIGHWAY_NAME;
-                }
-            }
-        }   
         return result;
     }
 
@@ -184,7 +168,9 @@ public class BaseValidator implements Validator {
                 String key = entry.getKey();
                 if (pi.hasKey(key, entry.getValue())) {
                     if (!e.hasTagKey(key)) {
-                        result.add(ctx.getString(R.string.toast_missing_key, pi.getHint(key)));
+                        if (!(Tags.KEY_NAME.equals(key) && (e.hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES)))) {
+                            result.add(ctx.getString(R.string.toast_missing_key, pi.getHint(key)));
+                        }
                     }
                 }
             }
@@ -196,19 +182,6 @@ public class BaseValidator implements Validator {
         ArrayList<String> wayProblems = new ArrayList<String>();
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
             wayProblems.add(App.resources().getString(R.string.toast_unsurveyed_road));
-        }
-        if ((w.getTagWithKey(Tags.KEY_NAME) == null) && (w.getTagWithKey(Tags.KEY_REF) == null)
-                && !(w.hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || w.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES))) {
-            boolean isImportant = false;
-            for (String h : IMPORTANT_HIGHWAYS) {
-                if (h.equalsIgnoreCase(highway)) {
-                    isImportant = true;
-                    break;
-                }
-            }
-            if (isImportant) {
-                wayProblems.add(App.resources().getString(R.string.toast_noname));
-            }
         }
         return wayProblems;
     }
