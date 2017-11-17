@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1310: Fix a handful of issues with PresetFilters, apply Preset automatically to new objects.
+
 1309: Improved label rendering, removed special highway name check.
 
 1308: Prepare for first beta of 0.9.10, refactored validation, C-Mode, update preset.
