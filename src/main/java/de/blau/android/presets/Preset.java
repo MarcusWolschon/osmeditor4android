@@ -945,8 +945,9 @@ public class Preset implements Serializable {
 						return e;
 					} else {
 						if (e instanceof PresetGroup) {
-							path.path.remove(0);
-							return getElementByPath((PresetGroup) e, path);
+	                         PresetElementPath newPath = new PresetElementPath(path); 
+	                         newPath.path.remove(0);
+	                         return getElementByPath((PresetGroup) e, newPath);
 						}
 					}
 				}

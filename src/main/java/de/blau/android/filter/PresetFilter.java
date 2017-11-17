@@ -284,8 +284,9 @@ public class PresetFilter extends Filter {
     private void setIcon() {
     	if (element != null && presetFilterButton != null) {
     		BitmapDrawable icon = element.getMapIcon();
-    		if (icon != null) {
-    			presetFilterButton.setImageDrawable(icon);
+            if (icon != null && icon.getBitmap() != null) {
+                BitmapDrawable buttonIcon = new BitmapDrawable(context.getResources(), icon.getBitmap());
+                presetFilterButton.setImageDrawable(buttonIcon);
     		} else {
     			presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
     		}
