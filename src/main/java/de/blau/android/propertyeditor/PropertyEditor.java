@@ -331,7 +331,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			if (presetFragment != null) {
 				ft.remove(presetFragment);
 			}
-			presetFragment = PresetFragment.newInstance(elements[0],true); // FIXME collect tags
+			presetFragment = PresetFragment.newInstance(elements[0], presetsToApply, true); // FIXME collect tags
 			ft.add(R.id.preset_row,presetFragment,PRESET_FRAGMENT);
 			
 			ft.commit();
@@ -492,7 +492,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    			switch(position) {
 	    			case 0: 
 	    				if (instantiate) {
-	    					presetFragment = PresetFragment.newInstance(elements[0], false); // 
+	    					presetFragment = PresetFragment.newInstance(elements[0], presetsToApply, false); // 
 	    				}
 	    				return presetFragment;
 	    			case 1: 		
@@ -521,7 +521,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    			switch(position) {
 	    			case 0: 
 	    				if (instantiate) {
-	    					presetFragment = PresetFragment.newInstance(elements[0], false); // 
+	    					presetFragment = PresetFragment.newInstance(elements[0], presetsToApply, false); // 
 	    				}
 	    				return presetFragment;
 	    			case 1: 		

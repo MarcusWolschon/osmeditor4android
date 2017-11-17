@@ -2493,11 +2493,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 	/**
 	 * Start the PropertyEditor for the element in question, single element version
-	 * @param selectedElement Selected OpenStreetMap element.
-	 * @param focusOn if not null focus on the value field of this key.
+	 * 
+	 * @param selectedElement      Selected OpenStreetMap element.
+	 * @param focusOn              if not null focus on the value field of this key.
 	 * @param applyLastAddressTags add address tags to the object being edited.
-	 * @param showPresets show the preset tab on start up.
-	 * @param askForName ask for a value for the name tag
+	 * @param showPresets          show the preset tab on start up.
+	 * @param askForName           ask for a value for the name tag
 	 */
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets, boolean askForName) {
 		descheduleAutoLock();
@@ -2524,9 +2525,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	
 	/**
 	 * Start the PropertyEditor for the element in question, multiple element version
-	 * @param selection list of selected elements
+	 * 
+	 * @param selection            list of selected elements
 	 * @param applyLastAddressTags add address tags to the object being edited.
-	 * @param showPresets show the preset tab on start up.
+	 * @param showPresets          show the preset tab on start up.
 	 */
 	public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
 		descheduleAutoLock();
@@ -2547,10 +2549,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	/**
-	 * Edit an OpenStreetBug.
+	 * Edit an OpenStreetBug (now called a Task)
+	 * 
 	 * @param bug The bug to edit.
 	 */
-	private void performBugEdit(final Task bug) {
+	private void performBugEdit(@NonNull final Task bug) {
 		Log.d(DEBUG_TAG, "editing bug:"+bug);
 		descheduleAutoLock();
 		App.getLogic().setSelectedBug(bug);

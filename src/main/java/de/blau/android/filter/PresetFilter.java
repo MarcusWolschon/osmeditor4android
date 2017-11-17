@@ -57,6 +57,11 @@ public class PresetFilter extends Filter {
 		//
 	}
 	
+	/**
+	 * Set the PresetItem or PresetGroup that is used for filtering
+	 * 
+	 * @param path the PresetELementPath of the item to use
+	 */
 	void setPresetElement(@NonNull PresetElementPath path) {
 		clear();
 		if (path != null) {
@@ -76,7 +81,12 @@ public class PresetFilter extends Filter {
 		setIcon();
 	}
 	
-	PresetElement getPresetElement() {
+	/**
+	 * Return the current element used for filtering
+	 * 
+	 * @return the PresetEelemt currently in use
+	 */
+	public PresetElement getPresetElement() {
 		return element;
 	}
 	
@@ -91,7 +101,7 @@ public class PresetFilter extends Filter {
 	}
 	
 	/**
-	 * @return if way nodes are incldued
+	 * @return true if way nodes are incldued
 	 */
 	public boolean includeWayNodes() {
 		return includeWayNodes;
@@ -284,8 +294,9 @@ public class PresetFilter extends Filter {
     private void setIcon() {
     	if (element != null && presetFilterButton != null) {
     		BitmapDrawable icon = element.getMapIcon();
-    		if (icon != null) {
-    			presetFilterButton.setImageDrawable(icon);
+    		if (icon != null && icon.getBitmap() != null) {
+    		    BitmapDrawable buttonIcon = new BitmapDrawable(context.getResources(), icon.getBitmap());
+    			presetFilterButton.setImageDrawable(buttonIcon);
     		} else {
     			presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
     		}

@@ -60,6 +60,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
+import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.PresetElementPath;
@@ -400,11 +401,12 @@ public class TagEditorFragment extends BaseFragment implements
     	// the following likely wont work in onCreateView
        	ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY);
     	Preset[] presets = App.getCurrentPresets(getActivity());
+    	PresetGroup rootGroup = presets[0].getRootGroup();
 		if (presetsToApply != null) {
 			for (PresetElementPath pp:presetsToApply) {
-				PresetElement pi = (PresetItem) Preset.getElementByPath(presets[0].getRootGroup(),pp);
+				PresetElement pi = Preset.getElementByPath(rootGroup, pp);
 				if (pi != null && pi instanceof PresetItem) {
-					applyPreset((PresetItem) pi,false,true);
+					applyPreset((PresetItem) pi, false, true);
 				}
 			}
 		}

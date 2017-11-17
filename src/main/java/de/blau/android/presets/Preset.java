@@ -928,7 +928,7 @@ public class Preset implements Serializable {
 	}
 	
 	/**
-	 * Return a PresetElement by identifiying it with its place in the hierarchy
+	 * Return a PresetElement by identifying it with its place in the hierarchy
 	 * 
 	 * @param group PresetGroup to start the search at
 	 * @param path 	the path
@@ -945,8 +945,9 @@ public class Preset implements Serializable {
 						return e;
 					} else {
 						if (e instanceof PresetGroup) {
-							path.path.remove(0);
-							return getElementByPath((PresetGroup) e, path);
+							PresetElementPath newPath = new PresetElementPath(path); 
+							newPath.path.remove(0);
+							return getElementByPath((PresetGroup) e, newPath);
 						}
 					}
 				}

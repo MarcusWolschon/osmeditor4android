@@ -23,11 +23,11 @@ public enum Mode {
 	/**
 	 * edit geometries in "easyedit" mode
 	 */
-	MODE_EASYEDIT("EASY", true, true, true, true, null, R.drawable.unlocked_white, null),
+	MODE_EASYEDIT("EASY", true, true, true, true, null, R.drawable.unlocked_white, new FilterModeConfig()),
 	/**
 	 * tag edit only mode
 	 */
-	MODE_TAG_EDIT("TAG", true, true, false, true, null, R.drawable.unlocked_tag_white, null),
+	MODE_TAG_EDIT("TAG", true, true, false, true, null, R.drawable.unlocked_tag_white, new FilterModeConfig()),
 	/**
 	 * Background alignment mode
 	 */
