@@ -3154,6 +3154,19 @@
             </optional>
             <reference ref="link_contact_address_payment" />
         </item> <!-- Marine Fuel -->
+        <item name="Water point" icon="icons/png/water_water_point_34025.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:waterway=water_point"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:waterway=water_point"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:waterway=water_point"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:waterway=water_point"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:waterway=water_point"/>
+            <key key="waterway" value="water_point" />
+        </item> <!-- Water point -->
+        <item name="Sanitary dump station" icon="icons/png/water_sanitary_dump_station.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:waterway=sanitary_dump_station"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:waterway=sanitary_dump_station"/>
+            <key key="waterway" value="sanitary_dump_station" />
+        </item> <!-- Water point -->
         <item name="Boat rental" icon="icons/png/transport_boat_rental.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=boat_rental"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=boat_rental"
@@ -3506,6 +3519,16 @@
             <text key="distance" text="Distance (kilometers)" />
             <text key="ref" text="Reference" />
         </item> <!-- Railway Milestone -->
+        <item name="Derail" icon="icons/png/transport_derail_27023.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:railway=derail"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:railway=derail"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:railway=derail"
+                  pt.href="http://wiki.openstreetmap.org/wiki/PT:Tag:railway=derail"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:railway=derail" />
+            <key key="railway" value="derail" />
+            <text key="ref" text="Reference" />
+            <text key="operator" text="Operator" />
+        </item> <!-- Derail -->
     </group> <!-- Railway -->
     <group name="Aerialway" icon="icons/png/transport_aerialway_10001.png">
         <item name="Cable Car" icon="icons/png/transport_aerialway_10001.png" gtype="way" preset_name_label="true">
@@ -6983,7 +7006,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=waste_disposal" />
             <key key="amenity" value="waste_disposal" />
         </item> <!-- Waste Disposal/Dumpster -->
-        <item name="Sanitary Dump Station" icon="styles/standard/service/recycling/sanitary_dump_station.svg" type="node,closedway" preset_name_label="true">
+        <item name="Sanitary Dump Station" icon="icons/png/amenity_sanitary_dump_station.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Toilet_Holding_Tank_Disposal"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Toilet_Holding_Tank_Disposal"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Toilet_Holding_Tank_Disposal"
