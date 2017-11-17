@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.blau.android.util.collections.MultiHashMap;
+
 /**
  * Key and value constants for tags that are used in the code
  * @author simon
@@ -232,15 +234,15 @@ public class Tags {
 	/**
 	 * Tags for objects that should be re-surveyed regularly.
 	 */
-	protected static final Map<String,String> RESURVEY_TAGS = new HashMap<String, String>();
+	protected static final MultiHashMap<String,String> RESURVEY_TAGS = new MultiHashMap<String, String>();
 	static {
-		RESURVEY_TAGS.put(KEY_SHOP,null);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_RESTAURANT);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_FAST_FOOD);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_CAFE);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_PUB);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_BAR);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_TOILETS);
+		RESURVEY_TAGS.add(KEY_SHOP,"");
+		RESURVEY_TAGS.add(KEY_AMENITY,VALUE_RESTAURANT);
+		RESURVEY_TAGS.add(KEY_AMENITY,VALUE_FAST_FOOD);
+		RESURVEY_TAGS.add(KEY_AMENITY,VALUE_CAFE);
+		RESURVEY_TAGS.add(KEY_AMENITY,VALUE_PUB);
+		RESURVEY_TAGS.add(KEY_AMENITY,VALUE_BAR);
+		RESURVEY_TAGS.add(KEY_AMENITY,VALUE_TOILETS);
 	}
 	
 	/**

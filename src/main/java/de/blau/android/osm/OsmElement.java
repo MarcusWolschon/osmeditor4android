@@ -526,19 +526,21 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 					return true;
 				}
 			}
-			for (String key:Tags.RESURVEY_TAGS.keySet()) {
-				String value = Tags.RESURVEY_TAGS.get(key);
-				if (tags.containsKey(key) && (value == null || value.equals(tags.get(key)))) {
-					long now = System.currentTimeMillis()/1000;
-					long timestamp = getTimestamp();
-					if (timestamp >= 0 && (now - timestamp > DAYS365SECS)) {
-						return true;
-					} else if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
-						return checkAge(now,Tags.KEY_CHECK_DATE);
-					} else if (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key)) {
-						return checkAge(now,Tags.KEY_CHECK_DATE+":"+key);
-					}						
+			for (String key:Tags.RESURVEY_TAGS.getKeys()) {
+                Set<String> values = Tags.RESURVEY_TAGS.get(key);
+                for (String value:values) {
+                    if (tags.containsKey(key) && (value == null || "".equals(value) || value.equals(tags.get(key)))) {
+                        long now = System.currentTimeMillis()/1000;
+                        long timestamp = getTimestamp();
+                        if (timestamp >= 0 && (now - timestamp > DAYS365SECS)) {
+                            return true;
+                        } else if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
+                            return checkAge(now,Tags.KEY_CHECK_DATE);
+                        } else if (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key)) {
+                            return checkAge(now,Tags.KEY_CHECK_DATE+":"+key);
+                        }						
 					return false;
+                    }
 				}
 			}
 		}
@@ -571,16 +573,18 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 					return entry.getKey() + ": " + entry.getValue();
 				}
 			}
-			for (String key: Tags.RESURVEY_TAGS.keySet()) {
-				String value = Tags.RESURVEY_TAGS.get(key);
-				if (tags.containsKey(key) && (value == null || value.equals(tags.get(key)))) {
-					long now = System.currentTimeMillis()/1000;
-					long timestamp = getTimestamp();
-					if ((timestamp >= 0 && (now - timestamp > DAYS365SECS)) 
-						|| (tags.containsKey(Tags.KEY_CHECK_DATE) && checkAge(now,Tags.KEY_CHECK_DATE))
-						|| (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key) && checkAge(now,Tags.KEY_CHECK_DATE+":"+key))) {
-						return App.resources().getString(R.string.toast_needs_resurvey);
-					}						
+			for (String key: Tags.RESURVEY_TAGS.getKeys()) {
+				Set<String> values = Tags.RESURVEY_TAGS.get(key);
+				for (String value:values) {
+				    if (tags.containsKey(key) && (value == null || "".equals(value) || value.equals(tags.get(key)))) {
+				        long now = System.currentTimeMillis()/1000;
+				        long timestamp = getTimestamp();
+				        if ((timestamp >= 0 && (now - timestamp > DAYS365SECS)) 
+				                || (tags.containsKey(Tags.KEY_CHECK_DATE) && checkAge(now,Tags.KEY_CHECK_DATE))
+				                || (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key) && checkAge(now,Tags.KEY_CHECK_DATE+":"+key))) {
+				            return App.resources().getString(R.string.toast_needs_resurvey);
+				        }						
+				    }
 				}
 			}
 		}
