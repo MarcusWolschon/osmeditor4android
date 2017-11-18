@@ -1054,9 +1054,13 @@ public class Server {
 	
 	/**
 	 * Process the results of uploading a diff to the API, here because it needs to manipulate the stored data
-	 * @param parser
-	 * @param in
-	 * @throws IOException 
+	 * 
+	 * Note: we try to process as much as possible outside of real parser errors, as the data has already been successfully uploaded to the API, the caller
+	 * needs to assure that we do not get recalled on the non fatal errors.
+	 * @param delegator    the StorageDelegator containing to data to update
+	 * @param connection   connection to the API
+	 * @param parser       parser instance
+	 * @throws IOException on an error processing the data
 	 */
 	private void processDiffUploadResult(StorageDelegator delegator, HttpURLConnection connection, XmlPullParser parser) throws IOException {
 		Storage apiStorage = delegator.getApiStorage();
@@ -1094,7 +1098,7 @@ public class Server {
 									} else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null
 											&& newVersionStr != null) {
 										long newId = Long.parseLong(newIdStr);
-										int newVersion = Integer.parseInt(newVersionStr);
+										long newVersion = Long.parseLong(newVersionStr);
 										if (newId > 0) {
 											if (!apiStorage.removeElement(e)) {
 												Log.e(DEBUG_TAG, "New " + e + " was already removed from api storage!");
@@ -1106,13 +1110,13 @@ public class Server {
 											delegator.dirty();
 											rehash = true;
 										} else {
-											Log.d(DEBUG_TAG, "Didn't get new ID: " + newId);
+											Log.d(DEBUG_TAG, "Didn't get new ID: " + newId + " version " + newVersionStr);
 										}
 									} else if (e.getState() == OsmElement.STATE_MODIFIED && oldId > 0
 											&& newIdStr != null && newVersionStr != null) {
 										long newId = Long.parseLong(newIdStr);
-										int newVersion = Integer.parseInt(newVersionStr);
-										if (newId == oldId && newVersion > 0) {
+										long newVersion = Long.parseLong(newVersionStr);
+										if (newId == oldId && newVersion > e.getOsmVersion()) {
 											if (!apiStorage.removeElement(e)) {
 												Log.e(DEBUG_TAG,
 														"Updated " + e + " was already removed from api storage!");
