@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-11-14 15:46+0100\n"
-"PO-Revision-Date: 2017-11-14 15:53+0000\n"
+"PO-Revision-Date: 2017-11-18 16:16+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3689,7 +3689,7 @@ msgstr ""
 
 #: master_preset.xml:9376(item:name|group:Food|preset:Kiosk)
 msgid "Kiosk"
-msgstr ""
+msgstr "Kiosque"
 
 #: master_preset.xml:2332(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
@@ -3854,7 +3854,7 @@ msgstr ""
 #: master_preset.xml:3299(item:name|group:Railway|preset:Light_Rail)
 #: master_preset.xml:4132(check:text|group:Public_Transport|preset:Stop_Position|key:light_rail)
 msgid "Light Rail"
-msgstr ""
+msgstr "Métro léger"
 
 #: master_preset.xml:8480(item:name|group:Man_Made|preset:Lighthouse)
 msgid "Lighthouse"

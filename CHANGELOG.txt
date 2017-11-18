@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1311: Back port some fixes for preset filters, protect against a potential upload loop, update preset and translations. 
+
 1307: Update preset and translations, improve preset matching by support match="keyvalue" and the rest of the possible values for fixed keys.
 
 1306: Update preset, update translations, fix issue which caused node icons to vanish when copy/pasting tags between nodes and areas.

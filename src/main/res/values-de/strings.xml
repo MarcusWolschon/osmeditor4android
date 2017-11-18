@@ -347,7 +347,7 @@
   <string name="menu_transfer_bugs_download_current">Fehler/Notizen für die aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_bugs_upload">Alle hochladen</string>
   <string name="menu_transfer_bugs_upload_long">Alle Hinweise/Bugs hochladen</string>
-  <string name="menu_transfer_bugs_clear">Zurücksetzten</string>
+  <string name="menu_transfer_bugs_clear">Zurücksetzen</string>
   <string name="menu_transfer_bugs_clear_long">Hinweise/Bugs zurücksetzen</string>
   <string name="menu_transfer_autodownload_long">Automatischer Download von Hinweisen/Bugs</string>
   <string name="menu_transfer_save_notes_all">Alle Notizen speichern...</string>
@@ -395,11 +395,11 @@
   <string name="menu_history">Chronik</string>
   <string name="menu_merge">Wege verbinden</string>
   <string name="menu_reverse">Weg umkehren</string>
-  <string name="notreversable_description">Der Weg is mit Eigenschaften versehen die richtungsabhängig sind und nicht umgedreht werden können, Umdrehen wird das Tagging beschädigen.</string>
+  <string name="notreversable_description">Der Weg ist mit Eigenschaften versehen die richtungsabhängig sind und nicht umgedreht werden können, Umdrehen wird das Tagging beschädigen.</string>
   <string name="reverse_anyway">Trotzdem umkehren</string>
   <string name="deleteway_description">Sie sind im Begriff, einen Weg zu löschen.\n\nSie können entweder alle Knoten behalten, oder die Knoten löschen, die nur zu diesem Weg gehören und keine Tags haben.</string>
   <string name="deleteway_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte ausserhald des heruntergeladenen Bereiches und kann nicht gelöscht werden. Bitte zuerst den ganzen Bereich um den Weg herunterladen. </string>
+  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte ausserhalb des heruntergeladenen Bereiches und kann nicht gelöscht werden. Bitte zuerst den ganzen Bereich um den Weg herunterladen. </string>
   <string name="deleteway_wayonly">Nur Weg löschen</string>
   <string name="deleteway_wayandnodes">Weg und Knoten löschen</string>
   <string name="deletenode_relation_description">Dieser Punkt ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
@@ -471,7 +471,7 @@
   <string name="config_presetbutton_title">Vorlagen</string>
   <string name="config_presetbutton_summary">JOSM kompatible Vorlagen hinzufügen und verwalten</string>
   <string name="config_iconbutton_title">Knoten-Symbole anzeigen</string>
-  <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden</string>
+  <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden.</string>
   <string name="config_showWayIcons_title">Symbole für POIs auf Gebäuden anzeigen</string>
   <string name="config_showWayIcons_summary">Auf Gebäuden das Symbol der am besten passenden Vorlage einblenden</string>
   <string name="config_loginbutton_title">Benutzerkonto</string>

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-11-14 15:46+0100\n"
-"PO-Revision-Date: 2017-11-14 15:53+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-11-18 10:23+0000\n"
+"Last-Translator: Javier O\n"
 "Language-Team: Spanish (http://www.transifex.com/openstreetmap/presets/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6173,7 +6173,7 @@ msgstr "Coche RC"
 
 #: master_preset.xml:7276(item:name|group:Sport_Facilities|preset:Racetrack)
 msgid "Racetrack"
-msgstr "Pista"
+msgstr "Pista de carreras"
 
 #: master_preset.xml:7896(item:name|group:Motorsport|preset:Raceway)
 msgid "Raceway"
@@ -7911,15 +7911,15 @@ msgstr "Juguetes"
 
 #: master_preset.xml:1396(item:name|group:Ways|preset:Track)
 msgid "Track"
-msgstr "Hipódromo"
+msgstr "Pista"
 
 #: master_preset.xml:7483(item:name|group:Sport|preset:Track_and_Field_Athletics)
 msgid "Track and Field Athletics"
-msgstr "Atletismo y atletismo de campo"
+msgstr "Atletismo de pista y campo"
 
 #: master_preset.xml:1414(combo:text|group:Ways|preset:Track|key:tracktype)
 msgid "Tracktype"
-msgstr "Tipo de vía"
+msgstr "Tipo de pista"
 
 #: master_preset.xml:309(list_entry:short_description|value:traditional)
 msgid "Traditional"
@@ -8180,7 +8180,7 @@ msgstr "Tipo de aplicación"
 
 #: master_preset.xml:6283(combo:text|group:Health|preset:Other_healthcare_facilities|key:healthcare)
 msgid "Type of facility"
-msgstr ""
+msgstr "Tipo de instalación"
 
 #: master_preset.xml:3751(label:text|group:Car|preset:Charging_Station)
 msgid "Types of vehicles which can be charged:"
@@ -9386,7 +9386,7 @@ msgstr "Estación"
 #: master_preset.xml:117(combo:text|key:tracks)
 msgctxt "railway"
 msgid "Tracks"
-msgstr "Vías"
+msgstr "Pistas"
 
 #: master_preset.xml:357(combo:display_values|key:sport)
 msgctxt "sport"
@@ -11655,4 +11655,4 @@ msgstr "Religión"
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)
 msgid "translator-credits"
-msgstr "Créditos de traductor"
+msgstr "créditos-traducción"

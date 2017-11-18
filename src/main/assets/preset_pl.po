@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-11-14 15:46+0100\n"
-"PO-Revision-Date: 2017-11-14 15:53+0000\n"
+"PO-Revision-Date: 2017-11-16 09:47+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -11551,7 +11551,7 @@ msgstr ""
 #: master_preset.xml:12116(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
 msgid "Slaughterhouse"
-msgstr ""
+msgstr "Rzeźnia"
 
 #: master_preset.xml:12116(combo:text|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
