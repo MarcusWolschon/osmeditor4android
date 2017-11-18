@@ -387,6 +387,47 @@ public class ApiTest {
 		} 
 		Assert.fail("Expected error " + code);
 	}
+	
+	@Test
+	public void dataUploadErrorInResult() {
+	    final CountDownLatch signal = new CountDownLatch(1);
+	    Logic logic = App.getLogic();
+
+	    ClassLoader loader = Thread.currentThread().getContextClassLoader();
+	    InputStream is = loader.getResourceAsStream("test1.osm");
+	    logic.readOsmFile(main, is, false, new SignalHandler(signal));
+	    try {
+	        signal.await(TIMEOUT, TimeUnit.SECONDS);
+	    } catch (InterruptedException e) {
+	        Assert.fail(e.getMessage());
+	    }
+	    Assert.assertEquals(App.getDelegator().getApiElementCount(),32);
+	    Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+	    Assert.assertNotNull(n);
+	    Assert.assertEquals(n.getState(), OsmElement.STATE_MODIFIED);
+
+	    mockServer.enqueue("capabilities1");
+	    mockServer.enqueue("changeset1");
+	    mockServer.enqueue("upload5");
+	    mockServer.enqueue("close_changeset");
+	    mockServer.enqueue("changeset1");
+	    mockServer.enqueue("upload6");
+	    mockServer.enqueue("close_changeset");
+
+	    final Server s = new Server(context, prefDB.getCurrentAPI(),"vesupucci test");
+	    try {
+	        App.getDelegator().uploadToServer(s, "TEST", "none", true);
+	        Assert.fail("Expected ProtocolException");
+	    } catch (ProtocolException e) {
+        } catch (OsmServerException e) {
+	        Assert.fail(e.getMessage());
+	    } catch (MalformedURLException e) {
+	        Assert.fail(e.getMessage());
+	    } catch (IOException e) {
+	        Assert.fail(e.getMessage());
+	    }
+	    Assert.assertEquals(1, App.getDelegator().getApiElementCount());
+	}
 
 	@Test
 	public void dataDownloadErrors() {

@@ -2233,11 +2233,12 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * Upload created, modified and deleted data in diff format
 	 * 
-	 * @param server Server to upload changes to.
-	 * @param comment Changeset comment.
-	 * @param source 
-	 * @param closeChangeset
+	 * @param server           Server to upload changes to.
+	 * @param comment          Changeset comment tag
+	 * @param source           Checngeset source tag
+	 * @param closeChangeset   if true close the Changeset
 	 * @throws MalformedURLException
 	 * @throws ProtocolException
 	 * @throws OsmServerException
@@ -2250,7 +2251,8 @@ public class StorageDelegator implements Serializable, Exportable {
 		// upload methods set dirty flag too, in case the file is saved during an upload
 		boolean split = getApiElementCount() > server.getCapabilities().maxElementsInChangeset;
 		int part = 1;
-		while (getApiElementCount() > 0) {
+		int elementCount = getApiElementCount();
+		while (elementCount > 0) {
 			String tmpSource = source;
 			if (split) {
 				tmpSource = source + " [" + part + "]";
@@ -2268,6 +2270,15 @@ public class StorageDelegator implements Serializable, Exportable {
 				server.closeChangeset();
 			}
 			part++;
+			int currentElementCount = getApiElementCount();
+			if (currentElementCount < elementCount) {
+			    elementCount = currentElementCount;
+			} else { 
+			    // element count didn't do anything, that should cause an exception to be
+			    // thrown in diffUpload, but it is conceivable that that doesn't happen
+			    Log.d(DEBUG_TAG,"Upload had no effect, API element count " + elementCount);
+			    throw new ProtocolException("Upload had no effect");
+			}
 		}
 		// yes, again, just to be sure
 		dirty = true;
@@ -2275,11 +2286,6 @@ public class StorageDelegator implements Serializable, Exportable {
 		// reset imagery recording for next upload
 		imagery = new ArrayList<String>();
 		setImageryRecorded(false);
-		
-		// sanity check
-		if (!apiStorage.isEmpty()) {
-			Log.d(DEBUG_TAG, "apiStorage not empty");
-		}
 	}
 	
 	/**
