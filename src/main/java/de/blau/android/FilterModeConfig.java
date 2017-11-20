@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.osm.OsmElement;

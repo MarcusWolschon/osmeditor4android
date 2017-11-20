@@ -222,8 +222,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 			}
 			helpView.loadUrl("file:///android_asset/" + helpFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.d(DEBUG_TAG, "Caught exception " + e);
 		}
 	}
 	

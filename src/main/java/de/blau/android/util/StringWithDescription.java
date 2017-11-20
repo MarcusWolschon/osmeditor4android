@@ -74,7 +74,7 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
 	
 	@Override
 	public boolean equals(Object o) {
-		return o instanceof StringWithDescription && this == (StringWithDescription)o
+		return o != null && o instanceof StringWithDescription && this == (StringWithDescription)o
 				|| (this.value.equals(((StringWithDescription)o).value) && ((this.description == null && ((StringWithDescription)o).description == null) || (this.description != null && this.description.equals(((StringWithDescription)o).description))));
 	}
 	
