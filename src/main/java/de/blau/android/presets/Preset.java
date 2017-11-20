@@ -205,19 +205,33 @@ public class Preset implements Serializable {
 	 * Hash is used to check compatibility.
 	 */
 	protected static class PresetMRUInfo implements Serializable {
-		private static final long serialVersionUID = 7708132207266548489L;
+		private static final long serialVersionUID = 7708132207266548490L;
 
+        /** hash of current preset (used to check validity of recentPresets indexes) */
+        final String presetHash;
+    
+        /** indexes of recently used presets (for use with allItems) */
+        LinkedList<Integer> recentPresets = new LinkedList<Integer>();
+
+        private volatile boolean changed = false;
+		
 		PresetMRUInfo(String presetHash) {
 			this.presetHash = presetHash;
 		}
 		
-		/** hash of current preset (used to check validity of recentPresets indexes) */
-		final String presetHash;
-	
-		/** indexes of recently used presets (for use with allItems) */
-		LinkedList<Integer> recentPresets = new LinkedList<Integer>();
+		/**
+         * @return true if the MRU has been change
+         */
+        public boolean isChanged() {
+            return changed;
+        }
 
-		public volatile boolean changed = false;
+        /**
+         * Mark the MRU as changed
+         */
+        public void setChanged() {
+            this.changed = true;
+        }
 	}
 	private final PresetMRUInfo mru;
 	private String externalPackage;
@@ -553,6 +567,9 @@ public class Preset implements Serializable {
 						if (javaScript != null) {
 							currentItem.setJavaScript(key,javaScript);
 						}
+	                    if ("true".equals(attr.getValue("i18n"))) {
+	                        currentItem.setI18n(key);
+	                    }
 					} else if ("link".equals(name)) {
 						String language = Locale.getDefault().getLanguage();
 						String href = attr.getValue(language.toLowerCase(Locale.US)+".href");
@@ -697,6 +714,7 @@ public class Preset implements Serializable {
 							currentItem.setAllEditable(chunk.editable);
 							currentItem.setAllValuesSearchable(chunk.valuesSearchable);
 							currentItem.addAllDelimiters(chunk.delimiters);
+							currentItem.addAllI18n(chunk.i18n);
 						}
 					} else if ("list_entry".equals(name)) {
 						if (listValues != null) {
@@ -1025,7 +1043,7 @@ public class Preset implements Serializable {
 		if (mru.recentPresets.size() > MAX_MRU_SIZE) {
 			mru.recentPresets.removeLast();
 		}
-		mru.changed  = true;
+		mru.setChanged();
 	}
 
 	/**
@@ -1036,7 +1054,7 @@ public class Preset implements Serializable {
 		Integer id = item.getItemIndex();
 		// prevent duplicates
 		mru.recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
-		mru.changed  = true;
+		mru.setChanged();
 	}
 	
 	/**
@@ -1045,13 +1063,13 @@ public class Preset implements Serializable {
 	 */
 	public void resetRecentlyUsed() {
 		mru.recentPresets = new LinkedList<Integer>(); 
-		mru.changed  = true;
+		mru.setChanged();
 		saveMRU();
 	}
 	
 	/** Saves the current MRU data to a file */
 	public void saveMRU() {
-		if (mru.changed) {
+		if (mru.isChanged()) {
 			ObjectOutputStream out = null;
 			FileOutputStream fout = null;
 			try {
@@ -1640,7 +1658,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 11L;
+		private static final long serialVersionUID = 12L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1720,6 +1738,11 @@ public class Preset implements Serializable {
 		 * Scripts for pre-filling text fields
 		 */
 		private HashMap<String,String> javascript = null;
+		
+	    /**
+         * Key can have i18n variants (name, name:de, name:ru etc)
+         */
+        private HashMap<String,Boolean> i18n = null; 
 		
 		/**
 		 * true if a chunk
@@ -2087,6 +2110,7 @@ public class Preset implements Serializable {
 			}
 		}
 
+		@Nullable
 		public MatchType getMatchType(String key) {
 			return matchType != null ? matchType.get(key) : null;
 		}
@@ -2146,6 +2170,7 @@ public class Preset implements Serializable {
 			}
 		}
 		
+		@Nullable
 		public List<String> getLinkedPresetNames() {
 			return linkedPresetNames;
 		}
@@ -2156,6 +2181,7 @@ public class Preset implements Serializable {
 		 * @param noPrimary if true only items will be returned that doen't correspond to primary OSM objects
 		 * @return list of PresetItems
 		 */
+		@NonNull
 		public List<PresetItem> getLinkedPresets(boolean noPrimary) {
 			ArrayList<PresetItem> result = new ArrayList<PresetItem>();
 			Log.e(DEBUG_TAG,"Linked presets for " + getName());
@@ -2219,12 +2245,54 @@ public class Preset implements Serializable {
 			}
 		}
 		
-		public String getJavaScript(String key) {
+		/**
+		 * Get any JS code associated with the key
+		 * 
+		 * @param key key we want to retrieve the code for
+		 * @return JS code or null if none present
+		 */
+		@Nullable
+		public String getJavaScript(@NonNull String key) {
 			return javascript == null ?  null : javascript.get(key);
 		}
 		
+		public void setI18n(@NonNull String key) {
+		    if (i18n == null) {
+		        i18n = new HashMap<String,Boolean>(); 
+		    }
+		    i18n.put(key,true);
+		}
+
+		public void addAllI18n(HashMap<String,Boolean> newI18n) {
+		    if (i18n == null) { 
+		        i18n = newI18n; // doesn't matter if newI18n is null
+		    } else if (newI18n != null){
+		        i18n.putAll(newI18n);
+		    }
+		}
+
+		/**
+		 * Check if the key supports i18n variants
+		 * 
+		 * @param key key we want to check
+		 * @return true if the key supports i18n variants
+		 */
+		public boolean supportsI18n(String key) {
+		    return i18n != null &&  true == i18n.get(key);
+		}
 		
-		public void setEditable(String key, boolean isEditable) {
+		/**
+		 * Get all keys in the item that support i18n
+		 * 
+		 * @return a Set with the keys or null
+		 */
+		@Nullable
+		public Set<String> getI18nKeys() {
+		    return i18n != null ? i18n.keySet() : null;
+		}
+		
+		
+		public void setEditable(@NonNull String key, boolean isEditable) {
 			if (editable == null) {
 				editable = new HashMap<String,Boolean>(); 
 			}
@@ -2241,9 +2309,10 @@ public class Preset implements Serializable {
 		
 		/**
 		 * Check is the combo or multiselect should be editable
+		 * 
 		 * NOTE: contrary to the definition in JOSM the default is false/no
-		 * @param key
-		 * @return
+		 * @param key key we want to check
+		 * @return true if the user can add values
 		 */
 		public boolean isEditable(String key) {
 			return (editable == null ||  editable.get(key) == null) ? false : editable.get(key);
@@ -2256,8 +2325,9 @@ public class Preset implements Serializable {
 			this.textContext.put(key, textContext);
 		}
 		
+		@Nullable
 		public String getTextContext(String key) {
-			return textContext.get(key);
+			return textContext != null ? textContext.get(key) : null;
 		}
 		
 		public void setValueContext(String key, String valueContext) {
@@ -2267,8 +2337,9 @@ public class Preset implements Serializable {
 			this.valueContext.put(key, valueContext);
 		}
 		
+		@Nullable
 		public String getValueContext(String key) {
-			return valueContext.get(key);
+			return valueContext != null ? valueContext.get(key) : null;
 		}
 		
 		/**
@@ -2654,9 +2725,9 @@ public class Preset implements Serializable {
 			return  result + "]},\n";
 		}
 
-		public void groupI18nKeys() {
-			Util.groupI18nKeys(recommendedTags);
-			Util.groupI18nKeys(optionalTags);
+		public void groupI18nKeys(List<String>i18nKeys) {
+			Util.groupI18nKeys(i18nKeys, recommendedTags);
+			Util.groupI18nKeys(i18nKeys, optionalTags);
 		}
 	}
 
@@ -2821,8 +2892,7 @@ public class Preset implements Serializable {
 			}
 			outputStream.println("]}");
 		} catch (Exception e) {
-			Log.e(DEBUG_TAG, "Export failed - " + filename);
-			e.printStackTrace();
+			Log.e(DEBUG_TAG, "Export failed - " + filename + " exception " + e);
 			return false;
 		} finally {
 			SavingHelper.close(outputStream);

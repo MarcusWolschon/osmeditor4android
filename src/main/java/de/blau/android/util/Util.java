@@ -349,13 +349,13 @@ public class Util {
 	 * @param <V>	object containing the tag value(s)
 	 * @param map	map that preserves insert order
 	 */
-	public static <V> void groupI18nKeys(Map<String,V> map) {
+	public static <V> void groupI18nKeys(List<String> i18nKeys, Map<String,V> map) {
 		LinkedHashMap<String,V> temp = new  LinkedHashMap<String,V>();
 		ArrayList<String> keys = new ArrayList<String>(map.keySet());
 		while (keys.size()>0) {
 			String key = keys.get(0);
 			keys.remove(0);
-			if (Tags.I18N_NAME_KEYS.contains(key)) {
+			if (i18nKeys.contains(key)) {
 				temp.put(key, map.get(key));
 				int i = 0;
 				while (keys.size()>0 && i < keys.size()) {
