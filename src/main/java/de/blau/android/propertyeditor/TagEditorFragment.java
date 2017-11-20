@@ -506,11 +506,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 */
 	void updateAutocompletePresetItem(@Nullable PresetItem presetItem) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
-		if (rowLayout != null) {
-			updateAutocompletePresetItem(rowLayout, presetItem, false);
-		} else {
-			Log.d(DEBUG_TAG,"updateAutocompletePresetItem rowLayout null");
-		}
+		updateAutocompletePresetItem(rowLayout, presetItem, false);
 	}
 	
 	/**
@@ -521,11 +517,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 */
 	void updateAutocompletePresetItem(@Nullable PresetItem presetItem, boolean addToMru) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
-		if (rowLayout != null) {
-			updateAutocompletePresetItem(rowLayout, presetItem, addToMru);
-		} else {
-			Log.d(DEBUG_TAG,"updateAutocompletePresetItem rowLayout null");
-		}
+		updateAutocompletePresetItem(rowLayout, presetItem, addToMru);
 	}
 
 	/**
@@ -1341,7 +1333,7 @@ public class TagEditorFragment extends BaseFragment implements
 	boolean focusOnEmptyValue() {
         Log.d(DEBUG_TAG,"focusOnEmptyValue");
 		LinearLayout rowLayout = (LinearLayout) getOurView();
-		return rowLayout != null ? focusOnEmptyValue(rowLayout) : false;
+		return focusOnEmptyValue(rowLayout);
 	}
 	
 	/**
@@ -1955,9 +1947,9 @@ public class TagEditorFragment extends BaseFragment implements
 	/**
 	 * Return the view we have our rows in and work around some android craziness
 	 * 
-	 * @return the layout containg the rows, or null if it can't be found
+	 * @return the row container view
 	 */
-	@Nullable
+	@NonNull
 	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
@@ -1969,15 +1961,17 @@ public class TagEditorFragment extends BaseFragment implements
 				v = v.findViewById(R.id.edit_row_layout);
 				if (v == null) {
 					Log.d(DEBUG_TAG,"didn't find R.id.edit_row_layout");
+					throw new RuntimeException("didn't find R.id.edit_row_layout");
 				}  else {
 					Log.d(DEBUG_TAG,"Found R.id.edit_row_layout");
 				}
 				return v;
 			}
 		} else {
-			Log.d(DEBUG_TAG,"got null view in getView");
+	         // given that this is always fatal might as well throw the exception here
+            Log.d(DEBUG_TAG,"got null view in getView");
+            throw new RuntimeException("got null view in getView");
 		}
-		return null;
 	}
 	
 	/**

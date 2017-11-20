@@ -378,8 +378,10 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 	
 	/**
 	 * Return the view we have our rows in and work around some android craziness
-	 * @return
+	 * 
+	 * @return the view containing what we added
 	 */
+	
 	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
@@ -391,15 +393,17 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 				v = v.findViewById(R.id.preset_view);
 				if (v == null) {
 					Log.d(DEBUG_TAG,"didn't find VIEW_ID");
+					throw new RuntimeException("didn't find VIEW_ID");
 				}  else {
 					Log.d(DEBUG_TAG,"Found VIEW_ID");
 				}
 				return v;
 			}
 		} else {
+		    // given that this is always fatal might as well throw the exception here
 			Log.d(DEBUG_TAG,"got null view in getView");
+			throw new RuntimeException("got null view in getView");
 		}
-		return null;
 	}
 	
 	protected void enable() {
