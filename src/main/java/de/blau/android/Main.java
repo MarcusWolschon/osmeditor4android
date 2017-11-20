@@ -57,6 +57,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -84,6 +85,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import de.blau.android.R;
 import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
@@ -1167,34 +1169,41 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		lock.setLongClickable(true);
 		lock.setOnLongClickListener(new View.OnLongClickListener() {
 		    @Override
-			public boolean onLongClick(View b) {
+			public boolean onLongClick(final View b) {
 		        Log.d(DEBUG_TAG, "Lock long pressed " + b.getClass().getName()); 
 		        final Logic logic = App.getLogic();
 		         
 		        Mode mode = logic.getMode();
-		        ArrayList<Mode> allModes = new ArrayList<Mode>(Arrays.asList(Mode.values()));
-		        int position = allModes.indexOf(mode);
-		        int size = allModes.size();
-		        // find the next usable mode
-		        for (int i=1;i<allModes.size();i++) {
-		        	Mode newMode = allModes.get((position+i) % size);
-		        	if (newMode.isSubModeOf()==null && newMode.isEnabled()) {
-		        		mode = newMode;
-		        		break;
-		        	}
+		        
+                PopupMenu popup = new PopupMenu(Main.this, lock);
+
+                // per mode menu items 
+                ArrayList<Mode> allModes = new ArrayList<Mode>(Arrays.asList(Mode.values()));
+                // add menu entries for all proper modes
+                for (final Mode newMode:allModes) {
+                    if (newMode.isSubModeOf()==null && newMode.isEnabled()) {
+                        MenuItem item = popup.getMenu().add(newMode.getName(Main.this));
+                        item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                logic.setMode(Main.this, newMode);
+                                b.setTag(newMode.tag());
+                                StateListDrawable states = new StateListDrawable();
+                                states.addState(new int[] {android.R.attr.state_pressed}, ContextCompat.getDrawable(Main.this, newMode.iconResourceId()));
+                                states.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
+                                lock.setImageDrawable(states);
+                                if (logic.isLocked()) {
+                                    ((FloatingActionButton)b).setImageState(new int[]{0}, false);
+                                } else {
+                                    ((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false);
+                                }
+                                onEditModeChanged();
+                                return true;
+                            }
+                        });
+                    }
 		        }
-	        	logic.setMode(Main.this, mode);
-	        	b.setTag(mode.tag());
-				StateListDrawable states = new StateListDrawable();
-				states.addState(new int[] {android.R.attr.state_pressed}, ContextCompat.getDrawable(Main.this, mode.iconResourceId()));
-				states.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
-				lock.setImageDrawable(states);
-				if (logic.isLocked()) {
-					((FloatingActionButton)b).setImageState(new int[]{0}, false);
-				} else {
-					((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false);
-				}
-		        onEditModeChanged();
+                popup.show();
 		        return true;
 		    }
 		});
@@ -2254,7 +2263,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	/**
-	 * 
+	 * Check if there are changes present and then show the upload dialog, getting authorisation if necessary
 	 */
 	public void confirmUpload() {
 		final Server server = prefs.getServer();

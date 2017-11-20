@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+	<!-- Mode names -->
+	<string name="mode_easy">Normal</string>
+	<string name="mode_tag_only">Tag only</string>
+	<string name="mode_indoor">Indoor</string>
+	<string name="mode_correct">C-Mode</string>
+    
     <!-- Dialogs -->
     <string name="transfer_download_current_dialog_title">Caution!</string>
     <string name="transfer_download_current_dialog_message">You have made some changes. Do you want to upload them instead of discard?</string>

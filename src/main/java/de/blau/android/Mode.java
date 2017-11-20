@@ -23,15 +23,15 @@ public enum Mode {
 	/**
 	 * edit geometries in "easyedit" mode
 	 */
-	MODE_EASYEDIT("EASY", true, true, true, true, null, R.drawable.unlocked_white, new FilterModeConfig()),
+	MODE_EASYEDIT(R.string.mode_easy, "EASY", true, true, true, true, null, R.drawable.unlocked_white, new FilterModeConfig()),
 	/**
 	 * tag edit only mode
 	 */
-	MODE_TAG_EDIT("TAG", true, true, false, true, null, R.drawable.unlocked_tag_white, new FilterModeConfig()),
+	MODE_TAG_EDIT(R.string.mode_tag_only, "TAG", true, true, false, true, null, R.drawable.unlocked_tag_white, new FilterModeConfig()),
 	/**
 	 * Background alignment mode
 	 */
-	MODE_ALIGN_BACKGROUND("EASY", false, false, false, false, MODE_EASYEDIT, R.drawable.unlocked_white, new ModeConfig() {
+	MODE_ALIGN_BACKGROUND(R.string.mode_easy, "EASY", false, false, false, false, MODE_EASYEDIT, R.drawable.unlocked_white, new ModeConfig() {
 		@Override
 		public void setup(Main main, Logic logic) {
 			if (main.getBackgroundAlignmentActionModeCallback() == null) {
@@ -57,7 +57,7 @@ public enum Mode {
 	/**
 	 * Indoor mode
 	 */
-	MODE_INDOOR("INDOOR", true, true, true, false, null, R.drawable.unlocked_indoor_white, new ModeConfig() {
+	MODE_INDOOR(R.string.mode_indoor, "INDOOR", true, true, true, false, null, R.drawable.unlocked_indoor_white, new ModeConfig() {
 
 		@Override
 		public void setup(final Main main, final Logic logic) {
@@ -131,7 +131,7 @@ public enum Mode {
 		}
 	}),
 	
-	MODE_CORRECT("CORRECT", true, true, true, false, null, R.drawable.unlocked_correct_white, new ModeConfig() {
+	MODE_CORRECT(R.string.mode_correct, "CORRECT", true, true, true, false, null, R.drawable.unlocked_correct_white, new ModeConfig() {
 
 		@Override
 		public void setup(final Main main, final Logic logic) {
@@ -206,6 +206,7 @@ public enum Mode {
 		}
 	});
 	
+    final private int nameResId;
 	final private String tag;
 	final private boolean selectable;
 	final private boolean editable;
@@ -216,8 +217,12 @@ public enum Mode {
 	private int iconResourceId = -1;
 	final private ModeConfig config;
 	
-	Mode(String tag, boolean selectable, boolean editable, boolean geomEditable, boolean supportsFilters, Mode subModeOf, int iconResourceId, ModeConfig config) {
+	Mode(int nameResId, String tag, boolean selectable, boolean editable, boolean geomEditable, boolean supportsFilters, Mode subModeOf, int iconResourceId, ModeConfig config) {
 		/**
+		 * string resource id for the name
+		 */
+	    this.nameResId = nameResId;
+	    /**
 		 * Unique tag for this mode
 		 */
 		this.tag = tag;
@@ -249,6 +254,10 @@ public enum Mode {
 		 * Methods for configuring the mode
 		 */
 		this.config = config;
+	}
+	
+	String getName(Context ctx) {
+	    return ctx.getString(nameResId);
 	}
 	
 	boolean elementsSelectable() {
