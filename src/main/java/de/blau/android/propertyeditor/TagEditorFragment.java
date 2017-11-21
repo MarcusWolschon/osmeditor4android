@@ -303,7 +303,7 @@ public class TagEditorFragment extends BaseFragment implements
 		loaded = true;
 		TagEditRow row = ensureEmptyRow(editRowLayout);
 	
-		if (getUserVisibleHint()) { // don't request focus if we are not visible 
+		if (row != null && getUserVisibleHint()) { // don't request focus if we are not visible 
 			Log.d(DEBUG_TAG,"is visible");
 			row.keyEdit.requestFocus();
 			row.keyEdit.dismissDropDown();
