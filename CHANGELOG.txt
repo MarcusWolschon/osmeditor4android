@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1314: Add support for i18n attribute in presets, update documentation, presets and translations.
+
 1313: Provide a dropdown for mode selection instead of cycling on long press.
 
 1312: Protect against looping on diff upload issues, updated translations.
