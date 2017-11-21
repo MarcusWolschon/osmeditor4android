@@ -2725,6 +2725,11 @@ public class Preset implements Serializable {
 			return  result + "]},\n";
 		}
 
+		/**
+		 * Arrange any i18n keys that have dynamically been added to this preset
+		 * 
+		 * @param i18nKeys List of candidate i18n keys
+		 */
 		public void groupI18nKeys(List<String>i18nKeys) {
 			Util.groupI18nKeys(i18nKeys, recommendedTags);
 			Util.groupI18nKeys(i18nKeys, optionalTags);

@@ -360,7 +360,7 @@ public class Util {
 				int i = 0;
 				while (keys.size()>0 && i < keys.size()) {
 					String i18nKey = keys.get(i);
-					if (i18nKey.startsWith(key+":")) {
+					if (i18nKey.startsWith(key+":")) {					    
 						temp.put(i18nKey, map.get(i18nKey));
 						keys.remove(i);
 					} else {

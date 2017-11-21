@@ -688,30 +688,28 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			for (Entry<String,String>e:tagList.entrySet()) {
 				String key = e.getKey();
 				String value = e.getValue();
-				// check if i18n version of a name tag
-				boolean found = addI18nKeyToPreset(key, value, preset, recommendedEditable, editableView);
-				if (found) {
-					groupingRequired = true;
-				}
-				if (!found && linkedPresets != null) { // check if tag is in a linked preset
+				// check if i18n version of a tag
+				boolean i18nFound = addI18nKeyToPreset(key, value, preset, recommendedEditable, optionalEditable, editableView);
+				if (i18nFound) {
+                    groupingRequired = true;
+                } else if (linkedPresets != null) { // check if tag is in a linked preset
 					for (PresetItem l:linkedPresets) {			
 						if (l.hasKeyValue(key, value)) {
 							linkedTags.put(key, value);
 							editableView.putTag(key, value);
 							keyToLinkedPreset.put(key, l);
-							found = true;
+							i18nFound = true;
 							break;
 						}
 						// check if i18n version of a name tag
-						if (found = addI18nKeyToPreset(key, value, preset, linkedTags, editableView)) {
+						if (i18nFound = addI18nKeyToPreset(key, value, preset, linkedTags, null, editableView)) {
 							keyToLinkedPreset.put(key, l);
 							groupingRequired = true;
 							break;
 						}
 					}
 				}
-
-				if (!found) {
+				if (!i18nFound) {
 					nonEditable.put(key, tags.get(key));
 				} 
 			}
@@ -762,28 +760,34 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	}
 	
 	/**
-	 * Add international name keys to preset so that the entries will match
+	 * Add internationalized keys to preset and to their resp. maps so that the entries will match
 	 * 
 	 * @param key              base key
 	 * @param value            value
 	 * @param preset           current preset
-	 * @param map              map containing the tags
+	 * @param recommendedMap   target map containing the recommended tags
+	 * @param optionalMap      target map containing the optional tags
 	 * @param editableView     out current layout
 	 * @return true if i18n variants were added
 	 */
-	private boolean addI18nKeyToPreset(@NonNull String key, String value, PresetItem preset, @NonNull Map<String, String> map, @NonNull EditableLayout editableView) {
+	private boolean addI18nKeyToPreset(@NonNull String key, String value, PresetItem preset, @NonNull Map<String, String> recommendedMap, @Nullable Map<String, String> optionalMap, @NonNull EditableLayout editableView) {
 	    if (preset != null) {
 	        List<String> i18nKeys = getI18nKeys(preset);
 	        for (String tag:i18nKeys) {
 	            if (key.startsWith(tag + ":")) {
-	                String[] s = key.split("\\Q:\\E");
-	                if (preset.hasKey(tag) && s != null && s.length == 2) {
-	                    preset.addTag(preset.isOptionalTag(tag), key, PresetKeyType.TEXT, null);
+	                if (preset.hasKey(tag)) {
+	                    String i18nPart = key.substring(tag.length() + 1);
+	                    boolean optional = preset.isOptionalTag(tag);
+	                    preset.addTag(optional, key, PresetKeyType.TEXT, null);
 	                    String hint = preset.getHint(tag);
 	                    if (hint != null) {
-	                        preset.addHint(key, getActivity().getString(R.string.internationalized_hint, hint, s[1])); // FIXME RTL
+	                        preset.addHint(key, getActivity().getString(R.string.internationalized_hint, hint, i18nPart)); // FIXME RTL
 	                    }
-	                    map.put(key, value);
+	                    if (optional && optionalMap != null) {
+	                        optionalMap.put(key, value);
+	                    } else {
+	                        recommendedMap.put(key, value);
+	                    }
 	                    editableView.putTag(key, value);
 	                    return true;		
 	                }
