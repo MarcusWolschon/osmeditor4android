@@ -39,6 +39,7 @@ import android.widget.Spinner;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
@@ -618,7 +619,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 				v = v.findViewById(R.id.membership_vertical_layout);
 				if (v == null) {
 					Log.d(DEBUG_TAG,"didn't find R.id.membership_vertical_layout");
-					throw new RuntimeException("didn't find R.id.membership_vertical_layout");
+					throw new UiStateException("didn't find R.id.membership_vertical_layout");
 				}  else {
 					Log.d(DEBUG_TAG,"Found R.id.membership_vertical_layoutt");
 				}
@@ -627,7 +628,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		} else {
 	        // given that this is always fatal might as well throw the exception here
             Log.d(DEBUG_TAG,"got null view in getView");
-            throw new RuntimeException("got null view in getView");
+            throw new UiStateException("got null view in getView");
 		}
 	}
 }

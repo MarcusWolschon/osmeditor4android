@@ -50,6 +50,7 @@ import android.widget.ScrollView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.exception.UiStateException;
 import de.blau.android.javascript.EvalCallback;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
@@ -1961,7 +1962,7 @@ public class TagEditorFragment extends BaseFragment implements
 				v = v.findViewById(R.id.edit_row_layout);
 				if (v == null) {
 					Log.d(DEBUG_TAG,"didn't find R.id.edit_row_layout");
-					throw new RuntimeException("didn't find R.id.edit_row_layout");
+					throw new UiStateException("didn't find R.id.edit_row_layout");
 				}  else {
 					Log.d(DEBUG_TAG,"Found R.id.edit_row_layout");
 				}
@@ -1970,7 +1971,7 @@ public class TagEditorFragment extends BaseFragment implements
 		} else {
 	         // given that this is always fatal might as well throw the exception here
             Log.d(DEBUG_TAG,"got null view in getView");
-            throw new RuntimeException("got null view in getView");
+            throw new UiStateException("got null view in getView");
 		}
 	}
 	

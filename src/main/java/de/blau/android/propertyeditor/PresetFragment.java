@@ -29,6 +29,7 @@ import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset;
@@ -393,7 +394,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 				v = v.findViewById(R.id.preset_view);
 				if (v == null) {
 					Log.d(DEBUG_TAG,"didn't find VIEW_ID");
-					throw new RuntimeException("didn't find VIEW_ID");
+					throw new UiStateException("didn't find VIEW_ID");
 				}  else {
 					Log.d(DEBUG_TAG,"Found VIEW_ID");
 				}
@@ -402,7 +403,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 		} else {
 		    // given that this is always fatal might as well throw the exception here
 			Log.d(DEBUG_TAG,"got null view in getView");
-			throw new RuntimeException("got null view in getView");
+			throw new UiStateException("got null view in getView");
 		}
 	}
 	

@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.SortedMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -15,11 +14,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
+import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.ApiTest;
@@ -27,10 +24,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.validation.Validator;
-import de.blau.android.validation.ValidatorRulesDatabase;
-import de.blau.android.validation.ValidatorRulesDatabaseHelper;
 
 /**
  *

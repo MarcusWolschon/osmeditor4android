@@ -17,6 +17,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
+import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 
@@ -154,7 +155,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	private synchronized void selectAPI(SQLiteDatabase db, String id) {
 		Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
-		if (getAPIs(db,id).length == 0) throw new RuntimeException("Non-existant API selected");
+		if (getAPIs(db,id).length == 0) throw new IllegalOperationException("Non-existant API selected");
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
 		currentAPI = id;
 		Main.prepareRedownload();
@@ -268,7 +269,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	/** removes an API from the API database */
 	public synchronized void deleteAPI(final String id) {
-		if (id.equals(ID_DEFAULT)) throw new RuntimeException("Cannot delete default");
+		if (id.equals(ID_DEFAULT)) throw new IllegalOperationException("Cannot delete default");
 		if (id.equals(currentAPI)) selectAPI(ID_DEFAULT);
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("apis", "id = ?", new String[] { id });
@@ -484,7 +485,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param id id of the preset to delete
 	 */
 	public synchronized void deletePreset(String id) {
-		if (id.equals(ID_DEFAULT)) throw new RuntimeException("Cannot delete default");
+		if (id.equals(ID_DEFAULT)) throw new IllegalOperationException("Cannot delete default");
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("presets", "id = ?", new String[] { id });
 		db.close();
@@ -526,7 +527,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 */
 	public File getPresetDirectory(String id) {
 		if (id == null || id.equals("")) {
-			throw new RuntimeException("Attempted to get folder for null or empty id!");
+			throw new IllegalOperationException("Attempted to get folder for null or empty id!");
 		}
 		File rootDir = context.getFilesDir();
 		return new File(rootDir, id);
@@ -548,7 +549,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param dir the directory to empty and delete
 	 */
 	private void killDirectory(File dir) {
-		if (!dir.isDirectory()) throw new RuntimeException("This function only deletes directories");
+		if (!dir.isDirectory()) throw new IllegalOperationException("This function only deletes directories");
 		File[] files = dir.listFiles();
 		if (files != null) {
 			for (File f : files) {
@@ -729,7 +730,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param id id of the geocoder to delete
 	 */
 	public synchronized void deleteGeocoder(@NonNull String id) {
-		if (id.equals(ID_DEFAULT_GEOCODER_NOMINATIM)) throw new RuntimeException("Cannot delete default");
+		if (id.equals(ID_DEFAULT_GEOCODER_NOMINATIM)) throw new IllegalOperationException("Cannot delete default");
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("geocoders", "id = ?", new String[] { id });
 		db.close();

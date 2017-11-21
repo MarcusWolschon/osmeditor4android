@@ -28,6 +28,7 @@ import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.exception.OperationFailedException;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
@@ -153,7 +154,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 		final File presetDir = db.getPresetDirectory(item.id);
 		//noinspection ResultOfMethodCallIgnored
 		presetDir.mkdir();
-		if (!presetDir.isDirectory()) throw new RuntimeException("Could not create preset directory " + presetDir.getAbsolutePath());
+		if (!presetDir.isDirectory()) throw new OperationFailedException("Could not create preset directory " + presetDir.getAbsolutePath());
 
 		if (item.value.startsWith(Preset.APKPRESET_URLPREFIX)) {
 			PresetEditorActivity.super.sendResultIfApplicable(item);

@@ -1240,7 +1240,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			reverseWayNodeTags(newNodes);
 			Collections.reverse(newNodes);
 		} else {
-			throw new RuntimeException("attempted to merge non-mergeable nodes. this is a bug.");
+			throw new OsmIllegalOperationException("attempted to merge non-mergeable nodes. this is a bug.");
 		}
 		
 		// merge tags (after any reversal has been done)
