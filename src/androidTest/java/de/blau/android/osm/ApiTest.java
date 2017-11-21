@@ -56,7 +56,7 @@ import okhttp3.HttpUrl;
 @LargeTest
 public class ApiTest {
 	
-	static final int TIMEOUT = 90;
+	public static final int TIMEOUT = 90;
 	MockWebServerPlus mockServer = null;
 	Context context = null;
 	AdvancedPrefDatabase prefDB = null;

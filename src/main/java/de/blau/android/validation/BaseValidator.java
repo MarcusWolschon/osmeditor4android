@@ -226,14 +226,18 @@ public class BaseValidator implements Validator {
         if (tags != null) {
             status = validateElement(status, relation, tags);
         }
-        String type = relation.getTagWithKey(Tags.KEY_TYPE);
-        if (type != null || "".equals(type)) {
+        if (noType(relation)) {
             status = status | Validator.NO_TYPE;
         }
         if (status == Validator.NOT_VALIDATED) {
             status = Validator.OK;
         }
         return status;
+    }
+    
+    private boolean noType(Relation r) {
+        String type = r.getTagWithKey(Tags.KEY_TYPE);
+        return type == null || "".equals(type);
     }
 
     @Override
@@ -269,8 +273,7 @@ public class BaseValidator implements Validator {
         if (tags != null) {
             result.addAll(describeProblemElement(ctx, relation, tags));
         }
-        String type = relation.getTagWithKey(Tags.KEY_TYPE);
-        if (type != null || "".equals(type)) {
+        if (noType(relation)) {
             result.add(App.resources().getString(R.string.toast_notype));
         }  
         String [] resultArray = result.toArray(new String[result.size()]);

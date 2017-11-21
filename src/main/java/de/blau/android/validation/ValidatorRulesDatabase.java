@@ -16,7 +16,7 @@ import de.blau.android.util.collections.MultiHashMap;
  * @author simon
  *
  */
-class ValidatorRulesDatabase {
+public class ValidatorRulesDatabase {
     /**
      * Table: rulesets (id INTEGER, name TEXT)
      * Table: resurvey (ruleset INTEGER, key TEXT, value TEXT DEFAULT NULL, days INTEGER DEFAULT 365, FOREIGN KEY(ruleset) REFERENCES rulesets(id))
@@ -127,7 +127,7 @@ class ValidatorRulesDatabase {
      * @param value value of objects that should be age checked
      * @param days  how man days old the object should max be
      */
-    static void updateResurvey(@NonNull SQLiteDatabase db, int id, @NonNull String key, @Nullable String value, int days) {
+    public static void updateResurvey(@NonNull SQLiteDatabase db, int id, @NonNull String key, @Nullable String value, int days) {
         ContentValues values = new ContentValues();
         values.put(KEY_FIELD, key);
         values.put(VALUE_FIELD, value);
@@ -208,7 +208,7 @@ class ValidatorRulesDatabase {
      * @param key   key of objects that should be age checked
      * @param optional  if true check against optional tags too
      */
-    static void updateCheck(@NonNull SQLiteDatabase db, int id, @NonNull String key, boolean optional) {
+    public static void updateCheck(@NonNull SQLiteDatabase db, int id, @NonNull String key, boolean optional) {
         ContentValues values = new ContentValues();
         values.put(KEY_FIELD, key);
         values.put(OPTIONAL_FIELD, optional ? 1 : 0);
