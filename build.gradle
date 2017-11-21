@@ -54,7 +54,7 @@ task downloadPresetIconsZipFile(type: Download) {
 
 task downloadPresetFile(type: Download) {
 	acceptAnyCertificate true
-    src 'https://raw.githubusercontent.com/simonpoole/beautified-JOSM-preset/master/gen/vespucci_preset.xml'
+    src 'https://raw.githubusercontent.com/simonpoole/beautified-JOSM-preset/master/gen/vespucci_preset_build.xml'
     dest new File(projectDir.getPath() + '/src/main/assets/preset.xml')
 }
 
