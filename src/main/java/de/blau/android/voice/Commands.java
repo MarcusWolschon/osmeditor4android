@@ -102,7 +102,6 @@ public class Commands {
 					} catch (OsmIllegalOperationException e) {
 						Log.e(DEBUG_TAG,e.getMessage());
 						Snack.toastTopError(main,e.getLocalizedMessage());
-						e.printStackTrace();
 					}
 
 					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first,ElementType.NODE,2,1);

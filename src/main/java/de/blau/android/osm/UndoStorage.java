@@ -37,7 +37,7 @@ import de.blau.android.exception.StorageException;
 public class UndoStorage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private static final String TAG = "UndoStorage";
+	private static final String DEBUG_TAG = "UndoStorage";
 	
 	// Original storages for "contains" checks and restoration
 	private Storage currentStorage;
@@ -122,7 +122,7 @@ public class UndoStorage implements Serializable {
 	void save(OsmElement element) {
 		try {
 			if (undoCheckpoints.isEmpty()) {
-				Log.e(TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
+				Log.e(DEBUG_TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
 				return;
 			}
 			undoCheckpoints.getLast().add(element);
@@ -153,7 +153,7 @@ public class UndoStorage implements Serializable {
 	 */
 	public String undo() {
 		if (!canUndo()) {
-			Log.w(TAG, "Attempted to undo, but no undo checkpoints available");
+			Log.w(DEBUG_TAG, "Attempted to undo, but no undo checkpoints available");
 			return null;
 		}
 		String name = undoCheckpoints.getLast().name;
@@ -171,7 +171,7 @@ public class UndoStorage implements Serializable {
 	 */
 	public String redo() {
 		if (!canRedo()) {
-			Log.e(TAG, "Attempted to redo, but no redo checkpoints available");
+			Log.e(DEBUG_TAG, "Attempted to redo, but no redo checkpoints available");
 			return null;
 		}
 		String name = redoCheckpoints.getLast().name;
@@ -319,7 +319,7 @@ public class UndoStorage implements Serializable {
 				else apiStorage.removeElement(element);
 			} catch (StorageException e) {
 				//TODO handle OOM
-				e.printStackTrace();
+			    Log.e(DEBUG_TAG,e.getMessage());
 			}
 			
 			// restore saved values

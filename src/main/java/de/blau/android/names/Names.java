@@ -31,6 +31,7 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class Names {
+    static final String DEBUG_TAG = "Names";
 	
 	public class TagMap extends TreeMap<String,String> {
 		
@@ -175,8 +176,7 @@ public class Names {
 							}
 							reader.endObject();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						    Log.e(DEBUG_TAG,e.getMessage());
 						} 
 					}
 					finally {
@@ -205,8 +205,7 @@ public class Names {
 							}
 							reader.endObject();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						    Log.d(DEBUG_TAG,e.getMessage());
 						} 
 					}
 					finally {
@@ -214,8 +213,7 @@ public class Names {
 						SavingHelper.close(is);
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				    Log.d(DEBUG_TAG,e.getMessage());
 				}
 				
 				ready = true;

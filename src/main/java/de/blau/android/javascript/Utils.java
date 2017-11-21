@@ -201,7 +201,6 @@ public class Utils {
 									return callback.eval(js[0]);
 								} catch (Exception ex) {
 									Log.e(DEBUG_TAG, "dialog failed with " + ex);
-									ex.printStackTrace();
 									return ex.getMessage();
 								}
 							}

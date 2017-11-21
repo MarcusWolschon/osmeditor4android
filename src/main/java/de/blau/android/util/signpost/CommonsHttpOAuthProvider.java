@@ -12,6 +12,7 @@ package de.blau.android.util.signpost;
 
 import java.io.IOException;
 
+import android.util.Log;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -34,7 +35,8 @@ import oauth.signpost.http.HttpRequest;
  * 
  */
 public class CommonsHttpOAuthProvider extends AbstractOAuthProvider {
-
+    static final String DEBUG_TAG = "CommonsHttpOAuthProvider";
+    
     private static final long serialVersionUID = 1L;
 
     private transient HttpClient httpClient;
@@ -79,7 +81,7 @@ public class CommonsHttpOAuthProvider extends AbstractOAuthProvider {
                     entity.consumeContent();
                 } catch (IOException e) {
                     // this means HTTP keep-alive is not possible
-                    e.printStackTrace();
+                    Log.d(DEBUG_TAG,e.getMessage());
                 }
             }
         }

@@ -458,8 +458,7 @@ public class Logic {
 				break;
 			}
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 
 		invalidateMap();
@@ -1387,8 +1386,7 @@ public class Logic {
 		try {
 			viewBox.translate(map, relativeLon, relativeLat);
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -2190,8 +2188,7 @@ public class Logic {
 				viewBox.translate(map, 0, translationOnBorderTouch);
 			}
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -2330,8 +2327,7 @@ public class Logic {
 					try {
 						viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
 					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					    Log.d(DEBUG_TAG,e.getMessage());
 					}
 				}
 				if (result != 0) {
@@ -2923,8 +2919,7 @@ public class Logic {
 					try {
 						viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
 					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					    Log.d(DEBUG_TAG,e.getMessage());
 					}
 					DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 				}
@@ -3026,8 +3021,7 @@ public class Logic {
 					try {
 						viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
 					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					    Log.d(DEBUG_TAG,e.getMessage());
 					}
 				}
 				if (result != 0) {
@@ -3169,8 +3163,7 @@ public class Logic {
 							try {
 								viewBox.setBorders(map, new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
 							} catch (OsmException e1) {
-								// Can't happen?
-								e1.printStackTrace();
+							    Log.d(DEBUG_TAG,e.getMessage());
 							}
 						}
 						DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in loadEiditngState
@@ -3287,8 +3280,7 @@ public class Logic {
 					try {
 						viewBox.setBorders(map, new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
 					} catch (OsmException e1) {
-						// Can't happen?
-						e1.printStackTrace();
+					    Log.d(DEBUG_TAG,e.getMessage());
 					}
 				}
 				DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());

@@ -328,8 +328,7 @@ public class Address implements Serializable {
 							// and try again
 							list = getHouseNumbers(street, side, lastAddresses);
 						} catch (OsmException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						    Log.d(DEBUG_TAG,e.getMessage());
 						}
 					}
 					// tags = predictNumber(newAddress, tags, street, side, list, false);

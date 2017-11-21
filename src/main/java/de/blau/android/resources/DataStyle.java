@@ -977,7 +977,6 @@ public class DataStyle  extends DefaultHandler {
 			start(inputStream);
 		} catch (Exception e) {
 			Log.e("Style", "Read failed " + e);
-			e.printStackTrace();
 		}
 		return true;
 	}

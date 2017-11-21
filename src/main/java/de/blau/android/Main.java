@@ -869,8 +869,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	                        map.invalidate();
 	                    }
 	                } catch (OsmException e) {
-	                    // TODO Auto-generated catch block
-	                    e.printStackTrace();
+	                    Log.d(DEBUG_TAG,e.getMessage());
 	                }
 	            } else {
 	                Log.d(DEBUG_TAG,"moving to position");
@@ -1588,6 +1587,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 									Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
 								} catch (Exception ex) {
 									// protect against translation errors
+								    Log.d(DEBUG_TAG,e.getMessage());
 								}
 							}
 			        	}

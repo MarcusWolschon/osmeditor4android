@@ -252,6 +252,7 @@ public class MapTileProvider implements ServiceConnection,
 				// Log.d(DEBUGTAG, "Sending tile success message");
 			} catch (StorageException e) {
 				// unable to cache tile
+			    Log.d(DEBUG_TAG,e.getMessage());
 				if (!smallHeap) { // reduce tile size to half
 					smallHeap = true;
 					mTileCache.clear();
@@ -261,7 +262,6 @@ public class MapTileProvider implements ServiceConnection,
 				}
 			} catch (NullPointerException npe) {
 				Log.d(DEBUG_TAG, "Exception in mapTileLoaded callback " + npe);
-				npe.printStackTrace();
 				throw new RemoteException();
 			}
 			if (DEBUGMODE)

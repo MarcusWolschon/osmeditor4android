@@ -1883,8 +1883,7 @@ public class EasyEditManager {
 			} catch (OsmIllegalOperationException e) {
 				Snack.barError(main, e.getLocalizedMessage());
 			} catch (NotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			    Log.d(DEBUG_TAG,e.getMessage());
 			}
 			return true;
 		}

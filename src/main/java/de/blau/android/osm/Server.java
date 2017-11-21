@@ -944,17 +944,13 @@ public class Server {
 				}
 			}
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		} finally {
 			disconnect(connection);
 		}
@@ -1230,19 +1226,19 @@ public class Server {
 	 */
 	@NonNull
 	private static String readStream(@Nullable final InputStream in) {
-		String res = "";
+		StringBuilder res = new StringBuilder();
 		if (in != null) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
 			String line;
 			try {
 				while ((line = reader.readLine()) != null) {
-					res += line;
+					res.append(line);
 				}
 			} catch (IOException e) {
 				Log.e(Server.class.getName() + ":readStream()", "Error in read-operation", e);
 			}
 		}
-		return res;
+		return res.toString();
 	}
 
 	private static String readLine(final InputStream in) {

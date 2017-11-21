@@ -31,6 +31,7 @@ import android.location.Location;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -461,8 +462,7 @@ public class Map extends View implements IMapView {
 		try {
 			myViewBox.setRatio(this, (float) w / h, true);
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -1595,8 +1595,7 @@ public class Map extends View implements IMapView {
 		try {
 			myViewBox.setRatio(this, (float) getWidth()/ getHeight(), false);
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 	}
 	

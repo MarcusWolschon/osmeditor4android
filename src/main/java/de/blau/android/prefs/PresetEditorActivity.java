@@ -397,7 +397,6 @@ public class PresetEditorActivity extends URLListEditActivity {
 	         }
 	     } catch(IOException e) {
 	    	 Log.e(DEBUG_TAG,"Unzipping failed with " + e.getMessage());
-	         e.printStackTrace();
 	         return false;
 	     } finally {
 	    	 SavingHelper.close(zis);

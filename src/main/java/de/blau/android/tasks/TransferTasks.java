@@ -70,8 +70,7 @@ public class TransferTasks {
 		try {
 			box.makeValidForApi();
 		} catch (OsmException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		    Log.e(DEBUG_TAG,e1.getMessage());
 		} // TODO remove this? and replace with better error messaging
 		
 		
@@ -266,11 +265,9 @@ public class TransferTasks {
 		try {
 			return a.get();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 		return false;
 	}
@@ -380,12 +377,10 @@ public class TransferTasks {
 			try {
 				return ct.get().error == ErrorCodes.OK;
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			    Log.e(DEBUG_TAG,e.getMessage());
 				return false;
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			    Log.e(DEBUG_TAG,e.getMessage());
 				return false;
 			}
 		}
