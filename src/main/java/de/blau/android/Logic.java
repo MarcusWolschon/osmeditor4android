@@ -92,6 +92,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MRUList;
+import de.blau.android.validation.Validator;
 
 /**
  * Logic is the gatekeeper to actual object storage and provides higher level operations.
@@ -457,8 +458,7 @@ public class Logic {
 				break;
 			}
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 
 		invalidateMap();
@@ -1386,8 +1386,7 @@ public class Logic {
 		try {
 			viewBox.translate(map, relativeLon, relativeLat);
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -2189,20 +2188,20 @@ public class Logic {
 				viewBox.translate(map, 0, translationOnBorderTouch);
 			}
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 	}
 
 	/**
 	 * Loads the area defined by mapBox from the OSM-Server.
 	 * 
-	 * @param activity activity this was called from
-	 * @param mapBox Box defining the area to be loaded.
-	 * @param add if true add this data to existing
-	 * @param postLoadHandler handler to execute after successful download
+	 * @param activity			activity this was called from
+	 * @param mapBox 			Box defining the area to be loaded.
+	 * @param add 				if true add this data to existing
+	 * @param postLoadHandler	handler to execute after successful download
 	 */
-	public synchronized void downloadBox(final FragmentActivity activity, final BoundingBox mapBox, final boolean add, final PostAsyncActionHandler postLoadHandler) {
+	public synchronized void downloadBox(@NonNull final FragmentActivity activity, @NonNull final BoundingBox mapBox, final boolean add, @Nullable final PostAsyncActionHandler postLoadHandler) {
+	    final Validator validator = App.getDefaultValidator(activity);
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -2212,10 +2211,9 @@ public class Logic {
 		} 
 		
 		final PostMergeHandler postMerge =  new PostMergeHandler(){
-
 			@Override
 			public void handler(OsmElement e) {
-				e.hasProblem(activity);
+				e.hasProblem(activity, validator);
 			}
 		};
 		
@@ -2329,8 +2327,7 @@ public class Logic {
 					try {
 						viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
 					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					    Log.d(DEBUG_TAG,e.getMessage());
 					}
 				}
 				if (result != 0) {
@@ -2367,25 +2364,23 @@ public class Logic {
 	
 	/**
 	 * Loads the area defined by mapBox from the OSM-Server. Static version for auto download
+	 * 
 	 * FIXME try to reduce the code duplication here
-	 * @param context android context
-	 * @param mapBox Box defining the area to be loaded.
-	 * @param add if true add this data to existing
-	 * @param auto download is being done automatically, try not mess up/move the display
+	 * @param context	android context
+	 * @param mapBox 	Box defining the area to be loaded.
 	 */
-	public synchronized void autoDownloadBox(final Context context, final Server server, final BoundingBox mapBox) {
+	public synchronized void autoDownloadBox(final Context context, final Server server, final Validator validator, final BoundingBox mapBox) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} // TODO remove this? and replace with better error messaging
+			Log.d(DEBUG_TAG,"Invalid bounding box");
+			return;
+		} 
 		
 		final PostMergeHandler postMerge =  new PostMergeHandler(){
-
 			@Override
 			public void handler(OsmElement e) {
-				e.hasProblem(context);
+				e.hasProblem(context, validator);
 			}
 		};
 		
@@ -2924,8 +2919,7 @@ public class Logic {
 					try {
 						viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
 					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					    Log.d(DEBUG_TAG,e.getMessage());
 					}
 					DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
 				}
@@ -3027,8 +3021,7 @@ public class Logic {
 					try {
 						viewBox.setRatio(map, (float)map.getWidth() / (float)map.getHeight());
 					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					    Log.d(DEBUG_TAG,e.getMessage());
 					}
 				}
 				if (result != 0) {
@@ -3170,8 +3163,7 @@ public class Logic {
 							try {
 								viewBox.setBorders(map, new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
 							} catch (OsmException e1) {
-								// Can't happen?
-								e1.printStackTrace();
+							    Log.d(DEBUG_TAG,e.getMessage());
 							}
 						}
 						DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in loadEiditngState
@@ -3288,8 +3280,7 @@ public class Logic {
 					try {
 						viewBox.setBorders(map, new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
 					} catch (OsmException e1) {
-						// Can't happen?
-						e1.printStackTrace();
+					    Log.d(DEBUG_TAG,e.getMessage());
 					}
 				}
 				DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());

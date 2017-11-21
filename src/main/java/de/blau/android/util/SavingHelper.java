@@ -270,7 +270,7 @@ public class SavingHelper<T extends Serializable> {
 	 * @param ctx context for the toast
 	 * @param exportable the exportable to run
 	 */
-	public static void asyncExport(@NonNull final Context ctx, @NonNull final Exportable exportable) {
+	public static void asyncExport(@Nullable final Context ctx, @NonNull final Exportable exportable) {
 		new AsyncTask<Void, Void, String>() {
 			@Override
 			protected String doInBackground(Void... params) {

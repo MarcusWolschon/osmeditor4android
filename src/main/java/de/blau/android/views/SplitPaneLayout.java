@@ -33,6 +33,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import de.blau.android.R;
+import de.blau.android.exception.UiStateException;
 
 
 /**
@@ -278,7 +279,7 @@ public class SplitPaneLayout extends ViewGroup {
      */
     private void check() {
         if (getChildCount() != 2) {
-            throw new RuntimeException("SplitPaneLayout must have exactly two child views.");
+            throw new UiStateException("SplitPaneLayout must have exactly two child views.");
         }
     }
 

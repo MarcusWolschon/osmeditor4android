@@ -11,9 +11,10 @@ import de.blau.android.osm.BoundingBox;
 public interface IMapView {
 
 	/**
-	 * Get the current ZoomLevel for the map tiles.
-	 * @return the current ZoomLevel between 0 (equator) and 18/19(closest),
-	 *         depending on the Renderer chosen.
+	 * Get the current zoomLevel for the map tiles.
+	 * 
+	 * Note layers using this are responsible for clamping this value to whatever min/max zoom they support
+	 * @return the current ZoomLevel 
 	 */
 	int getZoomLevel();
 

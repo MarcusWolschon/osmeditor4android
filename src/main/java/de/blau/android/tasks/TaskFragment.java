@@ -187,8 +187,7 @@ public class TaskFragment extends DialogFragment {
 									}
 								});
 							} catch (OsmException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
+							    Log.e(DEBUG_TAG,e1.getMessage());
 							}
 		    			} else if (activity != null && activity instanceof Main) { // real
 		    				((Main)activity).zoomToAndEdit(lonE7, latE7, e);

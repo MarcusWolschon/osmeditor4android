@@ -49,6 +49,7 @@ __&lt;text&gt;__             |                               | supported |
                    | length                        | ignored   |
                    | alternative_autocomplete_keys | ignored   |
                    | javascript                    | extension | if value is not set, execute the JS script
+                   | i18n                          | extension | if set to true this tag has i18n variants
 __&lt;combo&gt;__            |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
@@ -132,3 +133,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 
 * _deprecated_ only use this preset for matching, do not offer it for new use and do not find it when searched
 * _javascript_ execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any
+* _i18n_ the tag can have i18n variants, for example name and name:de

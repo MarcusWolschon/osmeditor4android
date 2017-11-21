@@ -32,13 +32,13 @@ Nejjednodušším způsobem stahování dat je najít požadovanou oblast, ktero
 
 <a id="lock"></a>
 
-#### Lock, unlock, "tag editing only", indoor mode 
+#### Režimy: uzamčený, odemčený, "editování tagů", vnitřní prostory 
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+K zabránění nechtěných úprav se Vespucci spustí v "uzamčeném" režimu, který dovoluje pouze přibližování a posouvání mapy. Pro odemčení obrazovky klepněte na ikonu ![zámku](../images/locked.png). 
 
-A long press on the lock icon will enable "Tag editing only" mode which will not allow you to edit the geometry of objects or move them, this mode is indicated with a slightly different white lock icon. You can however create new nodes and ways with a long press as normal.
+Dlouhé stisknutí ikony zámku zapne režim "editování tagů", který neumožňuje úpravu tvaru objektů nebo jejich přesun. Tento režim indikuje mírně odlišná bílá ikona zámku. Nicméně můžete jako obvykle vytvářet nové uzly a cesty dlouhým stiskem.
 
-Another long press will enable [Indoor mode](#indoor), and one more will cycle back to the normal editing mode.
+Dalším dlouhým stiskem aktivujete [režim mapování vnitřních prostorů](#indoor) a ještě jedním dlouhým stiskem se dostanete zpět do běžného režimu úprav.
 
 #### Single tap, double tap, and long press
 

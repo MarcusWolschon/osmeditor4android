@@ -2,8 +2,6 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,7 +12,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.regex.Pattern;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -26,13 +23,14 @@ import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.IssueAlert;
+import de.blau.android.validation.Validator;
 
 public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7711945069147743671L;
+	private static final long serialVersionUID = 7711945069147743672L;
 
 	public static final long NEW_OSM_ID = -1;
 
@@ -63,8 +61,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * hasProblem() is an expensive test, so the results are cached.
 	 * old version used a Boolean object which was silly we could naturally encode these as bits
 	 */
-	private boolean cachedHasProblem = false;
-	private boolean checkedForProblem = false; // flag indicating if cachedHasProblem is valid
+	private int cachedProblems = Validator.NOT_VALIDATED;
 	
 	OsmElement(final long osmId, final long osmVersion, final long timestamp, final byte state) {
 		this.osmId = osmId;
@@ -192,13 +189,27 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @param value the value to search for (case sensitive)
 	 * @return true if the element has a tag with this key and value.
 	 */
-	boolean hasTag(final Map<String, String> tags, final String key, final String value) {
+	static boolean hasTag(final Map<String, String> tags, final String key, final String value) {
 		if (tags == null) {
 			return false;
 		}
 		String keyValue = tags.get(key);
 		return keyValue != null && keyValue.equals(value);
 	}
+	
+	/**
+     * Check if we have a tag with a specific key-value combination
+     * 
+     * Note: the value is compared case insensitive
+     * @param tagKey    the key of the tag
+     * @param value     the value that we are checking
+     * @return true if the key - value combination is present
+     */
+    public boolean hasTagWithValue(String tagKey, String value) {
+        String tagValue = getTagWithKey(tagKey);
+        return tagValue != null && tagValue.equalsIgnoreCase(value);
+    }
+    
 
 	/**
 	 * @param key the key to search for (case sensitive)
@@ -503,113 +514,36 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		return result;
 	}
 	
-	/**
-	 * Regex for general tagged issues with the object
-	 */
-	final static Pattern pattern = Pattern.compile("(?i).*\\b(?:fixme|todo)\\b.*");
-	
-	/**
-	 * Time after we consider relevant tags need to be re-surveyed FIXME de-hardwire 
-	 */
-	final static long DAYS365SECS = 365*24*60*60L;
-	
-	/**
-	 * Test if the element has any problems by searching all the tags for the words
-	 * "fixme" or "todo", or if it has a key in the list of things to regularly re-survey 
-	 * @return true if the element has any noted problems, false otherwise.
-	 */
-	boolean calcProblem() {
-		if (tags != null) {
-			for (Entry<String,String>entry : tags.entrySet()) {
-				// test key and value against pattern
-				if (pattern.matcher(entry.getKey()).matches() || pattern.matcher(entry.getValue()).matches()) {
-					return true;
-				}
-			}
-			for (String key:Tags.RESURVEY_TAGS.keySet()) {
-				String value = Tags.RESURVEY_TAGS.get(key);
-				if (tags.containsKey(key) && (value == null || value.equals(tags.get(key)))) {
-					long now = System.currentTimeMillis()/1000;
-					long timestamp = getTimestamp();
-					if (timestamp >= 0 && (now - timestamp > DAYS365SECS)) {
-						return true;
-					} else if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
-						return checkAge(now,Tags.KEY_CHECK_DATE);
-					} else if (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key)) {
-						return checkAge(now,Tags.KEY_CHECK_DATE+":"+key);
-					}						
-					return false;
-				}
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Check that the date value of tag is not more that DAYS365MILIS old
-	 * 
-	 * @param now current time in milliseconds
-	 * @param tag tag to retrieve the date value for
-	 * @return true if the date value is more than DAYS365MILIS old
-	 */
-	boolean checkAge(long now, String tag) {
-		try {
-			return now - new SimpleDateFormat(Tags.CHECK_DATE_FORMAT).parse(tags.get(tag)).getTime()/1000 >  DAYS365SECS;	
-		} catch (ParseException e) {
-			return true;
-		}
-	}
-	
-	/**
-	 * Return a string giving the problem detected in calcProblem
-	 */
-	public String describeProblem() {
-		if (tags != null) {
-			for (Entry<String,String>entry : tags.entrySet()) {
-				// test key and value against pattern
-				if (pattern.matcher(entry.getKey()).matches() || pattern.matcher(entry.getValue()).matches()) {
-					return entry.getKey() + ": " + entry.getValue();
-				}
-			}
-			for (String key: Tags.RESURVEY_TAGS.keySet()) {
-				String value = Tags.RESURVEY_TAGS.get(key);
-				if (tags.containsKey(key) && (value == null || value.equals(tags.get(key)))) {
-					long now = System.currentTimeMillis()/1000;
-					long timestamp = getTimestamp();
-					if ((timestamp >= 0 && (now - timestamp > DAYS365SECS)) 
-						|| (tags.containsKey(Tags.KEY_CHECK_DATE) && checkAge(now,Tags.KEY_CHECK_DATE))
-						|| (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key) && checkAge(now,Tags.KEY_CHECK_DATE+":"+key))) {
-						return App.resources().getString(R.string.toast_needs_resurvey);
-					}						
-				}
-			}
-		}
-		return "";
-	}
+	abstract protected int validate(Validator validator);
 	
 	/**
 	 * Test if the element has a noted problem. A noted problem is where someone has
 	 * tagged the element with a "fixme" or "todo" key/value.
+	 * 
+	 * @param context Android context, if non-null used for generating alerts 
 	 * @return true if the element has a noted problem, false if it doesn't.
 	 */
-	public boolean hasProblem(Context context) {
+	public int hasProblem(@Nullable Context context, Validator validator) {
 		// This implementation assumes that calcProblem() may be expensive, and
 		// caches the calculation.
-		if (!checkedForProblem) {
-			checkedForProblem = true; // don't re-check
-			cachedHasProblem = calcProblem();
-			if (cachedHasProblem && context != null) {
+		if (cachedProblems == Validator.NOT_VALIDATED) {
+		    cachedProblems = validate(validator);
+			if (cachedProblems != Validator.OK && context != null) {
 				IssueAlert.alert(context, this); 
 			}
 		}
-		return cachedHasProblem;
+		return cachedProblems ;
+	}
+	
+	public int getCachedProblems() {
+	    return cachedProblems;
 	}
 	
 	/**
 	 * Call if you have made a change that potentially changes the problem state of the element
 	 */
 	public void resetHasProblem() {
-		checkedForProblem = false;
+	    cachedProblems = Validator.NOT_VALIDATED;
 	}
 	
 	/** (see also {@link #getName()} - this returns the full type, differentiating between open and closed ways) 

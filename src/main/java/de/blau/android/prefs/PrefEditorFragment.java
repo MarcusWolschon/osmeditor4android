@@ -16,6 +16,7 @@ import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.validation.ValidatorRulesUI;
 
 /**
  * Simple class for Android's standard-Preference Activity
@@ -31,6 +32,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 	private String KEY_MAPOL;
 	private String KEY_MAPPROFILE;
 	private String KEY_ADVPREFS;
+	private String KEY_VALIDATOR;
 	private String KEY_LICENSE;
 	private String KEY_DEBUG;
 	
@@ -46,6 +48,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 		KEY_MAPOL = r.getString(R.string.config_overlayLayer_key);
 		KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
 		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
+		KEY_VALIDATOR = r.getString(R.string.config_validatorprefs_key);
 		KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
 		KEY_DEBUG = r.getString(R.string.config_debugbutton_key);
 		fixUpPrefs();
@@ -146,6 +149,17 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
 				return true;
 			}
 		});
+		
+	    Preference validatorpref = getPreferenceScreen().findPreference(KEY_VALIDATOR);
+	    validatorpref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+	            @Override
+	            public boolean onPreferenceClick(Preference preference) {
+	                Log.d(DEBUG_TAG, "onPreferenceClick validator");
+	                ValidatorRulesUI ui = new ValidatorRulesUI();
+	                ui.manageRulesetContents(getContext());
+	                return true;
+	            }
+	        });
 		
 		Preference licensepref = getPreferenceScreen().findPreference(KEY_LICENSE);
 		licensepref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

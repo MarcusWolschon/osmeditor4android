@@ -50,6 +50,7 @@ import android.widget.ScrollView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.exception.UiStateException;
 import de.blau.android.javascript.EvalCallback;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
@@ -59,8 +60,11 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetElement;
+import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
@@ -89,6 +93,8 @@ public class TagEditorFragment extends BaseFragment implements
 	private static final String APPLY_LAST_ADDRESS_TAGS = "applyLastAddressTags";
 
 	private static final String EXTRA_TAGS = "extraTags";
+	
+	private static final String PRESETSTOAPPLY = "presetsToApply";
 
 	private static final String HTTP_PREFIX = "http://";
 
@@ -182,7 +188,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @param displayMRUpresets 
      */
     static public TagEditorFragment newInstance(OsmElement[] elements, ArrayList<LinkedHashMap<String,String>> tags, boolean applyLastAddressTags, 
-    											String focusOnKey, boolean displayMRUpresets, HashMap<String,String> extraTags) {
+    											String focusOnKey, boolean displayMRUpresets, HashMap<String,String> extraTags, ArrayList<PresetElementPath> presetsToApply) {
     	TagEditorFragment f = new TagEditorFragment();
     	
         Bundle args = new Bundle();
@@ -193,6 +199,7 @@ public class TagEditorFragment extends BaseFragment implements
         args.putSerializable(FOCUS_ON_KEY, focusOnKey);
         args.putSerializable(DISPLAY_MR_UPRESETS, Boolean.valueOf(displayMRUpresets));
         args.putSerializable(EXTRA_TAGS, extraTags);
+        args.putSerializable(PRESETSTOAPPLY, presetsToApply);
         
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -297,7 +304,7 @@ public class TagEditorFragment extends BaseFragment implements
 		loaded = true;
 		TagEditRow row = ensureEmptyRow(editRowLayout);
 	
-		if (getUserVisibleHint()) { // don't request focus if we are not visible 
+		if (row != null && getUserVisibleHint()) { // don't request focus if we are not visible 
 			Log.d(DEBUG_TAG,"is visible");
 			row.keyEdit.requestFocus();
 			row.keyEdit.dismissDropDown();
@@ -329,7 +336,6 @@ public class TagEditorFragment extends BaseFragment implements
 		}
 		
 		updateAutocompletePresetItem(editRowLayout, null, false); // set preset from initial tags
-		
 		
 		if (displayMRUpresets) {
 			Log.d(DEBUG_TAG,"Adding MRU prests");
@@ -393,6 +399,18 @@ public class TagEditorFragment extends BaseFragment implements
     public void onStart() {
     	super.onStart();
     	Log.d(DEBUG_TAG, "onStart");
+    	// the following likely wont work in onCreateView
+       	ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY);
+    	Preset[] presets = App.getCurrentPresets(getActivity());
+    	PresetGroup rootGroup = presets[0].getRootGroup();
+		if (presetsToApply != null) {
+			for (PresetElementPath pp:presetsToApply) {
+				PresetElement pi = Preset.getElementByPath(rootGroup, pp);
+				if (pi != null && pi instanceof PresetItem) {
+					applyPreset((PresetItem) pi, false, true);
+				}
+			}
+		}
     }
     
     @Override
@@ -489,11 +507,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 */
 	void updateAutocompletePresetItem(@Nullable PresetItem presetItem) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
-		if (rowLayout != null) {
-			updateAutocompletePresetItem(rowLayout, presetItem, false);
-		} else {
-			Log.d(DEBUG_TAG,"updateAutocompletePresetItem rowLayout null");
-		}
+		updateAutocompletePresetItem(rowLayout, presetItem, false);
 	}
 	
 	/**
@@ -504,11 +518,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 */
 	void updateAutocompletePresetItem(@Nullable PresetItem presetItem, boolean addToMru) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
-		if (rowLayout != null) {
-			updateAutocompletePresetItem(rowLayout, presetItem, addToMru);
-		} else {
-			Log.d(DEBUG_TAG,"updateAutocompletePresetItem rowLayout null");
-		}
+		updateAutocompletePresetItem(rowLayout, presetItem, addToMru);
 	}
 
 	/**
@@ -617,11 +627,12 @@ public class TagEditorFragment extends BaseFragment implements
 	}
 	
 	/**
-	 * Create a map from tag keys to preset item 
+	 * Create a mapping from tag keys to preset item and return those that coudn't be assigned
 	 * 
-	 * @param preset
-	 * @param tags
-	 * @return
+	 * Tags that are in linked presets are assigned to that preset
+	 * @param preset	PresetItem that we want to assign tags to
+	 * @param tags		the tags we want to assign
+	 * @return map of tags that couldn't be assigned
 	 */
 	private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull LinkedHashMap<String, String> tags) {
 		LinkedHashMap<String,String> leftOvers = new LinkedHashMap<String,String>();
@@ -630,7 +641,7 @@ public class TagEditorFragment extends BaseFragment implements
 			for (Entry<String,String> entry:tags.entrySet()) {
 				String key = entry.getKey();
 				String value = entry.getValue();
-				if ( preset.hasKeyValue(key, value)) {
+				if (preset.hasKeyValue(key, value)) {
 					storePreset(key, preset);
 				} else {
 					boolean found = false;
@@ -1323,7 +1334,7 @@ public class TagEditorFragment extends BaseFragment implements
 	boolean focusOnEmptyValue() {
         Log.d(DEBUG_TAG,"focusOnEmptyValue");
 		LinearLayout rowLayout = (LinearLayout) getOurView();
-		return rowLayout != null ? focusOnEmptyValue(rowLayout) : false;
+		return focusOnEmptyValue(rowLayout);
 	}
 	
 	/**
@@ -1937,9 +1948,9 @@ public class TagEditorFragment extends BaseFragment implements
 	/**
 	 * Return the view we have our rows in and work around some android craziness
 	 * 
-	 * @return the layout containg the rows, or null if it can't be found
+	 * @return the row container view
 	 */
-	@Nullable
+	@NonNull
 	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
@@ -1951,15 +1962,17 @@ public class TagEditorFragment extends BaseFragment implements
 				v = v.findViewById(R.id.edit_row_layout);
 				if (v == null) {
 					Log.d(DEBUG_TAG,"didn't find R.id.edit_row_layout");
+					throw new UiStateException("didn't find R.id.edit_row_layout");
 				}  else {
 					Log.d(DEBUG_TAG,"Found R.id.edit_row_layout");
 				}
 				return v;
 			}
 		} else {
-			Log.d(DEBUG_TAG,"got null view in getView");
+	         // given that this is always fatal might as well throw the exception here
+            Log.d(DEBUG_TAG,"got null view in getView");
+            throw new UiStateException("got null view in getView");
 		}
-		return null;
 	}
 	
 	/**

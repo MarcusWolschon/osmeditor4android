@@ -551,8 +551,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		try {
 			translate(map, (lonCenter - left - (int)(width / 2L)), newBottom - bottom);
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}		
 	}
 	
@@ -780,8 +779,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 			setRatio(map, ratio, preserveZoom);
 			validate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		} //TODO slightly expensive likely to be better to do everything in mercator
 	}
 	
@@ -1005,7 +1003,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		} else if (latE7 > top) {
 			top = latE7;
 		}
-		width = right - left;
+		width = (long)right - left;
 		height = top - bottom;
 	}
 	
@@ -1026,7 +1024,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		if (b.top > top) {
 			top = b.top;
 		}
-		width = right - left;
+		width = (long)right - left;
 		height = top - bottom;
 	}
 	

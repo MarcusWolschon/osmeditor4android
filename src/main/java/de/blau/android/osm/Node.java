@@ -7,6 +7,7 @@ import java.util.Map;
 import org.xmlpull.v1.XmlSerializer;
 
 import de.blau.android.util.rtree.BoundedObject;
+import de.blau.android.validation.Validator;
 
 /**
  * Node represents a Node in the OSM-data-structure. It stores the lat/lon-pair and provides some package-internal
@@ -141,5 +142,10 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 	@Override
 	public BoundingBox getBounds() {
 		return new BoundingBox(lon, lat);
+	}
+	
+	@Override
+    protected int validate(Validator validator) {
+	    return validator.validate(this);
 	}
 }

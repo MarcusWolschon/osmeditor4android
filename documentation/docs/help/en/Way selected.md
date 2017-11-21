@@ -28,7 +28,7 @@ Reverse the direction of the way. If the way has direction dependent tags it wil
 * \*:backward, \*:forward, \*:backward:\*, \*:forward:\*, backward and forward
 * forward and backward roles in relations the selected way is a member of
 
-### ![Split](../images/tag_menu_split.png) Split
+### ![Split](../images/ic_content_cut_light_36px.png) Split
 
 Split the selected way. The nodes at the available locations for splitting will have a visible touch area. The "Split" action is only available if the way has more than two nodes. If the way is closed you will need to select two nodes.
 

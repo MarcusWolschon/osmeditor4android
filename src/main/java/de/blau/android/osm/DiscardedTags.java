@@ -20,6 +20,8 @@ import de.blau.android.util.SavingHelper;
  *
  */
 class DiscardedTags {
+    
+    static final String DEBUG_TAG = "DiscardedTags";
 
 	private HashSet<String> redundantTags = new HashSet<String>();
 
@@ -44,12 +46,10 @@ class DiscardedTags {
 				reader.endArray();
 				Log.d("DiscardedTags","Found " + redundantTags.size() + " tags.");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			    Log.d(DEBUG_TAG,e.getMessage());
 			} 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 		finally {
 			SavingHelper.close(reader);

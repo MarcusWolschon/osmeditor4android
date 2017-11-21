@@ -3,6 +3,8 @@ package de.blau.android.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import de.blau.android.exception.OperationFailedException;
+
 /**
  * Provides a simple interface for string hashing.
  * @author Jan
@@ -18,7 +20,7 @@ public abstract class Hash {
 		try {
 			return toHex(MessageDigest.getInstance("SHA-256").digest(str.getBytes()));
 		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException("Your Java is broken", e);
+			throw new OperationFailedException("Your Java is broken", e);
 		}		
 	}
 	

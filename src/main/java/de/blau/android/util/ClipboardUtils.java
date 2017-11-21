@@ -95,7 +95,6 @@ public class ClipboardUtils {
 							 }
 						} catch (Exception e) { // FIXME given that the above is unteted, cath all here
 							Log.e("ClipboardUtils","Resolving URI failed " + e);
-							e.printStackTrace();
 							return null;
 						}
 					}

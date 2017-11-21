@@ -57,6 +57,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -534,7 +535,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		String lastVersion = savingHelperVersion.load(this,VERSION_FILE, false);
 		boolean newInstall = (lastVersion == null || lastVersion.equals(""));
 		String currentVersion = getString(R.string.app_version);
-		boolean newVersion = (lastVersion != null) && (lastVersion.length()<5 || !lastVersion.subSequence(0,5).equals(currentVersion.subSequence(0,5)));
+		boolean newVersion = (lastVersion != null) && (lastVersion.length()<6 || !lastVersion.subSequence(0,6).equals(currentVersion.subSequence(0,6)));
 		
 		loadOnResume = false;
 		
@@ -868,8 +869,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	                        map.invalidate();
 	                    }
 	                } catch (OsmException e) {
-	                    // TODO Auto-generated catch block
-	                    e.printStackTrace();
+	                    Log.d(DEBUG_TAG,e.getMessage());
 	                }
 	            } else {
 	                Log.d(DEBUG_TAG,"moving to position");
@@ -1167,34 +1167,41 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		lock.setLongClickable(true);
 		lock.setOnLongClickListener(new View.OnLongClickListener() {
 		    @Override
-			public boolean onLongClick(View b) {
+			public boolean onLongClick(final View b) {
 		        Log.d(DEBUG_TAG, "Lock long pressed " + b.getClass().getName()); 
 		        final Logic logic = App.getLogic();
 		         
 		        Mode mode = logic.getMode();
-		        ArrayList<Mode> allModes = new ArrayList<Mode>(Arrays.asList(Mode.values()));
-		        int position = allModes.indexOf(mode);
-		        int size = allModes.size();
-		        // find the next usable mode
-		        for (int i=1;i<allModes.size();i++) {
-		        	Mode newMode = allModes.get((position+i) % size);
-		        	if (newMode.isSubModeOf()==null && newMode.isEnabled()) {
-		        		mode = newMode;
-		        		break;
-		        	}
+		        
+                PopupMenu popup = new PopupMenu(Main.this, lock);
+
+                // per mode menu items 
+                ArrayList<Mode> allModes = new ArrayList<Mode>(Arrays.asList(Mode.values()));
+                // add menu entries for all proper modes
+                for (final Mode newMode:allModes) {
+                    if (newMode.isSubModeOf()==null && newMode.isEnabled()) {
+                        MenuItem item = popup.getMenu().add(newMode.getName(Main.this));
+                        item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                logic.setMode(Main.this, newMode);
+                                b.setTag(newMode.tag());
+                                StateListDrawable states = new StateListDrawable();
+                                states.addState(new int[] {android.R.attr.state_pressed}, ContextCompat.getDrawable(Main.this, newMode.iconResourceId()));
+                                states.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
+                                lock.setImageDrawable(states);
+                                if (logic.isLocked()) {
+                                    ((FloatingActionButton)b).setImageState(new int[]{0}, false);
+                                } else {
+                                    ((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false);
+                                }
+                                onEditModeChanged();
+                                return true;
+                            }
+                        });
+                    }
 		        }
-	        	logic.setMode(Main.this, mode);
-	        	b.setTag(mode.tag());
-				StateListDrawable states = new StateListDrawable();
-				states.addState(new int[] {android.R.attr.state_pressed}, ContextCompat.getDrawable(Main.this, mode.iconResourceId()));
-				states.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
-				lock.setImageDrawable(states);
-				if (logic.isLocked()) {
-					((FloatingActionButton)b).setImageState(new int[]{0}, false);
-				} else {
-					((FloatingActionButton)b).setImageState(new int[]{android.R.attr.state_pressed}, false);
-				}
-		        onEditModeChanged();
+                popup.show();
 		        return true;
 		    }
 		});
@@ -1340,8 +1347,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			Log.d(DEBUG_TAG,"had to resync tagfilter pref");
 		}
 		
-		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
-		menu.findItem(R.id.menu_enable_presetfilter).setEnabled(logic.getMode() != Mode.MODE_INDOOR).setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
+		menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode().supportsFilters()).setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
+		menu.findItem(R.id.menu_enable_presetfilter).setEnabled(logic.getMode().supportsFilters()).setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
 		
 		// enable the JS console menu entry
 		menu.findItem(R.id.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
@@ -1580,6 +1587,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 									Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
 								} catch (Exception ex) {
 									// protect against translation errors
+								    Log.d(DEBUG_TAG,e.getMessage());
 								}
 							}
 			        	}
@@ -2254,7 +2262,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	}
 
 	/**
-	 * 
+	 * Check if there are changes present and then show the upload dialog, getting authorisation if necessary
 	 */
 	public void confirmUpload() {
 		final Server server = prefs.getServer();
@@ -2493,11 +2501,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 	/**
 	 * Start the PropertyEditor for the element in question, single element version
-	 * @param selectedElement Selected OpenStreetMap element.
-	 * @param focusOn if not null focus on the value field of this key.
+	 * 
+	 * @param selectedElement      Selected OpenStreetMap element.
+	 * @param focusOn              if not null focus on the value field of this key.
 	 * @param applyLastAddressTags add address tags to the object being edited.
-	 * @param showPresets show the preset tab on start up.
-	 * @param askForName ask for a value for the name tag
+	 * @param showPresets          show the preset tab on start up.
+	 * @param askForName           ask for a value for the name tag
 	 */
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets, boolean askForName) {
 		descheduleAutoLock();
@@ -2517,16 +2526,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
 				PropertyEditor.startForResult(this, single, applyLastAddressTags,
-						showPresets, askForName, logic.getMode().getExtraTags(logic, selectedElement), REQUEST_EDIT_TAG);
+						showPresets, askForName, logic.getMode().getExtraTags(logic, selectedElement), logic.getMode().getPresetItems(this, selectedElement), REQUEST_EDIT_TAG);
 			}
 		}
 	}
 	
 	/**
 	 * Start the PropertyEditor for the element in question, multiple element version
-	 * @param selection list of selected elements
+	 * 
+	 * @param selection            list of selected elements
 	 * @param applyLastAddressTags add address tags to the object being edited.
-	 * @param showPresets show the preset tab on start up.
+	 * @param showPresets          show the preset tab on start up.
 	 */
 	public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
 		descheduleAutoLock();
@@ -2543,14 +2553,15 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
 		PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags,
-				showPresets, false, null, REQUEST_EDIT_TAG);
+				showPresets, false, null, null, REQUEST_EDIT_TAG);
 	}
 
 	/**
-	 * Edit an OpenStreetBug.
+	 * Edit an OpenStreetBug (now called a Task)
+	 * 
 	 * @param bug The bug to edit.
 	 */
-	private void performBugEdit(final Task bug) {
+	private void performBugEdit(@NonNull final Task bug) {
 		Log.d(DEBUG_TAG, "editing bug:"+bug);
 		descheduleAutoLock();
 		App.getLogic().setSelectedBug(bug);
@@ -3416,6 +3427,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	
 	/**
 	 * Zoom to the coordinates and try and set the viewbox size to something reasonable
+	 * 
 	 * @param lonE7
 	 * @param latE7
 	 * @param e

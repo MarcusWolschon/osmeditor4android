@@ -4,6 +4,8 @@ Vespucci provides a simple mechanism to filter displayed and editable objects ba
 
 The preset filter is enabled by selecting the corresponding menu entry in the menu on the main map display.
 
+If the filter is only using one preset item (not a group) then that preset will automatically be applied when a new object is created.
+
 ## Actions  
 
 ### Selecting a preset

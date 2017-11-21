@@ -82,11 +82,9 @@ class OsmoseServer {
 			}
 			result = OsmoseBug.parseBugs(is);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 		return result;
 	}
@@ -127,12 +125,10 @@ class OsmoseServer {
 			bug.changed = false;
 			App.getTaskStorage().setDirty();			
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 			return false; 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 			return false; 
 		}
 		Log.d(DEBUG_TAG, "changeState sucess");

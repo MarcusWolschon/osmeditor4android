@@ -76,6 +76,7 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.validation.Validator;
 
 /**
  * This class handles most of the EasyEdit mode actions, to keep it separate from the main class.
@@ -199,16 +200,31 @@ public class EasyEditManager {
 				if (element instanceof Relation ) cb = new RelationSelectionActionModeCallback((Relation )element);
 				if (cb != null) {
 					main.startSupportActionMode(cb);
-					String toast = element.getDescription(main);
-					if (element.hasProblem(main)) {
-						String problem = element.describeProblem();
-						toast = !problem.equals("") ? toast + "\n" + problem : toast;
-					}
-					Snack.toastTopInfo(main, toast);
+					elementToast(element);
 				}
 			}
 		}
 	}
+
+	/**
+	 * Display a toast with a description and a list of problems for an element
+	 * 
+	 * @param element the element to display the information for
+	 */
+    private void elementToast(OsmElement element) {
+        String toast = element.getDescription(main);
+        Validator validator = App.getDefaultValidator(main);
+        if (element.hasProblem(main, validator) != Validator.OK) {
+            toast = toast + "\n";
+        	String problems[] = validator.describeProblem(main, element);
+        	if (problems.length != 0) {
+        	    for (String problem:problems) {
+        	        toast = toast + "\n" + problem;
+        	    }
+        	}
+        }
+        Snack.toastTopInfo(main, toast);
+    }
 	
 	/**
 	 * Edit currently selected elements.
@@ -244,12 +260,7 @@ public class EasyEditManager {
 				if (cb != null) {
 					main.startSupportActionMode(cb);
 					if (e != null) {
-						String toast = e.getDescription(main);
-						if (e.hasProblem(main)) {
-							String problem = e.describeProblem();
-							toast = !problem.equals("") ? toast + "\n" + problem : toast;
-						}
-						Snack.toastTopInfo(main, toast);
+		                  elementToast(e);
 					}
 				}
 			}
@@ -1872,8 +1883,7 @@ public class EasyEditManager {
 			} catch (OsmIllegalOperationException e) {
 				Snack.barError(main, e.getLocalizedMessage());
 			} catch (NotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			    Log.d(DEBUG_TAG,e.getMessage());
 			}
 			return true;
 		}

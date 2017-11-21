@@ -52,8 +52,8 @@ public class GeoUrlActivity extends Activity {
 				}
 				if (coords != null && coords.length >= 2 && wgs84) {
 					try {
-						double lat = Double.valueOf(coords[0]);
-						double lon = Double.valueOf(coords[1]);
+						double lat = Double.parseDouble(coords[0]);
+						double lon = Double.parseDouble(coords[1]);
 						if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
 							GeoUrlData geoData = new GeoUrlData();
 							geoData.setLat(lat);
@@ -61,8 +61,7 @@ public class GeoUrlActivity extends Activity {
 							intent.putExtra(GEODATA, geoData);
 						}
 					} catch (NumberFormatException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Log.d(DEBUG_TAG, "Coordinates " + coords[0] + "/" + coords[0] + " not parseable");
 					}
 				}
 			}

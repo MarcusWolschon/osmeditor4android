@@ -19,6 +19,7 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -30,6 +31,7 @@ import android.location.Location;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -57,6 +59,7 @@ import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongHashSet;
+import de.blau.android.validation.Validator;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.MapOverlayTilesOverlay;
 import de.blau.android.views.overlay.MapTilesOverlay;
@@ -93,6 +96,8 @@ public class Map extends View implements IMapView {
 	 * zoom level from which on we display icons and house numbers
 	 */
 	private static final int SHOW_ICONS_LIMIT = 15;
+
+    private static final int SHOW_LABEL_LIMIT = SHOW_ICONS_LIMIT + 5;
 	
 	/** half the width/height of a node icon in px */
 	private final int iconRadius;
@@ -242,6 +247,10 @@ public class Map extends View implements IMapView {
 	private Context context;
 	
 	private Rect canvasBounds;
+	
+	private Validator validator;
+
+    private Paint labelBackground;
 
 	@SuppressLint("NewApi")
 	public Map(final Context context) {
@@ -263,7 +272,7 @@ public class Map extends View implements IMapView {
 		
 		iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
 		houseNumberRadius = Density.dpToPx(HOUSE_NUMBER_RADIUS);
-		verticalNumberOffset = Density.dpToPx(3);
+		verticalNumberOffset = Density.dpToPx(HOUSE_NUMBER_RADIUS/2);
 		iconSelectedBorder = Density.dpToPx(2);
 		
 		// TODO externalize
@@ -271,6 +280,8 @@ public class Map extends View implements IMapView {
 		textPaint.setTypeface(Typeface.SANS_SERIF);
 		textPaint.setTextSize(Density.dpToPx(12));
 		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
+		
+		validator = App.getDefaultValidator(context);
 	}
 	
 	public void createOverlays(Context ctx)
@@ -401,9 +412,9 @@ public class Map extends View implements IMapView {
 		tmpPresets = App.getCurrentPresets(context);
 		tmpLocked = logic.isLocked();
 		
+		labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+			
 		inNodeIconZoomRange = zoomLevel > SHOW_ICONS_LIMIT;
-		
-		// handles = null; this forces creation of a new object, simply clear it in paintHandles after use
 		
 		// Draw our Overlays.
 		canvas.getClipBounds(canvasBounds);
@@ -451,8 +462,7 @@ public class Map extends View implements IMapView {
 		try {
 			myViewBox.setRatio(this, (float) w / h, true);
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -643,7 +653,9 @@ public class Map extends View implements IMapView {
 		text = "fps: " + fps;
 		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
 		text = "hardware acceleration: " + (myIsHardwareAccelerated(canvas) ? "on" : "off");
-		canvas.drawText(text, 5, getHeight() - textSize * pos, infotextPaint);
+		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
+	    text = "zoom level: " + zoomLevel;
+	    canvas.drawText(text, 5, getHeight() - textSize * pos, infotextPaint);
 	}
 	
 	/**
@@ -861,68 +873,89 @@ public class Map extends View implements IMapView {
 			}
 		}
 
-		String featureKey;
-		String featureKeyThin;
-		String featureKeyTagged;
+		String featureStyle;
+		String featureStyleThin;
+		String featureStyleTagged;
+		String featureStyleFont;
+		String featureStyleFontSmall;
 		if (isSelected && tmpDrawingInEditRange) {
 			// general node style
-			featureKey = DataStyle.SELECTED_NODE;
+			featureStyle = DataStyle.SELECTED_NODE;
 			// style for house numbers
-			featureKeyThin = DataStyle.SELECTED_NODE_THIN;
+			featureStyleThin = DataStyle.SELECTED_NODE_THIN;
 			// style for tagged nodes or otherwise important
-			featureKeyTagged = DataStyle.SELECTED_NODE_TAGGED;
+			featureStyleTagged = DataStyle.SELECTED_NODE_TAGGED;
+			// style for label text
+			featureStyleFont = DataStyle.LABELTEXT_NORMAL_SELECTED;
+			// style for small label text
+            featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
 			if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) { // don't draw large areas in multi-select mode
 				canvas.drawCircle(x, y, DataStyle.getCurrent().largDragToleranceRadius, DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
 			}
 		} else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
 			// general node style
-			featureKey = DataStyle.SELECTED_RELATION_NODE;
+			featureStyle = DataStyle.SELECTED_RELATION_NODE;
 			// style for house numbers
-			featureKeyThin = DataStyle.SELECTED_RELATION_NODE_THIN;
+			featureStyleThin = DataStyle.SELECTED_RELATION_NODE_THIN;
 			// style for tagged nodes or otherwise important
-			featureKeyTagged = DataStyle.SELECTED_RELATION_NODE_TAGGED;
+			featureStyleTagged = DataStyle.SELECTED_RELATION_NODE_TAGGED;
+			// style for label text
+            featureStyleFont = DataStyle.LABELTEXT_NORMAL;
+            // style for small label text
+            featureStyleFontSmall = DataStyle.LABELTEXT_SMALL;
 			isSelected = true;
-		} else if (node.hasProblem(context)) {
+		} else if (node.hasProblem(context, validator) != Validator.OK) {
 			// general node style
-			featureKey = DataStyle.PROBLEM_NODE;
+			featureStyle = DataStyle.PROBLEM_NODE;
 			// style for house numbers
-			featureKeyThin = DataStyle.PROBLEM_NODE_THIN;
+			featureStyleThin = DataStyle.PROBLEM_NODE_THIN;
 			// style for tagged nodes or otherwise important
-			featureKeyTagged = DataStyle.PROBLEM_NODE_TAGGED;
+			featureStyleTagged = DataStyle.PROBLEM_NODE_TAGGED;
+			// style for label text
+            featureStyleFont = DataStyle.LABELTEXT_NORMAL_PROBLEM;
+            // style for small label text
+            featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_PROBLEM;
 			hasProblem = true;
 		} else {
 			// general node style
-			featureKey = DataStyle.NODE;
+			featureStyle = DataStyle.NODE;
 			// style for house numbers
-			featureKeyThin = DataStyle.NODE_THIN;
+			featureStyleThin = DataStyle.NODE_THIN;
 			// style for tagged nodes or otherwise important
-			featureKeyTagged = DataStyle.NODE_TAGGED;
+			featureStyleTagged = DataStyle.NODE_TAGGED;
+			// style for label text
+            featureStyleFont = DataStyle.LABELTEXT_NORMAL;
+            // style for small label text
+            featureStyleFontSmall = DataStyle.LABELTEXT_SMALL;
 		}
 
 		boolean noIcon = true;		
 		boolean isTaggedAndInZoomLimit = isTagged && inNodeIconZoomRange;
 		
 		if (filterMode && !filteredObject) {
-			featureKey = DataStyle.HIDDEN_NODE;
-			featureKeyThin = featureKey;
-			featureKeyTagged = featureKey;
+			featureStyle = DataStyle.HIDDEN_NODE;
+			featureStyleThin = featureStyle;
+			featureStyleTagged = featureStyle;
 			isTaggedAndInZoomLimit = false;
 		}
 		
 		if (isTaggedAndInZoomLimit && showIcons) {
-			noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureKeyTagged : null);
+			noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureStyleTagged : null);
 			if (noIcon) {
 				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
 				if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-					paintHouseNumber(x,y,canvas,featureKeyThin,houseNumber);
+					paintHouseNumber(x, y, canvas, featureStyleThin, featureStyleFontSmall, houseNumber);
 					return;
 				}
-			} 
+			} else if (zoomLevel > SHOW_LABEL_LIMIT && node.hasTagKey(Tags.KEY_NAME)) {
+			    Paint p = DataStyle.getCurrent(DataStyle.NODE_TAGGED).getPaint();
+			    paintLabel(x, y, canvas, featureStyleFont, node, p.getStrokeWidth(), true);
+			}
 		}
 		
 		if (noIcon) { 
 			// draw regular nodes or without icons
-			Paint p = DataStyle.getCurrent(isTagged ? featureKeyTagged : featureKey).getPaint();
+			Paint p = DataStyle.getCurrent(isTagged ? featureStyleTagged : featureStyle).getPaint();
 			float strokeWidth = p.getStrokeWidth();
 			if (hwAccelarationWorkaround) { //FIXME we don't actually know if this is slower than drawPoint
 				canvas.drawCircle(x, y, strokeWidth/2, p);
@@ -930,7 +963,7 @@ public class Map extends View implements IMapView {
 				canvas.drawPoint(x, y, p);
 			}
 			if (isTaggedAndInZoomLimit) {
-				paintNodeLabel(x, y, canvas, featureKeyThin, strokeWidth, node);
+				paintLabel(x, y, canvas, featureStyleFont, node, strokeWidth, false);
 			}
 		}
 	}
@@ -941,13 +974,17 @@ public class Map extends View implements IMapView {
 	 * @param x					screen x
 	 * @param y					screen y
 	 * @param canvas			canvas we are drawing on
-	 * @param featureKeyThin	style to use for the housenumber
+	 * @param featureKeyThin	style to use for the housenumber circle
+	 * @param featureKeyFont    style to use for the housenumber number
 	 * @param houseNumber		the number as a string
 	 */
-    private void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin, final String houseNumber) {
-		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
-		canvas.drawCircle(x, y, houseNumberRadius, paint2);
-		canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2); 
+    private void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin, final String featureKeyFont, final String houseNumber) {
+        FeatureStyle fontStyle = DataStyle.getCurrent(featureKeyFont);
+        Paint fontPaint = fontStyle.getPaint();
+		Paint paint = DataStyle.getCurrent(featureKeyThin).getPaint();
+		canvas.drawCircle(x, y, houseNumberRadius, paint);
+		canvas.drawCircle(x, y, houseNumberRadius, labelBackground);
+		canvas.drawText(houseNumber, x - fontPaint.measureText(houseNumber) / 2, y + verticalNumberOffset, fontStyle.getPaint()); 
 	}
 	
 	/**
@@ -957,22 +994,24 @@ public class Map extends View implements IMapView {
 	 * @param y					screen y
 	 * @param canvas			canvas we are drawing on
 	 * @param featureKeyThin	style to use for the label
+	 * @param e                 the OsmElement
 	 * @param strokeWidth		current stroke scaling factor
-	 * @param node				the node we are drawing the label for
+	 * @param e				    the node we are drawing the label for
 	 */
-    private void paintNodeLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final float strokeWidth, final Node node) {
-		Paint paint2 = DataStyle.getCurrent(featureKeyThin).getPaint();
-		SortedMap<String, String> tags = node.getTags();
+    private void paintLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final OsmElement e, final float strokeWidth, final boolean withIcon) {
+        FeatureStyle fs = DataStyle.getCurrent(featureKeyThin);
+		Paint paint = fs.getPaint();
+		SortedMap<String, String> tags = e.getTags();
 		String label = labelCache.get(tags); // may be null!
 		if (label == null) {
 			if (!labelCache.containsKey(tags)) {
-				label = node.getTagWithKey(Tags.KEY_NAME);
+				label = e.getTagWithKey(Tags.KEY_NAME);
 				if (label == null && tmpPresets != null) { 
-					PresetItem match = Preset.findBestMatch(tmpPresets,node.getTags());
+					PresetItem match = Preset.findBestMatch(tmpPresets,e.getTags());
 					if (match != null) {
 						label = match.getTranslatedName();
 					} else {
-						label  = node.getPrimaryTag();
+						label  = e.getPrimaryTag();
 						// if label is still null, leave it as is
 					}
 				}
@@ -986,7 +1025,11 @@ public class Map extends View implements IMapView {
 				return;
 			}
 		}
-		canvas.drawText(label, x - (paint2.measureText(label) / 2), y + strokeWidth + 2*verticalNumberOffset, paint2);
+		float halfTextWidth = paint.measureText(label)/2;
+		FontMetrics fm = fs.getFontMetrics();
+		float yOffset = y + strokeWidth + (withIcon ? 2*iconRadius : iconRadius);
+		canvas.drawRect(x - halfTextWidth, yOffset + fm.bottom, x + halfTextWidth, yOffset - paint.getTextSize() + fm.bottom, labelBackground);
+		canvas.drawText(label, x - halfTextWidth, yOffset, paint);
 	}
 	
 	/**
@@ -1090,6 +1133,8 @@ public class Map extends View implements IMapView {
 	private void paintWay(ArrayList<Float>points, final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
 		float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
 		Paint paint;
+		String labelFontStyle = DataStyle.LABELTEXT_NORMAL;
+		String labelFontStyleSmall = DataStyle.LABELTEXT_SMALL;
 		
 		boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be a better idea to do so
 				&& tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way) ;
@@ -1107,7 +1152,7 @@ public class Map extends View implements IMapView {
 		
 		FeatureStyle fp; // no need to get the default here
 		
-		if (way.hasProblem(context)) {
+		if (way.hasProblem(context, validator) != Validator.OK) {
 			fp = DataStyle.getCurrent(DataStyle.PROBLEM_WAY);
 		} else {
 			fp = getAndSetStyle(way);
@@ -1121,12 +1166,14 @@ public class Map extends View implements IMapView {
 			canvas.drawLines(linePoints, paint);
 			paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
 			drawWayArrows(canvas, linePoints, false, paint, displayHandles && tmpDrawingSelectedWays.size()==1);
+			labelFontStyle = DataStyle.LABELTEXT_NORMAL_SELECTED;
+			labelFontStyleSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
 		} else if (isMemberOfSelectedRelation) {
 			FeatureStyle relationSelectedStyle = DataStyle.getCurrent(DataStyle.SELECTED_RELATION_WAY);
 			paint = relationSelectedStyle.getPaint();
 			paint.setStrokeWidth(fp.getPaint().getStrokeWidth()*relationSelectedStyle.getWidthFactor());
 			canvas.drawLines(linePoints, paint);
-		}
+		} 
 
 		int onewayCode = way.getOneway();
 		if (onewayCode != 0) {
@@ -1172,14 +1219,29 @@ public class Map extends View implements IMapView {
 			if (Util.notZero(A)) {
 				Y = Y/(3*A);
 				X = X/(3*A);
-				if (tmpPresets == null || !paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?DataStyle.SELECTED_NODE_TAGGED:null)) {
-					String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-					if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-						paintHouseNumber((float)X,(float)Y,canvas,isSelected?DataStyle.SELECTED_NODE_THIN:DataStyle.NODE_THIN,houseNumber);
-						return;
-					}
+				boolean iconDrawn = false;
+				if (tmpPresets != null) {
+				    iconDrawn = paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?DataStyle.SELECTED_NODE_TAGGED:null);
+				    boolean doLabel = false;
+				    if (!iconDrawn) {
+				        String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+				        if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
+				            paintHouseNumber((float)X, (float)Y, canvas,
+				                    isSelected?DataStyle.SELECTED_NODE_THIN:DataStyle.NODE_THIN,
+				                    labelFontStyleSmall,
+				                    houseNumber);
+				        } else {
+				            doLabel = way.hasTagKey(Tags.KEY_NAME);
+				        }
+				    } else {
+				        doLabel = zoomLevel > SHOW_LABEL_LIMIT && way.hasTagKey(Tags.KEY_NAME);
+				    }
+				    if (doLabel) {
+				        Paint p = DataStyle.getCurrent(DataStyle.SELECTED_NODE_TAGGED).getPaint();
+                        paintLabel((float)X, (float)Y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
+				    }
 				}
-			} 
+			}
 		}
 	}
 	
@@ -1533,8 +1595,7 @@ public class Map extends View implements IMapView {
 		try {
 			myViewBox.setRatio(this, (float) getWidth()/ getHeight(), false);
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Log.d(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -1597,7 +1658,7 @@ public class Map extends View implements IMapView {
 		
 		// Zoom out to the next integer step
 		int zoom = (int)Math.floor(Math.max(0, Math.min(xZoom, yZoom)));
-		zoom = Math.min(zoom, s.getMaxZoomLevel());	
+		// zoom = Math.min(zoom, s.getMaxZoomLevel());	
 		
 		return zoom;
 	}

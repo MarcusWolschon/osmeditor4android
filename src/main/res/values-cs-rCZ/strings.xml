@@ -54,6 +54,8 @@
   <string name="openstreetbug_comment_label">Komentář:</string>
   <string name="openstreetbug_edit_close">Uzavřít</string>
   <string name="openstreetbug_edit_closed">Uzavřeno</string>
+  <string name="openstreetbug_commit_ok">Změny chyb uloženy</string>
+  <string name="openstreetbug_commit_fail">Změny chyb nelze uložit</string>
   <string name="openstreetbug_not_downloaded">nestaženo</string>
   <string name="openstreetbug_last_updated">naposledy upraveno</string>
   <string name="unsaved_data_title">Pozor!</string>
@@ -83,6 +85,7 @@
   <string name="id">ID</string>
   <string name="nodes">Uzly</string>
   <string name="relation_membership">Člen relace</string>
+  <string name="problem">Problém</string>
   <string name="members">Členy</string>
   <string name="closed">Uzavřeno</string>
   <string name="version">Verze</string>
@@ -98,6 +101,7 @@
   <string name="evaluate">Spustit</string>
   <!--Toaster-->
   <string name="toast_no_changes">Zatím jste nic nezměnil…</string>
+  <string name="toast_unsaved_changes">Máte neuložené změny, nejdříve je prosím nahrajte.</string>
   <string name="toast_upload_success">Nahrávání na OSM server dokončeno.</string>
   <string name="toast_not_in_edit_range">Prosím přibližte mapu pro editaci (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Pro editaci odemkněte</string>
@@ -113,6 +117,7 @@
   <string name="toast_potential_merge_tag_conflict">Pokoušíte se sloučit prvky, které mají konfliktní hodnoty tagů. Nejprve zkontrolujte a opravte tagy a poté to zkuste znovu.</string>
   <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
   <string name="toast_photo_indexing_finished">Hledání fotografií s georeferencemi ukončeno</string>
+  <string name="toast_download_failed">Stahování se nezdařilo s kódem chyby %1$d, %2$s</string>
   <string name="toast_notype">Relaci chybí typ</string>
   <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_oauth_not_enabled">OAuth není povolen pro současné API.</string>
@@ -146,6 +151,7 @@
   <string name="replace">Nahradit</string>
   <string name="save">Uložit</string>
   <string name="back">Zpět</string>
+  <string name="forward">Vpřed</string>
   <string name="keep">Zachovat</string>
   <string name="enable">Povolit</string>
   <string name="clear">Smazat</string>
@@ -499,6 +505,7 @@
   <string name="pref_acra_disabled">Hlášení pádů zakázáno</string>
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="alert_data_issue">Zjištěn problém s OSM daty</string>
   <string name="bearing_ne">SV</string>
   <string name="bearing_e">V</string>
   <string name="bearing_se">JV</string>

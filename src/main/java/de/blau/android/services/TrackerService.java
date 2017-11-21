@@ -59,6 +59,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
+import de.blau.android.validation.Validator;
 
 public class TrackerService extends Service implements LocationListener, NmeaListener, Exportable {
 
@@ -123,6 +124,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
 	private ConnectivityManager connectivityManager;
 
+	private Validator validator;
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -131,6 +134,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		prefs = new Preferences(this); 
+		validator = App.getDefaultValidator(this);
 	}
 
 	@Override
@@ -363,7 +367,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 		if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only attempt to download if we have a network
 			if (downloading) {
-				autoDownload(location);
+				autoDownload(location, validator);
 			}
 			if (downloadingBugs) {
 				bugAutoDownload(location);
@@ -716,7 +720,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 							NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 							if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only attempt to download if we have a network
 								if (downloading) {
-									autoDownload(new Location(nmeaLocation));
+									autoDownload(new Location(nmeaLocation), validator);
 								}
 								if (downloadingBugs) {
 									bugAutoDownload(new Location(nmeaLocation));
@@ -888,7 +892,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		}
 	}
 
-	private void autoDownload(Location location) {
+	private void autoDownload(Location location, Validator validator) {
 		// some heuristics for now to keep downloading to a minimum
 		// speed needs to be <= 6km/h (aka brisk walking speed) 
 		int radius = prefs.getDownloadRadius();
@@ -907,7 +911,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						}
 						storageDelegator.addBoundingBox(b);  // will be filled once download is complete
 						Log.d(TAG,"getNextCenter loading " + b.toString());
-						App.getLogic().autoDownloadBox(this,prefs.getServer(), b); 
+						App.getLogic().autoDownloadBox(this,prefs.getServer(), validator, b); 
 					}
 				}
 				previousLocation  = location;

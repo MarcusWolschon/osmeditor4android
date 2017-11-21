@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
@@ -35,6 +36,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -878,8 +880,10 @@ public class RelationMembersFragment extends BaseFragment implements
 	
 	/**
 	 * Return the view we have our rows in and work around some android craziness
-	 * @return
+	 * 
+	 * @return the row container view
 	 */
+	@NonNull
 	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
@@ -891,14 +895,16 @@ public class RelationMembersFragment extends BaseFragment implements
 				v = v.findViewById(R.id.members_vertical_layout);
 				if (v == null) {
 					Log.d(DEBUG_TAG,"didn't find R.id.members_vertical_layout");
+					throw new UiStateException("didn't find R.id.members_vertical_layout");
 				}  else {
 					Log.d(DEBUG_TAG,"Found members_vertical_layout");
 				}
 				return v;
 			}
 		} else {
-			Log.d(DEBUG_TAG,"got null view in getView");
+	         // given that this is always fatal might as well throw the exception here
+            Log.d(DEBUG_TAG,"got null view in getView");
+            throw new UiStateException("got null view in getView");
 		}
-		return null;
 	}
 }

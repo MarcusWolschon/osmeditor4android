@@ -12,6 +12,7 @@ import java.util.Set;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
@@ -38,6 +39,7 @@ import android.widget.Spinner;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
@@ -494,10 +496,6 @@ public class RelationMembershipFragment extends BaseFragment implements
 	 */
 	private void processParentRelations(final ParentRelationHandler handler) {
 		LinearLayout membershipVerticalLayout = (LinearLayout) getOurView();
-		if (membershipVerticalLayout == null) {
-			Log.e(DEBUG_TAG,"unable to process parent relations");
-			return;
-		}
 		final int size = membershipVerticalLayout.getChildCount();
 		for (int i = 0; i < size; ++i) { 
 			View view = membershipVerticalLayout.getChildAt(i);
@@ -606,8 +604,10 @@ public class RelationMembershipFragment extends BaseFragment implements
 	
 	/**
 	 * Return the view we have our rows in and work around some android craziness
-	 * @return
+	 * 
+	 * @return the row container view
 	 */
+	@NonNull
 	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
@@ -619,14 +619,16 @@ public class RelationMembershipFragment extends BaseFragment implements
 				v = v.findViewById(R.id.membership_vertical_layout);
 				if (v == null) {
 					Log.d(DEBUG_TAG,"didn't find R.id.membership_vertical_layout");
+					throw new UiStateException("didn't find R.id.membership_vertical_layout");
 				}  else {
 					Log.d(DEBUG_TAG,"Found R.id.membership_vertical_layoutt");
 				}
 				return v;
 			}
 		} else {
-			Log.d(DEBUG_TAG,"got null view in getView");
+	        // given that this is always fatal might as well throw the exception here
+            Log.d(DEBUG_TAG,"got null view in getView");
+            throw new UiStateException("got null view in getView");
 		}
-		return null;
 	}
 }

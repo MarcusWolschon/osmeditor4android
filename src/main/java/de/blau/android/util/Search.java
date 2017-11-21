@@ -57,6 +57,7 @@ import okhttp3.ResponseBody;
  *
  */
 public class Search {
+    static final String DEBUG_TAG = "Search";
 	
 	private AppCompatActivity activity;
 
@@ -143,10 +144,11 @@ public class Search {
 				Snack.barInfo(activity, R.string.toast_nothing_found);
 			}
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		} catch (ExecutionException e) {
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		} catch (TimeoutException e) {
+		    Log.e(DEBUG_TAG,e.getMessage());
 			Snack.barError(activity, R.string.toast_timeout);
 		}
 	}
@@ -248,9 +250,9 @@ public class Search {
 					return result;
 				}
 			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
+			    Log.e(DEBUG_TAG,e.getMessage());
 			} catch (IOException e) {
-				e.printStackTrace();
+			    Log.e(DEBUG_TAG,e.getMessage());
 			} finally {
 				SavingHelper.close(responseBody);
 				SavingHelper.close(reader);
@@ -278,7 +280,7 @@ public class Search {
 			reader.endObject();
 			return result;
 		} catch (IOException e) {
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 		return null;
 	}
@@ -353,9 +355,9 @@ public class Search {
 					return result;
 				}
 			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
+			    Log.e(DEBUG_TAG,e.getMessage());
 			} catch (IOException e) {
-				e.printStackTrace();
+			    Log.e(DEBUG_TAG,e.getMessage());
 			} finally {
 		        SavingHelper.close(inputStream);
 		        SavingHelper.close(responseBody);
@@ -432,7 +434,7 @@ public class Search {
 				return result;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 		return null;
 	}

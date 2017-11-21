@@ -25,12 +25,12 @@ Most current JOSM presets can be found in this list [http://josm.openstreetmap.d
 
 Some potentially useful ones for direct download (these links automatically configure a new preset entry and will only work on your device with Vespucci installed):
 
- * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip.zip%3fraw=true">Update of default preset</a>
- * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip_no_translations.zip%3fraw=true">Default preset without translations</a>
+ * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip.zip%3fraw=true&presetname=Updated default preset">Update of default preset</a>
+ * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip_no_translations.zip%3fraw=true&presetname=Default preset without translations">Default preset without translations</a>
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3fpage=Presets/LaneAttributes%26zip=1&presetname=Lane tagging">Presets for lane tagging</a>
  * <a href="vespucci://preset/?preseturl=http://zibi.openstreetmap.org.pl/kendzi/k/Simple3dPreset/s3db-preset.zip&presetname=Simple 3D building properties">Presets for Simple 3D building properties</a>
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging">Presets for Simple Indoor Tagging</a>
- * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/military-preset/raw/gh-pages/gen/military.zip">Presets for military objects</a>
+ * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/military-preset/raw/gh-pages/gen/military.zip&presetname=Military objects">Presets for military objects</a>
 
 Note: if you want to replace the default presets with one of the above you will need to disable it in the preferences after installing the replacement.
 

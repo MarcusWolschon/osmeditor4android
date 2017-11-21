@@ -215,6 +215,9 @@ public class Tags {
 	public static final String KEY_HEALTHCARE = "healthcare";
 	public static final String KEY_XMAS_FEATURE = "xmas:feature";
 	
+	// disabled access
+	public static final String KEY_WHEELCHAIR = "wheelchair";
+	
 	// more QA keys
 	public static final String KEY_CHECK_DATE = "check_date";
 	public static final String CHECK_DATE_FORMAT = "yyyy-MM-dd";
@@ -229,20 +232,6 @@ public class Tags {
 		KEY_TOURISM,KEY_HISTORIC,KEY_LANDUSE,KEY_MILITARY,KEY_NATURAL,KEY_BOUNDARY,KEY_TYPE,KEY_ENTRANCE,
 		KEY_PIPELINE,KEY_HEALTHCARE,KEY_XMAS_FEATURE)));
 
-	/**
-	 * Tags for objects that should be re-surveyed regularly.
-	 */
-	protected static final Map<String,String> RESURVEY_TAGS = new HashMap<String, String>();
-	static {
-		RESURVEY_TAGS.put(KEY_SHOP,null);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_RESTAURANT);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_FAST_FOOD);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_CAFE);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_PUB);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_BAR);
-		RESURVEY_TAGS.put(KEY_AMENITY,VALUE_TOILETS);
-	}
-	
 	/**
 	 * Private constructor to avoid getting a public one
 	 */

@@ -2,6 +2,7 @@ package de.blau.android.propertyeditor;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset;
@@ -203,8 +205,10 @@ public class RecentPresetsFragment extends BaseFragment {
     	
 	/**
 	 * Return the view we have our rows in and work around some android craziness
-	 * @return
+	 * 
+	 * @return the row container view
 	 */
+	@NonNull
 	private View getOurView() {
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
@@ -215,16 +219,18 @@ public class RecentPresetsFragment extends BaseFragment {
 			} else {
 				v = v.findViewById(R.id.recentpresets_layout);
 				if (v == null) {
-					Log.d(DEBUG_TAG,"didn't find R.id.recentpresets_layoutt");
+					Log.d(DEBUG_TAG,"didn't find R.id.recentpresets_layout");
+					throw new UiStateException("didn't find R.id.recentpresets_layoutt");
 				}  else {
 					Log.d(DEBUG_TAG,"Found R.id.recentpresets_layout");
 				}
 				return v;
 			}
 		} else {
-			Log.d(DEBUG_TAG,"got null view in getView");
+	        // given that this is always fatal might as well throw the exception here
+            Log.d(DEBUG_TAG,"got null view in getView");
+            throw new UiStateException("got null view in getView");
 		}
-		return null;
 	}
 	
 	void enable() {

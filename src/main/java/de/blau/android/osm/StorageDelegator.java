@@ -163,8 +163,8 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementSafe(elem);
 			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
 		} catch (StorageException e) {
-			// TODO handle OOMk
-			e.printStackTrace();
+			// TODO handle OOM
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -181,8 +181,8 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementUnsafe(elem);
 			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
 		} catch (StorageException e) {
-			// TODO handle OOMk
-			e.printStackTrace();
+			// TODO handle OOM
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -206,7 +206,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				onElementChanged(null, elem);
 			} catch (StorageException e) {
 				// TODO handle OOM
-				e.printStackTrace();
+			    Log.e(DEBUG_TAG,e.getMessage());
 			}
 		}
 	}
@@ -273,6 +273,14 @@ public class StorageDelegator implements Serializable, Exportable {
 		imageryRecorded = recorded;
 	}
 
+	public void resetProblems() {
+        for (OsmElement e:currentStorage.getElements()) {
+            e.resetHasProblem();
+        }
+        for (OsmElement e:apiStorage.getElements()) {
+            e.resetHasProblem();
+        }
+	}
 	
 	/**
 	 * Create apiStorage (aka the changes to the original data) based on state field of the elements.
@@ -321,8 +329,8 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 			getFactory().setIdSequences(minNodeId, minWayId, minRelationId);
 		} catch (StorageException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    // FIXME do something reasonable
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -386,7 +394,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -411,7 +419,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -435,7 +443,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -457,7 +465,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, node);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -498,7 +506,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, new ArrayList<OsmElement>(nodes));
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -554,7 +562,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, new ArrayList<OsmElement>(nodes));
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -734,7 +742,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, new ArrayList<OsmElement>(save));
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -833,7 +841,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, new ArrayList<OsmElement>(nodes));
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -864,7 +872,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -935,9 +943,9 @@ public class StorageDelegator implements Serializable, Exportable {
 		Log.d("StorageDelegator","nodesForNewWay " + nodesForNewWay.size() + " oldNodes1 " + nodesForOldWay1.size() + " oldNodes2 " + nodesForOldWay2.size());
 		List<Node> oldNodes = way.getNodes();
 		oldNodes.clear();
-		if (nodesForOldWay1.size() == 0) {
+		if (!nodesForOldWay1.isEmpty()) {
 			oldNodes.addAll(nodesForOldWay2);
-		} else if (nodesForOldWay2.size() == 0) {
+		} else if (!nodesForOldWay2.isEmpty()) {
 			oldNodes.addAll(nodesForOldWay1);
 		} else if (nodesForOldWay1.get(0) == nodesForOldWay2.get(nodesForOldWay2.size()-1)) {
 			oldNodes.addAll(nodesForOldWay2);
@@ -992,7 +1000,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			return result;
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 		return null;
 	}
@@ -1114,7 +1122,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			return newWay;
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 			return null;
 		}
 	}	
@@ -1232,7 +1240,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			reverseWayNodeTags(newNodes);
 			Collections.reverse(newNodes);
 		} else {
-			throw new RuntimeException("attempted to merge non-mergeable nodes. this is a bug.");
+			throw new OsmIllegalOperationException("attempted to merge non-mergeable nodes. this is a bug.");
 		}
 		
 		// merge tags (after any reversal has been done)
@@ -1272,7 +1280,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					apiStorage.insertElementSafe(n);
 				} catch (StorageException e) {
 					//TODO handle OOM
-					e.printStackTrace();
+				    Log.e(DEBUG_TAG,e.getMessage());
 				}
 			}
 		}
@@ -1301,7 +1309,7 @@ public class StorageDelegator implements Serializable, Exportable {
 						return true;
 					}
 				} else {
-					Log.d(DEBUG_TAG,"inconsistent relation membership in " + r.getOsmId() + " for " + o1.getOsmId() + " and " + o2.getOsmId());
+					Log.e(DEBUG_TAG,"inconsistent relation membership in " + r.getOsmId() + " for " + o1.getOsmId() + " and " + o2.getOsmId());
 					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(null);
 					return true;
@@ -1378,7 +1386,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -1389,7 +1397,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	public Node replaceNode(final  Node node) {
 		List<Way> ways = currentStorage.getWays(node);
-		if (ways.size() > 0) {
+		if (!ways.isEmpty()) {
 			Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
 			insertElementUnsafe(newNode);
 			dirty = true;
@@ -1427,7 +1435,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					apiStorage.insertElementSafe(r);
 				} catch (StorageException e) {
 					// TODO handle OOM
-					e.printStackTrace();
+				    Log.e(DEBUG_TAG,e.getMessage());
 				}
 			}
 		}
@@ -1437,7 +1445,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 		return (dirTags != null || dirRelations != null || dirNodeTags);
 	}
@@ -1452,7 +1460,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, way);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -1484,7 +1492,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, changedElements);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 		return deleted;
 	}
@@ -1512,7 +1520,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 
@@ -1539,7 +1547,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged((List<OsmElement>)null, (List<OsmElement>)null);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -1585,7 +1593,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -1608,7 +1616,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, r);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 	}
 	
@@ -1626,7 +1634,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, r);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 		//
 		Log.i("StorageDelegator", "... done");
@@ -1655,7 +1663,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, rel);
 		} catch (StorageException sex) {
 			//TODO handle OOM
-			sex.printStackTrace();
+		    Log.e(DEBUG_TAG,sex.getMessage());
 		}
 	}
 	
@@ -1683,7 +1691,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, rel);
 		} catch (StorageException sex) {
 			//TODO handle OOM
-			sex.printStackTrace();
+		    Log.e(DEBUG_TAG,sex.getMessage());
 		}
 	}
 	
@@ -1715,7 +1723,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, rel);
 		} catch (StorageException sex) {
 			//TODO handle OOM
-			sex.printStackTrace();
+		    Log.e(DEBUG_TAG,sex.getMessage());
 		}
 	}
 	
@@ -1744,7 +1752,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, rel);
 		} catch (StorageException sex) {
 			//TODO handle OOM
-			sex.printStackTrace();
+		    Log.e(DEBUG_TAG,sex.getMessage());
 		}
 		Log.w("StorageDelegator", "set role for #" + e.getOsmId() + " to " + role + " in relation #" + rel.getOsmId());
 	}
@@ -1775,7 +1783,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			onElementChanged(null, rel);
 		} catch (StorageException e) {
 			//TODO handle OOM
-			e.printStackTrace();
+		    Log.e(DEBUG_TAG,e.getMessage());
 		}
 		Log.w("StorageDelegator", "set role for #" + elementId+ " to " + role + " in relation #" + rel.getOsmId());
 	}
@@ -1878,8 +1886,8 @@ public class StorageDelegator implements Serializable, Exportable {
 				apiStorage.insertElementSafe(r);
 				onElementChanged(null, r);
 			} catch (StorageException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// TODO Handle OOM
+			    Log.e(DEBUG_TAG,e.getMessage());
 			}
 		} else {
 			undo.remove(r); // nothing changed
@@ -2190,8 +2198,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					try {
 						currentStorage.setBoundingBox(currentStorage.calcBoundingBoxFromData());
 					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					    Log.e(DEBUG_TAG,e.getMessage());
 					}
 				}
 				apiStorage = newDelegator.apiStorage;
@@ -2233,11 +2240,12 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * Upload created, modified and deleted data in diff format
 	 * 
-	 * @param server Server to upload changes to.
-	 * @param comment Changeset comment.
-	 * @param source 
-	 * @param closeChangeset
+	 * @param server           Server to upload changes to.
+	 * @param comment          Changeset comment tag
+	 * @param source           Checngeset source tag
+	 * @param closeChangeset   if true close the Changeset
 	 * @throws MalformedURLException
 	 * @throws ProtocolException
 	 * @throws OsmServerException
@@ -2250,7 +2258,8 @@ public class StorageDelegator implements Serializable, Exportable {
 		// upload methods set dirty flag too, in case the file is saved during an upload
 		boolean split = getApiElementCount() > server.getCapabilities().maxElementsInChangeset;
 		int part = 1;
-		while (getApiElementCount() > 0) {
+		int elementCount = getApiElementCount();
+		while (elementCount > 0) {
 			String tmpSource = source;
 			if (split) {
 				tmpSource = source + " [" + part + "]";
@@ -2268,6 +2277,15 @@ public class StorageDelegator implements Serializable, Exportable {
 				server.closeChangeset();
 			}
 			part++;
+			int currentElementCount = getApiElementCount();
+			if (currentElementCount < elementCount) {
+			    elementCount = currentElementCount;
+			} else { 
+			    // element count didn't do anything, that should cause an exception to be
+			    // thrown in diffUpload, but it is conceivable that that doesn't happen
+			    Log.e(DEBUG_TAG,"Upload had no effect, API element count " + elementCount);
+			    throw new ProtocolException("Upload had no effect");
+			}
 		}
 		// yes, again, just to be sure
 		dirty = true;
@@ -2275,11 +2293,6 @@ public class StorageDelegator implements Serializable, Exportable {
 		// reset imagery recording for next upload
 		imagery = new ArrayList<String>();
 		setImageryRecorded(false);
-		
-		// sanity check
-		if (!apiStorage.isEmpty()) {
-			Log.d(DEBUG_TAG, "apiStorage not empty");
-		}
 	}
 	
 	/**

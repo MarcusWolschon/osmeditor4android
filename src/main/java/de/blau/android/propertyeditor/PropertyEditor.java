@@ -47,6 +47,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
@@ -62,6 +63,8 @@ import de.blau.android.views.ExtendedViewPager;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
+ * 
+ * THe Editor does not directly edit the original tags or relation memberships which makes the code fairly and perhaps unnecessarily complex
  * 
  * @author mb
  * @author simon
@@ -80,6 +83,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	private static final String TAGEDIT_SHOW_PRESETS = "showPresets";
 	private static final String TAGEDIT_ASK_FOR_NAME = "askForName";
 	private static final String TAGEDIT_EXTRA_TAGS = "extra";
+	private static final String TAGEDIT_PRESETSTOAPPLY = "presetsToApply";
 
 	
 	/** The layout containing the edit rows */
@@ -122,6 +126,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	private boolean showPresets = false;
 	private boolean askForName = false;
 	private HashMap<String,String> extraTags = null;
+	private ArrayList<PresetElementPath> presetsToApply = null;
 	
 	/**
 	 * Handles "enter" key presses.
@@ -168,20 +173,34 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	private boolean usePaneLayout = false;
 	private boolean isRelation = false;
 
+	/**
+	 * Start a PropertyEditor activity
+	 * 
+	 * @param activity				calling activity
+	 * @param dataClass				the tags and relation memberships that should be edited
+	 * @param predictAddressTags	try to predict address tags
+	 * @param showPresets			show the preset tab first
+	 * @param askForName			ask for a name for auto-generating tags
+	 * @param extraTags				additional tags that should be added
+	 * @param presetItems			presets that should be applied
+	 * @param requestCode			request code for the response
+	 */
 	public static void startForResult(@NonNull Activity activity,
 									  @NonNull PropertyEditorData[] dataClass,
-									  boolean applyLastTags,
+									  boolean predictAddressTags,
 									  boolean showPresets,
 									  boolean askForName, 
 									  HashMap<String,String> extraTags,
+									  ArrayList<PresetElementPath> presetItems,
 									  int requestCode) {
 		Log.d(DEBUG_TAG, "startForResult");
 		Intent intent = new Intent(activity, PropertyEditor.class);
 		intent.putExtra(TAGEDIT_DATA, dataClass);
-		intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastTags));
+		intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(predictAddressTags));
 		intent.putExtra(TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
 		intent.putExtra(TAGEDIT_ASK_FOR_NAME, Boolean.valueOf(askForName));
 		intent.putExtra(TAGEDIT_EXTRA_TAGS, extraTags);
+		intent.putExtra(TAGEDIT_PRESETSTOAPPLY, presetItems);
 		activity.startActivityForResult(intent, requestCode);
 	}
 	
@@ -210,6 +229,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			showPresets = (Boolean)getIntent().getSerializableExtra(TAGEDIT_SHOW_PRESETS);
 			askForName = (Boolean)getIntent().getSerializableExtra(TAGEDIT_ASK_FOR_NAME);
 			extraTags = (HashMap<String,String>)getIntent().getSerializableExtra(TAGEDIT_EXTRA_TAGS);
+			presetsToApply = (ArrayList<PresetElementPath>)getIntent().getSerializableExtra(TAGEDIT_PRESETSTOAPPLY);
 			usePaneLayout = Util.isLandscape(this);
 		} else {
 			// Restore activity from saved state
@@ -311,7 +331,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			if (presetFragment != null) {
 				ft.remove(presetFragment);
 			}
-			presetFragment = PresetFragment.newInstance(elements[0],true); // FIXME collect tags
+			presetFragment = PresetFragment.newInstance(elements[0], presetsToApply, true); // FIXME collect tags
 			ft.add(R.id.preset_row,presetFragment,PRESET_FRAGMENT);
 			
 			ft.commit();
@@ -440,7 +460,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    
 	    Fragment tagEditorFragment(int position, boolean displayRecentPresets) {
 	    	tagEditorFragmentPosition = position;
-	    	tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets, extraTags);
+	    	tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets, extraTags, presetsToApply);
 			return tagEditorFragment;
 	    }
 	    
@@ -472,7 +492,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    			switch(position) {
 	    			case 0: 
 	    				if (instantiate) {
-	    					presetFragment = PresetFragment.newInstance(elements[0], false); // 
+	    					presetFragment = PresetFragment.newInstance(elements[0], presetsToApply, false); // 
 	    				}
 	    				return presetFragment;
 	    			case 1: 		
@@ -501,7 +521,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	    			switch(position) {
 	    			case 0: 
 	    				if (instantiate) {
-	    					presetFragment = PresetFragment.newInstance(elements[0], false); // 
+	    					presetFragment = PresetFragment.newInstance(elements[0], presetsToApply, false); // 
 	    				}
 	    				return presetFragment;
 	    			case 1: 		

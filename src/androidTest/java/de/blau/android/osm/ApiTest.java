@@ -49,13 +49,14 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
+import de.blau.android.validation.Validator;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ApiTest {
 	
-	static final int TIMEOUT = 90;
+	public static final int TIMEOUT = 90;
 	MockWebServerPlus mockServer = null;
 	Context context = null;
 	AdvancedPrefDatabase prefDB = null;
@@ -171,7 +172,7 @@ public class ApiTest {
     	Assert.assertNotNull(t);
     	Assert.assertTrue(t.hasTag("amenity", "toilets"));
     	Assert.assertEquals(1429452889,t.getTimestamp()); // 2015-04-19T14:14:49Z
-    	Assert.assertTrue(t.hasProblem(main));
+    	Assert.assertTrue(t.hasProblem(main, App.getDefaultValidator(main)) != Validator.OK);
 	}
     
     @Test
@@ -386,6 +387,47 @@ public class ApiTest {
 			return;
 		} 
 		Assert.fail("Expected error " + code);
+	}
+	
+	@Test
+	public void dataUploadErrorInResult() {
+	    final CountDownLatch signal = new CountDownLatch(1);
+	    Logic logic = App.getLogic();
+
+	    ClassLoader loader = Thread.currentThread().getContextClassLoader();
+	    InputStream is = loader.getResourceAsStream("test1.osm");
+	    logic.readOsmFile(main, is, false, new SignalHandler(signal));
+	    try {
+	        signal.await(TIMEOUT, TimeUnit.SECONDS);
+	    } catch (InterruptedException e) {
+	        Assert.fail(e.getMessage());
+	    }
+	    Assert.assertEquals(App.getDelegator().getApiElementCount(),32);
+	    Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+	    Assert.assertNotNull(n);
+	    Assert.assertEquals(n.getState(), OsmElement.STATE_MODIFIED);
+
+	    mockServer.enqueue("capabilities1");
+	    mockServer.enqueue("changeset1");
+	    mockServer.enqueue("upload5");
+	    mockServer.enqueue("close_changeset");
+	    mockServer.enqueue("changeset1");
+	    mockServer.enqueue("upload6");
+	    mockServer.enqueue("close_changeset");
+
+	    final Server s = new Server(context, prefDB.getCurrentAPI(),"vesupucci test");
+	    try {
+	        App.getDelegator().uploadToServer(s, "TEST", "none", true);
+	        Assert.fail("Expected ProtocolException");
+	    } catch (ProtocolException e) {
+        } catch (OsmServerException e) {
+	        Assert.fail(e.getMessage());
+	    } catch (MalformedURLException e) {
+	        Assert.fail(e.getMessage());
+	    } catch (IOException e) {
+	        Assert.fail(e.getMessage());
+	    }
+	    Assert.assertEquals(1, App.getDelegator().getApiElementCount());
 	}
 
 	@Test

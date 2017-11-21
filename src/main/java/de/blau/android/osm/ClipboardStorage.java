@@ -8,6 +8,7 @@ import android.util.Log;
 import de.blau.android.exception.StorageException;
 
 public class ClipboardStorage implements Serializable  {
+    final static String DEBUG_TAG = "ClipboardStorage";
 	
 	/**
 	 * 
@@ -57,7 +58,7 @@ public class ClipboardStorage implements Serializable  {
 			storage.insertElementUnsafe(e);
 		} catch (StorageException sex) {
 			// TODO handle oom situation
-			sex.printStackTrace();
+		    Log.d(DEBUG_TAG,sex.getMessage());
 		}
 	}
 	

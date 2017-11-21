@@ -414,7 +414,6 @@ public class Track extends DefaultHandler {
 			start(is);
 		} catch (Exception e) {
 			Log.e("Track", "importFromGPX failed " + e);
-			e.printStackTrace();
 		}
 	}
 	

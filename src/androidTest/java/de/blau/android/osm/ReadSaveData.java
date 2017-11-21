@@ -25,6 +25,7 @@ import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -105,12 +106,13 @@ public class ReadSaveData {
      * @return true if "the same"
      */
     private boolean dataIsSame(byte[] correctContent, byte[] testContent) {
-        if (correctContent.length == testContent.length) { // this will fail is more than the build changes
-            for (int i=0;i<correctContent.length;i++) {
-                if (correctContent[i]!=testContent[i]) {
-                    if (i < 72 || i > 75) {
-                        return false;
-                    }
+        int oldVersionLength = 12;
+        int offset = context.getString(R.string.app_version).length() - oldVersionLength; 
+        if (correctContent.length == testContent.length - offset) { // this will fail is more than the build changes
+            for (int i=77 + offset;i<correctContent.length;i++) {
+                if (correctContent[i-offset]!=testContent[i]) {
+                    System.out.println("Files differ at position " + i + " offset " + offset);
+                    return false;
                 }
             }
             return true;

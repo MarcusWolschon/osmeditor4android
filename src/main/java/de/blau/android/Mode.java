@@ -1,14 +1,19 @@
 package de.blau.android;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import de.blau.android.filter.CorrectFilter;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.IndoorFilter;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElementPath;
 
 /**
  * Enums for modes.
@@ -18,15 +23,15 @@ public enum Mode {
 	/**
 	 * edit geometries in "easyedit" mode
 	 */
-	MODE_EASYEDIT("EASY", true, true, true, null, R.drawable.unlocked_white, null),
+	MODE_EASYEDIT(R.string.mode_easy, "EASY", true, true, true, true, null, R.drawable.unlocked_white, new FilterModeConfig()),
 	/**
 	 * tag edit only mode
 	 */
-	MODE_TAG_EDIT("TAG", true, true, false, null, R.drawable.unlocked_tag_white, null),
+	MODE_TAG_EDIT(R.string.mode_tag_only, "TAG", true, true, false, true, null, R.drawable.unlocked_tag_white, new FilterModeConfig()),
 	/**
 	 * Background alignment mode
 	 */
-	MODE_ALIGN_BACKGROUND("EASY",false,false,false, MODE_EASYEDIT, R.drawable.unlocked_white, new ModeConfig() {
+	MODE_ALIGN_BACKGROUND(R.string.mode_easy, "EASY", false, false, false, false, MODE_EASYEDIT, R.drawable.unlocked_white, new ModeConfig() {
 		@Override
 		public void setup(Main main, Logic logic) {
 			if (main.getBackgroundAlignmentActionModeCallback() == null) {
@@ -45,14 +50,14 @@ public enum Mode {
 		}
 
 		@Override
-		public Preset getPreset(Logic logic, OsmElement e) {
+		public ArrayList<PresetElementPath> getPresetItems(Context ctx, OsmElement e) {
 			return null;
 		}
 	}),
 	/**
 	 * Indoor mode
 	 */
-	MODE_INDOOR("INDOOR",true,true,true, null, R.drawable.unlocked_indoor_white, new ModeConfig() {
+	MODE_INDOOR(R.string.mode_indoor, "INDOOR", true, true, true, false, null, R.drawable.unlocked_indoor_white, new ModeConfig() {
 
 		@Override
 		public void setup(final Main main, final Logic logic) {
@@ -121,29 +126,138 @@ public enum Mode {
 		}
 
 		@Override
-		public Preset getPreset(Logic logic, OsmElement e) {
-			// TODO Auto-generated method stub
+		public ArrayList<PresetElementPath> getPresetItems(Context ctx, OsmElement e) {
+			return null; 
+		}
+	}),
+	
+	MODE_CORRECT(R.string.mode_correct, "CORRECT", true, true, true, false, null, R.drawable.unlocked_correct_white, new ModeConfig() {
+
+		@Override
+		public void setup(final Main main, final Logic logic) {
+			Filter.Update updater = new Filter.Update() {
+				@Override
+				public void execute() {
+					logic.invalidateMap();
+					main.scheduleAutoLock();
+				} };
+			Filter filter = logic.getFilter();
+			if (filter!=null) {
+				if (!(filter instanceof CorrectFilter)) {
+					filter.saveState();
+					filter.hideControls();
+					filter.removeControls();
+					CorrectFilter complete = new CorrectFilter();
+					complete.saveFilter(filter);
+					logic.setFilter(complete);
+					complete.addControls(main.getMapLayout(), updater);
+				}
+			} else { // no filter yet
+				logic.setFilter(new CorrectFilter());
+				logic.getFilter().addControls(main.getMapLayout(), updater);
+			}
+			logic.getFilter().showControls();
+			logic.deselectAll();			
+		}
+
+		@Override
+		public void teardown(final Main main, final Logic logic) {
+			Filter.Update updater = new Filter.Update() {
+				@Override
+				public void execute() {
+					logic.invalidateMap();
+					main.scheduleAutoLock();
+				} };
+			
+			// indoor mode is a special case of a filter
+			// needs to be removed here and previous filter, if any, restored
+			Filter filter = logic.getFilter();
+			if (filter!=null) { 
+				if (filter instanceof CorrectFilter) {
+					filter.saveState();
+					filter.hideControls();
+					filter.removeControls();
+					filter = filter.getSavedFilter();
+					logic.setFilter(filter);
+					if (filter!=null) {
+						filter.addControls(main.getMapLayout(), updater);
+						filter.showControls();
+					}
+				}
+			} 	
+		}
+
+		@Override
+		public ArrayList<PresetElementPath> getPresetItems(Context ctx, OsmElement e) {
+			ArrayList<PresetElementPath>result = new ArrayList<PresetElementPath>();
+			Preset[] presets = App.getCurrentPresets(ctx);
+			if (presets.length > 0 && presets[0] != null) {
+			    PresetItem pi = Preset.findBestMatch(presets, e.getTags());
+			    if (pi != null) { // there naturally may not be a preset
+			        result.add(pi.getPath(presets[0].getRootGroup()));
+			    }
+			}
+			return result;
+		}
+
+		@Override
+		public HashMap<String, String> getExtraTags(Logic logic, OsmElement e) {
 			return null;
 		}
 	});
 	
+    final private int nameResId;
 	final private String tag;
 	final private boolean selectable;
 	final private boolean editable;
 	final private boolean geomEditable;
+	final private boolean supportFilters;
 	final private Mode subModeOf;
 	private boolean enabled = true;
 	private int iconResourceId = -1;
 	final private ModeConfig config;
 	
-	Mode(String tag, boolean selectable, boolean editable, boolean geomEditable, Mode subModeOf, int iconResourceId, ModeConfig config) {
+	Mode(int nameResId, String tag, boolean selectable, boolean editable, boolean geomEditable, boolean supportsFilters, Mode subModeOf, int iconResourceId, ModeConfig config) {
+		/**
+		 * string resource id for the name
+		 */
+	    this.nameResId = nameResId;
+	    /**
+		 * Unique tag for this mode
+		 */
 		this.tag = tag;
+		/**
+		 * Elements are selectable
+		 */
 		this.selectable = selectable;
+		/**
+		 * Elements are editable
+		 */
 		this.editable = editable;
+		/**
+		 * Geometry can be edited
+		 */
 		this.geomEditable = geomEditable;
+		/**
+		 * Doesn't have filters of its own
+		 */
+		this.supportFilters = supportsFilters;
+		/**
+		 * Variant of another mode
+		 */
 		this.subModeOf = subModeOf;
+		/**
+		 * Lock button icon
+		 */
 		this.iconResourceId = iconResourceId;
+		/**
+		 * Methods for configuring the mode
+		 */
 		this.config = config;
+	}
+	
+	String getName(Context ctx) {
+	    return ctx.getString(nameResId);
 	}
 	
 	boolean elementsSelectable() {
@@ -164,6 +278,10 @@ public enum Mode {
 	
 	boolean isEnabled() {
 		return enabled;
+	}
+	
+	boolean supportsFilters() {
+		return supportFilters;
 	}
 	
 	int iconResourceId() {
@@ -192,7 +310,8 @@ public enum Mode {
 	
 	/**
 	 * Return the Mode for a given tag
-	 * @param tag
+	 * 
+	 * @param tag	the tag we are looking for
 	 * @return the corresponding Mode
 	 */
 	static Mode modeForTag(String tag) {
@@ -206,8 +325,9 @@ public enum Mode {
 
 	/**
 	 * Get any special tags for this mode, not very elegant
-	 * @param logic the current Logic instance
-	 * @param e the selected element
+	 * 
+	 * @param logic	the current Logic instance
+	 * @param e 	the selected element
 	 * @return map containing the additional tags or null
 	 */
 	@Nullable
@@ -216,5 +336,13 @@ public enum Mode {
 			return config.getExtraTags(logic, e);
 		}
 		return null;
-	}		
+	}	
+	
+	@Nullable
+	public ArrayList<PresetElementPath> getPresetItems(Context ctx, OsmElement e) {
+		if (config != null) {
+			return config.getPresetItems(ctx, e);
+		}
+		return null;
+	}	
 }
