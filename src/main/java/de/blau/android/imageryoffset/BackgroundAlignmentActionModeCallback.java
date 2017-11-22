@@ -286,7 +286,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			double centerLon = params[1];
 			int radius = (int) (params[2] == null ? 0 : params[2]);
 			ArrayList<ImageryOffset> result = getOffsetList(centerLat, centerLon, radius);
-			if (result == null || result.size() == 0) {
+			if (result == null || result.isEmpty()) {
 				// retry with max radius
 				Log.d(DEBUG_TAG, "retrying search with max radius");
 				result = getOffsetList(centerLat, centerLon, 0);
@@ -378,7 +378,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		PostAsyncActionHandler handler = new PostAsyncActionHandler() {
 			@Override
 			public void onSuccess() {
-				if (offsetList != null && offsetList.size() > 0) {
+				if (offsetList != null && !offsetList.isEmpty()) {
 					Collections.sort(offsetList, cmp);
 					AppCompatDialog d = createDisplayOffsetDialog(0);
 					d.show();
@@ -467,7 +467,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			lastOffset = o;
 		}
 		
-		if (offsetList.size() > 0) {
+		if (!offsetList.isEmpty()) {
 			AppCompatDialog d = createSaveOffsetDialog(0, offsetList);
 			d.show();
 		} 

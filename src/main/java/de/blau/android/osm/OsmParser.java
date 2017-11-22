@@ -161,7 +161,7 @@ public class OsmParser extends DefaultHandler {
 				currentNode = null;
 			} else if (isWay(name)) {
 				addTags(currentWay);
-				if (currentWay.getNodes() != null && currentWay.getNodes().size() > 0) {
+				if (currentWay.getNodes() != null && !currentWay.getNodes().isEmpty()) {
 					storage.insertWayUnsafe(currentWay);
 				} else {
 					Log.e(DEBUG_TAG,"Way " + currentWay.getOsmId() + " has no nodes! Ignored.");

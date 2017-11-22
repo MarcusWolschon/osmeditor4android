@@ -51,7 +51,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 	}
 
 	private void copyTags(@NonNull ArrayList<TagEditRow> selectedRows, boolean deleteEachRow) {
-		if (selectedRows.size() > 0) {
+		if (!selectedRows.isEmpty()) {
 			TagEditorFragment fragment = (TagEditorFragment) caller;
 			fragment.copiedTags = new LinkedHashMap<String,String>();
 			for (TagEditRow row : selectedRows) {
@@ -95,7 +95,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 		}
 		switch (action) {
 		case MENU_ITEM_DELETE:
-			if (selected.size() > 0) {
+			if (!selected.isEmpty()) {
 				for (TagEditRow r:selected) {
 					r.delete();
 				}

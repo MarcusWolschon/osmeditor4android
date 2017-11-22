@@ -95,7 +95,7 @@ public class NotificationCache implements Serializable {
 	 * 
 	 */
 	public boolean isEmpty() {
-		return cache == null || cache.size() == 0;
+		return cache == null || cache.isEmpty();
 	}
 
 	/**

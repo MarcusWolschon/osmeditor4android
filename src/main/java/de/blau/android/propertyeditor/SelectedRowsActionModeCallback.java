@@ -81,7 +81,7 @@ class SelectedRowsActionModeCallback implements Callback {
 					toDelete.add(row);
 				}
 			}
-			if (toDelete.size() > 0) {
+			if (!toDelete.isEmpty()) {
 				for (Row r : toDelete) {
 					r.deselect();
 					r.delete();

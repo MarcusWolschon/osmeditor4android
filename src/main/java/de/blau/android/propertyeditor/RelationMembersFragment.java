@@ -702,7 +702,7 @@ public class RelationMembersFragment extends BaseFragment implements
 			Set<StringWithDescription> roles = new HashSet<StringWithDescription>();
 			
 			List<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
-			if (allTags != null && allTags.size() > 0) {
+			if (allTags != null && !allTags.isEmpty()) {
 				if ( owner.presets != null) { // 
 					PresetItem relationPreset = Preset.findBestMatch(owner.presets,allTags.get(0));
 					if (relationPreset != null && relationPreset.getRoles() != null) {

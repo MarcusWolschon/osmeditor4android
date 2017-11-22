@@ -684,7 +684,7 @@ public class EasyEditManager {
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
-			if ((clickedNonClosedWays != null && clickedNonClosedWays.size() > 0) && (clickedNodes == null || clickedNodes.size()==0) ) {
+			if ((clickedNonClosedWays != null && !clickedNonClosedWays.isEmpty()) && (clickedNodes == null || clickedNodes.isEmpty()) ) {
 				menu.add(Menu.NONE, MENUITEM_SPLITWAY, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split));
 			}
 			if (prefs.tagFormEnabled()) {
@@ -723,7 +723,7 @@ public class EasyEditManager {
 		
 		@Override
 		public void onCreateContextMenu(ContextMenu menu) {
-			if (clickedNonClosedWays != null && clickedNonClosedWays.size() > 0) { 
+			if (clickedNonClosedWays != null && !clickedNonClosedWays.isEmpty()) { 
 				int id = 0;
 				menu.add(Menu.NONE, id++, Menu.NONE, R.string.split_all_ways).setOnMenuItemClickListener(this);
 				for (Way w:clickedNonClosedWays) {
@@ -1540,8 +1540,8 @@ public class EasyEditManager {
 			return new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					double lon = Double.valueOf(lonField.getText().toString());
-					double lat = Double.valueOf(latField.getText().toString());
+					double lon = Double.parseDouble(lonField.getText().toString());
+					double lat = Double.parseDouble(latField.getText().toString());
 					if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
 						logic.performSetPosition(main, node,lon,lat);
 						invalidate();
@@ -1606,13 +1606,13 @@ public class EasyEditManager {
 			if (((Way)element).getNodes().size() > 2) {
 				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split));
 			}
-			if (cachedMergeableWays.size() > 0) {
+			if (!cachedMergeableWays.isEmpty()) {
 				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge));
 			}
-			if (cachedAppendableNodes.size() > 0) {
+			if (!cachedAppendableNodes.isEmpty()) {
 				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
 			}
-			if (((Way)element).getTagWithKey(Tags.KEY_HIGHWAY) != null && (cachedViaElements.size() > 0)) {
+			if (((Way)element).getTagWithKey(Tags.KEY_HIGHWAY) != null && !cachedViaElements.isEmpty()) {
 				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_add_restriction));	
 			}
 			if (((Way)element).getNodes().size() > 2) {
@@ -1974,7 +1974,7 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
-			if (element != null && (((Relation)element).getMembers()==null || ((Relation)element).getMembers().size()==0)) {
+			if (element != null && (((Relation)element).getMembers()==null || ((Relation)element).getMembers().isEmpty())) {
 				// we can only select an empty relation if there is a reference from another object, this is always a bug 
 				String message = "relation " + element.getOsmId() + " is empty";
 				Log.e(DEBUG7_TAG, message);
@@ -2017,7 +2017,7 @@ public class EasyEditManager {
 							selection.add(rm.getElement());
 						}
 					}
-					if (selection.size() > 0) {
+					if (!selection.isEmpty()) {
 						deselect = false;
 						main.startSupportActionMode(new  ExtendSelectionActionModeCallback(selection));
 					} 
@@ -2411,8 +2411,9 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			if (members.size() > 0)
+			if (!members.isEmpty()) {
 				revert.setVisible(true);
+			}
 			arrangeMenu(menu); 
 			return true;
 		}
@@ -2422,7 +2423,7 @@ public class EasyEditManager {
 			if (!super.onActionItemClicked(mode, item)) {
 				switch (item.getItemId()) {
 				case MENUITEM_REVERT: // remove last item in list
-					if(members.size() > 0) {
+					if(!members.isEmpty()) {
 						OsmElement element = members.get(members.size()-1);
 						if (element.getName().equals(Way.NAME)) {
 							logic.removeSelectedRelationWay((Way)element);
@@ -2434,8 +2435,9 @@ public class EasyEditManager {
 						members.remove(members.size()-1);
 						setClickableElements();
 						main.invalidateMap();
-						if (members.size() == 0)
+						if (members.isEmpty()) {
 							item.setVisible(false);
+						}
 					}
 					break;
 				default: return false;
@@ -2449,8 +2451,9 @@ public class EasyEditManager {
 			super.handleElementClick(element);
 			addElement(element);
 			setClickableElements();
-			if (members.size() > 0)
+			if (!members.isEmpty()) {
 				revert.setVisible(true);
+			}
 			main.invalidateMap();
 			return true;
 		}
@@ -2471,7 +2474,7 @@ public class EasyEditManager {
 			logic.setReturnRelations(true);
 			logic.deselectAll();
 			if (!backPressed) {
-				if (members.size() > 0) { // something was actually added
+				if (!members.isEmpty()) { // something was actually added
 					if (relation == null) {
 						relation = logic.createRelation(main, null, members);
 						main.performTagEdit(relation,"type", false, false, false);
@@ -2563,7 +2566,7 @@ public class EasyEditManager {
 					logic.removeSelectedRelation((Relation)element);
 				}
 			}
-			if (selection.size() == 0) {
+			if (selection.isEmpty()) {
 				// nothing slected more .... stop
 				currentActionMode.finish();
 			} else {
@@ -2635,7 +2638,7 @@ public class EasyEditManager {
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation));
 			
 			List<Way> selectedWays = logic.getSelectedWays();
-			if (selectedWays != null && selectedWays.size() >0) {
+			if (selectedWays != null && !selectedWays.isEmpty()) {
 				 menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_ortho));
 			}
 			
@@ -2694,7 +2697,7 @@ public class EasyEditManager {
 				case MENUITEM_RELATION: main.startSupportActionMode(new  AddRelationMemberActionModeCallback(selection)); break;
 				case MENUITEM_ORTHOGONALIZE: 
 					List<Way> selectedWays = logic.getSelectedWays();
-					if (selectedWays != null && selectedWays.size() >0) {
+					if (selectedWays != null && !selectedWays.isEmpty()) {
 						logic.performOrthogonalize(main, selectedWays);
 					}
 					break;

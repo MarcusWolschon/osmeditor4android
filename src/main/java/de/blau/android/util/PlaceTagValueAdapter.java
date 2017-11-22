@@ -80,7 +80,7 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
         Log.d(DEBUG_TAG,"Constructor ...");
         
         HashMap<String, Integer> counter = new HashMap<String, Integer>();
-        if (extraValues != null && extraValues.size() > 0) {
+        if (extraValues != null && !extraValues.isEmpty()) {
         	for(String t:extraValues) {
         		if (t.equals("")) {
         			continue;

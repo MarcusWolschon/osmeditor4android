@@ -208,7 +208,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 	 */
 	@Override
 	public String getDescription() {
-		return "note "+ (comments != null && comments.size() > 0 ? Html.fromHtml(comments.get(0).getText()) : "<new>"); //TODO externalize string
+		return "note "+ (comments != null && !comments.isEmpty() ? Html.fromHtml(comments.get(0).getText()) : "<new>"); //TODO externalize string
 	}
 	
 	/**
@@ -246,7 +246,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 	}
 
 	public NoteComment getLastComment() {
-		if (comments != null && comments.size() > 0) {
+		if (comments != null && !comments.isEmpty()) {
 			return comments.get(comments.size()-1);
 		}
 		return null;

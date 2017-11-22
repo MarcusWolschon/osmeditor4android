@@ -89,7 +89,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
 
 	private View getResultsView(final LinearLayout presetLayout, final ArrayList<PresetItem> presets) {
 		View v = null;
-		if (presets != null && presets.size() >= 1 ) {
+		if (presets != null && !presets.isEmpty() ) {
 
 			final PresetClickHandler presetClickHandler = new PresetClickHandler() { 
 				@Override

@@ -887,7 +887,7 @@ public class TagEditorFragment extends BaseFragment implements
 						String hint = primaryPresetItem.getHint(parent.getItemAtPosition(position).toString());
 						if (hint != null) { //
 							row.valueEdit.setHint(hint);
-						} else if (primaryPresetItem.getRecommendedTags().keySet().size() > 0 || primaryPresetItem.getOptionalTags().keySet().size() > 0) {
+						} else if (!primaryPresetItem.getRecommendedTags().isEmpty() || !primaryPresetItem.getOptionalTags().isEmpty()) {
 							row.valueEdit.setHint(R.string.tag_value_hint);
 						}
 						if (row.getValue().length() == 0) {
@@ -1135,7 +1135,7 @@ public class TagEditorFragment extends BaseFragment implements
 			this.tagValues = tagValues;
 			this.same = same;
 			if (same) {
-				if (tagValues != null && tagValues.size() > 0) {
+				if (tagValues != null && !tagValues.isEmpty()) {
 					valueEdit.setText(tagValues.get(0));
 				} else {
 					valueEdit.setText("");
@@ -1220,7 +1220,7 @@ public class TagEditorFragment extends BaseFragment implements
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : tags.entrySet()) {
 			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
-			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(tag.getValue())) replacedValue = true;
+			if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(tag.getValue())) replacedValue = true;
 		}
 		if (replacedValue) {
 			Builder dialog = new AlertDialog.Builder(getActivity());
@@ -1451,7 +1451,7 @@ public class TagEditorFragment extends BaseFragment implements
 		Set<String> keySet = new HashSet<String>(currentValues.keySet()); // shallow copy
 		for (String key:keySet) {
 			ArrayList<String>list = currentValues.get(key);
-			if (list == null || list.size() == 0) {
+			if (list == null || list.isEmpty()) {
 				currentValues.remove(key);
 			}
 		}
@@ -1460,7 +1460,7 @@ public class TagEditorFragment extends BaseFragment implements
 		for (Entry<String, StringWithDescription> tag : item.getFixedTags().entrySet()) {
 			String v = tag.getValue().getValue();
 			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(v));
-			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(v) && !(oldValue.size() == 1 && "".equals(oldValue.get(0)))) {
+			if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(v) && !(oldValue.size() == 1 && "".equals(oldValue.get(0)))) {
 				replacedValue = true;
 			}
 		}
@@ -1547,7 +1547,7 @@ public class TagEditorFragment extends BaseFragment implements
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : newTags.entrySet()) {
 			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
-			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(tag.getValue())) {
+			if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(tag.getValue())) {
 				replacedValue = true;
 			}
 		}
@@ -1710,7 +1710,7 @@ public class TagEditorFragment extends BaseFragment implements
 					boolean neitherBlank = !keyBlank && !valueBlank;
 					if (!bothBlank) {
 						// both blank is never acceptable
-						if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && tagValues.size()>0)) {
+						if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && !tagValues.isEmpty())) {
 							if (valueBlank) {
 								tags.put(key, tagValues.size()==1?Util.getArrayList(""):tagValues);
 							} else {
@@ -1746,7 +1746,7 @@ public class TagEditorFragment extends BaseFragment implements
 			for (Entry<String,ArrayList<String>>entry:savedTags.entrySet()) {
 				String key = entry.getKey().trim();
 				ArrayList<String> tagValues = entry.getValue();
-				String value = tagValues != null && tagValues.size() > 0 ? (tagValues.get(0)!=null?tagValues.get(0):""):"";			
+				String value = tagValues != null && !tagValues.isEmpty() ? (tagValues.get(0)!=null?tagValues.get(0):""):"";			
 				boolean valueBlank = "".equals(value);
 				boolean bothBlank = "".equals(key) && valueBlank;
 				boolean neitherBlank = !"".equals(key) && !valueBlank;
@@ -1773,7 +1773,7 @@ public class TagEditorFragment extends BaseFragment implements
 					boolean neitherBlank = !"".equals(key) && !valueBlank;
 					if (!bothBlank) {
 						// both blank is never acceptable
-						boolean hasValues =  tagValues != null && tagValues.size()>0;
+						boolean hasValues =  tagValues != null && !tagValues.isEmpty();
 						if (neitherBlank || allowBlanks || (valueBlank && hasValues)) {
 							if (valueBlank) {
 								tags.put(key, "");

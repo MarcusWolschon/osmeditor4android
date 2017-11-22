@@ -1151,7 +1151,7 @@ public class Logic {
 				} else {
 					// check for multi-select
 					if ((selectedWays != null && selectedWays.size() > 1) ||  (selectedNodes != null && selectedNodes.size() > 1) 
-							|| ((selectedWays != null && selectedWays.size() >= 1) && (selectedNodes != null && selectedNodes.size() >= 1))) {
+							|| ((selectedWays != null && !selectedWays.isEmpty()) && (selectedNodes != null && !selectedNodes.isEmpty()))) {
 						Log.d(DEBUG_TAG, "Multi select detected");
 						boolean foundSelected = false;
 						if (selectedWays != null) {
@@ -1281,12 +1281,12 @@ public class Logic {
 				lat = yToLatE7(absoluteY);
 				lon = xToLonE7(absoluteX);
 				ArrayList<Node> nodes = new ArrayList<Node>();
-				if (selectedWays != null && selectedWays.size() > 0) { // shouldn't happen but might be a race condition
+				if (selectedWays != null && !selectedWays.isEmpty()) { // shouldn't happen but might be a race condition
 					for (Way w:selectedWays) {
 						nodes.addAll(w.getNodes());
 					}	
 				}
-				if (selectedNodes != null && selectedNodes.size() > 0) {
+				if (selectedNodes != null && !selectedNodes.isEmpty()) {
 					for (Node n:selectedNodes) {
 						nodes.add(n);
 					}
@@ -1426,8 +1426,8 @@ public class Logic {
 		Log.d(DEBUG_TAG,"performAdd");
 		createCheckpoint(activity, R.string.undo_action_add);
 		Node nextNode;
-		Node lSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
-		Way lSelectedWay = selectedWays != null && selectedWays.size() > 0 ? selectedWays.get(0) : null;
+		Node lSelectedNode = selectedNodes != null && !selectedNodes.isEmpty() ? selectedNodes.get(0) : null;
+		Way lSelectedWay = selectedWays != null && !selectedWays.isEmpty() ? selectedWays.get(0) : null;
 
 		if (lSelectedNode == null) {
 			//This will be the first node.
@@ -1521,7 +1521,7 @@ public class Logic {
 	@Nullable
 	public synchronized Node performAddOnWay(@Nullable Activity activity, @Nullable List<Way>ways,final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
 		createCheckpoint(activity, R.string.undo_action_add);
-		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
+		Node savedSelectedNode = selectedNodes != null && !selectedNodes.isEmpty() ? selectedNodes.get(0) : null;
 		
 		Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways,x, y, forceNew);
 
@@ -1770,7 +1770,7 @@ public class Logic {
 	 * @param ways ways to square
 	 */
 	public synchronized void performOrthogonalize(@Nullable FragmentActivity activity, List<Way> ways) {
-		if (ways==null || ways.size()==0) {
+		if (ways==null || ways.isEmpty()) {
 			return;
 		}
 		createCheckpoint(activity, R.string.undo_action_orthogonalize);
@@ -3611,7 +3611,7 @@ public class Logic {
 	public synchronized void removeSelectedNode(Node node) {
 		if (selectedNodes != null) {
 			selectedNodes.remove(node);
-			if (selectedNodes.size() == 0) {
+			if (selectedNodes.isEmpty()) {
 				selectedNodes = null;
 			}
 			resetFilterCache();
@@ -3655,7 +3655,7 @@ public class Logic {
 	public synchronized void removeSelectedWay(Way way) {
 		if (selectedWays != null) {
 			selectedWays.remove(way);
-			if (selectedWays.size() == 0) {
+			if (selectedWays.isEmpty()) {
 				selectedWays = null;
 			}
 			resetFilterCache();
@@ -3686,7 +3686,7 @@ public class Logic {
 	public synchronized void removeSelectedRelation(Relation relation) {
 		if (selectedRelations != null) {
 			selectedRelations.remove(relation);
-			if (selectedRelations.size() == 0) {
+			if (selectedRelations.isEmpty()) {
 				selectedRelations = null;
 			}
 			resetFilterCache();
@@ -3730,7 +3730,7 @@ public class Logic {
 	 * @return the selectedNode (currently simply the first in the list)
 	 */
 	public synchronized final Node getSelectedNode() {
-		if (selectedNodes != null && selectedNodes.size() > 0) {
+		if (selectedNodes != null && !selectedNodes.isEmpty()) {
 			if (!exists(selectedNodes.get(0))) {
 				selectedNodes = null; // clear selection if node was deleted
 				return null;
@@ -3759,7 +3759,7 @@ public class Logic {
 	 * @return the selectedWay (currently simply the first in the list)
 	 */
 	public synchronized final Way getSelectedWay() {
-		if (selectedWays != null && selectedWays.size() > 0) {
+		if (selectedWays != null && !selectedWays.isEmpty()) {
 			if (!exists(selectedWays.get(0))) {
 				selectedWays = null; // clear selection if node was deleted
 				return null;
@@ -4690,7 +4690,7 @@ public class Logic {
 					if (!checkRelationsOnly) {
 						if (e instanceof Node) {
 							List<Way> ways = getWaysForNode((Node)e);
-							if (ways.size() > 0) {
+							if (!ways.isEmpty()) {
 								for (Way w:ways) {
 									if (!getFilter().include(w, false)) {
 										AttachedObjectWarning.showDialog(activity);
@@ -4701,7 +4701,7 @@ public class Logic {
 						} else if (e instanceof Way) {
 							for (Node n:((Way)e).getNodes()) {
 								List<Way> ways = getWaysForNode(n);
-								if (ways.size() > 0) {
+								if (!ways.isEmpty()) {
 									for (Way w:ways) {
 										if (!getFilter().include(w, false)) {
 											AttachedObjectWarning.showDialog(activity);

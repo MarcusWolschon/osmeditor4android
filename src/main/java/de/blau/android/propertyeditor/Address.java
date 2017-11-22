@@ -219,7 +219,7 @@ public class Address implements Serializable {
 			
 		loadLastAddresses(context);
 		
-		if (lastAddresses != null && lastAddresses.size() > 0) {
+		if (lastAddresses != null && !lastAddresses.isEmpty()) {
 			Log.d(DEBUG_TAG,"initializing with last addresses");
 			Address lastAddress = lastAddresses.get(0);
 			newAddress = new Address(elementType, elementOsmId, lastAddress.tags); // last address we added
@@ -267,7 +267,7 @@ public class Address implements Serializable {
 		if (es != null) {
 			// the arrays should now be calculated, retrieve street names if any
 			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(es.getStreetNames()));	
-			if ((streetNames != null && streetNames.size() > 0) || hasPlace) {
+			if ((streetNames != null && !streetNames.isEmpty()) || hasPlace) {
 				LinkedHashMap<String, ArrayList<String>> tags = newAddress.tags;
 				Log.d(DEBUG_TAG,"tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
 				// Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
@@ -275,7 +275,7 @@ public class Address implements Serializable {
 				if (!hasPlace) {
 					ArrayList<String> addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
 					int rank = -1;
-					boolean hasAddrStreet =  addrStreetValues != null && addrStreetValues.size() > 0 && !addrStreetValues.get(0).equals("");
+					boolean hasAddrStreet =  addrStreetValues != null && !addrStreetValues.isEmpty() && !addrStreetValues.get(0).equals("");
 					if (hasAddrStreet) {
 						rank = streetNames.indexOf(addrStreetValues.get(0)); // FIXME this and the following could consider other values in multi select
 					}
@@ -286,7 +286,7 @@ public class Address implements Serializable {
 						tags.put(Tags.KEY_ADDR_STREET, Util.getArrayList(streetNames.get(0)));
 					}
 					addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
-					if (addrStreetValues != null && addrStreetValues.size() > 0) {
+					if (addrStreetValues != null && !addrStreetValues.isEmpty()) {
 						street = tags.get(Tags.KEY_ADDR_STREET).get(0); // should now have the final suggestion for a street
 					} else {
 						street = ""; // FIXME
@@ -298,7 +298,7 @@ public class Address implements Serializable {
 					}
 				} else { // ADDR_PLACE minimal support, don't overwrite with street
 					ArrayList<String> addrPlaceValues = tags.get(Tags.KEY_ADDR_PLACE);
-					if (addrPlaceValues != null && addrPlaceValues.size() > 0) {
+					if (addrPlaceValues != null && !addrPlaceValues.isEmpty()) {
 						street = tags.get(Tags.KEY_ADDR_PLACE).get(0);
 					} else {
 						street = ""; // FIXME
@@ -427,7 +427,7 @@ public class Address implements Serializable {
 				for (int i=0;i<numbers.size();i++) {
 					// determine the nearest existing address
 					// FIXME there is an obvious better criteria
-					int number = Integer.valueOf(numbers.get(i));
+					int number = numbers.get(i);
 					Address a = list.get(number);
 					double newDistance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
 					if (newDistance <= distance) { 
@@ -568,13 +568,13 @@ public class Address implements Serializable {
 			if (a != null && a.tags != null) {
 				ArrayList<String> addrStreetValues = a.tags.get(Tags.KEY_ADDR_STREET);
 				ArrayList<String> addrPlaceValues = a.tags.get(Tags.KEY_ADDR_PLACE);
-				if ( ((addrStreetValues != null && addrStreetValues.size() > 0 && addrStreetValues.get(0).equals(street)) // FIXME 
-						|| (addrPlaceValues != null && addrPlaceValues.size() > 0 && addrPlaceValues.get(0).equals(street)))
+				if ( ((addrStreetValues != null && !addrStreetValues.isEmpty() && addrStreetValues.get(0).equals(street)) // FIXME 
+						|| (addrPlaceValues != null && !addrPlaceValues.isEmpty() && addrPlaceValues.get(0).equals(street)))
 						&& a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)
 						&& a.getSide() == side) {
 					Log.d(DEBUG_TAG,"Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
 					ArrayList<String> addrHousenumberValues = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
-					if ( addrHousenumberValues != null && addrHousenumberValues.size()>0) {
+					if ( addrHousenumberValues != null && !addrHousenumberValues.isEmpty()) {
 						String[] numbers =  addrHousenumberValues.get(0).split("[\\,;\\-]");
 						for (String n:numbers) {
 							Log.d(DEBUG_TAG,"add number  " + n);
@@ -650,7 +650,7 @@ public class Address implements Serializable {
 			StreetTagValueAdapter streetAdapter = (StreetTagValueAdapter)((NameAdapters)caller.getActivity()).getStreetNameAdapter(null);
 			if (streetAdapter!= null) {
 				ArrayList<String> values = tags.get(Tags.KEY_ADDR_STREET); 
-				if (values != null && values.size() > 0) {
+				if (values != null && !values.isEmpty()) {
 					String streetName = values.get(0); // FIXME can't remember what this is supposed to do....
 					if (streetName != null) {
 						try {

@@ -288,7 +288,7 @@ public class Map extends View implements IMapView {
 	{
 		// create an overlay that displays pre-rendered tiles from the internet.
 		synchronized(mOverlays) {
-			if (mOverlays.size() == 0) // only set once
+			if (mOverlays.isEmpty()) // only set once
 			{
 				if (prefs == null) // just to be safe
 					mOverlays.add(new MapTilesOverlay(this, TileLayerServer.getDefault(ctx, true), null));

@@ -212,7 +212,7 @@ public class ElementInfo extends DialogFragment {
         		}
         	}
         	
-        	if (e.getParentRelations() != null && e.getParentRelations().size() > 0) {
+        	if (e.getParentRelations() != null && !e.getParentRelations().isEmpty()) {
         		tl.addView(divider());
         		tl.addView(createRow(R.string.relation_membership,null,tp));
         		for (Relation r:e.getParentRelations()) {

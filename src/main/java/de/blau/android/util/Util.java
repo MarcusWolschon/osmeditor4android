@@ -109,9 +109,9 @@ public class Util {
 					break;
 				}
 			}
-			if (!found && unconnected.size() > 0) {
+			if (!found && !unconnected.isEmpty()) {
 				return null;
-			} else if (unconnected.size() == 0) {
+			} else if (unconnected.isEmpty()) {
 				return result;
 			}
 		}
@@ -352,13 +352,13 @@ public class Util {
 	public static <V> void groupI18nKeys(List<String> i18nKeys, Map<String,V> map) {
 		LinkedHashMap<String,V> temp = new  LinkedHashMap<String,V>();
 		ArrayList<String> keys = new ArrayList<String>(map.keySet());
-		while (keys.size()>0) {
+		while (!keys.isEmpty()) {
 			String key = keys.get(0);
 			keys.remove(0);
 			if (i18nKeys.contains(key)) {
 				temp.put(key, map.get(key));
 				int i = 0;
-				while (keys.size()>0 && i < keys.size()) {
+				while (!keys.isEmpty() && i < keys.size()) {
 					String i18nKey = keys.get(i);
 					if (i18nKey.startsWith(key+":")) {					    
 						temp.put(i18nKey, map.get(i18nKey));

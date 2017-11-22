@@ -224,7 +224,7 @@ public class TileLayerServer {
 		 * @return true if the provider has coverage of the given area
 		 */
 		public boolean covers(@NonNull BoundingBox area) {
-			if (coverageAreas.size() == 0) {
+			if (coverageAreas.isEmpty()) {
 				return true;
 			}
 			for (CoverageArea a : coverageAreas) {
@@ -237,7 +237,7 @@ public class TileLayerServer {
 		
 
 		public int getZoom(BoundingBox area) {
-			if (coverageAreas.size() == 0) {
+			if (coverageAreas.isEmpty()) {
 				return -1;
 			}
 			int max = 0;
@@ -253,8 +253,9 @@ public class TileLayerServer {
 		}
 		
 		public CoverageArea getCoverageArea(double lon, double lat) {
-			if (coverageAreas.size() == 0)
+			if (coverageAreas.isEmpty()) {
 				return null;
+			}
 			CoverageArea result = null;
 			for (CoverageArea a : coverageAreas) {
 				if (a.covers(lon,lat)) {
@@ -1045,7 +1046,7 @@ public class TileLayerServer {
 	 * @return true if covered or no coverage information
 	 */
 	public boolean covers(BoundingBox box) {
-		if (providers.size() > 0) { 
+		if (!providers.isEmpty()) { 
 			for (Provider p:providers) {
 				if (p.covers(box)) { 
 					return true;
@@ -1063,7 +1064,7 @@ public class TileLayerServer {
 	 */
 	public int getMaxZoom(BoundingBox box) {
 		int max = 0;
-		if (providers.size() > 0) { 
+		if (!providers.isEmpty()) { 
 			for (Provider p:providers) {
 				int m = p.getZoom(box);
 				if (m > max) { 

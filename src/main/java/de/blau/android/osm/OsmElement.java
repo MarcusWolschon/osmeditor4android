@@ -360,7 +360,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return true if if this element is a member of a relation
 	 */
 	public boolean hasParentRelations() {
-		return (parentRelations != null) && (parentRelations.size() > 0);
+		return parentRelations != null && !parentRelations.isEmpty();
 	}
 	
 	/**
@@ -384,8 +384,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		if (parentRelations != null) {
 			ArrayList<Relation> tempRelList = new ArrayList<Relation>(parentRelations);
 			for (Relation r:tempRelList) {
-				if (osmId == r.getOsmId())
+				if (osmId == r.getOsmId()) {
 					parentRelations.remove(r);
+				}
 			}
 		}
 	}

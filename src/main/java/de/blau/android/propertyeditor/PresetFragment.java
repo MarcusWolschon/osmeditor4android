@@ -174,7 +174,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
      				    }
      				    ft.commit();
      				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(SearchIndexUtils.searchInPresets(getActivity(), v.getText().toString(),type,2,10));
-     				    if (searchResults == null || searchResults.size() == 0) {
+     				    if (searchResults == null || searchResults.isEmpty()) {
      				    	Snack.barInfo(getActivity(), R.string.toast_nothing_found);
      				    	return true;
      				    }

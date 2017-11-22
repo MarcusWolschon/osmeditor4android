@@ -81,7 +81,7 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
         Log.d(DEBUG_TAG,"constructor called");
         
         HashMap<String, Integer> counter = new HashMap<String, Integer>();
-        if (extraValues != null && extraValues.size() > 0) {
+        if (extraValues != null && !extraValues.isEmpty()) {
         	for(String t:extraValues) {
         		if (t.equals("")) {
         			continue;

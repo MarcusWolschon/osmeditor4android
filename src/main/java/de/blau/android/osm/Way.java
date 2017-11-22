@@ -227,7 +227,7 @@ public class Way extends OsmElement implements BoundedObject {
 	 */
 	void addNodes(List<Node> newNodes, boolean atBeginning) {
 		if (atBeginning) {
-			if ((nodes.size() > 0) && nodes.get(0) == newNodes.get(newNodes.size()-1)) { // user error
+			if (!nodes.isEmpty() && nodes.get(0) == newNodes.get(newNodes.size()-1)) { // user error
 				Log.i(DEBUG_TAG, "addNodes attempt to add same node");
 				if (newNodes.size() > 1) {
 					Log.i(DEBUG_TAG, "retrying addNodes");
@@ -238,7 +238,7 @@ public class Way extends OsmElement implements BoundedObject {
 			}
 			nodes.addAll(0, newNodes);
 		} else {
-			if ((nodes.size() > 0) && newNodes.get(0) == nodes.get(nodes.size()-1)) { // user error
+			if (!nodes.isEmpty() && newNodes.get(0) == nodes.get(nodes.size()-1)) { // user error
 				Log.i(DEBUG_TAG, "addNodes attempt to add same node");
 				if (newNodes.size() > 1) {
 					Log.i(DEBUG_TAG, "retrying addNodes");

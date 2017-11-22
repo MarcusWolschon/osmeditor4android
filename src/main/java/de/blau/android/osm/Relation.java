@@ -217,7 +217,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	}
 
 	protected void appendMember(final RelationMember refMember, final RelationMember newMember) {
-		if (members != null && members.size() > 0 && members.get(0) == refMember) {
+		if (members != null && !members.isEmpty() && members.get(0) == refMember) {
 			members.add(0, newMember);
 		} else if (members != null && members.get(members.size() - 1) == refMember) {
 			members.add(newMember);

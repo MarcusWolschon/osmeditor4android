@@ -137,7 +137,7 @@ public class Search {
 		querier.execute(q);
 		try {
 			ArrayList<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
-			if (result != null && result.size() > 0) {
+			if (result != null && !result.isEmpty()) {
 				AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
 				sr.show();
 			} else {

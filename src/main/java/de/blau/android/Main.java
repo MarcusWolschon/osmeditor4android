@@ -704,7 +704,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				if (mode.elementsGeomEditiable()
 						&& (logic.getSelectedNode() != null 
 						|| logic.getSelectedWay() != null 
-						|| (logic.getSelectedRelations() != null && logic.getSelectedRelations().size() > 0))) {
+						|| (logic.getSelectedRelations() != null && !logic.getSelectedRelations().isEmpty()))) {
 					// need to restart whatever we were doing
 					Log.d(DEBUG_TAG,"restarting action mode");
 					easyEditManager.editElements();		
@@ -817,7 +817,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				storagePermissionGranted = true;
 			}
 		}
-		if (permissionsList.size() > 0) {
+		if (!permissionsList.isEmpty()) {
 			ActivityCompat.requestPermissions(this, permissionsList.toArray(new String[permissionsList.size()]), REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
 		}
 	}
@@ -849,7 +849,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	                    } else {
 	                        bboxes = BoundingBox.newBoxes(bbList, bbox);
 	                    }
-	                    if (bboxes != null && bboxes.size() > 0) {
+	                    if (bboxes != null && !bboxes.isEmpty()) {
 	                        logic.downloadBox(this, bbox, true, null); 
 	                        if (prefs.areBugsEnabled()) { // always adds bugs for now
 	                            TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
@@ -888,7 +888,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	            if (loadBox != null) {
 	                if (rcData.load()) { // download
 	                    List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox); 
-	                    if (bboxes != null && (bboxes.size() > 0 || delegator.isEmpty())) {
+	                    if (bboxes != null && (!bboxes.isEmpty() || delegator.isEmpty())) {
 	                        // only download if we haven't yet
 	                        logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
 	                            private static final long serialVersionUID = 1L;
@@ -948,19 +948,19 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					Log.d(DEBUG_TAG,"rc select: " + s);
 					try {
 						if (s.startsWith("node")) {
-							long id = Long.valueOf(s.substring(Node.NAME.length()));
+							long id = Long.parseLong(s.substring(Node.NAME.length()));
 							Node n = (Node) storageDelegator.getOsmElement(Node.NAME, id);
 							if (n != null) {
 								logic.addSelectedNode(n);
 							}
 						} else if (s.startsWith("way")) {
-							long id = Long.valueOf(s.substring(Way.NAME.length()));
+							long id = Long.parseLong(s.substring(Way.NAME.length()));
 							Way w = (Way) storageDelegator.getOsmElement(Way.NAME, id);
 							if (w != null) {
 								logic.addSelectedWay(w);
 							}
 						} else if (s.startsWith("relation")) {
-							long id = Long.valueOf(s.substring(Relation.NAME.length()));
+							long id = Long.parseLong(s.substring(Relation.NAME.length()));
 							Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id);
 							if (r != null) {
 								logic.addSelectedRelation(r);
@@ -1299,10 +1299,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && gpsProviderEnabled && networkConnected).setChecked(autoDownload());
 		menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && gpsProviderEnabled && networkConnected).setChecked(bugAutoDownload());
 		
-		menu.findItem(R.id.menu_gps_clear).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
-		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
+		boolean trackerHasPoints = getTracker() != null && getTracker().getTrackPoints() != null && !getTracker().getTrackPoints().isEmpty();
+        menu.findItem(R.id.menu_gps_clear).setEnabled(trackerHasPoints);
+		menu.findItem(R.id.menu_gps_goto_start).setEnabled(trackerHasPoints);
 		menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
-		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0 && NetworkStatus.isConnected(this));
+		menu.findItem(R.id.menu_gps_upload).setEnabled(trackerHasPoints && NetworkStatus.isConnected(this));
 		
 		final Logic logic = App.getLogic();
 		MenuItem undo = menu.findItem(R.id.menu_undo);
@@ -1576,7 +1577,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					// Get the Uri of the selected file 
 			        Log.d(DEBUG_TAG, "Read gpx file Uri: " + fileUri.toString());
 			        if (getTracker() != null) {
-			        	if (getTracker().getTrackPoints().size() > 0 ) {
+			        	if (!getTracker().getTrackPoints().isEmpty() ) {
 			        		ImportTrack.showDialog(Main.this, fileUri);
 			        	} else {
 			        		getTracker().stopTracking(false);
@@ -1600,7 +1601,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			
 		case R.id.menu_gps_goto_start:
 			List<TrackPoint> l = tracker.getTrackPoints();
-			if (l != null && l.size() > 0) {
+			if (l != null && !l.isEmpty()) {
 				Log.d(DEBUG_TAG,"Going to start of track");
 				setFollowGPS(false);
 				map.setFollowGPS(false);
@@ -2773,9 +2774,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					}
 					break;
 				case 1:
-					if ((clickedBugs != null) && (clickedBugs.size() > 0))
+					if ((clickedBugs != null) && !clickedBugs.isEmpty())
 						performBugEdit(clickedBugs.get(0));
-					else if ((clickedPhotos != null) && (clickedPhotos.size() > 0))
+					else if ((clickedPhotos != null) && !clickedPhotos.isEmpty())
 						viewPhoto(clickedPhotos.get(0));
 					break;
 				default:
@@ -3056,10 +3057,14 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (prefs.getForceContextMenu()) return true;
 			
 			// If bugs are clicked, user should always choose
-			if (clickedBugs != null && clickedBugs.size() > 0) return true;
+			if (clickedBugs != null && !clickedBugs.isEmpty()) {
+			    return true;
+			}
 			
 			// If photos are clicked, user should always choose
-			if (clickedPhotos != null && clickedPhotos.size() > 0) return true;
+			if (clickedPhotos != null && !clickedPhotos.isEmpty()) {
+			    return true;
+			}
 			
 			if (clickedNodesAndWays.size() < 2) {
 				Log.e(DEBUG_TAG, "WTF? menuRequired called for single item?");
