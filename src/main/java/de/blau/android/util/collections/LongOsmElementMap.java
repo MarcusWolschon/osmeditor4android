@@ -92,7 +92,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			throw new IllegalArgumentException("Size must be positive!");
 		}
 		final int capacity = Tools.arraySize(size, fillFactor);
-		m_mask = capacity - 1;
+		m_mask = capacity - 1L;
 		m_fillFactor = fillFactor;
 
 		m_data = new OsmElement[capacity];
@@ -350,7 +350,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	private void rehash(final int newCapacity) {
 		synchronized(this) {
 			m_threshold = (int) (newCapacity * m_fillFactor);
-			m_mask = newCapacity - 1;
+			m_mask = newCapacity - 1L;
 
 			final int oldCapacity = m_data.length;
 			final OsmElement[] oldData = m_data;

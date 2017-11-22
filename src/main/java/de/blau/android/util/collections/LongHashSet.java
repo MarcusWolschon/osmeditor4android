@@ -82,7 +82,7 @@ public class LongHashSet implements Serializable {
 			throw new IllegalArgumentException("Size must be positive!");
 		}
 		final int capacity = Tools.arraySize(size, fillFactor);
-		m_mask = capacity - 1;
+		m_mask = capacity - 1L;
 		m_fillFactor = fillFactor;
 
 		m_data = new long[capacity];
@@ -315,7 +315,7 @@ public class LongHashSet implements Serializable {
 
 	private void rehash(final int newCapacity) {
 		m_threshold = (int) (newCapacity * m_fillFactor);
-		m_mask = newCapacity - 1;
+		m_mask = newCapacity - 1L;
 
 		final int oldCapacity = m_data.length;
 		final long[] oldData = m_data;

@@ -48,7 +48,7 @@ public class TransferTasks {
 	private static final String DEBUG_TAG = TransferTasks.class.getSimpleName();
 			
 	/** Maximum closed age to display: 7 days. */
-	private static final long MAX_CLOSED_AGE = 7 * 24 * 60 * 60 * 1000;
+	private static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
 	
 	/** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */ 
 	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
@@ -285,7 +285,7 @@ public class TransferTasks {
 	 * @return true if upload was successful
 	 */
 	@TargetApi(11)
-	static public boolean uploadNote(@NonNull final FragmentActivity activity, @NonNull final Server server, @NonNull final Note note, final String comment, 
+	static public boolean uploadNote(@NonNull final FragmentActivity activity, @Nullable final Server server, @NonNull final Note note, final String comment, 
 			final boolean close, final boolean quiet,  @Nullable final PostAsyncActionHandler postUploadHandler) {
 		Log.d(DEBUG_TAG, "uploadNote");
 
