@@ -71,12 +71,19 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		}
 		
 		@Override
+		public boolean equals(Object obj) {
+		    if (obj == null || !(obj instanceof HelpItem)) {
+		        return false;
+		    }
+		    return order == ((HelpItem)obj).order && topic.equals((HelpItem)obj);
+		}
+		
+		@Override
 		public String toString() {
 			return topic + (displayLanguage ? " (" + language + ")": "");
 		}
 	}
-	
-	
+		
 	private static final String TOPIC = "topic";
 	private WebView helpView;
 	private HashMap<String,HelpItem> tocList = new HashMap<String,HelpItem>();

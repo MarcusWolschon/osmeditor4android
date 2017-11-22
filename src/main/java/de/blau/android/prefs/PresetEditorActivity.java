@@ -111,12 +111,9 @@ public class PresetEditorActivity extends URLListEditActivity {
 		}
 		db.addPreset(item.id, item.name, item.value, item.enabled);
 		downloadPresetData(item);
-		if (!isAddingViaIntent()) { 
-			App.resetPresets();
-		} else if (item.enabled) { // added a new preset and enabled it: need to rebuild presets
+		if (!isAddingViaIntent() || item.enabled) { // added a new preset and enabled it: need to rebuild presets
 			App.resetPresets();
 		}
-
 	}
 
 	@Override

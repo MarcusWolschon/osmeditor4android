@@ -98,6 +98,14 @@ public class Names {
 			}
 			return name.compareTo(another.name);
 		}
+		
+		@Override
+		public boolean equals(Object obj) {
+		    if (obj == null || !(obj instanceof NameAndTags)) {
+		        return false;
+		    }
+		    return name.equals(((NameAndTags)obj).name) && tags.equals(((NameAndTags)obj).tags);
+		}
 	}
 	
 	private static MultiHashMap<String,TagMap> nameList = new MultiHashMap<String,TagMap>(false); // names -> tags
@@ -307,20 +315,20 @@ public class Names {
 		Log.d("Names","Name List");
 		for (String n:nameList.getKeys()) {
 			Set<TagMap> tmList = nameList.get(n);
-			String tags = n +": ";
+			StringBuilder tags = new StringBuilder(n +": ");
 			for (TagMap tm:tmList) {
-				tags = tags + tm.toString() + "|";
+				tags.append(tm.toString() + "|");
 			}
-			Log.d("Names", tags);
+			Log.d("Names", tags.toString());
 		}
 		Log.d("Names","tag List");
 		for (TagMap tm:tags2namesList.getKeys()) {
 			Set<String> names = tags2namesList.get(tm);
-			String nameStr = tm.toString() +": ";
+			StringBuilder nameStr = new StringBuilder(tm.toString() +": ");
 			for (String n:names) {
-				 nameStr = nameStr + n + "|";
+				 nameStr.append(n + "|");
 			}
-			Log.d("Names", nameStr);
+			Log.d("Names", nameStr.toString());
 		}
 	}
 }

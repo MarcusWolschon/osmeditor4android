@@ -21,4 +21,12 @@ class IndexSearchResult implements Comparable<IndexSearchResult>{
 		}
 		return 0; 
 	}
+	
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof IndexSearchResult)) {
+            return false;
+        }
+        return count == ((IndexSearchResult)obj).count && ((item == null && ((IndexSearchResult)obj).item == null) || item.equals(((IndexSearchResult)obj).item));
+    }
 }

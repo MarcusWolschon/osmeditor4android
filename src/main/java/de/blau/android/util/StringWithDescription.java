@@ -5,6 +5,7 @@ import java.text.Collator;
 import java.util.Comparator;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.presets.ValueWithCount;
 
 @SuppressWarnings("NullableProblems")
@@ -47,8 +48,9 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
 	}
 
 	/**
-	 * @return the description
+	 * @return the description can be null
 	 */
+	@Nullable
 	public String getDescription() {
 		return description;
 	}

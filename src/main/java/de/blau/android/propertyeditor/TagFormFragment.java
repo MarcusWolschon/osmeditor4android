@@ -1431,14 +1431,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			Object o = adapter.getItem(i);
 			StringWithDescription swd = new StringWithDescription(o);
 			String v = swd.getValue();
-			String description = swd.getDescription();
 			if (v==null || "".equals(v)) {
 				continue;
 			}
-			if (description==null) {
-				description=v;
-			}
-
 			if ((values==null || (values.size()==1 && "".equals(values.get(0)))) && (defaultValue != null && !"".equals(defaultValue))) {
 				addCheck(getActivity(), valueGroup, swd, v.equals(defaultValue), buttonLayoutParams);
 			} else {			
