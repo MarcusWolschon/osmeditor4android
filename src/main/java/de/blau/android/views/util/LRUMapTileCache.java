@@ -194,13 +194,13 @@ public class LRUMapTileCache {
 
 		// if the key isn't in the cache and the cache is full...
 		if (!containsKey(key)) {
-			long bitmapSize = value.getRowBytes() * value.getHeight();
+			long bitmapSize = (long)value.getRowBytes() * value.getHeight();
 			if (!applyCacheLimit(bitmapSize*2, owner)) {
 				// failed: cache is to small to handle all tiles necessary for one draw cycle
 				// see if we can expand by 50%
 				if (maxCacheSize < (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory()) && (maxCacheSize/2 > bitmapSize)) {
 					Log.w(DEBUG_TAG,"expanding memory tile cache from " + maxCacheSize + " to " + (maxCacheSize + maxCacheSize/2));
-					maxCacheSize = (long)maxCacheSize + maxCacheSize/2;
+					maxCacheSize = maxCacheSize + maxCacheSize/2;
 				} else {
 					throw new StorageException(StorageException.OOM); // can't expand any more
 				}

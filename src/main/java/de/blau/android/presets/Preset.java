@@ -591,18 +591,18 @@ public class Preset implements Serializable {
 						} else {
 							values = value_on + COMBO_DELIMITER + value_off;
 						}
-						String displayValues = ""; //FIXME this is a bit of a hack as there is no display_values attribute for checks
+						StringBuilder displayValuesBuilder = new StringBuilder(); //FIXME this is a bit of a hack as there is no display_values attribute for checks
 						boolean first = true;
 						for (String v:values.split(COMBO_DELIMITER)) {
 							if (!first) {
-								displayValues = displayValues + COMBO_DELIMITER;
+							    displayValuesBuilder.append(COMBO_DELIMITER);
 							} else {
 								first = false;
 							}
-							displayValues = displayValues + Util.capitalize(v);
+							displayValuesBuilder.append(Util.capitalize(v));
 						}
 						currentItem.setSort(key,false); // don't sort
-						currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values, displayValues, null, COMBO_DELIMITER, null);
+						currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values, displayValuesBuilder.toString(), null, COMBO_DELIMITER, null);
 						if (!"yes".equals(value_on)) {
 							currentItem.addOnValue(key,value_on);
 						}
@@ -1091,13 +1091,13 @@ public class Preset implements Serializable {
      * @return JSON format string
      */
     private String toJSON() {
-    	String result = "";
+    	StringBuilder result = new StringBuilder();
     	for (PresetItem pi:allItems) {
     		if (!pi.isChunk()) {
-    			result = result + pi.toJSON();
+    			result.append(pi.toJSON());
     		}
     	}
-    	return result;
+    	return result.toString();
     }
 
 	/**
@@ -2609,26 +2609,34 @@ public class Preset implements Serializable {
 		
 		@Override
 		public String toString() {
-			String tagStrings = "";
-			tagStrings = " required: ";
+			StringBuilder tagStrings = new StringBuilder(" required: ");
 			for (Entry<String,StringWithDescription> entry:fixedTags.entrySet()) {
-				tagStrings = tagStrings + " " + entry.getKey() + "=" + entry.getValue();
+			    tagStrings.append(" ");
+			    tagStrings.append(entry.getKey());
+			    tagStrings.append("=");
+			    tagStrings.append(entry.getValue());
 			}
-			tagStrings = tagStrings + " recommended: ";
+			tagStrings.append(" recommended: ");
 			for (Entry<String,StringWithDescription[]> entry:recommendedTags.entrySet()) {
-				tagStrings = tagStrings + " " + entry.getKey() + "="; 
+			    tagStrings.append(" ");
+			    tagStrings.append(entry.getKey());
+                tagStrings.append("=");
 				for (StringWithDescription v:entry.getValue()) {
-					tagStrings = tagStrings + " " + v.getValue();
+				    tagStrings.append(" ");
+	                tagStrings.append(v.getValue());
 				}
 			}
-			tagStrings = tagStrings + " optional: ";
+			tagStrings.append(" optional: ");
 			for (Entry<String,StringWithDescription[]> entry:optionalTags.entrySet()) {
-				tagStrings = tagStrings + " " + entry.getKey() + "=";
+                tagStrings.append(" ");
+                tagStrings.append(entry.getKey());
+                tagStrings.append("=");
 				for (StringWithDescription v:entry.getValue()) {
-					tagStrings = tagStrings + " " + v.getValue();
+				    tagStrings.append(" ");
+                    tagStrings.append(v.getValue());
 				}
 			}
-			return super.toString() + tagStrings;
+			return super.toString() + tagStrings.toString();
 		}
 	
 		void setChunk() {
@@ -2651,9 +2659,9 @@ public class Preset implements Serializable {
 				presetName = p.getName() + "/" + presetName;
 				p = p.getParent();
 			}
-			String jsonString = "";
+			StringBuilder jsonString = new StringBuilder();
 			for (Entry<String,StringWithDescription> entry:fixedTags.entrySet()) {
-				jsonString = jsonString + tagToJSON(presetName, entry.getKey(), entry.getValue().getValue());
+				jsonString.append(tagToJSON(presetName, entry.getKey(), entry.getValue().getValue()));
 			}
 			for (Entry<String,StringWithDescription[]> entry:recommendedTags.entrySet()) {
 				// check match attribute
@@ -2661,11 +2669,11 @@ public class Preset implements Serializable {
 				MatchType match = getMatchType(k);
 				PresetKeyType type = getKeyType(k);
 				if (isEditable(k) || type==PresetKeyType.TEXT) {
-					jsonString = jsonString + tagToJSON(presetName, k, null);
+					jsonString.append(tagToJSON(presetName, k, null));
 				}
 				if (!isEditable(k) && type != PresetKeyType.TEXT && (match==null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
 					for (StringWithDescription v:entry.getValue()) {
-						jsonString = jsonString + tagToJSON(presetName, k, v.getValue());
+					    jsonString.append(tagToJSON(presetName, k, v.getValue()));
 					}
 				}
 			}
@@ -2675,15 +2683,15 @@ public class Preset implements Serializable {
 				MatchType match = getMatchType(k);
 				PresetKeyType type = getKeyType(k);
 				if (isEditable(k) || type==PresetKeyType.TEXT || (match != null && match != MatchType.KEY_VALUE)) {
-					jsonString = jsonString + tagToJSON(presetName, k, null);
+				    jsonString.append(tagToJSON(presetName, k, null));
 				}
 				if (!isEditable(k) && type != PresetKeyType.TEXT && (match==null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
 					for (StringWithDescription v:entry.getValue()) {
-						jsonString = jsonString + tagToJSON(presetName, k, v.getValue());
+					    jsonString.append(tagToJSON(presetName, k, v.getValue()));
 					}
 				}
 			}
-			return jsonString;
+			return jsonString.toString();
 		}
 		
 		/**
@@ -2695,34 +2703,34 @@ public class Preset implements Serializable {
 		 */
 		@NonNull
 		private String tagToJSON(@NonNull String presetName, @NonNull String key, @Nullable String value) {
-			String result = "{\"description\":\"" + presetName + "\",\"key\": \"" + key + "\"" + (value == null ? "" : ",\"value\": \"" + value + "\"");
-			result = result + ",\"object_types\": [";
+			StringBuilder result = new StringBuilder("{\"description\":\"" + presetName + "\",\"key\": \"" + key + "\"" + (value == null ? "" : ",\"value\": \"" + value + "\""));
+			result.append(",\"object_types\": [");
 			boolean first = true;
 			if (appliesToNode) {
-				result = result + "\"node\"";
+			    result.append("\"node\"");
 				first = false;
 			}
 			if (appliesToWay) {
 				if (!first) {
-					result = result + ",";
+				    result.append(",");
 				}
-				result = result + "\"way\"";
+				result.append("\"way\"");
 				first = false;
 			}	
 			if (appliesToRelation) {
 				if (!first) {
-					result = result + ",";
+				    result.append(",");
 				}
-				result = result + "\"relation\"";
+				result.append("\"relation\"");
 				first = false;
 			}
 			if (appliesToClosedway || appliesToArea) {
 				if (!first) {
-					result = result + ",";
+				    result.append(",");
 				}
-				result = result + "\"area\"";
+				result.append("\"area\"");
 			}
-			return  result + "]},\n";
+			return  result.append("]},\n").toString();
 		}
 
 		/**
