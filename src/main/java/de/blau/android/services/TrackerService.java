@@ -617,9 +617,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 							String[] values = withoutChecksum.split(",",-12); // java magic
 							if (values.length==13) {
 								try {
-									if ((!values[6].toUpperCase(Locale.US).startsWith("NN") || !values[6].toUpperCase(Locale.US).equals("N")) && Integer.parseInt(values[7]) >= 4) { // at least one "good" system needs a fix
-										lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase(Locale.US).equals("N")?1:-1);
-										lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
+									String value6 = values[6].toUpperCase(Locale.US);
+                                    if ((!value6.startsWith("NN") || !value6.equals("N")) && Integer.parseInt(values[7]) >= 4) { // at least one "good" system needs a fix
+										lat = nmeaLatToDecimal(values[2])*(values[3].equalsIgnoreCase("N")?1:-1);
+										lon = nmeaLonToDecimal(values[4])*(values[5].equalsIgnoreCase("E")?1:-1);
 										// hdop = Double.parseDouble(values[8]);
 										height = Double.parseDouble(values[9]);
 										posUpdate = true;
@@ -637,8 +638,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 							if (values.length==15) {
 								try {
 									if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) { // we need a fix
-										lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase(Locale.US).equals("N")?1:-1);
-										lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
+										lat = nmeaLatToDecimal(values[2])*(values[3].equalsIgnoreCase("N")?1:-1);
+										lon = nmeaLonToDecimal(values[4])*(values[5].equalsIgnoreCase("E")?1:-1);
 										// hdop = Double.parseDouble(values[8]);
 										height = Double.parseDouble(values[9]);
 										posUpdate = true;
