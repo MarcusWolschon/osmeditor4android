@@ -79,4 +79,14 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
 	    }
 	    return value.equals(((ValueWithCount)obj).value) && count==((ValueWithCount)obj).count;
 	}
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 37 * result + (value == null ? 0 : value.hashCode());
+        result = 37 * result + (description == null ? 0 : description.hashCode());
+        result = 37 * result + (int)(count ^ (count >>> 32));
+        result = 37 * result + (descriptionOnly ? 1231 : 1237);
+        return result;
+    }
 }

@@ -106,6 +106,14 @@ public class Names {
 		    }
 		    return name.equals(((NameAndTags)obj).name) && tags.equals(((NameAndTags)obj).tags);
 		}
+		
+	    @Override
+	    public int hashCode() {
+	        int result = 17;
+	        result = 37 * result + (name == null ? 0 : name.hashCode());
+	        result = 37 * result + (tags == null ? 0 : tags.hashCode());
+	        return result;
+	    }
 	}
 	
 	private static MultiHashMap<String,TagMap> nameList = new MultiHashMap<String,TagMap>(false); // names -> tags

@@ -27,6 +27,14 @@ class IndexSearchResult implements Comparable<IndexSearchResult>{
         if (obj == null || !(obj instanceof IndexSearchResult)) {
             return false;
         }
-        return count == ((IndexSearchResult)obj).count && ((item == null && ((IndexSearchResult)obj).item == null) || item.equals(((IndexSearchResult)obj).item));
+        return count == ((IndexSearchResult)obj).count && ((item == null && ((IndexSearchResult)obj).item == null) || (item != null && item.equals(((IndexSearchResult)obj).item)));
+    }
+    
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 37 * result + (int)(count ^ (count >>> 32));
+        result = 37 * result + (item == null ? 0 : item.hashCode());
+        return result;
     }
 }

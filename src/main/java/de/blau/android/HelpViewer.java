@@ -7,6 +7,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -51,33 +52,13 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 	
 	private static String DEBUG_TAG = HelpViewer.class.getName();
 	
-	class HelpItem implements Comparable<HelpItem> {
+	class HelpItem {
 		boolean displayLanguage = false;
 		String language;
 		int order;
 		String topic;
 		String fileName;
-		
-		@Override
-		public int compareTo(@NonNull HelpItem another) {
-			if (order < Integer.MAX_VALUE) {
-				if (order > another.order) {
-					return 1;
-				} else if (order < another.order) {
-					return -1;
-				}
-			}
-			return topic.compareTo(another.topic); // sort the rest alphabetically
-		}
-		
-		@Override
-		public boolean equals(Object obj) {
-		    if (obj == null || !(obj instanceof HelpItem)) {
-		        return false;
-		    }
-		    return order == ((HelpItem)obj).order && topic.equals((HelpItem)obj);
-		}
-		
+
 		@Override
 		public String toString() {
 			return topic + (displayLanguage ? " (" + language + ")": "");
@@ -204,7 +185,26 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 			fileRes.recycle();
 			
 			List<HelpItem> items = new ArrayList<HelpItem>(tocList.values());
-			Collections.sort(items);
+			Collections.sort(items, new Comparator<HelpItem>() {
+                @Override
+                public int compare(HelpItem one, HelpItem two) {
+                    if (one.order < Integer.MAX_VALUE) {
+                        if (one.order > two.order) {
+                            return 1;
+                        } else if (one.order < two.order) {
+                            return -1;
+                        }
+                    }
+                    if (one.topic == null) {
+                        if (two.topic == null) {
+                            return 0;
+                        } else {
+                            return -1;
+                        }
+                    }
+                    return one.topic.compareTo(two.topic); // sort the rest alphabetically
+                }
+            });
 			HelpItem[] toc = new HelpItem[items.size()];
 			items.toArray(toc);
 			
