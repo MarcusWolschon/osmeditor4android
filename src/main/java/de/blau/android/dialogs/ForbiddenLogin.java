@@ -27,12 +27,13 @@ import de.blau.android.util.ThemeUtils;
  */
 public class ForbiddenLogin extends DialogFragment
 {
-	
+
+    private static final String DEBUG_TAG = ForbiddenLogin.class.getSimpleName();
+    
 	private static final String FRAGMENT_TAG = "forbidden_alert";
 
-	private static final String MESSAGE = "message";
+	private static final String MESSAGE_KEY = "message";
 
-	private static final String DEBUG_TAG = ForbiddenLogin.class.getSimpleName();
 		
 	private String message;
 	
@@ -66,7 +67,7 @@ public class ForbiddenLogin extends DialogFragment
 	   	ForbiddenLogin f = new ForbiddenLogin();
 
         Bundle args = new Bundle();
-        args.putSerializable(MESSAGE, message);
+        args.putSerializable(MESSAGE_KEY, message);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -79,7 +80,7 @@ public class ForbiddenLogin extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        message = (String) getArguments().getSerializable(MESSAGE);
+        message = (String) getArguments().getSerializable(MESSAGE_KEY);
     }
 
     @NonNull

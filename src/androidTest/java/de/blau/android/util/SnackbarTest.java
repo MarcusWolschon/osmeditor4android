@@ -53,7 +53,7 @@ public class SnackbarTest {
     	Assert.assertTrue(Snack.infoQueue.contains(s2));
     	Assert.assertTrue(Snack.infoQueue.contains(s3));
     	
-    	Assert.assertEquals(3, Snack.QUEUE_CAPACITY); // just to be sure that our assumptions are true
+    	Assert.assertEquals(Snack.QUEUE_CAPACITY, 3); // just to be sure that our assumptions are true
     	Snack.enqueue(Snack.infoQueue, s4);
     	
        	Assert.assertFalse(Snack.infoQueue.contains(s1));

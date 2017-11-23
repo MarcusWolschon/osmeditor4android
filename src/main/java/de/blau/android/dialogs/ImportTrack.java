@@ -29,10 +29,9 @@ import de.blau.android.util.ThemeUtils;
  */
 public class ImportTrack extends DialogFragment
 {
+    private static final String DEBUG_TAG = ImportTrack.class.getSimpleName();
 	
-	private static final String URI = "uri";
-
-	private static final String DEBUG_TAG = ImportTrack.class.getSimpleName();
+	private static final String URI_KEY = "uri";
 	
 	private static final String TAG = "fragment_import_track";
 	
@@ -72,7 +71,7 @@ public class ImportTrack extends DialogFragment
     static private ImportTrack newInstance(Uri uri) {
     	ImportTrack f = new ImportTrack();
     	Bundle args = new Bundle();
-        args.putParcelable(URI, uri);
+        args.putParcelable(URI_KEY, uri);
         f.setArguments(args);
         f.setShowsDialog(true);
         
@@ -93,7 +92,7 @@ public class ImportTrack extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        uri = getArguments().getParcelable(URI);
+        uri = getArguments().getParcelable(URI_KEY);
     }
     
     @NonNull

@@ -67,7 +67,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 		
 	private static final String TOPIC = "topic";
 	private WebView helpView;
-	private HashMap<String,HelpItem> tocList = new HashMap<String,HelpItem>();
+	private HashMap<String,HelpItem> tocList = new HashMap<>();
 	
 	private ActionBarDrawerToggle mDrawerToggle;
 	// drawer that will be our ToC
@@ -184,7 +184,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 			tocRes.recycle();
 			fileRes.recycle();
 			
-			List<HelpItem> items = new ArrayList<HelpItem>(tocList.values());
+			List<HelpItem> items = new ArrayList<>(tocList.values());
 			Collections.sort(items, new Comparator<HelpItem>() {
                 @Override
                 public int compare(HelpItem one, HelpItem two) {
@@ -208,7 +208,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 			HelpItem[] toc = new HelpItem[items.size()];
 			items.toArray(toc);
 			
-			tocAdapter = new ArrayAdapter<HelpItem>(this, R.layout.help_drawer_item,R.id.help_drawer_item, toc);
+			tocAdapter = new ArrayAdapter<>(this, R.layout.help_drawer_item,R.id.help_drawer_item, toc);
 			
 			mDrawerList.setAdapter(tocAdapter);
 			mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -307,11 +307,10 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 	    			Log.d("HelpViewer","new " + url);
 	    		}
 	    		view.loadUrl(url);
-	    		return true;
 	    	} else {
 	    		view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));  
-	    	    return true;
 	    	}
+            return true;
 	    }
 	    
 	    @Override

@@ -23,13 +23,12 @@ import de.blau.android.util.ThemeUtils;
  */
 public class DataLossActivity extends DialogFragment
 {
-	
-	private static final String REQUESTCODE = "requestcode";
 
 	private static final String DEBUG_TAG = DataLossActivity.class.getSimpleName();
 	
 	private static final String TAG = "fragment_dataloss_activity";
-	private static final String INTENT = "intent";
+	private static final String INTENT_KEY = "intent";
+	private static final String REQUESTCODE_KEY = "requestcode";
 		
 	private Intent intent;
 	private int requestCode;
@@ -73,8 +72,8 @@ public class DataLossActivity extends DialogFragment
     	DataLossActivity f = new DataLossActivity();
 
         Bundle args = new Bundle();
-        args.putParcelable(INTENT, intent);
-        args.putInt(REQUESTCODE, requestCode);
+        args.putParcelable(INTENT_KEY, intent);
+        args.putInt(REQUESTCODE_KEY, requestCode);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -87,8 +86,8 @@ public class DataLossActivity extends DialogFragment
     {
         super.onCreate(savedInstanceState);
         setCancelable(true);
-        intent = getArguments().getParcelable(INTENT);
-        requestCode = getArguments().getInt(REQUESTCODE);
+        intent = getArguments().getParcelable(INTENT_KEY);
+        requestCode = getArguments().getInt(REQUESTCODE_KEY);
     }
 
     @NonNull

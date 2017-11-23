@@ -43,13 +43,10 @@ import de.blau.android.util.ThemeUtils;
  */
 public class SearchForm extends DialogFragment
 {
-	
-	private static final String CALLBACK = "callback";
+    private static final String DEBUG_TAG = SearchForm.class.getSimpleName();
+    
+	private static final String BBOX_KEY = "bbox";
 
-	private static final String BBOX = "bbox";
-
-	private static final String DEBUG_TAG = SearchForm.class.getSimpleName();
-	
 	private static final String TAG = "fragment_search_form";
 
     private BoundingBox bbox;
@@ -89,7 +86,7 @@ public class SearchForm extends DialogFragment
     	SearchForm f = new SearchForm();
 
         Bundle args = new Bundle();
-		args.putSerializable(BBOX, bbox);
+		args.putSerializable(BBOX_KEY, bbox);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -103,7 +100,7 @@ public class SearchForm extends DialogFragment
         super.onCreate(savedInstanceState);
         setCancelable(true);
 
-        bbox = (BoundingBox) getArguments().getSerializable(BBOX);
+        bbox = (BoundingBox) getArguments().getSerializable(BBOX_KEY);
     }
     
     @Override

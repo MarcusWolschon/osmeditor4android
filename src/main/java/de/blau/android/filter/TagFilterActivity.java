@@ -44,7 +44,7 @@ import de.blau.android.prefs.Preferences;
  */
 public class TagFilterActivity extends ListActivity  {
 	private static final String DEBUG_TAG = "TagFilterActivity";
-	private static final String FILTER = "FILTER";
+	private static final String FILTER_KEY = "FILTER";
 	private static final String QUERY = "SELECT rowid as _id, active, include, type, key, value FROM filterentries WHERE filter = '";
 	private String filter = null;
 	private SQLiteDatabase db;
@@ -63,7 +63,7 @@ public class TagFilterActivity extends ListActivity  {
 	
 	public static void start(@NonNull Context context, String filter) {
 		Intent intent = new Intent(context, TagFilterActivity.class);
-		intent.putExtra(FILTER, filter);
+		intent.putExtra(FILTER_KEY, filter);
 		context.startActivity(intent);
 	}
 	
@@ -81,9 +81,9 @@ public class TagFilterActivity extends ListActivity  {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		final String filter;
 		if (savedInstanceState == null) {
-			filter = (String)getIntent().getSerializableExtra(FILTER);
+			filter = (String)getIntent().getSerializableExtra(FILTER_KEY);
 		} else {
-			filter = savedInstanceState.getString(FILTER);
+			filter = savedInstanceState.getString(FILTER_KEY);
 		}
 		this.filter = filter;
 		final SQLiteDatabase db = new TagFilterDatabaseHelper(this).getWritableDatabase();
@@ -164,7 +164,7 @@ public class TagFilterActivity extends ListActivity  {
 		Log.d(DEBUG_TAG,"onSaveInstanceState");
 		super.onSaveInstanceState(outState);
 		updateDatabaseFromList();
-		outState.putString(FILTER, filter);
+		outState.putString(FILTER_KEY, filter);
 	}
 	
 	@Override

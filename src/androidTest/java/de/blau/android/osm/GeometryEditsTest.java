@@ -96,12 +96,12 @@ public class GeometryEditsTest {
     		Assert.assertEquals(w1,mList1.get(0));
     		Assert.assertEquals(n2,mList1.get(1));
     		Assert.assertEquals(w2,mList1.get(2));
-    		Assert.assertEquals(w1.getParentRelations().size(),1);
-    		Assert.assertEquals(w1.getParentRelations().get(0),r1);
-    		Assert.assertEquals(n2.getParentRelations().size(),1);
-    		Assert.assertEquals(n2.getParentRelations().get(0),r1);
-    		Assert.assertEquals(w2.getParentRelations().size(),1);
-    		Assert.assertEquals(w2.getParentRelations().get(0),r1);
+    		Assert.assertEquals(1, w1.getParentRelations().size());
+    		Assert.assertEquals(r1, w1.getParentRelations().get(0));
+    		Assert.assertEquals(1, n2.getParentRelations().size());
+    		Assert.assertEquals(r1, n2.getParentRelations().get(0));
+    		Assert.assertEquals(1, w2.getParentRelations().size());
+    		Assert.assertEquals(r1, w2.getParentRelations().get(0));
     		
     		// split way 2
     	    logic.performSplit(main, n3);

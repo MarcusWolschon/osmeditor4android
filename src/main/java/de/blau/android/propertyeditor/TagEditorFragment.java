@@ -79,12 +79,14 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 	
 public class TagEditorFragment extends BaseFragment implements
 		PropertyRows, EditorUpdate {
+    private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
+
 
 	private static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 
-	private static final String SAVEDTAGS = "SAVEDTAGS";
+	private static final String SAVEDTAGS_KEY = "SAVEDTAGS";
 
-	private static final String ELEMENTS = "elements";
+	private static final String ELEMENTS_KEY = "elements";
 
 	private static final String DISPLAY_MR_UPRESETS = "displayMRUpresets";
 
@@ -97,8 +99,6 @@ public class TagEditorFragment extends BaseFragment implements
 	private static final String PRESETSTOAPPLY = "presetsToApply";
 
 	private static final String HTTP_PREFIX = "http://";
-
-	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
@@ -193,7 +193,7 @@ public class TagEditorFragment extends BaseFragment implements
     	
         Bundle args = new Bundle();
    
-        args.putSerializable(ELEMENTS, elements);
+        args.putSerializable(ELEMENTS_KEY, elements);
         args.putSerializable("tags", tags);
         args.putSerializable(APPLY_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
         args.putSerializable(FOCUS_ON_KEY, focusOnKey);
@@ -244,20 +244,20 @@ public class TagEditorFragment extends BaseFragment implements
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
 			Log.d(DEBUG_TAG, "Initializing from original arguments");
-			elements = (OsmElement[]) getArguments().getSerializable(ELEMENTS);
+			elements = (OsmElement[]) getArguments().getSerializable(ELEMENTS_KEY);
 	     	applyLastAddressTags = ((Boolean) getArguments().getSerializable(APPLY_LAST_ADDRESS_TAGS)).booleanValue();
 	     	focusOnKey = (String)  getArguments().getSerializable(FOCUS_ON_KEY);
 	     	displayMRUpresets = ((Boolean) getArguments().getSerializable(DISPLAY_MR_UPRESETS)).booleanValue();
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-			Object[] tempElements = (Object[]) savedInstanceState.getSerializable(ELEMENTS);
+			Object[] tempElements = (Object[]) savedInstanceState.getSerializable(ELEMENTS_KEY);
 			elements = new OsmElement[tempElements.length];
 			for (int i=0;i<tempElements.length;i++) {
 				elements[i] = (OsmElement) tempElements[i];
 			}
 			@SuppressWarnings("unchecked")
-			Map<String, ArrayList<String>> temp = (Map<String, ArrayList<String>>) savedInstanceState.getSerializable(SAVEDTAGS);
+			Map<String, ArrayList<String>> temp = (Map<String, ArrayList<String>>) savedInstanceState.getSerializable(SAVEDTAGS_KEY);
 			savedTags = new LinkedHashMap<String, ArrayList<String>>();
 			savedTags.putAll(temp);
 		}
@@ -424,8 +424,8 @@ public class TagEditorFragment extends BaseFragment implements
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
     	Log.d(DEBUG_TAG, "onSaveInstanceState");
-    	outState.putSerializable(ELEMENTS, elements);
-    	outState.putSerializable(SAVEDTAGS, savedTags);
+    	outState.putSerializable(ELEMENTS_KEY, elements);
+    	outState.putSerializable(SAVEDTAGS_KEY, savedTags);
     }  
     
     @Override

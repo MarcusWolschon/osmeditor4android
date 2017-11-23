@@ -162,7 +162,9 @@ import oauth.signpost.exception.OAuthException;
  */
 public class Main extends FullScreenAppCompatActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.util.SearchItemFoundCallback  {
 
-	/**
+	private static final int ZOOM_FOR_ZOOMTO = 22;
+
+    /**
 	 * Tag used for Android-logging.
 	 */
 	private static final String DEBUG_TAG = Main.class.getName();
@@ -2423,11 +2425,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		            if (!url.contains("vespucci")) {
 		                // load in in this webview
 		                view.loadUrl(url);
-		                return true;
+		            } else {
+		                // vespucci URL
+		                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+		                startActivity(intent);
 		            }
-		            // vespucci URL
-		            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-		            startActivity(intent);
 		            return true;
 		        }
 
@@ -2541,7 +2543,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
 		descheduleAutoLock();
-		ArrayList<PropertyEditorData> multiple = new ArrayList<PropertyEditorData>();
+		ArrayList<PropertyEditorData> multiple = new ArrayList<>();
 		StorageDelegator storageDelegator = App.getDelegator();
 		for (OsmElement e:selection) {
 			if (storageDelegator.getOsmElement(e.getName(), e.getOsmId()) != null) {
@@ -2939,7 +2941,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		 * @return List of elements that have passed the filter
 		 */
 		private ArrayList<OsmElement> filterElements(List<OsmElement> elements) {
-			ArrayList<OsmElement>tmp = new ArrayList<OsmElement>();
+			ArrayList<OsmElement>tmp = new ArrayList<>();
 			Logic logic = App.getLogic();
 			Filter filter = logic.getFilter();
 			for (OsmElement e:elements) {
@@ -3433,24 +3435,29 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * Zoom to the coordinates and try and set the viewbox size to something reasonable
 	 * 
-	 * @param lonE7
-	 * @param latE7
-	 * @param e
+	 * @param lonE7    longitude * 10E/
+	 * @param latE7    latitude " 10E/
+	 * @param e        OsmElement we want to show
 	 */
 	private void zoomTo(int lonE7, int latE7, OsmElement e) {
 		setFollowGPS(false); // otherwise the screen could move around
-		if (e instanceof Node && map.getZoomLevel() < 22) {
-			App.getLogic().setZoom(getMap(), 22); // FIXME this doesn't seem to work as expected
+		if (e instanceof Node && map.getZoomLevel() < ZOOM_FOR_ZOOMTO) {
+			App.getLogic().setZoom(getMap(), ZOOM_FOR_ZOOMTO); // FIXME this doesn't seem to work as expected
 		} else {
 			map.getViewBox().setBorders(getMap(), e.getBounds(),false);
 		}
 		map.getViewBox().moveTo(getMap(), lonE7, latE7);
 	}
 	
+	/**
+	 * Zoom to the element and try and set the viewbox size to something reasonable
+	 * 
+	 * @param e OsmElement we want to show
+	 */
 	public void zoomTo( OsmElement e) {
 		setFollowGPS(false); // otherwise the screen could move around
-		if (e instanceof Node && map.getZoomLevel() < 22) {
-			App.getLogic().setZoom(getMap(), 22); // FIXME this doesn't seem to work as expected
+		if (e instanceof Node && map.getZoomLevel() < ZOOM_FOR_ZOOMTO) {
+			App.getLogic().setZoom(getMap(), ZOOM_FOR_ZOOMTO); // FIXME this doesn't seem to work as expected
 			map.getViewBox().moveTo(getMap(), ((Node)e).getLon(), ((Node)e).getLat());
 		} else {
 			map.getViewBox().setBorders(getMap(), e.getBounds(),false);

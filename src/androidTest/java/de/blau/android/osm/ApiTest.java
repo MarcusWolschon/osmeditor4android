@@ -269,11 +269,11 @@ public class ApiTest {
     	Assert.assertEquals(50000,s.getCachedCapabilities().maxElementsInChangeset);
     	n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
     	Assert.assertNotNull(n);
-    	Assert.assertEquals(n.getState(), OsmElement.STATE_UNCHANGED);
-    	Assert.assertEquals(n.getOsmVersion(), 7);
+    	Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
+    	Assert.assertEquals(7L, n.getOsmVersion());
     	Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME,2807173);
-    	Assert.assertEquals(r.getState(), OsmElement.STATE_UNCHANGED);
-    	Assert.assertEquals(r.getOsmVersion(), 4);
+    	Assert.assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
+    	Assert.assertEquals(4L, r.getOsmVersion());
 	}
     
     @Test
@@ -293,18 +293,18 @@ public class ApiTest {
     	Assert.assertEquals(App.getDelegator().getApiElementCount(),32);
     	Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
     	Assert.assertNotNull(n);
-    	Assert.assertEquals(n.getState(), OsmElement.STATE_MODIFIED);
-    	Assert.assertEquals(n.getOsmVersion(), 6L);
+    	Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+    	Assert.assertEquals(6L, n.getOsmVersion());
     	
     	Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604);
     	Assert.assertNotNull(w);
-    	Assert.assertEquals(w.getState(), OsmElement.STATE_MODIFIED);
-    	Assert.assertEquals(w.getOsmVersion(), 18L);
+    	Assert.assertEquals(OsmElement.STATE_MODIFIED, w.getState());
+    	Assert.assertEquals(18L, w.getOsmVersion());
     	
     	Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME,2807173);
     	Assert.assertNotNull(r);
-    	Assert.assertEquals(r.getState(), OsmElement.STATE_MODIFIED);
-    	Assert.assertEquals(r.getOsmVersion(), 3L);
+    	Assert.assertEquals(OsmElement.STATE_MODIFIED, r.getState());
+    	Assert.assertEquals(3L, r.getOsmVersion());
     	
     	mockServer.enqueue("capabilities2");
     	mockServer.enqueue("changeset2");
@@ -332,16 +332,16 @@ public class ApiTest {
     	Assert.assertEquals(11,s.getCachedCapabilities().maxElementsInChangeset);
     	n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
     	Assert.assertNotNull(n);
-    	Assert.assertEquals(n.getState(), OsmElement.STATE_UNCHANGED);
-    	Assert.assertEquals(n.getOsmVersion(), 7);
+    	Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
+    	Assert.assertEquals(7L, n.getOsmVersion());
     	w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604);
     	Assert.assertNotNull(w);
-    	Assert.assertEquals(w.getState(), OsmElement.STATE_UNCHANGED);
-    	Assert.assertEquals(w.getOsmVersion(), 19L);
+    	Assert.assertEquals(OsmElement.STATE_UNCHANGED, w.getState());
+    	Assert.assertEquals(19L, w.getOsmVersion());
     	r = (Relation) App.getDelegator().getOsmElement(Relation.NAME,2807173);
     	Assert.assertNotNull(r);
-    	Assert.assertEquals(r.getState(), OsmElement.STATE_UNCHANGED);
-    	Assert.assertEquals(r.getOsmVersion(), 4L);
+    	Assert.assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
+    	Assert.assertEquals( 4L, r.getOsmVersion());
 	}
     
     @Test
@@ -405,7 +405,7 @@ public class ApiTest {
 	    Assert.assertEquals(App.getDelegator().getApiElementCount(),32);
 	    Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
 	    Assert.assertNotNull(n);
-	    Assert.assertEquals(n.getState(), OsmElement.STATE_MODIFIED);
+	    Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
 
 	    mockServer.enqueue("capabilities1");
 	    mockServer.enqueue("changeset1");
