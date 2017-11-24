@@ -225,7 +225,7 @@ public class Map extends View implements IMapView {
 
 	private TrackerService tracker;
 	
-	private Paint textPaint = new Paint();
+	private Paint textPaint;
 	
 	/**
 	 * support for display a crosshairs at a position
@@ -274,13 +274,7 @@ public class Map extends View implements IMapView {
 		houseNumberRadius = Density.dpToPx(HOUSE_NUMBER_RADIUS);
 		verticalNumberOffset = Density.dpToPx(HOUSE_NUMBER_RADIUS/2);
 		iconSelectedBorder = Density.dpToPx(2);
-		
-		// TODO externalize
-		textPaint.setColor(Color.WHITE);
-		textPaint.setTypeface(Typeface.SANS_SERIF);
-		textPaint.setTextSize(Density.dpToPx(12));
-		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
-		
+
 		validator = App.getDefaultValidator(context);
 	}
 	
@@ -413,6 +407,9 @@ public class Map extends View implements IMapView {
 		tmpLocked = logic.isLocked();
 		
 		labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+		
+        FeatureStyle fs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
+        textPaint = fs.getPaint();
 			
 		inNodeIconZoomRange = zoomLevel > SHOW_ICONS_LIMIT;
 		
@@ -659,15 +656,20 @@ public class Map extends View implements IMapView {
 	}
 	
 	/**
-	 * Paint the current tile zoom level and offset ... very ugly
+	 * Paint the current tile zoom level and offset ... very ugly used when adjusting the offset
 	 * 
 	 * @param canvas canvas to draw on
 	 */
 	private void paintZoomAndOffset(final Canvas canvas) {
-		int pos =  ThemeUtils.getActionBarHeight(context) + 5 + (int)de.blau.android.grid.MapOverlay.LONGTICKS*3; 
+		int pos =  ThemeUtils.getActionBarHeight(context) + 5 + (int)de.blau.android.grid.MapOverlay.LONGTICKS_DP*3; 
 		Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
-		String text = "Z " + zoomLevel + " Offset " +  (o != null ? String.format(Locale.US,"%.5f",o.lon) + "/" +  String.format(Locale.US,"%.5f",o.lat) : "0.00000/0.00000");
+		String text = context.getString(R.string.zoom_and_offset, zoomLevel, 
+		        o != null ? String.format(Locale.US,"%.5f",o.lon) : "0.00000", o != null ? String.format(Locale.US,"%.5f",o.lat) : "0.00000");
 		float textSize = textPaint.getTextSize();
+	    float textWidth = textPaint.measureText(text);
+	    FontMetrics fm = textPaint.getFontMetrics();
+	    float yOffset = pos + textSize;
+	    canvas.drawRect(5, yOffset + fm.bottom, 5 + textWidth, yOffset - textSize, labelBackground);
 		canvas.drawText(text, 5, pos + textSize, textPaint);
 	}
 	
