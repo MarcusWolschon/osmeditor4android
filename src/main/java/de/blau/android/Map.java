@@ -652,7 +652,7 @@ public class Map extends View implements IMapView {
 	 * @param canvas canvas to draw on
 	 */
 	private void paintZoomAndOffset(final Canvas canvas) {
-		int pos =  ThemeUtils.getActionBarHeight(context) + 5 + (int)de.blau.android.grid.MapOverlay.LONGTICKS*3; 
+		int pos =  ThemeUtils.getActionBarHeight(context) + 5 + (int)de.blau.android.grid.MapOverlay.LONGTICKS_DP*3; 
 		Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
 		String text = "Z " + zoomLevel + " Offset " +  (o != null ? String.format(Locale.US,"%.5f",o.lon) + "/" +  String.format(Locale.US,"%.5f",o.lat) : "0.00000/0.00000");
 		float textSize = textPaint.getTextSize();
