@@ -101,6 +101,18 @@ task updateTranslations(type: Exec) {
 updateTranslations.group = 'vespucci'
 updateTranslations.description = 'Update translations by executing the transifex tx utility'
 
+afterEvaluate{ // this task needs to be crated after the uninstall tasks 
+	task runSingleConnectedTest(dependsOn: ["installDebug","installDebugAndroidTest"], type: Exec) {
+		def toRun = "de.blau.android.osm.ApiTest#dataDownloadElementTimeout"
+		def adb = android.getAdbExe().toString()
+		// commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
+		commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
+		finalizedBy uninstallDebugAndroidTest,uninstallDebug
+	} 
+	runSingleConnectedTest.group = 'vespucci'
+	runSingleConnectedTest.description = 'Run a single test method on device (configuration needs to be edited)'
+}
+
 eclipse {
     classpath {
         plusConfigurations += [ configurations.compile, configurations.testCompile, configurations.androidTestCompile ]
@@ -248,7 +260,7 @@ dependencies {
     compile "ch.poole:PoParser:0.7.2"
     compile "ch.poole:OpeningHoursParser:0.10.1"
     compile "ch.poole:ConditionalRestrictionParser:0.1.12"
-    compile "ch.poole:OpeningHoursFragment:0.2.1"
+    compile "ch.poole:OpeningHoursFragment:0.2.2"
     compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
 
