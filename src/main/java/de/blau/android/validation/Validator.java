@@ -54,7 +54,7 @@ public interface Validator {
      * Note should only be called if the element actually does have an issue
      * @param ctx   Android Context
      * @param node  Node to return the issues for
-     * @return array of Strings containg short descriptions of any issues
+     * @return array of Strings containing short descriptions of any issues
      */
     @NonNull
     String[] describeProblem(@NonNull Context ctx, @NonNull Node node);
@@ -65,7 +65,7 @@ public interface Validator {
      * Note should only be called if the element actually does have an issue
      * @param ctx   Android Context
      * @param way   Way to return the issues for
-     * @return array of Strings containg short descriptions of any issues
+     * @return array of Strings containing short descriptions of any issues
      */
     @NonNull
     String[] describeProblem(@NonNull Context ctx, @NonNull Way way);
@@ -76,7 +76,7 @@ public interface Validator {
      * Note should only be called if the element actually does have an issue
      * @param ctx   Android Context
      * @param relation   Relation to return the issues for
-     * @return array of Strings containg short descriptions of any issues
+     * @return array of Strings containing short descriptions of any issues
      */
     @NonNull
     String[] describeProblem(@NonNull Context ctx, @NonNull Relation relation);
@@ -87,7 +87,7 @@ public interface Validator {
      * Note should only be called if the element actually does have an issue
      * @param ctx   Android Context
      * @param e  OsmElement to return the issues for
-     * @return array of Strings containg short descriptions of any issues
+     * @return array of Strings containing short descriptions of any issues
      */
     @NonNull
     String[] describeProblem(@NonNull Context ctx, @NonNull OsmElement e);
