@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -61,8 +62,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		PREF_SELECTED_API = r.getString(R.string.config_selected_api);
 		currentAPI = prefs.getString(PREF_SELECTED_API, null);
-		if (currentAPI == null) migrateAPI(getWritableDatabase());
-		if (getPreset(ID_DEFAULT) == null) addPreset(ID_DEFAULT, "OpenStreetMap", "", true);
+		if (currentAPI == null) {
+		    migrateAPI(getWritableDatabase());
+		}
+		if (getPreset(ID_DEFAULT) == null) {
+		    addPreset(ID_DEFAULT, "OpenStreetMap", "", true);
+		}
 	}
 
 	@Override
@@ -155,7 +160,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	private synchronized void selectAPI(SQLiteDatabase db, String id) {
 		Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
-		if (getAPIs(db,id).length == 0) throw new IllegalOperationException("Non-existant API selected");
+		if (getAPIs(db,id).length == 0) {
+		    throw new IllegalOperationException("Non-existant API selected");
+		}
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
 		currentAPI = id;
 		Main.prepareRedownload();
@@ -173,14 +180,29 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	/** @return the API object representing the currently selected API */ 
 	public API getCurrentAPI() {
 		API[] apis = getAPIs(currentAPI);
-		if (apis.length == 0) return null;
+		if (apis.length == 0) {
+		    return null;
+		}
 		return apis[0];
 	}
 	
-	/** @return a Server object matching the current API */
+	/**
+	 * If a Server object already exists return that, otherwise create one from the currently configured API
+	 * 
+	 * @return a Server object matching the current API
+	 */
+	@NonNull
 	public synchronized Server getServerObject() {
 		API api = getCurrentAPI();
-		if (api == null) return null;
+		if (api == null) {
+		    Log.e(LOGTAG, "Current API was null, selecting default");
+		    selectAPI(ID_DEFAULT);
+		    api = getCurrentAPI();
+		    if (api==null) {
+		        Log.e(LOGTAG, "Couldn't find default server api, fatal error");
+		        throw new IllegalStateException("Couldn't find default server api, fatal error");
+		    }
+		}
 		if (currentServer == null) { // only create when necessary
 			String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
 			currentServer =  new Server(context, api, version);
@@ -267,10 +289,18 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.insert("apis", null, values);		
 	}
 	
-	/** removes an API from the API database */
-	public synchronized void deleteAPI(final String id) {
-		if (id.equals(ID_DEFAULT)) throw new IllegalOperationException("Cannot delete default");
-		if (id.equals(currentAPI)) selectAPI(ID_DEFAULT);
+	/**
+	 * Removes an API from the API database
+	 * 
+	 * @param id id of the API we want to delete
+	 */
+	public synchronized void deleteAPI(@NonNull final String id) {
+		if (id.equals(ID_DEFAULT)) {
+			throw new IllegalOperationException("Cannot delete default");
+		}
+		if (id.equals(currentAPI)) {
+			selectAPI(ID_DEFAULT);
+		}
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("apis", "id = ?", new String[] { id });
 		db.close();
@@ -278,17 +308,20 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	/**
 	 * Fetches all APIs matching the given ID, or all APIs if id is null
+	 * 
 	 * @param id null to fetch all APIs, or API-ID to fetch a specific one
 	 * @return API[]
 	 */
-	private synchronized API[] getAPIs(String id) {
+	@NonNull
+	private synchronized API[] getAPIs(@Nullable String id) {
 		SQLiteDatabase db = getReadableDatabase();
 		API[] result = getAPIs(db, id);
 		db.close();
 		return result;
 	}
 		
-	private synchronized API[] getAPIs(SQLiteDatabase db, String id) {
+	@NonNull
+	private synchronized API[] getAPIs(@NonNull SQLiteDatabase db, @Nullable String id) {
 		Cursor dbresult = db.query(
 								"apis",
 								new String[] {"id", "name", "url", "readonlyurl", "notesurl", "user", "pass", "preset", "showicon", "oauth","accesstoken","accesstokensecret"},
@@ -485,7 +518,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param id id of the preset to delete
 	 */
 	public synchronized void deletePreset(String id) {
-		if (id.equals(ID_DEFAULT)) throw new IllegalOperationException("Cannot delete default");
+		if (id.equals(ID_DEFAULT)) {
+			throw new IllegalOperationException("Cannot delete default");
+		}
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("presets", "id = ?", new String[] { id });
 		db.close();
@@ -549,7 +584,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param dir the directory to empty and delete
 	 */
 	private void killDirectory(File dir) {
-		if (!dir.isDirectory()) throw new IllegalOperationException("This function only deletes directories");
+		if (!dir.isDirectory()) {
+			throw new IllegalOperationException("This function only deletes directories");
+		}
 		File[] files = dir.listFiles();
 		if (files != null) {
 			for (File f : files) {
@@ -730,7 +767,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param id id of the geocoder to delete
 	 */
 	public synchronized void deleteGeocoder(@NonNull String id) {
-		if (id.equals(ID_DEFAULT_GEOCODER_NOMINATIM)) throw new IllegalOperationException("Cannot delete default");
+		if (id.equals(ID_DEFAULT_GEOCODER_NOMINATIM)) {
+			throw new IllegalOperationException("Cannot delete default");
+		}
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("geocoders", "id = ?", new String[] { id });
 		db.close();
