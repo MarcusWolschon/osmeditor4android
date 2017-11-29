@@ -351,7 +351,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 						Log.e(MapTileFilesystemProvider.DEBUGTAG, "NPE in deleteOldest " + e);
 					} else if (e instanceof SQLiteFullException) {
 						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Exception in deleteOldest " + e);
-						Snack.toastTopError(mCtx,R.string.toast_tile_database_full);		
+						// this fails with Can't create handler inside thread that has not called Looper.prepare() Snack.toastTopError(mCtx,R.string.toast_tile_database_full);		
 					} else if (e instanceof SQLiteDiskIOException) {
 						Log.e(MapTileFilesystemProvider.DEBUGTAG, "Exception in deleteOldest " + e);
 					} else if (e instanceof java.lang.IllegalStateException) { // this typically happens if the DB is already closed
