@@ -60,8 +60,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		PREF_SELECTED_API = r.getString(R.string.config_selected_api);
 		currentAPI = prefs.getString(PREF_SELECTED_API, null);
-		if (currentAPI == null) migrateAPI(getWritableDatabase());
-		if (getPreset(ID_DEFAULT) == null) addPreset(ID_DEFAULT, "OpenStreetMap", "", true);
+		if (currentAPI == null) {
+		    migrateAPI(getWritableDatabase());
+		}
+		if (getPreset(ID_DEFAULT) == null) {
+		    addPreset(ID_DEFAULT, "OpenStreetMap", "", true);
+		}
 	}
 
 	@Override
@@ -154,7 +158,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	private synchronized void selectAPI(SQLiteDatabase db, String id) {
 		Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
-		if (getAPIs(db,id).length == 0) throw new RuntimeException("Non-existant API selected");
+		if (getAPIs(db,id).length == 0) {
+		    throw new RuntimeException("Non-existant API selected");
+		}
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
 		currentAPI = id;
 		Main.prepareRedownload();
@@ -172,14 +178,25 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	/** @return the API object representing the currently selected API */ 
 	public API getCurrentAPI() {
 		API[] apis = getAPIs(currentAPI);
-		if (apis.length == 0) return null;
+		if (apis.length == 0) {
+		    return null;
+		}
 		return apis[0];
 	}
 	
 	/** @return a Server object matching the current API */
+	@NonNull
 	public synchronized Server getServerObject() {
 		API api = getCurrentAPI();
-		if (api == null) return null;
+		if (api == null) {
+		    Log.e(LOGTAG, "Current API was null, selecting default");
+		    selectAPI(ID_DEFAULT);
+		    api = getCurrentAPI();
+		    if (api==null) {
+		        Log.e(LOGTAG, "Couldn't find default server api, fatal error");
+		        throw new RuntimeException("Couldn't find default server api, fatal error");
+		    }
+		}
 		if (currentServer == null) { // only create when necessary
 			String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
 			currentServer =  new Server(context, api, version);
