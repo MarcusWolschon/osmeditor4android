@@ -1,8 +1,11 @@
 package de.blau.android.osm;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -21,6 +24,8 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.SignalHandler;
+import de.blau.android.TestUtils;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
@@ -44,7 +49,9 @@ public class GeometryEditsTest {
 		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
 		main.getMap().setPrefs(main, prefs);
     	App.getDelegator().reset(false);
-		App.getDelegator().setOriginalBox(BoundingBox.getMaxMercatorExtent());		
+		App.getDelegator().setOriginalBox(BoundingBox.getMaxMercatorExtent());	
+	    // TestUtils.grantPermissons();
+	    // TestUtils.dismissStartUpDialogs(main);
     }
     
     @After

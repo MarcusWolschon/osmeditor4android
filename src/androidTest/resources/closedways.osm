@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' upload='true' generator='JOSM'>
+  <bounds minlat='47.3890962' minlon='8.3847356' maxlat='47.3904617' maxlon='8.3865809' origin='CGImap 0.5.8 (27826 thorn-01.openstreetmap.org)' />
+  <node id='289987511' timestamp='2012-10-13T19:38:21Z' uid='92387' user='SimonPoole' visible='true' version='3' changeset='13483681' lat='47.3871991' lon='8.3868561' />
+  <node id='296055259' timestamp='2012-10-13T19:38:21Z' uid='92387' user='SimonPoole' visible='true' version='3' changeset='13483681' lat='47.3873308' lon='8.3867427' />
+  <node id='296055264' timestamp='2013-03-15T08:17:20Z' uid='92387' user='SimonPoole' visible='true' version='6' changeset='15370346' lat='47.3885967' lon='8.3858452' />
+  <node id='296055265' timestamp='2012-10-13T19:38:21Z' uid='92387' user='SimonPoole' visible='true' version='5' changeset='13483681' lat='47.3887766' lon='8.3857408' />
+  <node id='296055266' timestamp='2012-10-13T19:38:21Z' uid='92387' user='SimonPoole' visible='true' version='4' changeset='13483681' lat='47.3889955' lon='8.3856994' />
+  <node id='296055267' timestamp='2012-10-13T19:38:21Z' uid='92387' user='SimonPoole' visible='true' version='3' changeset='13483681' lat='47.3890737' lon='8.3856769' />
+  <node id='296055268' timestamp='2012-10-13T19:38:21Z' uid='92387' user='SimonPoole' visible='true' version='4' changeset='13483681' lat='47.3891407' lon='8.3856348' />
+  <node id='296055269' timestamp='2012-10-13T19:38:21Z' uid='92387' user='SimonPoole' visible='true' version='5' changeset='13483681' lat='47.3894692' lon='8.3852447' />
+  <node id='296055270' timestamp='2013-03-15T08:17:01Z' uid='92387' user='SimonPoole' visible='true' version='6' changeset='15370342' lat='47.3896428' lon='8.3850433' />
+  <node id='296055271' timestamp='2012-10-13T19:38:21Z' uid='92387' user='SimonPoole' visible='true' version='3' changeset='13483681' lat='47.389831' lon='8.384899' />
+  <node id='296055272' timestamp='2012-10-13T19:38:21Z' uid='92387' user='SimonPoole' visible='true' version='3' changeset='13483681' lat='47.3900063' lon='8.3847907' />
+  <way id='1544' visible='true'>
+    <nd ref='296055264' />
+    <nd ref='296055264' />
+    <tag k='highway' v='tertiary' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='Kindhauserstrasse' />
+  </way>
+  <way id='1545' visible='true'>
+    <nd ref='289987511' />
+    <nd ref='296055259' />
+    <nd ref='289987511' />
+    <nd ref='296055259' />
+    <nd ref='289987511' />
+    <tag k='highway' v='tertiary' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='Kindhauserstrasse' />
+  </way>
+  <way id='1546' visible='true'>
+    <nd ref='296055270' />
+    <nd ref='296055271' />
+    <nd ref='296055272' />
+    <nd ref='296055271' />
+    <nd ref='296055272' />
+    <nd ref='296055271' />
+    <nd ref='296055270' />
+    <tag k='highway' v='tertiary' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='Kindhauserstrasse' />
+  </way>
+  <way id='1547' visible='true'>
+    <nd ref='296055265' />
+    <nd ref='296055267' />
+    <nd ref='296055268' />
+    <nd ref='296055269' />
+    <nd ref='296055265' />
+    <tag k='highway' v='tertiary' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='Kindhauserstrasse' />
+  </way>
+</osm>

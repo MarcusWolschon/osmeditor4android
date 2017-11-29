@@ -10,6 +10,8 @@ import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.GeoMath;
@@ -42,7 +44,9 @@ public class Way extends OsmElement implements BoundedObject {
 
 	/**
 	 * Add node at end of way
-	 * @param node
+	 * 
+	 * Will silently not add the same node twice
+	 * @param node Node to add
 	 */
 	void addNode(final Node node) {
 		int size = nodes.size();
@@ -166,10 +170,12 @@ public class Way extends OsmElement implements BoundedObject {
 	}
 	
 	/**
-	 * Returns the first found common node with "way" or null if their are none
-	 * @param way
-	 * @return
+	 * Returns the first found common node with "way" or null if there are none
+	 * 
+	 * @param way the way we are inspecting
+	 * @return a common Node or null if none
 	 */
+	@Nullable
 	public Node getCommonNode(Way way) {
 		for (Node n : this.nodes) {
 			if (way.hasNode(n)) {
@@ -179,21 +185,33 @@ public class Way extends OsmElement implements BoundedObject {
 		return null;
 	}
 	
-	void removeNode(final Node node) {
-		int index = nodes.lastIndexOf(node);
-		if (index > 0 && index < (nodes.size()-1)) { // not the first or last node 
-			if (nodes.get(index-1) == nodes.get(index+1)) {
-				nodes.remove(index-1);
-				Log.i(DEBUG_TAG, "removeNode removed duplicate node");
-			}
-		}
+	/**
+	 * Remove all occurrences of node from this way
+	 * 
+	 * If removing the node leads to two adjacent identical nodes delete one occurrence
+	 * @param node Node to remove
+	 */
+	void removeNode(@NonNull final Node node) {
+	    int index = nodes.lastIndexOf(node);
+	    if (index > 0 && index < (nodes.size()-1)) { // not the first or last node 
+	        if (nodes.get(index-1).equals(nodes.get(index+1))) {
+	            nodes.remove(index-1);
+	            Log.i(DEBUG_TAG, "removeNode removed duplicate node");
+	        }
+	    }
+		int count = 0;
 		while (nodes.remove(node)) {
+		    count++;
+		}
+		if (count > 1) {
+		    Log.i(DEBUG_TAG, "removeNode removed " + (count-1) + " duplicate node(s)");
 		}
 	}
 	
 	/**
 	 * return true if first == last node, will not work for broken geometries
-	 * @return
+	 * 
+	 * @return true if closed
 	 */
 	public boolean isClosed() {
 		return nodes.get(0).equals(nodes.get(nodes.size() - 1));
@@ -281,8 +299,9 @@ public class Way extends OsmElement implements BoundedObject {
 
 	/**
 	 * Checks if a node is an end node of the way (i.e. either the first or the last one)
+	 * 
 	 * @param node a node to check
-	 * @return 
+	 * @return in node is one of the end nodes
 	 */
 	public boolean isEndNode(final Node node) {
 		return getFirstNode() == node || getLastNode() == node;
@@ -298,6 +317,7 @@ public class Way extends OsmElement implements BoundedObject {
 
 	/**
 	 * Checks if this way is tagged as oneway
+	 * 
 	 * @return 1 if this is a regular oneway-way (oneway:yes, oneway:true or oneway:1),
 	 *         -1 if this is a reverse oneway-way (oneway:-1 or oneway:reverse),
 	 *         0 if this is not a oneway-way (no oneway tag or tag with none of the specified values)

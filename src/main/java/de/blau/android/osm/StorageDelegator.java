@@ -386,8 +386,9 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		
 		try {
-			if (way.nodeCount() + 1 > Way.maxWayNodes)
+			if (way.nodeCount() + 1 > Way.maxWayNodes) {
 				throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
+			}
 			apiStorage.insertElementSafe(way);
 			way.addNode(node);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -411,8 +412,9 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		
 		try {
-			if (way.nodeCount() + 1 > Way.maxWayNodes)
+			if (way.nodeCount() + 1 > Way.maxWayNodes) {
 				throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
+			}
 			apiStorage.insertElementSafe(way);
 			way.addNodeAfter(nodeBefore, newNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -848,14 +850,15 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * Delete a node
 	 * 
-	 * The operation will remove it from any ways and relations relations it is a member of
+	 * The operation will remove it from any ways and relations relations it is a member of,
+	 * ways that contain just 1 or less nodes after the deletion will be deleted too
 	 * @param node the node to remove
 	 */
-	public void removeNode(final Node node) {
+	public void removeNode(@NonNull final Node node) {
 		// undo - node saved here, affected ways saved in removeWayNodes
 		dirty = true;
 		if (node.state == OsmElement.STATE_DELETED) {
-			Log.d("StorageDelegator", "removeNode: node already deleted " + node.getOsmId());
+			Log.e("StorageDelegator", "removeNode: node already deleted " + node.getOsmId());
 			return; // node was already deleted
 		}
 		undo.save(node);
@@ -865,7 +868,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			} else {
 				apiStorage.insertElementSafe(node);
 			}
-			removeWayNodes(node);
+			removeWayNode(node);
 			removeElementFromRelations(node);
 			currentStorage.removeNode(node);
 			node.updateState(OsmElement.STATE_DELETED);
@@ -1327,7 +1330,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * 
 	 * @param node The node connecting ways that are to be unjoined.
 	 */
-	public void unjoinWays(final Node node) {
+	public void unjoinWays(@NonNull final Node node) {
 		List<Way> ways = currentStorage.getWays(node);
 		try {
 			if (ways.size() > 1) {
@@ -1395,7 +1398,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param node The node to be replaced.
 	 * @return null if node was not member of a way, the replacement node if it was
 	 */
-	public Node replaceNode(final  Node node) {
+	public Node replaceNode(@NonNull final  Node node) {
 		List<Way> ways = currentStorage.getWays(node);
 		if (!ways.isEmpty()) {
 			Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
@@ -1415,7 +1418,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param way to reverse
 	 * @return true is way had tags that needed to be reversed
 	 */
-	public boolean reverseWay(final Way way) {
+	public boolean reverseWay(@NonNull final Way way) {
 		dirty = true;
 		undo.save(way);
 		//check for direction dependent tags
@@ -1464,7 +1467,14 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
-	private int removeWayNodes(final Node node) {
+	/**
+	 * Remove a node from all ways in storage, deleting ways with just one node in the process
+	 * 
+	 * If the first/last node of a closed way is deleted the way is re-closed
+	 * @param node Node to delete
+	 * @return count of how many ways node was deleted from
+	 */
+	private int removeWayNode(@NonNull final Node node) {
 		// undo - node is not changed, affected way(s) are stored below
 		dirty = true;
 		int deleted = 0;
@@ -1475,12 +1485,19 @@ public class StorageDelegator implements Serializable, Exportable {
 				undo.save(way);
 				if (way.isClosed() && way.isEndNode(node) && way.getNodes().size() > 1) { // note protection against degenerate closed ways
 					way.removeNode(node);
-					way.addNode(way.getFirstNode());
+					if (way.getNodes().size() > 1 && !way.isClosed()) {
+					    way.addNode(way.getFirstNode()); // re-close the way, except if it is already closed, which means it is degenerate
+					} else {
+					    Log.e(DEBUG_TAG,"Way " + way.getOsmId() + " way already closed!");
+					}
 				} else {
 					way.removeNode(node);
 				}
 				//remove way when less than two waynodes exist
-				if (way.getNodes().size() < 2) {
+				// or only the same node twice 
+				//NOTE this will not remove ways with three and more times the same node
+				int size = way.getNodes().size();
+				if (size < 2 || (way.isClosed() && size == 2)) {
 					removeWay(way);
 				} else {
 					way.updateState(OsmElement.STATE_MODIFIED);
