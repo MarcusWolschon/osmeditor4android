@@ -79,8 +79,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 	
 public class TagEditorFragment extends BaseFragment implements
 		PropertyRows, EditorUpdate {
-    private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
-
+   private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
 	private static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 
@@ -96,7 +95,10 @@ public class TagEditorFragment extends BaseFragment implements
 
 	private static final String EXTRA_TAGS = "extraTags";
 	
-	private static final String PRESETSTOAPPLY = "presetsToApply";
+	private static final String PRESETSTOAPPLY_KEY = "presetsToApply";
+	
+    private static final String TAGS_KEY = "tags";
+
 
 	private static final String HTTP_PREFIX = "http://";
 
@@ -194,12 +196,12 @@ public class TagEditorFragment extends BaseFragment implements
         Bundle args = new Bundle();
    
         args.putSerializable(ELEMENTS_KEY, elements);
-        args.putSerializable("tags", tags);
+        args.putSerializable(TAGS_KEY, tags);
         args.putSerializable(APPLY_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
         args.putSerializable(FOCUS_ON_KEY, focusOnKey);
         args.putSerializable(DISPLAY_MR_UPRESETS, Boolean.valueOf(displayMRUpresets));
         args.putSerializable(EXTRA_TAGS, extraTags);
-        args.putSerializable(PRESETSTOAPPLY, presetsToApply);
+        args.putSerializable(PRESETSTOAPPLY_KEY, presetsToApply);
         
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -372,7 +374,7 @@ public class TagEditorFragment extends BaseFragment implements
      */
 	private LinkedHashMap<String,ArrayList<String>> buildEdits() {
 		@SuppressWarnings("unchecked")
-    	ArrayList<LinkedHashMap<String,String>> originalTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable("tags");
+    	ArrayList<LinkedHashMap<String,String>> originalTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable(TAGS_KEY);
  		// 
     	LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<String,ArrayList<String>>();
  		for (LinkedHashMap<String,String>map:originalTags) {
@@ -400,7 +402,8 @@ public class TagEditorFragment extends BaseFragment implements
     	super.onStart();
     	Log.d(DEBUG_TAG, "onStart");
     	// the following likely wont work in onCreateView
-       	ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY);
+    	@SuppressWarnings("unchecked")
+       	ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
     	Preset[] presets = App.getCurrentPresets(getActivity());
     	PresetGroup rootGroup = presets[0].getRootGroup();
 		if (presetsToApply != null) {
@@ -2009,7 +2012,7 @@ public class TagEditorFragment extends BaseFragment implements
 	public List<LinkedHashMap<String, String>> getUpdatedTags() {
 		@SuppressWarnings("unchecked")
 		
-		ArrayList<Map<String,String>> oldTags = (ArrayList<Map<String,String>>)getArguments().getSerializable("tags");
+		ArrayList<Map<String,String>> oldTags = (ArrayList<Map<String,String>>)getArguments().getSerializable(TAGS_KEY);
 		// make a (nearly) full copy
 		ArrayList<LinkedHashMap<String,String>> newTags = new ArrayList<LinkedHashMap<String,String>>();
 		for (Map<String,String> map:oldTags) {
