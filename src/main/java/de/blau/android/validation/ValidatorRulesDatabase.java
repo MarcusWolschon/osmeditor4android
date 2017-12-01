@@ -31,14 +31,15 @@ public class ValidatorRulesDatabase {
     private static final String RESURVEY_TABLE = "resurveytags";
     static final String DAYS_FIELD = "days";
     static final String VALUE_FIELD = "value";
+    static final String ISREGEXP_FIELD = "is_regexp";
     static final String KEY_FIELD = "key";
     static final String RULESET_FIELD = "ruleset";
     private static final String CHECK_TABLE = "checktags";
     static final String OPTIONAL_FIELD = "optional";
 
-    static final String QUERY_RESURVEY_DEFAULT = "SELECT resurveytags.rowid as _id, key, value, days FROM resurveytags WHERE ruleset = " + DEFAULT_RULESET + " ORDER BY key, value";
-    static final String QUERY_RESURVEY_BY_ROWID = "SELECT key, value, days FROM resurveytags WHERE rowid=?";
-    static final String QUERY_RESURVEY_BY_NAME = "SELECT resurveytags.rowid as _id, key, value, days FROM resurveytags, rulesets WHERE ruleset = rulesets.id and rulesets.name = ? ORDER BY key, value";
+    static final String QUERY_RESURVEY_DEFAULT = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days FROM resurveytags WHERE ruleset = " + DEFAULT_RULESET + " ORDER BY key, value";
+    static final String QUERY_RESURVEY_BY_ROWID = "SELECT key, value, is_regexp, days FROM resurveytags WHERE rowid=?";
+    static final String QUERY_RESURVEY_BY_NAME = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days FROM resurveytags, rulesets WHERE ruleset = rulesets.id and rulesets.name = ? ORDER BY key, value";
    
     static final String QUERY_CHECK_DEFAULT = "SELECT checktags.rowid as _id, key, optional FROM checktags WHERE ruleset = " + DEFAULT_RULESET + " ORDER BY key";
     static final String QUERY_CHECK_BY_ROWID = "SELECT key, optional FROM checktags WHERE rowid=?";
@@ -65,18 +66,19 @@ public class ValidatorRulesDatabase {
      * @return a Map of the key-value tupels
      */
     @Nullable
-    public static MultiHashMap<String,ValuesSecs> getDefaultResurvey(@NonNull SQLiteDatabase database) {
-        MultiHashMap<String,ValuesSecs> result = null;
-        Cursor dbresult = database.query(RESURVEY_TABLE, new String[] { KEY_FIELD, VALUE_FIELD, DAYS_FIELD },
+    public static MultiHashMap<String,PatternAndAge> getDefaultResurvey(@NonNull SQLiteDatabase database) {
+        MultiHashMap<String,PatternAndAge> result = null;
+        Cursor dbresult = database.query(RESURVEY_TABLE, new String[] { KEY_FIELD, VALUE_FIELD, ISREGEXP_FIELD, DAYS_FIELD },
                 RULESET_FIELD + " = " +  DEFAULT_RULESET, null, null, null, KEY_FIELD + "," +  VALUE_FIELD);
 
         if (dbresult.getCount() >= 1) {
-            result = new MultiHashMap<String, ValuesSecs>();
+            result = new MultiHashMap<String, PatternAndAge>();
             boolean haveEntry = dbresult.moveToFirst();
             while (haveEntry) {
-                ValuesSecs v = new ValuesSecs();
-                v.value = dbresult.getString(1);
-                v.s = dbresult.getLong(2)*24*3600; // days -> secs
+                PatternAndAge v = new PatternAndAge();
+                v.setValue(dbresult.getString(1));
+                v.setIsRegexp(dbresult.getInt(2) == 1 ? true : false);
+                v.setAge(dbresult.getLong(3)*24*3600); // days -> secs
                 result.add(dbresult.getString(0), v);
                 haveEntry = dbresult.moveToNext();
             } 
@@ -107,13 +109,15 @@ public class ValidatorRulesDatabase {
      * @param ruleSetId id of the rule set we are using
      * @param key       key of objects that should be age checked
      * @param value     value of objects that should be age checked
+     * @param isRegexp TODO
      * @param days      how man days old the object should max be
      */
-    public static void addResurvey(@NonNull SQLiteDatabase db, int ruleSetId, @NonNull String key, @Nullable String value, int days) {
+    public static void addResurvey(@NonNull SQLiteDatabase db, int ruleSetId, @NonNull String key, @Nullable String value, boolean isRegexp, int days) {
         ContentValues values = new ContentValues();
         values.put(RULESET_FIELD, ruleSetId);
         values.put(KEY_FIELD, key);
         values.put(VALUE_FIELD, value);
+        values.put(ISREGEXP_FIELD, isRegexp ? 1 : 0);
         values.put(DAYS_FIELD, days);
         db.insert(RESURVEY_TABLE, null, values);       
     }
@@ -125,12 +129,14 @@ public class ValidatorRulesDatabase {
      * @param id    rowid of the resurvey entry
      * @param key   key of objects that should be age checked
      * @param value value of objects that should be age checked
+     * @param isRegexp TODO
      * @param days  how man days old the object should max be
      */
-    public static void updateResurvey(@NonNull SQLiteDatabase db, int id, @NonNull String key, @Nullable String value, int days) {
+    public static void updateResurvey(@NonNull SQLiteDatabase db, int id, @NonNull String key, @Nullable String value, boolean isRegexp, int days) {
         ContentValues values = new ContentValues();
         values.put(KEY_FIELD, key);
         values.put(VALUE_FIELD, value);
+        values.put(ISREGEXP_FIELD, isRegexp ? 1 : 0);
         values.put(DAYS_FIELD, days);
         db.update(RESURVEY_TABLE, values, "rowid=" + id, null);
     }

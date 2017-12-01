@@ -161,6 +161,7 @@ public class ValidatorRulesUI {
 
         final EditText keyEdit = (EditText) templateView.findViewById(R.id.resurvey_key);
         final EditText valueEdit = (EditText) templateView.findViewById(R.id.resurvey_value);
+        final CheckBox regexpCheck = (CheckBox) templateView.findViewById(R.id.resurvey_is_regexp);
         final EditText daysEdit = (EditText) templateView.findViewById(R.id.resurvey_days);
 
         if (existing) {
@@ -168,9 +169,11 @@ public class ValidatorRulesUI {
             if (cursor.moveToFirst()) {
                 String key = cursor.getString(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.KEY_FIELD));
                 String value = cursor.getString(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.VALUE_FIELD));
+                boolean isRegexp = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.ISREGEXP_FIELD)) == 1 ? true : false;
                 int days  = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.DAYS_FIELD));
                 keyEdit.setText(key);
                 valueEdit.setText(value);
+                regexpCheck.setChecked(isRegexp);
                 daysEdit.setText(Integer.toString(days));
             } else {
                 Log.e(DEBUG_TAG, "resurvey id " + Integer.toString(id) + " not found");
@@ -196,9 +199,9 @@ public class ValidatorRulesUI {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!existing) {
-                    ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString(), valueEdit.getText().toString(), Integer.parseInt(daysEdit.getText().toString()));
+                    ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(), Integer.parseInt(daysEdit.getText().toString()));
                 } else {
-                    ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString(), valueEdit.getText().toString(), Integer.parseInt(daysEdit.getText().toString()));
+                    ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(), Integer.parseInt(daysEdit.getText().toString()));
                 }
                 newResurveyCursor(db);
                 resetValidator(context);

@@ -31,7 +31,7 @@ public class BaseValidator implements Validator {
     /**
      * Tags for objects that should be re-surveyed regularly.
      */
-    MultiHashMap<String,ValuesSecs> resurveyTags;
+    MultiHashMap<String,PatternAndAge> resurveyTags;
     
     /**
      * Tags that should be present on objects (need to be in the preset for the object too
@@ -76,21 +76,21 @@ public class BaseValidator implements Validator {
 
         // age check
         for (String key:resurveyTags.getKeys()) {
-            Set<ValuesSecs>values= resurveyTags.get(key);
-            for (ValuesSecs value:values) {
-                if (tags.containsKey(key) && (value.value == null || "".equals(value.value) || value.value.equals(tags.get(key)))) {
+            Set<PatternAndAge>values= resurveyTags.get(key);
+            for (PatternAndAge value:values) {
+                if (tags.containsKey(key) && (value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
                     long now = System.currentTimeMillis()/1000;
                     long timestamp = e.getTimestamp();
-                    if (timestamp >= 0 && (now - timestamp > value.s)) {
+                    if (timestamp >= 0 && (now - timestamp > value.getAge())) {
                         status = status | Validator.AGE;
                         break;
                     } 
                     if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
-                        status = status | checkAge(tags, now,Tags.KEY_CHECK_DATE, value.s);
+                        status = status | checkAge(tags, now,Tags.KEY_CHECK_DATE, value.getAge());
                         break;
                     } 
                     if (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key)) {
-                        status = status | checkAge(tags, now,Tags.KEY_CHECK_DATE+":"+key, value.s);
+                        status = status | checkAge(tags, now,Tags.KEY_CHECK_DATE+":"+key, value.getAge());
                         break;
                     }                       
                 }

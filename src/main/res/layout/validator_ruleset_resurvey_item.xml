@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content" 
 	android:paddingTop="?attr/dialogPreferredPadding">
@@ -42,6 +42,25 @@
 		android:layout_alignTop="@id/resurvey_value_legend"
 		android:layout_alignLeft="@id/resurvey_key"
 		android:textAppearance="?android:attr/textAppearanceMedium" />
+		
+	<TextView
+		android:id="@+id/resurvey_is_regexp_legend"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="?attr/dialogPreferredPadding"
+		android:paddingTop="10dp"
+		android:layout_below="@id/resurvey_value_legend"
+		android:textAppearance="?android:attr/textAppearanceMedium" 
+		android:text="Regular expression"/>
+		
+	<CheckBox
+		android:id="@+id/resurvey_is_regexp"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_marginRight="?attr/dialogPreferredPadding"
+		android:layout_alignBaseline="@id/resurvey_is_regexp_legend"
+		android:layout_toRightOf="@id/resurvey_is_regexp_legend"
+		android:textAppearance="?android:attr/textAppearanceMedium" />
         
     <TextView
 		android:id="@+id/resurvey_days_legend"
@@ -49,7 +68,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="?attr/dialogPreferredPadding"
 		android:paddingTop="10dp"
-		android:layout_below="@id/resurvey_value_legend"
+		android:layout_below="@id/resurvey_is_regexp_legend"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
 		android:text="@string/age"/> 
 		

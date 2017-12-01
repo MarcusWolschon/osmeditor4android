@@ -263,6 +263,7 @@ dependencies {
     compile "ch.poole:OpeningHoursFragment:0.2.2"
     compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
+    compile 'cn.carbswang.android:NumberPickerView:1.1.1'
 
     // Unit tests
     testCompile "junit:junit:4.12"
