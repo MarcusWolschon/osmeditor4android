@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.filter.Filter;
@@ -47,7 +48,7 @@ public class ValidatorRulesUI {
     public void manageRulesetContents(@NonNull final Context context) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         View rulesetView = (View) LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list, null);
-        alertDialog.setTitle(context.getString(R.string.validator_title,"Default"));
+        alertDialog.setTitle(context.getString(R.string.validator_title,context.getString(R.string.default_)));
         alertDialog.setView(rulesetView);
         final SQLiteDatabase writableDb = new ValidatorRulesDatabaseHelper(context).getWritableDatabase();
         ListView resurveyList = (ListView) rulesetView.findViewById(R.id.listViewResurvey);
@@ -58,7 +59,7 @@ public class ValidatorRulesUI {
         checkCursor = ValidatorRulesDatabase.queryCheckByName(writableDb, ValidatorRulesDatabase.DEFAULT_RULESET_NAME);
         checkAdapter = new CheckAdapter(writableDb, context, checkCursor);
         checkList.setAdapter(checkAdapter);
-        alertDialog.setNeutralButton(R.string.dismiss, null);
+        alertDialog.setNeutralButton(R.string.done, null);
         alertDialog.setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
@@ -73,7 +74,7 @@ public class ValidatorRulesUI {
                 PopupMenu popup = new PopupMenu(context, fab);
 
                 // menu items for adding rules
-                MenuItem addResurveyEntry = popup.getMenu().add("Add resurvey entry");
+                MenuItem addResurveyEntry = popup.getMenu().add(R.string.add_resurvey_entry);
                 addResurveyEntry.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -81,7 +82,7 @@ public class ValidatorRulesUI {
                         return true;
                     }
                 });
-                MenuItem addCheckEntry = popup.getMenu().add("Add check entry");
+                MenuItem addCheckEntry = popup.getMenu().add(R.string.add_check_entry);
                 addCheckEntry.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -162,8 +163,8 @@ public class ValidatorRulesUI {
         final EditText keyEdit = (EditText) templateView.findViewById(R.id.resurvey_key);
         final EditText valueEdit = (EditText) templateView.findViewById(R.id.resurvey_value);
         final CheckBox regexpCheck = (CheckBox) templateView.findViewById(R.id.resurvey_is_regexp);
-        final EditText daysEdit = (EditText) templateView.findViewById(R.id.resurvey_days);
-
+       // final EditText daysEdit = (EditText) templateView.findViewById(R.id.resurvey_days);
+        final NumberPicker daysPicker = (NumberPicker) templateView.findViewById(R.id.resurvey_days);
         if (existing) {
             Cursor cursor = db.rawQuery(ValidatorRulesDatabase.QUERY_RESURVEY_BY_ROWID, new String[] { Integer.toString(id) });
             if (cursor.moveToFirst()) {
@@ -174,7 +175,7 @@ public class ValidatorRulesUI {
                 keyEdit.setText(key);
                 valueEdit.setText(value);
                 regexpCheck.setChecked(isRegexp);
-                daysEdit.setText(Integer.toString(days));
+                daysPicker.setValue(days);
             } else {
                 Log.e(DEBUG_TAG, "resurvey id " + Integer.toString(id) + " not found");
             }
@@ -199,9 +200,9 @@ public class ValidatorRulesUI {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!existing) {
-                    ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(), Integer.parseInt(daysEdit.getText().toString()));
+                    ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(), daysPicker.getValue());
                 } else {
-                    ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(), Integer.parseInt(daysEdit.getText().toString()));
+                    ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(), daysPicker.getValue());
                 }
                 newResurveyCursor(db);
                 resetValidator(context);
@@ -330,5 +331,4 @@ public class ValidatorRulesUI {
         });
         alertDialog.show();
     }
-
 }

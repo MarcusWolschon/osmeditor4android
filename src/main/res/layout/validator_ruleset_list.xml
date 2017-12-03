@@ -10,17 +10,18 @@
 	android:layout_width="match_parent"
    	android:layout_height="match_parent"
 	android:orientation="vertical" >
-	<RelativeLayout
+	<LinearLayout
 		android:id="@+id/listViewResurveyTitle"
         android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:layout_marginTop="5dp"
     	android:layout_marginBottom="1dp" 
-    	 >
+    	android:orientation="horizontal" >
 		<TextView
 			android:id="@+id/key_title"
-    	    android:layout_width="wrap_content"
+    	    android:layout_width="0dp"
        	 	android:layout_height="wrap_content"
+       	 	android:layout_weight="1"
        	 	android:minHeight="32dp"
         	android:paddingLeft="5dp"
 	    	android:paddingRight="5dp"
@@ -29,8 +30,9 @@
 			android:maxLines="1" 
 			android:text="@string/Key" />/>
 		<TextView
-    	    android:layout_width="wrap_content"
+    	    android:layout_width="0dp"
        	 	android:layout_height="wrap_content"
+       	 	android:layout_weight="1"
        	 	android:minHeight="32dp"
        	 	android:layout_toRightOf="@id/key_title"
         	android:paddingLeft="5dp"
@@ -39,19 +41,20 @@
         	android:textStyle="bold"
 			android:text="@string/Value" />
 		<TextView
-    	    android:layout_width="wrap_content"
+    	    android:layout_width="0dp"
        	 	android:layout_height="wrap_content"
+       	 	android:layout_weight="0.4"
        	 	android:minHeight="32dp"
        	 	android:layout_alignParentRight="true"
         	android:textAppearance="?android:attr/textAppearanceSmall"
         	android:textStyle="bold"
-			android:maxLines="1" 
+			android:maxLines="2" 
 			android:text="@string/max_age" />
-     </RelativeLayout>
+     </LinearLayout>
      <ListView
     	android:id="@+id/listViewResurvey"
     	android:layout_width="match_parent"
-    	android:layout_height="match_parent" 
+    	android:layout_height="0dp" 
     	android:layout_marginTop="1dp"
     	android:layout_marginBottom="5dp"
     	android:layout_weight="2">
@@ -89,7 +92,7 @@
 	<ListView
     	android:id="@+id/listViewCheck"
     	android:layout_width="match_parent"
-    	android:layout_height="match_parent" 
+    	android:layout_height="0dp" 
     	android:layout_marginTop="1dp"
     	android:layout_marginBottom="5dp"
     	android:layout_weight="2">

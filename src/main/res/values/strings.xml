@@ -145,6 +145,8 @@
     <string name="age">Age</string>
     <string name="check_opt">Check opt.</string>
     <string name="check_optional">Check optional</string>
+    <string name="add_resurvey_entry">Add resurvey entry</string>
+    <string name="add_check_entry">Add check entry</string>
 
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -230,6 +232,7 @@
     <string name="okay">Okay</string>
     <string name="cancel">Cancel</string>
     <string name="dismiss">Dismiss</string>
+    <string name="done">Done</string>
     <string name="locked">Locked</string>
     <string name="next">Next</string>
     <string name="apply">Apply</string>
