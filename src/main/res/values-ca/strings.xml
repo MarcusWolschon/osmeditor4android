@@ -7,6 +7,7 @@
   <string name="transfer_download_current_download">Descarta i baixa</string>
   <string name="transfer_download_current_back">Enrere (no facis res)</string>
   <string name="upload_problem_title">S\'ha produït un problema amb la pujada</string>
+  <string name="upload_conflict_title">Actualitzant conflicte</string>
   <string name="upload_conflict_message_version">%1$s \nté un versió local %2$s \ni al servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nté una versió local %2$s \ni s\'ha suprimit del servidor</string>
   <string name="use_local_version">Usa la versió local</string>
@@ -15,16 +16,37 @@
   <string name="no_connection_title">No hi ha connexió amb el servidor</string>
   <string name="wrong_login_data_title">L\'autenticació ha fallat</string>
   <string name="data_conflict_title">Conflicte de versions</string>
+  <string name="api_offline_title">API Fora de línia</string>
   <string name="out_of_memory_title">Sense memòria</string>
+  <string name="out_of_memory_message">Vespucci s\'ha quedat sense memòria carregant les dades sol·licitades. Si us plau, reinicia i intenta carregar una àrea més petita.</string>
+  <string name="out_of_memory_dirty_message">Vespucci s\'ha quedat sense memòria carregant les dades sol·licitades. Si us plau, prova de desar les teves edicions, reinicia i intenta carregar una àrea més petita.</string>
+  <string name="invalid_data_received_title">S\'han rebut dades invàlides.</string>
+  <string name="invalid_data_read_title">Dades invàlides</string>
+  <string name="file_write_failed_title">Falla l\'escriptura de l\'arxiu</string>
+  <string name="file_write_failed_message">No es pot escriure a arxiu seleccionat.</string>
   <string name="welcome_title">Us donem la benvinguda!</string>
+  <string name="welcome_message">Gràcies per utilitzar Vespucci.\n\*n
+Per començar necessites saber dues coses:\n\*n*
+Pulsant la icona del pany a la cantonada esquerra superior
+canviarà d\'entre Mode bloquejat (no editable) i
+Mode desbloquejat\n\*n* per afegir un objecte nou: 
+pulsació llarga, pulsant en el mateix lloc afegirà un node,
+pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols editar.\n\*nDiverteixte!</string>
   <string name="read_introduction">Llegiu la introducció ara</string>
-  <string name="progress_title">Càrrega</string>
+  <string name="upgrade_title">Benvingut/da a la nova versió de Vespucci!</string>
+  <string name="upgrade_message">Això és una versió nova de Vespucci amb comportament i característiques noves. Feu una lectura rapida en el dispositiu de la informació d\'actualització.</string>
+  <string name="read_upgrade">Llegeix sobre la nova versió</string>
+  <string name="progress_title">Carregant</string>
   <string name="progress_message">S\'està carregant a la memòria...</string>
   <string name="progress_download_message">S\'estan baixant dades des del servidor...</string>
   <string name="progress_general_title">Espereu</string>
   <string name="progress_deleting_message">S\'està suprimint...</string>
   <string name="progress_searching_message">Cercant...</string>
   <string name="progress_saving_message">Enregistrant...</string>
+  <string name="progress_uploading_message">Pujant...</string>
+  <string name="progress_preset_message">Descarregant preconfiguració</string>
+  <string name="progress_running_message">Carregant...</string>
+  <string name="progress_oauth">Fes servir el teu compte openstreemap.org per autorització Oath</string>
   <string name="upload_comment_label">Comentari:</string>
   <string name="upload_source_label">Origen:</string>
   <string name="upload_close_changeset_label">Tanca el conjunt de canvis:</string>
@@ -39,6 +61,8 @@
   <string name="openstreetbug_comment_label">Comentari:</string>
   <string name="openstreetbug_edit_close">Tanca</string>
   <string name="openstreetbug_edit_closed">Tancat</string>
+  <string name="openstreetbug_not_downloaded">no descarregat</string>
+  <string name="openstreetbug_last_updated">Darrera actualització</string>
   <string name="unsaved_data_title">Atenció!</string>
   <string name="unsaved_data_message">Teniu canvis sense desar que es descartaran si continueu.</string>
   <string name="unsaved_data_proceed">Descarta i continua</string>
@@ -53,10 +77,39 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Aquest suggeriment pot substituir alguns valors d\'etiquetes amb valors més populars.</string>
   <string name="search_results_title">Resultats de la cerca</string>
   <string name="find_message">Introduïu la cadena a cercar</string>
+  <string name="geocoder_prompt">amb</string>
+  <string name="search">Cercar</string>
+  <string name="no_valid_preset">Preconfiguració no valida</string>
   <string name="read_file">Seleccioneu el fitxer a llegir</string>
   <string name="save_file">Introduïu el fitxer a desar</string>
+  <string name="element_information">Informació del element</string>
+  <string name="id">Id</string>
+  <string name="nodes">Nodes</string>
+  <string name="relation_membership">Membre d\'una relació</string>
+  <string name="problem">Problema</string>
+  <string name="members">Membres</string>
+  <string name="closed">Tancat</string>
+  <string name="version">Versió</string>
+  <string name="length_m">Llargària (m)</string>
+  <string name="not_downloaded">No descarregat</string>
+  <string name="empty_role">Rol buit</string>
+  <string name="element">element</string>
+  <string name="last_updated">Darrera actualització</string>
+  <string name="last_edited">Darrera modificació</string>
+  <string name="error">error</string>
+  <string name="warning">avís</string>
+  <string name="minor_issue">Problema menor</string>
+  <string name="unknown_error_level">Nivell d\'error desconegut</string>
+  <string name="attached_object_warning_title">Aquesta operació afecta a objectes filtrats!</string>
+  <string name="attached_object_warning_message">L\'objecte a modificar està connectat a elements amagats que canviaran també.</string>
+  <string name="attached_object_warning_continue">OK continua mostrant aquest missatge</string>
+  <string name="attached_object_warning_stop">OK para de mostrar aquest missatge</string>
+  <string name="send_debug_information">Envia informació de depuració</string>
+  <string name="evaluate">Avaluar</string>
+  <string name="js_console_msg_debug">Mode depuració!</string>
   <!--Toaster-->
   <string name="toast_no_changes">No heu canviat res encara...</string>
+  <string name="toast_unsaved_changes">Tens canvis sense desar, si us plau, puja\'ls primer</string>
   <string name="toast_upload_success">Ha finalitzat la pujada al servidor OSM.</string>
   <string name="toast_unlock_to_edit">Desbloqueu per a editar</string>
   <string name="toast_edit_outside_downloaded_area">No podeu editar fora de l\'àrea baixada</string>
@@ -65,6 +118,16 @@
   <string name="toast_export_failed">L\'exportació ha fallat</string>
   <string name="toast_export_success">Exportat a %1$s</string>
   <string name="toast_oneway_reversed">Heu canviat el sentit d\'una via de sentit únic amb etiquetes que depenen de la direcció. Si us plau verifiqueu les etiquetes i corregiu-les si fos necessari.</string>
+  <string name="toast_too_many_nodes_for_move">Massa nodes de la via per moure</string>
+  <string name="toast_one_unread_mail">Tens un missatge no llegit a OSM</string>
+  <string name="toast_noname">La carretera no té nom o referència</string>
+  <string name="toast_notype">La relació no té tipus</string>
+  <string name="toast_nothing_found">No s\'han trobat resultats</string>
+  <string name="toast_missing_filemanager">Si us plau, instal·la un gestor de fitxers.</string>
+  <string name="toast_outside_of_download">Estàs editant fora de l\'àrea de les dades descarregades.</string>
+  <string name="toast_file_not_found">No s\'ha trobat %1$s.</string>
+  <string name="toast_file_exists">El fitxer %1$s existeix.</string>
+  <string name="toast_needs_resurvey">L\'objecte pot ser que estigui desactualitzat</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -72,17 +135,48 @@
   <string name="cancel">Cancel·la</string>
   <string name="locked">Blocat</string>
   <string name="next">Següent</string>
+  <string name="apply">Aplicar</string>
+  <string name="replace">Reemplaçar</string>
+  <string name="save">Desar</string>
+  <string name="back">Enrere</string>
+  <string name="forward">Endavant</string>
+  <string name="enable">Habilitar</string>
+  <string name="clear">Netejar</string>
+  <string name="retry">Reintentar</string>
+  <string name="read">Llegir</string>
+  <string name="overwrite">Sobreescriure</string>
+  <string name="share">Compartir</string>
+  <string name="share_position">Compartir posició</string>
   <!--Dialog for back button-->
   <string name="exit_title">Realment voleu sortir?</string>
   <string name="exit_text">Esteu segur de voler sortir?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">clau</string>
+  <string name="Key">Clau</string>
   <string name="value">valor</string>
+  <string name="Value">Valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Ca:Map_Features</string>
+  <string name="tag_menu_address">Afegir etiquetes de direcció</string>
   <string name="tag_menu_preset">Predefinicions</string>
   <string name="tag_menu_repeat">Repeteix etiquetes</string>
   <string name="tag_menu_revert">Reverteix</string>
   <string name="tag_menu_addtorelation">Afegeix a la relació</string>
+  <string name="tag_menu_resetMRU">Selecciona predefinicions</string>
+  <string name="tag_menu_exit_no_save">Sortir\nsense desar</string>
+  <string name="tag_value_hint">Escriu un valor</string>
+  <string name="tag_additional_properties">Propietats addicionals</string>
+  <string name="tag_details">Detalls</string>
+  <string name="tag_menu_sort">Ordenar</string>
+  <string name="tag_menu_download">Descarregar</string>
+  <string name="tag_menu_js_console">Consola JS</string>
+  <string name="menu_up">Amunt</string>
+  <string name="tag_restriction_header">Valor</string>
+  <string name="tag_restriction_when">quan</string>
+  <string name="tag_restriction_and">i</string>
+  <string name="tag_restriction_add_simple_condition">Afegir una condició simple</string>
+  <string name="tag_restriction_add_expression">Afegir una expressió</string>
+  <string name="tag_restriction_add_opening_hours">Afegir horaris d\'apertura</string>
+  <string name="tag_restriction_value_hint">restricció condicional</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carrega un àrea</string>
   <string name="location_choose_radius">Trieu un radi:</string>
@@ -92,11 +186,13 @@
   <string name="location_text_unknown">desconeguda</string>
   <string name="location_last_text_parameterized">Última ubicació coneguda: %1$s</string>
   <string name="location_current_text_parameterized">Ubicació actual: %1$s</string>
+  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\nfa %3$s %4$s</string>
   <string name="location_text_metadata_accuracy">Precisió %1$2.0f metre,</string>
   <string name="location_map_text">Des del mapa (properament)</string>
   <string name="location_coordinates_text">Des de les coordenades:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <string name="location_search_label">Cercar:</string>
   <string name="location_load_button">Carrega</string>
   <string name="location_nan_title">Entrada incorrecta!</string>
   <string name="location_nan_message">Si us plau, indiqueu les coordenades en format decimal (p.ex. \"52.333572\",\"8.741185\"). La latitud ha d\'estar entre -85.0 i +85.0 i la longitud entre -175.0 i +175.0.</string>
@@ -105,37 +201,54 @@
   <string name="menu_edit">Edita</string>
   <string name="menu_add">Nou</string>
   <string name="menu_config">Preferències</string>
+  <string name="menu_find">Cercar</string>
   <string name="menu_help">Ajuda</string>
   <string name="menu_erase">Suprimeix el node</string>
   <string name="menu_set_position">Posició</string>
   <string name="menu_split">Divideix</string>
+  <string name="menu_extract">Extreure node</string>
   <string name="menu_append">Afegeix</string>
   <string name="menu_relation">Crea una relació</string>
+  <string name="menu_edit_relation">Editar relació</string>
+  <string name="menu_add_relation_member">Afegir membre</string>
+  <string name="menu_select_relation_members">Seleccionar membres</string>
   <string name="menu_tag">Edita les etiquetes</string>
   <string name="menu_openstreetbug">Afegeix una nota</string>
   <string name="menu_easyedit">EasyEdit</string>
+  <string name="menu_camera">Càmera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Mostra la ubicació</string>
   <string name="menu_gps_follow">Segueix la posició del GPS</string>
+  <string name="menu_gps_goto">Anar a la posició GPS</string>
   <string name="menu_gps_start">Inicia la traça GPS</string>
   <string name="menu_gps_pause">Pausa la traça GPS</string>
   <string name="menu_gps_clear">Buida la traça GPS</string>
   <string name="menu_gps_upload">Puja la traça GPS</string>
   <string name="menu_gps_export">Exporta la traça GPS</string>
+  <string name="menu_gps_autodownload">Descàrrega automàtica</string>
   <string name="menu_transfer">Transfereix...</string>
   <string name="menu_transfer_download_current">Baixa la visualització actual</string>
   <string name="menu_transfer_upload">Puja les dades al servidor OSM</string>
+  <string name="menu_transfer_file">Fitxer...</string>
   <string name="menu_transfer_export">Exporta els canvis</string>
+  <string name="menu_transfer_save_file">Desa al fitxer</string>
+  <string name="menu_transfer_bugs_clear">Netejar</string>
   <string name="menu_save">Desa al fitxer</string>
   <string name="menu_join">Uneix</string>
+  <string name="menu_unjoin">Desconnectar</string>
   <string name="menu_copy">Copia</string>
   <string name="menu_cut">Retalla</string>
   <string name="menu_paste">Enganxa</string>
   <string name="menu_rotate">Gira</string>
   <string name="menu_orthogonalize">Ortogonalitza</string>
+  <string name="menu_newnode_gps">Nou node a la posició GPS</string>
+  <string name="menu_information">Informació</string>
   <string name="menu_tools">Eines</string>
   <string name="menu_tools_background_properties">Propietats del fons</string>
+  <string name="menu_tools_background_align_zero">Zero</string>
+  <string name="menu_tools_background_contrast">Contrast</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Propietats</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
   <string name="menu_merge">Uneix</string>
@@ -149,6 +262,7 @@
   <string name="actionmode_nodeselect">Node seleccionat</string>
   <string name="actionmode_relationselect">Relació seleccionada</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_one_object">1 objecte</string>
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">Amplada màxima de la línia</string>
   <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
@@ -166,11 +280,14 @@
   <string name="config_closeChangesetOnSave_title">Tanca els conjunts de canvis</string>
   <string name="config_backgroundLayer_title">Fons del mapa</string>
   <string name="config_backgroundLayer_summary">El fons del mapa renderitzat.</string>
+  <string name="config_scale_title">Mostrar escala</string>
   <string name="config_category_server">Paràmetres del servidor</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Usa oauth</string>
-  <string name="listedit_enable_oauth">Habilitat oauth</string>
+  <string name="listedit_enable_oauth">Habilitar oauth</string>
+  <string name="config_osmoseServer_title">Servidor OSMOSE</string>
+  <string name="config_osmoseServer_summary">URL del servidor osmose</string>
   <string name="config_iconbutton_title">Mostra les icones de node</string>
   <string name="config_loginbutton_title">Compte d\'usuari</string>
   <string name="config_username_title">Nom d\'usuari de l\'OSM</string>
@@ -185,6 +302,7 @@
   <string name="config_licensebutton_title">Autors i llicències</string>
   <string name="config_licensebutton_summary">Mostra els autors i la informació de llicència</string>
   <string name="config_use_back_for_undo_title">Usa la tecla retrocès per a desfer</string>
+  <string name="config_gps_source_title">Font GPS</string>
   <!--preset downloader messages-->
   <!--changes-->
   <string name="changes_deleted">S\'ha suprmit \"%1$s\"</string>
@@ -202,6 +320,7 @@
   <string name="url">URL</string>
   <string name="default_">Predeterminat</string>
   <!---->
+  <string name="empty_list">Sense resultats</string>
   <string name="api_name">Nom de l\'API</string>
   <string name="api_url">URL de l\'API</string>
   <!--"default" is a reserved Java keyword...-->
@@ -211,18 +330,23 @@
   <string name="undo_nothing">no hi ha res a desfer</string>
   <string name="gps_failure">No s\'ha pogut habilitar el GPS</string>
   <!--element description-->
+  <string name="address_housenumber">Direcció %1$s</string>
+  <string name="address_housenumber_street">Direcció %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mou el node</string>
   <string name="undo_action_moveway">mou la via</string>
+  <string name="undo_action_moveobjects">moure objectes</string>
   <string name="undo_action_add">insereix</string>
   <string name="undo_action_append">afegeix</string>
   <string name="undo_action_deletenode">suprimeix el node</string>
   <string name="undo_action_deleteway">suprimeix la via</string>
+  <string name="undo_action_delete_objects">eliminar objectes</string>
   <string name="undo_action_split_ways">divideix les vies</string>
   <string name="undo_action_split_way">divideix la via</string>
   <string name="undo_action_merge_ways">fusiona les vies</string>
   <string name="undo_action_reverse_way">canvia el sentit de la via</string>
   <string name="undo_action_join">uneix</string>
+  <string name="undo_action_unjoin_ways">desconnectar vies</string>
   <string name="undo_action_create_relation">crea una relació</string>
   <string name="undo_action_delete_relation">suprimeix la relació</string>
   <string name="undo_action_update_relations">actualitza les relacions</string>
@@ -230,14 +354,28 @@
   <string name="undo_action_paste">enganxa</string>
   <string name="undo_action_rotateway">gira la via</string>
   <string name="undo_action_orthogonalize">ortogonalitza via</string>
+  <string name="undo_action_fix_conflict">solucionar conflicte</string>
+  <string name="undo_action_extract_node">extreure node</string>
   <!--ACRA-->
   <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">Aquesta operació crearia una via amb massa nodes.</string>
   <!--Notifications-->
+  <string name="alert_note">Nota OSM detectada a prop</string>
+  <string name="alert_bug">Error OSM detectat a prop</string>
+  <string name="bearing_ne">NE</string>
+  <string name="bearing_e">E</string>
+  <string name="bearing_se">SE</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_sw">SO</string>
+  <string name="bearing_w">O</string>
+  <string name="bearing_nw">NO</string>
+  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
   <string name="role_lc">rol</string>
   <string name="membership_relation_heading">Membre d\'una relació</string>
   <string name="relation">Relació</string>
+  <string name="relations">Relacions</string>
   <string name="position">Pos.</string>
   <string name="type">Tipus</string>
   <string name="object">Objecte</string>
@@ -256,5 +394,27 @@
     <item>públic</item>
     <item>rastrejable</item>
     <item>identificable</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Obert</item>
+    <item>Tancat</item>
+    <item>Fals positiu</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Oberta</item>
+    <item>Tancada</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Esquerra</item>
+    <item>Dreta</item>
+    <item>Cap</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>Tot</item>
+    <item>Nodes</item>
+    <item>Vies</item>
+    <item>Vies+</item>
+    <item>Relacions</item>
+    <item>Relacions+</item>
   </string-array>
 </resources>

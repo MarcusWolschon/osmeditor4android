@@ -143,6 +143,7 @@
   <string name="toast_preset_overwrote_tags">참고 - 프리셋 태그 덮어씀</string>
   <string name="toast_merge_overwrote_tags">참고 - 작업 태그 덮어씀</string>
   <string name="toast_oneway_reversed">일방통행 거리나 방향에 의존하는 태그로 된 길을 뒤집었습니다. 필요하다면 태그를 확인하고 고쳐주세요.</string>
+  <string name="toast_merge_tag_conflict">서로 상충되는 태그값, 도로의 방향, 다른 역할을 하는 관계들을 합쳤습니다. 태그나 역할이 맞는지 확인해 주십시요.</string>
   <string name="toast_potential_merge_tag_conflict">서로 상충되는 태그값을 합치려 하고 있습니다. 다시 시도하기 전에 태그가 같은지 확인해 주십시요.</string>
   <string name="toast_state_file_failed">읽을 수 없거나 오류가 있는 상태 파일</string>
   <string name="toast_too_many_nodes_for_move">이동할 길에 너무 많은 노드</string>
@@ -467,6 +468,7 @@
   <string name="changes_changed">\"%1$s\" 변경됨</string>
   <string name="changes_created">\"%1$s\" 만듦</string>
   <string name="confirm_upload_title">업로드하겠습니까?</string>
+  <string name="confirm_one_upload_text">다음 변경을 업로드하겠습니까?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">프리셋 추가</string>
   <string name="urldialog_preset_exists">이 프리셋은 이미 존재합니다</string>

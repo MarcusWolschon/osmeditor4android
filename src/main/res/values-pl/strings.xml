@@ -621,7 +621,7 @@
   <string name="relations">Relacje</string>
   <string name="position">Poz.</string>
   <string name="type">Typ</string>
-  <string name="object">Objekt</string>
+  <string name="object">Obiekt</string>
   <string name="deleterelation_relation_description">Masz zamiar usunąć relację, która jest członkiem jednego lub większej ilości relacji. Usuwanie relacji z relacji może spowodować, jej/ich nieprawidłowość.</string>
   <string name="deleterelation">Usuń relację</string>
   <string name="delete_from_relation_description">Zamierzasz usunąć ten element z relacji.</string>

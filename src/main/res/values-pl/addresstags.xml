@@ -7,15 +7,15 @@
     <item>Miasto/Wieś/.. (addr:city)</item>
     <item>Państwo (addr:country)</item>
     <item>Pełny adres (addr:full)</item>
-    <item>Place (addr:place)</item>
+    <item>Miejscowość (addr:place)</item>
     <item>Hamlet (addr:hamlet)</item>
-    <item>Suburb (addr:suburb)</item>
+    <item>Dzielnica (addr:suburb)</item>
     <item>Subdistrict (addr:subdistrict)</item>
     <item>District (addr:district)</item>
-    <item>Province (addr:province)</item>
+    <item>Województwo (addr:province)</item>
     <item>State (addr:state)</item>
     <item>Flats (addr:flats)</item>
-    <item>Drzwi (addr:door)</item>
+    <item>Mieszkanie (addr:door)</item>
     <item>Unit (addr:unit)</item>
   </string-array>
 </resources>
