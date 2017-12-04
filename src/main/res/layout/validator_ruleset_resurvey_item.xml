@@ -63,7 +63,7 @@
         numberpicker:max="3650"
         numberpicker:unit="1"
         numberpicker:repeat="50"
-        numberpicker:focusable="false"
+        numberpicker:focusable="true"
         numberpicker:custom_layout="@layout/number_picker_custom_layout"
          />
 		  

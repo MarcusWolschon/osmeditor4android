@@ -8,8 +8,10 @@
     <Button
         android:id="@+id/decrement"
         android:layout_width="30dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+       	android:minHeight="32dp"
         android:padding="0dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?attr/colorAccent"
         android:background="@null"
         android:textStyle="bold"
@@ -18,9 +20,11 @@
     <EditText
         android:id="@+id/display"
         android:layout_width="70dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+       	android:minHeight="32dp"
         android:text="1"
         android:textColor="@android:color/black"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
         android:focusable="false"
         android:inputType="number"
         android:gravity="center"
@@ -29,10 +33,12 @@
     <Button
         android:id="@+id/increment"
         android:layout_width="30dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+       	android:minHeight="32dp"
         android:padding="0dp"
-        android:textSize="25sp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?attr/colorAccent"
         android:background="@null"
+        android:textStyle="bold"
         android:text="+"/>
 </LinearLayout>
