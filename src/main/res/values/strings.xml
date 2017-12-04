@@ -137,15 +137,15 @@
     <string name="js_console_msg_live">Live mode!</string>
     <string name="js_console_msg_debug">Debug mode!</string>
     <string name="validator_title">Validator ruleset %1$s</string>
-    <string name="edit_resurvey_title">Edit resurvey entry</string>
-    <string name="add_resurvey_title">Add resurvey entry</string>
+    <string name="edit_resurvey_title">Edit re-survey entry</string>
+    <string name="add_resurvey_title">Add re-survey entry</string>
     <string name="edit_check_title">Edit check entry</string>
     <string name="add_check_title">Add check entry</string>
     <string name="max_age">Max. age</string>
     <string name="age">Age</string>
     <string name="check_opt">Check opt.</string>
     <string name="check_optional">Check optional</string>
-    <string name="add_resurvey_entry">Add resurvey entry</string>
+    <string name="add_resurvey_entry">Add re-survey entry</string>
     <string name="add_check_entry">Add check entry</string>
 
     <!-- Toaster -->
