@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,7 +20,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -158,7 +161,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 		
      	presetLayout.addView(getPresetView());
 		
-     	EditText presetSearch = (EditText) presetPaneLayout.findViewById(R.id.preset_search_edit);
+     	final EditText presetSearch = (EditText) presetPaneLayout.findViewById(R.id.preset_search_edit);
      	if (presetSearch != null) {
      		presetSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
      			@Override
@@ -166,29 +169,63 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
      				Log.d(DEBUG_TAG,"action id " + actionId + " event " + event);
      				if (actionId == EditorInfo.IME_ACTION_SEARCH 
      						|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-     					FragmentManager fm = getChildFragmentManager();
-     					FragmentTransaction ft = fm.beginTransaction();
-     				    Fragment prev = fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-     				    if (prev != null) {
-     				        ft.remove(prev);
-     				    }
-     				    ft.commit();
-     				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(SearchIndexUtils.searchInPresets(getActivity(), v.getText().toString(),type,2,10));
-     				    if (searchResults == null || searchResults.isEmpty()) {
-     				    	Snack.barInfo(getActivity(), R.string.toast_nothing_found);
-     				    	return true;
-     				    }
-     			        PresetSearchResultsFragment searchResultDialog 
-     			        	= PresetSearchResultsFragment.newInstance(searchResults);
-     			        searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-     					return true;
+                        String term = v instanceof EditText ? ((EditText)v).getText().toString() : null;
+                        if (term != null && !"".equals(term.trim())) {
+                            return getAndShowSearchResults(term);
+                        }
      				}
      				return false;
      			}
      		});
+     		// https://stackoverflow.com/questions/13135447/setting-onclicklistner-for-the-drawable-right-of-an-edittext/26269435#26269435 for the following
+     		presetSearch.setOnTouchListener(new OnTouchListener() {
+     	        @Override
+     	        public boolean onTouch(View v, MotionEvent event) {
+     	            // final int DRAWABLE_LEFT = 0;
+     	            // final int DRAWABLE_TOP = 1;
+     	            final int DRAWABLE_RIGHT = 2;
+     	            // final int DRAWABLE_BOTTOM = 3;
+
+     	            if(event.getAction() == MotionEvent.ACTION_UP) {
+     	                Drawable icon = presetSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
+     	                if(icon != null && event.getRawX() >= (presetSearch.getRight() - icon.getBounds().width())) { //FIXME RTL
+     	                   String term = v instanceof EditText ? ((EditText)v).getText().toString() : null;
+     	                   if (term != null && !"".equals(term.trim())) {
+     	                       return getAndShowSearchResults(term);
+     	                   }
+     	                }
+     	            }
+     	            return false;
+     	        }
+     	    });
      	}
      	
 		return presetPaneLayout;
+    }
+    
+    /**
+     * Query the preset seach index and display results in a dialog
+     * 
+     * @param term search term
+     * @return always returns true for now
+     */
+    private boolean getAndShowSearchResults(String term) {
+        FragmentManager fm = getChildFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment prev = fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.commit();
+        ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(SearchIndexUtils.searchInPresets(getActivity(), term, type, 2, 10));
+        if (searchResults == null || searchResults.isEmpty()) {
+            Snack.barInfo(getActivity(), R.string.toast_nothing_found);
+            return true;
+        }
+        PresetSearchResultsFragment searchResultDialog 
+            = PresetSearchResultsFragment.newInstance(searchResults);
+        searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+        return true;
     }
     
     @Override

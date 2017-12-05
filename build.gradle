@@ -102,7 +102,7 @@ task updateTranslations(type: Exec) {
 updateTranslations.group = 'vespucci'
 updateTranslations.description = 'Update translations by executing the transifex tx utility'
 
-afterEvaluate{ // this task needs to be crated after the uninstall tasks 
+afterEvaluate{ // this task needs to be created after the uninstall tasks 
 	task runSingleConnectedTest(dependsOn: ["installDebug","installDebugAndroidTest"], type: Exec) {
 		def toRun = "de.blau.android.osm.ApiTest#dataDownloadElementTimeout"
 		def adb = android.getAdbExe().toString()
