@@ -114,52 +114,7 @@ afterEvaluate{ // this task needs to be crated after the uninstall tasks
 	runSingleConnectedTest.description = 'Run a single test method on device (configuration needs to be edited)'
 }
 
-eclipse {
-    classpath {
-        plusConfigurations += [ configurations.compile, configurations.testCompile, configurations.androidTestCompile ]
-
-        file {
-            beforeMerged { classpath ->
-                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/main/java", "bin"))
-                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/test/java", "bin"))
-                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/androidTest/java", "bin"))
-                // Hardcoded to use debug configuration
-                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/r/debug", "bin"))
-                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/buildConfig/debug", "bin"))
-                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/aidl/debug", "bin"))
-            }
-
-            whenMerged { classpath ->
-                def aars = []
-                classpath.entries.each { dep ->
-                    if (dep.path.toString().endsWith(".aar")) {
-                        def explodedDir = new File(projectDir, "build/intermediates/exploded-aar/" + dep.moduleVersion.group + "/" + dep.moduleVersion.name + "/" + dep.moduleVersion.version + "/jars/")
-                        if (explodedDir.exists()) {
-                            explodedDir.eachFileRecurse(groovy.io.FileType.FILES) {
-                                if (it.getName().endsWith("jar")) {
-                                    def aarJar = new org.gradle.plugins.ide.eclipse.model.Library(fileReferenceFactory.fromFile(it))
-                                    aarJar.sourcePath = dep.sourcePath
-                                    aars.add(aarJar)
-                                }
-                            }
-                        } else {
-                            println "Warning: Missing " + explodedDir
-                        }
-                    }
-                }
-                classpath.entries.removeAll { it.path.endsWith(".aar") }
-                classpath.entries.addAll(aars)
-
-                def androidJar = new org.gradle.plugins.ide.eclipse.model.Library(
-                    fileReferenceFactory.fromPath("${android.sdkDirectory}/platforms/" + android.compileSdkVersion + "/android.jar"))
-                androidJar.sourcePath = fileReferenceFactory.fromPath("${android.sdkDirectory}/sources/" + android.compileSdkVersion)
-                classpath.entries.add(androidJar)
-            }
-        }
-    }
-}
-
-eclipseClasspath.dependsOn "generateDebugSources"
+apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android'
 
 sonarqube {
     properties {
@@ -259,9 +214,9 @@ dependencies {
     compile "com.adobe.xmp:xmpcore:5.1.3"
     compile "com.drewnoakes:metadata-extractor:2.10.1"
     compile "ch.poole:PoParser:0.7.2"
-    compile "ch.poole:OpeningHoursParser:0.10.1"
+    compile "ch.poole:OpeningHoursParser:0.11.0"
     compile "ch.poole:ConditionalRestrictionParser:0.1.12"
-    compile "ch.poole:OpeningHoursFragment:0.2.2"
+    compile "ch.poole:OpeningHoursFragment:0.3.0"
     compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
     compile 'ch.poole.android:numberpicker:1.0.8'

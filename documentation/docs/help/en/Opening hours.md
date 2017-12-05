@@ -25,6 +25,7 @@ If an existing opening hours value is loaded, an attempt is made to auto-correct
 * __Save to template__: save the current opening hours value as a template for future use.
 * __Manage template__: edit, for example change the name, and delete existing templates.
 * __Refresh__: re-parse the opening hour value.
+* __Delete all__: remove all rules.
 
 ### Rules
 
@@ -62,6 +63,7 @@ Default rules are added as _normal_ rules, this implies that they will override 
     * __With offsets...__: the same entries as above however with offsets specified (this is rarely used).
 * __Add year range__: add a year based selector.
 * __Add week range__: add a week number based selector.
+* __Duplicate__: create a copy of this rule and insert it after the current position.
 * __Show rule type__: display and allow changing of the rule type _normal_, _additive_ and _fallback_ (not available on the first rule).
 * __Move up__: move this rule up one position (not available on the first rule).
 * __Move down__: move this rule down one position.
