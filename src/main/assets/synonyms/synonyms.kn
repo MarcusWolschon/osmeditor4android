@@ -1,0 +1,387 @@
+{
+"address":[
+"ವಿಳಾಸ"
+],
+"aeroway/aerodrome":[
+"ವಿಮಾನ ನಿಲ್ದಾಣ"
+],
+"aeroway/runway":[
+"ಓಡುದಾರಿ"
+],
+"amenity":[
+"ಸೌಕರ್ಯ"
+],
+"amenity/atm":[
+"ಎಟಿಎಮ್ "
+],
+"amenity/bank":[
+"ಬ್ಯಾಂಕ್"
+],
+"amenity/bench":[
+" ನ್ಯಾಯಪೀಠ"
+],
+"amenity/bus_station":[
+"ಬಸ್ ನಿಲ್ದಾಣ"
+],
+"amenity/cinema":[
+"ಸಿನಿಮಾ"
+],
+"amenity/clinic":[
+"ಚಿಕಿತ್ಸಾಲಯ"
+],
+"amenity/clock":[
+"ಗಡಿಯಾರ"
+],
+"amenity/dentist":[
+"ದಂತವೈದ್ಯ"
+],
+"amenity/doctors":[
+"ವೈದ್ಯರು"
+],
+"amenity/embassy":[
+"ರಾಯಭಾರ"
+],
+"amenity/fire_station":[
+"ಅಗ್ನಿಶಾಮಕ ಕೇಂದ್ರ"
+],
+"amenity/fountain":[
+"ಬುಗ್ಗೆ"
+],
+"amenity/grave_yard":[
+"ಶ್ಮಶಾನ"
+],
+"amenity/ice_cream":[
+"ಐಸ್ ಕ್ರೀಮ್ ಅಂಗ"
+],
+"amenity/library":[
+"ಗ್ರಂಥಾಲಯ"
+],
+"amenity/parking":[
+"ಬಂಡಿ ನಿಲ್ದಾಣ"
+],
+"amenity/pharmacy":[
+"ಔಷಧಾಲಯ"
+],
+"amenity/place_of_worship/christian":[
+"ಕ್ರೈಸ್ತ ದೇವಾಲಯ"
+],
+"amenity/place_of_worship/muslim":[
+"ಮಸೀದಿ"
+],
+"amenity/planetarium":[
+"ತಾರಾಲಯ"
+],
+"amenity/police":[
+"ಪೊಲೀಸು"
+],
+"amenity/post_box":[
+"ಅಂಚೆಪೆಟ್ಟಿಗೆ"
+],
+"amenity/post_office":[
+"ಅಂಚೆ ಕಚೇರಿ"
+],
+"amenity/prison":[
+"ಬಂದೀಖಾನೆ ಮೈದಾನ"
+],
+"amenity/restaurant":[
+" ಉಪಾಹಾರ ಗೃಹ"
+],
+"amenity/shelter":[
+"ಅಡೆ"
+],
+"amenity/swimming_pool":[
+"ಈಜುಕೊಳ"
+],
+"amenity/taxi":[
+"‍ಕಾರು ನಿಲ್ಡಾಣ "
+],
+"amenity/telephone":[
+"ದುರವಾಣಿ"
+],
+"amenity/theatre":[
+"ಚಿತ್ರಮಂದಿರ"
+],
+"amenity/toilets":[
+"ಶೌಚಾಲಯ"
+],
+"amenity/veterinary":[
+"ಪಶುವೈದ್ಯಕೀಯ"
+],
+"area":[
+"ಸೀಮೆ"
+],
+"barrier/entrance":[
+" ಪ್ರವೇಶ"
+],
+"barrier/gate":[
+"ಹೊರಬಾಗಿಲು"
+],
+"barrier/wall":[
+"‍ಗೋಡೆ"
+],
+"building":[
+"‍ಕಟ್ಟಡ"
+],
+"building/entrance":[
+"ಆಗಮನ/ನಿರ್ಗಮನ"
+],
+"building/garage":[
+"ಮೋಟಾರುಖಾನೆ"
+],
+"building/garages":[
+"ಮೋಟಾರುಖಾನೆ‍ಗಳ್"
+],
+"building/greenhouse":[
+"ಹಸಿರುಮನೆ"
+],
+"building/hospital":[
+"ಆಸ್ಪತ್ರೆ ಕಟ್ಟಡ"
+],
+"building/house":[
+"ಮನೆ"
+],
+"building/hut":[
+"ಗುಡಿಸಲು"
+],
+"building/industrial":[
+"ಕೈಗಾರಿಕಾ ಕಟ್ಟಡ"
+],
+"building/kindergarten":[
+"ಶಿಶುವಿಹಾರ/ಬಾಲವಾಡಿ ಕಟ್ಟಡ"
+],
+"building/public":[
+"ಸಾರ್ವಜನಿಕ ಕಟ್ಟಡ"
+],
+"building/residential":[
+"ವಾಸಯೋಗ್ಯ ಕಟ್ಟಡ"
+],
+"building/roof":[
+"ಛಾವಣಿ"
+],
+"building/school":[
+"ಶಾಲಾ ಕಟ್ಟಡ"
+],
+"building/terrace":[
+"ಸಾಲು ಮನೆಗಳು"
+],
+"building/train_station":[
+"ರೈಲ್ವೆ ನಿಲ್ದಾಣ"
+],
+"building/university":[
+"ವಿಶ್ವವಿದ್ಯಾಲಯ ಕಟ್ಟಡ"
+],
+"building/warehouse":[
+"ಗೋದಾಮು",
+"ದಾಸ್ತಾನು ಕಟ್ಟಡ"
+],
+"craft":[
+"ಕುಶಲ ಕಲೆ"
+],
+"craft/basket_maker":[
+"ಬುಟ್ಟಿ ಮಾಡುವಾತ"
+],
+"craft/blacksmith":[
+"ಕಮ್ಮಾರ"
+],
+"craft/boatbuilder":[
+"ದೋಣಿ ಕಟ್ಟುವವ"
+],
+"craft/clockmaker":[
+"ಗಡಿಯಾರ ಮಾಡುವವ"
+],
+"craft/gardener":[
+"ತೋಟದ ಮಾಲಿ"
+],
+"craft/handicraft":[
+"ಕರಕುಶಲ ವಸ್ತು"
+],
+"craft/optician":[
+"ನೇತ್ರ ತಜ್ಞ"
+],
+"craft/shoemaker":[
+"ಚಮ್ಮಾರ"
+],
+"craft/stonemason":[
+"ಕಲ್ಲು ಕೆಲಸಗಾರ"
+],
+"craft/tailor":[
+"ದರ್ಜಿ"
+],
+"ford":[
+"‍ಕಾಲ್ಗಡ"
+],
+"highway/bus_stop":[
+"ಬಸ್ ನಿಲ್ದಾಣ"
+],
+"highway/steps":[
+"ಮೆಟ್ಟಿಲು"
+],
+"landuse/cemetery":[
+" ಸ್ಮಶಾನ"
+],
+"landuse/forest":[
+"ಅರಣ್ಯ"
+],
+"landuse/garages":[
+"ಮೋಟಾರುಖಾನೆ‍ಗಳ್"
+],
+"landuse/grass":[
+"ಹುಲ್ಲು"
+],
+"landuse/industrial":[
+"ಕೈಗಾರಿಕಾ ಪ್ರದೇಶ"
+],
+"landuse/orchard":[
+"ತೋಟ"
+],
+"landuse/recreation_ground":[
+"ಆಟದ ಮೈದಾನ"
+],
+"leisure/garden":[
+"ಕೈತೋಟ"
+],
+"leisure/park":[
+"ಉದ್ಯಾನವನ"
+],
+"leisure/stadium":[
+"ಕ್ರೀಡಾಂಗಣ"
+],
+"leisure/swimming_pool":[
+"ಈಜುಕೊಳ"
+],
+"man_made/observation":[
+"ವೀಕ್ಷಣಾ ಗೋಪುರ"
+],
+"man_made/petroleum_well":[
+"ತೈಲ ಬಾವಿ"
+],
+"natural":[
+"ನೈಸರ್ಗಿಕ"
+],
+"natural/beach":[
+"ಕಡಲ ತೀರ"
+],
+"natural/glacier":[
+"ನೀರ್ಗಲ್ಲು"
+],
+"natural/grassland":[
+"ಹುಲ್ಲುಗಾವಲು"
+],
+"natural/tree":[
+"ಮರ"
+],
+"natural/tree_row":[
+"ಸಾಲು ಮರ"
+],
+"natural/volcano":[
+"ಜ್ವಾಲಾಮುಖಿ"
+],
+"natural/water":[
+"ನೀರು"
+],
+"natural/water/lake":[
+" ಕೆರೆ"
+],
+"natural/water/pond":[
+"ಕೊಳ"
+],
+"office":[
+"ಕಚೇರಿ"
+],
+"office/physician":[
+"ವೈದ್ಯ"
+],
+"office/research":[
+"ಸಂಶೋಧನಾ ಕಛೇರಿ"
+],
+"place":[
+"ಊರು"
+],
+"place/city":[
+"ನಗರ"
+],
+"place/farm":[
+"ತೋಟ"
+],
+"place/island":[
+"ದ್ವೀಪ"
+],
+"place/locality":[
+"ಸ್ಥಳ"
+],
+"place/town":[
+"ಪಟ್ಟಣ"
+],
+"place/village":[
+"ಹಳ್ಳಿ"
+],
+"railway/station":[
+"ರೈಲು ನಿಲ್ದಾಣ"
+],
+"shop":[
+"ಅಂಗಡಿ"
+],
+"shop/alcohol":[
+" ಸಾರಾಯಿ ಅಂಗಡಿ"
+],
+"shop/bakery":[
+"ಅಟ್ಟಂಗಡಿ"
+],
+"shop/computer":[
+"ಗಣಕಯಂತ್ರದ ಅಂಗಡಿ"
+],
+"shop/department_store":[
+"ಕಿರಾಣಿ ಅಂಗಡಿ"
+],
+"shop/florist":[
+"ಹೂವಿನ ವ್ಯಾಪಾರಿ"
+],
+"shop/funeral_directors":[
+"ಶವಸಂಸ್ಕಾರದ ನೆಲೆ"
+],
+"shop/furniture":[
+"ಪಿಟೋಪಕರಣಗಳ ಅಂಗಡಿ"
+],
+"shop/gift":[
+"ಉಡುಗೊರೆಯ ಅಂಗಡಿ"
+],
+"shop/laundry":[
+"ಧೋಬಿಖಾನೆ"
+],
+"shop/optician":[
+"ನೇತ್ರ ತಜ್ಞ"
+],
+"shop/shoes":[
+"ಮೆಟ್ಟು ಅಂಗಡಿ"
+],
+"shop/tailor":[
+"ದರ್ಜಿ"
+],
+"tourism/gallery":[
+"ಕಲಾಮಂದಿರ"
+],
+"tourism/hotel":[
+"ಭೋಜನಾಲಯ"
+],
+"tourism/information":[
+"ಮಾಹಿತಿ"
+],
+"tourism/museum":[
+"ಒಡವೆಮನೆ"
+],
+"type/route/bicycle":[
+"ಸೈಕಲ್ ಮಾರ್ಗ"
+],
+"type/route/bus":[
+"ಬಸ್ ಮಾರ್ಗ"
+],
+"waterway/canal":[
+"ನಾಲೆ"
+],
+"waterway/dam":[
+"ಅಣೆಕಟ್ಟು"
+],
+"waterway/river":[
+"ನದಿ"
+]
+}

@@ -1,0 +1,1803 @@
+{
+"address":[
+"Adresas",
+"adresas"
+],
+"aerialway":[
+"Oro transporto kelias"
+],
+"aerialway/cable_car":[
+"funikulierius",
+"Funikulierius",
+"keltuvas"
+],
+"aerialway/gondola":[
+"Gondola"
+],
+"aeroway/aerodrome":[
+"Oro uostas"
+],
+"aeroway/hangar":[
+"Angaras"
+],
+"aeroway/helipad":[
+"Sraigtasparnių aikštelė",
+"malūnsparnio aikštelė",
+"sraigtasparnio nusileidimo aikštelė",
+"sraigtasparnuo aikštelė"
+],
+"aeroway/runway":[
+"Pakilimo takas",
+"pakilimo takas"
+],
+"amenity":[
+"Paslaugos"
+],
+"amenity/arts_centre":[
+"Meno centras",
+"Menų centras"
+],
+"amenity/atm":[
+"ATM",
+"Bankomatas"
+],
+"amenity/bank":[
+"Bankas"
+],
+"amenity/bar":[
+"Baras",
+"Aludė"
+],
+"amenity/bbq":[
+"Barbekiu/Grilis"
+],
+"amenity/bench":[
+"Suoliukas",
+"Suolas"
+],
+"amenity/bicycle_parking":[
+"dviračių stovėjimas",
+"dviračių stovas",
+"Dviračių stovėjimo aikštelė",
+"dviračių stovėjimo aikštelė"
+],
+"amenity/bicycle_rental":[
+"dviračių nuoma",
+"Dviračių nuoma"
+],
+"amenity/boat_rental":[
+"Laivų nuoma",
+"valčių nuoma",
+"laivų nuoma"
+],
+"amenity/bureau_de_change":[
+"keitykla",
+"valiutos keitykla",
+"Valiutos keitykla"
+],
+"amenity/bus_station":[
+"stotis",
+"Autobusų stotis",
+"autobusų stotis"
+],
+"amenity/cafe":[
+"Kavinė"
+],
+"amenity/car_rental":[
+"automobilių nuoma",
+"mašinų nuoma",
+"nuoma",
+"Automobilių nuoma"
+],
+"amenity/car_sharing":[
+"Automobilių dalinimasis"
+],
+"amenity/car_wash":[
+"Automobilių plovykla",
+"automobilių plovykla",
+"plovykla",
+"mašinų plovykla"
+],
+"amenity/casino":[
+"Kazino"
+],
+"amenity/charging_station":[
+"įkrovimo stotis",
+"Įkrovimo stotelė",
+"įkrovimo stotelė"
+],
+"amenity/cinema":[
+"Kinas",
+"Kinoteatras",
+"Kino teatras"
+],
+"amenity/clinic":[
+"Klinika"
+],
+"amenity/clock":[
+"Laikrodis"
+],
+"amenity/college":[
+"Kolegijos kiemas"
+],
+"amenity/community_centre":[
+"Bendruomenės centras"
+],
+"amenity/compressed_air":[
+"Suspaustas oras",
+"suspaustas oras"
+],
+"amenity/courthouse":[
+"Teismas",
+"Teismo rūmai"
+],
+"amenity/dentist":[
+"dantistas",
+"Dantistas",
+"stomatologas",
+"odontologas"
+],
+"amenity/drinking_water":[
+"Vanduo",
+"Geriamas vanduo"
+],
+"amenity/embassy":[
+"Atstovybė",
+"Ambasada"
+],
+"amenity/fast_food":[
+"Greitas maistas",
+"greitas maistas"
+],
+"amenity/fire_station":[
+"Priešgaisrinė tarnyba",
+"Gaisrinė"
+],
+"amenity/fountain":[
+"Fontanas"
+],
+"amenity/fuel":[
+"Degalinė",
+"dujų stotis"
+],
+"amenity/grave_yard":[
+"Kapinės prie bažnyčios",
+"Kapai",
+"Kapinės"
+],
+"amenity/grit_bin":[
+"Smėlio dėžė"
+],
+"amenity/hospital":[
+"Ligoninės kiemas"
+],
+"amenity/kindergarten":[
+"vaikų darželis",
+"Vaikų darželio plotas",
+"darželio plotas"
+],
+"amenity/library":[
+"Biblioteka",
+"skaitykla",
+"biblioteka"
+],
+"amenity/marketplace":[
+"prekyvietė",
+"turgelis",
+"turgus",
+"Prekyvietė"
+],
+"amenity/motorcycle_parking":[
+"Motociklų stovėjimo aikštelė",
+"Motociklų parkavimas"
+],
+"amenity/nightclub":[
+"Naktinis klubas",
+"naktinis klubas",
+"klubas"
+],
+"amenity/parking":[
+"aikštelė",
+"stovėjimo aikštelė",
+"Automobilių parkavimas"
+],
+"amenity/pharmacy":[
+"Vaistinė",
+"vaistinė"
+],
+"amenity/place_of_worship":[
+"Maldos namai",
+"maldos namai"
+],
+"amenity/place_of_worship/buddhist":[
+"šventykla",
+"budistų šventykla",
+"Budistų Šventykla"
+],
+"amenity/place_of_worship/christian":[
+"Bažnyčia",
+"bažnyčia"
+],
+"amenity/place_of_worship/jewish":[
+"Sinagoga",
+"sinagoga"
+],
+"amenity/place_of_worship/muslim":[
+"Mečetė",
+"mečetė"
+],
+"amenity/police":[
+"policija",
+"Policija"
+],
+"amenity/post_box":[
+"paštadėžė",
+"pašto dėžė",
+"Pašto dėžutė"
+],
+"amenity/post_office":[
+"paštas",
+"pašto skyrius",
+"Paštas"
+],
+"amenity/pub":[
+"aludė",
+"baras",
+"Aludė"
+],
+"amenity/ranger_station":[
+"Girininkų stotis"
+],
+"amenity/recycling":[
+"Rūšiavimas"
+],
+"amenity/restaurant":[
+"rastoranas",
+"Restoranas"
+],
+"amenity/school":[
+"Mokyklos kiemas"
+],
+"amenity/shelter":[
+"pastogė",
+"Pastogė"
+],
+"amenity/social_facility/food_bank":[
+"maisto bankas",
+"Maisto  bankas"
+],
+"amenity/social_facility/homeless_shelter":[
+"benamių prieglauda",
+"Benamių prieglauda",
+"prieglauda"
+],
+"amenity/studio":[
+"Studija",
+"studija"
+],
+"amenity/swimming_pool":[
+"Baseinas"
+],
+"amenity/taxi":[
+"Taksi stendas",
+"taksi aikštelė"
+],
+"amenity/telephone":[
+"telefonas",
+"Telefonas"
+],
+"amenity/theatre":[
+"Teatras",
+"teatras"
+],
+"amenity/toilets":[
+"išvietė",
+"tualetas",
+"Tualetas"
+],
+"amenity/townhall":[
+"Rotušė",
+"rotušė"
+],
+"amenity/university":[
+"Universiteto kiemas",
+"universiteto teritorija"
+],
+"amenity/veterinary":[
+"veterinaras",
+"Veterinarija"
+],
+"amenity/waste_basket":[
+"šiukšliadėžė",
+"Šiukšliadėžė"
+],
+"area":[
+"plotas",
+"Plotas"
+],
+"area/highway":[
+"Kelio danga"
+],
+"barrier":[
+"Barjeras",
+"barieras",
+"kliūtis"
+],
+"barrier/block":[
+"akmuo",
+"blokas",
+"Blokas"
+],
+"barrier/city_wall":[
+"miesto siena",
+"siena",
+"Miesto siena"
+],
+"barrier/cycle_barrier":[
+"Dviračių barjeras",
+"dviračių barjeras"
+],
+"barrier/entrance":[
+"Įėjimas"
+],
+"barrier/fence":[
+"tvora",
+"Tvora"
+],
+"barrier/gate":[
+"Vartai",
+"vartai"
+],
+"barrier/hedge":[
+"gyvatvorė",
+"Gyvatvorė"
+],
+"barrier/lift_gate":[
+"pakeliami vartai",
+"Pakeliami vartai"
+],
+"barrier/stile":[
+"perlipa",
+"Perlipa"
+],
+"barrier/toll_booth":[
+"Mokėjimo punktas"
+],
+"barrier/wall":[
+"Siena",
+"siena"
+],
+"boundary/administrative":[
+"Administracinė riba",
+"riba",
+"administracinė riba",
+"siena"
+],
+"building":[
+"namas",
+"statinys",
+"pastatas",
+"Pastatas"
+],
+"building/apartments":[
+"apartamentai",
+"Apartamentai"
+],
+"building/barn":[
+"Tvartas",
+"Klėtis",
+"Svirnas"
+],
+"building/bunker":[
+"Bunkeris"
+],
+"building/college":[
+"Kolegijos pastatas",
+"koledžas"
+],
+"building/commercial":[
+"Komercinis pastatas",
+"statinys",
+"pastatas",
+"komercinis"
+],
+"building/construction":[
+"Statomas pastatas",
+"statybos",
+"statomas pastatas"
+],
+"building/dormitory":[
+"Bendrabutis",
+"bendrabutis"
+],
+"building/entrance":[
+"Įėjimas/Išėjimas"
+],
+"building/garage":[
+"garažas",
+"Garažas"
+],
+"building/garages":[
+"Garažai",
+"garažai"
+],
+"building/greenhouse":[
+"Šiltnamis",
+"šiltnamis"
+],
+"building/hospital":[
+"ligoninė",
+"Ligoninės pastatas",
+"ligoninės pastatas"
+],
+"building/hotel":[
+"viešbutis",
+"Viešbučio pastatas",
+"viešbučio pastatas"
+],
+"building/house":[
+"Namas",
+"namas"
+],
+"building/hut":[
+"Namelis"
+],
+"building/industrial":[
+"pramoninis",
+"statinys",
+"pastatas",
+"gamykla",
+"įmonė",
+"Pramoninis pastatas"
+],
+"building/kindergarten":[
+"vaikų darželis",
+"darželio pastatas",
+"Vaikų darželio pastatas"
+],
+"building/public":[
+"visuomeninis pastatas",
+"Viešasis pastatas"
+],
+"building/residential":[
+"Gyvenamasis pastatas",
+"namas",
+"statinys",
+"gyvenamasis",
+"pastatas"
+],
+"building/retail":[
+"prekybvietė",
+"Mažmeninės prekybos pastatas",
+"prekybos pastatas"
+],
+"building/roof":[
+"Stogas",
+"stogas"
+],
+"building/school":[
+"mokyklos pastatas",
+"Mokyklos pastatas",
+"mokykla"
+],
+"building/shed":[
+"pašiūrė",
+"Angaras"
+],
+"building/stable":[
+"Arklidės",
+"arklidės"
+],
+"building/static_caravan":[
+"Statiški mobilūs namai"
+],
+"building/train_station":[
+"Traukinių stotis"
+],
+"building/university":[
+"universiteto pastatas",
+"universitetas",
+"Universiteto pastatas"
+],
+"building/warehouse":[
+"Sandėlis",
+"sandėlys"
+],
+"craft/beekeeper":[
+"Bitininkas",
+"bitininkas"
+],
+"craft/blacksmith":[
+"kalvis",
+"Kalvis"
+],
+"craft/boatbuilder":[
+"Valčių statytojas",
+"laivadirbys",
+"laivų statykla"
+],
+"craft/bookbinder":[
+"knygryšys",
+"Knygrišys"
+],
+"craft/brewery":[
+"Alaus darykla",
+"Aludarė"
+],
+"craft/carpenter":[
+"stalius",
+"Dailidė"
+],
+"craft/clockmaker":[
+"Laikrodininkas",
+"laikrodininkas"
+],
+"craft/dressmaker":[
+"siuvėjas",
+"Siuvėja"
+],
+"craft/electrician":[
+"Elektrikas",
+"elektrikas"
+],
+"craft/gardener":[
+"Sodininkas",
+"Daržininkas"
+],
+"craft/handicraft":[
+"Rankdarbių meistras"
+],
+"craft/hvac":[
+"hvac",
+"HVAC"
+],
+"craft/jeweler":[
+"Juvelyrikas"
+],
+"craft/key_cutter":[
+"Raktininkas"
+],
+"craft/locksmith":[
+"Šaltkalvis"
+],
+"craft/optician":[
+"Optikas"
+],
+"craft/painter":[
+"Dailininkas",
+"Dažytojas",
+"Tapytojas"
+],
+"craft/photographer":[
+"Fotografas",
+"fotografas"
+],
+"craft/photographic_laboratory":[
+"Fotografijos laboratorija",
+"Fotografijos studija"
+],
+"craft/plumber":[
+"santechnikas",
+"Santechnikas"
+],
+"craft/pottery":[
+"Puodų amatininkas",
+"Keramikos amatininkas"
+],
+"craft/roofer":[
+"Stogdengys",
+"stogdengys"
+],
+"craft/saddler":[
+"Pakinkytojas",
+"Pakinktininkas"
+],
+"craft/sawmill":[
+"Lentpjūvė",
+"lentpjūvė"
+],
+"craft/scaffolder":[
+"Pastolių montuotojas"
+],
+"craft/shoemaker":[
+"Batsiuvys",
+"Kurpius"
+],
+"craft/stonemason":[
+"Mūrininkas",
+"mūrininkas"
+],
+"craft/tailor":[
+"Siuvėjas"
+],
+"craft/tinsmith":[
+"Skardininkas"
+],
+"craft/watchmaker":[
+"Laikrodininkas",
+"laikrodininkas"
+],
+"craft/window_construction":[
+"Langų montavimas"
+],
+"craft/winery":[
+"Vyninė",
+"vyninė"
+],
+"embankment":[
+"Užtvanka"
+],
+"emergency/ambulance_station":[
+"Greitosios pagalbos stotis"
+],
+"emergency/fire_hydrant":[
+"Hidrantas"
+],
+"emergency/phone":[
+"Pagalbos telefonas",
+"avarinis telefonas"
+],
+"entrance":[
+"išėjimas",
+"Įėjimas/Išėjimas",
+"įėjimas"
+],
+"footway/crosswalk":[
+"Pėsčiųjų perėja"
+],
+"footway/sidewalk":[
+"šaligatvis",
+"Šaligatvis"
+],
+"ford":[
+"brasta",
+"Brasta"
+],
+"golf/hole":[
+"duobutė",
+"Golfo skylė",
+"golfo duobutė"
+],
+"highway":[
+"Greitkelis"
+],
+"highway/bridleway":[
+"jodinėjimo takas",
+"Žirgų kelias",
+"arklių takas"
+],
+"highway/bus_stop":[
+"autobusų stotelė",
+"troleibusų stotelė",
+"stotelė",
+"Autobuso stotelė"
+],
+"highway/crosswalk":[
+"Pėsčiųjų perėja"
+],
+"highway/cycleway":[
+"dviračių takas",
+"Dviračių takas"
+],
+"highway/footway":[
+"Pėsčiųjų takas",
+"pėsčiųjų takas"
+],
+"highway/living_street":[
+"gyvenamoji zona",
+"Gyvenamoji gatvė",
+"gyvenamoji gatvė"
+],
+"highway/mini_roundabout":[
+"Mini žiedas",
+"žiedas",
+"mini-žiedas"
+],
+"highway/motorway":[
+"automagistralė",
+"Greitkelis",
+"greitkelis"
+],
+"highway/path":[
+"takas",
+"Takas"
+],
+"highway/primary":[
+"Pagrindinis kelias"
+],
+"highway/residential":[
+"Gyvenamasis kelias"
+],
+"highway/rest_area":[
+"Poilsio zona",
+"poilsio zona"
+],
+"highway/road":[
+"Nežinomas kelias",
+"nežinomas kelias"
+],
+"highway/secondary":[
+"Nepagrindinis kelias"
+],
+"highway/service":[
+"Aptarnaujantis kelias",
+"privažiavimas",
+"aptarnavimo kelias"
+],
+"highway/service/alley":[
+"Alėja"
+],
+"highway/service/drive-through":[
+"pravažiavimas",
+"Pravažiavimas"
+],
+"highway/service/driveway":[
+"Įvažiavimas"
+],
+"highway/service/emergency_access":[
+"Pagalbos priėjimas",
+"avarinis privažiavimas",
+"avarinis priėjimas"
+],
+"highway/service/parking_aisle":[
+"Parkavimo pravažiaviamas"
+],
+"highway/services":[
+"Aptarnaujantis plotas",
+"aptarnavimo zona",
+"aptarnavimo plotas"
+],
+"highway/steps":[
+"laiptai",
+"Laiptai"
+],
+"highway/stop":[
+"Stop ženklas",
+"stop ženklas"
+],
+"highway/street_lamp":[
+"gatvės žibintas",
+"lempa",
+"Gatvė lempa",
+"žibintas"
+],
+"highway/traffic_signals":[
+"Eismo signala",
+"šviesoforas"
+],
+"highway/trunk":[
+"Magistralinis kelias"
+],
+"highway/turning_circle":[
+"Apsisukimo žiedas"
+],
+"historic":[
+"istorinė vieta",
+"Istorinė vietovė"
+],
+"historic/archaeological_site":[
+"archeologinė vieta",
+"Archeologinių kasinėjimų vieta"
+],
+"historic/boundary_stone":[
+"akmuo",
+"Riboženklis akmuo",
+"riboženklis"
+],
+"historic/castle":[
+"Pilis",
+"pilis",
+"tvirtovė"
+],
+"historic/memorial":[
+"paminklas",
+"Memorialas"
+],
+"historic/monument":[
+"paminklas",
+"monumentas",
+"Paminklas"
+],
+"historic/ruins":[
+"griuvėsiai ",
+"Griuvėsiai"
+],
+"historic/wayside_cross":[
+"Kryžius prie kelio",
+"pakelės kryžius"
+],
+"historic/wayside_shrine":[
+"koplytstulpis",
+"Pakelės šventovė",
+"pakelės šventykla",
+"rūpintojėlis"
+],
+"junction":[
+"jungtis",
+"sankryža",
+"Jungtis"
+],
+"landuse/basin":[
+"Vandens telkinys",
+"baseinas",
+"prūdas",
+"kūdra"
+],
+"landuse/cemetery":[
+"kapinės",
+"Kapinės"
+],
+"landuse/churchyard":[
+"Bažnyčios kiemas"
+],
+"landuse/commercial":[
+"komercija",
+"Komercinė zona",
+"komercinė",
+"komercinė zona"
+],
+"landuse/construction":[
+"Statybos",
+"statybos"
+],
+"landuse/farm":[
+"Dirbama žemė"
+],
+"landuse/farmland":[
+"žemdirbystė",
+"Dirbama žemė",
+"dirbama žemė"
+],
+"landuse/farmyard":[
+"ūkio sodyba",
+"ferma",
+"ūkis",
+"Ūkis"
+],
+"landuse/forest":[
+"miškas",
+"Miškas"
+],
+"landuse/garages":[
+"Garažai",
+"garažai"
+],
+"landuse/grass":[
+"žolė",
+"Ganykla"
+],
+"landuse/industrial":[
+"pramonė",
+"Pramoninė zona",
+"pramoninė zona"
+],
+"landuse/landfill":[
+"Sąvartynas",
+"sąvartynas"
+],
+"landuse/meadow":[
+"ganykla",
+"pieva",
+"Pieva"
+],
+"landuse/orchard":[
+"Vaismedžių sodas",
+"sodas",
+"vaisių sodas"
+],
+"landuse/quarry":[
+"karjeras",
+"Karjeras"
+],
+"landuse/residential":[
+"gyvenamoji zona",
+"Gyvenamoji zona",
+"miegamoji zona"
+],
+"landuse/retail":[
+"gelžkelio zona",
+"geležinkelio zona",
+"Gelžkelio zona"
+],
+"landuse/vineyard":[
+"vynuogynas",
+"Vynuogynas"
+],
+"leisure":[
+"Laisvalaikis",
+"laisvalaikis"
+],
+"leisure/adult_gaming_centre":[
+"Suaugusiųjų lošimų vieta"
+],
+"leisure/common":[
+"Bendros ganyklos"
+],
+"leisure/dog_park":[
+"šunparkis",
+"Šunų parkas",
+"šunų parkas"
+],
+"leisure/firepit":[
+"Ugniaduobė"
+],
+"leisure/garden":[
+"sodas",
+"Sodas"
+],
+"leisure/golf_course":[
+"Golfo aikštynas"
+],
+"leisure/ice_rink":[
+"Čiuožykla"
+],
+"leisure/marina":[
+"jachtklubas",
+"Prieplauka"
+],
+"leisure/nature_reserve":[
+"draustinis",
+"Draustinis",
+"gamtos rezervatas",
+"rezervatas"
+],
+"leisure/park":[
+"parkas",
+"Parkas"
+],
+"leisure/picnic_table":[
+"poilsio stalas",
+"Pikniko stalas"
+],
+"leisure/pitch":[
+"Sporto aikštelė"
+],
+"leisure/pitch/american_football":[
+"amerikietiško futbolo aikštė",
+"Amerikoniško futbolo aikštė"
+],
+"leisure/pitch/basketball":[
+"Krepšinio aikštelė"
+],
+"leisure/pitch/skateboard":[
+"Riedlenčių parkas"
+],
+"leisure/pitch/soccer":[
+"Futbolo aikštė",
+"futbolo aikštė"
+],
+"leisure/pitch/tennis":[
+"Teniso aikštelė",
+"teniso kortai"
+],
+"leisure/pitch/volleyball":[
+"Tinklinio aikštelė"
+],
+"leisure/playground":[
+"žaidimų aikštelė",
+"Žaidimų aikštelė"
+],
+"leisure/stadium":[
+"Stadionas",
+"stadionas"
+],
+"leisure/swimming_pool":[
+"baseinas",
+"maudymosi baseinas",
+"Baseinas"
+],
+"line":[
+"Linija"
+],
+"man_made":[
+"Žmogaus sukurtas"
+],
+"man_made/cutline":[
+"Proskyna",
+"proskyna"
+],
+"man_made/embankment":[
+"Užtvanka"
+],
+"man_made/flagpole":[
+"Vėliavos stiebas"
+],
+"man_made/lighthouse":[
+"švyturys",
+"Švyturys"
+],
+"man_made/observation":[
+"Stebėjimo bokštas",
+"stebėjimo bokštas"
+],
+"man_made/petroleum_well":[
+"Naftos gręžinys"
+],
+"man_made/pier":[
+"Prieplauka"
+],
+"man_made/pipeline":[
+"Vamzdynas"
+],
+"man_made/survey_point":[
+"Tyrimų vieta",
+"stebėjimo taškas"
+],
+"man_made/tower":[
+"bokštas",
+"Bokštas"
+],
+"man_made/wastewater_plant":[
+"Nuotekų valymo įmonė",
+"vandens valymo įrenginiai"
+],
+"man_made/water_tower":[
+"vandens bokštas",
+"Vandens bokštas"
+],
+"man_made/water_well":[
+"Vandens šulinys"
+],
+"natural":[
+"Natūralus"
+],
+"natural/bay":[
+"Įlanka",
+"įlanka"
+],
+"natural/beach":[
+"paplūdimys",
+"Paplūdimys",
+"maudykla"
+],
+"natural/cave_entrance":[
+"įėjimas į olą",
+"Įėjimas į olą"
+],
+"natural/cliff":[
+"Uola"
+],
+"natural/coastline":[
+"Pakrantė",
+"krantas"
+],
+"natural/glacier":[
+"ledynas",
+"Ledynas"
+],
+"natural/grassland":[
+"Pieva"
+],
+"natural/peak":[
+"Viršūnė",
+"viršūnė",
+"viršukalnė"
+],
+"natural/scrub":[
+"krūmai",
+"Krūmai"
+],
+"natural/spring":[
+"Šaltinis",
+"šaltinis"
+],
+"natural/tree":[
+"medis",
+"Medis"
+],
+"natural/volcano":[
+"Ugnikalnis"
+],
+"natural/water":[
+"Vanduo",
+"vanduo"
+],
+"natural/water/lake":[
+"ežeras",
+"Ežeras"
+],
+"natural/water/pond":[
+"Kūdra",
+"prūdas",
+"kūdra"
+],
+"natural/water/reservoir":[
+"tvenkinys",
+"rezervuaras",
+"Rezervuaras"
+],
+"natural/wetland":[
+"Drėgna žemė"
+],
+"natural/wood":[
+"Miškas",
+"medžiai"
+],
+"office":[
+"Biuras",
+"kontora"
+],
+"office/administrative":[
+"Administracinis biuras"
+],
+"office/company":[
+"Kompanijos kontora"
+],
+"office/educational_institution":[
+"Mokslo įstaiga",
+"Edukacinis institutas",
+"Mokslo institutas"
+],
+"office/employment_agency":[
+"Įdarbinimo agentūra"
+],
+"office/estate_agent":[
+"Nekilnojamo turto biuras"
+],
+"office/financial":[
+"Finansų tarnyba",
+"Finansų biuras"
+],
+"office/government":[
+"Valdžios biuras",
+"Vyriausybės biuras"
+],
+"office/insurance":[
+"draudimo kontora",
+"Draudimo įstaiga",
+"draudimas"
+],
+"office/lawyer":[
+"Advokatų kontora"
+],
+"office/physician":[
+"Gydytojas"
+],
+"office/political_party":[
+"politinė partija",
+"Politinė partija"
+],
+"office/research":[
+"tyrimų kontora",
+"Tyrimų tarnyba"
+],
+"office/telecommunication":[
+"Telekomunikacijų biuras"
+],
+"office/travel_agent":[
+"Kelionių agentūra"
+],
+"place":[
+"Vietovė"
+],
+"place/city":[
+"didmiestis",
+"Miestas"
+],
+"place/farm":[
+"Ūkis"
+],
+"place/hamlet":[
+"Viensėdis",
+"viensėdis",
+"kaimelis"
+],
+"place/island":[
+"Sala",
+"sala"
+],
+"place/isolated_dwelling":[
+"Izoliuota gyvenvietė"
+],
+"place/locality":[
+"Vietovė",
+"vietovė"
+],
+"place/neighbourhood":[
+"Kaiminystė",
+"Apylinkė"
+],
+"place/town":[
+"miestas",
+"Miestelis"
+],
+"place/village":[
+"kaimas",
+"Kaimas"
+],
+"point":[
+"taškas",
+"Taškas"
+],
+"power":[
+"Energija"
+],
+"power/generator":[
+"Jėgainė",
+"elektros generatorius",
+"generatorius"
+],
+"power/line":[
+"elektros linija",
+"Elektros linija"
+],
+"power/minor_line":[
+"Maža elektros linija"
+],
+"power/pole":[
+"Elektros stulpas",
+"stulpas",
+"elektros stulpas"
+],
+"power/sub_station":[
+"Pastotė"
+],
+"power/substation":[
+"Pastotė",
+"pastotė"
+],
+"power/tower":[
+"Aukštos įtampos bokštas",
+"aukštos įtampos stulpas"
+],
+"power/transformer":[
+"Transformatorius",
+"transformatorius"
+],
+"public_transport/platform":[
+"platforma",
+"Platforma"
+],
+"public_transport/stop_position":[
+"Stop pozicija"
+],
+"railway":[
+"Geležinkelis"
+],
+"railway/abandoned":[
+"apleistas gelžkelis",
+"Apleistas geležinkelis",
+"nebenaudojamas gelžkelis"
+],
+"railway/disused":[
+"nenaudojamas geležinkelis",
+"nenaudojami bėgiai",
+"Nebenaudojamas geležinkelis"
+],
+"railway/funicular":[
+"Funikulierius",
+"Keltuvas"
+],
+"railway/halt":[
+"Geležinkelio stotelė",
+"geležinkelio stotelė"
+],
+"railway/monorail":[
+"Vienbėgis geležinkelis"
+],
+"railway/narrow_gauge":[
+"siaurukas",
+"Siaurukas"
+],
+"railway/platform":[
+"platforma",
+"Geležinkelio platforma",
+"geležinkelio platforma"
+],
+"railway/rail":[
+"gelžkelis",
+"geležinkelis",
+"Gelžkelis"
+],
+"railway/station":[
+"geležinkelio stotis",
+"stotis",
+"Geležinkelio stotis"
+],
+"railway/subway":[
+"Metro",
+"metro"
+],
+"railway/subway_entrance":[
+"Metro įėjimas",
+"įėjimas į metro"
+],
+"railway/tram":[
+"Tramvajus",
+"tramvajus"
+],
+"relation":[
+"ryšys",
+"Ryšys"
+],
+"roundabout":[
+"Žiedas"
+],
+"route/ferry":[
+"Kelto maršrutas",
+"kelto maršrutas"
+],
+"shop":[
+"parduotuvė",
+"Parduotuvė"
+],
+"shop/alcohol":[
+"alkoholio parduotuvė",
+"Alkoholinių gėrimų parduotuvė"
+],
+"shop/anime":[
+"Anime parduotuvė"
+],
+"shop/antiques":[
+"Atikvarų parduotuvė",
+"antikvariatas"
+],
+"shop/baby_goods":[
+"Vaikų prekių parduotuvė"
+],
+"shop/bag":[
+"Kuprinių/lagaminų parduotuvė"
+],
+"shop/bakery":[
+"Kepykla",
+"kepykla"
+],
+"shop/bathroom_furnishing":[
+"Vonios baldų parduotuvė"
+],
+"shop/beauty":[
+"Grožio salonas",
+"grožio salonas"
+],
+"shop/beverages":[
+"Gėrimų parduotuvė",
+"gėrimų parduotuvė"
+],
+"shop/bicycle":[
+"Dviračių parduotuvė",
+"dviračių parduotuvė"
+],
+"shop/bookmaker":[
+"Knygrišys"
+],
+"shop/books":[
+"knygynas",
+"Knygynas",
+"knygų parduotuvė"
+],
+"shop/boutique":[
+"butikas",
+"Parduotuvė"
+],
+"shop/butcher":[
+"mėsininkas",
+"Mėsinė"
+],
+"shop/candles":[
+"Žvakių parduotuvė"
+],
+"shop/car":[
+"autosalonas",
+"Automobilių prekybos atstovybė"
+],
+"shop/car_parts":[
+"automobilių dalys",
+"Auto dalių parduotuvė"
+],
+"shop/car_repair":[
+"Auto taisykla"
+],
+"shop/carpet":[
+"kilimai",
+"kilimų parduotuvė",
+"Kilimų parduotuvė"
+],
+"shop/cheese":[
+"Sūrių parduotuvė",
+"sūrio parduotuvė"
+],
+"shop/chocolate":[
+"Šokolado parduotuvė",
+"šokolado parduotuvė"
+],
+"shop/clothes":[
+"Drabužių parduotuvė",
+"drabužių parduotuvė"
+],
+"shop/computer":[
+"Kompiuterių parduotuvė"
+],
+"shop/confectionery":[
+"Saldainių parduotuvė"
+],
+"shop/convenience":[
+"Savitarnos parduotuvė"
+],
+"shop/copyshop":[
+"Kopijavimo parduotuvė"
+],
+"shop/cosmetics":[
+"Kosmetikos parduotuvė"
+],
+"shop/craft":[
+"Meno ir amatų parduotuvė"
+],
+"shop/curtain":[
+"Užuolaidų parduotuvė"
+],
+"shop/dairy":[
+"Pieno produktų parduotuvė"
+],
+"shop/deli":[
+"Gastronomas"
+],
+"shop/department_store":[
+"Universalinė parduotuvė"
+],
+"shop/doityourself":[
+"Pasidaryk pats parduotuvė"
+],
+"shop/electronics":[
+"Elektronikos parduotuvė"
+],
+"shop/erotic":[
+"Erotikos parduotuvė"
+],
+"shop/fabric":[
+"Audinių parduotuvė"
+],
+"shop/farm":[
+"Produktų stendas"
+],
+"shop/fashion":[
+"Mados parduotuvė"
+],
+"shop/fishmonger":[
+"Žuvų pardavėjas"
+],
+"shop/florist":[
+"Gėlės"
+],
+"shop/frame":[
+"Įrėminimo parduotuvė"
+],
+"shop/funeral_directors":[
+"Laidojimo namai"
+],
+"shop/furnace":[
+"Krosnių parduotuvė"
+],
+"shop/furniture":[
+"Baldų parduotuvė"
+],
+"shop/gift":[
+"Dovanų parduotuvė"
+],
+"shop/greengrocer":[
+"Daržovių ir vaisių pardavėjas"
+],
+"shop/hairdresser":[
+"Kirpykla",
+"kirpykla"
+],
+"shop/hardware":[
+"Techninės įrangos parduotuvė"
+],
+"shop/hearing_aids":[
+"Klausos aparatų parduotuvė"
+],
+"shop/herbalist":[
+"Žolininkas"
+],
+"shop/hifi":[
+"Hifi parduotuvė"
+],
+"shop/interior_decoration":[
+"Interjero dekoravimo parduotuvė"
+],
+"shop/jewelry":[
+"Juvelyrikos parduotuvė",
+"juvelyras"
+],
+"shop/kiosk":[
+"Naujienų kioskas"
+],
+"shop/kitchen":[
+"Virtuvės dizaino parduotuvė"
+],
+"shop/laundry":[
+"Skalbykla"
+],
+"shop/leather":[
+"Odos dirbinių parduotuvė",
+"oda",
+"odos dirbiniai",
+"odos dirbinių parduotuvė"
+],
+"shop/locksmith":[
+"Raktininkas"
+],
+"shop/lottery":[
+"Loterijų parduotuvė"
+],
+"shop/mall":[
+"prekybos centras",
+"Prekybos centras"
+],
+"shop/massage":[
+"Masažo parduotuvė"
+],
+"shop/medical_supply":[
+"Medicinos reikmenų parduotuvė"
+],
+"shop/mobile_phone":[
+"Mobiliųjų telefonų parduotuvė"
+],
+"shop/money_lender":[
+"Pinigų skolintojas"
+],
+"shop/motorcycle":[
+"Motociklų prekybos atstovybė"
+],
+"shop/music":[
+"muzikos prekės",
+"muzikos prekių parduotuvė",
+"Muzikos parduotuvė"
+],
+"shop/musical_instrument":[
+"Muzikos instrumentų parduotuvė"
+],
+"shop/newsagent":[
+"Laikraščių/žurnalų parduotuvė"
+],
+"shop/optician":[
+"Optika"
+],
+"shop/organic":[
+"Organinių prekių parduotuvė",
+"Ekologiškų prekių parduotuvė"
+],
+"shop/outdoor":[
+"Laisvalaikio parduotuvė"
+],
+"shop/paint":[
+"Dažų parduotuvė"
+],
+"shop/pawnbroker":[
+"Lombardas"
+],
+"shop/pet":[
+"Augintinių parduotuvė"
+],
+"shop/photo":[
+"Fotografijos parduotuvė"
+],
+"shop/pyrotechnics":[
+"Fejerverkų parduotuvė"
+],
+"shop/radiotechnics":[
+"Radijo/elektroninių dalių parduotuvė"
+],
+"shop/religion":[
+"Religinė parduotuvė"
+],
+"shop/scuba_diving":[
+"Povandeninio nardymo parduotuvė"
+],
+"shop/seafood":[
+"Jūros gėrybių parduotuvė"
+],
+"shop/shoes":[
+"Batų parduotuvė"
+],
+"shop/sports":[
+"Sporto reikmenų parduotuvė"
+],
+"shop/stationery":[
+"Kanceliarinių prekių parduotuvė"
+],
+"shop/supermarket":[
+"Prekybos centras"
+],
+"shop/tattoo":[
+"Tatuiruočių salonas"
+],
+"shop/tea":[
+"Arbatos parduotuvė"
+],
+"shop/ticket":[
+"Bilietų pardavėjas"
+],
+"shop/tobacco":[
+"Tabako parduotuvė"
+],
+"shop/toys":[
+"Žaislų parduotuvė",
+"Žaislai"
+],
+"shop/travel_agency":[
+"Kelionių agentūra"
+],
+"shop/tyres":[
+"Padangos",
+"Padangų parduotuvė"
+],
+"shop/vacant":[
+"Tuščia parduotuvė"
+],
+"shop/video":[
+"Vaizdo prekių parduotuvė"
+],
+"shop/video_games":[
+"Video Žaidimų parduotuvė"
+],
+"shop/weapons":[
+"Ginklų parduotuvė",
+"Ginklai"
+],
+"shop/wine":[
+"Vyno parduotuvė",
+"Vyninė"
+],
+"tourism":[
+"Turizmas"
+],
+"tourism/alpine_hut":[
+"Kalnų namelis"
+],
+"tourism/artwork":[
+"Meno kūrinys"
+],
+"tourism/attraction":[
+"Turistų traukos vieta"
+],
+"tourism/guest_house":[
+"Svečių namai"
+],
+"tourism/hostel":[
+"Viešbutis"
+],
+"tourism/hotel":[
+"Viešbutis"
+],
+"tourism/information":[
+"Informacinis stendas",
+"Informacija"
+],
+"tourism/motel":[
+"Motelis"
+],
+"tourism/museum":[
+"Muziejus"
+],
+"tourism/picnic_site":[
+"Pikniko stovyklavietė"
+],
+"tourism/theme_park":[
+"Atrakcijonų parkas"
+],
+"tourism/viewpoint":[
+"Apžvalgos taškas"
+],
+"tourism/zoo":[
+"Zoologijos sodas"
+],
+"traffic_calming/bump":[
+"Maži greičio slopinimo kalneliai"
+],
+"traffic_calming/hump":[
+"Dideli greičio slopinimo kalneliai"
+],
+"type/boundary":[
+"Riba",
+"Siena"
+],
+"type/boundary/administrative":[
+"Administracinė riba",
+"Administracinė siena"
+],
+"type/multipolygon":[
+"Multipoligonas"
+],
+"type/restriction":[
+"Apribojimas"
+],
+"type/restriction/no_left_turn":[
+"Jokio sukimo į kairę",
+"Negalima į kairę"
+],
+"type/restriction/no_right_turn":[
+"Negalima į dešinę",
+"Jokio sukimo į dešinę"
+],
+"type/restriction/no_straight_on":[
+"Tik ne tiesiai"
+],
+"type/restriction/no_u_turn":[
+"Negalima apsisukti",
+"Jokio apsisukimo"
+],
+"type/restriction/only_left_turn":[
+"Tik į kairę",
+"Sukimas tik į kairę"
+],
+"type/restriction/only_right_turn":[
+"Tik į dešinę",
+"Sukimas tik į dešinę"
+],
+"type/restriction/only_straight_on":[
+"Nėra posūkių",
+"Jokių posūkių"
+],
+"type/route":[
+"Maršrutas"
+],
+"type/route/bicycle":[
+"Dviračių maršrutas"
+],
+"type/route/bus":[
+"Autobuso maršrutas",
+"Autobusų maršrutas"
+],
+"type/route/detour":[
+"Apvažiavimo maršrutas"
+],
+"type/route/ferry":[
+"Kelto maršrutas"
+],
+"type/route/foot":[
+"Pėsčiųjų maršrutas"
+],
+"type/route/hiking":[
+"Žygių maršrutas"
+],
+"type/route/pipeline":[
+"Vamzdyno maršrutas"
+],
+"type/route/power":[
+"Energijos maršrutas"
+],
+"type/route/road":[
+"Kelio maršrutas"
+],
+"type/route/train":[
+"Traukinio maršrutas"
+],
+"type/route/tram":[
+"Tramvajaus maršrutas"
+],
+"vertex":[
+"Kita"
+],
+"waterway":[
+"Vandens kelias"
+],
+"waterway/canal":[
+"Kanalas"
+],
+"waterway/dam":[
+"Užtvanka"
+],
+"waterway/ditch":[
+"Griovys"
+],
+"waterway/drain":[
+"Nuotekos",
+"Vandens nuoteka"
+],
+"waterway/river":[
+"Upė"
+],
+"waterway/riverbank":[
+"Upės kraštas",
+"Krantas",
+"Upės krantas"
+],
+"waterway/stream":[
+"Upeliukas",
+"Upelis"
+],
+"waterway/weir":[
+"Užtvanka"
+]
+}

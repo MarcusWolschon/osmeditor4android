@@ -1,0 +1,391 @@
+{
+"address":[
+"விலாசம்",
+"முகவரி"
+],
+"advertising/billboard":[
+"துண்டு விளம்பரங்கள் ஒட்டப்படும் பலகை",
+"பில்போர்ட்"
+],
+"aerialway/cable_car":[
+"கேபிள்  கார் "
+],
+"aeroway/aerodrome":[
+"விமானநிலையம்"
+],
+"aeroway/helipad":[
+"சிறு விமானம் இறங்கும் தளம்"
+],
+"amenity/arts_centre":[
+"கலையரங்கம் "
+],
+"amenity/atm":[
+"ஏ.டி.எம்"
+],
+"amenity/bank":[
+"வங்கி"
+],
+"amenity/bar":[
+"மதுபானக் கடை "
+],
+"amenity/bench":[
+"விசுப்பலகை"
+],
+"amenity/bicycle_parking":[
+"ஈருருளை நிறுத்தகம்"
+],
+"amenity/bicycle_rental":[
+"சைக்கிள் வாடகை"
+],
+"amenity/bus_station":[
+"பேருந்து நிலையம் "
+],
+"amenity/cafe":[
+"டீக்கடை"
+],
+"amenity/cinema":[
+"சினிமா"
+],
+"amenity/clock":[
+"கடிகாரம்"
+],
+"amenity/dentist":[
+"பல் மருத்துவர் "
+],
+"amenity/doctors":[
+"மருத்துவர் "
+],
+"amenity/drinking_water":[
+"குடிநீர் "
+],
+"amenity/fire_station":[
+"தீயணைப்பு நிலையம்"
+],
+"amenity/grave_yard":[
+"இடுகாடு"
+],
+"amenity/hospital":[
+"மருத்துவமனை "
+],
+"amenity/library":[
+"புத்தகச்சாலை"
+],
+"amenity/marketplace":[
+"பஜார்"
+],
+"amenity/parking":[
+"கார் பார்க்கிங்"
+],
+"amenity/pharmacy":[
+"மருந்தகம்"
+],
+"amenity/place_of_worship":[
+"வழிபாட்டு இடம்"
+],
+"amenity/place_of_worship/christian":[
+"தேவாலயம் "
+],
+"amenity/place_of_worship/muslim":[
+"தர்கா"
+],
+"amenity/planetarium":[
+"கோளரங்கம் "
+],
+"amenity/police":[
+"காவல்"
+],
+"amenity/post_box":[
+"அஞ்சல்பெட்டி"
+],
+"amenity/post_office":[
+"அஞ்சலகம்"
+],
+"amenity/pub":[
+"பப் "
+],
+"amenity/restaurant":[
+"உணவகம்"
+],
+"amenity/school":[
+"பள்ளி மைதானத்தில்"
+],
+"amenity/swimming_pool":[
+"நீச்சல் குளம்"
+],
+"amenity/telephone":[
+"தொலைபேசி"
+],
+"amenity/theatre":[
+"திரையரங்கம்"
+],
+"amenity/toilets":[
+"கழிவறைகள்"
+],
+"amenity/townhall":[
+"நகராட்சிமன்றம்"
+],
+"area":[
+"பரப்பளவு"
+],
+"barrier/entrance":[
+"நுழைவுவாயில்"
+],
+"barrier/fence":[
+"வேலி"
+],
+"barrier/gate":[
+"கதவு"
+],
+"barrier/wall":[
+"சுவர்"
+],
+"building":[
+"கட்டடம்"
+],
+"building/apartments":[
+"அபார்ட்மண்டுகள்"
+],
+"building/house":[
+"வீடு"
+],
+"craft/painter":[
+"ஓவியர்"
+],
+"entrance":[
+"நுழைவு / வெளியேறு"
+],
+"highway/bus_stop":[
+"பேருந்து நிலையம்"
+],
+"highway/footway":[
+"நடைபாதை"
+],
+"highway/path":[
+"வழி"
+],
+"highway/steps":[
+"படிகட்டுகள்"
+],
+"historic/castle":[
+"கோட்டை"
+],
+"landuse/construction":[
+"கட்டுமானம்"
+],
+"landuse/farmyard":[
+"பண்ணை"
+],
+"landuse/forest":[
+"காடு"
+],
+"landuse/grass":[
+"புல்வெளி"
+],
+"leisure/common":[
+"பொதுவான"
+],
+"leisure/golf_course":[
+"கோல்ஃப் கோர்ஸ்"
+],
+"leisure/marina":[
+"மரினா"
+],
+"leisure/park":[
+"பூங்கா"
+],
+"leisure/pitch/soccer":[
+"காற்பந்து அரங்கம்"
+],
+"leisure/pitch/tennis":[
+"டென்னிசு அரங்கம்"
+],
+"leisure/playground":[
+"விளையாட்டுத் திடல்"
+],
+"leisure/stadium":[
+"விளையாட்டு அரங்கம்"
+],
+"leisure/swimming_pool":[
+"நீச்சல் குளம்"
+],
+"leisure/water_park":[
+"தண்ணீர் பூங்கா"
+],
+"line":[
+"கோடு"
+],
+"man_made":[
+"மனிதனால் கட்டப்பட்டது"
+],
+"man_made/bridge":[
+"பாலம்"
+],
+"man_made/chimney":[
+"புகைபோக்கி"
+],
+"man_made/lighthouse":[
+"கலங்கரை விளக்கம்"
+],
+"man_made/water_tower":[
+"தண்ணீர்த் தொட்டி"
+],
+"natural":[
+"இயற்கையான"
+],
+"natural/beach":[
+"கடற்கரை"
+],
+"natural/coastline":[
+"கடற்கரை"
+],
+"natural/glacier":[
+"பனிப் பாறை"
+],
+"natural/grassland":[
+"புல்வெளிகள்"
+],
+"natural/peak":[
+"மலை உச்சி"
+],
+"natural/tree":[
+"மரம்"
+],
+"natural/water":[
+"தண்ணீர்"
+],
+"natural/water/lake":[
+"ஏரி"
+],
+"natural/water/pond":[
+"குளம்"
+],
+"natural/water/reservoir":[
+"நீர்த் தேக்கம்"
+],
+"natural/wetland":[
+"ஈரநிலம்"
+],
+"natural/wood":[
+"மரம்"
+],
+"office":[
+"அலுவலகம்"
+],
+"place":[
+"இடம்"
+],
+"place/city":[
+"மாநகரம்"
+],
+"place/island":[
+"தீவு"
+],
+"place/neighbourhood":[
+"நகர்ப்பகுதி"
+],
+"place/town":[
+"நகரம்"
+],
+"place/village":[
+"கிராமம்"
+],
+"point":[
+"புள்ளி"
+],
+"railway":[
+"இரயில்வே"
+],
+"railway/abandoned":[
+"பயன்படுத்தப்படாத இரயில்வே"
+],
+"railway/disused":[
+"பயன்படுத்தப்படாத இரயில்வே"
+],
+"railway/monorail":[
+"மோனோ இரயில்"
+],
+"railway/platform":[
+"இரயில்வே நடைமேடை"
+],
+"railway/rail":[
+"இரயில்"
+],
+"railway/station":[
+"இரயில் நிலையம்"
+],
+"railway/subway":[
+"சுரங்கப்பாதை"
+],
+"railway/subway_entrance":[
+"சுரங்கப்பாதை நுழைவுவாயில்"
+],
+"relation":[
+"தொடர்பு"
+],
+"shop":[
+"கடை"
+],
+"shop/alcohol":[
+"மதுபானக் கடை"
+],
+"shop/car":[
+"வாகன விற்பனையகம்"
+],
+"shop/clothes":[
+"ஜவுளிக் கடை"
+],
+"shop/computer":[
+"கணினி விற்பனையகம்"
+],
+"shop/florist":[
+"பூக்கடை"
+],
+"shop/laundry":[
+"சலவையகம்"
+],
+"shop/shoes":[
+"காலணியகம்"
+],
+"tourism":[
+"சுற்றுலா"
+],
+"tourism/artwork":[
+"ஓவியம்"
+],
+"tourism/hotel":[
+"உணவகம்"
+],
+"tourism/information":[
+"தகவல்"
+],
+"tourism/museum":[
+"அருங்காட்சியகம்"
+],
+"tourism/zoo":[
+"உயிரியல் பூங்கா"
+],
+"type/boundary":[
+"எல்லை"
+],
+"type/route":[
+"வழி"
+],
+"type/route/bus":[
+"பேருந்து தடம்"
+],
+"vertex":[
+"பிற"
+],
+"waterway/canal":[
+"கால்வாய்"
+],
+"waterway/dam":[
+"அணை"
+],
+"waterway/river":[
+"ஆறு"
+],
+"waterway/riverbank":[
+"ஆற்றாங்கரை"
+]
+}

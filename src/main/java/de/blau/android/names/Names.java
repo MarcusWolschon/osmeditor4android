@@ -127,7 +127,7 @@ public class Names {
 		synchronized (nameList) {
 			
 			if (!ready) {
-				Log.d("Names","Parsing configuration files");
+				Log.d(DEBUG_TAG,"Parsing configuration files");
 	
 				AssetManager assetManager = ctx.getAssets();
 				try {

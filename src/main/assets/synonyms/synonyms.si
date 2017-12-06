@@ -1,0 +1,20 @@
+{
+"amenity/drinking_water":[
+"බොනවතුර"
+],
+"man_made/water_tower":[
+"ජල කුලුන"
+],
+"man_made/water_well":[
+"ළිද"
+],
+"natural/water":[
+"ජලය"
+],
+"shop/water_sports":[
+"ජල ක්‍රීඩා/ පිහිනුම් තටාකය"
+],
+"waterway":[
+"ජල මාර්ගය"
+]
+}

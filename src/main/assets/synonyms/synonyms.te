@@ -1,0 +1,196 @@
+{
+"address":[
+"చిరునామా"
+],
+"aeroway/aerodrome":[
+"విమానాశ్రయం"
+],
+"amenity/bank":[
+"బ్యాంకు"
+],
+"amenity/cinema":[
+"సినిమా హాలు"
+],
+"amenity/drinking_water":[
+"తాగే నీరు"
+],
+"amenity/grave_yard":[
+"స్మశానం"
+],
+"amenity/library":[
+"గ్రంథాలయం"
+],
+"amenity/pharmacy":[
+"మందుల షాపు"
+],
+"amenity/place_of_worship/buddhist":[
+"బౌద్ధ ఆలయం"
+],
+"amenity/place_of_worship/christian":[
+"చర్చ్",
+"చర్చి"
+],
+"amenity/place_of_worship/muslim":[
+"మాస్క్",
+"మసీదు"
+],
+"amenity/police":[
+"పోలీసు"
+],
+"amenity/post_office":[
+"తపాలా కార్యాలయం"
+],
+"amenity/pub":[
+"పబ్"
+],
+"amenity/restaurant":[
+"రెస్టారెంట్"
+],
+"amenity/swimming_pool":[
+"ఈత కొలను"
+],
+"amenity/toilets":[
+"మరుగుదొడ్లు"
+],
+"barrier/fence":[
+"కంచె"
+],
+"barrier/wall":[
+"గోడ"
+],
+"building":[
+"కట్టడం"
+],
+"building/house":[
+"ఇల్లు"
+],
+"building/hut":[
+"గుడిసె"
+],
+"highway/footway":[
+"కాల్దారి"
+],
+"highway/path":[
+"దారి"
+],
+"highway/primary_link":[
+"ముఖ్య లంకె"
+],
+"highway/steps":[
+"మెట్లు"
+],
+"highway/traffic_signals":[
+"ట్రాఫిక్ సిగ్నళ్ళు"
+],
+"historic":[
+"చారిత్రక ప్రదేశం"
+],
+"landuse/forest":[
+"అడవి"
+],
+"landuse/grass":[
+"పచ్చిక"
+],
+"leisure/garden":[
+"తోట"
+],
+"leisure/park":[
+"పార్కు"
+],
+"leisure/pitch/tennis":[
+"టెన్నిస్ కోర్టు"
+],
+"leisure/playground":[
+"ఆటమైదానం"
+],
+"leisure/swimming_pool":[
+"ఈత కొలను"
+],
+"line":[
+"గీత"
+],
+"natural/tree":[
+"చెట్టు"
+],
+"natural/water":[
+"నీళ్ళు"
+],
+"natural/water/lake":[
+"చెరువు"
+],
+"natural/water/pond":[
+"సరస్సు"
+],
+"natural/wetland":[
+"తడినేల"
+],
+"office":[
+"కార్యాలయం"
+],
+"place/city":[
+"నగరం"
+],
+"place/town":[
+"పట్టణం"
+],
+"place/village":[
+"గ్రామం"
+],
+"point":[
+"బిందువు"
+],
+"power/pole":[
+"కరెంటు స్తంభం"
+],
+"railway":[
+"రైల్వే"
+],
+"relation":[
+"సంబంధం"
+],
+"shop/supermarket":[
+"సుపర్ మార్కెట్"
+],
+"shop/toys":[
+"బొమ్మల కొట్టు"
+],
+"shop/vacant":[
+"ఖాళీ దుకాణం"
+],
+"tourism/hotel":[
+"హోటెల్"
+],
+"tourism/information":[
+"సమాచారం"
+],
+"tourism/museum":[
+"మ్యూజియం"
+],
+"tourism/zoo":[
+"జూ"
+],
+"type/boundary/administrative":[
+"పరిపాలనా సరిహద్దు"
+],
+"type/route/foot":[
+"కాలి బాట"
+],
+"vertex":[
+"ఇతర"
+],
+"waterway/canal":[
+"కాలువ"
+],
+"waterway/dam":[
+"ఆనకట్ట"
+],
+"waterway/river":[
+"నది"
+],
+"waterway/riverbank":[
+"నది ఒడ్డు"
+],
+"waterway/stream":[
+"కాలువ"
+]
+}

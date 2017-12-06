@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
+import android.support.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.presets.Preset.PresetItem;
@@ -34,7 +34,7 @@ public class PresetTest {
     }
     
     @Test
-	public void matchingt() {
+	public void matching() {
     	Main main = (Main)mActivityRule.getActivity(); 
     	// 
     	Preset[] presets = App.getCurrentPresets(main);

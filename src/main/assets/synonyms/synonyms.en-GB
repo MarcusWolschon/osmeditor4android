@@ -1,0 +1,2535 @@
+{
+"address":[
+"Address"
+],
+"advertising/billboard":[
+"Billboard"
+],
+"aerialway":[
+"Aerialway"
+],
+"aerialway/cable_car":[
+"Cable Car"
+],
+"aerialway/chair_lift":[
+"Chair Lift"
+],
+"aerialway/drag_lift":[
+"Drag Lift"
+],
+"aerialway/gondola":[
+"Dangleway",
+"Gondola"
+],
+"aerialway/goods":[
+"Goods Aerialway"
+],
+"aerialway/magic_carpet":[
+"Magic Carpet Lift"
+],
+"aerialway/mixed_lift":[
+"Mixed Lift"
+],
+"aerialway/platter":[
+"Platter Lift"
+],
+"aerialway/pylon":[
+"Aerialway Pylon"
+],
+"aerialway/rope_tow":[
+"Rope Tow Lift"
+],
+"aerialway/station":[
+"Aerialway Station"
+],
+"aerialway/t-bar":[
+"T-bar Lift"
+],
+"aeroway":[
+"Aeroway"
+],
+"aeroway/aerodrome":[
+"Airport"
+],
+"aeroway/apron":[
+"Apron"
+],
+"aeroway/gate":[
+"Airport Gate"
+],
+"aeroway/hangar":[
+"Hangar"
+],
+"aeroway/helipad":[
+"Helipad"
+],
+"aeroway/runway":[
+"Runway"
+],
+"aeroway/taxiway":[
+"Taxiway"
+],
+"aeroway/terminal":[
+"Airport Terminal"
+],
+"amenity":[
+"Amenity"
+],
+"amenity/animal_boarding":[
+"Animal Boarding Facility"
+],
+"amenity/animal_breeding":[
+"Animal Breeding Facility"
+],
+"amenity/animal_shelter":[
+"Animal Shelter"
+],
+"amenity/arts_centre":[
+"Arts Centre"
+],
+"amenity/atm":[
+"Cash Machine"
+],
+"amenity/bank":[
+"Bank"
+],
+"amenity/bar":[
+"Bar"
+],
+"amenity/bbq":[
+"Barbecue/Grill"
+],
+"amenity/bench":[
+"Bench"
+],
+"amenity/bicycle_parking":[
+"Bicycle Parking"
+],
+"amenity/bicycle_rental":[
+"Bicycle Rental"
+],
+"amenity/bicycle_repair_station":[
+"Bicycle Repair Tool Stand"
+],
+"amenity/biergarten":[
+"Beer Garden"
+],
+"amenity/boat_rental":[
+"Boat Rental"
+],
+"amenity/bureau_de_change":[
+"Currency Exchange"
+],
+"amenity/bus_station":[
+"Bus Station"
+],
+"amenity/cafe":[
+"Cafe"
+],
+"amenity/car_rental":[
+"Car Rental"
+],
+"amenity/car_sharing":[
+"Car Sharing"
+],
+"amenity/car_wash":[
+"Car Wash"
+],
+"amenity/casino":[
+"Casino"
+],
+"amenity/charging_station":[
+"Charging Station"
+],
+"amenity/childcare":[
+"Nursery/Childcare"
+],
+"amenity/cinema":[
+"Cinema"
+],
+"amenity/clinic":[
+"Clinic"
+],
+"amenity/clinic/abortion":[
+"Abortion Clinic"
+],
+"amenity/clinic/fertility":[
+"Fertility Clinic"
+],
+"amenity/clock":[
+"Clock"
+],
+"amenity/college":[
+"College Grounds"
+],
+"amenity/community_centre":[
+"Community Centre"
+],
+"amenity/compressed_air":[
+"Compressed Air"
+],
+"amenity/courthouse":[
+"Courthouse"
+],
+"amenity/coworking_space":[
+"Coworking Space"
+],
+"amenity/crematorium":[
+"Crematorium"
+],
+"amenity/dentist":[
+"Dentist"
+],
+"amenity/doctors":[
+"Doctor"
+],
+"amenity/dojo":[
+"Dojo / Martial Arts Academy"
+],
+"amenity/drinking_water":[
+"Drinking Water"
+],
+"amenity/driving_school":[
+"Driving School"
+],
+"amenity/embassy":[
+"Embassy"
+],
+"amenity/fast_food":[
+"Fast Food"
+],
+"amenity/ferry_terminal":[
+"Ferry Terminal"
+],
+"amenity/fire_station":[
+"Fire Station"
+],
+"amenity/food_court":[
+"Food Court"
+],
+"amenity/fountain":[
+"Fountain"
+],
+"amenity/fuel":[
+"diesel",
+"lng",
+"fuel",
+"propane",
+"gas",
+"Petrol Station",
+"cng",
+"biodiesel"
+],
+"amenity/grave_yard":[
+"Graveyard"
+],
+"amenity/grit_bin":[
+"Grit Bin"
+],
+"amenity/hospital":[
+"Hospital Grounds"
+],
+"amenity/hunting_stand":[
+"Hunting Stand"
+],
+"amenity/ice_cream":[
+"Ice Cream Shop"
+],
+"amenity/internet_cafe":[
+"Internet Cafe"
+],
+"amenity/kindergarten":[
+"Preschool/Kindergarten Grounds"
+],
+"amenity/library":[
+"Library"
+],
+"amenity/marketplace":[
+"Marketplace"
+],
+"amenity/motorcycle_parking":[
+"Motorcycle Parking"
+],
+"amenity/music_school":[
+"Music School"
+],
+"amenity/nightclub":[
+"Nightclub"
+],
+"amenity/nursing_home":[
+"Nursing Home"
+],
+"amenity/parking":[
+"Car Parking"
+],
+"amenity/parking_entrance":[
+"Parking Garage Entrance/Exit"
+],
+"amenity/parking_space":[
+"Parking Space"
+],
+"amenity/pavilion":[
+"Pavilion"
+],
+"amenity/pharmacy":[
+"Pharmacy"
+],
+"amenity/place_of_worship":[
+"Place of Worship"
+],
+"amenity/place_of_worship/buddhist":[
+"Buddhist Temple"
+],
+"amenity/place_of_worship/christian":[
+"Church"
+],
+"amenity/place_of_worship/hindu":[
+"Hindu Temple"
+],
+"amenity/place_of_worship/jewish":[
+"Synagogue"
+],
+"amenity/place_of_worship/muslim":[
+"Mosque"
+],
+"amenity/place_of_worship/shinto":[
+"Shinto Shrine"
+],
+"amenity/place_of_worship/sikh":[
+"Sikh Temple"
+],
+"amenity/place_of_worship/taoist":[
+"Taoist Temple"
+],
+"amenity/planetarium":[
+"Planetarium"
+],
+"amenity/police":[
+"Police"
+],
+"amenity/post_box":[
+"Mailbox",
+"Post Box"
+],
+"amenity/post_office":[
+"Post Office"
+],
+"amenity/prison":[
+"Prison Grounds"
+],
+"amenity/pub":[
+"Pub"
+],
+"amenity/public_bath":[
+"Public Bath"
+],
+"amenity/public_bookcase":[
+"Public Bookcase"
+],
+"amenity/ranger_station":[
+"Warden Station"
+],
+"amenity/recycling":[
+"Recycling"
+],
+"amenity/recycling_centre":[
+"Recycling Centre"
+],
+"amenity/register_office":[
+"Register Office"
+],
+"amenity/restaurant":[
+"Restaurant"
+],
+"amenity/sanitary_dump_station":[
+"RV Toilet Disposal"
+],
+"amenity/school":[
+"School Grounds"
+],
+"amenity/scrapyard":[
+"Scrap Yard"
+],
+"amenity/shelter":[
+"Shelter"
+],
+"amenity/shower":[
+"Shower"
+],
+"amenity/social_facility":[
+"Social Facility"
+],
+"amenity/social_facility/food_bank":[
+"Food Bank"
+],
+"amenity/social_facility/group_home":[
+"Elderly Group Home"
+],
+"amenity/social_facility/homeless_shelter":[
+"Homeless Shelter"
+],
+"amenity/social_facility/nursing_home":[
+"Nursing Home"
+],
+"amenity/studio":[
+"Studio"
+],
+"amenity/swimming_pool":[
+"Swimming Pool"
+],
+"amenity/taxi":[
+"Taxi Stand"
+],
+"amenity/telephone":[
+"Telephone"
+],
+"amenity/theatre":[
+"Theatre"
+],
+"amenity/toilets":[
+"Toilets"
+],
+"amenity/townhall":[
+"Town Hall"
+],
+"amenity/university":[
+"University Grounds"
+],
+"amenity/vending_machine":[
+"Vending Machine"
+],
+"amenity/vending_machine/cigarettes":[
+"Cigarette Vending Machine"
+],
+"amenity/vending_machine/condoms":[
+"Condom Vending Machine"
+],
+"amenity/vending_machine/drinks":[
+"Drink Vending Machine"
+],
+"amenity/vending_machine/excrement_bags":[
+"Excrement Bag Vending Machine"
+],
+"amenity/vending_machine/feminine_hygiene":[
+"Feminine Hygiene Vending Machine"
+],
+"amenity/vending_machine/news_papers":[
+"Newspaper Vending Machine"
+],
+"amenity/vending_machine/newspapers":[
+"Newspaper Vending Machine"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"Parcel Pickup/Dropoff Vending Machine"
+],
+"amenity/vending_machine/parking_tickets":[
+"Parking Ticket Vending Machine"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"Transit Ticket Vending Machine"
+],
+"amenity/vending_machine/sweets":[
+"Snack Vending Machine"
+],
+"amenity/veterinary":[
+"Veterinary"
+],
+"amenity/waste/dog_excrement":[
+"Dog Excrement Bin"
+],
+"amenity/waste_basket":[
+"Rubbish Bin"
+],
+"amenity/waste_disposal":[
+"Garbage Dumpster"
+],
+"amenity/waste_transfer_station":[
+"Waste Transfer Station"
+],
+"amenity/water_point":[
+"RV Drinking Water"
+],
+"amenity/watering_place":[
+"Animal Watering Place"
+],
+"area":[
+"Area"
+],
+"area/highway":[
+"Road Surface"
+],
+"attraction/amusement_ride":[
+"Amusement Ride"
+],
+"attraction/animal":[
+"Animal"
+],
+"attraction/big_wheel":[
+"Big Wheel"
+],
+"attraction/bumper_car":[
+"Bumper Car"
+],
+"attraction/bungee_jumping":[
+"Bungee Jumping"
+],
+"attraction/carousel":[
+"Carousel"
+],
+"attraction/dark_ride":[
+"Ghost Train"
+],
+"attraction/drop_tower":[
+"Drop Tower"
+],
+"attraction/pirate_ship":[
+"Pirate Ship"
+],
+"attraction/river_rafting":[
+"River Rafting"
+],
+"attraction/roller_coaster":[
+"Roller Coaster"
+],
+"attraction/train":[
+"Tourist Train"
+],
+"attraction/water_slide":[
+"Water Slide"
+],
+"barrier":[
+"Barrier"
+],
+"barrier/block":[
+"Block"
+],
+"barrier/bollard":[
+"Bollard"
+],
+"barrier/border_control":[
+"Border Control"
+],
+"barrier/cattle_grid":[
+"Cattle Grid"
+],
+"barrier/city_wall":[
+"City Wall"
+],
+"barrier/cycle_barrier":[
+"Cycle Barrier"
+],
+"barrier/ditch":[
+"Trench"
+],
+"barrier/entrance":[
+"Entrance"
+],
+"barrier/fence":[
+"Fence"
+],
+"barrier/gate":[
+"Gate"
+],
+"barrier/hedge":[
+"Hedge"
+],
+"barrier/kissing_gate":[
+"Kissing Gate"
+],
+"barrier/lift_gate":[
+"Lift Gate"
+],
+"barrier/retaining_wall":[
+"Retaining Wall"
+],
+"barrier/stile":[
+"Stile"
+],
+"barrier/toll_booth":[
+"Toll Booth"
+],
+"barrier/wall":[
+"Wall"
+],
+"boundary/administrative":[
+"Administrative Boundary"
+],
+"building":[
+"Building"
+],
+"building/apartments":[
+"Apartments"
+],
+"building/barn":[
+"Barn"
+],
+"building/bunker":[
+"Bunker"
+],
+"building/cabin":[
+"Cabin"
+],
+"building/cathedral":[
+"Cathedral Building"
+],
+"building/chapel":[
+"Chapel Building"
+],
+"building/church":[
+"Church Building"
+],
+"building/college":[
+"College Building"
+],
+"building/commercial":[
+"Commercial Building"
+],
+"building/construction":[
+"Building Under Construction"
+],
+"building/detached":[
+"Detached House"
+],
+"building/dormitory":[
+"Dormitory"
+],
+"building/entrance":[
+"Entrance/Exit"
+],
+"building/garage":[
+"Garage"
+],
+"building/garages":[
+"Garages"
+],
+"building/greenhouse":[
+"Greenhouse"
+],
+"building/hospital":[
+"Hospital Building"
+],
+"building/hotel":[
+"Hotel Building"
+],
+"building/house":[
+"House"
+],
+"building/hut":[
+"Hut"
+],
+"building/industrial":[
+"Industrial Building"
+],
+"building/kindergarten":[
+"Preschool/Kindergarten Building"
+],
+"building/public":[
+"Public Building"
+],
+"building/residential":[
+"Residential Building"
+],
+"building/retail":[
+"Retail Building"
+],
+"building/roof":[
+"Roof"
+],
+"building/school":[
+"School Building"
+],
+"building/semidetached_house":[
+"Semi-Detached House"
+],
+"building/shed":[
+"Shed"
+],
+"building/stable":[
+"Stable"
+],
+"building/static_caravan":[
+"Static Caravan"
+],
+"building/terrace":[
+"Terraced houses"
+],
+"building/train_station":[
+"Train Station"
+],
+"building/university":[
+"University Building"
+],
+"building/warehouse":[
+"Warehouse"
+],
+"camp_site/camp_pitch":[
+"Camp Pitch"
+],
+"club":[
+"Club"
+],
+"craft":[
+"Craft"
+],
+"craft/basket_maker":[
+"Basket Maker"
+],
+"craft/beekeeper":[
+"Beekeeper"
+],
+"craft/blacksmith":[
+"Blacksmith"
+],
+"craft/boatbuilder":[
+"Boat Builder"
+],
+"craft/bookbinder":[
+"Bookbinder"
+],
+"craft/brewery":[
+"Brewery"
+],
+"craft/carpenter":[
+"Carpenter"
+],
+"craft/carpet_layer":[
+"Carpet Layer"
+],
+"craft/caterer":[
+"Caterer"
+],
+"craft/chimney_sweeper":[
+"Chimney Sweeper"
+],
+"craft/clockmaker":[
+"Clockmaker"
+],
+"craft/confectionery":[
+"Candy Maker"
+],
+"craft/distillery":[
+"Distillery"
+],
+"craft/dressmaker":[
+"Dressmaker"
+],
+"craft/electrician":[
+"Electrician"
+],
+"craft/electronics_repair":[
+"Electronics Repair Shop"
+],
+"craft/gardener":[
+"Gardener"
+],
+"craft/glaziery":[
+"Glaziery"
+],
+"craft/handicraft":[
+"Handicraft"
+],
+"craft/hvac":[
+"HVAC"
+],
+"craft/insulator":[
+"Insulator"
+],
+"craft/jeweler":[
+"Jeweler"
+],
+"craft/key_cutter":[
+"Key Cutter"
+],
+"craft/locksmith":[
+"Locksmith"
+],
+"craft/metal_construction":[
+"Metal Construction"
+],
+"craft/optician":[
+"Optician"
+],
+"craft/painter":[
+"Painter"
+],
+"craft/photographer":[
+"Photographer"
+],
+"craft/photographic_laboratory":[
+"Photographic Laboratory"
+],
+"craft/plasterer":[
+"Plasterer"
+],
+"craft/plumber":[
+"Plumber"
+],
+"craft/pottery":[
+"Pottery"
+],
+"craft/rigger":[
+"Rigger"
+],
+"craft/roofer":[
+"Roofer"
+],
+"craft/saddler":[
+"Saddler"
+],
+"craft/sailmaker":[
+"Sailmaker"
+],
+"craft/sawmill":[
+"Sawmill"
+],
+"craft/scaffolder":[
+"Scaffolder"
+],
+"craft/sculptor":[
+"Sculptor"
+],
+"craft/shoemaker":[
+"Shoemaker"
+],
+"craft/stonemason":[
+"Stonemason"
+],
+"craft/tailor":[
+"Tailor"
+],
+"craft/tiler":[
+"Tiler"
+],
+"craft/tinsmith":[
+"Tinsmith"
+],
+"craft/upholsterer":[
+"Upholsterer"
+],
+"craft/watchmaker":[
+"Watchmaker"
+],
+"craft/window_construction":[
+"Window Construction"
+],
+"craft/winery":[
+"Winery"
+],
+"embankment":[
+"Embankment"
+],
+"emergency/ambulance_station":[
+"Ambulance Station"
+],
+"emergency/defibrillator":[
+"Defibrillator"
+],
+"emergency/designated":[
+"Emergency Access Designated"
+],
+"emergency/destination":[
+"Emergency Access Destination"
+],
+"emergency/fire_hydrant":[
+"Fire Hydrant"
+],
+"emergency/life_ring":[
+"Life Ring"
+],
+"emergency/no":[
+"Emergency Access No"
+],
+"emergency/official":[
+"Emergency Access Official"
+],
+"emergency/phone":[
+"Emergency Phone"
+],
+"emergency/private":[
+"Emergency Access Private"
+],
+"emergency/yes":[
+"Emergency Access Yes"
+],
+"entrance":[
+"Entrance/Exit"
+],
+"footway/crossing":[
+"Street Crossing"
+],
+"footway/crossing-raised":[
+"Raised Street Crossing"
+],
+"footway/crosswalk":[
+"Pedestrian Crosswalk"
+],
+"footway/crosswalk-raised":[
+"Raised Pedestrian Crosswalk"
+],
+"footway/sidewalk":[
+"sidewalk",
+"pavement",
+"Pavement",
+"footway",
+"footpath"
+],
+"ford":[
+"Ford"
+],
+"golf/bunker":[
+"Sand Trap"
+],
+"golf/fairway":[
+"Fairway"
+],
+"golf/green":[
+"Putting Green"
+],
+"golf/hole":[
+"Golf Hole"
+],
+"golf/lateral_water_hazard_area":[
+"Lateral Water Hazard"
+],
+"golf/lateral_water_hazard_line":[
+"Lateral Water Hazard"
+],
+"golf/rough":[
+"Rough"
+],
+"golf/tee":[
+"Tee Box"
+],
+"golf/water_hazard_area":[
+"Water Hazard"
+],
+"golf/water_hazard_line":[
+"Water Hazard"
+],
+"healthcare":[
+"Healthcare Facility"
+],
+"healthcare/alternative":[
+"Alternative Medicine"
+],
+"healthcare/alternative/chiropractic":[
+"Chiropractor"
+],
+"healthcare/audiologist":[
+"Audiologist"
+],
+"healthcare/birthing_center":[
+"Birthing Center"
+],
+"healthcare/blood_donation":[
+"Blood Donor Centre"
+],
+"healthcare/hospice":[
+"Hospice"
+],
+"healthcare/midwife":[
+"Midwife"
+],
+"healthcare/occupational_therapist":[
+"Occupational Therapist"
+],
+"healthcare/optometrist":[
+"Optometrist"
+],
+"healthcare/physiotherapist":[
+"Physiotherapist"
+],
+"healthcare/podiatrist":[
+"Podiatrist"
+],
+"healthcare/psychotherapist":[
+"Psychotherapist"
+],
+"healthcare/rehabilitation":[
+"Rehabilitation Facility"
+],
+"healthcare/speech_therapist":[
+"Speech Therapist"
+],
+"highway":[
+"Highway"
+],
+"highway/bridleway":[
+"Bridleway"
+],
+"highway/bus_stop":[
+"Bus Stop"
+],
+"highway/corridor":[
+"Indoor Corridor"
+],
+"highway/crossing":[
+"Street Crossing"
+],
+"highway/crossing-raised":[
+"Raised Street Crossing"
+],
+"highway/crosswalk":[
+"Pedestrian Crosswalk"
+],
+"highway/crosswalk-raised":[
+"Raised Pedestrian Crosswalk"
+],
+"highway/cycleway":[
+"Cycle Path"
+],
+"highway/elevator":[
+"Lift"
+],
+"highway/footway":[
+"Foot Path"
+],
+"highway/give_way":[
+"Give Way Sign"
+],
+"highway/living_street":[
+"Living Street"
+],
+"highway/mini_roundabout":[
+"Mini-Roundabout"
+],
+"highway/motorway":[
+"Motorway"
+],
+"highway/motorway_junction":[
+"Motorway Junction / Exit"
+],
+"highway/motorway_link":[
+"Motorway Link"
+],
+"highway/path":[
+"Path"
+],
+"highway/pedestrian_area":[
+"Pedestrian Area"
+],
+"highway/pedestrian_line":[
+"Pedestrian Street"
+],
+"highway/primary":[
+"Primary Road"
+],
+"highway/primary_link":[
+"Primary Link"
+],
+"highway/raceway":[
+"Racetrack (Motorsport)"
+],
+"highway/residential":[
+"Residential Road"
+],
+"highway/rest_area":[
+"Rest Area"
+],
+"highway/road":[
+"Unknown Road"
+],
+"highway/secondary":[
+"Secondary Road"
+],
+"highway/secondary_link":[
+"Secondary Link"
+],
+"highway/service":[
+"Service Road"
+],
+"highway/service/alley":[
+"Alley"
+],
+"highway/service/drive-through":[
+"Drive-Through"
+],
+"highway/service/driveway":[
+"Driveway"
+],
+"highway/service/emergency_access":[
+"Emergency Access"
+],
+"highway/service/parking_aisle":[
+"Parking Aisle"
+],
+"highway/services":[
+"Service Area"
+],
+"highway/speed_camera":[
+"Speed Camera"
+],
+"highway/steps":[
+"Steps"
+],
+"highway/stop":[
+"Stop Sign"
+],
+"highway/street_lamp":[
+"Street Light"
+],
+"highway/tertiary":[
+"Tertiary Road"
+],
+"highway/tertiary_link":[
+"Tertiary Link"
+],
+"highway/track":[
+"Track"
+],
+"highway/traffic_mirror":[
+"Traffic Mirror"
+],
+"highway/traffic_signals":[
+"Traffic Lights"
+],
+"highway/trunk":[
+"Trunk Road"
+],
+"highway/trunk_link":[
+"Trunk Link"
+],
+"highway/turning_circle":[
+"Turning Circle"
+],
+"highway/turning_loop":[
+"Turning Loop (Island)"
+],
+"highway/unclassified":[
+"Minor/Unclassified Road"
+],
+"historic":[
+"Historic Site"
+],
+"historic/archaeological_site":[
+"Archaeological Site"
+],
+"historic/boundary_stone":[
+"Boundary Stone"
+],
+"historic/castle":[
+"Castle"
+],
+"historic/memorial":[
+"Memorial"
+],
+"historic/monument":[
+"Monument"
+],
+"historic/ruins":[
+"Ruins"
+],
+"historic/tomb":[
+"Tomb"
+],
+"historic/wayside_cross":[
+"Wayside Cross"
+],
+"historic/wayside_shrine":[
+"Wayside Shrine"
+],
+"junction":[
+"Junction"
+],
+"landuse":[
+"Land Use"
+],
+"landuse/allotments":[
+"Allotments"
+],
+"landuse/aquaculture":[
+"Aquaculture"
+],
+"landuse/basin":[
+"Basin"
+],
+"landuse/brownfield":[
+"Brownfield"
+],
+"landuse/cemetery":[
+"Cemetery"
+],
+"landuse/churchyard":[
+"Churchyard"
+],
+"landuse/commercial":[
+"Commercial Area"
+],
+"landuse/construction":[
+"Construction"
+],
+"landuse/farm":[
+"Farmland"
+],
+"landuse/farmland":[
+"Farmland"
+],
+"landuse/farmyard":[
+"Farmyard"
+],
+"landuse/forest":[
+"Forest"
+],
+"landuse/garages":[
+"Garages"
+],
+"landuse/grass":[
+"Grass"
+],
+"landuse/greenfield":[
+"Greenfield"
+],
+"landuse/harbour":[
+"Harbor"
+],
+"landuse/industrial":[
+"Industrial Area"
+],
+"landuse/industrial/scrap_yard":[
+"Scrap Yard"
+],
+"landuse/industrial/slaughterhouse":[
+"Slaughterhouse"
+],
+"landuse/landfill":[
+"Landfill"
+],
+"landuse/meadow":[
+"Meadow"
+],
+"landuse/orchard":[
+"Orchard"
+],
+"landuse/plant_nursery":[
+"Plant Nursery"
+],
+"landuse/quarry":[
+"Quarry"
+],
+"landuse/railway":[
+"Railway Corridor"
+],
+"landuse/recreation_ground":[
+"Recreation Ground"
+],
+"landuse/religious":[
+"Religious Area"
+],
+"landuse/residential":[
+"Residential Area"
+],
+"landuse/retail":[
+"Retail Area"
+],
+"landuse/vineyard":[
+"Vineyard"
+],
+"leisure":[
+"Leisure"
+],
+"leisure/adult_gaming_centre":[
+"Adult Gaming Centre"
+],
+"leisure/bird_hide":[
+"Bird Hide"
+],
+"leisure/bowling_alley":[
+"Bowling Alley"
+],
+"leisure/common":[
+"Common"
+],
+"leisure/dance":[
+"Dance Hall"
+],
+"leisure/dog_park":[
+"Dog Park"
+],
+"leisure/firepit":[
+"Firepit"
+],
+"leisure/fitness_centre":[
+"Gym / Fitness Centre"
+],
+"leisure/fitness_centre/yoga":[
+"Yoga Studio"
+],
+"leisure/fitness_station":[
+"Outdoor Fitness Station"
+],
+"leisure/fitness_station/balance_beam":[
+"Exercise Balance Beam"
+],
+"leisure/fitness_station/box":[
+"Exercise Box"
+],
+"leisure/fitness_station/horizontal_bar":[
+"Exercise Horizontal Bar"
+],
+"leisure/fitness_station/horizontal_ladder":[
+"Exercise Monkey Bars"
+],
+"leisure/fitness_station/hyperextension":[
+"Hyperextension Station"
+],
+"leisure/fitness_station/parallel_bars":[
+"Parallel Bars"
+],
+"leisure/fitness_station/push-up":[
+"Push-Up Station"
+],
+"leisure/fitness_station/rings":[
+"Exercise Rings"
+],
+"leisure/fitness_station/sign":[
+"Exercise Instruction Sign"
+],
+"leisure/fitness_station/sit-up":[
+"Sit-Up Station"
+],
+"leisure/fitness_station/stairs":[
+"Exercise Stairs"
+],
+"leisure/garden":[
+"Garden"
+],
+"leisure/golf_course":[
+"Golf Course"
+],
+"leisure/hackerspace":[
+"Hackerspace"
+],
+"leisure/horse_riding":[
+"Horseback Riding Facility"
+],
+"leisure/ice_rink":[
+"Ice Rink"
+],
+"leisure/marina":[
+"Marina"
+],
+"leisure/miniature_golf":[
+"Miniature Golf"
+],
+"leisure/nature_reserve":[
+"Nature Reserve"
+],
+"leisure/park":[
+"Park"
+],
+"leisure/picnic_table":[
+"Picnic Table"
+],
+"leisure/pitch":[
+"Sport Pitch"
+],
+"leisure/pitch/american_football":[
+"American Football Field"
+],
+"leisure/pitch/baseball":[
+"Baseball Diamond"
+],
+"leisure/pitch/basketball":[
+"Basketball Court"
+],
+"leisure/pitch/beachvolleyball":[
+"Beach Volleyball Court"
+],
+"leisure/pitch/boules":[
+"Boules/Bocce Court"
+],
+"leisure/pitch/bowls":[
+"Bowling Green"
+],
+"leisure/pitch/cricket":[
+"Cricket Field"
+],
+"leisure/pitch/equestrian":[
+"Riding Arena"
+],
+"leisure/pitch/rugby_league":[
+"Rugby League Pitch"
+],
+"leisure/pitch/rugby_union":[
+"Rugby Union Pitch"
+],
+"leisure/pitch/skateboard":[
+"Skate Park"
+],
+"leisure/pitch/soccer":[
+"Football Pitch"
+],
+"leisure/pitch/table_tennis":[
+"Ping Pong Table"
+],
+"leisure/pitch/tennis":[
+"Tennis Court"
+],
+"leisure/pitch/volleyball":[
+"Volleyball Court"
+],
+"leisure/playground":[
+"Playground"
+],
+"leisure/resort":[
+"Resort"
+],
+"leisure/running_track":[
+"Racetrack (Running)"
+],
+"leisure/sauna":[
+"Sauna"
+],
+"leisure/slipway":[
+"Slipway"
+],
+"leisure/sports_centre":[
+"Sports Centre / Complex"
+],
+"leisure/sports_centre/swimming":[
+"Swimming Pool Facility"
+],
+"leisure/stadium":[
+"Stadium"
+],
+"leisure/swimming_pool":[
+"Swimming Pool"
+],
+"leisure/track":[
+"Racetrack (Non-Motorsport)"
+],
+"leisure/water_park":[
+"Water Park"
+],
+"line":[
+"Line"
+],
+"man_made":[
+"Man Made"
+],
+"man_made/adit":[
+"Adit"
+],
+"man_made/breakwater":[
+"Breakwater"
+],
+"man_made/bridge":[
+"Bridge"
+],
+"man_made/chimney":[
+"Chimney"
+],
+"man_made/crane":[
+"Crane"
+],
+"man_made/cutline":[
+"Cut line"
+],
+"man_made/embankment":[
+"Embankment"
+],
+"man_made/flagpole":[
+"Flagpole"
+],
+"man_made/gasometer":[
+"Gasometer"
+],
+"man_made/groyne":[
+"Groyne"
+],
+"man_made/lighthouse":[
+"Lighthouse"
+],
+"man_made/mast":[
+"Mast"
+],
+"man_made/observation":[
+"Observation Tower"
+],
+"man_made/petroleum_well":[
+"Oil Well"
+],
+"man_made/pier":[
+"Pier"
+],
+"man_made/pipeline":[
+"Pipeline"
+],
+"man_made/pumping_station":[
+"Pumping Station"
+],
+"man_made/silo":[
+"Silo"
+],
+"man_made/storage_tank":[
+"Storage Tank"
+],
+"man_made/surveillance":[
+"Surveillance"
+],
+"man_made/surveillance_camera":[
+"Surveillance Camera"
+],
+"man_made/survey_point":[
+"Survey Point"
+],
+"man_made/tower":[
+"Tower"
+],
+"man_made/wastewater_plant":[
+"Wastewater Plant"
+],
+"man_made/water_tower":[
+"Water Tower"
+],
+"man_made/water_well":[
+"Water Well"
+],
+"man_made/water_works":[
+"Water Works"
+],
+"man_made/watermill":[
+"Watermill"
+],
+"man_made/windmill":[
+"Windmill"
+],
+"man_made/works":[
+"Factory"
+],
+"manhole":[
+"Manhole"
+],
+"manhole/drain":[
+"Storm Drain"
+],
+"manhole/telecom":[
+"Telecom Manhole"
+],
+"natural":[
+"Natural"
+],
+"natural/bare_rock":[
+"Bare Rock"
+],
+"natural/bay":[
+"Bay"
+],
+"natural/beach":[
+"Beach"
+],
+"natural/cave_entrance":[
+"Cave Entrance"
+],
+"natural/cliff":[
+"Cliff"
+],
+"natural/coastline":[
+"Coastline"
+],
+"natural/fell":[
+"Fell"
+],
+"natural/glacier":[
+"Glacier"
+],
+"natural/grassland":[
+"Grassland"
+],
+"natural/heath":[
+"Heath"
+],
+"natural/peak":[
+"Peak"
+],
+"natural/ridge":[
+"Ridge"
+],
+"natural/saddle":[
+"Saddle"
+],
+"natural/sand":[
+"Sand"
+],
+"natural/scree":[
+"Scree"
+],
+"natural/scrub":[
+"Scrub"
+],
+"natural/spring":[
+"Spring"
+],
+"natural/tree":[
+"Tree"
+],
+"natural/tree_row":[
+"Tree row"
+],
+"natural/volcano":[
+"Volcano"
+],
+"natural/water":[
+"Water"
+],
+"natural/water/lake":[
+"Lake"
+],
+"natural/water/pond":[
+"Pond"
+],
+"natural/water/reservoir":[
+"Reservoir"
+],
+"natural/wetland":[
+"Wetland"
+],
+"natural/wood":[
+"Wood"
+],
+"noexit/yes":[
+"No Exit"
+],
+"office":[
+"Office"
+],
+"office/accountant":[
+"Accountant Office"
+],
+"office/administrative":[
+"Administrative Office"
+],
+"office/adoption_agency":[
+"Adoption Agency"
+],
+"office/advertising_agency":[
+"Advertising Agency"
+],
+"office/architect":[
+"Architect Office"
+],
+"office/association":[
+"Nonprofit Organization Office"
+],
+"office/charity":[
+"Charity Office"
+],
+"office/company":[
+"Company Office"
+],
+"office/coworking":[
+"Coworking Space"
+],
+"office/educational_institution":[
+"Educational Institution"
+],
+"office/employment_agency":[
+"Employment Agency"
+],
+"office/energy_supplier":[
+"Energy Supplier Office"
+],
+"office/estate_agent":[
+"Estate Agent"
+],
+"office/financial":[
+"Financial Office"
+],
+"office/forestry":[
+"Forestry Office"
+],
+"office/foundation":[
+"Foundation Office"
+],
+"office/government":[
+"Government Office"
+],
+"office/government/register_office":[
+"Register Office"
+],
+"office/government/tax":[
+"Tax and Revenue Office"
+],
+"office/guide":[
+"Tour Guide Office"
+],
+"office/insurance":[
+"Insurance Office"
+],
+"office/it":[
+"Information Technology Office"
+],
+"office/lawyer":[
+"Law Office"
+],
+"office/lawyer/notary":[
+"Notary Office"
+],
+"office/moving_company":[
+"Moving Company Office"
+],
+"office/newspaper":[
+"Newspaper Office"
+],
+"office/ngo":[
+"NGO Office"
+],
+"office/notary":[
+"Notary Office"
+],
+"office/physician":[
+"Physician"
+],
+"office/political_party":[
+"Political Party"
+],
+"office/private_investigator":[
+"Private Investigator Office"
+],
+"office/quango":[
+"Quasi-NGO Office"
+],
+"office/research":[
+"Research Office"
+],
+"office/surveyor":[
+"Surveyor Office"
+],
+"office/tax_advisor":[
+"Tax Advisor Office"
+],
+"office/telecommunication":[
+"Telecom Office"
+],
+"office/therapist":[
+"Therapist Office"
+],
+"office/travel_agent":[
+"Travel Agency"
+],
+"office/water_utility":[
+"Water Utility Office"
+],
+"piste":[
+"Piste/Ski Trail"
+],
+"place":[
+"Place"
+],
+"place/city":[
+"City"
+],
+"place/farm":[
+"Farm"
+],
+"place/hamlet":[
+"Hamlet"
+],
+"place/island":[
+"Island"
+],
+"place/islet":[
+"Islet"
+],
+"place/isolated_dwelling":[
+"Isolated Dwelling"
+],
+"place/locality":[
+"Locality"
+],
+"place/neighbourhood":[
+"Neighborhood"
+],
+"place/plot":[
+"Plot"
+],
+"place/quarter":[
+"Sub-Borough / Quarter"
+],
+"place/square":[
+"Square"
+],
+"place/suburb":[
+"Borough / Suburb"
+],
+"place/town":[
+"Town"
+],
+"place/village":[
+"Village"
+],
+"playground/balance_beam":[
+"Play Balance Beam"
+],
+"playground/basket_spinner":[
+"Basket Spinner"
+],
+"playground/basket_swing":[
+"Basket Swing"
+],
+"playground/climbing_frame":[
+"Climbing Frame"
+],
+"playground/cushion":[
+"Bouncy Cushion"
+],
+"playground/horizontal_bar":[
+"Play Horizontal Bar"
+],
+"playground/rocker":[
+"Spring Rider"
+],
+"playground/roundabout":[
+"Play Roundabout"
+],
+"playground/sandpit":[
+"Sandpit"
+],
+"playground/seesaw":[
+"Seesaw"
+],
+"playground/slide":[
+"Slide"
+],
+"playground/structure":[
+"Play Structure"
+],
+"playground/swing":[
+"Swing"
+],
+"playground/zipwire":[
+"Zip Wire"
+],
+"point":[
+"Point"
+],
+"power":[
+"Power"
+],
+"power/generator":[
+"Power Generator"
+],
+"power/generator/source_nuclear":[
+"Nuclear Reactor"
+],
+"power/generator/source_wind":[
+"Wind Turbine"
+],
+"power/line":[
+"Power Line"
+],
+"power/minor_line":[
+"Minor Power Line"
+],
+"power/plant":[
+"Power Station Grounds"
+],
+"power/pole":[
+"Power Pole"
+],
+"power/sub_station":[
+"Substation"
+],
+"power/substation":[
+"Substation"
+],
+"power/switch":[
+"Power Switch"
+],
+"power/tower":[
+"High-Voltage Tower"
+],
+"power/transformer":[
+"Transformer"
+],
+"public_transport/platform":[
+"Platform"
+],
+"public_transport/stop_position":[
+"Stop Position"
+],
+"railway":[
+"Railway"
+],
+"railway/abandoned":[
+"Abandoned Railway"
+],
+"railway/buffer_stop":[
+"Buffer Stop"
+],
+"railway/crossing":[
+"Railway Crossing (Path)"
+],
+"railway/derail":[
+"Railway Derailer"
+],
+"railway/disused":[
+"Disused Railway"
+],
+"railway/funicular":[
+"Funicular"
+],
+"railway/halt":[
+"Railway Halt"
+],
+"railway/level_crossing":[
+"Railway Crossing (Road)"
+],
+"railway/milestone":[
+"Railway Milestone"
+],
+"railway/monorail":[
+"Monorail"
+],
+"railway/narrow_gauge":[
+"Narrow Gauge Rail"
+],
+"railway/platform":[
+"Railway Platform"
+],
+"railway/rail":[
+"Rail"
+],
+"railway/signal":[
+"Railway Signal"
+],
+"railway/station":[
+"Railway Station"
+],
+"railway/subway":[
+"Subway"
+],
+"railway/subway_entrance":[
+"Subway Entrance"
+],
+"railway/switch":[
+"Railway Switch"
+],
+"railway/train_wash":[
+"Train Wash"
+],
+"railway/tram":[
+"Tram"
+],
+"railway/tram_stop":[
+"Tram Stop"
+],
+"relation":[
+"Relation"
+],
+"roundabout":[
+"Roundabout"
+],
+"route/ferry":[
+"Ferry Route"
+],
+"shop":[
+"Shop"
+],
+"shop/agrarian":[
+"Agriculture Shop"
+],
+"shop/alcohol":[
+"Off licence (Alcohol shop)"
+],
+"shop/anime":[
+"Anime Shop"
+],
+"shop/antiques":[
+"Antiques Shop"
+],
+"shop/appliance":[
+"Appliance Store"
+],
+"shop/art":[
+"Art Store"
+],
+"shop/baby_goods":[
+"Baby Goods Store"
+],
+"shop/bag":[
+"Bag/Luggage Store"
+],
+"shop/bakery":[
+"Bakery"
+],
+"shop/bathroom_furnishing":[
+"Bathroom Furnishing Store"
+],
+"shop/beauty":[
+"Beauty Shop"
+],
+"shop/beauty/nails":[
+"Nail Salon"
+],
+"shop/beauty/tanning":[
+"Tanning Salon"
+],
+"shop/bed":[
+"Bedding/Mattress Store"
+],
+"shop/beverages":[
+"Beverage Store"
+],
+"shop/bicycle":[
+"Bicycle Shop"
+],
+"shop/bookmaker":[
+"Bookmaker"
+],
+"shop/books":[
+"Book Store"
+],
+"shop/boutique":[
+"Boutique"
+],
+"shop/butcher":[
+"Butcher"
+],
+"shop/candles":[
+"Candle Shop"
+],
+"shop/car":[
+"Car Dealership"
+],
+"shop/car_parts":[
+"Car Parts Store"
+],
+"shop/car_repair":[
+"Car Repair Shop"
+],
+"shop/carpet":[
+"Carpet Store"
+],
+"shop/charity":[
+"Charity Shop"
+],
+"shop/cheese":[
+"Cheese Store"
+],
+"shop/chemist":[
+"Chemist"
+],
+"shop/chocolate":[
+"Chocolate Store"
+],
+"shop/clothes":[
+"Clothing Store"
+],
+"shop/coffee":[
+"Coffee Store"
+],
+"shop/computer":[
+"Computer Store"
+],
+"shop/confectionery":[
+"Candy Store"
+],
+"shop/convenience":[
+"Convenience Store"
+],
+"shop/copyshop":[
+"Copy Store"
+],
+"shop/cosmetics":[
+"Cosmetics Store"
+],
+"shop/craft":[
+"Arts and Crafts Store"
+],
+"shop/curtain":[
+"Curtain Store"
+],
+"shop/dairy":[
+"Dairy Store"
+],
+"shop/deli":[
+"Deli"
+],
+"shop/department_store":[
+"Department Store"
+],
+"shop/doityourself":[
+"DIY Store"
+],
+"shop/dry_cleaning":[
+"Dry Cleaner"
+],
+"shop/e-cigarette":[
+"E-Cigarette Shop"
+],
+"shop/electronics":[
+"Electronics Store"
+],
+"shop/erotic":[
+"Erotic Store"
+],
+"shop/fabric":[
+"Fabric Store"
+],
+"shop/farm":[
+"Farm Shop"
+],
+"shop/fashion":[
+"Fashion Store"
+],
+"shop/fishmonger":[
+"Fishmonger"
+],
+"shop/florist":[
+"Florist"
+],
+"shop/frame":[
+"Framing Shop"
+],
+"shop/funeral_directors":[
+"Funeral Home"
+],
+"shop/furnace":[
+"Furnace Store"
+],
+"shop/furniture":[
+"Furniture Store"
+],
+"shop/garden_centre":[
+"Garden Centre"
+],
+"shop/gas":[
+"Bottled Gas Shop"
+],
+"shop/gift":[
+"Gift Shop"
+],
+"shop/greengrocer":[
+"Greengrocer"
+],
+"shop/hairdresser":[
+"Hairdresser"
+],
+"shop/hardware":[
+"Hardware Store"
+],
+"shop/hearing_aids":[
+"Hearing Aids Store"
+],
+"shop/herbalist":[
+"Herbalist"
+],
+"shop/hifi":[
+"Hifi Store"
+],
+"shop/houseware":[
+"Houseware Store"
+],
+"shop/interior_decoration":[
+"Interior Decoration Store"
+],
+"shop/jewelry":[
+"Jeweller"
+],
+"shop/kiosk":[
+"News Kiosk"
+],
+"shop/kitchen":[
+"Kitchen Design Store"
+],
+"shop/laundry":[
+"Laundry"
+],
+"shop/leather":[
+"Leather Store"
+],
+"shop/locksmith":[
+"Locksmith"
+],
+"shop/lottery":[
+"Lottery Shop"
+],
+"shop/mall":[
+"Mall"
+],
+"shop/massage":[
+"Massage Shop"
+],
+"shop/medical_supply":[
+"Medical Supply Store"
+],
+"shop/mobile_phone":[
+"Mobile Phone Store"
+],
+"shop/money_lender":[
+"Money Lender"
+],
+"shop/motorcycle":[
+"Motorcycle Dealership"
+],
+"shop/music":[
+"Music Store"
+],
+"shop/musical_instrument":[
+"Musical Instrument Store"
+],
+"shop/newsagent":[
+"Newspaper/Magazine Shop"
+],
+"shop/nutrition_supplements":[
+"Nutrition Supplements Store"
+],
+"shop/optician":[
+"Optician"
+],
+"shop/organic":[
+"Organic Goods Store"
+],
+"shop/outdoor":[
+"Outdoors Store"
+],
+"shop/paint":[
+"Paint Store"
+],
+"shop/pastry":[
+"Pastry Shop"
+],
+"shop/pawnbroker":[
+"Pawn Shop"
+],
+"shop/perfumery":[
+"Perfume Store"
+],
+"shop/pet":[
+"Pet Store"
+],
+"shop/photo":[
+"Photography Store"
+],
+"shop/pyrotechnics":[
+"Fireworks Store"
+],
+"shop/radiotechnics":[
+"Radio/Electronic Component Store"
+],
+"shop/religion":[
+"Religious Store"
+],
+"shop/scuba_diving":[
+"Scuba Diving Shop"
+],
+"shop/seafood":[
+"Seafood Shop"
+],
+"shop/second_hand":[
+"Consignment/Thrift Store"
+],
+"shop/shoes":[
+"Shoe Shop"
+],
+"shop/sports":[
+"Sporting Goods Store"
+],
+"shop/stationery":[
+"Stationery Store"
+],
+"shop/storage_rental":[
+"Storage Rental"
+],
+"shop/supermarket":[
+"Supermarket"
+],
+"shop/tailor":[
+"Tailor"
+],
+"shop/tattoo":[
+"Tattoo Parlor"
+],
+"shop/tea":[
+"Tea Store"
+],
+"shop/ticket":[
+"Ticket Seller"
+],
+"shop/tiles":[
+"Tile Shop"
+],
+"shop/tobacco":[
+"Tobacco Shop"
+],
+"shop/toys":[
+"Toy Store"
+],
+"shop/trade":[
+"Trade Shop"
+],
+"shop/travel_agency":[
+"Travel Agency"
+],
+"shop/tyres":[
+"Tire Store"
+],
+"shop/vacant":[
+"Vacant Shop"
+],
+"shop/vacuum_cleaner":[
+"Vacuum Cleaner Store"
+],
+"shop/variety_store":[
+"Variety Store"
+],
+"shop/video":[
+"Video Store"
+],
+"shop/video_games":[
+"Video Game Store"
+],
+"shop/watches":[
+"Watches Shop"
+],
+"shop/water_sports":[
+"Watersport/Swim Shop"
+],
+"shop/weapons":[
+"Weapon Shop"
+],
+"shop/window_blind":[
+"Window Blind Store"
+],
+"shop/wine":[
+"Wine Shop"
+],
+"tourism":[
+"Tourism"
+],
+"tourism/alpine_hut":[
+"Alpine Hut"
+],
+"tourism/apartment":[
+"Guest Apartment / Condo"
+],
+"tourism/aquarium":[
+"Aquarium"
+],
+"tourism/artwork":[
+"Artwork"
+],
+"tourism/attraction":[
+"Tourist Attraction"
+],
+"tourism/camp_site":[
+"Camp Site"
+],
+"tourism/caravan_site":[
+"Caravan Park"
+],
+"tourism/chalet":[
+"Holiday Cottage"
+],
+"tourism/gallery":[
+"Art Gallery"
+],
+"tourism/guest_house":[
+"Guest House"
+],
+"tourism/hostel":[
+"Hostel"
+],
+"tourism/hotel":[
+"Hotel"
+],
+"tourism/information":[
+"Information"
+],
+"tourism/information/board":[
+"Information Board"
+],
+"tourism/information/guidepost":[
+"Guidepost"
+],
+"tourism/information/map":[
+"Map"
+],
+"tourism/information/office":[
+"Tourist Information Office"
+],
+"tourism/motel":[
+"Motel"
+],
+"tourism/museum":[
+"Museum"
+],
+"tourism/picnic_site":[
+"Picnic Site"
+],
+"tourism/theme_park":[
+"Theme Park"
+],
+"tourism/viewpoint":[
+"Viewpoint"
+],
+"tourism/wilderness_hut":[
+"Wilderness Hut"
+],
+"tourism/zoo":[
+"Zoo"
+],
+"traffic_calming":[
+"Traffic Calming"
+],
+"traffic_calming/bump":[
+"Speed Bump"
+],
+"traffic_calming/chicane":[
+"Traffic Chicane"
+],
+"traffic_calming/choker":[
+"Traffic Choker"
+],
+"traffic_calming/cushion":[
+"Speed Cushion"
+],
+"traffic_calming/dip":[
+"Dip"
+],
+"traffic_calming/hump":[
+"Speed Hump"
+],
+"traffic_calming/island":[
+"Traffic Island"
+],
+"traffic_calming/rumble_strip":[
+"Rumble Strip"
+],
+"traffic_calming/table":[
+"Speed Table"
+],
+"type/boundary":[
+"Boundary"
+],
+"type/boundary/administrative":[
+"Administrative Boundary"
+],
+"type/multipolygon":[
+"Multipolygon"
+],
+"type/restriction":[
+"Restriction"
+],
+"type/restriction/no_left_turn":[
+"No Left Turn"
+],
+"type/restriction/no_right_turn":[
+"No Right Turn"
+],
+"type/restriction/no_straight_on":[
+"No Straight On"
+],
+"type/restriction/no_u_turn":[
+"No U-turn"
+],
+"type/restriction/only_left_turn":[
+"Left Turn Only"
+],
+"type/restriction/only_right_turn":[
+"Right Turn Only"
+],
+"type/restriction/only_straight_on":[
+"No Turns"
+],
+"type/route":[
+"Route"
+],
+"type/route/bicycle":[
+"Cycle Route"
+],
+"type/route/bus":[
+"Bus Route"
+],
+"type/route/detour":[
+"Detour Route"
+],
+"type/route/ferry":[
+"Ferry Route"
+],
+"type/route/foot":[
+"Foot Route"
+],
+"type/route/hiking":[
+"Hiking Route"
+],
+"type/route/horse":[
+"Riding Route"
+],
+"type/route/pipeline":[
+"Pipeline Route"
+],
+"type/route/power":[
+"Power Route"
+],
+"type/route/road":[
+"Road Route"
+],
+"type/route/train":[
+"Train Route"
+],
+"type/route/tram":[
+"Tram Route"
+],
+"type/route_master":[
+"Route Master"
+],
+"type/site":[
+"Site"
+],
+"type/waterway":[
+"Waterway"
+],
+"vertex":[
+"Other"
+],
+"waterway":[
+"Waterway"
+],
+"waterway/boatyard":[
+"Boatyard"
+],
+"waterway/canal":[
+"Canal"
+],
+"waterway/dam":[
+"Dam"
+],
+"waterway/ditch":[
+"Ditch"
+],
+"waterway/dock":[
+"Wet Dock / Dry Dock"
+],
+"waterway/drain":[
+"Drain"
+],
+"waterway/fuel":[
+"Marine Fuel Station"
+],
+"waterway/river":[
+"River"
+],
+"waterway/riverbank":[
+"Riverbank"
+],
+"waterway/sanitary_dump_station":[
+"Marine Toilet Disposal"
+],
+"waterway/stream":[
+"Stream"
+],
+"waterway/stream_intermittent":[
+"Intermittent Stream"
+],
+"waterway/water_point":[
+"Marine Drinking Water"
+],
+"waterway/waterfall":[
+"Waterfall"
+],
+"waterway/weir":[
+"Weir"
+]
+}

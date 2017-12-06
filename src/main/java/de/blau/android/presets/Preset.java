@@ -438,7 +438,6 @@ public class Preset implements Serializable {
 		}
 	}
 	
-	
 	private PresetIconManager getIconManager(Context ctx) {
 		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
 			return new PresetIconManager(ctx, null, null);
@@ -870,6 +869,16 @@ public class Preset implements Serializable {
 		return allItems.contains(pi);
 	}
 	
+	/**
+     * Return PresetItems containing the tag in question
+     * 
+     * @param tag   tag in the format: key \t value 
+     * @return a Set containg the PresetItems or null if none found
+     */
+	@Nullable Set<PresetItem> getItemByTag(@NonNull String tag) {
+	    return tagItems.get(tag);
+    }
+    	
 	/**
 	 * Return the index of the preset by sequential search FIXME
 	 * @param name

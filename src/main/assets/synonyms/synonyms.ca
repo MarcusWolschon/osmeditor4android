@@ -1,0 +1,2700 @@
+{
+"address":[
+"Domicili",
+"Adreça",
+"Direcció"
+],
+"advertising/billboard":[
+"Cartellera",
+"Taulell"
+],
+"aerialway":[
+"Transport per cable"
+],
+"aerialway/cable_car":[
+"Telefèric"
+],
+"aerialway/chair_lift":[
+"Telecadira"
+],
+"aerialway/gondola":[
+"Telecabina",
+"Góndola"
+],
+"aerialway/magic_carpet":[
+"Cinta remuntadora"
+],
+"aerialway/platter":[
+"Teleesquí individual"
+],
+"aerialway/pylon":[
+"Piló d'estructura de transport per cable"
+],
+"aerialway/rope_tow":[
+"Corda remuntadora"
+],
+"aerialway/station":[
+"Estació de transport per cable"
+],
+"aerialway/t-bar":[
+"Teleesquí doble"
+],
+"aeroway":[
+"Infraestructura aeroportuària"
+],
+"aeroway/aerodrome":[
+"Aeroport",
+"Aeròdrom"
+],
+"aeroway/apron":[
+"Àrea d'embarcament d'avions",
+"Àrea d'aparcament",
+"Àrea d'aparcament d'avions"
+],
+"aeroway/gate":[
+"Porta d'aeroport"
+],
+"aeroway/hangar":[
+"dipòsit",
+"magatzem",
+"Hàngar",
+"drassana",
+"nau."
+],
+"aeroway/helipad":[
+"Helisuperfície",
+"Àrea d'aturada d'helicòpters",
+"Heliport"
+],
+"aeroway/runway":[
+"Pista d'aterratge",
+"Pista d'enlairament",
+"Pista d'enlairament/aterratge"
+],
+"aeroway/taxiway":[
+"Carrer de Rodament",
+"Plataforma de Rodada",
+"Carril de Rodada",
+"Carrer de Taxi",
+"Carrer de Rodatge",
+"Pista de Taxi",
+"Carril de Rodatge",
+"Plataforma de rodada"
+],
+"aeroway/terminal":[
+"Terminal d'aeroport"
+],
+"amenity":[
+"Instal·lació"
+],
+"amenity/animal_boarding":[
+"Instal·lació d'embarcament d'animals"
+],
+"amenity/animal_breeding":[
+"Instal·lació de reproducció d'animals"
+],
+"amenity/animal_shelter":[
+"Refugi d'animals",
+"protectora"
+],
+"amenity/arts_centre":[
+"Centre artístic"
+],
+"amenity/atm":[
+"Caixer automàtic",
+"Màquina expenedora de bitllets"
+],
+"amenity/bank":[
+"Institució financera",
+"sucursal bancària",
+"Banc"
+],
+"amenity/bar":[
+"Local d'oci nocturn",
+"Bar",
+"Bar Musical",
+"Local d'oci "
+],
+"amenity/bbq":[
+"Barbacoa/graella"
+],
+"amenity/bench":[
+"Banc de carrer",
+"Banc per a asseure's",
+"Banc peatonal",
+"Banc"
+],
+"amenity/bicycle_parking":[
+"Aparcament per a  bicicletes",
+"Aparcament per a Bicicletes",
+"Àrea d'aparcament de bicicletes",
+"pàrquing de bicis",
+"parking de bicicletes",
+"parking de bicis",
+"Estació de bicicletes públiques",
+"pàrquing de bicicletes"
+],
+"amenity/bicycle_rental":[
+"Lloguer de bicicletes",
+"Servei de lloguer de bicicletes"
+],
+"amenity/bicycle_repair_station":[
+"Lloc de reparació de Bicicletes"
+],
+"amenity/biergarten":[
+"Biergarten"
+],
+"amenity/boat_rental":[
+"Lloguer d'embarcacions"
+],
+"amenity/bureau_de_change":[
+"Canvi de divisa"
+],
+"amenity/bus_station":[
+"Estació d'autobusos"
+],
+"amenity/cafe":[
+"bar",
+"cafeteria",
+"Cafè"
+],
+"amenity/car_rental":[
+"Lloguer de cotxes",
+"Servei de lloguer de turismes"
+],
+"amenity/car_sharing":[
+"Servei de compartició de cotxe",
+"compartició de cotxes"
+],
+"amenity/car_wash":[
+"Servei de neteja de cotxes",
+"Estació d'autorentat de cotxes",
+"Rentat de cotxes",
+"Tren de rentat de cotxes"
+],
+"amenity/casino":[
+"Casino"
+],
+"amenity/charging_station":[
+"Estació de càrrega"
+],
+"amenity/childcare":[
+"Llar d'Infants"
+],
+"amenity/cinema":[
+"Local d'esbarjo",
+"Local de projeccions cinematogràfiques",
+"Cine",
+"Cinema"
+],
+"amenity/clinic":[
+"Clínica"
+],
+"amenity/clinic/abortion":[
+"Clínica d'avortament"
+],
+"amenity/clinic/fertility":[
+"Clínica de fertilitat"
+],
+"amenity/clock":[
+"Rellotge"
+],
+"amenity/college":[
+"Escola professional"
+],
+"amenity/community_centre":[
+"Centre Comunitari"
+],
+"amenity/compressed_air":[
+"Aire comprimit"
+],
+"amenity/courthouse":[
+"Palau de justícia",
+"Jutjats",
+"Jutjat"
+],
+"amenity/coworking_space":[
+"Espai de coworking"
+],
+"amenity/crematorium":[
+"Crematori"
+],
+"amenity/dentist":[
+"Dentista"
+],
+"amenity/doctors":[
+"Doctor"
+],
+"amenity/dojo":[
+"Dojo / Acadèmia d'arts marcials"
+],
+"amenity/drinking_water":[
+"Aigua per beure",
+"Aigua apta per al consum humà",
+"Aigua potable",
+"Aigua apta per al consum",
+"Font"
+],
+"amenity/driving_school":[
+"Autoescola",
+"escola de conducció",
+"escola de conduir"
+],
+"amenity/embassy":[
+"Institució representativa d'un altre país",
+"Edifici de dependències extrangeres",
+"Ambaixada"
+],
+"amenity/fast_food":[
+"Local de menjar ràpid",
+"restaurant de menjar ràpid",
+"servei de menjar ràpid",
+"Menjar ràpid"
+],
+"amenity/ferry_terminal":[
+"Terminal de Ferry"
+],
+"amenity/fire_station":[
+"Base de Bombers",
+"Caserna de bombers",
+"Estació de Bombers",
+"Parc de bombers"
+],
+"amenity/fountain":[
+"brollador",
+"broll",
+"deu",
+"fontana",
+"aiguaneix",
+"sortidor.",
+"Font"
+],
+"amenity/fuel":[
+"Benzinera",
+"Gasolinera",
+"Estació de servei",
+"Betzinera"
+],
+"amenity/grave_yard":[
+"Cementiri",
+"Camp de tombes",
+"necròpoli",
+"ciutat dels difunts"
+],
+"amenity/grit_bin":[
+"Contenidor de sorra"
+],
+"amenity/hospital":[
+"CAP",
+"Centre de salut",
+"policlínica",
+"Centre d'Atenció Primària.",
+"centre hospitalari",
+"Atenció",
+"Primària",
+"Hospital",
+"Centre d'atenció primària",
+"Centre",
+"clínica"
+],
+"amenity/hunting_stand":[
+"Punt de caça"
+],
+"amenity/ice_cream":[
+"Gelateria"
+],
+"amenity/internet_cafe":[
+"Cifercafè",
+"xatfeteria",
+"cafè d'internet"
+],
+"amenity/kindergarten":[
+"Centre preescolar"
+],
+"amenity/library":[
+"Espai d'emmagatzematge de llibres",
+"Biblioteca",
+"llibreria",
+"Edifici públic per als llibres "
+],
+"amenity/marketplace":[
+"Mercat de carrer",
+"Mercat",
+"Mercat veïnal"
+],
+"amenity/motorcycle_parking":[
+"Aparcament per a motocicletes"
+],
+"amenity/music_school":[
+"Escola de música"
+],
+"amenity/nightclub":[
+"Club nocturn"
+],
+"amenity/nursing_home":[
+"Llar d'avis"
+],
+"amenity/parking":[
+"parking",
+"Aparcament",
+"Pàrquing",
+"Parking",
+"Garatge"
+],
+"amenity/parking_entrance":[
+"Entrada de Garatge/Sortida"
+],
+"amenity/parking_space":[
+"Espai d'aparcament"
+],
+"amenity/pavilion":[
+"Pabelló"
+],
+"amenity/pharmacy":[
+"establiment de venda de medicaments",
+"Farmàcia"
+],
+"amenity/place_of_worship":[
+"temple de la fe",
+"Punt de trobada religiós",
+"Casa de Déu",
+"Lloc de culte",
+"Lloc per a la oració"
+],
+"amenity/place_of_worship/buddhist":[
+"Lloc per al culte budista",
+"Temple budista",
+"església budista",
+"Temple Budista"
+],
+"amenity/place_of_worship/christian":[
+"església",
+"Temple",
+"Església"
+],
+"amenity/place_of_worship/hindu":[
+"Temple Hindú"
+],
+"amenity/place_of_worship/jewish":[
+"Sinagoga",
+"jueu",
+"església jueva",
+"culte jueu",
+"temple jueu"
+],
+"amenity/place_of_worship/muslim":[
+"Mesquita",
+"musulmà",
+"espai musulmà",
+"temple musulmà"
+],
+"amenity/place_of_worship/shinto":[
+"Santuari sintoísta"
+],
+"amenity/place_of_worship/sikh":[
+"Temple Sikh "
+],
+"amenity/place_of_worship/taoist":[
+"Temple Taoista"
+],
+"amenity/planetarium":[
+"Planetari"
+],
+"amenity/police":[
+"base de la policia",
+"Comissaria de Policia",
+"edifici policial",
+"dependències policials",
+"Comissaria de policia"
+],
+"amenity/post_box":[
+"Correus",
+"Bústia de correus",
+"Bústia",
+"Enviament",
+"Carta",
+"Bústia Pública",
+"Servei de Correus"
+],
+"amenity/post_office":[
+"Correus",
+"Carters",
+"Oficina de Correus",
+"Edifici de Correus",
+"Oficina de correus",
+"Cartes"
+],
+"amenity/prison":[
+"Terrenys de presó"
+],
+"amenity/pub":[
+"Local de copes",
+"Local d'oci nocturn",
+"Bareto",
+"Bar",
+"Bar Musical",
+"Pub"
+],
+"amenity/public_bath":[
+"bany",
+"bany públic",
+"banys",
+"Banys públic"
+],
+"amenity/public_bookcase":[
+"Biblioteca pública"
+],
+"amenity/ranger_station":[
+"Base d'Agents Rurals"
+],
+"amenity/recycling":[
+"Reciclatge"
+],
+"amenity/recycling_centre":[
+"Centre de Reciclatge"
+],
+"amenity/register_office":[
+"Oficina de registre"
+],
+"amenity/restaurant":[
+"Restaurant",
+"Trattoria",
+"Wok",
+"Bistro",
+"Lloc per menjar",
+"Pizzeria"
+],
+"amenity/sanitary_dump_station":[
+"Estació de buidatge de lavabos"
+],
+"amenity/school":[
+"Guarderia",
+"Col·legi",
+"Institut",
+"Centre educatiu",
+"CEIP",
+"IES",
+"Escola"
+],
+"amenity/scrapyard":[
+"Escorxador"
+],
+"amenity/shelter":[
+"Refugi"
+],
+"amenity/shower":[
+"Dutxa"
+],
+"amenity/social_facility":[
+"Equipament social"
+],
+"amenity/social_facility/food_bank":[
+"Banc d'aliments"
+],
+"amenity/social_facility/group_home":[
+"Residència d'avis",
+"Residencia geriàtrica",
+"Geriàtric"
+],
+"amenity/social_facility/homeless_shelter":[
+"Refugi per a indigents"
+],
+"amenity/social_facility/nursing_home":[
+"Llar d'avis"
+],
+"amenity/studio":[
+"Estudi"
+],
+"amenity/swimming_pool":[
+"Piscina"
+],
+"amenity/taxi":[
+"Parada de Taxi",
+"taxis",
+"Parada de taxi",
+"taxi",
+"estació de taxis"
+],
+"amenity/telephone":[
+"Telèfon públic",
+"Cabina telefònica",
+"Cabina de telèfon públic",
+"Telèfon"
+],
+"amenity/theatre":[
+"edifici de cines",
+"sala de cine",
+"Teatre",
+"Sala de Cine",
+"Complex de cines",
+"Cinema"
+],
+"amenity/toilets":[
+"Serveis",
+"Lavabos",
+"Lavabos públics",
+"W.C"
+],
+"amenity/townhall":[
+"seu del govern local",
+"Ajuntament",
+"consistori",
+"casa consistorial",
+"govern local"
+],
+"amenity/university":[
+"Campus universitari"
+],
+"amenity/vending_machine":[
+"Màquina de vending"
+],
+"amenity/vending_machine/cigarettes":[
+"Màquina de tabac"
+],
+"amenity/vending_machine/condoms":[
+"Expenedor de preservatius"
+],
+"amenity/vending_machine/drinks":[
+"Màquina de vènding de begudes"
+],
+"amenity/vending_machine/excrement_bags":[
+"Equipament de residus canins"
+],
+"amenity/vending_machine/feminine_hygiene":[
+"Màquina de vènding d'articles d'higiene femenina"
+],
+"amenity/vending_machine/news_papers":[
+"Màquina expenedora de diaris"
+],
+"amenity/vending_machine/newspapers":[
+"Màquina expenedora de diaris"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"Màquina de recollida/enviament de paqueteria"
+],
+"amenity/vending_machine/parking_tickets":[
+"Màquina de cobrament de tiquet d'aparcament"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"Màquina de venda de títols de transport públic"
+],
+"amenity/vending_machine/sweets":[
+"Màquina de vènding de comestibles"
+],
+"amenity/veterinary":[
+"Veterinari"
+],
+"amenity/waste_basket":[
+"deixalles",
+"Paperera",
+"Paperera pública",
+"brossa",
+"Contenidor",
+"Basura"
+],
+"amenity/waste_disposal":[
+"Contenidor d'escombraries"
+],
+"amenity/waste_transfer_station":[
+"Centre de tractament de residus"
+],
+"amenity/water_point":[
+"Aigua potable d'autocaravana"
+],
+"area":[
+"Àrea"
+],
+"area/highway":[
+"Superfície de la carretera"
+],
+"barrier":[
+"Tancament",
+"Filferrada",
+"Tanca",
+"Paret",
+"Barrera",
+"Seto",
+"Reixat",
+"Reixa",
+"Valla"
+],
+"barrier/block":[
+"Bloc"
+],
+"barrier/bollard":[
+"Pilona",
+"Piló"
+],
+"barrier/border_control":[
+"Control de frontereres",
+"control fronterer",
+"Control de fronteres"
+],
+"barrier/cattle_grid":[
+"Reixat ",
+"reixat ramader",
+"Reixat"
+],
+"barrier/city_wall":[
+"Tancament",
+"Monument",
+"Muralla",
+"Tanca",
+"Medieval",
+"Muralla Medieval",
+"Paret de la ciutat",
+"Mur"
+],
+"barrier/cycle_barrier":[
+"Tancament",
+"Tanca per a bicicletes",
+"Ciclisme",
+"Tanca",
+"Bicicleta",
+"Ruta cicloturista",
+"Barrera per a ciclistes",
+"Valla"
+],
+"barrier/ditch":[
+"Trinxera"
+],
+"barrier/entrance":[
+"Entrada"
+],
+"barrier/fence":[
+"Tancament",
+"Tanca",
+"Barrera",
+"Valla"
+],
+"barrier/gate":[
+"Porta d'aeroport",
+"Porta",
+"Porta d'embarcament d'avions"
+],
+"barrier/hedge":[
+"Valla de seto",
+"Valla de plantes",
+"Tanca de bardissa",
+"Tanca de plantes",
+"Seto",
+"Tanca de Bardissa",
+"Valla verda"
+],
+"barrier/kissing_gate":[
+"Porta sense retorn",
+"Accés giratori",
+"Porta giratòria",
+"Porta de no retorn"
+],
+"barrier/lift_gate":[
+"Porta d'ascensor",
+"Barrera per a vehicles"
+],
+"barrier/retaining_wall":[
+"Paret de contenció",
+"Mur de contenció"
+],
+"barrier/stile":[
+"esgraons",
+"Escala de tanca"
+],
+"barrier/toll_booth":[
+"Estació de peatge",
+"Peatge",
+"Cabina de peatge",
+"Punt de peatge",
+"Autopista de peatge"
+],
+"barrier/wall":[
+"Muralla",
+"Paret",
+"Mur"
+],
+"boundary/administrative":[
+"Límit administratiu",
+"Frontera administrativa",
+"Delimitació administrativa"
+],
+"building":[
+"Bloc",
+"Casa",
+"Centre comercial",
+"Bloc de pisos",
+"Edifici",
+"Nau industrial",
+"Oficines",
+"Barraca"
+],
+"building/apartments":[
+"Bloc",
+"Pisos",
+"Apartaments",
+"Bloc de pisos"
+],
+"building/barn":[
+"Graner"
+],
+"building/bunker":[
+"Búnquer"
+],
+"building/cabin":[
+"Cabana"
+],
+"building/cathedral":[
+"Edifici Catedralici"
+],
+"building/chapel":[
+"Edifici de capella"
+],
+"building/church":[
+"Edifici d'església"
+],
+"building/college":[
+"Edifici d'escola professional"
+],
+"building/commercial":[
+"Edifici comercial"
+],
+"building/construction":[
+"Edifici en construcció"
+],
+"building/detached":[
+"Casa a quatre vents"
+],
+"building/dormitory":[
+"Edifici d'habitacions"
+],
+"building/entrance":[
+"Entrada/Sortida"
+],
+"building/garage":[
+"garatge ",
+"Garatge"
+],
+"building/garages":[
+"Garatges"
+],
+"building/greenhouse":[
+"Hivernacle"
+],
+"building/hospital":[
+"quiròfans",
+"Edifici hospitalari",
+"consultes externes",
+"planta",
+"UVI",
+"UCI",
+"urgències",
+"hospital"
+],
+"building/hotel":[
+"Edifici hoteler"
+],
+"building/house":[
+"Casa"
+],
+"building/hut":[
+"Cabana",
+"Barraca"
+],
+"building/industrial":[
+"Edifici industrial"
+],
+"building/kindergarten":[
+"Edifici de preescolar"
+],
+"building/public":[
+"Edifici públic"
+],
+"building/residential":[
+"Edifici residencial"
+],
+"building/retail":[
+"Edifici de grans magatzems"
+],
+"building/roof":[
+"Teulada"
+],
+"building/school":[
+"Passadís",
+"Sala de professors",
+"Pati",
+"Sala de música",
+"Edifici escolar",
+"Aules",
+"Ateliers",
+"Seminaris",
+"Escola",
+"Aulari",
+"Corredor",
+"Tallers",
+"Aules d'informàtica",
+"Gimnàs",
+"Esbarjo",
+"Despatxos",
+"Pasillo",
+"Passadissos",
+"Poliesportiu",
+"Classe",
+"Pasillos",
+"Recepció",
+"Corredors",
+"Classes"
+],
+"building/semidetached_house":[
+"Casa adossada"
+],
+"building/shed":[
+"Traster"
+],
+"building/stable":[
+"Estable"
+],
+"building/static_caravan":[
+"Caravana fixa"
+],
+"building/terrace":[
+"Cases unifamiliars"
+],
+"building/train_station":[
+"Estació de ferrocarril"
+],
+"building/university":[
+"Edifici universitari"
+],
+"building/warehouse":[
+"Magatzem"
+],
+"camp_site/camp_pitch":[
+"Àrea de campament"
+],
+"craft":[
+"Artesà"
+],
+"craft/basket_maker":[
+"Cistellaire"
+],
+"craft/beekeeper":[
+"Apicultor"
+],
+"craft/blacksmith":[
+"Ferrer"
+],
+"craft/boatbuilder":[
+"Constructor d'embarcacions"
+],
+"craft/bookbinder":[
+"Enquadernador"
+],
+"craft/brewery":[
+"Cerveseria"
+],
+"craft/carpenter":[
+"Ebenista",
+"Fuster",
+"Ebenisteria",
+"Tallista",
+"Fusteria"
+],
+"craft/carpet_layer":[
+"Moquetista"
+],
+"craft/caterer":[
+"Servei de càtering"
+],
+"craft/clockmaker":[
+"Rellotger"
+],
+"craft/dressmaker":[
+"Sastreria"
+],
+"craft/electrician":[
+"Electricista"
+],
+"craft/gardener":[
+"Jardiner"
+],
+"craft/glaziery":[
+"Vidrieria"
+],
+"craft/handicraft":[
+"Botiga d'artesà"
+],
+"craft/hvac":[
+"Empresa d'instal·lacions climàtiques"
+],
+"craft/insulator":[
+"Aïllador"
+],
+"craft/jeweler":[
+"Joieria"
+],
+"craft/key_cutter":[
+"Fabricant de claus"
+],
+"craft/locksmith":[
+"Copisteria de claus"
+],
+"craft/metal_construction":[
+"Construccions metàliques"
+],
+"craft/optician":[
+"Òptica"
+],
+"craft/painter":[
+"Pintor"
+],
+"craft/photographer":[
+"Fotògraf"
+],
+"craft/photographic_laboratory":[
+"Laboratori fotogràfic"
+],
+"craft/plasterer":[
+"Guixaire"
+],
+"craft/plumber":[
+"Llauner"
+],
+"craft/pottery":[
+"Terrisseria"
+],
+"craft/rigger":[
+"Armador d'embarcacions"
+],
+"craft/roofer":[
+"Constructor de teulades"
+],
+"craft/saddler":[
+"Cuirasser"
+],
+"craft/sailmaker":[
+"Fabricant de veles"
+],
+"craft/sawmill":[
+"Serradora"
+],
+"craft/scaffolder":[
+"Muntador de bastides"
+],
+"craft/shoemaker":[
+"Sabater"
+],
+"craft/stonemason":[
+"Manobra"
+],
+"craft/tailor":[
+"Sastreria"
+],
+"craft/tiler":[
+"Enrajolador"
+],
+"craft/tinsmith":[
+"Llauner"
+],
+"craft/upholsterer":[
+"Creador de mobles"
+],
+"craft/watchmaker":[
+"Fabricant de rellotges"
+],
+"craft/window_construction":[
+"Fabricant de finestres"
+],
+"craft/winery":[
+"Celler"
+],
+"embankment":[
+"Terraplè "
+],
+"emergency/ambulance_station":[
+"Parada d'ambulàncies"
+],
+"emergency/defibrillator":[
+"Desfibril·lador"
+],
+"emergency/designated":[
+"Accés per a emergències designat"
+],
+"emergency/destination":[
+"Accés per a emergències només a destí"
+],
+"emergency/fire_hydrant":[
+"presa d'aigua per a bombers",
+"aigua",
+"sortida d'aigua",
+"Boca d'incendis",
+"incendi",
+"bombers"
+],
+"emergency/no":[
+"Accés per a emergències prohibit"
+],
+"emergency/official":[
+"Accés per a emergències oficial"
+],
+"emergency/phone":[
+"Telèfon per a emergències",
+"Telèfon d'emergències",
+"SOS",
+"S.O.S"
+],
+"emergency/private":[
+"Accés per a emergències privat"
+],
+"emergency/yes":[
+"Accés per a emergències permès"
+],
+"entrance":[
+"Entrada/Sortida"
+],
+"footway/crossing":[
+"Creuament de carrer"
+],
+"footway/crosswalk":[
+"Pas de vianants"
+],
+"footway/sidewalk":[
+"Vorera"
+],
+"ford":[
+"Ford"
+],
+"golf/bunker":[
+"Bunker"
+],
+"golf/fairway":[
+"Fairway"
+],
+"golf/green":[
+"Green"
+],
+"golf/hole":[
+"Forat"
+],
+"golf/lateral_water_hazard_area":[
+"Obstacle d'aigua lateral"
+],
+"golf/lateral_water_hazard_line":[
+"Obstacle d'aigua lateral"
+],
+"golf/rough":[
+"Rough"
+],
+"golf/tee":[
+"Àrea inicial"
+],
+"golf/water_hazard_area":[
+"Obstacle d'aigua"
+],
+"golf/water_hazard_line":[
+"Obstacle d'aigua"
+],
+"healthcare/blood_donation":[
+"Centre de donació de sang"
+],
+"highway":[
+"Via"
+],
+"highway/bridleway":[
+"camí eqüestre",
+"cavall",
+"via de ferradura",
+"via eqüestre",
+"Camí de ferradura",
+"ferradura"
+],
+"highway/bus_stop":[
+"Parada de bus",
+"Parada",
+"Parada d'autobús"
+],
+"highway/corridor":[
+"Corredor interior"
+],
+"highway/crossing":[
+"Creuament de carrer"
+],
+"highway/crosswalk":[
+"Pas de vianants"
+],
+"highway/cycleway":[
+"Via verda",
+"Carril Bici",
+"Via ciclista"
+],
+"highway/footway":[
+"Camí per a vianants",
+"vianant",
+"peató",
+"camí per caminar",
+"transeünt",
+"a peu",
+"vianants",
+"peatonal",
+"camí per a peatons",
+"peatons",
+"carrer peatonal",
+"transeünts"
+],
+"highway/give_way":[
+"Senyal de cediu el pas"
+],
+"highway/living_street":[
+"Carrer residencial"
+],
+"highway/mini_roundabout":[
+"Mini-rotonda",
+"Mini-Rotonda",
+"Rotonda petita",
+"Minirotonda"
+],
+"highway/motorway":[
+"Autopista",
+"Autovia"
+],
+"highway/motorway_junction":[
+"Intersecció d'autopista / Sortida"
+],
+"highway/motorway_link":[
+"entrada",
+"autovia",
+"eix",
+"addició",
+"baixada",
+"autopista",
+"incorporació",
+"Enllaç d'autopista",
+"Rampa"
+],
+"highway/path":[
+"Sender",
+"Camí",
+"Corriol"
+],
+"highway/primary":[
+"Carretera primària",
+"Carretera de 1r ordre"
+],
+"highway/primary_link":[
+"Enllaç amb primària",
+"Enllaç de carretera primària"
+],
+"highway/residential":[
+"Carrer"
+],
+"highway/rest_area":[
+"Àrea de descans"
+],
+"highway/road":[
+"via desconeguda",
+"via per arreglar",
+"Carretera sense classificació"
+],
+"highway/secondary":[
+"Carretera de 2n ordre",
+"Carretera secundària"
+],
+"highway/secondary_link":[
+"Enllaç amb secundària",
+"Enllaç de carretera secundària"
+],
+"highway/service":[
+"Via de servei",
+"Lateral"
+],
+"highway/service/alley":[
+"Cul de sac",
+"Carreró"
+],
+"highway/service/drive-through":[
+"Via dins una propietat",
+"Pas de vehicles"
+],
+"highway/service/driveway":[
+"Via d'accés a una propietat",
+"Entrada de vehicles"
+],
+"highway/service/emergency_access":[
+"Accés d'emergència",
+"Accés per a emergències"
+],
+"highway/service/parking_aisle":[
+"parking",
+"Passadís de pàrquing",
+"carrer per aparcar",
+"carrer de pàrqquing",
+"pàrquing",
+"carrer interior d'aparcament",
+"aparcament",
+"Carrer d'aparcament",
+"carrer de parking"
+],
+"highway/services":[
+"Àrea de servei"
+],
+"highway/steps":[
+"Escales",
+"esgraons",
+"escalinata",
+"escalons",
+"graons",
+"escala"
+],
+"highway/stop":[
+"Senyal de stop"
+],
+"highway/street_lamp":[
+"Fanal"
+],
+"highway/tertiary":[
+"Carretera terciària",
+"Carretera de 3r ordre",
+"local"
+],
+"highway/tertiary_link":[
+"Enllaç amb terciària",
+"Enllaç de carretera terciària"
+],
+"highway/track":[
+"Pista forestal sense manteniment"
+],
+"highway/traffic_signals":[
+"Semàfors",
+"Senyals de trànsit",
+"Senyals de tràfic"
+],
+"highway/trunk":[
+"Variant",
+"Carretera principal",
+"Via ràpida"
+],
+"highway/trunk_link":[
+"Enllaç de via principal",
+"Enllaç amb via ràpida"
+],
+"highway/turning_circle":[
+"Cul de sac",
+"Girar 180 graus",
+"Canviar de sentit"
+],
+"highway/unclassified":[
+"Carretera menor / sense classificació"
+],
+"historic":[
+"Lloc històric"
+],
+"historic/archaeological_site":[
+"Jaciment arqueològic",
+"Lloc arqueològic"
+],
+"historic/boundary_stone":[
+"Fita de terme",
+"Fita de frontera"
+],
+"historic/castle":[
+"Castell"
+],
+"historic/memorial":[
+"Memorial"
+],
+"historic/monument":[
+"Monument"
+],
+"historic/ruins":[
+"Ruines",
+"Ruïnes"
+],
+"historic/wayside_cross":[
+"Calvari",
+"Creu Cristiana",
+"Encreuament del camí"
+],
+"historic/wayside_shrine":[
+"Ermita",
+"Capella"
+],
+"junction":[
+"Encreuament"
+],
+"landuse":[
+"Ús de la terra"
+],
+"landuse/allotments":[
+"Jardí comunitari"
+],
+"landuse/basin":[
+"Conca",
+"Bassa"
+],
+"landuse/cemetery":[
+"Cementiri",
+"Camp Sant"
+],
+"landuse/churchyard":[
+"Terrenys d'església"
+],
+"landuse/commercial":[
+"Zona Comercial"
+],
+"landuse/construction":[
+"En construcció",
+"Zona en construcció"
+],
+"landuse/farm":[
+"Zona Agrícola"
+],
+"landuse/farmland":[
+"Zona Agrícola"
+],
+"landuse/farmyard":[
+"Nau",
+"Purí",
+"Masoveria",
+"Ranxo",
+"Purins",
+"Pinso",
+"Galliner",
+"Femta",
+"Tanca",
+"Gallines",
+"Tancat",
+"Naus",
+"Estable",
+"Valla",
+"Conill",
+"Edificis de Granja",
+"Fems",
+"Conills",
+"Gallina",
+"Fem",
+"Granges",
+"Granja",
+"Valles",
+"Porc",
+"Porcs",
+"Dipòsit",
+"Masia",
+"Mas"
+],
+"landuse/forest":[
+"Bosc",
+"Massa forestal",
+"Arbreda"
+],
+"landuse/garages":[
+"Garatges"
+],
+"landuse/grass":[
+"Herba",
+"Gespa"
+],
+"landuse/industrial":[
+"Zona Industrial"
+],
+"landuse/landfill":[
+"Abocador"
+],
+"landuse/meadow":[
+"Prada",
+"Prat",
+"Natural"
+],
+"landuse/orchard":[
+"Horta",
+"Plantació",
+"Verger",
+"Hort"
+],
+"landuse/plant_nursery":[
+"Planter"
+],
+"landuse/quarry":[
+"Mina a cel obert",
+"Pedrera"
+],
+"landuse/railway":[
+"Corredor ferroviari"
+],
+"landuse/recreation_ground":[
+"Terrenys per al Lleure"
+],
+"landuse/residential":[
+"Zona Residencial"
+],
+"landuse/retail":[
+"Zona de Comerç minorista"
+],
+"landuse/vineyard":[
+"Vinyet",
+"Vinyar",
+"Vinyal",
+"Vinya"
+],
+"leisure":[
+"Lleure",
+"Esbarjo",
+"Temps lliure"
+],
+"leisure/adult_gaming_centre":[
+"Centre d'oci adult"
+],
+"leisure/bird_hide":[
+"Observatori d'ocells"
+],
+"leisure/bowling_alley":[
+"Bolera"
+],
+"leisure/common":[
+"Àrea comuna"
+],
+"leisure/dance":[
+"Pista de ball",
+"Zona de ball"
+],
+"leisure/dog_park":[
+"Parc Caní",
+"Pipi-can",
+"Parc per gossos"
+],
+"leisure/firepit":[
+"Lloc per a fogueres"
+],
+"leisure/fitness_centre":[
+"Gimnàs / Centre de Fitness"
+],
+"leisure/fitness_centre/yoga":[
+"Estudi de Yoga"
+],
+"leisure/fitness_station":[
+"Instal·lació exterior de Fitness"
+],
+"leisure/garden":[
+"Jardí",
+"Zona ajardinada",
+"Parc"
+],
+"leisure/golf_course":[
+"Camp de Golf",
+"Camp de golf"
+],
+"leisure/ice_rink":[
+"Pista de gel"
+],
+"leisure/marina":[
+"Port esportiu",
+"Marina"
+],
+"leisure/miniature_golf":[
+"Golf en miniatura"
+],
+"leisure/nature_reserve":[
+"Reserva Natural"
+],
+"leisure/park":[
+"verger",
+"arbres",
+"parc",
+"àrea verda",
+"jardí",
+"Parc",
+"flors",
+"àrea enjardinada",
+"gespa"
+],
+"leisure/picnic_table":[
+"Taula de picnic"
+],
+"leisure/pitch":[
+"Pista poliesportiva",
+"Camp d'esports"
+],
+"leisure/pitch/american_football":[
+"Estadi de futbol americà",
+"Camp de futbol americà"
+],
+"leisure/pitch/baseball":[
+"Pista de beisbol",
+"Camp de beisbol"
+],
+"leisure/pitch/basketball":[
+"Pavelló de bàsquet",
+"Pista de bàsquet"
+],
+"leisure/pitch/bowls":[
+"Camp de bolos"
+],
+"leisure/pitch/cricket":[
+"Camp de criquet"
+],
+"leisure/pitch/rugby_league":[
+"Camp de la lliga de Rugbi"
+],
+"leisure/pitch/rugby_union":[
+"Camp de la Unió de Rugbi"
+],
+"leisure/pitch/skateboard":[
+"Parc per a skates"
+],
+"leisure/pitch/soccer":[
+"Camp de futbol",
+"Pista de futbol"
+],
+"leisure/pitch/tennis":[
+"Pista de tennis",
+"Camp de Tennis"
+],
+"leisure/pitch/volleyball":[
+"Pista de voleibol",
+"Camp de vòleibol",
+"Camp de voleibol"
+],
+"leisure/playground":[
+"Parc Infantil",
+"Zona de jocs infantils"
+],
+"leisure/slipway":[
+"Pendent per a embarcacions",
+"Varador"
+],
+"leisure/sports_centre":[
+"Complex esportiu"
+],
+"leisure/sports_centre/swimming":[
+"Instal·lacions de Piscina"
+],
+"leisure/stadium":[
+"Estadi",
+"Camp"
+],
+"leisure/swimming_pool":[
+"Piscina"
+],
+"leisure/water_park":[
+"Parc Aquàtic"
+],
+"line":[
+"Línia"
+],
+"man_made":[
+"Fet per la mà de l'home",
+"Fet per l'home"
+],
+"man_made/adit":[
+"Entrada"
+],
+"man_made/breakwater":[
+"Espigó",
+"Escullera",
+"trencaonades",
+"Espatller"
+],
+"man_made/bridge":[
+"Pont"
+],
+"man_made/chimney":[
+"Xemeneia"
+],
+"man_made/cutline":[
+"Línia de tall"
+],
+"man_made/embankment":[
+"Terraplè "
+],
+"man_made/flagpole":[
+"Màstil"
+],
+"man_made/gasometer":[
+"Gasòmetre"
+],
+"man_made/groyne":[
+"Dic"
+],
+"man_made/lighthouse":[
+"Far"
+],
+"man_made/observation":[
+"Torre de vigilància"
+],
+"man_made/petroleum_well":[
+"Pou petrolífer"
+],
+"man_made/pier":[
+"Moll de pilons",
+"Moll",
+"Dàrsena"
+],
+"man_made/pipeline":[
+"Canonada",
+"Gàseoducte",
+"Oleoducte",
+"Canonades"
+],
+"man_made/pumping_station":[
+"Estació de Bombament"
+],
+"man_made/silo":[
+"Sitja"
+],
+"man_made/storage_tank":[
+"Dipòsit d'emmagatzematge"
+],
+"man_made/surveillance":[
+"Vigilància"
+],
+"man_made/surveillance_camera":[
+"Càmera de vigilància"
+],
+"man_made/survey_point":[
+"Punt referencial",
+"Punt de salvament",
+"Punt de salvació",
+"Punt d'evacuació"
+],
+"man_made/tower":[
+"Torres",
+"Torre"
+],
+"man_made/wastewater_plant":[
+"Depuradora",
+"Depuradora d'aigües residuals"
+],
+"man_made/water_tower":[
+"Dipòsit d'aigua",
+"Torre d'aigua",
+"Dipòsit"
+],
+"man_made/water_well":[
+"Pou"
+],
+"man_made/water_works":[
+"Planta potabilitzadora"
+],
+"man_made/works":[
+"Fàbrica",
+"Factoria"
+],
+"natural":[
+"Natural"
+],
+"natural/bay":[
+"Badia"
+],
+"natural/beach":[
+"Platja"
+],
+"natural/cave_entrance":[
+"Entrada de cova"
+],
+"natural/cliff":[
+"Penya-segat"
+],
+"natural/coastline":[
+"litoral",
+"línia de platja",
+"costa",
+"Línia costanera",
+"platja",
+"Línia costera",
+"mar"
+],
+"natural/fell":[
+"Prat d'alta muntanya"
+],
+"natural/glacier":[
+"Glacera"
+],
+"natural/grassland":[
+"Praderia"
+],
+"natural/heath":[
+"Landa"
+],
+"natural/peak":[
+"cim",
+"cimadal",
+"pollegó",
+"Pic",
+"agulla."
+],
+"natural/saddle":[
+"Seient"
+],
+"natural/scree":[
+"Tartera"
+],
+"natural/scrub":[
+"Matollar"
+],
+"natural/spring":[
+"Font"
+],
+"natural/tree":[
+"Arbre"
+],
+"natural/tree_row":[
+"Fila d'arbres"
+],
+"natural/volcano":[
+"Volcà"
+],
+"natural/water":[
+"Aigua"
+],
+"natural/water/lake":[
+"Llac",
+"Estany"
+],
+"natural/water/pond":[
+"bassa",
+"llac",
+"estany",
+"reserva",
+"bassal",
+"Estany"
+],
+"natural/water/reservoir":[
+"Embassament"
+],
+"natural/wetland":[
+"Aiguamolls"
+],
+"natural/wood":[
+"Bosc",
+"Forest"
+],
+"noexit/yes":[
+"Sense sortida"
+],
+"office":[
+"Oficina",
+"Oficines"
+],
+"office/administrative":[
+"Oficina administrativa",
+"Oficina de tràmits locals"
+],
+"office/company":[
+"Oficines de companyia"
+],
+"office/coworking":[
+"Espai de coworking"
+],
+"office/educational_institution":[
+"Institució Educativa"
+],
+"office/employment_agency":[
+"Oficina de treball"
+],
+"office/estate_agent":[
+"Oficina d'agència immobiliària"
+],
+"office/financial":[
+"Oficina financera"
+],
+"office/government":[
+"Oficina governamental"
+],
+"office/government/register_office":[
+"Registre civil"
+],
+"office/insurance":[
+"Oficina de companyia asseguradora"
+],
+"office/lawyer":[
+"Bufet d'advocats"
+],
+"office/lawyer/notary":[
+"Oficina del notari",
+"Notaria"
+],
+"office/ngo":[
+"Oficina d'ONG"
+],
+"office/physician":[
+"Metge"
+],
+"office/political_party":[
+"Local de partit polític",
+"Partit polític"
+],
+"office/research":[
+"Oficines d'R+D"
+],
+"office/telecommunication":[
+"Oficina de telecomunicacions"
+],
+"office/travel_agent":[
+"Agència de viatges"
+],
+"piste":[
+"Pista d'esquí"
+],
+"place":[
+"Lloc"
+],
+"place/city":[
+"Ciutat",
+"Municipi",
+"Ciutat "
+],
+"place/farm":[
+"Granja"
+],
+"place/hamlet":[
+"Llogaret"
+],
+"place/island":[
+"Illes",
+"Illots",
+"Illot",
+"Illa"
+],
+"place/isolated_dwelling":[
+"Vivenda aïllada"
+],
+"place/locality":[
+"Indret"
+],
+"place/neighbourhood":[
+"Barri"
+],
+"place/town":[
+"Ciutat"
+],
+"place/village":[
+"Poble"
+],
+"point":[
+"Punt"
+],
+"power":[
+"Electricitat"
+],
+"power/generator":[
+"Generador elèctric"
+],
+"power/line":[
+"Línia elèctrica"
+],
+"power/minor_line":[
+"Línia elèctrica de baixa tensió"
+],
+"power/pole":[
+"Piló de línia elèctrica"
+],
+"power/sub_station":[
+"Subestació"
+],
+"power/substation":[
+"Subestació elèctrica",
+"Estació elèctrica",
+"Central elèctrica",
+"Subestació"
+],
+"power/tower":[
+"Torre d'alta tensió",
+"Torre d'alt voltatge",
+"Torre de línia d'alta tensió"
+],
+"power/transformer":[
+"Transformador"
+],
+"public_transport/platform":[
+"Plataforma"
+],
+"public_transport/stop_position":[
+"Posició d'aturada"
+],
+"railway":[
+"Ferrocarril"
+],
+"railway/abandoned":[
+"Via fèrria abandonada"
+],
+"railway/crossing":[
+"Pas a nivell (camí)"
+],
+"railway/disused":[
+"Via de tren fora d'ús",
+"Via fèrria abandonada",
+"Via fèrria fora d'ús",
+"Via de tren abandonada"
+],
+"railway/funicular":[
+"Funicular"
+],
+"railway/halt":[
+"Parada de Ferrocarril"
+],
+"railway/level_crossing":[
+"Pas a nivell (carretera)"
+],
+"railway/monorail":[
+"Monocarril",
+"Monoraíl"
+],
+"railway/narrow_gauge":[
+"Ferrocarril de via estreta"
+],
+"railway/platform":[
+"Andana "
+],
+"railway/rail":[
+"Via fèrria"
+],
+"railway/station":[
+"Estació de tren"
+],
+"railway/subway":[
+"Metro",
+"Transport metropolità"
+],
+"railway/subway_entrance":[
+"Boca de metro",
+"Boca de Metro",
+"Entrada de metro"
+],
+"railway/tram":[
+"Tramvia ",
+"Tranvia",
+"Tram"
+],
+"railway/tram_stop":[
+"Parada de tramvia"
+],
+"relation":[
+"Relació"
+],
+"roundabout":[
+"Rotonda"
+],
+"route/ferry":[
+"Ruta de ferri"
+],
+"shop":[
+"Comerç",
+"Botiga"
+],
+"shop/alcohol":[
+"Botiga de licors",
+"Licoreria"
+],
+"shop/anime":[
+"Botiga de còmics"
+],
+"shop/antiques":[
+"Botiga d'antiguitats"
+],
+"shop/art":[
+"Botiga d'art"
+],
+"shop/baby_goods":[
+"Botiga per a nadons"
+],
+"shop/bag":[
+"Botiga d'equipatges"
+],
+"shop/bakery":[
+"Fleca",
+"pastisseria",
+"forn",
+"Forn de pa",
+"Panaderia"
+],
+"shop/bathroom_furnishing":[
+"Botiga de mobles de bany"
+],
+"shop/beauty":[
+"Botiga de cosmètics"
+],
+"shop/beauty/nails":[
+"Saló de manicures"
+],
+"shop/beauty/tanning":[
+"Saló de bronzejat"
+],
+"shop/bed":[
+"Botiga de matalassos"
+],
+"shop/beverages":[
+"Botiga de begudes",
+"Licoreria"
+],
+"shop/bicycle":[
+"Botiga de bicicletes"
+],
+"shop/bookmaker":[
+"Cusidor de llibres"
+],
+"shop/books":[
+"Llibreria"
+],
+"shop/boutique":[
+"Boutique"
+],
+"shop/butcher":[
+"Carnisseria"
+],
+"shop/candles":[
+"Botiga d'espelmes"
+],
+"shop/car":[
+"Concessionari de cotxes"
+],
+"shop/car_parts":[
+"Botiga de recanvis de cotxe"
+],
+"shop/car_repair":[
+"Taller d'automòbils"
+],
+"shop/carpet":[
+"Botiga de catifes"
+],
+"shop/charity":[
+"Botiga de Caritat"
+],
+"shop/cheese":[
+"Botiga de formatge"
+],
+"shop/chemist":[
+"Farmàcia"
+],
+"shop/chocolate":[
+"Botiga de xocolata"
+],
+"shop/clothes":[
+"Botiga de roba"
+],
+"shop/coffee":[
+"Botiga de cafè"
+],
+"shop/computer":[
+"Botiga d'ordinadors",
+"Botiga d'informàtica"
+],
+"shop/confectionery":[
+"Dolços",
+"Caramels",
+"Botiga de caramels",
+"Botiga de Llepolies",
+"Llaminadures",
+"Botiga de llaminadures",
+"Botiga de dolços",
+"Llepolies"
+],
+"shop/convenience":[
+"Ultramarins",
+"Botiga d'ultramarins",
+"Botiga de queviures",
+"Queviures",
+"Colmado"
+],
+"shop/copyshop":[
+"fulls",
+"fotocòpies",
+"Copisteria",
+"Botiga",
+"impressora"
+],
+"shop/cosmetics":[
+"Perfums",
+"Cosmètics",
+"Cosmètica",
+"Botiga de cosmètics",
+"Botiga de perfums",
+"Perfumeria"
+],
+"shop/craft":[
+"Botiga de manualitats",
+"Arts plàstiques",
+"Botiga per a les arts plàstiques",
+"Manualitats"
+],
+"shop/curtain":[
+"Coixins",
+"Botiga de roba de la llar",
+"Botiga de cortines",
+"Cortines"
+],
+"shop/dairy":[
+"Botiga de productes làctics"
+],
+"shop/deli":[
+"Botiga de comestibles"
+],
+"shop/department_store":[
+"Grans magatzems"
+],
+"shop/doityourself":[
+"Botiga de bricolatge"
+],
+"shop/dry_cleaning":[
+"Neteja",
+"Centre de neteja",
+"Bugaderia",
+"Tintoreria",
+"Neteja en sec"
+],
+"shop/e-cigarette":[
+"Botiga de cigars electrònics"
+],
+"shop/electronics":[
+"Botiga d'electrònica",
+"Botiga de components electrònics"
+],
+"shop/erotic":[
+"shop",
+"sex",
+"sexshop",
+"Botiga d'articles eròtics"
+],
+"shop/fabric":[
+"Robes",
+"Botiga de robes",
+"Teles",
+"Botiga de teles"
+],
+"shop/farm":[
+"Grades",
+"Estand productiu"
+],
+"shop/fashion":[
+"Botiga de roba"
+],
+"shop/fishmonger":[
+"Peixateria"
+],
+"shop/florist":[
+"Botiga de jardineria",
+"Floristeria",
+"Botiga de plantes"
+],
+"shop/frame":[
+"Botiga de marcs"
+],
+"shop/funeral_directors":[
+"Tanatori"
+],
+"shop/furnace":[
+"Botiga de forns i calderes"
+],
+"shop/furniture":[
+"Botiga de mobles",
+"Moblista"
+],
+"shop/garden_centre":[
+"Centre de jardineria"
+],
+"shop/gift":[
+"Botiga de regals",
+"Botiga d'objectes de regal"
+],
+"shop/greengrocer":[
+"Fruiteria"
+],
+"shop/hairdresser":[
+"Perruqueria"
+],
+"shop/hardware":[
+"Drogueria"
+],
+"shop/hearing_aids":[
+"Centre d'audició"
+],
+"shop/herbalist":[
+"Herborista"
+],
+"shop/hifi":[
+"Botiga d'alta fidelitat"
+],
+"shop/houseware":[
+"Botiga de la llar"
+],
+"shop/interior_decoration":[
+"Botiga d'Interiorisme"
+],
+"shop/jewelry":[
+"Joieria"
+],
+"shop/kiosk":[
+"Quiosc de diaris"
+],
+"shop/kitchen":[
+"Botiga de disseny de cuines"
+],
+"shop/laundry":[
+"Bugaderia"
+],
+"shop/leather":[
+"Botiga de cuirs"
+],
+"shop/locksmith":[
+"Copisteria de claus"
+],
+"shop/lottery":[
+"Administració de loteria"
+],
+"shop/mall":[
+"Centre comercial"
+],
+"shop/massage":[
+"Centre de massatges"
+],
+"shop/medical_supply":[
+"Farmàcia"
+],
+"shop/mobile_phone":[
+"Botiga de telefonia mòbil"
+],
+"shop/money_lender":[
+"Prestamista"
+],
+"shop/motorcycle":[
+"Botiga de motocicletes"
+],
+"shop/music":[
+"Botiga de música"
+],
+"shop/musical_instrument":[
+"Botiga d'instruments musicals"
+],
+"shop/newsagent":[
+"Botiga de diaris i revistes"
+],
+"shop/nutrition_supplements":[
+"Botiga de suplements nutricionals"
+],
+"shop/optician":[
+"Òptica"
+],
+"shop/organic":[
+"Botiga de menjar orgànic"
+],
+"shop/outdoor":[
+"Botiga per a activitats a l'aire lliure"
+],
+"shop/paint":[
+"Botiga de pintura"
+],
+"shop/pastry":[
+"Pastisseria"
+],
+"shop/pawnbroker":[
+"Botiga d'empenyoraments"
+],
+"shop/perfumery":[
+"botiga de colònies",
+"Botiga de perfums",
+"Perfumeria"
+],
+"shop/pet":[
+"Botiga d'animals"
+],
+"shop/photo":[
+"Botiga de fotografia"
+],
+"shop/pyrotechnics":[
+"Botiga d'articles pirotècnics"
+],
+"shop/radiotechnics":[
+"Botiga d'articles electrònics"
+],
+"shop/religion":[
+"Botiga d'articles religiosos"
+],
+"shop/scuba_diving":[
+"Botiga de submarinisme"
+],
+"shop/seafood":[
+"Marisqueria"
+],
+"shop/second_hand":[
+"Consigna"
+],
+"shop/shoes":[
+"Sabateria",
+"Sabater",
+"Botiga de sabates"
+],
+"shop/sports":[
+"Botiga d'esports"
+],
+"shop/stationery":[
+"Papereria"
+],
+"shop/storage_rental":[
+"Lloguer de magatzem"
+],
+"shop/supermarket":[
+"Súper",
+"Hipermercat",
+"Híper",
+"Supermercat"
+],
+"shop/tailor":[
+"Sastreria"
+],
+"shop/tattoo":[
+"Centre de tatuatges"
+],
+"shop/tea":[
+"Botiga de te"
+],
+"shop/ticket":[
+"Venedor de tiquets"
+],
+"shop/tobacco":[
+"Estanc"
+],
+"shop/toys":[
+"Botiga de joguines",
+"Botiga de jocs",
+"Joguineria"
+],
+"shop/travel_agency":[
+"Agència de viatges"
+],
+"shop/tyres":[
+"Botiga de pneumàtics"
+],
+"shop/vacant":[
+"Botiga per ocupar"
+],
+"shop/vacuum_cleaner":[
+"Botiga d'aspiradors"
+],
+"shop/variety_store":[
+"Botiga de tot a 100",
+"Basar"
+],
+"shop/video":[
+"Videoclub",
+"Botiga de vídeos"
+],
+"shop/video_games":[
+"Botiga de videojocs"
+],
+"shop/watches":[
+"Botiga d'ulleres",
+"Òptica"
+],
+"shop/water_sports":[
+"Botiga d'esports aquàtics"
+],
+"shop/weapons":[
+"Armeria"
+],
+"shop/window_blind":[
+"Botiga de persianes"
+],
+"shop/wine":[
+"Celler",
+"Licoreria",
+"Botiga de vins"
+],
+"tourism":[
+"Visita",
+"Turisme"
+],
+"tourism/alpine_hut":[
+"Refugi de muntanya"
+],
+"tourism/apartment":[
+"Habitatge de convidats"
+],
+"tourism/artwork":[
+"Obra d'art"
+],
+"tourism/attraction":[
+"Atracció turística"
+],
+"tourism/camp_site":[
+"Àrea d'acampada"
+],
+"tourism/caravan_site":[
+"Càmping per a caravanes"
+],
+"tourism/gallery":[
+"Galeria d'art"
+],
+"tourism/guest_house":[
+"invitats",
+"convidats",
+"Habitacions de lloguer",
+"hostes",
+"Casa de convidats"
+],
+"tourism/hostel":[
+"Alberg",
+"Hostal"
+],
+"tourism/hotel":[
+"Hotel"
+],
+"tourism/information":[
+"Punt d'Informació",
+"Oficina d'informació",
+"Informació"
+],
+"tourism/information/board":[
+"Tauler informatiu",
+"panell d'informació",
+"Tauler d'informació",
+"panell informatiu"
+],
+"tourism/information/map":[
+"Mapa"
+],
+"tourism/information/office":[
+"Oficina d'informació turística"
+],
+"tourism/motel":[
+"Motel"
+],
+"tourism/museum":[
+"Museu"
+],
+"tourism/picnic_site":[
+"Àrea de pícnic"
+],
+"tourism/theme_park":[
+"Parc temàtic"
+],
+"tourism/viewpoint":[
+"Mirador"
+],
+"tourism/zoo":[
+"Zoològic",
+"Zoo"
+],
+"traffic_calming":[
+"Mesures de reducció de velocitat"
+],
+"traffic_calming/bump":[
+"Reductor",
+"Ressalt",
+"Tope",
+"Resalt",
+"Túmul",
+"Cavalló"
+],
+"traffic_calming/chicane":[
+"Chicane"
+],
+"traffic_calming/choker":[
+"Reductor d'amplada"
+],
+"traffic_calming/cushion":[
+"Coixí Berlinès"
+],
+"traffic_calming/dip":[
+"Rebaix"
+],
+"traffic_calming/hump":[
+"Llom de burro",
+"Esquena de ruc",
+"Llom d'ase",
+"Túmul",
+"Llom de toro",
+"Esquena de bou",
+"Llom de bou",
+"Ressalt",
+"Esquena de toro",
+"Esquena d'ase",
+"Llom de ruc",
+"Cavalló",
+"Esquena de burro"
+],
+"traffic_calming/island":[
+"Refugi viari"
+],
+"traffic_calming/rumble_strip":[
+"Bandes rugoses",
+"bandes",
+"rugós",
+"rugoses",
+"banda"
+],
+"type/boundary":[
+"Vora",
+"Límit administratiu",
+"Límit",
+"Frontera"
+],
+"type/boundary/administrative":[
+"Límit administratiu",
+"Frontera"
+],
+"type/multipolygon":[
+"Multipolígon"
+],
+"type/restriction":[
+"Restricció"
+],
+"type/restriction/no_left_turn":[
+"Prohibició del gir a l'esquerra",
+"Prohibit girar a l'esquerra"
+],
+"type/restriction/no_right_turn":[
+"Prohibit girar a la dreta",
+"Prohibició del gir a la dreta"
+],
+"type/restriction/no_straight_on":[
+"Prohibit continuar recte",
+"Prohibició de seguir recte"
+],
+"type/restriction/no_u_turn":[
+"Prohibició del gir total",
+"Prohibit canviar de sentit"
+],
+"type/restriction/only_left_turn":[
+"Gir a l'esquerra obligatori",
+"Només gir a l'esquerra"
+],
+"type/restriction/only_right_turn":[
+"Gir a la dreta obligatori",
+"Només gir a la dreta"
+],
+"type/restriction/only_straight_on":[
+"Prohibició de tots els girs",
+"seguir recte",
+"no girs",
+"cap gir",
+"no girar",
+"Prohibit girar"
+],
+"type/route":[
+"Ruta"
+],
+"type/route/bicycle":[
+"Ruta ciclista"
+],
+"type/route/bus":[
+"Ruta de bus",
+"Línia de bus",
+"Ruta d'autobús"
+],
+"type/route/detour":[
+"Desviació"
+],
+"type/route/ferry":[
+"Ruta de ferri"
+],
+"type/route/foot":[
+"Ruta a peu"
+],
+"type/route/hiking":[
+"Ruta senderista"
+],
+"type/route/horse":[
+"Ruta de conducció"
+],
+"type/route/pipeline":[
+"Traçat d'una canonada"
+],
+"type/route/power":[
+"Traçat d'una línia elèctrica"
+],
+"type/route/road":[
+"Ruta de carretera"
+],
+"type/route/train":[
+"Ruta ferroviària"
+],
+"type/route/tram":[
+"Ruta de tramvia"
+],
+"type/route_master":[
+"Patró de la Ruta"
+],
+"type/site":[
+"Lloc"
+],
+"vertex":[
+"Altres",
+"Altre"
+],
+"waterway":[
+"Via aqüífera"
+],
+"waterway/boatyard":[
+"Dic sec"
+],
+"waterway/canal":[
+"Canal",
+"Séquia",
+"Canal ",
+"Sèquia"
+],
+"waterway/dam":[
+"Embassament",
+"Pantà",
+"Presa"
+],
+"waterway/ditch":[
+"Torrent",
+"Rierol",
+"Canal",
+"Conducció d'aigua",
+"Aqüífer",
+"Séquia",
+"Rara",
+"Sèquia",
+"Aigua",
+"Via aqüífera"
+],
+"waterway/dock":[
+"Moll humit/Moll sec"
+],
+"waterway/drain":[
+"Torrent",
+"Torrentera",
+"Rambla"
+],
+"waterway/fuel":[
+"Benzinera per a embarcacions"
+],
+"waterway/river":[
+"Riu"
+],
+"waterway/riverbank":[
+"Ribera",
+"Riba del riu",
+"Banc fluvial"
+],
+"waterway/sanitary_dump_station":[
+"Lavabo per a vaixells"
+],
+"waterway/stream":[
+"Fil d'aigua",
+"Rajolí",
+"Reguer",
+"Rierol",
+"Canal",
+"Sequió",
+"Segla",
+"Cavim.",
+"Rec",
+"Séquia",
+"Riuet",
+"Ramal",
+"Sequiola",
+"rierol",
+"Regueró"
+],
+"waterway/water_point":[
+"Aigua marina potable"
+],
+"waterway/waterfall":[
+"fall",
+"Salt d'aigua",
+"sallent",
+"Cascada",
+"saltant"
+],
+"waterway/weir":[
+"Assut"
+]
+}

@@ -8,15 +8,20 @@ import de.blau.android.presets.Preset.PresetItem;
  * @author simon
  *
  */
-class IndexSearchResult implements Comparable<IndexSearchResult>{
-	int count = 0;
-	PresetItem item = null;
+public class IndexSearchResult implements Comparable<IndexSearchResult>{
+	final int weight; // lower better
+	final PresetItem item;
+	
+	public IndexSearchResult(int weight, @NonNull PresetItem item) {
+	    this.weight = weight;
+	    this.item = item;
+	}
 
 	@Override
 	public int compareTo(@NonNull IndexSearchResult arg0) {
-		if (arg0.count > count) {
+		if (arg0.weight > weight) {
 			return -1;
-		} else if (arg0.count < count) {
+		} else if (arg0.weight < weight) {
 			return +1;
 		}
 		return 0; 
@@ -27,13 +32,13 @@ class IndexSearchResult implements Comparable<IndexSearchResult>{
         if (obj == null || !(obj instanceof IndexSearchResult)) {
             return false;
         }
-        return count == ((IndexSearchResult)obj).count && ((item == null && ((IndexSearchResult)obj).item == null) || (item != null && item.equals(((IndexSearchResult)obj).item)));
+        return weight == ((IndexSearchResult)obj).weight && ((item == null && ((IndexSearchResult)obj).item == null) || (item != null && item.equals(((IndexSearchResult)obj).item)));
     }
     
     @Override
     public int hashCode() {
         int result = 17;
-        result = 37 * result + (int)(count ^ (count >>> 32));
+        result = 37 * result + (int)(weight ^ (weight >>> 32));
         result = 37 * result + (item == null ? 0 : item.hashCode());
         return result;
     }

@@ -1,0 +1,2480 @@
+{
+"address":[
+"Adres"
+],
+"advertising/billboard":[
+"Reklam Panosu",
+"Bilbord"
+],
+"aerialway":[
+"Teleferik Yolu"
+],
+"aerialway/cable_car":[
+"Teleferik"
+],
+"aerialway/chair_lift":[
+"Sandalye Teleferik"
+],
+"aerialway/drag_lift":[
+"Kayak Teleferiği"
+],
+"aerialway/gondola":[
+"Gondol Teleferik"
+],
+"aerialway/goods":[
+"Mal Teleferiği",
+"Taşıma Teleferiği"
+],
+"aerialway/magic_carpet":[
+"Sihirli Halı Teleferiği"
+],
+"aerialway/mixed_lift":[
+"Oturaklı Gondol Teleferiği"
+],
+"aerialway/platter":[
+"Tabaklı Teleferik"
+],
+"aerialway/pylon":[
+"Teleferik Direği",
+"Teleferik Sütunu"
+],
+"aerialway/rope_tow":[
+"Çekme Halat Teleferik"
+],
+"aerialway/station":[
+"Teleferik İstasyonu"
+],
+"aerialway/t-bar":[
+"Çubuklu Teleferik"
+],
+"aeroway":[
+"Hava Yolu"
+],
+"aeroway/aerodrome":[
+"Havaalanı"
+],
+"aeroway/apron":[
+"Hangar Önü",
+"Uçak Park Alanı"
+],
+"aeroway/gate":[
+"Kapı"
+],
+"aeroway/hangar":[
+"Hangar"
+],
+"aeroway/helipad":[
+"Helikopter Pisti"
+],
+"aeroway/runway":[
+"Hızlanma Pisti",
+"Uçak Pisti"
+],
+"aeroway/taxiway":[
+"Taksi Yolu"
+],
+"aeroway/terminal":[
+"Terminal"
+],
+"amenity":[
+"Tesis"
+],
+"amenity/animal_boarding":[
+"Yatılı Hayvan Bakım Yeri"
+],
+"amenity/animal_breeding":[
+"Hayvan Islah Yeri"
+],
+"amenity/animal_shelter":[
+"Hayvan Barınağı",
+"Hayvan Barinağı"
+],
+"amenity/arts_centre":[
+"Sanat Merkezi"
+],
+"amenity/atm":[
+"Para Çekme Makinası",
+"ATM"
+],
+"amenity/bank":[
+"Banka"
+],
+"amenity/bar":[
+"Bar"
+],
+"amenity/bbq":[
+"Mangal Restoranı"
+],
+"amenity/bench":[
+"Bank",
+"Oturak"
+],
+"amenity/bicycle_parking":[
+"Bisiklet Parkı"
+],
+"amenity/bicycle_rental":[
+"Bisiklet Kiralama"
+],
+"amenity/bicycle_repair_station":[
+"Bisiklet Tamircisi"
+],
+"amenity/biergarten":[
+"Bira Bahçesi",
+"Bira İçilen Bahçe"
+],
+"amenity/boat_rental":[
+"Bot Kiralama"
+],
+"amenity/bureau_de_change":[
+"Döviz Bürosu"
+],
+"amenity/bus_station":[
+"Otobüs Durağı",
+"Otogar"
+],
+"amenity/cafe":[
+"Kafeterya",
+"Kafe"
+],
+"amenity/car_rental":[
+"Araç Kiralama",
+"Oto Kiralama"
+],
+"amenity/car_sharing":[
+"Araç Paylaşım"
+],
+"amenity/car_wash":[
+"Oto Yıkama",
+"Araç Yıkama"
+],
+"amenity/casino":[
+"Casino",
+"Kumarhane"
+],
+"amenity/charging_station":[
+"Şarj İstasyonu"
+],
+"amenity/childcare":[
+"Çocuk Bakımı"
+],
+"amenity/cinema":[
+"Sinema"
+],
+"amenity/clinic":[
+"Tıp Merkezi",
+"Klinik"
+],
+"amenity/clinic/abortion":[
+"Kürtaj Kliniği",
+"Kürtaj Merkezi"
+],
+"amenity/clinic/fertility":[
+"Doğurganlık Merkezi",
+"Bebek Merkezi"
+],
+"amenity/clock":[
+"Saat"
+],
+"amenity/college":[
+"Üniversite Bahçesi",
+"Üniversite Kampüsü"
+],
+"amenity/community_centre":[
+"Toplum Merkezi",
+"Sosyal Merkez"
+],
+"amenity/compressed_air":[
+"Lastik Hava İstasyonu",
+"Hava Basma İstasyonu"
+],
+"amenity/courthouse":[
+"Adalet Sarayı",
+"Mahkeme"
+],
+"amenity/coworking_space":[
+"Ortak Çalışma Alanı"
+],
+"amenity/crematorium":[
+"Cesed Yakma Yeri"
+],
+"amenity/dentist":[
+"Dişçi"
+],
+"amenity/doctors":[
+"Doktor"
+],
+"amenity/dojo":[
+"Dövüş Sanatları Akademisi"
+],
+"amenity/drinking_water":[
+"İçme Suyu",
+"Sebil"
+],
+"amenity/driving_school":[
+"Sürücü Kursu",
+"Sürücü Okulu"
+],
+"amenity/embassy":[
+"Büyükelçilik"
+],
+"amenity/fast_food":[
+"Fast Food",
+"Hazır Yiyecek"
+],
+"amenity/ferry_terminal":[
+"Feribot İskelesi",
+"Feribot Terminali",
+"Vapur İskelesi"
+],
+"amenity/fire_station":[
+"İtfaiye"
+],
+"amenity/food_court":[
+"Restoran Kısmı",
+"Yemek Katı",
+"Yemek Yeri"
+],
+"amenity/fountain":[
+"Aslanağzı",
+"Fıskiye",
+"Su Fıskiyesi",
+"Çeşme"
+],
+"amenity/fuel":[
+"Benzinci",
+"Benzin İstasyonu"
+],
+"amenity/grave_yard":[
+"Mezarlık"
+],
+"amenity/grit_bin":[
+"Çakıl Kutusu",
+"Çakıl Torbası"
+],
+"amenity/hospital":[
+"Hastane Bahçesi",
+"Hastane"
+],
+"amenity/hunting_stand":[
+"Av Platformu"
+],
+"amenity/ice_cream":[
+"Dondurmacı"
+],
+"amenity/internet_cafe":[
+"İnternet Kafe"
+],
+"amenity/kindergarten":[
+"Anaokulu",
+"Kreş"
+],
+"amenity/library":[
+"Kütüphane"
+],
+"amenity/marketplace":[
+"Çarşı",
+"Pazar Yeri"
+],
+"amenity/motorcycle_parking":[
+"Motosiklet Parkı",
+"Motosiklet Park Yeri"
+],
+"amenity/nightclub":[
+"Gece Kulübü"
+],
+"amenity/nursing_home":[
+"Bakım Evi"
+],
+"amenity/parking":[
+"Otopark",
+"Araç Parkı"
+],
+"amenity/parking_entrance":[
+"Garaş Giriş/Çıkışı",
+"Park Yeri Giriş/Çıkışı"
+],
+"amenity/parking_space":[
+"Park Yeri"
+],
+"amenity/pavilion":[
+"Pavyon",
+"Köşk",
+"Müzikhol"
+],
+"amenity/pharmacy":[
+"Eczane"
+],
+"amenity/place_of_worship":[
+"İbadethane",
+"İbadet Yeri"
+],
+"amenity/place_of_worship/buddhist":[
+"Budist Tapınağı"
+],
+"amenity/place_of_worship/christian":[
+"Kilise"
+],
+"amenity/place_of_worship/hindu":[
+"Hindu Tapınağı"
+],
+"amenity/place_of_worship/jewish":[
+"Sinagog"
+],
+"amenity/place_of_worship/muslim":[
+"Camii"
+],
+"amenity/place_of_worship/shinto":[
+"Şintoizm Tapınağı"
+],
+"amenity/place_of_worship/sikh":[
+"Sih Tapınağı"
+],
+"amenity/place_of_worship/taoist":[
+"Taoist Tapınağı"
+],
+"amenity/planetarium":[
+"Gökevi",
+"Planetaryum"
+],
+"amenity/police":[
+"Polis Merkezi",
+"Emniyet Müdürlüğü",
+"Polis Noktası"
+],
+"amenity/post_box":[
+"Posta Kutusu"
+],
+"amenity/post_office":[
+"Postane"
+],
+"amenity/prison":[
+"Cezaevi"
+],
+"amenity/pub":[
+"Bar"
+],
+"amenity/public_bath":[
+"Hamam",
+"Umuma Açık Banyo"
+],
+"amenity/public_bookcase":[
+"Sokak Kitaplığı",
+"Sokak Kütüphanesi"
+],
+"amenity/ranger_station":[
+"Korucu İstasyonu",
+"Korucu Evi"
+],
+"amenity/recycling":[
+"Geri Dönüşüm",
+"Geri Dönüşüm Kutusu"
+],
+"amenity/recycling_centre":[
+"Geri Dönüşüm Merkezi"
+],
+"amenity/register_office":[
+"Nüfus Dairesi"
+],
+"amenity/restaurant":[
+"Lokanta",
+"Restoran"
+],
+"amenity/sanitary_dump_station":[
+"Tuvalet Atık Yeri"
+],
+"amenity/school":[
+"Okul Bahçesi",
+"Okul"
+],
+"amenity/scrapyard":[
+"Hurdalık"
+],
+"amenity/shelter":[
+"Barınak"
+],
+"amenity/shower":[
+"Banyo",
+"Duş"
+],
+"amenity/social_facility":[
+"Okul Tesisleri"
+],
+"amenity/social_facility/food_bank":[
+"Aşevi"
+],
+"amenity/social_facility/group_home":[
+"Yaşlılar Evi",
+"Huzur Evi"
+],
+"amenity/social_facility/homeless_shelter":[
+"Evsizler Barınağı"
+],
+"amenity/social_facility/nursing_home":[
+"Bakım Evi"
+],
+"amenity/studio":[
+"Stüdyo"
+],
+"amenity/swimming_pool":[
+"Yüzme Havuzu"
+],
+"amenity/taxi":[
+"Taksi Durağı"
+],
+"amenity/telephone":[
+"Ankesörlü Telefon",
+"Telefon"
+],
+"amenity/theatre":[
+"Tiyatro"
+],
+"amenity/toilets":[
+"Tuvalet"
+],
+"amenity/townhall":[
+"Belediye Binası"
+],
+"amenity/university":[
+"Üniversite Yerleşkesi",
+"Üniversite Kampüsü"
+],
+"amenity/vending_machine":[
+"Otomat",
+"Otomatik Satış Makinası"
+],
+"amenity/vending_machine/cigarettes":[
+"Sigara Otomatı"
+],
+"amenity/vending_machine/condoms":[
+"Prezervatif Otomatı"
+],
+"amenity/vending_machine/drinks":[
+"İçecek Otomatı"
+],
+"amenity/vending_machine/excrement_bags":[
+"Dışkı Toplama Poşet Otomatı"
+],
+"amenity/vending_machine/news_papers":[
+"Gazete Otomatı"
+],
+"amenity/vending_machine/newspapers":[
+"Gazete Satış Makinası",
+"Gazete Otomatı"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"Posta Alma-Bırakma Makinası"
+],
+"amenity/vending_machine/parking_tickets":[
+"Park Fişi Otomatı"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"Otobüs Bileti Otomatı"
+],
+"amenity/vending_machine/sweets":[
+"Yiyecek Otomatı"
+],
+"amenity/veterinary":[
+"Veteriner"
+],
+"amenity/waste_basket":[
+"Çöp Kutusu"
+],
+"amenity/waste_disposal":[
+"Çöp Tenekesi"
+],
+"amenity/waste_transfer_station":[
+"Çöp Transfer İstasyonu"
+],
+"amenity/water_point":[
+"İçme Suyu",
+"Sebil"
+],
+"amenity/watering_place":[
+"Hayvan Yıkama Yeri"
+],
+"area":[
+"Bölge",
+"Alan"
+],
+"area/highway":[
+"Yol Durumu"
+],
+"attraction/animal":[
+"Hayvan"
+],
+"attraction/big_wheel":[
+"Dönme Dolap"
+],
+"attraction/bumper_car":[
+"Çarpışan Araba"
+],
+"attraction/bungee_jumping":[
+"Bungee Jumping"
+],
+"attraction/carousel":[
+"Atlı Karınca"
+],
+"attraction/pirate_ship":[
+"Korsan Gemisi"
+],
+"attraction/river_rafting":[
+"Rafting"
+],
+"attraction/roller_coaster":[
+"Roller Coaster"
+],
+"attraction/train":[
+"Tren"
+],
+"attraction/water_slide":[
+"Su Kayağı"
+],
+"barrier":[
+"Toprak Set",
+"Bariyer",
+"Toprak Dolgu"
+],
+"barrier/block":[
+"Blok",
+"Kütle"
+],
+"barrier/bollard":[
+"Duba",
+"Direk"
+],
+"barrier/border_control":[
+"Gümrük Kontrolü"
+],
+"barrier/cattle_grid":[
+"Izgara"
+],
+"barrier/city_wall":[
+"Sur"
+],
+"barrier/cycle_barrier":[
+"Bisiklet Bariyeri"
+],
+"barrier/ditch":[
+"Hendek",
+"Suyolu"
+],
+"barrier/entrance":[
+"Giriş"
+],
+"barrier/fence":[
+"Çit"
+],
+"barrier/gate":[
+"Kapı"
+],
+"barrier/hedge":[
+"Koruma Duvarı"
+],
+"barrier/kissing_gate":[
+"Sadece İnsanlar İçin Giriş Kapısı"
+],
+"barrier/lift_gate":[
+"Asansör Kapı"
+],
+"barrier/retaining_wall":[
+"İstinat Duvarı"
+],
+"barrier/stile":[
+"Çit Merdiveni",
+"Çit basamağı"
+],
+"barrier/toll_booth":[
+"Gişe"
+],
+"barrier/wall":[
+"Duvar"
+],
+"boundary/administrative":[
+"İdari Sınır"
+],
+"building":[
+"Bina"
+],
+"building/apartments":[
+"Apartmanlar"
+],
+"building/barn":[
+"Samanlık"
+],
+"building/bunker":[
+"Depo"
+],
+"building/cabin":[
+"Kabin"
+],
+"building/cathedral":[
+"Katedral",
+"İbadet Yeri",
+"Büyük Kilisi",
+"Başkilise"
+],
+"building/chapel":[
+"Küçük Kilise",
+"Şapel",
+"İbadet Yeri"
+],
+"building/church":[
+"Kilise"
+],
+"building/college":[
+"Yüksekokul",
+"Üniversite"
+],
+"building/commercial":[
+"Ticari Bina",
+"Alışveriş Yeri"
+],
+"building/construction":[
+"Bina İnşaatı"
+],
+"building/detached":[
+"Müstakil"
+],
+"building/dormitory":[
+"Yurt",
+"Öğrenci Yurdu"
+],
+"building/entrance":[
+"Giriş/Çıkış"
+],
+"building/garage":[
+"Garaj"
+],
+"building/garages":[
+"Garaj"
+],
+"building/greenhouse":[
+"Sera"
+],
+"building/hospital":[
+"Hastane"
+],
+"building/hotel":[
+"Otel"
+],
+"building/house":[
+"Ev"
+],
+"building/hut":[
+"Baraka",
+"Kulübe"
+],
+"building/industrial":[
+"Endüstriyel Bina",
+"Sanayi"
+],
+"building/kindergarten":[
+"Anaokulu",
+"Kreş"
+],
+"building/public":[
+"Devlet Binası"
+],
+"building/residential":[
+"Yerleşim Yeri",
+"Yaşam Kompleksi"
+],
+"building/retail":[
+"Çarşı",
+"Alışveriş Merkezi"
+],
+"building/roof":[
+"Çatı"
+],
+"building/school":[
+"Okul"
+],
+"building/semidetached_house":[
+"Bitişik Nizam Ev"
+],
+"building/shed":[
+"Baraka",
+"Küçük Kulübe",
+"Kulübe"
+],
+"building/stable":[
+"Ahır"
+],
+"building/static_caravan":[
+"Karavan"
+],
+"building/terrace":[
+"Sıra Evler"
+],
+"building/train_station":[
+"Tren İstasyonu"
+],
+"building/university":[
+"Üniversite"
+],
+"building/warehouse":[
+"Depo",
+"Ambar"
+],
+"camp_site/camp_pitch":[
+"Kamp Ateş Alanı"
+],
+"club":[
+"Kulüp",
+"Bar",
+"Klüb"
+],
+"craft":[
+"Zanaat",
+"Ustalık"
+],
+"craft/basket_maker":[
+"Sepetçi"
+],
+"craft/beekeeper":[
+"Arıcı"
+],
+"craft/blacksmith":[
+"Nalbant",
+"Demirci"
+],
+"craft/boatbuilder":[
+"Tersane"
+],
+"craft/bookbinder":[
+"Ciltçi"
+],
+"craft/brewery":[
+"Bira Fabrikası",
+"Bira İşletmesi"
+],
+"craft/carpenter":[
+"Dülger",
+"Doğramacı",
+"Marangoz"
+],
+"craft/carpet_layer":[
+"Halıcı"
+],
+"craft/caterer":[
+"Gıda Dağıtım Şirketi"
+],
+"craft/clockmaker":[
+"Saatçi"
+],
+"craft/distillery":[
+"İçki Fabrikası",
+"İçki İmalathanesi"
+],
+"craft/dressmaker":[
+"Kadın Terzisi"
+],
+"craft/electrician":[
+"Elektrikçi"
+],
+"craft/electronics_repair":[
+"Elektronik Tamircisi"
+],
+"craft/gardener":[
+"Bahçıvan"
+],
+"craft/glaziery":[
+"Camcı"
+],
+"craft/handicraft":[
+"El Sanatı"
+],
+"craft/hvac":[
+"Isıtma - Soğutma"
+],
+"craft/insulator":[
+"Kaloriferci"
+],
+"craft/jeweler":[
+"Kuyumcu"
+],
+"craft/key_cutter":[
+"Çilingir"
+],
+"craft/locksmith":[
+"Anahtarcı"
+],
+"craft/metal_construction":[
+"Metal Yapı"
+],
+"craft/optician":[
+"Gözlükçü"
+],
+"craft/painter":[
+"Boyacı"
+],
+"craft/photographer":[
+"Fotoğrafçı"
+],
+"craft/photographic_laboratory":[
+"Fotoğraf Labovatuarı"
+],
+"craft/plasterer":[
+"Sıvacı",
+"Alçıcı"
+],
+"craft/plumber":[
+"Su Tesisatçısı",
+"Sıhhi Tesisatçı",
+"Tesisatçı"
+],
+"craft/pottery":[
+"Çömklekçi"
+],
+"craft/rigger":[
+"Kablocu"
+],
+"craft/roofer":[
+"Çatıcı",
+"Çatı Ustası",
+"Çatı Tamircisi"
+],
+"craft/saddler":[
+"Eyerci"
+],
+"craft/sailmaker":[
+"Yelkenci"
+],
+"craft/sawmill":[
+"Bıçkıevi",
+"Kereste Fabrikası"
+],
+"craft/scaffolder":[
+"İskeleci",
+"Yapı Kurma Ustası"
+],
+"craft/shoemaker":[
+"Ayakkabıcı"
+],
+"craft/stonemason":[
+"Duvarcı"
+],
+"craft/tailor":[
+"Terzi"
+],
+"craft/tiler":[
+"Kiremetçi"
+],
+"craft/tinsmith":[
+"Kalaycı",
+"Tenekeci"
+],
+"craft/upholsterer":[
+"Koltukçu",
+"Döşemeci"
+],
+"craft/watchmaker":[
+"Saatçi"
+],
+"craft/window_construction":[
+"Pencereci"
+],
+"craft/winery":[
+"Şarap Fabrikası"
+],
+"embankment":[
+"Toprak Set",
+"Toprak Dolgu"
+],
+"emergency/ambulance_station":[
+"Ambulans İstasyonu"
+],
+"emergency/defibrillator":[
+"Şok Cihazı"
+],
+"emergency/designated":[
+"Acil Erişim"
+],
+"emergency/destination":[
+"Acil Erişim İstikameti"
+],
+"emergency/fire_hydrant":[
+"Yangın Musluğu"
+],
+"emergency/no":[
+"Acil Erişim Yok"
+],
+"emergency/official":[
+"Yetkililere Özel Acil Erişim"
+],
+"emergency/phone":[
+"Acil Durum Telefonu"
+],
+"emergency/private":[
+"Kısıtlı Acil Erişim"
+],
+"emergency/yes":[
+"Acil Erişim"
+],
+"entrance":[
+"Giriş/Çıkış"
+],
+"footway/crossing":[
+"Geçit"
+],
+"footway/crosswalk":[
+"Yaya Geçidi"
+],
+"footway/sidewalk":[
+"Kaldırım"
+],
+"ford":[
+"Sığ Yer",
+"Sığ Geçit, Akarsu Üzerinde Geçit Yeri",
+"Geçit"
+],
+"golf/bunker":[
+"Kum Kapanı"
+],
+"golf/fairway":[
+"Serbest Geçiş"
+],
+"golf/green":[
+"Saha"
+],
+"golf/hole":[
+"Delik"
+],
+"golf/lateral_water_hazard_area":[
+"Yanda Su Alanı"
+],
+"golf/lateral_water_hazard_line":[
+"Yanda Su Hattı"
+],
+"golf/rough":[
+"Sert"
+],
+"golf/tee":[
+"Başlama Yeri"
+],
+"golf/water_hazard_area":[
+"Su Alanı"
+],
+"golf/water_hazard_line":[
+"Su Hattı"
+],
+"healthcare":[
+"Sağlık Merkezi"
+],
+"healthcare/alternative":[
+"Alternatif Tıp"
+],
+"healthcare/blood_donation":[
+"Kan Bağış Merkezi"
+],
+"highway":[
+"Yol"
+],
+"highway/bridleway":[
+"At Yürüyüş Yolu",
+"At Yolu"
+],
+"highway/bus_stop":[
+"Otobüs Durağı",
+"Durak"
+],
+"highway/corridor":[
+"Koridor",
+"Geçit"
+],
+"highway/crossing":[
+"Yaya Geçidi",
+"Geçit"
+],
+"highway/crosswalk":[
+"Yaya Geçidi",
+"Geçit"
+],
+"highway/cycleway":[
+"Bisiklet Yolu"
+],
+"highway/elevator":[
+"Asansör"
+],
+"highway/footway":[
+"Yürüyüş Yolu",
+"Yaya Yolu"
+],
+"highway/give_way":[
+"Yol Ver Levhası",
+"Yol Ver İşareti"
+],
+"highway/living_street":[
+"Sokak"
+],
+"highway/mini_roundabout":[
+"Küçük Dönel Kavşak"
+],
+"highway/motorway":[
+"Otoban",
+"Otoyol"
+],
+"highway/motorway_junction":[
+"Otoyol Çıkışı",
+"Otoyol Sapağı",
+"Araç Yolu Çıkışı"
+],
+"highway/motorway_link":[
+"Otoyola Bağlanan Yol",
+"Otoyol Bağlantı Yolu"
+],
+"highway/path":[
+"Yol",
+"Patika"
+],
+"highway/primary":[
+"Anayol"
+],
+"highway/primary_link":[
+"Anayola Bağlanan Yol",
+"Anayol Bağlantı Yolu"
+],
+"highway/raceway":[
+"Araç Yarış Yolu"
+],
+"highway/residential":[
+"Yerleşim Yeri Yolu",
+"Mahalle Arası Yol"
+],
+"highway/rest_area":[
+"Dinlenme Alanı"
+],
+"highway/road":[
+"Bilinmeyen Yol"
+],
+"highway/secondary":[
+"İlçeleri Birbirine Bağlayan Yol",
+"Yol"
+],
+"highway/secondary_link":[
+"İkincil Bağlantı Yolu"
+],
+"highway/service":[
+"Servis Yolu"
+],
+"highway/service/alley":[
+"Ara Sokak",
+"Dar Yol"
+],
+"highway/service/drive-through":[
+"Arabaya Servis Yolu"
+],
+"highway/service/driveway":[
+"Özel Yol"
+],
+"highway/service/emergency_access":[
+"Acil Erişim"
+],
+"highway/service/parking_aisle":[
+"Park Yeri",
+"Park Yolu",
+"Park Koridoru"
+],
+"highway/services":[
+"Servis Alanı",
+"Tamir Alanı"
+],
+"highway/speed_camera":[
+"Hız Kontrol Kamerası",
+"Radar Kamerası"
+],
+"highway/steps":[
+"Basamaklar",
+"Merdiven"
+],
+"highway/stop":[
+"Dur Levhası",
+"Dur İşareti"
+],
+"highway/street_lamp":[
+"Sokak Lambası",
+"Sokak Işığı"
+],
+"highway/tertiary":[
+"Köy Yolu"
+],
+"highway/tertiary_link":[
+"Köy Yoluna Bağlanan Yol",
+"Köy Bağlantı Yolu"
+],
+"highway/track":[
+"Bakımsız Yol",
+"Tarım Yolu",
+"Bakımsız Patika",
+"Bakımsız Araç Yolu"
+],
+"highway/traffic_mirror":[
+"Trafik Aynası"
+],
+"highway/traffic_signals":[
+"Trafik İşaretleri",
+"Trafik Levhaları"
+],
+"highway/trunk":[
+"Duble Yol"
+],
+"highway/trunk_link":[
+"Duble Yol Bağlantı Yolu",
+"Duble Yola Bağlanan Yol",
+"Duble Yola Bağlantı Yolu"
+],
+"highway/turning_circle":[
+"Dönüş Alanı"
+],
+"highway/turning_loop":[
+"Dönüş Adası",
+"Dönüş Yeri"
+],
+"highway/unclassified":[
+"Tali Yol",
+"Önemsiz Yol",
+"Bilinmeyen Yol"
+],
+"historic":[
+"Tarihi Yer"
+],
+"historic/archaeological_site":[
+"Arkeolojik Alan"
+],
+"historic/boundary_stone":[
+"Sınır Taşı",
+"Sınır İşareti"
+],
+"historic/castle":[
+"Kale"
+],
+"historic/memorial":[
+"Anıt"
+],
+"historic/monument":[
+"Abide"
+],
+"historic/ruins":[
+"Harabeler"
+],
+"historic/tomb":[
+"Kabir",
+"Türbe",
+"Mezar"
+],
+"historic/wayside_cross":[
+"Çarmıh"
+],
+"historic/wayside_shrine":[
+"Çarmıh Taşı"
+],
+"junction":[
+"Yol Ayrımı",
+"Kavşak"
+],
+"landuse":[
+"Toprak Kullanımı",
+"Arazi Kullanımı"
+],
+"landuse/allotments":[
+"Hobi Bahçesi"
+],
+"landuse/aquaculture":[
+"Su Kültürü"
+],
+"landuse/basin":[
+"Havza"
+],
+"landuse/cemetery":[
+"Mezarlık"
+],
+"landuse/churchyard":[
+"Kilise Bahçesi"
+],
+"landuse/commercial":[
+"Ticari Alan"
+],
+"landuse/construction":[
+"İnşaat Alanı"
+],
+"landuse/farm":[
+"Tarım Alanı"
+],
+"landuse/farmland":[
+"Tarım Alanı"
+],
+"landuse/farmyard":[
+"Çiftlik"
+],
+"landuse/forest":[
+"Orman"
+],
+"landuse/garages":[
+"Park Yeri",
+"Garaj "
+],
+"landuse/grass":[
+"Çimenlik",
+"Yeşil Alan"
+],
+"landuse/harbour":[
+"Liman"
+],
+"landuse/industrial":[
+"Sanayi Bölgesi",
+"Sanayi Alanı"
+],
+"landuse/landfill":[
+"Çöplük",
+"Çöp Sahası"
+],
+"landuse/meadow":[
+"Çayır",
+"Mera"
+],
+"landuse/orchard":[
+"Bağ",
+"Meyve Bahçesi",
+"Bahçe",
+"Bostan"
+],
+"landuse/plant_nursery":[
+"Üretim Çiftliği",
+"Bitki Üretim Çiftliği"
+],
+"landuse/quarry":[
+"Taşocağı",
+"Ocak"
+],
+"landuse/railway":[
+"Demiryolu Koridoru",
+"Demiryolu Alanı"
+],
+"landuse/recreation_ground":[
+"Antreman Sahası"
+],
+"landuse/residential":[
+"Yerleşim Alanı"
+],
+"landuse/retail":[
+"Esnaf Bölgesi",
+"Çarşı"
+],
+"landuse/vineyard":[
+"Üzüm Bağı",
+"Bağ"
+],
+"leisure":[
+"Dinlenme",
+"Eğlence",
+"Eğlenme"
+],
+"leisure/adult_gaming_centre":[
+"Yetişkin Oyun Merkezi"
+],
+"leisure/bird_hide":[
+"Vahşi Yaşam Gözetleme Kulesi"
+],
+"leisure/bowling_alley":[
+"Bowling Salonu"
+],
+"leisure/common":[
+"Ortak Kullanım Alanı",
+"Piknik Alanı"
+],
+"leisure/dance":[
+"Dans Salonu"
+],
+"leisure/dog_park":[
+"Köpek Parkı"
+],
+"leisure/firepit":[
+"Kamp Ateşi"
+],
+"leisure/fitness_centre":[
+"Spor Salonu"
+],
+"leisure/fitness_centre/yoga":[
+"Yoga Stüdyosu"
+],
+"leisure/fitness_station":[
+"Açıkhava Spor Yeri"
+],
+"leisure/garden":[
+"Bahçe",
+"Bostan",
+"Park"
+],
+"leisure/golf_course":[
+"Golf Sahası"
+],
+"leisure/horse_riding":[
+"At Binicilik Spor Kulübü",
+"At Binme Yeri",
+"Binicilik Spor Kulübü"
+],
+"leisure/ice_rink":[
+"Buz Pateni"
+],
+"leisure/marina":[
+"Yat Limanı",
+"Marina"
+],
+"leisure/miniature_golf":[
+"Mini Golf"
+],
+"leisure/nature_reserve":[
+"Doğal Koruma Alanı",
+"Tabiat Parkı"
+],
+"leisure/park":[
+"Park"
+],
+"leisure/picnic_table":[
+"Piknik Masası"
+],
+"leisure/pitch":[
+"Saha",
+"Spor Sahası"
+],
+"leisure/pitch/american_football":[
+"Amerikan Futbol Sahası"
+],
+"leisure/pitch/baseball":[
+"Beyzbol Sahası"
+],
+"leisure/pitch/basketball":[
+"Basketbol Sahası"
+],
+"leisure/pitch/beachvolleyball":[
+"Sahil Voleybolu Sahası"
+],
+"leisure/pitch/bowls":[
+"Açıkhava Top Oyun Sahası"
+],
+"leisure/pitch/cricket":[
+"Kriket Sahası"
+],
+"leisure/pitch/equestrian":[
+"At Binme Alanı",
+"Binicilik Alanı"
+],
+"leisure/pitch/rugby_league":[
+"Ragbi Lig Sahası"
+],
+"leisure/pitch/rugby_union":[
+"Ragbi Sahası"
+],
+"leisure/pitch/skateboard":[
+"Kaykay Parkı"
+],
+"leisure/pitch/soccer":[
+"Futbol Sahası"
+],
+"leisure/pitch/table_tennis":[
+"Masa Tennis",
+"Masa Tenisi"
+],
+"leisure/pitch/tennis":[
+"Tenis Sahası"
+],
+"leisure/pitch/volleyball":[
+"Voleybol Sahası"
+],
+"leisure/playground":[
+"Çocuk Parkı",
+"Oyun Alanı"
+],
+"leisure/resort":[
+"Tatil Yeri"
+],
+"leisure/running_track":[
+"Koşu Pisti",
+"Yarış Pisti (motor spor hariç)"
+],
+"leisure/slipway":[
+"Gemi Kızağı"
+],
+"leisure/sports_centre":[
+"Spor Merkezi"
+],
+"leisure/sports_centre/swimming":[
+"Yüzme Havuzu Merkezi"
+],
+"leisure/stadium":[
+"Stadyum"
+],
+"leisure/swimming_pool":[
+"Yüzme Havuzu"
+],
+"leisure/track":[
+"Yarış Pisti (motor spor hariç)",
+"Yarış Yolu"
+],
+"leisure/water_park":[
+"Su Parkı"
+],
+"line":[
+"Çizgi"
+],
+"man_made":[
+"İnsan Yapımı",
+"Yapay"
+],
+"man_made/adit":[
+"Tünel Girişi",
+"Maden Girişi"
+],
+"man_made/breakwater":[
+"Dalgakıran"
+],
+"man_made/bridge":[
+"Köprü"
+],
+"man_made/chimney":[
+"Baca"
+],
+"man_made/cutline":[
+"Yangın Durduma Hattı"
+],
+"man_made/embankment":[
+"Toprak Dolgu"
+],
+"man_made/flagpole":[
+"Bayrak Direği"
+],
+"man_made/gasometer":[
+"Gazölçer"
+],
+"man_made/groyne":[
+"Kıyı Koruyucu Direk Şeridi"
+],
+"man_made/lighthouse":[
+"Fener",
+"Deniz Feneri"
+],
+"man_made/mast":[
+"Baz İstasyonu",
+"Direk"
+],
+"man_made/observation":[
+"Gözetleme Kulesi"
+],
+"man_made/petroleum_well":[
+"Petrol Kuyusu"
+],
+"man_made/pier":[
+"Rıhtım"
+],
+"man_made/pipeline":[
+"Boru Hattı"
+],
+"man_made/pumping_station":[
+"Pompa İstasyonu"
+],
+"man_made/silo":[
+"Depo",
+"Silo"
+],
+"man_made/storage_tank":[
+"Depo"
+],
+"man_made/surveillance":[
+"Güvenlik Direği"
+],
+"man_made/surveillance_camera":[
+"Güvenlik Kamerası"
+],
+"man_made/survey_point":[
+"Ölçüm Kontrol Noktası"
+],
+"man_made/tower":[
+"Kule"
+],
+"man_made/wastewater_plant":[
+"Su Arıtma Tesisleri",
+"Atıksu Santrali"
+],
+"man_made/water_tower":[
+"Su Kulesi"
+],
+"man_made/water_well":[
+"Su Kuyusu"
+],
+"man_made/water_works":[
+"Su Dağıtım İstasyonu",
+"Su Şebekesi",
+"İçme Suyu Tesisleri"
+],
+"man_made/watermill":[
+"Su Değirmeni"
+],
+"man_made/windmill":[
+"Yel Değirmeni"
+],
+"man_made/works":[
+"Fabrika",
+"Sanayi"
+],
+"natural":[
+"Tabii",
+"Doğal"
+],
+"natural/bare_rock":[
+"Kayalık Bölge",
+"Kaya Dizisi",
+"Kayalar"
+],
+"natural/bay":[
+"Küçük Körfez",
+"Koy",
+"Körfez"
+],
+"natural/beach":[
+"Plaj",
+"Sahil"
+],
+"natural/cave_entrance":[
+"Mağara Girişi"
+],
+"natural/cliff":[
+"Uçurum"
+],
+"natural/coastline":[
+"Sahil Boyu",
+"Kıyı Şeridi"
+],
+"natural/fell":[
+"Kırlık",
+"Kır",
+"Otlak"
+],
+"natural/glacier":[
+"Buzul",
+"Dağ Buzulu"
+],
+"natural/grassland":[
+"Çayır",
+"Otlak"
+],
+"natural/heath":[
+"Fundalık",
+"Çalılık"
+],
+"natural/peak":[
+"Tepe",
+"Zirve",
+"Doruk"
+],
+"natural/ridge":[
+"Tepe",
+"Yükselti",
+"Sırt",
+"Bayır"
+],
+"natural/saddle":[
+"Boyun",
+"Yükseltiler Arasındaki Vadi"
+],
+"natural/sand":[
+"Kum"
+],
+"natural/scree":[
+"Kayşat",
+"Dağ Eteği"
+],
+"natural/scrub":[
+"Çalılık"
+],
+"natural/spring":[
+"Memba",
+"Kaynak"
+],
+"natural/tree":[
+"Ağaç"
+],
+"natural/tree_row":[
+"Ağaç Dizisi",
+"Ağaçlar"
+],
+"natural/volcano":[
+"Volkan",
+"Yanardağ"
+],
+"natural/water":[
+"Su",
+"Su Birikintisi"
+],
+"natural/water/lake":[
+"Göl"
+],
+"natural/water/pond":[
+"Gölet",
+"Su Birikintisi"
+],
+"natural/water/reservoir":[
+"Su Rezervi",
+"Su Deposu"
+],
+"natural/wetland":[
+"Sulak Arazi",
+"Sulak Alan"
+],
+"natural/wood":[
+"Ormanlık Alan",
+"Orman"
+],
+"noexit/yes":[
+"Çıkış Yok"
+],
+"office":[
+"Ofis",
+"Büro"
+],
+"office/administrative":[
+"İdari Ofis"
+],
+"office/company":[
+"Şirket"
+],
+"office/coworking":[
+"Ortak Çalışma Alanı"
+],
+"office/educational_institution":[
+"Eğitim Kurumu",
+"Okul"
+],
+"office/employment_agency":[
+"İş ve İşçi Bulma Kurumu"
+],
+"office/estate_agent":[
+"Gayrimenkul Ofisi",
+"Emlak Ofisi"
+],
+"office/financial":[
+"Finans Ofisi"
+],
+"office/government":[
+"Devlet Dairesi"
+],
+"office/government/register_office":[
+"Nüfus Dairesi"
+],
+"office/insurance":[
+"Sigorta Acentesi"
+],
+"office/lawyer":[
+"Hukuk Bürosu"
+],
+"office/lawyer/notary":[
+"Noter"
+],
+"office/ngo":[
+"Sivil Toplum Örgütü"
+],
+"office/physician":[
+"Hekim"
+],
+"office/political_party":[
+"Siyasi Parti"
+],
+"office/research":[
+"Araştırma Ofisi"
+],
+"office/telecommunication":[
+"Telekom Bürosu",
+"Haberleşme Bürosu",
+"Telekomünikasyon Bürosu"
+],
+"office/travel_agent":[
+"Seyahat Acentesi"
+],
+"piste":[
+"Kayak Pisti"
+],
+"place":[
+"Yer"
+],
+"place/city":[
+"Şehir"
+],
+"place/farm":[
+"Çiftlik"
+],
+"place/hamlet":[
+"Mezra",
+"Küçük Köy"
+],
+"place/island":[
+"Ada"
+],
+"place/isolated_dwelling":[
+"Mesken"
+],
+"place/locality":[
+"Mevkii",
+"Yer"
+],
+"place/neighbourhood":[
+"Mahalle"
+],
+"place/quarter":[
+"Mahalle",
+"Muhit",
+"Semt"
+],
+"place/square":[
+"Meydan"
+],
+"place/suburb":[
+"Mahalle",
+"Semt"
+],
+"place/town":[
+"İlçe",
+"Kasaba"
+],
+"place/village":[
+"Köy"
+],
+"point":[
+"Konum",
+"Nokta"
+],
+"power":[
+"Güç"
+],
+"power/generator":[
+"Üretici",
+"Jenerator"
+],
+"power/line":[
+"Yüksek Elektrik Hattı",
+"Yüksek Enerji Hattı"
+],
+"power/minor_line":[
+"Elektrik Hattı",
+"Enerji Hattı"
+],
+"power/plant":[
+"Elektrik İstasyonu"
+],
+"power/pole":[
+"Elektrik Direği"
+],
+"power/sub_station":[
+"Ara İstasyon"
+],
+"power/substation":[
+"Trafo"
+],
+"power/tower":[
+"Yüksek Gerilim Direği"
+],
+"power/transformer":[
+"Transformatör"
+],
+"public_transport/platform":[
+"Peron"
+],
+"public_transport/stop_position":[
+"Otobüs Durma Yeri"
+],
+"railway":[
+"Demiryolu"
+],
+"railway/abandoned":[
+"Terk Edilmiş Demiryolu"
+],
+"railway/crossing":[
+"Demiryolu Kavşağı (Patika ile Kesişim)"
+],
+"railway/disused":[
+"Kullanılmayan Demiryolu"
+],
+"railway/funicular":[
+"Füniküler",
+"Kablolu Tren"
+],
+"railway/halt":[
+"Demiryolu Durağı"
+],
+"railway/level_crossing":[
+"Hemzemin Geçit (Yol ile Kesişim)"
+],
+"railway/monorail":[
+"Tekray",
+"Monoray"
+],
+"railway/narrow_gauge":[
+"Dar Demiryolu Geçidi"
+],
+"railway/platform":[
+"Demiryolu Platformu"
+],
+"railway/rail":[
+"Demiryolu"
+],
+"railway/station":[
+"Tren İstasyonu"
+],
+"railway/subway":[
+"Metro"
+],
+"railway/subway_entrance":[
+"Metro Girişi"
+],
+"railway/tram":[
+"Tramvay"
+],
+"railway/tram_stop":[
+"Tramvay Durağı"
+],
+"relation":[
+"İlişki",
+"Bağlantı"
+],
+"roundabout":[
+"Dönel Kavşak"
+],
+"route/ferry":[
+"Feribot Güzergahı"
+],
+"shop":[
+"Mağaza",
+"Dükkan"
+],
+"shop/alcohol":[
+"İçki Dükkanı"
+],
+"shop/anime":[
+"Animasyon Mağazası"
+],
+"shop/antiques":[
+"Antika Dükkanı"
+],
+"shop/appliance":[
+"Beyaz Eşya Mağazası"
+],
+"shop/art":[
+"Sanat Mağazası"
+],
+"shop/baby_goods":[
+"Bebek Malzemeleri Mağazası"
+],
+"shop/bag":[
+"Çanta/Valiz Mağazası"
+],
+"shop/bakery":[
+"Fırın"
+],
+"shop/bathroom_furnishing":[
+"Züccaciye"
+],
+"shop/beauty":[
+"Güzellik Salonu"
+],
+"shop/beauty/nails":[
+"Manikür Pedikür Mağazası"
+],
+"shop/beauty/tanning":[
+"Bronzlaşma Mağazası"
+],
+"shop/bed":[
+"Yatak Mağazası"
+],
+"shop/beverages":[
+"İçecek Dükkanı"
+],
+"shop/bicycle":[
+"Bisiklet Mağazası"
+],
+"shop/bookmaker":[
+"Bahis Merkezi"
+],
+"shop/books":[
+"Kitapçı"
+],
+"shop/boutique":[
+"Butik Mağaza",
+"Butik"
+],
+"shop/butcher":[
+"Kasap"
+],
+"shop/candles":[
+"Mum Mağazası"
+],
+"shop/car":[
+"Oto Galeri"
+],
+"shop/car_parts":[
+"Yedek Parça Dükkanı"
+],
+"shop/car_repair":[
+"Tamirci"
+],
+"shop/carpet":[
+"Halı Mağazası"
+],
+"shop/charity":[
+"Yardım Mağazası"
+],
+"shop/cheese":[
+"Peynirci",
+"Şarküteri"
+],
+"shop/chemist":[
+"İlaç Dükkanı"
+],
+"shop/chocolate":[
+"Çikolata Dükkanı"
+],
+"shop/clothes":[
+"Giyim Mağazası"
+],
+"shop/coffee":[
+"Kahveci"
+],
+"shop/computer":[
+"Bilgisayar Mağazası"
+],
+"shop/confectionery":[
+"Şeker Mağazası"
+],
+"shop/convenience":[
+"Bakkal",
+"Market"
+],
+"shop/copyshop":[
+"Kırtasiye"
+],
+"shop/cosmetics":[
+"Kozmetik Mağazası"
+],
+"shop/craft":[
+"Nalbant"
+],
+"shop/curtain":[
+"Perde Mağazası"
+],
+"shop/dairy":[
+"Süt Mağazası"
+],
+"shop/deli":[
+"Şarküteri"
+],
+"shop/department_store":[
+"Mağaza"
+],
+"shop/doityourself":[
+"Malzeme Mağazası"
+],
+"shop/dry_cleaning":[
+"Kuru Temizleme Mağazası"
+],
+"shop/e-cigarette":[
+"Elektronik Sigara Mağazası"
+],
+"shop/electronics":[
+"Elektronik Mağazası"
+],
+"shop/erotic":[
+"Erotik Ürünler Mağazası"
+],
+"shop/fabric":[
+"Kumaş Mağazası"
+],
+"shop/farm":[
+"Manav"
+],
+"shop/fashion":[
+"Giyim Mağazası"
+],
+"shop/fishmonger":[
+"Balıkçı"
+],
+"shop/florist":[
+"Çiçekçi"
+],
+"shop/frame":[
+"Çerçeve Mağazası"
+],
+"shop/funeral_directors":[
+"Cenaze Koordinatörü"
+],
+"shop/furnace":[
+"Soba Mağazası"
+],
+"shop/furniture":[
+"Mobilya Mağazası"
+],
+"shop/garden_centre":[
+"Bahçe Düzenleme Mağazası"
+],
+"shop/gas":[
+"Tüpçü"
+],
+"shop/gift":[
+"Hediye Mağazası"
+],
+"shop/greengrocer":[
+"Manav"
+],
+"shop/hairdresser":[
+"Kuaför",
+"Berber"
+],
+"shop/hardware":[
+"Donanım Mağazası"
+],
+"shop/hearing_aids":[
+"İşitme Cihazı Mağazası "
+],
+"shop/herbalist":[
+"Şifalı Bitkiler Mağazası"
+],
+"shop/hifi":[
+"Hoparlör Mağazası"
+],
+"shop/houseware":[
+"Ev Eşyaları Mağazası"
+],
+"shop/interior_decoration":[
+"İç Dekorasyon Mağazası"
+],
+"shop/jewelry":[
+"Kuyumcu"
+],
+"shop/kiosk":[
+"Büfe"
+],
+"shop/kitchen":[
+"Mutfak Eşyaları Mağazası"
+],
+"shop/laundry":[
+"Çamaşır Yıkama"
+],
+"shop/leather":[
+"Deri Dükkanı"
+],
+"shop/locksmith":[
+"Anahtarcı"
+],
+"shop/lottery":[
+"Loto Bayi"
+],
+"shop/mall":[
+"Alışveriş Merkezi"
+],
+"shop/massage":[
+"Masaj Salonu"
+],
+"shop/medical_supply":[
+"Medikal Ürünler Mağazası"
+],
+"shop/mobile_phone":[
+"Cep Telefonu Mağazası"
+],
+"shop/money_lender":[
+"Tefeci"
+],
+"shop/motorcycle":[
+"Motosiklet Satış Mağazası"
+],
+"shop/music":[
+"Müzik Mağazası"
+],
+"shop/musical_instrument":[
+"Müzik Aletleri Mağazası"
+],
+"shop/newsagent":[
+"Gazete Bayii"
+],
+"shop/nutrition_supplements":[
+"Enerji Takviye Ürünleri Mağazası",
+"Gıda Takviye Ürünleri Mağazası"
+],
+"shop/optician":[
+"Gözlükçü",
+"Optik"
+],
+"shop/organic":[
+"Organik Ürün Mağazası"
+],
+"shop/outdoor":[
+"Kamp Malzemeleri Mağazası"
+],
+"shop/paint":[
+"Boyacı"
+],
+"shop/pastry":[
+"Pastane"
+],
+"shop/pawnbroker":[
+"İkinciel Alım Satım Mağazası"
+],
+"shop/perfumery":[
+"Parfüm Mağazası",
+"Parfümeri"
+],
+"shop/pet":[
+"Evcil Hayvan Mağazası",
+"Petşop"
+],
+"shop/photo":[
+"Fotoğrafçı"
+],
+"shop/pyrotechnics":[
+"Havai Fişek Mağazası"
+],
+"shop/radiotechnics":[
+"Radyocu"
+],
+"shop/religion":[
+"Dini Ürünler Mağazası"
+],
+"shop/scuba_diving":[
+"Tüple Dalış Mağazası"
+],
+"shop/seafood":[
+"Deniz Ürünleri Mağazası"
+],
+"shop/second_hand":[
+"Bit Pazarı"
+],
+"shop/shoes":[
+"Ayakkabı Mağazası",
+"Ayakkabıcı"
+],
+"shop/sports":[
+"Spor Ürünleri Mağazası"
+],
+"shop/stationery":[
+"Kırtasiye"
+],
+"shop/storage_rental":[
+"Depo Kiralama Mağazası"
+],
+"shop/supermarket":[
+"Süpermarket"
+],
+"shop/tailor":[
+"Terzi"
+],
+"shop/tattoo":[
+"Dövmeci"
+],
+"shop/tea":[
+"Çaycı"
+],
+"shop/ticket":[
+"Biletçi"
+],
+"shop/tobacco":[
+"Tütüncü"
+],
+"shop/toys":[
+"Oyuncak Mağazası"
+],
+"shop/travel_agency":[
+"Turizm Acentası"
+],
+"shop/tyres":[
+"Araç Lastiği Mağazası"
+],
+"shop/vacant":[
+"Boş Dükkan"
+],
+"shop/vacuum_cleaner":[
+"Elektrikli Süpürge Mağazası"
+],
+"shop/variety_store":[
+"Herşey 1 TL Mağazası"
+],
+"shop/video":[
+"Film - Video Mağazası"
+],
+"shop/video_games":[
+"Bilgisayar Oyun Mağazası"
+],
+"shop/watches":[
+"Saatçi"
+],
+"shop/water_sports":[
+"Su Sporları Mağazası"
+],
+"shop/weapons":[
+"Silah Mağazası"
+],
+"shop/window_blind":[
+"Jaluzi Mağazası",
+"Perde Mağazası"
+],
+"shop/wine":[
+"Şarap Mağazası"
+],
+"tourism":[
+"Turizm"
+],
+"tourism/alpine_hut":[
+"Dağ Evi",
+"Dağ Kulübesi",
+"Baraka"
+],
+"tourism/apartment":[
+"Misafir Apartmanı"
+],
+"tourism/aquarium":[
+"Akvaryum"
+],
+"tourism/artwork":[
+"Sanat Eseri"
+],
+"tourism/attraction":[
+"Turistik Yer"
+],
+"tourism/camp_site":[
+"Kamp Yeri"
+],
+"tourism/caravan_site":[
+"Karavan Parkı"
+],
+"tourism/gallery":[
+"Sanat Galerisi"
+],
+"tourism/guest_house":[
+"Misafir Evi",
+"Konuk Evi"
+],
+"tourism/hostel":[
+"Pansiyon",
+"Hostel"
+],
+"tourism/hotel":[
+"Otel"
+],
+"tourism/information":[
+"Bilgi"
+],
+"tourism/information/board":[
+"Bilgi Masası"
+],
+"tourism/information/guidepost":[
+"Bilgi Direği"
+],
+"tourism/information/map":[
+"Harita"
+],
+"tourism/information/office":[
+"Turist Bilgi Ofisi"
+],
+"tourism/motel":[
+"Motel"
+],
+"tourism/museum":[
+"Müze"
+],
+"tourism/picnic_site":[
+"Piknik Alanı"
+],
+"tourism/theme_park":[
+"Eğlence Parkı"
+],
+"tourism/viewpoint":[
+"Görüş Noktası",
+"Bakış Noktası"
+],
+"tourism/zoo":[
+"Hayvanat Bahçesi"
+],
+"traffic_calming":[
+"Trafiği Yavaşlatma"
+],
+"traffic_calming/bump":[
+"Kasis",
+"Hız Tümseği"
+],
+"traffic_calming/chicane":[
+"Yapay Viraj"
+],
+"traffic_calming/choker":[
+"Yapay Darboğaz"
+],
+"traffic_calming/cushion":[
+"Hız Tamponu"
+],
+"traffic_calming/dip":[
+"Hız Çukuru"
+],
+"traffic_calming/hump":[
+"Hız Tümseği"
+],
+"traffic_calming/island":[
+"Refüj"
+],
+"traffic_calming/rumble_strip":[
+"Hız Şeridi"
+],
+"type/boundary":[
+"Sınır"
+],
+"type/boundary/administrative":[
+"İdari Sınır"
+],
+"type/multipolygon":[
+"Birden Fazla Çokgen"
+],
+"type/restriction":[
+"Kısıtlama"
+],
+"type/restriction/no_left_turn":[
+"Sola Dönüş Yasak"
+],
+"type/restriction/no_right_turn":[
+"Sağa Dönüş Yasak"
+],
+"type/restriction/no_straight_on":[
+"Devam Etmek Yasak"
+],
+"type/restriction/no_u_turn":[
+"U-dönüşü Yasak"
+],
+"type/restriction/only_left_turn":[
+"Sola Dönüş Zorunlu"
+],
+"type/restriction/only_right_turn":[
+"Sağa Dönüş Zorunlu"
+],
+"type/restriction/only_straight_on":[
+"Dönüş Yasak"
+],
+"type/route":[
+"Güzergah",
+"Rota"
+],
+"type/route/bicycle":[
+"Bisiklet Rotası",
+"Bisiklet Güzergahı"
+],
+"type/route/bus":[
+"Otobüs Güzergahı",
+"Otobüs Rotası"
+],
+"type/route/detour":[
+"Tali Yol Güzergahı",
+"Tali Yol Rotası"
+],
+"type/route/ferry":[
+"Feribot Güzergahı",
+"Feribot Rotası"
+],
+"type/route/foot":[
+"Yürüyüş Rotası",
+"Yürüyüş Güzergahı"
+],
+"type/route/hiking":[
+"Yürüyüş Rotası",
+"Yürüyüş Güzergahı"
+],
+"type/route/horse":[
+"At Binme Rotası",
+"At Binme Güzergahı"
+],
+"type/route/pipeline":[
+"Boru Hattı Güzergahı",
+"Boru Hattı Rotası"
+],
+"type/route/power":[
+"Elektrik Hattı Güzergahı",
+"Elektrik Hattı Rotası"
+],
+"type/route/road":[
+"Yol Güzergahı"
+],
+"type/route/train":[
+"Tren Yolu Güzergahı",
+"Demiryolu Güzergahı",
+"Demiryolu Rotası"
+],
+"type/route/tram":[
+"Tramvay Güzergahı",
+"Tramvay Rotası"
+],
+"type/route_master":[
+"Güzergah",
+"Güzergah Ana Kaydı",
+"Rota"
+],
+"type/site":[
+"Tesis",
+"Mekan"
+],
+"type/waterway":[
+"Akarsu",
+"Su Yolu"
+],
+"vertex":[
+"Diğer",
+"Nokta"
+],
+"waterway":[
+"Su Yolu"
+],
+"waterway/boatyard":[
+"Bot İskelesi",
+"Kayık İskelesi"
+],
+"waterway/canal":[
+"Suyolu",
+"Kanal"
+],
+"waterway/dam":[
+"Baraj"
+],
+"waterway/ditch":[
+"Suyolu",
+"Kanal"
+],
+"waterway/dock":[
+"Rıhtım"
+],
+"waterway/drain":[
+"Pis Su Kanalı",
+"Atık Su Kanalı"
+],
+"waterway/fuel":[
+"Deniz Yakıt İstasyonu"
+],
+"waterway/river":[
+"Nehir",
+"Akarsu",
+"Irmak"
+],
+"waterway/riverbank":[
+"Akarsu Kenarı",
+"Irmak Kenarı",
+"Nehir Kenarı"
+],
+"waterway/sanitary_dump_station":[
+"Deniz Tuvalet İmha İstasyonu"
+],
+"waterway/stream":[
+"Dere"
+],
+"waterway/stream_intermittent":[
+"Aralıklı Akan Su Akıntısı",
+"Sadece Belli Dönemlerde Akan Su Akıntısı"
+],
+"waterway/water_point":[
+"Deniz İçme Suyu İstasyonu"
+],
+"waterway/waterfall":[
+"Şelale",
+"Çağlayan"
+],
+"waterway/weir":[
+"Su Bendi",
+"Su Seddi"
+]
+}

@@ -18,12 +18,14 @@ import de.blau.android.App;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.Synonyms;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class SearchIndexUtils {
 	
 	
-	private static Pattern deAccentPattern = null; // cached regex
+	private static final String DEBUG_TAG = "SearchIndex";
+    private static Pattern deAccentPattern = null; // cached regex
 	
 	/**
 	 * normalize a string for the search index, currently only works for latin scripts
@@ -70,20 +72,25 @@ public class SearchIndexUtils {
 	}
 	
 	/**
-	 * Slightly fuzzy search in the preset index for presets and return them, translated items first
-	 * @param ctx
-	 * @param term search term
-	 * @param type OSM object "type"
-	 * @param maxDistance maximum edit distance to return
-	 * @param limit max number of results
-	 * @return
+	 * Slightly fuzzy search in the synonyms and preset index for presets and return them, translated items first from the preset index 
+	 * 
+	 * @param ctx          Android Context
+	 * @param term         search term
+	 * @param type         OSM object "type"
+	 * @param maxDistance  maximum edit distance to return
+	 * @param limit        max number of results
+	 * @return a List containing up to limit PresetItems found
 	 */
 	public static List<PresetItem> searchInPresets(Context ctx, String term, ElementType type, int maxDistance, int limit){
-		ArrayList<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<MultiHashMap<String, PresetItem>>();
+        term = SearchIndexUtils.normalize(term);
+	    // synonyms first
+	    Synonyms synonyms = App.getSynonyms(ctx);	    
+	    List<IndexSearchResult> rawResult = synonyms.search(ctx, term, type, maxDistance);
+	    	    
+		List<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<>();
 		presetSeachIndices.add(App.getTranslatedPresetSearchIndex(ctx));	
 		presetSeachIndices.add(App.getPresetSearchIndex(ctx));	
-		ArrayList<IndexSearchResult> rawResult = new ArrayList<IndexSearchResult>();
-		term = SearchIndexUtils.normalize(term);
+
 		for (MultiHashMap<String, PresetItem> index:presetSeachIndices) {
 			for (String s:index.getKeys()) {
 				int distance = s.indexOf(term);
@@ -96,9 +103,7 @@ public class SearchIndexUtils {
 					Set<PresetItem> presetItems = index.get(s);
 					for (PresetItem pi:presetItems) {
 						if (type == null || pi.appliesTo(type)) {
-							IndexSearchResult isr = new IndexSearchResult();
-							isr.count = distance * presetItems.size();
-							isr.item = pi;
+							IndexSearchResult isr = new IndexSearchResult(distance * presetItems.size(), pi);
 							rawResult.add(isr);
 						}
 					}
@@ -108,7 +113,7 @@ public class SearchIndexUtils {
 		Collections.sort(rawResult);
 		ArrayList<PresetItem>result = new ArrayList<PresetItem>();
 		for (IndexSearchResult i:rawResult) {
-			Log.d("SearchIndex","found " + i.item.getName());
+			Log.d(DEBUG_TAG,"found " + i.item.getName());
 			if (!result.contains(i.item)) {
 				result.add(i.item);
 			}

@@ -1,0 +1,4680 @@
+{
+"aerialway":[
+"funitel",
+"Aerialway",
+"ski lift",
+"funifor"
+],
+"aeroway":[
+"Aeroway"
+],
+"amenity":[
+"Amenity"
+],
+"highway":[
+"Highway"
+],
+"place":[
+"Place"
+],
+"power":[
+"Power"
+],
+"railway":[
+"Railway"
+],
+"roundabout":[
+"Roundabout"
+],
+"waterway":[
+"Waterway"
+],
+"address":[
+"Address"
+],
+"advertising/billboard":[
+"Billboard"
+],
+"aerialway/station":[
+"Aerialway Station"
+],
+"aerialway/cable_car":[
+"tramway",
+"Cable Car",
+"ropeway"
+],
+"aerialway/chair_lift":[
+"Chair Lift"
+],
+"aerialway/drag_lift":[
+"Drag Lift"
+],
+"aerialway/gondola":[
+"Gondola"
+],
+"aerialway/goods":[
+"Goods Aerialway"
+],
+"aerialway/magic_carpet":[
+"Magic Carpet Lift"
+],
+"aerialway/mixed_lift":[
+"Mixed Lift"
+],
+"aerialway/platter":[
+"Platter Lift",
+"poma lift",
+"button lift"
+],
+"aerialway/pylon":[
+"Aerialway Pylon"
+],
+"aerialway/rope_tow":[
+"bugel lift",
+"handle tow",
+"Rope Tow Lift"
+],
+"aerialway/t-bar":[
+"tbar",
+"T-bar Lift"
+],
+"aeroway/aerodrome":[
+"aerodrome",
+"airplane",
+"Airport",
+"airport"
+],
+"aeroway/apron":[
+"ramp",
+"Apron"
+],
+"aeroway/gate":[
+"Airport Gate"
+],
+"aeroway/hangar":[
+"Hangar"
+],
+"aeroway/helipad":[
+"helicopter",
+"Helipad",
+"heliport",
+"helipad"
+],
+"aeroway/runway":[
+"Runway",
+"landing strip"
+],
+"aeroway/taxiway":[
+"Taxiway"
+],
+"aeroway/terminal":[
+"Airport Terminal",
+"aerodrome",
+"airport"
+],
+"amenity/bus_station":[
+"Bus Station / Terminal"
+],
+"amenity/coworking_space":[
+"Coworking Space"
+],
+"amenity/ferry_terminal":[
+"Ferry Station / Terminal"
+],
+"amenity/nursing_home":[
+"Nursing Home"
+],
+"amenity/register_office":[
+"Register Office"
+],
+"amenity/scrapyard":[
+"Scrap Yard"
+],
+"amenity/swimming_pool":[
+"Swimming Pool"
+],
+"amenity/animal_boarding":[
+"horse",
+"Animal Boarding Facility",
+"pet hotel",
+"kitten",
+"puppy",
+"cat",
+"pet boarding",
+"reptile",
+"dog",
+"boarding",
+"pet care"
+],
+"amenity/animal_breeding":[
+"Animal Breeding Facility",
+"cow",
+"husbandry",
+"reptile",
+"horse",
+"kitten",
+"puppy",
+"pet breeding",
+"cat",
+"livestock",
+"bull",
+"dog",
+"breeding"
+],
+"amenity/animal_shelter":[
+"raptor",
+"pet rescue",
+"reptile",
+"pet care",
+"spca",
+"aspca",
+"horse",
+"Animal Shelter",
+"adoption",
+"kitten",
+"puppy",
+"cat",
+"dog",
+"rescue"
+],
+"amenity/arts_centre":[
+"Arts Center"
+],
+"amenity/atm":[
+"money",
+"machine",
+"ATM",
+"cash"
+],
+"amenity/bank":[
+"trust",
+"Bank",
+"credit union",
+"investment",
+"check",
+"repository",
+"fund",
+"treasury",
+"reserve",
+"safe",
+"deposit",
+"savings",
+"stock",
+"vault"
+],
+"amenity/bar":[
+"Bar",
+"booze",
+"bier",
+"dive",
+"beer"
+],
+"amenity/bbq":[
+"bbq",
+"Barbecue/Grill",
+"grill"
+],
+"amenity/bench":[
+"seat",
+"Bench"
+],
+"amenity/bicycle_parking":[
+"Bicycle Parking",
+"bike"
+],
+"amenity/bicycle_rental":[
+"Bicycle Rental",
+"bike"
+],
+"amenity/bicycle_repair_station":[
+"repair",
+"chain",
+"Bicycle Repair Tool Stand",
+"pump",
+"bike"
+],
+"amenity/biergarten":[
+"booze",
+"Beer Garden",
+"bier",
+"beer"
+],
+"amenity/boat_rental":[
+"Boat Rental"
+],
+"amenity/bureau_de_change":[
+"money changer",
+"Currency Exchange",
+"bureau de change"
+],
+"amenity/cafe":[
+"tea",
+"Cafe",
+"coffee",
+"bistro"
+],
+"amenity/car_rental":[
+"Car Rental"
+],
+"amenity/car_sharing":[
+"Car Sharing"
+],
+"amenity/car_wash":[
+"Car Wash"
+],
+"amenity/casino":[
+"Casino",
+"roulette",
+"poker",
+"gambling",
+"craps",
+"blackjack"
+],
+"amenity/charging_station":[
+"EV",
+"Supercharger",
+"Electric Vehicle",
+"Charging Station"
+],
+"amenity/childcare":[
+"daycare",
+"Nursery/Childcare",
+"orphanage",
+"playgroup"
+],
+"amenity/cinema":[
+"movie",
+"theater",
+"show",
+"screen",
+"film",
+"flick",
+"drive-in",
+"picture",
+"Cinema"
+],
+"amenity/clinic":[
+"Clinic",
+"medical",
+"urgentcare"
+],
+"amenity/clinic/abortion":[
+"Abortion Clinic"
+],
+"amenity/clinic/fertility":[
+"Fertility Clinic",
+"egg",
+"fertility",
+"sperm",
+"reproductive",
+"ovulation"
+],
+"amenity/clock":[
+"Clock"
+],
+"amenity/college":[
+"College Grounds",
+"university"
+],
+"amenity/community_centre":[
+"Community Center",
+"hall",
+"event"
+],
+"amenity/compressed_air":[
+"Compressed Air"
+],
+"amenity/courthouse":[
+"Courthouse"
+],
+"amenity/crematorium":[
+"funeral",
+"Crematorium",
+"cemetery"
+],
+"amenity/dentist":[
+"Dentist",
+"teeth",
+"tooth"
+],
+"amenity/doctors":[
+"medic*",
+"physician",
+"Doctor"
+],
+"amenity/dojo":[
+"Dojo / Martial Arts Academy",
+"martial arts",
+"dojang"
+],
+"amenity/drinking_water":[
+"fountain",
+"potable",
+"Drinking Water"
+],
+"amenity/driving_school":[
+"Driving School"
+],
+"amenity/embassy":[
+"Embassy"
+],
+"amenity/fast_food":[
+"restaurant",
+"Fast Food",
+"takeaway"
+],
+"amenity/fire_station":[
+"Fire Station"
+],
+"amenity/food_court":[
+"fast food",
+"restaurant",
+"Food Court",
+"food"
+],
+"amenity/fountain":[
+"Fountain"
+],
+"amenity/fuel":[
+"diesel",
+"petrol",
+"lng",
+"Gas Station",
+"fuel",
+"propane",
+"gasoline",
+"cng",
+"biodiesel"
+],
+"amenity/grave_yard":[
+"Graveyard"
+],
+"amenity/grit_bin":[
+"sand",
+"salt",
+"Grit Bin"
+],
+"amenity/hospital":[
+"doctor",
+"infirmary",
+"institution",
+"sanatorium",
+"health",
+"clinic",
+"emergency room",
+"sick",
+"ward",
+"sanitarium",
+"surgery",
+"Hospital Grounds"
+],
+"amenity/hunting_stand":[
+"gun",
+"shoot*",
+"game",
+"watch",
+"lookout",
+"Hunting Stand",
+"wild",
+"rifle"
+],
+"amenity/ice_cream":[
+"yogurt",
+"sorbet",
+"sherbet",
+"frozen",
+"gelato",
+"Ice Cream Shop"
+],
+"amenity/internet_cafe":[
+"cybercafe",
+"cafe",
+"coffee",
+"taxiphone",
+"teleboutique",
+"lanhouse",
+"net",
+"Internet Cafe"
+],
+"amenity/kindergarten":[
+"kindergarden",
+"pre-school",
+"Preschool/Kindergarten Grounds"
+],
+"amenity/library":[
+"book",
+"Library"
+],
+"amenity/marketplace":[
+"Marketplace"
+],
+"amenity/motorcycle_parking":[
+"Motorcycle Parking"
+],
+"amenity/music_school":[
+"school of music",
+"Music School"
+],
+"amenity/nightclub":[
+"dance club",
+"dancing",
+"disco*",
+"night club",
+"Nightclub"
+],
+"amenity/parking_entrance":[
+"Parking Garage Entrance/Exit"
+],
+"amenity/parking_space":[
+"Parking Space"
+],
+"amenity/parking":[
+"Car Parking"
+],
+"amenity/pavilion":[
+"Pavilion"
+],
+"amenity/pharmacy":[
+"prescription",
+"Pharmacy",
+"drug*",
+"med*"
+],
+"amenity/place_of_worship":[
+"chantry",
+"mosque",
+"sanctuary",
+"tabernacle",
+"church",
+"oratory",
+"synagogue",
+"house of God",
+"Place of Worship",
+"chapel",
+"shrine",
+"abbey",
+"fold",
+"mission",
+"chancel",
+"house of prayer",
+"house of worship",
+"parish",
+"basilica",
+"minster",
+"temple",
+"sacellum",
+"bethel",
+"cathedral"
+],
+"amenity/place_of_worship/buddhist":[
+"pagoda",
+"monastery",
+"zendo",
+"Buddhist Temple",
+"temple",
+"stupa",
+"vihara",
+"dojo"
+],
+"amenity/place_of_worship/christian":[
+"chantry",
+"sanctuary",
+"Church",
+"tabernacle",
+"oratory",
+"house of God",
+"chapel",
+"shrine",
+"abbey",
+"fold",
+"mission",
+"chancel",
+"house of prayer",
+"house of worship",
+"christian",
+"parish",
+"basilica",
+"minster",
+"temple",
+"sacellum",
+"bethel",
+"cathedral"
+],
+"amenity/place_of_worship/hindu":[
+"garbhargriha",
+"mandu",
+"Hindu Temple",
+"puja",
+"temple",
+"shrine"
+],
+"amenity/place_of_worship/jewish":[
+"Synagogue",
+"jewish"
+],
+"amenity/place_of_worship/muslim":[
+"muslim",
+"Mosque"
+],
+"amenity/place_of_worship/shinto":[
+"kami",
+"torii",
+"Shinto Shrine"
+],
+"amenity/place_of_worship/sikh":[
+"Sikh Temple",
+"gurudwara",
+"temple"
+],
+"amenity/place_of_worship/taoist":[
+"monastery",
+"daoist",
+"Taoist Temple",
+"temple"
+],
+"amenity/planetarium":[
+"observatory",
+"museum",
+"astronomy",
+"Planetarium"
+],
+"amenity/police":[
+"patrol",
+"badge",
+"detective",
+"law",
+"fed",
+"cop",
+"constabulary",
+"officer",
+"enforcement",
+"constable",
+"Police"
+],
+"amenity/post_box":[
+"post",
+"Mailbox",
+"letter"
+],
+"amenity/post_office":[
+"mail",
+"Post Office",
+"letter"
+],
+"amenity/prison":[
+"jail",
+"Prison Grounds",
+"cell"
+],
+"amenity/pub":[
+"alcohol",
+"booze",
+"bier",
+"dive",
+"Pub",
+"drink",
+"beer"
+],
+"amenity/public_bath":[
+"Public Bath",
+"onsen",
+"foot bath",
+"hot springs"
+],
+"amenity/public_bookcase":[
+"library",
+"bookcrossing",
+"Public Bookcase"
+],
+"amenity/ranger_station":[
+"visitor center",
+"permit center",
+"backcountry office",
+"warden office",
+"permit centre",
+"warden center",
+"visitor centre",
+"Ranger Station"
+],
+"amenity/recycling_centre":[
+"can",
+"glass",
+"scrap",
+"garbage",
+"bottle",
+"dump",
+"rubbish",
+"trash",
+"Recycling Center"
+],
+"amenity/recycling":[
+"can",
+"glass",
+"scrap",
+"bin",
+"Recycling Container",
+"garbage",
+"bottle",
+"rubbish",
+"trash"
+],
+"amenity/restaurant":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"Restaurant",
+"bar",
+"cafe",
+"dine",
+"coffee",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/sanitary_dump_station":[
+"Camper",
+"RV Toilet Disposal",
+"CTDP",
+"Chemical Toilet",
+"Motor Home",
+"Elsan",
+"Sanitary",
+"Dump Station",
+"CDP"
+],
+"amenity/school":[
+"elementary school",
+"high school",
+"middle school",
+"School Grounds",
+"academy"
+],
+"amenity/shelter":[
+"gazebo",
+"lean-to",
+"Shelter",
+"picnic"
+],
+"amenity/shower":[
+"rain closet",
+"Shower"
+],
+"amenity/social_facility":[
+"Social Facility"
+],
+"amenity/social_facility/food_bank":[
+"Food Bank"
+],
+"amenity/social_facility/group_home":[
+"senior",
+"care home",
+"living",
+"old",
+"assisted living",
+"Elderly Group Home"
+],
+"amenity/social_facility/homeless_shelter":[
+"displaced",
+"Homeless Shelter",
+"houseless",
+"unhoused"
+],
+"amenity/social_facility/nursing_home":[
+"senior",
+"living",
+"elderly",
+"old",
+"assisted living",
+"nursing",
+"Nursing Home"
+],
+"amenity/studio":[
+"television",
+"recording",
+"Studio",
+"radio"
+],
+"amenity/taxi":[
+"Taxi Stand",
+"cab"
+],
+"amenity/telephone":[
+"Telephone",
+"phone"
+],
+"amenity/theatre":[
+"theatre",
+"play",
+"Theater",
+"performance",
+"musical"
+],
+"amenity/toilets":[
+"head",
+"water closet",
+"latrine",
+"privy",
+"lavatory",
+"outhouse",
+"Toilets",
+"W.C.",
+"WC",
+"bathroom",
+"restroom"
+],
+"amenity/townhall":[
+"Town Hall",
+"government",
+"city",
+"courthouse",
+"municipal",
+"village"
+],
+"amenity/university":[
+"college",
+"University Grounds"
+],
+"amenity/vending_machine":[
+"Vending Machine"
+],
+"amenity/vending_machine/news_papers":[
+"newspaper",
+"Newspaper Vending Machine"
+],
+"amenity/vending_machine/cigarettes":[
+"cigarette",
+"Cigarette Vending Machine"
+],
+"amenity/vending_machine/condoms":[
+"Condom Vending Machine",
+"condom"
+],
+"amenity/vending_machine/drinks":[
+"pop",
+"beverage",
+"Drink Vending Machine",
+"soda",
+"juice",
+"drink"
+],
+"amenity/vending_machine/excrement_bags":[
+"excrement bags",
+"poop",
+"animal",
+"dog",
+"Excrement Bag Vending Machine"
+],
+"amenity/vending_machine/feminine_hygiene":[
+"pad",
+"tampon",
+"woman",
+"personal care",
+"Feminine Hygiene Vending Machine",
+"menstrual hygiene products",
+"condom",
+"women"
+],
+"amenity/vending_machine/newspapers":[
+"newspaper",
+"Newspaper Vending Machine"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"parcel",
+"mail",
+"pickup",
+"Parcel Pickup/Dropoff Vending Machine"
+],
+"amenity/vending_machine/parking_tickets":[
+"parking",
+"ticket",
+"Parking Ticket Vending Machine"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"bus",
+"ticket",
+"ferry",
+"rail",
+"Transit Ticket Vending Machine",
+"train",
+"transportation"
+],
+"amenity/vending_machine/sweets":[
+"Snack Vending Machine",
+"cracker",
+"chip",
+"cookie",
+"candy",
+"pretzel",
+"gum"
+],
+"amenity/veterinary":[
+"pet doctor",
+"veterinarian",
+"animal hospital",
+"Veterinary",
+"pet clinic"
+],
+"amenity/waste_basket":[
+"litter",
+"bin",
+"garbage",
+"rubbish",
+"Waste Basket",
+"trash"
+],
+"amenity/waste_disposal":[
+"litter",
+"Garbage Dumpster",
+"garbage",
+"rubbish",
+"trash"
+],
+"amenity/waste_transfer_station":[
+"scrap",
+"garbage",
+"recycling",
+"dump",
+"rubbish",
+"Waste Transfer Station",
+"trash"
+],
+"amenity/waste/dog_excrement":[
+"poo",
+"litter",
+"Dog Excrement Bin",
+"bin",
+"garbage",
+"rubbish",
+"dog",
+"trash"
+],
+"amenity/water_point":[
+"RV Drinking Water"
+],
+"amenity/watering_place":[
+"Animal Watering Place"
+],
+"area":[
+"Area"
+],
+"area/highway":[
+"Road Surface"
+],
+"attraction/amusement_ride":[
+"theme park",
+"carnival ride",
+"Amusement Ride"
+],
+"attraction/animal":[
+"theme park",
+"Animal",
+"animal park",
+"bear",
+"zoo",
+"tiger",
+"lion"
+],
+"attraction/big_wheel":[
+"theme park",
+"amusement ride",
+"ferris wheel",
+"Big Wheel"
+],
+"attraction/bumper_car":[
+"dodgem cars",
+"theme park",
+"Bumper Car",
+"autoscooter"
+],
+"attraction/bungee_jumping":[
+"Bungee Jumping",
+"theme park",
+"jumping platform",
+"bungy jumping"
+],
+"attraction/carousel":[
+"theme park",
+"horseabout",
+"merry-go-round",
+"Carousel",
+"flying horses",
+"roundabout",
+"galloper",
+"jumper"
+],
+"attraction/dark_ride":[
+"theme park",
+"ghost train",
+"Dark Ride"
+],
+"attraction/drop_tower":[
+"theme park",
+"amusement ride",
+"big drop",
+"Drop Tower",
+"gondola",
+"tower"
+],
+"attraction/pirate_ship":[
+"theme park",
+"amusement ride",
+"Pirate Ship",
+"carnival ride"
+],
+"attraction/river_rafting":[
+"River Rafting",
+"theme park",
+"river rafting ride",
+"aquatic park",
+"rafting simulator",
+"river rapids ride",
+"water park"
+],
+"attraction/roller_coaster":[
+"theme park",
+"amusement ride",
+"Roller Coaster"
+],
+"attraction/train":[
+"Tourist Train",
+"park train",
+"theme park",
+"dotto train",
+"Tschu-Tschu train",
+"road train",
+"rackless train"
+],
+"attraction/water_slide":[
+"theme park",
+"Water Slide",
+"hydroslides",
+"aquatic park",
+"flumes",
+"water chutes",
+"water park"
+],
+"barrier":[
+"Barrier"
+],
+"barrier/entrance":[
+"Entrance"
+],
+"barrier/block":[
+"Block"
+],
+"barrier/bollard":[
+"Bollard"
+],
+"barrier/border_control":[
+"Border Control"
+],
+"barrier/cattle_grid":[
+"Cattle Grid"
+],
+"barrier/city_wall":[
+"City Wall"
+],
+"barrier/cycle_barrier":[
+"Cycle Barrier"
+],
+"barrier/ditch":[
+"Trench"
+],
+"barrier/fence":[
+"Fence"
+],
+"barrier/gate":[
+"Gate"
+],
+"barrier/hedge":[
+"Hedge"
+],
+"barrier/kissing_gate":[
+"Kissing Gate"
+],
+"barrier/lift_gate":[
+"Lift Gate"
+],
+"barrier/retaining_wall":[
+"Retaining Wall"
+],
+"barrier/stile":[
+"Stile"
+],
+"barrier/toll_booth":[
+"Toll Booth"
+],
+"barrier/wall":[
+"Wall"
+],
+"boundary/administrative":[
+"Administrative Boundary"
+],
+"building":[
+"Building"
+],
+"building/bunker":[
+"Bunker"
+],
+"building/entrance":[
+"Entrance/Exit"
+],
+"building/train_station":[
+"Train Station"
+],
+"building/apartments":[
+"Apartments"
+],
+"building/barn":[
+"Barn"
+],
+"building/cabin":[
+"Cabin"
+],
+"building/cathedral":[
+"Cathedral Building"
+],
+"building/chapel":[
+"Chapel Building"
+],
+"building/church":[
+"Church Building"
+],
+"building/college":[
+"College Building",
+"university"
+],
+"building/commercial":[
+"Commercial Building"
+],
+"building/construction":[
+"Building Under Construction"
+],
+"building/detached":[
+"single",
+"Detached House",
+"dwelling",
+"family",
+"residence",
+"home"
+],
+"building/dormitory":[
+"Dormitory"
+],
+"building/garage":[
+"Garage"
+],
+"building/garages":[
+"Garages"
+],
+"building/greenhouse":[
+"Greenhouse"
+],
+"building/hospital":[
+"Hospital Building"
+],
+"building/hotel":[
+"Hotel Building"
+],
+"building/house":[
+"dwelling",
+"House",
+"family",
+"residence",
+"home"
+],
+"building/hut":[
+"Hut"
+],
+"building/industrial":[
+"Industrial Building"
+],
+"building/kindergarten":[
+"kindergarden",
+"pre-school",
+"Preschool/Kindergarten Building"
+],
+"building/mosque":[
+"Mosque Building"
+],
+"building/public":[
+"Public Building"
+],
+"building/residential":[
+"Residential Building"
+],
+"building/retail":[
+"Retail Building"
+],
+"building/roof":[
+"Roof"
+],
+"building/school":[
+"elementary school",
+"high school",
+"School Building",
+"middle school",
+"academy"
+],
+"building/semidetached_house":[
+"double",
+"Semi-Detached House",
+"duplex",
+"dwelling",
+"family",
+"residence",
+"twin",
+"home"
+],
+"building/shed":[
+"Shed"
+],
+"building/stable":[
+"Stable"
+],
+"building/static_caravan":[
+"Static Mobile Home"
+],
+"building/terrace":[
+"brownstone",
+"dwelling",
+"terrace",
+"family",
+"residence",
+"Row Houses",
+"home"
+],
+"building/university":[
+"college",
+"University Building"
+],
+"building/warehouse":[
+"Warehouse"
+],
+"camp_site/camp_pitch":[
+"tent",
+"rv",
+"Camp Pitch"
+],
+"club":[
+"social",
+"Club"
+],
+"craft":[
+"Craft"
+],
+"craft/jeweler":[
+"Jeweler"
+],
+"craft/locksmith":[
+"Locksmith"
+],
+"craft/optician":[
+"Optician"
+],
+"craft/tailor":[
+"suit",
+"Tailor",
+"clothes"
+],
+"craft/basket_maker":[
+"Basket Maker"
+],
+"craft/beekeeper":[
+"Beekeeper"
+],
+"craft/blacksmith":[
+"Blacksmith"
+],
+"craft/boatbuilder":[
+"Boat Builder"
+],
+"craft/bookbinder":[
+"book repair",
+"Bookbinder"
+],
+"craft/brewery":[
+"alcohol",
+"Brewery",
+"booze",
+"beverage",
+"bier",
+"beer",
+"cider"
+],
+"craft/carpenter":[
+"woodworker",
+"Carpenter"
+],
+"craft/carpet_layer":[
+"Carpet Layer"
+],
+"craft/caterer":[
+"Caterer"
+],
+"craft/chimney_sweeper":[
+"Chimney Sweeper"
+],
+"craft/clockmaker":[
+"Clockmaker"
+],
+"craft/confectionery":[
+"candy",
+"Candy Maker",
+"sweet"
+],
+"craft/distillery":[
+"alcohol",
+"hooch",
+"still",
+"mezcal",
+"bourbon",
+"spirits",
+"rum",
+"liquor",
+"gin",
+"tequila",
+"whisky",
+"vodka",
+"booze",
+"beverage",
+"Distillery",
+"moonshine",
+"brandy",
+"scotch",
+"whiskey"
+],
+"craft/dressmaker":[
+"Dressmaker",
+"seamstress"
+],
+"craft/electrician":[
+"wire",
+"power",
+"Electrician"
+],
+"craft/electronics_repair":[
+"Electronics Repair Shop"
+],
+"craft/gardener":[
+"grounds keeper",
+"Gardener",
+"landscaper"
+],
+"craft/glaziery":[
+"glass",
+"Glaziery",
+"stained-glass",
+"window"
+],
+"craft/handicraft":[
+"Handicraft"
+],
+"craft/hvac":[
+"heat*",
+"HVAC",
+"air conditioning",
+"vent*"
+],
+"craft/insulator":[
+"Insulator"
+],
+"craft/key_cutter":[
+"Key Cutter"
+],
+"craft/metal_construction":[
+"Metal Construction"
+],
+"craft/painter":[
+"Painter"
+],
+"craft/photographer":[
+"Photographer"
+],
+"craft/photographic_laboratory":[
+"Photographic Laboratory",
+"film"
+],
+"craft/plasterer":[
+"Plasterer"
+],
+"craft/plumber":[
+"pipe",
+"Plumber"
+],
+"craft/pottery":[
+"ceramic",
+"Pottery"
+],
+"craft/rigger":[
+"Rigger"
+],
+"craft/roofer":[
+"Roofer"
+],
+"craft/saddler":[
+"Saddler"
+],
+"craft/sailmaker":[
+"Sailmaker"
+],
+"craft/sawmill":[
+"lumber",
+"Sawmill"
+],
+"craft/scaffolder":[
+"Scaffolder"
+],
+"craft/sculptor":[
+"Sculptor"
+],
+"craft/shoemaker":[
+"cobbler",
+"Shoemaker"
+],
+"craft/stonemason":[
+"masonry",
+"Stonemason"
+],
+"craft/tiler":[
+"Tiler"
+],
+"craft/tinsmith":[
+"Tinsmith"
+],
+"craft/upholsterer":[
+"Upholsterer"
+],
+"craft/watchmaker":[
+"Watchmaker"
+],
+"craft/window_construction":[
+"glass",
+"Window Construction"
+],
+"craft/winery":[
+"Winery"
+],
+"embankment":[
+"Embankment"
+],
+"emergency/designated":[
+"Emergency Access Designated"
+],
+"emergency/destination":[
+"Emergency Access Destination"
+],
+"emergency/no":[
+"Emergency Access No"
+],
+"emergency/official":[
+"Emergency Access Official"
+],
+"emergency/private":[
+"Emergency Access Private"
+],
+"emergency/yes":[
+"Emergency Access Yes"
+],
+"emergency/ambulance_station":[
+"Ambulance Station",
+"EMS",
+"EMT",
+"rescue"
+],
+"emergency/defibrillator":[
+"AED",
+"Defibrillator"
+],
+"emergency/fire_hydrant":[
+"Fire Hydrant",
+"fire plug"
+],
+"emergency/life_ring":[
+"kisbie ring",
+"perry buoy",
+"life buoy",
+"kisby ring",
+"Life Ring"
+],
+"emergency/phone":[
+"Emergency Phone"
+],
+"entrance":[
+"Entrance/Exit"
+],
+"footway/crossing-raised":[
+"hump",
+"Raised Street Crossing",
+"slow",
+"speed",
+"flat top"
+],
+"footway/crossing":[
+"Street Crossing"
+],
+"footway/crosswalk-raised":[
+"zebra crossing",
+"hump",
+"Raised Pedestrian Crosswalk",
+"slow",
+"speed",
+"flat top"
+],
+"footway/crosswalk":[
+"zebra crossing",
+"Pedestrian Crosswalk"
+],
+"footway/sidewalk":[
+"Sidewalk"
+],
+"ford":[
+"Ford"
+],
+"golf/bunker":[
+"bunker",
+"hazard",
+"Sand Trap"
+],
+"golf/fairway":[
+"Fairway"
+],
+"golf/green":[
+"Putting Green"
+],
+"golf/hole":[
+"Golf Hole"
+],
+"golf/lateral_water_hazard_area":[
+"Lateral Water Hazard"
+],
+"golf/lateral_water_hazard_line":[
+"Lateral Water Hazard"
+],
+"golf/rough":[
+"Rough"
+],
+"golf/tee":[
+"teeing ground",
+"Tee Box"
+],
+"golf/water_hazard_area":[
+"Water Hazard"
+],
+"golf/water_hazard_line":[
+"Water Hazard"
+],
+"healthcare":[
+"doctor",
+"institution",
+"disease",
+"wellness",
+"health",
+"clinic",
+"sick",
+"surgery",
+"Healthcare Facility"
+],
+"healthcare/alternative":[
+"reiki",
+"tuina",
+"herbalism",
+"hydrotherapy",
+"reflexology",
+"unani",
+"ayurveda",
+"anthroposophical",
+"applied kinesiology",
+"naturopathy",
+"osteopathy",
+"hypnosis",
+"acupuncture",
+"traditional",
+"shiatsu",
+"aromatherapy",
+"Alternative Medicine",
+"homeopathy"
+],
+"healthcare/alternative/chiropractic":[
+"pain",
+"Chiropractor",
+"back",
+"spine"
+],
+"healthcare/audiologist":[
+"ear",
+"sound",
+"Audiologist",
+"hearing"
+],
+"healthcare/birthing_center":[
+"delivery",
+"pregnancy",
+"baby",
+"childbirth",
+"Birthing Center",
+"labour",
+"labor"
+],
+"healthcare/blood_donation":[
+"Blood Donor Center",
+"blood transfusion",
+"plateletpheresis",
+"blood bank",
+"plasmapheresis",
+"apheresis",
+"stem cell donation",
+"blood donation"
+],
+"healthcare/hospice":[
+"Hospice",
+"terminal",
+"illness"
+],
+"healthcare/midwife":[
+"delivery",
+"pregnancy",
+"baby",
+"childbirth",
+"Midwife",
+"labour",
+"labor"
+],
+"healthcare/occupational_therapist":[
+"therapy",
+"therapist",
+"Occupational Therapist"
+],
+"healthcare/optometrist":[
+"eye",
+"glasses",
+"vision",
+"lenses",
+"Optometrist",
+"lasik"
+],
+"healthcare/physiotherapist":[
+"Physiotherapist",
+"therapy",
+"physical",
+"therapist"
+],
+"healthcare/podiatrist":[
+"feet",
+"nails",
+"foot",
+"Podiatrist"
+],
+"healthcare/psychotherapist":[
+"anxiety",
+"mind",
+"counselor",
+"mental health",
+"therapy",
+"suicide",
+"depression",
+"Psychotherapist",
+"therapist"
+],
+"healthcare/rehabilitation":[
+"rehab",
+"therapy",
+"Rehabilitation Facility",
+"therapist"
+],
+"healthcare/speech_therapist":[
+"voice",
+"Speech Therapist",
+"speech",
+"therapy",
+"therapist"
+],
+"highway/bus_stop":[
+"Bus Stop / Platform"
+],
+"highway/bridleway":[
+"horse",
+"equestrian",
+"Bridle Path",
+"bridleway"
+],
+"highway/corridor":[
+"hallway",
+"passage",
+"passageway",
+"Indoor Corridor",
+"hall",
+"indoor",
+"gallery"
+],
+"highway/crossing-raised":[
+"hump",
+"Raised Street Crossing",
+"slow",
+"speed",
+"flat top"
+],
+"highway/crossing":[
+"Street Crossing"
+],
+"highway/crosswalk-raised":[
+"zebra crossing",
+"hump",
+"Raised Pedestrian Crosswalk",
+"slow",
+"speed",
+"flat top"
+],
+"highway/crosswalk":[
+"zebra crossing",
+"Pedestrian Crosswalk"
+],
+"highway/cycleway":[
+"Cycle Path",
+"bike"
+],
+"highway/elevator":[
+"Elevator",
+"lift"
+],
+"highway/footway":[
+"Foot Path",
+"trail",
+"hiking",
+"hike",
+"trackway",
+"walk"
+],
+"highway/give_way":[
+"Yield Sign",
+"give way",
+"yield",
+"sign"
+],
+"highway/living_street":[
+"Living Street"
+],
+"highway/mini_roundabout":[
+"Mini-Roundabout"
+],
+"highway/motorway_junction":[
+"Motorway Junction / Exit"
+],
+"highway/motorway_link":[
+"on ramp",
+"ramp",
+"off ramp",
+"Motorway Link"
+],
+"highway/motorway":[
+"freeway",
+"thruway",
+"autobahn",
+"expressway",
+"Motorway",
+"highway",
+"turnpike",
+"interstate",
+"parkway"
+],
+"highway/path":[
+"Path",
+"trail",
+"hiking",
+"hike",
+"trackway",
+"walk"
+],
+"highway/pedestrian_area":[
+"plaza",
+"Pedestrian Area",
+"square",
+"quad",
+"center",
+"centre",
+"walkway"
+],
+"highway/pedestrian_line":[
+"plaza",
+"square",
+"quad",
+"Pedestrian Street",
+"center",
+"centre",
+"walkway"
+],
+"highway/primary_link":[
+"on ramp",
+"ramp",
+"off ramp",
+"Primary Link"
+],
+"highway/primary":[
+"Primary Road"
+],
+"highway/raceway":[
+"formula one",
+"nascar",
+"auto*",
+"motocross",
+"kart",
+"track",
+"race*",
+"Racetrack (Motorsport)"
+],
+"highway/residential":[
+"Residential Road"
+],
+"highway/rest_area":[
+"rest stop",
+"Rest Area"
+],
+"highway/road":[
+"Unknown Road"
+],
+"highway/secondary_link":[
+"on ramp",
+"ramp",
+"off ramp",
+"Secondary Link"
+],
+"highway/secondary":[
+"Secondary Road"
+],
+"highway/service":[
+"Service Road"
+],
+"highway/service/alley":[
+"Alley"
+],
+"highway/service/drive-through":[
+"Drive-Through"
+],
+"highway/service/driveway":[
+"Driveway"
+],
+"highway/service/emergency_access":[
+"Emergency Access"
+],
+"highway/service/parking_aisle":[
+"Parking Aisle"
+],
+"highway/services":[
+"travel plaza",
+"service station",
+"Service Area",
+"services"
+],
+"highway/speed_camera":[
+"Speed Camera"
+],
+"highway/steps":[
+"Steps",
+"stairs",
+"staircase"
+],
+"highway/stop":[
+"halt",
+"stop",
+"sign",
+"Stop Sign"
+],
+"highway/street_lamp":[
+"street light",
+"light",
+"lamp",
+"gaslight",
+"streetlight",
+"Street Lamp"
+],
+"highway/tertiary_link":[
+"on ramp",
+"Tertiary Link",
+"ramp",
+"off ramp"
+],
+"highway/tertiary":[
+"Tertiary Road"
+],
+"highway/track":[
+"ranch road",
+"4wd",
+"atv",
+"two track",
+"primitive",
+"double track",
+"agricultural road",
+"Unmaintained Track Road",
+"unmaintained",
+"woods road",
+"rut",
+"4x4",
+"four wheel drive",
+"carriage road",
+"quad",
+"logging road",
+"jeep",
+"offroad",
+"forest road",
+"fire road",
+"farm road"
+],
+"highway/traffic_mirror":[
+"roadside",
+"Traffic Mirror",
+"curved",
+"corner",
+"round",
+"visibility",
+"sphere",
+"safety",
+"convex",
+"blind spot"
+],
+"highway/traffic_signals":[
+"Traffic Signals",
+"light",
+"stoplight",
+"traffic light"
+],
+"highway/trunk_link":[
+"Trunk Link",
+"on ramp",
+"ramp",
+"off ramp"
+],
+"highway/trunk":[
+"Trunk Road"
+],
+"highway/turning_circle":[
+"cul-de-sac",
+"Turning Circle"
+],
+"highway/turning_loop":[
+"cul-de-sac",
+"Turning Loop (Island)"
+],
+"highway/unclassified":[
+"Minor/Unclassified Road"
+],
+"historic":[
+"Historic Site"
+],
+"historic/archaeological_site":[
+"Archaeological Site"
+],
+"historic/boundary_stone":[
+"Boundary Stone"
+],
+"historic/castle":[
+"Castle"
+],
+"historic/memorial":[
+"Memorial"
+],
+"historic/monument":[
+"Monument"
+],
+"historic/ruins":[
+"Ruins"
+],
+"historic/tomb":[
+"Tomb"
+],
+"historic/wayside_cross":[
+"Wayside Cross"
+],
+"historic/wayside_shrine":[
+"Wayside Shrine"
+],
+"junction":[
+"Junction"
+],
+"landuse":[
+"Land Use"
+],
+"landuse/farm":[
+"Farmland"
+],
+"landuse/allotments":[
+"Community Garden",
+"allotment",
+"garden"
+],
+"landuse/aquaculture":[
+"mariculture",
+"crustacean",
+"aquafarming",
+"shrimp farm",
+"oyster farm",
+"fish farm",
+"algae",
+"algaculture",
+"Aquaculture"
+],
+"landuse/basin":[
+"Basin"
+],
+"landuse/brownfield":[
+"Brownfield"
+],
+"landuse/cemetery":[
+"Cemetery"
+],
+"landuse/churchyard":[
+"Churchyard"
+],
+"landuse/commercial":[
+"Commercial Area"
+],
+"landuse/construction":[
+"Construction"
+],
+"landuse/farmland":[
+"grow",
+"plant",
+"Farmland",
+"crop"
+],
+"landuse/farmyard":[
+"grow",
+"plant",
+"crop",
+"Farmyard"
+],
+"landuse/forest":[
+"tree",
+"Forest"
+],
+"landuse/garages":[
+"Garages"
+],
+"landuse/grass":[
+"Grass"
+],
+"landuse/greenfield":[
+"Greenfield"
+],
+"landuse/greenhouse_horticulture":[
+"horticulture",
+"grow",
+"vivero",
+"Greenhouse Horticulture",
+"greenhouse",
+"flower"
+],
+"landuse/harbour":[
+"Harbor",
+"boat"
+],
+"landuse/industrial":[
+"Industrial Area"
+],
+"landuse/industrial/scrap_yard":[
+"wreck",
+"scrap",
+"yard",
+"car",
+"metal",
+"junk",
+"u-pull-it",
+"salvage",
+"Scrap Yard",
+"vehicle"
+],
+"landuse/industrial/slaughterhouse":[
+"chicken",
+"poultry",
+"butchery",
+"beef",
+"cow",
+"abattoir",
+"pork",
+"pig",
+"killing house",
+"stockyard",
+"calf",
+"meat",
+"shambles",
+"Slaughterhouse"
+],
+"landuse/landfill":[
+"Landfill",
+"dump"
+],
+"landuse/meadow":[
+"Meadow"
+],
+"landuse/orchard":[
+"Orchard",
+"fruit"
+],
+"landuse/plant_nursery":[
+"grow",
+"Plant Nursery",
+"vivero",
+"garden",
+"flower"
+],
+"landuse/quarry":[
+"Quarry"
+],
+"landuse/railway":[
+"Railway Corridor",
+"rail",
+"track",
+"train"
+],
+"landuse/recreation_ground":[
+"Recreation Ground",
+"playing fields"
+],
+"landuse/religious":[
+"Religious Area"
+],
+"landuse/residential":[
+"Residential Area"
+],
+"landuse/retail":[
+"Retail Area"
+],
+"landuse/vineyard":[
+"Vineyard",
+"grape",
+"wine"
+],
+"leisure":[
+"Leisure"
+],
+"leisure/adult_gaming_centre":[
+"Adult Gaming Center",
+"gambling",
+"slot machine"
+],
+"leisure/bird_hide":[
+"machan",
+"ornithology",
+"Bird Hide"
+],
+"leisure/bowling_alley":[
+"bowling center",
+"Bowling Alley"
+],
+"leisure/common":[
+"open space",
+"Common"
+],
+"leisure/dance":[
+"swing",
+"waltz",
+"ballroom",
+"tango",
+"Dance Hall",
+"jive"
+],
+"leisure/dog_park":[
+"Dog Park"
+],
+"leisure/firepit":[
+"Firepit",
+"campfire",
+"fireplace"
+],
+"leisure/fitness_centre":[
+"studio",
+"health",
+"gym",
+"leisure",
+"Gym / Fitness Center"
+],
+"leisure/fitness_centre/yoga":[
+"studio",
+"Yoga Studio"
+],
+"leisure/fitness_station":[
+"fitness",
+"Outdoor Fitness Station",
+"exercise",
+"gym",
+"trim trail"
+],
+"leisure/fitness_station/balance_beam":[
+"balance",
+"fitness",
+"exercise",
+"gym",
+"Exercise Balance Beam",
+"trim trail"
+],
+"leisure/fitness_station/box":[
+"Exercise Box",
+"fitness",
+"exercise",
+"box",
+"gym",
+"trim trail",
+"jump"
+],
+"leisure/fitness_station/horizontal_bar":[
+"bar",
+"pullup",
+"pull up",
+"Exercise Horizontal Bar",
+"fitness",
+"exercise",
+"chin up",
+"gym",
+"trim trail",
+"chinup"
+],
+"leisure/fitness_station/horizontal_ladder":[
+"bar",
+"pullup",
+"pull up",
+"ladder",
+"monkey bars",
+"fitness",
+"exercise",
+"chin up",
+"gym",
+"Exercise Monkey Bars",
+"trim trail",
+"chinup"
+],
+"leisure/fitness_station/hyperextension":[
+"extension",
+"roman chair",
+"fitness",
+"back",
+"exercise",
+"gym",
+"trim trail",
+"Hyperextension Station"
+],
+"leisure/fitness_station/parallel_bars":[
+"bar",
+"fitness",
+"Parallel Bars",
+"exercise",
+"dip",
+"gym",
+"trim trail"
+],
+"leisure/fitness_station/push-up":[
+"pushup",
+"bar",
+"push up",
+"Push-Up Station",
+"fitness",
+"exercise",
+"gym",
+"trim trail"
+],
+"leisure/fitness_station/rings":[
+"pullup",
+"pull up",
+"muscle up",
+"fitness",
+"exercise",
+"gym",
+"trim trail",
+"Exercise Rings"
+],
+"leisure/fitness_station/sign":[
+"Exercise Instruction Sign",
+"fitness",
+"exercise",
+"gym",
+"trim trail"
+],
+"leisure/fitness_station/sit-up":[
+"crunch",
+"fitness",
+"sit up",
+"exercise",
+"gym",
+"Sit-Up Station",
+"trim trail",
+"situp"
+],
+"leisure/fitness_station/stairs":[
+"Exercise Stairs",
+"fitness",
+"exercise",
+"gym",
+"steps",
+"trim trail"
+],
+"leisure/garden":[
+"Garden"
+],
+"leisure/golf_course":[
+"Golf Course",
+"links"
+],
+"leisure/hackerspace":[
+"hackspace",
+"makerspace",
+"Hackerspace",
+"hacklab"
+],
+"leisure/horse_riding":[
+"Horseback Riding Facility",
+"equestrian",
+"stable"
+],
+"leisure/ice_rink":[
+"hockey",
+"skating",
+"Ice Rink",
+"curling"
+],
+"leisure/marina":[
+"boat",
+"Marina"
+],
+"leisure/miniature_golf":[
+"putt-putt",
+"mini golf",
+"crazy golf",
+"Miniature Golf"
+],
+"leisure/nature_reserve":[
+"Nature Reserve",
+"protected",
+"wildlife"
+],
+"leisure/park":[
+"forest",
+"green",
+"tract",
+"woodland",
+"estate",
+"parkland",
+"pleasure garden",
+"Park",
+"lot",
+"plaza",
+"grounds",
+"square",
+"grass",
+"playground",
+"recreation area",
+"garden",
+"place",
+"esplanade",
+"lawn",
+"meadow",
+"village green"
+],
+"leisure/picnic_table":[
+"Picnic Table",
+"bench"
+],
+"leisure/pitch":[
+"field",
+"Sport Pitch"
+],
+"leisure/pitch/american_football":[
+"American Football Field"
+],
+"leisure/pitch/baseball":[
+"Baseball Diamond"
+],
+"leisure/pitch/basketball":[
+"Basketball Court"
+],
+"leisure/pitch/beachvolleyball":[
+"Beach Volleyball Court",
+"volleyball"
+],
+"leisure/pitch/boules":[
+"bocce",
+"Boules/Bocce Court",
+"pétanque",
+"lyonnaise"
+],
+"leisure/pitch/bowls":[
+"Bowling Green"
+],
+"leisure/pitch/cricket":[
+"Cricket Field"
+],
+"leisure/pitch/equestrian":[
+"horse",
+"Riding Arena",
+"equestrian",
+"horseback",
+"dressage",
+"riding"
+],
+"leisure/pitch/rugby_league":[
+"Rugby League Field"
+],
+"leisure/pitch/rugby_union":[
+"Rugby Union Field"
+],
+"leisure/pitch/skateboard":[
+"Skate Park"
+],
+"leisure/pitch/soccer":[
+"Soccer Field",
+"football"
+],
+"leisure/pitch/table_tennis":[
+"ping pong",
+"Ping Pong Table",
+"table tennis"
+],
+"leisure/pitch/tennis":[
+"Tennis Court"
+],
+"leisure/pitch/volleyball":[
+"Volleyball Court"
+],
+"leisure/playground":[
+"jungle gym",
+"play area",
+"Playground"
+],
+"leisure/resort":[
+"Resort"
+],
+"leisure/running_track":[
+"running",
+"sprint",
+"track",
+"race*",
+"Racetrack (Running)"
+],
+"leisure/sauna":[
+"Sauna"
+],
+"leisure/slipway":[
+"Slipway",
+"boat launch",
+"boat ramp"
+],
+"leisure/sports_centre":[
+"Sports Center / Complex"
+],
+"leisure/sports_centre/swimming":[
+"Swimming Pool Facility",
+"dive",
+"water"
+],
+"leisure/stadium":[
+"Stadium"
+],
+"leisure/swimming_pool":[
+"Swimming Pool",
+"dive",
+"water"
+],
+"leisure/track":[
+"horse",
+"greyhound",
+"track",
+"cycle",
+"dog",
+"race*",
+"Racetrack (Non-Motorsport)"
+],
+"leisure/water_park":[
+"Water Park",
+"pool",
+"dive",
+"swim"
+],
+"line":[
+"Line"
+],
+"man_made":[
+"Man Made"
+],
+"man_made/embankment":[
+"Embankment"
+],
+"man_made/adit":[
+"mine",
+"Adit",
+"cave",
+"underground",
+"entrance"
+],
+"man_made/breakwater":[
+"Breakwater"
+],
+"man_made/bridge":[
+"Bridge"
+],
+"man_made/chimney":[
+"Chimney"
+],
+"man_made/crane":[
+"Crane"
+],
+"man_made/cutline":[
+"Cut line"
+],
+"man_made/flagpole":[
+"Flagpole"
+],
+"man_made/gasometer":[
+"Gasometer",
+"gas holder"
+],
+"man_made/groyne":[
+"Groyne"
+],
+"man_made/lighthouse":[
+"Lighthouse"
+],
+"man_made/mast":[
+"antenna",
+"radio tower",
+"communication tower",
+"cell phone tower",
+"transmission tower",
+"transmission mast",
+"Mast",
+"broadcast tower",
+"tv tower",
+"cell tower",
+"mobile phone tower",
+"guyed tower",
+"television tower",
+"radio mast",
+"communication mast"
+],
+"man_made/monitoring_station":[
+"Monitoring Station",
+"seismology",
+"weather",
+"earthquake",
+"air",
+"gps"
+],
+"man_made/observation":[
+"lookout tower",
+"Observation Tower",
+"fire tower"
+],
+"man_made/petroleum_well":[
+"oil rig",
+"petroleum well",
+"oil derrick",
+"oil pump",
+"oil drill",
+"oil horse",
+"Oil Well",
+"drilling rig",
+"pumpjack"
+],
+"man_made/pier":[
+"Pier",
+"jetty",
+"dock"
+],
+"man_made/pipeline":[
+"Pipeline"
+],
+"man_made/pumping_station":[
+"Pumping Station"
+],
+"man_made/silo":[
+"corn",
+"wheat",
+"grain",
+"Silo"
+],
+"man_made/storage_tank":[
+"oil",
+"petrol",
+"gas",
+"water",
+"Storage Tank"
+],
+"man_made/surveillance_camera":[
+"alpr",
+"anpr",
+"guard",
+"video",
+"cctv",
+"monitoring",
+"security",
+"webcam",
+"license plate recognition",
+"car plate recognition",
+"Surveillance Camera",
+"number plate recognition",
+"camera"
+],
+"man_made/surveillance":[
+"alpr",
+"anpr",
+"guard",
+"video",
+"cctv",
+"monitoring",
+"security",
+"Surveillance",
+"webcam",
+"license plate recognition",
+"car plate recognition",
+"number plate recognition",
+"camera"
+],
+"man_made/survey_point":[
+"triangulation pillar",
+"Survey Point",
+"trig point",
+"trigonometrical station"
+],
+"man_made/tower":[
+"Tower"
+],
+"man_made/wastewater_plant":[
+"sewage*",
+"reclamation plant",
+"water treatment plant",
+"Wastewater Plant"
+],
+"man_made/water_tower":[
+"Water Tower"
+],
+"man_made/water_well":[
+"Water Well"
+],
+"man_made/water_works":[
+"Water Works"
+],
+"man_made/watermill":[
+"wheel",
+"Watermill",
+"water",
+"mill"
+],
+"man_made/windmill":[
+"wheel",
+"Windmill",
+"wind",
+"mill"
+],
+"man_made/works":[
+"refinery",
+"manufacture",
+"plastic",
+"build",
+"car",
+"plant",
+"assembly",
+"brewery",
+"processing",
+"Factory"
+],
+"manhole":[
+"cover",
+"hole",
+"sewer",
+"telecom",
+"sewage",
+"Manhole"
+],
+"manhole/drain":[
+"cover",
+"hole",
+"rain",
+"storm",
+"Storm Drain",
+"sewer",
+"drain",
+"sewage"
+],
+"manhole/telecom":[
+"cover",
+"hole",
+"bt",
+"Telecom Manhole",
+"phone",
+"telecom",
+"telephone"
+],
+"natural":[
+"Natural"
+],
+"natural/bare_rock":[
+"rock",
+"Bare Rock"
+],
+"natural/bay":[
+"Bay"
+],
+"natural/beach":[
+"Beach",
+"shore"
+],
+"natural/cave_entrance":[
+"shelter",
+"cavern",
+"grotto",
+"Cave Entrance",
+"hollow",
+"cavity"
+],
+"natural/cliff":[
+"Cliff",
+"escarpment"
+],
+"natural/coastline":[
+"Coastline",
+"shore"
+],
+"natural/fell":[
+"Fell"
+],
+"natural/glacier":[
+"Glacier"
+],
+"natural/grassland":[
+"Grassland",
+"savanna",
+"prairie"
+],
+"natural/heath":[
+"Heath"
+],
+"natural/peak":[
+"alp",
+"summit",
+"mount",
+"hill",
+"mountain",
+"top",
+"pinnacle",
+"acme",
+"aiguille",
+"climax",
+"tip",
+"Peak",
+"crest",
+"crown"
+],
+"natural/ridge":[
+"crest",
+"Ridge"
+],
+"natural/saddle":[
+"top",
+"pass",
+"mountain pass",
+"Saddle"
+],
+"natural/sand":[
+"Sand",
+"desert"
+],
+"natural/scree":[
+"Scree",
+"loose rocks"
+],
+"natural/scrub":[
+"shrubs",
+"bush",
+"Scrub"
+],
+"natural/spring":[
+"Spring"
+],
+"natural/tree_row":[
+"Tree row"
+],
+"natural/tree":[
+"Tree"
+],
+"natural/volcano":[
+"Volcano",
+"mountain",
+"crater"
+],
+"natural/water":[
+"Water"
+],
+"natural/water/lake":[
+"lakelet",
+"mere",
+"loch",
+"Lake"
+],
+"natural/water/pond":[
+"millpond",
+"Pond",
+"lakelet",
+"pool",
+"mere",
+"tarn"
+],
+"natural/water/reservoir":[
+"Reservoir"
+],
+"natural/wetland":[
+"reedbed",
+"tidalflat",
+"bog",
+"swamp",
+"Wetland",
+"marsh"
+],
+"natural/wood":[
+"Wood",
+"tree"
+],
+"noexit/yes":[
+"no exit",
+"No Exit",
+"road end",
+"dead end"
+],
+"office":[
+"Office"
+],
+"office/administrative":[
+"Administrative Office"
+],
+"office/physician":[
+"Physician"
+],
+"office/travel_agent":[
+"Travel Agency"
+],
+"office/accountant":[
+"Accountant Office"
+],
+"office/adoption_agency":[
+"Adoption Agency"
+],
+"office/advertising_agency":[
+"marketing",
+"ad",
+"advert agency",
+"Advertising Agency",
+"advertising",
+"ad agency"
+],
+"office/architect":[
+"Architect Office"
+],
+"office/association":[
+"nonprofit",
+"society",
+"organization",
+"association",
+"non-profit",
+"Nonprofit Organization Office"
+],
+"office/charity":[
+"Charity Office",
+"charitable organization"
+],
+"office/company":[
+"Company Office"
+],
+"office/coworking":[
+"coworking",
+"office",
+"Coworking Space"
+],
+"office/educational_institution":[
+"Educational Institution"
+],
+"office/employment_agency":[
+"Employment Agency",
+"job"
+],
+"office/energy_supplier":[
+"gas utility",
+"energy company",
+"electricity",
+"Energy Supplier Office",
+"energy utility"
+],
+"office/estate_agent":[
+"Real Estate Office"
+],
+"office/financial":[
+"Financial Office"
+],
+"office/forestry":[
+"forest",
+"ranger",
+"Forestry Office"
+],
+"office/foundation":[
+"Foundation Office"
+],
+"office/government":[
+"Government Office"
+],
+"office/government/register_office":[
+"clerk",
+"Register Office",
+"death",
+"marriage",
+"certificate",
+"birth"
+],
+"office/government/tax":[
+"tax office",
+"revenue office",
+"Tax and Revenue Office",
+"fiscal authorities"
+],
+"office/guide":[
+"tour guide",
+"mountain guide",
+"dive guide",
+"Tour Guide Office"
+],
+"office/insurance":[
+"Insurance Office"
+],
+"office/it":[
+"computer",
+"software",
+"Information Technology Office",
+"information",
+"technology"
+],
+"office/lawyer":[
+"Law Office"
+],
+"office/lawyer/notary":[
+"clerk",
+"deeds",
+"signature",
+"Notary Office",
+"estate",
+"wills"
+],
+"office/moving_company":[
+"Moving Company Office",
+"relocation"
+],
+"office/newspaper":[
+"Newspaper Office"
+],
+"office/ngo":[
+"non-government",
+"ngo",
+"organization",
+"organisation",
+"NGO Office",
+"non government"
+],
+"office/notary":[
+"Notary Office"
+],
+"office/political_party":[
+"Political Party"
+],
+"office/private_investigator":[
+"Private Investigator Office",
+"private eye",
+"PI",
+"private detective"
+],
+"office/quango":[
+"Quasi-NGO Office",
+"quasi-autonomous",
+"quasi autonomous",
+"non-government",
+"ngo",
+"organization",
+"organisation",
+"non government"
+],
+"office/research":[
+"Research Office"
+],
+"office/surveyor":[
+"Surveyor Office"
+],
+"office/tax_advisor":[
+"tax consultant",
+"tax",
+"Tax Advisor Office"
+],
+"office/telecommunication":[
+"Telecom Office"
+],
+"office/therapist":[
+"Therapist Office",
+"therapy"
+],
+"office/water_utility":[
+"Water Utility Office",
+"utility",
+"water board"
+],
+"piste":[
+"ski",
+"sleigh",
+"Piste/Ski Trail",
+"nordic",
+"downhill",
+"sled",
+"snowmobile",
+"snowboard"
+],
+"place/farm":[
+"Farm"
+],
+"place/city":[
+"City"
+],
+"place/hamlet":[
+"Hamlet"
+],
+"place/island":[
+"atoll",
+"reef",
+"bar",
+"isle",
+"archipelago",
+"cay",
+"islet",
+"Island",
+"key"
+],
+"place/islet":[
+"atoll",
+"reef",
+"bar",
+"isle",
+"archipelago",
+"cay",
+"Islet",
+"islet",
+"key"
+],
+"place/isolated_dwelling":[
+"Isolated Dwelling"
+],
+"place/locality":[
+"Locality"
+],
+"place/neighbourhood":[
+"neighbourhood",
+"Neighborhood"
+],
+"place/plot":[
+"lot",
+"parcel",
+"tract",
+"Plot",
+"land"
+],
+"place/quarter":[
+"Sub-Borough / Quarter",
+"boro",
+"borough",
+"quarter"
+],
+"place/square":[
+"Square"
+],
+"place/suburb":[
+"Borough / Suburb",
+"boro",
+"borough",
+"quarter"
+],
+"place/town":[
+"Town"
+],
+"place/village":[
+"Village"
+],
+"playground/balance_beam":[
+"Play Balance Beam"
+],
+"playground/basket_spinner":[
+"basket rotator",
+"Basket Spinner"
+],
+"playground/basket_swing":[
+"Basket Swing"
+],
+"playground/climbing_frame":[
+"Climbing Frame"
+],
+"playground/cushion":[
+"Bouncy Cushion"
+],
+"playground/horizontal_bar":[
+"high bar",
+"Play Horizontal Bar"
+],
+"playground/rocker":[
+"spring rocker",
+"Spring Rider",
+"springy rocker"
+],
+"playground/roundabout":[
+"Play Roundabout",
+"merry-go-round"
+],
+"playground/sandpit":[
+"Sandpit"
+],
+"playground/seesaw":[
+"Seesaw"
+],
+"playground/slide":[
+"Slide"
+],
+"playground/structure":[
+"Play Structure"
+],
+"playground/swing":[
+"Swing"
+],
+"playground/zipwire":[
+"Zip Wire"
+],
+"point":[
+"Point"
+],
+"power/sub_station":[
+"Substation"
+],
+"power/generator":[
+"turbine",
+"hydro",
+"Power Generator",
+"solar",
+"wind"
+],
+"power/generator/source_nuclear":[
+"nuke",
+"fission",
+"reactor",
+"Nuclear Reactor",
+"generator",
+"nuclear"
+],
+"power/generator/source_wind":[
+"turbine",
+"Wind Turbine",
+"windmill",
+"generator",
+"wind"
+],
+"power/line":[
+"Power Line"
+],
+"power/minor_line":[
+"Minor Power Line"
+],
+"power/plant":[
+"generat*",
+"hydro",
+"gas",
+"station",
+"coal",
+"power",
+"nuclear",
+"Power Station Grounds"
+],
+"power/pole":[
+"Power Pole"
+],
+"power/substation":[
+"Substation"
+],
+"power/switch":[
+"Power Switch"
+],
+"power/tower":[
+"High-Voltage Tower"
+],
+"power/transformer":[
+"Transformer"
+],
+"public_transport/linear_platform_aerialway":[
+"public transit",
+"Aerialway Stop / Platform",
+"transit",
+"cable car",
+"aerialway",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/linear_platform_bus":[
+"bus",
+"public transit",
+"Bus Stop / Platform",
+"transit",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/linear_platform_ferry":[
+"pier",
+"public transit",
+"transit",
+"ferry",
+"Ferry Stop / Platform",
+"dock",
+"boat",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/linear_platform_light_rail":[
+"light rail",
+"public transit",
+"transit",
+"electric",
+"rail",
+"Light Rail Stop / Platform",
+"track",
+"tram",
+"platform",
+"public transportation",
+"trolley",
+"transportation"
+],
+"public_transport/linear_platform_monorail":[
+"public transit",
+"transit",
+"rail",
+"Monorail Stop / Platform",
+"platform",
+"monorail",
+"public transportation",
+"transportation"
+],
+"public_transport/linear_platform_subway":[
+"subway",
+"public transit",
+"underground",
+"metro",
+"transit",
+"rail",
+"Subway Stop / Platform",
+"track",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/linear_platform_train":[
+"public transit",
+"transit",
+"rail",
+"Train Stop / Platform",
+"track",
+"platform",
+"public transportation",
+"train",
+"transportation"
+],
+"public_transport/linear_platform_tram":[
+"light rail",
+"electric",
+"rail",
+"platform",
+"public transportation",
+"trolley",
+"transportation",
+"public transit",
+"transit",
+"streetcar",
+"track",
+"tram",
+"Tram Stop / Platform"
+],
+"public_transport/linear_platform_trolleybus":[
+"bus",
+"public transit",
+"transit",
+"electric",
+"streetcar",
+"tram",
+"Trolleybus Stop / Platform",
+"platform",
+"trackless",
+"public transportation",
+"trolley",
+"transportation"
+],
+"public_transport/linear_platform":[
+"public transit",
+"transit",
+"Transit Stop / Platform",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/platform_aerialway":[
+"public transit",
+"Aerialway Stop / Platform",
+"transit",
+"cable car",
+"aerialway",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/platform_bus":[
+"bus",
+"public transit",
+"Bus Stop / Platform",
+"transit",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/platform_ferry":[
+"pier",
+"public transit",
+"transit",
+"ferry",
+"Ferry Stop / Platform",
+"dock",
+"boat",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/platform_light_rail":[
+"light rail",
+"public transit",
+"transit",
+"electric",
+"rail",
+"Light Rail Stop / Platform",
+"track",
+"tram",
+"platform",
+"public transportation",
+"trolley",
+"transportation"
+],
+"public_transport/platform_monorail":[
+"public transit",
+"transit",
+"rail",
+"Monorail Stop / Platform",
+"platform",
+"monorail",
+"public transportation",
+"transportation"
+],
+"public_transport/platform_subway":[
+"subway",
+"public transit",
+"underground",
+"metro",
+"transit",
+"rail",
+"Subway Stop / Platform",
+"track",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/platform_train":[
+"public transit",
+"transit",
+"rail",
+"Train Stop / Platform",
+"track",
+"platform",
+"public transportation",
+"train",
+"transportation"
+],
+"public_transport/platform_tram":[
+"light rail",
+"electric",
+"rail",
+"platform",
+"public transportation",
+"trolley",
+"transportation",
+"public transit",
+"transit",
+"streetcar",
+"track",
+"tram",
+"Tram Stop / Platform"
+],
+"public_transport/platform_trolleybus":[
+"bus",
+"public transit",
+"transit",
+"electric",
+"streetcar",
+"tram",
+"Trolleybus Stop / Platform",
+"platform",
+"trackless",
+"public transportation",
+"trolley",
+"transportation"
+],
+"public_transport/platform":[
+"public transit",
+"transit",
+"Transit Stop / Platform",
+"platform",
+"public transportation",
+"transportation"
+],
+"public_transport/station_aerialway":[
+"public transit",
+"transit",
+"cable car",
+"aerialway",
+"station",
+"Aerialway Station",
+"terminal",
+"public transportation",
+"transportation"
+],
+"public_transport/station_bus":[
+"bus",
+"public transit",
+"transit",
+"station",
+"terminal",
+"public transportation",
+"transportation",
+"Bus Station / Terminal"
+],
+"public_transport/station_ferry":[
+"pier",
+"public transit",
+"transit",
+"ferry",
+"Ferry Station / Terminal",
+"station",
+"terminal",
+"dock",
+"boat",
+"public transportation",
+"transportation"
+],
+"public_transport/station_light_rail":[
+"light rail",
+"electric",
+"rail",
+"terminal",
+"public transportation",
+"trolley",
+"transportation",
+"public transit",
+"Light Rail Station",
+"transit",
+"station",
+"track",
+"tram"
+],
+"public_transport/station_monorail":[
+"Monorail Station",
+"public transit",
+"transit",
+"rail",
+"station",
+"terminal",
+"monorail",
+"public transportation",
+"transportation"
+],
+"public_transport/station_subway":[
+"Subway Station",
+"subway",
+"public transit",
+"underground",
+"metro",
+"transit",
+"rail",
+"station",
+"terminal",
+"track",
+"public transportation",
+"transportation"
+],
+"public_transport/station_train_halt":[
+"Train Station (Halt / Request)",
+"halt",
+"public transit",
+"whistle stop",
+"transit",
+"rail",
+"station",
+"track",
+"public transportation",
+"train",
+"transportation"
+],
+"public_transport/station_train":[
+"public transit",
+"transit",
+"rail",
+"station",
+"terminal",
+"track",
+"Train Station",
+"public transportation",
+"train",
+"transportation"
+],
+"public_transport/station_tram":[
+"light rail",
+"electric",
+"rail",
+"terminal",
+"public transportation",
+"trolley",
+"transportation",
+"public transit",
+"transit",
+"station",
+"streetcar",
+"track",
+"tram",
+"Tram Station"
+],
+"public_transport/station_trolleybus":[
+"bus",
+"electric",
+"terminal",
+"trackless",
+"public transportation",
+"trolley",
+"transportation",
+"Trolleybus Station / Terminal",
+"public transit",
+"transit",
+"station",
+"streetcar",
+"tram"
+],
+"public_transport/station":[
+"Transit Station",
+"public transit",
+"transit",
+"station",
+"terminal",
+"public transportation",
+"transportation"
+],
+"public_transport/stop_area":[
+"Transit Stop Area"
+],
+"public_transport/stop_position_aerialway":[
+"public transit",
+"Aerialway Stopping Location",
+"transit",
+"cable car",
+"aerialway",
+"public transportation",
+"transportation"
+],
+"public_transport/stop_position_bus":[
+"bus",
+"public transit",
+"transit",
+"Bus Stopping Location",
+"public transportation",
+"transportation"
+],
+"public_transport/stop_position_ferry":[
+"pier",
+"public transit",
+"transit",
+"ferry",
+"dock",
+"boat",
+"Ferry Stopping Location",
+"public transportation",
+"transportation"
+],
+"public_transport/stop_position_light_rail":[
+"Light Rail Stopping Location",
+"light rail",
+"public transit",
+"transit",
+"electric",
+"rail",
+"track",
+"tram",
+"public transportation",
+"trolley",
+"transportation"
+],
+"public_transport/stop_position_monorail":[
+"public transit",
+"transit",
+"rail",
+"Monorail Stopping Location",
+"monorail",
+"public transportation",
+"transportation"
+],
+"public_transport/stop_position_subway":[
+"subway",
+"public transit",
+"underground",
+"metro",
+"transit",
+"rail",
+"track",
+"Subway Stopping Location",
+"public transportation",
+"transportation"
+],
+"public_transport/stop_position_train":[
+"Train Stopping Location",
+"public transit",
+"transit",
+"rail",
+"track",
+"public transportation",
+"train",
+"transportation"
+],
+"public_transport/stop_position_tram":[
+"Tram Stopping Location",
+"light rail",
+"public transit",
+"transit",
+"electric",
+"rail",
+"streetcar",
+"track",
+"tram",
+"public transportation",
+"trolley",
+"transportation"
+],
+"public_transport/stop_position_trolleybus":[
+"bus",
+"public transit",
+"transit",
+"electric",
+"Trolleybus Stopping Location",
+"streetcar",
+"tram",
+"trackless",
+"public transportation",
+"trolley",
+"transportation"
+],
+"public_transport/stop_position":[
+"public transit",
+"transit",
+"Transit Stopping Location",
+"public transportation",
+"transportation"
+],
+"railway/halt":[
+"Train Station (Halt / Request)",
+"rest",
+"wait",
+"break",
+"interrupt",
+"interruption"
+],
+"railway/platform":[
+"Train Stop / Platform"
+],
+"railway/station":[
+"train station",
+"station",
+"Train Station"
+],
+"railway/tram_stop":[
+"light rail",
+"Tram Stopping Position",
+"streetcar",
+"tram",
+"trolley"
+],
+"railway/abandoned":[
+"Abandoned Railway"
+],
+"railway/buffer_stop":[
+"halt",
+"stop",
+"Buffer Stop",
+"buffer"
+],
+"railway/crossing":[
+"level crossing",
+"path through railroad",
+"grade crossing",
+"train crossing",
+"crossing",
+"Railway Crossing (Path)",
+"pedestrian crossing",
+"railroad crossing"
+],
+"railway/derail":[
+"Railway Derailer",
+"derailer"
+],
+"railway/disused":[
+"Disused Railway"
+],
+"railway/funicular":[
+"cliff railway",
+"cable railway",
+"Funicular",
+"venicular",
+"cable car",
+"funicular railway"
+],
+"railway/level_crossing":[
+"Railway Crossing (Road)",
+"road through railroad",
+"level crossing",
+"grade crossing",
+"train crossing",
+"crossing",
+"railroad crossing"
+],
+"railway/light_rail":[
+"Light Rail",
+"light rail",
+"streetcar",
+"trolley"
+],
+"railway/milestone":[
+"milestone",
+"marker",
+"Railway Milestone"
+],
+"railway/miniature":[
+"narrow gauge railway",
+"minimum gauge railway",
+"Miniature Railway",
+"rideable miniature railway"
+],
+"railway/monorail":[
+"Monorail"
+],
+"railway/narrow_gauge":[
+"narrow gauge railway",
+"narrow gauge railroad",
+"Narrow Gauge Rail"
+],
+"railway/rail":[
+"Rail"
+],
+"railway/signal":[
+"Railway Signal",
+"signal",
+"lights"
+],
+"railway/subway_entrance":[
+"metro",
+"transit",
+"Subway Entrance"
+],
+"railway/subway":[
+"metro",
+"transit",
+"Subway"
+],
+"railway/switch":[
+"Railway Switch",
+"switch",
+"points"
+],
+"railway/train_wash":[
+"Train Wash",
+"wash",
+"clean"
+],
+"railway/tram":[
+"light rail",
+"streetcar",
+"tram",
+"Tram",
+"trolley"
+],
+"relation":[
+"Relation"
+],
+"route/ferry":[
+"Ferry Route"
+],
+"shop":[
+"Shop"
+],
+"shop/fishmonger":[
+"Fishmonger"
+],
+"shop/furnace":[
+"oven",
+"stove",
+"Furnace Store"
+],
+"shop/vacant":[
+"Vacant Shop"
+],
+"shop/agrarian":[
+"agricultural tools",
+"agricultural machines",
+"pesticides",
+"seeds",
+"Agriculture Shop",
+"agricultural inputs",
+"fertilizer"
+],
+"shop/alcohol":[
+"alcohol",
+"booze",
+"Liquor Store",
+"beer",
+"wine"
+],
+"shop/anime":[
+"cosplay",
+"figurine",
+"Anime Shop",
+"japan",
+"manga",
+"dakimakura"
+],
+"shop/antiques":[
+"Antiques Shop"
+],
+"shop/appliance":[
+"washing machine",
+"appliance",
+"fridge",
+"oven",
+"dishwasher",
+"dryer",
+"washer",
+"Appliance Store",
+"stove",
+"freezer",
+"air conditioner",
+"kitchen",
+"refrigerator",
+"grill"
+],
+"shop/art":[
+"exhibit*",
+"Art Store",
+"art*",
+"gallery"
+],
+"shop/baby_goods":[
+"Baby Goods Store"
+],
+"shop/bag":[
+"handbag",
+"Bag/Luggage Store",
+"purse"
+],
+"shop/bakery":[
+"Bakery"
+],
+"shop/bathroom_furnishing":[
+"Bathroom Furnishing Store"
+],
+"shop/beauty":[
+"Beauty Shop",
+"spa",
+"salon",
+"tanning"
+],
+"shop/beauty/nails":[
+"Nail Salon",
+"pedicure",
+"manicure"
+],
+"shop/beauty/tanning":[
+"Tanning Salon"
+],
+"shop/bed":[
+"Bedding/Mattress Store"
+],
+"shop/beverages":[
+"Beverage Store"
+],
+"shop/bicycle":[
+"repair",
+"Bicycle Shop",
+"bike"
+],
+"shop/bookmaker":[
+"Bookmaker",
+"betting"
+],
+"shop/books":[
+"Book Store"
+],
+"shop/boutique":[
+"Boutique"
+],
+"shop/butcher":[
+"Butcher",
+"meat"
+],
+"shop/candles":[
+"Candle Shop"
+],
+"shop/car_parts":[
+"auto",
+"Car Parts Store"
+],
+"shop/car_repair":[
+"auto",
+"service",
+"garage",
+"Car Repair Shop"
+],
+"shop/car":[
+"auto",
+"Car Dealership"
+],
+"shop/carpet":[
+"rug",
+"Carpet Store"
+],
+"shop/charity":[
+"nonprofit",
+"thrift",
+"Charity Store",
+"op shop"
+],
+"shop/cheese":[
+"Cheese Store"
+],
+"shop/chemist":[
+"gift",
+"Drugstore",
+"drug*",
+"med*"
+],
+"shop/chocolate":[
+"Chocolate Store"
+],
+"shop/clothes":[
+"Clothing Store"
+],
+"shop/coffee":[
+"Coffee Store"
+],
+"shop/computer":[
+"Computer Store"
+],
+"shop/confectionery":[
+"Candy Store",
+"sweet"
+],
+"shop/convenience":[
+"Convenience Store"
+],
+"shop/copyshop":[
+"Copy Store"
+],
+"shop/cosmetics":[
+"Cosmetics Store"
+],
+"shop/craft":[
+"art*",
+"paint*",
+"Arts and Crafts Store",
+"frame"
+],
+"shop/curtain":[
+"Curtain Store",
+"drape*",
+"window"
+],
+"shop/dairy":[
+"egg",
+"milk",
+"Dairy Store",
+"cheese"
+],
+"shop/deli":[
+"lunch",
+"meat",
+"sandwich",
+"Deli"
+],
+"shop/department_store":[
+"Department Store"
+],
+"shop/doityourself":[
+"DIY Store"
+],
+"shop/dry_cleaning":[
+"Dry Cleaner"
+],
+"shop/e-cigarette":[
+"vapor",
+"electronic",
+"E-Cigarette Shop"
+],
+"shop/electronics":[
+"appliance",
+"computer",
+"tv",
+"dvd",
+"home theater",
+"speaker",
+"Electronics Store",
+"audio",
+"video",
+"camera",
+"blueray",
+"radio"
+],
+"shop/erotic":[
+"sex",
+"Erotic Store",
+"porn"
+],
+"shop/fabric":[
+"sew",
+"Fabric Store"
+],
+"shop/farm":[
+"farm shop",
+"farm stand",
+"Produce Stand"
+],
+"shop/fashion":[
+"Fashion Store"
+],
+"shop/florist":[
+"Florist",
+"flower"
+],
+"shop/frame":[
+"photo*",
+"Framing Shop",
+"art*",
+"paint*",
+"frame"
+],
+"shop/funeral_directors":[
+"Funeral Home",
+"memorial home",
+"undertaker"
+],
+"shop/furniture":[
+"Furniture Store",
+"sofa",
+"chair",
+"table"
+],
+"shop/garden_centre":[
+"tree",
+"landscape",
+"Garden Center",
+"mulch",
+"shrub"
+],
+"shop/gas":[
+"natural gas",
+"refill",
+"Bottled Gas Shop",
+"lpg",
+"propane",
+"tank",
+"cng"
+],
+"shop/gift":[
+"Gift Shop",
+"souvenir"
+],
+"shop/greengrocer":[
+"fruit",
+"vegetable",
+"Greengrocer"
+],
+"shop/hairdresser":[
+"Hairdresser",
+"barber"
+],
+"shop/hardware":[
+"Hardware Store"
+],
+"shop/hearing_aids":[
+"Hearing Aids Store"
+],
+"shop/herbalist":[
+"Herbalist"
+],
+"shop/hifi":[
+"stereo",
+"Hifi Store",
+"video"
+],
+"shop/houseware":[
+"Houseware Store",
+"household",
+"home"
+],
+"shop/interior_decoration":[
+"Interior Decoration Store"
+],
+"shop/jewelry":[
+"diamond",
+"Jeweler",
+"ring",
+"gem"
+],
+"shop/kiosk":[
+"Kiosk"
+],
+"shop/kitchen":[
+"Kitchen Design Store"
+],
+"shop/laundry":[
+"Laundry"
+],
+"shop/leather":[
+"Leather Store"
+],
+"shop/locksmith":[
+"Locksmith",
+"lockpick",
+"key"
+],
+"shop/lottery":[
+"Lottery Shop"
+],
+"shop/mall":[
+"Mall",
+"shopping"
+],
+"shop/massage":[
+"Massage Shop"
+],
+"shop/medical_supply":[
+"Medical Supply Store"
+],
+"shop/mobile_phone":[
+"Mobile Phone Store"
+],
+"shop/money_lender":[
+"Money Lender"
+],
+"shop/motorcycle":[
+"Motorcycle Dealership",
+"bike"
+],
+"shop/music":[
+"CD",
+"Music Store",
+"vinyl"
+],
+"shop/musical_instrument":[
+"Musical Instrument Store",
+"guitar"
+],
+"shop/newsagent":[
+"Newspaper/Magazine Shop"
+],
+"shop/nutrition_supplements":[
+"Nutrition Supplements Store"
+],
+"shop/optician":[
+"eye",
+"glasses",
+"Optician"
+],
+"shop/organic":[
+"Organic Goods Store"
+],
+"shop/outdoor":[
+"camping",
+"hiking",
+"Outdoors Store",
+"climbing"
+],
+"shop/paint":[
+"Paint Store"
+],
+"shop/pastry":[
+"Pastry Shop",
+"cakery",
+"patisserie",
+"cake shop"
+],
+"shop/pawnbroker":[
+"Pawn Shop"
+],
+"shop/perfumery":[
+"Perfume Store"
+],
+"shop/pet":[
+"kitten",
+"puppy",
+"cat",
+"fish",
+"animal",
+"reptile",
+"dog",
+"Pet Store"
+],
+"shop/photo":[
+"Photography Store",
+"film",
+"camera"
+],
+"shop/pyrotechnics":[
+"Fireworks Store"
+],
+"shop/radiotechnics":[
+"Radio/Electronic Component Store"
+],
+"shop/religion":[
+"Religious Store"
+],
+"shop/scuba_diving":[
+"Scuba Diving Shop"
+],
+"shop/seafood":[
+"fishmonger",
+"Seafood Shop"
+],
+"shop/second_hand":[
+"Consignment/Thrift Store",
+"resale",
+"thrift",
+"used",
+"second hand",
+"secondhand"
+],
+"shop/shoes":[
+"Shoe Store"
+],
+"shop/sports":[
+"Sporting Goods Store"
+],
+"shop/stationery":[
+"paper",
+"Stationery Store",
+"card"
+],
+"shop/storage_rental":[
+"Storage Rental"
+],
+"shop/supermarket":[
+"shop",
+"Supermarket",
+"grocery",
+"store"
+],
+"shop/tailor":[
+"suit",
+"Tailor",
+"clothes"
+],
+"shop/tattoo":[
+"Tattoo Parlor"
+],
+"shop/tea":[
+"Tea Store"
+],
+"shop/ticket":[
+"Ticket Seller"
+],
+"shop/tiles":[
+"Tile Shop"
+],
+"shop/tobacco":[
+"Tobacco Shop"
+],
+"shop/toys":[
+"Toy Store"
+],
+"shop/trade":[
+"Trade Shop"
+],
+"shop/travel_agency":[
+"Travel Agency"
+],
+"shop/tyres":[
+"Tire Store"
+],
+"shop/vacuum_cleaner":[
+"Vacuum Cleaner Store"
+],
+"shop/variety_store":[
+"Variety Store"
+],
+"shop/video_games":[
+"Video Game Store"
+],
+"shop/video":[
+"Video Store",
+"DVD"
+],
+"shop/watches":[
+"Watches Shop"
+],
+"shop/water_sports":[
+"Watersport/Swim Shop"
+],
+"shop/weapons":[
+"gun",
+"knife",
+"ammo",
+"knives",
+"Weapon Shop"
+],
+"shop/window_blind":[
+"Window Blind Store"
+],
+"shop/wine":[
+"Wine Shop"
+],
+"tourism":[
+"Tourism"
+],
+"tourism/alpine_hut":[
+"climbing hut",
+"Alpine Hut"
+],
+"tourism/apartment":[
+"Guest Apartment / Condo"
+],
+"tourism/aquarium":[
+"Aquarium",
+"fish",
+"water",
+"sea"
+],
+"tourism/artwork":[
+"mural",
+"Artwork",
+"statue",
+"sculpture"
+],
+"tourism/attraction":[
+"Tourist Attraction"
+],
+"tourism/camp_site":[
+"tent",
+"rv",
+"Campground"
+],
+"tourism/caravan_site":[
+"Camper",
+"Motor Home",
+"RV Park"
+],
+"tourism/chalet":[
+"Holiday Cottage",
+"holiday home",
+"vacation home",
+"vacation",
+"holiday",
+"holiday cottage"
+],
+"tourism/gallery":[
+"sculpt*",
+"exhibit*",
+"photo*",
+"Art Gallery",
+"art*",
+"paint*"
+],
+"tourism/guest_house":[
+"Guest House",
+"Bed and Breakfast",
+"B&B"
+],
+"tourism/hostel":[
+"Hostel"
+],
+"tourism/hotel":[
+"Hotel"
+],
+"tourism/information":[
+"Information"
+],
+"tourism/information/board":[
+"Information Board"
+],
+"tourism/information/guidepost":[
+"signpost",
+"Guidepost"
+],
+"tourism/information/map":[
+"Map"
+],
+"tourism/information/office":[
+"Tourist Information Office"
+],
+"tourism/motel":[
+"Motel"
+],
+"tourism/museum":[
+"sculpt*",
+"exhibit*",
+"institution",
+"photo*",
+"hall",
+"Museum",
+"art*",
+"foundation",
+"paint*",
+"gallery"
+],
+"tourism/picnic_site":[
+"Picnic Site",
+"camp"
+],
+"tourism/theme_park":[
+"Theme Park"
+],
+"tourism/viewpoint":[
+"Viewpoint"
+],
+"tourism/wilderness_hut":[
+"bothy",
+"Wilderness Hut",
+"wilderness hut",
+"backcountry hut"
+],
+"tourism/zoo":[
+"animal",
+"Zoo"
+],
+"traffic_calming":[
+"hump",
+"slow",
+"Traffic Calming",
+"bump",
+"speed"
+],
+"traffic_calming/bump":[
+"hump",
+"slow",
+"Speed Bump",
+"speed"
+],
+"traffic_calming/chicane":[
+"slow",
+"driveway link",
+"Traffic Chicane",
+"speed"
+],
+"traffic_calming/choker":[
+"Traffic Choker",
+"slow",
+"speed"
+],
+"traffic_calming/cushion":[
+"hump",
+"slow",
+"bump",
+"speed",
+"Speed Cushion"
+],
+"traffic_calming/dip":[
+"slow",
+"Dip",
+"speed"
+],
+"traffic_calming/hump":[
+"slow",
+"bump",
+"speed",
+"Speed Hump"
+],
+"traffic_calming/island":[
+"slow",
+"circle",
+"roundabout",
+"Traffic Island"
+],
+"traffic_calming/rumble_strip":[
+"audible lines",
+"Rumble Strip",
+"growlers",
+"sleeper lines"
+],
+"traffic_calming/table":[
+"Speed Table",
+"hump",
+"slow",
+"speed",
+"flat top"
+],
+"type/multipolygon":[
+"Multipolygon"
+],
+"type/boundary":[
+"Boundary"
+],
+"type/boundary/administrative":[
+"Administrative Boundary"
+],
+"type/restriction":[
+"Restriction"
+],
+"type/restriction/no_left_turn":[
+"No Left Turn"
+],
+"type/restriction/no_right_turn":[
+"No Right Turn"
+],
+"type/restriction/no_straight_on":[
+"No Straight On"
+],
+"type/restriction/no_u_turn":[
+"No U-turn"
+],
+"type/restriction/only_left_turn":[
+"Left Turn Only"
+],
+"type/restriction/only_right_turn":[
+"Right Turn Only"
+],
+"type/restriction/only_straight_on":[
+"No Turns"
+],
+"type/route_master":[
+"Route Master"
+],
+"type/route":[
+"Route"
+],
+"type/route/bicycle":[
+"Cycle Route"
+],
+"type/route/bus":[
+"Bus Route"
+],
+"type/route/detour":[
+"Detour Route"
+],
+"type/route/ferry":[
+"Ferry Route"
+],
+"type/route/foot":[
+"Foot Route"
+],
+"type/route/hiking":[
+"Hiking Route"
+],
+"type/route/horse":[
+"Riding Route"
+],
+"type/route/light_rail":[
+"Light Rail Route"
+],
+"type/route/pipeline":[
+"Pipeline Route"
+],
+"type/route/piste":[
+"Piste/Ski Route"
+],
+"type/route/power":[
+"Power Route"
+],
+"type/route/road":[
+"Road Route"
+],
+"type/route/subway":[
+"Subway Route"
+],
+"type/route/train":[
+"Train Route"
+],
+"type/route/tram":[
+"Tram Route"
+],
+"type/site":[
+"Site"
+],
+"type/waterway":[
+"Waterway"
+],
+"vertex":[
+"Other"
+],
+"waterway/boatyard":[
+"Boatyard"
+],
+"waterway/canal":[
+"Canal"
+],
+"waterway/dam":[
+"Dam"
+],
+"waterway/ditch":[
+"Ditch"
+],
+"waterway/dock":[
+"Wet Dock / Dry Dock",
+"vessel",
+"ship",
+"boat",
+"marine"
+],
+"waterway/drain":[
+"Drain"
+],
+"waterway/fuel":[
+"diesel",
+"petrol",
+"gas",
+"Marine Fuel Station",
+"boat"
+],
+"waterway/river":[
+"brook",
+"rill",
+"beck",
+"runnel",
+"run",
+"tributary",
+"branch",
+"rivulet",
+"creek",
+"estuary",
+"stream",
+"watercourse",
+"course",
+"River"
+],
+"waterway/riverbank":[
+"Riverbank"
+],
+"waterway/sanitary_dump_station":[
+"CTDP",
+"Chemical Toilet",
+"Marine Toilet Disposal",
+"Elsan",
+"Pump out",
+"Pumpout",
+"Watercraft",
+"Sanitary",
+"Dump Station",
+"CDP",
+"Boat"
+],
+"waterway/stream_intermittent":[
+"brook",
+"burn",
+"beck",
+"arroyo",
+"runnel",
+"spritz",
+"wash",
+"gully",
+"run",
+"tributary",
+"branch",
+"rush",
+"flood",
+"creek",
+"watercourse",
+"wadi",
+"course",
+"Intermittent Stream",
+"spate",
+"flow",
+"drift"
+],
+"waterway/stream":[
+"tide",
+"rill",
+"beck",
+"runnel",
+"spritz",
+"run",
+"branch",
+"rivulet",
+"current",
+"creek",
+"freshet",
+"course",
+"Stream",
+"spate",
+"flow",
+"drift",
+"brook",
+"burn",
+"race",
+"rindle",
+"surge",
+"torrent",
+"tributary",
+"rush",
+"flood",
+"watercourse"
+],
+"waterway/water_point":[
+"Marine Drinking Water"
+],
+"waterway/waterfall":[
+"fall",
+"Waterfall"
+],
+"waterway/weir":[
+"Weir"
+]
+}

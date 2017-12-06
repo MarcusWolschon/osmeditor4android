@@ -1,0 +1,5283 @@
+{
+"address":[
+"Endereço",
+"Morada",
+"morada"
+],
+"advertising/billboard":[
+"Outdoor",
+"Billboard",
+"publicidade"
+],
+"aerialway":[
+"Transporte aéreo por cabo"
+],
+"aerialway/cable_car":[
+"Teleférico",
+"Cable Car"
+],
+"aerialway/chair_lift":[
+"Chair Lift",
+"Telecadeira",
+"Teleférico de cadeira"
+],
+"aerialway/drag_lift":[
+"telesqui",
+"teleférico de superfície",
+"Telesquis"
+],
+"aerialway/gondola":[
+"Gondola",
+"Gôndola"
+],
+"aerialway/goods":[
+"teleférico de mercadorias",
+"Teleférico de Mercadorias"
+],
+"aerialway/magic_carpet":[
+"Corredor de subida para esquis",
+"Magic Carpet Lift"
+],
+"aerialway/mixed_lift":[
+"teleférico híbrido",
+"Teleférico Híbrido"
+],
+"aerialway/platter":[
+"Telesqui",
+"Platter Lift",
+"Prato de Elevação"
+],
+"aerialway/pylon":[
+"Aerialway Pylon",
+"Pilar de suporte de teleféricos"
+],
+"aerialway/rope_tow":[
+"Ascenção com Corda de Reboque ",
+"Rope Tow Lift"
+],
+"aerialway/station":[
+"Entrada de Teleféricos",
+"Estação de teleféricos",
+"Aerialway Station",
+"Paragem de Teleféricos"
+],
+"aerialway/t-bar":[
+"Teleférico de neve",
+"Subida Mecânica",
+"T-bar Lift"
+],
+"aeroway":[
+"Via área"
+],
+"aeroway/aerodrome":[
+"aeródromo",
+"Aeroporto / Aeródromo",
+"Avião"
+],
+"aeroway/apron":[
+"Pátio",
+"Plataforma de estacionamento",
+"Rampa"
+],
+"aeroway/gate":[
+"porta de desembarque",
+"embarque",
+"porta de embarque",
+"portão de desembarque",
+"desembarque",
+"Porta",
+"portão de embarque"
+],
+"aeroway/hangar":[
+"Hangar",
+"Abrigo de Aviões"
+],
+"aeroway/helipad":[
+"Helicóptero",
+"Heliporto / Heliponto"
+],
+"aeroway/runway":[
+"Pista de Aeródromo",
+"Pista de Aeroporto",
+"Pista de aterragem e descolagem",
+"Faixa de Aterragem",
+"Pista de Descolagem",
+"Pista de Aterragem",
+"Pista"
+],
+"aeroway/taxiway":[
+"Rolar",
+"Faixa de Rolagem",
+"Via de circulação (taxiway)",
+"Taxiway"
+],
+"aeroway/terminal":[
+"área de passageiros",
+"aerogare",
+"aerogare de passageiros",
+"terminal aeroportuário",
+"terminal de passageiros",
+"Terminal de Aeroporto",
+"terminal"
+],
+"amenity":[
+"Infraestrutura"
+],
+"amenity/animal_boarding":[
+"Hotel para Animais",
+"gato",
+"gatos",
+"animais de estimação",
+"hospedagem",
+"hotel para animais",
+"cão",
+"cães"
+],
+"amenity/animal_breeding":[
+"Animal Breeding",
+"Instalação para reprodução de animais ",
+"criação",
+"criador",
+"criador de animais",
+"reprodução"
+],
+"amenity/animal_shelter":[
+"canil",
+"gatil",
+"abandonados",
+"Abrigo para Animais (canil, gatil...)",
+"abandonado"
+],
+"amenity/arts_centre":[
+"Centro artístico",
+"Arts Center",
+"Centro de Artes"
+],
+"amenity/atm":[
+"Caixa de Multibanco",
+"MB",
+"Caixa Multibanco",
+"Caixa de MB",
+"Multibanco"
+],
+"amenity/bank":[
+"Levantamentos",
+"Banco",
+"Agência bancária",
+"Cofre",
+"Agência de Investimentos",
+"Firma de Investimentos",
+"Agência financeira",
+"Dinheiro",
+"Depósito"
+],
+"amenity/bar":[
+"Bar",
+"Bebidas",
+"Bares",
+"Alcool"
+],
+"amenity/bbq":[
+"Churrasqueira",
+"Barbacue",
+"Barbacue/Grill",
+"Carne Assada",
+"Churrasco"
+],
+"amenity/bench":[
+"Bench",
+"Assento",
+"Banco",
+"Banco de sentar",
+"Sentar"
+],
+"amenity/bicycle_parking":[
+"Parque de bicicletas",
+"Zona de Bicicletas",
+"Área de Bicicletas",
+"Parque de Bicicletas"
+],
+"amenity/bicycle_rental":[
+"Aluguer de Bicicletas",
+"Área de Aluguer de Bicicletas",
+"Aluguer de bicicletas",
+"Zona de Aluguer de Bicicletas"
+],
+"amenity/bicycle_repair_station":[
+"Ponto de reparação de bicicletas self-service",
+"Bicycle Repair Tool Station"
+],
+"amenity/biergarten":[
+"Beer Garden",
+"Biergarten",
+"Jardim da cerveja"
+],
+"amenity/boat_rental":[
+"Aluguer de barcos",
+"Boat Rental"
+],
+"amenity/bureau_de_change":[
+"Câmbio",
+"Agência de câmbio",
+"Troca de Dinheiro",
+"Currency Exchange"
+],
+"amenity/bus_station":[
+"microlete",
+"Rodoviária",
+"Autocarros",
+"Autocarro",
+"otocarro",
+"Carreira",
+"toca-toca",
+"Estação de autocarros",
+"Bus Station",
+"ônibus",
+"machimbombo"
+],
+"amenity/cafe":[
+"Cafetaria",
+"Loja de Café",
+"Chá",
+"Café"
+],
+"amenity/car_rental":[
+"Zona de Aluguer de Automoveis",
+"Aluguer de Automóveis",
+"Aluguer de automóveis",
+"Área de Aluguer de Automóveis"
+],
+"amenity/car_sharing":[
+"Partilha de automóveis",
+"Partilha de Veículos ",
+"Partilha de Carros"
+],
+"amenity/car_wash":[
+"Lavagem",
+"Lavagem Automática",
+"Mangueira",
+"Limpeza",
+"Lavagem de veículos"
+],
+"amenity/casino":[
+"Casino",
+"Jogo"
+],
+"amenity/charging_station":[
+"Bateria",
+"Posto de carregamento para veículos elétricos",
+"Estação de recarga",
+"Energia",
+"Charging Station"
+],
+"amenity/childcare":[
+"Berçário / Creche",
+"Nursery/Childcare",
+"cuidados Infantis"
+],
+"amenity/cinema":[
+"Filme",
+"filmes",
+"Cinema"
+],
+"amenity/clinic":[
+"Posto Médico",
+"Posto de Saúde",
+"UBS",
+"USF",
+"Unidade Básica de Saúde",
+"Unidade de Saúde Familiar",
+"Agrupamento de Centros de Saúde",
+"Unidade Local de Saúde",
+"Clinic",
+"Unidade de Saúde",
+"Clínica",
+"Clínica  / Unidade de Saúde / Posto Médico",
+"ASF",
+"Centro de Saúde"
+],
+"amenity/clinic/abortion":[
+"aborto",
+"abortar",
+"Clínica de Aborto",
+"interrupção da gravidez",
+"clínica"
+],
+"amenity/clinic/fertility":[
+"Clínica de Fertilidade",
+"infertilidade",
+"inseminar",
+"inceminação",
+"fertilidade",
+"inceminar",
+"infértil",
+"inseminação"
+],
+"amenity/clock":[
+"Relógio",
+"Clock"
+],
+"amenity/college":[
+"Semiprivado",
+"College Grounds",
+"Colégio Interno",
+"Escola Privada",
+"Privada",
+"Externatos",
+"Colégio"
+],
+"amenity/community_centre":[
+"Community Center",
+"Espaço Social",
+"Centro comunitário"
+],
+"amenity/compressed_air":[
+"Encher",
+"Pneumática",
+"Compressed Air",
+"Pneus",
+"Máquina de ar Comprimido"
+],
+"amenity/courthouse":[
+"Casa da Justiça",
+"Justiça",
+"Tribunal"
+],
+"amenity/coworking_space":[
+"Espaço de Trabalho Compartilhado"
+],
+"amenity/crematorium":[
+"Crematório",
+"Crematorium"
+],
+"amenity/dentist":[
+"Dentista",
+"Dente",
+"Ortodontia",
+"Dentist",
+"Dentes"
+],
+"amenity/doctors":[
+"Médico Privado",
+"Doutor",
+"Consultório médico",
+"Consultório",
+"Médico",
+"Doctor",
+"Médicos"
+],
+"amenity/dojo":[
+"Krav Magá",
+"Escryma",
+"Capoeira",
+"Jiu-jitsu Brasileiro",
+"Centro de artes marciais",
+"Eskrima",
+"Jiu-jitsu",
+"Dojo",
+"Escrima",
+"Judo",
+"Jeet Kune Do",
+"Kung Fu",
+"Muay Thai",
+"Karaté",
+"Taekwondo"
+],
+"amenity/drinking_water":[
+"Fonte de Água",
+"Água potável",
+"Bebedouro",
+"Água Potável"
+],
+"amenity/driving_school":[
+"Escola de Condução",
+"Centro de Formação de Condutores",
+"Autoescola",
+"Escolas de Condução"
+],
+"amenity/embassy":[
+"Embaixada",
+"Consulado"
+],
+"amenity/fast_food":[
+"Comida rápida",
+"Comida de plástico",
+"Fast Food",
+"Comida Instantânea"
+],
+"amenity/ferry_terminal":[
+"Ferry Terminal",
+"ferry-boat",
+"batelão",
+"Balsa",
+"ferry",
+"ferribote",
+"Terminal de ferries",
+"ferribout",
+"ferryboat"
+],
+"amenity/fire_station":[
+"Bombeiros Voluntários",
+"BV",
+"Quartel de bombeiros",
+"Quartel dos Bombeiros",
+"Bombeiros",
+"Quartel",
+"Quartel de Bombeiros"
+],
+"amenity/food_court":[
+"comida",
+"Food Court",
+"Praça de alimentação"
+],
+"amenity/fountain":[
+"Jacto de Água",
+"Fonte de Água",
+"Fonte",
+"Fonte decorativa"
+],
+"amenity/fuel":[
+"Gasolineira / Posto de combustível",
+"Bombas de Abastecimento",
+"Bombas de Gasolina",
+"Bombas de Combustível"
+],
+"amenity/grave_yard":[
+"Sepultura (fora de cemitérios)",
+"Graveyard"
+],
+"amenity/grit_bin":[
+"Grit Bin",
+"Caixa de sal de estrada",
+"Sal de Estrada",
+"Sal"
+],
+"amenity/hospital":[
+"Centros Hospitalares",
+"Operação",
+"Hospitais",
+"Centro Hospitalar",
+"Enfermaria",
+"Sala de emergência",
+"Hospital",
+"Cirurgia",
+"Serviço de Saúde"
+],
+"amenity/hunting_stand":[
+"Torre de caça",
+"Hunting Stand"
+],
+"amenity/ice_cream":[
+"Gelataria",
+"Geladaria",
+"Sorveteira",
+"Ice Cream Shop"
+],
+"amenity/internet_cafe":[
+"Cyber café",
+"Internet Cafe"
+],
+"amenity/kindergarten":[
+"Jardim Infantil / Infantário",
+"Preschool/Kindergarten Grounds",
+"Pré-Escola",
+"Pré Escola"
+],
+"amenity/library":[
+"Biblioteca",
+"Livros",
+"Consulta",
+"Publica"
+],
+"amenity/marketplace":[
+"Bazar",
+"Mercado / Feira",
+"Minimercado"
+],
+"amenity/motorcycle_parking":[
+"Parque de motas",
+"Motorcycle Parking",
+"Motas",
+"Estacionamento"
+],
+"amenity/music_school":[
+"conservatório",
+"escola",
+"música",
+"Escola de Música"
+],
+"amenity/nightclub":[
+"Salão de Dança",
+"Discoteca (dança)",
+"Nightclub"
+],
+"amenity/nursing_home":[
+"Lar de idosos"
+],
+"amenity/parking":[
+"Lugar de Estacionamento",
+"Parque de estacionamento",
+"Estacionamento",
+"Estacionar"
+],
+"amenity/parking_entrance":[
+"Parking Garage Entrance/Exit",
+"Entrada / Saída de estacionamento",
+"Estacionamento",
+"Estacionar",
+"Entrada",
+"Saída"
+],
+"amenity/parking_space":[
+"Estacionamento",
+"Estacionar",
+"Lugar de estacionamento",
+"Parking Space"
+],
+"amenity/pavilion":[
+"Pavilion",
+"pavilhao",
+"Pavilhão"
+],
+"amenity/pharmacy":[
+"Remédios",
+"Medicamentos",
+"Parafarmácia",
+"Farmacêutica",
+"Para-farmácia",
+"Farmacêutico",
+"Remédio",
+"Farmácia",
+"Medicamento",
+"Para farmácia"
+],
+"amenity/place_of_worship":[
+"Abadia",
+"Basílica",
+"Santuário",
+"Catedral",
+"Local de oração",
+"Centro Espiritual",
+"Capelinha",
+"Casa de Adoração",
+"Capela",
+"Casa de Deus",
+"Templo"
+],
+"amenity/place_of_worship/buddhist":[
+"Dojo",
+"Pagode",
+"Vihara",
+"Budistas",
+"Estupa",
+"Mosteiro",
+"Budismo",
+"Budista",
+"Templo budista",
+"Zendo",
+"Templo"
+],
+"amenity/place_of_worship/christian":[
+"Cristão",
+"Abadia",
+"Capelinha",
+"Casa de Adoração",
+"Oratório",
+"Capela",
+"Betel",
+"Casa de Deus",
+"Carmelo",
+"Igreija",
+"Congregação",
+"Alminha",
+"Basílica",
+"Ermida",
+"Catedral",
+"Salão do Reino  Sé",
+"Colegiada",
+"Paróquia",
+"Cruzeiro",
+"Mosteiro",
+"Igreja",
+"Alminhas",
+"Convento"
+],
+"amenity/place_of_worship/hindu":[
+"templo",
+"hindu",
+"Templo Hindu",
+"hinduismo",
+"hinduísta",
+"hinduista",
+"hinduísmo"
+],
+"amenity/place_of_worship/jewish":[
+"Judeu",
+"Sinagoga",
+"Judaico"
+],
+"amenity/place_of_worship/muslim":[
+"Muçulmano",
+"Mesquita"
+],
+"amenity/place_of_worship/shinto":[
+"santuário xintoísta",
+"Templo xintoísta",
+"xintoísta",
+"xintoista",
+"templo",
+"xintoísmo",
+"xintoismo"
+],
+"amenity/place_of_worship/sikh":[
+"templo",
+"sikh",
+"sikhismo",
+"gurdwara",
+"Templo Sikh",
+"siquismo"
+],
+"amenity/place_of_worship/taoist":[
+"templo",
+"Templo Taoista",
+"taoismo",
+"daoismo",
+"tauismo"
+],
+"amenity/planetarium":[
+"Planetário",
+"Planetarium"
+],
+"amenity/police":[
+"Polícia",
+"Esquadra / Posto de polícia",
+"P.S.P.",
+"G.N.R.",
+"GNR",
+"Polícia de Segurança Pública",
+"Judiciária",
+"PSP",
+"Guarda Nacional Republicana"
+],
+"amenity/post_box":[
+"Posto de Correio",
+"Caixa / Marco de correio",
+"Marco de Correio",
+"Caixa Postal"
+],
+"amenity/post_office":[
+"Central de Correio",
+"CTT",
+"Estação de correios",
+"C.T.T.",
+"Correio de Portugal",
+"CTTs"
+],
+"amenity/prison":[
+"Prisão",
+"Prison Grounds"
+],
+"amenity/pub":[
+"Taverna",
+"Taberna / Tasca",
+"Tasca",
+"Pub",
+"Petiscos",
+"Locanda",
+"Petisqueira",
+"Tasco"
+],
+"amenity/public_bath":[
+"banhos públicos",
+"Banho Público"
+],
+"amenity/public_bookcase":[
+"Biblioteca livre",
+"Public Bookcase",
+"Livros para o Público",
+"Estante Pública"
+],
+"amenity/ranger_station":[
+"Posto de guarda florestal",
+"Guarda Florestal",
+"Ranger Station"
+],
+"amenity/recycling":[
+"Papelão",
+"Embalão",
+"Reutilizar",
+"Reciclar",
+"Reciclagem",
+"Vidrão",
+"Recycling",
+"Ecoponto",
+"Pilhão",
+"Oleão"
+],
+"amenity/recycling_centre":[
+"Eco-centro",
+"Ecocentro",
+"Centro de Reciclagem",
+"Eco centro"
+],
+"amenity/register_office":[
+"Conservatória do Registo Civil"
+],
+"amenity/restaurant":[
+"Cafetaria",
+"Restaurante",
+"Bar",
+"Pizzaria",
+"Cantina",
+"Almoço",
+"Gastronomia",
+"Restauração",
+"Cozinha",
+"Café",
+"Culinária",
+"Jantar"
+],
+"amenity/sanitary_dump_station":[
+"RV Toilet Disposal",
+"Escoamento sanitário de autocaravana"
+],
+"amenity/school":[
+"Creche",
+"Liceu",
+"Seminário",
+"Academia",
+"Externato",
+"Colégio",
+"Departamento",
+"Escola"
+],
+"amenity/scrapyard":[
+"Sucata"
+],
+"amenity/shelter":[
+"Abrigo",
+"Shelter"
+],
+"amenity/shower":[
+"xubeiro",
+"shuveiro",
+"chubeiro",
+"banho",
+"shubeiro",
+"Shower",
+"xuveiro",
+"Chuveiro",
+"chuveiro público"
+],
+"amenity/social_facility":[
+"Casa do Povo",
+"Centro social",
+"Social Facility"
+],
+"amenity/social_facility/food_bank":[
+"Comida",
+"Banco alimentar",
+"Alimento",
+"Food Bank"
+],
+"amenity/social_facility/group_home":[
+"Lar de idosos",
+"Elderly Group Home"
+],
+"amenity/social_facility/homeless_shelter":[
+"Casa Pública",
+"Abrigo para os sem-abrigo",
+"Homeless Shelter",
+"Casa para os Sem-Abrigo",
+"Sem-Abrigo"
+],
+"amenity/social_facility/nursing_home":[
+"terceira idade",
+"lar",
+"Lar de Idosos (com cuidado médico)",
+"lar de terceira idade"
+],
+"amenity/studio":[
+"Estúdio",
+"Studio"
+],
+"amenity/swimming_pool":[
+"Piscina"
+],
+"amenity/taxi":[
+"Paragem de Táxis",
+"Táxi",
+"Taxi",
+"Praça de táxis"
+],
+"amenity/telephone":[
+"Telefone",
+"Telemóvel"
+],
+"amenity/theatre":[
+"Teatro",
+"Peça",
+"Performance",
+"Musical",
+"Peça de Teatro"
+],
+"amenity/toilets":[
+"Sanitário",
+"lavabo",
+"Casas de Banho",
+"Instalações Sanitárias",
+"Toilette",
+"W.C.",
+"Casas de banho",
+"WC",
+"Gabinete Sanitário"
+],
+"amenity/townhall":[
+"Centro Administrativo",
+"Câmara municipal / Junta de freguesia",
+"Capital de Região",
+"Junta",
+"Câmara",
+"Capital de Distrito",
+"Paços",
+"Capital de Concelho",
+"Capital de Freguesia"
+],
+"amenity/university":[
+"Faculdade",
+"Politécnico",
+"University Grounds",
+"Universidade",
+"Instituto"
+],
+"amenity/vending_machine":[
+"venda automática",
+"bilhetes",
+"Máquina de Venda Automática",
+"máquina",
+"bebidas",
+"tabaco"
+],
+"amenity/vending_machine/cigarettes":[
+"Máquina de tabaco",
+"Tabaco",
+"Cigarros",
+"Cigarette Vending Machine"
+],
+"amenity/vending_machine/condoms":[
+"Condom Vending Machine",
+"Máquina de venda de preservativos",
+"preservativo",
+"Dispensador de preservativos "
+],
+"amenity/vending_machine/drinks":[
+"sumo",
+"Máquina de bebidas",
+"refrigerante",
+"Drink Vending Machine",
+"Máquina de venda de bebidas",
+"bebida"
+],
+"amenity/vending_machine/excrement_bags":[
+"Dispensador de sacos para dejetos",
+"Excrement Bag Vending Machine"
+],
+"amenity/vending_machine/feminine_hygiene":[
+"Máquina de Venda de Produtos de Higiene Feminina",
+"Higiene Feminina"
+],
+"amenity/vending_machine/news_papers":[
+"Máquina de venda de jornais"
+],
+"amenity/vending_machine/newspapers":[
+"jornais",
+"Máquina de venda automática de jornais ",
+"máquina",
+"revistas"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"Máquina para recolha/entrega de encomendas",
+"Parcel Pickup/Dropoff Vending Machine"
+],
+"amenity/vending_machine/parking_tickets":[
+"Máquina de bilhetes de estacionamento",
+"Parking Ticket Vending Machine"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"Máquina de bilhetes de transporte",
+"Bilheteira",
+"Transit Ticket Vending Machine"
+],
+"amenity/vending_machine/sweets":[
+"Snack Vending Machine",
+"sande",
+"sandes",
+"Máquina de snacks"
+],
+"amenity/veterinary":[
+"Veterinária",
+"Médica",
+"Médico",
+"Veterinary",
+"Médicos",
+"Animais",
+"Veterenário",
+"Veterinário",
+"Médicas"
+],
+"amenity/waste/dog_excrement":[
+"saqueta",
+"cocó",
+"Balde para excrementos de cães",
+"excrementos",
+"cães",
+"cão",
+"saco"
+],
+"amenity/waste_basket":[
+"Papeleira",
+"Lixo",
+"Caixote do lixo",
+"Cesto",
+"Caixotes",
+"Reciclagem"
+],
+"amenity/waste_disposal":[
+"Garbage Dumpster",
+"Contentor de lixo"
+],
+"amenity/waste_transfer_station":[
+"Estação de transferência de lixo",
+"Waste Transfer Station"
+],
+"amenity/water_point":[
+"Autocaravana",
+"Água potável para veículos recreativos",
+"RV Drinking Water",
+"Caravana",
+"Água"
+],
+"amenity/watering_place":[
+"Bebedouro para Animais ",
+"água",
+"animais",
+"beber",
+"pia",
+"bebedouro",
+"tanque",
+"bebedoiro"
+],
+"area":[
+"Espaço",
+"Zona",
+"Área",
+"Extensão"
+],
+"area/highway":[
+"Área de estrada",
+"Road Surface"
+],
+"attraction/amusement_ride":[
+"cestas",
+"navio pirata",
+"Atração de Parque de Diversões",
+"ranger",
+"carrocel",
+"camicase",
+"carrinhos de choque",
+"kamikase",
+"carrossel",
+"parque de diversões",
+"montanha russa",
+"atração",
+"carrosséis",
+"carrosel",
+"carroséis",
+"carroceís"
+],
+"attraction/animal":[
+"zoológico",
+"animais",
+"tigre",
+"Animal",
+"leão",
+"animal",
+"urso"
+],
+"attraction/big_wheel":[
+"roda-gigante",
+"roda panorâmica",
+"Ferris wheel",
+"Roda Gigante",
+"Big Wheel",
+"roda"
+],
+"attraction/bumper_car":[
+"carro de choque",
+"carrinhos de batida",
+"Carrinhos de Choque",
+"carrinho de choque"
+],
+"attraction/bungee_jumping":[
+"saltar",
+"Bungee Jumping",
+"Bungee",
+"salto de elástico",
+"salto",
+"Jumping"
+],
+"attraction/carousel":[
+"Carrossel",
+"carrosséis",
+"carrocéis",
+"Carousel",
+"carosel",
+"carossel",
+"maxambomba",
+"carrosel",
+"carroséis",
+"trivoli"
+],
+"attraction/dark_ride":[
+"escuro",
+"sustos",
+"Dark Ride",
+"Comboio Fantasma",
+"susto",
+"fantasmagórico"
+],
+"attraction/drop_tower":[
+"torre de caída",
+"Torre de Queda Livre",
+"cair",
+"Drop Towe",
+"caída"
+],
+"attraction/pirate_ship":[
+"Pirate Ship",
+"Barco Pirata",
+"barco",
+"pirata"
+],
+"attraction/river_rafting":[
+"River Rafting",
+"Rafting"
+],
+"attraction/roller_coaster":[
+"montanhas russas",
+"montanha russa",
+"Roller Coaster",
+"montanhas-russas",
+"Montanha Russa"
+],
+"attraction/train":[
+"Tourist Train",
+"turístico",
+"comboio",
+"combóios turísticos",
+"Comboio Turístico"
+],
+"attraction/water_slide":[
+"toboágua",
+"escorrega",
+"Water Slide",
+"escorregador",
+"Escorrega de Água"
+],
+"barrier":[
+"Muro",
+"Barreira"
+],
+"barrier/block":[
+"Obstáculo",
+"Bloqueio",
+"Bloco de cimento / pedra"
+],
+"barrier/bollard":[
+"Poste de Amarração",
+"Pilar",
+"Bolardo"
+],
+"barrier/border_control":[
+"Controlo de fronteira",
+"Border Control"
+],
+"barrier/cattle_grid":[
+"Grelha anti-gado",
+"Vaca",
+"Gado",
+"Porco",
+"Ovelha",
+"Boi",
+"Cabra",
+"Cavalo"
+],
+"barrier/city_wall":[
+"Muro Histórico",
+"Muro defensivo",
+"Muralha de cidade",
+"Parede Defensiva",
+"Fortificações"
+],
+"barrier/cycle_barrier":[
+"Barreira de bicicletas",
+"Bicicleta"
+],
+"barrier/ditch":[
+"Trench",
+"Fosso / Vala / Trincheira (seca)"
+],
+"barrier/entrance":[
+"Entrada"
+],
+"barrier/fence":[
+"Cerca",
+"Vedação",
+"Proteção"
+],
+"barrier/gate":[
+"Cancela / Portão",
+"Grade"
+],
+"barrier/hedge":[
+"Sebe",
+"Arbusto",
+"Muro de Flores",
+"Muro de Plantas"
+],
+"barrier/kissing_gate":[
+"Grade de Gado",
+"Cancela de encosto anti-gado"
+],
+"barrier/lift_gate":[
+"Barreira automática",
+"Cancela Elevatória",
+"Barreira de Estacionamento"
+],
+"barrier/retaining_wall":[
+"Amparo",
+"Muro de contenção",
+"Arrimo"
+],
+"barrier/stile":[
+"Passagem anti-gado",
+"Escada"
+],
+"barrier/toll_booth":[
+"Portagem",
+"Pórtico",
+"Tarifa",
+"Pedágio"
+],
+"barrier/wall":[
+"Muro",
+"Parede"
+],
+"boundary/administrative":[
+"Concelho",
+"Fronteira administrativa",
+"Freguesia",
+"Distrito",
+"Fronteira Administrativa",
+"Região",
+"Limite Adminsitrativo"
+],
+"building":[
+"Prédio",
+"Edifício"
+],
+"building/apartments":[
+"Apartamentos",
+"Habitáculos",
+"Apartamento"
+],
+"building/barn":[
+"Estábulo",
+"Barn",
+"Celeiro"
+],
+"building/bunker":[
+"Búnquer"
+],
+"building/cabin":[
+"Campo",
+"Cabin",
+"Cabine",
+"Cabana ",
+"Praia"
+],
+"building/cathedral":[
+"Cathedral Building",
+"Edifício de catedral"
+],
+"building/chapel":[
+"Chapel Building",
+"Edifício de capela"
+],
+"building/church":[
+"Church Building",
+"Edifício de igreja",
+"Igreija"
+],
+"building/college":[
+"College Building",
+"Edifíco colegial ",
+"Colégio"
+],
+"building/commercial":[
+"Edifício Comercial",
+"Prédio Comercial",
+"Edifício de Escritórios"
+],
+"building/construction":[
+"Edifício sob Construção",
+"Edifício em construção",
+"Building Under Construction"
+],
+"building/detached":[
+"Casa isolada",
+"Detached House"
+],
+"building/dormitory":[
+"Dormitory",
+"Repousada",
+"Dormitório",
+"Albergue"
+],
+"building/entrance":[
+"Entrada / Saída"
+],
+"building/garage":[
+"Garagem",
+"Abrigo de Automoveis"
+],
+"building/garages":[
+"Garagens",
+"Garages"
+],
+"building/greenhouse":[
+"Estufa",
+"Greenhouse",
+"Estufas"
+],
+"building/hospital":[
+"Edifício hospitalar",
+"Hospital Building",
+"Hospital"
+],
+"building/hotel":[
+"Edifício hoteleiro",
+"Hotel Building"
+],
+"building/house":[
+"Casa",
+"Solar",
+"Domicílio",
+"Moradia",
+"Mansão",
+"Vivenda"
+],
+"building/hut":[
+"Cabana",
+"Barraca"
+],
+"building/industrial":[
+"Edifício Industrial",
+"Indústria",
+"Industria",
+"Manufactura",
+"Fábrica",
+"Fabrico"
+],
+"building/kindergarten":[
+"Edifício de jardim infantil / infantário",
+"Preschool/Kindergarten Building"
+],
+"building/public":[
+"Edifício público",
+"Public Building"
+],
+"building/residential":[
+"Prédio Residencial",
+"Habitação",
+"Edifício residencial"
+],
+"building/retail":[
+"Retail Building",
+"Edifício de retalho",
+"Retalho",
+"Varejo"
+],
+"building/roof":[
+"Roof",
+"Cobertura",
+"Telhado",
+"Coberto"
+],
+"building/school":[
+"Pavilhão Escolar",
+"School Building",
+"Escola",
+"Edifício escolar"
+],
+"building/semidetached_house":[
+"Casa Semi-isolada",
+"Semi-Detached House"
+],
+"building/shed":[
+"Shed",
+"Edícula",
+"Barracão",
+"Barraca"
+],
+"building/stable":[
+"Estábulo",
+"Cavalos",
+"Cavalariças",
+"Stable",
+"Cavalariça",
+"Cavalo"
+],
+"building/static_caravan":[
+"Static Mobile Home",
+"Caravana",
+"Casa pré-fabricada",
+"Trailer"
+],
+"building/terrace":[
+"Terraced house",
+"Casas geminadas",
+"Row Houses",
+"Terraços"
+],
+"building/train_station":[
+"Estação de comboios"
+],
+"building/university":[
+"University Building",
+"Edifício Universitário",
+"Edifício universitário"
+],
+"building/warehouse":[
+"Arrecadação",
+"Warehouse",
+"Armazém"
+],
+"camp_site/camp_pitch":[
+"Camp Pitch",
+"Sítio de acampamento"
+],
+"club":[
+"voleibol",
+"basquetebol",
+"astronomia",
+"clube",
+"escotismo",
+"futebol",
+"ténis",
+"nudismo",
+"escoteiro",
+"atletismo",
+"fã-clube",
+"caça",
+"club",
+"desporto",
+"maçom",
+"ginástica",
+"maçonaria",
+"moto clube",
+"filatelia",
+"radioamador",
+"xadrez",
+"automobilismo",
+"aeromodelismo",
+"Clube",
+"motociclismo",
+"fotografia",
+"templo maçônico",
+"associação",
+"natação",
+"fã",
+"hobby"
+],
+"craft":[
+"Artesão",
+"Craft",
+"Arofissão",
+"Artesanato"
+],
+"craft/basket_maker":[
+"Basket Maker",
+"Cesta",
+"Cesto",
+"Fabricante de Cestos",
+"Cesteiro",
+"Fabricante de Cestas"
+],
+"craft/beekeeper":[
+"Beekeeper",
+"Apicultor",
+"Abelhas",
+"Mel",
+"Cuidador de Abelhas",
+"Abelha"
+],
+"craft/blacksmith":[
+"Blacksmith",
+"Forjador",
+"Ferreiro"
+],
+"craft/boatbuilder":[
+"Barco",
+"Construtor de Barcos",
+"Embarcações",
+"Embarcação",
+"Boat Builder",
+"Barcos",
+"Iates",
+"Pesqueiro",
+"Construtor de Iates",
+"Iate",
+"Fabricante de barcos"
+],
+"craft/bookbinder":[
+"Encadernador",
+"Livros",
+"Plastificador",
+"Livro",
+"Bookbinder"
+],
+"craft/brewery":[
+"Brewery",
+"Mestre Cervejeiro",
+"Cervejaria artesanal",
+"artesanal",
+"Cerveja",
+"Cervejaria"
+],
+"craft/carpenter":[
+"Carpintaria",
+"Madeira",
+"Carpinteiro",
+"Carpenter"
+],
+"craft/carpet_layer":[
+"Carpet Layer",
+"Colocador de tapetes",
+"Carpete",
+"Tapetes",
+"Instalador de Carpetes"
+],
+"craft/caterer":[
+"Comida",
+"Cattering",
+"Caterer",
+"Catering"
+],
+"craft/chimney_sweeper":[
+"limpar chaminés",
+"chaminé",
+"Limpa-Chaminés",
+"limpador de chaminés"
+],
+"craft/clockmaker":[
+"Clockmaker",
+"Relógios",
+"Relojoeiro"
+],
+"craft/confectionery":[
+"Confeitaria",
+"Doçaria",
+"Doces",
+"Confeitos",
+"Confectionery"
+],
+"craft/distillery":[
+"distilação",
+"Destilaria",
+"Distillery",
+"distilador",
+"distilaria",
+"destilar",
+"destilador",
+"destilação",
+"distilar"
+],
+"craft/dressmaker":[
+"Costureiro",
+"Dressmaker",
+"Modista",
+"Costureira",
+"Estilista",
+"Alfaiate"
+],
+"craft/electrician":[
+"Eletricista",
+"Homem da Luz",
+"Electrician"
+],
+"craft/electronics_repair":[
+"reparador",
+"avariado",
+"Loja de reparação de aparelhos electrónicos",
+"reparar",
+"avaria",
+"reparações"
+],
+"craft/gardener":[
+"Jardineiro",
+"Erva",
+"Gardener",
+"Flores",
+"Jardim"
+],
+"craft/glaziery":[
+"Glaziery",
+"Vidro",
+"Vidraceiro",
+"Vidraria",
+"Vidreiro"
+],
+"craft/handicraft":[
+"Artesão",
+"Artesã",
+"Handicraft"
+],
+"craft/hvac":[
+"HVAC",
+"Ar Condicionado",
+"Aquecedores",
+"Aquecimento",
+"Ventilação",
+"Aquecer",
+"Técnico de Aquecimento e Ventilação",
+"Aquecedor"
+],
+"craft/insulator":[
+"Isolador de estruturas",
+"Insulator",
+"Insonorização",
+"Térmico",
+"Isolamento"
+],
+"craft/jeweler":[
+"Joalheiro"
+],
+"craft/key_cutter":[
+"Chaveiro",
+"Chaves",
+"Key Cutter",
+"Duplicador",
+"Cópia",
+"Chave"
+],
+"craft/locksmith":[
+"Serralheiro"
+],
+"craft/metal_construction":[
+"Construção metálica",
+"Metal Construction"
+],
+"craft/optician":[
+"Oculista"
+],
+"craft/painter":[
+"Tinta",
+"Painter",
+"Pintor"
+],
+"craft/photographer":[
+"Agência Fotográfica",
+"Fotógrafo",
+"Photographer",
+"Fotografia"
+],
+"craft/photographic_laboratory":[
+"Fotógrafo",
+"Photographic Laboratory",
+"Laboratório fotográfico",
+"Loja Fotográfica"
+],
+"craft/plasterer":[
+"Gesseiro",
+"Gesso",
+"Plasterer"
+],
+"craft/plumber":[
+"Canalização",
+"Pichelaria",
+"Canalizador",
+"Plumber",
+"Picheleiro"
+],
+"craft/pottery":[
+"Pottery",
+"Olaria",
+"Ceramista",
+"Oleiro",
+"Barro"
+],
+"craft/rigger":[
+"Rigger",
+"Armador"
+],
+"craft/roofer":[
+"Telhas",
+"Telhado",
+"Telhador",
+"Telha",
+"Roofer"
+],
+"craft/saddler":[
+"Saddler",
+"Selins",
+"Arreios",
+"Seleiro",
+"Selas"
+],
+"craft/sailmaker":[
+"Mastros",
+"Barcos a Vela.",
+"Vergas",
+"Velas",
+"Cordas",
+"Sailmaker",
+"Veleiro"
+],
+"craft/sawmill":[
+"Serração",
+"Lenhador",
+"Madeira",
+"Serraria",
+"Sawmill"
+],
+"craft/scaffolder":[
+"Scaffolder",
+"Montador de Andaimes",
+"Colocador de Andaimes",
+"Andaimes"
+],
+"craft/sculptor":[
+"estatuária",
+"escultura",
+"escultora",
+"Escultor",
+"esculpir"
+],
+"craft/shoemaker":[
+"Sapateiro",
+"Sapato",
+"Sapatos",
+"Shoemaker"
+],
+"craft/stonemason":[
+"Stonemason",
+"Pedraria",
+"Canteiro",
+"Pedras",
+"Rocha",
+"Pedra",
+"Pedreiro",
+"Rochas"
+],
+"craft/tailor":[
+"Alfaiate"
+],
+"craft/tiler":[
+"Tiler",
+"Colocador de Azulejos / Pedras"
+],
+"craft/tinsmith":[
+"Latoeiro",
+"Tinsmith",
+"Chapa",
+"Zinco"
+],
+"craft/upholsterer":[
+"Tapeçaria",
+"Tapete",
+"Upholsterer",
+"Tecido",
+"Tapetes",
+"Tapeceiro"
+],
+"craft/watchmaker":[
+"Relojoaria",
+"Relógio",
+"Relojoeiro",
+"Watchmaker"
+],
+"craft/window_construction":[
+"Janela",
+"Window Construction",
+"Construção de Janelas"
+],
+"craft/winery":[
+"Winery",
+"Bodega",
+"Produtor de vinho",
+"Vinhos",
+"Adega",
+"Vinho"
+],
+"embankment":[
+"Embankment",
+"Elevação do Terreno",
+"Elevação no terreno"
+],
+"emergency/ambulance_station":[
+"Ambulance Station",
+"Central de ambulâncias",
+"Ambulância",
+"Ambulâncias"
+],
+"emergency/defibrillator":[
+"Desfibrilador",
+"Defibrillator "
+],
+"emergency/designated":[
+"Acesso de emergência, designado"
+],
+"emergency/destination":[
+"Acesso de emergência, destino"
+],
+"emergency/fire_hydrant":[
+"Marco de Incêndio",
+"Fire Hydrant",
+"Hidrante",
+"Marco de Água",
+"Boca de incêndio"
+],
+"emergency/life_ring":[
+"salvamento",
+"bóia",
+"Boia de Salvamento",
+"salva vidas",
+"salva-vidas"
+],
+"emergency/no":[
+"Acesso de emergência, não"
+],
+"emergency/official":[
+"Acesso de emergência, official"
+],
+"emergency/phone":[
+"112",
+"Emergência",
+"Telefone",
+"Telefone de emergência"
+],
+"emergency/private":[
+"Acesso de emergência, privado"
+],
+"emergency/yes":[
+"Acesso de emergência, sim"
+],
+"entrance":[
+"Acesso",
+"Entrance/Exit",
+"Entrada / Saída",
+"Pórtico",
+"Portão",
+"Abertura",
+"Porta",
+"Entrada"
+],
+"footway/crossing":[
+"Street Crossing",
+"Passadeira pedestre"
+],
+"footway/crossing-raised":[
+"mesa",
+"Lomba Comprida (+3m) com Passagem de Peões em Rua Pedonal",
+"table",
+"lomba"
+],
+"footway/crosswalk":[
+"Passadeira pedestre com faixas",
+"Pedestrian Crosswalk"
+],
+"footway/crosswalk-raised":[
+"Lomba Comprida (+3m) com Passadeira em Rua Pedonal",
+"mesa",
+"passadeira",
+"table",
+"lomba"
+],
+"footway/sidewalk":[
+"Calçada",
+"Passeio",
+"Sidewalk"
+],
+"ford":[
+"Banco",
+"Vau (ponto de passagem num curso de água baixo)",
+"Baixio",
+"Parel"
+],
+"golf/bunker":[
+"Banco de areia",
+"Sand Trap"
+],
+"golf/fairway":[
+"Fairway"
+],
+"golf/green":[
+"Putting Green",
+"Green"
+],
+"golf/hole":[
+"Buraco de golfe",
+"Golf Hole"
+],
+"golf/lateral_water_hazard_area":[
+"Perigo de água lateral",
+"Lateral Water Hazard"
+],
+"golf/lateral_water_hazard_line":[
+"Perigo de água lateral",
+"Lateral Water Hazard"
+],
+"golf/rough":[
+"Rough"
+],
+"golf/tee":[
+"Tee",
+"Tee Box"
+],
+"golf/water_hazard_area":[
+"Water Hazard",
+"Perigo de água"
+],
+"golf/water_hazard_line":[
+"Water Hazard",
+"Perigo de água"
+],
+"healthcare":[
+"cuidados médicos",
+"medicina",
+"saúde",
+"Instalações de Saúde"
+],
+"healthcare/alternative":[
+"terapia alternativa",
+"auriculoterapia",
+"homeopatia",
+"magnetoterapia",
+"quiropraxia",
+"aromaterapia",
+"Medicina Alternativa",
+"fitoterapia",
+"alternativa",
+"cromoterapia",
+"acupuntura"
+],
+"healthcare/alternative/chiropractic":[
+"quiropraxista",
+"chiropractic",
+"quiroprático",
+"Quiropraxia",
+"chiropractor"
+],
+"healthcare/audiologist":[
+"fono-audiologia",
+"fonoaudiólogo",
+"terapia da fala",
+"audiologia",
+"fonoaudiologia",
+"Fonoaudiologista",
+"fono-audiólogo"
+],
+"healthcare/birthing_center":[
+"nascer",
+"nascimento",
+"obstetrícia",
+"obstetra",
+"Centro de Nascimentos (não maternidade)"
+],
+"healthcare/blood_donation":[
+"doação de sangue",
+"blood donor center",
+"Banco de sangue ",
+"Centro de Doação de Sangue",
+"transfusão de sangue"
+],
+"healthcare/hospice":[
+"paliativos",
+"Unidade de Cuidados Paliativos",
+"cuidados paliativos",
+"hospice"
+],
+"healthcare/midwife":[
+"obstetriz",
+"obstetrícia",
+"parteira",
+"ostetra",
+"Obstetra",
+"parteiro"
+],
+"healthcare/occupational_therapist":[
+"ocupacional",
+"terapeuta",
+"Terapeuta Ocupacional",
+"Occupational Therapist"
+],
+"healthcare/optometrist":[
+"Optometria",
+"óculos",
+"Optometrista",
+"visão"
+],
+"healthcare/physiotherapist":[
+"fizioterapia",
+"Physiotherapist",
+"fizoterapeuta",
+"Fisioterapeuta",
+"fisioterapia",
+"fisoterapia",
+"fizioterapeuta",
+"fisoterapeuta",
+"fizoterapia"
+],
+"healthcare/podiatrist":[
+"podologia",
+"Podólogo",
+"podolojista",
+"podolojia",
+"pé",
+"podologista",
+"pés",
+"podiatria"
+],
+"healthcare/psychotherapist":[
+"psicoterapia",
+"Psicoterapeuta"
+],
+"healthcare/rehabilitation":[
+"Unidade de Reabilitação",
+"reabilitar",
+"reabilitação"
+],
+"healthcare/speech_therapist":[
+"terapia da fala",
+"audiologia",
+"fonoaudiologia",
+"Terapeuta da Fala"
+],
+"highway":[
+"Rodovia"
+],
+"highway/bridleway":[
+"Trilho para Cavalos",
+"Trilho Equestre",
+"Caminho para Cavalos",
+"Caminhos exclusivo para cavalos",
+"Caminho Equestre",
+"Trilho para Cavaleiros",
+"Caminho para Cavaleiros"
+],
+"highway/bus_stop":[
+"microlete",
+"Terminal de Autocarros",
+"Autocarro",
+"otocarro",
+"Carreira",
+"toca-toca",
+"ônibus",
+"machimbombo",
+"Paragem de autocarro",
+"Paragem de Autocarro"
+],
+"highway/corridor":[
+"Indoor Corridor",
+"Corredor interior"
+],
+"highway/crossing":[
+"Street Crossing",
+"Passadeira geral"
+],
+"highway/crossing-raised":[
+"mesa",
+"Lomba Comprida com Passagem de Peões (+3m)",
+"table",
+"lomba"
+],
+"highway/crosswalk":[
+"Pedestrian Crosswalk",
+"Passadeira geral com faixas"
+],
+"highway/crosswalk-raised":[
+"Lomba Comprida com Passadeira (+3m)",
+"mesa",
+"passadeira",
+"table",
+"lomba"
+],
+"highway/cycleway":[
+"Bicicleta",
+"Ciclovia"
+],
+"highway/elevator":[
+"Elevador",
+"Ascensor"
+],
+"highway/footway":[
+"Caminho",
+"Caminho pedonal",
+"Trilho",
+"Trajectória",
+"Viela",
+"Ruela",
+"Andar",
+"Via",
+"Estrada",
+"Trilha",
+"Pedestre",
+"Pé",
+"Percurso",
+"Caminho Pedonal",
+"Rua"
+],
+"highway/give_way":[
+"Sinal de cedência",
+"Tield Sign"
+],
+"highway/living_street":[
+"Living Street",
+"Zona de Peões",
+"Zona de coexistência"
+],
+"highway/mini_roundabout":[
+"Minirotunda",
+"Rotunda Pintada",
+"Mini-Rotunda",
+"Mini-rotunda"
+],
+"highway/motorway":[
+"Autoestrada",
+"Auto-Estrada",
+"Auto Estrada"
+],
+"highway/motorway_junction":[
+"Junção de Autoestradas",
+"Saída de Autoestradas",
+"Interseção / Saída de autoestradas",
+"Motorway Junction / Exit"
+],
+"highway/motorway_link":[
+"Entrada Autoestrada",
+"Ligação a uma autoestrada",
+"Saída Autoestrada",
+"Ligação Autoestrada"
+],
+"highway/path":[
+"Caminho",
+"Trilha",
+"Trilho"
+],
+"highway/pedestrian_area":[
+"Área Pedestre",
+"praça",
+"largo"
+],
+"highway/pedestrian_line":[
+"pedonal",
+"rua pedonal",
+"Estrada Pedonal",
+"pedestre",
+"rua pedestre"
+],
+"highway/primary":[
+"Rodovia Primária",
+"Estrada primária",
+"Primary Road",
+"Rodovia Principal",
+"Primário",
+"Estrada Nacional",
+"Estrada Primária"
+],
+"highway/primary_link":[
+"Entrada Rodovia Nacional",
+"Ligação Estrada Principal",
+"Entrada Estrada Nacional",
+"Ligação a uma estrada primária",
+"Entrada Nacional",
+"Saída Nacional",
+"Ligação Nacional",
+"Saída Rodovia Nacional",
+"Ligação Estrada Nacional",
+"Saída Estrada Nacional",
+"Primary Link",
+"Ligação Rodovia Nacional"
+],
+"highway/raceway":[
+"autovelocidade",
+"velocidade",
+"motovelocidade",
+"kart",
+"corridas",
+"carro",
+"kartódromo",
+"Pista de corridas (motorizados) ",
+"corrida",
+"fórmula 1",
+"pista de kart",
+"autódromo",
+"pista"
+],
+"highway/residential":[
+"Rodovia Suburbana",
+"Estrada Suburbana",
+"Rodovia Residencial",
+"Rodovia Urbana",
+"Estrada Residencial",
+"Estrada dentro de localidades",
+"Rua residencial",
+"Estrada Urbana",
+"Rodovia dentro de localidades"
+],
+"highway/rest_area":[
+"Área de descanso",
+"Rest Area",
+"Posto de Descanço"
+],
+"highway/road":[
+"Estrada de tipo indeterminado",
+"Estrada Genérica",
+"Rodovia Genérica",
+"Rodovia Desconhecida",
+"Estrada Desconhecida"
+],
+"highway/secondary":[
+"Secondary Road",
+"Rodovia Secundária",
+"Estrada secundária",
+"Estrada Regional",
+"Secundário"
+],
+"highway/secondary_link":[
+"Ligação Rodovia Regional",
+"Ligação a uma estrada secundária",
+"Entrada Regional",
+"Entrada Rodovia Regional",
+"Entrada Estrada Secundária",
+"Ligação Estrada Regional",
+"Saída Regional",
+"Saída Rodovia Regional",
+"Saída Estrada Secundária",
+"Ligação Estrada Secundária",
+"Secondary Link",
+"Ligação Regional",
+"Entrada Estrada Regional"
+],
+"highway/service":[
+"Rodovia de Serviço",
+"Estrada de serviço"
+],
+"highway/service/alley":[
+"Traseiras",
+"Viela / Traseiras"
+],
+"highway/service/drive-through":[
+"Serviço ao volante (sem sair do carro)",
+"Drive-in",
+"Serviço ao Volante"
+],
+"highway/service/driveway":[
+"Acesso a residência / garagem",
+"Rampa de Acesso",
+"Corredor"
+],
+"highway/service/emergency_access":[
+"Ambulâncias",
+"Ambulância",
+"Emergência",
+"Acesso de emergência",
+"Entrada de Emergência",
+"Acesso de Emergência",
+"Corredor de Emergência"
+],
+"highway/service/parking_aisle":[
+"Estrada",
+"Corredor de estacionamento",
+"Estacionamento",
+"Estacionar",
+"Pista de Estacionamento"
+],
+"highway/services":[
+"Área de serviço",
+"Service Area",
+"Posto de Serviço"
+],
+"highway/speed_camera":[
+"Radar de Controlo de Velocidade",
+"radar",
+"controlo de velocidade"
+],
+"highway/steps":[
+"Escadas",
+"Escadaria",
+"degraus"
+],
+"highway/stop":[
+"Sinal de stop",
+"Paragem Obrigatória",
+"Stop",
+"Sinal de Paragem",
+"Sinal de paragem obrigatória no cruzamento ou entroncamento",
+"Stop Sign"
+],
+"highway/street_lamp":[
+"Lâmpada",
+"Luz",
+"Poste de Luz",
+"Poste de iluminação",
+"Iluminação",
+"Candeeiro",
+"Street Lamp"
+],
+"highway/tertiary":[
+"Caminho Municipal",
+"Rodovia Terciária",
+"Estrada Municipal",
+"Estrada terciária",
+"Terciário",
+"Tertiary Road"
+],
+"highway/tertiary_link":[
+"Entrada Rodovia Municipal",
+"Ligação Municipal",
+"Entrada Estrada Terciária",
+"Saída Rodovia Municipal",
+"Entrada Municipal",
+"Ligação Rodovia Municipal",
+"Ligação Estrada Terciária",
+"Entrada Estrada Municipal",
+"Ligação a uma estrada terciária",
+"Tertiary Link",
+"Ligação Estrada Municipal",
+"Saída Estrada Municipal",
+"Saída Municipal"
+],
+"highway/track":[
+"estrada agrícola",
+"Estrada Rural",
+"Estrada florestal / agrícola",
+"Estrada de terra",
+"Carreiro",
+"Track",
+"Carreiro Florestal "
+],
+"highway/traffic_mirror":[
+"Traffic Mirror",
+"Espelho convexo de estrada"
+],
+"highway/traffic_signals":[
+"Sinal",
+"Semáforo",
+"Semáforos",
+"Sinal de Trânsito",
+"Vermelho",
+"Amarelo",
+"Verde"
+],
+"highway/trunk":[
+"Itinerário Complementar",
+"Intinerário",
+"Via rápida",
+"Itinerário Principal",
+"Via Reservada a Automóveis e Motociclos",
+"Via Expressa",
+"Estrada Reservada a Automóveis e Motociclos",
+"Via Reservada",
+"Intenerário"
+],
+"highway/trunk_link":[
+"Entrada Via Reservada a Automóveis e Motociclos",
+"Ligação Via Expressa",
+"Saída Via Reservada",
+"Saída Via Expressa",
+"Ligação Via Reservada a Automóveis e Motociclos",
+"Saída Via Rápida",
+"Ligação Via Reservada",
+"Ligação Via Rápida",
+"Entrada Expressa",
+"Saída Via Reservada a Automóveis e Motociclos",
+"Entrada Via Rápida",
+"Entrada Via Reservada",
+"Ligação a uma via rápida"
+],
+"highway/turning_circle":[
+"Circulo de viragem",
+"Inversão de Marcha"
+],
+"highway/turning_loop":[
+"Anel",
+"Turning Loop (Island)'"
+],
+"highway/unclassified":[
+"Minor Road",
+"Estrada menor / sem classificação"
+],
+"historic":[
+"Local histórico",
+"Histórico"
+],
+"historic/archaeological_site":[
+"Arqueologia",
+"Sítio arqueológico",
+"Local Arqueológico",
+"Arqueológico"
+],
+"historic/boundary_stone":[
+"Marco",
+"Pilar de Fronteira",
+"Marco Fronteiriço",
+"Marco de fronteira",
+"Fronteira"
+],
+"historic/castle":[
+"Medieval",
+"Forte",
+"Edificação",
+"Castelo",
+"Fortaleza",
+"Fortificação"
+],
+"historic/memorial":[
+"Homenagem",
+"Memorial"
+],
+"historic/monument":[
+"Marco",
+"Monumento"
+],
+"historic/ruins":[
+"Ruins",
+"Abandonado",
+"Ruínas"
+],
+"historic/tomb":[
+"tumba",
+"túmulo",
+"Túmulo"
+],
+"historic/wayside_cross":[
+"Cruz",
+"Cruzeiro",
+" Cruz ao Ar Livre"
+],
+"historic/wayside_shrine":[
+"Nicho",
+"Capelinha",
+"Alminhas",
+"Alminhas / Nicho / Capelinha"
+],
+"junction":[
+"Junction",
+"Cruzamento"
+],
+"landuse":[
+"Uso do Solo",
+"Land Use"
+],
+"landuse/allotments":[
+"Community Garden",
+"Horta Urbana",
+"Horta Comunitária"
+],
+"landuse/aquaculture":[
+"algicultura",
+"ostreicultura",
+"Aquacultura",
+"pectinicultura",
+"piscicultura",
+"mitilicultura",
+"ranicultura",
+"carcinicultura",
+"viveiro de peixes",
+"aquicultura",
+"maricultura",
+"malacocultura"
+],
+"landuse/basin":[
+"Bacia de Drenagem",
+"Bacia hidrográfica"
+],
+"landuse/brownfield":[
+"Terreno Industrial Abandonado",
+"industrial",
+"terreto",
+"contaminado",
+"abandonado"
+],
+"landuse/cemetery":[
+"Cemitério",
+"Vala"
+],
+"landuse/churchyard":[
+"Churchyard",
+"Praça da Igreja",
+"Área da Igreja",
+"Zona da Igreja",
+"Adro de igreja",
+"Adro"
+],
+"landuse/commercial":[
+"Área comercial",
+"Zona de escritórios ",
+"Baixa Comercial"
+],
+"landuse/construction":[
+"Construir",
+"Obras",
+"Construção",
+"Em Curso"
+],
+"landuse/farm":[
+"Campo agrícola"
+],
+"landuse/farmland":[
+"Farm",
+"Pasto",
+"Campo agrícola"
+],
+"landuse/farmyard":[
+"Fazenda",
+"Edifícios agrícolas",
+"Celeiro",
+"Casa de Campo"
+],
+"landuse/forest":[
+"Área Verde",
+"Floresta"
+],
+"landuse/garages":[
+"Garagens",
+"Garages"
+],
+"landuse/grass":[
+"Relva",
+"Grama"
+],
+"landuse/greenfield":[
+"Terreno com loteamento planeado",
+"loteamento"
+],
+"landuse/harbour":[
+"porto",
+"abrigo",
+"porto seguro",
+"porto abrigado",
+"refúgio",
+"Porto Marítimo",
+"porto-seguro",
+"abra",
+"ancoradouro"
+],
+"landuse/industrial":[
+"Industrial",
+"Zona industrial"
+],
+"landuse/industrial/scrap_yard":[
+"ferro velho",
+"ferro-velho",
+"Sucata",
+"sucateiro"
+],
+"landuse/industrial/slaughterhouse":[
+"Matadouro",
+"açougue",
+"abatedouro"
+],
+"landuse/landfill":[
+"Landfill",
+"Aterro sanitário",
+"Sucata",
+"Lixeira"
+],
+"landuse/meadow":[
+"Meadow",
+"Prado"
+],
+"landuse/orchard":[
+"Nespereira",
+"Oliveira",
+"Pomar",
+"Figueira",
+"Árvore",
+"Laranjeira",
+"Cerejeira",
+"Amendoeira",
+"Damasqueiro",
+"Macieira",
+"Nogueira",
+"Pessegueiro",
+"Amoreira",
+"Pereira",
+"Castanheiro",
+"Orchard",
+"Limoeiro",
+"Fruto",
+"Plantação",
+"Árvores",
+"Marmeleiro",
+"Frutos",
+"Diospireiro"
+],
+"landuse/plant_nursery":[
+"Plant Nursery",
+"Viveiro de plantas"
+],
+"landuse/quarry":[
+"Canteira",
+"Pedreira (mina a céu aberto)",
+"Quarry"
+],
+"landuse/railway":[
+"Área Ferroviária",
+"zona ferroviária",
+"área ferroviária"
+],
+"landuse/recreation_ground":[
+"Zona de recreação",
+"Recreation Ground"
+],
+"landuse/religious":[
+"Área religiosa"
+],
+"landuse/residential":[
+"Residential",
+"Residencial",
+"Antrópico",
+"Zona residencial",
+"Urbano"
+],
+"landuse/retail":[
+"Retail",
+"Vendas",
+"Compras",
+"Zona de retalho",
+"Retalho",
+"Varejo"
+],
+"landuse/vineyard":[
+"Vinhedo",
+"Uva",
+"Vinhas",
+"Vineyard",
+"Vinhão",
+"Vinha",
+"Uvas"
+],
+"leisure":[
+"Leisure",
+"Lazer",
+"Diversão"
+],
+"leisure/adult_gaming_centre":[
+"Adult Gaming Center",
+"Centro de jogos para adultos"
+],
+"leisure/bird_hide":[
+"Abrigo de passaros",
+"Bird Hide"
+],
+"leisure/bowling_alley":[
+"Bowling",
+"Boulingue",
+"Bólingue",
+"boliche",
+"Bowling Alley",
+"Pista de Bowling"
+],
+"leisure/common":[
+"Baldio",
+"Baldios",
+"Terreno Baldio",
+"Common"
+],
+"leisure/dance":[
+"Salão de dança",
+"Dance Hall"
+],
+"leisure/dog_park":[
+"Parque para Cães",
+"Dog Park",
+"Parque de cães"
+],
+"leisure/firepit":[
+"Chama",
+"Firepit",
+"Fogo controlado",
+"Local para Fogueiras",
+"Fogueira",
+"Brasa"
+],
+"leisure/fitness_centre":[
+"Academia Esportiva",
+"Musculação",
+"Academia",
+"Ginásio",
+"Health Club",
+"Academia Desportiva/Ginásio",
+"Academia Desportiva",
+"Fitness"
+],
+"leisure/fitness_centre/yoga":[
+"Yoga Studio",
+"Casa De Ioga",
+"Casa De Yoga"
+],
+"leisure/fitness_station":[
+"Equipamento de exercícios",
+"Ginástica",
+"Exercício ao ar livre",
+"Equipamento de Exercícios ao Ar Livre",
+"Exercícios ao ar livre",
+"Máquinas de exercícios",
+"Máquina de execício"
+],
+"leisure/fitness_station/balance_beam":[
+"barra",
+"Trave de Equilíbrio",
+"trave",
+"balanço",
+"equilíbrio"
+],
+"leisure/fitness_station/box":[
+"Caixa de Exercícios"
+],
+"leisure/fitness_station/horizontal_bar":[
+"barra",
+"horizontal",
+"Barra Fixa Horizontal"
+],
+"leisure/fitness_station/horizontal_ladder":[
+"Escada Horizontal"
+],
+"leisure/fitness_station/hyperextension":[
+"Extensões",
+"Dispositivo de Extensões"
+],
+"leisure/fitness_station/parallel_bars":[
+"Barras Paralelas",
+"paralelas",
+"barras"
+],
+"leisure/fitness_station/push-up":[
+"Flexão",
+"Flexões",
+"Barra de Flexões",
+"Extensão"
+],
+"leisure/fitness_station/rings":[
+"Argolas de Exercício",
+"Argolas"
+],
+"leisure/fitness_station/sign":[
+"Placa de Instruções de Exercício"
+],
+"leisure/fitness_station/sit-up":[
+"Abdominais",
+"Dispositivo para Abdominais"
+],
+"leisure/fitness_station/stairs":[
+"Escadas",
+"Escadas de Exercício"
+],
+"leisure/garden":[
+"Garden",
+"Jardim"
+],
+"leisure/golf_course":[
+"Golf Course",
+"Golf",
+"Campo de Golf",
+"Campo de golfe"
+],
+"leisure/hackerspace":[
+"hackspace",
+"Clube de Hackers",
+"Hackers",
+"Hacker"
+],
+"leisure/horse_riding":[
+"Horseback Riding Facility",
+"Arena de Hipismo",
+"Arena de Equitação"
+],
+"leisure/ice_rink":[
+"Gelo",
+"Ringue de Gelo",
+"Pista de Gelo",
+"Patinagem",
+"Ice Rink",
+"Patins",
+"Pista de Patinagem",
+"Ringue de patinagem"
+],
+"leisure/marina":[
+"Barco",
+"Marina",
+"Atracadouro"
+],
+"leisure/miniature_golf":[
+"Minigolfe",
+"Miniature Gold"
+],
+"leisure/nature_reserve":[
+"Nature Reserve",
+"Reserva natural",
+"Natureza"
+],
+"leisure/park":[
+"Parque",
+"Floresta",
+"Relva",
+"Bosque",
+"Relvado",
+"Jardim"
+],
+"leisure/picnic_table":[
+"Picnic Table",
+"Piquenique pique-nique",
+"piknik",
+"Pik-nik",
+"Mesa de Merenda",
+"Convescote",
+"Mesa de piquenique"
+],
+"leisure/pitch":[
+"Quadra Desportiva",
+"Sport Pitch",
+"Campo de Desportos",
+"Campo de desporto"
+],
+"leisure/pitch/american_football":[
+"Rugby",
+"Campo de futebol americano",
+"Râguebi",
+"Futebol Americano",
+"American Football"
+],
+"leisure/pitch/baseball":[
+"Campo de basebol",
+"Beisebol",
+"Baizebol",
+"Beizebol",
+"Baisebol",
+"Baseball Diamond"
+],
+"leisure/pitch/basketball":[
+"Basquetebol",
+"Campo de basquetebol",
+"Quadra de Basquetebol",
+"Basketball Court"
+],
+"leisure/pitch/beachvolleyball":[
+"voleibol",
+"Campo de voleibol de praia",
+"volley",
+"Vólei",
+"praia",
+"campo"
+],
+"leisure/pitch/boules":[
+"Campo de Boules/Boccia"
+],
+"leisure/pitch/bowls":[
+"Bowling Green",
+"Campo de boccia"
+],
+"leisure/pitch/cricket":[
+"Campo de Críquete",
+"campo de críquete",
+"campo de jogos de cricket",
+"campo de jogos de críquete",
+"campo de cricket"
+],
+"leisure/pitch/equestrian":[
+"Riding Arena",
+"equitação",
+"hipismo",
+"Pista de Equitação",
+"pista",
+"cavalos"
+],
+"leisure/pitch/rugby_league":[
+"Campo de rugby de 13",
+"Rugby League Field"
+],
+"leisure/pitch/rugby_union":[
+"rugby de 15",
+"Rugby Union Field",
+"Campo de rugby de 15"
+],
+"leisure/pitch/skateboard":[
+"Skate Park",
+"Skate",
+"Parque de skate"
+],
+"leisure/pitch/soccer":[
+"Soccer Field",
+"Futebol",
+"relvado",
+"Estádio",
+"Campo de futebol",
+"campo"
+],
+"leisure/pitch/table_tennis":[
+"pingue pongue",
+"pingue-pongue",
+"Mesa de Pingue-Pongue",
+"ténis de mesa"
+],
+"leisure/pitch/tennis":[
+"Quadra de Ténis",
+"Tennis Court",
+"Ténis",
+"Campo de ténis"
+],
+"leisure/pitch/volleyball":[
+"Volleyball Court",
+"Quadra de Voleibol",
+"Voleibol",
+"Campo de voleibol"
+],
+"leisure/playground":[
+"Baloiços",
+"Escorregas",
+"Escorrega",
+"Infantil",
+"Parque infantil",
+"Baloiço"
+],
+"leisure/resort":[
+"estação turística",
+"Resort",
+"estância turística ou hotel de lazer",
+"centro de férias",
+"resorte",
+"Restort"
+],
+"leisure/running_track":[
+"atletismo",
+"atleta",
+"corrida",
+"jogging",
+"Pista",
+"Pista de atletismo "
+],
+"leisure/sauna":[
+"banho de vapor",
+"Sauna",
+"banho turco",
+"banho finlandês"
+],
+"leisure/slipway":[
+"Slipway",
+"Rampa para barcos"
+],
+"leisure/sports_centre":[
+"Complexo Desportivo",
+"Cidade Desportiva",
+"Centro Desportivo",
+"Centro de Desporto",
+"Centro de Desportos",
+"Centro Desportivo / Complexo Desportivo"
+],
+"leisure/sports_centre/swimming":[
+"Piscina",
+"Aquática",
+"Academia de Natação",
+"Saltos ornamentais",
+"Polo aquático",
+"Centro Aquático",
+"Natação",
+"Esportes Aquáticos"
+],
+"leisure/stadium":[
+"Stadium",
+"Estádio"
+],
+"leisure/swimming_pool":[
+"Piscina",
+"Swimming Pool"
+],
+"leisure/track":[
+"passeio",
+"peões",
+"bicicleta",
+"ciclovia",
+"pedestre",
+"correr",
+"caminhar",
+"pista",
+"calçada",
+"Pista de corridas (não motorizados) ",
+"passadiço",
+"via"
+],
+"leisure/water_park":[
+"Piscina",
+"Parque Aquático",
+"Parque de diversões",
+"Lazer",
+"Diversão"
+],
+"line":[
+"Line",
+"Linha"
+],
+"man_made":[
+"Obra Humana",
+"Estrutura artificial",
+"Man Made",
+"Construção Humana"
+],
+"man_made/adit":[
+"Galeria de acesso a mina",
+"mineiro",
+"acesso",
+"mineiros",
+"entrada",
+"minas",
+"galeria mineira",
+"mina"
+],
+"man_made/breakwater":[
+"Breakwater",
+"Molhe"
+],
+"man_made/bridge":[
+"Viaduto",
+"Ponte",
+"Bridge"
+],
+"man_made/chimney":[
+"Chaminé",
+"Chimney"
+],
+"man_made/crane":[
+"guindaste",
+"gindaste",
+"Grua",
+"guindastre",
+"gindastre"
+],
+"man_made/cutline":[
+"incêndio",
+"Corta Fogo",
+"Aceiro / Linha corta-fogo",
+"Cut line",
+"incêndios"
+],
+"man_made/embankment":[
+"Elevação no terreno"
+],
+"man_made/flagpole":[
+"Estandarte",
+"Mastro de bandeira",
+"Bandeira"
+],
+"man_made/gasometer":[
+"Gasometer",
+"Gasómetro"
+],
+"man_made/groyne":[
+"Espigão marítimo",
+"Groyne"
+],
+"man_made/lighthouse":[
+"Faról",
+"Lighthouse",
+"Farolim",
+"Farol"
+],
+"man_made/mast":[
+"poste",
+"torre",
+"Poste",
+"mastro"
+],
+"man_made/observation":[
+"Observatório Tower",
+"Torre de observação",
+"Miradouro"
+],
+"man_made/petroleum_well":[
+"Poço de petróleo",
+"Oil Well"
+],
+"man_made/pier":[
+"Pier",
+"Porto",
+"Doca",
+"Pontão / Atracadouro"
+],
+"man_made/pipeline":[
+"Gasoduto / Oleoduto",
+"Tubo",
+"Pipeline"
+],
+"man_made/pumping_station":[
+"Pumping Station",
+"Estação de bombeamento"
+],
+"man_made/silo":[
+"Silo"
+],
+"man_made/storage_tank":[
+"Depósito de Armazenamento",
+"Storage Tank"
+],
+"man_made/surveillance":[
+"Surveillance",
+"Câmara de Vigilância",
+"CCTV"
+],
+"man_made/surveillance_camera":[
+"Câmara de videovigilância",
+"Surveillance Camera"
+],
+"man_made/survey_point":[
+"Survey Point",
+"Vértice geodésico / Talefe"
+],
+"man_made/tower":[
+"Torre",
+"Alto",
+"Tower"
+],
+"man_made/wastewater_plant":[
+"ETAR",
+"E.T.A.R.",
+"Estação de Tratamento de Resíduos",
+"Estação de Tratamento de Águas Residuais",
+"Wastewater Plant",
+"Resíduos",
+"Estação de tratamento de águas residuais"
+],
+"man_made/water_tower":[
+"Torre de Água",
+"Depósito de Água",
+"Reservatório elevado",
+"Water Tower"
+],
+"man_made/water_well":[
+"Poço",
+"Water Well",
+"Água",
+"Furo",
+"Poço de água"
+],
+"man_made/water_works":[
+"Estação de captação e tratamento de águas",
+"Water Works",
+"Captação de água"
+],
+"man_made/watermill":[
+"moinho",
+"azenha",
+"Watermill",
+"Moinho de água"
+],
+"man_made/windmill":[
+"Moinho de vento",
+"moinho",
+"Windmill"
+],
+"man_made/works":[
+"fabricar",
+"manofatura",
+"works",
+"indústria",
+"fabrico",
+"Fábrica",
+"manofaturação"
+],
+"manhole":[
+"tampa",
+"Poço de visita",
+"tampa de saneamento",
+"Manhole",
+"bueiro"
+],
+"manhole/drain":[
+"valeta",
+"pluviais",
+"drenagem",
+"tempestade",
+"sarjeta",
+"vala",
+"inundação",
+"Sumidouro",
+"Drenagem",
+"chuva",
+"escoamento"
+],
+"manhole/telecom":[
+"Telecom Manhole",
+"poço de visita",
+"Poço de Visita de Telecomunicações",
+"telecomunicações"
+],
+"natural":[
+"Natural"
+],
+"natural/bare_rock":[
+"rocha-mãe",
+"rocha matriz",
+"zonas rochosas",
+"Zona Rochosa"
+],
+"natural/bay":[
+"Baía"
+],
+"natural/beach":[
+"areal",
+"Praia"
+],
+"natural/cave_entrance":[
+"caverna",
+"Cave Entrance",
+"Gruta",
+"Entrada de gruta"
+],
+"natural/cliff":[
+"Precipício",
+"Escarpa"
+],
+"natural/coastline":[
+"Costa",
+"Linha costeira",
+"Orla"
+],
+"natural/fell":[
+"Encosta",
+"Fell"
+],
+"natural/glacier":[
+"Glaciar"
+],
+"natural/grassland":[
+"Grassland",
+"Terra Verde",
+"Pastoreio",
+"Prado",
+"Pradaria",
+"Verdes"
+],
+"natural/heath":[
+"Charneca",
+"Heath"
+],
+"natural/peak":[
+"Pináculo",
+"Pico / Cume",
+"Peak",
+"Montanha"
+],
+"natural/ridge":[
+"cumeira",
+"Cumeeira / Cume",
+"cume",
+"cumieira",
+"cumeada",
+"tergo"
+],
+"natural/saddle":[
+"porto",
+"colo",
+"portela",
+"Passo de montanha",
+"Saddle"
+],
+"natural/sand":[
+"sand",
+"areal",
+"Areia"
+],
+"natural/scree":[
+"Pedras",
+"Sree",
+"Cascalho",
+"Encosta de rochas soltas"
+],
+"natural/scrub":[
+"Matagal",
+"Scrub"
+],
+"natural/spring":[
+"Nascente de água",
+"Nascente",
+"Fonte",
+"Nasce",
+"Água"
+],
+"natural/tree":[
+"Cedro",
+"Oliveira",
+"Eucalito",
+"Figueira",
+"Salgueiro",
+"Cerejeira",
+"Damasqueiro",
+"Pessegueiro",
+"Amoreira",
+"Pereira",
+"Carvalho",
+"Cipreste",
+"Tree",
+"Sequoia",
+"Pinheiro",
+"Diospireiro",
+"Nespereira",
+"Plátano",
+"Choupo",
+"Loureiro",
+"Árvore",
+"Laranjeira",
+"Sobreiro",
+"Eucalipto",
+"Amendoeira",
+"Freixo",
+"Macieira",
+"Nogueira",
+"Castanheiro",
+"Limoeiro",
+"Ébano",
+"Acácia",
+"Marmeleiro",
+"Abeto"
+],
+"natural/tree_row":[
+"Linha de árvores",
+"Tree row"
+],
+"natural/volcano":[
+"Volcano",
+"Vulcão"
+],
+"natural/water":[
+"Water",
+"Água"
+],
+"natural/water/lake":[
+"Lagoa",
+"Lago",
+"Jardim d'Água",
+"Pateira",
+"Lagoinha",
+"Jardim de Água"
+],
+"natural/water/pond":[
+"Lagoa",
+"Jardim d'Água",
+"Pateira",
+"Lagoinha",
+"Jardim de Água"
+],
+"natural/water/reservoir":[
+"Reservatório de Água",
+"Reservatório",
+"Reservatório artificial"
+],
+"natural/wetland":[
+" Zona húmida",
+"Sapal",
+"Pântano",
+"Turfeira",
+"Paul",
+"Wetland"
+],
+"natural/wood":[
+"Wood",
+"Bosque"
+],
+"noexit/yes":[
+"No Exit",
+"Sem saída"
+],
+"office":[
+"Office",
+"Escritórios",
+"Escritório"
+],
+"office/accountant":[
+"Contas",
+"Contabilista",
+"Contabilistas",
+"I.R.S.",
+"Accountant",
+"IRS",
+"Contabilidade"
+],
+"office/administrative":[
+"Administrative Office",
+"Escritório da administração local",
+"Administrativo"
+],
+"office/adoption_agency":[
+"adoptar",
+"Agência de Adoção",
+"adotar",
+"adoção",
+"adopção"
+],
+"office/advertising_agency":[
+"publicidade",
+"Agência de Publicidade",
+"anúncio"
+],
+"office/architect":[
+"arquitecto",
+"arquitectura",
+"arquitetura",
+"Arquiteto"
+],
+"office/association":[
+"Organização Sem Fins Lucrativos",
+"ONG"
+],
+"office/charity":[
+"Caridade",
+"Instituição de Caridade",
+"Filantropia"
+],
+"office/company":[
+"Sede",
+"Empresa",
+"Company Office",
+"Escritório de empresa"
+],
+"office/coworking":[
+"Co-working",
+"Espaço de Trabalho Compartilhado",
+"Escritórios Cooperativos",
+"Coworking",
+"Escritórios Partilhados",
+"Trabalho Cooperativo"
+],
+"office/educational_institution":[
+"Educacional Institution",
+"Educacional",
+"Educação",
+"Instituição Educacional",
+"Instituição de Ensino",
+"Escola"
+],
+"office/employment_agency":[
+"Agência de Emprego",
+"Employment Agency",
+"Emprego"
+],
+"office/energy_supplier":[
+"Eletricidade",
+"Botijas de Gás",
+"Gás",
+"Fornecedor de Energia",
+"Combustível"
+],
+"office/estate_agent":[
+"Real Estate Office",
+"Casa",
+"Mudanças",
+"Habitações",
+"Imóveis",
+"habitação",
+"Agência imobiliária",
+"Casas",
+"Imóvel",
+"Compra de Casas"
+],
+"office/financial":[
+"Finanças",
+"Repartição",
+"Posto de Finanças",
+"Balcão de Finanças",
+"Financial Office"
+],
+"office/forestry":[
+"Posto Florestal",
+"Guarda Florestal"
+],
+"office/foundation":[
+"Fundação"
+],
+"office/government":[
+"Finanças",
+"Escritório da administração nacional",
+"Government Office",
+"Direção-Geral",
+"DGV",
+"Segurança Social",
+"Centro de Emprego",
+"Loja do Cidadão",
+"Governo",
+"Estado",
+"Instituto de Emprego",
+"Direcção-Geral"
+],
+"office/government/register_office":[
+"Register Office",
+"Conservatória",
+"Nascimento",
+"Registo Civil",
+"Divórcio",
+"Conservatória do Registo Civil",
+"Casamento",
+"Conservatória dos Registos Centrais",
+"estado civil",
+"Registo",
+"Óbito"
+],
+"office/government/tax":[
+"Finanças",
+"Repartição das Finanças",
+"Direção de Finanças",
+"Repartição de Finanças",
+"Direção das Finanças"
+],
+"office/guide":[
+"Guia",
+"Guia Turístico"
+],
+"office/insurance":[
+"Agência de seguros",
+"Insurance Office",
+"Seguros",
+"Seguro"
+],
+"office/it":[
+"Escritório de Tecnologia da Informação"
+],
+"office/lawyer":[
+"Advogada",
+"Law Office",
+"Advogado",
+"Escritório de advogados",
+"Agência de Advocacia",
+"Advogadas",
+"Advogados",
+"Advocacia"
+],
+"office/lawyer/notary":[
+"Notário",
+"Notary Office",
+"Notariado"
+],
+"office/moving_company":[
+"Transportadora",
+"Mudanças",
+"Empresa de Mudanças"
+],
+"office/newspaper":[
+"Sede/Filial de Jornal",
+"jornal"
+],
+"office/ngo":[
+"Organização",
+"NGO",
+"ONG",
+"NGO Office",
+"Organização Não Governamental",
+"Escritório de ONG"
+],
+"office/notary":[
+"Notário",
+"Notary Office",
+"Notariado"
+],
+"office/physician":[
+"Médico especialista"
+],
+"office/political_party":[
+"Partido",
+"Partidos",
+"Political Party",
+"Sede/filial de partido político"
+],
+"office/private_investigator":[
+"Detetive Particular",
+"Detetive Privado",
+"Detetive"
+],
+"office/quango":[
+"Escritório de NGO Governamental"
+],
+"office/research":[
+"Escritório de Investigação",
+"Centro de Pesquisa",
+"Research Office",
+"Centro de investigação"
+],
+"office/surveyor":[
+"Empresa de Agrimensura"
+],
+"office/tax_advisor":[
+"Açesoria Fiscal",
+"Assessoria Fiscal",
+"Açesor Fiscal",
+"Acessoria Fiscal",
+"Acecor Fiscal",
+"Açessor Fiscal",
+"Acecoria Fiscal",
+"Açecoria Fiscal",
+"Açecor Fiscal",
+"Açessoria Fiscal",
+"Acessor Fiscal",
+"Escritório de Assessor Fiscal"
+],
+"office/telecommunication":[
+"Empresa de telecomunicações",
+"Televisão",
+"Telecomunicações",
+"Internet",
+"Telecom Office"
+],
+"office/therapist":[
+"Terapêutica",
+"Terapista",
+"Therapist"
+],
+"office/travel_agent":[
+"Agência de viagens"
+],
+"office/water_utility":[
+"Cooperativa de Água",
+"Companhia de Água",
+"Água",
+"Fornecedor de Água"
+],
+"piste":[
+"Ski",
+"Piste/Ski Trail",
+"Pista de ski"
+],
+"place":[
+"Local"
+],
+"place/city":[
+"Capital de Distrito",
+"City",
+"Capital",
+"Distrito",
+"Cidade"
+],
+"place/farm":[
+"Quinta"
+],
+"place/hamlet":[
+"Hamlet",
+"Aldeamento",
+"Aldeia"
+],
+"place/island":[
+"Recife",
+"Restinga",
+"Ilhéu",
+"Arquipélago",
+"Ilha",
+"Atol"
+],
+"place/islet":[
+"Ilhéu",
+"ilhota",
+"farelhão",
+"banco de areia",
+"rochedo",
+"cayo",
+"pequena ilha",
+"roca",
+"ilha pequena"
+],
+"place/isolated_dwelling":[
+"Habitação isolada",
+"remota",
+"remoto",
+"Isolated Dwelling",
+"isolado"
+],
+"place/locality":[
+"Localidade",
+"Sítio (evitar usar)"
+],
+"place/neighbourhood":[
+"Vizinhança",
+"Neigborhood",
+"Bairro"
+],
+"place/plot":[
+"Lote",
+"parcela"
+],
+"place/quarter":[
+"Quarteirão",
+"bairro",
+"vizinhança",
+"quarteirão",
+"limite"
+],
+"place/square":[
+"Terreiro",
+"Praça / Praceta / Largo / Terreiro",
+"Largo",
+"Square",
+"Praceta"
+],
+"place/suburb":[
+"subúrbio",
+"bairro",
+"quarteirão",
+"periferia",
+"limite",
+"margem",
+"Subúrbio"
+],
+"place/town":[
+"Vila",
+"Conselho",
+"Town",
+"Concelho",
+"Cidade",
+"Cidade / Vila"
+],
+"place/village":[
+"Vila",
+"Freguezia",
+"Sede de Freguesia",
+"Village",
+"Freguesia",
+"Cidade",
+"Aldeia"
+],
+"playground/balance_beam":[
+"Balanço",
+"Trave",
+"Equilíbrio",
+"Barra de Equilíbrio",
+"Equilibrismo"
+],
+"playground/basket_spinner":[
+"Cesta",
+"Cesto",
+"Cesto Rotativo",
+"Rotativo"
+],
+"playground/basket_swing":[
+"Cesta",
+"Cesto",
+"Baloiço",
+"Baloiço de Cesto"
+],
+"playground/climbing_frame":[
+"Estrutura de Trepar",
+"trepar",
+"trepa-trepa",
+"gaiola gínica"
+],
+"playground/cushion":[
+"Insuflável",
+"Colchão Insuflável"
+],
+"playground/horizontal_bar":[
+"Barra Fixa Horizontal",
+"Barra Horizontal"
+],
+"playground/rocker":[
+"Mola",
+"Baloiço de mola"
+],
+"playground/roundabout":[
+"Gira-Gira",
+"Girar"
+],
+"playground/sandpit":[
+"Areia",
+"Caixa de Areia"
+],
+"playground/seesaw":[
+"Gangorra",
+"Balancé"
+],
+"playground/slide":[
+"Escorrega",
+"escorregador",
+"escorregão",
+"escorrego"
+],
+"playground/structure":[
+"Equipamento",
+"Estrutura",
+"Estrutura de Diversão",
+"Jogo"
+],
+"playground/swing":[
+"Baloiço",
+"balanço"
+],
+"playground/zipwire":[
+"suspenso",
+"Corda Suspensa",
+"corda"
+],
+"point":[
+"Ponto",
+"Nó",
+"POI"
+],
+"power":[
+"Energia"
+],
+"power/generator":[
+"Energia Termoeléctrica",
+"Power Generator",
+"Energia Nuclear",
+"Gerador Elétrico",
+"Energia Eólica",
+"Central de geração de energia",
+"Energia Solar",
+"Central de Energia"
+],
+"power/generator/source_nuclear":[
+"Reator nuclear",
+"Nuclear Reactor",
+"reactor nuclear",
+"usina",
+"central nuclear",
+"nuclear",
+"usina nuclear"
+],
+"power/generator/source_wind":[
+"aero-gerador",
+"Wind Turbine",
+"aero gerador",
+"aerogerador",
+"eólica",
+"sistema de geração eólica",
+"ventoinha",
+"eolica",
+"Aerogerador"
+],
+"power/line":[
+"Linha de Transmissão",
+"Linha de Eletricidade",
+"Linha de alta tensão"
+],
+"power/minor_line":[
+"Linha de média e baixa tensão",
+"Minor Power Line",
+"Linha de Transmissão Menor",
+"Linha de Energia Menor"
+],
+"power/plant":[
+"zona da central",
+"Área da Central de Energia",
+"solo da central de energia",
+"solo da central",
+"área da central"
+],
+"power/pole":[
+"Power Pole",
+"Torre de média e baixa Tensão",
+"Poste de Eletricidade",
+"Poste"
+],
+"power/sub_station":[
+"Subestação"
+],
+"power/substation":[
+"Substation",
+"energia",
+"Subestação",
+"Sub-estação",
+"Distribuição",
+"Sub estação"
+],
+"power/switch":[
+"Interruptor"
+],
+"power/tower":[
+"High-Voltage Tower",
+"Torre de Alta-Tensão",
+"Poste de Alta-Tensão",
+"Torre de alta tensão"
+],
+"power/transformer":[
+"Transformador",
+"Transformador de distribuição"
+],
+"public_transport/platform":[
+"Platform",
+"Plataforma",
+"Plataforma de transporte público",
+"Paragem de autocarro"
+],
+"public_transport/stop_position":[
+"Paragem",
+"Paragem de transporte público",
+"Stop Position"
+],
+"railway":[
+"Ferrovia"
+],
+"railway/abandoned":[
+"Linha de Carris Abandonados",
+"Carris Abandonados",
+"Ferrovia removida"
+],
+"railway/buffer_stop":[
+"para-choque",
+"Para-choque de via",
+"Buffer Stop",
+"Pára-choques Ferroviário",
+"pára-choque"
+],
+"railway/crossing":[
+"Railway Crossing",
+"Passagem de nível (caminho)",
+"passagem de nível"
+],
+"railway/derail":[
+"descarrilar",
+"Descarrilador Ferroviário",
+"Railway Derailer. descarrilador"
+],
+"railway/disused":[
+"Carris Fora de Serviço",
+"Ferrovia não utilizada"
+],
+"railway/funicular":[
+"Funicular",
+"Plano Inclinado"
+],
+"railway/halt":[
+"Railway Halt",
+"Paragem",
+"Apeadeiro"
+],
+"railway/level_crossing":[
+"Railway Crossing (Road)",
+"Passagem de nível (estrada)"
+],
+"railway/light_rail":[
+"Metrô leve",
+"Metro Ligeiro",
+"veículo leve sobre trilhos",
+"metro ligeiro",
+"comboio ligeiro",
+"metropolitano de superfície"
+],
+"railway/milestone":[
+"marco quilométrico",
+"Marco Quilométrico Ferroviário",
+"Railway Milestone"
+],
+"railway/monorail":[
+"Monocarril",
+"Monorail"
+],
+"railway/narrow_gauge":[
+"Bitola Métrica",
+"Via Métrica",
+"Bitola Estreita",
+"Via estreita",
+"Narrow Gauge Rail"
+],
+"railway/platform":[
+"Railway Platform",
+"Plataforma",
+"Plataforma ferroviária"
+],
+"railway/rail":[
+"Carril",
+"Rail",
+"Ferrovia",
+"Caminho de ferro",
+"Caminhos de ferro",
+"estrada-de-ferro",
+"Carris",
+"via férrea",
+"Linha Férrea",
+"ferrovia"
+],
+"railway/signal":[
+"semáforo ferroviário",
+"Railway Signal",
+"semáforo",
+"sinal",
+"Sinal Ferroviário",
+"sinalização"
+],
+"railway/station":[
+"Estação de Comboios",
+"Estação ferroviária",
+"Railway Station"
+],
+"railway/subway":[
+"Metro",
+"Subterrâneo"
+],
+"railway/subway_entrance":[
+"Metropolitano",
+"Entrada do Metro",
+"Metro",
+"Subterrâneo ",
+"Entrada de metro"
+],
+"railway/switch":[
+"aparelho de mudança de via",
+"Switch",
+"Railway Switch",
+"Agulha de Ferrovia",
+"AMV",
+"agulheta",
+"agulha"
+],
+"railway/train_wash":[
+"Lavagem de Comboios",
+"lavadora de comboios",
+"Train Wash",
+"lavadora",
+"lavagem"
+],
+"railway/tram":[
+"Eléctrico",
+"Elétrico"
+],
+"railway/tram_stop":[
+"Estação de Elétrico",
+"Paragem de Elétrico"
+],
+"relation":[
+"Relação"
+],
+"roundabout":[
+"Rotunda"
+],
+"route/ferry":[
+"Rota do Ferry",
+"Rota de barca / ferry"
+],
+"shop":[
+"Venda",
+"Vendedor",
+"Loja"
+],
+"shop/agrarian":[
+"Loja de Produtos Agrícolas",
+"produtos agrícolas",
+"produtos agrículas"
+],
+"shop/alcohol":[
+"Loja de bebidas alcoólicas",
+"Alcool"
+],
+"shop/anime":[
+"Anime Shop",
+"Anime",
+"Loja de material Asiático",
+"Loja de anime",
+"Manga"
+],
+"shop/antiques":[
+"Relíquia",
+"Antigo",
+"Antiques Shop",
+"Antiguidade",
+"Antiguidades",
+"Loja de antiguidades",
+"Relíquias"
+],
+"shop/appliance":[
+"electrodoméstico",
+"eletrodoméstico",
+"Loja de Electrodomésticos",
+"frigorífico",
+"máquina"
+],
+"shop/art":[
+"Pintura",
+"Loja de Artes",
+"Artesanato",
+"Decoração",
+"Quadros",
+"Objetos decorativos",
+"Objetos artísticos"
+],
+"shop/baby_goods":[
+"Carrinho",
+"Loja de acessórios para bebés",
+"Baby Goods Store",
+"bébés",
+"Brinquedos",
+"Bebe",
+"Bébe",
+"Loja de Roupa",
+"Bébé"
+],
+"shop/bag":[
+"Malas",
+"Loja de malas / bagagem",
+"Bag/Luggage Store",
+"Bolsas",
+"Bolsa",
+"Mala"
+],
+"shop/bakery":[
+"Pães",
+"Bakery",
+"Padaria",
+"Pão",
+"Padeiro",
+"Padeira"
+],
+"shop/bathroom_furnishing":[
+"Casa de Banho",
+"Casas de banho",
+"W.C.",
+"Loja de assessórios para casas de banho",
+"WC",
+"Bathroom Furnishing Store"
+],
+"shop/beauty":[
+"Beauty Shop",
+"Loja de Produtos de Beleza",
+"Loja de Beleza",
+"Centro de estética"
+],
+"shop/beauty/nails":[
+"Estetica de unhas",
+"Nail Salon"
+],
+"shop/beauty/tanning":[
+"Tanning Salon",
+"Bronzeamento",
+"Solário"
+],
+"shop/bed":[
+"Loja de camas / colchões",
+"Bedding/Mattress Store",
+"Colchão",
+"Camas",
+"Cama",
+"Colchões"
+],
+"shop/beverages":[
+"Beverage Store",
+"Bebidas",
+"Bebida",
+"Loja de bebidas"
+],
+"shop/bicycle":[
+"Bicicletas",
+"Loja de bicicletas",
+"Bicicleta",
+"Bicycle"
+],
+"shop/bookmaker":[
+"Sorte",
+"Bolsa de apostas",
+"Totoloto",
+"Casa de apostas",
+"Bookmaker",
+"Euromilhões",
+"Lotaria",
+"Totobola"
+],
+"shop/books":[
+"Book Store",
+"Loja de Livros",
+"Livros",
+"Livreiro",
+"Livraria",
+"Livro"
+],
+"shop/boutique":[
+"Boutique"
+],
+"shop/butcher":[
+"Butcher",
+"Carne",
+"Talhante",
+"Talho"
+],
+"shop/candles":[
+"velas",
+"Loja de velas",
+"vela",
+"Candle Shop"
+],
+"shop/car":[
+"Auto",
+"Stand",
+"Carros",
+"Loja de automóveis",
+"Concessonária de Automomóveis",
+"Cetande",
+"Carro",
+"Stande",
+"Automóveis",
+"Automóvel",
+"Setande"
+],
+"shop/car_parts":[
+"Peça",
+"Loja de Peças Automóveis",
+"Peças",
+"Loja de acessórios para automóveis",
+"Automóvel",
+"Automóveis"
+],
+"shop/car_repair":[
+"Oficina de automóveis",
+"Reparação",
+"Oficina",
+"Reparações",
+"Automóvel",
+"Automóveis",
+"Car Repair Shop"
+],
+"shop/carpet":[
+"Tapete",
+"Carpetes",
+"Paçadeiras",
+"Paçadeira",
+"Loja de carpetes / tapetes",
+"Carpete",
+"Carpet Store",
+"Tapetes",
+"Passadeira",
+"Passadeiras"
+],
+"shop/charity":[
+"Loja de caridade",
+"Charity Store",
+"Loja solidária"
+],
+"shop/cheese":[
+"loja de queijos",
+"Queijo",
+"Queijos",
+"Cheese Store",
+"Queijaria"
+],
+"shop/chemist":[
+"Parafarmácia",
+"Drugstore"
+],
+"shop/chocolate":[
+"Chocolate Store",
+"Chocolate",
+"Loja de chocolates"
+],
+"shop/clothes":[
+"Loja de roupas",
+"Clothing",
+"Roupas",
+"Roupa"
+],
+"shop/coffee":[
+"Coffee Store",
+"Loja de cafés"
+],
+"shop/computer":[
+"Informática",
+"Computador",
+"Programa",
+"Computer",
+"Software",
+"Loja de informática"
+],
+"shop/confectionery":[
+"Confeitaria",
+"Doces",
+"Bolos",
+"Candy Store",
+"Loja de Gomas"
+],
+"shop/convenience":[
+"Alimentos",
+"Pequena loja",
+"Mini-mercado / Loja de conveniência",
+"Compras",
+"Mini Mercado",
+"Loja de posto de combustível",
+"Loja de esquina",
+"Alimentar",
+"Minimercado",
+"Loja"
+],
+"shop/copyshop":[
+"Máquina de fotocopiar",
+"Fotocopiar",
+"Cópia",
+"Copy Store",
+"Fotocopiadora",
+"Loja de fotocópias",
+"Fotocópias"
+],
+"shop/cosmetics":[
+"Beleza",
+"Loja de cosmética",
+"Cosmética",
+"Produtos de Beleza",
+"Cosmetics",
+"Belesa",
+"Cosméticos"
+],
+"shop/craft":[
+"Artezanato",
+"Loja de artesanato",
+"Artigos locais",
+"Artesanato",
+"Arts and Crafts Store"
+],
+"shop/curtain":[
+"Cortina",
+"Cortinado",
+"Curtain Store",
+"Cortinas",
+"Cortinados",
+"Loja de cortinas"
+],
+"shop/dairy":[
+"Dairy Store",
+"Produtos Lácteos",
+"Loja de laticínios"
+],
+"shop/deli":[
+"Loja de gourmet / delicacias",
+"Gourmet",
+"Deli"
+],
+"shop/department_store":[
+"Department Store",
+"Grande armazém"
+],
+"shop/doityourself":[
+"DIY Store",
+"Obras",
+"Loja de bricolagem",
+"Bricolage"
+],
+"shop/dry_cleaning":[
+"Lavar a seco",
+"Lavar-a-seco",
+"Limpeza a seco",
+"Dry Cleaner",
+"seco"
+],
+"shop/e-cigarette":[
+"E-Cigarette",
+"Cigarro Eletrônico",
+"E-Cig",
+"Cigarro Eletrónico",
+"E-Cigarro",
+"Loja de Cigarros Eletrónicos"
+],
+"shop/electronics":[
+"televisão",
+"Eletrodoméstico",
+"Loja de eletrodomésticos",
+"frigorífico",
+"máquina de lavar",
+"Eletro-doméstico",
+"Eletrónica de consumo",
+"Aspirador"
+],
+"shop/erotic":[
+"Sex Shop",
+"Erotic Store",
+"Sex",
+"Artigos Eróticos",
+"Eróticos",
+"Erótico"
+],
+"shop/fabric":[
+"Loja de tecidos",
+"Tecido",
+"Tecidos",
+"Fabric Store"
+],
+"shop/farm":[
+"Barraca de Fruta",
+"Verdura",
+"Loja de frutas e verduras locais",
+"Fruta",
+"Verduras",
+"Barraca de Legumes",
+"Frutas",
+"Barraca de Hortaliças",
+"Barraca de Batatas"
+],
+"shop/fashion":[
+"Fashion Store",
+"Loja de moda"
+],
+"shop/fishmonger":[
+"Peixaria"
+],
+"shop/florist":[
+"Florista",
+"Flor",
+"Flores",
+"Rosas"
+],
+"shop/frame":[
+"Moldura",
+"Quadro",
+"Framing Shop",
+"Loja de molduras"
+],
+"shop/funeral_directors":[
+"Funeral Home",
+"Casa Funerária",
+"Agência funerária",
+"Casa Mortuária",
+"Agência Mortuária"
+],
+"shop/furnace":[
+"Loja de lareiras"
+],
+"shop/furniture":[
+"Sofá",
+"Mobiliário",
+"Mobiliários",
+"Móveis",
+"Loja de mobiliário",
+"Loja de Móveis",
+"Móvel",
+"Mobílias",
+"Mobília",
+"Cama"
+],
+"shop/garden_centre":[
+"Artigos para jardinagem",
+"Jardinajem",
+"Jardinagem",
+"Loja de jardinagem",
+"Garden Center",
+"Flores"
+],
+"shop/gas":[
+"garrafa",
+"gpl",
+"Loja de Botijas de Gás",
+"botija",
+"redutor",
+"gás",
+"bilha",
+"recarga",
+"fogão",
+"propano"
+],
+"shop/gift":[
+"Loja de lembranças",
+"Loja de Recordações"
+],
+"shop/greengrocer":[
+"verduras",
+"Frutaria",
+"Verdura",
+"Fruta",
+"Loja de frutas e verduras",
+"Greengrocer",
+"Frutas"
+],
+"shop/hairdresser":[
+"Cabeleireiro(a)",
+"Corte",
+"Salão",
+"Barbeiro",
+"Hairdresser",
+"cabeleireira",
+"cabeleireiro",
+"Barbearia",
+"Cabelo"
+],
+"shop/hardware":[
+"Loja de ferragens",
+"Hardware Store"
+],
+"shop/hearing_aids":[
+"Hearing Aids Store",
+"Auditivos",
+"Loja de aparelhos auditivos",
+"Audição"
+],
+"shop/herbalist":[
+"Herbalist",
+"Herbalista"
+],
+"shop/hifi":[
+"Som",
+"Hifi Store",
+"Loja de alta fidelidade"
+],
+"shop/houseware":[
+"Panelas",
+"Panela",
+"Houseware Store",
+"Utensílios Domésticos",
+"Artigos para Casa",
+"Talheres",
+"Utensílios",
+"Cozinha",
+"Artigos para o Lar",
+"Loja de utensílios"
+],
+"shop/interior_decoration":[
+"Interior Decoration Store",
+"Decoração",
+"Loja de decoração de interiores"
+],
+"shop/jewelry":[
+"Jóias",
+"Jeweler",
+"Jóia",
+"Joalharia"
+],
+"shop/kiosk":[
+"Quiosque de jornais e revistas",
+"Qiosque",
+"Revista",
+"Jornal",
+"Revistas",
+"News Kiosk",
+"Jornais",
+"Kiosque",
+"Quiosque"
+],
+"shop/kitchen":[
+"Kitchen Design Store",
+"Loja de cozinhas",
+"à medida",
+"Cozinha",
+"Cozinhas"
+],
+"shop/laundry":[
+"Secagem",
+"Lavagem",
+"Limpeza",
+"Tecidos",
+"Limpesa",
+"Lavandaria",
+"Laundry",
+"Roupa"
+],
+"shop/leather":[
+"Leather Store",
+"Cabedal",
+"Loja de Cabedais",
+"Peles",
+"Pele",
+"Cabedais",
+"Loja de peles"
+],
+"shop/locksmith":[
+"Locksmith",
+"Serralheiro",
+"Chaves",
+"Fechaduras",
+"Fechadura",
+"Chave"
+],
+"shop/lottery":[
+"Pé-de-Meia",
+"Totoloto",
+"Raspadinha",
+"Joker",
+"Euromilhões",
+"Loja da Sorte",
+"Lotaria",
+"Totobola",
+"Lottery Shop",
+"Jogos Santa Casa"
+],
+"shop/mall":[
+"Mall",
+"Shopping",
+"Centro comercial"
+],
+"shop/massage":[
+"Massage Shop",
+"Massagem",
+"SPA",
+"Massagens",
+"Massagista",
+"Spa de massagens"
+],
+"shop/medical_supply":[
+"Artigos Hospitalares",
+"Loja de material médico",
+"Ortopedia",
+"Ortopédico",
+"Medical Supply Store"
+],
+"shop/mobile_phone":[
+"Celular",
+"Loja de telemóveis",
+"Telemóvel",
+"Mobile Phone Store",
+"Telemóveis",
+"Smartphone"
+],
+"shop/money_lender":[
+"Money Lender",
+"Loja de empréstimos"
+],
+"shop/motorcycle":[
+"Motorizada",
+"Loja de motas",
+"Motocicleta",
+"Motos",
+"Moto",
+"Loja de Motos"
+],
+"shop/music":[
+"CD",
+"Vinil",
+"CDs",
+"Loja de música",
+"Disco",
+"Vinis",
+"Music Store",
+"Música",
+"Discos"
+],
+"shop/musical_instrument":[
+"Guitarra",
+"Som",
+"Instrumento",
+"Piano",
+"Musical Instrument Store",
+"Loja de instrumentos musicais",
+"Violino",
+"Bateria",
+"Música"
+],
+"shop/newsagent":[
+"Revista",
+"Jornal",
+"Loja de jornais / revistas",
+"Newspaper/Magazine Shop"
+],
+"shop/nutrition_supplements":[
+"Nutrition Supplements Store",
+"Loja de suplementos alimentares"
+],
+"shop/optician":[
+"Loja de ótica / óculos",
+"Óptico",
+"Armação",
+"Optician",
+"òculos de sol",
+"Graduados",
+"Óptica"
+],
+"shop/organic":[
+"Comida Orgânica",
+"Loja de alimentos orgânicos",
+"Organic Good Store",
+"Orgânica",
+"Orgânico"
+],
+"shop/outdoor":[
+"Caminhada",
+"Escalada",
+"Passeio",
+"Outdoors Store",
+"Loja de artigos para atividades ao ar livre"
+],
+"shop/paint":[
+"Loja de tintas",
+"Pintura",
+"Tinta",
+"Vernizes",
+"Pincéis",
+"Verniz",
+"Paint Store",
+"Pincel",
+"Tintas",
+"Pintar"
+],
+"shop/pastry":[
+"Pastéis",
+"Bolos",
+"Pastelaria",
+"Pastel"
+],
+"shop/pawnbroker":[
+"Pawn Shop",
+"penhorar",
+"Casa de penhoras",
+"penhores",
+"penhoras"
+],
+"shop/perfumery":[
+"Perfumaria",
+"loja de perfumes",
+"perfumes",
+"perfume"
+],
+"shop/pet":[
+"Loja de animais",
+"Loja de Animais"
+],
+"shop/photo":[
+"Photography Store",
+"Fotográfo",
+"Loja de fotografia",
+"Máquina fotográfica",
+"Material Fotográfico"
+],
+"shop/pyrotechnics":[
+"Loja de pirotecnia",
+"pirotecnia",
+"Fireworks Store",
+"Fogo de Artifício"
+],
+"shop/radiotechnics":[
+"Eletrónica",
+"Radio/Electronic Component Store",
+"Eletrônica",
+"Loja de componentes eletrónicos / rádio"
+],
+"shop/religion":[
+"Religião",
+"Religious Store",
+"Loja de artigos religiosos"
+],
+"shop/scuba_diving":[
+"Mergulho",
+"Loja de equipamento de mergulho",
+"Scuba Diving Shop"
+],
+"shop/seafood":[
+"Ameijoas",
+"Peixaria",
+"Peixes",
+"Mexilhões",
+"Peixe",
+"Seafood Shop",
+"Camarão",
+"Caranguejo",
+"Lagosta"
+],
+"shop/second_hand":[
+"Loja de Consignação",
+"Loja de produtos em segunda mão",
+"Consignment/Thrift Store",
+"usado",
+"usados",
+"2ª mão"
+],
+"shop/shoes":[
+"Sapato",
+"Sapatos",
+"Sapataria",
+"Loja de Sapatos"
+],
+"shop/sports":[
+"Artigos desportivos",
+"Loja de artigos de desporto",
+"Loja de Desporto",
+"Desporto"
+],
+"shop/stationery":[
+"Stationery Store",
+"Papelaria",
+"Loja de Material de Escritório"
+],
+"shop/storage_rental":[
+"Armazém",
+"Armazenamento",
+"Aluguer de Armazéns",
+"Estoque",
+"Depósito"
+],
+"shop/supermarket":[
+"Hiper-mercado",
+"Alimentos",
+"Compras",
+"Super-mercado",
+"Super mercado",
+"Supermercado / Hipermercado",
+"Hiper mercado",
+"Alimentar",
+"Loja"
+],
+"shop/tailor":[
+"Fato",
+"Vestido",
+"Tailor",
+"Alfaiate",
+"Roupa"
+],
+"shop/tattoo":[
+"Tatuagens",
+"Tatuagem",
+"Estúdio de tatuagens ",
+"Tatuador",
+"Tatuar",
+"Tattoo Parlor"
+],
+"shop/tea":[
+"Loja de chá",
+"Tea Store",
+"Chá"
+],
+"shop/ticket":[
+"Ticket Seller",
+"Bilheteria",
+"Ingresso",
+"Bilheteira",
+"Bilhete"
+],
+"shop/tiles":[
+"Tijoleira",
+"Azulejo",
+"Loja de Tijoleiras",
+"Ladrilho"
+],
+"shop/tobacco":[
+"Loja de Tabaco",
+"Tabacaria",
+"Tobacco Shop",
+"Cachimbo",
+"Cigarrilha",
+"Tabaco"
+],
+"shop/toys":[
+"Loja de brinquedos",
+"Loja de Brinquedos"
+],
+"shop/trade":[
+"Loja de Trocas"
+],
+"shop/travel_agency":[
+"Agência de viagens",
+"Viajar",
+"Agência",
+"Viagens"
+],
+"shop/tyres":[
+"Pneu",
+"Loja de pneus",
+"Loja de Pneus",
+"Casa dos Pneus"
+],
+"shop/vacant":[
+"Loja desocupada"
+],
+"shop/vacuum_cleaner":[
+"Vacuum Cleaner Store",
+"Aspirar",
+"Aspiradores",
+"Loja de aspiradores",
+"Aspirador"
+],
+"shop/variety_store":[
+"Variety Store",
+"Loja dos Trezentos",
+"Loja dos 300",
+"Loja dos chineses"
+],
+"shop/video":[
+"Video Store",
+"Videoclube",
+"Clube de Vídeo"
+],
+"shop/video_games":[
+"Jogos de Computador",
+"Loja de videojogos",
+"Consola",
+"Video Game Store"
+],
+"shop/watches":[
+"Watches Shop",
+"Loja de relógios",
+"Relojoeiro "
+],
+"shop/water_sports":[
+"Loja de material de natação",
+"Watersport/Swim Shop",
+"Material de Banho"
+],
+"shop/weapons":[
+"Caça",
+"Loja de armas",
+"Loja de Armas",
+"Weapon Shop"
+],
+"shop/window_blind":[
+"Estores",
+"Window Blind Store",
+"Estor",
+"Loja de estores"
+],
+"shop/wine":[
+"Wine Shop",
+"Loja de Licor",
+"Loja de vinhos",
+"Bebidas Alcoolicas"
+],
+"tourism":[
+"Turismo"
+],
+"tourism/alpine_hut":[
+"Alpine Hut",
+"Albergue de montanha"
+],
+"tourism/apartment":[
+"Apartamento de hóspedes",
+"Guest Apartment / Condo"
+],
+"tourism/aquarium":[
+"Oceanário",
+"Aquarium",
+"Aquário público"
+],
+"tourism/artwork":[
+"Mural",
+"Obra de arte",
+"Arte"
+],
+"tourism/attraction":[
+"Atração turística",
+"Atração Turística"
+],
+"tourism/camp_site":[
+"campismo",
+"acampar",
+"Parque de Campismo",
+"campistas",
+"parque",
+"acampamento"
+],
+"tourism/caravan_site":[
+"caravanas",
+"caravana",
+"RV Park",
+"Parque de Caravanas"
+],
+"tourism/chalet":[
+"Chalet",
+"Chalé / Casa de férias"
+],
+"tourism/gallery":[
+"Exposição",
+"Galeria",
+"Galeria de arte",
+"Arte",
+"Centro Cultural"
+],
+"tourism/guest_house":[
+"Cama e Almoço",
+"Cama e Peq. Almoço",
+"casa se hóspedes",
+"Hospedagem Domiciliar/Casa de Hóspedes",
+"Cama e Pequeno Almoço"
+],
+"tourism/hostel":[
+"Hostel",
+"Pousada / Hostel"
+],
+"tourism/hotel":[
+"Hotel"
+],
+"tourism/information":[
+"guia",
+"Informação",
+"Turismo",
+"Informação turística"
+],
+"tourism/information/board":[
+"informação",
+"placar",
+"placa de informação",
+"informações",
+"painel",
+"painel de informação",
+"Placar de Informação",
+"placard",
+"placa"
+],
+"tourism/information/guidepost":[
+"direcções",
+"poste de direcções",
+"direcção",
+"poste com direções",
+"direção",
+"Poste de direções",
+"poste com direcções",
+"direções"
+],
+"tourism/information/map":[
+"Mapa"
+],
+"tourism/information/office":[
+"Posto de Informação",
+"Posto de Informações",
+"Posto de Turismo",
+"Posto Turístico"
+],
+"tourism/motel":[
+"Motel"
+],
+"tourism/museum":[
+"Exposição",
+"Galeria",
+"Livraria",
+"Salão",
+"Fundação",
+"Museu",
+"Galeria de Arte",
+"Instituição"
+],
+"tourism/picnic_site":[
+"Parque de merendas / piqueniques",
+"Lugar de Merendas"
+],
+"tourism/theme_park":[
+"Parque",
+"Theme Park",
+"Temático",
+"Parque temático",
+"Parque de Diversões/Temático",
+"Diversão"
+],
+"tourism/viewpoint":[
+"Vista",
+"Viewpoint",
+"Miradouro"
+],
+"tourism/wilderness_hut":[
+"Abrigo de montanha",
+"cabana de montanha",
+"Cabana",
+"Abrigo Remoto"
+],
+"tourism/zoo":[
+"Zológico",
+"Jardim zoológico",
+"Zoo",
+"Zoológico",
+"Animais"
+],
+"traffic_calming":[
+"Redutor de Velocidade",
+"reductor de velocidade",
+"reducção de velocidade",
+"redução de velocidade"
+],
+"traffic_calming/bump":[
+"Lombada",
+"Lomba pequena",
+"Lomba",
+"Speed Bump",
+"Policia Deitado"
+],
+"traffic_calming/chicane":[
+"gincana",
+"Gincana de Tráfego"
+],
+"traffic_calming/choker":[
+"choker",
+"estreitamento",
+"Estreitamento da Via"
+],
+"traffic_calming/cushion":[
+"lomba tipo almofada",
+"Lomba de Almofada"
+],
+"traffic_calming/dip":[
+"lomba inversa",
+"Depressão",
+"Lomba invertida"
+],
+"traffic_calming/hump":[
+"Lomba",
+"Speed Hump",
+"Lomba grande"
+],
+"traffic_calming/island":[
+"Ilha Rodoviária",
+"ilha na estrada",
+"ilha de estrada",
+"ilha central"
+],
+"traffic_calming/rumble_strip":[
+"Rumble Strip",
+"Banda sonora",
+"banda cromática"
+],
+"traffic_calming/table":[
+"mesa",
+"Lomba Comprida (+3m)",
+"table",
+"lomba"
+],
+"type/boundary":[
+"Fronteira"
+],
+"type/boundary/administrative":[
+"Fronteira administrativa",
+"Fronteira Admistrativa"
+],
+"type/multipolygon":[
+"Multipolígono"
+],
+"type/restriction":[
+"Proibição",
+"Restrição"
+],
+"type/restriction/no_left_turn":[
+"Proibição de virar à esquerda",
+"No Left Turn",
+"Não Virar à Esquerda"
+],
+"type/restriction/no_right_turn":[
+"Proibição de virar à direita",
+"Não Virar à Direita",
+"No Right Turn"
+],
+"type/restriction/no_straight_on":[
+"Proibido Seguir em Frente",
+"No Straight On",
+"Proibição de Seguir em Frente",
+"Sentido proibido"
+],
+"type/restriction/no_u_turn":[
+"No U-turn",
+"Não Inverter o Sentido",
+"Proibição de inversão do sentido de marcha"
+],
+"type/restriction/only_left_turn":[
+"Left Turn Only",
+"Proibido Virar para a Direita",
+"Sentido obrigatório para a esquerda"
+],
+"type/restriction/only_right_turn":[
+"Right Turn Only",
+"Sentido obrigatório para a direita",
+"Proibido Virar para a Esquerda"
+],
+"type/restriction/only_straight_on":[
+"Proibido Virar",
+"No Turns",
+"Sentido obrigatório para a frente"
+],
+"type/route":[
+"Linha",
+"Rota"
+],
+"type/route/bicycle":[
+"Rota de Bicicletas",
+"Rota de bicicleta",
+"Bicicleta",
+"Ciclismo"
+],
+"type/route/bus":[
+"microlete",
+"Linha de Autocarro",
+"Bus Route",
+"Autocarro",
+"otocarro",
+"Carreira",
+"Rota de autocarro",
+"toca-toca",
+"Rota de Autocarros",
+"ônibus",
+"machimbombo"
+],
+"type/route/detour":[
+"Rota de desvio",
+"Detour Route",
+"Desvio",
+"Desviado"
+],
+"type/route/ferry":[
+"Rota do Ferry",
+"Rota de barca / ferry"
+],
+"type/route/foot":[
+"Rota pedestre",
+"Foot Route"
+],
+"type/route/hiking":[
+"Rota de Escalagem",
+"Rota de caminhada",
+"Hiking Route"
+],
+"type/route/horse":[
+"Riding Route",
+"Rota de equitação"
+],
+"type/route/pipeline":[
+"Rota de gasoduto / oleoduto",
+"Pipeline Route"
+],
+"type/route/power":[
+"Linhas",
+"Eletricidade",
+"Linha de Energia",
+"Trasmissão",
+"Rota de transmissão de energia",
+"Linha",
+"Linha de Eletricidade"
+],
+"type/route/road":[
+"Percurso Rodoviário",
+"Rota rodoviária",
+"Trajecto Rodoviário"
+],
+"type/route/train":[
+"Rota de Caminhos de Ferro",
+"Rota de Metro",
+"Rota de Elétrico",
+"Train Route",
+"Rota ferroviária",
+"Rota de Comboio"
+],
+"type/route/tram":[
+"Rota de elétrico",
+"Elétrico",
+"Tram Route"
+],
+"type/route_master":[
+"Route Master",
+"Rede de rotas",
+"Rota Mestre"
+],
+"type/site":[
+"Site",
+"Sítio"
+],
+"type/waterway":[
+"Canal",
+"Rio",
+"Curso de Água",
+"Curso",
+"Hidrovia"
+],
+"vertex":[
+"Outro"
+],
+"waterway":[
+"Curso de água"
+],
+"waterway/boatyard":[
+"Barco",
+"Estaleiro",
+"Embarcações",
+"Embarcação",
+"Boatyard",
+"Barcos",
+"Reparação",
+"Construção"
+],
+"waterway/canal":[
+"Canalete",
+"Canal"
+],
+"waterway/dam":[
+"Hidrelétrica",
+"Dam",
+"Hidroelétrica",
+"Hidro-elétrica",
+"Barragem",
+"Usina",
+"Hidro elétrica"
+],
+"waterway/ditch":[
+"Represa",
+"Fosso / Vala / Trincheira",
+"Vala",
+"Trincheira"
+],
+"waterway/dock":[
+"Barco",
+"Dock",
+"Barcos",
+"Doca"
+],
+"waterway/drain":[
+"Vala de drenagem",
+"Drain"
+],
+"waterway/fuel":[
+"Posto de combustível marinho",
+"Marine Fuel Station"
+],
+"waterway/river":[
+"Barroca",
+"Delta",
+"Rio",
+"Curso de Água",
+"Afluente",
+"Ria",
+"Barra",
+"Estuário"
+],
+"waterway/riverbank":[
+"Margem de rio",
+"Riverbank"
+],
+"waterway/sanitary_dump_station":[
+"Marine Toilet Disposal",
+"Escoamento sanitário marinho"
+],
+"waterway/stream":[
+"Riacho",
+"Fio de Água",
+"Corga",
+"Regato",
+"Riachinho",
+"Corgo",
+"Curso de Água",
+"Córrego",
+"Ribeiro",
+"Rego",
+"Ribeira",
+"Grota"
+],
+"waterway/stream_intermittent":[
+"Ribeiro Intermitente",
+"Riacho",
+"intermitente",
+"Fio de Água",
+"Corga",
+"Regato",
+"Riachinho",
+"sazonal",
+"Corgo",
+"Curso de Água",
+"Ribeiro",
+"Grota",
+"Córrego",
+"Rego",
+"Ribeira"
+],
+"waterway/water_point":[
+"Marine Drinking Water",
+"Água potável para veículos marinhos"
+],
+"waterway/waterfall":[
+"cascata",
+"catadupa",
+"queda-d'água",
+"Queda de Água",
+"catarata",
+"cachoeira",
+"salto",
+"queda-de-águia"
+],
+"waterway/weir":[
+"Represa",
+"Weir"
+]
+}

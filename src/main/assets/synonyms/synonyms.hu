@@ -1,0 +1,4264 @@
+{
+"address":[
+"cím",
+"házszám",
+"Lakcím",
+"lakcím",
+"utca"
+],
+"advertising/billboard":[
+"reklámtábla",
+"plakát",
+"óriásplakát",
+"poszter",
+"óriásposzter",
+"Óriásplakát"
+],
+"aerialway":[
+"Drótkötélpálya"
+],
+"aerialway/cable_car":[
+"sífelvonó",
+"Kabinos felvonó",
+"Nagykabinos lift"
+],
+"aerialway/chair_lift":[
+"sífelvonó",
+"Ülőlift",
+"libegő"
+],
+"aerialway/drag_lift":[
+"sífelvonó",
+"csákányos",
+"tányéros",
+"Húzólift"
+],
+"aerialway/gondola":[
+"gondolakabinos felvonó",
+"kabinos felvonó",
+"Gondola"
+],
+"aerialway/goods":[
+"Teherfelvonó",
+"teherlift"
+],
+"aerialway/magic_carpet":[
+"Szállítószalag-felvonó",
+"repülőszőnyeg",
+"varázsszőnyeg"
+],
+"aerialway/mixed_lift":[
+"hibrid felvonó",
+"Vegyes felvonó"
+],
+"aerialway/platter":[
+"Tányéros felvonó",
+"Tányéros",
+"húzólift"
+],
+"aerialway/pylon":[
+"oszlop",
+"libegőoszlop",
+"Drótkötélpálya-oszlop"
+],
+"aerialway/rope_tow":[
+"húzólift",
+"vontatólift",
+"kötéllift",
+"Kapaszkodólift"
+],
+"aerialway/station":[
+"síliftállomás",
+"kötélpálya-állomás",
+"Felvonóállomás"
+],
+"aerialway/t-bar":[
+"csákányos",
+"húzólift",
+"Csákányos felvonó"
+],
+"aeroway":[
+"Légi közeledés"
+],
+"aeroway/aerodrome":[
+"repülőtér",
+"Repülőtér",
+"reptér"
+],
+"aeroway/apron":[
+"előtér",
+"Forgalmi előtér",
+"repülő parkoló"
+],
+"aeroway/gate":[
+"Repülőtéri kapu",
+"reptérkapu",
+"légikapu"
+],
+"aeroway/hangar":[
+"hangár",
+"Hangár",
+"repülőgépgarázs",
+"repülőgépszerviz"
+],
+"aeroway/helipad":[
+"helikopter leszálló",
+"Helikopter-leszállóhely",
+"heliport",
+"helpad"
+],
+"aeroway/runway":[
+"futópálya",
+"leszállópálya",
+"Kifutópálya"
+],
+"aeroway/taxiway":[
+"Gurulóút",
+"taxiút"
+],
+"aeroway/terminal":[
+"légi pályaudvar",
+"utasforgalmi épület",
+"Repülőtéri terminál",
+"terminál",
+"reptéri terminál"
+],
+"amenity":[
+"Hasznos és fontos szolgáltatás"
+],
+"amenity/animal_boarding":[
+"hüllő",
+"állatszálló",
+"ló",
+"kismacska",
+"háziállathotel",
+"kutya",
+"Állatpanzió",
+"macska"
+],
+"amenity/animal_breeding":[
+"hüllő",
+"bika",
+"ló",
+"kutya",
+"tenyésztő",
+"Állattenyésztő",
+"tehén",
+"macska"
+],
+"amenity/animal_shelter":[
+"hüllő",
+"állatmenhely",
+"Állatmenhely",
+"ló",
+"kutya",
+"örökbefogadás",
+"macska",
+"menhely"
+],
+"amenity/arts_centre":[
+"tárlat",
+"Művészeti központ",
+"galéria",
+"kiállítás",
+"kiállító terem",
+"képek",
+"festészet",
+"képzőművészet"
+],
+"amenity/atm":[
+"Pénzkiadó automata",
+"Bankautomata",
+"Pénzautomata",
+"ATM"
+],
+"amenity/bank":[
+"Pénzintézet",
+"Takarék",
+"Bank",
+"Takarékszövetkezet"
+],
+"amenity/bar":[
+"bár",
+"Bár",
+"lokál",
+"éjszakai szórakozó",
+"kocsma"
+],
+"amenity/bbq":[
+"piknik",
+"tábortűz",
+"Közösségi grillező - szallonasütő",
+"grill",
+"tűzrakó"
+],
+"amenity/bench":[
+"ülőalkalmatosság",
+"pad",
+"Pad",
+"ülés"
+],
+"amenity/bicycle_parking":[
+"Kerékpártároló",
+"bicaj",
+"bicikli",
+"kétkerekű parkoló",
+"bringa"
+],
+"amenity/bicycle_rental":[
+"bringakölcsönzés",
+"bicajkölcsönző",
+"biciklikölcsönzés",
+"Kerékpárkölcsönző"
+],
+"amenity/bicycle_repair_station":[
+"biciklijavítás",
+"bringajavító",
+"Önálló kerékpárszerelő pont",
+"kerékpárszerelés"
+],
+"amenity/biergarten":[
+"söröző",
+"kerthelyisé",
+"Sörkert"
+],
+"amenity/boat_rental":[
+"Hajókölcsönző",
+"csónakkölcsönző "
+],
+"amenity/bureau_de_change":[
+"valuta váltó",
+"exchange",
+"Valutaváltás",
+"Pénzváltó",
+"pénzváltás"
+],
+"amenity/bus_station":[
+"Buszállomás",
+"autóbuszpályaudvar",
+"buszpályaudvar"
+],
+"amenity/cafe":[
+"cukrászda",
+"Kávézó",
+"presszó",
+"kávéház"
+],
+"amenity/car_rental":[
+"gépjármű",
+"köcsönzés",
+"jármű",
+"Autókölcsönző",
+"bérlés",
+"gépkocsi"
+],
+"amenity/car_sharing":[
+"Autómegosztó",
+"közösségi autó",
+"közösségi gépjármű"
+],
+"amenity/car_wash":[
+"kocsimosó",
+"Autómosó"
+],
+"amenity/casino":[
+"Kaszinó",
+"játékbarlang",
+"játékkaszinó"
+],
+"amenity/charging_station":[
+"elektromos autó töltőállomás",
+"villanyautó töltő",
+"elektromos töltőállomás",
+"töltőoszlop",
+"Elektromos töltőállomás"
+],
+"amenity/childcare":[
+"Bölcsőde",
+" Csecsemőotthon"
+],
+"amenity/cinema":[
+"Mozi",
+"filmszínház"
+],
+"amenity/clinic":[
+"orvosi rendelő",
+"szakorvosi rendelő",
+"Rendelőintézet",
+"SZTK"
+],
+"amenity/clinic/abortion":[
+"Abortusz klinika",
+"abortusz",
+"klinika",
+"magzat elhajtás",
+"kórház",
+"szülészet",
+"magzat"
+],
+"amenity/clinic/fertility":[
+"lombik",
+"termékenység",
+"pete",
+"klinika",
+"sperma",
+"szaporodás",
+"kórház",
+"Termékenységi klinika"
+],
+"amenity/clock":[
+"óra",
+"Óra"
+],
+"amenity/college":[
+"felsőoktatás",
+"főiskola",
+"Főiskola",
+"fősuli"
+],
+"amenity/community_centre":[
+"művelődési ház",
+"Közösségi ház",
+"faluház",
+"kultúrház",
+"művház"
+],
+"amenity/compressed_air":[
+"kompresszor",
+"Sűrített levegő",
+"gumi"
+],
+"amenity/courthouse":[
+"Ítélőtábla",
+"Bíróság",
+"Bírósági Hivatal",
+"Törvényszék",
+"ítélőszék",
+"Kúria"
+],
+"amenity/coworking_space":[
+"Közösségi iroda"
+],
+"amenity/crematorium":[
+"halotthamvasztó",
+"Krematórium"
+],
+"amenity/dentist":[
+"Fogorvos",
+"Fogász",
+"Fogászat"
+],
+"amenity/doctors":[
+"háziorvos",
+"doktor",
+"szakorvos",
+"Orvos",
+"rendelő",
+"gyerekorvos"
+],
+"amenity/dojo":[
+"kempo",
+"Harcművészeti edzőterem / dodzso",
+"taekwando",
+"judo",
+"kungfu",
+"capoeira",
+"kendo",
+"aikido",
+"jujitsu",
+"kick-box",
+"baranta",
+"dzsudo",
+"kung fu",
+"karate",
+"vusu",
+"zenbukan",
+"saolin",
+"boksz",
+"krav maga",
+"csikung"
+],
+"amenity/drinking_water":[
+"csap",
+"nyomós kút",
+"víz",
+"kút",
+"forrás",
+"közkút",
+"közkifolyó",
+"Ivóvíz",
+"Ivókút"
+],
+"amenity/driving_school":[
+"Autósiskola",
+"KRESZ",
+" jogosítvány"
+],
+"amenity/embassy":[
+"Követség",
+"Konzulátus",
+"külképviselet",
+"Nagykövetség"
+],
+"amenity/fast_food":[
+"gyros",
+"pizza",
+"lángos",
+"Gyorsétterem",
+"gyorskajálda",
+"büfé",
+"hot dog",
+"hamburger"
+],
+"amenity/ferry_terminal":[
+"Kompterminál",
+"komp",
+"átkelő",
+"kompkikötő",
+"terminál",
+"rév"
+],
+"amenity/fire_station":[
+"tűzoltólaktanya",
+"Tűzoltóállomás",
+"Tűzoltóság"
+],
+"amenity/food_court":[
+"ebédlő",
+"Étkezőtér",
+"food court"
+],
+"amenity/fountain":[
+"Szökőkút",
+"kút",
+"díszkút"
+],
+"amenity/fuel":[
+"agip",
+"üzemanyag",
+"diesel",
+"Benzinkút",
+"benzin",
+"bioetanol",
+"mol",
+"töltőállomás",
+"shell",
+"dízel",
+"omv",
+"gázolaj",
+"autógáz",
+"lukoil"
+],
+"amenity/grave_yard":[
+"temető",
+"Templom körüli temető",
+"sírkert",
+"templomkert"
+],
+"amenity/grit_bin":[
+"útszóróanyag",
+"Útszóróanyagos láda",
+"szórósó",
+"síkosságmentesítés"
+],
+"amenity/hospital":[
+"műtét",
+"szakorvos",
+"orvos",
+"Kórház",
+"klinika"
+],
+"amenity/hunting_stand":[
+"Magasles",
+"vadászles"
+],
+"amenity/ice_cream":[
+"fagyis",
+"fagyibolt",
+"fagylaltüzlet",
+"Fagylaltozó",
+"fagylaltos"
+],
+"amenity/internet_cafe":[
+"nyilvános internet",
+"internetkávézó",
+"cybercafé",
+"Internetkávézó"
+],
+"amenity/kindergarten":[
+"ovi",
+"Óvoda"
+],
+"amenity/library":[
+"könyvkölcsönző",
+"Könyvtár"
+],
+"amenity/marketplace":[
+"Piac",
+"vásár"
+],
+"amenity/motorcycle_parking":[
+"motor parkoló",
+"Motorkerékpár-parkoló",
+"motoros parkoló"
+],
+"amenity/music_school":[
+"Zeneiskola"
+],
+"amenity/nightclub":[
+"Diszkó",
+"Night Club",
+"Éjszakai bár"
+],
+"amenity/nursing_home":[
+"Ápolóotthon"
+],
+"amenity/parking":[
+"gépkocsi-parkoló",
+"Autóparkoló",
+"parkoló",
+"várakozóhely"
+],
+"amenity/parking_entrance":[
+"garázsbejárat",
+"parkolóház",
+"Parkolóház be-/kijárat"
+],
+"amenity/parking_space":[
+"parkoló",
+"Parkolóhely",
+"várakozó hely",
+"parkolópont"
+],
+"amenity/pavilion":[
+"kiállítócsarnok",
+"Pavilon"
+],
+"amenity/pharmacy":[
+"gyógyszer",
+"orvosság",
+"Gyógyszertár",
+"patika",
+"gyógyszerész"
+],
+"amenity/place_of_worship":[
+"kápolna",
+"felszentelt",
+"Istentiszteleti hely",
+"templom",
+"vallás"
+],
+"amenity/place_of_worship/buddhist":[
+"Buddhista szentély",
+"buddhizmus",
+"buddhista templom"
+],
+"amenity/place_of_worship/christian":[
+"kápolna",
+"unitárius",
+"katolikus",
+"görögkeleti",
+"Keresztény templom",
+"református",
+"görög katolikus",
+"orthodox",
+"evangélikus"
+],
+"amenity/place_of_worship/hindu":[
+"Hindu templom"
+],
+"amenity/place_of_worship/jewish":[
+"zsidó",
+"Zsinagóga",
+"imaház"
+],
+"amenity/place_of_worship/muslim":[
+"dzsámi",
+"Mecset",
+"Minaret"
+],
+"amenity/place_of_worship/shinto":[
+"Sintó szentély"
+],
+"amenity/place_of_worship/sikh":[
+"Szik templom"
+],
+"amenity/place_of_worship/taoist":[
+"Taoista templom"
+],
+"amenity/planetarium":[
+"Planetárium",
+"csilagda",
+"csillagvizsgáló"
+],
+"amenity/police":[
+"kapitányság",
+"rendőr",
+"Rendőrség",
+"csendőr",
+"zsaru",
+"fogda",
+"zsandár"
+],
+"amenity/post_box":[
+"Postaláda",
+"levélszekrény"
+],
+"amenity/post_office":[
+"postaközpont",
+"postahivatal",
+"Posta"
+],
+"amenity/prison":[
+"börtön",
+"fogház",
+"fegyház",
+"Börtön"
+],
+"amenity/pub":[
+"söröző",
+"italmérés",
+"ivó",
+"csehó",
+"söntés",
+"poharazó",
+"talponálló",
+"Kocsma",
+"borozó",
+"csapszék",
+"sörház"
+],
+"amenity/public_bath":[
+"közfürdő",
+"nyilvános fürdő",
+"fürdő",
+"Nyilvános fürdő"
+],
+"amenity/public_bookcase":[
+"nyilvános könyvespolc",
+"könyv",
+"Közösségi könyvespolc"
+],
+"amenity/ranger_station":[
+"látogatóközpont",
+"vadőr",
+"vadászat",
+"táborozás",
+"természetjárás",
+"Nemzeti park látogatóközpontja"
+],
+"amenity/recycling":[
+"szeméttelep",
+"Szelektív hulladékgyűjtő",
+"szelektív hulladék",
+"szemétlerakó",
+"hulladék",
+"veszélyes hulladék"
+],
+"amenity/recycling_centre":[
+"szeméttelep",
+"Hulladékudvar",
+"szelektív hulladék",
+"szemétlerakó",
+"hulladék",
+"veszélyes hulladék"
+],
+"amenity/register_office":[
+"Anyakönyvi hivatal"
+],
+"amenity/restaurant":[
+"kajálda",
+"csárda",
+"ebédlő",
+"Étterem",
+"étkezde",
+"fogadó",
+"kisvendéglő",
+"vendéglő"
+],
+"amenity/sanitary_dump_station":[
+"lakóautó",
+"vécé",
+"tisztasági",
+"Szaniterürítő hely (lakóautóknak)",
+"lakókocsi",
+"toalett"
+],
+"amenity/school":[
+"közoktatás",
+"nevelés",
+"oktatás",
+"köznevelés",
+"suli",
+"Iskola",
+"tanítás"
+],
+"amenity/scrapyard":[
+"Szeméttelep"
+],
+"amenity/shelter":[
+"fedél",
+"esőkunyhó",
+"esőház",
+"Esőbeálló",
+"fedett",
+"menedékház"
+],
+"amenity/shower":[
+"zuhanyzó",
+"fürdő",
+"Zuhany",
+"tusoló"
+],
+"amenity/social_facility":[
+"Szociális intézmény",
+"Szociális létesítmény"
+],
+"amenity/social_facility/food_bank":[
+"Élelmiszersegély begyűjtő és elosztó",
+"Élelmiszerbank ",
+"Élelmiszer-adomány elosztó"
+],
+"amenity/social_facility/group_home":[
+"Idősek szociális gondozója",
+"Idősek otthona"
+],
+"amenity/social_facility/homeless_shelter":[
+"Hajléktalan menedék",
+"leányanya-otthon",
+"Átmeneti szálló"
+],
+"amenity/social_facility/nursing_home":[
+"fogyatékosok otthona",
+"öregek otthona",
+"Ápolóotthon"
+],
+"amenity/studio":[
+"műterem",
+"rádió",
+"fényképész",
+"fotóstúdió",
+"televízió",
+"Stúdió"
+],
+"amenity/swimming_pool":[
+"Úszómedence"
+],
+"amenity/taxi":[
+"droszt",
+"Taxiállomás",
+"Taxidroszt"
+],
+"amenity/telephone":[
+"nyilvános telefon",
+"telefon",
+"Telefonfülke",
+"nyilvános állomás",
+"telefonkészülék",
+"Telefon"
+],
+"amenity/theatre":[
+"játékszín",
+"teátrum",
+"operaház",
+"amfiteátrum",
+"bábszínház",
+"Színház"
+],
+"amenity/toilets":[
+"vécé",
+"illemhely",
+"pottyantós",
+"budi",
+"toalett",
+"árnyékszék",
+"klotyó",
+"WC"
+],
+"amenity/townhall":[
+"Városháza",
+"Polgármesteri hivatal",
+"Községháza"
+],
+"amenity/university":[
+"felsőoktatás",
+"kampusz",
+"campus",
+"Egyetem"
+],
+"amenity/vending_machine":[
+"árusító automata",
+"automata",
+"Árusító automata"
+],
+"amenity/vending_machine/cigarettes":[
+"Cigerettaárusító automata",
+"cigiautomata",
+"cigerettaautomata",
+"dohányautomata"
+],
+"amenity/vending_machine/condoms":[
+"Óvszerárusító automata",
+"óvszer",
+"gumi",
+"kondomautomata"
+],
+"amenity/vending_machine/drinks":[
+"italgép",
+"italautomata",
+"Italárusító automata"
+],
+"amenity/vending_machine/excrement_bags":[
+"Ürülékfelszedő tasakot árusító automata",
+"zacskó",
+"automata",
+"kutyapiszok"
+],
+"amenity/vending_machine/feminine_hygiene":[
+"testápolás",
+"tampon",
+"nő",
+"Női higéniás automata",
+"betét",
+"óvszer",
+"menstruáció",
+"automata",
+"higiéniás eszközök"
+],
+"amenity/vending_machine/news_papers":[
+"Újságárusító automata"
+],
+"amenity/vending_machine/newspapers":[
+"árusító",
+"Újságárusító automata",
+"automata",
+"újság"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"Csomagfeladó, -felvevő automata",
+"csomagautomata"
+],
+"amenity/vending_machine/parking_tickets":[
+"Parkolójegy-automata",
+"parkolóautomata"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"villamosjegy",
+"Tömegközlekedési jegyet árusító automata",
+"buszjegy",
+"jegyautomata",
+"metrójegy",
+"BKK-automata"
+],
+"amenity/vending_machine/sweets":[
+"chips",
+"csokoládé",
+"cukorka",
+"snack",
+"Édességet árusító automata"
+],
+"amenity/veterinary":[
+"lódoktor",
+"macskadoktor",
+"Állatorvosi rendelő",
+"kutyadoktor",
+"Állatorvos"
+],
+"amenity/waste/dog_excrement":[
+"Kutyaürülék tartály"
+],
+"amenity/waste_basket":[
+"kuka",
+"Szemeteskosár",
+"szemétkosár"
+],
+"amenity/waste_disposal":[
+"szemetes kuka",
+"Szemeteskonténer",
+"kuka",
+"szemetes",
+"hulladéktároló"
+],
+"amenity/waste_transfer_station":[
+"hulladék átadóállomás",
+"Hulladékátrakó állomás",
+"hulladék átrakó állomás"
+],
+"amenity/water_point":[
+"lakóautó",
+"víz",
+"lakókocsi",
+"ivóvíz",
+"Ivóvíz-csatlakozás lakóautónak"
+],
+"amenity/watering_place":[
+"vályú",
+"állatitató",
+"itató",
+"Állatitató hely"
+],
+"area":[
+"terület",
+"Terület"
+],
+"area/highway":[
+"úttest",
+"Útfelület"
+],
+"attraction/amusement_ride":[
+"hullámvasút",
+"óriáskerék",
+"dodzsem",
+"ringlispíl",
+"Mutatványos berendezés",
+"körhinta"
+],
+"attraction/animal":[
+"állat",
+"Állat",
+"kutya",
+"macska"
+],
+"attraction/big_wheel":[
+"nagy kerék",
+"óriás kerék",
+"Óriáskerék"
+],
+"attraction/bumper_car":[
+"kisautó",
+"Dodzsem",
+"dodzsem",
+"ütközés"
+],
+"attraction/bungee_jumping":[
+"ugrás",
+"Bungee jumping",
+"kötél",
+"gumikötél"
+],
+"attraction/carousel":[
+"forgó",
+"kör",
+"ló",
+"Körhinta",
+"hita"
+],
+"attraction/dark_ride":[
+"Szellemvasút",
+"vasútja",
+"kommunista",
+"szellem"
+],
+"attraction/drop_tower":[
+"torony",
+"leejt",
+"Ejtő torony",
+"ejtés"
+],
+"attraction/pirate_ship":[
+"hajó",
+"kalóz",
+"Kalózhajó"
+],
+"attraction/river_rafting":[
+"csónak",
+"evezés",
+"Vadvízi evezés",
+"folyó"
+],
+"attraction/roller_coaster":[
+"hullám",
+"vasút",
+"Hullámvasút"
+],
+"attraction/train":[
+"turista",
+"Turista vasút",
+"vasút"
+],
+"attraction/water_slide":[
+"csúszda",
+"víz",
+"Vízi csúszda",
+"csúszás"
+],
+"barrier":[
+"Akadály",
+"torlasz",
+"akadály"
+],
+"barrier/block":[
+"Akadály",
+"Torlasz",
+"Tömb"
+],
+"barrier/bollard":[
+"terelőoszlop",
+"Oszlop"
+],
+"barrier/border_control":[
+"Határátkelő",
+"államhatár",
+"országhatár",
+"határállomás",
+"határellenőrzés"
+],
+"barrier/cattle_grid":[
+"Szarvasmarharács",
+"tehénrács",
+"marharács"
+],
+"barrier/city_wall":[
+"fal",
+"középkor",
+"Városfal"
+],
+"barrier/cycle_barrier":[
+"Kerékpáros-akadály",
+"bicikliakadály"
+],
+"barrier/ditch":[
+"Árok",
+"árok",
+"gödör"
+],
+"barrier/entrance":[
+"Bejárat"
+],
+"barrier/fence":[
+"fal",
+"betonkerítés",
+"Kerítés",
+"drótkerítés"
+],
+"barrier/gate":[
+"ajtó",
+"Kapu"
+],
+"barrier/hedge":[
+"fasor",
+"Sövény",
+"bozót",
+"bokor",
+"cserje"
+],
+"barrier/kissing_gate":[
+"Ütközős csapóajtó",
+"Lengőkapu"
+],
+"barrier/lift_gate":[
+"Emelkedő sorompó",
+"Sorompó"
+],
+"barrier/retaining_wall":[
+"támasztófal",
+"Támfal"
+],
+"barrier/stile":[
+"Kerítésátjáró",
+"Létra"
+],
+"barrier/toll_booth":[
+"matrica",
+"autópálya-matrica",
+"kapu",
+"Fizetőkapu",
+"útdíj"
+],
+"barrier/wall":[
+"Fal",
+"erődítmény"
+],
+"boundary/administrative":[
+"megyehatár",
+"országhatár",
+"Közigazgatási határ",
+"településhatár",
+"adminisztratív határ",
+"városhatár"
+],
+"building":[
+"ház",
+"lakás",
+"építmény",
+"Épület"
+],
+"building/apartments":[
+"tömbház",
+"bérház",
+"Társasház",
+"Lakások"
+],
+"building/barn":[
+"Pajta",
+"mezőgazdasági épület",
+"melléképület",
+"csűr"
+],
+"building/bunker":[
+"Bunker"
+],
+"building/cabin":[
+"Kis faház",
+"Faház"
+],
+"building/cathedral":[
+"templom",
+"bazilika",
+"Székesegyház",
+"katedrális",
+"dóm"
+],
+"building/chapel":[
+"templom",
+"imaház",
+"Kápolna"
+],
+"building/church":[
+"templomépület",
+"Templom"
+],
+"building/college":[
+"Főiskolai épület",
+"felsőoktatási intézmény",
+"egyetem"
+],
+"building/commercial":[
+"cég",
+"business",
+"vállalat",
+"vállalkozás",
+"kereskedelem",
+"Üzleti épület"
+],
+"building/construction":[
+"Épülő épület",
+"építkezés"
+],
+"building/detached":[
+"detached",
+"Családi ház (Egyesült Királyság)",
+"lakóház"
+],
+"building/dormitory":[
+"Kollégium",
+"Diákszálló",
+"Diákotthon"
+],
+"building/entrance":[
+"Be-/kijárat"
+],
+"building/garage":[
+"autótároló",
+"Garázs"
+],
+"building/garages":[
+"garázssor",
+"Garázsok",
+"autótárolók"
+],
+"building/greenhouse":[
+"Üvegház"
+],
+"building/hospital":[
+"Klinika épület",
+"Gyógyintézet épület",
+"Kórházi épület",
+"Kórházépület"
+],
+"building/hotel":[
+"Szállodaépület",
+"szálloda",
+"Hotel"
+],
+"building/house":[
+"Ház",
+"Családi ház"
+],
+"building/hut":[
+"Kunyhó",
+"viskó",
+"kalyiba"
+],
+"building/industrial":[
+"Gyárépület",
+"Ipari épület"
+],
+"building/kindergarten":[
+"Óvodaépület",
+"dedó épület",
+"kisdedóvó épület",
+"Iskolai előkészítő épület",
+"ovi épület",
+"bölcsőde épület"
+],
+"building/public":[
+"Nyilvános épület",
+"Középület"
+],
+"building/residential":[
+"ház",
+"Lakóház",
+"lakás",
+"Lakóépület"
+],
+"building/retail":[
+"Kiskereskedelmi épület",
+"Boltépület"
+],
+"building/roof":[
+"fedél",
+"esőbeállló",
+"Tető"
+],
+"building/school":[
+"szakközépiskola",
+"általános iskola",
+"gimnázium",
+"Iskolaépület"
+],
+"building/semidetached_house":[
+"Ikerház",
+"ikerház"
+],
+"building/shed":[
+"Kunyhó",
+"Pajta",
+"sufni",
+"raktár",
+"viskó",
+"Fészer",
+"csűr"
+],
+"building/stable":[
+"Lóistálló",
+"Istálló"
+],
+"building/static_caravan":[
+"Telepített lakókocsi",
+"Rögzített lakókocsi",
+"telepített lakókocsi"
+],
+"building/terrace":[
+"házsor",
+"Sorház"
+],
+"building/train_station":[
+"Vasútállomás-épület"
+],
+"building/university":[
+"felsőoktatás",
+"főiskola",
+"Egyetemi épület",
+"egyetem"
+],
+"building/warehouse":[
+"Lerakat",
+"Raktár"
+],
+"camp_site/camp_pitch":[
+"sátorhely",
+"kempinghely",
+"Sátor- vagy lakókocsihely",
+"táborhely"
+],
+"club":[
+"Club",
+"Klub"
+],
+"craft":[
+"mesterember",
+"kézműves",
+"iparművész",
+"iparos",
+"Műhely",
+"műhely"
+],
+"craft/basket_maker":[
+"Kosárfonó"
+],
+"craft/beekeeper":[
+"Méhész"
+],
+"craft/blacksmith":[
+"Kézi kovácsoló",
+"Patkolókovács",
+"Kovács"
+],
+"craft/boatbuilder":[
+"Hajóács",
+"csónaképítő",
+"csónakkészítő"
+],
+"craft/bookbinder":[
+"Könyvkötő"
+],
+"craft/brewery":[
+"Sörfőző",
+"Sörfőzde"
+],
+"craft/carpenter":[
+"épületasztalos",
+"Ács",
+"Tetőfedő"
+],
+"craft/carpet_layer":[
+"padlóburkolat",
+"Szőnyegpadló-lerakó",
+"szőnyegpadló"
+],
+"craft/caterer":[
+"Partyszerviz",
+"Rendezvényszervező ",
+"Catering"
+],
+"craft/clockmaker":[
+"Órás",
+"Órás (falióra)"
+],
+"craft/confectionery":[
+"Cukrász"
+],
+"craft/distillery":[
+"ital",
+"alkohol",
+"pálinka",
+"Párlatfőző",
+"szeszfőzde"
+],
+"craft/dressmaker":[
+"szabó",
+"Nőiruha-készítő",
+"varrónő",
+"Ruhakészítő"
+],
+"craft/electrician":[
+"Villanyszerelő"
+],
+"craft/electronics_repair":[
+"szerviz",
+"Elektronikai szerviz",
+"bontó",
+"javító",
+"eltronikai"
+],
+"craft/gardener":[
+"Melegházi termelő",
+"bolgárkertész",
+"Kertész"
+],
+"craft/glaziery":[
+"kristálypalack",
+"Öblösüveggyártás",
+"üvegjátékok",
+"Üvegműves"
+],
+"craft/handicraft":[
+"Kézművestermék-készítő",
+"iparművész"
+],
+"craft/hvac":[
+"épületgépészet",
+"Fűtés-, szellőztetés- és légkondicionálás-szerelő",
+"szellőzés",
+"légkondicionálás",
+" Fűtés"
+],
+"craft/insulator":[
+"Szigetelő",
+"Épület-hőszigetelő"
+],
+"craft/jeweler":[
+"Ékszerész"
+],
+"craft/key_cutter":[
+"Kulcsmásoló",
+"Kulcsos",
+"Kulcskészítő"
+],
+"craft/locksmith":[
+"Lakatos"
+],
+"craft/metal_construction":[
+"csavar gyártása",
+"Fémmegmunkálás",
+"Fémiparos",
+"Huzaltermék gyártása",
+"Kötőelem",
+"Szerszámgyártás",
+"Acél tárolóeszköz gyártása"
+],
+"craft/optician":[
+"Látszerész"
+],
+"craft/painter":[
+"Festő",
+"mázoló",
+"Szobafestő"
+],
+"craft/photographer":[
+"Fotós",
+"Fotográfus",
+"Fényképész"
+],
+"craft/photographic_laboratory":[
+"Fotóműhely",
+"Fotólaboratórium",
+"Fotólabor"
+],
+"craft/plasterer":[
+"vakoló",
+"Gipszműves, stukkós"
+],
+"craft/plumber":[
+"Vízvezeték szerelő",
+"Vízvezeték-szerelő"
+],
+"craft/pottery":[
+"cserép",
+"kőedény",
+"Fazekas",
+"kerámia",
+"agyag"
+],
+"craft/rigger":[
+"Hajójavító műhely",
+"Vitorlásfelszerelés-készítő"
+],
+"craft/roofer":[
+"Tetőfedő"
+],
+"craft/saddler":[
+"Nyeregkészítő",
+"Lószerszám"
+],
+"craft/sailmaker":[
+"Hajóvitorla",
+"hajóvászon",
+"Vitorlakészítő"
+],
+"craft/sawmill":[
+"Fűrésztelep",
+"Fűrészmalom"
+],
+"craft/scaffolder":[
+"ács-állványozó",
+"Állványépítő"
+],
+"craft/sculptor":[
+"Szobrász"
+],
+"craft/shoemaker":[
+"Suszter",
+"Cipész",
+"Cipőkészítő",
+"Lábbeli készítő és javító mester",
+"Cipőjavító",
+"Varga",
+"Csizmadia"
+],
+"craft/stonemason":[
+"Kőfaragó",
+"Kőfaragó műhely"
+],
+"craft/tailor":[
+"Szabó"
+],
+"craft/tiler":[
+"Burkoló",
+"csempéző",
+"Burkoló mester"
+],
+"craft/tinsmith":[
+"Bádogos",
+"Üstfoltozó",
+"vizesbádogos"
+],
+"craft/upholsterer":[
+"Kárpitos",
+"kárpitozás",
+"bútor"
+],
+"craft/watchmaker":[
+"Órás (karóra)",
+"Órakészítő és javító műhely"
+],
+"craft/window_construction":[
+"Ablakkészítő",
+"nyílászáró",
+"ajtó és ablak készítés",
+"ablakos"
+],
+"craft/winery":[
+"pincészet",
+"Borászat"
+],
+"embankment":[
+"Töltés",
+"vasúti töltés",
+"hát",
+"kiemelkedés"
+],
+"emergency/ambulance_station":[
+"Mentőautó állomás",
+"Mentőállomás"
+],
+"emergency/defibrillator":[
+"Defibrillátor"
+],
+"emergency/designated":[
+"Kifejezetten vészhelyzeti használatra"
+],
+"emergency/destination":[
+"Kivéve célforgalom, vészhelyzetben"
+],
+"emergency/fire_hydrant":[
+"tűzoltók",
+"Tűzcsap",
+"tömlő",
+"fecskendő",
+"spricni",
+"vészhelyzet"
+],
+"emergency/life_ring":[
+"öv",
+"Mentőöv",
+"gyűrű",
+"életmentés",
+"mentés"
+],
+"emergency/no":[
+"Vészhelyzeti használatra tilos"
+],
+"emergency/official":[
+"Hivatalosan vészhelyzeti használatra"
+],
+"emergency/phone":[
+"Vészhelyzeti telefon",
+"Segélyhívó telefon"
+],
+"emergency/private":[
+"Vészhelyzeti használat: magántulajdon"
+],
+"emergency/yes":[
+"Vészhelyzeti használat"
+],
+"entrance":[
+"Bejárat/Kijárat"
+],
+"footway/crossing":[
+"zebra",
+"gyalogátkelő",
+"Gyalogosátkelő"
+],
+"footway/crossing-raised":[
+"lassító",
+"Kiemelt útkereszteződés",
+"bukkanó",
+"fekvő rendőr",
+"sebesség"
+],
+"footway/crosswalk":[
+"zebra",
+"gyalogátkelő",
+"Gyalogátkelőhely"
+],
+"footway/crosswalk-raised":[
+"zebra",
+"lassító",
+"átkelő",
+"Kiemelt gyalogátkelőhely",
+"bukkanó",
+"sebesség"
+],
+"footway/sidewalk":[
+"Járda"
+],
+"ford":[
+"Gázló"
+],
+"golf/bunker":[
+"homokakadály",
+"bunker",
+"Homokcsapda"
+],
+"golf/fairway":[
+"Fairway-sima pázsitos rész"
+],
+"golf/green":[
+"Putting green - lyuk körüli sima rész",
+"Putting green - lyuk körüli rész"
+],
+"golf/hole":[
+"Golflyuk"
+],
+"golf/lateral_water_hazard_area":[
+"keresztirányú vízi akadály",
+"oldalirányú vízi akadály",
+"Keresztirányú vízakadály",
+"oldalirányú vízakadály"
+],
+"golf/lateral_water_hazard_line":[
+"keresztirányú vízi akadály",
+"oldalirányú vízi akadály",
+"Keresztirányú vízakadály",
+"oldalirányú vízakadály"
+],
+"golf/rough":[
+"Rough -  vágatlan fűves rész",
+"Rough - vágatlan fűves rész"
+],
+"golf/tee":[
+"Tee box - Elütőhely"
+],
+"golf/water_hazard_area":[
+"vízi akadály",
+"Vízakadály"
+],
+"golf/water_hazard_line":[
+"vízi akadály",
+"Vízakadály"
+],
+"healthcare":[
+"műtét",
+"betegség",
+"orvos",
+"wellness",
+"klinika",
+"Egészségügyi létesítmény",
+"egészség",
+"intézet"
+],
+"healthcare/alternative":[
+"refelexológia",
+"hipnózis",
+"Alternatív gyógyászat",
+"hidroterápia",
+"kineziológia",
+"homeopátia",
+"aromaterápia",
+"hagyományos",
+"akupunktúra",
+"naturopátia",
+"oszteopátia",
+"ayurvéda"
+],
+"healthcare/alternative/chiropractic":[
+"Hátmasszás",
+"hát",
+"fájdalom",
+"gerinc",
+"masszázs"
+],
+"healthcare/audiologist":[
+"hang",
+"Audiológus",
+"fül",
+"hallás"
+],
+"healthcare/birthing_center":[
+"baba",
+"terhesség",
+"Szülészeti központ",
+"születés",
+"labor"
+],
+"healthcare/blood_donation":[
+"őssejt",
+"Véradóhely",
+"plazma",
+"véradás",
+"vérellátás",
+"transzfúzió",
+"vérátömlesztés"
+],
+"healthcare/hospice":[
+"gondoskodás",
+"betegség",
+"Szeretetház",
+"szeretet"
+],
+"healthcare/midwife":[
+"terhesség",
+"gyermek",
+"születés",
+"Bába"
+],
+"healthcare/occupational_therapist":[
+"foglalkozás",
+"terapeuta",
+"terápia",
+"Foglalkozási terapeuta"
+],
+"healthcare/optometrist":[
+"szemüveg",
+"szem",
+"Optometrista",
+"látás",
+"lencse"
+],
+"healthcare/physiotherapist":[
+"fizikai",
+"terapeuta",
+"terápia",
+"Gyógytornász"
+],
+"healthcare/podiatrist":[
+"gyógyítás",
+"láb",
+"Lábgyógyász"
+],
+"healthcare/psychotherapist":[
+"elme",
+"terapeuta",
+"terápia",
+"öngyilkosság",
+"szorongás",
+"mentális egészség",
+"tanácsadó",
+"depresszió",
+"Pszichoterapeuta"
+],
+"healthcare/rehabilitation":[
+"terapeuta",
+"terápia",
+"rehab",
+"Rehabilitációs létesítmény"
+],
+"healthcare/speech_therapist":[
+"terapeuta",
+"terápia",
+"hang",
+"Beszédterapeuta",
+"beszéd"
+],
+"highway":[
+"Közút"
+],
+"highway/bridleway":[
+"Lovas út",
+"Lovaglóút"
+],
+"highway/bus_stop":[
+"Buszmegálló"
+],
+"highway/corridor":[
+"Beltéri folyosó",
+"beltéri folyosó"
+],
+"highway/crossing":[
+"zebra",
+"gyalogátkelő",
+"Gyalogosátkelő"
+],
+"highway/crossing-raised":[
+"lassító",
+"Kiemelt útkereszteződés",
+"bukkanó",
+"fekvő rendőr",
+"sebesség"
+],
+"highway/crosswalk":[
+"zebra",
+"gyalogátkelő",
+"Gyalogátkelőhely"
+],
+"highway/crosswalk-raised":[
+"zebra",
+"lassító",
+"átkelő",
+"Kiemelt gyalogátkelőhely",
+"bukkanó",
+"sebesség"
+],
+"highway/cycleway":[
+"Bicikliút",
+"bringaút",
+"Kerékpárút"
+],
+"highway/elevator":[
+"lift",
+"Felvonó"
+],
+"highway/footway":[
+"Járda",
+"Gyalogút"
+],
+"highway/give_way":[
+"elsőbbségadás",
+"Elsőbbségadás kötelező tábla"
+],
+"highway/living_street":[
+"lakóút",
+"Pihenő-lakóút",
+"lakóövezet",
+"Pihenőút",
+"pihenőövezet"
+],
+"highway/mini_roundabout":[
+"Mini körforgalom"
+],
+"highway/motorway":[
+"Autópálya"
+],
+"highway/motorway_junction":[
+"autópálya lehajtó",
+"kijárat",
+"autópálya felhajtó",
+"Autópálya-csomópont / -kijárat",
+"leágazás",
+"elágazás"
+],
+"highway/motorway_link":[
+"autópálya lehajtó",
+"Autópálya-felhajtó",
+"autópálya leágazás"
+],
+"highway/path":[
+"Ösvény",
+"Gyalogút"
+],
+"highway/pedestrian_area":[
+"Sétáló övezet"
+],
+"highway/pedestrian_line":[
+"Sétálóutca"
+],
+"highway/primary":[
+"Főút",
+"Elsőrendű főút"
+],
+"highway/primary_link":[
+"Főútfelhajtó",
+"Elsőrendű főútcsatlakozás"
+],
+"highway/raceway":[
+"autóverseny",
+"motorverseny",
+"Autóversenypálya",
+"versenypálya",
+"forma-1"
+],
+"highway/residential":[
+"utca",
+"Lakóút"
+],
+"highway/rest_area":[
+"Pihenőhely"
+],
+"highway/road":[
+"Ismeretlen út",
+"Ismeretlen típusú út"
+],
+"highway/secondary":[
+"Összekötő út",
+"Másodrendű főút"
+],
+"highway/secondary_link":[
+"Másodrendű főút csatlakozás",
+"Összekötő út felhajtó"
+],
+"highway/service":[
+"Szervizút",
+"bekötő",
+"szervizút",
+"út"
+],
+"highway/service/alley":[
+"Sikátor",
+"köz"
+],
+"highway/service/drive-through":[
+"autós szolgáltatás",
+"drive-in",
+"Autós szolgáltatáshoz vezető út"
+],
+"highway/service/driveway":[
+"Kocsibehajtó",
+"Kocsibejáró"
+],
+"highway/service/emergency_access":[
+"Vészhelyzeti használat",
+"tűzoltóbejárat",
+"tűzoltási felvonulási útvonal",
+"Vészkijárat",
+"vészhelyzeti bejárat"
+],
+"highway/service/parking_aisle":[
+"Parkolóút"
+],
+"highway/services":[
+"pihenőhely",
+"Autós pihenőhely",
+"autó",
+"pihenő"
+],
+"highway/speed_camera":[
+"Traffipax",
+"sebességellenőrző",
+"sebességmérő",
+"kamera"
+],
+"highway/steps":[
+"Lépcsők",
+"Lépcső"
+],
+"highway/stop":[
+"állj! elsőbbségadás kötelező",
+"stop",
+"Stoptábla"
+],
+"highway/street_lamp":[
+"lámpa",
+"utcai világítás",
+"Utcai lámpa",
+"Közvilágítás"
+],
+"highway/tertiary":[
+"Harmadrendű főút",
+"Bekötőút"
+],
+"highway/tertiary_link":[
+"Harmadrendű főút csatlakozás",
+"Bekötőút felhajtó"
+],
+"highway/track":[
+"Nem karbantartott földút",
+"földút",
+"nem karbantartott"
+],
+"highway/traffic_mirror":[
+"Közlekedési tükör",
+"közlekedési tükör"
+],
+"highway/traffic_signals":[
+"lámpa",
+"villanyrendőr",
+"közlekedési lámpa",
+"jelzőlámpa",
+"Jelzőlámpa"
+],
+"highway/trunk":[
+"Autóút"
+],
+"highway/trunk_link":[
+"Autóútfelhajtó",
+"Autóút csatlakozás"
+],
+"highway/turning_circle":[
+"Forduló"
+],
+"highway/turning_loop":[
+"fordulóhely",
+"Fordulóhurok"
+],
+"highway/unclassified":[
+"alsóbbrendű út",
+"Alsóbbrendű út"
+],
+"historic":[
+"Történelmi hely"
+],
+"historic/archaeological_site":[
+"Régészeti lelőhely"
+],
+"historic/boundary_stone":[
+"Határkő"
+],
+"historic/castle":[
+"Vár",
+"Kastély",
+"Palota"
+],
+"historic/memorial":[
+"Emlékhely",
+"Emlékmű"
+],
+"historic/monument":[
+"monumentális emlékmű",
+"Monumentális, épületszerű emlékmű"
+],
+"historic/ruins":[
+"Romok"
+],
+"historic/tomb":[
+"temetkezési hely",
+"kripta",
+"sír",
+"Sír",
+"mauzóleum"
+],
+"historic/wayside_cross":[
+"feszület",
+"pléhkrisztus",
+"Útmenti kereszt",
+"Kőkereszt"
+],
+"historic/wayside_shrine":[
+"Útmenti kegyhely",
+"Útmenti szentély"
+],
+"junction":[
+"útkereszteződés",
+"Elágazás",
+"csomópont"
+],
+"landuse":[
+"funkció",
+"terület",
+"föld",
+"használat",
+"Területhasználat"
+],
+"landuse/allotments":[
+"közösségi kert",
+"Közösségi kert"
+],
+"landuse/aquaculture":[
+"kagylótenyésztés",
+"ráktenyésztés",
+"vízművelés",
+"haltenyésztés",
+"sea food",
+"Akvakultúra"
+],
+"landuse/basin":[
+"Vízgyűjtőterület",
+"vízgyűjtő",
+"Vízgyűjtő medence",
+"vízválasztó"
+],
+"landuse/brownfield":[
+"barna",
+"Barnamezős terület",
+"mező",
+"szántó"
+],
+"landuse/cemetery":[
+"sírkert",
+"Köztemető",
+"Temető"
+],
+"landuse/churchyard":[
+"templomudvar",
+"kerengő",
+"nartex",
+"Templomkert"
+],
+"landuse/commercial":[
+"Üzleti terület",
+"üzleti park",
+"kereskedelmi terület"
+],
+"landuse/construction":[
+"Építkezés",
+"építési terület",
+"építkezés",
+"bontás"
+],
+"landuse/farm":[
+"Mezőgazdasági terület"
+],
+"landuse/farmland":[
+"búzaföld",
+"Mezőgazdasági terület",
+"kukoricaföld",
+"aratás",
+"mezőgazdaság",
+"szántóföld",
+"szántó"
+],
+"landuse/farmyard":[
+"mezőgazdasági üzem",
+"farm",
+"tanya",
+"gazdaság",
+"Tanyaudvar"
+],
+"landuse/forest":[
+"vadon",
+"erdő",
+"rengeteg",
+"dzsungel",
+"Erdő"
+],
+"landuse/garages":[
+"Garázsok",
+"Garázsterület",
+"autótárolók"
+],
+"landuse/grass":[
+"Fű",
+"gyep"
+],
+"landuse/greenfield":[
+"mező",
+"Zöldmezős terület",
+"szántó",
+"zöld"
+],
+"landuse/harbour":[
+"Kikötő",
+"hajó",
+"kikötő"
+],
+"landuse/industrial":[
+"gyárterület",
+"gyár",
+"ipari park",
+"ipar",
+"Ipari terület"
+],
+"landuse/industrial/scrap_yard":[
+"Szeméttelep"
+],
+"landuse/industrial/slaughterhouse":[
+"Vágóhíd"
+],
+"landuse/landfill":[
+"szeméttelep",
+"Hulladéklerakó",
+"Szemétlerakó"
+],
+"landuse/meadow":[
+"tisztás",
+"legelő",
+"Rét"
+],
+"landuse/orchard":[
+"Gyümölcsöskert",
+"ültetvény",
+"gyümölcsfás",
+"Gyümölcsös"
+],
+"landuse/plant_nursery":[
+"faiskola",
+"Növényiskola",
+"növényiskola"
+],
+"landuse/quarry":[
+"Kőfejtő",
+"kőbánya"
+],
+"landuse/railway":[
+"vasúti folyosó",
+"űrszelvény",
+"Vasúti terület"
+],
+"landuse/recreation_ground":[
+"Szabadidőpark",
+"pihenőhely",
+"park"
+],
+"landuse/religious":[
+"Vallási övezet"
+],
+"landuse/residential":[
+"Lakóövezet",
+"lakóterület",
+"lakótelep"
+],
+"landuse/retail":[
+"boltok",
+"kiskereskedelem",
+"Kiskereskedelmi terület"
+],
+"landuse/vineyard":[
+"Szőlő",
+"szőlőültetvény",
+"szőlőskert"
+],
+"leisure":[
+"szabadidő",
+"Szabadidő"
+],
+"leisure/adult_gaming_centre":[
+"játékterem",
+"Felnőtt játékközpont"
+],
+"leisure/bird_hide":[
+"madárles",
+"Madárles"
+],
+"leisure/bowling_alley":[
+"Bowlingpálya",
+"bowling pálya"
+],
+"leisure/common":[
+"Szabadidős tevékenységre használható közös terület (Nagy-Britannia)",
+"Közterület"
+],
+"leisure/dance":[
+"Táncterem",
+"táncterem"
+],
+"leisure/dog_park":[
+"Kutyafuttató",
+"Kutyasétáltató"
+],
+"leisure/firepit":[
+"szalonnasütés",
+"Tűzrakóhely",
+"tábortűz",
+"tűzrakó"
+],
+"leisure/fitness_centre":[
+"Edzőterem / Fitneszklub",
+"fitnesz",
+"konditerem",
+"központ",
+"sport"
+],
+"leisure/fitness_centre/yoga":[
+"jógaközpont",
+"jóga",
+"Jógastúdió",
+"stúdió"
+],
+"leisure/fitness_station":[
+"fitnesz",
+"edzőhely",
+"Fitneszpark",
+"sport"
+],
+"leisure/garden":[
+"Kert"
+],
+"leisure/golf_course":[
+"Golfpálya"
+],
+"leisure/hackerspace":[
+"alkotóműhely",
+"Alkotóműhely",
+"alkotólabor",
+"alkotóhely"
+],
+"leisure/horse_riding":[
+"Lovasiskola",
+"Lovaglás"
+],
+"leisure/ice_rink":[
+"Jégpálya",
+"műjégpálya"
+],
+"leisure/marina":[
+"Kikötő",
+"Kishajókikötő"
+],
+"leisure/miniature_golf":[
+"minigolf",
+"miniatűr golfpálya",
+"minigolfpálya",
+"Minigolf"
+],
+"leisure/nature_reserve":[
+"tájvédelmi körzet",
+"terület",
+"természetvédelem",
+"nemzeti",
+"Természetvédelmi terület",
+"park"
+],
+"leisure/park":[
+"Park"
+],
+"leisure/picnic_table":[
+"Piknikasztal"
+],
+"leisure/pitch":[
+"Sportpálya"
+],
+"leisure/pitch/american_football":[
+"Amerikai foci pálya",
+"Amerikaifutball-pálya"
+],
+"leisure/pitch/baseball":[
+"Baseballpálya"
+],
+"leisure/pitch/basketball":[
+"Kosárlabdapálya"
+],
+"leisure/pitch/beachvolleyball":[
+"pálya",
+"strand",
+"röpi",
+"röplabda",
+"Strandröplabda pálya"
+],
+"leisure/pitch/bowls":[
+"Gyeptekepálya",
+"bowling pálya"
+],
+"leisure/pitch/cricket":[
+"krikettpálya",
+"Krikettpálya"
+],
+"leisure/pitch/equestrian":[
+"lovarda",
+"lovasiskola",
+"Lovaspálya"
+],
+"leisure/pitch/rugby_league":[
+"pálya",
+"Rugby League-pálya",
+"rögbi"
+],
+"leisure/pitch/rugby_union":[
+"Rugby Union-pálya",
+"pálya",
+"rögbi"
+],
+"leisure/pitch/skateboard":[
+"Gördeszkapark"
+],
+"leisure/pitch/soccer":[
+"Focipálya",
+"Futballpálya"
+],
+"leisure/pitch/table_tennis":[
+"asztalitenisz",
+"asztal",
+"Pingpongasztal",
+"pingpong"
+],
+"leisure/pitch/tennis":[
+"Teniszpálya"
+],
+"leisure/pitch/volleyball":[
+"pálya",
+"röpi",
+"Röplabdapálya",
+"röplabda"
+],
+"leisure/playground":[
+"Játszótér"
+],
+"leisure/resort":[
+"Üdülőhely",
+"üdülő",
+"üdülőhely"
+],
+"leisure/running_track":[
+"Futópálya",
+"futókör"
+],
+"leisure/sauna":[
+"gőz",
+"meleg",
+"Szauna",
+"izzad",
+"szauna"
+],
+"leisure/slipway":[
+"hajócsúszda",
+"Sólya"
+],
+"leisure/sports_centre":[
+"komplexum",
+"központ",
+"sport",
+"Sportközpont / komplexum"
+],
+"leisure/sports_centre/swimming":[
+"uszoda",
+"Uszoda",
+"Úszómedence"
+],
+"leisure/stadium":[
+"Stadion"
+],
+"leisure/swimming_pool":[
+"uszoda",
+"Úszómedence"
+],
+"leisure/track":[
+"Versenypálya (nem motorsport)",
+"versenypálya"
+],
+"leisure/water_park":[
+"aquapark",
+"Aquapark",
+"vízi szórakoztatópark"
+],
+"line":[
+"Vonal"
+],
+"man_made":[
+"Ember alkotta",
+"Építmények"
+],
+"man_made/adit":[
+"akna",
+"Bányatárna (vízszintes)",
+"táró",
+"bánya"
+],
+"man_made/breakwater":[
+"Hullámtörő"
+],
+"man_made/bridge":[
+"híd",
+"Híd"
+],
+"man_made/chimney":[
+"füstelvezető",
+"Kémény"
+],
+"man_made/crane":[
+"emelő",
+"Daru",
+"teher",
+"daru"
+],
+"man_made/cutline":[
+"Irtás",
+"Nyiladék"
+],
+"man_made/embankment":[
+"Töltés"
+],
+"man_made/flagpole":[
+"árboc",
+"Zászlórúd"
+],
+"man_made/gasometer":[
+"Gáztartály",
+"gazométer"
+],
+"man_made/groyne":[
+"Sarkantyú",
+"hullámtörő",
+"védőgát"
+],
+"man_made/lighthouse":[
+"Világítótorony"
+],
+"man_made/mast":[
+"pózna",
+"mobiltorony",
+"mobilcella",
+"rádióadó",
+"Pózna"
+],
+"man_made/observation":[
+"kilátó",
+"megfigyelőtorony",
+"Kilátótorony"
+],
+"man_made/petroleum_well":[
+"olajkút",
+"Olajkút"
+],
+"man_made/pier":[
+"Móló"
+],
+"man_made/pipeline":[
+"Csővezeték"
+],
+"man_made/pumping_station":[
+"Szivattyúház",
+"pumpa",
+"szivattyú"
+],
+"man_made/silo":[
+"siló",
+"gabonatároló",
+"Siló"
+],
+"man_made/storage_tank":[
+"tartály",
+"Tárolótartály",
+"tároló"
+],
+"man_made/surveillance":[
+"zártláncú kamera",
+"biztonsági kamera",
+"Térfigyelő kamera",
+"CCTV"
+],
+"man_made/surveillance_camera":[
+"megfigyelő kamera",
+"biztonsági kamera",
+"Térfigyelő kamera"
+],
+"man_made/survey_point":[
+"Megfigyelőpont",
+"Földmérési alappont"
+],
+"man_made/tower":[
+"magas épület",
+"Torony"
+],
+"man_made/wastewater_plant":[
+"Szennyvíztelep",
+"Szennyvíztisztító üzem"
+],
+"man_made/water_tower":[
+"Víztorony"
+],
+"man_made/water_well":[
+"Kút",
+"gémeskút",
+"kerekes kút"
+],
+"man_made/water_works":[
+"Vízmű"
+],
+"man_made/watermill":[
+"Vízimalom"
+],
+"man_made/windmill":[
+"Szélmalom"
+],
+"man_made/works":[
+"Gyár",
+"üzem",
+"gyár",
+"kombinát",
+"manufaktúra",
+"művek "
+],
+"manhole":[
+"akna",
+"Búvónyílás"
+],
+"manhole/drain":[
+"cső",
+"csatorna",
+"Viharcsatorna"
+],
+"manhole/telecom":[
+"Távközlési akna"
+],
+"natural":[
+"Természet"
+],
+"natural/bare_rock":[
+"Csupasz szikla",
+"kő",
+"szikla",
+"kőzet"
+],
+"natural/bay":[
+"Öböl"
+],
+"natural/beach":[
+"Strand"
+],
+"natural/cave_entrance":[
+"Barlangbejárat",
+"Barlang"
+],
+"natural/cliff":[
+"Sziklafal",
+"sziklaperem",
+"Sziklaszirt"
+],
+"natural/coastline":[
+"Tengerpart",
+"Partvonal"
+],
+"natural/fell":[
+"tundra",
+"kopár északi táj",
+"Fjell"
+],
+"natural/glacier":[
+"jégfolyó",
+"Gleccser"
+],
+"natural/grassland":[
+"Füves puszta",
+"rét",
+"puszta",
+"mező"
+],
+"natural/heath":[
+"Fenyér",
+"pusztaság",
+"hangafű",
+"törpecserjés",
+"rét"
+],
+"natural/peak":[
+"csúcs",
+"Hegycsúcs",
+"hegytető"
+],
+"natural/ridge":[
+"Hegygerinc",
+"tető",
+"gerinc",
+"hegy"
+],
+"natural/saddle":[
+"hágó",
+"Nyereg"
+],
+"natural/sand":[
+"Homok",
+"föveny",
+"homok"
+],
+"natural/scree":[
+"kőfolyás",
+"kőtörmelék",
+"Törmeléklejtő"
+],
+"natural/scrub":[
+"bokor",
+"Bozót",
+"cserjés"
+],
+"natural/spring":[
+"Forrás"
+],
+"natural/tree":[
+"Fa"
+],
+"natural/tree_row":[
+"fasor",
+"Fasor"
+],
+"natural/volcano":[
+"vulkán",
+"tűzhányó",
+"Vulkán"
+],
+"natural/water":[
+"Víz"
+],
+"natural/water/lake":[
+"Tó"
+],
+"natural/water/pond":[
+"Tavacska"
+],
+"natural/water/reservoir":[
+"Víztározó"
+],
+"natural/wetland":[
+"ingovány",
+"Mocsaras",
+"nádas",
+"vizenyő",
+"láp",
+"Mocsaras terület"
+],
+"natural/wood":[
+"erdő",
+"őserdő",
+"liget",
+"Természetes erdő",
+"fás terület"
+],
+"noexit/yes":[
+"Zsákutca",
+"zsákutca"
+],
+"office":[
+"Iroda"
+],
+"office/administrative":[
+"hatóság",
+"hivatal",
+"Közigazgatási hivatal",
+"önkormányzat"
+],
+"office/company":[
+"cég",
+"vállalkozás",
+"vállalat",
+"iroda",
+"magánvállalkozás",
+"Vállalati iroda"
+],
+"office/coworking":[
+"közösségi munkatér",
+"coworking",
+"Közösségi iroda"
+],
+"office/educational_institution":[
+"oktatási intézmény",
+"Oktatási intézmény"
+],
+"office/employment_agency":[
+"munkaügyi hivatal",
+"Munkaügyi központ"
+],
+"office/estate_agent":[
+"Ingatlaniroda",
+"ingatlanközvetítő"
+],
+"office/financial":[
+"biztosítás",
+"pénzügy",
+"befektetés",
+"kölcsön",
+"Pénzügyi vállalat irodája",
+"hitelezés"
+],
+"office/government":[
+"Kormányzati hivatal",
+"Kormányzat",
+"minisztérium",
+"országos szerv"
+],
+"office/government/register_office":[
+"házasságkötési hivatal",
+"anyakönyvi hivatal",
+"Anyakönyvi hivatal"
+],
+"office/insurance":[
+"Biztosító"
+],
+"office/lawyer":[
+"közjegyző",
+"bíróság",
+"ügyész",
+"ügyvéd",
+"Ügyvéd"
+],
+"office/lawyer/notary":[
+"közjegyző",
+"Közjegyzői iroda"
+],
+"office/ngo":[
+"Civil szervezet",
+"Nonprofit szervezet",
+"NGO",
+"egyesület"
+],
+"office/physician":[
+"Orvosi rendelő"
+],
+"office/political_party":[
+"Pártiroda",
+"párt",
+"politika",
+"pártszékház"
+],
+"office/research":[
+"alapkutatás",
+"Kutatóintézet",
+"fejlesztés",
+"kutatás"
+],
+"office/telecommunication":[
+"Távközlési cég irodája",
+"telefon",
+"telekommunikáció",
+"internet",
+"mobilszolgáltató"
+],
+"office/travel_agent":[
+"Utazási iroda"
+],
+"piste":[
+"sífutóút",
+"lesiklópálya",
+"Sípálya"
+],
+"place":[
+"Hely"
+],
+"place/city":[
+"megyeközpont",
+"Nagyváros",
+"megyeszékhely",
+"város"
+],
+"place/farm":[
+"Tanya"
+],
+"place/hamlet":[
+"Falucska",
+"falucska",
+"településrész",
+"tanyabokor"
+],
+"place/island":[
+"sziget",
+"Sziget"
+],
+"place/islet":[
+"Szigetecske"
+],
+"place/isolated_dwelling":[
+"Elszigetelt lakás",
+"Elszigetelt otthon"
+],
+"place/locality":[
+"dűlő",
+"Lakatlan hely",
+"helynév"
+],
+"place/neighbourhood":[
+"Környék",
+"környék",
+"negyed"
+],
+"place/plot":[
+"Parcella"
+],
+"place/quarter":[
+"Sub-Borough / Quarter",
+"sub-borough",
+"quarter"
+],
+"place/square":[
+"négyszögletes tér",
+"Tér"
+],
+"place/suburb":[
+"városrész",
+"Városrész"
+],
+"place/town":[
+"kisváros",
+"Város"
+],
+"place/village":[
+"Falu",
+"község"
+],
+"playground/basket_spinner":[
+"forog",
+"hinta",
+"Kosár forgó",
+"kosár"
+],
+"playground/basket_swing":[
+"hinta",
+"játék",
+"kosár",
+"Kosárhinta"
+],
+"playground/climbing_frame":[
+"játék",
+"mászóka",
+"Mászóka"
+],
+"playground/cushion":[
+"párna",
+"felfúj",
+"ugrál",
+"Ugráló párna"
+],
+"playground/roundabout":[
+"Körforgó",
+"játék",
+"körforgó",
+"körhinta"
+],
+"playground/sandpit":[
+"Homokozó",
+"játék",
+"homok"
+],
+"playground/seesaw":[
+"hinta",
+"mérleg",
+"libikóka",
+"Mérleghinta"
+],
+"playground/slide":[
+"Csúszda",
+"csúszás",
+"lejtő"
+],
+"playground/structure":[
+"ház",
+"játék",
+"vár",
+"Jászóvár"
+],
+"playground/swing":[
+"hinta",
+"Hinta"
+],
+"playground/zipwire":[
+"csúszda",
+"kötél",
+"Kötélcsúszda"
+],
+"point":[
+"Pont"
+],
+"power":[
+"Energia"
+],
+"power/generator":[
+"erőmű",
+"villamos energia",
+"generátor",
+"áram",
+"Áramfejlesztő"
+],
+"power/generator/source_nuclear":[
+"Atomreaktor"
+],
+"power/generator/source_wind":[
+"Szélturbina"
+],
+"power/line":[
+"Távvezeték",
+"Elektromos vezeték"
+],
+"power/minor_line":[
+"távvezeték",
+"villanyvezeték",
+"Középfeszültségű vezeték",
+"kisfesztültségű vezeték"
+],
+"power/plant":[
+"erőmű",
+"Erőműterület"
+],
+"power/pole":[
+"Villanyoszlop",
+"villanykaró",
+"villanypózna"
+],
+"power/sub_station":[
+"Áramelosztó alállomás"
+],
+"power/substation":[
+"trafóház",
+"trafóállomás",
+"Elektromos alállomás",
+"Alállomás",
+"transzformátorállomás"
+],
+"power/switch":[
+"Hálózati kapcsoló"
+],
+"power/tower":[
+"Magasfeszültségű oszlop",
+"villanyoszlop",
+"Távvezetékoszlop"
+],
+"power/transformer":[
+"áramátalakító",
+"Transzformátor",
+"trafó",
+"transzformátor"
+],
+"public_transport/platform":[
+"Peron"
+],
+"public_transport/stop_position":[
+"Megállási pont",
+"Megállóhely"
+],
+"railway":[
+"Vasút"
+],
+"railway/abandoned":[
+"Felszedett vasútvonal",
+"megszűnt vasútvonal",
+"felhagyott vasútvonal"
+],
+"railway/buffer_stop":[
+"ütközőbak",
+"vasúti ütköző",
+"üköző",
+"Ütközőbak"
+],
+"railway/crossing":[
+"vasúti kereszteződés",
+"átkelő",
+"Vasúti átjáró (gyalogos)"
+],
+"railway/derail":[
+"kitérő",
+"vasút",
+"Vasúti kitérő"
+],
+"railway/disused":[
+"megszűnt vasútvonal",
+"Használaton kívüli vasút"
+],
+"railway/funicular":[
+"Siklóvasút",
+"kötélvasút",
+"Sikló"
+],
+"railway/halt":[
+"Vasúti megálló",
+"megálló",
+"Vasúti megállóhely",
+"vasútállomás"
+],
+"railway/level_crossing":[
+"vasúti kereszteződés",
+"átjáró",
+"átkelő",
+"Vasúti átjáró (közút)"
+],
+"railway/milestone":[
+"kilométerkő",
+"Vasúti mérföldkő",
+"mérföldkő",
+"vasút"
+],
+"railway/monorail":[
+"mágnesvasút ",
+" nyeregvasút",
+"Egysínű vasút"
+],
+"railway/narrow_gauge":[
+"Keskeny nyomtávú vasút",
+"Kisvasút"
+],
+"railway/platform":[
+"Vasúti peron",
+"vasúti fel- és leszállóhely",
+"vasútmenti járda"
+],
+"railway/rail":[
+"Vasúti pálya",
+"Vasútvonal"
+],
+"railway/signal":[
+"jelzés",
+"Vasúti jelző",
+"jelző",
+"vasút"
+],
+"railway/station":[
+"Vasútállomás",
+"pályaudvar"
+],
+"railway/subway":[
+"Metró",
+"földalatti"
+],
+"railway/subway_entrance":[
+"Metrólejáró",
+"lejárat",
+"Metróbejárat"
+],
+"railway/switch":[
+"váltó",
+"Vasúti váltó",
+"vasút"
+],
+"railway/train_wash":[
+"mosó",
+"Mozdony mosó",
+"mozdony",
+"vonat",
+"kocsimosó",
+"vasút"
+],
+"railway/tram":[
+"Villamos"
+],
+"railway/tram_stop":[
+"Villamosmegálló",
+"villamosmegálló"
+],
+"relation":[
+"Kapcsolat"
+],
+"roundabout":[
+"Körforgalom"
+],
+"route/ferry":[
+"Komp",
+"Kompútvonal",
+"rév"
+],
+"shop":[
+"kereskedés",
+"Üzlet",
+"kiskereskedés",
+"bolt"
+],
+"shop/alcohol":[
+"tokaji",
+"Alkoholüzlet",
+"kosher szilvapálinka",
+"zwack",
+"vodka",
+"unikum",
+"pálinka",
+"wiszki",
+"baileys",
+"konyak",
+"whiskey"
+],
+"shop/anime":[
+"képregény",
+"Anime képregényekkel kapcsolatos bolt",
+"anime"
+],
+"shop/antiques":[
+"antikvárium",
+"antikvitás",
+"ószeres",
+"Régiségkereskedés"
+],
+"shop/appliance":[
+"háztartási",
+"készülék",
+"Háztartási gép üzlet",
+"kisgép",
+"nagygép",
+"gép"
+],
+"shop/art":[
+"művészbolt",
+"Műalkotásbolt"
+],
+"shop/baby_goods":[
+"babakocsi",
+"babjáték",
+"babaágy",
+"Bababolt",
+"babruha"
+],
+"shop/bag":[
+"utazótáska ",
+"bőrdíszmű és táskabolt",
+"koffer",
+"Táska- és bőröndbolt"
+],
+"shop/bakery":[
+"kifli",
+"péksütemény",
+"Pékség",
+"kenyér",
+"pékség",
+"pogácsa"
+],
+"shop/bathroom_furnishing":[
+"fürdőszoba felszerelés",
+"Szaniter",
+"Fürdőszobabútor-bolt",
+"csaptelep"
+],
+"shop/beauty":[
+"kozmetikus",
+"Szépségszalon"
+],
+"shop/beauty/nails":[
+"manikűr",
+"körömszalon",
+"pedikűr",
+"műkörömépítés",
+"Manikűr"
+],
+"shop/beauty/tanning":[
+"szolárium",
+"szoli",
+"Szolárium"
+],
+"shop/bed":[
+"ágy",
+"paplan",
+" Hálószobabútor",
+"lepedő",
+"párna",
+"ágynemű",
+"Ágy- és matracbolt",
+"takaró"
+],
+"shop/beverages":[
+"wiskey",
+"wiski",
+"vodka",
+"bor",
+"Italbolt",
+"pálinka",
+"konyak"
+],
+"shop/bicycle":[
+"bicaj",
+"bicikli",
+"bringa",
+"Kerékpárbolt"
+],
+"shop/bookmaker":[
+"Fogadóiroda",
+"bukméker"
+],
+"shop/books":[
+"Könyvesbolt"
+],
+"shop/boutique":[
+"Butik"
+],
+"shop/butcher":[
+"Húsbolt",
+"Mészáros",
+"Hentes"
+],
+"shop/candles":[
+"Gyertya- és mécsesbolt"
+],
+"shop/car":[
+"Autószalon",
+"Autókereskedés",
+"márkakereskedés"
+],
+"shop/car_parts":[
+"gépjármű",
+"alkatrész",
+"Autóalkatrész-üzlet",
+"gépkocsi"
+],
+"shop/car_repair":[
+"Autószerelő",
+"autószerviz",
+"autójavító"
+],
+"shop/carpet":[
+"Padlószőnyeg áruház",
+"Diego",
+"Szőnyegház",
+"Szőnyegbolt"
+],
+"shop/charity":[
+"Adománybolt",
+"jótékonysági bolt"
+],
+"shop/cheese":[
+"Kecskesajtbolt",
+"Sajtbolt",
+"Francia sajtok boltja"
+],
+"shop/chemist":[
+"illatszer",
+"Drogéria",
+"testápolás",
+"kozmetikum",
+"drogéria",
+"gyógyszertár"
+],
+"shop/chocolate":[
+"Csokibolt",
+"Kézműves csokoládébolt",
+"édesség",
+"Csokoládébolt"
+],
+"shop/clothes":[
+"Ruházati bolt",
+"fehérneműbolt",
+"öltönyáruház",
+"ruhabolt"
+],
+"shop/coffee":[
+"Kávébolt",
+"kávéüzlet",
+"kávé kereskedés",
+"kávébolt"
+],
+"shop/computer":[
+"laptop bolt",
+"Számítástechnikai üzlet",
+"notebook bolt",
+"Számítógépbolt",
+"Apple bolt"
+],
+"shop/confectionery":[
+"tortaszaküzlet",
+"nyalóka",
+"cukorka",
+"csokoládé",
+"süteménybolt",
+"Édességbolt",
+"cukrászüzlet",
+"cukrászat"
+],
+"shop/convenience":[
+"kisbolt",
+"közért",
+"ABC",
+"sarki élelmiszer",
+"Kis élelmiszerbolt"
+],
+"shop/copyshop":[
+"Copy Generál",
+"diplomakötés",
+"spirálozás",
+"nyomtatás",
+"Copyguru",
+"Fénymásoló"
+],
+"shop/cosmetics":[
+"Sminkbolt",
+"Kozmetikai bolt",
+"Szépségápolási szaküzlet",
+"Parfüm bolt"
+],
+"shop/craft":[
+"hobbyművész",
+"művészellátó",
+"Kézműveskellék-bolt",
+"kézműves",
+"kreatív",
+"dekoráció"
+],
+"shop/curtain":[
+"kárpit",
+"függöny",
+"drapéria",
+"karnis",
+"Függönybolt"
+],
+"shop/dairy":[
+"Kézműves tejtermékek boltja",
+"tejföl",
+"tehéntej",
+"kefír",
+"tejtermék",
+"Kecsketej",
+"Tejtermékbolt",
+"joghurt",
+"sajt",
+"juhtej"
+],
+"shop/deli":[
+"csemege",
+"Delikát",
+"Csemegebolt"
+],
+"shop/department_store":[
+"belvárosi áruház",
+"városi áruház",
+"Áruház",
+"Nagyáruház"
+],
+"shop/doityourself":[
+"ezermester",
+"Barkácsáruház",
+"szerszám",
+"baumax",
+"obi",
+"barkács",
+"praktiker",
+"barkácsbolt",
+"felújítás"
+],
+"shop/dry_cleaning":[
+" Száraztisztító",
+"patyolat",
+"ruhatisztítás",
+"Vegytisztitó"
+],
+"shop/e-cigarette":[
+"E-cigaretta bolt",
+"e-cigaretta",
+"elektromos cigaretta"
+],
+"shop/electronics":[
+"rádió",
+"TV",
+"Elektronikai bolt",
+"háztartási gép",
+"hűtőszekrény"
+],
+"shop/erotic":[
+"Szexbolt",
+"szexuális segédeszköz",
+"erotikus bolt"
+],
+"shop/fabric":[
+"lakástextil",
+"rőfösbolt",
+"Rövidáru- és méterárubolt",
+" RÖLTEX"
+],
+"shop/farm":[
+"farm bolt",
+"tanyasi termék",
+"árus",
+"Termelői bolt",
+"kofa",
+"őstermelő"
+],
+"shop/fashion":[
+"ruhabolt ",
+"Női divat",
+"Divatüzlet"
+],
+"shop/fishmonger":[
+"Halbolt"
+],
+"shop/florist":[
+"bonsai",
+"Virágárus",
+"virágos",
+"virágbolt",
+"dísznövény",
+"szobanövény"
+],
+"shop/frame":[
+"Képkeretes",
+"Képkeretező"
+],
+"shop/funeral_directors":[
+"Temetkezési ügyintézés",
+"temetkezési intézet",
+"temetkezési és hamvasztási ügyintézés",
+"Temetkezési iroda"
+],
+"shop/furnace":[
+"Kazánbolt (elavult)"
+],
+"shop/furniture":[
+"bútor",
+"lakberendezés",
+"Bútorbolt"
+],
+"shop/garden_centre":[
+"Kertészet"
+],
+"shop/gas":[
+"gáztöltő",
+"palckozott gáz",
+"PB gáz",
+"cseppfolyós gáz",
+"gázpalack",
+"Palackozottgáz-bolt"
+],
+"shop/gift":[
+"szuvenír",
+"meglepetés",
+"Ajándékbolt",
+"ajándéktárgy"
+],
+"shop/greengrocer":[
+"gyümölcs",
+"zöldség",
+"Zöldséges"
+],
+"shop/hairdresser":[
+"hajvágás",
+"Fodrász"
+],
+"shop/hardware":[
+"vasbolt",
+"vaskereskedés",
+"Vas-műszaki bolt",
+"csavarbolt",
+"villanyszerelés"
+],
+"shop/hearing_aids":[
+"Hallókészülékbolt",
+"hallókészülékek"
+],
+"shop/herbalist":[
+"tea",
+"Gyógynövény",
+"biobolt",
+"étrendkiegészítő",
+"Gyógynövénybolt"
+],
+"shop/hifi":[
+"akusztika",
+"hangfal",
+"hifi",
+"audiophyl",
+"hi-fi",
+"házimozi",
+"extreme audio",
+"high end",
+"erősítő",
+"HiFi-bolt",
+"audio"
+],
+"shop/houseware":[
+"háztartási kisgépek",
+"edények",
+"evőeszközök",
+"Háztartási bolt",
+"kerti eszközök",
+"konyha"
+],
+"shop/interior_decoration":[
+"lakástextil",
+"díszek",
+"bútor",
+"Lakberendezési bolt"
+],
+"shop/jewelry":[
+"jegygyűrű",
+"ezüst",
+"divatékszer",
+"bizsu",
+"ékszer",
+"fülbevaló",
+"ékszerész",
+"ötvös",
+"gyémánt",
+"aranyműves",
+"arany",
+"gyűrű",
+"Ékszerbolt",
+"ékszerüzlet",
+"briliáns",
+"nyakék",
+"bijou",
+"karkötő"
+],
+"shop/kiosk":[
+"trafik",
+"dohánybolt",
+"dohány",
+"újságos",
+"Trafik"
+],
+"shop/kitchen":[
+"Konyhabútorbolt",
+"konyhatervezés",
+"konyhadesign",
+"konyhabútor"
+],
+"shop/laundry":[
+"vegytisztító",
+"ruhatisztító",
+"patyolat",
+"Mosoda"
+],
+"shop/leather":[
+"bőrdíszműves",
+"bőrékeszer",
+"bőrruházat",
+"Bőrdíszműbolt",
+"bőrös"
+],
+"shop/locksmith":[
+"zárszerelő",
+"záras",
+"kulcsmásoló",
+"Lakatos"
+],
+"shop/lottery":[
+"fogadóiroda",
+"Lottózó",
+"totó",
+"szerencsejáték"
+],
+"shop/mall":[
+"pláza",
+"Bevásárlóközpont"
+],
+"shop/massage":[
+"Keleti masszázs",
+"Gyógymasszázs",
+"Masszőr",
+"Masszázs",
+"Gyúrás",
+"Svédmasszázs",
+"Masszázsszalon",
+"Thai masszázs"
+],
+"shop/medical_supply":[
+"Egészségbolt",
+"Gyógybolt",
+"Gyógyászati segédeszközök boltja",
+"Gyógyászati eszközök boltja"
+],
+"shop/mobile_phone":[
+"nokia",
+"mobiltelefon",
+"Mobiltelefon-szaküzlet",
+"android",
+"okostelefon",
+"iphone"
+],
+"shop/money_lender":[
+"Hitel centrum",
+"Személyi kölcsönző",
+"Pénzkölcsönző",
+"Gyorskölcsön pénzkölcsönző",
+"Gyorshitelező",
+"Cofidis Gyorskölcsönző",
+"Provident"
+],
+"shop/motorcycle":[
+"Robogó és motor márkakereskedő",
+"Motorbicikli Márkakereskedő",
+"Motorkerékpár-kereskedés"
+],
+"shop/music":[
+"Zenebolt",
+"CD és DVD bolt",
+"Hanglemezbolt",
+"Muzsikabolt",
+"Zeneműbolt",
+"kotta és hanglemezbolt"
+],
+"shop/musical_instrument":[
+"Hangszer",
+"kotta",
+"Hangszerbolt",
+"Hangszerdiszkont"
+],
+"shop/newsagent":[
+"Újságos",
+"trafik",
+"hírlapárus",
+"Újságárus"
+],
+"shop/nutrition_supplements":[
+"étrend-kiegészítő",
+"Étrendkiegészítő-bolt",
+"táplálékkiegészítő"
+],
+"shop/optician":[
+"Látszerész",
+"kontaktlencse",
+"Szemüveg"
+],
+"shop/organic":[
+"Bio és organikus ételek és áruk boltja",
+"Biominőségű és egészséges táplálékok boltja",
+"Natura bolt",
+"Bio és natúr élelmiszer bolt",
+"Natura Reformtáplálkozási Szaküzlet",
+"Biobolt"
+],
+"shop/outdoor":[
+"outdoor",
+"Túrafelszerelés-bolt",
+"túrabolt",
+"sportbolt",
+"hegymászó felszerelés",
+"hegymászóbolt"
+],
+"shop/paint":[
+"Festék- vegyi áru szaküzlet",
+"Színkeverő bolt",
+"Tikkurila Festékbolt",
+" Falfesték bolt",
+"Festékbolt"
+],
+"shop/pastry":[
+"cukrászda",
+"torta",
+"süti",
+"sütemény",
+"Süteménybolt"
+],
+"shop/pawnbroker":[
+"zaci",
+"bizományi",
+"Zálogház"
+],
+"shop/perfumery":[
+"Parfüméria",
+"illatszerbolt",
+"parfümbolt"
+],
+"shop/pet":[
+"Kisállat kereskedés",
+"Kisállatkereskedés",
+"Kisállat és állateledelt árusító bolt",
+"Állateledel"
+],
+"shop/photo":[
+"fényképész",
+"filmkidolgozás",
+"előhívás",
+"fényképezés",
+"Fotósbolt",
+"igazolványkép"
+],
+"shop/pyrotechnics":[
+"robbanószer",
+"petárda",
+"tűzijáték",
+"csillagszóró",
+"pirotechnika",
+"Tűzijátékbolt"
+],
+"shop/radiotechnics":[
+"Elektronikai alkatrész",
+"Rádiótechnikai bolt",
+"mérőműszer"
+],
+"shop/religion":[
+"vallási tárgyak",
+"rózsafüzér",
+"imakönyv",
+"Kegytárgybolt"
+],
+"shop/scuba_diving":[
+"Búvárbolt",
+"Búvárfelszerelések boltja",
+"Búvárfelszerelés-bolt",
+"Búvárszakáruház "
+],
+"shop/seafood":[
+"halkereskedés",
+"halas",
+"Halbolt"
+],
+"shop/second_hand":[
+"használt cikk",
+"Turkáló",
+"Használtáru-bolt",
+"Használtruha bolt",
+"bálás bolt",
+"second hand bolt",
+"Turi",
+"Turkáló butik"
+],
+"shop/shoes":[
+"cipőbolt",
+"cipobolt",
+"cipő papucs csizma és más lábbelik boltja",
+"Cipőbolt"
+],
+"shop/sports":[
+"sportfelszerelés",
+"Sportbolt",
+"sportszer"
+],
+"shop/stationery":[
+"írószer",
+"nyomtatvány",
+"irodaszer",
+"papír",
+"Írószerbolt"
+],
+"shop/storage_rental":[
+"parkolóhelybérlés",
+"Tárolóhely bérbeadása",
+"tárolás",
+"raktárbérlés"
+],
+"shop/supermarket":[
+"Lidl",
+"Tesco",
+"ABC",
+"Penny",
+"CBA",
+"élelmiszerbolt",
+"Spar",
+"hipermarket",
+"Szupermarket",
+"Auchan",
+"szupermarket",
+"Aldi"
+],
+"shop/tailor":[
+"Szabóüzlet",
+"szabóság",
+"méretre ruhát készítő üzlet"
+],
+"shop/tattoo":[
+"Tetováló szalon",
+"piercing",
+"tatoo",
+"tetoválás"
+],
+"shop/tea":[
+"teabolt",
+"teázó",
+"Teaüzlet"
+],
+"shop/ticket":[
+"hajójegy",
+"koncertjegy",
+"interticket",
+"Jegyárus",
+"színházjegy"
+],
+"shop/tiles":[
+"Csempebolt"
+],
+"shop/tobacco":[
+"szivar",
+"Dohánybolt",
+"dohány",
+"Nemzeti dohánybolt",
+"cigaretta"
+],
+"shop/toys":[
+"hasbro",
+"lego",
+"gyermek",
+"mattel",
+"fisher price",
+"logikai",
+"barkács",
+"kreatív",
+"Játékbolt",
+"barbie",
+"bébi",
+"babák"
+],
+"shop/trade":[
+"Kereskedelmi üzlet"
+],
+"shop/travel_agency":[
+"otp travel",
+"last minute",
+"tui",
+"karthago tours",
+"tours",
+"reisen",
+"voyage",
+"neckermann",
+"nyaralás",
+"ibusz",
+"Utazási iroda",
+"travel",
+"vista",
+"utazás"
+],
+"shop/tyres":[
+"autógumi",
+"gumiabroncs",
+"Autógumibolt",
+"gumiszerelés"
+],
+"shop/vacant":[
+"Üres üzlethelyiség"
+],
+"shop/vacuum_cleaner":[
+"takarítógép",
+"Porszívó",
+"Porszívóbolt"
+],
+"shop/variety_store":[
+"olcsó áruk boltja",
+"100 forintos bolt",
+"1 eurós bolt"
+],
+"shop/video":[
+"DVD",
+"Videófilmbolt vagy -kölcsönző",
+"film",
+"videokazetta"
+],
+"shop/video_games":[
+"konzolos játék",
+"Wii",
+"XBOX",
+"Videojátékbolt",
+"PC-s játék"
+],
+"shop/watches":[
+"órabolt",
+"órás",
+"Órabolt (karóra)"
+],
+"shop/water_sports":[
+"csónak",
+"Vízisport-bolt",
+"mentőmellény",
+"fürdőruha",
+"szörf",
+"kajak"
+],
+"shop/weapons":[
+"Fegyverbolt",
+"Kés",
+"riasztófegyver",
+"lőfegyver"
+],
+"shop/window_blind":[
+"redőny",
+"roló",
+"ablaksötétítő",
+"árnyékolástechnika",
+"Redőnybolt"
+],
+"shop/wine":[
+"Borszaküzlet",
+"borkereskedés",
+"borászat",
+"italbolt"
+],
+"tourism":[
+"Idegenforgalom",
+"Turizmus"
+],
+"tourism/alpine_hut":[
+"Menedékház"
+],
+"tourism/apartment":[
+"vendégház",
+"Apartman"
+],
+"tourism/aquarium":[
+"akvárium",
+"Akvárium"
+],
+"tourism/artwork":[
+"szobor",
+"Műalkotás",
+"Művészeti alkotás",
+"fafaragás"
+],
+"tourism/attraction":[
+"Turistalátványosság",
+"látványosság",
+"attrakció",
+"Turisztikai látványosság"
+],
+"tourism/camp_site":[
+"tábor",
+"Kemping",
+"sátortábor",
+"kemping"
+],
+"tourism/caravan_site":[
+"lakóautó",
+"Lakóautó park",
+"lakókocsi",
+"park"
+],
+"tourism/chalet":[
+"Nyaralóház"
+],
+"tourism/gallery":[
+"Művészeti galéria",
+"galéria",
+"kiállítás",
+"kiállító terem",
+"képzőművészet"
+],
+"tourism/guest_house":[
+"Vendégház"
+],
+"tourism/hostel":[
+"Hostel",
+"ifjúsági szálló",
+"Turistaszálló"
+],
+"tourism/hotel":[
+"Szálloda",
+"szálloda",
+"Hotel"
+],
+"tourism/information":[
+"Információ",
+"Információs iroda"
+],
+"tourism/information/board":[
+"Információs tábla",
+"információs tábla"
+],
+"tourism/information/guidepost":[
+"Irányjelző tábla",
+"útjelző tábla"
+],
+"tourism/information/map":[
+"Térkép",
+"térkép"
+],
+"tourism/information/office":[
+"idegenforgalom",
+"turistainformáció",
+"Tourinform iroda",
+"turistairoda"
+],
+"tourism/motel":[
+"Motel",
+"fogadó"
+],
+"tourism/museum":[
+"Múzeum"
+],
+"tourism/picnic_site":[
+"Piknik terület",
+"Piknikezőhely"
+],
+"tourism/theme_park":[
+"élménypark",
+"vurstli ",
+"Vidámpark",
+"vidámpark"
+],
+"tourism/viewpoint":[
+"Kilátópont",
+"Kilátóhely"
+],
+"tourism/zoo":[
+"Állatkert"
+],
+"traffic_calming":[
+"Forgalomcsillapító",
+"forgalomcsillapító"
+],
+"traffic_calming/bump":[
+"Sebességcsökkentő borda",
+"Forgalomcsillapító küszöb",
+"Fekvőrendőr"
+],
+"traffic_calming/chicane":[
+"Forgalmi sikán",
+"forgalmi sikán"
+],
+"traffic_calming/choker":[
+"szűkület",
+"Szűkítés"
+],
+"traffic_calming/cushion":[
+"párna",
+"Párna"
+],
+"traffic_calming/dip":[
+"Mélyedés",
+"Bemarás"
+],
+"traffic_calming/hump":[
+"Lapos és hosszú fekvőrendőr",
+"Hosszú fekvőrendőr"
+],
+"traffic_calming/island":[
+"sziget",
+"járdasziget",
+"Járdasziget"
+],
+"traffic_calming/rumble_strip":[
+"rázó felfestés",
+"Rázósáv"
+],
+"traffic_calming/table":[
+"tábla",
+"lassító",
+"sebesség",
+"KRESZ tábla"
+],
+"type/boundary":[
+"Határvonal",
+"Határ"
+],
+"type/boundary/administrative":[
+"megyehatár",
+"államhatár",
+"országhatár",
+"Közigazgatási határ",
+"településhatár"
+],
+"type/multipolygon":[
+"Multipoligon"
+],
+"type/restriction":[
+"KRESZ",
+"Korlátozás",
+"tilalom"
+],
+"type/restriction/no_left_turn":[
+"Balra bekanyarodni tilos",
+"balra menni tilos",
+"Tilos balra kanyarodni"
+],
+"type/restriction/no_right_turn":[
+"jobbra menni tilos",
+"Jobbra bekanyarodni tilos",
+"jobbra fordulni tilos",
+"Tilos jobbra kanyarodni"
+],
+"type/restriction/no_straight_on":[
+"Egyenesen továbbhaladni tilos",
+"továbbmenni tilos",
+"Tilos egyenesen menni"
+],
+"type/restriction/no_u_turn":[
+"Tilos megfordulni",
+"Megfordulni tilos"
+],
+"type/restriction/only_left_turn":[
+"Csak balra szabad fordulni",
+"Kötelező haladási irány: balra"
+],
+"type/restriction/only_right_turn":[
+"Csak jobbra kanyarodás",
+"Kötelező haladási irány: jobbra"
+],
+"type/restriction/only_straight_on":[
+"Tilos kanyarodni",
+"Kötelező haladási irány: egyenesen tovább"
+],
+"type/route":[
+"Útvonal",
+"nyomvonal",
+"útvonal"
+],
+"type/route/bicycle":[
+"Kerékpáros útvonal",
+"Biciklis útvonal"
+],
+"type/route/bus":[
+"Buszútvonal",
+"Buszvonal"
+],
+"type/route/detour":[
+"terelés",
+"Elkerülőút",
+"Terelőút",
+"terelőút"
+],
+"type/route/ferry":[
+"Kompjárat útvonal",
+"Kompútvonal"
+],
+"type/route/foot":[
+"Gyalogos útvonal",
+"Gyalog útvonal"
+],
+"type/route/hiking":[
+"Túraút",
+"Turistaút",
+"Gyalogtúra"
+],
+"type/route/horse":[
+"lovas útvonal",
+"lovagló útvonal",
+"Lovaglóút",
+"lovagló út",
+"lovas út"
+],
+"type/route/pipeline":[
+"Csővezeték",
+"gázvezeték",
+"kőolajvezeték",
+"Csővezeték nyomvonala"
+],
+"type/route/power":[
+"távvezeték",
+"Távvezeték nyomvonala",
+"nagyfeszültségű vezeték",
+"Elektromos vezeték útvonala"
+],
+"type/route/road":[
+"autóút",
+"főút",
+"autópálya",
+"út",
+"Közút",
+"közút"
+],
+"type/route/train":[
+"Vasútvonal",
+"Vonat útvonal"
+],
+"type/route/tram":[
+"Villamos útvonal",
+"Villamosvonal"
+],
+"type/route_master":[
+"Route Master"
+],
+"type/site":[
+"site",
+"Helyszín",
+"hely"
+],
+"type/waterway":[
+"csónak",
+"víz",
+"hajó",
+"csatorna",
+"út",
+"folyó",
+"Vízi út"
+],
+"vertex":[
+"Egyéb"
+],
+"waterway":[
+"Vízfolyás"
+],
+"waterway/boatyard":[
+"csónak",
+"kikötő",
+"Hajótelep",
+"vitorlás",
+"kishajó"
+],
+"waterway/canal":[
+"Csatorna",
+"kanális"
+],
+"waterway/dam":[
+"víztározó",
+"vízerőmű",
+"tározó",
+"gát",
+"Völgyzáró gát"
+],
+"waterway/ditch":[
+"vízelvezető",
+"Árok",
+"árok"
+],
+"waterway/dock":[
+"kikötő",
+"dokk",
+"szárazdokk",
+"Dokk",
+"úszódokk"
+],
+"waterway/drain":[
+"Ér",
+"Vízelvezető csatorna"
+],
+"waterway/fuel":[
+"üzemanyag",
+"csónak",
+"hajó",
+"dízel",
+"bunkerolaj",
+"gázolaj",
+"hajóbenzinkút",
+"Üzemanyag-töltő állomás hajóknak"
+],
+"waterway/river":[
+"Folyó",
+"folyam"
+],
+"waterway/riverbank":[
+"Vízpart",
+"Folyópart",
+"föveny",
+"rakpart"
+],
+"waterway/sanitary_dump_station":[
+"szaniter",
+"tisztaság",
+"Tengeri WC kezelése",
+"ürítés"
+],
+"waterway/stream":[
+"Patak",
+"ér",
+"vízfolyás"
+],
+"waterway/stream_intermittent":[
+"csermely",
+"víz",
+"időszak",
+"árad",
+"patak",
+"folyás",
+"ér",
+"Időszakos vízfolyás",
+"áraszt",
+"folyó",
+"folyam"
+],
+"waterway/water_point":[
+"ivóvíz",
+"Ivóvíz-csatlakozás hajóknak",
+"édesvíz"
+],
+"waterway/waterfall":[
+"zuhatag",
+"Vízesés",
+"zúgó",
+"vízesés"
+],
+"waterway/weir":[
+"Bukógát"
+]
+}

@@ -1,0 +1,251 @@
+{
+"address":[
+"އެޑްރެސް"
+],
+"aeroway/runway":[
+"އެއާރޕޯޓް ރަންވޭ"
+],
+"aeroway/terminal":[
+"އެއާރޕޯޓް ގިމަތަ"
+],
+"amenity/bank":[
+"ބޭންކު"
+],
+"amenity/bar":[
+"ބާރ"
+],
+"amenity/cafe":[
+"ކެފޭ"
+],
+"amenity/cinema":[
+"ސިނަމާ"
+],
+"amenity/fast_food":[
+"ފާސްޓް ފުޑް"
+],
+"amenity/hospital":[
+"ހޮސްޕިޓަލް"
+],
+"amenity/library":[
+"ލައިބްރަރީ"
+],
+"amenity/parking":[
+"ކާރު ޕާރކުކުރާ ސަރަޙައްދު"
+],
+"amenity/place_of_worship":[
+"އަޅުކަންކުރާ ތަންތަން"
+],
+"amenity/place_of_worship/muslim":[
+"މިސްކިތް"
+],
+"amenity/restaurant":[
+"ރެސްޓޯރަންޓް"
+],
+"amenity/school":[
+"ސްކޫލު ބިން"
+],
+"amenity/toilets":[
+"ފާޚާނާ"
+],
+"area":[
+"އިމާރާތްތައް"
+],
+"area/highway":[
+"މަގު"
+],
+"building":[
+"އިމާރާތް"
+],
+"building/apartments":[
+"އެޕާރޓްމަންޓްތައް"
+],
+"building/commercial":[
+"ވިިޔަފާރި ޢިމާރާތްތައް"
+],
+"building/house":[
+"ގެެދޮރު"
+],
+"building/industrial":[
+"ސިނާާޢީ ޢިމާރާތްތައް"
+],
+"building/public":[
+"ސަރުކާރު އިމާރާތްތައް"
+],
+"building/residential":[
+"މީީހުން ދިރިއުޅޭ ޢިމާރާތްތައް"
+],
+"footway/crosswalk":[
+"ކަަފިހި ހުރަސް"
+],
+"highway":[
+"ހައިވޭ"
+],
+"highway/bus_stop":[
+"ބަސް ހުއްޓި"
+],
+"highway/crosswalk":[
+"ކަަފިހި ހުރަސް"
+],
+"highway/path":[
+"ދުވާރު"
+],
+"highway/primary":[
+"މައި މަގު"
+],
+"highway/residential":[
+"މީހުުން ދިރިއުޅޭ މަގުތައް"
+],
+"highway/service":[
+"ޚިދުމަތްދޭ މަގުތައް"
+],
+"highway/tertiary":[
+"ބާރުބޮޑު މަގުތައް"
+],
+"highway/track":[
+"ނުހަދާ މަގުތައް"
+],
+"highway/unclassified":[
+"ފާހަަގަނުކުރެވޭ ކުދި މަގުތައް"
+],
+"landuse/aquaculture":[
+"އެެކުއާކަލްޗަރ"
+],
+"landuse/cemetery":[
+"ސަހަރާ"
+],
+"landuse/commercial":[
+"ވިޔަފާރި ސަރަޙައްދު"
+],
+"landuse/farm":[
+"ދަނޑުވެރި ސަރަޙައްދުތައް"
+],
+"landuse/farmland":[
+"ދަނޑުވެރި ސަރަޙައްދުތައް"
+],
+"landuse/forest":[
+"ޖަންގަލި"
+],
+"landuse/grass":[
+"ވިނަގަނޑު"
+],
+"landuse/industrial":[
+"ސިނާޢީ ސަރަޙައްދު"
+],
+"landuse/landfill":[
+"ކުނި އުކާލާ ސަރަޙައްދު"
+],
+"landuse/residential":[
+"މީހުން ދިރިއުޅޭ ސަރަޙައްދު"
+],
+"landuse/retail":[
+"ވިޔަފާރި ސަރަޙައްދު"
+],
+"leisure/marina":[
+"ޔޮޓު މެރީނާ"
+],
+"leisure/park":[
+"ޕާރކުތައް"
+],
+"leisure/pitch/cricket":[
+"ކްރިކެޓް ކުޅޭ ސަރަޙައްދު"
+],
+"leisure/sports_centre":[
+"ކުުޅިވަރު މަރުކަޒު"
+],
+"leisure/stadium":[
+"ސްޓޭޑިއަމް"
+],
+"man_made/bridge":[
+"ފާލަން"
+],
+"man_made/pier":[
+"ބަނދަރު"
+],
+"natural/bare_rock":[
+"ފަރުބަދަ ފަދަ ތަންތަން"
+],
+"natural/beach":[
+"މޫދު ސަރަޙައްދު"
+],
+"natural/coastline":[
+"އައްސޭރިފަށް"
+],
+"natural/water":[
+"ފެން"
+],
+"natural/water/lake":[
+"ކޯރު"
+],
+"natural/water/pond":[
+"ފެންގަނޑު"
+],
+"natural/wetland":[
+"ޗަކަ ގަނޑު"
+],
+"natural/wood":[
+"ޖަންގަލި"
+],
+"office/government":[
+"ސަރުކާރު އޮފީސްތައް"
+],
+"office/travel_agent":[
+"ޓްރެވެލް އޭޖެންސީ"
+],
+"place":[
+"ތަނުގެ ނަން"
+],
+"place/city":[
+"ސިިޓީ"
+],
+"place/island":[
+"ރަށް"
+],
+"place/locality":[
+"ރަށްްފުށު"
+],
+"place/town":[
+"އަވަށް"
+],
+"point":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"power/line":[
+"ކަރަންޓް ވިއުގަ"
+],
+"route/ferry":[
+"ފެރީއަށްދާ މަގުތައް"
+],
+"shop":[
+"ފިހާރަ"
+],
+"shop/car_repair":[
+"ކާާރު ހަދައިދޭ ގަރާޖް"
+],
+"shop/hardware":[
+"ހާރޑްވެއާރ ފިހާރަ"
+],
+"shop/mobile_phone":[
+"މޯބައިލް ފޯނު ވިއްކާ ފިހާރަ"
+],
+"shop/supermarket":[
+"ސުޕަރމާރކެޓް"
+],
+"shop/travel_agency":[
+"ޓްރެވެލް އޭޖެންސީ"
+],
+"tourism/hotel":[
+"ހޮޓާ"
+],
+"type/route/ferry":[
+"ފެރީއަށްދާ މަގުތައް"
+],
+"waterway":[
+"ކަނޑުމަގު"
+],
+"waterway/canal":[
+"ކެނެލް"
+],
+"waterway/dock":[
+"ބޯޓުފަހަރު ބަނދަރުކުރާ ސަރަޙައްދު"
+]
+}

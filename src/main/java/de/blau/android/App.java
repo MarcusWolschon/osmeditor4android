@@ -21,6 +21,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.Synonyms;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.NotificationCache;
 import de.blau.android.util.collections.MultiHashMap;
@@ -60,6 +61,11 @@ public class App extends android.app.Application {
 	private static final Object presetSearchIndexLock = new Object();
 	private static MultiHashMap<String, PresetItem> translatedPresetSearchIndex = null;
 	private static final Object translatedPresetSearchIndexLock = new Object();
+	/**
+	 * Synonym list
+	 */
+	private static Synonyms synonyms;
+	private static final Object synonymsLock = new Object();
 	/**
 	 * name index related stuff
 	 */
@@ -150,7 +156,8 @@ public class App extends android.app.Application {
 		}
 	}
 
-	public static Preset[] getCurrentPresets(Context ctx) {
+	@NonNull
+	public static Preset[] getCurrentPresets(@NonNull Context ctx) {
 		synchronized (currentPresetsLock) {
 			if (currentPresets == null) {
 				Preferences prefs = new Preferences(ctx);
@@ -171,7 +178,8 @@ public class App extends android.app.Application {
 		}
 	}
 
-	public static MultiHashMap<String, PresetItem> getPresetSearchIndex(Context ctx) {
+	@NonNull
+	public static MultiHashMap<String, PresetItem> getPresetSearchIndex(@NonNull Context ctx) {
 		synchronized (presetSearchIndexLock) {
 			if (presetSearchIndex == null) {
 				presetSearchIndex = Preset.getSearchIndex(getCurrentPresets(ctx));
@@ -180,7 +188,8 @@ public class App extends android.app.Application {
 		}
 	}
 
-	public static MultiHashMap<String, PresetItem> getTranslatedPresetSearchIndex(Context ctx) {
+	@NonNull
+	public static MultiHashMap<String, PresetItem> getTranslatedPresetSearchIndex(@NonNull Context ctx) {
 		synchronized (translatedPresetSearchIndexLock) {
 			if (translatedPresetSearchIndex == null) {
 				translatedPresetSearchIndex = Preset.getTranslatedSearchIndex(getCurrentPresets(ctx));
@@ -189,7 +198,25 @@ public class App extends android.app.Application {
 		}
 	}
 	
-	public static Map<String,NameAndTags> getNameSearchIndex(Context ctx) {
+	/**
+	 * Return a object containing the current (Locale specific) list of preset synonyms
+	 * 
+	 * Caches the object returned
+	 * @param ctx
+	 * @return a Synonyms instance
+	 */
+	@NonNull
+	public static Synonyms getSynonyms(@NonNull Context ctx) {
+	    synchronized (synonymsLock) {
+	        if (synonyms == null) {
+	            synonyms = new Synonyms(ctx);
+	        }
+	        return synonyms;
+	    }
+	}
+
+	@NonNull
+	public static Map<String,NameAndTags> getNameSearchIndex(@NonNull Context ctx) {
 		getNames(ctx);
 		synchronized (namesSearchIndexLock) {
 			if (namesSearchIndex == null) {
@@ -200,7 +227,8 @@ public class App extends android.app.Application {
 		}
 	}
 
-	public static Names getNames(Context ctx) {
+	@NonNull
+	public static Names getNames(@NonNull Context ctx) {
 		synchronized (namesLock) {
 			if (names == null) {
 				// this should be done async if it takes too long
