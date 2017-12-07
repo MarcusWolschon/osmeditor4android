@@ -352,7 +352,7 @@
 
 	<style name="DownloadedMemberDark" parent="android:Widget.TextView">
 	    <item name="android:textColor">@android:color/white</item>
-		<item name="android:background">@android:color/white</item>
+		<item name="android:background">@android:color/black</item>
 	</style>
 	
 	<style name="NotDownloadedMemberDark" parent="android:Widget.TextView">
