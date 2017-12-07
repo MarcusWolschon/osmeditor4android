@@ -245,7 +245,7 @@ public class EasyEditManager {
 					e = logic.getSelectedRelations().get(0);
 					cb = new RelationSelectionActionModeCallback((Relation )e);
 				} else if (logic.getSelectedNodes() != null || logic.getSelectedWays() != null || logic.getSelectedRelations() != null) {
-					ArrayList<OsmElement> selection = new ArrayList<OsmElement>(); 
+					ArrayList<OsmElement> selection = new ArrayList<>();
 					if (logic.getSelectedNodes() != null) {
 						selection.addAll(logic.getSelectedNodes());
 					}
@@ -365,8 +365,8 @@ public class EasyEditManager {
 	 * @return a list of all ways which can be merged into the given way
 	 */
 	private Set<OsmElement> findMergeableWays(Way way) {
-		Set<Way> candidates = new HashSet<Way>();
-		Set<OsmElement> result = new HashSet<OsmElement>();
+		Set<Way> candidates = new HashSet<>();
+		Set<OsmElement> result = new HashSet<>();
 		candidates.addAll(logic.getWaysForNode(way.getFirstNode()));
 		candidates.addAll(logic.getWaysForNode(way.getLastNode()));
 		for (Way candidate : candidates) {
@@ -388,7 +388,7 @@ public class EasyEditManager {
 	 * @return The set of nodes suitable for appending.
 	 */
 	private Set<OsmElement> findAppendableNodes(Way way) {
-		Set<OsmElement> result = new HashSet<OsmElement>();
+		Set<OsmElement> result = new HashSet<>();
 		for (Node node : way.getNodes()) {
 			if (way.isEndNode(node)) result.add(node);
 		}
@@ -405,7 +405,7 @@ public class EasyEditManager {
 	 */
 	private Set<OsmElement> findViaElements(Way way) {
 		
-		Set<OsmElement> result = new HashSet<OsmElement>();
+		Set<OsmElement> result = new HashSet<>();
 		for (Node n:way.getNodes()) {
 			for (Way w:logic.getWaysForNode(n)) {
 				if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
@@ -423,8 +423,8 @@ public class EasyEditManager {
 	 * @return a set of the candidate to OSM elements
 	 */
 	private Set<OsmElement> findToElements(OsmElement viaElement) {
-		Set<OsmElement> result = new HashSet<OsmElement>();	
-		Set<Node> nodes = new HashSet<Node>();
+		Set<OsmElement> result = new HashSet<>();
+		Set<Node> nodes = new HashSet<>();
 		if (Node.NAME.equals(viaElement.getName())) {
 			nodes.add((Node) viaElement);
 		} else if (Way.NAME.equals(viaElement.getName())) {
@@ -736,7 +736,7 @@ public class EasyEditManager {
 		public boolean onMenuItemClick(MenuItem item) {
 			int itemId = item.getItemId();
 			
-			List<Way>ways = new ArrayList<Way>();
+			List<Way>ways = new ArrayList<>();
 			if (itemId==0) {
 				ways = clickedNonClosedWays;
 			} else { 
@@ -787,7 +787,7 @@ public class EasyEditManager {
 					main.getMap().showContextMenu();
 				} else {
 					Way way = clickedNonClosedWays.get(0);
-					ArrayList<Way>ways = new ArrayList<Way>();
+					ArrayList<Way>ways = new ArrayList<>();
 					ways.add(way);
 					try {
 						Node node = logic.performAddOnWay(main, ways,startX, startY, false);
@@ -843,7 +843,7 @@ public class EasyEditManager {
 							if (Util.notZero(lon) || Util.notZero(lat)) {
 								if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
 									logic.performSetPosition(main, node,lon,lat);
-									TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+									TreeMap<String, String> tags = new TreeMap<>(node.getTags());
 									if (location.hasAltitude()) {
 										tags.put(Tags.KEY_ELE, String.format(Locale.US,"%.1f",location.getAltitude()));
 										tags.put(Tags.KEY_ELE_MSL, String.format(Locale.US,"%.1f",location.getAltitude()));
@@ -914,13 +914,13 @@ public class EasyEditManager {
 						Snack.barInfoShort(main, + number  + (words.length == 2?words[1]:""));
 						Node node = logic.performAddNode(main, startLon/1E7D, startLat/1E7D);
 						if (node != null) {
-							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+							TreeMap<String, String> tags = new TreeMap<>(node.getTags());
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number)  + (words.length == 3?words[2]:""));
 							tags.put("source:original_text", v);
 							Map<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(), 
 									new ElementSearch(new int[]{node.getLon(),node.getLat()}, true), 
 									Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
-							tags = new TreeMap<String, String>();
+							tags = new TreeMap<>();
 							for (Entry<String, ArrayList<String>>entry:map.entrySet()) {
 								tags.put(entry.getKey(), entry.getValue().get(0));
 							}
@@ -952,14 +952,14 @@ public class EasyEditManager {
 					// search in names
 					NameAndTags nt = SearchIndexUtils.searchInNames(main, v, 2);
 					if (nt != null) {
-						HashMap<String, String> map = new HashMap<String, String>();
+						HashMap<String, String> map = new HashMap<>();
 						map.putAll(nt.getTags());
 						PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
 						if (pi != null) {
 							Node node = addNode(logic.performAddNode(main, startLon/1E7D, startLat/1E7D), nt.getName(), pi, logic, v);
 							if (node != null) {
 								// set tags from name suggestions
-								Map<String,String> tags = new TreeMap<String, String>(node.getTags());
+								Map<String,String> tags = new TreeMap<>(node.getTags());
 								for (Entry<String,String>entry:map.entrySet()) {
 									tags.put(entry.getKey(), entry.getValue());
 								}
@@ -978,7 +978,7 @@ public class EasyEditManager {
 			if (node != null) {
 				try {
 					Snack.barInfo(main,pi.getName()  + (name != null? " name: " + name:""));
-					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+					TreeMap<String, String> tags = new TreeMap<>(node.getTags());
 					for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
 						tags.put(tag.getKey(), tag.getValue().getValue());
 					}
@@ -1037,7 +1037,7 @@ public class EasyEditManager {
 		/** contains a pointer to the created way if one was created. used to fix selection after undo. */
 		private Way createdWay = null;
 		/** contains a list of created nodes. used to fix selection after undo. */
-		private ArrayList<Node> createdNodes = new ArrayList<Node>();
+		private ArrayList<Node> createdNodes = new ArrayList<>();
 		
 		public PathCreationActionModeCallback(float x, float y) {
 			super();
@@ -1117,7 +1117,7 @@ public class EasyEditManager {
 			} else { // update cache for undo
 				createdWay = logic.getSelectedWay();
 				if (createdWay == null) {	
-					createdNodes = new ArrayList<Node>();
+					createdNodes = new ArrayList<>();
 				}
 				createdNodes.add(logic.getSelectedNode());		
 			}
@@ -1719,7 +1719,7 @@ public class EasyEditManager {
 	
 	private class WaySplittingActionModeCallback extends EasyEditActionModeCallback {
 		private Way way;
-		private List<OsmElement> nodes = new ArrayList<OsmElement>();
+		private List<OsmElement> nodes = new ArrayList<>();
 		private boolean createPolygons = false;
 		
 		public WaySplittingActionModeCallback(Way way, boolean createPolygons) {
@@ -1743,7 +1743,7 @@ public class EasyEditManager {
 				mode.setSubtitle(R.string.actionmode_closed_way_split_1);
 			else
 				mode.setSubtitle(R.string.menu_split);
-			logic.setClickableElements(new HashSet<OsmElement>(nodes));
+			logic.setClickableElements(new HashSet<>(nodes));
 			logic.setReturnRelations(false);
 			return true;
 		}
@@ -1776,7 +1776,7 @@ public class EasyEditManager {
 	private class ClosedWaySplittingActionModeCallback extends EasyEditActionModeCallback {
 		private Way way;
 		private Node node;
-		private Set<OsmElement> nodes = new HashSet<OsmElement>();
+		private Set<OsmElement> nodes = new HashSet<>();
 		private boolean createPolygons = false;
 		
 		public ClosedWaySplittingActionModeCallback(Way way, Node node, boolean createPolygons) {
@@ -1818,7 +1818,7 @@ public class EasyEditManager {
 				logic.setSelectedRelation(null);
 				logic.setSelectedWay(result[0]);
 				logic.addSelectedWay(result[1]);
-				ArrayList<OsmElement> selection = new ArrayList<OsmElement>(); 
+				ArrayList<OsmElement> selection = new ArrayList<>();
 				selection.addAll(logic.getSelectedWays());
 				main.startSupportActionMode(new ExtendSelectionActionModeCallback(selection));
 			} else { //FIXME toast here?
@@ -2011,7 +2011,7 @@ public class EasyEditManager {
 				switch (item.getItemId()) {
 				case MENUITEM_ADD_RELATION_MEMBERS: main.startSupportActionMode(new  AddRelationMemberActionModeCallback((Relation)element, null)); break;
 				case MENUITEM_SELECT_RELATION_MEMBERS:
-					ArrayList<OsmElement> selection = new ArrayList<OsmElement>();
+					ArrayList<OsmElement> selection = new ArrayList<>();
 					if (((Relation)element).getMembers() != null) {
 						for (RelationMember rm : ((Relation)element).getMembers()) {
 							selection.add(rm.getElement());
@@ -2119,7 +2119,7 @@ public class EasyEditManager {
 	}
 	
 	private class RestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
-		private final String DEBUG11_TAG = "RestrictionFromElement...";
+		private final String DEBUG11_TAG = "RestrictionFromElement.";
 		private Way fromWay;
 		private Set<OsmElement> viaElements;
 		private boolean viaSelected = false;
@@ -2179,13 +2179,13 @@ public class EasyEditManager {
 			if (viaWay != null && !viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
 				newViaWay = logic.performSplit(main, viaWay,viaNode);
 			}
-			Set<OsmElement> viaElements = new HashSet<OsmElement>();
+			Set<OsmElement> viaElements = new HashSet<>();
 			viaElements.add(element);
 			if (newViaWay != null) {
 				viaElements.add(newViaWay);
 			}
 			if (newFromWay != null) {
-				Set<OsmElement> fromElements = new HashSet<OsmElement>();
+				Set<OsmElement> fromElements = new HashSet<>();
 				fromElements.add(fromWay);
 				fromElements.add(newFromWay);
 				Snack.barInfo(main, newViaWay == null ? R.string.toast_split_from:R.string.toast_split_from_and_via);
@@ -2218,7 +2218,7 @@ public class EasyEditManager {
 	}
 	
 	private class RestrictionViaElementActionModeCallback extends EasyEditActionModeCallback {
-		private final String DEBUG12_TAG = "RestrictionViaElement...";
+		private final String DEBUG12_TAG = "RestrictionViaElement..";
 		private Way fromWay;
 		private OsmElement viaElement;
 		private Set<OsmElement> cachedToElements;
@@ -2282,7 +2282,7 @@ public class EasyEditManager {
 			if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode)) {
 				Way newToWay = logic.performSplit(main, toWay, viaNode);
 				Snack.barInfo(main, R.string.toast_split_to);
-				Set<OsmElement> toCandidates = new HashSet<OsmElement>();
+				Set<OsmElement> toCandidates = new HashSet<>();
 				toCandidates.add(toWay);
 				toCandidates.add(newToWay);
 				main.startSupportActionMode(new RestrictionViaElementActionModeCallback(fromWay, viaElement, toCandidates));
@@ -2361,18 +2361,18 @@ public class EasyEditManager {
 		
 		public AddRelationMemberActionModeCallback(ArrayList<OsmElement> selection) {
 			super();
-			members = new ArrayList<OsmElement>(selection);
+			members = new ArrayList<>(selection);
 		}
 		
 		public AddRelationMemberActionModeCallback(OsmElement element) {
 			super();
-			members = new ArrayList<OsmElement>();
+			members = new ArrayList<>();
 			addElement(element);
 		}
 		
 		public AddRelationMemberActionModeCallback(Relation relation, OsmElement element) {
 			super();
-			members = new ArrayList<OsmElement>();
+			members = new ArrayList<>();
 			if (element != null)
 				addElement(element);
 			this.relation = relation;
@@ -2459,7 +2459,7 @@ public class EasyEditManager {
 		}
 		
 		private void setClickableElements() {
-			ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(members);
+			ArrayList<OsmElement> excludes = new ArrayList<>(members);
 			if (relation != null) {
 				logic.selectRelation(relation);
 				excludes.addAll(relation.getMemberElements());
@@ -2523,7 +2523,7 @@ public class EasyEditManager {
 				
 		public ExtendSelectionActionModeCallback(ArrayList<OsmElement> elements) {
 			super();
-			selection = new ArrayList<OsmElement>();
+			selection = new ArrayList<>();
 			for (OsmElement e: elements) {
 				if (e != null) {
 					addOrRemoveElement(e);
@@ -2535,7 +2535,7 @@ public class EasyEditManager {
 		public ExtendSelectionActionModeCallback(OsmElement element) {
 			super();
 			Log.d(DEBUG10_TAG,"Multi-Select create mode with " + element);
-			selection = new ArrayList<OsmElement>();
+			selection = new ArrayList<>();
 			if (element != null) {
 				addOrRemoveElement(element);
 			}

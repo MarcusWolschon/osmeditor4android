@@ -166,7 +166,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 	static final String COPIED_TAGS_FILE = "copiedtags.dat";
 	 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
-				= new SavingHelper<LinkedHashMap<String,String>>();
+				= new SavingHelper<>();
 		
 	private Preferences prefs = null;
 	private ExtendedViewPager mViewPager;
@@ -285,8 +285,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
         setSupportActionBar(toolbar);
         
 		// tags
-		ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<LinkedHashMap<String, String>>();
-		originalTags = new ArrayList<LinkedHashMap<String, String>>();
+		ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<>();
+		originalTags = new ArrayList<>();
 		for (int i=0;i<loadData.length;i++) {
 			originalTags.add((LinkedHashMap<String, String>) (loadData[i].originalTags != null ? loadData[i].originalTags : loadData[i].tags));
 			tags.add((LinkedHashMap<String, String>) loadData[i].tags);
@@ -667,7 +667,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 			currentParents = relationMembershipFragment.getParentRelationMap();
 		}
 		if (relationMembersFragment != null) {
-			currentMembers = new ArrayList<RelationMemberDescription>(); // FIXME
+			currentMembers = new ArrayList<>(); // FIXME
 			if (types[0].equals(Relation.NAME)) { // FIXME
 				currentMembers = relationMembersFragment.getMembersList();
 			}
@@ -736,7 +736,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements
 
 		    if (currentTags.size() == 1) { // normal single mode, relations might have changed
 		        currentParents = relationMembershipFragment.getParentRelationMap();
-		        currentMembers = new ArrayList<RelationMemberDescription>(); //FIXME
+		        currentMembers = new ArrayList<>(); //FIXME
 		        if (types[0].endsWith(Relation.NAME)) {
 		            currentMembers = relationMembersFragment.getMembersList();
 		        }

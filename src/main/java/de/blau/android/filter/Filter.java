@@ -36,9 +36,9 @@ public abstract class Filter implements Serializable {
 	/**
 	 * cache for element filter actions
 	 */
-	transient HashMap<Node,Include> cachedNodes = new HashMap<Node,Include>(100);
-	transient HashMap<Way,Include> cachedWays = new HashMap<Way,Include>(100);
-	transient HashMap<Relation,Include> cachedRelations = new HashMap<Relation,Include>(100);
+	transient HashMap<Node,Include> cachedNodes = new HashMap<>(100);
+	transient HashMap<Way,Include> cachedWays = new HashMap<>(100);
+	transient HashMap<Relation,Include> cachedRelations = new HashMap<>(100);
 
 	private transient Logic logic = App.getLogic();
 
@@ -155,7 +155,7 @@ public abstract class Filter implements Serializable {
 	 */
 	@NonNull
 	public List<Node> getVisibleNodes() {
-		List<Node>result = new ArrayList<Node>();
+		List<Node>result = new ArrayList<>();
 		for (Entry<Node,Include>e:cachedNodes.entrySet()) {
 			if (e.getValue() != Include.DONT) {
 				result.add(e.getKey());
@@ -171,7 +171,7 @@ public abstract class Filter implements Serializable {
 	 */
 	@NonNull
 	public List<Way> getVisibleWays() {
-		List<Way>result = new ArrayList<Way>();
+		List<Way>result = new ArrayList<>();
 		for (Entry<Way,Include>e:cachedWays.entrySet()) {
 			if (e.getValue() != Include.DONT) {
 				result.add(e.getKey());
@@ -198,8 +198,8 @@ public abstract class Filter implements Serializable {
 			throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		// Normal deserialization will not initialize transient objects, need to do it here
-		cachedNodes = new HashMap<Node,Include>(100);
-		cachedWays = new HashMap<Way,Include>(100);
-		cachedRelations = new HashMap<Relation,Include>(100);
+		cachedNodes = new HashMap<>(100);
+		cachedWays = new HashMap<>(100);
+		cachedRelations = new HashMap<>(100);
 	}
 }

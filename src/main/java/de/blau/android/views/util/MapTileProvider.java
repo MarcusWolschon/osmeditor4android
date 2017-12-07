@@ -56,7 +56,7 @@ public class MapTileProvider implements ServiceConnection,
 	/**
 	 * place holder if tile not available
 	 */
-	Object staticTilesLock = new Object();
+	final Object staticTilesLock = new Object();
 	private static Bitmap mLoadingMapTile;
 	private static Bitmap mNoTilesTile;
 
@@ -65,7 +65,7 @@ public class MapTileProvider implements ServiceConnection,
 	 * cache provider
 	 */
 	private MapTileCache mTileCache;
-	private Map<String,Long> pending = Collections.synchronizedMap(new HashMap<String,Long>());
+	private final Map<String,Long> pending = Collections.synchronizedMap(new HashMap<String,Long>());
 
 	private IMapTileProviderService mTileService;
 	private Handler mDownloadFinishedHandler;

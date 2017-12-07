@@ -29,7 +29,7 @@ public class Capabilities {
 	public Status apiStatus = Status.OFFLINE;
 	public Status gpxStatus = Status.OFFLINE;
 	// policy
-	public ArrayList<String> imageryBlacklist = new ArrayList<String>();
+	public ArrayList<String> imageryBlacklist = new ArrayList<>();
 
 
 	public static Status stringToStatus(String s) {
@@ -46,7 +46,7 @@ public class Capabilities {
 	}
 	
 	private static ArrayList<String> defaultBlacklist() {
-		ArrayList<String> blacklist = new ArrayList<String>();
+		ArrayList<String> blacklist = new ArrayList<>();
 		blacklist.add(".*\\.google(apis)?\\..*/(vt|kh)[\\?/].*([xyz]=.*){3}.*");
 		blacklist.add("http://xdworld\\.vworld\\.kr:8080/.*");
 		blacklist.add(".*\\.here\\.com[/:].*");

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
@@ -31,12 +32,12 @@ public class FilterModeConfig implements ModeConfig {
     }
 
     @Override
-    public HashMap<String, String> getExtraTags(Logic logic, OsmElement e) {
+    public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
         return null;
     }  
 
     @Nullable
-    public ArrayList<PresetElementPath> getPresetItems(Context ctx, OsmElement e) {
+    public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
         // if we have a PresetFilter set for a single PresetItem, apply that automatically
         Logic logic = App.getLogic();
         Filter filter = logic.getFilter();
@@ -44,7 +45,7 @@ public class FilterModeConfig implements ModeConfig {
             PresetElement presetElement = ((PresetFilter)filter).getPresetElement();
             if (presetElement instanceof PresetItem || presetElement instanceof PresetGroup) {
                 Preset[] presets = App.getCurrentPresets(ctx);
-                ArrayList<PresetElementPath>result = new ArrayList<PresetElementPath>();
+                ArrayList<PresetElementPath>result = new ArrayList<>();
                 result.add(presetElement.getPath(presets[0].getRootGroup()));
                 return result;
             }

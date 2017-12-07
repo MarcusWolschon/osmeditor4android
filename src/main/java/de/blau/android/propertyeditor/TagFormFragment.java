@@ -306,21 +306,21 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				adapter = nameAdapters.getPlaceNameAdapter(values);
 			} else if (key.equals(Tags.KEY_NAME) && (names != null) && TagEditorFragment.useNameSuggestions(usedKeys)) {
 				Log.d(DEBUG_TAG,"generate suggestions for name from name suggestion index");
-				ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(allTags)); 
+				ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(allTags));
 				if (suggestions != null && !suggestions.isEmpty()) {
 					ArrayList<NameAndTags> result = suggestions;
 					Collections.sort(result);
-					adapter = new ArrayAdapter<NameAndTags>(getActivity(), R.layout.autocomplete_row, result);
+					adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, result);
 				}
 			} else {
-				HashMap<String, Integer> counter = new HashMap<String, Integer>();
-				ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<ValueWithCount>(getActivity(), R.layout.autocomplete_row);
+				HashMap<String, Integer> counter = new HashMap<>();
+				ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
 
 				if (preset != null) {
 					Collection<StringWithDescription> presetValues = preset.getAutocompleteValues(key);
 					Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + presetValues);
 					if (values != null && !values.isEmpty()) {
-						ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(presetValues);
+						ArrayList<StringWithDescription> result = new ArrayList<>(presetValues);
 						if (preset.sortIt(key)) {
 							Collections.sort(result, comparator);
 						}
@@ -439,7 +439,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		case R.id.tag_menu_locale:
 			// add locale to any name keys present
 			LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
-			LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
+			LinkedHashMap<String, String> result = new LinkedHashMap<>();
 			Locale locale = Locale.getDefault();
 			List<String> i18nKeys = getI18nKeys(tagListener.getBestPreset());
 			for (Entry<String,String> e:allTags.entrySet()) { 
@@ -649,15 +649,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	}
 	
 	private Map<String,String> addTagsToViews(EditableLayout editableView, PresetItem preset, LinkedHashMap<String, String> tags) {
-		LinkedHashMap<String,String> recommendedEditable = new LinkedHashMap<String,String>();
-		LinkedHashMap<String,String> optionalEditable = new LinkedHashMap<String,String>();
-		LinkedHashMap<String,String> linkedTags = new LinkedHashMap<String,String>();
-		LinkedHashMap<String,String> nonEditable = new LinkedHashMap<String,String>();
-		HashMap<String,PresetItem> keyToLinkedPreset = new HashMap<String,PresetItem>();
+		LinkedHashMap<String,String> recommendedEditable = new LinkedHashMap<>();
+		LinkedHashMap<String,String> optionalEditable = new LinkedHashMap<>();
+		LinkedHashMap<String,String> linkedTags = new LinkedHashMap<>();
+		LinkedHashMap<String,String> nonEditable = new LinkedHashMap<>();
+		HashMap<String,PresetItem> keyToLinkedPreset = new HashMap<>();
 		boolean groupingRequired = false;
 		if (preset != null) {
 			// iterate over preset entries so that we maintain ordering
-			LinkedHashMap<String,String> tagList = new LinkedHashMap<String,String>(tags);
+			LinkedHashMap<String,String> tagList = new LinkedHashMap<>(tags);
 			for (Entry<String,StringWithDescription>e:preset.getFixedTags().entrySet()) {
 				String key = e.getKey();
 				String value = tagList.get(key);
@@ -748,7 +748,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	 */
 	@NonNull
 	private List<String> getI18nKeys(@Nullable PresetItem preset) {
-	    List<String>i18nKeys = new ArrayList<String>();
+	    List<String>i18nKeys = new ArrayList<>();
 	    if (preset != null) {
 	        Set<String> presetI18nKeys = preset.getI18nKeys();
 	        if (presetI18nKeys != null) {
@@ -927,7 +927,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			row.valueView.setAdapter(adapter);
 		} else {
 			Log.e(DEBUG_TAG,"adapter null");
-			row.valueView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, new String[0]));
+			row.valueView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, new String[0]));
 		}
 		if (keyType==PresetKeyType.MULTISELECT) { 
 			// FIXME this should be somewhere better since it creates a non obvious side effect
@@ -1066,7 +1066,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		row.keyView.setTag(key);
 		row.setPreset(preset);
 
-		final ArrayList<String> templates = new ArrayList<String>();
+		final ArrayList<String> templates = new ArrayList<>();
 		if (adapter != null) {
 			Log.d(DEBUG_TAG, "adapter size " + adapter.getCount());
 			for (int i=0;i< adapter.getCount();i++) {
@@ -1090,7 +1090,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 				row.setValue(value);
 			}
 		}
-		final ArrayList<String> ohTemplates = new ArrayList<String>();
+		final ArrayList<String> ohTemplates = new ArrayList<>();
 		for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).getElement().getType(), Tags.KEY_OPENING_HOURS)) {
 			ohTemplates.add(s.getValue());
 		}	
@@ -1160,7 +1160,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 	    	}
 	    }
 		
-		final ArrayList<String> ohTemplates = new ArrayList<String>();
+		final ArrayList<String> ohTemplates = new ArrayList<>();
 		for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).getElement().getType(), Tags.KEY_OPENING_HOURS)) {
 			ohTemplates.add(s.getValue());
 		}	
@@ -1258,7 +1258,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		Log.d(DEBUG_TAG, "addMultiselectDialogRow value " + value);
 		ArrayList<String> multiselectValues = Preset.splitValues(Util.getArrayList(value),preset,key);
 		
-		ArrayList<StringWithDescription> selectedValues= new ArrayList<StringWithDescription>();
+		ArrayList<StringWithDescription> selectedValues= new ArrayList<>();
 		for (int i=0;i< adapter.getCount();i++) {
 			Object o = adapter.getItem(i);
 			
@@ -1450,7 +1450,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				ArrayList<StringWithDescription> values = new ArrayList<StringWithDescription>();
+				ArrayList<StringWithDescription> values = new ArrayList<>();
 				for (int pos=0;pos<valueGroup.getChildCount();pos++) {
 					View c = valueGroup.getChildAt(pos);
 					if (c != null && c instanceof AppCompatCheckBox) {
@@ -2106,7 +2106,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		private ImageButton cutButton;
 		private ImageButton deleteButton;
 		private PresetItem preset;
-		private LinkedHashMap<String,String> tags = new LinkedHashMap<String,String>();
+		private LinkedHashMap<String,String> tags = new LinkedHashMap<>();
 		
 		public  EditableLayout(Context context) {
 			super(context);
@@ -2240,11 +2240,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 		if (names == null) {
 			names = App.getNames(ctx);
 		}
-		ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(new TreeMap<String, String>())); 
+		ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(new TreeMap<String, String>()));
 		ArrayAdapter<NameAndTags> adapter = null;
 		if (suggestions != null && !suggestions.isEmpty()) {
 			Collections.sort(suggestions);
-			adapter = new ArrayAdapter<NameAndTags>(ctx, R.layout.autocomplete_row, suggestions);
+			adapter = new ArrayAdapter<>(ctx, R.layout.autocomplete_row, suggestions);
 		}
 		
 		Builder builder = new AlertDialog.Builder(ctx);

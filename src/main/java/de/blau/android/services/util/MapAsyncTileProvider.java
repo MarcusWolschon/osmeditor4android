@@ -67,7 +67,7 @@ public abstract class MapAsyncTileProvider {
 	public void flushQueue(String rendererId, int zoom) {
 	    Set<Entry<String, Runnable>> entries;
 	    synchronized(mPending) {
-	        entries = new HashSet<Entry<String, Runnable>>(mPending.entrySet());
+	        entries = new HashSet<>(mPending.entrySet());
 	    }
 	    if (zoom != ALLZOOMS) {
 	        String id = Integer.toString(zoom) + rendererId; // see MapTile.toId() 

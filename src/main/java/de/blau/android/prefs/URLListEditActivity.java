@@ -72,11 +72,11 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	ListEditItem selectedItem = null;
 	
 	private boolean addingViaIntent = false;
-	final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
+	final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<>();
 	
 	public URLListEditActivity() {
 		ctx = this;
-		items = new ArrayList<URLListEditActivity.ListEditItem>();
+		items = new ArrayList<>();
 	}
 	
 	public URLListEditActivity(List<ListEditItem> items) {

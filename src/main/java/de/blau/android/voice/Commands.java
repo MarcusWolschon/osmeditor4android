@@ -84,13 +84,13 @@ public class Commands {
 						Snack.toastTopInfo(main,loc + " "+ number  + (words.length == 3?words[2]:""));
 						Node node = createNode(loc,location);
 						if (node != null) {
-							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+							TreeMap<String, String> tags = new TreeMap<>(node.getTags());
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number)  + (words.length == 3?words[2]:""));
 							tags.put("source:original_text", v);
 							Map<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(), 
 										new ElementSearch(new int[]{node.getLon(),node.getLat()}, true), 
 										Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
-							tags = new TreeMap<String, String>();
+							tags = new TreeMap<>();
 							for (Entry<String,ArrayList<String>>entry:map.entrySet()) {
 								tags.put(entry.getKey(), entry.getValue().get(0));
 							}
@@ -121,7 +121,7 @@ public class Commands {
 					}
 					NameAndTags nt = SearchIndexUtils.searchInNames(main, input, 2);
 					if (nt != null) {
-						HashMap<String, String> map = new HashMap<String, String>();
+						HashMap<String, String> map = new HashMap<>();
 						map.putAll(nt.getTags());
 						PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
 						if (pi != null) {
@@ -147,7 +147,7 @@ public class Commands {
 			Snack.toastTopInfo(main, pi.getName()  + (name != null? " name: " + name:""));
 			if (node != null) {
 				try {
-					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+					TreeMap<String, String> tags = new TreeMap<>(node.getTags());
 					for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
 						tags.put(tag.getKey(), tag.getValue().getValue());
 					}

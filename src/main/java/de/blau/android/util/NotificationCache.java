@@ -33,7 +33,7 @@ public class NotificationCache implements Serializable {
 		if (size <=1) {
 			throw new IllegalArgumentException("Cache size needs to be at least 1");
 		}
-		cache = new ArrayList<Integer>(size);
+		cache = new ArrayList<>(size);
 		this.size = size;
 	}
 	

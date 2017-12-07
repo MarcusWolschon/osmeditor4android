@@ -242,7 +242,7 @@ public class DataStyle  extends DefaultHandler {
 	private HashMap<String,FeatureStyle> featureStyles;
 	
 	private static DataStyle currentStyle;
-	private static HashMap<String,DataStyle> availableStyles = new HashMap<String,DataStyle>();
+	private static HashMap<String,DataStyle> availableStyles = new HashMap<>();
 	
 	public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
 
@@ -290,7 +290,7 @@ public class DataStyle  extends DefaultHandler {
 		// copy existing profile
 		this.ctx = from.ctx;
 		name = n;
-		featureStyles = new HashMap<String, FeatureStyle>();
+		featureStyles = new HashMap<>();
 		for (FeatureStyle fp : from.featureStyles.values()) {
 			featureStyles.put(fp.getName(),new FeatureStyle(fp.getName(), fp));
 		}
@@ -335,7 +335,7 @@ public class DataStyle  extends DefaultHandler {
 		PorterDuffXfermode pixelXor = new PorterDuffXfermode(PorterDuff.Mode.XOR); 
 		
 		Log.i("Style","setting up default profile elements");
-		featureStyles = new HashMap<String, FeatureStyle>();
+		featureStyles = new HashMap<>();
 
 		Paint standardPath = new Paint();
 		standardPath.setStyle(Style.STROKE);
@@ -577,8 +577,8 @@ public class DataStyle  extends DefaultHandler {
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
         fp.getPaint().setTextSize(Density.dpToPx(ctx,16));
-        featureStyles.put(fp.getName(), fp);;
-		
+        featureStyles.put(fp.getName(), fp);
+
         fp = new FeatureStyle(LABELTEXT_SMALL_SELECTED);
         fp.setColor(cccBeige);
         fp.dontUpdate();
@@ -727,7 +727,7 @@ public class DataStyle  extends DefaultHandler {
 		String[] res = new String[availableStyles.size()];
 		
 		res[0] = BUILTIN_STYLE_NAME;
-		String keys[] = (new TreeMap<String, DataStyle>(availableStyles)).keySet().toArray(new String[0]); // sort the list
+		String keys[] = (new TreeMap<>(availableStyles)).keySet().toArray(new String[0]); // sort the list
 		int j = 1;
 		for (int i=0;i<res.length;i++) {
 			if (!keys[i].equals(BUILTIN_STYLE_NAME)) {
@@ -859,7 +859,7 @@ public class DataStyle  extends DefaultHandler {
 				name = atts.getValue("name");
 				if (featureStyles == null) {
 					Log.i("Style","Allocating new list of feature profiles for profile " + name);
-					featureStyles = new HashMap<String, FeatureStyle>();
+					featureStyles = new HashMap<>();
 				}
 			} else if (element.equals("feature")) {
 //				Log.i("Style", atts.getLength() + " attributes");
@@ -933,7 +933,7 @@ public class DataStyle  extends DefaultHandler {
 				// Log.i("Style","startElement finished parsing feature");
 			} else if (element.equals("dash")) {
 				tempPhase = Float.parseFloat(atts.getValue("phase"));
-				tempIntervals = new ArrayList<Float>();
+				tempIntervals = new ArrayList<>();
 			} else if (element.equals("interval")) {
 				tempIntervals.add(Float.valueOf(Float.parseFloat(atts.getValue("length"))));
 			} 

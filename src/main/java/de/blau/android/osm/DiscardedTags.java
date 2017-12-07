@@ -23,7 +23,7 @@ class DiscardedTags {
     
     static final String DEBUG_TAG = "DiscardedTags";
 
-	private HashSet<String> redundantTags = new HashSet<String>();
+	private HashSet<String> redundantTags = new HashSet<>();
 
 	/**
 	 * Implicit assumption that the list will be short and that it is OK to read in synchronously
@@ -70,7 +70,7 @@ class DiscardedTags {
 			return;
 		}
 		boolean modified = false;
-		SortedMap<String, String> newTags = new TreeMap<String, String>();
+		SortedMap<String, String> newTags = new TreeMap<>();
 		for (String key:element.getTags().keySet()) {
 			Log.d("DiscardedTags","Checking " + key);
 			if (!redundantTags.contains(key)) {

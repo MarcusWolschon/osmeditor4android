@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.filter.CorrectFilter;
@@ -45,12 +46,12 @@ public enum Mode {
 		}
 
 		@Override
-		public HashMap<String, String> getExtraTags(Logic logic, OsmElement e) {
+		public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
 			return null;
 		}
 
 		@Override
-		public ArrayList<PresetElementPath> getPresetItems(Context ctx, OsmElement e) {
+		public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
 			return null;
 		}
 	}),
@@ -115,8 +116,8 @@ public enum Mode {
 		}
 
 		@Override
-		public HashMap<String, String> getExtraTags(Logic logic, OsmElement e) {
-			HashMap<String,String> result = new HashMap<String,String>();
+		public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
+			HashMap<String,String> result = new HashMap<>();
 			// we only want to apply a level tag automatically to newly created objects if they don't already have the tag and not when the filter is inverted
 			Filter filter = logic.getFilter();
 			if (filter != null && filter instanceof IndoorFilter && !((IndoorFilter)filter).isInverted() && e.getState() == OsmElement.STATE_CREATED && !e.hasTagKey(Tags.KEY_LEVEL)) { 
@@ -126,7 +127,7 @@ public enum Mode {
 		}
 
 		@Override
-		public ArrayList<PresetElementPath> getPresetItems(Context ctx, OsmElement e) {
+		public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
 			return null; 
 		}
 	}),
@@ -188,8 +189,8 @@ public enum Mode {
 		}
 
 		@Override
-		public ArrayList<PresetElementPath> getPresetItems(Context ctx, OsmElement e) {
-			ArrayList<PresetElementPath>result = new ArrayList<PresetElementPath>();
+		public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
+			ArrayList<PresetElementPath>result = new ArrayList<>();
 			Preset[] presets = App.getCurrentPresets(ctx);
 			if (presets.length > 0 && presets[0] != null) {
 			    PresetItem pi = Preset.findBestMatch(presets, e.getTags());
@@ -201,7 +202,7 @@ public enum Mode {
 		}
 
 		@Override
-		public HashMap<String, String> getExtraTags(Logic logic, OsmElement e) {
+		public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
 			return null;
 		}
 	});

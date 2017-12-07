@@ -107,7 +107,7 @@ public class Track extends DefaultHandler {
 	 * Indicates how many of the track points are already in the save file.
 	 */
 	public Track(Context context) {
-		track = new ArrayList<TrackPoint>();
+		track = new ArrayList<>();
 		ctx = context;
 		if (isOpen) {
 			markSavingBroken("Attempted to open multiple instances of Track - saving disabled", null);
@@ -132,7 +132,7 @@ public class Track extends DefaultHandler {
 	}
 	
 	public List<TrackPoint> getTrackPoints() {
-		return new ArrayList<TrackPoint>(track); // need a shallow copy here
+		return new ArrayList<>(track); // need a shallow copy here
 	}
 	
 	@Override
@@ -227,7 +227,7 @@ public class Track extends DefaultHandler {
 	
 	private void asyncLoad() {
 		new AsyncTask<Void, Void, Void>() {
-			private ArrayList<TrackPoint> loaded = new ArrayList<Track.TrackPoint>();
+			private ArrayList<TrackPoint> loaded = new ArrayList<>();
 			
 			@Override
 			protected Void doInBackground(Void... params) {

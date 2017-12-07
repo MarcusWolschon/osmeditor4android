@@ -26,7 +26,7 @@ import android.support.v7.preference.PreferenceDialogFragmentCompat;
 
 public class MultiSelectListPreferenceDialogFragment extends PreferenceDialogFragmentCompat {
 
-    private Set<String> mNewValues = new HashSet<String>();
+    private Set<String> mNewValues = new HashSet<>();
     private boolean mPreferenceChanged;
 
     public static MultiSelectListPreferenceDialogFragment newInstance(String key) {

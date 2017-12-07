@@ -106,7 +106,7 @@ public class Map extends View implements IMapView {
 	
 	private final int verticalNumberOffset;
 
-    private final ArrayList<BoundingBox> boundingBoxes = new ArrayList<BoundingBox>();
+    private final ArrayList<BoundingBox> boundingBoxes = new ArrayList<>();
 
 	private Preferences prefs;
 	
@@ -147,18 +147,18 @@ public class Map extends View implements IMapView {
 	/**
 	 * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
 	 */
-	private final WeakHashMap<Object, Bitmap> iconCache = new WeakHashMap<Object, Bitmap>();
+	private final WeakHashMap<Object, Bitmap> iconCache = new WeakHashMap<>();
 	
 	/**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      * This stores icons for areas
      */
-    private final WeakHashMap<Object, Bitmap> areaIconCache = new WeakHashMap<Object, Bitmap>();
+    private final WeakHashMap<Object, Bitmap> areaIconCache = new WeakHashMap<>();
 	
 	/**
 	 * Stores strings that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
 	 */
-	private final WeakHashMap<Object, String> labelCache = new WeakHashMap<Object, String>();
+	private final WeakHashMap<Object, String> labelCache = new WeakHashMap<>();
 	
 	/** Caches if the map is zoomed into edit range during one onDraw pass */
 	private boolean tmpDrawingInEditRange;
@@ -187,8 +187,8 @@ public class Map extends View implements IMapView {
 	/**
 	 * 
 	 */
-	private ArrayList<Way> tmpStyledWays = new ArrayList<Way>();
-	private ArrayList<Way> tmpHiddenWays = new ArrayList<Way>();
+	private ArrayList<Way> tmpStyledWays = new ArrayList<>();
+	private ArrayList<Way> tmpHiddenWays = new ArrayList<>();
 	
 	
 	/** Caches the preset during one onDraw pass */
@@ -677,7 +677,7 @@ public class Map extends View implements IMapView {
 	 * @param canvas Canvas, where the data shall be painted on.
 	 */
 	private void paintOsmData(final Canvas canvas) {
-		ArrayList<Float> points = new ArrayList<Float>(); // allocate this just once
+		ArrayList<Float> points = new ArrayList<>(); // allocate this just once
 		
 		// first find all nodes that we need to display (for density calculations)
 
@@ -1054,7 +1054,7 @@ public class Map extends View implements IMapView {
 			if (isWay) { 
 				// don't show building icons, only icons for those with POI tags
 				if (Logic.areaHasIcon((Way) element)) {
-				    SortedMap<String,String> tempTags = new TreeMap<String,String>(tags);
+				    SortedMap<String,String> tempTags = new TreeMap<>(tags);
 				    tempTags.remove(Tags.KEY_BUILDING);
 				    icon = iconCache.get(tags); // maybe we already cached this for a node
 				    if (icon == null) {
@@ -1527,7 +1527,7 @@ public class Map extends View implements IMapView {
 	}
 	
 	/**
-	 * @param aSelectedNode the currently selected node to edit.
+	 * @param aSelectedNodes the currently selected nodes to edit.
 	 */
 	void setSelectedNodes(final List<Node> aSelectedNodes) {
 		tmpDrawingSelectedNodes = aSelectedNodes;
@@ -1535,7 +1535,7 @@ public class Map extends View implements IMapView {
 	
 	/**
 	 * 
-	 * @param aSelectedWay the currently selected way to edit.
+	 * @param aSelectedWays the currently selected ways to edit.
 	 */
 	void setSelectedWays(final List<Way> aSelectedWays) {
 		tmpDrawingSelectedWays = aSelectedWays;
@@ -1680,7 +1680,7 @@ public class Map extends View implements IMapView {
 	 * @return
 	 */
 	public ArrayList<String> getImageryNames() {
-		ArrayList<String>result = new ArrayList<String>();
+		ArrayList<String>result = new ArrayList<>();
 		synchronized(mOverlays) {
 			for (MapViewOverlay osmvo : mOverlays) {
 				if ((osmvo instanceof MapTilesOverlay)) {

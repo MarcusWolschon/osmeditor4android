@@ -73,7 +73,7 @@ class SelectedRowsActionModeCallback implements Callback {
 		switch (item.getItemId()) {
 		case MENU_ITEM_DELETE:
 			final int size = rows.getChildCount();
-			ArrayList<Row> toDelete = new ArrayList<Row>();
+			ArrayList<Row> toDelete = new ArrayList<>();
 			for (int i = 0; i < size; ++i) {
 				View view = rows.getChildAt(i);
 				Row row = (Row)view;

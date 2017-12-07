@@ -71,7 +71,7 @@ class OsmoseServer {
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				return new ArrayList<OsmoseBug>(); 
+				return new ArrayList<>();
 			}
 
 			InputStream is;

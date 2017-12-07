@@ -133,7 +133,7 @@ public class WrappingLayout extends LinearLayout {
 	 * This allows to set the WrappingLayout contents from XML  
 	 */
 	private void eatChildren() {
-		ArrayList<View> tmpChildren = new ArrayList<View>();
+		ArrayList<View> tmpChildren = new ArrayList<>();
 		
 		int count = getChildCount();
 		for (int i = 0; i < count; i++) {

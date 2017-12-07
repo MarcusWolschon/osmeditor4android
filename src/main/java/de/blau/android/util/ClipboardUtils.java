@@ -86,7 +86,7 @@ public class ClipboardUtils {
 							        if (pasteCursor != null) {
 							            if (pasteCursor.moveToFirst()) {
 							            	String pasteData =  pasteCursor.getString(0);
-							            	return new ArrayList<String>(Arrays.asList(pasteData.split(EOL)));
+							            	return new ArrayList<>(Arrays.asList(pasteData.split(EOL)));
 							            }
 							            // close the Cursor
 								        pasteCursor.close();
@@ -101,7 +101,7 @@ public class ClipboardUtils {
 				} else {
 					Log.d("ClipboardUtils","Clipboard contains text");
 					String pasteData = cs.toString();
-					return new ArrayList<String>(Arrays.asList(pasteData.split(EOL)));
+					return new ArrayList<>(Arrays.asList(pasteData.split(EOL)));
 				}
 			} else {
 				// Gets the clipboard as text.
@@ -110,7 +110,7 @@ public class ClipboardUtils {
 				if (cs != null) {
 					String pasteData = cs.toString();
 					if (pasteData != null) { // should always be the case
-						return new ArrayList<String>(Arrays.asList(pasteData.split(EOL)));
+						return new ArrayList<>(Arrays.asList(pasteData.split(EOL)));
 					}
 				}
 			}
@@ -128,7 +128,7 @@ public class ClipboardUtils {
 	public static ArrayList<KeyValue> getKeyValues(Context ctx) {
 		ArrayList<String> textLines = getTextLines(ctx);
 		if (textLines != null) {
-			ArrayList<KeyValue> keysAndValues = new ArrayList<KeyValue>();
+			ArrayList<KeyValue> keysAndValues = new ArrayList<>();
 			for (String line:textLines) {
 				if (line.contains("=")) {
 					String[] r = line.split("=",2);

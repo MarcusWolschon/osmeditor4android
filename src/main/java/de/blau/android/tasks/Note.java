@@ -121,7 +121,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 						}
 					}
 					if ("comments".equals(tagName)) {
-						comments = new ArrayList<NoteComment>();
+						comments = new ArrayList<>();
 						state = COMMENTS;
 					}
 				}
@@ -183,7 +183,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 		this.lat = lat;
 		this.lon = lon;
 		open();
-		comments = new ArrayList<NoteComment>();
+		comments = new ArrayList<>();
 	}
 		
 	/**

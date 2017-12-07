@@ -129,7 +129,7 @@ public class Preferences {
 	
 	/**
 	 * 
-	 * @param cty Android context
+	 * @param ctx Android context
 	 * @throws IllegalArgumentException
 	 * @throws NotFoundException
 	 */
@@ -188,7 +188,7 @@ public class Preferences {
 			Log.w(DEBUG_TAG, "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
 			maxBugDownloadSpeed = 30f;
 		}
-		taskFilter = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
+		taskFilter = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			taskFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), taskFilter);
 		}
@@ -247,7 +247,7 @@ public class Preferences {
 		// light theme now always default
 		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), true);
 		
-		addressTags = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
+		addressTags = new HashSet<>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
 		}

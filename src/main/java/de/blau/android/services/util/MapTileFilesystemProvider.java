@@ -52,7 +52,6 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 	 * @param ctx
 	 * @param mountPoint TODO
 	 * @param aMaxFSCacheByteSize the size of the cached MapTiles will not exceed this size.
-	 * @param aCache to load fs-tiles to.
 	 */
 	public MapTileFilesystemProvider(final Context ctx, File mountPoint, final int aMaxFSCacheByteSize) {
 		mCtx = ctx;

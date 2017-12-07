@@ -147,7 +147,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	void addTags(final Map<String, String> tags) {
 		if (tags != null) {
 			if (this.tags==null) {
-				this.tags = new TreeMap<String, String>();
+				this.tags = new TreeMap<>();
 			}
 			this.tags.putAll(tags);
 		}
@@ -245,11 +245,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return		Map containing the merged tags
 	 */
 	public static Map<String, String> mergedTags(OsmElement e1, OsmElement e2) {
-		Map<String, String> merged = new TreeMap<String, String>(e1.getTags());
+		Map<String, String> merged = new TreeMap<>(e1.getTags());
 		Map<String, String> fromTags = e2.getTags();
 		for (Entry<String,String>entry : fromTags.entrySet()) {
 			String key = entry.getKey();
-			Set<String> values = new HashSet<String>(Arrays.asList(entry.getValue().split("\\;")));
+			Set<String> values = new HashSet<>(Arrays.asList(entry.getValue().split("\\;")));
 			if (merged.containsKey(key)) {
 				values.addAll(Arrays.asList(merged.get(key).split("\\;")));
 			}
@@ -297,7 +297,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 */
 	public void addParentRelation(Relation relation) {
 		if (parentRelations == null) {
-			parentRelations = new ArrayList<Relation>();
+			parentRelations = new ArrayList<>();
 		}
 		parentRelations.add(relation);
 	}
@@ -334,7 +334,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 */
 	public void addParentRelations(ArrayList<Relation> relations) {
 		if (parentRelations == null) {
-			parentRelations = new ArrayList<Relation>();
+			parentRelations = new ArrayList<>();
 		}
 		//  dedup
 		for (Relation r : relations) {
@@ -382,7 +382,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 */
 	public void removeParentRelation(long osmId) {
 		if (parentRelations != null) {
-			ArrayList<Relation> tempRelList = new ArrayList<Relation>(parentRelations);
+			ArrayList<Relation> tempRelList = new ArrayList<>(parentRelations);
 			for (Relation r:tempRelList) {
 				if (osmId == r.getOsmId()) {
 					parentRelations.remove(r);

@@ -111,7 +111,7 @@ public class SearchIndexUtils {
 			}
 		}
 		Collections.sort(rawResult);
-		ArrayList<PresetItem>result = new ArrayList<PresetItem>();
+		ArrayList<PresetItem>result = new ArrayList<>();
 		for (IndexSearchResult i:rawResult) {
 			Log.d(DEBUG_TAG,"found " + i.item.getName());
 			if (!result.contains(i.item)) {

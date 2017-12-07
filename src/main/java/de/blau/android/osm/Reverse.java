@@ -62,7 +62,7 @@ class Reverse {
 						|| Tags.VALUE_RIGHT.equals(value) || Tags.VALUE_LEFT.equals(value) 
 						|| Tags.VALUE_FORWARD.equals(value) || Tags.VALUE_BACKWARD.equals(value)) {
 					if (result == null) {
-						result = new TreeMap<String, String>();
+						result = new TreeMap<>();
 					}
 					result.put(key, value);
 				}
@@ -88,7 +88,7 @@ class Reverse {
 					RelationMember rm = r.getMember(Way.NAME, e.getOsmId());
 					if (rm != null && (Tags.ROLE_FORWARD.equals(rm.getRole()) || Tags.ROLE_BACKWARD.equals(rm.getRole()))) {
 						if (result == null) {
-							result = new ArrayList<Relation>();
+							result = new ArrayList<>();
 						}
 						result.add(r);
 					}
@@ -218,7 +218,7 @@ class Reverse {
 		if (e.getTags() == null) {
 			return;
 		}
-		Map<String, String> tags = new TreeMap<String,String>(e.getTags());
+		Map<String, String> tags = new TreeMap<>(e.getTags());
 
 		// remove all dir dependent key first
 		for (String key : dirTags.keySet()) {
@@ -267,19 +267,19 @@ class Reverse {
 					tags.put(key.substring(0, key.length()-FORWARD_POSTFIX.length()) + BACKWARD_POSTFIX, value);
 					continue;
 				} 
-				if (key.indexOf(FORWARD_INFIX) >= 0) {
+				if (key.contains(FORWARD_INFIX)) {
 					tags.put(key.replace(FORWARD_INFIX, BACKWARD_INFIX), value);
 					continue;
 				} 
-				if (key.indexOf(BACKWARD_INFIX) >= 0) {
+				if (key.contains(BACKWARD_INFIX)) {
 					tags.put(key.replace(BACKWARD_INFIX, FORWARD_INFIX), value);
 					continue;
 				} 
-				if (key.indexOf(RIGHT_INFIX) >= 0) {
+				if (key.contains(RIGHT_INFIX)) {
 					tags.put(key.replace(RIGHT_INFIX, LEFT_INFIX), value);
 					continue;
 				} 
-				if (key.indexOf(LEFT_INFIX) >= 0) {
+				if (key.contains(LEFT_INFIX)) {
 					tags.put(key.replace(LEFT_INFIX, RIGHT_INFIX), value);
 					continue;
 				} 

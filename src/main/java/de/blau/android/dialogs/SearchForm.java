@@ -138,8 +138,8 @@ public class SearchForm extends DialogFragment
     	for (int i=0;i<geocoders.length;i++) {
     		geocoderNames[i] = geocoders[i].name; 
     	}
-    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-    		    getActivity(), android.R.layout.simple_spinner_item, geocoderNames);
+    	ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                getActivity(), android.R.layout.simple_spinner_item, geocoderNames);
     	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     	searchGeocoder.setAdapter(adapter);
     	final Preferences prefs = new Preferences(getActivity());

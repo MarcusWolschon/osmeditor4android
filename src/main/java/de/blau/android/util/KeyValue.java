@@ -13,7 +13,7 @@ public class KeyValue {
 	
 	public KeyValue(String key, String value) {
 		this.key = key;
-		values = new ArrayList<String>();
+		values = new ArrayList<>();
 		values.add(value);
 	}
 	
@@ -38,7 +38,7 @@ public class KeyValue {
 	}
 	
 	public void setValue(String value) {
-		values = new ArrayList<String>();
+		values = new ArrayList<>();
 		values.add(value);
 	}
 }

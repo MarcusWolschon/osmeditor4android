@@ -899,7 +899,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		int radius = prefs.getDownloadRadius();
 		if ((location.getSpeed() < prefs.getMaxDownloadSpeed()/3.6f) && (previousLocation==null || location.distanceTo(previousLocation) > radius/8)) {
 			StorageDelegator storageDelegator = App.getDelegator();
-			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(storageDelegator.getBoundingBoxes());
+			ArrayList<BoundingBox> bbList = new ArrayList<>(storageDelegator.getBoundingBoxes());
 			BoundingBox newBox = getNextBox(bbList,previousLocation, location,radius);
 			if (newBox != null) {
 				if (radius != 0) { // download
@@ -992,7 +992,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		// speed needs to be <= 6km/h (aka brisk walking speed) 
 		int radius = prefs.getBugDownloadRadius();
 		if ((location.getSpeed() < prefs.getMaxBugDownloadSpeed()/3.6f) && (previousBugLocation==null || location.distanceTo(previousBugLocation) > radius/8)) {
-			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getTaskStorage().getBoundingBoxes());
+			ArrayList<BoundingBox> bbList = new ArrayList<>(App.getTaskStorage().getBoundingBoxes());
 			BoundingBox newBox = getNextBox(bbList,previousBugLocation, location, radius);
 			if (newBox != null) {
 				if (radius != 0) { // download

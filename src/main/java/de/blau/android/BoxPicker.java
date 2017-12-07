@@ -145,8 +145,8 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     	for (int i=0;i<geocoders.length;i++) {
     		geocoderNames[i] = geocoders[i].name; 
     	}
-    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-    		    this, android.R.layout.simple_spinner_item, geocoderNames);
+    	ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, geocoderNames);
     	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     	searchGeocoder.setAdapter(adapter);
     	searchGeocoder.setSelection(prefs.getGeocoder());

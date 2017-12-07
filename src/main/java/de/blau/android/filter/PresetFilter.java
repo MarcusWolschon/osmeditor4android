@@ -127,7 +127,7 @@ public class PresetFilter extends Filter {
 	/**
 	 * Invert the filter
 	 * 
-	 * @param invert the filter if true
+	 * @param inverted invert the filter if true
 	 */
 	public void setInverted(boolean inverted) {
 		this.inverted = inverted;

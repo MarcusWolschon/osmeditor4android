@@ -42,8 +42,8 @@ public class PropertyEditorData implements Serializable {
 	private PropertyEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, HashMap<Long, String> parents, HashMap<Long, String> originalParents, ArrayList<RelationMemberDescription> members, ArrayList<RelationMemberDescription> originalMembers, String focusOnKey) {
 		this.osmId = osmId;
 		this.type = type;
-		this.tags = tags != null ? new LinkedHashMap<String, String>(tags) : null;
-		this.originalTags = originalTags != null ? new LinkedHashMap<String, String>(originalTags) : null;
+		this.tags = tags != null ? new LinkedHashMap<>(tags) : null;
+		this.originalTags = originalTags != null ? new LinkedHashMap<>(originalTags) : null;
 		this.parents = parents;
 		this.originalParents = originalParents;
 		this.members = members;
@@ -54,9 +54,9 @@ public class PropertyEditorData implements Serializable {
 	public PropertyEditorData(OsmElement selectedElement, String focusOnKey) {
 		osmId = selectedElement.getOsmId();
 		type = selectedElement.getName();
-		tags = new LinkedHashMap<String, String>(selectedElement.getTags());
+		tags = new LinkedHashMap<>(selectedElement.getTags());
 		originalTags = tags;
-		HashMap<Long,String> tempParents = new HashMap<Long,String>();
+		HashMap<Long,String> tempParents = new HashMap<>();
 		if (selectedElement.getParentRelations() != null) {
 			for (Relation r:selectedElement.getParentRelations()) {
 				RelationMember rm = r.getMember(selectedElement);
@@ -75,7 +75,7 @@ public class PropertyEditorData implements Serializable {
 			parents = null;
 			originalParents = null;
 		}
-		ArrayList<RelationMemberDescription> tempMembers = new ArrayList<RelationMemberDescription>();
+		ArrayList<RelationMemberDescription> tempMembers = new ArrayList<>();
 		if (selectedElement.getName().equals(Relation.NAME)) {
 			for (RelationMember rm:((Relation)selectedElement).getMembers()) {
 				RelationMemberDescription newRm = new RelationMemberDescription(rm);

@@ -35,7 +35,7 @@ import oauth.signpost.http.HttpRequest;
  * 
  */
 public class CommonsHttpOAuthProvider extends AbstractOAuthProvider {
-    static final String DEBUG_TAG = "CommonsHttpOAuthProvider";
+    static final String DEBUG_TAG = "CommonsHttpOAuthProv...";
     
     private static final long serialVersionUID = 1L;
 

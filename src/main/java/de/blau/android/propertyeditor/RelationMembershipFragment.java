@@ -314,7 +314,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		
 		ArrayAdapter<StringWithDescription> getMembershipRoleAutocompleteAdapter() {
 			// Use a set to prevent duplicate keys appearing
-			Set<StringWithDescription> roles = new HashSet<StringWithDescription>();
+			Set<StringWithDescription> roles = new HashSet<>();
 			Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
 			if ( r!= null) {			
 				if ( owner.presets != null) {
@@ -328,17 +328,17 @@ public class RelationMembershipFragment extends BaseFragment implements
 				}
 			}
 			
-			List<StringWithDescription> result = new ArrayList<StringWithDescription>(roles);
+			List<StringWithDescription> result = new ArrayList<>(roles);
 			Collections.sort(result);
 			
-			return new ArrayAdapter<StringWithDescription>(owner, R.layout.autocomplete_row, result);
+			return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
 		}
 		
 		ArrayAdapter<Relation> getRelationSpinnerAdapter() {
 			//		
 			List<Relation> result = App.getDelegator().getCurrentStorage().getRelations();
 			// Collections.sort(result);
-			return new ArrayAdapter<Relation>(owner, R.layout.autocomplete_row, result);
+			return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
 		}
 		
 		
@@ -510,7 +510,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 	 * @return The HashMap<Long,String> of relation and role in that relation pairs.
 	 */
 	HashMap<Long,String> getParentRelationMap() {
-		final HashMap<Long,String> parents = new HashMap<Long,String>();
+		final HashMap<Long,String> parents = new HashMap<>();
 		processParentRelations(new ParentRelationHandler() {
 			@Override
 			public void handleParentRelation(final EditText roleEdit, final long relationId) {

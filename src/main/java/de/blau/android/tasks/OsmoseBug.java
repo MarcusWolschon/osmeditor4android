@@ -56,7 +56,7 @@ public class OsmoseBug extends Task implements Serializable {
 	private String username;
 	
 	public static ArrayList<OsmoseBug> parseBugs(InputStream is) throws  IOException, NumberFormatException {
-		ArrayList<OsmoseBug> result = new ArrayList<OsmoseBug>();
+		ArrayList<OsmoseBug> result = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(is));
         try {
             // key object
@@ -139,7 +139,7 @@ public class OsmoseBug extends Task implements Serializable {
 	 * @return list of OsmElement
 	 */
 	public ArrayList<OsmElement> getElements() {
-		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> result = new ArrayList<>();
 		String[] elements = elems.split("_");
 		StorageDelegator storageDelegator = App.getDelegator();
 		for (String e:elements) {

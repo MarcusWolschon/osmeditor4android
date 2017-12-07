@@ -24,11 +24,11 @@ public class Snack {
 	
 	protected static final int QUEUE_CAPACITY = 3;
 	
-	private static Object queueLock = new Object();
+	private static final Object queueLock = new Object();
 	// google has declared Snackbar as final, making life difficult for everybody ....
-	protected static LinkedList<Snackbar> infoQueue = new LinkedList<Snackbar>();
-	protected static LinkedList<Snackbar> warningQueue = new LinkedList<Snackbar>();
-	protected static LinkedList<Snackbar> errorQueue = new LinkedList<Snackbar>();
+	protected static LinkedList<Snackbar> infoQueue = new LinkedList<>();
+	protected static LinkedList<Snackbar> warningQueue = new LinkedList<>();
+	protected static LinkedList<Snackbar> errorQueue = new LinkedList<>();
 
 	static boolean isShowing(LinkedList<Snackbar> queue) {
 		Snackbar first = queue.peekFirst();

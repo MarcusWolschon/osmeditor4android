@@ -79,7 +79,7 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
         super(aContext, aTextViewResourceId);
         Log.d(DEBUG_TAG,"Constructor ...");
         
-        HashMap<String, Integer> counter = new HashMap<String, Integer>();
+        HashMap<String, Integer> counter = new HashMap<>();
         if (extraValues != null && !extraValues.isEmpty()) {
         	for(String t:extraValues) {
         		if (t.equals("")) {
@@ -91,7 +91,7 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
         			counter.put(t, Integer.valueOf(1));
         		}
         	}
-        	ArrayList<String> keys = new ArrayList<String>(counter.keySet());
+        	ArrayList<String> keys = new ArrayList<>(counter.keySet());
         	Collections.sort(keys);
         	for (String t:keys) {
         		ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue());

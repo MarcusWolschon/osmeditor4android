@@ -50,7 +50,7 @@ import de.blau.android.R;
 public class MultiSelectListPreference extends DialogPreference {
     private CharSequence[] mEntries;
     private CharSequence[] mEntryValues;
-    private Set<String> mValues = new HashSet<String>();
+    private Set<String> mValues = new HashSet<>();
 
     public MultiSelectListPreference(
             Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -251,7 +251,7 @@ public class MultiSelectListPreference extends DialogPreference {
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
         final CharSequence[] defaultValues = a.getTextArray(index);
-        final Set<String> result = new HashSet<String>();
+        final Set<String> result = new HashSet<>();
 
         for (final CharSequence defaultValue : defaultValues) {
             result.add(defaultValue.toString());
@@ -297,7 +297,7 @@ public class MultiSelectListPreference extends DialogPreference {
         public SavedState(Parcel source) {
             super(source);
             final int size = source.readInt();
-            values = new HashSet<String>();
+            values = new HashSet<>();
             String[] strings = new String[size];
             source.readStringArray(strings);
 

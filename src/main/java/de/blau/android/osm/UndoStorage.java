@@ -43,8 +43,8 @@ public class UndoStorage implements Serializable {
 	private Storage currentStorage;
 	private final Storage apiStorage;
 	
-	private final LinkedList<Checkpoint> undoCheckpoints = new LinkedList<Checkpoint>();
-	private final LinkedList<Checkpoint> redoCheckpoints = new LinkedList<Checkpoint>();
+	private final LinkedList<Checkpoint> undoCheckpoints = new LinkedList<>();
+	private final LinkedList<Checkpoint> redoCheckpoints = new LinkedList<>();
 
 	/**
 	 * Creates a new UndoStorage.
@@ -207,7 +207,7 @@ public class UndoStorage implements Serializable {
 	private class Checkpoint implements Serializable {
 		private static final long serialVersionUID = 2L;
 		
-		private final HashMap<OsmElement, UndoElement> elements = new HashMap<OsmElement, UndoElement>();
+		private final HashMap<OsmElement, UndoElement> elements = new HashMap<>();
 		public String name;
 		
 		public Checkpoint(String name) {
@@ -294,13 +294,13 @@ public class UndoStorage implements Serializable {
 			osmId      = originalElement.osmId;
 			osmVersion = originalElement.osmVersion;
 			state      = originalElement.state;
-			tags       = originalElement.tags == null ? new TreeMap<String, String>() : new TreeMap<String, String>(originalElement.tags);
+			tags       = originalElement.tags == null ? new TreeMap<String, String>() : new TreeMap<>(originalElement.tags);
 			
 			inCurrentStorage = currentStorage.contains(originalElement);
 			inApiStorage     = apiStorage.contains(originalElement);
 			
 			if (originalElement.parentRelations != null) {
-				parentRelations = new ArrayList<Relation>(originalElement.parentRelations);
+				parentRelations = new ArrayList<>(originalElement.parentRelations);
 			} else {
 				parentRelations = null;
 			}
@@ -329,7 +329,7 @@ public class UndoStorage implements Serializable {
 			element.setTags(tags);
 			
 			if (parentRelations != null) {
-				element.parentRelations = new ArrayList<Relation>();
+				element.parentRelations = new ArrayList<>();
 				element.parentRelations.addAll(parentRelations);
 			} else {
 				element.parentRelations = null;
@@ -394,7 +394,7 @@ public class UndoStorage implements Serializable {
 
 		public UndoWay(Way originalWay) {
 			super(originalWay);
-			nodes = new ArrayList<Node>(originalWay.nodes);
+			nodes = new ArrayList<>(originalWay.nodes);
 		}
 		
 		@Override
@@ -415,7 +415,7 @@ public class UndoStorage implements Serializable {
 
 		public UndoRelation(Relation originalRelation) {
 			super(originalRelation);
-			members = new ArrayList<RelationMember>(originalRelation.members);
+			members = new ArrayList<>(originalRelation.members);
 		}
 		
 		@Override

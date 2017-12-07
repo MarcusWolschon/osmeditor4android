@@ -111,7 +111,7 @@ public class MapOverlay extends MapViewOverlay {
 	 * @return List of bugs close to given location.
 	 */
 	public List<Task> getClickedTasks(final float x, final float y, final BoundingBox viewBox) {
-		List<Task> result = new ArrayList<Task>();
+		List<Task> result = new ArrayList<>();
 		if (map.getPrefs().areBugsEnabled()) {
 			final float tolerance = DataStyle.getCurrent().nodeToleranceValue;
 			ArrayList<Task> taskList = tasks.getTasks(viewBox);

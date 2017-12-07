@@ -116,7 +116,7 @@ public class TagFilter extends Filter {
 		}
 	}
 	
-	private ArrayList<FilterEntry> filter = new ArrayList<FilterEntry>();
+	private ArrayList<FilterEntry> filter = new ArrayList<>();
 	
 	/**
 	 * 

@@ -8,7 +8,7 @@ import android.util.Log;
 import de.blau.android.osm.Tags;
 
 public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
-    private static final String DEBUG_TAG = "ValidatorRulesDatabaseHelper";
+    private static final String DEBUG_TAG = "ValidatorRulesDatab...";
     private static final String DATABASE_NAME = "validator_rules";
     private static final int DATABASE_VERSION = 2;
 

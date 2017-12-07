@@ -76,6 +76,7 @@ public class TaskFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
     
+	@NonNull
 	@SuppressLint({ "NewApi", "InflateParams" })
 	@Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {

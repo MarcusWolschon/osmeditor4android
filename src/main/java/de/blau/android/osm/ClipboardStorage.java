@@ -72,7 +72,7 @@ public class ClipboardStorage implements Serializable  {
 		copyTo(e, lat, lon);
 		savedState = e.getState();
 		if (e instanceof Way) {
-			savedNdState = new HashMap<Node,Byte>();
+			savedNdState = new HashMap<>();
 			for (Node nd:((Way)e).getNodes()) {
 				Log.d("CutTo","Saving state for " + nd.getOsmId());
 				savedNdState.put(nd, nd.getState());

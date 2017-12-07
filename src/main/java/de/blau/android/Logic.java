@@ -159,9 +159,9 @@ public class Logic {
 	private static final String EDITSTATE_FILENAME = "edit.state";
 	
 	/** Sorter instance for sorting nodes by distance */
-	private static final DistanceSorter<OsmElement, Node> nodeSorter = new DistanceSorter<OsmElement, Node>();
+	private static final DistanceSorter<OsmElement, Node> nodeSorter = new DistanceSorter<>();
 	/** Sorter instance for sorting ways by distance */
-	private static final DistanceSorter<Way, Way> waySorter = new DistanceSorter<Way, Way>();
+	private static final DistanceSorter<Way, Way> waySorter = new DistanceSorter<>();
 
 	/**
 	 * maximum number of nodes in a way for it still to be moveable, arbitrary number for now
@@ -222,12 +222,12 @@ public class Logic {
 	/**
 	 * last changeset comment
 	 */
-	private MRUList<String> lastComments = new MRUList<String>(MRULIST_SIZE);
+	private MRUList<String> lastComments = new MRUList<>(MRULIST_SIZE);
 	
 	/**
 	 * last changeset source
 	 */
-	private MRUList<String> lastSources = new MRUList<String>(MRULIST_SIZE);
+	private MRUList<String> lastSources = new MRUList<>(MRULIST_SIZE);
 	
 	
 	/**
@@ -679,7 +679,7 @@ public class Logic {
 	 * @return a List of all OsmElements (Nodes and Ways) within the tolerance
 	 */
 	public List<OsmElement> getClickedNodesAndWays(final float x, final float y) {
-		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> result = new ArrayList<>();
 		result.addAll(getClickedNodes(x, y));
 		result.addAll(getClickedWays(x, y));
 		if (returnRelations) {
@@ -695,7 +695,7 @@ public class Logic {
 	 * @return
 	 */
 	private ArrayList<OsmElement> getParentRelations(ArrayList<OsmElement> elements) {
-		ArrayList<OsmElement> relations = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> relations = new ArrayList<>();
 		for (OsmElement e: elements) {
 			if (e.getParentRelations() != null) {
 				for (Relation r: e.getParentRelations()) {
@@ -737,7 +737,7 @@ public class Logic {
 	 * @return a hash map mapping Ways to distances
 	 */
 	private HashMap<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float x, final float y) {
-		HashMap<Way, Double> result = new HashMap<Way, Double>();
+		HashMap<Way, Double> result = new HashMap<>();
 		boolean showWayIcons = prefs.getShowWayIcons();
 
 		List<Way> ways = filter != null ? filter.getVisibleWays() : getDelegator().getCurrentStorage().getWays(map.getViewBox());
@@ -906,7 +906,7 @@ public class Logic {
 	 * @return a hash map mapping Nodes to distances
 	 */
 	private HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
-		HashMap<Node, Double> result = new HashMap<Node, Double>();
+		HashMap<Node, Double> result = new HashMap<>();
 		List<Node> nodes = filter != null ? filter.getVisibleNodes() : getDelegator().getCurrentStorage().getNodes(map.getViewBox());
 		if (filter != null && getSelectedNodes() != null) { // selected nodes are always visible if a filter is applied
 		    nodes.addAll(getSelectedNodes());
@@ -948,7 +948,7 @@ public class Logic {
 	 * @return all end nodes within tolerance found in the currentStorage node-list, ordered ascending by distance.
 	 */
 	public List<OsmElement> getClickedEndNodes(final float x, final float y) {
-		List<OsmElement> result = new ArrayList<OsmElement>();
+		List<OsmElement> result = new ArrayList<>();
 		List<OsmElement> allNodes = getClickedNodes(x, y);
 
 		for (OsmElement osmElement : allNodes) {
@@ -1032,7 +1032,7 @@ public class Logic {
 	 * @return
 	 */
 	public Set<OsmElement> findClickableElements(List<OsmElement> excludes) {
-		Set<OsmElement> result = new HashSet<OsmElement>();
+		Set<OsmElement> result = new HashSet<>();
 		result.addAll(getDelegator().getCurrentStorage().getNodes());
 		result.addAll(getDelegator().getCurrentStorage().getWays());
 		for (OsmElement e:excludes)
@@ -1057,7 +1057,7 @@ public class Logic {
 	 * @return A list of all Ways connected to the Node.
 	 */
 	public List<Way> getFilteredWaysForNode(final Node node) {
-		List<Way> ways = new ArrayList<Way>();
+		List<Way> ways = new ArrayList<>();
 		for (Way w:getDelegator().getCurrentStorage().getWays(node)) {
 			if (getFilter() == null || filter.include(w, false)) {
 				ways.add(w);
@@ -1280,7 +1280,7 @@ public class Logic {
 			} else { // way dragging and multi-select
 				lat = yToLatE7(absoluteY);
 				lon = xToLonE7(absoluteX);
-				ArrayList<Node> nodes = new ArrayList<Node>();
+				ArrayList<Node> nodes = new ArrayList<>();
 				if (selectedWays != null && !selectedWays.isEmpty()) { // shouldn't happen but might be a race condition
 					for (Way w:selectedWays) {
 						nodes.addAll(w.getNodes());
@@ -1589,7 +1589,7 @@ public class Logic {
 			createCheckpoint(activity, R.string.undo_action_deleteway);
 		}
 		displayAttachedObjectWarning(activity, way); // needs to be done before removal
-		HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<Node>(way.getNodes()) : null;  //  HashSet guarantees uniqueness
+		HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<>(way.getNodes()) : null;  //  HashSet guarantees uniqueness
 		getDelegator().removeWay(way);
 		if (deleteOrphanNodes) {
 			for (Node node : nodes) {
@@ -1757,7 +1757,7 @@ public class Logic {
 	 */
 	public void performOrthogonalize(@Nullable FragmentActivity activity, Way way) {
 		if (way != null && way.getNodes().size() < 3) return;
-		ArrayList<Way> ways = new ArrayList<Way>(1);
+		ArrayList<Way> ways = new ArrayList<>(1);
 		ways.add(way);
 		performOrthogonalize(activity, ways);
 	}
@@ -1777,7 +1777,7 @@ public class Logic {
 		getDelegator().orthogonalizeWay(map, ways);
 		invalidateMap();
 		if (getFilter() != null && showAttachedObjectWarning()) {
-			HashSet<Node> nodes = new HashSet<Node>();
+			HashSet<Node> nodes = new HashSet<>();
 			for (Way w:ways) {
 				nodes.addAll(w.getNodes());
 			}
@@ -2051,8 +2051,8 @@ public class Logic {
 		}
 		Node savedNode1 = null;
 		Node savedNode2 = null;
-		ArrayList<Way> savedWays = new ArrayList<Way>();
-		ArrayList<Boolean> savedWaysSameDirection = new ArrayList<Boolean>();
+		ArrayList<Way> savedWays = new ArrayList<>();
+		ArrayList<Boolean> savedWaysSameDirection = new ArrayList<>();
 		double savedDistance = Double.MAX_VALUE;
 		//create a new node on a way
 		for (Way way : ways) {
@@ -2255,7 +2255,7 @@ public class Logic {
 								if (mapBox != null) {
 									// if we are simply expanding the area no need keep the old bounding boxes
 									List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
-									List<BoundingBox> bbs = new ArrayList<BoundingBox>(origBbs);
+									List<BoundingBox> bbs = new ArrayList<>(origBbs);
 									for (BoundingBox bb:bbs) {
 										if (mapBox.contains(bb)) {
 											origBbs.remove(bb);
@@ -2409,7 +2409,7 @@ public class Logic {
 										origBbs.clear();
 									}
 								}
-								List<BoundingBox> bbs = new ArrayList<BoundingBox>(origBbs);
+								List<BoundingBox> bbs = new ArrayList<>(origBbs);
 								for (BoundingBox bb:bbs) {
 									if (mapBox.contains(bb)) {
 										origBbs.remove(bb);
@@ -2778,8 +2778,8 @@ public class Logic {
 			}
 
 
-		};
-		DownLoadElementsTask loader = new DownLoadElementsTask();
+		}
+        DownLoadElementsTask loader = new DownLoadElementsTask();
 		loader.execute();
 
 		if (postLoadHandler == null) {
@@ -3580,7 +3580,7 @@ public class Logic {
 	 */
 	public synchronized void setSelectedNode(final Node selectedNode) {
 		if (selectedNode != null) { // always restart
-			selectedNodes = new LinkedList<Node>();
+			selectedNodes = new LinkedList<>();
 			selectedNodes.add(selectedNode);
 		} else {
 			selectedNodes = null;
@@ -3624,7 +3624,7 @@ public class Logic {
 	 */
 	public synchronized void setSelectedWay(final Way selectedWay) {
 		if (selectedWay != null) {  // always restart
-			selectedWays = new LinkedList<Way>();
+			selectedWays = new LinkedList<>();
 			selectedWays.add(selectedWay);
 		} else {
 			selectedWays = null;
@@ -3668,7 +3668,7 @@ public class Logic {
 	 */
 	public synchronized void setSelectedRelation(final Relation selectedRelation) {
 		if (selectedRelation != null) {  // always restart
-			selectedRelations = new LinkedList<Relation>();
+			selectedRelations = new LinkedList<>();
 			selectedRelations.add(selectedRelation);
 		} else {
 			selectedRelations = null;
@@ -3804,7 +3804,7 @@ public class Logic {
 	boolean resyncSelected() {
 		boolean result = false;
 		if (selectedNodesCount() > 0) {
-			for (Node n:new ArrayList<Node>(selectedNodes)) {
+			for (Node n: new ArrayList<>(selectedNodes)) {
 				if (!getDelegator().getCurrentStorage().contains(n)) {
 					selectedNodes.remove(n);
 					result = true;
@@ -3812,7 +3812,7 @@ public class Logic {
 			}
 		}
 		if (selectedWaysCount() > 0) {
-			for (Way w:new ArrayList<Way>(selectedWays)) {
+			for (Way w: new ArrayList<>(selectedWays)) {
 				if (!getDelegator().getCurrentStorage().contains(w)) {
 					selectedWays.remove(w);
 					result = true;
@@ -3820,7 +3820,7 @@ public class Logic {
 			}
 		}
 		if (selectedRelationsCount() > 0) {
-			for (Relation r:new ArrayList<Relation>(selectedRelations)) {
+			for (Relation r: new ArrayList<>(selectedRelations)) {
 				if (!getDelegator().getCurrentStorage().contains(r)) {
 					selectedRelations.remove(r);
 					result = true;
@@ -4044,10 +4044,10 @@ public class Logic {
 		
 		/** Takes an element-distance map and returns the elements ordered by distance */
 		public ArrayList<OUTTYPE> sort(HashMap<T, Double> input) {
-			ArrayList<Entry<T, Double>> entries = new ArrayList<Entry<T,Double>>(input.entrySet());
+			ArrayList<Entry<T, Double>> entries = new ArrayList<>(input.entrySet());
 			Collections.sort(entries, comparator);
 			
-			ArrayList<OUTTYPE> result = new ArrayList<OUTTYPE>(entries.size());
+			ArrayList<OUTTYPE> result = new ArrayList<>(entries.size());
 			for (Entry<T, Double> entry : entries) result.add(entry.getKey());
 			return result;			
 		}
@@ -4067,7 +4067,7 @@ public class Logic {
 		
 		createCheckpoint(activity, R.string.undo_action_create_relation);
 		Relation restriction = getDelegator().createAndInsertRelation(null);
-		SortedMap<String,String> tags = new TreeMap<String,String>();
+		SortedMap<String,String> tags = new TreeMap<>();
 		tags.put("restriction", restriction_type == null ? "" : restriction_type);
 		tags.put("type", "restriction");
 		getDelegator().setTags(restriction, tags);
@@ -4093,7 +4093,7 @@ public class Logic {
 		
 		createCheckpoint(activity, R.string.undo_action_create_relation);
 		Relation relation = getDelegator().createAndInsertRelation(members);
-		SortedMap<String,String> tags = new TreeMap<String,String>();
+		SortedMap<String,String> tags = new TreeMap<>();
 		if (type != null)
 			tags.put("type", type);
 		else
@@ -4125,7 +4125,7 @@ public class Logic {
 	
 	public void addSelectedRelationWay(Way way) {
 		if (selectedRelationWays == null) {
-			selectedRelationWays = new LinkedList<Way>();
+			selectedRelationWays = new LinkedList<>();
 		}
 		selectedRelationWays.add(way);
 	}
@@ -4174,7 +4174,7 @@ public class Logic {
 	
 	public void addSelectedRelationNode(Node node) {
 		if (selectedRelationNodes == null) {
-			selectedRelationNodes = new LinkedList<Node>();
+			selectedRelationNodes = new LinkedList<>();
 		}
 		selectedRelationNodes.add(node);
 	}
@@ -4206,7 +4206,7 @@ public class Logic {
 	
 	public void addSelectedRelationRelation(Relation relation) {
 		if (selectedRelationRelations == null) {
-			selectedRelationRelations = new LinkedList<Relation>();
+			selectedRelationRelations = new LinkedList<>();
 		}
 		selectedRelationRelations.add(relation);
 	}
@@ -4585,7 +4585,7 @@ public class Logic {
 	 * @param comments
 	 */
 	public void setLastComments(ArrayList<String> comments) {
-		lastComments = new MRUList<String>(comments);
+		lastComments = new MRUList<>(comments);
 		lastComments.ensureCapacity(MRULIST_SIZE);
 	}
 
@@ -4610,7 +4610,7 @@ public class Logic {
 	 * @param sources
 	 */
 	public void setLastSources(ArrayList<String> sources) {
-		lastSources = new MRUList<String>(sources);
+		lastSources = new MRUList<>(sources);
 		lastSources.ensureCapacity(MRULIST_SIZE);
 	}
 	
@@ -4635,7 +4635,7 @@ public class Logic {
 	 * @param e
 	 */
 	private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e) {
-		ArrayList<T> a = new ArrayList<T>();
+		ArrayList<T> a = new ArrayList<>();
 		a.add(e);
 		displayAttachedObjectWarning(activity, a);
 	}
@@ -4647,7 +4647,7 @@ public class Logic {
 	 * @param e2
 	 */
 	private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e1, T e2) {
-		ArrayList<T> a = new ArrayList<T>();
+		ArrayList<T> a = new ArrayList<>();
 		a.add(e1);
 		a.add(e2);
 		displayAttachedObjectWarning(activity, a);
@@ -4661,7 +4661,7 @@ public class Logic {
 	 * @param checkRelationsOnly
 	 */
 	private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e1, T e2, boolean checkRelationsOnly) {
-		ArrayList<T> a = new ArrayList<T>();
+		ArrayList<T> a = new ArrayList<>();
 		a.add(e1);
 		a.add(e2);
 		displayAttachedObjectWarning(activity,a, checkRelationsOnly);

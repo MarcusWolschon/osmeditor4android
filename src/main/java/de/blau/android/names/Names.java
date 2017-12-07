@@ -116,10 +116,10 @@ public class Names {
 	    }
 	}
 	
-	private static MultiHashMap<String,TagMap> nameList = new MultiHashMap<String,TagMap>(false); // names -> tags
-	private static HashMap<String,TagMap> tagList = new HashMap<String,TagMap>(); // tags string to tags
-	private static MultiHashMap<TagMap, String> tags2namesList = new MultiHashMap<TagMap,String>(false); //
-	private static MultiHashMap<String, String> categories =  new MultiHashMap<String,String>(false);
+	private static MultiHashMap<String,TagMap> nameList = new MultiHashMap<>(false); // names -> tags
+	private static HashMap<String,TagMap> tagList = new HashMap<>(); // tags string to tags
+	private static MultiHashMap<TagMap, String> tags2namesList = new MultiHashMap<>(false); //
+	private static MultiHashMap<String, String> categories = new MultiHashMap<>(false);
 	
 	private static boolean ready = false;
 	
@@ -255,7 +255,7 @@ public class Names {
 		if (tm.isEmpty())
 			return getNames();
 		
-		Collection<NameAndTags> result = new ArrayList<NameAndTags>();
+		Collection<NameAndTags> result = new ArrayList<>();
 		
 		String origTagKey = tm.toString();
 		
@@ -269,7 +269,7 @@ public class Names {
 			}
 		}
 		
-		TreeSet<String> seen = new TreeSet<String>();
+		TreeSet<String> seen = new TreeSet<>();
 		// check categories for similar tags and add names from them too
 		seen.add(origTagKey); // skip stuff we've already added
 		for (String category:categories.getKeys()) {    	// loop over categories
@@ -296,7 +296,7 @@ public class Names {
 	}
 	
 	private Collection<NameAndTags> getNames() {
-		Collection<NameAndTags> result = new ArrayList<NameAndTags>();
+		Collection<NameAndTags> result = new ArrayList<>();
 		for (String n:nameList.getKeys()) {
 			TagMap bestTags = null;
 			for (TagMap t:nameList.get(n)) {
@@ -311,7 +311,7 @@ public class Names {
 	}
 	
 	public Map<String,NameAndTags> getSearchIndex() {
-		HashMap<String,NameAndTags> result = new HashMap<String,NameAndTags>();
+		HashMap<String,NameAndTags> result = new HashMap<>();
 		Collection<NameAndTags> names = getNames();
 		for (NameAndTags nat:names) {
 			result.put(SearchIndexUtils.normalize(nat.getName()), nat);

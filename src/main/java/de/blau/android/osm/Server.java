@@ -407,7 +407,7 @@ public class Server {
 					}	
 					if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {
 						if (result.imageryBlacklist == null) {
-							result.imageryBlacklist = new ArrayList<String>();
+							result.imageryBlacklist = new ArrayList<>();
 						}
 						String regex = parser.getAttributeValue(null, "regex");
 						if (regex != null) {
@@ -499,7 +499,7 @@ public class Server {
 	public InputStream getStreamForElements(@Nullable final Context context, @NonNull final String type, final long[] ids) throws OsmServerException, IOException {
 		Log.d(DEBUG_TAG, "getStreamForElements");
 		
-		StringBuffer urlString = new StringBuffer();
+		StringBuilder urlString = new StringBuilder();
 		urlString.append(getReadOnlyUrl());
 		urlString.append(type);
 		urlString.append("s?"); // that's a plural s
@@ -1440,7 +1440,7 @@ public class Server {
 	 * @return All the bugs in the given area.
 	 */
 	public Collection<Note> getNotesForBox(BoundingBox area, long limit) {
-		Collection<Note> result = new ArrayList<Note>();
+		Collection<Note> result = new ArrayList<>();
 		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
 		try {
 			Log.d(DEBUG_TAG, "getNotesForBox");
@@ -1458,7 +1458,7 @@ public class Server {
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				return new ArrayList<Note>(); //TODO Return empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
+				return new ArrayList<>(); //TODO Return empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
 				// throw new UnexpectedRequestException(con);
 			}
 
@@ -1494,14 +1494,14 @@ public class Server {
 			}
 		} catch (XmlPullParserException e) {
 			Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-			return new ArrayList<Note>(); // empty list
+			return new ArrayList<>(); // empty list
 		} catch (IOException e) {
 			Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-			return new ArrayList<Note>(); // empty list
+			return new ArrayList<>(); // empty list
 		} catch (OutOfMemoryError e) {
 			Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
 			// TODO ask the user to exit
-			return new ArrayList<Note>(); // empty list
+			return new ArrayList<>(); // empty list
 		}
 		Log.d(DEBUG_TAG, "Read " + result.size() + " notes from input");
 		return result;

@@ -118,8 +118,8 @@ public class GeocoderEditorActivity extends URLListEditActivity {
 		final TextView url = (TextView)mainView.findViewById(R.id.listedit_editValue_2);
 		
     	GeocoderType[] geocoderTypes = GeocoderType.values() ;
-    	ArrayAdapter<GeocoderType> adapter = new ArrayAdapter<GeocoderType>(
-    		    this, android.R.layout.simple_spinner_item, geocoderTypes);
+    	ArrayAdapter<GeocoderType> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, geocoderTypes);
     	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     	geocoderType.setAdapter(adapter);   
     	

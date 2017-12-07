@@ -11,6 +11,8 @@ import java.util.NoSuchElementException;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.support.annotation.NonNull;
+
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 
@@ -304,7 +306,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	@SuppressWarnings("unchecked")
 	public List<V> values() {
 		int found = 0;
-		ArrayList<V> result = new ArrayList<V>(m_size);
+		ArrayList<V> result = new ArrayList<>(m_size);
 		for (OsmElement v : m_data) {
 			if (v != FREE_KEY && v != removedKey) {
 				result.add((V) v);
@@ -390,6 +392,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	/**
 	 * Iterator that skips FREE_KEY and REMOVED_KEY values
 	 */
+	@NonNull
 	@Override
 	public Iterator<V> iterator() {
 		return new SafeIterator();
@@ -463,7 +466,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	 * @return
 	 */
 	public HashMap<Integer, Integer> getChainStats() {
-		HashMap<Integer, Integer> result = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> result = new HashMap<>();
 		for (V v : values()) {
 			int len = 0;
 			long key = v.getOsmId();

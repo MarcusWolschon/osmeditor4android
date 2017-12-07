@@ -108,7 +108,7 @@ public class MapOverlay extends MapViewOverlay {
 	public MapOverlay(final Map map) {
 		Context context = map.getContext();
 		this.map = map;
-		photos = new ArrayList<Photo>();
+		photos = new ArrayList<>();
 		icon = ContextCompat.getDrawable(context, R.drawable.camera_red);
 		icon_selected = ContextCompat.getDrawable(context, R.drawable.camera_green);
 		// note this assumes the icons are the same size
@@ -178,7 +178,7 @@ public class MapOverlay extends MapViewOverlay {
 	 * @return List of photos close to given location.
 	 */
 	public List<Photo> getClickedPhotos(final float x, final float y, final BoundingBox viewBox) {
-		List<Photo> result = new ArrayList<Photo>();
+		List<Photo> result = new ArrayList<>();
 		Log.d("photos.MapOverlay", "getClickedPhotos");	
 		if (map.getPrefs().isPhotoLayerEnabled()) {
 			final float tolerance = DataStyle.getCurrent().nodeToleranceValue;

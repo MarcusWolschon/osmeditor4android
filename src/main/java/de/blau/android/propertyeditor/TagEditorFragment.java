@@ -103,7 +103,7 @@ public class TagEditorFragment extends BaseFragment implements
 	private static final String HTTP_PREFIX = "http://";
 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
-				= new SavingHelper<LinkedHashMap<String,String>>();
+				= new SavingHelper<>();
 		
 	private static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
 	private static final Object actionModeCallbackLock = new Object();
@@ -128,7 +128,7 @@ public class TagEditorFragment extends BaseFragment implements
 	/**
 	 * per tag preset association
 	 */
-	private HashMap<String,PresetItem> tags2Preset = new HashMap<String,PresetItem>();
+	private HashMap<String,PresetItem> tags2Preset = new HashMap<>();
 	
 	/**
 	 * Best matching preset
@@ -138,7 +138,7 @@ public class TagEditorFragment extends BaseFragment implements
 	/**
 	 * further matching presets
 	 */
-	private ArrayList<PresetItem> secondaryPresets = new ArrayList<PresetItem>();
+	private ArrayList<PresetItem> secondaryPresets = new ArrayList<>();
 	
 	/**
 	 * selective copy of tags
@@ -260,7 +260,7 @@ public class TagEditorFragment extends BaseFragment implements
 			}
 			@SuppressWarnings("unchecked")
 			Map<String, ArrayList<String>> temp = (Map<String, ArrayList<String>>) savedInstanceState.getSerializable(SAVEDTAGS_KEY);
-			savedTags = new LinkedHashMap<String, ArrayList<String>>();
+			savedTags = new LinkedHashMap<>();
 			savedTags.putAll(temp);
 		}
     	
@@ -376,7 +376,7 @@ public class TagEditorFragment extends BaseFragment implements
 		@SuppressWarnings("unchecked")
     	ArrayList<LinkedHashMap<String,String>> originalTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable(TAGS_KEY);
  		// 
-    	LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<String,ArrayList<String>>();
+    	LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<>();
  		for (LinkedHashMap<String,String>map:originalTags) {
  			for (Entry<String,String> entry:map.entrySet()) {
  				String key = entry.getKey();
@@ -464,9 +464,9 @@ public class TagEditorFragment extends BaseFragment implements
      */
 	private void loadEditsSingle(final Map<String, String> tags) {
  		LinearLayout rowLayout = (LinearLayout) getOurView();
- 		LinkedHashMap<String,ArrayList<String>> convertedTags = new LinkedHashMap<String,ArrayList<String>>();
+ 		LinkedHashMap<String,ArrayList<String>> convertedTags = new LinkedHashMap<>();
  		for (Entry<String,String> entry:tags.entrySet()) {
- 			ArrayList<String> v = new ArrayList<String>();
+ 			ArrayList<String> v = new ArrayList<>();
  			v.add(entry.getValue());
  			convertedTags.put(entry.getKey(), v);
  		}
@@ -535,7 +535,7 @@ public class TagEditorFragment extends BaseFragment implements
 		Log.d(DEBUG_TAG,"setting new autocompletePresetItem");
 		Preset[] presets = App.getCurrentPresets(getActivity());
 		PresetItem savedPrimaryPresetItem = primaryPresetItem;
-		List<PresetItem> savedSecondaryPresets = new ArrayList<PresetItem>(getSecondaryPresets());
+		List<PresetItem> savedSecondaryPresets = new ArrayList<>(getSecondaryPresets());
 		
 		clearPresets();
 		clearSecondaryPresets();
@@ -579,7 +579,7 @@ public class TagEditorFragment extends BaseFragment implements
     		if (presets != null && addToMru) {
     			if ((primaryPresetItem!=null && !primaryPresetItem.equals(savedPrimaryPresetItem)) 
     					 || !savedSecondaryPresets.equals(getSecondaryPresets())) {
-    				List<PresetItem>items = new ArrayList<PresetItem>(getSecondaryPresets());
+    				List<PresetItem>items = new ArrayList<>(getSecondaryPresets());
     				items.add(primaryPresetItem);
     				for (PresetItem item:items) {
     					addToMru(presets, item);
@@ -638,7 +638,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @return map of tags that couldn't be assigned
 	 */
 	private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull LinkedHashMap<String, String> tags) {
-		LinkedHashMap<String,String> leftOvers = new LinkedHashMap<String,String>();
+		LinkedHashMap<String,String> leftOvers = new LinkedHashMap<>();
 		if (preset!=null) {
 			List<PresetItem> linkedPresetList = preset.getLinkedPresets(true);
 			for (Entry<String,String> entry:tags.entrySet()) {
@@ -713,7 +713,7 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	private ArrayAdapter<String> getKeyAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, AutoCompleteTextView keyEdit) {
 		// Use a set to prevent duplicate keys appearing
-		Set<String> keys = new HashSet<String>();
+		Set<String> keys = new HashSet<>();
 		
 		if (preset == null && ((PropertyEditor)getActivity()).presets != null) {
 			updateAutocompletePresetItem(rowLayout, null, false);
@@ -731,9 +731,9 @@ public class TagEditorFragment extends BaseFragment implements
 		
 		keys.removeAll(getUsedKeys(rowLayout,keyEdit));
 		
-		List<String> result = new ArrayList<String>(keys);
+		List<String> result = new ArrayList<>(keys);
 		Collections.sort(result);
-		return new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, result);
+		return new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, result);
 	}
 	
 	/**
@@ -781,14 +781,14 @@ public class TagEditorFragment extends BaseFragment implements
 				adapter = nameAdapters.getPlaceNameAdapter(hasTagValues ? row.tagValues : null);
 			} else if (key.equals(Tags.KEY_NAME) && (names != null) && useNameSuggestions(usedKeys)) {
 				Log.d(DEBUG_TAG,"generate suggestions for name from name suggestion index");
-				ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(getKeyValueMapSingle(rowLayout,true))); // FIXME
+				ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(getKeyValueMapSingle(rowLayout, true))); // FIXME
 				if (values != null && !values.isEmpty()) {
 					Collections.sort(values);
-					adapter = new ArrayAdapter<NameAndTags>(getActivity(), R.layout.autocomplete_row, values);
+					adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, values);
 				}
 			} else {
-				HashMap<String, Integer> counter = new HashMap<String, Integer>();
-				ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<ValueWithCount>(getActivity(), R.layout.autocomplete_row);
+				HashMap<String, Integer> counter = new HashMap<>();
+				ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
 				if (hasTagValues) {
 					for(String t:row.tagValues) {
 						if (t.equals("")) {
@@ -800,7 +800,7 @@ public class TagEditorFragment extends BaseFragment implements
 							counter.put(t, Integer.valueOf(1));
 						}
 					}
-					ArrayList<String> keys = new ArrayList<String>(counter.keySet());
+					ArrayList<String> keys = new ArrayList<>(counter.keySet());
 					Collections.sort(keys);
 					for (String t:keys) {
 						ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue()); // FIXME determine description in some way
@@ -811,7 +811,7 @@ public class TagEditorFragment extends BaseFragment implements
 					Collection<StringWithDescription> values = preset.getAutocompleteValues(key);
 					Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + values + " based on " + preset.getName());
 					if (values != null && !values.isEmpty()) {
-						ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(values);
+						ArrayList<StringWithDescription> result = new ArrayList<>(values);
 						if (preset.sortIt(key)) {
 							Collections.sort(result);
 						}
@@ -1102,7 +1102,7 @@ public class TagEditorFragment extends BaseFragment implements
 				}
 			};
 			// set an empty adapter on both views to be on the safe side
-			ArrayAdapter<String> empty = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, new String[0]);
+			ArrayAdapter<String> empty = new ArrayAdapter<>(owner, R.layout.autocomplete_row, new String[0]);
 			keyEdit.setAdapter(empty);
 			valueEdit.setAdapter(empty);
 			keyEdit.setOnClickListener(autocompleteOnClick);
@@ -1451,7 +1451,7 @@ public class TagEditorFragment extends BaseFragment implements
 		
 		// remove everything that doesn't have a value
 		// given that these are likely leftovers from a previous preset
-		Set<String> keySet = new HashSet<String>(currentValues.keySet()); // shallow copy
+		Set<String> keySet = new HashSet<>(currentValues.keySet()); // shallow copy
 		for (String key:keySet) {
 			ArrayList<String>list = currentValues.get(key);
 			if (list == null || list.isEmpty()) {
@@ -1569,9 +1569,9 @@ public class TagEditorFragment extends BaseFragment implements
 	 */
 	private void mergeTags(ArrayList<KeyValue> newTags, boolean replace) {
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
-		HashMap<String,KeyValue> keyIndex = new HashMap<String, KeyValue>(); // needed for de-duping
+		HashMap<String,KeyValue> keyIndex = new HashMap<>(); // needed for de-duping
 		
-		List<KeyValue> keysAndValues = new ArrayList<KeyValue>();
+		List<KeyValue> keysAndValues = new ArrayList<>();
 		for (Entry<String,ArrayList<String>> entry:currentValues.entrySet()) {
 			String key = entry.getKey();
 			KeyValue keyValue = new KeyValue(key, entry.getValue());
@@ -1695,7 +1695,7 @@ public class TagEditorFragment extends BaseFragment implements
 		
 	private LinkedHashMap<String,ArrayList<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
 		
-		final LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<String, ArrayList<String>>();
+		final LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<>();
 		
 		if (rowLayout == null && savedTags != null) {		
 			return savedTags;
@@ -1744,7 +1744,7 @@ public class TagEditorFragment extends BaseFragment implements
 		
 	private LinkedHashMap<String,String> getKeyValueMapSingle(LinearLayout rowLayout, final boolean allowBlanks) {
 		
-		final LinkedHashMap<String,String> tags = new LinkedHashMap<String, String>();
+		final LinkedHashMap<String,String> tags = new LinkedHashMap<>();
 		if (rowLayout == null && savedTags != null) {
 			for (Entry<String,ArrayList<String>>entry:savedTags.entrySet()) {
 				String key = entry.getKey().trim();
@@ -1851,7 +1851,7 @@ public class TagEditorFragment extends BaseFragment implements
 		});
 		if (!sourceSet[0]) {
 			// source wasn't set above - add a new pair
-			ArrayList<String> v = new ArrayList<String>();
+			ArrayList<String> v = new ArrayList<>();
 			v.add(Tags.VALUE_SURVEY);
 			insertNewEdit((LinearLayout) getOurView(),sourceKey, v, -1);
 		}
@@ -1896,7 +1896,7 @@ public class TagEditorFragment extends BaseFragment implements
 	
 	@Override
 	public void copyTags(Map<String,String>tags) {
-		copiedTags = new LinkedHashMap<String,String>(tags);
+		copiedTags = new LinkedHashMap<>(tags);
 		ClipboardUtils.copyTags(getActivity(), copiedTags);
 	}
 		
@@ -1927,7 +1927,7 @@ public class TagEditorFragment extends BaseFragment implements
 	 * @return the set of all (or all but one) keys currently entered in the edit boxes
 	 */
 	private Set<String> getUsedKeys(LinearLayout rowLayout, final EditText ignoreEdit) {
-		final HashSet<String> keys = new HashSet<String>();
+		final HashSet<String> keys = new HashSet<>();
 		processKeyValues(rowLayout,new KeyValueHandler() {
 			@Override
 			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
@@ -2014,23 +2014,23 @@ public class TagEditorFragment extends BaseFragment implements
 		
 		ArrayList<Map<String,String>> oldTags = (ArrayList<Map<String,String>>)getArguments().getSerializable(TAGS_KEY);
 		// make a (nearly) full copy
-		ArrayList<LinkedHashMap<String,String>> newTags = new ArrayList<LinkedHashMap<String,String>>();
+		ArrayList<LinkedHashMap<String,String>> newTags = new ArrayList<>();
 		for (Map<String,String> map:oldTags) {
-			newTags.add(new LinkedHashMap<String, String>(map));
+			newTags.add(new LinkedHashMap<>(map));
 		}
 		
 		LinkedHashMap<String,ArrayList<String>> edits = getKeyValueMap(true);
 		if (edits == null) {
 			// if we didn't get a LinkedHashMap as input we need to copy
-			ArrayList<LinkedHashMap<String,String>> newOldTags = new ArrayList<LinkedHashMap<String,String>>();
+			ArrayList<LinkedHashMap<String,String>> newOldTags = new ArrayList<>();
 			for (Map<String,String> map:oldTags) {
-				newOldTags.add(new LinkedHashMap<String, String>(map));
+				newOldTags.add(new LinkedHashMap<>(map));
 			}
 			return newOldTags;
 		}
 		
 		for (LinkedHashMap<String,String> map:newTags) {
-			for (String key:new TreeSet<String>(map.keySet())) {
+			for (String key: new TreeSet<>(map.keySet())) {
 				if (edits.containsKey(key)) {
 					List<String>valueList = edits.get(key);
 					if (valueList.size()==1) {

@@ -43,7 +43,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	
 	Relation(final long osmId, final long osmVersion, final long timestamp, final byte status) {
 		super(osmId, osmVersion, timestamp, status);
-		members = new ArrayList<RelationMember>();
+		members = new ArrayList<>();
 	}
 
 	void addMember(final RelationMember member) {
@@ -86,7 +86,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	 */
 	@NonNull
 	public List<RelationMember> getAllMembers(@NonNull OsmElement e) {
-		ArrayList<RelationMember> result = new ArrayList<RelationMember>();
+		ArrayList<RelationMember> result = new ArrayList<>();
 		for (int i = 0; i < members.size(); i++) {
 			RelationMember member = members.get(i);
 			if (member.getElement() == e) {
@@ -250,7 +250,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	}
 	
 	public ArrayList <RelationMember> getMembersWithRole(String role) {
-		ArrayList <RelationMember> rl = new ArrayList<RelationMember>();
+		ArrayList <RelationMember> rl = new ArrayList<>();
 		for (RelationMember rm : members) {
 			Log.d("Relation", "getMembersWithRole " + rm.getRole());
 			if (role.equals(rm.getRole())) {
@@ -274,8 +274,8 @@ public class Relation extends OsmElement implements BoundedObject {
 	
 	/**
 	 * Replace all existing members in a relation.
-	 * @param existing The existing member to be replaced.
-	 * @param newMember The new member.
+     *
+	 * @param newMembers The new member.
 	 */
 	void replaceMembers(Collection<RelationMember> newMembers) {
 		members.clear();
@@ -310,7 +310,7 @@ public class Relation extends OsmElement implements BoundedObject {
 						}
 					}
 				} else {
-					TreeMap<String,String>tagsCopy = new TreeMap<String,String>(tags);
+					TreeMap<String,String>tagsCopy = new TreeMap<>(tags);
 					if (tagsCopy.remove(Tags.KEY_TYPE)!=null) {
 						p = Preset.findBestMatch(App.getCurrentPresets(ctx),tagsCopy);
 						if (p != null) {
@@ -379,7 +379,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	 * @return List of OsmElement
 	 */
 	public List<OsmElement> getMemberElements() {
-		List<OsmElement> result = new ArrayList<OsmElement>();
+		List<OsmElement> result = new ArrayList<>();
 		for (RelationMember rm:getMembers()) {
 			if (rm.getElement()!=null)
 				result.add(rm.getElement());

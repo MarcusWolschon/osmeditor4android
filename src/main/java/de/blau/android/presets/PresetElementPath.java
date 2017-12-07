@@ -13,11 +13,11 @@ public class PresetElementPath implements Serializable {
 	final ArrayList<String>path;
 	
 	public PresetElementPath() {
-		path = new ArrayList<String>();
+		path = new ArrayList<>();
 	}
 	
 	public PresetElementPath(PresetElementPath path2) {
-		path = new ArrayList<String>(path2.path);
+		path = new ArrayList<>(path2.path);
 	}
 	
 	@Override

@@ -81,9 +81,9 @@ public class LRUMapTileCache {
 		super();
 		// Log.d("LRUMapTileCache","created");
 		this.maxCacheSize = maxCacheSize;
-		cache = new HashMap<String,CacheElement>();
-		list = new LinkedList<CacheElement>();
-		reuseList = new ArrayList<CacheElement>();
+		cache = new HashMap<>();
+		list = new LinkedList<>();
+		reuseList = new ArrayList<>();
 	}
 
 	// ===========================================================

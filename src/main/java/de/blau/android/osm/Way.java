@@ -39,7 +39,7 @@ public class Way extends OsmElement implements BoundedObject {
 	
 	Way(final long osmId, final long osmVersion, final long timestamp, final byte status) {
 		super(osmId, osmVersion, timestamp, status);
-		nodes = new ArrayList<Node>();
+		nodes = new ArrayList<>();
 	}
 
 	/**

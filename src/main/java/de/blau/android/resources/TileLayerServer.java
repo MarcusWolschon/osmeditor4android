@@ -156,7 +156,7 @@ public class TileLayerServer {
 		/** Attribution for this provider. */
 		private String attribution;
 		/** Coverage area provided by this provider. */
-		private Collection<CoverageArea> coverageAreas = new ArrayList<CoverageArea>();
+		private Collection<CoverageArea> coverageAreas = new ArrayList<>();
 		/**
 		 * Create a new Provider from XML data.
 		 * @param parser The XML parser.
@@ -300,13 +300,13 @@ public class TileLayerServer {
 	private long endDate = -1L; 
 	private int maxOverZoom = 3; // currently hardwired
 	private Drawable brandLogo;
-	private final Queue<String> subdomains = new LinkedList<String>();
+	private final Queue<String> subdomains = new LinkedList<>();
 	private int defaultAlpha;
-	private Collection<Provider> providers = new ArrayList<Provider>();
+	private Collection<Provider> providers = new ArrayList<>();
 	private Offset[] offsets;
 	
-	private static final HashMap<String,TileLayerServer> backgroundServerList =new HashMap<String,TileLayerServer>();
-	private static HashMap<String,TileLayerServer> overlayServerList = new HashMap<String,TileLayerServer>();
+	private static final HashMap<String,TileLayerServer> backgroundServerList = new HashMap<>();
+	private static HashMap<String,TileLayerServer> overlayServerList = new HashMap<>();
 	private static boolean ready = false;
 	private static ArrayList<String> imageryBlacklist = null;
 
@@ -897,7 +897,7 @@ public class TileLayerServer {
 	 */
 	public Collection<String> getAttributions(final int zoom, final BoundingBox area) {
 		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
-		Collection<String> ret = new ArrayList<String>();
+		Collection<String> ret = new ArrayList<>();
 		for (Provider p : providers) {
 			if (p.getAttribution() != null)
 				if (p.covers(zoom, area)) {
@@ -1003,7 +1003,7 @@ public class TileLayerServer {
 	@NonNull
 	private static List<TileLayerServer> getServersFilteredSorted(boolean filtered, @NonNull HashMap<String,TileLayerServer> servers, @Nullable BoundingBox box) {
 		TileLayerServer noneLayer = null;
-		List<TileLayerServer> list = new ArrayList<TileLayerServer>();
+		List<TileLayerServer> list = new ArrayList<>();
 		for (TileLayerServer osmts:servers.values()) {
 			if (filtered && box != null) {
 				if (!osmts.covers(box)) {
@@ -1084,7 +1084,7 @@ public class TileLayerServer {
 	 */
 	@NonNull
 	public static String[] getIds(@Nullable BoundingBox box, boolean filtered) {
-		List<String> ids = new ArrayList<String>();
+		List<String> ids = new ArrayList<>();
 		List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, box);
 		for (TileLayerServer t:list) {
 			ids.add(t.id);
@@ -1102,7 +1102,7 @@ public class TileLayerServer {
 	 */
 	@NonNull
 	public static String[] getNames(@Nullable BoundingBox box, boolean filtered) {
-		ArrayList<String> names = new ArrayList<String>();
+		ArrayList<String> names = new ArrayList<>();
 		for (String key:getIds(box, filtered)) {
 			TileLayerServer osmts = backgroundServerList.get(key);
 			names.add(osmts.name);
@@ -1119,7 +1119,7 @@ public class TileLayerServer {
 	 * @return
 	 */
 	public static String[] getNames(String[] ids) {
-		ArrayList<String> names = new ArrayList<String>();
+		ArrayList<String> names = new ArrayList<>();
 		for (String key:ids) {
 			TileLayerServer osmts = backgroundServerList.get(key);
 			names.add(osmts.name);
@@ -1138,7 +1138,7 @@ public class TileLayerServer {
 	 */
 	@NonNull
 	public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered) {
-		List<String> ids = new ArrayList<String>();
+		List<String> ids = new ArrayList<>();
 		List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, box);
 		for (TileLayerServer t:list) {
 			ids.add(t.id);
@@ -1156,7 +1156,7 @@ public class TileLayerServer {
 	 */
 	@NonNull
 	public static String[] getOverlayNames(@Nullable BoundingBox box, boolean filtered) {
-		ArrayList<String> names = new ArrayList<String>();
+		ArrayList<String> names = new ArrayList<>();
 		for (String key:getIds(box, filtered)) {
 			TileLayerServer osmts = overlayServerList.get(key);
 			names.add(osmts.name);
@@ -1174,7 +1174,7 @@ public class TileLayerServer {
 	 */
 	@NonNull
 	public static String[] getOverlayNames(@NonNull String[] ids) {
-		ArrayList<String> names = new ArrayList<String>();
+		ArrayList<String> names = new ArrayList<>();
 		for (String key:ids) {
 			TileLayerServer osmts = overlayServerList.get(key);
 			names.add(osmts.name);
@@ -1352,7 +1352,7 @@ public class TileLayerServer {
             tileUrl = tileUrl.substring(0, i);
         }
 
-        TreeMap<String, String> qparams = new TreeMap<String, String>();
+        TreeMap<String, String> qparams = new TreeMap<>();
         String[] qparamsStr = query.length() > 1 ? query.substring(1).split("&") : new String[0];
         for (String param : qparamsStr) {
             String[] kv = param.split("=");
@@ -1395,12 +1395,12 @@ public class TileLayerServer {
 	 */
 	public static void applyBlacklist(ArrayList<String> blacklist) {
 		// first compile the regexs
-		ArrayList<Pattern> patterns = new ArrayList<Pattern>();
+		ArrayList<Pattern> patterns = new ArrayList<>();
 		for (String regex:blacklist) {
 			patterns.add(Pattern.compile(regex));
 		}
 		for (Pattern p:patterns) {
-			for (String key:new TreeSet<String>(backgroundServerList.keySet())) { // shallow copy
+			for (String key: new TreeSet<>(backgroundServerList.keySet())) { // shallow copy
 				TileLayerServer osmts = backgroundServerList.get(key);
 				Matcher m = p.matcher(osmts.tileUrl);
 				if (m.find()) {
@@ -1411,7 +1411,7 @@ public class TileLayerServer {
 					Log.d("OpenStreetMapTileServer","Removed background tile layer " + key);
 				}
 			}
-			for (String key:new TreeSet<String>(overlayServerList.keySet())) { // shallow copy
+			for (String key: new TreeSet<>(overlayServerList.keySet())) { // shallow copy
 				TileLayerServer osmts = overlayServerList.get(key);
 				Matcher m = p.matcher(osmts.tileUrl);
 				if (m.find()) {

@@ -72,7 +72,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		Log.d(LOGTAG,"starting scan");
 		// determine at least a few of the possible mount points
 		File sdcard = Environment.getExternalStorageDirectory();
-		ArrayList<String> mountPoints = new ArrayList<String>();
+		ArrayList<String> mountPoints = new ArrayList<>();
 		mountPoints.add(sdcard.getAbsolutePath());
 		mountPoints.add(sdcard.getAbsolutePath() + Paths.DIRECTORY_PATH_EXTERNAL_SD_CARD);
 		File storageDir = new File(Paths.DIRECTORY_PATH_STORAGE);
@@ -258,7 +258,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	public Collection<Photo> getPhotos(BoundingBox box) {
 		RTree index = App.getPhotoIndex();
 		if (index == null) {
-			return new ArrayList<Photo>();
+			return new ArrayList<>();
 		}
 		
 		return getPhotosFromIndex(index, box);
@@ -298,10 +298,10 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	
 	
 	private ArrayList<Photo>getPhotosFromIndex(RTree index, BoundingBox box) {
-		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		Collection<BoundedObject> queryResult = new ArrayList<>();
 		index.query(queryResult,box.getBounds());
 		Log.d(LOGTAG,"result count " + queryResult.size());
-		ArrayList<Photo>result = new ArrayList<Photo>();
+		ArrayList<Photo>result = new ArrayList<>();
 		for (BoundedObject bo:queryResult) {
 			result.add((Photo)bo);
 		}

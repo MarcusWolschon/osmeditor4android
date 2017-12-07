@@ -304,7 +304,7 @@ public class IssueAlert {
 		double ny = GeoMath.latToMercator(lat);
 		double nx = lon;
 
-		ArrayList<Node> nodes = new ArrayList<Node>(w.getNodes());
+		ArrayList<Node> nodes = new ArrayList<>(w.getNodes());
 		for (int i = 0;i <= nodes.size()-2;i++) {
 			double bx = nodes.get(i).getLon()/1E7D;
 			double by = GeoMath.latE7ToMercator(nodes.get(i).getLat());

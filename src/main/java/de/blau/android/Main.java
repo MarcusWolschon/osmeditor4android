@@ -355,9 +355,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	private boolean wantLocationUpdates = false;
 	
 	private GeoUrlData geoData = null;
-	private Object geoDataLock = new Object();
+	private final Object geoDataLock = new Object();
 	private RemoteControlUrlData rcData = null;
-	private Object rcDataLock = new Object();
+	private final Object rcDataLock = new Object();
 
 	/**
 	 * Optional bottom toolbar 
@@ -533,7 +533,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		}
 		
 		// check if first time user and display something if yes
-		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
+		SavingHelper<String> savingHelperVersion = new SavingHelper<>();
 		String lastVersion = savingHelperVersion.load(this,VERSION_FILE, false);
 		boolean newInstall = (lastVersion == null || lastVersion.equals(""));
 		String currentVersion = getString(R.string.app_version);
@@ -783,7 +783,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 * Side effect binds to TrackerService
 	 */
 	private void checkPermissions() {
-		final List<String> permissionsList = new ArrayList<String>();
+		final List<String> permissionsList = new ArrayList<>();
 		synchronized (locationPermissionLock) {
 			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=  PackageManager.PERMISSION_GRANTED) {
 		         locationPermissionGranted = false;
@@ -843,10 +843,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	                BoundingBox bbox;
 	                try {
 	                    bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
-	                    List<BoundingBox> bbList = new ArrayList<BoundingBox>(App.getDelegator().getBoundingBoxes());
+	                    List<BoundingBox> bbList = new ArrayList<>(App.getDelegator().getBoundingBoxes());
 	                    List<BoundingBox> bboxes = null;
 	                    if (App.getDelegator().isEmpty()) {
-	                        bboxes = new ArrayList<BoundingBox>();
+	                        bboxes = new ArrayList<>();
 	                        bboxes.add(bbox);
 	                    } else {
 	                        bboxes = BoundingBox.newBoxes(bbList, bbox);
@@ -885,7 +885,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	        if (rcData != null) {
 	            Log.d(DEBUG_TAG,"got data from remote control url " + rcData.getBox() + " load " + rcData.load());
 	            StorageDelegator delegator = App.getDelegator();
-	            ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(delegator.getBoundingBoxes());
+	            ArrayList<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
 	            BoundingBox loadBox = rcData.getBox();
 	            if (loadBox != null) {
 	                if (rcData.load()) { // download
@@ -1178,7 +1178,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                 PopupMenu popup = new PopupMenu(Main.this, lock);
 
                 // per mode menu items 
-                ArrayList<Mode> allModes = new ArrayList<Mode>(Arrays.asList(Mode.values()));
+                ArrayList<Mode> allModes = new ArrayList<>(Arrays.asList(Mode.values()));
                 // add menu entries for all proper modes
                 for (final Mode newMode:allModes) {
                     if (newMode.isSubModeOf()==null && newMode.isEnabled()) {
@@ -2968,7 +2968,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		public void onCreateDefaultContextMenu(final ContextMenu menu) {
 			int id = 0;
 			if (clickedPhotos != null) {
-				for (Photo p : new ArrayList<Photo>(clickedPhotos)) {
+				for (Photo p : new ArrayList<>(clickedPhotos)) {
 					Uri photoUri = p.getRefUri(Main.this);
 					if (photoUri != null) {
 						menu.add(Menu.NONE, id++, Menu.NONE, photoUri.getLastPathSegment()).setOnMenuItemClickListener(this);

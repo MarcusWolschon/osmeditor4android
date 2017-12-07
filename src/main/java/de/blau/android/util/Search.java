@@ -237,7 +237,7 @@ public class Search {
 
 				if (inputStream != null) {
 					reader = new JsonReader(new InputStreamReader(inputStream));
-					ArrayList<SearchResult> result = new ArrayList<SearchResult>();
+					ArrayList<SearchResult> result = new ArrayList<>();
 					reader.beginArray();
 					while (reader.hasNext()) {
 						SearchResult searchResult = readNominatimResult(reader);
@@ -343,7 +343,7 @@ public class Search {
 			          sb.append((char) cp);
 			        }
 			        
-					ArrayList<SearchResult> result = new ArrayList<SearchResult>();
+					ArrayList<SearchResult> result = new ArrayList<>();
 					FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
 					for (Feature f:fc.getFeatures()) {
 						SearchResult searchResult = readPhotonResult(f);
@@ -386,7 +386,7 @@ public class Search {
 				    if (osmKey != null && osmValue != null) {
 				    	String key = osmKey.getAsString();
 				    	String value = osmValue.getAsString();
-				    	Map<String,String> tag = new HashMap<String,String>();
+				    	Map<String,String> tag = new HashMap<>();
 				    	tag.put(key,value);
 					    PresetItem preset = Preset.findBestMatch(App.getCurrentPresets(activity), tag, false);
 					    if (preset != null) {
@@ -449,11 +449,11 @@ public class Search {
 		ListView lv = (ListView) inflater.inflate(R.layout.search_results, null);
 		builder.setView(lv);
 
-		ArrayList<String> ar = new ArrayList<String>();
+		ArrayList<String> ar = new ArrayList<>();
 		for (SearchResult sr:searchResults) {
 			ar.add(sr.display_name);
 		}
-		lv.setAdapter(new ArrayAdapter<String>(activity, itemLayout, ar));
+		lv.setAdapter(new ArrayAdapter<>(activity, itemLayout, ar));
 		lv.setSelection(0);
 		builder.setNegativeButton(R.string.cancel, null);
 		final AppCompatDialog dialog = builder.create();

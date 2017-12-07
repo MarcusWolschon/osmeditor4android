@@ -41,9 +41,9 @@ public class MultiHashMap<K, V> implements Serializable {
 	public MultiHashMap(boolean sorted) {
 		this.sorted = sorted;
 		if (sorted) {
-			map = new TreeMap<K, Set<V>>();
+			map = new TreeMap<>();
 		} else {
-			map = new HashMap<K, Set<V>>();
+			map = new HashMap<>();
 		}
 	}
 	
@@ -144,7 +144,7 @@ public class MultiHashMap<K, V> implements Serializable {
 	 * @return
 	 */
 	public Set<V> getValues() {
-		Set<V> retval = new LinkedHashSet<V>();
+		Set<V> retval = new LinkedHashSet<>();
 		for (K key: getKeys()) {
 			retval.addAll(get(key));
 		}

@@ -19,11 +19,11 @@ public class ElementSearch {
 	private static final String DEBUG_STREET_TAG = "StreetTagValues...";
 	private static final double MAX_DISTANCE = 20000D; // this is just a very rough number to stop including stuff that is very far away
 	private String[] streetNames = null;
-    private Map<String, Long> idsByStreetNames = new HashMap<String, Long>();
+    private Map<String, Long> idsByStreetNames = new HashMap<>();
     
     private String[] placeNames = null;
-    private Map<String, Long> idsByPlaceNames = new HashMap<String, Long>();
-    private Map<String, String> typeByPlaceNames = new HashMap<String, String>();
+    private Map<String, Long> idsByPlaceNames = new HashMap<>();
+    private Map<String, String> typeByPlaceNames = new HashMap<>();
 
     private final int[] location;
     private final  boolean distanceFilter;
@@ -43,7 +43,7 @@ public class ElementSearch {
     private String[] getStreetArray(final int[] location) {
 		// build list of names with their closest distance to location
     	final StorageDelegator delegator = App.getDelegator();
-		Map<String, Double> distancesByNames = new HashMap<String, Double>();
+		Map<String, Double> distancesByNames = new HashMap<>();
 		String[] nameTags = {Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME, Tags.KEY_NAME_LEFT, Tags.KEY_NAME_RIGHT};
 		
 		for (Way way : delegator.getCurrentStorage().getWays()) {
@@ -77,7 +77,7 @@ public class ElementSearch {
 			}
 		}
 		// sort names by distance
-		MultiHashMap<Double, String> retval = new MultiHashMap<Double, String>(true); // true == sorted
+		MultiHashMap<Double, String> retval = new MultiHashMap<>(true); // true == sorted
 		for (Entry<String,Double> entry : distancesByNames.entrySet()) {
 			retval.add(entry.getValue(), entry.getKey());
 		}	 
@@ -127,7 +127,7 @@ public class ElementSearch {
     private String[] getPlaceArray(final int[] location) {
 		// build list of names with their closest distance to location
     	final StorageDelegator delegator = App.getDelegator(); 
-		Map<String, Double> distancesByName = new HashMap<String, Double>();
+		Map<String, Double> distancesByName = new HashMap<>();
 		String[] nameTags = {Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME};
 		Log.d(DEBUG_PLACE_TAG,"searching for place ways...");
 		for (Way way : delegator.getCurrentStorage().getWays()) {
@@ -193,7 +193,7 @@ public class ElementSearch {
 			}
 		}
 		// sort names by distance
-		MultiHashMap<Double, String> retval = new MultiHashMap<Double, String>(true);
+		MultiHashMap<Double, String> retval = new MultiHashMap<>(true);
 		for (Entry<String,Double> entry : distancesByName.entrySet()) {
 			retval.add(entry.getValue(), entry.getKey());
 		}	 

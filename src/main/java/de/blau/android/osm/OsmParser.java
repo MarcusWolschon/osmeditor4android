@@ -50,7 +50,7 @@ public class OsmParser extends DefaultHandler {
 	
 	private TreeMap<String, String> currentTags;
 
-	private final ArrayList<Exception> exceptions = new ArrayList<Exception>();
+	private final ArrayList<Exception> exceptions = new ArrayList<>();
 
 	/**
 	 * Helper class to store missing relation information for post processing
@@ -64,7 +64,7 @@ public class OsmParser extends DefaultHandler {
 			this.parent = parent;
 		}
 	}
-	private ArrayList<MissingRelation> missingRelations = new ArrayList<MissingRelation>();
+	private ArrayList<MissingRelation> missingRelations = new ArrayList<>();
 	
 	private LongOsmElementMap<Node>nodeIndex = null;
 	private LongOsmElementMap<Way>wayIndex = null;
@@ -81,8 +81,8 @@ public class OsmParser extends DefaultHandler {
 		currentNode = null;
 		currentWay = null;
 		currentRelation = null;
-		exceptions.clear();;
-		missingRelations.clear();;
+		exceptions.clear();
+		missingRelations.clear();
 	}
 
 	public Storage getStorage() {
@@ -259,7 +259,7 @@ public class OsmParser extends DefaultHandler {
 	 */
 	private void parseTag(final Attributes atts) {
 		if (currentTags == null) {
-			currentTags = new TreeMap<String,String>();
+			currentTags = new TreeMap<>();
 		}
 		String k = atts.getValue("k");
 		String v = atts.getValue("v");

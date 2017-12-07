@@ -37,7 +37,7 @@ public class TaskStorage implements Serializable {
 	
 	public final static String FILENAME = "tasks.res";
 
-	private transient SavingHelper<TaskStorage> savingHelper = new SavingHelper<TaskStorage>();
+	private transient SavingHelper<TaskStorage> savingHelper = new SavingHelper<>();
 	
 	public TaskStorage() {
 		reset();
@@ -105,7 +105,7 @@ public class TaskStorage implements Serializable {
 	 * @return true if t was found
 	 */
 	public boolean contains(@NonNull Task t) {
-		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		Collection<BoundedObject> queryResult = new ArrayList<>();
 		tasks.query(queryResult, t.getLon(), t.getLat());
 		Log.d(DEBUG_TAG,"candidates for contain " + queryResult.size());
 		for (BoundedObject bo:queryResult) {
@@ -125,10 +125,10 @@ public class TaskStorage implements Serializable {
 	 */
 	@NonNull 
 	public ArrayList<Task>getTasks() {
-		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		Collection<BoundedObject> queryResult = new ArrayList<>();
 		tasks.query(queryResult);
 		Log.d(DEBUG_TAG,"getTasks result count (no BB) " + queryResult.size());
-		ArrayList<Task>result = new ArrayList<Task>();
+		ArrayList<Task>result = new ArrayList<>();
 		for (BoundedObject bo:queryResult) {
 			result.add((Task)bo);
 		}
@@ -143,10 +143,10 @@ public class TaskStorage implements Serializable {
 	 */
 	@NonNull
 	public ArrayList<Task>getTasks(@NonNull BoundingBox box) {
-		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		Collection<BoundedObject> queryResult = new ArrayList<>();
 		tasks.query(queryResult,box.getBounds());
 		Log.d(DEBUG_TAG,"getTasks result count " + queryResult.size());
-		ArrayList<Task>result = new ArrayList<Task>();
+		ArrayList<Task>result = new ArrayList<>();
 		for (BoundedObject bo:queryResult) {
 			result.add((Task)bo);
 		}
@@ -242,9 +242,9 @@ public class TaskStorage implements Serializable {
 	 */
 	@NonNull
 	public ArrayList<BoundingBox> getBoundingBoxes() {
-		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		Collection<BoundedObject> queryResult = new ArrayList<>();
 		boxes.query(queryResult);
-		ArrayList<BoundingBox>result = new ArrayList<BoundingBox>();
+		ArrayList<BoundingBox>result = new ArrayList<>();
 		for (BoundedObject bo:queryResult) {
 			result.add((BoundingBox)bo);
 		}
@@ -259,10 +259,10 @@ public class TaskStorage implements Serializable {
 	 */
 	@NonNull
 	public ArrayList<BoundingBox> getBoundingBoxes(	@NonNull BoundingBox box) {
-		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		Collection<BoundedObject> queryResult = new ArrayList<>();
 		boxes.query(queryResult,box.getBounds());
 		Log.d(DEBUG_TAG,"getBoundingBoxes result count " + queryResult.size());
-		ArrayList<BoundingBox>result = new ArrayList<BoundingBox>();
+		ArrayList<BoundingBox>result = new ArrayList<>();
 		for (BoundedObject bo:queryResult) {
 			result.add((BoundingBox)bo);
 		}

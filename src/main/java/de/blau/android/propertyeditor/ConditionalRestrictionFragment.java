@@ -168,7 +168,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					} catch (NumberFormatException nfex) {
 						// not a number add it to list
 						if (restrictionValues==null) {
-							restrictionValues = new ArrayList<String>();
+							restrictionValues = new ArrayList<>();
 						}
 						restrictionValues.add(v);
 					}
@@ -178,19 +178,19 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 								//noinspection ResultOfMethodCallIgnored
 								Integer.parseInt(c.term1());
 								if (expressionConditionValues==null) {
-									expressionConditionValues = new ArrayList<String>();
+									expressionConditionValues = new ArrayList<>();
 								}
 								expressionConditionValues.add(c.term2());
 							} catch (NumberFormatException nfex) {
 								// not a number add it to list
 								if (expressionConditionValues==null) {
-									expressionConditionValues = new ArrayList<String>();
+									expressionConditionValues = new ArrayList<>();
 								}
 								expressionConditionValues.add(c.term1());
 							}
 						} else if (!c.isOpeningHours()) {
 							if (simpleConditionValues==null) {
-								simpleConditionValues = new ArrayList<String>();
+								simpleConditionValues = new ArrayList<>();
 							}
 							simpleConditionValues.add(c.term1());
 						}
@@ -245,7 +245,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 			}
 			text.addTextChangedListener(watcher);
 			if (restrictions == null) { // couldn't parse anything
-				restrictions = new ArrayList<Restriction>();
+				restrictions = new ArrayList<>();
 			}
 			buildForm(sv,restrictions);
 		}
@@ -283,7 +283,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 				@Override
 				public void onClick(View arg0) {
 					LinearLayout ll = (LinearLayout) conditionalRestrictionLayout.findViewById(LINEARLAYOUT_ID);
-					ArrayList<Condition> c = new ArrayList<Condition>();
+					ArrayList<Condition> c = new ArrayList<>();
 					c.add(new Condition("",false));
 					Restriction r = new Restriction("", new Conditions(c,false));
 					restrictions.add(r);
@@ -352,7 +352,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 		String v = r.getValue().trim();
 		value.setText(v);
 		if (restrictionValues != null) {
-			ArrayAdapter<String>adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,restrictionValues);
+			ArrayAdapter<String>adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, restrictionValues);
 			if (!restrictionValues.contains(v)) {
 				adapter.insert(v, 0);
 			}
@@ -401,7 +401,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					term2.setText(c.term2());
 					AutoCompleteTextView term = null;
 					if (expressionConditionValues != null) {
-						ArrayAdapter<String>adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,expressionConditionValues);
+						ArrayAdapter<String>adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, expressionConditionValues);
 						try {
 							//noinspection ResultOfMethodCallIgnored
 							Integer.parseInt(c.term1());
@@ -418,8 +418,8 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 						setAdapterAndListeners(term, adapter);
 					}
 					addMenuItems(expression, r, c);
-					ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						    getActivity(), R.layout.support_simple_spinner_dropdown_item, Condition.compOpStrings);
+					ArrayAdapter<String> adapter = new ArrayAdapter<>(
+							getActivity(), R.layout.support_simple_spinner_dropdown_item, Condition.compOpStrings);
 					// adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 					final Spinner operator = (Spinner) expression.findViewById(R.id.operator);
@@ -477,14 +477,14 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 					ArrayAdapter<String>adapter = null;
 					if (c.isOpeningHours()) {
 						if (ohTemplates != null) {
-							adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,ohTemplates);
+							adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, ohTemplates);
 							if (!ohTemplates.contains(c.term1())) {
 								adapter.insert(c.term1(), 0);
 							}
 						}
 					} else {
 						if (simpleConditionValues != null) {
-							adapter = new ArrayAdapter<String>(getActivity(),R.layout.autocomplete_row,simpleConditionValues);
+							adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, simpleConditionValues);
 							if (!simpleConditionValues.contains(c.term1())) {
 								adapter.insert(c.term1(), 0);
 							}

@@ -20,8 +20,8 @@ class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
     public NameAndTagsAdapter(Context context, int viewResourceId, ArrayList<NameAndTags> items) {
         super(context, viewResourceId, items);
 //        this.items = items;
-        this.itemsAll = new ArrayList<NameAndTags>(items);
-        this.suggestions = new ArrayList<NameAndTags>();
+        this.itemsAll = new ArrayList<>(items);
+        this.suggestions = new ArrayList<>();
 //        this.viewResourceId = viewResourceId;
     }
 

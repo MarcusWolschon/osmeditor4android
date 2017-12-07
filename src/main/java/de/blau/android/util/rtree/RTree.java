@@ -34,9 +34,9 @@ public class RTree implements Serializable {
 		
 		public Node(boolean isLeaf)	{
 			if (isLeaf) {
-				data = new ArrayList<BoundedObject>(maxSize+1);
+				data = new ArrayList<>(maxSize + 1);
 			} else {
-				children = new ArrayList<Node>(maxSize+1);
+				children = new ArrayList<>(maxSize + 1);
 			}
 		}
 
@@ -157,7 +157,7 @@ public class RTree implements Serializable {
 				list = n.children.toArray();
 			}
 
-			ArrayList<BoundingBox> cachedBox = new ArrayList<BoundingBox>(list.length);
+			ArrayList<BoundingBox> cachedBox = new ArrayList<>(list.length);
 			double[] cachedArea = new double[list.length];
 			
 			for (int i = 0; i < list.length; i++) {

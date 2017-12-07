@@ -699,7 +699,7 @@ public class RelationMembersFragment extends BaseFragment implements
 		
 		ArrayAdapter<StringWithDescription> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
 			// Use a set to prevent duplicate keys appearing
-			Set<StringWithDescription> roles = new HashSet<StringWithDescription>();
+			Set<StringWithDescription> roles = new HashSet<>();
 			
 			List<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
 			if (allTags != null && !allTags.isEmpty()) {
@@ -711,9 +711,9 @@ public class RelationMembersFragment extends BaseFragment implements
 				}
 			}
 			
-			List<StringWithDescription> result = new ArrayList<StringWithDescription>(roles);
+			List<StringWithDescription> result = new ArrayList<>(roles);
 			Collections.sort(result);
-			return new ArrayAdapter<StringWithDescription>(owner, R.layout.autocomplete_row, result);
+			return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
 		}
 	}
 
@@ -803,7 +803,7 @@ public class RelationMembersFragment extends BaseFragment implements
 	 * @return ArrayList<RelationMemberDescription>.
 	 */
 	ArrayList<RelationMemberDescription> getMembersList() {
-		final ArrayList<RelationMemberDescription> members = new ArrayList<RelationMemberDescription>();
+		final ArrayList<RelationMemberDescription> members = new ArrayList<>();
 		processRelationMembers(new RelationMemberHandler() {
 			@Override
 			public void handleRelationMember(final ImageView typeView, final long elementId, final EditText roleEdit, final TextView descView) {

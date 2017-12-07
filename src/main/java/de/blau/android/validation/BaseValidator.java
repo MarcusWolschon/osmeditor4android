@@ -146,7 +146,7 @@ public class BaseValidator implements Validator {
      */
     @NonNull
     public ArrayList<String> describeProblemElement(@NonNull Context ctx, @NonNull OsmElement e, SortedMap<String,String>tags) {
-        ArrayList<String>result = new ArrayList<String>();
+        ArrayList<String>result = new ArrayList<>();
 
         // fixme etc.
         for (Entry<String,String>entry : tags.entrySet()) {
@@ -179,7 +179,7 @@ public class BaseValidator implements Validator {
     }
 
     ArrayList<String> describeProblemHighway(Way w, String highway) {
-        ArrayList<String> wayProblems = new ArrayList<String>();
+        ArrayList<String> wayProblems = new ArrayList<>();
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
             wayProblems.add(App.resources().getString(R.string.toast_unsurveyed_road));
         }
@@ -187,7 +187,7 @@ public class BaseValidator implements Validator {
     }
 
     @Override
-    public int validate(Node node) {
+    public int validate(@NonNull Node node) {
         int status = Validator.NOT_VALIDATED;
         SortedMap<String,String>tags = node.getTags();
         // tag based checks
@@ -201,7 +201,7 @@ public class BaseValidator implements Validator {
     }
 
     @Override
-    public int validate(Way way) {
+    public int validate(@NonNull Way way) {
         int status = Validator.NOT_VALIDATED;
         SortedMap<String,String>tags = way.getTags();
         // tag based checks
@@ -219,7 +219,7 @@ public class BaseValidator implements Validator {
     }
 
     @Override
-    public int validate(Relation relation) {
+    public int validate(@NonNull Relation relation) {
         int status = Validator.NOT_VALIDATED;
         SortedMap<String,String>tags = relation.getTags();
         // tag based checks
@@ -240,10 +240,11 @@ public class BaseValidator implements Validator {
         return type == null || "".equals(type);
     }
 
+    @NonNull
     @Override
-    public String[] describeProblem(Context ctx, Node node) {
+    public String[] describeProblem(@NonNull Context ctx, @NonNull Node node) {
         SortedMap<String,String>tags = node.getTags();
-        ArrayList<String>result = new ArrayList<String>();
+        ArrayList<String>result = new ArrayList<>();
         if (tags != null) {
             result.addAll(describeProblemElement(ctx, node, tags));
         }
@@ -251,10 +252,11 @@ public class BaseValidator implements Validator {
         return resultArray;
     }
 
+    @NonNull
     @Override
-    public String[] describeProblem(Context ctx, Way way) {
+    public String[] describeProblem(@NonNull Context ctx, @NonNull Way way) {
         SortedMap<String,String>tags = way.getTags();
-        ArrayList<String>result = new ArrayList<String>();
+        ArrayList<String>result = new ArrayList<>();
         if (tags != null) {
             result.addAll(describeProblemElement(ctx, way, tags));
         }
@@ -266,10 +268,11 @@ public class BaseValidator implements Validator {
         return resultArray;
     }
 
+    @NonNull
     @Override
-    public String[] describeProblem(Context ctx, Relation relation) {
+    public String[] describeProblem(@NonNull Context ctx, @NonNull Relation relation) {
         SortedMap<String,String>tags = relation.getTags();
-        ArrayList<String>result = new ArrayList<String>();
+        ArrayList<String>result = new ArrayList<>();
         if (tags != null) {
             result.addAll(describeProblemElement(ctx, relation, tags));
         }
@@ -281,7 +284,7 @@ public class BaseValidator implements Validator {
     }
 
     @Override
-    public String[] describeProblem(Context ctx, OsmElement e) {
+    public String[] describeProblem(@NonNull Context ctx, @NonNull OsmElement e) {
         if (e instanceof Node) {
             return describeProblem(ctx, (Node)e);
         }

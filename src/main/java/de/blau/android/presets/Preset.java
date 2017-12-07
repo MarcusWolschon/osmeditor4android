@@ -139,7 +139,7 @@ public class Preset implements Serializable {
 
 	/** Lists items having a tag. The map key is tagkey+"\t"+tagvalue.
 	 * tagItems.get(tagkey+"\t"+tagvalue) will give you all items that have the tag tagkey=tagvalue */
-	private final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<String, PresetItem>();
+	private final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<>();
 
 	/** The root group of the preset, containing all top-level groups and items */
 	private PresetGroup rootGroup;
@@ -148,10 +148,10 @@ public class Preset implements Serializable {
 	private transient PresetIconManager iconManager;
 	
 	/** all known preset items in order of loading */
-	private ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
+	private ArrayList<PresetItem> allItems = new ArrayList<>();
 	
 	/** all known preset groups in order of loading */
-	private ArrayList<PresetGroup> allGroups = new ArrayList<PresetGroup>();
+	private ArrayList<PresetGroup> allGroups = new ArrayList<>();
 	
 	public enum PresetKeyType {
 		/**
@@ -184,19 +184,19 @@ public class Preset implements Serializable {
 	private final static String MULTISELECT_DELIMITER = ";";
 
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
-	private final MultiHashMap<String, StringWithDescription> autosuggestNodes = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestNodes = new MultiHashMap<>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to ways) */
-	private final MultiHashMap<String, StringWithDescription> autosuggestWays = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestWays = new MultiHashMap<>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
-	private final MultiHashMap<String, StringWithDescription> autosuggestClosedways = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestClosedways = new MultiHashMap<>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to areas (MPs)) */
-	private final MultiHashMap<String, StringWithDescription> autosuggestAreas = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestAreas = new MultiHashMap<>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
-	private final MultiHashMap<String, StringWithDescription> autosuggestRelations = new MultiHashMap<String, StringWithDescription>(true);
+	private final MultiHashMap<String, StringWithDescription> autosuggestRelations = new MultiHashMap<>(true);
 	
 	/** for search support */
-	private final MultiHashMap<String, PresetItem> searchIndex = new MultiHashMap<String, PresetItem>();
-	private final MultiHashMap<String, PresetItem> translatedSearchIndex = new MultiHashMap<String, PresetItem>();
+	private final MultiHashMap<String, PresetItem> searchIndex = new MultiHashMap<>();
+	private final MultiHashMap<String, PresetItem> translatedSearchIndex = new MultiHashMap<>();
 		
 	private Po po = null;
 	
@@ -211,7 +211,7 @@ public class Preset implements Serializable {
         final String presetHash;
     
         /** indexes of recently used presets (for use with allItems) */
-        LinkedList<Integer> recentPresets = new LinkedList<Integer>();
+        LinkedList<Integer> recentPresets = new LinkedList<>();
 
         private volatile boolean changed = false;
 		
@@ -461,13 +461,13 @@ public class Preset implements Serializable {
 		
         saxParser.parse(input, new DefaultHandler() {
         	/** stack of group-subgroup-subsubgroup... where we currently are*/
-        	private Stack<PresetGroup> groupstack = new Stack<PresetGroup>();
+        	private Stack<PresetGroup> groupstack = new Stack<>();
         	/** item currently being processed */
         	private PresetItem currentItem = null;
         	/** true if we are currently processing the optional section of an item */
         	private boolean inOptionalSection = false;
         	/** hold reference to chunks */
-        	private HashMap<String,PresetItem> chunks = new HashMap<String,PresetItem>();
+        	private HashMap<String,PresetItem> chunks = new HashMap<>();
         	/** store current combo or multiselect key */
         	private String listKey = null;
         	private ArrayList<StringWithDescription> listValues = null;
@@ -637,7 +637,7 @@ public class Preset implements Serializable {
 									values, displayValues, shortDescriptions, delimiter, valuesContext);
 						} else {
 							listKey = key;
-							listValues = new ArrayList<StringWithDescription>();
+							listValues = new ArrayList<>();
 						}
 						String defaultValue = attr.getValue("default");
 						if (defaultValue != null) {
@@ -823,7 +823,7 @@ public class Preset implements Serializable {
 	 * @return an ArrayList of http and https URLs as string, or null if there is an error during parsing
 	 */
 	public static List<String> parseForURLs(File presetDir) {
-		final ArrayList<String> urls = new ArrayList<String>();
+		final ArrayList<String> urls = new ArrayList<>();
 		File[] list = presetDir.listFiles(new PresetFileFilter());
 		String presetFilename = null;
 		if (list != null) {
@@ -1029,7 +1029,7 @@ public class Preset implements Serializable {
 			// preset is not in the list, add linked presets first
 			PresetItem pi = allItems.get(id.intValue());
 			if (pi.getLinkedPresetNames() != null) {
-				LinkedList<String>linkedPresetNames = new LinkedList<String>(pi.getLinkedPresetNames());
+				LinkedList<String>linkedPresetNames = new LinkedList<>(pi.getLinkedPresetNames());
 				Collections.reverse(linkedPresetNames);
 				for (String n:linkedPresetNames) {
 					if (!mru.recentPresets.contains(id)) {
@@ -1071,7 +1071,7 @@ public class Preset implements Serializable {
 	 * @param item the item to remove
 	 */
 	public void resetRecentlyUsed() {
-		mru.recentPresets = new LinkedList<Integer>(); 
+		mru.recentPresets = new LinkedList<>();
 		mru.setChanged();
 		saveMRU();
 	}
@@ -1221,7 +1221,7 @@ public class Preset implements Serializable {
      * @return set of presets
      */
 	private static Set<PresetItem> buildPossibleMatches(Preset[] presets, Map<String, String> tags, boolean useAddressKeys) {
-		HashSet<PresetItem> possibleMatches = new HashSet<PresetItem>();
+		HashSet<PresetItem> possibleMatches = new HashSet<>();
 		for (Preset p:presets) {
 			if (p != null) {
 				for (Entry<String, String> tag : tags.entrySet()) {
@@ -1246,7 +1246,7 @@ public class Preset implements Serializable {
 	private static ArrayList<PresetElement> filterElements(
 			ArrayList<PresetElement> originalElements, ElementType type)
 	{
-		ArrayList<PresetElement> filteredElements = new ArrayList<PresetElement>();
+		ArrayList<PresetElement> filteredElements = new ArrayList<>();
 		for (PresetElement e : originalElements) {
 			if (!e.isDeprecated()) {
 				if (e.appliesTo(type)) {
@@ -1573,7 +1573,7 @@ public class Preset implements Serializable {
 		private final int groupIndex;
 		
 		/** Elements in this group */
-		private ArrayList<PresetElement> elements = new ArrayList<PresetElement>();
+		private ArrayList<PresetElement> elements = new ArrayList<>();
 		
 		
 		public PresetGroup(PresetGroup parent, String name, String iconpath) {
@@ -1652,7 +1652,7 @@ public class Preset implements Serializable {
 			wrappingLayout.setHorizontalSpacing((int)(SPACING*density));
 			wrappingLayout.setVerticalSpacing((int)(SPACING*density));
 			ArrayList<PresetElement> filteredElements = type == null ? elements : filterElements(elements, type);
-			ArrayList<View> childViews = new ArrayList<View>();
+			ArrayList<View> childViews = new ArrayList<>();
 			for (PresetElement element : filteredElements) {
 				childViews.add(element.getView(ctx, handler, element.equals(selectedElement)));
 			}
@@ -1670,20 +1670,20 @@ public class Preset implements Serializable {
 		private static final long serialVersionUID = 12L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
-		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
+		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<>();
 		
 		/** Tags that are not in the optional section, but do not have a fixed key-value-pair.
 		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
-		private LinkedHashMap<String, StringWithDescription[]> recommendedTags = new LinkedHashMap<String, StringWithDescription[]>();
+		private LinkedHashMap<String, StringWithDescription[]> recommendedTags = new LinkedHashMap<>();
 		
 		/** Tags that are in the optional section.
 		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
-		private LinkedHashMap<String, StringWithDescription[]> optionalTags = new LinkedHashMap<String, StringWithDescription[]>();
+		private LinkedHashMap<String, StringWithDescription[]> optionalTags = new LinkedHashMap<>();
 		
 		/**
 		 * Hints to be displayed in a suitable form
 		 */
-		private HashMap<String, String> hints = new HashMap<String, String>();
+		private HashMap<String, String> hints = new HashMap<>();
 		
 		/**
 		 * Default values
@@ -1713,7 +1713,7 @@ public class Preset implements Serializable {
 		/**
 		 * Key to key type
 		 */
-		private HashMap<String,PresetKeyType> keyType = new HashMap<String,PresetKeyType>(); 
+		private HashMap<String,PresetKeyType> keyType = new HashMap<>();
 		
 		/**
 		 * Key to match properties
@@ -1969,7 +1969,7 @@ public class Preset implements Serializable {
 		public void addRole(final StringWithDescription value)
 		{
 			if (roles == null) {
-				roles =  new LinkedList<StringWithDescription>();
+				roles = new LinkedList<>();
 			}
 			roles.add(value);
 		}
@@ -2015,7 +2015,7 @@ public class Preset implements Serializable {
 		 */
 		public void addDefault(String key, String defaultValue) {
 			if (defaults == null) {
-				defaults = new HashMap<String, String>();
+				defaults = new HashMap<>();
 			}
 			defaults.put(key, defaultValue);
 		}
@@ -2040,7 +2040,7 @@ public class Preset implements Serializable {
 		 */
 		public void addOnValue(String key, String on) {
 			if (onValue == null) {
-				onValue = new HashMap<String, String>();
+				onValue = new HashMap<>();
 			}
 			onValue.put(key, on);
 		}
@@ -2073,7 +2073,7 @@ public class Preset implements Serializable {
 		 */
 		public void addDelimiter(String key, String delimiter) {
 			if (delimiters == null) {
-				delimiters = new HashMap<String,String>();
+				delimiters = new HashMap<>();
 			}
 			delimiters.put(key, delimiter);
 		}
@@ -2093,7 +2093,7 @@ public class Preset implements Serializable {
 		
 		public void setMatchType(String key, String match) {
 			if (matchType == null) {
-				matchType = new HashMap<String,MatchType>();
+				matchType = new HashMap<>();
 			}
 			MatchType type = null;
 			if (match.equals("none")) {
@@ -2132,7 +2132,7 @@ public class Preset implements Serializable {
 		 */
 	    public void setValuesSearchable(String key, boolean search) {
 	        if (valuesSearchable == null) {
-	            valuesSearchable = new HashMap<String,Boolean>();
+	            valuesSearchable = new HashMap<>();
 	        }
 	        valuesSearchable.put(key, search);
 	    }
@@ -2166,7 +2166,7 @@ public class Preset implements Serializable {
 		
 		public void addLinkedPresetName(String presetName) {
 			if (linkedPresetNames == null) {
-				linkedPresetNames = new LinkedList<String>();
+				linkedPresetNames = new LinkedList<>();
 			}
 			linkedPresetNames.add(presetName);
 		}
@@ -2192,7 +2192,7 @@ public class Preset implements Serializable {
 		 */
 		@NonNull
 		public List<PresetItem> getLinkedPresets(boolean noPrimary) {
-			ArrayList<PresetItem> result = new ArrayList<PresetItem>();
+			ArrayList<PresetItem> result = new ArrayList<>();
 			Log.e(DEBUG_TAG,"Linked presets for " + getName());
 			if (linkedPresetNames != null) {
 				linkedLoop:
@@ -2222,7 +2222,7 @@ public class Preset implements Serializable {
 		
 		public void setSort(String key, boolean sortIt) {
 			if (sort == null) {
-				sort = new HashMap<String,Boolean>(); 
+				sort = new HashMap<>();
 			}
 			sort.put(key,sortIt);
 		}
@@ -2241,7 +2241,7 @@ public class Preset implements Serializable {
 		
 		public void setJavaScript(String key, String script) {
 			if (javascript == null) {
-				javascript = new HashMap<String,String>(); 
+				javascript = new HashMap<>();
 			}
 			javascript.put(key,script);
 		}
@@ -2267,7 +2267,7 @@ public class Preset implements Serializable {
 		
 		public void setI18n(@NonNull String key) {
 		    if (i18n == null) {
-		        i18n = new HashMap<String,Boolean>(); 
+		        i18n = new HashMap<>();
 		    }
 		    i18n.put(key,true);
 		}
@@ -2303,7 +2303,7 @@ public class Preset implements Serializable {
 		
 		public void setEditable(@NonNull String key, boolean isEditable) {
 			if (editable == null) {
-				editable = new HashMap<String,Boolean>(); 
+				editable = new HashMap<>();
 			}
 			editable.put(key,isEditable);
 		}
@@ -2329,7 +2329,7 @@ public class Preset implements Serializable {
 		
 		public void setTextContext(String key, String textContext) {
 			if (this.textContext == null) {
-				this.textContext = new HashMap<String, String>();
+				this.textContext = new HashMap<>();
 			}
 			this.textContext.put(key, textContext);
 		}
@@ -2341,7 +2341,7 @@ public class Preset implements Serializable {
 		
 		public void setValueContext(String key, String valueContext) {
 			if (this.valueContext == null) {
-				this.valueContext = new HashMap<String, String>();
+				this.valueContext = new HashMap<>();
 			}
 			this.valueContext.put(key, valueContext);
 		}
@@ -2395,7 +2395,7 @@ public class Preset implements Serializable {
 		 */
 		@NonNull
 		public Collection<StringWithDescription> getAutocompleteValues(@NonNull String key) {
-			Collection<StringWithDescription> result = new LinkedHashSet<StringWithDescription>();
+			Collection<StringWithDescription> result = new LinkedHashSet<>();
 			if (recommendedTags.containsKey(key)) {
 				result.addAll(Arrays.asList(recommendedTags.get(key)));
 			} else if (optionalTags.containsKey(key)) {
@@ -2762,7 +2762,7 @@ public class Preset implements Serializable {
 	}
 
 	public static Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
-		Collection<String> result = new LinkedHashSet<String>();
+		Collection<String> result = new LinkedHashSet<>();
 		for (Preset p:presets) {
 			if (p!=null) {
 				switch (type) {
@@ -2780,13 +2780,13 @@ public class Preset implements Serializable {
 				}
 			}
 		}
-		List<String> r = new ArrayList<String>(result);
+		List<String> r = new ArrayList<>(result);
 		Collections.sort(r);
 		return r; 
 	}
 	
 	public static Collection<StringWithDescription> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
-		Collection<StringWithDescription> result = new LinkedHashSet<StringWithDescription>();
+		Collection<StringWithDescription> result = new LinkedHashSet<>();
 		for (Preset p:presets) {
 			if (p!=null) {
 				switch (type) {
@@ -2804,13 +2804,13 @@ public class Preset implements Serializable {
 				}
 			}
 		}
-		List<StringWithDescription> r = new ArrayList<StringWithDescription>(result);
+		List<StringWithDescription> r = new ArrayList<>(result);
 		Collections.sort(r);
 		return r;
 	}
 	
 	public static MultiHashMap<String, PresetItem> getSearchIndex(Preset[] presets) {
-		MultiHashMap<String, PresetItem> result = new MultiHashMap<String, PresetItem>();
+		MultiHashMap<String, PresetItem> result = new MultiHashMap<>();
 		for (Preset p:presets) {
 			if (p != null) {
 				result.addAll(p.searchIndex);
@@ -2820,7 +2820,7 @@ public class Preset implements Serializable {
 	}
 	
 	public static MultiHashMap<String, PresetItem> getTranslatedSearchIndex(Preset[] presets) {
-		MultiHashMap<String, PresetItem> result = new MultiHashMap<String, PresetItem>();
+		MultiHashMap<String, PresetItem> result = new MultiHashMap<>();
 		for (Preset p:presets) {
 			if (p!=null) {
 				result.addAll(p.translatedSearchIndex);
@@ -2860,7 +2860,7 @@ public class Preset implements Serializable {
 	 */
 	@Nullable
 	public static ArrayList<String> splitValues(ArrayList<String>values, @NonNull PresetItem preset, @NonNull String key) {
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<>();
 		String delimiter = String.valueOf(preset.getDelimiter(key));
 		if (values==null) {
 			return null;

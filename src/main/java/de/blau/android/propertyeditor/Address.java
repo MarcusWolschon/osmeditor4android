@@ -50,7 +50,7 @@ public class Address implements Serializable {
 	private static final double MAX_LAST_ADDRESS_DISTANCE = 200D; // maximum distance in meters the last address can be away to be used
 	
 	private static SavingHelper<LinkedList<Address>> savingHelperAddress
-	= new SavingHelper<LinkedList<Address>>();
+	= new SavingHelper<>();
 	
 	public enum Side {
 		LEFT,
@@ -87,14 +87,14 @@ public class Address implements Serializable {
 		side = a.side;
 		lat = a.lat;
 		lon = a.lon;
-		tags = new LinkedHashMap<String, ArrayList<String>>(a.tags);
+		tags = new LinkedHashMap<>(a.tags);
 	}
 	
 	/**
 	 * Create empty address object
 	 */
 	private Address() {
-		tags = new LinkedHashMap<String, ArrayList<String>>();
+		tags = new LinkedHashMap<>();
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public class Address implements Serializable {
 		default:
 			break;
 		}
-		this.tags = new LinkedHashMap<String, ArrayList<String>>(tags);
+		this.tags = new LinkedHashMap<>(tags);
 	}
 
 	/**
@@ -175,7 +175,7 @@ public class Address implements Serializable {
 		double ny = GeoMath.latToMercator(lat)-latOffset/1E7D;
 		double nx = lon - lonOffset/1E7D;
 		
-		ArrayList<Node> nodes = new ArrayList<Node>(w.getNodes());
+		ArrayList<Node> nodes = new ArrayList<>(w.getNodes());
 		for (int i = 0;i <= nodes.size()-2;i++) {
 			double bx = (nodes.get(i).getLon()-lonOffset)/1E7D;
 			double by = (GeoMath.latE7ToMercatorE7(nodes.get(i).getLat())-latOffset )/1E7D;
@@ -238,11 +238,11 @@ public class Address implements Serializable {
 				}
 				if (candidate != null) {
 					// better candidate found
-					newAddress.tags = new LinkedHashMap<String, ArrayList<String>>(candidate.tags);
+					newAddress.tags = new LinkedHashMap<>(candidate.tags);
 					Log.d(DEBUG_TAG,"better candidate found " + candidate);
 				} else {
 					// zap the tags from the last address
-					newAddress.tags = new LinkedHashMap<String, ArrayList<String>>();
+					newAddress.tags = new LinkedHashMap<>();
 					Log.d(DEBUG_TAG,"no nearby addresses found");
 				}
 			}
@@ -266,7 +266,7 @@ public class Address implements Serializable {
 		StorageDelegator storageDelegator = App.getDelegator();
 		if (es != null) {
 			// the arrays should now be calculated, retrieve street names if any
-			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(es.getStreetNames()));	
+			ArrayList<String> streetNames = new ArrayList<>(Arrays.asList(es.getStreetNames()));
 			if ((streetNames != null && !streetNames.isEmpty()) || hasPlace) {
 				LinkedHashMap<String, ArrayList<String>> tags = newAddress.tags;
 				Log.d(DEBUG_TAG,"tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
@@ -393,7 +393,7 @@ public class Address implements Serializable {
 	 */
 	private static LinkedHashMap<String, ArrayList<String>> predictNumber(@NonNull Address newAddress, @NonNull LinkedHashMap<String, ArrayList<String>> originalTags, @NonNull String street,
 			@NonNull Side side, @NonNull TreeMap<Integer, Address> list, boolean oppositeSide, @Nullable TreeMap<Integer, Address> otherSideList) {
-		LinkedHashMap<String, ArrayList<String>>newTags = new LinkedHashMap<String, ArrayList<String>>(originalTags);
+		LinkedHashMap<String, ArrayList<String>>newTags = new LinkedHashMap<>(originalTags);
 		if (list.size() >= 2) {
 			try {
 				//
@@ -402,7 +402,7 @@ public class Address implements Serializable {
 				int inc = 1;
 				float incTotal = 0;
 				float incCount = 0;
-				ArrayList<Integer> numbers = new ArrayList<Integer>(list.keySet());
+				ArrayList<Integer> numbers = new ArrayList<>(list.keySet());
 				for (int i=0;i<numbers.size()-1;i++) {
 					int diff = numbers.get(i+1).intValue()-numbers.get(i).intValue();
 					if (diff > 0 && diff <= 2) {
@@ -563,7 +563,7 @@ public class Address implements Serializable {
 	 */
 	@NonNull
 	private synchronized static TreeMap<Integer,Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> addresses ) {
-		TreeMap<Integer,Address> result = new TreeMap<Integer,Address>(); //list sorted by house numbers
+		TreeMap<Integer,Address> result = new TreeMap<>(); //list sorted by house numbers
 		for (Address a:addresses) {
 			if (a != null && a.tags != null) {
 				ArrayList<String> addrStreetValues = a.tags.get(Tags.KEY_ADDR_STREET);
@@ -600,7 +600,7 @@ public class Address implements Serializable {
 	 */
 	private static void seedAddressList(Context context, String street,long streetId, OsmElement e,LinkedList<Address> addresses) {
 		if (e.hasTag(Tags.KEY_ADDR_STREET, street) && e.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-			Address seed = new Address(e,getAddressTags(context, new LinkedHashMap<String,ArrayList<String>>(Util.getArrayListMap(e.getTags()))));
+			Address seed = new Address(e,getAddressTags(context, new LinkedHashMap<>(Util.getArrayListMap(e.getTags()))));
 			if (streetId > 0) {
 				seed.setSide(streetId);
 			}
@@ -613,7 +613,7 @@ public class Address implements Serializable {
 	}
 	
 	private static LinkedHashMap<String,ArrayList<String>> getAddressTags(Context context, LinkedHashMap<String, ArrayList<String>> sortedMap) {
-		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<String,ArrayList<String>>();
+		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<>();
 		Preferences prefs = new Preferences(context);
 		Set<String> addressTags = prefs.addressTags();
 		for (Entry<String,ArrayList<String>> entry:sortedMap.entrySet()) {
@@ -641,7 +641,7 @@ public class Address implements Serializable {
 		// this needs to be done after the edit again in case the street name of what ever has changed 
 		if (addressTags.size() > 0) {
 			if (lastAddresses == null) {
-				lastAddresses = new LinkedList<Address>();
+				lastAddresses = new LinkedList<>();
 			}
 			if (lastAddresses.size() >= MAX_SAVED_ADDRESSES) { //arbitrary limit for now
 				lastAddresses.removeLast();

@@ -108,8 +108,8 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 	
 	private boolean performAction(int action) {
 		final int size = rows.getChildCount();
-		final ArrayList<RelationMemberRow> selected = new ArrayList<RelationMemberRow>();
-		final ArrayList<Integer> selectedPos = new ArrayList<Integer>();
+		final ArrayList<RelationMemberRow> selected = new ArrayList<>();
+		final ArrayList<Integer> selectedPos = new ArrayList<>();
 		for (int i = 0; i < size; i++) {
 			View view = rows.getChildAt(i);
 			RelationMemberRow row = (RelationMemberRow)view;
@@ -173,8 +173,8 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			((RelationMembersFragment)caller).setIcons();
 			return true;
 		case MENU_ITEM_SORT:
-			List<RelationMemberDescription>rmds = new ArrayList<RelationMemberDescription>();
-			Map<RelationMemberDescription, RelationMemberRow>relationMemberRows = new HashMap<RelationMemberDescription, RelationMemberRow>();
+			List<RelationMemberDescription>rmds = new ArrayList<>();
+			Map<RelationMemberDescription, RelationMemberRow>relationMemberRows = new HashMap<>();
 			int top = selectedPos.get(0).intValue();
 			for (int i = 0;i<selectedCount;i++) {
 				RelationMemberRow row = selected.get(i);
@@ -194,7 +194,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			return true;
 		case MENU_ITEM_REVERSE_ORDER:
 			top = selectedPos.get(0).intValue();
-			List<RelationMemberRow>temp = new ArrayList<RelationMemberRow>(selected);
+			List<RelationMemberRow>temp = new ArrayList<>(selected);
 			Collections.reverse(temp);
 			for (RelationMemberRow row:selected) {
 				rows.removeView(row);
@@ -234,9 +234,9 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			};
 			final Logic logic = App.getLogic();
 			if (selectedCount < size) {
-				List<Long>nodes = new ArrayList<Long>();
-				List<Long>ways = new ArrayList<Long>();
-				List<Long>relations = new ArrayList<Long>();
+				List<Long>nodes = new ArrayList<>();
+				List<Long>ways = new ArrayList<>();
+				List<Long>relations = new ArrayList<>();
 				for (int i = 0;i<selectedCount;i++) {
 					RelationMemberRow row = selected.get(i);
 					if (!row.getRelationMemberDescription().downloaded()) {

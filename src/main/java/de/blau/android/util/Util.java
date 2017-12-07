@@ -51,13 +51,13 @@ public class Util {
 	}
 
 	static public ArrayList<String> getArrayList(String s) {
-		ArrayList<String> v = new ArrayList<String>();
+		ArrayList<String> v = new ArrayList<>();
 		v.add(s);
 		return v;
 	}
 
 	static public LinkedHashMap<String,ArrayList<String>> getArrayListMap(Map<String,String>map) {
-		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<String,ArrayList<String>>();
+		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<>();
 		for (Entry<String, String> e:map.entrySet()) {
 			result.put(e.getKey(), getArrayList(e.getValue()));
 		}
@@ -74,8 +74,8 @@ public class Util {
 	 * @return null if not connected or not all ways connected or the sorted list of ways
 	 */
 	static public List<OsmElement> sortWays(List<OsmElement>list) {
-		List<OsmElement> result = new ArrayList<OsmElement>();
-		List<OsmElement> unconnected = new ArrayList<OsmElement>(list);
+		List<OsmElement> result = new ArrayList<>();
+		List<OsmElement> unconnected = new ArrayList<>(list);
 
 		OsmElement e = unconnected.get(0);
 		unconnected.remove(0);
@@ -125,8 +125,8 @@ public class Util {
 	 * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come first
 	 */
 	static public List<RelationMemberDescription> sortRelationMembers(List<RelationMemberDescription>list) {
-		List<RelationMemberDescription> result = new ArrayList<RelationMemberDescription>();
-		List<RelationMemberDescription> unconnected = new ArrayList<RelationMemberDescription>(list);
+		List<RelationMemberDescription> result = new ArrayList<>();
+		List<RelationMemberDescription> unconnected = new ArrayList<>(list);
 		int nextWay = 0;
 		while (true) {
 			nextWay = nextWay(nextWay, unconnected);
@@ -350,8 +350,8 @@ public class Util {
 	 * @param map	map that preserves insert order
 	 */
 	public static <V> void groupI18nKeys(List<String> i18nKeys, Map<String,V> map) {
-		LinkedHashMap<String,V> temp = new  LinkedHashMap<String,V>();
-		ArrayList<String> keys = new ArrayList<String>(map.keySet());
+		LinkedHashMap<String,V> temp = new LinkedHashMap<>();
+		ArrayList<String> keys = new ArrayList<>(map.keySet());
 		while (!keys.isEmpty()) {
 			String key = keys.get(0);
 			keys.remove(0);
@@ -383,8 +383,8 @@ public class Util {
 	 * @param map	map that preserves insert order
 	 */
 	public static <V> void groupAddrKeys(Map<String,V> map) {
-		List<Entry<String,V>> temp = new ArrayList<Entry<String,V>>();
-		for (Entry<String,V>entry:new HashSet<Entry<String,V>>(map.entrySet())) { // needs a copy since we are modifying map
+		List<Entry<String,V>> temp = new ArrayList<>();
+		for (Entry<String,V>entry: new HashSet<>(map.entrySet())) { // needs a copy since we are modifying map
 			String key = entry.getKey();
 			if (key.startsWith(Tags.KEY_ADDR_BASE)) {
 				if (Tags.KEY_ADDR_HOUSENUMBER.equals(key)) {

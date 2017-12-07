@@ -34,7 +34,7 @@ public class Tags {
 	public static final String KEY_ADDR_FLATS = "addr:flats";
 	public static final String KEY_ADDR_DOOR = "addr:door";
 	public static final String KEY_ADDR_UNIT = "addr:unit";
-	public static final Map<String,Integer> ADDRESS_SORT_ORDER = new HashMap<String, Integer>();
+	public static final Map<String,Integer> ADDRESS_SORT_ORDER = new HashMap<>();
 	static {
 		ADDRESS_SORT_ORDER.put(KEY_ADDR_HOUSENUMBER,0);
 		ADDRESS_SORT_ORDER.put(KEY_ADDR_HOUSENAME,1);
@@ -162,8 +162,8 @@ public class Tags {
 	public static final String KEY_SERVICE_TIMES = "service_times";
 	public static final String KEY_COLLECTION_TIMES = "collection_times";
 	
-	public static final Set<String> OPENING_HOURS_SYNTAX = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
-			KEY_OPENING_HOURS,KEY_SERVICE_TIMES,KEY_COLLECTION_TIMES)));
+	public static final Set<String> OPENING_HOURS_SYNTAX = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            KEY_OPENING_HOURS, KEY_SERVICE_TIMES, KEY_COLLECTION_TIMES)));
 	
 	public static final String KEY_CONDITIONAL_SUFFIX = ":conditional";
 	
@@ -226,11 +226,11 @@ public class Tags {
 	 * An set of tags considered 'important'. These are typically tags that define real-world objects
 	 * and not properties of such.
 	 */
-	public static final Set<String> IMPORTANT_TAGS = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
-		KEY_HIGHWAY,KEY_BARRIER,KEY_WATERWAY,KEY_RAILWAY,KEY_AEROWAY,KEY_AERIALWAY,KEY_POWER,
-		KEY_MAN_MADE,KEY_BUILDING,KEY_LEISURE,KEY_AMENITY,KEY_OFFICE,KEY_SHOP,KEY_CRAFT,KEY_EMERGENCY,
-		KEY_TOURISM,KEY_HISTORIC,KEY_LANDUSE,KEY_MILITARY,KEY_NATURAL,KEY_BOUNDARY,KEY_TYPE,KEY_ENTRANCE,
-		KEY_PIPELINE,KEY_HEALTHCARE,KEY_XMAS_FEATURE)));
+	public static final Set<String> IMPORTANT_TAGS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            KEY_HIGHWAY, KEY_BARRIER, KEY_WATERWAY, KEY_RAILWAY, KEY_AEROWAY, KEY_AERIALWAY, KEY_POWER,
+            KEY_MAN_MADE, KEY_BUILDING, KEY_LEISURE, KEY_AMENITY, KEY_OFFICE, KEY_SHOP, KEY_CRAFT, KEY_EMERGENCY,
+            KEY_TOURISM, KEY_HISTORIC, KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL, KEY_BOUNDARY, KEY_TYPE, KEY_ENTRANCE,
+            KEY_PIPELINE, KEY_HEALTHCARE, KEY_XMAS_FEATURE)));
 
 	/**
 	 * Private constructor to avoid getting a public one

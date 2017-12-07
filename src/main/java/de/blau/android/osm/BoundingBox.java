@@ -915,10 +915,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * @throws OsmException 
 	 */
 	public static List<BoundingBox> newBoxes(List<BoundingBox> existing, BoundingBox newBox) {
-		List<BoundingBox> result = new ArrayList<BoundingBox>();
+		List<BoundingBox> result = new ArrayList<>();
 		result.add(newBox);
 		for (BoundingBox b:existing) {
-			ArrayList<BoundingBox> temp = new ArrayList<BoundingBox>();
+			ArrayList<BoundingBox> temp = new ArrayList<>();
 			for (BoundingBox rb:result) {
 				if (b.intersects(rb)) {
 					try {

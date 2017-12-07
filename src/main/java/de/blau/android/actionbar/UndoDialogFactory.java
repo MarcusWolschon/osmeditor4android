@@ -29,7 +29,7 @@ public class UndoDialogFactory {
 		String[] undoActions = undo.getUndoActions();
 		String[] redoActions = undo.getRedoActions();
 
-		List<UndoDialogItem> items = new ArrayList<UndoDialogItem>();
+		List<UndoDialogItem> items = new ArrayList<>();
 		for (int i = 0; i < redoActions.length; i++) {
 			items.add(new UndoDialogItem(main, redoActions.length-i, true, redoActions[i]));
 		}

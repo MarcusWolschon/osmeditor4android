@@ -79,7 +79,7 @@ public class TransferTasks {
 			protected Collection<Task> doInBackground(Void... params) {
 				Log.d(DEBUG_TAG,"querying server for " + box);
 				Set<String> bugFilter = prefs.taskFilter();
-				Collection<Task> result = new ArrayList<Task>();
+				Collection<Task> result = new ArrayList<>();
 				Collection<Note> noteResult = null;
 				Resources r = context.getResources();
 				if (bugFilter.contains(r.getString(R.string.bugfilter_notes))) {

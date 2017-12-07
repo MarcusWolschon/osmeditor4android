@@ -32,9 +32,9 @@ public class Storage implements Serializable {
 	 * Initializes the storage and adds a maximum valid mercator size bounding box 
 	 */
 	Storage() {
-		nodes = new LongOsmElementMap<Node>(1000);
-		ways = new LongOsmElementMap<Way>();
-		relations = new LongOsmElementMap<Relation>();
+		nodes = new LongOsmElementMap<>(1000);
+		ways = new LongOsmElementMap<>();
+		relations = new LongOsmElementMap<>();
 		try {
 			bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
 			// a default entry may not make sense
@@ -50,10 +50,10 @@ public class Storage implements Serializable {
 	 * @param s storage object to duplicate
 	 */
 	Storage(Storage s) {
-		nodes = new LongOsmElementMap<Node>(s.nodes);
-		ways = new LongOsmElementMap<Way>(s.ways);
-		relations = new LongOsmElementMap<Relation>(s.relations);
-		bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>(s.bboxes));
+		nodes = new LongOsmElementMap<>(s.nodes);
+		ways = new LongOsmElementMap<>(s.ways);
+		relations = new LongOsmElementMap<>(s.relations);
+		bboxes = Collections.synchronizedList(new ArrayList<>(s.bboxes));
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class Storage implements Serializable {
 	 * @return a list of all nodes in box
 	 */
 	public List<Node> getNodes(BoundingBox box) {
-		ArrayList<Node> result = new ArrayList<Node>(nodes.size());
+		ArrayList<Node> result = new ArrayList<>(nodes.size());
 		for (Node n:nodes) {
 			if (box.isIn(n.getLat(), n.getLon())) {
 				result.add(n);
@@ -140,7 +140,7 @@ public class Storage implements Serializable {
 	 * @return a list of all ways in box
 	 */
 	public List<Way> getWays(BoundingBox box) {
-		ArrayList<Way> result = new ArrayList<Way>(ways.size());
+		ArrayList<Way> result = new ArrayList<>(ways.size());
 		BoundingBox newBox = new BoundingBox(); // avoid creating new instances
 		for (Way w:ways) {
 			BoundingBox wayBox = w.getBounds(newBox);
@@ -165,7 +165,7 @@ public class Storage implements Serializable {
 	 * @return list containing all elements
 	 */
 	public List<OsmElement> getElements() {
-		List<OsmElement> l = new ArrayList<OsmElement>();
+		List<OsmElement> l = new ArrayList<>();
 		l.addAll(nodes.values());
 		l.addAll(ways.values());
 		l.addAll(relations.values());
@@ -367,7 +367,7 @@ public class Storage implements Serializable {
 	 * @return list containing all ways containing node
 	 */
 	public List<Way> getWays(final Node node) {
-		ArrayList<Way> mWays = new ArrayList<Way>();
+		ArrayList<Way> mWays = new ArrayList<>();
 		for (Way way:ways) {
 			if (way.hasNode(node)) {
 				mWays.add(way);
@@ -384,7 +384,7 @@ public class Storage implements Serializable {
 	 * @return all way nodes
 	 */
 	public List<Node> getWaynodes() {
-		ArrayList<Node> waynodes = new ArrayList<Node>();
+		ArrayList<Node> waynodes = new ArrayList<>();
 		for (Way way:ways) {
 			waynodes.addAll(way.getNodes());
 		}

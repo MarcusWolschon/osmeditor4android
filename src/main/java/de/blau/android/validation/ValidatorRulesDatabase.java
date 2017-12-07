@@ -72,7 +72,7 @@ public class ValidatorRulesDatabase {
                 RULESET_FIELD + " = " +  DEFAULT_RULESET, null, null, null, KEY_FIELD + "," +  VALUE_FIELD);
 
         if (dbresult.getCount() >= 1) {
-            result = new MultiHashMap<String, PatternAndAge>();
+            result = new MultiHashMap<>();
             boolean haveEntry = dbresult.moveToFirst();
             while (haveEntry) {
                 PatternAndAge v = new PatternAndAge();
@@ -164,7 +164,7 @@ public class ValidatorRulesDatabase {
                 RULESET_FIELD + " = " +  DEFAULT_RULESET, null, null, null, KEY_FIELD);
 
         if (dbresult.getCount() >= 1) {
-            result = new HashMap<String, Boolean>();
+            result = new HashMap<>();
             boolean haveEntry = dbresult.moveToFirst();
             while (haveEntry) {
                 result.put(dbresult.getString(0), dbresult.getInt(1)==1);

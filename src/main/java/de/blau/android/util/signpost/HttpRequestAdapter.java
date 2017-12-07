@@ -52,7 +52,7 @@ public class HttpRequestAdapter implements oauth.signpost.http.HttpRequest {
 
     public Map<String, String> getAllHeaders() {
         Header[] origHeaders = request.getAllHeaders();
-        HashMap<String, String> headers = new HashMap<String, String>();
+        HashMap<String, String> headers = new HashMap<>();
         for (Header h : origHeaders) {
             headers.put(h.getName(), h.getValue());
         }

@@ -224,7 +224,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				JsonReader reader = null;
 				try {
 					reader = new JsonReader(new InputStreamReader(conn.getInputStream()));
-					ArrayList<ImageryOffset> result = new ArrayList<ImageryOffset>();
+					ArrayList<ImageryOffset> result = new ArrayList<>();
 					try {
 						JsonToken token = reader.peek();
 						if (token.equals(JsonToken.BEGIN_ARRAY)) {
@@ -401,7 +401,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	private void saveOffsetsToDB() {
 		
 		Offset[] offsets = osmts.getOffsets(); // current offset
-		ArrayList<ImageryOffset> offsetList = new ArrayList<ImageryOffset>();
+		ArrayList<ImageryOffset> offsetList = new ArrayList<>();
 		final BoundingBox bbox = map.getViewBox();
 		Offset lastOffset = null;
 		ImageryOffset im = null;
