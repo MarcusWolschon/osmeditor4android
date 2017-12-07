@@ -76,9 +76,8 @@ public class TaskFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
     
-	@NonNull
-	@SuppressLint({ "NewApi", "InflateParams" })
-	@Override
+    @SuppressLint({ "NewApi", "InflateParams" })
+    @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
     	final Task bug = (Task) getArguments().getSerializable("bug");
     	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -205,7 +204,7 @@ public class TaskFragment extends DialogFragment {
     		adapter = ArrayAdapter.createFromResource(getActivity(),
         	        R.array.bug_state, android.R.layout.simple_spinner_item);
     	} else {
-    		// unknown bug type
+    		// FIXME unknown bug type best show a small alert with the error
     		Log.d(DEBUG_TAG, "Unknown bug type " + bug.getDescription());
     		return null;
     	}
