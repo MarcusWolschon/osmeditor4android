@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1319: Avoid potential runtime crashes.
+
 1317: Various small fixes, update presets, translations, imagery and OH fragment.
 
 1311: Back port some fixes for preset filters, protect against a potential upload loop, update preset and translations. 
