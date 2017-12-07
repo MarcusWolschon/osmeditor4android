@@ -11,6 +11,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
 import android.text.Editable;
 import android.text.Html;
@@ -287,7 +288,9 @@ public class TaskFragment extends DialogFragment {
 	private void updateMenu() {
 		FragmentActivity activity = getActivity();
 		if (activity != null) {
-			activity.invalidateOptionsMenu();
+		    if (activity instanceof AppCompatActivity) {
+		        ((AppCompatActivity)activity).invalidateOptionsMenu();
+		    }
 			if (activity instanceof Main) {
 			    ((Main)activity).invalidateMap();
 			}

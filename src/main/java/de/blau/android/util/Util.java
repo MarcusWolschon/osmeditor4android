@@ -478,4 +478,19 @@ public class Util {
 			}
 		}
 	}
+	
+	/**
+	 * Replacement for Long.compare prior to Android 19
+	 * 
+	 * @param x    first value to compare
+	 * @param y    second value to compare
+	 * @return -1 if x is numerically smaller than y, 0 if equal and +1 if x is numerically larger than y 
+	 */
+	@SuppressLint("NewApi")
+	public static int longCompare(long x, long y) {
+	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+	        return Long.compare(x, y);
+	    }
+	    return Long.valueOf(x).compareTo(Long.valueOf(y));
+	}
 }

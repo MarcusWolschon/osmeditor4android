@@ -2489,9 +2489,9 @@ public class StorageDelegator implements Serializable, Exportable {
 				long id1 = e1.getOsmId();
 				long id2 = e2.getOsmId();
 				if ((id1 < 0 && id2 > 0) || (id1 > 0 && id2 < 0)) { // signs different
-					return Long.compare(id1, id2);
+					return Util.longCompare(id1, id2);
 				}
-				return Long.compare(Math.abs(id1), Math.abs(id2));
+				return Util.longCompare(Math.abs(id1), Math.abs(id2));
 			}
 		};
 		
