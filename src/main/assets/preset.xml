@@ -43,14 +43,16 @@
     </chunk>
     <chunk id="maxspeed">
         <text key="maxspeed" text="Max speed" long_text="Maximum speed specified in km/h" />
-        <combo key="maxspeed:conditional" text="Max speed @" long_text="Conditional maximum speed specified in km/h" match="key"
+        <optional>
+        	<combo key="maxspeed:conditional" text="Max speed @" long_text="Conditional maximum speed specified in km/h" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />    
-        <text key="maxspeed:forward" text="Max speed →" long_text="Maximum speed in way direction specified in km/h" />
-        <combo key="maxspeed:forward:conditional" text="Max speed → @" long_text="Conditional maximum speed in way direction specified in km/h" match="key"
+        	<text key="maxspeed:forward" text="Max speed →" long_text="Maximum speed in way direction specified in km/h" />
+        	<combo key="maxspeed:forward:conditional" text="Max speed → @" long_text="Conditional maximum speed in way direction specified in km/h" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
-        <text key="maxspeed:backward" text="Max speed ←" long_text="Maximum speed in way direction specified in km/h" />
-        <combo key="maxspeed:backwardward:conditional" text="Max speed ← @" long_text="Conditional maximum speed opposite way direction specified in km/h" match="key"
+        	<text key="maxspeed:backward" text="Max speed ←" long_text="Maximum speed in way direction specified in km/h" />
+        	<combo key="maxspeed:backwardward:conditional" text="Max speed ← @" long_text="Conditional maximum speed opposite way direction specified in km/h" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
+        </optional>
     </chunk>
     <chunk id="highway_base">
 		<reference ref="maxspeed" />
@@ -69,6 +71,8 @@
         <check key="cutting" text="Cutting" disable_off="true" />
         <check key="embankment" text="Embankment" disable_off="true" />
         <reference ref="incline" />
+        <check key="noexit" text="No exit (cul-de-sac)" disable_off="true" />
+    	<combo key="overtaking" text="Overtaking" values="yes,both,forward,backward,no" display_values="Yes,Both directions,In way direction,Opposite to way direction,No" values_sort="false" values_context="overtaking" match="key" />
     </chunk>
     <chunk id="highway_yesno_incline_oneway">
         <check key="oneway" text="Oneway" disable_off="true" />
@@ -215,6 +219,13 @@
         <list_entry value="limited" short_description="Partial access" />
         <list_entry value="no" short_description="No access" />          
         </combo>
+        <optional>
+        	<text key="wheelchair:description" text="Wheelchair access details" i18n="true" />
+			<text key="wheelchair:entrance_width" text="Entrance width in cm"/>
+			<text key="wheelchair:step_height" text="Step height in cm"/>
+			<text key="wheelchair:rooms" text="Number of rooms suitable for wheelchairs"/>
+			<text key="wheelchair:places" text="Number of wheelchair seating places"/>
+        </optional>
     </chunk>
     <chunk id="oh_wheelchair">
         <reference ref="oh" />
@@ -369,10 +380,16 @@
             <text key="name" text="Name" />
             <text key="operator" text="Operator" />
          </optional>
-     </chunk>
+    </chunk>
+    <chunk id="sport_facility">
+    	<combo key="leisure" text="Type" values="pitch,sports_centre,stadium" display_values="Pitch,Sports centre,Stadium" values_context="sport" />
+    </chunk>
+    <chunk id="sport_facility_track">
+    	<combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" display_values="Pitch,Sports centre,Stadium,Track" values_context="sport" />
+    </chunk> 
     <chunk id="name_leisure_pitch">
         <reference ref="optional_name" />
-        <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" display_values="Pitch,Sports centre,Stadium" default="pitch" />
+        <reference ref="sport_facility" />
     </chunk>
     <chunk id="sport">
         <combo key="sport" text="Sport" values="multi,archery,athletics,american_football,australian_football,baseball,basketball,beachvolleyball,billiards,boules,bowls,canadian_football,canoe,climbing,cricket,croquet,cycling,dog_racing,equestrian,field_hockey,gaelic_games,golf,gymnastics,handball,horse_racing,ice_hockey,karting,martial_arts,model_aerodrome,motocross,motor,pelota,racquet,rc_car,rugby_league,rugby_union,running,safety_training,shooting,skateboard,skating,roller_skating,ice_skating,soccer,swimming,table_tennis,tennis,volleyball,9pin,10pin" 
@@ -665,8 +682,6 @@
   </chunk>
   <chunk id="additional_access_tags">
     <check key="toll" text="Toll" disable_off="true" />
-    <check key="noexit" text="No exit (cul-de-sac)" disable_off="true" />
-    <combo key="overtaking" text="Overtaking" values="yes,both,forward,backward,no" display_values="Yes, Both directions, In way direction, Opposite to way direction, No" values_sort="false" values_context="overtaking" match="key" />
     <text key="minspeed" text="Min. speed (km/h)" match="key" />
   </chunk>
   <chunk id="road_access_restrictions">
@@ -683,6 +698,9 @@
   <chunk id="lane_presets">
     <preset_link preset_name="Single direction roads" />
     <preset_link preset_name="Bi-directional roads" />
+  </chunk>
+  <chunk id="cycle_lanes">
+  	<preset_link preset_name="Cycle Lane/Track" />
   </chunk>
   <chunk id="healthcare_speciality">
     <multiselect key="healthcare:speciality" text="Speciality" values_context="healthcare" values_searchable="true" editable="false" >
@@ -950,8 +968,9 @@
             <space />
             <key key="highway" value="primary" />
             <text key="ref" text="Reference" />
+            <text key="name" text="Name" />
             <optional>
-                <text key="name" text="Name" />
+                <check key="noname" text="Street has no name" disable_off="true" />
                 <reference ref="highway_base" />
                 <check key="motorroad" text="Motorroad" disable_off="true" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
@@ -960,6 +979,7 @@
             </optional>
             <reference ref="road_access_restrictions" />
             <reference ref="lane_presets" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Primary -->
         <item name="Primary Link" icon="icons/png/highway_highway_sp.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Link_(highway)"
@@ -971,6 +991,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Link_(highway)" />
             <key key="highway" value="primary_link" />
             <optional>
+                <text key="ref" text="Reference" />
+                <text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <check key="motorroad" text="Motorroad" disable_off="true" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
@@ -978,6 +1000,7 @@
             </optional>
             <reference ref="road_access_restrictions" />
             <reference ref="lane_presets" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Primary Link -->
         <item name="Secondary" icon="icons/png/highway_highway_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=secondary"
@@ -996,8 +1019,9 @@
             <space />
             <key key="highway" value="secondary" />
             <text key="ref" text="Reference" />
+            <text key="name" text="Name" />
             <optional>
-                <text key="name" text="Name" />
+                <check key="noname" text="Street has no name" disable_off="true" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
 		        <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
@@ -1005,6 +1029,7 @@
             </optional>
             <reference ref="road_access_restrictions" />
             <reference ref="lane_presets" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Secondary -->
         <item name="Secondary Link" icon="icons/png/highway_highway_sp.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Link_(highway)"
@@ -1016,12 +1041,15 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Link_(highway)" />
             <key key="highway" value="secondary_link" />
             <optional>
+                <text key="ref" text="Reference" />
+            	<text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
             <reference ref="lane_presets" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Secondary Link -->
         <item name="Tertiary" icon="icons/png/highway_highway_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=tertiary"
@@ -1042,8 +1070,9 @@
             <space />
             <key key="highway" value="tertiary" />
             <text key="ref" text="Reference" />
+            <text key="name" text="Name" />
             <optional>
-                <text key="name" text="Name" />
+                <check key="noname" text="Street has no name" disable_off="true" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
 		        <check key="trolley_wire" text="Overhead trolley wires" disable_off="true" />
@@ -1051,6 +1080,7 @@
             </optional>
             <reference ref="road_access_restrictions" />
             <reference ref="lane_presets" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Tertiary -->
         <item name="Tertiary Link" icon="icons/png/highway_highway_sp.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Link_(highway)"
@@ -1062,12 +1092,15 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Link_(highway)" />
             <key key="highway" value="tertiary_link" />
             <optional>
+                <text key="ref" text="Reference" />
+            	<text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
             <reference ref="lane_presets" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Tertiary Link -->
         <item name="Minor road" icon="icons/png/highway_highway_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=unclassified"
@@ -1084,8 +1117,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:highway=unclassified"
                   vi.href="http://wiki.openstreetmap.org/wiki/Vi:Tag:highway=unclassified" />
             <key key="highway" value="unclassified" />
+            <text key="name" text="Name" />
             <optional>
-                <text key="name" text="Name" />
                 <check key="noname" text="Street has no name" disable_off="true" />
                 <text key="ref" text="Reference" />
                 <reference ref="highway_base" />
@@ -1096,6 +1129,7 @@
             </optional>
             <reference ref="road_access_restrictions" />
             <reference ref="lane_presets" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Unclassified -->
         <item name="Residential" icon="icons/png/highway_residential_sp.png" name_context="Highway" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=residential"
@@ -1121,6 +1155,7 @@
             </optional>
             <reference ref="road_access_restrictions" />
             <reference ref="lane_presets" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Residential -->
         <item name="Bicycle Road" icon="icons/png/highway_residential_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:bicycle_road"
@@ -1137,6 +1172,7 @@
             <combo key="vehicle" text="Vehicle access" values="yes,no,destination" default="no" values_context="access" />
             <text key="maxspeed" text="Max. speed (km/h)" default="30" />
             <optional>
+                <check key="noname" text="Street has no name" disable_off="true" />
                 <reference ref="lanes" />
                 <reference ref="layer" />
                 <reference ref="surface_smoothness" />
@@ -1166,6 +1202,7 @@
             <key key="highway" value="living_street" />
             <text key="name" text="Name" />
             <optional>
+                <check key="noname" text="Street has no name" disable_off="true" />
                 <reference ref="lanes" />
                 <reference ref="layer" />
                 <reference ref="surface_smoothness" />
@@ -1190,6 +1227,7 @@
             <key key="highway" value="pedestrian" />
             <text key="name" text="Name" />
             <optional>
+                <check key="noname" text="Street has no name" disable_off="true" />
                 <reference ref="lanes" />
                 <reference ref="layer" />
                 <reference ref="surface_smoothness" />
@@ -1224,6 +1262,7 @@
                 <check key="passing_places" text="Passing Places" disable_off="true" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Service -->
         <item name="Parking Aisle" icon="icons/png/highway_service_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:service=parking_aisle"
@@ -1327,6 +1366,7 @@
                 <text key="width" text="Width (meters)" />
             </optional>
             <reference ref="road_access_restrictions" />
+            <reference ref="cycle_lanes" />
         </item> <!-- Roundabout -->
         <item name="Ford" icon="icons/png/transport_ford.png" type="node,way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:ford"
@@ -1415,6 +1455,31 @@
             	</optional>
         	</item> <!-- Bi-directional roads -->
         </group> <!-- Lane attributes -->
+        <item name="Cycle Lane/Track" icon="icons/png/bicycle.png" type="way,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Bicycle"
+            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Bicycle"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Bicycle"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Bicycle"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Bicycle"
+                  hr.href="http://wiki.openstreetmap.org/wiki/Hr:Bicycle"
+                  hu.href="http://wiki.openstreetmap.org/wiki/Hu:Bicycle"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Bicycle"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Bicycle"
+                  nl.href="http://wiki.openstreetmap.org/wiki/NL:Bicycle"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Bicycle"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Bicycle"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Bicycle"
+                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Bicycle" />
+            <space />
+            <combo key="cycleway" text="Cycleway" values_context="cycleway" values="lane,track,opposite_lane,opposite_track,opposite,share_busway,shared_lane" 
+            			display_values="Lane,Track,Opposite lane,Opposite track,Opposite,Share busway,Shared lane" match="none" />
+            <combo key="cycleway:left" text="Cycleway left" values_context="cycleway" values="lane,track,opposite_lane,opposite_track,opposite,share_busway,shared_lane" 
+            			display_values="Lane,Track,Opposite lane,Opposite track,Opposite,Share busway,Shared lane" match="none" />
+            <combo key="cycleway:right" text="Cycleway right" values_context="cycleway" values="lane,track,opposite_lane,opposite_track,opposite,share_busway,shared_lane" 
+            			display_values="Lane,Track,Opposite lane,Opposite track,Opposite,Share busway,Shared lane" match="none" />
+            <combo key="oneway:bicycle" text="Oneway (bicycle)" values="yes,no" display_values="Yes,No" />
+            <space />
+        </item> <!-- Cycle Lane/Track -->
     </group> <!-- Streets -->
     <group name="Ways" icon="icons/png/highway_way_sp.png">
         <item name="Track" icon="icons/png/highway_agricultural_engines_16001.png" type="way,closedway" preset_name_label="true">
@@ -1502,32 +1567,6 @@
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
             </optional>
         </item> <!-- Dedicated Bridleway -->
-        <item name="Cycle Lane/Track" type="way,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Bicycle"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Bicycle"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Bicycle"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Bicycle"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Bicycle"
-                  hr.href="http://wiki.openstreetmap.org/wiki/Hr:Bicycle"
-                  hu.href="http://wiki.openstreetmap.org/wiki/Hu:Bicycle"
-                  it.href="http://wiki.openstreetmap.org/wiki/IT:Bicycle"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Bicycle"
-                  nl.href="http://wiki.openstreetmap.org/wiki/NL:Bicycle"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Bicycle"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Bicycle"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Bicycle"
-                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Bicycle" />
-            <space />
-            <combo key="cycleway" text="Cycleway" values_context="cycleway" values="lane,track,opposite_lane,opposite_track,opposite,share_busway,shared_lane" match="key" />
-            <combo key="cycleway:left" text="Cycleway left" values_context="cycleway" values="lane,track,opposite_lane,opposite_track,opposite,share_busway,shared_lane" />
-            <combo key="cycleway:right" text="Cycleway right" values_context="cycleway" values="lane,track,opposite_lane,opposite_track,opposite,share_busway,shared_lane" />
-            <check key="oneway:bicycle" text="Oneway (bicycle)" disable_off="true" />
-            <space />
-            <optional text="Edit Highway Attributes:">
-                <combo key="highway" text="Highway" values="motorway,motorway_link,trunk,trunk_link,primary,primary_link,secondary,tertiary,unclassified,residential,living_street,service,bus_guideway,construction" values_context="Highway" />
-                <check key="oneway" text="Oneway" disable_off="true" />
-            </optional>
-        </item> <!-- Cycle Lane/Track -->
         <item name="Dedicated Cycleway" icon="icons/png/cycleway.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=cycleway"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:highway=cycleway"
@@ -2672,7 +2711,6 @@
                   display_values="General access,Destination,Delivery,Permissive,Private,Customers,Agricultural,Forestry,No access" values_context="access" values_sort="false" match="key" values_searchable="true" />
 	    	<combo key="access:conditional" text="General access @"
                   delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key" />
-	    <reference ref="additional_access_tags" /> 
         </item> <!-- General access -->
         <item name="Physical restrictions" icon="icons/png/maximum_width.png" type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:access"
@@ -7493,7 +7531,9 @@
             <space />
             <key key="sport" value="multi" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" values_context="running" />
+            <reference ref="sport_facility_track" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Multi -->
         <item name="Nine-pin Bowling" icon="icons/png/sport_bowling_21179.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=9pin"
@@ -7502,7 +7542,9 @@
             <space />
             <key key="sport" value="9pin" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+            <reference ref="sport_facility" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Nine-pin Bowling -->
         <item name="Ten-pin Bowling" icon="icons/png/sport_bowling_21179.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=10pin"
@@ -7512,7 +7554,9 @@
             <space />
             <key key="sport" value="10pin" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+            <reference ref="sport_facility" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Ten-pin Bowling -->
         <item name="Archery" icon="icons/png/sport_archery.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=archery"
@@ -7522,7 +7566,9 @@
             <space />
             <key key="sport" value="archery" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+            <reference ref="sport_facility" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Archery -->
         <item name="Track and Field Athletics" icon="icons/png/sport_athletics_21002.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sports=athletics"
@@ -7530,14 +7576,18 @@
             <space />
             <key key="sport" value="athletics" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" values_context="running" default="track" />
+            <reference ref="sport_facility_track" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Track and Field Athletics -->
         <item name="Running" icon="icons/png/sport_running_21190.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=running" />
             <space />
             <key key="sport" value="running" />
             <reference ref="name_operator" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" values_context="running" />
+            <reference ref="sport_facility_track" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Running -->
         <item name="Climbing" icon="icons/png/sport_climbing_21005.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=climbing"
@@ -7547,13 +7597,29 @@
             <space />
             <key key="sport" value="climbing" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="sports_centre" />
+            <check key="leisure" text="Sports centre" disable_off="true" value_on="sports_centre"/>
+            <reference ref="oh" />
+            <optional>
+            	<check key="climbing:sport" text="Sport climbing" disable_off="true" />
+				<check key="climbing:boulder" text="Bouldering" disable_off="true" />
+				<check key="climbing:toprope" text="Top rope" disable_off="true" />
+				<check key="climbing:trad" text="Traditional" disable_off="true" />
+				<check key="climbing:multipitch" text="Multi-pitch routes" disable_off="true" />
+				<check key="climbing:ice" text="Ice climbing" disable_off="true" />
+				<check key="climbing:mixed" text="Mixed climbing" disable_off="true" />
+				<check key="climbing:deepwater" text="Deep-Water-Soloing" disable_off="true" />
+				<combo key="climbing:rock" text="Rock" values="limestone,granite,sandstone,quarzite,gneiss,porphyry,basalt,conglomerate,concrete" display_values="Limestone,Granite,Sandstone,Quarzite,Gneiss,Porphyry,Basalt,Conglomerate,Concrete" />
+            	<check key="climbing:bolted" text="Bolted" disable_off="true" />
+            </optional>
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Climbing -->
         <item name="Canoeing/Kayaking" icon="icons/png/sport_canoe.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=canoe" />
             <space />
             <key key="sport" value="canoe" />
             <text key="name" text="Name" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Canoeing/Kayaking -->
         <item name="Cycling" icon="icons/png/sport_cycling_21098.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=cycling"
@@ -7561,14 +7627,18 @@
             <space />
             <key key="sport" value="cycling" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" values_context="racing" />
+            <reference ref="sport_facility_track" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Cycling -->
         <item name="Dog Racing" icon="icons/png/sport_dog_racing_21180.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=dog_racing" />
             <space />
             <key key="sport" value="dog_racing" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" values_context="racing" />
+            <reference ref="sport_facility_track" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Dog Racing -->
         <item name="Equestrian" icon="icons/png/sport_horse_racing.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=equestrian"
@@ -7578,6 +7648,8 @@
             <key key="sport" value="equestrian" />
             <text key="name" text="Name" />
             <reference ref="riding_surface" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Equestrian -->
         <item name="Horse Racing" icon="icons/png/sport_horse_racing.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=horse_racing"
@@ -7586,13 +7658,17 @@
             <key key="sport" value="horse_racing" />
             <text key="name" text="Name" />
             <reference ref="riding_surface" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Horse Racing -->
         <item name="Gymnastics" icon="icons/png/sport_gymnasium.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=gymnastics" />
             <space />
             <key key="sport" value="gymnastics" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+            <reference ref="sport_facility" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Gymnastics -->
         <item name="Skating (deprecated)" deprecated="true" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=skating"
@@ -7600,22 +7676,26 @@
             <space />
             <key key="sport" value="skating" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="ice_rink,pitch,sports_centre,stadium" default="ice_rink" />
+            <combo key="leisure" text="Type" values="ice_rink,pitch,sports_centre,stadium" display_values="Ice rink,Pitch,Sports centre,Stadium" default="ice_rink" />
         </item> <!-- Skating -->
         <item name="Ice Skating" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=ice_skating"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:sport=ice_skating" />
             <space />
             <key key="sport" value="ice_skating" />
-             <text key="name" text="Name" />
-             <combo key="leisure" text="Type" values="ice_rink,pitch,sports_centre,stadium" default="ice_rink" />
+            <text key="name" text="Name" />
+            <combo key="leisure" text="Type" values="ice_rink,pitch,sports_centre,stadium" display_values="Ice rink,Pitch,Sports centre,Stadium" default="ice_rink" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Ice Skating -->
         <item name="Roller Skating" icon="" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=roller_skating"/>
             <space />
             <key key="sport" value="roller_skating" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+            <reference ref="sport_facility" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Roller Skating -->
         <item name="Skateboard" icon="icons/png/sport_skateboard_21059.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=skateboard"
@@ -7624,7 +7704,9 @@
             <space />
             <key key="sport" value="skateboard" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" default="pitch" values_context="racing" />
+            <reference ref="sport_facility_track" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Skateboard -->
         <item name="Swimming" icon="icons/png/sport_swimming_outdoor.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=swimming"
@@ -7634,6 +7716,8 @@
             <key key="sport" value="swimming" />
             <text key="name" text="Name" />
             <combo key="leisure" text="Type" values="sports_centre,stadium,swimming_pool,water_park" default="swimming_pool" values_searchable="true" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Swimming -->
         <item name="Scuba Diving" icon="icons/png/sport_scuba_diving_21080.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=scuba_diving"
@@ -7669,7 +7753,9 @@
             <space />
             <key key="sport" value="shooting" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+            <reference ref="sport_facility" />
+            <reference ref="oh" />
+            <reference ref="link_contact_address_payment" />
         </item> <!-- Shooting -->
     </group> <!-- Sport -->
     <group name="Sport (Ball)" icon="icons/png/sport_soccer.png">
@@ -7756,7 +7842,7 @@
             <space />
             <key key="sport" value="handball" />
             <reference ref="name_operator" />
-            <combo key="leisure" text="Type" values="stadium,pitch,sports_centre" />
+            <reference ref="sport_facility" />
         </item> <!-- Handball -->
         <item name="Volleyball" icon="icons/png/sport_volleyball_21073.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=volleyball"
@@ -7764,7 +7850,7 @@
             <space />
             <key key="sport" value="volleyball" />
             <reference ref="name_operator" />
-            <combo key="leisure" text="Type" values="stadium,pitch,sports_centre" />
+            <reference ref="sport_facility" />
         </item> <!-- Volleyball -->
         <item name="Beach Volleyball" icon="icons/png/sport_beachvolleyball_21150.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=beachvolleyball"
@@ -7772,7 +7858,7 @@
             <space />
             <key key="sport" value="beachvolleyball" />
             <reference ref="name_operator" />
-            <combo key="leisure" text="Type" values="stadium,pitch,sports_centre" />
+            <reference ref="sport_facility" />
         </item> <!-- Beach Volleyball -->
         <item name="Billiards" icon="icons/png/sport_billiards_sp.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=billiards"
@@ -7781,7 +7867,7 @@
             <space />
             <key key="sport" value="billiards" />
             <reference ref="name_operator" />
-            <combo key="leisure" text="Type" values="stadium,pitch,sports_centre" />
+            <reference ref="sport_facility" />
         </item> <!-- Billiards -->
         <item name="Golf" icon="icons/png/sport_golf.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=golf"
@@ -7825,7 +7911,7 @@
             <space />
             <key key="sport" value="field_hockey" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+            <reference ref="sport_facility" />
         </item> <!-- Field Hockey -->
         <item name="Ice Hockey" icon="icons/png/sport_hockey_21013.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=ice_hockey" />
@@ -7847,7 +7933,7 @@
             <space />
             <key key="sport" value="racquet" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+            <reference ref="sport_facility" />
         </item> <!-- Racquetball -->
         <item name="Table Tennis/Ping-Pong" icon="icons/png/sport_table_tennis_21070.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=table_tennis"
@@ -7855,7 +7941,7 @@
             <space />
             <key key="sport" value="table_tennis" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+            <reference ref="sport_facility" />
         </item> <!-- Table Tennis/Ping-Pong -->
         <item name="Tennis" icon="icons/png/sport_tennis.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=tennis"
@@ -7874,7 +7960,7 @@
             <space />
             <key key="sport" value="motor" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" values_context="racing" />
+            <reference ref="sport_facility_track" />
         </item> <!-- Motorsport -->
         <item name="Kart Racing" icon="icons/png/sport_karting_21016.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=karting"
@@ -7882,7 +7968,7 @@
             <space />
             <key key="sport" value="karting" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,track" values_context="racing" />
+            <reference ref="sport_facility" />
         </item> <!-- Kart Racing -->
         <item name="Motocross" icon="icons/png/sport_motocross_21100.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=motocross"
@@ -7893,7 +7979,7 @@
             <space />
             <key key="sport" value="motocross" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,track" values_context="racing" />
+            <reference ref="sport_facility" />
         </item> <!-- Motocross -->
         <item name="Safety Training" icon="icons/png/sport_safety_training_21077.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=safety_training"
@@ -7909,7 +7995,7 @@
             <space />
             <key key="sport" value="safety_training" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,track" values_context="racing" />
+            <reference ref="sport_facility" />
         </item> <!-- Safety Training -->
         <separator/>
         <item name="Model Aerodrome" icon="icons/png/sport_model_aerodrome_21020.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7917,7 +8003,7 @@
             <space />
             <key key="sport" value="model_aerodrome" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,track" values_context="aerialway" />
+            <reference ref="sport_facility" />
         </item> <!-- Model Aerodrome -->
         <item name="RC Car" icon="icons/png/sport_rc_car_21075.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=rc_car"
@@ -7935,7 +8021,7 @@
             <space />
             <key key="sport" value="rc_car" />
             <text key="name" text="Name" />
-            <combo key="leisure" text="Type" values="pitch,sports_centre,track" values_context="racing" />
+            <reference ref="sport_facility" />
         </item> <!-- RC Car -->
         <item name="Raceway" type="way,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=raceway"

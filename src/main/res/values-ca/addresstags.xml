@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Número de casa (add:housenumber)</item>
+    <item>Carrer (addr:street)</item>
+    <item>Codi Postal (addr:postcode)</item>
+    <item>Ciutat/Poble/..  (addr:city)</item>
+    <item>País (addr:country)</item>
+    <item>Direcció completa (addr:full)</item>
+    <item>Lloc (addr:place)</item>
+    <item>Barriada/Parròquia (addr:hamlet)</item>
+    <item>Barri (addr:suburb)</item>
+    <item>Subdistricte (addr:subdistrict)</item>
+    <item>Districte (addr:district)</item>
+    <item>Província (addr:province)</item>
+    <item>Estat (addr:state)</item>
+    <item>Pisos (addr:flats)</item>
+    <item>Porta (addr:door)</item>
+    <item>Unitat (addr:unit)</item>
+  </string-array>
+</resources>
