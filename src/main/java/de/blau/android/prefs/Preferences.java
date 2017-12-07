@@ -159,9 +159,9 @@ public class Preferences {
 			maxStrokeWidth = 16;
 		}
 		try {
-			tileCacheSize = Integer.parseInt(prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
+			tileCacheSize = Integer.parseInt(prefs.getString(r.getString(R.string.config_tileCacheSize_key), "100"));
 		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_tileCacheSize_key=" + prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
+			Log.w(DEBUG_TAG, "error parsing config_tileCacheSize_key=" + prefs.getString(r.getString(R.string.config_tileCacheSize_key), "100"));
 			tileCacheSize = 100;
 		}
 		try {
@@ -196,7 +196,7 @@ public class Preferences {
 		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
-		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
+		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), true);
 		isPhotoLayerEnabled = prefs.getBoolean(r.getString(R.string.config_enablePhotoLayer_key), false);
 		tagFormEnabled = prefs.getBoolean(r.getString(R.string.config_tagFormEnabled_key), true);
 		isKeepScreenOnEnabled = prefs.getBoolean(r.getString(R.string.config_enableKeepScreenOn_key), false);
@@ -272,10 +272,10 @@ public class Preferences {
 		}
 		
 		try {
-			maxTileDownloadThreads = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "2"));
+			maxTileDownloadThreads = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "4"));
 		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_maxTileDownloadThreads_key=" + prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "2"));
-			maxTileDownloadThreads = 2;
+			Log.w(DEBUG_TAG, "error parsing config_maxTileDownloadThreads_key=" + prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "4"));
+			maxTileDownloadThreads = 4;
 		}
 		
 		try {
