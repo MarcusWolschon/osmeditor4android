@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1318: Update imagery, fix inconsistencies in default preferences, improve tile loading behaviour when zooming.
+
 1316: Add support for using synonyms for preset searching, make search icon clickable in preset search, update OH UI. 
 
 1315: Add support for regexps in resurvey entries, layout improvements, update preset and translations.
