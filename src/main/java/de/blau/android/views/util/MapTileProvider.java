@@ -1,7 +1,11 @@
 // Created by plusminus on 21:46:22 - 25.09.2008
 package  de.blau.android.views.util;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -61,7 +65,7 @@ public class MapTileProvider implements ServiceConnection,
 	 * cache provider
 	 */
 	private MapTileCache mTileCache;
-	private HashMap<String,Long> pending = new HashMap<String,Long>();
+	private Map<String,Long> pending = Collections.synchronizedMap(new HashMap<String,Long>());
 
 	private IMapTileProviderService mTileService;
 	private Handler mDownloadFinishedHandler;
@@ -117,7 +121,6 @@ public class MapTileProvider implements ServiceConnection,
 		Log.d(DEBUG_TAG, "connected");
 	}
 	
-	//@Override
 	@Override
 	public void onServiceDisconnected(ComponentName name) {
 		mTileService = null;
@@ -201,6 +204,42 @@ public class MapTileProvider implements ServiceConnection,
 			}
 		}
 	}
+	
+	/**
+	 * Remove requests for a specific renderer and zoom level from the queues
+	 * 
+	 * @param rendererId   the renderer we want to delete the requests for
+	 * @param zoomLevel    the zoom level we want to delete the requests for, if MapAsyncTileProvider.ALLZOOMS remove for all zooms
+	 */
+    public void flushQueue(String rendererId, int zoomLevel) { 
+        try {
+            mTileService.flushQueue(rendererId, zoomLevel);
+            // remove the same from pending
+            
+            Set<String> keys;
+            synchronized(pending) {
+                keys = new HashSet<>(pending.keySet());
+            }
+            if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
+                String id = Integer.toString(zoomLevel) + rendererId;
+                for (String key:keys) {
+                    if (key.startsWith(id)) {
+                        pending.remove(key);
+                    }
+                }
+            } else {
+                for (String key:keys) {
+                    if (key.contains(rendererId)) {
+                        pending.remove(key);
+                    }
+                }
+            }
+        } catch (RemoteException e) {
+            Log.e(DEBUG_TAG, "RemoteException in flushQUeue()", e);
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
+        }
+    }
 	
 	public void flushCache(String rendererId) { 
 		try {

@@ -22,6 +22,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
@@ -72,6 +73,8 @@ public class MapTilesOverlay extends MapViewOverlay {
 	private final MapTileProvider mTileProvider;
 	private final Paint mPaint = new Paint();
 	private Paint textPaint = new Paint();
+	
+	private int prevZoomLevel = -1; // zoom level from previous draw
 
 
 	/**
@@ -155,7 +158,7 @@ public class MapTilesOverlay extends MapViewOverlay {
 	/**
 	 * Set the tile layer to display
 	 * 
-	 * Updates warning message if we are outside of coverage
+	 * Updates warning message if we are outside of coverage and flushes request queue
 	 * @param tileLayer layer to use
 	 */
 	public void setRendererInfo(final TileLayerServer tileLayer) {
@@ -166,6 +169,9 @@ public class MapTilesOverlay extends MapViewOverlay {
 				coverageWarningMessage = "";
 			}
 			coverageWarningDisplayed = false;
+			if (myRendererInfo != null) { // 1st invocation this is null
+			    mTileProvider.flushQueue(myRendererInfo.getId(), MapAsyncTileProvider.ALLZOOMS);
+			}
 		}
 		myRendererInfo = tileLayer;
 	}
@@ -227,6 +233,11 @@ public class MapTilesOverlay extends MapViewOverlay {
 		//some performance.
 		final Rect viewPort = c.getClipBounds();
 		final int zoomLevel = Math.min(osmv.getZoomLevel(), myRendererInfo.getMaxZoomLevel()); // clamp to max zoom here
+		if (zoomLevel != prevZoomLevel && prevZoomLevel != -1) {
+		    mTileProvider.flushQueue(myRendererInfo.getId(), prevZoomLevel);
+		}
+		prevZoomLevel = zoomLevel;
+		
 		//		if (zoomLevel < myRendererInfo.getMinZoomLevel()) {
 		//			Log.d("OpenStreetMapTilesOverlay","Tiles for " + myRendererInfo.getId() + " are not available for zoom " + zoomLevel);
 		//			return;

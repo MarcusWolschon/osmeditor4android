@@ -4,6 +4,7 @@ package de.blau.android.services.util;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import android.content.Context;
 import android.os.RemoteException;
@@ -59,7 +60,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 		mMaxFSCacheByteSize = aMaxFSCacheByteSize;
 		mDatabase = new MapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()), this);
 		mCurrentFSCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
-		mThreadPool = Executors.newFixedThreadPool(4);
+		mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(4);
 
 		mTileDownloader = new MapTileDownloader(ctx, this);
 		Log.d(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
@@ -148,6 +149,13 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 		}
 	}
 	
+    @Override
+    public void flushQueue(String rendererId, int zoom) {
+        // don't bother flushing our queue
+        // just do it for downloads
+        mTileDownloader.flushQueue(rendererId, zoom);
+    }
+    
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================

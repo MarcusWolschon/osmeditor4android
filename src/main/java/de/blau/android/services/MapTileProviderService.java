@@ -158,5 +158,9 @@ public class MapTileProviderService extends Service {
 		public void flushCache(String rendererId) {
 			mFileSystemProvider.flushCache(rendererId);
 		}
+		
+	    public void flushQueue(String rendererId, int zoomLevel) {
+	         mFileSystemProvider.flushQueue(rendererId, zoomLevel);
+	    }
 	};
 }

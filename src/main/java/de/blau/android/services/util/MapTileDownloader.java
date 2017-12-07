@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import android.content.Context;
 import android.os.RemoteException;
@@ -53,7 +54,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 	public MapTileDownloader(final Context ctx, final MapTileFilesystemProvider aMapTileFSProvider){
 		mCtx = ctx;
 		mMapTileFSProvider = aMapTileFSProvider;
-		mThreadPool = Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
+		mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
 	}
 
 	// ===========================================================
