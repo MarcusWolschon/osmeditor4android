@@ -21,7 +21,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
+import android.support.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -88,9 +88,9 @@ public class ReadSaveData {
 		}
     	
     	try {
-			byte[] testContent = readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(),TEST_OSM)));
+			byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(),TEST_OSM)));
 	    	is = loader.getResourceAsStream("test-result.osm");
-	    	byte[] correctContent = readInputStream(is);
+	    	byte[] correctContent = TestUtils.readInputStream(is);
 	    	Assert.assertTrue(dataIsSame(correctContent, testContent));
 		} catch (IOException e) {
 			Assert.fail(e.getMessage());
@@ -118,19 +118,5 @@ public class ReadSaveData {
             return true;
         }
         return false;
-    }
-
-    byte[] readInputStream(InputStream is) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int readBytes = -1;
-        try {
-        	while((readBytes = is.read(buffer)) > -1){
-        		baos.write(buffer,0,readBytes);
-        	}
-        } finally {
-        	is.close();
-        }
-        return baos.toByteArray();
     }
 }

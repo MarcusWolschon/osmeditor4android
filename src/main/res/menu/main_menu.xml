@@ -148,7 +148,14 @@
 					android:id="@+id/menu_transfer_save_notes_new_and_changed"
 					android:title="@string/menu_transfer_save_notes_new_and_changed"
 				/>	
-					
+				<item
+					android:id="@+id/menu_transfer_read_custom_bugs"
+					android:title="@string/menu_transfer_read_custom_bugs"
+				/>	
+				<item
+					android:id="@+id/menu_transfer_write_custom_bugs"
+					android:title="@string/menu_transfer_write_custom_bugs"
+				/>	
 			</menu>
 	</item>
 	<item

@@ -67,7 +67,9 @@ public class MapOverlay extends MapViewOverlay {
 						continue;
 					} else if (t instanceof OsmoseBug && !taskFilter.contains(t.bugFilterKey())) {
 						continue;
-					}
+					} else if (t instanceof CustomBug && !taskFilter.contains(t.bugFilterKey())) {
+                        continue;
+                    }
 					float x = GeoMath.lonE7ToX(w , bb, t.getLon());
 					float y = GeoMath.latE7ToY(h, w, bb, t.getLat()); 
 

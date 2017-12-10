@@ -4,23 +4,27 @@
     <string name="bugfilter_osmose_error" translatable="false">OSMOSE_ERROR</string>
     <string name="bugfilter_osmose_warning" translatable="false">OSMOSE_WARNING</string>
     <string name="bugfilter_osmose_minor_issue" translatable="false">OSMOSE_MINOR_ISSUE</string>
+    <string name="bugfilter_custom" translatable="false">CUSTOM</string>
     <string-array name="bug_filter_entries">
         <item>Notes</item>
 		<item>Osmose error</item>
 		<item>Osmose warning</item>
 		<item>Osmose minor issue</item>
+		<item>Custom</item>
     </string-array>
     <string-array translatable="false" name="bug_filter_values">
 		<item>@string/bugfilter_notes</item>
 		<item>@string/bugfilter_osmose_error</item>
 		<item>@string/bugfilter_osmose_warning</item>
 		<item>@string/bugfilter_osmose_minor_issue</item>
+		<item>@string/bugfilter_custom</item>
     </string-array>
     <string-array translatable="false" name="bug_filter_defaults">
 		<item>@string/bugfilter_notes</item>
 		<item>@string/bugfilter_osmose_error</item>
 		<item>@string/bugfilter_osmose_warning</item>
 		<item>@string/bugfilter_osmose_minor_issue</item>
+		<item>@string/bugfilter_custom</item>
     </string-array>
 </resources>
 

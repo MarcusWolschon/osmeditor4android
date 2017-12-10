@@ -113,7 +113,9 @@ public class TaskStorage implements Serializable {
 				return true;
 			} else if (t instanceof OsmoseBug && bo instanceof OsmoseBug && t.getId() == ((Task)bo).getId()) {
 				return true;
-			} 
+			} else if (t instanceof CustomBug && bo instanceof CustomBug && t.getId() == ((Task)bo).getId()) {
+                return true;
+            }  
 		}
 		return false;
 	}

@@ -84,6 +84,8 @@
     <string name="openstreetbug_commit_fail">Could not save bug changes</string>
     <string name="openstreetbug_not_downloaded">not downloaded</string>
     <string name="openstreetbug_last_updated">last updated</string>
+    <string name="openstreetbug_unknown_task_type">Unknown task type</string>
+    <string name="openstreetbug_not_supported">%1$s is not supported.</string>
     <string name="unsaved_data_title">Caution!</string>
     <string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
     <string name="unsaved_data_proceed">Discard &amp; proceed</string>
@@ -377,6 +379,8 @@
     <string name="menu_transfer_autodownload_long">Auto download bugs</string>
     <string name="menu_transfer_save_notes_all">Save all Notes...</string>
     <string name="menu_transfer_save_notes_new_and_changed">Save new and changed Notes...</string>
+    <string name="menu_transfer_read_custom_bugs">Load custom tasks...</string>
+    <string name="menu_transfer_write_custom_bugs">Save open custom tasks...</string>
     <string name="menu_save">Save to file</string>
     <string name="menu_join">Join</string>
     <string name="menu_unjoin">Unjoin</string>

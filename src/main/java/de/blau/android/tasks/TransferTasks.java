@@ -1,9 +1,13 @@
 package de.blau.android.tasks;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,8 +20,10 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -54,15 +60,30 @@ public class TransferTasks {
 	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
 	
 	/**
+     * Download tasks for a bounding box, actual requests will depend on what the current filter for tasks is set to
+     * 
+     * Will not load Notes and Bugs that have been closed for more than a week
+     * @param context	Android context
+     * @param server	current server configuration
+     * @param box		the bounding box
+     * @param add		if true merge the download with existing task data
+     * @param handler 	handler to run after the download if not null
+     */
+    static public void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add, @Nullable final PostAsyncActionHandler handler) {
+        downloadBox(context, server, box, add, MAX_CLOSED_AGE, handler);
+    }
+
+    /**
 	 * Download tasks for a bounding box, actual requests will depend on what the current filter for tasks is set to
 	 * 
-	 * @param context	Android context
-	 * @param server	current server configuration
-	 * @param box		the bounding box
-	 * @param add		if true merge the download with existing task data
-	 * @param handler 	handler to run after the download if not null
+	 * @param context      Android context
+	 * @param server       current server configuration
+	 * @param box          the bounding box
+	 * @param add          if true merge the download with existing task data
+	 * @param maxClosedAge maximum time in ms since a Note was closed
+	 * @param handler      handler to run after the download if not null
 	 */
-	static public void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add, @Nullable final PostAsyncActionHandler handler) {
+	static public void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add, long maxClosedAge, @Nullable final PostAsyncActionHandler handler) {
 		
 		final TaskStorage bugs = App.getTaskStorage();
 		final Preferences prefs = new Preferences(context);
@@ -388,6 +409,19 @@ public class TransferTasks {
 	}
 	
 	/**
+     * Write Notes to a file in (J)OSM compatible format
+     * 
+     * If fileName contains directories these are created, otherwise it is stored in the standard public dir
+     * 
+     * @param activity	activity that called this
+     * @param all 		if true write all notes, if false just those that have been modified
+     * @param fileName 	file to write to
+     */
+    static public void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName) {
+        writeOsnFile(activity, all, fileName, null);
+    }
+
+    /**
 	 * Write Notes to a file in (J)OSM compatible format
 	 * 
 	 * If fileName contains directories these are created, otherwise it is stored in the standard public dir
@@ -395,8 +429,9 @@ public class TransferTasks {
 	 * @param activity	activity that called this
 	 * @param all 		if true write all notes, if false just those that have been modified
 	 * @param fileName 	file to write to
+	 * @param postWrite handler to execute after the AsyncTask has finished
 	 */
-	static public void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName) {
+	static public void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName, @Nullable final PostAsyncActionHandler postWrite) {
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
@@ -409,18 +444,7 @@ public class TransferTasks {
 				final ArrayList<Task>queryResult = App.getTaskStorage().getTasks();
 				int result = 0;
 				try {
-					File outfile = new File(fileName);
-					String parent = outfile.getParent();
-					if (parent == null) { // no directory specified, save to standard location
-						outfile = new File(FileUtil.getPublicDirectory(), fileName);
-					} else { // ensure directory exists
-						File outdir = new File(parent);
-						//noinspection ResultOfMethodCallIgnored
-						outdir.mkdirs();
-						if (!outdir.isDirectory()) {
-							throw new IOException("Unable to create directory " + outdir.getPath());
-						}
-					}
+				    File outfile = FileUtil.openFileForWriting(fileName);
 					Log.d(DEBUG_TAG,"Saving to " + outfile.getPath());
 					final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
 					try {
@@ -467,13 +491,212 @@ public class TransferTasks {
 							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
 					}
+					if (postWrite != null) {
+					    postWrite.onError();
+					}
 					if (!activity.isFinishing()) {
 						ErrorAlert.showDialog(activity,result);
 					}
+				} else {
+                    if (postWrite != null) {
+                        postWrite.onSuccess();
+                    }
 				}
 			}
 			
 		}.execute();
 	}
 
+	/**
+     * Read an Uri in custom bug format
+     * 
+     * @param activity  activity that called this
+     * @param uri       Uri to read
+     * @param add       if true the elements will be added to the existing ones, otherwise replaced
+     * @param postLoad  callback to execute once stream has been loaded
+     * @throws FileNotFoundException
+     */
+	public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final Uri uri, final boolean add, @Nullable final PostAsyncActionHandler postLoad) {
+	    InputStream is = null;
+	    try {
+	        if (uri.getScheme().equals("file")) {
+	            is = new FileInputStream(new File(uri.getPath()));
+	        } else {
+	            ContentResolver cr = activity.getContentResolver();
+	            is = cr.openInputStream(uri);
+	        }
+	        readCustomBugs(activity, is, add, postLoad);
+	    } catch (IOException e) {
+	        Log.e(DEBUG_TAG, "Problem parsing", e); 
+	    } finally {
+	        SavingHelper.close(is);
+	    }     
+	}
+
+    /**
+     * Read an InputStream in custom bug format
+     * 
+     * @param activity  activity that called this
+     * @param is        InputStream to read
+     * @param add       if true the elements will be added to the existing ones, otherwise replaced
+     * @param postLoad  callback to execute once stream has been loaded
+     * @throws FileNotFoundException
+     */
+    public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add, @Nullable final PostAsyncActionHandler postLoad) {
+        
+        final TaskStorage bugs = App.getTaskStorage();
+        
+        new AsyncTask<Boolean, Void, Collection<CustomBug>>() {
+            
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(activity, Progress.PROGRESS_LOADING);
+            }
+
+            @Override
+            protected Collection<CustomBug> doInBackground(Boolean... arg) {
+                Collection<CustomBug> result = null;
+                InputStream in = null;
+                try {
+                    in  = new BufferedInputStream(is);
+                    result = CustomBug.parseBugs(is);
+                } catch (IllegalStateException|NumberFormatException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing", e);  
+                } catch (IOException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing", e); 
+                } finally {
+                    SavingHelper.close(in);
+                }
+                return result;
+            }
+            
+            @Override
+            protected void onPostExecute(Collection<CustomBug> result) {
+                Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+                
+                if (result == null) {
+                    if (postLoad != null) {
+                        postLoad.onError();
+                    }
+                } else {
+                    if (!add) {
+                        for (Task t:bugs.getTasks()) {
+                            if (t instanceof CustomBug) {
+                                bugs.delete(t);
+                            }
+                        }
+                    }
+                    for (Task b : result) {
+                        Log.d(DEBUG_TAG,"got custom bug " + b.getDescription() + " " + bugs.toString());
+                        // Osmose format bugs don't have a state
+                        bugs.add(b);
+                    }
+                    if (postLoad != null) {
+                        postLoad.onSuccess();
+                    }
+                }
+
+                if (activity instanceof Main) {
+                    ((Main)activity).invalidateMap();
+                }
+                activity.supportInvalidateOptionsMenu();
+            }
+            
+        }.execute(add);
+    }
+    
+    /**
+     * Write CustomBugs to a file
+     * 
+     * If fileName contains directories these are created, otherwise it is stored in the standard public dir
+     * 
+     * @param activity  activity that called this
+     * @param fileName  file to write to
+     */
+    static public void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName) {
+        writeCustomBugFile(activity, fileName, null);
+    }
+
+    /**
+     * Write CustomBugs to a file
+     * 
+     * If fileName contains directories these are created, otherwise it is stored in the standard public dir
+     * 
+     * @param activity  activity that called this
+     * @param fileName  file to write to
+     * @param postWrite TODO
+     */
+    static public void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postWrite) {
+        new AsyncTask<Void, Void, Integer>() {
+            
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(activity, Progress.PROGRESS_SAVING);
+            }
+            
+            @Override
+            protected Integer doInBackground(Void... arg) {
+                final ArrayList<Task>queryResult = App.getTaskStorage().getTasks();
+                int result = 0;
+                try {
+                    File outfile = FileUtil.openFileForWriting(fileName);
+                    Log.d(DEBUG_TAG,"Saving to " + outfile.getPath());
+                    final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
+                    try {
+                        out.write("{".getBytes());
+                        out.write(CustomBug.headerToJSON().getBytes());
+                        out.write("\"errors\": [".getBytes());
+                        boolean first = true;
+                        for (Task t:queryResult) {
+                            if (t instanceof CustomBug) {
+                                if (!t.isClosed()) {
+                                    if (!first) {
+                                        out.write(",".getBytes());
+                                    }
+                                    out.write(((CustomBug)t).toJSON().getBytes());
+                                    first = false;
+                                }
+                            }
+                        }
+                        out.write("]}".getBytes());
+                    } catch (IllegalArgumentException e) {
+                        result = ErrorCodes.FILE_WRITE_FAILED;
+                        Log.e(DEBUG_TAG, "Problem writing", e);
+                    } catch (IllegalStateException e) {
+                        result = ErrorCodes.FILE_WRITE_FAILED;
+                        Log.e(DEBUG_TAG, "Problem writing", e);
+                    } finally {
+                        SavingHelper.close(out);
+                    }
+                } catch (IOException e) {
+                    result = ErrorCodes.FILE_WRITE_FAILED;
+                    Log.e(DEBUG_TAG, "Problem writing", e);
+                }
+                return result;
+            }
+            
+            @Override
+            protected void onPostExecute(Integer result) {
+                Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
+                if (result != 0) {
+                    if (result == ErrorCodes.OUT_OF_MEMORY) {
+                        if (App.getTaskStorage().hasChanges()) {
+                            result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
+                        }
+                    }
+                    if (postWrite != null) {
+                        postWrite.onError();
+                    }
+                    if (!activity.isFinishing()) {
+                        ErrorAlert.showDialog(activity,result);
+                    }
+                } else {
+                    if (postWrite != null) {
+                        postWrite.onSuccess();
+                    }
+                }
+            }
+            
+        }.execute();
+    }
 }

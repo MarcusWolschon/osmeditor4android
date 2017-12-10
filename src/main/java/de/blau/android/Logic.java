@@ -2974,18 +2974,7 @@ public class Logic {
 			protected Integer doInBackground(Void... arg) {
 				int result = 0;
 				try {
-					File outfile = new File(fileName);
-					String parent = outfile.getParent();
-					if (parent == null) { // no directory specified, save to standard location
-						outfile = new File(FileUtil.getPublicDirectory(), fileName);
-					} else { // ensure directory exists
-						File outdir = new File(parent);
-						//noinspection ResultOfMethodCallIgnored
-						outdir.mkdirs();
-						if (!outdir.isDirectory()) {
-							throw new IOException("Unable to create directory " + outdir.getPath());
-						}
-					}
+				    File outfile = FileUtil.openFileForWriting(fileName);
 					Log.d(DEBUG_TAG,"Saving to " + outfile.getPath());
 					FileOutputStream fout = null;
 					OutputStream out = null;

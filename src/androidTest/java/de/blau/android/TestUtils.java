@@ -1,5 +1,9 @@
 package de.blau.android;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.junit.Assert;
 
 import android.content.Context;
@@ -93,6 +97,20 @@ public class TestUtils {
 		} catch (UiObjectNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}
+    }
+    
+    public static byte[] readInputStream(InputStream is) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int readBytes = -1;
+        try {
+            while((readBytes = is.read(buffer)) > -1){
+                baos.write(buffer,0,readBytes);
+            }
+        } finally {
+            is.close();
+        }
+        return baos.toByteArray();
     }
 }
 

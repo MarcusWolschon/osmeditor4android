@@ -9,7 +9,42 @@
 <ul>
   <li>the search will currently only find presets that are present both in iD and Vespucci, we may consider added Vespucci specific lists at a later time.</li>
   <li>synonyms for military terms have been removed for safety reasons.</li>
-</ul><h2>Miscellaneous</h2>
+</ul><h2>Support for custom tasks</h2><p>You can now load (and save) tasks in a simplified Osmose JSON format. The format is not particularly forgiving and must follow the following example:</p>
+<pre><code>{
+    &quot;description&quot;: [
+       &quot;lat&quot;,
+       &quot;lon&quot;,
+       &quot;error_id&quot;,
+       &quot;elems&quot;,
+       &quot;subtitle&quot;,
+       &quot;title&quot;,
+       &quot;level&quot;,
+       &quot;update&quot;
+    ],
+    &quot;errors&quot;: [
+       [
+         &quot;47.3050383&quot;,
+         &quot;8.3702817&quot;,
+         &quot;11187837418&quot;,
+         &quot;way396965872&quot;,
+         &quot;This is a silly error of type 1&quot;,
+         &quot;Silly Errors&quot;,
+         &quot;2&quot;,
+         &quot;2017-03-26 20:30:16+02:00&quot;
+       ],
+       [
+         &quot;47.2930434&quot;,
+         &quot;8.3615897&quot;,
+         &quot;11187837446&quot;,
+         &quot;way397334779&quot;,
+         &quot;This is a silly error of type 2&quot;,
+         &quot;Silly Errors&quot;,
+         &quot;2&quot;,
+         &quot;2017-03-26 20:30:16+02:00&quot;
+       ]
+    ]
+}
+</code></pre><p>The value for "error_id" should be unique in the file. Note the custom tasks can't be uploaded, however you can save the open tasks to a file for later reuse.</p><h2>Miscellaneous</h2>
 <ul>
   <li>The icon for splitting a selected way is now a pair of scissors.</li>
   <li>Improved label rendering.</li>

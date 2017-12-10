@@ -971,8 +971,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					} catch (NumberFormatException nfe) {
 						Log.d(DEBUG_TAG,"Parsing " + s + " caused " + nfe);
 						// not much more we can do here
-					}
+					}		
 				}	
+			}
+			FloatingActionButton lock = getLock();
+			if (logic.isLocked() && lock != null) {
+			    lock.performClick(); 
 			}
 			easyEditManager.editElements();		
 		}
@@ -1745,11 +1749,37 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				private static final long serialVersionUID = 1L;
 				@Override
 				public boolean save(Uri fileUri) {
-					TransferTasks.writeOsnFile(Main.this, item.getItemId()==R.id.menu_transfer_save_notes_all,fileUri.getPath());
+					TransferTasks.writeOsnFile(Main.this, item.getItemId()==R.id.menu_transfer_save_notes_all,fileUri.getPath(), null);
 					SelectFile.savePref(prefs, R.string.config_notesPreferredDir_key, fileUri);
 					return true;
 				}});
 			return true;
+	      case R.id.menu_transfer_read_custom_bugs:
+	            descheduleAutoLock();
+	            // showFileChooser(READ_OSM_FILE_SELECT_CODE);
+	            SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile(){
+	                private static final long serialVersionUID = 1L;
+
+	                @Override
+	                public boolean read(Uri fileUri) {
+	                    TransferTasks.readCustomBugs(Main.this, fileUri, false, null);
+	                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+	                    map.invalidate();
+	                    return true;
+	                }});
+	            return true;	
+	      case R.id.menu_transfer_write_custom_bugs:
+	            descheduleAutoLock();
+	            SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile(){
+	                private static final long serialVersionUID = 1L;
+	                @Override
+	                public boolean save(Uri fileUri) {
+	                    TransferTasks.writeCustomBugFile(Main.this, fileUri.getPath(), null);
+	                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+	                    return true;
+	                }});
+	            return true;
+			
 		case R.id.menu_undo:
 			// should not happen
 			undoListener.onClick(null);

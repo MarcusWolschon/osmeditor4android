@@ -77,6 +77,7 @@ public class TaskFragment extends DialogFragment {
     }
     
     @SuppressLint({ "NewApi", "InflateParams" })
+    @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
     	final Task bug = (Task) getArguments().getSerializable("bug");
@@ -102,25 +103,28 @@ public class TaskFragment extends DialogFragment {
     				updateMenu();
     			}
     		})
-    		.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() { 
-    			public void onClick(DialogInterface dialog, int id) {
-    				saveBug(v,bug);
-    				if (bug instanceof Note) {
-    					Note n = (Note)bug;
-    					NoteComment nc = n.getLastComment();
-    					TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED, false, null);
-    				} else if (bug instanceof OsmoseBug) {
-    					TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug)bug, false, null);
-    				}
-    				cancelAlert(bug);
-    				updateMenu();
-    			}
-    		})
     		.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
     			public void onClick(DialogInterface dialog, int id) {
     			}
     		});
 
+    	if (bug.canBeUploaded()) {
+    	    builder.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() { 
+    	        public void onClick(DialogInterface dialog, int id) {
+    	            saveBug(v,bug);
+    	            if (bug instanceof Note) {
+    	                Note n = (Note)bug;
+    	                NoteComment nc = n.getLastComment();
+    	                TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED, false, null);
+    	            } else if (bug instanceof OsmoseBug) {
+    	                TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug)bug, false, null);
+    	            }
+    	            cancelAlert(bug);
+    	            updateMenu();
+    	        }
+    	    });
+    	}
+    	
     	final Spinner state = (Spinner)v.findViewById(R.id.openstreetbug_state);
     	ArrayAdapter<CharSequence> adapter = null;
 
@@ -151,11 +155,11 @@ public class TaskFragment extends DialogFragment {
     		}
     		adapter = ArrayAdapter.createFromResource(getActivity(),
         	        R.array.note_state, android.R.layout.simple_spinner_item);
-    	} else if (bug instanceof OsmoseBug) {
+    	} else if (bug instanceof OsmoseBug || bug instanceof CustomBug) {
     		title.setText(R.string.openstreetbug_bug_title);
-    		comments.setText(Html.fromHtml(((OsmoseBug)bug).getLongDescription(getActivity(), false)));
+    		comments.setText(Html.fromHtml(((Bug)bug).getLongDescription(getActivity(), false)));
     		final StorageDelegator storageDelegator = App.getDelegator();
-    		for (final OsmElement e:((OsmoseBug)bug).getElements()) {
+    		for (final OsmElement e:((Bug)bug).getElements()) {
     			String text;
     			if (e.getOsmVersion() < 0) { // fake element
     				text = e.getName() + " (" + getActivity().getString(R.string.openstreetbug_not_downloaded) + ") #" + e.getOsmId();
@@ -204,9 +208,15 @@ public class TaskFragment extends DialogFragment {
     		adapter = ArrayAdapter.createFromResource(getActivity(),
         	        R.array.bug_state, android.R.layout.simple_spinner_item);
     	} else {
-    		// FIXME unknown bug type best show a small alert with the error
-    		Log.d(DEBUG_TAG, "Unknown bug type " + bug.getDescription());
-    		return null;
+    		Log.d(DEBUG_TAG, "Unknown task type " + bug.getDescription());
+    		builder = new AlertDialog.Builder(getActivity());
+    		builder.setTitle(R.string.openstreetbug_unknown_task_type)
+    		    .setMessage(getString(R.string.openstreetbug_not_supported, bug.getClass().getCanonicalName()))
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+    		return builder.create();
     	}
 
     	// Specify the layout to use when the list of choices appears
@@ -214,8 +224,7 @@ public class TaskFragment extends DialogFragment {
        	// Apply the adapter to the spinner
     	state.setAdapter(adapter);
     	
-    	if (bug.state == State.OPEN) {
-    		
+    	if (bug.state == State.OPEN) {   		
     		state.setSelection(State.OPEN.ordinal());
     	} else if (bug.state == State.CLOSED) {
     		state.setSelection(State.CLOSED.ordinal());

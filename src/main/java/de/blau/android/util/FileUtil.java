@@ -44,4 +44,28 @@ public abstract class FileUtil {
         }
         return outDir;
     }
+    
+    /**
+     * Open a local file for writing generating any necessary directories 
+     * 
+     * @param   fileName name of the filw we want to write to
+     * @return a File object
+     * @throws IOException
+     */
+    @NonNull
+    public static File openFileForWriting(@NonNull final String fileName) throws IOException {
+        File outfile = new File(fileName);
+        String parent = outfile.getParent();
+        if (parent == null) { // no directory specified, save to standard location
+            outfile = new File(FileUtil.getPublicDirectory(), fileName);
+        } else { // ensure directory exists
+            File outdir = new File(parent);
+            //noinspection ResultOfMethodCallIgnored
+            outdir.mkdirs();
+            if (!outdir.isDirectory()) {
+                throw new IOException("Unable to create directory " + outdir.getPath());
+            }
+        }
+        return outfile;
+    }
 }

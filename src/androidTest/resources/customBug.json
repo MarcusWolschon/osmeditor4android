@@ -1,0 +1,34 @@
+{
+	"description": [
+		"lat",
+		"lon",
+		"error_id",
+		"elems",
+		"subtitle",
+		"title",
+		"level",
+		"update"
+	],
+	"errors": [
+		[
+			"47.3050383",
+			"8.3702817",
+			"11187837418",
+			"way396965872",
+			"Multiple values on tag: motorcar=agricultural;forestry",
+			"Multiple values",
+			"2",
+			"2017-03-26 20:30:16+02:00"
+		],
+		[
+			"47.2930434",
+			"8.3615897",
+			"11187837446",
+			"way397334779",
+			"Multiple values on tag: motorcar=agricultural;forestry;destination",
+			"Multiple values",
+			"2",
+			"2017-03-26 20:30:16+02:00"
+		]
+	]
+}

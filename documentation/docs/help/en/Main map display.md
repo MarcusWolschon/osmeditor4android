@@ -87,9 +87,11 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
     * **Upload all** - upload all new or modified Notes/Bugs
     * **Clear** - remove all bugs from storage
     * **Auto download** - download Notes/Bugs around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-    * **File...** - save Notes data to on device storage
+    * **File...** - save Notes/Bugs data to on device storage
         * **Save all Notes...** - write a ".osn" format file containing all downloaded notes
         * **Save new and changed Notes...** - write a ".osn" format file containing all new and changed notes
+        * **Load custom tasks...** - read custom tasks in a simplified Osmose JSON format
+        * **Save open custom tasks...** - save open custom tasks in a simplified Osmose JSON format
 
 ### ![Preferences](../images/menu_config.png) Preferences
 

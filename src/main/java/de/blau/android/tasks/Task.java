@@ -111,6 +111,16 @@ public abstract class Task implements Serializable, BoundedObject {
 	}
 	
 	/**
+	 * Check if we can upload the task.
+	 * 
+	 * Override to return false if necessary
+	 * @return true if this bug could be uploaded
+	 */
+    public boolean canBeUploaded() {
+        return true;
+    }
+    
+	/**
 	 * Inidicate that the bug has been modified
 	 */
 	public void setChanged() {
@@ -121,5 +131,11 @@ public abstract class Task implements Serializable, BoundedObject {
 
 	abstract public Date getLastUpdate();
 
+	/**
+	 * Get the string that is used for filtering 
+	 * 
+	 * Has to match a value in the bugfilter.xml resource file (unluckily there is no elegant way to reference the file here) 
+	 * @return the string we will filter on
+	 */
 	abstract public String bugFilterKey();
 }

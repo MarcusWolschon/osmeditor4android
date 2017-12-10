@@ -19,28 +19,20 @@ import de.blau.android.util.SavingHelper;
 
 
 /**
- * An OSMOSE bug
- * 
+ * A bug in the OpenStreetBugs database, or a prospective new bug.
  * @author Simon Poole
  */
-public class OsmoseBug extends Bug implements Serializable {
+public class CustomBug extends Bug implements Serializable {
 	
-	private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName();
+	private static final String DEBUG_TAG = CustomBug.class.getSimpleName();
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2L;
-
-	// we currently don't actually use these fields
-	private int item;
-	private int source;
-	private int bugclass; // class
-	private int subclass;
-	private String username;
+	private static final long serialVersionUID = 1L;
 	
-	public static List<OsmoseBug> parseBugs(InputStream is) throws  IOException, NumberFormatException {
-		ArrayList<OsmoseBug> result = new ArrayList<>();
+	public static List<CustomBug> parseBugs(InputStream is) throws IOException, NumberFormatException {
+		ArrayList<CustomBug> result = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(is));
         try {
             // key object
@@ -53,16 +45,12 @@ public class OsmoseBug extends Bug implements Serializable {
                 } else if (key.equals("errors")) {
                     reader.beginArray();
                     while (reader.hasNext()) {
-                        OsmoseBug bug = new OsmoseBug();
+                        CustomBug bug = new CustomBug();
                         reader.beginArray();
                         bug.lat = (int)(reader.nextDouble()*1E7D);
                         bug.lon = (int)(reader.nextDouble()*1E7D);
                         bug.id = reader.nextLong();
-                        bug.item = reader.nextInt();
-                        bug.source = reader.nextInt();
-                        bug.bugclass = reader.nextInt();
                         bug.elems = reader.nextString();
-                        bug.subclass = reader.nextInt();
                         bug.subtitle = reader.nextString();
                         bug.title = reader.nextString();
                         bug.level = reader.nextInt();
@@ -73,7 +61,6 @@ public class OsmoseBug extends Bug implements Serializable {
                         } catch (java.text.ParseException pex) {
                             bug.update = new Date();
                         }
-                        bug.username = reader.nextString();
                         reader.endArray();
                         result.add(bug);
                     }
@@ -81,7 +68,7 @@ public class OsmoseBug extends Bug implements Serializable {
                 }
             }
             reader.endObject();
-        } catch (IOException | IllegalStateException ex) {
+        } catch (IOException ex) {
             Log.d(DEBUG_TAG,"Ignoring " + ex);
         } finally {
         	SavingHelper.close(reader);
@@ -90,26 +77,24 @@ public class OsmoseBug extends Bug implements Serializable {
 	}
 
 	/**
-	 * Used for when parsing API output
+	 * Default constructor
 	 */
-	private OsmoseBug() {
-		open();
+	private CustomBug() {
+	    open();
 	}
 
 	/**
 	 * Get a string descriptive of the bug. This is intended to be used as a
 	 * short bit of text representative of the bug.
-	 * 
-	 * @return The the subtitle, or if not present the title of the bug.
+	 * @return The first comment of the bug.
 	 */
 	@Override
 	public String getDescription() {
-		return "Osmose: " + (subtitle.length() != 0 ?  subtitle : title ); 
+		return "Custom: " + (subtitle.length() != 0 ?  subtitle : title ); 
 	}
 	
-	@Override
 	public String getLongDescription(Context context, boolean withElements) {
-		String result = "Osmose: " + level2string(context) + "<br><br>" + (subtitle.length() != 0 ?  subtitle : title ) + "<br>";
+		String result = "Custom: " + level2string(context) + "<br><br>" + (subtitle.length() != 0 ?  subtitle : title ) + "<br>";
 		if (withElements) {
 			for (OsmElement osm:getElements()) {
 				if (osm.getOsmVersion() >= 0) { 
@@ -127,11 +112,45 @@ public class OsmoseBug extends Bug implements Serializable {
 	
 	@Override
 	public String bugFilterKey() {
-		switch (level) {
-		case LEVEL_ERROR: return "OSMOSE_ERROR";
-		case LEVEL_WARNING: return "OSMOSE_WARNING";
-		case LEVEL_MINOR_ISSUE: return "OSMOSE_MINOR_ISSUE";
-		default: return "?";
-		}
+	    return "CUSTOM";
 	}
+	
+	@Override
+    public boolean canBeUploaded() {
+        return false;
+    }
+	
+	public static String headerToJSON() {
+	    return "\"description\": ["
+	           + "\"lat\",\"lon\",\"error_id\",\"elems\","
+	           + "\"subtitle\",\"title\",\"level\",\"update\""
+	           + "],";
+	}
+	
+	/**
+     * Generate a JSON representation this element
+     * 
+     * @return JSON format string
+     */
+    public String toJSON() {
+        StringBuilder result = new StringBuilder("[");
+        result.append("\"");
+        result.append(lat/1E7D);
+        result.append("\",\"");
+        result.append(lon/1E7D);
+        result.append("\",\"");
+        result.append(id);
+        result.append("\",\"");
+        result.append(elems);
+        result.append("\",\"");
+        result.append(subtitle);
+        result.append("\",\"");
+        result.append(title);
+        result.append("\",\"");
+        result.append(level);
+        result.append("\",\"");
+        result.append(DateFormatter.getFormattedString(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, update));
+        result.append("\"]");
+        return result.toString();
+    }
 }
