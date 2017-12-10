@@ -972,6 +972,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					}
 				}	
 			}
+	        FloatingActionButton lock = getLock();
+	        if (logic.isLocked() && lock != null) {
+	            lock.performClick(); 
+	        }
 			easyEditManager.editElements();		
 		}
 	}
