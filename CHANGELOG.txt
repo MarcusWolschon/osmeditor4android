@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1322: Fix background for the dark theme in the relation membership display, refactor numeric preferences, add support for custom tasks. 
+
 1320: Avoid potential runtime crash on older Android versions.
 
 1318: Update imagery, fix inconsistencies in default preferences, improve tile loading behaviour when zooming.
