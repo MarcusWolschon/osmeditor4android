@@ -9,7 +9,7 @@
 	>
 	
 	<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="24" 
-	    tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,com.vanniktech.vntnumberpickerpreference" /> 
+	    tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference" /> 
 	
 	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />

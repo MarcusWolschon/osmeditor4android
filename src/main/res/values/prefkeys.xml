@@ -4,10 +4,8 @@
     <string name="config_autoDownload_key">autoDownload</string>
     <string name="config_bugAutoDownload_key">bugAutoDownload</string>
     <string name="config_showGPS_key">showGps</string>
-    <!-- Preference keys used in the pref editor(s) -->
+    <!-- Preference keys used in the pref editor(s) string & boolean prefs -->
     <string name="config_showStats_key">showStats</string>
-    <string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
-    <string name="config_tileCacheSize_key">tileCacheSize</string>
     <string name="config_showTolerance_key">showTolerance</string>
     <string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
     <string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
@@ -19,8 +17,6 @@
     <string name="config_category_server_key">category_server</string>
     <string name="config_username_key">username</string>
     <string name="config_password_key">password</string>
-    <string name="config_gps_distance_key">distance</string>
-    <string name="config_gps_interval_key">interval</string>
     <string name="config_api_button_key">apisettings-button</string>
     <string name="config_api_url_key">apisettings-url</string>
     <string name="config_api_oauth_key">apisettings-oauth</string>
@@ -34,10 +30,6 @@
     <string name="config_mapProfile_key">profile</string>
     <string name="config_use_back_for_undo_key">backForUndo</string>
     <string name="config_largeDragArea_key">largeDragArea</string>
-    <string name="config_extTriggeredDownloadRadius_key">extTriggeredDownloadRadius</string>
-    <string name="config_maxDownloadSpeed_key">maxDownloadSpeed</string>
-    <string name="config_bugDownloadRadius_key">config_bugDownloadRadius</string>
-    <string name="config_maxBugDownloadSpeed_key">maxBugDownloadSpeed</string>
     <string name="config_bugFilter_key">config_bugFilter_key</string>
     <string name="config_enableNameSuggestions_key">enableNameSuggestions</string>
     <string name="config_enableAutoPreset_key">enableAutoPreset</string>
@@ -47,7 +39,6 @@
     <string name="config_osmoseServer_key">offsetServer</string>
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
-    <string name="config_maxAlertDistance_key">maxAlertDistance</string>
     <string name="config_enableLightTheme_key">enableLightTheme</string>
     <string name="config_addressTags_key">addressTags</string>
     <string name="config_addressprefs_key">addressPrefs</string>
@@ -59,11 +50,7 @@
     <string name="config_showWayIcons_key">showWayIcons</string>
     <string name="config_tagFormEnabled_key">tagFormEnabled</string>
     <string name="config_followGPSbutton_key">followGPSbutton</string>
-    <string name="config_fullscreenMode_key">fullscreenMode</string>
-    <string name="config_maxInlineValues_key">maxInlineValues</string>
-    <string name="config_maxTileDownloadThreads_key">maxTileDownloadThreads</string>
-    <string name="config_notificationCacheSize_key">notificationCacheSize</string>
-    <string name="config_autoLockDelay_key">autoLockDelay</string>
+    <string name="config_fullscreenMode_key">fullscreenMode</string>        
     <string name="config_alwaysDrawBoundingBoxes_key">alwaysDrawBoundingBoxes</string>
     <string name="config_tagFilter_key">tagFilter</string>
     <string name="config_presetFilter_key">presetFilter</string>
@@ -76,6 +63,21 @@
     <string name="config_notesPreferredDir_key">notesPreferredDir</string>
     <string name="config_scriptsPreferredDir_key">scriptsPreferredDir</string>
     <string name="config_validatorprefs_key">validatorprefs</string>
+    
+	<!-- Preference keys used in the pref editor(s) int prefs -->
+	<string name="config_maxInlineValues_key">maxInlineValuesInt</string>
+	<string name="config_autoLockDelay_key">autoLockDelayInt</string>
+	<string name="config_notificationCacheSize_key">notificationCacheSizeInt</string>
+	<string name="config_maxAlertDistance_key">maxAlertDistanceInt</string>
+    <string name="config_extTriggeredDownloadRadius_key">extTriggeredDownloadRadiusInt</string>
+    <string name="config_maxDownloadSpeed_key">maxDownloadSpeedInt</string>
+    <string name="config_bugDownloadRadius_key">config_bugDownloadRadiusInt</string>
+    <string name="config_maxBugDownloadSpeed_key">maxBugDownloadSpeedInt</string>
+    <string name="config_maxTileDownloadThreads_key">maxTileDownloadThreadsInt</string>
+    <string name="config_tileCacheSize_key">tileCacheSizeInt</string>
+    <string name="config_maxStrokeWidth_key">maxStrokeWidthInt</string> 
+    <string name="config_gps_distance_key">distanceInt</string>
+    <string name="config_gps_interval_key">intervalInt</string>   
 
     <string-array name="gps_source_keys">
 	<item>internal</item>

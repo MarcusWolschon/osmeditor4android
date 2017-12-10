@@ -28,6 +28,9 @@ allprojects {
 		jcenter()
 		maven { url 'https://dl.bintray.com/content/simonpoole/div' }
 		maven { url 'https://dl.bintray.com/content/simonpoole/android' }
+//		flatDir {
+//        	dirs 'lib'
+//    	}
 	}
 }
 
@@ -246,6 +249,8 @@ dependencies {
     compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
     compile 'ch.poole.android:numberpicker:1.0.8'
+    compile 'ch.poole.android:numberpickerpreference:1.0.0'
+    // for temp stuff during dev compile(name:'library-release', ext:'aar')
  
     // Unit tests
     testCompile "junit:junit:4.12"

@@ -460,10 +460,10 @@
     <string name="config_voiceCommandsEnabled_summary">Enable experimental voice command support</string>
     <string name="config_maxAlertDistance_title">Max distance for notifications</string>
     <string name="config_maxAlertDistance_summary">The maximum distance a problem or note can be from the current position to generate a notification</string>
+    <string name="config_maxAlertDistance_current">%1$d Meter</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this</string>
-    <string name="config_tileCacheSize_title">Tile cache size</string>
-    <string name="config_tileCacheSize_summary">Total size of tile cache in MB</string>
+    <string name="config_maxStrokeWidth_current">%1$d px</string>
     <string name="config_showStats_title">Show stats</string>
     <string name="config_showStats_summary">Displays data statistics and frames/sec in the lower left corner.</string>
     <string name="config_showTolerance_title">Show tolerance</string>
@@ -508,8 +508,10 @@
     <string name="config_category_gps">GPS Settings</string>
     <string name="config_gps_distance_title">Minimum GPS-Distance</string>
     <string name="config_gps_distance_summary">The minimum distance interval for GPS notifications, in meters (float). Lower value cause more battery usage.</string>
+    <string name="config_gps_distance_current">%1$d Meter</string>
     <string name="config_gps_interval_title">Minimum GPS-Interval</string>
     <string name="config_gps_interval_summary">The minimum time interval for GPS notifications, in milliseconds. Lower value cause more battery usage.</string>
+    <string name="config_gps_interval_current">%1$d ms</string>
     <string name="config_category_info">About</string>
     <string name="config_advancedprefs">Advanced preferences</string>
     <string name="config_forceContextMenu_title">Always use context menu</string>
@@ -526,8 +528,10 @@
     <string name="config_largeDragArea_summary">Provide large area for dragging nodes</string>
     <string name="config_extTriggeredDownloadRadius_title">Download radius</string>
     <string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 = center on map only.</string>
+    <string name="config_downloadRadius_current">%1$d Meter</string>
     <string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
     <string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended</string>
+    <string name="config_downloadSpeed_current">%1$d km/h</string>
     <string name="config_bugDownloadRadius_title">Notes/Bugs download radius</string>
     <string name="config_bugDownloadRadius_summary">Radius (m) of notes/bugs downloads</string>
     <string name="config_maxBugDownloadSpeed_title">Maximum notes/bug auto-download speed</string>
@@ -560,12 +564,20 @@
     <string name="config_fullscreenMode_summary">Behaviour on devices with "soft" keys.</string>
     <string name="config_maxInlineValues_title">Max. number of inline values</string>
     <string name="config_maxInlineValues_summary">Maximum number of inline values displayed in tag form</string>
+    <string name="config_maxInlineValues_current">%1$d Values</string>
+    <string name="config_category_layers">Layer download and storage</string>
     <string name="config_maxTileDownloadThreads_title">Max. number of download threads</string>
     <string name="config_maxTileDownloadThreads_summary">Maximum number of threads for downloading tiles</string>
+    <string name="config_downLoadThreads_current">%1$d Threads</string>
+    <string name="config_tileCacheSize_title">Tile cache size</string>
+    <string name="config_tileCacheSize_summary">Total size of tile cache in MB</string>
+    <string name="config_tileCache_current">%1$d MB</string>
     <string name="config_notificationCacheSize_title">Max. number of displayed notifications</string>
     <string name="config_notificationCacheSize_summary">Maximum number of displayed notifications per type (min. 1)</string>
+    <string name="config_notificationCacheSize_current">%1$d Notifications</string>
     <string name="config_autoLockDelay_title">Time to wait before auto-locking</string>
     <string name="config_autoLockDelay_summary">Time to wait in seconds before auto-locking, 0 disables.</string>
+    <string name="config_autoLockDelay_current">%1$d s</string>
     <string name="config_alwaysDrawBoundingBoxes_title">Always dim non-downloaded areas</string>
     <string name="config_alwaysDrawBoundingBoxes_summary">If set non-downloaded areas will be dimmed in locked mode</string>
     <string name="config_geocoderbutton_title">Configure geocoders</string>

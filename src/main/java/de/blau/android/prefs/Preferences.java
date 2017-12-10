@@ -152,42 +152,16 @@ public class Preferences {
 			editor.commit();
 		}
 		
-		try {
-			maxStrokeWidth = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "16"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_maxStrokeWidth_key=" + prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
-			maxStrokeWidth = 16;
-		}
-		try {
-			tileCacheSize = Integer.parseInt(prefs.getString(r.getString(R.string.config_tileCacheSize_key), "100"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_tileCacheSize_key=" + prefs.getString(r.getString(R.string.config_tileCacheSize_key), "100"));
-			tileCacheSize = 100;
-		}
-		try {
-			downloadRadius = Integer.parseInt(prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
-			downloadRadius = 50;
-		}
-		try {
-			maxDownloadSpeed = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxDownloadSpeed_key), "6"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxDownloadSpeed_key), "6"));
-			maxDownloadSpeed = 6f;
-		}
-		try {
-			bugDownloadRadius = Integer.parseInt(prefs.getString(r.getString(R.string.config_bugDownloadRadius_key), "200"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_bugDownloadRadius_key), "200"));
-			bugDownloadRadius = 200;
-		}
-		try {
-			maxBugDownloadSpeed = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
-			maxBugDownloadSpeed = 30f;
-		}
+		maxStrokeWidth = getIntPref(R.string.config_maxStrokeWidth_key, 16);
+		
+		tileCacheSize = getIntPref(R.string.config_tileCacheSize_key, 100);
+
+		downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
+		maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 6);
+		
+		bugDownloadRadius = getIntPref(R.string.config_bugDownloadRadius_key, 200);
+		maxBugDownloadSpeed = getIntPref(R.string.config_maxBugDownloadSpeed_key, 30);
+
 		taskFilter = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			taskFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), taskFilter);
@@ -225,25 +199,19 @@ public class Preferences {
 		}
 		gpsSource = prefs.getString(r.getString(R.string.config_gps_source_key), "internal");
 		gpsTcpSource = prefs.getString(r.getString(R.string.config_gps_source_tcp_key), "127.0.0.1:1958");
-		try {
-			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "2.0"));
-			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_gps_distance_key or config_gps_interval_key");
-			gpsDistance = 2.0f;
-			gpsInterval = 1000;
-		}
+		gpsDistance = getIntPref(R.string.config_gps_distance_key, 2);
+		gpsInterval = getIntPref(R.string.config_gps_interval_key, 1000);
+
 		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
+		
 		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OFFSET_SERVER);
 		osmoseServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OSMOSE_SERVER);
+		
 		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
+		
 		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
-		try {
-			maxAlertDistance = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxAlertDistance_key), "100"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_maxAlertDistance_key");
-			maxAlertDistance = 100;
-		}
+		maxAlertDistance =  getIntPref(R.string.config_maxAlertDistance_key, 100);
+
 		// light theme now always default
 		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), true);
 		
@@ -264,37 +232,27 @@ public class Preferences {
 		
 		fullscreenMode = prefs.getString(r.getString(R.string.config_fullscreenMode_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? r.getString(R.string.full_screen_auto) : r.getString(R.string.full_screen_never));
 	
-		try {
-			maxInlineValues = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxInlineValues_key), "4"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_maxInlineValues_key=" + prefs.getString(r.getString(R.string.config_maxInlineValues_key), "4"));
-			maxInlineValues = 4;
-		}
+		maxInlineValues = getIntPref(R.string.config_maxInlineValues_key, 4);
 		
-		try {
-			maxTileDownloadThreads = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "4"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_maxTileDownloadThreads_key=" + prefs.getString(r.getString(R.string.config_maxTileDownloadThreads_key), "4"));
-			maxTileDownloadThreads = 4;
-		}
+		autoLockDelay = getIntPref(R.string.config_autoLockDelay_key, 60);
 		
-		try {
-			notificationCacheSize = Integer.parseInt(prefs.getString(r.getString(R.string.config_notificationCacheSize_key), "5"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_notificationCacheSize_key=" + prefs.getString(r.getString(R.string.config_notificationCacheSize_key), "5"));
-			notificationCacheSize = 5;
-		}
+		notificationCacheSize = getIntPref(R.string.config_notificationCacheSize_key, 5);
 		
-		try {
-			autoLockDelay = Integer.parseInt(prefs.getString(r.getString(R.string.config_autoLockDelay_key), "60"));
-		} catch (NumberFormatException e) {
-			Log.w(DEBUG_TAG, "error parsing config_autoLockDelay_key=" + prefs.getString(r.getString(R.string.config_autoLockDelay_key), "60"));
-			autoLockDelay = 60;
-		}
+		maxTileDownloadThreads = getIntPref(R.string.config_maxTileDownloadThreads_key, 4);
 		
 		alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), true);
 		
 		jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
+	}
+	
+	int getIntPref(int keyResId, int def) {
+	    String key = r.getString(keyResId);
+	    try {
+	        return prefs.getInt(r.getString(keyResId), def);
+	    } catch (ClassCastException e) {
+	        Log.w(DEBUG_TAG, "error retrieving pref for " + key);
+	        return def;
+	    }
 	}
 	
 	/**

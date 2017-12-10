@@ -7,6 +7,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
+import ch.poole.android.numberpickerpreference.NumberPickerPreference;
+import ch.poole.android.numberpickerpreference.NumberPickerPreferenceFragment;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
@@ -101,6 +103,11 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 	        fragment.setTargetFragment(this, 0);
 	        fragment.show(getFragmentManager(),
 	                "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
-	    } else super.onDisplayPreferenceDialog(preference);
+	    } else if (preference instanceof NumberPickerPreference) {
+            fragment = NumberPickerPreferenceFragment.newInstance(preference.getKey());
+            fragment.setTargetFragment(this, 0);
+            fragment.show(getFragmentManager(),
+                    "android.support.v7.preference.PreferenceFragment.NUMBERPICKER");
+        } else super.onDisplayPreferenceDialog(preference);
 	}
 }
