@@ -1095,7 +1095,7 @@ public class Preset implements Serializable {
 	}
 	
     /**
-     * Generate a JSON represenation of all PresetItems in this Preset
+     * Generate a JSON representation of all PresetItems in this Preset
      * 
      * @return JSON format string
      */
