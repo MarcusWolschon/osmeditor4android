@@ -9,9 +9,13 @@ import java.util.TreeMap;
 
 import org.acra.ACRA;
 
+import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.exception.StorageException;
+import de.blau.android.presets.Preset;
 
 /**
  * This class provides undo support.
@@ -336,7 +340,7 @@ public class UndoStorage implements Serializable {
 			}
 		}
 		
-		public String getDescription() {
+		public String getDescription(@Nullable Context ctx) {
 			// Use the name if it exists
 			if (tags != null) {
 				String name = tags.get("name");
@@ -349,16 +353,36 @@ public class UndoStorage implements Serializable {
 					return "house " + housenb;
 				}
 				// Then the value of the most 'important' tag the element has
+				String result = null;
 				for (String tag : Tags.IMPORTANT_TAGS) {
-					String value = tags.get(tag);
-					if (value != null && value.length() > 0) {
-						return element.getName() + " " + tag + ":" + value;
+					result = getTagValueString(tag);
+					if (result != null) {
+					    return result;
 					}
+				}
+				if (ctx != null) {
+				    Preset[] presets = App.getCurrentPresets(ctx);
+				    for (Preset p:presets) {
+				        for (String key:p.getObjectKeys()) {
+				            result = getTagValueString(key);
+		                    if (result != null) {
+		                        return result;
+		                    }
+				        }
+				    }
 				}
 			}
 			// Failing the above, the OSM ID
 			return element.getName() + " #"  + Long.toString(element.getOsmId());
 		}
+
+        private String getTagValueString(String tag) {
+            String value = tags.get(tag);
+            if (value != null && value.length() > 0) {
+            	return element.getName() + " " + tag + ":" + value;
+            }
+            return null;
+        }
 	}
 	
 	/**
@@ -429,15 +453,17 @@ public class UndoStorage implements Serializable {
 
 	/**
 	 * Provides a list of names for the actions that can be undone
+	 * 
+	 * @param ctx Android context
 	 * @return a list of names, oldest action first (i.e. the last action will be the first to be undone)
 	 */
-	public String[] getUndoActions() {
+	public String[] getUndoActions(@Nullable Context ctx) {
 		String[] result = new String[undoCheckpoints.size()];
 		int i = 0;
 		for (Checkpoint checkpoint : undoCheckpoints) {
 			String message = checkpoint.name + "<br>";
 			for (UndoElement u:checkpoint.elements.values()) {
-				message = message + "<small>" + u.getDescription() + "</small><br>";
+				message = message + "<small>" + u.getDescription(ctx) + "</small><br>";
 			}
 			result[i++] = message;
 		}
@@ -446,15 +472,17 @@ public class UndoStorage implements Serializable {
 
 	/**
 	 * Provides a list of names for the actions that can be redone
+	 * 
+	 * @param ctx Android context
 	 * @return a list of names, newest action first (i.e. the last action will be the first to be redone)
 	 */
-	public String[] getRedoActions() {
+	public String[] getRedoActions(@Nullable Context ctx) {
 		String[] result = new String[redoCheckpoints.size()];
 		int i = 0;
 		for (Checkpoint checkpoint : redoCheckpoints) {
 			String message = checkpoint.name + "<br>";
 			for (UndoElement u:checkpoint.elements.values()) {
-				message = message + "<small>" + u.getDescription() + "</small><br>";
+				message = message + "<small>" + u.getDescription(ctx) + "</small><br>";
 			}
 			result[i++] = message;
 		}

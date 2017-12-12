@@ -148,10 +148,13 @@ public class Preset implements Serializable {
 	private transient PresetIconManager iconManager;
 	
 	/** all known preset items in order of loading */
-	private ArrayList<PresetItem> allItems = new ArrayList<>();
+	private List<PresetItem> allItems = new ArrayList<>();
 	
 	/** all known preset groups in order of loading */
-	private ArrayList<PresetGroup> allGroups = new ArrayList<>();
+	private List<PresetGroup> allGroups = new ArrayList<>();
+	
+	/** List of all top level object tags used by this preset */
+	private List<String> objectKeys = new ArrayList<>();
 	
 	public enum PresetKeyType {
 		/**
@@ -205,7 +208,7 @@ public class Preset implements Serializable {
 	 * Hash is used to check compatibility.
 	 */
 	protected static class PresetMRUInfo implements Serializable {
-		private static final long serialVersionUID = 7708132207266548490L;
+		private static final long serialVersionUID = 7708132207266548491L;
 
         /** hash of current preset (used to check validity of recentPresets indexes) */
         final String presetHash;
@@ -484,7 +487,13 @@ public class Preset implements Serializable {
 			@Override
 			public void startElement(String uri, String localName, String name, Attributes attr) throws SAXException {
 				if ("presets".equals(name)) {
-					// do nothing for now
+				    String objectKeysTemp = attr.getValue("object_keys");
+				    if (objectKeysTemp != null) {
+				        String[] tempArray = objectKeysTemp.split("\\s*,\\s*");
+				        if (tempArray != null && tempArray.length > 0) {
+				            objectKeys.addAll(Arrays.asList(tempArray));
+				        }
+				    }
 				} else if ("group".equals(name)) {
 					PresetGroup parent = groupstack.peek();
 					PresetGroup g = new PresetGroup(parent, attr.getValue("name"), attr.getValue("icon"));
@@ -1226,7 +1235,7 @@ public class Preset implements Serializable {
 			if (p != null) {
 				for (Entry<String, String> tag : tags.entrySet()) {
 					String key = tag.getKey();
-					if (Tags.IMPORTANT_TAGS.contains(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && useAddressKeys)) {
+					if (Tags.IMPORTANT_TAGS.contains(key) || p.isObjectKey(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && useAddressKeys)) {
 						String tagString = tag.getKey()+"\t";
 						possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
 						possibleMatches.addAll(p.tagItems.get(tagString+tag.getValue()));
@@ -2206,7 +2215,7 @@ public class Preset implements Serializable {
 								linkedPresetTags = candidateItem.getRecommendedTags().keySet();
 							}
 							for (String k:linkedPresetTags) {
-								if (Tags.IMPORTANT_TAGS.contains(k)) {
+								if (Tags.IMPORTANT_TAGS.contains(k) || isObjectKey(k)) {
 									continue linkedLoop; 
 								}
 							}
@@ -2828,6 +2837,25 @@ public class Preset implements Serializable {
 		}
 		return result;
 	}
+	
+	/**
+	 * Check if key is a top-level object key for this preset
+	 * 
+	 * @param key  key to check    
+	 * @return true if key is a top-level key
+	 */
+	public boolean isObjectKey(String key) {
+	    return objectKeys.contains(key);
+	}
+	
+	/**
+	 * Get the list of top-level object key for this preset
+	 * 
+	 * @return the List top-level object key for this preset
+	 */
+    public List<String> getObjectKeys() {
+        return objectKeys;
+    }
 	
 	/**
 	 * Build an intent to startup up the correct mapfeatures wiki page

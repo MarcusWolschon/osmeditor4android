@@ -400,7 +400,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
 	/**
 	 * Generate a human-readable description/summary of the element.
-	 * @return A description of the element.
+	 * 
+	 * @return a description of the element
 	 */
 	public String getDescription() {
 		return getDescription(true);
@@ -408,7 +409,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * Generate a human-readable description/summary of the element.
-	 * @return A description of the element.
+	 * 
+	 * @return a description of the element
 	 */
 	public String getDescription(Context ctx) {
 		return getDescription(ctx, true);
@@ -416,8 +418,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * Return a concise description of the element
-	 * @param withType
-	 * @return
+	 * 
+	 * @param withType include an indication of the object type (node, way, relation)
+	 * @return a description of the element
 	 */
 	public String getDescription(boolean withType) {
 		return getDescription(null, withType);
@@ -425,10 +428,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * Return a concise description of the element
+	 * 
 	 * @param withType include an indication of the object type (node, way, relation)
 	 * @return a string containing the description
 	 */
-	private String getDescription(Context ctx, boolean withType) {
+	private String getDescription(@Nullable Context ctx, boolean withType) {
 		// Use the name if it exists
 		String name = getTagWithKey(Tags.KEY_NAME);
 		if (name != null && name.length() > 0) {
@@ -465,7 +469,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 			}
 		}
 		// Then the value of the most 'important' tag the element has
-		String tag = getPrimaryTag();
+		String tag = getPrimaryTag(ctx);
 		if (tag != null) {
 			return (withType ? getName() + " " : "") + tag;
 		}
@@ -477,15 +481,41 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	/**
 	 * @return the first kay =value of any important tags or null if none found
 	 */
-	public String getPrimaryTag() {
+	public String getPrimaryTag(Context ctx) {
+	    String result = null;
 		for (String tag : Tags.IMPORTANT_TAGS) {
-			String value = getTagWithKey(tag);
-			if (value != null && value.length() > 0) {
-				return  tag + "=" + value;
+			result = getTagValueString(tag);
+			if (result != null) {
+			    return result;
 			}
+		}
+		if (ctx != null) {
+		    Preset[] presets = App.getCurrentPresets(ctx);
+		    for (Preset preset:presets) {
+		        for (String key:preset.getObjectKeys()) {
+		            result = getTagValueString(key);
+		            if (result != null) {
+		                return result;
+		            }
+		        }
+		    }
 		}
 		return null;
 	}
+
+	/**
+	 * Get a string in the form key=value, if tag has a value
+	 * 
+	 * @param tag  the key to generate the string for
+	 * @return a string in the form key=value or null
+	 */
+    private String getTagValueString(String tag) {
+        String value = getTagWithKey(tag);
+        if (value != null && value.length() > 0) {
+        	return  tag + "=" + value;
+        }
+        return null;
+    }
 	
 	/**
 	 * Generate a description of the element that also includes state information.

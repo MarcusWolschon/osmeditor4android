@@ -26,8 +26,8 @@ public class UndoDialogFactory {
 		Builder dialog = new Builder(main);
 		dialog.setTitle(R.string.undo);
 		
-		String[] undoActions = undo.getUndoActions();
-		String[] redoActions = undo.getRedoActions();
+		String[] undoActions = undo.getUndoActions(main);
+		String[] redoActions = undo.getRedoActions(main);
 
 		List<UndoDialogItem> items = new ArrayList<>();
 		for (int i = 0; i < redoActions.length; i++) {

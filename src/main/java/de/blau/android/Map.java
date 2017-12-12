@@ -1011,7 +1011,7 @@ public class Map extends View implements IMapView {
 					if (match != null) {
 						label = match.getTranslatedName();
 					} else {
-						label  = e.getPrimaryTag();
+						label  = e.getPrimaryTag(context);
 						// if label is still null, leave it as is
 					}
 				}
