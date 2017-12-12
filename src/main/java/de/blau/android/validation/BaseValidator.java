@@ -75,31 +75,33 @@ public class BaseValidator implements Validator {
         }
 
         // age check
-        for (String key:resurveyTags.getKeys()) {
-            Set<PatternAndAge>values= resurveyTags.get(key);
-            for (PatternAndAge value:values) {
-                if (tags.containsKey(key) && (value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
-                    long now = System.currentTimeMillis()/1000;
-                    long timestamp = e.getTimestamp();
-                    if (timestamp >= 0 && (now - timestamp > value.getAge())) {
-                        status = status | Validator.AGE;
-                        break;
-                    } 
-                    if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
-                        status = status | checkAge(tags, now,Tags.KEY_CHECK_DATE, value.getAge());
-                        break;
-                    } 
-                    if (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key)) {
-                        status = status | checkAge(tags, now,Tags.KEY_CHECK_DATE+":"+key, value.getAge());
-                        break;
-                    }                       
+        if (resurveyTags != null) {
+            for (String key:resurveyTags.getKeys()) {
+                Set<PatternAndAge>values= resurveyTags.get(key);
+                for (PatternAndAge value:values) {
+                    if (tags.containsKey(key) && (value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
+                        long now = System.currentTimeMillis()/1000;
+                        long timestamp = e.getTimestamp();
+                        if (timestamp >= 0 && (now - timestamp > value.getAge())) {
+                            status = status | Validator.AGE;
+                            break;
+                        } 
+                        if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
+                            status = status | checkAge(tags, now,Tags.KEY_CHECK_DATE, value.getAge());
+                            break;
+                        } 
+                        if (tags.containsKey(Tags.KEY_CHECK_DATE+":"+key)) {
+                            status = status | checkAge(tags, now,Tags.KEY_CHECK_DATE+":"+key, value.getAge());
+                            break;
+                        }                       
+                    }
                 }
             }
         }
 
         // find missing keys
         PresetItem pi = Preset.findBestMatch(presets, tags);
-        if (pi != null) {
+        if (pi != null && checkTags != null) {
             for (Entry<String,Boolean> entry:checkTags.entrySet()) {
                 String key = entry.getKey();
                 if (pi.hasKey(key, entry.getValue())) {
@@ -163,7 +165,7 @@ public class BaseValidator implements Validator {
         
         // missing tags
         PresetItem pi = Preset.findBestMatch(presets, tags);
-        if (pi != null) {
+        if (pi != null && checkTags != null) {
             for (Entry<String,Boolean> entry:checkTags.entrySet()) {
                 String key = entry.getKey();
                 if (pi.hasKey(key, entry.getValue())) {
