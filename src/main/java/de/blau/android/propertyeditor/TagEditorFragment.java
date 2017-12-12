@@ -64,6 +64,7 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
+import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
@@ -101,6 +102,7 @@ public class TagEditorFragment extends BaseFragment implements
 
 
 	private static final String HTTP_PREFIX = "http://";
+	private static final String HTTPS_PREFIX = "https://";
 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<>();
@@ -941,7 +943,7 @@ public class TagEditorFragment extends BaseFragment implements
 						// FIXME this should be somewhere better obvious since it creates a non obvious side effect
 						row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
 					}
-					if (Tags.isWebsiteKey(key)) {
+					if (Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == preset.getValueType(key))) {
 						initWebsite(row.valueEdit);
 					}
 					if (PropertyEditor.running) {
@@ -2065,10 +2067,12 @@ public class TagEditorFragment extends BaseFragment implements
 	 * 
 	 * @param key      string containing the key
 	 * @param value    string containing the value
-	 * @return true is value and key isn't empty and isn't the HTTP prefix
+	 * @return true if value and key isn't empty and isn't the HTTP/HTTPS prefix
 	 */
 	private boolean saveTag(String key, String value) {
-		return !"".equals(value) && !(Tags.isWebsiteKey(key) && HTTP_PREFIX.equals(value));
+	    PresetItem pi = getPreset(key);
+		return !"".equals(value) && !((Tags.isWebsiteKey(key) || (pi != null && ValueType.WEBSITE == pi.getValueType(key))) 
+		        && (HTTP_PREFIX.equals(value) || HTTPS_PREFIX.equals(value)));
 	}
 	
 	/**

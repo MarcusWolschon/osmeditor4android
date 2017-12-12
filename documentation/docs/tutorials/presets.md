@@ -16,7 +16,15 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 
 Element            | Attributes                     | Support   | Notes
 -------------------|-------------------------------|-----------|----------------------------------------------------------------
-__&lt;presets&gt;__          |                               | ignored   |
+__&lt;presets&gt;__          |                     |           |
+                             | author              | ignored   |
+                             | version             | ignored   |
+                             | description         | ignored   |
+                             | shortdescription    | ignored   |
+                             | link                | ignored   |
+                             | icon                | ignored   |
+                             | baselanguage        | ignored   |
+                             | object_keys         | extension | comma separated list of top-level keys  
 __&lt;!-- comment --&gt;__   |                               | ignored   |
 __&lt;group&gt;__            |                               | supported |
                    | name                          | supported | required
@@ -50,6 +58,7 @@ __&lt;text&gt;__             |                               | supported |
                    | alternative_autocomplete_keys | ignored   |
                    | javascript                    | extension | if value is not set, execute the JS script
                    | i18n                          | extension | if set to true this tag has i18n variants
+                   | value_type                    | extension | indicate the kind of value this tag should have
 __&lt;combo&gt;__            |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
@@ -134,3 +143,5 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _deprecated_ only use this preset for matching, do not offer it for new use and do not find it when searched
 * _javascript_ execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any
 * _i18n_ the tag can have i18n variants, for example name and name:de
+* _object\_keys_ comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example
+* _value\_type_ type of the value: _opening_hours_, _opening_hours_plus_, _conditional_, _integer_, _website_, _phone_, _wikipedia_, _wikidata_ this avoids having to hardcode this in applications, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example

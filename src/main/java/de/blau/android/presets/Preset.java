@@ -117,7 +117,8 @@ import de.blau.android.views.WrappingLayout;
  */
 public class Preset implements Serializable {
 	
-	private static final String PRESET_NAME = "preset_name";
+	private static final String VALUE_TYPE = "value_type";
+    private static final String PRESET_NAME = "preset_name";
     private static final String PRESET_LINK = "preset_link";
     private static final String SHORT_DESCRIPTION = "short_description";
     private static final String DISPLAY_VALUE = "display_value";
@@ -230,6 +231,17 @@ public class Preset implements Serializable {
 		KEY_NEG,
 		KEY_VALUE,
 		KEY_VALUE_NEG,
+	}
+	
+	public enum ValueType {
+        OPENING_HOURS,
+        OPENING_HOURS_PLUS,
+        CONDITIONAL,
+        INTEGER,
+        WEBSITE,
+        PHONE,
+        WIKIPEDIA,
+        WIKIDATA
 	}
 	
 	private final static String COMBO_DELIMITER = ",";
@@ -627,6 +639,10 @@ public class Preset implements Serializable {
 	                    if (TRUE.equals(attr.getValue(I18N))) {
 	                        currentItem.setI18n(key);
 	                    }
+	                    String valueType = attr.getValue(VALUE_TYPE);
+	                    if (valueType != null) {
+	                        currentItem.setValueType(key, valueType);
+	                    }
 					} else if (LINK.equals(name)) {
 						String language = Locale.getDefault().getLanguage();
 						String href = attr.getValue(language.toLowerCase(Locale.US)+".href");
@@ -772,6 +788,7 @@ public class Preset implements Serializable {
 							currentItem.setAllValuesSearchable(chunk.valuesSearchable);
 							currentItem.addAllDelimiters(chunk.delimiters);
 							currentItem.addAllI18n(chunk.i18n);
+							currentItem.setAllValueTypes(chunk.valueType);
 						}
 					} else if (LIST_ENTRY.equals(name)) {
 						if (listValues != null) {
@@ -1810,6 +1827,11 @@ public class Preset implements Serializable {
          * Key can have i18n variants (name, name:de, name:ru etc)
          */
         private HashMap<String,Boolean> i18n = null; 
+        
+        /**
+         * Key to value type
+         */
+        private HashMap<String,ValueType> valueType = null; 
 		
 		/**
 		 * true if a chunk
@@ -2182,6 +2204,45 @@ public class Preset implements Serializable {
 			return matchType != null ? matchType.get(key) : null;
 		}
 		
+		public void setValueType(String key, String match) {
+		    if (valueType == null) {
+		        valueType = new HashMap<>();
+		    }
+		    ValueType type = null;
+		    if ("opening_hours".equals(match)) {
+		        type = ValueType.OPENING_HOURS;
+		    } else if ("opening_hours_plus".equals(match)) {
+		        type = ValueType.OPENING_HOURS_PLUS;
+		    } else if ("conditional".equals(match)) {
+		        type = ValueType.CONDITIONAL;
+		    } else if ("integer".equals(match)) {
+		        type = ValueType.INTEGER;
+		    } else if ("website".equals(match)) {
+		        type = ValueType.WEBSITE;
+		    } else if ("phone".equals(match)) {
+		        type = ValueType.PHONE;
+		    } else if ("wikipedia".equals(match)) {
+		        type = ValueType.WIKIPEDIA;
+		    } else if ("wikidata".equals(match)) {
+		        type = ValueType.WIKIDATA;
+		    }
+		    valueType.put(key, type);
+		}
+
+		public void setAllValueTypes(HashMap<String,ValueType> newValueTypes)
+		{
+		    if (valueType == null) { 
+		        valueType = newValueTypes; // doesn't matter if newMatchTypes is null
+		    } else if (newValueTypes != null){
+		        valueType.putAll(newValueTypes);
+		    }
+		}
+
+		@Nullable
+		public ValueType getValueType(String key) {
+		    return valueType != null ? valueType.get(key) : null;
+		}
+
 		/**
 		 * Record if the values from the combo or multiselect values should be added to the search index
 		 * 

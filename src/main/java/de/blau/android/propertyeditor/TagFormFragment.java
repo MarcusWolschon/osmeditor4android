@@ -77,6 +77,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
+import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.NetworkStatus;
@@ -819,15 +820,16 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 					String hint = preset.getHint(key);
 					//
 					PresetKeyType keyType = preset.getKeyType(key);
+					ValueType valueType = preset.getValueType(key);
 					String defaultValue = preset.getDefault(key);
 					
 					if (keyType == PresetKeyType.TEXT 
 						|| key.startsWith(Tags.KEY_ADDR_BASE)
 						|| preset.isEditable(key)
 						|| key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
-						if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
+						if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX) || ValueType.CONDITIONAL == valueType) {
 							rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, adapter));
-						} else if (Tags.OPENING_HOURS_SYNTAX.contains(key) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { //FIXME need at least SDK 12 for now
+						} else if ((Tags.OPENING_HOURS_SYNTAX.contains(key) || ValueType.OPENING_HOURS == valueType) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { //FIXME need at least SDK 12 for now
 							rowLayout.addView(addOpeningHoursDialogRow(rowLayout, preset, hint, key, value));
 						} else {
 							// special handling for international names
@@ -895,7 +897,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 						Log.e(DEBUG_TAG,"unknown preset element type " + key + " " + value + " " + preset.getName());
 					}
 				}
-			} else {
+			} else { // no preset here so we can only handle hardwired stuff specially
 				if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
 					rowLayout.addView(addConditionalRestrictionDialogRow(rowLayout,null, null, key, value, null));
 				} else if (Tags.OPENING_HOURS_SYNTAX.contains(key) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { //FIXME need at least SDK 12 for now
@@ -910,9 +912,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
  		}	
 	}
 	
-	private TagTextRow addTextRow(final LinearLayout rowLayout, final PresetItem preset, final PresetKeyType keyType, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
+	private TagTextRow addTextRow(@NonNull final LinearLayout rowLayout, @Nullable final PresetItem preset, 
+	        @NonNull final PresetKeyType keyType, @Nullable final String hint, 
+	        @NonNull final String key, @Nullable final String value, @Nullable final String defaultValue, 
+	        @Nullable final ArrayAdapter<?> adapter) {
 		final TagTextRow row = (TagTextRow)inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
-		final boolean isWebsite = Tags.isWebsiteKey(key);
+		final boolean isWebsite = Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == preset.getValueType(key));
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -929,7 +934,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 			Log.e(DEBUG_TAG,"adapter null");
 			row.valueView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, new String[0]));
 		}
-		if (keyType==PresetKeyType.MULTISELECT) { 
+		if (keyType==PresetKeyType.MULTISELECT && preset != null) { 
 			// FIXME this should be somewhere better since it creates a non obvious side effect
 			row.valueView.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
 		}
