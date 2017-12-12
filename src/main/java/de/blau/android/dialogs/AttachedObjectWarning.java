@@ -110,7 +110,7 @@ public class AttachedObjectWarning extends DialogFragment
     	builder.setNegativeButton(R.string.undo, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
-				main.undoListener.onClick(null);
+				main.getUndoListener().onClick(null);
 			} } );
 
     	return builder.create();

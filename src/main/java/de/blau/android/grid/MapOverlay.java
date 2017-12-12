@@ -73,7 +73,7 @@ public class MapOverlay extends MapViewOverlay {
 			if (widthInMeters < 1000000 && widthInMeters > 0) { // don't show zoomed out
 				float topOffset = 0f;
 				// avoid drawing behind the action bar
-				if (App.getLogic().getMode() == Mode.MODE_ALIGN_BACKGROUND || (main != null && main.easyEditManager.isProcessingAction())) {
+				if (App.getLogic().getMode() == Mode.MODE_ALIGN_BACKGROUND || (main != null && main.getEasyEditManager().isProcessingAction())) {
 					topOffset = actionBarHeight;
 					Log.d(DEBUG_TAG,"offset " + topOffset);
 				}

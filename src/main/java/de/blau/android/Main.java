@@ -219,8 +219,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		public void onReceive(Context context, Intent intent) {
 	        if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
 	        	Log.d("ConnectivityChanged...","Received broadcast");
-	        	if (easyEditManager.isProcessingAction()) {
-	    			easyEditManager.invalidate();
+	        	if (getEasyEditManager().isProcessingAction()) {
+	    			getEasyEditManager().invalidate();
 	    		} else {
 	    			supportInvalidateOptionsMenu();
 	    		}
@@ -322,7 +322,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	/**
 	 * The manager for the EasyEdit mode
 	 */
-	public EasyEditManager easyEditManager;
+	private EasyEditManager easyEditManager;
 
 	/**
 	 * Flag indicating whether the map will be re-downloaded once the activity resumes
@@ -374,7 +374,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	 */
 	private TrackerService tracker = null;
 
-	public UndoListener undoListener;
+	private UndoListener undoListener;
 	
 	private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack to protect against weird state
 
@@ -2731,7 +2731,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 			if (logic.resyncSelected()) {
 				// only need to test if anything at all is still selected
 				if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0 ) {
-					easyEditManager.finish();
+					getEasyEditManager().finish();
 				}
 			}
 		}
@@ -2848,7 +2848,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		@Override
 		public void onUp(View v, float x, float y) {
 			if (App.getLogic().getMode().elementsGeomEditiable()) {
-				easyEditManager.invalidate();
+				getEasyEditManager().invalidate();
 			}
 		}
 		
@@ -2887,7 +2887,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
 			if (logic.isInEditZoomRange()) {
 				setFollowGPS(false); // editing with the screen moving under you is a pain
-				return easyEditManager.handleLongClick(v, x, y);
+				return getEasyEditManager().handleLongClick(v, x, y);
 			} else {
 				Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
 			}
@@ -2916,7 +2916,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		 * @param y the click-position on the display.
 		 */
 		public void performEdit(Mode mode, final View v, final float x, final float y) {
-			if (!easyEditManager.actionModeHandledClick(x, y)) {
+			if (!getEasyEditManager().actionModeHandledClick(x, y)) {
 				clickedNodesAndWays = App.getLogic().getClickedNodesAndWays(x, y);
 				Logic logic = App.getLogic();
 				Filter filter = logic.getFilter();
@@ -2928,7 +2928,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				case 0:
 					// no elements were touched
 					if (inEasyEditMode) {
-						easyEditManager.nothingTouched(false);
+						getEasyEditManager().nothingTouched(false);
 					}
 					break;
 				case 1:
@@ -2940,7 +2940,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						viewPhoto(clickedPhotos.get(0));
 					} else {
 						if (inEasyEditMode) {
-							easyEditManager.editElement(clickedNodesAndWays.get(0));
+							getEasyEditManager().editElement(clickedNodesAndWays.get(0));
 						} else {
 							performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
 						}
@@ -2953,7 +2953,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 					} else {
 						// menuRequired tells us it's ok to just take the first one
 						if (inEasyEditMode) {
-							easyEditManager.editElement(clickedNodesAndWays.get(0));
+							getEasyEditManager().editElement(clickedNodesAndWays.get(0));
 						} else {
 							performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
 						}
@@ -2984,8 +2984,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 		
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
-			if (easyEditManager.needsCustomContextMenu()) {
-				easyEditManager.createContextMenu(menu);
+			if (getEasyEditManager().needsCustomContextMenu()) {
+				getEasyEditManager().createContextMenu(menu);
 			} else {
 				onCreateDefaultContextMenu(menu);
 			}
@@ -3154,9 +3154,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 						if (mode.elementsGeomEditiable()) {
 							if (doubleTap) {
 								doubleTap = false;
-								easyEditManager.startExtendedSelection(element);
+								getEasyEditManager().startExtendedSelection(element);
 							} else {
-								easyEditManager.editElement(element);
+								getEasyEditManager().editElement(element);
 							}
 						} else if (mode.elementsEditable()) {
 							performTagEdit(element, null, false, false, false);
@@ -3177,12 +3177,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 				case 0:
 					// no elements were touched
 					if (inEasyEditMode) {
-						easyEditManager.nothingTouched(true); // short cut to finishing multi-select
+						getEasyEditManager().nothingTouched(true); // short cut to finishing multi-select
 					}
 					break;
 				case 1:
 					if (inEasyEditMode) {
-						easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
+						getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
 					}
 					break;
 				default:
@@ -3194,7 +3194,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 							v.showContextMenu();
 						} else  {
 							// menuRequired tells us it's ok to just take the first one
-							easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
+							getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
 						}
 					}
 					break;
@@ -3268,9 +3268,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 								updateZoomControls();
 								return true;
 							}
-							if (easyEditManager.isProcessingAction() && event.isCtrlPressed()) { // shortcuts not supported in action modes arghhh
+							if (getEasyEditManager().isProcessingAction() && event.isCtrlPressed()) { // shortcuts not supported in action modes arghhh
 								char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0)); // get rid of Ctrl key
-								if (easyEditManager.processShortcut(shortcut)) {
+								if (getEasyEditManager().processShortcut(shortcut)) {
 									return true;
 								}
 							}
@@ -3617,4 +3617,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 	public RelativeLayout getMapLayout() {
 		return mapLayout;
 	}
+
+    public UndoListener getUndoListener() {
+        return undoListener;
+    }
+
+    public EasyEditManager getEasyEditManager() {
+        return easyEditManager;
+    }
+
 }

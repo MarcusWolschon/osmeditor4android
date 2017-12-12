@@ -88,7 +88,7 @@ public class UndoStorage implements Serializable {
 		} else {
 			// Empty checkpoint exists, just rename it
 			Log.d("UndoStorage", "renaming checkpoint " + name);
-			undoCheckpoints.getLast().name = name;
+			undoCheckpoints.getLast().setName(name);
 		}
 		
 		while (undoCheckpoints.size() > 100) {
@@ -112,7 +112,7 @@ public class UndoStorage implements Serializable {
 	 * @param force	remove even if checkpoint is not empty
 	 */
 	public void removeCheckpoint(String name, boolean force) {
-		if (!undoCheckpoints.isEmpty() && (undoCheckpoints.getLast().isEmpty() || force) && undoCheckpoints.getLast().name.equals(name))
+		if (!undoCheckpoints.isEmpty() && (undoCheckpoints.getLast().isEmpty() || force) && undoCheckpoints.getLast().getName().equals(name))
 			undoCheckpoints.removeLast();
 	}
 	
@@ -160,7 +160,7 @@ public class UndoStorage implements Serializable {
 			Log.w(DEBUG_TAG, "Attempted to undo, but no undo checkpoints available");
 			return null;
 		}
-		String name = undoCheckpoints.getLast().name;
+		String name = undoCheckpoints.getLast().getName();
 		Checkpoint redoPoint = new Checkpoint(name);
 		undoCheckpoints.removeLast().restore(redoPoint);
 		redoCheckpoints.add(redoPoint);
@@ -178,7 +178,7 @@ public class UndoStorage implements Serializable {
 			Log.e(DEBUG_TAG, "Attempted to redo, but no redo checkpoints available");
 			return null;
 		}
-		String name = redoCheckpoints.getLast().name;
+		String name = redoCheckpoints.getLast().getName();
 		Checkpoint reundoPoint = new Checkpoint(name);
 		redoCheckpoints.removeLast().restore(reundoPoint);
 		undoCheckpoints.add(reundoPoint);
@@ -212,7 +212,7 @@ public class UndoStorage implements Serializable {
 		private static final long serialVersionUID = 2L;
 		
 		private final HashMap<OsmElement, UndoElement> elements = new HashMap<>();
-		public String name;
+		private String name;
 		
 		public Checkpoint(String name) {
 			this.name = name;
@@ -261,6 +261,14 @@ public class UndoStorage implements Serializable {
 			return elements.isEmpty();
 		}
 		
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+        
 		/**
 		 * @return a string representation of the Checkpoint (its name)
 		 */
@@ -461,7 +469,7 @@ public class UndoStorage implements Serializable {
 		String[] result = new String[undoCheckpoints.size()];
 		int i = 0;
 		for (Checkpoint checkpoint : undoCheckpoints) {
-			String message = checkpoint.name + "<br>";
+			String message = checkpoint.getName() + "<br>";
 			for (UndoElement u:checkpoint.elements.values()) {
 				message = message + "<small>" + u.getDescription(ctx) + "</small><br>";
 			}
@@ -480,7 +488,7 @@ public class UndoStorage implements Serializable {
 		String[] result = new String[redoCheckpoints.size()];
 		int i = 0;
 		for (Checkpoint checkpoint : redoCheckpoints) {
-			String message = checkpoint.name + "<br>";
+			String message = checkpoint.getName() + "<br>";
 			for (UndoElement u:checkpoint.elements.values()) {
 				message = message + "<small>" + u.getDescription(ctx) + "</small><br>";
 			}

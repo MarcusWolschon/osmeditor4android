@@ -1300,7 +1300,7 @@ public class Logic {
 				startLon = lon;
 			}
 			translateOnBorderTouch(absoluteX, absoluteY);
-			main.easyEditManager.invalidate(); // if we are in an action mode update menubar
+			main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
 		} else if (rotatingWay) {
 			
 			double aSq = (startY-absoluteY)*(startY-absoluteY) + (startX-absoluteX)*(startX-absoluteX);
@@ -1334,7 +1334,7 @@ public class Logic {
 			getDelegator().rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
 			startY = absoluteY;
 			startX = absoluteX;
-			main.easyEditManager.invalidate(); // if we are in an action mode update menubar
+			main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
 		} else {
 			if (mode == Mode.MODE_ALIGN_BACKGROUND)
 				performBackgroundOffset(relativeX, relativeY);
