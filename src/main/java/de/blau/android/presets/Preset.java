@@ -117,7 +117,56 @@ import de.blau.android.views.WrappingLayout;
  */
 public class Preset implements Serializable {
 	
-	/**
+	private static final String PRESET_NAME = "preset_name";
+    private static final String PRESET_LINK = "preset_link";
+    private static final String SHORT_DESCRIPTION = "short_description";
+    private static final String DISPLAY_VALUE = "display_value";
+    private static final String LIST_ENTRY = "list_entry";
+    private static final String REFERENCE = "reference";
+    private static final String ROLE = "role";
+    private static final String VALUES_SEARCHABLE = "values_searchable";
+    private static final String EDITABLE = "editable";
+    private static final String VALUES_SORT = "values_sort";
+    private static final String VALUES_CONTEXT = "values_context";
+    private static final String SHORT_DESCRIPTIONS = "short_descriptions";
+    private static final String DISPLAY_VALUES = "display_values";
+    private static final String VALUES = "values";
+    private static final String DELIMITER = "delimiter";
+    private static final String COMBO_FIELD = "combo";
+    private static final String MULTISELECT_FIELD = "multiselect";
+    private static final String YES = "yes";
+    private static final String DISABLE_OFF = "disable_off";
+    private static final String VALUE_OFF = "value_off";
+    private static final String VALUE_ON = "value_on";
+    private static final String CHECK_FIELD = "check";
+    private static final String HREF = "href";
+    private static final String LINK = "link";
+    private static final String I18N = "i18n";
+    private static final String JAVASCRIPT = "javascript";
+    private static final String DEFAULT = "default";
+    private static final String TEXT_CONTEXT = "text_context";
+    private static final String TEXT_FIELD = "text";
+    private static final String TEXT = "text";
+    private static final String VALUE = "value";
+    private static final String NONE = "none";
+    private static final String MATCH = "match";
+    private static final String CHUNK = "chunk";
+    private static final String KEY_ATTR = "key";
+    private static final String OPTIONAL = "optional";
+    private static final String SEPARATOR = "separator";
+    private static final String ID = "id";
+    private static final String DEPRECATED = "deprecated";
+    private static final String TRUE = "true";
+    private static final String GTYPE = "gtype";
+    private static final String TYPE = "type";
+    private static final String ITEM = "item";
+    private static final String NAME_CONTEXT = "name_context";
+    private static final String ICON = "icon";
+    private static final String NAME = "name";
+    private static final String OBJECT_KEYS = "object_keys";
+    private static final String GROUP = "group";
+    private static final String PRESETS = "presets";
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 7L;
@@ -486,115 +535,115 @@ public class Preset implements Serializable {
              */
 			@Override
 			public void startElement(String uri, String localName, String name, Attributes attr) throws SAXException {
-				if ("presets".equals(name)) {
-				    String objectKeysTemp = attr.getValue("object_keys");
+				if (PRESETS.equals(name)) {
+				    String objectKeysTemp = attr.getValue(OBJECT_KEYS);
 				    if (objectKeysTemp != null) {
 				        String[] tempArray = objectKeysTemp.split("\\s*,\\s*");
 				        if (tempArray != null && tempArray.length > 0) {
 				            objectKeys.addAll(Arrays.asList(tempArray));
 				        }
 				    }
-				} else if ("group".equals(name)) {
+				} else if (GROUP.equals(name)) {
 					PresetGroup parent = groupstack.peek();
-					PresetGroup g = new PresetGroup(parent, attr.getValue("name"), attr.getValue("icon"));
-					String context = attr.getValue("name_context");
+					PresetGroup g = new PresetGroup(parent, attr.getValue(NAME), attr.getValue(ICON));
+					String context = attr.getValue(NAME_CONTEXT);
 					if (context != null) {
 						g.setNameContext(context);
 					}
 					groupstack.push(g);
-				} else if ("item".equals(name)) {
+				} else if (ITEM.equals(name)) {
 					if (currentItem != null) {
 						throw new SAXException("Nested items are not allowed");
 					}
 					PresetGroup parent = groupstack.peek();
-					String type = attr.getValue("type");
+					String type = attr.getValue(TYPE);
 					if (type == null) {
-						type = attr.getValue("gtype"); // note gtype seems to be undocumented
+						type = attr.getValue(GTYPE); // note gtype seems to be undocumented
 					}
-					currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), type);
-					String context = attr.getValue("name_context");
+					currentItem = new PresetItem(parent, attr.getValue(NAME), attr.getValue(ICON), type);
+					String context = attr.getValue(NAME_CONTEXT);
 					if (context != null) {
 						currentItem.setNameContext(context);
 					}
-					currentItem.setDeprecated("true".equals(attr.getValue("deprecated")));
-				} else if ("chunk".equals(name)) {
+					currentItem.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+				} else if (CHUNK.equals(name)) {
 					if (currentItem != null) {
 						throw new SAXException("Nested items are not allowed");
 					}
-					String type = attr.getValue("type");
+					String type = attr.getValue(TYPE);
 					if (type == null) {
-						type = attr.getValue("gtype"); // note gtype seems to be undocumented
+						type = attr.getValue(GTYPE); // note gtype seems to be undocumented
 					}
-					currentItem = new PresetItem(null, attr.getValue("id"), attr.getValue("icon"), type);
+					currentItem = new PresetItem(null, attr.getValue(ID), attr.getValue(ICON), type);
 					currentItem.setChunk();
-				} else if ("separator".equals(name)) {
+				} else if (SEPARATOR.equals(name)) {
 					new PresetSeparator(groupstack.peek());
 				} else if (currentItem != null) { // the following only make sense if we actually found an item
-					if ("optional".equals(name)) {
+					if (OPTIONAL.equals(name)) {
 						inOptionalSection = true;
-					} else if ("key".equals(name)) {
-						String key = attr.getValue("key");
-						String match = attr.getValue("match");
+					} else if (KEY_ATTR.equals(name)) {
+						String key = attr.getValue(KEY_ATTR);
+						String match = attr.getValue(MATCH);
 						if (!inOptionalSection) {
-							if ("none".equals(match)) {// don't include in fixed tags if not used for matching
-								currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue("value"));
+							if (NONE.equals(match)) {// don't include in fixed tags if not used for matching
+								currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue(VALUE));
 							} else {
-								currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue("value"), attr.getValue("text"));
+								currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue(VALUE), attr.getValue(TEXT));
 							}
 						} else {
 							// Optional fixed tags should not happen, their values will NOT be automatically inserted.
-							currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue("value"));
+							currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue(VALUE));
 						}
 						if (match != null) {
 							currentItem.setMatchType(key,match);
 						}
-						String textContext = attr.getValue("text_context");
+						String textContext = attr.getValue(TEXT_CONTEXT);
 						if (textContext != null) {
 							currentItem.setTextContext(key,textContext);
 						}
-					} else if ("text".equals(name)) {
-						String key = attr.getValue("key");
+					} else if (TEXT_FIELD.equals(name)) {
+						String key = attr.getValue(KEY_ATTR);
 						currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String)null);
-						String text = attr.getValue("text");
+						String text = attr.getValue(TEXT);
 						if (text != null) {
-							currentItem.addHint(attr.getValue("key"),text);
+							currentItem.addHint(attr.getValue(KEY_ATTR),text);
 						}
-						String defaultValue = attr.getValue("default");
+						String defaultValue = attr.getValue(DEFAULT);
 						if (defaultValue != null) {
 							currentItem.addDefault(key,defaultValue);
 						}
-						String textContext = attr.getValue("text_context");
+						String textContext = attr.getValue(TEXT_CONTEXT);
 						if (textContext != null) {
 							currentItem.setTextContext(key,textContext);
 						}
-						String match = attr.getValue("match");
+						String match = attr.getValue(MATCH);
 						if (match != null) {
 							currentItem.setMatchType(key,match);
 						}
-						String javaScript = attr.getValue("javascript");
+						String javaScript = attr.getValue(JAVASCRIPT);
 						if (javaScript != null) {
 							currentItem.setJavaScript(key,javaScript);
 						}
-	                    if ("true".equals(attr.getValue("i18n"))) {
+	                    if (TRUE.equals(attr.getValue(I18N))) {
 	                        currentItem.setI18n(key);
 	                    }
-					} else if ("link".equals(name)) {
+					} else if (LINK.equals(name)) {
 						String language = Locale.getDefault().getLanguage();
 						String href = attr.getValue(language.toLowerCase(Locale.US)+".href");
 						if (href==null) {
-							href = attr.getValue("href");
+							href = attr.getValue(HREF);
 						}
 						if (href!=null) {
 							currentItem.setMapFeatures(href);
 						}
-					} else if ("check".equals(name)) {
-						String key = attr.getValue("key");
-						String value_on = attr.getValue("value_on") == null ? "yes" : attr.getValue("value_on");
-						String value_off = attr.getValue("value_off") == null ? "no" : attr.getValue("value_off");
-						String disable_off = attr.getValue("disable_off");
+					} else if (CHECK_FIELD.equals(name)) {
+						String key = attr.getValue(KEY_ATTR);
+						String value_on = attr.getValue(VALUE_ON) == null ? YES : attr.getValue(VALUE_ON);
+						String value_off = attr.getValue(VALUE_OFF) == null ? "no" : attr.getValue(VALUE_OFF);
+						String disable_off = attr.getValue(DISABLE_OFF);
 						String values = value_on;
 						// zap value_off if disabled
-						if (disable_off != null && disable_off.equals("true")) {
+						if (disable_off != null && disable_off.equals(TRUE)) {
 							value_off = "";
 						} else {
 							values = value_on + COMBO_DELIMITER + value_off;
@@ -611,36 +660,36 @@ public class Preset implements Serializable {
 						}
 						currentItem.setSort(key,false); // don't sort
 						currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values, displayValuesBuilder.toString(), null, COMBO_DELIMITER, null);
-						if (!"yes".equals(value_on)) {
+						if (!YES.equals(value_on)) {
 							currentItem.addOnValue(key,value_on);
 						}
-						String defaultValue = attr.getValue("default") == null ? value_off : ("on".equals(attr.getValue("default")) ? value_on : value_off);
+						String defaultValue = attr.getValue(DEFAULT) == null ? value_off : ("on".equals(attr.getValue(DEFAULT)) ? value_on : value_off);
 						if (defaultValue != null) {
 							currentItem.addDefault(key,defaultValue);
 						}
-						String text = attr.getValue("text");
+						String text = attr.getValue(TEXT);
 						if (text != null) {
 							currentItem.addHint(key,text);
 						}
-						String textContext = attr.getValue("text_context");
+						String textContext = attr.getValue(TEXT_CONTEXT);
 						if (textContext != null) {
 							currentItem.setTextContext(key,textContext);
 						}
-						String match = attr.getValue("match");
+						String match = attr.getValue(MATCH);
 						if (match != null) {
 							currentItem.setMatchType(key,match);
 						}
-					} else if ("combo".equals(name) || "multiselect".equals(name)) {
-						boolean multiselect = "multiselect".equals(name);
-						String key = attr.getValue("key");
-						delimiter = attr.getValue("delimiter");
+					} else if (COMBO_FIELD.equals(name) || MULTISELECT_FIELD.equals(name)) {
+						boolean multiselect = MULTISELECT_FIELD.equals(name);
+						String key = attr.getValue(KEY_ATTR);
+						delimiter = attr.getValue(DELIMITER);
 						if (delimiter == null) {
 							delimiter = multiselect ? MULTISELECT_DELIMITER : COMBO_DELIMITER; 
 						}
-						String values = attr.getValue("values");
-						String displayValues = attr.getValue("display_values");
-						String shortDescriptions = attr.getValue("short_descriptions");
-						valuesContext = attr.getValue("values_context");
+						String values = attr.getValue(VALUES);
+						String displayValues = attr.getValue(DISPLAY_VALUES);
+						String shortDescriptions = attr.getValue(SHORT_DESCRIPTIONS);
+						valuesContext = attr.getValue(VALUES_CONTEXT);
 						if (values != null) {
 							currentItem.addTag(inOptionalSection, key, multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO, 
 									values, displayValues, shortDescriptions, delimiter, valuesContext);
@@ -648,43 +697,43 @@ public class Preset implements Serializable {
 							listKey = key;
 							listValues = new ArrayList<>();
 						}
-						String defaultValue = attr.getValue("default");
+						String defaultValue = attr.getValue(DEFAULT);
 						if (defaultValue != null) {
 							currentItem.addDefault(key,defaultValue);
 						}
-						String text = attr.getValue("text");
+						String text = attr.getValue(TEXT);
 						if (text != null) {
 							currentItem.addHint(key, text);
 						}
-						String textContext = attr.getValue("text_context");
+						String textContext = attr.getValue(TEXT_CONTEXT);
 						if (textContext != null) {
 							currentItem.setTextContext(key,textContext);
 						}
-						String match = attr.getValue("match");
+						String match = attr.getValue(MATCH);
 						if (match != null) {
 							currentItem.setMatchType(key,match);
 						}
-						String sort = attr.getValue("values_sort");
+						String sort = attr.getValue(VALUES_SORT);
 						if (sort != null) {
-							currentItem.setSort(key,"yes".equals(sort) || "true".equals(sort)); // normally this will not be set because true is the default
+							currentItem.setSort(key,YES.equals(sort) || TRUE.equals(sort)); // normally this will not be set because true is the default
 						}
-						String editable = attr.getValue("editable");
+						String editable = attr.getValue(EDITABLE);
 						if (editable != null) {
-							currentItem.setEditable(key,"yes".equals(editable) || "true".equals(editable));
+							currentItem.setEditable(key,YES.equals(editable) || TRUE.equals(editable));
 						}
-	                    String searchable = attr.getValue("values_searchable");
+	                    String searchable = attr.getValue(VALUES_SEARCHABLE);
 	                    if (searchable != null) {
-	                        currentItem.setValuesSearchable(key,"yes".equals(searchable) || "true".equals(searchable));
+	                        currentItem.setValuesSearchable(key,YES.equals(searchable) || TRUE.equals(searchable));
 	                    }
-					} else if ("role".equals(name)) {
-						String key = attr.getValue("key");
-						String text = attr.getValue("text");
-						String textContext = attr.getValue("text_context");
+					} else if (ROLE.equals(name)) {
+						String key = attr.getValue(KEY_ATTR);
+						String text = attr.getValue(TEXT);
+						String textContext = attr.getValue(TEXT_CONTEXT);
 						if (textContext != null) {
 							currentItem.setTextContext(key,textContext);
 						}
 						currentItem.addRole(new StringWithDescription(key, po != null && text != null ? (textContext!=null?po.t(textContext,text):po.t(text)) : text));
-					} else if ("reference".equals(name)) {
+					} else if (REFERENCE.equals(name)) {
 						PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
 						if (chunk != null) {
 							if (inOptionalSection) {
@@ -724,19 +773,19 @@ public class Preset implements Serializable {
 							currentItem.addAllDelimiters(chunk.delimiters);
 							currentItem.addAllI18n(chunk.i18n);
 						}
-					} else if ("list_entry".equals(name)) {
+					} else if (LIST_ENTRY.equals(name)) {
 						if (listValues != null) {
-							String v = attr.getValue("value");
+							String v = attr.getValue(VALUE);
 							if (v != null) {
-								String d = attr.getValue("display_value");
+								String d = attr.getValue(DISPLAY_VALUE);
 								if (d == null) {
-									d = attr.getValue("short_description");
+									d = attr.getValue(SHORT_DESCRIPTION);
 								}
 								listValues.add(new StringWithDescription(v,po != null ? (valuesContext != null?po.t(valuesContext,d):po.t(d)):d));
 							}
 						}
-					} else if ("preset_link".equals(name)) {
-						String presetName = attr.getValue("preset_name");
+					} else if (PRESET_LINK.equals(name)) {
+						String presetName = attr.getValue(PRESET_NAME);
 						if (presetName != null) {
 							currentItem.addLinkedPresetName(presetName);
 						}
@@ -767,11 +816,11 @@ public class Preset implements Serializable {
             
             @Override
             public void endElement(String uri, String localName, String name) throws SAXException {
-            	if ("group".equals(name)) {
+            	if (GROUP.equals(name)) {
             		groupstack.pop();
-            	} else if ("optional".equals(name)) {
+            	} else if (OPTIONAL.equals(name)) {
             		inOptionalSection = false;
-            	} else if ("item".equals(name)) {
+            	} else if (ITEM.equals(name)) {
                     // Log.d(DEBUG_TAG,"PresetItem: " + currentItem.toString());
             		if (!currentItem.isDeprecated()) {
             			currentItem.buildSearchIndex();
@@ -779,16 +828,16 @@ public class Preset implements Serializable {
             		currentItem = null;
               		listKey = null;
             		listValues = null;
-            	} else if ("chunk".equals(name)) {
+            	} else if (CHUNK.equals(name)) {
                     chunks.put(currentItem.getName(),currentItem);
             		currentItem = null;
               		listKey = null;
             		listValues = null;
-            	} else if ("combo".equals(name) || "multiselect".equals(name)) {
+            	} else if (COMBO_FIELD.equals(name) || MULTISELECT_FIELD.equals(name)) {
             		if (listKey != null && listValues != null) {
             			StringWithDescription[] v = new StringWithDescription[listValues.size()];
             			currentItem.addTag(inOptionalSection, 
-            					listKey, "combo".equals(name)?PresetKeyType.COMBO:PresetKeyType.MULTISELECT, 
+            					listKey, COMBO_FIELD.equals(name)?PresetKeyType.COMBO:PresetKeyType.MULTISELECT, 
             					listValues.toArray(v), delimiter);
             		}
             		listKey = null;
@@ -851,8 +900,8 @@ public class Preset implements Serializable {
 	             */
 				@Override
 	            public void startElement(String uri, String locaclName, String name, Attributes attr) throws SAXException {
-	            	if ("group".equals(name) || "item".equals(name)) {
-	            		String url = attr.getValue("icon");
+	            	if (GROUP.equals(name) || ITEM.equals(name)) {
+	            		String url = attr.getValue(ICON);
 	            		if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
 	            			urls.add(url);
 	            		}
@@ -2070,9 +2119,9 @@ public class Preset implements Serializable {
 		 */
 		public String getOnValue(String key) {
 			if (onValue != null) {
-				return onValue.get(key) != null ? onValue.get(key) : "yes";
+				return onValue.get(key) != null ? onValue.get(key) : YES;
 			}
-			return "yes";
+			return YES;
 		}
 		
 		/**
@@ -2105,15 +2154,15 @@ public class Preset implements Serializable {
 				matchType = new HashMap<>();
 			}
 			MatchType type = null;
-			if (match.equals("none")) {
+			if ("none".equals(match)) {
 				type = MatchType.NONE;
-			} else if (match.equals("key")) {
+			} else if ("key".equals(match)) {
 				type = MatchType.KEY;
-			} else if (match.equals("key!")) {
+			} else if ("key!".equals(match)) {
 				type = MatchType.KEY_NEG;
-			} else if (match.equals("keyvalue")) {
+			} else if ("keyvalue".equals(match)) {
 				type = MatchType.KEY_VALUE;
-			} else if (match.equals("keyvalue!")) {
+			} else if ("keyvalue!".equals(match)) {
 				type = MatchType.KEY_VALUE_NEG;
 			}
 			matchType.put(key, type);
