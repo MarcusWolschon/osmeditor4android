@@ -53,7 +53,9 @@ public class RelationMembershipFragment extends BaseFragment implements
 		PropertyRows,
 		OnItemSelectedListener {
 	
-	private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
+	private static final String PARENTS_KEY = "parents";
+
+    private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
 	
 	private LayoutInflater inflater = null;
 
@@ -61,21 +63,17 @@ public class RelationMembershipFragment extends BaseFragment implements
 
 	private int maxStringLength; // maximum key, value and role length
 	
-	private EditorUpdate tagListener = null;
-	
 	private static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
 	private static final Object actionModeCallbackLock = new Object();
 	
 	/**
      */
-    static public RelationMembershipFragment newInstance(HashMap<Long,String> parents) {
+	public static RelationMembershipFragment newInstance(HashMap<Long,String> parents) {
     	RelationMembershipFragment f = new RelationMembershipFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable("parents", parents);
-
+        args.putSerializable(PARENTS_KEY, parents);
         f.setArguments(args);
-        // f.setShowsDialog(true);
         
         return f;
     }
@@ -83,11 +81,6 @@ public class RelationMembershipFragment extends BaseFragment implements
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
-        try {
-        	tagListener = (EditorUpdate) context;
-        } catch (ClassCastException e) {
-        	throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
-        }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
     }
@@ -100,7 +93,8 @@ public class RelationMembershipFragment extends BaseFragment implements
         getActivity().supportInvalidateOptionsMenu();
     }
     
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	ScrollView parentRelationsLayout = null;
@@ -121,7 +115,7 @@ public class RelationMembershipFragment extends BaseFragment implements
     		Log.d(DEBUG_TAG,"Restoring from instance variable");
     		parents = savedParents;
     	} else {
-    		parents = (HashMap<Long,String>) getArguments().getSerializable("parents");
+    		parents = (HashMap<Long,String>) getArguments().getSerializable(PARENTS_KEY);
     	}
     
     	Preferences prefs = new Preferences(getActivity());
@@ -197,10 +191,10 @@ public class RelationMembershipFragment extends BaseFragment implements
 	/**
 	 * Insert a new row with a parent relation 
 	 * 
-	 * @param role		role of this element in the relation
-	 * @param r			the relation
-	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
-	 * @param showSpinner TODO
+	 * @param role		   role of this element in the relation
+	 * @param r			   the relation
+	 * @param position     the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
+	 * @param showSpinner  show the role spinner on insert
 	 * @return the new RelationMembershipRow
 	 */
 	private RelationMembershipRow insertNewMembership(LinearLayout membershipVerticalLayout, final String role, final Relation r, final int position, boolean showSpinner) {
@@ -214,7 +208,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 			row.setValues(role, r);
 		}
 		membershipVerticalLayout.addView(row, (position == -1) ? membershipVerticalLayout.getChildCount() : position);
-		row.showSpinner = showSpinner;
+		row.setShowSpinner(showSpinner);
 
 		row.roleEdit.addTextChangedListener(new SanitizeTextWatcher(getActivity(), maxStringLength));
 		
@@ -244,7 +238,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		private CheckBox selected;
 		private AutoCompleteTextView roleEdit;
 		private Spinner parentEdit;
-		public boolean showSpinner = false;
+		private boolean showSpinner = false;
 		
 		public RelationMembershipRow(Context context) {
 			super(context);
@@ -316,16 +310,14 @@ public class RelationMembershipFragment extends BaseFragment implements
 			// Use a set to prevent duplicate keys appearing
 			Set<StringWithDescription> roles = new HashSet<>();
 			Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
-			if ( r!= null) {			
-				if ( owner.presets != null) {
-					PresetItem relationPreset = Preset.findBestMatch(owner.presets,r.getTags());
-					if (relationPreset != null) {
-						List<StringWithDescription> presetRoles = relationPreset.getRoles();
-						if (presetRoles != null) {
-							roles.addAll(presetRoles);
-						}
-					}
-				}
+			if ( r!= null && owner.presets != null) {
+			    PresetItem relationPreset = Preset.findBestMatch(owner.presets,r.getTags());
+			    if (relationPreset != null) {
+			        List<StringWithDescription> presetRoles = relationPreset.getRoles();
+			        if (presetRoles != null) {
+			            roles.addAll(presetRoles);
+			        }
+			    }
 			}
 			
 			List<StringWithDescription> result = new ArrayList<>(roles);
@@ -395,7 +387,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 			if (owner != null) {
 				View cf = owner.getCurrentFocus();
 				if (cf == roleEdit) {
-//					owner.focusRow(0); // FIXME focus is on this fragement
+//					owner.focusRow(0); // FIXME focus is on this fragment
 				}
 				LinearLayout membershipVerticalLayout = (LinearLayout) owner.relationMembershipFragment.getOurView();
 				membershipVerticalLayout.removeView(this);
@@ -406,7 +398,7 @@ public class RelationMembershipFragment extends BaseFragment implements
 		}
 		
 		/**
-		 * awlful hack to show spinner after insert
+		 * awful hack to show spinner after insert
 		 */
 		@Override
 		public void onWindowFocusChanged (boolean hasFocus) {
@@ -435,6 +427,10 @@ public class RelationMembershipFragment extends BaseFragment implements
 		protected void enableCheckBox() {
 			selected.setEnabled(true);
 		}
+
+        public void setShowSpinner(boolean showSpinner) {
+            this.showSpinner = showSpinner;
+        }
 	} // RelationMembershipRow
 	    	
 	private void parentSelected() {
@@ -449,13 +445,11 @@ public class RelationMembershipFragment extends BaseFragment implements
 	
 	@Override
 	public void deselectRow() {
-		synchronized (actionModeCallbackLock) {
-			if (parentSelectedActionModeCallback != null) {
-				if (parentSelectedActionModeCallback.rowsDeselected(true)) {
-					parentSelectedActionModeCallback = null;
-				}
-			}	
-		}
+	    synchronized (actionModeCallbackLock) {
+	        if (parentSelectedActionModeCallback != null && parentSelectedActionModeCallback.rowsDeselected(true)) {
+	            parentSelectedActionModeCallback = null;
+	        }
+	    }
 	}
 	
 	@Override
@@ -546,18 +540,10 @@ public class RelationMembershipFragment extends BaseFragment implements
     
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-		// final MenuInflater inflater = getSupportMenuInflater();
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.membership_menu, menu);
 	}
 	
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		super.onPrepareOptionsMenu(menu);
-		// disable address tagging for stuff that won't have an address
-		// menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME) || element.hasTagKey(Tags.KEY_BUILDING));
-	}
 	
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
@@ -577,16 +563,16 @@ public class RelationMembershipFragment extends BaseFragment implements
 		case R.id.tag_menu_help:
 			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
 			return true;
+		default:
+		    return true;
 		}
-		
-		return false;
 	}
     
 	/**
 	 * reload original arguments
 	 */
 	void doRevert() {
-		loadParents((HashMap<Long,String>) getArguments().getSerializable("parents"));
+		loadParents((HashMap<Long,String>) getArguments().getSerializable(PARENTS_KEY));
 	}
 	
 	/**
