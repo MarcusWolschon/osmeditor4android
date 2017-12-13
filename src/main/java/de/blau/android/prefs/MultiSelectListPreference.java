@@ -1,17 +1,14 @@
 /*
  * Copyright (C) 2015 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License
  */
 
 package de.blau.android.prefs;
@@ -36,12 +33,10 @@ import android.util.AttributeSet;
 import de.blau.android.R;
 
 /**
- * A {@link android.support.v7.preference.Preference} that displays a list of entries as
- * a dialog.
+ * A {@link android.support.v7.preference.Preference} that displays a list of entries as a dialog.
  * <p>
- * This preference will store a set of strings into the SharedPreferences.
- * This set will contain one or more values from the
- * {@link #setEntryValues(CharSequence[])} array.
+ * This preference will store a set of strings into the SharedPreferences. This set will contain one or more values from
+ * the {@link #setEntryValues(CharSequence[])} array.
  *
  * @attr ref android.R.styleable#MultiSelectListPreference_entries
  * @attr ref android.R.styleable#MultiSelectListPreference_entryValues
@@ -50,22 +45,16 @@ import de.blau.android.R;
 public class MultiSelectListPreference extends DialogPreference {
     private CharSequence[] mEntries;
     private CharSequence[] mEntryValues;
-    private Set<String> mValues = new HashSet<>();
+    private Set<String>    mValues = new HashSet<>();
 
-    public MultiSelectListPreference(
-            Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public MultiSelectListPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        final TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.MultiSelectListPreference, defStyleAttr,
-                defStyleRes);
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MultiSelectListPreference, defStyleAttr, defStyleRes);
 
-        mEntries = TypedArrayUtils.getTextArray(a,
-                R.styleable.MultiSelectListPreference_entries,
-                R.styleable.MultiSelectListPreference_android_entries);
+        mEntries = TypedArrayUtils.getTextArray(a, R.styleable.MultiSelectListPreference_entries, R.styleable.MultiSelectListPreference_android_entries);
 
-        mEntryValues = TypedArrayUtils.getTextArray(a,
-                R.styleable.MultiSelectListPreference_entryValues,
+        mEntryValues = TypedArrayUtils.getTextArray(a, R.styleable.MultiSelectListPreference_entryValues,
                 R.styleable.MultiSelectListPreference_android_entryValues);
 
         a.recycle();
@@ -86,14 +75,13 @@ public class MultiSelectListPreference extends DialogPreference {
     /**
      * Attempts to persist a set of Strings to the {@link android.content.SharedPreferences}.
      * <p>
-     * This will check if this Preference is persistent, get an editor from
-     * the {@link android.preference.PreferenceManager}, put in the strings, and check if we should
-     * commit (and commit if so).
+     * This will check if this Preference is persistent, get an editor from the
+     * {@link android.preference.PreferenceManager}, put in the strings, and check if we should commit (and commit if
+     * so).
      *
      * @param values The values to persist.
-     * @return True if the Preference is persistent. (This is not whether the
-     *         value was persisted, since we may not necessarily commit if there
-     *         will be a batch commit later.)
+     * @return True if the Preference is persistent. (This is not whether the value was persisted, since we may not
+     *         necessarily commit if there will be a batch commit later.)
      * @see #getPersistedString
      *
      * @hide
@@ -115,17 +103,14 @@ public class MultiSelectListPreference extends DialogPreference {
     }
 
     /**
-     * Attempts to get a persisted set of Strings from the
-     * {@link android.content.SharedPreferences}.
+     * Attempts to get a persisted set of Strings from the {@link android.content.SharedPreferences}.
      * <p>
-     * This will check if this Preference is persistent, get the SharedPreferences
-     * from the {@link android.preference.PreferenceManager}, and get the value.
+     * This will check if this Preference is persistent, get the SharedPreferences from the
+     * {@link android.preference.PreferenceManager}, and get the value.
      *
-     * @param defaultReturnValue The default value to return if either the
-     *            Preference is not persistent or the Preference is not in the
-     *            shared preferences.
-     * @return The value from the SharedPreferences or the default return
-     *         value.
+     * @param defaultReturnValue The default value to return if either the Preference is not persistent or the
+     *            Preference is not in the shared preferences.
+     * @return The value from the SharedPreferences or the default return value.
      * @see #persistStringSet(Set)
      *
      * @hide
@@ -135,16 +120,13 @@ public class MultiSelectListPreference extends DialogPreference {
             return defaultReturnValue;
         }
 
-        return getPreferenceManager().getSharedPreferences()
-                .getStringSet(getKey(), defaultReturnValue);
+        return getPreferenceManager().getSharedPreferences().getStringSet(getKey(), defaultReturnValue);
     }
 
     /**
-     * Sets the human-readable entries to be shown in the list. This will be
-     * shown in subsequent dialogs.
+     * Sets the human-readable entries to be shown in the list. This will be shown in subsequent dialogs.
      * <p>
-     * Each entry must have a corresponding index in
-     * {@link #setEntryValues(CharSequence[])}.
+     * Each entry must have a corresponding index in {@link #setEntryValues(CharSequence[])}.
      *
      * @param entries The entries.
      * @see #setEntryValues(CharSequence[])
@@ -171,9 +153,8 @@ public class MultiSelectListPreference extends DialogPreference {
     }
 
     /**
-     * The array to find the value to save for a preference when an entry from
-     * entries is selected. If a user clicks on the second item in entries, the
-     * second item in this array will be saved to the preference.
+     * The array to find the value to save for a preference when an entry from entries is selected. If a user clicks on
+     * the second item in entries, the second item in this array will be saved to the preference.
      *
      * @param entryValues The array to be used as values to save for the preference.
      */
@@ -199,8 +180,7 @@ public class MultiSelectListPreference extends DialogPreference {
     }
 
     /**
-     * Sets the value of the key. This should contain entries in
-     * {@link #getEntryValues()}.
+     * Sets the value of the key. This should contain entries in {@link #getEntryValues()}.
      *
      * @param values The values to set for the key.
      */
@@ -315,15 +295,14 @@ public class MultiSelectListPreference extends DialogPreference {
             dest.writeStringArray(values.toArray(new String[values.size()]));
         }
 
-        public static final Parcelable.Creator<SavedState> CREATOR =
-                new Parcelable.Creator<SavedState>() {
-                    public SavedState createFromParcel(Parcel in) {
-                        return new SavedState(in);
-                    }
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
 
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                };
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 }

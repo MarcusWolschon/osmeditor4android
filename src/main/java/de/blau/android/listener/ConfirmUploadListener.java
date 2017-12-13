@@ -9,17 +9,17 @@ import de.blau.android.Main;
  */
 public class ConfirmUploadListener implements OnClickListener {
 
-	private final Main caller;
+    private final Main caller;
 
-	/**
-	 * @param caller
-	 */
-	public ConfirmUploadListener(final Main caller) {
-		this.caller = caller;
-	}
+    /**
+     * @param caller
+     */
+    public ConfirmUploadListener(final Main caller) {
+        this.caller = caller;
+    }
 
-	@Override
-	public void onClick(final DialogInterface dialog, final int which) {
-		caller.confirmUpload();
-	}
+    @Override
+    public void onClick(final DialogInterface dialog, final int which) {
+        caller.confirmUpload();
+    }
 }

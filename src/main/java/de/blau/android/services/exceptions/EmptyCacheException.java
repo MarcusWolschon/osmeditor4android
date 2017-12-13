@@ -1,51 +1,50 @@
 // Created by plusminus on 14:29:37 - 12.10.2008
 package de.blau.android.services.exceptions;
 
-
 public class EmptyCacheException extends Exception {
-	// ===========================================================
-	// Constants
-	// ===========================================================
-	
-	private static final long serialVersionUID = -6096533745569312071L;
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    private static final long serialVersionUID = -6096533745569312071L;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	public EmptyCacheException() {
-		super();
-	}
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public EmptyCacheException(String detailMessage, Throwable throwable) {
-		super(detailMessage, throwable);
-	}
+    public EmptyCacheException() {
+        super();
+    }
 
-	public EmptyCacheException(String detailMessage) {
-		super(detailMessage);
-	}
+    public EmptyCacheException(String detailMessage, Throwable throwable) {
+        super(detailMessage, throwable);
+    }
 
-	public EmptyCacheException(Throwable throwable) {
-		super(throwable);
-	}
+    public EmptyCacheException(String detailMessage) {
+        super(detailMessage);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    public EmptyCacheException(Throwable throwable) {
+        super(throwable);
+    }
 
-	// ===========================================================
-	// Methods from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
+
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -10,37 +10,37 @@ import android.widget.Filter;
 import de.blau.android.names.Names.NameAndTags;
 
 class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
-	
-//	 private final String MY_DEBUG_TAG = "NameAndTagsAdapter";
-//	    private ArrayList<NameAndTags> items;
-	    private ArrayList<NameAndTags> itemsAll;
-	    private ArrayList<NameAndTags> suggestions;
-//	    private int viewResourceId;
-	    
+
+    // private final String MY_DEBUG_TAG = "NameAndTagsAdapter";
+    // private ArrayList<NameAndTags> items;
+    private ArrayList<NameAndTags> itemsAll;
+    private ArrayList<NameAndTags> suggestions;
+    // private int viewResourceId;
+
     public NameAndTagsAdapter(Context context, int viewResourceId, ArrayList<NameAndTags> items) {
         super(context, viewResourceId, items);
-//        this.items = items;
+        // this.items = items;
         this.itemsAll = new ArrayList<>(items);
         this.suggestions = new ArrayList<>();
-//        this.viewResourceId = viewResourceId;
+        // this.viewResourceId = viewResourceId;
     }
 
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        View v = convertView;
-//        if (v == null) {
-//            LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            v = vi.inflate(viewResourceId, null);
-//        }
-//        NameAndTags customer = items.get(position);
-//        if (customer != null) {
-//            TextView customerNameLabel = (TextView) v.findViewById(R.id.customerNameLabel);
-//            if (customerNameLabel != null) {
-////              Log.i(MY_DEBUG_TAG, "getView NameAndTags Name:"+customer.getName());
-//                customerNameLabel.setText(customer.getName());
-//            }
-//        }
-//        return v;
-//    }
+    // public View getView(int position, View convertView, ViewGroup parent) {
+    // View v = convertView;
+    // if (v == null) {
+    // LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    // v = vi.inflate(viewResourceId, null);
+    // }
+    // NameAndTags customer = items.get(position);
+    // if (customer != null) {
+    // TextView customerNameLabel = (TextView) v.findViewById(R.id.customerNameLabel);
+    // if (customerNameLabel != null) {
+    //// Log.i(MY_DEBUG_TAG, "getView NameAndTags Name:"+customer.getName());
+    // customerNameLabel.setText(customer.getName());
+    // }
+    // }
+    // return v;
+    // }
 
     @NonNull
     @Override
@@ -51,15 +51,15 @@ class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
     private Filter nameFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
-            return ((NameAndTags)(resultValue)).getName();
+            return ((NameAndTags) (resultValue)).getName();
         }
-        
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            if(constraint != null) {
+            if (constraint != null) {
                 suggestions.clear();
                 for (NameAndTags name : itemsAll) {
-                    if(name.getName().toLowerCase(Locale.US).startsWith(constraint.toString().toLowerCase(Locale.US))){
+                    if (name.getName().toLowerCase(Locale.US).startsWith(constraint.toString().toLowerCase(Locale.US))) {
                         suggestions.add(name);
                     }
                 }
@@ -71,12 +71,12 @@ class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
                 return new FilterResults();
             }
         }
-        
+
         @SuppressWarnings("unchecked")
-		@Override
+        @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-        	 if(results != null && results.count > 0) {
-        		ArrayList<NameAndTags> filteredList = (ArrayList<NameAndTags>) results.values;
+            if (results != null && results.count > 0) {
+                ArrayList<NameAndTags> filteredList = (ArrayList<NameAndTags>) results.values;
                 clear();
                 for (NameAndTags c : filteredList) {
                     add(c);

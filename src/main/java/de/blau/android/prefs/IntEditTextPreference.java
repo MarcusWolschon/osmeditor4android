@@ -5,8 +5,8 @@ import android.support.v7.preference.EditTextPreference;
 import android.util.AttributeSet;
 
 /**
- * Save the string from an EditTextPreference as an int and the same for retrieving
- * From https://stackoverflow.com/questions/3721358/preferenceactivity-save-value-as-integer
+ * Save the string from an EditTextPreference as an int and the same for retrieving From
+ * https://stackoverflow.com/questions/3721358/preferenceactivity-save-value-as-integer
  * 
  * @author simon
  *

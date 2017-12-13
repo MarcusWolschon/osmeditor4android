@@ -51,34 +51,34 @@ import okhttp3.HttpUrl;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ReadSaveTasks {
-	
-	private static final String TEST_OSN = "test.osn";
-    MockWebServerPlus mockServer = null;
-	Context context = null;
-	AdvancedPrefDatabase prefDB = null;
-	Main main = null;
-	TaskStorage ts = null;
-	
+
+    private static final String TEST_OSN   = "test.osn";
+    MockWebServerPlus           mockServer = null;
+    Context                     context    = null;
+    AdvancedPrefDatabase        prefDB     = null;
+    Main                        main       = null;
+    TaskStorage                 ts         = null;
+
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     @Before
     public void setup() {
-		context = InstrumentationRegistry.getInstrumentation().getTargetContext();
- 		main = mActivityRule.getActivity();
-		Preferences prefs = new Preferences(context);
-		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
-		main.getMap().setPrefs(main, prefs);
-		TestUtils.grantPermissons();
-		TestUtils.dismissStartUpDialogs(main);
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        main = mActivityRule.getActivity();
+        Preferences prefs = new Preferences(context);
+        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+        main.getMap().setPrefs(main, prefs);
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(main);
         ts = App.getTaskStorage();
         ts.reset();
     }
-    
+
     @After
     public void teardown() {
     }
-    
+
     @Test
     public void readAndSaveCustomBugs() {
         final CountDownLatch signal1 = new CountDownLatch(1);
@@ -109,7 +109,7 @@ public class ReadSaveTasks {
             Assert.fail(e.getMessage());
         }
         try {
-            is = new FileInputStream(new File(FileUtil.getPublicDirectory(),"test.json"));
+            is = new FileInputStream(new File(FileUtil.getPublicDirectory(), "test.json"));
         } catch (FileNotFoundException e) {
             Assert.fail(e.getMessage());
         } catch (IOException e) {
@@ -131,7 +131,7 @@ public class ReadSaveTasks {
         Assert.assertEquals(1, tasks.size());
         Assert.assertTrue(tasks.get(0) instanceof CustomBug);
     }
-    
+
     @Test
     public void saveNotes() {
         mockServer = new MockWebServerPlus();
@@ -146,14 +146,15 @@ public class ReadSaveTasks {
         mockServer.enqueue("notesDownload1");
         App.getTaskStorage().reset();
         try {
-            final Server s = new Server(context, prefDB.getCurrentAPI(),"vesupucci test");
+            final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
             SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
             Resources r = context.getResources();
             String notesSelector = r.getString(R.string.bugfilter_notes);
-            Set<String> set = new HashSet<String>(Arrays.asList(notesSelector)) ;
+            Set<String> set = new HashSet<String>(Arrays.asList(notesSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
             Assert.assertTrue(new Preferences(context).taskFilter().contains(notesSelector));
-            TransferTasks.downloadBox(context,s,new BoundingBox(8.3879800D,47.3892400D,8.3844600D,47.3911300D), false, Long.MAX_VALUE, new SignalHandler(signal));
+            TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, Long.MAX_VALUE,
+                    new SignalHandler(signal));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -173,7 +174,7 @@ public class ReadSaveTasks {
             Assert.fail(e.getMessage());
         }
         try {
-            byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(),TEST_OSN)));
+            byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(), TEST_OSN)));
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("test-result.osn");
             byte[] correctContent = TestUtils.readInputStream(is);

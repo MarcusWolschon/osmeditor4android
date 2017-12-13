@@ -28,14 +28,14 @@ import de.blau.android.filter.Filter;
 
 public class ValidatorRulesUI {
     private static final String DEBUG_TAG = ValidatorRulesUI.class.getSimpleName();
-    
+
     /**
      * Ruleset database related methods and fields
      */
-    private Cursor resurveyCursor;
+    private Cursor          resurveyCursor;
     private ResurveyAdapter resurveyAdapter;
-    private Cursor checkCursor;
-    private CheckAdapter checkAdapter;
+    private Cursor          checkCursor;
+    private CheckAdapter    checkAdapter;
 
     /**
      * Show a list of the templates in the database, selection will either load a template or start the edit dialog on
@@ -48,7 +48,7 @@ public class ValidatorRulesUI {
     public void manageRulesetContents(@NonNull final Context context) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         View rulesetView = (View) LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list, null);
-        alertDialog.setTitle(context.getString(R.string.validator_title,context.getString(R.string.default_)));
+        alertDialog.setTitle(context.getString(R.string.validator_title, context.getString(R.string.default_)));
         alertDialog.setView(rulesetView);
         final SQLiteDatabase writableDb = new ValidatorRulesDatabaseHelper(context).getWritableDatabase();
         ListView resurveyList = (ListView) rulesetView.findViewById(R.id.listViewResurvey);
@@ -135,7 +135,7 @@ public class ValidatorRulesUI {
             });
         }
     }
-    
+
     /**
      * Replace the current cursor for the resurvey table
      * 
@@ -163,7 +163,7 @@ public class ValidatorRulesUI {
         final EditText keyEdit = (EditText) templateView.findViewById(R.id.resurvey_key);
         final EditText valueEdit = (EditText) templateView.findViewById(R.id.resurvey_value);
         final CheckBox regexpCheck = (CheckBox) templateView.findViewById(R.id.resurvey_is_regexp);
-       // final EditText daysEdit = (EditText) templateView.findViewById(R.id.resurvey_days);
+        // final EditText daysEdit = (EditText) templateView.findViewById(R.id.resurvey_days);
         final NumberPicker daysPicker = (NumberPicker) templateView.findViewById(R.id.resurvey_days);
         if (existing) {
             Cursor cursor = db.rawQuery(ValidatorRulesDatabase.QUERY_RESURVEY_BY_ROWID, new String[] { Integer.toString(id) });
@@ -171,7 +171,7 @@ public class ValidatorRulesUI {
                 String key = cursor.getString(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.KEY_FIELD));
                 String value = cursor.getString(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.VALUE_FIELD));
                 boolean isRegexp = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.ISREGEXP_FIELD)) == 1 ? true : false;
-                int days  = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.DAYS_FIELD));
+                int days = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.DAYS_FIELD));
                 keyEdit.setText(key);
                 valueEdit.setText(value);
                 regexpCheck.setChecked(isRegexp);
@@ -195,14 +195,16 @@ public class ValidatorRulesUI {
             alertDialog.setTitle(R.string.add_resurvey_title);
         }
         alertDialog.setNegativeButton(R.string.Cancel, null);
- 
+
         alertDialog.setPositiveButton(R.string.Save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!existing) {
-                    ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(), daysPicker.getValue());
+                    ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(),
+                            daysPicker.getValue());
                 } else {
-                    ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(), daysPicker.getValue());
+                    ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(),
+                            daysPicker.getValue());
                 }
                 newResurveyCursor(db);
                 resetValidator(context);
@@ -225,7 +227,7 @@ public class ValidatorRulesUI {
         }
         App.getDefaultValidator(context).reset(context);
     }
-    
+
     private class CheckAdapter extends CursorAdapter {
         final SQLiteDatabase db;
 
@@ -274,7 +276,7 @@ public class ValidatorRulesUI {
         oldCursor.close();
         checkAdapter.notifyDataSetChanged();
     }
-    
+
     /**
      * Show a dialog for editing and saving a check entry
      * 
@@ -294,7 +296,7 @@ public class ValidatorRulesUI {
             Cursor cursor = db.rawQuery(ValidatorRulesDatabase.QUERY_CHECK_BY_ROWID, new String[] { Integer.toString(id) });
             if (cursor.moveToFirst()) {
                 String key = cursor.getString(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.KEY_FIELD));
-                boolean optional  = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.OPTIONAL_FIELD)) == 1;
+                boolean optional = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.OPTIONAL_FIELD)) == 1;
                 keyEdit.setText(key);
                 optionalEdit.setChecked(optional);
             } else {
@@ -316,7 +318,7 @@ public class ValidatorRulesUI {
             alertDialog.setTitle(R.string.add_check_title);
         }
         alertDialog.setNegativeButton(R.string.Cancel, null);
- 
+
         alertDialog.setPositiveButton(R.string.Save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

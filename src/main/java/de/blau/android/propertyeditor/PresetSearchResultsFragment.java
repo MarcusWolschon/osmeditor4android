@@ -26,27 +26,27 @@ import de.blau.android.util.ThemeUtils;
 
 public class PresetSearchResultsFragment extends DialogFragment {
 
-	private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
-	
+    private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
+
     private OnPresetSelectedListener mListener;
-    private OsmElement element;
-    private ArrayList<PresetItem> presets;
-    private boolean enabled = true;
-    
-	/**
+    private OsmElement               element;
+    private ArrayList<PresetItem>    presets;
+    private boolean                  enabled = true;
+
+    /**
      */
-    static public PresetSearchResultsFragment newInstance(ArrayList<PresetItem>searchResults) {
-    	PresetSearchResultsFragment f = new PresetSearchResultsFragment();
+    static public PresetSearchResultsFragment newInstance(ArrayList<PresetItem> searchResults) {
+        PresetSearchResultsFragment f = new PresetSearchResultsFragment();
 
         Bundle args = new Bundle();
         args.putSerializable("searchResults", searchResults);
 
         f.setArguments(args);
         // f.setShowsDialog(true);
-        
+
         return f;
     }
-    
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -63,142 +63,138 @@ public class PresetSearchResultsFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
     }
-    
+
     @NonNull
-	@SuppressWarnings("unchecked")
-	@SuppressLint("InflateParams")
+    @SuppressWarnings("unchecked")
+    @SuppressLint("InflateParams")
     @Override
-    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
-    {
-    	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
-    	Builder builder = new AlertDialog.Builder(getActivity());
-    	builder.setTitle(R.string.search_results_title);
-       	// inflater needs to be got from a themed view or else all our custom stuff will not style correctly
-    	LinearLayout presetsLayout = (LinearLayout) inflater.inflate(R.layout.preset_search_results_view,null);
-   
-    	presets = (ArrayList<PresetItem>) getArguments().getSerializable("searchResults");
-   	
-    	View v = getResultsView(presetsLayout, presets);
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
+        Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.search_results_title);
+        // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
+        LinearLayout presetsLayout = (LinearLayout) inflater.inflate(R.layout.preset_search_results_view, null);
 
-    	if (v != null) {
-    		builder.setView(v);
-    	}
-    	return builder.create();
+        presets = (ArrayList<PresetItem>) getArguments().getSerializable("searchResults");
+
+        View v = getResultsView(presetsLayout, presets);
+
+        if (v != null) {
+            builder.setView(v);
+        }
+        return builder.create();
     }
-    
 
-	private View getResultsView(final LinearLayout presetLayout, final ArrayList<PresetItem> presets) {
-		View v = null;
-		if (presets != null && !presets.isEmpty() ) {
+    private View getResultsView(final LinearLayout presetLayout, final ArrayList<PresetItem> presets) {
+        View v = null;
+        if (presets != null && !presets.isEmpty()) {
 
-			final PresetClickHandler presetClickHandler = new PresetClickHandler() { 
-				@Override
-				public void onItemClick(PresetItem item) {
-					if (!enabled) {
-						return;
-					}
-					Log.d(DEBUG_TAG, "normal click");
-					mListener.onPresetSelected(item);
-					dismiss();
-				}
+            final PresetClickHandler presetClickHandler = new PresetClickHandler() {
+                @Override
+                public void onItemClick(PresetItem item) {
+                    if (!enabled) {
+                        return;
+                    }
+                    Log.d(DEBUG_TAG, "normal click");
+                    mListener.onPresetSelected(item);
+                    dismiss();
+                }
 
-				@Override
-				public void onGroupClick(PresetGroup group) {
-					// should not have groups
-				}
+                @Override
+                public void onGroupClick(PresetGroup group) {
+                    // should not have groups
+                }
 
-				@Override
-				public boolean onItemLongClick(PresetItem item) {
-					return false;
-				}
+                @Override
+                public boolean onItemLongClick(PresetItem item) {
+                    return false;
+                }
 
-				@Override
-				public boolean onGroupLongClick(PresetGroup group) {
-					return false;
-				}
-			};
-			
-			Preset[] currentPresets = App.getCurrentPresets(getActivity());
-			
-			if (!(currentPresets != null && currentPresets.length > 0)) {
-				return null;
-			}
-			
-			PresetGroup results = new Preset().new PresetGroup(null, "search results", null); 
-			for (PresetItem p: presets) {
-				if (p != null ) {
-					results.addElement(p);
-				}
-			}
-			v = results.getGroupView(getActivity(), presetClickHandler, null, null);
+                @Override
+                public boolean onGroupLongClick(PresetGroup group) {
+                    return false;
+                }
+            };
 
-			// v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-	    	  
-	    	int padding = ThemeUtils.getDimensionFromAttribute(getActivity(), R.attr.dialogPreferredPadding);		
-			v.setPadding(padding - Preset.SPACING, Preset.SPACING, padding- Preset.SPACING, padding);
-	   	} else {
-			Log.d(DEBUG_TAG,"getResultsView problem");
-		}	
+            Preset[] currentPresets = App.getCurrentPresets(getActivity());
 
-	   	return v;
-	}
+            if (!(currentPresets != null && currentPresets.length > 0)) {
+                return null;
+            }
 
+            PresetGroup results = new Preset().new PresetGroup(null, "search results", null);
+            for (PresetItem p : presets) {
+                if (p != null) {
+                    results.addElement(p);
+                }
+            }
+            v = results.getGroupView(getActivity(), presetClickHandler, null, null);
+
+            // v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
+
+            int padding = ThemeUtils.getDimensionFromAttribute(getActivity(), R.attr.dialogPreferredPadding);
+            v.setPadding(padding - Preset.SPACING, Preset.SPACING, padding - Preset.SPACING, padding);
+        } else {
+            Log.d(DEBUG_TAG, "getResultsView problem");
+        }
+
+        return v;
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-    	super.onSaveInstanceState(outState);
-    	Log.d(DEBUG_TAG, "onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
     }
-
 
     @Override
     public void onPause() {
-    	super.onPause();
-    	Log.d(DEBUG_TAG, "onPause");
+        super.onPause();
+        Log.d(DEBUG_TAG, "onPause");
     }
 
     @Override
     public void onStop() {
-    	super.onStop();
-    	Log.d(DEBUG_TAG, "onStop");
+        super.onStop();
+        Log.d(DEBUG_TAG, "onStop");
     }
 
     @Override
     public void onDestroyView() {
-    	super.onDestroyView();
-    	Log.d(DEBUG_TAG, "onDestroyView");
+        super.onDestroyView();
+        Log.d(DEBUG_TAG, "onDestroyView");
     }
 
     @Override
     public void onDestroy() {
-    	super.onDestroy();
-    	Log.d(DEBUG_TAG, "onDestroy");
+        super.onDestroy();
+        Log.d(DEBUG_TAG, "onDestroy");
     }
-	    
-    	
-	/**
-	 * Return the view we have our rows in and work around some android craziness
-	 * @return
-	 */
-	public View getOurView() {
-		// android.support.v4.app.NoSaveStateFrameLayout
-		View v =  getView();	
-		if (v != null) {
-			if ( v.getId() == R.id.recentpresets_layout) {
-				Log.d(DEBUG_TAG,"got correct view in getView");
-				return v;
-			} else {
-				v = v.findViewById(R.id.recentpresets_layout);
-				if (v == null) {
-					Log.d(DEBUG_TAG,"didn't find R.id.recentpresets_layoutt");
-				}  else {
-					Log.d(DEBUG_TAG,"Found R.id.recentpresets_layout");
-				}
-				return v;
-			}
-		} else {
-			Log.d(DEBUG_TAG,"got null view in getView");
-		}
-		return null;
-	}
+
+    /**
+     * Return the view we have our rows in and work around some android craziness
+     * 
+     * @return
+     */
+    public View getOurView() {
+        // android.support.v4.app.NoSaveStateFrameLayout
+        View v = getView();
+        if (v != null) {
+            if (v.getId() == R.id.recentpresets_layout) {
+                Log.d(DEBUG_TAG, "got correct view in getView");
+                return v;
+            } else {
+                v = v.findViewById(R.id.recentpresets_layout);
+                if (v == null) {
+                    Log.d(DEBUG_TAG, "didn't find R.id.recentpresets_layoutt");
+                } else {
+                    Log.d(DEBUG_TAG, "Found R.id.recentpresets_layout");
+                }
+                return v;
+            }
+        } else {
+            Log.d(DEBUG_TAG, "got null view in getView");
+        }
+        return null;
+    }
 }

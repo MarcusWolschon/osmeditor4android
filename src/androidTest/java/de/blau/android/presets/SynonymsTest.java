@@ -19,30 +19,31 @@ import de.blau.android.util.SearchIndexUtils;
 
 /**
  * This is just a convenient way of generating the default preset dump
+ * 
  * @author simon
  *
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class SynonymsTest {
-	
+
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
-    
+
     @Before
     public void setup() {
         Locale.setDefault(new Locale("de", "DE"));
     }
-    
+
     @Test
-	public void search() {
-    	Main main = (Main)mActivityRule.getActivity(); 
-    	// 
-    	Locale locale = Locale.getDefault();
-    	Assert.assertEquals(Locale.GERMANY.getCountry(),locale.getCountry());
-    	List<PresetItem> result = SearchIndexUtils.searchInPresets(main, "Metzger", ElementType.NODE, 2, 10);
-    	
-    	Assert.assertTrue(result.size() > 0);
-    	Assert.assertEquals("Butcher", result.get(0).getName());
-	}
+    public void search() {
+        Main main = (Main) mActivityRule.getActivity();
+        //
+        Locale locale = Locale.getDefault();
+        Assert.assertEquals(Locale.GERMANY.getCountry(), locale.getCountry());
+        List<PresetItem> result = SearchIndexUtils.searchInPresets(main, "Metzger", ElementType.NODE, 2, 10);
+
+        Assert.assertTrue(result.size() > 0);
+        Assert.assertEquals("Butcher", result.get(0).getName());
+    }
 }

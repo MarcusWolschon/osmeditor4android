@@ -14,69 +14,69 @@ import de.blau.android.util.ThemeUtils;
 
 public class ProgressDialog {
 
-	public static AlertDialog get(Context ctx, int dialogType) {
-		int titleId = 0;
-		int messageId = 0;
-		switch (dialogType) {
-		case Progress.PROGRESS_LOADING:
-			titleId = R.string.progress_title;
-			messageId = R.string.progress_message;
-			break;
-		case Progress.PROGRESS_DOWNLOAD:
-			titleId = R.string.progress_title;
-			messageId = R.string.progress_download_message;
-			break;
-		case Progress.PROGRESS_DELETING:
-			titleId = R.string.progress_general_title; 
-			messageId = R.string.progress_deleting_message;
-			break;
-		case Progress.PROGRESS_SEARCHING:
-			titleId = R.string.progress_general_title;
-			messageId = R.string.progress_searching_message;
-			break;
-		case Progress.PROGRESS_SAVING:
-			titleId = R.string.progress_general_title; 
-			messageId = R.string.progress_saving_message;
-			break;
-		case Progress.PROGRESS_OAUTH:
-			titleId = R.string.progress_general_title; 
-			messageId = R.string.progress_oauth;
-			break;
-		case Progress.PROGRESS_UPLOADING:
-			titleId = R.string.progress_general_title; 
-			messageId = R.string.progress_uploading_message;
-			break;
-		case Progress.PROGRESS_PRESET:
-			titleId = R.string.progress_general_title; 
-			messageId = R.string.progress_preset_message;
-			break;
-		case Progress.PROGRESS_RUNNING:
-			titleId = R.string.progress_general_title; 
-			messageId = R.string.progress_running_message;
-			break;
-		default:
-			return null;
-		}
-		
-		// inflater needs to be got from a themed view or else all our custom stuff will not style correctly
-		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
+    public static AlertDialog get(Context ctx, int dialogType) {
+        int titleId = 0;
+        int messageId = 0;
+        switch (dialogType) {
+        case Progress.PROGRESS_LOADING:
+            titleId = R.string.progress_title;
+            messageId = R.string.progress_message;
+            break;
+        case Progress.PROGRESS_DOWNLOAD:
+            titleId = R.string.progress_title;
+            messageId = R.string.progress_download_message;
+            break;
+        case Progress.PROGRESS_DELETING:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_deleting_message;
+            break;
+        case Progress.PROGRESS_SEARCHING:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_searching_message;
+            break;
+        case Progress.PROGRESS_SAVING:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_saving_message;
+            break;
+        case Progress.PROGRESS_OAUTH:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_oauth;
+            break;
+        case Progress.PROGRESS_UPLOADING:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_uploading_message;
+            break;
+        case Progress.PROGRESS_PRESET:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_preset_message;
+            break;
+        case Progress.PROGRESS_RUNNING:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_running_message;
+            break;
+        default:
+            return null;
+        }
 
-		Builder builder = new AlertDialog.Builder(ctx);
-		builder.setTitle(titleId);
+        // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
 
-		View layout = inflater.inflate(R.layout.progress, null);
-		TextView message = (TextView) layout.findViewById(R.id.progressMessage);
-		message.setText(messageId);
-		ProgressBar progressBar = (ProgressBar) layout.findViewById(R.id.progressBar);
-		if (progressBar.getIndeterminateDrawable() != null) {
-			PorterDuff.Mode mode = android.graphics.PorterDuff.Mode.SRC_IN;
-			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-				mode = android.graphics.PorterDuff.Mode.MULTIPLY; // ugly but at least it animates
-			}
-			progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorAccent, 0), mode);
-		}
-		builder.setView(layout);
+        Builder builder = new AlertDialog.Builder(ctx);
+        builder.setTitle(titleId);
 
-		return builder.create();
-	}
+        View layout = inflater.inflate(R.layout.progress, null);
+        TextView message = (TextView) layout.findViewById(R.id.progressMessage);
+        message.setText(messageId);
+        ProgressBar progressBar = (ProgressBar) layout.findViewById(R.id.progressBar);
+        if (progressBar.getIndeterminateDrawable() != null) {
+            PorterDuff.Mode mode = android.graphics.PorterDuff.Mode.SRC_IN;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                mode = android.graphics.PorterDuff.Mode.MULTIPLY; // ugly but at least it animates
+            }
+            progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorAccent, 0), mode);
+        }
+        builder.setView(layout);
+
+        return builder.create();
+    }
 }

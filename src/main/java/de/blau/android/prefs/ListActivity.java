@@ -1,6 +1,5 @@
 package de.blau.android.prefs;
 
-
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,36 +14,36 @@ import android.widget.ListView;
  */
 @SuppressLint("Registered")
 public class ListActivity extends AppCompatActivity {
-	private ListView mListView;
+    private ListView mListView;
 
-	protected ListView getListView() {
-		if (mListView == null) {
-			mListView = (ListView) findViewById(android.R.id.list);
-		}
-		return mListView;
-	}
+    protected ListView getListView() {
+        if (mListView == null) {
+            mListView = (ListView) findViewById(android.R.id.list);
+        }
+        return mListView;
+    }
 
-	void setListAdapter(ListAdapter adapter) {
-		getListView().setAdapter(adapter);
-	}
+    void setListAdapter(ListAdapter adapter) {
+        getListView().setAdapter(adapter);
+    }
 
-	protected ListAdapter getListAdapter() {
-		ListAdapter adapter = getListView().getAdapter();
-		if (adapter instanceof HeaderViewListAdapter) {
-			return ((HeaderViewListAdapter)adapter).getWrappedAdapter();
-		} else {
-			return adapter;
-		}
-	}
-	
-	@Override
-	public void onContentChanged() {
-	    super.onContentChanged();
-	    View empty = findViewById(android.R.id.empty);
-	    if (empty != null) {
-	    	getListView().setEmptyView(empty);
-	    } else {
-	    	Log.e("ListActivitiy","empty view not found");
-	    }
-	}
+    protected ListAdapter getListAdapter() {
+        ListAdapter adapter = getListView().getAdapter();
+        if (adapter instanceof HeaderViewListAdapter) {
+            return ((HeaderViewListAdapter) adapter).getWrappedAdapter();
+        } else {
+            return adapter;
+        }
+    }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+        View empty = findViewById(android.R.id.empty);
+        if (empty != null) {
+            getListView().setEmptyView(empty);
+        } else {
+            Log.e("ListActivitiy", "empty view not found");
+        }
+    }
 }

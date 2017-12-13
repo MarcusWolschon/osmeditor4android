@@ -10,9 +10,10 @@ import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpEntityEnclosingRequest;
 import cz.msebera.android.httpclient.client.methods.HttpUriRequest;
 
-/** 
- * Modified to use a version of the Apache httpclient with renamed package and adapted to work with version 4.4 with working SNI support
- */ 
+/**
+ * Modified to use a version of the Apache httpclient with renamed package and adapted to work with version 4.4 with
+ * working SNI support
+ */
 public class HttpRequestAdapter implements oauth.signpost.http.HttpRequest {
 
     private HttpUriRequest request;

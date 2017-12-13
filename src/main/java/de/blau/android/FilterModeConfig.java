@@ -20,7 +20,6 @@ import de.blau.android.presets.PresetElementPath;
  */
 public class FilterModeConfig implements ModeConfig {
 
-
     @Override
     public void setup(Main main, Logic logic) {
         // empty stub
@@ -28,13 +27,13 @@ public class FilterModeConfig implements ModeConfig {
 
     @Override
     public void teardown(Main main, Logic logic) {
-     // empty stub
+        // empty stub
     }
 
     @Override
     public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
         return null;
-    }  
+    }
 
     @Nullable
     public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
@@ -42,10 +41,10 @@ public class FilterModeConfig implements ModeConfig {
         Logic logic = App.getLogic();
         Filter filter = logic.getFilter();
         if (filter instanceof PresetFilter) {
-            PresetElement presetElement = ((PresetFilter)filter).getPresetElement();
+            PresetElement presetElement = ((PresetFilter) filter).getPresetElement();
             if (presetElement instanceof PresetItem || presetElement instanceof PresetGroup) {
                 Preset[] presets = App.getCurrentPresets(ctx);
-                ArrayList<PresetElementPath>result = new ArrayList<>();
+                ArrayList<PresetElementPath> result = new ArrayList<>();
                 result.add(presetElement.getPath(presets[0].getRootGroup()));
                 return result;
             }

@@ -8,16 +8,16 @@ package de.blau.android.exception;
  */
 public class UiStateException extends RuntimeException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	public UiStateException(String string) {
-		super(string);
-	}
+    public UiStateException(String string) {
+        super(string);
+    }
 
-	public UiStateException(UiStateException e) {
-		super(e.getMessage());
-	}
+    public UiStateException(UiStateException e) {
+        super(e.getMessage());
+    }
 }

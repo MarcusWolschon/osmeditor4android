@@ -1,6 +1,5 @@
 package de.blau.android.presets;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,49 +18,50 @@ import de.blau.android.presets.Preset.PresetItem;
 
 /**
  * This is just a convenient way of generating the default preset dump
+ * 
  * @author simon
  *
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class PresetTest {
-	
+
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
-    
+
     @Before
     public void setup() {
     }
-    
+
     @Test
-	public void matching() {
-    	Main main = (Main)mActivityRule.getActivity(); 
-    	// 
-    	Preset[] presets = App.getCurrentPresets(main);
-    	HashMap<String,String> tags = new HashMap<String,String>();
-    	tags.put("amenity", "restaurant");
-    	PresetItem restaurant = Preset.findBestMatch(presets, tags);
-    	Assert.assertEquals("Restaurant", restaurant.getName());
-    	// Splitting
-    	ArrayList<String>values = new ArrayList<String>();
-    	values.add("chinese;fondue");
-    	values.add("japenese,steak");
-    	ArrayList<String>result = Preset.splitValues(values, restaurant, "cuisine");
-    	Assert.assertEquals(3,result.size());
-    	Assert.assertTrue(result.contains("chinese"));
-    	Assert.assertTrue(result.contains("fondue"));
-    	Assert.assertTrue(result.contains("japenese,steak"));
-    	Assert.assertNull(Preset.splitValues(null, restaurant, "cuisine"));
-    	values.add(null);
-    	Assert.assertEquals(3,Preset.splitValues(values, restaurant, "cuisine").size());
-    	// lanes uses |
-    	PresetItem lanes = presets[0].getItemByName("Single direction roads");
-    	Assert.assertNotNull(lanes);
-    	values.clear();
-    	values.add("left|right");
-    	result = Preset.splitValues(values, lanes, "turn:lanes");
-    	Assert.assertEquals(2,result.size());
-    	Assert.assertTrue(result.contains("left"));
-    	Assert.assertTrue(result.contains("right"));
-	}
+    public void matching() {
+        Main main = (Main) mActivityRule.getActivity();
+        //
+        Preset[] presets = App.getCurrentPresets(main);
+        HashMap<String, String> tags = new HashMap<String, String>();
+        tags.put("amenity", "restaurant");
+        PresetItem restaurant = Preset.findBestMatch(presets, tags);
+        Assert.assertEquals("Restaurant", restaurant.getName());
+        // Splitting
+        ArrayList<String> values = new ArrayList<String>();
+        values.add("chinese;fondue");
+        values.add("japenese,steak");
+        ArrayList<String> result = Preset.splitValues(values, restaurant, "cuisine");
+        Assert.assertEquals(3, result.size());
+        Assert.assertTrue(result.contains("chinese"));
+        Assert.assertTrue(result.contains("fondue"));
+        Assert.assertTrue(result.contains("japenese,steak"));
+        Assert.assertNull(Preset.splitValues(null, restaurant, "cuisine"));
+        values.add(null);
+        Assert.assertEquals(3, Preset.splitValues(values, restaurant, "cuisine").size());
+        // lanes uses |
+        PresetItem lanes = presets[0].getItemByName("Single direction roads");
+        Assert.assertNotNull(lanes);
+        values.clear();
+        values.add("left|right");
+        result = Preset.splitValues(values, lanes, "turn:lanes");
+        Assert.assertEquals(2, result.size());
+        Assert.assertTrue(result.contains("left"));
+        Assert.assertTrue(result.contains("right"));
+    }
 }

@@ -9,12 +9,13 @@ import de.blau.android.R;
 
 /**
  * 
- * @see <a href="https://blog.svpino.com/2011/08/29/disabling-pagingswiping-on-android">disabling paging/swiping on android</a>
+ * @see <a href="https://blog.svpino.com/2011/08/29/disabling-pagingswiping-on-android">disabling paging/swiping on
+ *      android</a>
  *
  */
 public class ExtendedViewPager extends ViewPager {
-	
-	private static final String DEBUG_TAG = ExtendedViewPager.class.getName();
+
+    private static final String DEBUG_TAG = ExtendedViewPager.class.getName();
 
     private boolean enabled;
 
@@ -22,11 +23,11 @@ public class ExtendedViewPager extends ViewPager {
         super(context);
         this.enabled = true;
     }
-    
-	public ExtendedViewPager(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		this.enabled = true;
-	}
+
+    public ExtendedViewPager(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.enabled = true;
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -45,15 +46,15 @@ public class ExtendedViewPager extends ViewPager {
     }
 
     public void setPagingEnabled(boolean enabled) {
-    	Log.d(DEBUG_TAG,"Setting paging enabled to " + enabled);
+        Log.d(DEBUG_TAG, "Setting paging enabled to " + enabled);
         this.enabled = enabled;
         try {
-        	ExtendedPagerTabStrip tabStrip = (ExtendedPagerTabStrip) findViewById(R.id.pager_header);
-        	if (tabStrip != null) {
-        		tabStrip.setPagingEnabled(enabled);
-        	}
+            ExtendedPagerTabStrip tabStrip = (ExtendedPagerTabStrip) findViewById(R.id.pager_header);
+            if (tabStrip != null) {
+                tabStrip.setPagingEnabled(enabled);
+            }
         } catch (Exception ex) {
-        	Log.d(DEBUG_TAG,"Exception in setPAgingEnabled " + ex);
+            Log.d(DEBUG_TAG, "Exception in setPAgingEnabled " + ex);
         }
     }
 }

@@ -1,12 +1,10 @@
 /*
- * Copyright (c) 2009 Matthias Kaeppler Licensed under the Apache License,
- * Version 2.0 (the "License"); you may not use this file except in compliance
- * with the License. You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
- * or agreed to in writing, software distributed under the License is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
+ * Copyright (c) 2009 Matthias Kaeppler Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+ * this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package de.blau.android.util.signpost;
 
@@ -23,33 +21,30 @@ import oauth.signpost.AbstractOAuthProvider;
 import oauth.signpost.http.HttpRequest;
 
 /**
- * This implementation uses the Apache Commons {@link HttpClient} 4.x HTTP
- * implementation to fetch OAuth tokens from a service provider. Android users
- * should use this provider implementation in favor of the default one, since
- * the latter is known to cause problems with Android's Apache Harmony
- * underpinnings.
+ * This implementation uses the Apache Commons {@link HttpClient} 4.x HTTP implementation to fetch OAuth tokens from a
+ * service provider. Android users should use this provider implementation in favor of the default one, since the latter
+ * is known to cause problems with Android's Apache Harmony underpinnings.
  * 
  * @author Matthias Kaeppler
- *  
- * Modified to use a version of the Apache httpclient with renamed package and adapted to work with version 4.4 with working SNI support
+ * 
+ *         Modified to use a version of the Apache httpclient with renamed package and adapted to work with version 4.4
+ *         with working SNI support
  * 
  */
 public class CommonsHttpOAuthProvider extends AbstractOAuthProvider {
     static final String DEBUG_TAG = "CommonsHttpOAuthProv...";
-    
+
     private static final long serialVersionUID = 1L;
 
     private transient HttpClient httpClient;
 
-    public CommonsHttpOAuthProvider(String requestTokenEndpointUrl, String accessTokenEndpointUrl,
-            String authorizationWebsiteUrl) {
+    public CommonsHttpOAuthProvider(String requestTokenEndpointUrl, String accessTokenEndpointUrl, String authorizationWebsiteUrl) {
         super(requestTokenEndpointUrl, accessTokenEndpointUrl, authorizationWebsiteUrl);
         // this.httpClient = new DefaultHttpClient();
         this.httpClient = HttpClients.createDefault();
     }
 
-    public CommonsHttpOAuthProvider(String requestTokenEndpointUrl, String accessTokenEndpointUrl,
-            String authorizationWebsiteUrl, HttpClient httpClient) {
+    public CommonsHttpOAuthProvider(String requestTokenEndpointUrl, String accessTokenEndpointUrl, String authorizationWebsiteUrl, HttpClient httpClient) {
         super(requestTokenEndpointUrl, accessTokenEndpointUrl, authorizationWebsiteUrl);
         this.httpClient = httpClient;
     }
@@ -71,8 +66,7 @@ public class CommonsHttpOAuthProvider extends AbstractOAuthProvider {
     }
 
     @Override
-    protected void closeConnection(HttpRequest request, oauth.signpost.http.HttpResponse response)
-            throws Exception {
+    protected void closeConnection(HttpRequest request, oauth.signpost.http.HttpResponse response) throws Exception {
         if (response != null) {
             HttpEntity entity = ((HttpResponse) response.unwrap()).getEntity();
             if (entity != null) {
@@ -81,7 +75,7 @@ public class CommonsHttpOAuthProvider extends AbstractOAuthProvider {
                     entity.consumeContent();
                 } catch (IOException e) {
                     // this means HTTP keep-alive is not possible
-                    Log.d(DEBUG_TAG,e.getMessage());
+                    Log.d(DEBUG_TAG, e.getMessage());
                 }
             }
         }

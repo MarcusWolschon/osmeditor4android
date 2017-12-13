@@ -5,12 +5,12 @@ import java.util.regex.Pattern;
 import android.support.annotation.Nullable;
 
 public class PatternAndAge {
-    private String value;
+    private String  value;
     private boolean isRegexp;
-    private long s; // age in seconds
-    
+    private long    s;       // age in seconds
+
     private Pattern patternCache = null;
-    
+
     public boolean matches(@Nullable String v) {
         if (v == null) {
             return getValue() == null;

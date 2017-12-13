@@ -23,54 +23,54 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog asking for confirmation before starting an activity that might result in data loss.
  *
  */
-public class AttachedObjectWarning extends DialogFragment
-{
-	
-	private static final String DEBUG_TAG = AttachedObjectWarning.class.getSimpleName();
-	
-	private static final String TAG = "fragment_attached_object_activity";
-	
-	private Main main;
-	
-   	/**
-	 * Shows a dialog warning the user that an invisible object has been changed, the user has the option
-	 * of ignring the warning, supressing it and undoing the change.
-	 * @param activity Activity creating the dialog and starting the intent Activity if confirmed
-	 */
-	static public void showDialog(FragmentActivity activity) {
-		dismissDialog(activity);
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			AttachedObjectWarning detachFragment = newInstance();
-			detachFragment.show(fm, TAG);
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"showDialog",isex);
-		}
-	}
+public class AttachedObjectWarning extends DialogFragment {
 
-	private static void dismissDialog(FragmentActivity activity) {
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			FragmentTransaction ft = fm.beginTransaction();
-			Fragment fragment = fm.findFragmentByTag(TAG);
-			if (fragment != null) {
-				ft.remove(fragment);
-			}
-			ft.commit();
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"dismissDialog",isex);
-		}
-	}
-		
+    private static final String DEBUG_TAG = AttachedObjectWarning.class.getSimpleName();
+
+    private static final String TAG = "fragment_attached_object_activity";
+
+    private Main main;
+
+    /**
+     * Shows a dialog warning the user that an invisible object has been changed, the user has the option of ignring the
+     * warning, supressing it and undoing the change.
+     * 
+     * @param activity Activity creating the dialog and starting the intent Activity if confirmed
+     */
+    static public void showDialog(FragmentActivity activity) {
+        dismissDialog(activity);
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            AttachedObjectWarning detachFragment = newInstance();
+            detachFragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+        }
+    }
+
+    private static void dismissDialog(FragmentActivity activity) {
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentByTag(TAG);
+            if (fragment != null) {
+                ft.remove(fragment);
+            }
+            ft.commit();
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog", isex);
+        }
+    }
+
     /**
      */
     static private AttachedObjectWarning newInstance() {
-    	AttachedObjectWarning f = new AttachedObjectWarning();
+        AttachedObjectWarning f = new AttachedObjectWarning();
         f.setShowsDialog(true);
-        
+
         return f;
     }
-    
+
     @Override
     public void onAttach(Context context) {
         Log.d(DEBUG_TAG, "onAttach");
@@ -83,36 +83,37 @@ public class AttachedObjectWarning extends DialogFragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setCancelable(true);
     }
 
     @NonNull
-	@Override
-    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
-    {
-    	Builder builder = new AlertDialog.Builder(getActivity());
-    	builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
-    	builder.setTitle(R.string.attached_object_warning_title);
-    	builder.setMessage(R.string.attached_object_warning_message);
-    	builder.setPositiveButton(R.string.attached_object_warning_continue, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface arg0, int arg1) {
-					// simple continue
-				} } );
-    	builder.setNeutralButton(R.string.attached_object_warning_stop, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface arg0, int arg1) {	
-					App.getLogic().setAttachedObjectWarning(false);
-				} } );
-    	builder.setNegativeButton(R.string.undo, new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				main.getUndoListener().onClick(null);
-			} } );
+    @Override
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
+        builder.setTitle(R.string.attached_object_warning_title);
+        builder.setMessage(R.string.attached_object_warning_message);
+        builder.setPositiveButton(R.string.attached_object_warning_continue, new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                // simple continue
+            }
+        });
+        builder.setNeutralButton(R.string.attached_object_warning_stop, new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                App.getLogic().setAttachedObjectWarning(false);
+            }
+        });
+        builder.setNegativeButton(R.string.undo, new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                main.getUndoListener().onClick(null);
+            }
+        });
 
-    	return builder.create();
+        return builder.create();
     }
 }

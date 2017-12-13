@@ -8,22 +8,22 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 
 public interface Validator {
-    int NOT_VALIDATED   = 0;
-    int OK              = 0x00000001;
-    int AGE             = 0x00000002;
-    int FIXME           = 0x00000004;
-    int MISSING_TAG     = 0x00000008;
-    int HIGHWAY_NAME    = 0x00000010;
-    int HIGHWAY_ROAD    = 0x00000020;
-    int NO_TYPE         = 0x00000040;
-    
+    int NOT_VALIDATED = 0;
+    int OK            = 0x00000001;
+    int AGE           = 0x00000002;
+    int FIXME         = 0x00000004;
+    int MISSING_TAG   = 0x00000008;
+    int HIGHWAY_NAME  = 0x00000010;
+    int HIGHWAY_ROAD  = 0x00000020;
+    int NO_TYPE       = 0x00000040;
+
     /**
      * Reset the state of the validator
      * 
      * @param context Android Context
      */
     void reset(Context context);
-    
+
     /**
      * Validate an OSM Node
      * 
@@ -31,7 +31,7 @@ public interface Validator {
      * @return an int with bits set according to issues found
      */
     int validate(@NonNull Node node);
-    
+
     /**
      * Validate an OSM Way
      * 
@@ -39,7 +39,7 @@ public interface Validator {
      * @return an int with bits set according to issues found
      */
     int validate(@NonNull Way way);
-    
+
     /**
      * Validate an OSM RElation
      * 
@@ -47,46 +47,50 @@ public interface Validator {
      * @return an int with bits set according to issues found
      */
     int validate(@NonNull Relation relation);
-    
+
     /**
      * Get problem descriptions
      * 
      * Note should only be called if the element actually does have an issue
-     * @param ctx   Android Context
-     * @param node  Node to return the issues for
+     * 
+     * @param ctx Android Context
+     * @param node Node to return the issues for
      * @return array of Strings containing short descriptions of any issues
      */
     @NonNull
     String[] describeProblem(@NonNull Context ctx, @NonNull Node node);
-    
+
     /**
      * Get problem descriptions
      * 
      * Note should only be called if the element actually does have an issue
-     * @param ctx   Android Context
-     * @param way   Way to return the issues for
+     * 
+     * @param ctx Android Context
+     * @param way Way to return the issues for
      * @return array of Strings containing short descriptions of any issues
      */
     @NonNull
     String[] describeProblem(@NonNull Context ctx, @NonNull Way way);
-    
+
     /**
      * Get problem descriptions
      * 
      * Note should only be called if the element actually does have an issue
-     * @param ctx   Android Context
-     * @param relation   Relation to return the issues for
+     * 
+     * @param ctx Android Context
+     * @param relation Relation to return the issues for
      * @return array of Strings containing short descriptions of any issues
      */
     @NonNull
     String[] describeProblem(@NonNull Context ctx, @NonNull Relation relation);
-    
+
     /**
      * Get problem descriptions
      * 
      * Note should only be called if the element actually does have an issue
-     * @param ctx   Android Context
-     * @param e  OsmElement to return the issues for
+     * 
+     * @param ctx Android Context
+     * @param e OsmElement to return the issues for
      * @return array of Strings containing short descriptions of any issues
      */
     @NonNull

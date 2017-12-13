@@ -14,72 +14,72 @@ import de.blau.android.App;
 import de.blau.android.R;
 
 public class MenuUtil {
-	
-	private static String DEBUG_TAG = MenuUtil.class.getName();
-	
-	private static int MIN_WIDTH_DP = 64; // this is hardwired in ActionMenuView!!!
-	
-	private int maxItems = 0;
-	private final int screenWidth;
-	
-	public MenuUtil(Context ctx) {
-		// hardcoded calculation of how many icons we want to display
-		//TODO de-hardcode
-		DisplayMetrics metrics = App.resources().getDisplayMetrics();
-		screenWidth = metrics.widthPixels;
-		float widthDp = metrics.widthPixels / metrics.density;
 
-		maxItems = (int) (widthDp/MIN_WIDTH_DP);
-		Log.d(DEBUG_TAG,"pixel width " + metrics.widthPixels + " DP width " + widthDp + " maxItems " + maxItems);
-	}
+    private static String DEBUG_TAG = MenuUtil.class.getName();
 
-	public void reset() {
-	}
-	
-	public void setShowAlways(Menu menu) {
+    private static int MIN_WIDTH_DP = 64; // this is hardwired in ActionMenuView!!!
 
-		int nonVisibleItems = 0;
-		for (int i=0;i < menu.size();i++) {
-			MenuItem mi = menu.getItem(i);
-			if (!mi.isVisible() || mi.getIcon() == null) {
-				nonVisibleItems++;
-			}
-		}
-		int tempMaxItems = maxItems;
-		if ((menu.size() - nonVisibleItems) > maxItems) {
-			// will have overflow menu
-			tempMaxItems--;
-		}
-		
-		// Log.d("MenuUtil","menu size " + menu.size() + " maxItems " + maxItems + " nonVisible " + nonVisibleItems);
-		for (int i=0,j=0;i < menu.size();i++) { // max 10 even if we have more space
-			MenuItem mi = menu.getItem(i);
-			// Log.d("MenuUtil","menu " + mi.getTitle());
-			if (j < Math.min(tempMaxItems,10)) {
-				if (mi.isVisible() && mi.getIcon() != null) {
-					MenuItemCompat.setShowAsAction(menu.getItem(i),MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-					j++;
-				} 
-			} else {
-				MenuItemCompat.setShowAsAction(menu.getItem(i),MenuItemCompat.SHOW_AS_ACTION_NEVER);
-			}
-		}		
-	}
-	
-	public static void setupBottomBar(Activity activity, ActionMenuView bar, boolean fullScreen, boolean light) {
-		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-		if (Util.isLarge(activity)) {
-			params.width = FrameLayout.LayoutParams.WRAP_CONTENT;
-			params.gravity = Gravity.END;
-		}
-		bar.setLayoutParams(params);
-		if (fullScreen) {
-			if (light) {
-				bar.setPopupTheme(R.style.Theme_noOverlapMenu_Light);
-			} else {
-				bar.setPopupTheme(R.style.Theme_noOverlapMenu);
-			}
-		}
-	}
-	
+    private int       maxItems = 0;
+    private final int screenWidth;
+
+    public MenuUtil(Context ctx) {
+        // hardcoded calculation of how many icons we want to display
+        // TODO de-hardcode
+        DisplayMetrics metrics = App.resources().getDisplayMetrics();
+        screenWidth = metrics.widthPixels;
+        float widthDp = metrics.widthPixels / metrics.density;
+
+        maxItems = (int) (widthDp / MIN_WIDTH_DP);
+        Log.d(DEBUG_TAG, "pixel width " + metrics.widthPixels + " DP width " + widthDp + " maxItems " + maxItems);
+    }
+
+    public void reset() {
+    }
+
+    public void setShowAlways(Menu menu) {
+
+        int nonVisibleItems = 0;
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem mi = menu.getItem(i);
+            if (!mi.isVisible() || mi.getIcon() == null) {
+                nonVisibleItems++;
+            }
+        }
+        int tempMaxItems = maxItems;
+        if ((menu.size() - nonVisibleItems) > maxItems) {
+            // will have overflow menu
+            tempMaxItems--;
+        }
+
+        // Log.d("MenuUtil","menu size " + menu.size() + " maxItems " + maxItems + " nonVisible " + nonVisibleItems);
+        for (int i = 0, j = 0; i < menu.size(); i++) { // max 10 even if we have more space
+            MenuItem mi = menu.getItem(i);
+            // Log.d("MenuUtil","menu " + mi.getTitle());
+            if (j < Math.min(tempMaxItems, 10)) {
+                if (mi.isVisible() && mi.getIcon() != null) {
+                    MenuItemCompat.setShowAsAction(menu.getItem(i), MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+                    j++;
+                }
+            } else {
+                MenuItemCompat.setShowAsAction(menu.getItem(i), MenuItemCompat.SHOW_AS_ACTION_NEVER);
+            }
+        }
+    }
+
+    public static void setupBottomBar(Activity activity, ActionMenuView bar, boolean fullScreen, boolean light) {
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        if (Util.isLarge(activity)) {
+            params.width = FrameLayout.LayoutParams.WRAP_CONTENT;
+            params.gravity = Gravity.END;
+        }
+        bar.setLayoutParams(params);
+        if (fullScreen) {
+            if (light) {
+                bar.setPopupTheme(R.style.Theme_noOverlapMenu_Light);
+            } else {
+                bar.setPopupTheme(R.style.Theme_noOverlapMenu);
+            }
+        }
+    }
+
 }

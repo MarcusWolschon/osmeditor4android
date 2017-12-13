@@ -41,151 +41,149 @@ import android.widget.ListView;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
 
-
 /**
- * Minimal system for viewing help files
- * Currently only html format is supported directly
+ * Minimal system for viewing help files Currently only html format is supported directly
+ * 
  * @author simon
  *
  */
 public class HelpViewer extends BugFixedAppCompatActivity {
-	
-	private static String DEBUG_TAG = HelpViewer.class.getName();
-	
-	class HelpItem {
-		boolean displayLanguage = false;
-		String language;
-		int order;
-		String topic;
-		String fileName;
 
-		@Override
-		public String toString() {
-			return topic + (displayLanguage ? " (" + language + ")": "");
-		}
-	}
-		
-	private static final String TOPIC = "topic";
-	private WebView helpView;
-	private HashMap<String,HelpItem> tocList = new HashMap<>();
-	
-	private ActionBarDrawerToggle mDrawerToggle;
-	// drawer that will be our ToC
-	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList;
-	private ArrayAdapter<HelpItem> tocAdapter;
+    private static String DEBUG_TAG = HelpViewer.class.getName();
 
-	public static void start(@NonNull Context context, @StringRes int topic) {
-		Intent intent = new Intent(context, HelpViewer.class);
-		intent.putExtra(TOPIC, topic);
-		context.startActivity(intent);
-	}
+    class HelpItem {
+        boolean displayLanguage = false;
+        String  language;
+        int     order;
+        String  topic;
+        String  fileName;
 
-	@SuppressLint("NewApi")
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		Preferences prefs = new Preferences(this);
-		if (prefs.lightThemeEnabled()) {
-			setTheme(R.style.Theme_customHelpViewer_Light);
-		}
-		
-		super.onCreate(savedInstanceState);
-		int topicId = R.string.help_introduction;
-		Serializable s = getIntent().getSerializableExtra(TOPIC);
-		if ( s != null) {
-			try {
-				topicId = (Integer)s;
-			} catch (Exception e) {
-				Log.e(DEBUG_TAG,"casting topic raised " + e);
-			}
-		} else {
-			Log.d(DEBUG_TAG,"Falling back to default topic");
-		}
-		String topic = getString(topicId); // this assumes that the resources are the same, which is probably safe
-		
-		setContentView(R.layout.help_drawer);
+        @Override
+        public String toString() {
+            return topic + (displayLanguage ? " (" + language + ")" : "");
+        }
+    }
 
-		
-//        // Find the toolbar view inside the activity layout
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.helpToolbar);
-//        // Sets the Toolbar to act as the ActionBar for this Activity window.
-//        // Make sure the toolbar exists in the activity and is not null
-//        setSupportActionBar(toolbar);
+    private static final String       TOPIC   = "topic";
+    private WebView                   helpView;
+    private HashMap<String, HelpItem> tocList = new HashMap<>();
 
-		ActionBar actionbar = getSupportActionBar();
-		if (actionbar == null) {
-			Log.d("HelpViewer", "No actionbar"); // fail?
-			return;
-		}
-		actionbar.setDisplayShowHomeEnabled(true);
-		actionbar.setTitle(getString(R.string.menu_help) + ": " + topic);
-		actionbar.setDisplayShowTitleEnabled(true);
-		actionbar.show();
+    private ActionBarDrawerToggle mDrawerToggle;
+    // drawer that will be our ToC
+    private DrawerLayout           mDrawerLayout;
+    private ListView               mDrawerList;
+    private ArrayAdapter<HelpItem> tocAdapter;
 
-		// add our content
-		FrameLayout fl =  (FrameLayout) findViewById(R.id.content_frame);
-		helpView = new WebView(this);
-		WebSettings helpSettings = helpView.getSettings();
-		helpSettings.setDefaultFontSize(12);
-		helpSettings.setSupportZoom(true);
-		
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			helpSettings.setDisplayZoomControls(false); // don't display +-
-		} else {
-			helpSettings.setBuiltInZoomControls(true);
-		}
-		helpView.setWebViewClient(new HelpViewWebViewClient());
-		fl.addView(helpView);
-		
-		// set up the drawer
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.help_drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.help_left_drawer);
-		
-		actionbar.setHomeButtonEnabled(true);
-		actionbar.setDisplayHomeAsUpEnabled(true);
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.okay, R.string.okay);
-		mDrawerToggle.setDrawerIndicatorEnabled(true);
-		mDrawerLayout.addDrawerListener(mDrawerToggle);	
+    public static void start(@NonNull Context context, @StringRes int topic) {
+        Intent intent = new Intent(context, HelpViewer.class);
+        intent.putExtra(TOPIC, topic);
+        context.startActivity(intent);
+    }
 
-		try {
-			List<String> defaultList = Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage()));
-			List<String> enList = Arrays.asList(getResources().getAssets().list("help/en"));
-			String defaultLanguage = Locale.getDefault().getLanguage();
-			
-			TypedArray tocRes = getResources().obtainTypedArray(R.array.help_tableofcontents);
-			TypedArray fileRes = getResources().obtainTypedArray(R.array.help_files);
-								
-			for (int i=0;i<tocRes.length();i++) {
-				String fileName = fileRes.getString(i);
-				// Log.d("HelpViewer", "TOC " + tocTopic); 
-				if (defaultList.contains(fileName + ".html")) {
-					// Log.d("HelpViewer", "TOC " + locale + " " + tocTopic); 
-					HelpItem h = new HelpItem();
-					h.language = defaultLanguage;
-					h.topic = tocRes.getString(i);
-					h.order = i;	
-					h.fileName = fileName;
-					if (!tocList.containsKey(h.topic)) {
-						tocList.put(h.topic,h);
-					}
-				} else if (enList.contains(fileName + ".html")){
-					// Log.d("HelpViewer", "TOC en " + tocTopic);
-					HelpItem h = new HelpItem();
-					h.language = "en";
-					h.displayLanguage = true;
-					h.topic = tocRes.getString(i);
-					h.order = i;	
-					h.fileName = fileName;
-					if (!tocList.containsKey(h.topic)) {
-						tocList.put(h.topic,h);
-					}
-				}
-			}
-			tocRes.recycle();
-			fileRes.recycle();
-			
-			List<HelpItem> items = new ArrayList<>(tocList.values());
-			Collections.sort(items, new Comparator<HelpItem>() {
+    @SuppressLint("NewApi")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Preferences prefs = new Preferences(this);
+        if (prefs.lightThemeEnabled()) {
+            setTheme(R.style.Theme_customHelpViewer_Light);
+        }
+
+        super.onCreate(savedInstanceState);
+        int topicId = R.string.help_introduction;
+        Serializable s = getIntent().getSerializableExtra(TOPIC);
+        if (s != null) {
+            try {
+                topicId = (Integer) s;
+            } catch (Exception e) {
+                Log.e(DEBUG_TAG, "casting topic raised " + e);
+            }
+        } else {
+            Log.d(DEBUG_TAG, "Falling back to default topic");
+        }
+        String topic = getString(topicId); // this assumes that the resources are the same, which is probably safe
+
+        setContentView(R.layout.help_drawer);
+
+        // // Find the toolbar view inside the activity layout
+        // Toolbar toolbar = (Toolbar) findViewById(R.id.helpToolbar);
+        // // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // // Make sure the toolbar exists in the activity and is not null
+        // setSupportActionBar(toolbar);
+
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar == null) {
+            Log.d("HelpViewer", "No actionbar"); // fail?
+            return;
+        }
+        actionbar.setDisplayShowHomeEnabled(true);
+        actionbar.setTitle(getString(R.string.menu_help) + ": " + topic);
+        actionbar.setDisplayShowTitleEnabled(true);
+        actionbar.show();
+
+        // add our content
+        FrameLayout fl = (FrameLayout) findViewById(R.id.content_frame);
+        helpView = new WebView(this);
+        WebSettings helpSettings = helpView.getSettings();
+        helpSettings.setDefaultFontSize(12);
+        helpSettings.setSupportZoom(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            helpSettings.setDisplayZoomControls(false); // don't display +-
+        } else {
+            helpSettings.setBuiltInZoomControls(true);
+        }
+        helpView.setWebViewClient(new HelpViewWebViewClient());
+        fl.addView(helpView);
+
+        // set up the drawer
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.help_drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.help_left_drawer);
+
+        actionbar.setHomeButtonEnabled(true);
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.okay, R.string.okay);
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+        try {
+            List<String> defaultList = Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage()));
+            List<String> enList = Arrays.asList(getResources().getAssets().list("help/en"));
+            String defaultLanguage = Locale.getDefault().getLanguage();
+
+            TypedArray tocRes = getResources().obtainTypedArray(R.array.help_tableofcontents);
+            TypedArray fileRes = getResources().obtainTypedArray(R.array.help_files);
+
+            for (int i = 0; i < tocRes.length(); i++) {
+                String fileName = fileRes.getString(i);
+                // Log.d("HelpViewer", "TOC " + tocTopic);
+                if (defaultList.contains(fileName + ".html")) {
+                    // Log.d("HelpViewer", "TOC " + locale + " " + tocTopic);
+                    HelpItem h = new HelpItem();
+                    h.language = defaultLanguage;
+                    h.topic = tocRes.getString(i);
+                    h.order = i;
+                    h.fileName = fileName;
+                    if (!tocList.containsKey(h.topic)) {
+                        tocList.put(h.topic, h);
+                    }
+                } else if (enList.contains(fileName + ".html")) {
+                    // Log.d("HelpViewer", "TOC en " + tocTopic);
+                    HelpItem h = new HelpItem();
+                    h.language = "en";
+                    h.displayLanguage = true;
+                    h.topic = tocRes.getString(i);
+                    h.order = i;
+                    h.fileName = fileName;
+                    if (!tocList.containsKey(h.topic)) {
+                        tocList.put(h.topic, h);
+                    }
+                }
+            }
+            tocRes.recycle();
+            fileRes.recycle();
+
+            List<HelpItem> items = new ArrayList<>(tocList.values());
+            Collections.sort(items, new Comparator<HelpItem>() {
                 @Override
                 public int compare(HelpItem one, HelpItem two) {
                     if (one.order < Integer.MAX_VALUE) {
@@ -205,141 +203,142 @@ public class HelpViewer extends BugFixedAppCompatActivity {
                     return one.topic.compareTo(two.topic); // sort the rest alphabetically
                 }
             });
-			HelpItem[] toc = new HelpItem[items.size()];
-			items.toArray(toc);
-			
-			tocAdapter = new ArrayAdapter<>(this, R.layout.help_drawer_item,R.id.help_drawer_item, toc);
-			
-			mDrawerList.setAdapter(tocAdapter);
-			mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+            HelpItem[] toc = new HelpItem[items.size()];
+            items.toArray(toc);
 
-			String topicFile = tocList.get(topic).fileName;
-			if (topicFile == null) {
-				topicFile = "no_help";
-			}
-			
-			String helpFile = "help/" + Locale.getDefault().getLanguage() + "/"  + topicFile + ".html";
-			Log.d("HelpViewer","1 Looking for help file: " + helpFile);
-			if (!defaultList.contains(topicFile + ".html")) {
-				helpFile = "help/en/"  + topicFile + ".html";
-				if (!enList.contains(topicFile + ".html")) {
-					helpFile = "help/en/no_help.html";
-					mDrawerLayout.openDrawer(mDrawerList);
-				}
-			}
-			helpView.loadUrl("file:///android_asset/" + helpFile);
-		} catch (IOException e) {
-			Log.d(DEBUG_TAG, "Caught exception " + e);
-		}
-	}
-	
-	/**
-	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
-	 */
- 	@Override
-	public boolean onCreateOptionsMenu(final Menu menu) {
-		final MenuInflater inflater = getMenuInflater(); 
-		inflater.inflate(R.menu.help_menu, menu);
-		return true;
- 	}
- 	
- 	@Override
- 	public boolean onOptionsItemSelected(final MenuItem item) {
- 		if (mDrawerToggle.onOptionsItemSelected(item)) {
- 			return true;
- 		}
- 		Log.d(DEBUG_TAG, "onOptionsItemSelected");
- 		switch (item.getItemId()) {
- 		case R.id.help_menu_back:
- 			if (helpView.canGoBack()) {
- 				helpView.goBack();
- 				// getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
- 			} else {
- 				onBackPressed(); // return to caller
- 			}
- 			return true;
+            tocAdapter = new ArrayAdapter<>(this, R.layout.help_drawer_item, R.id.help_drawer_item, toc);
 
- 		case R.id.help_menu_forward:
- 			if (helpView.canGoForward()) {
- 				helpView.goForward();
- 				// getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
- 			}
- 			return true;
- 		}
- 		return false;
- 	}
+            mDrawerList.setAdapter(tocAdapter);
+            mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		mDrawerToggle.syncState();
-	}
+            String topicFile = tocList.get(topic).fileName;
+            if (topicFile == null) {
+                topicFile = "no_help";
+            }
 
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-	
-	private class DrawerItemClickListener implements ListView.OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			HelpItem helpItem = tocAdapter.getItem(position);
-			helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.fileName +".html");
-			mDrawerLayout.closeDrawer(mDrawerList);
-			mDrawerList.setSelected(false);
-			getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + helpItem.topic);
-		}
-	}
-	
-	private class HelpViewWebViewClient extends WebViewClient {
-		
-	    @Override
-	    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-	    	// WebViewClient is slightly bizarre because there is no way to indicate to the webview that you would like 
-	    	// if to process the url in its default way, its either handling it yourself or loading it directly into the 
-	    	// webview
-	    	if (url != null && url.startsWith("file:")) {
-	    		Log.d("HelpViewer","orig " + url);
-	    		getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
-	    		if (url.endsWith(".md")) { // on device we have pre-generated html
-	    			url = url.substring(0,url.length()-".md".length()) + ".html";
-	    			Log.d("HelpViewer","new " + url);
-	    		}
-	    		view.loadUrl(url);
-	    	} else {
-	    		view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));  
-	    	}
+            String helpFile = "help/" + Locale.getDefault().getLanguage() + "/" + topicFile + ".html";
+            Log.d("HelpViewer", "1 Looking for help file: " + helpFile);
+            if (!defaultList.contains(topicFile + ".html")) {
+                helpFile = "help/en/" + topicFile + ".html";
+                if (!enList.contains(topicFile + ".html")) {
+                    helpFile = "help/en/no_help.html";
+                    mDrawerLayout.openDrawer(mDrawerList);
+                }
+            }
+            helpView.loadUrl("file:///android_asset/" + helpFile);
+        } catch (IOException e) {
+            Log.d(DEBUG_TAG, "Caught exception " + e);
+        }
+    }
+
+    /**
+     * Creates the menu from the XML file "main_menu.xml".<br>
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        final MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.help_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-	    }
-	    
-	    @Override
-	    public void onPageFinished (WebView view, String url) {
-	    	super.onPageFinished(view, url);
-	    	if (url.startsWith("file:")) {
-	    		getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
-	    	}
-	    }
-	}
-	
-	private String getTopic(String url) {
-		
-		try {
-			url = URLDecoder.decode(url,"UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			return "Error, got: " + url;
-		}
-		int lastSlash = url.lastIndexOf('/');
-		int lastDot = url.lastIndexOf('.');
-		if (lastSlash < 0 || lastDot < 0) {
-			return "Error, got: " + url;
-		}
-		String fileName = url.substring(lastSlash+1,lastDot);
-		for (Entry<String,HelpItem>entry:tocList.entrySet()) { // could use a HashMap here but probably not worth it
-			if (fileName.equals(entry.getValue().fileName)) {
-				return entry.getKey();
-			}
-		}
-		return "";
-	}
+        }
+        Log.d(DEBUG_TAG, "onOptionsItemSelected");
+        switch (item.getItemId()) {
+        case R.id.help_menu_back:
+            if (helpView.canGoBack()) {
+                helpView.goBack();
+                // getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
+            } else {
+                onBackPressed(); // return to caller
+            }
+            return true;
+
+        case R.id.help_menu_forward:
+            if (helpView.canGoForward()) {
+                helpView.goForward();
+                // getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            HelpItem helpItem = tocAdapter.getItem(position);
+            helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.fileName + ".html");
+            mDrawerLayout.closeDrawer(mDrawerList);
+            mDrawerList.setSelected(false);
+            getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + helpItem.topic);
+        }
+    }
+
+    private class HelpViewWebViewClient extends WebViewClient {
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // WebViewClient is slightly bizarre because there is no way to indicate to the webview that you would like
+            // if to process the url in its default way, its either handling it yourself or loading it directly into the
+            // webview
+            if (url != null && url.startsWith("file:")) {
+                Log.d("HelpViewer", "orig " + url);
+                getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
+                if (url.endsWith(".md")) { // on device we have pre-generated html
+                    url = url.substring(0, url.length() - ".md".length()) + ".html";
+                    Log.d("HelpViewer", "new " + url);
+                }
+                view.loadUrl(url);
+            } else {
+                view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            }
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            if (url.startsWith("file:")) {
+                getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
+            }
+        }
+    }
+
+    private String getTopic(String url) {
+
+        try {
+            url = URLDecoder.decode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return "Error, got: " + url;
+        }
+        int lastSlash = url.lastIndexOf('/');
+        int lastDot = url.lastIndexOf('.');
+        if (lastSlash < 0 || lastDot < 0) {
+            return "Error, got: " + url;
+        }
+        String fileName = url.substring(lastSlash + 1, lastDot);
+        for (Entry<String, HelpItem> entry : tocList.entrySet()) { // could use a HashMap here but probably not worth it
+            if (fileName.equals(entry.getValue().fileName)) {
+                return entry.getKey();
+            }
+        }
+        return "";
+    }
 }

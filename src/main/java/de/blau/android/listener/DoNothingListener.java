@@ -8,6 +8,7 @@ import android.content.DialogInterface.OnClickListener;
  */
 public class DoNothingListener implements OnClickListener {
 
-	@Override
-	public void onClick(final DialogInterface dialog, final int which) {}
+    @Override
+    public void onClick(final DialogInterface dialog, final int which) {
+    }
 }

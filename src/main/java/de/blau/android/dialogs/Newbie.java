@@ -24,49 +24,47 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog giving new users minimal instructions
  *
  */
-public class Newbie extends DialogFragment
-{
-	
-	private static final String DEBUG_TAG = Newbie.class.getSimpleName();
-	
-	private static final String TAG = "fragment_newbie";
-		
-	
-   	/**
-	 
-	 */
-	static public void showDialog(FragmentActivity activity) {
-		dismissDialog(activity);
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			Newbie newbieFragment = newInstance();
-			newbieFragment.show(fm, TAG);
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"showDialog",isex);
-		}
-	}
+public class Newbie extends DialogFragment {
 
-	private static void dismissDialog(FragmentActivity activity) {
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			FragmentTransaction ft = fm.beginTransaction();
-			Fragment fragment = fm.findFragmentByTag(TAG);
-			if (fragment != null) {
-				ft.remove(fragment);
-			}
-			ft.commit();
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"dismissDialog",isex);
-		}
-	}
-		
+    private static final String DEBUG_TAG = Newbie.class.getSimpleName();
+
+    private static final String TAG = "fragment_newbie";
+
+    /**
+     
+     */
+    static public void showDialog(FragmentActivity activity) {
+        dismissDialog(activity);
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            Newbie newbieFragment = newInstance();
+            newbieFragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+        }
+    }
+
+    private static void dismissDialog(FragmentActivity activity) {
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentByTag(TAG);
+            if (fragment != null) {
+                ft.remove(fragment);
+            }
+            ft.commit();
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog", isex);
+        }
+    }
+
     /**
      */
     static private Newbie newInstance() {
-    	Newbie f = new Newbie();
+        Newbie f = new Newbie();
 
         f.setShowsDialog(true);
-        
+
         return f;
     }
 
@@ -78,47 +76,45 @@ public class Newbie extends DialogFragment
             throw new ClassCastException(activity.toString() + " can ownly be called from Main");
         }
     }
-    
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setCancelable(true);
     }
 
     @NonNull
-	@Override
-    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
-    {
-    	Builder builder = new AlertDialog.Builder(getActivity());
-    	builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
-    	builder.setTitle(R.string.welcome_title);
-    	builder.setMessage(R.string.welcome_message);
-    	builder.setPositiveButton(R.string.okay, new OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Main main = (Main) getActivity();
-						if (main != null) {
-							main.gotoBoxPicker();
-						} else {
-							//FIXME do something intelligent here
-							Log.e(DEBUG_TAG,"getActivity returned null in onClick");
-						}
-					}
-				});
-    	builder.setNeutralButton(R.string.read_introduction, 	new OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Context context = getActivity();
-						if (context != null) {
-							HelpViewer.start(context, R.string.help_introduction);
-						} else {
-							//FIXME do something intelligent here
-							Log.e(DEBUG_TAG,"getActivity returned null in onClick");
-						}
-					}
-				});
+    @Override
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
+        builder.setTitle(R.string.welcome_title);
+        builder.setMessage(R.string.welcome_message);
+        builder.setPositiveButton(R.string.okay, new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Main main = (Main) getActivity();
+                if (main != null) {
+                    main.gotoBoxPicker();
+                } else {
+                    // FIXME do something intelligent here
+                    Log.e(DEBUG_TAG, "getActivity returned null in onClick");
+                }
+            }
+        });
+        builder.setNeutralButton(R.string.read_introduction, new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Context context = getActivity();
+                if (context != null) {
+                    HelpViewer.start(context, R.string.help_introduction);
+                } else {
+                    // FIXME do something intelligent here
+                    Log.e(DEBUG_TAG, "getActivity returned null in onClick");
+                }
+            }
+        });
 
-    	return builder.create();
-    }	
+        return builder.create();
+    }
 }

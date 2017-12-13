@@ -15,34 +15,33 @@ import android.widget.Filter;
  */
 public class FilterlessArrayAdapter<T> extends ArrayAdapter<T> {
 
-	private Filter filter = new NoFilter();
-	private List<T> items;
+    private Filter  filter = new NoFilter();
+    private List<T> items;
 
-	@NonNull
-	@Override
-	public Filter getFilter() {
-		return filter;
-	}
+    @NonNull
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
 
-	public FilterlessArrayAdapter(Context context, int textViewResourceId,
-			List<T> objects) {
-		super(context, textViewResourceId, objects);
-		items = objects;
-	}
+    public FilterlessArrayAdapter(Context context, int textViewResourceId, List<T> objects) {
+        super(context, textViewResourceId, objects);
+        items = objects;
+    }
 
-	private class NoFilter extends Filter {
+    private class NoFilter extends Filter {
 
-		@Override
-		protected FilterResults performFiltering(CharSequence arg0) {
-			FilterResults result = new FilterResults();
-			result.values = items;
-			result.count = items.size(); 
-			return result;
-		}
+        @Override
+        protected FilterResults performFiltering(CharSequence arg0) {
+            FilterResults result = new FilterResults();
+            result.values = items;
+            result.count = items.size();
+            return result;
+        }
 
-		@Override
-		protected void publishResults(CharSequence arg0, FilterResults arg1) {
-			notifyDataSetChanged();
-		}
-	}
+        @Override
+        protected void publishResults(CharSequence arg0, FilterResults arg1) {
+            notifyDataSetChanged();
+        }
+    }
 }

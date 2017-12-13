@@ -53,417 +53,404 @@ import okhttp3.ResponseBody;
 
 /**
  * Search with nominatim, photon and maybe others
+ * 
  * @author simon
  *
  */
 public class Search {
     static final String DEBUG_TAG = "Search";
-	
-	private AppCompatActivity activity;
 
-	private SearchItemFoundCallback callback;
+    private AppCompatActivity activity;
 
-	public class SearchResult {
-		private double lat;
-		private double lon;
-		String display_name;
+    private SearchItemFoundCallback callback;
 
-		@Override
-		public String toString() {
-			return "lat: " + getLat() + " lon: " + getLon() + " " + display_name;
-		}
+    public class SearchResult {
+        private double lat;
+        private double lon;
+        String         display_name;
 
-		/**
-		 * @return the lat
-		 */
-		public double getLat() {
-			return lat;
-		}
+        @Override
+        public String toString() {
+            return "lat: " + getLat() + " lon: " + getLon() + " " + display_name;
+        }
 
-		/**
-		 * @param lat the lat to set
-		 */
-		public void setLat(double lat) {
-			this.lat = lat;
-		}
+        /**
+         * @return the lat
+         */
+        public double getLat() {
+            return lat;
+        }
 
-		/**
-		 * @return the lon
-		 */
-		public double getLon() {
-			return lon;
-		}
+        /**
+         * @param lat the lat to set
+         */
+        public void setLat(double lat) {
+            this.lat = lat;
+        }
 
-		/**
-		 * @param lon the lon to set
-		 */
-		public void setLon(double lon) {
-			this.lon = lon;
-		}
-	}
+        /**
+         * @return the lon
+         */
+        public double getLon() {
+            return lon;
+        }
 
-	/**
-	 * Constructor
-	 * 
-	 * @param activity activity calling this
-	 * @param callback will be called when search result is selected
-	 */
-	public Search(AppCompatActivity activity, SearchItemFoundCallback callback) {
-		this.activity = activity;
-		this.callback = callback;
-	}
+        /**
+         * @param lon the lon to set
+         */
+        public void setLon(double lon) {
+            this.lon = lon;
+        }
+    }
 
-	/**
-	 * Query and then display a list of results to pick from
-	 * 
-	 * @param geocoder the geocoder to use for the querey
-	 * @param q        the query string
-	 * @param bbox     bounding box to limit the search to
-	 */
-	public void find(Geocoder geocoder, String q, BoundingBox bbox) {
-		Query querier = null;
-		boolean multiline = false;
-		switch (geocoder.type) {
-		case PHOTON:
-			querier = new QueryPhoton(geocoder.url, bbox);
-			multiline = true;
-			break;
-		case NOMINATIM:
-		default:
-			querier = new QueryNominatim(geocoder.url, bbox);
-			multiline = false;
-			break;
-		}
-		querier.execute(q);
-		try {
-			ArrayList<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
-			if (result != null && !result.isEmpty()) {
-				AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
-				sr.show();
-			} else {
-				Snack.barInfo(activity, R.string.toast_nothing_found);
-			}
-		} catch (InterruptedException e) {
-		    Log.e(DEBUG_TAG,e.getMessage());
-		} catch (ExecutionException e) {
-		    Log.e(DEBUG_TAG,e.getMessage());
-		} catch (TimeoutException e) {
-		    Log.e(DEBUG_TAG,e.getMessage());
-			Snack.barError(activity, R.string.toast_timeout);
-		}
-	}
+    /**
+     * Constructor
+     * 
+     * @param activity activity calling this
+     * @param callback will be called when search result is selected
+     */
+    public Search(AppCompatActivity activity, SearchItemFoundCallback callback) {
+        this.activity = activity;
+        this.callback = callback;
+    }
 
-	private class Query extends AsyncTask<String, Void, ArrayList<SearchResult>> {
-		AlertDialog progress = null;
-		
-		final BoundingBox bbox;
-		final String url;
+    /**
+     * Query and then display a list of results to pick from
+     * 
+     * @param geocoder the geocoder to use for the querey
+     * @param q the query string
+     * @param bbox bounding box to limit the search to
+     */
+    public void find(Geocoder geocoder, String q, BoundingBox bbox) {
+        Query querier = null;
+        boolean multiline = false;
+        switch (geocoder.type) {
+        case PHOTON:
+            querier = new QueryPhoton(geocoder.url, bbox);
+            multiline = true;
+            break;
+        case NOMINATIM:
+        default:
+            querier = new QueryNominatim(geocoder.url, bbox);
+            multiline = false;
+            break;
+        }
+        querier.execute(q);
+        try {
+            ArrayList<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
+            if (result != null && !result.isEmpty()) {
+                AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
+                sr.show();
+            } else {
+                Snack.barInfo(activity, R.string.toast_nothing_found);
+            }
+        } catch (InterruptedException e) {
+            Log.e(DEBUG_TAG, e.getMessage());
+        } catch (ExecutionException e) {
+            Log.e(DEBUG_TAG, e.getMessage());
+        } catch (TimeoutException e) {
+            Log.e(DEBUG_TAG, e.getMessage());
+            Snack.barError(activity, R.string.toast_timeout);
+        }
+    }
 
-		public Query(String url, BoundingBox bbox) {
-			this.url = url;
-			this.bbox = bbox;
-		}
-		
-		@Override
-		protected void onPreExecute() {
-			progress = ProgressDialog.get(activity, Progress.PROGRESS_LOADING);
-			progress.show();
-		}
-		
-		@Override
-		protected ArrayList<SearchResult> doInBackground(String... params) {
-			return null;
-		}
-		
-		@Override
-		protected void onPostExecute(ArrayList<SearchResult> res) {
-			try {
-				progress.dismiss();
-			} catch (Exception ex) {
-				Log.e("Search", "dismiss dialog failed with " + ex);
-			}
-		}
-	}
+    private class Query extends AsyncTask<String, Void, ArrayList<SearchResult>> {
+        AlertDialog progress = null;
 
-	private class QueryNominatim extends Query {
-		
-		public QueryNominatim() {
-			super(null, null);
-		}
+        final BoundingBox bbox;
+        final String      url;
 
-		public QueryNominatim(String url, BoundingBox bbox) {
-			super(url, bbox);
-		}
-		
-		@Override
-		protected ArrayList<SearchResult> doInBackground(String... params) {
+        public Query(String url, BoundingBox bbox) {
+            this.url = url;
+            this.bbox = bbox;
+        }
 
-			String query = params[0];
-			Uri.Builder builder = Uri.parse(url)
-					.buildUpon()
-					.appendPath("search")
-					.appendQueryParameter("q", query);
-			if (bbox != null) {
-				String viewBoxCoordinates = bbox.getLeft()/1E7D
-						+ "," + bbox.getBottom()/1E7D
-						+ "," + bbox.getRight()/1E7D
-						+ "," + bbox.getTop()/1E7D;
-				builder.appendQueryParameter("viewboxlbrt", viewBoxCoordinates);
-			}
-			Uri uriBuilder = builder.appendQueryParameter("format", "jsonv2").build();
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.get(activity, Progress.PROGRESS_LOADING);
+            progress.show();
+        }
 
-			String urlString = uriBuilder.toString();
-			Log.d("Search", "urlString: " + urlString);
-			InputStream inputStream = null;
-			JsonReader reader = null;
-			ResponseBody responseBody = null;
-			try {
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-					Request request = new Request.Builder()
-							.url(urlString)
-							.build();
-					Call searchCall = App.getHttpClient().newCall(request);
-					Response searchCallResponse = searchCall.execute();
-					if (searchCallResponse.isSuccessful()) {
-						responseBody = searchCallResponse.body();
-						inputStream = responseBody.byteStream();
-					}
-				} else { //FIXME 2.2/API 8 support
-					URL url = new URL(urlString);
-					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-					conn.setRequestProperty("User-Agent", App.userAgent);
-					inputStream = conn.getInputStream();
-				}
+        @Override
+        protected ArrayList<SearchResult> doInBackground(String... params) {
+            return null;
+        }
 
-				if (inputStream != null) {
-					reader = new JsonReader(new InputStreamReader(inputStream));
-					ArrayList<SearchResult> result = new ArrayList<>();
-					reader.beginArray();
-					while (reader.hasNext()) {
-						SearchResult searchResult = readNominatimResult(reader);
-						if (searchResult != null) { //TODO handle deprecated
-							result.add(searchResult);
-							Log.d("Search", "received: " + searchResult.toString());
-						}
-					}
-					reader.endArray();
-					return result;
-				}
-			} catch (UnsupportedEncodingException e) {
-			    Log.e(DEBUG_TAG,e.getMessage());
-			} catch (IOException e) {
-			    Log.e(DEBUG_TAG,e.getMessage());
-			} finally {
-				SavingHelper.close(responseBody);
-				SavingHelper.close(reader);
-			}
-			return null;
-		}
-	}
+        @Override
+        protected void onPostExecute(ArrayList<SearchResult> res) {
+            try {
+                progress.dismiss();
+            } catch (Exception ex) {
+                Log.e("Search", "dismiss dialog failed with " + ex);
+            }
+        }
+    }
 
-	private SearchResult readNominatimResult(JsonReader reader) {
-		SearchResult result = new SearchResult();
-		try {
-			reader.beginObject();
-			while (reader.hasNext()) {
-				String jsonName = reader.nextName();
-				if (jsonName.equals("lat")) {
-			        result.setLat(reader.nextDouble());
-			    } else if (jsonName.equals("lon")) {
-			        result.setLon(reader.nextDouble());
-			    } else if (jsonName.equals("display_name")) {
-			    	result.display_name = reader.nextString();
-			    }else {
-			    	reader.skipValue();
-			    }
-			}
-			reader.endObject();
-			return result;
-		} catch (IOException e) {
-		    Log.e(DEBUG_TAG,e.getMessage());
-		}
-		return null;
-	}
-	
-	private class QueryPhoton extends Query {
-		
-		public QueryPhoton() {
-			super(null, null);
-		}
+    private class QueryNominatim extends Query {
 
-		public QueryPhoton(String url, BoundingBox bbox) {
-			super(url, bbox);
-		}
-		
-		@Override
-		protected ArrayList<SearchResult> doInBackground(String... params) {
+        public QueryNominatim() {
+            super(null, null);
+        }
 
-			String query = params[0];
-			Uri.Builder builder = Uri.parse(url)
-					.buildUpon()
-					.appendPath("api")
-					.appendQueryParameter("q", query);
-			if (bbox != null) {
-				double lat = bbox.getCenterLat();
-				double lon = (bbox.getLeft() + (bbox.getRight()-bbox.getLeft())/2)/1E7D;
-				builder.appendQueryParameter("lat", Double.toString(lat));
-				builder.appendQueryParameter("lon", Double.toString(lon));
-			}
-			builder.appendQueryParameter("limit", Integer.toString(10));
-			Uri uriBuilder = builder.build();
+        public QueryNominatim(String url, BoundingBox bbox) {
+            super(url, bbox);
+        }
 
-			String urlString = uriBuilder.toString();
-			Log.d("Search", "urlString: " + urlString);
-			InputStream inputStream = null;
-			JsonReader reader = null;
-			ResponseBody responseBody = null;
-			try {
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-					Request request = new Request.Builder()
-							.url(urlString)
-							.build();
-					Call searchCall = App.getHttpClient().newCall(request);
-					Response searchCallResponse = searchCall.execute();
-					if (searchCallResponse.isSuccessful()) {
-						responseBody = searchCallResponse.body();
-						inputStream = responseBody.byteStream();
-					}
-				} else { //FIXME 2.2/API 8 support
-					URL url = new URL(urlString);
-					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-					conn.setRequestProperty("User-Agent", App.userAgent);
-					inputStream = conn.getInputStream();
-				}
+        @Override
+        protected ArrayList<SearchResult> doInBackground(String... params) {
 
-				if (inputStream != null) {
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
-			        StringBuilder sb = new StringBuilder();
-			        int cp;
-			        while ((cp = rd.read()) != -1) {
-			          sb.append((char) cp);
-			        }
-			        
-					ArrayList<SearchResult> result = new ArrayList<>();
-					FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
-					for (Feature f:fc.getFeatures()) {
-						SearchResult searchResult = readPhotonResult(f);
-						if (searchResult != null) { 
-							result.add(searchResult);
-							Log.d("Search", "received: " + searchResult.toString());
-						}
-					}
-					return result;
-				}
-			} catch (UnsupportedEncodingException e) {
-			    Log.e(DEBUG_TAG,e.getMessage());
-			} catch (IOException e) {
-			    Log.e(DEBUG_TAG,e.getMessage());
-			} finally {
-		        SavingHelper.close(inputStream);
-		        SavingHelper.close(responseBody);
-		        SavingHelper.close(reader);
-			}
-			return null;
-		}
-	}
-	
-	private SearchResult readPhotonResult(Feature f) {
-		SearchResult result = new SearchResult();
-		try {
-			JsonObject properties = f.getProperties();
-			Geometry g = f.getGeometry();
-			if (g instanceof Point) {
-				Point p = (Point)g;
-				Position pos = p.getCoordinates();
-				result.setLat(pos.getLatitude());
-			    result.setLon(pos.getLongitude());
-			    StringBuilder sb = new StringBuilder();
-			    JsonElement name = properties.get("name");
-			    if (name != null) {
-			    	sb.append(name.getAsString());
-			    	JsonElement osmKey = properties.get("osm_key");
-			    	JsonElement osmValue = properties.get("osm_value");
-				    if (osmKey != null && osmValue != null) {
-				    	String key = osmKey.getAsString();
-				    	String value = osmValue.getAsString();
-				    	Map<String,String> tag = new HashMap<>();
-				    	tag.put(key,value);
-					    PresetItem preset = Preset.findBestMatch(App.getCurrentPresets(activity), tag, false);
-					    if (preset != null) {
-					    	sb.append(" [" + preset.getTranslatedName() +"]");
-					    } else {
-					    	sb.append(" [" + key + "=" + value +"]");
-					    }
-			    	}
-			    	StringBuilder sb2 = new StringBuilder();
-			    	JsonElement street = properties.get("street");
-			    	if (street != null) {
-			    		sb2.append(street.getAsString());
-				    	JsonElement housenumber = properties.get("housenumber");
-				    	if (housenumber != null) {
-				    		sb2.append( " " + housenumber.getAsString());
-				    	}
-			    	}
-			    	JsonElement postcode = properties.get("postcode");
-			    	if (postcode != null) {
-			    		if (sb2.length() > 0) {
-			    			sb2.append(", ");
-			    		}
-			    		sb2.append(postcode.getAsString());
-			    	}
-			    	JsonElement state = properties.get("state");
-			    	if (state != null) {
-			    		if (sb2.length() > 0) {
-			    			sb2.append(", ");
-			    		}
-			    		sb2.append(state.getAsString());
-			    	}
-			    	JsonElement country = properties.get("country");
-			    	if (country != null) {
-			    		if (sb2.length() > 0) {
-			    			sb2.append(", ");
-			    		}
-			    		sb2.append(country.getAsString());
-			    	}
-			    	if (sb2.length() > 0) {
-			    		sb.append("\n");
-			    		sb.append(sb2);
-			    	}
-			    }
-			    result.display_name = sb.toString();
-				return result;
-			}
-		} catch (Exception e) {
-		    Log.e(DEBUG_TAG,e.getMessage());
-		}
-		return null;
-	}
+            String query = params[0];
+            Uri.Builder builder = Uri.parse(url).buildUpon().appendPath("search").appendQueryParameter("q", query);
+            if (bbox != null) {
+                String viewBoxCoordinates = bbox.getLeft() / 1E7D + "," + bbox.getBottom() / 1E7D + "," + bbox.getRight() / 1E7D + "," + bbox.getTop() / 1E7D;
+                builder.appendQueryParameter("viewboxlbrt", viewBoxCoordinates);
+            }
+            Uri uriBuilder = builder.appendQueryParameter("format", "jsonv2").build();
 
-	
-	@SuppressLint("InflateParams")
-	private AppCompatDialog createSearchResultsDialog(final ArrayList<SearchResult> searchResults, int itemLayout) {
-		// 
-		Builder builder = new AlertDialog.Builder(activity);
-		builder.setTitle(R.string.search_results_title);
-		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
-		ListView lv = (ListView) inflater.inflate(R.layout.search_results, null);
-		builder.setView(lv);
+            String urlString = uriBuilder.toString();
+            Log.d("Search", "urlString: " + urlString);
+            InputStream inputStream = null;
+            JsonReader reader = null;
+            ResponseBody responseBody = null;
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+                    Request request = new Request.Builder().url(urlString).build();
+                    Call searchCall = App.getHttpClient().newCall(request);
+                    Response searchCallResponse = searchCall.execute();
+                    if (searchCallResponse.isSuccessful()) {
+                        responseBody = searchCallResponse.body();
+                        inputStream = responseBody.byteStream();
+                    }
+                } else { // FIXME 2.2/API 8 support
+                    URL url = new URL(urlString);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestProperty("User-Agent", App.userAgent);
+                    inputStream = conn.getInputStream();
+                }
 
-		ArrayList<String> ar = new ArrayList<>();
-		for (SearchResult sr:searchResults) {
-			ar.add(sr.display_name);
-		}
-		lv.setAdapter(new ArrayAdapter<>(activity, itemLayout, ar));
-		lv.setSelection(0);
-		builder.setNegativeButton(R.string.cancel, null);
-		final AppCompatDialog dialog = builder.create();
-		lv.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		    	// Log.d("Search","Result at pos " + position + " clicked");
-		    	callback.onItemFound(searchResults.get(position));
-		    	dialog.dismiss();
-		    }
-		});
-		return dialog;
-	}
+                if (inputStream != null) {
+                    reader = new JsonReader(new InputStreamReader(inputStream));
+                    ArrayList<SearchResult> result = new ArrayList<>();
+                    reader.beginArray();
+                    while (reader.hasNext()) {
+                        SearchResult searchResult = readNominatimResult(reader);
+                        if (searchResult != null) { // TODO handle deprecated
+                            result.add(searchResult);
+                            Log.d("Search", "received: " + searchResult.toString());
+                        }
+                    }
+                    reader.endArray();
+                    return result;
+                }
+            } catch (UnsupportedEncodingException e) {
+                Log.e(DEBUG_TAG, e.getMessage());
+            } catch (IOException e) {
+                Log.e(DEBUG_TAG, e.getMessage());
+            } finally {
+                SavingHelper.close(responseBody);
+                SavingHelper.close(reader);
+            }
+            return null;
+        }
+    }
+
+    private SearchResult readNominatimResult(JsonReader reader) {
+        SearchResult result = new SearchResult();
+        try {
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String jsonName = reader.nextName();
+                if (jsonName.equals("lat")) {
+                    result.setLat(reader.nextDouble());
+                } else if (jsonName.equals("lon")) {
+                    result.setLon(reader.nextDouble());
+                } else if (jsonName.equals("display_name")) {
+                    result.display_name = reader.nextString();
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+            return result;
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, e.getMessage());
+        }
+        return null;
+    }
+
+    private class QueryPhoton extends Query {
+
+        public QueryPhoton() {
+            super(null, null);
+        }
+
+        public QueryPhoton(String url, BoundingBox bbox) {
+            super(url, bbox);
+        }
+
+        @Override
+        protected ArrayList<SearchResult> doInBackground(String... params) {
+
+            String query = params[0];
+            Uri.Builder builder = Uri.parse(url).buildUpon().appendPath("api").appendQueryParameter("q", query);
+            if (bbox != null) {
+                double lat = bbox.getCenterLat();
+                double lon = (bbox.getLeft() + (bbox.getRight() - bbox.getLeft()) / 2) / 1E7D;
+                builder.appendQueryParameter("lat", Double.toString(lat));
+                builder.appendQueryParameter("lon", Double.toString(lon));
+            }
+            builder.appendQueryParameter("limit", Integer.toString(10));
+            Uri uriBuilder = builder.build();
+
+            String urlString = uriBuilder.toString();
+            Log.d("Search", "urlString: " + urlString);
+            InputStream inputStream = null;
+            JsonReader reader = null;
+            ResponseBody responseBody = null;
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+                    Request request = new Request.Builder().url(urlString).build();
+                    Call searchCall = App.getHttpClient().newCall(request);
+                    Response searchCallResponse = searchCall.execute();
+                    if (searchCallResponse.isSuccessful()) {
+                        responseBody = searchCallResponse.body();
+                        inputStream = responseBody.byteStream();
+                    }
+                } else { // FIXME 2.2/API 8 support
+                    URL url = new URL(urlString);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestProperty("User-Agent", App.userAgent);
+                    inputStream = conn.getInputStream();
+                }
+
+                if (inputStream != null) {
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+                    StringBuilder sb = new StringBuilder();
+                    int cp;
+                    while ((cp = rd.read()) != -1) {
+                        sb.append((char) cp);
+                    }
+
+                    ArrayList<SearchResult> result = new ArrayList<>();
+                    FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
+                    for (Feature f : fc.getFeatures()) {
+                        SearchResult searchResult = readPhotonResult(f);
+                        if (searchResult != null) {
+                            result.add(searchResult);
+                            Log.d("Search", "received: " + searchResult.toString());
+                        }
+                    }
+                    return result;
+                }
+            } catch (UnsupportedEncodingException e) {
+                Log.e(DEBUG_TAG, e.getMessage());
+            } catch (IOException e) {
+                Log.e(DEBUG_TAG, e.getMessage());
+            } finally {
+                SavingHelper.close(inputStream);
+                SavingHelper.close(responseBody);
+                SavingHelper.close(reader);
+            }
+            return null;
+        }
+    }
+
+    private SearchResult readPhotonResult(Feature f) {
+        SearchResult result = new SearchResult();
+        try {
+            JsonObject properties = f.getProperties();
+            Geometry g = f.getGeometry();
+            if (g instanceof Point) {
+                Point p = (Point) g;
+                Position pos = p.getCoordinates();
+                result.setLat(pos.getLatitude());
+                result.setLon(pos.getLongitude());
+                StringBuilder sb = new StringBuilder();
+                JsonElement name = properties.get("name");
+                if (name != null) {
+                    sb.append(name.getAsString());
+                    JsonElement osmKey = properties.get("osm_key");
+                    JsonElement osmValue = properties.get("osm_value");
+                    if (osmKey != null && osmValue != null) {
+                        String key = osmKey.getAsString();
+                        String value = osmValue.getAsString();
+                        Map<String, String> tag = new HashMap<>();
+                        tag.put(key, value);
+                        PresetItem preset = Preset.findBestMatch(App.getCurrentPresets(activity), tag, false);
+                        if (preset != null) {
+                            sb.append(" [" + preset.getTranslatedName() + "]");
+                        } else {
+                            sb.append(" [" + key + "=" + value + "]");
+                        }
+                    }
+                    StringBuilder sb2 = new StringBuilder();
+                    JsonElement street = properties.get("street");
+                    if (street != null) {
+                        sb2.append(street.getAsString());
+                        JsonElement housenumber = properties.get("housenumber");
+                        if (housenumber != null) {
+                            sb2.append(" " + housenumber.getAsString());
+                        }
+                    }
+                    JsonElement postcode = properties.get("postcode");
+                    if (postcode != null) {
+                        if (sb2.length() > 0) {
+                            sb2.append(", ");
+                        }
+                        sb2.append(postcode.getAsString());
+                    }
+                    JsonElement state = properties.get("state");
+                    if (state != null) {
+                        if (sb2.length() > 0) {
+                            sb2.append(", ");
+                        }
+                        sb2.append(state.getAsString());
+                    }
+                    JsonElement country = properties.get("country");
+                    if (country != null) {
+                        if (sb2.length() > 0) {
+                            sb2.append(", ");
+                        }
+                        sb2.append(country.getAsString());
+                    }
+                    if (sb2.length() > 0) {
+                        sb.append("\n");
+                        sb.append(sb2);
+                    }
+                }
+                result.display_name = sb.toString();
+                return result;
+            }
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, e.getMessage());
+        }
+        return null;
+    }
+
+    @SuppressLint("InflateParams")
+    private AppCompatDialog createSearchResultsDialog(final ArrayList<SearchResult> searchResults, int itemLayout) {
+        //
+        Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(R.string.search_results_title);
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
+        ListView lv = (ListView) inflater.inflate(R.layout.search_results, null);
+        builder.setView(lv);
+
+        ArrayList<String> ar = new ArrayList<>();
+        for (SearchResult sr : searchResults) {
+            ar.add(sr.display_name);
+        }
+        lv.setAdapter(new ArrayAdapter<>(activity, itemLayout, ar));
+        lv.setSelection(0);
+        builder.setNegativeButton(R.string.cancel, null);
+        final AppCompatDialog dialog = builder.create();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                // Log.d("Search","Result at pos " + position + " clicked");
+                callback.onItemFound(searchResults.get(position));
+                dialog.dismiss();
+            }
+        });
+        return dialog;
+    }
 }

@@ -24,37 +24,37 @@ import de.blau.android.resources.TileLayerServer;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class HelpViewerTest {
-	
-	MockWebServerPlus mockServer = null;
-	Context context = null;
-	ActivityMonitor monitor = null;
-	AdvancedPrefDatabase prefDB = null;
-	Instrumentation instrumentation = null;
-	Main main = null;
-	
+
+    MockWebServerPlus    mockServer      = null;
+    Context              context         = null;
+    ActivityMonitor      monitor         = null;
+    AdvancedPrefDatabase prefDB          = null;
+    Instrumentation      instrumentation = null;
+    Main                 main            = null;
+
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     @Before
     public void setup() {
-    	instrumentation = InstrumentationRegistry.getInstrumentation();
-		context = instrumentation.getTargetContext();
-		monitor = instrumentation.addMonitor(HelpViewer.class.getName(), null, false);
-		main = (Main)mActivityRule.getActivity(); 
-		Preferences prefs = new Preferences(context);
-		prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
-		main.getMap().setPrefs(main, prefs);
+        instrumentation = InstrumentationRegistry.getInstrumentation();
+        context = instrumentation.getTargetContext();
+        monitor = instrumentation.addMonitor(HelpViewer.class.getName(), null, false);
+        main = (Main) mActivityRule.getActivity();
+        Preferences prefs = new Preferences(context);
+        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+        main.getMap().setPrefs(main, prefs);
     }
-    
+
     @After
     public void teardown() {
-    	instrumentation.removeMonitor(monitor);
+        instrumentation.removeMonitor(monitor);
     }
-    
+
     @Test
-	public void startHelp() {
-    	HelpViewer.start(main, R.string.help_main);
-    	Activity helpViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-    	Assert.assertTrue(helpViewer instanceof HelpViewer);
+    public void startHelp() {
+        HelpViewer.start(main, R.string.help_main);
+        Activity helpViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        Assert.assertTrue(helpViewer instanceof HelpViewer);
     }
 }

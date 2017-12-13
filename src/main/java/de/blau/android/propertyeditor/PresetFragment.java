@@ -46,8 +46,8 @@ import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 
 public class PresetFragment extends BaseFragment implements PresetFilterUpdate, PresetClickHandler {
-	
-	private static final String ALTERNATE_ROOT_PATHS = "alternateRootPaths";
+
+    private static final String ALTERNATE_ROOT_PATHS = "alternateRootPaths";
 
     private static final String PANE_MODE = "paneMode";
 
@@ -55,47 +55,47 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
 
     private static final String FRAGMENT_PRESET_SEARCH_RESULTS_TAG = "fragment_preset_search_results";
 
-	private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
-	
+    private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
+
     public interface OnPresetSelectedListener {
         void onPresetSelected(PresetItem item);
-        
+
         void onPresetSelected(PresetItem item, boolean applyOptional);
     }
-    
+
     private OnPresetSelectedListener mListener;
-	
-	/** The type of OSM element to which the preset will be applied (used for filtering) */
-	private ElementType type;
-	
-	private PresetGroup currentGroup;
-	private PresetGroup rootGroup;
-	
-	private boolean enabled = true;
 
-	private boolean paneMode = false;
+    /** The type of OSM element to which the preset will be applied (used for filtering) */
+    private ElementType type;
 
-	/**
-	 * Create a new PresetFragement instance
-	 * 
-	 * @param e                    the OsmElement this applies to
-	 * @param alternateRootPath    an alternative location for the top of the preset tree
-	 * @param paneMode             we are displayed in Pane mode
-	 * @return a new PResetFragment
-	 */
+    private PresetGroup currentGroup;
+    private PresetGroup rootGroup;
+
+    private boolean enabled = true;
+
+    private boolean paneMode = false;
+
+    /**
+     * Create a new PresetFragement instance
+     * 
+     * @param e the OsmElement this applies to
+     * @param alternateRootPath an alternative location for the top of the preset tree
+     * @param paneMode we are displayed in Pane mode
+     * @return a new PResetFragment
+     */
     static public PresetFragment newInstance(@NonNull OsmElement e, @Nullable ArrayList<PresetElementPath> alternateRootPath, boolean paneMode) {
-    	PresetFragment f = new PresetFragment();
+        PresetFragment f = new PresetFragment();
 
         Bundle args = new Bundle();
         args.putSerializable(ELEMENT, e);
         args.putBoolean(PANE_MODE, paneMode);
         args.putSerializable(ALTERNATE_ROOT_PATHS, alternateRootPath);
-        
+
         f.setArguments(args);
-        
+
         return f;
     }
-    
+
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
@@ -110,44 +110,43 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
-    } 
-    
+    }
+
     @SuppressLint("InflateParams")
-	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        
-    	OsmElement element = (OsmElement)getArguments().getSerializable(ELEMENT);
-    	type = element.getType();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        OsmElement element = (OsmElement) getArguments().getSerializable(ELEMENT);
+        type = element.getType();
         Preset[] presets = App.getCurrentPresets(getActivity());
-        Log.d(DEBUG_TAG,"presets size " + (presets==null ? " is null": presets.length));
+        Log.d(DEBUG_TAG, "presets size " + (presets == null ? " is null" : presets.length));
         paneMode = getArguments().getBoolean(PANE_MODE);
-        List<PresetElementPath> alternateRootPaths = (ArrayList<PresetElementPath>)getArguments().getSerializable(ALTERNATE_ROOT_PATHS);
-            	
+        List<PresetElementPath> alternateRootPaths = (ArrayList<PresetElementPath>) getArguments().getSerializable(ALTERNATE_ROOT_PATHS);
+
         LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
-     	LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
+        LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
         if (presets == null || presets.length == 0 || presets[0] == null) {
-        	TextView warning = new TextView(getActivity());
-        	warning.setText(R.string.no_valid_preset);
-        	presetLayout.addView(warning);
-        	return presetPaneLayout;
-        }		
-        
+            TextView warning = new TextView(getActivity());
+            warning.setText(R.string.no_valid_preset);
+            presetLayout.addView(warning);
+            return presetPaneLayout;
+        }
+
         if (alternateRootPaths != null && !alternateRootPaths.isEmpty()) {
             PresetElement alternativeRootElement = Preset.getElementByPath(presets[0].getRootGroup(), alternateRootPaths.get(0));
             if (alternativeRootElement != null && alternativeRootElement instanceof PresetGroup) {
-               rootGroup = (PresetGroup) alternativeRootElement;
+                rootGroup = (PresetGroup) alternativeRootElement;
             }
-        } 
-        
+        }
+
         if (rootGroup == null) {
             rootGroup = presets[0].getRootGroup(); // FIXME this assumes that we have at least one active preset
             if (presets.length > 1) {
-                // a bit of a hack ... this adds the elements from other presets to the root group of the first one	
+                // a bit of a hack ... this adds the elements from other presets to the root group of the first one
                 List<PresetElement> rootElements = rootGroup.getElements();
-                for (Preset p:presets) {
+                for (Preset p : presets) {
                     if (p != null) {
-                        for (PresetElement e:p.getRootGroup().getElements()) {
+                        for (PresetElement e : p.getRootGroup().getElements()) {
                             if (!rootElements.contains(e)) { // only do this if not already present
                                 rootGroup.addElement(e);
                                 e.setParent(rootGroup);
@@ -155,54 +154,56 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
                         }
                     }
                 }
-            }	
+            }
         }
-		currentGroup = rootGroup;
-		
-     	presetLayout.addView(getPresetView());
-		
-     	final EditText presetSearch = (EditText) presetPaneLayout.findViewById(R.id.preset_search_edit);
-     	if (presetSearch != null) {
-     		presetSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-     			@Override
-     			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-     				Log.d(DEBUG_TAG,"action id " + actionId + " event " + event);
-     				if (actionId == EditorInfo.IME_ACTION_SEARCH 
-     						|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                        String term = v instanceof EditText ? ((EditText)v).getText().toString() : null;
+        currentGroup = rootGroup;
+
+        presetLayout.addView(getPresetView());
+
+        final EditText presetSearch = (EditText) presetPaneLayout.findViewById(R.id.preset_search_edit);
+        if (presetSearch != null) {
+            presetSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    Log.d(DEBUG_TAG, "action id " + actionId + " event " + event);
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH
+                            || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                        String term = v instanceof EditText ? ((EditText) v).getText().toString() : null;
                         if (term != null && !"".equals(term.trim())) {
                             return getAndShowSearchResults(term);
                         }
-     				}
-     				return false;
-     			}
-     		});
-     		// https://stackoverflow.com/questions/13135447/setting-onclicklistner-for-the-drawable-right-of-an-edittext/26269435#26269435 for the following
-     		presetSearch.setOnTouchListener(new OnTouchListener() {
-     	        @Override
-     	        public boolean onTouch(View v, MotionEvent event) {
-     	            // final int DRAWABLE_LEFT = 0;
-     	            // final int DRAWABLE_TOP = 1;
-     	            final int DRAWABLE_RIGHT = 2;
-     	            // final int DRAWABLE_BOTTOM = 3;
+                    }
+                    return false;
+                }
+            });
+            // https://stackoverflow.com/questions/13135447/setting-onclicklistner-for-the-drawable-right-of-an-edittext/26269435#26269435
+            // for the following
+            presetSearch.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    // final int DRAWABLE_LEFT = 0;
+                    // final int DRAWABLE_TOP = 1;
+                    final int DRAWABLE_RIGHT = 2;
+                    // final int DRAWABLE_BOTTOM = 3;
 
-     	            if(event.getAction() == MotionEvent.ACTION_UP) {
-     	                Drawable icon = presetSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
-     	                if(icon != null && event.getRawX() >= (presetSearch.getRight() - icon.getBounds().width())) { //FIXME RTL
-     	                   String term = v instanceof EditText ? ((EditText)v).getText().toString() : null;
-     	                   if (term != null && !"".equals(term.trim())) {
-     	                       return getAndShowSearchResults(term);
-     	                   }
-     	                }
-     	            }
-     	            return false;
-     	        }
-     	    });
-     	}
-     	
-		return presetPaneLayout;
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        Drawable icon = presetSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
+                        if (icon != null && event.getRawX() >= (presetSearch.getRight() - icon.getBounds().width())) { // FIXME
+                                                                                                                       // RTL
+                            String term = v instanceof EditText ? ((EditText) v).getText().toString() : null;
+                            if (term != null && !"".equals(term.trim())) {
+                                return getAndShowSearchResults(term);
+                            }
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+        return presetPaneLayout;
     }
-    
+
     /**
      * Query the preset seach index and display results in a dialog
      * 
@@ -222,233 +223,231 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
             Snack.barInfo(getActivity(), R.string.toast_nothing_found);
             return true;
         }
-        PresetSearchResultsFragment searchResultDialog 
-            = PresetSearchResultsFragment.newInstance(searchResults);
+        PresetSearchResultsFragment searchResultDialog = PresetSearchResultsFragment.newInstance(searchResults);
         searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
         return true;
     }
-    
+
     @Override
- 	public void onActivityCreated (Bundle savedInstanceState) {
-     	super.onActivityCreated(savedInstanceState);
-     	// calling setHasOptionsMenu here instead of in on Create supposedly 
-     	// fixes issues with onCreateOptionsMenu being called 
-     	// before the view is inflated
-     	setHasOptionsMenu(true);
-         getActivity().supportInvalidateOptionsMenu();
-     }
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // calling setHasOptionsMenu here instead of in on Create supposedly
+        // fixes issues with onCreateOptionsMenu being called
+        // before the view is inflated
+        setHasOptionsMenu(true);
+        getActivity().supportInvalidateOptionsMenu();
+    }
 
-	@Override
-	public void typeUpdated(ElementType type) {
-	   	this.type = type;
-    	LinearLayout presetLayout = (LinearLayout) getOurView().getParent();
-    	if (presetLayout != null) {
-    		presetLayout.removeAllViews();
-    		presetLayout.addView(getPresetView());
-    	}
-	}
-	
-	private View getPresetView() {
-		View view = currentGroup.getGroupView(getActivity(), this, type, null);
-		// view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
-		// view.setOnKeyListener(this);
-		view.setId(R.id.preset_view);
-		return view;
-	}
-		
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		Log.d(DEBUG_TAG, "onSaveInstanceState");
-	}
+    @Override
+    public void typeUpdated(ElementType type) {
+        this.type = type;
+        LinearLayout presetLayout = (LinearLayout) getOurView().getParent();
+        if (presetLayout != null) {
+            presetLayout.removeAllViews();
+            presetLayout.addView(getPresetView());
+        }
+    }
 
+    private View getPresetView() {
+        View view = currentGroup.getGroupView(getActivity(), this, type, null);
+        // view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
+        // view.setOnKeyListener(this);
+        view.setId(R.id.preset_view);
+        return view;
+    }
 
-	@Override
-	public void onPause() {
-		super.onPause();
-		Log.d(DEBUG_TAG, "onPause");
-	}
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
+    }
 
-	@Override
-	public void onStop() {
-		super.onStop();
-		Log.d(DEBUG_TAG, "onStop");
-	}
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(DEBUG_TAG, "onPause");
+    }
 
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		Log.d(DEBUG_TAG, "onDestroyView");
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(DEBUG_TAG, "onStop");
+    }
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		Log.d(DEBUG_TAG, "onDestroy");
-	}
-	    
-	/**
-	 * If this is not the root group, back goes one group up, otherwise, the default is triggered (canceling the dialog)
-	 */
-//	@Override
-//	public boolean onKey(View v, int keyCode, KeyEvent event) {
-//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-//			PresetGroup group = currentGroup.getParent();
-//			if (group != null) {
-//				currentGroup = group;
-//				currentGroup.getGroupView(getActivity(), (ScrollView) view, this, element.getType());
-//				view.invalidate();
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-	
-	/**
-	 * Handle clicks on icons representing an item (closing the dialog with the item as a result)
-	 */
-	@Override
-	public void onItemClick(PresetItem item) {
-		if (!enabled) {
-			return;
-		}
-		mListener.onPresetSelected(item);
-		// dismiss();
-	}
-	
-	/**
-	 * for now do the same
-	 */
-	@Override
-	public boolean onItemLongClick(PresetItem item) {
-		if (!enabled) {
-			return true;
-		}
-		mListener.onPresetSelected(item);
-		// dismiss();
-		return true;
-	}
-	
-	/**
-	 * Handle clicks on icons representing a group (changing to that group)
-	 */
-	@Override
-	public void onGroupClick(PresetGroup group) {
-		ScrollView scrollView = (ScrollView) getOurView();
-		currentGroup = group;
-		currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
-		scrollView.invalidate();
-		FragmentActivity activity = getActivity();
-		if (activity != null) {
-			activity.supportInvalidateOptionsMenu();
-		}
-	}
-	
-	@Override
-	public boolean onGroupLongClick(PresetGroup group) {
-		return false;
-	}
-	
-	@Override
-	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-		// final MenuInflater inflater = getSupportMenuInflater();
-		super.onCreateOptionsMenu(menu, inflater);
-		ActionMenuView menuView = (ActionMenuView) getView().findViewById(R.id.preset_menu);
-		if (paneMode) {
-			getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
-			android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
-				@Override
-				public boolean onMenuItemClick(MenuItem item) {
-					return onOptionsItemSelected(item);
-				}	
-			};
-			menuView.setOnMenuItemClickListener(listener);
-		} else {
-			inflater.inflate(R.menu.preset_menu, menu);
-			menuView.setVisibility(View.GONE);
-		}
-	}
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		super.onPrepareOptionsMenu(menu);
-// FIXME this currently causes problems likely in Pane mode
-//		menu.findItem(R.id.preset_menu_top).setEnabled(currentGroup != rootGroup);
-//		menu.findItem(R.id.preset_menu_up).setEnabled(currentGroup != rootGroup);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(final MenuItem item) {
-		ScrollView scrollView = (ScrollView) getOurView();
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			((PropertyEditor)getActivity()).sendResultAndFinish();
-			return true;
-		case R.id.preset_menu_top:
-			if (rootGroup != null) {
-				currentGroup = rootGroup;
-				currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
-				scrollView.invalidate();
-				return true;
-			}
-			return true;
-		case R.id.preset_menu_up:
-			if (currentGroup != null && currentGroup != rootGroup) {
-				PresetGroup group = currentGroup.getParent();
-				if (group != null) {
-					currentGroup = group;
-					currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
-					scrollView.invalidate();
-					return true;
-				}
-			}
-			return true;
-		case R.id.preset_menu_help:
-			HelpViewer.start(getActivity(), R.string.help_presets);
-			return true;
-		}
-		FragmentActivity activity = getActivity();
-		if (activity != null) {
-			activity.supportInvalidateOptionsMenu();
-		}
-		return false;
-	}
-	
-	/**
-	 * Return the view we have our rows in and work around some android craziness
-	 * 
-	 * @return the view containing what we added
-	 */
-	
-	private View getOurView() {
-		// android.support.v4.app.NoSaveStateFrameLayout
-		View v =  getView();	
-		if (v != null) {
-			if ( v.getId() == R.id.preset_view) {
-				Log.d(DEBUG_TAG,"got correct view in getView");
-				return v;
-			} else {
-				v = v.findViewById(R.id.preset_view);
-				if (v == null) {
-					Log.d(DEBUG_TAG,"didn't find VIEW_ID");
-					throw new UiStateException("didn't find VIEW_ID");
-				}  else {
-					Log.d(DEBUG_TAG,"Found VIEW_ID");
-				}
-				return v;
-			}
-		} else {
-		    // given that this is always fatal might as well throw the exception here
-			Log.d(DEBUG_TAG,"got null view in getView");
-			throw new UiStateException("got null view in getView");
-		}
-	}
-	
-	protected void enable() {
-		enabled = true;
-	}
-	
-	void disable() {
-		enabled = false;
-	}
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(DEBUG_TAG, "onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(DEBUG_TAG, "onDestroy");
+    }
+
+    /**
+     * If this is not the root group, back goes one group up, otherwise, the default is triggered (canceling the dialog)
+     */
+    // @Override
+    // public boolean onKey(View v, int keyCode, KeyEvent event) {
+    // if (keyCode == KeyEvent.KEYCODE_BACK) {
+    // PresetGroup group = currentGroup.getParent();
+    // if (group != null) {
+    // currentGroup = group;
+    // currentGroup.getGroupView(getActivity(), (ScrollView) view, this, element.getType());
+    // view.invalidate();
+    // return true;
+    // }
+    // }
+    // return false;
+    // }
+
+    /**
+     * Handle clicks on icons representing an item (closing the dialog with the item as a result)
+     */
+    @Override
+    public void onItemClick(PresetItem item) {
+        if (!enabled) {
+            return;
+        }
+        mListener.onPresetSelected(item);
+        // dismiss();
+    }
+
+    /**
+     * for now do the same
+     */
+    @Override
+    public boolean onItemLongClick(PresetItem item) {
+        if (!enabled) {
+            return true;
+        }
+        mListener.onPresetSelected(item);
+        // dismiss();
+        return true;
+    }
+
+    /**
+     * Handle clicks on icons representing a group (changing to that group)
+     */
+    @Override
+    public void onGroupClick(PresetGroup group) {
+        ScrollView scrollView = (ScrollView) getOurView();
+        currentGroup = group;
+        currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
+        scrollView.invalidate();
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.supportInvalidateOptionsMenu();
+        }
+    }
+
+    @Override
+    public boolean onGroupLongClick(PresetGroup group) {
+        return false;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+        // final MenuInflater inflater = getSupportMenuInflater();
+        super.onCreateOptionsMenu(menu, inflater);
+        ActionMenuView menuView = (ActionMenuView) getView().findViewById(R.id.preset_menu);
+        if (paneMode) {
+            getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
+            android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    return onOptionsItemSelected(item);
+                }
+            };
+            menuView.setOnMenuItemClickListener(listener);
+        } else {
+            inflater.inflate(R.menu.preset_menu, menu);
+            menuView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        // FIXME this currently causes problems likely in Pane mode
+        // menu.findItem(R.id.preset_menu_top).setEnabled(currentGroup != rootGroup);
+        // menu.findItem(R.id.preset_menu_up).setEnabled(currentGroup != rootGroup);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        ScrollView scrollView = (ScrollView) getOurView();
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            ((PropertyEditor) getActivity()).sendResultAndFinish();
+            return true;
+        case R.id.preset_menu_top:
+            if (rootGroup != null) {
+                currentGroup = rootGroup;
+                currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
+                scrollView.invalidate();
+                return true;
+            }
+            return true;
+        case R.id.preset_menu_up:
+            if (currentGroup != null && currentGroup != rootGroup) {
+                PresetGroup group = currentGroup.getParent();
+                if (group != null) {
+                    currentGroup = group;
+                    currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
+                    scrollView.invalidate();
+                    return true;
+                }
+            }
+            return true;
+        case R.id.preset_menu_help:
+            HelpViewer.start(getActivity(), R.string.help_presets);
+            return true;
+        }
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.supportInvalidateOptionsMenu();
+        }
+        return false;
+    }
+
+    /**
+     * Return the view we have our rows in and work around some android craziness
+     * 
+     * @return the view containing what we added
+     */
+
+    private View getOurView() {
+        // android.support.v4.app.NoSaveStateFrameLayout
+        View v = getView();
+        if (v != null) {
+            if (v.getId() == R.id.preset_view) {
+                Log.d(DEBUG_TAG, "got correct view in getView");
+                return v;
+            } else {
+                v = v.findViewById(R.id.preset_view);
+                if (v == null) {
+                    Log.d(DEBUG_TAG, "didn't find VIEW_ID");
+                    throw new UiStateException("didn't find VIEW_ID");
+                } else {
+                    Log.d(DEBUG_TAG, "Found VIEW_ID");
+                }
+                return v;
+            }
+        } else {
+            // given that this is always fatal might as well throw the exception here
+            Log.d(DEBUG_TAG, "got null view in getView");
+            throw new UiStateException("got null view in getView");
+        }
+    }
+
+    protected void enable() {
+        enabled = true;
+    }
+
+    void disable() {
+        enabled = false;
+    }
 }

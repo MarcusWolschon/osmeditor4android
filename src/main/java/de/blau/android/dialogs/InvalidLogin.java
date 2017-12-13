@@ -25,49 +25,47 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog reporting that the login credentials don't work
  *
  */
-public class InvalidLogin extends DialogFragment
-{
-	
-	private static final String DEBUG_TAG = InvalidLogin.class.getSimpleName();
-	
-	private static final String TAG = "fragment_invalid_login";
-		
-	
-   	/**
-	 
-	 */
-	static public void showDialog(FragmentActivity activity) {
-		dismissDialog(activity);
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			InvalidLogin invalidLoginFragment = newInstance();
-			invalidLoginFragment.show(fm, TAG);
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"showDialog",isex);
-		}
-	}
+public class InvalidLogin extends DialogFragment {
 
-	private static void dismissDialog(FragmentActivity activity) {
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			FragmentTransaction ft = fm.beginTransaction();
-			Fragment fragment = fm.findFragmentByTag(TAG);
-			if (fragment != null) {
-				ft.remove(fragment);
-			}
-			ft.commit();
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"dismissDialog",isex);
-		}
-	}
-		
+    private static final String DEBUG_TAG = InvalidLogin.class.getSimpleName();
+
+    private static final String TAG = "fragment_invalid_login";
+
+    /**
+     
+     */
+    static public void showDialog(FragmentActivity activity) {
+        dismissDialog(activity);
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            InvalidLogin invalidLoginFragment = newInstance();
+            invalidLoginFragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+        }
+    }
+
+    private static void dismissDialog(FragmentActivity activity) {
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentByTag(TAG);
+            if (fragment != null) {
+                ft.remove(fragment);
+            }
+            ft.commit();
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog", isex);
+        }
+    }
+
     /**
      */
     static private InvalidLogin newInstance() {
-    	InvalidLogin f = new InvalidLogin();
+        InvalidLogin f = new InvalidLogin();
 
         f.setShowsDialog(true);
-        
+
         return f;
     }
 
@@ -79,33 +77,32 @@ public class InvalidLogin extends DialogFragment
             throw new ClassCastException(activity.toString() + " can ownly be called from Main");
         }
     }
-    
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setCancelable(true);
     }
 
     @NonNull
-	@Override
-    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
-    {
-    	Builder builder = new AlertDialog.Builder(getActivity());
-    	builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
-    	builder.setTitle(R.string.wrong_login_data_title);
-    	builder.setMessage(R.string.wrong_login_data_message);
-    	DoNothingListener doNothingListener = new DoNothingListener();
-    	builder.setNegativeButton(R.string.cancel, doNothingListener); // logins in the preferences should no longer be used
-		final Server server = new Preferences(getActivity()).getServer();
-		if (server.getOAuth()) {
-			builder.setPositiveButton(R.string.wrong_login_data_re_authenticate, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					((Main) getActivity()).oAuthHandshake(server, null);
-				}
-			});
-		}
-    	return builder.create();
-    }	
+    @Override
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
+        builder.setTitle(R.string.wrong_login_data_title);
+        builder.setMessage(R.string.wrong_login_data_message);
+        DoNothingListener doNothingListener = new DoNothingListener();
+        builder.setNegativeButton(R.string.cancel, doNothingListener); // logins in the preferences should no longer be
+                                                                       // used
+        final Server server = new Preferences(getActivity()).getServer();
+        if (server.getOAuth()) {
+            builder.setPositiveButton(R.string.wrong_login_data_re_authenticate, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ((Main) getActivity()).oAuthHandshake(server, null);
+                }
+            });
+        }
+        return builder.create();
+    }
 }

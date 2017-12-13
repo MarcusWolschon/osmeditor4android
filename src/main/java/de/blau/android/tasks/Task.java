@@ -12,130 +12,139 @@ import de.blau.android.util.rtree.BoundedObject;
  */
 public abstract class Task implements Serializable, BoundedObject {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7L;
 
-	/** OSB Bug ID. */
-	long id;
-	/** Latitude *1E7. */
-	int lat;
-	/** Longitude *1E7. */
-	int lon;
-	/** Bug state. */
-	/**
-	 * Enums for modes.
-	 */
-	public enum State {
-		OPEN,
-		CLOSED,
-		FALSE_POSITIVE
-	}
-	State state;
+    /** OSB Bug ID. */
+    long id;
+    /** Latitude *1E7. */
+    int  lat;
+    /** Longitude *1E7. */
+    int  lon;
 
-	/** Has been edited */
-	boolean changed = false;
+    /** Bug state. */
+    /**
+     * Enums for modes.
+     */
+    public enum State {
+        OPEN, CLOSED, FALSE_POSITIVE
+    }
 
-	/**
-	 * Get the bug ID.
-	 * @return The bug ID.
-	 */
-	public long getId() {
-		return id;
-	}
+    State state;
 
-	/**
-	 * Get the latitude of the bug.
-	 * @return The latitude *1E7.
-	 */
-	public int getLat() {
-		return lat;
-	}
+    /** Has been edited */
+    boolean changed = false;
 
-	/**
-	 * Get the longitude of the bug.
-	 * @return The longitude *1E7.
-	 */
-	public int getLon() {
-		return lon;
-	}
+    /**
+     * Get the bug ID.
+     * 
+     * @return The bug ID.
+     */
+    public long getId() {
+        return id;
+    }
 
-	/**
-	 * Get the bug open/closed state.
-	 * @return true if the bug is closed, false if it's still open.
-	 */
-	public boolean isClosed() {
-		return state == State.CLOSED || state == State.FALSE_POSITIVE;
-	}
-	
-	/**
-	 * Get the bug open/closed state.
-	 * @return true if the bug is closed, false if it's still open.
-	 */
-	public boolean hasBeenChanged() {
-		return changed;
-	}
+    /**
+     * Get the latitude of the bug.
+     * 
+     * @return The latitude *1E7.
+     */
+    public int getLat() {
+        return lat;
+    }
 
-	/**
-	 * Close the bug
-	 */
-	void close() {
-		state = State.CLOSED;
-	}
-	
-	/**
-	 * Close the bug
-	 */
-	public void setFalse() {
-		state = State.FALSE_POSITIVE;
-	}
+    /**
+     * Get the longitude of the bug.
+     * 
+     * @return The longitude *1E7.
+     */
+    public int getLon() {
+        return lon;
+    }
 
-	/**
-	 * Open the bug
-	 */
-	public void open() {
-		state = State.OPEN;
-	}
-	
-	public BoundingBox getBounds() {
-		return new BoundingBox(lon,lat);
-	}
+    /**
+     * Get the bug open/closed state.
+     * 
+     * @return true if the bug is closed, false if it's still open.
+     */
+    public boolean isClosed() {
+        return state == State.CLOSED || state == State.FALSE_POSITIVE;
+    }
 
-	/**
-	 * Return true if a newly created bug, only makes sense for Notes
-	 * @return true if new
-	 */
-	public boolean isNew() {
-		return id <= 0;
-	}
-	
-	/**
-	 * Check if we can upload the task.
-	 * 
-	 * Override to return false if necessary
-	 * @return true if this bug could be uploaded
-	 */
+    /**
+     * Get the bug open/closed state.
+     * 
+     * @return true if the bug is closed, false if it's still open.
+     */
+    public boolean hasBeenChanged() {
+        return changed;
+    }
+
+    /**
+     * Close the bug
+     */
+    void close() {
+        state = State.CLOSED;
+    }
+
+    /**
+     * Close the bug
+     */
+    public void setFalse() {
+        state = State.FALSE_POSITIVE;
+    }
+
+    /**
+     * Open the bug
+     */
+    public void open() {
+        state = State.OPEN;
+    }
+
+    public BoundingBox getBounds() {
+        return new BoundingBox(lon, lat);
+    }
+
+    /**
+     * Return true if a newly created bug, only makes sense for Notes
+     * 
+     * @return true if new
+     */
+    public boolean isNew() {
+        return id <= 0;
+    }
+
+    /**
+     * Check if we can upload the task.
+     * 
+     * Override to return false if necessary
+     * 
+     * @return true if this bug could be uploaded
+     */
     public boolean canBeUploaded() {
         return true;
     }
-    
-	/**
-	 * Inidicate that the bug has been modified
-	 */
-	public void setChanged() {
-		changed = true;
-	}
-	
-	abstract public String getDescription();
 
-	abstract public Date getLastUpdate();
+    /**
+     * Inidicate that the bug has been modified
+     */
+    public void setChanged() {
+        changed = true;
+    }
 
-	/**
-	 * Get the string that is used for filtering 
-	 * 
-	 * Has to match a value in the bugfilter.xml resource file (unluckily there is no elegant way to reference the file here) 
-	 * @return the string we will filter on
-	 */
-	abstract public String bugFilterKey();
+    abstract public String getDescription();
+
+    abstract public Date getLastUpdate();
+
+    /**
+     * Get the string that is used for filtering
+     * 
+     * Has to match a value in the bugfilter.xml resource file (unluckily there is no elegant way to reference the file
+     * here)
+     * 
+     * @return the string we will filter on
+     */
+    abstract public String bugFilterKey();
 }

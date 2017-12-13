@@ -20,502 +20,500 @@ import de.blau.android.validation.Validator;
 
 public class Way extends OsmElement implements BoundedObject {
 
-	private static final String DEBUG_TAG = "Way";
+    private static final String DEBUG_TAG = "Way";
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1104911642016294266L;
-	
-	final ArrayList<Node> nodes;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1104911642016294266L;
 
-	public static final String NAME = "way";
+    final ArrayList<Node> nodes;
 
-	public static final String NODE = "nd";
-	
-	public static int maxWayNodes = 2000; // if API has a different value it will replace this
-	
-	private transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
-	
-	Way(final long osmId, final long osmVersion, final long timestamp, final byte status) {
-		super(osmId, osmVersion, timestamp, status);
-		nodes = new ArrayList<>();
-	}
+    public static final String NAME = "way";
 
-	/**
-	 * Add node at end of way
-	 * 
-	 * Will silently not add the same node twice
-	 * @param node Node to add
-	 */
-	void addNode(final Node node) {
-		int size = nodes.size();
-		if ((size > 0) && (nodes.get(size - 1) == node)) {
-			Log.i(DEBUG_TAG, "addNode attempt to add same node " + node.getOsmId() + " to " + getOsmId());
-			return;
-		}
-		nodes.add(node);
-	}
+    public static final String NODE = "nd";
 
-	/**
-	 * Return list of all nodes in a way
-	 * @return
-	 */
-	public List<Node> getNodes() {
-		return nodes;
-	}
+    public static int maxWayNodes = 2000; // if API has a different value it will replace this
 
-	/**
-	 * Be careful to leave at least 2 nodes!
-	 * 
-	 * @return list of nodes allowing {@link Iterator#remove()}.
-	 */
-	Iterator<Node> getRemovableNodes() {
-		return nodes.iterator();
-	}
+    private transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
 
-	@Override
-	public String getName() {
-		return NAME;
-	}
+    Way(final long osmId, final long osmVersion, final long timestamp, final byte status) {
+        super(osmId, osmVersion, timestamp, status);
+        nodes = new ArrayList<>();
+    }
 
-	@Override
-	public String toString() {
-		String res = super.toString();
-		if (tags != null) {
-			for (Map.Entry<String, String> tag : tags.entrySet()) {
-				res += "\t" + tag.getKey() + "=" + tag.getValue();
-			}
-		}
-		return res;
-	}
+    /**
+     * Add node at end of way
+     * 
+     * Will silently not add the same node twice
+     * 
+     * @param node Node to add
+     */
+    void addNode(final Node node) {
+        int size = nodes.size();
+        if ((size > 0) && (nodes.get(size - 1) == node)) {
+            Log.i(DEBUG_TAG, "addNode attempt to add same node " + node.getOsmId() + " to " + getOsmId());
+            return;
+        }
+        nodes.add(node);
+    }
 
-	@Override
-	public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException,
-			IllegalStateException, IOException {
-		s.startTag("", "way");
-		s.attribute("", "id", Long.toString(osmId));
-		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
-		s.attribute("", "version", Long.toString(osmVersion));
-		if (timestamp >= 0) {
-			s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp()*1000));
-		}
-		if (nodes != null) {
-			for (Node node : nodes) {
-				s.startTag("", "nd");
-				s.attribute("", "ref", Long.toString(node.getOsmId()));
-				s.endTag("", "nd");
-			}
-		} else {
-			Log.i(DEBUG_TAG, "Way without nodes");
-			throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
-		}
+    /**
+     * Return list of all nodes in a way
+     * 
+     * @return
+     */
+    public List<Node> getNodes() {
+        return nodes;
+    }
 
-		tagsToXml(s);
-		s.endTag("", "way");
-	}
-	
-	@Override
-	public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException,
-			IllegalStateException, IOException {
-		s.startTag("", "way");
-		s.attribute("", "id", Long.toString(osmId));
-		if (state == OsmElement.STATE_DELETED) {
-			s.attribute("", "action", "delete");
-		} else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
-			s.attribute("", "action", "modify");
-		}
-		s.attribute("", "version", Long.toString(osmVersion));
-		if (timestamp >= 0) {
-			s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp()*1000));
-		}
-		s.attribute("", "visible", "true");
+    /**
+     * Be careful to leave at least 2 nodes!
+     * 
+     * @return list of nodes allowing {@link Iterator#remove()}.
+     */
+    Iterator<Node> getRemovableNodes() {
+        return nodes.iterator();
+    }
 
-		if (nodes != null) {
-			for (Node node : nodes) {
-				s.startTag("", "nd");
-				s.attribute("", "ref", Long.toString(node.getOsmId()));
-				s.endTag("", "nd");
-			}
-		} else {
-			Log.i(DEBUG_TAG, "Way without nodes");
-			throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
-		}
+    @Override
+    public String getName() {
+        return NAME;
+    }
 
-		tagsToXml(s);
-		s.endTag("", "way");
-	}
-	
-	/**
-	 * Returns true if "node" is a way node of this way
-	 * @param node
-	 * @return
-	 */
-	public boolean hasNode(final Node node) {
-		return nodes.contains(node);
-	}
+    @Override
+    public String toString() {
+        String res = super.toString();
+        if (tags != null) {
+            for (Map.Entry<String, String> tag : tags.entrySet()) {
+                res += "\t" + tag.getKey() + "=" + tag.getValue();
+            }
+        }
+        return res;
+    }
 
-	/**
-	 * Returns true if this way has a common node with "way"
-	 * @param way
-	 * @return
-	 */
-	public boolean hasCommonNode(final Way way) {
-		for (Node n : this.nodes) {
-			if (way.hasNode(n)) {
-				return true;
-			}
-		}
- 		return false;
-	}
-	
-	/**
-	 * Returns the first found common node with "way" or null if there are none
-	 * 
-	 * @param way the way we are inspecting
-	 * @return a common Node or null if none
-	 */
-	@Nullable
-	public Node getCommonNode(Way way) {
-		for (Node n : this.nodes) {
-			if (way.hasNode(n)) {
-				return n;
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 * Remove all occurrences of node from this way
-	 * 
-	 * If removing the node leads to two adjacent identical nodes delete one occurrence
-	 * @param node Node to remove
-	 */
-	void removeNode(@NonNull final Node node) {
-	    int index = nodes.lastIndexOf(node);
-	    if (index > 0 && index < (nodes.size()-1)) { // not the first or last node 
-	        if (nodes.get(index-1).equals(nodes.get(index+1))) {
-	            nodes.remove(index-1);
-	            Log.i(DEBUG_TAG, "removeNode removed duplicate node");
-	        }
-	    }
-		int count = 0;
-		while (nodes.remove(node)) {
-		    count++;
-		}
-		if (count > 1) {
-		    Log.i(DEBUG_TAG, "removeNode removed " + (count-1) + " duplicate node(s)");
-		}
-	}
-	
-	/**
-	 * return true if first == last node, will not work for broken geometries
-	 * 
-	 * @return true if closed
-	 */
-	public boolean isClosed() {
-		return nodes.get(0).equals(nodes.get(nodes.size() - 1));
-	}
+    @Override
+    public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", "way");
+        s.attribute("", "id", Long.toString(osmId));
+        if (changeSetId != null)
+            s.attribute("", "changeset", Long.toString(changeSetId));
+        s.attribute("", "version", Long.toString(osmVersion));
+        if (timestamp >= 0) {
+            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
+        }
+        if (nodes != null) {
+            for (Node node : nodes) {
+                s.startTag("", "nd");
+                s.attribute("", "ref", Long.toString(node.getOsmId()));
+                s.endTag("", "nd");
+            }
+        } else {
+            Log.i(DEBUG_TAG, "Way without nodes");
+            throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
+        }
 
-	void appendNode(final Node refNode, final Node newNode) {
-		if (refNode == newNode) { // user error
-			Log.i(DEBUG_TAG, "appendNode attempt to add same node");
-			return;
-		}
-		if (nodes.get(0) == refNode) {
-			nodes.add(0, newNode);
-		} else if (nodes.get(nodes.size() - 1) == refNode) {
-			nodes.add(newNode);
-		}
-	}
+        tagsToXml(s);
+        s.endTag("", "way");
+    }
 
-	void addNodeAfter(final Node nodeBefore, final Node newNode) {
-		if (nodeBefore == newNode) { // user error
-			Log.i(DEBUG_TAG, "addNodeAfter attempt to add same node");
-			return;
-		}
-		nodes.add(nodes.indexOf(nodeBefore) + 1, newNode);
-	}
-	
-	/**
-	 * Adds multiple nodes to the way in the order in which they appear in the list.
-	 * They can be either prepended or appended to the existing nodes.
-	 * @param newNodes a list of new nodes
-	 * @param atBeginning if true, nodes are prepended, otherwise, they are appended
-	 */
-	void addNodes(List<Node> newNodes, boolean atBeginning) {
-		if (atBeginning) {
-			if (!nodes.isEmpty() && nodes.get(0) == newNodes.get(newNodes.size()-1)) { // user error
-				Log.i(DEBUG_TAG, "addNodes attempt to add same node");
-				if (newNodes.size() > 1) {
-					Log.i(DEBUG_TAG, "retrying addNodes");
-					newNodes.remove(newNodes.size()-1);
-					addNodes(newNodes, atBeginning);
-				}
-				return;
-			}
-			nodes.addAll(0, newNodes);
-		} else {
-			if (!nodes.isEmpty() && newNodes.get(0) == nodes.get(nodes.size()-1)) { // user error
-				Log.i(DEBUG_TAG, "addNodes attempt to add same node");
-				if (newNodes.size() > 1) {
-					Log.i(DEBUG_TAG, "retrying addNodes");
-					newNodes.remove(0);
-					addNodes(newNodes, atBeginning);
-				}
-				return;
-			}
-			nodes.addAll(newNodes);
-		}
-	}
-		
-	/**
-	 * Reverses the direction of the way
-	 */
-	void reverse() {
-		Collections.reverse(nodes);
-	}
-	
-	/**
-	 * Replace an existing node in a way with a different node.
-	 * @param existing The existing node to be replaced.
-	 * @param newNode The new node.
-	 */
-	void replaceNode(Node existing, Node newNode) {
-		int idx;
-		while ((idx = nodes.indexOf(existing)) != -1) {
-			nodes.set(idx, newNode);
-			// check for duplicates
-			if (idx > 0 && nodes.get(idx-1).equals(newNode)) {
-				Log.i(DEBUG_TAG, "replaceNode node would duplicate preceeding node");
-				nodes.remove(idx);
-			}
-			if (idx >= 0 &&  idx < nodes.size()-1 && nodes.get(idx+1).equals(newNode)) {
-				Log.i(DEBUG_TAG, "replaceNode node would duplicate following node");
-				nodes.remove(idx);
-			}
-		}
-	}
+    @Override
+    public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", "way");
+        s.attribute("", "id", Long.toString(osmId));
+        if (state == OsmElement.STATE_DELETED) {
+            s.attribute("", "action", "delete");
+        } else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
+            s.attribute("", "action", "modify");
+        }
+        s.attribute("", "version", Long.toString(osmVersion));
+        if (timestamp >= 0) {
+            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
+        }
+        s.attribute("", "visible", "true");
 
-	/**
-	 * Checks if a node is an end node of the way (i.e. either the first or the last one)
-	 * 
-	 * @param node a node to check
-	 * @return in node is one of the end nodes
-	 */
-	public boolean isEndNode(final Node node) {
-		return getFirstNode() == node || getLastNode() == node;
-	}
-	
-	public Node getFirstNode() {
-		return nodes.get(0);
-	}
+        if (nodes != null) {
+            for (Node node : nodes) {
+                s.startTag("", "nd");
+                s.attribute("", "ref", Long.toString(node.getOsmId()));
+                s.endTag("", "nd");
+            }
+        } else {
+            Log.i(DEBUG_TAG, "Way without nodes");
+            throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
+        }
 
-	public Node getLastNode() {
-		return nodes.get(nodes.size() - 1);
-	}
+        tagsToXml(s);
+        s.endTag("", "way");
+    }
 
-	/**
-	 * Checks if this way is tagged as oneway
-	 * 
-	 * @return 1 if this is a regular oneway-way (oneway:yes, oneway:true or oneway:1),
-	 *         -1 if this is a reverse oneway-way (oneway:-1 or oneway:reverse),
-	 *         0 if this is not a oneway-way (no oneway tag or tag with none of the specified values)
-	 */
-	public int getOneway() {
-		String oneway = getTagWithKey("oneway");
-		if ("yes".equalsIgnoreCase(oneway) || "true".equalsIgnoreCase(oneway) || "1".equals(oneway)) {
-			return 1;
-		} else if ("-1".equals(oneway) || "reverse".equalsIgnoreCase(oneway)) {
-			return -1;
-		}
-		return 0;
-	}
-	
-	/**
-	 * There is a set of tags which lead to a way not being reversible, this method returns true if we match one of them
-	 * 
-	 * FIXME move the information to Tags
-	 * natural=cliff
-	 * natural=coastline
-	 * barrier=retaining_wall
-	 * barrier=kerb
-	 * barrier=guard_rail
-	 * man_made=embankment
-	 * barrier=city_wall if two_sided != yes
-	 * waterway=*
-	 * 
-	 * @return true if tags are present
-	 */
-	public boolean notReversable()
-	{
-		String waterway = getTagWithKey(Tags.KEY_WATERWAY);
-		if (waterway != null) {
-			return true; 
-		} 
-		
-		String natural = getTagWithKey(Tags.KEY_NATURAL);
-		if ((natural != null) && (natural.equals(Tags.VALUE_CLIFF) || natural.equals(Tags.VALUE_COASTLINE))) {
-			return true; 
-		} 
-		
-		String man_made = getTagWithKey(Tags.KEY_MAN_MADE);
-		if ((man_made != null) && man_made.equals(Tags.VALUE_EMBANKMENT)) {
-			return true; // IHMO
-		}
-				
-		String barrier = getTagWithKey(Tags.KEY_BARRIER);
-		if (barrier != null) {
-			if (Tags.VALUE_RETAINING_WALL.equals(barrier)) {
-				return true; 
-			} 
-			if (Tags.VALUE_KERB.equals(barrier)) {
-				return true; 
-			} 
-			if (Tags.VALUE_GUARD_RAIL.equals(barrier)) {
-				return true; 
-			} 
-			String twoSided = getTagWithKey(Tags.KEY_TWO_SIDED);
-			if (Tags.VALUE_CITY_WALL.equals(barrier) && (twoSided == null || !Tags.VALUE_YES.equals(twoSided))) {
-				return true; 
-			}
-		}
-		return false;
-	}
-	
-	@Override
-	public ElementType getType() {
-		if (nodes.size() < 2) return ElementType.WAY; // should not happen
-		
-		if (getFirstNode().equals(getLastNode())) {
-			return ElementType.CLOSEDWAY;
-		} else {
-			return ElementType.WAY;
-		}
-	}
-	
-	@Override
-	public ElementType getType(Map<String,String> tags) {
-		return getType();
-	}
-	
-	@Override
-	void updateState(final byte newState) {
-		featureProfile = null; // force recalc of style
-		super.updateState(newState);
-	}
-	
-	@Override
-	void setState(final byte newState) {
-		featureProfile = null; // force recalc of style
-		super.setState(newState);
-	}
-	
-	public FeatureStyle getFeatureProfile() {
-		return featureProfile;
-	}
-	
-	public void setFeatureProfile(FeatureStyle fp) {
-		featureProfile = fp;
-	}
-	
-	/** 
-	 * return the number of nodes in the is way
-	 * @return
-	 */
-	public int nodeCount() {
-		return nodes == null ? 0 : nodes.size();
-	}
-	
-	/** 
-	 * return the length in m
-	 * @return
-	 */
-	public double length() {
-		double result = 0d;
-		if (nodes != null) {
-			for (int i = 0; i < (nodes.size() - 1); i++) {
-				result = result + GeoMath.haversineDistance(nodes.get(i).getLon()/1E7D, nodes.get(i).getLat()/1E7D, nodes.get(i+1).getLon()/1E7D, nodes.get(i+1).getLat()/1E7D);
-			}
-		}
-		return result;
-	}
-	
-	/**
-	 * Note this is only useful for sorting given that the result is returned in WGS84 °*1E7 or so
+    /**
+     * Returns true if "node" is a way node of this way
+     * 
+     * @param node
+     * @return
+     */
+    public boolean hasNode(final Node node) {
+        return nodes.contains(node);
+    }
+
+    /**
+     * Returns true if this way has a common node with "way"
+     * 
+     * @param way
+     * @return
+     */
+    public boolean hasCommonNode(final Way way) {
+        for (Node n : this.nodes) {
+            if (way.hasNode(n)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns the first found common node with "way" or null if there are none
+     * 
+     * @param way the way we are inspecting
+     * @return a common Node or null if none
+     */
+    @Nullable
+    public Node getCommonNode(Way way) {
+        for (Node n : this.nodes) {
+            if (way.hasNode(n)) {
+                return n;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Remove all occurrences of node from this way
+     * 
+     * If removing the node leads to two adjacent identical nodes delete one occurrence
+     * 
+     * @param node Node to remove
+     */
+    void removeNode(@NonNull final Node node) {
+        int index = nodes.lastIndexOf(node);
+        if (index > 0 && index < (nodes.size() - 1)) { // not the first or last node
+            if (nodes.get(index - 1).equals(nodes.get(index + 1))) {
+                nodes.remove(index - 1);
+                Log.i(DEBUG_TAG, "removeNode removed duplicate node");
+            }
+        }
+        int count = 0;
+        while (nodes.remove(node)) {
+            count++;
+        }
+        if (count > 1) {
+            Log.i(DEBUG_TAG, "removeNode removed " + (count - 1) + " duplicate node(s)");
+        }
+    }
+
+    /**
+     * return true if first == last node, will not work for broken geometries
+     * 
+     * @return true if closed
+     */
+    public boolean isClosed() {
+        return nodes.get(0).equals(nodes.get(nodes.size() - 1));
+    }
+
+    void appendNode(final Node refNode, final Node newNode) {
+        if (refNode == newNode) { // user error
+            Log.i(DEBUG_TAG, "appendNode attempt to add same node");
+            return;
+        }
+        if (nodes.get(0) == refNode) {
+            nodes.add(0, newNode);
+        } else if (nodes.get(nodes.size() - 1) == refNode) {
+            nodes.add(newNode);
+        }
+    }
+
+    void addNodeAfter(final Node nodeBefore, final Node newNode) {
+        if (nodeBefore == newNode) { // user error
+            Log.i(DEBUG_TAG, "addNodeAfter attempt to add same node");
+            return;
+        }
+        nodes.add(nodes.indexOf(nodeBefore) + 1, newNode);
+    }
+
+    /**
+     * Adds multiple nodes to the way in the order in which they appear in the list. They can be either prepended or
+     * appended to the existing nodes.
+     * 
+     * @param newNodes a list of new nodes
+     * @param atBeginning if true, nodes are prepended, otherwise, they are appended
+     */
+    void addNodes(List<Node> newNodes, boolean atBeginning) {
+        if (atBeginning) {
+            if (!nodes.isEmpty() && nodes.get(0) == newNodes.get(newNodes.size() - 1)) { // user error
+                Log.i(DEBUG_TAG, "addNodes attempt to add same node");
+                if (newNodes.size() > 1) {
+                    Log.i(DEBUG_TAG, "retrying addNodes");
+                    newNodes.remove(newNodes.size() - 1);
+                    addNodes(newNodes, atBeginning);
+                }
+                return;
+            }
+            nodes.addAll(0, newNodes);
+        } else {
+            if (!nodes.isEmpty() && newNodes.get(0) == nodes.get(nodes.size() - 1)) { // user error
+                Log.i(DEBUG_TAG, "addNodes attempt to add same node");
+                if (newNodes.size() > 1) {
+                    Log.i(DEBUG_TAG, "retrying addNodes");
+                    newNodes.remove(0);
+                    addNodes(newNodes, atBeginning);
+                }
+                return;
+            }
+            nodes.addAll(newNodes);
+        }
+    }
+
+    /**
+     * Reverses the direction of the way
+     */
+    void reverse() {
+        Collections.reverse(nodes);
+    }
+
+    /**
+     * Replace an existing node in a way with a different node.
+     * 
+     * @param existing The existing node to be replaced.
+     * @param newNode The new node.
+     */
+    void replaceNode(Node existing, Node newNode) {
+        int idx;
+        while ((idx = nodes.indexOf(existing)) != -1) {
+            nodes.set(idx, newNode);
+            // check for duplicates
+            if (idx > 0 && nodes.get(idx - 1).equals(newNode)) {
+                Log.i(DEBUG_TAG, "replaceNode node would duplicate preceeding node");
+                nodes.remove(idx);
+            }
+            if (idx >= 0 && idx < nodes.size() - 1 && nodes.get(idx + 1).equals(newNode)) {
+                Log.i(DEBUG_TAG, "replaceNode node would duplicate following node");
+                nodes.remove(idx);
+            }
+        }
+    }
+
+    /**
+     * Checks if a node is an end node of the way (i.e. either the first or the last one)
+     * 
+     * @param node a node to check
+     * @return in node is one of the end nodes
+     */
+    public boolean isEndNode(final Node node) {
+        return getFirstNode() == node || getLastNode() == node;
+    }
+
+    public Node getFirstNode() {
+        return nodes.get(0);
+    }
+
+    public Node getLastNode() {
+        return nodes.get(nodes.size() - 1);
+    }
+
+    /**
+     * Checks if this way is tagged as oneway
+     * 
+     * @return 1 if this is a regular oneway-way (oneway:yes, oneway:true or oneway:1), -1 if this is a reverse
+     *         oneway-way (oneway:-1 or oneway:reverse), 0 if this is not a oneway-way (no oneway tag or tag with none
+     *         of the specified values)
+     */
+    public int getOneway() {
+        String oneway = getTagWithKey("oneway");
+        if ("yes".equalsIgnoreCase(oneway) || "true".equalsIgnoreCase(oneway) || "1".equals(oneway)) {
+            return 1;
+        } else if ("-1".equals(oneway) || "reverse".equalsIgnoreCase(oneway)) {
+            return -1;
+        }
+        return 0;
+    }
+
+    /**
+     * There is a set of tags which lead to a way not being reversible, this method returns true if we match one of them
+     * 
+     * FIXME move the information to Tags natural=cliff natural=coastline barrier=retaining_wall barrier=kerb
+     * barrier=guard_rail man_made=embankment barrier=city_wall if two_sided != yes waterway=*
+     * 
+     * @return true if tags are present
+     */
+    public boolean notReversable() {
+        String waterway = getTagWithKey(Tags.KEY_WATERWAY);
+        if (waterway != null) {
+            return true;
+        }
+
+        String natural = getTagWithKey(Tags.KEY_NATURAL);
+        if ((natural != null) && (natural.equals(Tags.VALUE_CLIFF) || natural.equals(Tags.VALUE_COASTLINE))) {
+            return true;
+        }
+
+        String man_made = getTagWithKey(Tags.KEY_MAN_MADE);
+        if ((man_made != null) && man_made.equals(Tags.VALUE_EMBANKMENT)) {
+            return true; // IHMO
+        }
+
+        String barrier = getTagWithKey(Tags.KEY_BARRIER);
+        if (barrier != null) {
+            if (Tags.VALUE_RETAINING_WALL.equals(barrier)) {
+                return true;
+            }
+            if (Tags.VALUE_KERB.equals(barrier)) {
+                return true;
+            }
+            if (Tags.VALUE_GUARD_RAIL.equals(barrier)) {
+                return true;
+            }
+            String twoSided = getTagWithKey(Tags.KEY_TWO_SIDED);
+            if (Tags.VALUE_CITY_WALL.equals(barrier) && (twoSided == null || !Tags.VALUE_YES.equals(twoSided))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public ElementType getType() {
+        if (nodes.size() < 2)
+            return ElementType.WAY; // should not happen
+
+        if (getFirstNode().equals(getLastNode())) {
+            return ElementType.CLOSEDWAY;
+        } else {
+            return ElementType.WAY;
+        }
+    }
+
+    @Override
+    public ElementType getType(Map<String, String> tags) {
+        return getType();
+    }
+
+    @Override
+    void updateState(final byte newState) {
+        featureProfile = null; // force recalc of style
+        super.updateState(newState);
+    }
+
+    @Override
+    void setState(final byte newState) {
+        featureProfile = null; // force recalc of style
+        super.setState(newState);
+    }
+
+    public FeatureStyle getFeatureProfile() {
+        return featureProfile;
+    }
+
+    public void setFeatureProfile(FeatureStyle fp) {
+        featureProfile = fp;
+    }
+
+    /**
+     * return the number of nodes in the is way
+     * 
+     * @return
+     */
+    public int nodeCount() {
+        return nodes == null ? 0 : nodes.size();
+    }
+
+    /**
+     * return the length in m
+     * 
+     * @return
+     */
+    public double length() {
+        double result = 0d;
+        if (nodes != null) {
+            for (int i = 0; i < (nodes.size() - 1); i++) {
+                result = result + GeoMath.haversineDistance(nodes.get(i).getLon() / 1E7D, nodes.get(i).getLat() / 1E7D, nodes.get(i + 1).getLon() / 1E7D,
+                        nodes.get(i + 1).getLat() / 1E7D);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Note this is only useful for sorting given that the result is returned in WGS84 °*1E7 or so
+     * 
      * @param location
      * @return the minimum distance of this way to the given location
      */
-	public double getDistance(final int[] location) {
-		double distance = Double.MAX_VALUE;
-		if (location != null) {
-			Node n1 = null;
-			for (Node n2 : getNodes()) {
-				// distance to nodes of way
-				if (n1 != null) {
-					// distance to lines of way
-					distance = Math.min(distance,
-							GeoMath.getLineDistance(
-									location[0], location[1],
-									n1.getLat(), n1.getLon(),
-									n2.getLat(), n2.getLon()));
-				}
-				n1 = n2;
-			}
-		}
-		return distance;
-	}
-	
-	/**
-	 * Returns a bounding box covering the way
-	 * FIXME results should be cached in some intelligent way
-	 * 
-	 * @return the bounding box of the way
-	 */
-	public BoundingBox getBounds() {
-		BoundingBox result = null;
-		boolean first = true;
-		for (Node n : getNodes()) {
-			if (first) {
-				result = new BoundingBox(n.lon,n.lat);
-				first = false;
-			} else {
-				result.union(n.lon,n.lat);
-			}
-		}
-		return result;
-	}
-	
-	/**
-	 * Returns a bounding box covering the way
-	 * FIXME results should be cached in some intelligent way
-	 * 
-	 * @param result a bounding box to use for producing the result, avoids creating an object instance
-	 * @return  the bounding box of the way
-	 */
-	public BoundingBox getBounds(BoundingBox result) {
-		boolean first = true;
-		for (Node n : getNodes()) {
-			if (first) {
-				result.resetTo(n.lon,n.lat);
-				first = false;
-			} else {
-				result.union(n.lon,n.lat);
-			}
-		}
-		return result;
-	}
+    public double getDistance(final int[] location) {
+        double distance = Double.MAX_VALUE;
+        if (location != null) {
+            Node n1 = null;
+            for (Node n2 : getNodes()) {
+                // distance to nodes of way
+                if (n1 != null) {
+                    // distance to lines of way
+                    distance = Math.min(distance, GeoMath.getLineDistance(location[0], location[1], n1.getLat(), n1.getLon(), n2.getLat(), n2.getLon()));
+                }
+                n1 = n2;
+            }
+        }
+        return distance;
+    }
 
-	/**
-	 * Set the maximum number of nodes allowed in one way
-	 * @param max
-	 */
-	public static void setMaxWayNodes(int max) {
-		maxWayNodes = max;
-	}
-	
-	@Override
-	protected int validate(Validator validator) {
-	    return validator.validate(this);
-	}
+    /**
+     * Returns a bounding box covering the way FIXME results should be cached in some intelligent way
+     * 
+     * @return the bounding box of the way
+     */
+    public BoundingBox getBounds() {
+        BoundingBox result = null;
+        boolean first = true;
+        for (Node n : getNodes()) {
+            if (first) {
+                result = new BoundingBox(n.lon, n.lat);
+                first = false;
+            } else {
+                result.union(n.lon, n.lat);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Returns a bounding box covering the way FIXME results should be cached in some intelligent way
+     * 
+     * @param result a bounding box to use for producing the result, avoids creating an object instance
+     * @return the bounding box of the way
+     */
+    public BoundingBox getBounds(BoundingBox result) {
+        boolean first = true;
+        for (Node n : getNodes()) {
+            if (first) {
+                result.resetTo(n.lon, n.lat);
+                first = false;
+            } else {
+                result.union(n.lon, n.lat);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Set the maximum number of nodes allowed in one way
+     * 
+     * @param max
+     */
+    public static void setMaxWayNodes(int max) {
+        maxWayNodes = max;
+    }
+
+    @Override
+    protected int validate(Validator validator) {
+        return validator.validate(this);
+    }
 }

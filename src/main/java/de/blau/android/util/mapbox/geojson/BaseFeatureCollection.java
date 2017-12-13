@@ -14,44 +14,44 @@ import de.blau.android.util.mapbox.models.Position;
  */
 public class BaseFeatureCollection implements GeoJSON {
 
-  private final String type = "FeatureCollection";
+    private final String type = "FeatureCollection";
 
-  /**
-   * Should always be "FeatureCollection".
-   *
-   * @return String "FeatureCollection".
-   * @since 1.0.0
-   */
-  @Override
-  public String getType() {
-    return type;
-  }
+    /**
+     * Should always be "FeatureCollection".
+     *
+     * @return String "FeatureCollection".
+     * @since 1.0.0
+     */
+    @Override
+    public String getType() {
+        return type;
+    }
 
-  /**
-   * Create a GeoJSON feature collection object from JSON.
-   *
-   * @param json String of JSON making up a feature collection.
-   * @return {@link FeatureCollection} GeoJSON object.
-   * @since 1.0.0
-   */
-  public static FeatureCollection fromJson(String json) {
-    GsonBuilder gson = new GsonBuilder();
-    gson.registerTypeAdapter(Position.class, new PositionDeserializer());
-    gson.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
-    return gson.create().fromJson(json, FeatureCollection.class);
-  }
+    /**
+     * Create a GeoJSON feature collection object from JSON.
+     *
+     * @param json String of JSON making up a feature collection.
+     * @return {@link FeatureCollection} GeoJSON object.
+     * @since 1.0.0
+     */
+    public static FeatureCollection fromJson(String json) {
+        GsonBuilder gson = new GsonBuilder();
+        gson.registerTypeAdapter(Position.class, new PositionDeserializer());
+        gson.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
+        return gson.create().fromJson(json, FeatureCollection.class);
+    }
 
-  /**
-   * Convert feature collection into JSON.
-   *
-   * @return String containing feature collection JSON.
-   * @since 1.0.0
-   */
-  @Override
-  public String toJson() {
-    GsonBuilder gson = new GsonBuilder();
-    gson.registerTypeAdapter(Position.class, new PositionSerializer());
-    return gson.create().toJson(this);
-  }
+    /**
+     * Convert feature collection into JSON.
+     *
+     * @return String containing feature collection JSON.
+     * @since 1.0.0
+     */
+    @Override
+    public String toJson() {
+        GsonBuilder gson = new GsonBuilder();
+        gson.registerTypeAdapter(Position.class, new PositionSerializer());
+        return gson.create().toJson(this);
+    }
 
 }

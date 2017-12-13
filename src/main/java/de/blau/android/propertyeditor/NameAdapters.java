@@ -10,8 +10,7 @@ import de.blau.android.presets.ValueWithCount;
  */
 interface NameAdapters {
 
-	ArrayAdapter<ValueWithCount> getStreetNameAdapter(ArrayList<String> tagValues);
+    ArrayAdapter<ValueWithCount> getStreetNameAdapter(ArrayList<String> tagValues);
 
-	ArrayAdapter<ValueWithCount> getPlaceNameAdapter(ArrayList<String> tagValues);
+    ArrayAdapter<ValueWithCount> getPlaceNameAdapter(ArrayList<String> tagValues);
 }
-

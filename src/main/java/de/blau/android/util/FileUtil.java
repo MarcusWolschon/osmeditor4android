@@ -8,47 +8,42 @@ import android.support.annotation.NonNull;
 import de.blau.android.contract.Paths;
 
 public abstract class FileUtil {
-	
-	/**
-	 * Get our public directory, creating it if it doesn't exist
-	 * @return
-	 * @throws IOException
-	 */
-    public static
-    @NonNull
-    File getPublicDirectory() throws IOException {
-        return getPublicDirectory(
-                Environment.getExternalStorageDirectory(),
-                Paths.DIRECTORY_PATH_VESPUCCI);
+
+    /**
+     * Get our public directory, creating it if it doesn't exist
+     * 
+     * @return
+     * @throws IOException
+     */
+    public static @NonNull File getPublicDirectory() throws IOException {
+        return getPublicDirectory(Environment.getExternalStorageDirectory(), Paths.DIRECTORY_PATH_VESPUCCI);
     }
 
     /**
      * Get a File for directoryName in baseDirectory, if it doesn't exist create it
+     * 
      * @param baseDirectory
      * @param directoryName
      * @return
      * @throws IOException
      */
-    public static
-    @NonNull
-    File getPublicDirectory(@NonNull File baseDirectory, @NonNull String directoryName)
-            throws IOException {
+    public static @NonNull File getPublicDirectory(@NonNull File baseDirectory, @NonNull String directoryName) throws IOException {
         if (directoryName.length() == 0) {
             throw new IllegalArgumentException("Directory path is empty.");
         }
         File outDir = new File(baseDirectory, directoryName);
-        //noinspection ResultOfMethodCallIgnored
+        // noinspection ResultOfMethodCallIgnored
         outDir.mkdir(); // ensure directory exists;
         if (!outDir.isDirectory()) {
             throw new IOException("Unable to create directory: " + outDir.getPath());
         }
         return outDir;
     }
-    
+
     /**
-     * Open a local file for writing generating any necessary directories 
+     * Open a local file for writing generating any necessary directories
      * 
-     * @param   fileName name of the filw we want to write to
+     * @param fileName name of the filw we want to write to
      * @return a File object
      * @throws IOException
      */
@@ -60,7 +55,7 @@ public abstract class FileUtil {
             outfile = new File(FileUtil.getPublicDirectory(), fileName);
         } else { // ensure directory exists
             File outdir = new File(parent);
-            //noinspection ResultOfMethodCallIgnored
+            // noinspection ResultOfMethodCallIgnored
             outdir.mkdirs();
             if (!outdir.isDirectory()) {
                 throw new IOException("Unable to create directory " + outdir.getPath());

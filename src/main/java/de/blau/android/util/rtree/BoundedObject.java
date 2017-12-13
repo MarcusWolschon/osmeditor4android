@@ -4,9 +4,10 @@ import de.blau.android.osm.BoundingBox;
 
 /**
  * An object bounded on an Axis-Aligned Bounding Box.
+ * 
  * @author Colonel32
  * @author cnvandev
  */
 public interface BoundedObject {
-	BoundingBox getBounds();
+    BoundingBox getBounds();
 }

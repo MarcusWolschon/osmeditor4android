@@ -7,8 +7,8 @@ package de.blau.android.util.mapbox.geojson;
  */
 public interface GeoJSON {
 
-  String getType();
+    String getType();
 
-  String toJson();
+    String toJson();
 
 }

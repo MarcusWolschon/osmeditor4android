@@ -1,16 +1,14 @@
-/* Copyright (c) 2009 Matthias Kaeppler
+/*
+ * Copyright (c) 2009 Matthias Kaeppler
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package de.blau.android.util.signpost;
 
@@ -22,7 +20,8 @@ import oauth.signpost.http.HttpRequest;
  * 
  * @author Matthias Kaeppler
  * 
- * Modified to use a version of the Apache httpclient with renamed package and adapted to work with version 4.4 with working SNI support
+ *         Modified to use a version of the Apache httpclient with renamed package and adapted to work with version 4.4
+ *         with working SNI support
  * 
  */
 public class CommonsHttpOAuthConsumer extends AbstractOAuthConsumer {
@@ -36,9 +35,7 @@ public class CommonsHttpOAuthConsumer extends AbstractOAuthConsumer {
     @Override
     protected HttpRequest wrap(Object request) {
         if (!(request instanceof cz.msebera.android.httpclient.HttpRequest)) {
-            throw new IllegalArgumentException(
-                    "This consumer expects requests of type "
-                            + cz.msebera.android.httpclient.HttpRequest.class.getCanonicalName());
+            throw new IllegalArgumentException("This consumer expects requests of type " + cz.msebera.android.httpclient.HttpRequest.class.getCanonicalName());
         }
 
         return new HttpRequestAdapter((cz.msebera.android.httpclient.client.methods.HttpUriRequest) request);

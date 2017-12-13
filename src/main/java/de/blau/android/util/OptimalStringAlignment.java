@@ -6,15 +6,16 @@ import static java.lang.Math.max;
 import java.util.Arrays;
 
 /**
- * Implementation of the OSA which is similar to the Damerau-Levenshtein in that it allows for transpositions to
- * count as a single edit distance, but is not a true metric and can over-estimate the cost because it disallows
- * substrings to edited more than once.  See wikipedia for more discussion on OSA vs DL
+ * Implementation of the OSA which is similar to the Damerau-Levenshtein in that it allows for transpositions to count
+ * as a single edit distance, but is not a true metric and can over-estimate the cost because it disallows substrings to
+ * edited more than once. See wikipedia for more discussion on OSA vs DL
  * <p/>
  * See Algorithms on Strings, Trees and Sequences by Dan Gusfield for more information.
  * <p/>
- * This also has a set of local buffer implementations to avoid allocating new buffers each time, which might be
- * a premature optimization
+ * This also has a set of local buffer implementations to avoid allocating new buffers each time, which might be a
+ * premature optimization
  * <p/>
+ * 
  * @author Steve Ash
  */
 public class OptimalStringAlignment {
@@ -69,15 +70,14 @@ public class OptimalStringAlignment {
      */
     private static int editDistanceWithNewBuffers(CharSequence s, CharSequence t, short threshold) {
         int slen = s.length();
-        short[] back1 = new short[slen + 1];    // "up 1" row in table
-        short[] back2 = new short[slen + 1];    // "up 2" row in table
-        short[] cost = new short[slen + 1];     // "current cost"
+        short[] back1 = new short[slen + 1]; // "up 1" row in table
+        short[] back2 = new short[slen + 1]; // "up 2" row in table
+        short[] cost = new short[slen + 1]; // "current cost"
 
         return editDistanceWithBuffers(s, t, threshold, back2, back1, cost);
     }
 
-    private static int editDistanceWithBuffers(CharSequence s, CharSequence t, short threshold,
-            short[] back2, short[] back1, short[] cost) {
+    private static int editDistanceWithBuffers(CharSequence s, CharSequence t, short threshold, short[] back2, short[] back1, short[] cost) {
 
         short slen = (short) s.length();
         short tlen = (short) t.length();
@@ -133,8 +133,7 @@ public class OptimalStringAlignment {
         return back1[slen];
     }
 
-    private static void iterateOverStripe(CharSequence s, CharSequence t, short j,
-            short[] cost, short[] back1, short[] back2, int min, int max) {
+    private static void iterateOverStripe(CharSequence s, CharSequence t, short j, short[] cost, short[] back1, short[] back2, int min, int max) {
 
         // iterates over the stripe
         for (int i = min; i <= max; i++) {
@@ -146,8 +145,7 @@ public class OptimalStringAlignment {
             }
             if (i >= 2 && j >= 2) {
                 // possible transposition to check for
-                if ((s.charAt(i - 2) == t.charAt(j - 1)) &&
-                        s.charAt(i - 1) == t.charAt(j - 2)) {
+                if ((s.charAt(i - 2) == t.charAt(j - 1)) && s.charAt(i - 1) == t.charAt(j - 2)) {
                     cost[i] = min(cost[i], (short) (back2[i - 2] + 1));
                 }
             }
@@ -175,5 +173,3 @@ public class OptimalStringAlignment {
         return min(a, min(b, c));
     }
 }
-
-

@@ -28,51 +28,50 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog asking for a file name to save to
  *
  */
-public class GetFileName extends DialogFragment
-{
-	
-	private static final String DEBUG_TAG = GetFileName.class.getSimpleName();
-	
-	private static final String TAG = "fragment_save_file";
-		
-	private SaveFile callback;
+public class GetFileName extends DialogFragment {
 
-	/**
-	 
-	 */
-	static public void showDialog(FragmentActivity activity, de.blau.android.util.SaveFile callback) {
-		dismissDialog(activity);
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			GetFileName saveFileFragment = newInstance(callback);
-			saveFileFragment.show(fm, TAG);
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"showDialog",isex);
-		}
-	}
-	
-	private static void dismissDialog(FragmentActivity activity) {
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			FragmentTransaction ft = fm.beginTransaction();
-			Fragment fragment = fm.findFragmentByTag(TAG);
-			if (fragment != null) {
-				ft.remove(fragment);
-			}
-			ft.commit();
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"dismissDialog",isex);
-		}
-	}
-		
+    private static final String DEBUG_TAG = GetFileName.class.getSimpleName();
+
+    private static final String TAG = "fragment_save_file";
+
+    private SaveFile callback;
+
+    /**
+     
+     */
+    static public void showDialog(FragmentActivity activity, de.blau.android.util.SaveFile callback) {
+        dismissDialog(activity);
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            GetFileName saveFileFragment = newInstance(callback);
+            saveFileFragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+        }
+    }
+
+    private static void dismissDialog(FragmentActivity activity) {
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentByTag(TAG);
+            if (fragment != null) {
+                ft.remove(fragment);
+            }
+            ft.commit();
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog", isex);
+        }
+    }
+
     /**
      */
     static private GetFileName newInstance(de.blau.android.util.SaveFile callback) {
-    	GetFileName f = new GetFileName();
+        GetFileName f = new GetFileName();
         Bundle args = new Bundle();
         args.putSerializable("callback", callback);
         f.setArguments(args);
-        f.setShowsDialog(true);      
+        f.setShowsDialog(true);
         return f;
     }
 
@@ -84,33 +83,31 @@ public class GetFileName extends DialogFragment
             throw new ClassCastException(activity.toString() + " can only be called from Main");
         }
     }
-    
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setCancelable(true);
     }
 
     @NonNull
-	@SuppressLint("InflateParams")
+    @SuppressLint("InflateParams")
     @Override
-    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         callback = (SaveFile) getArguments().getSerializable("callback");
-    	final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
-    	Builder builder = new AlertDialog.Builder(getActivity());
-    	builder.setTitle(R.string.save_file);
-    	LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.save_file, null);
-    	builder.setView(searchLayout);
-		final EditText saveFileEdit = (EditText) searchLayout.findViewById(R.id.save_file_edit);
-		builder.setNegativeButton(R.string.cancel, null);
-		builder.setPositiveButton(R.string.save, new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				callback.save(Uri.fromParts("", "", saveFileEdit.getText().toString()));
-			}
-		});
-    	return builder.create();
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
+        Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.save_file);
+        LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.save_file, null);
+        builder.setView(searchLayout);
+        final EditText saveFileEdit = (EditText) searchLayout.findViewById(R.id.save_file_edit);
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.setPositiveButton(R.string.save, new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                callback.save(Uri.fromParts("", "", saveFileEdit.getText().toString()));
+            }
+        });
+        return builder.create();
     }
 }

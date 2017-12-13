@@ -8,8 +8,8 @@ package de.blau.android.util.mapbox.geojson;
  */
 public interface Geometry<T> extends GeoJSON {
 
-  T getCoordinates();
+    T getCoordinates();
 
-  void setCoordinates(T coordinates);
+    void setCoordinates(T coordinates);
 
 }

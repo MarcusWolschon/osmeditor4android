@@ -20,24 +20,24 @@ import de.blau.android.prefs.Preferences;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class PreferenceTest {
-	
-	Main main = null;
-	View v = null;
-	
+
+    Main main = null;
+    View v    = null;
+
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
-    
+
     @Before
     public void setup() {
-    	main = mActivityRule.getActivity();
+        main = mActivityRule.getActivity();
     }
-    
+
     @Test
-	public void preferences() {
-    	Preferences prefs = new Preferences(main);
-    	Assert.assertNull(prefs.getString(R.string.config_gpxPreferredDir_key));
-    	prefs.putString(R.string.config_gpxPreferredDir_key, "test");
-    	Assert.assertEquals("test",prefs.getString(R.string.config_gpxPreferredDir_key));
-    	Assert.assertNull(prefs.getString(-1));
-	}
+    public void preferences() {
+        Preferences prefs = new Preferences(main);
+        Assert.assertNull(prefs.getString(R.string.config_gpxPreferredDir_key));
+        prefs.putString(R.string.config_gpxPreferredDir_key, "test");
+        Assert.assertEquals("test", prefs.getString(R.string.config_gpxPreferredDir_key));
+        Assert.assertNull(prefs.getString(-1));
+    }
 }

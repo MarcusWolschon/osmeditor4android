@@ -21,75 +21,71 @@ import de.blau.android.listener.DoNothingListener;
  * Display a dialog asking for confirmation before starting an activity that might result in data loss.
  *
  */
-public class NewVersion extends DialogFragment
-{
-	
-	private static final String DEBUG_TAG = NewVersion.class.getSimpleName();
-	
-	private static final String TAG = "fragment_newversion";
-		
-	
-   	/**
-	 
-	 */
-	static public void showDialog(FragmentActivity activity) {
-		dismissDialog(activity);
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			NewVersion newVersionFragment = newInstance();
-			newVersionFragment.show(fm, TAG);
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"showDialog",isex);
-		}
-	}
+public class NewVersion extends DialogFragment {
 
-	private static void dismissDialog(FragmentActivity activity) {
-		try {
-			FragmentManager fm = activity.getSupportFragmentManager();
-			FragmentTransaction ft = fm.beginTransaction();
-			Fragment fragment = fm.findFragmentByTag(TAG);
-			if (fragment != null) {
-				ft.remove(fragment);
-			}
-			ft.commit();
-		} catch (IllegalStateException isex) {
-			Log.e(DEBUG_TAG,"dismissDialog",isex);
-		}
-	}
-		
+    private static final String DEBUG_TAG = NewVersion.class.getSimpleName();
+
+    private static final String TAG = "fragment_newversion";
+
+    /**
+     
+     */
+    static public void showDialog(FragmentActivity activity) {
+        dismissDialog(activity);
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            NewVersion newVersionFragment = newInstance();
+            newVersionFragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+        }
+    }
+
+    private static void dismissDialog(FragmentActivity activity) {
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentByTag(TAG);
+            if (fragment != null) {
+                ft.remove(fragment);
+            }
+            ft.commit();
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog", isex);
+        }
+    }
+
     /**
      */
     static private NewVersion newInstance() {
-    	NewVersion f = new NewVersion();
+        NewVersion f = new NewVersion();
 
         f.setShowsDialog(true);
-        
+
         return f;
     }
-    
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setCancelable(true);
     }
 
     @NonNull
-	@Override
-    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
-    {
-    	Builder builder = new AlertDialog.Builder(getActivity());
-    	// builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
-    	builder.setTitle(R.string.upgrade_title);
-    	builder.setMessage(R.string.upgrade_message);
-    	DoNothingListener doNothingListener = new DoNothingListener();
-    	builder.setNegativeButton(R.string.cancel, doNothingListener);
-    	builder.setNeutralButton(R.string.read_upgrade, 	new OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						HelpViewer.start(getActivity(), R.string.help_upgrade);
-					}
-				});
-    	return builder.create();
-    }	
+    @Override
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        Builder builder = new AlertDialog.Builder(getActivity());
+        // builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
+        builder.setTitle(R.string.upgrade_title);
+        builder.setMessage(R.string.upgrade_message);
+        DoNothingListener doNothingListener = new DoNothingListener();
+        builder.setNegativeButton(R.string.cancel, doNothingListener);
+        builder.setNeutralButton(R.string.read_upgrade, new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                HelpViewer.start(getActivity(), R.string.help_upgrade);
+            }
+        });
+        return builder.create();
+    }
 }

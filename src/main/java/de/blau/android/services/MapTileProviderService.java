@@ -24,143 +24,138 @@ import de.blau.android.services.util.MapTileProviderDataBase;
 import de.blau.android.util.Snack;
 
 /**
- * The OpenStreetMapTileProviderService can download map tiles from a server and
- * stores them in a file system cache. <br/>
- * This class was taken from OpenStreetMapViewer (original package
- * org.andnav.osm) in 2010-06 by Marcus Wolschon to be integrated into the
- * de.blau.androin OSMEditor.
+ * The OpenStreetMapTileProviderService can download map tiles from a server and stores them in a file system cache.
+ * <br/>
+ * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
+ * integrated into the de.blau.androin OSMEditor.
  * 
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  * @author Manuel Stahl
  */
 public class MapTileProviderService extends Service {
 
-	private static final String DEBUG_TAG = MapTileProviderService.class.getSimpleName();
-	private MapTileFilesystemProvider mFileSystemProvider;
-	private boolean mountPointWriteable = false;
+    private static final String       DEBUG_TAG           = MapTileProviderService.class.getSimpleName();
+    private MapTileFilesystemProvider mFileSystemProvider;
+    private boolean                   mountPointWriteable = false;
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		init();
-	}
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        init();
+    }
 
-	@SuppressLint("NewApi")
-	/**
-	 * Tries to put the tile cache on a removable sd card if present and we
-	 * haven't already created the cache
-	 */
-	private void init() {
-		Preferences prefs = new Preferences(this);
-		int tileCacheSize = 100; // just in case we can't read the prefs
-		if (prefs != null) {
-			tileCacheSize = prefs.getTileCacheSize();
-		}
-		File mountPoint = null;
-		// check for classic location first
-		File classicMountPoint = Environment.getExternalStorageDirectory();
-		File classicTileDir = new File(classicMountPoint, Paths.DIRECTORY_PATH_TILE_CACHE_CLASSIC);
-		if (classicTileDir.exists()) {
-			// remove old database
-			MapTileProviderDataBase.delete(getBaseContext());
-		}
+    @SuppressLint("NewApi")
+    /**
+     * Tries to put the tile cache on a removable sd card if present and we haven't already created the cache
+     */
+    private void init() {
+        Preferences prefs = new Preferences(this);
+        int tileCacheSize = 100; // just in case we can't read the prefs
+        if (prefs != null) {
+            tileCacheSize = prefs.getTileCacheSize();
+        }
+        File mountPoint = null;
+        // check for classic location first
+        File classicMountPoint = Environment.getExternalStorageDirectory();
+        File classicTileDir = new File(classicMountPoint, Paths.DIRECTORY_PATH_TILE_CACHE_CLASSIC);
+        if (classicTileDir.exists()) {
+            // remove old database
+            MapTileProviderDataBase.delete(getBaseContext());
+        }
 
-		File[] storageDirectories = ContextCompat.getExternalFilesDirs(getBaseContext(), null);
-		for (File dir : storageDirectories) { // iterate over the directories preferring a removable one if possible
-			if (dir==null) {
-				Log.d(DEBUG_TAG,"storage dir null");
-				continue;
-			}
-			Log.d(DEBUG_TAG, "candidate storage directory " + dir.getPath());
-			if (MapTileProviderDataBase.exists(dir)) { // existing tile cache, only use if we can write
-				if (dir.canWrite()) {
-				    mountPointWriteable = true;
-	                mountPoint = dir;
-					break;
-				}
-			} else if (dir.canWrite()) {
-			    mountPointWriteable = true;			
-				mountPoint = dir;
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-					try {
-						if (Environment.isExternalStorageRemovable(dir)) {
-							// prefer removeable storage
-							Log.d(DEBUG_TAG, "isExternalStorageRemovable claims dir is removeable");
-							break;
-						}
-					} catch (IllegalArgumentException iae) {
-						// we've seen this on some devices even if it doesn0t make sense
-						Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like " + dir);
-					}
-				} else {
-				    break; // as we can't determine if this is external we may as well use it
-				}
-			} else {
-				Log.d(DEBUG_TAG,  dir.getPath() + " not writeable");
-			}
-		}
+        File[] storageDirectories = ContextCompat.getExternalFilesDirs(getBaseContext(), null);
+        for (File dir : storageDirectories) { // iterate over the directories preferring a removable one if possible
+            if (dir == null) {
+                Log.d(DEBUG_TAG, "storage dir null");
+                continue;
+            }
+            Log.d(DEBUG_TAG, "candidate storage directory " + dir.getPath());
+            if (MapTileProviderDataBase.exists(dir)) { // existing tile cache, only use if we can write
+                if (dir.canWrite()) {
+                    mountPointWriteable = true;
+                    mountPoint = dir;
+                    break;
+                }
+            } else if (dir.canWrite()) {
+                mountPointWriteable = true;
+                mountPoint = dir;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    try {
+                        if (Environment.isExternalStorageRemovable(dir)) {
+                            // prefer removeable storage
+                            Log.d(DEBUG_TAG, "isExternalStorageRemovable claims dir is removeable");
+                            break;
+                        }
+                    } catch (IllegalArgumentException iae) {
+                        // we've seen this on some devices even if it doesn0t make sense
+                        Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like " + dir);
+                    }
+                } else {
+                    break; // as we can't determine if this is external we may as well use it
+                }
+            } else {
+                Log.d(DEBUG_TAG, dir.getPath() + " not writeable");
+            }
+        }
 
-		if (mountPoint != null && mountPointWriteable) {
-			Log.d(DEBUG_TAG,
-					"Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
-			try {
-				mFileSystemProvider = new MapTileFilesystemProvider(getBaseContext(), mountPoint,
-						tileCacheSize * 1024 * 1024); // FSCache
-				return;
-			} catch (SQLiteException slex) {
-				Log.d(DEBUG_TAG, "Opening DB hit " + slex);
-				ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-				ACRA.getErrorReporter().handleException(slex);
-			}
-		} else {
-			Snack.toastTopError(this, R.string.toast_no_suitable_storage);
-			return;
-		}
-		Snack.toastTopError(this, getString(R.string.toast_storage_error, mountPoint));
-		// FIXME potentially we should set both background and overlay
-		// preferences to NONE here or simply zap what we are currently are
-		// using.
-		// don't terminate, simply ignore requests
-	}
+        if (mountPoint != null && mountPointWriteable) {
+            Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
+            try {
+                mFileSystemProvider = new MapTileFilesystemProvider(getBaseContext(), mountPoint, tileCacheSize * 1024 * 1024); // FSCache
+                return;
+            } catch (SQLiteException slex) {
+                Log.d(DEBUG_TAG, "Opening DB hit " + slex);
+                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+                ACRA.getErrorReporter().handleException(slex);
+            }
+        } else {
+            Snack.toastTopError(this, R.string.toast_no_suitable_storage);
+            return;
+        }
+        Snack.toastTopError(this, getString(R.string.toast_storage_error, mountPoint));
+        // FIXME potentially we should set both background and overlay
+        // preferences to NONE here or simply zap what we are currently are
+        // using.
+        // don't terminate, simply ignore requests
+    }
 
-	@Override
-	public void onDestroy() {
-		if (mFileSystemProvider != null) {
-			mFileSystemProvider.destroy();
-		}
-		super.onDestroy();
-	}
+    @Override
+    public void onDestroy() {
+        if (mFileSystemProvider != null) {
+            mFileSystemProvider.destroy();
+        }
+        super.onDestroy();
+    }
 
-	@Override
-	public IBinder onBind(Intent intent) {
-		return mBinder;
-	}
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mBinder;
+    }
 
-	/**
-	 * The IRemoteInterface is defined through IDL
-	 */
-	private final IMapTileProviderService.Stub mBinder = new IMapTileProviderService.Stub() {
-		// @Override
-		public String[] getTileProviders() throws RemoteException {
-			return TileLayerServer.getIds(null,false);
-		}
+    /**
+     * The IRemoteInterface is defined through IDL
+     */
+    private final IMapTileProviderService.Stub mBinder = new IMapTileProviderService.Stub() {
+        // @Override
+        public String[] getTileProviders() throws RemoteException {
+            return TileLayerServer.getIds(null, false);
+        }
 
-		// @Override
-		public void getMapTile(String rendererID, int zoomLevel, int tileX, int tileY,
-				IMapTileProviderCallback callback) throws RemoteException {
-			if (!mountPointWriteable) { // fail silently
-				return;
-			}
-			MapTile tile = new MapTile(rendererID, zoomLevel, tileX, tileY);
-			mFileSystemProvider.loadMapTileAsync(tile, callback);
-		}
+        // @Override
+        public void getMapTile(String rendererID, int zoomLevel, int tileX, int tileY, IMapTileProviderCallback callback) throws RemoteException {
+            if (!mountPointWriteable) { // fail silently
+                return;
+            }
+            MapTile tile = new MapTile(rendererID, zoomLevel, tileX, tileY);
+            mFileSystemProvider.loadMapTileAsync(tile, callback);
+        }
 
-		public void flushCache(String rendererId) {
-			mFileSystemProvider.flushCache(rendererId);
-		}
-		
-	    public void flushQueue(String rendererId, int zoomLevel) {
-	         mFileSystemProvider.flushQueue(rendererId, zoomLevel);
-	    }
-	};
+        public void flushCache(String rendererId) {
+            mFileSystemProvider.flushCache(rendererId);
+        }
+
+        public void flushQueue(String rendererId, int zoomLevel) {
+            mFileSystemProvider.flushQueue(rendererId, zoomLevel);
+        }
+    };
 }

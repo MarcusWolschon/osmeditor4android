@@ -23,320 +23,316 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.collections.MultiHashMap;
 
-
 /**
- * Support for the name suggestion index 
- * see https://github.com/simonpoole/name-suggestion-index
+ * Support for the name suggestion index see https://github.com/simonpoole/name-suggestion-index
+ * 
  * @author simon
  *
  */
 public class Names {
     static final String DEBUG_TAG = "Names";
-	
-	public class TagMap extends TreeMap<String,String> {
-		
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String toString() {
-			StringBuilder builder = new StringBuilder();
-			for (Map.Entry<String,String>entry:this.entrySet()) {
-				builder.append(entry.getKey().replace("|", " ") + "=" + entry.getValue() + "|");
-			}
-			if (builder.length() > 0) {
-				builder.deleteCharAt(builder.length()-1);
-			}
-			return builder.toString();
-		}
-	}
-	
-	public class NameAndTags implements Comparable<NameAndTags>{
-		private String name;
-		TagMap tags;
-		
-		public NameAndTags(String name, TagMap tags) {
-			this.setName(name);
-			this.tags = tags;
-		}
-		
-		@Override
-		public String toString() {
-			return getName() + " (" + tags.toString() + ")"; 
-		}
 
-		/**
-		 * @return the name
-		 */
-		public String getName() {
-			return name;
-		}
+    public class TagMap extends TreeMap<String, String> {
 
-		/**
-		 * @param name the name to set
-		 */
-		public void setName(String name) {
-			this.name = name;
-		}
-		
-		/**
-		 * @return the name
-		 */
-		public TagMap getTags() {
-			return tags;
-		}
+        private static final long serialVersionUID = 1L;
 
-		@Override
-		public int compareTo(@NonNull NameAndTags another) {
-			if (another.name.equals(name)) {
-				// more tags is better
-				if (tags.size() > ((NameAndTags)another).tags.size()) {
-					return +1;
-				} else if (tags.size() < another.tags.size()) {
-					return -1;
-				} 
-				return 0;
-			}
-			return name.compareTo(another.name);
-		}
-		
-		@Override
-		public boolean equals(Object obj) {
-		    if (obj == null || !(obj instanceof NameAndTags)) {
-		        return false;
-		    }
-		    return name.equals(((NameAndTags)obj).name) && tags.equals(((NameAndTags)obj).tags);
-		}
-		
-	    @Override
-	    public int hashCode() {
-	        int result = 17;
-	        result = 37 * result + (name == null ? 0 : name.hashCode());
-	        result = 37 * result + (tags == null ? 0 : tags.hashCode());
-	        return result;
-	    }
-	}
-	
-	private static MultiHashMap<String,TagMap> nameList = new MultiHashMap<>(false); // names -> tags
-	private static HashMap<String,TagMap> tagList = new HashMap<>(); // tags string to tags
-	private static MultiHashMap<TagMap, String> tags2namesList = new MultiHashMap<>(false); //
-	private static MultiHashMap<String, String> categories = new MultiHashMap<>(false);
-	
-	private static boolean ready = false;
-	
-	public Names(Context ctx) {
-		synchronized (nameList) {
-			
-			if (!ready) {
-				Log.d(DEBUG_TAG,"Parsing configuration files");
-	
-				AssetManager assetManager = ctx.getAssets();
-				try {
-					InputStream is = assetManager.open("name-suggestions.min.json");
-					JsonReader reader = new JsonReader(new InputStreamReader(is));
-						
-					try {
-						try {
-							// key object
-							String key = null;
-							reader.beginObject();
-							while (reader.hasNext()) {
-								key = reader.nextName(); // amenity, shop
-								// value object
-								String value = null;
-								reader.beginObject();
-								while (reader.hasNext()) { // restaurant, fast_food, ....
-									value = reader.nextName();
-									// name object
-									String name = null;
-									int count = 0;
-									reader.beginObject();
-									while (reader.hasNext()) {
-										name = reader.nextName(); // name of estabishment
-										reader.beginObject();
-										TagMap secondaryTags = null; // any extra tags store here
-										while (reader.hasNext()) {
-											String jsonName = reader.nextName();
-											if (jsonName.equals("count")) {
-												count = reader.nextInt();
-											} else if (jsonName.equals("tags")) {
-												reader.beginObject();
-												while (reader.hasNext()) {
-													secondaryTags = new TagMap();
-													secondaryTags.put(reader.nextName(), reader.nextString());
-												}
-												reader.endObject(); // tags
-											} else {
-												reader.skipValue();
-											}
-										}
-										reader.endObject(); // name
-										
-										// add to lists here
-										TagMap primaryTags = new TagMap();
-										primaryTags.put(key, value);
-										if (secondaryTags != null) {
-											primaryTags.putAll(secondaryTags);
-										}
-										String tagKey = primaryTags.toString();
-										TagMap tm = tagList.get(tagKey);
-										if (tm == null) {
-											tagList.put(tagKey, primaryTags);
-											tm = primaryTags;
-										}
-										nameList.add(name, tm);
-										tags2namesList.add(tm, name);
-									}
-									reader.endObject(); // value
-							    }
-								reader.endObject(); // key
-							}
-							reader.endObject();
-						} catch (IOException e) {
-						    Log.e(DEBUG_TAG,e.getMessage());
-						} 
-					}
-					finally {
-						SavingHelper.close(reader);
-						SavingHelper.close(is);
-					}
-					try {
-						is = assetManager.open("categories.json");
-						reader = new JsonReader(new InputStreamReader(is));
-						try{
-							String category = null;
-							reader.beginObject();
-							while (reader.hasNext()) {
-								category = reader.nextName();
-								String poiType = null;
-								reader.beginObject();
-								while (reader.hasNext()) {
-									poiType = reader.nextName();
-									reader.beginArray();
-									while (reader.hasNext()) {
-										categories.add(category,poiType+"="+reader.nextString());
-									}
-									reader.endArray();
-								}
-								reader.endObject();
-							}
-							reader.endObject();
-						} catch (IOException e) {
-						    Log.d(DEBUG_TAG,e.getMessage());
-						} 
-					}
-					finally {
-						SavingHelper.close(reader);
-						SavingHelper.close(is);
-					}
-				} catch (IOException e) {
-				    Log.d(DEBUG_TAG,e.getMessage());
-				}
-				
-				ready = true;
-			}
-		}
-	}
-	
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<String, String> entry : this.entrySet()) {
+                builder.append(entry.getKey().replace("|", " ") + "=" + entry.getValue() + "|");
+            }
+            if (builder.length() > 0) {
+                builder.deleteCharAt(builder.length() - 1);
+            }
+            return builder.toString();
+        }
+    }
 
-	public Collection<NameAndTags> getNames(SortedMap<String, String> tags) {
-		// remove irrelevant tags, TODO refine
-		TagMap tm = new TagMap();
-		String v = tags.get("amenity");
-		if (v!=null) {
-			tm.put("amenity",v);
-			// Log.d("Names","filtering for amenity="+v);
-		} else {
-			v = tags.get("shop");
-			if (v!=null) {
-				tm.put("shop",v);
-				// Log.d("Names","filtering for shop="+v);
-			}
-		}
-		if (tm.isEmpty())
-			return getNames();
-		
-		Collection<NameAndTags> result = new ArrayList<>();
-		
-		String origTagKey = tm.toString();
-		
-		for (Entry<String,TagMap>entry:tagList.entrySet()) { 	
-			if (entry.getKey().contains(origTagKey)) {	
-				TagMap storedTagMap = entry.getValue();
-				for (String n:tags2namesList.get(storedTagMap)) {
-					NameAndTags nt = new NameAndTags(n,storedTagMap);
-					result.add(nt);
-				}
-			}
-		}
-		
-		TreeSet<String> seen = new TreeSet<>();
-		// check categories for similar tags and add names from them too
-		seen.add(origTagKey); // skip stuff we've already added
-		for (String category:categories.getKeys()) {    	// loop over categories
-			Set<String>set = categories.get(category);
-			if (set.contains(origTagKey)) {
-				for (String catTagKey:set) {				// loop over categories content
-					if (!seen.contains(catTagKey)) {		// suppress dups
-						for (Entry<String,TagMap>entry:tagList.entrySet()) {
-							if (entry.getKey().contains(catTagKey)) {	
-								TagMap storedTagMap = entry.getValue();
-								for (String n:tags2namesList.get(storedTagMap)) {
-									NameAndTags nt = new NameAndTags(n,storedTagMap);
-									result.add(nt);
-								}
-							}
-						}
-						seen.add(catTagKey);
-					}
-				}
-			}
-		}	
-		// Log.d("Names","getNames result " + result.size());
-		return result;
-	}
-	
-	private Collection<NameAndTags> getNames() {
-		Collection<NameAndTags> result = new ArrayList<>();
-		for (String n:nameList.getKeys()) {
-			TagMap bestTags = null;
-			for (TagMap t:nameList.get(n)) {
-				if (bestTags == null || bestTags.size() < t.size()) {
-					bestTags = t;
-				}
-			}
-			if (bestTags != null)
-				result.add(new NameAndTags(n, bestTags));
-		}
-		return result;
-	}
-	
-	public Map<String,NameAndTags> getSearchIndex() {
-		HashMap<String,NameAndTags> result = new HashMap<>();
-		Collection<NameAndTags> names = getNames();
-		for (NameAndTags nat:names) {
-			result.put(SearchIndexUtils.normalize(nat.getName()), nat);
-		}
-		return result;
-	}
-	
-	public void dump2Log() {
-		Log.d("Names","Name List");
-		for (String n:nameList.getKeys()) {
-			Set<TagMap> tmList = nameList.get(n);
-			StringBuilder tags = new StringBuilder(n +": ");
-			for (TagMap tm:tmList) {
-				tags.append(tm.toString() + "|");
-			}
-			Log.d("Names", tags.toString());
-		}
-		Log.d("Names","tag List");
-		for (TagMap tm:tags2namesList.getKeys()) {
-			Set<String> names = tags2namesList.get(tm);
-			StringBuilder nameStr = new StringBuilder(tm.toString() +": ");
-			for (String n:names) {
-				 nameStr.append(n + "|");
-			}
-			Log.d("Names", nameStr.toString());
-		}
-	}
+    public class NameAndTags implements Comparable<NameAndTags> {
+        private String name;
+        TagMap         tags;
+
+        public NameAndTags(String name, TagMap tags) {
+            this.setName(name);
+            this.tags = tags;
+        }
+
+        @Override
+        public String toString() {
+            return getName() + " (" + tags.toString() + ")";
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * @return the name
+         */
+        public TagMap getTags() {
+            return tags;
+        }
+
+        @Override
+        public int compareTo(@NonNull NameAndTags another) {
+            if (another.name.equals(name)) {
+                // more tags is better
+                if (tags.size() > ((NameAndTags) another).tags.size()) {
+                    return +1;
+                } else if (tags.size() < another.tags.size()) {
+                    return -1;
+                }
+                return 0;
+            }
+            return name.compareTo(another.name);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null || !(obj instanceof NameAndTags)) {
+                return false;
+            }
+            return name.equals(((NameAndTags) obj).name) && tags.equals(((NameAndTags) obj).tags);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = 17;
+            result = 37 * result + (name == null ? 0 : name.hashCode());
+            result = 37 * result + (tags == null ? 0 : tags.hashCode());
+            return result;
+        }
+    }
+
+    private static MultiHashMap<String, TagMap> nameList       = new MultiHashMap<>(false); // names -> tags
+    private static HashMap<String, TagMap>      tagList        = new HashMap<>();           // tags string to tags
+    private static MultiHashMap<TagMap, String> tags2namesList = new MultiHashMap<>(false); //
+    private static MultiHashMap<String, String> categories     = new MultiHashMap<>(false);
+
+    private static boolean ready = false;
+
+    public Names(Context ctx) {
+        synchronized (nameList) {
+
+            if (!ready) {
+                Log.d(DEBUG_TAG, "Parsing configuration files");
+
+                AssetManager assetManager = ctx.getAssets();
+                try {
+                    InputStream is = assetManager.open("name-suggestions.min.json");
+                    JsonReader reader = new JsonReader(new InputStreamReader(is));
+
+                    try {
+                        try {
+                            // key object
+                            String key = null;
+                            reader.beginObject();
+                            while (reader.hasNext()) {
+                                key = reader.nextName(); // amenity, shop
+                                // value object
+                                String value = null;
+                                reader.beginObject();
+                                while (reader.hasNext()) { // restaurant, fast_food, ....
+                                    value = reader.nextName();
+                                    // name object
+                                    String name = null;
+                                    int count = 0;
+                                    reader.beginObject();
+                                    while (reader.hasNext()) {
+                                        name = reader.nextName(); // name of estabishment
+                                        reader.beginObject();
+                                        TagMap secondaryTags = null; // any extra tags store here
+                                        while (reader.hasNext()) {
+                                            String jsonName = reader.nextName();
+                                            if (jsonName.equals("count")) {
+                                                count = reader.nextInt();
+                                            } else if (jsonName.equals("tags")) {
+                                                reader.beginObject();
+                                                while (reader.hasNext()) {
+                                                    secondaryTags = new TagMap();
+                                                    secondaryTags.put(reader.nextName(), reader.nextString());
+                                                }
+                                                reader.endObject(); // tags
+                                            } else {
+                                                reader.skipValue();
+                                            }
+                                        }
+                                        reader.endObject(); // name
+
+                                        // add to lists here
+                                        TagMap primaryTags = new TagMap();
+                                        primaryTags.put(key, value);
+                                        if (secondaryTags != null) {
+                                            primaryTags.putAll(secondaryTags);
+                                        }
+                                        String tagKey = primaryTags.toString();
+                                        TagMap tm = tagList.get(tagKey);
+                                        if (tm == null) {
+                                            tagList.put(tagKey, primaryTags);
+                                            tm = primaryTags;
+                                        }
+                                        nameList.add(name, tm);
+                                        tags2namesList.add(tm, name);
+                                    }
+                                    reader.endObject(); // value
+                                }
+                                reader.endObject(); // key
+                            }
+                            reader.endObject();
+                        } catch (IOException e) {
+                            Log.e(DEBUG_TAG, e.getMessage());
+                        }
+                    } finally {
+                        SavingHelper.close(reader);
+                        SavingHelper.close(is);
+                    }
+                    try {
+                        is = assetManager.open("categories.json");
+                        reader = new JsonReader(new InputStreamReader(is));
+                        try {
+                            String category = null;
+                            reader.beginObject();
+                            while (reader.hasNext()) {
+                                category = reader.nextName();
+                                String poiType = null;
+                                reader.beginObject();
+                                while (reader.hasNext()) {
+                                    poiType = reader.nextName();
+                                    reader.beginArray();
+                                    while (reader.hasNext()) {
+                                        categories.add(category, poiType + "=" + reader.nextString());
+                                    }
+                                    reader.endArray();
+                                }
+                                reader.endObject();
+                            }
+                            reader.endObject();
+                        } catch (IOException e) {
+                            Log.d(DEBUG_TAG, e.getMessage());
+                        }
+                    } finally {
+                        SavingHelper.close(reader);
+                        SavingHelper.close(is);
+                    }
+                } catch (IOException e) {
+                    Log.d(DEBUG_TAG, e.getMessage());
+                }
+
+                ready = true;
+            }
+        }
+    }
+
+    public Collection<NameAndTags> getNames(SortedMap<String, String> tags) {
+        // remove irrelevant tags, TODO refine
+        TagMap tm = new TagMap();
+        String v = tags.get("amenity");
+        if (v != null) {
+            tm.put("amenity", v);
+            // Log.d("Names","filtering for amenity="+v);
+        } else {
+            v = tags.get("shop");
+            if (v != null) {
+                tm.put("shop", v);
+                // Log.d("Names","filtering for shop="+v);
+            }
+        }
+        if (tm.isEmpty())
+            return getNames();
+
+        Collection<NameAndTags> result = new ArrayList<>();
+
+        String origTagKey = tm.toString();
+
+        for (Entry<String, TagMap> entry : tagList.entrySet()) {
+            if (entry.getKey().contains(origTagKey)) {
+                TagMap storedTagMap = entry.getValue();
+                for (String n : tags2namesList.get(storedTagMap)) {
+                    NameAndTags nt = new NameAndTags(n, storedTagMap);
+                    result.add(nt);
+                }
+            }
+        }
+
+        TreeSet<String> seen = new TreeSet<>();
+        // check categories for similar tags and add names from them too
+        seen.add(origTagKey); // skip stuff we've already added
+        for (String category : categories.getKeys()) { // loop over categories
+            Set<String> set = categories.get(category);
+            if (set.contains(origTagKey)) {
+                for (String catTagKey : set) { // loop over categories content
+                    if (!seen.contains(catTagKey)) { // suppress dups
+                        for (Entry<String, TagMap> entry : tagList.entrySet()) {
+                            if (entry.getKey().contains(catTagKey)) {
+                                TagMap storedTagMap = entry.getValue();
+                                for (String n : tags2namesList.get(storedTagMap)) {
+                                    NameAndTags nt = new NameAndTags(n, storedTagMap);
+                                    result.add(nt);
+                                }
+                            }
+                        }
+                        seen.add(catTagKey);
+                    }
+                }
+            }
+        }
+        // Log.d("Names","getNames result " + result.size());
+        return result;
+    }
+
+    private Collection<NameAndTags> getNames() {
+        Collection<NameAndTags> result = new ArrayList<>();
+        for (String n : nameList.getKeys()) {
+            TagMap bestTags = null;
+            for (TagMap t : nameList.get(n)) {
+                if (bestTags == null || bestTags.size() < t.size()) {
+                    bestTags = t;
+                }
+            }
+            if (bestTags != null)
+                result.add(new NameAndTags(n, bestTags));
+        }
+        return result;
+    }
+
+    public Map<String, NameAndTags> getSearchIndex() {
+        HashMap<String, NameAndTags> result = new HashMap<>();
+        Collection<NameAndTags> names = getNames();
+        for (NameAndTags nat : names) {
+            result.put(SearchIndexUtils.normalize(nat.getName()), nat);
+        }
+        return result;
+    }
+
+    public void dump2Log() {
+        Log.d("Names", "Name List");
+        for (String n : nameList.getKeys()) {
+            Set<TagMap> tmList = nameList.get(n);
+            StringBuilder tags = new StringBuilder(n + ": ");
+            for (TagMap tm : tmList) {
+                tags.append(tm.toString() + "|");
+            }
+            Log.d("Names", tags.toString());
+        }
+        Log.d("Names", "tag List");
+        for (TagMap tm : tags2namesList.getKeys()) {
+            Set<String> names = tags2namesList.get(tm);
+            StringBuilder nameStr = new StringBuilder(tm.toString() + ": ");
+            for (String n : names) {
+                nameStr.append(n + "|");
+            }
+            Log.d("Names", nameStr.toString());
+        }
+    }
 }

@@ -22,70 +22,72 @@ import de.blau.android.util.ThemeUtils;
 
 public class UndoDialogFactory {
 
-	public static void showUndoDialog(final Main main, final Logic logic, final UndoStorage undo) {
-		Builder dialog = new Builder(main);
-		dialog.setTitle(R.string.undo);
-		
-		String[] undoActions = undo.getUndoActions(main);
-		String[] redoActions = undo.getRedoActions(main);
+    public static void showUndoDialog(final Main main, final Logic logic, final UndoStorage undo) {
+        Builder dialog = new Builder(main);
+        dialog.setTitle(R.string.undo);
 
-		List<UndoDialogItem> items = new ArrayList<>();
-		for (int i = 0; i < redoActions.length; i++) {
-			items.add(new UndoDialogItem(main, redoActions.length-i, true, redoActions[i]));
-		}
-		for (int i = undoActions.length-1; i >= 0; i--) {
-			items.add(new UndoDialogItem(main, undoActions.length-i, false, undoActions[i]));
-		}
-		final UndoAdapter adapter = new UndoAdapter(main, items);
-		dialog.setAdapter(adapter, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				UndoDialogItem item = adapter.getItem(which);
-				for (int i = 0; i < item.index; i++) {
-					if (item.isRedo) {
-						logic.redo();
-					} else {
-						logic.undo();
-					}
-				}
-				dialog.dismiss();
-				main.invalidateMap();
-				main.supportInvalidateOptionsMenu();
-			}
-		});
-		dialog.show();
-	}
-	
-	private static class UndoAdapter extends ArrayAdapter<UndoDialogItem> {
-		public UndoAdapter(Context context, List<UndoDialogItem> objects) {
-			super(context, android.R.layout.simple_list_item_1, objects);
-		}
+        String[] undoActions = undo.getUndoActions(main);
+        String[] redoActions = undo.getRedoActions(main);
 
-		@NonNull
-		@Override
-		public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-			return getItem(position);
-		}
-		
-	}
-	
-	private static class UndoDialogItem extends AppCompatTextView {
+        List<UndoDialogItem> items = new ArrayList<>();
+        for (int i = 0; i < redoActions.length; i++) {
+            items.add(new UndoDialogItem(main, redoActions.length - i, true, redoActions[i]));
+        }
+        for (int i = undoActions.length - 1; i >= 0; i--) {
+            items.add(new UndoDialogItem(main, undoActions.length - i, false, undoActions[i]));
+        }
+        final UndoAdapter adapter = new UndoAdapter(main, items);
+        dialog.setAdapter(adapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                UndoDialogItem item = adapter.getItem(which);
+                for (int i = 0; i < item.index; i++) {
+                    if (item.isRedo) {
+                        logic.redo();
+                    } else {
+                        logic.undo();
+                    }
+                }
+                dialog.dismiss();
+                main.invalidateMap();
+                main.supportInvalidateOptionsMenu();
+            }
+        });
+        dialog.show();
+    }
 
-		public final int index;
-		public final boolean isRedo;
+    private static class UndoAdapter extends ArrayAdapter<UndoDialogItem> {
+        public UndoAdapter(Context context, List<UndoDialogItem> objects) {
+            super(context, android.R.layout.simple_list_item_1, objects);
+        }
 
-		private UndoDialogItem(Context ctx, int index, boolean isRedo, String name) {
-			super(ctx);
-			Resources r = ctx.getResources();
-			setText(Html.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name));
-			int pad = Density.dpToPx(15);
-			setPadding(pad, pad, pad, pad);
-			setCompoundDrawablePadding(pad);
-			setCompoundDrawablesWithIntrinsicBounds(isRedo ? ThemeUtils.getResIdFromAttribute(ctx,R.attr.undolist_redo) : ThemeUtils.getResIdFromAttribute(ctx,R.attr.undolist_undo), 0, 0, 0);
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+            return getItem(position);
+        }
 
-			this.index = index;
-			this.isRedo = isRedo;
-		}
-	}
+    }
+
+    private static class UndoDialogItem extends AppCompatTextView {
+
+        public final int     index;
+        public final boolean isRedo;
+
+        private UndoDialogItem(Context ctx, int index, boolean isRedo, String name) {
+            super(ctx);
+            Resources r = ctx.getResources();
+            setText(Html.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name));
+            int pad = Density.dpToPx(15);
+            setPadding(pad, pad, pad, pad);
+            setCompoundDrawablePadding(pad);
+            setCompoundDrawablesWithIntrinsicBounds(
+                    isRedo ? ThemeUtils.getResIdFromAttribute(ctx, R.attr.undolist_redo) : ThemeUtils.getResIdFromAttribute(ctx, R.attr.undolist_undo), 0, 0,
+                    0);
+
+            this.index = index;
+            this.isRedo = isRedo;
+        }
+    }
 
 }
