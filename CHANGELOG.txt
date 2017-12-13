@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+1327: Avoid crash if sorting relations with duplicate members, updated OH fragment.
+
 1321: Force unlock if an rc intent selects objects
 
 1319: Avoid potential runtime crashes.
