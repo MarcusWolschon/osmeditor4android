@@ -9,6 +9,7 @@ import java.util.Map;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Way;
 import de.blau.android.propertyeditor.RelationMembersFragment.Connected;
@@ -176,6 +178,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             for (int i = 0; i < selectedCount; i++) {
                 RelationMemberRow row = selected.get(i);
                 RelationMemberDescription rmd = row.getRelationMemberDescription();
+                rmd.setPosition(i); // needed in case we have the same element twice
                 rmds.add(rmd);
                 relationMemberRows.put(rmd, row);
                 rows.removeView(row);
@@ -183,7 +186,9 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             rmds = Util.sortRelationMembers(rmds);
             int pos = top;
             for (RelationMemberDescription rmd : rmds) {
+                Log.d(DEBUG_TAG,"member is " + rmd.downloaded() + " ref " + rmd.getRef() + " type " + rmd.getType() + " role " + rmd.getRole());
                 rows.addView(relationMemberRows.get(rmd), pos);
+                rmd.setPosition(0); // zap position
                 pos++;
             }
             ((RelationMembersFragment) caller).scrollToRow(rows.getChildAt(top), false, false);

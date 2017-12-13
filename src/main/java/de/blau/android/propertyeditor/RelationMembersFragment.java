@@ -299,7 +299,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 if (previous != null && previous.downloaded()) {
                     if (Way.NAME.equals(previous.getType())) {
                         if (previousRow.down != null) {
-                            currentRow.up = previousRow.down;
+                            currentRow.up = previousRow.down;           
                             if (currentRow.up.equals(first)) {
                                 notused = last;
                             } else {
