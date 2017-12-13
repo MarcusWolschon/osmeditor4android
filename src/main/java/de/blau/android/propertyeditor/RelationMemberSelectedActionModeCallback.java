@@ -179,6 +179,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			for (int i = 0;i<selectedCount;i++) {
 				RelationMemberRow row = selected.get(i);
 				RelationMemberDescription rmd = row.getRelationMemberDescription();
+                rmd.setPosition(i); // needed in case we have the same element twice
 				rmds.add(rmd);	
 				relationMemberRows.put(rmd, row);
 				rows.removeView(row);
@@ -187,6 +188,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			int pos = top;
 			for (RelationMemberDescription rmd:rmds) {
 				rows.addView(relationMemberRows.get(rmd), pos);
+                rmd.setPosition(0); // zap position
 				pos++;
 			}
 			((RelationMembersFragment)caller).scrollToRow(rows.getChildAt(top),false, false);

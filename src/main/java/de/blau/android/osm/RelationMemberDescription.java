@@ -7,9 +7,10 @@ import de.blau.android.App;
  * instead of the element itself
  */
 public class RelationMemberDescription extends RelationMember {
-	private static final long serialVersionUID = 1104911642016294268L;
+    private static final long serialVersionUID = 1104911642016294269L;
 	private String description = null;
 	private boolean downloaded = false;
+    private int               position         = 0; // only used for sorting
 	
 	public RelationMemberDescription(final RelationMember rm) {
 		super(rm.getElement() != null ? rm.getElement().getName() : rm.getType(), rm.getElement() != null ? rm.getElement().getOsmId() : rm.getRef(), rm.getRole());
@@ -54,15 +55,22 @@ public class RelationMemberDescription extends RelationMember {
 		return super.getElement()==null ? App.getDelegator().getOsmElement(getType(), getRef()):super.getElement();
 	}
 	
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int postiion) {
+        this.position = postiion;
+    }
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
 			return true;
 		}
-		return o instanceof RelationMemberDescription
-				&& ref == ((RelationMemberDescription) o).ref
-				&& type.equals(((RelationMemberDescription) o).type)
-				&& ((role == null && ((RelationMemberDescription) o).role == null) || (role != null && role.equals(((RelationMemberDescription) o).role)));
+        return o instanceof RelationMemberDescription && ref == ((RelationMemberDescription) o).ref && type.equals(((RelationMemberDescription) o).type)
+                && ((role == null && ((RelationMemberDescription) o).role == null) || (role != null && role.equals(((RelationMemberDescription) o).role)))
+                && position == ((RelationMemberDescription) o).position;
 	}
 	
 	@Override
@@ -71,6 +79,7 @@ public class RelationMemberDescription extends RelationMember {
 		result = 37 * result + (int)(ref ^ (ref >>> 32));
 		result = 37 * result + (type == null ? 0 : type.hashCode());
 		result = 37 * result + (role == null ? 0 : role.hashCode());
+        result = 37 * result + (int) (position ^ (position >>> 32));
 		return result;
 	}
 }
