@@ -3,14 +3,14 @@ package de.blau.android.osm;
 import de.blau.android.App;
 
 /*
- * RelationMemberDescritption is an extended version of RelationMember that holds a textual description of the element
+ * RelationMemberDescription is an extended version of RelationMember that holds a textual description of the element
  * instead of the element itself
  */
 public class RelationMemberDescription extends RelationMember {
     private static final long serialVersionUID = 1104911642016294269L;
     private String            description      = null;
     private boolean           downloaded       = false;
-    private int               position         = 0; // only used for sorting
+    private int               position         = 0;                   // only used for sorting
 
     public RelationMemberDescription(final RelationMember rm) {
         super(rm.getElement() != null ? rm.getElement().getName() : rm.getType(), rm.getElement() != null ? rm.getElement().getOsmId() : rm.getRef(),
