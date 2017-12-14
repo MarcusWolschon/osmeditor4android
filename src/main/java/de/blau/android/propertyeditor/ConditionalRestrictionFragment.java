@@ -2,27 +2,38 @@ package de.blau.android.propertyeditor;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.PopupMenu;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,11 +59,18 @@ import ch.poole.conditionalrestrictionparser.ParseException;
 import ch.poole.conditionalrestrictionparser.Restriction;
 import ch.poole.conditionalrestrictionparser.TokenMgrError;
 import ch.poole.conditionalrestrictionparser.Util;
+import ch.poole.openinghoursfragment.OnSaveListener;
+import ch.poole.openinghoursfragment.OpeningHoursFragment;
+import ch.poole.openinghoursparser.OpeningHoursParser;
+import ch.poole.openinghoursparser.Rule;
 import de.blau.android.R;
+import de.blau.android.osm.Tags;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
-public class ConditionalRestrictionFragment extends DialogFragment {
+public class ConditionalRestrictionFragment extends DialogFragment implements OnSaveListener {
 
     private static final int LINEARLAYOUT_ID = 12345;
 
@@ -66,6 +84,20 @@ public class ConditionalRestrictionFragment extends DialogFragment {
 
     private static final String DEBUG_TAG = ConditionalRestrictionFragment.class.getSimpleName();
 
+    /**
+     * For now hardwired defaults in lieu of moving this to a DB
+     */
+    private static final Map<String, String> DEFAULT_VALUES = new HashMap<>();
+    static {
+        DEFAULT_VALUES.put(Tags.KEY_MAXSPEED, "50 @ Mo-Fr 19:00-31:00,Sa,Su");
+        DEFAULT_VALUES.put(Tags.KEY_ACCESS, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
+        DEFAULT_VALUES.put(Tags.KEY_VEHICLE, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
+        DEFAULT_VALUES.put(Tags.KEY_BICYCLE, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
+        DEFAULT_VALUES.put(Tags.KEY_MOTORCAR, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
+        DEFAULT_VALUES.put(Tags.KEY_MOTORCYCLE, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
+        DEFAULT_VALUES.put(Tags.KEY_MOTOR_VEHICLE, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
+    }
+
     private LayoutInflater inflater = null;
 
     private String            key;
@@ -73,20 +105,24 @@ public class ConditionalRestrictionFragment extends DialogFragment {
     private ArrayList<String> templates;
     private ArrayList<String> ohTemplates;
 
-    private ArrayList<Restriction> restrictions = null;
+    private List<Restriction> restrictions = null;
 
     private EditText text;
 
     /**
      * Lists of possible values generated from templates
      */
-    private ArrayList<String> restrictionValues         = null;
-    private ArrayList<String> simpleConditionValues     = null;
-    private ArrayList<String> expressionConditionValues = null;
+    private List<String> restrictionValues         = null;
+    private List<String> simpleConditionValues     = null;
+    private List<String> expressionConditionValues = null;
 
     private ScrollView sv;
 
     private OnSaveListener saveListener = null;
+
+    private OnSaveListener realOnSaveListener = null;
+
+    private transient boolean loadedDefault = false;
 
     /**
      */
@@ -135,7 +171,10 @@ public class ConditionalRestrictionFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(DEBUG_TAG, "onCreateView");
-        this.inflater = ThemeUtils.getLayoutInflater(getActivity());
+        final Preferences prefs = new Preferences(getActivity());
+        Context context = new ContextThemeWrapper(getActivity(),
+                prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert);
+        this.inflater = ThemeUtils.getLayoutInflater(context);
 
         LinearLayout conditionalRestrictionLayout = (LinearLayout) inflater.inflate(R.layout.conditionalrestriction, null);
 
@@ -150,8 +189,15 @@ public class ConditionalRestrictionFragment extends DialogFragment {
             templates = savedInstanceState.getStringArrayList(TEMPLATES_KEY);
             ohTemplates = savedInstanceState.getStringArrayList(OH_TEMPLATES_KEY);
         }
-        if (conditionalRestrictionValue == null) {
-            conditionalRestrictionValue = "";
+
+        if (conditionalRestrictionValue == null || "".equals(conditionalRestrictionValue)) {
+            String nonConditionalKey = key.replace(Tags.KEY_CONDITIONAL_SUFFIX, "");
+            // conditionalRestrictionValue = TemplateDatabase.getDefault(mDatabase, key);
+            conditionalRestrictionValue = DEFAULT_VALUES.get(nonConditionalKey);
+            // if (conditionalRestrictionValue == null) { // didn't find a key specific default try general default now
+            // conditionalRestrictionValue = TemplateDatabase.getDefault(mDatabase, null);
+            // }
+            loadedDefault = conditionalRestrictionValue != null;
         }
         // generate the list of possible values from the templates
         for (String t : templates) {
@@ -229,6 +275,16 @@ public class ConditionalRestrictionFragment extends DialogFragment {
         return true;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(DEBUG_TAG, "onResume");
+        if (loadedDefault) {
+            Log.d(DEBUG_TAG, "Show toast");
+            Snack.toastTopWarning(getContext(), getString(R.string.loaded_default));
+        }
+    }
+
     private final Runnable rebuild = new Runnable() {
         @Override
         public void run() {
@@ -282,16 +338,53 @@ public class ConditionalRestrictionFragment extends DialogFragment {
             text.addTextChangedListener(watcher);
             text.setText(conditionalRestrictionValue);
             sv.removeAllViews();
-            FloatingActionButton add = (FloatingActionButton) conditionalRestrictionLayout.findViewById(R.id.add);
-            add.setOnClickListener(new OnClickListener() {
+            final FloatingActionButton fab = (FloatingActionButton) conditionalRestrictionLayout.findViewById(R.id.add);
+            fab.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View arg0) {
-                    LinearLayout ll = (LinearLayout) conditionalRestrictionLayout.findViewById(LINEARLAYOUT_ID);
-                    ArrayList<Condition> c = new ArrayList<>();
-                    c.add(new Condition("", false));
-                    Restriction r = new Restriction("", new Conditions(c, false));
-                    restrictions.add(r);
-                    addRestriction(ll, r);
+                public void onClick(View v) {
+                    PopupMenu popup = new PopupMenu(v.getContext(), fab);
+
+                    // menu items for adding rules
+                    MenuItem addRestriction = popup.getMenu().add(R.string.tag_restriction_add_restriction);
+                    addRestriction.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            LinearLayout ll = (LinearLayout) conditionalRestrictionLayout.findViewById(LINEARLAYOUT_ID);
+                            ArrayList<Condition> c = new ArrayList<>();
+                            c.add(new Condition("", false));
+                            Restriction r = new Restriction("", new Conditions(c, false));
+                            restrictions.add(r);
+                            addRestriction(ll, r);
+                            return true;
+                        }
+                    });
+
+                    MenuItem refresh = popup.getMenu().add(R.string.refresh);
+                    refresh.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            updateString();
+                            watcher.afterTextChanged(null); // hack to force rebuild of form
+                            return true;
+                        }
+                    });
+                    MenuItem clear = popup.getMenu().add(R.string.clear);
+                    clear.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (restrictions != null) { // FIXME should likely disable the entry if there is actually
+                                                        // nothing to clear
+                                restrictions.clear();
+                                updateString();
+                                watcher.afterTextChanged(null); // hack to force rebuild of form
+                            } else {
+                                text.setText("");
+                                watcher.afterTextChanged(null);
+                            }
+                            return true;
+                        }
+                    });
+                    popup.show();// showing popup menu
                 }
             });
             // initial build
@@ -314,7 +407,8 @@ public class ConditionalRestrictionFragment extends DialogFragment {
             spannable.setSpan(new ForegroundColorSpan(Color.RED), c, Math.max(c, Math.min(c + 1, spannable.length())), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             text.setText(spannable, TextView.BufferType.SPANNABLE);
             text.setSelection(Math.min(pos, spannable.length()));
-            Snack.barError(getActivity(), pex.getLocalizedMessage());
+            // Snack.barError(getActivity(), pex.getLocalizedMessage());
+            Snack.toastTopError(getActivity(), pex.getLocalizedMessage());
         }
     }
 
@@ -326,13 +420,15 @@ public class ConditionalRestrictionFragment extends DialogFragment {
     private synchronized void removeHighlight(EditText text) {
         int pos = text.getSelectionStart();
         int prevLen = text.length();
-        String t = Util.restrictionsToString(restrictions);
-        text.setText(t);
+        if (restrictions != null) {
+            String t = Util.restrictionsToString(restrictions);
+            text.setText(t);
+        }
         // text.setText(text.getText().toString());
         text.setSelection(prevLen < text.length() ? text.length() : Math.min(pos, text.length()));
     }
 
-    private synchronized void buildForm(ScrollView sv, ArrayList<Restriction> restrictions) {
+    private synchronized void buildForm(ScrollView sv, List<Restriction> restrictions) {
         sv.removeAllViews();
         Activity a = getActivity();
         if (a == null) {
@@ -344,7 +440,6 @@ public class ConditionalRestrictionFragment extends DialogFragment {
         ll.setOrientation(LinearLayout.VERTICAL);
         sv.addView(ll);
 
-        int n = 1;
         for (Restriction r : restrictions) {
             addRestriction(ll, r);
         }
@@ -425,7 +520,6 @@ public class ConditionalRestrictionFragment extends DialogFragment {
                         }
                         setAdapterAndListeners(term, adapter);
                     }
-                    addMenuItems(expression, r, c);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, Condition.compOpStrings);
                     // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -439,13 +533,18 @@ public class ConditionalRestrictionFragment extends DialogFragment {
                         }
                     };
                     operator.setOnItemSelectedListener(new OnItemSelectedListener() {
+                        boolean isLoaded = false;
+
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            List<Condition> list = r.getConditions();
-                            final String c = term1.getText().toString().trim() + operator.getSelectedItem() + term2.getText().toString().trim();
-                            list.set(index, new Condition(c, false));
-                            term1.removeCallbacks(rebuild);
-                            term1.post(rebuild);
+                            if (isLoaded) { // avoid spurious first call
+                                List<Condition> list = r.getConditions();
+                                final String c = term1.getText().toString().trim() + operator.getSelectedItem() + term2.getText().toString().trim();
+                                list.set(index, new Condition(c, false));
+                                term1.removeCallbacks(rebuild);
+                                term1.post(rebuild);
+                            }
+                            isLoaded = true;
                         }
 
                         @Override
@@ -472,9 +571,21 @@ public class ConditionalRestrictionFragment extends DialogFragment {
                     };
                     term1.addTextChangedListener(expressionWatcher);
                     term2.addTextChangedListener(expressionWatcher);
+                    addMenuItems(expression, r, c);
                     ll.addView(expression);
+                } else if (c.isOpeningHours()) {
+                    OpeningHoursDialogRow conditionOh = (OpeningHoursDialogRow) inflater.inflate(R.layout.condition_oh, null);
+                    final TextView conditionOhText = (TextView) conditionOh.findViewById(R.id.text);
+                    if (first) {
+                        conditionOhText.setText(R.string.tag_restriction_when);
+                        first = false;
+                    } else {
+                        conditionOhText.setText(R.string.tag_restriction_and);
+                    }
+                    addOpeningHoursDialogField(conditionOh, key, r, c);
+                    addMenuItems(conditionOh, r, c);
+                    ll.addView(conditionOh);
                 } else {
-                    // for now simply fill the ATV differently for OH
                     LinearLayout condition = (LinearLayout) inflater.inflate(R.layout.condition, null);
                     final TextView conditionText = (TextView) condition.findViewById(R.id.text);
                     if (first) {
@@ -485,23 +596,12 @@ public class ConditionalRestrictionFragment extends DialogFragment {
                     }
                     final AutoCompleteTextView term = (AutoCompleteTextView) condition.findViewById(R.id.editCondition);
                     term.setText(c.term1());
-                    ArrayAdapter<String> adapter = null;
-                    if (c.isOpeningHours()) {
-                        if (ohTemplates != null) {
-                            adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, ohTemplates);
-                            if (!ohTemplates.contains(c.term1())) {
-                                adapter.insert(c.term1(), 0);
-                            }
+
+                    if (simpleConditionValues != null) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, simpleConditionValues);
+                        if (!simpleConditionValues.contains(c.term1())) {
+                            adapter.insert(c.term1(), 0);
                         }
-                    } else {
-                        if (simpleConditionValues != null) {
-                            adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, simpleConditionValues);
-                            if (!simpleConditionValues.contains(c.term1())) {
-                                adapter.insert(c.term1(), 0);
-                            }
-                        }
-                    }
-                    if (adapter != null) {
                         setAdapterAndListeners(term, adapter);
                     }
                     TextWatcher conditionWatcher = new TextWatcher() {
@@ -540,7 +640,7 @@ public class ConditionalRestrictionFragment extends DialogFragment {
         }
     }
 
-    private void setAdapterAndListeners(AutoCompleteTextView atv, ArrayAdapter adapter) {
+    private void setAdapterAndListeners(AutoCompleteTextView atv, ArrayAdapter<String> adapter) {
         atv.setAdapter(adapter);
         atv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -585,27 +685,36 @@ public class ConditionalRestrictionFragment extends DialogFragment {
     /**
      * Add menu items to the restriction menu to add various types of conditions
      * 
-     * @param menu
-     * @param item
-     * @param r
-     * @param c
+     * @param menu the menu
+     * @param item item to add
+     * @param r the restriction
+     * @param c the new condition
      */
-    private void addConditionItem(Menu menu, int item, final Restriction r, final Condition c) {
+    private void addConditionItem(@NonNull Menu menu, int item, @NonNull final Restriction r, @NonNull final Condition c) {
         MenuItem mi = menu.add(item);
         mi.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem arg0) {
                 Log.d(DEBUG_TAG, "onMenuItemClick");
                 r.getConditions().add(c);
-                conditionalRestrictionValue = Util.restrictionsToString(restrictions);
-                text.setText(conditionalRestrictionValue);
+                buildForm(sv, restrictions);
+                // don't generate the string here as empty items shouldn't change anything;
                 return true;
             }
         });
         MenuItemCompat.setShowAsAction(mi, MenuItemCompat.SHOW_AS_ACTION_NEVER);
     }
 
-    private Menu addMenuItems(LinearLayout row, final Restriction r, final Condition c) {
+    /**
+     * Add the standard menu items to restrictions or condition rows
+     * 
+     * @param row the Layout holding the row
+     * @param r the restriction
+     * @param c the condition, if null we assume that we are adding to the restriction row
+     * @return the created Menu
+     */
+    @NonNull
+    private Menu addMenuItems(@NonNull LinearLayout row, @NonNull final Restriction r, @Nullable final Condition c) {
         ActionMenuView amv = (ActionMenuView) row.findViewById(R.id.menu);
         Menu menu = amv.getMenu();
         if (c == null) {
@@ -622,9 +731,12 @@ public class ConditionalRestrictionFragment extends DialogFragment {
                     restrictions.remove(r);
                 } else {
                     r.getConditions().remove(c);
+                    if (r.getConditions().isEmpty()) {
+                        r.clearInParen();
+                    }
                 }
-                conditionalRestrictionValue = Util.restrictionsToString(restrictions);
-                text.setText(conditionalRestrictionValue);
+                updateString();
+                watcher.afterTextChanged(null);
                 return true;
             }
         });
@@ -638,10 +750,12 @@ public class ConditionalRestrictionFragment extends DialogFragment {
             int pos = text.getSelectionStart();
             int prevLen = text.length();
             text.removeTextChangedListener(watcher);
-            String oh = Util.restrictionsToString(restrictions);
-            text.setText(oh);
-            text.setSelection(prevLen < text.length() ? text.length() : Math.min(pos, text.length()));
-            text.addTextChangedListener(watcher);
+            if (restrictions != null) {
+                String oh = Util.restrictionsToString(restrictions, false);
+                text.setText(oh);
+                text.setSelection(prevLen < text.length() ? text.length() : Math.min(pos, text.length()));
+                text.addTextChangedListener(watcher);
+            }
         }
     };
 
@@ -651,6 +765,88 @@ public class ConditionalRestrictionFragment extends DialogFragment {
     private void updateString() {
         text.removeCallbacks(updateStringRunnable);
         text.postDelayed(updateStringRunnable, 100);
+    }
+
+    private void addOpeningHoursDialogField(@NonNull final OpeningHoursDialogRow row, @NonNull final String key, @NonNull final Restriction r,
+            @NonNull final Condition c) {
+
+        boolean strictSucceeded = false;
+        boolean lenientSucceeded = false;
+        ArrayList<Rule> rules = null;
+        final Preferences prefs = new Preferences(getActivity());
+
+        String value = c.term1();
+
+        OpeningHoursParser parser = new OpeningHoursParser(new ByteArrayInputStream(value.getBytes()));
+
+        try {
+            rules = parser.rules(true);
+            strictSucceeded = true;
+        } catch (Exception e) {
+            parser = new OpeningHoursParser(new ByteArrayInputStream(value.getBytes()));
+            try {
+                rules = parser.rules(false);
+                value = ch.poole.openinghoursparser.Util.rulesToOpeningHoursString(rules);
+                lenientSucceeded = true;
+            } catch (Exception e1) {
+                // failed
+                rules = null;
+            }
+        }
+
+        row.setValue(value, rules);
+
+        if (value != null && !"".equals(value)) {
+            if (!strictSucceeded && lenientSucceeded) {
+                row.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Snack.barWarning(row, getString(R.string.toast_openinghours_autocorrected, key),
+                        // Snackbar.LENGTH_LONG);
+                        Snack.toastTopWarning(getActivity(), getString(R.string.toast_openinghours_autocorrected, key));
+                    }
+                });
+            } else if (!strictSucceeded && !lenientSucceeded) {
+                row.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Snack.barWarning(row, getString(R.string.toast_openinghours_invalid, key),
+                        // Snackbar.LENGTH_LONG);
+                        Snack.toastTopWarning(getActivity(), getString(R.string.toast_openinghours_invalid, key));
+                    }
+                });
+            }
+        }
+
+        row.valueView.setHint(R.string.tag_tap_to_edit_hint);
+        final String finalValue = value;
+        row.setOnClickListener(new OnClickListener() {
+            @SuppressLint("NewApi")
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getChildFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment prev = fm.findFragmentByTag("fragment_opening_hours");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.commit();
+                realOnSaveListener = new OnSaveListener() {
+                    @Override
+                    public void save(String key, String value) {
+                        c.setTerm1(value);
+                        if (value.contains(";")) { // hack but saves us re-parsing
+                            r.setInParen();
+                        }
+                        updateString();
+                        watcher.afterTextChanged(null);
+                    }
+                };
+                OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstanceForFragment(key, finalValue,
+                        prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1);
+                openingHoursDialog.show(fm, "fragment_opening_hours");
+            }
+        });
     }
 
     @Override
@@ -720,5 +916,110 @@ public class ConditionalRestrictionFragment extends DialogFragment {
     private int dpToPixels(int dp) {
         Resources r = getResources();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+    }
+
+    /**
+     * Row that displays opening_hours values and allows changing them via a dialog
+     */
+    public static class OpeningHoursDialogRow extends LinearLayout {
+        TextView        keyView;
+        TextView        valueView;
+        private String  value;
+        private boolean changed = false;
+        PresetItem      preset;
+
+        OnClickListener listener;
+
+        LinearLayout         valueList;
+        final LayoutInflater inflater;
+        int                  errorTextColor = ContextCompat.getColor(getContext(),
+                ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.textColorError, R.color.material_red));
+
+        public OpeningHoursDialogRow(Context context) {
+            super(context);
+            inflater = LayoutInflater.from(context);
+        }
+
+        public OpeningHoursDialogRow(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        protected void onFinishInflate() {
+            super.onFinishInflate();
+            valueList = (LinearLayout) findViewById(R.id.valueList);
+            valueView = (TextView) findViewById(R.id.textValue);
+        }
+
+        /**
+         * Set the onclicklistener for every value
+         */
+        @Override
+        public void setOnClickListener(final OnClickListener listener) {
+            this.listener = listener;
+            for (int pos = 0; pos < valueList.getChildCount(); pos++) {
+                View v = valueList.getChildAt(pos);
+                if (v instanceof TextView) {
+                    ((TextView) v).setOnClickListener(listener);
+                }
+            }
+        }
+
+        public void setValue(String value, String description) {
+            this.value = value;
+            valueView.setText(description);
+            valueView.setTag(value);
+        }
+
+        public void setValue(String s) {
+            setValue(s, s);
+        }
+
+        /**
+         * Set the OH value for the row
+         * 
+         * @param ohValue the original opening hours value
+         * @param rules rules parsed from the value
+         */
+        public void setValue(String ohValue, @Nullable List<Rule> rules) {
+            int childCount = valueList.getChildCount();
+            for (int pos = 0; pos < childCount; pos++) { // don^t delete first child, just clear
+                if (pos == 0) {
+                    setValue("", "");
+                } else {
+                    valueList.removeViewAt(1);
+                }
+            }
+            boolean first = true;
+            if (rules != null && !rules.isEmpty()) {
+                for (Rule r : rules) {
+                    if (first) {
+                        setValue(r.toString());
+                        first = false;
+                    } else {
+                        Log.d(DEBUG_TAG, "adding view for " + r);
+                        TextView extraValue = (TextView) inflater.inflate(R.layout.condition_oh_value, valueList, false);
+                        extraValue.setText(r.toString());
+                        extraValue.setTag(r.toString());
+                        valueList.addView(extraValue);
+                    }
+                }
+            } else {
+                setValue(ohValue);
+                if (ohValue != null && !"".equals(ohValue)) {
+                    valueView.setTextColor(errorTextColor);
+                }
+            }
+            value = ohValue;
+            setOnClickListener(listener);
+        }
+    }
+
+    @Override
+    public void save(String key, String value) {
+        if (realOnSaveListener != null) {
+            realOnSaveListener.save(key, value);
+        }
     }
 }

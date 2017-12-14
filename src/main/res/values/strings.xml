@@ -277,6 +277,7 @@
     <string name="tag_value_hint">Type value</string>
     <string name="tag_autocomplete_value_hint">Type or tap for values</string>
     <string name="tag_autocomplete_name_hint">Type or tap for name suggestions</string>
+    <string name="tag_tap_to_edit_hint">Tap to edit</string>
     <string name="tag_multi_value_hint">Multiple values</string>
     <string name="tag_dialog_value_hint">Tap for values</string>
     <string name="tag_action_tag_title">Tag(s) selected</string>
@@ -303,6 +304,7 @@
     <string name="tag_restriction_header">Value</string>
     <string name="tag_restriction_when">when</string>
     <string name="tag_restriction_and">and</string>
+    <string name="tag_restriction_add_restriction">Add restriction</string>
     <string name="tag_restriction_add_simple_condition">Add simple condition</string>
     <string name="tag_restriction_add_expression">Add expression</string>
     <string name="tag_restriction_add_opening_hours">Add opening hours</string>

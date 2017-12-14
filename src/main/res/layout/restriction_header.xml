@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="0dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+         >
 
         <TextView
             android:id="@+id/header"

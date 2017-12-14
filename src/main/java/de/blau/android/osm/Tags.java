@@ -127,6 +127,15 @@ public class Tags {
     public static final String VALUE_BOUNDARY     = "boundary";
     public static final String KEY_BOUNDARY       = "boundary";
 
+    public static final String KEY_MAXSPEED = "maxspeed";
+
+    public static final String KEY_ACCESS        = "access";
+    public static final String KEY_VEHICLE       = "vehicle";
+    public static final String KEY_BICYCLE       = "bicycle";
+    public static final String KEY_MOTORCAR      = "motorcar";
+    public static final String KEY_MOTORCYCLE    = "motorcycle";
+    public static final String KEY_MOTOR_VEHICLE = "motor_vehicle";
+
     //
     public static final String KEY_DIRECTION = "direction";
     public static final String KEY_INCLINE   = "incline";

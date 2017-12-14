@@ -1116,7 +1116,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 ((PropertyEditor) getActivity()).getElement().getType(), Tags.KEY_OPENING_HOURS)) {
             ohTemplates.add(s.getValue());
         }
-        row.valueView.setHint(R.string.tag_dialog_value_hint);
+        row.valueView.setHint(R.string.tag_tap_to_edit_hint);
         row.setOnClickListener(new OnClickListener() {
             @SuppressLint("NewApi")
             @Override
@@ -1183,12 +1183,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
         }
 
-        final ArrayList<String> ohTemplates = new ArrayList<>();
-        for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets,
-                ((PropertyEditor) getActivity()).getElement().getType(), Tags.KEY_OPENING_HOURS)) {
-            ohTemplates.add(s.getValue());
-        }
-        row.valueView.setHint(R.string.tag_dialog_value_hint);
+        row.valueView.setHint(R.string.tag_tap_to_edit_hint);
         final String finalValue = value;
         row.setOnClickListener(new OnClickListener() {
             @SuppressLint("NewApi")
