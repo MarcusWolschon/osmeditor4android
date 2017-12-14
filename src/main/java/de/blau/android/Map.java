@@ -1553,7 +1553,7 @@ public class Map extends View implements IMapView {
 
     public void setPrefs(Context ctx, final Preferences aPreference) {
         prefs = aPreference;
-        TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
+        TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         synchronized (mOverlays) {
             for (MapViewOverlay osmvo : mOverlays) {
                 if (osmvo instanceof MapTilesOverlay && !(osmvo instanceof MapOverlayTilesOverlay)) {

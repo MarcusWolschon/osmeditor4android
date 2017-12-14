@@ -66,7 +66,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
         Preferences prefs = new Preferences(getActivity());
 
         // remove any problematic imagery URLs
-        TileLayerServer.applyBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
+        TileLayerServer.applyBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
 
         ListPreference mapbgpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPBG);
         String[] ids = TileLayerServer.getIds(viewBox, true);

@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Capabilities of the API server we are connected to
@@ -28,7 +29,7 @@ public class Capabilities {
     public Status apiStatus              = Status.OFFLINE;
     public Status gpxStatus              = Status.OFFLINE;
     // policy
-    public ArrayList<String> imageryBlacklist = new ArrayList<>();
+    private List<String> imageryBlacklist = new ArrayList<>();
 
     public static Status stringToStatus(String s) {
         if (s == null) {
@@ -43,8 +44,8 @@ public class Capabilities {
         }
     }
 
-    private static ArrayList<String> defaultBlacklist() {
-        ArrayList<String> blacklist = new ArrayList<>();
+    private static List<String> defaultBlacklist() {
+        List<String> blacklist = new ArrayList<>();
         blacklist.add(".*\\.google(apis)?\\..*/(vt|kh)[\\?/].*([xyz]=.*){3}.*");
         blacklist.add("http://xdworld\\.vworld\\.kr:8080/.*");
         blacklist.add(".*\\.here\\.com[/:].*");
@@ -80,5 +81,13 @@ public class Capabilities {
      */
     public void updateLimits() {
         Way.setMaxWayNodes(maxWayNodes);
+    }
+
+    public List<String> getImageryBlacklist() {
+        return imageryBlacklist;
+    }
+
+    public void setImageryBlacklist(List<String> imageryBlacklist) {
+        this.imageryBlacklist = imageryBlacklist;
     }
 }

@@ -410,12 +410,12 @@ public class Server {
                         Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
                     }
                     if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {
-                        if (result.imageryBlacklist == null) {
-                            result.imageryBlacklist = new ArrayList<>();
+                        if (result.getImageryBlacklist() == null) {
+                            result.setImageryBlacklist(new ArrayList<String>());
                         }
                         String regex = parser.getAttributeValue(null, "regex");
                         if (regex != null) {
-                            result.imageryBlacklist.add(regex);
+                            result.getImageryBlacklist().add(regex);
                         }
                         Log.d(DEBUG_TAG, "getCapabilities blacklist regex " + regex);
                     }

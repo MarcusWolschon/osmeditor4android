@@ -318,7 +318,7 @@ public class TileLayerServer {
     private static final HashMap<String, TileLayerServer> backgroundServerList = new HashMap<>();
     private static HashMap<String, TileLayerServer>       overlayServerList    = new HashMap<>();
     private static boolean                                ready                = false;
-    private static ArrayList<String>                      imageryBlacklist     = null;
+    private static List<String>                      imageryBlacklist     = null;
 
     // ===========================================================
     // Constructors
@@ -1441,9 +1441,9 @@ public class TileLayerServer {
      * 
      * @param blacklist list of servers that sould be removed
      */
-    public static void applyBlacklist(ArrayList<String> blacklist) {
+    public static void applyBlacklist(List<String> blacklist) {
         // first compile the regexs
-        ArrayList<Pattern> patterns = new ArrayList<>();
+        List<Pattern> patterns = new ArrayList<>();
         for (String regex : blacklist) {
             patterns.add(Pattern.compile(regex));
         }
@@ -1473,7 +1473,7 @@ public class TileLayerServer {
         }
     }
 
-    public static void setBlacklist(ArrayList<String> bl) {
+    public static void setBlacklist(List<String> bl) {
         imageryBlacklist = bl;
     }
 
