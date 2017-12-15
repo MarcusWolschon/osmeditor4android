@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2017-12-15 21:21+0100\n"
-"PO-Revision-Date: 2017-12-15 20:22+0000\n"
+"POT-Creation-Date: 2017-12-15 21:53+0100\n"
+"PO-Revision-Date: 2017-12-15 20:55+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -8782,6 +8782,9 @@ msgid "Wheelchair ramp"
 msgstr ""
 
 #: master_preset.xml:204(combo:text|key:toilets:wheelchair)
+msgid "Wheelchair toilets"
+msgstr ""
+
 #: master_preset.xml:216(combo:text|key:wheelchair)
 msgid "Wheelchairs"
 msgstr "Cadeiras de rodas"

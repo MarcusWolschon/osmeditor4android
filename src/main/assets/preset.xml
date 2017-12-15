@@ -201,7 +201,7 @@
     <chunk id="toilets">
     	<check key="toilets" text="Toilets" disable_off="true" />
     	<reference ref="diaper" />
-    	<combo key="toilets:wheelchair" text="Wheelchairs"  match="none" values_searchable="true" values_sort="false">
+    	<combo key="toilets:wheelchair" text="Wheelchair toilets"  match="none" values_searchable="true" values_sort="false">
         	<list_entry value="designated" short_description="Dedicated facilities" />
         	<list_entry value="yes" short_description="Unrestricted access" />
         	<list_entry value="limited" short_description="Partial access" />
