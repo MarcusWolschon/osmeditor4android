@@ -248,20 +248,20 @@ public class Util {
     /**
      * Convert a list to a semicolon separated string
      * 
-     * @param list
+     * @param list the List to convert
      * @return string containing the individual list values separated by ; or the empty string if list is null or empty
      */
     public static String listToOsmList(List<String> list) {
-        String osmList = "";
+        StringBuilder osmList = new StringBuilder("");
         if (list != null) {
-            for (String i : list) {
-                if (!"".equals(osmList)) {
-                    osmList = osmList + ";";
+            for (String s : list) {
+                if (osmList.length() > 0) {
+                    osmList.append(";");
                 }
-                osmList = osmList + i;
+                osmList.append(s);
             }
         }
-        return osmList;
+        return osmList.toString();
     }
 
     @SuppressLint("NewApi")
