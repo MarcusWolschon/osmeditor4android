@@ -32,13 +32,16 @@ Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版�
 
 <a id="lock"></a>
 
-#### 鎖定，解鎖，"只有標籤編輯"，室內模式 
+#### Lock, unlock, mode switching
 
 要避免不小心編輯的狀況，Vespucci 啟動時處於"鎖定"模式。處於鎖定模式時只允許縮放和移動地圖。點 ![Locked](../images/locked.png)  圖示則會解鎖螢幕。 
 
-對著鎖定圖示長按的話，則會啟動"只有標籤編輯"模式，就不會編輯物件形狀或是移動物件了。而在只有標籤編輯模式下，會出現略為不同的白色鎖定圖示。你仍可以像平常一樣長按新增新的節點或是路徑。
+A long press on the lock icon will display a menu currently offering 4 options:
 
-接著長按則會啟用 [室內模式](#indoor)，再長按則會轉回正常編輯模式。
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### 單點，雙點和長按
 
@@ -95,7 +98,7 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 #### 增加區域
 
-開放街圖與其他地理資料系統不同，目前沒有"區域"物件類型。線上編輯器 "iD" 嘗試創建區域來代表特定底層 OSM 元件，有時候可以順暢運作，其他情況則不行。VEspucci 目前並沒有類型的作法，所以你必須知道路徑區域如何表示：
+OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
 * _封閉路徑 (*多邊形")_：最簡單而且最普遍的區域變體，其路徑有共同的第一個節點和最後一個節點，構成封閉的"環狀" (例如大部分的建築都是這種類型)。Vespucci 可以很容易創建封閉路徑，只要畫完區域時最後接回第一個節點。注意：要怎麼解讀區域得看加上去的標籤；舉例來說，如果封閉路徑被標為建築，則會視為區域，如果被標為圓環則不會。有些情況之下，解讀的狀況可能都可以通，被視為"區域"標籤。
 
@@ -184,7 +187,43 @@ OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則�
 
 室內繪圖由於有相當多的物件而且常常彼此重疊，因此是相當有挑戰性的事情。Vespucci 發展出室內模式，能夠允許你過濾其他不在同一層的所有物件，並且自動加上目前樓層資訊到新增加的物件上面。
 
-這個模式可以透過長按鎖定鈕，請見[鎖定、解鎖、"只有標籤編輯"、室內模式](#lock)。
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+
+<a id="c-mode"></a>
+
+## C-Mode
+
+In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+
+A mode that only shows elements that have warnings and validation code that adds user configurable tests for missing tags and makes the re-survey warning time fully configurable. 
+
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+
+### Configuring checks
+
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+
+The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+
+#### Re-survey entries
+
+Re-survey entries have the following properties:
+
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regualr expression.
+
+**Key** and **Value** are checked against the _existing_ keys of the object in question.
+
+#### Check entries
+
+Check entries have the following two properties:
+
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Check optional** - Check the optional tags of the matching preset.
+
+This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## 篩選
 

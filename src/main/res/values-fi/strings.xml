@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varoitus!</string>
   <string name="transfer_download_current_dialog_message">Olet tehnyt muutoksia. Haluatko että ne lähetetään palvelimelle vai hylätäänkö ne?</string>
@@ -334,9 +335,6 @@
   <string name="menu_transfer_upload">Lähetä data OSM-palvelimelle</string>
   <string name="menu_transfer_close_changeset">Sulje nykyinen muutossetti</string>
   <string name="menu_transfer_file">Tiedosto...</string>
-  <string name="menu_transfer_export">Vie muutokset</string>
-  <string name="menu_transfer_read_file">Lue tiedostosta</string>
-  <string name="menu_transfer_save_file">Tallenna tiedostoon</string>
   <string name="menu_transfer_bugs">Muistiinpanot/Virheet...</string>
   <string name="menu_transfer_bugs_download_current">Lataa nykyisen näkymän virheet</string>
   <string name="menu_transfer_bugs_upload">Lähetä kaikki</string>
@@ -430,8 +428,6 @@
   <string name="config_maxAlertDistance_summary">Suurin etäisyys nykyisestä sijainnista, jolta ongelmista ja muistiinpanoista vielä ilmoitetaan</string>
   <string name="config_maxStrokeWidth_title">Viivan enimmäispaksuus</string>
   <string name="config_maxStrokeWidth_summary">Älä piirrä tätä paksumpia viivoja</string>
-  <string name="config_tileCacheSize_title">Laattavälimuistin koko</string>
-  <string name="config_tileCacheSize_summary">Taustakuvalaattojen välimuistin koko megatavuissa</string>
   <string name="config_showStats_title">Näytä tilastotietoa</string>
   <string name="config_showStats_summary">Näyttää vasemmassa alakulmassa tilastoa datasta ja kuvataajuuden.</string>
   <string name="config_showTolerance_title">Näytä toleranssialue</string>
@@ -530,6 +526,8 @@
   <string name="config_maxInlineValues_summary">Suurin määrä arvoja, jotka näytetään yhdellä rivillä tägilomakkeessa</string>
   <string name="config_maxTileDownloadThreads_title">Suurin määrä lataussäikeitä</string>
   <string name="config_maxTileDownloadThreads_summary">Suurin määrä laattojen lataukseen käytettäviä prosessisäikeitä.</string>
+  <string name="config_tileCacheSize_title">Laattavälimuistin koko</string>
+  <string name="config_tileCacheSize_summary">Taustakuvalaattojen välimuistin koko megatavuissa</string>
   <string name="config_notificationCacheSize_title">Suurin määrä ilmoituksia</string>
   <string name="config_notificationCacheSize_summary">Suurin määrä näytettäviä ilmoituksia per tyyppi (vähintään 1).</string>
   <string name="config_autoLockDelay_title">Automaattilukituksen aikaraja</string>

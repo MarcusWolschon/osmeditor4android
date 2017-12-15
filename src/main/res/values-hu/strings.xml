@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Vigyázat!</string>
   <string name="transfer_download_current_dialog_message">Módosításai vannak. Fel kívánja tölteni azokat az eldobásuk helyett?</string>
@@ -338,9 +339,6 @@
   <string name="menu_transfer_upload">Adatok feltöltése az OSM szerverre</string>
   <string name="menu_transfer_close_changeset">Jelenlegi módosításkészlet lezárása</string>
   <string name="menu_transfer_file">Fájl</string>
-  <string name="menu_transfer_export">Változtatások exportálása</string>
-  <string name="menu_transfer_read_file">Beolvasás fájlból</string>
-  <string name="menu_transfer_save_file">Mentés fájlba</string>
   <string name="menu_transfer_bugs">Megjegyzések/hibák…</string>
   <string name="menu_transfer_bugs_download_current">Hibák letöltése a jelenlegi nézethez</string>
   <string name="menu_transfer_bugs_upload">Összes feltöltése</string>
@@ -434,8 +432,6 @@
   <string name="config_maxAlertDistance_summary">A probléma vagy megjegyzés legnagyobb távolsága a jelenlegi helyzettől, amikor még kell értesítést létrehozni.</string>
   <string name="config_maxStrokeWidth_title">Legnagyobb vonalvastagság</string>
   <string name="config_maxStrokeWidth_summary">Ne rajzoljon ennél vastagabb vonalat</string>
-  <string name="config_tileCacheSize_title">Csempe gyorsítótár mérete</string>
-  <string name="config_tileCacheSize_summary">A csempe gyorsítótár teljes mérete (MB)</string>
   <string name="config_showStats_title">Statisztika megjelenítése</string>
   <string name="config_showStats_summary">Adatstatisztika és frames/sec érték megjelenítése a jobb alsó sarokban.</string>
   <string name="config_showTolerance_title">Tolerancia megjelenítése</string>
@@ -534,6 +530,8 @@
   <string name="config_maxInlineValues_summary">A soron belül megjelenített értékek maximális száma a címkeűrlapon</string>
   <string name="config_maxTileDownloadThreads_title">Letöltési szálak maximális száma</string>
   <string name="config_maxTileDownloadThreads_summary">A csempék letöltésére használt szálak maximális száma</string>
+  <string name="config_tileCacheSize_title">Csempe gyorsítótár mérete</string>
+  <string name="config_tileCacheSize_summary">A csempe gyorsítótár teljes mérete (MB)</string>
   <string name="config_notificationCacheSize_title">Megjelenített értesítések maximális száma</string>
   <string name="config_notificationCacheSize_summary">Megjelenített értesítések maximális száma típusonként (min. 1)</string>
   <string name="config_autoLockDelay_title">Várakozási idő az automatikus lezárás előtt</string>

@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attention !</string>
   <string name="transfer_download_current_dialog_message">Vous avez fait des modifications. Voulez-vous les envoyer plutôt que les abandonner ?</string>
@@ -320,9 +321,6 @@ il y a %3$s %4$s</string>
   <string name="menu_transfer_download_other">Télécharger à un autre endroit</string>
   <string name="menu_transfer_upload">Envoyer les données au serveur OSM</string>
   <string name="menu_transfer_file">Fichier...</string>
-  <string name="menu_transfer_export">Exporter les modifications</string>
-  <string name="menu_transfer_read_file">Lire le fichier</string>
-  <string name="menu_transfer_save_file">Enregistrer le fichier</string>
   <string name="menu_transfer_bugs">Notes/Bugs...</string>
   <string name="menu_transfer_bugs_download_current">Télécharger les bugs de la vue courante</string>
   <string name="menu_transfer_bugs_upload">Envoyer tout</string>
@@ -399,8 +397,6 @@ il y a %3$s %4$s</string>
   <string name="config_maxAlertDistance_summary">Distance maximale entre l\'emplacement d\'un problème ou d\'une note et la position actuelle pour générer une notification.</string>
   <string name="config_maxStrokeWidth_title">Largeur maximale de ligne</string>
   <string name="config_maxStrokeWidth_summary">Ne pas dessiner de chemin plus épais que ça</string>
-  <string name="config_tileCacheSize_title">Cache pour les tuiles</string>
-  <string name="config_tileCacheSize_summary">Taille totale du cache en Mo</string>
   <string name="config_showStats_title">Afficher les statistiques</string>
   <string name="config_showStats_summary">Affiche les stats et les images/sec dans le coin en bas à gauche.</string>
   <string name="config_showTolerance_title">Afficher les zones interactives</string>
@@ -491,6 +487,8 @@ il y a %3$s %4$s</string>
   <string name="config_moreprefs">Plus de paramètres...</string>
   <string name="config_fullscreenMode_title">Mode plein écran</string>
   <string name="config_fullscreenMode_summary">Comportement sur des appareils avec des boutons \"logiciels\"</string>
+  <string name="config_tileCacheSize_title">Cache pour les tuiles</string>
+  <string name="config_tileCacheSize_summary">Taille totale du cache en Mo</string>
   <string name="config_notificationCacheSize_title">Nombre max. de notifications affichées</string>
   <string name="config_notificationCacheSize_summary">Nombre max d\'affichage de notifications par type (min. 1)</string>
   <string name="config_autoLockDelay_title">Temps avant auto-verrouillage</string>

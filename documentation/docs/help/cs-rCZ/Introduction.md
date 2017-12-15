@@ -32,29 +32,32 @@ Nejjednodušším způsobem stahování dat je najít požadovanou oblast, ktero
 
 <a id="lock"></a>
 
-#### Režimy: uzamčený, odemčený, "editování tagů", vnitřní prostory 
+#### Lock, unlock, mode switching
 
 K zabránění nechtěných úprav se Vespucci spustí v "uzamčeném" režimu, který dovoluje pouze přibližování a posouvání mapy. Pro odemčení obrazovky klepněte na ikonu ![zámku](../images/locked.png). 
 
-Dlouhé stisknutí ikony zámku zapne režim "editování tagů", který neumožňuje úpravu tvaru objektů nebo jejich přesun. Tento režim indikuje mírně odlišná bílá ikona zámku. Nicméně můžete jako obvykle vytvářet nové uzly a cesty dlouhým stiskem.
+A long press on the lock icon will display a menu currently offering 4 options:
 
-Dalším dlouhým stiskem aktivujete [režim mapování vnitřních prostorů](#indoor) a ještě jedním dlouhým stiskem se dostanete zpět do běžného režimu úprav.
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
-#### Single tap, double tap, and long press
+#### Jedno klepnutí, dvě klepnutí a dlouhé stisknutí
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+Ve výchozím nastavení mají uzly a cesty, které lze zvolit, oranžově vyznačenou oblast do které musíte přibližně klepnout pro zvolení objektu. Existují tři možnosti:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
-* Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
+* Jedno klepnutí: Vybírá objekt. 
+    * Osamocený uzel/cesta je označena ihned. 
+    * Nicméně pokud se pokusíte vybrat objekt a Vespucci nazná, že je výběr nejednoznačný, zobrazí se nabídka s výběrem umožňující vybrat objekt, který jste si přáli zvolit. 
+    * Zvolené objekty jsou zvýrazněny žlutě. 
+    * Více informací viz [Zvolený uzel](../en/Node%20selected.md), [Zvolená cesta](../en/Way%20selected.md) a [Zvolená relace](../en/Relation%20selected.md).
+* Dvě klepnutí: Zahájí [Režim vícenásobného výběru](../en/Multiselect.md)
+* Dlouhé stisknutí: Vytvoří zaměřovač "+" umožňující přidat uzly, viz níže, a [Vytváření nových objektů](../en/Creating%20new%20objects.md)
 
-It is a good strategy to zoom in if you attempt to edit a high density area.
+Vyplatí se přiblížit mapu, pokud plánujete upravovat v oblasti s vysokou hustotou.
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+Vespucci má kvalitní systém "zpět/vpřed", takže se nemusíte bát experimentovat s vaším zařízením, nicméně prosíme nenahrávejte a neukládejte čistě testovací data.
 
 #### Selecting / De-selecting (single tap and "selection menu")
 
@@ -95,7 +98,7 @@ You can also use a menu item: See [Creating new objects](../en/Creating%20new%20
 
 #### Adding an Area
 
-OpenStreetMap currently doesn't have an "area" object type contrary to other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
 * _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
 * _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
@@ -180,7 +183,43 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, "tag editing only", indoor mode](#lock).
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+
+<a id="c-mode"></a>
+
+## C-Mode
+
+In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+
+A mode that only shows elements that have warnings and validation code that adds user configurable tests for missing tags and makes the re-survey warning time fully configurable. 
+
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+
+### Configuring checks
+
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+
+The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+
+#### Re-survey entries
+
+Re-survey entries have the following properties:
+
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regualr expression.
+
+**Key** and **Value** are checked against the _existing_ keys of the object in question.
+
+#### Check entries
+
+Check entries have the following two properties:
+
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Check optional** - Check the optional tags of the matching preset.
+
+This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## Filters
 

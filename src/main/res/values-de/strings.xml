@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
+  <string name="mode_easy">Normal</string>
+  <string name="mode_correct">C-Mode</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Achtung!</string>
   <string name="transfer_download_current_dialog_message">Sie haben etwas geändert. Möchten Sie die Änderungen hochladen, anstatt sie zu verwerfen?</string>
@@ -77,6 +80,8 @@
   <string name="openstreetbug_commit_fail">Problem beim Speichern der Fehleränderungen</string>
   <string name="openstreetbug_not_downloaded">nicht heruntergeladen</string>
   <string name="openstreetbug_last_updated">letzte Änderung</string>
+  <string name="openstreetbug_unknown_task_type">Unbekannter Tasktyp</string>
+  <string name="openstreetbug_not_supported">%1$sist nicht unterstützt.</string>
   <string name="unsaved_data_title">Vorsicht!</string>
   <string name="unsaved_data_message">Wenn Sie fortfahren, werden ungespeicherte Änderungen verworfen.</string>
   <string name="unsaved_data_proceed">Verwerfen &amp; fortfahren</string>
@@ -88,6 +93,7 @@
   <string name="imagery_offset_date">Erstellt</string>
   <string name="imagery_offset_zoom">Zoomstufe</string>
   <string name="imagery_offset_distance">Entfernung</string>
+  <string name="zoom_and_offset">Z %1$s Versatz %2$s/%3$s</string>
   <string name="set_position_datum_label">Geodätisches Datum</string>
   <string name="tag_editor_name_suggestion">Vorschläge für Namen</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tagwerte mit beliebteren ersetzen</string>
@@ -128,9 +134,12 @@
   <string name="evaluate">Auswerten</string>
   <string name="js_console_msg_live">Live Modus!</string>
   <string name="js_console_msg_debug">Debug Modus!</string>
+  <string name="max_age">Höchstalter</string>
+  <string name="age">Alter</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_unsaved_changes">Sie haben ungespeicherte Änderungen, bitte zuerst hochladen.</string>
+  <string name="clear_anyway">Trotzdem löschen?</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
   <string name="toast_not_in_edit_range">Zum Editieren bitte hineinzoomen (Lautstärke Hoch/Runter oder Lupe/Shift)</string>
   <string name="toast_unlock_to_edit">Entsperren um zu editieren.</string>
@@ -208,6 +217,7 @@
   <string name="okay">Okay</string>
   <string name="cancel">Abbrechen</string>
   <string name="dismiss">Verwerfen</string>
+  <string name="done">Fertig</string>
   <string name="locked">Gesperrt</string>
   <string name="next">Nächstes</string>
   <string name="apply">Anwenden</string>
@@ -340,14 +350,14 @@
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
   <string name="menu_transfer_close_changeset">Aktuellen changeset schliessen</string>
   <string name="menu_transfer_file">Datei...</string>
-  <string name="menu_transfer_export">Änderungen exportieren</string>
-  <string name="menu_transfer_read_file">Von Datei lesen</string>
-  <string name="menu_transfer_save_file">In Datei speichern</string>
+  <string name="menu_transfer_export">Änderungen in ein OSC Datei exportieren</string>
+  <string name="menu_transfer_read_file">JOSM Datei einlesen...</string>
+  <string name="menu_transfer_save_file">Daten in JOSM Datei speichern...</string>
   <string name="menu_transfer_bugs">Notizen/Fehler...</string>
   <string name="menu_transfer_bugs_download_current">Fehler/Notizen für die aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_bugs_upload">Alle hochladen</string>
   <string name="menu_transfer_bugs_upload_long">Alle Hinweise/Bugs hochladen</string>
-  <string name="menu_transfer_bugs_clear">Zurücksetzten</string>
+  <string name="menu_transfer_bugs_clear">Zurücksetzen</string>
   <string name="menu_transfer_bugs_clear_long">Hinweise/Bugs zurücksetzen</string>
   <string name="menu_transfer_autodownload_long">Automatischer Download von Hinweisen/Bugs</string>
   <string name="menu_transfer_save_notes_all">Alle Notizen speichern...</string>
@@ -395,11 +405,11 @@
   <string name="menu_history">Chronik</string>
   <string name="menu_merge">Wege verbinden</string>
   <string name="menu_reverse">Weg umkehren</string>
-  <string name="notreversable_description">Der Weg is mit Eigenschaften versehen die richtungsabhängig sind und nicht umgedreht werden können, Umdrehen wird das Tagging beschädigen.</string>
+  <string name="notreversable_description">Der Weg ist mit Eigenschaften versehen die richtungsabhängig sind und nicht umgedreht werden können, Umdrehen wird das Tagging beschädigen.</string>
   <string name="reverse_anyway">Trotzdem umkehren</string>
   <string name="deleteway_description">Sie sind im Begriff, einen Weg zu löschen.\n\nSie können entweder alle Knoten behalten, oder die Knoten löschen, die nur zu diesem Weg gehören und keine Tags haben.</string>
   <string name="deleteway_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte ausserhald des heruntergeladenen Bereiches und kann nicht gelöscht werden. Bitte zuerst den ganzen Bereich um den Weg herunterladen. </string>
+  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte ausserhalb des heruntergeladenen Bereiches und kann nicht gelöscht werden. Bitte zuerst den ganzen Bereich um den Weg herunterladen. </string>
   <string name="deleteway_wayonly">Nur Weg löschen</string>
   <string name="deleteway_wayandnodes">Weg und Knoten löschen</string>
   <string name="deletenode_relation_description">Dieser Punkt ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
@@ -434,10 +444,10 @@
   <string name="config_voiceCommandsEnabled_summary">Experimentelle Sprachunterstützung einschalten</string>
   <string name="config_maxAlertDistance_title">Max. Distanz für Alarme</string>
   <string name="config_maxAlertDistance_summary">Max. Distanz zu einem Fehler oder Notiz bei dem noch ein Alarm generiert wird</string>
+  <string name="config_maxAlertDistance_current">%1$d Meter</string>
   <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
   <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
-  <string name="config_tileCacheSize_title">Grösse des Tile Cache</string>
-  <string name="config_tileCacheSize_summary">Gesamtgrösse des Tile Cache in MB</string>
+  <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_showStats_title">Zeige Statistiken</string>
   <string name="config_showStats_summary">Zeigt Statistiken (FPS/Knotenanzahl) unten links in der Ecke.</string>
   <string name="config_showTolerance_title">Zeige Toleranz</string>
@@ -471,7 +481,7 @@
   <string name="config_presetbutton_title">Vorlagen</string>
   <string name="config_presetbutton_summary">JOSM kompatible Vorlagen hinzufügen und verwalten</string>
   <string name="config_iconbutton_title">Knoten-Symbole anzeigen</string>
-  <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden</string>
+  <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden.</string>
   <string name="config_showWayIcons_title">Symbole für POIs auf Gebäuden anzeigen</string>
   <string name="config_showWayIcons_summary">Auf Gebäuden das Symbol der am besten passenden Vorlage einblenden</string>
   <string name="config_loginbutton_title">Benutzerkonto</string>
@@ -482,8 +492,10 @@
   <string name="config_category_gps">GPS-Einstellungen</string>
   <string name="config_gps_distance_title">Minimale GPS-Distanz</string>
   <string name="config_gps_distance_summary">Der minimale GPS-Abstand in Metern (Fließkommazahl). Kleinere Werte verbrauchen mehr Batterie.</string>
+  <string name="config_gps_distance_current">%1$d Meter</string>
   <string name="config_gps_interval_title">Minimaler GPS-Interval</string>
   <string name="config_gps_interval_summary">Der minimale GPS-Intervall in Millisekunden. Kleinere Werte verbrauchen mehr Batterie.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_category_info">Informationen</string>
   <string name="config_advancedprefs">Erweiterte Einstellungen</string>
   <string name="config_forceContextMenu_title">Immer Kontext Menü benutzen</string>
@@ -500,8 +512,10 @@
   <string name="config_largeDragArea_summary">Macht einen grösseren Bereich verfügbar um Punkte zu verschieben</string>
   <string name="config_extTriggeredDownloadRadius_title">Download Radius</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radius in Meter für extern ausgelöste Downloads</string>
+  <string name="config_downloadRadius_current">%1$d Meter</string>
   <string name="config_maxDownloadSpeed_title">Maximal Geschwindigkeit für Auto-Download</string>
   <string name="config_maxDownloadSpeed_summary">Geschwindigkeit (in km/h) über der der Auto-Download pausiert wird. </string>
+  <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_bugDownloadRadius_title">Download Radius für Notizen/Fehler</string>
   <string name="config_bugDownloadRadius_summary">Radius (in Meter) des Download-Gebietes für Notizen und Fehler</string>
   <string name="config_maxBugDownloadSpeed_title">Maximal Geschwindigkeit für Auto-Download von Notizen/Fehler</string>
@@ -534,12 +548,19 @@
   <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit \"Bildschirmtasten\"</string>
   <string name="config_maxInlineValues_title">Max. Anzahl Werte die direkt angezeigt werden</string>
   <string name="config_maxInlineValues_summary">Max. Anzahl Werte die im Eigenschaftsformular direkt angezeigt werden.</string>
+  <string name="config_maxInlineValues_current">%1$d Werte</string>
   <string name="config_maxTileDownloadThreads_title">Max. Anzahl von Download Threads</string>
   <string name="config_maxTileDownloadThreads_summary">Max. Anzahl von Threads um Kartenkacheln herunterzuladen.</string>
+  <string name="config_downLoadThreads_current">%1$d Threads</string>
+  <string name="config_tileCacheSize_title">Grösse des Tile Cache</string>
+  <string name="config_tileCacheSize_summary">Gesamtgrösse des Tile Cache in MB</string>
+  <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_notificationCacheSize_title">Max. Anzahl von angezeigten Hinweisen</string>
   <string name="config_notificationCacheSize_summary">Max. Anzahl von angezeigten Hinweisen pro Typ (mind. 1)</string>
+  <string name="config_notificationCacheSize_current">%1$d Benachrichtiungen</string>
   <string name="config_autoLockDelay_title">Zeit bis zur automatischen Schirmsperrung</string>
   <string name="config_autoLockDelay_summary">Zeit in Sekunden bis zur automatischen Schirmsperrung, 0 schaltet die Funktion ab.</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Immer nicht heruntergeladene Gebiete verdunkeln</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Falls gesetzt werden nicht heruntergeladene Gebiete auch im gesperrten Modus verdunkelt.</string>
   <string name="config_geocoderbutton_title">Geocoder konfigurieren</string>

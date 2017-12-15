@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attenzione!</string>
   <string name="transfer_download_current_dialog_message">Hai fatto delle modifiche. Per sostituire i dati scaricati devi caricare le modifiche su OSM oppure annullarle.</string>
@@ -14,6 +15,8 @@
   <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$s \nmentre sul server risulta eliminata</string>
   <string name="upload_conflict_message_referential">%1$s \nè stata eliminata localamente \nmentre sul server ha dei riferimenti</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nera già stato eliminato dal server</string>
+  <string name="use_local_version">Utilizza la tua versione </string>
+  <string name="use_server_version">Utilizza la versione già presente sul server</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth si tratta probabilmente di un bug,  inviaci un rapporto del problema, se stai usando login e password (non consigliato) verifica che li hai inseriti correttamente.</string>
   <string name="no_connection_title">Nessuna connessione al server</string>
@@ -118,6 +121,7 @@
   <string name="warning">avviso</string>
   <string name="minor_issue">problema minore</string>
   <string name="unknown_error_level">livello di errore sconosciuto</string>
+  <string name="attached_object_warning_title">Questa operazione ha effetti sugli oggetti filtrati</string>
   <string name="attached_object_warning_message">L\'oggetto modificato è connesso a degli elementi nascosti che cambieranno di conseguenza.</string>
   <string name="attached_object_warning_continue">OK continua a mostrare questo messaggio</string>
   <string name="attached_object_warning_stop">OK smetti di mostrare questo messaggio</string>
@@ -172,7 +176,9 @@
   <string name="toast_camera_error">Errore durante l\'esecuzione della app per la videocamera: %1$s</string>
   <string name="toast_no_voice">Il riconoscimento vocale non è disponibile</string>
   <string name="toast_storage_error">%1$s non è scrivibile da Vespucci.\nQuesto potrebbe essere un problema di permessi o un problema tecnico del tuo dispositivo.</string>
+  <string name="toast_no_suitable_storage">Il sistema non ha restituito una corretta posizione per il database delle immagini della mappa</string>
   <string name="toast_min_one_preset">Devi selezionare almeno un predefinito!</string>
+  <string name="toast_min_one_geocoder">Deve essere selezionato almeno un geo-codificatore</string>
   <string name="toast_used_backup">Il fle di stato è corrotto, ho usato il file di recupero.</string>
   <string name="toast_used_bug_backup">Il file di stato dei bug è corrotto, ho usato il file di recupero!</string>
   <string name="toast_rmpty_relation">La relazione è vuota, sto creando un rapporto di interruzione improvvisa.</string>
@@ -182,20 +188,27 @@
   <string name="toast_split_to">Percorso \"verso\" diviso</string>
   <string name="toast_tile_database_full">Il database dei tasselli oppure il disco sono pieni!\nEsci, elimina il database oppure libera un po\' di spazio disponibile.</string>
   <string name="toast_invalid_apiurl">URL dell\'API non valida</string>
+  <string name="toast_invalid_readonlyurl">URL invalido per le API in sola lettura</string>
+  <string name="toast_invalid_notesurl">URL invalido per le API delle note</string>
   <string name="toast_invalid_filter_regexp">Espressione regolare non valida nel filtro con key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Impossibile accedere alla foto %1$s</string>
   <string name="toast_no_voice_recognition">Il riconoscimento vocale non è disponibile</string>
   <string name="toast_no_coverage">%1$s non ha copertura qua</string>
   <string name="toast_file_exists">Il file %1$s esiste.</string>
   <string name="toast_needs_resurvey">L\'oggetto potrebbe essere non aggiornato</string>
+  <string name="toast_openinghours_invalid">Il valore orari di apertura non è valido per %1$s</string>
+  <string name="toast_openinghours_autocorrected">Il valore dell\'orario di apertura riguardante %1$s, è stato corretto automaticamente</string>
+  <string name="toast_exit_multiselect">Per uscire tocca due volte uno spazio vuoto, oppure utilizza la freccia indietro.</string>
   <string name="toast_exit_actionmode">Usa il tasto indietro per salvare e uscire</string>
   <string name="toast_abort_actionmode">Usa il tasto indietro per annullare</string>
   <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
+  <string name="toast_string_too_long">Sequenza troppo lunga (%1$d caratteri), accorciata!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
   <string name="okay">Ok</string>
   <string name="cancel">Annulla</string>
+  <string name="dismiss">Scarta</string>
   <string name="locked">Bloccato</string>
   <string name="next">Prossimo</string>
   <string name="apply">Applica</string>
@@ -258,7 +271,7 @@
   <string name="menu_top">In alto</string>
   <string name="menu_select_all">Seleziona tutto</string>
   <string name="menu_deselect_all">Deseleziona tutto</string>
-  <string name="menu_preset_help">Aiuto prefefiniti</string>
+  <string name="menu_preset_help">Guida preset</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Aggiungi etichette per %1$s</string>
   <string name="tag_restriction_header">Valore</string>
@@ -292,7 +305,7 @@
   <!--Menu-->
   <string name="menu_move">Sposta</string>
   <string name="menu_edit">Modifica</string>
-  <string name="menu_add">Nuova</string>
+  <string name="menu_add">Nuovo</string>
   <string name="menu_config">Preferenze</string>
   <string name="menu_find">Trova</string>
   <string name="menu_help">Aiuto</string>
@@ -329,16 +342,13 @@
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
   <string name="menu_transfer_close_changeset">Chiusi il gruppo di modifiche corrente</string>
   <string name="menu_transfer_file">File...</string>
-  <string name="menu_transfer_export">Esporta modifiche</string>
-  <string name="menu_transfer_read_file">Leggi da file</string>
-  <string name="menu_transfer_save_file">Salva su file</string>
   <string name="menu_transfer_bugs">Note/Bug...</string>
-  <string name="menu_transfer_bugs_download_current">Scarica i bugs nelle vista corrente</string>
+  <string name="menu_transfer_bugs_download_current">Scarica note/bug della vista corrente</string>
   <string name="menu_transfer_bugs_upload">Carica tutto</string>
-  <string name="menu_transfer_bugs_upload_long">Carica tutti i bug</string>
+  <string name="menu_transfer_bugs_upload_long">Carica note/bug</string>
   <string name="menu_transfer_bugs_clear">Pulisci</string>
-  <string name="menu_transfer_bugs_clear_long">Cancella i bug</string>
-  <string name="menu_transfer_autodownload_long">Scarica automaticamente i bug</string>
+  <string name="menu_transfer_bugs_clear_long">Cancella note/bug dalla vista corrente</string>
+  <string name="menu_transfer_autodownload_long">Scarica automaticamente note/bug</string>
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva tutte le note nuove o modificate...</string>
   <string name="menu_save">Salva file</string>
@@ -425,8 +435,6 @@
   <string name="config_maxAlertDistance_summary">La massima distanza alla quale un errore od una nota devono essere dalla posizione corrente per generare una notifica</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Valore massimo per lo spessore di un percorso</string>
-  <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>
-  <string name="config_tileCacheSize_summary">Dimensione totale della cache dei tasselli in MB</string>
   <string name="config_showStats_title">Mostra statistiche</string>
   <string name="config_showStats_summary">Mostra dati statistiche e frames/sec nell\'angolo inferiore sinistro.</string>
   <string name="config_showTolerance_title">Mostra tolleranza</string>
@@ -526,12 +534,21 @@
   <string name="config_maxInlineValues_summary">Numero massimo di valori in linea mostrati nella scheda delle etichette</string>
   <string name="config_maxTileDownloadThreads_title">Massimo numero di scaricamenti paralleli</string>
   <string name="config_maxTileDownloadThreads_summary">Numero massimo di scaricamenti paralleli di tasselli</string>
+  <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>
+  <string name="config_tileCacheSize_summary">Dimensione totale della cache dei tasselli in MB</string>
   <string name="config_notificationCacheSize_title">Numero massimo di notifiche mostrate</string>
   <string name="config_notificationCacheSize_summary">Numero massimo di notifiche visualizzate per tipo (min. 1)</string>
   <string name="config_autoLockDelay_title">Intervallo oltre il quale attivare il blocco</string>
   <string name="config_autoLockDelay_summary">Intevallo di tempo in secondi oltre il quale le modifiche vengono disabilitate, 0 significato disabilitato.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Offusca sempre le aree non scaricate</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Se selezionato, le aree non scaricate verranno offuscante durante il blocco</string>
+  <string name="config_geocoderbutton_title">Configura geo-codificatore</string>
+  <string name="config_geocoderbutton_summary">Aggiungi, modifica, elimina geo-codificatore per la ricerca</string>
+  <string name="config_js_console_title">Attiva console JS</string>
+  <string name="config_js_console_summary">Rendi la console JS disponibile in modalità \"live\"</string>
+  <string name="manage_apis">Gestisci API</string>
+  <string name="manage_presets">Gestisci i preset</string>
+  <string name="manage_geocoders">Gestisci geo-codificatori</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aggiorna predefinito</string>
   <string name="preset_download_successful">Predefiniti scaricati con successo</string>
@@ -543,6 +560,8 @@
   <string name="changes_changed">\"%1$s\" modificato</string>
   <string name="changes_created">\"%1$s\" creato</string>
   <string name="confirm_upload_title">Carica?</string>
+  <string name="confirm_one_upload_text">Salvare la seguente modifica?\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Salvare le seguenti %1$d modifiche?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi predefinito</string>
   <string name="urldialog_preset_exists">Questo predefinito esiste già</string>
@@ -552,6 +571,7 @@
   <string name="urldialog_api_install_successful">Le API sono state installate correttamente!</string>
   <string name="urldialog_add_api">Aggiungi API</string>
   <string name="urldialog_nodata_text">L\'URL di configurazione non contiene dati validi.</string>
+  <string name="urldialog_add_geocoder">Aggiungi geo-codificatore</string>
   <!--common terms-->
   <string name="add">Aggiungi</string>
   <string name="edit">Modifica</string>
@@ -560,10 +580,12 @@
   <string name="url">URL</string>
   <string name="default_">Predefinito</string>
   <!---->
+  <string name="empty_list">Nessuna voce inserita</string>
   <string name="api_name">Nome API</string>
   <string name="api_url">URL dell\'API</string>
   <string name="readonly_url">Indirizzo delle API in sola lettura (facoltativo)</string>
   <string name="notes_url">Indirizzo delle API per le note (facoltativo)</string>
+  <string name="geocoder_type">Tipo di geo-codificatore</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Predefiniti</string>
   <string name="api">API</string>

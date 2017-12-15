@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Pozor!</string>
   <string name="transfer_download_current_dialog_message">Vykonali ste nejaké zmeny. Chcete ich odovzdať namiesto zahodenia?</string>
@@ -271,9 +272,6 @@
   <string name="menu_transfer_upload">Odovzdať údaje na server OSM</string>
   <string name="menu_transfer_close_changeset">Zavrieť aktuálny súbor zmien</string>
   <string name="menu_transfer_file">Súbor...</string>
-  <string name="menu_transfer_export">Exportovať zmeny</string>
-  <string name="menu_transfer_read_file">Čítať zo súboru</string>
-  <string name="menu_transfer_save_file">Uložiť do súboru</string>
   <string name="menu_transfer_bugs">Poznámky/chyby...</string>
   <string name="menu_transfer_bugs_download_current">Prevziať chyby v aktuálnom zobrazení</string>
   <string name="menu_transfer_bugs_upload">Odovzdať všetko</string>
@@ -345,8 +343,6 @@
   <string name="config_maxAlertDistance_summary">Maximálna vzdialenosť problému alebo poznámky od aktuálnej pozície na generovanie upozornenia</string>
   <string name="config_maxStrokeWidth_title">Max. šírka čiar</string>
   <string name="config_maxStrokeWidth_summary">Nevykreslí čiaru hrubšiu ako táto hodnota</string>
-  <string name="config_tileCacheSize_title">Veľkosť vyrovnávacej pamäte dlaždíc</string>
-  <string name="config_tileCacheSize_summary">Celková veľkosť vyrovnávacej pamäte dlaždíc v MB</string>
   <string name="config_showTolerance_title">Zobraziť toleranciu</string>
   <string name="config_showTolerance_summary">Zobrazí oblasť, kde môže byť vybraný prvok.</string>
   <string name="config_enableAntiAliasing_title">Povoliť vyhladzovanie</string>
@@ -389,6 +385,8 @@
   <string name="config_followGPSbutton_summary">Kde bude umiestnené tlačidlo „Nasledovať GPS“</string>
   <string name="config_fullscreenMode_title">Režim na celú obrazovku</string>
   <string name="config_fullscreenMode_summary">Správanie na zariadeniach so softvérovými klávesami.</string>
+  <string name="config_tileCacheSize_title">Veľkosť vyrovnávacej pamäte dlaždíc</string>
+  <string name="config_tileCacheSize_summary">Celková veľkosť vyrovnávacej pamäte dlaždíc v MB</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizovať predvoľbu</string>
   <string name="preset_download_successful">Predvoľba úspešne prevzatá</string>

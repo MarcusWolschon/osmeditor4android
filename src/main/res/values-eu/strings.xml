@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Kontuz!</string>
   <string name="transfer_download_current_dialog_message">Aldaketak egin dituzu. Baztertu ordez, aldaketak igotzea nahi duzu?</string>
@@ -91,7 +92,6 @@
   <string name="menu_transfer">Transferitu...</string>
   <string name="menu_transfer_download_current">Uneko ikuspegia deskargatu</string>
   <string name="menu_transfer_upload">Datuak OSM zerbitzarira igo</string>
-  <string name="menu_transfer_export">Aldaketak esportatu</string>
   <string name="menu_save">Fitxategian gorde</string>
   <string name="menu_join">Elkartu</string>
   <string name="menu_unjoin">Banandu</string>

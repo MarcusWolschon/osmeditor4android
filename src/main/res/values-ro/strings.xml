@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenţie!</string>
   <string name="transfer_download_current_dialog_message">Ai făcut câteva modificări. Vrei sa le încarci în loc să renunţi la ele _</string>
@@ -82,7 +83,6 @@
   <string name="menu_gps_goto">Mergi la poziţie GPS</string>
   <string name="menu_transfer">Transfer...</string>
   <string name="menu_transfer_download_current">Descarcă conţinutul curent</string>
-  <string name="menu_transfer_export">Exportă schimbările</string>
   <string name="menu_save">Salvează în fișier</string>
   <string name="menu_cut">Taie</string>
   <string name="menu_rotate">Rotește</string>

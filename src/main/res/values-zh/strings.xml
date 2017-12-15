@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">你已经做了一些改动。你想上传而不是放弃它们？</string>
@@ -216,9 +217,6 @@
   <string name="menu_transfer_download_current_add">将当前视图添加到下载</string>
   <string name="menu_transfer_upload">上传数据到OSM服务器</string>
   <string name="menu_transfer_close_changeset">关闭当前的变更集</string>
-  <string name="menu_transfer_export">导出变更</string>
-  <string name="menu_transfer_read_file">从文件读取</string>
-  <string name="menu_transfer_save_file">保存到文件</string>
   <string name="menu_save">保存到文件</string>
   <string name="menu_join">加入</string>
   <string name="menu_unjoin">不加入</string>
@@ -276,8 +274,6 @@
   <string name="config_generateAlerts_summary">有问题的注释或节点发生通知</string>
   <string name="config_maxStrokeWidth_title">最大线宽</string>
   <string name="config_maxStrokeWidth_summary">不要画出比这更粗的路径</string>
-  <string name="config_tileCacheSize_title">切片缓存大小</string>
-  <string name="config_tileCacheSize_summary">切片缓存总大小，以MB为单位</string>
   <string name="config_showStats_title">显示统计数据</string>
   <string name="config_showStats_summary">在左下角显示数据统计和帧/秒。</string>
   <string name="config_showTolerance_title">显示容限</string>
@@ -344,6 +340,8 @@
   <string name="config_enableLightTheme_title">启用明亮的主题</string>
   <string name="config_enableLightTheme_summary">明亮背景的主题</string>
   <string name="config_category_misc">杂项</string>
+  <string name="config_tileCacheSize_title">切片缓存大小</string>
+  <string name="config_tileCacheSize_summary">切片缓存总大小，以MB为单位</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新预设</string>
   <string name="preset_download_successful">预设成功下载</string>

@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Försiktig!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort några ändringar. Vill du ladda upp dem i stället för att slänga?</string>
@@ -8,20 +9,26 @@
   <string name="transfer_download_current_back">Tillbaka (gör ingenting)</string>
   <string name="upload_problem_title">Problem med uppladdning</string>
   <string name="upload_problem_message">En del eller all data laddades inte upp. Försök att ladda upp igen senare om det var bara ett tillfälligt problem.</string>
+  <string name="bad_request_message">API:n svarade med ett fel, var god spara dina data och rapportera problemet:\n\n</string>
   <string name="upload_conflict_title">Uppladdningskonflikt</string>
   <string name="upload_conflict_message_version">%1$s \nhar lokal version %2$s \noch på servern %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nhar lokal version %2$s \noch raderades på servern</string>
   <string name="upload_conflict_message_referential">%1$s \nwas raderades lokalt \nmen har referenser på servern</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nvar redan borttagen på servern</string>
+  <string name="use_local_version">Använd lokal version</string>
   <string name="use_server_version">Använd version på server</string>
   <string name="no_login_data_title">Autentisering misslyckades</string>
+  <string name="no_login_data_message">Om du använder OAuth, är det troligtvis en bugg, skicka en felrapport, om du använder inloggning och lösenord (rekommenderas inte), kontrollera att de har skrivits in korrekt.</string>
   <string name="no_connection_title">Ingen anslutning till server</string>
   <string name="no_connection_message">Det gick inte att ansluta till OSM-servern. Kontrollera Internetanslutningen eller försök igen senare.</string>
   <string name="ssl_handshake_failed">Kunde inte att ansluta till OSM-servern eftersom https förhandling misslyckades. Försök att byta till en icke-krypterad förbindelse i API-inställningarna.</string>
   <string name="wrong_login_data_title">Autentisering misslyckades</string>
+  <string name="wrong_login_data_message">Om du använder OAuth, bör du autentisera och försöka igen, om du använder inloggning och lösenord (rekommenderas inte), kontrollera att de har skrivits in korrekt.</string>
   <string name="wrong_login_data_re_authenticate">Verifiera igen</string>
   <string name="forbidden_login_title">Inloggning förbjuden</string>
+  <string name="go_to_openstreetmap">Gå till openstreetmap.org</string>
   <string name="data_conflict_title">Versionskonflikt</string>
+  <string name="data_conflict_message">Data som du försöker hämta innehåller data som strider mot dina redigeringar. Försök att ladda upp dina data först innan du försöker igen.</string>
   <string name="api_offline_title">API Frånkopplad</string>
   <string name="api_offline_message">API är för närvarande frånkopplad och data kan inte hämtas eller skrivas.</string>
   <string name="out_of_memory_title">Slut på minne</string>
@@ -45,6 +52,7 @@
   <string name="progress_saving_message">Sparar...</string>
   <string name="progress_uploading_message">Laddar upp...</string>
   <string name="progress_preset_message">Hämta förinställning...</string>
+  <string name="progress_running_message">Körs...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Källa:</string>
   <string name="upload_close_changeset_label">Stäng changeset:</string>
@@ -100,12 +108,17 @@
   <string name="empty_role">tom roll</string>
   <string name="element">element</string>
   <string name="last_updated">senast uppdaterad</string>
+  <string name="last_edited">senast redigerad</string>
   <string name="error">fel</string>
   <string name="warning">varning</string>
   <string name="minor_issue">mindre fel</string>
   <string name="unknown_error_level">okänd fel-nivå</string>
+  <string name="attached_object_warning_continue">OK fortsätt att visa detta meddelande</string>
   <string name="attached_object_warning_stop">OK, sluta visa detta meddelande</string>
+  <string name="send_debug_information">Skicka felsökningsinformation</string>
+  <string name="evaluate">Utvärdera</string>
   <string name="js_console_msg_live">Live-läge!</string>
+  <string name="js_console_msg_debug">Felsökningsläge!</string>
   <!--Toaster-->
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
@@ -134,13 +147,19 @@
   <string name="toast_unknown_voice_command">Tyvärr för nuvarande förstås inte \"%1$s\"</string>
   <string name="toast_camera_error">Fel vid start av kameraapp: %1$s</string>
   <string name="toast_rmpty_relation">Tom relation, skapar kraschrapport.</string>
+  <string name="toast_error_accessing_photo">Kan inte komma åt foto %1$s</string>
+  <string name="toast_no_coverage">%1$s har ingen täckning här</string>
   <string name="toast_file_exists">Fil %1$s finns.</string>
+  <string name="toast_needs_resurvey">Objektet kan vara föråldrat</string>
   <string name="toast_openinghours_invalid">Felaktig öppettid med värde %1$s</string>
+  <string name="toast_exit_actionmode">Använd tillbaka-pilen för att spara och avsluta</string>
+  <string name="toast_abort_actionmode">Använd tillbaka-pilen för att avbryta</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
   <string name="okay">OK</string>
   <string name="cancel">Avbryt</string>
+  <string name="dismiss">Avfärda</string>
   <string name="locked">Låst</string>
   <string name="next">Nästa</string>
   <string name="apply">Verkställ</string>
@@ -195,6 +214,7 @@
   <string name="tag_menu_move_down">Flytta ner</string>
   <string name="tag_menu_move_bottom">Flytta ner till botten</string>
   <string name="tag_menu_sort">Sortera</string>
+  <string name="tag_menu_reverse_order">Omvänd ordning</string>
   <string name="tag_menu_download">Hämta</string>
   <string name="tag_menu_js_console">JS-konsolen</string>
   <string name="menu_up">Upp</string>
@@ -265,9 +285,6 @@
   <string name="menu_transfer_upload">Ladda upp data till OSM-servern</string>
   <string name="menu_transfer_close_changeset">Stäng nuvarande chnageset</string>
   <string name="menu_transfer_file">Fil...</string>
-  <string name="menu_transfer_export">Exportera ändringar</string>
-  <string name="menu_transfer_read_file">Läs från fil</string>
-  <string name="menu_transfer_save_file">Spara till fil</string>
   <string name="menu_transfer_bugs">Anteckningar/fel...</string>
   <string name="menu_transfer_bugs_download_current">Hämta buggar från nuvarande vy</string>
   <string name="menu_transfer_bugs_upload">Ladda upp allt</string>
@@ -348,8 +365,6 @@
   <string name="config_maxAlertDistance_title">Max avstånd för aviseringar</string>
   <string name="config_maxStrokeWidth_title">Max linjebredd</string>
   <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta</string>
-  <string name="config_tileCacheSize_title">Tile cache storlek</string>
-  <string name="config_tileCacheSize_summary">Total storlek med tile cache i MB</string>
   <string name="config_showStats_title">Visa statistik</string>
   <string name="config_showTolerance_title">Visa tolerans</string>
   <string name="config_showTolerance_summary">Visar platsen där ett element kan väljas.</string>
@@ -387,12 +402,16 @@
   <string name="config_mapProfile_title">Kartprofil</string>
   <string name="config_use_back_for_undo_title">Använd tillbaka knappen för Ångra</string>
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
+  <string name="config_maxDownloadSpeed_title">Maximal automatisk hämtningshastighet</string>
   <string name="config_bugFilter_title">Filtrera för anteckningar/fel</string>
+  <string name="config_enableNameSuggestions_title">Aktivera namnförslag</string>
   <string name="config_enableNameSuggestions_summary">Slå på förslag för namn-tagg</string>
+  <string name="config_enableAutoPreset_summary">Lägg automatiskt till förinställning när namnförslag väljs</string>
   <string name="config_gps_source_title">GPS-källa</string>
   <string name="config_gps_source_summary">Källa för GPS-plats uppdateringar</string>
   <string name="config_gps_source_tcp_title">NMEA-nätverkskälla</string>
   <string name="config_leaveGpsDisabled_title">Lämna GPS avaktiverad</string>
+  <string name="config_leaveGpsDisabled_summary">Be inte användaren att slå på GPS om den är inaktiverad</string>
   <string name="config_enableLightTheme_title">Aktivera ljust tema</string>
   <string name="config_enableLightTheme_summary">Ljust tema med vit bakgrund</string>
   <string name="config_category_misc">Diverse</string>
@@ -400,6 +419,8 @@
   <string name="config_moreprefs">Flera inställningar...</string>
   <string name="config_fullscreenMode_title">Fullskärmsläge</string>
   <string name="config_maxTileDownloadThreads_title">Maximalt antal av nedladdningstrådar</string>
+  <string name="config_tileCacheSize_title">Tile cache storlek</string>
+  <string name="config_tileCacheSize_summary">Total storlek med tile cache i MB</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uppdatera förinställda</string>
   <!--changes-->
@@ -429,7 +450,10 @@
   <string name="undo">Ångra</string>
   <string name="redo">Upprepa</string>
   <string name="undo_nothing">inget att ångra</string>
+  <string name="gps_failure">Misslyckades med att aktivera GPS</string>
   <!--element description-->
+  <string name="address_housenumber">Adress %1$s</string>
+  <string name="address_housenumber_street">Adress %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">flytta nod</string>
   <string name="undo_action_moveway">flytta väg</string>
@@ -457,6 +481,7 @@
   <string name="undo_action_fix_conflict">fix konflikt</string>
   <string name="undo_action_extract_node">extrahera nod</string>
   <!--ACRA-->
+  <string name="config_category_acra">Krasch rapportering</string>
   <!--Exceptions messages-->
   <!--Notifications-->
   <string name="bearing_ne">NE</string>
@@ -514,6 +539,12 @@
     <item>Vänster</item>
     <item>Höger</item>
     <item>Inget</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Automatisk</item>
+    <item>Aldrig</item>
+    <item>Tvinga</item>
+    <item>Inget statusfält</item>
   </string-array>
   <string-array name="full_screen_preference_no_auto_entries">
     <item>Nyare</item>

@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">¡Precaución!</string>
   <string name="transfer_download_current_dialog_message">Hizo algunos cambios. ¿Quiere subirlos en lugar de descartarlos?</string>
@@ -200,11 +201,14 @@
   <string name="toast_exit_multiselect">Toca dos veces un espacio vacío o usa la flecha hacia atrás para salir</string>
   <string name="toast_exit_actionmode">Use la flecha hacia atrás para guardar y salir</string>
   <string name="toast_abort_actionmode">Use la flecha hacia atrás para abortar</string>
+  <string name="toast_null_island">Por favor, no añada elementos en 0°/0° (Isla Nula)</string>
+  <string name="toast_string_too_long">¡Cadena demasiado larga (%1$d carácteres), truncada!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="okay">OK</string>
   <string name="cancel">Cancelar</string>
+  <string name="dismiss">Descartar</string>
   <string name="locked">Bloqueado</string>
   <string name="next">Siguiente</string>
   <string name="apply">Aplicar</string>
@@ -217,6 +221,10 @@
   <string name="enable">Habilitar</string>
   <string name="clear">Limpiar</string>
   <string name="retry">Reintentar</string>
+  <string name="read">Leer</string>
+  <string name="overwrite">Sobreescribir</string>
+  <string name="share">Compartir</string>
+  <string name="share_position">Compartir posición</string>
   <!--Dialog for back button-->
   <string name="exit_title">¿Salir?</string>
   <string name="exit_text">¿Está seguro que quiere salir?</string>
@@ -256,10 +264,13 @@
   <string name="tag_menu_move_down">Mover abajo</string>
   <string name="tag_menu_move_bottom">Mover al final</string>
   <string name="tag_menu_sort">Ordenar</string>
+  <string name="tag_menu_reverse_order">Revertir orden</string>
   <string name="tag_menu_download">Descargar</string>
   <string name="tag_menu_js_console">Consola JS</string>
   <string name="menu_up">Subir</string>
   <string name="menu_top">Arriba</string>
+  <string name="menu_select_all">Seleccionar todo</string>
+  <string name="menu_deselect_all">Deseleccionar todo</string>
   <string name="menu_preset_help">Ayuda predeterminados</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Añadir etiquetas para %1$s</string>
@@ -331,9 +342,6 @@
   <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
   <string name="menu_transfer_close_changeset">Cerrar el conjunto de cambios actual</string>
   <string name="menu_transfer_file">Archivo...</string>
-  <string name="menu_transfer_export">Exportar cambios</string>
-  <string name="menu_transfer_read_file">Leer desde archivo</string>
-  <string name="menu_transfer_save_file">Guardar archivo</string>
   <string name="menu_transfer_bugs">Notas/Errores...</string>
   <string name="menu_transfer_bugs_download_current">Descargar errores para la vista actual</string>
   <string name="menu_transfer_bugs_upload">Subir todo</string>
@@ -377,6 +385,8 @@
   <string name="menu_tools_oauth_reset">Reiniciar OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
   <string name="menu_enable_tagfilter">Filtro de etiquetas</string>
+  <string name="menu_enable_presetfilter">Filtro preestablecido</string>
+  <string name="preset_menu_waynodes">Incluir nodos de ruta</string>
   <string name="preset_menu_invert">Invertir filtros</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propiedades</string>
@@ -401,6 +411,14 @@
   <string name="actionmode_createpath">Creando camino</string>
   <string name="actionmode_multiselect">Multiselección</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Dividir ruta cerrada, 1er nodo</string>
+  <string name="actionmode_closed_way_split_2">Dividir ruta cerrada, 2º nodo</string>
+  <string name="actionmode_restriction">Añadir restricción de giro</string>
+  <string name="actionmode_restriction_restart_from">Volver a seleccionar el segmento «desde»</string>
+  <string name="actionmode_restriction_via">Añadir segmento/elemento «via»</string>
+  <string name="actionmode_restriction_restart_via">Volver a seleccionar el segmento «via»</string>
+  <string name="actionmode_restriction_to">Añadir segmento «a»</string>
+  <string name="actionmode_restriction_restart_to">Volver a seleccionar el segmento «a»</string>
   <string name="actionmode_one_object">1 objeto</string>
   <string name="actionmode_object_count">%1$d objetos</string>
   <string name="actionmode_rotateway">Rotar vía</string>
@@ -417,8 +435,6 @@
   <string name="config_maxAlertDistance_summary">La distancia máxima a un problema o nota que puede ser desde la posición actual a generar la notificación</string>
   <string name="config_maxStrokeWidth_title">Anchura máxima de linea</string>
   <string name="config_maxStrokeWidth_summary">Dibuja una vía no más ancha que esto</string>
-  <string name="config_tileCacheSize_title">Tamaño de la caché de teselas</string>
-  <string name="config_tileCacheSize_summary">Tamaño total de la caché de teselas en MB</string>
   <string name="config_showStats_title">Mostrar estadísticas</string>
   <string name="config_showStats_summary">Muestra datos estadisticos y cuadros/seg en la esquina inferior izquierda.</string>
   <string name="config_showTolerance_title">Mostrar tolerancia</string>
@@ -517,12 +533,21 @@
   <string name="config_maxInlineValues_summary">Número máximo de valores en línea mostrados en el formulario de etiqueta</string>
   <string name="config_maxTileDownloadThreads_title">Número máx. de hilos de descarga</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de hilos para descargar teselas</string>
+  <string name="config_tileCacheSize_title">Tamaño de la caché de teselas</string>
+  <string name="config_tileCacheSize_summary">Tamaño total de la caché de teselas en MB</string>
   <string name="config_notificationCacheSize_title">Número máx. de notificaciones mostradas</string>
+  <string name="config_notificationCacheSize_summary">Número máximo de notificaciones mostradas por tipo (min. 1)</string>
   <string name="config_autoLockDelay_title">Tiempo de espera antes de auto-bloqueo</string>
   <string name="config_autoLockDelay_summary">Tiempo de espera en segundos antes de auto.bloqueo, 0 desactiva.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Siempre oscurecer áreas no descargadas</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Si aŕeas no descargadas está establecido se oscurecerán en modo bloqueado</string>
+  <string name="config_geocoderbutton_title">Configurar geocodificadores</string>
+  <string name="config_geocoderbutton_summary">Agregar, editar, eliminar geocodificadores para la funcionalidad de búsqueda</string>
   <string name="config_js_console_title">Habilitar consola JS</string>
+  <string name="config_js_console_summary">Haga que la consola JS esté disponible en modo «en directo»</string>
+  <string name="manage_apis">Administrar APIs</string>
+  <string name="manage_presets">Administrar preajustes</string>
+  <string name="manage_geocoders">Administrar geocodificadores</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar predeterminados</string>
   <string name="preset_download_successful">Predeterminados descargados correctamente</string>
@@ -545,6 +570,7 @@
   <string name="urldialog_api_install_successful">¡API instalado con éxito!</string>
   <string name="urldialog_add_api">Añadir API</string>
   <string name="urldialog_nodata_text">La URL de configuración no contiene datos validos.</string>
+  <string name="urldialog_add_geocoder">Añadir geocodificador</string>
   <!--common terms-->
   <string name="add">Añadir</string>
   <string name="edit">Editar</string>
@@ -558,6 +584,7 @@
   <string name="api_url">URL API</string>
   <string name="readonly_url">URL API Sólo Lectura (opcional)</string>
   <string name="notes_url">URL API Notes (opcional)</string>
+  <string name="geocoder_type">Tipo de geocodificador</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Predeterminado</string>
   <string name="api">API</string>
@@ -677,5 +704,13 @@
     <item>Nunca</item>
     <item>Forzar</item>
     <item>Sin barra de estado</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>Todo</item>
+    <item>Nodos</item>
+    <item>Rutas</item>
+    <item>Rutas+</item>
+    <item>Relaciones</item>
+    <item>Relaciones+</item>
   </string-array>
 </resources>

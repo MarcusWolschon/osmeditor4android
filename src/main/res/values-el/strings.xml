@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Προσοχή!</string>
   <string name="transfer_download_current_dialog_message">Έχετε κάνει μερικές αλλαγές. Θα θέλατε να τις ανεβάσετε αντί να τις απορρίψετε;</string>
@@ -214,9 +215,6 @@
   <string name="menu_transfer_upload">Αποστολή δεδομένων στον διακομιστή </string>
   <string name="menu_transfer_close_changeset">Κλείσιμο τρέχουσας ομάδας αλλαγών</string>
   <string name="menu_transfer_file">Αρχείο...</string>
-  <string name="menu_transfer_export">Εξαγωγή αλλαγών</string>
-  <string name="menu_transfer_read_file">Ανάγνωση από αρχείο</string>
-  <string name="menu_transfer_save_file">Αποθήκευση σε αρχείο</string>
   <string name="menu_transfer_bugs">Σημειώσεις/Αναφορές...</string>
   <string name="menu_transfer_bugs_download_current">Λήψη αναφορών για την τρέχουσα προβολή</string>
   <string name="menu_transfer_bugs_upload">Αποστολή όλων</string>
@@ -276,8 +274,6 @@
   <string name="config_voiceCommandsEnabled_summary">Ενεργοποίηση πειραματικής υποστήριξης φωνητικών εντολών</string>
   <string name="config_maxStrokeWidth_title">Μέγιστο πάχος γραμμής</string>
   <string name="config_maxStrokeWidth_summary">Μην σχεδιάσετε ένα δρόμο παχύτερο από αυτόν</string>
-  <string name="config_tileCacheSize_title">Μέγεθος μνήμης cache</string>
-  <string name="config_tileCacheSize_summary">Συνολικό μέγεθος της μνήμης cache σε MB</string>
   <string name="config_showStats_title">Εμφάνιση στατιστικών</string>
   <string name="config_showStats_summary">Στατιστικά στοιχεία και πλαισία δεδομένων εμφανίζονται στην κάτω αριστερή γωνία.</string>
   <string name="config_showTolerance_title">Εμφάνιση ανεκτικότητας</string>
@@ -350,6 +346,8 @@
   <string name="config_address_tags">Ετικέτες διεύθυνσης</string>
   <string name="config_moreprefs">Περισσότερες ρυθμίσεις...</string>
   <string name="config_fullscreenMode_title">Λειτουργία πλήρους οθόνης</string>
+  <string name="config_tileCacheSize_title">Μέγεθος μνήμης cache</string>
+  <string name="config_tileCacheSize_summary">Συνολικό μέγεθος της μνήμης cache σε MB</string>
   <!--preset downloader messages-->
   <string name="preset_update">Ενημέρωση προκαθορισμένων</string>
   <string name="preset_download_successful">Το προκαθορισμένο ελήφθη επιτυχώς</string>

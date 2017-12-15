@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varúð!</string>
   <string name="transfer_download_current_dialog_message">Þú hefur gert breytingar. Viltu uppfæra þær í stað þess að henda þeim?</string>
@@ -212,9 +213,6 @@
   <string name="menu_transfer_download_current_add">Bæta núverandi sýn við niðurhal</string>
   <string name="menu_transfer_upload">Uppfæra á OSM</string>
   <string name="menu_transfer_close_changeset">Loka núverandi breytingasetti</string>
-  <string name="menu_transfer_export">Flytja breytingar út</string>
-  <string name="menu_transfer_read_file">Lesa skrá</string>
-  <string name="menu_transfer_save_file">Vista í skrá</string>
   <string name="menu_save">Vista í skrá</string>
   <string name="menu_join">Sameina</string>
   <string name="menu_unjoin">Sundra</string>
@@ -270,8 +268,6 @@
   <string name="config_generateAlerts_summary">Birta tilkynningar fyrir gögn með vandamál eða athugasemdir</string>
   <string name="config_maxStrokeWidth_title">Mesta línubreidd</string>
   <string name="config_maxStrokeWidth_summary">Ekki teikna feril sem er breiðari en þetta</string>
-  <string name="config_tileCacheSize_title">Stærð skammtímageymslu</string>
-  <string name="config_tileCacheSize_summary">Heildarstærð myndargeymslu í MB</string>
   <string name="config_showStats_title">Sýna tölfræði</string>
   <string name="config_showStats_summary">Sýnir tölfræði og rammar/sek í neðra vinstra horni. </string>
   <string name="config_showTolerance_title">Sýna vikmörk</string>
@@ -339,6 +335,8 @@
   <string name="config_enableLightTheme_title">Virkja ljóst þema</string>
   <string name="config_enableLightTheme_summary">Ljóst þema með hvítum bakgrunni</string>
   <string name="config_category_misc">Ýmislegt</string>
+  <string name="config_tileCacheSize_title">Stærð skammtímageymslu</string>
+  <string name="config_tileCacheSize_summary">Heildarstærð myndargeymslu í MB</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uppfæra forstillingar</string>
   <string name="preset_download_successful">Náði í forstillingar</string>

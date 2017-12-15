@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Uwaga!</string>
   <string name="transfer_download_current_dialog_message">Wprowadzono zmiany. Wysłać je zamiast usunąć?</string>
@@ -317,9 +318,6 @@
   <string name="menu_transfer_upload">Wyślij zmiany</string>
   <string name="menu_transfer_close_changeset">Zamknij zestaw zmian</string>
   <string name="menu_transfer_file">Plik...</string>
-  <string name="menu_transfer_export">Wyślij zmiany</string>
-  <string name="menu_transfer_read_file">Wczytaj z pliku</string>
-  <string name="menu_transfer_save_file">Zapisz do pliku</string>
   <string name="menu_transfer_bugs">Uwagi/błędy...</string>
   <string name="menu_transfer_bugs_download_current">Pobierz dla widocznego obszaru </string>
   <string name="menu_transfer_bugs_upload">Wyślij wszystkie</string>
@@ -412,8 +410,6 @@
   <string name="config_maxAlertDistance_summary">Maksymalna odległość o jaką może być oddalona notatka lub błąd od aktualnej pozycji aby wygenerować powiadomienie.</string>
   <string name="config_maxStrokeWidth_title">Maksymalna szerokość linii</string>
   <string name="config_maxStrokeWidth_summary">Nie wyświetla linii szerszych od wprowadzonej wartości</string>
-  <string name="config_tileCacheSize_title">Wielkość pamięci podręcznej dla kafelków map</string>
-  <string name="config_tileCacheSize_summary">Całkowita wielkość pamięci podręcznej telefonu zarezerwowanej dla kafelków mapy w MB</string>
   <string name="config_showStats_title">Statystyki</string>
   <string name="config_showStats_summary">Wyświetla szybkość obrazu w ramkach/s w dolnym lewym rogu.</string>
   <string name="config_showTolerance_title">Wyświetlanie tolerancji</string>
@@ -512,6 +508,8 @@
   <string name="config_maxInlineValues_summary">Określa maksymalną liczbę wartości wyświetlanych w jednym wierszu formularza znacznika</string>
   <string name="config_maxTileDownloadThreads_title">Maks. liczba wątków pobierania</string>
   <string name="config_maxTileDownloadThreads_summary">Określa maksymalną liczbę wątków pobierania kafelków mapy</string>
+  <string name="config_tileCacheSize_title">Wielkość pamięci podręcznej dla kafelków map</string>
+  <string name="config_tileCacheSize_summary">Całkowita wielkość pamięci podręcznej telefonu zarezerwowanej dla kafelków mapy w MB</string>
   <string name="config_notificationCacheSize_title">Maks. liczba powiadomień</string>
   <string name="config_notificationCacheSize_summary">Maksymalna liczba wyświetlonych powiadomień na typ (min. 1)</string>
   <string name="config_autoLockDelay_title">Czas oczekiwania przed zablokowaniem</string>

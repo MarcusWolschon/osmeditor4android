@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">データの変更が行われています。破棄せずにアップロードしますか？</string>
@@ -238,9 +239,6 @@
   <string name="menu_transfer_download_current">表示領域をダウンロード</string>
   <string name="menu_transfer_download_current_add">表示領域を追加ダウンロード</string>
   <string name="menu_transfer_upload">データをOSMサーバへアップロード</string>
-  <string name="menu_transfer_export">変更をエクスポート</string>
-  <string name="menu_transfer_read_file">ファイルから読み込む</string>
-  <string name="menu_transfer_save_file">ファイルに保存する</string>
   <string name="menu_save">ファイルに保存</string>
   <string name="menu_join">結合</string>
   <string name="menu_unjoin">結合をとく</string>
@@ -290,8 +288,6 @@
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">ライン幅の最大</string>
   <string name="config_maxStrokeWidth_summary">ウェイの最大表示幅</string>
-  <string name="config_tileCacheSize_title">タイルキャッシュサイズ</string>
-  <string name="config_tileCacheSize_summary">タイルキャッシュの合計サイズ（MB）</string>
   <string name="config_showStats_title">統計情報を表示</string>
   <string name="config_showStats_summary">左下隅にデータ統計とフレーム/秒 を表示。</string>
   <string name="config_showTolerance_title">トレランスを表示</string>
@@ -355,6 +351,8 @@
   <string name="config_gps_source_summary">GPS位置更新ソース</string>
   <string name="config_gps_source_tcp_title">NMEAネットワークソース</string>
   <string name="config_gps_source_tcp_summary">TCP NMEAソースアドレス host:post形式</string>
+  <string name="config_tileCacheSize_title">タイルキャッシュサイズ</string>
+  <string name="config_tileCacheSize_summary">タイルキャッシュの合計サイズ（MB）</string>
   <!--preset downloader messages-->
   <string name="preset_update">プリセットを更新</string>
   <string name="preset_download_successful">プリセットのダウンロードに成功しました</string>

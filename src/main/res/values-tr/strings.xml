@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Dikkat!</string>
   <string name="transfer_download_current_dialog_message">Bazı değişiklikler yaptınız. Bunları boş vermek yerine yüklemek ister misiniz?</string>
@@ -232,9 +233,6 @@
   <string name="menu_transfer_download_current_add">Şimdiki görünümü indirmeye ekle</string>
   <string name="menu_transfer_upload">Verileri OSM sunucusuna yükle</string>
   <string name="menu_transfer_file">Dosya...</string>
-  <string name="menu_transfer_export">Değişimi dışa aktar</string>
-  <string name="menu_transfer_read_file">Dosyadan oku</string>
-  <string name="menu_transfer_save_file">Dosyaya kaydet</string>
   <string name="menu_transfer_bugs">Notlar/Böcekler...</string>
   <string name="menu_transfer_bugs_download_current">Geçerli görünüm için böcek indir</string>
   <string name="menu_transfer_bugs_upload">Tümünü yükle</string>
@@ -298,8 +296,6 @@
   <string name="config_maxAlertDistance_title">Uyarılar için maks mesafe</string>
   <string name="config_maxStrokeWidth_title">Maks çizgi genişliği</string>
   <string name="config_maxStrokeWidth_summary">Bu yolu şimdikinden daha kalın çizmeyin</string>
-  <string name="config_tileCacheSize_title">Karo önbellek boyutu</string>
-  <string name="config_tileCacheSize_summary">Toplam karo önbelleği MB</string>
   <string name="config_showStats_title">İstatistikleri göster</string>
   <string name="config_showStats_summary">Veri istatistiğini ve kare/san sol üst köşede göster.</string>
   <string name="config_showTolerance_title">Toleransı göster</string>
@@ -378,6 +374,8 @@
   <string name="config_address_tags">Adres etiketleri</string>
   <string name="config_address_tags_summary">Adres tahmininde kullanılacak etiketler</string>
   <string name="config_moreprefs">Daha fazla ayar...</string>
+  <string name="config_tileCacheSize_title">Karo önbellek boyutu</string>
+  <string name="config_tileCacheSize_summary">Toplam karo önbelleği MB</string>
   <!--preset downloader messages-->
   <string name="preset_update">Öntanımlıyı güncelle</string>
   <string name="preset_download_successful">Öntanımlı başarıyla indirildi</string>

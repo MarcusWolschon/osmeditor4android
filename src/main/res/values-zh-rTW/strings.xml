@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">您有做了一些變更。您是否想上傳它們而非放棄？</string>
@@ -342,9 +343,6 @@
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
   <string name="menu_transfer_close_changeset">關閉目前的變更組合</string>
   <string name="menu_transfer_file">檔案...</string>
-  <string name="menu_transfer_export">匯出變更</string>
-  <string name="menu_transfer_read_file">從檔案讀取</string>
-  <string name="menu_transfer_save_file">儲存到檔案</string>
   <string name="menu_transfer_bugs">註釋/錯誤...</string>
   <string name="menu_transfer_bugs_download_current">為目前的檢視下載錯誤</string>
   <string name="menu_transfer_bugs_upload">全部上傳</string>
@@ -438,8 +436,6 @@
   <string name="config_maxAlertDistance_summary">最大距離的一個問題或註釋，可以是從目前位置去產生通知</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的路徑</string>
-  <string name="config_tileCacheSize_title">圖磚快取大小</string>
-  <string name="config_tileCacheSize_summary">圖磚快取以 MB 為單位合計大小</string>
   <string name="config_showStats_title">顯示統計</string>
   <string name="config_showStats_summary">在左下角顯示資料的統計和畫格/秒。</string>
   <string name="config_showTolerance_title">顯示選取誤差</string>
@@ -539,6 +535,8 @@
   <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格</string>
   <string name="config_maxTileDownloadThreads_title">最大下載序列數</string>
   <string name="config_maxTileDownloadThreads_summary">最大圖磚下載序列數</string>
+  <string name="config_tileCacheSize_title">圖磚快取大小</string>
+  <string name="config_tileCacheSize_summary">圖磚快取以 MB 為單位合計大小</string>
   <string name="config_notificationCacheSize_title">最多顯示的通知數量</string>
   <string name="config_notificationCacheSize_summary">每種類型最大顯示通知數目 (min. 1)</string>
   <string name="config_autoLockDelay_title">自動鎖定所需等待的時間</string>

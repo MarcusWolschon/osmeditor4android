@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Åtvaring!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort endringar. Vil du lasta dei opp i staden for å avbryta?</string>
@@ -75,7 +76,6 @@
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Last ned noverande utsnitt</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
-  <string name="menu_transfer_export">Eksporter endringar</string>
   <string name="menu_save">Lagre til fil</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->

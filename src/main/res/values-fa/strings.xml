@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">احتیاط! </string>
   <string name="transfer_download_current_dialog_message">شما تعدادی تغییر انجام داده اید. میخواهید به جای دور انداختن آنها را آپلود کنید؟ </string>
@@ -122,7 +123,6 @@
   <string name="menu_transfer">انتقال...</string>
   <string name="menu_transfer_download_current">دانلود نمای فعلی</string>
   <string name="menu_transfer_upload">آپلود داده ها در سرور OSM</string>
-  <string name="menu_transfer_export">خارج سازی تغییرات</string>
   <string name="menu_save">ذخیره در پرونده</string>
   <string name="menu_join">پیوستن</string>
   <string name="menu_unjoin">جدا کردن</string>

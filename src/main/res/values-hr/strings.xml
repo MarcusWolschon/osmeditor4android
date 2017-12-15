@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Oprez!</string>
   <string name="transfer_download_current_dialog_message">Napravili ste promjene. Želite li ih prvo spremiti na poslužitelj umjesto brisanja?</string>
@@ -118,7 +119,6 @@
   <string name="menu_transfer_download_current">Skini trenutni pogled</string>
   <string name="menu_transfer_download_current_add">Dodaj trenutni pogled skinutim</string>
   <string name="menu_transfer_upload">Spremi na OSM poslužitelj</string>
-  <string name="menu_transfer_export">Izvezi promjene</string>
   <string name="menu_save">Spremi u datoteku</string>
   <string name="menu_join">Spoji</string>
   <string name="menu_unjoin">Odspoji</string>

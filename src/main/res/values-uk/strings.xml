@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Увага!</string>
   <string name="transfer_download_current_dialog_message">Ви внесли зміни. Бажаєте завантажити їх на сервер?</string>
@@ -10,20 +11,24 @@
   <string name="upload_problem_message">Частина або всі дані не були надіслані. Спробуйте надіслати дані знову, можливо це тимчасові труднощі.</string>
   <string name="bad_request_message">API відповів помилкою, будь ласка, збережіть свої дані та повідомте про проблему:\n\n</string>
   <string name="upload_conflict_title">Конфлікт надсилання</string>
-  <string name="upload_conflict_message_version">%1$s \n має локальну версію  %2$s \n та версію на сервері %3$s</string>
-  <string name="upload_conflict_message_deleted">%1$s \nмає локальну версію %2$s \nта вилучено на сервері</string>
+  <string name="upload_conflict_message_version">%1$s \nлокальна версія  %2$s \nверсія на сервері %3$s</string>
+  <string name="upload_conflict_message_deleted">%1$s \nлокальна версія %2$s \nвилучено на сервері</string>
   <string name="upload_conflict_message_referential">%1$s
  було вилучено локально
  але має посилання на сервері</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nвже вилучено на сервері</string>
+  <string name="use_local_version">Використовувати локальну версію</string>
+  <string name="use_server_version">Використовувати версію з сервера</string>
   <string name="no_login_data_title">Помилка автентифікації</string>
   <string name="no_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка відправте звіт.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
   <string name="no_connection_title">Немає з’єднання з сервером</string>
   <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше  Інтернет-з’єднання та спробуйте ще раз.</string>
+  <string name="ssl_handshake_failed">Неможливо зʼєднатись з сервером OpenStreetMap через збій в передачі даних через https. Спробуйте перемикнутися на незашифроване зʼєднання в налаштуваннях API.</string>
   <string name="wrong_login_data_title">Помилка автентифікації</string>
   <string name="wrong_login_data_message">Якщо Ви використовуєте OAuth, вам потрібно ре-автентифікуватись.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
   <string name="wrong_login_data_re_authenticate">Ре-автентифікуватись</string>
   <string name="forbidden_login_title">Вхід заборонено</string>
+  <string name="go_to_openstreetmap">Перейти на openstreetmap.org</string>
   <string name="data_conflict_title">Конфлікт версій</string>
   <string name="data_conflict_message">Дані, які ви намагаєтесь завантажити конфліктують з вашими правками. Спочатку надішліть на сервер ваші зміни перед тим, як спробувати завантажити дані знов.</string>
   <string name="invalid_bounding_box_title">Неприпустима обмежувальна рамка</string>
@@ -52,7 +57,9 @@
   <string name="progress_deleting_message">Вилучення…</string>
   <string name="progress_searching_message">Пошук…</string>
   <string name="progress_saving_message">Збереження…</string>
-  <string name="progress_uploading_message">Вивантаження...</string>
+  <string name="progress_uploading_message">Надсилання…</string>
+  <string name="progress_preset_message">Завантаження заготовок…</string>
+  <string name="progress_running_message">Запуск…</string>
   <string name="progress_oauth">Завантаження вашого облікового запису з osm.org для OAuth-авторизації…</string>
   <string name="upload_comment_label">Коментар: </string>
   <string name="upload_source_label">Джерело: </string>
@@ -95,7 +102,8 @@
   <string name="read_file">Виберіть файл для перегляду</string>
   <string name="save_file">Введіть файл для збереження</string>
   <string name="existing_track_title">Дані треку</string>
-  <string name="existing_track_message">Ви вже маєте наявні дані треку. Можливо, ви бажаєте скасувати та зберегти спочатку </string>
+  <string name="existing_track_message">Ви вже маєте дані для треку. Можливо, ви бажаєте спочатку скасувати дію та зберегти дані.</string>
+  <string name="delete_tags">Вилучити всі теґи у \"%1$s\"?</string>
   <string name="element_information">Відомості про елемент</string>
   <string name="id">Id</string>
   <string name="nodes">Точки</string>
@@ -109,10 +117,16 @@
   <string name="empty_role">порожня роль</string>
   <string name="element">елемент</string>
   <string name="last_updated">в останнє оновлено</string>
+  <string name="last_edited">В останнє змінено</string>
   <string name="error">помилка</string>
   <string name="warning">попередження</string>
   <string name="minor_issue">незначна проблема</string>
-  <string name="unknown_error_level">невідомий рівень помилки</string>
+  <string name="unknown_error_level">помилка невідомого рівня</string>
+  <string name="attached_object_warning_title">Ця операціє впливає на відфільтровані приєднанні обʼєкти!</string>
+  <string name="attached_object_warning_message">Змінений обʼєкт приєднано до прихованого елемента, який також буде змінений.</string>
+  <string name="evaluate">Оцінка</string>
+  <string name="js_console_msg_live">Наживо!</string>
+  <string name="js_console_msg_debug">Зневадження!</string>
   <!--Toaster-->
   <string name="toast_no_changes">Ви нічого ще не змінили…</string>
   <string name="toast_unsaved_changes">У Вас є незбережені зміни, збережіть їх спочатку.</string>
@@ -120,7 +134,7 @@
   <string name="toast_not_in_edit_range">Будь ласка, збільшіть масштаб щоб редагувати (Гучність +/-  або Рушій масштабу)</string>
   <string name="toast_unlock_to_edit">Розблокуйте для редагування</string>
   <string name="toast_edit_outside_downloaded_area">Ви не можете редагувати поза межами звантаженої ділянки</string>
-  <string name="toast_save_done">Збережено успішно</string>
+  <string name="toast_save_done">Збережено</string>
   <string name="toast_save_failed">Не вдалося зберегти</string>
   <string name="toast_not_in_bug_range">Будь ласка, збільшіть масштаб щоб додавати нотатки (Гучність +/- або Рушій масштабу)</string>
   <string name="toast_export_failed">Збій експорту</string>
@@ -130,6 +144,8 @@
   <string name="toast_potential_merge_tag_conflict">Ви намагаєтесь об’єднати елементи, що мають конфлікт у значеннях теґів. Будь ласка, перевірте їх та виправте перед тим як спробувати знов.</string>
   <string name="toast_state_file_failed">Не читається або пошкоджений файл стану</string>
   <string name="toast_too_many_nodes_for_move">У лінії дуже багато точок для переміщення</string>
+  <string name="toast_unread_mail">У вас є %1$d непрочитане(их) OSM-повідомлення</string>
+  <string name="toast_one_unread_mail">У вас є непрочитані OSM-повідомлення</string>
   <string name="toast_photo_indexing_started">Розпочато пошук геоприв’язаних світлин</string>
   <string name="toast_photo_indexing_finished">Закінчено пошук геоприв’язаних світлин</string>
   <string name="toast_download_failed">Збій завантаження, код помилки %1$d, повідомлення %2$s</string>
@@ -252,9 +268,6 @@
   <string name="menu_transfer_upload">Надіслати дані на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
   <string name="menu_transfer_file">Файл…</string>
-  <string name="menu_transfer_export">Експорт змін</string>
-  <string name="menu_transfer_read_file">Отримати з файлу</string>
-  <string name="menu_transfer_save_file">Зберегти в файл</string>
   <string name="menu_transfer_bugs">Нотатки/Помилки…</string>
   <string name="menu_transfer_bugs_download_current">Завантажити нотатки для поточного місця</string>
   <string name="menu_transfer_bugs_upload">Надіслати все</string>
@@ -277,6 +290,7 @@
   <string name="menu_extend_selection">Розширити виділення</string>
   <string name="menu_information">Інформація</string>
   <string name="menu_voice_commands">Голосові команди</string>
+  <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
   <string name="menu_tools">Інструменти</string>
   <string name="menu_tools_flush_background_tile_cache">Скинути кеш тайлів фону </string>
   <string name="menu_tools_flush_overlay_tile_cache">Скинути кеш тайлів додаткових шарів</string>
@@ -292,6 +306,7 @@
   <string name="menu_tools_background_contrast">Контраст</string>
   <string name="menu_tools_oauth_reset">Скинути OAuth</string>
   <string name="menu_tools_oauth_authorisation">Авторизувати OAuth</string>
+  <string name="menu_enable_presetfilter">Фільтр заготовок</string>
   <!--element action mode menu-->
   <string name="menu_tags">Властивості</string>
   <!--Text should be as short as possible-->
@@ -326,8 +341,6 @@
   <string name="config_maxAlertDistance_summary">Максимальна відстань до проблеми або нотатки від поточного місця для створення повідомлення</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
   <string name="config_maxStrokeWidth_summary">Не показувати лінію товстішою за цю</string>
-  <string name="config_tileCacheSize_title">Розмір кешу</string>
-  <string name="config_tileCacheSize_summary">Загальний розмір кешу в МБ</string>
   <string name="config_showStats_title">Показати статистику</string>
   <string name="config_showStats_summary">Показувати швидкодію у кадр/сек. у нижньому лівому кутку.</string>
   <string name="config_showTolerance_title">Показати чутливість</string>
@@ -414,8 +427,11 @@
   <string name="config_address_tags">Теґи адреси</string>
   <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
   <string name="config_moreprefs">Додаткові налаштування…</string>
+  <string name="config_tileCacheSize_title">Розмір кешу</string>
+  <string name="config_tileCacheSize_summary">Загальний розмір кешу в МБ</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Завжди затінювати незавантажені області</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">При встановленні не завантажені області будуть затінені в режимі перегляду</string>
+  <string name="manage_presets">Керування заготовками</string>
   <!--preset downloader messages-->
   <string name="preset_update">Оновити заготовку</string>
   <string name="preset_download_successful">Заготовка успішно звантажена</string>

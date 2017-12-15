@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">주의!</string>
   <string name="transfer_download_current_dialog_message">일부를 바꾸었습니다. 버리는 대신 업로드하겠습니까?</string>
@@ -305,9 +306,6 @@
   <string name="menu_transfer_upload">OSM 서버에 데이터 업로드</string>
   <string name="menu_transfer_close_changeset">현재 바뀜집합 닫기</string>
   <string name="menu_transfer_file">파일...</string>
-  <string name="menu_transfer_export">변경 내보내기</string>
-  <string name="menu_transfer_read_file">파일에서 읽기</string>
-  <string name="menu_transfer_save_file">파일로 저장</string>
   <string name="menu_transfer_bugs">참고/버그...</string>
   <string name="menu_transfer_bugs_download_current">현재 보기에 대한 버그 다운로드</string>
   <string name="menu_transfer_bugs_upload">모두 업로드</string>
@@ -382,8 +380,6 @@
   <string name="config_maxAlertDistance_title">알림의 최대 거리</string>
   <string name="config_maxAlertDistance_summary">알림을 생성할 현재 위치에서 찾을 수 있는 문제 또는 참고의 최대 거리</string>
   <string name="config_maxStrokeWidth_title">최대 줄 너비</string>
-  <string name="config_tileCacheSize_title">타일 캐시 크기</string>
-  <string name="config_tileCacheSize_summary">총 타일 캐시 크기 MB로</string>
   <string name="config_showStats_title">통계 보이기</string>
   <string name="config_showStats_summary">왼쪽 하단 모서리에 데이터 통계와 초당 프레임 수를 표시합니다.</string>
   <string name="config_showTolerance_summary">요소가 선택될 수 있는 지역을 표시합니다.</string>
@@ -457,6 +453,8 @@
   <string name="config_tagFormEnabled_summary">편집을 위해 태그 양식 표시</string>
   <string name="config_followGPSbutton_title">GPS 버튼 레이아웃 따르기</string>
   <string name="config_fullscreenMode_title">전체 화면 모드</string>
+  <string name="config_tileCacheSize_title">타일 캐시 크기</string>
+  <string name="config_tileCacheSize_summary">총 타일 캐시 크기 MB로</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">잠금 모드에서 다운로드 되지 않은 지역은 어둡게 될 것입니다</string>
   <!--preset downloader messages-->
   <string name="preset_update">프리셋 업데이트</string>

@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Coidado!</string>
   <string name="transfer_download_current_dialog_message">Fixeches algúns cambios. Queres subilos ou descartalos?</string>
@@ -338,9 +339,6 @@
   <string name="menu_transfer_upload">Subir datos ao servidor OSM</string>
   <string name="menu_transfer_close_changeset">Pechar trocos actuais</string>
   <string name="menu_transfer_file">Ficheiro…</string>
-  <string name="menu_transfer_export">Exportar cambios</string>
-  <string name="menu_transfer_read_file">Ler desde ficheiro</string>
-  <string name="menu_transfer_save_file">Gardar en ficheiro</string>
   <string name="menu_transfer_bugs">Notas/Erros</string>
   <string name="menu_transfer_bugs_download_current">Descargar erros para a vista actual</string>
   <string name="menu_transfer_bugs_upload">Subir todo</string>
@@ -434,8 +432,6 @@
   <string name="config_maxAlertDistance_summary">A distancia máxima á que un problema ou nota pode estar da posición actual para xerar unha notificación</string>
   <string name="config_maxStrokeWidth_title">Máxima anchura de liña</string>
   <string name="config_maxStrokeWidth_summary">Non debuxar unha vía máis ancha que isto</string>
-  <string name="config_tileCacheSize_title">Tamaño da caché de teselas</string>
-  <string name="config_tileCacheSize_summary">Tamaño total da caché de teselas en MB</string>
   <string name="config_showStats_title">Mostrar estadísticas</string>
   <string name="config_showStats_summary">Mostrar estadísticas de datos e fotogramas/seg na esquina inferior esquerda</string>
   <string name="config_showTolerance_title">Mostrar tolerancia</string>
@@ -534,6 +530,8 @@
   <string name="config_maxInlineValues_summary">Máximo número de valores en liña amosados en forma de etiqueta</string>
   <string name="config_maxTileDownloadThreads_title">Máx. número de fontes de baixadas</string>
   <string name="config_maxTileDownloadThreads_summary">Máximo número de fontes de baixada de mosaicos</string>
+  <string name="config_tileCacheSize_title">Tamaño da caché de teselas</string>
+  <string name="config_tileCacheSize_summary">Tamaño total da caché de teselas en MB</string>
   <string name="config_notificationCacheSize_title">Máx. número de notificacións amosadas</string>
   <string name="config_notificationCacheSize_summary">Número máximo de notificacións mostradas por tipo (min. 1)</string>
   <string name="config_autoLockDelay_title">Tempo de espera antes de auto pechado</string>

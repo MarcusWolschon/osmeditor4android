@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varování!</string>
   <string name="transfer_download_current_dialog_message">Provedl jste nějaké změny. Chcete je nahrát, nebo zahodit?</string>
@@ -27,6 +28,7 @@
   <string name="welcome_message">Děkujeme, že používáte Vespucci.\n\nChcete-li začít, potřebujete znát dvě věci:\n\n* klepnutí na ikonu zámku v levém horním rohu přepnete mezi uzamčeným režimem (bez možnosti úprav) a odemčeným režimem\n\n* pro přidání nového objektu: dlouhým stiskem nebo poklepáním na stejném místě přidáte uzel, dalším klepnutím začnete cestu.\n\nNezapomeňte si stáhnout oblast, kterou chcete upravit.\n\nPříjemnou zábavu!</string>
   <string name="read_introduction">Přečíst si nyní úvod</string>
   <string name="upgrade_title">Vítejte v nové verzi Vespucci!</string>
+  <string name="upgrade_message">Toto je nová verze Vespucci s novými funkcemi a vlastnostmi. Bude nejlepší si rychle pročíst informace o aktualizaci přímo v zařízení.</string>
   <string name="read_upgrade">Informace o nové verzi</string>
   <string name="progress_title">Načítám</string>
   <string name="progress_message">Načítam data do paměti…</string>
@@ -177,8 +179,11 @@
   <string name="tag_menu_resetMRU">Resetovat předvolby</string>
   <string name="tag_menu_reset_address_prediction">Resetovat předvyplněnou adresu</string>
   <string name="tag_menu_exit_no_save">Odejít\nbez uložení</string>
+  <string name="tag_value_hint">Zadejte hodnotu</string>
+  <string name="tag_autocomplete_value_hint">Pište nebo klepněte pro hodnoty</string>
   <string name="tag_autocomplete_name_hint">Pište nebo klikněte pro návrhy názvu</string>
   <string name="tag_multi_value_hint">Více hodnot</string>
+  <string name="tag_dialog_value_hint">Klepněte pro zvolení hodnoty</string>
   <string name="tag_action_tag_title">Zvolené tagy</string>
   <string name="tag_action_members_title">Zvolené členy</string>
   <string name="tag_action_parents_title">Zvolené relace</string>
@@ -258,9 +263,6 @@
   <string name="menu_transfer_upload">Nahrát data na OSM server</string>
   <string name="menu_transfer_close_changeset">Uzavřít aktuální sadu změn</string>
   <string name="menu_transfer_file">Soubor...</string>
-  <string name="menu_transfer_export">Exportovat změny</string>
-  <string name="menu_transfer_read_file">Načíst ze souboru</string>
-  <string name="menu_transfer_save_file">Uložit do souboru</string>
   <string name="menu_transfer_bugs">Poznámky/Chyby...</string>
   <string name="menu_transfer_bugs_download_current">Stáhnout chyby pro aktuální pohled</string>
   <string name="menu_transfer_bugs_upload">Nahrát vše</string>
@@ -345,8 +347,6 @@
   <string name="config_maxAlertDistance_summary">Maximální vzdálenost problému nebo poznámky, která může být od aktuální polohy, pro generování oznámení</string>
   <string name="config_maxStrokeWidth_title">Max. tloušťka čáry</string>
   <string name="config_maxStrokeWidth_summary">Nekreslit tlustší cestu než tuto</string>
-  <string name="config_tileCacheSize_title">Velikost mezipaměti s dlaždicemi</string>
-  <string name="config_tileCacheSize_summary">Celková velikost mezipaměti s dlaždicemi v MB</string>
   <string name="config_showStats_title">Zobrazit statistiku</string>
   <string name="config_showStats_summary">Zobrazí statistické data a počet snímků za sekundu v levém spodním rohu.</string>
   <string name="config_showTolerance_title">Zobrazit toleranci</string>
@@ -427,6 +427,8 @@
   <string name="config_fullscreenMode_summary">Chování v zařízeních se softwarovými tlačítky.</string>
   <string name="config_maxTileDownloadThreads_title">Max. počet vláken pro stahování</string>
   <string name="config_maxTileDownloadThreads_summary">Maximální počet vláken pro stahování dlaždic.</string>
+  <string name="config_tileCacheSize_title">Velikost mezipaměti s dlaždicemi</string>
+  <string name="config_tileCacheSize_summary">Celková velikost mezipaměti s dlaždicemi v MB</string>
   <string name="config_notificationCacheSize_title">Max. počet zobrazených notifikací</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Pokud je nastaveno, nestažené oblasti budou tmavé v Uzamčeném režimu</string>

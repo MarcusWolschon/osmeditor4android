@@ -32,13 +32,16 @@ A forma máis sinxela de descargar datos ao dispositivo é achegar e panoramizar
 
 <a id="lock"></a>
 
-#### Bloquear, desbloquear, "só editor de etiquetas", modo interior 
+#### Lock, unlock, mode switching
 
 Para evitar edicións accidentais Vespucci comeza no modo "bloqueado", un modo que só permite achegar e mover o mapa. Tócao! [Locked](../images/locked.png) icona para desbloquear a pantalla. 
 
-Unha pulsación longa na icona de bloqueo habilitará o modo "Edición de etiquetas só" que non permitirá editar a xeometría dos obxectos ou moverlos, este modo indícase cun icono de bloqueo branco un pouco diferente. Non obstante, pode crear novos nodos e formas cunha prensa longa como normal.
+A long press on the lock icon will display a menu currently offering 4 options:
 
-Outra pulsación longa activará  [Indoor mode](#indoor), e outra máis volverá ao modo de edición normal.
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 Toque único, dobre toque e prema longa
 
@@ -95,7 +98,7 @@ Tamén pode usar un elemento de menú: Ver [Creating new objects](../en/Creating
 
 #### Engadindo un Área
 
-OpenStreetMap actualmente non ten un tipo de obxecto de "área" contrario a outros sistemas de datos xeométricos. O editor en liña "iD" tenta crear unha área de abstracción dos elementos OSM subxacentes que funciona ben nalgunhas circunstancias, noutros non é así. Vespucci actualmente non trata de facer nada similar, polo que precisa saber un pouco sobre a forma en que as áreas están representadas:
+OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
 * _closed ways (*polygons")_: A variante de área máis sinxela e máis común, son formas que teñen un primeiro e último nodo compartido que forman un "anel" pechado (por exemplo, a maioría dos edificios son deste tipo). Son moi fáciles de crear en Vespucci, simplemente conéctate ao primeiro nodo cando termine de debuxar a área. Nota: a interpretación do camiño pechado depende da súa etiquetaxe: por exemplo, se un camiño pechado está etiquetado como un edificio considerado como unha área, se está marcado como unha rotonda, non vai. Nalgunhas situacións nas que ambas interpretacións poden ser válidas, unha etiqueta de "área" pode aclarar o uso desexado.
 * _multi-ploygons_:Algunhas áreas teñen múltiples partes, buratos e aneis que non se poden representar con só un xeito. OSM usa un tipo específico de relación (o noso obxecto de propósito xeral que pode modelar as relacións entre elementos) para evitar isto, un multipolígono. Un multipolígono pode ter varios aneis "externos" e múltiples aneis "internos". Cada anel pode ser un xeito pechado como se describe arriba, ou varias formas individuais que teñen nós extremos comúns. Mentres os grandes multipolígonos son difíciles de manexar con calquera ferramenta, os pequenos non son difíciles de crear en Vespucci.
@@ -180,7 +183,43 @@ Ademais de habilitar globalmente as notas e os erros, podes establecer un filtro
 
 O mapeo en interiores é un reto debido ao gran número de obxectos que moitas veces se superponerán. Vespucci ten un modo interior dedicado que permite filtrar todos os obxectos que non están no mesmo nivel e que engadirán automaticamente o nivel actual aos novos obxectos creados.
 
-O modo pode ser activado premendo longamente no elemento de bloqueo, consulte [Lock, unlock, "tag editing only", indoor mode](#lock).
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+
+<a id="c-mode"></a>
+
+## C-Mode
+
+In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+
+A mode that only shows elements that have warnings and validation code that adds user configurable tests for missing tags and makes the re-survey warning time fully configurable. 
+
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+
+### Configuring checks
+
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+
+The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+
+#### Re-survey entries
+
+Re-survey entries have the following properties:
+
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regualr expression.
+
+**Key** and **Value** are checked against the _existing_ keys of the object in question.
+
+#### Check entries
+
+Check entries have the following two properties:
+
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Check optional** - Check the optional tags of the matching preset.
+
+This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## Filtros
 

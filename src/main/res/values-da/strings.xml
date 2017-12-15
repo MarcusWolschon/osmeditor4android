@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
   <string name="transfer_download_current_dialog_message">Du har lavet ændringer. Vil du uploade dem i stedet for at afbryde?</string>
@@ -175,9 +176,6 @@
   <string name="menu_transfer_download_current">Download nuværende udsnit</string>
   <string name="menu_transfer_upload">Upload data til OSM server</string>
   <string name="menu_transfer_file">Filer...</string>
-  <string name="menu_transfer_export">Eksporter ændringer</string>
-  <string name="menu_transfer_read_file">Læs fra fil</string>
-  <string name="menu_transfer_save_file">Gem til fil</string>
   <string name="menu_transfer_bugs">Noter/Fejl...</string>
   <string name="menu_transfer_bugs_upload">Upload alt</string>
   <string name="menu_transfer_bugs_upload_long">Upload alle fejl</string>
@@ -204,8 +202,6 @@
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">Max linjebredde</string>
   <string name="config_maxStrokeWidth_summary">Tegn ikke en vej tykkere end dette</string>
-  <string name="config_tileCacheSize_title">Tern cache størrelse</string>
-  <string name="config_tileCacheSize_summary">Total størrelse på tern cache i MB</string>
   <string name="config_showStats_title">Vis statistik</string>
   <string name="config_showStats_summary">Viser datastatistik og billeder/sec i nederste vensdtre hjørne.</string>
   <string name="config_showTolerance_title">Vis tolerance</string>
@@ -244,6 +240,8 @@
   <string name="config_gps_source_tcp_title">NMEA netværks kilde</string>
   <string name="config_leaveGpsDisabled_title">Lad GPS være deaktiveret</string>
   <string name="config_leaveGpsDisabled_summary">Spørg ikke brugeren om at tænde GPS, hvis den er deaktiveret</string>
+  <string name="config_tileCacheSize_title">Tern cache størrelse</string>
+  <string name="config_tileCacheSize_summary">Total størrelse på tern cache i MB</string>
   <!--preset downloader messages-->
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" slettet</string>

@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenció!</string>
   <string name="transfer_download_current_dialog_message">Heu fet alguns canvis. Voleu pujar-los en comptes de descartar-los?</string>
@@ -230,8 +231,6 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="menu_transfer_download_current">Baixa la visualització actual</string>
   <string name="menu_transfer_upload">Puja les dades al servidor OSM</string>
   <string name="menu_transfer_file">Fitxer...</string>
-  <string name="menu_transfer_export">Exporta els canvis</string>
-  <string name="menu_transfer_save_file">Desa al fitxer</string>
   <string name="menu_transfer_bugs_clear">Netejar</string>
   <string name="menu_save">Desa al fitxer</string>
   <string name="menu_join">Uneix</string>
@@ -265,8 +264,6 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="actionmode_one_object">1 objecte</string>
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">Amplada màxima de la línia</string>
-  <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
-  <string name="config_tileCacheSize_summary">Mida total en MB de la memòria cau per les tessel·les</string>
   <string name="config_showStats_title">Mostra les estadístiques</string>
   <string name="config_showStats_summary">Mostra les dades estadístiques i els marcs/segon a la cantonada inferior esquerra.</string>
   <string name="config_showTolerance_title">Mostra la tolerància</string>
@@ -303,6 +300,8 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="config_licensebutton_summary">Mostra els autors i la informació de llicència</string>
   <string name="config_use_back_for_undo_title">Usa la tecla retrocès per a desfer</string>
   <string name="config_gps_source_title">Font GPS</string>
+  <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
+  <string name="config_tileCacheSize_summary">Mida total en MB de la memòria cau per les tessel·les</string>
   <!--preset downloader messages-->
   <!--changes-->
   <string name="changes_deleted">S\'ha suprmit \"%1$s\"</string>

@@ -1,5 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
+  <string name="mode_easy">Normal</string>
+  <string name="mode_tag_only">Etiquetas apenas</string>
+  <string name="mode_indoor">Interior</string>
+  <string name="mode_correct">Modo-C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenção!</string>
   <string name="transfer_download_current_dialog_message">Fez algumas alterações. Quer enviar as alterações para não serem perdidas?</string>
@@ -41,10 +46,10 @@
   <string name="invalid_data_read_message">O ficheiro contém dados inválidos. Se acredita que o que está a fazer está correto, por favor submeta um relatório de erro.</string>
   <string name="file_write_failed_title">Ocorreu uma falha ao gravar o ficheiro</string>
   <string name="file_write_failed_message">Não foi possível gravar no ficheiro escolhido.</string>
-  <string name="welcome_title">Bem vindo!</string>
+  <string name="welcome_title">Bem-vindo(a)!</string>
   <string name="welcome_message">Obrigado por usar o Vespucci.\n\nPara começar tem de conhecer duas coisas:\n\n* carregando no ícone do cadeado no canto superior esquerdo irá mudar entre o modo bloqueado (não editável) e desbloqueado\n\n* para adicionar um novo objeto: carregue prolongadamente no local para adicionar um nó, carregando novamente começa uma linha.\n\nNão se esqueça de descarregar primeiro a área que quer editar.\n\nDivirta-se!</string>
   <string name="read_introduction">Ler as instruções agora</string>
-  <string name="upgrade_title">Bem vindo à nova versão do Vespucci!</string>
+  <string name="upgrade_title">Bem-vindo(a) à nova versão do Vespucci!</string>
   <string name="upgrade_message">Isto é uma nova versão do Vespucci com novas funcionalidades e comportamentos. É melhor ler a informação sobre esta nova versão.</string>
   <string name="read_upgrade">Ver informações sobre a nova versão</string>
   <string name="progress_title">A carregar</string>
@@ -67,7 +72,7 @@
   <string name="openstreetbug_new_title">Novo Erro Reportado</string>
   <string name="openstreetbug_new_bug">Reportar Erro</string>
   <string name="openstreetbug_bug_title">Erro</string>
-  <string name="openstreetbug_new_nodeway">Criar Nó/Via</string>
+  <string name="openstreetbug_new_nodeway">Criar Nó/Linha</string>
   <string name="openstreetbug_edit_title">Editar Erro Reportado</string>
   <string name="openstreetbug_commitbutton">Gravar</string>
   <string name="openstreetbug_comment_label">Comentário:</string>
@@ -77,6 +82,8 @@
   <string name="openstreetbug_commit_fail">Não foi possível gravar as alterações do erro</string>
   <string name="openstreetbug_not_downloaded">não descarregado</string>
   <string name="openstreetbug_last_updated">última atualização</string>
+  <string name="openstreetbug_unknown_task_type">Modo tarefas não designadas</string>
+  <string name="openstreetbug_not_supported">%1$snão é suportado</string>
   <string name="unsaved_data_title">Atenção!</string>
   <string name="unsaved_data_message">Tem alterações por gravar que serão perdidas se prosseguir.</string>
   <string name="unsaved_data_proceed">Não gravar alterações e prosseguir</string>
@@ -94,13 +101,13 @@
   <string name="search_results_title">Resultados da pesquisa</string>
   <string name="find_message">Introduza o texto a pesquisar</string>
   <string name="geocoder_prompt">com</string>
-  <string name="preset_search_hint">Expressão a pesquisar</string>
+  <string name="preset_search_hint">Etiquetas a pesquisar</string>
   <string name="search">Pesquisar</string>
   <string name="no_valid_preset">Nenhum modelo de etiquetas válido!</string>
-  <string name="read_file">Selecione o arquivo para ler</string>
-  <string name="save_file">Digite o arquivo à salvar</string>
-  <string name="existing_track_title">Dados de percurso existente</string>
-  <string name="existing_track_message">Você já tem dados de percurso. Você pode desejar cancelar e salvar antes.</string>
+  <string name="read_file">Selecione o ficheiro a ler</string>
+  <string name="save_file">Introduza o ficheiro onde gravar</string>
+  <string name="existing_track_title">Dados do trilho GPS existentes</string>
+  <string name="existing_track_message">Já tem dados de trilho GPS. Pode querer cancelar e gravar primeiro.</string>
   <string name="delete_tags">Eliminar todas as etiquetas do objeto \"%1$s\"?</string>
   <string name="element_information">Informação do elemento</string>
   <string name="id">ID</string>
@@ -124,7 +131,7 @@
   <string name="attached_object_warning_message">O objeto alterado está ligado a elementos ocultos que também serão alterados.</string>
   <string name="attached_object_warning_continue">OK, continuar a mostrar esta mensagem</string>
   <string name="attached_object_warning_stop">OK, parar de mostrar esta mensagem</string>
-  <string name="send_debug_information">Enviar informação de depuração de erros</string>
+  <string name="send_debug_information">Enviar informação de depuração</string>
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo ao vivo!</string>
   <string name="js_console_msg_debug">Modo depuração de erros!</string>
@@ -142,11 +149,11 @@
   <string name="toast_export_success">Exportado para %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - modelo gravou por cima das etiquetas</string>
   <string name="toast_merge_overwrote_tags">Nota - operação gravou por cima das etiquetas</string>
-  <string name="toast_oneway_reversed">Inverteu uma via de sentido único ou uma via com etiquetas que dependem da direção. Por favor verifique as etiquetas e corrija-as se for necessário.</string>
+  <string name="toast_oneway_reversed">Inverteu uma linha de sentido único ou uma linha com etiquetas que dependem da direção. Por favor verifique as etiquetas e corrija-as se for necessário.</string>
   <string name="toast_merge_tag_conflict">Uniu elementos que têm etiquetas com valores em conflito, ou semântica dependente da direção ou funções diferentes na mesma relação. Por favor verifique as etiquetas e funções e corrija-as se for necessário.</string>
   <string name="toast_potential_merge_tag_conflict">Está a tentar unir elementos que têm valores de etiquetas em conflito. Por favor verifique as etiquetas e corrija-as antes de tentar de novo.</string>
   <string name="toast_state_file_failed">Ficheiro ilegível ou corrompido</string>
-  <string name="toast_too_many_nodes_for_move">A via tem demasiados nós para poder ser deslocada</string>
+  <string name="toast_too_many_nodes_for_move">A linha tem demasiados nós para poder ser deslocada</string>
   <string name="toast_unread_mail">Tem %1$d mensagens no OpenStreetMap por ler</string>
   <string name="toast_one_unread_mail">Tem uma mensagem no OpenStreetMap por ler</string>
   <string name="toast_photo_indexing_started">Iniciada a procura por fotos geo-referenciadas</string>
@@ -182,10 +189,10 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_used_backup">O ficheiro de estado está corrompido. A usar o ficheiro de cópia de segurança!</string>
   <string name="toast_used_bug_backup">O ficheiro de estado de erro está corrompido. A usar o ficheiro de cópia de segurança!</string>
   <string name="toast_rmpty_relation">Relação sem nada. A criar relatório de erro.</string>
-  <string name="toast_split_from">Via \"from\" (de) dividida</string>
-  <string name="toast_split_via">Via \"via\" (através de) dividida</string>
-  <string name="toast_split_from_and_via">Vias \"from\" (de) e \"via\" (através de) divididas</string>
-  <string name="toast_split_to">Via \"to\" (para) dividida</string>
+  <string name="toast_split_from">Linha \"from\" (de) dividida</string>
+  <string name="toast_split_via">Linha \"via\" (através de) dividida</string>
+  <string name="toast_split_from_and_via">Linha \"from\" (de) e \"via\" (através de) divididas</string>
+  <string name="toast_split_to">Linha \"to\" (para) dividida</string>
   <string name="toast_tile_database_full">A base de dados das telas do mapa ou o disco está cheio!\nSaia, elimine a base de dados ou disponibilize mais espaço de armazenamento.</string>
   <string name="toast_invalid_apiurl">URL da API inválido</string>
   <string name="toast_invalid_readonlyurl">URL de leitura da API inválido</string>
@@ -234,7 +241,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="value">valor</string>
   <string name="Value">Valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Pt:Map_Features</string>
-  <string name="tag_menu_address">Incluir tags de endereço</string>
+  <string name="tag_menu_address">Adicionar etiquetas de endereço</string>
   <string name="tag_menu_sourcesurvey">Verificado no terreno</string>
   <string name="tag_menu_preset">Modelos de etiquetas</string>
   <string name="tag_menu_apply_preset">Aplicar o modelo de etiquetas adequado</string>
@@ -242,7 +249,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_mapfeatures">Wiki de Elementos do Mapa</string>
   <string name="tag_menu_addtorelation">Adicionar à relação</string>
-  <string name="tag_menu_resetMRU">Repôr Modelos de Etiquetas</string>
+  <string name="tag_menu_resetMRU">Limpar etiquetas recentes</string>
   <string name="tag_menu_reset_address_prediction">Repôr previsão de endereço</string>
   <string name="tag_menu_exit_no_save">Sair
 sem gravar</string>
@@ -344,9 +351,6 @@ há %3$s %4$s</string>
   <string name="menu_transfer_upload">Enviar dados para o OSM</string>
   <string name="menu_transfer_close_changeset">Fechar o conjunto de alterações atual</string>
   <string name="menu_transfer_file">Ficheiro...</string>
-  <string name="menu_transfer_export">Exportar alterações</string>
-  <string name="menu_transfer_read_file">Abrir ficheiro</string>
-  <string name="menu_transfer_save_file">Gravar ficheiro</string>
   <string name="menu_transfer_bugs">Erros Reportados/Erros OSMOSE...</string>
   <string name="menu_transfer_bugs_download_current">Descarregar erros na vista atual</string>
   <string name="menu_transfer_bugs_upload">Enviar tudo</string>
@@ -399,18 +403,18 @@ há %3$s %4$s</string>
   <string name="menu_history">Histórico</string>
   <string name="menu_merge">Unir</string>
   <string name="menu_reverse">Inverter</string>
-  <string name="notreversable_description">Esta via tem etiquetas com atributos que são dependentes da direção e não pode ser invertida. Se inverter a via irá mudar o sentido das etiquetas.</string>
+  <string name="notreversable_description">Esta linha tem etiquetas com atributos que são dependentes da direção e não pode ser invertida. Se inverter a linha irá mudar o sentido das etiquetas.</string>
   <string name="reverse_anyway">Inverter mesmo assim</string>
-  <string name="deleteway_description">Está prestes a eliminar uma via. Pode optar por manter todos os nós, ou eliminar os nós que pertencem apenas a esta via e que não têm etiquetas.</string>
-  <string name="deleteway_relation_description">Estás prestes a eliminar uma via que é membro de uma ou mais relações. Se remover a via destas relações pode torná-las inválidas.</string>
-  <string name="deleteway_nodesnotdownloaded_description">A via tem nós fora da área descarregada e não pode ser eliminada sem ser criado um estado inconsistente. Descarregue toda a via antes de tentar novamente.</string>
-  <string name="deleteway_wayonly">Eliminar apenas a via</string>
-  <string name="deleteway_wayandnodes">Aliminar a via e os nós</string>
+  <string name="deleteway_description">Está prestes a eliminar uma linha. Pode optar por manter todos os nós, ou eliminar os nós que pertencem apenas a esta linha e que não têm etiquetas.</string>
+  <string name="deleteway_relation_description">Estás prestes a eliminar uma linha que é membro de uma ou mais relações. Se remover a linha destas relações pode torná-las inválidas.</string>
+  <string name="deleteway_nodesnotdownloaded_description">A linha tem nós fora da área descarregada e não pode ser eliminada sem ser criado um estado inconsistente. Descarregue toda a linha antes de tentar novamente.</string>
+  <string name="deleteway_wayonly">Eliminar apenas a linha</string>
+  <string name="deleteway_wayandnodes">Eliminar a linha e os nós</string>
   <string name="deletenode_relation_description">Está prestes a eliminar um nó que é membro de uma ou mais relações. Se remover o nó das relações, pode torná-las inválidas.</string>
   <string name="deletenode">Eliminar nó</string>
-  <string name="split_all_ways">Dividir todas as vias</string>
+  <string name="split_all_ways">Dividir todas as linhas</string>
   <!--EasyEdit action mode titles-->
-  <string name="actionmode_wayselect">Via selecionada</string>
+  <string name="actionmode_wayselect">Linha selecionada</string>
   <string name="actionmode_nodeselect">Nó selecionado</string>
   <string name="actionmode_relationselect">Relação selecionada</string>
   <string name="actionmode_createpath">A criar caminho</string>
@@ -437,16 +441,14 @@ há %3$s %4$s</string>
   <string name="config_voiceCommandsEnabled_title">Ativar comandos de voz</string>
   <string name="config_voiceCommandsEnabled_summary">Ativar suporte de comandos de voz experimental</string>
   <string name="config_maxAlertDistance_title">Distância máxima para as notificações</string>
-  <string name="config_maxAlertDistance_summary">A distãncia máxima a que um problema ou erro reportado pode estar da posição atual para gerar uma notificação</string>
+  <string name="config_maxAlertDistance_summary">A distância máxima a que um problema ou erro reportado pode estar da posição atual para gerar uma notificação</string>
   <string name="config_maxStrokeWidth_title">Espessura máxima da linha</string>
-  <string name="config_maxStrokeWidth_summary">Não desenhar uma via mais larga que isto</string>
-  <string name="config_tileCacheSize_title">Tamanho dos ficheiros temporários de telas</string>
-  <string name="config_tileCacheSize_summary">Tamanho total dos ficheiros temporários das telas em MB</string>
+  <string name="config_maxStrokeWidth_summary">Não desenhar uma linha mais larga que isto</string>
   <string name="config_showStats_title">Ver estatísticas</string>
   <string name="config_showStats_summary">Mostra estatísticas dos dados e quadros por segundo no canto inferior esquerdo.</string>
   <string name="config_showTolerance_title">Ver tolerância</string>
   <string name="config_showTolerance_summary">Mostra a área onde um elemento pode ser selecionado.</string>
-  <string name="config_enableAntiAliasing_title">Ativar Suavização</string>
+  <string name="config_enableAntiAliasing_title">Ativar suavização</string>
   <string name="config_enableAntiAliasing_summary">Torna as linhas mais suaves como anti-serrilhado.</string>
   <string name="config_enableOpenStreetBugs_title">Mostrar Erros Report. e OSMOSE</string>
   <string name="config_enableOpenStreetBugs_summary">Visualizar, Editar e Criar Erros Reportados/OSMOSE</string>
@@ -454,7 +456,7 @@ há %3$s %4$s</string>
   <string name="config_enablePhotoLayer_summary">Mostrar fotos geo-referenciadas</string>
   <string name="config_enableKeepScreenOn_title">Manter ecrã ligado</string>
   <string name="config_enableKeepScreenOn_summary">Não desligar o ecrã para poupar energia.</string>
-  <string name="config_closeChangesetOnSave_title">Fechar os conjuntos de alterações</string>
+  <string name="config_closeChangesetOnSave_title">Fechar conj. de alterações</string>
   <string name="config_closeChangesetOnSave_summary">Fechar os conjuntos de alterações por padrão ao gravar</string>
   <string name="config_backgroundLayer_title">Mapa de fundo</string>
   <string name="config_backgroundLayer_summary">O mapa de fundo desenhado.</string>
@@ -476,7 +478,7 @@ há %3$s %4$s</string>
   <string name="config_presetbutton_summary">Adicionar e ativar modelos de etiquetas compatíveis com o JOSM</string>
   <string name="config_iconbutton_title">Ver ícones dos nós</string>
   <string name="config_iconbutton_summary">Mostra o ícone do modelo de etiqueta mais adequado sobre os nós.</string>
-  <string name="config_showWayIcons_title">Mostrar ícones de POI em edifícios</string>
+  <string name="config_showWayIcons_title">Ver ícones POI em edifícios</string>
   <string name="config_showWayIcons_summary">Mostra o ícone dos modelos de etiquetas mais adequados por cima de edifícios.</string>
   <string name="config_loginbutton_title">Conta de utilizador</string>
   <string name="config_username_title">Nome de utilizador OSM</string>
@@ -490,7 +492,7 @@ há %3$s %4$s</string>
   <string name="config_gps_interval_summary">O intervalo de tempo mínimo para notificações GPS, em milisegundos. Valores baixos gastam mais bateria.</string>
   <string name="config_category_info">Sobre</string>
   <string name="config_advancedprefs">Configurações avançadas</string>
-  <string name="config_forceContextMenu_title">Usar sempre menus de contexto</string>
+  <string name="config_forceContextMenu_title">Usar menus de contexto</string>
   <string name="config_forceContextMenu_summary">Mostrar sempre o menu de contexto no modo Edição Fácil se a seleção for ambígua.</string>
   <string name="config_licensebutton_title">Autores e licenças</string>
   <string name="config_licensebutton_summary">Ver informação sobre os autores e licenças</string>
@@ -498,13 +500,13 @@ há %3$s %4$s</string>
   <string name="config_debugbutton_summary">Ver algumas informações internas</string>
   <string name="config_mapProfile_title">Perfil do mapa</string>
   <string name="config_mapProfile_summary">Definir estilo e visibilidade dos elementos</string>
-  <string name="config_use_back_for_undo_title">Usar a tecla de retorno para Desfazer</string>
+  <string name="config_use_back_for_undo_title">Tecla retorno para desfazer</string>
   <string name="config_use_back_for_undo_summary">Usar a tecla de retorno para desfazer alterações na janela principal de edição</string>
-  <string name="config_largeDragArea_title">Área grande de arrasto do nó</string>
-  <string name="config_largeDragArea_summary">Fornece uma área grande para arrasto dos nós</string>
+  <string name="config_largeDragArea_title">Área grande de arrasto</string>
+  <string name="config_largeDragArea_summary">Usa uma área grande para poder arrastar os nós</string>
   <string name="config_extTriggeredDownloadRadius_title">Raio para descarregar</string>
   <string name="config_extTriggeredDownloadRadius_summary">Raio (m) dos descarregamentos desencadeados externamente, 0 = centrar apenas no mapa.</string>
-  <string name="config_maxDownloadSpeed_title">Velocidade máxima de descarregamento automático</string>
+  <string name="config_maxDownloadSpeed_title">Vel. máx. descarregamento automático</string>
   <string name="config_maxDownloadSpeed_summary">Limite (em Km/h) sobre o qual o descarregamento automático é interrompido</string>
   <string name="config_bugDownloadRadius_title">Raio de descarregamento de Erros Reportados/OSMOSE</string>
   <string name="config_bugDownloadRadius_summary">Raio (m) de descarregamento de erros reportados/OSMOSE</string>
@@ -538,13 +540,15 @@ há %3$s %4$s</string>
   <string name="config_fullscreenMode_summary">Comportamento em dispositivos com teclas \"suaves\".</string>
   <string name="config_maxInlineValues_title">Nº máx. de valores na linha</string>
   <string name="config_maxInlineValues_summary">Número máximo de valores na linha mostrados no formulário de etiquetas</string>
-  <string name="config_maxTileDownloadThreads_title">Número máximo de tarefas de descarregamento</string>
+  <string name="config_maxTileDownloadThreads_title">Nº máx. tarefas de descarregamento</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de tarefas de descarregamento de telas</string>
-  <string name="config_notificationCacheSize_title">Número máximo de notificações mostradas</string>
+  <string name="config_tileCacheSize_title">Tamanho dos ficheiros temporários de telas</string>
+  <string name="config_tileCacheSize_summary">Tamanho total dos ficheiros temporários das telas em MB</string>
+  <string name="config_notificationCacheSize_title">Nº máx. notificações mostradas</string>
   <string name="config_notificationCacheSize_summary">Número máximo de notificações por tipo (min 1)</string>
-  <string name="config_autoLockDelay_title">Tempo de espera antes de bloquear automaticamente</string>
+  <string name="config_autoLockDelay_title">Tempo de espera de bloqueio</string>
   <string name="config_autoLockDelay_summary">Tempo de espera em segundos antes do bloqueio automático ser ativado, usar 0 para desativar</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Escurecer sempre áreas não descarregadas</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Escurecer áreas não descarregadas</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Se ativado, as áreas não descarregadas serão escurecidas no modo bloqueado</string>
   <string name="config_geocoderbutton_title">Configurar Geo-codificadores</string>
   <string name="config_geocoderbutton_summary">Adicionar, editar, eliminar geo-codificador para a funcionalidade de procura</string>
@@ -604,27 +608,27 @@ há %3$s %4$s</string>
   <string name="address_housenumber_street">Endereço %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover nó</string>
-  <string name="undo_action_moveway">mover via</string>
+  <string name="undo_action_moveway">mover linha</string>
   <string name="undo_action_moveobjects">mover objetos</string>
   <string name="undo_action_add">inserir</string>
   <string name="undo_action_append">associar</string>
   <string name="undo_action_deletenode">eliminar nó</string>
-  <string name="undo_action_deleteway">eliminar via</string>
+  <string name="undo_action_deleteway">eliminar linha</string>
   <string name="undo_action_delete_objects">eliminar objetos</string>
-  <string name="undo_action_split_ways">dividir vias</string>
-  <string name="undo_action_split_way">dividir via</string>
-  <string name="undo_action_merge_ways">unir vias</string>
-  <string name="undo_action_reverse_way">inverter via</string>
+  <string name="undo_action_split_ways">dividir linhas</string>
+  <string name="undo_action_split_way">dividir linha</string>
+  <string name="undo_action_merge_ways">unir linhas</string>
+  <string name="undo_action_reverse_way">inverter linha</string>
   <string name="undo_action_set_tags">definir etiquetas</string>
   <string name="undo_action_join">unir</string>
-  <string name="undo_action_unjoin_ways">dividir vias</string>
+  <string name="undo_action_unjoin_ways">dividir linhas</string>
   <string name="undo_action_create_relation">criar relação</string>
   <string name="undo_action_delete_relation">eliminar relação</string>
   <string name="undo_action_update_relations">atualizar relações</string>
   <string name="undo_action_cut">cortar</string>
   <string name="undo_action_paste">colar</string>
-  <string name="undo_action_rotateway">rodar via</string>
-  <string name="undo_action_orthogonalize">ortogonalizar via</string>
+  <string name="undo_action_rotateway">rodar linha</string>
+  <string name="undo_action_orthogonalize">ortogonalizar linha</string>
   <string name="undo_action_circulize">organizar em círculo</string>
   <string name="undo_action_fix_conflict">corrigir conflito</string>
   <string name="undo_action_extract_node">extrair nó</string>
@@ -636,7 +640,7 @@ há %3$s %4$s</string>
   <string name="pref_acra_enabled">Reporte de erros ativado</string>
   <string name="pref_acra_disabled">Reporte de erros desativado</string>
   <!--Exceptions messages-->
-  <string name="exception_too_many_nodes">Esta operação criaria uma via com muitos nós.</string>
+  <string name="exception_too_many_nodes">Esta operação iria criar uma linha com muitos nós.</string>
   <!--Notifications-->
   <string name="alert_data_issue">Foi detetado um problema com os dados do OpenStreetMap</string>
   <string name="alert_note">Foi detetada um erro reportado no OSM nas redondezas</string>

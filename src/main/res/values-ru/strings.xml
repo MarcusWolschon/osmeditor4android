@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Внимание!</string>
   <string name="transfer_download_current_dialog_message">Вы внесли изменения. Хотите передать их на сервер?</string>
@@ -312,9 +313,6 @@
   <string name="menu_transfer_upload">Передача данных на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
   <string name="menu_transfer_file">Файл...</string>
-  <string name="menu_transfer_export">Экспорт изменений</string>
-  <string name="menu_transfer_read_file">Прочитать из файла</string>
-  <string name="menu_transfer_save_file">Сохранить в файл</string>
   <string name="menu_transfer_bugs">Заметки/Ошибки...</string>
   <string name="menu_transfer_bugs_download_current">Скачать ошибки для текущего вида</string>
   <string name="menu_transfer_bugs_upload">Залить всё</string>
@@ -403,8 +401,6 @@
   <string name="config_maxAlertDistance_summary">Максимальное расстояние до заметки или проблемы от текущей позиции, на котором ещё показываются уведомлиния</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина линии</string>
   <string name="config_maxStrokeWidth_summary">Не рисовать линию толще, чем эта</string>
-  <string name="config_tileCacheSize_title">Размер кеша</string>
-  <string name="config_tileCacheSize_summary">Общий размер кеша в МБ</string>
   <string name="config_showStats_title">Показать статистику</string>
   <string name="config_showStats_summary">Отображать быстродействие кадр/сек. в нижнем левом углу.</string>
   <string name="config_showTolerance_title">Показать захват</string>
@@ -501,6 +497,8 @@
   <string name="config_maxInlineValues_summary">Макс. число встроенных значений отображенных в форме тега</string>
   <string name="config_maxTileDownloadThreads_title">Макс. число потоков загрузки</string>
   <string name="config_maxTileDownloadThreads_summary">Максимальное число потоков загрузки тайлов</string>
+  <string name="config_tileCacheSize_title">Размер кеша</string>
+  <string name="config_tileCacheSize_summary">Общий размер кеша в МБ</string>
   <string name="config_notificationCacheSize_title">Макс. число показываемых предупреждений</string>
   <string name="config_autoLockDelay_title">Время ожидания до автоблокировки</string>
   <string name="config_autoLockDelay_summary">Время ожидания в секундах до автоблокировки, 0 - отключена.</string>

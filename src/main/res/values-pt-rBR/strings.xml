@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Cuidado!</string>
   <string name="transfer_download_current_dialog_message">Você fez algumas modificações. Deseja transferir ao invés de descartar?</string>
@@ -122,9 +123,6 @@
   <string name="menu_gps_goto_start">Ir para o começo da trilha</string>
   <string name="menu_transfer">Transferir...</string>
   <string name="menu_transfer_download_current">Baixar vista atual</string>
-  <string name="menu_transfer_export">Exportar modificações</string>
-  <string name="menu_transfer_read_file">Ler de um arquivo</string>
-  <string name="menu_transfer_save_file">Salvar em arquivo</string>
   <string name="menu_save">Salvar em arquivo</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Desunir</string>

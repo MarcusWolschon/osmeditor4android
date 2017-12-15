@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Cẩn thận!</string>
   <string name="transfer_download_current_dialog_message">Bạn đã thực hiện một số thay đổi. Bạn có muốn tải lên các thay đổi thay vì vứt bỏ chúng?</string>
@@ -335,9 +336,6 @@
   <string name="menu_transfer_upload">Tải dữ liệu lên máy chủ OSM</string>
   <string name="menu_transfer_close_changeset">Đóng bộ thay đổi hiện tại</string>
   <string name="menu_transfer_file">Tập tin…</string>
-  <string name="menu_transfer_export">Xuất các thay đổi</string>
-  <string name="menu_transfer_read_file">Đọc tập tin</string>
-  <string name="menu_transfer_save_file">Lưu vào tập tin</string>
   <string name="menu_transfer_bugs">Ghi chú/Lỗi…</string>
   <string name="menu_transfer_bugs_download_current">Tải về lỗi trong khu vực hiện tại</string>
   <string name="menu_transfer_bugs_upload">Tải lên tất cả</string>
@@ -431,8 +429,6 @@
   <string name="config_maxAlertDistance_summary">Khoảng cách tối đa từ vị trí hiện tại đến một vấn đề hoặc ghi chú để gây thông báo</string>
   <string name="config_maxStrokeWidth_title">Chiều rộng đường kẻ tối đa</string>
   <string name="config_maxStrokeWidth_summary">Không vẽ lối dày hơn chiều rộng này</string>
-  <string name="config_tileCacheSize_title">Kích cỡ bộ nhớ đệm mảnh</string>
-  <string name="config_tileCacheSize_summary">Tổng kích cỡ bộ nhớ đệm mảnh bằng MB</string>
   <string name="config_showStats_title">Xem thống kê</string>
   <string name="config_showStats_summary">Hiển thị thống kế dữ liệu và số khung hình/giây ở phần phía dưới góc bên trái.</string>
   <string name="config_showTolerance_title">Hiển thị mức chịu đựng</string>
@@ -531,6 +527,8 @@
   <string name="config_maxInlineValues_summary">Số giá trị nội dòng tối đa được hiển thị dưới dạng thẻ</string>
   <string name="config_maxTileDownloadThreads_title">Số luồng tải về tối đa</string>
   <string name="config_maxTileDownloadThreads_summary">Số luồng tối đa dùng để tải về mảnh</string>
+  <string name="config_tileCacheSize_title">Kích cỡ bộ nhớ đệm mảnh</string>
+  <string name="config_tileCacheSize_summary">Tổng kích cỡ bộ nhớ đệm mảnh bằng MB</string>
   <string name="config_notificationCacheSize_title">Số thông báo tối đa được hiển thị</string>
   <string name="config_notificationCacheSize_summary">Số thông báo tối đa từng loại được hiển thị (ít nhất là 1)</string>
   <string name="config_autoLockDelay_title">Thời gian truớc khi tự động khóa</string>

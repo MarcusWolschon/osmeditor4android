@@ -32,13 +32,16 @@ Helpoin tapa ladata dataa laitteelle on etsiä muokattavaksi aiottu karttanäkym
 
 <a id="lock"></a>
 
-#### Lukitus päällä ja pois, vain tägien muokkaus, sisätila-tila 
+#### Lock, unlock, mode switching
 
 Tahattomien muokkausten välttämiseksi Vespucci käynnistyy lukitussa tilassa, jossa voi vain siirtää ja suurentaa karttaa. Kosketa ![lukko](../images/locked.png)-kuvaketta niin lukitus menee pois päältä. 
 
-Lukkokuvakkeen pitkä painallus vie "Vain tägien muokkaus" -tilaan, mikä ei salli kohteiden muodon muuttamista eikä niiden siirtämistä. Lukitusta tilasta tämän erottaa kuvakkeen lukon valkoinen väri. Voit kuitenkin lisätä uusia pisteitä ja viivoja pitkällä painalluksella niin kuin normaalisti.
+A long press on the lock icon will display a menu currently offering 4 options:
 
-Toinen pitkä painallus avaa [sisätila-tilan](#indoor), ja seuraava painallus päättää syklin tavalliseen muokkaustilaan.
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Napautus, tuplanapautus ja pitkä painallus
 
@@ -95,7 +98,7 @@ Toiminto löytyy myös valikosta: Katso lisätietoa kohdasta [Uusien kohteiden l
 
 #### Alueen lisääminen
 
-OpenStreetMapissä ei nykyisellään ole elementtiä, jonka tyyppi olisi "alue", toisin kuin muissa geodata-järjestelmissä. Verkossa toimiva muokkain "iD" koettaa luoda alue-abstraktion pohjana olevista OSM:n elementeistä – joissain tilanteissa se toimii hyvin, toisissa huonommin. Vespucci ei toistaiseksi yritä mitään samantapaista, joten sinun tulee tietää hiukan siitä miten viiva-alueet esitetään: 
+OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
 * _suljetut viivat (*polygonit")_: yksinkertaisin ja yleisin aluetyyppi on viiva, jolla on sama alku- ja loppupiste, muodostaen suljetun "renkaan" (esimerkiksi useimmat rakennukset ovat tälläisiä). Tämä on erittäin helppo tehdä Vespuccilla: riittää että liität viimeisen pätkän takaisin viivan ensimmäiseen pisteeseen, kun olet saanut alueen piirrettyä. Huom: suljetun viivan tulkinta riippuu sen tägeistä; jos suljettu viiva on tägätty vaikkapa rakennukseksi, se käsitetään alueeksi, mutta jos se on tägätty kiertoliittymäksi, niin näin ei ole. Joissain tilanteissa, missä kumpikin tulkinta on mahdollinen, area-tägillä voi selventää viivan käyttötarkoituksen.
 * _moni-monikulmio_: joissain alueissa on useita osia, reikiä ja renkaita, joita ei kertakaikkiaan voi esittää yhdellä viivalla. Ongelman kiertämiseksi OSM käyttää tietyntyyppistä relaatiota (yleiskäyttöinen elementti, jolla voi mallintaa elementtien välisiä suhteita), nimittäin "moni-monikulmiota". Moni-monikulmiossa voi olla monta "ulkorengasta" ja monta "sisärengasta". Joka rengas voi olla edellä kuvattu suljettu viiva tai muodostua monesta yksittäisestä viivasta, joilla on yhteiset päätepisteet. Vaikka laajoja moni-monikulmioita on hankala käsitellä millä tahansa työkalulla, ei pienten tekeminen Vespuccilla ole vaikeaa. 
@@ -180,7 +183,43 @@ Muistiinpanojen ja virheiden päälle laittamisen lisäksi voit asettaa karkean 
 
 Sisätilojen kartoittaminen on haastavaa kohteiden suuren määrän vuoksi, ja koska ne usein ovat päällekkäin. Vespuccissa on erityinen sisätila-tila, jonka avulla voit piilottaa muilla tasoilla olevat kohteet ja lisätä automaattisesti nykyisen tason uusin kohteisiin.
 
-Tämän tilan saa käyttöön lukkokuvakkeen pitkällä painalluksella, katso [Lukitus päällä ja pois, vain tägien muokkaus, sisätila-tila](#lock).
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+
+<a id="c-mode"></a>
+
+## C-Mode
+
+In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+
+A mode that only shows elements that have warnings and validation code that adds user configurable tests for missing tags and makes the re-survey warning time fully configurable. 
+
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+
+### Configuring checks
+
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+
+The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+
+#### Re-survey entries
+
+Re-survey entries have the following properties:
+
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regualr expression.
+
+**Key** and **Value** are checked against the _existing_ keys of the object in question.
+
+#### Check entries
+
+Check entries have the following two properties:
+
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Check optional** - Check the optional tags of the matching preset.
+
+This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## Suodattimet
 
