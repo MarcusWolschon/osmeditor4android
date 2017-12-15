@@ -181,7 +181,7 @@ public class MapOverlay extends MapViewOverlay {
         List<Photo> result = new ArrayList<>();
         Log.d("photos.MapOverlay", "getClickedPhotos");
         if (map.getPrefs().isPhotoLayerEnabled()) {
-            final float tolerance = DataStyle.getCurrent().nodeToleranceValue;
+            final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
             for (Photo p : photos) {
                 int lat = p.getLat();
                 int lon = p.getLon();

@@ -318,7 +318,7 @@ public class TileLayerServer {
     private static final HashMap<String, TileLayerServer> backgroundServerList = new HashMap<>();
     private static HashMap<String, TileLayerServer>       overlayServerList    = new HashMap<>();
     private static boolean                                ready                = false;
-    private static List<String>                      imageryBlacklist     = null;
+    private static List<String>                           imageryBlacklist     = null;
 
     // ===========================================================
     // Constructors

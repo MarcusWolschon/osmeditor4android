@@ -769,9 +769,9 @@ public class Map extends View implements IMapView {
             }
             int result = layer2 == layer1 ? 0 : layer2 > layer1 ? +1 : -1;
             if (result == 0) {
-                FeatureStyle fs1 = getAndSetStyle(w1);
+                FeatureStyle fs1 = matchStyle(w1);
                 Style style1 = fs1.getPaint().getStyle();
-                FeatureStyle fs2 = getAndSetStyle(w2);
+                FeatureStyle fs2 = matchStyle(w2);
                 Style style2 = fs2.getPaint().getStyle();
                 result = style2 == style1 ? 0 : style2 == Style.STROKE ? -1 : +1;
             }
@@ -894,7 +894,7 @@ public class Map extends View implements IMapView {
                                                                                                                                                                 // in
                                                                                                                                                                 // multi-select
                                                                                                                                                                 // mode
-                canvas.drawCircle(x, y, DataStyle.getCurrent().largDragToleranceRadius, DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
+                canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
             }
         } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
             // general node style
@@ -1161,7 +1161,7 @@ public class Map extends View implements IMapView {
         if (way.hasProblem(context, validator) != Validator.OK) {
             fp = DataStyle.getCurrent(DataStyle.PROBLEM_WAY);
         } else {
-            fp = getAndSetStyle(way);
+            fp = matchStyle(way);
         }
 
         // draw selectedWay highlighting
@@ -1273,6 +1273,11 @@ public class Map extends View implements IMapView {
         }
     }
 
+    private static final String WAY_         = "way-";
+    private static final String WAY_HIGHWAY  = "way-highway";
+    private static final String WAY_HIGHWAY_ = "way-highway-";
+    private static final String HYPHEN       = "-";
+
     /**
      * Determine the style to use for way and cache it in the way object
      * 
@@ -1281,7 +1286,7 @@ public class Map extends View implements IMapView {
      * @param way way we need the style for
      * @return the style
      */
-    private FeatureStyle getAndSetStyle(final Way way) {
+    private FeatureStyle matchStyle(final Way way) {
         FeatureStyle fp;
         FeatureStyle wayFp = way.getFeatureProfile();
         if (wayFp == null) {
@@ -1289,32 +1294,30 @@ public class Map extends View implements IMapView {
             // three levels of hierarchy for roads and special casing of tracks, two levels for everything else
             String highwayType = way.getTagWithKey(Tags.KEY_HIGHWAY);
             if (highwayType != null) {
-                FeatureStyle tempFp = DataStyle.getCurrent("way-highway");
+                FeatureStyle tempFp = DataStyle.getCurrent(WAY_HIGHWAY);
                 if (tempFp != null) {
                     fp = tempFp;
                 }
-                tempFp = DataStyle.getCurrent("way-highway-" + highwayType);
+                tempFp = DataStyle.getCurrent(WAY_HIGHWAY_ + highwayType);
                 if (tempFp != null) {
                     fp = tempFp;
                 }
                 String highwaySubType;
-                if (highwayType.equals("track")) { // special case
-                    highwaySubType = way.getTagWithKey("tracktype");
+                if (highwayType.equals(Tags.VALUE_TRACK)) { // special case
+                    highwaySubType = way.getTagWithKey(Tags.KEY_TRACKTYPE);
                 } else {
                     highwaySubType = way.getTagWithKey(highwayType);
                 }
                 if (highwaySubType != null) {
-                    tempFp = DataStyle.getCurrent("way-highway-" + highwayType + "-" + highwaySubType);
+                    tempFp = DataStyle.getCurrent(WAY_HIGHWAY_ + highwayType + HYPHEN + highwaySubType);
                     if (tempFp != null) {
                         fp = tempFp;
                     }
                 }
             } else {
                 // order in the array defines precedence
-                String[] tags = { "building", "railway", "leisure", "landuse", "waterway", "natural", "addr:interpolation", "boundary", "amenity", "shop",
-                        "power", "aerialway", "military", "historic", "indoor", "building:part" };
                 FeatureStyle tempFp = null;
-                for (String tag : tags) {
+                for (String tag : Tags.WAY_TAGS) {
                     tempFp = getProfile(tag, way);
                     if (tempFp != null) {
                         fp = tempFp;
@@ -1324,10 +1327,9 @@ public class Map extends View implements IMapView {
                 if (tempFp == null) {
                     List<Relation> relations = way.getParentRelations();
                     // check for any relation memberships with low prio, take first one
-                    String[] relationTags = { "boundary", "leisure", "landuse", "natural", "waterway", "building" };
                     if (relations != null) {
                         for (Relation r : relations) {
-                            for (String tag : relationTags) {
+                            for (String tag : Tags.RELATION_TAGS) {
                                 tempFp = getProfile(tag, r);
                                 if (tempFp != null) {
                                     fp = tempFp;
@@ -1344,6 +1346,22 @@ public class Map extends View implements IMapView {
             way.setFeatureProfile(fp);
         } else {
             fp = wayFp;
+        }
+        return fp;
+    }
+
+    private FeatureStyle getProfile(String tag, OsmElement e) {
+        String mainType = e.getTagWithKey(tag);
+        FeatureStyle fp = null;
+        if (mainType != null) {
+            FeatureStyle tempFp = DataStyle.getCurrent(WAY_ + tag);
+            if (tempFp != null) {
+                fp = tempFp;
+            }
+            tempFp = DataStyle.getCurrent(WAY_ + tag + HYPHEN + mainType);
+            if (tempFp != null) {
+                fp = tempFp;
+            }
         }
         return fp;
     }
@@ -1370,22 +1388,6 @@ public class Map extends View implements IMapView {
         }
     }
 
-    private FeatureStyle getProfile(String tag, OsmElement e) {
-        String mainType = e.getTagWithKey(tag);
-        FeatureStyle fp = null;
-        if (mainType != null) {
-            FeatureStyle tempFp = DataStyle.getCurrent("way-" + tag);
-            if (tempFp != null) {
-                fp = tempFp;
-            }
-            tempFp = DataStyle.getCurrent("way-" + tag + "-" + mainType);
-            if (tempFp != null) {
-                fp = tempFp;
-            }
-        }
-        return fp;
-    }
-
     /**
      * Draws directional arrows for a way
      * 
@@ -1396,7 +1398,7 @@ public class Map extends View implements IMapView {
      * @param addHandles if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
      */
     private void drawWayArrows(Canvas canvas, float[] linePoints, boolean reverse, Paint paint, boolean addHandles) {
-        double minLen = DataStyle.getCurrent().minLenForHandle;
+        double minLen = DataStyle.getCurrent().getMinLenForHandle();
         int ptr = 0;
         while (ptr < linePoints.length) {
 

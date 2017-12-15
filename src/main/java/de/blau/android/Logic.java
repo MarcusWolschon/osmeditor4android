@@ -775,7 +775,7 @@ public class Logic {
                 Y = Y / (3 * A);
                 X = X / (3 * A);
                 double distance = Math.hypot(x - X, y - Y);
-                if (distance < DataStyle.getCurrent().nodeToleranceValue) {
+                if (distance < DataStyle.getCurrent().getNodeToleranceValue()) {
                     result.put(way, distance);
                 }
             }
@@ -843,14 +843,14 @@ public class Logic {
                 float differenceX = Math.abs(handleX - x);
                 float differenceY = Math.abs(handleY - y);
 
-                if ((differenceX > DataStyle.getCurrent().wayToleranceValue) && (differenceY > DataStyle.getCurrent().wayToleranceValue))
+                if ((differenceX > DataStyle.getCurrent().getWayToleranceValue()) && (differenceY > DataStyle.getCurrent().getWayToleranceValue()))
                     continue;
-                if (Math.hypot(xDelta, yDelta) <= DataStyle.getCurrent().minLenForHandle)
+                if (Math.hypot(xDelta, yDelta) <= DataStyle.getCurrent().getMinLenForHandle())
                     continue;
 
                 double dist = Math.hypot(differenceX, differenceY);
                 // TODO better choice for tolerance
-                if ((dist <= DataStyle.getCurrent().wayToleranceValue) && (dist < bestDistance)) {
+                if ((dist <= DataStyle.getCurrent().getWayToleranceValue()) && (dist < bestDistance)) {
                     if (filter != null) {
                         if (filter.include(way, isSelected(way))) {
                             bestDistance = dist;
@@ -878,7 +878,7 @@ public class Logic {
      *         null otherwise
      */
     private Double clickDistance(Node node, final float x, final float y) {
-        return clickDistance(node, x, y, node.isTagged() ? DataStyle.getCurrent().nodeToleranceValue : DataStyle.getCurrent().wayToleranceValue / 2);
+        return clickDistance(node, x, y, node.isTagged() ? DataStyle.getCurrent().getNodeToleranceValue() : DataStyle.getCurrent().getWayToleranceValue() / 2);
     }
 
     private Double clickDistance(Node node, final float x, final float y, float tolerance) {
@@ -1111,7 +1111,7 @@ public class Logic {
             draggingWay = false;
             draggingHandle = false;
             if (selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null && clickDistance(selectedNodes.get(0), x, y,
-                    prefs.largeDragArea() ? DataStyle.getCurrent().largDragToleranceRadius : DataStyle.getCurrent().nodeToleranceValue) != null) {
+                    prefs.largeDragArea() ? DataStyle.getCurrent().getLargDragToleranceRadius() : DataStyle.getCurrent().getNodeToleranceValue()) != null) {
                 draggingNode = true;
                 if (prefs.largeDragArea()) {
                     startX = lonE7ToX(selectedNodes.get(0).getLon());
@@ -2153,7 +2153,7 @@ public class Logic {
      * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
      */
     private double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
-        float tolerance = DataStyle.getCurrent().wayToleranceValue / 2f;
+        float tolerance = DataStyle.getCurrent().getWayToleranceValue() / 2f;
         // noinspection SuspiciousNameCombination
         if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
             double distance = GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y);

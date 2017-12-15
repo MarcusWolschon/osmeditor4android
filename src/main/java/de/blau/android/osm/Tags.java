@@ -35,25 +35,26 @@ public class Tags {
     public static final String               KEY_ADDR_FLATS       = "addr:flats";
     public static final String               KEY_ADDR_DOOR        = "addr:door";
     public static final String               KEY_ADDR_UNIT        = "addr:unit";
-    public static final Map<String, Integer> ADDRESS_SORT_ORDER   = new HashMap<>();
+    private static final Map<String, Integer> ADDRESS_SORT_ORDER_TEMP   = new HashMap<>();
     static {
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_HOUSENUMBER, 0);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_HOUSENAME, 1);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_FLATS, 2);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_UNIT, 3);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_DOOR, 4);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_PLACE, 5);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_STREET, 5);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_POSTCODE, 6);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_HAMLET, 7);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_SUBURB, 8);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_CITY, 9);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_SUBDISTRICT, 10);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_DISTRICT, 11);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_PROVINCE, 12);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_STATE, 13);
-        ADDRESS_SORT_ORDER.put(KEY_ADDR_COUNTRY, 14);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_HOUSENUMBER, 0);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_HOUSENAME, 1);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_FLATS, 2);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_UNIT, 3);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_DOOR, 4);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_PLACE, 5);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_STREET, 5);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_POSTCODE, 6);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_HAMLET, 7);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_SUBURB, 8);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_CITY, 9);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_SUBDISTRICT, 10);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_DISTRICT, 11);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_PROVINCE, 12);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_STATE, 13);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_COUNTRY, 14);
     }
+    public static final  Map<String, Integer> ADDRESS_SORT_ORDER = Collections.unmodifiableMap(ADDRESS_SORT_ORDER_TEMP);
 
     // address interpolation
     public static final String KEY_ADDR_INTERPOLATION = "addr:interpolation";
@@ -76,8 +77,8 @@ public class Tags {
     private static final String      KEY_REG_NAME      = "reg_name";
     private static final String      KEY_NAT_NAME      = "nat_name";
     public static final String       KEY_INT_NAME      = "int_name";
-    public static final List<String> I18N_NAME_KEYS    = Arrays.asList(KEY_NAME, KEY_OFFICIAL_NAME, KEY_ALT_NAME, KEY_LOC_NAME, KEY_SHORT_NAME, KEY_REG_NAME,
-            KEY_NAT_NAME);
+    public static final List<String> I18N_NAME_KEYS    = Collections
+            .unmodifiableList(Arrays.asList(KEY_NAME, KEY_OFFICIAL_NAME, KEY_ALT_NAME, KEY_LOC_NAME, KEY_SHORT_NAME, KEY_REG_NAME, KEY_NAT_NAME));
 
     public static final String KEY_NAME_LEFT        = "name:left";
     public static final String KEY_NAME_RIGHT       = "name:right";
@@ -88,6 +89,8 @@ public class Tags {
     public static final String VALUE_ROAD           = "road";
     public static final String VALUE_MOTORWAY       = "motorway";
     public static final String VALUE_MOTORWAY_LINK  = "motorway_link";
+    public static final String VALUE_TRACK          = "track";
+    public static final String KEY_TRACKTYPE        = "tracktype";
     public static final String KEY_SIDEWALK         = "sidewalk";
     public static final String KEY_BARRIER          = "barrier";
     public static final String VALUE_RETAINING_WALL = "retaining_wall";
@@ -239,6 +242,13 @@ public class Tags {
             .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_HIGHWAY, KEY_BARRIER, KEY_WATERWAY, KEY_RAILWAY, KEY_AEROWAY, KEY_AERIALWAY, KEY_POWER,
                     KEY_MAN_MADE, KEY_BUILDING, KEY_LEISURE, KEY_AMENITY, KEY_OFFICE, KEY_SHOP, KEY_CRAFT, KEY_EMERGENCY, KEY_TOURISM, KEY_HISTORIC,
                     KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL, KEY_BOUNDARY, KEY_TYPE, KEY_ENTRANCE, KEY_PIPELINE, KEY_HEALTHCARE)));
+    /** ways that we might want to render differently */
+    public static final Set<String> WAY_TAGS       = Collections
+            .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_BUILDING, KEY_RAILWAY, KEY_LEISURE, KEY_LANDUSE, KEY_WATERWAY, KEY_NATURAL, KEY_ADDR_INTERPOLATION,
+                    KEY_BOUNDARY, KEY_MAN_MADE, KEY_AMENITY, KEY_SHOP, KEY_POWER, KEY_AERIALWAY, KEY_MILITARY, KEY_HISTORIC, KEY_INDOOR, KEY_BUILDING_PART)));
+    /** relations that we might want to render differently */
+    public static final Set<String> RELATION_TAGS  = Collections
+            .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_BOUNDARY, KEY_LEISURE, KEY_LANDUSE, KEY_NATURAL, KEY_WATERWAY, KEY_BUILDING, KEY_MAN_MADE)));
 
     /**
      * Private constructor to avoid getting a public one

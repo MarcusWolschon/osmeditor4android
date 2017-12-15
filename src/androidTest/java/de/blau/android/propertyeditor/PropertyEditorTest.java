@@ -136,7 +136,7 @@ public class PropertyEditorTest {
         Logic logic = App.getLogic();
         Map map = main.getMap();
         logic.setZoom(map, 20);
-        float tolerance = DataStyle.getCurrent().wayToleranceValue;
+        float tolerance = DataStyle.getCurrent().getWayToleranceValue();
         System.out.println("Tolerance " + tolerance);
 
         logic.setSelectedWay(null);

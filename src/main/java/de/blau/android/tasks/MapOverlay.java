@@ -117,7 +117,7 @@ public class MapOverlay extends MapViewOverlay {
     public List<Task> getClickedTasks(final float x, final float y, final BoundingBox viewBox) {
         List<Task> result = new ArrayList<>();
         if (map.getPrefs().areBugsEnabled()) {
-            final float tolerance = DataStyle.getCurrent().nodeToleranceValue;
+            final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
             ArrayList<Task> taskList = tasks.getTasks(viewBox);
             if (taskList != null) {
                 Set<String> taskFilter = map.getPrefs().taskFilter();

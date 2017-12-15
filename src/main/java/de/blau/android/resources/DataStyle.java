@@ -35,6 +35,7 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.PathDashPathEffect;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
@@ -49,6 +50,8 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.SavingHelper;
 
 public class DataStyle extends DefaultHandler {
+
+    private static final String DEBUG_TAG = "DataStyle";
 
     private final static String FILE_PATH_STYLE_SUFFIX = "-profile.xml";
 
@@ -108,14 +111,15 @@ public class DataStyle extends DefaultHandler {
         boolean             editable;
         boolean             internal;
         boolean             updateWidth;
-        Paint               paint;
+        final Paint         paint;
         float               widthFactor;
         DashPath            dashPath    = null;
         private FontMetrics fontMetrics = null;
+        private PathPattern pathPattern = null;
 
-        public class DashPath {
-            public float[] intervals;
-            public float   phase;
+        class DashPath {
+            float[] intervals;
+            float   phase;
         }
 
         FeatureStyle(String n, Paint p) {
@@ -139,21 +143,23 @@ public class DataStyle extends DefaultHandler {
 
         FeatureStyle(String n, FeatureStyle fp) {
             if (fp == null) {
-                Log.i("FeatureStyle", "setting up feature " + n + " profile is null!");
-                return;
+                Log.e("FeatureStyle", "setting up feature " + n + " profile is null!");
+                throw new IllegalArgumentException("setting up feature " + n + " profile is null!");
             }
+            paint = new Paint(fp.paint);
             // Log.i("FeatureStyle","setting up feature " + n + " from " + fp.getName());
             name = n;
             editable = fp.editable;
             internal = fp.internal;
             updateWidth = fp.updateWidth;
-            paint = new Paint(fp.paint);
             widthFactor = fp.widthFactor;
             if (fp.dashPath != null) {
                 dashPath = new DashPath();
                 dashPath.intervals = fp.dashPath.intervals.clone();
                 dashPath.phase = fp.dashPath.phase;
             }
+            fontMetrics = fp.fontMetrics;
+            pathPattern = fp.pathPattern;
         }
 
         public String getName() {
@@ -178,14 +184,18 @@ public class DataStyle extends DefaultHandler {
 
         public void setStrokeWidth(float width) {
             if (updateWidth) {
-                paint.setStrokeWidth(width * widthFactor);
+                float newWidth = width * widthFactor;
+                paint.setStrokeWidth(newWidth);
                 if (dashPath != null) {
                     float[] intervals = dashPath.intervals.clone();
                     for (int i = 0; i < intervals.length; i++) {
-                        intervals[i] = dashPath.intervals[i] * width * widthFactor;
+                        intervals[i] = dashPath.intervals[i] * newWidth;
                     }
                     DashPathEffect dp = new DashPathEffect(intervals, dashPath.phase);
                     paint.setPathEffect(dp);
+                }
+                if (pathPattern != null) {
+                    getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(newWidth), newWidth, 0f, PathDashPathEffect.Style.ROTATE));
                 }
             }
         }
@@ -230,6 +240,18 @@ public class DataStyle extends DefaultHandler {
             }
             return fontMetrics;
         }
+
+        void setPathPattern(PathPattern pathPattern) {
+            Log.i(DEBUG_TAG, "setPathPattern");
+            if (pathPattern != null) {
+                this.pathPattern = pathPattern;
+                float width = getPaint().getStrokeWidth();
+                getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(width), width, 0f, PathDashPathEffect.Style.ROTATE));
+            } else {
+                Log.e(DEBUG_TAG, "pathPattern is null");
+            }
+            Log.i(DEBUG_TAG, "... done");
+        }
     }
 
     private String                        name;
@@ -265,11 +287,11 @@ public class DataStyle extends DefaultHandler {
 
     private static final String BUILTIN_STYLE_NAME = "Default";
 
-    public float  nodeToleranceValue;
-    public float  wayToleranceValue;
+    private float nodeToleranceValue;
+    private float wayToleranceValue;
     private float largDragCircleRadius;
-    public float  largDragToleranceRadius;
-    public float  minLenForHandle;
+    private float largDragToleranceRadius;
+    private float minLenForHandle;
 
     private final Context ctx;
 
@@ -328,7 +350,7 @@ public class DataStyle extends DefaultHandler {
 
         PorterDuffXfermode pixelXor = new PorterDuffXfermode(PorterDuff.Mode.XOR);
 
-        Log.i("Style", "setting up default profile elements");
+        Log.i(DEBUG_TAG, "setting up default profile elements");
         featureStyles = new HashMap<>();
 
         Paint standardPath = new Paint();
@@ -646,7 +668,7 @@ public class DataStyle extends DefaultHandler {
         fp.dontUpdate();
         featureStyles.put(fp.getName(), fp);
 
-        Log.i("Style", "... done");
+        Log.i(DEBUG_TAG, "... done");
     }
 
     public static void setAntiAliasing(final boolean aa) {
@@ -659,6 +681,7 @@ public class DataStyle extends DefaultHandler {
      * Sets the stroke width of all Elements corresponding to the width of the viewbox (=zoomfactor).
      */
     public static void updateStrokes(final float newStrokeWidth) {
+        Log.i(DEBUG_TAG, "Updating stroke widths ..");
         for (FeatureStyle fp : currentStyle.featureStyles.values()) {
             fp.setStrokeWidth(newStrokeWidth);
         }
@@ -669,6 +692,23 @@ public class DataStyle extends DefaultHandler {
         WAY_DIRECTION_PATH.moveTo(-wayDirectionPathOffset, -wayDirectionPathOffset);
         WAY_DIRECTION_PATH.lineTo(0, 0);
         WAY_DIRECTION_PATH.lineTo(-wayDirectionPathOffset, +wayDirectionPathOffset);
+        Log.i(DEBUG_TAG, "... done");
+    }
+
+    public float getNodeToleranceValue() {
+        return nodeToleranceValue;
+    }
+
+    public float getWayToleranceValue() {
+        return wayToleranceValue;
+    }
+
+    public float getLargDragToleranceRadius() {
+        return largDragToleranceRadius;
+    }
+
+    public float getMinLenForHandle() {
+        return minLenForHandle;
     }
 
     /**
@@ -718,7 +758,7 @@ public class DataStyle extends DefaultHandler {
      */
     public static String[] getStyleList(Activity activity) {
         if (availableStyles.size() == 0) { // shouldn't happen
-            Log.e("Style", "getStyleList called before initialized");
+            Log.e(DEBUG_TAG, "getStyleList called before initialized");
             addDefaultStye(activity);
         }
         // creating the default style object will set availableStyles
@@ -746,7 +786,7 @@ public class DataStyle extends DefaultHandler {
         DataStyle p = getStyle(n);
         if (p != null) {
             currentStyle = p;
-            Log.i("Style", "Switching to " + n);
+            Log.i(DEBUG_TAG, "Switching to " + n);
             return true;
         }
         return false;
@@ -896,12 +936,12 @@ public class DataStyle extends DefaultHandler {
                     return;
                 }
 
-                tempFeatureStyle.setInternal(Boolean.valueOf(atts.getValue("internal")).booleanValue());
-                if (!Boolean.valueOf(atts.getValue("updateWidth")).booleanValue()) {
+                tempFeatureStyle.setInternal(Boolean.parseBoolean(atts.getValue("internal")));
+                if (!Boolean.parseBoolean(atts.getValue("updateWidth"))) {
                     tempFeatureStyle.dontUpdate();
                 }
                 tempFeatureStyle.setWidthFactor(Float.parseFloat(atts.getValue("widthFactor")));
-                tempFeatureStyle.setEditable(Boolean.valueOf(atts.getValue("editable")).booleanValue());
+                tempFeatureStyle.setEditable(Boolean.parseBoolean(atts.getValue("editable")));
                 tempFeatureStyle.setColor((int) Long.parseLong(atts.getValue("color"), 16)); // workaround highest bit
                                                                                              // set problem
 
@@ -930,6 +970,9 @@ public class DataStyle extends DefaultHandler {
                     if (atts.getValue("shadow") != null)
                         tempFeatureStyle.getPaint().setShadowLayer(Integer.parseInt(atts.getValue("shadow")), 0, 0, Color.BLACK);
                 }
+                if (atts.getValue("pathPattern") != null) {
+                    tempFeatureStyle.setPathPattern(PathPatterns.get(atts.getValue("pathPattern")));
+                }
                 // Log.i("Style","startElement finished parsing feature");
             } else if (element.equals("dash")) {
                 tempPhase = Float.parseFloat(atts.getValue("phase"));
@@ -938,14 +981,14 @@ public class DataStyle extends DefaultHandler {
                 tempIntervals.add(Float.valueOf(Float.parseFloat(atts.getValue("length"))));
             }
         } catch (Exception e) {
-            Log.e("Profil", "Parse Exception", e);
+            Log.e(DEBUG_TAG, "Parse Exception", e);
         }
     }
 
     @Override
     public void endElement(final String uri, final String element, final String qName) {
         if (element == null) {
-            Log.i("Style", "element is null");
+            Log.i(DEBUG_TAG, "element is null");
             return;
         }
         // noinspection StatementWithEmptyBody
@@ -953,11 +996,11 @@ public class DataStyle extends DefaultHandler {
 
         } else if (element.equals("feature")) {
             if (tempFeatureStyle == null) {
-                Log.i("Style", "FeatureStyle is null");
+                Log.i(DEBUG_TAG, "FeatureStyle is null");
                 return;
             }
             if (tempFeatureStyle.getName() == null) {
-                Log.i("Style", "FeatureStyle name is null");
+                Log.i(DEBUG_TAG, "FeatureStyle name is null");
                 return;
             }
             // overwrites existing profiles
@@ -981,7 +1024,7 @@ public class DataStyle extends DefaultHandler {
             inputStream = new BufferedInputStream(is);
             start(inputStream);
         } catch (Exception e) {
-            Log.e("Style", "Read failed " + e);
+            Log.e(DEBUG_TAG, "Read failed " + e);
         }
         return true;
     }
@@ -993,7 +1036,7 @@ public class DataStyle extends DefaultHandler {
      */
     public static void getStylesFromFiles(Context ctx) {
         if (availableStyles.size() == 0) {
-            Log.i("Style", "No style files found");
+            Log.i(DEBUG_TAG, "No style files found");
             // no files, need to install a default
             addDefaultStye(ctx);
         }
@@ -1005,7 +1048,7 @@ public class DataStyle extends DefaultHandler {
             if (fileList != null) {
                 for (String fn : fileList) {
                     if (fn.endsWith(FILE_PATH_STYLE_SUFFIX)) {
-                        Log.i("Style", "Creating profile from file in assets directory " + fn);
+                        Log.i(DEBUG_TAG, "Creating profile from file in assets directory " + fn);
                         InputStream is = assetManager.open(fn);
                         DataStyle p = new DataStyle(ctx, is);
                         availableStyles.put(p.name, p);
@@ -1013,7 +1056,7 @@ public class DataStyle extends DefaultHandler {
                 }
             }
         } catch (Exception ex) {
-            Log.i("Style", ex.toString());
+            Log.i(DEBUG_TAG, ex.toString());
         }
 
         // from sdcard
@@ -1029,14 +1072,14 @@ public class DataStyle extends DefaultHandler {
             File[] list = indir.listFiles(new StyleFilter());
             if (list != null) {
                 for (File f : list) {
-                    Log.i("Style", "Creating profile from " + f.getName());
+                    Log.i(DEBUG_TAG, "Creating profile from " + f.getName());
                     try {
                         InputStream is = new FileInputStream(f);
                         DataStyle p = new DataStyle(ctx, is);
                         // overwrites profile with same name
                         availableStyles.put(p.name, p);
                     } catch (Exception ex) {
-                        Log.i("Style", ex.toString());
+                        Log.i(DEBUG_TAG, ex.toString());
                     }
                 }
             }
