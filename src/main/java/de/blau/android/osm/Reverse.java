@@ -117,27 +117,27 @@ class Reverse {
         }
     }
 
-    private static String reverseCardinalDirection(final String value) throws NumberFormatException {
-        String tmpVal = "";
+    private static String reverseCardinalDirection(final String value) {
+        StringBuilder tmpVal = new StringBuilder("");
         for (int i = 0; i < value.length(); i++) {
             switch (value.toUpperCase(Locale.US).charAt(i)) {
             case Tags.VALUE_NORTH:
-                tmpVal = tmpVal + Tags.VALUE_SOUTH;
+                tmpVal.append(Tags.VALUE_SOUTH);
                 break;
             case Tags.VALUE_WEST:
-                tmpVal = tmpVal + Tags.VALUE_EAST;
+                tmpVal.append(Tags.VALUE_EAST);
                 break;
             case Tags.VALUE_SOUTH:
-                tmpVal = tmpVal + Tags.VALUE_NORTH;
+                tmpVal.append(Tags.VALUE_NORTH);
                 break;
             case Tags.VALUE_EAST:
-                tmpVal = tmpVal + Tags.VALUE_WEST;
+                tmpVal.append(Tags.VALUE_WEST);
                 break;
             default:
-                throw new NumberFormatException();
+                throw new IllegalArgumentException();
             }
         }
-        return tmpVal;
+        return tmpVal.toString();
     }
 
     private static String reverseDirection(final String value) {
@@ -164,7 +164,7 @@ class Reverse {
             } else { // cardinal directions
                 try {
                     return reverseCardinalDirection(value);
-                } catch (NumberFormatException fex) {
+                } catch (IllegalArgumentException fex) {
                     return value;
                 }
             }

@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -92,7 +93,7 @@ public class BasicStuffTest {
         String key2 = "key2";
         String value2 = "value2";
         Assert.assertFalse(eInStorage.hasTags());
-        HashMap<String, String> tags = new HashMap<String, String>();
+        Map<String, String> tags = new HashMap<String, String>();
 
         tags.put(key1, value1);
         // new form
