@@ -11,7 +11,7 @@ Alternativ kann mit dem "Zur Karte" direkt zur Karte gewechselt werden, auf das 
 
 ## Mit Vespucci OSM Daten bearbeiten
 
-Abhängig der Bildschirmgrösse und Alter des Gerätes können die Bearbeitungsfunktionen über Icons in der obersten Menüzeile, via ein Menü oben rechts, von der unteren Menüzeile (falls vorhanden) oder mittels der Menütaste zugänglich sein.
+Abhängig von der Bildschirmgrösse und dem Alter des Gerätes können die Bearbeitungsfunktionen über Icons in der obersten Menüzeile, via ein Menü oben rechts, von der unteren Menüzeile (falls vorhanden) oder mittels der Menütaste zugänglich sein.
 
 <a id="download"></a>
 
@@ -65,7 +65,7 @@ Hinweis: falls Vespucci nicht eindeutig feststellen kann welches Objekt ausgewä
 
 Ausgewählte Objekte werden durch einen dünnen, gelben Rand hervorgehoben. Nach der Auswahl erscheint eine Meldung mit einer kurzen Beschreibung des Objekts, dass die Auswahl bestätigt.
 
-Sobald die Auswahl stattgefunden hat, werden, entweder als Schalftfläche oder als Menüeintrag, die verfügbaren Operationen für das ausgewählte Objekt angezeigt: für mehr Informationen siehe [Knoten ausgewählt](../en/Node%20selected.md), [Weg ausgewählt](../en/Way%20selected.md) und [Relation ausgewählt](../en/Relation%20selected.md).
+Sobald die Auswahl stattgefunden hat, werden, entweder als Schaltfläche oder als Menüeintrag, die verfügbaren Operationen für das ausgewählte Objekt angezeigt: für mehr Informationen siehe [Knoten ausgewählt](../en/Node%20selected.md), [Weg ausgewählt](../en/Way%20selected.md) und [Relation ausgewählt](../en/Relation%20selected.md).
 
 #### Ausgewählte Objekte: Eigenschaften bearbeiten
 
@@ -118,7 +118,7 @@ Vespucci hat eine "Adresseigenschaften hinzufügen" Funktion, die versucht Adres
 *  in den "Knoten/Weg ausgewählt" Modi:: Vespucci fügt Eigenschaften wie oben beschrieben hinzu und startet den Eigenschaftseditor.
 * im Eigenschaftseditor.
 
-Die Hausnummernvorhersage benötigt typischerweise mindestens die Eingabe von je 2 Hausnummern auf jede Seite der Strasse, je mehr Nummern in den Daten vorhanden sind desto besser funktioniert die Vorhersage. 
+Die Hausnummernvorhersage benötigt typischerweise mindestens die Eingabe von je 2 Hausnummern auf jeder Seite der Strasse, je mehr Nummern in den Daten vorhanden sind desto besser funktioniert die Vorhersage. 
 
 Es ist sinnvoll dies mit [Auto-download](#download) zu verwenden.  
 
