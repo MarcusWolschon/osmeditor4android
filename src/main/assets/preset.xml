@@ -49,7 +49,7 @@
         	<text key="maxspeed:forward" text="Max speed →" long_text="Maximum speed in way direction specified in km/h" />
         	<combo key="maxspeed:forward:conditional" text="Max speed → @" long_text="Conditional maximum speed in way direction specified in km/h" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
-        	<text key="maxspeed:backward" text="Max speed ←" long_text="Maximum speed in way direction specified in km/h" />
+        	<text key="maxspeed:backward" text="Max speed ←" long_text="Maximum speed opposite way direction specified in km/h" />
         	<combo key="maxspeed:backwardward:conditional" text="Max speed ← @" long_text="Conditional maximum speed opposite way direction specified in km/h" match="key"
                delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
         </optional>
@@ -124,8 +124,8 @@
     </chunk>
     <chunk id="barrier_5">
         <optional text="Allowed traffic:">
-            <check key="foot" text="Foot" default="on"/>
-            <check key="bicycle" text="Bicycle" default="on"/>
+            <check key="foot" text="Foot" />
+            <check key="bicycle" text="Bicycle" />
             <check key="horse" text="Horse" />
             <check key="motorcycle" text="Motorcycle" />
             <check key="motorcar" text="Motorcar" />
@@ -133,16 +133,16 @@
     </chunk>
     <chunk id="barrier_4">
         <optional text="Allowed traffic:">
-            <check key="foot" text="Foot" default="on"/>
-            <check key="bicycle" text="Bicycle" default="on"/>
+            <check key="foot" text="Foot" />
+            <check key="bicycle" text="Bicycle" />
             <check key="horse" text="Horse" />
             <check key="motorcycle" text="Motorcycle" />
         </optional>
     </chunk>
     <chunk id="barrier_2">
         <optional text="Allowed traffic:">
-            <check key="foot" text="Foot" default="on"/>
-            <check key="bicycle" text="Bicycle" default="on"/>
+            <check key="foot" text="Foot" />
+            <check key="bicycle" text="Bicycle" />
         </optional>
     </chunk>
     <chunk id="min_age">
@@ -318,8 +318,8 @@
     	<combo key="organic" text="Organic" values="only,yes,no" display_values="Only,Yes,No" />
     </chunk>
 	<chunk id="cuisine">
-    	<multiselect key="cuisine" text="Cuisine" values="italian;chinese;pizza;burger;greek;german;indian;regional;kebab;turkish;asian;thai;mexican;japanese;french;sandwich;coffee_shop;sushi;steak_house;fish_and_chips;chicken;american;ice_cream;international;seafood;spanish;vietnamese;fish;noodle;barbecue;vegetarian;korean" 
-    	     display_values="Italian;Chinese;Pizza;Burger;Greek;German;Indian;Regional;Kebab;Turkish;Asian;Thai;Mexican;Japanese;French;Sandwich;Coffee shop;Sushi;Steak house;Fish and chips;Chicken;American;Ice cream;International;Seafood;Spanish;Vietnamese;Fish;Noodle;Barbecue;Vegetarian;Korean" values_searchable="true" />
+    	<multiselect key="cuisine" text="Cuisine" values="italian;chinese;pizza;burger;greek;german;indian;regional;kebab;turkish;asian;thai;mexican;japanese;french;sandwich;coffee_shop;sushi;steak_house;fish_and_chips;chicken;american;ice_cream;international;seafood;spanish;vietnamese;fish;noodle;barbecue;vegetarian;korean;donut;mediterranean;friture;crepe" 
+    	     display_values="Italian;Chinese;Pizza;Burger;Greek;German;Indian;Regional;Kebab;Turkish;Asian;Thai;Mexican;Japanese;French;Sandwich;Coffee shop;Sushi;Steak house;Fish and chips;Chicken;American;Ice cream;International;Seafood;Spanish;Vietnamese;Fish;Noodle;Barbecue;Vegetarian;Korean;Donut;Mediterranean;Friture;Crepe" values_searchable="true" />
     </chunk>
     <chunk id="clothes">
     	<multiselect key="clothes" text="Kind of clothes" values_searchable="true" match="key">
@@ -381,6 +381,13 @@
             <text key="operator" text="Operator" />
          </optional>
     </chunk>
+    <chunk id="optional_name_wikipedia">
+        <optional>
+            <text key="name" text="Name" />
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+            <text key="wikidata" text="Wikidata" value_type="wikidata" />
+        </optional>
+    </chunk>
     <chunk id="sport_facility">
     	<combo key="leisure" text="Type" values="pitch,sports_centre,stadium" display_values="Pitch,Sports centre,Stadium" values_context="sport" />
     </chunk>
@@ -435,7 +442,8 @@
     </chunk>
     <chunk id="name_wikipedia">
         <text key="name" text="Name" />
-        <text key="wikipedia" text="Wikipedia" />
+        <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+        <text key="wikidata" text="Wikidata" value_type="wikidata" />
         <preset_link preset_name="Name" />
     </chunk>
     <chunk id="population_postcode_website">
@@ -575,7 +583,8 @@
     </chunk>
     <chunk id="waterway_wikipedia">
         <reference ref="waterway" />
-        <text key="wikipedia" text="Wikipedia" />
+        <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+        <text key="wikidata" text="Wikidata" value_type="wikidata" />
     </chunk>
     <chunk id="water_access">
         <optional text="Water access rules:">
@@ -598,7 +607,8 @@
         <optional>
             <text key="iata" text="IATA" />
             <text key="icao" text="ICAO" />
-           <text key="wikipedia" text="Wikipedia" />
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+            <text key="wikidata" text="Wikidata" value_type="wikidata" />
         </optional>
     </chunk>
     <chunk id="placement" >
@@ -623,7 +633,7 @@
  	</combo>
   </chunk>
   <chunk id="stars">
-      <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" display_values="*,**,***,****,*****,******,*******"/>
+      <combo key="stars" text="Stars" values="1,2,3,4,5" display_values="*,**,***,****,*****"/>
   </chunk>
   <chunk id="car_brands">
     <multiselect key="brand" text="Car brand" values="Alfa Romeo;Aston Martin;Audi;Bentley;BMW;Buick;Cadillac;Chevrolet;Chrysler;Citroën;Dacia;Daewoo;Daihatsu;Dodge;Ferrari;Fiat;Ford;GMC;Great Wall;Holden;Honda;Hyundai;Infiniti;Isuzu;Jaguar;Jeep;Kia;Lada;Lancia;Land Rover;Lexus;Lincoln;Lotus;Maserati;Mazda;Mercedes-Benz;Mini;Mitsubishi;Nissan;Opel;Peugeot;Renault;Saab;Seat;Škoda;Smart;SsangYong;Subaru;Suzuki;Toyota;Vauxhall;Volkswagen;Volvo" match="key" />
@@ -1631,7 +1641,8 @@
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:highway=footway"
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:highway=footway"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=footway" 
-                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:highway=footway" />
+                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:highway=footway" 
+                  zh_CN.href="http://wiki.openstreetmap.org/wiki/Zh-hans:Tag:highway=footway" />
             <key key="highway" value="footway" />
             <optional>
                 <combo key="footway" text="Type" values="sidewalk,crossing" display_values="Sidewalk,Crossing" values_context="footway" />
@@ -2051,6 +2062,7 @@
         <item name="Highway milestone" icon="icons/png/highway_milestone_18006.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=milestone"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:highway=milestone"
+            	  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:highway=milestone"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:highway=milestone"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:highway=milestone"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:highway=milestone"
@@ -2102,7 +2114,8 @@
             <optional>
                 <text key="name" text="Name" />
                 <text key="ele" text="Elevation" />
-                <text key="wikipedia" text="Wikipedia" />
+                <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+                <text key="wikidata" text="Wikidata" value_type="wikidata" />
             </optional>
         </item> <!-- Mountain Pass -->
     </group> <!-- Waypoints -->
@@ -2330,6 +2343,7 @@
         <item name="Entrance (Barrier Opening)" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:barrier=entrance"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:barrier=entrance"
+            	  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:barrier=entrance"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:barrier=entrance"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:barrier=entrance"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:barrier=entrance"
@@ -2687,10 +2701,10 @@
             <combo key="maxspeed:hgv:conditional" text="Max speed HGV @"
                   delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" values_sort="false" match="key" />    
             <text key="maxspeed:hgv:forward" text="Max. speed HGV →" long_text="Maximum speed for heavy goods vehicles in way direction specified in km/h" match="key" />
-            <combo key="maxspeed:hgv:forward:conditional" text="Max speed HGV → @" long_text="Condiditonal maximum speed for heavy goods vehicles in way direction specified in km/h"
+            <combo key="maxspeed:hgv:forward:conditional" text="Max speed HGV → @" long_text="Conditional maximum speed for heavy goods vehicles in way direction specified in km/h"
                   delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" values_sort="false" match="key" />
-            <text key="maxspeed:hgv:backward" text="Max. speed HGV ←" long_text="Maximum speed for heavy goods vehicles in way direction specified in km/h" match="key" />
-            <combo key="maxspeed:hgv:backwardward:conditional" text="Max speed HGV ← @" long_text="Condiditonal maximum speed for heavy goods vehicles in way direction specified in km/h"
+            <text key="maxspeed:hgv:backward" text="Max. speed HGV ←" long_text="Maximum speed for heavy goods vehicles opposite way direction specified in km/h" match="key" />
+            <combo key="maxspeed:hgv:backwardward:conditional" text="Max speed HGV ← @" long_text="Conditional maximum speed for heavy goods vehicles opposite way direction specified in km/h"
                   delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" values_sort="false"  match="key" />
 	        <reference ref="additional_access_tags" /> 
         </item> <!-- Heavy Goods Vehicle -->
@@ -3005,7 +3019,8 @@
             <check key="salt" text="Salt Water" disable_off="true" />
             <check key="intermittent" text="Is the water body intermittent (disappears seasonally)?" disable_off="true" />
             <check key="tidal" text="In the tidal range" disable_off="true" />
-            <text key="wikipedia" text="Wikipedia" />
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+            <text key="wikidata" text="Wikidata" value_type="wikidata" />
             <reference ref="water_access" />
         </item> <!-- Water -->
         <item name="Coastline" icon="presets/coastline.png" type="way,closedway" preset_name_label="true">
@@ -3020,7 +3035,7 @@
             <label text="Line between the sea and land (with the water on the right side of the way)." />
             <space />
             <key key="natural" value="coastline" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name_wikipedia" />
         </item> <!-- Coastline -->
         <item name="Riverbank" icon="presets/waterway.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:waterway=riverbank"
@@ -3094,7 +3109,7 @@
             <label text="A flat area of sand, gravel or pebble next to water." />
             <space />
             <key key="natural" value="beach" />
-            <reference ref="name_wikipedia" />
+            <reference ref="optional_name_wikipedia" />
             <optional>
                 <reference ref="supervised" />
                 <reference ref="oh_wheelchair" />
@@ -3115,7 +3130,7 @@
             <label text="An area of water mostly surrounded by land but with level connection to the ocean or a lake." />
             <space />
             <key key="natural" value="bay" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name_wikipedia" />
         </item> <!-- Bay -->
     </group> <!-- Water -->
     <group name="Shipping" icon="icons/png/water_ferry_terminal_12048.png">
@@ -4795,7 +4810,7 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Caravan Site/RV Park -->
-        <item name="Camping Site" icon="icons/png/accommodation_camping.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Campsite" icon="icons/png/accommodation_camping.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=camp_site"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:tourism=camp_site"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:tourism=camp_site"
@@ -4809,12 +4824,21 @@
             <key key="tourism" value="camp_site" />
             <reference ref="name_operator" />
             <reference ref="stars" />
+            <checkgroup columns="2">
+                <check key="tents" text="Tents allowed" />
+                <check key="caravans" text="Caravans allowed" />
+            </checkgroup>
+            <checkgroup columns="2">
+                <check key="backcountry" text="Backcountry" />
+                <check key="group_only" text="Group only access" />
+            </checkgroup>
+            <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" display_values="Exists,Public,Customers,Private" match="none" />
             <reference ref="wheelchair" />
             <space />
-            <reference ref="internet_smoking" />
+            <reference ref="internet" />
             <space />
             <reference ref="link_contact_address_payment" />
-        </item> <!-- Camping Site -->
+        </item> <!-- Campsite -->
     </group> <!-- Accommodation -->
     <group name="Food+Drinks" icon="icons/png/food_restaurant.png">
         <item name="Restaurant" icon="icons/png/food_restaurant.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5041,6 +5065,9 @@
             <space />
             <key key="tourism" value="viewpoint" />
             <text key="name" text="Name" />
+            <combo key="direction" text="Direction" delimiter="|" values="N|E|S|W|NE|NNE-S|180|90-270|270-90|0-360|70-110;250-290" values_no_i18n="true" values_sort="false" match="none" />
+            <space />
+            <label text="" icon="presets/misc/angles.svg" icon_size="300" />
             <!--<check key="man_made" value="tower" text="Look-Out Tower" />-->
         </item> <!-- Viewpoint -->
         <separator/>
@@ -5217,7 +5244,8 @@
             <space />
             <key key="tourism" value="zoo" />
             <reference ref="name_oh_wheelchair_toilets" />
-            <text key="wikipedia" text="Wikipedia" />
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+            <text key="wikidata" text="Wikidata" value_type="wikidata" />
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Zoo -->
@@ -5233,7 +5261,8 @@
             <space />
             <key key="tourism" value="aquarium" />
             <reference ref="name_oh_wheelchair_toilets" />
-            <text key="wikipedia" text="Wikipedia" />
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+            <text key="wikidata" text="Wikidata" value_type="wikidata" />
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Aquarium -->
@@ -5577,6 +5606,7 @@
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=museum"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:tourism=museum"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:tourism=museum"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:tourism=museum"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:tourism=museum"
                   it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:tourism=museum"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:tourism=museum"
@@ -5586,7 +5616,8 @@
             <space />
             <key key="tourism" value="museum" />
             <reference ref="name_operator_oh_wheelchair_toilets" />
-            <text key="wikipedia" text="Wikipedia" />
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+            <text key="wikidata" text="Wikidata" value_type="wikidata" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Museum -->
         <item name="Art gallery" icon="icons/png/tourist_gallery_30041.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5600,7 +5631,8 @@
             <space />
             <key key="tourism" value="gallery" />
             <reference ref="name_operator_oh_wheelchair_toilets" />
-            <text key="wikipedia" text="Wikipedia" />
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+            <text key="wikidata" text="Wikidata" value_type="wikidata" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Art gallery -->
         <item name="Theatre" icon="icons/png/tourist_theatre.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7032,6 +7064,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:amenity=waste_basket"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=waste_basket" />
             <key key="amenity" value="waste_basket" />
+            <combo key="waste" text="Waste" values="trash,dog_excrement" display_values="Trash,Dog excrement" match="none" />
         </item> <!-- Waste Basket/Trash Can -->
         <item name="Waste Disposal/Dumpster" icon="icons/png/amenity_waste_disposal_12312.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=waste_disposal"
@@ -7359,6 +7392,7 @@
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=track"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=track"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=track"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:leisure=track"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:leisure=track"
                   it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:leisure=track"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=track"
@@ -7572,7 +7606,8 @@
         </item> <!-- Archery -->
         <item name="Track and Field Athletics" icon="icons/png/sport_athletics_21002.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sports=athletics"
-                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:sport=athletics" />
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:sport=athletics" 
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:sport=athletics" />
             <space />
             <key key="sport" value="athletics" />
             <text key="name" text="Name" />
@@ -8085,8 +8120,8 @@
 				uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
 			<space />
 			<combo key="building" text="Building"
-				values="residential,apartments,house,hotel,hut,bungalow,dormitory,terrace,detached,farm,roof"
-				display_values="Residential,Apartments,House,Hotel,Hut,Bungalow,Dormitory,Terrace,Detached,Farm,Roof"
+				values="residential,apartments,house,hotel,hut,bungalow,dormitory,terrace,detached,farm"
+				display_values="Residential,Apartments,House,Hotel,Hut,Bungalow,Dormitory,Terrace,Detached,Farm"
 				default="residential" match="keyvalue!" values_context="building"
 				values_searchable="true" />
 			<reference ref="additional_building_tags" />
@@ -9399,7 +9434,8 @@
              <text key="inscription" text="Inscription" />
              <text key="artist_name" text="Artist Name" />
              <text key="start_date" text="Start date" />
-             <text key="wikipedia" text="Wikipedia" />
+             <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+             <text key="wikidata" text="Wikidata" value_type="wikidata" />
          </optional>
      </item> <!-- Memorial -->
      <item name="Wayside Cross" icon="icons/png/tourist_wayside_cross.png" type="node,closedway" preset_name_label="true">
@@ -9445,6 +9481,7 @@
          <link href="http://wiki.openstreetmap.org/wiki/Tag:historic=boundary_stone"
          	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:historic=boundary_stone"
                de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:historic=boundary_stone"
+               es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:historic=boundary_stone"
                fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:historic=boundary_stone"
                ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:historic=boundary_stone"
                pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:historic=boundary_stone"
@@ -11257,7 +11294,8 @@
             <optional>
                 <reference ref="name_operator" />
                 <reference ref="oh" />
-                <text key="wikipedia" text="Wikipedia" />
+                <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+                <text key="wikidata" text="Wikidata" value_type="wikidata" />
                 <text key="start_date" text="Start date" />
             </optional>
         </item> <!-- Protected Area -->
@@ -11575,7 +11613,7 @@
             <label text="A steep rock face exposure, with a significant vertical, or near vertical (leave the lower face to the right of the way)." />
             <space />
             <key key="natural" value="cliff" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name_wikipedia" />
         </item> <!-- Cliff -->
         <item name="Cave Entrance" icon="icons/png/poi_cave.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:natural=cave_entrance"
@@ -12456,7 +12494,8 @@
             <text key="phone" text="Phone Number" match="key" />
             <text key="fax" text="Fax Number" match="key" />
             <space />
-            <text key="wikipedia" text="Wikipedia" />
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+            <text key="wikidata" text="Wikidata" value_type="wikidata" />
             <text key="image" text="Image" />
         </item> <!-- Contact (Common Schema) -->
         <item name="Contact ('contact:*')" icon="icons/png/osm_contact_sp.png" type="node,way,closedway,relation,multipolygon" preset_name_label="true">
@@ -12476,7 +12515,8 @@
             <text key="contact:phone" text="Phone Number" match="key" />
             <text key="contact:fax" text="Fax Number" match="key" />
             <space />
-            <text key="wikipedia" text="Wikipedia" />
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+            <text key="wikidata" text="Wikidata" value_type="wikidata" />
             <text key="image" text="Image" />
         </item> <!-- Contact (Schema with 'contact:*' Prefix) -->
   </group> <!-- Addresses and Contact -->
@@ -12699,6 +12739,7 @@ tags.remove('automatic_check_date');"
                 <link href="http://wiki.openstreetmap.org/wiki/Tag:route=bicycle"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:route=bicycle"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:route=bicycle"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:route=bicycle"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:route=bicycle" />
                 <space/>
                 <key key="type" value="route"/>
@@ -13008,7 +13049,8 @@ tags.remove('automatic_check_date');"
                 <text key="ref:regine" text="Reference REGINE (NO)" />
                 <text key="ref:gnis" text="Reference GNIS (USA)" />
                 <text key="ref:gnbc" text="Reference GNBC (CA)" />
-                <text key="wikipedia" text="Wikipedia" />
+                <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
+                <text key="wikidata" text="Wikidata" value_type="wikidata" />
             </optional>
             <roles>
                 <role key="" text="waterways (no riverbank)" requisite="optional" type="way" member_expression="waterway -waterway:riverbank" />
@@ -13686,6 +13728,7 @@ tags.remove('automatic_check_date');"
             <link href="http://wiki.openstreetmap.org/wiki/Tag:office=administrative"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:office=administrative"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=administrative"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:office=administrative"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:office=administrative"
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:office=administrative"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:office=administrative" />
@@ -13737,6 +13780,7 @@ tags.remove('automatic_check_date');"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:office=government"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=government"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:office=government"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:office=government"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:office=government"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:office=government"
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:office=government"
@@ -14012,6 +14056,16 @@ tags.remove('automatic_check_date');"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:office=notary" />
             <space />
             <key key="office" value="notary" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address" />
+        </item> <!-- Notary -->
+        <item name="Movers" icon="icons/png/office_moving_company.png" type="node,closedway,multipolygon">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=moving_company"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:office=moving_company" 
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=moving_company"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:office=moving_company" />
+            <space />
+            <key key="office" value="moving_company" />
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address" />
         </item> <!-- Notary -->
