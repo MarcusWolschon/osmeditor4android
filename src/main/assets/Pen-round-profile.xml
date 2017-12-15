@@ -72,6 +72,7 @@
 <feature name="way-highway-proposed" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="88888888" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-pedestrian" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff888888" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-path" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffc69c49" style="STROKE" cap="BUTT" join="MITER" />
+<feature name="way-highway-cycleway" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="fff48f42" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-footway" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffff4500" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-steps" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffff4500" style="STROKE" cap="BUTT" join="MITER" >
 	<dash phase="1.0">
@@ -86,12 +87,13 @@
 <feature name="way-highway-trunk_link" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ff7FC97F" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-primary" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ffE46D71" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-primary_link" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ffE46D71" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-secondary" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffFDBF6F" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-secondary_link" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffFDBF6F" style="STROKE" cap="BUTT" join="MITER" />
+<feature name="way-highway-secondary" internal="false" updateWidth="true" widthFactor="1.2" editable="true" color="ffFDBF6F" style="STROKE" cap="BUTT" join="MITER" />
+<feature name="way-highway-secondary_link" internal="false" updateWidth="true" widthFactor="1.2" editable="true" color="ffFDBF6F" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-tertiary" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffFCFA74" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-tertiary_link" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffFCFA74" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-unclassified" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffCCCCCC" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-residential" internal="false" updateWidth="true" widthFactor="0.9" editable="true" color="ffCCCCCC" style="STROKE" cap="BUTT" join="MITER" />
+<feature name="way-highway-living_street" internal="false" updateWidth="true" widthFactor="0.9" editable="true" color="ffff4500" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-service" internal="false" updateWidth="true" widthFactor="0.7" editable="true" color="ffCCCCCC" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-power" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffaa0000" style="STROKE" cap="BUTT" join="MITER">
 	<dash phase="1.0">
