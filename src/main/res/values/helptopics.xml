@@ -23,7 +23,7 @@
     <string name="help_tagfilter">Tag filter</string>
     <string name="help_presetfilter">Preset filter</string>
     <string name="help_opening_hours">Opening hours</string>
-    <string name="help_upgrade">0.9.10 Release notes</string>
+    <string name="help_upgrade">Release notes</string>
     <string name="help_upgrade_099">0.9.9 Release notes</string>
     <string name="help_upgrade_098">0.9.8 Release notes</string>
     <string name="help_upgrade_097">0.9.7 Release notes</string>
@@ -69,7 +69,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
-    	<item>0.9.10 Release notes</item>
+    	<item>10.0.0 Release notes</item>
     	<item>0.9.9 Release notes</item>
     	<item>0.9.8 Release notes</item>
     	<item>0.9.7 Release notes</item>

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 0.9.10 BETA Highlights</h1><h2>Configurable validator</h2><p>The internal validator has been re-factored, among many other changes there is now a check for missing keys and the check for re-surveying, introduced in 0.9.9, is now fully configurable.</p><p>The missing tag check works on the combination of the keys that should be checked and the preset for element.</p><p>Example: the default configuration checks that a "name" tag is present on a object if the matching preset contains a "name" field in the non-optional tags, optionally the check can be extended to "optional" tags.</p><h2>C-Mode</h2><p>In C-Mode only objects that have warnings are displayed, making it simple to find objects with missing tags and other potential problems. Starting the property editor for an object in C-Mode will automatically apply the best match presets.</p><p>Cycling through modes by long pressing on the lock button has become impractical with the increasing number of modes and has now been replaced with a menu.</p><h2>Support for synonyms in the preset search</h2><p>The preset search will now use the same list of synonyms that the iD editor does additionally to the internal preset search index. The new functionality is independent of preset translations and uses the same fuzzy matching as the index search. Additional synonyms should be added on transifex to the <a href="https://www.transifex.com/openstreetmap/id-editor/presets/">iD translations</a>.</p><p>Notes:</p>
+<ul>
+  <li>the search will currently only find presets that are present both in iD and Vespucci, we may consider added Vespucci specific lists at a later time.</li>
+  <li>synonyms for military terms have been removed for safety reasons.</li>
+</ul><h2>Support for custom tasks</h2><p>You can now load (and save) tasks in a simplified Osmose JSON format. The format is not particularly forgiving and must follow the following example:</p>
+<pre><code>{
+    &quot;description&quot;: [
+       &quot;lat&quot;,
+       &quot;lon&quot;,
+       &quot;error_id&quot;,
+       &quot;elems&quot;,
+       &quot;subtitle&quot;,
+       &quot;title&quot;,
+       &quot;level&quot;,
+       &quot;update&quot;
+    ],
+    &quot;errors&quot;: [
+       [
+         &quot;47.3050383&quot;,
+         &quot;8.3702817&quot;,
+         &quot;11187837418&quot;,
+         &quot;way396965872&quot;,
+         &quot;This is a silly error of type 1&quot;,
+         &quot;Silly Errors&quot;,
+         &quot;2&quot;,
+         &quot;2017-03-26 20:30:16+02:00&quot;
+       ],
+       [
+         &quot;47.2930434&quot;,
+         &quot;8.3615897&quot;,
+         &quot;11187837446&quot;,
+         &quot;way397334779&quot;,
+         &quot;This is a silly error of type 2&quot;,
+         &quot;Silly Errors&quot;,
+         &quot;2&quot;,
+         &quot;2017-03-26 20:30:16+02:00&quot;
+       ]
+    ]
+}
+</code></pre><p>The value for "error_id" should be unique in the file. Note the custom tasks can't be uploaded, however you can save the open tasks to a file for later reuse.</p><h2>Miscellaneous</h2>
+<ul>
+  <li>The icon for splitting a selected way is now a pair of scissors.</li>
+  <li>Improved label rendering.</li>
+  <li>If a PresetFilter is filtering just on one preset item, apply that automatically when creating new elements.</li>
+  <li>Support i18n attribute in presets to indicate that a text field can have i18n suffixes</li>
+  <li>Improved tile download behavior when zooming or switching layers.</li>
+  <li>Support for object_keys and value_type attributes in presets (current value_type opening_hours, conditional, and website are supported).</li>
+  <li>Support for using patterns for way rendering, added styling for natural=cliff, natural=coastline and man_made=embankment.</li>
+  <li>Improved conditional restriction editor with opening_hours editor support.</li>
+</ul><p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p><h1>Known problems</h1><h1>Upgrading from previous versions</h1>
+<ul>
+  <li>The saved editing state file format has changed, please complete any edits before upgrading.</li>
+  <li>The preference values for numerical "Advanced preferences" have been reset to their defaults. Please review the settings for:</li>
+  <li><p>Maximum number of inline values displayed</p></li>
+  <li>Autolock delay</li>
+  <li>Notification cache size</li>
+  <li>Maximum alert distance</li>
+  <li>Download radius</li>
+  <li>Maximum download speed</li>
+  <li>Notes/bug download radius</li>
+  <li>Maximum notes/bug download speed</li>
+  <li>Minimum distance between GPS measurements</li>
+  <li>GPS measurement interval</li>
+  <li>Maximum number of tile download threads</li>
+  <li>Tile cache size</li>
+  <li>Maximum stroke width</li>
+  <li><p>For known problems with the beta build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></p></li>
+</ul>
+</body>
+</html>
