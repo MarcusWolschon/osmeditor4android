@@ -204,7 +204,7 @@ public class Preferences {
         forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
 
         offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OFFSET_SERVER);
-        osmoseServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OSMOSE_SERVER);
+        osmoseServer = prefs.getString(r.getString(R.string.config_osmoseServer_key), Urls.DEFAULT_OSMOSE_SERVER);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 
