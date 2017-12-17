@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.0.0: Change numbering scheme, fix issue with wrong pref keys for osmose and offset servers, follow GPS button improvements.
+
 1328: Support for using patterns for way rendering, added styling for natural=cliff, natural=coastline and man_made=embankment, styling for cycleways and living streets.
 
 1326: Fix crash when sorting Relations with duplicate entries, added support for opening_hours in conditional restrictions, some menu wording changes.
