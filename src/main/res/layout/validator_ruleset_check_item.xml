@@ -18,10 +18,9 @@
 		android:id="@+id/check_key"
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="?attr/dialogPreferredPadding"
 		android:layout_marginRight="?attr/dialogPreferredPadding"
-		android:layout_alignTop="@id/check_key_legend"
-		android:layout_toRightOf="@id/check_key_legend"
+		android:layout_below="@id/check_key_legend"
+		android:layout_alignLeft="@id/check_key_legend"
 		android:textAppearance="?android:attr/textAppearanceMedium" />
 		
 	<TextView
@@ -30,7 +29,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="?attr/dialogPreferredPadding"
 		android:paddingTop="10dp"
-		android:layout_below="@id/check_key_legend"
+		android:layout_below="@id/check_key"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
 		android:text="@string/check_optional"/>
 		
