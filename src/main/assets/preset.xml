@@ -223,8 +223,16 @@
         	<text key="wheelchair:description" text="Wheelchair access details" i18n="true" />
 			<text key="wheelchair:entrance_width" text="Entrance width in cm"/>
 			<text key="wheelchair:step_height" text="Step height in cm"/>
+	     </optional>
+    </chunk>
+    <chunk id="wheelchair_rooms">
+        <optional>
 			<text key="wheelchair:rooms" text="Number of rooms suitable for wheelchairs"/>
-			<text key="wheelchair:places" text="Number of wheelchair seating places"/>
+        </optional>
+    </chunk>
+    <chunk id="wheelchair_seating">
+        <optional>
+            <text key="wheelchair:places" text="Number of wheelchair seating places"/>
         </optional>
     </chunk>
     <chunk id="oh_wheelchair">
@@ -4630,6 +4638,7 @@
             <text key="rooms" text="Rooms" />
             <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_rooms" />
             <space />
             <reference ref="internet_smoking" />
             <space />
@@ -4652,6 +4661,7 @@
             <text key="rooms" text="Rooms" />
             <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_rooms" />
             <space />
             <reference ref="internet_smoking" />
             <space />
@@ -4673,6 +4683,7 @@
             <text key="rooms" text="Rooms" />
             <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_rooms" />
             <space />
             <reference ref="internet_smoking" />
             <space />
@@ -4693,6 +4704,7 @@
             <combo key="number_of_apartments" text="Number of apartments" values="1,2,3,4,5,6,7,8,9,10" />
             <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_rooms" />
             <space />
             <reference ref="internet_smoking" />
             <space />
@@ -4716,6 +4728,7 @@
             <text key="rooms" text="Rooms" />
             <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_rooms" />
             <space />
             <reference ref="internet_smoking" />
             <space />
@@ -4737,6 +4750,7 @@
             <text key="rooms" text="Rooms" />
             <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_rooms" />
             <space />
             <reference ref="internet_smoking" />
             <space />
@@ -4862,6 +4876,7 @@
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
+            <reference ref="wheelchair_seating" />
             <reference ref="stars" />
             <reference ref="toilets_with_access" />
             <space />
@@ -5226,6 +5241,7 @@
             <space />
             <key key="amenity" value="cinema" />
             <reference ref="name_operator_oh_wheelchair_toilets" />
+            <reference ref="wheelchair_seating" />
             <check key="drive_in" text="Drive-in theater" disable_off="true" />
             <check key="cinema:3D" text="3D" disable_off="true" />
             <text key="screen" text="Number of screens" />
@@ -5655,6 +5671,7 @@
            	</optional>
             <reference ref="name_operator" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_seating" />
             <reference ref="toilets_with_access" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Theatre -->
@@ -5676,6 +5693,7 @@
             </combo>
             <reference ref="name_operator" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_seating" />
             <reference ref="toilets_with_access" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Music theatres -->	
@@ -5698,6 +5716,7 @@
             </combo>
             <reference ref="name_operator" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_seating" />
             <reference ref="toilets_with_access" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Other theatres -->	
@@ -5718,6 +5737,7 @@
             </combo>
             <reference ref="name_operator" />
             <reference ref="wheelchair" />
+            <reference ref="wheelchair_seating" />
             <reference ref="toilets_with_access" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Figure/puppet theatres -->
