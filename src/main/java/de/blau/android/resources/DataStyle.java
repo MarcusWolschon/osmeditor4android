@@ -495,12 +495,12 @@ public class DataStyle extends DefaultHandler {
         fp = new FeatureStyle(GPS_POS, featureStyles.get(GPS_TRACK));
         fp.getPaint().setStyle(Style.FILL);
         fp.setWidthFactor(2f);
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 4.0f));
+        fp.dontUpdate();
         featureStyles.put(fp.getName(), fp);
 
         fp = new FeatureStyle(GPS_POS_FOLLOW, featureStyles.get(GPS_POS));
         fp.getPaint().setStyle(Style.STROKE);
-        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 4.0f));
-        fp.dontUpdate();
         featureStyles.put(fp.getName(), fp);
 
         fp = new FeatureStyle(GPS_ACCURACY, featureStyles.get(GPS_POS));

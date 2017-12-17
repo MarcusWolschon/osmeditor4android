@@ -489,6 +489,7 @@ public class Main extends FullScreenAppCompatActivity
             @Override
             public void onClick(View v) {
                 App.getLogic().zoom(Logic.ZOOM_IN);
+                setFollowGPS(followGPS);
                 updateZoomControls();
             }
         });
@@ -496,6 +497,7 @@ public class Main extends FullScreenAppCompatActivity
             @Override
             public void onClick(View v) {
                 App.getLogic().zoom(Logic.ZOOM_OUT);
+                setFollowGPS(followGPS);
                 updateZoomControls();
             }
         });
@@ -2029,12 +2031,14 @@ public class Main extends FullScreenAppCompatActivity
             if (follow) {
                 setShowGPS(true);
             }
-            FloatingActionButton followButton = getFollowButton();
-            if (followButton != null) {
-                followButton.setEnabled(!follow);
-            }
             map.setFollowGPS(follow);
             triggerMenuInvalidation();
+        }
+        FloatingActionButton followButton = getFollowButton();
+        if (followButton != null) {
+            Location mapLocation = map.getLocation();
+            boolean onScreen = mapLocation != null && map.getViewBox().contains(mapLocation.getLongitude(), mapLocation.getLatitude());
+            followButton.setEnabled(!follow || !onScreen);
         }
         if (follow && lastLocation != null) { // update if we are returning from pause/stop
             Log.d(DEBUG_TAG, "Setting lastLocation");
@@ -2966,6 +2970,7 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public void onScale(View v, float scaleFactor, float prevSpan, float curSpan) {
             App.getLogic().zoom((curSpan - prevSpan) / prevSpan);
+            setFollowGPS(followGPS);
             updateZoomControls();
         }
 

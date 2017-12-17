@@ -827,13 +827,26 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * Right and top coordinate are considered inside
      * 
      * @param lonE7 longitude in degrees x 1E7
-     * @param latE7 lattitude in degrees x 1E7
+     * @param latE7 latitude in degrees x 1E7
      * @return true if the location is in the bounding box
      */
     public boolean contains(int lonE7, int latE7) {
         return left <= lonE7 && lonE7 <= right && bottom <= latE7 && latE7 <= top;
     }
 
+    /**
+     * Returns true if the coordinates are in this bounding box
+     * 
+     * Right and top coordinate are considered inside
+     * 
+     * @param longitude longitude in degrees
+     * @param latitude latitude in degrees
+     * @return true if the location is in the bounding box
+     */
+    public boolean contains(double longitude, double latitude) {
+        return contains((int)(longitude*1E7D), (int)(latitude*1E7D));
+    }
+    
     /**
      * Return pre-caclulated mercator value for the bottom of the bounding box
      * 

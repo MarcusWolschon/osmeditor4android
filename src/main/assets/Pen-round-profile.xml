@@ -20,7 +20,7 @@
 <feature name="node_tolerance_2" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="7fbd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="20.0" />
 <feature name="infotext" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" typefacestyle="0" textsize="12.0" />
 <feature name="viewbox" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" />
-<feature name="gps_pos" internal="true" updateWidth="true" widthFactor="2.0" editable="true" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" />
+<feature name="gps_pos" internal="true" updateWidth="false" widthFactor="2.0" editable="true" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" strokewidth="4.0" />
 <feature name="gps_pos_follow" internal="true" updateWidth="false" widthFactor="2.0" editable="true" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokewidth="4.0"/>
 
 <!-- OSM way based features -->
