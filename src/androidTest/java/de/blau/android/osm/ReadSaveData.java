@@ -108,8 +108,8 @@ public class ReadSaveData {
     private boolean dataIsSame(byte[] correctContent, byte[] testContent) {
         int oldVersionLength = 12;
         int offset = context.getString(R.string.app_version).length() - oldVersionLength;
-        if (correctContent.length == testContent.length - offset) { // this will fail is more than the build changes
-            for (int i = 77 + offset; i < correctContent.length; i++) {
+        if (correctContent.length == testContent.length - offset) { // this will fail if more than the build changes
+            for (int i = 77 + offset; i < correctContent.length + offset; i++) {
                 if (correctContent[i - offset] != testContent[i]) {
                     System.out.println("Files differ at position " + i + " offset " + offset);
                     return false;
