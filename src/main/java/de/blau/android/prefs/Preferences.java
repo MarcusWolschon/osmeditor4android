@@ -479,7 +479,7 @@ public class Preferences {
     }
 
     public String getOsmoseServer() {
-        return offsetServer;
+        return osmoseServer;
     }
 
     public boolean showCameraAction() {
@@ -664,7 +664,7 @@ public class Preferences {
         try {
             String key = r.getString(prefKey);
             if (key != null) {
-                prefs.edit().putString(r.getString(prefKey), s).commit();
+                prefs.edit().putString(key, s).commit();
             } else {
                 Log.e(DEBUG_TAG, Integer.toString(prefKey) + " is not a valid string resource");
             }
