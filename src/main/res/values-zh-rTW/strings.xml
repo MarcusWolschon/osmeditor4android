@@ -1,6 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">正常</string>
+  <string name="mode_tag_only">只有標籤</string>
+  <string name="mode_indoor">室內</string>
+  <string name="mode_correct">C 模式</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">您有做了一些變更。您是否想上傳它們而非放棄？</string>
@@ -79,6 +83,8 @@
   <string name="openstreetbug_commit_fail">無法儲存錯誤修改</string>
   <string name="openstreetbug_not_downloaded">沒有下載</string>
   <string name="openstreetbug_last_updated">最近更新</string>
+  <string name="openstreetbug_unknown_task_type">不知名任務類型</string>
+  <string name="openstreetbug_not_supported">並不支援 %1$s</string>
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將會被放棄。</string>
   <string name="unsaved_data_proceed">放棄和繼續</string>
@@ -90,6 +96,7 @@
   <string name="imagery_offset_date">已建立</string>
   <string name="imagery_offset_zoom">縮放</string>
   <string name="imagery_offset_distance">距離</string>
+  <string name="zoom_and_offset">Z %1$s 偏離 %2$s/%3$s</string>
   <string name="set_position_datum_label">大地基準點</string>
   <string name="tag_editor_name_suggestion">建議名稱</string>
   <string name="tag_editor_name_suggestion_overwrite_message">這個建議可以用比較流行的值替換一些標籤值。</string>
@@ -130,9 +137,21 @@
   <string name="evaluate">評估</string>
   <string name="js_console_msg_live">Live 模式！</string>
   <string name="js_console_msg_debug">Debug 模式</string>
+  <string name="validator_title">驗證器規則集 %1$s</string>
+  <string name="edit_resurvey_title">編輯重新踏查輸入值</string>
+  <string name="add_resurvey_title">新增重新踏查輸入值</string>
+  <string name="edit_check_title">編輯檢查輸入值</string>
+  <string name="add_check_title">新增檢查輸入值</string>
+  <string name="max_age">最大年齡</string>
+  <string name="age">年齡</string>
+  <string name="check_opt">檢查選擇</string>
+  <string name="check_optional">檢查其他選擇</string>
+  <string name="add_resurvey_entry">新增重新踏察輸入值</string>
+  <string name="add_check_entry">新增檢查輸入值</string>
   <!--Toaster-->
   <string name="toast_no_changes">您還沒有變更什麼…</string>
   <string name="toast_unsaved_changes">您有未存儲的變更，請先上傳它們。</string>
+  <string name="clear_anyway">清除了嗎？</string>
   <string name="toast_upload_success">上傳到 OSM 的伺服器完成了。</string>
   <string name="toast_not_in_edit_range">請放大來編輯(音量鍵上/下)</string>
   <string name="toast_unlock_to_edit">解鎖以編輯</string>
@@ -197,6 +216,7 @@
   <string name="toast_no_coverage">%1$s在這裡無覆蓋</string>
   <string name="toast_file_exists">檔案 %1$s 存在。</string>
   <string name="toast_needs_resurvey">物件可能過期了</string>
+  <string name="toast_missing_key">鍵 %1$s 遺失</string>
   <string name="toast_openinghours_invalid">%1$s 無效的營業時間</string>
   <string name="toast_openinghours_autocorrected">%1$s 的營業時間已經被自動修正</string>
   <string name="toast_exit_multiselect">點兩下空白處或是用返回鍵離開</string>
@@ -204,12 +224,15 @@
   <string name="toast_abort_actionmode">使用返回鍵放棄</string>
   <string name="toast_null_island">請不要在 0°/0° (Null Island) 增加物件</string>
   <string name="toast_string_too_long">字串太長 (%1$d 文字) 被截斷了！</string>
+  <string name="toast_illegal_operation">非法操作：%1$s</string>
+  <string name="toast_preset_creation_failed">創建預設組合 \"%1$s\" 失敗：%2$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="okay">確定</string>
   <string name="cancel">取消</string>
   <string name="dismiss">解散</string>
+  <string name="done">完成</string>
   <string name="locked">已鎖定</string>
   <string name="next">下一頁</string>
   <string name="apply">套用</string>
@@ -252,6 +275,7 @@
   <string name="tag_value_hint">輸入數值</string>
   <string name="tag_autocomplete_value_hint">輸入或點選數值</string>
   <string name="tag_autocomplete_name_hint">輸入或點選建議名稱</string>
+  <string name="tag_tap_to_edit_hint">按一下來編輯</string>
   <string name="tag_multi_value_hint">多重的值</string>
   <string name="tag_dialog_value_hint">點選數值</string>
   <string name="tag_action_tag_title">選擇標籤(們)</string>
@@ -278,6 +302,7 @@
   <string name="tag_restriction_header">數值</string>
   <string name="tag_restriction_when">當</string>
   <string name="tag_restriction_and">和</string>
+  <string name="tag_restriction_add_restriction">新增限制</string>
   <string name="tag_restriction_add_simple_condition">增加簡單條件</string>
   <string name="tag_restriction_add_expression">增加表達式</string>
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
@@ -343,6 +368,9 @@
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
   <string name="menu_transfer_close_changeset">關閉目前的變更組合</string>
   <string name="menu_transfer_file">檔案...</string>
+  <string name="menu_transfer_export">匯出變更到 OSC 檔案</string>
+  <string name="menu_transfer_read_file">從 JOSM 檔讀取...</string>
+  <string name="menu_transfer_save_file">儲存到 JOSM 檔案...</string>
   <string name="menu_transfer_bugs">註釋/錯誤...</string>
   <string name="menu_transfer_bugs_download_current">為目前的檢視下載錯誤</string>
   <string name="menu_transfer_bugs_upload">全部上傳</string>
@@ -352,6 +380,8 @@
   <string name="menu_transfer_autodownload_long">自動下載錯誤</string>
   <string name="menu_transfer_save_notes_all">儲存所有註解...</string>
   <string name="menu_transfer_save_notes_new_and_changed">儲存新的和變更的註解...</string>
+  <string name="menu_transfer_read_custom_bugs">載入客製任務...</string>
+  <string name="menu_transfer_write_custom_bugs">儲存開啟的客製任務...</string>
   <string name="menu_save">儲存到檔案</string>
   <string name="menu_join">加入</string>
   <string name="menu_unjoin">不加入</string>
@@ -434,8 +464,10 @@
   <string name="config_voiceCommandsEnabled_summary">啟用實驗性的聲控指令支援</string>
   <string name="config_maxAlertDistance_title">最大距離的通知</string>
   <string name="config_maxAlertDistance_summary">最大距離的一個問題或註釋，可以是從目前位置去產生通知</string>
+  <string name="config_maxAlertDistance_current">%1$d 公尺</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的路徑</string>
+  <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_showStats_title">顯示統計</string>
   <string name="config_showStats_summary">在左下角顯示資料的統計和畫格/秒。</string>
   <string name="config_showTolerance_title">顯示選取誤差</string>
@@ -481,8 +513,10 @@
   <string name="config_category_gps">GPS 設定</string>
   <string name="config_gps_distance_title">GPS 的最小距離</string>
   <string name="config_gps_distance_summary">GPS 接收通知，以公尺 (可以有小數) 為單位的最小距離間隔 。較低的值使電池更加耗電。</string>
+  <string name="config_gps_distance_current">%1$d 公尺</string>
   <string name="config_gps_interval_title">GPS 的最小時間間隔</string>
   <string name="config_gps_interval_summary">GPS 接收通知，以毫秒為單位的最小時間間隔 。較低的值使電池更加耗電。</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_category_info">關於</string>
   <string name="config_advancedprefs">進階參數選項</string>
   <string name="config_forceContextMenu_title">總是使用快顯選單</string>
@@ -499,8 +533,10 @@
   <string name="config_largeDragArea_summary">拖曳節點時提供大的區域</string>
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
+  <string name="config_downloadRadius_current">%1$d 公尺</string>
   <string name="config_maxDownloadSpeed_title">最高自動下載速度</string>
   <string name="config_maxDownloadSpeed_summary">高於此限制(公里/小時)，自動下載暫停</string>
+  <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_bugDownloadRadius_title">註解/錯誤的下載半徑</string>
   <string name="config_bugDownloadRadius_summary">註解/錯誤下載的半徑(m)</string>
   <string name="config_maxBugDownloadSpeed_title">註解/錯誤的最高自動下載速度</string>
@@ -533,20 +569,27 @@
   <string name="config_fullscreenMode_summary">有\"soft\"鍵裝置程式行為</string>
   <string name="config_maxInlineValues_title">最大內嵌數值</string>
   <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格</string>
+  <string name="config_maxInlineValues_current">%1$d 數值</string>
+  <string name="config_category_layers">圖層下載和儲存</string>
   <string name="config_maxTileDownloadThreads_title">最大下載序列數</string>
   <string name="config_maxTileDownloadThreads_summary">最大圖磚下載序列數</string>
+  <string name="config_downLoadThreads_current">%1$d 線程</string>
   <string name="config_tileCacheSize_title">圖磚快取大小</string>
   <string name="config_tileCacheSize_summary">圖磚快取以 MB 為單位合計大小</string>
+  <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_notificationCacheSize_title">最多顯示的通知數量</string>
   <string name="config_notificationCacheSize_summary">每種類型最大顯示通知數目 (min. 1)</string>
+  <string name="config_notificationCacheSize_current">%1$d 通知</string>
   <string name="config_autoLockDelay_title">自動鎖定所需等待的時間</string>
   <string name="config_autoLockDelay_summary">自動鎖定之前所需等待的秒教，0意味關閉。</string>
+  <string name="config_autoLockDelay_current">%1$d 秒</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">如果啟用，非下載區域將在鎖定模式下變模糊</string>
   <string name="config_geocoderbutton_title">設定 geocoders</string>
   <string name="config_geocoderbutton_summary">為搜尋功能增加、編輯、刪除 geocoders</string>
   <string name="config_js_console_title">啟用 JS 主控台</string>
   <string name="config_js_console_summary">讓 JS 主控台在 live 模式啟用</string>
+  <string name="config_validatorprefs_title">驗證器選項</string>
   <string name="manage_apis">管理 APIs</string>
   <string name="manage_presets">管理預置</string>
   <string name="manage_geocoders">管理 geocoders</string>
@@ -580,6 +623,7 @@
   <string name="name">名稱</string>
   <string name="url">URL</string>
   <string name="default_">預設</string>
+  <string name="regular_expression">正規表示式</string>
   <!---->
   <string name="empty_list">無輸入</string>
   <string name="api_name">API 名稱</string>

@@ -1,9 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string-array name="bug_filter_entries">
-    <item>Notes</item>
-    <item>Osmose error</item>
-    <item>Osmose alerta</item>
-    <item>Osmose error menor</item>
-  </string-array>
+  <string name="bugfilter_notes_entry">Notes</string>
+  <string name="bugfilter_osmose_error_entry">Error Osmose</string>
+  <string name="bugfilter_osmose_warning_entry">Advertència Osmose</string>
+  <string name="bugfilter_osmose_minor_issue_entry">Problema menor Osmose</string>
+  <string name="bugfilter_custom_entry">Personalitzar</string>
 </resources>

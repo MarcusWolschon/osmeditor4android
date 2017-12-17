@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-15 21:53+0100\n"
-"PO-Revision-Date: 2017-12-15 20:55+0000\n"
+"PO-Revision-Date: 2017-12-16 08:47+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3549,7 +3549,7 @@ msgstr "Indiano"
 #: master_preset.xml:6502(check:text|group:Emergency|preset:Fire_Hose|key:indoor)
 #: master_preset.xml:7173(check:text|group:Facilities|preset:Drinking_Water|key:indoor)
 msgid "Indoor"
-msgstr ""
+msgstr "Interni"
 
 #: master_preset.xml:12268(item:name|group:Land_use|preset:Industrial)
 msgid "Industrial"
@@ -11381,7 +11381,7 @@ msgstr "Unisex"
 #: master_preset.xml:6899(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "Note"
 
 #: master_preset.xml:7134(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"

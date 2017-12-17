@@ -1,9 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string-array name="bug_filter_entries">
-    <item>Poznámky</item>
-    <item>Osmose chyba</item>
-    <item>Osmose varování</item>
-    <item>Osmose drobná chyba</item>
-  </string-array>
+  <string name="bugfilter_notes_entry">Poznámky</string>
+  <string name="bugfilter_osmose_error_entry">Osmose chyba</string>
+  <string name="bugfilter_osmose_warning_entry">Osmose varování</string>
+  <string name="bugfilter_osmose_minor_issue_entry">Osmose drobná chyba</string>
+  <string name="bugfilter_custom_entry">Vlastní</string>
 </resources>

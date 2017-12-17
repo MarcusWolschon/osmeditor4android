@@ -162,7 +162,7 @@ Se tiver ativado o Seguir posição GPS, se deslocar o ecrã manualmente ou edit
 
 ## Erros Reportados
 
-O Vespucci permite descarregar, comentar e fechar erros reportados no OpenStreetMap assim como os erros da [ferramenta gestão da de qualidade OSMOSE](http://osmose.openstreetmap.fr/en/map/). Ambos têm de ser descarregados à parte ou utilizando a funcionalidade de descarregar automaticamente, para que sejam mostrados os erros na área que se está a editar. Após editar ou fechar esses erros, pode-se enviar as alterações imediatamente ou todos eles.
+Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
 Os Erros Reportados e Erros OSMOSE são mostrados no mapa com um pequeno ícone ![Erro](../images/bug_open.png), os verdes são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. 
 
@@ -191,8 +191,6 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
-A mode that only shows elements that have warnings and validation code that adds user configurable tests for missing tags and makes the re-survey warning time fully configurable. 
-
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
 ### Configuring checks
@@ -207,10 +205,10 @@ Re-survey entries have the following properties:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regualr expression.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
-**Key** and **Value** are checked against the _existing_ keys of the object in question.
+**Key** and **Value** are checked against the _existing_ tags of the object in question.
 
 #### Check entries
 
@@ -235,13 +233,13 @@ Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com ba
 
 ### Configurações que poderá querer alterar
 
-* Camada de fundo
-* Camada de cima. Se adicionar uma camada de cima pode ter problemas caso use um dispositivo antigo ou com pouca memória RAM. Padrão: nenhuma.
-* Erros Reportados. Os Erros Reportados e Erros OSMOSE por resolver são mostrados a amarelo. Os erros resolvidos são mostrados a verde. Padrão: ativado.
-* Camada de fotos. Mostra fotografias geo-referenciadas num ícone de uma máquina fotográfica a vermelho. Se a fotografia tiver a informação da direção em que foi tirada será mostrado o ícone a apontar para a direção. Padrão: desativado.
-* Ícones dos nós. Padrão: ativado.
-* Manter ecrã ligado. Padrão: desativado.
-* Área grande de arrasto do nó. Tentar mover nós num dispositivo com ecrã tátil pequeno pode ser problemático uma vez que os dedos tapam posição atual no ecrã. Ativando isto pode-se arrastar um nó ou outro elemento facilmente (no selecionar e outras operações é utilizada uma outra definição da área de tolerância de toque). Padrão: desativado.
+* Background layer
+* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Node icons. Default: on.
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 #### Preferências avançadas
 

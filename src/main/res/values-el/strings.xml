@@ -13,6 +13,8 @@
   <string name="upload_conflict_message_version">%1$s \nέχει τοπική έκδοση %2$s \nκαι στον διακομιστή %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nέχει τοπική έκδοση%2$s \nκαι διαγράφηκε στον διακομιστή</string>
   <string name="upload_conflict_message_referential">%1$s \nwas διαγράφηκε τοπικά \nαλλά έχει παραπομπές στον διακομιστή</string>
+  <string name="use_local_version">Χρήση της τοπικής έκδοσης</string>
+  <string name="use_server_version">Χρήση έκδοση για το διακομιστή</string>
   <string name="no_login_data_title">Η πιστοποίηση απέτυχε</string>
   <string name="no_login_data_message">Εάν χρησιμοποιείτε το OAuth αυτό πιθανόν να είναι ένα σφάλμα. Παρακαλούμε να στείλετε μια αναφορά προβλήματος. Εάν χρησιμοποιείτε το όνομα χρήστη και τον κωδικό πρόσβασης (δεν συνιστάται) ελέγξτε ότι τα πληκτρολογείτε σωστά.</string>
   <string name="no_connection_title">Χωρίς σύνδεση στον διακομιστή</string>
@@ -73,6 +75,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Αυτή η πρόταση μπορεί να αντικαταστήσει κάποιες τιμές ετικέτας με πιο δημοφιλείς τιμές.</string>
   <string name="search_results_title">Αποτελέσματα αναζήτησης</string>
   <string name="find_message">Εισαγάγετε κείμενο αναζήτησης</string>
+  <string name="search">Αναζήτηση</string>
   <string name="read_file">Επιλέξτε το αρχείο ανάγνωσης</string>
   <string name="save_file">Εισαγάγετε το αρχείο αποθήκευσης</string>
   <string name="existing_track_title">Υπάρχοντα δεδομένα τροχιάς</string>
@@ -84,6 +87,7 @@
   <string name="version">Έκδοση</string>
   <string name="length_m">Μήκος (μ)</string>
   <string name="empty_role">άδειος ρόλος</string>
+  <string name="last_updated">τελευταία ενημερώθηκε στις</string>
   <string name="error">σφάλμα</string>
   <string name="warning">προειδοποίηση</string>
   <!--Toaster-->
@@ -131,6 +135,7 @@
   <string name="replace">Αντικατάσταση</string>
   <string name="save">Αποθήκευση</string>
   <string name="back">Πίσω</string>
+  <string name="forward">Εμπρός</string>
   <string name="keep">Διατήρηση</string>
   <string name="clear">Εκκαθάριση</string>
   <!--Dialog for back button-->
@@ -153,11 +158,14 @@
   <string name="tag_menu_reset_address_prediction">Επαναφορά πρόβλεψης διεύθυνσης</string>
   <string name="tag_menu_exit_no_save">Έξοδος χωρίς αποθήκευση</string>
   <string name="tag_multi_value_hint">Πολλαπλές τιμές</string>
+  <string name="tag_dialog_value_hint">Πατήστε για τιμές</string>
   <string name="tag_details">Λεπτομέρειες</string>
   <string name="tag_menu_download">Λήψη</string>
   <string name="menu_up">Επάνω</string>
   <string name="menu_top">Κορυφή</string>
   <string name="tag_menu_i8n">Προσθήκη ετικετών για %1$s</string>
+  <string name="tag_restriction_header">Τιμή</string>
+  <string name="tag_restriction_add_restriction">Προσθήκη περιορισμού</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Φόρτωση περιοχής</string>
   <string name="location_choose_radius">Επιλέξτε ακτίνα:</string>
@@ -269,6 +277,9 @@
   <string name="actionmode_relationselect">Η Σχέση επιλεχθηκε</string>
   <string name="actionmode_createpath">Δημιουργία διαδρομής</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Διαίρεση κλειστού τρόπου, 1ο κόμβος</string>
+  <string name="actionmode_closed_way_split_2">Διαίρεση κλειστού τρόπου, 2ο κόμβος</string>
+  <string name="actionmode_restriction">Προσθήκη περιορισμού στροφών</string>
   <!--Preferences-->
   <string name="config_voiceCommandsEnabled_title">Ενεργοποίηση φωνητικών εντολών</string>
   <string name="config_voiceCommandsEnabled_summary">Ενεργοποίηση πειραματικής υποστήριξης φωνητικών εντολών</string>
@@ -418,6 +429,7 @@
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Αυτή η πράξη θα δημιουργήσει έναν δρομο με πάρα πολλούς κόμβους.</string>
   <!--Notifications-->
+  <string name="bearing_s">Σ</string>
   <!--Misc relation related stuff-->
   <string name="role">Ρόλος</string>
   <string name="role_lc">ρόλος</string>

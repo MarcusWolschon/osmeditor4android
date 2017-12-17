@@ -13,6 +13,8 @@
   <string name="upload_conflict_message_version">%1$s \n本地版本为 %2$s \n而服务器上的版本为 %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \n本地版本为 %2$s \n而在服务器上已被删除</string>
   <string name="upload_conflict_message_referential">%1$s \n在本地已被上传 \n但在服务器上被引用</string>
+  <string name="use_local_version">使用本地版本</string>
+  <string name="use_server_version">使用服务器上的版本</string>
   <string name="no_login_data_title">身份验证失败</string>
   <string name="no_login_data_message">如果您正在使用OAuth 这可能是一个错误，请发送错误问题报告，如果您正在使用登入和密码(不推荐)，请检查它们是否输入正确。</string>
   <string name="no_connection_title">没有连接到服务器</string>
@@ -74,6 +76,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">这个建议可以用比较流行的值替换一些标签值。</string>
   <string name="search_results_title">搜索结果</string>
   <string name="find_message">输入搜索字符串</string>
+  <string name="search">搜索</string>
   <string name="read_file">选择要读取的文件</string>
   <string name="save_file">输入要保存到的文件</string>
   <string name="existing_track_title">现有的轨迹数据</string>
@@ -136,6 +139,7 @@
   <string name="replace">替换</string>
   <string name="save">保存</string>
   <string name="back">返回</string>
+  <string name="forward">向前</string>
   <string name="keep">保留</string>
   <!--Dialog for back button-->
   <string name="exit_title">真要退出吗?</string>
@@ -158,9 +162,12 @@
   <string name="tag_menu_reset_address_prediction">重置地址预测</string>
   <string name="tag_menu_exit_no_save">退出\n不保存</string>
   <string name="tag_multi_value_hint">多个值</string>
+  <string name="tag_dialog_value_hint">指定值</string>
   <string name="menu_up">向上</string>
   <string name="menu_top">顶部</string>
   <string name="menu_preset_help">预设帮助</string>
+  <string name="tag_restriction_header">值</string>
+  <string name="tag_restriction_add_restriction">添加限制</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">载入区域</string>
   <string name="location_choose_radius">选择半径:</string>
@@ -266,6 +273,8 @@
   <string name="actionmode_createpath">穿件路径</string>
   <string name="actionmode_multiselect">多选</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">第1节点拆分封闭路径</string>
+  <string name="actionmode_closed_way_split_2">第2节点拆分封闭路径</string>
   <!--Preferences-->
   <string name="config_category_view">用户界面设置</string>
   <string name="config_showCameraAction_title">显示相机操作</string>

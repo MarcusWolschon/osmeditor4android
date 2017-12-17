@@ -1,12 +1,13 @@
 # 
 # Translators:
 # jmontane, 2016
+# JOAQUIN GARCIA <joaquin.garcima@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-15 21:53+0100\n"
-"PO-Revision-Date: 2017-12-15 20:55+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-12-16 18:43+0000\n"
+"Last-Translator: JOAQUIN GARCIA <joaquin.garcima@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/openstreetmap/presets/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,11 +43,11 @@ msgstr "***"
 
 #: master_preset.xml:636(combo:display_values|key:stars)
 msgid "****"
-msgstr ""
+msgstr "****"
 
 #: master_preset.xml:636(combo:display_values|key:stars)
 msgid "*****"
-msgstr ""
+msgstr "*****"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "-10%"
@@ -75,11 +76,11 @@ msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10%"
-msgstr ""
+msgstr "10%"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "10°"
-msgstr ""
+msgstr "10°"
 
 #: master_preset.xml:195(list_entry:short_description|value:2)
 msgid "2 tables"
@@ -91,7 +92,7 @@ msgstr ""
 
 #: master_preset.xml:5230(check:text|group:Leisure|preset:Movie_Theater/Cinema|key:cinema:3D)
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: master_preset.xml:197(list_entry:short_description|value:4)
 msgid "4 tables"
@@ -221,7 +222,7 @@ msgstr ""
 
 #: master_preset.xml:6416(list_entry:short_description|group:Health|preset:Alternative_medicine|value:acupuncture)
 msgid "Acupuncture"
-msgstr ""
+msgstr "Acupuntura"
 
 #: master_preset.xml:12585(item:name|group:Annotation|preset:Add_or_update_check_date)
 msgid "Add or update check date"
@@ -233,7 +234,7 @@ msgstr ""
 
 #: master_preset.xml:12425(item:name|group:Addresses_and_Contact|preset:Address)
 msgid "Address"
-msgstr ""
+msgstr "Adreça"
 
 #: master_preset.xml:12462(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
@@ -245,7 +246,7 @@ msgstr "Adreces i contacte"
 
 #: master_preset.xml:8483(item:name|group:Man_Made|preset:Adit)
 msgid "Adit"
-msgstr ""
+msgstr "Adit"
 
 #: master_preset.xml:12653(role:text|group:Relations|preset:Boundary|key:admin_centre)
 msgid "Administration centre"
@@ -280,7 +281,7 @@ msgstr ""
 #: master_preset.xml:3586(group:name|group:Aerialway)
 #: master_preset.xml:4235(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
 msgid "Aerialway"
-msgstr ""
+msgstr "Transport aeri per cable"
 
 #: master_preset.xml:6155(text:text|group:Education|preset:Childcare|key:after_school:capacity)
 msgid "After school capacity"
@@ -305,7 +306,7 @@ msgstr ""
 
 #: master_preset.xml:7367(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:aikido)
 msgid "Aikido"
-msgstr ""
+msgstr "Aikido"
 
 #: master_preset.xml:8704(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:air_quality)
 msgid "Air Quality"
@@ -313,11 +314,11 @@ msgstr ""
 
 #: master_preset.xml:4469(group:name|group:Airport)
 msgid "Airport"
-msgstr ""
+msgstr "Aeroport"
 
 #: master_preset.xml:4470(item:name|group:Airport|preset:Airport_Ground)
 msgid "Airport Ground"
-msgstr ""
+msgstr "Zona Aeroportuaria"
 
 #: master_preset.xml:9794(item:name|group:Food|preset:Alcohol)
 msgid "Alcohol"
@@ -325,15 +326,15 @@ msgstr "Alcohol"
 
 #: master_preset.xml:12477(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "All"
-msgstr ""
+msgstr "Tots"
 
 #: master_preset.xml:2563(item:name|group:Access_Restrictions|preset:All_vehicles)
 msgid "All vehicles"
-msgstr ""
+msgstr "Tots els vehicles"
 
 #: master_preset.xml:2580(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle:conditional)
 msgid "All vehicles @"
-msgstr ""
+msgstr "Tots els vehicles @"
 
 #: master_preset.xml:1267(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Alley"
@@ -341,12 +342,12 @@ msgstr ""
 
 #: master_preset.xml:12082(item:name|group:Land_use|preset:Allotments)
 msgid "Allotments"
-msgstr ""
+msgstr "Terrenys assignats"
 
 #: master_preset.xml:126(optional:text) master_preset.xml:135(optional:text)
 #: master_preset.xml:143(optional:text)
 msgid "Allowed traffic:"
-msgstr ""
+msgstr "Tràfic permès."
 
 #: master_preset.xml:12016(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Almond trees"
@@ -4401,7 +4402,7 @@ msgstr ""
 
 #: master_preset.xml:12312(item:name|group:Land_use|preset:Military)
 msgid "Military"
-msgstr ""
+msgstr "Militar"
 
 #: master_preset.xml:11148(list_entry:short_description|preset:Vending_Machine|value:milk)
 msgid "Milk"
@@ -6836,7 +6837,7 @@ msgstr ""
 #: master_preset.xml:9330(check:text|group:Historic_Places_&_Objects|preset:Building|key:ruins)
 #: master_preset.xml:9333(item:name|group:Historic_Places_&_Objects|preset:Ruins)
 msgid "Ruins"
-msgstr ""
+msgstr "Ruïnes"
 
 #: master_preset.xml:1949(item:name|group:Traffic_Calming|preset:Rumble_strip)
 msgid "Rumble strip"
@@ -9989,7 +9990,7 @@ msgstr ""
 #: master_preset.xml:2578(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 msgctxt "access"
 msgid "All vehicles"
-msgstr ""
+msgstr "Tots els vehicles"
 
 #: master_preset.xml:592(combo:text|key:boat)
 msgctxt "access"
@@ -10851,7 +10852,7 @@ msgstr ""
 #: master_preset.xml:8100(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Ruins"
-msgstr ""
+msgstr "Ruïnes"
 
 #: master_preset.xml:794(list_entry:short_description|value:saltbox)
 #: master_preset.xml:8229(item:name|group:Roof_type|preset:Saltbox)
@@ -11378,7 +11379,7 @@ msgstr ""
 #: master_preset.xml:6899(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "Notes"
 
 #: master_preset.xml:7134(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"
@@ -11428,7 +11429,7 @@ msgstr ""
 #: master_preset.xml:7471(item:name|group:Golf|preset:Bunker)
 msgctxt "golf"
 msgid "Bunker"
-msgstr ""
+msgstr "Búnquer"
 
 #: master_preset.xml:7535(item:name|group:Golf|preset:Driving_range)
 msgctxt "golf"
@@ -11883,4 +11884,4 @@ msgstr "Religió"
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)
 msgid "translator-credits"
-msgstr ""
+msgstr "traductor-crèdits"

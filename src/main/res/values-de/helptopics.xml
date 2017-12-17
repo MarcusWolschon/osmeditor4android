@@ -18,7 +18,8 @@
     <string name="help_tagfilter">Tag-Filter</string>
     <string name="help_presetfilter">Vorlagenfilter</string>
     <string name="help_opening_hours">Öffnungszeiten</string>
-    <string name="help_upgrade">0.9.9 Versionshinweise</string>
+    <string name="help_upgrade">Versionshinweise</string>
+    <string name="help_upgrade_099">0.9.9 Versionshinweise</string>
     <string name="help_upgrade_098">0.9.8 Versionshinweise</string>
     <string name="help_upgrade_097">0.9.7 Versionshinweise</string>
     <string name="help_upgrade_096">0.9.6 Versionshinweise</string>
@@ -40,6 +41,7 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+    	<item>@string/help_upgrade_099</item>
     	<item>@string/help_upgrade_098</item>
     	<item>@string/help_upgrade_097</item>
     	<item>@string/help_upgrade_096</item>
@@ -62,6 +64,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+    	<item>10.0.0 Release notes</item>
     	<item>0.9.9 Release notes</item>
     	<item>0.9.8 Release notes</item>
     	<item>0.9.7 Release notes</item>

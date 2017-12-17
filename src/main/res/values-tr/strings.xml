@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">Kapalı Mekan</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Dikkat!</string>
   <string name="transfer_download_current_dialog_message">Bazı değişiklikler yaptınız. Bunları boş vermek yerine yüklemek ister misiniz?</string>
@@ -13,6 +14,8 @@
   <string name="upload_conflict_message_version">%1$s\n yerel versiyon %2$s \nsunucudaki %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nyerel versiyon %2$s \nve sunucudan silinen.</string>
   <string name="upload_conflict_message_referential">%1$s \nyerelden silindi \nfakat sunucuda referansı var</string>
+  <string name="use_local_version">Yerel versiyonu kullan</string>
+  <string name="use_server_version">Sunucudaki versiyonu kullan</string>
   <string name="no_login_data_title">Doğrulama başarısız</string>
   <string name="no_login_data_message">Eğer OAuth kullanıyorsan bu bir böcek olabilir, lütfen bir hata bildiriminde bulunun. Fakat giriş ve parola kullanıyorsanız (tavsiye edilmez) lütfen doğru girdiğinizden emin olun.</string>
   <string name="no_connection_title">Sunucu Bağlantısı Yok</string>
@@ -80,6 +83,7 @@
   <string name="search_results_title">Arama sonuçları</string>
   <string name="find_message">Arama dizesini girin</string>
   <string name="preset_search_hint">Öntanımlı arama dizesi</string>
+  <string name="search">Ara</string>
   <string name="read_file">Okumak için dosya seç</string>
   <string name="save_file">Kaydetmek için dosyayı gir</string>
   <string name="existing_track_title">Varolan iz verileri</string>
@@ -139,6 +143,7 @@
   <string name="toast_camera_error">Kamera uygulaması başlatılırken hata oluştu: %1$s</string>
   <string name="toast_no_voice">Herhangi bir ses tanıma özelliği mevcut değil</string>
   <string name="toast_min_one_preset">En az bir tane önceden belirlenmiş seçilmelidir!</string>
+  <string name="toast_no_voice_recognition">Herhangi bir ses tanıma özelliği mevcut değil</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Evet</string>
   <string name="no">Hayır</string>
@@ -151,7 +156,9 @@
   <string name="replace">Değiştir</string>
   <string name="save">Kaydet</string>
   <string name="back">Geri</string>
+  <string name="forward">İleri</string>
   <string name="keep">Sakla</string>
+  <string name="clear">Temizle</string>
   <!--Dialog for back button-->
   <string name="exit_title">Gerçekten çıkıyor musun?</string>
   <string name="exit_text">Gerçekten çıkmak istiyor musunuz?</string>
@@ -173,9 +180,13 @@
   <string name="tag_menu_reset_address_prediction">Adres tahminini sıfırla</string>
   <string name="tag_menu_exit_no_save">Kaydetmeden\nçık</string>
   <string name="tag_multi_value_hint">Çoklu değer</string>
+  <string name="tag_dialog_value_hint">Değer için dokunun</string>
+  <string name="tag_details">Detaylar</string>
   <string name="menu_up">Yukarı</string>
   <string name="menu_top">En üst</string>
   <string name="menu_preset_help">Öntanımlı yardımı</string>
+  <string name="tag_restriction_header">Değer</string>
+  <string name="tag_restriction_add_restriction">Kısıtlama ekle</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Alan Yükle</string>
   <string name="location_choose_radius">Yarıçapı seçin:</string>
@@ -287,6 +298,8 @@
   <string name="actionmode_createpath">Yol oluştur</string>
   <string name="actionmode_multiselect">Çoklu seçim</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">1.düğüm, bölünmüş kapalı yol</string>
+  <string name="actionmode_closed_way_split_2">2. düğüm, Bölünmüş kapalı yol</string>
   <!--Preferences-->
   <string name="config_category_view">Kullanıcı Arayüz Ayarları</string>
   <string name="config_showCameraAction_title">Kamera eylemini göster</string>
@@ -452,6 +465,8 @@
   <string name="alert_data_issue">OSM veri hatası tespit edildi</string>
   <string name="alert_note">Yakın OSM notu tespit edildi</string>
   <string name="alert_bug">Yakın OSM böcek\'i tespit edildi</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_w">W</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
   <string name="role_lc">rol</string>

@@ -14,7 +14,13 @@
   <li><strong>自動下載</strong> - 自動的下載目前周圍位置區域 <em>(需要網路連線)</em> <em>(需要 GPS)</em></li>
   <li><strong>檔案...</strong> - 儲存和載入在裝置的 OSM 檔案資料。</li>
   <li><strong>備註/錯誤</strong> -下載 (自動或手動) OSM 備註，以及從 QA 工具 (目前是 OSMOSE) 下"錯誤" <em>(需要網路連線)</em></li>
-</ul><p>最簡單下載資料到裝置的方式是縮放和平移到你想編輯的地方，接著選擇 "下載當前檢視"。你可以用手勢縮放，用縮放按鈕，或是用裝置的音量鍵。Vespucci 應當下載當前檢視的資料，下載資料到裝置時並不需要認證。</p><h3>編輯</h3><p><a id="lock"></a></p><h4>鎖定，解鎖，"只有標籤編輯"，室內模式</h4><p>要避免不小心編輯的狀況，Vespucci 啟動時處於"鎖定"模式。處於鎖定模式時只允許縮放和移動地圖。點 <img src="../images/locked.png" alt="Locked" />  圖示則會解鎖螢幕。 </p><p>對著鎖定圖示長按的話，則會啟動"只有標籤編輯"模式，就不會編輯物件形狀或是移動物件了。而在只有標籤編輯模式下，會出現略為不同的白色鎖定圖示。你仍可以像平常一樣長按新增新的節點或是路徑。</p><p>接著長按則會啟用 <a href="#indoor">室內模式</a>，再長按則會轉回正常編輯模式。</p><h4>單點，雙點和長按</h4><p>根據預設設定，可選擇的節點或是路徑周圍會出現橘色區域，粗略表示你可以從那裡選碰觸選擇物件。你有三個選擇：</p>
+</ul><p>最簡單下載資料到裝置的方式是縮放和平移到你想編輯的地方，接著選擇 "下載當前檢視"。你可以用手勢縮放，用縮放按鈕，或是用裝置的音量鍵。Vespucci 應當下載當前檢視的資料，下載資料到裝置時並不需要認證。</p><h3>編輯</h3><p><a id="lock"></a></p><h3>鎖定，解鎖，模式切換</h3><p>要避免不小心編輯的狀況，Vespucci 啟動時處於"鎖定"模式。處於鎖定模式時只允許縮放和移動地圖。點 <img src="../images/locked.png" alt="Locked" />  圖示則會解鎖螢幕。 </p><p>在鎖定圖示長按顯示的選單有以下四個選項：</p>
+<ul>
+  <li><strong>正常</strong> - 預設的編輯模式，新物件能被添加，既有的物件可以被編輯、移動和移除。用簡單的白色鎖定圖示表示。</li>
+  <li><strong>只有標籤</strong> - 選擇既有的物件會跳進內容編輯器，主畫面長按則會新增物件，但不會有任何幾何動作。用白色鎖定圖示加上"T"的方式表示。</li>
+  <li><strong>室內</strong> - 啟動室內模式，請見<a href="#indoor">室內模式</a>。用白色鎖定圖示加上"I"的方式表示。</li>
+  <li>C-模式** - 啟動 C-模式，只有上面有警告標示的物件會顯示，請見 <a href="#c-mode">C-模式</a>。用白色鎖定圖示加上"C"的方式表示。</li>
+</ul><h4>單點，雙點和長按</h4><p>根據預設設定，可選擇的節點或是路徑周圍會出現橘色區域，粗略表示你可以從那裡選碰觸選擇物件。你有三個選擇：</p>
 <ul>
   <li>單點：選取物件。</li>
   <li>孤單的節點/路徑馬上會高亮度顯示。</li>
@@ -28,7 +34,7 @@
   <li>碰觸同一地方。</li>
   <li>如果十字準星不在節點附近，碰觸同一地方則會再次創建新的節點。如果附近有路徑 (但不在節點附近)，新的節點會在路徑上面 (並且連到路徑上面)。 ＊如果十字準星靠近節點瓶近 (例如在節點容忍範圍)，碰觸相同地方只會選取節點 (標籤編輯器會出現，不會有創建新的節點)。操作的過程與上述敘述一樣。</li>
   <li>碰觸其他地方。碰觸其他地點 (在十字準星容忍範圍外) 則會從原始地點到現在位置新增路徑。如果十字準星在路徑或節點附近，新的片段會連到該節點或是路徑。　</li>
-</ul><p>簡單在你想增加節點的路徑上碰觸螢幕，要完成操作，請在最後一個節點碰觸兩次。如果最後的節點位於路徑或是節點，則片段會自動連到路徑或是節點。 </p><p>你也可以使用選單項目：請見<a href="../zh_TW/Creating%20new%20objects.html">創建新物件</a>得到更多資訊。</p><h4>增加區域</h4><p>開放街圖與其他地理資料系統不同，目前沒有"區域"物件類型。線上編輯器 "iD" 嘗試創建區域來代表特定底層 OSM 元件，有時候可以順暢運作，其他情況則不行。VEspucci 目前並沒有類型的作法，所以你必須知道路徑區域如何表示：</p>
+</ul><p>簡單在你想增加節點的路徑上碰觸螢幕，要完成操作，請在最後一個節點碰觸兩次。如果最後的節點位於路徑或是節點，則片段會自動連到路徑或是節點。 </p><p>你也可以使用選單項目：請見<a href="../zh_TW/Creating%20new%20objects.html">創建新物件</a>得到更多資訊。</p><h4>增加區域</h4><p>目前開放街圖並沒有如其他地理資訊系統一樣，有"區域"物件類型。線上編輯器 "iD" 編輯嘗試在現有 OSM 架構下，建立區域類型，目前看來在特定狀況下運作相當好，也有不能好好運作的時候。Vespucci 目前並沒有計畫像 iD 一樣做類似的事情，所以你必須知道路徑區域是怎麼構成的：</p>
 <ul>
   <li><p><em>封閉路徑 (*多邊形")</em>：最簡單而且最普遍的區域變體，其路徑有共同的第一個節點和最後一個節點，構成封閉的"環狀" (例如大部分的建築都是這種類型)。Vespucci 可以很容易創建封閉路徑，只要畫完區域時最後接回第一個節點。注意：要怎麼解讀區域得看加上去的標籤；舉例來說，如果封閉路徑被標為建築，則會視為區域，如果被標為圓環則不會。有些情況之下，解讀的狀況可能都可以通，被視為"區域"標籤。</p></li>
   <li><p><em>多重多邊形</em>：有些區域有多個部件，有空洞區域和環形區域，不能簡單視為單一路徑。OSM 用特定的關係 (我們一般目的物件可以規範物件之間的關係)來完成，一個多重多邊形，一個多重多邊形可以擁有數個"外圈"，以及數個"內圈"。每個圈能以上述的封閉路徑，或是數個共同結束節點的單一路徑。當大的多重多邊形很難以任何工具處理，Vespucci 可以輕易處理小的物件。</p></li>
@@ -46,21 +52,31 @@
   <li>選取"經由"節點或路徑 (只有"經由"元件有觸控區域顯示才有可能)</li>
   <li>選取"到"路徑 (雙重後退和設定"到"元件變成"從"元件才有可能，Vespucci 會假設你增加不可迴轉限制)</li>
   <li>設定限制種類</li>
-</ul><h3>Vespucci"鎖定"模式</h3><p>當紅色鎖定圖示顯示時，所有非編輯動作都可以做。除此之外，長按或是接近物件時，如果是OSM物件時會顯示詳細資訊視窗</p><h3>儲存您的變更</h3><p><em>(需要網路連線)</em></p><p>選擇您在下載時相同的按鈕或選單項目，現在選擇 "上傳資料到 OSM 的伺服器"。</p><p>Vespucci 除了支援 OAuth 的授權和標準的使用者名稱與密碼的方式。 而 OAuth 更好，因為它避免了以明文發送密碼。</p><p>新版Vespucci安裝之後，OAuth會預設啟用。當你第一次要上傳變動的資料，一頁OSM網頁會載入。登入之後(透過加密連線)，你會被要求認證Vespucci才能用你帳號編輯。如果你想要或是需要在編輯前，認證你帳號的OAuth連線，你可以在"工具"選單選擇對應的項目。</p><p>如果您想要儲存您的工作，並且不能連入網際網路，您可以儲存成 JOSM 相容的 .osm 檔案，以後以 Vespucci 或 JOSM 任何一個上載。 </p><h4>在上傳解決衝突</h4><p>Vespucci 擁有簡單的衝突解決器。然後如果你懷疑你的編輯有重大問題，你可以匯出你的變動到 .osc 檔案 ("匯出"選單項目在傳輸選單裡)，然後用 JOSM 修正和上傳變動。請見<a href="../en/Conflict%20resolution.html">解決衝突</a>裡詳盡的說明文件。 </p><h2>使用 GPS</h2><p>您可用 Vespucci 建立 GPX 軌跡和顯示在您的裝置上。進一步此外，您可顯示目前 GPS 位置，(在 GPS 選單中設定"顯示位置")具有螢幕中心周圍和追隨的位置，(在 GPS 選單中設定"追隨 GPS 位置")。 </p><p>如果你有後者的設定，手動移動螢幕或是編輯導致"跟隨 GPS" 模式關閉，而藍色的 GPS 方向箭頭會從邊框變成填充頭。要快速回到"跟隨"模式，簡單碰觸 GPS 按鈕，或是按選單選項。</p><h2>備註和錯誤</h2><p>Vespucci支援下載、回應或是關閉OSM註解(先前叫做OSM臭蟲)，相當於<a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE 品質管控工具</a>列出的"臭蟲"。兩者都可以完整下載下來，或者使用自動下載工具看到你的區域內的註解。一旦你回應或是關閉註解，你可以上傳單一臭蟲還是註解，或是一次上傳多個註解。</p><p>註解和臭蟲會以小蟲子圖示 <img src="../images/bug_open.png" alt="Bug" /> 顯示在地圖上面，綠色代表關閉/解決，藍色代表被新增或是由你編輯過，而黃色表示仍然有效還沒有變動。 </p><p>OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則會選取物件，並且螢幕置中，如果需要則會下載周邊的區域。 </p><h3>篩選</h3><p>除了全域時啟用顯示註解和臭蟲以外，你可以設定粗略顯示過瀘降低雜亂程度。在"進階設定"裡，你可以單獨選取：</p>
+</ul><h3>Vespucci"鎖定"模式</h3><p>當紅色鎖定圖示顯示時，所有非編輯動作都可以做。除此之外，長按或是接近物件時，如果是OSM物件時會顯示詳細資訊視窗</p><h3>儲存您的變更</h3><p><em>(需要網路連線)</em></p><p>選擇您在下載時相同的按鈕或選單項目，現在選擇 "上傳資料到 OSM 的伺服器"。</p><p>Vespucci 除了支援 OAuth 的授權和標準的使用者名稱與密碼的方式。 而 OAuth 更好，因為它避免了以明文發送密碼。</p><p>新版Vespucci安裝之後，OAuth會預設啟用。當你第一次要上傳變動的資料，一頁OSM網頁會載入。登入之後(透過加密連線)，你會被要求認證Vespucci才能用你帳號編輯。如果你想要或是需要在編輯前，認證你帳號的OAuth連線，你可以在"工具"選單選擇對應的項目。</p><p>如果您想要儲存您的工作，並且不能連入網際網路，您可以儲存成 JOSM 相容的 .osm 檔案，以後以 Vespucci 或 JOSM 任何一個上載。 </p><h4>在上傳解決衝突</h4><p>Vespucci 擁有簡單的衝突解決器。然後如果你懷疑你的編輯有重大問題，你可以匯出你的變動到 .osc 檔案 ("匯出"選單項目在傳輸選單裡)，然後用 JOSM 修正和上傳變動。請見<a href="../en/Conflict%20resolution.html">解決衝突</a>裡詳盡的說明文件。 </p><h2>使用 GPS</h2><p>您可用 Vespucci 建立 GPX 軌跡和顯示在您的裝置上。進一步此外，您可顯示目前 GPS 位置，(在 GPS 選單中設定"顯示位置")具有螢幕中心周圍和追隨的位置，(在 GPS 選單中設定"追隨 GPS 位置")。 </p><p>如果你有後者的設定，手動移動螢幕或是編輯導致"跟隨 GPS" 模式關閉，而藍色的 GPS 方向箭頭會從邊框變成填充頭。要快速回到"跟隨"模式，簡單碰觸 GPS 按鈕，或是按選單選項。</p><h2>備註和錯誤</h2><p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.</p><p>註解和臭蟲會以小蟲子圖示 <img src="../images/bug_open.png" alt="Bug" /> 顯示在地圖上面，綠色代表關閉/解決，藍色代表被新增或是由你編輯過，而黃色表示仍然有效還沒有變動。 </p><p>OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則會選取物件，並且螢幕置中，如果需要則會下載周邊的區域。 </p><h3>篩選</h3><p>除了全域時啟用顯示註解和臭蟲以外，你可以設定粗略顯示過瀘降低雜亂程度。在"進階設定"裡，你可以單獨選取：</p>
 <ul>
   <li>註解</li>
   <li>Osmose 錯誤</li>
   <li>Osmose 警告</li>
   <li>Osmose 小問題</li>
-</ul><p><a id="indoor"></a></p><h2>室內模式</h2><p>室內繪圖由於有相當多的物件而且常常彼此重疊，因此是相當有挑戰性的事情。Vespucci 發展出室內模式，能夠允許你過濾其他不在同一層的所有物件，並且自動加上目前樓層資訊到新增加的物件上面。</p><p>這個模式可以透過長按鎖定鈕，請見<a href="#lock">鎖定、解鎖、"只有標籤編輯"、室內模式</a>。</p><h2>篩選</h2><h3>標籤為依據的篩選</h3><p>在主選單能啟用過濾器，可以按過濾器的圖示變更。更多說明文件可以到這邊<a href="../en/Tag%20filter.html">標籤過濾器</a>。</p><p>預置為依據的篩選</p><p>上述的替代方式，依據單一預設組合或是預先組合群組過濾物件。按過濾圖示會顯示預設組合選擇選單，類似 Vespucci 裡見到的選單。只要正常按一下就可以選擇單一預設組合，要選擇預設組合群組則長按 (正常按一下之後進入群組)。更多文件說明可到這裡這邊尋找<a href="../en/Preset%20filter.html">預設組合過濾器</a>。</p><h2>客製化 Vespucci</h2><h3>設定，當您可能想要更改</h3>
+</ul><p><a id="indoor"></a></p><h2>室內模式</h2><p>室內繪圖由於有相當多的物件而且常常彼此重疊，因此是相當有挑戰性的事情。Vespucci 發展出室內模式，能夠允許你過濾其他不在同一層的所有物件，並且自動加上目前樓層資訊到新增加的物件上面。</p><p>這個模式可以透過長按鎖定鈕，請見<a href="#lock">鎖定、解鎖、切換模式</a>，然後選擇對應的選單選項。</p><p><a id="c-mode"></a></p><h2>C-模式</h2><p>在 C-模式下，只有擁有警告標示的物件才會顯示，讓檢視有特定問題或符合設定檢查的物件變得更容易。C-模式下啟動的內容編輯器，最符合的預設組合會自動套用。</p><p>這個模式可以透過長按鎖定鈕，請見<a href="#lock">鎖定、解鎖、切換模式</a>，然後選擇對應的選單選項。</p><h3>設定檢查</h3><p>目前擁有兩個設定檢查 (一個是檢查 FIXME 標籤，以及一個檢查關聯上面遺失的標籤，不過目前無法自訂)，兩種都可以在"設定"裡的"驗證器設定"調整。 </p><p>列表清單分成兩部分，上半部列出"重新踏察"列表，下半部列出檢查"列表"。列表點了之後就可以編輯了，綠色選單按鍵則允許增加列表。</p><h4>重新踏察選項</h4><p>重新踏察列表擁有以下內容：</p>
 <ul>
-  <li>背景圖層</li>
-  <li>地圖覆疊層。增加覆疊可能會替較舊或是記憶體較少的裝置造成問題。預設：無。</li>
-  <li>註解/臭蟲顯示。開啟註解和臭蟲，並且以黃色蟲子圖示表示，關閉的則是相同圖示綠色顯示。預設：開啟。</li>
-  <li>圖片圖層。顯示有地理參照的圖片，並且以紅色照相機圖示顯示，如果有方向資訊的話，圖示會旋轉。預設：關閉。</li>
-  <li>節點圖示。預設：開啟。</li>
-  <li>保持螢幕開啟。預設：關閉。</li>
-  <li>大的節點拖曳區域。在觸控裝置上移動節點是相當大的問題，而且你的手指會遮住目前位置。開啟這個功能可以中心外的拖拉相當大的區域 (選擇和其他操作仍然使用相當的觸控容許區域)。預設：關閉。</li>
+  <li><strong>Key</strong> - Key of the tag of interest.</li>
+  <li><strong>Value</strong> - Value the tag of interest should have, if empty the tag value will be ignored.</li>
+  <li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
+  <li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
+</ul><p><strong>Key</strong> and <strong>Value</strong> are checked against the <em>existing</em> tags of the object in question.</p><h4>檢查選項</h4><p>檢查列表有兩個內容：</p>
+<ul>
+  <li><strong>鍵</strong> - 鍵應該依據相符的預設組合呈現在物件上面。</li>
+  <li><strong>檢查其他</strong> - 檢查符合的預設組合的其他標籤。</li>
+</ul><p>檢查要能運作必須先選擇符合的預設組合，之後檢查**鍵**是依據預設組合"推薦"的鍵。。**檢查其他則會擴大檢查物件上"其他"鍵。注意：目前連結的預設組合並不會檢查。</p><h2>篩選</h2><h3>標籤為依據的篩選</h3><p>在主選單能啟用過濾器，可以按過濾器的圖示變更。更多說明文件可以到這邊<a href="../en/Tag%20filter.html">標籤過濾器</a>。</p><p>預置為依據的篩選</p><p>上述的替代方式，依據單一預設組合或是預先組合群組過濾物件。按過濾圖示會顯示預設組合選擇選單，類似 Vespucci 裡見到的選單。只要正常按一下就可以選擇單一預設組合，要選擇預設組合群組則長按 (正常按一下之後進入群組)。更多文件說明可到這裡這邊尋找<a href="../en/Preset%20filter.html">預設組合過濾器</a>。</p><h2>客製化 Vespucci</h2><h3>設定，當您可能想要更改</h3>
+<ul>
+  <li>Background layer</li>
+  <li>Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+  <li>Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+  <li>Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+  <li>Node icons. Default: on.</li>
+  <li>Keep screen on. Default: off.</li>
+  <li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>
 </ul><p>進階參數選項</p>
 <ul>
   <li>總是顯示內容選單。當開啟這功能時，每一個選取過程都會顯示內容選單，關閉時則只會顯示無疑問的選取。預設：關閉 (先前是開啟)。</li>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
+  <string name="mode_indoor">室内</string>
+  <!--Dialogs-->
+  <string name="transfer_download_current_upload">上传</string>
+  <string name="upload_gpx_description_label">说明</string>
+  <string name="upload_gpx_visibility_label">能见度</string>
+  <string name="imagery_offset_description">说明</string>
+  <string name="imagery_offset_date">已创建</string>
+  <string name="imagery_offset_zoom">缩放</string>
+  <string name="search">搜索</string>
+  <string name="version">版本</string>
+  <!--Toaster-->
+  <!--Some generic labels/buttons-->
+  <string name="yes">是</string>
+  <string name="no">否</string>
+  <string name="okay">确定</string>
+  <string name="cancel">取消</string>
+  <string name="save">保存</string>
+  <string name="forward">向前</string>
+  <!--Dialog for back button-->
+  <!--Strings in PorpertyEditor-->
+  <string name="tag_details">详情</string>
+  <string name="menu_up">上</string>
+  <!--Strings in LocationPicker-->
+  <!--Menu-->
+  <string name="menu_move">移动</string>
+  <string name="menu_help">帮助</string>
+  <string name="menu_set_position">位置</string>
+  <string name="menu_split">分割</string>
+  <string name="menu_camera">摄像机</string>
+  <string name="menu_rotate">旋转</string>
+  <string name="menu_orthogonalize">直角化</string>
+  <string name="menu_tools">工具</string>
+  <string name="menu_tools_background_align_reset">重置</string>
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <string name="menu_history">历史</string>
+  <string name="menu_reverse">反转</string>
+  <!--EasyEdit action mode titles-->
+  <string name="actionmode_multiselect">多选</string>
+  <!--EasyEdit action mode sub-titles-->
+  <!--Preferences-->
+  <!--preset downloader messages-->
+  <!--changes-->
+  <!--url handler activity-->
+  <!--common terms-->
+  <string name="add">添加</string>
+  <string name="delete">Delete</string>
+  <string name="name">名称</string>
+  <string name="default_">默认</string>
+  <!---->
+  <!--"default" is a reserved Java keyword...-->
+  <!--element description-->
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <!--ACRA-->
+  <!--Exceptions messages-->
+  <!--Notifications-->
+  <string name="bearing_s">S</string>
+  <string name="bearing_w">W</string>
+  <!--Misc relation related stuff-->
+  <string name="role">角色</string>
+  <string name="relation">关系</string>
+  <string name="type">类型</string>
+  <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
+</resources>

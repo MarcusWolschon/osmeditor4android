@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-15 21:53+0100\n"
-"PO-Revision-Date: 2017-12-15 20:55+0000\n"
+"PO-Revision-Date: 2017-12-16 07:18+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -1076,7 +1076,7 @@ msgstr ""
 
 #: master_preset.xml:13156(item:name|group:Crafts|preset:Brewery)
 msgid "Brewery"
-msgstr ""
+msgstr "釀酒匠"
 
 #: master_preset.xml:13062(item:name|preset:Bridge)
 #: master_preset.xml:68(check:text|key:bridge)
@@ -1570,7 +1570,7 @@ msgstr ""
 
 #: master_preset.xml:13226(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "製鐘匠"
 
 #: master_preset.xml:4039(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:clothes)
 #: master_preset.xml:6994(check:text|group:Facilities|preset:Recycling_Container|key:recycling:clothes)
@@ -3923,7 +3923,7 @@ msgstr ""
 
 #: master_preset.xml:2370(item:name|group:Barriers|preset:Lift_Gate)
 msgid "Lift Gate"
-msgstr ""
+msgstr "道閘"
 
 #: master_preset.xml:2764(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:goods)
 msgid "Light Commercial Vehicles (goods)"
@@ -5779,7 +5779,7 @@ msgstr ""
 
 #: master_preset.xml:5455(item:name|group:Leisure|preset:Picnic_Site)
 msgid "Picnic Site"
-msgstr ""
+msgstr "野餐場地"
 
 #: master_preset.xml:5472(item:name|group:Leisure|preset:Picnic_Table)
 msgid "Picnic Table"
@@ -6408,7 +6408,7 @@ msgstr ""
 
 #: master_preset.xml:6970(item:name|group:Facilities|preset:Recycling_Container)
 msgid "Recycling Container"
-msgstr ""
+msgstr "資源回收箱"
 
 #: master_preset.xml:742(combo:display_values|key:roof:colour)
 #: master_preset.xml:778(combo:display_values|key:building:colour)
@@ -7386,7 +7386,7 @@ msgstr ""
 
 #: master_preset.xml:2038(item:name|preset:Speed_Camera)
 msgid "Speed Camera"
-msgstr ""
+msgstr "測速照相機"
 
 #: master_preset.xml:2026(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"
@@ -7839,7 +7839,7 @@ msgstr ""
 
 #: master_preset.xml:6885(item:name|group:Facilities|preset:Telephone)
 msgid "Telephone"
-msgstr ""
+msgstr "公用電話"
 
 #: master_preset.xml:6900(check:text|group:Facilities|preset:Telephone|key:payment:telephone_cards)
 msgid "Telephone cards"
@@ -11380,7 +11380,7 @@ msgstr ""
 #: master_preset.xml:6899(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "註解"
 
 #: master_preset.xml:7134(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"

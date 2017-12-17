@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-15 21:53+0100\n"
-"PO-Revision-Date: 2017-12-15 20:55+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-12-15 21:49+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1272,7 +1272,7 @@ msgstr "Kempingiroda"
 
 #: master_preset.xml:4813(item:name|group:Accommodation|preset:Campsite)
 msgid "Campsite"
-msgstr ""
+msgstr "Kemping"
 
 #: master_preset.xml:7824(item:name|group:Sport_(Ball)|preset:Canadian_Football)
 msgid "Canadian Football"
@@ -1340,7 +1340,7 @@ msgstr "Lakókocsi-/lakóautóhely"
 
 #: master_preset.xml:4829(check:text|group:Accommodation|preset:Campsite|key:caravans)
 msgid "Caravans allowed"
-msgstr ""
+msgstr "Lakókocsi engedélyezett"
 
 #: master_preset.xml:6993(check:text|group:Facilities|preset:Recycling_Container|key:recycling:cardboard)
 #: master_preset.xml:7034(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:cardboard)
@@ -1640,7 +1640,7 @@ msgstr "Urnafülkék (kolumbárium)"
 
 #: master_preset.xml:1616(item:name|group:Ways|preset:Combined_Foot-_and_Cycleway)
 msgid "Combined Foot- and Cycleway"
-msgstr "Elválasztás nélküli gyalog- és kerékpárút"
+msgstr "Közös gyalog- és kerékpárút"
 
 #: master_preset.xml:5653(list_entry:display_value|group:Culture|preset:Theatre|value:comedy)
 msgid "Comedy"
@@ -1686,13 +1686,13 @@ msgstr "Beton"
 msgid ""
 "Conditional maximum speed for heavy goods vehicles in way direction "
 "specified in km/h"
-msgstr ""
+msgstr "Feltételes sebességkorlátozás nehéz tehergépkocsiknak a vonal irányába (km/h)"
 
 #: master_preset.xml:2708(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backwardward:conditional)
 msgid ""
 "Conditional maximum speed for heavy goods vehicles opposite way direction "
 "specified in km/h"
-msgstr ""
+msgstr "Feltételes sebességkorlátozás nehéz tehergépkocsiknak a vonal irányával ellentétesen (km/h)"
 
 #: master_preset.xml:51(combo:long_text|key:maxspeed:forward:conditional)
 msgid "Conditional maximum speed in way direction specified in km/h"
@@ -1850,7 +1850,7 @@ msgstr "Krematórium"
 
 #: master_preset.xml:322(multiselect:display_values|key:cuisine)
 msgid "Crepe"
-msgstr ""
+msgstr "Crêpe (francia palacsinta)"
 
 #: master_preset.xml:7932(item:name|group:Sport_(Ball)|preset:Cricket)
 msgid "Cricket"
@@ -1962,7 +1962,7 @@ msgstr "Kerékpárakadály"
 
 #: master_preset.xml:1468(item:name|preset:Cycle_Lane/Track)
 msgid "Cycle Lane/Track"
-msgstr "Kerékpársáv/-nyom"
+msgstr "Kerékpársáv / út melletti kerékpárút"
 
 #: master_preset.xml:5107(check:text|group:Tourism|preset:Map|key:bicycle)
 #: master_preset.xml:5147(check:text|group:Tourism|preset:Guidepost|key:bicycle)
@@ -2281,7 +2281,7 @@ msgstr "Kutyaverseny"
 
 #: master_preset.xml:7067(combo:display_values|group:Facilities|preset:Waste_Basket/Trash_Can|key:waste)
 msgid "Dog excrement"
-msgstr ""
+msgstr "Kutyaürülék"
 
 #: master_preset.xml:11223(check:text|preset:Payment_Methods|key:payment:dogecoin)
 msgid "Dogecoin"
@@ -2293,7 +2293,7 @@ msgstr "Dodzsó"
 
 #: master_preset.xml:322(multiselect:display_values|key:cuisine)
 msgid "Donut"
-msgstr ""
+msgstr "Fánk (donut)"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "Down"
@@ -2585,7 +2585,7 @@ msgstr "Ürülékfelszedő tasak"
 
 #: master_preset.xml:4835(combo:display_values|group:Accommodation|preset:Campsite|key:sanitary_dump_station)
 msgid "Exists"
-msgstr ""
+msgstr "Van"
 
 #: master_preset.xml:9969(item:name|group:Clothes|preset:Fabric)
 msgid "Fabric"
@@ -2872,7 +2872,7 @@ msgstr "Frekvencia (Hertz, Hz)"
 
 #: master_preset.xml:322(multiselect:display_values|key:cuisine)
 msgid "Friture"
-msgstr ""
+msgstr "Sült burgonya"
 
 #: master_preset.xml:4332(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:from)
 #: master_preset.xml:665(text:text|key:from)
@@ -3161,7 +3161,7 @@ msgstr "Lakóotthon"
 
 #: master_preset.xml:4833(check:text|group:Accommodation|preset:Campsite|key:group_only)
 msgid "Group only access"
-msgstr ""
+msgstr "Csak csoportok használhatják"
 
 #: master_preset.xml:2925(item:name|group:Water|preset:Groyne)
 msgid "Groyne"
@@ -4280,7 +4280,7 @@ msgstr "Sebességkorlátozás nehéz tehergépkocsiknak a vonal irányába (km/h
 msgid ""
 "Maximum speed for heavy goods vehicles opposite way direction specified in "
 "km/h"
-msgstr ""
+msgstr "Sebességkorlátozás nehéz tehergépkocsiknak a vonal irányával ellentétesen (km/h)"
 
 #: master_preset.xml:2700(text:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv)
 msgid "Maximum speed for heavy goods vehicles specified in km/h"
@@ -4292,7 +4292,7 @@ msgstr "Sebességkorlátozás a vonal irányába (km/h)"
 
 #: master_preset.xml:52(text:long_text|key:maxspeed:backward)
 msgid "Maximum speed opposite way direction specified in km/h"
-msgstr ""
+msgstr "Sebességkorlátozás a vonal irányával ellentétesen (km/h)"
 
 #: master_preset.xml:45(text:long_text|key:maxspeed)
 msgid "Maximum speed specified in km/h"
@@ -4324,7 +4324,7 @@ msgstr "Gyógyászati segédeszközök boltja"
 
 #: master_preset.xml:322(multiselect:display_values|key:cuisine)
 msgid "Mediterranean"
-msgstr ""
+msgstr "Mediterrán"
 
 #: master_preset.xml:9359(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 msgid "Megalith"
@@ -4629,7 +4629,7 @@ msgstr "Mozgatható szekrény"
 
 #: master_preset.xml:14062(item:name|group:Offices|preset:Movers)
 msgid "Movers"
-msgstr ""
+msgstr "Költöztető cég"
 
 #: master_preset.xml:5216(item:name|group:Leisure|preset:Movie_Theater/Cinema)
 msgid "Movie Theater/Cinema"
@@ -8163,7 +8163,7 @@ msgstr "Közlekedés"
 
 #: master_preset.xml:7067(combo:display_values|group:Facilities|preset:Waste_Basket/Trash_Can|key:waste)
 msgid "Trash"
-msgstr ""
+msgstr "Maradékhulladék (lom)"
 
 #: master_preset.xml:10912(item:name|group:Other|preset:Travel_Agency)
 msgid "Travel Agency"
@@ -8784,7 +8784,7 @@ msgstr "Kerekesszékrámpa"
 
 #: master_preset.xml:204(combo:text|key:toilets:wheelchair)
 msgid "Wheelchair toilets"
-msgstr ""
+msgstr "Akadálymentes WC"
 
 #: master_preset.xml:216(combo:text|key:wheelchair)
 msgid "Wheelchairs"
@@ -8847,7 +8847,7 @@ msgstr "Szélesség (méter)"
 #: master_preset.xml:611(text:text|key:wikidata)
 #: master_preset.xml:9438(text:text|group:Historic_Places_&_Objects|preset:Memorial|key:wikidata)
 msgid "Wikidata"
-msgstr ""
+msgstr "Wikidata"
 
 #: master_preset.xml:11297(text:text|group:Boundaries|preset:Protected_Area|key:wikipedia)
 #: master_preset.xml:12497(text:text|group:Addresses_and_Contact|preset:Contact|key:wikipedia)
@@ -9526,12 +9526,12 @@ msgstr "Típus"
 #: master_preset.xml:75(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid "Both directions"
-msgstr ""
+msgstr "Mindkét irányba"
 
 #: master_preset.xml:75(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid "In way direction"
-msgstr ""
+msgstr "A vonal irányába"
 
 #: master_preset.xml:75(combo:display_values|key:overtaking)
 msgctxt "overtaking"
@@ -9541,7 +9541,7 @@ msgstr "Nincs"
 #: master_preset.xml:75(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid "Opposite to way direction"
-msgstr ""
+msgstr "A vonal irányával ellentétesen"
 
 #: master_preset.xml:75(combo:text|key:overtaking)
 msgctxt "overtaking"
@@ -11058,12 +11058,12 @@ msgstr "Kerékpárút"
 #: master_preset.xml:1487(combo:text|preset:Cycle_Lane/Track|key:cycleway:left)
 msgctxt "cycleway"
 msgid "Cycleway left"
-msgstr "Kerékpárút balra"
+msgstr "Kerékpárút a bal oldalon"
 
 #: master_preset.xml:1489(combo:text|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Cycleway right"
-msgstr "Kerékpárút jobbra"
+msgstr "Kerékpárút a jobb oldalon"
 
 #: master_preset.xml:1485(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1487(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
@@ -11077,35 +11077,35 @@ msgstr "Úttest"
 #: master_preset.xml:1489(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Opposite"
-msgstr ""
+msgstr "Forgalommal szembe"
 
 #: master_preset.xml:1485(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1487(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
 #: master_preset.xml:1489(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Opposite lane"
-msgstr ""
+msgstr "Forgalommal szembe (kerékpársáv)"
 
 #: master_preset.xml:1485(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1487(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
 #: master_preset.xml:1489(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Opposite track"
-msgstr ""
+msgstr "Forgalommal szembe (út melletti kerékpárút)"
 
 #: master_preset.xml:1485(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1487(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
 #: master_preset.xml:1489(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Share busway"
-msgstr ""
+msgstr "Buszsáv (kerékpárral is használható)"
 
 #: master_preset.xml:1485(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1487(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
 #: master_preset.xml:1489(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Shared lane"
-msgstr ""
+msgstr "Kerékpáros nyom"
 
 #: master_preset.xml:1485(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1487(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)

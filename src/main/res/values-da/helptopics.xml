@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="help_upgrade">0.9.9 Release noter</string>
+    <string name="help_addrelationmember">Relation valgt</string>
+    <string name="help_nodeselection">Knude valgt</string>
+    <string name="help_relationselection">Relation valgt</string>
+    <string name="help_wayselection">Vej valgt</string>
+    <string name="help_upgrade_099">0.9.9 Release noter</string>
     <string name="help_upgrade_098">0.9.8 Release noter</string>
     <string name="help_upgrade_097">0.9.7 Release noter</string>
     <string name="help_upgrade_096">0.9.6 Release noter</string>
@@ -22,6 +26,7 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+    	<item>@string/help_upgrade_099</item>
     	<item>@string/help_upgrade_098</item>
     	<item>@string/help_upgrade_097</item>
     	<item>@string/help_upgrade_096</item>
@@ -44,6 +49,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+    	<item>10.0.0 Release notes</item>
     	<item>0.9.9 Release notes</item>
     	<item>0.9.8 Release notes</item>
     	<item>0.9.7 Release notes</item>

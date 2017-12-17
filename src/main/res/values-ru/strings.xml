@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Нормальный</string>
+  <string name="mode_indoor">План помещения</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Внимание!</string>
   <string name="transfer_download_current_dialog_message">Вы внесли изменения. Хотите передать их на сервер?</string>
@@ -19,6 +21,8 @@
 было удалено локально
 но имеет ссылки на сервере</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nуже удалено на сервере</string>
+  <string name="use_local_version">Использовать локальную версию</string>
+  <string name="use_server_version">Использовать версию на сервере</string>
   <string name="no_login_data_title">Ошибка аутентификации</string>
   <string name="no_login_data_message">Если вы используете OAuth, то это вероятно ошибка, пожалуйста отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
   <string name="no_connection_title">Нет соединения с сервером</string>
@@ -179,6 +183,7 @@
   <string name="toast_split_to">Разделенный \"to\" путь</string>
   <string name="toast_tile_database_full">База данных тайлов карты или диск заполнены!\nExit, удалить базу данных или освободите больше памяти.</string>
   <string name="toast_error_accessing_photo">Нет доступа к фотографии %1$s</string>
+  <string name="toast_no_voice_recognition">Отсутствуют средства распознавания голоса</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
@@ -248,6 +253,7 @@
   <string name="tag_restriction_header">Значение</string>
   <string name="tag_restriction_when">когда</string>
   <string name="tag_restriction_and">и</string>
+  <string name="tag_restriction_add_restriction">Добавить ограничение</string>
   <string name="tag_restriction_add_simple_condition">Добавить простое условие</string>
   <string name="tag_restriction_add_expression">Добавить выражение</string>
   <string name="tag_restriction_add_opening_hours">Добавить время работы</string>
@@ -380,6 +386,8 @@
   <string name="actionmode_createpath">Рисование линии</string>
   <string name="actionmode_multiselect">Мультивыбор</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Разбить замкнутую линию, 1-я точка</string>
+  <string name="actionmode_closed_way_split_2">Разбить замкнутую линию, 2-я точка</string>
   <string name="actionmode_restriction">Добавить ограничение поворота</string>
   <string name="actionmode_restriction_restart_from">Повторно выбрать сегмент \"from\"</string>
   <string name="actionmode_restriction_via">Добавить объект \"via\"</string>

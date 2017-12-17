@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">Inomhus</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Försiktig!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort några ändringar. Vill du ladda upp dem i stället för att slänga?</string>
@@ -350,6 +351,7 @@
   <string name="actionmode_createpath">Skapa väg</string>
   <string name="actionmode_multiselect">Markera flera</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_restriction_to">Lägg till i segment</string>
   <string name="actionmode_one_object">1 objekt</string>
   <string name="actionmode_object_count">%1$d objekt</string>
   <string name="actionmode_rotateway">Rotera vägen</string>

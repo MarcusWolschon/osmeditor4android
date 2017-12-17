@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Звичайно</string>
+  <string name="mode_indoor">План приміщення</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Увага!</string>
   <string name="transfer_download_current_dialog_message">Ви внесли зміни. Бажаєте завантажити їх на сервер?</string>
@@ -171,6 +173,7 @@
   <string name="toast_min_one_preset">Треба вибрати, принаймні, одну заготовку!</string>
   <string name="toast_used_backup">Файл стану пошкоджений, використовую резервний!</string>
   <string name="toast_used_bug_backup">Файл стану помилок пошкоджений, використовую резервний!</string>
+  <string name="toast_no_voice_recognition">Немає можливості розпізнавання голосу</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Так</string>
   <string name="no">Ні</string>
@@ -183,7 +186,9 @@
   <string name="replace">Замінити</string>
   <string name="save">Зберегти</string>
   <string name="back">Назад</string>
+  <string name="forward">За напрямком лінії</string>
   <string name="keep">Залишити</string>
+  <string name="clear">Очистити</string>
   <string name="retry">Повторити</string>
   <!--Dialog for back button-->
   <string name="exit_title">Дійсно вийти?</string>
@@ -206,10 +211,15 @@
   <string name="tag_menu_reset_address_prediction">Скинути прогнозування адрес</string>
   <string name="tag_menu_exit_no_save">Вийти\nбез збереження</string>
   <string name="tag_multi_value_hint">Кілька значень</string>
+  <string name="tag_dialog_value_hint">Натсніть для вибору значень</string>
   <string name="tag_details">Подробиці</string>
+  <string name="tag_menu_move_up">Вгору</string>
+  <string name="tag_menu_move_down">Вниз</string>
   <string name="menu_up">Вгору</string>
   <string name="menu_top">Верх</string>
   <string name="menu_preset_help">Довідка заготовки</string>
+  <string name="tag_restriction_header">Значення</string>
+  <string name="tag_restriction_add_restriction">Додати обмеження</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Ділянка для звантаження</string>
   <string name="location_choose_radius">Виберіть радіус: </string>
@@ -306,6 +316,7 @@
   <string name="menu_tools_background_contrast">Контраст</string>
   <string name="menu_tools_oauth_reset">Скинути OAuth</string>
   <string name="menu_tools_oauth_authorisation">Авторизувати OAuth</string>
+  <string name="menu_enable_tagfilter">Фільтр теґів</string>
   <string name="menu_enable_presetfilter">Фільтр заготовок</string>
   <!--element action mode menu-->
   <string name="menu_tags">Властивості</string>
@@ -329,6 +340,8 @@
   <string name="actionmode_createpath">Креслення лінії</string>
   <string name="actionmode_multiselect">Мультивиділення</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Розбити замкнену лінію, 1-ша точка</string>
+  <string name="actionmode_closed_way_split_2">Розбити замкнуту лінію, 2-га точка</string>
   <!--Preferences-->
   <string name="config_category_view">Налаштування зовнішнього вигляду</string>
   <string name="config_showCameraAction_title">Показати камеру</string>
@@ -512,6 +525,8 @@
   <string name="alert_note"> Поруч знаходиться Нотатка OSM</string>
   <string name="alert_bug">Поруч знаходиться Помилка OSM</string>
   <string name="alert_distance_direction">в %1$d м %2$s</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_w">W</string>
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>

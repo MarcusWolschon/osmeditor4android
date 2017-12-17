@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">فضای داخلی</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">احتیاط! </string>
   <string name="transfer_download_current_dialog_message">شما تعدادی تغییر انجام داده اید. میخواهید به جای دور انداختن آنها را آپلود کنید؟ </string>
@@ -29,6 +30,9 @@
   <string name="progress_saving_message">ذخیره‌سازی… </string>
   <string name="upload_comment_label">نظر:</string>
   <string name="upload_source_label">منبع: </string>
+  <string name="upload_gpx_description_label">توضیح</string>
+  <string name="upload_gpx_tags_label">برچسب ها</string>
+  <string name="upload_gpx_visibility_label">دید</string>
   <string name="openstreetbug_new_title">یادداشت جدید</string>
   <string name="openstreetbug_new_bug">گزارش نتیجه</string>
   <string name="openstreetbug_new_nodeway">ایجاد گره/راه</string>
@@ -53,6 +57,8 @@
   <string name="tag_editor_name_suggestion_overwrite_message">این پیشنهاد میتواندجایگزین مقدار تعدادی برچسب با مقدار های مشهورتر شود. </string>
   <string name="search_results_title">نتایج جستجو</string>
   <string name="find_message">ورود متن جستجو</string>
+  <string name="search">جستجو</string>
+  <string name="closed">بسته شده</string>
   <!--Toaster-->
   <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
   <string name="toast_upload_success">آبلود به سرور OSM پایان یافت. </string>
@@ -71,6 +77,8 @@
   <string name="okay">خوب</string>
   <string name="cancel">لغو کردن</string>
   <string name="locked">قفل شده</string>
+  <string name="save">ذخیره</string>
+  <string name="forward">به جلو</string>
   <!--Dialog for back button-->
   <string name="exit_title">واقعا خارج میشوید؟</string>
   <!--Strings in PorpertyEditor-->
@@ -83,6 +91,8 @@
   <string name="tag_menu_revert">برگشت</string>
   <string name="tag_menu_mapfeatures">ویکی ویژگی های نقشه</string>
   <string name="tag_menu_addtorelation">افزودن به رابطه</string>
+  <string name="tag_details">جزئیات</string>
+  <string name="menu_up">بالا</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">بارگیری ناحیه</string>
   <string name="location_choose_radius">انتخاب شعاع:</string>
@@ -107,11 +117,13 @@
   <string name="menu_config">ترجیحات</string>
   <string name="menu_help">کمک</string>
   <string name="menu_erase">پاک کردن گره</string>
+  <string name="menu_set_position">مکان</string>
   <string name="menu_split">جدا کردن</string>
   <string name="menu_append">پیوست کردن</string>
   <string name="menu_tag">ویرایش برچسب ها</string>
   <string name="menu_openstreetbug">افزودن یادداشت</string>
   <string name="menu_easyedit">ویرایش ساده</string>
+  <string name="menu_camera">دوربین</string>
   <string name="menu_gps">جي پي اس ...</string>
   <string name="menu_gps_show">نمایش مکان</string>
   <string name="menu_gps_follow">دنبال کردن موقعیت  GPS</string>
@@ -126,6 +138,9 @@
   <string name="menu_save">ذخیره در پرونده</string>
   <string name="menu_join">پیوستن</string>
   <string name="menu_unjoin">جدا کردن</string>
+  <string name="menu_rotate">چرخش</string>
+  <string name="menu_tools">ابزارها</string>
+  <string name="menu_tools_background_align_reset">باز نشانی</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">تاریخچه</string>
@@ -153,6 +168,7 @@
   <string name="config_category_server">تنظیمات سرور</string>
   <string name="config_apibutton_title">آدرس ای پی آی OSM</string>
   <string name="config_apibutton_summary">میتوانید یک آدرس ای پی آی غیر استاندارد اینجا تنظیم کنید. معمولا نباید تغییر یابد!</string>
+  <string name="config_presetbutton_title">پیش تنظیم</string>
   <string name="config_iconbutton_title">نمایش آیکون های گره</string>
   <string name="config_iconbutton_summary">نمایش آیکون بهترین پیش تنظیم سازگار دور گره ها.</string>
   <string name="config_loginbutton_title">حساب کاربری</string>
@@ -225,7 +241,11 @@
   <string name="pref_acra_disabled">گزارش کرش غیر فعال شد</string>
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="bearing_s">S</string>
   <!--Misc relation related stuff-->
+  <string name="role">نقش</string>
+  <string name="relation">رابطه</string>
+  <string name="type">نوع</string>
   <!--time and distance-->
   <string name="days">روز</string>
   <string name="hours">ساعت</string>

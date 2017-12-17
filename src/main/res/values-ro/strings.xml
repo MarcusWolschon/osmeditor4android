@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">Înăuntru</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenţie!</string>
   <string name="transfer_download_current_dialog_message">Ai făcut câteva modificări. Vrei sa le încarci în loc să renunţi la ele _</string>
@@ -17,6 +18,8 @@
   <string name="progress_saving_message">Salvează…</string>
   <string name="upload_comment_label">Comentariu:</string>
   <string name="upload_source_label">Sursa:</string>
+  <string name="upload_gpx_description_label">Descripție</string>
+  <string name="upload_gpx_visibility_label">Vizibilitate</string>
   <string name="openstreetbug_new_title">Notă nouă</string>
   <string name="openstreetbug_new_bug">Raportează problema</string>
   <string name="openstreetbug_edit_title">Editează nota</string>
@@ -29,8 +32,11 @@
   <string name="imagery_offset_description">Descriere</string>
   <string name="imagery_offset_author">Autor</string>
   <string name="imagery_offset_date">Creat</string>
+  <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distanţă</string>
   <string name="search_results_title">Rezultatele căutării</string>
+  <string name="search">Caută</string>
+  <string name="version">Versiune</string>
   <!--Toaster-->
   <string name="toast_no_changes">Nu aţi facut nici o modificare...</string>
   <string name="toast_upload_success">Încărcat către server-ul OSM. </string>
@@ -48,12 +54,16 @@
   <string name="apply">Aplică</string>
   <string name="set">Setează</string>
   <string name="replace">Inlocuiește</string>
+  <string name="save">Salveaza</string>
+  <string name="forward">Înainte</string>
   <!--Dialog for back button-->
   <string name="exit_text">Sunteţi sigur că doriţi să ieșiţi?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">cheie</string>
   <string name="value">valoare</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_details">Detalii</string>
+  <string name="menu_up">Sus</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Incarcă zona</string>
   <string name="location_choose_radius">Alegeţi raza:</string>
@@ -76,7 +86,9 @@
   <string name="menu_config">Preferinţe</string>
   <string name="menu_help">Ajutor</string>
   <string name="menu_set_position">Poziţie</string>
+  <string name="menu_split">Separă</string>
   <string name="menu_append">Lipește</string>
+  <string name="menu_camera">Cameră</string>
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Arată locaţia</string>
   <string name="menu_gps_follow">Urmărește poziţia GPS</string>
@@ -84,6 +96,7 @@
   <string name="menu_transfer">Transfer...</string>
   <string name="menu_transfer_download_current">Descarcă conţinutul curent</string>
   <string name="menu_save">Salvează în fișier</string>
+  <string name="menu_join">Participă</string>
   <string name="menu_cut">Taie</string>
   <string name="menu_rotate">Rotește</string>
   <string name="menu_circulize">Aranjează în cerc</string>
@@ -97,6 +110,7 @@
   <!--Text should be as short as possible-->
   <string name="menu_history">Istoric</string>
   <string name="menu_merge">Participă</string>
+  <string name="menu_reverse">Întoarce</string>
   <!--EasyEdit action mode titles-->
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
@@ -124,6 +138,7 @@
   <string name="edit">Editează</string>
   <string name="delete">Sterge</string>
   <string name="name">Nume</string>
+  <string name="default_">Implicit</string>
   <!---->
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Curent</string>
@@ -137,7 +152,11 @@
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="bearing_s">S</string>
+  <string name="bearing_w">W</string>
   <!--Misc relation related stuff-->
+  <string name="role">Rol</string>
+  <string name="relation">Relație</string>
   <string name="type">Scrie</string>
   <string name="object">Obiect</string>
   <!--time and distance-->

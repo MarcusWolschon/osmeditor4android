@@ -95,6 +95,7 @@
   <string name="imagery_offset_date">Criado</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
+  <string name="zoom_and_offset">Z %1$s deslocamento %2$s/%3$s</string>
   <string name="set_position_datum_label">Datum geodésico</string>
   <string name="tag_editor_name_suggestion">Sugestão de nome</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugestão pode substituir alguns valores de etiquetas com valores mais utilizados.</string>
@@ -135,9 +136,21 @@
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo ao vivo!</string>
   <string name="js_console_msg_debug">Modo depuração de erros!</string>
+  <string name="validator_title">Validade de regras%1$s</string>
+  <string name="edit_resurvey_title">Editar o levantamento submetido</string>
+  <string name="add_resurvey_title">Adicionar o levantamento submetido</string>
+  <string name="edit_check_title">Editar a validação submetida</string>
+  <string name="add_check_title">Adicionar a validação submetida</string>
+  <string name="max_age">Idade máxima</string>
+  <string name="age">Idade</string>
+  <string name="check_opt">Validar opç.</string>
+  <string name="check_optional">Validar opções</string>
+  <string name="add_resurvey_entry">Adicionar o levantamento submetido</string>
+  <string name="add_check_entry">Adicionar a validação submetida</string>
   <!--Toaster-->
   <string name="toast_no_changes">Ainda não alterou nada…</string>
   <string name="toast_unsaved_changes">Tem alterações por gravar, por favor envie-as primeiro.</string>
+  <string name="clear_anyway">Eliminar de qualquer maneira?</string>
   <string name="toast_upload_success">Envio para o OpenStreetMap terminado.</string>
   <string name="toast_not_in_edit_range">Por favor faça zoom in para editar (Volume +/- ou Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Desbloqueie para editar</string>
@@ -203,6 +216,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_no_coverage">%1$s não tem cobertura aqui</string>
   <string name="toast_file_exists">O ficheiro %1$s já existe.</string>
   <string name="toast_needs_resurvey">O objeto pode estar desatualizado</string>
+  <string name="toast_missing_key">Valor %1$s em falta</string>
   <string name="toast_openinghours_invalid">Horário de abertura inválido para %1$s</string>
   <string name="toast_openinghours_autocorrected">O horário de abertura para %1$s foi automaticamente corrigido</string>
   <string name="toast_exit_multiselect">Toque duas vezes num espaço em branco ou utilize o botão da seta de voltar para sair</string>
@@ -210,12 +224,15 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_abort_actionmode">Utilize o botão de seta de voltar para abortar</string>
   <string name="toast_null_island">Por favor não adicione elementos em 0°/0° (Ilha nula)</string>
   <string name="toast_string_too_long">A expressão é demasiado longa (%1$d caracteres), truncado!</string>
+  <string name="toast_illegal_operation">Operação ilegal: %1$s</string>
+  <string name="toast_preset_creation_failed">Criação da definição \"%1$s\" falhou com: %2$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="okay">Ok</string>
   <string name="cancel">Cancelar</string>
   <string name="dismiss">Descartar</string>
+  <string name="done">Concluído</string>
   <string name="locked">Bloqueado</string>
   <string name="next">Próximo</string>
   <string name="apply">Aplicar</string>
@@ -259,6 +276,7 @@ sem gravar</string>
   <string name="tag_value_hint">Escrever valor</string>
   <string name="tag_autocomplete_value_hint">Escreva ou escolha os valores</string>
   <string name="tag_autocomplete_name_hint">Escreva ou carregue para sugestões de nomes</string>
+  <string name="tag_tap_to_edit_hint">Toque para editar</string>
   <string name="tag_multi_value_hint">Vários valores</string>
   <string name="tag_dialog_value_hint">Carregar para obter valores</string>
   <string name="tag_action_tag_title">Etiquetas selecionadas</string>
@@ -285,6 +303,7 @@ sem gravar</string>
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">quando</string>
   <string name="tag_restriction_and">e</string>
+  <string name="tag_restriction_add_restriction">Adicionar restrição</string>
   <string name="tag_restriction_add_simple_condition">Adicionar condição simples</string>
   <string name="tag_restriction_add_expression">Adicionar expressão</string>
   <string name="tag_restriction_add_opening_hours">Adicionar horário de funcionamento</string>
@@ -351,6 +370,7 @@ há %3$s %4$s</string>
   <string name="menu_transfer_upload">Enviar dados para o OSM</string>
   <string name="menu_transfer_close_changeset">Fechar o conjunto de alterações atual</string>
   <string name="menu_transfer_file">Ficheiro...</string>
+  <string name="menu_transfer_export">Exportar alterações para ficheiro OSC</string>
   <string name="menu_transfer_bugs">Erros Reportados/Erros OSMOSE...</string>
   <string name="menu_transfer_bugs_download_current">Descarregar erros na vista atual</string>
   <string name="menu_transfer_bugs_upload">Enviar tudo</string>

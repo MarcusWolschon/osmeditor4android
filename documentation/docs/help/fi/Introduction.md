@@ -162,7 +162,7 @@ Jos jälkimmäinen asetus on päällä, näkymän liikuttaminen käsin tai sen m
 
 ## Muistiinpanot ja virheet
 
-Vespucci tukee OSM:n muistiinpanojen (aiemmin OSM:n virheet) lataamista, kommentoimista ja sulkemista sekä vastaavia toimintoja [OSMOSE-laadunvarmistustyökalun](http://osmose.openstreetmap.fr/en/map/) "virheille". Kummatkin pitää joko ladata käsin tai käyttäen automaattista latausta lähistöllä sijaitsevien kohteiden hakemiseen. Muokkauksen tai sulkemisen jälkeen virheet tai muistiinpanot voi lähettää saman tien yksitellen tai myöhemmin kaikki samalla kertaa.
+Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
 Kartalla muistiinpanot ja virheet näytetään pienellä ötökkäkuvakkeella ![Bug](../images/bug_open.png): vihreät ovat suljettuja/selvitettyjä, siniset ovat käyttäjän luomia tai muokkaamia ja keltainen väri osoittaa, ettei sitä ole vielä korjattu eikä muutettu. 
 
@@ -191,8 +191,6 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
-A mode that only shows elements that have warnings and validation code that adds user configurable tests for missing tags and makes the re-survey warning time fully configurable. 
-
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
 ### Configuring checks
@@ -207,10 +205,10 @@ Re-survey entries have the following properties:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regualr expression.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
-**Key** and **Value** are checked against the _existing_ keys of the object in question.
+**Key** and **Value** are checked against the _existing_ tags of the object in question.
 
 #### Check entries
 
@@ -235,13 +233,13 @@ Vaihtoehtona edelliselle kohteet suodatetaan joko yksittäisten esivalintojen ta
 
 ### Asetuksia jotka ehkä haluat muuttaa
 
-* Taustataso
-* Peittotaso. Peittotason käyttö saattaa aiheuttaa ongelmia vanhojen ja vähämuististen laitteiden kanssa. Oletus: ei tasoa.
-* Muistiinpanojen/Virheiden näyttö. Avoimet muistiinpanot ja virheet näytetään keltaisina ötökkäkuvakkeina, suljetut vihreinä. Oletus: käytössä.
-* Valokuvataso. Näyttää georeferoidut kuvat punaisina kamerakuvakkeina; jos kuvassa on myös suuntatieto, kuvaketta pyöräytetään sen mukaisesti. Oletus: ei käytössä.
-* Pistekuvakkeet. Oletus: käytössä.
-* Pidä näyttö päällä. Oletus: ei käytössä.
-* Laaja vetoalue pisteille. Pisteiden liikuttelu kosketusnäytöllä on ongelmallista, sillä sormet peittävät kosketettavan kohdan näytöllä. Kun tämä asetus on käytössä, voidaan pistettä vetää laajemmalta alueelta pisteen vierestä. Valitseminen ja muut toiminnot käyttävät silti tavallista toleranssialuetta. Oletus: ei käytössä.
+* Background layer
+* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Node icons. Default: on.
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 #### Lisäasetukset
 

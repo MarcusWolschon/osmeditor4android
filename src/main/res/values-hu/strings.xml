@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normális</string>
+  <string name="mode_indoor">Beltéri</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Vigyázat!</string>
   <string name="transfer_download_current_dialog_message">Módosításai vannak. Fel kívánja tölteni azokat az eldobásuk helyett?</string>
@@ -207,6 +209,7 @@
   <string name="okay">OK</string>
   <string name="cancel">Mégse</string>
   <string name="dismiss">Elvetés</string>
+  <string name="done">Kész</string>
   <string name="locked">Zárolva</string>
   <string name="next">Következő</string>
   <string name="apply">Alkalmaz</string>
@@ -275,6 +278,7 @@
   <string name="tag_restriction_header">Érték</string>
   <string name="tag_restriction_when">ha</string>
   <string name="tag_restriction_and">és</string>
+  <string name="tag_restriction_add_restriction">Korlátozás hozzáadása</string>
   <string name="tag_restriction_add_simple_condition">Egyszerű feltétel hozzáadása</string>
   <string name="tag_restriction_add_expression">Kifejezés hozzáadása</string>
   <string name="tag_restriction_add_opening_hours">Nyitva tartás hozzáadása</string>

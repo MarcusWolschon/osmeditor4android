@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normale</string>
+  <string name="mode_tag_only">Solo etichette</string>
+  <string name="mode_indoor">Interni</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attenzione!</string>
   <string name="transfer_download_current_dialog_message">Hai fatto delle modifiche. Per sostituire i dati scaricati devi caricare le modifiche su OSM oppure annullarle.</string>
@@ -78,6 +81,8 @@
   <string name="openstreetbug_commit_fail">Impossibile salvare le modifiche al bug</string>
   <string name="openstreetbug_not_downloaded">non scaricato</string>
   <string name="openstreetbug_last_updated">Ultimo aggiornamento</string>
+  <string name="openstreetbug_unknown_task_type">Tipo di lavoro sconosciuto</string>
+  <string name="openstreetbug_not_supported">%1$snon supportato</string>
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Ci sono modifiche non salvate che verranno scartate se si prosegue.</string>
   <string name="unsaved_data_proceed">Scarta &amp; procedi</string>
@@ -129,9 +134,18 @@
   <string name="evaluate">Valuta</string>
   <string name="js_console_msg_live">Modalità live!</string>
   <string name="js_console_msg_debug">Modalità debug!</string>
+  <string name="edit_resurvey_title">Modifica dati sopralluogo</string>
+  <string name="add_resurvey_title">Aggiungi dati sopralluogo</string>
+  <string name="edit_check_title">Modifica controllo inserimenti</string>
+  <string name="add_check_title">Aggiungi controllo inserimenti</string>
+  <string name="max_age">Età massima</string>
+  <string name="age">Età</string>
+  <string name="add_resurvey_entry">Aggiungi dati sopralluogo</string>
+  <string name="add_check_entry">Aggiungi controllo inserimenti</string>
   <!--Toaster-->
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
   <string name="toast_unsaved_changes">Hai delle modifiche non salvate, caricale prima di proseguire.</string>
+  <string name="clear_anyway">Cancella comunque?</string>
   <string name="toast_upload_success">Caricamento nel server OSM completato.</string>
   <string name="toast_not_in_edit_range">Ingrandisci per modificare (Volume Su/Giù o Lente/Interruttore)</string>
   <string name="toast_unlock_to_edit">Sblocca per modificare</string>
@@ -196,6 +210,7 @@
   <string name="toast_no_coverage">%1$s non ha copertura qua</string>
   <string name="toast_file_exists">Il file %1$s esiste.</string>
   <string name="toast_needs_resurvey">L\'oggetto potrebbe essere non aggiornato</string>
+  <string name="toast_missing_key">%1$smancante</string>
   <string name="toast_openinghours_invalid">Il valore orari di apertura non è valido per %1$s</string>
   <string name="toast_openinghours_autocorrected">Il valore dell\'orario di apertura riguardante %1$s, è stato corretto automaticamente</string>
   <string name="toast_exit_multiselect">Per uscire tocca due volte uno spazio vuoto, oppure utilizza la freccia indietro.</string>
@@ -203,12 +218,14 @@
   <string name="toast_abort_actionmode">Usa il tasto indietro per annullare</string>
   <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Sequenza troppo lunga (%1$d caratteri), accorciata!</string>
+  <string name="toast_illegal_operation">Operazione non consentita: %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
   <string name="okay">Ok</string>
   <string name="cancel">Annulla</string>
   <string name="dismiss">Scarta</string>
+  <string name="done">Completato</string>
   <string name="locked">Bloccato</string>
   <string name="next">Prossimo</string>
   <string name="apply">Applica</string>
@@ -251,6 +268,7 @@
   <string name="tag_value_hint">Scrivi un valore</string>
   <string name="tag_autocomplete_value_hint">Scrivi o premi per i valori</string>
   <string name="tag_autocomplete_name_hint">Scrivi o premi per dei suggerimenti sul nome</string>
+  <string name="tag_tap_to_edit_hint">Premi per modificare</string>
   <string name="tag_multi_value_hint">Valori multipli</string>
   <string name="tag_dialog_value_hint">Premi per i valori</string>
   <string name="tag_action_tag_title">Etichetta/e selezionata/e</string>
@@ -277,6 +295,7 @@
   <string name="tag_restriction_header">Valore</string>
   <string name="tag_restriction_when">quando</string>
   <string name="tag_restriction_and">e</string>
+  <string name="tag_restriction_add_restriction">Aggiungi restrizione</string>
   <string name="tag_restriction_add_simple_condition">Aggiungi una semplice condizione</string>
   <string name="tag_restriction_add_expression">Aggiungi espressione</string>
   <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
@@ -342,6 +361,9 @@
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
   <string name="menu_transfer_close_changeset">Chiusi il gruppo di modifiche corrente</string>
   <string name="menu_transfer_file">File...</string>
+  <string name="menu_transfer_export">Esporta modifiche (file OSC)</string>
+  <string name="menu_transfer_read_file">Importa da file JOSM</string>
+  <string name="menu_transfer_save_file">Salva in formato JOSM</string>
   <string name="menu_transfer_bugs">Note/Bug...</string>
   <string name="menu_transfer_bugs_download_current">Scarica note/bug della vista corrente</string>
   <string name="menu_transfer_bugs_upload">Carica tutto</string>
@@ -351,6 +373,7 @@
   <string name="menu_transfer_autodownload_long">Scarica automaticamente note/bug</string>
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva tutte le note nuove o modificate...</string>
+  <string name="menu_transfer_read_custom_bugs">Carica obiettivi personalizzati</string>
   <string name="menu_save">Salva file</string>
   <string name="menu_join">Unisci</string>
   <string name="menu_unjoin">Separa</string>
@@ -433,8 +456,10 @@
   <string name="config_voiceCommandsEnabled_summary">Abilita il supporto sperimentale ai comandi vocali</string>
   <string name="config_maxAlertDistance_title">Massima distanza per le notifiche</string>
   <string name="config_maxAlertDistance_summary">La massima distanza alla quale un errore od una nota devono essere dalla posizione corrente per generare una notifica</string>
+  <string name="config_maxAlertDistance_current">%1$d metro</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Valore massimo per lo spessore di un percorso</string>
+  <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_showStats_title">Mostra statistiche</string>
   <string name="config_showStats_summary">Mostra dati statistiche e frames/sec nell\'angolo inferiore sinistro.</string>
   <string name="config_showTolerance_title">Mostra tolleranza</string>
@@ -479,6 +504,7 @@
   <string name="config_category_gps">Impostazioni GPS</string>
   <string name="config_gps_distance_title">Distanza minima GPS</string>
   <string name="config_gps_distance_summary">L\'intervallo minimo della distanza per le notifiche GPS, in metri (float). Valori bassi comportano maggior uso della batteria.</string>
+  <string name="config_gps_distance_current">%1$d metro</string>
   <string name="config_gps_interval_title">Intervallo minimo GPS</string>
   <string name="config_gps_interval_summary">L\'intervallo minimo di tempo per le notifiche GPS, in millisecondi. Valori bassi comportano maggior uso della batteria.</string>
   <string name="config_category_info">Informazioni</string>
@@ -498,8 +524,10 @@
   <string name="config_largeDragArea_summary">Disegna un\'area più grande quando trascini un nodo</string>
   <string name="config_extTriggeredDownloadRadius_title">Scarica nel raggio di</string>
   <string name="config_extTriggeredDownloadRadius_summary">Raggio (in metri) dell\'area da scaricare, 0 = solo il centro della mappa.</string>
+  <string name="config_downloadRadius_current">%1$d metro</string>
   <string name="config_maxDownloadSpeed_title">Velocità di scaricamento automatico massima</string>
   <string name="config_maxDownloadSpeed_summary">Limite (in km/h) oltre il quale lo scaricamento automatico viene interrotto</string>
+  <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_bugDownloadRadius_title">Raggio entro il quale scaricare le note e i bug</string>
   <string name="config_bugDownloadRadius_summary">Raggio (m) per lo scaricamento di note e bug</string>
   <string name="config_maxBugDownloadSpeed_title">Velocità massima per lo scaricamento automatico di note e bug</string>
@@ -532,20 +560,26 @@
   <string name="config_fullscreenMode_summary">Comportamento con i dispositivi provvisti di tasti \"soft\"</string>
   <string name="config_maxInlineValues_title">Numero massimo di valori in linea</string>
   <string name="config_maxInlineValues_summary">Numero massimo di valori in linea mostrati nella scheda delle etichette</string>
+  <string name="config_maxInlineValues_current">%1$d valori</string>
+  <string name="config_category_layers">Memorizzazione e download livello</string>
   <string name="config_maxTileDownloadThreads_title">Massimo numero di scaricamenti paralleli</string>
   <string name="config_maxTileDownloadThreads_summary">Numero massimo di scaricamenti paralleli di tasselli</string>
   <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>
   <string name="config_tileCacheSize_summary">Dimensione totale della cache dei tasselli in MB</string>
+  <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_notificationCacheSize_title">Numero massimo di notifiche mostrate</string>
   <string name="config_notificationCacheSize_summary">Numero massimo di notifiche visualizzate per tipo (min. 1)</string>
+  <string name="config_notificationCacheSize_current">%1$d notifiche</string>
   <string name="config_autoLockDelay_title">Intervallo oltre il quale attivare il blocco</string>
   <string name="config_autoLockDelay_summary">Intevallo di tempo in secondi oltre il quale le modifiche vengono disabilitate, 0 significato disabilitato.</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Offusca sempre le aree non scaricate</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Se selezionato, le aree non scaricate verranno offuscante durante il blocco</string>
   <string name="config_geocoderbutton_title">Configura geo-codificatore</string>
   <string name="config_geocoderbutton_summary">Aggiungi, modifica, elimina geo-codificatore per la ricerca</string>
   <string name="config_js_console_title">Attiva console JS</string>
   <string name="config_js_console_summary">Rendi la console JS disponibile in modalità \"live\"</string>
+  <string name="config_validatorprefs_title">Impostazioni validatore</string>
   <string name="manage_apis">Gestisci API</string>
   <string name="manage_presets">Gestisci i preset</string>
   <string name="manage_geocoders">Gestisci geo-codificatori</string>

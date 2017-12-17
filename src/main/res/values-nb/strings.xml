@@ -16,6 +16,7 @@
   <string name="progress_message">Leser inn i minne…</string>
   <string name="progress_download_message">Laster ned data fra teneren…</string>
   <string name="upload_comment_label">Kommentar:</string>
+  <string name="upload_gpx_tags_label">Tagger</string>
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
@@ -55,6 +56,8 @@
   <string name="location_current_text_parameterized">Nåværende posisjon: %1$s</string>
   <string name="location_map_text">Fra kart (kommer snart):</string>
   <string name="location_coordinates_text">Fra koordinater:</string>
+  <string name="location_lat_label">Lat:</string>
+  <string name="location_lon_label">Lon:</string>
   <string name="location_nan_title">Feil inndata!</string>
   <string name="location_nan_message">Tast inn koordinater med desimaler (f.eks. \"52.333572\",\"8.741185\"). Lat skal være mellom -85.0 og +85.0, og Lon skal være mellom -175.0 og +175.0.</string>
   <!--Menu-->
@@ -79,6 +82,7 @@
   <string name="menu_transfer_download_current">Last ned nåværende utsnitt</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
   <string name="menu_save">Lagre til fil</string>
+  <string name="menu_join">Kombiner</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historikk</string>
@@ -101,6 +105,7 @@
   <string name="config_backgroundLayer_summary">Forehåndstegna kartbakgrunn</string>
   <string name="config_category_server">Tener-innstillinger</string>
   <string name="config_apibutton_summary">Her kan du spesifisere en ustandard API URL. Skal normalt ikke endres!</string>
+  <string name="config_presetbutton_title">Knapper</string>
   <string name="config_iconbutton_title">Vis node-ikon</string>
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passer best på noder.</string>
   <string name="config_loginbutton_title">Brukerkonto</string>

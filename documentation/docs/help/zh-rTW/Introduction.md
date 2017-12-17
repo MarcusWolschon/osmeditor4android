@@ -32,16 +32,16 @@ Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版�
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+### 鎖定，解鎖，模式切換
 
 要避免不小心編輯的狀況，Vespucci 啟動時處於"鎖定"模式。處於鎖定模式時只允許縮放和移動地圖。點 ![Locked](../images/locked.png)  圖示則會解鎖螢幕。 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+在鎖定圖示長按顯示的選單有以下四個選項：
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **正常** - 預設的編輯模式，新物件能被添加，既有的物件可以被編輯、移動和移除。用簡單的白色鎖定圖示表示。
+* **只有標籤** - 選擇既有的物件會跳進內容編輯器，主畫面長按則會新增物件，但不會有任何幾何動作。用白色鎖定圖示加上"T"的方式表示。
+* **室內** - 啟動室內模式，請見[室內模式](#indoor)。用白色鎖定圖示加上"I"的方式表示。
+* C-模式** - 啟動 C-模式，只有上面有警告標示的物件會顯示，請見 [C-模式](#c-mode)。用白色鎖定圖示加上"C"的方式表示。
 
 #### 單點，雙點和長按
 
@@ -98,7 +98,7 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 #### 增加區域
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+目前開放街圖並沒有如其他地理資訊系統一樣，有"區域"物件類型。線上編輯器 "iD" 編輯嘗試在現有 OSM 架構下，建立區域類型，目前看來在特定狀況下運作相當好，也有不能好好運作的時候。Vespucci 目前並沒有計畫像 iD 一樣做類似的事情，所以你必須知道路徑區域是怎麼構成的：
 
 * _封閉路徑 (*多邊形")_：最簡單而且最普遍的區域變體，其路徑有共同的第一個節點和最後一個節點，構成封閉的"環狀" (例如大部分的建築都是這種類型)。Vespucci 可以很容易創建封閉路徑，只要畫完區域時最後接回第一個節點。注意：要怎麼解讀區域得看加上去的標籤；舉例來說，如果封閉路徑被標為建築，則會視為區域，如果被標為圓環則不會。有些情況之下，解讀的狀況可能都可以通，被視為"區域"標籤。
 
@@ -166,7 +166,7 @@ Vespucci 擁有簡單的衝突解決器。然後如果你懷疑你的編輯有�
 
 ## 備註和錯誤
 
-Vespucci支援下載、回應或是關閉OSM註解(先前叫做OSM臭蟲)，相當於[OSMOSE 品質管控工具](http://osmose.openstreetmap.fr/en/map/)列出的"臭蟲"。兩者都可以完整下載下來，或者使用自動下載工具看到你的區域內的註解。一旦你回應或是關閉註解，你可以上傳單一臭蟲還是註解，或是一次上傳多個註解。
+Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
 註解和臭蟲會以小蟲子圖示  ![Bug](../images/bug_open.png) 顯示在地圖上面，綠色代表關閉/解決，藍色代表被新增或是由你編輯過，而黃色表示仍然有效還沒有變動。 
 
@@ -187,43 +187,41 @@ OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則�
 
 室內繪圖由於有相當多的物件而且常常彼此重疊，因此是相當有挑戰性的事情。Vespucci 發展出室內模式，能夠允許你過濾其他不在同一層的所有物件，並且自動加上目前樓層資訊到新增加的物件上面。
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+這個模式可以透過長按鎖定鈕，請見[鎖定、解鎖、切換模式](#lock)，然後選擇對應的選單選項。
 
 <a id="c-mode"></a>
 
-## C-Mode
+## C-模式
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+在 C-模式下，只有擁有警告標示的物件才會顯示，讓檢視有特定問題或符合設定檢查的物件變得更容易。C-模式下啟動的內容編輯器，最符合的預設組合會自動套用。
 
-A mode that only shows elements that have warnings and validation code that adds user configurable tests for missing tags and makes the re-survey warning time fully configurable. 
+這個模式可以透過長按鎖定鈕，請見[鎖定、解鎖、切換模式](#lock)，然後選擇對應的選單選項。
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+### 設定檢查
 
-### Configuring checks
+目前擁有兩個設定檢查 (一個是檢查 FIXME 標籤，以及一個檢查關聯上面遺失的標籤，不過目前無法自訂)，兩種都可以在"設定"裡的"驗證器設定"調整。 
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+列表清單分成兩部分，上半部列出"重新踏察"列表，下半部列出檢查"列表"。列表點了之後就可以編輯了，綠色選單按鍵則允許增加列表。
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+#### 重新踏察選項
 
-#### Re-survey entries
-
-Re-survey entries have the following properties:
+重新踏察列表擁有以下內容：
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regualr expression.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
-**Key** and **Value** are checked against the _existing_ keys of the object in question.
+**Key** and **Value** are checked against the _existing_ tags of the object in question.
 
-#### Check entries
+#### 檢查選項
 
-Check entries have the following two properties:
+檢查列表有兩個內容：
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Check optional** - Check the optional tags of the matching preset.
+* **鍵** - 鍵應該依據相符的預設組合呈現在物件上面。
+* **檢查其他** - 檢查符合的預設組合的其他標籤。 
 
-This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+檢查要能運作必須先選擇符合的預設組合，之後檢查**鍵**是依據預設組合"推薦"的鍵。。**檢查其他則會擴大檢查物件上"其他"鍵。注意：目前連結的預設組合並不會檢查。
 
 ## 篩選
 
@@ -239,13 +237,13 @@ This check works be first determining the matching preset and then checking if *
 
 ### 設定，當您可能想要更改
 
-* 背景圖層
-* 地圖覆疊層。增加覆疊可能會替較舊或是記憶體較少的裝置造成問題。預設：無。
-* 註解/臭蟲顯示。開啟註解和臭蟲，並且以黃色蟲子圖示表示，關閉的則是相同圖示綠色顯示。預設：開啟。
-* 圖片圖層。顯示有地理參照的圖片，並且以紅色照相機圖示顯示，如果有方向資訊的話，圖示會旋轉。預設：關閉。
-* 節點圖示。預設：開啟。
-* 保持螢幕開啟。預設：關閉。
-* 大的節點拖曳區域。在觸控裝置上移動節點是相當大的問題，而且你的手指會遮住目前位置。開啟這個功能可以中心外的拖拉相當大的區域 (選擇和其他操作仍然使用相當的觸控容許區域)。預設：關閉。
+* Background layer
+* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Node icons. Default: on.
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 進階參數選項
 

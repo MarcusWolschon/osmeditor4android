@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">보통</string>
+  <string name="mode_indoor">실내</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">주의!</string>
   <string name="transfer_download_current_dialog_message">일부를 바꾸었습니다. 버리는 대신 업로드하겠습니까?</string>
@@ -184,6 +186,7 @@
   <string name="okay">확인</string>
   <string name="cancel">취소</string>
   <string name="dismiss">무시</string>
+  <string name="done">완료</string>
   <string name="locked">잠금</string>
   <string name="next">다음</string>
   <string name="apply">적용</string>
@@ -324,6 +327,7 @@
   <string name="menu_paste_from_clipboard">클립보드에서 붙여넣기</string>
   <string name="menu_zoom_to_selection">선택하려면 확대</string>
   <string name="menu_rotate">회전</string>
+  <string name="menu_orthogonalize">각의 직교화</string>
   <string name="menu_circulize">동그라미에 정렬</string>
   <string name="menu_split_polygon">다각형으로 분할</string>
   <string name="menu_newnode_gps">GPS 위치에서 새 노드</string>
@@ -365,6 +369,9 @@
   <string name="actionmode_createpath">경로 만들기</string>
   <string name="actionmode_multiselect">여려선택</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">닫힌 길을 분할, 첫번째 노드</string>
+  <string name="actionmode_closed_way_split_2">닫힌 길을 분할, 두번째 노드</string>
+  <string name="actionmode_restriction">회전 제한 추가</string>
   <string name="actionmode_one_object">개체 1개</string>
   <string name="actionmode_object_count">개체 %1$d개</string>
   <string name="actionmode_rotateway">길 회전</string>

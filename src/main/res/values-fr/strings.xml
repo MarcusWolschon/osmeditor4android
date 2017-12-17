@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">Intérieur</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attention !</string>
   <string name="transfer_download_current_dialog_message">Vous avez fait des modifications. Voulez-vous les envoyer plutôt que les abandonner ?</string>
@@ -17,6 +18,7 @@ contre %3$s sur le serveur</string>
   <string name="upload_conflict_message_deleted">%1$s \nla version locale est %2$s \net a été supprimé du serveur</string>
   <string name="upload_conflict_message_referential">%1$s \na été supprimé localement \nmais existe toujours sur le serveur</string>
   <string name="upload_conflict_message_already_deleted">%1$s \na déjà été supprimé sur le serveur</string>
+  <string name="use_local_version">Utiliser la version locale</string>
   <string name="use_server_version">Utiliser la version sur le serveur</string>
   <string name="no_login_data_title">Authentification échouée</string>
   <string name="no_login_data_message">Si vous utilisez OAuth, ceci est probablement un bogue, merci de rapporter le problème. Si vous utilisez un login et un mot de passe (non recommandé) vérifiez que vous les avez renseigné correctement.</string>
@@ -186,6 +188,7 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="toast_tile_database_full">La base de données des tuiles de carte ou le disque sont plein !\nFermez l\'application, puis supprimer la base de données ou libérez de l\'espace.</string>
   <string name="toast_invalid_apiurl">URL API invalide</string>
   <string name="toast_invalid_readonlyurl">URL API en lecture seule invalide</string>
+  <string name="toast_no_voice_recognition">Pas de système de reconaissance vocale trouvé</string>
   <string name="toast_needs_resurvey">L\'objet est peut être périmé</string>
   <string name="toast_openinghours_invalid">Horaires d\'ouverture invalides pour %1$s</string>
   <string name="toast_openinghours_autocorrected">Les horaires d\'ouvertures pour %1$sont été autocorrigées</string>
@@ -206,6 +209,7 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="replace">Remplacer</string>
   <string name="save">Enregistrer</string>
   <string name="back">Retour</string>
+  <string name="forward">Vers l\'avant</string>
   <string name="keep">Conserver</string>
   <string name="enable">Activer</string>
   <string name="clear">Effacer</string>
@@ -236,7 +240,9 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="tag_menu_delete_unassociated_tags">Supprimer les tags non associés</string>
   <string name="tag_menu_top">Faire défiler vers le haut</string>
   <string name="tag_menu_bottom">Faire défiler vers le bas</string>
+  <string name="tag_value_hint">Type de valeur</string>
   <string name="tag_multi_value_hint">Plusieur valeurs</string>
+  <string name="tag_dialog_value_hint">Appuyez pour voir les valeurs</string>
   <string name="tag_action_tag_title">Tag(s) sélectionné(s)</string>
   <string name="tag_action_members_title">Membre(s) sélectionné(s)</string>
   <string name="tag_action_parents_title">Relation(s) sélectionnée(s)</string>
@@ -254,9 +260,11 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="menu_top">Haut</string>
   <string name="menu_select_all">Tout sélectionner</string>
   <string name="menu_deselect_all">Tout désélectionner</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_restriction_header">Valeur</string>
   <string name="tag_restriction_when">Quand</string>
   <string name="tag_restriction_and">et</string>
+  <string name="tag_restriction_add_restriction">Ajouter une restriction</string>
   <string name="tag_restriction_add_simple_condition">Ajouter une condition simple</string>
   <string name="tag_restriction_add_expression">Ajouter une expression</string>
   <string name="tag_restriction_add_opening_hours">Ajouter des horaires d\'ouverture</string>
@@ -383,6 +391,8 @@ il y a %3$s %4$s</string>
   <string name="actionmode_createpath">Création du chemin</string>
   <string name="actionmode_multiselect">Multisélection</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Découpage d\'un chemin fermé, 1er nœud</string>
+  <string name="actionmode_closed_way_split_2">Découpage d\'un chemin fermé, 2e nœud</string>
   <string name="actionmode_restriction">Ajouter une restriction pour tourner</string>
   <string name="actionmode_rotateway">Tourner le chemin</string>
   <!--Preferences-->
@@ -591,7 +601,9 @@ il y a %3$s %4$s</string>
   <string name="bearing_ne">NE</string>
   <string name="bearing_e">E</string>
   <string name="bearing_se">E</string>
+  <string name="bearing_s">S</string>
   <string name="bearing_sw">W</string>
+  <string name="bearing_w">W</string>
   <string name="bearing_nw">NW</string>
   <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->

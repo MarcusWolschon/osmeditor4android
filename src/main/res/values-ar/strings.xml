@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
+  <string name="mode_indoor">داخلي</string>
+  <!--Dialogs-->
+  <string name="transfer_download_current_upload">رفع</string>
+  <string name="upload_gpx_description_label">الوصف</string>
+  <string name="upload_gpx_visibility_label">الرؤية</string>
+  <string name="imagery_offset_description">الوصف</string>
+  <string name="imagery_offset_date"> تم إنشائها</string>
+  <string name="imagery_offset_zoom">تقريب</string>
+  <string name="search">بحث</string>
+  <string name="version">الإصدار</string>
+  <!--Toaster-->
+  <!--Some generic labels/buttons-->
+  <string name="yes">نعم</string>
+  <string name="no">لا</string>
+  <string name="okay">حسنًا</string>
+  <string name="cancel">إلغاء</string>
+  <string name="save">حفظ</string>
+  <!--Dialog for back button-->
+  <!--Strings in PorpertyEditor-->
+  <string name="tag_details">تفاصيل</string>
+  <string name="menu_up">الأعلى</string>
+  <!--Strings in LocationPicker-->
+  <!--Menu-->
+  <string name="menu_move">تحريك</string>
+  <string name="menu_help">المساعدة</string>
+  <string name="menu_set_position">موضع</string>
+  <string name="menu_split">فصل</string>
+  <string name="menu_camera">كاميرا</string>
+  <string name="menu_rotate">تدوير</string>
+  <string name="menu_tools">أدوات</string>
+  <string name="menu_tools_background_align_reset">إعادة الضبط</string>
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <string name="menu_history">التأريخ</string>
+  <string name="menu_reverse">عكس الاتجاه</string>
+  <!--EasyEdit action mode titles-->
+  <!--EasyEdit action mode sub-titles-->
+  <!--Preferences-->
+  <string name="config_debugbutton_title">تنقيح</string>
+  <!--preset downloader messages-->
+  <!--changes-->
+  <!--url handler activity-->
+  <!--common terms-->
+  <string name="add">إضافة</string>
+  <string name="delete">Delete</string>
+  <string name="name">الاسم</string>
+  <string name="default_">الافتراضي</string>
+  <!---->
+  <!--"default" is a reserved Java keyword...-->
+  <!--element description-->
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <!--ACRA-->
+  <!--Exceptions messages-->
+  <!--Notifications-->
+  <string name="bearing_s">س</string>
+  <string name="bearing_w">خ</string>
+  <!--Misc relation related stuff-->
+  <string name="role">الدور</string>
+  <string name="relation">علاقة</string>
+  <string name="type">النوع</string>
+  <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
+</resources>

@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">Interior</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenció!</string>
   <string name="transfer_download_current_dialog_message">Heu fet alguns canvis. Voleu pujar-los en comptes de descartar-los?</string>
@@ -174,6 +175,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">quan</string>
   <string name="tag_restriction_and">i</string>
+  <string name="tag_restriction_add_restriction">Afegeix una restricció</string>
   <string name="tag_restriction_add_simple_condition">Afegir una condició simple</string>
   <string name="tag_restriction_add_expression">Afegir una expressió</string>
   <string name="tag_restriction_add_opening_hours">Afegir horaris d\'apertura</string>
@@ -244,8 +246,11 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="menu_information">Informació</string>
   <string name="menu_tools">Eines</string>
   <string name="menu_tools_background_properties">Propietats del fons</string>
+  <string name="menu_tools_background_align_reset">Reiniciar</string>
   <string name="menu_tools_background_align_zero">Zero</string>
   <string name="menu_tools_background_contrast">Contrast</string>
+  <string name="menu_enable_tagfilter">Filtrar Etiquetes</string>
+  <string name="menu_enable_presetfilter">Filtrar Preselecció</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propietats</string>
   <!--Text should be as short as possible-->
@@ -260,6 +265,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="actionmode_wayselect">Via seleccionada</string>
   <string name="actionmode_nodeselect">Node seleccionat</string>
   <string name="actionmode_relationselect">Relació seleccionada</string>
+  <string name="actionmode_multiselect">Selecció múltiple</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_one_object">1 objecte</string>
   <!--Preferences-->
@@ -285,6 +291,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="listedit_enable_oauth">Habilitar oauth</string>
   <string name="config_osmoseServer_title">Servidor OSMOSE</string>
   <string name="config_osmoseServer_summary">URL del servidor osmose</string>
+  <string name="config_presetbutton_title">Predefinicions</string>
   <string name="config_iconbutton_title">Mostra les icones de node</string>
   <string name="config_loginbutton_title">Compte d\'usuari</string>
   <string name="config_username_title">Nom d\'usuari de l\'OSM</string>

@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Tavallinen</string>
+  <string name="mode_indoor">Sisätila</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varoitus!</string>
   <string name="transfer_download_current_dialog_message">Olet tehnyt muutoksia. Haluatko että ne lähetetään palvelimelle vai hylätäänkö ne?</string>

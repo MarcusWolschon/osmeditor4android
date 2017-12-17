@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">Innendørs</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort endringer. Vil du laste dem opp i stedet for å avbryte?</string>
@@ -14,12 +15,19 @@
   <string name="progress_message">Leser inn i minne…</string>
   <string name="progress_download_message">Laster ned data fra teneren…</string>
   <string name="upload_comment_label">Kommentar:</string>
+  <string name="upload_gpx_description_label">Beskrivelse</string>
+  <string name="upload_gpx_tags_label">Tagger</string>
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="unsaved_data_title">Advarsel!</string>
   <string name="unsaved_data_message">Du har ulagra endringer som vil bli skrota om du går videre.</string>
   <string name="unsaved_data_proceed">Skrot og gå videre</string>
+  <string name="imagery_offset_description">Beskrivelse</string>
+  <string name="imagery_offset_date">Opprettet</string>
+  <string name="imagery_offset_zoom">Zoom</string>
+  <string name="search">Søk</string>
+  <string name="version">Versjon</string>
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke endra noe enda…</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
@@ -33,6 +41,8 @@
   <string name="no">Nei</string>
   <string name="okay">Ok</string>
   <string name="cancel">Avbryt</string>
+  <string name="save">Lagre</string>
+  <string name="forward">Fremover</string>
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
   <string name="key">nøkkel</string>
@@ -42,6 +52,8 @@
   <string name="tag_menu_preset">Knapper</string>
   <string name="tag_menu_revert">Gjør om</string>
   <string name="tag_menu_mapfeatures">Map features wiki</string>
+  <string name="tag_details">Detaljer</string>
+  <string name="menu_up">Opp</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Les inn område</string>
   <string name="location_choose_radius">Velg radius:</string>
@@ -79,6 +91,11 @@
   <string name="menu_transfer_download_current">Last ned nåværende utsnitt</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
   <string name="menu_save">Lagre til fil</string>
+  <string name="menu_join">Kombiner</string>
+  <string name="menu_rotate">Rotér</string>
+  <string name="menu_orthogonalize">Lag åttekantet</string>
+  <string name="menu_tools">Verktøy</string>
+  <string name="menu_tools_background_align_reset">Tilbakestill</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historikk</string>
@@ -101,6 +118,7 @@
   <string name="config_backgroundLayer_summary">Forehåndstegna kartbakgrunn</string>
   <string name="config_category_server">Tener-innstillinger</string>
   <string name="config_apibutton_summary">Her kan du spesifisere en ustandard API URL. Skal normalt ikke endres!</string>
+  <string name="config_presetbutton_title">Knapper</string>
   <string name="config_iconbutton_title">Vis node-ikon</string>
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passer best på noder.</string>
   <string name="config_loginbutton_title">Brukerkonto</string>
@@ -139,6 +157,7 @@
   <string name="delete">Slett</string>
   <string name="name">Navn</string>
   <string name="url">URL</string>
+  <string name="default_">Standard</string>
   <!---->
   <!--"default" is a reserved Java keyword...-->
   <string name="api">API</string>
@@ -165,7 +184,12 @@
   <string name="pref_acra_disabled">Krasjrapportering slått av</string>
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="bearing_s">S</string>
+  <string name="bearing_w">W</string>
   <!--Misc relation related stuff-->
+  <string name="role">Rolle</string>
+  <string name="relation">Relasjon</string>
+  <string name="type">Type</string>
   <!--time and distance-->
   <!--Help system-->
   <!--Arrays-->

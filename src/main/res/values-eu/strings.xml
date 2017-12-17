@@ -15,6 +15,7 @@
   <string name="progress_download_message">Datuak Zerbitzaritik kargatzen...</string>
   <string name="upload_comment_label">Iruzkina:</string>
   <string name="upload_source_label">Iturburua:</string>
+  <string name="upload_gpx_tags_label">Etiketak</string>
   <string name="openstreetbug_new_title">Nota Berria</string>
   <string name="openstreetbug_new_bug">Akatsaren berri eman</string>
   <string name="openstreetbug_new_nodeway">Nodoa/Bidea sortu</string>
@@ -26,6 +27,7 @@
   <string name="unsaved_data_title">Kontuz!</string>
   <string name="unsaved_data_message">Aurrera jarraitzen baduzu, gorde gabe dituzun aldaketak baztertuko dira.</string>
   <string name="unsaved_data_proceed">Baztertu &amp; aurrera jarraitu</string>
+  <string name="closed">Itxia</string>
   <!--Toaster-->
   <string name="toast_no_changes">Oraindik ez duzu ezer aldatu...</string>
   <string name="toast_upload_success">OSM Zerbitzarira igoera bukatu da.</string>
@@ -54,6 +56,7 @@
   <string name="tag_menu_mapfeatures">Mapa ezaugarrien Wikia</string>
   <string name="tag_menu_addtorelation">Erlaziora gehitu</string>
   <string name="tag_menu_resetMRU">Aurrezarpenak Berrezarri</string>
+  <string name="tag_restriction_add_restriction">Debekua gehitu</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Area kargatu</string>
   <string name="location_choose_radius">Erradioa aukeratu:</string>
@@ -135,6 +138,7 @@
   <string name="config_api_url_title">APIaren URLa</string>
   <string name="config_api_oauth_title">Oauth erabili</string>
   <string name="listedit_enable_oauth">Oauth gaitu</string>
+  <string name="config_presetbutton_title">Aurrezarpenak</string>
   <string name="config_iconbutton_title">Nodoen ikonoak erakutsi</string>
   <string name="config_iconbutton_summary">Nodoen arteko aurrezarpen hoberenaren ikonoa erakutsi</string>
   <string name="config_loginbutton_title">Erabiltzaile kontua</string>
@@ -204,6 +208,7 @@
   <string name="undo_action_set_tags">etiketak ezarri</string>
   <string name="undo_action_join">elkartu</string>
   <string name="undo_action_unjoin_ways">bideak banandu</string>
+  <string name="undo_action_delete_relation">erlazioa ezabatu</string>
   <string name="undo_action_update_relations">erlazioak eguneratu</string>
   <string name="undo_action_cut">moztu</string>
   <string name="undo_action_paste">itsatsi</string>

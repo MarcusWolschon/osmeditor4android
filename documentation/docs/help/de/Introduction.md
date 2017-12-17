@@ -4,14 +4,14 @@ Vespucci ist ein Editor für OpenStreetMap, der die meisten Funktionen unterstü
 
 ## Erstmaliger Gebrauch
 
-Beim erstmaligen Starten zeigt Vespucci das "Herunterladen einer anderen Position"/"Bereich laden" Formular. Falls Koordinaten angezeigt werden und sofort heruntergeladen werden sollen, kann die entsprechende Option gewählt und der Radius um den Punkt herum gesetzt werden. Auf langsamen Geräten sollte nur ein kleiner Bereich ausgewählt werden. 
+Beim erstmaligen Starten zeigt Vespucci das "Herunterladen einer anderen Position"/"Bereich laden" Formular. Falls Koordinaten angezeigt werden und sofort heruntergeladen werden soll, kann die entsprechende Option gewählt und den Radius um den Punkt herum gesetzt werden. Auf langsamen Geräten sollte nur ein kleiner Bereich ausgewählt werden. 
 
-Alternativ kann mit dem "Zur Karte" direkt zur Karte gewechselt werden, auf das Gebiet das bearbeitet werden soll gezoomt werden und dann Daten für das Gebiet geladen werden (siehe unten "Mit Vespucci OSM Daten bearbeiten").
+Alternativ kann mit dem "Zur Karte" direket zur Karte gewechselt werden, auf das Gebiet das bearbeitet werden soll gezoomt werden und dann Daten für das Gebiet geladen werden (siehe unten "Mit Vespucci OSM Daten bearbeiten").
 
 
 ## Mit Vespucci OSM Daten bearbeiten
 
-Abhängig von der Bildschirmgrösse und dem Alter des Gerätes können die Bearbeitungsfunktionen über Icons in der obersten Menüzeile, via ein Menü oben rechts, von der unteren Menüzeile (falls vorhanden) oder mittels der Menütaste zugänglich sein.
+Abhängig der Bildschirmgrösse und Alter des Gerätes können die Bearbeitungsfunktionen über Icons in der obersten Menuzeile, via ein Menu oben rechts, von der unteren Menuzeile (falls vorhanden) oder mittels der Menutaste zugänglich sein.
 
 <a id="download"></a>
 
@@ -33,16 +33,16 @@ Der einfachste Weg um Daten auf dem Gerät zu öffnen ist mit Gesten den Bildsch
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Sperren, entsperren, Modus wechseln
 
 Um versehentliche Änderungen zu verhindern startet Vespucci im "gesperrten" Modus, einen Modus der nur das Zoomen und Verschieben der Karte erlaubt. Tippe auf das ![Schloss](../images/locked.png) Icon um den Schirm zu entsperren.  
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Ein langer Druck auf auf das Schlosssymbol zeigt ein Auswahlmenü mit vier Optionen:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normal** - der Standardbearbeitungsmodus, neue Objekte können erstellt werden, bestehende bearbeitet, verschonen und gelöscht. Ein einfaches weises Schlosssymbol wird angezeigt.
+* **Nur Tags** - wird ein bestehendes Objekt ausgewählt, startet der Eingenschaftseditor, ein langer Druck auf dem Hauptschirm wird weiterhin neue Objekte hinzufügen, aber keine anderen Geometriebearbeitungen sind möglich. Ein weises Schlosssymbol mit einem "T" wird angezeigt.
+* **Innenraum** - schaltet in den Innenraum-Modus, siehe  [Innenraum-Modus](#indoor). Ein weises Schlosssymbol mit einem "I" wird angezeigt.
+* **C-Modus** - in C-Modus werden nur Objekte angezeigt, die ein Problem haben, siehe [C-Modus](#c-mode).  Ein weises Schlosssymbol mit einem "C" wird angezeigt.
 
 #### Einfacher Klick, Doppelklick und langer Klick
 
@@ -58,7 +58,7 @@ In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bere
 
 In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearbeiten weit hineinzuzoomen.
 
-Vespucci hat eine gute Unterstützung von "Undo" und "Redo" deshalb kann man angst frei auf seinem Gerät experimentieren, bitte aber keine reinen Testdaten auf den OSM Server speichern.
+Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
 #### Auswählen / Abwählen (einfacher Klick und "Auswahlmenü")
 
@@ -99,7 +99,7 @@ Um den Vorgang abzuschliessen kann auch ein entsprechender Menü-Eintrag ausgew�
 
 #### Flächen erstellen
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+Aktuell hat OpenStreetMap keinen eigenen Objekttyp für Flächen im Gegensatz zu anderen Geo-Datensysteme. Der Online-Editor "iD" versucht dem Benutzer eine solche Abstraktion anzubieten, dies funktioniert mal gut, mal schlechter. Vespucci versucht das in der vorliegenden Version nicht, deshalb hier einige Information dazu wie in OSM Flächen abgebildet werden:
 
 * _geschlossene Wege (*Polygone")_: die einfachste und häufigste Flächenvariante sind Wege bei denen Anfang- und Endpunkt derselbe Knoten ist, und die einen geschlossenen "Ring" bilden, z.B. sind die meisten Gebäude von diesem Typ. Solche Flächen sind mit Vespucci einfach zu erstellen, um den Ring fertigzustellen muss einfach der letzte Knoten auf den ersten zu liegen kommen. Hinweis: die Interpretation von geschlossenen Wegen als Fläche hängt von ihren Tags ab, ist ein geschlossener Weg als Kreisel getaggt, so wird es als Fläche interpretiert, ist der Weg als Kreisel getaggt, nicht. In gewissen Fällen in denen beide Interpretationen möglich wären, kann man dies durch ein "area" Tag klären.
 * _Multi-Polygone_: es gibt Flächen die aus mehreren Teilen, Löcher und Ringe bestehen, diese können nicht mit nur einem Weg abgebildet werden. OSM verwendet ein spezieller Typ Relation (das OSM Objekt, dass Beziehungen zwischen mehreren Objekte abbilden kann) um das Problem zu lösen, ein Multi-Polygon. Ein Multi-Polygon kann mehrere äussere ("outer") und innere ("inner") Ringe besitzen. Jeder Ring kann entweder ein geschlossener Weg sein wie oben beschrieben, oder mehrere Wege mit gemeinsamen Endpunkte. Während grosse Multi-Polygone mit jedem Werkzeug schwer zu bearbeiten sind, können kleine einfach mit Vespucci erstellt werden 
@@ -184,43 +184,41 @@ Zusätzlich zum Freischalten der Notiz- und Fehleranzeige kann eine grobe Auswah
 
 In Innenräumen Daten zu erfassen ist anspruchsvoll auf Grund der grossen Anzahl Objekte und Überlappungen. Vespucci hat einen speziellen Innenraum Modus der es erlaubt alle Objekte die nicht auf der gleichen Etage sind auszufiltern und der bei neu erstellen Objekte automatisch die richtige Etage in den Objekteigenschaften einträgt. 
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch []Sperren, entsperren, Modus wechseln](#lock).
 
 <a id="c-mode"></a>
 
-## C-Mode
+## C-Modus
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+Im C-Modus werden nur Objekte angezeigt die ein Problem haben, dies macht es einfach einfach Objekte zu finden die spezifische Probleme haben oder zu den konfigurierbaren Validationsprüfungen passen. Wird ein solches Objekt angewählt, startet der Eigenschaftseditor und die am besten passende Vorlage wird automatisch angewandt.
 
-A mode that only shows elements that have warnings and validation code that adds user configurable tests for missing tags and makes the re-survey warning time fully configurable. 
+In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch []Sperren, entsperren, Modus wechseln](#lock).
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+### Prüfungen konfigurieren
 
-### Configuring checks
+Im Augenblick sind zwei der Tests konfigurierbar (weiter existieren ein Test für FIXME Tags und ein Test für fehlende "type"-Tags auf Relationen, die nicht konfigurierbar sind), beide können durch Auswahl der "Validations Einstellungen" in den "Einstellungen" geändert werden. 
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests", die untere die Tests auf "Fehlende Tags". Einträge können durch anklicken bearbeitet werden, der grüne Menüknopf erlaubt es weitere Einträge hinzuzufügen.
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+#### Einträge für Elemente die überprüft werden sollten
 
-#### Re-survey entries
+Überprüfungstest-Einträge haben die folgenden Eigenschaften:
 
-Re-survey entries have the following properties:
+* **Schlüssel** - Key of the tag of interest.
+* **Wert** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Alter** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regulärer Ausdruck** - falls ausgewählt wird angenommen, dass **Wert** ein JAVA regulärer Ausdruck ist.
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regualr expression.
+"Schlüssel" und "Wert" werden mit den _existierenden_ Tags des Objektes verglichen.
 
-**Key** and **Value** are checked against the _existing_ keys of the object in question.
+#### Tests auf fehlende Tags
 
-#### Check entries
+Fehlende Tags-Test Einträge haben die folgenden zwei Eigenschaften:
 
-Check entries have the following two properties:
+* **Schlüssel** - Der Schlüssel der auf dem Objekt vorhanden sein sollte nach Massgabe der am  besten passende Vorlage.
+* **Optionale Tags überprüfen** - Die optionalen Tags der Vorlage miteinbeziehen.
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Check optional** - Check the optional tags of the matching preset.
-
-This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+Dieser Test funktioniert wie folgt: zuerst wird die am besten passende Vorlage bestimmt, und dann wird überprüft ob **Schlüssel** zu den empfohlenen Schlüssel für dieses Objekt gehört. **Optionale Tags überprüfen** überprüft auch noch die optionalen Tags der Vorlage.
 
 ## Filter
 

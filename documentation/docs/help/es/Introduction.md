@@ -162,7 +162,7 @@ Si tiene este último conjunto, mover la pantalla manualmente o editar hará que
 
 ## Notas y errores
 
-Vespucci soporta descarga, comentarios y cerrado de Notas OSM (anteriormente errores OSM) y la equivalente funcionalidad para "Errores" producida por la [herramienta de aseguramiento de la calidad OSMOSE](http://osmose.openstreetmap.fr/en/map/). Ambas han de ser descargadas explícitamente o puede utilizar el servicio autodescarga para acceder a los elementos en su área cercana. Una vez editado o cerrado, puede cargar el error o Nota inmediatamente o cargarlo todo de una vez.
+Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
 En el mapa las Notas y errores son representados mediante un pequeño icono de error ![Error](../images/bug_open.png); los verdes son cerrados/resueltos, los azules han sido creados o editados por usted, y los amarillos indican que aún está activo y no ha sido cambiado. 
 
@@ -192,8 +192,6 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
-A mode that only shows elements that have warnings and validation code that adds user configurable tests for missing tags and makes the re-survey warning time fully configurable. 
-
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
 ### Configuring checks
@@ -208,10 +206,10 @@ Re-survey entries have the following properties:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regualr expression.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
-**Key** and **Value** are checked against the _existing_ keys of the object in question.
+**Key** and **Value** are checked against the _existing_ tags of the object in question.
 
 #### Check entries
 
@@ -236,13 +234,13 @@ Como alternativa a lo anterior, los objetos se filtran en presets individuales o
 
 ### Los ajustes que podría querer cambiar
 
-* Capa de fondo
-* Capa de superposición. Añadir una superposición puede causar problemas con dispositivos más antiguos y con una memoria limitada. Predeterminado: ninguno.
-* Visualización de notas/errores. Las notas abiertas y los errores se mostrarán como un ícono de error amarillo, los cerrados de la misma manera en verde. Predeterminado: activado.
-* Capa de foto. Muestra fotografías georreferenciadas como iconos de cámara roja, si la información de dirección está disponible, el icono se rotará. Predeterminado: desactivado.
-* Iconos de nodo. Predeterminado: desactivado.
-* Mantener la pantalla encendida. Predeterminado: desactivado.
-* Área de arrastre de nodo grande. Mover nodos en un dispositivo con entrada táctil es problemático ya que sus dedos oscurecerán la posición actual en la pantalla. Activar esto proporcionará un área grande que se puede usar para arrastrar fuera del centro (la selección y otras operaciones aún usan el área de tolerancia táctil normal). Predeterminado: desactivado.
+* Background layer
+* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Node icons. Default: on.
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 Preferencias avanzadas
 

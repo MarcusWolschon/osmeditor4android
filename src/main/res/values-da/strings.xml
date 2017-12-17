@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">Indendørs</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
   <string name="transfer_download_current_dialog_message">Du har lavet ændringer. Vil du uploade dem i stedet for at afbryde?</string>
@@ -29,6 +30,7 @@
   <string name="upload_source_label">Kilde:</string>
   <string name="upload_gpx_description_label">Beskrivelse</string>
   <string name="upload_gpx_tags_label">Tags</string>
+  <string name="upload_gpx_visibility_label">Synlighed</string>
   <string name="openstreetbug_new_title">Ny note</string>
   <string name="openstreetbug_new_bug">Rapporter problem</string>
   <string name="openstreetbug_bug_title">Problem</string>
@@ -108,6 +110,7 @@
   <string name="tag_menu_revert">Tilbagefør</string>
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
   <string name="tag_menu_addtorelation">Tilføj til relation</string>
+  <string name="tag_details">Detaljer</string>
   <string name="tag_menu_move_up">Flyt op</string>
   <string name="tag_menu_move_top">Flyt til top</string>
   <string name="tag_menu_move_down">Flyt ned</string>
@@ -179,16 +182,21 @@
   <string name="menu_transfer_bugs">Noter/Fejl...</string>
   <string name="menu_transfer_bugs_upload">Upload alt</string>
   <string name="menu_transfer_bugs_upload_long">Upload alle fejl</string>
+  <string name="menu_transfer_bugs_clear">Nulstil</string>
   <string name="menu_transfer_save_notes_all">Gem alle noter...</string>
   <string name="menu_save">Gem til en fil</string>
   <string name="menu_join">Sammenlæg</string>
   <string name="menu_unjoin">Adskil</string>
+  <string name="menu_rotate">Rotér</string>
+  <string name="menu_orthogonalize">Ortogonaliser</string>
   <string name="menu_information">Info</string>
   <string name="menu_tools">Værktøjer</string>
+  <string name="menu_tools_background_align_reset">Nulstil</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historie</string>
   <string name="menu_merge">Sammenlæg</string>
+  <string name="menu_reverse">Vend om</string>
   <string name="deleteway_wayonly">Slet kun vej</string>
   <string name="deleteway_wayandnodes">Slet vej og knuder</string>
   <!--EasyEdit action mode titles-->

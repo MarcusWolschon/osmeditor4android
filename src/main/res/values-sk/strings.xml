@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">Vnútri</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Pozor!</string>
   <string name="transfer_download_current_dialog_message">Vykonali ste nejaké zmeny. Chcete ich odovzdať namiesto zahodenia?</string>
@@ -330,6 +331,14 @@
   <string name="actionmode_createpath">Vytvorenie cesty</string>
   <string name="actionmode_multiselect">Viacnásobný výber</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Rozdeliť zatvorenú cestu, 1. uzol</string>
+  <string name="actionmode_closed_way_split_2">Rozdeliť zatvorenú cestu, 2. uzol</string>
+  <string name="actionmode_restriction">Pridať obmedzenie odbočenia</string>
+  <string name="actionmode_restriction_restart_from">Znovu vybrať segment „z“</string>
+  <string name="actionmode_restriction_via">Pridať segment/prvok „cez“</string>
+  <string name="actionmode_restriction_restart_via">Znovu vybrať segment „cez“</string>
+  <string name="actionmode_restriction_to">Pridať segment „do“</string>
+  <string name="actionmode_restriction_restart_to">Znovu vybrať segment „do“</string>
   <!--Preferences-->
   <string name="config_category_editing">Nastavenia údajov a úprav</string>
   <string name="config_category_view">Nastavenia používateľského rozhrania</string>
@@ -358,6 +367,7 @@
   <string name="config_backgroundLayer_summary">Graficky vykreslené pozadie mapy.</string>
   <string name="config_overlayLayer_title">Prekrytie mapy</string>
   <string name="config_overlayLayer_summary">Graficky vykreslené prekrytie mapy.</string>
+  <string name="config_presetbutton_title">Predvoľby</string>
   <string name="config_loginbutton_title">Používateľský účet</string>
   <string name="config_username_title">Používateľské meno OSM</string>
   <string name="config_password_title">Heslo OSM</string>
@@ -408,6 +418,7 @@
   <string name="delete">Odstrániť</string>
   <string name="name">Názov</string>
   <string name="url">URL</string>
+  <string name="default_">Prednastavené</string>
   <!---->
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Predvoľba</string>

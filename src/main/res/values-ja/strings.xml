@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">室内</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">データの変更が行われています。破棄せずにアップロードしますか？</string>
@@ -20,6 +21,8 @@
 についてローカルでは削除されていますが
 サーバー上にはまだ存在しています。 </string>
   <string name="upload_conflict_message_already_deleted">%1$s \nはすでにサーバー上で削除されました</string>
+  <string name="use_local_version">ローカルにあるバージョンを使用する</string>
+  <string name="use_server_version">サーバー上にあるバージョンを使用する</string>
   <string name="no_login_data_title">認証失敗</string>
   <string name="no_login_data_message">OAuthを利用している場合、これはバグです。発生した事象のレポートを送ってください。ログイン名とパスワードを利用 (非推奨) している場合、入力した文字列が正しいかどうか確認してください。</string>
   <string name="no_connection_title">サーバに接続していません</string>
@@ -165,6 +168,7 @@
   <string name="replace">入れ替え</string>
   <string name="save">保存</string>
   <string name="back">戻る</string>
+  <string name="forward">ウェイの順方向</string>
   <string name="keep">そのままにする</string>
   <!--Dialog for back button-->
   <string name="exit_title">終了しますか？</string>
@@ -184,6 +188,10 @@
   <string name="tag_menu_reset_address_prediction">アドレス予測をリセットする</string>
   <string name="tag_menu_exit_no_save">終了
 セーブ無しで</string>
+  <string name="tag_dialog_value_hint">タップして値入力</string>
+  <string name="tag_details">詳細</string>
+  <string name="menu_up">上</string>
+  <string name="tag_restriction_add_restriction">制限を追加</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">ロードするエリア</string>
   <string name="location_choose_radius">半径を選択:</string>
@@ -285,6 +293,8 @@
   <string name="actionmode_relationselect">選択されたリレーション</string>
   <string name="actionmode_createpath">パスを作成</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">1番目のノードでクローズドウェイを分割する</string>
+  <string name="actionmode_closed_way_split_2">2番目のノードでクローズドウェイを分割する</string>
   <!--Preferences-->
   <string name="config_maxStrokeWidth_title">ライン幅の最大</string>
   <string name="config_maxStrokeWidth_summary">ウェイの最大表示幅</string>
@@ -333,6 +343,7 @@
   <string name="config_forceContextMenu_summary">イージーモードを利用中、指定があいまいな場合は常にコンテキストメニューを表示</string>
   <string name="config_licensebutton_title">作者およびライセンス</string>
   <string name="config_licensebutton_summary">作者およびライセンスに関する情報を表示</string>
+  <string name="config_debugbutton_title">デバッグ</string>
   <string name="config_mapProfile_title">マッププロファイル</string>
   <string name="config_mapProfile_summary">要素のスタイルと見え方を設定する</string>
   <string name="config_use_back_for_undo_title">バックキーでやり直し</string>
@@ -420,6 +431,7 @@
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">大量のノードが付与されたウェイが作成されます。</string>
   <!--Notifications-->
+  <string name="bearing_s">S</string>
   <!--Misc relation related stuff-->
   <string name="role">ロール</string>
   <string name="role_lc">ロール</string>

@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_indoor">Interior</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Cuidado!</string>
   <string name="transfer_download_current_dialog_message">Você fez algumas modificações. Deseja transferir ao invés de descartar?</string>
@@ -9,6 +10,8 @@
   <string name="transfer_download_current_back">Voltar (não fazer nada)</string>
   <string name="upload_problem_title">Problema com o Upload</string>
   <string name="upload_conflict_title">Conflito no upload</string>
+  <string name="use_local_version">Usar versão local</string>
+  <string name="use_server_version">Usar versão no servidor</string>
   <string name="no_login_data_title">Falha de autenticação</string>
   <string name="no_connection_title">Sem conexão ao servidor</string>
   <string name="no_connection_message">Não foi possível conectar ao servidor OSM. Por favor verifique sua conexão de internet ou tente novamente mais tarde.</string>
@@ -39,12 +42,16 @@
   <string name="openstreetbug_new_bug">Reportar problema</string>
   <string name="openstreetbug_new_nodeway">Criar Nó/Via</string>
   <string name="openstreetbug_edit_title">Editar Nota</string>
+  <string name="openstreetbug_comment_label">Comentário:</string>
   <string name="openstreetbug_edit_close">Fechar</string>
   <string name="openstreetbug_edit_closed">Fechado</string>
+  <string name="unsaved_data_title">Cuidado!</string>
   <string name="imagery_offset_description">Descrição</string>
   <string name="imagery_offset_author">Autor</string>
+  <string name="imagery_offset_date">Criado</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
+  <string name="search">Procurar</string>
   <string name="id">Id</string>
   <string name="nodes">Nós</string>
   <string name="problem">Problema</string>
@@ -72,6 +79,7 @@
   <string name="replace">Substituir</string>
   <string name="save">Salvar</string>
   <string name="back">Voltar</string>
+  <string name="forward">Igual à direção da linha</string>
   <string name="keep">Manter</string>
   <!--Dialog for back button-->
   <string name="exit_title">Deseja sair?</string>
@@ -85,6 +93,9 @@
   <string name="tag_menu_address">Adicionar tags de endereço</string>
   <string name="tag_menu_preset">Pré-definições</string>
   <string name="tag_menu_repeat">Repetir tags</string>
+  <string name="tag_details">Detalhes</string>
+  <string name="menu_up">Para cima</string>
+  <string name="tag_restriction_header">Valor</string>
   <!--Strings in LocationPicker-->
   <string name="location_default_radius">300m</string>
   <string name="location_text_unknown">desconhecido</string>
@@ -174,8 +185,10 @@
   <string name="config_category_server">Configurações do servidor</string>
   <string name="config_apibutton_title">URL da API OSM</string>
   <string name="config_api_url_title">URL da API</string>
+  <string name="config_presetbutton_title">Pré-definições</string>
   <string name="config_category_info">Sobre</string>
   <string name="config_advancedprefs">Preferências avançadas</string>
+  <string name="config_debugbutton_title">Debug</string>
   <string name="config_gps_source_title">Fonte GPS</string>
   <string name="config_enableLightTheme_title">Ativar tema claro</string>
   <!--preset downloader messages-->
@@ -190,6 +203,7 @@
   <string name="default_">Padrão</string>
   <!---->
   <string name="api_name">Nome da API</string>
+  <string name="api_url">URL da API</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="api">API</string>
   <string name="undo">Desfazer</string>
@@ -224,7 +238,10 @@
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="bearing_s">S</string>
+  <string name="bearing_w">W</string>
   <!--Misc relation related stuff-->
+  <string name="role">Papel</string>
   <string name="membership_relation_heading">Membro da relação</string>
   <string name="relation">Relação</string>
   <string name="relations">Relações</string>

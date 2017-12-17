@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normal</string>
+  <string name="mode_indoor">Interior</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Coidado!</string>
   <string name="transfer_download_current_dialog_message">Fixeches algúns cambios. Queres subilos ou descartalos?</string>
@@ -275,6 +277,7 @@
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">cando</string>
   <string name="tag_restriction_and">e</string>
+  <string name="tag_restriction_add_restriction">Engadir restrición</string>
   <string name="tag_restriction_add_simple_condition">Engadir condición sinxela</string>
   <string name="tag_restriction_add_expression">Engadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Engadir horas abertas</string>
