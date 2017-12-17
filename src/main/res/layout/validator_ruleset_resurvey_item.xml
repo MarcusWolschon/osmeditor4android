@@ -75,7 +75,7 @@
 		android:paddingTop="10dp"
 		android:layout_below="@id/resurvey_days_legend"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
-		android:text="Regular expression"/>
+		android:text="@string/regular_expression"/>
 		
 	<CheckBox
 		android:id="@+id/resurvey_is_regexp"
