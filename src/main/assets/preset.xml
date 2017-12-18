@@ -8701,7 +8701,9 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:highway=street_lamp" />
             <space />
             <key key="highway" value="street_lamp" />
-            <combo key="opening_hours" text="Operation times" values="Mo-Fr 22:00-05:00" match="none" editable="true" values_no_i18n="true" />
+            <optional>
+                <combo key="opening_hours" text="Operation times" values="Mo-Fr 22:00-05:00" match="none" editable="true" values_no_i18n="true" />
+            </optional>
         </item> <!-- Street Lamp -->
         <item name="Monitoring Station" icon="icons/png/man_made_monitoring_station_22042.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=monitoring_station"
