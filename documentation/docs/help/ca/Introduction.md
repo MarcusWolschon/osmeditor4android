@@ -4,19 +4,19 @@ Vespucci és un editor d'OpenStreetMap completament preparat que donar suport a 
 
 ## Primer us
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+A l'inici Vespucci us mostra el diàleg "Baixeu un altre ubicació" / "Carrega l'àrea". Si teniu les coordenades que es mostren i voleu baixar immediatament, podeu seleccionar l'opció adequada i establir el radi al voltant de la ubicació que voleu descarregar. No seleccioneu una àrea gran en dispositius lents. 
 
-Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
+D'altra banda, podeu descartar el diàleg prement el botó "Anar al mapa" i situar-lo en un lloc on vulgueu editar i baixar les dades (vegeu a continuació: "Edició amb Vespucci").
 
-## Editing with Vespucci
+## Edició amb Vespucci
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+Segons la mida de la pantalla i l'edat del vostre dispositiu, les accions d'edició poden accedir directament a través de les icones a la barra superior, a través d'un menú desplegable a la dreta de la barra superior, des de la barra inferior (si està present) o a través de la tecla del menú.
 
 <a id="download"></a>
 
-### Downloading OSM Data
+### Descarregant dades de OSM 
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Seleccioneu la icona de transferència ![Transfer](../images/menu_transfer.png) o l'element del menú "Transferir". Això mostrarà set opcions:
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
@@ -26,26 +26,26 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+La manera més senzilla de descarregar dades al dispositiu és fer zoom i prémer la ubicació que voleu editar i, a continuació, seleccionar "Baixar la visualització actual". Podeu fer zoom mitjançant gestos, els botons de zoom o els botons de control de volum del dispositiu. Vespucci hauria de descarregar dades per a la visualització actual. No es requereix autenticació per descarregar dades al vostre dispositiu.
 
 ### Modificant
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Bloqueig, desbloqueig, canvi de mode
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+Per evitar edicions accidentals Vespucci comença en mode "bloquejat", un mode que només permet fer zoom i moure el mapa. Toqueu la icona ![Locked](../images/locked.png) per desbloquejar la pantalla. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Una pressió prolongada a la icona de bloqueig mostrarà un menú que actualment ofereix 4 opcions:
 
 * **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
 * **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
 * **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
 * **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
-#### Single tap, double tap, and long press
+#### Un toc, doble toc i pressió llarga
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+De manera predeterminada, els nodes i les formes seleccionables tenen una àrea de color taronja al voltant d'ells, que indica aproximadament on heu de tocar per seleccionar un objecte. Teniu tres opcions:
 
 * Single tap: Selects object. 
     * An isolated node/way is highlighted immediately. 
@@ -55,37 +55,37 @@ By default, selectable nodes and ways have an orange area around them indicating
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
 * Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
 
-It is a good strategy to zoom in if you attempt to edit a high density area.
+És una bona estratègia per fer zoom si intenteu editar una àrea d'alta densitat.
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+Vespucci té un bon sistema "desfer / rehacer", així que no tingueu por d'experimentar al vostre dispositiu, però, no pengeu ni deseu dades pures de prova.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Selecció / deselecció (només un toc i "menú de selecció")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Toqueu un objecte per seleccionar-lo i ressaltar-lo. Si toqueu la pantalla en una regió buida, no es seleccionarà. Si heu seleccionat un objecte i heu de seleccionar una altra cosa, simplement toqueu l'objecte en qüestió, no cal des seleccionar-ho primer. Es iniciarà un toc doble d'un objecte [Multiselect mode](../en/Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Tingueu en compte que si intenteu seleccionar un objecte i Vespucci determina que la selecció podria significar diversos objectes (com ara un node d'una manera o altres objectes superposats), es mostrarà un menú de selecció: toqueu l'objecte que voleu seleccionar i l'objecte és seleccionat. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Els objectes seleccionats s'indiquen a través d'una vora fina i groga. La vora groga pot ser difícil de detectar, depenent del fons del mapa i el factor d'ampliació. Una vegada realitzada la selecció, veureu una notificació que confirma la selecció.
 
 Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Objectes seleccionats: Edició d'etiquetes
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Un segon toc a l'objecte seleccionat obre l'editor d'etiquetes i pot editar les etiquetes associades a l'objecte.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Tingueu en compte que per superposar objectes (com ara un node o una via) el menú de selecció torna a funcionar per segona vegada. Si seleccioneu el mateix objecte, apareixerà l'editor d'etiquetes; si seleccioneu un altre objecte simplement seleccioneu l'altre objecte.
 
-#### Selected objects: Moving a Node or Way
+#### Objectes seleccionats: Moure un node o una via
 
 Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
 
-#### Adding a new Node/Point or Way (long press)
+#### Afegir un nou node / punt o una via (premeu llargament)
 
 Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
 * If you want to create a new node (not connected to an object), click away from existing objects.
 * If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
-Once you can see the crosshair symbol, you have these options:
+Una vegada que vegeu el símbol de l'encreuament, teniu aquestes opcions:
 
 * Touch in the same place.
     * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
@@ -96,7 +96,7 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 
-#### Adding an Area
+#### Afegint un àrea
 
 OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
@@ -104,17 +104,17 @@ OpenStreetMap currently doesn't have an "area" object type unlike other geo-data
 * _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
 * _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
-#### Improving Way Geometry
+#### Millorant la geometria de la via
 
 If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
 
-#### Cut, Copy & Paste
+#### Tallar, copiar i enganxar
 
 You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
-#### Efficiently Adding Addresses
+#### Afegint eficientment adreces
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+Vespucci té una funció de "afegir etiquetes d'adreça" que intenta fer que les adreces d'enquestes siguin més eficients. Es pot seleccionar:
 
 * after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
@@ -124,7 +124,7 @@ House number prediction typically requires at least two house numbers on each si
 
 Consider using this with the [Auto-download](#download) mode.  
 
-#### Adding Turn Restrictions
+#### Afegint restriccions de gir
 
 Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
 
@@ -134,15 +134,15 @@ Vespucci has a fast way to add turn restrictions. if necessary it will split way
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type
 
-### Vespucci in "locked" mode
+### Vespucci en mode "bloquejat"
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
 ### Grava els teus canvis
 
-*(requires network connectivity)*
+*(requereix connectivitat de xarxa)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+Seleccioneu el mateix botó o element del menú que heu fet per a la baixada i ara seleccioneu "Carrega dades al servidor OSM".
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
@@ -150,7 +150,7 @@ New Vespucci installs will have OAuth enabled by default. On your first attempt 
 
 If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
 
-#### Resolving conflicts on uploads
+#### Resoldre conflictes sobre les càrregues
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
 
@@ -179,7 +179,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## Indoor mode
+## Mode interior
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
 
@@ -187,21 +187,21 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Mode C
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
-### Configuring checks
+### Configurant marques
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
-#### Re-survey entries
+#### Reenviament d'entrades
 
-Re-survey entries have the following properties:
+Reenviament d'entrades tenen les següents propietats:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
@@ -210,7 +210,7 @@ Re-survey entries have the following properties:
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
 
-#### Check entries
+#### Comproveu les entrades
 
 Check entries have the following two properties:
 
@@ -219,9 +219,9 @@ Check entries have the following two properties:
 
 This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
-## Filters
+## Filtres
 
-### Tag based filter
+### Filtre basat en etiquetes
 
 The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
 
@@ -229,9 +229,9 @@ The filter can be enabled from the main menu, it can then be changed by tapping 
 
 An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](../en/Preset%20filter.md).
 
-## Customizing Vespucci
+## Personalització Vespucci
 
-### Settings that you might want to change
+### Configuració que podeu canviar
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
@@ -241,13 +241,13 @@ An alternative to the above, objects are filtered either on individual presets o
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
-#### Advanced preferences
+#### Preferències avançades
 
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
 * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
-## Reporting Problems
+## Informar de problemes
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 

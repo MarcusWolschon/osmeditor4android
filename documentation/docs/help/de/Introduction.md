@@ -6,12 +6,12 @@ Vespucci ist ein Editor für OpenStreetMap, der die meisten Funktionen unterstü
 
 Beim erstmaligen Starten zeigt Vespucci das "Herunterladen einer anderen Position"/"Bereich laden" Formular. Falls Koordinaten angezeigt werden und sofort heruntergeladen werden soll, kann die entsprechende Option gewählt und den Radius um den Punkt herum gesetzt werden. Auf langsamen Geräten sollte nur ein kleiner Bereich ausgewählt werden. 
 
-Alternativ kann mit dem "Zur Karte" direket zur Karte gewechselt werden, auf das Gebiet das bearbeitet werden soll gezoomt werden und dann Daten für das Gebiet geladen werden (siehe unten "Mit Vespucci OSM Daten bearbeiten").
+Alternativ kann mit dem "Zur Karte" direkt zur Karte gewechselt werden, auf das Gebiet das bearbeitet werden soll gezoomt werden und dann Daten für das Gebiet geladen werden (siehe unten "Mit Vespucci OSM Daten bearbeiten").
 
 
 ## Mit Vespucci OSM Daten bearbeiten
 
-Abhängig der Bildschirmgrösse und Alter des Gerätes können die Bearbeitungsfunktionen über Icons in der obersten Menuzeile, via ein Menu oben rechts, von der unteren Menuzeile (falls vorhanden) oder mittels der Menutaste zugänglich sein.
+Abhängig von der Bildschirmgrösse und dem Alter des Gerätes können die Bearbeitungsfunktionen über Icons in der obersten Menüzeile, via ein Menü oben rechts, von der unteren Menüzeile (falls vorhanden) oder mittels der Menütaste zugänglich sein.
 
 <a id="download"></a>
 
@@ -37,7 +37,7 @@ Der einfachste Weg um Daten auf dem Gerät zu öffnen ist mit Gesten den Bildsch
 
 Um versehentliche Änderungen zu verhindern startet Vespucci im "gesperrten" Modus, einen Modus der nur das Zoomen und Verschieben der Karte erlaubt. Tippe auf das ![Schloss](../images/locked.png) Icon um den Schirm zu entsperren.  
 
-Ein langer Druck auf auf das Schlosssymbol zeigt ein Auswahlmenü mit vier Optionen:
+Ein langer Druck auf das Schlosssymbol zeigt ein Auswahlmenü mit vier Optionen:
 
 * **Normal** - der Standardbearbeitungsmodus, neue Objekte können erstellt werden, bestehende bearbeitet, verschonen und gelöscht. Ein einfaches weises Schlosssymbol wird angezeigt.
 * **Nur Tags** - wird ein bestehendes Objekt ausgewählt, startet der Eingenschaftseditor, ein langer Druck auf dem Hauptschirm wird weiterhin neue Objekte hinzufügen, aber keine anderen Geometriebearbeitungen sind möglich. Ein weises Schlosssymbol mit einem "T" wird angezeigt.
@@ -46,7 +46,7 @@ Ein langer Druck auf auf das Schlosssymbol zeigt ein Auswahlmenü mit vier Optio
 
 #### Einfacher Klick, Doppelklick und langer Klick
 
-In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bereich angezeigt, der angibt in welchen Bereich man um den Bildschirm tippen kann um ein Objekt anzuwählen. Die drei Möglichkeiten sind:
+In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bereich angezeigt, der angibt in welchen Bereich man auf den Bildschirm tippen kann um ein Objekt anzuwählen. Die drei Möglichkeiten sind:
 
 * Einfacher Klick: wählt das Objekt aus. 
     * Ein freistehender Punkt oder Weg wird sofort ausgewählt. 
@@ -58,7 +58,7 @@ In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bere
 
 In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearbeiten weit hineinzuzoomen.
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+Vespucci hat eine gute Unterstützung von "Undo" und "Redo" deshalb kann man angst frei auf seinem Gerät experimentieren, bitte aber keine reinen Testdaten auf den OSM Server speichern.
 
 #### Auswählen / Abwählen (einfacher Klick und "Auswahlmenü")
 
@@ -78,7 +78,7 @@ Hinweis: für sich überlappende Objekte, z.B. ein Punkt auf einem Weg, erschein
 
 #### Ausgewählte Objekte: Einen Knoten oder Weg verschieben
 
-Ist ein Objekt ausgewählt kann es verschoben werden. Hinweis: Objekte können erst verschoben werden nachdem sie ausgewählt wurden. Durch ziehen in der Nähe (d.h. in der Toleranzzone) kann es dann verschoben werden. In den Einstellungen kann für Punkte einen grösseren Bereich einschalten und anzeigen lassen mit dem der Punkt leichter verschoben werden kann als mit der Standardeinstellung. 
+Ist ein Objekt ausgewählt kann es verschoben werden. Hinweis: Objekte können erst verschoben werden nachdem sie ausgewählt wurden. Durch ziehen in der Nähe (d.h. in der Toleranzzone) kann es dann verschoben werden. In den Einstellungen kann man für Punkte einen grösseren Bereich einschalten und anzeigen lassen mit dem der Punkt leichter verschoben werden kann als mit der Standardeinstellung. 
 
 #### Einen neuen Knoten oder Weg erstellen (langer Klick)
 
@@ -165,7 +165,7 @@ Falls letzteres eingeschaltet ist, wird es beim Verschieben des Schirms oder bei
 
 Vespucci unterstützt das Herunterladen, Kommentieren und Schliessen von OSM Notizen (vormals OSM Bugs) und die entsprechende Funktionalität für "Fehler" die vom [OSMOSE Qualitätssicherungswerkzeug](http://osmose.openstreetmap.fr/en/map/) gemeldet werden. Beide müssen entweder explizit heruntergeladen werden oder die Notizen und Fehler in der Nähe können automatisch geladen werden. Geänderte oder geschlossene Notizen und Fehler können entweder sofort hochgeladen werden oder gespeichert und alle zusammen später hochgeladen werden.
 
-Auf der Karte werden die Notizen und Fehler werden mit einem kleinen Käfer Icon  ![Bug](../images/bug_open.png) angezeigt, grüne sind behoben, blaue sind neu erstellt oder geändert, und Gelb zeigt an, dass die Notiz respektive der Fehler noch unverändert aktiv ist. 
+Auf der Karte werden die Notizen und Fehler mit einem kleinen Käfer Icon  ![Bug](../images/bug_open.png) angezeigt, grüne sind behoben, blaue sind neu erstellt oder geändert, und Gelb zeigt an, dass die Notiz respektive der Fehler noch unverändert aktiv ist. 
 
 In der Anzeige von OSMOSE Fehler wird jeweils für die betroffenen Objekte ein blau hervorgehobener Link angezeigt, wählt man den Link an, wird das Objekt ausgewählt, der Bildschirm darauf zentriert und, falls nötig, das entsprechende Gebiet heruntergeladen. 
 
@@ -182,7 +182,7 @@ Zusätzlich zum Freischalten der Notiz- und Fehleranzeige kann eine grobe Auswah
 
 ## Innenraum-Modus
 
-In Innenräumen Daten zu erfassen ist anspruchsvoll auf Grund der grossen Anzahl Objekte und Überlappungen. Vespucci hat einen speziellen Innenraum Modus der es erlaubt alle Objekte die nicht auf der gleichen Etage sind auszufiltern und der bei neu erstellen Objekte automatisch die richtige Etage in den Objekteigenschaften einträgt. 
+In Innenräumen Daten zu erfassen ist anspruchsvoll auf Grund der grossen Anzahl Objekte und Überlappungen. Vespucci hat einen speziellen Innenraum Modus der es erlaubt alle Objekte die nicht auf der gleichen Etage sind auszufiltern und der bei neu erstellten Objekten automatisch die richtige Etage in den Objekteigenschaften einträgt. 
 
 In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch []Sperren, entsperren, Modus wechseln](#lock).
 
@@ -190,7 +190,7 @@ In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werd
 
 ## C-Modus
 
-Im C-Modus werden nur Objekte angezeigt die ein Problem haben, dies macht es einfach einfach Objekte zu finden die spezifische Probleme haben oder zu den konfigurierbaren Validationsprüfungen passen. Wird ein solches Objekt angewählt, startet der Eigenschaftseditor und die am besten passende Vorlage wird automatisch angewandt.
+Im C-Modus werden nur Objekte angezeigt die ein Problem haben, dies macht es einfach Objekte zu finden die spezifische Probleme haben oder zu den konfigurierbaren Validationsprüfungen passen. Wird ein solches Objekt angewählt, startet der Eigenschaftseditor und die am besten passende Vorlage wird automatisch angewandt.
 
 In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch []Sperren, entsperren, Modus wechseln](#lock).
 
@@ -204,9 +204,9 @@ Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests",
 
 Überprüfungstest-Einträge haben die folgenden Eigenschaften:
 
-* **Schlüssel** - Key of the tag of interest.
-* **Wert** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Alter** - how many days after the element was last changed the element should be resurveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Schlüssel** - Schlüssel des Tags.
+* **Wert** - Wert des Tags, falls leer wird der Wert des Tags ignoriert..
+* **Alter** - wie viele Tage nachdem das Objekt zuletzt geändert wurde es wieder überprüft werden soll. Ist ein check_date Tag vorhanden wird dieses benutzt, ansonsten das Datum der letzten Änderung. Wird der Wert auf Null gesetzt wird das Alter ignoriert.
 * **Regulärer Ausdruck** - falls ausgewählt wird angenommen, dass **Wert** ein JAVA regulärer Ausdruck ist.
 
 "Schlüssel" und "Wert" werden mit den _existierenden_ Tags des Objektes verglichen.
@@ -228,7 +228,7 @@ Der Filter kann vom Hauptmenü eingeschaltet werden, durch Tippen auf die Filter
 
 ### Vorlagen basierende Filter
 
-Eine Alternative zu obigen, Objekte werden entweder durch einzelne, oder Gruppen von Vorlagen gefiltert. Nach einem Tipp auf die Filter-Schaltfläche Mehr Information kann unter [Vorlagenfilter](../en/Preset%20filter.md) gefunden werden.
+Eine Alternative zu obigem. Objekte werden entweder durch einzelne, oder Gruppen von Vorlagen gefiltert. Nach einem Tipp auf die Filter-Schaltfläche wird ein Vorlagenauswahldialog angezeigt, ähnlich wie er an anderer Stelle in Vespucci benutzt wird. Einzelne Vorlagen können durch einen normalen Klick ausgewählt werden, Vorlagengruppen durch einen langen Klick (normaler Klick öffnet die Gruppe). Mehr Information kann unter [Vorlagenfilter](../en/Preset%20filter.md) gefunden werden.
 
 ## Vespucci individuell anpassen
 

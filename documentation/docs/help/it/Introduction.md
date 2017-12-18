@@ -33,28 +33,23 @@ Il modo più semplice di scaricare i dati sul dispositivo è di spostarsi e ingr
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Blocca, sblocca, cambio modalità
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+Per evitare modifiche accidentali, Vespucci viene eseguito in modalità "bloccato", la quale consente di utilizzare solamente le funzioni di zoom e movimento della mappa. Premi  ![Bloccato](../images/locked.png) per passare alla modalità modifica. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Una lunga pressione sull'icona di blocco farà apparire un menù con 4 opzioni:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normale** - è la modalità predefinita di modifica, consente di aggiungere oggetti, modificare quelli esistenti, spostarli e rimuoverli. L'icona corrispondente è una lucchetto bianco.
+* **Solo Etichette** - selezionando un elemento si avvierà l'editor delle proprietà degli oggetti, una pressione prolungata sullo schermo aggiungerà un nodo. L'icona mostrata sarà un lucchetto bianco con una "T".
+* **Interni** - attiva la modalità interni, vedi [Indoor mode](#indoor). L'icona corrispondente è un lucchetto bianco con una "I".
+* **C-Mode** - attiva la modalità C, mostra solo gli oggetti contrassegnati con una bandierina di attenzione, vedi  [C-Mode](#c-mode). L'icona corrispondente è un lucchetto bianco con una "C".
 
 #### Tocco singolo, doppio tocco, pressione prolungata
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+Di defualt, gli oggetti selezionabili e le linee sono bordate in arancione, con l'obiettivo di indicare dove premere per selezionarle. Ci sono 3 possibilità:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
-* Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
+* Tocco singolo: seleziona un oggetto
+
 
 Se si cerca di modificare un'area ad alta densità di oggetti, è buona norma ingrandire la mappa.
 
@@ -62,23 +57,23 @@ Vespucci ha un buon sistema "annulla/ripeti" quindi non temere di sperimentare c
 
 #### Selezione / De-selezione (tocco singolo e "menu selezione")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Premi su un oggetto per selezionarlo ed evidenziarlo. Toccare lo schermo in un punto senza oggetti consente di de-selezionare l'oggetto. Se hai selezionato un oggetto ma hai bisogno di selezionarle un altro, per farlo ti basta premere su questo secondo oggetto, non c'è bisogno di de-selezionare il precedente. Un doppio tocco su un oggetto avvia la funzione selezione multipla [Modalità selezione multipla](../en/Multiselect.md).
 
 Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Gli oggetti selezionati sono indicati da una sottile bordatura gialla. La bordatura potrebbe essere difficile da vedere, ma una volta selezionato l'oggetto, apparirà una notifica a conferma.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
+Completata la selezione vedrai una lista delle operazioni che è possibile effettuare: per maggiori informazioni vedi [Nodo selezionato](../en/Node%20selected.md), [Linea selezionata](../en/Way%20selected.md) and [Relazione selezionata](../en/Relation%20selected.md).
 
 #### Oggetto selezionato: modifica etichette
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Un secondo tocco sull'oggetto selezionato apre il menù di modifica delle etichette, dal quale è possibile modificare le etichette associate all'oggetto.
 
 Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
 
 #### Oggetto selezionato: spostare un nodo o una linea
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Una volta selezionato un oggetto, lo si può spostare. Un oggetto può essere trascinato/spostato solo dopo essere stato selezionato. Per spostarlo devi premere sull'oggetto selezionato e trascinare fino dove si desidera spostarlo. Dal menù opzioni è possibile ingrandire l'area di selezione che compare a fianco degli oggetti selezionati. 
 
 #### Aggiungere un nuovo nodo o una linea (pressione prolungata)
 

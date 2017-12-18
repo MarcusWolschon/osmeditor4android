@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-15 21:53+0100\n"
-"PO-Revision-Date: 2017-12-15 20:55+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2017-12-18 07:19+0000\n"
+"Last-Translator: Sebastian\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4636,7 +4636,7 @@ msgstr "Beweglicher Schrank"
 
 #: master_preset.xml:14062(item:name|group:Offices|preset:Movers)
 msgid "Movers"
-msgstr "Zügelunternehmen"
+msgstr "Umzugsunternehmen"
 
 #: master_preset.xml:5216(item:name|group:Leisure|preset:Movie_Theater/Cinema)
 msgid "Movie Theater/Cinema"

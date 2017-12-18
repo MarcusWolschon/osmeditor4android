@@ -371,6 +371,8 @@ há %3$s %4$s</string>
   <string name="menu_transfer_close_changeset">Fechar o conjunto de alterações atual</string>
   <string name="menu_transfer_file">Ficheiro...</string>
   <string name="menu_transfer_export">Exportar alterações para ficheiro OSC</string>
+  <string name="menu_transfer_read_file">Ler de ficheiro JOSM...</string>
+  <string name="menu_transfer_save_file">Guardar para ficheiro JOSM...</string>
   <string name="menu_transfer_bugs">Erros Reportados/Erros OSMOSE...</string>
   <string name="menu_transfer_bugs_download_current">Descarregar erros na vista atual</string>
   <string name="menu_transfer_bugs_upload">Enviar tudo</string>
@@ -380,6 +382,8 @@ há %3$s %4$s</string>
   <string name="menu_transfer_autodownload_long">Descarregar erros automaticamente</string>
   <string name="menu_transfer_save_notes_all">Gravar todos os Erros Reportados...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Gravar Erros Reportados novos e alterados...</string>
+  <string name="menu_transfer_read_custom_bugs">Carregar tarefas personalizadas...</string>
+  <string name="menu_transfer_write_custom_bugs">Guardar as tarefas personalizadas abertas...</string>
   <string name="menu_save">Gravar no ficheiro</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Dividir</string>
@@ -462,8 +466,10 @@ há %3$s %4$s</string>
   <string name="config_voiceCommandsEnabled_summary">Ativar suporte de comandos de voz experimental</string>
   <string name="config_maxAlertDistance_title">Distância máxima para as notificações</string>
   <string name="config_maxAlertDistance_summary">A distância máxima a que um problema ou erro reportado pode estar da posição atual para gerar uma notificação</string>
+  <string name="config_maxAlertDistance_current">%1$d Metro</string>
   <string name="config_maxStrokeWidth_title">Espessura máxima da linha</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma linha mais larga que isto</string>
+  <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_showStats_title">Ver estatísticas</string>
   <string name="config_showStats_summary">Mostra estatísticas dos dados e quadros por segundo no canto inferior esquerdo.</string>
   <string name="config_showTolerance_title">Ver tolerância</string>
@@ -508,8 +514,10 @@ há %3$s %4$s</string>
   <string name="config_category_gps">Configurações do GPS</string>
   <string name="config_gps_distance_title">Distância Mínima do GPS</string>
   <string name="config_gps_distance_summary">Intervalo de distância mínima para notificações GPS, em metros (decimal). Valores baixos gastam mais bateria.</string>
+  <string name="config_gps_distance_current">%1$d Metro</string>
   <string name="config_gps_interval_title">Intervalo Mínimo do GPS</string>
   <string name="config_gps_interval_summary">O intervalo de tempo mínimo para notificações GPS, em milisegundos. Valores baixos gastam mais bateria.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_category_info">Sobre</string>
   <string name="config_advancedprefs">Configurações avançadas</string>
   <string name="config_forceContextMenu_title">Usar menus de contexto</string>
@@ -526,8 +534,10 @@ há %3$s %4$s</string>
   <string name="config_largeDragArea_summary">Usa uma área grande para poder arrastar os nós</string>
   <string name="config_extTriggeredDownloadRadius_title">Raio para descarregar</string>
   <string name="config_extTriggeredDownloadRadius_summary">Raio (m) dos descarregamentos desencadeados externamente, 0 = centrar apenas no mapa.</string>
+  <string name="config_downloadRadius_current">%1$d Metro</string>
   <string name="config_maxDownloadSpeed_title">Vel. máx. descarregamento automático</string>
   <string name="config_maxDownloadSpeed_summary">Limite (em Km/h) sobre o qual o descarregamento automático é interrompido</string>
+  <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_bugDownloadRadius_title">Raio de descarregamento de Erros Reportados/OSMOSE</string>
   <string name="config_bugDownloadRadius_summary">Raio (m) de descarregamento de erros reportados/OSMOSE</string>
   <string name="config_maxBugDownloadSpeed_title">Velocidade máxima de descarregamento automático de erros reportados/OSMOSE</string>
@@ -560,20 +570,27 @@ há %3$s %4$s</string>
   <string name="config_fullscreenMode_summary">Comportamento em dispositivos com teclas \"suaves\".</string>
   <string name="config_maxInlineValues_title">Nº máx. de valores na linha</string>
   <string name="config_maxInlineValues_summary">Número máximo de valores na linha mostrados no formulário de etiquetas</string>
+  <string name="config_maxInlineValues_current">%1$d Valores</string>
+  <string name="config_category_layers">Transferência da camada e armazenamento</string>
   <string name="config_maxTileDownloadThreads_title">Nº máx. tarefas de descarregamento</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de tarefas de descarregamento de telas</string>
+  <string name="config_downLoadThreads_current">%1$d linhas de execução</string>
   <string name="config_tileCacheSize_title">Tamanho dos ficheiros temporários de telas</string>
   <string name="config_tileCacheSize_summary">Tamanho total dos ficheiros temporários das telas em MB</string>
+  <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_notificationCacheSize_title">Nº máx. notificações mostradas</string>
   <string name="config_notificationCacheSize_summary">Número máximo de notificações por tipo (min 1)</string>
+  <string name="config_notificationCacheSize_current">%1$d Notificações</string>
   <string name="config_autoLockDelay_title">Tempo de espera de bloqueio</string>
   <string name="config_autoLockDelay_summary">Tempo de espera em segundos antes do bloqueio automático ser ativado, usar 0 para desativar</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer áreas não descarregadas</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Se ativado, as áreas não descarregadas serão escurecidas no modo bloqueado</string>
   <string name="config_geocoderbutton_title">Configurar Geo-codificadores</string>
   <string name="config_geocoderbutton_summary">Adicionar, editar, eliminar geo-codificador para a funcionalidade de procura</string>
   <string name="config_js_console_title">Ativar consola JavaScript</string>
   <string name="config_js_console_summary">Disponibilizar a consola JavaScript no modo \"ao vivo\"</string>
+  <string name="config_validatorprefs_title">Validação de preferências</string>
   <string name="manage_apis">Gerir APIs</string>
   <string name="manage_presets">Gerir modelos de etiquetas</string>
   <string name="manage_geocoders">Gerir geo-codificadores</string>
@@ -607,6 +624,7 @@ há %3$s %4$s</string>
   <string name="name">Nome</string>
   <string name="url">URL</string>
   <string name="default_">Padrão</string>
+  <string name="regular_expression">Expressão regular</string>
   <!---->
   <string name="empty_list">Sem entradas</string>
   <string name="api_name">Nome da API</string>

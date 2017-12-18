@@ -32,7 +32,7 @@ A forma mais fácil de descarregar dados para o dispositivo é aproximar/afastar
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Trancar, destrancar, alternar modo
 
 Para evitar edições acidentais, o Vespucci inicia no modo  "bloqueado". Toque no ícone ![Bloqueado](../images/locked.png) para desbloquear o ecrã. 
 
@@ -193,15 +193,15 @@ In C-Mode only objects are displayed that have a warning flag set, this makes it
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
-### Configuring checks
+### Configurar confirmações
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
-#### Re-survey entries
+#### entradas de levantamentos
 
-Re-survey entries have the following properties:
+O levantamento possui as seguintes propriedades:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
@@ -210,7 +210,7 @@ Re-survey entries have the following properties:
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
 
-#### Check entries
+#### Verificar entradas
 
 Check entries have the following two properties:
 
