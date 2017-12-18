@@ -67,6 +67,10 @@
                         </li>
                     
                         <li >
+                            <a href="../../help/en/10.0.0 Release notes/">10.0.0 Release notes</a>
+                        </li>
+                    
+                        <li >
                             <a href="../../help/en/0.9.9 Release notes/">0.9.9 Release notes</a>
                         </li>
                     
@@ -266,8 +270,56 @@
 <tr>
 <td><strong>&lt;presets&gt;</strong></td>
 <td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>author</td>
 <td>ignored</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>version</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>description</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>shortdescription</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>link</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>icon</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>baselanguage</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>object_keys</td>
+<td>extension</td>
+<td>comma separated list of top-level keys</td>
 </tr>
 <tr>
 <td><strong>&lt;!-- comment --&gt;</strong></td>
@@ -460,6 +512,18 @@
 <td>javascript</td>
 <td>extension</td>
 <td>if value is not set, execute the JS script</td>
+</tr>
+<tr>
+<td></td>
+<td>i18n</td>
+<td>extension</td>
+<td>if set to true this tag has i18n variants</td>
+</tr>
+<tr>
+<td></td>
+<td>value_type</td>
+<td>extension</td>
+<td>indicate the kind of value this tag should have</td>
 </tr>
 <tr>
 <td><strong>&lt;combo&gt;</strong></td>
@@ -890,6 +954,9 @@
 <ul>
 <li><em>deprecated</em> only use this preset for matching, do not offer it for new use and do not find it when searched</li>
 <li><em>javascript</em> execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any</li>
+<li><em>i18n</em> the tag can have i18n variants, for example name and name:de</li>
+<li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="../xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example</li>
+<li><em>value_type</em> type of the value: <em>opening_hours</em>, <em>opening_hours_plus</em>, <em>conditional</em>, <em>integer</em>, <em>website</em>, <em>phone</em>, <em>wikipedia</em>, <em>wikidata</em> this avoids having to hardcode this in applications, see the <a href="../xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example</li>
 </ul></div>
 	    
         </div>
@@ -897,7 +964,7 @@
         <footer class="col-md-12">
             <hr>
             
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 0.9.9 </center>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 10.0.0 </center>
         </footer>
 
         <script src="../../js/jquery-1.10.2.min.js"></script>

@@ -67,6 +67,10 @@
                         </li>
                     
                         <li >
+                            <a href="../10.0.0 Release notes/">10.0.0 Release notes</a>
+                        </li>
+                    
+                        <li >
                             <a href="../0.9.9 Release notes/">0.9.9 Release notes</a>
                         </li>
                     
@@ -215,7 +219,7 @@
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../0.9.9 Release notes/">
+                    <a rel="prev" href="../10.0.0 Release notes/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -241,6 +245,8 @@
             <li><a href="#notes-and-bugs">Notes and Bugs</a></li>
         
             <li><a href="#indoor-mode">Indoor mode</a></li>
+        
+            <li><a href="#c-mode">C-Mode</a></li>
         
             <li><a href="#filters">Filters</a></li>
         
@@ -275,10 +281,15 @@
 <p>The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.</p>
 <h3 id="editing">Editing</h3>
 <p><a id="lock"></a></p>
-<h4 id="lock-unlock-tag-editing-only-indoor-mode">Lock, unlock, "tag editing only", indoor mode</h4>
+<h4 id="lock-unlock-mode-switching">Lock, unlock, mode switching</h4>
 <p>To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the <img alt="Locked" src="../../images/locked.png" /> icon to unlock the screen. </p>
-<p>A long press on the lock icon will enable "Tag editing only" mode which will not allow you to edit the geometry of objects or move them, this mode is indicated with a slightly different white lock icon. You can however create new nodes and ways with a long press as normal.</p>
-<p>Another long press will enable <a href="#indoor">Indoor mode</a>, and one more will cycle back to the normal editing mode.</p>
+<p>A long press on the lock icon will display a menu currently offering 4 options:</p>
+<ul>
+<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
+<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.</li>
+<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with a "I" is displayed.</li>
+<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
+</ul>
 <h4 id="single-tap-double-tap-and-long-press">Single tap, double tap, and long press</h4>
 <p>By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:</p>
 <ul>
@@ -362,7 +373,7 @@
 <p>You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). </p>
 <p>If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.</p>
 <h2 id="notes-and-bugs">Notes and Bugs</h2>
-<p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.</p>
+<p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.</p>
 <p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. </p>
 <p>The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
 <h3 id="filtering">Filtering</h3>
@@ -376,7 +387,30 @@
 <p><a id="indoor"></a></p>
 <h2 id="indoor-mode">Indoor mode</h2>
 <p>Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.</p>
-<p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, "tag editing only", indoor mode</a>.</p>
+<p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
+<p><a id="c-mode"></a></p>
+<h2 id="c-mode">C-Mode</h2>
+<p>In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.</p>
+<p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
+<h3 id="configuring-checks">Configuring checks</h3>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". </p>
+<p>The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
+<h4 id="re-survey-entries">Re-survey entries</h4>
+<p>Re-survey entries have the following properties:</p>
+<ul>
+<li><strong>Key</strong> - Key of the tag of interest.</li>
+<li><strong>Value</strong> - Value the tag of interest should have, if empty the tag value will be ignored.</li>
+<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
+<li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
+</ul>
+<p><strong>Key</strong> and <strong>Value</strong> are checked against the <em>existing</em> tags of the object in question.</p>
+<h4 id="check-entries">Check entries</h4>
+<p>Check entries have the following two properties:</p>
+<ul>
+<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
+<li><strong>Check optional</strong> - Check the optional tags of the matching preset.</li>
+</ul>
+<p>This check works be first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Check optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2 id="filters">Filters</h2>
 <h3 id="tag-based-filter">Tag based filter</h3>
 <p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="../en/Tag%20filter.md">Tag filter</a>.</p>
@@ -388,7 +422,7 @@
 <li>Background layer</li>
 <li>Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
 <li>Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
 <li>Node icons. Default: on.</li>
 <li>Keep screen on. Default: off.</li>
 <li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>
@@ -407,7 +441,7 @@
         <footer class="col-md-12">
             <hr>
             
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 0.9.9 </center>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 10.0.0 </center>
         </footer>
 
         <script src="../../../js/jquery-1.10.2.min.js"></script>
