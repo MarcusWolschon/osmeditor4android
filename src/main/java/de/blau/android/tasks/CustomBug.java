@@ -89,11 +89,11 @@ public class CustomBug extends Bug implements Serializable {
      */
     @Override
     public String getDescription() {
-        return "Custom: " + (subtitle.length() != 0 ? subtitle : title);
+        return "Custom: " + (subtitle != null && subtitle.length() != 0 ? subtitle : title);
     }
 
     public String getLongDescription(Context context, boolean withElements) {
-        String result = "Custom: " + level2string(context) + "<br><br>" + (subtitle.length() != 0 ? subtitle : title) + "<br>";
+        String result = "Custom: " + level2string(context) + "<br><br>" + (subtitle != null && subtitle.length() != 0 ? subtitle : title) + "<br>";
         if (withElements) {
             for (OsmElement osm : getElements()) {
                 if (osm.getOsmVersion() >= 0) {

@@ -58,7 +58,7 @@ public abstract class Bug extends Task implements Serializable {
      */
     @Override
     public String getDescription() {
-        return "Osmose: " + (subtitle.length() != 0 ? subtitle : title);
+        return "Bug: " + (subtitle != null && subtitle.length() != 0 ? subtitle : title);
     }
 
     @Override
