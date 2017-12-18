@@ -4067,7 +4067,7 @@
             <space />
             <key key="amenity" value="bicycle_parking" />
             <combo key="bicycle_parking" text="Type" values="anchors,building,ground_slots,informal,lockers,rack,shed,stands,wall_loops" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
             <text key="capacity" text="Capacity" />
             <reference ref="parking_access_fee_operator_surface_smoothness" />
             <check key="covered" text="Covered" disable_off="true" />
@@ -4125,7 +4125,7 @@
             <space />
             <key key="amenity" value="bicycle_repair_station" />
             <optional>
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
             <text key="brand" text="Brand" />
             <text key="operator" text="Operator" />
             <reference ref="oh" />
@@ -11753,7 +11753,7 @@
             <label text="Woodland where timber production does not dominate use." />
             <space />
             <key key="natural" value="wood" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
             <reference ref="leaf" />
         </item> <!-- Wood -->
         <item name="Forest" icon="icons/png/landuse_coniferous_and_deciduous.png" type="closedway,multipolygon" preset_name_label="true">
