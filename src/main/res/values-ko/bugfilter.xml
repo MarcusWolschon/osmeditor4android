@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string-array name="bug_filter_entries">
-    <item>참고</item>
-    <item>Osmose 오류</item>
-    <item>Osmose 경고</item>
-    <item>Osmose 사소한 이슈</item>
-  </string-array>
-</resources>

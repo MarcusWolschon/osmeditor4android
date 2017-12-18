@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string-array name="bug_filter_entries">
-    <item>Muistiinpanot</item>
-    <item>Osmose-virhe</item>
-    <item>Osmose-varoitus</item>
-    <item>Osmose-pikkujuttu</item>
-  </string-array>
-</resources>

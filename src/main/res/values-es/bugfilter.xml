@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string-array name="bug_filter_entries">
-    <item>Notas</item>
-    <item>Error Osmose</item>
-    <item>Advertencia Osmose</item>
-    <item>Problema menor Osmose</item>
-  </string-array>
-</resources>

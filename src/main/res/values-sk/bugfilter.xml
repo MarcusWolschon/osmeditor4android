@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string-array name="bug_filter_entries">
-    <item>Poznámky</item>
-    <item>Chyba nástroja Osmose</item>
-    <item>Upozornenie nástroja Osmose</item>
-    <item>Menší problém nástroja Osmose</item>
-  </string-array>
-</resources>
