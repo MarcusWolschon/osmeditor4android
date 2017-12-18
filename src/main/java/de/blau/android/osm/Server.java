@@ -1136,7 +1136,7 @@ public class Server {
                                         }
                                         delegator.dirty();
                                     } else {
-                                        Log.e(DEBUG_TAG, "Unkown start tag in result: " + tagName);
+                                        Log.e(DEBUG_TAG, "Unknown state for " + e.getOsmId() + " " + e.getState());
                                     }
                                 } else {
                                     // log crash or what

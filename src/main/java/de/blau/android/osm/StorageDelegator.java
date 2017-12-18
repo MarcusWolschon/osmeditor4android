@@ -2286,13 +2286,42 @@ public class StorageDelegator implements Serializable, Exportable {
         }
         return retval;
     }
+    
+    /**
+     * Remove any elements in API storage that haven't been changed
+     * 
+     * This shouldn't be necessary and indicates that there is something which doesn't correctly
+     * remove elements.
+     */
+    private void removeUnchanged() {
+        for (Node node : new ArrayList<>(apiStorage.getNodes())) {
+            if (node.getState() == OsmElement.STATE_UNCHANGED) {
+                apiStorage.removeNode(node);
+                Log.e(DEBUG_TAG, "Node " + node.getOsmId() + " was unchanged in API");
+            }
+        }
+
+        for (Way way : new ArrayList<>(apiStorage.getWays())) {
+            if (way.getState() == OsmElement.STATE_UNCHANGED) {
+                apiStorage.removeWay(way);
+                Log.e(DEBUG_TAG, "Way " + way.getOsmId() + " was unchanged in API");
+            }
+        }
+
+        for (Relation relation : new ArrayList<>(apiStorage.getRelations())) {
+            if (relation.getState() == OsmElement.STATE_UNCHANGED) {
+                apiStorage.removeRelation(relation);
+                Log.e(DEBUG_TAG, "Relation " + relation.getOsmId() + " was unchanged in API");
+            }
+        }
+    }
 
     /**
      * Upload created, modified and deleted data in diff format
      * 
      * @param server Server to upload changes to.
      * @param comment Changeset comment tag
-     * @param source Checngeset source tag
+     * @param source Changeset source tag
      * @param closeChangeset if true close the Changeset
      * @throws MalformedURLException
      * @throws ProtocolException
@@ -2303,6 +2332,7 @@ public class StorageDelegator implements Serializable, Exportable {
             throws MalformedURLException, ProtocolException, OsmServerException, IOException {
 
         dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
+        removeUnchanged();
         // upload methods set dirty flag too, in case the file is saved during an upload
         boolean split = getApiElementCount() > server.getCapabilities().maxElementsInChangeset;
         int part = 1;
@@ -2313,7 +2343,6 @@ public class StorageDelegator implements Serializable, Exportable {
                 tmpSource = source + " [" + part + "]";
             }
             server.openChangeset(comment, tmpSource, Util.listToOsmList(imagery));
-
             try {
                 lock();
                 server.diffUpload(this);
@@ -2401,6 +2430,9 @@ public class StorageDelegator implements Serializable, Exportable {
             case OsmElement.STATE_DELETED:
                 deletedNodes.add(elem);
                 break;
+            default: 
+                Log.d("StorageDelegator", "node id " + elem.osmId + " not modified");
+                continue;
             }
             count++;
             if (count >= maxChanges) {
@@ -2420,6 +2452,9 @@ public class StorageDelegator implements Serializable, Exportable {
                 case OsmElement.STATE_DELETED:
                     deletedWays.add(elem);
                     break;
+                default: 
+                    Log.d("StorageDelegator", "way id " + elem.osmId + " not modified");
+                    continue;
                 }
                 count++;
                 if (count >= maxChanges) {
@@ -2440,6 +2475,9 @@ public class StorageDelegator implements Serializable, Exportable {
                 case OsmElement.STATE_DELETED:
                     deletedRelations.add((Relation) elem);
                     break;
+                default: 
+                    Log.d("StorageDelegator", "relation id " + elem.osmId + " not modified");
+                    continue;
                 }
                 count++;
                 if (count >= maxChanges) {
