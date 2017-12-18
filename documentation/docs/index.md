@@ -33,7 +33,7 @@ The texts in the _Introduction_ and _Editing_ sections are available on device a
 
 #### Roadmap
 
-The Vespucci team doesn't have a formal roadmap, however you can see what we have considered working on and have completed for the next release here: [milestones 0.9.10](https://github.com/MarcusWolschon/osmeditor4android/issues?q=milestone%3A0.9.10).
+The Vespucci team doesn't have a formal roadmap, however you can see what we have considered working on and have completed for the next release here: [milestone 11](https://github.com/MarcusWolschon/osmeditor4android/issues?q=milestone%3A11).
 
 #### Support and contact
 
