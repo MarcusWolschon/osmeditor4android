@@ -139,6 +139,94 @@ public class GeometryEditsTest {
 
     @UiThreadTest
     @Test
+    public void closedWaySplit() {
+        try {
+            // setup some stuff to test relations
+            Logic logic = App.getLogic();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null);
+            logic.performAdd(main, 200.0f, 200.0f);
+            Assert.assertNotNull(logic.getSelectedNode());
+            System.out.println(logic.getSelectedNode());
+            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
+            logic.performAdd(main, 200.0f, 400.0f);
+            logic.performAdd(main, 400.0f, 400.0f);
+            logic.performAdd(main, 400.0f, 200.0f);
+            logic.performAdd(main, 200.0f, 200.0f);
+            Way w1 = logic.getSelectedWay();
+            Assert.assertNotNull(w1);
+            System.out.println("ApplicationTest created way " + w1.getOsmId());
+            ArrayList<Node> nList1 = (ArrayList<Node>) w1.getNodes();
+            Assert.assertEquals(5, nList1.size());
+            final Node n1 = nList1.get(0);
+            System.out.println("ApplicationTest n1 " + n1.getOsmId());
+            final Node n2 = nList1.get(1);
+            System.out.println("ApplicationTest n2 " + n2.getOsmId());
+            final Node n3 = nList1.get(2);
+            System.out.println("ApplicationTest n3 " + n3.getOsmId());
+            final Node n4 = nList1.get(3);
+            System.out.println("ApplicationTest n4 " + n4.getOsmId());
+            final Node n5 = nList1.get(4);
+            System.out.println("ApplicationTest n5 " + n5.getOsmId());
+            Assert.assertEquals(n1, n5);
+            Assert.assertTrue(w1.isClosed());
+            Way[] ways = logic.performClosedWaySplit(main, w1, n2, n4, false);
+            Assert.assertEquals(2, ways.length);
+            Assert.assertEquals(3, ways[0].getNodes().size());
+            Assert.assertEquals(3, ways[1].getNodes().size());
+        } catch (Exception igit) {
+            Assert.fail(igit.getMessage());
+        }
+    }
+    
+    @UiThreadTest
+    @Test
+    public void closedWaySplitToPolygons() {
+        try {
+            // setup some stuff to test relations
+            Logic logic = App.getLogic();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null);
+            logic.performAdd(main, 200.0f, 200.0f);
+            Assert.assertNotNull(logic.getSelectedNode());
+            System.out.println(logic.getSelectedNode());
+            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
+            logic.performAdd(main, 200.0f, 400.0f);
+            logic.performAdd(main, 400.0f, 400.0f);
+            logic.performAdd(main, 400.0f, 200.0f);
+            logic.performAdd(main, 200.0f, 200.0f);
+            Way w1 = logic.getSelectedWay();
+            Assert.assertNotNull(w1);
+            System.out.println("ApplicationTest created way " + w1.getOsmId());
+            ArrayList<Node> nList1 = (ArrayList<Node>) w1.getNodes();
+            Assert.assertEquals(5, nList1.size());
+            final Node n1 = nList1.get(0);
+            System.out.println("ApplicationTest n1 " + n1.getOsmId());
+            final Node n2 = nList1.get(1);
+            System.out.println("ApplicationTest n2 " + n2.getOsmId());
+            final Node n3 = nList1.get(2);
+            System.out.println("ApplicationTest n3 " + n3.getOsmId());
+            final Node n4 = nList1.get(3);
+            System.out.println("ApplicationTest n4 " + n4.getOsmId());
+            final Node n5 = nList1.get(4);
+            System.out.println("ApplicationTest n5 " + n5.getOsmId());
+            Assert.assertEquals(n1, n5);
+            Assert.assertTrue(w1.isClosed());
+            Way[] ways = logic.performClosedWaySplit(main, w1, n1, n3, true);
+            Assert.assertEquals(2, ways.length);
+            Assert.assertEquals(4, ways[0].getNodes().size());
+            Assert.assertTrue(ways[0].isClosed());
+            Assert.assertEquals(4, ways[1].getNodes().size());
+            Assert.assertTrue(ways[1].isClosed());
+        } catch (Exception igit) {
+            Assert.fail(igit.getMessage());
+        }
+    }
+    
+    @UiThreadTest
+    @Test
     /**
      * This tries to test adding nodes to existing ways taking the tolerance area in to account
      */

@@ -948,12 +948,12 @@ public class StorageDelegator implements Serializable, Exportable {
         }
 
         // shuffle the nodes around for the original way so that they are in sequence and the way isn't closed
-        Log.d("StorageDelegator", "nodesForNewWay " + nodesForNewWay.size() + " oldNodes1 " + nodesForOldWay1.size() + " oldNodes2 " + nodesForOldWay2.size());
+        Log.d(DEBUG_TAG, "nodesForNewWay " + nodesForNewWay.size() + " oldNodes1 " + nodesForOldWay1.size() + " oldNodes2 " + nodesForOldWay2.size());
         List<Node> oldNodes = way.getNodes();
         oldNodes.clear();
-        if (!nodesForOldWay1.isEmpty()) {
+        if (nodesForOldWay1.isEmpty()) {
             oldNodes.addAll(nodesForOldWay2);
-        } else if (!nodesForOldWay2.isEmpty()) {
+        } else if (nodesForOldWay2.isEmpty()) {
             oldNodes.addAll(nodesForOldWay1);
         } else if (nodesForOldWay1.get(0) == nodesForOldWay2.get(nodesForOldWay2.size() - 1)) {
             oldNodes.addAll(nodesForOldWay2);

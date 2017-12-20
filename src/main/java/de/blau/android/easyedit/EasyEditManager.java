@@ -1872,7 +1872,7 @@ public class EasyEditManager {
     private class ClosedWaySplittingActionModeCallback extends EasyEditActionModeCallback {
         private Way             way;
         private Node            node;
-        private Set<OsmElement> nodes          = new HashSet<>();
+        private Set<OsmElement> nodes          = new HashSet<>(); // nodes that we can use for splitting
         private boolean         createPolygons = false;
 
         public ClosedWaySplittingActionModeCallback(Way way, Node node, boolean createPolygons) {
