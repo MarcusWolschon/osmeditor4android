@@ -4,6 +4,7 @@
   <string name="mode_easy">Normale</string>
   <string name="mode_tag_only">Solo etichette</string>
   <string name="mode_indoor">Interni</string>
+  <string name="mode_correct">C-Mode</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attenzione!</string>
   <string name="transfer_download_current_dialog_message">Hai fatto delle modifiche. Per sostituire i dati scaricati devi caricare le modifiche su OSM oppure annullarle.</string>

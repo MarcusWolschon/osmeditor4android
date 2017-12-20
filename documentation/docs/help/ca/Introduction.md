@@ -92,7 +92,7 @@ Una vegada que vegeu el símbol de l'encreuament, teniu aquestes opcions:
     * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
 * Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+Simplement toqueu la pantalla on voleu afegir nous nodes de la via. Per finalitzar, toqueu el node final dues vegades. Si el node final es troba en una via o node, el segment es connectarà automàticament a la via o al node. 
 
 You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 

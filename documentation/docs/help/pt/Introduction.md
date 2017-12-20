@@ -120,7 +120,7 @@ O Vespucci tem uma função "adicionar etiquetas de endereço" que torna mais f�
 * no modo nó/linha selecionados: o Vespucci adicionará etiquetas de endereços como descrito acima e abrir o editor de etiquetas.
 * no editor de etiquetas.
 
-A adivinhação do número de porta normalmente necessita de 2 números de porta em cada lado da estrada para funcionar. Quantos mais números de porta presentes, melhor funciona.
+A previsão do número de porta normalmente necessita de 2 números de porta em cada lado da estrada para funcionar. Quantos mais números de porta presentes, melhor funciona.
 
 Considere usar isto com o modo [Descarregar automático](#download).  
 
@@ -160,11 +160,11 @@ Pode usar o Vespucci para criar trilhos GPS e mostrá-los no seu dispositivo. Po
 
 Se tiver ativado o Seguir posição GPS, se deslocar o ecrã manualmente ou editar alguma coisa, irá desativar o "Seguir posição GPS" e a seta azul do GPS irá mudar de uma seta com linha de contorno para uma seta preenchida. Para regressar rapidamente para o modo de "seguir", toque no botão GPS ou ative de novo a opção no menu.
 
-## Erros Reportados
+## Notas e Erros Reportados
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-Os Erros Reportados e Erros OSMOSE são mostrados no mapa com um pequeno ícone ![Erro](../images/bug_open.png), os verdes são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. 
+As Notas e Erros Reportados são mostrados no mapa com um pequeno ícone ![Erro](../images/bug_open.png), os verdes são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. 
 
 Os erros OSMOSE fornecem um link para o objeto em questão a azul, tocando no link selecionará o objeto, centra o ecrã nele e descarrega a área se for necessário. 
 
@@ -172,7 +172,7 @@ Os erros OSMOSE fornecem um link para o objeto em questão a azul, tocando no li
 
 Para além disso, se ativar os erros reportados também pode ativar o filtro espaçado de visualização para reduzir a confusão. Nas "Preferências avançadas" pode selecionar individualmente:
 
-* Erros reportados
+* Notas reportadas
 * Erro Osmose
 * Aviso Osmose
 * Pequeno problema Osmose

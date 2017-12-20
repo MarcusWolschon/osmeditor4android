@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normal</string>
+  <string name="mode_tag_only">Només etiqueta</string>
   <string name="mode_indoor">Interior</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenció!</string>
@@ -9,21 +11,31 @@
   <string name="transfer_download_current_download">Descarta i baixa</string>
   <string name="transfer_download_current_back">Enrere (no facis res)</string>
   <string name="upload_problem_title">S\'ha produït un problema amb la pujada</string>
+  <string name="upload_problem_message">No s\'han carregat algunes o totes les dades. Torneu a provar de tornar a pujar si això només era un problema temporal.</string>
+  <string name="bad_request_message">L\'API ha respost amb un error, si us plau, guardeu les vostres dades i informeu el problema:\n\n</string>
   <string name="upload_conflict_title">Actualitzant conflicte</string>
   <string name="upload_conflict_message_version">%1$s \nté un versió local %2$s \ni al servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nté una versió local %2$s \ni s\'ha suprimit del servidor</string>
+  <string name="upload_conflict_message_referential">%1$s \ns\'ha eliminat localment \nbut però té referències al servidor</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \ns\'ha suprimit al servidor</string>
   <string name="use_local_version">Usa la versió local</string>
   <string name="use_server_version">Usa la versió del servidor</string>
   <string name="no_login_data_title">L\'autenticació ha fallat</string>
   <string name="no_connection_title">No hi ha connexió amb el servidor</string>
   <string name="wrong_login_data_title">L\'autenticació ha fallat</string>
+  <string name="wrong_login_data_re_authenticate">Torna a autenticar</string>
+  <string name="go_to_openstreetmap">Aneu a openstreetmap.org</string>
   <string name="data_conflict_title">Conflicte de versions</string>
+  <string name="invalid_bounding_box_message">L\'àrea seleccionada no s\'ajusta a les restriccions de l\'API; trieu una altra.</string>
   <string name="api_offline_title">API Fora de línia</string>
+  <string name="api_offline_message">L\'API està actualment fora de línia i no permet recuperar o escriure dades.</string>
   <string name="out_of_memory_title">Sense memòria</string>
   <string name="out_of_memory_message">Vespucci s\'ha quedat sense memòria carregant les dades sol·licitades. Si us plau, reinicia i intenta carregar una àrea més petita.</string>
   <string name="out_of_memory_dirty_message">Vespucci s\'ha quedat sense memòria carregant les dades sol·licitades. Si us plau, prova de desar les teves edicions, reinicia i intenta carregar una àrea més petita.</string>
   <string name="invalid_data_received_title">S\'han rebut dades invàlides.</string>
+  <string name="invalid_data_received_message">Vespucci va rebre dades no vàlides del servidor. Si creieu que el que intentava fer és correcte, envieu un informe d\'error.</string>
   <string name="invalid_data_read_title">Dades invàlides</string>
+  <string name="invalid_data_read_message">El fitxer conté dades no vàlides. Si creieu que el que intentava fer és correcte, envieu un informe d\'error.</string>
   <string name="file_write_failed_title">Falla l\'escriptura de l\'arxiu</string>
   <string name="file_write_failed_message">No es pot escriure a arxiu seleccionat.</string>
   <string name="welcome_title">Us donem la benvinguda!</string>
