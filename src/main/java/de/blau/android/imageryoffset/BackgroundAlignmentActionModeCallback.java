@@ -99,10 +99,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        FloatingActionButton lock = main.getLock();
-        if (lock != null) {
-            lock.hide();
-        }
+        main.hideLock();
         mode.setTitle(R.string.menu_tools_background_align);
         if (main.getBottomBar() != null) {
             main.hideBottomBar();
