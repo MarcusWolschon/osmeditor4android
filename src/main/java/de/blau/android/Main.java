@@ -16,6 +16,7 @@ import org.acra.ACRA;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -80,6 +81,8 @@ import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
@@ -386,6 +389,9 @@ public class Main extends FullScreenAppCompatActivity
     private Location lastLocation = null;
 
     private Location locationForIntent = null;
+    
+    private boolean controlsHidden = false;
+    private Object controlsHiddenLock = new Object();
 
     /**
      * Status of permissions
@@ -1320,10 +1326,14 @@ public class Main extends FullScreenAppCompatActivity
         boolean networkConnected = NetworkStatus.isConnected(this);
         boolean gpsProviderEnabled = ensureGPSProviderEnabled() && locationPermissionGranted;
         // just as good as any other place to check this
-        if (gpsProviderEnabled) {
-            showFollowButton();
-        } else {
-            hideFollowButton();
+        synchronized (controlsHiddenLock) {
+            if (!controlsHidden) {
+                if (gpsProviderEnabled) {
+                    showFollowButton();
+                } else {
+                    hideFollowButton();
+                }
+            }
         }
         menu.findItem(R.id.menu_gps_show).setEnabled(gpsProviderEnabled).setChecked(showGPS);
         menu.findItem(R.id.menu_gps_follow).setEnabled(gpsProviderEnabled).setChecked(followGPS);
@@ -2423,36 +2433,42 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     private void hideControls() {
-        ActionBar actionbar = getSupportActionBar();
-        if (actionbar != null) {
-            actionbar.hide();
-        }
-        hideBottomBar();
-        hideLock();
-        ZoomControls zoomControls = getControls();
-        if (zoomControls != null) {
-            zoomControls.hide();
-        }
-        hideFollowButton();
-        if (App.getLogic().getFilter() != null) {
-            App.getLogic().getFilter().hideControls();
+        synchronized(controlsHiddenLock) {
+            ActionBar actionbar = getSupportActionBar();
+            if (actionbar != null) {
+                actionbar.hide();
+            }
+            hideBottomBar();
+            hideLock();
+            ZoomControls zoomControls = getControls();
+            if (zoomControls != null) {
+                zoomControls.hide();
+            }
+            hideFollowButton();
+            if (App.getLogic().getFilter() != null) {
+                App.getLogic().getFilter().hideControls();
+            }
+            controlsHidden = true;
         }
     }
 
     private void showControls() {
-        ActionBar actionbar = getSupportActionBar();
-        if (actionbar != null && !prefs.splitActionBarEnabled()) {
-            actionbar.show();
-        }
-        showBottomBar();
-        showLock();
-        ZoomControls zoomControls = getControls();
-        if (zoomControls != null) {
-            zoomControls.show();
-        }
-        showFollowButton();
-        if (App.getLogic().getFilter() != null) {
-            App.getLogic().getFilter().showControls();
+        synchronized(controlsHiddenLock) {
+            ActionBar actionbar = getSupportActionBar();
+            if (actionbar != null && !prefs.splitActionBarEnabled()) {
+                actionbar.show();
+            }
+            showBottomBar();
+            showLock();
+            ZoomControls zoomControls = getControls();
+            if (zoomControls != null) {
+                zoomControls.show();
+            }
+            showFollowButton();
+            if (App.getLogic().getFilter() != null) {
+                App.getLogic().getFilter().showControls();
+            }
+            controlsHidden = false;
         }
     }
 
@@ -2552,6 +2568,20 @@ public class Main extends FullScreenAppCompatActivity
                             }
                         }
                     }
+                }
+                
+                @SuppressWarnings("deprecation")
+                @Override
+                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                    finishOAuth();
+                    Snack.toastTopError(view.getContext(), description);
+                }
+
+                @TargetApi(android.os.Build.VERSION_CODES.M)
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
+                    // Redirect to deprecated method, so you can use it in all SDK versions
+                    onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
                 }
             }
 
