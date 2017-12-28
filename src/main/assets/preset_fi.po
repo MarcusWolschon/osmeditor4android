@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2017-12-19 14:24+0100\n"
-"PO-Revision-Date: 2017-12-19 13:27+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"POT-Creation-Date: 2017-12-21 21:24+0100\n"
+"PO-Revision-Date: 2017-12-26 17:11+0000\n"
+"Last-Translator: Mika Laari <laari@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/openstreetmap/presets/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -346,7 +346,7 @@ msgstr ""
 #: master_preset.xml:126(optional:text) master_preset.xml:135(optional:text)
 #: master_preset.xml:143(optional:text)
 msgid "Allowed traffic:"
-msgstr ""
+msgstr "Sallittu liikenne:"
 
 #: master_preset.xml:12038(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Almond trees"
@@ -621,7 +621,7 @@ msgstr ""
 #: master_preset.xml:191(list_entry:short_description|value:yes)
 #: master_preset.xml:358(combo:display_values|key:internet_access)
 msgid "Available"
-msgstr ""
+msgstr "On"
 
 #: master_preset.xml:2549(item:name|group:Passageways|preset:Avalanche_Protector)
 msgid "Avalanche Protector"
@@ -831,7 +831,7 @@ msgstr ""
 #: master_preset.xml:4053(group:name|group:Bicycle)
 #: master_preset.xml:4312(check:text|group:Public_Transport|preset:Subway_Entrance|key:bicycle)
 msgid "Bicycle"
-msgstr ""
+msgstr "Polkupyörä"
 
 #: master_preset.xml:1178(item:name|group:Streets|preset:Bicycle_Road)
 msgid "Bicycle Road"
@@ -2016,7 +2016,7 @@ msgstr "Pyörätuolivarustus"
 
 #: master_preset.xml:193(list_entry:short_description|value:room)
 msgid "Dedicated room"
-msgstr ""
+msgstr "Oma huone"
 
 #: master_preset.xml:7665(check:text|group:Sport|preset:Climbing|key:climbing:deepwater)
 msgid "Deep-Water-Soloing"
@@ -2146,7 +2146,7 @@ msgstr ""
 
 #: master_preset.xml:190(combo:text|key:diaper)
 msgid "Diaper changing facilities"
-msgstr ""
+msgstr "Vaipanvaihtopiste"
 
 #: master_preset.xml:3202(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:diesel)
 #: master_preset.xml:3812(check:text|group:Car|preset:Fuel|key:fuel:diesel)
@@ -2794,7 +2794,7 @@ msgstr ""
 #: master_preset.xml:144(check:text|key:foot)
 #: master_preset.xml:2769(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:foot)
 msgid "Foot"
-msgstr ""
+msgstr "Jalankulku"
 
 #: master_preset.xml:7858(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:football)
 msgid "Football"
@@ -2816,7 +2816,7 @@ msgstr ""
 
 #: master_preset.xml:172(combo:long_text|key:level)
 msgid "For indoor mapping, level 0 is the ground floor"
-msgstr ""
+msgstr "Sisätilojen kartoituksessa 0 tarkoittaa pohjakerrosta eli maantasaista kerrosta"
 
 #: master_preset.xml:7235(check:text|group:Facilities|preset:Animal_shelter|key:animal_shelter:release)
 msgid "For release"
@@ -2867,7 +2867,7 @@ msgstr ""
 #: master_preset.xml:117(combo:text|key:frequency)
 #: master_preset.xml:497(combo:text|key:frequency)
 msgid "Frequency in Hertz (Hz)"
-msgstr ""
+msgstr "Taajuus hertseinä (Hz)"
 
 #: master_preset.xml:330(multiselect:display_values|key:cuisine)
 msgid "Friture"
@@ -2977,7 +2977,7 @@ msgstr ""
 
 #: master_preset.xml:122(combo:text|key:gauge)
 msgid "Gauge (mm)"
-msgstr ""
+msgstr "Raideleveys"
 
 #: master_preset.xml:11231(check:text|preset:Payment_Methods|key:payment:ep_geldkarte)
 msgid "Geldkarte (de)"
@@ -3396,7 +3396,7 @@ msgstr ""
 #: master_preset.xml:7232(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 #: master_preset.xml:7254(multiselect:display_values|group:Facilities|preset:Animal_boarding|key:animal_boarding)
 msgid "Horse"
-msgstr ""
+msgstr "Hevonen"
 
 #: master_preset.xml:7709(item:name|group:Sport|preset:Horse_Racing)
 msgid "Horse Racing"
@@ -3638,11 +3638,6 @@ msgstr ""
 #: master_preset.xml:3028(check:text|group:Water|preset:Water|key:intermittent)
 #: master_preset.xml:3062(check:text|group:Water|preset:Riverbank|key:intermittent)
 msgid "Is the water body intermittent (disappears seasonally)?"
-msgstr ""
-
-#: master_preset.xml:106(list_entry:short_description|value:island)
-#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
-msgid "Island"
 msgstr ""
 
 #: master_preset.xml:11672(item:name|group:Geography|preset:Islet)
@@ -3901,7 +3896,7 @@ msgstr ""
 
 #: master_preset.xml:172(combo:text|key:level)
 msgid "Level"
-msgstr ""
+msgstr "Kerros"
 
 #: master_preset.xml:3493(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
@@ -4264,11 +4259,11 @@ msgstr ""
 #: master_preset.xml:372(text:text|key:maxwidth)
 #: master_preset.xml:378(text:text|key:maxwidth)
 msgid "Max. width (meters)"
-msgstr ""
+msgstr "Suurin leveys (metreinä)"
 
 #: master_preset.xml:152(text:text|key:max_age)
 msgid "Maximum age"
-msgstr ""
+msgstr "Iän yläraja"
 
 #: master_preset.xml:2711(text:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward)
 msgid ""
@@ -4433,7 +4428,7 @@ msgstr ""
 
 #: master_preset.xml:149(text:text|key:min_age)
 msgid "Minimum age"
-msgstr ""
+msgstr "Iän alaraja"
 
 #: master_preset.xml:11234(check:text|preset:Payment_Methods|key:payment:ep_minipay)
 msgid "Minipay (it)"
@@ -4549,7 +4544,7 @@ msgstr ""
 #: master_preset.xml:131(check:text|key:motorcar)
 #: master_preset.xml:2653(item:name|group:Access_Restrictions|preset:Motorcar)
 msgid "Motorcar"
-msgstr ""
+msgstr "Auto"
 
 #: master_preset.xml:2646(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar:conditional)
 #: master_preset.xml:2669(combo:text|group:Access_Restrictions|preset:Motorcar|key:motorcar:conditional)
@@ -4566,7 +4561,7 @@ msgstr ""
 #: master_preset.xml:344(list_entry:short_description|value:motorcycle)
 #: master_preset.xml:4007(group:name|group:Motorcycle)
 msgid "Motorcycle"
-msgstr ""
+msgstr "Moottoripyörä"
 
 #: master_preset.xml:2650(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle:conditional)
 #: master_preset.xml:2688(combo:text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle:conditional)
@@ -5033,10 +5028,6 @@ msgstr "Ei"
 msgid "No access"
 msgstr "Ei pääsyä"
 
-#: master_preset.xml:108(list_entry:short_description|value:no)
-msgid "No crossing"
-msgstr ""
-
 #: master_preset.xml:74(check:text|key:noexit)
 msgid "No exit (cul-de-sac)"
 msgstr "Umpikuja"
@@ -5071,7 +5062,7 @@ msgstr ""
 #: master_preset.xml:3884(check:text|group:Car|preset:Charging_Station|key:authentication:none)
 #: master_preset.xml:684(list_entry:display_value|value:no)
 msgid "None"
-msgstr ""
+msgstr "Ei mitään"
 
 #: master_preset.xml:330(multiselect:display_values|key:cuisine)
 msgid "Noodle"
@@ -5085,11 +5076,7 @@ msgstr ""
 #: master_preset.xml:192(list_entry:short_description|value:no)
 #: master_preset.xml:358(combo:display_values|key:internet_access)
 msgid "Not available"
-msgstr ""
-
-#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
-msgid "Not controlled"
-msgstr ""
+msgstr "Ei ole"
 
 #: master_preset.xml:14076(item:name|group:Offices|preset:Notary)
 msgid "Notary"
@@ -5264,15 +5251,15 @@ msgstr ""
 #: master_preset.xml:930(check:text|group:Streets|preset:Trunk|key:oneway)
 #: master_preset.xml:959(check:text|group:Streets|preset:Trunk_Link|key:oneway)
 msgid "Oneway"
-msgstr ""
+msgstr "Yksisuuntainen"
 
 #: master_preset.xml:1498(combo:text|preset:Cycle_Lane/Track|key:oneway:bicycle)
 msgid "Oneway (bicycle)"
-msgstr ""
+msgstr "Yksisuuntainen (polkupyörä)"
 
 #: master_preset.xml:1198(check:text|group:Streets|preset:Bicycle_Road|key:oneway:bicycle)
 msgid "Oneway for bicycle"
-msgstr ""
+msgstr "Yksisuuntainen polkupyörille"
 
 #: master_preset.xml:10438(combo:display_values|group:Printed_Material|preset:Book_Store|key:second_hand)
 #: master_preset.xml:10929(combo:display_values|group:Other|preset:Charity|key:second_hand)
@@ -5320,7 +5307,7 @@ msgstr ""
 
 #: master_preset.xml:187(combo:text|key:opening_hours)
 msgid "Opening Hours"
-msgstr ""
+msgstr "Aukioloajat"
 
 #: master_preset.xml:5688(list_entry:display_value|group:Culture|preset:Music_theatres|value:opera)
 msgid "Opera house"
@@ -5386,7 +5373,7 @@ msgstr ""
 #: master_preset.xml:8776(text:text|group:Man_Made|preset:Surveillance_Camera|key:operator)
 #: master_preset.xml:8797(text:text|group:Man_Made|preset:MDF|key:operator)
 msgid "Operator"
-msgstr ""
+msgstr "Operaattori"
 
 #: master_preset.xml:6289(combo:text|group:Education|preset:Music_School|key:operator:type)
 #: master_preset.xml:812(combo:text|key:operator:type)
@@ -5665,11 +5652,7 @@ msgstr ""
 
 #: master_preset.xml:1824(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
-msgstr ""
-
-#: master_preset.xml:103(multiselect:text|key:crossing)
-msgid "Pedestrian crossing type"
-msgstr ""
+msgstr "Suojatie"
 
 #: master_preset.xml:1606(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -7076,11 +7059,11 @@ msgstr ""
 
 #: master_preset.xml:184(combo:text|key:service_times)
 msgid "Service Times"
-msgstr ""
+msgstr "Toiminta-ajat"
 
 #: master_preset.xml:112(combo:text|key:service)
 msgid "Service type"
-msgstr ""
+msgstr "Sivuraidetyyppi"
 
 #: master_preset.xml:1275(combo:text|group:Streets|preset:Service|key:service)
 msgid "Service way type"
@@ -8107,10 +8090,9 @@ msgstr ""
 msgid "Traffic lights"
 msgstr ""
 
-#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
 #: master_preset.xml:12747(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Traffic signals"
-msgstr ""
+msgstr "Liikennevalot"
 
 #: master_preset.xml:1551(list_entry:short_description|group:Ways|preset:Path|value:hiking)
 msgid "Trail well cleared. Area flat or slightly sloped, no fall hazard"
@@ -8394,10 +8376,6 @@ msgstr ""
 msgid "University"
 msgstr ""
 
-#: master_preset.xml:107(list_entry:short_description|value:unmarked)
-msgid "Unmarked"
-msgstr ""
-
 #: master_preset.xml:206(list_entry:short_description|value:yes)
 #: master_preset.xml:218(list_entry:short_description|value:yes)
 msgid "Unrestricted access"
@@ -8573,7 +8551,7 @@ msgstr ""
 #: master_preset.xml:494(combo:text|key:voltage)
 #: master_preset.xml:9150(combo:text|preset:Power_Street_Cabinet|key:voltage)
 msgid "Voltage in Volts (V)"
-msgstr ""
+msgstr "Jännite voltteina (V)"
 
 #: master_preset.xml:6559(text:text|group:Emergency|preset:Water_Tank|key:water_tank:volume)
 msgid "Volume (in liters)"
@@ -8825,7 +8803,7 @@ msgstr ""
 #: master_preset.xml:927(text:text|group:Streets|preset:Trunk|key:width)
 #: master_preset.xml:956(text:text|group:Streets|preset:Trunk_Link|key:width)
 msgid "Width (meters)"
-msgstr ""
+msgstr "Leveys (metreinä)"
 
 #: master_preset.xml:11320(text:text|group:Boundaries|preset:Protected_Area|key:wikidata)
 #: master_preset.xml:12520(text:text|group:Addresses_and_Contact|preset:Contact|key:wikidata)
@@ -9552,37 +9530,73 @@ msgstr "Kyllä"
 #: master_preset.xml:91(list_entry:short_description|value:both)
 msgctxt "sidewalk"
 msgid "Both sides"
-msgstr ""
+msgstr "Kummallakin puolella"
 
 #: master_preset.xml:95(list_entry:short_description|value:separate)
 msgctxt "sidewalk"
 msgid "Mapped separately"
-msgstr ""
+msgstr "Piirretty erikseen"
 
 #: master_preset.xml:94(list_entry:short_description|value:no)
 msgctxt "sidewalk"
 msgid "None"
-msgstr ""
+msgstr "Ei jalkakäytäviä"
 
 #: master_preset.xml:92(list_entry:short_description|value:left)
 msgctxt "sidewalk"
 msgid "Only left side"
-msgstr ""
+msgstr "Vain vasemmalla"
 
 #: master_preset.xml:93(list_entry:short_description|value:right)
 msgctxt "sidewalk"
 msgid "Only right side"
-msgstr ""
+msgstr "Vain oikealla"
 
 #: master_preset.xml:90(combo:text|key:sidewalk)
 msgctxt "sidewalk"
 msgid "Sidewalk"
+msgstr "Jalkakäytävä"
+
+#: master_preset.xml:106(list_entry:short_description|value:island)
+msgctxt "transport"
+msgid "Island"
+msgstr "Saareke"
+
+#: master_preset.xml:108(list_entry:short_description|value:no)
+msgctxt "transport"
+msgid "No crossing"
+msgstr "Ei ylikulkua"
+
+#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
+msgctxt "transport"
+msgid "Not controlled"
+msgstr "Ei valo-ohjausta"
+
+#: master_preset.xml:103(multiselect:text|key:crossing)
+msgctxt "transport"
+msgid "Pedestrian crossing type"
+msgstr "Suojatien tyyppi"
+
+#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
+#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
+msgctxt "transport"
+msgid "Second hand"
 msgstr ""
+
+#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
+msgctxt "transport"
+msgid "Traffic signals"
+msgstr "Liikennevalot"
+
+#: master_preset.xml:107(list_entry:short_description|value:unmarked)
+msgctxt "transport"
+msgid "Unmarked"
+msgstr "Merkitsemätön"
 
 #: master_preset.xml:115(combo:text|key:electrified)
 msgctxt "electrified"
 msgid "Electrified"
-msgstr ""
+msgstr "Sähköistetty"
 
 #: master_preset.xml:4278(item:name|group:Public_Transport|preset:Station)
 #: master_preset.xml:4358(item:name|group:Public_Transport_(Legacy)|preset:Station)
@@ -9593,7 +9607,7 @@ msgstr ""
 #: master_preset.xml:121(combo:text|key:tracks)
 msgctxt "railway"
 msgid "Tracks"
-msgstr ""
+msgstr "Raiteita"
 
 #: master_preset.xml:411(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10087,13 +10101,13 @@ msgstr ""
 #: master_preset.xml:2667(combo:text|group:Access_Restrictions|preset:Motorcar|key:motorcar)
 msgctxt "access"
 msgid "Motorcar"
-msgstr ""
+msgstr "Auto"
 
 #: master_preset.xml:2648(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle)
 #: master_preset.xml:2686(combo:text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle)
 msgctxt "access"
 msgid "Motorcycle"
-msgstr ""
+msgstr "Moottoripyörä"
 
 #: master_preset.xml:8281(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
@@ -11153,7 +11167,7 @@ msgstr ""
 #: master_preset.xml:1656(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Sidewalk"
-msgstr ""
+msgstr "Jalkakäytävä"
 
 #: master_preset.xml:1656(combo:text|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
@@ -11163,7 +11177,7 @@ msgstr "Tyyppi"
 #: master_preset.xml:1941(item:name|group:Traffic_Calming|preset:Island)
 msgctxt "traffic_calming"
 msgid "Island"
-msgstr ""
+msgstr "Saareke"
 
 #: master_preset.xml:1973(item:name|group:Traffic_Calming|preset:Table)
 msgctxt "traffic_calming"
@@ -11290,12 +11304,6 @@ msgstr "Aitaus"
 #: master_preset.xml:3698(item:name|group:Aerialway|preset:Station)
 msgctxt "aerialway"
 msgid "Station"
-msgstr ""
-
-#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
-#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
-msgctxt "transport"
-msgid "Second hand"
 msgstr ""
 
 #: master_preset.xml:3944(multiselect:text|group:Car|preset:Repair|key:service)
@@ -11651,6 +11659,11 @@ msgstr "Tyyppi"
 msgctxt "memorial"
 msgid "War memorial"
 msgstr ""
+
+#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
+msgctxt "place"
+msgid "Island"
+msgstr "Saari"
 
 #: master_preset.xml:11358(item:name|group:Places|preset:State)
 msgctxt "place"

@@ -32,11 +32,11 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Khóa, mở khóa, thay đổi chế độ
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+Để tránh sửa đổi nhầm lẫn, Vespucci bắt đầu trong chế độ “khóa” chỉ cho phép thu phóng và cuộn bản đồ. Chạm hình ![Locked](../images/locked.png) để mở khóa màn hình. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Chạm lâu vào hình ổ khóa để hiển thị trình đơn có bốn tùy chọn:
 
 * **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
 * **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
@@ -45,7 +45,7 @@ A long press on the lock icon will display a menu currently offering 4 options:
 
 #### Chạm, chạm đúp, và bấm lâu
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+Theo mặc định, các nốt và lối chọn được tô màu cam để cho biết vùng phải chạm để chọn đối tượng đó. Có ba kiểu tương tác với đối tượng:
 
 * Single tap: Selects object. 
     * An isolated node/way is highlighted immediately. 
@@ -94,7 +94,7 @@ Khi bạn mới thấy hình tâm ngắm, bạn có thể:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
+Bạn cũng có thể sử dụng mục trình đơn: xem thêm thông tin tại [Creating new objects](../vi/Tạo%20đối%20tượng%20mới.md).
 
 #### Thêm Vùng
 
@@ -126,7 +126,7 @@ Hãy thử sử dụng chức năng này trong chế độ [Tự động tải v
 
 #### Thêm hạn chế rẽ
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+Vespucci cho phép ghi hạn chế rẽ một cách nhanh nhẹn. Nếu cần, nó sẽ tự động cắt đôi các lối, và nếu cần, nó sẽ xin bạn chọn lại các đối tượng. 
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
 * select "Add restriction" from the menu
@@ -187,21 +187,21 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Chế độ C
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
-### Configuring checks
+### Cấu hình bộ kiểm tra
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
-#### Re-survey entries
+#### Mục khảo sát lại
 
-Re-survey entries have the following properties:
+Mỗi mục khảo sát lại có các thuộc tính sau:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
@@ -210,9 +210,9 @@ Re-survey entries have the following properties:
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
 
-#### Check entries
+#### Mục kiểm tra
 
-Check entries have the following two properties:
+Mỗi mục kiểm tra có hai thuộc tính sau:
 
 * **Key** - Key that should be present on the object according to the matching preset.
 * **Check optional** - Check the optional tags of the matching preset.

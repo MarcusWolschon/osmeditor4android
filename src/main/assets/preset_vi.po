@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2017-12-19 14:24+0100\n"
-"PO-Revision-Date: 2017-12-19 13:27+0000\n"
+"POT-Creation-Date: 2017-12-21 21:24+0100\n"
+"PO-Revision-Date: 2017-12-28 12:47+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -1031,7 +1031,7 @@ msgstr ""
 
 #: master_preset.xml:11251(group:name|group:Boundaries)
 msgid "Boundaries"
-msgstr ""
+msgstr "Biên giới"
 
 #: master_preset.xml:12653(item:name|group:Relations|preset:Boundary)
 msgid "Boundary"
@@ -1611,7 +1611,7 @@ msgstr ""
 
 #: master_preset.xml:6902(combo:text|group:Facilities|preset:Post_Box|key:collection_times)
 msgid "Collection times"
-msgstr ""
+msgstr "Giờ lấy thư"
 
 #: master_preset.xml:6248(item:name|group:Education|preset:College)
 msgid "College"
@@ -2528,7 +2528,7 @@ msgstr ""
 
 #: master_preset.xml:224(text:text|key:wheelchair:entrance_width)
 msgid "Entrance width in cm"
-msgstr ""
+msgstr "Chiều rộng lối vào bằng cm"
 
 #: master_preset.xml:7698(item:name|group:Sport|preset:Equestrian)
 msgid "Equestrian"
@@ -3640,11 +3640,6 @@ msgstr ""
 msgid "Is the water body intermittent (disappears seasonally)?"
 msgstr ""
 
-#: master_preset.xml:106(list_entry:short_description|value:island)
-#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
-msgid "Island"
-msgstr "Đảo"
-
 #: master_preset.xml:11672(item:name|group:Geography|preset:Islet)
 msgid "Islet"
 msgstr "Hòn đảo Nhỏ"
@@ -3930,7 +3925,7 @@ msgstr ""
 #: master_preset.xml:3397(item:name|group:Railway|preset:Light_Rail)
 #: master_preset.xml:4240(check:text|group:Public_Transport|preset:Stop_Position|key:light_rail)
 msgid "Light Rail"
-msgstr ""
+msgstr "Đường sắt Nhẹ"
 
 #: master_preset.xml:8665(item:name|group:Man_Made|preset:Lighthouse)
 msgid "Lighthouse"
@@ -5031,11 +5026,7 @@ msgstr "Không"
 #: master_preset.xml:220(list_entry:short_description|value:no)
 #: master_preset.xml:431(combo:display_values|key:access)
 msgid "No access"
-msgstr ""
-
-#: master_preset.xml:108(list_entry:short_description|value:no)
-msgid "No crossing"
-msgstr ""
+msgstr "Không đi được"
 
 #: master_preset.xml:74(check:text|key:noexit)
 msgid "No exit (cul-de-sac)"
@@ -5086,10 +5077,6 @@ msgstr ""
 #: master_preset.xml:358(combo:display_values|key:internet_access)
 msgid "Not available"
 msgstr "Không có sẵn"
-
-#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
-msgid "Not controlled"
-msgstr ""
 
 #: master_preset.xml:14076(item:name|group:Offices|preset:Notary)
 msgid "Notary"
@@ -5151,7 +5138,7 @@ msgstr "Số cột"
 
 #: master_preset.xml:230(text:text|key:wheelchair:rooms)
 msgid "Number of rooms suitable for wheelchairs"
-msgstr ""
+msgstr "Số phòng thích hợp cho xe lăn"
 
 #: master_preset.xml:5247(text:text|group:Leisure|preset:Movie_Theater/Cinema|key:screen)
 msgid "Number of screens"
@@ -5605,7 +5592,7 @@ msgstr ""
 #: master_preset.xml:207(list_entry:short_description|value:limited)
 #: master_preset.xml:219(list_entry:short_description|value:limited)
 msgid "Partial access"
-msgstr ""
+msgstr "Đi được một phần"
 
 #: master_preset.xml:3944(multiselect:display_values|group:Car|preset:Repair|key:service)
 #: master_preset.xml:3947(item:name|group:Car|preset:Parts)
@@ -5665,10 +5652,6 @@ msgstr ""
 
 #: master_preset.xml:1824(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
-msgstr ""
-
-#: master_preset.xml:103(multiselect:text|key:crossing)
-msgid "Pedestrian crossing type"
 msgstr ""
 
 #: master_preset.xml:1606(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
@@ -6561,7 +6544,7 @@ msgstr ""
 
 #: master_preset.xml:12630(group:name|group:Relations)
 msgid "Relations"
-msgstr ""
+msgstr "Quan hệ"
 
 #: master_preset.xml:11109(item:name|group:Other|preset:Religion)
 #: master_preset.xml:489(combo:text|key:religion)
@@ -6809,7 +6792,7 @@ msgstr ""
 
 #: master_preset.xml:12759(group:name|group:Routes)
 msgid "Routes"
-msgstr ""
+msgstr "Tuyến đường"
 
 #: master_preset.xml:5120(optional:text|group:Tourism|preset:Map)
 #: master_preset.xml:5160(optional:text|group:Tourism|preset:Guidepost)
@@ -7493,7 +7476,7 @@ msgstr ""
 
 #: master_preset.xml:225(text:text|key:wheelchair:step_height)
 msgid "Step height in cm"
-msgstr ""
+msgstr "Chiều cao bậc lên bằng cm"
 
 #: master_preset.xml:2441(combo:display_values|group:Barriers|preset:Stile|key:stile)
 msgid "Stepover"
@@ -8107,7 +8090,6 @@ msgstr "Đèn giao thông"
 msgid "Traffic lights"
 msgstr "Đèn giao thông"
 
-#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
 #: master_preset.xml:12747(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Traffic signals"
 msgstr "Đèn giao thông"
@@ -8394,14 +8376,10 @@ msgstr ""
 msgid "University"
 msgstr ""
 
-#: master_preset.xml:107(list_entry:short_description|value:unmarked)
-msgid "Unmarked"
-msgstr ""
-
 #: master_preset.xml:206(list_entry:short_description|value:yes)
 #: master_preset.xml:218(list_entry:short_description|value:yes)
 msgid "Unrestricted access"
-msgstr ""
+msgstr "Truy cập vô hạn"
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "Up"
@@ -9579,6 +9557,42 @@ msgctxt "sidewalk"
 msgid "Sidewalk"
 msgstr ""
 
+#: master_preset.xml:106(list_entry:short_description|value:island)
+msgctxt "transport"
+msgid "Island"
+msgstr "Đảo"
+
+#: master_preset.xml:108(list_entry:short_description|value:no)
+msgctxt "transport"
+msgid "No crossing"
+msgstr ""
+
+#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
+msgctxt "transport"
+msgid "Not controlled"
+msgstr ""
+
+#: master_preset.xml:103(multiselect:text|key:crossing)
+msgctxt "transport"
+msgid "Pedestrian crossing type"
+msgstr ""
+
+#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
+#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
+msgctxt "transport"
+msgid "Second hand"
+msgstr ""
+
+#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
+msgctxt "transport"
+msgid "Traffic signals"
+msgstr "Đèn giao thông"
+
+#: master_preset.xml:107(list_entry:short_description|value:unmarked)
+msgctxt "transport"
+msgid "Unmarked"
+msgstr ""
+
 #: master_preset.xml:115(combo:text|key:electrified)
 msgctxt "electrified"
 msgid "Electrified"
@@ -10112,7 +10126,7 @@ msgstr "Không"
 #: master_preset.xml:449(combo:display_values|key:access)
 msgctxt "access"
 msgid "No access"
-msgstr ""
+msgstr "Không đi được"
 
 #: master_preset.xml:2586(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2606(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -11292,12 +11306,6 @@ msgctxt "aerialway"
 msgid "Station"
 msgstr ""
 
-#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
-#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
-msgctxt "transport"
-msgid "Second hand"
-msgstr ""
-
 #: master_preset.xml:3944(multiselect:text|group:Car|preset:Repair|key:service)
 msgctxt "shop=car_repair"
 msgid "Service"
@@ -11375,7 +11383,7 @@ msgstr ""
 #: master_preset.xml:6919(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "Ghi chú"
 
 #: master_preset.xml:7154(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"
@@ -11651,6 +11659,11 @@ msgstr "Kiểu"
 msgctxt "memorial"
 msgid "War memorial"
 msgstr ""
+
+#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
+msgctxt "place"
+msgid "Island"
+msgstr "Đảo"
 
 #: master_preset.xml:11358(item:name|group:Places|preset:State)
 msgctxt "place"

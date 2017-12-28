@@ -36,12 +36,12 @@ A forma mais fácil de descarregar dados para o dispositivo é aproximar/afastar
 
 Para evitar edições acidentais, o Vespucci inicia no modo  "bloqueado". Toque no ícone ![Bloqueado](../images/locked.png) para desbloquear o ecrã. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Se pressionar de forma longa o botão do cadeado, surgirá um menu com 4 opções:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normal** - No modo de edição padrão novos elementos podem ser adicionados, os existentes editados, movidos ou removidos, O símbolo do cadeado fica em branco.  
+* **Apenas Etiquetas** - Selecionando um elemento surgirá a o Editor de Propriedades, pressionando de forma contínua no ecrã principal irá adicionar novos elementos, mas não novas geometrias. O símbolo do cadeado fica em branco com um "T".
+* **Interior** - Ativa o modo Interior, veja [Indoor mode](#indoor). O símbolo do cadeado fica em branco com um "i".
+* **C-Mode** - Ativa o modo C-Mode, apenas elementos qur estejam marcados com avisos serão mostrados. Veja [C-Mode](#c-mode). O símbolo do cadeado fica em branco com um "C".
 
 #### Toque simples, toque duplo e toque longo
 
@@ -183,7 +183,7 @@ Para além disso, se ativar os erros reportados também pode ativar o filtro esp
 
 Mapear interiores de edifícios pode ser desafiante devido ao elevado número de objetos que se sobrepõem. O Vespucci tem um Modo Interiores que permite filtrar todos os objetos que não estejam no mesmo andar e adiciona automaticamente o andar aos objetos criados.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+O modo pode ser ativadoo ao pressionar de forma longa o botão do cadeado, ver [Lock, unlock, mode switching](#lock) e selecionar o respetivo menu.
 
 <a id="c-mode"></a>
 
@@ -191,7 +191,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+O modo pode ser ativadoo ao pressionar de forma longa o botão do cadeado, ver [Lock, unlock, mode switching](#lock) e selecionar o respetivo menu.
 
 ### Configurar confirmações
 
@@ -212,7 +212,7 @@ O levantamento possui as seguintes propriedades:
 
 #### Verificar entradas
 
-Check entries have the following two properties:
+Verifique o levantamento que possuí as seguintes duas propriedades:
 
 * **Key** - Key that should be present on the object according to the matching preset.
 * **Check optional** - Check the optional tags of the matching preset.

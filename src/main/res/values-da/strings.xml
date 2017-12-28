@@ -10,6 +10,8 @@
   <string name="transfer_download_current_back">Gå tilbage (gør intet)</string>
   <string name="upload_problem_title">Problem Med Upload</string>
   <string name="upload_conflict_title">Upload konflikt</string>
+  <string name="use_local_version">Brug lokal version</string>
+  <string name="use_server_version">Brug version på server</string>
   <string name="no_connection_title">Ingen forbindelse til serveren</string>
   <string name="no_connection_message">Kunne ikke forbinde til OSM-Serveren. Check din internet forbindelse eller prøv igen senere.</string>
   <string name="go_to_openstreetmap">Gå til openstreetmap.org</string>
@@ -179,6 +181,9 @@
   <string name="menu_transfer_download_current">Download nuværende udsnit</string>
   <string name="menu_transfer_upload">Upload data til OSM server</string>
   <string name="menu_transfer_file">Filer...</string>
+  <string name="menu_transfer_export">Eksporter ændringer til OSC fil</string>
+  <string name="menu_transfer_read_file">Læs fra JOSM fil...</string>
+  <string name="menu_transfer_save_file">Gem til JOSM fil...</string>
   <string name="menu_transfer_bugs">Noter/Fejl...</string>
   <string name="menu_transfer_bugs_upload">Upload alt</string>
   <string name="menu_transfer_bugs_upload_long">Upload alle fejl</string>

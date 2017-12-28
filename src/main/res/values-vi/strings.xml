@@ -2,7 +2,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Bình thường</string>
+  <string name="mode_tag_only">Chỉ thẻ</string>
   <string name="mode_indoor">Trong Nhà</string>
+  <string name="mode_correct">Chế độ C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Cẩn thận!</string>
   <string name="transfer_download_current_dialog_message">Bạn đã thực hiện một số thay đổi. Bạn có muốn tải lên các thay đổi thay vì vứt bỏ chúng?</string>
@@ -80,6 +82,8 @@
   <string name="openstreetbug_commit_fail">Không thể lưu các thay đổi</string>
   <string name="openstreetbug_not_downloaded">chưa tải về</string>
   <string name="openstreetbug_last_updated">lần cập nhật cuối</string>
+  <string name="openstreetbug_unknown_task_type">Kiểu công việc không rõ</string>
+  <string name="openstreetbug_not_supported">Không hỗ trợ %1$s.</string>
   <string name="unsaved_data_title">Cẩn thận!</string>
   <string name="unsaved_data_message">Nếu bạn tiếp tục, các thay đổi chưa lưu của bạn sẽ bị mất.</string>
   <string name="unsaved_data_proceed">Vứt bỏ &amp; tiếp tục</string>
@@ -91,6 +95,7 @@
   <string name="imagery_offset_date">Ngày tạo</string>
   <string name="imagery_offset_zoom">Thu phóng</string>
   <string name="imagery_offset_distance">Tầm xa</string>
+  <string name="zoom_and_offset">Mức thu phóng %1$s Chệch %2$s/%3$s</string>
   <string name="set_position_datum_label">Mốc trắc địa</string>
   <string name="tag_editor_name_suggestion">Gợi ý tên gọi</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Gợi ý này có thể thay thế một số giá trị thẻ bằng giá trị phổ biến hơn.</string>
@@ -131,9 +136,18 @@
   <string name="evaluate">Đánh giá</string>
   <string name="js_console_msg_live">Chế độ trực tiếp!</string>
   <string name="js_console_msg_debug">Chế độ gỡ lỗi!</string>
+  <string name="edit_resurvey_title">Sửa mục khảo sát lại</string>
+  <string name="add_resurvey_title">Thêm mục khảo sát lại</string>
+  <string name="edit_check_title">Sửa đổi mục kiểm tra</string>
+  <string name="add_check_title">Thêm mục kiểm tra</string>
+  <string name="max_age">Tuổi tối đa</string>
+  <string name="age">Tuổi</string>
+  <string name="add_resurvey_entry">Thêm mục khảo sát lại</string>
+  <string name="add_check_entry">Thêm mục kiểm tra</string>
   <!--Toaster-->
   <string name="toast_no_changes">Bạn chưa thay đổi gì…</string>
   <string name="toast_unsaved_changes">Bạn đã thực hiện một số thay đổi chưa được lưu. Xin vui lòng tải chúng lên trước tiên.</string>
+  <string name="clear_anyway">Cứ xóa sạch?</string>
   <string name="toast_upload_success">Đã hoàn tất tải lên máy chủ OSM.</string>
   <string name="toast_not_in_edit_range">Xin vui lòng phóng to để sửa đổi (Tăng/Giảm Âm lượng hoặc Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Mở khóa để sửa đổi</string>
@@ -198,18 +212,23 @@
   <string name="toast_no_coverage">%1$s không có hình ảnh cho khu vực này</string>
   <string name="toast_file_exists">Tập tin %1$s tồn tại.</string>
   <string name="toast_needs_resurvey">Đối tượng có thể lỗi thời</string>
+  <string name="toast_missing_key">Thiếu chìa khóa %1$s</string>
   <string name="toast_openinghours_invalid">Giá trị giờ mở cửa không hợp lệ cho %1$s</string>
   <string name="toast_openinghours_autocorrected">Giá trị giờ mở cửa cho %1$s đã được điều chỉnh tự động</string>
   <string name="toast_exit_multiselect">Chạm đúp vào chỗ trống hoặc bấm nút lùi để thoát</string>
   <string name="toast_exit_actionmode">Bấm nút lùi để lưu và thoát</string>
   <string name="toast_abort_actionmode">Bấm nút lùi để hủy bỏ</string>
   <string name="toast_null_island">Xin đừng thêm đối tượng tại 0°/0° (đảo Không)</string>
+  <string name="toast_string_too_long">Chuỗi quá dài (%1$d ký tự) nên bị cắt cụt!</string>
+  <string name="toast_illegal_operation">Tác vụ không hợp lệ: %1$s</string>
+  <string name="toast_preset_creation_failed">Thất bại khi tạo thẻ đặt trước: “%1$s”: %2$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
   <string name="okay">OK</string>
   <string name="cancel">Hủy bỏ</string>
   <string name="dismiss">Bỏ qua</string>
+  <string name="done">Xong</string>
   <string name="locked">Khóa</string>
   <string name="next">Sau</string>
   <string name="apply">Áp dụng</string>
@@ -252,6 +271,7 @@
   <string name="tag_value_hint">Nhập giá trị</string>
   <string name="tag_autocomplete_value_hint">Nhập hoặc chạm cho các giá trị</string>
   <string name="tag_autocomplete_name_hint">Nhập hoặc chạm cho gợi ý tên</string>
+  <string name="tag_tap_to_edit_hint">Chạm để sửa đổi</string>
   <string name="tag_multi_value_hint">Nhiều giá trị</string>
   <string name="tag_dialog_value_hint">Chạm cho các giá trị</string>
   <string name="tag_action_tag_title">Thẻ được chọn</string>
@@ -265,10 +285,13 @@
   <string name="tag_menu_move_down">Chuyển xuống</string>
   <string name="tag_menu_move_bottom">Chuyển xuống dưới cùng</string>
   <string name="tag_menu_sort">Sắp xếp</string>
+  <string name="tag_menu_reverse_order">Đảo ngược thứ tự</string>
   <string name="tag_menu_download">Tải về</string>
   <string name="tag_menu_js_console">Bảng điều khiển JavaScript</string>
   <string name="menu_up">Trên</string>
   <string name="menu_top">Trên cùng</string>
+  <string name="menu_select_all">Chọn tất cả</string>
+  <string name="menu_deselect_all">Bỏ chọn tất cả</string>
   <string name="menu_preset_help">Trợ giúp về thẻ đặt trước</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Thêm thẻ cho %1$s</string>
@@ -341,6 +364,9 @@
   <string name="menu_transfer_upload">Tải dữ liệu lên máy chủ OSM</string>
   <string name="menu_transfer_close_changeset">Đóng bộ thay đổi hiện tại</string>
   <string name="menu_transfer_file">Tập tin…</string>
+  <string name="menu_transfer_export">Xuất các thay đổi ra tập tin OSC</string>
+  <string name="menu_transfer_read_file">Đọc tập tin JOSM…</string>
+  <string name="menu_transfer_save_file">Lưu vào tập tin JOSM…</string>
   <string name="menu_transfer_bugs">Ghi chú/Lỗi…</string>
   <string name="menu_transfer_bugs_download_current">Tải về lỗi trong khu vực hiện tại</string>
   <string name="menu_transfer_bugs_upload">Tải lên tất cả</string>
@@ -350,6 +376,8 @@
   <string name="menu_transfer_autodownload_long">Tự động tải về lỗi</string>
   <string name="menu_transfer_save_notes_all">Lưu Tất cả Ghi chú…</string>
   <string name="menu_transfer_save_notes_new_and_changed">Lưu các Ghi chú Mới và Thay đổi…</string>
+  <string name="menu_transfer_read_custom_bugs">Tải công việc tùy biến…</string>
+  <string name="menu_transfer_write_custom_bugs">Lưu công việc tùy biến đang mở…</string>
   <string name="menu_save">Lưu vào tập tin</string>
   <string name="menu_join">Gộp</string>
   <string name="menu_unjoin">Tách</string>
@@ -432,8 +460,10 @@
   <string name="config_voiceCommandsEnabled_summary">Bật chức năng thử nghiệm ra lệnh bằng giọng nói</string>
   <string name="config_maxAlertDistance_title">Tầm xa thông báo tối đa</string>
   <string name="config_maxAlertDistance_summary">Khoảng cách tối đa từ vị trí hiện tại đến một vấn đề hoặc ghi chú để gây thông báo</string>
+  <string name="config_maxAlertDistance_current">%1$d mét</string>
   <string name="config_maxStrokeWidth_title">Chiều rộng đường kẻ tối đa</string>
   <string name="config_maxStrokeWidth_summary">Không vẽ lối dày hơn chiều rộng này</string>
+  <string name="config_maxStrokeWidth_current">%1$d điểm ảnh</string>
   <string name="config_showStats_title">Xem thống kê</string>
   <string name="config_showStats_summary">Hiển thị thống kế dữ liệu và số khung hình/giây ở phần phía dưới góc bên trái.</string>
   <string name="config_showTolerance_title">Hiển thị mức chịu đựng</string>
@@ -478,8 +508,10 @@
   <string name="config_category_gps">Thiết lập GPS</string>
   <string name="config_gps_distance_title">Tầm xa GPS Tối thiểu</string>
   <string name="config_gps_distance_summary">Khoảng cách tối thiểu giữa các tín hiệu GPS đo bằng mét (số kiểu float). Giá trị càng thấp càng tốn pin.</string>
+  <string name="config_gps_distance_current">%1$d mét</string>
   <string name="config_gps_interval_title">Khoảng GPS Tối thiểu</string>
   <string name="config_gps_interval_summary">Khoảng thời gian tối thiểu giữa các tín hiệu GPS đo bằng mili giây. Giá trị càng thấp càng tốn pin.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_category_info">Giới thiệu</string>
   <string name="config_advancedprefs">Tùy chỉnh nâng cao</string>
   <string name="config_forceContextMenu_title">Luôn dùng trình đơn ngữ cảnh</string>
@@ -496,8 +528,10 @@
   <string name="config_largeDragArea_summary">Cung cấp vùng lớn để kéo nốt</string>
   <string name="config_extTriggeredDownloadRadius_title">Tải về theo bán kính</string>
   <string name="config_extTriggeredDownloadRadius_summary">Đường bán kính (m) để tải về dữ liệu từ bên ngoài; 0 = chỉ đặt vào giữa bản đồ.</string>
+  <string name="config_downloadRadius_current">%1$d mét</string>
   <string name="config_maxDownloadSpeed_title">Tốc độ tối đa để tải về tự động</string>
   <string name="config_maxDownloadSpeed_summary">Giới hạn tối đa (km/h) để ngừng tải về tự động</string>
+  <string name="config_downloadSpeed_current">%1$d km/giờ</string>
   <string name="config_bugDownloadRadius_title">Trạng thái tải về ghi chú/lỗi</string>
   <string name="config_bugDownloadRadius_summary">Bán kính (m) tải về các ghi chú/lỗi</string>
   <string name="config_maxBugDownloadSpeed_title">Tốc độ tối đa để tải về tự động các ghi chú/lỗi</string>
@@ -530,14 +564,20 @@
   <string name="config_fullscreenMode_summary">Chế độ trong thiết bị có “bàn phím mềm”.</string>
   <string name="config_maxInlineValues_title">Số giá trí nội dùng tối đa</string>
   <string name="config_maxInlineValues_summary">Số giá trị nội dòng tối đa được hiển thị dưới dạng thẻ</string>
+  <string name="config_maxInlineValues_current">%1$d giá trị</string>
+  <string name="config_category_layers">Tải về và lưu trữ lớp</string>
   <string name="config_maxTileDownloadThreads_title">Số luồng tải về tối đa</string>
   <string name="config_maxTileDownloadThreads_summary">Số luồng tối đa dùng để tải về mảnh</string>
+  <string name="config_downLoadThreads_current">%1$d luồng</string>
   <string name="config_tileCacheSize_title">Kích cỡ bộ nhớ đệm mảnh</string>
   <string name="config_tileCacheSize_summary">Tổng kích cỡ bộ nhớ đệm mảnh bằng MB</string>
+  <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_notificationCacheSize_title">Số thông báo tối đa được hiển thị</string>
   <string name="config_notificationCacheSize_summary">Số thông báo tối đa từng loại được hiển thị (ít nhất là 1)</string>
+  <string name="config_notificationCacheSize_current">%1$d thông báo</string>
   <string name="config_autoLockDelay_title">Thời gian truớc khi tự động khóa</string>
   <string name="config_autoLockDelay_summary">Số giây để chờ đợi trướci khi tự động khóa (0 để tắt)</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Luôn làm mờ các khu vực không được tải về</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Nếu đặt, các khu vực không được tải về sẽ bị mờ trong chế độ khóa</string>
   <string name="config_geocoderbutton_title">Thiết lập bộ mã hóa địa lý</string>
@@ -577,6 +617,7 @@
   <string name="name">Tên</string>
   <string name="url">URL</string>
   <string name="default_">Mặc định</string>
+  <string name="regular_expression">Biểu thức chính quy</string>
   <!---->
   <string name="empty_list">Không có mục</string>
   <string name="api_name">Tên của API</string>

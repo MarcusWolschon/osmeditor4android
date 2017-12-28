@@ -13,7 +13,11 @@
   <string name="transfer_download_current_back">Zpět (Nedělá nic)</string>
   <string name="upload_problem_title">Problém s nahráváním</string>
   <string name="upload_problem_message">Některá nebo všechna data nebyla nenahrána. Zkuste to znovu později, pokud se jedná jen o dočasný problém.</string>
-  <string name="use_local_version">Použít lokální verzi</string>
+  <string name="upload_conflict_title">Konflikt nahrávání</string>
+  <string name="upload_conflict_message_version">%1$s \nmá místní verzi %2$s \na na serveru verzi %3$s </string>
+  <string name="upload_conflict_message_deleted">%1$s \nmá místní verzi %2$s \na na serveru je smazán</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nje již na serveru smazán</string>
+  <string name="use_local_version">Použít místní verzi</string>
   <string name="use_server_version">Použít verzi na serveru</string>
   <string name="no_login_data_title">Ověření se nezdařilo</string>
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>

@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2017-12-19 14:24+0100\n"
-"PO-Revision-Date: 2017-12-19 13:27+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"POT-Creation-Date: 2017-12-21 21:24+0100\n"
+"PO-Revision-Date: 2017-12-25 13:47+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3641,11 +3641,6 @@ msgstr "Internetcsatlakozás díja"
 msgid "Is the water body intermittent (disappears seasonally)?"
 msgstr "Időszakos-e a víztest medre? (Pl. nyáron eltűnik?)"
 
-#: master_preset.xml:106(list_entry:short_description|value:island)
-#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
-msgid "Island"
-msgstr "Sziget"
-
 #: master_preset.xml:11672(item:name|group:Geography|preset:Islet)
 msgid "Islet"
 msgstr "Kis sziget"
@@ -5034,10 +5029,6 @@ msgstr "Nincs"
 msgid "No access"
 msgstr "Nem használható"
 
-#: master_preset.xml:108(list_entry:short_description|value:no)
-msgid "No crossing"
-msgstr "Nincs átjárás"
-
 #: master_preset.xml:74(check:text|key:noexit)
 msgid "No exit (cul-de-sac)"
 msgstr "Zsákutca"
@@ -5087,10 +5078,6 @@ msgstr "Sífutás"
 #: master_preset.xml:358(combo:display_values|key:internet_access)
 msgid "Not available"
 msgstr "Nincs"
-
-#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
-msgid "Not controlled"
-msgstr "Nem ellenőrzött"
 
 #: master_preset.xml:14076(item:name|group:Offices|preset:Notary)
 msgid "Notary"
@@ -5593,7 +5580,7 @@ msgstr "Parkológhely"
 
 #: master_preset.xml:1275(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Parking aisle"
-msgstr ""
+msgstr "Parkolón belüli út"
 
 #: master_preset.xml:11172(list_entry:short_description|preset:Vending_Machine|value:parking_tickets)
 msgid "Parking tickets"
@@ -5667,10 +5654,6 @@ msgstr "Sétálóutca"
 #: master_preset.xml:1824(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
 msgstr "Gyalogosátkelőhely"
-
-#: master_preset.xml:103(multiselect:text|key:crossing)
-msgid "Pedestrian crossing type"
-msgstr "Gyalogosátkelőhely típusa"
 
 #: master_preset.xml:1606(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -8108,7 +8091,6 @@ msgstr "Jelzőlámpa"
 msgid "Traffic lights"
 msgstr "Fényjelzés"
 
-#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
 #: master_preset.xml:12747(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Traffic signals"
 msgstr "Jelzőlámpa"
@@ -8394,10 +8376,6 @@ msgstr "Unitárius univerzalista"
 #: master_preset.xml:6226(item:name|group:Education|preset:University)
 msgid "University"
 msgstr "Egyetem"
-
-#: master_preset.xml:107(list_entry:short_description|value:unmarked)
-msgid "Unmarked"
-msgstr "Jelzetlen"
 
 #: master_preset.xml:206(list_entry:short_description|value:yes)
 #: master_preset.xml:218(list_entry:short_description|value:yes)
@@ -9579,6 +9557,42 @@ msgstr "Csak a jobb oldalon"
 msgctxt "sidewalk"
 msgid "Sidewalk"
 msgstr "Járda"
+
+#: master_preset.xml:106(list_entry:short_description|value:island)
+msgctxt "transport"
+msgid "Island"
+msgstr "Sziget"
+
+#: master_preset.xml:108(list_entry:short_description|value:no)
+msgctxt "transport"
+msgid "No crossing"
+msgstr "Nincs átjárás"
+
+#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
+msgctxt "transport"
+msgid "Not controlled"
+msgstr "Nem ellenőrzött"
+
+#: master_preset.xml:103(multiselect:text|key:crossing)
+msgctxt "transport"
+msgid "Pedestrian crossing type"
+msgstr "Gyalogosátkelőhely típusa"
+
+#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
+#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
+msgctxt "transport"
+msgid "Second hand"
+msgstr "Használt"
+
+#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
+msgctxt "transport"
+msgid "Traffic signals"
+msgstr "Jelzőlámpa"
+
+#: master_preset.xml:107(list_entry:short_description|value:unmarked)
+msgctxt "transport"
+msgid "Unmarked"
+msgstr "Jelzetlen"
 
 #: master_preset.xml:115(combo:text|key:electrified)
 msgctxt "electrified"
@@ -11293,12 +11307,6 @@ msgctxt "aerialway"
 msgid "Station"
 msgstr "Állomás"
 
-#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
-#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
-msgctxt "transport"
-msgid "Second hand"
-msgstr "Használt"
-
 #: master_preset.xml:3944(multiselect:text|group:Car|preset:Repair|key:service)
 msgctxt "shop=car_repair"
 msgid "Service"
@@ -11653,6 +11661,11 @@ msgctxt "memorial"
 msgid "War memorial"
 msgstr "Háborús emlékmű"
 
+#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
+msgctxt "place"
+msgid "Island"
+msgstr "Sziget"
+
 #: master_preset.xml:11358(item:name|group:Places|preset:State)
 msgctxt "place"
 msgid "State"
@@ -11881,4 +11894,4 @@ msgstr "Vallás"
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)
 msgid "translator-credits"
-msgstr "Meskó Balázs <meskobalazs@gmail.com> 2016."
+msgstr "Meskó Balázs <meskobalazs@gmail.com> 2016; Babos Gábor <gabor.babos@gmail.com> 2017"

@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2017-12-19 14:24+0100\n"
-"PO-Revision-Date: 2017-12-19 13:27+0000\n"
+"POT-Creation-Date: 2017-12-21 21:24+0100\n"
+"PO-Revision-Date: 2017-12-21 20:27+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/openstreetmap/presets/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -3640,11 +3640,6 @@ msgstr "İnternet erişimi ücretli"
 msgid "Is the water body intermittent (disappears seasonally)?"
 msgstr "Su kütlesi aralıklı mı (mevsimsel olarak kayboluyor mu)?"
 
-#: master_preset.xml:106(list_entry:short_description|value:island)
-#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
-msgid "Island"
-msgstr ""
-
 #: master_preset.xml:11672(item:name|group:Geography|preset:Islet)
 msgid "Islet"
 msgstr ""
@@ -5033,10 +5028,6 @@ msgstr "Hayır"
 msgid "No access"
 msgstr ""
 
-#: master_preset.xml:108(list_entry:short_description|value:no)
-msgid "No crossing"
-msgstr ""
-
 #: master_preset.xml:74(check:text|key:noexit)
 msgid "No exit (cul-de-sac)"
 msgstr "Çıkış yok (çıkmaz sokak)"
@@ -5085,10 +5076,6 @@ msgstr ""
 #: master_preset.xml:192(list_entry:short_description|value:no)
 #: master_preset.xml:358(combo:display_values|key:internet_access)
 msgid "Not available"
-msgstr ""
-
-#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
-msgid "Not controlled"
 msgstr ""
 
 #: master_preset.xml:14076(item:name|group:Offices|preset:Notary)
@@ -5666,10 +5653,6 @@ msgstr "Yaya"
 #: master_preset.xml:1824(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
 msgstr "Yaya Geçidi"
-
-#: master_preset.xml:103(multiselect:text|key:crossing)
-msgid "Pedestrian crossing type"
-msgstr "Yaya geçişi türü"
 
 #: master_preset.xml:1606(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -8107,7 +8090,6 @@ msgstr "Trafik İşareti"
 msgid "Traffic lights"
 msgstr "Trafik ışıkları"
 
-#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
 #: master_preset.xml:12747(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Traffic signals"
 msgstr ""
@@ -8392,10 +8374,6 @@ msgstr ""
 
 #: master_preset.xml:6226(item:name|group:Education|preset:University)
 msgid "University"
-msgstr ""
-
-#: master_preset.xml:107(list_entry:short_description|value:unmarked)
-msgid "Unmarked"
 msgstr ""
 
 #: master_preset.xml:206(list_entry:short_description|value:yes)
@@ -9578,6 +9556,42 @@ msgstr ""
 msgctxt "sidewalk"
 msgid "Sidewalk"
 msgstr "Kaldırım"
+
+#: master_preset.xml:106(list_entry:short_description|value:island)
+msgctxt "transport"
+msgid "Island"
+msgstr "Ada"
+
+#: master_preset.xml:108(list_entry:short_description|value:no)
+msgctxt "transport"
+msgid "No crossing"
+msgstr ""
+
+#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
+msgctxt "transport"
+msgid "Not controlled"
+msgstr ""
+
+#: master_preset.xml:103(multiselect:text|key:crossing)
+msgctxt "transport"
+msgid "Pedestrian crossing type"
+msgstr "Yaya geçişi türü"
+
+#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
+#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
+msgctxt "transport"
+msgid "Second hand"
+msgstr "İkinci el"
+
+#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
+msgctxt "transport"
+msgid "Traffic signals"
+msgstr ""
+
+#: master_preset.xml:107(list_entry:short_description|value:unmarked)
+msgctxt "transport"
+msgid "Unmarked"
+msgstr ""
 
 #: master_preset.xml:115(combo:text|key:electrified)
 msgctxt "electrified"
@@ -11292,12 +11306,6 @@ msgctxt "aerialway"
 msgid "Station"
 msgstr "İstasyon"
 
-#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
-#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
-msgctxt "transport"
-msgid "Second hand"
-msgstr "İkinci el"
-
 #: master_preset.xml:3944(multiselect:text|group:Car|preset:Repair|key:service)
 msgctxt "shop=car_repair"
 msgid "Service"
@@ -11651,6 +11659,11 @@ msgstr "Tür"
 msgctxt "memorial"
 msgid "War memorial"
 msgstr ""
+
+#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
+msgctxt "place"
+msgid "Island"
+msgstr "Ada"
 
 #: master_preset.xml:11358(item:name|group:Places|preset:State)
 msgctxt "place"

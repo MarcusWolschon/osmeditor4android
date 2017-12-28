@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2017-12-19 14:24+0100\n"
-"PO-Revision-Date: 2017-12-19 13:27+0000\n"
+"POT-Creation-Date: 2017-12-21 21:24+0100\n"
+"PO-Revision-Date: 2017-12-21 20:27+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -3640,11 +3640,6 @@ msgstr "Tarifa de acceso a Internet"
 msgid "Is the water body intermittent (disappears seasonally)?"
 msgstr "O lugar de auga é intermitente (desaparece estacionalmente)?"
 
-#: master_preset.xml:106(list_entry:short_description|value:island)
-#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
-msgid "Island"
-msgstr "Illa"
-
 #: master_preset.xml:11672(item:name|group:Geography|preset:Islet)
 msgid "Islet"
 msgstr ""
@@ -5033,10 +5028,6 @@ msgstr "Non"
 msgid "No access"
 msgstr "Sen acceso"
 
-#: master_preset.xml:108(list_entry:short_description|value:no)
-msgid "No crossing"
-msgstr "Non cruzar"
-
 #: master_preset.xml:74(check:text|key:noexit)
 msgid "No exit (cul-de-sac)"
 msgstr "Non hai saída (cul-de-sac)"
@@ -5086,10 +5077,6 @@ msgstr "Nórdico"
 #: master_preset.xml:358(combo:display_values|key:internet_access)
 msgid "Not available"
 msgstr "Non dispoñible"
-
-#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
-msgid "Not controlled"
-msgstr "Non controlado"
 
 #: master_preset.xml:14076(item:name|group:Offices|preset:Notary)
 msgid "Notary"
@@ -5666,10 +5653,6 @@ msgstr "Peonil"
 #: master_preset.xml:1824(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
 msgstr "Cruce Peonil"
-
-#: master_preset.xml:103(multiselect:text|key:crossing)
-msgid "Pedestrian crossing type"
-msgstr "Cruce tipo peonil"
 
 #: master_preset.xml:1606(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -8107,7 +8090,6 @@ msgstr "Sinal de Tráfico"
 msgid "Traffic lights"
 msgstr "Luces de tráfico"
 
-#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
 #: master_preset.xml:12747(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Traffic signals"
 msgstr "Sinais de Tráfico"
@@ -8393,10 +8375,6 @@ msgstr ""
 #: master_preset.xml:6226(item:name|group:Education|preset:University)
 msgid "University"
 msgstr "Universidade"
-
-#: master_preset.xml:107(list_entry:short_description|value:unmarked)
-msgid "Unmarked"
-msgstr ""
 
 #: master_preset.xml:206(list_entry:short_description|value:yes)
 #: master_preset.xml:218(list_entry:short_description|value:yes)
@@ -9577,6 +9555,42 @@ msgstr ""
 #: master_preset.xml:90(combo:text|key:sidewalk)
 msgctxt "sidewalk"
 msgid "Sidewalk"
+msgstr ""
+
+#: master_preset.xml:106(list_entry:short_description|value:island)
+msgctxt "transport"
+msgid "Island"
+msgstr "Illa"
+
+#: master_preset.xml:108(list_entry:short_description|value:no)
+msgctxt "transport"
+msgid "No crossing"
+msgstr "Non cruzar"
+
+#: master_preset.xml:104(list_entry:short_description|value:uncontrolled)
+msgctxt "transport"
+msgid "Not controlled"
+msgstr "Non controlado"
+
+#: master_preset.xml:103(multiselect:text|key:crossing)
+msgctxt "transport"
+msgid "Pedestrian crossing type"
+msgstr "Cruce tipo peonil"
+
+#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
+#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
+msgctxt "transport"
+msgid "Second hand"
+msgstr ""
+
+#: master_preset.xml:105(list_entry:short_description|value:traffic_signals)
+msgctxt "transport"
+msgid "Traffic signals"
+msgstr "Sinais de Tráfico"
+
+#: master_preset.xml:107(list_entry:short_description|value:unmarked)
+msgctxt "transport"
+msgid "Unmarked"
 msgstr ""
 
 #: master_preset.xml:115(combo:text|key:electrified)
@@ -11292,12 +11306,6 @@ msgctxt "aerialway"
 msgid "Station"
 msgstr "Estación"
 
-#: master_preset.xml:3926(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
-#: master_preset.xml:4040(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
-msgctxt "transport"
-msgid "Second hand"
-msgstr ""
-
 #: master_preset.xml:3944(multiselect:text|group:Car|preset:Repair|key:service)
 msgctxt "shop=car_repair"
 msgid "Service"
@@ -11651,6 +11659,11 @@ msgstr "Tipo"
 msgctxt "memorial"
 msgid "War memorial"
 msgstr ""
+
+#: master_preset.xml:11659(item:name|group:Geography|preset:Island)
+msgctxt "place"
+msgid "Island"
+msgstr "Illa"
 
 #: master_preset.xml:11358(item:name|group:Places|preset:State)
 msgctxt "place"
