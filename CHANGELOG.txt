@@ -1,6 +1,6 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-10.0.2: Improve behaviour of controls when oauth fails, update translations.
+10.0.2: Improve behaviour of controls when oauth fails, update translations, use the correct GPS icon when in full screen mode. fix regression wrt deprecated items being added to search index via synonyms
 
 10.0.1: Fix regression when splitting closed ways, updated translations.
 

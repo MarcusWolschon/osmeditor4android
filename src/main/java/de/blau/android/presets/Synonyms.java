@@ -112,7 +112,7 @@ public class Synonyms {
                         Set<PresetItem> items = preset.getItemByTag(presetKey);
                         if (items != null) {
                             for (PresetItem pi : items) {
-                                if (type == null || pi.appliesTo(type)) {
+                                if (!pi.isDeprecated() && (type == null || pi.appliesTo(type))) {
                                     IndexSearchResult isr = new IndexSearchResult(distance * items.size(), pi);
                                     result.add(isr);
                                 }
