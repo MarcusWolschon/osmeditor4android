@@ -2286,12 +2286,11 @@ public class StorageDelegator implements Serializable, Exportable {
         }
         return retval;
     }
-    
+
     /**
      * Remove any elements in API storage that haven't been changed
      * 
-     * This shouldn't be necessary and indicates that there is something which doesn't correctly
-     * remove elements.
+     * This shouldn't be necessary and indicates that there is something which doesn't correctly remove elements.
      */
     private void removeUnchanged() {
         for (Node node : new ArrayList<>(apiStorage.getNodes())) {
@@ -2430,7 +2429,7 @@ public class StorageDelegator implements Serializable, Exportable {
             case OsmElement.STATE_DELETED:
                 deletedNodes.add(elem);
                 break;
-            default: 
+            default:
                 Log.d("StorageDelegator", "node id " + elem.osmId + " not modified");
                 continue;
             }
@@ -2452,7 +2451,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 case OsmElement.STATE_DELETED:
                     deletedWays.add(elem);
                     break;
-                default: 
+                default:
                     Log.d("StorageDelegator", "way id " + elem.osmId + " not modified");
                     continue;
                 }
@@ -2475,7 +2474,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 case OsmElement.STATE_DELETED:
                     deletedRelations.add((Relation) elem);
                     break;
-                default: 
+                default:
                     Log.d("StorageDelegator", "relation id " + elem.osmId + " not modified");
                     continue;
                 }

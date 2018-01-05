@@ -844,9 +844,9 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return true if the location is in the bounding box
      */
     public boolean contains(double longitude, double latitude) {
-        return contains((int)(longitude*1E7D), (int)(latitude*1E7D));
+        return contains((int) (longitude * 1E7D), (int) (latitude * 1E7D));
     }
-    
+
     /**
      * Return pre-caclulated mercator value for the bottom of the bounding box
      * 
