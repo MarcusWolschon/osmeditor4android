@@ -16,6 +16,7 @@ import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.util.Util;
 import de.blau.android.validation.ValidatorRulesUI;
 
 /**
@@ -35,6 +36,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
     private String    KEY_VALIDATOR;
     private String    KEY_LICENSE;
     private String    KEY_DEBUG;
+    private String    KEY_SCALE;
 
     private BoundingBox viewBox = null;
 
@@ -51,6 +53,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
         KEY_VALIDATOR = r.getString(R.string.config_validatorprefs_key);
         KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
         KEY_DEBUG = r.getString(R.string.config_debugbutton_key);
+        KEY_SCALE = r.getString(R.string.config_scale_key);
         fixUpPrefs();
     }
 
@@ -58,6 +61,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
     public void onResume() {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
+        Util.setListPreferenceSummary(this, KEY_SCALE);
         Log.d(DEBUG_TAG, "onResume done");
     }
 
