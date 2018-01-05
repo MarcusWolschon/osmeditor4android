@@ -26,4 +26,6 @@
 	<color name="material_yellow">#FFEB3B</color>
 	<color name="material_red">#FF5252</color>
 	<color name="material_orange">#FF9800</color>
+	<!-- OSM -->
+	<color name="osm_green">#ff9fd385</color>
 </resources>

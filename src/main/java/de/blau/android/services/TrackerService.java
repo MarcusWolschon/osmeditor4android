@@ -43,6 +43,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -256,7 +257,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                 .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingAppIntent = PendingIntent.getActivity(this, 0, appStartIntent, 0);
         notificationBuilder.setContentTitle(res.getString(R.string.tracking_active_title)).setContentText(res.getString(R.string.tracking_active_text))
-                .setSmallIcon(R.drawable.osm_logo).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent);
+                .setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent);
+        notificationBuilder.setColor(ContextCompat.getColor(this, R.color.osm_green));
         startForeground(R.id.notification_tracker, notificationBuilder.build());
     }
 

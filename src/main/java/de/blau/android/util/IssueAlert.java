@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -122,8 +123,9 @@ public class IssueAlert {
         }
         NotificationCompat.Builder mBuilder;
         try {
-            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.osm_logo).setContentTitle(title).setContentText(message)
+            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message)
                     .setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true).setGroup(GROUP_DATA);
+            mBuilder.setColor(ContextCompat.getColor(context, R.color.osm_green));
         } catch (RuntimeException re) {
             // NotificationCompat.Builder seems to be flaky instead of crashing we produce a
             // crash dump and return
@@ -223,9 +225,10 @@ public class IssueAlert {
         message = message + b.getDescription();
         NotificationCompat.Builder mBuilder;
         try {
-            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.osm_logo).setContentTitle(title).setContentText(message)
+            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message)
                     .setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true)
                     .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE);
+            mBuilder.setColor(ContextCompat.getColor(context, R.color.osm_green));
         } catch (RuntimeException re) {
             // NotificationCompat.Builder seems to be flaky instead of crashing we produce a
             // crash dump and return
