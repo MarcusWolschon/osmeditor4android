@@ -18,6 +18,7 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
@@ -227,6 +228,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(text.exists());
     }
 
+    @SdkSuppress(minSdkVersion=24)
     @Test
     public void maxTagLength() {
         final CountDownLatch signal = new CountDownLatch(1);

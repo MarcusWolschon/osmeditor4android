@@ -26,24 +26,22 @@ import de.blau.android.util.SearchIndexUtils;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class SynonymsTest {
-
+    Main main;
+    
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     @Before
     public void setup() {
-        Locale.setDefault(new Locale("de", "DE"));
+        main = (Main) mActivityRule.getActivity();
     }
 
     @Test
-    public void search() {
-        Main main = (Main) mActivityRule.getActivity();
-        //
+    public void search() {       
         Locale locale = Locale.getDefault();
-        Assert.assertEquals(Locale.GERMANY.getCountry(), locale.getCountry());
-        List<PresetItem> result = SearchIndexUtils.searchInPresets(main, "Metzger", ElementType.NODE, 2, 10);
-
+        Assert.assertEquals(Locale.US.getCountry(), locale.getCountry());
+        List<PresetItem> result = SearchIndexUtils.searchInPresets(main, "raptor", ElementType.NODE, 2, 10);
         Assert.assertTrue(result.size() > 0);
-        Assert.assertEquals("Butcher", result.get(0).getName());
+        Assert.assertEquals("Animal shelter", result.get(0).getName());
     }
 }

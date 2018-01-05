@@ -47,9 +47,11 @@ public class TestUtils {
 
     public static void selectIntentRecipient(Context ctx) {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        mDevice.waitForWindowUpdate(null, 1000);
         clickText(mDevice, true, "Vespucci", false);
-        clickText(mDevice, true, "Just once", false);
-        clickText(mDevice, true, "Nur diesmal", false);
+        if (!clickText(mDevice, true, "Just once", false)) {
+            clickText(mDevice, true, "Nur diesmal", false);
+        }
     }
 
     public static boolean clickText(UiDevice device, boolean clickable, String text, boolean waitForNewWindow) {
