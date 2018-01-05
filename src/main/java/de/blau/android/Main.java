@@ -389,9 +389,9 @@ public class Main extends FullScreenAppCompatActivity
     private Location lastLocation = null;
 
     private Location locationForIntent = null;
-    
-    private boolean controlsHidden = false;
-    private Object controlsHiddenLock = new Object();
+
+    private boolean controlsHidden     = false;
+    private Object  controlsHiddenLock = new Object();
 
     /**
      * Status of permissions
@@ -436,9 +436,23 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         prefs = new Preferences(this);
-
+        int layout = R.layout.main;
+        if (useFullScreen(prefs)) {
+            Log.d(DEBUG_TAG, "using full screen layout");
+            if (!statusBarHidden()) {
+                layout = R.layout.main_fullscreen;
+            }
+        }
         if (prefs.lightThemeEnabled()) {
-            setTheme(R.style.Theme_customMain_Light);
+            if (statusBarHidden()) {
+                setTheme(R.style.Theme_customMain_Light_FullScreen);
+            } else {
+                setTheme(R.style.Theme_customMain_Light);
+            }
+        } else {
+            if (statusBarHidden()) {
+                setTheme(R.style.Theme_customMain_FullScreen);
+            }
         }
 
         super.onCreate(savedInstanceState);
@@ -459,11 +473,6 @@ public class Main extends FullScreenAppCompatActivity
             }
         }
 
-        int layout = R.layout.main;
-        if (useFullScreen(prefs)) {
-            Log.d(DEBUG_TAG, "using full screen layout");
-            layout = R.layout.main_fullscreen;
-        }
         LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
 
@@ -2433,7 +2442,7 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     private void hideControls() {
-        synchronized(controlsHiddenLock) {
+        synchronized (controlsHiddenLock) {
             ActionBar actionbar = getSupportActionBar();
             if (actionbar != null) {
                 actionbar.hide();
@@ -2453,7 +2462,7 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     private void showControls() {
-        synchronized(controlsHiddenLock) {
+        synchronized (controlsHiddenLock) {
             ActionBar actionbar = getSupportActionBar();
             if (actionbar != null && !prefs.splitActionBarEnabled()) {
                 actionbar.show();
@@ -2569,7 +2578,7 @@ public class Main extends FullScreenAppCompatActivity
                         }
                     }
                 }
-                
+
                 @SuppressWarnings("deprecation")
                 @Override
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {

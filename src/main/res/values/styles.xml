@@ -121,6 +121,10 @@
 		<item name="snack_error">@color/material_red</item>
 	</style>
 	
+	   <style name="Theme.customMain.FullScreen" parent="Theme.customMain">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+	
 	<style name="ActionButtonDark" parent="@style/Widget.AppCompat.ActionButton" />
 	
 	<style name="Theme.customMain.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
@@ -175,6 +179,10 @@
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
 	</style>
+	
+	<style name="Theme.customMain.Light.FullScreen" parent="Theme.customMain.Light">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
 	<style name="ActionButtonLight" parent="@style/Widget.AppCompat.Light.ActionButton" />
    

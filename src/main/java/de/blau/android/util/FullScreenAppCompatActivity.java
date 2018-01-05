@@ -20,6 +20,7 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
 
     private static final String DEBUG_TAG  = FullScreenAppCompatActivity.class.getSimpleName();
     private boolean             fullScreen = false;
+    private boolean             hideStatus = false;
     private final Handler       handler    = new Handler();
 
     @SuppressLint("NewApi")
@@ -58,17 +59,17 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
+        if (hasFocus) { // hiding UI first and then call super seems to avoid status bar overlaying actionbar
             Log.d(DEBUG_TAG, "onWindowFocusChanged");
-            hideNavBar();
+            hideSystemUI();
         }
+        super.onWindowFocusChanged(hasFocus);
     }
 
     private Runnable navHider = new Runnable() {
         @Override
         public void run() {
-            hideNavBar();
+            hideSystemUI();
         }
     };
 
@@ -82,14 +83,25 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
     }
 
     /**
+     * Return true if we are not showing the status bar
+     * 
+     * @return true if we are not showing the status bar
+     */
+    protected boolean statusBarHidden() {
+        return hideStatus;
+    }
+
+    /**
      * Turn off a soft button navigation button, note this only works if the main view of the app actually has focus
      */
     @SuppressLint("NewApi")
-    private void hideNavBar() {
+    private void hideSystemUI() {
         View view = getWindow().getDecorView();
         if (view != null && fullScreen && Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             Log.d(DEBUG_TAG, "hiding nav bar");
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            int fullScreenMode = (hideStatus ? View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN : 0)
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | fullScreenMode
                     | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY : View.SYSTEM_UI_FLAG_IMMERSIVE));
         }
     }
@@ -102,21 +114,21 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
     protected boolean useFullScreen(Preferences prefs) {
         fullScreen = false;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            String fullscreenPref = prefs.getFullscreenMode();
-            if (fullscreenPref.equals(getString(R.string.full_screen_auto))) {
+            String fullScreenPref = prefs.getFullscreenMode();
+            if (fullScreenPref.equals(getString(R.string.full_screen_auto))) {
                 fullScreen = !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
                 Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " KEYCODE_BACK " + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) + " KEYCODE_HOME "
                         + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
-            } else if (fullscreenPref.equals(getString(R.string.full_screen_never))) {
+            } else if (fullScreenPref.equals(getString(R.string.full_screen_never))) {
                 fullScreen = false;
                 Log.d(DEBUG_TAG, "full screen never");
-            } else if (fullscreenPref.equals(getString(R.string.full_screen_force))) {
+            } else if (fullScreenPref.equals(getString(R.string.full_screen_force))) {
                 fullScreen = true;
                 Log.d(DEBUG_TAG, "full screen force");
-            } else if (fullscreenPref.equals(getString(R.string.full_screen_no_statusbar))) {
+            } else if (fullScreenPref.equals(getString(R.string.full_screen_no_statusbar))) {
                 fullScreen = true;
+                hideStatus = true;
                 Log.d(DEBUG_TAG, "full screen no statusbar");
-                return false; // ugly hack
             }
         }
         return fullScreen;
