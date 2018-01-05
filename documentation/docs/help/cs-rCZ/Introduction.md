@@ -38,10 +38,10 @@ K zabránění nechtěných úprav se Vespucci spustí v "uzamčeném" režimu, 
 
 Dlouhým stisknutím ikony zámku se zobrazí nabídka se 4 možnostmi:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normální** - výchozí režim úprav, lze vytvářet nové objekty, existující upravovat, přesouvat a odstraňovat. Symbolizován jednoduchou bílou ikonou zámku.
+* **Editování tagů** - výběr existujících objektů vyvolá Editor vlastností, dlouhý stisk na hlavní obrazovce vytvoří objekt, nicméně měnit pozice objektů není možné. Symbolizován bílou ikonou zámku s "T".
+* **Vnitřní prostory** - aktivuje režim pro Editaci vnitřních prostor, viz [režim Vnitřní prostory](#indoor). Symbolizován bílou ikonou zámku s "I".
+* **Režim kontroly** - aktivuje Režim kontroly, zobrazeny jsou pouze objekty splňující nastavená kritéria, viz [Režim kontroly](#c-mode). Symbolizován bílou ikonou zámku s "C".
 
 #### Jedno klepnutí, dvě klepnutí a dlouhé stisknutí
 
@@ -51,25 +51,25 @@ Ve výchozím nastavení mají uzly a cesty, které lze zvolit, oranžově vyzna
     * Osamocený uzel/cesta je označena ihned. 
     * Nicméně pokud se pokusíte vybrat objekt a Vespucci nazná, že je výběr nejednoznačný, zobrazí se nabídka s výběrem umožňující vybrat objekt, který jste si přáli zvolit. 
     * Zvolené objekty jsou zvýrazněny žlutě. 
-    * Více informací viz [Zvolený uzel](../en/Node%20selected.md), [Zvolená cesta](../en/Way%20selected.md) a [Zvolená relace](../en/Relation%20selected.md).
-* Dvě klepnutí: Zahájí [Režim vícenásobného výběru](../en/Multiselect.md)
+    * Více informací viz [Uzel vybrán](../en/Node%20selected.md), [Cesta vybrána](../en/Way%20selected.md) a [Relace vybrána](../en/Relation%20selected.md).
+* Dvě klepnutí: Zahájí [Multiselect](../en/Multiselect.md)
 * Dlouhé stisknutí: Vytvoří zaměřovač "+" umožňující přidat uzly, viz níže, a [Vytváření nových objektů](../en/Creating%20new%20objects.md)
 
 Vyplatí se přiblížit mapu, pokud plánujete upravovat v oblasti s vysokou hustotou.
 
 Vespucci má kvalitní systém "zpět/vpřed", takže se nemusíte bát experimentovat s vaším zařízením, nicméně prosíme nenahrávejte a neukládejte čistě testovací data.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Výběr / Zrušení výběru (jedno klepnutí a "nabídka výběru")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Klepněte na objekt, který chcete zvolit a označit. Klepnutím na prázdnou oblast výběr zrušíte. Pokud máte označený objekt a chcete označit jiný, jednoduše klepněte na dotyčný objekt, není nutné rušit označení původního objektu. Dvě klepnutí na objekt zahájí [Multiselect](../en/Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Všimněte si, že pokud se pokusíte vybrat objekt a Vespucci nazná, že je výběr nejednoznačný (např. uzel ležící na cestě nebo jiné překrývající se objekty), zobrazí se nabídka výběru - klepněte na objekt, který chcete vybrat. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Vybrané objekty jsou odlišeny tenkým žlutým okrajem. Žlutý okraj může být obtížné zpozorovat v závislosti na mapovém podkladu a přiblížení. Po provedení výběru se objeví oznámení potvrzující výběr.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
+Po provedení výběru se zobrazí seznam podporovaných operací (buď jako tlačítka nebo jako položky menu) pro zvolený objekt: Pro více informací viz [Uzel vybránl](../en/Node%20selected.md), [Cesta vybrána](../en/Way%20selected.md) a [Relace vybrána](../en/Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Zvolené objekty: Úprava tagů
 
 A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
 

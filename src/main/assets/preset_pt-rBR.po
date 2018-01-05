@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2017-12-21 20:27+0000\n"
+"PO-Revision-Date: 2018-01-03 05:52+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -2185,7 +2185,7 @@ msgstr ""
 #: master_preset.xml:1822(combo:text|group:Waypoints|preset:Mini-Roundabout|key:direction)
 #: master_preset.xml:5083(combo:text|group:Tourism|preset:Viewpoint|key:direction)
 msgid "Direction"
-msgstr ""
+msgstr "Direção"
 
 #: master_preset.xml:8787(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"
@@ -10892,7 +10892,7 @@ msgstr "Serviço"
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Shed"
-msgstr ""
+msgstr "Barraco"
 
 #: master_preset.xml:783(combo:display_values|key:building:use)
 msgctxt "building"

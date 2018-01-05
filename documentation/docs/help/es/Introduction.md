@@ -32,16 +32,16 @@ La manera más fácil de descargar información al dispositivo es hacer zoom y m
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Cambio de modo, bloquear, desbloquear
 
 Para evitar ediciones accidentales, Vespucci comienza en modo "bloqueado", un modo que sólo permite hacer zoom y mover el mapa. Toque el icono ![Bloqueado](../images/locked.png) para desbloquear la pantalla. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Una pulsación larga en el icono del candado mostrará un menú con cuatro opciones:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normal** - el modo de edición por defecto, se pueden añadir nuevos objetos, editar los existentes, desplazados o eliminados. Se muestra un icono sencillo de un candado blanco.
+* **Sólo etiquetado** - al seleccionar un objeto existente se iniciará el Editor de Propiedades, una pulsación larga en la pantalla principal añadirá objetos, pero no funcionarán otras operaciones geométricas. Se mostrará el icono de un candado blanco con una "T".
+* **Interiores** - activa el modo Interiores, ver [modo Interiores](#indoor). Se muestra el icono de un candado blanco con una "I".
+* **Modo-C** - activa el Modo-C, sólo se muestran los objetos que tengan una señal de aviso, ver [Modo-C](#c-mode). Se muestra el icono de un candado blanco con una "C".
 
 #### Pulsación simple, pulsación doble y pulsación larga
 
@@ -98,7 +98,7 @@ También puede usar un elemento del menú: Vea [Creando nuevos objetos](../en/Cr
 
 #### Añadiendo un Área
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+Actualmente OpenStreetMap no tiene un objeto tipo "área" al contrario que otros sistemas de geo-datos. El editor en línea "iD" intenta crear una abstracción de área a partir de los elementos OSM subyacentes que funciona bien en algunas circunstancia y no tanto en otras. Actualmente Vespucci no intenta hacer nada similar, así que necesitará conocer un poco sobre la forma en que se representan las áreas.
 
 * _rutas cerradas («polígonos»)_: la variante de área más simple y más común, son rutas que tienen un primer y último nodo compartido formando un «anillo» cerrado (por ejemplo, la mayoría de los edificios son de este tipo). Estos son muy fáciles de crear en Vespucci, simplemente conéctese de nuevo al primer nodo cuando haya terminado de dibujar el área. Nota: la interpretación del camino cerrado depende de su etiquetado: por ejemplo, si un camino cerrado se etiqueta como un edificio, se considerará un área, si se etiqueta como una rotonda, no. En algunas situaciones en las que ambas interpretaciones pueden ser válidas, una etiqueta de «área» puede aclarar el uso previsto.
 * _multi-polígonos_: algunas áreas tienen múltiples partes, agujeros y anillos que no se pueden representar de una sola manera. OSM usa un tipo específico de relación (nuestro objeto de propósito general que puede modelar las relaciones entre los elementos) para sortear esto, un multi-polígono. Un multi-polígono puede tener múltiples anillos «externos» y múltiples anillos «internos». Cada anillo puede ser cerrado como se describe anteriormente, o múltiples formas individuales que tienen nodos finales comunes. Mientras que los grandes multi-polígonos son difíciles de manejar con cualquier herramienta, los pequeños no son difíciles de crear en Vespucci. 
@@ -162,7 +162,7 @@ Si tiene este último conjunto, mover la pantalla manualmente o editar hará que
 
 ## Notas y errores
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+Vespucci soporta la descarga, comentar y cerrar Notas de OSM (anteriormente Errores OSM) y la funcionalidad equivalente para "Errores" producidos por la [herramienta de aseguramiento de calidad OSMOSE](http://osmose.openstreetmap.fr/en/map/). Ambos deben de, o bien haber sido descargados explícitamente, o puedes usar el servicio de auto descarga para acceder a los elementos en su área inmediata. Una vez editados o cerrados, puede o bien subir el error o Nota al servidor de forma inmediata o subirlos todos de una vez.
 
 En el mapa las Notas y errores son representados mediante un pequeño icono de error ![Error](../images/bug_open.png); los verdes son cerrados/resueltos, los azules han sido creados o editados por usted, y los amarillos indican que aún está activo y no ha sido cambiado. 
 
@@ -184,19 +184,19 @@ Además de habilitar globalmente la visualización de notas y errores, puede con
 
 El mapeo en interiores es un desafío debido a la gran cantidad de objetos que muy a menudo se superponen unos a otros. Vespucci tiene un modo interior dedicado que le permite filtrar todos los objetos que no están en el mismo nivel y que agregarán automáticamente el nivel actual a los nuevos objetos creados.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+El modo puede activarse con una pulsación larga en el icono del cansado, ver [Cambiando de modo, bloquear, desbloquear](#lock) y seleccionando la correspondiente entrada de menú.
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Modo-C
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+En el Modo-C sólo se muestran los objetos que tienen activa una señal de aviso, esto facilita resaltar objetos que tienen problemas específicos o coinciden con chequeos configurables. Si un objeto es seleccionado y el Editor de Propiedades iniciado en Modo-C se aplicará automáticamente el preestablecido que mejor se ajuste.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+El modo puede activarse con una pulsación larga en el icono del cansado, ver [Cambiando de modo, bloquear, desbloquear](#lock) y seleccionando la correspondiente entrada de menú.
 
-### Configuring checks
+### Configurando chequeos
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+Actualmente hay dos chequeos configurables (hay un chequeo para etiquetas FIXME y una prueba para etiquetas type ausentes en relaciones quite actualmente no sin configurables) ambos pueden configurarse seleccionando "Ajustes del validador" en las "Preferencias". 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2017-12-21 20:27+0000\n"
+"PO-Revision-Date: 2018-01-04 18:41+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1113,7 +1113,7 @@ msgstr "Marrone"
 
 #: master_preset.xml:12361(item:name|group:Land_use|preset:Brownfield)
 msgid "Brownfield"
-msgstr ""
+msgstr "Area industriale dismessa"
 
 #: master_preset.xml:489(combo:display_values|key:religion)
 msgid "Buddhist"
@@ -3134,7 +3134,7 @@ msgstr ""
 
 #: master_preset.xml:12374(item:name|group:Land_use|preset:Greenfield)
 msgid "Greenfield"
-msgstr ""
+msgstr "Terreno edificabile"
 
 #: master_preset.xml:9763(item:name|group:Food|preset:Greengrocer)
 msgid "Greengrocer"
@@ -11791,7 +11791,7 @@ msgstr ""
 #: master_preset.xml:12307(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
 msgid "Slaughterhouse"
-msgstr ""
+msgstr "Macello"
 
 #: master_preset.xml:12307(combo:text|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"

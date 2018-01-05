@@ -48,7 +48,7 @@
   <string name="progress_searching_message">Prohledávání…</string>
   <string name="progress_saving_message">Ukládání…</string>
   <string name="progress_uploading_message">Nahrávání...</string>
-  <string name="progress_preset_message">Stahování předvoleb…</string>
+  <string name="progress_preset_message">Stahování předvolby…</string>
   <string name="progress_running_message">Běží...</string>
   <string name="progress_oauth">Načítání vašeho účtu na openstreetmap.org pro OAuth autorizaci...</string>
   <string name="upload_comment_label">Komentář:</string>
@@ -134,6 +134,7 @@
   <string name="toast_merge_overwrote_tags">Pozn. - operace přepsala tag(y)</string>
   <string name="toast_oneway_reversed">Otočili jste jednosměrnou cestu, nebo cestu se směrově závislými tagy. Zkontrolujte prosím tagy a upravte je, pokud je to nutné.</string>
   <string name="toast_potential_merge_tag_conflict">Pokoušíte se sloučit prvky, které mají konfliktní hodnoty tagů. Nejprve zkontrolujte a opravte tagy a poté to zkuste znovu.</string>
+  <string name="toast_too_many_nodes_for_move">Příliš mnoho uzlů pro přesunutí cesty</string>
   <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
   <string name="toast_photo_indexing_finished">Hledání fotografií s georeferencemi ukončeno</string>
   <string name="toast_download_failed">Stahování se nezdařilo s kódem chyby %1$d, %2$s</string>
@@ -155,6 +156,7 @@
   <string name="toast_invalid_readonlyurl">Neplatné URL API Pouze ke čtení</string>
   <string name="toast_invalid_notesurl">Neplatné URL API Poznámek</string>
   <string name="toast_no_coverage">%1$s zde nemá pokrytí</string>
+  <string name="toast_file_exists">Soubor %1$s existuje.</string>
   <string name="toast_needs_resurvey">Objekt může být neaktuální.</string>
   <string name="toast_missing_key">Klíč %1$s chybí</string>
   <string name="toast_openinghours_invalid">Neplatná hodnota otevírací doby pro %1$s</string>
@@ -162,6 +164,7 @@
   <string name="toast_exit_multiselect">Pro ukončení klepněte dvakrát na prázdné místo nebo použijte šipku zpět</string>
   <string name="toast_exit_actionmode">Pro uložení a ukončení použijte šipku zpět</string>
   <string name="toast_abort_actionmode">Pro zrušení použijte šipku zpět</string>
+  <string name="toast_string_too_long">Příliš dlouhý řetězec (%1$d znaků), zkrácen!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
@@ -182,6 +185,7 @@
   <string name="clear">Smazat</string>
   <string name="retry">Zkusit znovu</string>
   <string name="read">Načíst</string>
+  <string name="overwrite">Přepsat</string>
   <string name="share">Sdílet</string>
   <string name="share_position">Sdílet pozici</string>
   <!--Dialog for back button-->
@@ -196,12 +200,15 @@
   <string name="tag_menu_address">Přidat tagy pro adresu</string>
   <string name="tag_menu_sourcesurvey">Zjištěno průzkumem</string>
   <string name="tag_menu_preset">Předvolby</string>
+  <string name="tag_menu_apply_preset">Použít nejlepší předvolbu</string>
   <string name="tag_menu_revert">Vrátit zpět</string>
   <string name="tag_menu_mapfeatures">Wiki s možnostmi mapovaní</string>
   <string name="tag_menu_addtorelation">Přidat do relace</string>
   <string name="tag_menu_resetMRU">Resetovat předvolby</string>
   <string name="tag_menu_reset_address_prediction">Resetovat předvyplněnou adresu</string>
   <string name="tag_menu_exit_no_save">Odejít\nbez uložení</string>
+  <string name="tag_menu_top">Přejít na začátek</string>
+  <string name="tag_menu_bottom">Přejít na konec</string>
   <string name="tag_value_hint">Zadejte hodnotu</string>
   <string name="tag_autocomplete_value_hint">Pište nebo klepněte pro hodnoty</string>
   <string name="tag_autocomplete_name_hint">Pište nebo klikněte pro návrhy názvu</string>
@@ -216,6 +223,8 @@
   <string name="tag_menu_move_top">Přesunout na začátek</string>
   <string name="tag_menu_move_down">Přesunout níž</string>
   <string name="tag_menu_move_bottom">Přesunout na konec</string>
+  <string name="tag_menu_sort">Uspořádat</string>
+  <string name="tag_menu_reverse_order">Obrátit pořadí</string>
   <string name="tag_menu_download">Stáhnout</string>
   <string name="tag_menu_js_console">JS Konzole</string>
   <string name="menu_up">O úroveň výš</string>
@@ -287,6 +296,9 @@
   <string name="menu_transfer_upload">Nahrát data na OSM server</string>
   <string name="menu_transfer_close_changeset">Uzavřít aktuální sadu změn</string>
   <string name="menu_transfer_file">Soubor...</string>
+  <string name="menu_transfer_export">Exportovat změny do souboru OSC</string>
+  <string name="menu_transfer_read_file">Načíst ze souboru JOSM...</string>
+  <string name="menu_transfer_save_file">Uložit do souboru JOSM...</string>
   <string name="menu_transfer_bugs">Poznámky/Chyby...</string>
   <string name="menu_transfer_bugs_download_current">Stáhnout chyby pro aktuální pohled</string>
   <string name="menu_transfer_bugs_upload">Nahrát vše</string>
@@ -344,7 +356,7 @@
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Cesta vybrána</string>
   <string name="actionmode_nodeselect">Uzel vybrán</string>
-  <string name="actionmode_relationselect">Zvolená relace</string>
+  <string name="actionmode_relationselect">Relace vybrána</string>
   <string name="actionmode_createpath">Vytváří cestu</string>
   <string name="actionmode_multiselect">Multiselect</string>
   <!--EasyEdit action mode sub-titles-->
@@ -400,7 +412,10 @@
   <string name="listedit_enable_oauth">Povolit oauth</string>
   <string name="config_offsetServer_title">Ofset Server</string>
   <string name="config_offsetServer_summary">URL serveru s odsazením snímků</string>
+  <string name="config_osmoseServer_title">OSMOSE Server</string>
+  <string name="config_osmoseServer_summary">URL osmose serveru</string>
   <string name="config_presetbutton_title">Předvolby</string>
+  <string name="config_presetbutton_summary">Přidejte a povolte předvolby kompatibilní s JOSM</string>
   <string name="config_iconbutton_title">Zobrazit ikonky uzlů</string>
   <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předvolbě uzlu.</string>
   <string name="config_showWayIcons_title">Zobrazit ikony POI budov</string>
@@ -416,6 +431,7 @@
   <string name="config_gps_distance_current">%1$d metr</string>
   <string name="config_gps_interval_title">Minimální GPS interval</string>
   <string name="config_gps_interval_summary">Minimální čas mezi GPS notifikacemí v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_category_info">Informace</string>
   <string name="config_advancedprefs">Rozšířená nastavení</string>
   <string name="config_forceContextMenu_title">Vždy používat kontextové menu</string>
@@ -481,12 +497,13 @@
   <string name="config_js_console_title">Povolit JS konzoli</string>
   <string name="config_validatorprefs_title">Nastavení validátoru</string>
   <string name="manage_apis">Spravovat API</string>
+  <string name="manage_presets">Spravovat předvolby</string>
   <!--preset downloader messages-->
-  <string name="preset_update">Aktualizovat předlohy</string>
-  <string name="preset_download_successful">Předlohy úspešně staženy.</string>
-  <string name="preset_download_failed">Nelze stáhnout soubor předloh. Předlohy nebudou fungovat.</string>
-  <string name="preset_download_parse_failed">Neplatní soubor předloh. Předlohy nebudou fungovat.</string>
-  <string name="preset_download_missing_images">Soubor předloh úspešně stažen. Některé ikonky se nepodařilo stáhnout a budou chybět.</string>
+  <string name="preset_update">Aktualizovat předvolbu</string>
+  <string name="preset_download_successful">Předvolba úspěšně stažena</string>
+  <string name="preset_download_failed">Nelze stáhnout soubor předvoleb. Předvolby nebudou fungovat.</string>
+  <string name="preset_download_parse_failed">Neplatný soubor předvoleb. Předvolby nebudou fungovat.</string>
+  <string name="preset_download_missing_images">Soubor předvoleb úspěšně stažen. Některé ikonky se nepodařilo stáhnout a budou chybět.</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" smazáno</string>
   <string name="changes_changed">\"%1$s\" změněno</string>
@@ -495,11 +512,11 @@
   <string name="confirm_one_upload_text">Nahrát následující změnu?\n%1$s</string>
   <string name="confirm_multiple_upload_text">Nahrát následujících %1$d změn?\n%2$s</string>
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Přidat předlohu</string>
-  <string name="urldialog_preset_exists">Tato předloha již existuje.</string>
+  <string name="urldialog_add_preset">Přidat předvolbu</string>
+  <string name="urldialog_preset_exists">Tato předvolba již existuje</string>
   <string name="urldialog_preset_download_successful">Předvolba byla úspěšně stažena!</string>
   <string name="urldialog_api_exists">API s touto adresou již existuje. Mužete přidat dalši (např. pro rychlé přepínání už. účtů).</string>
-  <string name="urldialog_api_preset_missing">Předloha pro tuto API chybí. Měli byste jí nejdřive přidat.</string>
+  <string name="urldialog_api_preset_missing">Předvolba pro tuto API chybí. Měli byste jí nejdříve přidat.</string>
   <string name="urldialog_api_install_successful">Instalace API byla úspěšná!</string>
   <string name="urldialog_add_api">Přidat API</string>
   <string name="urldialog_nodata_text">Konfigurační URL neobsahuje platné ůdaje.</string>
@@ -510,6 +527,7 @@
   <string name="name">Název</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
+  <string name="regular_expression">Regulární výraz</string>
   <!---->
   <string name="empty_list">Žádné položky</string>
   <string name="api_name">Název API</string>
@@ -517,7 +535,7 @@
   <string name="readonly_url">URL API Pouze ke čtení (volitelné)</string>
   <string name="notes_url">URL API Poznámek (volitelné)</string>
   <!--"default" is a reserved Java keyword...-->
-  <string name="preset">Předloha</string>
+  <string name="preset">Předvolba</string>
   <string name="api">API</string>
   <string name="undo">Zpět</string>
   <string name="redo">Vpřed</string>
@@ -558,6 +576,9 @@
   <!--Exceptions messages-->
   <!--Notifications-->
   <string name="alert_data_issue">Zjištěn problém s OSM daty</string>
+  <string name="alert_note">Poblíž nalezena OSM poznámka</string>
+  <string name="alert_bug">Poblíž nalezena OSM chyba</string>
+  <string name="alert_distance_direction">%1$d m %2$s</string>
   <string name="bearing_ne">SV</string>
   <string name="bearing_e">V</string>
   <string name="bearing_se">JV</string>

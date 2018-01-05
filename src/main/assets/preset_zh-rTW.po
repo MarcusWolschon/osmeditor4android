@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2017-12-28 11:05+0000\n"
+"PO-Revision-Date: 2018-01-04 17:49+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -2186,7 +2186,7 @@ msgstr ""
 #: master_preset.xml:1822(combo:text|group:Waypoints|preset:Mini-Roundabout|key:direction)
 #: master_preset.xml:5083(combo:text|group:Tourism|preset:Viewpoint|key:direction)
 msgid "Direction"
-msgstr ""
+msgstr "方向"
 
 #: master_preset.xml:8787(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"
@@ -10450,7 +10450,7 @@ msgstr ""
 #: master_preset.xml:8146(combo:display_values|group:Buildings|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Bungalow"
-msgstr ""
+msgstr "平房"
 
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"

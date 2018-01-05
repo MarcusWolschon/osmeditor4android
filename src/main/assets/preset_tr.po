@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2017-12-21 20:27+0000\n"
+"PO-Revision-Date: 2018-01-05 01:15+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/openstreetmap/presets/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -3408,7 +3408,7 @@ msgstr ""
 
 #: master_preset.xml:6421(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:hospice)
 msgid "Hospice"
-msgstr ""
+msgstr "Darülaceze"
 
 #: master_preset.xml:6294(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
@@ -4388,7 +4388,7 @@ msgstr ""
 
 #: master_preset.xml:6422(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:midwife)
 msgid "Midwife"
-msgstr ""
+msgstr "Ebe"
 
 #: master_preset.xml:635(list_entry:display_value|value:migrant)
 msgid "Migrants"
@@ -4659,7 +4659,7 @@ msgstr ""
 
 #: master_preset.xml:6283(item:name|group:Education|preset:Music_School)
 msgid "Music School"
-msgstr ""
+msgstr "Müzik Okulu"
 
 #: master_preset.xml:5678(item:name|group:Culture|preset:Music_theatres)
 msgid "Music theatres"
@@ -6386,7 +6386,7 @@ msgstr ""
 
 #: master_preset.xml:6990(item:name|group:Facilities|preset:Recycling_Container)
 msgid "Recycling Container"
-msgstr ""
+msgstr "Geri Dönüşüm Kutusu"
 
 #: master_preset.xml:750(combo:display_values|key:roof:colour)
 #: master_preset.xml:786(combo:display_values|key:building:colour)

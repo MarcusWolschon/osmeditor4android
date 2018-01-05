@@ -2,13 +2,13 @@
 <resources>
     <string name="help_introduction">Úvod</string>
     <string name="help_main">Hlavní obrazovka s mapou</string>
-    <string name="help_addrelationmember">Zvolená relace</string>
+    <string name="help_addrelationmember">Relace vybrána</string>
     <string name="help_multiselect">Multiselect</string>
     <string name="help_longclick">Vytváření nových objektů</string>
-    <string name="help_nodeselection">Zvolený uzel</string>
+    <string name="help_nodeselection">Uzel vybrán</string>
     <string name="help_pathcreation">Vytváření nových objektů</string>
-    <string name="help_relationselection">Zvolená relace</string>
-    <string name="help_wayselection">Zvolená cesta</string>
+    <string name="help_relationselection">Relace vybrána</string>
+    <string name="help_wayselection">Cesta vybrána</string>
     <string name="help_aligningbackgroundiamgery">Zarovnávání snímků pozadí</string>
     <string name="help_propertyeditor">Editor vlastností</string>
     <string name="help_presets">Předvolby</string>
