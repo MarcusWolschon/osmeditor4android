@@ -1,7 +1,7 @@
 package de.blau.android.tasks;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.os.Build;
@@ -309,13 +309,13 @@ public class TaskFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
         try {
-            mListener = (UpdateViewListener) activity;
+            mListener = (UpdateViewListener)context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
+            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
         }
     }
 

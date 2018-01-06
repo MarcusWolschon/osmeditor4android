@@ -1,6 +1,6 @@
 package de.blau.android.dialogs;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -70,11 +70,11 @@ public class InvalidLogin extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
-        if (!(activity instanceof Main)) {
-            throw new ClassCastException(activity.toString() + " can ownly be called from Main");
+        if (!(context instanceof Main)) {
+            throw new ClassCastException(context.toString() + " can only be called from Main");
         }
     }
 

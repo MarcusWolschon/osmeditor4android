@@ -141,13 +141,13 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
         try {
-            saveListener = (OnSaveListener) activity;
+            saveListener = (OnSaveListener)context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnSaveListener");
+            throw new ClassCastException(context.toString() + " must implement OnSaveListener");
         }
     }
 

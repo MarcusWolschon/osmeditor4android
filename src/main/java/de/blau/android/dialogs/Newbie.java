@@ -72,7 +72,7 @@ public class Newbie extends DialogFragment {
         Log.d(DEBUG_TAG, "onAttach");
         super.onAttach(context);
         if (!(context instanceof Main)) {
-            throw new ClassCastException(context.toString() + " can ownly be called from Main");
+            throw new ClassCastException(context.toString() + " can only be called from Main");
         }
         main = (Main)context;
     }
