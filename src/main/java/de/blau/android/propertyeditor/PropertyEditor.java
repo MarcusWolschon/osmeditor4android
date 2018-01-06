@@ -277,9 +277,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         // tags
         ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<>();
         originalTags = new ArrayList<>();
-        for (int i = 0; i < loadData.length; i++) {
-            originalTags.add((LinkedHashMap<String, String>) (loadData[i].originalTags != null ? loadData[i].originalTags : loadData[i].tags));
-            tags.add((LinkedHashMap<String, String>) loadData[i].tags);
+        for (PropertyEditorData aLoadData : loadData) {
+            originalTags.add((LinkedHashMap<String, String>) (aLoadData.originalTags != null ? aLoadData.originalTags : aLoadData.tags));
+            tags.add((LinkedHashMap<String, String>) aLoadData.tags);
         }
 
         if (loadData.length == 1) { // for now no support of relations and form for multi-select

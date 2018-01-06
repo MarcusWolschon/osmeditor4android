@@ -121,10 +121,10 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             ((RelationMembersFragment) caller).setIcons();
             return true;
         case MENU_ITEM_MOVE_TOP:
-            change = selectedPos.get(0).intValue();
+            change = selectedPos.get(0);
         case MENU_ITEM_MOVE_UP:
             for (int i = 0; i < selectedCount; i++) {
-                int p = selectedPos.get(i).intValue();
+                int p = selectedPos.get(i);
                 int newPos = p - change;
                 rows.removeViewAt(p);
                 if (newPos < 0) {
@@ -145,10 +145,10 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             ((RelationMembersFragment) caller).setIcons();
             return true;
         case MENU_ITEM_MOVE_BOTTOM:
-            change = size - selectedPos.get(selectedCount - 1).intValue() - 1;
+            change = size - selectedPos.get(selectedCount - 1) - 1;
         case MENU_ITEM_MOVE_DOWN:
             for (int i = selectedCount - 1; i >= 0; i--) {
-                int p = selectedPos.get(i).intValue();
+                int p = selectedPos.get(i);
                 int newPos = p + change;
                 rows.removeViewAt(p);
                 if (newPos > size - 1) {
@@ -172,7 +172,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
         case MENU_ITEM_SORT:
             List<RelationMemberDescription> rmds = new ArrayList<>();
             Map<RelationMemberDescription, RelationMemberRow> relationMemberRows = new HashMap<>();
-            int top = selectedPos.get(0).intValue();
+            int top = selectedPos.get(0);
             for (int i = 0; i < selectedCount; i++) {
                 RelationMemberRow row = selected.get(i);
                 RelationMemberDescription rmd = row.getRelationMemberDescription();
@@ -192,7 +192,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             ((RelationMembersFragment) caller).setIcons();
             return true;
         case MENU_ITEM_REVERSE_ORDER:
-            top = selectedPos.get(0).intValue();
+            top = selectedPos.get(0);
             List<RelationMemberRow> temp = new ArrayList<>(selected);
             Collections.reverse(temp);
             for (RelationMemberRow row : selected) {
@@ -272,6 +272,6 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
     }
 
     private boolean forceScroll(Integer pos, int size) {
-        return pos.intValue() < 3 || pos.intValue() > (size - 4);
+        return pos < 3 || pos > (size - 4);
     }
 }

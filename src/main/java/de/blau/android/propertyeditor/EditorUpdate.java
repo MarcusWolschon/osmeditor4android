@@ -82,7 +82,7 @@ interface EditorUpdate {
      */
     void applyTagSuggestions(Names.TagMap tags);
 
-    /**
+    /*
      * Copy/Cut/Paste related stuff
      */
     /**

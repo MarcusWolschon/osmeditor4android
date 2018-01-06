@@ -262,8 +262,7 @@ public class LongHashSet implements Serializable {
     public long[] values() {
         int found = 0;
         long[] result = new long[m_size];
-        for (int i = 0; i < m_data.length; i++) {
-            long v = m_data[i];
+        for (long v : m_data) {
             if (v != FREE_KEY) {
                 result[found] = v;
                 found++;

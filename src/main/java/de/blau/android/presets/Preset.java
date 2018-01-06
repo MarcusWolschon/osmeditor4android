@@ -965,7 +965,7 @@ public class Preset implements Serializable {
             if (pi != null) {
                 String n = pi.getName();
                 if (n != null && n.equals(name)) {
-                    return Integer.valueOf(pi.getItemIndex());
+                    return pi.getItemIndex();
                 }
             }
         }
@@ -983,7 +983,7 @@ public class Preset implements Serializable {
     public PresetItem getItemByName(@NonNull String name) {
         Integer index = getItemIndexByName(name);
         if (index != null) {
-            return allItems.get(index.intValue());
+            return allItems.get(index);
         }
         return null;
     }
@@ -1081,7 +1081,7 @@ public class Preset implements Serializable {
         for (Preset p : presets) {
             if (p != null && p.hasMRU()) {
                 for (Integer index : p.mru.recentPresets) {
-                    recent.addElement(p.allItems.get(index.intValue()));
+                    recent.addElement(p.allItems.get(index));
                 }
             }
         }
@@ -1103,7 +1103,7 @@ public class Preset implements Serializable {
         if (!mru.recentPresets.remove(id)) { // calling remove(Object), i.e. removing the number if it is in the list,
                                              // not the i-th item
             // preset is not in the list, add linked presets first
-            PresetItem pi = allItems.get(id.intValue());
+            PresetItem pi = allItems.get(id);
             if (pi.getLinkedPresetNames() != null) {
                 LinkedList<String> linkedPresetNames = new LinkedList<>(pi.getLinkedPresetNames());
                 Collections.reverse(linkedPresetNames);
@@ -2339,7 +2339,7 @@ public class Preset implements Serializable {
                 linkedLoop: for (String n : linkedPresetNames) {
                     Integer index = getItemIndexByName(n); // FIXME this involves a sequential search
                     if (index != null) {
-                        PresetItem candidateItem = allItems.get(index.intValue());
+                        PresetItem candidateItem = allItems.get(index);
                         if (noPrimary) { // remove primary objects
                             Set<String> linkedPresetTags = candidateItem.getFixedTags().keySet();
                             if (linkedPresetTags.isEmpty()) {

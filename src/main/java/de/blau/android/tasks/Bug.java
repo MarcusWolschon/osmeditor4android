@@ -61,12 +61,12 @@ public abstract class Bug extends Task implements Serializable {
         return "Bug: " + (subtitle != null && subtitle.length() != 0 ? subtitle : title);
     }
 
-    @Override
     /**
      * Get the timestamp of the most recent change.
      * 
      * @return The timestamp of the most recent change.
      */
+    @Override
     public Date getLastUpdate() {
         return update;
     }

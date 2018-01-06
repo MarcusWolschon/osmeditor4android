@@ -194,7 +194,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     private void preCacheTile(final MapTile aTile, long owner) {
         if (mTileService != null && !pending.containsKey(aTile.toId())) {
             try {
-                pending.put(aTile.toId(), Long.valueOf(owner));
+                pending.put(aTile.toId(), owner);
                 mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
             } catch (RemoteException e) {
                 Log.e(DEBUG_TAG, "RemoteException in preCacheTile()", e);

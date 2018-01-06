@@ -978,7 +978,7 @@ public class DataStyle extends DefaultHandler {
                 tempPhase = Float.parseFloat(atts.getValue("phase"));
                 tempIntervals = new ArrayList<>();
             } else if (element.equals("interval")) {
-                tempIntervals.add(Float.valueOf(Float.parseFloat(atts.getValue("length"))));
+                tempIntervals.add(Float.parseFloat(atts.getValue("length")));
             }
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Parse Exception", e);
@@ -1009,7 +1009,7 @@ public class DataStyle extends DefaultHandler {
         } else if (element.equals("dash")) {
             float[] tIntervals = new float[tempIntervals.size()];
             for (int i = 0; i < tIntervals.length; i++) {
-                tIntervals[i] = tempIntervals.get(i).floatValue();
+                tIntervals[i] = tempIntervals.get(i);
             }
             tempFeatureStyle.setDashPath(tIntervals, tempPhase);
         } else // noinspection StatementWithEmptyBody

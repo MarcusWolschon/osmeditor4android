@@ -111,7 +111,7 @@ public class Photo implements BoundedObject {
             Double S1 = Double.valueOf(stringS[1]);
             Double FloatS = S0 / S1;
 
-            result = new Float(FloatD + (FloatM / 60) + (FloatS / 3600));
+            result = (float) (FloatD + (FloatM / 60) + (FloatS / 3600));
 
             return result;
         } catch (Exception ex) {

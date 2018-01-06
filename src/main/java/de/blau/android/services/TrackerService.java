@@ -613,14 +613,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                             if (values.length == 13) {
                                 try {
                                     String value6 = values[6].toUpperCase(Locale.US);
-                                    if ((!value6.startsWith("NN") || !value6.equals("N")) && Integer.parseInt(values[7]) >= 4) { // at
-                                                                                                                                 // least
-                                                                                                                                 // one
-                                                                                                                                 // "good"
-                                                                                                                                 // system
-                                                                                                                                 // needs
-                                                                                                                                 // a
-                                                                                                                                 // fix
+                                    if ((!value6.startsWith("NN") || !value6.equals("N")) && Integer.parseInt(values[7]) >= 4) {
+                                        // at least one "good" system needs a fix
                                         lat = nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
                                         lon = nmeaLonToDecimal(values[4]) * (values[5].equalsIgnoreCase("E") ? 1 : -1);
                                         // hdop = Double.parseDouble(values[8]);
@@ -681,15 +675,19 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                         // and assume multiple systems are better than GPS which in turn is better the GLONASS ... this
                         // naturally may not be really true
                         if (system == GnssSystem.NONE) { // take whatever we get
-                            if (talker.equals("GP")) {
-                                system = GnssSystem.GPS;
-                            } else if (talker.equals("GL")) {
-                                system = GnssSystem.GLONASS;
-                            } else if (talker.equals("GN")) {
-                                system = GnssSystem.MULTIPLE;
-                            } else {
-                                // new system we don't know about? BEIDOU probably best ignored for now
-                                return;
+                            switch (talker) {
+                                case "GP":
+                                    system = GnssSystem.GPS;
+                                    break;
+                                case "GL":
+                                    system = GnssSystem.GLONASS;
+                                    break;
+                                case "GN":
+                                    system = GnssSystem.MULTIPLE;
+                                    break;
+                                default:
+                                    // new system we don't know about? BEIDOU probably best ignored for now
+                                    return;
                             }
                         } else if (system == GnssSystem.GLONASS) {
                             if (talker.equals("GP")) {

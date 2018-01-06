@@ -130,7 +130,7 @@ public class ValidatorRulesUI {
                 @Override
                 public void onClick(View v) {
                     Integer id = (Integer) view.getTag();
-                    showResurveyDialog(context, db, true, id != null ? id.intValue() : -1);
+                    showResurveyDialog(context, db, true, id != null ? id : -1);
                 }
             });
         }
@@ -259,7 +259,7 @@ public class ValidatorRulesUI {
                 @Override
                 public void onClick(View v) {
                     Integer id = (Integer) view.getTag();
-                    showCheckDialog(context, db, true, id != null ? id.intValue() : -1);
+                    showCheckDialog(context, db, true, id != null ? id : -1);
                 }
             });
         }

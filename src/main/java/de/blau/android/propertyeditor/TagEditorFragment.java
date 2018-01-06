@@ -198,9 +198,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         args.putSerializable(ELEMENTS_KEY, elements);
         args.putSerializable(TAGS_KEY, tags);
-        args.putSerializable(APPLY_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
+        args.putSerializable(APPLY_LAST_ADDRESS_TAGS, applyLastAddressTags);
         args.putSerializable(FOCUS_ON_KEY, focusOnKey);
-        args.putSerializable(DISPLAY_MR_UPRESETS, Boolean.valueOf(displayMRUpresets));
+        args.putSerializable(DISPLAY_MR_UPRESETS, displayMRUpresets);
         args.putSerializable(EXTRA_TAGS, extraTags);
         args.putSerializable(PRESETSTOAPPLY_KEY, presetsToApply);
 
@@ -248,9 +248,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             // No previous state to restore - get the state from the intent
             Log.d(DEBUG_TAG, "Initializing from original arguments");
             elements = (OsmElement[]) getArguments().getSerializable(ELEMENTS_KEY);
-            applyLastAddressTags = ((Boolean) getArguments().getSerializable(APPLY_LAST_ADDRESS_TAGS)).booleanValue();
+            applyLastAddressTags = (Boolean) getArguments().getSerializable(APPLY_LAST_ADDRESS_TAGS);
             focusOnKey = (String) getArguments().getSerializable(FOCUS_ON_KEY);
-            displayMRUpresets = ((Boolean) getArguments().getSerializable(DISPLAY_MR_UPRESETS)).booleanValue();
+            displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MR_UPRESETS);
         } else {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
@@ -800,15 +800,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                             continue;
                         }
                         if (counter.containsKey(t)) {
-                            counter.put(t, Integer.valueOf(counter.get(t).intValue() + 1));
+                            counter.put(t, counter.get(t) + 1);
                         } else {
-                            counter.put(t, Integer.valueOf(1));
+                            counter.put(t, 1);
                         }
                     }
                     ArrayList<String> keys = new ArrayList<>(counter.keySet());
                     Collections.sort(keys);
                     for (String t : keys) {
-                        ValueWithCount v = new ValueWithCount(t, counter.get(t).intValue()); // FIXME determine
+                        ValueWithCount v = new ValueWithCount(t, counter.get(t)); // FIXME determine
                                                                                              // description in some way
                         adapter2.add(v);
                     }

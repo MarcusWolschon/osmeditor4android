@@ -255,14 +255,19 @@ public class Search {
             reader.beginObject();
             while (reader.hasNext()) {
                 String jsonName = reader.nextName();
-                if (jsonName.equals("lat")) {
-                    result.setLat(reader.nextDouble());
-                } else if (jsonName.equals("lon")) {
-                    result.setLon(reader.nextDouble());
-                } else if (jsonName.equals("display_name")) {
-                    result.display_name = reader.nextString();
-                } else {
-                    reader.skipValue();
+                switch (jsonName) {
+                    case "lat":
+                        result.setLat(reader.nextDouble());
+                        break;
+                    case "lon":
+                        result.setLon(reader.nextDouble());
+                        break;
+                    case "display_name":
+                        result.display_name = reader.nextString();
+                        break;
+                    default:
+                        reader.skipValue();
+                        break;
                 }
             }
             reader.endObject();

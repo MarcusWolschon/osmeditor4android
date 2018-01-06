@@ -362,7 +362,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             public int compare(ImageryOffset offset1, ImageryOffset offset2) {
                 double d1 = GeoMath.haversineDistance(centerLon, centerLat, offset1.lon, offset1.lat);
                 double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.lon, offset2.lat);
-                return Double.valueOf(d1).compareTo(Double.valueOf(d2));
+                return Double.valueOf(d1).compareTo(d2);
             }
         };
         PostAsyncActionHandler handler = new PostAsyncActionHandler() {
@@ -387,7 +387,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         double wm = GeoMath.haversineDistance(bbox.getLeft() / 1E7d, centerLat, bbox.getRight() / 1E7d, centerLat);
         int radius = (int) Math.max(1, Math.round(Math.min(hm, wm) / 2000d)); // convert to km and make it at least 1
                                                                               // and /2 for radius
-        loader.execute(centerLat, centerLon, Double.valueOf(radius));
+        loader.execute(centerLat, centerLon, (double) radius);
     }
 
     private void saveOffsetsToDB() {
@@ -479,34 +479,49 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         reader.beginObject();
         while (reader.hasNext()) {
             String jsonName = reader.nextName();
-            if (jsonName.equals("type")) {
-                type = reader.nextString();
-            } else if (jsonName.equals("id")) {
-                result.id = reader.nextLong();
-            } else if (jsonName.equals("lat")) {
-                result.lat = reader.nextDouble();
-            } else if (jsonName.equals("lon")) {
-                result.lon = reader.nextDouble();
-            } else if (jsonName.equals("author")) {
-                result.author = reader.nextString();
-            } else if (jsonName.equals("date")) {
-                result.date = reader.nextString();
-            } else if (jsonName.equals("imagery")) {
-                result.imageryId = reader.nextString();
-            } else if (jsonName.equals("imlat")) {
-                result.imageryLat = reader.nextDouble();
-            } else if (jsonName.equals("imlon")) {
-                result.imageryLon = reader.nextDouble();
-            } else if (jsonName.equals("min-zoom")) {
-                result.minZoom = reader.nextInt();
-            } else if (jsonName.equals("max-zoom")) {
-                result.maxZoom = reader.nextInt();
-            } else if (jsonName.equals("description")) {
-                result.description = reader.nextString();
-            } else if (jsonName.equals("deprecated")) {
-                result.deprecated = readDeprecated(reader);
-            } else {
-                reader.skipValue();
+            switch (jsonName) {
+                case "type":
+                    type = reader.nextString();
+                    break;
+                case "id":
+                    result.id = reader.nextLong();
+                    break;
+                case "lat":
+                    result.lat = reader.nextDouble();
+                    break;
+                case "lon":
+                    result.lon = reader.nextDouble();
+                    break;
+                case "author":
+                    result.author = reader.nextString();
+                    break;
+                case "date":
+                    result.date = reader.nextString();
+                    break;
+                case "imagery":
+                    result.imageryId = reader.nextString();
+                    break;
+                case "imlat":
+                    result.imageryLat = reader.nextDouble();
+                    break;
+                case "imlon":
+                    result.imageryLon = reader.nextDouble();
+                    break;
+                case "min-zoom":
+                    result.minZoom = reader.nextInt();
+                    break;
+                case "max-zoom":
+                    result.maxZoom = reader.nextInt();
+                    break;
+                case "description":
+                    result.description = reader.nextString();
+                    break;
+                case "deprecated":
+                    result.deprecated = readDeprecated(reader);
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
             }
         }
         reader.endObject();
@@ -522,14 +537,19 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         reader.beginObject();
         while (reader.hasNext()) {
             String jsonName = reader.nextName();
-            if (jsonName.equals("author")) {
-                result.author = reader.nextString();
-            } else if (jsonName.equals("reason")) {
-                result.reason = reader.nextString();
-            } else if (jsonName.equals("date")) {
-                result.date = reader.nextString();
-            } else {
-                reader.skipValue();
+            switch (jsonName) {
+                case "author":
+                    result.author = reader.nextString();
+                    break;
+                case "reason":
+                    result.reason = reader.nextString();
+                    break;
+                case "date":
+                    result.date = reader.nextString();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
             }
         }
         reader.endObject();

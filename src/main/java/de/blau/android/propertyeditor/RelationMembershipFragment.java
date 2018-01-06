@@ -152,7 +152,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         if (parents != null && parents.size() > 0) {
             StorageDelegator storageDelegator = App.getDelegator();
             for (Entry<Long, String> entry : parents.entrySet()) {
-                Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, entry.getKey().longValue());
+                Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, entry.getKey());
                 insertNewMembership(membershipVerticalLayout, entry.getValue(), r, 0, false);
             }
         }
@@ -511,7 +511,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             @Override
             public void handleParentRelation(final EditText roleEdit, final long relationId) {
                 String role = roleEdit.getText().toString().trim();
-                parents.put(Long.valueOf(relationId), role);
+                parents.put(relationId, role);
             }
         });
         return parents;

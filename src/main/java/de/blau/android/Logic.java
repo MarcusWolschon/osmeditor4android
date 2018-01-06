@@ -1278,9 +1278,7 @@ public class Logic {
                     }
                 }
                 if (selectedNodes != null && !selectedNodes.isEmpty()) {
-                    for (Node n : selectedNodes) {
-                        nodes.add(n);
-                    }
+                    nodes.addAll(selectedNodes);
                 }
 
                 displayAttachedObjectWarning(main, nodes);
@@ -3139,15 +3137,15 @@ public class Logic {
                     if (map != null) {
                         viewBox.setBorders(map, getDelegator().getLastBox());
                     }
-                    return Integer.valueOf(READ_OK);
+                    return READ_OK;
                 } else if (getDelegator().readFromFile(activity, StorageDelegator.FILENAME + ".backup")) {
                     getDelegator().dirty(); // we need to overwrite the saved state asap
                     if (map != null) {
                         viewBox.setBorders(map, getDelegator().getLastBox());
                     }
-                    return Integer.valueOf(READ_BACKUP);
+                    return READ_BACKUP;
                 }
-                return Integer.valueOf(READ_FAILED);
+                return READ_FAILED;
             }
 
             @Override
@@ -3158,7 +3156,7 @@ public class Logic {
                 } catch (Exception ex) {
                     Log.e(DEBUG_TAG, "loadFromFile dismiss dialog failed with " + ex);
                 }
-                if (result.intValue() != READ_FAILED) {
+                if (result != READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadfromFile: File read correctly");
                     if (map != null) {
                         try {
@@ -3184,7 +3182,7 @@ public class Logic {
                     }
                     // this updates the Undo icon if present
                     activity.supportInvalidateOptionsMenu();
-                    if (result.intValue() == READ_BACKUP) {
+                    if (result == READ_BACKUP) {
                         Snack.barError(activity, R.string.toast_used_backup);
                     }
                 } else {
@@ -3224,22 +3222,22 @@ public class Logic {
             protected Integer doInBackground(Void... v) {
                 if (App.getTaskStorage().readFromFile(activity)) {
                     // viewBox.setBorders(getDelegator().getLastBox());
-                    return Integer.valueOf(READ_OK);
+                    return READ_OK;
                 }
-                return Integer.valueOf(READ_FAILED);
+                return READ_FAILED;
             }
 
             @Override
             protected void onPostExecute(Integer result) {
                 Log.d(DEBUG_TAG, "loadBugsFromFile onPostExecute");
-                if (result.intValue() != READ_FAILED) {
+                if (result != READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadBugsfromFile: File read correctly");
 
                     // FIXME if no bbox exists from data, ty to use one from bugs
                     if (postLoad != null) {
                         postLoad.onSuccess();
                     }
-                    if (result.intValue() == READ_BACKUP) {
+                    if (result == READ_BACKUP) {
                         Snack.barError(activity, R.string.toast_used_bug_backup);
                     }
                 } else {

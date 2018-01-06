@@ -1848,12 +1848,12 @@ public class StorageDelegator implements Serializable, Exportable {
         ArrayList<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<Relation>();
 
         for (Relation o : origParents) { // find changes to existing memberships
-            if (!parents.containsKey(Long.valueOf(o.getOsmId()))) {
+            if (!parents.containsKey(o.getOsmId())) {
                 removeElementFromRelation(e, o); // saves undo state
                 continue;
             }
-            if (parents.containsKey(Long.valueOf(o.getOsmId()))) {
-                String newRole = parents.get(Long.valueOf(o.getOsmId()));
+            if (parents.containsKey(o.getOsmId())) {
+                String newRole = parents.get(o.getOsmId());
                 if (!o.getMember(e).getRole().equals(newRole)) {
                     setRole(e, newRole, o);
                 }
@@ -1861,7 +1861,7 @@ public class StorageDelegator implements Serializable, Exportable {
         }
         // add as new member to relation
         for (Entry<Long, String> entry : parents.entrySet()) {
-            long l = entry.getKey().longValue();
+            long l = entry.getKey();
             Log.d(DEBUG_TAG, "updateParentRelations new parent " + l);
             if (l != -1) { //
                 Relation r = (Relation) currentStorage.getOsmElement(Relation.NAME, l);

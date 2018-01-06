@@ -454,21 +454,28 @@ public class Track extends DefaultHandler {
     @Override
     public void startElement(final String uri, final String element, final String qName, final Attributes atts) {
         try {
-            if (element.equals("gpx")) {
-                state = State.NONE;
-                Log.d("Track", "parsing gpx");
-            } else if (element.equals("trk")) {
-                Log.d("Track", "parsing trk");
-            } else if (element.equals("trkseg")) {
-                Log.d("Track", "parsing trkseg");
-                newSegment = true;
-            } else if (element.equals("trkpt")) {
-                parsedLat = Double.parseDouble(atts.getValue("lat"));
-                parsedLon = Double.parseDouble(atts.getValue("lon"));
-            } else if (element.equals("time")) {
-                state = State.TIME;
-            } else if (element.equals("ele")) {
-                state = State.ELE;
+            switch (element) {
+                case "gpx":
+                    state = State.NONE;
+                    Log.d("Track", "parsing gpx");
+                    break;
+                case "trk":
+                    Log.d("Track", "parsing trk");
+                    break;
+                case "trkseg":
+                    Log.d("Track", "parsing trkseg");
+                    newSegment = true;
+                    break;
+                case "trkpt":
+                    parsedLat = Double.parseDouble(atts.getValue("lat"));
+                    parsedLon = Double.parseDouble(atts.getValue("lon"));
+                    break;
+                case "time":
+                    state = State.TIME;
+                    break;
+                case "ele":
+                    state = State.ELE;
+                    break;
             }
         } catch (Exception e) {
             Log.e("Profil", "Parse Exception", e);
@@ -508,18 +515,25 @@ public class Track extends DefaultHandler {
 
     @Override
     public void endElement(final String uri, final String element, final String qName) {
-        if (element.equals("gpx")) {
-        } else if (element.equals("trk")) {
-        } else if (element.equals("trkseg")) {
-        } else if (element.equals("trkpt")) {
-            track.add(new TrackPoint(newSegment ? TrackPoint.FLAG_NEWSEGMENT : 0, parsedLat, parsedLon, parsedEle, parsedTime));
-            newSegment = false;
-            parsedEle = Double.NaN;
-            parsedTime = 0L;
-        } else if (element.equals("time")) {
-            state = State.NONE;
-        } else if (element.equals("ele")) {
-            state = State.NONE;
+        switch (element) {
+            case "gpx":
+                break;
+            case "trk":
+                break;
+            case "trkseg":
+                break;
+            case "trkpt":
+                track.add(new TrackPoint(newSegment ? TrackPoint.FLAG_NEWSEGMENT : 0, parsedLat, parsedLon, parsedEle, parsedTime));
+                newSegment = false;
+                parsedEle = Double.NaN;
+                parsedTime = 0L;
+                break;
+            case "time":
+                state = State.NONE;
+                break;
+            case "ele":
+                state = State.NONE;
+                break;
         }
     }
 

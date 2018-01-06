@@ -75,15 +75,15 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
                     continue;
                 }
                 if (counter.containsKey(t)) {
-                    counter.put(t, Integer.valueOf(counter.get(t).intValue() + 1));
+                    counter.put(t, counter.get(t) + 1);
                 } else {
-                    counter.put(t, Integer.valueOf(1));
+                    counter.put(t, 1);
                 }
             }
             ArrayList<String> keys = new ArrayList<>(counter.keySet());
             Collections.sort(keys);
             for (String t : keys) {
-                ValueWithCount v = new ValueWithCount(t, counter.get(t).intValue());
+                ValueWithCount v = new ValueWithCount(t, counter.get(t));
                 super.add(v);
             }
         }

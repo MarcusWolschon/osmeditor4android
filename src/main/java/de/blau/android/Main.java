@@ -3606,10 +3606,10 @@ public class Main extends FullScreenAppCompatActivity
 
     }
 
-    @Override
     /**
      * Workaround for bug mentioned below
      */
+    @Override
     public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
         // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
         final ActionMode mode = super.startSupportActionMode(callback);

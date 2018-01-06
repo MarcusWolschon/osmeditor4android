@@ -66,11 +66,11 @@ public class ElementSearch {
                             // way already in list - keep shortest distance
                             if (distance < distancesByNames.get(name)) {
                                 distancesByNames.put(name, distance);
-                                idsByStreetNames.put(name, Long.valueOf(iD));
+                                idsByStreetNames.put(name, iD);
                             }
                         } else {
                             distancesByNames.put(name, distance);
-                            idsByStreetNames.put(name, Long.valueOf(iD));
+                            idsByStreetNames.put(name, iD);
                         }
                     }
                 }
@@ -110,7 +110,7 @@ public class ElementSearch {
         Log.d(DEBUG_STREET_TAG, "looking for " + name);
         Long iD = idsByStreetNames.get(name);
         if (iD != null) {
-            return iD.longValue();
+            return iD;
         } else {
             throw new OsmException("way not found in adapter");
         }
@@ -146,12 +146,12 @@ public class ElementSearch {
                             // way already in list - keep shortest distance
                             if (distance < distancesByName.get(name)) {
                                 distancesByName.put(name, distance);
-                                idsByPlaceNames.put(name, Long.valueOf(iD));
+                                idsByPlaceNames.put(name, iD);
                                 typeByPlaceNames.put(name, Way.NAME);
                             }
                         } else {
                             distancesByName.put(name, distance);
-                            idsByPlaceNames.put(name, Long.valueOf(iD));
+                            idsByPlaceNames.put(name, iD);
                             typeByPlaceNames.put(name, Way.NAME);
                         }
                     }
@@ -178,12 +178,12 @@ public class ElementSearch {
                             // way already in list - keep shortest distance
                             if (distance < distancesByName.get(name)) {
                                 distancesByName.put(name, distance);
-                                idsByPlaceNames.put(name, Long.valueOf(iD));
+                                idsByPlaceNames.put(name, iD);
                                 typeByPlaceNames.put(name, Node.NAME);
                             }
                         } else {
                             distancesByName.put(name, distance);
-                            idsByPlaceNames.put(name, Long.valueOf(iD));
+                            idsByPlaceNames.put(name, iD);
                             typeByPlaceNames.put(name, Node.NAME);
                         }
                     }
@@ -217,7 +217,7 @@ public class ElementSearch {
         }
         Long iD = idsByPlaceNames.get(name);
         if (iD != null) {
-            return iD.longValue();
+            return iD;
         } else {
             throw new OsmException("object not found in adapter");
         }

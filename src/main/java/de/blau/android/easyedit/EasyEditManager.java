@@ -2186,8 +2186,6 @@ public class EasyEditManager {
         }
 
         @Override
-        /**
-         */
         public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be
                                                                 // clicked
             super.handleElementClick(element);

@@ -476,8 +476,8 @@ public class Util {
     public static void sanitizeString(@Nullable Activity activity, @NonNull Editable s, int maxStringLength) {
         // remove formating from pastes etc
         CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
-        for (int i = 0; i < toBeRemovedSpans.length; i++) {
-            s.removeSpan(toBeRemovedSpans[i]);
+        for (CharacterStyle toBeRemovedSpan : toBeRemovedSpans) {
+            s.removeSpan(toBeRemovedSpan);
         }
 
         // truncate if longer than max supported string length
@@ -502,7 +502,7 @@ public class Util {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             return Long.compare(x, y);
         }
-        return Long.valueOf(x).compareTo(Long.valueOf(y));
+        return Long.valueOf(x).compareTo(y);
     }
 
     /**

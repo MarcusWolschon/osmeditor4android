@@ -35,12 +35,13 @@ public class Capabilities {
         if (s == null) {
             return Status.OFFLINE;
         }
-        if (s.equals("online")) {
-            return Status.ONLINE;
-        } else if (s.equals("readonly")) {
-            return Status.READONLY;
-        } else {
-            return Status.OFFLINE;
+        switch (s) {
+            case "online":
+                return Status.ONLINE;
+            case "readonly":
+                return Status.READONLY;
+            default:
+                return Status.OFFLINE;
         }
     }
 

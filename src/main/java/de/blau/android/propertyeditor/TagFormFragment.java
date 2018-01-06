@@ -132,8 +132,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
         Bundle args = new Bundle();
 
-        args.putSerializable(DISPLAY_MRU_PRESETS, Boolean.valueOf(displayMRUpresets));
-        args.putSerializable(FOCUS_ON_ADDRESS, Boolean.valueOf(focusOnAddress));
+        args.putSerializable(DISPLAY_MRU_PRESETS, displayMRUpresets);
+        args.putSerializable(FOCUS_ON_ADDRESS, focusOnAddress);
         args.putSerializable(FOCUS_TAG, focusTag);
         args.putSerializable(ASK_FOR_NAME, askForName);
 
@@ -182,10 +182,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         this.inflater = inflater;
         rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, container, false);
 
-        boolean displayMRUpresets = ((Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS)).booleanValue();
-        focusOnAddress = ((Boolean) getArguments().getSerializable(FOCUS_ON_ADDRESS)).booleanValue();
+        boolean displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS);
+        focusOnAddress = (Boolean) getArguments().getSerializable(FOCUS_ON_ADDRESS);
         focusTag = getArguments().getString(FOCUS_TAG);
-        askForName = ((Boolean) getArguments().getSerializable(ASK_FOR_NAME)).booleanValue();
+        askForName = (Boolean) getArguments().getSerializable(ASK_FOR_NAME);
         // Log.d(DEBUG_TAG,"element " + element + " tags " + tags);
 
         if (getUserVisibleHint()) { // don't request focus if we are not visible
@@ -329,7 +329,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             if (counter != null && counter.containsKey(s.getValue())) {
                                 continue; // skip stuff that is already listed
                             }
-                            counter.put(s.getValue(), Integer.valueOf(1));
+                            counter.put(s.getValue(), 1);
                             adapter2.add(new ValueWithCount(s.getValue(), s.getDescription(), true));
                         }
                         Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));

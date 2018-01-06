@@ -415,7 +415,7 @@ public class Address implements Serializable {
                 float incCount = 0;
                 ArrayList<Integer> numbers = new ArrayList<>(list.keySet());
                 for (int i = 0; i < numbers.size() - 1; i++) {
-                    int diff = numbers.get(i + 1).intValue() - numbers.get(i).intValue();
+                    int diff = numbers.get(i + 1) - numbers.get(i);
                     if (diff > 0 && diff <= 2) {
                         incTotal = incTotal + diff;
                         incCount++;
@@ -492,11 +492,11 @@ public class Address implements Serializable {
                     // "inc " + inc + " prev " + prev + " post " + post + " side " + side, Toast.LENGTH_LONG).show();
                     Log.d(DEBUG_TAG, "Predicted " + newNumber + " first " + firstNumber + " last " + lastNumber + " nearest " + nearest + " inc " + inc
                             + " prev " + prev + " post " + post + " side " + side);
-                    if (numbers.contains(Integer.valueOf(newNumber))) {
+                    if (numbers.contains(newNumber)) {
                         // try one inc more and one less, if they both fail use the original number
-                        if (!numbers.contains(Integer.valueOf(Math.max(1, newNumber + inc)))) {
+                        if (!numbers.contains(Math.max(1, newNumber + inc))) {
                             newNumber = Math.max(1, newNumber + inc);
-                        } else if (!numbers.contains(Integer.valueOf(Math.max(1, newNumber - inc)))) {
+                        } else if (!numbers.contains(Math.max(1, newNumber - inc))) {
                             newNumber = Math.max(1, newNumber - inc);
                         }
                     }
@@ -596,7 +596,7 @@ public class Address implements Serializable {
                             Log.d(DEBUG_TAG, "add number  " + n);
                             // noinspection EmptyCatchBlock
                             try {
-                                result.put(Integer.valueOf(getNumber(n)), a);
+                                result.put(getNumber(n), a);
                             } catch (NumberFormatException nfe) {
                             }
                         }
