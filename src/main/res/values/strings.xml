@@ -674,6 +674,8 @@
     <!-- ACRA -->
     <string name="crash_dialog_text">Vespucci crashed or found a serious issue the last time it ran.\n\nPlease help us by sending an error report, all you have to do is click \'OK\'.\n</string>
     <string name="crash_dialog_comment_prompt">Add any further information you believe might help and (optional) your e-mail address if you want feedback.\n\nThank you!</string>
+    <string name="report_success">Report sucessfully submitted!</string>
+    <string name="report_failure">Report submission failed!</string>
     <string name="config_category_acra">Crash Reporting</string>
     <string name="pref_enable_acra">Report application crashes</string>
     <string name="pref_acra_enabled">Crash reporting enabled</string>

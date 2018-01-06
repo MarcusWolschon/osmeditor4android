@@ -3,8 +3,10 @@ package de.blau.android;
 import java.util.Map;
 
 import org.acra.ACRA;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
+import org.acra.annotation.AcraCore;
+import org.acra.annotation.AcraDialog;
+import org.acra.annotation.AcraHttpSender;
+import org.acra.sender.HttpSender;
 import org.mozilla.javascript.ImporterTopLevel;
 import org.mozilla.javascript.ScriptableObject;
 
@@ -31,7 +33,10 @@ import de.blau.android.validation.Validator;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-@ReportsCrashes(reportType = org.acra.sender.HttpSender.Type.JSON, httpMethod = org.acra.sender.HttpSender.Method.PUT, formUri = "http://acralyzer.vespucci.io/acraproxy", mode = ReportingInteractionMode.DIALOG, resDialogText = R.string.crash_dialog_text, resDialogCommentPrompt = R.string.crash_dialog_comment_prompt, resDialogTheme = R.style.Theme_AppCompat_Light_Dialog)
+@AcraCore(resReportSendSuccessToast = R.string.report_success, resReportSendFailureToast = R.string.report_failure)
+@AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "http://acralyzer.vespucci.io/acraproxy")
+@AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
+
 public class App extends android.app.Application {
     private static App              currentInstance;
     private static StorageDelegator delegator      = new StorageDelegator();
@@ -41,7 +46,7 @@ public class App extends android.app.Application {
     public static String            userAgent;
 
     /**
-     * The logic that manipulates the model. (non-UI)<br/>
+     * The logic that manipulates the model. (non-UI)
      */
     private static Logic logic;
 
