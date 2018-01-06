@@ -1,6 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -30,10 +29,12 @@ public class Newbie extends DialogFragment {
 
     private static final String TAG = "fragment_newbie";
 
+    private Main main;
+
     /**
      
      */
-    static public void showDialog(FragmentActivity activity) {
+    static public void showDialog(@NonNull FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -44,7 +45,7 @@ public class Newbie extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -62,19 +63,18 @@ public class Newbie extends DialogFragment {
      */
     static private Newbie newInstance() {
         Newbie f = new Newbie();
-
         f.setShowsDialog(true);
-
         return f;
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
         Log.d(DEBUG_TAG, "onAttach");
-        if (!(activity instanceof Main)) {
-            throw new ClassCastException(activity.toString() + " can ownly be called from Main");
+        super.onAttach(context);
+        if (!(context instanceof Main)) {
+            throw new ClassCastException(context.toString() + " can ownly be called from Main");
         }
+        main = (Main)context;
     }
 
     @Override
@@ -89,7 +89,11 @@ public class Newbie extends DialogFragment {
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(R.string.welcome_title);
-        builder.setMessage(R.string.welcome_message);
+        String message = getString(R.string.welcome_message);
+        if (main.isFullScreen()) {
+            message = message + getString(R.string.welcome_message_fullscreen);
+        }
+        builder.setMessage(message);
         builder.setPositiveButton(R.string.okay, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

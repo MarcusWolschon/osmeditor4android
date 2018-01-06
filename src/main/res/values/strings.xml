@@ -50,6 +50,7 @@
     <string name="file_write_failed_message">Could not write to selected file.</string>
     <string name="welcome_title">Welcome!</string>
     <string name="welcome_message">Thank you for using Vespucci.\n\nTo get started you need to know two things:\n\n* tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode\n\n* to add a new object: long press, tapping in the same place will add a node, tapping further away will start a way.\n\nDo not forget to download the area you want to edit.\n\nHave fun!</string>
+    <string name="welcome_message_fullscreen">\n\nVespucci has detected that you have a device with "soft keys" and has hidden them. A swipe from the bottom edge will show them again.</string>
     <string name="read_introduction">Read the introduction now</string>
     <string name="upgrade_title">Welcome to a new version of Vespucci!</string>
     <string name="upgrade_message">This is a new version of Vespucci with new features and behaviour. It would be best to quickly read the on device upgrade information.</string>

@@ -1,12 +1,14 @@
 # Frequently Asked Questions
 
 #### What is Vespucci?
+
 Vespucci is the first [OpenStreetMap](http://www.openstreetmap.org/) editor for Android.
 That means: it is a light-weight, easy-to-use mapping tool on mobile Android devices.
 
 #### What is Vespucci NOT?
+
   * Vespucci is not primarily a mobile map-viewer. 
-  * Vespucci is not a mobile navigation solution. It does not feature any routing algorithm.
+  * Vespucci is not a mobile navigation solution. It does not feature any routing support.
   * Vespucci is not a full replacement for JOSM or other desktop editors, but nearly. It strives for maximum usability on mobile devices which are limited in many regards. 
 
 #### I am already familiar with OSM editor xyz. Why should I use Vespucci?
@@ -14,6 +16,7 @@ If you are mapping for OSM and already have an Android device (or planning for t
 Additionally, obscure OSM data can be verified easily and quickly "on site", data which is already available in OSM is not acquired again.
 
 #### What do I need to get started with Vespucci?
+
 You need:
 
   * An Android device (or the emulator), note that Release 0.9.x has only been tested on Android 2.3 and later
@@ -22,15 +25,19 @@ You need:
   * An [OSM account](http://www.openstreetmap.org/user/new)
 
 #### What is the status of Vespucci development?
-The current Vespucci version is 0.9.9, 0.9.10 is currently in beta release.
+
+The current Vespucci version is 10.0.
 
 #### Is Vespucci available for other mobile platforms?
+
 No, with the exception of those that provide an Android compatible environment.
 
 #### How can I obtain Vespucci?
+
 See [Obtaining Vespucci](/#obtaining-vespucci).
 
 #### How can I install Vespucci on my Android device?
+
 Just download and install like any other app =)
 
 #### Which special permissions does Vespucci require?
@@ -43,6 +50,7 @@ Just download and install like any other app =)
 Vespucci preferentially attempts to store aerial imagery data on an external SD card if present, this is slower but leaves expensive internal storage free. On some devices this seems to cause persistent issues that are not resolved by giving the app permissions to write to external storage. A potential workaround is to remove the SD card (if this works in your setup), and then run vespucci. If that works and background imagery is displayed you can reinsert the SD card and vespucci should continue to use the internal storage.
 
 #### How can I install Vespucci on the Android emulator?
+
 Installation of the Vespucci APK is like any other APK.
 There are plenty of descriptions available (e.g. [1 ](http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/), [2 ](http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator), [3 ](http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html), [4 ](http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/))
 
@@ -128,7 +136,7 @@ Choose "Upload data to  OSM server" from the transfer menu.
 
 Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).
 
-Note: OAuth will work for both the standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.
+Note: OAuth will work for both the OSMT-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.
 
 #### How can I zoom into an area?
 
@@ -183,6 +191,6 @@ However you can add a file 'imagery.json' containing custom sources in the legac
 
 #### Why can't you provide technical support on the google play store review section
 
-The google play store allows just one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on [github](https://github.com/MarcusWolschon/osmeditor4android/issues), if you have questions or can't find how do a specific operation you can ask on the [OpenStreetMap help site](http://help.openstreetmap.org) or one of the other OpenStreetMap communication channels. 
+The google play store allows only one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on [github](https://github.com/MarcusWolschon/osmeditor4android/issues), if you have questions or can't find how do a specific operation you can ask on the [OpenStreetMap help site](http://help.openstreetmap.org) or one of the other OpenStreetMap communication channels. 
 
 350 characters is 100 characters less than the text above.
