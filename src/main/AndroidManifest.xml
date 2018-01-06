@@ -4,11 +4,11 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
-	android:versionCode="305"
+	android:versionCode="306"
 	android:installLocation="auto"
 	>
 	
-	<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="24" 
+	<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="25" 
 	    tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference" /> 
 	
 	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices
