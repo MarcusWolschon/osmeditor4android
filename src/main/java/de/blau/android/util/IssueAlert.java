@@ -76,12 +76,18 @@ public class IssueAlert {
         } else if ("way".equals(e.getName())) {
             double[] result = Logic.centroidLonLat((Way) e);
             if (result == null) {
+                Log.d(DEBUG_TAG, "couldn't determine center for " + e);
                 return;
             }
             eLon = result[0];
             eLat = result[1];
         } else if ("relation".equals(e.getName())) {
-            double[] result = e.getBounds().getCenter();
+            BoundingBox box = e.getBounds();
+            if (box == null) {
+                Log.d(DEBUG_TAG, "couldn't determine center for " + e);
+                return;
+            }
+            double[] result = box.getCenter();
             eLon = result[0];
             eLat = result[1];
         } else {
