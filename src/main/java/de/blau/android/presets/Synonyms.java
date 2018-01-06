@@ -109,12 +109,14 @@ public class Synonyms {
                         presetKey = parts[len - 2] + "\t" + parts[len - 1];
                     }
                     for (Preset preset : presets) {
-                        Set<PresetItem> items = preset.getItemByTag(presetKey);
-                        if (items != null) {
-                            for (PresetItem pi : items) {
-                                if (!pi.isDeprecated() && (type == null || pi.appliesTo(type))) {
-                                    IndexSearchResult isr = new IndexSearchResult(distance * items.size(), pi);
-                                    result.add(isr);
+                        if (preset != null) {
+                            Set<PresetItem> items = preset.getItemByTag(presetKey);
+                            if (items != null) {
+                                for (PresetItem pi : items) {
+                                    if (!pi.isDeprecated() && (type == null || pi.appliesTo(type))) {
+                                        IndexSearchResult isr = new IndexSearchResult(distance * items.size(), pi);
+                                        result.add(isr);
+                                    }
                                 }
                             }
                         }

@@ -497,10 +497,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         if (ctx != null) {
             Preset[] presets = App.getCurrentPresets(ctx);
             for (Preset preset : presets) {
-                for (String key : preset.getObjectKeys()) {
-                    result = getTagValueString(key);
-                    if (result != null) {
-                        return result;
+                if (preset != null) {
+                    for (String key : preset.getObjectKeys()) {
+                        result = getTagValueString(key);
+                        if (result != null) {
+                            return result;
+                        }
                     }
                 }
             }
