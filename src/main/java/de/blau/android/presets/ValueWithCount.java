@@ -85,7 +85,7 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
         int result = 17;
         result = 37 * result + (value == null ? 0 : value.hashCode());
         result = 37 * result + (description == null ? 0 : description.hashCode());
-        result = 37 * result + (int) (count ^ (count >>> 32));
+        result = 37 * result + count;
         result = 37 * result + (descriptionOnly ? 1231 : 1237);
         return result;
     }

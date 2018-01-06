@@ -80,7 +80,8 @@ public class RelationMemberDescription extends RelationMember {
         result = 37 * result + (int) (ref ^ (ref >>> 32));
         result = 37 * result + (type == null ? 0 : type.hashCode());
         result = 37 * result + (role == null ? 0 : role.hashCode());
-        result = 37 * result + (int) (position ^ (position >>> 32));
+        result = 37 * result + position;
         return result;
     }
+    
 }

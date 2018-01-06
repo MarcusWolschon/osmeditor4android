@@ -40,7 +40,7 @@ public class IndexSearchResult implements Comparable<IndexSearchResult> {
     @Override
     public int hashCode() {
         int result = 17;
-        result = 37 * result + (int) (weight ^ (weight >>> 32));
+        result = 37 * result + weight;
         result = 37 * result + (item == null ? 0 : item.hashCode());
         return result;
     }
