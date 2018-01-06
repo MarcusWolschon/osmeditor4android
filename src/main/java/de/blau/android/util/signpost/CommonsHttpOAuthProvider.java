@@ -75,7 +75,7 @@ public class CommonsHttpOAuthProvider extends AbstractOAuthProvider {
                     entity.consumeContent();
                 } catch (IOException e) {
                     // this means HTTP keep-alive is not possible
-                    Log.d(DEBUG_TAG, e.getMessage());
+                    Log.d(DEBUG_TAG, "closeConnection got " + e.getMessage());
                 }
             }
         }

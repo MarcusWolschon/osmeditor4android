@@ -98,7 +98,7 @@ public class Commands {
                     } catch (NumberFormatException ex) {
                         // ok wasn't a number
                     } catch (OsmIllegalOperationException e) {
-                        Log.e(DEBUG_TAG, e.getMessage());
+                        Log.e(DEBUG_TAG, "processIntentResult got " + e.getMessage());
                         Snack.toastTopError(main, e.getLocalizedMessage());
                     }
 
@@ -156,7 +156,7 @@ public class Commands {
                     logic.setTags(main, node, tags);
                     return true;
                 } catch (OsmIllegalOperationException e) {
-                    Log.e(DEBUG_TAG, e.getMessage());
+                    Log.e(DEBUG_TAG, "addNode got " + e.getMessage());
                     Snack.toastTopError(main, e.getLocalizedMessage());
                 }
             }

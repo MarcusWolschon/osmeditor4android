@@ -243,11 +243,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                             }
                             return null;
                         } // can't happen ?
-                    } catch (IOException e) {
+                    } catch (IOException | IllegalStateException e) {
                         error = e.getMessage();
-                    } catch (IllegalStateException e) {
-                        error = e.getMessage();
-                    }
+                    } 
                     if (error != null) {
                         Log.d(DEBUG_TAG, "search error " + error);
                     }
@@ -255,11 +253,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 } finally {
                     SavingHelper.close(reader);
                 }
-            } catch (MalformedURLException e) {
-                error = e.getMessage();
             } catch (IOException e) {
                 error = e.getMessage();
-            }
+            } 
             Log.d(DEBUG_TAG, "search error " + error);
             return null;
         }
@@ -424,9 +420,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     } else {
                         author = server.getDisplayName(); // maybe it has been configured
                     }
-                } catch (InterruptedException e) {
-                    error = e.getMessage();
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     error = e.getMessage();
                 } catch (TimeoutException e) {
                     error = main.getString(R.string.toast_timeout);
@@ -668,11 +662,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     if (result < 0) {
                         error = saver.getError();
                     }
-                } catch (InterruptedException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     error = e.getMessage();
-                } catch (ExecutionException e) {
-                    error = e.getMessage();
-                }
+                } 
                 if (error != null) {
                     displayError(error);
                     return; // don't continue is something went wrong

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -144,12 +143,10 @@ public class Search {
             } else {
                 Snack.barInfo(activity, R.string.toast_nothing_found);
             }
-        } catch (InterruptedException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
-        } catch (ExecutionException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+        } catch (InterruptedException | ExecutionException e) {
+            Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
         } catch (TimeoutException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
             Snack.barError(activity, R.string.toast_timeout);
         }
     }
@@ -242,10 +239,8 @@ public class Search {
                     reader.endArray();
                     return result;
                 }
-            } catch (UnsupportedEncodingException e) {
-                Log.e(DEBUG_TAG, e.getMessage());
             } catch (IOException e) {
-                Log.e(DEBUG_TAG, e.getMessage());
+                Log.e(DEBUG_TAG, "QueryNominatim got " + e.getMessage());
             } finally {
                 SavingHelper.close(responseBody);
                 SavingHelper.close(reader);
@@ -273,7 +268,7 @@ public class Search {
             reader.endObject();
             return result;
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "readNominatimResult got " + e.getMessage());
         }
         return null;
     }
@@ -342,11 +337,9 @@ public class Search {
                     }
                     return result;
                 }
-            } catch (UnsupportedEncodingException e) {
-                Log.e(DEBUG_TAG, e.getMessage());
             } catch (IOException e) {
-                Log.e(DEBUG_TAG, e.getMessage());
-            } finally {
+                Log.e(DEBUG_TAG, "QueryPhoton got " + e.getMessage());
+            }  finally {
                 SavingHelper.close(inputStream);
                 SavingHelper.close(responseBody);
                 SavingHelper.close(reader);
@@ -422,7 +415,7 @@ public class Search {
                 return result;
             }
         } catch (Exception e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "readPhotonResult got " + e.getMessage());
         }
         return null;
     }

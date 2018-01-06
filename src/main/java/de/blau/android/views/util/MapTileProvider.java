@@ -292,7 +292,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
                 // Log.d(DEBUGTAG, "Sending tile success message");
             } catch (StorageException e) {
                 // unable to cache tile
-                Log.d(DEBUG_TAG, e.getMessage());
+                Log.d(DEBUG_TAG, "mapTileLoaded got " + e.getMessage());
                 if (!smallHeap) { // reduce tile size to half
                     smallHeap = true;
                     mTileCache.clear();

@@ -340,7 +340,7 @@ public class UndoStorage implements Serializable {
                     apiStorage.removeElement(element);
             } catch (StorageException e) {
                 // TODO handle OOM
-                Log.e(DEBUG_TAG, e.getMessage());
+                Log.e(DEBUG_TAG, "restore got " + e.getMessage());
             }
 
             // restore saved values

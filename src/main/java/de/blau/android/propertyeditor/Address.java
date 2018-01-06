@@ -341,7 +341,7 @@ public class Address implements Serializable {
                             // and try again
                             list = getHouseNumbers(street, side, lastAddresses);
                         } catch (OsmException e) {
-                            Log.d(DEBUG_TAG, e.getMessage());
+                            Log.d(DEBUG_TAG, "predictAddressTags got " + e.getMessage());
                         }
                     }
                     // tags = predictNumber(newAddress, tags, street, side, list, false);

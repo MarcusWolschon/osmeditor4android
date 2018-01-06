@@ -294,11 +294,11 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                 restrictions = parser.restrictions();
                 removeHighlight(text);
             } catch (ParseException pex) {
-                Log.d(DEBUG_TAG, pex.getMessage());
+                Log.d(DEBUG_TAG, "rebuild got " + pex.getMessage());
                 highlightParseError(text, pex);
             } catch (TokenMgrError err) {
                 // we currently can't do anything reasonable here except ignore
-                Log.e(DEBUG_TAG, err.getMessage());
+                Log.e(DEBUG_TAG, "rebuild got " + err.getMessage());
             }
             text.addTextChangedListener(watcher);
             if (restrictions == null) { // couldn't parse anything

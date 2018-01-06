@@ -612,7 +612,7 @@ public class TileLayerServer {
                         InputStream is = assetManager.open(fn);
                         parseImageryFile(ctx, is, async);
                     } catch (IOException e) {
-                        Log.e(DEBUG_TAG, e.getMessage());
+                        Log.e(DEBUG_TAG, "reading conf files got " + e.getMessage());
                     }
                 }
                 if (imageryBlacklist != null) {
@@ -704,7 +704,7 @@ public class TileLayerServer {
             }
             reader.endObject();
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "readServer got " + e.getMessage());
             return null;
         }
         if (type == null || url == null || "wms".equals(type)) {
@@ -763,7 +763,7 @@ public class TileLayerServer {
             }
             reader.endObject();
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "readExtent got " + e.getMessage());
         }
         return new Provider.CoverageArea(zoomMin, zoomMax, bbox);
     }
@@ -789,12 +789,12 @@ public class TileLayerServer {
             }
             reader.endObject();
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "readBbox got " + e.getMessage());
         }
         try {
             bbox = new BoundingBox(left, bottom, right, top);
         } catch (OsmException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "readBbox got " + e.getMessage());
             return null;
         }
         return bbox;
@@ -816,7 +816,7 @@ public class TileLayerServer {
             }
             reader.endObject();
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "readAttribution got " + e.getMessage());
         }
         return termsOfUseUrl;
     }

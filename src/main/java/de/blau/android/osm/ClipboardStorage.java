@@ -61,7 +61,7 @@ public class ClipboardStorage implements Serializable {
             storage.insertElementUnsafe(e);
         } catch (StorageException sex) {
             // TODO handle oom situation
-            Log.d(DEBUG_TAG, sex.getMessage());
+            Log.d(DEBUG_TAG, "copyTo got exception " + sex.getMessage());
         }
     }
 

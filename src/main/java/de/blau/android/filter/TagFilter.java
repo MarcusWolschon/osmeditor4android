@@ -144,7 +144,7 @@ public class TagFilter extends Filter {
                 filter.add(
                         new FilterEntry(dbresult.getInt(0) == 1, dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getInt(4) == 1));
             } catch (PatternSyntaxException psex) {
-                Log.e(DEBUG_TAG, psex.getMessage());
+                Log.e(DEBUG_TAG, "exception getting FilterEntry " + psex.getMessage());
                 if (context instanceof Activity) {
                     Snack.barError((Activity) context, context.getString(R.string.toast_invalid_filter_regexp, dbresult.getString(2), dbresult.getString(3)));
                 }

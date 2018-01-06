@@ -903,7 +903,7 @@ public class Main extends FullScreenAppCompatActivity
                             map.invalidate();
                         }
                     } catch (OsmException e) {
-                        Log.d(DEBUG_TAG, e.getMessage());
+                        Log.d(DEBUG_TAG, "processIntents got " + e.getMessage());
                     }
                 } else {
                     Log.d(DEBUG_TAG, "moving to position");
@@ -1649,7 +1649,7 @@ public class Main extends FullScreenAppCompatActivity
                                     Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
                                 } catch (Exception ex) {
                                     // protect against translation errors
-                                    Log.d(DEBUG_TAG, e.getMessage());
+                                    Log.d(DEBUG_TAG, "read got " + e.getMessage());
                                 }
                             }
                         }

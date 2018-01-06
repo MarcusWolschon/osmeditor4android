@@ -46,6 +46,8 @@ import de.blau.android.util.collections.LongOsmElementMap;
 
 public class StorageDelegator implements Serializable, Exportable {
 
+    private static final String DEBUG_TAG = "StorageDelegator";
+
     private static final long serialVersionUID = 9L;
 
     private Storage currentStorage;
@@ -74,8 +76,6 @@ public class StorageDelegator implements Serializable, Exportable {
      * if false we need to check if the current imagery has been recorded
      */
     private transient boolean imageryRecorded = false;
-
-    private final static String DEBUG_TAG = StorageDelegator.class.getSimpleName();
 
     public final static String FILENAME = "lastActivity.res";
 
@@ -119,7 +119,7 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public void dirty() {
         dirty = true;
-        Log.d("StorageDelegator", "setting delegator to dirty");
+        Log.d(DEBUG_TAG, "setting delegator to dirty");
     }
 
     /**
@@ -164,7 +164,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "insertElementSafe got " + e.getMessage());
         }
     }
 
@@ -182,7 +182,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "insertElementUnsafe got " + e.getMessage());
         }
     }
 
@@ -206,7 +206,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 onElementChanged(null, elem);
             } catch (StorageException e) {
                 // TODO handle OOM
-                Log.e(DEBUG_TAG, e.getMessage());
+                Log.e(DEBUG_TAG, "setTags got " + e.getMessage());
             }
         }
     }
@@ -329,7 +329,7 @@ public class StorageDelegator implements Serializable, Exportable {
             getFactory().setIdSequences(minNodeId, minWayId, minRelationId);
         } catch (StorageException e) {
             // FIXME do something reasonable
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "fixupApiStorage got " + e.getMessage());
         }
     }
 
@@ -394,7 +394,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, way);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "addNodeToWay got " +e.getMessage());
         }
     }
 
@@ -420,7 +420,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, way);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "addNodeToWayAfter got " + e.getMessage());
         }
     }
 
@@ -444,7 +444,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, way);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "appendNodeToWay got " + e.getMessage());
         }
     }
 
@@ -466,7 +466,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, node);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "updateLatLon got " + e.getMessage());
         }
     }
 
@@ -491,7 +491,7 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public void moveNodes(final List<Node> allNodes, final int deltaLatE7, final int deltaLonE7) {
         if (allNodes == null) {
-            Log.d("StorageDelegator", "moveNodes  no nodes!");
+            Log.d(DEBUG_TAG, "moveNodes  no nodes!");
             return;
         }
         dirty = true;
@@ -507,7 +507,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, new ArrayList<OsmElement>(nodes));
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "moveNodes got " + e.getMessage());
         }
     }
 
@@ -520,7 +520,7 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public void circulizeWay(@NonNull de.blau.android.Map map, int[] c, @NonNull Way way) {
         if ((way.getNodes() == null) || (way.getNodes().size() < 3)) {
-            Log.d("StorageDelegator", "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
+            Log.d(DEBUG_TAG, "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
             return;
         }
         dirty = true;
@@ -543,7 +543,7 @@ public class StorageDelegator implements Serializable, Exportable {
             // caclulate average radius
             double r = 0.0f;
             for (Coordinates p : coords) {
-                Log.d("StorageDelegator", "r=" + Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y)));
+                Log.d(DEBUG_TAG, "r=" + Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y)));
                 r = r + Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y));
             }
             r = r / coords.length;
@@ -563,7 +563,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, new ArrayList<OsmElement>(nodes));
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "circulizeWay got " + e.getMessage());
         }
     }
 
@@ -747,7 +747,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, new ArrayList<OsmElement>(save));
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "orthogonalizeWay got " + e.getMessage());
         }
     }
 
@@ -822,7 +822,7 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public void rotateWay(final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h, BoundingBox v) {
         if (way.getNodes() == null) {
-            Log.d("StorageDelegator", "rotateWay way " + way.getOsmId() + " has no nodes!");
+            Log.d(DEBUG_TAG, "rotateWay way " + way.getOsmId() + " has no nodes!");
             return;
         }
         // Log.d("StorageDelegator","Rotating " + angle + " around " + pivotY + " " + pivotX );
@@ -846,7 +846,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, new ArrayList<OsmElement>(nodes));
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "rotateWay got " + e.getMessage());
         }
     }
 
@@ -862,7 +862,7 @@ public class StorageDelegator implements Serializable, Exportable {
         // undo - node saved here, affected ways saved in removeWayNodes
         dirty = true;
         if (node.state == OsmElement.STATE_DELETED) {
-            Log.e("StorageDelegator", "removeNode: node already deleted " + node.getOsmId());
+            Log.e(DEBUG_TAG, "removeNode: node already deleted " + node.getOsmId());
             return; // node was already deleted
         }
         undo.save(node);
@@ -879,12 +879,12 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "removeNode got " + e.getMessage());
         }
     }
 
     public void splitAtNode(final Node node) {
-        Log.d("StorageDelegator", "splitAtNode for all ways");
+        Log.d(DEBUG_TAG, "splitAtNode for all ways");
         // undo - nothing done here, everything done in splitAtNode
         dirty = true;
         List<Way> ways = currentStorage.getWays(node);
@@ -903,7 +903,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @return null if split failed or wasn't possible, the two resulting ways otherwise
      */
     public Way[] splitAtNodes(Way way, Node node1, Node node2, boolean createPolygons) {
-        Log.d("StorageDelegator", "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
+        Log.d(DEBUG_TAG, "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
         // undo - old way is saved here, new way is saved at insert
         dirty = true;
         undo.save(way);
@@ -988,7 +988,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 dirty = true;
                 /* iterate through relations, add the new way to the relation, for now simply after the old way */
                 for (Relation r : relations) {
-                    Log.d("StorageDelegator", "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size() + ") " + r.getDescription());
+                    Log.d(DEBUG_TAG, "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size() + ") " + r.getDescription());
                     RelationMember rm = r.getMember(way);
                     undo.save(r);
                     // no role specific code for now
@@ -1008,7 +1008,7 @@ public class StorageDelegator implements Serializable, Exportable {
             return result;
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "splitAtNodes got " + e.getMessage());
         }
         return null;
     }
@@ -1020,7 +1020,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param node node to split at
      */
     public Way splitAtNode(final Way way, final Node node) {
-        Log.d("StorageDelegator", "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
+        Log.d(DEBUG_TAG, "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
         // undo - old way is saved here, new way is saved at insert
         dirty = true;
         undo.save(way);
@@ -1031,7 +1031,7 @@ public class StorageDelegator implements Serializable, Exportable {
         // in the way
         if (nodes.size() < 3 || (way.isEndNode(node) && (way.isClosed() ? occurances == 2 : occurances == 1))) {
             // protect against producing single node ways FIXME give feedback that this is not good
-            Log.d("StorageDelegator", "splitAtNode can't split " + nodes.size() + " node long way at this node");
+            Log.d(DEBUG_TAG, "splitAtNode can't split " + nodes.size() + " node long way at this node");
             return null;
         }
         // we assume this node is only contained in the way once.
@@ -1051,7 +1051,7 @@ public class StorageDelegator implements Serializable, Exportable {
             first = false;
         }
         if (nodesForNewWay.size() <= 1) {
-            Log.d("StorageDelegator", "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
+            Log.d(DEBUG_TAG, "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
             return null; // do not create 1-node way
         }
         ArrayList<OsmElement> changedElements = new ArrayList<>();
@@ -1075,10 +1075,10 @@ public class StorageDelegator implements Serializable, Exportable {
                  * simply after the old way
                  */
                 for (Relation r : relations) {
-                    Log.d("StorageDelegator", "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size() + ") " + r.getDescription());
+                    Log.d(DEBUG_TAG, "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size() + ") " + r.getDescription());
                     RelationMember rm = r.getMember(way);
                     if (rm == null) {
-                        Log.d("StorageDelegator", "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
+                        Log.d(DEBUG_TAG, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
                         ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                         ACRA.getErrorReporter().handleException(null);
                         continue;
@@ -1096,7 +1096,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             for (int j = 0; j < rl.size(); j++) {
                                 RelationMember viaRm = rl.get(j);
                                 OsmElement viaE = viaRm.getElement();
-                                Log.d("StorageDelegator", "splitAtNode " + viaE.getOsmId());
+                                Log.d(DEBUG_TAG, "splitAtNode " + viaE.getOsmId());
                                 if (viaE instanceof Node) {
                                     if (((Way) rm.getElement()).hasNode((Node) viaE)) {
                                         foundVia = true;
@@ -1107,7 +1107,7 @@ public class StorageDelegator implements Serializable, Exportable {
                                     }
                                 }
                             }
-                            Log.d("StorageDelegator", "splitAtNode foundVia " + foundVia);
+                            Log.d(DEBUG_TAG, "splitAtNode foundVia " + foundVia);
                             if (!foundVia) {
                                 // remove way from relation, add newWay to it
                                 RelationMember newMember = new RelationMember(rm.getRole(), newWay);
@@ -1135,7 +1135,7 @@ public class StorageDelegator implements Serializable, Exportable {
             return newWay;
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "splitAtNode got " + e.getMessage());
             return null;
         }
     }
@@ -1155,11 +1155,11 @@ public class StorageDelegator implements Serializable, Exportable {
         // else check version numbers this helps preserve history
         if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
             // swap
-            Log.d("StorageDelegator", "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
+            Log.d(DEBUG_TAG, "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
             Node tmpNode = mergeInto;
             mergeInto = mergeFrom;
             mergeFrom = tmpNode;
-            Log.d("StorageDelegator", "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
+            Log.d(DEBUG_TAG, "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
         }
         mergeOK = !roleConflict(mergeInto, mergeFrom); // need to do this before we remove objects from relations.
         // merge tags
@@ -1206,11 +1206,11 @@ public class StorageDelegator implements Serializable, Exportable {
         // else check version numbers this helps preserve history
         if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
             // swap
-            Log.d("StorageDelegator", "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
+            Log.d(DEBUG_TAG, "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
             Way tmpWay = mergeInto;
             mergeInto = mergeFrom;
             mergeFrom = tmpWay;
-            Log.d("StorageDelegator", "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
+            Log.d(DEBUG_TAG, "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
         }
 
         mergeOK = !roleConflict(mergeInto, mergeFrom); // need to do this before we remove ways from relations.
@@ -1297,7 +1297,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     apiStorage.insertElementSafe(n);
                 } catch (StorageException e) {
                     // TODO handle OOM
-                    Log.e(DEBUG_TAG, e.getMessage());
+                    Log.e(DEBUG_TAG, "reverseWayNodeTags got " + e.getMessage());
                 }
             }
         }
@@ -1404,7 +1404,7 @@ public class StorageDelegator implements Serializable, Exportable {
             }
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "unjoinWays got " + e.getMessage());
         }
     }
 
@@ -1455,7 +1455,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     apiStorage.insertElementSafe(r);
                 } catch (StorageException e) {
                     // TODO handle OOM
-                    Log.e(DEBUG_TAG, e.getMessage());
+                    Log.e(DEBUG_TAG, "reverseWay got " + e.getMessage());
                 }
             }
         }
@@ -1465,7 +1465,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, way);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "reverseWay got " + e.getMessage());
         }
         return (dirTags != null || dirRelations != null || dirNodeTags);
     }
@@ -1480,7 +1480,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, way);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "replaceNodeInWay got " + e.getMessage());
         }
     }
 
@@ -1529,7 +1529,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, changedElements);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "removeWayNode got " + e.getMessage());
         }
         return deleted;
     }
@@ -1558,7 +1558,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "removeWay got " + e.getMessage());
         }
     }
 
@@ -1586,7 +1586,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "removeRelation got " + e.getMessage());
         }
     }
 
@@ -1606,18 +1606,20 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
+     * Remove downloaded element from any relations it is a member of
+     * 
      * Note the element does not need to have its state changed or be stored in the API storage since the parent
      * relation back link is just internal.
      * 
      * @param element to remove from any relations it is a member of
      */
-    private void removeElementFromRelations(final OsmElement element) {
+    private void removeElementFromRelations(@NonNull final OsmElement element) {
         try {
             if (element.hasParentRelations()) {
                 ArrayList<Relation> relations = new ArrayList<>(element.getParentRelations()); // need copy!
                 ArrayList<OsmElement> changedElements = new ArrayList<>();
                 for (Relation r : relations) {
-                    Log.i("StorageDelegator", "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
+                    Log.i(DEBUG_TAG, "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
                     dirty = true;
                     undo.save(r);
                     r.removeMember(r.getMember(element));
@@ -1626,24 +1628,27 @@ public class StorageDelegator implements Serializable, Exportable {
                     changedElements.add(r);
                     undo.save(element);
                     element.removeParentRelation(r);
-                    Log.i("StorageDelegator", "... done");
+                    Log.i(DEBUG_TAG, "... done");
                 }
                 onElementChanged(null, changedElements);
             }
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "removeElementFromRelations got " + e.getMessage());
         }
     }
 
     /**
+     * Remove downloaded element from a relation
+     * 
      * Note the element does not need to have its state changed of be stored in the API storage since the parent
      * relation back link is just internal.
      * 
-     * @param element
+     * @param element   element to remove
+     * @param r         relation to remove the element from
      */
-    private void removeElementFromRelation(final OsmElement element, Relation r) {
-        Log.i("StorageDelegator", "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
+    private void removeElementFromRelation(@NonNull final OsmElement element, @NonNull final Relation r) {
+        Log.i(DEBUG_TAG, "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
         dirty = true;
         undo.save(r);
         try {
@@ -1652,19 +1657,23 @@ public class StorageDelegator implements Serializable, Exportable {
             apiStorage.insertElementSafe(r);
             undo.save(element);
             element.removeParentRelation(r);
-            Log.i("StorageDelegator", "... done");
+            Log.i(DEBUG_TAG, "... done");
             onElementChanged(null, r);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "removeElementFromRelation got " + e.getMessage());
         }
     }
 
     /*
-     * remove non-downloaded element from relation
+     * Remove non-downloaded element from relation
+     * 
+     * @param type      type (node, way, relation) of element
+     * @param elementId id of the element
+     * @param r         relation to remove the element from
      */
-    public void removeElementFromRelation(String type, final Long elementId, Relation r) {
-        Log.i("StorageDelegator", "removing  #" + elementId + " from relation #" + r.getOsmId());
+    public void removeElementFromRelation(@NonNull String type, final Long elementId, @NonNull final Relation r) {
+        Log.i(DEBUG_TAG, "removing  #" + elementId + " from relation #" + r.getOsmId());
         dirty = true;
         undo.save(r);
         r.removeMember(r.getMember(type, elementId));
@@ -1674,21 +1683,21 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, r);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "removeElementFromRelation got " + e.getMessage());
         }
         //
-        Log.i("StorageDelegator", "... done");
+        Log.i(DEBUG_TAG, "... done");
     }
 
     /**
-     * add element to relation at a specific position
+     * Add element to relation at a specific position
      * 
-     * @param e
-     * @param pos
-     * @param role
-     * @param rel
+     * @param e     OsmElement to add
+     * @param pos   position to insert the element
+     * @param role  role of the element
+     * @param rel   relation to add theelement to
      */
-    private void addElementToRelation(final OsmElement e, final int pos, final String role, final Relation rel) {
+    private void addElementToRelation(@NonNull final OsmElement e, final int pos, final String role, @NonNull final Relation rel) {
         dirty = true;
         undo.save(rel);
         undo.save(e);
@@ -1703,7 +1712,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, rel);
         } catch (StorageException sex) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, sex.getMessage());
+            Log.e(DEBUG_TAG, "addElementToRelation got " + sex.getMessage());
         }
     }
 
@@ -1730,7 +1739,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, rel);
         } catch (StorageException sex) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, sex.getMessage());
+            Log.e(DEBUG_TAG, "addMemberToRelation got " + sex.getMessage());
         }
     }
 
@@ -1761,7 +1770,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, rel);
         } catch (StorageException sex) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, sex.getMessage());
+            Log.e(DEBUG_TAG, "addMemberToRelation got " + sex.getMessage());
         }
     }
 
@@ -1791,9 +1800,9 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, rel);
         } catch (StorageException sex) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, sex.getMessage());
+            Log.e(DEBUG_TAG, "setRole got " + sex.getMessage());
         }
-        Log.w("StorageDelegator", "set role for #" + e.getOsmId() + " to " + role + " in relation #" + rel.getOsmId());
+        Log.w(DEBUG_TAG, "set role for #" + e.getOsmId() + " to " + role + " in relation #" + rel.getOsmId());
     }
 
     /**
@@ -1823,9 +1832,9 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, rel);
         } catch (StorageException e) {
             // TODO handle OOM
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "setRole got " + e.getMessage());
         }
-        Log.w("StorageDelegator", "set role for #" + elementId + " to " + role + " in relation #" + rel.getOsmId());
+        Log.w(DEBUG_TAG, "set role for #" + elementId + " to " + role + " in relation #" + rel.getOsmId());
     }
 
     /**
@@ -1927,7 +1936,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 onElementChanged(null, r);
             } catch (StorageException e) {
                 // TODO Handle OOM
-                Log.e(DEBUG_TAG, e.getMessage());
+                Log.e(DEBUG_TAG, "updateRelation got " + e.getMessage());
             }
         } else {
             undo.remove(r); // nothing changed
@@ -2033,7 +2042,7 @@ public class StorageDelegator implements Serializable, Exportable {
             ArrayList<Node> nodes = new ArrayList<>(((Way) e).getNodes());
             for (Node nd : nodes) {
                 if (currentStorage.getWays(nd).size() > 1) { // 1 is expected (our way will be deleted later)
-                    Log.d("StorageDelegator", "Duplicating node");
+                    Log.d(DEBUG_TAG, "Duplicating node");
                     Node newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
                     newNode.setTags(nd.getTags());
                     ((Way) e).replaceNode(nd, newNode);
@@ -2187,11 +2196,11 @@ public class StorageDelegator implements Serializable, Exportable {
     public void writeToFile(Context ctx) throws IOException {
         if (apiStorage == null || currentStorage == null) {
             // don't write empty state files
-            Log.i("StorageDelegator", "storage delegator empty, skipping save");
+            Log.i(DEBUG_TAG, "storage delegator empty, skipping save");
             return;
         }
         if (!dirty) { // dirty flag should only be set if we have actually read/loaded/changed something
-            Log.i("StorageDelegator", "storage delegator not dirty, skipping save");
+            Log.i(DEBUG_TAG, "storage delegator not dirty, skipping save");
             return;
         }
 
@@ -2212,11 +2221,11 @@ public class StorageDelegator implements Serializable, Exportable {
                     }
                 }
                 SavingHelper.asyncExport(ctx, this); // ctx == null is checked in method
-                Log.d("StorageDelegator", "save of state file failed, written emergency change file");
+                Log.d(DEBUG_TAG, "save of state file failed, written emergency change file");
             }
             readingLock.unlock();
         } else {
-            Log.i("StorageDelegator", "storage delegator state being read, skipping save");
+            Log.i(DEBUG_TAG, "storage delegator state being read, skipping save");
         }
     }
 
@@ -2240,13 +2249,13 @@ public class StorageDelegator implements Serializable, Exportable {
             StorageDelegator newDelegator = savingHelper.load(context, filename, true);
 
             if (newDelegator != null) {
-                Log.d("StorageDelegator", "read saved state");
+                Log.d(DEBUG_TAG, "read saved state");
                 currentStorage = newDelegator.currentStorage;
                 if (currentStorage.getBoundingBoxes() == null) { // can happen if data was added before load
                     try {
                         currentStorage.setBoundingBox(currentStorage.calcBoundingBoxFromData());
                     } catch (OsmException e) {
-                        Log.e(DEBUG_TAG, e.getMessage());
+                        Log.e(DEBUG_TAG, "readFromFile got " + e.getMessage());
                     }
                 }
                 apiStorage = newDelegator.apiStorage;
@@ -2256,7 +2265,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 dirty = false; // data was just read, i.e. memory and file are in sync
                 return true;
             } else {
-                Log.d("StorageDelegator", "saved state null");
+                Log.d(DEBUG_TAG, "saved state null");
                 return false;
             }
         } finally {
@@ -2418,7 +2427,7 @@ public class StorageDelegator implements Serializable, Exportable {
         ArrayList<Relation> deletedRelations = new ArrayList<>();
 
         for (OsmElement elem : apiStorage.getNodes()) {
-            Log.d("StorageDelegator", "node added to list for upload, id " + elem.osmId);
+            Log.d(DEBUG_TAG, "node added to list for upload, id " + elem.osmId);
             switch (elem.state) {
             case OsmElement.STATE_CREATED:
                 createdNodes.add(elem);
@@ -2430,7 +2439,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 deletedNodes.add(elem);
                 break;
             default:
-                Log.d("StorageDelegator", "node id " + elem.osmId + " not modified");
+                Log.d(DEBUG_TAG, "node id " + elem.osmId + " not modified");
                 continue;
             }
             count++;
@@ -2440,7 +2449,7 @@ public class StorageDelegator implements Serializable, Exportable {
         }
         if (count < maxChanges) {
             for (OsmElement elem : apiStorage.getWays()) {
-                Log.d("StorageDelegator", "way added to list for upload, id " + elem.osmId);
+                Log.d(DEBUG_TAG, "way added to list for upload, id " + elem.osmId);
                 switch (elem.state) {
                 case OsmElement.STATE_CREATED:
                     createdWays.add(elem);
@@ -2452,7 +2461,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     deletedWays.add(elem);
                     break;
                 default:
-                    Log.d("StorageDelegator", "way id " + elem.osmId + " not modified");
+                    Log.d(DEBUG_TAG, "way id " + elem.osmId + " not modified");
                     continue;
                 }
                 count++;
@@ -2463,7 +2472,7 @@ public class StorageDelegator implements Serializable, Exportable {
         }
         if (count < maxChanges) {
             for (OsmElement elem : apiStorage.getRelations()) {
-                Log.d("StorageDelegator", "relation added to list for upload, id " + elem.osmId);
+                Log.d(DEBUG_TAG, "relation added to list for upload, id " + elem.osmId);
                 switch (elem.state) {
                 case OsmElement.STATE_CREATED:
                     createdRelations.add((Relation) elem);
@@ -2475,7 +2484,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     deletedRelations.add((Relation) elem);
                     break;
                 default:
-                    Log.d("StorageDelegator", "relation id " + elem.osmId + " not modified");
+                    Log.d(DEBUG_TAG, "relation id " + elem.osmId + " not modified");
                     continue;
                 }
                 count++;
@@ -2599,19 +2608,19 @@ public class StorageDelegator implements Serializable, Exportable {
 
         for (Node elem : apiStorage.getNodes()) {
             if (elem.state == OsmElement.STATE_DELETED) {
-                Log.d("StorageDelegator", "deleted node added to list for save, id " + elem.osmId);
+                Log.d(DEBUG_TAG, "deleted node added to list for save, id " + elem.osmId);
                 saveNodes.add(elem);
             }
         }
         for (Way elem : apiStorage.getWays()) {
             if (elem.state == OsmElement.STATE_DELETED) {
-                Log.d("StorageDelegator", "deleted way added to list for save, id " + elem.osmId);
+                Log.d(DEBUG_TAG, "deleted way added to list for save, id " + elem.osmId);
                 saveWays.add(elem);
             }
         }
         for (Way elem : apiStorage.getWays()) {
             if (elem.state == OsmElement.STATE_DELETED) {
-                Log.d("StorageDelegator", "deleted way added to list for save, id " + elem.osmId);
+                Log.d(DEBUG_TAG, "deleted way added to list for save, id " + elem.osmId);
                 saveWays.add(elem);
             }
         }
@@ -2649,7 +2658,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param postMerge handler to run after merging
      */
     synchronized public boolean mergeData(Storage storage, PostMergeHandler postMerge) {
-        Log.d("StorageDelegator", "mergeData called");
+        Log.d(DEBUG_TAG, "mergeData called");
         // make temp copy of current storage (we may have to abort
         Storage temp = new Storage(currentStorage);
 
@@ -2658,7 +2667,7 @@ public class StorageDelegator implements Serializable, Exportable {
         LongOsmElementMap<Way> wayIndex = temp.getWayIndex();
         LongOsmElementMap<Relation> relationIndex = temp.getRelationIndex();
 
-        Log.d("StorageDelegator", "mergeData finished init");
+        Log.d(DEBUG_TAG, "mergeData finished init");
 
         try {
             // add nodes
@@ -2693,7 +2702,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 }
             }
 
-            Log.d("StorageDelegator", "mergeData added nodes");
+            Log.d(DEBUG_TAG, "mergeData added nodes");
 
             // add ways
             for (Way w : storage.getWays()) {
@@ -2727,7 +2736,7 @@ public class StorageDelegator implements Serializable, Exportable {
                         }
                     } else {
                         // this shouldn't be able to happen
-                        Log.e("StorageDelegator", "mergeData null existing way " + w.getOsmId());
+                        Log.e(DEBUG_TAG, "mergeData null existing way " + w.getOsmId());
                         ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                         ACRA.getErrorReporter().handleException(null);
                         return false;
@@ -2735,7 +2744,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 }
             }
 
-            Log.d("StorageDelegator", "mergeData added ways");
+            Log.d(DEBUG_TAG, "mergeData added ways");
 
             // fix up way nodes
             // all nodes should be in storage now, however new ways will have references to copies not in storage
@@ -2756,7 +2765,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             // attempt to fix this up, reinstate the original node so that any existing references
                             // remain
                             // FIXME undoing the original delete will likely cause havoc
-                            Log.e("StorageDelegator", "mergeData null undeleting node " + wayNodeId);
+                            Log.e(DEBUG_TAG, "mergeData null undeleting node " + wayNodeId);
                             if (apiNode.getOsmVersion() == wayNode.getOsmVersion() && (apiNode.isTagged() && apiNode.getTags().equals(wayNode.getTags()))
                                     && apiNode.getLat() == wayNode.getLat() && apiNode.getLon() == wayNode.getLon()) {
                                 apiNode.setState(OsmElement.STATE_UNCHANGED);
@@ -2767,7 +2776,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             temp.insertNodeUnsafe(apiNode);
                             nodes.set(i, apiNode);
                         } else {
-                            Log.e("StorageDelegator", "mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId + " v"
+                            Log.e(DEBUG_TAG, "mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId + " v"
                                     + wayNode.getOsmVersion());
                             ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                             ACRA.getErrorReporter().handleException(null);
@@ -2777,7 +2786,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 }
             }
 
-            Log.d("StorageDelegator", "mergeData fixup way nodes nodes");
+            Log.d(DEBUG_TAG, "mergeData fixup way nodes nodes");
 
             // add relations
             for (Relation r : storage.getRelations()) {
@@ -2809,7 +2818,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 }
             }
 
-            Log.d("StorageDelegator", "mergeData added relations");
+            Log.d(DEBUG_TAG, "mergeData added relations");
 
             // fixup relation back links and memberships
 
@@ -2846,7 +2855,7 @@ public class StorageDelegator implements Serializable, Exportable {
                         } else { // check if deleted
                             Node apiNode = apiStorage.getNode(rm.getRef());
                             if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
-                                Log.e("StorageDelegator", "mergeData deleted node in downloaded relation " + r.getOsmId());
+                                Log.e(DEBUG_TAG, "mergeData deleted node in downloaded relation " + r.getOsmId());
                                 ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                                 ACRA.getErrorReporter().handleException(null);
                                 fixupBacklinks();
@@ -2861,7 +2870,7 @@ public class StorageDelegator implements Serializable, Exportable {
                         } else { // check if deleted
                             Way apiWay = apiStorage.getWay(rm.getRef());
                             if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
-                                Log.e("StorageDelegator", "mergeData deleted way in downloaded relation");
+                                Log.e(DEBUG_TAG, "mergeData deleted way in downloaded relation");
                                 ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                                 ACRA.getErrorReporter().handleException(null);
                                 fixupBacklinks();
@@ -2876,7 +2885,7 @@ public class StorageDelegator implements Serializable, Exportable {
                         } else { // check if deleted
                             Relation apiRel = apiStorage.getRelation(rm.getRef());
                             if (apiRel != null && apiRel.getState() == OsmElement.STATE_DELETED) {
-                                Log.e("StorageDelegator", "mergeData deleted relation in downloaded relation");
+                                Log.e(DEBUG_TAG, "mergeData deleted relation in downloaded relation");
                                 ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                                 ACRA.getErrorReporter().handleException(null);
                                 fixupBacklinks();
@@ -2887,7 +2896,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 }
             }
 
-            Log.d("StorageDelegator", "mergeData fixuped relations");
+            Log.d(DEBUG_TAG, "mergeData fixuped relations");
 
         } catch (StorageException sex) {
             // ran of memory
@@ -2997,10 +3006,10 @@ public class StorageDelegator implements Serializable, Exportable {
      * for debugging only
      */
     public void logStorage() {
-        Log.d("StorageDelegator", "storage dirty? " + isDirty());
-        Log.d("StorageDelegator", "currentStorage");
+        Log.d(DEBUG_TAG, "storage dirty? " + isDirty());
+        Log.d(DEBUG_TAG, "currentStorage");
         currentStorage.logStorage();
-        Log.d("StorageDelegator", "apiStorage");
+        Log.d(DEBUG_TAG, "apiStorage");
         apiStorage.logStorage();
     }
 

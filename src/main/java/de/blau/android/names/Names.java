@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import de.blau.android.osm.Tags;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.collections.MultiHashMap;
@@ -191,7 +192,7 @@ public class Names {
                             }
                             reader.endObject();
                         } catch (IOException e) {
-                            Log.e(DEBUG_TAG, e.getMessage());
+                            Log.e(DEBUG_TAG, "Got exception reading name-suggestions.min.json " + e.getMessage());
                         }
                     } finally {
                         SavingHelper.close(reader);
@@ -219,14 +220,14 @@ public class Names {
                             }
                             reader.endObject();
                         } catch (IOException e) {
-                            Log.d(DEBUG_TAG, e.getMessage());
+                            Log.d(DEBUG_TAG, "Got exception reading categories.json " + e.getMessage());
                         }
                     } finally {
                         SavingHelper.close(reader);
                         SavingHelper.close(is);
                     }
                 } catch (IOException e) {
-                    Log.d(DEBUG_TAG, e.getMessage());
+                    Log.d(DEBUG_TAG, "Got exception " + e.getMessage());
                 }
 
                 ready = true;
@@ -237,14 +238,14 @@ public class Names {
     public Collection<NameAndTags> getNames(SortedMap<String, String> tags) {
         // remove irrelevant tags, TODO refine
         TagMap tm = new TagMap();
-        String v = tags.get("amenity");
+        String v = tags.get(Tags.KEY_AMENITY);
         if (v != null) {
-            tm.put("amenity", v);
+            tm.put(Tags.KEY_AMENITY, v);
             // Log.d("Names","filtering for amenity="+v);
         } else {
-            v = tags.get("shop");
+            v = tags.get(Tags.KEY_SHOP);
             if (v != null) {
-                tm.put("shop", v);
+                tm.put(Tags.KEY_SHOP, v);
                 // Log.d("Names","filtering for shop="+v);
             }
         }

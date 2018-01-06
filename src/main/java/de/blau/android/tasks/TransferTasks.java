@@ -94,7 +94,7 @@ public class TransferTasks {
         try {
             box.makeValidForApi();
         } catch (OsmException e1) {
-            Log.e(DEBUG_TAG, e1.getMessage());
+            Log.e(DEBUG_TAG, "downloadBox got " + e1.getMessage());
         } // TODO remove this? and replace with better error messaging
 
         new AsyncTask<Void, Void, Collection<Task>>() {
@@ -293,11 +293,9 @@ public class TransferTasks {
         }
         try {
             return a.get();
-        } catch (InterruptedException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
-        } catch (ExecutionException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
-        }
+        } catch (InterruptedException | ExecutionException e) {
+            Log.e(DEBUG_TAG, "uploadOsmoseBug got " + e.getMessage());
+        } 
         return false;
     }
 
@@ -408,13 +406,10 @@ public class TransferTasks {
             }
             try {
                 return ct.get().error == ErrorCodes.OK;
-            } catch (InterruptedException e) {
-                Log.e(DEBUG_TAG, e.getMessage());
+            } catch (InterruptedException | ExecutionException e) {
+                Log.e(DEBUG_TAG, "uploadNote got " + e.getMessage());
                 return false;
-            } catch (ExecutionException e) {
-                Log.e(DEBUG_TAG, e.getMessage());
-                return false;
-            }
+            } 
         }
         return false;
     }

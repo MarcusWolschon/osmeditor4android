@@ -3,7 +3,6 @@ package de.blau.android.tasks;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,11 +77,9 @@ class OsmoseServer {
                 is = con.getInputStream();
             }
             result = OsmoseBug.parseBugs(is);
-        } catch (MalformedURLException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
-        }
+            Log.e(DEBUG_TAG, "getBugsForBox got exception " + e.getMessage());
+        } 
         return result;
     }
 
@@ -121,13 +118,10 @@ class OsmoseServer {
             }
             bug.changed = false;
             App.getTaskStorage().setDirty();
-        } catch (MalformedURLException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
-            return false;
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());
             return false;
-        }
+        } 
         Log.d(DEBUG_TAG, "changeState sucess");
         return true;
     }

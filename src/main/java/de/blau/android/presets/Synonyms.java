@@ -70,7 +70,7 @@ public class Synonyms {
                 }
                 reader.endObject();
             } catch (IOException e) {
-                Log.e(DEBUG_TAG, e.getMessage());
+                Log.e(DEBUG_TAG, "reading synonyms " + e.getMessage());
             } finally {
                 SavingHelper.close(reader);
                 SavingHelper.close(is);

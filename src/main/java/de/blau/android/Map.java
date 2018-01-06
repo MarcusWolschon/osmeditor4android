@@ -454,7 +454,7 @@ public class Map extends View implements IMapView {
         try {
             myViewBox.setRatio(this, (float) w / h, true);
         } catch (OsmException e) {
-            Log.d(DEBUG_TAG, e.getMessage());
+            Log.d(DEBUG_TAG, "onSizeChanged got " + e.getMessage());
         }
     }
 
@@ -1603,7 +1603,7 @@ public class Map extends View implements IMapView {
         try {
             myViewBox.setRatio(this, (float) getWidth() / getHeight(), false);
         } catch (OsmException e) {
-            Log.d(DEBUG_TAG, e.getMessage());
+            Log.d(DEBUG_TAG, "setViewBox got " + e.getMessage());
         }
     }
 

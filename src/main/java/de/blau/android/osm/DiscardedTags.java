@@ -47,10 +47,10 @@ class DiscardedTags {
                 reader.endArray();
                 Log.d("DiscardedTags", "Found " + redundantTags.size() + " tags.");
             } catch (IOException e) {
-                Log.d(DEBUG_TAG, e.getMessage());
+                Log.d(DEBUG_TAG, "Reading discarded.json " + e.getMessage());
             }
         } catch (IOException e) {
-            Log.d(DEBUG_TAG, e.getMessage());
+            Log.d(DEBUG_TAG, "Opening discarded.json " + e.getMessage());
         } finally {
             SavingHelper.close(reader);
             SavingHelper.close(is);

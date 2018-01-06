@@ -955,7 +955,7 @@ public class EasyEditManager {
                         // ok wasn't a number, just ignore
                     } catch (OsmIllegalOperationException e) {
                         // FIXME something went seriously wrong
-                        Log.e(DEBUG_TAG, e.getMessage());
+                        Log.e(DEBUG_TAG, "handleActivityResult got exception " + e.getMessage());
                     }
 
                     List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
@@ -1017,7 +1017,7 @@ public class EasyEditManager {
                     logic.setSelectedNode(node);
                     return node;
                 } catch (OsmIllegalOperationException e) {
-                    Log.e(DEBUG_TAG, e.getMessage());
+                    Log.e(DEBUG_TAG, "addNode got exception " + e.getMessage());
                     Snack.barError(main, e.getLocalizedMessage());
                     return null;
                 }
@@ -1981,7 +1981,7 @@ public class EasyEditManager {
             } catch (OsmIllegalOperationException e) {
                 Snack.barError(main, e.getLocalizedMessage());
             } catch (NotFoundException e) {
-                Log.d(DEBUG_TAG, e.getMessage());
+                Log.d(DEBUG_TAG, "handleElementClick got exception " + e.getMessage());
             }
             return true;
         }

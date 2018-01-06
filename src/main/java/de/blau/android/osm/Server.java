@@ -949,15 +949,9 @@ public class Server {
                     Log.d(DEBUG_TAG, "Changeset #" + id + " is " + (result.open ? "open" : "closed"));
                 }
             }
-        } catch (MalformedURLException e) {
-            Log.d(DEBUG_TAG, e.getMessage());
-        } catch (ProtocolException e) {
-            Log.d(DEBUG_TAG, e.getMessage());
-        } catch (IOException e) {
-            Log.d(DEBUG_TAG, e.getMessage());
-        } catch (XmlPullParserException e) {
-            Log.d(DEBUG_TAG, e.getMessage());
-        } finally {
+        } catch (IOException | XmlPullParserException e) {
+            Log.d(DEBUG_TAG, "getChangeset got " + e.getMessage());
+        }  finally {
             disconnect(connection);
         }
         return result;
