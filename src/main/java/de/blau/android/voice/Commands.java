@@ -67,7 +67,9 @@ public class Commands {
                 if (match(R.string.voice_left, loc) || match(R.string.voice_here, loc) || match(R.string.voice_right, loc) || match(R.string.voice_note, loc)) {
                     if (match(R.string.voice_note, loc)) {
                         Note n = createNote(words, location);
-                        Snack.toastTopInfo(main, "Note: " + n.getDescription());
+                        if (n != null) {
+                            Snack.toastTopInfo(main, "Note: " + n.getDescription());
+                        }
                         return;
                     }
                     if (!match(R.string.voice_here, loc)) {
@@ -111,11 +113,11 @@ public class Commands {
                     }
 
                     // search in names
-                    String input = "";
+                    StringBuilder input = new StringBuilder("");
                     for (int i = 1; i < words.length; i++) {
-                        input = input + words[i] + (i < words.length ? " " : "");
+                        input.append(words[i] + (i < words.length ? " " : ""));
                     }
-                    NameAndTags nt = SearchIndexUtils.searchInNames(main, input, 2);
+                    NameAndTags nt = SearchIndexUtils.searchInNames(main, input.toString(), 2);
                     if (nt != null) {
                         HashMap<String, String> map = new HashMap<>();
                         map.putAll(nt.getTags());
