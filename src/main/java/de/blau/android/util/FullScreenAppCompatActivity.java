@@ -1,8 +1,10 @@
 package de.blau.android.util;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -111,12 +113,12 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
      * 
      * @return true if we should use the full screen layout
      */
-    protected boolean useFullScreen(Preferences prefs) {
+    protected boolean useFullScreen(@NonNull Preferences prefs) {
         fullScreen = false;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             String fullScreenPref = prefs.getFullscreenMode();
             if (fullScreenPref.equals(getString(R.string.full_screen_auto))) {
-                fullScreen = !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
+                fullScreen = hasNavBar(getResources()) || (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
                 Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " KEYCODE_BACK " + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) + " KEYCODE_HOME "
                         + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
             } else if (fullScreenPref.equals(getString(R.string.full_screen_never))) {
@@ -132,5 +134,19 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
             }
         }
         return fullScreen;
+    }
+    
+    /**
+     * Test if the device has a navigation bar
+     * 
+     * @see https://stackoverflow.com/questions/28983621/detect-soft-navigation-bar-availability-in-android-device-progmatically
+     * 
+     * @param resources to retrieve the setting from
+     * @return true if the device has a navigation bar
+     */
+    public boolean hasNavBar(@NonNull Resources resources)
+    {
+        int id = resources.getIdentifier("config_showNavigationBar", "bool", "android");
+        return id > 0 && resources.getBoolean(id);
     }
 }
