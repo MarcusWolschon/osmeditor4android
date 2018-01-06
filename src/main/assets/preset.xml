@@ -100,7 +100,7 @@
         <reference ref="sidewalk" />
     </chunk>
     <chunk id="crossing_type">    
-    	<multiselect key="crossing" text="Pedestrian crossing type" >
+    	<multiselect key="crossing" text="Pedestrian crossing type" values_context="transport" >
  			<list_entry value="uncontrolled" short_description="Not controlled" icon="presets/vehicle/crossing.svg" />
  			<list_entry value="traffic_signals" short_description="Traffic signals" icon="presets/vehicle/crossing_traffic_signals.svg" />
 			<list_entry value="island" short_description="Island" icon="presets/vehicle/crossing_island.svg" />
@@ -442,7 +442,9 @@
     <chunk id="supervised_lit_oh">
         <reference ref="supervised" />
         <combo key="lit" text="Lit" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false"  match="none" editable="true" />
-        <reference ref="oh" />
+        <optional>
+            <reference ref="oh" />
+        </optional>
     </chunk>
     <chunk id="general_access">
         <combo key="access" text="General Access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,no" 
@@ -1272,7 +1274,7 @@
             <space />
             <key key="highway" value="service" values_context="Highway" />
             <combo key="service" text="Service way type" values="alley,driveway,parking_aisle,drive-through,emergency_access" 
-                display_values="Alley,Driveway,Parking,Parking ailse,Drive-through,Emergency access" />
+                display_values="Alley,Driveway,Parking,Parking aisle,Drive-through,Emergency access" />
             <optional>
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
@@ -1938,7 +1940,7 @@
                 <space />
                 <key key="traffic_calming" value="hump" />
             </item> <!-- Hump -->
-            <item name="Island" name_context="traffic_calming" icon="icons/png/transport_island_18046.png" type="node,way" preset_name_label="true">
+            <item name="Island" name_context="traffic_calming" icon="icons/png/transport_island_18046.png" type="node,way" preset_name_label="true" >
                 <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
                       cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:traffic_calming"
                       de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_calming"
@@ -1952,7 +1954,7 @@
                       pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Key:traffic_calming"
                       ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:traffic_calming" />
                 <space />
-                <key key="traffic_calming" value="island" />
+                <key key="traffic_calming" value="island" values_context="traffic_calming" />
             </item> <!-- Island -->
             <item name="Rumble strip" icon="icons/png/transport_rumble_strip_18047.png" type="node,way" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
@@ -11656,7 +11658,7 @@
             <reference ref="fee" />
         </item> <!-- Cave Entrance -->
         <separator/>
-        <item name="Island" icon="presets/island.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Island" icon="presets/island.png" type="node,closedway,multipolygon" preset_name_label="true" name_context="place">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:place=island"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:place=island"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:place=island"
@@ -11666,7 +11668,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:place=island"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:place=island" />
             <space />
-            <key key="place" value="island" />
+            <key key="place" value="island" values_context="place" />
             <reference ref="name_wikipedia" />
         </item> <!-- Island -->
         <item name="Islet" icon="presets/islet.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -12258,7 +12260,7 @@
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:landuse=religious" />
             <space />
             <key key="landuse" value="religious" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
             <reference ref="religious" />
         </item> <!-- Religious -->
         <item name="Retail" icon="icons/png/landuse_supermarket.png" type="closedway,multipolygon" preset_name_label="true">
@@ -12272,7 +12274,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:landuse=retail" />
             <space />
             <key key="landuse" value="retail" />
-           <reference ref="optional_name" />
+            <reference ref="optional_name" />
         </item> <!-- Retail -->
         <item name="Commercial" icon="presets/empty.png" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=commercial"

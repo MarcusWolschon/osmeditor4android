@@ -437,7 +437,7 @@ il y a %3$s %4$s</string>
   <string name="config_offsetServer_summary">URL du serveur de décalage de l\'imagerie</string>
   <string name="config_osmoseServer_title">Serveur Osmose</string>
   <string name="config_osmoseServer_summary">URL pour le serveur osmose</string>
-  <string name="config_presetbutton_title">Modèles d\'attributs</string>
+  <string name="config_presetbutton_title">Modèles d\\'attributs</string>
   <string name="config_presetbutton_summary">Ajouter et activer des modèles d\'attributs de JOSM</string>
   <string name="config_iconbutton_title">Afficher les icônes sur les nœuds</string>
   <string name="config_iconbutton_summary">Afficher sur les nœuds l\'icône du modèle d\'attributs le plus proche.</string>

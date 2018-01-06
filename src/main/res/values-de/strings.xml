@@ -48,6 +48,7 @@
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="welcome_title">Willkommen!</string>
   <string name="welcome_message">Danke, dass Du Vespucci benutzt.\n\nUm anzufangen, musst du 2 Sachen wissen:\n\n* Durch Antippen des Schlosses in der oberen, linken Ecke schaltet man zwischen dem gesperrten (Bearbeiten nicht möglich) und dem entsperrten Status hin- und her\n\n* Um ein neues Objekt zu erstellen, musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen, erstellt einen Punkt, weiter weg antippen, beginnt einen neuen Weg.\n\nVergiss bitte nicht, zuerst das Gebiet, das du bearbeiten willst, herunterzuladen.\n\nViel Spaß!</string>
+  <string name="welcome_message_fullscreen">\n\nVespucci hat entdeckt, dass dein Gerät \"software\" Tasten hat und hat sie versteckt. Ein Wisch von der unteren Kante zeigt sie wieder an.</string>
   <string name="read_introduction">Die Einführung jetzt lesen</string>
   <string name="upgrade_title">Willkommen zu einer neuen Vespucci Version! </string>
   <string name="upgrade_message">Dies ist eine neue Version von Vespucci mit neuen Funktionen und Verhalten. Wir empfehlen die Anmerkungen zu den Änderungen kurz durchzulesen.</string>
@@ -669,6 +670,8 @@
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt.\n\nUnterstütze uns mit einem Fehlerreport, einfach \'OK\' drücken.\n</string>
   <string name="crash_dialog_comment_prompt">Füge weitere Informationen, und (optional) deine E-Mail-Adresse dazu, falls du eine Rückmeldung willst.\n\nDanke!</string>
+  <string name="report_success">Bericht erfolgreich hochgeladen!</string>
+  <string name="report_failure">Bericht konnte nicht hochgeladen werden!</string>
   <string name="config_category_acra">Fehlerreport</string>
   <string name="pref_enable_acra">Programmabstürze melden</string>
   <string name="pref_acra_enabled">Fehlerreport aktiviert</string>
