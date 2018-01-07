@@ -47,18 +47,18 @@ import de.blau.android.util.SavingHelper;
 public class Track extends DefaultHandler {
     private static final String TAG = "Track";
 
-    private final ArrayList<TrackPoint> track;
+    private final ArrayList<TrackPoint> currentTrack;
 
-    private final String SAVEFILE = "track.dat";
+    private static final String SAVEFILE = "track.dat";
 
     private final Context ctx;
 
     /**
      * For conversion from UNIX epoch time and back
      */
-    private static final String           DATE_PATTERN_ISO8601_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    private static final SimpleDateFormat ISO8601FORMAT;
-    private static final Calendar         calendarInstance         = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+    private final static String           DATE_PATTERN_ISO8601_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private final static SimpleDateFormat ISO8601FORMAT;
+    private final static Calendar         calendarInstance         = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
     static {
         // Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
         ISO8601FORMAT = new SimpleDateFormat(DATE_PATTERN_ISO8601_UTC, Locale.US);
@@ -103,7 +103,7 @@ public class Track extends DefaultHandler {
      * Indicates how many of the track points are already in the save file.
      */
     public Track(Context context) {
-        track = new ArrayList<>();
+        currentTrack = new ArrayList<>();
         ctx = context;
         if (isOpen) {
             markSavingBroken("Attempted to open multiple instances of Track - saving disabled", null);
@@ -116,28 +116,29 @@ public class Track extends DefaultHandler {
 
     public void reset() {
         deleteSaveFile();
-        track.clear();
+        currentTrack.clear();
     }
 
     public void addTrackPoint(final Location location) {
         if (location != null) {
-            track.add(new TrackPoint(location, nextIsNewSegment));
+            currentTrack.add(new TrackPoint(location, nextIsNewSegment));
             nextIsNewSegment = false;
             save();
         }
     }
 
     public List<TrackPoint> getTrackPoints() {
-        return new ArrayList<>(track); // need a shallow copy here
+        return new ArrayList<>(currentTrack); // need a shallow copy here
     }
 
     @Override
     public String toString() {
-        String str = "";
-        for (TrackPoint loc : track) {
-            str += loc.toString() + '\n';
+        StringBuilder str = new StringBuilder("");
+        for (TrackPoint loc : currentTrack) {
+            str.append(loc.toString());
+            str.append('\n');
         }
-        return str;
+        return str.toString();
     }
 
     public void save() {
@@ -147,14 +148,14 @@ public class Track extends DefaultHandler {
         }
         if (!loadingFinished)
             return;
-        if (savedTrackPoints == track.size())
+        if (savedTrackPoints == currentTrack.size())
             return;
 
         // There are records to be saved
         ensureFileOpen();
-        while (savedTrackPoints < track.size()) {
+        while (savedTrackPoints < currentTrack.size()) {
             try {
-                track.get(savedTrackPoints).toStream(saveFileStream);
+                currentTrack.get(savedTrackPoints).toStream(saveFileStream);
             } catch (IOException e) {
                 markSavingBroken("Failed to save track point", e);
                 return;
@@ -206,9 +207,7 @@ public class Track extends DefaultHandler {
         }
         savedTrackPoints = 0;
         File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
-        // noinspection ResultOfMethodCallIgnored
-        saveFile.delete();
-        if (saveFile.exists()) {
+        if (!saveFile.delete() || saveFile.exists()) {
             markSavingBroken("Failed to delete undesired track file", null);
         }
     }
@@ -265,11 +264,11 @@ public class Track extends DefaultHandler {
 
             @Override
             protected void onPostExecute(Void result) {
-                track.addAll(0, loaded);
+                currentTrack.addAll(0, loaded);
                 loadingFinished = true;
                 // See end of doInBackground for possible states
                 Log.i(TAG, "Track loading finished, loaded entries: " + loaded.size());
-                if (track.size() > savedTrackPoints)
+                if (currentTrack.size() > savedTrackPoints)
                     save();
             }
 
@@ -523,7 +522,7 @@ public class Track extends DefaultHandler {
             case "trkseg":
                 break;
             case "trkpt":
-                track.add(new TrackPoint(newSegment ? TrackPoint.FLAG_NEWSEGMENT : 0, parsedLat, parsedLon, parsedEle, parsedTime));
+                currentTrack.add(new TrackPoint(newSegment ? TrackPoint.FLAG_NEWSEGMENT : 0, parsedLat, parsedLon, parsedEle, parsedTime));
                 newSegment = false;
                 parsedEle = Double.NaN;
                 parsedTime = 0L;
