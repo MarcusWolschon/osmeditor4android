@@ -221,7 +221,7 @@ public class Search {
                 } else { // FIXME 2.2/API 8 support
                     URL url = new URL(urlString);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestProperty("User-Agent", App.userAgent);
+                    conn.setRequestProperty("User-Agent", App.getUserAgent());
                     inputStream = conn.getInputStream();
                 }
 
@@ -319,7 +319,7 @@ public class Search {
                 } else { // FIXME 2.2/API 8 support
                     URL url = new URL(urlString);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestProperty("User-Agent", App.userAgent);
+                    conn.setRequestProperty("User-Agent", App.getUserAgent());
                     inputStream = conn.getInputStream();
                 }
 

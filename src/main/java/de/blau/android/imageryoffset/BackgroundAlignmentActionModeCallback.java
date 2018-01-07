@@ -215,7 +215,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 Log.d(DEBUG_TAG, "urlString " + urlString);
                 URL url = new URL(urlString);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("User-Agent", App.userAgent);
+                conn.setRequestProperty("User-Agent", App.getUserAgent());
                 JsonReader reader = null;
                 try {
                     reader = new JsonReader(new InputStreamReader(conn.getInputStream()));
@@ -322,7 +322,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 URL url = new URL(urlString);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("User-Agent", App.userAgent);
+                conn.setRequestProperty("User-Agent", App.getUserAgent());
                 return conn.getResponseCode();
             } catch (MalformedURLException e) {
                 error = e.getMessage();

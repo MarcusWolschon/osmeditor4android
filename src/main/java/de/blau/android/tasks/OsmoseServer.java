@@ -61,7 +61,7 @@ class OsmoseServer {
             con.setReadTimeout(TIMEOUT);
             con.setConnectTimeout(TIMEOUT);
             con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.userAgent);
+            con.setRequestProperty("User-Agent", App.getUserAgent());
 
             // --Start: got response header
             isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -106,7 +106,7 @@ class OsmoseServer {
             // --Start: header not yet sent
             con.setReadTimeout(TIMEOUT);
             con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("User-Agent", App.userAgent);
+            con.setRequestProperty("User-Agent", App.getUserAgent());
             int responseCode = con.getResponseCode();
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 Log.d(DEBUG_TAG, "changeState respnse code " + responseCode);

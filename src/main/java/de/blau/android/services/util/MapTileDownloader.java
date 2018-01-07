@@ -114,7 +114,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         Log.d(DEBUGTAG, "Downloading Maptile from url: " + tileURLString);
                     }
                     URLConnection conn = new URL(tileURLString).openConnection();
-                    conn.setRequestProperty("User-Agent", App.userAgent);
+                    conn.setRequestProperty("User-Agent", App.getUserAgent());
                     if ("BING".equals(mTile.rendererID)) {
                         // this is fairly expensive so only do it is we are actually querying bing
                         if ("no-tile".equals(conn.getHeaderField("X-VE-Tile-Info"))) {

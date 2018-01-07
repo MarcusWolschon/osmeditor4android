@@ -2413,7 +2413,7 @@ public class StorageDelegator implements Serializable, Exportable {
         serializer.setOutput(outputStream, "UTF-8");
         serializer.startDocument("UTF-8", null);
         serializer.startTag(null, "osmChange");
-        serializer.attribute(null, "generator", App.userAgent);
+        serializer.attribute(null, "generator", App.getUserAgent());
         serializer.attribute(null, "version", "0.6");
 
         ArrayList<OsmElement> createdNodes = new ArrayList<>();
@@ -2583,7 +2583,7 @@ public class StorageDelegator implements Serializable, Exportable {
         serializer.setOutput(outputStream, "UTF-8");
         serializer.startDocument("UTF-8", null);
         serializer.startTag(null, "osm");
-        serializer.attribute(null, "generator", App.userAgent);
+        serializer.attribute(null, "generator", App.getUserAgent());
         serializer.attribute(null, "version", "0.6");
         serializer.attribute(null, "upload", "true");
 

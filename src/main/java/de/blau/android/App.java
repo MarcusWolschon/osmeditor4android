@@ -43,7 +43,7 @@ public class App extends android.app.Application {
     private static TaskStorage      taskStorage    = new TaskStorage();
     private static OkHttpClient     httpClient;
     private static final Object     httpClientLock = new Object();
-    public static String            userAgent;
+    private static String           userAgent;
 
     /**
      * The logic that manipulates the model. (non-UI)
@@ -384,5 +384,14 @@ public class App extends android.app.Application {
             }
             return defaultValidator;
         }
+    }
+
+    /**
+     * Get the userAgent string for this version of the app
+     * 
+     * @return the userAgent
+     */
+    public static String getUserAgent() {
+        return userAgent;
     }
 }

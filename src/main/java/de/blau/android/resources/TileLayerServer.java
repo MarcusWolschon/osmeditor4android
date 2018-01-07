@@ -339,7 +339,7 @@ public class TileLayerServer {
             } else {
                 // assume Internet URL
                 URLConnection conn = new URL(replaceGeneralParameters(metadataUrl)).openConnection();
-                conn.setRequestProperty("User-Agent", App.userAgent);
+                conn.setRequestProperty("User-Agent", App.getUserAgent());
                 is = conn.getInputStream();
             }
             parser.setInput(is, null);
@@ -357,7 +357,7 @@ public class TileLayerServer {
                         } else {
                             // assume Internet URL
                             URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
-                            conn.setRequestProperty("User-Agent", App.userAgent);
+                            conn.setRequestProperty("User-Agent", App.getUserAgent());
                             InputStream bis = conn.getInputStream();
                             Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
                             // scale according to density

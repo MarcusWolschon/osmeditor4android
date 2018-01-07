@@ -350,7 +350,7 @@ public class Server {
             // --Start: header not yet send
             con.setReadTimeout(TIMEOUT);
             con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("User-Agent", App.userAgent);
+            con.setRequestProperty("User-Agent", App.getUserAgent());
             con.setInstanceFollowRedirects(true);
 
             // connection.getOutputStream().close(); GET doesn't have an outputstream
@@ -540,7 +540,7 @@ public class Server {
         con.setReadTimeout(TIMEOUT);
         con.setConnectTimeout(TIMEOUT);
         con.setRequestProperty("Accept-Encoding", "gzip");
-        con.setRequestProperty("User-Agent", App.userAgent);
+        con.setRequestProperty("User-Agent", App.getUserAgent());
         con.setInstanceFollowRedirects(true);
 
         // --Start: got response header
@@ -554,7 +554,7 @@ public class Server {
             con.setReadTimeout(TIMEOUT);
             con.setConnectTimeout(TIMEOUT);
             con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.userAgent);
+            con.setRequestProperty("User-Agent", App.getUserAgent());
 
             // --Start: got response header
             isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -738,7 +738,7 @@ public class Server {
         Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("Content-Type", "" + contentType + "; charset=utf-8");
-        connection.setRequestProperty("User-Agent", App.userAgent);
+        connection.setRequestProperty("User-Agent", App.getUserAgent());
         connection.setConnectTimeout(TIMEOUT);
         connection.setReadTimeout(TIMEOUT);
         connection.setRequestMethod(requestMethod);
@@ -1454,7 +1454,7 @@ public class Server {
             con.setReadTimeout(TIMEOUT);
             con.setConnectTimeout(TIMEOUT);
             con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.userAgent);
+            con.setRequestProperty("User-Agent", App.getUserAgent());
 
             // --Start: got response header
             isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -1529,7 +1529,7 @@ public class Server {
             con.setReadTimeout(TIMEOUT);
             con.setConnectTimeout(TIMEOUT);
             con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.userAgent);
+            con.setRequestProperty("User-Agent", App.getUserAgent());
 
             // --Start: got response header
             isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
