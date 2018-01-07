@@ -2559,13 +2559,9 @@ public class Logic {
 
         try {
             return loader.get(20, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
             return null;
-        } catch (ExecutionException e) {
-            return null;
-        } catch (TimeoutException e) {
-            return null;
-        }
+        } 
     }
 
     /**
@@ -2662,13 +2658,9 @@ public class Logic {
         if (postLoadHandler == null) {
             try {
                 return loader.get(20, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 return -1;
-            } catch (ExecutionException e) {
-                return -1;
-            } catch (TimeoutException e) {
-                return -1;
-            }
+            } 
         } else {
             return 0;
         }
@@ -2798,13 +2790,9 @@ public class Logic {
         if (postLoadHandler == null) {
             try {
                 return loader.get(20, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 return -1;
-            } catch (ExecutionException e) {
-                return -1;
-            } catch (TimeoutException e) {
-                return -1;
-            }
+            } 
         } else {
             return 0;
         }
@@ -2996,13 +2984,7 @@ public class Logic {
                         fout = new FileOutputStream(outfile);
                         out = new BufferedOutputStream(fout);
                         getDelegator().save(out);
-                    } catch (IllegalArgumentException e) {
-                        result = ErrorCodes.FILE_WRITE_FAILED;
-                        Log.e(DEBUG_TAG, "Problem writing", e);
-                    } catch (IllegalStateException e) {
-                        result = ErrorCodes.FILE_WRITE_FAILED;
-                        Log.e(DEBUG_TAG, "Problem writing", e);
-                    } catch (XmlPullParserException e) {
+                    } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
                         result = ErrorCodes.FILE_WRITE_FAILED;
                         Log.e(DEBUG_TAG, "Problem writing", e);
                     } finally {
@@ -3332,11 +3314,7 @@ public class Logic {
                         return result;
                     }
                     getDelegator().uploadToServer(server, comment, source, closeChangeset);
-                } catch (final MalformedURLException e) {
-                    Log.e(DEBUG_TAG, "", e);
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(e);
-                } catch (final ProtocolException e) {
+                } catch (final MalformedURLException | ProtocolException e) {
                     Log.e(DEBUG_TAG, "", e);
                     ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                     ACRA.getErrorReporter().handleException(e);
@@ -3440,11 +3418,7 @@ public class Logic {
                 int result = 0;
                 try {
                     server.uploadTrack(track, description, tags, visibility);
-                } catch (final MalformedURLException e) {
-                    Log.e(DEBUG_TAG, "", e);
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(e);
-                } catch (final ProtocolException e) {
+                } catch (final MalformedURLException | ProtocolException e) {
                     Log.e(DEBUG_TAG, "", e);
                     ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                     ACRA.getErrorReporter().handleException(e);
@@ -3480,11 +3454,7 @@ public class Logic {
                     Log.e(DEBUG_TAG, "", e);
                     ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                     ACRA.getErrorReporter().handleException(e);
-                } catch (IllegalArgumentException e) {
-                    result = ErrorCodes.UPLOAD_PROBLEM;
-                } catch (IllegalStateException e) {
-                    result = ErrorCodes.UPLOAD_PROBLEM;
-                } catch (XmlPullParserException e) {
+                } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
                     result = ErrorCodes.UPLOAD_PROBLEM;
                 }
                 return result;

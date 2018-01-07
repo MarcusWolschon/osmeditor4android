@@ -42,8 +42,10 @@ import de.blau.android.util.Search;
 import de.blau.android.util.Search.SearchResult;
 
 /**
- * Activity where the user can pick a Location and a radius (more precisely: a square with "radius" as half of the edge
- * length. This class will return valid geo boundaries for a {@link BoundingBox} as extra data. ResultType will be
+ * Activity in which the user can pick a Location and a radius (more precisely: a square with "radius" as half of the edge
+ * length. 
+ * 
+ * This class will return valid geo boundaries for a {@link BoundingBox} as extra data. ResultType will be
  * RESULT_OK when the {@link BoundingBox} should be loaded from a OSM Server, otherwise RESULT_CANCEL.<br>
  * This class acts as its own LocationListener: We will offers the best location to the user.
  * 
@@ -54,7 +56,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     /**
      * Tag used for Android-logging.
      */
-    private final static String DEBUG_TAG = BoxPicker.class.getName();
+    private static final String DEBUG_TAG = BoxPicker.class.getName();
 
     /**
      * LocationManager. Needed as field for unregister in {@link #onPause()}.
@@ -129,7 +131,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
         // register listeners
         seeker.setOnSeekBarChangeListener(createSeekBarListener());
-        radioGroup.setOnCheckedChangeListener(createRadioGroupListener(loadMapButton, null /* dontLoadMapButton */, latEdit, lonEdit));
+        radioGroup.setOnCheckedChangeListener(createRadioGroupListener(loadMapButton, latEdit, lonEdit));
         OnClickListener onClickListener = createButtonListener(radioGroup, latEdit, lonEdit);
         loadMapButton.setOnClickListener(onClickListener);
         dontLoadMapButton.setOnClickListener(onClickListener);
@@ -153,6 +155,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
+                // required by OnItemSelectedListener but not needed
             }
         });
 
@@ -230,9 +233,9 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
                         || (location != null && location.hasAccuracy() && location.getAccuracy() < bestLocation.getAccuracy())) {
                     bestLocation = location;
                 }
-            } catch (IllegalArgumentException e) {
-            } catch (SecurityException e) {
-            }
+            } catch (IllegalArgumentException | SecurityException e) {
+                Log.d(DEBUG_TAG, "registerLocationListener got " + e.getMessage());
+            } 
         }
         return bestLocation;
     }
@@ -242,13 +245,11 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      * the lat/lon-EditTexts will be visible/invisible when the user chooses to insert the coordinate manually.
      * 
      * @param loadMapButton the "Load!"-button.
-     * @param dontLoadMapButton the "Don't load anything"-button.
      * @param latEdit latitude EditText.
      * @param lonEdit longitude EditText.
      * @return the new created listener.
      */
-    private OnCheckedChangeListener createRadioGroupListener(final Button loadMapButton, final Button dontLoadMapButton, final EditText latEdit,
-            final EditText lonEdit) {
+    private OnCheckedChangeListener createRadioGroupListener(final Button loadMapButton, final EditText latEdit, final EditText lonEdit) {
         return new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(final RadioGroup group, final int checkedId) {
@@ -294,10 +295,12 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
             @Override
             public void onStartTrackingTouch(final SeekBar seekBar) {
+                // required by OnSeekBarChangeListener but not needed
             }
 
             @Override
             public void onStopTrackingTouch(final SeekBar arg0) {
+                // required by OnSeekBarChangeListener but not needed
             }
         };
     }
@@ -397,11 +400,9 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
             float userLat = Float.parseFloat(lat);
             float userLon = Float.parseFloat(lon);
             box = GeoMath.createBoundingBoxForCoordinates(userLat, userLon, currentRadius, true);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | OsmException e) {
             ErrorAlert.showDialog(this, ErrorCodes.NAN);
-        } catch (OsmException e) {
-            ErrorAlert.showDialog(this, ErrorCodes.NAN);
-        }
+        } 
         return box;
     }
 
@@ -429,13 +430,11 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     @Override
     public void onLocationChanged(final Location newLocation) {
         Log.w(DEBUG_TAG, "Got location: " + newLocation);
-        if (newLocation != null) {
-            if (isNewLocationMoreAccurate(newLocation)) {
-                setLocationRadioButton(R.id.location_current, R.string.location_current_text_parameterized, newLocation, null);
-                currentLocation = newLocation;
-                if (lastLocation != null) {
-                    setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, newLocation, lastLocation);
-                }
+        if (newLocation != null && isNewLocationMoreAccurate(newLocation)) {
+            setLocationRadioButton(R.id.location_current, R.string.location_current_text_parameterized, newLocation, null);
+            currentLocation = newLocation;
+            if (lastLocation != null) {
+                setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, newLocation, lastLocation);
             }
         }
     }
@@ -503,6 +502,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      */
     @Override
     public void onProviderDisabled(final String provider) {
+     // required by LocationListener but not needed
     }
 
     /**
@@ -510,6 +510,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      */
     @Override
     public void onProviderEnabled(final String provider) {
+     // required by LocationListener but not needed
     }
 
     /**
@@ -517,6 +518,6 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      */
     @Override
     public void onStatusChanged(final String provider, final int status, final Bundle extras) {
+        // required by LocationListener but not needed
     }
-
 }
