@@ -171,8 +171,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
         public void run() {
             try {
                 TileLayerServer renderer = TileLayerServer.get(mCtx, mTile.rendererID, false);
-                if (mTile.zoomLevel < renderer.getMinZoomLevel()) { // the tile doesn't exist no point in trying to get
-                                                                    // it
+                if (mTile.zoomLevel < renderer.getMinZoomLevel()) { // the tile doesn't exist no point in trying to get it
                     mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
                     return;
                 }

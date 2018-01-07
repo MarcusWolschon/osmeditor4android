@@ -181,13 +181,12 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     }
 
     /**
-     * Attempt to return a tile from cache otherwise ask for it from remote
+     * Attempt to return a tile from in memory cache
      * 
      * @param aTile tile spec
-     * @param owner
      * @return the tile or null if it wasn't in cache
      */
-    public Bitmap getMapTileFromCache(final MapTile aTile, long owner) {
+    public Bitmap getMapTileFromCache(@NonNull final MapTile aTile) {
         return mTileCache.getMapTile(aTile);
     }
 

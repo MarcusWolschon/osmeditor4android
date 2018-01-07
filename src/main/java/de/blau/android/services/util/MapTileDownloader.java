@@ -46,6 +46,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     private final Context                   mCtx;
     private final MapTileFilesystemProvider mMapTileFSProvider;
+    private final NetworkStatus             networkStatus;
 
     // ===========================================================
     // Constructors
@@ -54,6 +55,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
     public MapTileDownloader(final Context ctx, final MapTileFilesystemProvider aMapTileFSProvider) {
         mCtx = ctx;
         mMapTileFSProvider = aMapTileFSProvider;
+        networkStatus = new NetworkStatus(ctx);
         mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
     }
 
@@ -94,7 +96,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
         @Override
         public void run() {
 
-            if (!NetworkStatus.isConnected(mCtx)) { // fail immediately
+            if (!networkStatus.isConnected()) { // fail immediately
                 try {
                     Log.e(DEBUGTAG, "No network");
                     mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, NONETWORK);

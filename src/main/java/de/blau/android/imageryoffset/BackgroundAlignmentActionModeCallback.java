@@ -52,7 +52,6 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
-import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
@@ -133,7 +132,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }
         menu.clear();
         MenuItem mi = menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db)
-                .setEnabled(NetworkStatus.isConnected(main)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_download));
+                .setEnabled(main.isConnectedOrConnecting()).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_download));
         MenuItemCompat.setShowAsAction(mi, MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         // menu.add(Menu.NONE, MENUITEM_QUERYLOCAL, Menu.NONE,
         // R.string.menu_tools_background_align_retrieve_from_device);
@@ -142,7 +141,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         MenuItemCompat.setShowAsAction(mi, MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         menu.add(Menu.NONE, MENUITEM_ZERO, Menu.NONE, R.string.menu_tools_background_align_zero);
         menu.add(Menu.NONE, MENUITEM_APPLY2ALL, Menu.NONE, R.string.menu_tools_background_align_apply2all);
-        menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(NetworkStatus.isConnected(main));
+        menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(main.isConnectedOrConnecting());
         // menu.add(Menu.NONE, MENUITEM_SAVELOCAL, Menu.NONE, R.string.menu_tools_background_align_save_device);
         menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
         // Toolbar toolbar = (Toolbar) Application.mainActivity.findViewById(R.id.mainToolbar);

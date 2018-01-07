@@ -52,6 +52,7 @@ import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
+import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
@@ -163,10 +164,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     private SavingHelper<LinkedHashMap<String, String>> savingHelper = new SavingHelper<>();
 
-    private Preferences       prefs         = null;
-    private ExtendedViewPager mViewPager;
-    private boolean           usePaneLayout = false;
-    private boolean           isRelation    = false;
+    private Preferences             prefs         = null;
+    private ExtendedViewPager       mViewPager;
+    private boolean                 usePaneLayout = false;
+    private boolean                 isRelation    = false;
+    private transient NetworkStatus networkStatus;
 
     /**
      * Start a PropertyEditor activity
@@ -1235,5 +1237,21 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     public void applyPreset(PresetItem preset, boolean addOptional) {
         tagEditorFragment.applyPreset(preset, true);
+    }
+
+    @Override
+    public boolean isConnected() {
+        if (networkStatus == null) {
+            networkStatus = new NetworkStatus(this);
+        }
+        return networkStatus.isConnected();
+    }
+    
+    @Override
+    public boolean isConnectedOrConnecting() {
+        if (networkStatus == null) {
+            networkStatus = new NetworkStatus(this);
+        }
+        return networkStatus.isConnectedOrConnecting();
     }
 }

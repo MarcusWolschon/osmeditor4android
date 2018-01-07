@@ -404,6 +404,12 @@ public class Main extends FullScreenAppCompatActivity
     private boolean      askedForStoragePermission = false;
     private final Object storagePermissionLock     = new Object();
 
+    
+    /**
+     * 
+     */
+    transient private NetworkStatus networkStatus;
+    
     /**
      * file we asked the camera app to create (ugly)
      */
@@ -1332,7 +1338,7 @@ public class Main extends FullScreenAppCompatActivity
             inflater.inflate(R.menu.main_menu, menu);
         }
 
-        boolean networkConnected = NetworkStatus.isConnected(this);
+        boolean networkConnected = isConnected();
         boolean gpsProviderEnabled = ensureGPSProviderEnabled() && locationPermissionGranted;
         // just as good as any other place to check this
         synchronized (controlsHiddenLock) {
@@ -1357,7 +1363,7 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_gps_clear).setEnabled(trackerHasPoints);
         menu.findItem(R.id.menu_gps_goto_start).setEnabled(trackerHasPoints);
         menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
-        menu.findItem(R.id.menu_gps_upload).setEnabled(trackerHasPoints && NetworkStatus.isConnected(this));
+        menu.findItem(R.id.menu_gps_upload).setEnabled(trackerHasPoints && networkConnected);
 
         final Logic logic = App.getLogic();
         MenuItem undo = menu.findItem(R.id.menu_undo);
@@ -2890,7 +2896,7 @@ public class Main extends FullScreenAppCompatActivity
 
             if (isInEditZoomRange) {
                 if (logic.isLocked()) {
-                    if (NetworkStatus.isConnected(Main.this) && prefs.voiceCommandsEnabled()) {
+                    if (isConnectedOrConnecting() && prefs.voiceCommandsEnabled()) {
                         locationForIntent = lastLocation; // location when we touched the screen
                         startVoiceRecognition();
                     } else {
@@ -3435,6 +3441,20 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void invalidateMap() {
         map.invalidate();
+    }
+
+    public boolean isConnected() {
+        if (networkStatus == null) {
+            networkStatus = new NetworkStatus(this);
+        }
+        return networkStatus.isConnected();
+    }
+    
+    public boolean isConnectedOrConnecting() {
+        if (networkStatus == null) {
+            networkStatus = new NetworkStatus(this);
+        }
+        return networkStatus.isConnectedOrConnecting();
     }
 
     public Map getMap() {

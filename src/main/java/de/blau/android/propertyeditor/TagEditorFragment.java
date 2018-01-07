@@ -70,7 +70,6 @@ import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.KeyValue;
-import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StreetTagValueAdapter;
@@ -1639,7 +1638,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // final MenuInflater inflater = getSupportMenuInflater();
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.tag_menu, menu);
-        menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(getActivity()));
+        menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
         menu.findItem(R.id.tag_menu_paste).setVisible(pasteIsPossible());
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(pasteFromClipboardIsPossible());
     }

@@ -1,5 +1,6 @@
 package de.blau.android.views.overlay;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -25,6 +26,7 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
@@ -70,6 +72,7 @@ public class MapTilesOverlay extends MapViewOverlay {
     private final MapTileProvider mTileProvider;
     private final Paint           mPaint    = new Paint();
     private Paint                 textPaint = new Paint();
+    private final NetworkStatus   networkStatus;
 
     private int prevZoomLevel = -1; // zoom level from previous draw
 
@@ -81,15 +84,19 @@ public class MapTilesOverlay extends MapViewOverlay {
      */
     public MapTilesOverlay(final View aView, final TileLayerServer aRendererInfo, final MapTileProvider aTileProvider) {
         myView = aView;
+        Context ctx = myView.getContext();
         setRendererInfo(aRendererInfo);
         if (aTileProvider == null) {
-            mTileProvider = new MapTileProvider(myView.getContext(), new SimpleInvalidationHandler(myView));
+            mTileProvider = new MapTileProvider(ctx, new SimpleInvalidationHandler(myView));
         } else {
             mTileProvider = aTileProvider;
         }
         //
         textPaint = DataStyle.getCurrent(DataStyle.ATTRIBUTION_TEXT).getPaint();
         // mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
+        
+        networkStatus = new NetworkStatus(ctx);
+        
         Log.d(DEBUG_TAG, "provider " + aRendererInfo.getId() + " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel());
     }
 
@@ -267,8 +274,7 @@ public class MapTilesOverlay extends MapViewOverlay {
         final int tileNeededTop = Math.min(yTileTop, yTileBottom);
         final int tileNeededBottom = Math.max(yTileTop, yTileBottom);
 
-        // Log.d("OpenStreetMapTileOverlay","zoom " + zoomLevel + " tile left " + xTileLeft + " right " + xTileRight + "
-        // top " +yTileTop + " bottom " + yTileBottom);
+        // Log.d(DEBUG_TAG,"zoom " + zoomLevel + " tile left " + xTileLeft + " right " + xTileRight + " top " +yTileTop + " bottom " + yTileBottom);
         // Log.d("OpenStreetMapTileOverlay"," top " + tileNeededTop + " bottom " + tileNeededBottom);
         // Log.d("OpenStreetMapTileOverlay","lonLeft " + lonLeft + " lonRight " + lonRight + " latTop " +
         // Math.toDegrees(latTop)+ " latBottom " + Math.toDegrees(latBottom));
@@ -322,12 +328,10 @@ public class MapTilesOverlay extends MapViewOverlay {
                 int ty = 0;
                 Bitmap tileBitmap = null;
                 // only actually try to get tile if in range
-
                 if (tile.zoomLevel >= minZoom && tile.zoomLevel <= maxZoom) {
                     tileBitmap = mTileProvider.getMapTile(tile, owner);
                 }
                 if (tileBitmap == null) {
-                    tile.reinit();
                     // Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
                     // OVERZOOM
                     // Preferred tile is not available - request it
@@ -336,6 +340,7 @@ public class MapTilesOverlay extends MapViewOverlay {
                     // using larger tiles
                     // maximum maxOverZoom zoom levels up, with standard tiles this reduces the width to 64 bits
                     while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) <= maxOverZoom && tile.zoomLevel > minZoom) {
+                        tile.reinit();
                         // As we zoom out to larger-scale tiles, we want to
                         // draw smaller and smaller sections of them
                         sw >>= 1; // smaller size
@@ -353,12 +358,12 @@ public class MapTilesOverlay extends MapViewOverlay {
                         tile.x >>= 1;
                         tile.y >>= 1;
                         --tile.zoomLevel;
-                        // Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
-                        tileBitmap = mTileProvider.getMapTileFromCache(tile, owner);
-                        if (tileBitmap == null && (originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom)) {
+                        // Log.d(DEBUG_TAG,"trying zoom level " + tile.zoomLevel + " for orig " + originalTile.toString());
+                        tileBitmap = mTileProvider.getMapTileFromCache(tile);
+                        if (tileBitmap == null && ((originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom) || !networkStatus.isConnected())) {
                             // Only try this it we are overzooming in which case we -do- want to retrieve the maxZoom
-                            // tiles if we don't have them
-                            // Log.d("OpenStreetMapTileOverlay","larger tile " + tile.toString() + " available");
+                            // tiles if we don't have them or if we might have something on disk and no network connectivity
+                            // Log.d(DEBUG_TAG,"larger tile " + tile.toString() + " download");
                             tileBitmap = mTileProvider.getMapTile(tile, owner);
                         }
                     }
@@ -439,13 +444,13 @@ public class MapTilesOverlay extends MapViewOverlay {
      * @param z Zoom level to draw.
      * @param x Tile X to draw.
      * @param y Tile Y to draw.
-     * @param lonOffset TODO
-     * @param latOffset TODO
+     * @param lonOffset imagery longitude offset correction in WGS84
+     * @param latOffset imagery latitude offset correction in WGS84
      */
     private boolean drawTile(long owner, Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset,
             double latOffset) {
         final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
-        Bitmap bitmap = mTileProvider.getMapTileFromCache(tile, owner);
+        Bitmap bitmap = mTileProvider.getMapTileFromCache(tile);
         if (bitmap != null) {
             // Log.d("OpenStreetMapTileOverlay","smaller tile " + tile.toString() + " available");
             c.drawBitmap(bitmap, new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
@@ -479,8 +484,8 @@ public class MapTilesOverlay extends MapViewOverlay {
      * @param zoomLevel the zoom-level of the tile
      * @param y the y-number of the tile
      * @param x the x-number of the tile
-     * @param lonOffset TODO
-     * @param latOffset TODO
+     * @param lonOffset imagery longitude offset correction in WGS84 
+     * @param latOffset imagery latitude offset correction in WGS84
      * @return the rectangle of screen-coordinates it consumes.
      */
     private Rect getScreenRectForTile(Canvas c, IMapView osmv, final int zoomLevel, int y, int x, boolean squareTiles, double lonOffset, double latOffset) {
@@ -493,12 +498,8 @@ public class MapTilesOverlay extends MapViewOverlay {
         int h = c.getClipBounds().height();
         int screenLeft = (int) GeoMath.lonE7ToX(w, osmv.getViewBox(), (int) ((west + lonOffset) * 1E7));
 
-        int tileWidth = 1 + (int) Math.floor((double) (east - west) * 1E7 * w / osmv.getViewBox().getWidth()); // calculate
-                                                                                                               // here
-                                                                                                               // to
-                                                                                                               // avoid
-                                                                                                               // rounding
-                                                                                                               // differences
+        // calculate here to avoid rounding differences
+        int tileWidth = 1 + (int) Math.floor((double) (east - west) * 1E7 * w / osmv.getViewBox().getWidth()); 
 
         int screenTop = (int) GeoMath.latE7ToY(h, w, osmv.getViewBox(), (int) ((north + latOffset) * 1E7));
         int screenBottom = squareTiles ? screenTop + tileWidth
@@ -565,7 +566,7 @@ public class MapTilesOverlay extends MapViewOverlay {
             this.v = v;
         }
 
-        class R implements Runnable {
+        class Invalidator implements Runnable {
             @Override
             public void run() {
                 // Log.d("OpenStreetMapOverlay", "SimpleInvalidationHandler #viewInvalidates " + viewInvalidates);
@@ -583,7 +584,7 @@ public class MapTilesOverlay extends MapViewOverlay {
                 // Log.d("OpenStreetMapTileOverlay","received invalidate");
                 if (viewInvalidates == 0) { // try to suppress inordinate number of invalidates
                     Handler handler = new Handler();
-                    handler.postDelayed(new R(), 100); // wait 1/10th of a second
+                    handler.postDelayed(new Invalidator(), 100); // wait 1/10th of a second
                     viewInvalidates++;
                 } else
                     viewInvalidates++;

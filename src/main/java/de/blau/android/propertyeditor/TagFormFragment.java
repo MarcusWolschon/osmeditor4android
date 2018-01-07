@@ -80,7 +80,6 @@ import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
-import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
@@ -106,6 +105,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
     private Preferences prefs = null;
 
+    private PropertyEditorListener propertyEditorListener;
+    
     private EditorUpdate tagListener = null;
 
     private NameAdapters nameAdapters = null;
@@ -148,8 +149,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         try {
             tagListener = (EditorUpdate) context;
             nameAdapters = (NameAdapters) context;
+            propertyEditorListener = (PropertyEditorListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener, NameAdapters");
+            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener, NameAdapters, PropertyEditorListener");
         }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
@@ -377,7 +379,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.tag_form_menu, menu);
         FragmentActivity activity = getActivity();
-        menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(activity));
+        menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
         menu.findItem(R.id.tag_menu_paste).setVisible(tagListener.pasteIsPossible());
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
         Locale locale = Locale.getDefault();

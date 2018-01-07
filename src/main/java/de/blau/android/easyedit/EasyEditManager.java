@@ -70,7 +70,6 @@ import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
-import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
@@ -696,7 +695,7 @@ public class EasyEditManager {
             Preferences prefs = new Preferences(main);
             if (prefs.voiceCommandsEnabled()) {
                 menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.mic))
-                        .setEnabled(NetworkStatus.isConnected(main));
+                        .setEnabled(main.isConnectedOrConnecting());
             }
             menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
@@ -1333,7 +1332,7 @@ public class EasyEditManager {
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
             if (element.getOsmId() > 0) {
                 menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
-                        .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(main));
+                        .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
             }
             menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information)
                     .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info))
