@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.0.4: Fix overzoom not working, improve behaviour when no network connectivity is present.
+
 10.0.3: Protect against crashes due to bad preset entries, improvements software keys detection, upgrade ACRA and support libraries, upgrade OH fragment, protect against null messages when logging.
 
 10.0.2: Improve behaviour of controls when oauth fails, update translations, use the correct GPS icon when in full screen mode. fix regression wrt deprecated items being added to search index via synonyms, use simplified icon for notifications, fix numerous full screen issues.
