@@ -2812,12 +2812,14 @@ public class Preset implements Serializable {
          * @return JSON format string
          */
         public String toJSON() {
-            String presetName = name;
+            StringBuilder presetNameBuilder = new StringBuilder(name);
             PresetElement p = getParent();
             while (p != null && p != rootGroup && !"".equals(p.getName())) {
-                presetName = p.getName() + "/" + presetName;
+                presetNameBuilder.insert(0, '/');
+                presetNameBuilder.insert(0, p.getName());
                 p = p.getParent();
             }
+            String presetName = presetNameBuilder.toString();
             StringBuilder jsonString = new StringBuilder();
             for (Entry<String, StringWithDescription> entry : fixedTags.entrySet()) {
                 jsonString.append(tagToJSON(presetName, entry.getKey(), entry.getValue().getValue()));
