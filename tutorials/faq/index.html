@@ -312,7 +312,7 @@ That means: it is a light-weight, easy-to-use mapping tool on mobile Android dev
 <h4 id="what-is-vespucci-not">What is Vespucci NOT?</h4>
 <ul>
 <li>Vespucci is not primarily a mobile map-viewer. </li>
-<li>Vespucci is not a mobile navigation solution. It does not feature any routing algorithm.</li>
+<li>Vespucci is not a mobile navigation solution. It does not feature any routing support.</li>
 <li>Vespucci is not a full replacement for JOSM or other desktop editors, but nearly. It strives for maximum usability on mobile devices which are limited in many regards. </li>
 </ul>
 <h4 id="i-am-already-familiar-with-osm-editor-xyz-why-should-i-use-vespucci">I am already familiar with OSM editor xyz. Why should I use Vespucci?</h4>
@@ -327,7 +327,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <li>An <a href="http://www.openstreetmap.org/user/new">OSM account</a></li>
 </ul>
 <h4 id="what-is-the-status-of-vespucci-development">What is the status of Vespucci development?</h4>
-<p>The current Vespucci version is 0.9.9, 0.9.10 is currently in beta release.</p>
+<p>The current Vespucci version is 10.0.</p>
 <h4 id="is-vespucci-available-for-other-mobile-platforms">Is Vespucci available for other mobile platforms?</h4>
 <p>No, with the exception of those that provide an Android compatible environment.</p>
 <h4 id="how-can-i-obtain-vespucci">How can I obtain Vespucci?</h4>
@@ -405,7 +405,7 @@ however older devices tend to have very limited memory and correspondingly the a
 (With other words: Data is not automatically uploaded!)</p>
 <h4 id="which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?</h4>
 <p>Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).</p>
-<p>Note: OAuth will work for both the standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.</p>
+<p>Note: OAuth will work for both the OSMT-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.</p>
 <h4 id="how-can-i-zoom-into-an-area">How can I zoom into an area?</h4>
 <ul>
 <li>Use the pinch-to-zoom multi-touch gesture.</li>
@@ -436,7 +436,7 @@ however older devices tend to have very limited memory and correspondingly the a
 <p>The preferred method is to add your imagery source to <a href="https://github.com/osmlab/editor-layer-index">the editor layer index</a> so that it can be used by all OpenStreetMap editors.</p>
 <p>However you can add a file 'imagery.json' containing custom sources in the legacy editor-layer-index format in the Vespucci folder on your device. See <a href="https://drive.google.com/file/d/0B9pKLmh8s1h8Ti12THZRaDJPdmc/view?usp=sharing">sample file on google drive</a>.  </p>
 <h4 id="why-cant-you-provide-technical-support-on-the-google-play-store-review-section">Why can't you provide technical support on the google play store review section</h4>
-<p>The google play store allows just one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">github</a>, if you have questions or can't find how do a specific operation you can ask on the <a href="http://help.openstreetmap.org">OpenStreetMap help site</a> or one of the other OpenStreetMap communication channels. </p>
+<p>The google play store allows only one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">github</a>, if you have questions or can't find how do a specific operation you can ask on the <a href="http://help.openstreetmap.org">OpenStreetMap help site</a> or one of the other OpenStreetMap communication channels. </p>
 <p>350 characters is 100 characters less than the text above.</p></div>
 	    
         </div>
