@@ -1,6 +1,8 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-10.0.4: Fix overzoom not working, improve behaviour when no network connectivity is present.
+10.0.5; Downgrade support library version to fix https://issuetracker.google.com/issues/63151548, update presets.
+
+10.0.4: Fix overzoom for missing tiles not working, improve behaviour when no network connectivity is present.
 
 10.0.3: Protect against crashes due to bad preset entries, improvements software keys detection, upgrade ACRA and support libraries, upgrade OH fragment, protect against null messages when logging.
 

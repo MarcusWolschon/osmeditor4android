@@ -157,7 +157,7 @@ sonarqube {
 }
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion "24.0.3"
  
     defaultConfig {
@@ -226,13 +226,17 @@ android.applicationVariants.all { variant ->
 ext {
     okHttpVersion = "3.9.1"
     signpostVersion = "1.2.1.2"
-    supportLibVersion = "25.4.0"
+    supportLibVersion = "25.3.1"
     acraVersion = "5.0.0"
 }
 
 dependencies {
-    compile "ch.acra:acra-http:$acraVersion"
-    compile "ch.acra:acra-dialog:$acraVersion"
+    compile ("ch.acra:acra-http:$acraVersion") {
+        exclude group: 'com.android.support'
+    }
+    compile ("ch.acra:acra-dialog:$acraVersion") {
+        exclude group: 'com.android.support'            
+    }
     compile "com.android.support:appcompat-v7:$supportLibVersion"
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
     compile "com.android.support:preference-v7:$supportLibVersion"
