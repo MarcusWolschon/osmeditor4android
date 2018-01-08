@@ -284,6 +284,8 @@ public class TileLayerServer {
 
     private static final int PREFERENCE_DEFAULT = 0;
     private static final int PREFERENCE_BEST    = 10;
+    
+    private static final int DEFAULT_MOX_OVERZOOM = 4;
 
     private static TileLayerServer cachedBackground = null;
     private static TileLayerServer cachedOverlay    = null;
@@ -308,7 +310,7 @@ public class TileLayerServer {
     private int                  preference;
     private long                 startDate   = -1L;
     private long                 endDate     = -1L;
-    private int                  maxOverZoom = 3;                 // currently hardwired
+    private int                  maxOverZoom = DEFAULT_MOX_OVERZOOM;                 // currently hardwired
     private Drawable             brandLogo;
     private final Queue<String>  subdomains  = new LinkedList<>();
     private int                  defaultAlpha;

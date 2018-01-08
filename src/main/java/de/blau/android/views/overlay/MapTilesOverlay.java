@@ -224,6 +224,8 @@ public class MapTilesOverlay extends MapViewOverlay {
             return; // no point, return immediately
         }
         coverageWarningDisplayed = false;
+        
+        boolean networkIsConnected = networkStatus.isConnected();
 
         long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which
                                                               // invocation of onDraw the tile belongs too
@@ -360,7 +362,7 @@ public class MapTilesOverlay extends MapViewOverlay {
                         --tile.zoomLevel;
                         // Log.d(DEBUG_TAG,"trying zoom level " + tile.zoomLevel + " for orig " + originalTile.toString());
                         tileBitmap = mTileProvider.getMapTileFromCache(tile);
-                        if (tileBitmap == null && ((originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom) || !networkStatus.isConnected())) {
+                        if (tileBitmap == null && ((originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom) || !networkIsConnected)) {
                             // Only try this it we are overzooming in which case we -do- want to retrieve the maxZoom
                             // tiles if we don't have them or if we might have something on disk and no network connectivity
                             // Log.d(DEBUG_TAG,"larger tile " + tile.toString() + " download");
@@ -377,7 +379,7 @@ public class MapTilesOverlay extends MapViewOverlay {
                 } else {
                     tile.reinit();
                     // Still no tile available - try smaller scale tiles
-                    if (!drawTile(owner, c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
+                    if (!drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
                         // Log.d("OpenStreetMapTileOverlay","no usable tiles found");
                         // store an error tile
                         tile.zoomLevel = zoomLevel;
@@ -435,8 +437,6 @@ public class MapTilesOverlay extends MapViewOverlay {
 
     /**
      * Recursively search the cache for smaller tiles to fill in the required space.
-     * 
-     * @param owner TODO
      * @param c Canvas to draw on.
      * @param osmv Map view area.
      * @param minz Minimum zoom level.
@@ -447,8 +447,7 @@ public class MapTilesOverlay extends MapViewOverlay {
      * @param lonOffset imagery longitude offset correction in WGS84
      * @param latOffset imagery latitude offset correction in WGS84
      */
-    private boolean drawTile(long owner, Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset,
-            double latOffset) {
+    private boolean drawTile(Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
         final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
         Bitmap bitmap = mTileProvider.getMapTileFromCache(tile);
         if (bitmap != null) {
@@ -464,10 +463,10 @@ public class MapTilesOverlay extends MapViewOverlay {
                 y <<= 1;
                 ++z;
                 // Log.d("OpenStreetMapTileOverlay","trying higher zoom level " + z);
-                boolean result = drawTile(owner, c, osmv, z, maxz, z, x, y, squareTiles, lonOffset, latOffset);
-                result = drawTile(owner, c, osmv, z, maxz, z, x + 1, y, squareTiles, lonOffset, latOffset) && result;
-                result = drawTile(owner, c, osmv, z, maxz, z, x, y + 1, squareTiles, lonOffset, latOffset) && result;
-                result = drawTile(owner, c, osmv, z, maxz, z, x + 1, y + 1, squareTiles, lonOffset, latOffset) && result;
+                boolean result = drawTile(c, osmv, z, maxz, z, x, y, squareTiles, lonOffset, latOffset);
+                result = drawTile(c, osmv, z, maxz, z, x + 1, y, squareTiles, lonOffset, latOffset) && result;
+                result = drawTile(c, osmv, z, maxz, z, x, y + 1, squareTiles, lonOffset, latOffset) && result;
+                result = drawTile(c, osmv, z, maxz, z, x + 1, y + 1, squareTiles, lonOffset, latOffset) && result;
                 return result;
             } else {
                 // final fail
