@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2018-01-06 12:38+0000\n"
+"PO-Revision-Date: 2018-01-08 11:02+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -493,7 +493,7 @@ msgstr ""
 #: master_preset.xml:12094(item:name|group:Land_use|preset:Aquaculture)
 #: master_preset.xml:12102(combo:text|group:Land_use|preset:Aquaculture|key:aquaculture)
 msgid "Aquaculture"
-msgstr ""
+msgstr "養魚場"
 
 #: master_preset.xml:5268(item:name|group:Leisure|preset:Aquarium)
 msgid "Aquarium"
@@ -1403,7 +1403,7 @@ msgstr ""
 
 #: master_preset.xml:12236(item:name|group:Land_use|preset:Cemetery)
 msgid "Cemetery"
-msgstr ""
+msgstr "霊園（土地区画）"
 
 #: master_preset.xml:1700(check:text|group:Ways|preset:Steps|key:handrail:center)
 msgid "Center handrail"
@@ -1559,7 +1559,7 @@ msgstr ""
 
 #: master_preset.xml:6311(item:name|group:Health|preset:Clinic)
 msgid "Clinic"
-msgstr ""
+msgstr "クリニック（中規模病院）"
 
 #: master_preset.xml:6959(item:name|group:Facilities|preset:Clock)
 msgid "Clock"
@@ -2350,7 +2350,7 @@ msgstr ""
 
 #: master_preset.xml:1275(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Driveway"
-msgstr ""
+msgstr "私道・ドライブウェイ"
 
 #: master_preset.xml:6268(item:name|group:Education|preset:Driving_School)
 msgid "Driving School"
@@ -2613,11 +2613,11 @@ msgstr ""
 
 #: master_preset.xml:11990(item:name|group:Land_use|preset:Farmland)
 msgid "Farmland"
-msgstr ""
+msgstr "農地（非推奨）"
 
 #: master_preset.xml:11978(item:name|group:Land_use|preset:Farmyard)
 msgid "Farmyard"
-msgstr ""
+msgstr "農家（敷地）"
 
 #: master_preset.xml:338(list_entry:short_description|value:fashion)
 msgid "Fashion"
@@ -5566,7 +5566,7 @@ msgstr ""
 
 #: master_preset.xml:1285(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
-msgstr ""
+msgstr "駐車場内通路全般"
 
 #: master_preset.xml:3767(item:name|group:Car|preset:Parking_Entrance)
 msgid "Parking Entrance"
@@ -5619,7 +5619,7 @@ msgstr ""
 
 #: master_preset.xml:1531(item:name|group:Ways|preset:Path)
 msgid "Path"
-msgstr ""
+msgstr "小道（自動車以外用）"
 
 #: master_preset.xml:10158(item:name|group:Cash|preset:Pawnbroker)
 msgid "Pawnbroker"
@@ -7986,7 +7986,7 @@ msgstr ""
 
 #: master_preset.xml:2201(item:name|group:Barriers|preset:Toll_Booth)
 msgid "Toll Booth"
-msgstr ""
+msgstr "料金所（道路、橋）"
 
 #: master_preset.xml:9397(item:name|group:Historic_Places_&_Objects|preset:Tomb)
 msgid "Tomb"
@@ -8074,7 +8074,7 @@ msgstr ""
 #: master_preset.xml:1850(group:name|group:Traffic_Calming)
 #: master_preset.xml:1851(item:name|group:Traffic_Calming|preset:Traffic_Calming)
 msgid "Traffic Calming"
-msgstr ""
+msgstr "交通静穏化・交通安全"
 
 #: master_preset.xml:2062(item:name|preset:Traffic_Mirror)
 msgid "Traffic Mirror"
@@ -9554,7 +9554,7 @@ msgstr ""
 #: master_preset.xml:90(combo:text|key:sidewalk)
 msgctxt "sidewalk"
 msgid "Sidewalk"
-msgstr ""
+msgstr "歩道（車道の脇）"
 
 #: master_preset.xml:106(list_entry:short_description|value:island)
 msgctxt "transport"
@@ -10621,7 +10621,7 @@ msgstr ""
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Greenhouse"
-msgstr ""
+msgstr "温室（建物）"
 
 #: master_preset.xml:796(list_entry:short_description|value:half-hipped)
 #: master_preset.xml:8203(item:name|group:Roof_type|preset:Half-hipped)
@@ -11166,7 +11166,7 @@ msgstr ""
 #: master_preset.xml:1656(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Sidewalk"
-msgstr ""
+msgstr "歩道（車道の脇）"
 
 #: master_preset.xml:1656(combo:text|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"

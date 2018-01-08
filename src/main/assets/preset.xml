@@ -6540,8 +6540,11 @@
             <combo key="fire_hydrant:type" text="Type" values="underground,pillar,wall,pond" values_context="pipeline" default="pillar" />
             <combo key="fire_hydrant:diameter" text="Diameter (in mm)" values="50,80,100,150,200,250,300,400" />
             <space />
-            <reference ref="name_ref" />
-            <text key="operator" text="Operator" />
+            <text key="ref" text="Reference" />
+            <optional>
+                <text key="name" text="Name" />
+                <text key="operator" text="Operator" />
+            </optional>
             <space />
             <combo key="fire_hydrant:position" text="Hydrant Position" values="lane,parking_lot,sidewalk,green" values_context="hydrant position" />
             <combo key="fire_hydrant:pressure" text="Pressure (in bar)" values="5,6,8,suction" />
