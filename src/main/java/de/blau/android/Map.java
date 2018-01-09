@@ -1547,8 +1547,9 @@ public class Map extends View implements IMapView {
         // convert from ArrayList<Float> to float[]
         float[] result = new float[points.size()];
         int i = 0;
-        for (Float f : points)
+        for (Float f : points) {
             result[i++] = f;
+        }
         return result;
     }
 
