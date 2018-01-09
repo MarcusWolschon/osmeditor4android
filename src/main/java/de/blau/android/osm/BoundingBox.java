@@ -1003,6 +1003,15 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         width = b.width;
         height = b.height;
     }
+    
+    public void set(int left, int bottom, int right, int top) {
+        this.left = left;
+        this.bottom = bottom;
+        this.right = right;
+        this.top = top;
+        width = (long) right - left;
+        height = top - bottom;
+    }
 
     /**
      * grow this box so that it covers the point

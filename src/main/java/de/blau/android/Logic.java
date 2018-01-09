@@ -1251,7 +1251,7 @@ public class Logic {
                         }
                         if (handleNode != null) {
                             setSelectedNode(null); // performAddOnWay sets this, need to undo
-                            getDelegator().updateLatLon(handleNode, yToLatE7(absoluteY), xToLonE7(absoluteX));
+                            getDelegator().moveNode(handleNode, yToLatE7(absoluteY), xToLonE7(absoluteX));
                         }
                     } catch (OsmIllegalOperationException e) {
                         Snack.barError(main, e.getMessage());
@@ -1268,7 +1268,7 @@ public class Logic {
                         lat = yToLatE7(absoluteY);
                         lon = xToLonE7(absoluteX);
                     }
-                    getDelegator().updateLatLon(selectedNodes.get(0), lat, lon);
+                    getDelegator().moveNode(selectedNodes.get(0), lat, lon);
                 }
             } else { // way dragging and multi-select
                 lat = yToLatE7(absoluteY);
@@ -1561,7 +1561,7 @@ public class Logic {
             createCheckpoint(activity, R.string.undo_action_movenode);
             int lonE7 = (int) (lon * 1E7d);
             int latE7 = (int) (lat * 1E7d);
-            getDelegator().updateLatLon(node, latE7, lonE7);
+            getDelegator().moveNode(node, latE7, lonE7);
             viewBox.moveTo(map, lonE7, latE7);
             invalidateMap();
             displayAttachedObjectWarning(activity, node);
@@ -1894,7 +1894,7 @@ public class Logic {
                     if (node == null) {
                         displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
                         // move the existing node onto the way and insert it into the way
-                        getDelegator().updateLatLon(nodeToJoin, lat, lon);
+                        getDelegator().moveNode(nodeToJoin, lat, lon);
                         getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
                     } else {
                         displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join

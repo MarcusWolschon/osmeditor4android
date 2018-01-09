@@ -184,7 +184,7 @@ public class GeometryEditsTest {
     @Test
     public void closedWaySplitToPolygons() {
         try {
-            // setup some stuff to test relations
+            // setup some stuff to test closed way splitting
             Logic logic = App.getLogic();
             logic.setSelectedWay(null);
             logic.setSelectedNode(null);
@@ -220,6 +220,70 @@ public class GeometryEditsTest {
             Assert.assertTrue(ways[0].isClosed());
             Assert.assertEquals(4, ways[1].getNodes().size());
             Assert.assertTrue(ways[1].isClosed());
+        } catch (Exception igit) {
+            Assert.fail(igit.getMessage());
+        }
+    }
+    
+    @UiThreadTest
+    @Test
+    public void wayBoundingBox() {
+        try {
+            // setup some stuff to test bounding box calculation and intersection
+            Logic logic = App.getLogic();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null);
+            logic.performAdd(main, 200.0f, 200.0f);
+            Assert.assertNotNull(logic.getSelectedNode());
+            System.out.println(logic.getSelectedNode());
+            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
+            logic.performAdd(main, 200.0f, 400.0f);
+            logic.performAdd(main, 400.0f, 400.0f);
+            logic.performAdd(main, 400.0f, 200.0f);
+            logic.performAdd(main, 200.0f, 200.0f);
+            Way w1 = logic.getSelectedWay();
+            Assert.assertNotNull(w1);
+            Assert.assertTrue(w1.isClosed());
+            System.out.println("ApplicationTest created way " + w1.getOsmId());
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null);
+            logic.performAdd(main, 400.0f, 400.0f);
+            logic.performAdd(main, 200.0f, 600.0f);
+            logic.performAdd(main, 800.0f, 800.0f);
+            logic.performAdd(main, 600.0f, 600.0f);
+            logic.performAdd(main, 400.0f, 400.0f);
+            Way w2 = logic.getSelectedWay();
+            Assert.assertNotNull(w2);
+            Assert.assertTrue(w2.isClosed());
+            System.out.println("ApplicationTest created way " + w2.getOsmId());
+            ArrayList<Node> nList2 = (ArrayList<Node>) w2.getNodes();
+            Assert.assertEquals(5, nList2.size());
+            final Node n1 = nList2.get(0);
+            List<Way>wayList = logic.getWaysForNode(n1);
+            Assert.assertEquals(2, wayList.size());
+            Assert.assertTrue(wayList.contains(w1));
+            Assert.assertTrue(wayList.contains(w2));
+            w1.invalidateBoundingBox();
+            BoundingBox box1 = w1.getBounds();
+            System.out.println("ApplicationTest bb way1 " + box1.toApiString());
+            BoundingBox nodeBox = n1.getBounds();
+            System.out.println("ApplicationTest bb node " + nodeBox.toApiString());
+            // get box for w1 again it should be the same
+            BoundingBox box1cache = w1.getBounds();
+            box1cache.makeValidForApi();
+            System.out.println("ApplicationTest bb way1 from cache " + box1cache.toApiString());
+            // Assert.assertEquals(box1, box1cache);
+            BoundingBox box2 = w2.getBounds();
+            System.out.println("ApplicationTest bb way2 " + box2.toApiString());
+            Assert.assertTrue(box2.intersects(nodeBox));
+            List<Way>fromBB = logic.getWays(box1);
+            System.out.println("ApplicationTest ways from BB " + fromBB.size());
+            Assert.assertEquals(2, fromBB.size());
+            System.out.println("ApplicationTest ways from BB " + fromBB.size());
+            Assert.assertEquals(2, fromBB.size());
+            fromBB = logic.getWays(box2);
         } catch (Exception igit) {
             Assert.fail(igit.getMessage());
         }
@@ -370,16 +434,8 @@ public class GeometryEditsTest {
             logic.pasteFromClipboard(null, 500.0f, 500.0f);
             Assert.assertTrue(w1.getState() == OsmElement.STATE_CREATED);
 
-            App.getDelegator().updateLatLon(w1.getLastNode(), w1.getFirstNode().getLat(), w1.getFirstNode().getLon()); // w1
-                                                                                                                       // should
-                                                                                                                       // now
-                                                                                                                       // have
-                                                                                                                       // both
-                                                                                                                       // nodes
-                                                                                                                       // in
-                                                                                                                       // the
-                                                                                                                       // same
-                                                                                                                       // place
+            // w1 should now have both nodes in the same place
+            App.getDelegator().moveNode(w1.getLastNode(), w1.getFirstNode().getLat(), w1.getFirstNode().getLon()); 
 
             logic.cutToClipboard(null, w1);
             Assert.assertTrue(w1.getState() == OsmElement.STATE_DELETED);
@@ -416,7 +472,7 @@ public class GeometryEditsTest {
             int lat = w1.getFirstNode().getLat();
             int lon = w1.getFirstNode().getLon();
             for (Node n : w1.getNodes()) {
-                App.getDelegator().updateLatLon(n, lat, lon);
+                App.getDelegator().moveNode(n, lat, lon);
             }
 
             logic.cutToClipboard(null, w1);

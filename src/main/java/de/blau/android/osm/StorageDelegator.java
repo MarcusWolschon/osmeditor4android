@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -155,7 +156,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param elem the element to insert
      */
-    public void insertElementSafe(final OsmElement elem) {
+    public void insertElementSafe(@NonNull final OsmElement elem) {
         dirty = true;
         undo.save(elem);
         try {
@@ -173,7 +174,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param elem the element to insert
      */
-    private void insertElementUnsafe(final OsmElement elem) {
+    private void insertElementUnsafe(@NonNull final OsmElement elem) {
         dirty = true;
         undo.save(elem);
         try {
@@ -221,9 +222,20 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     private void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
         if (post != null) {
+            boolean nodeMoved = false;
             for (OsmElement e : post) {
                 e.stamp();
                 e.resetHasProblem();
+                if (Way.NAME.equals(e.getName())) {
+                    ((Way)e).invalidateBoundingBox();
+                } else if (Node.NAME.equals(e.getName())) {
+                    nodeMoved = true;
+                }
+            }
+            if (nodeMoved) {
+                for (Way w:currentStorage.getWays()) {
+                    w.invalidateBoundingBox();
+                }
             }
         }
         Filter filter = App.getLogic().getFilter();
@@ -247,6 +259,50 @@ public class StorageDelegator implements Serializable, Exportable {
         onElementChanged(preList, postList);
     }
 
+    /**
+     * Way geometry has to be invalidated -before- nodes are moved 
+     * 
+     * @param nodes List of nodes that are going to change
+     */
+    private void invalidateWayBoundingBox(@NonNull Collection<Node>nodes) {
+        // this would seem to be very complicated, however
+        // a trivial implementation would be very expensive
+        // even just or a single for a long way.
+        // This way of doing it collects all candidate ways
+        // first and then invalidates each of them max. once.
+        if (!nodes.isEmpty()) {
+            BoundingBox box = null;
+            boolean first = true;
+            for (Node n : nodes) {
+                if (first) {
+                    box = new BoundingBox(n.lon, n.lat);
+                    first = false;
+                } else {
+                    box.union(n.lon, n.lat);
+                }
+            }
+            List<Way>ways = currentStorage.getWays(box);
+            for (Node n:nodes) {
+                for (Way w:new ArrayList<Way>(ways)) {
+                    if (w.getNodes().contains(n)) {
+                        Log.d(DEBUG_TAG,"invalidate bb for " + w);
+                        w.invalidateBoundingBox();
+                        ways.remove(w);
+                    }
+                }
+                if (ways.isEmpty()) {
+                    break;
+                }
+            }
+        }
+    }
+    
+    private void invalidateWayBoundingBox(@NonNull Node node) {
+        List<Node>nodeList = new ArrayList<>();
+        nodeList.add(node);
+        invalidateWayBoundingBox(nodeList);
+    }
+    
     /**
      * Store the currently used imagery
      */
@@ -455,19 +511,24 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param latE7 the new latitude (E7)
      * @param lonE7 the new longitude (E7)
      */
-    public void updateLatLon(final Node node, final int latE7, final int lonE7) {
+    public void moveNode(@NonNull final Node node, final int latE7, final int lonE7) {
         dirty = true;
         undo.save(node);
         try {
-            apiStorage.insertElementSafe(node);
-            node.setLat(latE7);
-            node.setLon(lonE7);
-            node.updateState(OsmElement.STATE_MODIFIED);
+            invalidateWayBoundingBox(node);
+            updateLatLon(node, latE7, lonE7);
             onElementChanged(null, node);
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "updateLatLon got " + e.getMessage());
         }
+    }
+
+    private void updateLatLon(final Node node, final int latE7, final int lonE7) throws StorageException {
+        apiStorage.insertElementSafe(node);
+        node.setLat(latE7);
+        node.setLon(lonE7);
+        node.updateState(OsmElement.STATE_MODIFIED);
     }
 
     /**
@@ -497,12 +558,10 @@ public class StorageDelegator implements Serializable, Exportable {
         dirty = true;
         try {
             HashSet<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
+            invalidateWayBoundingBox(nodes);
             for (Node nd : nodes) {
                 undo.save(nd);
-                apiStorage.insertElementSafe(nd);
-                nd.setLat(nd.getLat() + deltaLatE7);
-                nd.setLon(nd.getLon() + deltaLonE7);
-                nd.updateState(OsmElement.STATE_MODIFIED);
+                updateLatLon(nd, nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
             }
             onElementChanged(null, new ArrayList<OsmElement>(nodes));
         } catch (StorageException e) {
@@ -526,7 +585,7 @@ public class StorageDelegator implements Serializable, Exportable {
         dirty = true;
         try {
             HashSet<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqueness
-
+            invalidateWayBoundingBox(nodes);
             int width = map.getWidth();
             int height = map.getHeight();
             BoundingBox box = map.getViewBox();
@@ -554,10 +613,7 @@ public class StorageDelegator implements Serializable, Exportable {
             }
             int i = 0;
             for (Node nd : nodes) {
-                nd.setLon(GeoMath.xToLonE7(width, box, (float) coords[i].x));
-                nd.setLat(GeoMath.yToLatE7(height, width, box, (float) coords[i].y));
-                apiStorage.insertElementSafe(nd);
-                nd.updateState(OsmElement.STATE_MODIFIED);
+                updateLatLon(nd, GeoMath.yToLatE7(height, width, box, (float) coords[i].y), GeoMath.xToLonE7(width, box, (float) coords[i].x));
                 i++;
             }
             onElementChanged(null, new ArrayList<OsmElement>(nodes));
@@ -647,7 +703,7 @@ public class StorageDelegator implements Serializable, Exportable {
             for (Node nd : save) {
                 undo.save(nd);
             }
-
+            invalidateWayBoundingBox(save);
             List<ArrayList<Way>> groups = groupWays(ways);
 
             int width = map.getWidth();
@@ -735,12 +791,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     Coordinates[] coords = coordsArray.get(wayIndex);
                     for (int i = 0; i < nodes.size(); i++) {
                         Node nd = nodes.get(i);
-                        // if (i == 0 || !nd.equals(firstNode)) {
-                        nd.setLon(GeoMath.xToLonE7(width, box, (float) coords[i].x));
-                        nd.setLat(GeoMath.yToLatE7(height, width, box, (float) coords[i].y));
-                        apiStorage.insertElementSafe(nd);
-                        nd.updateState(OsmElement.STATE_MODIFIED);
-                        // }
+                        updateLatLon(nd, GeoMath.yToLatE7(height, width, box, (float) coords[i].y), GeoMath.xToLonE7(width, box, (float) coords[i].x));
                     }
                 }
             }
@@ -829,19 +880,16 @@ public class StorageDelegator implements Serializable, Exportable {
         dirty = true;
         try {
             HashSet<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqness
+            invalidateWayBoundingBox(nodes);
             for (Node nd : nodes) {
                 undo.save(nd);
-                apiStorage.insertElementSafe(nd);
-
                 double nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
                 double nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
                 double newX = pivotX + (nodeX - pivotX) * Math.cos(angle) - direction * (nodeY - pivotY) * Math.sin(angle);
                 double newY = pivotY + direction * (nodeX - pivotX) * Math.sin(angle) + (nodeY - pivotY) * Math.cos(angle);
                 int lat = GeoMath.yToLatE7(h, w, v, (float) newY);
                 int lon = GeoMath.xToLonE7(w, v, (float) newX);
-                nd.setLat(lat);
-                nd.setLon(lon);
-                nd.updateState(OsmElement.STATE_MODIFIED);
+                updateLatLon(nd, lat, lon);
             }
             onElementChanged(null, new ArrayList<OsmElement>(nodes));
         } catch (StorageException e) {
@@ -2098,13 +2146,14 @@ public class StorageDelegator implements Serializable, Exportable {
             } else if (e instanceof Way) {
                 int deltaLat = lat - clipboard.getSelectionLat();
                 int deltaLon = lon - clipboard.getSelectionLon();
-                Set<Node> nodes = new HashSet<>(((Way) e).getNodes());
+                Set<Node> nodes = new HashSet<>(((Way)e).getNodes());
                 for (Node nd : nodes) {
                     nd.setLat(nd.getLat() + deltaLat);
                     nd.setLon(nd.getLon() + deltaLon);
                     nd.updateState(OsmElement.STATE_MODIFIED);
                     insertElementSafe(nd);
                 }
+                ((Way)e).invalidateBoundingBox();
             }
             e.updateState(OsmElement.STATE_MODIFIED);
             insertElementSafe(e);

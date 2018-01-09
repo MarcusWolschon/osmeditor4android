@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
@@ -383,16 +384,19 @@ public class Storage implements Serializable {
 
     /**
      * Get all ways that node is a vertex of
-     * <p>
+     * 
      * This method currently does a sequential scan of all ways in storage and should be avoided
      * 
      * @param node node to search for
      * @return list containing all ways containing node
      */
-    public List<Way> getWays(final Node node) {
+    @NonNull
+    public List<Way> getWays(@NonNull final Node node) {
         ArrayList<Way> mWays = new ArrayList<>();
+        // BoundingBox box = new BoundingBox();
         for (Way way : ways) {
-            if (way.hasNode(node)) {
+            // box = way.getBounds(box);
+            if (/* box.contains(node.getLon(), node.getLat()) && */way.hasNode(node)) {
                 mWays.add(way);
             }
         }
