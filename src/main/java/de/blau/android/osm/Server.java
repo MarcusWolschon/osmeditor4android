@@ -342,21 +342,14 @@ public class Server {
      */
     private Capabilities getCapabilities(URL capabilitiesURL) {
         Capabilities result;
-        HttpURLConnection con = null;
+        InputStream is = null;
         //
         try {
             Log.d(DEBUG_TAG, "getCapabilities using " + capabilitiesURL.toString());
-            con = (HttpURLConnection) capabilitiesURL.openConnection();
-            // --Start: header not yet send
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("User-Agent", App.getUserAgent());
-            con.setInstanceFollowRedirects(true);
-
-            // connection.getOutputStream().close(); GET doesn't have an outputstream
-            checkResponseCode(con);
+            is = openConnection(null, capabilitiesURL);
+            
             XmlPullParser parser = xmlParserFactory.newPullParser();
-            parser.setInput(con.getInputStream(), null);
+            parser.setInput(is, null);
             int eventType;
             result = new Capabilities();
             // very hackish just keys on tag names and not in which section of the response we are
@@ -431,7 +424,7 @@ public class Server {
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
         } finally {
-            disconnect(con);
+            SavingHelper.close(is);
         }
         return null;
     }
@@ -522,7 +515,7 @@ public class Server {
     }
 
     /**
-     * Given an URL open the connection and return the InputStream
+     * Given an URL, open the connection and return the InputStream
      * 
      * @param context Android context
      * @param url the URL
@@ -546,29 +539,44 @@ public class Server {
         // --Start: got response header
         isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 
-        // retry if we have no response-code
-        if (con.getResponseCode() == -1) {
-            Log.w(getClass().getName() + ":getStreamForElement", "no valid http response-code, trying again");
+        // retry if we have no response-code or a redirect
+        int responseCode = con.getResponseCode();
+        if (responseCode == -1 || responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+            Log.w(DEBUG_TAG, "openConnection no valid http response-code or redirect, trying again");
+            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+                // this should only happen once for http->https, normal redirects work as is
+                // and we don't want to support down grading
+                boolean wasHttps = "https".equals(url.getProtocol());
+                String newUrl = con.getHeaderField("Location");
+                url = new URL(newUrl);
+                if (wasHttps && "http".equals(url.getProtocol())) {
+                    Log.w(DEBUG_TAG, "openConnectiion redirect to non-https URL " + newUrl);
+                    throw new OsmServerException(responseCode, "Cannot downgrade from https to http");
+                }
+                Log.w(DEBUG_TAG, "openConnection redirecting to " + newUrl);
+            }
             con = (HttpURLConnection) url.openConnection();
-            // --Start: header not yet send
+            // --Start: header not yet sent
             con.setReadTimeout(TIMEOUT);
             con.setConnectTimeout(TIMEOUT);
             con.setRequestProperty("Accept-Encoding", "gzip");
             con.setRequestProperty("User-Agent", App.getUserAgent());
+            con.setInstanceFollowRedirects(true);
 
             // --Start: got response header
             isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
+            responseCode = con.getResponseCode();
         }
 
-        if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+        if (responseCode != HttpURLConnection.HTTP_OK) {
             if (context != null && context instanceof Activity) {
-                final int responseCode = con.getResponseCode();
+                final int finalResponseCode = responseCode;
                 final String responseMessage = con.getResponseMessage();
                 if (responseCode == 400) {
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage));
+                            Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, finalResponseCode, responseMessage));
                         }
                     });
                 } else {
@@ -620,7 +628,7 @@ public class Server {
      * @throws ProtocolException
      * @throws IOException
      */
-    public boolean deleteElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
+    public boolean deleteElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
         HttpURLConnection connection = null;
         // elem.addOrUpdateTag(createdByTag, createdByKey);
         Log.d(DEBUG_TAG, "Deleting " + elem.getName() + " #" + elem.getOsmId());
@@ -654,13 +662,22 @@ public class Server {
     /**
      * @param connection
      */
-    private static void disconnect(final HttpURLConnection connection) {
+    private static void disconnect(@Nullable final HttpURLConnection connection) {
         if (connection != null) {
             connection.disconnect();
         }
     }
 
-    public long updateElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
+    /**
+     * Update an individual elelemt on the server
+     * 
+     * @param elem the OsmELement to update
+     * @return the new version number
+     * @throws MalformedURLException
+     * @throws ProtocolException
+     * @throws IOException
+     */
+    public long updateElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
         long osmVersion = -1;
         HttpURLConnection connection = null;
         InputStream in = null;
@@ -700,7 +717,7 @@ public class Server {
      * @param changeSetId changeset id to use
      * @throws OsmIOException thrown if a write or other error occurs
      */
-    private void sendPayload(final HttpURLConnection connection, final XmlSerializable xmlSerializable, long changeSetId) throws OsmIOException {
+    private void sendPayload(@NonNull final HttpURLConnection connection, @NonNull final XmlSerializable xmlSerializable, long changeSetId) throws OsmIOException {
         OutputStreamWriter out = null;
         try {
             XmlSerializer xmlSerializer = getXmlSerializer();
@@ -711,9 +728,7 @@ public class Server {
             throw new OsmIOException("Could not send data to server", e);
         } catch (IllegalArgumentException e) {
             throw new OsmIOException("Sending illegal format object failed", e);
-        } catch (IllegalStateException e) {
-            throw new OsmIOException("Sending failed due to serialization error", e);
-        } catch (XmlPullParserException e) {
+        } catch (IllegalStateException | XmlPullParserException e) {
             throw new OsmIOException("Sending failed due to serialization error", e);
         } finally {
             SavingHelper.close(out);
@@ -721,19 +736,33 @@ public class Server {
     }
 
     /**
-     * @param elem
-     * @param xml
-     * @return
+     * Open a connection for writing to the API authenticating either with OAuth or basic authentication
+     * 
+     * This assumes a content type of "text/xml"
+     * @param url           URL we want to open
+     * @param requestMethod the request method
+     * @return a HttpURLCOnnection
      * @throws IOException
      * @throws MalformedURLException
      * @throws ProtocolException
      */
-    private HttpURLConnection openConnectionForWriteAccess(final URL url, final String requestMethod)
+    private HttpURLConnection openConnectionForWriteAccess(@NonNull final URL url, @NonNull final String requestMethod)
             throws IOException, MalformedURLException, ProtocolException {
         return openConnectionForWriteAccess(url, requestMethod, "text/xml");
     }
 
-    private HttpURLConnection openConnectionForWriteAccess(final URL url, final String requestMethod, final String contentType)
+    /**
+     * Open a connection for writing to the API authenticating either with OAuth or basic authentication
+     * 
+     * @param url           URL we want to open
+     * @param requestMethod the request method
+     * @param contentType   content time (mime string)
+     * @return a HttpURLCOnnection
+     * @throws IOException
+     * @throws MalformedURLException
+     * @throws ProtocolException
+     */
+    private HttpURLConnection openConnectionForWriteAccess(@NonNull final URL url, @NonNull final String requestMethod, @NonNull final String contentType)
             throws IOException, MalformedURLException, ProtocolException {
         Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -751,13 +780,9 @@ public class Server {
             try {
                 consumer.sign(connection);
                 // HttpParameters h = consumer.getRequestParameters();
-            } catch (OAuthMessageSignerException e) { // user will get error when we actually try to write
+            } catch (OAuthMessageSignerException | OAuthExpectationFailedException | OAuthCommunicationException e) { // user will get error when we actually try to write
                 Log.e(DEBUG_TAG, "OAuth fail", e);
-            } catch (OAuthExpectationFailedException e) {
-                Log.e(DEBUG_TAG, "OAuth fail", e);
-            } catch (OAuthCommunicationException e) {
-                Log.e(DEBUG_TAG, "OAuth fail", e);
-            }
+            } 
         } else {
             connection.setRequestProperty("Authorization", "Basic " + Base64.encode(username + ":" + password));
         }
@@ -767,7 +792,16 @@ public class Server {
         return connection;
     }
 
-    public long createElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
+    /**
+     * Create a new element on the server
+     * 
+     * @param elem the OsmELement to create
+     * @return the OSM id of the new element
+     * @throws MalformedURLException
+     * @throws ProtocolException
+     * @throws IOException
+     */
+    public long createElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
         long osmId = -1;
         HttpURLConnection connection = null;
         InputStream in = null;
@@ -816,14 +850,14 @@ public class Server {
     /**
      * Open a new changeset.
      * 
-     * @param comment Changeset comment.
-     * @param source
-     * @param imagery TODO
+     * @param comment   value for the comment tag
+     * @param source    value for the source tag
+     * @param imagery   value for the imagery_used tag 
      * @throws MalformedURLException
      * @throws ProtocolException
      * @throws IOException
      */
-    public void openChangeset(final String comment, final String source, final String imagery) throws MalformedURLException, ProtocolException, IOException {
+    public void openChangeset(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery) throws MalformedURLException, ProtocolException, IOException {
         long newChangesetId = -1;
         HttpURLConnection connection = null;
         InputStream in = null;
@@ -862,7 +896,15 @@ public class Server {
         changesetId = newChangesetId;
     }
 
-    private XmlSerializable changeSetTags(final String comment, final String source, final String imagery) {
+    /**
+     * Generate xml for the changeset tags
+     * 
+     * @param comment   value for the comment tag
+     * @param source    value for the source tag
+     * @param imagery   value for the imagery_used tag 
+     * @return an XmlSerializable for the tags
+     */
+    private XmlSerializable changeSetTags(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery) {
         return new XmlSerializable() {
             @Override
             public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
@@ -930,6 +972,13 @@ public class Server {
         public boolean open = false;
     }
 
+    /**
+     * Retrieve information for a specific changeset
+     * 
+     * @param id    id of the changeset
+     * @return a Changeset object
+     */
+    @Nullable
     private Changeset getChangeset(long id) {
         Changeset result = null;
         HttpURLConnection connection = null;
@@ -957,7 +1006,18 @@ public class Server {
         return result;
     }
 
-    private void updateChangeset(final long changesetId, final String comment, final String source, final String imagery)
+    /**
+     * Update an existing changeset
+     * 
+     * @param changesetId   the id of the changeset
+     * @param comment       value for the comment tag
+     * @param source        value for the source tag
+     * @param imagery       value for the imagery_used tag 
+     * @throws MalformedURLException
+     * @throws ProtocolException
+     * @throws IOException
+     */
+    private void updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery)
             throws MalformedURLException, ProtocolException, IOException {
 
         HttpURLConnection connection = null;
@@ -975,29 +1035,35 @@ public class Server {
         }
     }
 
-    /**
-     * @param connection
-     * @throws IOException
-     * @throws OsmException
-     */
-    private void checkResponseCode(final HttpURLConnection connection) throws IOException, OsmException {
+   /**
+    * Check the response code from a HttpURLConnection and if not OK throw an exception
+    * 
+    * @param connection the HttpURLConnection
+    * @throws IOException
+    * @throws OsmException
+    */
+    private void checkResponseCode(@Nullable final HttpURLConnection connection) throws IOException, OsmException {
         checkResponseCode(connection, null);
     }
 
     /**
-     * @param connection
+     * Check the response code from a HttpURLConnection and if not OK throw an exception
+     * 
+     * @param connection the HttpURLConnection
+     * @param e          an OsmElement associated with the problem or null
      * @throws IOException
      * @throws OsmException
      */
-    private void checkResponseCode(final HttpURLConnection connection, final OsmElement e) throws IOException, OsmException {
+    private void checkResponseCode(@Nullable final HttpURLConnection connection, @Nullable final OsmElement e) throws IOException, OsmException {
         int responsecode = -1;
         if (connection == null) {
             throw new OsmServerException(responsecode, "Unknown error");
         }
         responsecode = connection.getResponseCode();
         Log.d(DEBUG_TAG, "response code " + responsecode);
-        if (responsecode == -1)
+        if (responsecode == -1) {
             throw new IOException("Invalid response from server");
+        }
         if (responsecode != HttpURLConnection.HTTP_OK) {
             if (responsecode == HttpURLConnection.HTTP_GONE && e.getState() == OsmElement.STATE_DELETED) {
                 // FIXME we tried to delete an already deleted element: log, but ignore, maybe it would be better to ask
@@ -1030,13 +1096,9 @@ public class Server {
             }
             delegator.writeOsmChange(connection.getOutputStream(), changesetId, getCachedCapabilities().maxElementsInChangeset);
             processDiffUploadResult(delegator, connection, xmlParserFactory.newPullParser());
-        } catch (IllegalArgumentException e1) {
+        } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e1) {
             throw new OsmException(e1.getMessage());
-        } catch (IllegalStateException e1) {
-            throw new OsmException(e1.getMessage());
-        } catch (XmlPullParserException e1) {
-            throw new OsmException(e1.getMessage());
-        } finally {
+        }  finally {
             disconnect(connection);
             SavingHelper.close(in);
         }
@@ -1246,7 +1308,7 @@ public class Server {
         return res.toString();
     }
 
-    private static String readLine(final InputStream in) {
+    private static String readLine(@NonNull final InputStream in) {
         // TODO: Optimize? -> no Reader
         BufferedReader reader = new BufferedReader(new InputStreamReader(in), 9);
         String res = null;
@@ -1259,19 +1321,19 @@ public class Server {
         return res;
     }
 
-    private void startXml(XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
+    private void startXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument("UTF-8", null);
         xmlSerializer.startTag("", "osm");
         xmlSerializer.attribute("", "version", version);
         xmlSerializer.attribute("", "generator", generator);
     }
 
-    private void endXml(XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
+    private void endXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.endTag("", "osm");
         xmlSerializer.endDocument();
     }
 
-    private void startChangeXml(XmlSerializer xmlSerializer, String action) throws IllegalArgumentException, IllegalStateException, IOException {
+    private void startChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument("UTF-8", null);
         xmlSerializer.startTag("", "osmChange");
         xmlSerializer.attribute("", "version", osmChangeVersion);
@@ -1281,7 +1343,7 @@ public class Server {
         xmlSerializer.attribute("", "generator", generator);
     }
 
-    private void endChangeXml(XmlSerializer xmlSerializer, String action) throws IllegalArgumentException, IllegalStateException, IOException {
+    private void endChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.endTag("", action);
         xmlSerializer.endTag("", "osmChange");
         xmlSerializer.endDocument();
@@ -1293,7 +1355,7 @@ public class Server {
         return serializer;
     }
 
-    private URL getCreationUrl(final OsmElement elem) throws MalformedURLException {
+    private URL getCreationUrl(@NonNull final OsmElement elem) throws MalformedURLException {
         return new URL(getReadWriteUrl() + elem.getName() + "/create");
     }
 
@@ -1309,11 +1371,11 @@ public class Server {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId);
     }
 
-    private URL getUpdateUrl(final OsmElement elem) throws MalformedURLException {
+    private URL getUpdateUrl(@NonNull final OsmElement elem) throws MalformedURLException {
         return new URL(getReadWriteUrl() + elem.getName() + "/" + elem.getOsmId());
     }
 
-    private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
+    private URL getDeleteUrl(@NonNull final OsmElement elem) throws MalformedURLException {
         // return getUpdateUrl(elem);
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/upload");
     }
@@ -1441,7 +1503,7 @@ public class Server {
      * @param area Latitude/longitude *1E7 of area to download.
      * @return All the bugs in the given area.
      */
-    public Collection<Note> getNotesForBox(BoundingBox area, long limit) {
+    public Collection<Note> getNotesForBox(@NonNull BoundingBox area, long limit) {
         Collection<Note> result = new ArrayList<>();
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         try {
@@ -1602,7 +1664,7 @@ public class Server {
      * @throws OsmServerException
      * @throws XmlPullParserException
      */
-    public void addComment(Note bug, NoteComment comment) throws OsmServerException, IOException, XmlPullParserException {
+    public void addComment(@NonNull Note bug, @NonNull NoteComment comment) throws OsmServerException, IOException, XmlPullParserException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "adding note comment " + bug.getId());
             // http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
@@ -1656,7 +1718,7 @@ public class Server {
      * @throws OsmServerException
      * @throws XmlPullParserException
      */
-    public void addNote(Note bug, NoteComment comment) throws XmlPullParserException, OsmServerException, IOException {
+    public void addNote(@NonNull Note bug, @NonNull NoteComment comment) throws XmlPullParserException, OsmServerException, IOException {
         if (bug.isNew()) {
             Log.d(DEBUG_TAG, "adding note");
             // http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug
@@ -1693,7 +1755,7 @@ public class Server {
      * @throws OsmServerException
      * @throws XmlPullParserException
      */
-    public void closeNote(Note bug) throws OsmServerException, IOException, XmlPullParserException {
+    public void closeNote(@NonNull Note bug) throws OsmServerException, IOException, XmlPullParserException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "closing note " + bug.getId());
             HttpURLConnection connection = null;
@@ -1736,7 +1798,7 @@ public class Server {
      * @throws OsmServerException
      * @throws XmlPullParserException
      */
-    public void reopenNote(Note bug) throws OsmServerException, IOException, XmlPullParserException {
+    public void reopenNote(@NonNull Note bug) throws OsmServerException, IOException, XmlPullParserException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "reopen note " + bug.getId());
             HttpURLConnection connection = null;
@@ -1802,7 +1864,7 @@ public class Server {
      * @throws IllegalStateException
      * @throws XmlPullParserException
      */
-    public void uploadTrack(Track track, String description, String tags, Visibility visibility)
+    public void uploadTrack(@NonNull Track track, @NonNull String description, @NonNull String tags, @NonNull Visibility visibility)
             throws MalformedURLException, ProtocolException, IOException, IllegalArgumentException, IllegalStateException, XmlPullParserException {
         HttpURLConnection connection = null;
         try {
@@ -1871,7 +1933,7 @@ public class Server {
      * @throws IOException
      * @throws OsmServerException
      */
-    private void throwOsmServerException(final HttpURLConnection connection) throws IOException, OsmServerException {
+    private void throwOsmServerException(@NonNull final HttpURLConnection connection) throws IOException, OsmServerException {
         throwOsmServerException(connection, null, connection.getResponseCode());
     }
 
@@ -1884,7 +1946,7 @@ public class Server {
      * @throws IOException
      * @throws OsmServerException
      */
-    private void throwOsmServerException(final HttpURLConnection connection, final OsmElement e, int responsecode) throws IOException, OsmServerException {
+    private void throwOsmServerException(@NonNull final HttpURLConnection connection, @Nullable final OsmElement e, int responsecode) throws IOException, OsmServerException {
         String responseMessage = connection.getResponseMessage();
         if (responseMessage == null) {
             responseMessage = "";
