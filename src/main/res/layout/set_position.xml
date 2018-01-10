@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:paddingLeft="20dp"
+	android:padding="?attr/dialogPreferredPadding"
 	>
 	<LinearLayout
 		android:orientation="vertical"
@@ -26,53 +26,55 @@
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
 			    android:layout_marginLeft="10dp"
-			    android:layout_toRightOf="@+id/set_position_datum_label"
+			    android:layout_toRightOf="@id/set_position_datum_label"
 			    android:textAppearance="?android:attr/textAppearanceMedium" />
 
 		</RelativeLayout>
 		<RelativeLayout
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
 			>
 			
-			<TextView
-			    android:id="@+id/set_position_lon_label"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_centerVertical="true"
-			    android:text="@string/location_lon_label"
-			    android:textAppearance="?android:attr/textAppearanceMedium" />
+             <TextView
+                android:id="@+id/set_position_lon_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"                
+                android:layout_alignParentLeft="true"
+                android:text="@string/location_lon_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
 			<EditText
-			    android:layout_toRightOf="@+id/set_position_lon_label"
 			    android:id="@+id/set_position_lon"
 			    android:inputType="numberSigned|numberDecimal"
-			    android:minEms="5"
+			    android:minEms="6"
+			    android:gravity="right"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:layout_centerVertical="true"
-			    android:paddingLeft="10dp"
+			    android:layout_alignBaseline="@id/set_position_lon_label"
+			    android:layout_toRightOf="@id/set_position_lon_label"
+			    android:layout_marginLeft="10dp"
 			    android:textAppearance="?android:attr/textAppearanceMedium" />
-			
+					
 			<TextView
 			    android:id="@+id/set_position_lat_label"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:layout_centerVertical="true"
-			    android:layout_margin="10dp"
-			    android:layout_toRightOf="@+id/set_position_lon"
+			    android:layout_below="@id/set_position_lon"
+			    android:layout_alignParentLeft="true"
 			    android:text="@string/location_lat_label"
 			    android:textAppearance="?android:attr/textAppearanceMedium" />
 
 			<EditText
-			    android:layout_toRightOf="@+id/set_position_lat_label"
 			    android:id="@+id/set_position_lat"
+			    android:layout_alignRight="@id/set_position_lon"
+			    android:layout_alignBaseline="@id/set_position_lat_label"
 			    android:inputType="numberSigned|numberDecimal"
-			    android:minEms="5"
+			    android:minEms="6"
+			    android:gravity="right"
 			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_centerVertical="true"
-			    android:paddingLeft="10dp"
+			    android:layout_height="wrap_content"			    
+			    android:layout_marginLeft="10dp"
 			    android:textAppearance="?android:attr/textAppearanceMedium" />
 
 		</RelativeLayout>
