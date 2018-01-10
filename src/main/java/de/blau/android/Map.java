@@ -27,6 +27,7 @@ import android.graphics.Region;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -56,6 +57,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.validation.Validator;
 import de.blau.android.views.IMapView;
@@ -249,10 +251,8 @@ public class Map extends View implements IMapView {
     
     private float[][] coord = null;
 
-    private List<Float> points = new ArrayList<>(); // allocate this just once
-
-    
-    
+    private FloatPrimitiveList points = new FloatPrimitiveList(); // allocate this just once
+  
     @SuppressLint("NewApi")
     public Map(final Context context) {
         super(context);
@@ -573,8 +573,9 @@ public class Map extends View implements IMapView {
     private void paintGpsTrack(Canvas canvas) {
         if (tracker == null)
             return;
-        float[] linePoints = pointListToLinePointsArray(new ArrayList<Float>(), tracker.getTrackPoints());
-        canvas.drawLines(linePoints, DataStyle.getCurrent(DataStyle.GPS_TRACK).getPaint());
+        FloatPrimitiveList linePoints = new FloatPrimitiveList();
+        pointListToLinePointsArray(linePoints, tracker.getTrackPoints());
+        canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), DataStyle.getCurrent(DataStyle.GPS_TRACK).getPaint());
     }
 
     /**
@@ -710,32 +711,32 @@ public class Map extends View implements IMapView {
 
         boolean filterMode = tmpFilter != null; // we have an active filter
 
-        /*
-         * Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for the
-         * later
-         */
-        tmpHiddenWays.clear();
-        tmpStyledWays.clear();
-        for (Way w : ways) {
-            if (filterMode) {
+        List<Way> waysToDraw = ways;
+        if (filterMode) {
+            /*
+             * Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for the
+             * later
+             */
+            tmpHiddenWays.clear();
+            tmpStyledWays.clear();
+            for (Way w : ways) {
                 if (tmpFilter.include(w, tmpDrawingInEditRange && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(w))) {
                     tmpStyledWays.add(w);
                 } else {
                     tmpHiddenWays.add(w);
                 }
-            } else {
-                tmpStyledWays.add(w);
             }
-        }
-        // draw hidden ways first
-        for (Way w : tmpHiddenWays) {
-            paintHiddenWay(canvas, w);
+            // draw hidden ways first
+            for (Way w : tmpHiddenWays) {
+                paintHiddenWay(canvas, w);
+            }
+            waysToDraw = tmpStyledWays;
         }
 
         boolean displayHandles = tmpDrawingSelectedNodes == null && tmpDrawingSelectedRelationWays == null && tmpDrawingSelectedRelationNodes == null
                 && tmpDrawingEditMode.elementsGeomEditiable();
-        Collections.sort(tmpStyledWays, layerComparator);
-        for (Way w : tmpStyledWays) {
+        Collections.sort(waysToDraw, layerComparator);
+        for (Way w : waysToDraw) {
             paintWay(canvas, w, displayHandles, drawTolerance);
         }
 
@@ -1069,6 +1070,7 @@ public class Map extends View implements IMapView {
         canvas.drawText(label, x - halfTextWidth, yOffset, paint);
     }
 
+    static final Bitmap NOICON = Bitmap.createBitmap(2, 2, Config.ARGB_8888);
     /**
      * Retrieve icon for the element, caching it if it isn't in the cache
      * 
@@ -1108,12 +1110,14 @@ public class Map extends View implements IMapView {
                     // icon.eraseColor(Color.WHITE); // replace nothing with white?
                     iconDrawable.draw(new Canvas(icon));
                 }
+            } else {
+                icon = NOICON;
             }
             synchronized (tempCache) {
                 tempCache.put(tags, icon);
             }
         }
-        return icon;
+        return icon != NOICON ? icon : null;
     }
 
     /**
@@ -1163,7 +1167,9 @@ public class Map extends View implements IMapView {
      * @param drawTolerance if true draw the halo
      */
     private void paintWay(final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
-        float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
+        pointListToLinePointsArray(points, way.getNodes());
+        float[] linePoints = points.getArray();
+        int pointsSize = points.size();
         Paint paint;
         String labelFontStyle = DataStyle.LABELTEXT_NORMAL;
         String labelFontStyleSmall = DataStyle.LABELTEXT_SMALL;
@@ -1176,9 +1182,9 @@ public class Map extends View implements IMapView {
         // draw way tolerance
         if (drawTolerance) {
             if (prefs.isToleranceVisible() && tmpClickableElements == null) {
-                canvas.drawLines(linePoints, wayTolerancePaint);
+                canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint);
             } else if (tmpClickableElements != null && tmpClickableElements.contains(way)) {
-                canvas.drawLines(linePoints, wayTolerancePaint2);
+                canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint2);
             }
         }
 
@@ -1195,35 +1201,35 @@ public class Map extends View implements IMapView {
             FeatureStyle selectedStyle = DataStyle.getCurrent(DataStyle.SELECTED_WAY);
             paint = selectedStyle.getPaint();
             paint.setStrokeWidth(fp.getPaint().getStrokeWidth() * selectedStyle.getWidthFactor());
-            canvas.drawLines(linePoints, paint);
+            canvas.drawLines(linePoints, 0, pointsSize, paint);
             paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
-            drawWayArrows(canvas, linePoints, false, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
+            drawWayArrows(canvas, linePoints, pointsSize, false, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
             labelFontStyle = DataStyle.LABELTEXT_NORMAL_SELECTED;
             labelFontStyleSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
         } else if (isMemberOfSelectedRelation) {
             FeatureStyle relationSelectedStyle = DataStyle.getCurrent(DataStyle.SELECTED_RELATION_WAY);
             paint = relationSelectedStyle.getPaint();
             paint.setStrokeWidth(fp.getPaint().getStrokeWidth() * relationSelectedStyle.getWidthFactor());
-            canvas.drawLines(linePoints, paint);
+            canvas.drawLines(linePoints, 0, pointsSize, paint);
         }
 
         int onewayCode = way.getOneway();
         if (onewayCode != 0) {
             FeatureStyle directionArrows = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
-            drawWayArrows(canvas, linePoints, (onewayCode == -1), directionArrows.getPaint(), false);
+            drawWayArrows(canvas, linePoints, pointsSize, (onewayCode == -1), directionArrows.getPaint(), false);
         } else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
             FeatureStyle directionArrows = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
-            drawWayArrows(canvas, linePoints, false, directionArrows.getPaint(), false);
+            drawWayArrows(canvas, linePoints, pointsSize, false, directionArrows.getPaint(), false);
         }
 
         //
 
         // draw the way itself
         // canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
-        if (linePoints.length > 2) {
+        if (pointsSize > 2) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);
-            for (int i = 0; i < (linePoints.length); i = i + 4) {
+            for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
             canvas.drawPath(path, fp.getPaint());
@@ -1231,7 +1237,7 @@ public class Map extends View implements IMapView {
 
         // display icons on closed ways
         if (showIcons && showWayIcons && zoomLevel > SHOW_ICONS_LIMIT && way.isClosed()) {
-            int vs = linePoints.length;
+            int vs = pointsSize;
             if (vs < way.nodeCount() * 2) {
                 return;
             }
@@ -1282,17 +1288,19 @@ public class Map extends View implements IMapView {
      * @param way way which shall be painted.
      */
     private void paintHiddenWay(final Canvas canvas, final Way way) {
-        float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
+        pointListToLinePointsArray(points, way.getNodes());
+        float[] linePoints =  points.getArray();
+        int pointsSize = points.size();
 
         //
         FeatureStyle fp = DataStyle.getCurrent(DataStyle.HIDDEN_WAY);
 
         // draw the way itself
         // canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
-        if (linePoints.length > 2) {
+        if (pointsSize > 2) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);
-            for (int i = 0; i < (linePoints.length); i = i + 4) {
+            for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
             canvas.drawPath(path, fp.getPaint());
@@ -1423,10 +1431,10 @@ public class Map extends View implements IMapView {
      * @param paint the paint to use for drawing the arrows
      * @param addHandles if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
      */
-    private void drawWayArrows(Canvas canvas, float[] linePoints, boolean reverse, Paint paint, boolean addHandles) {
+    private void drawWayArrows(Canvas canvas, float[] linePoints, int linePointsSize, boolean reverse, Paint paint, boolean addHandles) {
         double minLen = DataStyle.getCurrent().getMinLenForHandle();
         int ptr = 0;
-        while (ptr < linePoints.length) {
+        while (ptr < linePointsSize) {
 
             float x1 = linePoints[ptr++];
             float y1 = linePoints[ptr++];
@@ -1480,77 +1488,78 @@ public class Map extends View implements IMapView {
      * 
      * Only segments that are inside the ViewBox are included.
      * 
-     * @param points list to (re-)use for projected points
+     * @param points list to (re-)use for projected points in the format expected by {@link Canvas#drawLines(float[], Paint)
      * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn (e.g. a Way or a
      *            GPS track)
-     * @return an array of floats in the format expected by {@link Canvas#drawLines(float[], Paint)}.
      */
-    private float[] pointListToLinePointsArray(final List<Float> points, final List<? extends GeoPoint> nodes) {
+    private void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes) {
         points.clear(); // reset
         BoundingBox box = getViewBox();
         boolean testInterrupted = false;
         // loop over all nodes
         GeoPoint prevNode = null;
         GeoPoint lastDrawnNode = null;
+        int lastDrawnNodeLon = 0;
+        int lastDrawnNodeLat = 0;
         float prevX = 0f;
         float prevY = 0f;
         int w = getWidth();
         int h = getHeight();
         boolean thisIntersects = false;
         boolean nextIntersects = false;
-        for (int i = 0; i < nodes.size(); i++) {
-            GeoPoint node = nodes.get(i);
-            int nodeLon = node.getLon();
-            int nodeLat = node.getLat();
-            boolean interrupted = false;
-            if (i == 0) { // just do this once
-                testInterrupted = node instanceof InterruptibleGeoPoint;
-            }
-            if (testInterrupted) {
-                interrupted = ((InterruptibleGeoPoint) node).isInterrupted();
-            }
-            nextIntersects = true;
-            GeoPoint nextNode = null;
-            int nextNodeLat = 0;
-            int nextNodeLon = 0;
-            if (i < nodes.size() - 1) {
-                nextNode = nodes.get(i + 1);
-                nextNodeLat = nextNode.getLat();
-                nextNodeLon = nextNode.getLon();
-                nextIntersects = box.intersects(nextNodeLat, nextNodeLon, nodeLat, nodeLon);
-            }
+        int nodesSize = nodes.size();
+        if (nodesSize > 0) {
+            GeoPoint nextNode = nodes.get(0);
+            int nextNodeLat = nextNode.getLat();
+            int nextNodeLon = nextNode.getLon();
             float X = -Float.MAX_VALUE;
             float Y = -Float.MAX_VALUE;
-            if (!interrupted && prevNode != null) {
-                if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
-                        || box.intersects(nextNodeLat, nextNodeLon, lastDrawnNode.getLat(), lastDrawnNode.getLon()))) {
-                    X = GeoMath.lonE7ToX(w, box, nodeLon);
-                    Y = GeoMath.latE7ToY(h, w, box, nodeLat);
-                    if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
-                        prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
-                        prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
-                    }
-                    // Line segment needs to be drawn
-                    points.add(prevX);
-                    points.add(prevY);
-                    points.add(X);
-                    points.add(Y);
-                    lastDrawnNode = node;
+            for (int i = 0; i < nodesSize; i++) {
+                GeoPoint node = nextNode;
+                int nodeLon = nextNodeLon;
+                int nodeLat = nextNodeLat;
+                boolean interrupted = false;
+                if (i == 0) { // just do this once
+                    testInterrupted = node instanceof InterruptibleGeoPoint;
                 }
+                if (testInterrupted && node != null) {
+                    interrupted = ((InterruptibleGeoPoint) node).isInterrupted();
+                }
+                nextIntersects = true;
+                if (i < nodesSize - 1) {
+                    nextNode = nodes.get(i + 1);
+                    nextNodeLat = nextNode.getLat();
+                    nextNodeLon = nextNode.getLon();
+                    nextIntersects = box.isIntersectionPossible(nextNodeLat, nextNodeLon, nodeLat, nodeLon);
+                } else {
+                    nextNode = null;
+                }
+                X = -Float.MAX_VALUE; // misuse this as a flag
+                if (!interrupted && prevNode != null) {
+                    if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
+                            || box.isIntersectionPossible(nextNodeLat, nextNodeLon, lastDrawnNodeLat, lastDrawnNodeLon))) {
+                        X = GeoMath.lonE7ToX(w, box, nodeLon);
+                        Y = GeoMath.latE7ToY(h, w, box, nodeLat);
+                        if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
+                            prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
+                            prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
+                        }
+                        // Line segment needs to be drawn
+                        points.add(prevX);
+                        points.add(prevY);
+                        points.add(X);
+                        points.add(Y);
+                        lastDrawnNode = node;
+                        lastDrawnNodeLat = nodeLat;
+                        lastDrawnNodeLon = nodeLon;
+                    }
+                }
+                prevNode = node;
+                prevX = X;
+                prevY = Y;
+                thisIntersects = nextIntersects;
             }
-            prevNode = node;
-            prevX = X;
-            prevY = Y;
-            thisIntersects = nextIntersects;
         }
-
-        // convert from ArrayList<Float> to float[]
-        float[] result = new float[points.size()];
-        int i = 0;
-        for (Float f : points) {
-            result[i++] = f;
-        }
-        return result;
     }
 
     /**

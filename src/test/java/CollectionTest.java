@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -42,6 +43,14 @@ public class CollectionTest {
             assertTrue(map.containsKey(elements.get(i).getOsmId()));
         }
 
+        List<Node>values = map.values();
+        assertEquals(100000, values.size());
+        int j = 0;
+        for (Node n:map) { 
+            assertEquals(values.get(j),n); // both should be in the same internal order
+            j++;
+        }
+        
         for (int i = 0; i < 100000; i++) {
             assertNotNull(map.remove(elements.get(i).getOsmId()));
         }

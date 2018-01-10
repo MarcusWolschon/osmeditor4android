@@ -212,11 +212,7 @@ public class GeoMath {
      * @return the y screen-coordinate for this latitude value.
      */
     public static float latE7ToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final int latE7) {
-        // note the last term should be pre-calculated too
-        double pixelRadius = (double) screenWidth / (viewBox.getWidth() / 1E7d);
-        // Log.d("GeoMath","screen width " + screenWidth + " width " + viewBox.getWidth() + " height " + screenHeight +
-        // " mercator " + latE7ToMercator(latE7) );
-        return (float) (screenHeight - (latE7ToMercator(latE7) - viewBox.getBottomMercator()) * pixelRadius);
+        return (float) (screenHeight - (latE7ToMercator(latE7) - viewBox.getBottomMercator()) * viewBox.getPixelRadius(screenWidth));
     }
 
     /**
@@ -229,13 +225,19 @@ public class GeoMath {
      * @return
      */
     public static float latToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final double lat) {
-        // note the last term should be pre-calculated too
-        double pixelRadius = (double) screenWidth / (viewBox.getWidth() / 1E7d);
-        // Log.d("GeoMath","screen width " + screenWidth + " width " + viewBox.getWidth() + " height " + screenHeight +
-        // " mercator " + latE7ToMercator(latE7) );
-        return (float) (screenHeight - (latToMercator(lat) - viewBox.getBottomMercator()) * pixelRadius);
+        return (float) (screenHeight - (latToMercator(lat) - viewBox.getBottomMercator()) * viewBox.getPixelRadius(screenWidth));
     }
 
+    /**
+     * Calculates the screen-coordinate to the given latitude.in mercator
+     * 
+     * @param latE7 latitude, multiplied by 1E7.
+     * @return the y screen-coordinate for this latitude value.
+     */
+    public static float latMercatorE7ToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final int latE7) {
+        return (float) (screenHeight - (latE7/1E7D - viewBox.getBottomMercator()) * viewBox.getPixelRadius(screenWidth));
+    }
+    
     /**
      * Non-scaled version. Calculates the screen-coordinate to the given longitude.
      * 

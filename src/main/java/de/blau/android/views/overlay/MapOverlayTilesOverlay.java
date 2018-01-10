@@ -19,12 +19,13 @@ public class MapOverlayTilesOverlay extends MapTilesOverlay {
     @Override
     public boolean isReadyToDraw() {
         enabled = !getRendererInfo().getId().equals("NONE");
-        return !enabled || super.isReadyToDraw();
+        return enabled && super.isReadyToDraw();
     }
 
     @Override
     public void onDraw(Canvas c, IMapView osmv) {
-        if (enabled)
+        if (enabled) {
             super.onDraw(c, osmv);
+        }
     }
 }

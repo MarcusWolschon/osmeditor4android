@@ -113,14 +113,19 @@ public class Storage implements Serializable {
     /**
      * Return all nodes in a bounding box
      * 
-     * Note: currently this does a sequential scan of all nodes
+     * Notes: 
+     * - currently this does a sequential scan of all nodes
+     * - zsing a for loop instead of for each is twice as fast
      * 
      * @param box bounding box to search in
      * @return a list of all nodes in box
      */
     public List<Node> getNodes(BoundingBox box) {
         ArrayList<Node> result = new ArrayList<>(nodes.size());
-        for (Node n : nodes) {
+        List<Node>list = nodes.values();
+        int listSize = list.size();
+        for (int i=0;i<listSize;i++) {
+            Node n = list.get(i);
             if (box.isIn(n.getLat(), n.getLon())) {
                 result.add(n);
             }
@@ -148,7 +153,10 @@ public class Storage implements Serializable {
     public List<Way> getWays(BoundingBox box) {
         ArrayList<Way> result = new ArrayList<>(ways.size());
         BoundingBox newBox = new BoundingBox(); // avoid creating new instances
-        for (Way w : ways) {
+        List<Way>list = ways.values();
+        int listSize = list.size();
+        for (int i=0;i<listSize;i++) {
+            Way w = list.get(i);
             BoundingBox wayBox = w.getBounds(newBox);
             if (wayBox.intersects(box)) {
                 result.add(w);

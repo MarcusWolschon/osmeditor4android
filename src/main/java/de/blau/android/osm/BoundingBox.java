@@ -377,7 +377,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @param lon2
      * @return true, when an intersection is possible.
      */
-    private boolean isIntersectionPossible(final int lat, final int lon, final int lat2, final int lon2) {
+    public boolean isIntersectionPossible(final int lat, final int lon, final int lat2, final int lon2) {
         return !(lat > top && lat2 > top || lat < bottom && lat2 < bottom || lon > right && lon2 > right || lon < left && lon2 < left);
     }
 
@@ -405,6 +405,11 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      */
     private void calcBottomMercator() {
         bottomMercator = GeoMath.latE7ToMercator(bottom);
+    }
+    
+
+    public double getPixelRadius(int screenWidth) {
+        return (double) screenWidth / (width / 1E7d);
     }
 
     /**
