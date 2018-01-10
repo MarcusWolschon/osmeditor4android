@@ -67,7 +67,7 @@ public class BaseValidator implements Validator {
      */
     int validateElement(int status, OsmElement e, SortedMap<String, String> tags) {
         // test for fixme etc
-        for (Entry<String, String> entry : tags.entrySet()) {
+        for (Entry<String, String> entry : new ArrayList<>(tags.entrySet())) {
             // test key and value against pattern
             if (FIXME_PATTERN.matcher(entry.getKey()).matches() || FIXME_PATTERN.matcher(entry.getValue()).matches()) {
                 status = status | Validator.FIXME;
