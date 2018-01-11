@@ -150,7 +150,10 @@
     <string name="check_optional">Check optional</string>
     <string name="add_resurvey_entry">Add re-survey entry</string>
     <string name="add_check_entry">Add check entry</string>
-
+    <string name="empty_relation_title">Empty Relation</string>
+    <string name="empty_relation_message">The relation %1$s has no members.\n\nLeaving it as is will make it non-editable in Vespucci.</string>
+    <string name="add_members">Add members</string>
+    <string name="leave_empty">Leave empty</string>
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_unsaved_changes">You have unsaved changes, please upload them first.</string>

@@ -11,8 +11,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.acra.ACRA;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +21,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -31,6 +31,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
+import android.support.v7.view.ActionMode.Callback;
 import android.support.v7.widget.ActionMenuView;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -50,6 +51,7 @@ import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementInfo;
+import de.blau.android.dialogs.EmptyRelation;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.BoundingBox;
@@ -97,8 +99,8 @@ public class EasyEditManager {
 
     private ActionMenuView cabBottomBar;
 
-    public final static int GROUP_MODE = 0;
-    public final static int GROUP_BASE = 1;
+    public static final int GROUP_MODE = 0;
+    public static final int GROUP_BASE = 1;
 
     private static final int MENUITEM_HELP = 0;
 
@@ -195,7 +197,7 @@ public class EasyEditManager {
      * 
      * @param element The OSM element to edit.
      */
-    public void editElement(OsmElement element) {
+    public void editElement(@NonNull OsmElement element) {
         synchronized (actionModeCallbackLock) {
             if (currentActionModeCallback == null || !currentActionModeCallback.handleElementClick(element)) {
                 // No callback or didn't handle the click, perform default (select element)
@@ -219,19 +221,20 @@ public class EasyEditManager {
      * 
      * @param element the element to display the information for
      */
-    private void elementToast(OsmElement element) {
-        String toast = element.getDescription(main);
+    private void elementToast(@NonNull OsmElement element) {
+        StringBuilder toast = new StringBuilder(element.getDescription(main));
         Validator validator = App.getDefaultValidator(main);
         if (element.hasProblem(main, validator) != Validator.OK) {
-            toast = toast + "\n";
-            String problems[] = validator.describeProblem(main, element);
+            toast.append('\n');
+            String[] problems = validator.describeProblem(main, element);
             if (problems.length != 0) {
                 for (String problem : problems) {
-                    toast = toast + "\n" + problem;
+                    toast.append('\n');
+                    toast.append(problem);
                 }
             }
         }
-        Snack.toastTopInfo(main, toast);
+        Snack.toastTopInfo(main, toast.toString());
     }
 
     /**
@@ -277,9 +280,19 @@ public class EasyEditManager {
             }
         }
     }
+    
+    /**
+     * Start adding elements to an existing empty relation
+     * 
+     * @param r the Relation to add elements to
+     * @return the ActionMode.Callback
+     */
+    public Callback addRelationMembersMode(@NonNull Relation r) {
+        return new AddRelationMemberActionModeCallback(r, null);
+    }
 
     /** This gets called when the map is long-pressed in easy-edit mode */
-    public boolean handleLongClick(View v, float x, float y) {
+    public boolean handleLongClick(@NonNull View v, float x, float y) {
         synchronized (actionModeCallbackLock) {
             if ((currentActionModeCallback instanceof PathCreationActionModeCallback)) {
                 // we don't do long clicks in the above modes
@@ -295,7 +308,7 @@ public class EasyEditManager {
         return true;
     }
 
-    public void startExtendedSelection(OsmElement osmElement) {
+    public void startExtendedSelection(@NonNull OsmElement osmElement) {
         synchronized (actionModeCallbackLock) {
             if ((currentActionModeCallback instanceof WaySelectionActionModeCallback) || (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
                     || (currentActionModeCallback instanceof RelationSelectionActionModeCallback)) {
@@ -345,10 +358,10 @@ public class EasyEditManager {
      * 
      * @param possibleNode a node that was edited, or null
      * @param possibleWay a way that was edited, or null
-     * @param select TODO
-     * @param askForName TODO
+     * @param select select the element before starting the PropertyEditor
+     * @param askForName ask for a name tag first
      */
-    private void tagApplicable(final Node possibleNode, final Way possibleWay, final boolean select, final boolean askForName) {
+    private void tagApplicable(@Nullable final Node possibleNode, @Nullable final Way possibleWay, final boolean select, final boolean askForName) {
         if (possibleWay == null) {
             // Single node was added
             if (possibleNode != null) { // null-check to be sure
@@ -356,6 +369,8 @@ public class EasyEditManager {
                     main.startSupportActionMode(new NodeSelectionActionModeCallback(possibleNode));
                 }
                 main.performTagEdit(possibleNode, null, false, false, askForName);
+            } else {
+                Log.e(DEBUG_TAG, "tagApplicable called with null arguments");
             }
         } else { // way was added
             if (select) {
@@ -372,7 +387,7 @@ public class EasyEditManager {
      * @param way the way into which other ways may be merged
      * @return a list of all ways which can be merged into the given way
      */
-    private Set<OsmElement> findMergeableWays(Way way) {
+    private Set<OsmElement> findMergeableWays(@NonNull Way way) {
         Set<Way> candidates = new HashSet<>();
         Set<OsmElement> result = new HashSet<>();
         candidates.addAll(logic.getWaysForNode(way.getFirstNode()));
@@ -394,7 +409,7 @@ public class EasyEditManager {
      * @param way The way that will be appended to.
      * @return The set of nodes suitable for appending.
      */
-    private Set<OsmElement> findAppendableNodes(Way way) {
+    private Set<OsmElement> findAppendableNodes(@NonNull Way way) {
         Set<OsmElement> result = new HashSet<>();
         for (Node node : way.getNodes()) {
             if (way.isEndNode(node))
@@ -412,7 +427,7 @@ public class EasyEditManager {
      * @param way the from way
      * @return a list of all applicable objects
      */
-    private Set<OsmElement> findViaElements(Way way) {
+    private Set<OsmElement> findViaElements(@NonNull Way way) {
 
         Set<OsmElement> result = new HashSet<>();
         for (Node n : way.getNodes()) {
@@ -432,7 +447,7 @@ public class EasyEditManager {
      * @param viaElement the current via OSM element
      * @return a set of the candidate to OSM elements
      */
-    private Set<OsmElement> findToElements(OsmElement viaElement) {
+    private Set<OsmElement> findToElements(@NonNull OsmElement viaElement) {
         Set<OsmElement> result = new HashSet<>();
         Set<Node> nodes = new HashSet<>();
         if (Node.NAME.equals(viaElement.getName())) {
@@ -1024,6 +1039,7 @@ public class EasyEditManager {
             return null;
         }
 
+        @Override
         public boolean processShortcut(Character c) {
             if (c == Util.getShortCut(main, R.string.shortcut_paste)) {
                 logic.pasteFromClipboard(main, startX, startY);
@@ -1122,9 +1138,8 @@ public class EasyEditManager {
          * 
          * @param x x screen coordinate
          * @param y y screen coordinate
-         * @throws OsmIllegalOperationException
          */
-        private void pathCreateNode(float x, float y) throws OsmIllegalOperationException {
+        private void pathCreateNode(float x, float y) {
             Node lastSelectedNode = logic.getSelectedNode();
             Way lastSelectedWay = logic.getSelectedWay();
             if (appendTargetNode != null) {
@@ -1434,6 +1449,7 @@ public class EasyEditManager {
             super.onDestroyActionMode(mode);
         }
 
+        @Override
         public boolean processShortcut(Character c) {
             if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
                 logic.copyToClipboard(element);
@@ -2073,16 +2089,7 @@ public class EasyEditManager {
             super.onCreateActionMode(mode, menu);
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
-            if (element != null && (((Relation) element).getMembers() == null || ((Relation) element).getMembers().isEmpty())) {
-                // we can only select an empty relation if there is a reference from another object, this is always a
-                // bug
-                String message = "relation " + element.getOsmId() + " is empty";
-                Log.e(DEBUG7_TAG, message);
-                Snack.barWarning(main, R.string.toast_rmpty_relation);
-                ACRA.getErrorReporter().putCustomData("CAUSE", message);
-                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                ACRA.getErrorReporter().handleException(null);
-                super.onDestroyActionMode(mode);
+            if (checkForEmptyRelation(mode)) {
                 return false;
             }
             logic.setSelectedRelation((Relation) element);
@@ -2093,8 +2100,26 @@ public class EasyEditManager {
             return true;
         }
 
+        /**
+         * If the relation is empty, terminate the action mode and show a dialog
+         * 
+         * @param mode current ActionMode
+         * @return true if Relation is empty
+         */
+        private boolean checkForEmptyRelation(ActionMode mode) {
+            if (element != null && (((Relation) element).getMembers() == null || ((Relation) element).getMembers().isEmpty())) {
+                EmptyRelation.showDialog(main, ((Relation) element).getOsmId());
+                mode.finish();
+                return true;
+            }
+            return false;
+        }
+
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            if (checkForEmptyRelation(mode)) {
+                return true;
+            }
             menu = replaceMenu(menu, mode, this);
             super.onPrepareActionMode(mode, menu);
             menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member)
@@ -2139,27 +2164,27 @@ public class EasyEditManager {
 
         @Override
         protected void menuDelete(final ActionMode mode) {
-            Relation r = (Relation) element;
-            if (element.hasParentRelations()) {
+            final Relation r = (Relation) element;
+            if (r.hasParentRelations()) {
                 new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleterelation_relation_description)
                         .setPositiveButton(R.string.deleterelation, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                logic.performEraseRelation(main, (Relation) element, true);
+                                logic.performEraseRelation(main, r, true);
                                 if (mode != null) {
                                     mode.finish();
                                 }
                             }
                         }).show();
             } else {
-                logic.performEraseRelation(main, (Relation) element, true);
+                logic.performEraseRelation(main, r, true);
                 mode.finish();
             }
         }
     }
 
     private class RestartRestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
-        private final static String DEBUG8_TAG   = "RestartRestrictionFr...";
+        private static final String DEBUG8_TAG   = "RestartRestrictionFr...";
         private Set<OsmElement>     fromElements;
         private Set<OsmElement>     viaElements;
         private boolean             fromSelected = false;
@@ -2220,7 +2245,7 @@ public class EasyEditManager {
     }
 
     private class RestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
-        private final String    DEBUG11_TAG = "RestrictionFromElement.";
+        private static final String    DEBUG11_TAG = "RestrictionFromElement.";
         private Way             fromWay;
         private Set<OsmElement> viaElements;
         private boolean         viaSelected = false;
@@ -2281,23 +2306,23 @@ public class EasyEditManager {
             if (viaWay != null && !viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
                 newViaWay = logic.performSplit(main, viaWay, viaNode);
             }
-            Set<OsmElement> viaElements = new HashSet<>();
-            viaElements.add(element);
+            Set<OsmElement> newViaElements = new HashSet<>();
+            newViaElements.add(element);
             if (newViaWay != null) {
-                viaElements.add(newViaWay);
+                newViaElements.add(newViaWay);
             }
             if (newFromWay != null) {
                 Set<OsmElement> fromElements = new HashSet<>();
                 fromElements.add(fromWay);
                 fromElements.add(newFromWay);
                 Snack.barInfo(main, newViaWay == null ? R.string.toast_split_from : R.string.toast_split_from_and_via);
-                main.startSupportActionMode(new RestartRestrictionFromElementActionModeCallback(fromElements, viaElements));
+                main.startSupportActionMode(new RestartRestrictionFromElementActionModeCallback(fromElements, newViaElements));
                 return true;
             }
             if (newViaWay != null) {
                 // restart via selection
                 Snack.barInfo(main, R.string.toast_split_via);
-                main.startSupportActionMode(new RestrictionFromElementActionModeCallback(R.string.actionmode_restriction_restart_via, fromWay, viaElements));
+                main.startSupportActionMode(new RestrictionFromElementActionModeCallback(R.string.actionmode_restriction_restart_via, fromWay, newViaElements));
                 return true;
             }
             viaSelected = true;
@@ -2320,7 +2345,7 @@ public class EasyEditManager {
     }
 
     private class RestrictionViaElementActionModeCallback extends EasyEditActionModeCallback {
-        private final String    DEBUG12_TAG = "RestrictionViaElement..";
+        private static final String    DEBUG12_TAG = "RestrictionViaElement..";
         private Way             fromWay;
         private OsmElement      viaElement;
         private Set<OsmElement> cachedToElements;
@@ -2413,7 +2438,7 @@ public class EasyEditManager {
     }
 
     private class RestrictionToElementActionModeCallback extends EasyEditActionModeCallback {
-        private final static String DEBUG9_TAG = "RestrictionToElement...";
+        private static final String DEBUG9_TAG = "RestrictionToElement...";
 
         private Way        fromWay;
         private OsmElement viaElement;
@@ -2452,7 +2477,7 @@ public class EasyEditManager {
         }
     }
 
-    private class AddRelationMemberActionModeCallback extends EasyEditActionModeCallback {
+    public class AddRelationMemberActionModeCallback extends EasyEditActionModeCallback {
         private static final int MENUITEM_REVERT = 1;
 
         private ArrayList<OsmElement> members;
@@ -2461,27 +2486,28 @@ public class EasyEditManager {
         private boolean               backPressed = false;
         private boolean               existing    = false;
 
-        public AddRelationMemberActionModeCallback(ArrayList<OsmElement> selection) {
+        public AddRelationMemberActionModeCallback(@NonNull List<OsmElement> selection) {
             super();
             members = new ArrayList<>(selection);
         }
 
-        public AddRelationMemberActionModeCallback(OsmElement element) {
+        public AddRelationMemberActionModeCallback(@NonNull OsmElement element) {
             super();
             members = new ArrayList<>();
             addElement(element);
         }
 
-        public AddRelationMemberActionModeCallback(Relation relation, OsmElement element) {
+        public AddRelationMemberActionModeCallback(@NonNull Relation relation, @Nullable OsmElement element) {
             super();
             members = new ArrayList<>();
-            if (element != null)
+            if (element != null) {
                 addElement(element);
+            }
             this.relation = relation;
             existing = true;
         }
 
-        private void addElement(OsmElement element) {
+        private void addElement(@NonNull OsmElement element) {
             members.add(element);
             if (element.getName().equals(Way.NAME)) {
                 logic.addSelectedRelationWay((Way) element);
@@ -2604,7 +2630,7 @@ public class EasyEditManager {
     }
 
     private class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
-        private final static String DEBUG10_TAG = "ExtendSelectionAct...";
+        private static final String DEBUG10_TAG = "ExtendSelectionAct...";
 
         private static final int MENUITEM_TAG            = 2;
         private static final int MENUITEM_DELETE         = 3;
@@ -2627,7 +2653,7 @@ public class EasyEditManager {
 
         private boolean deselect = true;
 
-        public ExtendSelectionActionModeCallback(ArrayList<OsmElement> elements) {
+        public ExtendSelectionActionModeCallback(List<OsmElement> elements) {
             super();
             selection = new ArrayList<>();
             for (OsmElement e : elements) {
@@ -2841,7 +2867,7 @@ public class EasyEditManager {
                             // find the remaing way
                             Way remaining = null;
                             for (OsmElement w : selection) {
-                                if (!(w.getState() == OsmElement.STATE_DELETED)) {
+                                if (w.getState() != OsmElement.STATE_DELETED) {
                                     remaining = (Way) w;
                                 }
                             }
