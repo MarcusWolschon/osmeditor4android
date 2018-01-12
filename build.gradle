@@ -152,7 +152,8 @@ sonarqube {
         property "sonar.java.binaries", "build/intermediates/classes/debug"
         property "sonar.jacoco.reportPaths","build/outputs/code-coverage/connected/5n(AVD) - 7.0-coverage.ec,\
          build/outputs/code-coverage/connected/emulator-5554 - 7.0-coverage.ec, build/jacoco/testDebugUnitTest.exec,\
-         build/outputs/code-coverage/connected/tablettwide(AVD) - 7.0-coverage.ec"
+         build/outputs/code-coverage/connected/tablettwide(AVD) - 7.0-coverage.ec,\
+         build/outputs/code-coverage/connected/8(AVD) - 8.0.0-coverage.ec"
     }
 }
 
