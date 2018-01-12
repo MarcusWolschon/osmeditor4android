@@ -49,7 +49,6 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
-import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
@@ -284,7 +283,7 @@ public class TileLayerServer {
 
     private static final int PREFERENCE_DEFAULT = 0;
     private static final int PREFERENCE_BEST    = 10;
-    
+
     private static final int DEFAULT_MOX_OVERZOOM = 4;
 
     private static TileLayerServer cachedBackground = null;
@@ -310,7 +309,7 @@ public class TileLayerServer {
     private int                  preference;
     private long                 startDate   = -1L;
     private long                 endDate     = -1L;
-    private int                  maxOverZoom = DEFAULT_MOX_OVERZOOM;                 // currently hardwired
+    private int                  maxOverZoom = DEFAULT_MOX_OVERZOOM; // currently hardwired
     private Drawable             brandLogo;
     private final Queue<String>  subdomains  = new LinkedList<>();
     private int                  defaultAlpha;
@@ -793,12 +792,7 @@ public class TileLayerServer {
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "readBbox got " + e.getMessage());
         }
-        try {
-            bbox = new BoundingBox(left, bottom, right, top);
-        } catch (OsmException e) {
-            Log.e(DEBUG_TAG, "readBbox got " + e.getMessage());
-            return null;
-        }
+        bbox = new BoundingBox(left, bottom, right, top);
         return bbox;
     }
 

@@ -40,6 +40,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
@@ -49,7 +50,6 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track;
@@ -676,18 +676,18 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                         // naturally may not be really true
                         if (system == GnssSystem.NONE) { // take whatever we get
                             switch (talker) {
-                                case "GP":
-                                    system = GnssSystem.GPS;
-                                    break;
-                                case "GL":
-                                    system = GnssSystem.GLONASS;
-                                    break;
-                                case "GN":
-                                    system = GnssSystem.MULTIPLE;
-                                    break;
-                                default:
-                                    // new system we don't know about? BEIDOU probably best ignored for now
-                                    return;
+                            case "GP":
+                                system = GnssSystem.GPS;
+                                break;
+                            case "GL":
+                                system = GnssSystem.GLONASS;
+                                break;
+                            case "GN":
+                                system = GnssSystem.MULTIPLE;
+                                break;
+                            default:
+                                // new system we don't know about? BEIDOU probably best ignored for now
+                                return;
                             }
                         } else if (system == GnssSystem.GLONASS) {
                             if (talker.equals("GP")) {
@@ -903,7 +903,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         }
     }
 
-    private void autoDownload(Location location, Validator validator) {
+    private void autoDownload(@NonNull Location location, Validator validator) {
         // some heuristics for now to keep downloading to a minimum
         // speed needs to be <= 6km/h (aka brisk walking speed)
         int radius = prefs.getDownloadRadius();
@@ -930,7 +930,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         }
     }
 
-    private boolean bbLoaded(ArrayList<BoundingBox> bbs, int lonE7, int latE7) {
+    private boolean bbLoaded(List<BoundingBox> bbs, int lonE7, int latE7) {
         for (BoundingBox b : bbs) {
             if (b.isIn(latE7, lonE7)) {
                 return true;
@@ -945,7 +945,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
      * @param location current location
      * @return the next bounding box
      */
-    private BoundingBox getNextBox(ArrayList<BoundingBox> bbs, Location prevLocation, Location location, int radius) {
+    @Nullable
+    private BoundingBox getNextBox(@NonNull List<BoundingBox> bbs, Location prevLocation, @NonNull Location location, int radius) {
         double lon = location.getLongitude();
         double lat = location.getLatitude();
         double mlat = GeoMath.latToMercator(lat);
@@ -956,47 +957,44 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         int currentBottomE7 = (int) (GeoMath.mercatorToLat(currentMBottom) * 1E7);
         int widthE7 = (int) (width * 1E7);
 
-        try {
-            BoundingBox b = new BoundingBox(currentLeftE7, currentBottomE7, currentLeftE7 + widthE7, currentBottomE7 + widthE7);
+        BoundingBox b = new BoundingBox(currentLeftE7, currentBottomE7, currentLeftE7 + widthE7, currentBottomE7 + widthE7);
 
-            if (!bbLoaded(bbs, (int) (lon * 1E7D), (int) (lat * 1E7D))) {
-                return b;
-            }
-
-            double bRight = b.getRight() / 1E7d;
-            double bLeft = b.getLeft() / 1E7d;
-            double mBottom = GeoMath.latE7ToMercator(b.getBottom());
-            double mHeight = GeoMath.latE7ToMercator(b.getTop()) - mBottom;
-            double dLeft = lon - bLeft;
-            double dRight = bRight - lon;
-
-            double dTop = mBottom + mHeight - mlat;
-            double dBottom = mlat - mBottom;
-
-            Log.d(TAG, "getNextCenter dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
-            Log.d(TAG, "getNextCenter " + b.toString());
-
-            // top or bottom is closest
-            if (dTop < dBottom) { // top closest
-                if (dLeft < dRight) {
-                    return new BoundingBox(b.getLeft() - widthE7, b.getBottom(), b.getRight(), b.getTop() + widthE7);
-                } else {
-                    return new BoundingBox(b.getLeft(), b.getBottom(), b.getRight() + widthE7, b.getTop() + widthE7);
-                }
-            } else {
-                if (dLeft < dRight) {
-                    return new BoundingBox(b.getLeft() - widthE7, b.getBottom() - widthE7, b.getRight(), b.getTop());
-                } else {
-                    return new BoundingBox(b.getLeft(), b.getBottom() - widthE7, b.getRight() + widthE7, b.getTop());
-                }
-            }
-        } catch (OsmException e) {
-            // TODO Auto-generated catch block
-            return null;
+        if (!bbLoaded(bbs, (int) (lon * 1E7D), (int) (lat * 1E7D))) {
+            return b;
         }
+
+        double bRight = b.getRight() / 1E7d;
+        double bLeft = b.getLeft() / 1E7d;
+        double mBottom = GeoMath.latE7ToMercator(b.getBottom());
+        double mHeight = GeoMath.latE7ToMercator(b.getTop()) - mBottom;
+        double dLeft = lon - bLeft;
+        double dRight = bRight - lon;
+
+        double dTop = mBottom + mHeight - mlat;
+        double dBottom = mlat - mBottom;
+
+        Log.d(TAG, "getNextCenter dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
+        Log.d(TAG, "getNextCenter " + b.toString());
+
+        BoundingBox result;
+        // top or bottom is closest
+        if (dTop < dBottom) { // top closest
+            if (dLeft < dRight) {
+                result = new BoundingBox(b.getLeft() - widthE7, b.getBottom(), b.getRight(), b.getTop() + widthE7);
+            } else {
+                result = new BoundingBox(b.getLeft(), b.getBottom(), b.getRight() + widthE7, b.getTop() + widthE7);
+            }
+        } else {
+            if (dLeft < dRight) {
+                result = new BoundingBox(b.getLeft() - widthE7, b.getBottom() - widthE7, b.getRight(), b.getTop());
+            } else {
+                result = new BoundingBox(b.getLeft(), b.getBottom() - widthE7, b.getRight() + widthE7, b.getTop());
+            }
+        }
+        return result.isEmpty() ? null : result;
     }
 
-    private void bugAutoDownload(Location location) {
+    private void bugAutoDownload(@NonNull Location location) {
         // some heuristics for now to keep downloading to a minimum
         // speed needs to be <= 6km/h (aka brisk walking speed)
         int radius = prefs.getBugDownloadRadius();

@@ -36,7 +36,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
-import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -120,7 +120,7 @@ public class Search {
      * @param q the query string
      * @param bbox bounding box to limit the search to
      */
-    public void find(Geocoder geocoder, String q, BoundingBox bbox) {
+    public void find(Geocoder geocoder, String q, ViewBox bbox) {
         Query querier = null;
         boolean multiline = false;
         switch (geocoder.type) {
@@ -154,10 +154,10 @@ public class Search {
     private class Query extends AsyncTask<String, Void, ArrayList<SearchResult>> {
         AlertDialog progress = null;
 
-        final BoundingBox bbox;
-        final String      url;
+        final ViewBox bbox;
+        final String  url;
 
-        public Query(String url, BoundingBox bbox) {
+        public Query(String url, ViewBox bbox) {
             this.url = url;
             this.bbox = bbox;
         }
@@ -189,7 +189,7 @@ public class Search {
             super(null, null);
         }
 
-        public QueryNominatim(String url, BoundingBox bbox) {
+        public QueryNominatim(String url, ViewBox bbox) {
             super(url, bbox);
         }
 
@@ -256,18 +256,18 @@ public class Search {
             while (reader.hasNext()) {
                 String jsonName = reader.nextName();
                 switch (jsonName) {
-                    case "lat":
-                        result.setLat(reader.nextDouble());
-                        break;
-                    case "lon":
-                        result.setLon(reader.nextDouble());
-                        break;
-                    case "display_name":
-                        result.display_name = reader.nextString();
-                        break;
-                    default:
-                        reader.skipValue();
-                        break;
+                case "lat":
+                    result.setLat(reader.nextDouble());
+                    break;
+                case "lon":
+                    result.setLon(reader.nextDouble());
+                    break;
+                case "display_name":
+                    result.display_name = reader.nextString();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
                 }
             }
             reader.endObject();
@@ -284,7 +284,7 @@ public class Search {
             super(null, null);
         }
 
-        public QueryPhoton(String url, BoundingBox bbox) {
+        public QueryPhoton(String url, ViewBox bbox) {
             super(url, bbox);
         }
 
@@ -344,7 +344,7 @@ public class Search {
                 }
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "QueryPhoton got " + e.getMessage());
-            }  finally {
+            } finally {
                 SavingHelper.close(inputStream);
                 SavingHelper.close(responseBody);
                 SavingHelper.close(reader);

@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import de.blau.android.R;
-import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.prefs.Preferences;
@@ -48,13 +48,13 @@ public class SearchForm extends DialogFragment {
 
     private static final String TAG = "fragment_search_form";
 
-    private BoundingBox             bbox;
+    private ViewBox                 bbox;
     private SearchItemFoundCallback callback;
 
     /**
      *
      */
-    static public void showDialog(AppCompatActivity activity, final BoundingBox bbox) {
+    static public void showDialog(AppCompatActivity activity, final ViewBox bbox) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -81,7 +81,7 @@ public class SearchForm extends DialogFragment {
 
     /**
      */
-    static private SearchForm newInstance(final BoundingBox bbox) {
+    static private SearchForm newInstance(final ViewBox bbox) {
         SearchForm f = new SearchForm();
 
         Bundle args = new Bundle();
@@ -98,7 +98,7 @@ public class SearchForm extends DialogFragment {
         super.onCreate(savedInstanceState);
         setCancelable(true);
 
-        bbox = (BoundingBox) getArguments().getSerializable(BBOX_KEY);
+        bbox = (ViewBox) getArguments().getSerializable(BBOX_KEY);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class SearchForm extends DialogFragment {
         Log.d(DEBUG_TAG, "onAttach");
         super.onAttach(context);
         try {
-            callback = (SearchItemFoundCallback)context;
+            callback = (SearchItemFoundCallback) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement ");
         }

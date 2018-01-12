@@ -13,7 +13,6 @@ import org.xmlpull.v1.XmlSerializer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import de.blau.android.exception.OsmException;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
@@ -29,7 +28,7 @@ public class Way extends OsmElement implements BoundedObject {
     private static final long serialVersionUID = 1104911642016294267L;
 
     final ArrayList<Node> nodes;
-    
+
     /**
      * Cache of bounding box
      */
@@ -482,11 +481,7 @@ public class Way extends OsmElement implements BoundedObject {
     public BoundingBox getBounds() {
         BoundingBox result = null;
         if (left != Integer.MIN_VALUE) {
-            try {
-                return new BoundingBox(left, bottom, right, top);
-            } catch (OsmException e) {
-                return null;
-            }
+            return new BoundingBox(left, bottom, right, top);
         }
         boolean first = true;
         for (Node n : getNodes()) {
@@ -517,7 +512,7 @@ public class Way extends OsmElement implements BoundedObject {
     public void invalidateBoundingBox() {
         left = Integer.MIN_VALUE;
     }
-    
+
     /**
      * Returns a bounding box covering the way
      * 

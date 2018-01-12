@@ -25,6 +25,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Note;
@@ -50,8 +51,8 @@ public class IssueAlert {
     /**
      * Generate an alert/notification if something is problematic about the OSM object
      * 
-     * @param context
-     * @param e
+     * @param context Android Context
+     * @param e OsmElement we are generating an alert for
      */
     public static void alert(Context context, OsmElement e) {
 
@@ -82,7 +83,7 @@ public class IssueAlert {
             eLon = result[0];
             eLat = result[1];
         } else if ("relation".equals(e.getName())) {
-            BoundingBox box = e.getBounds();
+            ViewBox box = new ViewBox(e.getBounds());
             if (box == null) {
                 Log.d(DEBUG_TAG, "couldn't determine center for " + e);
                 return;
@@ -182,8 +183,10 @@ public class IssueAlert {
     /**
      * Generate an alert/notification if we found a task object nearby.
      * 
-     * @param context
-     * @param b
+     * Will not generate an alert if the corresponding preference is not set
+     * 
+     * @param context Android Context
+     * @param b the Task
      */
     public static void alert(Context context, Task b) {
         Log.d("IssueAlert", "generating alert for " + b.getDescription());
@@ -192,7 +195,19 @@ public class IssueAlert {
         if (!prefs.generateAlerts()) { // don't generate alerts
             return;
         }
+        alert(context, prefs, b);
+    }
 
+    /**
+     * Generate an alert/notification if we found a task object nearby.
+     * 
+     * Always generates an alert regardless of the preference setting
+     * 
+     * @param context Android Context
+     * @param prefs a Preference instance
+     * @param b the Task
+     */
+    public static void alert(Context context, Preferences prefs, Task b) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Location location = null;
         try {

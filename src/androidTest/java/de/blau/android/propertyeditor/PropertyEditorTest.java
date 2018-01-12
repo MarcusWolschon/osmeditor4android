@@ -101,11 +101,7 @@ public class PropertyEditorTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -179,11 +175,7 @@ public class PropertyEditorTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -205,11 +197,7 @@ public class PropertyEditorTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -228,18 +216,14 @@ public class PropertyEditorTest {
         Assert.assertTrue(text.exists());
     }
 
-    @SdkSuppress(minSdkVersion=24)
+    @SdkSuppress(minSdkVersion = 24)
     @Test
     public void maxTagLength() {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -342,11 +326,7 @@ public class PropertyEditorTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -376,11 +356,7 @@ public class PropertyEditorTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -432,11 +408,7 @@ public class PropertyEditorTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

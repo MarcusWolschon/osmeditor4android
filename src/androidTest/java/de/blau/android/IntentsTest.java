@@ -2,6 +2,7 @@ package de.blau.android;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -102,7 +103,7 @@ public class IntentsTest {
         } catch (InterruptedException e1) {
         }
         Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984));
-        ArrayList<Task> tasks = App.getTaskStorage().getTasks();
+        List<Task> tasks = App.getTaskStorage().getTasks();
         //
         Assert.assertEquals(151, tasks.size()); // combined count of OSMOSE bugs and notes
     }

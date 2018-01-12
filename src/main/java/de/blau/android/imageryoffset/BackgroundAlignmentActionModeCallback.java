@@ -45,8 +45,8 @@ import de.blau.android.Mode;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.DateFormatter;
@@ -244,7 +244,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                         } // can't happen ?
                     } catch (IOException | IllegalStateException e) {
                         error = e.getMessage();
-                    } 
+                    }
                     if (error != null) {
                         Log.d(DEBUG_TAG, "search error " + error);
                     }
@@ -254,7 +254,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 }
             } catch (IOException e) {
                 error = e.getMessage();
-            } 
+            }
             Log.d(DEBUG_TAG, "search error " + error);
             return null;
         }
@@ -353,7 +353,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     private void getOffsetFromDB() {
 
         // first try for our view box
-        final BoundingBox bbox = map.getViewBox();
+        final ViewBox bbox = map.getViewBox();
         final double centerLat = bbox.getCenterLat();
         final double centerLon = (bbox.getLeft() + bbox.getWidth() / 2) / 1E7d;
         final Comparator<ImageryOffset> cmp = new Comparator<ImageryOffset>() {
@@ -393,7 +393,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
         Offset[] offsets = osmts.getOffsets(); // current offset
         ArrayList<ImageryOffset> offsetList = new ArrayList<>();
-        final BoundingBox bbox = map.getViewBox();
+        final ViewBox bbox = map.getViewBox();
         Offset lastOffset = null;
         ImageryOffset im = null;
         String author = null;
@@ -479,48 +479,48 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         while (reader.hasNext()) {
             String jsonName = reader.nextName();
             switch (jsonName) {
-                case "type":
-                    type = reader.nextString();
-                    break;
-                case "id":
-                    result.id = reader.nextLong();
-                    break;
-                case "lat":
-                    result.lat = reader.nextDouble();
-                    break;
-                case "lon":
-                    result.lon = reader.nextDouble();
-                    break;
-                case "author":
-                    result.author = reader.nextString();
-                    break;
-                case "date":
-                    result.date = reader.nextString();
-                    break;
-                case "imagery":
-                    result.imageryId = reader.nextString();
-                    break;
-                case "imlat":
-                    result.imageryLat = reader.nextDouble();
-                    break;
-                case "imlon":
-                    result.imageryLon = reader.nextDouble();
-                    break;
-                case "min-zoom":
-                    result.minZoom = reader.nextInt();
-                    break;
-                case "max-zoom":
-                    result.maxZoom = reader.nextInt();
-                    break;
-                case "description":
-                    result.description = reader.nextString();
-                    break;
-                case "deprecated":
-                    result.deprecated = readDeprecated(reader);
-                    break;
-                default:
-                    reader.skipValue();
-                    break;
+            case "type":
+                type = reader.nextString();
+                break;
+            case "id":
+                result.id = reader.nextLong();
+                break;
+            case "lat":
+                result.lat = reader.nextDouble();
+                break;
+            case "lon":
+                result.lon = reader.nextDouble();
+                break;
+            case "author":
+                result.author = reader.nextString();
+                break;
+            case "date":
+                result.date = reader.nextString();
+                break;
+            case "imagery":
+                result.imageryId = reader.nextString();
+                break;
+            case "imlat":
+                result.imageryLat = reader.nextDouble();
+                break;
+            case "imlon":
+                result.imageryLon = reader.nextDouble();
+                break;
+            case "min-zoom":
+                result.minZoom = reader.nextInt();
+                break;
+            case "max-zoom":
+                result.maxZoom = reader.nextInt();
+                break;
+            case "description":
+                result.description = reader.nextString();
+                break;
+            case "deprecated":
+                result.deprecated = readDeprecated(reader);
+                break;
+            default:
+                reader.skipValue();
+                break;
             }
         }
         reader.endObject();
@@ -537,18 +537,18 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         while (reader.hasNext()) {
             String jsonName = reader.nextName();
             switch (jsonName) {
-                case "author":
-                    result.author = reader.nextString();
-                    break;
-                case "reason":
-                    result.reason = reader.nextString();
-                    break;
-                case "date":
-                    result.date = reader.nextString();
-                    break;
-                default:
-                    reader.skipValue();
-                    break;
+            case "author":
+                result.author = reader.nextString();
+                break;
+            case "reason":
+                result.reason = reader.nextString();
+                break;
+            case "date":
+                result.date = reader.nextString();
+                break;
+            default:
+                reader.skipValue();
+                break;
             }
         }
         reader.endObject();
@@ -683,7 +683,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     }
                 } catch (InterruptedException | ExecutionException e) {
                     error = e.getMessage();
-                } 
+                }
                 if (error != null) {
                     displayError(error);
                     return; // don't continue is something went wrong
@@ -703,7 +703,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     @SuppressLint("InflateParams")
     private AppCompatDialog createDisplayOffsetDialog(final int index) {
         // Create some useful objects
-        final BoundingBox bbox = map.getViewBox();
+        final ViewBox bbox = map.getViewBox();
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
 
         Builder dialog = new AlertDialog.Builder(main);

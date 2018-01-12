@@ -13,7 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
@@ -127,7 +127,7 @@ public class MapOverlay extends MapViewOverlay {
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
         if (enabled) {
-            BoundingBox bb = osmv.getViewBox();
+            ViewBox bb = osmv.getViewBox();
 
             if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
                 return;
@@ -177,7 +177,7 @@ public class MapOverlay extends MapViewOverlay {
      * @param viewBox Map view box.
      * @return List of photos close to given location.
      */
-    public List<Photo> getClickedPhotos(final float x, final float y, final BoundingBox viewBox) {
+    public List<Photo> getClickedPhotos(final float x, final float y, final ViewBox viewBox) {
         List<Photo> result = new ArrayList<>();
         Log.d("photos.MapOverlay", "getClickedPhotos");
         if (map.getPrefs().isPhotoLayerEnabled()) {

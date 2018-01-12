@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Activity;
@@ -131,11 +132,11 @@ public class TaskStorage implements Serializable {
      * @return a List of Tasks
      */
     @NonNull
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         Collection<BoundedObject> queryResult = new ArrayList<>();
         tasks.query(queryResult);
         Log.d(DEBUG_TAG, "getTasks result count (no BB) " + queryResult.size());
-        ArrayList<Task> result = new ArrayList<>();
+        List<Task> result = new ArrayList<>();
         for (BoundedObject bo : queryResult) {
             result.add((Task) bo);
         }
@@ -149,11 +150,11 @@ public class TaskStorage implements Serializable {
      * @return a List of Tasks
      */
     @NonNull
-    public ArrayList<Task> getTasks(@NonNull BoundingBox box) {
+    public List<Task> getTasks(@NonNull BoundingBox box) {
         Collection<BoundedObject> queryResult = new ArrayList<>();
         tasks.query(queryResult, box.getBounds());
         Log.d(DEBUG_TAG, "getTasks result count " + queryResult.size());
-        ArrayList<Task> result = new ArrayList<>();
+        List<Task> result = new ArrayList<>();
         for (BoundedObject bo : queryResult) {
             result.add((Task) bo);
         }

@@ -44,6 +44,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -125,7 +126,7 @@ public class Map extends View implements IMapView {
     /**
      * The visible area in decimal-degree (WGS84) -space.
      */
-    private BoundingBox myViewBox;
+    private ViewBox myViewBox;
 
     private StorageDelegator delegator;
 
@@ -248,11 +249,11 @@ public class Map extends View implements IMapView {
     private Validator validator;
 
     private Paint labelBackground;
-    
+
     private float[][] coord = null;
 
     private FloatPrimitiveList points = new FloatPrimitiveList(); // allocate this just once
-  
+
     @SuppressLint("NewApi")
     public Map(final Context context) {
         super(context);
@@ -586,7 +587,7 @@ public class Map extends View implements IMapView {
     private void paintGpsPos(final Canvas canvas) {
         if (displayLocation == null)
             return;
-        BoundingBox viewBox = getViewBox();
+        ViewBox viewBox = getViewBox();
         float x = GeoMath.lonE7ToX(getWidth(), viewBox, (int) (displayLocation.getLongitude() * 1E7));
         float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, (int) (displayLocation.getLatitude() * 1E7));
 
@@ -683,7 +684,7 @@ public class Map extends View implements IMapView {
      * @param canvas Canvas, where the data shall be painted on.
      */
     private void paintOsmData(final Canvas canvas) {
-      // first find all nodes that we need to display
+        // first find all nodes that we need to display
 
         List<Node> paintNodes = delegator.getCurrentStorage().getNodes(getViewBox());
 
@@ -714,8 +715,8 @@ public class Map extends View implements IMapView {
         List<Way> waysToDraw = ways;
         if (filterMode) {
             /*
-             * Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for the
-             * later
+             * Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for
+             * the later
              */
             tmpHiddenWays.clear();
             tmpStyledWays.clear();
@@ -743,7 +744,7 @@ public class Map extends View implements IMapView {
         // Paint nodes
         Boolean hwAccelarationWorkaround = myIsHardwareAccelerated(canvas) && Build.VERSION.SDK_INT < 19;
 
-        BoundingBox viewBox = getViewBox();
+        ViewBox viewBox = getViewBox();
         int coordSize = 0;
         float r = wayTolerancePaint.getStrokeWidth() / 2;
         float r2 = r * r;
@@ -757,16 +758,16 @@ public class Map extends View implements IMapView {
             int lat = n.getLat();
             float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
             int lon = n.getLon();
-            float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon); 
+            float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
             if (drawTolerance) {
                 // this reduces the number of tolerance fields drawn
                 // while it rather expensive traversing the array is
                 // still reasonably cheap
                 if (coordSize != 0) {
-                    for (int i=0;i<coordSize;i++) {
+                    for (int i = 0; i < coordSize; i++) {
                         float x1 = coord[i][0];
                         float y1 = coord[i][1];
-                        float d2 = (x1-x)*(x1-x) + (y1-y)*(y1-y);
+                        float d2 = (x1 - x) * (x1 - x) + (y1 - y) * (y1 - y);
                         if (d2 < r2) {
                             noTolerance = true;
                             break;
@@ -774,12 +775,13 @@ public class Map extends View implements IMapView {
                     }
                 }
                 if (!noTolerance) {
-                    coord[coordSize][0]=x;
-                    coord[coordSize][1]=y;
+                    coord[coordSize][0] = x;
+                    coord[coordSize][1] = y;
                     coordSize++;
                 }
             }
-            paintNode(canvas, n, x, y, hwAccelarationWorkaround, drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)));
+            paintNode(canvas, n, x, y, hwAccelarationWorkaround,
+                    drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)));
         }
         paintHandles(canvas);
     }
@@ -850,7 +852,7 @@ public class Map extends View implements IMapView {
             }
             int screenWidth = getWidth();
             int screenHeight = getHeight();
-            BoundingBox viewBox = getViewBox();
+            ViewBox viewBox = getViewBox();
             path.reset();
             RectF screen = new RectF(0, 0, getWidth(), getHeight());
             for (BoundingBox bb : list) {
@@ -885,11 +887,11 @@ public class Map extends View implements IMapView {
      * @param hwAccelarationWorkaround use a workaround for operatons that are not supported when HW accelation is used
      * @param drawTolerance draw the touch halo
      */
-    private void paintNode(final Canvas canvas, final Node node, final float x, final float y, final boolean hwAccelarationWorkaround, final boolean drawTolerance) {
- 
+    private void paintNode(final Canvas canvas, final Node node, final float x, final float y, final boolean hwAccelarationWorkaround,
+            final boolean drawTolerance) {
 
         boolean isSelected = tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node);
-        
+
         boolean isTagged = node.isTagged();
         boolean hasProblem = false;
 
@@ -924,7 +926,7 @@ public class Map extends View implements IMapView {
             featureStyleFont = DataStyle.LABELTEXT_NORMAL_SELECTED;
             // style for small label text
             featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
-            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) { 
+            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) {
                 // don't draw large areas in multi-select mode
                 canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
             }
@@ -1071,6 +1073,7 @@ public class Map extends View implements IMapView {
     }
 
     static final Bitmap NOICON = Bitmap.createBitmap(2, 2, Config.ARGB_8888);
+
     /**
      * Retrieve icon for the element, caching it if it isn't in the cache
      * 
@@ -1289,7 +1292,7 @@ public class Map extends View implements IMapView {
      */
     private void paintHiddenWay(final Canvas canvas, final Way way) {
         pointListToLinePointsArray(points, way.getNodes());
-        float[] linePoints =  points.getArray();
+        float[] linePoints = points.getArray();
         int pointsSize = points.size();
 
         //
@@ -1488,13 +1491,14 @@ public class Map extends View implements IMapView {
      * 
      * Only segments that are inside the ViewBox are included.
      * 
-     * @param points list to (re-)use for projected points in the format expected by {@link Canvas#drawLines(float[], Paint)
+     * @param points list to (re-)use for projected points in the format expected by
+     *            {@link Canvas#drawLines(float[], Paint)
      * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn (e.g. a Way or a
      *            GPS track)
      */
     private void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes) {
         points.clear(); // reset
-        BoundingBox box = getViewBox();
+        ViewBox box = getViewBox();
         boolean testInterrupted = false;
         // loop over all nodes
         GeoPoint prevNode = null;
@@ -1566,7 +1570,7 @@ public class Map extends View implements IMapView {
      * ${@inheritDoc}.
      */
     @Override
-    public BoundingBox getViewBox() {
+    public ViewBox getViewBox() {
         return myViewBox;
     }
 
@@ -1634,7 +1638,7 @@ public class Map extends View implements IMapView {
         this.delegator = delegator;
     }
 
-    public void setViewBox(final BoundingBox viewBox) {
+    public void setViewBox(final ViewBox viewBox) {
         myViewBox = viewBox;
         try {
             myViewBox.setRatio(this, (float) getWidth() / getHeight(), false);

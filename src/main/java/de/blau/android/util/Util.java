@@ -44,6 +44,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 
 public class Util {
@@ -243,7 +244,8 @@ public class Util {
         if (osmElement instanceof Relation) { // the center of the bounding box is naturally just a rough estimate
             BoundingBox bbox = osmElement.getBounds();
             if (bbox != null) {
-                return new int[] { (int) (bbox.getCenterLat() * 1E7), bbox.getLeft() + (bbox.getRight() - bbox.getLeft()) / 2 };
+                ViewBox vbox = new ViewBox(bbox);
+                return new int[] { (int) (vbox.getCenterLat() * 1E7), vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2 };
             }
         }
         return null;

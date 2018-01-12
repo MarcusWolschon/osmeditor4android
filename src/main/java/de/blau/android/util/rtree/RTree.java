@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import android.util.Log;
-import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
 /**
@@ -404,14 +402,8 @@ public class RTree implements Serializable {
      * @param box The query
      */
     public void query(Collection<BoundedObject> results) {
-        BoundingBox box;
-        try {
-            box = new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7);
-            query(results, box, root);
-        } catch (OsmException e) {
-            // shouldn't happen but log anyway
-            Log.d(DEBUG_TAG, "new BoundingBox caused " + e);
-        }
+        BoundingBox box = new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7);
+        query(results, box, root);
     }
 
     public void query(Collection<BoundedObject> results, BoundingBox box) {

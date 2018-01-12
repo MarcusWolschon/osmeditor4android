@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
 /**
@@ -55,37 +54,32 @@ public class RemoteControlUrlActivity extends Activity {
             Log.d(DEBUG_TAG, "Query: " + data.getQuery());
             boolean loadAndZoom = "load_and_zoom".equals(command);
             if (loadAndZoom || "zoom".equals(command)) {
-                try {
-                    RemoteControlUrlData rcData = new RemoteControlUrlData();
-                    rcData.setLoad(loadAndZoom);
-                    String leftParam = data.getQueryParameter("left");
-                    String rightParam = data.getQueryParameter("right");
-                    String bottomParam = data.getQueryParameter("bottom");
-                    String topParam = data.getQueryParameter("top");
+                RemoteControlUrlData rcData = new RemoteControlUrlData();
+                rcData.setLoad(loadAndZoom);
+                String leftParam = data.getQueryParameter("left");
+                String rightParam = data.getQueryParameter("right");
+                String bottomParam = data.getQueryParameter("bottom");
+                String topParam = data.getQueryParameter("top");
 
-                    if (leftParam != null && rightParam != null && bottomParam != null && topParam != null) {
-                        try {
-                            Double left = Double.valueOf(leftParam);
-                            Double right = Double.valueOf(rightParam);
-                            Double bottom = Double.valueOf(bottomParam);
-                            Double top = Double.valueOf(topParam);
-                            rcData.setBox(new BoundingBox(left, bottom, right, top));
-                            Log.d(DEBUG_TAG, "bbox " + rcData.getBox() + " load " + rcData.load());
-                        } catch (NumberFormatException e) {
-                            Log.d(DEBUG_TAG, "Invalid bounding box parameter", e);
-                            intent = null;
-                        }
+                if (leftParam != null && rightParam != null && bottomParam != null && topParam != null) {
+                    try {
+                        Double left = Double.valueOf(leftParam);
+                        Double right = Double.valueOf(rightParam);
+                        Double bottom = Double.valueOf(bottomParam);
+                        Double top = Double.valueOf(topParam);
+                        rcData.setBox(new BoundingBox(left, bottom, right, top));
+                        Log.d(DEBUG_TAG, "bbox " + rcData.getBox() + " load " + rcData.load());
+                    } catch (NumberFormatException e) {
+                        Log.d(DEBUG_TAG, "Invalid bounding box parameter", e);
+                        intent = null;
                     }
-                    if (intent != null) {
-                        String select = data.getQueryParameter("select");
-                        if (rcData.load() && select != null) {
-                            rcData.setSelect(select);
-                        }
-                        intent.putExtra(RCDATA, rcData);
+                }
+                if (intent != null) {
+                    String select = data.getQueryParameter("select");
+                    if (rcData.load() && select != null) {
+                        rcData.setSelect(select);
                     }
-                } catch (OsmException e) {
-                    Log.d(DEBUG_TAG, "OsmException ", e);
-                    intent = null;
+                    intent.putExtra(RCDATA, rcData);
                 }
             } else {
                 Log.d(DEBUG_TAG, "Unknown RC command: " + command);

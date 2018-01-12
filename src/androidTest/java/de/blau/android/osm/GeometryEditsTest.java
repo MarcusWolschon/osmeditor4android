@@ -44,7 +44,7 @@ public class GeometryEditsTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         main.getMap().setPrefs(main, prefs);
         App.getDelegator().reset(false);
-        App.getDelegator().setOriginalBox(BoundingBox.getMaxMercatorExtent());
+        App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
         // TestUtils.grantPermissons();
         // TestUtils.dismissStartUpDialogs(main);
     }
@@ -308,7 +308,7 @@ public class GeometryEditsTest {
             logic.setSelectedRelation(null);
             logic.performAdd(main, 1000.0f, 0.0f);
             Node wn = logic.getSelectedNode();
-            BoundingBox box = new BoundingBox(wn.getLon(), wn.getLat());
+            ViewBox box = new ViewBox(wn.getLon(), wn.getLat());
             float wnY = getY(logic, wn);
             float wnX = getX(logic, wn);
             System.out.println("WN1 X " + wnX + " Y " + wnY);

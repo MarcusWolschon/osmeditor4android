@@ -163,7 +163,7 @@ public class ReadSaveTasks {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        ArrayList<Task> tasks = App.getTaskStorage().getTasks();
+        List<Task> tasks = App.getTaskStorage().getTasks();
         // note the fixture contains 100 notes, however 41 of them are closed and expired
         Assert.assertEquals(59, tasks.size());
         final CountDownLatch signal1 = new CountDownLatch(1);

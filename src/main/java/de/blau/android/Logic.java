@@ -78,6 +78,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.UndoStorage;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
@@ -265,7 +266,7 @@ public class Logic {
     /**
      * The viewBox for the map. All changes on this Object are made in here or in {@link Tracker}.
      */
-    private final BoundingBox viewBox;
+    private final ViewBox viewBox;
 
     /**
      * An instance of the map. Value set by Main via constructor.
@@ -299,7 +300,7 @@ public class Logic {
      * 
      */
     Logic() {
-        viewBox = getDelegator().getLastBox();
+        viewBox = new ViewBox(getDelegator().getLastBox());
         mode = Mode.MODE_EASYEDIT;
         setLocked(true);
     }
@@ -634,10 +635,10 @@ public class Logic {
      * @param activity activity that called us
      * @param box the new empty map-box. Don't mess up with the viewBox!
      */
-    void newEmptyMap(@NonNull FragmentActivity activity, @NonNull BoundingBox box) {
+    void newEmptyMap(@NonNull FragmentActivity activity, @NonNull ViewBox box) {
         Log.d(DEBUG_TAG, "newEmptyMap");
         if (box == null) { // probably should do a more general check if the BB is valid
-            box = BoundingBox.getMaxMercatorExtent();
+            box = ViewBox.getMaxMercatorExtent();
         }
 
         // not checking will zap edits, given that this method will only be called when we are not downloading, not a
@@ -2199,13 +2200,8 @@ public class Logic {
     public synchronized void downloadBox(@NonNull final FragmentActivity activity, @NonNull final BoundingBox mapBox, final boolean add,
             @Nullable final PostAsyncActionHandler postLoadHandler) {
         final Validator validator = App.getDefaultValidator(activity);
-        try {
-            mapBox.makeValidForApi();
-        } catch (OsmException e1) {
-            Log.e(DEBUG_TAG, "downloadBox invalid download box");
-            ErrorAlert.showDialog(activity, ErrorCodes.INVALID_BOUNDING_BOX);
-            return;
-        }
+
+        mapBox.makeValidForApi();
 
         final PostMergeHandler postMerge = new PostMergeHandler() {
             @Override
@@ -2378,12 +2374,8 @@ public class Logic {
      * @param mapBox Box defining the area to be loaded.
      */
     public synchronized void autoDownloadBox(final Context context, final Server server, final Validator validator, final BoundingBox mapBox) {
-        try {
-            mapBox.makeValidForApi();
-        } catch (OsmException e1) {
-            Log.d(DEBUG_TAG, "Invalid bounding box");
-            return;
-        }
+
+        mapBox.makeValidForApi();
 
         final PostMergeHandler postMerge = new PostMergeHandler() {
             @Override
@@ -2567,7 +2559,7 @@ public class Logic {
             return loader.get(20, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             return null;
-        } 
+        }
     }
 
     /**
@@ -2666,7 +2658,7 @@ public class Logic {
                 return loader.get(20, TimeUnit.SECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 return -1;
-            } 
+            }
         } else {
             return 0;
         }
@@ -2798,7 +2790,7 @@ public class Logic {
                 return loader.get(20, TimeUnit.SECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 return -1;
-            } 
+            }
         } else {
             return 0;
         }
@@ -3150,12 +3142,9 @@ public class Logic {
                         try {
                             viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
                         } catch (Exception e) {
-                            // invalid dimensions of similar error
-                            try {
-                                viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
-                            } catch (OsmException e1) {
-                                Log.d(DEBUG_TAG, "loadStateFromFile got " + e.getMessage());
-                            }
+                            // invalid dimensions or similar error
+                            viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
+
                         }
                         DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
                                                                                      // loadEiditngState
@@ -3266,12 +3255,8 @@ public class Logic {
                 try {
                     viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
                 } catch (Exception e) {
-                    // invalid dimensions of similar error
-                    try {
-                        viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
-                    } catch (OsmException e1) {
-                        Log.d(DEBUG_TAG, "syncLoadFromFile got " + e.getMessage());
-                    }
+                    // invalid dimensions or similar error
+                    viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
                 }
                 DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
                 loadEditingState((Main) activity, true);
@@ -4348,7 +4333,7 @@ public class Logic {
      * @param way
      * @return WS84 coordinates of centroid
      */
-    private static int[] centroid(int w, int h, BoundingBox v, final Way way) {
+    private static int[] centroid(int w, int h, @NonNull ViewBox v, final Way way) {
         float XY[] = centroidXY(w, h, v, way);
         if (XY == null) {
             return null;
@@ -4369,7 +4354,7 @@ public class Logic {
      *         return the coordinates of the first node
      */
     @Nullable
-    private static float[] centroidXY(int w, int h, @NonNull BoundingBox v, @NonNull final Way way) {
+    private static float[] centroidXY(int w, int h, @NonNull ViewBox v, @NonNull final Way way) {
         if (way == null || way.nodeCount() == 0) {
             return null;
         }
@@ -4572,7 +4557,7 @@ public class Logic {
     /**
      * @return the viewBox
      */
-    public BoundingBox getViewBox() {
+    public ViewBox getViewBox() {
         return viewBox;
     }
 

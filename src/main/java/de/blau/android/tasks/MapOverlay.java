@@ -10,7 +10,7 @@ import android.graphics.Canvas;
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
@@ -56,12 +56,12 @@ public class MapOverlay extends MapViewOverlay {
             // big when zoomed out
             // currently we don't adjust the icon size for density final float radius = Density.dpToPx(1.0f +
             // osmv.getZoomLevel() / 2.0f);
-            BoundingBox bb = osmv.getViewBox();
+            ViewBox bb = osmv.getViewBox();
 
             //
             int w = map.getWidth();
             int h = map.getHeight();
-            ArrayList<Task> taskList = tasks.getTasks(bb);
+            List<Task> taskList = tasks.getTasks(bb);
             if (taskList != null) {
                 Set<String> taskFilter = map.getPrefs().taskFilter();
                 for (Task t : taskList) {
@@ -112,11 +112,11 @@ public class MapOverlay extends MapViewOverlay {
      * @param viewBox Map view box.
      * @return List of bugs close to given location.
      */
-    public List<Task> getClickedTasks(final float x, final float y, final BoundingBox viewBox) {
+    public List<Task> getClickedTasks(final float x, final float y, final ViewBox viewBox) {
         List<Task> result = new ArrayList<>();
         if (map.getPrefs().areBugsEnabled()) {
             final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
-            ArrayList<Task> taskList = tasks.getTasks(viewBox);
+            List<Task> taskList = tasks.getTasks(viewBox);
             if (taskList != null) {
                 Set<String> taskFilter = map.getPrefs().taskFilter();
                 for (Task t : taskList) {

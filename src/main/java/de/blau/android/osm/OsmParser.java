@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.util.Log;
-import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmParseException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.util.collections.LongOsmElementMap;
@@ -279,16 +278,12 @@ public class OsmParser extends DefaultHandler {
             double maxlat = Double.parseDouble(atts.getValue("maxlat"));
             double minlon = Double.parseDouble(atts.getValue("minlon"));
             double maxlon = Double.parseDouble(atts.getValue("maxlon"));
-            try {
-                if (storage.getBoundingBoxes() == null) {
-                    storage.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
-                } else {
-                    storage.addBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
-                }
-                Log.d(DEBUG_TAG, "Creating bounding box " + minlon + " " + minlat + " " + maxlon + " " + maxlat);
-            } catch (OsmException e) {
-                throw new OsmParseException("Bounds are not correct");
+            if (storage.getBoundingBoxes() == null) {
+                storage.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
+            } else {
+                storage.addBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
             }
+            Log.d(DEBUG_TAG, "Creating bounding box " + minlon + " " + minlat + " " + maxlon + " " + maxlat);
         } catch (NumberFormatException e) {
             throw new OsmParseException("Bounds unparsable");
         }

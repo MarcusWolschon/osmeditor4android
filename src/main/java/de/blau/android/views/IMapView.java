@@ -1,6 +1,6 @@
 package de.blau.android.views;
 
-import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.ViewBox;
 
 /**
  * Interface for a graphical component that can be used with
@@ -21,5 +21,5 @@ public interface IMapView {
     /**
      * @return The visible area in decimal-degree (WGS84) -space.
      */
-    BoundingBox getViewBox();
+    ViewBox getViewBox();
 }

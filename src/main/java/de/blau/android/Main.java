@@ -123,6 +123,7 @@ import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.UndoStorage;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
@@ -404,12 +405,11 @@ public class Main extends FullScreenAppCompatActivity
     private boolean      askedForStoragePermission = false;
     private final Object storagePermissionLock     = new Object();
 
-    
     /**
      * 
      */
     transient private NetworkStatus networkStatus;
-    
+
     /**
      * file we asked the camera app to create (ugly)
      */
@@ -609,7 +609,7 @@ public class Main extends FullScreenAppCompatActivity
                         ACRA.getErrorReporter().handleException(e);
                     }
                 }
-                openEmptyMap(box);
+                openEmptyMap(new ViewBox(box));
 
                 // only show box picker if we are not showing welcome dialog
                 if (!(newInstall || newVersion)) {
@@ -2180,20 +2180,15 @@ public class Main extends FullScreenAppCompatActivity
         int right = b.getInt(BoxPicker.RESULT_RIGHT);
         int top = b.getInt(BoxPicker.RESULT_TOP);
 
-        try {
-            BoundingBox box = new BoundingBox(left, bottom, right, top);
-            if (resultCode == RESULT_OK) {
-                performHttpLoad(box);
-            } else if (resultCode == RESULT_CANCELED) { //
-                synchronized (setViewBoxLock) {
-                    setViewBox = false; // stop setting the view box in onResume
-                    Log.d(DEBUG_TAG, "opening empty map on " + box.toString());
-                    openEmptyMap(box); // we may have a valid box
-                }
+        BoundingBox box = new BoundingBox(left, bottom, right, top);
+        if (resultCode == RESULT_OK) {
+            performHttpLoad(box);
+        } else if (resultCode == RESULT_CANCELED) { //
+            synchronized (setViewBoxLock) {
+                setViewBox = false; // stop setting the view box in onResume
+                Log.d(DEBUG_TAG, "opening empty map on " + box.toString());
+                openEmptyMap(new ViewBox(box)); // we may have a valid box
             }
-        } catch (OsmException e) {
-            // Values should be done checked in LocationPicker.
-            Log.e(DEBUG_TAG, "OsmException", e);
         }
     }
 
@@ -2331,7 +2326,7 @@ public class Main extends FullScreenAppCompatActivity
         App.getLogic().downloadBox(this, box, false, null);
     }
 
-    private void openEmptyMap(final BoundingBox box) {
+    private void openEmptyMap(final ViewBox box) {
         App.getLogic().newEmptyMap(this, box);
     }
 
@@ -3449,7 +3444,7 @@ public class Main extends FullScreenAppCompatActivity
         }
         return networkStatus.isConnected();
     }
-    
+
     public boolean isConnectedOrConnecting() {
         if (networkStatus == null) {
             networkStatus = new NetworkStatus(this);
@@ -3500,7 +3495,7 @@ public class Main extends FullScreenAppCompatActivity
     @Override
     public void onLocationChanged(Location location) {
         if (followGPS) {
-            BoundingBox viewBox = map.getViewBox();
+            ViewBox viewBox = map.getViewBox();
             // ensure the view is zoomed in to at least the most zoomed-out
             while (!viewBox.canZoomOut() && viewBox.canZoomIn()) {
                 viewBox.zoomIn();
