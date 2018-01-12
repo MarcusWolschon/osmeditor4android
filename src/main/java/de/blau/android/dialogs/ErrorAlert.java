@@ -76,6 +76,8 @@ public class ErrorAlert extends DialogFragment {
             return "alert_no_login_data";
         case ErrorCodes.NO_CONNECTION:
             return "alert_no_connection";
+        case ErrorCodes.SSL_HANDSHAKE:
+            return "ssl_handshake_failed";
         case ErrorCodes.UPLOAD_PROBLEM:
             return "alert_upload_problem";
         case ErrorCodes.BAD_REQUEST:
@@ -98,8 +100,8 @@ public class ErrorAlert extends DialogFragment {
             return "alert_nan";
         case ErrorCodes.INVALID_BOUNDING_BOX:
             return "invalid_bounding_box";
-        case ErrorCodes.SSL_HANDSHAKE:
-            return "ssl_handshake_failed";
+        case ErrorCodes.BOUNDING_BOX_TOO_LARGE:
+            return "bounding_box_too_large";
         }
         return null;
     }
@@ -134,6 +136,8 @@ public class ErrorAlert extends DialogFragment {
             return createNewInstance(R.string.location_nan_title, R.string.location_nan_message, msg);
         case ErrorCodes.INVALID_BOUNDING_BOX:
             return createNewInstance(R.string.invalid_bounding_box_title, R.string.invalid_bounding_box_message, msg);
+        case ErrorCodes.BOUNDING_BOX_TOO_LARGE:
+            return createNewInstance(R.string.bounding_box_too_large_title, R.string.bounding_box_too_large_message, msg);
         }
         return null;
     }

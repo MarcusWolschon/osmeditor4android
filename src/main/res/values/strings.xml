@@ -37,6 +37,8 @@
     <string name="data_conflict_message">The data you are trying to download contains data that conflicts with your edits. Please try to upload your data first before retrying.</string>
     <string name="invalid_bounding_box_title">Invalid Bounding Box</string>
     <string name="invalid_bounding_box_message">The area selected fails to conform to the API restrictions, please choose a different one.</string>
+    <string name="bounding_box_too_large_title">Download area too large</string>
+    <string name="bounding_box_too_large_message">The area you are trying to download is too large or contains too much data.\n\nPlease zoom in more and try again.</string>
     <string name="api_offline_title">API Offline</string>
     <string name="api_offline_message">The API is currently offline and does not allow data to be retrieved or written.</string>
     <string name="out_of_memory_title">Out of Memory</string>

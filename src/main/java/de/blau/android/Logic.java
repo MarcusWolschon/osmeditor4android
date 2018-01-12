@@ -2270,10 +2270,8 @@ public class Logic {
                         }
                         Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
                         if (map != null) {
-                            viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox()); // set to
-                                                                                                            // current
-                                                                                                            // or
-                                                                                                            // previous
+                            // set to current or previous
+                            viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox()); 
                         }
                     } finally {
                         SavingHelper.close(in);
@@ -2331,11 +2329,17 @@ public class Logic {
                     }
                 }
                 if (result != 0) {
-                    if (result == ErrorCodes.OUT_OF_MEMORY) {
+                    switch (result) {
+                    case ErrorCodes.OUT_OF_MEMORY:
                         if (getDelegator().isDirty()) {
                             result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
                         }
-                    }
+                        break;
+                    case HttpURLConnection.HTTP_BAD_REQUEST:
+                        result = ErrorCodes.BOUNDING_BOX_TOO_LARGE;
+                        break;
+                    default:
+                    } 
                     try {
                         if (!activity.isFinishing()) {
                             ErrorAlert.showDialog(activity, result);

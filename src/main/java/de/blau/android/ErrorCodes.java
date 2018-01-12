@@ -30,6 +30,8 @@ public class ErrorCodes {
     public static final int SSL_HANDSHAKE = 13;
 
     public static final int INVALID_DATA_READ = 14;
+    
+    public static final int BOUNDING_BOX_TOO_LARGE = 15;
 
     public static final int UPLOAD_CONFLICT = 50;
     public static final int INVALID_LOGIN   = 51;
