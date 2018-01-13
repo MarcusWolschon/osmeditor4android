@@ -1231,7 +1231,11 @@ public class Main extends FullScreenAppCompatActivity
                 // add menu entries for all proper modes
                 for (final Mode newMode : allModes) {
                     if (newMode.isSubModeOf() == null && newMode.isEnabled()) {
-                        MenuItem item = popup.getMenu().add(newMode.getName(Main.this));
+                        SpannableString s = new SpannableString(newMode.getName(Main.this));
+                        if (mode == newMode) {
+                            s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
+                        }
+                        MenuItem item = popup.getMenu().add(s);
                         item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
