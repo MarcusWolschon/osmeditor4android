@@ -42,6 +42,11 @@ apply plugin: 'org.kordamp.gradle.markdown'
 apply plugin: 'jacoco'
 // apply plugin: 'jacoco-everywhere'
 
+ext {
+    adb = android.getAdbExe().toString()
+}
+
+
 // note this is currently processed by a slightly modified version of the 
 // org.kordamp.gradle.markdown plugin with support for a html template and 
 // not the original
@@ -84,7 +89,6 @@ updateImagery.group = 'vespucci'
 updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
 
 task updateTaginfoJson(type: Exec) {
-	def adb = android.getAdbExe().toString()
 	commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
 }
 updateTaginfoJson.group = 'vespucci'
@@ -131,8 +135,7 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
 
 afterEvaluate{ // this task needs to be created after the uninstall tasks 
 	task runSingleConnectedTest(dependsOn: ["installDebug","installDebugAndroidTest"], type: Exec) {
-		def toRun = "de.blau.android.osm.ApiTest#dataDownloadElementTimeout"
-		def adb = android.getAdbExe().toString()
+		def toRun = "de.blau.android.gps.GpxTest"
 		// commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
 		commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
 		finalizedBy uninstallDebugAndroidTest,uninstallDebug
@@ -141,7 +144,9 @@ afterEvaluate{ // this task needs to be created after the uninstall tasks
 	runSingleConnectedTest.description = 'Run a single test method on device (configuration needs to be edited)'
 	
 	// while we are at it make sure we remove any existing installation before we run the tests
-	connectedDebugAndroidTest.dependsOn uninstallDebug
+	// currently this conflicts with installDebug which we need to be able to set the mock location permission
+	// connectedDebugAndroidTest.dependsOn uninstallDebug
+	connectedDebugAndroidTest.dependsOn installDebug
 }
 
 apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android'
@@ -222,6 +227,23 @@ android.applicationVariants.all { variant ->
     exclude '**/BuildConfig.java'
     exclude '**/R.java'
   }
+}
+
+// this adds some code to set the mock location permission on devices with 6.0 and later
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith('install')) {
+        task.doLast {
+            android.applicationVariants.all { variant ->
+                "${adb} devices".execute().text.eachLine {
+                    if (it.endsWith("device")) {
+                        def device = it.split()[0]
+                        println "Granting test permissions on device ${device}\n"
+                        "${adb} shell appops set ${variant.applicationId} 58 allow".execute()
+                    }
+                }
+            }
+        }
+    }
 }
 
 ext {

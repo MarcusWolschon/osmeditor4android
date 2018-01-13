@@ -217,7 +217,7 @@ public class PropertyEditorTest {
     }
 
     @SdkSuppress(minSdkVersion = 24)
-    @Test
+    //@Test
     public void maxTagLength() {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("capabilities1");

@@ -35,6 +35,7 @@ import org.xmlpull.v1.XmlSerializer;
 import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
 import de.blau.android.util.SavingHelper;
@@ -47,7 +48,7 @@ import de.blau.android.util.SavingHelper;
 public class Track extends DefaultHandler {
     private static final String TAG = "Track";
 
-    private final ArrayList<TrackPoint> currentTrack;
+    private final List<TrackPoint> currentTrack;
 
     private static final String SAVEFILE = "track.dat";
 
@@ -381,7 +382,7 @@ public class Track extends DefaultHandler {
      * @throws IllegalStateException
      * @throws IllegalArgumentException
      */
-    public void exportToGPX(OutputStream outputStream) throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException {
+    public void exportToGPX(@NonNull OutputStream outputStream) throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException {
         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
         serializer.setOutput(outputStream, "UTF-8");
         serializer.startDocument("UTF-8", null);
@@ -578,13 +579,17 @@ public class Track extends DefaultHandler {
             // speed = original.hasSpeed() ? original.getSpeed() : null;
         }
 
-        private TrackPoint(byte flags, double latitude, double longitude, double altitude, long time) {
+        public TrackPoint(byte flags, double latitude, double longitude, double altitude, long time) {
             // Log.d("Track","new trkpt " + flags + " " + latitude+ " " + longitude+ " " + altitude+ " " + time);
             this.flags = flags;
             this.latitude = latitude;
             this.longitude = longitude;
             this.altitude = altitude;
             this.time = time;
+        }
+        
+        public TrackPoint(byte flags, double latitude, double longitude, long time) {
+            this(flags, latitude, longitude, Double.NaN, time);
         }
 
         /**
@@ -663,7 +668,7 @@ public class Track extends DefaultHandler {
         public boolean isNewSegment() {
             return (flags & FLAG_NEWSEGMENT) > 0;
         }
-
+        
         /**
          * Adds a GPX trkpt (track point) tag to the given serializer (synchronized due to use of calendarInstance)
          * 
@@ -692,5 +697,9 @@ public class Track extends DefaultHandler {
         public boolean isInterrupted() {
             return isNewSegment();
         }
+    }
+    
+    public List<TrackPoint> getTrack() {
+        return currentTrack;
     }
 }
