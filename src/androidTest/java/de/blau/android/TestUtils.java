@@ -15,6 +15,8 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
@@ -61,7 +63,7 @@ public class TestUtils {
             clickText(mDevice, true, "Nur diesmal", false);
         }
     }
-    
+
     public static void clickButton(String resId, boolean waitForNewWindow) {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         UiSelector uiSelector = new UiSelector().clickable(true).resourceId(resId);
@@ -76,7 +78,7 @@ public class TestUtils {
             e.printStackTrace();
         }
     }
-    
+
     public static void pinchOut() {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         UiSelector uiSelector = new UiSelector().resourceId("de.blau.android:id/map_view");
@@ -86,7 +88,7 @@ public class TestUtils {
             e.printStackTrace();
         }
     }
-    
+
     public static void pinchIn() {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         UiSelector uiSelector = new UiSelector().resourceId("de.blau.android:id/map_view");
@@ -96,7 +98,7 @@ public class TestUtils {
             e.printStackTrace();
         }
     }
-    
+
     public static void zoomToLevel(Main main, int level) {
         Map map = main.getMap();
         while (level != map.getZoomLevel()) {
@@ -114,7 +116,7 @@ public class TestUtils {
                     clickButton("de.blau.android:id/zoom_out", false);
                 }
             }
-        }        
+        }
     }
 
     public static boolean clickText(UiDevice device, boolean clickable, String text, boolean waitForNewWindow) {
@@ -150,7 +152,7 @@ public class TestUtils {
             return false;
         }
     }
-    
+
     public static boolean clickResource(UiDevice device, boolean clickable, String resourceId, boolean waitForNewWindow) {
         Log.w(DEBUG_TAG, "Searching for object with " + resourceId);
         // Note: contrary to "text", "textStartsWith" is case insensitive
@@ -210,53 +212,69 @@ public class TestUtils {
         }
         return baos.toByteArray();
     }
-    
-    
-    public static void injectLocation(final Context context, final double lat, final double lon, final int interval, final SignalHandler handler) {
-        List<TrackPoint>track = new ArrayList<>();
-        TrackPoint tp = new TrackPoint((byte)0, lat, lon, 0, System.currentTimeMillis());
+
+    /**
+     * Inject a Location to the app in testing
+     * 
+     * @param context   Android context
+     * @param lat       Latitude
+     * @param lon       Longitude
+     * @param interval  interval between values
+     * @param handler   handler to call when we are finished
+     */
+    public static void injectLocation(@NonNull final Context context, final double lat, final double lon, final int interval, @Nullable final SignalHandler handler) {
+        List<TrackPoint> track = new ArrayList<>();
+        TrackPoint tp = new TrackPoint((byte) 0, lat, lon, 0, System.currentTimeMillis());
         track.add(tp);
         injectLocation(context, track, interval, handler);
     }
-    
-    public static void injectLocation(final Context context, final List<TrackPoint> track, final int interval, final SignalHandler handler) {
+
+    /**
+     * Inject a Location to the app in testing
+     * 
+     * @param context   Android context
+     * @param track     List of TrackPoints
+     * @param interval  interval between values
+     * @param handler   handler to call when we are finished
+     */
+    public static void injectLocation(@NonNull final Context context, @NonNull final List<TrackPoint> track, final int interval, @Nullable final SignalHandler handler) {
 
         new AsyncTask<Void, Void, Void>() {
-            String provider = "none";
-            LocationManager         locationManager = null;
-            
+            String          provider        = "none";
+            LocationManager locationManager = null;
+
             @Override
             protected void onPreExecute() {
                 System.out.println("Injecting " + track.size() + " Locations");
-                locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);  
-                locationManager.addTestProvider(
-                                            LocationManager.GPS_PROVIDER,           //name
-                                            false,                                  //requiresNetwork
-                                            false,                                  //requiresSatellite
-                                            false,                                  //requiresCell
-                                            false,                                  //hasMonetaryCost
-                                            true,                                   //supportsAltitude
-                                            true,                                   //supportsSpeed
-                                            true,                                   //supportsBearing
-                                            0,                                      //powerRequirement
-                                            5                                       //accuracy
-                                    );
+                locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                locationManager.addTestProvider(LocationManager.GPS_PROVIDER, // name
+                        false, // requiresNetwork
+                        false, // requiresSatellite
+                        false, // requiresCell
+                        false, // hasMonetaryCost
+                        true, // supportsAltitude
+                        true, // supportsSpeed
+                        true, // supportsBearing
+                        0, // powerRequirement
+                        5 // accuracy
+                );
                 Criteria criteria = new Criteria();
-                criteria.setAccuracy( Criteria.ACCURACY_FINE );
-                provider = locationManager.getBestProvider( criteria, true ); 
+                criteria.setAccuracy(Criteria.ACCURACY_FINE);
+                provider = locationManager.getBestProvider(criteria, true);
                 System.out.println("Provider " + provider);
-                locationManager.setTestProviderEnabled(provider, true);                
+                locationManager.setTestProviderEnabled(provider, true);
             }
 
             @Override
             protected Void doInBackground(Void... arg) {
                 Location loc = new Location(provider);
                 loc.setAccuracy(5.0f);
-                for (TrackPoint tp:track) {
+                for (TrackPoint tp : track) {
                     loc.setLatitude(tp.getLatitude());
                     loc.setLongitude(tp.getLongitude());
                     if (tp.hasAltitude()) {
-                        loc.setAltitude(tp.getAltitude());;
+                        loc.setAltitude(tp.getAltitude());
+                        ;
                     }
                     loc.setTime(System.currentTimeMillis());
                     loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
@@ -275,7 +293,9 @@ public class TestUtils {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                 }
-                handler.onSuccess();
+                if (handler != null) {
+                    handler.onSuccess();
+                }
             }
         }.execute();
     }

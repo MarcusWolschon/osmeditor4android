@@ -27,7 +27,7 @@ import de.blau.android.util.SearchIndexUtils;
 @LargeTest
 public class SynonymsTest {
     Main main;
-    
+
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
@@ -37,7 +37,7 @@ public class SynonymsTest {
     }
 
     @Test
-    public void search() {       
+    public void search() {
         Locale locale = Locale.getDefault();
         Assert.assertEquals(Locale.US.getCountry(), locale.getCountry());
         List<PresetItem> result = SearchIndexUtils.searchInPresets(main, "raptor", ElementType.NODE, 2, 10);

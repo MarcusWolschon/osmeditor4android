@@ -179,7 +179,7 @@ public class GeometryEditsTest {
             Assert.fail(igit.getMessage());
         }
     }
-    
+
     @UiThreadTest
     @Test
     public void closedWaySplitToPolygons() {
@@ -224,7 +224,7 @@ public class GeometryEditsTest {
             Assert.fail(igit.getMessage());
         }
     }
-    
+
     @UiThreadTest
     @Test
     public void wayBoundingBox() {
@@ -261,7 +261,7 @@ public class GeometryEditsTest {
             ArrayList<Node> nList2 = (ArrayList<Node>) w2.getNodes();
             Assert.assertEquals(5, nList2.size());
             final Node n1 = nList2.get(0);
-            List<Way>wayList = logic.getWaysForNode(n1);
+            List<Way> wayList = logic.getWaysForNode(n1);
             Assert.assertEquals(2, wayList.size());
             Assert.assertTrue(wayList.contains(w1));
             Assert.assertTrue(wayList.contains(w2));
@@ -278,7 +278,7 @@ public class GeometryEditsTest {
             BoundingBox box2 = w2.getBounds();
             System.out.println("ApplicationTest bb way2 " + box2.toApiString());
             Assert.assertTrue(box2.intersects(nodeBox));
-            List<Way>fromBB = logic.getWays(box1);
+            List<Way> fromBB = logic.getWays(box1);
             System.out.println("ApplicationTest ways from BB " + fromBB.size());
             Assert.assertEquals(2, fromBB.size());
             System.out.println("ApplicationTest ways from BB " + fromBB.size());
@@ -288,7 +288,7 @@ public class GeometryEditsTest {
             Assert.fail(igit.getMessage());
         }
     }
-    
+
     @UiThreadTest
     @Test
     /**
@@ -435,7 +435,7 @@ public class GeometryEditsTest {
             Assert.assertTrue(w1.getState() == OsmElement.STATE_CREATED);
 
             // w1 should now have both nodes in the same place
-            App.getDelegator().moveNode(w1.getLastNode(), w1.getFirstNode().getLat(), w1.getFirstNode().getLon()); 
+            App.getDelegator().moveNode(w1.getLastNode(), w1.getFirstNode().getLat(), w1.getFirstNode().getLon());
 
             logic.cutToClipboard(null, w1);
             Assert.assertTrue(w1.getState() == OsmElement.STATE_DELETED);

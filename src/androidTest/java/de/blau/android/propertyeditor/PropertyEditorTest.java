@@ -35,7 +35,6 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -217,7 +216,7 @@ public class PropertyEditorTest {
     }
 
     @SdkSuppress(minSdkVersion = 24)
-    //@Test
+    // @Test
     public void maxTagLength() {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("capabilities1");

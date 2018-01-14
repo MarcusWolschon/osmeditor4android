@@ -1,7 +1,6 @@
 package de.blau.android.tasks;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -35,10 +34,6 @@ import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.tasks.Note;
-import de.blau.android.tasks.OsmoseBug;
-import de.blau.android.tasks.Task;
-import de.blau.android.tasks.TransferTasks;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)

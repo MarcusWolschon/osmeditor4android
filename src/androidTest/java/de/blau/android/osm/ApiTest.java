@@ -40,7 +40,6 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -114,7 +113,7 @@ public class ApiTest {
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
         logic.downloadBox(main, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false, new SignalHandler(signal));
- 
+
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -268,7 +267,7 @@ public class ApiTest {
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
         Assert.assertEquals(4L, r.getOsmVersion());
     }
-    
+
     @Test
     public void dataUploadUnchanged() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -287,12 +286,12 @@ public class ApiTest {
         Assert.assertNotNull(n);
         Assert.assertEquals(n.getState(), OsmElement.STATE_MODIFIED);
         n.setState(OsmElement.STATE_UNCHANGED);
-        
+
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("changeset1");
         mockServer.enqueue("upload7");
         mockServer.enqueue("close_changeset");
- 
+
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
             App.getDelegator().uploadToServer(s, "TEST", "none", true);
@@ -305,7 +304,7 @@ public class ApiTest {
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-        
+
     }
 
     @Test
@@ -497,7 +496,7 @@ public class ApiTest {
             Set<String> set = new HashSet<String>(Arrays.asList(notesSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
             Assert.assertTrue(new Preferences(context).taskFilter().contains(notesSelector));
-            TransferTasks.downloadBox(context, s, new BoundingBox(8.3844600D, 47.3892400D,  8.3879800D, 47.3911300D), false, new SignalHandler(signal));
+            TransferTasks.downloadBox(context, s, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false, new SignalHandler(signal));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }

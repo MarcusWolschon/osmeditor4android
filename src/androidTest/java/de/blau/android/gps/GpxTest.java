@@ -89,20 +89,20 @@ public class GpxTest {
         device.waitForWindowUpdate(null, 5000);
         TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true);
         TestUtils.clickText(device, false, "Track management...", true);
-        TestUtils.clickText(device, false, "Import GPS track", true);       
+        TestUtils.clickText(device, false, "Import GPS track", true);
         TestUtils.clickText(device, false, filename, true);
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
-        compareTrack(track, recordedTrack);      
+        compareTrack(track, recordedTrack);
     }
 
     private void compareTrack(Track track, List<TrackPoint> recordedTrack) {
         Assert.assertEquals(track.getTrack().size(), recordedTrack.size());
         int i = 0;
-        for (TrackPoint tp:track.getTrackPoints()) {
+        for (TrackPoint tp : track.getTrackPoints()) {
             TrackPoint recordedTrackPoint = recordedTrack.get(i);
-            Assert.assertEquals(tp.getLatitude(), recordedTrackPoint.getLatitude(),0.00000001);
-            Assert.assertEquals(tp.getLongitude(), recordedTrackPoint.getLongitude(),0.00000001);
-            Assert.assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(),0.00000001);
+            Assert.assertEquals(tp.getLatitude(), recordedTrackPoint.getLatitude(), 0.00000001);
+            Assert.assertEquals(tp.getLongitude(), recordedTrackPoint.getLongitude(), 0.00000001);
+            Assert.assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(), 0.00000001);
             i++;
         }
     }

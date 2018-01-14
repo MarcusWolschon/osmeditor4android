@@ -271,9 +271,9 @@ public class Server {
     }
 
     /**
-     * return the username for this server, may be null
+     * Return the username we use for this server, may be null
      * 
-     * @return
+     * @return the display/user name
      */
     public String getDisplayName() {
         return username;
