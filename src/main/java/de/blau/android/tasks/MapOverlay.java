@@ -21,15 +21,16 @@ public class MapOverlay extends MapViewOverlay {
     /** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */
     private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
 
-    private Bitmap cachedIconClosed;
-    private float  w2closed  = 0f;
-    private float  h2closed  = 0f;
-    private Bitmap cachedIconOpen;
-    private float  w2open    = 0f;
-    private float  h2open    = 0f;
-    private Bitmap cachedIconChanged;
-    private float  w2changed = 0f;
-    private float  h2changed = 0f;
+    private Bitmap  cachedIconClosed;
+    private float   w2closed  = 0f;
+    private float   h2closed  = 0f;
+    private Bitmap  cachedIconOpen;
+    private float   w2open    = 0f;
+    private float   h2open    = 0f;
+    private Bitmap  cachedIconChanged;
+    private float   w2changed = 0f;
+    private float   h2changed = 0f;
+    private boolean enabled   = false;
 
     /** Map this is an overlay of. */
     private final Map map;
@@ -43,12 +44,13 @@ public class MapOverlay extends MapViewOverlay {
 
     @Override
     public boolean isReadyToDraw() {
-        return !map.getPrefs().areBugsEnabled() || map.getOpenStreetMapTilesOverlay().isReadyToDraw();
+        enabled = map.getPrefs().areBugsEnabled();
+        return enabled && map.getOpenStreetMapTilesOverlay().isReadyToDraw();
     }
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-        if (map.getPrefs().areBugsEnabled()) {
+        if (enabled) {
 
             // the idea is to have the circles a bit bigger when zoomed in, not so
             // big when zoomed out

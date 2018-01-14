@@ -16,6 +16,7 @@ import de.blau.android.views.overlay.MapViewOverlay;
 
 public class MapOverlay extends MapViewOverlay {
 
+    private static final String SCALE_NONE       = "SCALE_NONE";
     private static final String DEBUG_TAG        = MapOverlay.class.getName();
     private static final float  DISTANCE2SIDE_DP = 4f;
     private static final float  SHORTTICKS_DP    = 12f;
@@ -38,6 +39,8 @@ public class MapOverlay extends MapViewOverlay {
     private final float textHeight;
     private final Main  main;
     private final int   actionBarHeight;
+    private String      mode    = SCALE_NONE;
+    private boolean     enabled = false;
 
     public MapOverlay(final Map map) {
         this.map = map;
@@ -56,13 +59,14 @@ public class MapOverlay extends MapViewOverlay {
 
     @Override
     public boolean isReadyToDraw() {
-        return !map.getPrefs().areBugsEnabled() || map.getOpenStreetMapTilesOverlay().isReadyToDraw();
+        mode = map.getPrefs().scaleLayer();
+        enabled = !SCALE_NONE.equals(mode);
+        return enabled && map.getOpenStreetMapTilesOverlay().isReadyToDraw();
     }
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-        String mode = map.getPrefs().scaleLayer();
-        if (!mode.equals("SCALE_NONE") && map.getViewBox().getWidth() < 200000000L) { // testing for < 20°
+        if (enabled && map.getViewBox().getWidth() < 200000000L) { // testing for < 20°
             int w = map.getWidth();
             int h = map.getHeight();
             boolean metric = mode.equals("SCALE_METRIC") || mode.equals("SCALE_GRID_METRIC");
