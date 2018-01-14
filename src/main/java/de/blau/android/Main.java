@@ -1673,8 +1673,8 @@ public class Main extends FullScreenAppCompatActivity
                 Log.d(DEBUG_TAG, "Going to start of track");
                 setFollowGPS(false);
                 map.setFollowGPS(false);
+                logic.setZoom(getMap(), ZOOM_FOR_ZOOMTO);
                 map.getViewBox().moveTo(getMap(), l.get(0).getLon(), l.get(0).getLat());
-                logic.setZoom(getMap(), 19);
                 map.invalidate();
             }
             return true;
@@ -3623,7 +3623,6 @@ public class Main extends FullScreenAppCompatActivity
         } else {
             map.getViewBox().setBorders(getMap(), e.getBounds(), false);
         }
-
     }
 
     /**

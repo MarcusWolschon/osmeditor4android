@@ -501,10 +501,12 @@ public class Logic {
     /**
      * Set the zoom to a specific tile zoom level.
      * 
-     * @param z The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
+     * @param map the current Map object
+     * @param z   The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
      */
     public void setZoom(Map map, int z) {
         viewBox.setZoom(map, z);
+        DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
         if (rotatingWay) {
             showCrosshairsForCentroid();
         }
