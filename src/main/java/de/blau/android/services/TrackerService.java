@@ -138,6 +138,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
     @Override
     public void onDestroy() {
+        Log.d(TAG, "onDestroy");
         stopTracking(false);
         track.close();
         super.onDestroy();
@@ -313,10 +314,20 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         }
     }
 
+    /**
+     * Get the tracking status
+     * 
+     * @return true if we are tracking
+     */
     public boolean isTracking() {
         return tracking;
     }
 
+    /**
+     * Get the list of recorded TrackPoints
+     * 
+     * @return a List of TrackPoint
+     */
     public List<TrackPoint> getTrackPoints() {
         return track.getTrackPoints();
     }
@@ -498,11 +509,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
      * @param activity activity this was called from, if null no messages will be displayed, and menus will not be
      *            updated
      * @param fileName
-     * @param add unused currently
      * @throws FileNotFoundException
      */
     public void importGPXFile(@Nullable final FragmentActivity activity, final Uri uri) throws FileNotFoundException {
-        final int existingPoints = track.getTrackPoints().size();
 
         new AsyncTask<Void, Void, Integer>() {
 
@@ -545,8 +554,13 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                 try {
                     if (activity != null) {
                         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
-                        Snack.barInfo(activity,
-                                activity.getResources().getString(R.string.toast_imported_track_points, track.getTrackPoints().size() - existingPoints));
+                        int trackPointCount = track.getTrackPoints() != null ? track.getTrackPoints().size() : 0;
+                        int wayPointCount = track.getWayPoints() != null ? track.getWayPoints().length : 0;
+                        String message = activity.getString(R.string.toast_imported_track_points, trackPointCount, wayPointCount);
+                        if (wayPointCount == 1) {
+                            message = activity.getString(R.string.toast_imported_track_points_single_way_point, trackPointCount);
+                        }
+                        Snack.barInfo(activity, message);
                         activity.supportInvalidateOptionsMenu();
                         if (result == FILENOTFOUND) {
                             Snack.barError(activity, R.string.toast_file_not_found);
@@ -561,6 +575,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         }.execute();
     }
 
+    /**
+     * Get the Track object that is currently being used for recording
+     * 
+     * @return the Track object held by the TrackerService
+     */
     public Track getTrack() {
         return track;
     }

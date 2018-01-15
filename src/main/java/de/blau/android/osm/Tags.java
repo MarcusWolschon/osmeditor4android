@@ -227,6 +227,9 @@ public class Tags {
     public static final String KEY_PIPELINE   = "pipeline";
     public static final String KEY_HEALTHCARE = "healthcare";
 
+    // annotations
+    public static final String KEY_NOTE = "note";
+
     // disabled access
     public static final String KEY_WHEELCHAIR = "wheelchair";
 

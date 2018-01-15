@@ -156,6 +156,13 @@
     <string name="empty_relation_message">The relation %1$s has no members.\n\nLeaving it as is will make it non-editable in Vespucci.</string>
     <string name="add_members">Add members</string>
     <string name="leave_empty">Leave empty</string>
+    <string name="waypoint_title">GPX Way Point</string>
+    <string name="waypoint_description">WPT: %1$s</string>
+    <string name="description">Description</string>
+    <string name="created">Created</string>
+    <string name="altitude">Altitude</string>
+    <string name="create_osm_object">Create OSM Object</string>
+    <string name="create_osm_object_search">Create OSM Object from preset search</string>
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_unsaved_changes">You have unsaved changes, please upload them first.</string>
@@ -198,7 +205,8 @@
     <string name="toast_missing_filemanager">Please install a File Manager.</string>
     <string name="toast_outside_of_download">You are editing outside of the downloaded data.</string>
     <string name="toast_file_not_found">%1$s not found.</string>
-    <string name="toast_imported_track_points">Imported %1$s track points.</string>
+    <string name="toast_imported_track_points">Imported %1$s track points and %2$s way points.</string>
+    <string name="toast_imported_track_points_single_way_point">Imported %1$s track points and 1 way point.</string>
     <string name="toast_unknown_voice_command">Sorry currently \"%1$s\" is not understood</string>
     <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report!</string>
     <string name="toast_camera_error">Error starting camera app: %1$s</string>

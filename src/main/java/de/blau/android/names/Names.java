@@ -249,8 +249,9 @@ public class Names {
                 // Log.d("Names","filtering for shop="+v);
             }
         }
-        if (tm.isEmpty())
+        if (tm.isEmpty()) {
             return getNames();
+        }
 
         Collection<NameAndTags> result = new ArrayList<>();
 

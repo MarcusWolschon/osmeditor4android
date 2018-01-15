@@ -50,7 +50,7 @@ public class TileLayerServerTest {
         prefs.setBackGroundLayer("BING");
         main.getMap().setPrefs(main, prefs);
 
-        TileLayerServer t = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+        TileLayerServer t = map.getBackgroundLayer().getRendererInfo();
         System.out.println(t.toString());
 
         String s = t.getTileURLString(mapTile); // note this could fail if the metainfo cannot be retrieved
@@ -61,7 +61,7 @@ public class TileLayerServerTest {
 
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
-        t = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+        t = map.getBackgroundLayer().getRendererInfo();
 
         System.out.println(t.toString());
 

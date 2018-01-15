@@ -268,17 +268,22 @@ public class DataStyle extends DefaultHandler {
     /**
      * GPS arrow
      */
-    public Path orientation_path = new Path();
+    private Path orientation_path = new Path();
+
+    /**
+     * GPS waypoint
+     */
+    private Path waypoint_path = new Path();
 
     /**
      * Crosshairs
      */
-    public Path crosshairs_path = new Path();
+    private Path crosshairs_path = new Path();
 
     /**
      * X
      */
-    public Path x_path = new Path();
+    private Path x_path = new Path();
 
     /**
      * Arrow indicating the direction of one-way streets. Set/updated in updateStrokes
@@ -330,23 +335,10 @@ public class DataStyle extends DefaultHandler {
         largDragToleranceRadius = Density.dpToPx(ctx, 100f);
         minLenForHandle = 5 * nodeToleranceValue;
 
-        orientation_path.moveTo(0, Density.dpToPx(ctx, -20));
-        orientation_path.lineTo(Density.dpToPx(ctx, 15), Density.dpToPx(ctx, 20));
-        orientation_path.lineTo(0, Density.dpToPx(ctx, 10));
-        orientation_path.lineTo(Density.dpToPx(ctx, -15), Density.dpToPx(ctx, 20));
-        orientation_path.lineTo(0, Density.dpToPx(ctx, -20));
-
-        int arm = Density.dpToPx(ctx, 10);
-        crosshairs_path.moveTo(0, -arm);
-        crosshairs_path.lineTo(0, arm);
-        crosshairs_path.moveTo(arm, 0);
-        crosshairs_path.lineTo(-arm, 0);
-
-        arm = Density.dpToPx(ctx, 4);
-        x_path.moveTo(-arm, -arm);
-        x_path.lineTo(arm, arm);
-        x_path.moveTo(arm, -arm);
-        x_path.lineTo(-arm, arm);
+        createOrientationPath(1.0f);
+        createWayPointPath(1.0f);
+        createCrosshairsPath(1.0f);
+        createXPath(1.0f);
 
         PorterDuffXfermode pixelXor = new PorterDuffXfermode(PorterDuff.Mode.XOR);
 
@@ -913,26 +905,10 @@ public class DataStyle extends DefaultHandler {
                 }
                 if (tempFeatureStyle.name.equals(MARKER_SCALE)) {
                     float scale = Float.parseFloat(atts.getValue("scale"));
-                    orientation_path = new Path();
-                    orientation_path.moveTo(0, Density.dpToPx(ctx, -20) * scale);
-                    orientation_path.lineTo(Density.dpToPx(ctx, 15) * scale, Density.dpToPx(ctx, 20) * scale);
-                    orientation_path.lineTo(0, Density.dpToPx(ctx, 10) * scale);
-                    orientation_path.lineTo(Density.dpToPx(ctx, -15) * scale, Density.dpToPx(ctx, 20) * scale);
-                    orientation_path.lineTo(0, Density.dpToPx(ctx, -20) * scale);
-
-                    crosshairs_path = new Path();
-                    int arm = (int) Density.dpToPx(ctx, 10 * scale);
-                    crosshairs_path.moveTo(0, -arm);
-                    crosshairs_path.lineTo(0, arm);
-                    crosshairs_path.moveTo(arm, 0);
-                    crosshairs_path.lineTo(-arm, 0);
-
-                    x_path = new Path();
-                    arm = (int) Density.dpToPx(ctx, 3 * scale);
-                    x_path.moveTo(-arm, -arm);
-                    x_path.lineTo(arm, arm);
-                    x_path.moveTo(arm, -arm);
-                    x_path.lineTo(-arm, arm);
+                    createOrientationPath(scale);
+                    createWayPointPath(scale);
+                    createCrosshairsPath(scale);
+                    createXPath(scale);
                     return;
                 }
 
@@ -983,6 +959,43 @@ public class DataStyle extends DefaultHandler {
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Parse Exception", e);
         }
+    }
+
+    private void createCrosshairsPath(float scale) {
+        crosshairs_path = new Path();
+        int arm = (int) Density.dpToPx(ctx, 10 * scale);
+        crosshairs_path.moveTo(0, -arm);
+        crosshairs_path.lineTo(0, arm);
+        crosshairs_path.moveTo(arm, 0);
+        crosshairs_path.lineTo(-arm, 0);
+    }
+
+    private void createXPath(float scale) {
+        int arm;
+        x_path = new Path();
+        arm = (int) Density.dpToPx(ctx, 3 * scale);
+        x_path.moveTo(-arm, -arm);
+        x_path.lineTo(arm, arm);
+        x_path.moveTo(arm, -arm);
+        x_path.lineTo(-arm, arm);
+    }
+
+    private void createWayPointPath(float scale) {
+        waypoint_path = new Path();
+        int side = (int) Density.dpToPx(ctx, 5 * scale);
+        waypoint_path.moveTo(0, 0);
+        waypoint_path.lineTo(side, -side * 2f);
+        waypoint_path.lineTo(-side, -side * 2f);
+        waypoint_path.lineTo(0, 0);
+    }
+
+    private void createOrientationPath(float scale) {
+        orientation_path = new Path();
+        orientation_path.moveTo(0, Density.dpToPx(ctx, -20) * scale);
+        orientation_path.lineTo(Density.dpToPx(ctx, 15) * scale, Density.dpToPx(ctx, 20) * scale);
+        orientation_path.lineTo(0, Density.dpToPx(ctx, 10) * scale);
+        orientation_path.lineTo(Density.dpToPx(ctx, -15) * scale, Density.dpToPx(ctx, 20) * scale);
+        orientation_path.lineTo(0, Density.dpToPx(ctx, -20) * scale);
     }
 
     @Override
@@ -1096,5 +1109,33 @@ public class DataStyle extends DefaultHandler {
 
     public static String getBuiltinStyleName() {
         return BUILTIN_STYLE_NAME;
+    }
+
+    /**
+     * @return the orientation_path
+     */
+    public Path getOrientationPath() {
+        return orientation_path;
+    }
+
+    /**
+     * @return the waypoint_path
+     */
+    public Path getWaypointPath() {
+        return waypoint_path;
+    }
+
+    /**
+     * @return the crosshairs_path
+     */
+    public Path getCrosshairsPath() {
+        return crosshairs_path;
+    }
+
+    /**
+     * @return the x_path
+     */
+    public Path getXPath() {
+        return x_path;
     }
 }

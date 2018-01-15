@@ -12,9 +12,6 @@ import java.util.Locale;
 
 import org.acra.ACRA;
 
-import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -22,18 +19,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
-import android.text.TextUtils;
-import android.text.TextUtils.TruncateAt;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
@@ -60,10 +51,6 @@ public class ElementInfo extends DialogFragment {
     private static final String DEBUG_TAG = ElementInfo.class.getName();
 
     private static final String TAG = "fragment_element_info";
-
-    private static final int FIRST_CELL_WIDTH = 5;
-
-    private static final int MAX_FIRST_CELL_WIDTH = 8;
 
     static public void showDialog(FragmentActivity activity, OsmElement e) {
         dismissDialog(activity);
@@ -118,6 +105,7 @@ public class ElementInfo extends DialogFragment {
     @SuppressWarnings("deprecation")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FragmentActivity activity = getActivity();
         ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
 
@@ -130,31 +118,31 @@ public class ElementInfo extends DialogFragment {
             // tl.setShrinkAllColumns(true);
             tl.setColumnShrinkable(1, true);
 
-            tl.addView(createRow(R.string.type, e.getName(), tp));
-            tl.addView(createRow(R.string.id, "#" + e.getOsmId(), tp));
-            tl.addView(createRow(R.string.version, Long.toString(e.getOsmVersion()), tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, e.getName(), tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.id, "#" + e.getOsmId(), tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.version, Long.toString(e.getOsmVersion()), tp));
             long timestamp = e.getTimestamp();
             if (timestamp > 0) {
-                tl.addView(createRow(R.string.last_edited, new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L), tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.last_edited, new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L), tp));
             }
 
             if (e.getName().equals(Node.NAME)) {
-                tl.addView(createRow(R.string.location_lon_label, String.format(Locale.US, "%.7f", ((Node) e).getLon() / 1E7d) + "°", tp));
-                tl.addView(createRow(R.string.location_lat_label, String.format(Locale.US, "%.7f", ((Node) e).getLat() / 1E7d) + "°", tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.7f", ((Node) e).getLon() / 1E7d) + "°", tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.7f", ((Node) e).getLat() / 1E7d) + "°", tp));
             } else if (e.getName().equals(Way.NAME)) {
-                tl.addView(divider());
+                tl.addView(TableLayoutUtils.divider(activity));
                 boolean isClosed = ((Way) e).isClosed();
-                tl.addView(createRow(R.string.length_m, String.format(Locale.US, "%.2f", ((Way) e).length()), tp));
-                tl.addView(createRow(R.string.nodes, Integer.toString(((Way) e).nodeCount() + (isClosed ? -1 : 0)), tp));
-                tl.addView(createRow(R.string.closed, getString(isClosed ? R.string.yes : R.string.no), tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.length_m, String.format(Locale.US, "%.2f", ((Way) e).length()), tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.nodes, Integer.toString(((Way) e).nodeCount() + (isClosed ? -1 : 0)), tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.closed, getString(isClosed ? R.string.yes : R.string.no), tp));
                 // Make this expandable before enabling
                 // for (Node n:((Way)e).getNodes()) {
                 // tl.addView(createRow("", n.getDescription(),tp));
                 // }
             } else if (e.getName().equals(Relation.NAME)) {
-                tl.addView(divider());
+                tl.addView(TableLayoutUtils.divider(activity));
                 List<RelationMember> members = ((Relation) e).getMembers();
-                tl.addView(createRow(R.string.members, Integer.toString(members != null ? members.size() : 0), tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.members, Integer.toString(members != null ? members.size() : 0), tp));
                 if (members != null) {
                     int notDownloaded = 0;
                     for (RelationMember rm : members) {
@@ -163,13 +151,13 @@ public class ElementInfo extends DialogFragment {
                         }
                     }
                     if (notDownloaded > 0) {
-                        tl.addView(createRow(R.string.not_downloaded, Integer.toString(notDownloaded), tp));
+                        tl.addView(TableLayoutUtils.createRow(activity, R.string.not_downloaded, Integer.toString(notDownloaded), tp));
                     }
                 }
             }
             Validator validator = App.getDefaultValidator(getActivity());
             if (e.hasProblem(getActivity(), validator) != Validator.OK) {
-                tl.addView(divider());
+                tl.addView(TableLayoutUtils.divider(activity));
                 boolean first = true;
                 for (String problem : validator.describeProblem(getActivity(), e)) {
                     String header = "";
@@ -177,47 +165,47 @@ public class ElementInfo extends DialogFragment {
                         header = getString(R.string.problem);
                         first = false;
                     }
-                    tl.addView(createRow(header, problem, tp));
+                    tl.addView(TableLayoutUtils.createRow(activity, header, problem, tp));
                 }
             }
 
             if (e.getTags() != null && e.getTags().size() > 0) {
-                tl.addView(divider());
-                tl.addView(createRow(R.string.menu_tags, null, tp));
+                tl.addView(TableLayoutUtils.divider(activity));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, tp));
                 for (String k : e.getTags().keySet()) {
                     String value = e.getTags().get(k);
                     // special handling for some stuff
                     if (k.equals(Tags.KEY_WIKIPEDIA)) {
                         Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(value));
-                        tl.addView(createRow(k, Html.fromHtml("<a href=\"" + Urls.WIKIPEDIA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
+                        tl.addView(TableLayoutUtils.createRow(activity, k, Html.fromHtml("<a href=\"" + Urls.WIKIPEDIA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
                     } else if (k.equals(Tags.KEY_WIKIDATA)) {
-                        tl.addView(createRow(k, Html.fromHtml("<a href=\"" + Urls.WIKIDATA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
+                        tl.addView(TableLayoutUtils.createRow(activity, k, Html.fromHtml("<a href=\"" + Urls.WIKIDATA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
                     } else if (Tags.isWebsiteKey(k)) {
                         try {
                             URL url = new URL(value);
                             URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
-                            tl.addView(createRow(k, Html.fromHtml("<a href=\"" + uri.toURL() + "\">" + value + "</a>"), tp));
+                            tl.addView(TableLayoutUtils.createRow(activity, k, Html.fromHtml("<a href=\"" + uri.toURL() + "\">" + value + "</a>"), tp));
                         } catch (MalformedURLException e1) {
                             Log.d(DEBUG_TAG, "Value " + value + " caused " + e);
-                            tl.addView(createRow(k, value, tp));
+                            tl.addView(TableLayoutUtils.createRow(activity, k, value, tp));
                         } catch (URISyntaxException e1) {
                             Log.d(DEBUG_TAG, "Value " + value + " caused " + e);
-                            tl.addView(createRow(k, value, tp));
+                            tl.addView(TableLayoutUtils.createRow(activity, k, value, tp));
                         }
                     } else {
-                        tl.addView(createRow(k, value, tp));
+                        tl.addView(TableLayoutUtils.createRow(activity, k, value, tp));
                     }
                 }
             }
 
             if (e.getParentRelations() != null && !e.getParentRelations().isEmpty()) {
-                tl.addView(divider());
-                tl.addView(createRow(R.string.relation_membership, null, tp));
+                tl.addView(TableLayoutUtils.divider(activity));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.relation_membership, null, tp));
                 for (Relation r : e.getParentRelations()) {
                     RelationMember rm = r.getMember(e);
                     if (rm != null) {
                         String role = rm.getRole();
-                        tl.addView(createRow(role.equals("") ? getString(R.string.empty_role) : role, r.getDescription(), tp));
+                        tl.addView(TableLayoutUtils.createRow(activity, role.equals("") ? getString(R.string.empty_role) : role, r.getDescription(), tp));
                     } else {
                         // inconsistent state
                         String message = "inconsistent state: " + e.getDescription() + " is not a member of " + r;
@@ -242,82 +230,5 @@ public class ElementInfo extends DialogFragment {
             Log.d(DEBUG_TAG, "Path " + path + " caused " + e);
             return "";
         }
-    }
-
-    @SuppressLint("NewApi")
-    private TableRow createRow(String cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
-        TableRow tr = new TableRow(getActivity());
-        TextView cell = new TextView(getActivity());
-        cell.setSingleLine();
-        cell.setText(cell1);
-        cell.setMinEms(FIRST_CELL_WIDTH);
-        cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
-        if (cell2 == null) {
-            cell.setTypeface(null, Typeface.BOLD);
-        }
-        cell.setEllipsize(TruncateAt.MARQUEE);
-        tr.addView(cell);
-        cell = new TextView(getActivity());
-        if (cell2 != null) {
-            cell.setText(cell2);
-            cell.setMinEms(FIRST_CELL_WIDTH);
-            // cell.setHorizontallyScrolling(true);
-            // cell.setSingleLine(true);
-            cell.setEllipsize(TextUtils.TruncateAt.END);
-            Linkify.addLinks(cell, Linkify.WEB_URLS);
-            cell.setMovementMethod(LinkMovementMethod.getInstance());
-            cell.setPadding(5, 0, 0, 0);
-            cell.setEllipsize(TruncateAt.MARQUEE);
-            // This stops links from working
-            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // cell.setTextIsSelectable(true);
-            // }
-            tr.addView(cell);
-        }
-        tr.setLayoutParams(tp);
-        return tr;
-    }
-
-    @SuppressLint("NewApi")
-    private TableRow createRow(int cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
-        TableRow tr = new TableRow(getActivity());
-        TextView cell = new TextView(getActivity());
-        cell.setMinEms(FIRST_CELL_WIDTH);
-        cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
-        cell.setMaxLines(2);
-        cell.setText(cell1);
-        if (cell2 == null) {
-            cell.setTypeface(null, Typeface.BOLD);
-        }
-        cell.setEllipsize(TruncateAt.MARQUEE);
-        tr.addView(cell);
-        cell = new TextView(getActivity());
-        if (cell2 != null) {
-            cell.setText(cell2);
-            cell.setMinEms(FIRST_CELL_WIDTH);
-            Linkify.addLinks(cell, Linkify.WEB_URLS);
-            cell.setMovementMethod(LinkMovementMethod.getInstance());
-            cell.setPadding(5, 0, 0, 0);
-            cell.setEllipsize(TruncateAt.MARQUEE);
-            // This stops links from working
-            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // cell.setTextIsSelectable(true);
-            // }
-            tr.addView(cell);
-        }
-        tr.setLayoutParams(tp);
-        return tr;
-    }
-
-    @SuppressWarnings("deprecation")
-    private View divider() {
-        TableRow tr = new TableRow(getActivity());
-        View v = new View(getActivity());
-        TableRow.LayoutParams trp = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1);
-        trp.span = 2;
-        v.setLayoutParams(trp);
-        v.setBackgroundColor(Color.rgb(204, 204, 204));
-        tr.addView(v);
-        return tr;
     }
 }

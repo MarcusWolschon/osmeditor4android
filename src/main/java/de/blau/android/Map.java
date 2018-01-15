@@ -96,7 +96,7 @@ public class Map extends View implements IMapView {
      */
     private static final int SHOW_ICONS_LIMIT = 15;
 
-    private static final int SHOW_LABEL_LIMIT = SHOW_ICONS_LIMIT + 5;
+    public static final int SHOW_LABEL_LIMIT = SHOW_ICONS_LIMIT + 5;
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -121,7 +121,12 @@ public class Map extends View implements IMapView {
      * 
      * @see #getOverlays()
      */
-    final List<MapViewOverlay> mOverlays = Collections.synchronizedList(new ArrayList<MapViewOverlay>());
+    final List<MapViewOverlay>        mOverlays       = Collections.synchronizedList(new ArrayList<MapViewOverlay>());
+    MapTilesOverlay                   backgroundLayer = null;
+    MapOverlayTilesOverlay            overlayLayer    = null;
+    de.blau.android.photos.MapOverlay photoLayer      = null;
+    de.blau.android.tasks.MapOverlay  taskLayer       = null;
+    de.blau.android.gpx.MapOverlay    gpxLayer        = null;
 
     /**
      * The visible area in decimal-degree (WGS84) -space.
@@ -221,8 +226,6 @@ public class Map extends View implements IMapView {
     private Location displayLocation = null;
     private boolean  isFollowingGPS  = false;
 
-    private TrackerService tracker;
-
     private Paint textPaint;
 
     /**
@@ -253,6 +256,8 @@ public class Map extends View implements IMapView {
     private float[][] coord = null;
 
     private FloatPrimitiveList points = new FloatPrimitiveList(); // allocate this just once
+
+    private TrackerService tracker = null;
 
     @SuppressLint("NewApi")
     public Map(final Context context) {
@@ -290,13 +295,19 @@ public class Map extends View implements IMapView {
                 else {
                     // mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(),
                     // prefs.backgroundLayer(), true), null));
-                    MapTilesOverlay osmto = new MapTilesOverlay(this, TileLayerServer.get(ctx, prefs.backgroundLayer(), true), null);
+                    backgroundLayer = new MapTilesOverlay(this, TileLayerServer.get(ctx, prefs.backgroundLayer(), true), null);
                     // Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
-                    mOverlays.add(osmto);
-                    mOverlays.add(new MapOverlayTilesOverlay(this));
-                    mOverlays.add(new de.blau.android.tasks.MapOverlay(this));
-                    mOverlays.add(new de.blau.android.photos.MapOverlay(this));
+                    mOverlays.add(backgroundLayer);
+                    overlayLayer = new MapOverlayTilesOverlay(this);
+                    mOverlays.add(overlayLayer);
+                    photoLayer = new de.blau.android.photos.MapOverlay(this);
+                    mOverlays.add(photoLayer);
                     mOverlays.add(new de.blau.android.grid.MapOverlay(this));
+                    mOverlays.add(null); // placeholder for data layer
+                    gpxLayer = new de.blau.android.gpx.MapOverlay(this);
+                    mOverlays.add(gpxLayer);
+                    taskLayer = new de.blau.android.tasks.MapOverlay(this);
+                    mOverlays.add(taskLayer);
                 }
             }
         }
@@ -308,15 +319,8 @@ public class Map extends View implements IMapView {
      * @return the current background layer or null if none is configured
      */
     @Nullable
-    public MapTilesOverlay getOpenStreetMapTilesOverlay() {
-        synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if ((osmvo instanceof MapTilesOverlay) && !(osmvo instanceof MapOverlayTilesOverlay)) {
-                    return (MapTilesOverlay) osmvo;
-                }
-            }
-        }
-        return null;
+    public MapTilesOverlay getBackgroundLayer() {
+        return backgroundLayer;
     }
 
     /**
@@ -325,47 +329,33 @@ public class Map extends View implements IMapView {
      * @return the current overlay layer or null if none is configured
      */
     @Nullable
-    public MapOverlayTilesOverlay getOpenStreetMapOverlayTilesOverlay() {
-        synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo instanceof MapOverlayTilesOverlay) {
-                    return (MapOverlayTilesOverlay) osmvo;
-                }
-            }
-        }
-        return null;
-
+    public MapOverlayTilesOverlay getOverlayLayer() {
+        return overlayLayer;
     }
 
-    public de.blau.android.tasks.MapOverlay getOpenStreetBugsOverlay() {
-        synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo instanceof de.blau.android.tasks.MapOverlay) {
-                    return (de.blau.android.tasks.MapOverlay) osmvo;
-                }
-            }
-        }
-        return null;
+    @Nullable
+    public de.blau.android.photos.MapOverlay getPhotoLayer() {
+        return photoLayer;
     }
 
-    public de.blau.android.photos.MapOverlay getPhotosOverlay() {
-        synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo instanceof de.blau.android.photos.MapOverlay) {
-                    return (de.blau.android.photos.MapOverlay) osmvo;
-                }
-            }
-        }
-        return null;
+    @Nullable
+    public de.blau.android.gpx.MapOverlay getGpxLayer() {
+        return gpxLayer;
+    }
+
+    @Nullable
+    public de.blau.android.tasks.MapOverlay getTaskLayer() {
+        return taskLayer;
     }
 
     public void onDestroy() {
         synchronized (mOverlays) {
             for (MapViewOverlay osmvo : mOverlays) {
-                osmvo.onDestroy();
+                if (osmvo != null) {
+                    osmvo.onDestroy();
+                }
             }
         }
-        tracker = null;
         synchronized (iconCache) {
             iconCache.clear();
         }
@@ -381,7 +371,9 @@ public class Map extends View implements IMapView {
     public void onLowMemory() {
         synchronized (mOverlays) {
             for (MapViewOverlay osmvo : mOverlays) {
-                osmvo.onLowMemory();
+                if (osmvo != null) {
+                    osmvo.onLowMemory();
+                }
             }
         }
     }
@@ -408,28 +400,23 @@ public class Map extends View implements IMapView {
         tmpPresets = App.getCurrentPresets(context);
         tmpLocked = logic.isLocked();
 
-        labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-
-        FeatureStyle fs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
-        textPaint = fs.getPaint();
-
         inNodeIconZoomRange = zoomLevel > SHOW_ICONS_LIMIT;
 
         // Draw our Overlays.
         canvas.getClipBounds(canvasBounds);
         MapTilesOverlay.resetAttributionArea(canvasBounds, 0);
+
         synchronized (mOverlays) {
             for (MapViewOverlay osmvo : mOverlays) {
-                if (!(osmvo instanceof de.blau.android.tasks.MapOverlay)) {
+                if (osmvo == null) {
+                    if (zoomLevel > SHOW_DATA_LIMIT) {
+                        paintOsmData(canvas);
+                    }
+                } else {
                     osmvo.onManagedDraw(canvas, this);
                 }
             }
         }
-
-        if (zoomLevel > SHOW_DATA_LIMIT) {
-            paintOsmData(canvas);
-        }
-        getOpenStreetBugsOverlay().onManagedDraw(canvas, this); // draw bugs on top of data
 
         if (zoomLevel > 10) {
             if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND) {
@@ -438,7 +425,6 @@ public class Map extends View implements IMapView {
                 boundingBoxes.addAll(delegator.getBoundingBoxes());
                 paintStorageBox(canvas, boundingBoxes);
             }
-            paintGpsTrack(canvas);
         }
         paintGpsPos(canvas);
         if (tmpDrawingInEditRange)
@@ -471,7 +457,7 @@ public class Map extends View implements IMapView {
     public boolean onTouchEvent(MotionEvent event) {
         synchronized (mOverlays) {
             for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo.onTouchEvent(event, this)) {
+                if (osmvo != null && osmvo.onTouchEvent(event, this)) {
                     return true;
                 }
             }
@@ -483,7 +469,7 @@ public class Map extends View implements IMapView {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         synchronized (mOverlays) {
             for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo.onKeyDown(keyCode, event, this)) {
+                if (osmvo != null && osmvo.onKeyDown(keyCode, event, this)) {
                     return true;
                 }
             }
@@ -495,7 +481,7 @@ public class Map extends View implements IMapView {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         synchronized (mOverlays) {
             for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo.onKeyUp(keyCode, event, this)) {
+                if (osmvo != null && osmvo.onKeyUp(keyCode, event, this)) {
                     return true;
                 }
             }
@@ -507,7 +493,7 @@ public class Map extends View implements IMapView {
     public boolean onTrackballEvent(MotionEvent event) {
         synchronized (mOverlays) {
             for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo.onTrackballEvent(event, this)) {
+                if (osmvo != null && osmvo.onTrackballEvent(event, this)) {
                     return true;
                 }
             }
@@ -567,16 +553,8 @@ public class Map extends View implements IMapView {
     private void drawCrosshairs(Canvas canvas, float x, float y, Paint paint) {
         canvas.save();
         canvas.translate(x, y);
-        canvas.drawPath(DataStyle.getCurrent().crosshairs_path, paint);
+        canvas.drawPath(DataStyle.getCurrent().getCrosshairsPath(), paint);
         canvas.restore();
-    }
-
-    private void paintGpsTrack(Canvas canvas) {
-        if (tracker == null)
-            return;
-        FloatPrimitiveList linePoints = new FloatPrimitiveList();
-        pointListToLinePointsArray(linePoints, tracker.getTrackPoints());
-        canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), DataStyle.getCurrent(DataStyle.GPS_TRACK).getPaint());
     }
 
     /**
@@ -617,7 +595,7 @@ public class Map extends View implements IMapView {
             canvas.save();
             canvas.translate(x, y);
             canvas.rotate(o);
-            canvas.drawPath(DataStyle.getCurrent().orientation_path, paint);
+            canvas.drawPath(DataStyle.getCurrent().getOrientationPath(), paint);
             canvas.restore();
         }
         if (displayLocation.hasAccuracy()) {
@@ -667,7 +645,7 @@ public class Map extends View implements IMapView {
      */
     private void paintZoomAndOffset(final Canvas canvas) {
         int pos = ThemeUtils.getActionBarHeight(context) + 5 + (int) de.blau.android.grid.MapOverlay.LONGTICKS_DP * 3;
-        Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
+        Offset o = getBackgroundLayer().getRendererInfo().getOffset(zoomLevel);
         String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.lon) : "0.00000",
                 o != null ? String.format(Locale.US, "%.5f", o.lat) : "0.00000");
         float textSize = textPaint.getTextSize();
@@ -821,16 +799,6 @@ public class Map extends View implements IMapView {
             return result;
         }
     };
-
-    /**
-     * 
-     * @return true if too many nodes are on screen for editing
-     */
-    public boolean tooManyNodes() {
-        return false;
-        // TODO code is currently disabled because it is not quite satisfactory
-        // return nodesOnScreenCount>(maxOnScreenNodes-unusedNodeSpace);
-    }
 
     /**
      * Dim everything that hasn't been downloaded
@@ -1410,15 +1378,12 @@ public class Map extends View implements IMapView {
             float lastY = 0;
             for (long l : handles.values()) {
                 // draw handle
-                // canvas.drawCircle(x0 + xDelta/2, y0 + yDelta/2, 5, Profile.getCurrent(Profile.HANDLE).getPaint());
-                // canvas.drawPoint(x0 + xDelta/2, y0 + yDelta/2, Profile.getCurrent(Profile.HANDLE).getPaint());
-
                 float X = Float.intBitsToFloat((int) (l >>> 32));
                 float Y = Float.intBitsToFloat((int) (l));
                 canvas.translate(X - lastX, Y - lastY);
                 lastX = X;
                 lastY = Y;
-                canvas.drawPath(DataStyle.getCurrent().x_path, DataStyle.getCurrent(DataStyle.HANDLE).getPaint());
+                canvas.drawPath(DataStyle.getCurrent().getXPath(), DataStyle.getCurrent(DataStyle.HANDLE).getPaint());
             }
             canvas.restore();
             handles.clear(); // this is hopefully faster than allocating a new set
@@ -1496,7 +1461,7 @@ public class Map extends View implements IMapView {
      * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn (e.g. a Way or a
      *            GPS track)
      */
-    private void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes) {
+    public void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes) {
         points.clear(); // reset
         ViewBox box = getViewBox();
         boolean testInterrupted = false;
@@ -1597,14 +1562,13 @@ public class Map extends View implements IMapView {
         prefs = aPreference;
         TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo instanceof MapTilesOverlay && !(osmvo instanceof MapOverlayTilesOverlay)) {
-                    final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
-                    ((MapTilesOverlay) osmvo).setRendererInfo(backgroundTS);
-                } else if (osmvo instanceof MapOverlayTilesOverlay) {
-                    final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
-                    ((MapOverlayTilesOverlay) osmvo).setRendererInfo(overlayTS);
-                }
+            final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
+            if (backgroundLayer != null) {
+                backgroundLayer.setRendererInfo(backgroundTS);
+            }
+            final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
+            if (overlayLayer != null) {
+                overlayLayer.setRendererInfo(overlayTS);
             }
         }
         showIcons = prefs.getShowIcons();
@@ -1620,6 +1584,9 @@ public class Map extends View implements IMapView {
         nodeTolerancePaint2 = DataStyle.getCurrent(DataStyle.NODE_TOLERANCE_2).getPaint();
         wayTolerancePaint = DataStyle.getCurrent(DataStyle.WAY_TOLERANCE).getPaint();
         wayTolerancePaint2 = DataStyle.getCurrent(DataStyle.WAY_TOLERANCE_2).getPaint();
+        labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        FeatureStyle fs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
+        textPaint = fs.getPaint();
     }
 
     void setOrientation(final float orientation) {
@@ -1628,10 +1595,6 @@ public class Map extends View implements IMapView {
 
     void setLocation(Location location) {
         displayLocation = location;
-    }
-
-    void setTracker(TrackerService tracker) {
-        this.tracker = tracker;
     }
 
     void setDelegator(final StorageDelegator delegator) {
@@ -1681,7 +1644,7 @@ public class Map extends View implements IMapView {
      * @return the tile zoom level
      */
     private int calcZoomLevel(Canvas canvas) {
-        final TileLayerServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
+        final TileLayerServer s = getBackgroundLayer().getRendererInfo();
         if (!s.isMetadataLoaded()) // protection on startup
             return 0;
 
@@ -1730,17 +1693,32 @@ public class Map extends View implements IMapView {
     /**
      * Return a list of the names of the currently used layers
      * 
-     * @return
+     * @return a List containg the currently in use imagery names
      */
-    public ArrayList<String> getImageryNames() {
-        ArrayList<String> result = new ArrayList<>();
+    public List<String> getImageryNames() {
+        List<String> result = new ArrayList<>();
         synchronized (mOverlays) {
             for (MapViewOverlay osmvo : mOverlays) {
-                if ((osmvo instanceof MapTilesOverlay)) {
+                if (osmvo != null && osmvo instanceof MapTilesOverlay) {
                     result.add(((MapTilesOverlay) osmvo).getRendererInfo().getName());
                 }
             }
         }
         return result;
+    }
+
+    /**
+     * @return the iconRadius
+     */
+    public int getIconRadius() {
+        return iconRadius;
+    }
+
+    void setTracker(TrackerService tracker) {
+        this.tracker = tracker;
+    }
+
+    public TrackerService getTracker() {
+        return this.tracker;
     }
 }

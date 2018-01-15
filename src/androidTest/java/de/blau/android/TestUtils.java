@@ -22,6 +22,7 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
@@ -98,6 +99,11 @@ public class TestUtils {
             e.printStackTrace();
         }
     }
+    
+    public static void clickAt(float x, float y) {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device.click((int)x, (int)y);
+    }
 
     public static void zoomToLevel(Main main, int level) {
         Map map = main.getMap();
@@ -152,6 +158,24 @@ public class TestUtils {
             return false;
         }
     }
+    
+    public static boolean findText(UiDevice device, boolean clickable, String text) {
+        Log.w(DEBUG_TAG, "Searching for object with " + text);
+        // Note: contrary to "text", "textStartsWith" is case insensitive
+        BySelector bySelector = null;
+        
+        // NOTE order of the selector terms is significant
+        if (clickable) {
+            bySelector = By.clickable(true).textStartsWith(text);
+            
+        } else {
+            bySelector = By.textStartsWith(text);
+            
+        }
+        UiObject2 ob = device.wait(Until.findObject(bySelector), 500);
+        return ob != null;
+    }
+
 
     public static boolean clickResource(UiDevice device, boolean clickable, String resourceId, boolean waitForNewWindow) {
         Log.w(DEBUG_TAG, "Searching for object with " + resourceId);

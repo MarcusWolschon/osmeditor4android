@@ -61,7 +61,7 @@ public class MapOverlay extends MapViewOverlay {
     public boolean isReadyToDraw() {
         mode = map.getPrefs().scaleLayer();
         enabled = !SCALE_NONE.equals(mode);
-        return enabled && map.getOpenStreetMapTilesOverlay().isReadyToDraw();
+        return enabled && map.getBackgroundLayer().isReadyToDraw();
     }
 
     @Override

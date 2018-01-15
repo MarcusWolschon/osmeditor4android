@@ -114,4 +114,91 @@
 <trkpt lat="47.4167900" lon="8.3707333"><ele>403</ele><time>2011-05-13T10:21:56Z</time><hdop>0.96</hdop><vdop>1.06</vdop><pdop>1.43</pdop></trkpt>
 <trkpt lat="47.4168350" lon="8.3706833"><ele>404</ele><time>2011-05-13T10:21:57Z</time><hdop>0.96</hdop><vdop>1.06</vdop><pdop>1.43</pdop></trkpt>
 </trkseg></trk>
+<wpt lat="47.3976189" lon="8.3770144">
+    <time>2018-01-15T15:10:08Z</time>
+    <name>LÃ¤gernstrasse (Kindhausen) 1, Bergdietikon</name>
+    <type>test</type>
+    <extensions>
+      <color>#b4eecc22</color>
+    </extensions>
+</wpt>
+<wpt lat="47.4357217" lon="8.3545700"><ele>394</ele><time>2011-05-13T10:30:35Z</time><name>voice</name><link href="20110513_123035.wav" /><hdop>1.31</hdop><vdop>0.88</vdop><pdop>1.58</pdop></wpt>
+<wpt lat="47.4362183" lon="8.3566233"><ele>410</ele><time>2011-05-13T10:31:58Z</time><name>voice</name><link href="20110513_123158.wav" /><hdop>1.11</hdop><vdop>1.29</vdop><pdop>1.7</pdop></wpt>
+<wpt lat="47.4366150" lon="8.3588467"><ele>441</ele><time>2011-05-13T10:33:21Z</time><name>voice</name><link href="20110513_123321.wav" /><hdop>0.85</hdop><vdop>0.7</vdop><pdop>1.1</pdop></wpt>
+<wpt lat="47.4453900" lon="8.3608767"><ele>420</ele><time>2011-05-13T10:37:36Z</time><name>voice</name><link href="20110513_123736.wav" /><hdop>1.29</hdop><vdop>1.54</vdop><pdop>2.01</pdop></wpt>
+<wpt lat="47.4501117" lon="8.3555017"><ele>460</ele><time>2011-05-13T10:41:13Z</time><name>voice</name><link href="20110513_124113.wav" /><hdop>1.34</hdop><vdop>0.87</vdop><pdop>1.59</pdop></wpt>
+<wpt lat="47.4501417" lon="8.3555283"><ele>460</ele><time>2011-05-13T10:41:30Z</time><name>voice</name><link href="20110513_124130.wav" /><hdop>1.03</hdop><vdop>0.8</vdop><pdop>1.31</pdop></wpt>
+<wpt lat="47.4517750" lon="8.3532733"><ele>431</ele><time>2011-05-13T10:42:51Z</time><name>voice</name><link href="20110513_124251.wav" /><hdop>1.11</hdop><vdop>1.34</vdop><pdop>1.74</pdop></wpt>
+<wpt lat="47.4524533" lon="8.3527667"><ele>431</ele><time>2011-05-13T10:43:13Z</time><name>voice</name><link href="20110513_124313.wav" /><hdop>1.11</hdop><vdop>1.34</vdop><pdop>1.74</pdop></wpt>
+<wpt lat="47.4536183" lon="8.3518333"><ele>428</ele><time>2011-05-13T10:43:45Z</time><name>voice</name><link href="20110513_124345.wav" /><hdop>1.69</hdop><vdop>1.8</vdop><pdop>2.47</pdop></wpt>
+<wpt lat="47.4549633" lon="8.3509300"><ele>429</ele><time>2011-05-13T10:44:24Z</time><name>voice</name><link href="20110513_124424.wav" /><hdop>1.69</hdop><vdop>1.81</vdop><pdop>2.48</pdop></wpt>
+<wpt lat="47.4561200" lon="8.3527517"><ele>434</ele><time>2011-05-13T10:45:10Z</time><name>voice</name><link href="20110513_124510.wav" /><hdop>1.17</hdop><vdop>0.83</vdop><pdop>1.43</pdop></wpt>
+<wpt lat="47.4567950" lon="8.3540383"><ele>441</ele><time>2011-05-13T10:45:47Z</time><name>voice</name><link href="20110513_124547.wav" /><hdop>1.53</hdop><vdop>0.87</vdop><pdop>1.76</pdop></wpt>
+<wpt lat="47.4570467" lon="8.3544833"><ele>447</ele><time>2011-05-13T10:48:08Z</time><name>voice</name><link href="20110513_124808.wav" /><hdop>1.56</hdop><vdop>1.75</vdop><pdop>2.35</pdop></wpt>
+<wpt lat="47.4581550" lon="8.3577617"><ele>464</ele><time>2011-05-13T10:50:02Z</time><name>voice</name><link href="20110513_125002.wav" /><hdop>1.51</hdop><vdop>0.87</vdop><pdop>1.74</pdop></wpt>
+<wpt lat="47.4581550" lon="8.3577617"><ele>464</ele><time>2011-05-13T10:50:09Z</time><name>voice</name><link href="20110513_125009.wav" /><hdop>1.51</hdop><vdop>0.87</vdop><pdop>1.74</pdop></wpt>
+<wpt lat="47.4582200" lon="8.3592533"><ele>486</ele><time>2011-05-13T10:51:39Z</time><name>voice</name><link href="20110513_125139.wav" /><hdop>1.5</hdop><vdop>0.86</vdop><pdop>1.73</pdop></wpt>
+<wpt lat="47.4574750" lon="8.3585583"><ele>510</ele><time>2011-05-13T10:53:08Z</time><name>voice</name><link href="20110513_125308.wav" /><hdop>1.03</hdop><vdop>0.81</vdop><pdop>1.31</pdop></wpt>
+<wpt lat="47.4572267" lon="8.3581567"><ele>498</ele><time>2011-05-13T10:53:44Z</time><name>voice</name><link href="20110513_125344.wav" /><hdop>1.16</hdop><vdop>0.82</vdop><pdop>1.42</pdop></wpt>
+<wpt lat="47.4580183" lon="8.3594000"><ele>497</ele><time>2011-05-13T10:55:36Z</time><name>voice</name><link href="20110513_125536.wav" /><hdop>1.13</hdop><vdop>0.82</vdop><pdop>1.4</pdop></wpt>
+<wpt lat="47.4589233" lon="8.3620450"><ele>446</ele><time>2011-05-13T10:58:33Z</time><name>voice</name><link href="20110513_125833.wav" /><hdop>1.46</hdop><vdop>1.63</vdop><pdop>2.19</pdop></wpt>
+<wpt lat="47.4592117" lon="8.3678933"><ele>437</ele><time>2011-05-13T11:00:30Z</time><name>voice</name><link href="20110513_130030.wav" /><hdop>1.17</hdop><vdop>1.46</vdop><pdop>1.87</pdop></wpt>
+<wpt lat="47.4592600" lon="8.3679267"><ele>437</ele><time>2011-05-13T11:00:53Z</time><name>voice</name><link href="20110513_130053.wav" /><hdop>1.17</hdop><vdop>1.46</vdop><pdop>1.87</pdop></wpt>
+<wpt lat="47.4594833" lon="8.3677133"><ele>438</ele><time>2011-05-13T11:01:05Z</time><name>voice</name><link href="20110513_130105.wav" /><hdop>1.17</hdop><vdop>1.46</vdop><pdop>1.87</pdop></wpt>
+<wpt lat="47.4602367" lon="8.3670017"><ele>445</ele><time>2011-05-13T11:01:36Z</time><name>voice</name><link href="20110513_130136.wav" /><hdop>1.17</hdop><vdop>1.46</vdop><pdop>1.87</pdop></wpt>
+<wpt lat="47.4614683" lon="8.3647567"><ele>470</ele><time>2011-05-13T11:03:53Z</time><name>voice</name><link href="20110513_130353.wav" /><hdop>1.12</hdop><vdop>0.83</vdop><pdop>1.39</pdop></wpt>
+<wpt lat="47.4617833" lon="8.3644717"><ele>474</ele><time>2011-05-13T11:04:40Z</time><name>voice</name><link href="20110513_130440.wav" /><hdop>1.12</hdop><vdop>0.83</vdop><pdop>1.39</pdop></wpt>
+<wpt lat="47.4624883" lon="8.3638333"><ele>501</ele><time>2011-05-13T11:06:12Z</time><name>voice</name><link href="20110513_130612.wav" /><hdop>1.16</hdop><vdop>1.48</vdop><pdop>1.88</pdop></wpt>
+<wpt lat="47.4624883" lon="8.3638333"><ele>501</ele><time>2011-05-13T11:06:20Z</time><name>voice</name><link href="20110513_130620.wav" /><hdop>1.16</hdop><vdop>1.48</vdop><pdop>1.88</pdop></wpt>
+<wpt lat="47.4625083" lon="8.3622683"><ele>516</ele><time>2011-05-13T11:07:38Z</time><name>voice</name><link href="20110513_130738.wav" /><hdop>1.11</hdop><vdop>0.83</vdop><pdop>1.39</pdop></wpt>
+<wpt lat="47.4625083" lon="8.3622683"><ele>516</ele><time>2011-05-13T11:07:46Z</time><name>voice</name><link href="20110513_130746.wav" /><hdop>1.11</hdop><vdop>0.83</vdop><pdop>1.39</pdop></wpt>
+<wpt lat="47.4639750" lon="8.3595950"><ele>526</ele><time>2011-05-13T11:09:36Z</time><name>voice</name><link href="20110513_130936.wav" /><hdop>1.11</hdop><vdop>0.83</vdop><pdop>1.39</pdop></wpt>
+<wpt lat="47.4639683" lon="8.3595950"><ele>523</ele><time>2011-05-13T11:09:43Z</time><name>voice</name><link href="20110513_130943.wav" /><hdop>1.11</hdop><vdop>0.83</vdop><pdop>1.39</pdop></wpt>
+<wpt lat="47.4621700" lon="8.3609533"><ele>528</ele><time>2011-05-13T11:11:37Z</time><name>voice</name><link href="20110513_131137.wav" /><hdop>1.11</hdop><vdop>0.83</vdop><pdop>1.38</pdop></wpt>
+<wpt lat="47.4622300" lon="8.3614883"><ele>525</ele><time>2011-05-13T11:12:23Z</time><name>voice</name><link href="20110513_131223.wav" /><hdop>1.3</hdop><vdop>0.91</vdop><pdop>1.59</pdop></wpt>
+<wpt lat="47.4641100" lon="8.3616667"><ele>508</ele><time>2011-05-13T11:14:35Z</time><name>voice</name><link href="20110513_131435.wav" /><hdop>1.1</hdop><vdop>0.83</vdop><pdop>1.38</pdop></wpt>
+<wpt lat="47.4649050" lon="8.3615400"><ele>514</ele><time>2011-05-13T11:15:29Z</time><name>voice</name><link href="20110513_131529.wav" /><hdop>1.1</hdop><vdop>0.83</vdop><pdop>1.38</pdop></wpt>
+<wpt lat="47.4645050" lon="8.3614783"><ele>513</ele><time>2011-05-13T11:16:01Z</time><name>voice</name><link href="20110513_131601.wav" /><hdop>1.1</hdop><vdop>0.83</vdop><pdop>1.38</pdop></wpt>
+<wpt lat="47.4627483" lon="8.3620650"><ele>502</ele><time>2011-05-13T11:17:08Z</time><name>voice</name><link href="20110513_131708.wav" /><hdop>1.1</hdop><vdop>0.83</vdop><pdop>1.38</pdop></wpt>
+<wpt lat="47.4635783" lon="8.3664317"><ele>516</ele><time>2011-05-13T11:19:29Z</time><name>voice</name><link href="20110513_131929.wav" /><hdop>1.26</hdop><vdop>0.91</vdop><pdop>1.56</pdop></wpt>
+<wpt lat="47.4633767" lon="8.3668833"><ele>506</ele><time>2011-05-13T11:20:04Z</time><name>voice</name><link href="20110513_132004.wav" /><hdop>1.09</hdop><vdop>0.83</vdop><pdop>1.37</pdop></wpt>
+<wpt lat="47.4636700" lon="8.3668317"><ele>506</ele><time>2011-05-13T11:20:35Z</time><name>voice</name><link href="20110513_132035.wav" /><hdop>1.09</hdop><vdop>0.83</vdop><pdop>1.37</pdop></wpt>
+<wpt lat="47.4648900" lon="8.3671433"><ele>508</ele><time>2011-05-13T11:21:43Z</time><name>voice</name><link href="20110513_132143.wav" /><hdop>1.09</hdop><vdop>0.83</vdop><pdop>1.37</pdop></wpt>
+<wpt lat="47.4649650" lon="8.3666167"><ele>526</ele><time>2011-05-13T11:22:16Z</time><name>voice</name><link href="20110513_132216.wav" /><hdop>1.28</hdop><vdop>0.83</vdop><pdop>1.52</pdop></wpt>
+<wpt lat="47.4674850" lon="8.3683000"><ele>540</ele><time>2011-05-13T11:24:38Z</time><name>voice</name><link href="20110513_132438.wav" /><hdop>1.08</hdop><vdop>0.83</vdop><pdop>1.37</pdop></wpt>
+<wpt lat="47.4670300" lon="8.3660217"><ele>547</ele><time>2011-05-13T11:25:51Z</time><name>voice</name><link href="20110513_132551.wav" /><hdop>1.08</hdop><vdop>0.83</vdop><pdop>1.36</pdop></wpt>
+<wpt lat="47.4688467" lon="8.3702733"><ele>557</ele><time>2011-05-13T11:28:16Z</time><name>voice</name><link href="20110513_132816.wav" /><hdop>1.08</hdop><vdop>0.83</vdop><pdop>1.36</pdop></wpt>
+<wpt lat="47.4688733" lon="8.3703417"><ele>561</ele><time>2011-05-13T11:28:32Z</time><name>voice</name><link href="20110513_132832.wav" /><hdop>1.08</hdop><vdop>0.83</vdop><pdop>1.36</pdop></wpt>
+<wpt lat="47.4688683" lon="8.3703383"><ele>562</ele><time>2011-05-13T11:28:40Z</time><name>voice</name><link href="20110513_132840.wav" /><hdop>1.21</hdop><vdop>0.83</vdop><pdop>1.46</pdop></wpt>
+<wpt lat="47.4685767" lon="8.3681333"><ele>544</ele><time>2011-05-13T11:29:42Z</time><name>voice</name><link href="20110513_132942.wav" /><hdop>1.08</hdop><vdop>0.83</vdop><pdop>1.36</pdop></wpt>
+<wpt lat="47.4685933" lon="8.3681350"><ele>544</ele><time>2011-05-13T11:29:55Z</time><name>voice</name><link href="20110513_132955.wav" /><hdop>1.13</hdop><vdop>1.47</vdop><pdop>1.85</pdop></wpt>
+<wpt lat="47.4698300" lon="8.3671900"><ele>544</ele><time>2011-05-13T11:31:57Z</time><name>voice</name><link href="20110513_133157.wav" /><hdop>1.21</hdop><vdop>0.91</vdop><pdop>1.51</pdop></wpt>
+<wpt lat="47.4688050" lon="8.3680017"><ele>541</ele><time>2011-05-13T11:33:13Z</time><name>voice</name><link href="20110513_133313.wav" /><hdop>0.97</hdop><vdop>0.75</vdop><pdop>1.23</pdop></wpt>
+<wpt lat="47.4673633" lon="8.3648583"><ele>551</ele><time>2011-05-13T11:34:33Z</time><name>voice</name><link href="20110513_133433.wav" /><hdop>1.4</hdop><vdop>0.94</vdop><pdop>1.68</pdop></wpt>
+<wpt lat="47.4687717" lon="8.3699183"><ele>553</ele><time>2011-05-13T11:37:18Z</time><name>voice</name><link href="20110513_133718.wav" /><hdop>1.07</hdop><vdop>0.82</vdop><pdop>1.35</pdop></wpt>
+<wpt lat="47.4694683" lon="8.3713967"><ele>558</ele><time>2011-05-13T11:38:25Z</time><name>voice</name><link href="20110513_133825.wav" /><hdop>1.22</hdop><vdop>1.57</vdop><pdop>1.99</pdop></wpt>
+<wpt lat="47.4693000" lon="8.3766883"><ele>579</ele><time>2011-05-13T11:40:56Z</time><name>voice</name><link href="20110513_134056.wav" /><hdop>0.96</hdop><vdop>1.13</vdop><pdop>1.48</pdop></wpt>
+<wpt lat="47.4689517" lon="8.3781467"><ele>570</ele><time>2011-05-13T11:41:24Z</time><name>voice</name><link href="20110513_134124.wav" /><hdop>0.96</hdop><vdop>1.13</vdop><pdop>1.48</pdop></wpt>
+<wpt lat="47.4689467" lon="8.3793683"><ele>569</ele><time>2011-05-13T11:41:58Z</time><name>voice</name><link href="20110513_134158.wav" /><hdop>0.95</hdop><vdop>0.75</vdop><pdop>1.21</pdop></wpt>
+<wpt lat="47.4696200" lon="8.3795233"><ele>582</ele><time>2011-05-13T11:43:35Z</time><name>voice</name><link href="20110513_134335.wav" /><hdop>1.12</hdop><vdop>1.4</vdop><pdop>1.79</pdop></wpt>
+<wpt lat="47.4677050" lon="8.3744650"><ele>549</ele><time>2011-05-13T11:45:16Z</time><name>voice</name><link href="20110513_134516.wav" /><hdop>1.02</hdop><vdop>0.75</vdop><pdop>1.26</pdop></wpt>
+<wpt lat="47.4663817" lon="8.3737200"><ele>526</ele><time>2011-05-13T11:46:14Z</time><name>voice</name><link href="20110513_134614.wav" /><hdop>0.95</hdop><vdop>1.12</vdop><pdop>1.47</pdop></wpt>
+<wpt lat="47.4666267" lon="8.3752533"><ele>524</ele><time>2011-05-13T11:46:38Z</time><name>voice</name><link href="20110513_134638.wav" /><hdop>1.14</hdop><vdop>0.84</vdop><pdop>1.42</pdop></wpt>
+<wpt lat="47.4661450" lon="8.3796933"><ele>481</ele><time>2011-05-13T11:48:20Z</time><name>voice</name><link href="20110513_134820.wav" /><hdop>1.05</hdop><vdop>0.84</vdop><pdop>1.34</pdop></wpt>
+<wpt lat="47.4659083" lon="8.3797600"><ele>478</ele><time>2011-05-13T11:48:52Z</time><name>voice</name><link href="20110513_134852.wav" /><hdop>1.15</hdop><vdop>1.55</vdop><pdop>1.93</pdop></wpt>
+<wpt lat="47.4628633" lon="8.3799733"><ele>449</ele><time>2011-05-13T11:49:31Z</time><name>voice</name><link href="20110513_134931.wav" /><hdop>1.08</hdop><vdop>0.78</vdop><pdop>1.33</pdop></wpt>
+<wpt lat="47.4627767" lon="8.3799383"><ele>448</ele><time>2011-05-13T11:49:48Z</time><name>voice</name><link href="20110513_134948.wav" /><hdop>0.93</hdop><vdop>0.74</vdop><pdop>1.19</pdop></wpt>
+<wpt lat="47.4627150" lon="8.3800083"><ele>449</ele><time>2011-05-13T11:50:03Z</time><name>voice</name><link href="20110513_135003.wav" /><hdop>1.14</hdop><vdop>1.55</vdop><pdop>1.92</pdop></wpt>
+<wpt lat="47.4596800" lon="8.3802783"><ele>438</ele><time>2011-05-13T11:51:16Z</time><name>voice</name><link href="20110513_135116.wav" /><hdop>0.94</hdop><vdop>1.11</vdop><pdop>1.46</pdop></wpt>
+<wpt lat="47.4597233" lon="8.3837683"><ele>434</ele><time>2011-05-13T11:52:07Z</time><name>voice</name><link href="20110513_135207.wav" /><hdop>0.94</hdop><vdop>1.11</vdop><pdop>1.45</pdop></wpt>
+<wpt lat="47.4596083" lon="8.3839133"><ele>434</ele><time>2011-05-13T11:52:26Z</time><name>voice</name><link href="20110513_135226.wav" /><hdop>0.94</hdop><vdop>1.11</vdop><pdop>1.45</pdop></wpt>
+<wpt lat="47.4584017" lon="8.3866517"><ele>433</ele><time>2011-05-13T11:55:03Z</time><name>voice</name><link href="20110513_135503.wav" /><hdop>1.07</hdop><vdop>1.25</vdop><pdop>1.65</pdop></wpt>
+<wpt lat="47.4540867" lon="8.3848900"><ele>434</ele><time>2011-05-13T11:56:15Z</time><name>voice</name><link href="20110513_135615.wav" /><hdop>1.07</hdop><vdop>1.25</vdop><pdop>1.65</pdop></wpt>
+<wpt lat="47.4533933" lon="8.3849983"><ele>432</ele><time>2011-05-13T11:56:40Z</time><name>voice</name><link href="20110513_135640.wav" /><hdop>0.98</hdop><vdop>1.13</vdop><pdop>1.49</pdop></wpt>
+<wpt lat="47.4492750" lon="8.3849467"><ele>415</ele><time>2011-05-13T11:58:39Z</time><name>voice</name><link href="20110513_135839.wav" /><hdop>1.09</hdop><vdop>1.47</vdop><pdop>1.83</pdop></wpt>
+<wpt lat="47.4487817" lon="8.3847533"><ele>416</ele><time>2011-05-13T11:59:03Z</time><name>voice</name><link href="20110513_135903.wav" /><hdop>1.09</hdop><vdop>1.47</vdop><pdop>1.83</pdop></wpt>
+<wpt lat="47.4359617" lon="8.3876833"><ele>505</ele><time>2011-05-13T12:10:16Z</time><name>voice</name><link href="20110513_141016.wav" /><hdop>1.12</hdop><vdop>0.85</vdop><pdop>1.41</pdop></wpt>
+<wpt lat="47.4363317" lon="8.3868917"><ele>506</ele><time>2011-05-13T12:10:42Z</time><name>voice</name><link href="20110513_141042.wav" /><hdop>1.05</hdop><vdop>1.51</vdop><pdop>1.84</pdop></wpt>
+<wpt lat="47.4365000" lon="8.3863233"><ele>508</ele><time>2011-05-13T12:11:02Z</time><name>voice</name><link href="20110513_141102.wav" /><hdop>1.5</hdop><vdop>3.14</vdop><pdop>3.48</pdop></wpt>
+
 </gpx>

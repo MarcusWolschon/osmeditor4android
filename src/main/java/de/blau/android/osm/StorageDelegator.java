@@ -310,7 +310,7 @@ public class StorageDelegator implements Serializable, Exportable {
         if (!imageryRecorded) { // flag is reset when we change imagery
             try {
                 if (map != null) { // currently we only modify data when the map exists
-                    ArrayList<String> currentImagery = map.getImageryNames();
+                    List<String> currentImagery = map.getImageryNames();
                     for (String i : currentImagery) {
                         if (!imagery.contains(i) && !"None".equalsIgnoreCase(i)) {
                             imagery.add(i);

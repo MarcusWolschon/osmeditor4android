@@ -106,7 +106,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     private Preferences prefs = null;
 
     private PropertyEditorListener propertyEditorListener;
-    
+
     private EditorUpdate tagListener = null;
 
     private NameAdapters nameAdapters = null;
@@ -2302,7 +2302,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         if (names == null) {
             names = App.getNames(ctx);
         }
-        ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(new TreeMap<String, String>()));
+        ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String, String>());
         ArrayAdapter<NameAndTags> adapter = null;
         if (suggestions != null && !suggestions.isEmpty()) {
             Collections.sort(suggestions);

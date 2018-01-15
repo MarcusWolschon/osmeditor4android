@@ -423,7 +423,7 @@ public class Logic {
      * @return true, if viewBox' width is smaller than {@link #TOLERANCE_MIN_VIEWBOX_WIDTH}.
      */
     public boolean isInEditZoomRange() {
-        return (viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH) && (viewBox.getHeight() < TOLERANCE_MIN_VIEWBOX_WIDTH) && !map.tooManyNodes();
+        return (viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH) && (viewBox.getHeight() < TOLERANCE_MIN_VIEWBOX_WIDTH);
     }
 
     /**
@@ -503,7 +503,7 @@ public class Logic {
      * Set the zoom to a specific tile zoom level.
      * 
      * @param map the current Map object
-     * @param z   The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
+     * @param z The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
      */
     public void setZoom(Map map, int z) {
         viewBox.setZoom(map, z);
@@ -1393,7 +1393,7 @@ public class Logic {
         int lat = yToLatE7(height - screenTransY);
         int relativeLon = lon - viewBox.getLeft();
         int relativeLat = lat - viewBox.getBottom();
-        TileLayerServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+        TileLayerServer osmts = map.getBackgroundLayer().getRendererInfo();
         double lonOffset = 0d;
         double latOffset = 0d;
         Offset o = osmts.getOffset(map.getZoomLevel());
@@ -2269,7 +2269,7 @@ public class Logic {
                         Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
                         if (map != null) {
                             // set to current or previous
-                            viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox()); 
+                            viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox());
                         }
                     } finally {
                         SavingHelper.close(in);
@@ -2337,7 +2337,7 @@ public class Logic {
                         result = ErrorCodes.BOUNDING_BOX_TOO_LARGE;
                         break;
                     default:
-                    } 
+                    }
                     try {
                         if (!activity.isFinishing()) {
                             ErrorAlert.showDialog(activity, result);
@@ -3065,7 +3065,7 @@ public class Logic {
      * Saves the current editing state (selected objects, editing mode, etc) to file.
      */
     void saveEditingState(Main main) {
-        TileLayerServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+        TileLayerServer osmts = map.getBackgroundLayer().getRendererInfo();
         EditState editState = new EditState(main, this, osmts, main.getImageFileName(), viewBox, main.getFollowGPS());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false);
     }
@@ -3079,7 +3079,7 @@ public class Logic {
     void loadEditingState(Main main, boolean setViewBox) {
         EditState editState = new SavingHelper<EditState>().load(main, EDITSTATE_FILENAME, false);
         if (editState != null) { //
-            editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
+            editState.setOffset(map.getBackgroundLayer().getRendererInfo());
             editState.setMiscState(main, this);
             editState.setSelected(main, this);
             if (setViewBox) {
