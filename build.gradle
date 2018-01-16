@@ -19,6 +19,7 @@ buildscript {
 plugins {
 	id "de.undercouch.download" version "3.1.1"
 	id "org.sonarqube" version "2.6.1"
+    id "net.ltgt.apt" version "0.13"
 }
 import de.undercouch.gradle.tasks.download.Download
 
@@ -38,6 +39,7 @@ allprojects {
 // Project level build file starts here
 apply plugin: 'eclipse'
 apply plugin: 'com.android.application'
+apply plugin: "net.ltgt.apt"
 apply plugin: 'org.kordamp.gradle.markdown'
 apply plugin: 'jacoco'
 // apply plugin: 'jacoco-everywhere'
@@ -135,7 +137,7 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
 
 afterEvaluate{ // this task needs to be created after the uninstall tasks 
 	task runSingleConnectedTest(dependsOn: ["installDebug","installDebugAndroidTest"], type: Exec) {
-		def toRun = "de.blau.android.gpx.GpxTest#importWayPoints"
+		def toRun = "de.blau.android.util.GeoContextTest"
 		// commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
 		commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
 		finalizedBy uninstallDebugAndroidTest,uninstallDebug
@@ -274,6 +276,7 @@ dependencies {
     compile "com.drewnoakes:metadata-extractor:2.10.1"
     compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
+    compile 'com.mapbox.mapboxsdk:mapbox-java-services:2.2.9'
     compile "ch.poole:PoParser:0.7.2"
     compile "ch.poole:OpeningHoursParser:0.11.0"
     compile "ch.poole:ConditionalRestrictionParser:0.2.2"

@@ -445,7 +445,7 @@ public class Main extends FullScreenAppCompatActivity
         synchronized (rcDataLock) {
             rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
         }
-
+        App.initGeoContext(this);
         prefs = new Preferences(this);
         int layout = R.layout.main;
         if (useFullScreen(prefs)) {
@@ -708,6 +708,8 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "onResume");
         final Logic logic = App.getLogic();
 
+        App.initGeoContext(this);
+        
         checkPermissions();
 
         // register received for changes in connectivity

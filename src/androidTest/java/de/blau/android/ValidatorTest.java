@@ -47,6 +47,10 @@ public class ValidatorTest {
         main = mActivityRule.getActivity();
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
+    }
+
+    @Test
+    public void baseValidator() {
 
         // read in test data
         final CountDownLatch signal1 = new CountDownLatch(1);
@@ -64,11 +68,7 @@ public class ValidatorTest {
             is.close();
         } catch (IOException e1) {
         }
-    }
-
-    @Test
-    public void baseValidator() {
-
+        
         Node zumRueden = (Node) App.getDelegator().getOsmElement(Node.NAME, 370530329);
         Assert.assertNotNull(zumRueden);
         Validator validator = App.getDefaultValidator(main);
@@ -130,6 +130,38 @@ public class ValidatorTest {
 
         // SQLiteDatabase db = new ValidatorRulesDatabaseHelper(main).getWritableDatabase();
         // ValidatorRulesDatabase.updateResurvey(db, id, key, value, days);
+    }
+    
+    @Test
+    public void baseValidatorUk() {
+        // read in test data
+        final CountDownLatch signal1 = new CountDownLatch(1);
+        Logic logic = App.getLogic();
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream("london.osm");
+        logic.readOsmFile(main, is, false, new SignalHandler(signal1));
+        try {
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        try {
+            is.close();
+        } catch (IOException e1) {
+        }
+        
+        Way constitutionHill = (Way) App.getDelegator().getOsmElement(Way.NAME, 451984385L);
+        Validator validator = App.getDefaultValidator(main);
+        Assert.assertEquals(Validator.OK, constitutionHill.hasProblem(main, validator));
+        HashMap<String, String> tags = new HashMap<>(constitutionHill.getTags());
+        tags.put(Tags.KEY_MAXSPEED, "30");
+        try {
+            App.getLogic().setTags(main, constitutionHill, tags);
+            Assert.assertEquals(Validator.IMPERIAL_UNITS, constitutionHill.hasProblem(main, validator) & Validator.IMPERIAL_UNITS);
+        } catch (OsmIllegalOperationException oioe) {
+            Assert.fail();
+        }
     }
 
 }

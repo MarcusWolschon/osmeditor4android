@@ -94,11 +94,22 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * Creates a degenerated BoundingBox with the corners set to the node coordinates validate will cause an exception
      * if called on this
      * 
-     * @param lonE7 longitude of the node
-     * @param latE7 latitude of the node
+     * @param lonE7 longitude of the node (x1E7)
+     * @param latE7 latitude of the node (x1E7)
      */
     public BoundingBox(int lonE7, int latE7) {
         resetTo(lonE7, latE7);
+    }
+    
+    /**
+     * Creates a degenerated BoundingBox with the corners set to the node coordinates validate will cause an exception
+     * if called on this
+     * 
+     * @param lon longitude of the node
+     * @param lat latitude of the node
+     */
+    public BoundingBox(double lon, double lat) {
+        resetTo((int)Math.round(lon*1E7), (int)Math.round(lat*1E7));
     }
 
     /**
@@ -455,11 +466,22 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         height = top - bottom;
     }
 
+
     /**
      * grow this box so that it covers the point
      * 
-     * @param lonE7
-     * @param latE7
+     * @param lon   longitude
+     * @param lat   latitude
+     */
+    public void union(double lon, double lat) {
+        union((int)Math.round(lon*1E7),(int)Math.round(lat*1E7));
+    }
+    
+    /**
+     * grow this box so that it covers the point
+     * 
+     * @param lonE7 longitude (x1E7)
+     * @param latE7 latitude (x1E7)
      */
     public void union(int lonE7, int latE7) {
         if (lonE7 < left) {
@@ -479,7 +501,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * grow this box so that it covers b
      * 
-     * @param b
+     * @param b BoundingBox that should be covered
      */
     public void union(BoundingBox b) {
         if (b.left < left) {

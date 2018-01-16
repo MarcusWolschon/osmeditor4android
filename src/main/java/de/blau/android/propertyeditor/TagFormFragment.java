@@ -213,11 +213,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             if (recentPresetsFragment != null) {
                 ft.remove(recentPresetsFragment);
             }
-
-            recentPresetsFragment = RecentPresetsFragment.newInstance(((PropertyEditor) getActivity()).getElement()); // FIXME
-                                                                                                                      // multiselect
-                                                                                                                      // or
-                                                                                                                      // what?
+            // FIXME multiselect or what?
+            recentPresetsFragment = RecentPresetsFragment.newInstance(((PropertyEditor) getActivity()).getElement());
             ft.add(R.id.form_mru_layout, recentPresetsFragment, "recentpresets_fragment");
             ft.commit();
         }
@@ -639,7 +636,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         } else {
             focusOnEmpty();
         }
-        // display dialog for name selection for chains
+        // display dialog for name selection for store/other chains
         if (askForName) {
             askForName = false; // only do this once
             AlertDialog d = buildNameDialog(getActivity());
@@ -934,6 +931,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             @Nullable final ArrayAdapter<?> adapter) {
         final TagTextRow row = (TagTextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
         final boolean isWebsite = Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == preset.getValueType(key));
+        final boolean isMPHSpeed = Tags.isSpeedKey(key) && App.getGeoContext(getActivity()).imperial(((PropertyEditor)getActivity()).getElement());
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -969,8 +967,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     if (rowLayout instanceof EditableLayout) {
                         ((EditableLayout) rowLayout).putTag(key, rowValue);
                     }
-                } else if (hasFocus && isWebsite) {
-                    TagEditorFragment.initWebsite(row.valueView);
+                } else if (hasFocus) { 
+                   if (isWebsite) {
+                       TagEditorFragment.initWebsite(row.valueView);
+                   } else if (isMPHSpeed) {
+                       TagEditorFragment.initMPHSpeed(getActivity(),row.valueView,((PropertyEditor)getActivity()).getElement());
+                   }
                 }
             }
         });
