@@ -166,7 +166,7 @@ public class GeoContext {
      */
     public boolean checkIsIn(@NonNull Node n, @NonNull List<BoundingBox> boxes) {
         for (BoundingBox box : boxes) {
-            if (box.isIn(n.getLat(), n.getLon())) {
+            if (box.isIn(n.getLon(), n.getLat())) {
                 return true;
             }
         }

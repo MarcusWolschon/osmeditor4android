@@ -951,7 +951,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
     private boolean bbLoaded(List<BoundingBox> bbs, int lonE7, int latE7) {
         for (BoundingBox b : bbs) {
-            if (b.isIn(latE7, lonE7)) {
+            if (b.isIn(lonE7, latE7)) {
                 return true;
             }
         }

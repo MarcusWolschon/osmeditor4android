@@ -1499,14 +1499,14 @@ public class Map extends View implements IMapView {
                     nextNode = nodes.get(i + 1);
                     nextNodeLat = nextNode.getLat();
                     nextNodeLon = nextNode.getLon();
-                    nextIntersects = box.isIntersectionPossible(nextNodeLat, nextNodeLon, nodeLat, nodeLon);
+                    nextIntersects = box.isIntersectionPossible(nextNodeLon, nextNodeLat, nodeLon, nodeLat);
                 } else {
                     nextNode = null;
                 }
                 X = -Float.MAX_VALUE; // misuse this as a flag
                 if (!interrupted && prevNode != null) {
                     if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
-                            || box.isIntersectionPossible(nextNodeLat, nextNodeLon, lastDrawnNodeLat, lastDrawnNodeLon))) {
+                            || box.isIntersectionPossible(nextNodeLon, nextNodeLat, lastDrawnNodeLon, lastDrawnNodeLat))) {
                         X = GeoMath.lonE7ToX(w, box, nodeLon);
                         Y = GeoMath.latE7ToY(h, w, box, nodeLat);
                         if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect

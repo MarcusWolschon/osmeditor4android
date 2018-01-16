@@ -155,7 +155,7 @@ public class TileLayerServer {
             }
 
             public boolean covers(double lon, double lat) {
-                return this.bbox == null || this.bbox.isIn((int) (lat * 1E7d), (int) (lon * 1E7d));
+                return this.bbox == null || this.bbox.isIn((int) (lon * 1E7d), (int) (lat * 1E7d));
             }
         }
 

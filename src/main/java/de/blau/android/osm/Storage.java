@@ -121,7 +121,7 @@ public class Storage implements Serializable {
         int listSize = list.size();
         for (int i = 0; i < listSize; i++) {
             Node n = list.get(i);
-            if (box.isIn(n.getLat(), n.getLon())) {
+            if (box.isIn(n.getLon(), n.getLat())) {
                 result.add(n);
             }
         }

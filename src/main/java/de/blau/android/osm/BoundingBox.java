@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.support.annotation.NonNull;
 import de.blau.android.exception.OsmException;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
@@ -255,28 +256,34 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * Checks if lat/lon is in this bounding box.
      * 
-     * @param latE7
-     * @param lonE7
+     * @param lonE7 longitude (x1E7)
+     * @param latE7 latitude (x1E7)
      * @return true if lat/lon is inside this bounding box.
      */
-    public boolean isIn(final int latE7, final int lonE7) {
+    public boolean isIn(final int lonE7, final int latE7) {
         return lonE7 >= left && lonE7 <= right && latE7 >= bottom && latE7 <= top;
     }
 
     /**
      * Checks if a line between lat/lon and lat2/lon2 may intersect with this bounding box.
      * 
-     * @param lat
-     * @param lon
-     * @param lat2
-     * @param lon2
+     * @param lon longitude (x1E7) of 1st node
+     * @param lat latitude (x1E7) of 1st node
+     * @param lon2 longitude (x1E7) of 2nd node
+     * @param lat2 latitude (x1E7) of 2nd node
      * @return true, when at least one lat/lon is inside, or a intersection could not be excluded.
      */
-    public boolean intersects(final int lat, final int lon, final int lat2, final int lon2) {
-        return isIn(lat, lon) || isIn(lat2, lon2) || isIntersectionPossible(lat, lon, lat2, lon2);
+    public boolean intersects(final int lon, final int lat, final int lon2, final int lat2) {
+        return isIn(lon, lat) || isIn(lon2, lat2) || isIntersectionPossible(lon, lat, lon2, lat2);
     }
 
-    public boolean intersects(final BoundingBox b) {
+    /**
+     * Checks if this BoundingBox intersects with another
+     * 
+     * @param b the other BoundingBox
+     * @return true if the they intersect
+     */
+    public boolean intersects(@NonNull final BoundingBox b) {
         if (right < b.left)
             return false; // a is left of b
         if (left > b.right)
@@ -291,25 +298,25 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * Java Rect compatibility Return true if the boxes intersect
      * 
-     * @param box2
-     * @param box
-     * @return
+     * @param box2 1st BoundingBox
+     * @param box  2nd BoundingBox
+     * @return true if the they intersect
      */
-    public static boolean intersects(BoundingBox box2, BoundingBox box) {
+    public static boolean intersects(@NonNull BoundingBox box2, @NonNull BoundingBox box) {
         return box2.intersects(box);
     }
 
     /**
-     * Checks if an intersection with a line between lat/lon and lat2/lon2 is impossible. If two coordinates (lat/lat2
+     * Checks if an intersection with a line between lat/lon and lat2/lon2 is possible. If two coordinates (lat/lat2
      * or lon/lon2) are outside of a border, no intersection is possible.
      * 
-     * @param lat
-     * @param lon
-     * @param lat2
-     * @param lon2
+     * @param lon longitude (x1E7) of 1st node
+     * @param lat latitude (x1E7) of 1st node
+     * @param lon2 longitude (x1E7) of 2nd node
+     * @param lat2 latitude (x1E7) of 2nd node
      * @return true, when an intersection is possible.
      */
-    public boolean isIntersectionPossible(final int lat, final int lon, final int lat2, final int lon2) {
+    public boolean isIntersectionPossible(final int lon, final int lat, final int lon2, final int lat2) {
         return !(lat > top && lat2 > top || lat < bottom && lat2 < bottom || lon > right && lon2 > right || lon < left && lon2 < left);
     }
 
@@ -416,6 +423,9 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         return width < API_MAX_DEGREE_DIFFERENCE && height < API_MAX_DEGREE_DIFFERENCE;
     }
 
+    /**
+     * Change this BoundingBox so that it is suitable for a query for map data to the OSM API
+     */
     public void makeValidForApi() {
         if (!isValidForApi()) {
             int centerx = (getLeft() / 2 + getRight() / 2); // divide first to stay < 2^32
@@ -444,9 +454,9 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
-     * Set corners to same values as b CAREFUL does not update other fields
+     * Set corners to same values as b
      * 
-     * @param b
+     * @param b the BoundingBox to use
      */
     public void set(BoundingBox b) {
         left = b.left;
@@ -457,6 +467,14 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         height = b.height;
     }
 
+    /**
+     * Set the corners to the specified values
+     * 
+     * @param left      left (longitude x1E7)
+     * @param bottom    bottom (latitude x1E7)
+     * @param right     right (longitude x1E7)
+     * @param top       top (latitude x1E7)
+     */
     public void set(int left, int bottom, int right, int top) {
         this.left = left;
         this.bottom = bottom;
@@ -523,7 +541,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * Return true if box is empty
      * 
-     * @return
+     * @return true if left equals right and top equals bottom
      */
     public boolean isEmpty() {
         return left == right && top == bottom;
