@@ -186,8 +186,7 @@ public class PropertyEditorTest {
         main.performTagEdit(w, null, false, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
-        UiObject text = mDevice.findObject(new UiSelector().textStartsWith("Kindhauserstrasse"));
-        Assert.assertTrue(text.exists());
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "Kindhauserstrasse"));
     }
 
     @Test
