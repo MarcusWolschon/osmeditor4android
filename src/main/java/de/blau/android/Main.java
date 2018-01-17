@@ -595,24 +595,21 @@ public class Main extends FullScreenAppCompatActivity
                 BoundingBox box = null;
                 if (loc != null) {
                     try {
-                        box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true); // km
-                                                                                                                                                 // hardwired
-                                                                                                                                                 // for
-                                                                                                                                                 // now
+                        box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true); 
                     } catch (OsmException e) {
                         ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                         ACRA.getErrorReporter().handleException(e);
                     }
                 } else { // create a largish bb centered on 51.48,0
                     try {
-                        box = GeoMath.createBoundingBoxForCoordinates(51.48, 0, DEFAULT_BOUNDING_BOX_RADIUS, false); // km
-                                                                                                                     // hardwired
-                                                                                                                     // for
-                                                                                                                     // now
+                        box = GeoMath.createBoundingBoxForCoordinates(51.48, 0, DEFAULT_BOUNDING_BOX_RADIUS, false); 
                     } catch (OsmException e) {
                         ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                         ACRA.getErrorReporter().handleException(e);
                     }
+                }
+                if (box == null) {
+                    box = ViewBox.getMaxMercatorExtent(); // max possible size
                 }
                 openEmptyMap(new ViewBox(box));
 

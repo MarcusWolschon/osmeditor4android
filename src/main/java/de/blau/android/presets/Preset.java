@@ -447,6 +447,9 @@ public class Preset implements Serializable {
         String name = "Empty Preset";
         if (elements != null && !elements.isEmpty()) {
             name = elements.get(0).getName();
+        } else {
+            Log.e(DEBUG_TAG,"List of PresetElements was null");
+            return;
         }
         rootGroup = new PresetGroup(null, name, null);
         addElementsToIndex(rootGroup, elements);

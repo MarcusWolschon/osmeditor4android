@@ -131,7 +131,7 @@ public class BaseValidator implements Validator {
             Set<String>keys = w.getTags().keySet();
             for (String key:keys) {
                 if (Tags.isSpeedKey(key) && !tags.get(key).endsWith(Tags.MPH)) {
-                   return result = result | Validator.IMPERIAL_UNITS;
+                   return result | Validator.IMPERIAL_UNITS;
                }
             }
         }
