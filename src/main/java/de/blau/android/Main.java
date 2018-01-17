@@ -114,6 +114,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
+import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.javascript.EvalCallback;
 import de.blau.android.listener.UpdateViewListener;
@@ -155,7 +156,6 @@ import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Search.SearchResult;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -170,7 +170,7 @@ import oauth.signpost.exception.OAuthException;
  * @author mb
  */
 public class Main extends FullScreenAppCompatActivity
-        implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.util.SearchItemFoundCallback {
+        implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback {
 
     private static final int ZOOM_FOR_ZOOMTO = 22;
 
@@ -1451,7 +1451,7 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     @Override
-    public void onItemFound(SearchResult sr) {
+    public void onItemSelected(SearchResult sr) {
         // turn this off or else we get bounced back to our current GPS position
         setFollowGPS(false);
         getMap().setFollowGPS(false);

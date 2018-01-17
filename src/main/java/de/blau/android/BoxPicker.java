@@ -32,14 +32,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
+import de.blau.android.geocode.Search;
+import de.blau.android.geocode.Search.SearchResult;
+import de.blau.android.geocode.SearchItemSelectedCallback;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Search;
-import de.blau.android.util.Search.SearchResult;
 
 /**
  * Activity in which the user can pick a Location and a radius (more precisely: a square with "radius" as half of the edge
@@ -51,7 +52,7 @@ import de.blau.android.util.Search.SearchResult;
  * 
  * @author mb
  */
-public class BoxPicker extends BugFixedAppCompatActivity implements LocationListener, de.blau.android.util.SearchItemFoundCallback {
+public class BoxPicker extends BugFixedAppCompatActivity implements LocationListener, SearchItemSelectedCallback {
 
     /**
      * Tag used for Android-logging.
@@ -136,6 +137,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
         loadMapButton.setOnClickListener(onClickListener);
         dontLoadMapButton.setOnClickListener(onClickListener);
 
+        // FIXME the following shares a lot of code with SearchForm, but is unluckily slightly different
         final Spinner searchGeocoder = (Spinner) findViewById(R.id.location_search_geocoder);
         AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
         final Geocoder[] geocoders = db.getActiveGeocoders();
@@ -146,7 +148,13 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, geocoderNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchGeocoder.setAdapter(adapter);
-        searchGeocoder.setSelection(prefs.getGeocoder());
+        int geocoderIndex = prefs.getGeocoder();
+        // if a non-active geocoder is selected revert to default
+        if (geocoderIndex > adapter.getCount()-1) {
+            geocoderIndex = 0;
+            prefs.setGeocoder(geocoderIndex);
+        }
+        searchGeocoder.setSelection(geocoderIndex);
         searchGeocoder.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
@@ -177,7 +185,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     }
 
     @Override
-    public void onItemFound(SearchResult sr) {
+    public void onItemSelected(SearchResult sr) {
         RadioButton rb = (RadioButton) findViewById(R.id.location_coordinates);
         rb.setChecked(true); // note potential race condition with setting the lat/lon
         LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
@@ -219,6 +227,8 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
     /**
      * Registers this class for location updates from all available location providers.
+     * 
+     * @return the best current Location
      */
     private Location registerLocationListener() {
         Preferences prefs = new Preferences(this);
@@ -311,6 +321,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      * @param radioGroup
      * @param latEdit Manual Latitude EditText.
      * @param lonEdit Manual Longitude EditText.
+     * @return the OnClickListener
      */
     private OnClickListener createButtonListener(final RadioGroup radioGroup, final EditText latEdit, final EditText lonEdit) {
         return new OnClickListener() {

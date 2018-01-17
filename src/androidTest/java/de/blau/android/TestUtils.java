@@ -64,6 +64,27 @@ public class TestUtils {
             clickText(mDevice, true, "Nur diesmal", false);
         }
     }
+    
+    public static boolean clickOverflowButton() {
+        // Note: contrary to "text", "textStartsWith" is case insensitive
+        BySelector bySelector = By.clickable(true).descStartsWith("More options");
+        UiSelector uiSelector = new UiSelector().clickable(true).descriptionStartsWith("More options");
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device.wait(Until.findObject(bySelector), 500);
+        UiObject button = device.findObject(uiSelector);
+        if (button.exists()) {
+            try {
+                button.clickAndWaitForNewWindow();
+                return true;
+            } catch (UiObjectNotFoundException e) {
+                Log.e(DEBUG_TAG, "Object vanished.");
+                return false;
+            }
+        } else {
+            Log.e(DEBUG_TAG, "Object not found");
+            return false;
+        }
+    }
 
     public static void clickButton(String resId, boolean waitForNewWindow) {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -79,7 +100,7 @@ public class TestUtils {
             e.printStackTrace();
         }
     }
-
+    
     public static void pinchOut() {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         UiSelector uiSelector = new UiSelector().resourceId("de.blau.android:id/map_view");
@@ -163,14 +184,10 @@ public class TestUtils {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         // Note: contrary to "text", "textStartsWith" is case insensitive
         BySelector bySelector = null;
-        
-        // NOTE order of the selector terms is significant
         if (clickable) {
-            bySelector = By.clickable(true).textStartsWith(text);
-            
+            bySelector = By.clickable(true).textStartsWith(text);           
         } else {
             bySelector = By.textStartsWith(text);
-            
         }
         UiObject2 ob = device.wait(Until.findObject(bySelector), 500);
         return ob != null;

@@ -243,6 +243,7 @@
     <string name="toast_illegal_operation">Illegal operation: %1$s</string>
     <string name="toast_preset_creation_failed">Creation of preset "%1$s" failed with: %2$s</string>
     <string name="toast_imperial_units">Missing imperial units</string>
+    <string name="toast_server_connection_failed">Connecting to server failed with: %1$s</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
