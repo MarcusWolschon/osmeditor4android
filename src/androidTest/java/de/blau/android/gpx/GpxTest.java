@@ -57,7 +57,9 @@ public class GpxTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+        // allow downloading tiles here
+        // prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); 
+        prefs.setOverlayLayer("qa_no_address");
         main.getMap().setPrefs(main, prefs);
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         TestUtils.grantPermissons();

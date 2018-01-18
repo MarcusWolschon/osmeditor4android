@@ -51,6 +51,7 @@ public class ReadSaveData {
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);

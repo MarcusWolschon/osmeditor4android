@@ -54,6 +54,7 @@ public class TagFilterTest {
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         db = new TagFilterDatabaseHelper(context).getWritableDatabase();
         main.getMap().setPrefs(main, prefs);
     }
