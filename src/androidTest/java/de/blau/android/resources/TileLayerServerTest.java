@@ -78,7 +78,7 @@ public class TileLayerServerTest {
     @Test
     public void sort() {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("imagery_test.json");
+        InputStream is = loader.getResourceAsStream("imagery_test.geojson");
         try {
             TileLayerServer.parseImageryFile(main, is, false);
         } catch (IOException e) {

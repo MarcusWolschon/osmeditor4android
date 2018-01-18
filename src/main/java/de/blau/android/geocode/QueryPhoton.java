@@ -98,7 +98,6 @@ class QueryPhoton extends Query {
                 while ((cp = rd.read()) != -1) {
                     sb.append((char) cp);
                 }
-
                 FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
                 for (Feature f : fc.getFeatures()) {
                     SearchResult searchResult = readPhotonResult(f);

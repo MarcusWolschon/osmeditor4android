@@ -17,9 +17,9 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.MapViewOverlay;
+import de.blau.android.views.layers.MapViewLayer;
 
-public class MapOverlay extends MapViewOverlay {
+public class MapOverlay extends MapViewLayer {
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 

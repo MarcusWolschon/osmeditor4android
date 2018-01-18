@@ -1,5 +1,5 @@
 // Created by plusminus on 20:32:01 - 27.09.2008
-package de.blau.android.views.overlay;
+package de.blau.android.views.layers;
 
 import android.annotation.SuppressLint;
 import android.graphics.Canvas;
@@ -18,11 +18,12 @@ import de.blau.android.views.IMapView;
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  */
-public abstract class MapViewOverlay {
+public abstract class MapViewLayer {
     /**
      * Tag used for Android-logging.
      */
-    private static final String DEBUG_TAG = MapViewOverlay.class.getName();
+    private static final String DEBUG_TAG = MapViewLayer.class.getName();
+    protected int attributionOffset = 0;
 
     // ===========================================================
     // Constants
@@ -63,14 +64,33 @@ public abstract class MapViewOverlay {
         }
     }
 
+    /**
+     * Called to draw the contents
+     * 
+     * @param c     Canvas to draw on
+     * @param osmv  IMapView holding us
+     */
     protected abstract void onDraw(final Canvas c, final IMapView osmv);
 
+    /**
+     * Called after drawing is completed
+     * 
+     * @param c     Canvas to draw on
+     * @param osmv  IMapView holding us
+     */
     protected abstract void onDrawFinished(final Canvas c, final IMapView osmv);
+    
+    
 
     // ===========================================================
     // Methods
     // ===========================================================
 
+    /**
+     * Indicate if this layer is ready to draw
+     * 
+     * @return true is ready
+     */
     protected boolean isReadyToDraw() {
         return true;
     }
@@ -199,4 +219,11 @@ public abstract class MapViewOverlay {
         boolean onSnapToItem(int x, int y, android.graphics.Point snapPoint, IMapView mapView);
     }
 
+    public void setAttributionOffset(int attributionOffset) {
+        this.attributionOffset  = attributionOffset;
+    }
+
+    public int getAttributionOffset() {
+        return attributionOffset;
+    }
 }

@@ -13,7 +13,7 @@
 			android:key="@string/config_overlayLayer_key"
 			android:title="@string/config_overlayLayer_title"
 			android:summary="@string/config_overlayLayer_summary"
-			android:defaultValue="NONE"
+			android:defaultValue="NOOVERLAY"
 		/>
 		<ListPreference
 			android:key="@string/config_scale_key"

@@ -84,8 +84,8 @@ updatePreset.description = 'Update the default preset from http://simonpoole.git
 
 task updateImagery(type: Download) {
 	acceptAnyCertificate true
-    src 'https://raw.githubusercontent.com/simonpoole/osm-layer-index/gh-pages/imagery_tms_minified.json'
-    dest new File(projectDir.getPath() + '/src/main/assets/imagery.json')
+    src 'https://raw.githubusercontent.com/simonpoole/osm-layer-index/gh-pages/imagery_minified.geojson'
+    dest new File(projectDir.getPath() + '/src/main/assets/imagery.geojson')
 }
 updateImagery.group = 'vespucci'
 updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
@@ -137,7 +137,7 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
 
 afterEvaluate{ // this task needs to be created after the uninstall tasks 
 	task runSingleConnectedTest(dependsOn: ["installDebug","installDebugAndroidTest"], type: Exec) {
-		def toRun = "de.blau.android.geocode.SearchTest"
+		def toRun = "de.blau.android.resources.TileLayerServerTest"
 		// commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
 		commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
 		finalizedBy uninstallDebugAndroidTest,uninstallDebug

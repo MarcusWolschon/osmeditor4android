@@ -31,6 +31,8 @@ public class GeoMath {
     public static final double MAX_MLAT    = GeoMath.latE7ToMercator((int) (MAX_LAT * 1E7d));
 
     public static final int  EARTH_RADIUS_EQUATOR = 6378137;
+
+    private static final double EARTH_RADIUS_PI = Math.PI * EARTH_RADIUS_EQUATOR;
     public static final int  EARTH_RADIUS_POLAR   = 6356752;
     /**
      * The arithmetic middle of the two WGS84 reference-ellipsoids.
@@ -391,4 +393,61 @@ public class GeoMath {
         return Math.round(bearing);
     }
 
+    public static double tile2lon(int x, int z) {
+        return x / Math.pow(2.0, z) * 360.0 - 180;
+    }
+    
+    public static double tile2lat(int y, int z) {
+        double n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, z);
+        return Math.toDegrees(Math.atan(Math.sinh(n)));
+    }
+    
+    /**
+     * Covert a tiles x number to a web mercator coordinate
+     * 
+     * @param tileWidth   width of a tile in pixels  
+     * @param x           x number of the tils
+     * @param z           z zoom level
+     * @return coordinate in Web Mercator meters
+     */
+    public static double tile2lonMerc(int tileWidth, int x, int z) {
+        return pixelsToMeters(tileWidth, x * tileWidth, z);
+    }
+
+    /**
+     * Covert a tiles y number to a web mercator coordinate
+     * 
+     * @param tileHeight  height of a tile in pixels  
+     * @param y           y number of the tils
+     * @param z           z zoom level
+     * @return coordinate in Web Mercator meters
+     */
+    public static double tile2latMerc(int tileHeight, int y, int z) {       
+        return pixelsToMeters(tileHeight, y * tileHeight, z);
+    }
+    
+    /**
+     * Converts pixel coordinates at given zoom level to EPSG:3857
+     * 
+     * @param tileSize the size of the tile (one side)
+     * @param px       the "pixel" coordinate
+     * @param zoom     zoom level
+     * @return coordinate in Web Mercator meters
+     */
+    public static double pixelsToMeters(int tileSize, int px, int zoom) {
+        double res = resolution(tileSize, zoom );
+        return px * res - EARTH_RADIUS_PI ;
+    }
+    
+    /**
+     * Resolution (meters/pixel) for given zoom level (measured at Equator)
+     * 
+     * @param tileSize the size of the tile (one side)
+     * @param zoom     zoom level
+     * @return the meters/pixel value
+     */
+    private static double resolution(int tileSize, int zoom) {
+         return (2 * EARTH_RADIUS_PI) / (tileSize * Math.pow(2.0, zoom));
+    }
+    
 }

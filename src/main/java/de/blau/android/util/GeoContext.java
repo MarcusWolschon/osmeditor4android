@@ -247,7 +247,7 @@ public class GeoContext {
      * @return a List of BoundingBoxes, empty in no Polygons were found
      */
     @NonNull
-    List<BoundingBox> getBoundingBoxes(@Nullable FeatureCollection fc) {
+    static List<BoundingBox> getBoundingBoxes(@Nullable FeatureCollection fc) {
         List<BoundingBox> result = new ArrayList<>();
         if (fc != null) {
             for (Feature f : fc.getFeatures()) {
@@ -266,7 +266,7 @@ public class GeoContext {
      * @return a List of BoundingBoxes, empty in no Polygons were found
      */
     @NonNull
-    List<BoundingBox> getBoundingBoxes(@NonNull Feature f) {
+    public static List<BoundingBox> getBoundingBoxes(@NonNull Feature f) {
         List<BoundingBox> result = new ArrayList<>();
         Geometry<?> g = f.getGeometry();
         if (g instanceof Polygon) {

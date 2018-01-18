@@ -1,4 +1,4 @@
-package de.blau.android.views.overlay;
+package de.blau.android.views.layers;
 
 import android.graphics.Canvas;
 import android.view.View;
@@ -6,19 +6,23 @@ import de.blau.android.Map;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.views.IMapView;
 
-public class MapOverlayTilesOverlay extends MapTilesOverlay {
+public class MapTilesOverlayLayer extends MapTilesLayer {
 
-    private Map     map;
     private boolean enabled = false;
 
-    public MapOverlayTilesOverlay(final View aView) {
+    /**
+     * Construct a tile layer for showing transparent tiles over over tiles/data
+     * 
+     * @param aView the view we are displaying in
+     */
+    public MapTilesOverlayLayer(final View aView) {
         super(aView, TileLayerServer.get(aView.getContext(), ((Map) aView).getPrefs().overlayLayer(), true), null);
-        map = (Map) aView;
     }
 
     @Override
     public boolean isReadyToDraw() {
-        enabled = !getRendererInfo().getId().equals("NONE");
+        String id = getRendererInfo().getId();
+        enabled = !(id == null || TileLayerServer.LAYER_NOOVERLAY.equals(id) || TileLayerServer.LAYER_NONE.equals(id) || "".equals(id));
         return enabled && super.isReadyToDraw();
     }
 
