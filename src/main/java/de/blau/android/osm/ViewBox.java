@@ -7,12 +7,15 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.util.GeoMath;
 
 /**
- * A BoundingBox with additional support for the operations typically needed when it represents a View (zooming, translation etc)
+ * A BoundingBox with additional support for the operations typically needed when it represents a View (zooming,
+ * translation etc)
  * 
  * @author mb
  * @author simon
  */
 public class ViewBox extends BoundingBox {
+
+    private static final int MAX_LAT_FOR_MERC_E7 = (int) (GeoMath.MAX_LAT * 1E7);
 
     private static final long serialVersionUID = -2708721312405863618L;
 
@@ -54,9 +57,9 @@ public class ViewBox extends BoundingBox {
     public static ViewBox getMaxMercatorExtent() {
         ViewBox box = new ViewBox();
         box.setLeft((int) (-180 * 1E7));
-        box.setBottom((int) (-GeoMath.MAX_LAT * 1E7));
+        box.setBottom(-MAX_LAT_FOR_MERC_E7);
         box.setRight((int) (180 * 1E7));
-        box.setTop((int) (GeoMath.MAX_LAT * 1E7));
+        box.setTop(MAX_LAT_FOR_MERC_E7);
         box.calcDimensions();
         box.calcBottomMercator();
         return box;
@@ -68,7 +71,7 @@ public class ViewBox extends BoundingBox {
     public ViewBox() {
         super();
     }
-    
+
     /**
      * Creates a degenerated BoundingBox with the corners set to the node coordinates validate will cause an exception
      * if called on this
@@ -124,7 +127,7 @@ public class ViewBox extends BoundingBox {
         super(box);
         this.bottomMercator = box.bottomMercator;
     }
-    
+
     /**
      * Construct a ViewBox from a BoundingBox
      * 
@@ -146,23 +149,20 @@ public class ViewBox extends BoundingBox {
     }
 
     /**
-     * @return true if left is less than right and bottom is less than top.
+     * @return true if left is less than right and bottom is less than top and within the legal bounds for a web
+     *         mercator box.
      */
-    private boolean isValid() {
-        int left = getLeft();
-        int right = getRight();
+    public boolean isValid() {
         int top = getTop();
         int bottom = getBottom();
-        return (left < right) && (bottom < top) && (left >= -MAX_LON_E7) && (right <= MAX_LON_E7) && (top <= MAX_LAT_E7) && (bottom >= -MAX_LAT_E7);
+        return super.isValid() && (top <= MAX_LAT_FOR_MERC_E7) && (bottom >= -MAX_LAT_FOR_MERC_E7);
     }
-
 
     /**
      */
     private void calcBottomMercator() {
         bottomMercator = GeoMath.latE7ToMercator(getBottom());
     }
-    
 
     public double getPixelRadius(int screenWidth) {
         return (double) screenWidth / (getWidth() / 1E7d);
@@ -189,7 +189,7 @@ public class ViewBox extends BoundingBox {
      */
     public void setRatio(Map map, final float ratio, final boolean preserveZoom) throws OsmException {
         long mTop = GeoMath.latE7ToMercatorE7(getTop()); // note long or else we get an int overflow on calculating the
-                                                    // center
+        // center
         long mBottom = GeoMath.latE7ToMercatorE7(getBottom());
         long mHeight = mTop - mBottom;
         if (getWidth() <= 0 || mHeight <= 0) {
@@ -200,7 +200,8 @@ public class ViewBox extends BoundingBox {
                     GeoMath.mercatorE7ToLat((int) (getLeft() + width / 2)), 10.0f, true));
             set(bbox);
             calcDimensions();
-            mTop = GeoMath.latE7ToMercatorE7(getTop()); // note long or else we get an int overflow on calculating the center
+            mTop = GeoMath.latE7ToMercatorE7(getTop()); // note long or else we get an int overflow on calculating the
+                                                        // center
             mBottom = GeoMath.latE7ToMercatorE7(getBottom());
             mHeight = mTop - mBottom;
         }
@@ -320,6 +321,7 @@ public class ViewBox extends BoundingBox {
      * @param map instance of the current map view
      * @param dLon the relative longitude change.
      * @param dLat the relative latitude change.
+     * @throws OsmException
      */
     public synchronized void translate(@Nullable Map map, int dLon, int dLat) throws OsmException {
         int right = getRight();

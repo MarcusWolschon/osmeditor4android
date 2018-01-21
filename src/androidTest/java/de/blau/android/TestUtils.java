@@ -128,7 +128,8 @@ public class TestUtils {
 
     public static void zoomToLevel(Main main, int level) {
         Map map = main.getMap();
-        while (level != map.getZoomLevel()) {
+        int count = 0;
+        while (level != map.getZoomLevel() && count < 20) {
             int currentLevel = map.getZoomLevel();
             if (currentLevel < level) {
                 if (level - currentLevel > 3) {
@@ -143,6 +144,7 @@ public class TestUtils {
                     clickButton("de.blau.android:id/zoom_out", false);
                 }
             }
+            count++;
         }
     }
 

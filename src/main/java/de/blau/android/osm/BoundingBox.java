@@ -101,7 +101,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     public BoundingBox(int lonE7, int latE7) {
         resetTo(lonE7, latE7);
     }
-    
+
     /**
      * Creates a degenerated BoundingBox with the corners set to the node coordinates validate will cause an exception
      * if called on this
@@ -110,7 +110,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @param lat latitude of the node
      */
     public BoundingBox(double lon, double lat) {
-        resetTo((int)Math.round(lon*1E7), (int)Math.round(lat*1E7));
+        resetTo((int) Math.round(lon * 1E7), (int) Math.round(lat * 1E7));
     }
 
     /**
@@ -299,7 +299,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * Java Rect compatibility Return true if the boxes intersect
      * 
      * @param box2 1st BoundingBox
-     * @param box  2nd BoundingBox
+     * @param box 2nd BoundingBox
      * @return true if the they intersect
      */
     public static boolean intersects(@NonNull BoundingBox box2, @NonNull BoundingBox box) {
@@ -307,8 +307,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
-     * Checks if an intersection with a line between lat/lon and lat2/lon2 is possible. If two coordinates (lat/lat2
-     * or lon/lon2) are outside of a border, no intersection is possible.
+     * Checks if an intersection with a line between lat/lon and lat2/lon2 is possible. If two coordinates (lat/lat2 or
+     * lon/lon2) are outside of a border, no intersection is possible.
      * 
      * @param lon longitude (x1E7) of 1st node
      * @param lat latitude (x1E7) of 1st node
@@ -415,6 +415,17 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
+     * Check if the box is valid
+     * 
+     * Allows degenerated boxes
+     * 
+     * @return true is within WGS84 bounds
+     */
+    public boolean isValid() {
+        return left <= right && bottom <= top && left >= -MAX_LON_E7 && right <= MAX_LON_E7 && bottom >= -MAX_LAT_E7 && top <= MAX_LAT_E7;
+    }
+
+    /**
      * Checks if the bounding box is valid for the OSM API.
      * 
      * @return true, if the bbox is smaller than 0.5*0.5 (here multiplied by 1E7) degree.
@@ -470,10 +481,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * Set the corners to the specified values
      * 
-     * @param left      left (longitude x1E7)
-     * @param bottom    bottom (latitude x1E7)
-     * @param right     right (longitude x1E7)
-     * @param top       top (latitude x1E7)
+     * @param left left (longitude x1E7)
+     * @param bottom bottom (latitude x1E7)
+     * @param right right (longitude x1E7)
+     * @param top top (latitude x1E7)
      */
     public void set(int left, int bottom, int right, int top) {
         this.left = left;
@@ -484,17 +495,16 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         height = top - bottom;
     }
 
-
     /**
      * grow this box so that it covers the point
      * 
-     * @param lon   longitude
-     * @param lat   latitude
+     * @param lon longitude
+     * @param lat latitude
      */
     public void union(double lon, double lat) {
-        union((int)Math.round(lon*1E7),(int)Math.round(lat*1E7));
+        union((int) Math.round(lon * 1E7), (int) Math.round(lat * 1E7));
     }
-    
+
     /**
      * grow this box so that it covers the point
      * 

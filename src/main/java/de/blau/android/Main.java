@@ -140,6 +140,8 @@ import de.blau.android.propertyeditor.Address;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.TileLayerDatabase;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
@@ -595,14 +597,14 @@ public class Main extends FullScreenAppCompatActivity
                 BoundingBox box = null;
                 if (loc != null) {
                     try {
-                        box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true); 
+                        box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true);
                     } catch (OsmException e) {
                         ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                         ACRA.getErrorReporter().handleException(e);
                     }
                 } else { // create a largish bb centered on 51.48,0
                     try {
-                        box = GeoMath.createBoundingBoxForCoordinates(51.48, 0, DEFAULT_BOUNDING_BOX_RADIUS, false); 
+                        box = GeoMath.createBoundingBoxForCoordinates(51.48, 0, DEFAULT_BOUNDING_BOX_RADIUS, false);
                     } catch (OsmException e) {
                         ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                         ACRA.getErrorReporter().handleException(e);
@@ -706,7 +708,7 @@ public class Main extends FullScreenAppCompatActivity
         final Logic logic = App.getLogic();
 
         App.initGeoContext(this);
-        
+
         checkPermissions();
 
         // register received for changes in connectivity
@@ -1877,12 +1879,17 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_tools_flush_overlay_tile_cache:
             map.getOverlayLayer().flushTileCache(this);
             return true;
-
+        case R.id.menu_tools_flush_all_tile_caches:
+            Snack.barWarning(this, getString(R.string.toast_flus_all_caches), R.string.Yes, new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    map.getBackgroundLayer().flushTileCache(Main.this, null);
+                }
+            });
+            return true;
         case R.id.menu_tools_background_align:
-            Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT; // protect
-                                                                                                                 // against
-                                                                                                                 // weird
-                                                                                                                 // state
+            // protect against weird state
+            Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT;
             backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(this, oldMode);
             logic.setMode(this, Mode.MODE_ALIGN_BACKGROUND); // NOTE needs to be after instance creation
             startSupportActionMode(getBackgroundAlignmentActionModeCallback());
@@ -1890,6 +1897,28 @@ public class Main extends FullScreenAppCompatActivity
 
         case R.id.menu_tools_background_properties:
             BackgroundProperties.showDialog(this);
+            return true;
+        case R.id.menu_tools_update_imagery_configuration:
+            new AsyncTask<Void, Void, Void>() {
+                TileLayerDatabase db = new TileLayerDatabase(Main.this);
+
+                @Override
+                protected void onPreExecute() {
+                    Progress.showDialog(Main.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+                }
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    TileLayerServer.updateFromEli(Main.this, db.getWritableDatabase());
+                    db.close();
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void result) {
+                    Progress.dismissDialog(Main.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+                }
+            }.execute();
             return true;
         case R.id.tag_menu_reset_address_prediction:
             Address.resetLastAddresses(this);

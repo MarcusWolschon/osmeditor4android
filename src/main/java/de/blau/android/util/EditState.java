@@ -54,9 +54,15 @@ public class EditState implements Serializable {
         savedWays = logic.getSelectedWays();
         savedRelations = logic.getSelectedRelations();
         savedBug = logic.getSelectedBug();
-        savedTileServerID = osmts.getId();
-        savedOffsets = osmts.getOffsets();
-        savedMinZoom = osmts.getMinZoomLevel();
+        if (osmts != null) {
+            savedTileServerID = osmts.getId();
+            savedOffsets = osmts.getOffsets();
+            savedMinZoom = osmts.getMinZoomLevel();
+        } else {
+            savedTileServerID = null;
+            savedOffsets =  null;
+            savedMinZoom =  0;
+        }
         savedImageFileName = imageFileName;
         savedBox = box;
         savedLastComments = logic.getLastComments();
@@ -127,13 +133,11 @@ public class EditState implements Serializable {
     }
 
     public void setOffset(TileLayerServer osmts) {
-        Log.d("EditState", "setOffset saved id " + savedTileServerID + " current id " + osmts.getId());
-        if (osmts.getId().equals(savedTileServerID)) {
+        if (osmts != null && osmts.getId().equals(savedTileServerID)) {
+            Log.d("EditState", "setOffset saved id " + savedTileServerID + " current id " + osmts.getId());
             Log.d("EditState", "restoring offset");
-            if (savedOffsets.length == osmts.getOffsets().length && savedMinZoom == osmts.getMinZoomLevel()) { // check
-                                                                                                               // for
-                                                                                                               // config
-                                                                                                               // change
+            // check for config change
+            if (savedOffsets.length == osmts.getOffsets().length && savedMinZoom == osmts.getMinZoomLevel()) { 
                 osmts.setOffsets(savedOffsets);
             }
         }

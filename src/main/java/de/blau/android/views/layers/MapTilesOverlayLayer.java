@@ -21,8 +21,13 @@ public class MapTilesOverlayLayer extends MapTilesLayer {
 
     @Override
     public boolean isReadyToDraw() {
-        String id = getRendererInfo().getId();
-        enabled = !(id == null || TileLayerServer.LAYER_NOOVERLAY.equals(id) || TileLayerServer.LAYER_NONE.equals(id) || "".equals(id));
+        TileLayerServer layer = getRendererInfo();
+        if (layer == null) {
+            enabled = false;
+        } else {
+            String id = layer.getId();
+            enabled = !(id == null || TileLayerServer.LAYER_NOOVERLAY.equals(id) || TileLayerServer.LAYER_NONE.equals(id) || "".equals(id));
+        }
         return enabled && super.isReadyToDraw();
     }
 

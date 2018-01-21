@@ -308,6 +308,19 @@ public class Snack {
             barInfo(activity.findViewById(android.R.id.content), msg);
         }
     }
+    
+    /**
+     * Display a snackbar with an informational message
+     * 
+     * @param activity activity calling us
+     * @param res string resource for the message to display
+     * @param duration how long to display the message in ms
+     */
+    public static void barInfo(Activity activity, int res, int duration) {
+        if (activity != null) {
+            barInfo(activity.findViewById(android.R.id.content), res, duration);
+        }
+    }
 
     /**
      * Display a snackbar with an informational message for a short duration
@@ -479,7 +492,7 @@ public class Snack {
      * 
      * @param activity activity calling us
      * @param msg message to display
-     * @param action action textRes resource for the text of an action
+     * @param actionRes action textRes resource for the text of an action
      * @param listener called when action is selected
      */
     public static void barWarning(Activity activity, String msg, int actionRes, View.OnClickListener listener) {
@@ -493,7 +506,7 @@ public class Snack {
      * 
      * @param v view to display the snackbar on
      * @param msg message to display
-     * @param action action text resrouce id
+     * @param actionRes action text resrouce id
      * @param listener called when action is selected
      */
     public static void barWarning(View v, String msg, int actionRes, View.OnClickListener listener) {
@@ -509,7 +522,7 @@ public class Snack {
     /**
      * Display an info toast underneath the top action bar
      * 
-     * @param activity activity that called this
+     * @param context Android Context that called this
      * @param msg the message to display
      */
     public static void toastTopInfo(Context context, String msg) {
@@ -519,7 +532,7 @@ public class Snack {
     /**
      * Display an into toast underneath the top action bar
      * 
-     * @param activity activity that called this
+     * @param context Android Context that called this
      * @param msgRes the message resource to display
      */
     public static void toastTopInfo(Context context, int msgRes) {
@@ -529,7 +542,7 @@ public class Snack {
     /**
      * Display a warning toast underneath the top action bar
      * 
-     * @param activity activity that called this
+     * @param context Android Context that called this
      * @param msg the message to display
      */
     public static void toastTopWarning(Context context, String msg) {
@@ -539,7 +552,7 @@ public class Snack {
     /**
      * Display an error toast underneath the top action bar
      * 
-     * @param activity activity that called this
+     * @param context Android Context that called this
      * @param msgRes the message resource to display
      */
     public static void toastTopError(Context context, int msgRes) {
@@ -549,7 +562,7 @@ public class Snack {
     /**
      * Display an error toast underneath the top action bar
      * 
-     * @param activity activity that called this
+     * @param context Android Context that called this
      * @param msg the message to display
      */
     public static void toastTopError(Context context, String msg) {
@@ -559,7 +572,7 @@ public class Snack {
     /**
      * Display a toast underneath the top action bar
      * 
-     * @param activity activity that called this
+     * @param context Android Context that called this
      * @param msgRes the message resource to display
      * @param color background color of the message
      * @param duration how long to display the message
@@ -571,7 +584,7 @@ public class Snack {
     /**
      * Display a toast underneath the top action bar
      * 
-     * @param activity activity that called this
+     * @param context Android Context that called this
      * @param msg the message to display
      * @param color background color of the message
      * @param duration how long to display the message

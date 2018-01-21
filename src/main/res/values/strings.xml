@@ -138,9 +138,11 @@
     <string name="attached_object_warning_continue">OK continue to show this message</string>
     <string name="attached_object_warning_stop">OK stop showing this message</string>
     <string name="send_debug_information">Send debug information</string>
+    <!-- JS console dialog  -->
     <string name="evaluate">Evaluate</string>
     <string name="js_console_msg_live">Live mode!</string>
     <string name="js_console_msg_debug">Debug mode!</string>
+    <!-- Validator dialogs  -->
     <string name="validator_title">Validator ruleset %1$s</string>
     <string name="edit_resurvey_title">Edit re-survey entry</string>
     <string name="add_resurvey_title">Add re-survey entry</string>
@@ -152,10 +154,12 @@
     <string name="check_optional">Check optional</string>
     <string name="add_resurvey_entry">Add re-survey entry</string>
     <string name="add_check_entry">Add check entry</string>
+    <!-- Empty relation dialog  -->
     <string name="empty_relation_title">Empty Relation</string>
     <string name="empty_relation_message">The relation %1$s has no members.\n\nLeaving it as is will make it non-editable in Vespucci.</string>
     <string name="add_members">Add members</string>
     <string name="leave_empty">Leave empty</string>
+    <!-- GPX way point dialog  -->
     <string name="waypoint_title">GPX Way Point</string>
     <string name="waypoint_description">WPT: %1$s</string>
     <string name="description">Description</string>
@@ -163,6 +167,22 @@
     <string name="altitude">Altitude</string>
     <string name="create_osm_object">Create OSM Object</string>
     <string name="create_osm_object_search">Create OSM Object from preset search</string>
+    <!-- Custom imagery dialogs  -->
+    <string name="custom_layer_title">Custom imagery layers</string>
+    <string name="edit_layer_title">Edit layer entry</string>
+    <string name="add_layer_title">Add layer entry</string>
+    <string name="overlay">Overlay</string>
+    <string name="coverage">Coverage</string>
+    <string name="coverage_top">Top</string>
+    <string name="coverage_left">Left</string>
+    <string name="coverage_right">Right</string>
+    <string name="coverage_bottom">Bottom</string>
+    <string name="preferred">Preferred</string>
+    <string name="toast_invalid_box">Invalid or incomplete bounding box</string>
+    <string name="toast_name_empty">Name cannot be empty</string>
+    <string name="toast_url_empty">URL cannot be empty</string>
+    <string name="toast_building_imagery_database">Building imagery database.</string>
+    <string name="toast_min_zoom">Minumum zoom must be less than maximum</string>
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_unsaved_changes">You have unsaved changes, please upload them first.</string>
@@ -244,6 +264,7 @@
     <string name="toast_preset_creation_failed">Creation of preset "%1$s" failed with: %2$s</string>
     <string name="toast_imperial_units">Missing imperial units</string>
     <string name="toast_server_connection_failed">Connecting to server failed with: %1$s</string>
+    <string name="toast_flus_all_caches">This will flush all tile caches!</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -267,6 +288,8 @@
     <string name="overwrite">Overwrite</string>
     <string name="share">Share</string>
     <string name="share_position">Share position</string>
+    <string name="min">Min.</string>
+    <string name="max">Max.</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
@@ -420,7 +443,9 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
     <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>
+    <string name="menu_tools_flush_all_tile_caches">Flush all tile caches</string>
     <string name="menu_tools_background_properties">Background properties</string>
+    <string name="menu_tools_update_imagery_configuration">Update imager layer configuration</string>
     <string name="menu_tools_background_align">Align background</string>
     <string name="menu_tools_background_align_reset">Reset</string>
     <string name="menu_tools_background_align_zero">Zero</string>
@@ -607,6 +632,7 @@
     <string name="config_js_console_title">Enable JS console</string>
     <string name="config_js_console_summary">Make the JS console available in "live" mode</string>
     <string name="config_validatorprefs_title">Validator preferences</string>
+    <string name="config_customlayers_title">Custom layers</string>
     <string name="manage_apis">Manage APIs</string>
     <string name="manage_presets">Manage presets</string>
     <string name="manage_geocoders">Manage geocoders</string>

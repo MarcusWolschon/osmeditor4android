@@ -78,9 +78,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     private String buildURL(final MapTile tile) {
         TileLayerServer renderer = TileLayerServer.get(mCtx, tile.rendererID, false);
-        // Log.d("OpenStreetMapTileDownloader","metadata loaded "+ renderer.isMetadataLoaded() + " " +
-        // renderer.getTileURLString(tile));
-        return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
+        return renderer != null && renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
     }
 
     // ===========================================================
@@ -137,7 +135,6 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         throw new IOException("no tile data");
                     }
                     mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
-
                     MapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
                     if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
                         Log.d(DEBUGTAG, "Maptile " + tileURLString + " saved");

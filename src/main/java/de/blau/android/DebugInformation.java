@@ -18,8 +18,8 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.views.layers.MapTilesOverlayLayer;
 import de.blau.android.views.layers.MapTilesLayer;
+import de.blau.android.views.layers.MapTilesOverlayLayer;
 import de.blau.android.views.layers.MapViewLayer;
 
 public class DebugInformation extends AppCompatActivity {

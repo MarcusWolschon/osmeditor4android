@@ -4,19 +4,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.app.Instrumentation;
+import android.app.Instrumentation.ActivityMonitor;
+import android.os.AsyncTask;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
+import android.util.Log;
 import android.view.View;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.SignalHandler;
+import de.blau.android.Splash;
+import de.blau.android.TestUtils;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
 
@@ -30,19 +41,33 @@ import de.blau.android.services.util.MapTile;
 @LargeTest
 public class TileLayerServerTest {
 
-    Main main = null;
-    View v    = null;
+    Main            main            = null;
+    View            v               = null;
+    Splash          splash          = null;
+    ActivityMonitor monitor         = null;
+    Instrumentation instrumentation = null;
 
     @Rule
-    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
+    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class);
 
     @Before
     public void setup() {
-        main = mActivityRule.getActivity();
+        splash = mActivityRule.getActivity();
+        instrumentation = InstrumentationRegistry.getInstrumentation();
+        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
+    }
+
+    @After
+    public void teardown() {
+        instrumentation.removeMonitor(monitor);
+        splash.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
     }
 
     @Test
     public void buildurl() {
+        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(splash);
         Map map = main.getMap();
         MapTile mapTile = new MapTile("", 20, 1111, 2222);
         Preferences prefs = new Preferences(main);
@@ -50,10 +75,40 @@ public class TileLayerServerTest {
         prefs.setBackGroundLayer("BING");
         main.getMap().setPrefs(main, prefs);
 
-        TileLayerServer t = map.getBackgroundLayer().getRendererInfo();
-        System.out.println(t.toString());
+        final TileLayerServer t = map.getBackgroundLayer().getRendererInfo();
+        Assert.assertNotNull(t);
+        if (!t.isMetadataLoaded()) {
+            final CountDownLatch signal = new CountDownLatch(1);
+            final SignalHandler handler = new SignalHandler(signal);
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    for (int i = 0;i < 10;i++) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                        }
+                        if (t.isMetadataLoaded()) {
+                            System.out.println("metadata is loaded");
+                            break;
+                        }
+                    }
+                    return null;
+                }  
+                @Override
+                protected void onPostExecute(Void result) {
+                    handler.onSuccess();
+                }
+            }.execute();
+            try {
+                signal.await(11, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                Assert.fail(e.getMessage());
+            }
+        }
 
-        String s = t.getTileURLString(mapTile); // note this could fail if the metainfo cannot be retrieved
+        Assert.assertTrue(t.isMetadataLoaded());
+        String s = t.getTileURLString(mapTile); // note this would fail if the metainfo cannot be retrieved
 
         System.out.println("Parameters replaced " + s);
         System.out.println("Quadkey " + t.quadTree(mapTile));
@@ -61,26 +116,31 @@ public class TileLayerServerTest {
 
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
-        t = map.getBackgroundLayer().getRendererInfo();
+ 
+        TileLayerServer t2 = map.getBackgroundLayer().getRendererInfo();
+        System.out.println(t2.toString());
 
-        System.out.println(t.toString());
-
-        s = t.getTileURLString(mapTile);
+        s = t2.getTileURLString(mapTile);
 
         System.out.println("Parameters replaced " + s);
 
         Assert.assertTrue(s.contains("1111"));
         Assert.assertTrue(s.contains("2222"));
         Assert.assertTrue(s.contains("20"));
-
     }
 
     @Test
     public void sort() {
+        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(splash);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("imagery_test.geojson");
         try {
-            TileLayerServer.parseImageryFile(main, is, false);
+            TileLayerDatabase db = new TileLayerDatabase(splash);
+            TileLayerServer.parseImageryFile(splash, db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI, is, false);
+            TileLayerServer.getListsLocked(splash, db.getReadableDatabase(), true);
+            db.close();
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }

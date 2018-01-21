@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import de.blau.android.prefs.Preferences;
 
 /**
  * ProgressDialog can't be styled, this rolls its own.
@@ -39,6 +40,8 @@ public class Progress extends DialogFragment {
     public static final int PROGRESS_PRESET = 8;
 
     public static final int PROGRESS_RUNNING = 9;
+
+    public static final int PROGRESS_BUILDING_IMAGERY_DATABASE = 10;
 
     private int dialogType;
 
@@ -96,6 +99,7 @@ public class Progress extends DialogFragment {
         dismissDialog(activity, PROGRESS_UPLOADING);
         dismissDialog(activity, PROGRESS_PRESET);
         dismissDialog(activity, PROGRESS_RUNNING);
+        dismissDialog(activity, PROGRESS_BUILDING_IMAGERY_DATABASE);
     }
 
     private static String getTag(int dialogType) {
@@ -118,6 +122,8 @@ public class Progress extends DialogFragment {
             return "dialog_progress_preset";
         case PROGRESS_RUNNING:
             return "dialog_progress_running";
+        case PROGRESS_BUILDING_IMAGERY_DATABASE:
+            return "dialog_progress_building_imagery_database";
         }
         return null;
     }
@@ -137,6 +143,8 @@ public class Progress extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
+        Preferences prefs = new Preferences(getActivity());
         setCancelable(true);
         dialogType = (Integer) getArguments().getSerializable(TYPE);
     }

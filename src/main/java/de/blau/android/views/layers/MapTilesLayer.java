@@ -102,12 +102,18 @@ public class MapTilesLayer extends MapViewLayer {
 
         networkStatus = new NetworkStatus(ctx);
 
-        Log.d(DEBUG_TAG, "provider " + aRendererInfo.getId() + " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel());
+        Log.d(DEBUG_TAG,
+                aRendererInfo != null
+                        ? "provider " + aRendererInfo.getId() + " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel()
+                        : "renderer is null");
     }
 
     @Override
     public boolean isReadyToDraw() {
-        return myRendererInfo.isMetadataLoaded();
+        if (myRendererInfo != null) {
+            return myRendererInfo.isMetadataLoaded();
+        }
+        return false;
     }
 
     /**
@@ -116,6 +122,16 @@ public class MapTilesLayer extends MapViewLayer {
      * @param activity activity this was called from, if null don't display progress
      */
     public void flushTileCache(@Nullable final FragmentActivity activity) {
+        flushTileCache(activity, myRendererInfo.getId());
+    }
+
+    /**
+     * Empty the cache
+     * 
+     * @param activity activity this was called from, if null don't display progress
+     * @param renderer the renderer to delete the cache for or null for all
+     */
+    public void flushTileCache(@Nullable final FragmentActivity activity, final String renderer) {
         new AsyncTask<Void, Void, Void>() {
 
             @Override
@@ -127,7 +143,9 @@ public class MapTilesLayer extends MapViewLayer {
 
             @Override
             protected Void doInBackground(Void... params) {
-                mTileProvider.flushCache(myRendererInfo.getId());
+                if (mTileProvider != null) {
+                    mTileProvider.flushCache(renderer);
+                }
                 return null;
             }
 
@@ -389,15 +407,15 @@ public class MapTilesLayer extends MapViewLayer {
     /**
      * Display any necessary logos and attribution strings
      * 
-     * @param c         the Canvas we are drawing on
-     * @param viewBox   the ViewBox with the currently displayed area
-     * @param viewPort  the screen size in screen coordinates
+     * @param c the Canvas we are drawing on
+     * @param viewBox the ViewBox with the currently displayed area
+     * @param viewPort the screen size in screen coordinates
      * @param zoomLevel the current tile zoom level
      */
     private void drawAttribution(Canvas c, ViewBox viewBox, final Rect viewPort, final int zoomLevel) {
         // Draw the tile layer branding logo (if it exists)
         resetAttributionArea(viewPort, attributionOffset);
-        Drawable brandLogo = myRendererInfo.getBrandLogo();
+        Drawable brandLogo = myRendererInfo.getLogoDrawable();
         int logoWidth = -1; // misuse this a flag
         int logoHeight = -1;
         if (brandLogo != null) {
@@ -440,8 +458,8 @@ public class MapTilesLayer extends MapViewLayer {
     /**
      * Reset the attribution area for this layer to its initial values
      * 
-     * @param viewPort      the screen size in screen coordinates
-     * @param bottomOffset  the initial offset relative to the bottom of the screen
+     * @param viewPort the screen size in screen coordinates
+     * @param bottomOffset the initial offset relative to the bottom of the screen
      */
     private void resetAttributionArea(Rect viewPort, int bottomOffset) {
         tapArea.left = 0;
@@ -494,6 +512,7 @@ public class MapTilesLayer extends MapViewLayer {
      * Gets a Rect for the area we are going to draw the tile into
      * 
      * FIXME don't allocate a new Rect
+     * 
      * @param c the canvas we draw to (we need its clip-bound's width and height)
      * @param osmv the view with its viewBox
      * @param zoomLevel the zoom-level of the tile
@@ -597,7 +616,7 @@ public class MapTilesLayer extends MapViewLayer {
                 if (viewInvalidates == 0) { // try to suppress inordinate number of invalidates
                     Handler handler = new Handler();
                     handler.postDelayed(new Invalidator(), 100); // wait 1/10th of a second
-                } 
+                }
                 viewInvalidates++;
             }
         }

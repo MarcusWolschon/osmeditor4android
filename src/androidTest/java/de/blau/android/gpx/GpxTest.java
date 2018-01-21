@@ -14,6 +14,8 @@ import org.junit.runner.RunWith;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
+import android.app.Instrumentation;
+import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
@@ -27,6 +29,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.SignalHandler;
+import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.Track.TrackPoint;
@@ -34,6 +37,7 @@ import de.blau.android.osm.Track.WayPoint;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
@@ -42,32 +46,42 @@ import de.blau.android.util.GeoMath;
 @LargeTest
 public class GpxTest {
 
-    public static final int TIMEOUT    = 115;
-    MockWebServerPlus       mockServer = null;
-    Context                 context    = null;
-    AdvancedPrefDatabase    prefDB     = null;
-    Main                    main       = null;
-    UiDevice                device     = null;
+    public static final int TIMEOUT         = 115;
+    MockWebServerPlus       mockServer      = null;
+    Context                 context         = null;
+    AdvancedPrefDatabase    prefDB          = null;
+    Splash                  splash          = null;
+    Main                    main            = null;
+    UiDevice                device          = null;
+    ActivityMonitor         monitor         = null;
+    Instrumentation         instrumentation = null;
 
     @Rule
-    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
+    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class);
 
     @Before
     public void setup() {
+        splash = mActivityRule.getActivity();
+        instrumentation = InstrumentationRegistry.getInstrumentation();
+        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
+        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
+
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
-        // allow downloading tiles here
-        // prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); 
-        prefs.setOverlayLayer("qa_no_address");
-        main.getMap().setPrefs(main, prefs);
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
+        Preferences prefs = new Preferences(context);
+        // allow downloading tiles here
+        // prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
+        prefs.setOverlayLayer("qa_no_address");
+        main.getMap().setPrefs(main, prefs);
     }
 
     @After
     public void teardown() {
+        instrumentation.removeMonitor(monitor);
+        splash.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
     }
 
     @Test
@@ -105,7 +119,7 @@ public class GpxTest {
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
         compareTrack(track, recordedTrack);
     }
-    
+
     @Test
     public void importWayPoints() {
         main.getTracker().getTrack().reset(); // clear out anything saved
@@ -115,7 +129,7 @@ public class GpxTest {
         Assert.assertEquals(112, main.getTracker().getTrack().getTrack().size());
         Assert.assertEquals(79, main.getTracker().getTrack().getWayPoints().length);
         WayPoint foundWp = null;
-        for (WayPoint wp:main.getTracker().getTrack().getWayPoints()) {
+        for (WayPoint wp : main.getTracker().getTrack().getWayPoints()) {
             if (doubleEquals(47.3976189, wp.getLatitude()) && doubleEquals(8.3770144, wp.getLongitude())) {
                 foundWp = wp;
                 break;
@@ -127,7 +141,7 @@ public class GpxTest {
         App.getLogic().setZoom(map, 19);
         viewBox.moveTo(map, foundWp.getLon(), foundWp.getLat());
         map.invalidate();
-      
+
         if (App.getLogic().isLocked()) {
             UiObject lock = device.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
             try {
@@ -136,15 +150,15 @@ public class GpxTest {
                 Assert.fail(e.getMessage());
             }
         }
-        
+
         float x = GeoMath.lonE7ToX(map.getWidth(), viewBox, foundWp.getLon());
         float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, foundWp.getLat());
         TestUtils.clickAt(x, y);
-        
+
         TestUtils.clickText(device, true, "Create osm object from", true);
-        Assert.assertTrue(TestUtils.findText(device, false, "Church"));        
+        Assert.assertTrue(TestUtils.findText(device, false, "Church"));
     }
-    
+
     boolean doubleEquals(double d1, double d2) {
         double epsilon = 0.0000001D;
         return d1 < d2 + epsilon && d1 > d2 - epsilon;

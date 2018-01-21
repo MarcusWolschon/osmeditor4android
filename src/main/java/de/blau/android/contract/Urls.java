@@ -24,4 +24,6 @@ public interface Urls {
 
     String OSM       = "https://openstreetmap.org";
     String OSM_LOGIN = "https://www.openstreetmap.org/login";
+    
+    String ELI = "https://raw.githubusercontent.com/osmlab/editor-layer-index/gh-pages/imagery.geojson";
 }

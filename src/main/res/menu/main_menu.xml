@@ -180,6 +180,10 @@
 					android:title="@string/menu_tools_flush_overlay_tile_cache"
 				/>
 				<item
+                    android:id="@+id/menu_tools_flush_all_tile_caches"
+                    android:title="@string/menu_tools_flush_all_tile_caches"
+                />
+				<item
 					android:id="@+id/menu_tools_background_align"
 					android:title="@string/menu_tools_background_align"
 				/>
@@ -187,6 +191,10 @@
 					android:id="@+id/menu_tools_background_properties"
 					android:title="@string/menu_tools_background_properties"
 				/>
+				<item
+                    android:id="@+id/menu_tools_update_imagery_configuration"
+                    android:title="@string/menu_tools_update_imagery_configuration"
+                />
 				<item
         			android:id="@+id/tag_menu_reset_address_prediction"
         			app:showAsAction="never"

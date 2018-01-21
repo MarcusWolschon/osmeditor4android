@@ -1,4 +1,3 @@
-// Created by plusminus on 21:46:22 - 25.09.2008
 package de.blau.android.views.util;
 
 import java.util.Collections;
@@ -34,6 +33,7 @@ import de.blau.android.services.util.MapTile;
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
+ * Created by plusminus on 21:46:22 - 25.09.2008
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  * 
@@ -211,36 +211,43 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
      *            all zooms
      */
     public void flushQueue(String rendererId, int zoomLevel) {
-        try {
-            mTileService.flushQueue(rendererId, zoomLevel);
-            // remove the same from pending
+        if (mTileService != null) {
+            try {
+                mTileService.flushQueue(rendererId, zoomLevel);
+                // remove the same from pending
 
-            Set<String> keys;
-            synchronized (pending) {
-                keys = new HashSet<>(pending.keySet());
-            }
-            if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
-                String id = Integer.toString(zoomLevel) + rendererId;
-                for (String key : keys) {
-                    if (key.startsWith(id)) {
-                        pending.remove(key);
+                Set<String> keys;
+                synchronized (pending) {
+                    keys = new HashSet<>(pending.keySet());
+                }
+                if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
+                    String id = Integer.toString(zoomLevel) + rendererId;
+                    for (String key : keys) {
+                        if (key.startsWith(id)) {
+                            pending.remove(key);
+                        }
+                    }
+                } else {
+                    for (String key : keys) {
+                        if (key.contains(rendererId)) {
+                            pending.remove(key);
+                        }
                     }
                 }
-            } else {
-                for (String key : keys) {
-                    if (key.contains(rendererId)) {
-                        pending.remove(key);
-                    }
-                }
+            } catch (RemoteException e) {
+                Log.e(DEBUG_TAG, "RemoteException in flushQUeue()", e);
+            } catch (Exception e) {
+                Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
             }
-        } catch (RemoteException e) {
-            Log.e(DEBUG_TAG, "RemoteException in flushQUeue()", e);
-        } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
         }
     }
 
-    public void flushCache(String rendererId) {
+    /**
+     * Flush the tile cache for a specific provider
+     * 
+     * @param rendererId the provider to flush or if null all
+     */
+    public void flushCache(@Nullable String rendererId) {
         try {
             mTileService.flushCache(rendererId);
         } catch (RemoteException e) {
@@ -249,6 +256,19 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             Log.e(DEBUG_TAG, "Exception in flushCache()", e);
         }
         mTileCache.clear(); // zap everything in in memory cache
+    }
+    
+    /**
+     * Tell the tile provider service to reread the database of TileLayerServers
+     */
+    public void update() {
+        try {
+            mTileService.update();
+        } catch (RemoteException e) {
+            Log.e(DEBUG_TAG, "RemoteException in update()", e);
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, "Exception in in update()", e);
+        }
     }
 
     // ===========================================================
@@ -312,8 +332,9 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             if (reason == MapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting
                                                               // the proper one
-                TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, false);
+                TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, true);
                 if (zoomLevel < Math.max(0, osmts.getMinZoomLevel() - 1)) {
+                    Log.e(DEBUG_TAG, "MapTile download setting notile");
                     try {
                         mTileCache.putTile(t, mNoTilesTile, false, 0);
                     } catch (StorageException e) {
@@ -323,9 +344,6 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
                 }
             }
             pending.remove(t.toString());
-            // if (DEBUGMODE) {
-            // Log.e(DEBUGTAG, "MapTile download error " + t.toString());
-            // }
             // don't send when we fail mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
         }
     };

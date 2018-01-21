@@ -42,6 +42,7 @@ import com.mapbox.services.commons.geojson.FeatureCollection;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -56,8 +57,11 @@ import android.util.Base64;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
+import de.blau.android.contract.Urls;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
@@ -66,6 +70,7 @@ import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.views.layers.MapTilesLayer;
 
 /**
  * The OpenStreetMapRendererInfo stores information about available tile servers.
@@ -78,24 +83,29 @@ import de.blau.android.util.SavingHelper;
  *
  */
 public class TileLayerServer {
-    private static final String DEBUG_TAG         = "OpenStreetMapTileServer";
-    private static final int    DEFAULT_TILE_SIZE = 256;
-    public static final String  LAYER_MAPNIK      = "MAPNIK";
-    public static final String  LAYER_NONE        = "NONE";
-    public static final String  LAYER_NOOVERLAY    = "NOOVERLAY";
+    static final String         EPSG_900913     = "EPSG:900913";
+    static final String         EPSG_3857       = "EPSG:3857";
+    static final String         TYPE_BING       = "bing";
+    static final String         TYPE_TMS        = "tms";
+    static final String         TYPE_WMS        = "wms";
+    static final String         TYPE_SCANEX     = "scanex";
+    private static final String DEBUG_TAG       = "OpenStreetMapTileServer";
+    public static final String  LAYER_MAPNIK    = "MAPNIK";
+    public static final String  LAYER_NONE      = "NONE";
+    public static final String  LAYER_NOOVERLAY = "NOOVERLAY";
 
     /**
      * A tile layer provide has some attribution text, and one or more coverage areas.
      * 
      * @author Andrew Gregory
      */
-    private static class Provider {
+    static class Provider {
         /**
          * A coverage area is a range of zooms and a bounding box.
          * 
          * @author Andrew Gregory
          */
-        private static class CoverageArea {
+        static class CoverageArea {
             /** Zoom and area of this coverage area. */
             private int         zoomMin;
             private int         zoomMax;
@@ -147,7 +157,7 @@ public class TileLayerServer {
                 bbox = new BoundingBox(left, bottom, right, top);
             }
 
-            public CoverageArea(int zoomMin, int zoomMax, BoundingBox bbox) {
+            public CoverageArea(int zoomMin, int zoomMax, @Nullable BoundingBox bbox) {
                 this.zoomMin = zoomMin;
                 this.zoomMax = zoomMax;
                 this.bbox = bbox;
@@ -164,19 +174,31 @@ public class TileLayerServer {
                 return (zoom >= zoomMin && zoom <= zoomMax && (this.bbox == null || this.bbox.intersects(area)));
             }
 
-            public boolean covers(BoundingBox area) {
+            public boolean covers(@NonNull BoundingBox area) {
                 return this.bbox == null || this.bbox.intersects(area);
             }
 
             public boolean covers(double lon, double lat) {
                 return this.bbox == null || this.bbox.isIn((int) (lon * 1E7d), (int) (lat * 1E7d));
             }
+
+            public int getMinZoomLevel() {
+                return zoomMin;
+            }
+
+            public int getMaxZoomLevel() {
+                return zoomMax;
+            }
+
+            public BoundingBox getBoundingBox() {
+                return bbox;
+            }
         }
 
         /** Attribution for this provider. */
-        private String                   attribution;
+        private String             attribution;
         /** Coverage area provided by this provider. */
-        private Collection<CoverageArea> coverageAreas = new ArrayList<>();
+        private List<CoverageArea> coverageAreas = new ArrayList<>();
 
         /**
          * Create a new Provider from XML data.
@@ -234,6 +256,15 @@ public class TileLayerServer {
         }
 
         /**
+         * Set the attribution for this provider
+         * 
+         * @param attribution the attribution string
+         */
+        public void setAttribution(String attribution) {
+            this.attribution = attribution;
+        }
+
+        /**
          * Test if the provider covers the given zoom and area.
          * 
          * @param zoom Zoom level to test.
@@ -241,6 +272,9 @@ public class TileLayerServer {
          * @return true if the provider has coverage of the given zoom and area.
          */
         public boolean covers(int zoom, BoundingBox area) {
+            if (coverageAreas.isEmpty()) {
+                return true;
+            }
             for (CoverageArea a : coverageAreas) {
                 if (a.covers(zoom, area)) {
                     return true;
@@ -284,7 +318,7 @@ public class TileLayerServer {
         }
 
         /**
-         * Get the CoverageArea for a location
+         * Get the highest zoom CoverageArea for a location
          * 
          * @param lon longitude
          * @param lat latitude
@@ -292,20 +326,20 @@ public class TileLayerServer {
          */
         @Nullable
         public CoverageArea getCoverageArea(double lon, double lat) {
-            if (coverageAreas.isEmpty()) {
-                return null;
-            }
             CoverageArea result = null;
-            for (CoverageArea a : coverageAreas) {
-                if (a.covers(lon, lat)) {
-                    if (result == null)
-                        result = a;
-                    else {
-                        if (a.zoomMax > result.zoomMax)
+            if (!coverageAreas.isEmpty()) {
+                for (CoverageArea a : coverageAreas) {
+                    if (a.covers(lon, lat)) {
+                        if (result == null) {
                             result = a;
+                        } else {
+                            if (a.zoomMax > result.zoomMax) {
+                                result = a;
+                            }
+                        }
                     }
+                    Log.d(DEBUG_TAG, "maxZoom " + a.zoomMax);
                 }
-                Log.d(DEBUG_TAG, "maxZoom " + a.zoomMax);
             }
             return result;
         }
@@ -314,44 +348,50 @@ public class TileLayerServer {
     private static final int PREFERENCE_DEFAULT = 0;
     private static final int PREFERENCE_BEST    = 10;
 
-    private static final int DEFAULT_MOX_OVERZOOM = 4;
+    public static final int DEFAULT_MIN_ZOOM     = 0;
+    public static final int DEFAULT_MAX_ZOOM     = 18;
+    public static final int DEFAULT_MAX_OVERZOOM = 4;
 
-    private static TileLayerServer cachedBackground = null;
-    private static TileLayerServer cachedOverlay    = null;
+    public static final int DEFAULT_TILE_SIZE = 256;
+    static final int        WMS_TILE_SIZE     = 512;
 
     // ===========================================================
     // Fields
     // ===========================================================
 
-    private Context              ctx;
-    private boolean              metadataLoaded;
-    private String               id;
-    private String               name;
-    private String               tileUrl;
-    private String               imageFilenameExtension;
-    private String               touUri;
-    private boolean              overlay;
-    private boolean              defaultLayer;
-    private int                  zoomLevelMin;
-    private int                  zoomLevelMax;
-    private int                  tileWidth;
-    private int                  tileHeight;
-    private String               proj;
-    private int                  preference;
-    private long                 startDate   = -1L;
-    private long                 endDate     = -1L;
-    private int                  maxOverZoom = DEFAULT_MOX_OVERZOOM; // currently hardwired
-    private String               logoUrl     = null;
-    private Drawable             brandLogo   = null;
-    private final Queue<String>  subdomains  = new LinkedList<>();
-    private int                  defaultAlpha;
-    private Collection<Provider> providers   = new ArrayList<>();
-    private Offset[]             offsets;
+    private Context             ctx;
+    private boolean             metadataLoaded;
+    private String              id;
+    private String              name;
+    private String              type;
+    private String              tileUrl;
+    private String              originalUrl;
+    private String              imageFilenameExtension;
+    private String              touUri;
+    private boolean             overlay;
+    private boolean             defaultLayer;
+    private int                 zoomLevelMin;
+    private int                 zoomLevelMax;
+    private int                 tileWidth;
+    private int                 tileHeight;
+    private String              proj;
+    private int                 preference;
+    private long                startDate    = -1L;
+    private long                endDate      = -1L;
+    private int                 maxOverZoom  = DEFAULT_MAX_OVERZOOM; // currently hardwired
+    private String              logoUrl      = null;
+    private Bitmap              logoBitmap   = null;
+    private Drawable            logoDrawable = null;
+    private final Queue<String> subdomains   = new LinkedList<>();
+    private int                 defaultAlpha;
+    private List<Provider>      providers    = new ArrayList<>();
+    private Offset[]            offsets;
 
-    private static final HashMap<String, TileLayerServer> backgroundServerList = new HashMap<>();
-    private static HashMap<String, TileLayerServer>       overlayServerList    = new HashMap<>();
-    private static boolean                                ready                = false;
-    private static List<String>                           imageryBlacklist     = null;
+    private static Map<String, TileLayerServer> backgroundServerList = null;
+    private static Map<String, TileLayerServer> overlayServerList    = null;
+    private static Object                       serverListLock       = new Object();
+    private static boolean                      ready                = false;
+    private static List<String>                 imageryBlacklist     = null;
 
     private static Map<String, Drawable> logoCache = new HashMap<>();
     private static final Drawable        NOLOGO    = new ColorDrawable();
@@ -394,10 +434,10 @@ public class TileLayerServer {
                         if (brandLogoUri.startsWith("@drawable/")) {
                             // internal URL
                             int resid = r.getIdentifier(brandLogoUri.substring(10), "drawable", "de.blau.android");
-                            brandLogo = ContextCompat.getDrawable(ctx, resid);
+                            logoDrawable = ContextCompat.getDrawable(ctx, resid);
                         } else {
                             // assume Internet URL
-                            brandLogo = getLogoFromUrl(brandLogoUri);
+                            logoDrawable = getLogoFromUrl(brandLogoUri);
                         }
                     }
                     if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
@@ -516,8 +556,11 @@ public class TileLayerServer {
      * @param provider a Provider object containing detailed provider information
      * @param termsOfUseUrl a url pointing to terms of use
      * @param icon string containing the logo data, an url or a Android resource name
+     * @param logoUrl if not null contains an URL for the logo
+     * @param logoBytes if not null contains the bytes of a Bitmap
      * @param zoomLevelMin minimum supported zoom level
      * @param zoomLevelMax maximum supported room level
+     * @param maxOverZoom maximum overzoom to allow
      * @param tileWidth width of the tiles in pixels
      * @param tileHeight height of the tiles in pixels
      * @param proj supported projection for WMS servers
@@ -526,17 +569,22 @@ public class TileLayerServer {
      * @param endDate end date as a ms since epoch value, -1 if not available
      * @param async run loadInfo in a AsyncTask needed for main process
      */
-    private TileLayerServer(final Context ctx, final String id, final String name, final String url, final String type, final boolean overlay,
-            final boolean defaultLayer, final Provider provider, final String termsOfUseUrl, final String icon, final int zoomLevelMin, final int zoomLevelMax,
-            final int tileWidth, final int tileHeight, final String proj, final int preference, final long startDate, final long endDate, boolean async) {
+    TileLayerServer(final Context ctx, final String id, final String name, final String url, final String type, final boolean overlay,
+            final boolean defaultLayer, final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl, byte[] logoBytes,
+            final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth, final int tileHeight, final String proj, final int preference,
+            final long startDate, final long endDate, boolean async) {
+
         this.ctx = ctx;
         this.id = id;
         this.name = name;
+        this.type = type;
         tileUrl = url;
+        originalUrl = url;
         this.overlay = overlay;
         this.defaultLayer = defaultLayer;
         this.zoomLevelMin = zoomLevelMin;
         this.zoomLevelMax = zoomLevelMax;
+        this.maxOverZoom = maxOverZoom;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.proj = proj;
@@ -575,17 +623,18 @@ public class TileLayerServer {
             String[] splitString = icon.split(",", 2);
             if (splitString.length == 2 && "data:image/png;base64".equals(splitString[0])) {
                 byte[] iconData = Base64.decode(splitString[1], 0);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(iconData, 0, iconData.length);
-                brandLogo = scaledBitmap(bitmap);
+                logoBitmap = BitmapFactory.decodeByteArray(iconData, 0, iconData.length);
             } else if (icon.startsWith("http")) {
-                logoUrl = icon;
+                this.logoUrl = icon;
             }
+        } else if (logoUrl != null) {
+            this.logoUrl = logoUrl;
+        } else if (logoBytes != null) {
+            logoBitmap = BitmapFactory.decodeByteArray(logoBytes, 0, logoBytes.length);
         }
 
         // TODO think of a elegant way to do this
-        if (type.equals("bing")) { // hopelessly hardwired
-            if (backgroundServerList.containsKey(this.id))
-                return; // awful hack to avoid calling loadInfo more than once in this process
+        if (type.equals(TYPE_BING)) { // hopelessly hardwired
             Log.d(DEBUG_TAG, "bing url " + tileUrl);
             metadataLoaded = false;
 
@@ -594,7 +643,12 @@ public class TileLayerServer {
                     @Override
                     protected Void doInBackground(String... params) {
                         loadInfo(params[0]);
+                        Log.i(DEBUG_TAG, "Meta-data loaded for layer " + getId());
                         return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
                     }
                 }.execute(tileUrl);
             } else
@@ -607,8 +661,9 @@ public class TileLayerServer {
         }
 
         int extPos = tileUrl.lastIndexOf('.');
-        if (extPos >= 0)
+        if (extPos >= 0) {
             imageFilenameExtension = tileUrl.substring(extPos);
+        }
         // extract switch values
         final String SWITCH_START = "{switch:";
         int switchPos = tileUrl.indexOf(SWITCH_START);
@@ -639,11 +694,14 @@ public class TileLayerServer {
      * Parse a geojson format InputStream for imagery configs and add them to backgroundServerList or overlayServerList
      * 
      * @param ctx android context
+     * @param source from which source this config is
+     * @param writeableDb SQLiteDatabase
      * @param is InputStream to parse
      * @param async obtain meta data async (bing only)
      * @throws IOException
      */
-    public static void parseImageryFile(@NonNull Context ctx, @NonNull InputStream is, final boolean async) throws IOException {
+    public static void parseImageryFile(@NonNull Context ctx, @NonNull SQLiteDatabase writeableDb, @NonNull String source, @NonNull InputStream is,
+            final boolean async) throws IOException {
         BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -654,18 +712,12 @@ public class TileLayerServer {
         for (Feature f : fc.getFeatures()) {
             TileLayerServer osmts = geojsonToServer(ctx, f, async);
             if (osmts != null) {
-                if (osmts.overlay && !overlayServerList.containsKey(osmts.id)) {
-                    // Log.d("OpenStreetMapTileServer","Adding overlay " + osmts.overlay + " " + osmts.toString());
-                    overlayServerList.put(osmts.id, osmts);
-                } else if (!backgroundServerList.containsKey(osmts.id)) {
-                    // Log.d("OpenStreetMapTileServer","Adding background " + osmts.overlay + " " +
-                    // osmts.toString());
-                    backgroundServerList.put(osmts.id, osmts);
-                }
+                TileLayerDatabase.addLayer(writeableDb, source, osmts);
             } else {
-                Log.e(DEBUG_TAG, "Imagery file couldn't be parsed");
+                Log.w(DEBUG_TAG, "Imagery layer config couldn't be parsed/unsupported");
             }
         }
+        TileLayerDatabase.updateSource(writeableDb, source, System.currentTimeMillis());
     }
 
     /**
@@ -735,8 +787,8 @@ public class TileLayerServer {
             JsonObject properties = f.getProperties();
 
             List<BoundingBox> boxes = GeoContext.getBoundingBoxes(f);
-            int minZoom = getJosnInteger(properties, "min_zoom", 0);
-            int maxZoom = getJosnInteger(properties, "max_zoom", 18);
+            int minZoom = getJosnInteger(properties, "min_zoom", DEFAULT_MIN_ZOOM);
+            int maxZoom = getJosnInteger(properties, "max_zoom", DEFAULT_MAX_ZOOM);
             Provider provider = new Provider();
             if (boxes.isEmpty()) {
                 provider.addCoverageArea(new Provider.CoverageArea(minZoom, maxZoom, null));
@@ -758,7 +810,7 @@ public class TileLayerServer {
             String termsOfUseUrl = null;
             if (attribution != null) {
                 termsOfUseUrl = getJosnString(attribution, "url");
-                provider.attribution = getJosnString(attribution, "text");
+                provider.setAttribution(getJosnString(attribution, "text"));
             }
             String icon = getJosnString(properties, "icon");
             long startDate = -1L;
@@ -777,21 +829,24 @@ public class TileLayerServer {
             if (projections != null) {
                 for (JsonElement p : projections) {
                     String supportedProj = p.getAsString();
-                    if ("EPSG:3857".equals(supportedProj) || "EPSG:900913".equals(supportedProj)) {
+                    if (EPSG_3857.equals(supportedProj) || EPSG_900913.equals(supportedProj)) {
                         proj = supportedProj;
-                        tileWidth = 512;
-                        tileHeight = 512;
+                        tileWidth = WMS_TILE_SIZE;
+                        tileHeight = WMS_TILE_SIZE;
                         break;
                     }
                 }
             }
 
             if (type == null || url == null || ("wms".equals(type) && proj == null)) {
-                Log.e(DEBUG_TAG, "name " + name + " id " + id + " type " + type + " url " + url);
+                Log.w(DEBUG_TAG, "name " + name + " id " + id + " type " + type + " url " + url);
+                if ("wms".equals(type)) {
+                    Log.w(DEBUG_TAG, "projections: " + projections);
+                }
                 return null;
             }
-            osmts = new TileLayerServer(ctx, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl, icon, minZoom, maxZoom, tileWidth, tileHeight,
-                    proj, preference, startDate, endDate, async);
+            osmts = new TileLayerServer(ctx, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
+                    DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, async);
         } catch (UnsupportedOperationException uoex) {
             Log.e(DEBUG_TAG, "Got " + uoex.getMessage());
         }
@@ -810,71 +865,217 @@ public class TileLayerServer {
      * @return the selected TileLayerServer
      */
     @Nullable
-    public static synchronized TileLayerServer get(@NonNull final Context ctx, @NonNull final String id, final boolean async) {
-        synchronized (backgroundServerList) {
+    public static TileLayerServer get(@NonNull final Context ctx, @NonNull final String id, final boolean async) {
+        synchronized (serverListLock) {
             if (!ready) {
-                Log.d(DEBUG_TAG, "Parsing configuration files");
-
-                final String FILE_NAME_USER_IMAGERY = "imagery.geojson";
-                final String FILE_NAME_VESPUCCI_IMAGERY = "imagery_vespucci.geojson";
-
-                File sdcard = Environment.getExternalStorageDirectory();
-                String userImagery = sdcard.getPath() + "/" + Paths.DIRECTORY_PATH_VESPUCCI + "/" + FILE_NAME_USER_IMAGERY;
-                Log.i(DEBUG_TAG, "Trying to read custom imagery from " + userImagery);
-                try {
-                    InputStream is = new FileInputStream(new File(userImagery));
-                    parseImageryFile(ctx, is, async);
-                } catch (IOException e) {
-                    // Don't care if reading fails
-                }
-
-                AssetManager assetManager = ctx.getAssets();
-                // entries in earlier files will not be overwritten by later ones
-                String[] imageryFiles = { FILE_NAME_VESPUCCI_IMAGERY, FILE_NAME_USER_IMAGERY };
-                for (String fn : imageryFiles) {
-                    try {
-                        InputStream is = assetManager.open(fn);
-                        parseImageryFile(ctx, is, async);
-                    } catch (IOException e) {
-                        Log.e(DEBUG_TAG, "reading conf files got " + e.getMessage());
-                    }
-                }
-                if (imageryBlacklist != null) {
+                TileLayerDatabase db = new TileLayerDatabase(ctx);
+                getLists(ctx, db, async);
+                db.close();
+                if (imageryBlacklist != null && async) {
                     applyBlacklist(imageryBlacklist);
                 }
                 ready = true;
             }
         }
-        
+
         if (id == null || "".equals(id)) { // empty id
             return backgroundServerList.get(LAYER_NONE); // nothing works for all layers :-)
         }
-        
-        if (cachedBackground != null && cachedBackground.id.equals(id)) {
-            return cachedBackground;
-        } else if (cachedOverlay != null && cachedOverlay.id.equals(id)) {
-            return cachedOverlay;
+
+        TileLayerServer overlay = overlayServerList.get(id);
+        if (overlay != null) {
+            return overlay;
         } else {
-            TileLayerServer tempOSMTS = overlayServerList.get(id);
-            if (tempOSMTS != null) {
-                if (cachedOverlay == null || !cachedOverlay.id.equals(id)) {
-                    cachedOverlay = tempOSMTS;
-                    if (cachedOverlay == null || !cachedOverlay.metadataLoaded) {
-                        cachedOverlay = overlayServerList.get(LAYER_NOOVERLAY);
-                    }
-                    Log.d(DEBUG_TAG, "cachedOverlay " + (cachedOverlay == null ? "null" : cachedOverlay.id));
-                }
-                return cachedOverlay;
-            } else {
-                if (cachedBackground == null || !cachedBackground.id.equals(id)) {
-                    cachedBackground = backgroundServerList.get(id);
-                    if (cachedBackground == null || !cachedBackground.metadataLoaded) {
-                        cachedBackground = backgroundServerList.get(LAYER_MAPNIK);
-                    }
-                    Log.d(DEBUG_TAG, "requested id " + id + " cached " + (cachedBackground == null ? "null" : cachedBackground.id));
-                }
-                return cachedBackground;
+            TileLayerServer background = backgroundServerList.get(id);
+            if (background != null) {
+                return background;
             }
+        }
+        synchronized (serverListLock) {
+            // layer couldn't be found in memory, check database
+            Log.d(DEBUG_TAG, "Getting layer " + id + " from database");
+            TileLayerDatabase db = new TileLayerDatabase(ctx);
+            TileLayerServer layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
+            db.close();
+            if (layer != null) {
+                if (layer.isOverlay()) {
+                    overlayServerList.put(id, layer);
+                } else {
+                    backgroundServerList.put(id, layer);
+                }
+                return layer;
+            }
+        }
+        // catch all
+        return null;
+    }
+
+    /**
+     * Read a file from assets containing layer configurations and add them to the database
+     * 
+     * @param ctx Android Context
+     * @param writeableDb a writeable SQLiteDatabase
+     * @param newConfig set to true if we are updating an existing database
+     * @param async set this to true if running in the foreground or similar
+     */
+    public static void createOrUpdateFromAssetsSource(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb, boolean newConfig, final boolean async) {
+        Log.d(DEBUG_TAG, "DB not initalized, parsing configuration files");
+        AssetManager assetManager = ctx.getAssets();
+        long start = System.currentTimeMillis();
+        try {
+            writeableDb.beginTransaction();
+            // entries in earlier files will not be overwritten by later ones
+            if (newConfig) {
+                // delete old
+                TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
+                TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
+            }
+            String[] imageryFiles = { Files.FILE_NAME_VESPUCCI_IMAGERY, Files.FILE_NAME_USER_IMAGERY };
+            for (String fn : imageryFiles) {
+                try {
+                    InputStream is = assetManager.open(fn);
+                    parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, async);
+                } catch (IOException e) {
+                    Log.e(DEBUG_TAG, "reading conf file " + fn + " got " + e.getMessage());
+                    throw e;
+                }
+            }
+            writeableDb.setTransactionSuccessful();
+        } catch (IOException e) {
+            // already logged
+        } finally {
+            writeableDb.endTransaction();
+        }
+        Log.d(DEBUG_TAG, " elapsed time " + (System.currentTimeMillis() - start) / 1000);
+    }
+
+    /**
+     * Read a file from the Vespucci directory containing custom layer configurations and add them to the database
+     * 
+     * @param ctx Android Context
+     * @param writeableDb a writeable SQLiteDatabase
+     * @param async set this to true if running in the foreground or similar
+     */
+    public static void createOrUpdateCustomSource(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb, final boolean async) {
+        long lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
+        long lastUpdateTime = 0L;
+
+        File sdcard = Environment.getExternalStorageDirectory();
+        String userImagery = sdcard.getPath() + "/" + Paths.DIRECTORY_PATH_VESPUCCI + "/" + Files.FILE_NAME_USER_IMAGERY;
+        Log.i(DEBUG_TAG, "Trying to read custom imagery from " + userImagery);
+        try {
+            File userImageryFile = new File(userImagery);
+            lastUpdateTime = userImageryFile.lastModified();
+            boolean newConfig = lastUpdateTime > lastDatabaseUpdate;
+            if (lastDatabaseUpdate == 0 || newConfig) {
+                try {
+                    writeableDb.beginTransaction();
+                    if (newConfig) {
+                        // delete old
+                        TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
+                        TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
+                    }
+                    InputStream is = new FileInputStream(new File(userImagery));
+                    parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_CUSTOM, is, async);
+                    writeableDb.setTransactionSuccessful();
+                } finally {
+                    writeableDb.endTransaction();
+                }
+            }
+        } catch (IOException e) {
+            Log.i(DEBUG_TAG, "no custom conf files found");
+        }
+    }
+
+    /**
+     * Read a file from the editor layer index containing layer configurations and update the database with them
+     * 
+     * @param ctx Android Context
+     * @param writeableDb a writeable SQLiteDatabase
+     */
+    public static void updateFromEli(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb) {
+        Log.d(DEBUG_TAG, "Uüdating from editor-layer-index");
+        AssetManager assetManager = ctx.getAssets();
+        try {
+            writeableDb.beginTransaction();
+            // delete old
+            TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
+            TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
+
+            // still need to read out base config first
+            try {
+                InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY);
+                parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, true);
+            } catch (IOException e) {
+                Log.e(DEBUG_TAG, "reading conf files got " + e.getMessage());
+            }
+            InputStream is = null;
+            try {
+                URLConnection conn = new URL(Urls.ELI).openConnection();
+                conn.setRequestProperty("User-Agent", App.getUserAgent());
+                is = conn.getInputStream();
+                parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, true);
+                writeableDb.setTransactionSuccessful();
+                getListsLocked(ctx, writeableDb, true);
+                MapTilesLayer layer = App.getLogic().getMap().getBackgroundLayer();
+                if (layer != null) {
+                    layer.getTileProvider().update();
+                }
+            } catch (IOException e) {
+                Log.e(DEBUG_TAG, "downloading from github got " + e.getMessage());
+            } finally {
+                SavingHelper.close(is);
+            }
+        } finally {
+            writeableDb.endTransaction();
+        }
+    }
+
+    /**
+     * Set the in memory lists from the database
+     * 
+     * @param ctx Android Context
+     * @param db an instance of TileLayerDatabase
+     * @param populate flag that indicates if we should fully populate the lists or not
+     */
+    private static void getLists(@NonNull final Context ctx, @NonNull TileLayerDatabase db, boolean populate) {
+        getLists(ctx, db.getReadableDatabase(), populate);
+    }
+
+    /**
+     * Set the in memory lists from the database
+     * 
+     * @param ctx Android Context
+     * @param db the SQLiteDatabase
+     * @param populate flag that indicates if we should fully populate the lists or not
+     */
+    private static void getLists(@NonNull final Context ctx, @NonNull SQLiteDatabase db, boolean populate) {
+        if (populate) {
+            overlayServerList = TileLayerDatabase.getAllLayers(ctx, db, true);
+            backgroundServerList = TileLayerDatabase.getAllLayers(ctx, db, false);
+        } else {
+            overlayServerList = new HashMap<String, TileLayerServer>();
+            backgroundServerList = new HashMap<String, TileLayerServer>();
+            // these three layers have to exist or else we are borked
+            TileLayerServer overlay = TileLayerDatabase.getLayer(ctx, db, LAYER_NOOVERLAY);
+            overlayServerList.put(LAYER_NOOVERLAY, overlay);
+            TileLayerServer background = TileLayerDatabase.getLayer(ctx, db, LAYER_NONE);
+            overlayServerList.put(LAYER_NONE, background);
+            background = TileLayerDatabase.getLayer(ctx, db, LAYER_MAPNIK);
+            overlayServerList.put(LAYER_MAPNIK, background);
+        }
+    }
+
+    /**
+     * Set the in memory lists from the database, locks against concurrent change
+     * 
+     * @param ctx Android Context
+     * @param db the SQLiteDatabase
+     * @param populate flag that indicates if we should fully populate the lists or not
+     */
+    public static void getListsLocked(@NonNull final Context ctx, @NonNull SQLiteDatabase db, boolean populate) {
+        synchronized (serverListLock) {
+            getLists(ctx, db, populate);
         }
     }
 
@@ -909,6 +1110,11 @@ public class TileLayerServer {
     // Methods
     // ===========================================================
 
+    /**
+     * Check if the meta data for this layer is loaded
+     * 
+     * @return true if the meta data is loaded
+     */
     public boolean isMetadataLoaded() {
         return metadataLoaded;
     }
@@ -997,34 +1203,39 @@ public class TileLayerServer {
      * 
      * @return The branding logo, or null if there is none.
      */
-    public Drawable getBrandLogo() {
+    public Drawable getLogoDrawable() {
         checkMetaData();
         /**
          * We have an url but haven't got the logo yet retrieve it now for use on next redraw
          */
-        if (brandLogo == null && logoUrl != null) {
-            new AsyncTask<String, Void, Void>() {
-                @Override
-                protected Void doInBackground(String... params) {
-                    Drawable cached = logoCache.get(logoUrl);
-                    if (cached != NOLOGO) {
-                        if (cached != null) {
-                            brandLogo = cached;
-                        } else {
-                            brandLogo = getLogoFromUrl(logoUrl);
-                            if (brandLogo == null) {
-                                logoCache.put(logoUrl, NOLOGO);
+        if (logoDrawable == null && (logoUrl != null || logoBitmap != null)) {
+            if (logoBitmap != null) {
+                logoDrawable = scaledBitmap(logoBitmap);
+            } else {
+                new AsyncTask<String, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(String... params) {
+                        Drawable cached = logoCache.get(logoUrl);
+                        if (cached != NOLOGO) {
+                            if (cached != null) {
+                                logoDrawable = cached;
                             } else {
-                                logoCache.put(logoUrl, brandLogo);
+                                Log.d(DEBUG_TAG, "logoUrl " + logoUrl);
+                                logoDrawable = getLogoFromUrl(logoUrl);
+                                if (logoDrawable == null) {
+                                    logoCache.put(logoUrl, NOLOGO);
+                                } else {
+                                    logoCache.put(logoUrl, logoDrawable);
+                                }
                             }
+                            logoUrl = null;
                         }
-                        logoUrl = null;
+                        return null;
                     }
-                    return null;
-                }
-            }.execute(logoUrl);
+                }.execute(logoUrl);
+            }
         }
-        return brandLogo;
+        return logoDrawable;
     }
 
     /**
@@ -1126,12 +1337,22 @@ public class TileLayerServer {
     }
 
     /**
-     * Return the name for this imagery
+     * Return the name for this layer
      * 
-     * @return
+     * @return the current name
      */
+    @NonNull
     public String getName() {
         return name;
+    }
+
+    /**
+     * Set the name for this layer
+     * 
+     * @param name the name to use
+     */
+    public void setName(@NonNull String name) {
+        this.name = name;
     }
 
     /**
@@ -1146,8 +1367,7 @@ public class TileLayerServer {
      * @return list of tile servers
      */
     @NonNull
-    private static List<TileLayerServer> getServersFilteredSorted(boolean filtered, @NonNull HashMap<String, TileLayerServer> servers,
-            @Nullable BoundingBox box) {
+    private static List<TileLayerServer> getServersFilteredSorted(boolean filtered, @NonNull Map<String, TileLayerServer> servers, @Nullable BoundingBox box) {
         TileLayerServer noneLayer = null;
         List<TileLayerServer> list = new ArrayList<>();
         for (TileLayerServer osmts : servers.values()) {
@@ -1164,7 +1384,8 @@ public class TileLayerServer {
             // add the rest now
             list.add(osmts);
         }
-        // sort according to preference and end date, in the future we might take bb size in to account
+        // sort according to preference, end date and default layer flag in the future we might take bb size in to
+        // account
         Collections.sort(list, new Comparator<TileLayerServer>() {
             @Override
             public int compare(TileLayerServer t1, TileLayerServer t2) {
@@ -1174,11 +1395,13 @@ public class TileLayerServer {
                     return -1;
                 }
                 if (t1.endDate == t2.endDate) {
+                    if (t1.defaultLayer != t2.defaultLayer) {
+                        return t2.defaultLayer ? 1 : -1;
+                    }
                     return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
                 } else {
-                    return t1.endDate != -1 && (t1.endDate > t2.endDate || t2.endDate == -1) ? -1 : 1; // assumption no
-                                                                                                       // end date ==
-                                                                                                       // ongoing
+                    // assumption no end date == ongoing
+                    return t1.endDate != -1 && (t1.endDate > t2.endDate || t2.endDate == -1) ? -1 : 1;
                 }
             }
         });
@@ -1382,15 +1605,16 @@ public class TileLayerServer {
         return result;
     }
 
-    private static final int BASE       = 0;
-    private static final int PARAM      = 1;
+    private static final int BASE  = 0;
+    private static final int PARAM = 1;
+
     /**
      * Allocate the following just once
      */
-    StringBuilder            builder    = new StringBuilder(100); // 100 is just an estimate to avoid re-allocating
-    StringBuilder            param      = new StringBuilder();
-    StringBuilder            quadKey    = new StringBuilder();
-    StringBuilder            boxBuilder = new StringBuilder();
+    StringBuilder builder    = new StringBuilder(100); // 100 is just an estimate to avoid re-allocating
+    StringBuilder param      = new StringBuilder();
+    StringBuilder quadKey    = new StringBuilder();
+    StringBuilder boxBuilder = new StringBuilder();
 
     /**
      * Get the URL that can be used to obtain the image of the given tile.
@@ -1536,7 +1760,7 @@ public class TileLayerServer {
 
         // predefined layers
         if (id.equals("BING")) {
-            return "bing";
+            return TYPE_BING;
         }
 
         if (tileUrl.contains("irs.gis-lab.info")) {
@@ -1616,9 +1840,6 @@ public class TileLayerServer {
                 Matcher m = p.matcher(osmts.tileUrl);
                 if (m.find()) {
                     backgroundServerList.remove(key);
-                    if (cachedBackground != null && cachedBackground.equals(osmts)) {
-                        cachedBackground = null;
-                    }
                     Log.d(DEBUG_TAG, "Removed background tile layer " + key);
                 }
             }
@@ -1627,9 +1848,6 @@ public class TileLayerServer {
                 Matcher m = p.matcher(osmts.tileUrl);
                 if (m.find()) {
                     overlayServerList.remove(key);
-                    if (cachedOverlay != null && cachedOverlay.equals(osmts)) {
-                        cachedOverlay = null;
-                    }
                     Log.d(DEBUG_TAG, "Removed overlay tile layer " + key);
                 }
             }
@@ -1658,8 +1876,147 @@ public class TileLayerServer {
         return endDate;
     }
 
+    /**
+     * Return the attribution string of the 1st provider
+     * 
+     * Assumption is that in the simple case there is only one provider
+     * 
+     * @return a string containing attribution information or null if none
+     */
+    @Nullable
+    public String getAttribution() {
+        if (!providers.isEmpty()) {
+            return providers.get(0).getAttribution();
+        }
+        return null;
+    }
+
+    /**
+     * Return the coverage areas of the 1st provider
+     * 
+     * Assumption is that in the simple case there is only one provider
+     * 
+     * @return a List of Provider.CoverageArea
+     */
+    @Nullable
+    public List<Provider.CoverageArea> getCoverage() {
+        if (!providers.isEmpty()) {
+            return providers.get(0).coverageAreas;
+        }
+        return null;
+    }
+
+    /**
+     * Check the overlay flag
+     * 
+     * @return true if this is an overlay
+     */
+    public boolean isOverlay() {
+        return overlay;
+    }
+
+    /**
+     * Set the overlay flag
+     * 
+     * @param overlay if true the layer will be considered for overlaying
+     */
+    void setOverlay(boolean overlay) {
+        this.overlay = overlay;
+    }
+
+    public boolean isDefaultLayer() {
+        return defaultLayer;
+    }
+
+    /**
+     * Return the projection that should be used if this is a WMS server
+     * 
+     * @return the projection as a String or null if not a WMS server
+     */
+    @Nullable
+    public String getProj() {
+        return proj;
+    }
+
+    /**
+     * Get the preference/ranking for this layer
+     * 
+     * @return a numeric indication of preference, higher is better, 0 the default
+     */
+    public int getPreference() {
+        return preference;
+    }
+
+    /**
+     * Get the url for the logo
+     * 
+     * @return a string with the url or null if none exists
+     */
+    @Nullable
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    /**
+     * Get the bitmap for the logo
+     * 
+     * @return a Bitmap or null if none exists
+     */
+    @Nullable
+    public Bitmap getLogo() {
+        return logoBitmap;
+    }
+
+    /**
+     * Get the processed tile url
+     * 
+     * @return the processed (non-tile specific replacement made) tile url
+     */
+    @NonNull
+    public String getTileUrl() {
+        return tileUrl;
+    }
+
+    /**
+     * ¨ Get the tile url
+     * 
+     * @return the tile url
+     */
+    @NonNull
+    public String getOriginalTileUrl() {
+        return originalUrl;
+    }
+
+    /**
+     * Set the unprocessed url
+     * 
+     * @param originalUrl the unprocessed url
+     */
+    void setOriginalTileUrl(String originalUrl) {
+        this.originalUrl = originalUrl;
+    }
+
     @Override
     public String toString() {
         return "ID: " + id + " Name " + name + " maxZoom " + zoomLevelMax + " Tile URL " + tileUrl;
+    }
+
+    /**
+     * Get the type "tms", "wms", "bing", "scanex" of the layer
+     * 
+     * @return the layer type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Set provider list to a single Provider
+     * 
+     * @param provider Provider to use
+     */
+    public void setProvider(Provider provider) {
+        providers.clear();
+        providers.add(provider);
     }
 }

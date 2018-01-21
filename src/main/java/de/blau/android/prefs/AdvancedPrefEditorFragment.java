@@ -13,6 +13,7 @@ import ch.poole.android.numberpickerpreference.NumberPickerPreferenceFragment;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
+import de.blau.android.resources.TileLayerDatabaseUI;
 import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
@@ -26,6 +27,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
     private String    KEY_PREFLOGIN;
     private String    KEY_PREFGEOCODER;
     private String    KEY_PREFGPSSOURCE;
+    private String    KEY_CUSTOM_LAYERS;
 
     @Override
     public void onCreatePreferences(Bundle arg0, String arg1) {
@@ -37,6 +39,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
         KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
         KEY_PREFGEOCODER = r.getString(R.string.config_geocoder_button_key);
         KEY_PREFGPSSOURCE = r.getString(R.string.config_gps_source_key);
+        KEY_CUSTOM_LAYERS = r.getString(R.string.config_customlayers_key);
         fixUpPrefs();
     }
 
@@ -63,6 +66,17 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
 
     /** Perform initialization of the advanced preference buttons (API/Presets) */
     private void fixUpPrefs() {
+
+        Preference customLayersPref = getPreferenceScreen().findPreference(KEY_CUSTOM_LAYERS);
+        customLayersPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Log.d(DEBUG_TAG, "onPreferenceClick custom layers");
+                TileLayerDatabaseUI ui = new TileLayerDatabaseUI();
+                ui.manageLayers(getContext());
+                return true;
+            }
+        });
 
         Preference presetPref = getPreferenceScreen().findPreference(KEY_PREFPRESET);
         presetPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

@@ -62,8 +62,8 @@ import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.validation.Validator;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.layers.MapTilesOverlayLayer;
 import de.blau.android.views.layers.MapTilesLayer;
+import de.blau.android.views.layers.MapTilesOverlayLayer;
 import de.blau.android.views.layers.MapViewLayer;
 
 /**
@@ -121,9 +121,9 @@ public class Map extends View implements IMapView {
      * 
      * @see #getOverlays()
      */
-    final List<MapViewLayer>        mOverlays       = Collections.synchronizedList(new ArrayList<MapViewLayer>());
-    MapTilesLayer                   backgroundLayer = null;
-    MapTilesOverlayLayer            overlayLayer    = null;
+    final List<MapViewLayer>          mOverlays       = Collections.synchronizedList(new ArrayList<MapViewLayer>());
+    MapTilesLayer                     backgroundLayer = null;
+    MapTilesOverlayLayer              overlayLayer    = null;
     de.blau.android.photos.MapOverlay photoLayer      = null;
     de.blau.android.tasks.MapOverlay  taskLayer       = null;
     de.blau.android.gpx.MapOverlay    gpxLayer        = null;
@@ -286,9 +286,10 @@ public class Map extends View implements IMapView {
     }
 
     /**
-     * Create the stack of layers 
+     * Create the stack of layers
      * 
      * Current the order is static
+     * 
      * @param ctx Android Context
      */
     public void createOverlays(Context ctx) {
@@ -300,7 +301,8 @@ public class Map extends View implements IMapView {
                     backgroundLayer = new MapTilesLayer(this, TileLayerServer.getDefault(ctx, true), null);
                     mOverlays.add(backgroundLayer);
                 } else {
-                    backgroundLayer = new MapTilesLayer(this, TileLayerServer.get(ctx, prefs.backgroundLayer(), true), null);
+                    TileLayerServer ts = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
+                    backgroundLayer = new MapTilesLayer(this, ts != null ? ts : TileLayerServer.getDefault(ctx, true), null);
                     mOverlays.add(backgroundLayer);
                     overlayLayer = new MapTilesOverlayLayer(this);
                     mOverlays.add(overlayLayer);
@@ -439,7 +441,7 @@ public class Map extends View implements IMapView {
         if (tmpDrawingEditMode == Mode.MODE_ALIGN_BACKGROUND) {
             paintZoomAndOffset(canvas);
         }
-        
+
         time = System.currentTimeMillis() - time;
 
         if (prefs.isStatsVisible()) {
@@ -1571,6 +1573,8 @@ public class Map extends View implements IMapView {
             final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
             if (backgroundLayer != null) {
                 backgroundLayer.setRendererInfo(backgroundTS);
+            } else {
+                Log.e(DEBUG_TAG, "background layer for " + prefs.backgroundLayer() + " is null");
             }
             final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
             if (overlayLayer != null) {
@@ -1628,8 +1632,8 @@ public class Map extends View implements IMapView {
     }
 
     /**
-     * You can add/remove/reorder your Overlays using the List of {@link MapViewLayer}. The first (index 0) Overlay
-     * gets drawn first, the one with the highest as the last one.
+     * You can add/remove/reorder your Overlays using the List of {@link MapViewLayer}. The first (index 0) Overlay gets
+     * drawn first, the one with the highest as the last one.
      */
     public List<MapViewLayer> getOverlays() {
         return mOverlays;
@@ -1651,8 +1655,9 @@ public class Map extends View implements IMapView {
      */
     private int calcZoomLevel(Canvas canvas) {
         final TileLayerServer s = getBackgroundLayer().getRendererInfo();
-        if (!s.isMetadataLoaded()) // protection on startup
+        if (s == null || !s.isMetadataLoaded()) {// protection on startup
             return 0;
+        }
 
         // Calculate lat/lon of view extents
         final double latBottom = getViewBox().getBottom() / 1E7; // GeoMath.yToLatE7(viewPort.height(), getViewBox(),
