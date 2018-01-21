@@ -780,15 +780,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 adapter = nameAdapters.getStreetNameAdapter(hasTagValues ? row.tagValues : null);
             } else if (isPlaceName(key, usedKeys)) {
                 adapter = nameAdapters.getPlaceNameAdapter(hasTagValues ? row.tagValues : null);
-            } else if (key.equals(Tags.KEY_NAME) && (names != null) && useNameSuggestions(usedKeys)) {
+            } else if (!hasTagValues && key.equals(Tags.KEY_NAME) && (names != null) && useNameSuggestions(usedKeys)) {
                 Log.d(DEBUG_TAG, "generate suggestions for name from name suggestion index");
-                ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(getKeyValueMapSingle(rowLayout, true))); // FIXME
+                List<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(getKeyValueMapSingle(rowLayout, true))); // FIXME
                 if (values != null && !values.isEmpty()) {
                     Collections.sort(values);
                     adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, values);
                 }
             } else {
-                HashMap<String, Integer> counter = new HashMap<>();
+                Map<String, Integer> counter = new HashMap<>();
                 ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
                 if (hasTagValues) {
                     for (String t : row.tagValues) {
@@ -801,11 +801,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                             counter.put(t, 1);
                         }
                     }
-                    ArrayList<String> keys = new ArrayList<>(counter.keySet());
+                    List<String> keys = new ArrayList<>(counter.keySet());
                     Collections.sort(keys);
                     for (String t : keys) {
-                        ValueWithCount v = new ValueWithCount(t, counter.get(t)); // FIXME determine
-                                                                                             // description in some way
+                        // FIXME determine description in some way
+                        ValueWithCount v = new ValueWithCount(t, counter.get(t));                                                   
                         adapter2.add(v);
                     }
                 }
@@ -813,7 +813,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     Collection<StringWithDescription> values = preset.getAutocompleteValues(key);
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + values + " based on " + preset.getName());
                     if (values != null && !values.isEmpty()) {
-                        ArrayList<StringWithDescription> result = new ArrayList<>(values);
+                        List<StringWithDescription> result = new ArrayList<>(values);
                         if (preset.sortIt(key)) {
                             Collections.sort(result);
                         }
