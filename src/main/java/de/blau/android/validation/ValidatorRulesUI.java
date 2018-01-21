@@ -42,8 +42,6 @@ public class ValidatorRulesUI {
      * it
      * 
      * @param context Android context
-     * @param manage if true the template editor will be started otherwise the template will replace the current OH
-     *            value
      */
     public void manageRulesetContents(@NonNull final Context context) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);

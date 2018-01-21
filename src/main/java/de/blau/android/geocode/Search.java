@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
 import android.text.Html;
-import android.text.Spannable;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;

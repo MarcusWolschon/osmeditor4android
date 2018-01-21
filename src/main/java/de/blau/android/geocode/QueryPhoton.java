@@ -28,14 +28,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.App;
-import de.blau.android.R;
-import de.blau.android.geocode.Query;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Snack;
 import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -117,7 +114,7 @@ class QueryPhoton extends Query {
         }
         return result;
     }
-    
+
     /**
      * Read a single Photon result
      * 

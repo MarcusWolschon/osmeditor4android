@@ -14,7 +14,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -128,11 +127,11 @@ public class BaseValidator implements Validator {
         boolean imperial = App.getGeoContext().imperial(w);
         if (imperial) {
             SortedMap<String, String> tags = w.getTags();
-            Set<String>keys = w.getTags().keySet();
-            for (String key:keys) {
+            Set<String> keys = w.getTags().keySet();
+            for (String key : keys) {
                 if (Tags.isSpeedKey(key) && !tags.get(key).endsWith(Tags.MPH)) {
-                   return result | Validator.IMPERIAL_UNITS;
-               }
+                    return result | Validator.IMPERIAL_UNITS;
+                }
             }
         }
         return result;
@@ -199,7 +198,7 @@ public class BaseValidator implements Validator {
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
             wayProblems.add(App.resources().getString(R.string.toast_unsurveyed_road));
         }
-        // 
+        //
         if ((w.getCachedProblems() & Validator.IMPERIAL_UNITS) != 0) {
             wayProblems.add(ctx.getString(R.string.toast_imperial_units));
         }

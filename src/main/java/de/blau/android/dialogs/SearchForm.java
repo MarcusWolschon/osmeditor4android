@@ -30,8 +30,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.geocode.Search;
-import de.blau.android.geocode.SearchItemSelectedCallback;
 import de.blau.android.geocode.Search.SearchResult;
+import de.blau.android.geocode.SearchItemSelectedCallback;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
@@ -49,14 +49,14 @@ public class SearchForm extends DialogFragment {
 
     private static final String TAG = "fragment_search_form";
 
-    private ViewBox                 bbox;
+    private ViewBox                    bbox;
     private SearchItemSelectedCallback callback;
 
     /**
      * Display a dialog asking for a search term and allowing selection of geocoers
      * 
      * @param activity the calling FragmentActivity
-     * @param bbox     a BoundingBox to restrict the query to if null the whole world is considered
+     * @param bbox a BoundingBox to restrict the query to if null the whole world is considered
      */
     static public void showDialog(@NonNull AppCompatActivity activity, @Nullable final ViewBox bbox) {
         dismissDialog(activity);
