@@ -51,6 +51,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -163,6 +164,7 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ZoomControls;
+import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.voice.Commands;
 import oauth.signpost.exception.OAuthException;
 
@@ -1873,20 +1875,25 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_tools_flush_background_tile_cache:
-            map.getBackgroundLayer().flushTileCache(this);
+            flushLayer(this, map.getBackgroundLayer());
             return true;
 
         case R.id.menu_tools_flush_overlay_tile_cache:
-            map.getOverlayLayer().flushTileCache(this);
+            flushLayer(this, map.getOverlayLayer());
             return true;
+
         case R.id.menu_tools_flush_all_tile_caches:
             Snack.barWarning(this, getString(R.string.toast_flus_all_caches), R.string.Yes, new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    map.getBackgroundLayer().flushTileCache(Main.this, null);
+                    MapTilesLayer backgroundLayer = map.getBackgroundLayer();
+                    if (backgroundLayer != null) {
+                        backgroundLayer.flushTileCache(Main.this, null);
+                    }
                 }
             });
             return true;
+
         case R.id.menu_tools_background_align:
             // protect against weird state
             Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT;
@@ -1898,6 +1905,7 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_tools_background_properties:
             BackgroundProperties.showDialog(this);
             return true;
+
         case R.id.menu_tools_update_imagery_configuration:
             new AsyncTask<Void, Void, Void>() {
                 TileLayerDatabase db = new TileLayerDatabase(Main.this);
@@ -1944,6 +1952,18 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         }
         return false;
+    }
+
+    /**
+     * flush a layers cache
+     * 
+     * @param activity calling activity if null no progress dialog will be displayed
+     * @param layer layer we want to flush the cache for
+     */
+    private static void flushLayer(@Nullable FragmentActivity activity, @Nullable MapTilesLayer layer) {
+        if (layer != null) {
+            layer.flushTileCache(activity);
+        }
     }
 
     public static void showJsConsole(final Main main) {
