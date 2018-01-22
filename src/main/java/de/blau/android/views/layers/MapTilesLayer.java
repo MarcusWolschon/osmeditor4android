@@ -103,8 +103,10 @@ public class MapTilesLayer extends MapViewLayer {
         networkStatus = new NetworkStatus(ctx);
 
         Log.d(DEBUG_TAG,
-                aRendererInfo != null
-                        ? "provider " + aRendererInfo.getId() + " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel()
+                aRendererInfo != null 
+                        ? (aRendererInfo.isMetadataLoaded() ? 
+                                "provider " + aRendererInfo.getId() + " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel()
+                                : aRendererInfo.getId() + " is not ready yet")
                         : "renderer is null");
     }
 

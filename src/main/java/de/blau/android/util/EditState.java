@@ -54,7 +54,7 @@ public class EditState implements Serializable {
         savedWays = logic.getSelectedWays();
         savedRelations = logic.getSelectedRelations();
         savedBug = logic.getSelectedBug();
-        if (osmts != null) {
+        if (osmts != null && osmts.isMetadataLoaded()) {
             savedTileServerID = osmts.getId();
             savedOffsets = osmts.getOffsets();
             savedMinZoom = osmts.getMinZoomLevel();
@@ -137,8 +137,10 @@ public class EditState implements Serializable {
             Log.d("EditState", "setOffset saved id " + savedTileServerID + " current id " + osmts.getId());
             Log.d("EditState", "restoring offset");
             // check for config change
-            if (savedOffsets.length == osmts.getOffsets().length && savedMinZoom == osmts.getMinZoomLevel()) { 
-                osmts.setOffsets(savedOffsets);
+            if (osmts.isMetadataLoaded()) {
+                if (savedOffsets.length == osmts.getOffsets().length && savedMinZoom == osmts.getMinZoomLevel()) { 
+                    osmts.setOffsets(savedOffsets);
+                }
             }
         }
     }
