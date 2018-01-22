@@ -12,6 +12,7 @@ import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.exceptions.EmptyCacheException;
@@ -32,7 +33,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     // Constants
     // ===========================================================
 
-    final static String DEBUG_TAG = "MapTileFilesystemProvider";
+    final static String DEBUG_TAG = "MapTileFile...Provider";
 
     // ===========================================================
     // Fields
@@ -62,7 +63,9 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
         mMaxFSCacheByteSize = aMaxFSCacheByteSize;
         mDatabase = new MapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()));
         mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
-        mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(4);
+        Preferences prefs = new Preferences(ctx);
+        int maxThreads = prefs.getMaxTileDownloadThreads();
+        mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreads);
 
         mTileDownloader = new MapTileDownloader(ctx, this);
         Log.d(DEBUG_TAG, "Currently used cache-size is: " + mCurrentCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
