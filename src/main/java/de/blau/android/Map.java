@@ -301,11 +301,14 @@ public class Map extends View implements IMapView {
                     backgroundLayer = new MapTilesLayer(this, TileLayerServer.getDefault(ctx, true), null);
                     mOverlays.add(backgroundLayer);
                 } else {
+                    mOverlays.clear();
                     TileLayerServer ts = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
                     backgroundLayer = new MapTilesLayer(this, ts != null ? ts : TileLayerServer.getDefault(ctx, true), null);
                     mOverlays.add(backgroundLayer);
-                    overlayLayer = new MapTilesOverlayLayer(this);
-                    mOverlays.add(overlayLayer);
+                    if (activeOverlay(prefs.overlayLayer())) {
+                        overlayLayer = new MapTilesOverlayLayer(this);
+                        mOverlays.add(overlayLayer);
+                    }
                     photoLayer = new de.blau.android.photos.MapOverlay(this);
                     mOverlays.add(photoLayer);
                     mOverlays.add(new de.blau.android.grid.MapOverlay(this));
@@ -1011,7 +1014,7 @@ public class Map extends View implements IMapView {
      * @param featureKeyThin style to use for the label
      * @param e the OsmElement
      * @param strokeWidth current stroke scaling factor
-     * @param e the node we are drawing the label for
+     * @param withIcon offset the label so that we don't overlap an icon
      */
     private void paintLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final OsmElement e, final float strokeWidth,
             final boolean withIcon) {
@@ -1127,7 +1130,6 @@ public class Map extends View implements IMapView {
      * Paint the tolerance halo for a node
      * 
      * @param canvas the canvas we are drawing on
-     * @param nodeState state of the node
      * @param isTagged true if the node has any tags
      * @param x screen x
      * @param y screen y
@@ -1562,23 +1564,40 @@ public class Map extends View implements IMapView {
         tmpDrawingSelectedWays = aSelectedWays;
     }
 
+    /**
+     * Get our current Preferences object
+     * 
+     * @return a Preferences instance
+     */
     public Preferences getPrefs() {
         return prefs;
     }
 
+    /**
+     * Set the current Preferences object for this Map and any thing that needs changing
+     * 
+     * @param ctx Android Context
+     * @param aPreference the new Preferences
+     */
     public void setPrefs(Context ctx, final Preferences aPreference) {
         prefs = aPreference;
         TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         synchronized (mOverlays) {
-            final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
-            if (backgroundLayer != null) {
-                backgroundLayer.setRendererInfo(backgroundTS);
-            } else {
-                Log.e(DEBUG_TAG, "background layer for " + prefs.backgroundLayer() + " is null");
-            }
-            final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
-            if (overlayLayer != null) {
-                overlayLayer.setRendererInfo(overlayTS);
+            if (mOverlays.size() > 1) { // createOverlays hasn't run yet if 1 or less
+                final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
+                if (backgroundLayer != null) {
+                    backgroundLayer.setRendererInfo(backgroundTS);
+                }
+                final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
+                if (overlayTS != null) {
+                    if (overlayLayer != null) {
+                        overlayLayer.setRendererInfo(overlayTS);
+                    } else if (activeOverlay(overlayTS.getId())) {
+                        overlayLayer = new MapTilesOverlayLayer(this);
+                        overlayLayer.setRendererInfo(overlayTS);
+                        mOverlays.add(1, overlayLayer);
+                    }
+                }
             }
         }
         showIcons = prefs.getShowIcons();
@@ -1586,6 +1605,16 @@ public class Map extends View implements IMapView {
         iconCache.clear();
         areaIconCache.clear();
         alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
+    }
+
+    /**
+     * Check for a overlay that we actually have to display
+     * 
+     * @param layerId the layer id
+     * @return true if we should allocate a layer
+     */
+    private boolean activeOverlay(String layerId) {
+        return !(TileLayerServer.LAYER_NONE.equals(layerId) || TileLayerServer.LAYER_NOOVERLAY.equals(layerId));
     }
 
     public void updateProfile() {
