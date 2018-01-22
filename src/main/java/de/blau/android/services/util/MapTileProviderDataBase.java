@@ -134,7 +134,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
     }
 
     /**
-     * CHekc if a tile is invalid
+     * Check if a tile is invalid
      * 
      * @param aTile the tile meta data
      * @return true if this is an invalid tile
@@ -264,9 +264,34 @@ public class MapTileProviderDataBase implements MapViewConstants {
         } catch (SQLiteFullException | SQLiteDiskIOException sex) { // handle these the same
             throw new IOException(sex.getMessage());
         } catch (SQLiteConstraintException scex) {
-            Log.w(DEBUG_TAG, "Constraint violated inserting tile " + scex.getMessage());
-            return 0; // file was already inserted
+            if (tile_data != null && isInvalid(aTile))  {
+                Log.w(DEBUG_TAG, "Formerly invalid tile has become available " + aTile);
+                // try to update tile with current data now that it has become available
+                final ContentValues cv = new ContentValues();
+                cv.put(T_FSCACHE_TIMESTAMP, System.currentTimeMillis());
+                cv.put(T_FSCACHE_FILESIZE, tile_data.length);
+                cv.put(T_FSCACHE_DATA, tile_data);
+                long result = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, tileToWhereArgs(aTile));
+                if (DEBUGMODE) {
+                    Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Inserting tile for invalid one result " + result);
+                }
+                return tile_data.length;
+            } else {
+                Log.w(DEBUG_TAG, "Constraint violated inserting tile " + scex.getMessage());
+                return 0; // file was already inserted
+            }
         }
+    }
+    
+    /**
+     * Get a SQLite argument array for a WHERE clause
+     * 
+     * @param aTile the tile meta-data
+     * @return an array of strings with the args
+     */
+    private static String[] tileToWhereArgs(@NonNull MapTile aTile) {
+        return new String[] { aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x),
+                Integer.toString(aTile.y) };
     }
 
     /**
@@ -283,9 +308,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
         }
         try {
             if (incrementUse(aTile)) { // checks if DB is open
-                final String[] args = new String[] { aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x),
-                        Integer.toString(aTile.y) };
-                final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, args, null, null, null);
+                final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, tileToWhereArgs(aTile), null, null, null);
                 try {
                     if (c.moveToFirst()) {
                         byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
