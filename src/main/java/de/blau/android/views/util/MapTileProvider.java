@@ -80,18 +80,6 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
 
     public MapTileProvider(final Context ctx, final Handler aDownloadFinishedListener) {
         mCtx = ctx;
-        Resources r = ctx.getResources();
-        synchronized (staticTilesLock) {
-            if (mNoTilesTile == null) {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.RGB_565;
-                mNoTilesTile = BitmapFactory.decodeResource(r, R.drawable.no_tiles, options);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-                    Log.d(DEBUG_TAG, "Notiles tile uses " + mNoTilesTile.getByteCount());
-                }
-                // mLoadingMapTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles);
-            }
-        }
         mTileCache = new MapTileCache();
 
         smallHeap = Runtime.getRuntime().maxMemory() <= 32L * 1024L * 1024L; // less than 32MB
@@ -302,14 +290,8 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
                 // Log.d(DEBUGTAG, "Sending tile success message");
             } catch (StorageException e) {
                 // unable to cache tile
-                Log.d(DEBUG_TAG, "mapTileLoaded got " + e.getMessage());
-                if (!smallHeap) { // reduce tile size to half
-                    smallHeap = true;
-                    mTileCache.clear();
-                    // should toast this
-                } else {
-                    // FIXME this should show a toast ... or a special tile
-                }
+                Log.w(DEBUG_TAG, "mapTileLoaded got " + e.getMessage());
+                setSmallHeapMode();
             } catch (NullPointerException npe) {
                 Log.d(DEBUG_TAG, "Exception in mapTileLoaded callback " + npe);
                 throw new RemoteException();
@@ -321,6 +303,19 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             }
         }
 
+        /**
+         * Switch to "small heap mode" which uses tiles with slightly less quality
+         */
+        public void setSmallHeapMode() {
+            if (!smallHeap) { // reduce tile size to half
+                smallHeap = true;
+                mTileCache.clear();
+                // should toast this
+            } else {
+                Log.e(DEBUG_TAG, "already in small heap mode");
+            }
+        }
+
         // @Override
         public void mapTileFailed(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason) throws RemoteException {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
@@ -329,17 +324,40 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
                 TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, true);
                 if (zoomLevel < Math.max(0, osmts.getMinZoomLevel() - 1)) {
                     try {
-                        mTileCache.putTile(t, mNoTilesTile, false, 0);
+                        Long l = pending.get(t.toId());
+                        if (l != null) {
+                            mTileCache.putTile(t, getNoTilesTile(), false, l);           
+                        }                       
                     } catch (StorageException e) {
-                        // 
+                        Log.w(DEBUG_TAG, "mapTileFailed got " + e.getMessage());
+                        setSmallHeapMode();
                     }
                 }
             }
-            pending.remove(t.toString());
+            pending.remove(t.toId());
             // don't send when we fail mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
         }
     };
-
+    
+    /**
+     * Get the "No Tiles" tile, creating it if necessary
+     * 
+     * @return a Bitmap with the tile
+     */
+    private Bitmap getNoTilesTile() {
+        synchronized (staticTilesLock) {
+            if (mNoTilesTile == null) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+                mNoTilesTile = BitmapFactory.decodeResource(mCtx.getResources(), R.drawable.no_tiles, options);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+                    Log.d(DEBUG_TAG, "Notiles tile uses " + mNoTilesTile.getByteCount());
+                }
+            }
+        }
+        return mNoTilesTile;
+    }
+    
     public String getCacheUsageInfo() {
         return mTileCache.getCacheUsageInfo();
     }

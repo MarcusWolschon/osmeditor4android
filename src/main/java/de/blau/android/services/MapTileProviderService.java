@@ -103,6 +103,8 @@ public class MapTileProviderService extends Service {
             Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
             try {
                 mFileSystemProvider = new MapTileFilesystemProvider(getBaseContext(), mountPoint, tileCacheSize * 1024 * 1024); // FSCache
+                // try to get BING layer early so the meta-data is already loaded
+                TileLayerServer.get(this, TileLayerServer.LAYER_BING, false);
                 return;
             } catch (SQLiteException slex) {
                 Log.d(DEBUG_TAG, "Opening DB hit " + slex);
@@ -114,10 +116,6 @@ public class MapTileProviderService extends Service {
             return;
         }
         Snack.toastTopError(this, getString(R.string.toast_storage_error, mountPoint));
-        // FIXME potentially we should set both background and overlay
-        // preferences to NONE here or simply zap what we are currently are
-        // using.
-        // don't terminate, simply ignore requests
     }
 
     @Override

@@ -184,16 +184,16 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
             boolean download = false;
             try {
                 TileLayerServer renderer = TileLayerServer.get(mCtx, mTile.rendererID, false);
-                if (renderer == null || mTile.zoomLevel < renderer.getMinZoomLevel() || !mTile.rendererID.equals(renderer.getId())) {
+                if (renderer == null || !renderer.isMetadataLoaded()) {
+                    mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, RETRY);
+                    return;
+                }
+                if (mTile.zoomLevel < renderer.getMinZoomLevel() || !mTile.rendererID.equals(renderer.getId())) {
                     // the tile doesn't exist no point in trying to get it
                     mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
                     return;
                 }
-                if (!renderer.isMetadataLoaded()) {
-                    Log.i(DEBUG_TAG, "Metadata not loaded for " + renderer.getId());
-                    mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, RETRY);
-                    return;
-                }
+
                 byte[] data = MapTileFilesystemProvider.this.mDatabase.getTile(mTile);
                 if (data == null) {
                     if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
@@ -207,19 +207,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                 if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                     Log.d(DEBUG_TAG, "Loaded: " + mTile.toString());
                 }
-            } catch (IOException e) {
-                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                    Log.d(DEBUG_TAG, "Invalid tile: " + mTile.toString());
-                }
-            } catch (RemoteException e) {
-                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                    Log.d(DEBUG_TAG, "Service failed", e);
-                }
-            } catch (NullPointerException e) {
-                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                    Log.d(DEBUG_TAG, "Service failed", e);
-                }
-            } catch (IllegalStateException e) {
+            } catch (IOException | RemoteException | NullPointerException | IllegalStateException e) {
                 if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                     Log.d(DEBUG_TAG, "Tile loading failed", e);
                 }

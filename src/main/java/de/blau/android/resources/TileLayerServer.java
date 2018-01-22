@@ -93,6 +93,7 @@ public class TileLayerServer {
     public static final String  LAYER_MAPNIK    = "MAPNIK";
     public static final String  LAYER_NONE      = "NONE";
     public static final String  LAYER_NOOVERLAY = "NOOVERLAY";
+    public static final String  LAYER_BING      = "BING";
 
     /**
      * A tile layer provide has some attribution text, and one or more coverage areas.
@@ -1760,7 +1761,7 @@ public class TileLayerServer {
         }
 
         // predefined layers
-        if (id.equals("BING")) {
+        if (id.equals(LAYER_BING)) {
             return TYPE_BING;
         }
 
