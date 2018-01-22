@@ -166,9 +166,6 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     public Bitmap getMapTile(@NonNull final MapTile aTile, long owner) {
         Bitmap tile = mTileCache.getMapTile(aTile);
         if (tile != null) {
-            // from cache
-            // if (DEBUGMODE)
-            // Log.i(DEBUGTAG, "MapTileCache succeeded for: " + aTile.toString());
             return tile;
         } else {
             // from service
@@ -290,22 +287,16 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             }
 
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
-
+            String id = t.toId();
             try {
-                // long start = System.currentTimeMillis();
                 Bitmap tileBitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-                // long duration = System.currentTimeMillis() - start;
                 if (tileBitmap == null) {
                     Log.d(DEBUG_TAG, "decoded tile is null");
                     throw new RemoteException();
                 }
-                // Log.d(DEBUGTAG, "raw data size " + data.length + " decoded bitmap size " +
-                // aTile.getRowBytes()*aTile.getHeight());
-                String id = t.toId();
                 Long l = pending.get(t.toId());
                 if (l != null) {
-                    mTileCache.putTile(t, tileBitmap, l);
-                    pending.remove(id);
+                    mTileCache.putTile(t, tileBitmap, l);           
                 } // else wasn't in pending queue just ignore
                 mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
                 // Log.d(DEBUGTAG, "Sending tile success message");
@@ -322,9 +313,12 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             } catch (NullPointerException npe) {
                 Log.d(DEBUG_TAG, "Exception in mapTileLoaded callback " + npe);
                 throw new RemoteException();
+            } finally {
+                pending.remove(id);
             }
-            if (DEBUGMODE)
+            if (DEBUGMODE) {
                 Log.i(DEBUG_TAG, "MapTile download success." + t.toString());
+            }
         }
 
         // @Override
@@ -334,12 +328,10 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
                                                               // the proper one
                 TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, true);
                 if (zoomLevel < Math.max(0, osmts.getMinZoomLevel() - 1)) {
-                    Log.e(DEBUG_TAG, "MapTile download setting notile");
                     try {
                         mTileCache.putTile(t, mNoTilesTile, false, 0);
                     } catch (StorageException e) {
-                        // TODO Auto-generated catch block
-                        // e.printStackTrace();
+                        // 
                     }
                 }
             }

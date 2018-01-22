@@ -85,7 +85,7 @@ public class MapTilesLayer extends MapViewLayer {
      * 
      * @param aView The view we are a part of.
      * @param aRendererInfo The tile-server to load a rendered map from.
-     * @param aTileProvider (may be null)
+     * @param aTileProvider the MapTileProvider if null a new one will be allocated
      */
     public MapTilesLayer(final View aView, final TileLayerServer aRendererInfo, final MapTileProvider aTileProvider) {
         myView = aView;
@@ -190,7 +190,11 @@ public class MapTilesLayer extends MapViewLayer {
      * 
      * @param tileLayer layer to use
      */
-    public void setRendererInfo(final TileLayerServer tileLayer) {
+    public void setRendererInfo(@Nullable final TileLayerServer tileLayer) {
+        if (tileLayer == null) {
+            Log.w(DEBUG_TAG, "Trying to set null layer");
+            return;
+        }
         if (myRendererInfo != tileLayer) {
             try {
                 coverageWarningMessage = myView.getResources().getString(de.blau.android.R.string.toast_no_coverage, tileLayer.getName());

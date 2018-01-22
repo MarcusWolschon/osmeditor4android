@@ -89,7 +89,7 @@ public class TileLayerServer {
     static final String         TYPE_TMS        = "tms";
     static final String         TYPE_WMS        = "wms";
     static final String         TYPE_SCANEX     = "scanex";
-    private static final String DEBUG_TAG       = "OpenStreetMapTileServer";
+    private static final String DEBUG_TAG       = "TileLayerServer";
     public static final String  LAYER_MAPNIK    = "MAPNIK";
     public static final String  LAYER_NONE      = "NONE";
     public static final String  LAYER_NOOVERLAY = "NOOVERLAY";
@@ -905,6 +905,7 @@ public class TileLayerServer {
                 }
                 return layer;
             }
+            Log.e(DEBUG_TAG, "Layer " + id + " null from database");
         }
         // catch all
         return null;

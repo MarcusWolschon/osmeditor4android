@@ -25,6 +25,7 @@ public abstract class MapAsyncTileProvider {
     public static final int IOERR        = 1;
     public static final int DOESNOTEXIST = 2;
     public static final int NONETWORK    = 3;
+    public static final int RETRY        = 4;
 
     public static final int ALLZOOMS = -1;
 

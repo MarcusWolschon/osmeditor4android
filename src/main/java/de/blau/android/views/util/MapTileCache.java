@@ -25,6 +25,7 @@ public class MapTileCache implements MapViewConstants {
     // Fields
     // ===========================================================
 
+    private static final String DEBUG_TAG = "MapTileCache";
     private LRUMapTileCache mCachedTiles;
 
     // ===========================================================
@@ -39,7 +40,7 @@ public class MapTileCache implements MapViewConstants {
      * @param aMaximumCacheBytes Maximum cache size in bytes.
      */
     private MapTileCache(final long aMaximumCacheBytes) {
-        Log.d("OpenStreetMapTileCache", "Created new in memory tile cache with " + aMaximumCacheBytes + " bytes");
+        Log.d(DEBUG_TAG, "Created new in memory tile cache with " + aMaximumCacheBytes + " bytes");
         mCachedTiles = new LRUMapTileCache(aMaximumCacheBytes);
     }
 

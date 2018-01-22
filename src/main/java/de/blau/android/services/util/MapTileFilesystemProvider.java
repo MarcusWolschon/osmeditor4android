@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import android.content.Context;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.resources.TileLayerServer;
@@ -31,7 +32,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     // Constants
     // ===========================================================
 
-    final static String DEBUGTAG = "OSM_FS_PROVIDER";
+    final static String DEBUG_TAG = "MapTileFilesystemProvider";
 
     // ===========================================================
     // Fields
@@ -39,9 +40,8 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 
     private final Context                 mCtx;
     private final MapTileProviderDataBase mDatabase;
-    private final File                    mountPoint;
     private final int                     mMaxFSCacheByteSize;
-    private int                           mCurrentFSCacheByteSize;
+    private int                           mCurrentCacheByteSize;
 
     /** online provider */
     private MapTileDownloader mTileDownloader;
@@ -51,28 +51,34 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     // ===========================================================
 
     /**
-     * @param ctx
-     * @param mountPoint TODO
+     * Construct a new tile cache on a local device
+     * 
+     * @param ctx Android Context
+     * @param mountPoint where the cache should be creates
      * @param aMaxFSCacheByteSize the size of the cached MapTiles will not exceed this size.
      */
-    public MapTileFilesystemProvider(final Context ctx, File mountPoint, final int aMaxFSCacheByteSize) {
+    public MapTileFilesystemProvider(@NonNull final Context ctx, @NonNull File mountPoint, final int aMaxFSCacheByteSize) {
         mCtx = ctx;
-        this.mountPoint = mountPoint;
         mMaxFSCacheByteSize = aMaxFSCacheByteSize;
         mDatabase = new MapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()));
-        mCurrentFSCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
+        mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
         mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(4);
 
         mTileDownloader = new MapTileDownloader(ctx, this);
-        Log.d(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
+        Log.d(DEBUG_TAG, "Currently used cache-size is: " + mCurrentCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
     }
 
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
-    public int getCurrentFSCacheByteSize() {
-        return mCurrentFSCacheByteSize;
+    /**
+     * Get the current size of the caches contents
+     * 
+     * @return size in bytes
+     */
+    public int getCurrentCacheByteSize() {
+        return mCurrentCacheByteSize;
     }
 
     // ===========================================================
@@ -88,51 +94,53 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     // Methods
     // ===========================================================
 
-    public void saveFile(final MapTile tile, final byte[] someData) throws IOException {
+    /**
+     * Save the image data for a tile to the database, making space if necessary
+     * 
+     * @param tile tile meta-data
+     * @param data the tile image data
+     * @throws IOException
+     */
+    public void saveFile(final MapTile tile, final byte[] data) throws IOException {
         try {
-            final int bytesGrown = mDatabase.addTile(tile, someData);
-            mCurrentFSCacheByteSize += bytesGrown;
+            final int bytesGrown = mDatabase.addTile(tile, data);
+            mCurrentCacheByteSize += bytesGrown;
 
-            if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                Log.d(DEBUGTAG, "FSCache Size is now: " + mCurrentFSCacheByteSize + " Bytes");
+            if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                Log.d(DEBUG_TAG, "FSCache Size is now: " + mCurrentCacheByteSize + " Bytes");
             }
             /* If Cache is full... */
-            try {
-
-                if (mCurrentFSCacheByteSize > mMaxFSCacheByteSize) {
-                    if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                        Log.d(DEBUGTAG, "Freeing FS cache...");
-                    }
-                    // Free 5% of cache
-                    mCurrentFSCacheByteSize -= mDatabase.deleteOldest((int) (mMaxFSCacheByteSize * 0.05f));
+            if (mCurrentCacheByteSize > mMaxFSCacheByteSize) {
+                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                    Log.d(DEBUG_TAG, "Freeing FS cache...");
                 }
-            } catch (EmptyCacheException e) {
-                if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                    Log.d(DEBUGTAG, "Cache empty", e);
-                }
+                // Free 5% of cache
+                mCurrentCacheByteSize -= mDatabase.deleteOldest((int) (mMaxFSCacheByteSize * 0.05f));
             }
         } catch (IllegalStateException e) {
-            if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                Log.d(DEBUGTAG, "Tile saving failed", e);
+            if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                Log.d(DEBUG_TAG, "Tile saving failed", e);
             }
         }
     }
 
-    public void clearCurrentFSCache() {
-        cutCurrentFSCacheBy(Integer.MAX_VALUE); // Delete all
+    /**
+     * Remove all tiles from cache
+     */
+    public void clearCurrentCache() {
+        cutCurrentCacheBy(Integer.MAX_VALUE); // Delete all
     }
 
-    private void cutCurrentFSCacheBy(final int bytesToCut) {
-        try {
-            synchronized (this) {
-                mDatabase.deleteOldest(Integer.MAX_VALUE); // Delete all
-            }
-            mCurrentFSCacheByteSize = 0;
-        } catch (EmptyCacheException e) {
-            if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                Log.d(DEBUGTAG, "Cache empty", e);
-            }
+    /**
+     * Reduce size of cached tiles by a specified amount
+     * 
+     * @param bytesToCut how much we want to make free
+     */
+    private void cutCurrentCacheBy(final int bytesToCut) {
+        synchronized (this) {
+            mDatabase.deleteOldest(Integer.MAX_VALUE); // Delete all
         }
+        mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
     }
 
     /**
@@ -144,8 +152,8 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
         try {
             mDatabase.flushCache(rendererID);
         } catch (EmptyCacheException e) {
-            if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                Log.d(DEBUGTAG, "Flushing tile cache failed", e);
+            if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                Log.d(DEBUG_TAG, "Flushing tile cache failed", e);
             }
         }
     }
@@ -181,34 +189,39 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                     mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
                     return;
                 }
+                if (!renderer.isMetadataLoaded()) {
+                    Log.i(DEBUG_TAG, "Metadata not loaded for " + renderer.getId());
+                    mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, RETRY);
+                    return;
+                }
                 byte[] data = MapTileFilesystemProvider.this.mDatabase.getTile(mTile);
                 if (data == null) {
-                    if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                        Log.d(DEBUGTAG, "FS failed, request for download " + mTile + " " + mTile.toId());
+                    if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                        Log.d(DEBUG_TAG, "FS failed, request for download " + mTile + " " + mTile.toId());
                     }
                     download = true;
                     mTileDownloader.loadMapTileAsync(mTile, passedOnCallback);
                 } else { // success!
                     mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
                 }
-                if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                    Log.d(DEBUGTAG, "Loaded: " + mTile.toString());
+                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                    Log.d(DEBUG_TAG, "Loaded: " + mTile.toString());
                 }
             } catch (IOException e) {
-                if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                    Log.d(DEBUGTAG, "Invalid tile: " + mTile.toString());
+                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                    Log.d(DEBUG_TAG, "Invalid tile: " + mTile.toString());
                 }
             } catch (RemoteException e) {
-                if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                    Log.d(DEBUGTAG, "Service failed", e);
+                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                    Log.d(DEBUG_TAG, "Service failed", e);
                 }
             } catch (NullPointerException e) {
-                if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                    Log.d(DEBUGTAG, "Service failed", e);
+                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                    Log.d(DEBUG_TAG, "Service failed", e);
                 }
             } catch (IllegalStateException e) {
-                if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                    Log.d(DEBUGTAG, "Tile loading failed", e);
+                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                    Log.d(DEBUG_TAG, "Tile loading failed", e);
                 }
             } finally {
                 if (!download) {
@@ -242,10 +255,16 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
      * Call when the object is no longer needed to close the database
      */
     public void destroy() {
-        Log.d(DEBUGTAG, "Closing tile database");
+        Log.d(DEBUG_TAG, "Closing tile database");
         mDatabase.close();
     }
 
+    /**
+     * Mark a tile as invalid (really doesn't exist)
+     * 
+     * @param mTile tile meta-data
+     * @throws IOException
+     */
     public void markAsInvalid(MapTile mTile) throws IOException {
         mDatabase.addTile(mTile, null);
     }
