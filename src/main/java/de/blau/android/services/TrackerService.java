@@ -147,8 +147,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
-            Log.d(TAG, "Received null intent"); // FIXME do something more drastic
-            return -1; // FIXME not clear how we should return an error here
+            Log.e(TAG, "Received null intent"); // 
+            return START_STICKY; //NOTE not clear how or if we should return an error here
         }
         if (intent.getBooleanExtra(TRACK, false)) {
             startTrackingInternal();
