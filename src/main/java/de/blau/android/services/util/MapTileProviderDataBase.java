@@ -107,7 +107,6 @@ public class MapTileProviderDataBase implements MapViewConstants {
     public MapTileProviderDataBase(@NonNull final Context context) {
         Log.i(DEBUG_TAG, "creating database instance");
         mDatabase = new DatabaseHelper(context).getWritableDatabase();
-
         Preferences prefs = new Preferences(context);
         int maxThreads = prefs.getMaxTileDownloadThreads();
         getStatements = new Pools.SynchronizedPool<SQLiteStatement>(maxThreads);

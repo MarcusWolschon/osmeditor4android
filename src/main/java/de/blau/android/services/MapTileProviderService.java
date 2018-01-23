@@ -102,7 +102,7 @@ public class MapTileProviderService extends Service {
         if (mountPoint != null && mountPointWriteable) {
             Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
             try {
-                mFileSystemProvider = new MapTileFilesystemProvider(getBaseContext(), mountPoint, tileCacheSize * 1024 * 1024); // FSCache
+                mFileSystemProvider = new MapTileFilesystemProvider(this, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
                 // try to get BING layer early so the meta-data is already loaded
                 TileLayerServer.get(this, TileLayerServer.LAYER_BING, false);
                 return;

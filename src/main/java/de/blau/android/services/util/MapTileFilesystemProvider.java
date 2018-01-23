@@ -120,6 +120,9 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                 // Free 5% of cache
                 mCurrentCacheByteSize -= mDatabase.deleteOldest((int) (mMaxFSCacheByteSize * 0.05f));
             }
+            if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                Log.d(DEBUG_TAG, "Tile saved");
+            }
         } catch (IllegalStateException e) {
             if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                 Log.d(DEBUG_TAG, "Tile saving failed", e);
@@ -221,25 +224,13 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
             }
         }
 
-        IMapTileProviderCallback passedOnCallback = new IMapTileProviderCallback() {
+        IMapTileProviderCallback passedOnCallback=new IMapTileProviderCallback(){
 
-            @Override
-            public IBinder asBinder() {
-                return mCallback.asBinder();
-            }
+        @Override public IBinder asBinder(){return mCallback.asBinder();}
 
-            @Override
-            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws RemoteException {
-                mCallback.mapTileLoaded(rendererID, zoomLevel, tileX, tileY, aImage);
-                finished();
-            }
+        @Override public void mapTileLoaded(String rendererID,int zoomLevel,int tileX,int tileY,byte[]aImage)throws RemoteException{mCallback.mapTileLoaded(rendererID,zoomLevel,tileX,tileY,aImage);finished();}
 
-            @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws RemoteException {
-                mCallback.mapTileFailed(rendererID, zoomLevel, tileX, tileY, reason);
-                finished();
-            }
-        };
+        @Override public void mapTileFailed(String rendererID,int zoomLevel,int tileX,int tileY,int reason)throws RemoteException{mCallback.mapTileFailed(rendererID,zoomLevel,tileX,tileY,reason);finished();}};
     }
 
     /**
