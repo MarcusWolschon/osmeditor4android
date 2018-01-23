@@ -133,16 +133,6 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     }
 
     /**
-     * Determine if the specified tile is available from local storage.
-     * 
-     * @param aTile The tile to find.
-     * @return true if the tile is in local storage.
-     */
-    public boolean isTileAvailable(final MapTile aTile) {
-        return mTileCache.containsTile(aTile);
-    }
-
-    /**
      * Attempt to return a tile from cache otherwise ask for it from remote
      * 
      * @param aTile tile spec

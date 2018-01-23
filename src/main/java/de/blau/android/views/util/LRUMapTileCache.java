@@ -39,7 +39,7 @@ public class LRUMapTileCache {
     /** Current cache size **/
     private long                           cacheSize = 0;
     /** LRU list. */
-    private final LinkedList<CacheElement> list;
+    private final ArrayList<CacheElement> list;
     private final ArrayList<CacheElement>  reuseList;
 
     private class CacheElement {
@@ -80,7 +80,7 @@ public class LRUMapTileCache {
         // Log.d("LRUMapTileCache","created");
         this.maxCacheSize = maxCacheSize;
         cache = new HashMap<>();
-        list = new LinkedList<>();
+        list = new ArrayList<>(); // using a LinkedList doesn't have any real advantages
         reuseList = new ArrayList<>();
     }
 
@@ -119,7 +119,7 @@ public class LRUMapTileCache {
         }
         while (cacheSize > limit && !list.isEmpty()) {
             // Log.d(DEBUG_TAG,"removing bitmap from in memory cache " + cacheSize);
-            CacheElement ce = list.removeLast();
+            CacheElement ce = list.remove(list.size()-1);
             if (ce.owner == owner && owner != 0) {
                 // cache is being thrashed because it is too small, fail
                 Log.d(DEBUG_TAG, "cache too small, failing");
@@ -185,14 +185,15 @@ public class LRUMapTileCache {
      *         the specified key
      * @throws StorageException
      */
-    public synchronized Bitmap put(final String key, final Bitmap value, boolean recycleable, long owner) throws StorageException {
+    public synchronized Bitmap put(@NonNull final String key, @NonNull final Bitmap value, boolean recycleable, long owner) throws StorageException {
         // Log.d("LRUMapTileCache","put " + key + " " + recycleable);
         if (maxCacheSize == 0 || value == null) {
             return null;
         }
 
+        CacheElement prev = cache.get(key);
         // if the key isn't in the cache and the cache is full...
-        if (!containsKey(key)) {
+        if (prev == null) {
             long bitmapSize = (long) value.getRowBytes() * value.getHeight();
             if (!applyCacheLimit(bitmapSize * 2, owner)) {
                 // failed: cache is to small to handle all tiles necessary for one draw cycle
@@ -212,11 +213,11 @@ public class LRUMapTileCache {
             } else {
                 ce = new CacheElement(key, value, recycleable, owner);
             }
-            list.addFirst(ce);
+            list.add(0,ce);
             cache.put(key, ce);
             cacheSize += bitmapSize;
         } else {
-            update(key);
+            update(prev);
         }
 
         // Log.d("LRUMapTileCache","put done");
@@ -245,24 +246,11 @@ public class LRUMapTileCache {
      * Moves the specified value to the top of the LRU list (the bottom of the list is where least recently used items
      * live).
      * 
-     * @param key of the value to move to the top of the list
-     */
-    private synchronized void update(final String key) {
-        CacheElement ce = cache.get(key);
-        if (ce != null) {
-            update(ce);
-        }
-    }
-
-    /**
-     * Moves the specified value to the top of the LRU list (the bottom of the list is where least recently used items
-     * live).
-     * 
      * @param value to move to the top of the list
      */
     private synchronized void update(final CacheElement value) {
         list.remove(value);
-        list.addFirst(value);
+        list.add(0,value);
     }
 
     // ===========================================================

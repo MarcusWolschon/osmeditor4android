@@ -103,11 +103,9 @@ public class MapTilesLayer extends MapViewLayer {
         networkStatus = new NetworkStatus(ctx);
 
         Log.d(DEBUG_TAG,
-                aRendererInfo != null 
-                        ? (aRendererInfo.isMetadataLoaded() ? 
-                                "provider " + aRendererInfo.getId() + " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel()
-                                : aRendererInfo.getId() + " is not ready yet")
-                        : "renderer is null");
+                aRendererInfo != null ? (aRendererInfo.isMetadataLoaded()
+                        ? "provider " + aRendererInfo.getId() + " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel()
+                        : aRendererInfo.getId() + " is not ready yet") : "renderer is null");
     }
 
     @Override
@@ -392,13 +390,13 @@ public class MapTilesLayer extends MapViewLayer {
                     tile.reinit();
                     // Still no tile available - try smaller scale tiles
                     if (!drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
-                        // store an error tile
-                        tile.zoomLevel = zoomLevel;
-                        tile.x = x & mapTileMask;
-                        tile.y = y & mapTileMask;
-                        if (!mTileProvider.isTileAvailable(originalTile)) { // might have turned up in the mean time
-                            // mTileProvider.cacheError(originalTile);
-                        }
+                        // store an error tile - don't do this as it doesn't help with anything
+                        // tile.zoomLevel = zoomLevel;
+                        // tile.x = x & mapTileMask;
+                        // tile.y = y & mapTileMask;
+                        // if (!mTileProvider.isTileAvailable(originalTile)) { // might have turned up in the mean time
+                        // // mTileProvider.cacheError(originalTile);
+                        // }
                     }
                 }
                 xPos += destIncX;
