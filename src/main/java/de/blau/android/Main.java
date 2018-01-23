@@ -163,6 +163,7 @@ import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.Version;
 import de.blau.android.views.ZoomControls;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.voice.Commands;
@@ -216,11 +217,6 @@ public class Main extends FullScreenAppCompatActivity
      * Date pattern used for the image file name.
      */
     private static final String DATE_PATTERN_IMAGE_FILE_NAME_PART = "yyyyMMdd_HHmmss";
-
-    /**
-     * Where we install the current version of vespucci
-     */
-    private static final String VERSION_FILE = "version.dat";
 
     /**
      * Id for requesting permissions
@@ -570,12 +566,10 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         // check if first time user and display something if yes
-        SavingHelper<String> savingHelperVersion = new SavingHelper<>();
-        String lastVersion = savingHelperVersion.load(this, VERSION_FILE, false);
-        boolean newInstall = (lastVersion == null || lastVersion.equals(""));
-        String currentVersion = getString(R.string.app_version);
-        boolean newVersion = (lastVersion != null) && (lastVersion.length() < 6 || !lastVersion.subSequence(0, 4).equals(currentVersion.subSequence(0, 4)));
-
+        Version version = new Version(this);
+        boolean newInstall = version.isNewInstall();       
+        boolean newVersion = version.isNewVersion();
+                
         loadOnResume = false;
 
         if (App.getLogic() == null) {
@@ -635,12 +629,15 @@ public class Main extends FullScreenAppCompatActivity
             Log.d(DEBUG_TAG, "new version");
             NewVersion.showDialog(this);
         }
-        savingHelperVersion.save(this, VERSION_FILE, getString(R.string.app_version), false);
+        version.save();
     }
 
     /**
      * Get the best last position
+     * 
+     * @return a Location object 
      */
+    @Nullable
     private Location getLastLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         List<String> providers = locationManager.getProviders(true);
