@@ -287,12 +287,8 @@ public class Util {
         return isLarge(activity) && size.x > size.y;
     }
 
-    @SuppressLint("NewApi")
     public static boolean isLarge(Activity activity) {
         int screenSize = activity.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
-            return screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE;
-        }
         return (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE);
     }
 

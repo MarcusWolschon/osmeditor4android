@@ -10,9 +10,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.names.Names.NameAndTags;
@@ -29,14 +27,13 @@ public class SearchIndexUtils {
     /**
      * normalize a string for the search index, currently only works for latin scripts
      * 
-     * @param n
-     * @return
+     * @param n String to normalize
+     * @return normalized String
      */
     static public String normalize(String n) {
         String r = n.toLowerCase(Locale.US).trim();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            r = deAccent(r);
-        }
+        r = deAccent(r);
+        
         StringBuilder b = new StringBuilder();
         for (char c : r.toCharArray()) {
             c = Character.toLowerCase(c);
@@ -64,7 +61,12 @@ public class SearchIndexUtils {
         return b.toString();
     }
 
-    @SuppressLint("NewApi")
+    /**
+     * REmove accents from a string
+     * 
+     * @param str String to work on
+     * @return String without accents
+     */
     static private String deAccent(String str) {
         String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
         if (deAccentPattern == null) {

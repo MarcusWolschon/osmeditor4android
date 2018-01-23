@@ -931,7 +931,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             @Nullable final ArrayAdapter<?> adapter) {
         final TagTextRow row = (TagTextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
         final boolean isWebsite = Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == preset.getValueType(key));
-        final boolean isMPHSpeed = Tags.isSpeedKey(key) && App.getGeoContext(getActivity()).imperial(((PropertyEditor)getActivity()).getElement());
+        final boolean isMPHSpeed = Tags.isSpeedKey(key) && App.getGeoContext(getActivity()).imperial(((PropertyEditor) getActivity()).getElement());
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -967,12 +967,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     if (rowLayout instanceof EditableLayout) {
                         ((EditableLayout) rowLayout).putTag(key, rowValue);
                     }
-                } else if (hasFocus) { 
-                   if (isWebsite) {
-                       TagEditorFragment.initWebsite(row.valueView);
-                   } else if (isMPHSpeed) {
-                       TagEditorFragment.initMPHSpeed(getActivity(),row.valueView,((PropertyEditor)getActivity()).getElement());
-                   }
+                } else if (hasFocus) {
+                    if (isWebsite) {
+                        TagEditorFragment.initWebsite(row.valueView);
+                    } else if (isMPHSpeed) {
+                        TagEditorFragment.initMPHSpeed(getActivity(), row.valueView, ((PropertyEditor) getActivity()).getElement());
+                    }
                 }
             }
         });
@@ -1253,16 +1253,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 final View finalView = v;
                 finalView.setEnabled(false); // debounce
                 final AlertDialog dialog = buildComboDialog(hint != null ? hint : key, key, defaultValue, adapter, row);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-                    dialog.setOnShowListener(new OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface d) {
-                            if (finalSelectedValue != null) {
-                                scrollDialogToValue(finalSelectedValue, dialog, R.id.valueGroup);
-                            }
+                dialog.setOnShowListener(new OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface d) {
+                        if (finalSelectedValue != null) {
+                            scrollDialogToValue(finalSelectedValue, dialog, R.id.valueGroup);
                         }
-                    });
-                }
+                    }
+                });
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
@@ -1317,16 +1315,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 finalView.setEnabled(false); // debounce
                 final AlertDialog dialog = buildMultiselectDialog(hint != null ? hint : key, key, defaultValue, adapter, row, allTags);
                 final Object tag = finalView.getTag();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-                    dialog.setOnShowListener(new OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface d) {
-                            if (tag != null && tag instanceof String) {
-                                scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
-                            }
+                dialog.setOnShowListener(new OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface d) {
+                        if (tag != null && tag instanceof String) {
+                            scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
                         }
-                    });
-                }
+                    }
+                });
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {

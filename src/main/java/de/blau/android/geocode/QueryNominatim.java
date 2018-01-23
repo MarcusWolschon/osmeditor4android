@@ -3,15 +3,12 @@ package de.blau.android.geocode;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.stream.JsonReader;
 
 import android.net.Uri;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -57,19 +54,12 @@ class QueryNominatim extends Query {
         JsonReader reader = null;
         ResponseBody responseBody = null;
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-                Request request = new Request.Builder().url(urlString).build();
-                Call searchCall = App.getHttpClient().newCall(request);
-                Response searchCallResponse = searchCall.execute();
-                if (searchCallResponse.isSuccessful()) {
-                    responseBody = searchCallResponse.body();
-                    inputStream = responseBody.byteStream();
-                }
-            } else { // FIXME 2.2/API 8 support
-                URL url = new URL(urlString);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("User-Agent", App.getUserAgent());
-                inputStream = conn.getInputStream();
+            Request request = new Request.Builder().url(urlString).build();
+            Call searchCall = App.getHttpClient().newCall(request);
+            Response searchCallResponse = searchCall.execute();
+            if (searchCallResponse.isSuccessful()) {
+                responseBody = searchCallResponse.body();
+                inputStream = responseBody.byteStream();
             }
 
             if (inputStream != null) {

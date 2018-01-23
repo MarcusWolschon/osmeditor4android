@@ -17,7 +17,6 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import de.blau.android.R;
-import de.blau.android.dialogs.GetFileName;
 import de.blau.android.prefs.Preferences;
 
 /**
@@ -54,33 +53,28 @@ public class SelectFile {
             saveCallback = callback;
             SelectFile.activity = activity;
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            Intent i = new Intent(activity, ThemedFilePickerActivity.class);
+        Intent i = new Intent(activity, ThemedFilePickerActivity.class);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, true);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_EXISTING_FILE, true);
+        i.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_NEW_FILE);
 
-            i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
-            i.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, true);
-            i.putExtra(FilePickerActivity.EXTRA_ALLOW_EXISTING_FILE, true);
-            i.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_NEW_FILE);
+        Preferences prefs = new Preferences(activity);
+        String path = prefs.getString(directoryPrefKey);
 
-            Preferences prefs = new Preferences(activity);
-            String path = prefs.getString(directoryPrefKey);
-
-            if (path != null) {
-                i.putExtra(FilePickerActivity.EXTRA_START_PATH, path);
-            } else {
-                try {
-                    i.putExtra(FilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
-                } catch (IOException e) {
-                    // if for whatever reason the above doesn't work we use the standard directory
-                    Log.d(DEBUG_TAG, "falling back to standard dir instead");
-                    i.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
-                }
-            }
-
-            activity.startActivityForResult(i, SAVE_FILE);
+        if (path != null) {
+            i.putExtra(FilePickerActivity.EXTRA_START_PATH, path);
         } else {
-            GetFileName.showDialog(activity, callback);
+            try {
+                i.putExtra(FilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
+            } catch (IOException e) {
+                // if for whatever reason the above doesn't work we use the standard directory
+                Log.d(DEBUG_TAG, "falling back to standard dir instead");
+                i.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
+            }
         }
+
+        activity.startActivityForResult(i, SAVE_FILE);
     }
 
     /**
@@ -93,40 +87,28 @@ public class SelectFile {
         synchronized (readCallbackLock) {
             readCallback = readFile;
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            Intent i = new Intent(activity, ThemedFilePickerActivity.class);
+        Intent i = new Intent(activity, ThemedFilePickerActivity.class);
 
-            i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
-            i.putExtra(FilePickerActivity.EXTRA_SINGLE_CLICK, true);
-            i.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+        i.putExtra(FilePickerActivity.EXTRA_SINGLE_CLICK, true);
+        i.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
 
-            Preferences prefs = new Preferences(activity);
-            String path = prefs.getString(directoryPrefKey);
+        Preferences prefs = new Preferences(activity);
+        String path = prefs.getString(directoryPrefKey);
 
-            if (path != null) {
-                i.putExtra(FilePickerActivity.EXTRA_START_PATH, path);
-            } else {
-                try {
-                    i.putExtra(FilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
-                } catch (IOException e) {
-                    // if for whatever reason the above doesn't work we use the standard directory
-                    Log.d(DEBUG_TAG, "falling back to standard dir instead");
-                    i.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
-                }
-            }
-
-            activity.startActivityForResult(i, READ_FILE);
+        if (path != null) {
+            i.putExtra(FilePickerActivity.EXTRA_START_PATH, path);
         } else {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
             try {
-                activity.startActivityForResult(intent, READ_FILE_OLD);
-            } catch (android.content.ActivityNotFoundException ex) {
-                // Potentially direct the user to the Market with a Dialog
-                Snack.barError(activity, R.string.toast_missing_filemanager);
+                i.putExtra(FilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
+            } catch (IOException e) {
+                // if for whatever reason the above doesn't work we use the standard directory
+                Log.d(DEBUG_TAG, "falling back to standard dir instead");
+                i.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
             }
         }
+
+        activity.startActivityForResult(i, READ_FILE);
     }
 
     /**

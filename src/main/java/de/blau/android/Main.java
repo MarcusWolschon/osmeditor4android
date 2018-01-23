@@ -263,24 +263,7 @@ public class Main extends FullScreenAppCompatActivity
         public void onSensorChanged(SensorEvent event) {
             float orientation[] = new float[3];
             float R[] = new float[9];
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
-                switch (event.sensor.getType()) {
-                case Sensor.TYPE_ACCELEROMETER:
-                    acceleration = event.values;
-                    break;
-                case Sensor.TYPE_MAGNETIC_FIELD:
-                    geomagnetic = event.values;
-                    break;
-                default:
-                    return;
-                }
-                if (acceleration != null && geomagnetic != null) {
-                    float I[] = new float[9];
-                    if (!SensorManager.getRotationMatrix(R, I, acceleration, geomagnetic)) {
-                        return;
-                    }
-                }
-            } else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+            if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
                 if (event.values.length > 4) {
                     // See https://groups.google.com/forum/#!topic/android-developers/U3N9eL5BcJk for more information
                     // on this
@@ -470,17 +453,9 @@ public class Main extends FullScreenAppCompatActivity
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
-                magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-                accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                if (magnetometer == null || accelerometer == null) {
-                    sensorManager = null;
-                }
-            } else {
-                rotation = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-                if (rotation == null) {
-                    sensorManager = null;
-                }
+            rotation = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+            if (rotation == null) {
+                sensorManager = null;
             }
         }
 
@@ -567,9 +542,9 @@ public class Main extends FullScreenAppCompatActivity
 
         // check if first time user and display something if yes
         Version version = new Version(this);
-        boolean newInstall = version.isNewInstall();       
+        boolean newInstall = version.isNewInstall();
         boolean newVersion = version.isNewVersion();
-                
+
         loadOnResume = false;
 
         if (App.getLogic() == null) {
@@ -635,7 +610,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Get the best last position
      * 
-     * @return a Location object 
+     * @return a Location object
      */
     @Nullable
     private Location getLastLocation() {
@@ -1873,10 +1848,12 @@ public class Main extends FullScreenAppCompatActivity
 
         case R.id.menu_tools_flush_background_tile_cache:
             flushLayer(this, map.getBackgroundLayer());
+            map.invalidate();
             return true;
 
         case R.id.menu_tools_flush_overlay_tile_cache:
             flushLayer(this, map.getOverlayLayer());
+            map.invalidate();
             return true;
 
         case R.id.menu_tools_flush_all_tile_caches:
@@ -1887,6 +1864,7 @@ public class Main extends FullScreenAppCompatActivity
                     if (backgroundLayer != null) {
                         backgroundLayer.flushTileCache(Main.this, null);
                     }
+                    map.invalidate();
                 }
             });
             return true;
@@ -2150,12 +2128,7 @@ public class Main extends FullScreenAppCompatActivity
         if (wantLocationUpdates == true)
             return;
         if (sensorManager != null) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
-                sensorManager.registerListener(sensorListener, accelerometer, SensorManager.SENSOR_DELAY_UI);
-                sensorManager.registerListener(sensorListener, magnetometer, SensorManager.SENSOR_DELAY_UI);
-            } else {
-                sensorManager.registerListener(sensorListener, rotation, SensorManager.SENSOR_DELAY_UI);
-            }
+            sensorManager.registerListener(sensorListener, rotation, SensorManager.SENSOR_DELAY_UI);
         }
         wantLocationUpdates = true;
         if (getTracker() != null)
@@ -2589,10 +2562,8 @@ public class Main extends FullScreenAppCompatActivity
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 oAuthWebView.getSettings().setAllowContentAccess(true);
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-                oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-                oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-            }
+            oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+            oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             oAuthWebView.requestFocus(View.FOCUS_DOWN);
             class MyWebViewClient extends WebViewClient {
                 Object   progressLock  = new Object();
