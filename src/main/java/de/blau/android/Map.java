@@ -36,6 +36,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import de.blau.android.exception.OsmException;
 import de.blau.android.filter.Filter;
+import de.blau.android.imageryoffset.ImageryOffset;
+import de.blau.android.imageryoffset.Offset;
+import de.blau.android.imageryoffset.ImageryOffsetUtils;
+import de.blau.android.imageryoffset.ImageryOffsetDatabase;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
@@ -55,7 +59,6 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
@@ -304,6 +307,9 @@ public class Map extends View implements IMapView {
                     mOverlays.clear();
                     TileLayerServer ts = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
                     backgroundLayer = new MapTilesLayer(this, ts != null ? ts : TileLayerServer.getDefault(ctx, true), null);
+                    if (ts != null) {
+                        ImageryOffsetUtils.applyImagerOffsets(ctx, ts, getViewBox());
+                    }
                     mOverlays.add(backgroundLayer);
                     if (activeOverlay(prefs.overlayLayer())) {
                         overlayLayer = new MapTilesOverlayLayer(this);
@@ -657,8 +663,8 @@ public class Map extends View implements IMapView {
     private void paintZoomAndOffset(final Canvas canvas) {
         int pos = ThemeUtils.getActionBarHeight(context) + 5 + (int) de.blau.android.grid.MapOverlay.LONGTICKS_DP * 3;
         Offset o = getBackgroundLayer().getRendererInfo().getOffset(zoomLevel);
-        String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.lon) : "0.00000",
-                o != null ? String.format(Locale.US, "%.5f", o.lat) : "0.00000");
+        String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.getDeltaLon()) : "0.00000",
+                o != null ? String.format(Locale.US, "%.5f", o.getDeltaLat()) : "0.00000");
         float textSize = textPaint.getTextSize();
         float textWidth = textPaint.measureText(text);
         FontMetrics fm = textPaint.getFontMetrics();
@@ -1587,15 +1593,18 @@ public class Map extends View implements IMapView {
                 final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
                 if (backgroundLayer != null) {
                     backgroundLayer.setRendererInfo(backgroundTS);
+                    ImageryOffsetUtils.applyImagerOffsets(ctx, backgroundTS, getViewBox());
                 }
                 final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
                 if (overlayTS != null) {
                     if (overlayLayer != null) {
                         overlayLayer.setRendererInfo(overlayTS);
+                        ImageryOffsetUtils.applyImagerOffsets(ctx, overlayTS, getViewBox());
                     } else if (activeOverlay(overlayTS.getId())) {
                         overlayLayer = new MapTilesOverlayLayer(this);
                         overlayLayer.setRendererInfo(overlayTS);
                         mOverlays.add(1, overlayLayer);
+                        ImageryOffsetUtils.applyImagerOffsets(ctx, overlayTS, getViewBox());
                     }
                 }
             }

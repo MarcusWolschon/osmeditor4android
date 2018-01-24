@@ -20,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import de.blau.android.Map;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
@@ -28,7 +29,6 @@ import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.NetworkStatus;
-import de.blau.android.util.Offset;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.util.MapTileProvider;
@@ -274,8 +274,8 @@ public class MapTilesLayer extends MapViewLayer {
         double latOffset = 0d;
         Offset offset = myRendererInfo.getOffset(zoomLevel);
         if (offset != null) {
-            lonOffset = offset.lon;
-            latOffset = offset.lat;
+            lonOffset = offset.getDeltaLon();
+            latOffset = offset.getDeltaLat();
         }
 
         final MapTile tile = new MapTile(myRendererInfo.getId(), 0, 0, 0); // reused instance of OpenStreetMapTile

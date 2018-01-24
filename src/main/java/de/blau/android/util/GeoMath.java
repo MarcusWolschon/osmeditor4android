@@ -349,7 +349,7 @@ public class GeoMath {
     }
 
     /**
-     * Caculate the haversine distance between two points
+     * Calculate the haversine distance between two points
      * 
      * @param lon1 longitude of the first point in degrees
      * @param lat1 latitude of the first point in degree

@@ -265,6 +265,7 @@
     <string name="toast_imperial_units">Missing imperial units</string>
     <string name="toast_server_connection_failed">Connecting to server failed with: %1$s</string>
     <string name="toast_flus_all_caches">This will flush all tile caches!</string>
+    <string name="toast_applied_offset">Automatically applied imagery offset</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -454,6 +455,7 @@
     <string name="menu_tools_background_align_save_db">Save to DB</string>
     <string name="menu_tools_background_align_save_device">Save to Device</string>
     <string name="menu_tools_background_align_apply2all">Apply (all Zooms)</string>
+    <string name="menu_tools_apply_local_offset">Apply offset to imagery</string>
     <string name="menu_tools_background_contrast">Contrast</string>
     <string name="menu_tools_oauth_reset">Reset OAuth</string>
     <string name="menu_tools_oauth_authorisation">Authorise OAuth</string>

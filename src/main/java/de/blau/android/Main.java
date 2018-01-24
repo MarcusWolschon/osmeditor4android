@@ -117,6 +117,7 @@ import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
+import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.javascript.EvalCallback;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
@@ -704,6 +705,7 @@ public class Main extends FullScreenAppCompatActivity
                     }
                     setShowGPS(prefs.getShowGPS());
                 }
+                map.setPrefs(Main.this, prefs); // set again as ViewBox may have changed
                 setupLockButton();
                 if (logic.getFilter() != null) {
                     logic.getFilter().addControls(mapLayout, new Filter.Update() {
@@ -1877,6 +1879,10 @@ public class Main extends FullScreenAppCompatActivity
             startSupportActionMode(getBackgroundAlignmentActionModeCallback());
             return true;
 
+        case R.id.menu_tools_apply_local_offset:
+            ImageryOffsetUtils.applyImagerOffsets(this, map.getBackgroundLayer().getRendererInfo(), null);
+            return true;
+            
         case R.id.menu_tools_background_properties:
             BackgroundProperties.showDialog(this);
             return true;

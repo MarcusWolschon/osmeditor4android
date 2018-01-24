@@ -63,6 +63,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
+import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -88,7 +89,6 @@ import de.blau.android.tasks.Task;
 import de.blau.android.util.EditState;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
@@ -1398,8 +1398,8 @@ public class Logic {
         double latOffset = 0d;
         Offset o = osmts.getOffset(map.getZoomLevel());
         if (o != null) {
-            lonOffset = o.lon;
-            latOffset = o.lat;
+            lonOffset = o.getDeltaLon();
+            latOffset = o.getDeltaLat();
         }
         osmts.setOffset(map.getZoomLevel(), lonOffset - relativeLon / 1E7d, latOffset - relativeLat / 1E7d);
     }
@@ -3079,7 +3079,6 @@ public class Logic {
     void loadEditingState(Main main, boolean setViewBox) {
         EditState editState = new SavingHelper<EditState>().load(main, EDITSTATE_FILENAME, false);
         if (editState != null) { //
-            editState.setOffset(map.getBackgroundLayer().getRendererInfo());
             editState.setMiscState(main, this);
             editState.setSelected(main, this);
             if (setViewBox) {

@@ -62,13 +62,14 @@ import de.blau.android.R;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
+import de.blau.android.imageryoffset.Offset;
+import de.blau.android.imageryoffset.ImageryOffsetDatabase;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.layers.MapTilesLayer;
 
@@ -386,6 +387,8 @@ public class TileLayerServer {
     private final Queue<String> subdomains   = new LinkedList<>();
     private int                 defaultAlpha;
     private List<Provider>      providers    = new ArrayList<>();
+    
+    private String              imageryOffsetId; // cached id for offset DB
     private Offset[]            offsets;
 
     private static Map<String, TileLayerServer> backgroundServerList = null;
@@ -402,7 +405,7 @@ public class TileLayerServer {
     // ===========================================================
 
     /**
-     * Load additional data on the source from an URL, potentially async THis is mainly used for bing imagery
+     * Load additional data on the source from an URL, potentially async This is mainly used for bing imagery
      * 
      * @param metadataUrl the url for the meta-data
      */
@@ -1052,6 +1055,7 @@ public class TileLayerServer {
      * @param populate flag that indicates if we should fully populate the lists or not
      */
     private static void getLists(@NonNull final Context ctx, @NonNull SQLiteDatabase db, boolean populate) {
+        long start = System.currentTimeMillis();
         if (populate) {
             overlayServerList = TileLayerDatabase.getAllLayers(ctx, db, true);
             backgroundServerList = TileLayerDatabase.getAllLayers(ctx, db, false);
@@ -1066,6 +1070,7 @@ public class TileLayerServer {
             background = TileLayerDatabase.getLayer(ctx, db, LAYER_MAPNIK);
             overlayServerList.put(LAYER_MAPNIK, background);
         }
+        Log.d(DEBUG_TAG,"Generating TileLayer lists took " + (System.currentTimeMillis() - start)/1000);
     }
 
     /**
@@ -1288,31 +1293,32 @@ public class TileLayerServer {
      * Set the lat offset for one specific zoom
      * 
      * @param zoomLevel zoom level to set the offset for
-     * @param offsetLon offest in lon direction in WGS84
-     * @param offsetLat offest in lat direction in WGS84
+     * @param offsetLon offset in lon direction in WGS84
+     * @param offsetLat offset in lat direction in WGS84
      */
     public void setOffset(int zoomLevel, double offsetLon, double offsetLat) {
-        // Log.d("OpenStreetMapTileServer","setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
+        Log.d("OpenStreetMapTileServer","setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
         zoomLevel = Math.max(zoomLevel, zoomLevelMin); // clamp to min/max values
         zoomLevel = Math.min(zoomLevel, zoomLevelMax);
-        if (offsets[zoomLevel - zoomLevelMin] == null)
+        if (offsets[zoomLevel - zoomLevelMin] == null) {
             offsets[zoomLevel - zoomLevelMin] = new Offset();
-        offsets[zoomLevel - zoomLevelMin].lon = offsetLon;
-        offsets[zoomLevel - zoomLevelMin].lat = offsetLat;
+        }
+        offsets[zoomLevel - zoomLevelMin].setDeltaLon(offsetLon);
+        offsets[zoomLevel - zoomLevelMin].setDeltaLat(offsetLat);
     }
 
     /**
      * Set the offset for all zoom levels
      * 
-     * @param offsetLon offest in lon direction in WGS84
-     * @param offsetLat offest in lat direction in WGS84
+     * @param offsetLon offset in lon direction in WGS84
+     * @param offsetLat offset in lat direction in WGS84
      */
     public void setOffset(double offsetLon, double offsetLat) {
         for (int i = 0; i < offsets.length; i++) {
             if (offsets[i] == null)
                 offsets[i] = new Offset();
-            offsets[i].lon = offsetLon;
-            offsets[i].lat = offsetLat;
+            offsets[i].setDeltaLon(offsetLon);
+            offsets[i].setDeltaLat(offsetLat);
         }
     }
 
@@ -1321,8 +1327,8 @@ public class TileLayerServer {
      * 
      * @param startZoom start of zoom range
      * @param endZoom end of zoom range
-     * @param offsetLon offest in lon direction in WGS84
-     * @param offsetLat offest in lat direction in WGS84
+     * @param offsetLon offset in lon direction in WGS84
+     * @param offsetLat offset in lat direction in WGS84
      */
     public void setOffset(int startZoom, int endZoom, double offsetLon, double offsetLat) {
         for (int z = startZoom; z <= endZoom; z++) {
@@ -1756,7 +1762,11 @@ public class TileLayerServer {
      * @return the id for a imagery offset database query
      */
     public String getImageryOffsetId() {
-        if (tileUrl == null) {
+        if (imageryOffsetId != null) {
+            return imageryOffsetId;
+        }
+        String url = originalUrl;
+        if (url == null) {
             return null;
         }
 
@@ -1765,7 +1775,7 @@ public class TileLayerServer {
             return TYPE_BING;
         }
 
-        if (tileUrl.contains("irs.gis-lab.info")) {
+        if (url.contains("irs.gis-lab.info")) {
             return "scanex_irs";
         }
 
@@ -1774,18 +1784,18 @@ public class TileLayerServer {
         }
 
         // Remove protocol
-        int i = tileUrl.indexOf("://");
+        int i = url.indexOf("://");
         if (i == -1) { // TODO more sanity checks
             return "invalid_URL";
         }
-        tileUrl = tileUrl.substring(i + 3);
+        url = url.substring(i + 3);
 
         // Split URL into address and query string
-        i = tileUrl.indexOf('?');
+        i = url.indexOf('?');
         String query = "";
         if (i > 0) {
-            query = tileUrl.substring(i);
-            tileUrl = tileUrl.substring(0, i);
+            query = url.substring(i);
+            url = url.substring(0, i);
         }
 
         TreeMap<String, String> qparams = new TreeMap<>();
@@ -1813,16 +1823,18 @@ public class TileLayerServer {
         query = sb.toString();
 
         // TMS: remove /{zoom} and /{y}.png parts
-        tileUrl = tileUrl.replaceAll("\\/\\{[^}]+\\}(?:\\.\\w+)?", "");
+        url = url.replaceAll("\\/\\{[^}]+\\}(?:\\.\\w+)?", "");
         // TMS: remove variable parts
-        tileUrl = tileUrl.replaceAll("\\{[^}]+\\}", "");
-        while (tileUrl.contains("..")) {
-            tileUrl = tileUrl.replace("..", ".");
+        url = url.replaceAll("\\{[^}]+\\}", "");
+        while (url.contains("..")) {
+            url = url.replace("..", ".");
         }
-        if (tileUrl.startsWith(".")) {
-            tileUrl = tileUrl.substring(1);
+        if (url.startsWith(".")) {
+            url = url.substring(1);
         }
-        return tileUrl + query;
+        imageryOffsetId = url + query;
+        
+        return imageryOffsetId;
     }
 
     /**
