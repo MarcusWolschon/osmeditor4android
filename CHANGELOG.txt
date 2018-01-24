@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.1.0-1:  Support MBTiles as layers, support better local storage of imagery offsets, if there is already a value for name don't use name suggestions, store tile server conf. in database and improvements tile rendering, switch to using geojosn version of imagery index, support logos in attribution for normal imagery index entries, support for WMS servers with EPSG:3857 / EPSG:900913 supportadd support for geographical context, add support for GPX way points, reduce the number of node halos at lower zoom levels, add a dialog to handle empty relations                 
+
 10.0.5; Downgrade support library version to fix https://issuetracker.google.com/issues/63151548, update presets.
 
 10.0.4: Fix overzoom for missing tiles not working, improve behaviour when no network connectivity is present.
