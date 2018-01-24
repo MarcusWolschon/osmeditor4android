@@ -172,7 +172,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
                 cv.put(T_FSCACHE_TIMESTAMP, System.currentTimeMillis());
                 cv.put(T_FSCACHE_FILESIZE, tile_data != null ? tile_data.length : 0); // 0 == invalid
                 cv.put(T_FSCACHE_DATA, tile_data);
-                long result = mDatabase.insert(T_FSCACHE, null, cv);
+                long result = mDatabase.insertOrThrow(T_FSCACHE, null, cv);
                 if (DEBUGMODE) {
                     Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Inserting new tile result " + result);
                 }

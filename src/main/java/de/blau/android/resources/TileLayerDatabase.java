@@ -174,11 +174,12 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static void addLayer(@NonNull SQLiteDatabase db, @NonNull String source, @NonNull TileLayerServer layer) {
         ContentValues values = getContentValuesForLayer(source, layer);
         try {
-            db.insert(LAYERS_TABLE, null, values);
+            db.insertOrThrow(LAYERS_TABLE, null, values);
             // Log.d(DEBUG_TAG, "Added layer from " + source + ": " + layer);
             addCoverageFromLayer(db, layer);
         } catch (SQLiteConstraintException e) {
-            Log.e(DEBUG_TAG, "Constraint exception " + e.getMessage());
+            // even when in a transaction only this insert will get rolled back
+            Log.e(DEBUG_TAG, "Constraint exception " + layer.getId() + " " + e.getMessage());
         }
     }
 
@@ -193,7 +194,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Get an ContentValues object suitable for intsertion or an update of a layer
+     * Get an ContentValues object suitable for insertion or an update of a layer
      * 
      * @param source the source of the layer, use null if this is an update
      * @param layer TileLayerServer object holding the valuse
