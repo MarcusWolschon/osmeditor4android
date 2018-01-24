@@ -388,6 +388,7 @@ public class TileLayerServer {
     private int                 defaultAlpha;
     private List<Provider>      providers    = new ArrayList<>();
     
+    private boolean             readOnly = false;
     private String              imageryOffsetId; // cached id for offset DB
     private Offset[]            offsets;
 
@@ -615,6 +616,10 @@ public class TileLayerServer {
         }
         //
         this.id = this.id.toUpperCase(Locale.US);
+        
+        if (originalUrl.startsWith("file:")) { // mbtiles no further processing needed
+            readOnly = true;
+        }
 
         if (proj != null) { // wms
             if (tileUrl.contains("image/jpeg")) {
@@ -1361,6 +1366,15 @@ public class TileLayerServer {
      */
     public void setName(@NonNull String name) {
         this.name = name;
+    }
+    
+    /**
+     * Check if this layer is "read only" aka a mbtiles file
+     * 
+     * @return true if read only
+     */
+    public boolean isReadOnly() {
+        return readOnly;
     }
 
     /**

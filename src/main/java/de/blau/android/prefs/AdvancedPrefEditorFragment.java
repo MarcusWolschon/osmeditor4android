@@ -73,7 +73,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
             public boolean onPreferenceClick(Preference preference) {
                 Log.d(DEBUG_TAG, "onPreferenceClick custom layers");
                 TileLayerDatabaseUI ui = new TileLayerDatabaseUI();
-                ui.manageLayers(getContext());
+                ui.manageLayers(getActivity());
                 return true;
             }
         });

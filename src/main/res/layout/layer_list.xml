@@ -27,7 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_gravity="top"
         android:clickable="true"
-        android:src="@drawable/ic_more_vert_white_36dp"
+        android:src="@drawable/ic_add_white_36dp"
         app:backgroundTint="?attr/colorAccent"
         app:fabSize="mini"
         app:useCompatPadding="true" />

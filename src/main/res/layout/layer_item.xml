@@ -19,23 +19,41 @@
             android:layout_alignParentLeft="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/name" />
+        <LinearLayout
+            android:id="@+id/name_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/name_legend" 
+            android:orientation="horizontal">
 		<EditText
         	android:id="@+id/name"
     	    android:layout_width="fill_parent"
-       	 	android:layout_height="wrap_content"
-       	 	android:layout_alignParentLeft="true"
-            android:layout_below="@id/name_legend"
+       	 	android:layout_height="wrap_content" 
+       	 	android:layout_weight="1"      	 	
        	 	android:minHeight="32dp"
         	android:paddingLeft="5dp"
 	    	android:paddingRight="5dp"
         	android:textAppearance="?android:attr/textAppearanceSmall"
-			android:maxLines="1" />
+			android:maxLines="2" />
+	    <ImageButton
+	        android:id="@+id/file_button"
+	        android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@android:color/transparent"
+            android:tint="?attr/colorAccent"
+			android:src="@drawable/ic_sd_storage_black_36dp"
+			/>
+		</LinearLayout>
 		<TextView android:id="@+id/url_legend"
             android:layout_width="wrap_content" 
             android:layout_height="wrap_content"
             android:paddingTop="10dp" 
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/name"
+            android:layout_below="@id/name_container"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/url" />
 		<EditText

@@ -219,7 +219,6 @@ public class MapTileProviderDataBase implements MapViewConstants {
      * @throws IOException
      */
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
-        // there seems to be danger for a race condition here
         if (DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from file");
         }

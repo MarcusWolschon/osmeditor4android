@@ -1,34 +1,39 @@
 package de.blau.android.resources;
 
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
+import de.blau.android.services.util.MBTileProviderDataBase;
+import de.blau.android.util.ReadFile;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.views.layers.MapTilesLayer;
 
@@ -46,17 +51,17 @@ public class TileLayerDatabaseUI {
     /**
      * Show a list of the layers in the database, selection will either load a template or start the edit dialog on it
      * 
-     * @param context Android context
+     * @param activity Android context
      */
-    public void manageLayers(@NonNull final Context context) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        View rulesetView = (View) LayoutInflater.from(context).inflate(R.layout.layer_list, null);
+    public void manageLayers(@NonNull final FragmentActivity activity) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+        View rulesetView = (View) LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.custom_layer_title);
         alertDialog.setView(rulesetView);
-        final SQLiteDatabase writableDb = new TileLayerDatabase(context).getWritableDatabase();
+        final SQLiteDatabase writableDb = new TileLayerDatabase(activity).getWritableDatabase();
         ListView layerList = (ListView) rulesetView.findViewById(R.id.listViewLayer);
         layerCursor = TileLayerDatabase.getAllCustomLayers(writableDb);
-        layerAdapter = new LayerAdapter(writableDb, context, layerCursor);
+        layerAdapter = new LayerAdapter(writableDb, activity, layerCursor);
         layerList.setAdapter(layerAdapter);
         alertDialog.setNeutralButton(R.string.done, null);
         alertDialog.setOnDismissListener(new OnDismissListener() {
@@ -70,18 +75,7 @@ public class TileLayerDatabaseUI {
         fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(context, fab);
-
-                // menu items for adding rules
-                MenuItem addResurveyEntry = popup.getMenu().add(R.string.add_layer_title);
-                addResurveyEntry.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        showLayerDialog(context, writableDb, false, -1);
-                        return true;
-                    }
-                });
-                popup.show();// showing popup menu
+                showLayerDialog(activity, writableDb, false, -1);
             }
         });
         alertDialog.show();
@@ -89,10 +83,12 @@ public class TileLayerDatabaseUI {
 
     private class LayerAdapter extends CursorAdapter {
         final SQLiteDatabase db;
+        final FragmentActivity activity;
 
-        public LayerAdapter(final SQLiteDatabase db, Context context, Cursor cursor) {
-            super(context, cursor, 0);
+        public LayerAdapter(final SQLiteDatabase db, final FragmentActivity activity, Cursor cursor) {
+            super(activity, cursor, 0);
             this.db = db;
+            this.activity = activity;
         }
 
         @Override
@@ -117,7 +113,7 @@ public class TileLayerDatabaseUI {
                 @Override
                 public void onClick(View v) {
                     Integer id = (Integer) view.getTag();
-                    showLayerDialog(context, db, true, id != null ? id : -1);
+                    showLayerDialog(activity, db, true, id != null ? id : -1);
                 }
             });
         }
@@ -138,17 +134,18 @@ public class TileLayerDatabaseUI {
     /**
      * Show a dialog for editing and saving a layer entry
      * 
-     * @param context Android Context
+     * @param activity Android Context
      * @param db a writable instance of the layer entry database
      * @param existing true if this is not a new layer entry
      * @param id the rowid of the layer entry in the database or -1 if not saved yet
      */
-    private void showLayerDialog(@NonNull final Context context, @NonNull final SQLiteDatabase db, final boolean existing, final int id) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        View templateView = (View) LayoutInflater.from(context).inflate(R.layout.layer_item, null);
+    private void showLayerDialog(@NonNull final FragmentActivity activity, @NonNull final SQLiteDatabase db, final boolean existing, final int id) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+        View templateView = (View) LayoutInflater.from(activity).inflate(R.layout.layer_item, null);
         alertDialog.setView(templateView);
 
         final EditText nameEdit = (EditText) templateView.findViewById(R.id.name);
+        final ImageButton fileButton = (ImageButton) templateView.findViewById(R.id.file_button);
         final EditText urlEdit = (EditText) templateView.findViewById(R.id.url);
         final CheckBox overlayCheck = (CheckBox) templateView.findViewById(R.id.overlay);
         final EditText leftEdit = (EditText) templateView.findViewById(R.id.left);
@@ -159,9 +156,54 @@ public class TileLayerDatabaseUI {
         final NumberPicker maxZoomPicker = (NumberPicker) templateView.findViewById(R.id.zoom_max);
 
         TileLayerServer layer = null;
-        ;
+        String attribution = null;
+        
+        fileButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                SelectFile.read(activity, R.string.config_mbtilesPreferredDir_key, new ReadFile() {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public boolean read(Uri fileUri) {
+                        MBTileProviderDataBase db = new MBTileProviderDataBase(activity, fileUri);
+                        Map<String, String>metadata = db.getMetadata();
+                        int[]zooms = db.getMinMaxZoom();
+                        db.close();
+                        final String format = metadata.get("format");
+                        if (!("png".equals(format) || "jpg".equals(format))) {
+                            Snack.barError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
+                            return true;
+                        }
+                        urlEdit.setText(fileUri.toString());
+                        String name = metadata.get("name");
+                        if (name != null) {
+                            nameEdit.setText(metadata.get("name"));
+                        }
+                        overlayCheck.setChecked("overlay".equals(metadata.get("type")));
+                        String bounds = metadata.get("bounds"); 
+                        if (bounds != null) {
+                            String[] corners = bounds.split(",",4);
+                            if (corners.length == 4) {
+                                leftEdit.setText(corners[0]);
+                                bottomEdit.setText(corners[1]);
+                                rightEdit.setText(corners[2]);
+                                topEdit.setText(corners[3]);
+                            }
+                        }
+                        if (zooms != null && zooms.length == 2) {
+                            minZoomPicker.setValue(zooms[0]);
+                            maxZoomPicker.setValue(zooms[1]);
+                        }
+                        SelectFile.savePref(new Preferences(activity), R.string.config_mbtilesPreferredDir_key, fileUri);
+                        return true;
+                    }
+                });
+            }
+        });
+
         if (existing) {
-            layer = TileLayerDatabase.getLayerWithRowId(context, db, id);
+            layer = TileLayerDatabase.getLayerWithRowId(activity, db, id);
 
             nameEdit.setText(layer.getName());
             urlEdit.setText(layer.getOriginalTileUrl());
@@ -187,7 +229,7 @@ public class TileLayerDatabaseUI {
                     Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
                     TileLayerDatabase.deleteLayerWithRowId(db, id);
                     newLayerCursor(db);
-                    resetLayer(context, db);
+                    resetLayer(activity, db);
                 }
             });
         } else {
@@ -228,7 +270,7 @@ public class TileLayerDatabaseUI {
                         moan = true;
                     }
                     if (moan) {
-                        Snack.toastTopError(context, R.string.toast_invalid_box);
+                        Snack.toastTopError(activity, R.string.toast_invalid_box);
                     } else {
                         CoverageArea ca = new CoverageArea(TileLayerServer.DEFAULT_MIN_ZOOM, TileLayerServer.DEFAULT_MAX_ZOOM, box);
                         provider.addCoverageArea(ca);
@@ -236,16 +278,16 @@ public class TileLayerDatabaseUI {
                 }
                 String name = nameEdit.getText().toString().trim();
                 if ("".equals(name)) {
-                    Snack.toastTopError(context, R.string.toast_name_empty);
+                    Snack.toastTopError(activity, R.string.toast_name_empty);
                     moan = true;
                 }
                 String tileUrl = urlEdit.getText().toString().trim();
                 if ("".equals(tileUrl)) {
-                    Snack.toastTopError(context, R.string.toast_url_empty);
+                    Snack.toastTopError(activity, R.string.toast_url_empty);
                     moan = true;
                 }
                 if (minZoom >= maxZoom) {
-                    Snack.toastTopError(context, R.string.toast_min_zoom);
+                    Snack.toastTopError(activity, R.string.toast_min_zoom);
                     moan = true;
                 }
                 if (moan) { // abort and leave the dialog intact
@@ -263,7 +305,7 @@ public class TileLayerDatabaseUI {
                 }
                 String id = name.toUpperCase();
                 if (!existing) {
-                    TileLayerServer layer = new TileLayerServer(context, id, name, tileUrl, "tms", overlayCheck.isChecked(), false, provider, null, null, null,
+                    TileLayerServer layer = new TileLayerServer(activity, id, name, tileUrl, "tms", overlayCheck.isChecked(), false, provider, null, null, null,
                             null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, Long.MIN_VALUE, Long.MAX_VALUE, true);
                     TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_CUSTOM, layer);
                 } else {
@@ -274,7 +316,7 @@ public class TileLayerDatabaseUI {
                     TileLayerDatabase.updateLayer(db, existingLayer);
                 }
                 newLayerCursor(db);
-                resetLayer(context, db);
+                resetLayer(activity, db);
                 dialog.dismiss();
             }
         });

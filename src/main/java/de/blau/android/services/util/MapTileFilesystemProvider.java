@@ -3,10 +3,13 @@ package de.blau.android.services.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
@@ -43,6 +46,8 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     private final MapTileProviderDataBase mDatabase;
     private final int                     mMaxFSCacheByteSize;
     private int                           mCurrentCacheByteSize;
+
+    private final Map<String, MBTileProviderDataBase> mbTileDatabases = new HashMap<>();
 
     /** online provider */
     private MapTileDownloader mTileDownloader;
@@ -199,16 +204,38 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                     mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
                     return;
                 }
-
-                byte[] data = MapTileFilesystemProvider.this.mDatabase.getTile(mTile);
-                if (data == null) {
-                    if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                        Log.d(DEBUG_TAG, "FS failed, request for download " + mTile + " " + mTile.toId());
+                if (renderer.isReadOnly()) {
+                    MBTileProviderDataBase mbTileDatabase = mbTileDatabases.get(renderer.getId());
+                    if (mbTileDatabase == null) {
+                        synchronized (mbTileDatabases) {
+                            mbTileDatabase = mbTileDatabases.get(renderer.getId());
+                            if (mbTileDatabase == null) { // re-test
+                                mbTileDatabase = new MBTileProviderDataBase(mCtx, renderer.getOriginalTileUrl());
+                                mbTileDatabases.put(renderer.getId(), mbTileDatabase);
+                            }
+                        }
                     }
-                    download = true;
-                    mTileDownloader.loadMapTileAsync(mTile, passedOnCallback);
-                } else { // success!
-                    mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+                    byte[] data = mbTileDatabase.getTile(mTile);
+                    if (data == null) {
+                        if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                            Log.d(DEBUG_TAG, "FS failed, request for download " + mTile + " " + mTile.toId());
+                        }
+                        mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
+                    } else { // success!
+                        mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+                    }
+                } else {
+                    byte[] data = MapTileFilesystemProvider.this.mDatabase.getTile(mTile);
+                    if (data == null) {
+                        if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                            Log.d(DEBUG_TAG, "FS failed, request for download " + mTile + " " + mTile.toId());
+                        }
+                        download = true;
+                        mTileDownloader.loadMapTileAsync(mTile, passedOnCallback);
+
+                    } else { // success!
+                        mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+                    }
                 }
                 if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                     Log.d(DEBUG_TAG, "Loaded: " + mTile.toString());
@@ -224,21 +251,39 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
             }
         }
 
-        IMapTileProviderCallback passedOnCallback=new IMapTileProviderCallback(){
+        IMapTileProviderCallback passedOnCallback = new IMapTileProviderCallback() {
 
-        @Override public IBinder asBinder(){return mCallback.asBinder();}
+            @Override
+            public IBinder asBinder() {
+                return mCallback.asBinder();
+            }
 
-        @Override public void mapTileLoaded(String rendererID,int zoomLevel,int tileX,int tileY,byte[]aImage)throws RemoteException{mCallback.mapTileLoaded(rendererID,zoomLevel,tileX,tileY,aImage);finished();}
+            @Override
+            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws RemoteException {
+                mCallback.mapTileLoaded(rendererID, zoomLevel, tileX, tileY, aImage);
+                finished();
+            }
 
-        @Override public void mapTileFailed(String rendererID,int zoomLevel,int tileX,int tileY,int reason)throws RemoteException{mCallback.mapTileFailed(rendererID,zoomLevel,tileX,tileY,reason);finished();}};
+            @Override
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws RemoteException {
+                mCallback.mapTileFailed(rendererID, zoomLevel, tileX, tileY, reason);
+                finished();
+            }
+        };
     }
 
     /**
      * Call when the object is no longer needed to close the database
      */
     public void destroy() {
-        Log.d(DEBUG_TAG, "Closing tile database");
+        Log.d(DEBUG_TAG, "Closing tile databases");
         mDatabase.close();
+        synchronized (mbTileDatabases) {
+            for (MBTileProviderDataBase mb : mbTileDatabases.values()) {
+                mb.close();
+            }
+            mbTileDatabases.clear();
+        }
     }
 
     /**
